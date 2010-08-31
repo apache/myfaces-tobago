@@ -24,6 +24,7 @@ import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.RendererTypes;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTreeNodeValue;
@@ -42,9 +43,9 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsRequired;
     allowedChildComponenents = {
         "org.apache.myfaces.tobago.TreeNode",
         "org.apache.myfaces.tobago.TreeData"
-        })
+    })
 public interface TreeListboxTagDeclaration
-    extends HasIdBindingAndRendered, HasTreeNodeValue, IsRequired, IsGridLayoutComponent, HasMarkup {
+    extends HasIdBindingAndRendered, HasTreeNodeValue, IsRequired, IsGridLayoutComponent, HasMarkup, HasCurrentMarkup {
 
   /**
    * Flag indicating whether or not this component should be render selectable items.
@@ -64,10 +65,8 @@ public interface TreeListboxTagDeclaration
   void setSelectable(String selectable);
 
   /**
-   *
    * <strong>ValueBindingExpression</strong> pointing to a object to save the
    * component's state.
-   *
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "java.lang.Object", expression = DynamicExpression.VALUE_BINDING_REQUIRED)

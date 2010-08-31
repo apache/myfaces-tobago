@@ -22,6 +22,7 @@ import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.RendererTypes;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutComponent;
@@ -36,7 +37,8 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutCompone
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIMediator",
     rendererType = RendererTypes.MEDIATOR,
     interfaces = {"org.apache.myfaces.tobago.component.SupportsMarkup"})
-public interface MediatorTagDeclaration extends HasIdBindingAndRendered, IsGridLayoutComponent, HasMarkup {
+public interface MediatorTagDeclaration
+    extends HasIdBindingAndRendered, IsGridLayoutComponent, HasMarkup, HasCurrentMarkup {
 
   /**
    * Name of a request-scope attribute under which this component is accessible.

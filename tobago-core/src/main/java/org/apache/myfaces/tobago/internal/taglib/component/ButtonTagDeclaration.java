@@ -26,6 +26,7 @@ import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.AbstractCommandTagDeclaration;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasCommandType;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasImage;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabelAndAccessKey;
@@ -48,12 +49,12 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsInline;
     rendererType = RendererTypes.BUTTON,
     allowedChildComponenents = "NONE",
     facets = {
-        @Facet(name= Facets.CONFIRMATION, description = "Contains a UIOutput instance with the confirmation message.",
-                allowedChildComponenents = ComponentTypes.OUT),
-        @Facet(name=Facets.POPUP, description = "Contains a UIPopup instance.",
-                allowedChildComponenents = "org.apache.myfaces.tobago.Popup")})
-public interface ButtonTagDeclaration extends AbstractCommandTagDeclaration,
-    HasIdBindingAndRendered, HasLabelAndAccessKey, HasImage,
+        @Facet(name = Facets.CONFIRMATION, description = "Contains a UIOutput instance with the confirmation message.",
+            allowedChildComponenents = ComponentTypes.OUT),
+        @Facet(name = Facets.POPUP, description = "Contains a UIPopup instance.",
+            allowedChildComponenents = "org.apache.myfaces.tobago.Popup")})
+public interface ButtonTagDeclaration
+    extends AbstractCommandTagDeclaration, HasIdBindingAndRendered, HasLabelAndAccessKey, HasImage,
     IsDisabled, HasCommandType, IsDefaultCommand, HasTip,
-    IsInline, HasMarkup, HasTabIndex, IsGridLayoutComponent {
+    IsInline, HasMarkup, HasCurrentMarkup, HasTabIndex, IsGridLayoutComponent {
 }

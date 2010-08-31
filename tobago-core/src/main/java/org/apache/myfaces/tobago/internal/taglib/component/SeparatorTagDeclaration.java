@@ -22,6 +22,7 @@ import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabel;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
@@ -42,5 +43,6 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutCompone
             description = "This facet contains a UILabel",
             allowedChildComponenents = "org.apache.myfaces.tobago.Label")})
 
-public interface SeparatorTagDeclaration extends HasIdBindingAndRendered, IsGridLayoutComponent, HasLabel, HasMarkup {
+public interface SeparatorTagDeclaration
+    extends HasIdBindingAndRendered, IsGridLayoutComponent, HasLabel, HasMarkup, HasCurrentMarkup {
 }

@@ -22,6 +22,7 @@ import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.RendererTypes;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutComponent;
@@ -40,7 +41,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutContain
     componentType = "org.apache.myfaces.tobago.Cell",
     rendererType = RendererTypes.CELL)
 public interface CellTagDeclaration 
-    extends HasIdBindingAndRendered, IsGridLayoutComponent, IsGridLayoutContainer, HasMarkup {
+    extends HasIdBindingAndRendered, IsGridLayoutComponent, IsGridLayoutContainer, HasMarkup, HasCurrentMarkup {
 
   @UIComponentTagAttribute(type = {"java.lang.Integer"},
       defaultValue = "1")

@@ -23,6 +23,7 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasBinding;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasConverter;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasId;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasRenderRange;
@@ -54,6 +55,6 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsRequired;
 public interface SelectManyCheckboxTagDeclaration extends
     IsDisabled, HasId,
     IsInline, HasRenderRange, IsRendered, IsRequired, HasBinding, IsReadonly, HasConverter,
-    InputTagDeclaration, HasMarkup {
+    InputTagDeclaration, HasMarkup, HasCurrentMarkup {
 
 }

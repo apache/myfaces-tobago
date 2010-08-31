@@ -23,6 +23,7 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasBinding;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasBorder;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasId;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasMargin;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasMargins;
@@ -40,6 +41,6 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasSpacing;
     rendererType = RendererTypes.FLOW_LAYOUT,
     componentFamily = "org.apache.myfaces.tobago.FlowLayout",
     allowedChildComponenents = "NONE", isLayout = true)
-public interface FlowLayoutTagDeclaration extends HasId, HasBorder, HasSpacing, HasMargin,
-    HasMargins, HasBinding, HasMarkup {
+public interface FlowLayoutTagDeclaration
+    extends HasId, HasBorder, HasSpacing, HasMargin, HasMargins, HasBinding, HasMarkup, HasCurrentMarkup {
 }

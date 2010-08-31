@@ -27,6 +27,7 @@ import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.component.AbstractUITabGroup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasAction;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasActionListener;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutComponent;
@@ -47,7 +48,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsImmediateCommand;
     allowedChildComponenents = "org.apache.myfaces.tobago.Tab")
 
 public interface TabGroupTagDeclaration
-    extends HasIdBindingAndRendered, IsImmediateCommand, HasAction, HasActionListener, HasMarkup,
+    extends HasIdBindingAndRendered, IsImmediateCommand, HasAction, HasActionListener, HasMarkup, HasCurrentMarkup,
     IsGridLayoutComponent, IsGridLayoutContainer {
 
   /**

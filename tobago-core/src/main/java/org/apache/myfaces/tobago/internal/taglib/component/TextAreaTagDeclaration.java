@@ -23,6 +23,7 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasConverter;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabelAndAccessKey;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
@@ -41,8 +42,9 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsRequired;
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.UIInputBase",
     rendererType = RendererTypes.TEXT_AREA,
     allowedChildComponenents = "NONE")
-public interface TextAreaTagDeclaration extends HasIdBindingAndRendered,
-    HasConverter, IsReadonly, IsDisabled, IsRequired, HasLabelAndAccessKey, HasTip, HasMarkup, InputTagDeclaration {
+public interface TextAreaTagDeclaration
+    extends HasIdBindingAndRendered, HasConverter, IsReadonly, IsDisabled, IsRequired, HasLabelAndAccessKey, HasTip,
+    HasMarkup, HasCurrentMarkup, InputTagDeclaration {
 
   /**
    * The row count for this component.

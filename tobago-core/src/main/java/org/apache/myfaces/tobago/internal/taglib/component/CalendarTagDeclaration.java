@@ -24,6 +24,7 @@ import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.RendererTypes;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutComponent;
@@ -37,13 +38,14 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutCompone
     uiComponentBaseClass = "javax.faces.component.UIOutput",
     interfaces = "org.apache.myfaces.tobago.layout.LayoutComponent",
     rendererType = RendererTypes.CALENDAR)
-public interface CalendarTagDeclaration extends HasIdBindingAndRendered, IsGridLayoutComponent, HasMarkup {
+public interface CalendarTagDeclaration
+    extends HasIdBindingAndRendered, IsGridLayoutComponent, HasMarkup, HasCurrentMarkup {
 
   /**
    * The current value of this component.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = {"java.util.Calendar", "java.util.Date"}, 
+  @UIComponentTagAttribute(type = {"java.util.Calendar", "java.util.Date"},
       expression = DynamicExpression.VALUE_BINDING_REQUIRED)
   void setValue(String value);
 }

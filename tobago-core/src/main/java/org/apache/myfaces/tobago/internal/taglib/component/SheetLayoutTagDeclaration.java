@@ -21,6 +21,7 @@ import org.apache.myfaces.tobago.apt.annotation.BodyContent;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.component.RendererTypes;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasId;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
 
@@ -35,5 +36,5 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
     componentFamily = "org.apache.myfaces.tobago.SheetLayout",
     allowedChildComponenents = "NONE",
     isLayout = true)
-public interface SheetLayoutTagDeclaration extends HasId, HasMarkup {
+public interface SheetLayoutTagDeclaration extends HasId, HasMarkup, HasCurrentMarkup {
 }

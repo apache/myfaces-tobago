@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.internal.taglib.component;
+package org.apache.myfaces.tobago.internal.taglib.declaration;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -17,9 +17,17 @@ package org.apache.myfaces.tobago.internal.taglib.component;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
-import org.apache.myfaces.tobago.internal.taglib.declaration.InputTagDeclaration;
+import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 
-public interface SelectOneTagDeclaration extends InputTagDeclaration, HasMarkup, HasCurrentMarkup {
+public interface HasCurrentMarkup {
+  
+  /**
+   * The current markup is the current internal state of the markup.
+   * It is the same as markup plus additional values like "required", "error", "selected", ....
+   * TODO: this property may be transient! TOBAGO-912
+   */
+  @UIComponentTagAttribute(
+      type = "org.apache.myfaces.tobago.context.Markup",
+      defaultCode = "getMarkup()")
+  void setCurrentMarkup(String markup);
 }

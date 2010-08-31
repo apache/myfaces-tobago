@@ -24,6 +24,7 @@ import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasBinding;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasId;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasItemLabel;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
@@ -43,7 +44,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
     uiComponent = "org.apache.myfaces.tobago.component.UISelectItem",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUISelectItem",
     allowedChildComponenents = "NONE")
-public interface SelectItemTagDeclaration extends HasBinding, HasId, HasMarkup, HasItemLabel {
+public interface SelectItemTagDeclaration extends HasBinding, HasId, HasMarkup, HasCurrentMarkup, HasItemLabel {
   /**
    * Description of an item for use in tools.
    */

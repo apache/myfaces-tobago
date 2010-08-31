@@ -21,6 +21,7 @@ import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasValue;
@@ -35,8 +36,8 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsReadonly;
     uiComponentBaseClass = "org.apache.myfaces.tobago.component.AbstractUINumberSlider",
     rendererType = "NumberSlider")
 
-public interface NumberSliderTagDeclaration extends
-    HasIdBindingAndRendered, IsReadonly, IsDisabled, HasMarkup,
+public interface NumberSliderTagDeclaration
+    extends HasIdBindingAndRendered, IsReadonly, IsDisabled, HasMarkup, HasCurrentMarkup,
     HasValue, HasValueChangeListener, IsGridLayoutComponent {
 
   /**

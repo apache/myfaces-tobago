@@ -25,6 +25,7 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.ComponentTypes;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasConverter;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
@@ -46,7 +47,8 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsInline;
     allowedChildComponenents = "NONE")
 
 public interface OutTagDeclaration
-    extends HasIdBindingAndRendered, HasConverter, IsInline, HasTip, HasValue, IsGridLayoutComponent, HasMarkup {
+    extends HasIdBindingAndRendered, HasConverter, IsInline, HasTip, HasValue, IsGridLayoutComponent,
+    HasMarkup, HasCurrentMarkup {
 
   /**
    * Flag indicating that characters that are

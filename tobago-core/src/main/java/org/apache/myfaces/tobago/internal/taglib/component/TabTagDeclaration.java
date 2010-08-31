@@ -20,16 +20,12 @@ package org.apache.myfaces.tobago.internal.taglib.component;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.component.RendererTypes;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabelAndAccessKey;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
-
-/*
- * Date: 02.04.2006
- * Time: 16:29:31
- */
 
 /**
  * Renders a tab within a tabgroup.
@@ -40,6 +36,6 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
     uiComponentBaseClass = "org.apache.myfaces.tobago.component.UIPanel",
     interfaces = "javax.faces.component.NamingContainer",
     rendererType = RendererTypes.TAB)
-public interface TabTagDeclaration extends HasIdBindingAndRendered, HasLabelAndAccessKey,
-    HasTip, HasMarkup, IsDisabled {
+public interface TabTagDeclaration
+    extends HasIdBindingAndRendered, HasLabelAndAccessKey, HasTip, HasMarkup, HasCurrentMarkup, IsDisabled {
 }

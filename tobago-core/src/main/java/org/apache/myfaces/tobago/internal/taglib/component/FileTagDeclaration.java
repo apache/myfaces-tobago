@@ -24,6 +24,7 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasConverterMessage;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabelAndAccessKey;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
@@ -59,7 +60,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsRequired;
     allowedChildComponenents = "NONE")
 public interface FileTagDeclaration
     extends HasValidator, HasValidatorMessage, HasRequiredMessage, HasConverterMessage, HasOnchange,
-    HasValueChangeListener, HasIdBindingAndRendered, IsDisabled, HasMarkup,
+    HasValueChangeListener, HasIdBindingAndRendered, IsDisabled, HasMarkup, HasCurrentMarkup,
     HasLabelAndAccessKey, HasTip, IsReadonly, IsRequired, HasTabIndex, IsGridLayoutComponent {
 
   /**

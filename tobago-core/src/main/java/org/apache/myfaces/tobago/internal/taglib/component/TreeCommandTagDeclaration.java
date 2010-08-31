@@ -25,6 +25,7 @@ import org.apache.myfaces.tobago.component.ComponentTypes;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.AbstractCommandTagDeclaration;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabel;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
@@ -57,5 +58,5 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsInline;
     rendererType = RendererTypes.TREE_COMMAND)
 public interface TreeCommandTagDeclaration
     extends AbstractCommandTagDeclaration, HasIdBindingAndRendered, IsDisabled, IsInline,
-    HasLabel, HasTip, HasMarkup, HasTabIndex, IsGridLayoutComponent {
+    HasLabel, HasTip, HasMarkup, HasCurrentMarkup, HasTabIndex, IsGridLayoutComponent {
 }

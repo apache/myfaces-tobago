@@ -20,6 +20,7 @@ package org.apache.myfaces.tobago.internal.taglib.component;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.component.RendererTypes;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabelAndAccessKey;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
@@ -41,6 +42,6 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsRequired;
     allowedChildComponenents = "NONE")
 public interface TimeTagDeclaration
     extends InputTagDeclaration, HasIdBindingAndRendered,
-    IsReadonly, IsDisabled, IsInline, HasLabelAndAccessKey, HasTip, IsRequired, HasMarkup {
+    IsReadonly, IsDisabled, IsInline, HasLabelAndAccessKey, HasTip, IsRequired, HasMarkup, HasCurrentMarkup {
 
 }

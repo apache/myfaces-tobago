@@ -22,6 +22,7 @@ import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.RendererTypes;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasFor;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabelWithAccessKey;
@@ -40,7 +41,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsInline;
     rendererType = RendererTypes.LABEL,
     allowedChildComponenents = "NONE")
 public interface LabelTagDeclaration extends HasIdBindingAndRendered,
-    HasLabelWithAccessKey, HasFor, IsInline, HasTip, HasMarkup, IsGridLayoutComponent {
+    HasLabelWithAccessKey, HasFor, IsInline, HasTip, HasMarkup, HasCurrentMarkup, IsGridLayoutComponent {
 
   /**
    * Text value to display as label. Overwritten by 'labelWithAccessKey'

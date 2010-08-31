@@ -22,6 +22,7 @@ import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.RendererTypes;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasId;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutComponentWithDeprecatedDimension;
@@ -37,7 +38,8 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsRendered;
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIPopup",
     rendererType = RendererTypes.POPUP)
 public interface PopupTagDeclaration 
-    extends HasId, IsRendered, IsGridLayoutComponentWithDeprecatedDimension, IsGridLayoutContainer, HasMarkup {
+    extends HasId, IsRendered, IsGridLayoutComponentWithDeprecatedDimension, IsGridLayoutContainer,
+    HasMarkup, HasCurrentMarkup {
 
   @TagAttribute
   @UIComponentTagAttribute(type = "boolean", defaultValue = "true")

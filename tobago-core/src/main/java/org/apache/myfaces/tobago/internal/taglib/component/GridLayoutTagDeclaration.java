@@ -24,6 +24,7 @@ import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasBinding;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasBorder;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasColumnLayout;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasId;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasMargin;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasMargins;
@@ -96,5 +97,5 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasSpacing;
     componentFamily = "org.apache.myfaces.tobago.GridLayout",
     allowedChildComponenents = "NONE", isLayout = true)
 public interface GridLayoutTagDeclaration extends HasId, HasBorder, HasSpacing, HasMargin,
-    HasMargins, HasColumnLayout, HasRowLayout, HasBinding, HasMarkup {
+    HasMargins, HasColumnLayout, HasRowLayout, HasBinding, HasMarkup, HasCurrentMarkup {
 }

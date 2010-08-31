@@ -25,6 +25,7 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasBinding;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasId;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabel;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
@@ -54,7 +55,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutContain
                 allowedChildComponenents = "org.apache.myfaces.tobago.GridLayout")})
 
 public interface PageTagDeclaration
-    extends HasLabel, HasId, HasBinding, HasState, HasMarkup,
+    extends HasLabel, HasId, HasBinding, HasState, HasMarkup, HasCurrentMarkup,
     IsGridLayoutComponentWithDeprecatedDimension, IsGridLayoutContainer {
 
   /**

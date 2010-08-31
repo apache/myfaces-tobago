@@ -22,6 +22,7 @@ import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabel;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
@@ -38,11 +39,12 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutContain
     componentType = "org.apache.myfaces.tobago.Box",
     rendererType = RendererTypes.BOX,
     facets = {
-    @Facet(name= Facets.TOOL_BAR, description = "Contains an instance of UIToolBar",
+        @Facet(name = Facets.TOOL_BAR, description = "Contains an instance of UIToolBar",
             allowedChildComponenents = "org.apache.myfaces.tobago.ToolBar"),
-    @Facet(name=Facets.LAYOUT, description = "Contains an instance of UILayoutBase",
+        @Facet(name = Facets.LAYOUT, description = "Contains an instance of UILayoutBase",
             allowedChildComponenents = "org.apache.myfaces.tobago.GridLayout")})
 
-public interface BoxTagDeclaration 
-    extends HasIdBindingAndRendered, IsGridLayoutComponent, IsGridLayoutContainer, HasMarkup, HasLabel {
+public interface BoxTagDeclaration
+    extends HasIdBindingAndRendered, IsGridLayoutComponent, IsGridLayoutContainer, HasMarkup, HasCurrentMarkup,
+    HasLabel {
 }

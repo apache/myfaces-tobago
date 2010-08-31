@@ -24,6 +24,7 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasConverter;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasSuggestMethod;
@@ -53,6 +54,6 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsRequired;
         })
 public interface InTagDeclaration
     extends HasIdBindingAndRendered, HasConverter, IsReadonly, IsDisabled, IsInline, IsRequired, HasTip, IsPassword,
-    HasSuggestMethod, HasMarkup, InputTagDeclaration {
+    HasSuggestMethod, HasMarkup, HasCurrentMarkup, InputTagDeclaration {
 
 }

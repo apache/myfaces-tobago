@@ -30,13 +30,4 @@ public interface HasMarkup {
   @TagAttribute
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.context.Markup")
   void setMarkup(String markup);
-
-  /**
-   * Internal markup. Is same as markup plus additional values like "required" or "error".
-   * TODO: this property may be transient!
-   */
-  @UIComponentTagAttribute(
-      type = "org.apache.myfaces.tobago.context.Markup",
-      defaultCode = "getMarkup()")
-  void setCurrentMarkup(String markup);
 }
