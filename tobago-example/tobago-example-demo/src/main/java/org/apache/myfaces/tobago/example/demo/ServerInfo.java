@@ -22,22 +22,52 @@ import org.slf4j.LoggerFactory;
 
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+/**
+ * The server info class makes some information about the system and application available in the demo.
+ * This is enabled by default, but can be disabled by configuration in a properties file with the key
+ * <code>{@value #ENABLED_KEY}</code>.
+ * The default file name is <code>{@value #CONFIG_FILE_DEFAULT}</code>.
+ * The file name can be changed with a system property with name <code>{@value #CONFIG_FILE}</code>.
+ *
+ */
 public class ServerInfo {
 
   private static final Logger LOG = LoggerFactory.getLogger(ServerInfo.class);
 
+  private static final String CONFIG_FILE = "org.apache.myfaces.tobago.example.demo.config.file";
+  private static final String CONFIG_FILE_DEFAULT = "/etc/tobago-example-demo.properties";
+  private static final String ENABLED_KEY = "server.info.enabled";
+
   private String version;
 
-  private boolean enabled;
+  /**
+   * Enabled the Server Info. May be disabled for security reasons. Default is true.
+   */
+  private boolean enabled = true;
 
   public ServerInfo() {
-    Package tobagoPackage = Package.getPackage("org.apache.myfaces.tobago.component");
-    version = tobagoPackage.getImplementationVersion();
+    String file = System.getProperty(CONFIG_FILE);
+    try {
+      if (file == null) {
+        file = CONFIG_FILE_DEFAULT;
+      }
+      LOG.info("Loading properties from file '" + file + "'");
+      Properties config = new Properties();
+      config.load(new FileInputStream(file));
+      enabled = Boolean.parseBoolean(config.getProperty(ENABLED_KEY));
+      LOG.info("server.info.enabled=" + enabled);
+    } catch (IOException e) {
+      LOG.error("Can't load properties from file '" + file + "'", e);
+    }
+    // the tobago version should be set in any case
+    version = Package.getPackage("org.apache.myfaces.tobago.component").getImplementationVersion();
   }
 
   public String getServerInfo() {
@@ -49,30 +79,26 @@ public class ServerInfo {
   }
 
   public Properties getSystemProperties() {
-    if (enabled) {
-      return System.getProperties();
-    } else {
-      return null;
-    }
+    return enabled ? System.getProperties() : null;
   }
 
   public List<Map.Entry<Object, Object>> getSystemPropertiesAsList() {
-    return new ArrayList<Map.Entry<Object, Object>>(getSystemProperties().entrySet());
+    return enabled ? new ArrayList<Map.Entry<Object, Object>>(getSystemProperties().entrySet()) : null;
   }
 
   public String getVersion() {
     return version;
   }
 
-  public void setVersion(String version) {
-    this.version = version;
+  public String getJsfTitle() {
+    return enabled ? FacesContext.class.getPackage().getImplementationTitle() : null;
+  }
+
+  public String getJsfVersion() {
+    return enabled ? FacesContext.class.getPackage().getImplementationVersion() : null;
   }
 
   public boolean isEnabled() {
     return enabled;
-  }
-
-  public void setEnabled(boolean enabled) {
-    this.enabled = enabled;
   }
 }
