@@ -45,6 +45,10 @@
 
   <dependencies>
     <dependency>
+      <groupId>org.apache.myfaces.core</groupId>
+      <artifactId>myfaces-api</artifactId>
+    </dependency>
+    <dependency>
       <groupId>javax.servlet.jsp</groupId>
       <artifactId>jsp-api</artifactId>
     </dependency>
@@ -109,101 +113,6 @@
         <dependency>
           <groupId>net.sf.retrotranslator</groupId>
           <artifactId>retrotranslator-runtime</artifactId>
-        </dependency>
-      </dependencies>
-    </profile>
-
-    <profile>
-      <id>myfaces-1.1</id>
-      <activation>
-        <property>
-          <name>jsf</name>
-          <value>myfaces-1.1</value>
-        </property>
-      </activation>
-      <dependencies>
-        <dependency>
-          <groupId>org.apache.myfaces.core</groupId>
-          <artifactId>myfaces-api</artifactId>
-        </dependency>
-      </dependencies>
-    </profile>
-
-    <profile>
-      <id>myfaces-1.2</id>
-      <activation>
-        <property>
-          <name>!jsf</name>
-        </property>
-      </activation>
-      <dependencies>
-        <dependency>
-          <groupId>org.apache.myfaces.core</groupId>
-          <artifactId>myfaces-api</artifactId>
-        </dependency>
-      </dependencies>
-    </profile>
-
-    <profile>
-      <id>myfaces-2.0</id>
-      <activation>
-        <property>
-          <name>jsf</name>
-          <value>myfaces-2.0</value>
-        </property>
-      </activation>
-      <dependencies>
-        <dependency>
-          <groupId>org.apache.myfaces.core</groupId>
-          <artifactId>myfaces-api</artifactId>
-        </dependency>
-      </dependencies>
-    </profile>
-
-    <profile>
-      <id>mojarra-1.1</id>
-      <activation>
-        <property>
-          <name>jsf</name>
-          <value>mojarra-1.1</value>
-        </property>
-      </activation>
-      <dependencies>
-        <dependency>
-          <groupId>javax.faces</groupId>
-          <artifactId>jsf-api</artifactId>
-        </dependency>
-      </dependencies>
-    </profile>
-
-    <profile>
-      <id>mojarra-1.2</id>
-      <activation>
-        <property>
-          <name>jsf</name>
-          <value>mojarra-1.2</value>
-        </property>
-      </activation>
-      <dependencies>
-        <dependency>
-          <groupId>javax.faces</groupId>
-          <artifactId>jsf-api</artifactId>
-        </dependency>
-      </dependencies>
-    </profile>
-
-    <profile>
-      <id>mojarra-2.0</id>
-      <activation>
-        <property>
-          <name>jsf</name>
-          <value>mojarra-2.0</value>
-        </property>
-      </activation>
-      <dependencies>
-        <dependency>
-          <groupId>com.sun.faces</groupId>
-          <artifactId>jsf-api</artifactId>
         </dependency>
       </dependencies>
     </profile>

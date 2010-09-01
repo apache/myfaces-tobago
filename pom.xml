@@ -367,6 +367,30 @@
   <dependencyManagement>
     <dependencies>
       <dependency>
+        <groupId>org.apache.myfaces.core</groupId>
+        <artifactId>myfaces-api</artifactId>
+        <version>${myfaces12.version}</version>
+        <optional>true</optional>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.myfaces.core</groupId>
+        <artifactId>myfaces-impl</artifactId>
+        <version>${myfaces12.version}</version>
+        <optional>true</optional>
+      </dependency>
+      <dependency>
+        <groupId>javax.servlet.jsp</groupId>
+        <artifactId>jsp-api</artifactId>
+        <version>2.1</version>
+        <optional>true</optional>
+      </dependency>
+      <dependency>
+        <groupId>javax.servlet</groupId>
+        <artifactId>servlet-api</artifactId>
+        <version>2.5</version>
+        <optional>true</optional>
+      </dependency>
+      <dependency>
         <groupId>org.slf4j</groupId>
         <artifactId>slf4j-api</artifactId>
         <version>${slf4j.version}</version>
@@ -1324,26 +1348,17 @@
     They define the JSF version which are generally incompatible.
     They also define the JSF implementation used to compile and for runtime.
     
-    Usage for a standard build (myfaces-1.2): 
+    Usage for a standard build (jsf-1.2):
     mvn 
     
     Usage for specific build:
-    mvn -Djsf=myfaces-1.1
-    mvn -Djsf=mojarra-1.1
-    mvn -Djsf=mojarra-1.2
-    mvn -Djsf=mojarra-2.0
+    mvn -Pjsf-1.1
+    mvn -Pjsf-2.0
     
-    Please to not use -Pmyfaces-1.1 because myfaces-1.2 will already be activated. 
 -->
 
     <profile>
-      <id>myfaces-1.1</id>
-      <activation>
-        <property>
-          <name>jsf</name>
-          <value>myfaces-1.1</value>
-        </property>
-      </activation>
+      <id>jsf-1.1</id>
       <properties>
         <jsf.target>1.1</jsf.target>
         <jsf.targetDirectory>1.1</jsf.targetDirectory>
@@ -1379,48 +1394,7 @@
     </profile>
 
     <profile>
-      <id>myfaces-1.2</id>
-      <activation>
-        <property>
-          <name>!jsf</name>
-        </property>
-      </activation>
-      <properties>
-        <jsf.target>1.2</jsf.target>
-        <jsf.targetDirectory>1.2</jsf.targetDirectory>
-      </properties>
-      <dependencyManagement>
-        <dependencies>
-          <dependency>
-            <groupId>org.apache.myfaces.core</groupId>
-            <artifactId>myfaces-api</artifactId>
-            <version>${myfaces12.version}</version>
-            <optional>true</optional>
-          </dependency>
-          <dependency>
-            <groupId>org.apache.myfaces.core</groupId>
-            <artifactId>myfaces-impl</artifactId>
-            <version>${myfaces12.version}</version>
-            <optional>true</optional>
-          </dependency>
-          <dependency>
-            <groupId>javax.servlet.jsp</groupId>
-            <artifactId>jsp-api</artifactId>
-            <version>2.1</version>
-            <optional>true</optional>
-          </dependency>
-          <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
-            <version>2.5</version>
-            <optional>true</optional>
-          </dependency>
-        </dependencies>
-      </dependencyManagement>
-    </profile>
-
-    <profile>
-      <id>myfaces-2.0</id>
+      <id>jsf-2.0</id>
       <activation>
         <property>
           <name>jsf</name>
@@ -1672,5 +1646,7 @@
     <maven.compile.target>1.5</maven.compile.target>
     <maven.compile.encoding>UTF-8</maven.compile.encoding>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <jsf.target>1.2</jsf.target>
+    <jsf.targetDirectory>1.2</jsf.targetDirectory>
   </properties>
 </project>

@@ -153,11 +153,13 @@
         <dependency>
           <groupId>org.apache.myfaces.core</groupId>
           <artifactId>myfaces-api</artifactId>
+          <version>${myfaces11.version}</version>
           <scope>compile</scope>
         </dependency>
         <dependency>
           <groupId>org.apache.myfaces.core</groupId>
           <artifactId>myfaces-impl</artifactId>
+          <version>${myfaces11.version}</version>
           <scope>runtime</scope>
         </dependency>
       </dependencies>
@@ -174,11 +176,13 @@
         <dependency>
           <groupId>org.apache.myfaces.core</groupId>
           <artifactId>myfaces-api</artifactId>
+          <version>${myfaces12.version}</version>
           <scope>compile</scope>
         </dependency>
         <dependency>
           <groupId>org.apache.myfaces.core</groupId>
           <artifactId>myfaces-impl</artifactId>
+          <version>${myfaces12.version}</version>
           <scope>runtime</scope>
         </dependency>
         <dependency>
@@ -201,11 +205,13 @@
         <dependency>
           <groupId>org.apache.myfaces.core</groupId>
           <artifactId>myfaces-api</artifactId>
+          <version>${myfaces20.version}</version>
           <scope>compile</scope>
         </dependency>
         <dependency>
           <groupId>org.apache.myfaces.core</groupId>
           <artifactId>myfaces-impl</artifactId>
+          <version>${myfaces11.version}</version>
           <scope>runtime</scope>
         </dependency>
         <dependency>
@@ -228,11 +234,13 @@
         <dependency>
           <groupId>javax.faces</groupId>
           <artifactId>jsf-api</artifactId>
+          <version>${mojarra11.version}</version>
           <scope>compile</scope>
         </dependency>
         <dependency>
           <groupId>javax.faces</groupId>
           <artifactId>jsf-impl</artifactId>
+          <version>${mojarra11.version}</version>
           <scope>runtime</scope>
         </dependency>
         <dependency>
@@ -241,6 +249,18 @@
           <scope>runtime</scope>
         </dependency>
       </dependencies>
+      <repositories>
+        <repository>
+          <id>java.net</id>
+          <url>http://download.java.net/maven/1</url>
+          <layout>legacy</layout>
+        </repository>
+        <repository>
+          <id>maven2-repository.dev.java.net</id>
+          <name>Java.net Repository for Maven</name>
+          <url>http://download.java.net/maven/2/</url>
+        </repository>
+      </repositories>
     </profile>
 
     <profile>
@@ -255,11 +275,13 @@
         <dependency>
           <groupId>javax.faces</groupId>
           <artifactId>jsf-api</artifactId>
+          <version>${mojarra12.version}</version>
           <scope>compile</scope>
         </dependency>
         <dependency>
           <groupId>javax.faces</groupId>
           <artifactId>jsf-impl</artifactId>
+          <version>${mojarra12.version}</version>
           <scope>runtime</scope>
         </dependency>
         <dependency>
@@ -268,6 +290,18 @@
           <scope>runtime</scope>
         </dependency>
       </dependencies>
+      <repositories>
+        <repository>
+          <id>java.net</id>
+          <url>http://download.java.net/maven/1</url>
+          <layout>legacy</layout>
+        </repository>
+        <repository>
+          <id>maven2-repository.dev.java.net</id>
+          <name>Java.net Repository for Maven</name>
+          <url>http://download.java.net/maven/2/</url>
+        </repository>
+      </repositories>
     </profile>
 
     <profile>
@@ -282,11 +316,13 @@
         <dependency>
           <groupId>com.sun.faces</groupId>
           <artifactId>jsf-api</artifactId>
+          <version>${mojarra20.version}</version>
           <scope>compile</scope>
         </dependency>
         <dependency>
           <groupId>com.sun.faces</groupId>
           <artifactId>jsf-impl</artifactId>
+          <version>${mojarra20.version}</version>
           <scope>runtime</scope>
         </dependency>
         <dependency>
@@ -295,6 +331,18 @@
           <scope>runtime</scope>
         </dependency>
       </dependencies>
+      <repositories>
+        <repository>
+          <id>java.net</id>
+          <url>http://download.java.net/maven/1</url>
+          <layout>legacy</layout>
+        </repository>
+        <repository>
+          <id>maven2-repository.dev.java.net</id>
+          <name>Java.net Repository for Maven</name>
+          <url>http://download.java.net/maven/2/</url>
+        </repository>
+      </repositories>
     </profile>
 
   </profiles>

@@ -55,11 +55,7 @@
 
     <profile>
       <id>myfaces-1.2</id>
-      <activation>
-        <property>
-          <name>!jsf</name>
-        </property>
-      </activation>
+
       <dependencies>
         <dependency>
           <groupId>org.apache.myfaces.core</groupId>
