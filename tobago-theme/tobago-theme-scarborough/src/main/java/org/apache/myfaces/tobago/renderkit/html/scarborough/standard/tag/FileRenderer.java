@@ -25,6 +25,7 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UIFileInput;
+import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.internal.webapp.TobagoMultipartFormdataRequest;
 import org.apache.myfaces.tobago.renderkit.InputRendererBase;
@@ -127,6 +128,10 @@ public class FileRenderer extends InputRendererBase {
       writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
     }
     HtmlRendererUtils.renderTip(input, writer);
+    if (ClientProperties.getInstance(facesContext).getUserAgent().isMsie6()) {
+      writer.writeAttribute(HtmlAttributes.ONKEYDOWN, "this.blur();return false;", false);
+      writer.writeAttribute("oncontextmenu", "return false;", false);
+    }
     writer.endElement(HtmlElements.INPUT);
   }
 }

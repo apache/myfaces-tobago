@@ -527,8 +527,14 @@ var Tobago = {
 // new
         var onSubmitResult = Tobago.onSubmit();
         if (onSubmitResult) {
-  //      LOG.debug("submit form with action: " + Tobago.action.value);
-          Tobago.form.submit();
+          try {
+            // LOG.debug("submit form with action: " + Tobago.action.value);
+            Tobago.form.submit();
+          } catch(e) {
+            Tobago.deleteOverlay(Tobago.page);
+            Tobago.isSubmit = false;
+            alert("Submit failed: " + e); // XXX localization, better error handling
+          }
         }
         Tobago.action.value = oldAction;
         if (target) {
