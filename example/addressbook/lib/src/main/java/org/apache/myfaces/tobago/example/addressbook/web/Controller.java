@@ -147,8 +147,8 @@ public class Controller {
     return OUTCOME_EDITOR;
   }
 
-  public String addDummyAddresses() throws IOException, AddressDaoException {
-    for (int i=0; i<100; ++i) {
+  public String addDummyAddresses() throws AddressDaoException, IOException {
+    for (int i = 0; i < 100; ++i) {
       currentAddress = RandomAddressGenerator.generateAddress();
       store();
     }
@@ -295,6 +295,10 @@ public class Controller {
       session.invalidate();
     }
     return "logout";
+  }
+
+  public String getVersion() {
+    return getClass().getPackage().getImplementationVersion();
   }
 
   public Locale getLanguage() {

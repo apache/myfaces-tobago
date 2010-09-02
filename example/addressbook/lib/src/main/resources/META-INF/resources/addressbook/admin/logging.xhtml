@@ -86,8 +86,9 @@
       <f:facet name="layout">
         <tc:gridLayout columns="*;*;fixed"/>
       </f:facet>
-      <tx:in label="Category" value="#{logging.category}"
-             binding="#{logging.categoryControl}"/>
+      <tx:in label="Category" value="#{logging.category}">
+        <tc:attribute name="binding" value="#{logging.categoryControl}"/>
+      </tx:in>
       <tx:selectOneChoice label="Level" value="#{logging.level}">
         <tc:selectItems value="#{logging.levels}"/>
       </tx:selectOneChoice>
