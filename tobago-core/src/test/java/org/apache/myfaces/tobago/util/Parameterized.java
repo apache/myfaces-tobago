@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.example.test;
+package org.apache.myfaces.tobago.util;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -35,9 +35,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * XXX
+ * XXX remove when JUnit implemented this feature
  * This class will be obsolete if this feature request for JUnit is resolved:
- * http://sourceforge.net/tracker/index.php?func=detail&aid=1742040&group_id=15278&atid=365278
+ * http://github.com/KentBeck/junit/issues/#issue/44
  */
 public class Parameterized extends Suite {
 

@@ -18,7 +18,7 @@ package org.apache.myfaces.tobago.example.test.tc.button;
  */
 
 import org.apache.myfaces.tobago.example.test.MultiSuffixSeleniumTest;
-import org.apache.myfaces.tobago.example.test.Parameterized;
+import org.apache.myfaces.tobago.util.Parameterized;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;

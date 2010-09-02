@@ -17,6 +17,7 @@ package org.apache.myfaces.tobago.example.test;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.util.Parameterized;
 import org.junit.runner.RunWith;
 
 import java.util.Arrays;
