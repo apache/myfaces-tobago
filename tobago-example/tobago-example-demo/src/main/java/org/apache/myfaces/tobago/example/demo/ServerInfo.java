@@ -58,15 +58,15 @@ public class ServerInfo {
       if (file == null) {
         file = CONFIG_FILE_DEFAULT;
       }
-      LOG.info("Loading properties from file '" + file + "'");
+      LOG.info("Loading config from file '" + file + "'");
       Properties config = new Properties();
       config.load(new FileInputStream(file));
       enabled = Boolean.parseBoolean(config.getProperty(ENABLED_KEY));
-      LOG.info("server.info.enabled=" + enabled);
     } catch (IOException e) {
-      LOG.error("Can't load properties from file '" + file + "'", e);
+      LOG.warn("Can't load config: " + e.getMessage());
     }
     // the tobago version should be set in any case
+    LOG.info("server.info.enabled=" + enabled);
     version = Package.getPackage("org.apache.myfaces.tobago.component").getImplementationVersion();
   }
 
