@@ -17,27 +17,31 @@
  * limitations under the License.
 -->
 
-<tc:panel xmlns:tc="http://myfaces.apache.org/tobago/component"
-          xmlns:tx="http://myfaces.apache.org/tobago/extension"
-          xmlns:ui="http://java.sun.com/jsf/facelets"
-          xmlns:f="http://java.sun.com/jsf/core">
+<f:subview id="memory"
+           xmlns:tc="http://myfaces.apache.org/tobago/component"
+           xmlns:tx="http://myfaces.apache.org/tobago/extension"
+           xmlns:ui="http://java.sun.com/jsf/facelets"
+           xmlns:f="http://java.sun.com/jsf/core">
+  <tc:panel>
 
-  <f:facet name="layout">
-    <tc:gridLayout margin="10px" rows="fixed;fixed;fixed;*" columns="300px;*"/>
-  </f:facet>
-  <f:facet name="reload">
-    <tc:reload frequency="5000" update="#{admin.updateMemory}" />
-  </f:facet>
+    <f:facet name="layout">
+      <tc:gridLayout margin="10px" rows="fixed;fixed;fixed;*" columns="300px;*"/>
+    </f:facet>
+    <f:facet name="reload">
+      <tc:reload frequency="5000" update="#{admin.updateMemory}"/>
+    </f:facet>
 
-  <tc:label value="Memory:" />
-  <tc:cell/>
+    <tc:label value="Memory:"/>
+    <tc:cell/>
 
-  <tc:progress value="#{admin.memory}" markup="#{admin.state}" />
-  <tc:cell/>
+    <tc:progress value="#{admin.memory}" markup="#{admin.state}"/>
+    <tc:cell/>
 
-  <tc:label value="Current: #{admin.memory.value} kB Max: #{admin.memory.maximum} kB" />
-  <tc:cell/>
+    <tc:label value="Current: #{admin.memory.value} kB Max: #{admin.memory.maximum} kB"/>
+    <tc:cell/>
 
-  <tc:cell spanX="2"/>
+    <tc:cell spanX="2"/>
 
-</tc:panel>
+  </tc:panel>
+</f:subview>
+

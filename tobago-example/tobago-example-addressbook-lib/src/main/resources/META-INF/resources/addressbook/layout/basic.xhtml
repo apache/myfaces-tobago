@@ -24,8 +24,7 @@
   <f:view locale="#{controller.language}">
     <tc:loadBundle basename="resource" var="bundle"/>
 
-    <tc:page applicationIcon="icon/favicon.ico" label="${title}" state="#{layout}" width="#{layout.width}"
-             height="#{layout.height}" id="page">
+    <tc:page applicationIcon="icon/favicon.ico" label="${title}" id="page">
       <f:facet name="menuBar">
         <tc:menuBar>
           <tc:form>
@@ -71,7 +70,7 @@
         <ui:insert/>
       </tc:cell>
 
-      <tc:popup id="about" width="300" height="220" left="200" top="200">
+      <tc:popup id="about" width="400" height="220" left="200" top="200">
         <tc:box label="About">
           <f:facet name="layout">
             <tc:gridLayout rows="150px;*;fixed" columns="150px;*"/>
@@ -86,7 +85,7 @@
 
             <tc:out markup="strong" value="Addressbook Demo"/>
             <tc:cell/>
-            <tc:out value="Version 1.0"/>
+            <tc:out value="Version #{controller.version}"/>
             <tc:cell/>
           </tc:panel>
 

@@ -86,7 +86,7 @@ public class Controller {
   private boolean renderPopup;
   private boolean renderFirstName = true;
   private boolean renderLastName = true;
-  private boolean renderDayOfBirth;
+  private boolean renderDayOfBirth = true;
 
   @Resource(name = "addressDao")
   private AddressDao addressDao;
@@ -296,6 +296,10 @@ public class Controller {
       session.invalidate();
     }
     return "logout";
+  }
+
+  public String getVersion() {
+    return getClass().getPackage().getImplementationVersion();
   }
 
   public Locale getLanguage() {
