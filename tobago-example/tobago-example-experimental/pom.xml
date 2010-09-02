@@ -124,89 +124,15 @@
       <scope>runtime</scope>
     </dependency>
 
+    <dependency>
+      <groupId>org.apache.myfaces.tomahawk</groupId>
+      <artifactId>tomahawk</artifactId>
+      <version>1.1.9</version>
+    </dependency>
+
   </dependencies>
   <profiles>
 
-    <profile>
-      <id>myfaces-1.1</id>
-      <activation>
-        <property>
-          <name>jsf</name>
-          <value>myfaces-1.1</value>
-        </property>
-      </activation>
-      <dependencies>
-        <dependency>
-          <groupId>org.apache.myfaces.tomahawk</groupId>
-          <artifactId>tomahawk</artifactId>
-          <version>1.1.9</version>
-        </dependency>
-      </dependencies>
-    </profile>
-
-    <profile>
-      <id>myfaces-1.2</id>
-      <dependencies>
-        <dependency>
-          <groupId>org.apache.myfaces.tomahawk</groupId>
-          <artifactId>tomahawk12</artifactId>
-          <version>1.1.9</version>
-        </dependency>
-      </dependencies>
-    </profile>
-
-    <profile>
-      <id>mojarra-1.1</id>
-      <activation>
-        <property>
-          <name>jsf</name>
-          <value>mojarra-1.1</value>
-        </property>
-      </activation>
-      <dependencies>
-        <dependency>
-          <groupId>org.apache.myfaces.tomahawk</groupId>
-          <artifactId>tomahawk</artifactId>
-          <version>1.1.9</version>
-        </dependency>
-      </dependencies>
-    </profile>
-
-    <profile>
-      <id>mojarra-1.2</id>
-      <activation>
-        <property>
-          <name>jsf</name>
-          <value>mojarra-1.2</value>
-        </property>
-      </activation>
-      <dependencies>
-        <dependency>
-          <groupId>org.apache.myfaces.tomahawk</groupId>
-          <artifactId>tomahawk12</artifactId>
-          <version>1.1.9</version>
-        </dependency>
-      </dependencies>
-    </profile>
-
-    <profile>
-      <id>mojarra-2.0</id>
-      <activation>
-        <property>
-          <name>jsf</name>
-          <value>mojarra-2.0</value>
-        </property>
-      </activation>
-      <dependencies>
-        <!-- todo: use correct artifact/version -->
-        <dependency>
-          <groupId>org.apache.myfaces.tomahawk</groupId>
-          <artifactId>tomahawk12</artifactId>
-          <version>1.1.9</version>
-        </dependency>
-      </dependencies>
-    </profile>
-    
     <profile>
       <!--
        mvn package cargo:start -Ptomcat5x
