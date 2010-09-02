@@ -17,6 +17,8 @@ package org.apache.myfaces.tobago.context;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.internal.util.Deprecation;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -36,11 +38,15 @@ public class UserAgent implements Serializable {
 
   public static final UserAgent MSIE = new UserAgent("msie", null);
 
-  /** @deprecated no longer supported, since Tobago 1.5 */
+  /**
+   * @deprecated no longer supported, since Tobago 1.5
+   */
   @Deprecated
   public static final UserAgent MSIE_5_0 = new UserAgent("msie", "5_0");
 
-  /** @deprecated no longer supported, since Tobago 1.5 */
+  /**
+   * @deprecated no longer supported, since Tobago 1.5
+   */
   @Deprecated
   public static final UserAgent MSIE_5_5 = new UserAgent("msie", "5_5");
 
@@ -48,61 +54,105 @@ public class UserAgent implements Serializable {
 
   public static final UserAgent MSIE_7_0 = new UserAgent("msie", "7_0");
 
-  /** @deprecated no longer supported, since Tobago 1.5. Misspelled */
+  /**
+   * @deprecated no longer supported, since Tobago 1.5. Misspelled. Use {@link #MSIE_7_0}
+   */
   @Deprecated
   public static final UserAgent MSIE_7_O = MSIE_7_0;
 
   public static final UserAgent MSIE_8_0 = new UserAgent("msie", "8_0");
 
-  /** @deprecated no longer supported, since Tobago 1.5 */
+  public static final UserAgent MSIE_9_0 = new UserAgent("msie", "9_0");
+
+  /**
+   * @deprecated no longer supported, since Tobago 1.5
+   */
   @Deprecated
   public static final UserAgent MSIE_5_0_MAC = new UserAgent("msie", "5_0_mac");
 
-  /** @deprecated no longer supported, since Tobago 1.5 */
+  /**
+   * @deprecated no longer supported, since Tobago 1.5
+   */
   @Deprecated
   public static final UserAgent MSIE_6_0_MAC = new UserAgent("msie", "6_0_mac");
 
 
+  /**
+   * e. g. Opera 10
+   */
+  public static final UserAgent PRESTO = new UserAgent("presto", null);
+
+  /**
+   * @deprecated no longer supported, since Tobago 1.5. Please use {@link #PRESTO}.
+   */
   public static final UserAgent OPERA = new UserAgent("opera", null);
 
-  public static final UserAgent OPERA_PRESTO = new UserAgent("opera", "Presto", Capability.PLACEHOLDER);
-
-  /** @deprecated no longer supported, since Tobago 1.5 */
+  /**
+   * @deprecated no longer supported, since Tobago 1.5. Please use {@link #PRESTO}.
+   */
   @Deprecated
   public static final UserAgent OPERA_5_0 = new UserAgent("opera", "5_0");
 
-  /** @deprecated no longer supported, since Tobago 1.5 */
+  /**
+   * @deprecated no longer supported, since Tobago 1.5. Please use {@link #PRESTO}.
+   */
   @Deprecated
   public static final UserAgent OPERA_6_0 = new UserAgent("opera", "6_0");
 
-  /** @deprecated no longer supported, since Tobago 1.5 */
+  /**
+   * @deprecated no longer supported, since Tobago 1.5. Please use {@link #PRESTO}.
+   */
   @Deprecated
   public static final UserAgent OPERA_7_11 = new UserAgent("opera", "7_11");
 
-
+  /**
+   * @deprecated no longer supported, since Tobago 1.5
+   */
+  @Deprecated
   public static final UserAgent MOZILLA = new UserAgent("mozilla", null);
 
-  /** @deprecated no longer supported, since Tobago 1.5 */
+  /**
+   * @deprecated no longer supported, since Tobago 1.5
+   */
   @Deprecated
   public static final UserAgent MOZILLA_4_7 = new UserAgent("mozilla", "4_7");
 
-  /** @deprecated no longer supported, since Tobago 1.5 */
+  /**
+   * @deprecated no longer supported, since Tobago 1.5
+   */
   @Deprecated
   public static final UserAgent MOZILLA_5_0 = new UserAgent("mozilla", "5_0");
 
-  /** @deprecated no longer supported, since Tobago 1.5 */
+  /**
+   * @deprecated no longer supported, since Tobago 1.5
+   */
   @Deprecated
   public static final UserAgent MOZILLA_5_0_R1_6 = new UserAgent("mozilla", "5_0_r1_6");
 
+  /**
+   * e. g. Firefox
+   */
   public static final UserAgent GECKO = new UserAgent("gecko", null);
 
-  public static final UserAgent CHROME = new UserAgent("chrome", null);
+  /**
+   * e. g. Firefox 2.0
+   */
+  public static final UserAgent GECKO_1_8 = new UserAgent("gecko", "1.8");
 
-  public static final UserAgent CHROME_5_0 = new UserAgent("chrome", "5.0", Capability.PLACEHOLDER);
+  /**
+   * e. g. Firefox 3.0, 3.5, 3.6
+   */
+  public static final UserAgent GECKO_1_9 = new UserAgent("gecko", "1.9");
 
-  public static final UserAgent SAFARI = new UserAgent("safari", null);
+  /**
+   * e. g. Firefox 4.0
+   */
+  public static final UserAgent GECKO_2_0 = new UserAgent("gecko", "2.0", Capability.PLACEHOLDER);
 
-  public static final UserAgent SAFARI_4_0 = new UserAgent("safari", "4.0", Capability.PLACEHOLDER);
+  /**
+   * e. g. Safari 4, Safari 5, Chrome
+   */
+  public static final UserAgent WEBKIT = new UserAgent("webkit", null, Capability.PLACEHOLDER);
 
   private String name;
 
@@ -117,7 +167,7 @@ public class UserAgent implements Serializable {
   }
 
   public boolean hasCapability(Capability capability) {
-     return capabilities.contains(capability);
+    return capabilities.contains(capability);
   }
 
   public boolean isMsie() {
@@ -128,6 +178,10 @@ public class UserAgent implements Serializable {
     return MSIE_6_0.name.equals(name) && MSIE_6_0.version.equals(version);
   }
 
+  /**
+   * @deprecated no longer supported, since Tobago 1.5
+   */
+  @Deprecated
   public boolean isMozilla() {
     return MOZILLA.name.equals(name);
   }
@@ -156,100 +210,48 @@ public class UserAgent implements Serializable {
       return DEFAULT;
     }
 
-    if (header.contains("Opera")) {
-      if (header.contains("Opera/5.0")) {
-        return OPERA_5_0;
-      } else if (header.contains("Opera/6.0")) {
-        return OPERA_6_0;
-      } else if (header.contains("Opera/7.11")) {
-        return OPERA_7_11;
-      } else if (header.contains("Presto")) {
-        return OPERA_PRESTO;
-      } else {
-        return OPERA;
-      }
-    } else if (header.contains("AppleWebKit")) {
-      if (header.contains("Chrome/5.0")) {
-        return CHROME_5_0;
-      } else if (header.contains("Chrome")) {
-        return CHROME;
-      } else if (header.contains("Version/4.")) {
-        return SAFARI_4_0;
-      } else {
-        return SAFARI;
-      }
-    } else if (header.contains("MSIE")) {
-      if (header.contains("MSIE 5.0")) {
-        return MSIE_5_0;
-      } else if (header.contains("MSIE 5.5")) {
-        return MSIE_5_5;
-      } else if (header.contains("MSIE 6.0")) {
+    if (header.contains("MSIE")) {
+      if (header.contains("MSIE 6.0")) {
         return MSIE_6_0;
       } else if (header.contains("MSIE 7.0")) {
         return MSIE_7_0;
       } else if (header.contains("MSIE 8.0")) {
         return MSIE_8_0;
+      } else if (header.contains("MSIE 9.0")) {
+        return MSIE_9_0;
       } else {
         return MSIE;
       }
+    } else if (header.contains("AppleWebKit")) {
+      return WEBKIT;
     } else if (header.contains("Gecko")) {
-       return GECKO;
+      if (header.contains("rv:1.8")) {
+        return GECKO_1_8;
+      } else if (header.contains("rv:1.9")) {
+        return GECKO_1_9;
+      } else if (header.contains("rv:2.0")) {
+        return GECKO_2_0;
+      } else {
+        return GECKO;
+      }
+    } else if (header.contains("Presto")) {
+      return PRESTO;
     }
 
     return DEFAULT;
   }
-
-  /** @deprecated no longer supported, since Tobago 1.5 */
-  @Deprecated
-  public static UserAgent getInstanceForId(String id) {
-    if (id == null) {
-      return DEFAULT;
-    }
-
-    if (id.indexOf("opera") == 0) {
-      if (id.equals("opera_5_0")) {
-        return OPERA_5_0;
-      } else if (id.equals("opera_6_0")) {
-        return OPERA_6_0;
-      } else if (id.equals("opera_7_11")) {
-        return OPERA_7_11;
-      } else {
-        return OPERA;
-      }
-    } else if (id.indexOf("msie") == 0) {
-      if (id.equals("msie_5_0")) {
-        return MSIE_5_0;
-      } else if (id.equals("msie_5_0_mac")) {
-        return MSIE_5_0_MAC;
-      } else if (id.equals("msie_5_5")) {
-        return MSIE_5_5;
-      } else if (id.equals("msie_6_0")) {
-        return MSIE_6_0;
-      } else if (id.equals("msie_6_0_mac")) {
-        return MSIE_6_0_MAC;
-      } else if (id.equals("msie_7_0")) {
-        return MSIE_7_0;
-      } else {
-        return MSIE;
-      }
-    } else if (id.indexOf("mozilla") == 0) {
-      if (id.equals("mozilla_4_7")) {
-        return MOZILLA_4_7;
-      } else if (id.equals("mozilla_5_0")) {
-        return MOZILLA_5_0;
-      } else if (id.equals("mozilla_5_0_r1_6")) {
-        return MOZILLA_5_0_R1_6;
-      } else {
-        return MOZILLA;
-      }
-    }
-
-    return DEFAULT;
-  }
-
 
   /**
-   * @deprecated don't use toString() functionality!
+   * @deprecated no longer supported, since Tobago 1.5
+   */
+  @Deprecated
+  public static UserAgent getInstanceForId(String id) {
+    Deprecation.LOG.error("Getting the user agent from its id is no longer supported! id='" + id + "'");
+    return DEFAULT;
+  }
+
+  /**
+   * @deprecated don't use toString() functionality, but for logging!
    */
   @Deprecated
   public String toString() {
@@ -258,4 +260,3 @@ public class UserAgent implements Serializable {
         : name;
   }
 }
-

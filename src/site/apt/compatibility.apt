@@ -57,19 +57,25 @@ Compatibility
 *--+--+--+--+                                                                                                                                                            
 | WebSphere            | 6.0, 6.1                   | 6.0, 6.1                                    | 6.1\[facelets only\], 7.0                                         
 *--+--+--+--+                                                                                                                                                            
-|                      |                            |                                             |                                                                   
+| others               |                            | \[other servers\]                          | \[other servers\]
+*--+--+--+
+|                      |                            |                                             |
 *--+--+--+                                                                                                                                                            
 | <<Browser>>          |                            |                                             |                                                                   
 *--+--+--+                                                                                                                                                            
-| Internet Explorer    | 6, 7, 8                    | 6, 7, 8                                     | 6, 7, 8                                                           
+| Internet Explorer    | 6, 7, 8, 9                 | 6, 7, 8, 9                                  | 6, 7, 8, 9
 *--+--+--+                                                                                                                                                            
-| Firefox              | 2, 3, 3.5                  | 2, 3, 3.5                                   | 2, 3, 3.5                                                         
+| Firefox              | 2, 3, 3.5, 3.6, 4.0        | 2, 3, 3.5, 3.6, 4.0                         | 2, 3, 3.5, 3.6, 4.0
 *--+--+--+                                                                                                                                                            
-| Safari               |                            | 4                                           | 4                                                                 
+| Safari               |                            | 4, 5                                        | 4, 5
+*--+--+--+
+| Chrome               |                            | 5                                           | 5
+*--+--+--+
+| Opera                |                            | 10                                          | 10
+*--+--+--+
+| others               |                            | \[other browsers\]                          | \[other browsers\]
 *--+--+--+
 
- ~~ | Opera                |                         |
- ~~ *--+--+--+--+
  ~~ | WebSphere JSF Impl   | ?                          |
  ~~ *--+--+--+--+
  ~~ | <<Frameworks>>       |                            |
@@ -86,7 +92,6 @@ Compatibility
  ~~ JSF Addon-Frameworks: Apache Shale Dialog, Apache Shale Clay, Spring Web Flow, Seam, WebBeans, "Validator", ...
  ~~ IoC Frameworks: Spring, Guice, ...
  ~~ Component Libs: Richfaces, Icefaces, Trinidad, Tomahawk ...
- ~~ Browser: IE 6, IE 7, Firefox 2, Firefox 3, Safari, Opera, WebKit, ...
 
   <<bold:>> preferred
 
@@ -99,4 +104,7 @@ Compatibility
   \[unsettled\]: this information is unsettled and may change
   
   \[facelets only\]: it works with facelets, but not with JSP, because JSF 1.2 requires JSP 2.1
-  
+
+  \[other servers\]: other servers should work, when they are compliant to the named specifications
+
+  \[other browsers\]: other browsers should work, in their actual version, when they are standard compliant to HTML 4 and CSS 2.1
