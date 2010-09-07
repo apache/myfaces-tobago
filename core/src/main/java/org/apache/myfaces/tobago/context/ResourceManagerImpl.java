@@ -19,7 +19,6 @@ package org.apache.myfaces.tobago.context;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_OUT;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 
@@ -32,6 +31,8 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.StringTokenizer;
 import java.util.concurrent.ConcurrentHashMap;
+
+import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_OUT;
 
 public class ResourceManagerImpl implements ResourceManager {
 
@@ -243,6 +244,9 @@ public class ResourceManagerImpl implements ResourceManager {
     }
   }
 
+  /**
+   * @return indicates, if the search should be terminated.
+   */
   private boolean checkPath(
       String prefix, boolean reverseOrder, boolean single, boolean returnKey, boolean returnStrings,
       List matches, String path) {
