@@ -40,7 +40,11 @@ public class UserAgent implements Serializable {
 
   public static final UserAgent MSIE_6_0 = new UserAgent("msie", "6_0");
 
-  public static final UserAgent MSIE_7_O = new UserAgent("msie", "7_0");
+  public static final UserAgent MSIE_7_0 = new UserAgent("msie", "7_0");
+
+  /** @deprecated spell error, use {@link #MSIE_7_0} */
+  @Deprecated
+  public static final UserAgent MSIE_7_O = MSIE_7_0;
 
   public static final UserAgent MSIE_5_0_MAC = new UserAgent("msie", "5_0_mac");
 
