@@ -1329,6 +1329,9 @@ var Tobago = {
     * Delete an overlay created by createOverlay.
     */
   deleteOverlay: function(element) {
+    if (element == null) {
+      return;
+    }
     var overlay = document.getElementById(element.id + "-overlay");
     if (overlay && overlay.parentNode == element) {
       element.removeChild(overlay);
@@ -1793,33 +1796,18 @@ Tobago.Panel = function(panelId, enableAjax, autoReload) {
 };
 
 Tobago.Panel.prototype.setup = function() {
-  var element = Tobago.element(this.id);
-  if (element.skipUpdate) {
-    LOG.debug("skip setup");
-    element.skipUpdate = false;
-    Tobago.deleteOverlay(Tobago.element(this.id));
-  }
   this.initReload();
 };
 
-Tobago.Panel.prototype.doUpdate = function(data) {
-  //LOG.debug("Panel reloaded : " + transport.responseText.substr(0,20));
-  if (data.responseCode == Tobago.Updater.CODE_SUCCESS) {
-    Tobago.replaceElement(Tobago.element(this.id), data.html);
-    try {
-      var updateScript;
-      eval("updateScript = " + data.script);
-      updateScript();
-    } catch (e) {
-      LOG.error(e);
-    }
-  } else {
-    Tobago.deleteOverlay(Tobago.element(this.id));
-    if (data.responseCode == Tobago.Updater.CODE_ERROR) {
-      LOG.warn("ERROR when updating " + data.ajaxId);
-//      alert("panel:" + data.ajaxId + " :: " + data.responseCode);
-    }
-  }
+Tobago.Panel.prototype.afterDoUpdateSuccess = function() {
+  this.setup();
+};
+
+Tobago.Panel.prototype.afterDoUpdateNotModified = function() {
+  this.setup();
+};
+
+Tobago.Panel.prototype.afterDoUpdateError = function() {
   this.setup();
 };
 
@@ -1839,7 +1827,6 @@ Tobago.Panel.prototype.reloadWithAction = function(source, action, options) {
 
 Tobago.Panel.prototype.prepareReload = function() {
   var element = Tobago.element(this.id);
-  element.skipUpdate = false;
   Tobago.createOverlay(element);
 };
 
@@ -2299,32 +2286,9 @@ Tobago.Updater = {
     }
   },
 
-  doUpdate: function(data) {
-    if (data.responseCode == Tobago.Updater.CODE_SUCCESS) {
-      var element = jQuery(Tobago.escapeClientId(data.ajaxId));
-      var newElement = jQuery(data.html);
-      element.replaceWith(newElement);
-      try {
-        var updateScript;
-        eval("updateScript = " + data.script);
-        updateScript();
-        xxx_tobagoInit(newElement);
-      } catch (e) {
-        LOG.error("Error in doUpdate: " + e);
-      }
-    } else {
-      Tobago.deleteOverlay(Tobago.element(Tobago.ajaxComponents[data.ajaxId]));
-      if (data.responseCode == Tobago.Updater.CODE_ERROR) {
-        LOG.warn("ERROR when updating " + data.ajaxId);
-//        alert(data.ajaxId + " :: " + data.responseCode);
-      }
-    }
-  },
-
   showFailureMessage: function() {
     LOG.info("Ajax request failed!");
   },
-
 
   onSuccess: function(requestOptions) {
       LOG.debug("Tobago.Updater.onSuccess()");
@@ -2426,7 +2390,56 @@ Tobago.Updater = {
 //          LOG.debugAjaxComponents();
         }
       }
+    },
+
+  doUpdate: function(data) {
+    if (typeof this.beforeDoUpdate == 'function') {
+      if (!this.beforeDoUpdate()) {
+        return; // the update should be canceled.
+      }
     }
+    switch (data.responseCode) {
+      case Tobago.Updater.CODE_SUCCESS:
+        var element = jQuery(Tobago.escapeClientId(data.ajaxId));
+        // if there is html data, we replace the ajax element with the new data
+        if (data.html.length > 0) {
+          var newElement = jQuery(data.html);
+          element.replaceWith(newElement);
+        }
+        try {
+          var updateScript;
+          eval("updateScript = " + data.script);
+          updateScript();
+          if (typeof this.afterDoUpdateSuccess == 'function') {
+            this.afterDoUpdateSuccess();
+          }
+          if (data.html.length > 0) {
+            xxx_tobagoInit(newElement);
+          }
+        } catch (e) {
+          // todo: improve exception handling
+          LOG.error("Error in doUpdate: " + e);
+        }
+        break;
+      case Tobago.Updater.CODE_NOT_MODIFIED:
+        if (typeof this.afterDoUpdateNotModified == 'function') {
+          this.afterDoUpdateNotModified();
+        }
+        Tobago.deleteOverlay(Tobago.element(Tobago.ajaxComponents[data.ajaxId]));
+        break;
+      case Tobago.Updater.CODE_ERROR:
+        if (typeof this.afterDoUpdateError == 'function') {
+          this.afterDoUpdateError();
+        }
+        LOG.warn("ERROR 500 when updating component id = '" + data.ajaxId + "'");
+        Tobago.deleteOverlay(Tobago.element(Tobago.ajaxComponents[data.ajaxId]));
+        break;
+      default:
+        LOG.error("Unknown response code: " + data.responseCode + " for component id = '" + data.ajaxId + "'");
+        Tobago.deleteOverlay(Tobago.element(Tobago.ajaxComponents[data.ajaxId]));
+        break;
+    }
+  }
 
 };
 

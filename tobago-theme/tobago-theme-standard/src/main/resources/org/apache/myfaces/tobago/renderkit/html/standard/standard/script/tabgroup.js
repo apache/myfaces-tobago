@@ -188,6 +188,10 @@ Tobago.TabGroup.prototype.previous = function(event) {
 
 };
 
+Tobago.TabGroup.prototype.prepareReload = function() {
+  // todo: check if this is correct (AJAX tab switching)
+};
+
 Tobago.TabGroup.prototype.reloadWithAction = function(event) {
   LOG.debug("Reload ");
   if (event) {
@@ -234,25 +238,8 @@ Tobago.TabGroup.prototype.removeRelatedAcceleratorKeys = function(idPrefix) {
     }
 };
 
-Tobago.TabGroup.prototype.doUpdate = function(data) {
-    if (data.responseCode == Tobago.Updater.CODE_SUCCESS) {
-      var container = Tobago.element(this.tabGroupId);
-      Tobago.replaceElement(container, data.html);
-      try {
-        var updateScript;
-        eval("updateScript = " + data.script);
-        updateScript();
-      } catch (e) {
-        LOG.error(e);
-      }
-      LOG.debug("tabgroup loaded : ");
-      this.activeTabId = Tobago.element(this.tabGroupId).firstChild.id;
-      LOG.debug("activeTabId : " + this.activeTabId);
-      this.setUp();
-    } else {
-      Tobago.deleteOverlay(Tobago.element(Tobago.ajaxComponents[data.ajaxId]));
-      if (data.responseCode == Tobago.Updater.CODE_ERROR) {
-        LOG.warn("ERROR when updating " + data.ajaxId);
-      }
-    }    
+Tobago.TabGroup.prototype.afterDoUpdateSuccess = function() {
+  this.activeTabId = Tobago.element(this.tabGroupId).firstChild.id;
+  LOG.debug("activeTabId : " + this.activeTabId);
+  this.setUp();
 };

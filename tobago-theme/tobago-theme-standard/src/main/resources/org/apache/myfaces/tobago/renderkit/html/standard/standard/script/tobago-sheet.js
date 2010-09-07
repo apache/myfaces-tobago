@@ -215,30 +215,17 @@ Tobago.Sheet.prototype.reloadWithAction = function(source, action, options) {
     Tobago.Updater.update(source, action, this.id, reloadOptions);
   };
 
-Tobago.Sheet.prototype.doUpdate = function(data) {
-    if (data.responseCode == Tobago.Updater.CODE_SUCCESS) {
-      var divElement = Tobago.element(this.id);
-      Tobago.replaceElement(divElement, data.html);
-      try {
-        var updateScript;
-        eval("updateScript = " + data.script);
-        updateScript();
-      } catch (e) {
-        LOG.error(e);
-      }
-      this.setup();
-    } else if (data.responseCode == Tobago.Updater.CODE_NOT_MODIFIED) {
-      LOG.debug("code = notModified");
-      Tobago.deleteOverlay(Tobago.element(this.id));
-      this.initReload();
-    } else if (data.responseCode == Tobago.Updater.CODE_ERROR) {
-      LOG.info("code = error");
-      Tobago.deleteOverlay(Tobago.element(this.id));
-      this.initReload();
-    } else {
-      LOG.error("illegal response state code = " + data.responseCode);
-    }
-  };
+Tobago.Sheet.prototype.afterDoUpdateSuccess = function() {
+  this.setup();
+};
+
+Tobago.Sheet.prototype.afterDoUpdateNotModified = function() {
+  this.initReload();
+};
+
+Tobago.Sheet.prototype.afterDoUpdateError = function() {
+  this.initReload();
+};
 
 Tobago.Sheet.prototype.insertTarget = function(event, actionId) {
 //    LOG.debug("insertTarget('" + actionId + "')")
@@ -332,49 +319,34 @@ Tobago.Sheet.prototype.setupResizer = function() {
   };
 
 Tobago.Sheet.prototype.setup = function() {
-    this.setupStart = new Date();
-    //LOG.debug("Tobago.Sheet.setup(" + this.id +")");
+  this.setupStart = new Date();
 
-    var divElement = Tobago.element(this.id);
-    if (divElement.skipUpdate) {
-        LOG.debug("skip setup");
-        divElement.skipUpdate = false;
-        Tobago.deleteOverlay(Tobago.element(this.id));
-    } else {
+  this.setupResizer();
 
-      // ToDo: find a better way to fix this problem
-      // IE needs this in case of ajax loading of style classes
-//      commenting this out because of TOBAGO-191
-//      var outerDiv = divElement;
-//      outerDiv.className = outerDiv.className;
-//      outerDiv.innerHTML = outerDiv.innerHTML;
+  this.adjustHeaderDiv();
+  this.adjustResizer();
 
-      this.setupResizer();
+  this.setupHeader();
 
-      this.adjustHeaderDiv();
-      this.adjustResizer();
+  //      this.adjustScrollBars();
+  this.setScrollPosition();
 
-      this.setupHeader();
+  this.firstRowIndex = parseInt(this.getRows().eq(0).attr("rowIndexInModel"));
+  this.rowCount = this.getRows().size();
 
-//      this.adjustScrollBars();
-      this.setScrollPosition();
+  if (this.selectable && (this.selectable == "single" || this.selectable == "multi")) {
+    this.addSelectionListener();
+    this.updateSelectionView();
+  }
 
-      this.firstRowIndex = parseInt(this.getRows().eq(0).attr("rowIndexInModel"));
-      this.rowCount = this.getRows().size();
-      
-      if (this.selectable && (this.selectable == "single" || this.selectable == "multi")) {
-        this.addSelectionListener();
-        this.updateSelectionView();
-      }
+  this.setupSortHeaders();
+  this.setupPagingLinks();
+  this.setupPagePaging();
+  this.setupRowPaging();
 
-      this.setupSortHeaders();
-      this.setupPagingLinks();
-      this.setupPagePaging();
-      this.setupRowPaging();
-    }
-    this.initReload();
-    this.setupEnd = new Date();
-  };
+  this.initReload();
+  this.setupEnd = new Date();
+};
 
 Tobago.Sheet.prototype.setScrollPosition = function() {
   var hidden = Tobago.element(this.scrollPositionId);

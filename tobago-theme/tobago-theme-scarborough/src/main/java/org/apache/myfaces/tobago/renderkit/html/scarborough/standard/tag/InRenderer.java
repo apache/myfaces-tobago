@@ -180,7 +180,7 @@ public class InRenderer extends InputRendererBase {
     }
   }
 
-  private void encodeAjax(FacesContext context, UIComponent component) throws IOException {
+  private void encodeAjax(FacesContext facesContext, UIComponent component) throws IOException {
     if (!(component instanceof UIInputBase)) {
       LOG.error("Wrong type: Need " + UIInputBase.class.getName() + ", but was " + component.getClass().getName());
       return;
@@ -200,9 +200,9 @@ public class InRenderer extends InputRendererBase {
       return;
     }
 
-    TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(context);
+    TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
-    Object object = mb.invoke(context, new Object[]{(UIInput) input});
+    Object object = mb.invoke(facesContext, new Object[]{(UIInput) input});
 
     final AutoSuggestItems items;
     if (object instanceof AutoSuggestItems) {
@@ -214,7 +214,10 @@ public class InRenderer extends InputRendererBase {
 
 
     writer.startJavascript();
-    writer.write("return  {items: [");
+
+    writer.write("Tobago.ajaxComponents['");
+    writer.write(component.getClientId(facesContext));
+    writer.write("'].suggestions = {items: [");
 
     for (int i = 0; i < suggestItems.size() && i < items.getMaxSuggestedCount(); i++) {
       AutoSuggestItem suggestItem = suggestItems.get(i);
@@ -260,7 +263,8 @@ public class InRenderer extends InputRendererBase {
 
     if (suggestItems.size() > items.getMaxSuggestedCount()) {
       writer.write(", moreElements: \"");
-      writer.write(ResourceManagerUtils.getPropertyNotNull(context, "tobago", "tobago.in.inputSuggest.moreElements"));
+      writer.write(
+          ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", "tobago.in.inputSuggest.moreElements"));
       writer.write("\"");
     }
 

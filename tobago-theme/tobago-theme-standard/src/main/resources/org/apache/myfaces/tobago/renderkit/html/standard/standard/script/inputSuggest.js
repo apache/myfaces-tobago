@@ -21,6 +21,7 @@ Tobago.AutocompleterAjax = function(elementId, required, requiredClass, options)
   this.id = elementId;
   this.required = required;
   this.requiredClass = requiredClass;
+  this.suggestions = null;
   this.setup();
 
   this.options = {
@@ -102,6 +103,7 @@ Tobago.AutocompleterAjax.prototype.doCheckSuggest = function(event) {
 };
 
 Tobago.AutocompleterAjax.prototype.fetchSuggestions = function(input) {
+   this.currentTimeout = undefined;
    if (!this.requestActive) {
       this.requestActive = true;
       LOG.debug("fetchSuggestions() request Suggestions for " + input.value);
@@ -111,28 +113,37 @@ Tobago.AutocompleterAjax.prototype.fetchSuggestions = function(input) {
     }
 };
 
+Tobago.AutocompleterAjax.prototype.beforeDoUpdate = function(data) {
+  if (this.rerequest) {
+    this.rerequest = false;
+    this.requestActive = true;
+    var input = Tobago.element(this.id);
+    LOG.debug("doUpdate() request Suggestions for " + input.value);
+    Tobago.Updater.update(input, input.id, input.id, this.options);
+    return false;
+  } else {
+    return true;
+  }
+};
 
-Tobago.AutocompleterAjax.prototype.doUpdate = function(data) {
+Tobago.AutocompleterAjax.prototype.afterDoUpdateSuccess = function() {
+  this.suggest();
+  this.requestActive = false;
+};
 
-    if (this.rerequest) {
-      this.rerequest = false;
-      this.requestActive = true;
-      LOG.debug("doUpdate() request Suggestions for " + input.value);
-      Tobago.update(input, input.id, input.id, this.options);
-    } else {
-      if (data.responseCode == Tobago.Updater.CODE_SUCCESS) {
-        LOG.debug("doUpdate() CODE_SUCCESS");
-        LOG.debug("doUpdate() data.script() : " + data.script);
-        var updateScript;
-        eval("updateScript = " + data.script);
-        this.suggest(updateScript());
-      }
-      this.requestActive = false;
-    }
-    this.currentTimeout = undefined;
-  };
+Tobago.AutocompleterAjax.prototype.afterDoUpdateNotModified = function() {
+  this.requestActive = false;
+};
 
-Tobago.AutocompleterAjax.prototype.suggest = function(suggestObject) {
+Tobago.AutocompleterAjax.prototype.afterDoUpdateError = function() {
+  this.requestActive = false;
+};
+
+Tobago.AutocompleterAjax.prototype.suggest = function() {
+  if (this.suggestions == null) {
+    LOG.error("No suggestions object!");
+    return;
+  }
   var div = Tobago.element(this.id + "_suggestDiv");
   if (!div) {
     div = this.createSuggestDiv();
@@ -143,8 +154,8 @@ Tobago.AutocompleterAjax.prototype.suggest = function(suggestObject) {
 
   var ul = document.createElement('ul');
 
-  for (var i = 0; i < suggestObject.items.length; i++) {
-    var item = suggestObject.items[i];
+  for (var i = 0; i < this.suggestions.items.length; i++) {
+    var item = this.suggestions.items[i];
 
     var li = document.createElement('li');
     var a = document.createElement('a');
@@ -152,8 +163,8 @@ Tobago.AutocompleterAjax.prototype.suggest = function(suggestObject) {
     a.sugggestItem = item;
     if (item.nextFocusId) {
       a.nextFocusId = item.nextFocusId;
-    } else if (suggestObject.nextFocusId) {
-      a.nextFocusId = suggestObject.nextFocusId;
+    } else if (this.suggestions.nextFocusId) {
+      a.nextFocusId = this.suggestions.nextFocusId;
     }
 //    a.id = this.id + "_suggestItem_" + i;
     a.href = Tobago.EMPTY_HREF;
@@ -170,8 +181,8 @@ Tobago.AutocompleterAjax.prototype.suggest = function(suggestObject) {
 
   div.appendChild(ul);
 
-  if (suggestObject.moreElements) {
-    var html = "<div title='" + suggestObject.moreElements + "'>…</div>";
+  if (this.suggestions.moreElements) {
+    var html = "<div title='" + this.suggestions.moreElements + "'>…</div>";
     jQuery(div).append(html);
   }
 
@@ -182,6 +193,7 @@ Tobago.AutocompleterAjax.prototype.suggest = function(suggestObject) {
     div.style.width  = (div.scrollWidth +  leftBorder + rightBorder) + "px";
   }
 
+  this.suggestions = null;
 };
 
 
