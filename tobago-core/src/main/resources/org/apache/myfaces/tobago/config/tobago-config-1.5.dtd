@@ -19,7 +19,7 @@
 
 <!ENTITY % Boolean "(true|false|yes|no)">
 
-<!ELEMENT tobago-config (theme-config, resource-dir*, load-theme-resources-from-classpath?, mapping-rule*, ajax-enabled?, fix-resource-order?, renderers?)>
+<!ELEMENT tobago-config (theme-config, resource-dir*, renderers?)>
 
 <!ELEMENT theme-config (default-theme, supported-theme*)>
 <!ELEMENT default-theme (#PCDATA)>
@@ -30,24 +30,6 @@
 <!ELEMENT fallback (#PCDATA)>
 
 <!ELEMENT resource-dir (#PCDATA)>
-
-<!-- deprecated -->
-<!ELEMENT load-theme-resources-from-classpath (#PCDATA)>
-
-<!-- deprecated -->
-<!ELEMENT mapping-rule (request-uri, forward-uri, attribute*)>
-<!-- deprecated -->
-<!ELEMENT request-uri (#PCDATA)>
-<!-- deprecated -->
-<!ELEMENT forward-uri (#PCDATA)>
-
-<!ELEMENT attribute (key, value)>
-<!ELEMENT key (#PCDATA)>
-<!ELEMENT value (#PCDATA)>
-
-<!ELEMENT ajax-enabled (#PCDATA)>
-
-<!ELEMENT fix-resource-order (#PCDATA)>
 
 <!ELEMENT renderers (renderer)*>
 <!ELEMENT renderer (name|supported-markup)*>
