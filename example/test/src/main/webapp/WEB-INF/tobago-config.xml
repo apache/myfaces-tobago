@@ -18,7 +18,7 @@
 -->
 
 <!DOCTYPE tobago-config PUBLIC
-    "-//The Apache Software Foundation//DTD Tobago Config 1.0.29//EN" "tobago-config_1_0_29.dtd">
+    "-//The Apache Software Foundation//DTD Tobago Config 1.0.29//EN" "tobago-config-1.0.29.dtd">
 
 <tobago-config>
   <theme-config>

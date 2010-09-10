@@ -41,7 +41,7 @@ public class TobagoConfigParser {
 
   private static final Log LOG = LogFactory.getLog(TobagoConfigParser.class);
   private static final String TOBAGO_CONFIG_DTD = "/org/apache/myfaces/tobago/config/tobago-config_1_0.dtd";
-  private static final String TOBAGO_CONFIG_DTD_1_0_29 = "/org/apache/myfaces/tobago/config/tobago-config_1_0_29.dtd";
+  private static final String TOBAGO_CONFIG_DTD_1_0_29 = "/org/apache/myfaces/tobago/config/tobago-config-1.0.29.dtd";
 
   public TobagoConfig parse(ServletContext context)
       throws IOException, SAXException, FacesException {
