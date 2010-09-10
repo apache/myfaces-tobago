@@ -17,8 +17,6 @@ package org.apache.myfaces.tobago.context;
  * limitations under the License.
  */
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.config.Configurable;
 import org.apache.myfaces.tobago.config.TobagoConfig;
@@ -33,6 +31,8 @@ import org.apache.myfaces.tobago.internal.context.StringValue;
 import org.apache.myfaces.tobago.internal.context.ThemeConfigCacheKey;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.util.LocaleUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
@@ -305,6 +305,15 @@ public class ResourceManagerImpl implements ResourceManager {
 
     String path;
 
+    // check first the local web application directory
+    for (String localeSuffix : locales) {
+      path = makePath(name, localeSuffix, suffix, key);
+      if (checkPath(prefix, reverseOrder, single, returnKey, returnStrings, matches, path)) {
+        return matches;
+      }
+    }
+
+    // after that check the whole resources tree
     // e.g. 1. application, 2. library or renderkit
     for (Theme themeName : theme.getFallbackList()) { // theme loop
       for (String resourceDirectory : tobagoConfig.getResourceDirs()) {
@@ -326,12 +335,7 @@ public class ResourceManagerImpl implements ResourceManager {
         }
       }
     }
-    for (String localeSuffix : locales) { // locale loop
-      path = makePath(name, localeSuffix, suffix, key);
-      if (checkPath(prefix, reverseOrder, single, returnKey, returnStrings, matches, path)) {
-        return matches;
-      }
-    }
+
     if (matches.isEmpty()) {
       if (!ignoreMissing) {
         LOG.error("Path not found, and no fallback. Using empty string.\n"
