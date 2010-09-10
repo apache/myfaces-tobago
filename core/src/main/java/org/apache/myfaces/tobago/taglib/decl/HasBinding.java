@@ -21,13 +21,15 @@ import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 
 import javax.servlet.jsp.JspException;
 
-/**
- * $Id$
- */
 public interface HasBinding {
   /**
-   * The value binding expression linking this
-   * component to a property in a backing bean.
+   * The value binding expression linking this component to a property in a backing bean.
+   * <p/>
+   * Warning: For the tobago extension library <b>tx</b> the binding differs from JSP and Facelets:
+   * <ul>
+   * <li>JSP: The component is the inner main control (e. g. UIInput).</li>
+   * <li>Facelets: The component is the outer UIPanel.</li>
+   * </ul>
    */
   @TagAttribute
   void setBinding(String binding) throws JspException;
