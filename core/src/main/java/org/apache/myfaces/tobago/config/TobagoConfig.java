@@ -21,6 +21,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.context.RenderersConfig;
 import org.apache.myfaces.tobago.context.Theme;
+import org.apache.myfaces.tobago.util.Deprecation;
 
 import javax.faces.context.FacesContext;
 import java.util.ArrayList;
@@ -56,6 +57,7 @@ public class TobagoConfig {
   }
 
   public void addMappingRule(MappingRule mappingRule) {
+    Deprecation.LOG.warn("mapping rules are deprecated");
     if (LOG.isDebugEnabled()) {
       LOG.debug("addMappingRule: {" + mappingRule + "}");
     }
@@ -182,7 +184,7 @@ public class TobagoConfig {
 
   @Deprecated
   public void setLoadThemesFromClasspath(String loadThemesFromClasspath) {
-    LOG.warn("Deprecated: setting load-theme-resources-from-classpath is "
+    Deprecation.LOG.error("Deprecated: setting load-theme-resources-from-classpath is "
         + "no longer supported");
   }
 
