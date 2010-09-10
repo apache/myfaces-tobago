@@ -255,15 +255,17 @@
     <renderer>
       <name>TreeNode</name>
       <supported-markup>
-        <markup>strong</markup>
+        <markup>strong</markup> <!--XXX has to be in lable and command ? -->
         <markup>marked</markup>
+        <markup>folder</markup>
       </supported-markup>
     </renderer>
     <renderer>
       <name>TreeMenuNode</name>
       <supported-markup>
-        <markup>strong</markup>
+        <markup>strong</markup> <!--XXX has to be in lable and command ? -->
         <markup>marked</markup>
+        <markup>folder</markup>
       </supported-markup>
     </renderer>
   </renderers>

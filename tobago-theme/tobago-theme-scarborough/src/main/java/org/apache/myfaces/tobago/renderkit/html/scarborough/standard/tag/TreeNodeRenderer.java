@@ -104,11 +104,14 @@ public class TreeNodeRenderer extends LayoutComponentRendererBase {
 
   @Override
   public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
-    super.prepareRender(facesContext,        component);
+    super.prepareRender(facesContext, component);
 
     final UITreeNode node = (UITreeNode) component;
     if (node.isMarked()) {
-      node.setMarkup(Markup.MARKED.add(node.getMarkup()));
+      node.setCurrentMarkup(Markup.MARKED.add(node.getCurrentMarkup()));
+    }
+    if (node.isFolder()) {
+      node.setCurrentMarkup(Markup.FOLDER.add(node.getCurrentMarkup()));
     }
   }
 

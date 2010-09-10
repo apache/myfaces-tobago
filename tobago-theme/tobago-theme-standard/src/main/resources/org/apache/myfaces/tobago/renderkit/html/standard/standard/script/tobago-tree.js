@@ -149,6 +149,19 @@ jQuery(document).ready(function () {
 
   });
 
+  jQuery(".tobago-treeNode-markup-folder .tobago-treeNode-toggle").click(function() {
+    tobagoTreeNodeToggle(this);
+  });
+
+  jQuery(".tobago-treeMenuNode-markup-folder .tobago-treeMenuNode-toggle").parent().each(function() {
+    // if there is no command, than the whole node element should be the toggle
+    var toggle = jQuery(this).children(".tobago-treeMenuCommand").size() == 0
+        ? jQuery(this)
+        : jQuery(this).find(".tobago-treeMenuNode-toggle");
+    toggle.click(function() {
+      tobagoTreeNodeToggle(this);
+    });
+  });
 /*
   jQuery(".tobago-treeListbox > div > div > select > option:selected").change();
 */

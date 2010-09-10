@@ -57,6 +57,7 @@ public final class Markup implements Serializable, Iterable<String> {
   public static final Markup EVEN = valueOf("even");
   public static final Markup FATAL = valueOf("fatal");
   public static final Markup FIRST = valueOf("first");
+  public static final Markup FOLDER = valueOf("folder");
   public static final Markup INFO = valueOf("info");
   public static final Markup LEFT = valueOf("left");
   public static final Markup MARKED = valueOf("marked");

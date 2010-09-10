@@ -278,7 +278,10 @@ public abstract class AbstractUITreeData extends javax.faces.component.UIInput
 
     setRowIndex(facesContext, position);
     LOG.debug("path index (begin)  = '" + position + "'");
-    getTemplateComponent().encodeBegin(facesContext);
+    final AbstractUITreeNode template = getTemplateComponent();
+    super.encodeBegin(facesContext);// XXX hack!
+  //  template.getRenderer().pre
+    template.encodeBegin(facesContext);
     setRowIndex(facesContext, null);
 
     int index = 0;

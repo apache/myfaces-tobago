@@ -83,11 +83,14 @@ public class TreeMenuNodeRenderer extends LayoutComponentRendererBase {
 
   @Override
   public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
-    super.prepareRender(facesContext,        component);
+    super.prepareRender(facesContext, component);
 
     final UITreeNode node = (UITreeNode) component;
     if (node.isMarked()) {
-      node.setMarkup(Markup.MARKED.add(node.getMarkup()));
+      node.setCurrentMarkup(Markup.MARKED.add(node.getCurrentMarkup()));
+    }
+    if (node.isFolder()) {
+      node.setCurrentMarkup(Markup.FOLDER.add(node.getCurrentMarkup()));
     }
   }
 
@@ -111,10 +114,6 @@ public class TreeMenuNodeRenderer extends LayoutComponentRendererBase {
       writer.startElement(HtmlElements.DIV, null);
       writer.writeIdAttribute(id);
       writer.writeClassAttribute(Classes.create(node));
-
-      if (folder) {
-        writer.writeAttribute("onclick", "tobagoTreeNodeToggle(this)", false);
-      }
 
       if (folder) {
         encodeExpandedHidden(writer, node, id, expanded);

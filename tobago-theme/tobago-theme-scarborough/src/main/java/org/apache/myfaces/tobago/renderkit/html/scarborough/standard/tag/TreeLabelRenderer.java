@@ -49,9 +49,6 @@ public class TreeLabelRenderer extends LayoutComponentRendererBase {
     writer.writeClassAttribute(Classes.create(label));
     writer.writeStyleAttribute(createStyle(facesContext, label));
     HtmlRendererUtils.renderTip(label, writer);
-    if (folder) {
-      writer.writeAttribute("onclick", "tobagoTreeNodeToggle(this)", false);
-    }
 
     if (label.getValue() != null) {
       writer.writeText((String) label.getValue());
