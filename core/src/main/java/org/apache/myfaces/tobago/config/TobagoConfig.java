@@ -19,8 +19,8 @@ package org.apache.myfaces.tobago.config;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.context.Theme;
 import org.apache.myfaces.tobago.context.RenderersConfig;
+import org.apache.myfaces.tobago.context.Theme;
 
 import javax.faces.context.FacesContext;
 import java.util.ArrayList;
@@ -42,6 +42,7 @@ public class TobagoConfig {
   private List<String> resourceDirs;
   private List<MappingRule> mappingRules;
   private boolean ajaxEnabled;
+  private boolean fixResourceOrder;
   private Map<String, Theme> availableTheme;
   private RenderersConfig renderersConfig;
 
@@ -51,6 +52,7 @@ public class TobagoConfig {
     supportedThemes = new ArrayList<Theme>();
     resourceDirs = new ArrayList<String>();
     ajaxEnabled = true;
+    fixResourceOrder = false;
   }
 
   public void addMappingRule(MappingRule mappingRule) {
@@ -168,6 +170,14 @@ public class TobagoConfig {
 
   public void setAjaxEnabled(String value) {
     this.ajaxEnabled = Boolean.valueOf(value);
+  }
+
+  public boolean isFixResourceOrder() {
+    return fixResourceOrder;
+  }
+
+  public void setFixResourceOrder(String fixResourceOrder) {
+    this.fixResourceOrder = Boolean.valueOf(fixResourceOrder);
   }
 
   @Deprecated

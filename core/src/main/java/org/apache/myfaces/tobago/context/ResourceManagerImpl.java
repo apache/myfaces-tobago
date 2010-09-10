@@ -194,6 +194,12 @@ public class ResourceManagerImpl implements ResourceManager {
 
     String path;
 
+    if (tobagoConfig.isFixResourceOrder()) {
+      if (getLocalPaths(prefix, name, suffix, reverseOrder, single, returnKey, key, returnStrings, matches, locales)) {
+        return matches;
+      }
+    }
+
     // e.g. 1. application, 2. library or renderkit
     for (Theme themeName : theme.getFallbackList()) { // theme loop
       for (String resourceDirectory : tobagoConfig.getResourceDirs()) {
@@ -216,12 +222,13 @@ public class ResourceManagerImpl implements ResourceManager {
         }
       }
     }
-    for (String localeSuffix : locales) { // locale loop
-      path = makePath(name, localeSuffix, suffix, key);
-      if (checkPath(prefix, reverseOrder, single, returnKey, returnStrings, matches, path)) {
+
+    if (!tobagoConfig.isFixResourceOrder()) {
+      if (getLocalPaths(prefix, name, suffix, reverseOrder, single, returnKey, key, returnStrings, matches, locales)) {
         return matches;
       }
     }
+
     if (matches.isEmpty()) {
       if (!ignoreMissing) {
         LOG.error("Path not found, and no fallback. Using empty string.\n"
@@ -242,6 +249,22 @@ public class ResourceManagerImpl implements ResourceManager {
     } else {
       return matches;
     }
+  }
+
+  /**
+   * @return indicates, if the search should be terminated.
+   */
+  private boolean getLocalPaths(
+      String prefix, String name, String suffix, boolean reverseOrder, boolean single, boolean returnKey, String key,
+      boolean returnStrings, List matches, List<String> locales) {
+    String path;
+    for (String localeSuffix : locales) { // locale loop
+      path = makePath(name, localeSuffix, suffix, key);
+      if (checkPath(prefix, reverseOrder, single, returnKey, returnStrings, matches, path)) {
+        return true;
+      }
+    }
+    return false;
   }
 
   /**
