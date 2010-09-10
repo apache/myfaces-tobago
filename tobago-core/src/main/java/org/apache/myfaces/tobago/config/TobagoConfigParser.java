@@ -19,11 +19,11 @@ package org.apache.myfaces.tobago.config;
 
 import org.apache.commons.digester.Digester;
 import org.apache.commons.io.IOUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.context.MarkupConfig;
 import org.apache.myfaces.tobago.context.RendererConfig;
 import org.apache.myfaces.tobago.context.RenderersConfigImpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.xml.sax.SAXException;
 
 import javax.faces.FacesException;
@@ -37,6 +37,7 @@ public class TobagoConfigParser {
   private static final Logger LOG = LoggerFactory.getLogger(TobagoConfigParser.class);
 
   private static final String TOBAGO_CONFIG_DTD = "/org/apache/myfaces/tobago/config/tobago-config_1_0.dtd";
+  private static final String TOBAGO_CONFIG_DTD_1_0_29 = "/org/apache/myfaces/tobago/config/tobago-config_1_0_29.dtd";
 
   public TobagoConfig parse(ServletContext context) throws IOException, SAXException, FacesException {
 
@@ -58,6 +59,12 @@ public class TobagoConfigParser {
 
     // resource dirs
     digester.addCallMethod("tobago-config/resource-dir", "addResourceDir", 0);
+
+    // enable ajax
+    digester.addCallMethod("tobago-config/ajax-enabled", "setAjaxEnabled", 0);
+
+    // see bug TOBAGO-912
+    digester.addCallMethod("tobago-config/fix-resource-order", "setFixResourceOrder", 0);
 
     // renderer config
     digester.addObjectCreate("tobago-config/renderers", RenderersConfigImpl.class);
@@ -91,15 +98,16 @@ public class TobagoConfigParser {
 
   private void registerDtd(Digester digester) {
     URL url = TobagoConfigParser.class.getResource(TOBAGO_CONFIG_DTD);
+    URL url1029 = TobagoConfigParser.class.getResource(TOBAGO_CONFIG_DTD_1_0_29);
     if (LOG.isDebugEnabled()) {
       LOG.debug("Registering dtd: url={}", url);
     }
     if (null != url) {
       digester.register("-//Atanion GmbH//DTD Tobago Config 1.0//EN", url.toString());
       digester.register("-//The Apache Software Foundation//DTD Tobago Config 1.0//EN", url.toString());
+      digester.register("-//The Apache Software Foundation//DTD Tobago Config 1.0.29//EN", url1029.toString());
     } else {
       LOG.warn("Unable to retrieve local DTD '" + TOBAGO_CONFIG_DTD + "'; trying external URL");
     }
   }
-
 }

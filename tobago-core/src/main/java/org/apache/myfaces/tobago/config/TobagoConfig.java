@@ -17,13 +17,13 @@ package org.apache.myfaces.tobago.config;
  * limitations under the License.
  */
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.application.ProjectStage;
 import org.apache.myfaces.tobago.context.RenderersConfig;
 import org.apache.myfaces.tobago.context.Theme;
 import org.apache.myfaces.tobago.internal.util.Deprecation;
 import org.apache.myfaces.tobago.internal.util.JndiUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.context.FacesContext;
 import javax.naming.Context;
@@ -228,5 +228,9 @@ public class
       projectStage = ProjectStage.Production;
     }
   }
-}
 
+  @Deprecated
+  public void setFixResourceOrder(String value) {
+    Deprecation.LOG.error("Config fix-resource-order not longer supported. (Is always activated).");
+  }
+}
