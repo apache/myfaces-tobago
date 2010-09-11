@@ -41,7 +41,7 @@ public class FileItemValidator implements Validator, StateHolder {
   public static final String SIZE_LIMIT_MESSAGE_ID = "org.apache.myfaces.tobago.FileItemValidator.SIZE_LIMIT";
   public static final String CONTENT_TYPE_MESSAGE_ID = "org.apache.myfaces.tobago.FileItemValidator.CONTENT_TYPE";
   private Integer maxSize = null;
-  private String contentType [];
+  private String[] contentType;
   private boolean transientValue;
 
   public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
