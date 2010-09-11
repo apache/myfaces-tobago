@@ -958,6 +958,25 @@
       <build>
         <plugins>
           <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>buildnumber-maven-plugin</artifactId>
+            <version>1.0-beta-4</version>
+            <executions>
+              <execution>
+                <phase>validate</phase>
+                <goals>
+                  <goal>create</goal>
+                </goals>
+              </execution>
+            </executions>
+            <configuration>
+              <doCheck>false</doCheck>
+              <doUpdate>false</doUpdate>
+              <getRevisionOnlyOnce>true</getRevisionOnlyOnce>
+              <buildNumberPropertyName>scm.revision</buildNumberPropertyName>
+            </configuration>
+          </plugin>
+          <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-gpg-plugin</artifactId>
             <configuration>
@@ -1036,19 +1055,6 @@
                 <id>attach-javadocs</id>
                 <goals>
                   <goal>jar</goal>
-                </goals>
-              </execution>
-            </executions>
-          </plugin>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-scm-plugin</artifactId>
-            <executions>
-              <execution>
-                <phase>validate</phase>
-                <id>getting-scm.revision</id>
-                <goals>
-                  <goal>update</goal>
                 </goals>
               </execution>
             </executions>
@@ -1276,7 +1282,7 @@
         <java.classes.jar>../Classes/classes.jar</java.classes.jar>
       </properties>
     </profile>
-     <profile>
+    <profile>
       <id>generate-assembly</id>
       <modules>
         <module>tobago-extension</module>
@@ -1286,15 +1292,23 @@
       <build>
         <plugins>
           <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-scm-plugin</artifactId>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>buildnumber-maven-plugin</artifactId>
+            <version>1.0-beta-4</version>
             <executions>
               <execution>
                 <phase>validate</phase>
-                <id>getting-scm.revision</id>
-                <goals><goal>update</goal></goals>
+                <goals>
+                  <goal>create</goal>
+                </goals>
               </execution>
             </executions>
+            <configuration>
+              <doCheck>false</doCheck>
+              <doUpdate>false</doUpdate>
+              <getRevisionOnlyOnce>true</getRevisionOnlyOnce>
+              <buildNumberPropertyName>scm.revision</buildNumberPropertyName>
+            </configuration>
           </plugin>
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
@@ -1317,24 +1331,27 @@
             </executions>
           </plugin>
           <plugin>
-            <!-- Using this plugin configuration to produce a buildable project source distro,
-                 per the discussion on members@ASF regarding what constitutes a valid release.
-             -->
-            <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-assembly-plugin</artifactId>
+            <dependencies>
+              <dependency>
+                <groupId>org.apache.apache.resources</groupId>
+                <artifactId>apache-source-release-assembly-descriptor</artifactId>
+                <version>1.0.2</version>
+              </dependency>
+            </dependencies>
             <executions>
               <execution>
-                <id>make-project-src-distro</id>
+                <id>source-release-assembly</id>
                 <phase>package</phase>
                 <goals>
                   <goal>single</goal>
                 </goals>
                 <configuration>
-                  <descriptorRefs>
-                    <descriptorRef>project</descriptorRef>
-                  </descriptorRefs>
-                  <tarLongFileMode>gnu</tarLongFileMode>
                   <runOnlyAtExecutionRoot>true</runOnlyAtExecutionRoot>
+                  <descriptorRefs>
+                    <descriptorRef>${sourceReleaseAssemblyDescriptor}</descriptorRef>
+                  </descriptorRefs>
+                  <tarLongFileFormat>gnu</tarLongFileFormat>
                 </configuration>
               </execution>
             </executions>
