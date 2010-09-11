@@ -37,7 +37,7 @@ public class AbstractTobagoTagLibrary  extends AbstractTagLibrary {
     addTagHandler("loadBundle", LoadBundleHandler.class);
     addTagHandler("converter", ConverterHandler.class);
     addTagHandler(Tags.GRID_LAYOUT_CONSTRAINT, GridLayoutConstraintHandler.class);
-    addValidator("validateFileItem", FileItemValidator.VALIDATOR_ID);
+    addValidator("validateFileItem", FileItemValidator.VALIDATOR_ID, TobagoValidateHandler.class);
     addValidator("validateSubmittedValueLength", SubmittedValueLengthValidator.VALIDATOR_ID);
     addTobagoComponent("script", "org.apache.myfaces.tobago.Script", "Script", ScriptHandler.class);
     addTobagoComponent("style", "org.apache.myfaces.tobago.Style", "Style", StyleHandler.class);

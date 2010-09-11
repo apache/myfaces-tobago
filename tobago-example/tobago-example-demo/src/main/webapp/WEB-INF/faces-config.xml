@@ -452,7 +452,7 @@ tree-select.xhtml
 -->
     <navigation-case>
       <from-outcome>reference/upload</from-outcome>
-      <to-view-id>/reference/upload.jsp</to-view-id>
+      <to-view-id>/reference/upload.xhtml</to-view-id>
     </navigation-case>
     <navigation-case>
       <from-outcome>reference/partial</from-outcome>

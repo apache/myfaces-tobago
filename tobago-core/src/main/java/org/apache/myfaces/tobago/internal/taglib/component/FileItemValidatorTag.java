@@ -20,6 +20,7 @@ package org.apache.myfaces.tobago.internal.taglib.component;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.TagGeneration;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.validator.FileItemValidator;
 
 import javax.faces.validator.Validator;
@@ -63,7 +64,7 @@ public abstract class FileItemValidatorTag extends ValidatorTag {
       }
     }
     if (isContentTypeSet()) {
-      validator.setContentType(getContentTypeValue());
+      validator.setContentType(ComponentUtils.splitList(getContentTypeValue()));
     }
     return validator;
   }
