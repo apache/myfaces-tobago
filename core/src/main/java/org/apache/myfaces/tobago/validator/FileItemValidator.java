@@ -28,11 +28,7 @@ import javax.faces.component.StateHolder;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.application.FacesMessage;
-
-/*
- * Date: Oct 30, 2006
- * Time: 9:59:13 PM
- */
+import java.util.Arrays;
 
 /**
  * <p><strong>FileItemValidator</strong> is a {@link Validator} that checks
@@ -45,7 +41,7 @@ public class FileItemValidator implements Validator, StateHolder {
   public static final String SIZE_LIMIT_MESSAGE_ID = "org.apache.myfaces.tobago.FileItemValidator.SIZE_LIMIT";
   public static final String CONTENT_TYPE_MESSAGE_ID = "org.apache.myfaces.tobago.FileItemValidator.CONTENT_TYPE";
   private Integer maxSize = null;
-  private String contentType;
+  private String contentType [];
   private boolean transientValue;
 
   public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
@@ -58,13 +54,26 @@ public class FileItemValidator implements Validator, StateHolder {
         throw new ValidatorException(facesMessage);
       }
       // Check only a valid file
-      if (file.getSize() > 0 && contentType != null
-          && !ContentType.valueOf(contentType).match(ContentType.valueOf(file.getContentType()))) {
-        ContentType expectedContentType = ContentType.valueOf(contentType);
-        Object[] args = {expectedContentType, component.getId()};
-        FacesMessage facesMessage = MessageFactory.createFacesMessage(context,
-            CONTENT_TYPE_MESSAGE_ID, FacesMessage.SEVERITY_ERROR, args);
-        throw new ValidatorException(facesMessage);
+      if (file.getSize() > 0 && contentType != null && contentType.length > 0) {
+        boolean found = false;
+        for (String contentTypeStr : contentType) {
+          if (ContentType.valueOf(contentTypeStr).match(ContentType.valueOf(file.getContentType()))) {
+            found = true;
+            break;
+          }
+        }
+        if (!found) {
+          String message;
+          if (contentType.length == 1) {
+            message = contentType[0];
+          } else {
+            message = Arrays.toString(contentType);
+          }
+          Object[] args = {message, component.getId()};
+          FacesMessage facesMessage = MessageFactory.createFacesMessage(context,
+              CONTENT_TYPE_MESSAGE_ID, FacesMessage.SEVERITY_ERROR, args);
+          throw new ValidatorException(facesMessage);
+        }
       }
     }
   }
@@ -79,11 +88,11 @@ public class FileItemValidator implements Validator, StateHolder {
     }
   }
 
-  public String getContentType() {
+  public String[] getContentType() {
     return contentType;
   }
 
-  public void setContentType(String contentType) {
+  public void setContentType(String[] contentType) {
     this.contentType = contentType;
   }
 
@@ -97,7 +106,7 @@ public class FileItemValidator implements Validator, StateHolder {
   public void restoreState(FacesContext context, Object state) {
     Object[] values = (Object[]) state;
     maxSize = (Integer) values[0];
-    contentType = (String) values[1];
+    contentType = (String[]) values[1];
   }
 
   public boolean isTransient() {

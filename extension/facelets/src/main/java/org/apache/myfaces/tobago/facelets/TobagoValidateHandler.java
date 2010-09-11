@@ -17,23 +17,22 @@ package org.apache.myfaces.tobago.facelets;
  * limitations under the License.
  */
 
-import com.sun.facelets.tag.AbstractTagLibrary;
+import com.sun.facelets.tag.MetaRuleset;
+import com.sun.facelets.tag.jsf.ValidateHandler;
+import com.sun.facelets.tag.jsf.ValidatorConfig;
 import org.apache.myfaces.tobago.validator.FileItemValidator;
-import org.apache.myfaces.tobago.validator.SubmittedValueLengthValidator;
 
-public class AbstractTobagoTagLibrary  extends AbstractTagLibrary {
+public class TobagoValidateHandler extends ValidateHandler {
 
-  public AbstractTobagoTagLibrary(String namespace) {
-    super(namespace);
-    addTagHandler("attribute", AttributeHandler.class);
-    addTagHandler("tabChangeListener", TabChangeListenerHandler.class);
-    addTagHandler("popupReference", PopupReferenceHandler.class);
-    addTagHandler("loadBundle", LoadBundleHandler.class);
-    addTagHandler("converter", ConverterHandler.class);
-    addTagHandler("script", ScriptHandler.class);
-    addTagHandler("style", StyleHandler.class);
-    addValidator("validateFileItem", FileItemValidator.VALIDATOR_ID, TobagoValidateHandler.class);
-    addValidator("validateSubmittedValueLength", SubmittedValueLengthValidator.VALIDATOR_ID);   
+  public TobagoValidateHandler(ValidatorConfig config) {
+    super(config);
   }
 
+  protected MetaRuleset createMetaRuleset(Class aClass) {
+    MetaRuleset metaRuleset = super.createMetaRuleset(aClass);
+    if (FileItemValidator.class.isAssignableFrom(aClass)) {
+      metaRuleset.addRule(ContentTypeRule.INSTANCE);
+    }
+    return metaRuleset;
+  }
 }

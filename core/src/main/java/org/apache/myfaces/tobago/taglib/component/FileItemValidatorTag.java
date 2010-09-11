@@ -17,6 +17,7 @@ package org.apache.myfaces.tobago.taglib.component;
  * limitations under the License.
  */
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.validator.FileItemValidator;
@@ -72,7 +73,7 @@ public class FileItemValidatorTag extends ValidatorTag {
       }
     }
     if (contentType != null) {
-      validator.setContentType(contentType);
+      validator.setContentType(StringUtils.split(contentType, ", "));
     }
     return validator;
   }
