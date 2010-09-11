@@ -791,24 +791,27 @@
       <build>
         <plugins>
           <plugin>
-            <!-- Using this plugin configuration to produce a buildable project source distro,
-                 per the discussion on members@ASF regarding what constitutes a valid release.
-             -->
-            <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-assembly-plugin</artifactId>
+            <dependencies>
+              <dependency>
+                <groupId>org.apache.apache.resources</groupId>
+                <artifactId>apache-source-release-assembly-descriptor</artifactId>
+                <version>1.0.2</version>
+              </dependency>
+            </dependencies>
             <executions>
               <execution>
-                <id>make-project-src-distro</id>
+                <id>source-release-assembly</id>
                 <phase>package</phase>
                 <goals>
                   <goal>single</goal>
                 </goals>
                 <configuration>
-                  <descriptorRefs>
-                    <descriptorRef>project</descriptorRef>
-                  </descriptorRefs>
-                  <tarLongFileMode>gnu</tarLongFileMode>
                   <runOnlyAtExecutionRoot>true</runOnlyAtExecutionRoot>
+                  <descriptorRefs>
+                    <descriptorRef>${sourceReleaseAssemblyDescriptor}</descriptorRef>
+                  </descriptorRefs>
+                  <tarLongFileFormat>gnu</tarLongFileFormat>
                 </configuration>
               </execution>
             </executions>
@@ -819,35 +822,6 @@
     <profile>
       <id>jdk14retro</id>
     </profile>
-    <!-- START SNIPPET: staging-profile -->
-    <profile>
-      <id>staging</id>
-      <build>
-        <plugins>
-          <!-- We want to deploy the artifact to a staging location for perusal
-           mvn -Pstaging -Ddeploy.altRepository=scpexe://minotaur.apache.org/www/people.apache.org/builds/myfaces/m2-staging-repository
-
-           with the release plugin add following profile to your settings.xml
-           <profile>
-             <id>staging</id>
-             <properties>
-               <deploy.altRepository>apache.releases::default::scpexe://minotaur.apache.org/www/people.apache.org/builds/myfaces/tobago/m2-staging-repository</deploy.altRepository>
-             </properties>
-           </profile>
-          -->
-          <plugin>
-            <inherited>true</inherited>
-            <artifactId>maven-deploy-plugin</artifactId>
-            <version>2.3</version>
-            <configuration>
-              <altDeploymentRepository>${deploy.altRepository}</altDeploymentRepository>
-              <updateReleaseInfo>true</updateReleaseInfo>
-            </configuration>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
-    <!-- END SNIPPET: staging-profile -->
     <!-- START SNIPPET: release-profile -->
     <profile>
       <id>apache-release</id>
