@@ -22,11 +22,6 @@ import org.apache.myfaces.tobago.component.Tags;
 import org.apache.myfaces.tobago.validator.FileItemValidator;
 import org.apache.myfaces.tobago.validator.SubmittedValueLengthValidator;
 
-/*
- * User: bommel
- * Date: 18.04.2006
- * Time: 14:22:52
- */
 public class AbstractTobagoTagLibrary  extends AbstractTagLibrary {
 
   public AbstractTobagoTagLibrary(String namespace) {
