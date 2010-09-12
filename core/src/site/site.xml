@@ -28,11 +28,11 @@
     <href>http://myfaces.apache.org/tobago</href>
   </bannerRight>
   <publishDate format="dd MMM yyyy" />
-  <!--skin>
+  <skin>
     <groupId>org.apache.myfaces.maven</groupId>
-    <artifactId>tobago-site-skin</artifactId>
-    <version>1.0.5-SNAPSHOT</version>
-  </skin-->
+    <artifactId>myfaces-site-skin</artifactId>
+    <version>1</version>
+  </skin>
   <body>
     <menu name="Tobago">
       <item name="Introduction" href="http://myfaces.apache.org/tobago/index.html"/>
