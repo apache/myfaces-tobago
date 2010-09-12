@@ -17,6 +17,15 @@
  * limitations under the License.
 -->
 
+<!--
+  This is the DTD for the tobago configuration files version 1.5.
+  You should use the following DOCTYPE in your tobago-config.xml:
+
+  <!DOCTYPE tobago-config PUBLIC
+      "-//The Apache Software Foundation//DTD Tobago Config 1.5//EN"
+      "http://myfaces.apache.org/tobago/tobago-config-1.5.dtd">
+-->
+
 <!ENTITY % Boolean "(true|false|yes|no)">
 
 <!ELEMENT tobago-config (theme-config, resource-dir*, renderers?)>

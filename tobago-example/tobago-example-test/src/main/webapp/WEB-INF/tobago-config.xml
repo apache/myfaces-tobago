@@ -18,7 +18,8 @@
 -->
 
 <!DOCTYPE tobago-config PUBLIC
-    "-//The Apache Software Foundation//DTD Tobago Config 1.0//EN" "tobago-config_1_0.dtd">
+    "-//The Apache Software Foundation//DTD Tobago Config 1.0//EN"
+    "http://myfaces.apache.org/tobago/tobago-config_1_0.dtd">
 
 <tobago-config>
   <theme-config>
