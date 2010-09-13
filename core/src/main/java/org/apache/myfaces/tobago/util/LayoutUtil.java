@@ -20,6 +20,22 @@ package org.apache.myfaces.tobago.util;
 import org.apache.commons.lang.math.NumberUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.component.LayoutTokens;
+import org.apache.myfaces.tobago.component.UICell;
+import org.apache.myfaces.tobago.component.UIForm;
+import org.apache.myfaces.tobago.component.UIHiddenInput;
+import org.apache.myfaces.tobago.renderkit.LayoutInformationProvider;
+
+import javax.faces.component.UIComponent;
+import javax.faces.component.UINamingContainer;
+import javax.faces.component.UIParameter;
+import javax.faces.context.FacesContext;
+import java.awt.Dimension;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.StringTokenizer;
+
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_HEIGHT;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_INLINE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_INNER_HEIGHT;
@@ -30,19 +46,6 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_MINIMUM_SIZE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_WIDTH;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_LABEL;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_OUT;
-import org.apache.myfaces.tobago.component.ComponentUtil;
-import org.apache.myfaces.tobago.component.LayoutTokens;
-import org.apache.myfaces.tobago.component.UICell;
-import org.apache.myfaces.tobago.component.UIForm;
-import org.apache.myfaces.tobago.renderkit.LayoutInformationProvider;
-
-import javax.faces.component.UIComponent;
-import javax.faces.component.UINamingContainer;
-import javax.faces.context.FacesContext;
-import java.awt.Dimension;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.StringTokenizer;
 
 public final class LayoutUtil {
 
@@ -180,23 +183,32 @@ public final class LayoutUtil {
   public static boolean isTransparentForLayout(UIComponent component) {
 
     // SubViewTag's component is UINamingContainer with 'null' rendererType
-    // is transparent for layouting
-
-    if (component instanceof UINamingContainer
-        && component.getRendererType() == null) {
+    // is transparent for laying out.
+    if (component instanceof UINamingContainer && component.getRendererType() == null) {
       return true;
     }
-    // TODO find a better way
+
+    // debugging info
     if ("facelets".equals(component.getFamily())) {
       return !"com.sun.facelets.tag.UIDebug".equals(component.getClass().getName());
     }
-    /* TODO disable layouting of facelet stuff
-    if (component.getClass().getPackage().getName().equals("com.sun.facelets.compiler")) {
-      return true;
-    } */
-    //  also Forms are transparent for layouting
 
-    return component instanceof UIForm;
+    //  also Forms are transparent for laying out
+    if (component instanceof UIForm) {
+      return true;
+    }
+
+    // hidden fields, parameter and facelets instructions are transparent.
+    // this feature must be activated in the Tobago config for backward compatibility.
+    if (fixLayoutTransparency) {
+      if (component instanceof UIHiddenInput
+          || component instanceof UIParameter
+          || component.getClass().getPackage().getName().equals("com.sun.facelets.compiler")) {
+        return true;
+      }
+    }
+
+    return false;
   }
 
   public static UIComponent getLayoutParent(UIComponent component) {
@@ -304,4 +316,13 @@ public final class LayoutUtil {
     return token.substring(0, token.length() - suffix.length());
   }
 
+  private static Boolean fixLayoutTransparency;
+
+  public static void setFixLayoutTransparency(boolean fixLayoutTransparency) {
+    if (LayoutUtil.fixLayoutTransparency == null) {
+      LayoutUtil.fixLayoutTransparency = fixLayoutTransparency;
+    } else {
+      LOG.error("LayoutUtil.setFixLayoutTransparency() can only called one time.");
+    }
+  }
 }

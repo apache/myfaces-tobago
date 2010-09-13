@@ -17,14 +17,15 @@
  * limitations under the License.
 -->
 
-<!DOCTYPE tobago-config PUBLIC
-    "-//The Apache Software Foundation//DTD Tobago Config 1.0.30//EN"
-    "http://myfaces.apache.org/tobago/tobago-config-1.0.30.dtd">
+    <!--
+    The upper <?xml ... &> declaration creates a component, which must not be layed out!
+    -->
 
-<tobago-config>
-  <theme-config>
-    <default-theme>speyside</default-theme>
-  </theme-config>
-  <fix-resource-order>true</fix-resource-order>
-  <fix-layout-transparency>true</fix-layout-transparency>
-</tobago-config>
+<tc:image
+    xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:tc="http://myfaces.apache.org/tobago/component"
+    xmlns:tx="http://myfaces.apache.org/tobago/extension"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    id="image-0"
+    value="image/foo.gif"/>

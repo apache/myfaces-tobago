@@ -23,6 +23,7 @@ import org.apache.myfaces.tobago.config.ThemeConfig;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.config.TobagoConfigParser;
 import org.apache.myfaces.tobago.context.ResourceManagerFactory;
+import org.apache.myfaces.tobago.util.LayoutUtil;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
@@ -58,6 +59,9 @@ public class TobagoServletContextListener implements ServletContextListener {
       // resources
       ResourceManagerFactory.init(servletContext, tobagoConfig);
 
+      // apply bugfix
+      LayoutUtil.setFixLayoutTransparency(tobagoConfig.isFixLayoutTransparency());
+      
       // prepare themes
       tobagoConfig.resolveThemes();
 
