@@ -233,4 +233,9 @@ public class
   public void setFixResourceOrder(String value) {
     Deprecation.LOG.error("Config fix-resource-order not longer supported. (Is always activated).");
   }
+
+  @Deprecated
+  public void setFixLayoutTransparency(String value) {
+    Deprecation.LOG.error("Config fix-layout-transparency not longer supported. (Is always activated).");
+  }
 }
