@@ -44,6 +44,7 @@ public class TobagoConfig {
   private List<MappingRule> mappingRules;
   private boolean ajaxEnabled;
   private boolean fixResourceOrder;
+  private boolean fixLayoutTransparency;
   private Map<String, Theme> availableTheme;
   private RenderersConfig renderersConfig;
 
@@ -54,6 +55,7 @@ public class TobagoConfig {
     resourceDirs = new ArrayList<String>();
     ajaxEnabled = true;
     fixResourceOrder = false;
+    fixLayoutTransparency = false;
   }
 
   public void addMappingRule(MappingRule mappingRule) {
@@ -180,6 +182,14 @@ public class TobagoConfig {
 
   public void setFixResourceOrder(String fixResourceOrder) {
     this.fixResourceOrder = Boolean.valueOf(fixResourceOrder);
+  }
+
+  public boolean isFixLayoutTransparency() {
+    return fixLayoutTransparency;
+  }
+
+  public void setFixLayoutTransparency(String fixLayoutTransparency) {
+    this.fixLayoutTransparency = Boolean.valueOf(fixLayoutTransparency);
   }
 
   @Deprecated
