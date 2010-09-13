@@ -26,8 +26,7 @@ import java.util.Map;
 
 public class ResourceManagerFactory {
 
-  public static final String RESOURCE_MANAGER
-      = "org.apache.myfaces.tobago.context.ResourceManager";
+  public static final String RESOURCE_MANAGER = "org.apache.myfaces.tobago.context.ResourceManager";
 
   private ResourceManagerFactory() {
   }
@@ -36,8 +35,7 @@ public class ResourceManagerFactory {
 
   public static ResourceManager getResourceManager(FacesContext facesContext) {
     assert initialized;
-    return (ResourceManager) facesContext.getExternalContext()
-        .getApplicationMap().get(RESOURCE_MANAGER);
+    return (ResourceManager) facesContext.getExternalContext().getApplicationMap().get(RESOURCE_MANAGER);
   }
 
   public static ResourceManager getResourceManager(ServletContext servletContext) {
@@ -45,16 +43,13 @@ public class ResourceManagerFactory {
     return (ResourceManager) servletContext.getAttribute(RESOURCE_MANAGER);
   }
 
-  public static void init(
-      ServletContext servletContext, TobagoConfig tobagoConfig)
+  public static void init(ServletContext servletContext, TobagoConfig tobagoConfig)
       throws ServletException {
     assert !initialized;
-    ResourceManagerImpl resourceManager
-        = new ResourceManagerImpl(tobagoConfig);
+    ResourceManagerImpl resourceManager = new ResourceManagerImpl(tobagoConfig);
 
     ThemeBuilder themeBuilder = new ThemeBuilder();
-    ResourceLocator resourceLocator = new ResourceLocator(
-        servletContext, resourceManager, themeBuilder);
+    ResourceLocator resourceLocator = new ResourceLocator(servletContext, resourceManager, themeBuilder);
     resourceLocator.locate();
     Map<String, Theme> availableThemes = themeBuilder.resolveThemes(tobagoConfig.getRenderersConfig());
     tobagoConfig.setAvailableThemes(availableThemes);
