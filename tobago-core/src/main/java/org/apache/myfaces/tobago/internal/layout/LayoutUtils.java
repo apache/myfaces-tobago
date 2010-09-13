@@ -17,19 +17,15 @@ package org.apache.myfaces.tobago.internal.layout;
  * limitations under the License.
  */
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.component.Facets;
-import org.apache.myfaces.tobago.component.Form;
 import org.apache.myfaces.tobago.layout.LayoutBase;
 import org.apache.myfaces.tobago.layout.LayoutComponent;
 import org.apache.myfaces.tobago.layout.LayoutContainer;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.layout.Orientation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
-import javax.faces.component.UINamingContainer;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
@@ -43,61 +39,6 @@ public final class LayoutUtils {
 
   private LayoutUtils() {
     // to prevent instantiation
-  }
-
-  public static int getLabelWidth(UIComponent component) {
-    if (component != null) {
-      UIComponent label = component.getFacet(Facets.LABEL);
-      if (label != null) {
-        String labelWidth = (String) label.getAttributes().get(Attributes.WIDTH);
-        if (labelWidth != null) {
-          try {
-            return Integer.parseInt(labelWidth.replaceAll("\\D", ""));
-          } catch (NumberFormatException e) {
-            LOG.warn("Can't parse label width, using default value", e);
-          }
-        }
-      }
-    }
-    return 0;
-  }
-
-  public static List<UIComponent> addChildren(List<UIComponent> children, UIComponent panel) {
-    for (Object o : panel.getChildren()) {
-      UIComponent child = (UIComponent) o;
-      if (isTransparentForLayout(child)) {
-        addChildren(children, child);
-      } else {
-        children.add(child);
-      }
-    }
-    return children;
-  }
-
-  public static boolean isTransparentForLayout(UIComponent component) {
-
-//    SubViewTag's component is UINamingContainer with 'null' rendererType
-//    is transparent for layouting
-
-    if (component instanceof UINamingContainer
-        && component.getRendererType() == null) {
-      return true;
-    }
-    // TODO find a better way
-    if ("facelets".equals(component.getFamily())) {
-      return !"com.sun.facelets.tag.UIDebug".equals(component.getClass().getName());
-    }
-    /* TODO disable layouting of facelet stuff
-    if (component.getClass().getPackage().getName().equals("com.sun.facelets.compiler")) {
-      return true;
-    } */
-//  also Forms are transparent for layouting
-
-    if (component instanceof Form) {
-      return true;
-    }
-    
-    return false;
   }
 
   public static boolean checkTokens(String columns) {
