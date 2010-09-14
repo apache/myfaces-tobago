@@ -23,7 +23,7 @@ import org.apache.myfaces.tobago.component.UIPanel;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class FacetUtilsUniTest {
+public class FacetUtilsUnitTest {
 
   @Test
   public void testContextMenu() {
