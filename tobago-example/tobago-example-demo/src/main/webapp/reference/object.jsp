@@ -22,13 +22,32 @@
 
 <layout:overview>
   <jsp:body>
-    <tc:box label="Object">
+    <tc:box label="Object - Show external content inside of an application">
       <f:facet name="layout">
-        <tc:gridLayout columns="*" rows="fixed;*"/>
+        <tc:gridLayout rows="fixed;*"/>
       </f:facet>
-      <tc:link label="Show Trinidad and Tobago"
-         link="http://maps.google.com/maps?f=q&hl=en&q=Tobago+Trinidad+and+Tobago&ie=UTF8&cd=1&geocode=0,11.219535,-60.669460&t=h&om=1&s=AARTsJqqwZcE2iAOIG6P8y5bl0cr1jRrAA&ll=11.257541,-60.652771&spn=0.117851,0.145912&z=12&iwloc=addr&output=embed" target="page:map"/>
-      <tc:object id="map" />
+
+      <tc:panel>
+        <f:facet name="layout">
+          <tc:gridLayout columns="80px;80px;80px;*"/>
+        </f:facet>
+        <tc:link
+            label="Show Tobago"
+            link="http://maps.google.com/maps?f=q&ie=UTF8&cd=1&t=h&ll=11.249123,-60.687103&z=10&output=embed"
+            target="page:content:map"/>
+        <tc:link
+            label="Show Plane"
+            link="http://maps.google.com/maps?f=q&ie=UTF8&cd=1&t=h&sll=50.053839,8.624933&z=17&output=embed"
+            target="page:content:map"/>
+        <tc:link
+            label="Show World"
+            link="http://maps.google.com/maps?f=q&ie=UTF8&cd=1&t=h&ll=0,0&z=1&output=embed"
+            target="page:content:map"/>
+        <tc:cell/>
+      </tc:panel>
+
+      <tc:object id="map"/>
+
     </tc:box>
   </jsp:body>
 </layout:overview>
