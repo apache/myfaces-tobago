@@ -110,6 +110,7 @@
       <modules>
         <module>blank</module>
         <module>demo</module>
+        <module>data</module>
       </modules>
     </profile>
     <profile>
@@ -117,6 +118,7 @@
       <modules>
         <module>blank</module>
         <module>demo</module>
+        <module>data</module>
         <module>tobago-example-assembly</module>
       </modules>
     </profile>
