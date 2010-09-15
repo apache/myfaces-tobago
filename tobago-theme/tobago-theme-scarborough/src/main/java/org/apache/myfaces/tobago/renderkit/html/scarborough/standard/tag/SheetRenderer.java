@@ -289,6 +289,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
     final String var = sheet.getVar();
 
     boolean odd = false;
+    boolean emptySheet = true;
     // rows = 0 means: show all
     final int last = sheet.hasRows() ? sheet.getFirst() + sheet.getRows() : Integer.MAX_VALUE;
     for (int rowIndex = sheet.getFirst(); rowIndex < last; rowIndex++) {
@@ -296,6 +297,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
       if (!sheet.isRowAvailable()) {
         break;
       }
+      emptySheet = false;
       odd = !odd;
 
       if (LOG.isDebugEnabled()) {
@@ -381,6 +383,28 @@ public class SheetRenderer extends LayoutComponentRendererBase {
     }
 
     sheet.setRowIndex(-1);
+
+    if (emptySheet && showHeader) {
+      writer.startElement(HtmlElements.TR, null);
+      writer.flush();
+      int columnIndex = -1;
+      for (UIColumn column : renderedColumnList) {
+        columnIndex++;
+        writer.startElement(HtmlElements.TD, null);
+        writer.startElement(HtmlElements.DIV, null);
+        Integer divWidth = sheet.getWidthList().get(columnIndex);
+        Style divStyle = new Style();
+        divStyle.setWidth(Measure.valueOf(divWidth));
+        writer.writeStyleAttribute(divStyle);
+        writer.endElement(HtmlElements.DIV);
+        writer.endElement(HtmlElements.TD);
+      }
+      writer.startElement(HtmlElements.TD, null);
+      writer.flush();
+      writer.write("&nbsp;");
+      writer.endElement(HtmlElements.TD);
+      writer.endElement(HtmlElements.TR);
+    }
 
     writer.endElement(HtmlElements.TABLE);
     writer.endElement(HtmlElements.DIV);
