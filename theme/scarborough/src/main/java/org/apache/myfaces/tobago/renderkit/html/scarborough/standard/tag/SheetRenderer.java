@@ -478,6 +478,24 @@ public class SheetRenderer extends LayoutableRendererBase implements SheetRender
 
     data.setRowIndex(-1);
 
+    if (visibleIndex == -1 && showHeader) {
+      writer.startElement(HtmlConstants.TR, null);
+      writer.flush();
+      int columnIndex = -1;
+      for (UIColumn column : renderedColumnList) {
+        columnIndex++;
+        writer.startElement(HtmlConstants.TD, null);
+        writer.startElement(HtmlConstants.DIV, null);
+        writer.writeStyleAttribute(HtmlRendererUtil.toStyleString("width", columnWidths.get(columnIndex)));
+        writer.endElement(HtmlConstants.DIV);
+        writer.endElement(HtmlConstants.TD);
+      }
+      writer.startElement(HtmlConstants.TD, null);
+      writer.flush();
+      writer.write("&nbsp;");
+      writer.endElement(HtmlConstants.TD);
+      writer.endElement(HtmlConstants.TR);
+    }
 
     writer.endElement(HtmlConstants.TABLE);
     writer.endElement(HtmlConstants.DIV);
