@@ -375,11 +375,11 @@ public class SheetRenderer extends LayoutableRendererBase implements SheetRender
     int visibleIndex = -1;
     final int last = data.getFirst() + data.getRows();
     for (int rowIndex = data.getFirst(); rowIndex < last; rowIndex++) {
-      visibleIndex++;
       data.setRowIndex(rowIndex);
       if (!data.isRowAvailable()) {
         break;
       }
+      visibleIndex++;
       odd = !odd;
       final String rowClass = odd ? "tobago-sheet-content-odd " : "tobago-sheet-content-even ";
 
