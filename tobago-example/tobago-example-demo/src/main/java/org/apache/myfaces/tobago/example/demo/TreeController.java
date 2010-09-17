@@ -17,7 +17,6 @@ package org.apache.myfaces.tobago.example.demo;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.model.TreeState;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,7 +33,7 @@ public class TreeController {
 
   private DefaultMutableTreeNode tree;
 
-  private TreeState state;
+//  private TreeState state;
 
   public TreeController() {
     // tree
@@ -74,9 +73,9 @@ public class TreeController {
     ((Node) temp.getUserObject()).setSelected(true);
 
     // state
-    state = new TreeState();
-    state.addSelection(temp2);
-    state.setMarker(music);
+//    state = new TreeState();
+//    state.addSelection(temp2);
+//    state.setMarker(music);
   }
 
   public String action1() {
@@ -99,22 +98,26 @@ public class TreeController {
   }
 
   public String createNode() {
+/*
     DefaultMutableTreeNode marker = state.getMarker();
     if (marker != null) {
       marker.insert(new DefaultMutableTreeNode(new Node("New Node")), 0);
     } else {
       // todo: print a warning or use root?
     }
+*/
     return null;
   }
 
   public String deleteNode() {
+/*
     DefaultMutableTreeNode marker = state.getMarker();
     if (marker != null) {
       marker.removeFromParent();
     } else {
       // todo: print a warning or use root?
     }
+*/
     return null;
   }
 
@@ -130,6 +133,7 @@ public class TreeController {
     this.tree = tree;
   }
 
+/*
   public TreeState getState() {
     return state;
   }
@@ -137,4 +141,5 @@ public class TreeController {
   public void setState(TreeState state) {
     this.state = state;
   }
+*/
 }

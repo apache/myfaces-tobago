@@ -20,50 +20,46 @@ package org.apache.myfaces.tobago.model;
 import org.apache.commons.lang.StringUtils;
 
 import javax.swing.tree.DefaultMutableTreeNode;
+import java.util.Enumeration;
 import java.util.HashSet;
 import java.util.Set;
 
 /**
  * Manages the state on a Tree:<br />
  * 1. selection: selected tree-nodes<br />
- * 3. marked: last used action object<br />
+ * 2. expandState: open/close folder state<br />
+ * 3. marker: last used action object<br />
+ * @deprecated
  */
+@Deprecated
 public class TreeState {
 
-  private Set<TreePath> selected;
-  private Set<TreePath> marked; // XXX Why a set and not only a TreePath?
+  public static final String SEP = ";";
 
-  @Deprecated
   private Set<DefaultMutableTreeNode> selection;
-  @Deprecated
+  private Set<DefaultMutableTreeNode> expandState;
   private DefaultMutableTreeNode marker;
-  @Deprecated
   private DefaultMutableTreeNode lastMarker;
-  @Deprecated
   private String lastCommand;
-  // XXX ???
   private Integer[] scrollPosition;
 
   public TreeState() {
     selection = new HashSet<DefaultMutableTreeNode>();
-    selected = new HashSet<TreePath>();
-    marked = new HashSet<TreePath>();
+    expandState = new HashSet<DefaultMutableTreeNode>();
   }
 
-  public Set<TreePath> getSelected() {
-    return selected;
+  public void addExpandState(DefaultMutableTreeNode expandStateItem) {
+    expandState.add(expandStateItem);
   }
 
-  public Set<TreePath> getMarked() {
-    return marked;
-  }
-
-  @Deprecated
   public void addSelection(DefaultMutableTreeNode selectItem) {
     selection.add(selectItem);
   }
 
-  @Deprecated
+  public void clearExpandState() {
+    expandState.clear();
+  }
+
   public void clearSelection() {
     selection.clear();
   }
@@ -71,59 +67,91 @@ public class TreeState {
   /**
    * Adds a (external created) node to the actually marked node.
    */
-  @Deprecated
   public void commandNew(DefaultMutableTreeNode newNode) {
     marker.insert(newNode, 0);
     setLastMarker(null);
     setLastCommand(null);
   }
 
-  @Deprecated
+  public void expand(DefaultMutableTreeNode node, int level) {
+    if (level > 0) {
+      if (!expandState.contains(node)) {
+        expandState.add(node);
+      }
+      for (Enumeration i = node.children(); i.hasMoreElements();) {
+        DefaultMutableTreeNode child = (DefaultMutableTreeNode) i.nextElement();
+        expand(child, level - 1);
+      }
+    }
+  }
+
+  /**
+   * Expands all parents which contains selected children.
+   */
+  public void expandSelection() {
+    for (DefaultMutableTreeNode treeNode : selection) {
+      expandTo(treeNode);
+    }
+  }
+
+  public void expandTo(DefaultMutableTreeNode node) {
+    node = (DefaultMutableTreeNode) node.getParent();
+    while (node != null) {
+      if (!expandState.contains(node)) {
+        expandState.add(node);
+      }
+      node = (DefaultMutableTreeNode) node.getParent();
+    }
+  }
+
+  public boolean isExpanded(DefaultMutableTreeNode node) {
+    return expandState.contains(node);
+  }
+
   public boolean isMarked(DefaultMutableTreeNode node) {
     return node != null && node.equals(marker);
   }
 
-  @Deprecated
   public boolean isSelected(DefaultMutableTreeNode node) {
     return selection.contains(node);
   }
 
-  @Deprecated
+  public Set<DefaultMutableTreeNode> getExpandState() {
+    return expandState;
+  }
+
+  public void setExpandState(Set<DefaultMutableTreeNode> expandState) {
+    this.expandState = expandState;
+  }
+
   public String getLastCommand() {
     return lastCommand;
   }
 
-  @Deprecated
   public void setLastCommand(String lastCommand) {
     this.lastCommand = lastCommand;
   }
 
-  @Deprecated
   public DefaultMutableTreeNode getLastMarker() {
     return lastMarker;
   }
 
-  @Deprecated
   public void setLastMarker(DefaultMutableTreeNode lastMarker) {
     this.lastMarker = lastMarker;
   }
 
-  @Deprecated
   public DefaultMutableTreeNode getMarker() {
     return marker;
   }
 
-  @Deprecated
   public void setMarker(DefaultMutableTreeNode marker) {
     this.marker = marker;
   }
 
-  @Deprecated
   public Set<DefaultMutableTreeNode> getSelection() {
     return selection;
   }
 
-  @Deprecated
   public void setSelection(Set<DefaultMutableTreeNode> selection) {
     this.selection = selection;
   }
@@ -153,3 +181,4 @@ public class TreeState {
   }
 
 }
+

@@ -28,7 +28,6 @@ import org.apache.myfaces.tobago.example.data.CategoryTree;
 import org.apache.myfaces.tobago.example.data.Solar;
 import org.apache.myfaces.tobago.example.data.SolarObject;
 import org.apache.myfaces.tobago.model.SheetState;
-import org.apache.myfaces.tobago.model.TreeState;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -72,8 +71,6 @@ public class TobagoDemoController {
   private List<UIColumn> solarArrayColumns;
 
   private String solarArrayColumnLayout;
-
-  private TreeState treeState;
 
   private DefaultMutableTreeNode tree;
 

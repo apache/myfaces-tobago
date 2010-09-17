@@ -19,7 +19,6 @@ package org.apache.myfaces.tobago.example.test;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.apache.myfaces.tobago.model.TreeState;
 
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
@@ -33,7 +32,6 @@ public class DirectoryBrowser {
   private static final Logger LOG = LoggerFactory.getLogger(DirectoryBrowser.class);
 
   private PageItem tree;
-  private TreeState state;
   private PageItem current;
 
   public DirectoryBrowser() {
@@ -103,13 +101,5 @@ public class DirectoryBrowser {
 
   public void setCurrent(PageItem current) {
     this.current = current;
-  }
-
-  public TreeState getState() {
-    return state;
-  }
-
-  public void setState(TreeState state) {
-    this.state = state;
   }
 }
