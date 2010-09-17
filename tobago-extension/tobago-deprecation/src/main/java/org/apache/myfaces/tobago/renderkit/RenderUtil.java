@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.renderkit.util;
+package org.apache.myfaces.tobago.renderkit;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -23,7 +23,6 @@ import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.internal.util.Deprecation;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.layout.Measure;
-import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,7 +45,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @deprecated please use {@link RenderUtils}
+ * @deprecated please use {@link org.apache.myfaces.tobago.renderkit.util.RenderUtils}
  */
 @Deprecated
 public class RenderUtil {
