@@ -295,6 +295,16 @@ public class ComponentUtil {
     return CreateComponentUtils.createComponent(facesContext, componentType, rendererType, id);
   }
   
+  /**
+   * Please use createComponent(FacesContext facesContext, String componentType, String rendererType, String id)
+   *
+   * @deprecated
+   */
+  @Deprecated
+  public static UIComponent createComponent(FacesContext facesContext, String componentType, String rendererType) {
+    return createComponent(facesContext, componentType, rendererType, null);
+  }
+
   public static UIColumn createTextColumn(String label, String sortable, String align, String value, String id) {
     return (UIColumn) CreateComponentUtils.createTextColumn(label, sortable, align, value, id);
   }
