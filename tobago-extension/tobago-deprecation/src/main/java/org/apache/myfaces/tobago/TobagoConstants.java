@@ -672,6 +672,15 @@ public final class TobagoConstants {
   @Deprecated
   public static final String RENDERER_TYPE_VERBATIM = "Verbatim";
 
+  @Deprecated
+  public static final String ATTR_NAME_REFERENCE = "nameReference";
+  @Deprecated
+  public static final String ATTR_DISABLED_REFERENCE = "disabledReference";
+  @Deprecated
+  public static final String ATTR_ID_REFERENCE = "idReference";
+  @Deprecated
+  public static final String ATTR_TIP_REFERENCE = "tipReference";
+
   private TobagoConstants() {
     // to prevent instantiation
   }
