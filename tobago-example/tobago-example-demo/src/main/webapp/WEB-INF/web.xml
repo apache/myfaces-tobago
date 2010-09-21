@@ -25,6 +25,11 @@
   <display-name>Tobago Demo Application</display-name>
 
   <context-param>
+    <param-name>javax.faces.PROJECT_STAGE</param-name>
+    <param-value>Development</param-value>
+  </context-param>
+
+  <context-param>
     <param-name>com.sun.faces.validateXml</param-name>
     <param-value>true</param-value>
   </context-param>
