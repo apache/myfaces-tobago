@@ -87,7 +87,7 @@
                 <outputFile>tobago.taglib.xml</outputFile>
               </outputFiles>
               <resourceTargetPath>META-INF</resourceTargetPath>
-              <outputDirectory>target/generated-sources</outputDirectory>
+              <outputDirectory>${project.build.directory}/generated-sources</outputDirectory>
               <factory>org.apache.myfaces.tobago.apt.FaceletAnnotationProcessorFactory</factory>
               <nocompile>true</nocompile>
               <encoding>${maven.compile.encoding}</encoding>

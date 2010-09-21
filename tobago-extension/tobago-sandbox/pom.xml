@@ -42,7 +42,7 @@
             </goals>
             <configuration>
               <sources>
-                <source>target/generated-component</source>
+                <source>${project.build.directory}/generated-component</source>
               </sources>
             </configuration>
           </execution>
@@ -94,7 +94,7 @@
                 <additionalSourceRoot>${project.build.directory}/tobago-core-sources</additionalSourceRoot>
               </additionalSourceRoots>
               <resourceTargetPath>META-INF</resourceTargetPath>
-              <outputDirectory>target/generated-tld</outputDirectory>
+              <outputDirectory>${project.build.directory}/generated-tld</outputDirectory>
               <factory>org.apache.myfaces.tobago.apt.TaglibAnnotationProcessorFactory</factory>
               <nocompile>true</nocompile>
               <encoding>${maven.compile.encoding}</encoding>
@@ -120,7 +120,7 @@
                 <additionalSourceRoot>${project.build.directory}/tobago-core-sources</additionalSourceRoot>
               </additionalSourceRoots>
               <resourceTargetPath>META-INF</resourceTargetPath>
-              <outputDirectory>target/generated-component</outputDirectory>
+              <outputDirectory>${project.build.directory}/generated-component</outputDirectory>
               <factory>org.apache.myfaces.tobago.apt.CreateComponentAnnotationProcessorFactory</factory>
               <fork>true</fork>
               <nocompile>true</nocompile>
@@ -137,7 +137,7 @@
               <phase>process-classes</phase>
             <configuration>
               <outputFiles>
-                <outputFile>target/generated-faces-config/faces-config.xml</outputFile>
+                <outputFile>${project.build.directory}/generated-faces-config/faces-config.xml</outputFile>
               </outputFiles>
               <excludes>
                 <exclude>org/apache/myfaces/tobago/util/CommonsLoggingLogger.java</exclude>
@@ -152,7 +152,7 @@
                 <additionalSourceRoot>${project.build.directory}/tobago-core-sources</additionalSourceRoot>
               </additionalSourceRoots>
               <resourceTargetPath>META-INF</resourceTargetPath>
-              <outputDirectory>target/generated-faces-config</outputDirectory>
+              <outputDirectory>${project.build.directory}/generated-faces-config</outputDirectory>
               <factory>org.apache.myfaces.tobago.apt.FacesConfigAnnotationProcessorFactory</factory>
               <!--<force>true</force>-->
               <fork>true</fork>
@@ -214,7 +214,7 @@
               <resources>
                 <resource>
                   <targetPath>META-INF</targetPath>
-                  <directory>target/generated-faces-config</directory>
+                  <directory>${project.build.directory}/generated-faces-config</directory>
                 </resource>
               </resources>
             </configuration>

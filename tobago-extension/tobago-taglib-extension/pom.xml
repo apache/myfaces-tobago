@@ -88,7 +88,7 @@
                 <additionalSourceRoot>${project.build.directory}/tobago-core-sources</additionalSourceRoot>
               </additionalSourceRoots>
               <resourceTargetPath>META-INF</resourceTargetPath>
-              <outputDirectory>target/generated-tld</outputDirectory>
+              <outputDirectory>${project.build.directory}/generated-tld</outputDirectory>
               <factory>org.apache.myfaces.tobago.apt.TaglibAnnotationProcessorFactory</factory>
               <nocompile>true</nocompile>
               <encoding>${maven.compile.encoding}</encoding>

@@ -42,7 +42,7 @@
             </goals>
             <configuration>
               <sources>
-                <source>target/generated-component</source>
+                <source>${project.build.directory}/generated-component</source>
               </sources>
             </configuration>
           </execution>
@@ -62,7 +62,7 @@
                 <outputFile>org/apache/myfaces/tobago/internal/taglib/extension/tobago-extension.tld</outputFile>
               </outputFiles>
               <resourceTargetPath>META-INF</resourceTargetPath>
-              <outputDirectory>target/generated-tld</outputDirectory>
+              <outputDirectory>${project.build.directory}/generated-tld</outputDirectory>
               <factory>org.apache.myfaces.tobago.apt.TaglibAnnotationProcessorFactory</factory>
               <nocompile>true</nocompile>
               <encoding>${maven.compile.encoding}</encoding>
@@ -83,7 +83,7 @@
                 <exclude>org/apache/myfaces/tobago/internal/taglib/component/package-info.java</exclude>
               </excludes>
               <resourceTargetPath>META-INF</resourceTargetPath>
-              <outputDirectory>target/generated-component</outputDirectory>
+              <outputDirectory>${project.build.directory}/generated-component</outputDirectory>
               <factory>org.apache.myfaces.tobago.apt.CreateComponentAnnotationProcessorFactory</factory>
               <fork>true</fork>
               <nocompile>true</nocompile>
@@ -100,7 +100,7 @@
             <phase>process-classes</phase>
             <configuration>
               <outputFiles>
-                <outputFile>target/generated-faces-config/faces-config.xml</outputFile>
+                <outputFile>${project.build.directory}/generated-faces-config/faces-config.xml</outputFile>
               </outputFiles>
               <excludes>
                 <exclude>org/apache/myfaces/tobago/util/CommonsLoggingLogger.java</exclude>
@@ -111,7 +111,7 @@
                 <exclude>org/apache/myfaces/tobago/component/*</exclude>
               </excludes>
               <resourceTargetPath>META-INF</resourceTargetPath>
-              <outputDirectory>target/generated-faces-config</outputDirectory>
+              <outputDirectory>${project.build.directory}/generated-faces-config</outputDirectory>
               <factory>org.apache.myfaces.tobago.apt.FacesConfigAnnotationProcessorFactory</factory>
               <fork>true</fork>
               <nocompile>true</nocompile>

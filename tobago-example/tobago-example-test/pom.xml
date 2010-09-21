@@ -79,7 +79,7 @@
           <transformationSets>
             <transformationSet>
               <dir>src/main/webapp</dir>
-              <outputDir>target/tobago-example-test</outputDir>
+              <outputDir>${project.build.directory}/tobago-example-test</outputDir>
               <!-- not nice, but works... -->
               <stylesheet>../tobago-example-demo/src/main/xslt/facelet2jsp.xsl</stylesheet>
               <includes>
