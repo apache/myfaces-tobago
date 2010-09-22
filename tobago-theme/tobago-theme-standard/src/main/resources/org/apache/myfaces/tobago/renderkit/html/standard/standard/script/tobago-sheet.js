@@ -757,7 +757,7 @@ Tobago.Sheet.prototype.endResize = function(event) {
       var table = jQuery("#" + this.id.replace(/:/g, "\\:") + ">div>table");
       jQuery("colgroup>col", table).eq(columnNr).attr("width", this.newWidth);
 
-      var index = columnNr * 1 +1;
+      var index = columnNr * 1 + 1;
       jQuery("td:nth-child(" + index + ")", table).children().borderBoxWidth(this.newWidth);
 //      this.adjustScrollBars();
       this.adjustHeaderDiv();
@@ -773,14 +773,12 @@ Tobago.Sheet.prototype.storeSizes = function() {
     var headerDiv = jQuery("#" + idPrefix.replace(/:/g, "\\:"));
 
     var widths = "";
-    jQuery("span.tobago-sheet-header", headerDiv).each(function() {
-        var header = jQuery(this);
-        if (this.id !== undefined
-                && this.id.indexOf("header_box_filler") != -1) {
-            return false;
+    jQuery(headerDiv).children().each(function() {
+        if (!this.id || this.id === undefined
+                || this.id.indexOf("header_box_filler") != -1) {
+            return true;
         }
-        var width = header.outerWidth();
-        widths = widths + "," + width;
+        widths = widths + "," + jQuery(this).outerWidth();
     });
     Tobago.element(this.headerWidthsId).value = widths;
   };
