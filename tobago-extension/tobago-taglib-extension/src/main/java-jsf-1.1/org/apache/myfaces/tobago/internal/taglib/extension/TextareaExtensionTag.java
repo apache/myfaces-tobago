@@ -61,8 +61,8 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  */
 
 @Tag(name = "textarea")
-@ExtensionTag(baseClassName = "org.apache.myfaces.tobago.internal.taglib.TextAreaTag")
-public class TextAreaExtensionTag extends BodyTagSupport
+@ExtensionTag(baseClassName = "org.apache.myfaces.tobago.internal.taglib.TextareaTag")
+public class TextareaExtensionTag extends BodyTagSupport
     implements HasValue, HasValueChangeListener, HasIdBindingAndRendered,
     HasConverter, HasValidator, IsReadonly, IsDisabled, HasMarkup, IsRequired,
     HasValidatorMessage, HasRequiredMessage, HasConverterMessage,
@@ -89,7 +89,7 @@ public class TextAreaExtensionTag extends BodyTagSupport
   private String requiredMessage;
 
   private LabelExtensionTag labelTag;
-  private TextareaTag textAreaTag;
+  private TextareaTag textareaTag;
 
   @Override
   public int doStartTag() throws JspException {
@@ -115,66 +115,66 @@ public class TextAreaExtensionTag extends BodyTagSupport
     labelTag.setParent(getParent());
     labelTag.doStartTag();
 
-    textAreaTag = new TextareaTag();
-    textAreaTag.setPageContext(pageContext);
+    textareaTag = new TextareaTag();
+    textareaTag.setPageContext(pageContext);
     if (value != null) {
-      textAreaTag.setValue(value);
+      textareaTag.setValue(value);
     }
     if (valueChangeListener != null) {
-      textAreaTag.setValueChangeListener(valueChangeListener);
+      textareaTag.setValueChangeListener(valueChangeListener);
     }
     if (binding != null) {
-      textAreaTag.setBinding(binding);
+      textareaTag.setBinding(binding);
     }
     if (converter != null) {
-      textAreaTag.setConverter(converter);
+      textareaTag.setConverter(converter);
     }
     if (validator != null) {
-      textAreaTag.setValidator(validator);
+      textareaTag.setValidator(validator);
     }
     if (onchange != null) {
-      textAreaTag.setOnchange(onchange);
+      textareaTag.setOnchange(onchange);
     }
     if (disabled != null) {
-      textAreaTag.setDisabled(disabled);
+      textareaTag.setDisabled(disabled);
     }
     if (focus != null) {
-      textAreaTag.setFocus(focus);
+      textareaTag.setFocus(focus);
     }
     if (id != null) {
-      textAreaTag.setId(id);
+      textareaTag.setId(id);
     }
     if (readonly != null) {
-      textAreaTag.setReadonly(readonly);
+      textareaTag.setReadonly(readonly);
     }
     if (required != null) {
-      textAreaTag.setRequired(required);
+      textareaTag.setRequired(required);
     }
     if (markup != null) {
-      textAreaTag.setMarkup(markup);
+      textareaTag.setMarkup(markup);
     }
     if (tabIndex != null) {
-      textAreaTag.setTabIndex(tabIndex);
+      textareaTag.setTabIndex(tabIndex);
     }
     if (validatorMessage != null) {
-      textAreaTag.setValidatorMessage(validatorMessage);
+      textareaTag.setValidatorMessage(validatorMessage);
     }
     if (converterMessage != null) {
-      textAreaTag.setConverterMessage(converterMessage);
+      textareaTag.setConverterMessage(converterMessage);
     }
     if (requiredMessage != null) {
-      textAreaTag.setRequiredMessage(requiredMessage);
+      textareaTag.setRequiredMessage(requiredMessage);
     }
 
-    textAreaTag.setParent(labelTag);
-    textAreaTag.doStartTag();
+    textareaTag.setParent(labelTag);
+    textareaTag.doStartTag();
 
     return super.doStartTag();
   }
 
   @Override
   public int doEndTag() throws JspException {
-    textAreaTag.doEndTag();
+    textareaTag.doEndTag();
     labelTag.doEndTag();
     return super.doEndTag();
   }
@@ -198,7 +198,7 @@ public class TextAreaExtensionTag extends BodyTagSupport
     markup = null;
     valueChangeListener = null;
     tabIndex = null;
-    textAreaTag = null;
+    textareaTag = null;
     labelTag = null;
     validatorMessage = null;
     converterMessage = null;

@@ -38,9 +38,9 @@ import javax.faces.validator.LengthValidator;
 import javax.faces.validator.Validator;
 import java.io.IOException;
 
-public class TextAreaRenderer extends InputRendererBase {
+public class TextareaRenderer extends InputRendererBase {
 
-  private static final Logger LOG = LoggerFactory.getLogger(TextAreaRenderer.class);
+  private static final Logger LOG = LoggerFactory.getLogger(TextareaRenderer.class);
 
   @Override
   public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {

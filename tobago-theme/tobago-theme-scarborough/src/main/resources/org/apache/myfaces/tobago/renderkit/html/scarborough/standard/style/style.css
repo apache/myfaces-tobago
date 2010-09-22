@@ -1129,9 +1129,9 @@ div.tobago-tabGroup-toolBar {
   position: absolute;
 }
 
-/* textArea ---------------------------------------------------------------- */
+/* textarea ---------------------------------------------------------------- */
 
-.tobago-textArea {
+.tobago-textarea {
   border-color: #bbccdd;
   border-style: inset;
   border-width: 2px;
@@ -1142,22 +1142,22 @@ div.tobago-tabGroup-toolBar {
   margin: 0;
 }
 
-.tobago-textArea-markup-readonly {
+.tobago-textarea-markup-readonly {
   background: #bbccdd;
 }
 
-.tobago-textArea-markup-disabled {
+.tobago-textarea-markup-disabled {
   color: #778899;
   background: #bbccdd;
 }
 
-/*.tobago-textArea-markup-required {
+/*.tobago-textarea-markup-required {
    background-image: url( "../image/required.gif" );
    background-position: 3px 3px;
    background-repeat: no-repeat;
 } */
 
-.tobago-textArea-markup-error, .tobago-textArea-markup-fatal {
+.tobago-textarea-markup-error, .tobago-textarea-markup-fatal {
   border-style: solid;
   border-color: #ff0000;
 }

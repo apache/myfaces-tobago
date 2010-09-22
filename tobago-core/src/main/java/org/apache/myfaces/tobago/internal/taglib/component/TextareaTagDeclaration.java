@@ -34,15 +34,15 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsReadonly;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsRequired;
 
 /**
- * Renders a multiline text input control.
+ * Renders a multi line text input control.
  */
 @Tag(name = "textarea")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UITextarea",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.UIInputBase",
-    rendererType = RendererTypes.TEXT_AREA,
+    rendererType = RendererTypes.TEXTAREA,
     allowedChildComponenents = "NONE")
-public interface TextAreaTagDeclaration
+public interface TextareaTagDeclaration
     extends HasIdBindingAndRendered, HasConverter, IsReadonly, IsDisabled, IsRequired, HasLabelAndAccessKey, HasTip,
     HasMarkup, HasCurrentMarkup, InputTagDeclaration {
 

@@ -352,24 +352,24 @@ div.tobago-tabGroup-fulfill {
   background: #D6EBFF;
 }
 
-/* textArea -------------------------------------------------------------- */
+/* textarea -------------------------------------------------------------- */
 
-.tobago-textArea {
+.tobago-textarea {
   font: 12px arial, helvetica, sans-serif;
   color: #3366CC;
   border: 1px solid #3366CC;
 }
 
-.tobago-textArea-markup-readonly {
+.tobago-textarea-markup-readonly {
   background-color: #e6e6e6;
 }
 
-.tobago-textArea-markup-disabled {
+.tobago-textarea-markup-disabled {
   color: #808080;
   background-color: #e6e6e6;
 }
 
-.tobago-textArea-markup-error, .tobago-textArea-markup-fatal {
+.tobago-textarea-markup-error, .tobago-textarea-markup-fatal {
   border: 1px solid #ff0000;
 }
 

@@ -228,7 +228,7 @@
       </supported-markup>
     </renderer>
     <renderer>
-      <name>TextArea</name>
+      <name>Textarea</name>
       <supported-markup>
         <markup>disabled</markup>
         <markup>readonly</markup>

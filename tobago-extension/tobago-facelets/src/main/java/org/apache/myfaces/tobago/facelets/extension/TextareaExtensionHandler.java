@@ -25,9 +25,9 @@ import org.apache.myfaces.tobago.component.UITextarea;
  * Date: Aug 8, 2007
  * Time: 5:49:07 PM
  */
-public class TextAreaExtensionHandler extends TobagoLabelExtensionHandler {
+public class TextareaExtensionHandler extends TobagoLabelExtensionHandler {
 
-  public TextAreaExtensionHandler(ComponentConfig config) {
+  public TextareaExtensionHandler(ComponentConfig config) {
     super(config);
   }
 
@@ -36,7 +36,7 @@ public class TextAreaExtensionHandler extends TobagoLabelExtensionHandler {
   }
 
   protected String getSubRendererType() {
-    return RendererTypes.TEXT_AREA;
+    return RendererTypes.TEXTAREA;
   }
 
   protected String getRows() {

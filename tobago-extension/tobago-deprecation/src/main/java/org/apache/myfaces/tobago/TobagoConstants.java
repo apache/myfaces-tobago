@@ -652,7 +652,7 @@ public final class TobagoConstants {
   public static final String RENDERER_TYPE_SELECT_ONE_LISTBOX = "SelectOneListbox";
   /** @deprecated Please use RendererTypes instead. Will be removed after Tobago 1.5 */
   @Deprecated
-  public static final String RENDERER_TYPE_TEXT_AREA = "TextArea";
+  public static final String RENDERER_TYPE_TEXT_AREA = "Textarea";
   /** @deprecated Please use RendererTypes instead. Will be removed after Tobago 1.5 */
   @Deprecated
   public static final String RENDERER_TYPE_TIME = "Time";

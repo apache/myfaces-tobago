@@ -93,7 +93,7 @@ public class ThemeConfigViewController {
     "Subview",
     "TabGroup",
     "Tab",
-    "TextArea",
+    RendererTypes.TEXTAREA,
     RendererTypes.IN,
     "Out",
     "Tree",

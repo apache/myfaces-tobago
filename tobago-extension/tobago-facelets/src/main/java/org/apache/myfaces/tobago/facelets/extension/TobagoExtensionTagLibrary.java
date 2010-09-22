@@ -38,7 +38,7 @@ public class TobagoExtensionTagLibrary extends AbstractTagLibrary {
     addComponent("menuRadio", "org.apache.myfaces.tobago.MenuCommand", "MenuCommand",
         MenuRadioExtensionHandler.class);
     addComponent("time", "org.apache.myfaces.tobago.Panel", "Panel", TimeExtensionHandler.class);
-    addComponent("textarea", "org.apache.myfaces.tobago.Panel", "Panel", TextAreaExtensionHandler.class);
+    addComponent("textarea", "org.apache.myfaces.tobago.Panel", "Panel", TextareaExtensionHandler.class);
     addComponent("selectBooleanCheckbox", "org.apache.myfaces.tobago.Panel", "Panel",
         SelectBooleanCheckboxExtensionHandler.class);
     addComponent("selectManyCheckbox", "org.apache.myfaces.tobago.Panel", "Panel",
