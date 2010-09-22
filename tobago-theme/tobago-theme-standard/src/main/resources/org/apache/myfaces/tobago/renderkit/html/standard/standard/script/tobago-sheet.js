@@ -734,17 +734,17 @@ Tobago.Sheet.prototype.doResize = function(event) {
       event = window.event;
     }
     if (this.resizerId) {
-      var box = this.getHeaderBox();
-      var elementWidth = box.style.width;
-      var elementWidthPx = elementWidth.substring(0, elementWidth.length - 2);
+      var box = jQuery(this.getHeaderBox());
+      var extraWidth = box.outerWidth() - box.width();
+      var elementWidth = box.outerWidth();
       var divX = event.clientX - this.oldX;
-      this.newWidth = elementWidthPx - 0 + divX;
+      this.newWidth = elementWidth + divX;
       if (this.newWidth < 10) {
         this.newWidth = 10;
       } else {
         this.oldX = event.clientX;
       }
-      box.style.width = this.newWidth + "px";
+      box.width(this.newWidth - extraWidth);
     }
   };
 
@@ -754,10 +754,11 @@ Tobago.Sheet.prototype.endResize = function(event) {
     }
     if (this.resizerId) {
       var columnNr = this.resizerId.substring(this.resizerId.lastIndexOf("_") + 1, this.resizerId.length);
+      var table = jQuery("#" + this.id.replace(/:/g, "\\:") + ">div>table");
+      jQuery("colgroup>col", table).eq(columnNr).attr("width", this.newWidth);
 
-      jQuery("#" + this.id.replace(/:/g, "\\:") + ">div>table>colgroup>col")
-          .eq(columnNr).attr("width", this.newWidth);
-
+      var index = columnNr * 1 +1;
+      jQuery("td:nth-child(" + index + ")", table).children().borderBoxWidth(this.newWidth);
 //      this.adjustScrollBars();
       this.adjustHeaderDiv();
       this.adjustResizer();
@@ -768,14 +769,19 @@ Tobago.Sheet.prototype.endResize = function(event) {
 
 Tobago.Sheet.prototype.storeSizes = function() {
     var index = 0;
-    var idPrefix = this.id + Tobago.SUB_COMPONENT_SEP + "header_box_";
-    var header = Tobago.element(idPrefix + index++);
+    var idPrefix = this.id + Tobago.SUB_COMPONENT_SEP + "header_div";
+    var headerDiv = jQuery("#" + idPrefix.replace(/:/g, "\\:"));
+
     var widths = "";
-    while (header) {
-      width = header.style.width.replace(/px/, "");
-      widths = widths + "," + width;
-      header = Tobago.element(idPrefix + index++);
-    }
+    jQuery("span.tobago-sheet-header", headerDiv).each(function() {
+        var header = jQuery(this);
+        if (this.id !== undefined
+                && this.id.indexOf("header_box_filler") != -1) {
+            return false;
+        }
+        var width = header.outerWidth();
+        widths = widths + "," + width;
+    });
     Tobago.element(this.headerWidthsId).value = widths;
   };
 
@@ -793,3 +799,13 @@ Tobago.Sheet.prototype.doScroll = function(event) {
     //LOG.debug("header / data  " + this.headerDiv.scrollLeft + "/" + this.contentDiv.scrollLeft);
     //LOG.debug("----------------------------------------------");
   };
+
+(function(jQuery){
+ jQuery.fn.borderBoxWidth = function(width) {
+    return this.each(function() {
+       obj = jQuery(this);
+       var extraWidth = obj.outerWidth() - obj.width();
+       obj.width(width- extraWidth);
+    });
+ };
+})(jQuery);
