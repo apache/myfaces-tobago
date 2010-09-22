@@ -88,6 +88,7 @@ CSS style classes
   rename tree-junction to tobago-treeNode-junction
   rename tree- to tobago-treeNode-
   rename tobago-input-picker to tobago-datePicker-icon
+  rename tobago-textArea- to tobago-textarea-
 
   This effects your application only, when you've written your own theme, or using this classes in a
   separate style file.
