@@ -77,13 +77,14 @@ public final class <tagInfo.className> extends <tagInfo.superClassName> {
 
   <if(tagInfo.bodyContent)>
   @Override
-  public int doEndTag() throws javax.servlet.jsp.JspException {
-    if (!isBodyContentEmpty()) {
-      final String bodyContentStr = getBodyContentStr();
+  public int doAfterBody() throws javax.servlet.jsp.JspException {
+    final String content = bodyContent.getString();
+    bodyContent.clearBody();
+    if (StringUtils.isNotBlank(content)) {
       final <tagInfo.componentClassName> component = (<tagInfo.componentClassName>) getComponentInstance();
-      component.set<tagInfo.bodyContent.upperCamelCaseName>(bodyContentStr);
+      component.set<tagInfo.bodyContent.upperCamelCaseName>(content.trim());
     }
-    return super.doEndTag();
+    return super.doAfterBody();
   }
   <endif>
 

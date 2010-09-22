@@ -162,6 +162,7 @@ public class CreateComponentAnnotationVisitor extends AbstractAnnotationVisitor 
         }
       }
       tagInfo.setComponentClassName(componentTag.uiComponent());
+      tagInfo.addImport("org.apache.commons.lang.StringUtils");
       tagInfo.addImport("org.slf4j.Logger");
       tagInfo.addImport("org.slf4j.LoggerFactory");
       tagInfo.addImport("javax.faces.application.Application");

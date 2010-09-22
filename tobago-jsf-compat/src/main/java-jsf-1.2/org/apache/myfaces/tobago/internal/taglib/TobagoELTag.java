@@ -56,12 +56,14 @@ public abstract class TobagoELTag extends UIComponentELTag {
     return StringUtils.split(renderers, ", ");
   }
 
+  @Deprecated
   protected String getBodyContentStr() {
     String content = bodyContent.getString();
     bodyContent.clearBody();
     return content;
   }
 
+  @Deprecated
   protected boolean isBodyContentEmpty() {
     if (bodyContent != null) {
       String content = bodyContent.getString();
