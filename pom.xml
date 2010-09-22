@@ -1647,6 +1647,11 @@
   <properties>
     <myfaces11.version>1.1.8</myfaces11.version>
     <myfaces12.version>1.2.9</myfaces12.version>
+    <myfaces-test12.version>1.0.0</myfaces-test12.version>
+<!--
+    todo: update after releasing, needed for unit tests with JSF 1.1
+    <myfaces-test12.version>1.0.1-SNAPSHOT</myfaces-test12.version>
+-->
     <myfaces20.version>2.0.0</myfaces20.version>
     <mojarra11.version>1.1_02</mojarra11.version>
     <mojarra12.version>1.2_14</mojarra12.version>
