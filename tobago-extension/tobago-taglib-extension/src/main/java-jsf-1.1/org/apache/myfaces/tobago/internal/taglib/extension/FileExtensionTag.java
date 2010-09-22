@@ -21,6 +21,7 @@ import org.apache.myfaces.tobago.apt.annotation.ExtensionTag;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.internal.taglib.FileTag;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasConverterMessage;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasFieldId;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabel;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabelWidth;
@@ -62,7 +63,7 @@ public class FileExtensionTag extends BodyTagSupport
     implements HasValidator, HasOnchange, HasValue, HasValueChangeListener,
     HasValidatorMessage, HasConverterMessage, HasRequiredMessage, HasTabIndex, IsFocus,
     HasIdBindingAndRendered, IsDisabled,
-    HasTip, HasLabel, HasLabelWidth, IsRequired {
+    HasTip, HasLabel, HasLabelWidth, IsRequired, HasFieldId {
 
   private String binding;
   private String label;
@@ -80,6 +81,7 @@ public class FileExtensionTag extends BodyTagSupport
   private String validatorMessage;
   private String converterMessage;
   private String requiredMessage;
+  private String fieldId;
 
   private LabelExtensionTag labelTag;
   private FileTag fileTag;
@@ -89,6 +91,9 @@ public class FileExtensionTag extends BodyTagSupport
 
     labelTag = new LabelExtensionTag();
     labelTag.setPageContext(pageContext);
+    if (id != null) {
+      labelTag.setId(id);
+    }
     if (label != null) {
       labelTag.setValue(label);
     }
@@ -121,8 +126,8 @@ public class FileExtensionTag extends BodyTagSupport
     if (disabled != null) {
       fileTag.setDisabled(disabled);
     }
-    if (id != null) {
-      fileTag.setId(id);
+    if (fieldId != null) {
+      fileTag.setId(fieldId);
     }
     if (onchange != null) {
       fileTag.setOnchange(onchange);
@@ -180,6 +185,7 @@ public class FileExtensionTag extends BodyTagSupport
     validatorMessage = null;
     converterMessage = null;
     requiredMessage = null;
+    fieldId = null;
   }
 
   public void setLabel(String label) {
@@ -248,5 +254,8 @@ public class FileExtensionTag extends BodyTagSupport
 
   public void setRequiredMessage(String requiredMessage) {
     this.requiredMessage = requiredMessage;
+  }
+  public void setFieldId(String fieldId) {
+    this.fieldId = fieldId;
   }
 }

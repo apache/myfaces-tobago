@@ -22,6 +22,7 @@ import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.internal.taglib.InTag;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasConverter;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasConverterMessage;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasFieldId;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabel;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabelWidth;
@@ -68,7 +69,7 @@ public class InExtensionTag extends BodyTagSupport
     implements HasValue, HasValueChangeListener, HasValidator, HasIdBindingAndRendered,
     HasConverter, IsReadonly, IsDisabled, HasOnchange, HasMarkup, IsRequired,
     HasValidatorMessage, HasRequiredMessage, HasConverterMessage,
-    HasTip, HasLabel, HasLabelWidth, IsPassword, IsFocus, HasSuggestMethod, HasTabIndex {
+    HasTip, HasLabel, HasLabelWidth, IsPassword, IsFocus, HasSuggestMethod, HasTabIndex, HasFieldId {
 
   private String binding;
   private String converter;
@@ -91,6 +92,7 @@ public class InExtensionTag extends BodyTagSupport
   private String validatorMessage;
   private String converterMessage;
   private String requiredMessage;
+  private String fieldId;
 
   private LabelExtensionTag labelTag;
   private InTag inTag;
@@ -100,6 +102,9 @@ public class InExtensionTag extends BodyTagSupport
 
     labelTag = new LabelExtensionTag();
     labelTag.setPageContext(pageContext);
+    if (id != null) {
+      labelTag.setId(id);
+    }
     if (label != null) {
       labelTag.setValue(label);
     }
@@ -147,8 +152,8 @@ public class InExtensionTag extends BodyTagSupport
     if (focus != null) {
       inTag.setFocus(focus);
     }
-    if (id != null) {
-      inTag.setId(id);
+    if (fieldId != null) {
+      inTag.setId(fieldId);
     }
     if (password != null) {
       inTag.setPassword(password);
@@ -213,6 +218,7 @@ public class InExtensionTag extends BodyTagSupport
     validatorMessage = null;
     converterMessage = null;
     requiredMessage = null;
+    fieldId = null;
   }
 
   public void setMarkup(String markup) {
@@ -297,5 +303,9 @@ public class InExtensionTag extends BodyTagSupport
 
   public void setRequiredMessage(String requiredMessage) {
     this.requiredMessage = requiredMessage;
+  }
+
+  public void setFieldId(String fieldId) {
+    this.fieldId = fieldId;
   }
 }

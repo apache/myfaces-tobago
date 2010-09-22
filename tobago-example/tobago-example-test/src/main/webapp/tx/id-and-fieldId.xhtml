@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<f:view
+    xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:tc="http://myfaces.apache.org/tobago/component"
+    xmlns:tx="http://myfaces.apache.org/tobago/extension"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core">
+
+  <tc:page id="page">
+    <f:facet name="layout">
+      <tc:gridLayout columns="3*;*;*;*"/>
+    </f:facet>
+    <tc:gridLayoutConstraint width="900px" height="400px"/>
+
+    <tc:label value="Test Tag"/>
+    <tc:label value="Panel Id"/>
+    <tc:label value="Label Id"/>
+    <tc:label value="Field Id"/>
+
+    <tx:in label="auto id" required="true"/>
+    <tc:in id="panel0"/>
+    <tc:in id="label0"/>
+    <tc:in id="field0"/>
+
+    <tx:in label="auto id"/>
+    <tc:in id="panel1"/>
+    <tc:in id="label1"/>
+    <tc:in id="field1"/>
+
+    <tx:in label="id" id="alpha"/>
+    <tc:in id="panel2"/>
+    <tc:in id="label2"/>
+    <tc:in id="field2"/>
+
+    <tx:in label="fieldId" fieldId="beta"/>
+    <tc:in id="panel3"/>
+    <tc:in id="label3"/>
+    <tc:in id="field3"/>
+
+    <tx:in label="id and fieldId" id="gamma" fieldId="delta"/>
+    <tc:in id="panel4"/>
+    <tc:in id="label4"/>
+    <tc:in id="field4"/>
+
+    <tx:date label="date" id="datePanel" fieldId="dateField"/>
+    <tc:in id="panel5"/>
+    <tc:in id="label5"/>
+    <tc:in id="field5"/>
+
+    <tx:time label="time" id="timePanel" fieldId="timeField"/>
+    <tc:in id="panel6"/>
+    <tc:in id="label6"/>
+    <tc:in id="field6"/>
+
+    <tx:file label="file" id="filePanel" fieldId="fileField"/>
+    <tc:in id="panel7"/>
+    <tc:in id="label7"/>
+    <tc:in id="field7"/>
+
+    <tx:textarea label="textarea" id="textareaPanel" fieldId="textareaField"/>
+    <tc:in id="panel8"/>
+    <tc:in id="label8"/>
+    <tc:in id="field8"/>
+
+    <tc:cell/>
+    <tc:cell/>
+    <tc:cell/>
+    <tc:button label="Reload"/>
+
+    <tc:script>
+      jQuery(document).ready(function() {
+
+        fillIdDisplay("0", ".tobago-in");
+        fillIdDisplay("1", ".tobago-in");
+        fillIdDisplay("2", ".tobago-in");
+        fillIdDisplay("3", ".tobago-in");
+        fillIdDisplay("4", ".tobago-in");
+        fillIdDisplay("5", ".tobago-date");
+        fillIdDisplay("6", ".tobago-time");
+        fillIdDisplay("7", ".tobago-file");
+        fillIdDisplay("8", ".tobago-textarea");
+
+        test("page:panel2", "page:alpha");
+        test("page:field3", "page:beta");
+        test("page:panel4", "page:gamma");
+        test("page:field4", "page:delta");
+        test("page:panel5", "page:datePanel");
+        test("page:field5", "page:dateField");
+        test("page:panel6", "page:timePanel");
+        test("page:field6", "page:timeField");
+        test("page:panel7", "page:filePanel");
+        test("page:field7", "page:fileField");
+        test("page:panel8", "page:textareaPanel");
+        test("page:field8", "page:textareaField");
+
+      });
+
+      function fillIdDisplay(i, fieldClass) {
+        var panelIn = jQuery(Tobago.escapeClientId("page:panel" + i));
+        var labelIn = jQuery(Tobago.escapeClientId("page:label" + i));
+        var fieldIn = jQuery(Tobago.escapeClientId("page:field" + i));
+
+        var panel = panelIn.prev();
+        var label = panel.children(".tobago-label");
+        var field = panel.children(fieldClass);
+
+        panelIn.attr("value", panel.attr("id"));
+        labelIn.attr("value", label.attr("id"));
+        fieldIn.attr("value", field.attr("id"));
+      }
+
+      function test(testId, expected) {
+        var element = jQuery(Tobago.escapeClientId(testId));
+        if (element.attr("value") != expected) {
+          element.addClass("tobago-in-markup-error");
+          element.attr("title", "expected: '" + expected + "'");
+        }
+      }
+
+    </tc:script>
+
+  </tc:page>
+</f:view>

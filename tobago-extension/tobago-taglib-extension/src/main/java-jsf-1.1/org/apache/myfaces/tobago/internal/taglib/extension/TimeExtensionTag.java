@@ -22,6 +22,7 @@ import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.internal.taglib.TimeTag;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasConverter;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasConverterMessage;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasFieldId;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabel;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabelWidth;
@@ -65,7 +66,7 @@ public class TimeExtensionTag extends BodyTagSupport
     implements HasValue, HasValueChangeListener, HasValidator, HasIdBindingAndRendered,
     HasConverter, IsReadonly, IsDisabled, HasOnchange, IsRequired, HasTip,
     HasValidatorMessage, HasRequiredMessage, HasConverterMessage,
-    HasLabel, HasLabelWidth, IsFocus, IsInline, HasTabIndex {
+    HasLabel, HasLabelWidth, IsFocus, IsInline, HasTabIndex, HasFieldId {
 
   private String binding;
   private String converter;
@@ -86,6 +87,7 @@ public class TimeExtensionTag extends BodyTagSupport
   private String validatorMessage;
   private String converterMessage;
   private String requiredMessage;
+  private String fieldId;
 
   private LabelExtensionTag labelTag;
   private TimeTag timeTag;
@@ -95,6 +97,9 @@ public class TimeExtensionTag extends BodyTagSupport
 
     labelTag = new LabelExtensionTag();
     labelTag.setPageContext(pageContext);
+    if (id != null) {
+      labelTag.setId(id);
+    }
     if (label != null) {
       labelTag.setValue(label);
     }
@@ -136,8 +141,8 @@ public class TimeExtensionTag extends BodyTagSupport
     if (focus != null) {
       timeTag.setFocus(focus);
     }
-    if (id != null) {
-      timeTag.setId(id);
+    if (fieldId != null) {
+      timeTag.setId(fieldId);
     }
     if (inline != null) {
       timeTag.setInline(inline);
@@ -198,6 +203,7 @@ public class TimeExtensionTag extends BodyTagSupport
     validatorMessage = null;
     converterMessage = null;
     requiredMessage = null;
+    fieldId = null;
   }
 
   public void setValue(String value) {
@@ -274,5 +280,9 @@ public class TimeExtensionTag extends BodyTagSupport
 
   public void setRequiredMessage(String requiredMessage) {
     this.requiredMessage = requiredMessage;
+  }
+
+  public void setFieldId(String fieldId) {
+    this.fieldId = fieldId;
   }
 }

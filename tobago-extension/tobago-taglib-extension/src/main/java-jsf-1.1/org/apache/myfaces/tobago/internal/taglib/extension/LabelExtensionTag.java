@@ -66,6 +66,9 @@ public class LabelExtensionTag extends BodyTagSupport
     if (tip != null) {
       panelTag.setTip(tip);
     }
+    if (id != null) {
+      panelTag.setId(id);
+    }
     panelTag.doStartTag();
 
     FacetTag facetTag = new FacetTag();

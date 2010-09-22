@@ -24,6 +24,7 @@ import org.apache.myfaces.tobago.internal.taglib.DateTag;
 import org.apache.myfaces.tobago.internal.taglib.FormTag;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasConverter;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasConverterMessage;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasFieldId;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabel;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabelWidth;
@@ -72,7 +73,7 @@ public class DateExtensionTag extends BodyTagSupport
     implements HasValue, HasValueChangeListener, HasValidator, HasIdBindingAndRendered,
     HasConverter, IsReadonly, IsDisabled, HasOnchange, IsRequired, HasTip,
     HasValidatorMessage, HasRequiredMessage, HasConverterMessage,
-    HasLabel, HasMarkup, HasLabelWidth, IsFocus, IsInline, HasTabIndex {
+    HasLabel, HasMarkup, HasLabelWidth, IsFocus, IsInline, HasTabIndex, HasFieldId {
 
   private static final long serialVersionUID = 2044784791513107420L;
 
@@ -95,6 +96,7 @@ public class DateExtensionTag extends BodyTagSupport
   private String validatorMessage;
   private String converterMessage;
   private String requiredMessage;
+  private String fieldId;
 
   private String labelWidth;
   private LabelExtensionTag labelTag;
@@ -105,6 +107,9 @@ public class DateExtensionTag extends BodyTagSupport
 
     labelTag = new LabelExtensionTag();
     labelTag.setPageContext(pageContext);
+    if (id != null) {
+      labelTag.setId(id);
+    }
     if (label != null) {
       labelTag.setValue(label);
     }
@@ -151,8 +156,8 @@ public class DateExtensionTag extends BodyTagSupport
     if (focus != null) {
       dateTag.setFocus(focus);
     }
-    if (id != null) {
-      dateTag.setId(id);
+    if (fieldId != null) {
+      dateTag.setId(fieldId);
     }
     if (inline != null) {
       dateTag.setInline(inline);
@@ -232,6 +237,7 @@ public class DateExtensionTag extends BodyTagSupport
     validatorMessage = null;
     converterMessage = null;
     requiredMessage = null;
+    fieldId = null;
   }
 
   public void setValue(String value) {
@@ -312,5 +318,9 @@ public class DateExtensionTag extends BodyTagSupport
 
   public void setRequiredMessage(String requiredMessage) {
     this.requiredMessage = requiredMessage;
+  }
+
+  public void setFieldId(String fieldId) {
+    this.fieldId = fieldId;
   }
 }

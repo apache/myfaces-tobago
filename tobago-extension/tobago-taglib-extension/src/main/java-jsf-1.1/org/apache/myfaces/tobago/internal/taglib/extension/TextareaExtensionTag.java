@@ -22,6 +22,7 @@ import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.internal.taglib.TextareaTag;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasConverter;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasConverterMessage;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasFieldId;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabel;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabelWidth;
@@ -66,7 +67,7 @@ public class TextareaExtensionTag extends BodyTagSupport
     implements HasValue, HasValueChangeListener, HasIdBindingAndRendered,
     HasConverter, HasValidator, IsReadonly, IsDisabled, HasMarkup, IsRequired,
     HasValidatorMessage, HasRequiredMessage, HasConverterMessage,
-    HasTip, HasLabel, HasLabelWidth, IsFocus, HasOnchange, HasTabIndex {
+    HasTip, HasLabel, HasLabelWidth, IsFocus, HasOnchange, HasTabIndex, HasFieldId {
 
   private String binding;
   private String converter;
@@ -87,6 +88,7 @@ public class TextareaExtensionTag extends BodyTagSupport
   private String validatorMessage;
   private String converterMessage;
   private String requiredMessage;
+  private String fieldId;
 
   private LabelExtensionTag labelTag;
   private TextareaTag textareaTag;
@@ -97,6 +99,9 @@ public class TextareaExtensionTag extends BodyTagSupport
     labelTag = new LabelExtensionTag();
     labelTag.setPageContext(pageContext);
     labelTag.setRows("*");
+    if (id != null) {
+      labelTag.setId(id);
+    }
     if (label != null) {
       labelTag.setValue(label);
     }
@@ -141,8 +146,8 @@ public class TextareaExtensionTag extends BodyTagSupport
     if (focus != null) {
       textareaTag.setFocus(focus);
     }
-    if (id != null) {
-      textareaTag.setId(id);
+    if (fieldId != null) {
+      textareaTag.setId(fieldId);
     }
     if (readonly != null) {
       textareaTag.setReadonly(readonly);
@@ -203,6 +208,7 @@ public class TextareaExtensionTag extends BodyTagSupport
     validatorMessage = null;
     converterMessage = null;
     requiredMessage = null;
+    fieldId = null;
   }
 
   public void setValue(String value) {
@@ -279,5 +285,9 @@ public class TextareaExtensionTag extends BodyTagSupport
 
   public void setRequiredMessage(String requiredMessage) {
     this.requiredMessage = requiredMessage;
+  }
+
+  public void setFieldId(String fieldId) {
+    this.fieldId = fieldId;
   }
 }

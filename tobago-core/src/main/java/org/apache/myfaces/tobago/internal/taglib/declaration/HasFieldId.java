@@ -20,12 +20,12 @@ package org.apache.myfaces.tobago.internal.taglib.declaration;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 
-public interface HasId {
+public interface HasFieldId {
   /**
-   * The component identifier for this component.
+   * The component identifier for the input field component inside of the container.
    * This value must be unique within the closest parent component that is a naming container.
    */
   @TagAttribute(rtexprvalue = true)
-  @UIComponentTagAttribute(type = "java.lang.String")
-  void setId(String id);
+  @UIComponentTagAttribute
+  void setFieldId(String fieldId);
 }

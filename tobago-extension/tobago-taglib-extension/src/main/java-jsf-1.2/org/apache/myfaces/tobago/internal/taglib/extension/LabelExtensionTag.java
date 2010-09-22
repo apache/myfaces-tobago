@@ -63,6 +63,9 @@ public class LabelExtensionTag extends TobagoExtensionBodyTagSupport {
     if (tip != null) {
       panelTag.setTip(tip);
     }
+    if (id != null) {
+      panelTag.setId(id);
+    }
     panelTag.setJspId(jspId + PREFIX + idSuffix++);
     panelTag.doStartTag();
 
