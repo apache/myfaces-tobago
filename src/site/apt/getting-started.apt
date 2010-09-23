@@ -34,7 +34,7 @@ Checking Out
 
 Building
 
-  You need {{{http://maven.apache.org/download.html}Maven 2}} (at least 2.0.6)
+  You need {{{http://maven.apache.org/download.html}Maven 2}} (at least 2.2.1)
   and {{{http://java.sun.com/j2se/1.5.0/download.jsp}Java 5}} to build Tobago.
 
 

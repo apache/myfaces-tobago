@@ -24,7 +24,7 @@ Documentation Overview
 
 Getting Started
 
-  The {{{getting-started.html}'Getting Started'}} section describes how to build Tobago and run the
+  The {{{./getting-started.html}'Getting Started'}} section describes how to build Tobago and run the
   example applications from the sources.
 
 
@@ -74,11 +74,11 @@ Examples
 
 Tobago API
 
-  For Javadoc and TLD documentation see {{{api-documentation.html}here.}}
+  For Javadoc and TLD documentation see {{{./api-documentation.html}here.}}
 
 
 Further Information
 
   If you have problems and need help with Tobago, please ask your questions on the
-  {{{mail-lists.html}MyFaces User List}}.
+  {{{./mail-lists.html}MyFaces User List}}.
 

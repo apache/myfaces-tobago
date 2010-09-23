@@ -98,7 +98,7 @@ svn co https://svn.apache.org/repos/asf/myfaces/tobago/trunk/ tobago
 mvn install -Pall-modules
 +------------------------------------------+
 
-  For more information on building Tobago -- especially the 1.0.x branch -- see {{{getting-started.html}Getting Started.}}
+  For more information on building Tobago -- especially the 1.0.x branch -- see {{{./getting-started.html}Getting Started.}}
 
 * {Building your own Tobago Application}
 

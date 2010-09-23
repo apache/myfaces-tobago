@@ -55,7 +55,7 @@ Download MyFaces Tobago
 Latest source code from SVN repository
 
     If you want to use the latest Apache MyFaces Tobago features, the source code is under
-    version control with SVN.  Click {{{getting-started.html} here }}
+    version control with SVN.  Click {{{./getting-started.html} here }}
     for information on how to use the ASF MyFaces Tobago SVN Repository.
 
 Nightly builds from SVN repository

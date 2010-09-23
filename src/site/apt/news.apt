@@ -156,7 +156,7 @@ October 19, 2007 - MyFaces Tobago 1.0.12 Released
 June 3, 2007 - MyFaces Tobago 1.0.11 Released
 
    MyFaces Tobago 1.0.11 has been released. It is available from the
-   {{{download.html}download}} page, and in the central Maven repository under
+   {{{./download.html}download}} page, and in the central Maven repository under
    Group ID "org.apache.myfaces.tobago".
 
    More information on this release, including a list of resolved issues, can be
