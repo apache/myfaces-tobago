@@ -23,6 +23,7 @@ import org.apache.myfaces.tobago.internal.taglib.SelectManyCheckboxTag;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasBinding;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasConverter;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasConverterMessage;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasFieldId;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasId;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabel;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabelWidth;
@@ -55,7 +56,7 @@ public class SelectManyCheckboxExtensionTag extends BodyTagSupport
     implements HasId, HasValue, HasValueChangeListener, IsDisabled, IsInline,
     HasLabel, HasLabelWidth, IsRendered, HasBinding, HasTip, HasConverter, HasValidator, HasOnchange,
     HasValidatorMessage, HasRequiredMessage, HasConverterMessage,
-    IsReadonly, HasMarkup, IsFocus, IsRequired, HasTabIndex, HasRenderRange {
+    IsReadonly, HasMarkup, IsFocus, IsRequired, HasTabIndex, HasRenderRange, HasFieldId {
 
   private String required;
   private String value;
@@ -79,6 +80,7 @@ public class SelectManyCheckboxExtensionTag extends BodyTagSupport
   private String validatorMessage;
   private String converterMessage;
   private String requiredMessage;
+  private String fieldId;
 
   private LabelExtensionTag labelTag;
   private SelectManyCheckboxTag selectManyCheckboxTag;
@@ -89,6 +91,9 @@ public class SelectManyCheckboxExtensionTag extends BodyTagSupport
     labelTag = new LabelExtensionTag();
     labelTag.setPageContext(pageContext);
     labelTag.setRows("*");
+    if (id != null) {
+      labelTag.setId(id);
+    }
     if (label != null) {
       labelTag.setValue(label);
     }
@@ -136,8 +141,8 @@ public class SelectManyCheckboxExtensionTag extends BodyTagSupport
     if (focus != null) {
       selectManyCheckboxTag.setFocus(focus);
     }
-    if (id != null) {
-      selectManyCheckboxTag.setId(id);
+    if (fieldId != null) {
+      selectManyCheckboxTag.setId(fieldId);
     }
     /*if (height != null) {
       selectManyCheckboxTag.setHeight(height);
@@ -207,6 +212,7 @@ public class SelectManyCheckboxExtensionTag extends BodyTagSupport
     validatorMessage = null;
     converterMessage = null;
     requiredMessage = null;
+    fieldId = null;
   }
 
   public void setRequired(String required) {
@@ -297,6 +303,8 @@ public class SelectManyCheckboxExtensionTag extends BodyTagSupport
     this.requiredMessage = requiredMessage;
   }
 
+  public void setFieldId(String fieldId) {
+    this.fieldId = fieldId;
+  }
 
 }
-

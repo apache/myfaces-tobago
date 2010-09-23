@@ -23,6 +23,7 @@ import org.apache.myfaces.tobago.internal.taglib.SelectOneListboxTag;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasBinding;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasConverter;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasConverterMessage;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasFieldId;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasId;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabel;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabelWidth;
@@ -53,7 +54,7 @@ public class SelectOneListboxExtensionTag
     extends BodyTagSupport implements HasId, HasValue, HasValueChangeListener, IsDisabled,
     HasLabel, HasLabelWidth, IsReadonly, HasOnchange, IsRendered,
     HasValidatorMessage, HasRequiredMessage, HasConverterMessage, HasMarkup,
-    HasBinding, IsFocus, HasTip, IsRequired, HasConverter, HasValidator, HasTabIndex {
+    HasBinding, IsFocus, HasTip, IsRequired, HasConverter, HasValidator, HasTabIndex, HasFieldId {
   private String required;
   private String value;
   private String valueChangeListener;
@@ -73,6 +74,7 @@ public class SelectOneListboxExtensionTag
   private String converterMessage;
   private String requiredMessage;
   private String markup;
+  private String fieldId;
 
   private LabelExtensionTag labelTag;
   private SelectOneListboxTag selectOneListboxTag;
@@ -83,6 +85,9 @@ public class SelectOneListboxExtensionTag
     labelTag = new LabelExtensionTag();
     labelTag.setPageContext(pageContext);
     labelTag.setRows("*");
+    if (id != null) {
+      labelTag.setId(id);
+    }
     if (label != null) {
       labelTag.setValue(label);
     }
@@ -130,8 +135,8 @@ public class SelectOneListboxExtensionTag
     if (focus != null) {
       selectOneListboxTag.setFocus(focus);
     }
-    if (id != null) {
-      selectOneListboxTag.setId(id);
+    if (fieldId != null) {
+      selectOneListboxTag.setId(fieldId);
     }
     if (readonly != null) {
       selectOneListboxTag.setReadonly(readonly);
@@ -192,6 +197,7 @@ public class SelectOneListboxExtensionTag
     converterMessage = null;
     requiredMessage = null;
     markup = null;
+    fieldId = null;
   }
 
   public void setRequired(String required) {
@@ -268,5 +274,9 @@ public class SelectOneListboxExtensionTag
 
   public void setMarkup(String markup) {
     this.markup = markup;
+  }
+
+  public void setFieldId(String fieldId) {
+    this.fieldId = fieldId;
   }
 }

@@ -23,6 +23,7 @@ import org.apache.myfaces.tobago.internal.taglib.SelectOneRadioTag;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasBinding;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasConverter;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasConverterMessage;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasFieldId;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasId;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabel;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabelWidth;
@@ -57,7 +58,7 @@ public class SelectOneRadioExtensionTag extends BodyTagSupport
     implements HasId, HasValue, HasValueChangeListener, IsDisabled,
     IsReadonly, HasOnchange, IsInline, HasLabel, HasLabelWidth, IsRequired,
     HasValidatorMessage, HasRequiredMessage, HasConverterMessage, HasMarkup,
-    IsRendered, HasBinding, HasTip, HasValidator, HasConverter, HasRenderRange, HasTabIndex {
+    IsRendered, HasBinding, HasTip, HasValidator, HasConverter, HasRenderRange, HasTabIndex, HasFieldId {
 
   private String required;
   private String value;
@@ -80,6 +81,7 @@ public class SelectOneRadioExtensionTag extends BodyTagSupport
   private String converterMessage;
   private String requiredMessage;
   private String markup;
+  private String fieldId;
 
   private LabelExtensionTag labelTag;
   private SelectOneRadioTag selectOneRadioTag;
@@ -89,6 +91,9 @@ public class SelectOneRadioExtensionTag extends BodyTagSupport
 
     labelTag = new LabelExtensionTag();
     labelTag.setPageContext(pageContext);
+    if (id != null) {
+      labelTag.setId(id);
+    }
     if (label != null) {
       labelTag.setValue(label);
     }
@@ -136,8 +141,8 @@ public class SelectOneRadioExtensionTag extends BodyTagSupport
     if (focus != null) {
       selectOneRadioTag.setFocus(focus);
     }
-    if (id != null) {
-      selectOneRadioTag.setId(id);
+    if (fieldId != null) {
+      selectOneRadioTag.setId(fieldId);
     }
     if (readonly != null) {
       selectOneRadioTag.setReadonly(readonly);
@@ -203,6 +208,7 @@ public class SelectOneRadioExtensionTag extends BodyTagSupport
     converterMessage = null;
     requiredMessage = null;
     markup = null;
+    fieldId = null;
   }
 
   public void setRequired(String required) {
@@ -287,5 +293,9 @@ public class SelectOneRadioExtensionTag extends BodyTagSupport
 
   public void setMarkup(String markup) {
     this.markup = markup;
+  }
+
+  public void setFieldId(String fieldId) {
+    this.fieldId = fieldId;
   }
 }

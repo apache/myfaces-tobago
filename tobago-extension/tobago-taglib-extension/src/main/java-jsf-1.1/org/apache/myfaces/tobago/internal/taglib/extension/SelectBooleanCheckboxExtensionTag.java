@@ -22,6 +22,7 @@ import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.internal.taglib.SelectBooleanCheckboxTag;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasBooleanValue;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasConverterMessage;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasFieldId;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabel;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabelWidth;
@@ -50,7 +51,7 @@ public class SelectBooleanCheckboxExtensionTag extends BodyTagSupport implements
     HasValidator, HasOnchange, HasValueChangeListener, HasIdBindingAndRendered, HasLabel,
     HasValidatorMessage, HasRequiredMessage, HasConverterMessage,
     HasBooleanValue, HasLabelWidth, IsDisabled, HasTip, IsReadonly, HasMarkup, HasTabIndex, IsRequired,
-    IsFocus {
+    IsFocus, HasFieldId {
 
   private String value;
   private String valueChangeListener;
@@ -72,6 +73,7 @@ public class SelectBooleanCheckboxExtensionTag extends BodyTagSupport implements
   private String validatorMessage;
   private String converterMessage;
   private String requiredMessage;
+  private String fieldId;
 
   private LabelExtensionTag labelTag;
   private SelectBooleanCheckboxTag selectBooleanCheckboxTag;
@@ -81,6 +83,9 @@ public class SelectBooleanCheckboxExtensionTag extends BodyTagSupport implements
 
     labelTag = new LabelExtensionTag();
     labelTag.setPageContext(pageContext);
+    if (id != null) {
+      labelTag.setId(id);
+    }
     if (label != null) {
       labelTag.setValue(label);
     }
@@ -122,8 +127,8 @@ public class SelectBooleanCheckboxExtensionTag extends BodyTagSupport implements
     if (disabled != null) {
       selectBooleanCheckboxTag.setDisabled(disabled);
     }
-    if (id != null) {
-      selectBooleanCheckboxTag.setId(id);
+    if (fieldId != null) {
+      selectBooleanCheckboxTag.setId(fieldId);
     }
     if (readonly != null) {
       selectBooleanCheckboxTag.setReadonly(readonly);
@@ -190,6 +195,7 @@ public class SelectBooleanCheckboxExtensionTag extends BodyTagSupport implements
     validatorMessage = null;
     converterMessage = null;
     requiredMessage = null;
+    fieldId = null;
   }
 
   public void setValue(String value) {
@@ -270,5 +276,9 @@ public class SelectBooleanCheckboxExtensionTag extends BodyTagSupport implements
 
   public void setRequiredMessage(String requiredMessage) {
     this.requiredMessage = requiredMessage;
+  }
+
+  public void setFieldId(String fieldId) {
+    this.fieldId = fieldId;
   }
 }

@@ -23,6 +23,7 @@ import org.apache.myfaces.tobago.internal.taglib.SelectOneChoiceTag;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasBinding;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasConverter;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasConverterMessage;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasFieldId;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasId;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabel;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabelWidth;
@@ -56,7 +57,7 @@ public class SelectOneChoiceExtensionTag
     implements HasId, HasValue, HasValueChangeListener, IsDisabled,
     IsReadonly, HasOnchange, IsInline, HasLabel, HasLabelWidth, IsRequired,
     HasValidatorMessage, HasRequiredMessage, HasConverterMessage,
-    IsRendered, IsFocus, HasBinding, HasTip, HasValidator, HasConverter, HasMarkup, HasTabIndex {
+    IsRendered, IsFocus, HasBinding, HasTip, HasValidator, HasConverter, HasMarkup, HasTabIndex, HasFieldId {
 
   private String required;
   private String value;
@@ -78,6 +79,7 @@ public class SelectOneChoiceExtensionTag
   private String validatorMessage;
   private String converterMessage;
   private String requiredMessage;
+  private String fieldId;
 
   private LabelExtensionTag labelTag;
   private SelectOneChoiceTag selectOneChoiceTag;
@@ -87,6 +89,9 @@ public class SelectOneChoiceExtensionTag
 
     labelTag = new LabelExtensionTag();
     labelTag.setPageContext(pageContext);
+    if (id != null) {
+      labelTag.setId(id);
+    }
     if (label != null) {
       labelTag.setValue(label);
     }
@@ -137,8 +142,8 @@ public class SelectOneChoiceExtensionTag
     if (focus != null) {
       selectOneChoiceTag.setFocus(focus);
     }
-    if (id != null) {
-      selectOneChoiceTag.setId(id);
+    if (fieldId != null) {
+      selectOneChoiceTag.setId(fieldId);
     }
     if (readonly != null) {
       selectOneChoiceTag.setReadonly(readonly);
@@ -197,6 +202,7 @@ public class SelectOneChoiceExtensionTag
     validatorMessage = null;
     converterMessage = null;
     requiredMessage = null;
+    fieldId = null;
   }
 
   public void setRequired(String required) {
@@ -277,5 +283,9 @@ public class SelectOneChoiceExtensionTag
 
   public void setRequiredMessage(String requiredMessage) {
     this.requiredMessage = requiredMessage;
+  }
+
+  public void setFieldId(String fieldId) {
+    this.fieldId = fieldId;
   }
 }

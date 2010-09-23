@@ -23,6 +23,7 @@ import org.apache.myfaces.tobago.internal.taglib.SelectManyListboxTag;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasBinding;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasConverter;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasConverterMessage;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasFieldId;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasId;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabel;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabelWidth;
@@ -54,7 +55,7 @@ public class SelectManyListboxExtensionTag extends BodyTagSupport
     implements HasId, HasValue, HasValueChangeListener, IsDisabled, IsInline,
     HasLabel, HasLabelWidth, IsRendered, HasBinding, HasTip, HasConverter, HasValidator, HasOnchange,
     HasValidatorMessage, HasRequiredMessage, HasConverterMessage,
-    IsReadonly, HasMarkup, IsFocus, IsRequired, HasTabIndex {
+    IsReadonly, HasMarkup, IsFocus, IsRequired, HasTabIndex, HasFieldId {
 
   private String required;
   private String value;
@@ -76,6 +77,7 @@ public class SelectManyListboxExtensionTag extends BodyTagSupport
   private String validatorMessage;
   private String converterMessage;
   private String requiredMessage;
+  private String fieldId;
 
   private LabelExtensionTag labelTag;
   private SelectManyListboxTag selectManyListboxTag;
@@ -86,6 +88,9 @@ public class SelectManyListboxExtensionTag extends BodyTagSupport
     labelTag = new LabelExtensionTag();
     labelTag.setPageContext(pageContext);
     labelTag.setRows("*");
+    if (id != null) {
+      labelTag.setId(id);
+    }
     if (label != null) {
       labelTag.setValue(label);
     }
@@ -133,8 +138,8 @@ public class SelectManyListboxExtensionTag extends BodyTagSupport
     if (focus != null) {
       selectManyListboxTag.setFocus(focus);
     }
-    if (id != null) {
-      selectManyListboxTag.setId(id);
+    if (fieldId != null) {
+      selectManyListboxTag.setId(fieldId);
     }
     if (readonly != null) {
       selectManyListboxTag.setReadonly(readonly);
@@ -196,6 +201,7 @@ public class SelectManyListboxExtensionTag extends BodyTagSupport
     validatorMessage = null;
     converterMessage = null;
     requiredMessage = null;
+    fieldId = null;
   }
 
   public void setRequired(String required) {
@@ -276,5 +282,9 @@ public class SelectManyListboxExtensionTag extends BodyTagSupport
 
   public void setRequiredMessage(String requiredMessage) {
     this.requiredMessage = requiredMessage;
+  }
+
+  public void setFieldId(String fieldId) {
+    this.fieldId = fieldId;
   }
 }

@@ -27,7 +27,7 @@
     <f:facet name="layout">
       <tc:gridLayout columns="3*;*;*;*"/>
     </f:facet>
-    <tc:gridLayoutConstraint width="900px" height="400px"/>
+    <tc:gridLayoutConstraint width="900px" height="600px"/>
 
     <tc:label value="Test Tag"/>
     <tc:label value="Panel Id"/>
@@ -79,6 +79,51 @@
     <tc:in id="label8"/>
     <tc:in id="field8"/>
 
+    <tx:selectBooleanCheckbox label="selectBooleanCheckbox" id="selectBooleanCheckboxPanel" fieldId="selectBooleanCheckboxField"/>
+    <tc:in id="panel9"/>
+    <tc:in id="label9"/>
+    <tc:in id="field9"/>
+
+    <tx:selectManyCheckbox label="selectManyCheckbox" id="selectManyCheckboxPanel" fieldId="selectManyCheckboxField">
+      <tc:selectItem itemLabel="A"/>
+      <tc:selectItem itemLabel="B"/>
+    </tx:selectManyCheckbox>
+    <tc:in id="panel10"/>
+    <tc:in id="label10"/>
+    <tc:in id="field10"/>
+
+    <tx:selectManyListbox label="selectManyListbox" id="selectManyListboxPanel" fieldId="selectManyListboxField">
+      <tc:selectItem itemLabel="A"/>
+      <tc:selectItem itemLabel="B"/>
+    </tx:selectManyListbox>
+    <tc:in id="panel11"/>
+    <tc:in id="label11"/>
+    <tc:in id="field11"/>
+
+    <tx:selectOneChoice label="selectOneChoice" id="selectOneChoicePanel" fieldId="selectOneChoiceField">
+      <tc:selectItem itemLabel="A"/>
+      <tc:selectItem itemLabel="B"/>
+    </tx:selectOneChoice>
+    <tc:in id="panel12"/>
+    <tc:in id="label12"/>
+    <tc:in id="field12"/>
+
+    <tx:selectOneListbox label="selectOneListbox" id="selectOneListboxPanel" fieldId="selectOneListboxField">
+      <tc:selectItem itemLabel="A"/>
+      <tc:selectItem itemLabel="B"/>
+    </tx:selectOneListbox>
+    <tc:in id="panel13"/>
+    <tc:in id="label13"/>
+    <tc:in id="field13"/>
+
+    <tx:selectOneRadio label="selectOneRadio" id="selectOneRadioPanel" fieldId="selectOneRadioField">
+      <tc:selectItem itemLabel="A"/>
+      <tc:selectItem itemLabel="B"/>
+    </tx:selectOneRadio>
+    <tc:in id="panel14"/>
+    <tc:in id="label14"/>
+    <tc:in id="field14"/>
+
     <tc:cell/>
     <tc:cell/>
     <tc:cell/>
@@ -96,6 +141,12 @@
         fillIdDisplay("6", ".tobago-time");
         fillIdDisplay("7", ".tobago-file");
         fillIdDisplay("8", ".tobago-textarea");
+        fillIdDisplay("9", ".tobago-selectBooleanCheckbox");
+        fillIdDisplay("10", ".tobago-selectManyCheckbox");
+        fillIdDisplay("11", ".tobago-selectManyListbox");
+        fillIdDisplay("12", ".tobago-selectOneChoice");
+        fillIdDisplay("13", ".tobago-selectOneListbox");
+        fillIdDisplay("14", ".tobago-selectOneRadio");
 
         test("page:panel2", "page:alpha");
         test("page:field3", "page:beta");
@@ -109,6 +160,18 @@
         test("page:field7", "page:fileField");
         test("page:panel8", "page:textareaPanel");
         test("page:field8", "page:textareaField");
+        test("page:panel9", "page:selectBooleanCheckboxPanel");
+        test("page:field9", "page:selectBooleanCheckboxField");
+        test("page:panel10", "page:selectManyCheckboxPanel");
+        test("page:field10", "page:selectManyCheckboxField");
+        test("page:panel11", "page:selectManyListboxPanel");
+        test("page:field11", "page:selectManyListboxField");
+        test("page:panel12", "page:selectOneChoicePanel");
+        test("page:field12", "page:selectOneChoiceField");
+        test("page:panel13", "page:selectOneListboxPanel");
+        test("page:field13", "page:selectOneListboxField");
+        test("page:panel14", "page:selectOneRadioPanel");
+        test("page:field14", "page:selectOneRadioField");
 
       });
 

@@ -56,6 +56,7 @@ public class SelectOneRadioExtensionTag extends TobagoExtensionBodyTagSupport {
   private javax.el.ValueExpression converterMessage;
   private javax.el.ValueExpression requiredMessage;
   private javax.el.ValueExpression markup;
+  private String fieldId;
 
   private LabelExtensionTag labelTag;
   private SelectOneRadioTag selectOneRadioTag;
@@ -65,6 +66,9 @@ public class SelectOneRadioExtensionTag extends TobagoExtensionBodyTagSupport {
 
     labelTag = new LabelExtensionTag();
     labelTag.setPageContext(pageContext);
+    if (id != null) {
+      labelTag.setId(id);
+    }
     if (label != null) {
       labelTag.setValue(label);
     }
@@ -113,8 +117,8 @@ public class SelectOneRadioExtensionTag extends TobagoExtensionBodyTagSupport {
     if (focus != null) {
       selectOneRadioTag.setFocus(focus);
     }
-    if (id != null) {
-      selectOneRadioTag.setId(id);
+    if (fieldId != null) {
+      selectOneRadioTag.setId(fieldId);
     }
     if (readonly != null) {
       selectOneRadioTag.setReadonly(readonly);
@@ -181,6 +185,7 @@ public class SelectOneRadioExtensionTag extends TobagoExtensionBodyTagSupport {
     converterMessage = null;
     requiredMessage = null;
     markup = null;
+    fieldId = null;
   }
 
   /**
@@ -397,4 +402,25 @@ public class SelectOneRadioExtensionTag extends TobagoExtensionBodyTagSupport {
     this.markup = markup;
   }
 
+  /**
+   * The component identifier for the input field component inside of the container.
+   * This value must be unique within the closest parent component that is a naming container.
+   */
+  @TagAttribute(rtexprvalue = true)
+  @UIComponentTagAttribute
+  public void setFieldId(String fieldId) {
+    this.fieldId = fieldId;
+  }
+
+  /**
+   * The component identifier for this component.
+   * This value must be unique within the closest parent component that is a naming container.
+   * For tx components the id will be set to the container (e. g. the panel).
+   * To set the id of the input field, you have to use the attribute "fieldId".
+   */
+  @TagAttribute(rtexprvalue = true)
+  @UIComponentTagAttribute
+  public void setId(String id) {
+    super.setId(id);
+  }
 }

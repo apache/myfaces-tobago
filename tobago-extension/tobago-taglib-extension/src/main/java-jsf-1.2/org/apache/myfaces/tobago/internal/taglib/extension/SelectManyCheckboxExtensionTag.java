@@ -55,6 +55,7 @@ public class SelectManyCheckboxExtensionTag extends TobagoExtensionBodyTagSuppor
   private javax.el.ValueExpression validatorMessage;
   private javax.el.ValueExpression converterMessage;
   private javax.el.ValueExpression requiredMessage;
+  private String fieldId;
 
   private LabelExtensionTag labelTag;
   private SelectManyCheckboxTag selectManyCheckboxTag;
@@ -65,6 +66,9 @@ public class SelectManyCheckboxExtensionTag extends TobagoExtensionBodyTagSuppor
     labelTag = new LabelExtensionTag();
     labelTag.setPageContext(pageContext);
     labelTag.setRows("*");
+    if (id != null) {
+      labelTag.setId(id);
+    }
     if (label != null) {
       labelTag.setValue(label);
     }
@@ -113,8 +117,8 @@ public class SelectManyCheckboxExtensionTag extends TobagoExtensionBodyTagSuppor
     if (focus != null) {
       selectManyCheckboxTag.setFocus(focus);
     }
-    if (id != null) {
-      selectManyCheckboxTag.setId(id);
+    if (fieldId != null) {
+      selectManyCheckboxTag.setId(fieldId);
     }
     /*if (height != null) {
       selectManyCheckboxTag.setHeight(height);
@@ -184,6 +188,7 @@ public class SelectManyCheckboxExtensionTag extends TobagoExtensionBodyTagSuppor
     validatorMessage = null;
     converterMessage = null;
     requiredMessage = null;
+    fieldId = null;
   }
 
   /**
@@ -405,5 +410,25 @@ public class SelectManyCheckboxExtensionTag extends TobagoExtensionBodyTagSuppor
     this.requiredMessage = requiredMessage;
   }
   
-}
+  /**
+   * The component identifier for the input field component inside of the container.
+   * This value must be unique within the closest parent component that is a naming container.
+   */
+  @TagAttribute(rtexprvalue = true)
+  @UIComponentTagAttribute
+  public void setFieldId(String fieldId) {
+    this.fieldId = fieldId;
+  }
 
+  /**
+   * The component identifier for this component.
+   * This value must be unique within the closest parent component that is a naming container.
+   * For tx components the id will be set to the container (e. g. the panel).
+   * To set the id of the input field, you have to use the attribute "fieldId".
+   */
+  @TagAttribute(rtexprvalue = true)
+  @UIComponentTagAttribute
+  public void setId(String id) {
+    super.setId(id);
+  }
+}
