@@ -89,7 +89,10 @@ public final class Classes {
     if (value == null) {
       value = new Classes(rendererName, markup, sub, ignoreCheck);
       CACHE.put(rendererName, markup, sub, value);
-      LOG.info("Classes cache size = " + CACHE.size());
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("Element added (size={}) to cache (renderName='{}', markup='{}', sub='{}')",
+            new Object[] {CACHE.size(), rendererName, markup, sub});
+      }
     }
     return value;
   }

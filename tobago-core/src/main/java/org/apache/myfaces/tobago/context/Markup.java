@@ -264,4 +264,15 @@ public final class Markup implements Serializable, Iterable<String> {
       }
     }
   }
+
+  @Override
+  public String toString() {
+    if (value != null) {
+      return value;
+    }
+    if (values == null) {
+      return "null";
+    }
+    return Arrays.toString(values);
+  }
 }
