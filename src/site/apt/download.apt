@@ -45,6 +45,8 @@ Download MyFaces Tobago
 *-------------------------+---------+----------+-----------+
 | MyFaces Tobago 1.0.29 (zip)      | {{{http://www.apache.org/dyn/closer.cgi/myfaces/binaries/myfaces-tobago-1.0.29-dist.zip} myfaces-tobago-1.0.29-dist.zip}} | {{{http://www.apache.org/dist/myfaces/binaries/myfaces-tobago-1.0.29-dist.zip.md5} myfaces-tobago-1.0.29-dist.zip.md5}} | {{{http://www.apache.org/dist/myfaces/binaries/myfaces-tobago-1.0.29-dist.zip.asc} myfaces-tobago-1.0.29-dist.zip.asc}} |
 *-------------------------+---------+----------+-----------+
+| MyFaces Tobago Source 1.0.29 (zip)      | {{{http://www.apache.org/dyn/closer.cgi/myfaces/source/myfaces-tobago-1.0.28-source-release.zip} myfaces-tobago-1.0.28-source-release.zip}} | {{{http://www.apache.org/dist/myfaces/source/myfaces-tobago-1.0.28-source-release.zip.zip.md5} myfaces-tobago-1.0.28-source-release.zip.md5}} | {{{http://www.apache.org/dist/myfaces/source/myfaces-tobago-1.0.28-source-release.zip.asc} myfaces-tobago-1.0.28-source-release.zip.asc}} |
+*-------------------------+---------+----------+-----------+
 | MyFaces Tobago Example 1.0.29 (tar.gz)     | {{{http://www.apache.org/dyn/closer.cgi/myfaces/binaries/myfaces-tobago-1.0.29-example.tar.gz} myfaces-tobago-1.0.29-example.tar.gz}} | {{{http://www.apache.org/dist/myfaces/binaries/myfaces-tobago-1.0.29-example.tar.gz.md5} myfaces-tobago-1.0.29-example.tar.gz.md5}} | {{{http://www.apache.org/dist/myfaces/binaries/myfaces-tobago-1.0.29-example.tar.gz.asc} myfaces-tobago-1.0.29-example.tar.gz.asc}} |
 *-------------------------+---------+----------+-----------+
 | MyFaces Tobago Example 1.0.29 (zip)      | {{{http://www.apache.org/dyn/closer.cgi/myfaces/binaries/myfaces-tobago-1.0.29-example.zip} myfaces-tobago-1.0.29-example.zip}} | {{{http://www.apache.org/dist/myfaces/binaries/myfaces-tobago-1.0.29-example.zip.md5} myfaces-tobago-1.0.29-example.zip.md5}} | {{{http://www.apache.org/dist/myfaces/binaries/myfaces-tobago-1.0.29-example.zip.asc} myfaces-tobago-1.0.29-example.zip.asc}} |
@@ -58,7 +60,7 @@ Latest source code from SVN repository
 
 Nightly builds from SVN repository
 
-     There are also {{{http://people.apache.org/builds/myfaces/nightly} nightly builds}}
+     There are also {{{https://repository.apache.org/content/repositories/snapshots/org/apache/myfaces/tobago/} nightly builds}}
      available every 24 hours (11:00 PM EST).
 
 Archive of old releases
