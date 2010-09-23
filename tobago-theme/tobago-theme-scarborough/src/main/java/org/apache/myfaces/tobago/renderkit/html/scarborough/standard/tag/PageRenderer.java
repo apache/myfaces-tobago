@@ -18,6 +18,7 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  */
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.myfaces.tobago.application.ProjectStage;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.UIForm;
@@ -25,6 +26,7 @@ import org.apache.myfaces.tobago.component.UIMenuBar;
 import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.component.UIPopup;
 import org.apache.myfaces.tobago.config.Configurable;
+import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
@@ -134,11 +136,17 @@ public class PageRenderer extends PageRendererBase {
     }
 
 // LAYOUT Begin
+    boolean developmentMode = TobagoConfig.getInstance(facesContext).getProjectStage() == ProjectStage.Development;
 
-    long begin = System.nanoTime();
+    long begin = 0;
+    if (developmentMode) {
+      begin = System.nanoTime();
+    }
     LayoutContext layoutContext = new LayoutContext(page);
     layoutContext.layout();
-    LOG.info("Laying out takes: " + new DecimalFormat("#,##0").format(System.nanoTime() - begin) + " ns");
+    if (developmentMode) {
+        LOG.info("Laying out takes: {} ns", new DecimalFormat("#,##0").format(System.nanoTime() - begin));
+    }
 
 // LAYOUT End
 
@@ -167,7 +175,7 @@ public class PageRenderer extends PageRendererBase {
     ResponseUtils.ensureContentTypeHeader(facesContext, contentType);
     HtmlRendererUtils.renderDojoDndSource(facesContext, component);
     final ClientProperties client = VariableResolverUtils.resolveClientProperties(facesContext);
-    final boolean debugMode = client.isDebugMode();
+    final boolean debugMode = client.isDebugMode() || developmentMode;
 
     String title = (String) page.getAttributes().get(Attributes.LABEL);
 

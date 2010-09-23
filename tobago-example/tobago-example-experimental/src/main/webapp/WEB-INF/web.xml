@@ -115,6 +115,12 @@
     <env-entry-value>1m</env-entry-value>
   </env-entry>
 
+  <env-entry>
+    <env-entry-name>jsf/ProjectStage</env-entry-name>
+    <env-entry-type>java.lang.String</env-entry-type>
+    <env-entry-value>Development</env-entry-value>
+  </env-entry>
+
   <!-- mime -->
   <mime-mapping>
     <extension>wml</extension>
