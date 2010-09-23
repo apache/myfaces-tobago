@@ -60,7 +60,9 @@ Latest source code from SVN repository
 
 Nightly builds from SVN repository
 
-     There are also {{{https://repository.apache.org/content/repositories/snapshots/org/apache/myfaces/tobago/} nightly builds}}
+     There are also nightly {{{https://repository.apache.org/content/repositories/snapshots/org/apache/myfaces/tobago/tobago-assembly} dist builds}} and
+     {{{https://repository.apache.org/content/repositories/snapshots/org/apache/myfaces/tobago/tobago} source builds}}
+
      available every 24 hours (11:00 PM EST).
 
 Archive of old releases
