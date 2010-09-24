@@ -75,7 +75,7 @@
     command in the shell:</para>
 
     <programlisting>svn checkout \
-  http://svn.apache.org/repos/asf/myfaces/tobago/trunk/example/blank/ \
+  http://svn.apache.org/repos/asf/myfaces/tobago/trunk/tobago-example/tobago-example-blank/ \
   blank</programlisting>
 
     <para>For building the blank example Java 5 and Maven 2 (at least 2.0.6)
@@ -940,8 +940,8 @@ tobago-resource/html/standard/standard/image/empty-portrait_de.png</programlisti
     out:</para>
 
     <programlisting>svn checkout \ 
-    http://svn.apache.org/repos/asf/myfaces/tobago/trunk/sandbox \
-    sandbox</programlisting>
+    http://svn.apache.org/repos/asf/myfaces/tobago/trunk/tobago-sandbox \
+    tobago-sandbox</programlisting>
 
     <para>Alternatively if you have checked out the complete Tobago source
     tree you can find the sandbox directory right under the root directory. In

@@ -29,7 +29,7 @@ Theme Handling
          and bind it to the URL pattern of the theme path
 
       []
-      You can see an example in {{{http://svn.apache.org/repos/asf/myfaces/tobago/trunk/example/blank/}tobago-example-blank}}
+      You can see an example in {{{http://svn.apache.org/repos/asf/myfaces/tobago/trunk/tobago-example/tobago-example-blank/}tobago-example-blank}}
 
    [[1]] For production:
 
@@ -39,5 +39,5 @@ Theme Handling
          of the theme into the WAR. You can use the maven-theme-plugin to achieve this.
 
       []
-      You can see an example in {{{http://svn.apache.org/repos/asf/myfaces/tobago/trunk/example/demo/}tobago-example-demo}}
+      You can see an example in {{{http://svn.apache.org/repos/asf/myfaces/tobago/trunk/tobago-example/tobago-example-demo/}tobago-example-demo}}
 

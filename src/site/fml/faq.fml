@@ -54,7 +54,7 @@
       <answer>
         <p>
           Please look at
-          <a href="http://svn.apache.org/repos/asf/myfaces/tobago/trunk/example/blank/">
+          <a href="http://svn.apache.org/repos/asf/myfaces/tobago/trunk/tobago-example/tobago-example-blank/">
             tobago-example-blank</a> or download the myfaces-tobago-example from the
           <a href="http://people.apache.org/builds/myfaces/nightly/" >nightly builds directory</a>.
         </p>
@@ -188,7 +188,7 @@ resource-path/content-type/theme/client/[tag(for renderer)|property|style|script
         charlotteville -> speyside -> scarborough -> standard
         <p>
           Please look at
-          <a href="http://svn.apache.org/repos/asf/myfaces/tobago/trunk/example/tobago-theme-example/src/main/resources">
+          <a href="http://svn.apache.org/repos/asf/myfaces/tobago/trunk/tobago-example/tobago-theme-example/src/main/resources">
             tobago-example-theme
           </a>
          </p>

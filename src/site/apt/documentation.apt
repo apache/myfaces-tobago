@@ -44,7 +44,7 @@ Examples
 
   A live version of the demo can be found at: {{http://www.irian.biz/tobago-example-demo/}}
 
-  Sources: {{http://svn.apache.org/repos/asf/myfaces/tobago/trunk/example/demo/}}
+  Sources: {{http://svn.apache.org/repos/asf/myfaces/tobago/trunk/tobago-example/tobago-example-demo/}}
 
 * Address Book Example
 
@@ -56,20 +56,20 @@ Examples
 
 [images/addressbook.png] Address Book Example
 
-  Sources: {{http://svn.apache.org/repos/asf/myfaces/tobago/trunk/example/addressbook/}}
+  Sources: {{http://svn.apache.org/repos/asf/myfaces/tobago/trunk/tobago-example/tobago-example-addressbook/}}
 
 * Blank WAR
 
   The Blank WAR is a minimal WAR to display a simple page with Tobago -- useful to get started with your own Tobago
   application.
 
-  Sources: {{http://svn.apache.org/repos/asf/myfaces/tobago/trunk/example/blank/}}
+  Sources: {{http://svn.apache.org/repos/asf/myfaces/tobago/trunk/tobago-example/tobago-example-blank/}}
 
 * Example Theme
 
   This theme shows how to extend an existing theme and add new markups.
 
-  Sources: {{http://svn.apache.org/repos/asf/myfaces/tobago/trunk/example/tobago-theme-example/}}
+  Sources: {{http://svn.apache.org/repos/asf/myfaces/tobago/trunk/tobago-example/tobago-theme-example/}}
 
 
 Tobago API

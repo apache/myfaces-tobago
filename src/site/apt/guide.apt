@@ -82,7 +82,7 @@ mvn jetty:run-exploded
 * {Building Tobago}
 
   To use the latest version of Tobago you can use the snapshot artifacts build by our continuous integration server Continuum,
-  which are available in the {{{http://people.apache.org/repo/m2-snapshot-repository/org/apache/myfaces/tobago/}Apache snapshot repository.}}
+  which are available in the {{{https://repository.apache.org/content/repositories/snapshots/org/apache/myfaces/tobago/}Apache snapshot repository.}}
 
   Alternatively, you can build Tobago yourself. You will need Java 5 and Maven 2.0.9 or later.
 
@@ -528,7 +528,7 @@ mvn install -Pall-modules
 | <<<\<tc:treeNode\>>>> | strong                  |
 *-----------------------+-------------------------+
 
-  Also see the {{{https://svn.apache.org/repos/asf/myfaces/tobago/trunk/theme/standard/src/main/resources/META-INF/tobago-theme.xml}standard <<<tobago-theme.xml>>>}}
+  Also see the {{{https://svn.apache.org/repos/asf/myfaces/tobago/trunk/tobago-theme/tobago-theme-standard/src/main/resources/META-INF/tobago-theme.xml}standard <<<tobago-theme.xml>>>}}
 
   The markup <<<strong>>> is normally emphasized, <<<deleted>>> is rendered struck out, and <<<number>>> is
   right aligned. Multiple markups can be combined as a comma separated list:
@@ -574,7 +574,7 @@ mvn install -Pall-modules
 </renderers>
 +------------------------------------------+
 
-  See the {{{https://svn.apache.org/repos/asf/myfaces/tobago/trunk/example/addressbook/src/main/webapp/WEB-INF/tobago-config.xml}address book <<<tobago-config.xml>>>}} for a complete example.
+  See the {{{https://svn.apache.org/repos/asf/myfaces/tobago/trunk/tobago-example/tobago-example-addressbook-war/src/main/webapp/WEB-INF/tobago-config.xml}address book <<<tobago-config.xml>>>}} for a complete example.
 
   The various progress variants look like this:\
   \ 
@@ -600,12 +600,12 @@ img.tobago-progress-color1-markup-error {
 +------------------------------------------+
 
   See the address book example 
-  {{{https://svn.apache.org/repos/asf/myfaces/tobago/trunk/example/addressbook/src/main/webapp/tobago-resource/html/speyside/standard/style/style.css}Speyside <<<style.css>>>}}.
+  {{{https://svn.apache.org/repos/asf/myfaces/tobago/trunk/tobago-example/tobago-example-addressbook-web/src/main/webapp/tobago-resource/html/speyside/standard/style/style.css}Speyside <<<style.css>>>}}.
 
   The <<<style.css>>> file is collected by the Tobago resource manager and can be used to overwrite and extend the
   default <<<style.css>>> file of the theme.
 
-  The {{{https://svn.apache.org/repos/asf/myfaces/tobago/trunk/example/tobago-theme-example/}example theme}} provides
+  The {{{https://svn.apache.org/repos/asf/myfaces/tobago/trunk/tobago-example/tobago-theme-example/}example theme}} provides
   an example for styling sheet cells and contains more complex examples of markup, which need addtional JavaScript
   to generate more dynamic behaviours like fade-out effects or client-side change detection.
 
