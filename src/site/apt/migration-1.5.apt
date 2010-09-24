@@ -45,6 +45,9 @@ Tag Library
 *--+--+--+--+                                                                                                                                                                   
 
    In tc:sheet the default for "rows" has been changed from 100 to 0, which means "unlimited".
+
+   For JSP and the tx: library all "id" attributes have to be renamed to "fieldId".
+   This is to adjust the JSP library to the Facelet library.
    
 UIComponent Classes
   
