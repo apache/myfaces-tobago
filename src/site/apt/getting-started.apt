@@ -68,7 +68,7 @@ Deploying the Demo
   $TOMCAT_HOME/conf/tomcat-users.xml.
 
   Change into the demo directory
-  {{{http://svn.apache.org/repos/asf/myfaces/tobago/trunk/example/demo/}example/demo}}
+  {{{http://svn.apache.org/repos/asf/myfaces/tobago/trunk/tobago-example/tobago-example-demo/}example/demo}}
   and run
 
 +----------------------------------------
@@ -100,4 +100,4 @@ Deploying the Demo
 
   The demo application will create a log file in the app-server
   starting folder. You may want to change that in
-  {{{http://svn.apache.org/repos/asf/myfaces/tobago/trunk/example/demo/src/main/webapp/WEB-INF/classes/log4j.xml}src/main/webapp/WEB-INF/classes/log4j.xml}}.
+  {{{http://svn.apache.org/repos/asf/myfaces/tobago/trunk/tobago-example/tobago-example-demo/src/main/webapp/WEB-INF/classes/log4j.xml}src/main/webapp/WEB-INF/classes/log4j.xml}}.
