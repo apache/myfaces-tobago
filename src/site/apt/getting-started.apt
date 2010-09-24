@@ -50,23 +50,6 @@ Building All
  mvn install -Pall-modules
 +----------------------------------------
 
-   Unfortunately you need two artifacts
-
-   el-api.jar and el-ri.jar
-
-   from the facelet distribution 
-   {{{http://facelets.dev.java.net}Facelets Project Page}} 
-
-   Please install the missing public artifacts with
-
-+----------------------------------------
- mvn install:install-file -Dfile=el-api.jar -DgroupId=javax.el \
- -DartifactId=el-api -Dversion=1.0 -Dpackaging=jar
-
- mvn install:install-file -Dfile=el-ri.jar -DgroupId=com.sun.el \
- -DartifactId=el-ri -Dversion=1.0 -Dpackaging=jar
-+----------------------------------------
-
 Deploying the Demo
 
   To deploy the demo on your local Tomcat 5.5 create a
