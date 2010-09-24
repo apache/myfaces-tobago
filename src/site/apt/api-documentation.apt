@@ -26,7 +26,7 @@ Tobago API and TLD Documentation
   {{{http://myfaces.apache.org/tobago/tobago-core/tlddoc/index.html}Latest 1.5.x SVN \<tc:\> Component Tag Library Documentation}}\
   {{{http://myfaces.apache.org/tobago/tobago-extension/tobago-taglib-extension/tlddoc/index.html}Latest 1.5.x SVN \<tx:\> Extension Tag Library Documentation}}
 
-  {{{oldDocumentation.html}Previous Releases}}
+  {{{./oldDocumentation.html}Previous Releases}}
 
 Sun JSF Documentation
 
