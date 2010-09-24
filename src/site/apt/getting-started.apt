@@ -57,26 +57,6 @@ Building All
  mvn install -Pall-modules
 +----------------------------------------
 
-   Unfortunately you need two artifacts for the 1.0.x branch
-
-   el-api.jar and el-ri.jar
-
-   from the facelets distribution
-   {{{http://facelets.dev.java.net}Facelets Project Page}}
-
-   You have to download the facelets 1.1.12 distribution
-   (the el-api.jar and el-ri.jar has been renamed in the facelets 1.1.13 version,
-   which would require changes in the poms).
-
-   Please install the missing public artifacts with
-
-+----------------------------------------
- mvn install:install-file -Dfile=el-api.jar -DgroupId=javax.el \
- -DartifactId=el-api -Dversion=1.0 -Dpackaging=jar
-
- mvn install:install-file -Dfile=el-ri.jar -DgroupId=com.sun.el \
- -DartifactId=el-ri -Dversion=1.0 -Dpackaging=jar
-+----------------------------------------
 
 Deploying the Demo
 
