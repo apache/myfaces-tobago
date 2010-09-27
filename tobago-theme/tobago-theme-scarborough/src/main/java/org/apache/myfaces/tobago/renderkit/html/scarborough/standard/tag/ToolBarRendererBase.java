@@ -96,9 +96,8 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
     }
   }
 
-  private Measure renderToolbarCommand(
-      FacesContext facesContext, UIToolBar toolBar, AbstractUICommandBase command, TobagoResponseWriter writer, Measure width)
-      throws IOException {
+  private Measure renderToolbarCommand(FacesContext facesContext, UIToolBar toolBar, AbstractUICommandBase command,
+      TobagoResponseWriter writer, Measure width) throws IOException {
     if (command instanceof UISelectBooleanCommand) {
       return renderSelectBoolean(facesContext, toolBar, command, writer, width);
     } else if (command instanceof UISelectOneCommand) {
@@ -119,9 +118,8 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
 
   // todo: remove component creation in renderer, for JSF 2.0
   // todo: One solution is to make <tx:toolBarSelectOne> instead of <tc:toolBarSelectOne>
-  private Measure renderSelectOne(
-      FacesContext facesContext, UIToolBar toolBar, AbstractUICommandBase command, TobagoResponseWriter writer, Measure width)
-      throws IOException {
+  private Measure renderSelectOne(FacesContext facesContext, UIToolBar toolBar, AbstractUICommandBase command,
+      TobagoResponseWriter writer, Measure width) throws IOException {
 
     String suffix = createCommandOnClick(facesContext, command);
     if (suffix == null) {
@@ -195,9 +193,8 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
   // todo: remove component creation in renderer, for JSF 2.0
   // todo: One solution is to make <tx:toolBarCheck> instead of <tc:toolBarCheck>
   // may be renamed to toolBarSelectBoolean?
-  private Measure renderSelectBoolean(
-      FacesContext facesContext, UIToolBar toolBar, AbstractUICommandBase command, TobagoResponseWriter writer, Measure width)
-      throws IOException {
+  private Measure renderSelectBoolean(FacesContext facesContext, UIToolBar toolBar, AbstractUICommandBase command,
+      TobagoResponseWriter writer, Measure width) throws IOException {
 
     UIComponent checkbox = command.getFacet(Facets.CHECKBOX);
     if (checkbox == null) {
