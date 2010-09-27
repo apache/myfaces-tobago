@@ -32,11 +32,6 @@ import java.util.Iterator;
 public abstract class AbstractUICommandBase extends javax.faces.component.UICommand
     implements InvokeOnComponent, SupportsRenderedPartially {
 
-  public static final String COMMAND_TYPE_SUBMIT = "submit";
-  public static final String COMMAND_TYPE_RESET = "reset";
-  public static final String COMMAND_TYPE_NAVIGATE = "navigate";
-  public static final String COMMAND_TYPE_SCRIPT = "script";
-
   public void processDecodes(FacesContext context) {
     if (context == null) {
       throw new NullPointerException();
