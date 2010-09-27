@@ -25,7 +25,6 @@ import org.apache.myfaces.tobago.component.ComponentTypes;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.AbstractCommandTagDeclaration;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasCommandType;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasImage;
@@ -55,6 +54,6 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsInline;
             allowedChildComponenents = "org.apache.myfaces.tobago.Popup")})
 public interface ButtonTagDeclaration
     extends AbstractCommandTagDeclaration, HasIdBindingAndRendered, HasLabelAndAccessKey, HasImage,
-    IsDisabled, HasCommandType, IsDefaultCommand, HasTip,
+    IsDisabled, IsDefaultCommand, HasTip,
     IsInline, HasMarkup, HasCurrentMarkup, HasTabIndex, IsGridLayoutComponent {
 }

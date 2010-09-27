@@ -22,17 +22,11 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.AbstractCommandTagDeclaration;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasBooleanValue;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasCommandType;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasImage;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabelAndAccessKey;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
-
-/*
- * Date: 31.03.2006
- * Time: 22:35:28
- */
 
 /**
  * Renders a selectable command button within a toolbar.
@@ -45,8 +39,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
     uiComponentBaseClass = "org.apache.myfaces.tobago.component.UISelectBooleanCommand",
     rendererType = RendererTypes.MENU_COMMAND,
     allowedChildComponenents = "NONE")
-public interface ToolBarSelectBooleanTagDeclaration extends AbstractCommandTagDeclaration,
-    HasIdBindingAndRendered, HasLabelAndAccessKey,
-    HasCommandType, HasImage, IsDisabled, HasBooleanValue,
-    HasTip {
+public interface ToolBarSelectBooleanTagDeclaration
+    extends AbstractCommandTagDeclaration, HasIdBindingAndRendered, HasLabelAndAccessKey,
+    HasImage, IsDisabled, HasBooleanValue, HasTip {
 }

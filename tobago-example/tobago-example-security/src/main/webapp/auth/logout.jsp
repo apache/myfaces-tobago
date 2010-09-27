@@ -34,7 +34,7 @@
 
       <tc:cell />
 
-      <tc:button action="/index.jsp" type="navigate" label="#{loginBundle.login_home_button}" />
+      <tc:button link="/index.jsp" label="#{loginBundle.login_home_button}" />
     </tc:panel>
 
   </tc:box>

@@ -21,15 +21,9 @@ import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.AbstractCommandTagDeclaration;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasCommandType;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasValue;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
-
-/*
- * Date: 31.03.2006
- * Time: 22:36:59
- */
 
 /**
  * Renders a set of radio command button's within a toolbar.
@@ -43,5 +37,5 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
     rendererType = RendererTypes.MENU_COMMAND,
     allowedChildComponenents = "NONE")
 public interface ToolBarSelectOneTagDeclaration extends AbstractCommandTagDeclaration,
-    HasIdBindingAndRendered, IsDisabled, HasCommandType, HasValue {
+    HasIdBindingAndRendered, IsDisabled, HasValue {
 }

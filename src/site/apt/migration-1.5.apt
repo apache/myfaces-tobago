@@ -66,6 +66,9 @@ Tag Library
 
    The tree tag <<<tc:tree>>> has changed comprehensive. Please check the documentation and demo examples.
 
+   The <<<type>>> attribute of commands has been removed. It is no longer needed, when using
+   <<<action>>>, <<<onclick>>> or <<<link>>>.
+
 Layout Manager
 
    On of the basic changes in Tobago 1.5 is the reimplementation of the layout manager.
