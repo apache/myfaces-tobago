@@ -17,8 +17,6 @@ package org.apache.myfaces.tobago.internal.component;
  * limitations under the License.
  */
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.internal.layout.Interval;
 import org.apache.myfaces.tobago.internal.layout.IntervalList;
 import org.apache.myfaces.tobago.internal.layout.LayoutUtils;
@@ -28,8 +26,10 @@ import org.apache.myfaces.tobago.layout.LayoutContainer;
 import org.apache.myfaces.tobago.layout.LayoutManager;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.layout.Orientation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-public abstract class AbstractUITabGroupLayout extends UILayoutBase implements LayoutManager {
+public abstract class AbstractUITabGroupLayout extends AbstractUILayoutBase implements LayoutManager {
 
   private static final Logger LOG = LoggerFactory.getLogger(AbstractUIGridLayout.class);
 

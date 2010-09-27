@@ -23,7 +23,7 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.DateTimeConverter;
 import java.util.TimeZone;
 
-public abstract class AbstractUITime extends UIInputBase {
+public abstract class AbstractUITime extends AbstractUIInput {
 
   @Override
   public Converter getConverter() {

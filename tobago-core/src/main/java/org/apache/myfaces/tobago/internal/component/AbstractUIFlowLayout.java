@@ -21,7 +21,7 @@ import org.apache.myfaces.tobago.component.SupportsMarkup;
 import org.apache.myfaces.tobago.layout.LayoutManager;
 import org.apache.myfaces.tobago.layout.Orientation;
 
-public abstract class AbstractUIFlowLayout extends UILayoutBase implements LayoutManager, SupportsMarkup {
+public abstract class AbstractUIFlowLayout extends AbstractUILayoutBase implements LayoutManager, SupportsMarkup {
 
   public void init() {
   }

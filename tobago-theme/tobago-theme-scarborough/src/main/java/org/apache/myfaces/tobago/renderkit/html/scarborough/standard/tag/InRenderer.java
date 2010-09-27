@@ -18,12 +18,12 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  */
 
 import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.component.UIInput;
+import org.apache.myfaces.tobago.component.UIIn;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.internal.ajax.AjaxInternalUtils;
+import org.apache.myfaces.tobago.internal.component.AbstractUIInput;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPage;
-import org.apache.myfaces.tobago.internal.component.UIInputBase;
 import org.apache.myfaces.tobago.model.AutoSuggestExtensionItem;
 import org.apache.myfaces.tobago.model.AutoSuggestItem;
 import org.apache.myfaces.tobago.model.AutoSuggestItems;
@@ -59,7 +59,7 @@ public class InRenderer extends InputRendererBase {
   public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
     super.prepareRender(facesContext, component);
     if (facesContext instanceof TobagoFacesContext) {
-      if (component instanceof UIInput && ((UIInput) component).getSuggestMethod() != null) {
+      if (component instanceof UIIn && ((UIIn) component).getSuggestMethod() != null) {
         ((TobagoFacesContext) facesContext).getScriptFiles().addAll(Arrays.asList(SCRIPTS));
       }
     }
@@ -78,8 +78,8 @@ public class InRenderer extends InputRendererBase {
 
   @Override
   public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
-    if (!(component instanceof UIInputBase)) {
-      LOG.error("Wrong type: Need " + UIInputBase.class.getName() + ", but was " + component.getClass().getName());
+    if (!(component instanceof AbstractUIInput)) {
+      LOG.error("Wrong type: Need " + AbstractUIInput.class.getName() + ", but was " + component.getClass().getName());
       return;
     }
 
@@ -90,7 +90,7 @@ public class InRenderer extends InputRendererBase {
       encodeAjax(facesContext, component);
     } else {
 
-      UIInputBase input = (UIInputBase) component;
+      AbstractUIInput input = (AbstractUIInput) component;
 
       String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, input);
 
@@ -103,8 +103,8 @@ public class InRenderer extends InputRendererBase {
 
       // Todo: check for valid binding
       boolean renderAjaxSuggest = false;
-      if (input instanceof UIInput) {
-        renderAjaxSuggest = ((UIInput) input).getSuggestMethod() != null;
+      if (input instanceof UIIn) {
+        renderAjaxSuggest = ((UIIn) input).getSuggestMethod() != null;
       }
       String id = input.getClientId(facesContext);
       TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
@@ -139,8 +139,8 @@ public class InRenderer extends InputRendererBase {
 
       HtmlRendererUtils.renderDojoDndItem(component, writer, true);
       writer.writeClassAttribute(Classes.create(input));
-      /*if (component instanceof UIInputBase) {
-       String onchange = HtmlUtils.generateOnchange((UIInputBase) component, facesContext);
+      /*if (component instanceof AbstractUIInput) {
+       String onchange = HtmlUtils.generateOnchange((AbstractUIInput) component, facesContext);
        if (onchange != null) {
          // TODO: create and use utility method to write attributes without quoting
      //      writer.writeAttribute(HtmlAttributes.ONCHANGE, onchange, null);
@@ -181,17 +181,17 @@ public class InRenderer extends InputRendererBase {
   }
 
   private void encodeAjax(FacesContext facesContext, UIComponent component) throws IOException {
-    if (!(component instanceof UIInputBase)) {
-      LOG.error("Wrong type: Need " + UIInputBase.class.getName() + ", but was " + component.getClass().getName());
+    if (!(component instanceof AbstractUIInput)) {
+      LOG.error("Wrong type: Need " + AbstractUIInput.class.getName() + ", but was " + component.getClass().getName());
       return;
     }
 
-    UIInputBase input = (UIInputBase) component;
+    AbstractUIInput input = (AbstractUIInput) component;
 
     MethodBinding mb;
     Object o = null;
-    if (input instanceof UIInput) {
-      o = ((UIInput) input).getSuggestMethod();
+    if (input instanceof UIIn) {
+      o = ((UIIn) input).getSuggestMethod();
     }
     if (o instanceof MethodBinding) {
       mb = (MethodBinding) o;
@@ -202,7 +202,7 @@ public class InRenderer extends InputRendererBase {
 
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
-    Object object = mb.invoke(facesContext, new Object[]{(UIInput) input});
+    Object object = mb.invoke(facesContext, new Object[]{(UIIn) input});
 
     final AutoSuggestItems items;
     if (object instanceof AutoSuggestItems) {

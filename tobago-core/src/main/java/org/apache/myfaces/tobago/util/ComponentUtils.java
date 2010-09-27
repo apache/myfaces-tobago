@@ -28,9 +28,9 @@ import org.apache.myfaces.tobago.context.TransientStateHolder;
 import org.apache.myfaces.tobago.el.ConstantMethodBinding;
 import org.apache.myfaces.tobago.event.AbstractPopupActionListener;
 import org.apache.myfaces.tobago.internal.component.AbstractUIForm;
+import org.apache.myfaces.tobago.internal.component.AbstractUIInput;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPage;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPopup;
-import org.apache.myfaces.tobago.internal.component.UIInputBase;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.slf4j.Logger;
@@ -333,8 +333,8 @@ public class ComponentUtils {
   }
 
   public static boolean isError(UIComponent component) {
-    if (component instanceof UIInputBase) {
-      return isError((UIInputBase) component);
+    if (component instanceof AbstractUIInput) {
+      return isError((AbstractUIInput) component);
     }
     return false;
   }

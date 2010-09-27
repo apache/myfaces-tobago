@@ -17,16 +17,16 @@ package org.apache.myfaces.tobago.internal.component;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.layout.LayoutComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.apache.myfaces.tobago.layout.LayoutComponent;
 
 import javax.faces.context.FacesContext;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.FacesEvent;
 import java.io.IOException;
 
-public abstract class AbstractUIMediator extends UIPanelBase implements LayoutComponent {
+public abstract class AbstractUIMediator extends AbstractUIPanelBase implements LayoutComponent {
 
   private static final Logger LOG = LoggerFactory.getLogger(AbstractUIMediator.class);
 

@@ -17,5 +17,5 @@ package org.apache.myfaces.tobago.internal.component;
  * limitations under the License.
  */
 
-public abstract class AbstractUISelectOneRadio extends UISelectOneBase {
+public abstract class AbstractUISelectOneRadio extends AbstactUISelectOneBase {
 }

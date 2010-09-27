@@ -42,11 +42,11 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsRequired;
 @Tag(name = "in")
 @BodyContentDescription(anyTagOf = "facestag")
 @UIComponentTag(
-    uiComponent = "org.apache.myfaces.tobago.component.UIInput",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.UIInputBase",
+    uiComponent = "org.apache.myfaces.tobago.component.UIIn",
+    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIInput",
     rendererType = RendererTypes.IN,
     allowedChildComponenents = "NONE",
-    interfaces =  "org.apache.myfaces.tobago.component.InputSuggest",
+    interfaces =  {"org.apache.myfaces.tobago.component.InputSuggest", "org.apache.myfaces.tobago.component.UIInput"}, 
     facets = {
     @Facet(name = Facets.CHANGE,
         description =

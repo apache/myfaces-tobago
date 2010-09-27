@@ -22,7 +22,7 @@ import org.apache.myfaces.tobago.apt.annotation.ExtensionTag;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
-import org.apache.myfaces.tobago.internal.component.UICommandBase;
+import org.apache.myfaces.tobago.internal.component.AbstractUICommandBase;
 import org.apache.myfaces.tobago.internal.taglib.MenuCommandTag;
 import org.apache.myfaces.tobago.internal.taglib.SelectBooleanCheckboxTag;
 import org.apache.myfaces.tobago.internal.taglib.declaration.AbstractCommandTagDeclaration;
@@ -146,7 +146,7 @@ public class MenuCheckboxExtensionTag extends BodyTagSupport implements Abstract
     if (renderedPartially == null) {
       // Move attribute renderedPartially from selectOne to menuCommand component
       UIComponent selectBooleanComponent = selectBooleanCheckbox.getComponentInstance();
-      UICommandBase command = (UICommandBase) menuCommandTag.getComponentInstance();
+      AbstractUICommandBase command = (AbstractUICommandBase) menuCommandTag.getComponentInstance();
       ValueBinding binding = selectBooleanComponent.getValueBinding(Attributes.RENDERED_PARTIALLY);
       if (binding != null) {
         command.setValueBinding(Attributes.RENDERED_PARTIALLY, binding);

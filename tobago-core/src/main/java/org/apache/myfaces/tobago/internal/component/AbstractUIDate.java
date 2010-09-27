@@ -17,6 +17,6 @@ package org.apache.myfaces.tobago.internal.component;
  * limitations under the License.
  */
 
-public abstract class AbstractUIDate extends UIInputBase {
+public abstract class AbstractUIDate extends AbstractUIInput {
 
 }

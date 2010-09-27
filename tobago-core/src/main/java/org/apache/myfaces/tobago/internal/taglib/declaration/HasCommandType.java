@@ -19,7 +19,7 @@ package org.apache.myfaces.tobago.internal.taglib.declaration;
 
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
-import org.apache.myfaces.tobago.internal.component.UICommandBase;
+import org.apache.myfaces.tobago.internal.component.AbstractUICommandBase;
 
 @Deprecated
 public interface HasCommandType {
@@ -42,7 +42,7 @@ public interface HasCommandType {
    * @deprecated
    */
   @TagAttribute
-  @UIComponentTagAttribute(defaultValue = UICommandBase.COMMAND_TYPE_SUBMIT)
+  @UIComponentTagAttribute(defaultValue = AbstractUICommandBase.COMMAND_TYPE_SUBMIT)
   @Deprecated
   void setType(String type);
 }

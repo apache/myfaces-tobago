@@ -17,7 +17,7 @@ package org.apache.myfaces.tobago.renderkit.html.example.standard.tag;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.component.UIInput;
+import org.apache.myfaces.tobago.component.UIIn;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 
 import javax.faces.component.UIComponent;
@@ -44,15 +44,15 @@ public class InRenderer extends org.apache.myfaces.tobago.renderkit.html.scarbor
   public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
     super.encodeEnd(facesContext, component);
 
-    UIInput input = (UIInput) component;
-    for (String markup : input.getMarkup()) {
+    UIIn in = (UIIn) component;
+    for (String markup : in.getMarkup()) {
       if (markup.equals("changeaware")) {
-        String id = input.getClientId(facesContext);
+        String id = in.getClientId(facesContext);
         final String[] cmds = {"new Example.ChangeAware('" + id + "');"};
         HtmlRendererUtils.writeScriptLoader(facesContext, null, cmds);
       }
       if (markup.equals("blink")) {
-        String id = input.getClientId(facesContext);
+        String id = in.getClientId(facesContext);
         final String[] cmds = {"new Example.Blinker('" + id + "');"};
         HtmlRendererUtils.writeScriptLoader(facesContext, null, cmds);
       }

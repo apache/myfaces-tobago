@@ -19,20 +19,28 @@ package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.myfaces.tobago.component.SupportsMarkup;
 import org.apache.myfaces.tobago.layout.LayoutComponent;
-import org.apache.myfaces.tobago.util.ComponentUtils;
+import org.apache.myfaces.tobago.util.MessageFactory;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
-public abstract class UIInputBase extends javax.faces.component.UIInput
+public abstract class AbstactUISelectOneBase extends javax.faces.component.UISelectOne
     implements SupportsMarkup, LayoutComponent {
 
-  // TODO can this removed?
-  public void updateModel(FacesContext facesContext) {
-    if (ComponentUtils.mayUpdateModel(this)) {
-      super.updateModel(facesContext);
+  public static final String MESSAGE_VALUE_REQUIRED = "tobago.SelectOne.MESSAGE_VALUE_REQUIRED";
+
+  public void validate(FacesContext facesContext) {
+    if (isRequired()  && !isReadonly()) {
+      Object submittedValue = getSubmittedValue();
+      if (submittedValue == null || "".equals(submittedValue)) {
+        FacesMessage facesMessage = MessageFactory.createFacesMessage(
+            facesContext, MESSAGE_VALUE_REQUIRED, FacesMessage.SEVERITY_ERROR);
+        facesContext.addMessage(getClientId(facesContext), facesMessage);
+        setValid(false);
+      }
     }
+    super.validate(facesContext);
   }
 
-  public abstract Integer getTabIndex();
-
+  public abstract boolean isReadonly();
 }

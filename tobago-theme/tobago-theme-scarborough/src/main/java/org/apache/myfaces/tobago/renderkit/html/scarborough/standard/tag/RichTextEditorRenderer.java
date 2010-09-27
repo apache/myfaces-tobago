@@ -22,7 +22,7 @@ import org.apache.myfaces.tobago.component.CreateComponentUtils;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.UICommand;
-import org.apache.myfaces.tobago.component.UIInput;
+import org.apache.myfaces.tobago.component.UIIn;
 import org.apache.myfaces.tobago.component.UISelectBooleanCommand;
 import org.apache.myfaces.tobago.component.UIToolBar;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
@@ -86,7 +86,7 @@ public class RichTextEditorRenderer extends InputRendererBase {
   @Override
   public void encodeEnd(FacesContext facesContext,      UIComponent component) throws IOException {
 
-    UIInput input = (UIInput) component;
+    UIIn input = (UIIn) component;
 
     boolean previewState
         = ComponentUtils.getBooleanAttribute(input, Attributes.STATE_PREVIEW);
@@ -150,7 +150,7 @@ public class RichTextEditorRenderer extends InputRendererBase {
     writer.endElement(HtmlElements.DIV);
   }
 
-  private UIComponent createToolbar(FacesContext facesContext, UIInput component) {
+  private UIComponent createToolbar(FacesContext facesContext, UIIn component) {
     UIPanel toolbar = (UIPanel) CreateComponentUtils.createComponent(
         facesContext, UIPanel.COMPONENT_TYPE, RendererTypes.TOOL_BAR);
     String clientId = component.getClientId(facesContext);
@@ -159,8 +159,8 @@ public class RichTextEditorRenderer extends InputRendererBase {
     toolbar.getAttributes().put(Attributes.ICON_SIZE, UIToolBar.ICON_SMALL);
     toolbar.getAttributes().put(Attributes.LABEL_POSITION, UIToolBar.LABEL_OFF);
 
-    UICommand //command = (UICommandBase) ComponentUtils.createComponent(
-//        facesContext, UICommandBase.COMPONENT_TYPE, MENU_COMMAND);
+    UICommand //command = (AbstractUICommandBase) ComponentUtils.createComponent(
+//        facesContext, AbstractUICommandBase.COMPONENT_TYPE, MENU_COMMAND);
 //    toolbar.getChildren().add(command);
 
     command = (UICommand) CreateComponentUtils.createComponent(

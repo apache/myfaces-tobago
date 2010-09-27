@@ -47,7 +47,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public abstract class AbstractUITabGroup extends UIPanelBase
+public abstract class AbstractUITabGroup extends AbstractUIPanelBase
     implements TabChangeSource, ActionSource, LayoutContainer, LayoutComponent, OnComponentPopulated {
 
   private static final Logger LOG = LoggerFactory.getLogger(AbstractUITabGroup.class);
@@ -63,19 +63,19 @@ public abstract class AbstractUITabGroup extends UIPanelBase
 
     super.encodeBegin(facesContext);
 
-    ((UILayoutBase) getLayoutManager()).encodeBegin(facesContext);
+    ((AbstractUILayoutBase) getLayoutManager()).encodeBegin(facesContext);
   }
 
   @Override
   public void encodeChildren(FacesContext facesContext) throws IOException {
 
-//    ((UILayoutBase) getLayoutManager()).encodeChildren(facesContext);
+//    ((AbstractUILayoutBase) getLayoutManager()).encodeChildren(facesContext);
   }
 
   @Override
   public void encodeEnd(FacesContext facesContext) throws IOException {
 
-    ((UILayoutBase) getLayoutManager()).encodeEnd(facesContext);
+    ((AbstractUILayoutBase) getLayoutManager()).encodeEnd(facesContext);
 
     resetTabLayout();
     super.encodeEnd(facesContext);
@@ -106,22 +106,22 @@ public abstract class AbstractUITabGroup extends UIPanelBase
     }
   }
 
-  public UIPanelBase[] getTabs() {
-    List<UIPanelBase> tabs = new ArrayList<UIPanelBase>();
+  public AbstractUIPanelBase[] getTabs() {
+    List<AbstractUIPanelBase> tabs = new ArrayList<AbstractUIPanelBase>();
     for (Object o : getChildren()) {
       UIComponent kid = (UIComponent) o;
-      if (kid instanceof UIPanelBase) {
+      if (kid instanceof AbstractUIPanelBase) {
         //if (kid.isRendered()) {
-        tabs.add((UIPanelBase) kid);
+        tabs.add((AbstractUIPanelBase) kid);
         //}
       } else {
         LOG.error("Invalid component in UITabGroup: " + kid);
       }
     }
-    return tabs.toArray(new UIPanelBase[tabs.size()]);
+    return tabs.toArray(new AbstractUIPanelBase[tabs.size()]);
   }
 
-  public UIPanelBase getActiveTab() {
+  public AbstractUIPanelBase getActiveTab() {
     return getTab(getSelectedIndex());
   }
 
@@ -136,7 +136,7 @@ public abstract class AbstractUITabGroup extends UIPanelBase
       if (!isRendered()) {
         return;
       }
-      UIPanelBase renderedTab = getRenderedTab();
+      AbstractUIPanelBase renderedTab = getRenderedTab();
       renderedTab.processDecodes(context);
       for (UIComponent facet : (Collection<UIComponent>) getFacets().values()) {
         facet.processDecodes(context);
@@ -161,7 +161,7 @@ public abstract class AbstractUITabGroup extends UIPanelBase
       if (!isRendered()) {
         return;
       }
-      UIPanelBase renderedTab = getRenderedTab();
+      AbstractUIPanelBase renderedTab = getRenderedTab();
       renderedTab.processValidators(context);
       for (UIComponent facet : (Collection<UIComponent>) getFacets().values()) {
         facet.processValidators(context);
@@ -180,7 +180,7 @@ public abstract class AbstractUITabGroup extends UIPanelBase
       if (!isRendered()) {
         return;
       }
-      UIPanelBase renderedTab = getRenderedTab();
+      AbstractUIPanelBase renderedTab = getRenderedTab();
       renderedTab.processUpdates(context);
       for (UIComponent facet : (Collection<UIComponent>) getFacets().values()) {
         facet.processUpdates(context);
@@ -242,12 +242,12 @@ public abstract class AbstractUITabGroup extends UIPanelBase
 
   public abstract String getSwitchType();
 
-  private UIPanelBase getTab(int index) {
+  private AbstractUIPanelBase getTab(int index) {
     int i = 0;
     for (UIComponent component : (List<UIComponent>) getChildren()) {
-      if (component instanceof UIPanelBase) {
+      if (component instanceof AbstractUIPanelBase) {
         if (i == index) {
-          return (UIPanelBase) component;
+          return (AbstractUIPanelBase) component;
         }
         i++;
       } else {
@@ -258,7 +258,7 @@ public abstract class AbstractUITabGroup extends UIPanelBase
     return null;
   }
 
-  private UIPanelBase getRenderedTab() {
+  private AbstractUIPanelBase getRenderedTab() {
     return getTab(getRenderedIndex());
   }
 
@@ -301,7 +301,7 @@ public abstract class AbstractUITabGroup extends UIPanelBase
   }
 
   public void setLayoutManager(LayoutManager layoutManager) {
-    getFacets().put(Facets.LAYOUT, (UILayoutBase) layoutManager);
+    getFacets().put(Facets.LAYOUT, (AbstractUILayoutBase) layoutManager);
   }
 
 // LAYOUT End

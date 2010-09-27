@@ -42,7 +42,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutContain
     facets = {
     @Facet(name= Facets.RELOAD, description = "Contains an instance of UIReload",
             allowedChildComponenents = "org.apache.myfaces.tobago.Reload"),
-    @Facet(name=Facets.LAYOUT, description = "Contains an instance of UILayoutBase",
+    @Facet(name=Facets.LAYOUT, description = "Contains an instance of AbstractUILayoutBase",
             allowedChildComponenents = "org.apache.myfaces.tobago.GridLayout")})
 public interface PanelTagDeclaration 
     extends HasIdBindingAndRendered, IsGridLayoutComponent, IsGridLayoutContainer, HasMarkup, HasCurrentMarkup, HasTip {

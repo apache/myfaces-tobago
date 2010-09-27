@@ -20,7 +20,7 @@ package org.apache.myfaces.tobago.example.demo;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.CreateComponentUtils;
 import org.apache.myfaces.tobago.component.RendererTypes;
-import org.apache.myfaces.tobago.component.UIInput;
+import org.apache.myfaces.tobago.component.UIIn;
 import org.apache.myfaces.tobago.component.UIToolBar;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.event.TabChangeListener;
@@ -242,13 +242,13 @@ public class TobagoDemoController {
     List<UIColumn> columns = new ArrayList<UIColumn>(3);
 
     FacesContext facesContext = FacesContext.getCurrentInstance();
-    UIInput textbox = (UIInput)
-        CreateComponentUtils.createComponent(facesContext, UIInput.COMPONENT_TYPE, RendererTypes.IN, "sac1i");
-    textbox.setValueBinding(
+    UIIn in = (UIIn)
+        CreateComponentUtils.createComponent(facesContext, UIIn.COMPONENT_TYPE, RendererTypes.IN, "sac1i");
+    in.setValueBinding(
         Attributes.VALUE, facesContext.getApplication().createValueBinding("#{luminary.population}"));
 
     columns.add(CreateComponentUtils.createColumn(
-        "#{overviewBundle.solarArrayPopulation}", "true", null, textbox, "sac1"));
+        "#{overviewBundle.solarArrayPopulation}", "true", null, in, "sac1"));
 
     columns.add(CreateComponentUtils.createTextColumn(
         "#{overviewBundle.solarArrayDistance}", "true", "right", "#{luminary.distance}", "sac1"));
@@ -256,10 +256,8 @@ public class TobagoDemoController {
     columns.add(CreateComponentUtils.createTextColumn(
         "#{overviewBundle.solarArrayPeriod}", "true", "right", "#{luminary.period}", "sac1"));
 
-
     return columns;
   }
-
 
   public static SelectItem[] getSelectItems(String[] keys, String bundle) {
     FacesContext facesContext = FacesContext.getCurrentInstance();

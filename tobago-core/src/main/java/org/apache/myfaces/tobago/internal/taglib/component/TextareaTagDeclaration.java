@@ -39,7 +39,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsRequired;
 @Tag(name = "textarea")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UITextarea",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.UIInputBase",
+    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIInput",
     rendererType = RendererTypes.TEXTAREA,
     allowedChildComponenents = "NONE")
 public interface TextareaTagDeclaration

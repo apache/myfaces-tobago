@@ -482,7 +482,7 @@ public class PageRenderer extends PageRendererBase {
       RenderUtils.encode(facesContext, menuBar);
     }
     // write the proviously rendered page content
-//    UILayoutBase.getLayout(component).encodeChildrenOfComponent(facesContext, component);
+//    AbstractUILayoutBase.getLayout(component).encodeChildrenOfComponent(facesContext, component);
 
 //    page.encodeLayoutBegin(facesContext);
     

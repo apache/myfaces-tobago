@@ -17,8 +17,19 @@ package org.apache.myfaces.tobago.internal.component;
  * limitations under the License.
  */
 
-import javax.faces.component.UIComponentBase;
+import org.apache.myfaces.tobago.compat.FacesUtils;
+import org.apache.myfaces.tobago.compat.InvokeOnComponent;
 
-public abstract class UILayoutBase extends UIComponentBase {
+import javax.faces.FacesException;
+import javax.faces.component.ContextCallback;
+import javax.faces.context.FacesContext;
 
+public abstract class AbstractUIPanelBase extends javax.faces.component.UIPanel
+    implements InvokeOnComponent {
+
+
+  public boolean invokeOnComponent(FacesContext context, String clientId, ContextCallback callback)
+     throws FacesException {
+    return FacesUtils.invokeOnComponent(context, this, clientId, callback);
+  }
 }

@@ -21,7 +21,7 @@ package org.apache.myfaces.tobago;
  * @see org.apache.myfaces.tobago.component.Attributes
  * @see org.apache.myfaces.tobago.component.Facets
  * @see org.apache.myfaces.tobago.component.RendererTypes
- * @see org.apache.myfaces.tobago.internal.component.UICommandBase
+ * @see org.apache.myfaces.tobago.internal.component.AbstractUICommandBase
  * @see org.apache.myfaces.tobago.component.OnComponentCreated
  * @see org.apache.myfaces.tobago.renderkit.HtmlUtils
  * @see org.apache.myfaces.tobago.util.ComponentUtils

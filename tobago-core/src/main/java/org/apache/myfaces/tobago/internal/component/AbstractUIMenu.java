@@ -19,5 +19,5 @@ package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.myfaces.tobago.layout.LayoutComponent;
 
-public abstract class AbstractUIMenu extends UIPanelBase implements LayoutComponent {
+public abstract class AbstractUIMenu extends AbstractUIPanelBase implements LayoutComponent {
 }

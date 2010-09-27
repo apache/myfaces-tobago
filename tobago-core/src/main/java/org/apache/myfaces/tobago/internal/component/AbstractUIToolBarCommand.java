@@ -20,6 +20,6 @@ package org.apache.myfaces.tobago.internal.component;
 import org.apache.myfaces.tobago.layout.LayoutComponent;
 
 public abstract class AbstractUIToolBarCommand
-    extends UICommandBase implements LayoutComponent {
+    extends AbstractUICommandBase implements LayoutComponent {
 
 }

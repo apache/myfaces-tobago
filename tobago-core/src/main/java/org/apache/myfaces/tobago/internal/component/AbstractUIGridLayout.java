@@ -17,8 +17,6 @@ package org.apache.myfaces.tobago.internal.component;
  * limitations under the License.
  */
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.component.SupportsMarkup;
 import org.apache.myfaces.tobago.internal.layout.BankHead;
 import org.apache.myfaces.tobago.internal.layout.Cell;
@@ -39,12 +37,14 @@ import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.layout.Orientation;
 import org.apache.myfaces.tobago.layout.PixelLayoutToken;
 import org.apache.myfaces.tobago.layout.RelativeLayoutToken;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.context.FacesContext;
 import java.util.Arrays;
 import java.util.List;
 
-public abstract class AbstractUIGridLayout extends UILayoutBase implements LayoutManager, SupportsMarkup {
+public abstract class AbstractUIGridLayout extends AbstractUILayoutBase implements LayoutManager, SupportsMarkup {
 
   private static final Logger LOG = LoggerFactory.getLogger(AbstractUIGridLayout.class);
 

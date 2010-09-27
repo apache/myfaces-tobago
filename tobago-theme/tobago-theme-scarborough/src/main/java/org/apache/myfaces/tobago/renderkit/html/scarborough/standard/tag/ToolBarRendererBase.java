@@ -31,8 +31,8 @@ import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.ResourceManager;
 import org.apache.myfaces.tobago.context.ResourceManagerFactory;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
+import org.apache.myfaces.tobago.internal.component.AbstractUICommandBase;
 import org.apache.myfaces.tobago.internal.component.AbstractUIMenu;
-import org.apache.myfaces.tobago.internal.component.UICommandBase;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
@@ -86,18 +86,18 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
 
     Measure width = Measure.valueOf(-1);
     for (UIComponent command : (List<UIComponent>) toolBar.getChildren()) {
-      if (command instanceof UICommandBase) {
-        width = renderToolbarCommand(context, toolBar, (UICommandBase) command, writer, width);
+      if (command instanceof AbstractUICommandBase) {
+        width = renderToolbarCommand(context, toolBar, (AbstractUICommandBase) command, writer, width);
       } else if (command instanceof UIToolBarSeparator) {
         width = renderSeparator(context, toolBar, (UIToolBarSeparator) command, writer, width);
       } else {
-        LOG.error("Illegal UIComponent class in toolbar (not a UICommandBase):" + command.getClass().getName());
+        LOG.error("Illegal UIComponent class in toolbar (not a AbstractUICommandBase):" + command.getClass().getName());
       }
     }
   }
 
   private Measure renderToolbarCommand(
-      FacesContext facesContext, UIToolBar toolBar, UICommandBase command, TobagoResponseWriter writer, Measure width)
+      FacesContext facesContext, UIToolBar toolBar, AbstractUICommandBase command, TobagoResponseWriter writer, Measure width)
       throws IOException {
     if (command instanceof UISelectBooleanCommand) {
       return renderSelectBoolean(facesContext, toolBar, command, writer, width);
@@ -120,7 +120,7 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
   // todo: remove component creation in renderer, for JSF 2.0
   // todo: One solution is to make <tx:toolBarSelectOne> instead of <tc:toolBarSelectOne>
   private Measure renderSelectOne(
-      FacesContext facesContext, UIToolBar toolBar, UICommandBase command, TobagoResponseWriter writer, Measure width)
+      FacesContext facesContext, UIToolBar toolBar, AbstractUICommandBase command, TobagoResponseWriter writer, Measure width)
       throws IOException {
 
     String suffix = createCommandOnClick(facesContext, command);
@@ -196,7 +196,7 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
   // todo: One solution is to make <tx:toolBarCheck> instead of <tc:toolBarCheck>
   // may be renamed to toolBarSelectBoolean?
   private Measure renderSelectBoolean(
-      FacesContext facesContext, UIToolBar toolBar, UICommandBase command, TobagoResponseWriter writer, Measure width)
+      FacesContext facesContext, UIToolBar toolBar, AbstractUICommandBase command, TobagoResponseWriter writer, Measure width)
       throws IOException {
 
     UIComponent checkbox = command.getFacet(Facets.CHECKBOX);
@@ -227,7 +227,7 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
 
 
   private Measure renderToolbarButton(
-      FacesContext facesContext, UIToolBar toolBar, UICommandBase command, TobagoResponseWriter writer,
+      FacesContext facesContext, UIToolBar toolBar, AbstractUICommandBase command, TobagoResponseWriter writer,
       boolean selected, String commandClick, String menuClick, Measure width)
       throws IOException {
     if (!command.isRendered()) {
@@ -500,7 +500,7 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
     return result;
   }
 
-  private String createCommandOnClick(FacesContext facesContext, UICommandBase command) {
+  private String createCommandOnClick(FacesContext facesContext, AbstractUICommandBase command) {
     if (hasNoCommand(command) && FacetUtils.getDropDownMenu(command) != null) {
       return null;
     } else {
@@ -509,11 +509,11 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
     }
   }
 
-  private boolean hasAnyCommand(UICommandBase command) {
+  private boolean hasAnyCommand(AbstractUICommandBase command) {
     return !hasNoCommand(command);
   }
 
-  private boolean hasNoCommand(UICommandBase command) {
+  private boolean hasNoCommand(AbstractUICommandBase command) {
     return command.getAction() == null
         && command.getActionListener() == null
         && command.getActionListeners().length == 0
@@ -521,7 +521,7 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
         && command.getAttributes().get(Attributes.ONCLICK) == null;
   }
 
-  private String createMenuOnClick(UICommandBase command) {
+  private String createMenuOnClick(AbstractUICommandBase command) {
     if (FacetUtils.getDropDownMenu(command) != null) {
       return "jQuery(this).find('a').click(); " 
           + "if (event.stopPropagation === undefined) { "

@@ -18,8 +18,6 @@ package org.apache.myfaces.tobago.internal.component;
  */
 
 import org.apache.commons.collections.KeyValue;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.compat.FacesUtils;
 import org.apache.myfaces.tobago.compat.InvokeOnComponent;
 import org.apache.myfaces.tobago.component.Attributes;
@@ -40,6 +38,8 @@ import org.apache.myfaces.tobago.model.PageState;
 import org.apache.myfaces.tobago.model.PageStateImpl;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.util.DebugUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.FacesException;
 import javax.faces.application.FacesMessage;
@@ -89,19 +89,19 @@ public abstract class AbstractUIPage extends AbstractUIForm
   public void encodeBegin(FacesContext facesContext) throws IOException {
 
     super.encodeBegin(facesContext);
-    ((UILayoutBase) getLayoutManager()).encodeBegin(facesContext);
+    ((AbstractUILayoutBase) getLayoutManager()).encodeBegin(facesContext);
   }
 
   @Override
   public void encodeChildren(FacesContext facesContext) throws IOException {
 
-    ((UILayoutBase) getLayoutManager()).encodeChildren(facesContext);
+    ((AbstractUILayoutBase) getLayoutManager()).encodeChildren(facesContext);
   }
 
   @Override
   public void encodeEnd(FacesContext facesContext) throws IOException {
 
-    ((UILayoutBase) getLayoutManager()).encodeEnd(facesContext);
+    ((AbstractUILayoutBase) getLayoutManager()).encodeEnd(facesContext);
     super.encodeEnd(facesContext);
   }
 
@@ -315,7 +315,7 @@ public abstract class AbstractUIPage extends AbstractUIForm
   }
 
   public void setLayoutManager(LayoutManager layoutManager) {
-    getFacets().put(Facets.LAYOUT, (UILayoutBase) layoutManager);
+    getFacets().put(Facets.LAYOUT, (AbstractUILayoutBase) layoutManager);
   }
 
   // LAYOUT End

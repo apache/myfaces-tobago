@@ -21,7 +21,7 @@ import org.apache.myfaces.test.base.junit4.AbstractJsfTestCase;
 import org.apache.myfaces.test.mock.MockFacesContext;
 import org.apache.myfaces.test.mock.MockHttpServletRequest;
 import org.apache.myfaces.tobago.component.ComponentTypes;
-import org.apache.myfaces.tobago.component.UIInput;
+import org.apache.myfaces.tobago.component.UIIn;
 import org.apache.myfaces.tobago.component.UIOut;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.context.ClientProperties;
@@ -71,7 +71,7 @@ public abstract class AbstractTobagoTestBase extends AbstractJsfTestCase {
     session.setAttribute(ClientProperties.MANAGED_BEAN_NAME, clientProperties);
 
     // XXX is there a better way? Get it from Tobagos generated faces-config.xml?
-    application.addComponent(ComponentTypes.IN, UIInput.class.getName());
+    application.addComponent(ComponentTypes.IN, UIIn.class.getName());
     application.addComponent(ComponentTypes.OUT, UIOut.class.getName());
     application.addComponent("javax.faces.ViewRoot", "org.apache.myfaces.tobago.component.UIViewRoot");
     application.addComponent("javax.faces.Command", "javax.faces.component.UICommand");

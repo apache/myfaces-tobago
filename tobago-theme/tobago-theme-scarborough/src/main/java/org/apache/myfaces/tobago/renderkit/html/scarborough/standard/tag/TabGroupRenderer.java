@@ -33,7 +33,7 @@ import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.event.TabChangeEvent;
-import org.apache.myfaces.tobago.internal.component.UIPanelBase;
+import org.apache.myfaces.tobago.internal.component.AbstractUIPanelBase;
 import org.apache.myfaces.tobago.internal.util.AccessKeyMap;
 import org.apache.myfaces.tobago.layout.Display;
 import org.apache.myfaces.tobago.layout.Measure;
@@ -144,7 +144,7 @@ public class TabGroupRenderer extends LayoutComponentRendererBase {
     Measure toolBarExtra = getResourceManager().getThemeMeasure(facesContext, tabGroup, "toolBarExtra");
     Measure toolBarWidth = toolBarContentWidth.add(toolBarExtra);
     for (UIComponent tab : (List<UIComponent>) tabGroup.getChildren()) {
-      if (tab instanceof UIPanelBase) {
+      if (tab instanceof AbstractUIPanelBase) {
         if (tab.isRendered()) {
           currentWidth = currentWidth.add(tabList.getWidthList().get(virtualTab));
           if (UITabGroup.SWITCH_TYPE_CLIENT.equals(switchType) || virtualTab == activeIndex) {
@@ -219,7 +219,7 @@ public class TabGroupRenderer extends LayoutComponentRendererBase {
     int closestRenderedTabIndex = -1;
     for (UIComponent tab : (List<UIComponent>) tabGroup.getChildren()) {
       index++;
-      if (tab instanceof UIPanelBase) {
+      if (tab instanceof AbstractUIPanelBase) {
         if (index == activeIndex) {
           if (tab.isRendered()) {
             return index;

@@ -541,7 +541,7 @@ public abstract class AbstractUISheet extends javax.faces.component.UIData
   }
 
   public void setLayoutManager(LayoutManager layoutManager) {
-    getFacets().put(Facets.LAYOUT, (UILayoutBase) layoutManager);
+    getFacets().put(Facets.LAYOUT, (AbstractUILayoutBase) layoutManager);
   }
 
 // LAYOUT End

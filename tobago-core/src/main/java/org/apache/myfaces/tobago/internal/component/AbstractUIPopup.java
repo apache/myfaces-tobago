@@ -17,8 +17,6 @@ package org.apache.myfaces.tobago.internal.component;
  * limitations under the License.
  */
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.compat.FacesUtils;
 import org.apache.myfaces.tobago.compat.InvokeOnComponent;
 import org.apache.myfaces.tobago.component.Attributes;
@@ -36,6 +34,8 @@ import org.apache.myfaces.tobago.layout.LayoutContainer;
 import org.apache.myfaces.tobago.layout.LayoutManager;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.util.ComponentUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.FacesException;
 import javax.faces.component.ContextCallback;
@@ -47,7 +47,7 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
 
-public abstract class AbstractUIPopup extends UIPanelBase
+public abstract class AbstractUIPopup extends AbstractUIPanelBase
     implements OnComponentCreated, OnComponentPopulated, NamingContainer, InvokeOnComponent,
     DeprecatedDimension, Position, LayoutContainer {
 
@@ -189,7 +189,7 @@ public abstract class AbstractUIPopup extends UIPanelBase
   }
 
   public void setLayoutManager(LayoutManager layoutManager) {
-    getFacets().put(Facets.LAYOUT, (UILayoutBase) layoutManager);
+    getFacets().put(Facets.LAYOUT, (AbstractUILayoutBase) layoutManager);
   }
 
   public abstract Measure getWidth();

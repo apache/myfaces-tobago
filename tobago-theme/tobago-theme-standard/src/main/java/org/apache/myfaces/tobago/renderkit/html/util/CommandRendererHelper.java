@@ -23,7 +23,7 @@ import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.UIPopup;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.event.PopupFacetActionListener;
-import org.apache.myfaces.tobago.internal.component.UICommandBase;
+import org.apache.myfaces.tobago.internal.component.AbstractUICommandBase;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -48,15 +48,15 @@ public class CommandRendererHelper {
   private String href;
   private String target;
 
-  public CommandRendererHelper(FacesContext facesContext, UICommandBase component) {
+  public CommandRendererHelper(FacesContext facesContext, AbstractUICommandBase component) {
     initOnclick(facesContext, component, null);
   }
 
-  public CommandRendererHelper(FacesContext facesContext, UICommandBase component, Tag tag) {
+  public CommandRendererHelper(FacesContext facesContext, AbstractUICommandBase component, Tag tag) {
     initOnclick(facesContext, component, tag);
   }
 
-  private void initOnclick(FacesContext facesContext, UICommandBase command, Tag tag) {
+  private void initOnclick(FacesContext facesContext, AbstractUICommandBase command, Tag tag) {
 
     disabled = ComponentUtils.getBooleanAttribute(command, Attributes.DISABLED);
 
@@ -88,10 +88,10 @@ public class CommandRendererHelper {
         }
       } else if (command.getAttributes().get(Attributes.ONCLICK) != null) {
         onclick = prepareOnClick(facesContext, command);
-      } else if (command instanceof UICommandBase
-          && ((UICommandBase) command).getRenderedPartially().length > 0) {
+      } else if (command instanceof AbstractUICommandBase
+          && ((AbstractUICommandBase) command).getRenderedPartially().length > 0) {
 
-        String[] componentIds = ((UICommandBase) command).getRenderedPartially();
+        String[] componentIds = ((AbstractUICommandBase) command).getRenderedPartially();
 
           // TODO find a better way
           boolean popupAction = ComponentUtils.containsPopupActionListener(command);
@@ -159,7 +159,7 @@ public class CommandRendererHelper {
     return onclick;
   }
 
-  private String generateUrl(FacesContext facesContext, UICommandBase component) {
+  private String generateUrl(FacesContext facesContext, AbstractUICommandBase component) {
     String url;
     Application application = facesContext.getApplication();
     ViewHandler viewHandler = application.getViewHandler();

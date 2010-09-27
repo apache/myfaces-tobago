@@ -74,7 +74,7 @@ public class RenderUtils {
     encodeChildrenWithoutLayout(facesContext, panel);
     // XXX is the following coded needed?
 
-//    UILayoutBase layout = UILayoutBase.getLayout(panel);
+//    AbstractUILayoutBase layout = AbstractUILayoutBase.getLayout(panel);
 //    if (layout != null) {
 //      layout.encodeChildrenOfComponent(facesContext, panel);
 //    } else {

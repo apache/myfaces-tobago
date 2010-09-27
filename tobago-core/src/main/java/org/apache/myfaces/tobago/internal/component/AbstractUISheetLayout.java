@@ -47,7 +47,7 @@ import java.util.Map;
 /**
  * XXX: Not completely implemented yet.
  */ 
-public abstract class AbstractUISheetLayout extends UILayoutBase implements LayoutManager {
+public abstract class AbstractUISheetLayout extends AbstractUILayoutBase implements LayoutManager {
 
   private static final Logger LOG = LoggerFactory.getLogger(AbstractUIGridLayout.class);
 

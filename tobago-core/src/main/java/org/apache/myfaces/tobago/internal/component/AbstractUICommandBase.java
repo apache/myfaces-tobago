@@ -29,7 +29,7 @@ import javax.faces.event.FacesEvent;
 import javax.faces.event.PhaseId;
 import java.util.Iterator;
 
-public abstract class UICommandBase extends javax.faces.component.UICommand
+public abstract class AbstractUICommandBase extends javax.faces.component.UICommand
     implements InvokeOnComponent, SupportsRenderedPartially {
 
   public static final String COMMAND_TYPE_SUBMIT = "submit";

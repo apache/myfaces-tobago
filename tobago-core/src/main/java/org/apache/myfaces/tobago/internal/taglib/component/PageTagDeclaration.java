@@ -51,7 +51,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutContain
                 allowedChildComponenents = {"org.apache.myfaces.tobago.Command", "org.apache.myfaces.tobago.Form"}),
           @Facet(name = Facets.MENUBAR, description = "Menubar",
                 allowedChildComponenents = "javax.faces.component.UIPanel"), //fake
-          @Facet(name=Facets.LAYOUT, description = "Contains an instance of UILayoutBase",
+          @Facet(name=Facets.LAYOUT, description = "Contains an instance of AbstractUILayoutBase",
                 allowedChildComponenents = "org.apache.myfaces.tobago.GridLayout")})
 
 public interface PageTagDeclaration

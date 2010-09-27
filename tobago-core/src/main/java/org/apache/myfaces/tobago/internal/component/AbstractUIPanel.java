@@ -17,8 +17,6 @@ package org.apache.myfaces.tobago.internal.component;
  * limitations under the License.
  */
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.component.ComponentTypes;
 import org.apache.myfaces.tobago.component.CreateComponentUtils;
 import org.apache.myfaces.tobago.component.Facets;
@@ -28,13 +26,15 @@ import org.apache.myfaces.tobago.internal.layout.LayoutUtils;
 import org.apache.myfaces.tobago.layout.LayoutComponent;
 import org.apache.myfaces.tobago.layout.LayoutContainer;
 import org.apache.myfaces.tobago.layout.LayoutManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.util.List;
 
-public abstract class AbstractUIPanel extends UIPanelBase
+public abstract class AbstractUIPanel extends AbstractUIPanelBase
     implements OnComponentPopulated, LayoutContainer, LayoutComponent {
 
   private static final Logger LOG = LoggerFactory.getLogger(AbstractUIPanel.class);
@@ -43,19 +43,19 @@ public abstract class AbstractUIPanel extends UIPanelBase
   public void encodeBegin(FacesContext facesContext) throws IOException {
 
     super.encodeBegin(facesContext);
-    ((UILayoutBase) getLayoutManager()).encodeBegin(facesContext);
+    ((AbstractUILayoutBase) getLayoutManager()).encodeBegin(facesContext);
   }
 
   @Override
   public void encodeChildren(FacesContext facesContext) throws IOException {
 
-    ((UILayoutBase) getLayoutManager()).encodeChildren(facesContext);
+    ((AbstractUILayoutBase) getLayoutManager()).encodeChildren(facesContext);
   }
 
   @Override
   public void encodeEnd(FacesContext facesContext) throws IOException {
 
-    ((UILayoutBase) getLayoutManager()).encodeEnd(facesContext);
+    ((AbstractUILayoutBase) getLayoutManager()).encodeEnd(facesContext);
     super.encodeEnd(facesContext);
   }
 
@@ -75,6 +75,6 @@ public abstract class AbstractUIPanel extends UIPanelBase
   }
 
   public void setLayoutManager(LayoutManager layoutManager) {
-    getFacets().put(Facets.LAYOUT, (UILayoutBase) layoutManager);
+    getFacets().put(Facets.LAYOUT, (AbstractUILayoutBase) layoutManager);
   }
 }
