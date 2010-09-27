@@ -23,8 +23,6 @@ package org.apache.myfaces.tobago.example.addressbook.web;
  */
 
 import org.apache.commons.fileupload.FileItem;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.component.UIColumn;
 import org.apache.myfaces.tobago.component.UISheet;
 import org.apache.myfaces.tobago.config.TobagoConfig;
@@ -36,6 +34,8 @@ import org.apache.myfaces.tobago.example.addressbook.AddressDao;
 import org.apache.myfaces.tobago.example.addressbook.Picture;
 import org.apache.myfaces.tobago.model.SheetState;
 import org.apache.myfaces.tobago.util.VariableResolverUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -160,7 +160,7 @@ public class Controller {
     LOG.debug("action: editAddress");
     List<Integer> selection = selectedAddresses.getSelectedRows();
     if (selection.size() != 1) {
-      FacesMessage error = new FacesMessage("Please select exactly one address.");
+      FacesMessage error = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Please select exactly one address!", null);
       FacesContext.getCurrentInstance().addMessage(null, error);
       return null;
     }
