@@ -37,42 +37,6 @@
     <phase-listener>org.apache.myfaces.tobago.example.addressbook.web.StartupPhaseListener</phase-listener>
   </lifecycle>
 
-  <managed-bean>
-    <managed-bean-name>layout</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.tobago.example.addressbook.web.Layout</managed-bean-class>
-    <managed-bean-scope>session</managed-bean-scope>
-    <managed-property>
-      <property-name>width</property-name>
-      <property-class>int</property-class>
-      <value>600</value>
-    </managed-property>
-    <managed-property>
-      <property-name>height</property-name>
-      <property-class>int</property-class>
-      <value>550</value>
-    </managed-property>
-    <managed-property>
-      <property-name>minimumWidth</property-name>
-      <property-class>int</property-class>
-      <value>600</value>
-    </managed-property>
-    <managed-property>
-      <property-name>minimumHeight</property-name>
-      <property-class>int</property-class>
-      <value>550</value>
-    </managed-property>
-     <managed-property>
-      <property-name>maximumWidth</property-name>
-      <property-class>int</property-class>
-      <value>1000</value>
-    </managed-property>
-    <managed-property>
-      <property-name>maximumHeight</property-name>
-      <property-class>int</property-class>
-      <value>600</value>
-    </managed-property>
-  </managed-bean>
-
   <navigation-rule>
     <navigation-case>
       <from-outcome>logout</from-outcome>
