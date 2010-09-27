@@ -17,6 +17,7 @@ package org.apache.myfaces.tobago.internal.taglib.component;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.apt.annotation.DynamicExpression;
 import org.apache.myfaces.tobago.apt.annotation.Facet;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
@@ -29,7 +30,6 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasId;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabel;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasState;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutComponentWithDeprecatedDimension;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutContainer;
 
@@ -55,13 +55,13 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutContain
                 allowedChildComponenents = "org.apache.myfaces.tobago.GridLayout")})
 
 public interface PageTagDeclaration
-    extends HasLabel, HasId, HasBinding, HasState, HasMarkup, HasCurrentMarkup,
+    extends HasLabel, HasId, HasBinding, HasMarkup, HasCurrentMarkup,
     IsGridLayoutComponentWithDeprecatedDimension, IsGridLayoutContainer {
 
   /**
-   * Contains the id of the component wich should have the focus after
+   * Contains the id of the component which should have the focus after
    * loading the page.
-   * Set to emtpy string for disabling setting of focus.
+   * Set to empty string for disabling setting of focus.
    * Default (null) enables the "auto focus" feature.
    */
   @TagAttribute
@@ -75,6 +75,18 @@ public interface PageTagDeclaration
   @TagAttribute
   @UIComponentTagAttribute()
   void setApplicationIcon(String icon);
+
+  /**
+   * <strong>ValueBindingExpression</strong> pointing to a object to save the
+   * component's state.
+   * @deprecated since Tobago 1.5.0. Please set the min/max values with e. g. 
+   * a tc:gridLayoutConstraint tag.
+   */
+  @Deprecated
+  @TagAttribute
+  @UIComponentTagAttribute(
+      type = "java.lang.Object", expression = DynamicExpression.VALUE_BINDING_REQUIRED)
+  void setState(String state);
 
   // XXX LAYOUT_GENERATE
 //  @TagAttribute

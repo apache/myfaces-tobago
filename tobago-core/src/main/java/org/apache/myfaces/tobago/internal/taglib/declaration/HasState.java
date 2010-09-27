@@ -21,18 +21,14 @@ import org.apache.myfaces.tobago.apt.annotation.DynamicExpression;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 
-/**
- * $Id$
- */
 public interface HasState {
   /**
-   *
    * <strong>ValueBindingExpression</strong> pointing to a object to save the
    * component's state.
-   *
    */
-  // TODO is Object right
-  @TagAttribute @UIComponentTagAttribute(
-          type = "java.lang.Object", expression = DynamicExpression.VALUE_BINDING_REQUIRED)
+  // TODO is Object right?
+  @TagAttribute
+  @UIComponentTagAttribute(
+      type = "java.lang.Object", expression = DynamicExpression.VALUE_BINDING_REQUIRED)
   void setState(String state);
 }
