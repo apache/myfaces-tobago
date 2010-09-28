@@ -161,13 +161,11 @@ public interface SheetTagDeclaration extends TobagoTagDeclaration, HasIdBindingA
   void setShowRowRange(String showRowRange);
 
   /**
-   * Flag indicating whether or not the sheet should be selectable <br />
-   * Valid values are <strong>none</strong>, <strong>single</strong>,
-   * and <strong>multi</strong>.<br />
+   * Flag indicating whether or not the sheet should be selectable.
    */
   @TagAttribute
   @UIComponentTagAttribute(defaultValue = UIData.MULTI,
-      allowedValues = {UIData.NONE, UIData.SINGLE, UIData.MULTI})
+      allowedValues = {UIData.NONE, UIData.SINGLE, UIData.SINGLE_OR_NONE, UIData.MULTI})
   void setSelectable(String selectable);
 
   /**

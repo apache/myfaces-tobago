@@ -387,7 +387,8 @@ Tobago.Sheet.prototype.setup = function() {
       }
       this.setScrollPosition(divElement);
 
-      if (this.selectable && (this.selectable == "single" || this.selectable == "multi")) {
+      if (this.selectable
+          && (this.selectable == "single" || this.selectable == "singleOrNone" || this.selectable == "multi")) {
         this.addSelectionListener();
         this.updateSelectionView();
       }
@@ -516,18 +517,22 @@ Tobago.Sheet.prototype.doSelection = function(event) {
       //LOG.debug("rowId = " + rowId);
       var rowIndex = rowId.substring(rowId.lastIndexOf("_data_tr_") + 9);
       var selector = Tobago.element(this.id + "_data_row_selector_" + rowIndex);
+      var selected = Tobago.element(this.selectedId);
+      var wasSelected = selected.value.indexOf("," + rowIndex + ",") >= 0;
 
-      if ((!event.ctrlKey && !event.metaKey && !selector) || this.selectable == "single" ) {
+      if ((!event.ctrlKey && !event.metaKey && !selector)
+          || this.selectable == "single" || this.selectable == "singleOrNone") {
         // clearAllSelections();
-        Tobago.element(this.selectedId).value = ",";
+        selected.value = ",";
       }
 
       if (event.shiftKey && this.selectable == "multi") {
         this.selectRange(dataRow);
-      }
-      else {
+      } else {
         this.tobagoLastClickedRowId = rowId;
-        this.toggleSelectionForRow(dataRow);
+        if (this.selectable != "singleOrNone" || !wasSelected) {
+          this.toggleSelectionForRow(dataRow);
+        }
       }
       this.updateSelectionView();
       //LOG.debug("selected rows = " + hidden.value);

@@ -81,6 +81,7 @@ public class UIData extends javax.faces.component.UIData
 
   public static final String NONE = "none";
   public static final String SINGLE = "single";
+  public static final String SINGLE_OR_NONE = "singleOrNone";
   public static final String MULTI = "multi";
   public static final int DEFAULT_DIRECT_LINK_COUNT = 9;
   public static final int DEFAULT_ROW_COUNT = 100;
