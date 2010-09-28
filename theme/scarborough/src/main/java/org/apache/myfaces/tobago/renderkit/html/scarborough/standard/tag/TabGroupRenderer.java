@@ -309,9 +309,12 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
 
     writer.startElement(HtmlConstants.COLGROUP, null);
     for (Integer colWidth : tabList.getWidthList()) {
-      writer.startElement(HtmlConstants.COL, null);
-      writer.writeAttribute(HtmlAttributes.WIDTH, colWidth);
-      writer.endElement(HtmlConstants.COL);
+      // skip col with width zero
+      if (colWidth > 0) {
+        writer.startElement(HtmlConstants.COL, null);
+        writer.writeAttribute(HtmlAttributes.WIDTH, colWidth);
+        writer.endElement(HtmlConstants.COL);
+      }
     }
     writer.endElement(HtmlConstants.COLGROUP);
 
