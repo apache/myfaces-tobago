@@ -334,7 +334,8 @@ Tobago.Sheet.prototype.setup = function() {
   this.firstRowIndex = parseInt(this.getRows().eq(0).attr("rowIndexInModel"));
   this.rowCount = this.getRows().size();
 
-  if (this.selectable && (this.selectable == "single" || this.selectable == "multi")) {
+  if (this.selectable
+      && (this.selectable == "single" || this.selectable == "singleOrNone" || this.selectable == "multi")) {
     this.addSelectionListener();
     this.updateSelectionView();
   }
@@ -452,8 +453,10 @@ Tobago.Sheet.prototype.doSelection = function(event) {
       var row = jQuery(Tobago.element(event)).closest("tr");
       var selector = this.getSelectorImage(row.get(0));
       var rowIndex = row.index() + this.firstRowIndex;
+      var wasSelected = this.isSelected(rowIndex);
 
-      if ((!event.ctrlKey && !event.metaKey && !selector) || this.selectable == "single" ) {
+      if ((!event.ctrlKey && !event.metaKey && !selector)
+          || this.selectable == "single" || this.selectable == "singleOrNone") {
         this.deselectAll();
       }
 
@@ -463,7 +466,7 @@ Tobago.Sheet.prototype.doSelection = function(event) {
         } else {
           this.selectRange(rowIndex, this.lastClickedRowIndex + 1, true, false);
         }
-      } else {
+      } else if (this.selectable != "singleOrNone" || !wasSelected) {
         this.toggleSelection(rowIndex, row.get(0), selector);
       }
       //LOG.debug("selected rows = " + hidden.value);
@@ -561,6 +564,11 @@ Tobago.Sheet.prototype.updateSelectionView = function() {
   }
 
 //  LOG.warn("init 14 >>>>>>>> " + (new Date().getTime() - s));
+};
+
+Tobago.Sheet.prototype.isSelected = function(rowIndex) {
+  var selected = Tobago.element(this.selectedId);
+  return selected.value.indexOf("," + rowIndex + ",") >= 0;
 };
 
 Tobago.Sheet.prototype.toggleSelection = function(rowIndex, row, image) {

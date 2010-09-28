@@ -171,7 +171,7 @@ public interface SheetTagDeclaration
    */
   @TagAttribute
   @UIComponentTagAttribute(defaultValue = "multi",
-      allowedValues = {"none", "single", "multi"})
+      allowedValues = {"none", "single", "singleOrNone", "multi"})
   void setSelectable(String selectable);
 
   /**

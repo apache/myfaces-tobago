@@ -17,14 +17,7 @@ package org.apache.myfaces.tobago.example.demo.overview;
  * limitations under the License.
  */
 
-/*
- * Created 19.01.2005 21:49:41.
- * $Id$
- */
-
-
 import javax.faces.model.SelectItem;
-
 
 public class SheetConfig {
 
@@ -38,6 +31,7 @@ public class SheetConfig {
   private static final String[] SHEET_SELECTABLE_KEYS = {
       "none",
       "single",
+      "singleOrNone",
       "multi"
   };
 
@@ -69,7 +63,6 @@ public class SheetConfig {
     sheetSelectableItems = createSheetItems(SHEET_SELECTABLE_KEYS);
     selectable = SHEET_SELECTABLE_KEYS[2];
   }
-
 
   public String configSheet() {
     sheetConfigPopup = true;
