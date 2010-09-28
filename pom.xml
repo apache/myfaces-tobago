@@ -564,6 +564,7 @@
           <tagBase>https://svn.apache.org/repos/asf/myfaces/tobago/tags</tagBase>
           <preparationGoals>clean install</preparationGoals>
           <remoteTagging>true</remoteTagging>
+          <autoVersionSubmodules>true</autoVersionSubmodules>
         </configuration>
       </plugin>
     </plugins>
