@@ -95,16 +95,6 @@ public interface TabGroupTagDeclaration
   @UIComponentTagAttribute(type = "java.lang.Integer", defaultValue = "0")
   void setRenderedIndex(String renderedIndex);
 
-  /**
-   *
-   * <strong>ValueBindingExpression</strong> pointing to a Integer to save the
-   * component's selected Tab.
-   */
-  @TagAttribute
-  @UIComponentTagAttribute(type = "java.lang.Integer")
-  @Deprecated()
-  void setState(String state);
-
   @TagAttribute  
   @UIComponentTagAttribute(
       type = {},
