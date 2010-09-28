@@ -80,6 +80,7 @@
       <groupId>org.apache.myfaces.tobago</groupId>
       <artifactId>tobago-sandbox</artifactId>
       <version>${project.version}</version>
+      <scope>provided</scope>
     </dependency>
   </dependencies>
 
