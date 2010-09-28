@@ -17,7 +17,6 @@ package org.apache.myfaces.tobago.event;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.compat.FacesUtils;
 import org.apache.myfaces.tobago.compat.FacesUtilsEL;
 
 import javax.el.ELContext;
@@ -40,7 +39,7 @@ public class MethodExpressionTreeExpansionListener implements TreeExpansionListe
   }
 
   public void treeExpanded(TreeExpansionEvent event) {
-    FacesUtilsEL.invokeMethodBinding(FacesContext.getCurrentInstance(), methodExpression, event);
+    FacesUtilsEL.invokeMethodExpression(FacesContext.getCurrentInstance(), methodExpression, event);
   }
 
   private ELContext elContext() {

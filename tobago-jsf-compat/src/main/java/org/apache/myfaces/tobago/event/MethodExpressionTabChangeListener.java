@@ -17,7 +17,6 @@ package org.apache.myfaces.tobago.event;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.compat.FacesUtils;
 import org.apache.myfaces.tobago.compat.FacesUtilsEL;
 
 import javax.el.MethodExpression;
@@ -39,7 +38,7 @@ public class MethodExpressionTabChangeListener implements TabChangeListener, Sta
   }
 
   public void processTabChange(TabChangeEvent actionEvent) throws AbortProcessingException {
-     FacesUtilsEL.invokeMethodBinding(FacesContext.getCurrentInstance(), methodExpression, actionEvent);
+     FacesUtilsEL.invokeMethodExpression(FacesContext.getCurrentInstance(), methodExpression, actionEvent);
   }
 
   public void restoreState(FacesContext context, Object state) {

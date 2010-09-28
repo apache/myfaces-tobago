@@ -17,7 +17,6 @@ package org.apache.myfaces.tobago.event;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.compat.FacesUtils;
 import org.apache.myfaces.tobago.compat.FacesUtilsEL;
 
 import javax.el.MethodExpression;
@@ -39,7 +38,7 @@ public class MethodExpressionStateChangeListener implements SheetStateChangeList
   }
 
   public void processSheetStateChange(SheetStateChangeEvent actionEvent) throws AbortProcessingException {
-    FacesUtilsEL.invokeMethodBinding(FacesContext.getCurrentInstance(), methodExpression, actionEvent);
+    FacesUtilsEL.invokeMethodExpression(FacesContext.getCurrentInstance(), methodExpression, actionEvent);
   }
 
   public void restoreState(FacesContext context, Object state) {

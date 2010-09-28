@@ -98,7 +98,7 @@ public class FacesUtilsEL {
     }
   }
 
-  public static void invokeMethodBinding(
+  public static void invokeMethodExpression(
       FacesContext facesContext, MethodExpression methodExpression, FacesEvent event) {
 
     if (methodExpression != null && event != null) {
