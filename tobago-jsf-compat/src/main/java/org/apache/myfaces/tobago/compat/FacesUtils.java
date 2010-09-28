@@ -24,6 +24,7 @@ import org.apache.myfaces.tobago.util.ValueBindingComparator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.faces.application.Application;
 import javax.faces.component.ActionSource;
 import javax.faces.component.ContextCallback;
 import javax.faces.component.EditableValueHolder;
@@ -43,9 +44,21 @@ import java.util.Comparator;
 @SuppressWarnings("deprecation")
 public class FacesUtils {
 
-  private static final Logger LOG = LoggerFactory.getLogger(FacesUtils.class);
+  private static final Logger LOG = LoggerFactory.getLogger(FacesUtilsEL.class);
 
   public static final Class[] VALIDATOR_ARGS = {FacesContext.class, UIComponent.class, Object.class};
+
+
+  static {
+    try {
+      Application.class.getMethod("getExpressionFactory");
+      binding = false;
+    } catch (NoSuchMethodException e) {
+      binding = true;
+    }
+  }
+
+  private static boolean binding;
 
   public static boolean invokeOnComponent(
       FacesContext context, UIComponent component, String clientId, ContextCallback callback) {
@@ -114,91 +127,151 @@ public class FacesUtils {
 
   public static Object getValueFromValueBindingOrValueExpression(
       FacesContext context, UIComponent component, String name) {
-    return component.getValueBinding(name).getValue(context);
+    if (binding) {
+      return component.getValueBinding(name).getValue(context);
+    } else {
+      return FacesUtilsEL.getValueFromValueBindingOrValueExpression(context, component, name);
+    }
   }
 
   public static boolean hasValueBindingOrValueExpression(UIComponent component, String name) {
-    return component.getValueBinding(name) != null;
+    if (binding) {
+      return component.getValueBinding(name) != null;
+    } else {
+      return FacesUtilsEL.hasValueBindingOrValueExpression(component, name);
+    }
   }
 
   public static boolean isReadonlyValueBindingOrValueExpression(
       FacesContext context, UIComponent component, String name) {
-    return component.getValueBinding(name).isReadOnly(context);
+    if (binding) {
+      return component.getValueBinding(name).isReadOnly(context);
+    } else {
+      return FacesUtilsEL.isReadonlyValueBindingOrValueExpression(context, component, name);
+    }
   }
 
   public static String getExpressionString(UIComponent component, String name) {
-    return component.getValueBinding(name).getExpressionString();
+    if (binding) {
+      return component.getValueBinding(name).getExpressionString();
+    } else {
+      return FacesUtilsEL.getExpressionString(component, name);
+    }
   }
 
   public static void setValueOfBindingOrExpression(
       FacesContext context, Object value, UIComponent component, String bindingName) {
-    ValueBinding vb = component.getValueBinding(bindingName);
-    if (vb != null) {
-      vb.setValue(context, value);
+    if (binding) {
+      ValueBinding vb = component.getValueBinding(bindingName);
+      if (vb != null) {
+        vb.setValue(context, value);
+      }
+    } else {
+      FacesUtilsEL.setValueOfBindingOrExpression(context, value, component, bindingName);
     }
   }
 
   public static void setValueOfBindingOrExpression(
       FacesContext context, Object value, Object bindingOrExpression) {
-    if (bindingOrExpression instanceof ValueBinding) {
-      ValueBinding vb = (ValueBinding) bindingOrExpression;
-      vb.setValue(context, value);
+    if (binding) {
+      if (bindingOrExpression instanceof ValueBinding) {
+        ValueBinding vb = (ValueBinding) bindingOrExpression;
+        vb.setValue(context, value);
+      }
+    } else {
+      FacesUtilsEL.setValueOfBindingOrExpression(context, value, bindingOrExpression);
     }
   }
 
   public static void copyValueBindingOrValueExpression(
       UIComponent fromComponent, String fromName, UIComponent toComponent, String toName) {
-    ValueBinding vb = fromComponent.getValueBinding(fromName);
-    if (vb != null) {
-      toComponent.setValueBinding(toName, vb);
+    if (binding) {
+      ValueBinding vb = fromComponent.getValueBinding(fromName);
+      if (vb != null) {
+        toComponent.setValueBinding(toName, vb);
+      }
+    } else {
+      FacesUtilsEL.copyValueBindingOrValueExpression(fromComponent, fromName, toComponent, toName);
     }
   }
 
   public static Object getValueFromBindingOrExpression(Object obj) {
-    if (obj instanceof ValueBinding) {
-      return ((ValueBinding) obj).getValue(FacesContext.getCurrentInstance());
+    if (binding) {
+      if (obj instanceof ValueBinding) {
+        return ((ValueBinding) obj).getValue(FacesContext.getCurrentInstance());
+      }
+    } else {
+      return FacesUtilsEL.getValueFromBindingOrExpression(obj);
     }
     return null;
   }
 
   public static void setValidator(EditableValueHolder editableValueHolder, Object validator) {
-    MethodBinding methodBinding =
-        FacesContext.getCurrentInstance().getApplication().createMethodBinding(validator.toString(), VALIDATOR_ARGS);
-    editableValueHolder.setValidator(methodBinding);
+    if (binding) {
+      MethodBinding methodBinding =
+          FacesContext.getCurrentInstance().getApplication().createMethodBinding(validator.toString(), VALIDATOR_ARGS);
+      editableValueHolder.setValidator(methodBinding);
+    } else {
+      FacesUtilsEL.setValidator(editableValueHolder, validator);
+    }
   }
 
   public static void setConverter(ValueHolder valueHolder, Object converterExpression) {
-    if (converterExpression != null && converterExpression instanceof String) {
-      String converterExpressionStr = (String) converterExpression;
-      FacesContext context = FacesContext.getCurrentInstance();
-      if (UIComponentTag.isValueReference(converterExpressionStr)) {
-        ValueBinding valueBinding = context.getApplication().createValueBinding(converterExpressionStr);
-        if (valueHolder instanceof UIComponent) {
-          ((UIComponent) valueHolder).setValueBinding("converter", valueBinding);
+    if (binding) {
+      if (converterExpression != null && converterExpression instanceof String) {
+        String converterExpressionStr = (String) converterExpression;
+        FacesContext context = FacesContext.getCurrentInstance();
+        if (UIComponentTag.isValueReference(converterExpressionStr)) {
+          ValueBinding valueBinding = context.getApplication().createValueBinding(converterExpressionStr);
+          if (valueHolder instanceof UIComponent) {
+            ((UIComponent) valueHolder).setValueBinding("converter", valueBinding);
+          }
+        } else {
+          Converter converter = context.getApplication().createConverter(converterExpressionStr);
+          valueHolder.setConverter(converter);
         }
-      } else {
-        Converter converter = context.getApplication().createConverter(converterExpressionStr);
-        valueHolder.setConverter(converter);
       }
+    } else {
+      FacesUtilsEL.setConverter(valueHolder, converterExpression);
     }
   }
 
   public static void setBindingOrExpression(UIComponent component, String name, Object valueBindingOrExpression) {
-    component.setValueBinding(name, (ValueBinding) valueBindingOrExpression);
+    if (binding) {
+      component.setValueBinding(name, (ValueBinding) valueBindingOrExpression);
+    } else {
+      FacesUtilsEL.setBindingOrExpression(component, name, valueBindingOrExpression);
+    }
   }
 
-  public static void addBindingOrExpressionTabChangeListener(
-      TabChangeSource source, String type, Object bindingOrExpression) {
-    source.addTabChangeListener(new ValueBindingTabChangeListener(type, (ValueBinding) bindingOrExpression));
+  public static void addBindingOrExpressionTabChangeListener(TabChangeSource source, String type,
+      Object bindingOrExpression) {
+    if (binding) {
+      source.addTabChangeListener(new ValueBindingTabChangeListener(type, (ValueBinding) bindingOrExpression));
+    } else {
+      FacesUtilsEL.addBindingOrExpressionTabChangeListener(source, type, bindingOrExpression);
+    }
   }
 
   public static Comparator getBindingOrExpressionComparator(
       FacesContext facesContext, UIComponent child, String var, boolean descending, Comparator comparator) {
-    ValueBinding valueBinding = child.getValueBinding("value");
-    return new ValueBindingComparator(facesContext, var, valueBinding, descending, comparator);
+    if (binding) {
+      ValueBinding valueBinding = child.getValueBinding("value");
+      return new ValueBindingComparator(facesContext, var, valueBinding, descending, comparator);
+    } else {
+      return FacesUtilsEL.getBindingOrExpressionComparator(facesContext, child, var, descending, comparator);
+    }
   }
 
   public static void addBindingOrExpressionPopupActionListener(ActionSource actionSource, Object bindingOrExpression) {
-    actionSource.addActionListener(new ValueBindingPopupActionListener((ValueBinding) bindingOrExpression));
+    if (binding) {
+      actionSource.addActionListener(new ValueBindingPopupActionListener(bindingOrExpression));
+    } else {
+      FacesUtilsEL.addBindingOrExpressionPopupActionListener(actionSource, bindingOrExpression);
+    }
+  }
+
+  public static boolean supportsEL() {
+    return !binding;  
   }
 }

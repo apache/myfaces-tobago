@@ -18,27 +18,33 @@ package org.apache.myfaces.tobago.event;
  */
 
 import org.apache.myfaces.tobago.compat.FacesUtils;
+import org.apache.myfaces.tobago.compat.FacesUtilsEL;
 
+import javax.el.ELContext;
 import javax.el.MethodExpression;
 import javax.faces.component.StateHolder;
 import javax.faces.context.FacesContext;
-import javax.faces.event.AbortProcessingException;
 
-public class MethodExpressionTabChangeListener implements TabChangeListener, StateHolder {
+
+public class MethodExpressionTreeExpansionListener implements TreeExpansionListener, StateHolder {
 
   private MethodExpression methodExpression;
 
   private boolean isTransient = false;
 
-  public MethodExpressionTabChangeListener() {
+  public MethodExpressionTreeExpansionListener() {
   }
 
-  public MethodExpressionTabChangeListener(MethodExpression methodExpression) {
+  public MethodExpressionTreeExpansionListener(MethodExpression methodExpression) {
     this.methodExpression = methodExpression;
   }
 
-  public void processTabChange(TabChangeEvent actionEvent) throws AbortProcessingException {
-     FacesUtils.invokeMethodBinding(FacesContext.getCurrentInstance(), methodExpression, actionEvent);
+  public void treeExpanded(TreeExpansionEvent event) {
+    FacesUtilsEL.invokeMethodBinding(FacesContext.getCurrentInstance(), methodExpression, event);
+  }
+
+  private ELContext elContext() {
+    return FacesContext.getCurrentInstance().getELContext();
   }
 
   public void restoreState(FacesContext context, Object state) {
@@ -56,5 +62,4 @@ public class MethodExpressionTabChangeListener implements TabChangeListener, Sta
   public boolean isTransient() {
     return isTransient;
   }
-
 }

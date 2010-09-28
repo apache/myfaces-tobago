@@ -40,9 +40,9 @@ import javax.faces.event.FacesEvent;
 import javax.faces.validator.MethodExpressionValidator;
 import java.util.Comparator;
 
-public class FacesUtils {
+public class FacesUtilsEL {
 
-  private static final Logger LOG = LoggerFactory.getLogger(FacesUtils.class);
+  private static final Logger LOG = LoggerFactory.getLogger(FacesUtilsEL.class);
 
   public static boolean invokeOnComponent(
       FacesContext context, UIComponent component, String clientId, ContextCallback callback) {

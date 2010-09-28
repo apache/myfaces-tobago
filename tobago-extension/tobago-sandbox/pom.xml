@@ -333,11 +333,6 @@
       <artifactId>maven-taglib-plugin</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-simple</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
       <groupId>org.apache.myfaces.test</groupId>
       <artifactId>myfaces-test12</artifactId>
       <version>${myfaces-test12.version}</version>

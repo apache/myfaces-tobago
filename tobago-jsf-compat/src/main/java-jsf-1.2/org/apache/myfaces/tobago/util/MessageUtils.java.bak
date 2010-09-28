@@ -18,7 +18,7 @@ package org.apache.myfaces.tobago.util;
  */
 
 import org.apache.myfaces.tobago.application.LabelValueExpressionFacesMessage;
-import org.apache.myfaces.tobago.compat.FacesUtils;
+import org.apache.myfaces.tobago.compat.FacesUtilsEL;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
@@ -120,8 +120,8 @@ public class MessageUtils {
     if (label != null) {
       return label.toString();
     }
-    if (FacesUtils.hasValueBindingOrValueExpression(component, "label")) {
-      return FacesUtils.getExpressionString(component, "label");
+    if (FacesUtilsEL.hasValueBindingOrValueExpression(component, "label")) {
+      return FacesUtilsEL.getExpressionString(component, "label");
     }
     return component.getClientId(facesContext);
   }

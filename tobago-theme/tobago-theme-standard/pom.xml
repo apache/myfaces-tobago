@@ -27,45 +27,6 @@
   <name>Tobago Theme Standard</name>
   <build>
     <plugins>
-<!--
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-dependency-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>unpack-dojo</id>
-            <phase>process-classes</phase>
-            <goals>
-              <goal>unpack</goal>
-            </goals>
-            <configuration>
-
-              <artifactItems>
-                <artifactItem>
-                  <groupId>org.dojotoolkit</groupId>
-                  <artifactId>dojo</artifactId>
-                  <version>1.0.1</version>
-                  <type>zip</type>
-                  <excludes>dojo/tests/**/*,**/*.txt</excludes>
-                </artifactItem>
-                <artifactItem>
-                  <groupId>org.dojotoolkit</groupId>
-                  <artifactId>dijit</artifactId>
-                  <version>1.0.1</version>
-                  <type>zip</type>
-                  <excludes>dijit/tests/**/*,dijit/bench/**/*,dijit/demos/**/*,dijit/themes/**/*</excludes>
-                </artifactItem>
-              </artifactItems>
-              <outputDirectory>
-                ${project.build.directory}/classes/org/apache/myfaces/tobago/renderkit/html/standard/standard/script/dojo
-              </outputDirectory>
-              <unpackMarkersDirectory>${project.build.directory}/dojo
-              </unpackMarkersDirectory>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
--->
       <!--<plugin>
         <groupId>gr.abiss.mvn.plugins</groupId>
         <artifactId>mvn-jstools</artifactId>
@@ -74,43 +35,6 @@
     </plugins>
   </build>
 
-  <repositories>
-<!-- dojo not needed, 
-    <repository>
-      <id>Temp dojo repository</id>
-      <url>http://people.apache.org/~bommel/dojorepo</url>
-    </repository>
--->
-    <!--
-    TODO use dojo maven repository see: http://blogs.webtide.com/gregw/2008/07/10/1215675720000.html
-    <repository>
-      <id>dojo</id>
-      <name>Dojo Maven2 Repository</name>
-      <url>http://download.dojotoolkit.org/maven2</url>
-      <releases>
-        <enabled>true</enabled>
-        <updatePolicy>daily</updatePolicy>
-        <checksumPolicy>fail</checksumPolicy>
-      </releases>
-      <snapshots>
-        <enabled>false</enabled>
-      </snapshots>
-    </repository>
-    <repository>
-      <id>dojoSnapshots</id>
-      <name>Dojo Maven2 Snapshot Repository</name>
-      <url>http://download.dojotoolkit.org/maven2-snapshot</url>
-      <releases>
-        <enabled>false</enabled>
-      </releases>
-      <snapshots>
-        <enabled>true</enabled>
-        <updatePolicy>always</updatePolicy>
-        <checksumPolicy>warn</checksumPolicy>
-      </snapshots>
-    </repository>-->
-
-  </repositories>
 
   <dependencies>
     <dependency>

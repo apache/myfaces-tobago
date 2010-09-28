@@ -385,12 +385,14 @@
         <artifactId>jsp-api</artifactId>
         <version>2.1</version>
         <optional>true</optional>
+        <scope>provided</scope>
       </dependency>
       <dependency>
         <groupId>javax.servlet</groupId>
         <artifactId>servlet-api</artifactId>
         <version>2.5</version>
         <optional>true</optional>
+        <scope>provided</scope>
       </dependency>
       <dependency>
         <groupId>org.slf4j</groupId>
@@ -407,11 +409,11 @@
         <artifactId>jcl-over-slf4j</artifactId>
         <version>${slf4j.version}</version>
       </dependency>
-      <!--dependency>
+      <dependency>
         <groupId>ch.qos.logback</groupId>
         <artifactId>logback-classic</artifactId>
         <version>${logback.version}</version>
-      </dependency-->
+      </dependency>
       <dependency>
         <groupId>org.slf4j</groupId>
         <artifactId>slf4j-log4j12</artifactId>
@@ -441,6 +443,7 @@
         <groupId>commons-logging</groupId>
         <artifactId>commons-logging</artifactId>
         <version>${commons-logging.version}</version>
+        <scope>provided</scope>        
       </dependency>
       <dependency>
         <groupId>commons-digester</groupId>
@@ -513,6 +516,23 @@
       <artifactId>junit</artifactId>
     </dependency>
 
+    <dependency>
+      <groupId>org.apache.myfaces.core</groupId>
+      <artifactId>myfaces-api</artifactId>
+      <optional>true</optional>
+    </dependency>
+
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>jcl-over-slf4j</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-classic</artifactId>
+      <scope>test</scope>
+    </dependency>
+
   </dependencies>
 
   <scm>
@@ -539,6 +559,7 @@
             <goals>
               <goal>add-source</goal>
             </goals>
+            <phase>process-resources</phase>
             <configuration>
               <sources>
                 <source>src/main/java-jsf-${jsf.targetDirectory}</source>
@@ -891,6 +912,7 @@
             <tagBase>https://svn.apache.org/repos/asf/myfaces/tobago/tags</tagBase>
             <preparationGoals>clean install</preparationGoals>
             <remoteTagging>true</remoteTagging>
+            <autoVersionSubmodules>true</autoVersionSubmodules>
           </configuration>
         </plugin>
       </plugins>
@@ -1401,12 +1423,14 @@
             <artifactId>jsp-api</artifactId>
             <version>2.0</version>
             <optional>true</optional>
+            <scope>provided</scope>
           </dependency>
           <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>servlet-api</artifactId>
             <version>2.4</version>
             <optional>true</optional>
+            <scope>provided</scope>
           </dependency>
         </dependencies>
       </dependencyManagement>
@@ -1449,6 +1473,7 @@
             <artifactId>servlet-api</artifactId>
             <version>2.5</version>
             <optional>true</optional>
+            <scope>provided</scope>
           </dependency>
         </dependencies>
       </dependencyManagement>
@@ -1485,12 +1510,14 @@
             <artifactId>jsp-api</artifactId>
             <version>2.0</version>
             <optional>true</optional>
+            <scope>provided</scope>
           </dependency>
           <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>servlet-api</artifactId>
             <version>2.4</version>
             <optional>true</optional>
+            <scope>provided</scope>
           </dependency>
         </dependencies>
       </dependencyManagement>
@@ -1539,6 +1566,7 @@
             <artifactId>jsp-api</artifactId>
             <version>2.1</version>
             <optional>true</optional>
+            <scope>provided</scope>
           </dependency>
           <dependency>
             <groupId>javax.servlet</groupId>
@@ -1599,6 +1627,7 @@
             <artifactId>servlet-api</artifactId>
             <version>2.5</version>
             <optional>true</optional>
+            <scope>provided</scope>
           </dependency>
         </dependencies>
       </dependencyManagement>

@@ -18,6 +18,7 @@ package org.apache.myfaces.tobago.util;
  */
 
 import org.apache.myfaces.tobago.application.LabelValueBindingFacesMessage;
+import org.apache.myfaces.tobago.application.LabelValueExpressionFacesMessage;
 import org.apache.myfaces.tobago.compat.FacesUtils;
 
 import javax.faces.application.FacesMessage;
@@ -70,7 +71,23 @@ public class MessageUtils {
         }
       }
   
+    if (FacesUtils.supportsEL()) {
+      if (args != null && args.length > 0) {
+        MessageFormat format;
+        if (summary != null) {
+          format = new MessageFormat(summary, locale);
+          summary = format.format(args);
+        }
+
+        if (detail != null) {
+          format = new MessageFormat(detail, locale);
+          detail = format.format(args);
+        }
+      }
+      return new LabelValueExpressionFacesMessage(severity, summary, detail);
+    } else {
       return new LabelValueBindingFacesMessage(severity, summary, detail, locale, args);
+    }
     }
     
     private static String getBundleString(ResourceBundle bundle, String key) {

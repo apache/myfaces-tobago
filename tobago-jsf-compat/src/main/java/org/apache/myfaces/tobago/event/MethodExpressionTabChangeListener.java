@@ -18,27 +18,28 @@ package org.apache.myfaces.tobago.event;
  */
 
 import org.apache.myfaces.tobago.compat.FacesUtils;
+import org.apache.myfaces.tobago.compat.FacesUtilsEL;
 
 import javax.el.MethodExpression;
 import javax.faces.component.StateHolder;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AbortProcessingException;
 
-public class MethodExpressionStateChangeListener implements SheetStateChangeListener, StateHolder {
+public class MethodExpressionTabChangeListener implements TabChangeListener, StateHolder {
 
   private MethodExpression methodExpression;
 
   private boolean isTransient = false;
 
-  public MethodExpressionStateChangeListener() {
+  public MethodExpressionTabChangeListener() {
   }
 
-  public MethodExpressionStateChangeListener(MethodExpression methodExpression) {
+  public MethodExpressionTabChangeListener(MethodExpression methodExpression) {
     this.methodExpression = methodExpression;
   }
 
-  public void processSheetStateChange(SheetStateChangeEvent actionEvent) throws AbortProcessingException {
-    FacesUtils.invokeMethodBinding(FacesContext.getCurrentInstance(), methodExpression, actionEvent);
+  public void processTabChange(TabChangeEvent actionEvent) throws AbortProcessingException {
+     FacesUtilsEL.invokeMethodBinding(FacesContext.getCurrentInstance(), methodExpression, actionEvent);
   }
 
   public void restoreState(FacesContext context, Object state) {

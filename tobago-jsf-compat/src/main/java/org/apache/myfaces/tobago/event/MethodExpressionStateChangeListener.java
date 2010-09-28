@@ -18,32 +18,28 @@ package org.apache.myfaces.tobago.event;
  */
 
 import org.apache.myfaces.tobago.compat.FacesUtils;
+import org.apache.myfaces.tobago.compat.FacesUtilsEL;
 
-import javax.el.ELContext;
 import javax.el.MethodExpression;
 import javax.faces.component.StateHolder;
 import javax.faces.context.FacesContext;
+import javax.faces.event.AbortProcessingException;
 
-
-public class MethodExpressionTreeExpansionListener implements TreeExpansionListener, StateHolder {
+public class MethodExpressionStateChangeListener implements SheetStateChangeListener, StateHolder {
 
   private MethodExpression methodExpression;
 
   private boolean isTransient = false;
 
-  public MethodExpressionTreeExpansionListener() {
+  public MethodExpressionStateChangeListener() {
   }
 
-  public MethodExpressionTreeExpansionListener(MethodExpression methodExpression) {
+  public MethodExpressionStateChangeListener(MethodExpression methodExpression) {
     this.methodExpression = methodExpression;
   }
 
-  public void treeExpanded(TreeExpansionEvent event) {
-    FacesUtils.invokeMethodBinding(FacesContext.getCurrentInstance(), methodExpression, event);
-  }
-
-  private ELContext elContext() {
-    return FacesContext.getCurrentInstance().getELContext();
+  public void processSheetStateChange(SheetStateChangeEvent actionEvent) throws AbortProcessingException {
+    FacesUtilsEL.invokeMethodBinding(FacesContext.getCurrentInstance(), methodExpression, actionEvent);
   }
 
   public void restoreState(FacesContext context, Object state) {
@@ -61,4 +57,5 @@ public class MethodExpressionTreeExpansionListener implements TreeExpansionListe
   public boolean isTransient() {
     return isTransient;
   }
+
 }
