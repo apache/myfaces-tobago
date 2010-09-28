@@ -89,6 +89,7 @@ public interface TabGroupTagDeclaration extends TobagoTagDeclaration, HasIdBindi
   /**
    * <strong>ValueBindingExpression</strong> pointing to a Integer to save the
    * component's selected Tab.
+   * @deprecated Please use "selectedIndex" instead.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "java.lang.Integer")
