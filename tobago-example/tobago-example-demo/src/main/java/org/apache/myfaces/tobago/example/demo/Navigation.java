@@ -66,6 +66,7 @@ public class Navigation {
     bestPractice.add(new Node("transition", "best-practice/transition"));
     bestPractice.add(new Node("nonFacesResponse", "best-practice/non-faces-response"));
     bestPractice.add(new Node("toolBarCustomizer", "best-practice/tool-bar-customizer"));
+    bestPractice.add(new Node("faceletsAsResources", "best-practice/facelets-as-resources"));
     tree.add(bestPractice);
 
     Node reference = new Node("reference_intro", "reference/intro");

@@ -305,6 +305,10 @@
       <from-outcome>best-practice/tool-bar-customizer</from-outcome>
       <to-view-id>/best-practice/tool-bar-customizer.xhtml</to-view-id>
     </navigation-case>
+    <navigation-case>
+      <from-outcome>best-practice/facelets-as-resources</from-outcome>
+      <to-view-id>/best-practice/facelets-as-resources.xhtml</to-view-id>
+    </navigation-case>
   </navigation-rule>
 
   <navigation-rule>

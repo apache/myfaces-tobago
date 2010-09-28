@@ -50,6 +50,11 @@
   </context-param>
 
   <context-param>
+    <param-name>facelets.RESOURCE_RESOLVER</param-name>
+    <param-value>org.apache.myfaces.tobago.facelets.MetaInfResourcesClasspathResourceResolver</param-value>
+  </context-param>
+
+  <context-param>
     <description>For backward compatibility (using "old" Facelets with JSF 2.0)</description>
     <param-name>javax.faces.DISABLE_FACELET_JSF_VIEWHANDLER</param-name>
     <param-value>true</param-value>

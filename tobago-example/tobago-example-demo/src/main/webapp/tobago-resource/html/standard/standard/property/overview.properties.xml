@@ -58,6 +58,7 @@
   <entry key="transition">Transition</entry>
   <entry key="nonFacesResponse">Non Faces Resp.</entry>
   <entry key="toolBarCustomizer">User Customized UI</entry>
+  <entry key="faceletsAsResources">Facelets As Resource</entry>
 
   <entry key="reference_intro">Ref. (under constr.)</entry>
   <entry key="reference_command">Command</entry>
@@ -363,4 +364,14 @@
 ...</entry>
   <entry key="theme_photo">Photo of the location</entry>
 
+  <!-- faceletsAsResources -->
+  <entry key="faceletsAsResources_text">
+    This example demonstrates how to load parts of the view of an application from a library jar file.
+    You have to define a context parameter in the web.xml:
+
+    &lt;context-param>
+      &lt;param-name>facelets.RESOURCE_RESOLVER&lt;/param-name>
+      &lt;param-value>org.apache.myfaces.tobago.facelets.MetaInfResourcesClasspathResourceResolver&lt;/param-value>
+    &lt;/context-param></entry>
+  
 </properties>
