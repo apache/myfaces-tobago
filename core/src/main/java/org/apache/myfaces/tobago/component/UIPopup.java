@@ -18,10 +18,6 @@ package org.apache.myfaces.tobago.component;
  */
 
 import org.apache.myfaces.tobago.TobagoConstants;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_HEIGHT;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LEFT;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TOP;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_WIDTH;
 import org.apache.myfaces.tobago.ajax.api.AjaxComponent;
 
 import javax.faces.component.NamingContainer;
@@ -30,6 +26,11 @@ import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
 import java.io.IOException;
 import java.util.Iterator;
+
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_HEIGHT;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LEFT;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TOP;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_WIDTH;
 
 public class UIPopup extends UIPanelBase implements NamingContainer, AjaxComponent {
 
@@ -105,7 +106,7 @@ public class UIPopup extends UIPanelBase implements NamingContainer, AjaxCompone
         UIComponent childOrFacet = (UIComponent) it.next();
         childOrFacet.processValidators(context);
       }
-      //TODO: check if validation has faild and reset rendered if needed
+      //TODO: check if validation has failed and reset rendered if needed
       if (context.getRenderResponse()) {
         setActivated(true);
       }
