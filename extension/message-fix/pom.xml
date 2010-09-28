@@ -20,16 +20,16 @@
   <parent>
     <groupId>org.apache.myfaces.tobago</groupId>
     <artifactId>tobago-extension</artifactId>
-    <version>1.0.30-SNAPSHOT</version>
+    <version>1.0.30</version>
   </parent>
   <packaging>jar</packaging>
   <name>Tobago FacesMessage Ordering Fix</name>
   <description>Tobago FacesMessage ordering fix for the RI (before the 1.2 version)</description>
   <artifactId>tobago-message-fix</artifactId>
   <scm>
-    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/tobago/branches/tobago-1.0.x/extension/message-fix</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/tobago/branches/tobago-1.0.x/extension/message-fix</developerConnection>
-    <url>http://svn.apache.org/viewvc/myfaces/tobago/branches/tobago-1.0.x/extension/message-fix</url>
+    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/tobago/tags/tobago-1.0.30/extension/message-fix</connection>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/tobago/tags/tobago-1.0.30/extension/message-fix</developerConnection>
+    <url>http://svn.apache.org/viewvc/myfaces/tobago/tags/tobago-1.0.30/extension/message-fix</url>
   </scm>
   <dependencies>
     <dependency>
