@@ -153,4 +153,17 @@
     <role-name>addressbook-user</role-name>
   </security-role>
 
+  <env-entry>
+    <description>
+      Set the size limit for uploaded files. Default value is 1 MB.
+        Format: 10 = 10 bytes
+        10k = 10 KB
+        10m = 10 MB
+        1g = 1 GB
+    </description>
+    <env-entry-name>uploadMaxFileSize</env-entry-name>
+    <env-entry-type>java.lang.String</env-entry-type>
+    <env-entry-value>1m</env-entry-value>
+  </env-entry>
+
 </web-app>
