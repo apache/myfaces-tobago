@@ -28,7 +28,6 @@ import org.apache.myfaces.tobago.util.LayoutUtil;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
-import java.util.HashMap;
 
 public class TobagoServletContextListener implements ServletContextListener {
 
@@ -37,15 +36,16 @@ public class TobagoServletContextListener implements ServletContextListener {
 
   public void contextInitialized(ServletContextEvent event) {
 
-    if (LOG.isInfoEnabled()) {
-      LOG.info("*** contextInitialized ***");
-    }
-
     ServletContext servletContext = event.getServletContext();
 
     if (servletContext.getAttribute(TobagoConfig.TOBAGO_CONFIG) != null) {
-      LOG.warn("Tobago has been already initialized. Do nothing.");
+      LOG.warn("Tobago has been already initialized. Do nothing. "
+          + "(This may happen when there is a TobagoServletContextListener configured manually.)");
       return;
+    }
+
+    if (LOG.isInfoEnabled()) {
+      LOG.info("*** contextInitialized ***");
     }
 
     try {
@@ -66,7 +66,7 @@ public class TobagoServletContextListener implements ServletContextListener {
       tobagoConfig.resolveThemes();
 
       // theme config cache
-      servletContext.setAttribute(ThemeConfig.THEME_CONFIG_CACHE, new HashMap());
+      ThemeConfig.init(servletContext);
 
     } catch (Throwable e) {
       if (LOG.isFatalEnabled()) {
@@ -79,16 +79,25 @@ public class TobagoServletContextListener implements ServletContextListener {
   }
 
   public void contextDestroyed(ServletContextEvent event) {
-    if (LOG.isInfoEnabled()) {
-      LOG.info("*** contextDestroyed ***\n--- snip ---------"
-          + "--------------------------------------------------------------");
-    }
 
     ServletContext servletContext = event.getServletContext();
 
+    if (servletContext.getAttribute(TobagoConfig.TOBAGO_CONFIG) == null) {
+      LOG.warn("Tobago is not initialized. Do nothing. "
+          + "(This may happen when there is a TobagoServletContextListener configured manually.)");
+      return;
+    }
+
+    if (LOG.isInfoEnabled()) {
+      LOG.info("*** contextDestroyed ***\n"
+          + "--- snip -----------------------------------------------------------------------");
+    }
+
     servletContext.removeAttribute(TobagoConfig.TOBAGO_CONFIG);
     ResourceManagerFactory.release(servletContext);
-    servletContext.removeAttribute(ThemeConfig.THEME_CONFIG_CACHE);
+
+    // theme config cache
+    ThemeConfig.shutdown(servletContext);
 
     LogFactory.releaseAll();
 //    LogManager.shutdown();
