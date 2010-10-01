@@ -41,20 +41,23 @@
           readonly="true"
           label="Operating System"/>
 
-      <tc:sheet value="#{activities.values}" var="activity">
-        <tc:column label="Session Id" sortable="true">
+      <tc:sheet value="#{activities.values}" var="activity" rendered="#{info.enabled}"
+                showRowRange="left" showPageRange="right" showDirectLinks="center">
+        <tc:column label="Session Id">
           <tc:out value="#{activity.sessionId}"/>
         </tc:column>
-        <tc:column label="Creation Date" sortable="true">
+        <tc:column label="Creation Date">
           <tc:out value="#{activity.creationDate}"/>
         </tc:column>
-        <tc:column label="Jsf Request Count" sortable="true">
+        <tc:column label="Jsf Request Count">
           <tc:out value="#{activity.jsfRequest}"/>
         </tc:column>
-        <tc:column label="Ajax Request Count" sortable="true">
+        <tc:column label="Ajax Request Count">
           <tc:out value="#{activity.ajaxRequest}"/>
         </tc:column>
       </tc:sheet>
+
+      <tc:cell rendered="#{not info.enabled}"/>
 
     </tc:box>
   </jsp:body>
