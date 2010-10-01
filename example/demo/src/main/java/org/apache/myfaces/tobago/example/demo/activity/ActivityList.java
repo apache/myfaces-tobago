@@ -33,10 +33,10 @@ public class ActivityList {
   public static final String NAME = "activities";
 
   private Map<String, Activity> data = new ConcurrentHashMap<String, Activity>();
-  
+
   public void add(Activity activity) {
     LOG.info("Adding session id: " + activity.getSessionId());
-    data.put(activity.getSessionId(),activity);
+    data.put(activity.getSessionId(), activity);
   }
 
   public void remove(String sessionId) {
