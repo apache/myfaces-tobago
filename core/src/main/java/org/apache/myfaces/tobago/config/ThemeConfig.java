@@ -20,7 +20,6 @@ package org.apache.myfaces.tobago.config;
 import org.apache.commons.lang.ClassUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_IN;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.context.ResourceManager;
@@ -32,18 +31,22 @@ import javax.faces.component.UIInput;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 import javax.faces.render.Renderer;
+import javax.servlet.ServletContext;
 import java.util.Locale;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
+import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_IN;
 
 public class ThemeConfig {
 
   private static final Log LOG = LogFactory.getLog(ThemeConfig.class);
 
-  public static final String THEME_CONFIG_CACHE
-      = "org.apache.myfaces.tobago.config.ThemeConfig.CACHE";
+  public static final String THEME_CONFIG_CACHE = "org.apache.myfaces.tobago.config.ThemeConfig.CACHE";
 
-  public static int getValue(FacesContext facesContext, UIComponent component,
-      String name) {
+  private static final Integer NULL_VALUE = Integer.MIN_VALUE;
+
+  public static int getValue(FacesContext facesContext, UIComponent component, String name) {
 
     CacheKey key = new CacheKey(facesContext.getViewRoot(), component, name);
     Map<CacheKey, Integer> cache
@@ -52,9 +55,12 @@ public class ThemeConfig {
     Integer value = cache.get(key);
     if (value == null) {
       value = createValue(facesContext, component, name);
+      if (value == null) {
+        value = NULL_VALUE;
+      }
       cache.put(key, value);
     }
-    if (value != null) {
+    if (!NULL_VALUE.equals(value)) {
       return value;
     } else {
       // todo: remove condition, is only temporary to ignore wml errors.
@@ -132,6 +138,15 @@ public class ThemeConfig {
     return null;
   }
 
+  public static void init(ServletContext servletContext) {
+    servletContext.setAttribute(THEME_CONFIG_CACHE, new ConcurrentHashMap<CacheKey, Integer>(100, 0.75f, 1));
+  }
+
+  public static void shutdown(ServletContext servletContext) {
+    Map<CacheKey, Integer> cache = (Map<CacheKey, Integer>) servletContext.getAttribute(THEME_CONFIG_CACHE);
+    cache.clear();
+    servletContext.removeAttribute(THEME_CONFIG_CACHE);
+  }
 
   private static class CacheKey {
     private String clientProperties;
