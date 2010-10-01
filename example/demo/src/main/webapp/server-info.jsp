@@ -23,22 +23,38 @@
   <jsp:body>
     <tc:box label="Server Info">
       <f:facet name="layout">
-        <tc:gridLayout rows="fixed;fixed;fixed;fixed;*" />
+        <tc:gridLayout rows="fixed;fixed;fixed;fixed;*"/>
       </f:facet>
 
       <tx:in value="#{info.version}" readonly="true"
-          label="Tobago Version" />
+             label="Tobago Version"/>
 
       <tx:in value="#{info.serverInfo}" readonly="true"
-          label="Server Info" />
+             label="Server Info"/>
 
-      <tx:in value="#{info.systemProperties['java.runtime.version']} - #{info.systemProperties['java.vm.vendor']}" readonly="true"
-          label="Java" />
+      <tx:in value="#{info.systemProperties['java.runtime.version']} - #{info.systemProperties['java.vm.vendor']}"
+             readonly="true"
+             label="Java"/>
 
-      <tx:in value="#{info.systemProperties['os.name']} - #{info.systemProperties['os.version']} - #{info.systemProperties['os.arch']}" readonly="true"
-          label="Operating System" />
+      <tx:in
+          value="#{info.systemProperties['os.name']} - #{info.systemProperties['os.version']} - #{info.systemProperties['os.arch']}"
+          readonly="true"
+          label="Operating System"/>
 
-      <tc:cell/>
+      <tc:sheet value="#{activities.values}" var="activity">
+        <tc:column label="Session Id" sortable="true">
+          <tc:out value="#{activity.sessionId}"/>
+        </tc:column>
+        <tc:column label="Creation Date" sortable="true">
+          <tc:out value="#{activity.creationDate}"/>
+        </tc:column>
+        <tc:column label="Jsf Request Count" sortable="true">
+          <tc:out value="#{activity.jsfRequest}"/>
+        </tc:column>
+        <tc:column label="Ajax Request Count" sortable="true">
+          <tc:out value="#{activity.ajaxRequest}"/>
+        </tc:column>
+      </tc:sheet>
 
     </tc:box>
   </jsp:body>
