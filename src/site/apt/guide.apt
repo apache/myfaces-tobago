@@ -44,7 +44,7 @@
 * {Building and Deploying the Tobago Examples}
 
   Tobago uses Maven as a build management system. The provided examples are normally build with Maven, but it would
-  be easy to use an alternative build system. The necessary artifacts can be downloaded {{{download.html}here}} or
+  be easy to use an alternative build system. The necessary artifacts can be downloaded {{{./download.html}here}} or
   from the Maven repository.
 
   We will use the address book demo as an example in this guide. Since the address book example is currently
