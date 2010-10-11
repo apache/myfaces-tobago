@@ -48,8 +48,9 @@ import java.io.Serializable;
 import java.util.Iterator;
 import java.util.Set;
 
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TAB_INDEX;
-
+/**
+ * @deprecated since 1.5.0. Replaced with new Tree.
+ */
 @Deprecated
 public class UITreeOld extends javax.faces.component.UIInput implements NamingContainer, ActionSource {
 
@@ -505,7 +506,7 @@ public class UITreeOld extends javax.faces.component.UIInput implements NamingCo
     if (tabIndex != null) {
       return tabIndex;
     }
-    ValueBinding vb = getValueBinding(ATTR_TAB_INDEX);
+    ValueBinding vb = getValueBinding(TobagoConstants.ATTR_TAB_INDEX);
     if (vb != null) {
       Number number = (Number) vb.getValue(getFacesContext());
       if (number != null) {

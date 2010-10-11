@@ -85,11 +85,16 @@ public class StyleClasses implements Serializable {
     return new StyleClasses(ensureStyleClasses(component));
   }
 
+  /**
+   * @deprecated since Tobago 1.5.0. Please use {@link org.apache.myfaces.tobago.renderkit.css.Classes}.
+   */
   @Deprecated
   public void addFullQualifiedClass(String clazz) {
     classes.add(clazz);
   }
-
+  /**
+   * @deprecated since Tobago 1.5.0. Please use {@link org.apache.myfaces.tobago.renderkit.css.Classes}.
+   */
   @Deprecated
   public void removeFullQualifiedClass(String clazz) {
     classes.remove(clazz);

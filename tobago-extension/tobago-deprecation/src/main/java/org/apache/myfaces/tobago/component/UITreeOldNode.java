@@ -29,6 +29,9 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeNode;
 import java.util.Map;
 
+/**
+ * @deprecated since 1.5.0. Replaced with new Tree.
+ */
 @Deprecated
 public class UITreeOldNode extends javax.faces.component.UIInput {
 

@@ -26,7 +26,7 @@ import java.io.IOException;
 import java.util.Map;
 
 /**
- * @deprecated
+ * @deprecated since 1.5.0. 
  */
 @Deprecated
 public class AjaxUtils {

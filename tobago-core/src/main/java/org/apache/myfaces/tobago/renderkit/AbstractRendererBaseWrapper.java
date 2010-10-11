@@ -19,7 +19,6 @@ package org.apache.myfaces.tobago.renderkit;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.apache.myfaces.tobago.config.ThemeConfig;
 import org.apache.myfaces.tobago.context.ResourceManagerFactory;
 
 import javax.faces.component.UIComponent;
@@ -60,13 +59,7 @@ public abstract class AbstractRendererBaseWrapper extends RendererBase {
   public final void decode(FacesContext facesContext, UIComponent component) {
     getRenderer(facesContext).decode(facesContext, component);
   }
-
-  @Deprecated
-  @Override
-  public final int getConfiguredValue(FacesContext facesContext, UIComponent component, String key) {
-    return ThemeConfig.getValue(facesContext, component, key);
-  }
-
+  
   @Override
   protected final Object getCurrentValueAsObject(UIInput input) {
     return getRenderer(FacesContext.getCurrentInstance()).getCurrentValueAsObject(input);

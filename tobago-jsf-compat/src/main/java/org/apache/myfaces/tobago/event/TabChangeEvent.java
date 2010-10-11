@@ -38,7 +38,10 @@ public class TabChangeEvent extends ActionEvent {
     this.oldTabIndex = oldTabIndex;
     this.newTabIndex = newTabIndex;
   }
-
+  
+  /**
+   * @deprecated Please use {@link TabChangeEvent(UIComponent, Integer, Integer)}
+   */
   @Deprecated
   public TabChangeEvent(UIComponent uiComponent, Object oldState, Object newState) {
     super(uiComponent);
@@ -64,21 +67,33 @@ public class TabChangeEvent extends ActionEvent {
     return newTabIndex;
   }
 
+  /**
+   * @deprecated Please use {@link #getOldTabIndex()}
+   */
   @Deprecated
   public Object getOldState() {
     return oldTabIndex;
   }
 
+  /**
+   * @deprecated Not supported anymore
+   */
   @Deprecated
   public void setOldState(Object oldTabIndex) {
     this.oldTabIndex = oldTabIndex instanceof Integer ? (Integer) oldTabIndex : -1;
   }
 
+  /**
+   * @deprecated Please use {@link #getNewTabIndex()}
+   */
   @Deprecated
   public Object getNewState() {
     return newTabIndex;
   }
 
+  /**
+   * @deprecated Not supported anymore
+   */
   @Deprecated
   public void setNewState(Object newTabIndex) {
     this.newTabIndex = newTabIndex instanceof Integer ? (Integer) newTabIndex : -1;

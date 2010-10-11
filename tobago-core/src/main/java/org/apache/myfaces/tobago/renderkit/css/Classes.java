@@ -147,7 +147,7 @@ public final class Classes {
   }
 
   /**
-   * @deprecated
+   * @deprecated This workaround will be removed later
    */
   @Deprecated
   public static Classes createWorkaround(String rendererName, String sub, Markup explicit) {
@@ -155,7 +155,7 @@ public final class Classes {
   }
 
   /**
-   * @deprecated
+   * @deprecated This workaround will be removed later
    */
   @Deprecated
   public static Classes createWorkaround(String rendererName, Markup explicit) {
