@@ -172,9 +172,8 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
-        <version>2.2</version>
+        <version>2.7</version>
         <configuration>
-          <aggregate>true</aggregate>
           <linksource>true</linksource>
           <breakiterator>true</breakiterator>
           <quiet>true</quiet>
@@ -182,9 +181,8 @@
           <source>${maven.compile.source}</source>
           <charset>${maven.compile.encoding}</charset>
           <links>
-            <link>http://java.sun.com/j2se/1.5.0/docs/api</link>
-            <link>http://java.sun.com/j2ee/1.4/docs/api</link>
-            <link>http://java.sun.com/javaee/javaserverfaces/1.1_01/docs/api</link>
+            <link>http://download-llnw.oracle.com/javase/1.5.0/docs/api/</link>
+            <link>http://download.oracle.com/javaee/5/api/</link>
             <link>http://jakarta.apache.org/commons/collections/api-${commons-collection.version}/</link>
             <link>http://jakarta.apache.org/commons/lang/api-${commons-lang.version}/</link>
             <link>http://jakarta.apache.org/commons/fileupload/apidocs</link>
@@ -234,9 +232,9 @@
 
       <plugin>
         <inherited>false</inherited>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>changelog-maven-plugin</artifactId>
-        <version>2.0-beta-1</version>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-changelog-plugin</artifactId>
+        <version>2.2</version>
         <configuration>
           <basedir>${basedir}</basedir>
         </configuration>
@@ -318,7 +316,7 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>findbugs-maven-plugin</artifactId>
-        <version>2.0.1</version>
+        <version>2.3.1</version>
         <configuration>
           <threshold>Low</threshold>
           <effort>Max</effort>
@@ -362,6 +360,12 @@
         </reportSets>
       </plugin>
 
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-linkcheck-plugin</artifactId>
+        <version>1.0.1</version>
+      </plugin>
+
     </plugins>
 
   </reporting>
@@ -385,14 +389,12 @@
         <artifactId>jsp-api</artifactId>
         <version>2.1</version>
         <optional>true</optional>
-        <scope>provided</scope>
       </dependency>
       <dependency>
         <groupId>javax.servlet</groupId>
         <artifactId>servlet-api</artifactId>
         <version>2.5</version>
         <optional>true</optional>
-        <scope>provided</scope>
       </dependency>
       <dependency>
         <groupId>org.slf4j</groupId>
@@ -408,6 +410,7 @@
         <groupId>org.slf4j</groupId>
         <artifactId>jcl-over-slf4j</artifactId>
         <version>${slf4j.version}</version>
+        <optional>true</optional>
       </dependency>
       <dependency>
         <groupId>ch.qos.logback</groupId>
@@ -525,6 +528,7 @@
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>jcl-over-slf4j</artifactId>
+      <optional>true</optional>
     </dependency>
 
     <dependency>
@@ -671,14 +675,25 @@
           </execution>
         </executions>
       </plugin>
-
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>animal-sniffer-maven-plugin</artifactId>
+        <version>1.6</version>
+        <configuration>
+          <signature>
+            <groupId>org.codehaus.mojo.signature</groupId>
+            <artifactId>java15</artifactId>
+            <version>1.0</version>
+          </signature>
+        </configuration>
+      </plugin>
     </plugins>
     <pluginManagement>
       <plugins>
         <plugin>
           <groupId>org.apache.myfaces.tobago</groupId>
           <artifactId>maven-theme-plugin</artifactId>
-          <version>1.0.25</version>
+          <version>1.0.30</version>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
@@ -753,7 +768,7 @@
         <plugin>
           <groupId>org.codehaus.cargo</groupId>
           <artifactId>cargo-maven2-plugin</artifactId>
-          <version>0.3.1</version>
+          <version>1.0.3</version>
         </plugin>
         <plugin>
           <groupId>org.codehaus.mojo</groupId>
@@ -811,7 +826,7 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-javadoc-plugin</artifactId>
-          <version>2.2</version>
+          <version>2.7</version>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
@@ -830,17 +845,22 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-war-plugin</artifactId>
-          <version>2.0.2</version>
+          <version>2.1-beta-1</version>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-resources-plugin</artifactId>
-          <version>2.3</version>
+          <version>2.4.3</version>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-clean-plugin</artifactId>
-          <version>2.2</version>
+          <version>2.4.1</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-source-plugin</artifactId>
+          <version>2.1.2</version>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
@@ -900,7 +920,7 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-assembly-plugin</artifactId>
-          <version>2.2-beta-4</version>
+          <version>2.2</version>
         </plugin>
 
         <plugin>
@@ -1037,30 +1057,23 @@
               </execution>
             </executions>
           </plugin>
-          <!-- TODO test animal sniffer plugin
+
           <plugin>
             <groupId>org.codehaus.mojo</groupId>
             <artifactId>animal-sniffer-maven-plugin</artifactId>
-            <version>1.4</version>
             <executions>
               <execution>
                 <phase>test</phase>
                 <goals>
                   <goal>check</goal>
                 </goals>
-                <configuration>
-                  <signature>
-                    <groupId>org.codehaus.mojo.signature</groupId>
-                    <artifactId>java15</artifactId>
-                    <version>1.0</version>
-                  </signature>
-                </configuration>
               </execution>
             </executions>
-          </plugin-->
+          </plugin>
+
           <plugin>
             <artifactId>maven-source-plugin</artifactId>
-            <version>2.0.2</version>
+            <version>2.1.2</version>
             <executions>
               <execution>
                 <id>attach-sources</id>
@@ -1072,7 +1085,7 @@
           </plugin>
           <plugin>
             <artifactId>maven-javadoc-plugin</artifactId>
-            <version>2.2</version>
+            <version>2.7</version>
             <executions>
               <execution>
                 <id>attach-javadocs</id>
@@ -1422,14 +1435,12 @@
             <artifactId>jsp-api</artifactId>
             <version>2.0</version>
             <optional>true</optional>
-            <scope>provided</scope>
           </dependency>
           <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>servlet-api</artifactId>
             <version>2.4</version>
             <optional>true</optional>
-            <scope>provided</scope>
           </dependency>
         </dependencies>
       </dependencyManagement>
@@ -1472,7 +1483,6 @@
             <artifactId>servlet-api</artifactId>
             <version>2.5</version>
             <optional>true</optional>
-            <scope>provided</scope>
           </dependency>
         </dependencies>
       </dependencyManagement>
@@ -1509,14 +1519,12 @@
             <artifactId>jsp-api</artifactId>
             <version>2.0</version>
             <optional>true</optional>
-            <scope>provided</scope>
           </dependency>
           <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>servlet-api</artifactId>
             <version>2.4</version>
             <optional>true</optional>
-            <scope>provided</scope>
           </dependency>
         </dependencies>
       </dependencyManagement>
@@ -1565,7 +1573,6 @@
             <artifactId>jsp-api</artifactId>
             <version>2.1</version>
             <optional>true</optional>
-            <scope>provided</scope>
           </dependency>
           <dependency>
             <groupId>javax.servlet</groupId>
@@ -1626,7 +1633,6 @@
             <artifactId>servlet-api</artifactId>
             <version>2.5</version>
             <optional>true</optional>
-            <scope>provided</scope>
           </dependency>
         </dependencies>
       </dependencyManagement>
@@ -1680,7 +1686,7 @@
     todo: update after releasing, needed for unit tests with JSF 1.1
     <myfaces-test12.version>1.0.1-SNAPSHOT</myfaces-test12.version>
 -->
-    <myfaces20.version>2.0.0</myfaces20.version>
+    <myfaces20.version>2.0.2</myfaces20.version>
     <mojarra11.version>1.1_02</mojarra11.version>
     <mojarra12.version>1.2_14</mojarra12.version>
     <mojarra20.version>2.0.3-SNAPSHOT</mojarra20.version>

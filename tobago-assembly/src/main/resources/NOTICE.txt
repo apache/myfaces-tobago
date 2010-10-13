@@ -17,5 +17,9 @@ Thomas Fuchs (the Ruby on Rails Ajax javascript extensions) (http://script.aculo
 This product includes software developed by
 Taras Puchko (Retrotranslator) (http://sourceforge.net/projects/retrotranslator).
 
+This product includes software developed by
+The jQuery Project (http://jquery.org/)
 
+This product includes software developed by
+QOS.ch (slf4j) (http://QOS.ch/)
 
