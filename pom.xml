@@ -537,6 +537,18 @@
       <scope>test</scope>
     </dependency>
 
+    <dependency>
+      <groupId>javax.servlet.jsp</groupId>
+      <artifactId>jsp-api</artifactId>
+      <scope>provided</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>servlet-api</artifactId>
+      <scope>provided</scope>
+    </dependency>
+
   </dependencies>
 
   <scm>
@@ -671,6 +683,8 @@
               <properties>
                 <addLicense>true</addLicense>
               </properties>
+              <excludeScope>provided</excludeScope>
+              <excludeArtifactIds>servlet-api,jsp-api,jstl</excludeArtifactIds>
             </configuration>
           </execution>
         </executions>
