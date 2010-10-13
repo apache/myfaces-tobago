@@ -19,7 +19,7 @@ package org.apache.myfaces.tobago.example.data;
 
 /*
  * Created 20.09.2002 at 10:54:32.
- * $Id: Planet.java 578592 2007-09-23 18:51:32Z bommel $
+ * $Id$
  */
 
 import java.util.ArrayList;
