@@ -22,13 +22,11 @@ import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasBinding;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasBorder;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasId;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasMargin;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasMargins;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasSpacing;
 
 /**
  * XXX Warning: Still in progress! Please do not use it until other announcement.
@@ -42,5 +40,8 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasSpacing;
     componentFamily = "org.apache.myfaces.tobago.FlowLayout",
     allowedChildComponenents = "NONE", isLayout = true)
 public interface FlowLayoutTagDeclaration
-    extends HasId, HasBorder, HasSpacing, HasMargin, HasMargins, HasBinding, HasMarkup, HasCurrentMarkup {
+    extends HasId,
+    /*HasSpacing, TODO*/
+    HasMargin, HasMargins, /*todo: do we need the margin here? Or should be use the margin from the container? */ 
+    HasBinding, HasMarkup, HasCurrentMarkup {
 }
