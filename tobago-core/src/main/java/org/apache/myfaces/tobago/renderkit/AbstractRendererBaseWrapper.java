@@ -17,9 +17,9 @@ package org.apache.myfaces.tobago.renderkit;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.context.ResourceManagerFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.apache.myfaces.tobago.context.ResourceManagerFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
@@ -110,7 +110,7 @@ public abstract class AbstractRendererBaseWrapper extends RendererBase {
     RendererBase renderer = (RendererBase) ResourceManagerFactory.
         getResourceManager(facesContext).getRenderer(facesContext.getViewRoot(), getRendererType());
     if (renderer == null) {
-      LOG.error("No Renderer found for rendererType='"+ getRendererType() 
+      throw new RuntimeException("No renderer found for rendererType='"+ getRendererType()
           + "' in wrapper class '" + this.getClass().getName() + "'");
     }
     return renderer;
