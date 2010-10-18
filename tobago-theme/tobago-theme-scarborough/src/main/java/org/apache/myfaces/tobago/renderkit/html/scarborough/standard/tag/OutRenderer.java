@@ -50,7 +50,7 @@ public class OutRenderer extends LayoutComponentRendererBase {
 
     if (createSpan) {
       String id = out.getClientId(facesContext);
-      writer.startElement(HtmlElements.DIV, out);
+      writer.startElement(HtmlElements.SPAN, out);
       writer.writeIdAttribute(id);
       Style style = new Style(facesContext, out);
       writer.writeStyleAttribute(style);
@@ -73,7 +73,7 @@ public class OutRenderer extends LayoutComponentRendererBase {
       writer.write(text);
     }
     if (createSpan) {
-      writer.endElement(HtmlElements.DIV);
+      writer.endElement(HtmlElements.SPAN);
     }
   }
 }
