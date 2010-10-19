@@ -548,11 +548,15 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
     TabList tabList = getTabList(context, (UITabGroup) component);
     int index = ensureRenderedActiveIndex(context, (UITabGroup) component);
     int currentWidth = getCurrentWidth(tabList, index);
+    int navigationBarWidth = 0;
+    if (ComponentUtil.getBooleanAttribute(component, TobagoConstants.ATTR_SHOW_NAVIGATION_BAR)) {
+      navigationBarWidth = getConfiguredValue(context, component, "navigationBarWidth");
+    }
     renderTabGroupView(context, HtmlRendererUtil.getTobagoResponseWriter(context),
         (UITabGroup) component, index,
         (HtmlStyleMap) component.getAttributes().get(ATTR_STYLE), SWITCH_TYPE_RELOAD_TAB,
         ResourceManagerUtil.getImageWithPath(context, "image/1x1.gif"),
-        getConfiguredValue(context, component, "navigationBarWidth"), currentWidth, tabList);
+        navigationBarWidth, currentWidth, tabList);
   }
 
   public int getFixedHeight(FacesContext facesContext, UIComponent uiComponent) {
