@@ -97,6 +97,9 @@ UIComponent Classes
 | ... |  |                                                                  
 *--+--+--+--+                                                                                                                                                            
 
+Naming Container
+
+  UITab is now a naming container, so you may have to change ids of AJAX calls in your application.
   
 Other API Classes
 
