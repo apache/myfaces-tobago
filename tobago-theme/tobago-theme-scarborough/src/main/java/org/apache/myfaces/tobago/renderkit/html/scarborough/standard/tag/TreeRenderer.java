@@ -30,6 +30,8 @@ import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -37,6 +39,8 @@ import java.io.IOException;
 import java.util.Arrays;
 
 public class TreeRenderer extends LayoutComponentRendererBase {
+
+  private static final Logger LOG = LoggerFactory.getLogger(TreeRenderer.class);
 
   private static final String SCRIPT = "script/tobago-tree.js";
 
@@ -70,6 +74,11 @@ public class TreeRenderer extends LayoutComponentRendererBase {
 
     String clientId = tree.getClientId(facesContext);
     UIComponent root = tree.getRoot();
+    if (root == null) {
+      LOG.error("Can't find the tree root. This may occur while updating a tree from Tobago 1.0 to 1.5. "
+          + "Please refer the documentation to see how to use tree tags.");
+      return;
+    }
 
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
