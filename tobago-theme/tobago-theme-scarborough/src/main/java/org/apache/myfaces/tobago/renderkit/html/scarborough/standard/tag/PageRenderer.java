@@ -104,7 +104,7 @@ public class PageRenderer extends PageRendererBase {
     String value = null;
     try {
       value = (String) facesContext.getExternalContext().getRequestParameterMap().get(name);
-      if (value != null) {
+      if (StringUtils.isNotBlank(value)) {
         StringTokenizer tokenizer = new StringTokenizer(value, ";");
         Measure vertical = Measure.valueOf(tokenizer.nextToken());
         Measure horizontal = Measure.valueOf(tokenizer.nextToken());
