@@ -316,6 +316,9 @@ public class MenuBarRenderer extends LayoutableRendererBase {
       throws IOException {
     for (Object o : component.getChildren()) {
       UIComponent entry = (UIComponent) o;
+      if (!entry.isRendered()) {
+        continue;
+      }
       if (entry instanceof UICommand) {
         addMenuEntry(sb, var, facesContext, accKeyFunctions, (UICommand) entry);
       } else if (entry instanceof UIMenuSeparator) {
