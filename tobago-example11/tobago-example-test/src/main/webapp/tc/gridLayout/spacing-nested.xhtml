@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+  
+<f:view
+    xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:tc="http://myfaces.apache.org/tobago/component"
+    xmlns:tx="http://myfaces.apache.org/tobago/extension"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core">
+
+  <!--
+  Test page for spacing:
+  1. spacing attributes
+  2. theme defaults
+  3. only columnSpacing
+  4. only rowSpacing
+  -->
+
+  <tc:page id="page" label="Spacing Test">
+    <tc:gridLayoutConstraint width="670px" height="670px"/>
+    <f:facet name="layout">
+      <tc:gridLayout columns="*;*" rows="*;*" columnSpacing="50px" rowSpacing="50px"/>
+    </f:facet>
+
+    <tc:panel>
+      <f:facet name="layout">
+        <tc:gridLayout columns="*;*;*" rows="*;*;*" columnSpacing="5px" rowSpacing="5px"/>
+      </f:facet>
+
+      <tc:image id="a_NW" value="pidgeon-point.jpg"/>
+      <tc:image id="a_N" value="pidgeon-point.jpg"/>
+      <tc:image id="a_NE" value="pidgeon-point.jpg"/>
+      <tc:image id="a_W" value="pidgeon-point.jpg"/>
+      <tc:image id="a_C" value="pidgeon-point.jpg"/>
+      <tc:image id="a_E" value="pidgeon-point.jpg"/>
+      <tc:image id="a_SW" value="pidgeon-point.jpg"/>
+      <tc:image id="a_S" value="pidgeon-point.jpg"/>
+      <tc:image id="a_SE" value="pidgeon-point.jpg"/>
+    </tc:panel>
+
+    <tc:panel>
+      <f:facet name="layout">
+        <tc:gridLayout columns="*;*;*" rows="*;*;*"/>
+      </f:facet>
+
+      <tc:image id="b_NW" value="pidgeon-point.jpg"/>
+      <tc:image id="b_N" value="pidgeon-point.jpg"/>
+      <tc:image id="b_NE" value="pidgeon-point.jpg"/>
+      <tc:image id="b_W" value="pidgeon-point.jpg"/>
+      <tc:image id="b_C" value="pidgeon-point.jpg"/>
+      <tc:image id="b_E" value="pidgeon-point.jpg"/>
+      <tc:image id="b_SW" value="pidgeon-point.jpg"/>
+      <tc:image id="b_S" value="pidgeon-point.jpg"/>
+      <tc:image id="b_SE" value="pidgeon-point.jpg"/>
+    </tc:panel>
+
+    <tc:panel>
+      <f:facet name="layout">
+        <tc:gridLayout columns="*;*" rows="*;*" columnSpacing="0px"/>
+      </f:facet>
+
+      <tc:image id="c_NW" value="pidgeon-point.jpg"/>
+      <tc:image id="c_NE" value="pidgeon-point.jpg"/>
+      <tc:image id="c_SW" value="pidgeon-point.jpg"/>
+      <tc:image id="c_SE" value="pidgeon-point.jpg"/>
+    </tc:panel>
+
+    <tc:panel>
+      <f:facet name="layout">
+        <tc:gridLayout columns="*;*" rows="*;*" rowSpacing="0px"/>
+      </f:facet>
+
+      <tc:image id="d_NW" value="pidgeon-point.jpg"/>
+      <tc:image id="d_NE" value="pidgeon-point.jpg"/>
+      <tc:image id="d_SW" value="pidgeon-point.jpg"/>
+      <tc:image id="d_SE" value="pidgeon-point.jpg"/>
+    </tc:panel>
+
+    <tc:script file="script/test-utils.js"/>
+
+    <tc:script onload="checkLayout('page:a_NW', 0, 0, 100, 100);"/>
+    <tc:script onload="checkLayout('page:a_N', 105, 0, 100, 100);"/>
+    <tc:script onload="checkLayout('page:a_NE', 210, 0, 100, 100);"/>
+    <tc:script onload="checkLayout('page:a_W', 0, 105, 100, 100);"/>
+    <tc:script onload="checkLayout('page:a_C', 105, 105, 100, 100);"/>
+    <tc:script onload="checkLayout('page:a_E', 210, 105, 100, 100);"/>
+    <tc:script onload="checkLayout('page:a_SW', 0, 210, 100, 100);"/>
+    <tc:script onload="checkLayout('page:a_S', 105, 210, 100, 100);"/>
+    <tc:script onload="checkLayout('page:a_SE', 210, 210, 100, 100);"/>
+
+    <tc:script onload="checkLayout('page:b_NW', 360, 0, 100, 100);"/>
+    <tc:script onload="checkLayout('page:b_N', 465, 0, 100, 100);"/>
+    <tc:script onload="checkLayout('page:b_NE', 570, 0, 100, 100);"/>
+    <tc:script onload="checkLayout('page:b_W', 360, 105, 100, 100);"/>
+    <tc:script onload="checkLayout('page:b_C', 465, 105, 100, 100);"/>
+    <tc:script onload="checkLayout('page:b_E', 570, 105, 100, 100);"/>
+    <tc:script onload="checkLayout('page:b_SW', 360, 210, 100, 100);"/>
+    <tc:script onload="checkLayout('page:b_S', 465, 210, 100, 100);"/>
+    <tc:script onload="checkLayout('page:b_SE', 570, 210, 100, 100);"/>
+
+    <tc:script onload="checkLayout('page:c_NW', 0, 360, 155, 152);"/>
+    <tc:script onload="checkLayout('page:c_NE', 155, 360, 155, 152);"/>
+    <tc:script onload="checkLayout('page:c_SW', 0, 517, 155, 153);"/>
+    <tc:script onload="checkLayout('page:c_SE', 155, 517, 155, 153);"/>
+
+    <tc:script onload="checkLayout('page:d_NW', 360, 360, 152, 155);"/>
+    <tc:script onload="checkLayout('page:d_NE', 517, 360, 153, 155);"/>
+    <tc:script onload="checkLayout('page:d_SW', 360, 515, 152, 155);"/>
+    <tc:script onload="checkLayout('page:d_SE', 517, 515, 153, 155);"/>
+
+  </tc:page>
+</f:view>

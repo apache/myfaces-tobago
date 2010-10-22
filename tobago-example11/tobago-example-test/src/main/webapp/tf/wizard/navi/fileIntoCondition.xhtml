@@ -1,0 +1,91 @@
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<ui:composition template="page.xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:c="http://java.sun.com/jstl/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:tc="http://myfaces.apache.org/tobago/component"
+                xmlns:tx="http://myfaces.apache.org/tobago/extension"
+                xmlns:tf="http://myfaces.apache.org/tobago/facelet-extension">
+  <ui:param name="title" value="File Into Condition"/>
+
+  <tf:wizardExtension wizard="#{wizardController.wizard}"
+                       title="File Into Condition"
+                       outcome="fileIntoCondition"
+                       allowJumpForward="true"
+                       labelPrevious="Zurück"
+                       labelNext="Weiter"
+                       labelOkay="Fertig"
+                       labelCancel="Abbruch"
+                       actionNext="finish"
+                       actionCancel="index">
+
+    <!--
+      <tfs:wizard var="w" controller="#{controller.wizard}" title="File Into Condition" outcome="fileIntoCondition"
+                  allowJumpForward="true">
+
+        <tc:panel>
+          <f:facet name="layout">
+            <tc:gridLayout rows="fixed;*;fixed"/>
+          </f:facet>
+
+          <tfs:wizardTrain wizard="#{controller.wizard}"/>
+    -->
+    <tc:panel>
+      <f:facet name="layout">
+        <tc:gridLayout rows="fixed;fixed;fixed;fixed;*"/>
+      </f:facet>
+
+      <tx:selectOneChoice label="Header Field">
+        <tc:selectItem itemLabel="To:" itemValue="to"/>
+        <tc:selectItem itemLabel="From:" itemValue="from"/>
+        <tc:selectItem itemLabel="Subject:" itemValue="subject"/>
+      </tx:selectOneChoice>
+
+      <tx:selectOneChoice label="Condition">
+        <tc:selectItem itemLabel="contains" itemValue="contains"/>
+        <tc:selectItem itemLabel="equals" itemValue="equals"/>
+      </tx:selectOneChoice>
+
+      <tx:in label="Value" value="#{wizardController.filterValue}"/>
+
+      <tx:in label="Folder"/>
+
+      <tc:cell/>
+
+    </tc:panel>
+    <!--
+        <tc:panel>
+          <f:facet name="layout">
+            <tc:gridLayout columns="*;fixed;fixed;fixed;fixed"/>
+          </f:facet>
+
+          <tc:cell/>
+          <tfs:wizardPrevious wizard="${w}" label="Vorherige"/>
+          <tfs:wizardNext wizard="${w}" label="Nächste" action="finish"/>
+          <tfs:wizardFinish wizard="${w}" label="Fertig"/>
+          <tfs:wizardCancel wizard="${w}" label="Cancel"/>
+
+        </tc:panel>
+
+      </tc:panel>
+
+    </tfs:wizard>
+    -->
+  </tf:wizardExtension>
+</ui:composition>

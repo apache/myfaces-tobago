@@ -1,0 +1,467 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<!DOCTYPE faces-config PUBLIC
+  "-//Sun Microsystems, Inc.//DTD JavaServer Faces Config 1.1//EN"
+  "http://java.sun.com/dtd/web-facesconfig_1_1.dtd">
+
+<faces-config>
+
+  <application>
+    <view-handler>
+      com.sun.facelets.FaceletViewHandler
+    </view-handler>
+    <navigation-handler>
+      org.apache.myfaces.tobago.example.demo.MultiplePageDeclarationLanguageNavigationHandler
+    </navigation-handler>
+    <locale-config>
+      <default-locale>en</default-locale>
+      <supported-locale>en_US</supported-locale>
+      <supported-locale>en_GB</supported-locale>
+      <supported-locale>de</supported-locale>
+      <supported-locale>de_DE</supported-locale>
+      <supported-locale>de_AT</supported-locale>
+      <supported-locale>de_CH</supported-locale>
+<!--      <supported-locale>es</supported-locale>-->
+      <supported-locale>ja_JP</supported-locale>
+      <supported-locale>ru_RU</supported-locale>
+<!--      <supported-locale>zh_TW</supported-locale>-->
+    </locale-config>
+  </application>
+
+  <converter>
+    <converter-id>salutationId</converter-id>
+    <converter-class>org.apache.myfaces.tobago.example.data.SalutationConverter</converter-class>
+  </converter>
+
+  <managed-bean>
+    <managed-bean-name>tobago</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.tobago.context.TobagoContext</managed-bean-class>
+    <managed-bean-scope>none</managed-bean-scope>
+  </managed-bean>
+
+  <managed-bean>
+    <managed-bean-name>demo</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.tobago.example.demo.TobagoDemoController</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+  </managed-bean>
+
+  <managed-bean>
+    <managed-bean-name>treeController</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.tobago.example.demo.TreeController</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+  </managed-bean>
+
+  <lifecycle>
+    <phase-listener>
+      org.apache.myfaces.tobago.example.demo.SynchronizeNavigationPhaseListener
+    </phase-listener>
+    <phase-listener>
+      org.apache.myfaces.tobago.util.DebugPhaseListener
+    </phase-listener>
+  </lifecycle>
+
+  <managed-bean>
+    <managed-bean-name>navigation</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.tobago.example.demo.Navigation</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+  </managed-bean>
+
+  <managed-bean>
+    <managed-bean-name>info</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.tobago.example.demo.ServerInfo</managed-bean-class>
+    <managed-bean-scope>application</managed-bean-scope>
+  </managed-bean>
+
+  <managed-bean>
+    <managed-bean-name>pageDeclarationLanguage</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.tobago.example.demo.PageDeclarationLanguageBean</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+  </managed-bean>
+
+  <navigation-rule>
+    <navigation-case>
+      <from-outcome>server-info</from-outcome>
+      <to-view-id>/server-info.jsp</to-view-id>
+    </navigation-case>
+  </navigation-rule>
+
+  <!--  overview  -->
+
+  <managed-bean>
+    <managed-bean-name>overviewController</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.tobago.example.demo.overview.OverviewController</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+  </managed-bean>
+
+  <!-- the jspx files will be generated -->
+  <navigation-rule>
+    <navigation-case>
+      <from-outcome>/overview/intro.jspx</from-outcome>
+      <to-view-id>/overview/intro.jspx</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>/overview/intro.xhtml</from-outcome>
+      <to-view-id>/overview/intro.xhtml</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>/overview/basic.jspx</from-outcome>
+      <to-view-id>/overview/basic.jspx</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>/overview/basic.xhtml</from-outcome>
+      <to-view-id>/overview/basic.xhtml</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>/overview/sheet.jspx</from-outcome>
+      <to-view-id>/overview/sheet.jspx</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>/overview/sheet.xhtml</from-outcome>
+      <to-view-id>/overview/sheet.xhtml</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>/overview/tree.jspx</from-outcome>
+      <to-view-id>/overview/tree.jspx</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>/overview/tree.xhtml</from-outcome>
+      <to-view-id>/overview/tree.xhtml</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>/overview/tab.jspx</from-outcome>
+      <to-view-id>/overview/tab.jspx</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>/overview/tab.xhtml</from-outcome>
+      <to-view-id>/overview/tab.xhtml</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>/overview/toolbar.jspx</from-outcome>
+      <to-view-id>/overview/toolbar.jspx</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>/overview/toolbar.xhtml</from-outcome>
+      <to-view-id>/overview/toolbar.xhtml</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>/overview/validation.jspx</from-outcome>
+      <to-view-id>/overview/validation.jspx</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>/overview/validation.xhtml</from-outcome>
+      <to-view-id>/overview/validation.xhtml</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>/overview/validation-severity.jspx</from-outcome>
+      <to-view-id>/overview/validation-severity.jspx</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>/overview/validation-severity.xhtml</from-outcome>
+      <to-view-id>/overview/validation-severity.xhtml</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>/overview/form.jspx</from-outcome>
+      <to-view-id>/overview/form.jspx</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>/overview/form.xhtml</from-outcome>
+      <to-view-id>/overview/form.xhtml</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>/overview/theme.jspx</from-outcome>
+      <to-view-id>/overview/theme.jspx</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>/overview/theme.xhtml</from-outcome>
+      <to-view-id>/overview/theme.xhtml</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>/overview/browser.jspx</from-outcome>
+      <to-view-id>/overview/browser.jspx</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>/overview/browser.xhtml</from-outcome>
+      <to-view-id>/overview/browser.xhtml</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>/overview/locale.jspx</from-outcome>
+      <to-view-id>/overview/locale.jspx</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>/overview/locale.xhtml</from-outcome>
+      <to-view-id>/overview/locale.xhtml</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>/overview/layout.jspx</from-outcome>
+      <to-view-id>/overview/layout.jspx</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>/overview/layout.xhtml</from-outcome>
+      <to-view-id>/overview/layout.xhtml</to-view-id>
+    </navigation-case>
+  </navigation-rule>
+
+  <lifecycle>
+    <phase-listener>
+      org.apache.myfaces.tobago.example.demo.clientConfig.ClientConfigPhaseListener
+    </phase-listener>
+  </lifecycle>
+
+  <managed-bean>
+    <managed-bean-name>clientConfigController</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.tobago.example.demo.clientConfig.ClientConfigController</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+  </managed-bean>
+
+  <!--<navigation-rule>
+    <from-view-id>/tobago-module-client/clientConfig.jsp</from-view-id>
+    <navigation-case>
+      <from-action>#{clientConfigController.submit}</from-action>
+      <to-view-id>/tobago-module-client/clientConfig.jsp</to-view-id>
+    </navigation-case>
+  </navigation-rule>-->
+
+  <managed-bean>
+    <managed-bean-name>clientConfigController2</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.tobago.example.demo.clientConfig.ClientConfigController</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+  </managed-bean>
+
+  <managed-bean>
+    <managed-bean-name>validationSeverity</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.tobago.example.demo.overview.ValidationSeverity</managed-bean-class>
+    <managed-bean-scope>none</managed-bean-scope>
+  </managed-bean>
+
+  <!--best practice-->
+
+  <managed-bean>
+    <managed-bean-name>bestPracticeController</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.tobago.example.demo.bestpractice.BestPracticeController</managed-bean-class>
+    <managed-bean-scope>request</managed-bean-scope>
+  </managed-bean>
+
+  <managed-bean>
+    <managed-bean-name>birdController</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.tobago.example.demo.bestpractice.BirdController</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+  </managed-bean>
+
+  <managed-bean>
+    <managed-bean-name>transitionController</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.tobago.example.demo.bestpractice.TransitionController</managed-bean-class>
+    <managed-bean-scope>request</managed-bean-scope>
+  </managed-bean>
+
+  <managed-bean>
+    <managed-bean-name>customizer</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.tobago.example.demo.bestpractice.ToolBarCustomizer</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+  </managed-bean>
+
+  <navigation-rule>
+    <navigation-case>
+      <from-outcome>best-practice/intro</from-outcome>
+      <to-view-id>/best-practice/intro.jsp</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>best-practice/error</from-outcome>
+      <to-view-id>/best-practice/error.jsp</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>best-practice/theme</from-outcome>
+      <to-view-id>/best-practice/theme.jsp</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>best-practice/transition</from-outcome>
+      <to-view-id>/best-practice/transition.jsp</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>best-practice/transition-after-sleep</from-outcome>
+      <to-view-id>/best-practice/transition-after-sleep.jsp</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>best-practice/non-faces-response</from-outcome>
+      <to-view-id>/best-practice/non-faces-response.jsp</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>best-practice/tool-bar-customizer</from-outcome>
+      <to-view-id>/best-practice/tool-bar-customizer.xhtml</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>best-practice/facelets-as-resources</from-outcome>
+      <to-view-id>/best-practice/facelets-as-resources.xhtml</to-view-id>
+    </navigation-case>
+  </navigation-rule>
+
+  <navigation-rule>
+    <from-view-id>/best-practice/error.jsp</from-view-id>
+    <navigation-case>
+      <from-outcome>404</from-outcome>
+      <to-view-id>/best-practice/not-existing-page.jsp</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>syntax</from-outcome>
+      <to-view-id>/best-practice/error-in-syntax.jsp</to-view-id>
+    </navigation-case>
+  </navigation-rule>
+
+  <converter>
+    <converter-id>org.apache.myfaces.tobago.example.reference.OnOffConverter</converter-id>
+    <converter-class>org.apache.myfaces.tobago.example.reference.OnOffConverter</converter-class>
+  </converter>
+
+  <!-- reference -->
+
+  <managed-bean>
+    <managed-bean-name>popupReference</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.tobago.example.reference.PopupReferenceController</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+  </managed-bean>
+
+  <managed-bean>
+    <managed-bean-name>reference</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.tobago.example.reference.Controller</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+  </managed-bean>
+
+  <managed-bean>
+    <managed-bean-name>progress</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.tobago.example.reference.Progress</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+  </managed-bean>
+
+  <managed-bean>
+    <managed-bean-name>selectBooleanCheckboxController</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.tobago.example.reference.SelectBooleanCheckboxController</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+  </managed-bean>
+
+  <managed-bean>
+    <managed-bean-name>partialReloadController</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.tobago.example.reference.PartialReloadController</managed-bean-class>
+    <managed-bean-scope>request</managed-bean-scope>
+  </managed-bean>
+
+  <managed-bean>
+    <managed-bean-name>inputSuggestController</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.tobago.example.reference.InputSuggestController</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+  </managed-bean>
+
+  <managed-bean>
+    <managed-bean-name>upload</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.tobago.example.reference.Upload</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+  </managed-bean>
+
+  <managed-bean>
+    <managed-bean-name>simpleList</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.tobago.example.reference.SimpleBeanList</managed-bean-class>
+    <managed-bean-scope>request</managed-bean-scope>
+  </managed-bean>
+  
+  <navigation-rule>
+    <navigation-case>
+      <from-outcome>reference/intro</from-outcome>
+      <to-view-id>/reference/intro.jsp</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>reference/command</from-outcome>
+      <to-view-id>/reference/command.jsp</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>reference/container</from-outcome>
+      <to-view-id>/reference/container.jsp</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>reference/input</from-outcome>
+      <to-view-id>/reference/input.jsp</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>reference/inputSuggest</from-outcome>
+      <to-view-id>/reference/inputSuggest.jsp</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>reference/menu</from-outcome>
+      <to-view-id>/reference/menu.jsp</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>reference/output</from-outcome>
+      <to-view-id>/reference/output.jsp</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>reference/popup</from-outcome>
+      <to-view-id>/reference/popup.xhtml</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>reference/progress</from-outcome>
+      <to-view-id>/reference/progress.jsp</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>reference/select</from-outcome>
+      <to-view-id>/reference/select.jsp</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>reference/sheet</from-outcome>
+      <to-view-id>/reference/sheet.jsp</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>reference/object</from-outcome>
+      <to-view-id>/reference/object.jsp</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>reference/tab</from-outcome>
+      <to-view-id>/reference/tab.jsp</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>reference/time</from-outcome>
+      <to-view-id>/reference/time.jsp</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>reference/tool</from-outcome>
+      <to-view-id>/reference/tool.jsp</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>/reference/tree/tree-normal.jspx</from-outcome>
+      <to-view-id>/reference/tree/tree-normal.jspx</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>/reference/tree/tree-normal.xhtml</from-outcome>
+      <to-view-id>/reference/tree/tree-normal.xhtml</to-view-id>
+    </navigation-case>
+<!--
+tree-ajax.jsp
+tree-editor.jsp
+tree-menu.xhtml
+tree-normal.xhtml
+tree-select.xhtml
+-->
+    <navigation-case>
+      <from-outcome>reference/upload</from-outcome>
+      <to-view-id>/reference/upload.xhtml</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>reference/partial</from-outcome>
+      <to-view-id>/reference/partial.jsp</to-view-id>
+    </navigation-case>
+  </navigation-rule>
+
+</faces-config>
