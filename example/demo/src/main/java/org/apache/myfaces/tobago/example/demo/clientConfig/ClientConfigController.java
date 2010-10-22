@@ -105,8 +105,7 @@ public class ClientConfigController {
 // ///////////////////////////////////////////// logic
 
   public void storeInClientProperties() {
-    ClientProperties client
-        = ClientProperties.getInstance(FacesContext.getCurrentInstance());
+    ClientProperties client = ClientProperties.getInstance(FacesContext.getCurrentInstance());
 
     client.setDebugMode(debugMode);
     client.setTheme(theme);
