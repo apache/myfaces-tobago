@@ -71,9 +71,12 @@
             <tc:gridLayout columns="*;fixed" rows="fixed;*"  />
           </f:facet>
 
-          <tc:cell/>
-          <tc:button label="#{overviewBundle.submitAll}" />
-          <tc:cell spanX="2" />
+          <tx:in value="#{demo.text[2]}" required="true" label="#{overviewBundle.newValue}" />
+          <tc:cell spanY="2" >
+            <tc:button label="#{overviewBundle.submitAll}" />
+          </tc:cell>
+          <tx:in value="#{demo.text[2]}" readonly="true" label="#{overviewBundle.modelValue}" />
+
         </tc:panel>
       </tc:box>
     </tc:panel>
