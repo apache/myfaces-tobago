@@ -19,13 +19,33 @@ package org.apache.myfaces.tobago.component;
 
 import org.apache.myfaces.tobago.event.SortActionSource;
 import org.apache.myfaces.tobago.event.SortActionSource2;
+import org.apache.myfaces.tobago.model.SheetState;
+
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.el.ValueBinding;
+import java.util.Map;
 
 /**
  * @deprecated Please use {@link UISheet}
  */
 public interface UIData extends SortActionSource2, SupportsMarkup, SortActionSource {
 
+  SheetState getSheetState(FacesContext facesContext);
+
+  int getRowCount();
+
   int getRowIndex();
+
+  void setRowIndex(int rowIndex);
+
+  Map getAttributes();
+
+  UIComponent getFacet(String name);
+
+  ValueBinding getValueBinding(String name);
+
+  String getClientId(FacesContext facesContext);
 
   /**
    * @deprecated

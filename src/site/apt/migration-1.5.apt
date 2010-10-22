@@ -112,7 +112,7 @@ Other API Classes
 *--+--+--+--+                                                                                                                                                                   
 | moved | org.apache.myfaces.tobago.renderkit.RenderUtil | org.apache.myfaces.tobago.renderkit.util.RenderUtils
 *--+--+--+--+
-| renamed | org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil | org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils
+| renamed | org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil | org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils
 *--+--+--+--+                                                                                                                                                                   
 |  |  |                                                                 
 *--+--+--+--+                                                                                                                                                                   
