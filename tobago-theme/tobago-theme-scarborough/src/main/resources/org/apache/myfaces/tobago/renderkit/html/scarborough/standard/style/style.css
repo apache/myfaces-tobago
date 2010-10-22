@@ -1088,10 +1088,12 @@ div.tobago-tabGroup-toolBar {
   margin: 0;
   left: 0;
   top: 0;
+  cursor: pointer;
 }
 
 .tobago-toolBar-item-markup-disabled {
   color: #778899;
+  cursor: default;
 }
 
 .tobago-toolBar-button, .tobago-toolBar-menu {
