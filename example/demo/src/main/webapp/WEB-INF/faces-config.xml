@@ -77,13 +77,6 @@
     <managed-bean-name>info</managed-bean-name>
     <managed-bean-class>org.apache.myfaces.tobago.example.demo.ServerInfo</managed-bean-class>
     <managed-bean-scope>application</managed-bean-scope>
-    <managed-property>
-      <description>Enabled the Server Info. May be disabled for security reasons.</description>
-      <property-name>enabled</property-name>
-      <property-class>boolean</property-class>
-      <value>false</value>
-      <!--<value>true</value>-->
-    </managed-property>
   </managed-bean>
 
   <navigation-rule>

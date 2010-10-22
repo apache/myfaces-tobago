@@ -17,43 +17,54 @@ package org.apache.myfaces.tobago.example.demo;
  * limitations under the License.
  */
 
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
-import java.util.Properties;
-import java.io.InputStream;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.Properties;
 
+/**
+ * The server info class makes some information about the system and application available in the demo.
+ * This is enabled by default, but can be disabled by configuration in a properties file with the key
+ * <code>{@value #ENABLED_KEY}</code>.
+ * The default file name is <code>{@value #CONFIG_FILE_DEFAULT}</code>.
+ * The file name can be changed with a system property with name <code>{@value #CONFIG_FILE}</code>.
+ *
+ */
 public class ServerInfo {
 
   private static final Log LOG = LogFactory.getLog(ServerInfo.class);
 
+  private static final String CONFIG_FILE = "org.apache.myfaces.tobago.example.demo.config.file";
+  private static final String CONFIG_FILE_DEFAULT = "/etc/tobago-example-demo.properties";
+  private static final String ENABLED_KEY = "server.info.enabled";
+
   private String version;
 
-  private boolean enabled;
+  /**
+   * Enabled the Server Info. May be disabled for security reasons. Default is true.
+   */
+  private boolean enabled = true;
 
   public ServerInfo() {
-    InputStream pom = null;
+    String file = System.getProperty(CONFIG_FILE);
     try {
-      pom = getClass().getClassLoader().getResourceAsStream(
-          "META-INF/maven/org.apache.myfaces.tobago/tobago-core/pom.properties");
-      Properties properties = new Properties();
-      properties.load(pom);
-      version = properties.getProperty("version");
-
-      /*
-      This should work, too.
-      Package tobagoPackage = Package.getPackage("org.apache.myfaces.tobago.component");
-      version = tobagoPackage.getImplementationVersion();
-      */
+      if (file == null) {
+        file = CONFIG_FILE_DEFAULT;
+      }
+      LOG.info("Loading config from file '" + file + "'");
+      Properties config = new Properties();
+      config.load(new FileInputStream(file));
+      enabled = Boolean.parseBoolean(config.getProperty(ENABLED_KEY));
     } catch (IOException e) {
-      LOG.warn("No version info found.", e);
-    } finally {
-      IOUtils.closeQuietly(pom);
+      LOG.warn("Can't load config: " + e.getMessage());
     }
+    // the tobago version should be set in any case
+    LOG.info("server.info.enabled=" + enabled);
+    version = Package.getPackage("org.apache.myfaces.tobago.component").getImplementationVersion();
   }
 
   public String getServerInfo() {
