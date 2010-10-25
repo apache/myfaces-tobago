@@ -24,6 +24,11 @@ import java.util.Set;
 
 
 public class DebugUtils {
+
+  private DebugUtils() {
+    // to prevent instantiation
+  }
+
   public static String toString(UIComponent component, int offset) {
     return toString(component, offset, false);
   }
