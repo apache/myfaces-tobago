@@ -37,7 +37,7 @@
                label="End">
         <f:convertDateTime pattern="dd.MM.yyyy"/>
       </tx:date>
-      <tc:message for="validityEnd"/>
+      <tc:messages for="validityEnd"/>
       <tc:button label="Check dates" action="#{controller.checkDates}"/>
       <tc:cell/>
     </tc:panel>
