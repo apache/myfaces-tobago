@@ -24,6 +24,7 @@ import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.util.ComponentUtils;
+import org.apache.myfaces.tobago.util.MessageFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -318,8 +319,11 @@ public class RenderUtils {
         } else if (value instanceof SelectItem) {
           list.add((SelectItem) value);
         } else {
-          throw new IllegalArgumentException("TYPE ERROR: value NOT instanceof SelectItem. type="
-              + value.getClass().getName());
+          final String message 
+              = "TYPE ERROR: value NOT instanceof SelectItem. type="
+              + value.getClass().getName() + " value=" + value;
+          LOG.error(message);
+          MessageFactory.addDevelopmentMessage(FacesContext.getCurrentInstance(), message);
         }
       } else if (kid instanceof UISelectItems) {
         Object value = ((UISelectItems) kid).getValue();
@@ -352,9 +356,11 @@ public class RenderUtils {
             }
           }
         } else {
-          throw new IllegalArgumentException("TYPE ERROR: value NOT instanceof "
-              + "SelectItem, SelectItem[], Collection, Map. type="
-              + value.getClass().getName());
+          final String message
+              = "TYPE ERROR: value NOT instanceof SelectItem, SelectItem[], Collection, Map. type="
+              + value.getClass().getName() + " value=" + value;
+          LOG.error(message);
+          MessageFactory.addDevelopmentMessage(FacesContext.getCurrentInstance(), message);
         }
       }
     }

@@ -17,6 +17,8 @@ package org.apache.myfaces.tobago.util;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.application.ProjectStage;
+import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 
 import javax.faces.application.FacesMessage;
@@ -104,4 +106,14 @@ public final class MessageFactory {
     }
     return facesMessages;
   }
+
+  /**
+   * Creates a message and adds it to the faces context, if the project stage is development.
+   */
+  public static void addDevelopmentMessage(FacesContext facesContext, String message) {
+    if (TobagoConfig.getInstance(FacesContext.getCurrentInstance()).getProjectStage() == ProjectStage.Development) {
+      facesContext.addMessage(null, new FacesMessage(message));
+    }
+  }
+
 }
