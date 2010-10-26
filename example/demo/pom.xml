@@ -124,6 +124,11 @@
       </exclusions>
     </dependency>
     <dependency>
+      <groupId>org.apache.myfaces.tobago</groupId>
+      <artifactId>tobago-fileupload</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
       <groupId>log4j</groupId>
       <artifactId>log4j</artifactId>
       <version>1.2.11</version>

@@ -17,39 +17,44 @@ package org.apache.myfaces.tobago.example.reference;
  * limitations under the License.
  */
 
-import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import java.util.ArrayList;
-import java.util.List;
+public class UploadItem {
 
-public class Upload {
+  private static final Log LOG = LogFactory.getLog(UploadItem.class);
 
-  private static final Log LOG = LogFactory.getLog(Upload.class);
+  private String name;
+  private int size;
+  private String type;
 
-  private FileItem file;
-
-  private List<UploadItem> list = new ArrayList<UploadItem>();
-
-  public String upload() {
-    LOG.info("type=" + file.getContentType());
-    LOG.info("file=" + file.get().length);
-    LOG.info("name=" + file.getName());
-    list.add(new UploadItem(file.getName(), file.get().length, file.getContentType()));
-    file = null; // we don't need it in this demo.
-    return null;
+  public UploadItem(String name, int size, String type) {
+    this.name = name;
+    this.size = size;
+    this.type = type;
   }
 
-  public FileItem getFile() {
-    return file;
+  public String getName() {
+    return name;
   }
 
-  public void setFile(FileItem file) {
-    this.file = file;
+  public void setName(String name) {
+    this.name = name;
   }
 
-  public List<UploadItem> getList() {
-    return list;
+  public int getSize() {
+    return size;
+  }
+
+  public void setSize(int size) {
+    this.size = size;
+  }
+
+  public String getType() {
+    return type;
+  }
+
+  public void setType(String type) {
+    this.type = type;
   }
 }

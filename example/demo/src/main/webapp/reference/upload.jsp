@@ -23,15 +23,36 @@
   <jsp:body>
     <tc:box label="File Upload">
       <f:facet name="layout">
-        <tc:gridLayout columns="400px;*" rows="fixed;1*" />
+        <tc:gridLayout columns="400px;*" rows="fixed;fixed;1*"/>
       </f:facet>
-<%-- code-sniplet-start id="file" --%>
-      <tx:file label="Upload file:" value="#{upload.file}" />
-<%-- code-sniplet-end id="file" --%>
-      <tc:button label="Submit" defaultCommand="true" action="#{upload.upload}" />
 
-      <tc:cell/>
-      <tc:cell/>
+      <tc:cell spanX="2">
+        <tc:messages/>
+      </tc:cell>
+
+      <%-- code-sniplet-start id="file" --%>
+      <tx:file label="Upload file:" value="#{upload.file}"/>
+      <%-- code-sniplet-end id="file" --%>
+      <tc:button label="Submit" defaultCommand="true" action="#{upload.upload}"/>
+
+      <tc:cell spanX="2">
+        <tc:sheet var="entry" value="#{upload.list}">
+
+          <tc:column label="Name">
+            <tc:out value="#{entry.name}"/>
+          </tc:column>
+
+          <tc:column label="Type">
+            <tc:out value="#{entry.type}"/>
+          </tc:column>
+
+          <tc:column label="Size">
+            <tc:out value="#{entry.size}"/>
+          </tc:column>
+
+        </tc:sheet>
+      </tc:cell>
+
     </tc:box>
   </jsp:body>
 </layout:overview>
