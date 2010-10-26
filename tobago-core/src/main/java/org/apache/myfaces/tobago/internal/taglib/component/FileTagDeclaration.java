@@ -40,17 +40,14 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutCompone
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsReadonly;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsRequired;
 
-/*
- * Created: Aug 5, 2005 5:15:50 PM
- * User: bommel
- * $Id$
- */
 /**
  * Renders a file input field.
  * You need to define an org.apache.myfaces.tobago.webapp.TobagoMultipartFormdataFilter in your web.xml or
  * add the tobago-fileupload.jar to your project.
  * The tobago-fileupload.jar contains a FacesContextFactory that wraps the
  * multipart-formdata request inside the facesContext.
+ * <p>
+ * For content constraints please use <a href="validateFileItem.html">tc:validateFileItem</a>.
  */
 @Tag(name = "file")
 @UIComponentTag(
