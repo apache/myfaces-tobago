@@ -1,5 +1,22 @@
 package org.apache.myfaces.tobago.component;
 
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 import javax.faces.application.FacesMessage;
 import javax.faces.component.EditableValueHolder;
 import javax.faces.component.NamingContainer;
@@ -29,17 +46,18 @@ import java.util.Map;
  * To use it, define it in you faces-config.xml.
  */
 public class UIDataFixTobago931 extends org.apache.myfaces.tobago.component.UIData {
+
   private static final Class OBJECT_ARRAY_CLASS = (new Object[0]).getClass();
 
-  private int _rowIndex = -1;
-  private final Map _dataModelMap = new HashMap();
+  private int rowIndex = -1;
+  private final Map dataModelMap = new HashMap();
 
   // Holds for each row the states of the child components of this UIData.
   // Note that only "partial" component state is saved: the component fields
   // that are expected to vary between rows.
-  private final Map _rowStates = new HashMap();
-  private Object _initialDescendantComponentState = null;
-  private boolean _isValidChilds = true;
+  private final Map rowStates = new HashMap();
+  private Object initialDescendantComponentState = null;
+  private boolean isValidChilds = true;
 
   public String getClientId(FacesContext facesContext) {
     String clientId = super.getClientId(facesContext);
@@ -54,29 +72,29 @@ public class UIDataFixTobago931 extends org.apache.myfaces.tobago.component.UIDa
     super.processValidators(context);
     // check if an validation error forces the render response for our data
     if (context.getRenderResponse()) {
-      _isValidChilds = false;
+      isValidChilds = false;
     }
   }
 
   public void processUpdates(FacesContext context) {
     super.processUpdates(context);
     if (context.getRenderResponse()) {
-      _isValidChilds = false;
+      isValidChilds = false;
     }
   }
 
   public void setValue(Object value) {
     super.setValue(value);
-    _dataModelMap.clear();
-    _rowStates.clear();
-    _isValidChilds = true;
+    dataModelMap.clear();
+    rowStates.clear();
+    isValidChilds = true;
   }
 
   public void setValueBinding(String name, ValueBinding binding) {
     if (name == null) {
       throw new NullPointerException("name");
     } else if (name.equals("value")) {
-      _dataModelMap.clear();
+      dataModelMap.clear();
     } else if (name.equals("var") || name.equals("rowIndex")) {
       throw new IllegalArgumentException("You can never set the 'rowIndex' or the 'var' attribute as a value-binding. "
           + "Set the property directly instead. Name " + name);
@@ -90,18 +108,18 @@ public class UIDataFixTobago931 extends org.apache.myfaces.tobago.component.UIDa
    * associated renderer's encodeBegin method.
    */
   public void encodeBegin(FacesContext context) throws IOException {
-    _initialDescendantComponentState = null;
-    if (_isValidChilds && !hasErrorMessages(context)) {
+    initialDescendantComponentState = null;
+    if (isValidChilds && !hasErrorMessages(context)) {
       // Clear the data model so that when rendering code calls
       // getDataModel a fresh model is fetched from the backing
       // bean via the value-binding.
-      _dataModelMap.clear();
+      dataModelMap.clear();
 
       // When the data model is cleared it is also necessary to
       // clear the saved row state, as there is an implicit 1:1
-      // relation between objects in the _rowStates and the
+      // relation between objects in the rowStates and the
       // corresponding DataModel element.
-      _rowStates.clear();
+      rowStates.clear();
     }
     super.encodeBegin(context);
   }
@@ -129,7 +147,7 @@ public class UIDataFixTobago931 extends org.apache.myfaces.tobago.component.UIDa
   }
 
   public int getRowIndex() {
-    return _rowIndex;
+    return rowIndex;
   }
 
   public void setRowIndex(int rowIndex) {
@@ -137,29 +155,29 @@ public class UIDataFixTobago931 extends org.apache.myfaces.tobago.component.UIDa
       throw new IllegalArgumentException("rowIndex is less than -1");
     }
 
-    if (_rowIndex == rowIndex) {
+    if (this.rowIndex == rowIndex) {
       return;
     }
 
     FacesContext facesContext = getFacesContext();
 
-    if (_rowIndex == -1) {
-      if (_initialDescendantComponentState == null) {
+    if (this.rowIndex == -1) {
+      if (initialDescendantComponentState == null) {
         // Create a template that can be used to initialise any row
         // that we haven't visited before, ie a "saved state" that can
         // be pushed to the "restoreState" method of all the child
         // components to set them up to represent a clean row.
-        _initialDescendantComponentState = saveDescendantComponentStates(getChildren().iterator(), false);
+        initialDescendantComponentState = saveDescendantComponentStates(getChildren().iterator(), false);
       }
     } else {
       // We are currently positioned on some row, and are about to
       // move off it, so save the (partial) state of the components
       // representing the current row. Later if this row is revisited
       // then we can restore this state.
-      _rowStates.put(getClientId(facesContext), saveDescendantComponentStates(getChildren().iterator(), false));
+      rowStates.put(getClientId(facesContext), saveDescendantComponentStates(getChildren().iterator(), false));
     }
 
-    _rowIndex = rowIndex;
+    this.rowIndex = rowIndex;
 
     DataModel dataModel = getDataModel();
     dataModel.setRowIndex(rowIndex);
@@ -180,16 +198,16 @@ public class UIDataFixTobago931 extends org.apache.myfaces.tobago.component.UIDa
       }
     }
 
-    if (_rowIndex == -1) {
+    if (this.rowIndex == -1) {
       // reset components to initial state
-      restoreDescendantComponentStates(getChildren().iterator(), _initialDescendantComponentState, false);
+      restoreDescendantComponentStates(getChildren().iterator(), initialDescendantComponentState, false);
     } else {
-      Object rowState = _rowStates.get(getClientId(facesContext));
+      Object rowState = rowStates.get(getClientId(facesContext));
       if (rowState == null) {
         // We haven't been positioned on this row before, so just
         // configure the child components of this component with
         // the standard "initial" state
-        restoreDescendantComponentStates(getChildren().iterator(), _initialDescendantComponentState, false);
+        restoreDescendantComponentStates(getChildren().iterator(), initialDescendantComponentState, false);
       } else {
         // We have been positioned on this row before, so configure
         // the child components of this component with the (partial)
@@ -287,23 +305,23 @@ public class UIDataFixTobago931 extends org.apache.myfaces.tobago.component.UIDa
   }
 
   private class EditableValueHolderState {
-    private final Object _value;
-    private final boolean _localValueSet;
-    private final boolean _valid;
-    private final Object _submittedValue;
+    private final Object value;
+    private final boolean localValueSet;
+    private final boolean valid;
+    private final Object submittedValue;
 
     public EditableValueHolderState(EditableValueHolder evh) {
-      _value = evh.getLocalValue();
-      _localValueSet = evh.isLocalValueSet();
-      _valid = evh.isValid();
-      _submittedValue = evh.getSubmittedValue();
+      value = evh.getLocalValue();
+      localValueSet = evh.isLocalValueSet();
+      valid = evh.isValid();
+      submittedValue = evh.getSubmittedValue();
     }
 
     public void restoreState(EditableValueHolder evh) {
-      evh.setValue(_value);
-      evh.setLocalValueSet(_localValueSet);
-      evh.setValid(_valid);
-      evh.setSubmittedValue(_submittedValue);
+      evh.setValue(value);
+      evh.setLocalValueSet(localValueSet);
+      evh.setValid(valid);
+      evh.setSubmittedValue(submittedValue);
     }
   }
 
@@ -330,10 +348,10 @@ public class UIDataFixTobago931 extends org.apache.myfaces.tobago.component.UIDa
     if (parent != null) {
       clientID = parent.getClientId(getFacesContext());
     }
-    dataModel = (DataModel) _dataModelMap.get(clientID);
+    dataModel = (DataModel) dataModelMap.get(clientID);
     if (dataModel == null) {
       dataModel = createDataModel();
-      _dataModelMap.put(clientID, dataModel);
+      dataModelMap.put(clientID, dataModel);
     }
     return dataModel;
   }
