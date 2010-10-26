@@ -38,7 +38,7 @@
       * limitations under the License.
     </xsl:comment>
 
-    <jsp:root version="2.0">
+    <jsp:root version="2.1">
       <jsp:directive.page contentType="text/html; charset=utf-8"/>   
       <layout:overview>
         <jsp:params>
