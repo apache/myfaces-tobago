@@ -20,7 +20,7 @@
 
 <f:view locale="#{clientConfigController.locale}">
   <tc:loadBundle basename="overview" var="overviewBundle"/>
-  <tc:page applicationIcon="icon/favicon.ico" label="#{overviewBundle.pageTitle} - #{title}" 
+  <tc:page applicationIcon="icon/favicon.ico" label="#{overviewBundle.pageTitle} - #{title}"
            id="page" width="1000px" height="750px">
     <%-- fixme: #{title} will not evaluated correctly, because it will be evaluated "late", but too late
          fixme: and ${title} is not allowed, because it can't be provided with JSF 1.2 
@@ -49,6 +49,7 @@
           <tc:menuCommand
               onclick="alert('#{overviewBundle.pageTitle}' + String.fromCharCode(10) + '#{info.version}' + String.fromCharCode(10) + '#{overviewBundle.tobago_url}' + String.fromCharCode(10))"
               label="#{overviewBundle.menu_about}"/>
+          <tc:menuItem link="http://myfaces.apache.org/tobago" label="Tobago in the Web"/>
           <tc:menuCommand onclick="LOG.show();" label="#{overviewBundle.menu_showLog}"
                           rendered="#{clientConfigController.debugMode}"/>
           <tc:menuCommand action="server-info" immediate="true"
