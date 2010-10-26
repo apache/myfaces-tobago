@@ -1,21 +1,47 @@
 package org.apache.myfaces.tobago.example.demo.sudoku;
 
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.ArrayList;
 import java.util.BitSet;
 import java.util.List;
 import java.util.Random;
 import java.util.Stack;
 
+/**
+ * This is a demo of the logic of a sudoku game.
+ *
+ * The basic idea is not to write yet an other sudoku, but to demonstrate application specific controls.
+ */
 public class Sudoku {
+
+  private static final Logger LOG = LoggerFactory.getLogger(Sudoku.class);
 
   private static final Random RANDOM = new Random(System.currentTimeMillis());
 
   private byte[] field;
-  private Stack<Byte> undefiened;
+  private Stack<Byte> undefined;
 
   private int depth;
   private int maxDepth;
-  public static long START;
 
   public Sudoku() {
     field = new byte[]{
@@ -34,31 +60,31 @@ public class Sudoku {
     RandomList randomList = new RandomList((byte) 81);
     randomList.removeSmallest(9);
     depth = 9;
-    undefiened = randomList.asStack();
+    undefined = randomList.asStack();
 
   }
 
   public Sudoku(byte[] field) {
     this.field = field;
-  //XXX  undefiened = new RandomList((byte) 81).asStack();
+    //XXX  undefined = new RandomList((byte) 81).asStack();
   }
 
   public Result solve() {
-    if (undefiened.isEmpty()) {
-      System.out.println("--------------- result ");
-      System.out.print(this);
-      System.out.println("--------------- result ");
+    if (undefined.isEmpty()) {
+      LOG.debug("--------------- result ");
+      LOG.debug(this.toString());
+      LOG.debug("--------------- result ");
       return Result.UNIQUE;
     }
-    byte position = undefiened.pop();
+    byte position = undefined.pop();
     RandomList list = new RandomList((byte) 9);
     boolean foundOne = false;
     while (!list.isEmpty()) {
       field[position] = list.next();
-//      System.out.println(depth);
-//      System.out.print(this);
+//      LOG.debug(depth);
+//      LOG.debug(this);
       if (checkRules()) {
-//        System.out.println("ok");
+//        LOG.debug("ok");
         Result result = solve2();
         switch (result) {
           case ERROR:
@@ -72,10 +98,12 @@ public class Sudoku {
               foundOne = true;
             }
             break;
+          default:
+            assert(false);
         }
       }
     }
-    undefiened.push(position);
+    undefined.push(position);
     field[position] = -1;
 
     return Result.ERROR;
@@ -85,7 +113,7 @@ public class Sudoku {
     depth++;
     if (depth > maxDepth) {
       maxDepth = depth;
-      System.out.println("new max depth: " + maxDepth);
+      LOG.debug("new max depth: " + maxDepth);
     }
     Result result = solve();
     depth--;
@@ -104,7 +132,7 @@ public class Sudoku {
         byte value = field[i * 9 + j];
         if (value != -1) {
           if (xxx.get(value)) {
-//            System.out.println("fail h " + i);
+//            LOG.debug("fail h " + i);
             return false;
           }
           xxx.set(value);
@@ -121,7 +149,7 @@ public class Sudoku {
         byte value = field[j * 9 + i];
         if (value != -1) {
           if (xxx.get(value)) {
-//            System.out.println("fail v " + i);
+//            LOG.debug("fail v " + i);
             return false;
           }
           xxx.set(value);
@@ -139,7 +167,7 @@ public class Sudoku {
         byte value = field[i1];
         if (value != -1) {
           if (xxx.get(value)) {
-//            System.out.println("fail 3 " + i);
+//            LOG.debug("fail 3 " + i);
             return false;
           }
           xxx.set(value);
@@ -150,14 +178,13 @@ public class Sudoku {
   }
 
   public static void main(String[] args) {
-    System.out.println(new RandomList((byte) 9).list);
+    LOG.debug("" + new RandomList((byte) 9).list);
     Sudoku sudoku = new Sudoku();
-    System.out.println("---------------------------------------------------------------------------------------------");
-START = System.currentTimeMillis();
+    LOG.debug("---------------------------------------------------------------------------------------------");
     final Result result = sudoku.solve();
-    System.out.println(result);
-    System.out.println("---------------------------------------------------------------------------------------------");
-    System.out.println(sudoku);
+    LOG.debug("" + result);
+    LOG.debug("---------------------------------------------------------------------------------------------");
+    LOG.debug("" + sudoku);
   }
 
   @Override
@@ -220,8 +247,8 @@ START = System.currentTimeMillis();
     }
 
     public void removeSmallest(int n) {
-      for (byte i = 0; i< n;i++) {
-        list.remove((Byte)i);
+      for (byte i = 0; i < n; i++) {
+        list.remove((Byte) i);
       }
     }
   }
