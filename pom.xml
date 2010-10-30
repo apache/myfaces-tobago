@@ -148,7 +148,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jxr-plugin</artifactId>
-        <version>2.1</version>
+        <version>2.2</version>
       </plugin>
 
       <plugin>
@@ -164,9 +164,8 @@
           </headerLocation>
           <xrefLocation>xref</xrefLocation>
           <excludes>**/package-info.java</excludes>
-          <sourceEncoding>utf-8</sourceEncoding>
-          <minimumTokens>100</minimumTokens>
-          <targetJdk>1.5</targetJdk>
+          <indentSize>2</indentSize>
+          <!--includeTestSourceDirectory>true</includeTestSourceDirectory-->
         </configuration>
       </plugin>
 
@@ -183,9 +182,8 @@
           <source>1.5</source>
           <charset>UTF-8</charset>
           <links>
-            <link>http://java.sun.com/j2se/1.5.0/docs/api</link>
-            <link>http://java.sun.com/j2ee/1.4/docs/api</link>
-            <link>http://java.sun.com/javaee/javaserverfaces/1.1_01/docs/api</link>
+            <link>http://download-llnw.oracle.com/javase/1.5.0/docs/api/</link>
+            <link>http://download.oracle.com/javaee/5/api/</link>
             <link>http://jakarta.apache.org/commons/collections/api-${commons-collection.version}/</link>
             <link>http://jakarta.apache.org/commons/lang/api-${common-lang.version}/</link>
             <link>http://jakarta.apache.org/commons/fileupload/apidocs</link>
@@ -297,8 +295,8 @@
             <exclude>**/package-info.java</exclude>
             <exclude>org/apache/myfaces/tobago/apt/annotation/*.java</exclude>
           </excludes>
-          <encoding>UTF-8</encoding>
-          <linkXref>true</linkXref>
+          <sourceEncoding>UTF-8</sourceEncoding>
+          <linkXRef>true</linkXRef>
           <targetJdk>1.5</targetJdk>
         </configuration>
       </plugin>
@@ -634,9 +632,8 @@
             </headerLocation>
             <xrefLocation>xref</xrefLocation>
             <excludes>**/package-info.java</excludes>
-            <sourceEncoding>utf-8</sourceEncoding>
-            <minimumTokens>100</minimumTokens>
-            <targetJdk>1.5</targetJdk>
+            <indentSize>2</indentSize>
+            <!--includeTestSourceDirectory>true</includeTestSourceDirectory-->
           </configuration>
         </plugin>
         <plugin>
@@ -1207,7 +1204,7 @@
     <sunjsf.version>1.1_02</sunjsf.version>
     <sunjsf12.version>1.2_14</sunjsf12.version>
     <facelets.version>1.1.14</facelets.version>
-    <jetty.version>6.1.22</jetty.version>
+    <jetty.version>6.1.25</jetty.version>
     <common-io.version>1.1</common-io.version>
     <common-lang.version>2.1</common-lang.version>
     <commons-logging.version>1.1.1</commons-logging.version>
