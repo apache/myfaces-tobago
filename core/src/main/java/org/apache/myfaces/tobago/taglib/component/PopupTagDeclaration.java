@@ -22,14 +22,8 @@ import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.taglib.decl.HasDimension;
-import org.apache.myfaces.tobago.taglib.decl.HasId;
-import org.apache.myfaces.tobago.taglib.decl.IsRendered;
+import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 
-/*
- * User: bommel
- * Date: 02.04.2006
- * Time: 16:11:02
- */
 /**
  * Renders a popup panel.
  */
@@ -37,7 +31,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsRendered;
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIPopup",
     rendererType = "Popup")
-public interface PopupTagDeclaration extends TobagoBodyTagDeclaration, HasId, IsRendered, HasDimension {
+public interface PopupTagDeclaration extends TobagoBodyTagDeclaration, HasIdBindingAndRendered, HasDimension {
 
   @TagAttribute
   @UIComponentTagAttribute()
