@@ -38,7 +38,8 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutCompone
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIOut",
     rendererType = RendererTypes.OBJECT,
     allowedChildComponenents = "NONE")
-public interface ObjectTagDeclaration extends HasIdBindingAndRendered, IsGridLayoutComponent, HasMarkup, HasCurrentMarkup {
+public interface ObjectTagDeclaration extends HasIdBindingAndRendered, IsGridLayoutComponent, HasMarkup,
+      HasCurrentMarkup {
   /**
    * URI to object source
    */
