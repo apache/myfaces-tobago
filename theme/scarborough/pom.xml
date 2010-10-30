@@ -21,16 +21,16 @@
   <parent>
     <groupId>org.apache.myfaces.tobago</groupId>
     <artifactId>tobago-theme</artifactId>
-    <version>1.0.31-SNAPSHOT</version>
+    <version>1.0.31</version>
   </parent>
   <artifactId>tobago-theme-scarborough</artifactId>
   <packaging>jar</packaging>
   <name>Theme Scarborough</name>
 
   <scm>
-    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/tobago/branches/tobago-1.0.x/theme/scarborough</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/tobago/branches/tobago-1.0.x/theme/scarborough</developerConnection>
-    <url>http://svn.apache.org/viewvc/myfaces/tobago/branches/tobago-1.0.x/theme/scarborough</url>
+    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/tobago/tags/tobago-1.0.31/theme/scarborough</connection>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/tobago/tags/tobago-1.0.31/theme/scarborough</developerConnection>
+    <url>http://svn.apache.org/viewvc/myfaces/tobago/tags/tobago-1.0.31/theme/scarborough</url>
   </scm>
 
   <build>
