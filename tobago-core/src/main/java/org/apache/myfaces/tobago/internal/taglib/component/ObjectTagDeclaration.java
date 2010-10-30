@@ -39,7 +39,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutCompone
     rendererType = RendererTypes.OBJECT,
     allowedChildComponenents = "NONE")
 public interface ObjectTagDeclaration extends HasIdBindingAndRendered, IsGridLayoutComponent, HasMarkup,
-      HasCurrentMarkup {
+    HasCurrentMarkup {
   /**
    * URI to object source
    */
