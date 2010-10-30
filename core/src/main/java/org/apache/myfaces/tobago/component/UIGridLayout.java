@@ -226,6 +226,9 @@ public class UIGridLayout extends UILayout {
 
   public Object saveState(FacesContext context) {
     clearRows();
+    // fix for jsf 1.1.01
+    columnLayout = null;
+    rowLayout = null;
     Object[] saveState = new Object[10];
     saveState[0] = super.saveState(context);
     saveState[1] = rows;
@@ -275,6 +278,9 @@ public class UIGridLayout extends UILayout {
       FacesContext facesContext, UIComponent component) throws IOException {
     super.encodeChildrenOfComponent(facesContext, component);
     clearRows();
+    // fix for jsf 1.1.01
+    columnLayout = null;
+    rowLayout = null;
   }
 
   private void clearRows() {
