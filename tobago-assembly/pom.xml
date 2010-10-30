@@ -178,7 +178,7 @@
               </execution>
 
               <execution>
-                <id>copy-extension</id>
+                <id>copy-extension-jdk14retro</id>
                 <phase>generate-resources</phase>
                 <goals>
                   <goal>copy</goal>
