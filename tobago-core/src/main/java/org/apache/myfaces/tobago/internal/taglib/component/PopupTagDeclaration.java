@@ -23,11 +23,10 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasId;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutComponentWithDeprecatedDimension;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutContainer;
-import org.apache.myfaces.tobago.internal.taglib.declaration.IsRendered;
 
 /**
  * Renders a popup panel.
@@ -38,7 +37,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsRendered;
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIPopup",
     rendererType = RendererTypes.POPUP)
 public interface PopupTagDeclaration 
-    extends HasId, IsRendered, IsGridLayoutComponentWithDeprecatedDimension, IsGridLayoutContainer,
+    extends HasIdBindingAndRendered, IsGridLayoutComponentWithDeprecatedDimension, IsGridLayoutContainer,
     HasMarkup, HasCurrentMarkup {
 
   @TagAttribute
