@@ -20,16 +20,13 @@ package org.apache.myfaces.tobago.taglib.component;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
-import org.apache.myfaces.tobago.taglib.decl.HasBinding;
 import org.apache.myfaces.tobago.taglib.decl.HasConverter;
-import org.apache.myfaces.tobago.taglib.decl.HasId;
+import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.taglib.decl.HasValidator;
 import org.apache.myfaces.tobago.taglib.decl.HasValue;
 import org.apache.myfaces.tobago.taglib.decl.IsReadonly;
 
 /*
- * Created: Aug 5, 2005 4:08:32 PM
- * User: bommel
  * $Id$
  */
 /**
@@ -39,7 +36,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsReadonly;
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIHiddenInput",
     rendererType = "Hidden")
-public interface HiddenTagDeclaration extends BeanTagDeclaration, HasId, HasBinding, HasValue, HasConverter,
+public interface HiddenTagDeclaration extends BeanTagDeclaration, HasIdBindingAndRendered, HasValue, HasConverter,
     HasValidator, IsReadonly {
 
   /**
