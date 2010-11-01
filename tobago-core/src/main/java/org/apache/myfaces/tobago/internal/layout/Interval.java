@@ -20,9 +20,13 @@ package org.apache.myfaces.tobago.internal.layout;
 import org.apache.myfaces.tobago.layout.LayoutComponent;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.layout.Orientation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 public class Interval {
+
+  private static final Logger LOG = LoggerFactory.getLogger(Interval.class);
 
   private final Measure minimum;
 
@@ -41,6 +45,14 @@ public class Interval {
   }
 
   public Interval(Measure minimum, Measure preferred, Measure maximum, Measure current) {
+    if (LOG.isWarnEnabled()) {
+      if (minimum != null && minimum.greaterThan(preferred)) {
+        LOG.warn("Minimum '{}' is not smaller or equals preferred '{}'.", minimum, preferred);
+      }
+      if (preferred != null && preferred.greaterThan(maximum)) {
+        LOG.warn("Preferred '{}' is not smaller or equals maximum '{}'.", preferred, maximum);
+      }
+    }
     this.minimum = minimum;
     this.preferred = preferred;
     this.maximum = maximum;
