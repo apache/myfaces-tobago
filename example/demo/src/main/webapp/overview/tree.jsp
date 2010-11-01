@@ -32,7 +32,7 @@
       <%-- column --%>
 
       <tc:box label="#{overviewBundle.tree_sampleTitle}" >
-        <tc:tabGroup state="#{overviewController.treeTabsState}" switchType="reloadPage">
+        <tc:tabGroup selectedIndex="#{overviewController.treeTabsState}" switchType="reloadPage">
           <tc:tab label="#{overviewBundle.treeLabel}">
         <f:facet name="layout">
           <tc:gridLayout columns="2*;1*" />

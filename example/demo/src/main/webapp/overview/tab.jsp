@@ -31,11 +31,11 @@
     <tc:box label="#{overviewBundle.tab_sampleTitle}" >
       <f:facet name="layout"> <tc:gridLayout /> </f:facet>
 
-      <tc:tabGroup id="tabs" state="#{demo.tabState0}" >
+      <tc:tabGroup id="tabs" selectedIndex="#{demo.tabState0}" >
 
         <tc:tab label="#{overviewBundle.tabSwitchTypeClient}" >
           <f:facet name="layout"><tc:gridLayout /></f:facet>
-          <tc:tabGroup id="tabMarsOuterForm" state="#{demo.tabState1}" >
+          <tc:tabGroup id="tabMarsOuterForm" selectedIndex="#{demo.tabState1}" >
             <tc:tab label="#{overviewBundle.tabPlanet}">
               <f:facet name="layout"><tc:gridLayout rows="1*;fixed;fixed;1*" /></f:facet>
               <tc:cell />
@@ -78,7 +78,7 @@
 
         <tc:tab label="#{overviewBundle.tabSwitchTypeReloadTag}" >
           <f:facet name="layout"><tc:gridLayout /></f:facet>
-          <tc:tabGroup id="tabMarsOuterForm2" switchType="reloadTab" state="#{demo.tabState2}" >
+          <tc:tabGroup id="tabMarsOuterForm2" switchType="reloadTab" selectedIndex="#{demo.tabState2}" >
 
             <tc:tabChangeListener type="org.apache.myfaces.tobago.example.demo.actionlistener.SimpleTabChangeListener"
                 binding="#{demo.tabChangeListener}"
@@ -126,7 +126,7 @@
 
         <tc:tab label="#{overviewBundle.tabSwitchTypeReloadPage}" >
           <f:facet name="layout"><tc:gridLayout /></f:facet>
-          <tc:tabGroup id="tabMarsOuterForm3" switchType="reloadPage" state="#{demo.tabState3}" >
+          <tc:tabGroup id="tabMarsOuterForm3" switchType="reloadPage" selectedIndex="#{demo.tabState3}" >
 
             <tc:tabChangeListener type="org.apache.myfaces.tobago.example.demo.actionlistener.SimpleTabChangeListener"
                 binding="#{demo.tabChangeListener}" />
