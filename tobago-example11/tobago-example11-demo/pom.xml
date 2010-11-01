@@ -19,14 +19,14 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>org.apache.myfaces.tobago</groupId>
-    <artifactId>tobago-example</artifactId>
+    <artifactId>tobago-example11</artifactId>
     <version>1.5.0-alpha-2-SNAPSHOT</version>
   </parent>
-  <artifactId>tobago-example-demo</artifactId>
+  <artifactId>tobago-example11-demo</artifactId>
   <packaging>war</packaging>
-  <name>Tobago Example Demo</name>
+  <name>Tobago Example Demo for JSF 1.1</name>
   <build>
-    <finalName>tobago-example-demo</finalName>
+    <finalName>tobago-example11-demo</finalName>
     <plugins>
       <plugin>
         <groupId>org.apache.myfaces.tobago</groupId>

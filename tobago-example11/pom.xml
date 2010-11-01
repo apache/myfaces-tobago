@@ -23,8 +23,8 @@
     <version>1.5.0-alpha-2-SNAPSHOT</version>
   </parent>
   <packaging>pom</packaging>
-  <name>Tobago Examples</name>
-  <artifactId>tobago-example</artifactId>
+  <name>Tobago Examples for JSF 1.1</name>
+  <artifactId>tobago-example11</artifactId>
 
   <build>
     <plugins>
@@ -78,68 +78,13 @@
       <scope>provided</scope>
     </dependency>
   </dependencies>
-  
+
+  <modules>
+    <module>tobago-example11-demo</module>
+    <module>tobago-example11-test</module>
+  </modules>
+
   <profiles>
-    <profile>
-      <id>default-modules</id>
-       <activation>
-        <property>
-          <name>!non-default-modules</name>
-        </property>
-      </activation>
-      <modules>
-        <module>tobago-example-addressbook</module>
-        <module>tobago-example-addressbook-lib</module>
-        <module>tobago-example-blank</module>
-        <module>tobago-example-data</module>
-        <module>tobago-example-demo</module>
-        <module>tobago-example-nonfacesrequest</module>
-        <module>tobago-example-experimental</module>
-        <module>tobago-example-test</module>
-      </modules>
-    </profile>
-    <profile>
-      <id>all-modules</id>
-      <modules>
-        <module>tobago-example-addressbook</module>
-        <module>tobago-example-addressbook-lib</module>
-        <module>tobago-example-blank</module>
-        <module>tobago-example-data</module>
-        <module>tobago-example-demo</module>
-        <module>tobago-example-nonfacesrequest</module>
-        <module>tobago-example-portlet</module>
-        <module>tobago-example-sandbox</module>
-        <module>tobago-example-security</module>
-        <module>tobago-example-experimental</module>
-        <module>tobago-example-test</module>
-        <module>tobago-example-assembly</module>
-        <module>tobago-theme-example</module>
-        <module>tobago-example-seam</module>
-      </modules>
-    </profile>
-    <profile>
-      <id>jdk14retro</id>
-      <modules>
-        <module>tobago-example-retro</module>
-      </modules>
-    </profile>
-    <profile>
-      <id>apache-release</id>
-      <modules>
-        <module>tobago-example-blank</module>
-        <module>tobago-example-data</module>
-        <module>tobago-example-demo</module>
-      </modules>
-    </profile>
-    <profile>
-      <id>generate-assembly</id>
-      <modules>
-        <module>tobago-example-blank</module>
-        <module>tobago-example-data</module>
-        <module>tobago-example-demo</module>
-        <module>tobago-example-assembly</module>
-      </modules>
-    </profile>
 
     <profile>
       <id>myfaces-1.1</id>

@@ -19,15 +19,15 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>org.apache.myfaces.tobago</groupId>
-    <artifactId>tobago-example</artifactId>
+    <artifactId>tobago-example11</artifactId>
     <version>1.5.0-alpha-2-SNAPSHOT</version>
   </parent>
-  <artifactId>tobago-example-test</artifactId>
+  <artifactId>tobago-example11-test</artifactId>
   <packaging>war</packaging>
-  <name>Tobago Example Test</name>
+  <name>Tobago Example Test for JSF 1.1</name>
   <description>A web application to provide test pages for running automated tests.</description>
   <build>
-    <finalName>tobago-example-test</finalName>
+    <finalName>tobago-example11-test</finalName>
     <plugins>
 <!--
       <plugin>
@@ -81,7 +81,7 @@
               <dir>src/main/webapp</dir>
               <outputDir>${project.build.directory}/tobago-example-test</outputDir>
               <!-- not nice, but works... -->
-              <stylesheet>../tobago-example-demo/src/main/xslt/facelet2jsp.xsl</stylesheet>
+              <stylesheet>../tobago-example11-demo/src/main/xslt/facelet2jsp.xsl</stylesheet>
               <includes>
                 <include>**/*.xhtml</include>
               </includes>
