@@ -20,9 +20,9 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 import org.apache.myfaces.tobago.component.UIMenuBar;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
+import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
-import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
@@ -31,17 +31,16 @@ import java.io.IOException;
 
 public class MenuBarRenderer extends LayoutComponentRendererBase {
 
-  public static final String SEARCH_ID_POSTFIX = ComponentUtils.SUB_SEPARATOR + "popup";
-  public static final String DIVIDER = MenuBarRenderer.class.getName() + "DIVIDER";
-
   @Override
   public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
 
     UIMenuBar menuBar = (UIMenuBar) component;
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
-    
+
     writer.startElement(HtmlElements.OL, menuBar);
     writer.writeClassAttribute(Classes.create(menuBar));
+    Style style = new Style(facesContext, menuBar);
+    writer.writeStyleAttribute(style);
   }
 
   @Override

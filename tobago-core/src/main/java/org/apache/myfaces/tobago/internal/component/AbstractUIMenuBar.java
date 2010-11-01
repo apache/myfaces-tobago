@@ -18,7 +18,7 @@ package org.apache.myfaces.tobago.internal.component;
  */
 
 import org.apache.myfaces.tobago.component.OnComponentCreated;
-import org.apache.myfaces.tobago.config.Configurable;
+import org.apache.myfaces.tobago.layout.LayoutComponent;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 
 import javax.faces.component.UIComponent;
@@ -26,7 +26,7 @@ import javax.faces.component.UIPanel;
 import javax.faces.context.FacesContext;
 import javax.faces.render.Renderer;
 
-public abstract class AbstractUIMenuBar extends UIPanel implements Configurable, OnComponentCreated {
+public abstract class AbstractUIMenuBar extends UIPanel implements LayoutComponent, OnComponentCreated {
 
   public void onComponentCreated(FacesContext context, UIComponent parent) {
     Renderer renderer = getRenderer(getFacesContext());
