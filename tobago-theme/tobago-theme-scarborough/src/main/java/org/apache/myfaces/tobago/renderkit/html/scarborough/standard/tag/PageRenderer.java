@@ -481,7 +481,7 @@ public class PageRenderer extends PageRendererBase {
       menuBar.getAttributes().put(Attributes.PAGE_MENU, Boolean.TRUE);
       RenderUtils.encode(facesContext, menuBar);
     }
-    // write the proviously rendered page content
+    // write the previously rendered page content
 //    AbstractUILayoutBase.getLayout(component).encodeChildrenOfComponent(facesContext, component);
 
 //    page.encodeLayoutBegin(facesContext);
@@ -720,12 +720,12 @@ public class PageRenderer extends PageRendererBase {
 
   @Override
   public Measure getOffsetBottom(FacesContext facesContext, Configurable component) {
-    // XXX this is a hack. correct whould be the top-offset, but this would shift the content, because of the 
+    // XXX this is a hack. correct would be the top-offset, but this would shift the content, because of the
     // XXX hack before the code: writer.writeStyleAttribute(style)
     UIPage page = (UIPage) component;
     UIMenuBar menuBar = (UIMenuBar) page.getFacet(Facets.MENUBAR);
     if (menuBar != null) {
-      return getResourceManager().getThemeMeasure(facesContext, menuBar, "fixedHeight");
+      return getResourceManager().getThemeMeasure(facesContext, page, "custom.menuBar-height");
     } else {
       return Measure.ZERO;
     }
