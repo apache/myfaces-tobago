@@ -30,12 +30,28 @@
     </f:facet>
 
     <tx:file label="Upload file:" value="#{upload.file}">
+<!-- todo: write a 2nd example to demonstrate validation
       <tc:validateFileItem contentType="image/gif image/png"/>
+-->
     </tx:file>
     <tc:button label="Submit" defaultCommand="true" action="#{upload.upload}"/>
-    <tc:cell/>
 
-    <tc:cell/>
-    <tc:cell/>
+      <tc:cell spanX="2">
+        <tc:sheet var="entry" value="#{upload.list}" columns="*;*;*">
+
+          <tc:column label="Name">
+            <tc:out value="#{entry.name}"/>
+          </tc:column>
+
+          <tc:column label="Type">
+            <tc:out value="#{entry.type}"/>
+          </tc:column>
+
+          <tc:column label="Size">
+            <tc:out value="#{entry.size}"/>
+          </tc:column>
+
+        </tc:sheet>
+      </tc:cell>
   </tc:box>
 </ui:composition>
