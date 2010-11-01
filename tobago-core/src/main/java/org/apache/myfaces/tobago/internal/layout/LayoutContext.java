@@ -79,9 +79,11 @@ public class LayoutContext {
   }
 
   private void log() {
-    StringBuffer buffer = new StringBuffer("\n");
-    log(buffer, (UIComponent) container, 0);
-    LOG.info(buffer.toString());
+    if (LOG.isDebugEnabled()) {
+      StringBuffer buffer = new StringBuffer("\n");
+      log(buffer, (UIComponent) container, 0);
+      LOG.debug(buffer.toString());
+    }
   }
 
   private void log(StringBuffer buffer, UIComponent component, int depth) {
