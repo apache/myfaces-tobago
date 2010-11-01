@@ -1,4 +1,4 @@
-<%--
+<!--
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
  * this work for additional information regarding copyright ownership.
@@ -13,27 +13,24 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
---%>
+-->
 
-<%@ taglib uri="http://myfaces.apache.org/tobago/sandbox" prefix="tcs" %>
-<%@ taglib uri="http://myfaces.apache.org/tobago/component" prefix="tc" %>
-<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
-<%@ taglib tagdir="/WEB-INF/tags/layout" prefix="layout" %>
+<ui:composition template="page.xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:c="http://java.sun.com/jstl/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:tc="http://myfaces.apache.org/tobago/component"
+                xmlns:tx="http://myfaces.apache.org/tobago/extension"
+                xmlns:tf="http://myfaces.apache.org/tobago/facelet-extension">
 
-<layout:wizard>
-  <jsp:body>
+  <tc:panel>
+    <f:facet name="layout">
+      <tc:gridLayout/>
+    </f:facet>
 
-    <tc:panel >
-      <f:facet name="layout">
-        <tc:gridLayout />
-      </f:facet>
-
-    <tc:link link="/tc/wizard/navi/filter.xhtml" label="Mail Filter Example (separate pages with navigation rules)" />
-
-    <tc:link label="Wizard with navigation from model (outdated, not working in the moment)"/>
+    <tc:link link="/tf/wizard/navi/filter.xhtml" label="Mail Filter Example (separate pages with navigation rules)"/>
 
     <tc:link action="#{wizardController.wizard.reset}" label="Reset Wizard State"/>
 
-    </tc:panel>
-  </jsp:body>
-</layout:wizard>
+  </tc:panel>
+</ui:composition>

@@ -147,6 +147,10 @@
   <navigation-rule>
     <from-view-id>/tf/wizard/navi/*</from-view-id>
     <navigation-case>
+      <from-outcome>index</from-outcome>
+      <to-view-id>/tf/wizard/navi/index.xhtml</to-view-id>
+    </navigation-case>
+    <navigation-case>
       <from-outcome>filter</from-outcome>
       <to-view-id>/tf/wizard/navi/filter.xhtml</to-view-id>
     </navigation-case>
