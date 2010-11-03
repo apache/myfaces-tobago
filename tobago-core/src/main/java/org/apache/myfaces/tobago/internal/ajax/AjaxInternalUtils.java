@@ -19,11 +19,11 @@ package org.apache.myfaces.tobago.internal.ajax;
 
 
 import org.apache.commons.lang.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.ajax.AjaxUtils;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.util.ComponentUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -71,8 +71,8 @@ public class AjaxInternalUtils {
     Map parameterMap = facesContext.getExternalContext().getRequestParameterMap();
     String ajaxComponentIds = (String) parameterMap.get("tobago::partialIds");
     if (ajaxComponentIds != null) {
-      if (LOG.isInfoEnabled()) {
-        LOG.info("ajaxComponentIds = \"" + ajaxComponentIds + "\"");
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("ajaxComponentIds = \"" + ajaxComponentIds + "\"");
       }
       StringTokenizer tokenizer = new StringTokenizer(ajaxComponentIds, ",");
       Map<String, UIComponent> ajaxComponents = new HashMap<String, UIComponent>(tokenizer.countTokens());
@@ -83,8 +83,8 @@ public class AjaxInternalUtils {
         String ajaxId = tokenizer.nextToken();
         UIComponent ajaxComponent = viewRoot.findComponent(ajaxId);
         if (ajaxComponent != null) {
-          if (LOG.isInfoEnabled()) {
-            LOG.info("ajaxComponent for \"" + ajaxId + "\" = \"" + ajaxComponent + "\"");
+          if (LOG.isDebugEnabled()) {
+            LOG.debug("ajaxComponent for \"" + ajaxId + "\" = \"" + ajaxComponent + "\"");
           }
           ajaxComponents.put(ajaxId, ajaxComponent);
         }
