@@ -31,7 +31,7 @@ Release Checklist
 
   * Please switch to jdk 1.5 for a release build.
 
-  * Perform a checkstyle:check rat:check for all modules.
+  * Perform a mvn checkstyle:check rat:check -Pall-modules for all modules.
 
   * You need to add your GPG keys in {{https://svn.apache.org/repos/asf/myfaces/maven/trunk/KEYS}} before a release.
 
