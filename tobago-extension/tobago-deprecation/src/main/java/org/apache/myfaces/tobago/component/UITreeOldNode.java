@@ -18,9 +18,9 @@ package org.apache.myfaces.tobago.component;
  */
 
 import org.apache.commons.beanutils.PropertyUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.TobagoConstants;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -35,7 +35,7 @@ import java.util.Map;
 @Deprecated
 public class UITreeOldNode extends javax.faces.component.UIInput {
 
-  private static final Log LOG = LogFactory.getLog(UITreeOldNode.class);
+  private static final Logger LOG = LoggerFactory.getLogger(UITreeOldNode.class);
 
   private static final String SUB_REFERENCE_KEY = "subReferenceKey";
 

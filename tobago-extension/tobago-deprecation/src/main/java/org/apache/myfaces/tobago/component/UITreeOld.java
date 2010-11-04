@@ -17,8 +17,6 @@ package org.apache.myfaces.tobago.component;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.TobagoConstants;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.internal.component.AbstractUISelectOneChoice;
@@ -26,6 +24,8 @@ import org.apache.myfaces.tobago.internal.component.AbstractUIToolBar;
 import org.apache.myfaces.tobago.model.TreeState;
 import org.apache.myfaces.tobago.util.MessageFactory;
 import org.apache.myfaces.tobago.util.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.ActionSource;
@@ -54,7 +54,7 @@ import java.util.Set;
 @Deprecated
 public class UITreeOld extends javax.faces.component.UIInput implements NamingContainer, ActionSource {
 
-  private static final Log LOG = LogFactory.getLog(UITreeOld.class);
+  private static final Logger LOG = LoggerFactory.getLogger(UITreeOld.class);
 
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.TreeOld";
   public static final String MESSAGE_NOT_LEAF = "tobago.tree.MESSAGE_NOT_LEAF";
@@ -239,7 +239,7 @@ public class UITreeOld extends javax.faces.component.UIInput implements NamingCo
       root = new UITreeOldNode(this, 0);
       root.createTreeNodes();
     } catch (Exception e) {
-      LOG.error(e, e);
+      LOG.error("", e);
     }
   }
 
