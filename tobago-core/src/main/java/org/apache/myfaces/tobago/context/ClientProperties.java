@@ -100,17 +100,6 @@ public class ClientProperties implements Serializable {
       LOG.info("userAgent='" + this.userAgent + "' from header " + "'User-Agent: " + requestUserAgent + "'");
     }
 
-    // debug mode
-    // to enable the debug mode for a user, put a
-    // "to-ba-go" custom locale to your browser
-    String acceptLanguage = (String) externalContext.getRequestHeaderMap().get("Accept-Language");
-    if (acceptLanguage != null) {
-      this.debugMode = acceptLanguage.indexOf("to-ba-go") > -1;
-    }
-    if (LOG.isInfoEnabled()) {
-      LOG.info("debugMode=" + debugMode);
-    }
-
     // theme
     String requestTheme = (String) externalContext.getRequestParameterMap().get("tobago.theme");
     TobagoConfig config = TobagoConfig.getInstance(facesContext);
@@ -118,6 +107,7 @@ public class ClientProperties implements Serializable {
     if (LOG.isInfoEnabled()) {
       LOG.info("theme='" + theme.getName() + "' from requestParameter " + "tobago.theme='" + requestTheme + "'");
     }
+
     reset();
   }
 
