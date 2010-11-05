@@ -59,6 +59,15 @@ public class Interval {
     this.current = current;
   }
 
+  // XXX what about rounding??? may use multiply instead of divide
+  public Interval(Interval interval, int divider) {
+    this.minimum = interval.minimum != null
+        ? interval.minimum.divide(divider) : null; // XXX may add one for rounding up.
+    this.preferred = interval.preferred != null ? interval.preferred.divide(divider) : null;
+    this.maximum = interval.maximum != null ? interval.maximum.divide(divider) : null;
+    this.current = interval.current != null ? interval.current.divide(divider) : null;
+  }
+
   public Measure getMinimum() {
     return minimum;
   }

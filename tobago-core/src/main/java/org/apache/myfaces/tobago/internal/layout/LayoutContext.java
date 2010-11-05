@@ -17,16 +17,18 @@ package org.apache.myfaces.tobago.internal.layout;
  * limitations under the License.
  */
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.commons.lang.StringUtils;
 import org.apache.myfaces.tobago.internal.component.AbstractUIGridLayout;
 import org.apache.myfaces.tobago.layout.LayoutBase;
 import org.apache.myfaces.tobago.layout.LayoutContainer;
 import org.apache.myfaces.tobago.layout.LayoutManager;
 import org.apache.myfaces.tobago.layout.Orientation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import java.text.DecimalFormat;
 
 /*
 An algorithm for laying out ...
@@ -64,6 +66,11 @@ public class LayoutContext {
 
   public void layout() {
 
+    long begin = 0;
+    if (LOG.isDebugEnabled()) {
+      begin = System.nanoTime();
+    }
+
     LayoutManager layoutManager = container.getLayoutManager();
     layoutManager.init();
     layoutManager.fixRelativeInsideAuto(Orientation.HORIZONTAL, false);
@@ -74,6 +81,10 @@ public class LayoutContext {
     layoutManager.mainProcessing(Orientation.VERTICAL);
     layoutManager.postProcessing(Orientation.HORIZONTAL);
     layoutManager.postProcessing(Orientation.VERTICAL);
+
+    if (LOG.isDebugEnabled()) {
+        LOG.debug("Laying out takes: {} ns", new DecimalFormat("#,##0").format(System.nanoTime() - begin));
+    }
 
     log();
   }
@@ -88,9 +99,7 @@ public class LayoutContext {
 
   private void log(StringBuffer buffer, UIComponent component, int depth) {
     FacesContext facesContext = FacesContext.getCurrentInstance();
-    for (int i = 0; i < depth; i++) {
-      buffer.append("  ");
-    }
+    buffer.append(StringUtils.repeat("  ", depth));
     buffer.append(component.getClass().getSimpleName());
     buffer.append("#");
     buffer.append(component.getClientId(facesContext));
@@ -104,8 +113,10 @@ public class LayoutContext {
     if (component instanceof LayoutContainer) {
       LayoutManager layoutManager = ((LayoutContainer) component).getLayoutManager();
       if (layoutManager instanceof AbstractUIGridLayout) {
-        buffer.append(" ");
-        buffer.append(layoutManager.toString());
+        buffer.append("\n");
+        buffer.append(StringUtils.repeat("  ", depth + 4));
+        buffer.append("layout: ");
+        buffer.append(((AbstractUIGridLayout) layoutManager).toString(depth));
       }
     }
     buffer.append("\n");

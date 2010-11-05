@@ -27,8 +27,11 @@ import org.apache.myfaces.tobago.layout.Measure;
 public class BankHead {
 
   private LayoutToken token;
-  private Measure minimum;
+
+  private IntervalList intervalList;
+
   private Measure current;
+
   private boolean rendered;
 
   public BankHead(LayoutToken token) {
@@ -44,12 +47,12 @@ public class BankHead {
     this.token = token;
   }
 
-  public Measure getMinimum() {
-    return minimum;
+  public IntervalList getIntervalList() {
+    return intervalList;
   }
 
-  public void setMinimum(Measure minimum) {
-    this.minimum = minimum;
+  public void setIntervalList(IntervalList intervalList) {
+    this.intervalList = intervalList;
   }
 
   public Measure getCurrent() {
@@ -72,7 +75,7 @@ public class BankHead {
   public String toString() {
     return "BankHead{"
         + token
-        + "," + minimum
+        + "," + intervalList
         + "," + current
         + "," + rendered
         + '}';

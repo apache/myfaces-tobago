@@ -63,7 +63,6 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import java.io.IOException;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -135,20 +134,10 @@ public class PageRenderer extends PageRendererBase {
       facesContext = new TobagoFacesContext(facesContextOrg);
     }
 
-// LAYOUT Begin
     boolean developmentMode = TobagoConfig.getInstance(facesContext).getProjectStage() == ProjectStage.Development;
 
-    long begin = 0;
-    if (developmentMode) {
-      begin = System.nanoTime();
-    }
     LayoutContext layoutContext = new LayoutContext(page);
     layoutContext.layout();
-    if (developmentMode) {
-        LOG.info("Laying out takes: {} ns", new DecimalFormat("#,##0").format(System.nanoTime() - begin));
-    }
-
-// LAYOUT End
 
     RenderUtils.prepareRendererAll(facesContext, page);
 

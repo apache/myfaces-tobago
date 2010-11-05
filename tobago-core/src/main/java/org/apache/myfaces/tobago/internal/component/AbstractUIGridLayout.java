@@ -17,6 +17,7 @@ package org.apache.myfaces.tobago.internal.component;
  * limitations under the License.
  */
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.myfaces.tobago.component.SupportsMarkup;
 import org.apache.myfaces.tobago.internal.layout.BankHead;
 import org.apache.myfaces.tobago.internal.layout.Cell;
@@ -41,7 +42,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.faces.context.FacesContext;
-import java.util.Arrays;
 import java.util.List;
 
 public abstract class AbstractUIGridLayout extends AbstractUILayoutBase implements LayoutManager, SupportsMarkup {
@@ -75,6 +75,7 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase implemen
     BankHead[] heads = grid.getBankHeads(orientation);
     BankHead[] heads2 = grid.getBankHeads(orientation.other());
 
+/*
     if (auto) {
       for (int i = 0; i < heads.length; i++) {
         if (heads[i].getToken() instanceof RelativeLayoutToken) {
@@ -87,6 +88,7 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase implemen
         }
       }
     }
+*/
 
     for (int i = 0; i < heads.length; i++) {
       boolean neitherRendered = true;
@@ -154,51 +156,59 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase implemen
         }
       }
 
-      if (intervalList.size() >= 1) {
-        intervalList.evaluate();
-      }
+      intervalList.evaluate();
       if (token instanceof AutoLayoutToken || token instanceof RelativeLayoutToken) {
-        if (intervalList.size() >= 1) {
-          heads[i].setMinimum(intervalList.getMinimum());
-        }
+        heads[i].setIntervalList(intervalList);
       }
       if (token instanceof AutoLayoutToken) {
-        if (intervalList.size() >= 1) {
-          heads[i].setCurrent(intervalList.getCurrent());
-        } else {
-          heads[i].setCurrent(Measure.ZERO);
-// todo: what when we cannot find a good value for "auto"?
-        }
+        heads[i].setCurrent(intervalList.getCurrent());
       }
       i++;
     }
 
+    IntervalList relatives = new IntervalList();
+    for (BankHead head : heads) {
+      LayoutToken token = head.getToken();
+      if (token instanceof RelativeLayoutToken) {
+        final int factor = ((RelativeLayoutToken) token).getFactor();
+        for (Interval interval : head.getIntervalList()) {
+          relatives.add(new Interval(interval, factor));
+        }
+      }
+    }
+    relatives.evaluate();
+
     // set the size if all sizes of the grid are set
     Measure sum = Measure.ZERO;
     for (BankHead head : heads) {
-      Measure size = head.getCurrent();
+      Measure size;
+      final LayoutToken token = head.getToken();
+      if (token instanceof RelativeLayoutToken) {
+        final int factor = ((RelativeLayoutToken) token).getFactor();
+        size = relatives.getCurrent().multiply(factor);
+      } else {
+        size = head.getCurrent();
+      }
       if (size == null) {
-        sum = null; // set to invalid
-        break;
+        LOG.error("May not happen!", new Exception());
       }
       sum = sum.add(size);
     }
-    if (sum != null) {
-      // adding the space between the cells
-      sum = sum.add(LayoutUtils.getOffsetBegin(orientation, getLayoutContainer()));
-      sum = sum.add(getMarginBegin(orientation));
-      sum = sum.add(computeSpacing(orientation, 0, heads.length));
-      sum = sum.add(getMarginEnd(orientation));
-      sum = sum.add(LayoutUtils.getOffsetEnd(orientation, getLayoutContainer()));
-      LayoutUtils.setCurrentSize(orientation, getLayoutContainer(), sum);
-    }
+
+    // adding the space between the cells
+    sum = sum.add(LayoutUtils.getOffsetBegin(orientation, getLayoutContainer()));
+    sum = sum.add(getMarginBegin(orientation));
+    sum = sum.add(computeSpacing(orientation, 0, heads.length));
+    sum = sum.add(getMarginEnd(orientation));
+    sum = sum.add(LayoutUtils.getOffsetEnd(orientation, getLayoutContainer()));
+    LayoutUtils.setCurrentSize(orientation, getLayoutContainer(), sum);
   }
 
   public void mainProcessing(Orientation orientation) {
 
     final BankHead[] heads = grid.getBankHeads(orientation);
     final BankHead[] heads2 = grid.getBankHeads(orientation.other());
-    
+
     // find *
     FactorList factorList = new FactorList();
     for (BankHead head : heads) {
@@ -228,7 +238,7 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase implemen
         for (BankHead head : heads) {
           if (head.getToken() instanceof RelativeLayoutToken && head.isRendered()) {
             // respect the minimum
-            heads[i].setCurrent(Measure.max(partition.get(j), heads[i].getMinimum()));
+            heads[i].setCurrent(Measure.max(partition.get(j), heads[i].getIntervalList().getMinimum()));
             j++;
           }
           i++;
@@ -270,7 +280,7 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase implemen
 
     final BankHead[] heads = grid.getBankHeads(orientation);
     final BankHead[] heads2 = grid.getBankHeads(orientation.other());
-    
+
     // call manage sizes for all sub-layout-managers
     for (int i = 0; i < heads.length; i++) {
       for (int j = 0; j < heads2.length; j++) {
@@ -374,14 +384,39 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase implemen
     return false;
   }
 
+  public String toString(int depth) {
+    StringBuilder builder = new StringBuilder();
+    builder.append(getClass().getSimpleName()).append("#");
+    builder.append(getClientId(FacesContext.getCurrentInstance()));
+    builder.append("\n");
+    if (grid != null) {
+      builder.append(StringUtils.repeat("  ", depth + 4));
+      builder.append("horiz.: ");
+      BankHead[] heads = grid.getBankHeads(Orientation.HORIZONTAL);
+      for (int i = 0; i < heads.length; i++) {
+        if (i != 0) {
+          builder.append(StringUtils.repeat("  ", depth + 4 + 4));
+        }
+        builder.append(heads[i]);
+        builder.append("\n");
+      }
+      builder.append(StringUtils.repeat("  ", depth + 4));
+      builder.append("verti.: ");
+      heads = grid.getBankHeads(Orientation.VERTICAL);
+      for (int i = 0; i < heads.length; i++) {
+        if (i != 0) {
+          builder.append(StringUtils.repeat("  ", depth + 4 + 4));
+        }
+        builder.append(heads[i]);
+        builder.append("\n");
+      }
+    }
+    builder.setLength(builder.length() - 1);
+    return builder.toString();
+  }
+
   @Override
   public String toString() {
-    return getClass().getSimpleName()
-        + "#"
-        + getClientId(FacesContext.getCurrentInstance())
-        + (grid != null
-        ? "(" + Arrays.toString(grid.getBankHeads(Orientation.HORIZONTAL)) 
-        + ", " + Arrays.toString(grid.getBankHeads(Orientation.VERTICAL)) + ")"
-        : "");
+    return toString(0);
   }
 }
