@@ -46,17 +46,18 @@
   </build>
 
   <dependencies>
+
     <dependency>
       <groupId>org.apache.myfaces.core</groupId>
       <artifactId>myfaces-api</artifactId>
       <optional>true</optional>
       <scope>provided</scope>
     </dependency>
-     <dependency>
-       <groupId>commons-logging</groupId>
-       <artifactId>commons-logging</artifactId>
-       <optional>true</optional>
-       <scope>provided</scope>
+    <dependency>
+      <groupId>commons-logging</groupId>
+      <artifactId>commons-logging</artifactId>
+      <optional>true</optional>
+      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.apache.myfaces.tobago</groupId>
@@ -98,6 +99,11 @@
       <artifactId>tobago-sandbox</artifactId>
       <version>${project.version}</version>
       <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>tobago-taglib-extension</artifactId>
+      <version>${project.version}</version>
     </dependency>
     <dependency>
       <groupId>javax.servlet.jsp</groupId>
@@ -171,6 +177,12 @@
                       <version>${project.version}</version>
                       <classifier>jdk14retro</classifier>
                     </artifactItem>
+                    <artifactItem>
+                      <groupId>${project.groupId}</groupId>
+                      <artifactId>tobago-taglib-extension</artifactId>
+                      <version>${project.version}</version>
+                      <classifier>jdk14retro</classifier>
+                    </artifactItem>
                   </artifactItems>
                   <outputDirectory>${project.build.directory}/jdk14retro
                   </outputDirectory>
@@ -241,8 +253,6 @@
                   </artifactItems>
                   <outputDirectory>${project.build.directory}/javadoc
                   </outputDirectory>
-                  <unpackMarkersDirectory>${project.build.directory}/javadoc
-                  </unpackMarkersDirectory>
                 </configuration>
               </execution>
 
@@ -285,8 +295,6 @@
                   </artifactItems>
                   <outputDirectory>${project.build.directory}/sandbox
                   </outputDirectory>
-                  <unpackMarkersDirectory>${project.build.directory}/sandbox
-                  </unpackMarkersDirectory>
                 </configuration>
               </execution>
 
@@ -316,8 +324,6 @@
                   </artifactItems>
                   <outputDirectory>${project.build.directory}/tlddoc
                   </outputDirectory>
-                  <unpackMarkersDirectory>${project.build.directory}/tlddoc
-                  </unpackMarkersDirectory>
                 </configuration>
               </execution>
 
@@ -345,8 +351,6 @@
                   </artifactItems>
                   <outputDirectory>${project.build.directory}/tld
                   </outputDirectory>
-                  <unpackMarkersDirectory>${project.build.directory}/tld
-                  </unpackMarkersDirectory>
                 </configuration>
               </execution>
 
@@ -367,11 +371,6 @@
                     <artifactItem>
                       <groupId>${project.groupId}</groupId>
                       <artifactId>tobago-fileupload</artifactId>
-                      <version>${project.version}</version>
-                    </artifactItem>
-                    <artifactItem>
-                      <groupId>${project.groupId}</groupId>
-                      <artifactId>tobago-taglib-extension</artifactId>
                       <version>${project.version}</version>
                     </artifactItem>
               
