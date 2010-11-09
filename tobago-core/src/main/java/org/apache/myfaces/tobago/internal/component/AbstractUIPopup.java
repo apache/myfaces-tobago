@@ -18,7 +18,6 @@ package org.apache.myfaces.tobago.internal.component;
  */
 
 import org.apache.myfaces.tobago.compat.FacesUtils;
-import org.apache.myfaces.tobago.compat.InvokeOnComponent;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.ComponentTypes;
 import org.apache.myfaces.tobago.component.CreateComponentUtils;
@@ -37,8 +36,6 @@ import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.faces.FacesException;
-import javax.faces.component.ContextCallback;
 import javax.faces.component.NamingContainer;
 import javax.faces.component.UICommand;
 import javax.faces.component.UIComponent;
@@ -48,7 +45,7 @@ import java.util.Iterator;
 import java.util.List;
 
 public abstract class AbstractUIPopup extends AbstractUIPanelBase
-    implements OnComponentCreated, OnComponentPopulated, NamingContainer, InvokeOnComponent,
+    implements OnComponentCreated, OnComponentPopulated, NamingContainer,
     DeprecatedDimension, Position, LayoutContainer {
 
   private static final Logger LOG = LoggerFactory.getLogger(AbstractUIPopup.class);
@@ -176,12 +173,6 @@ public abstract class AbstractUIPopup extends AbstractUIPanelBase
   public void encodeEnd(FacesContext context) throws IOException {
     super.encodeEnd(context);
     activated = false;
-  }
-
-  @Override
-  public boolean invokeOnComponent(FacesContext facesContext, String clientId, ContextCallback callback)
-      throws FacesException {
-    return FacesUtils.invokeOnComponent(facesContext, this, clientId, callback);
   }
 
   public LayoutManager getLayoutManager() {

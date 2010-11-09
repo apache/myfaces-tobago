@@ -17,12 +17,8 @@ package org.apache.myfaces.tobago.internal.component;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.compat.FacesUtils;
-import org.apache.myfaces.tobago.compat.InvokeOnComponent;
 import org.apache.myfaces.tobago.component.SupportsRenderedPartially;
 
-import javax.faces.FacesException;
-import javax.faces.component.ContextCallback;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.event.FacesEvent;
@@ -30,7 +26,7 @@ import javax.faces.event.PhaseId;
 import java.util.Iterator;
 
 public abstract class AbstractUICommandBase extends javax.faces.component.UICommand
-    implements InvokeOnComponent, SupportsRenderedPartially {
+    implements SupportsRenderedPartially {
 
   public void processDecodes(FacesContext context) {
     if (context == null) {
@@ -67,11 +63,6 @@ public abstract class AbstractUICommandBase extends javax.faces.component.UIComm
         facesEvent.setPhaseId(PhaseId.INVOKE_APPLICATION);
       }
     }
-  }
-
-  public boolean invokeOnComponent(FacesContext context, String clientId, ContextCallback callback)
-      throws FacesException {
-    return FacesUtils.invokeOnComponent(context, this, clientId, callback);
   }
 
   public abstract boolean isJsfResource();

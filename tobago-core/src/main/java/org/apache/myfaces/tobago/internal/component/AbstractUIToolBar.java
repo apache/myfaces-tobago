@@ -17,16 +17,10 @@ package org.apache.myfaces.tobago.internal.component;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.compat.FacesUtils;
-import org.apache.myfaces.tobago.compat.InvokeOnComponent;
 import org.apache.myfaces.tobago.layout.LayoutComponent;
 
-import javax.faces.FacesException;
-import javax.faces.component.ContextCallback;
-import javax.faces.context.FacesContext;
-
 public abstract class AbstractUIToolBar extends javax.faces.component.UIPanel
-    implements InvokeOnComponent, LayoutComponent {
+    implements LayoutComponent {
 
   public static final String LABEL_BOTTOM = "bottom";
   public static final String LABEL_RIGHT = "right";
@@ -38,10 +32,5 @@ public abstract class AbstractUIToolBar extends javax.faces.component.UIPanel
 
   public static final String ORIENTATION_LEFT = "left";
   public static final String ORIENTATION_RIGHT = "right";
-
-  public boolean invokeOnComponent(FacesContext context, String clientId, ContextCallback callback)
-     throws FacesException {
-    return FacesUtils.invokeOnComponent(context, this, clientId, callback);
-  }
 
 }

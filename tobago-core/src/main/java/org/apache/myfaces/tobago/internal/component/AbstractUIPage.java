@@ -19,7 +19,6 @@ package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.commons.collections.KeyValue;
 import org.apache.myfaces.tobago.compat.FacesUtils;
-import org.apache.myfaces.tobago.compat.InvokeOnComponent;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.ComponentTypes;
 import org.apache.myfaces.tobago.component.CreateComponentUtils;
@@ -41,9 +40,7 @@ import org.apache.myfaces.tobago.util.DebugUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.faces.FacesException;
 import javax.faces.application.FacesMessage;
-import javax.faces.component.ContextCallback;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletRequest;
@@ -55,7 +52,7 @@ import java.util.List;
 import java.util.StringTokenizer;
 
 public abstract class AbstractUIPage extends AbstractUIForm
-    implements OnComponentPopulated, InvokeOnComponent, LayoutContainer, DeprecatedDimension {
+    implements OnComponentPopulated, LayoutContainer, DeprecatedDimension {
 
   private static final Logger LOG = LoggerFactory.getLogger(AbstractUIPage.class);
 
@@ -291,11 +288,6 @@ public abstract class AbstractUIPage extends AbstractUIForm
 
   public void setDefaultActionId(String defaultActionId) {
     this.defaultActionId = defaultActionId;
-  }
-
-  public boolean invokeOnComponent(FacesContext context, String clientId, ContextCallback callback)
-      throws FacesException {
-    return FacesUtils.invokeOnComponent(context, this, clientId, callback);
   }
 
   public void onComponentPopulated(FacesContext facesContext, UIComponent parent) {
