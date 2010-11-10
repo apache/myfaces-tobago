@@ -190,7 +190,7 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase implemen
         size = head.getCurrent();
       }
       if (size == null) {
-        LOG.error("May not happen!", new Exception());
+        LOG.error("TODO: Should not happen!");
       }
       sum = sum.add(size);
     }
