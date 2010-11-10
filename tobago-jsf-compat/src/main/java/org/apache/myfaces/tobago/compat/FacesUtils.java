@@ -20,11 +20,11 @@ package org.apache.myfaces.tobago.compat;
 import org.apache.myfaces.tobago.event.TabChangeSource;
 import org.apache.myfaces.tobago.event.ValueBindingPopupActionListener;
 import org.apache.myfaces.tobago.event.ValueBindingTabChangeListener;
+import org.apache.myfaces.tobago.util.FacesVersion;
 import org.apache.myfaces.tobago.util.ValueBindingComparator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.faces.application.Application;
 import javax.faces.component.ActionSource;
 import javax.faces.component.ContextCallback;
 import javax.faces.component.EditableValueHolder;
@@ -48,17 +48,7 @@ public class FacesUtils {
 
   public static final Class[] VALIDATOR_ARGS = {FacesContext.class, UIComponent.class, Object.class};
 
-
-  static {
-    try {
-      Application.class.getMethod("getExpressionFactory");
-      binding = false;
-    } catch (NoSuchMethodException e) {
-      binding = true;
-    }
-  }
-
-  private static boolean binding;
+  private static final boolean binding = !FacesVersion.supports12();
 
   public static boolean invokeOnComponent(
       FacesContext context, UIComponent component, String clientId, ContextCallback callback) {
