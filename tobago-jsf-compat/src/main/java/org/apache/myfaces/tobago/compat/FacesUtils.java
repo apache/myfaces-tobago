@@ -48,12 +48,12 @@ public class FacesUtils {
 
   public static final Class[] VALIDATOR_ARGS = {FacesContext.class, UIComponent.class, Object.class};
 
-  private static final boolean binding = !FacesVersion.supports12();
+  private static final boolean USE_BINDING = !FacesVersion.supports12();
 
   public static boolean invokeOnComponent(
       FacesContext context, UIComponent component, String clientId, ContextCallback callback) {
     String thisClientId = component.getClientId(context);
-    if (binding) {
+    if (USE_BINDING) {
       if (clientId.equals(thisClientId)) {
         callback.invokeContextCallback(context, component);
         return true;
@@ -119,7 +119,7 @@ public class FacesUtils {
 
   public static Object getValueFromValueBindingOrValueExpression(
       FacesContext context, UIComponent component, String name) {
-    if (binding) {
+    if (USE_BINDING) {
       return component.getValueBinding(name).getValue(context);
     } else {
       return FacesUtilsEL.getValueFromValueBindingOrValueExpression(context, component, name);
@@ -127,7 +127,7 @@ public class FacesUtils {
   }
 
   public static boolean hasValueBindingOrValueExpression(UIComponent component, String name) {
-    if (binding) {
+    if (USE_BINDING) {
       return component.getValueBinding(name) != null;
     } else {
       return FacesUtilsEL.hasValueBindingOrValueExpression(component, name);
@@ -136,7 +136,7 @@ public class FacesUtils {
 
   public static boolean isReadonlyValueBindingOrValueExpression(
       FacesContext context, UIComponent component, String name) {
-    if (binding) {
+    if (USE_BINDING) {
       return component.getValueBinding(name).isReadOnly(context);
     } else {
       return FacesUtilsEL.isReadonlyValueBindingOrValueExpression(context, component, name);
@@ -144,7 +144,7 @@ public class FacesUtils {
   }
 
   public static String getExpressionString(UIComponent component, String name) {
-    if (binding) {
+    if (USE_BINDING) {
       return component.getValueBinding(name).getExpressionString();
     } else {
       return FacesUtilsEL.getExpressionString(component, name);
@@ -153,7 +153,7 @@ public class FacesUtils {
 
   public static void setValueOfBindingOrExpression(
       FacesContext context, Object value, UIComponent component, String bindingName) {
-    if (binding) {
+    if (USE_BINDING) {
       ValueBinding vb = component.getValueBinding(bindingName);
       if (vb != null) {
         vb.setValue(context, value);
@@ -165,7 +165,7 @@ public class FacesUtils {
 
   public static void setValueOfBindingOrExpression(
       FacesContext context, Object value, Object bindingOrExpression) {
-    if (binding) {
+    if (USE_BINDING) {
       if (bindingOrExpression instanceof ValueBinding) {
         ValueBinding vb = (ValueBinding) bindingOrExpression;
         vb.setValue(context, value);
@@ -177,7 +177,7 @@ public class FacesUtils {
 
   public static void copyValueBindingOrValueExpression(
       UIComponent fromComponent, String fromName, UIComponent toComponent, String toName) {
-    if (binding) {
+    if (USE_BINDING) {
       ValueBinding vb = fromComponent.getValueBinding(fromName);
       if (vb != null) {
         toComponent.setValueBinding(toName, vb);
@@ -188,7 +188,7 @@ public class FacesUtils {
   }
 
   public static Object getValueFromBindingOrExpression(Object obj) {
-    if (binding) {
+    if (USE_BINDING) {
       if (obj instanceof ValueBinding) {
         return ((ValueBinding) obj).getValue(FacesContext.getCurrentInstance());
       }
@@ -199,7 +199,7 @@ public class FacesUtils {
   }
 
   public static void setValidator(EditableValueHolder editableValueHolder, Object validator) {
-    if (binding) {
+    if (USE_BINDING) {
       MethodBinding methodBinding =
           FacesContext.getCurrentInstance().getApplication().createMethodBinding(validator.toString(), VALIDATOR_ARGS);
       editableValueHolder.setValidator(methodBinding);
@@ -209,7 +209,7 @@ public class FacesUtils {
   }
 
   public static void setConverter(ValueHolder valueHolder, Object converterExpression) {
-    if (binding) {
+    if (USE_BINDING) {
       if (converterExpression != null && converterExpression instanceof String) {
         String converterExpressionStr = (String) converterExpression;
         FacesContext context = FacesContext.getCurrentInstance();
@@ -229,7 +229,7 @@ public class FacesUtils {
   }
 
   public static void setBindingOrExpression(UIComponent component, String name, Object valueBindingOrExpression) {
-    if (binding) {
+    if (USE_BINDING) {
       component.setValueBinding(name, (ValueBinding) valueBindingOrExpression);
     } else {
       FacesUtilsEL.setBindingOrExpression(component, name, valueBindingOrExpression);
@@ -238,7 +238,7 @@ public class FacesUtils {
 
   public static void addBindingOrExpressionTabChangeListener(TabChangeSource source, String type,
       Object bindingOrExpression) {
-    if (binding) {
+    if (USE_BINDING) {
       source.addTabChangeListener(new ValueBindingTabChangeListener(type, (ValueBinding) bindingOrExpression));
     } else {
       FacesUtilsEL.addBindingOrExpressionTabChangeListener(source, type, bindingOrExpression);
@@ -247,7 +247,7 @@ public class FacesUtils {
 
   public static Comparator getBindingOrExpressionComparator(
       FacesContext facesContext, UIComponent child, String var, boolean descending, Comparator comparator) {
-    if (binding) {
+    if (USE_BINDING) {
       ValueBinding valueBinding = child.getValueBinding("value");
       return new ValueBindingComparator(facesContext, var, valueBinding, descending, comparator);
     } else {
@@ -256,7 +256,7 @@ public class FacesUtils {
   }
 
   public static void addBindingOrExpressionPopupActionListener(ActionSource actionSource, Object bindingOrExpression) {
-    if (binding) {
+    if (USE_BINDING) {
       actionSource.addActionListener(new ValueBindingPopupActionListener(bindingOrExpression));
     } else {
       FacesUtilsEL.addBindingOrExpressionPopupActionListener(actionSource, bindingOrExpression);
@@ -264,6 +264,6 @@ public class FacesUtils {
   }
 
   public static boolean supportsEL() {
-    return !binding;  
+    return !USE_BINDING;
   }
 }
