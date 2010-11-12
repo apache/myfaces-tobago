@@ -158,11 +158,18 @@ public class TabGroupRenderer extends LayoutComponentRendererBase {
                 switchType, image1x1, toolBarWidth, toolBarContentWidth, currentWidth, tabList);
 
             if (UITabGroup.SWITCH_TYPE_RELOAD_TAB.equals(switchType)) {
+              String[] renderedPartially = tabGroup.getRenderedPartially();
+              String renderedPartiallyStr = null;
+              if (renderedPartially != null && renderedPartially.length > 0) {
+                renderedPartiallyStr =
+                    HtmlRendererUtils.getRenderedPartiallyJavascriptArray(facesContext, tabGroup, renderedPartially);
+              }
               final String[] cmds = {
                   "new Tobago.TabGroup(",
                   "    '" + clientId + "', ",
                   "    '" + activeIndex + "', ",
-                  "    '" + tabGroup.getChildCount() + "');"
+                  "    '" + tabGroup.getChildCount() + "', ",
+                  "    "  + renderedPartiallyStr + ");"
               };
               HtmlRendererUtils.writeScriptLoader(facesContext, ArrayUtils.EMPTY_STRING_ARRAY, cmds);
             }

@@ -29,7 +29,7 @@ Tobago.Sheets = {
 
 // Info: 2nd parameter "enableAjax" was rededicated to "firstRowIndex"
 Tobago.Sheet = function(sheetId, firstRowIndex, checkedImage, uncheckedImage, selectable, columnSelectorIndex, autoReload,
-                        clickActionId, clickReloadComponentId, dblClickActionId, dblClickReloadComponentId) {
+                        clickActionId, clickReloadComponentId, dblClickActionId, dblClickReloadComponentId, renderedPartially) {
   this.startTime = new Date();
   this.id = sheetId;
   Tobago.Sheets.put(this);
@@ -42,6 +42,7 @@ Tobago.Sheet = function(sheetId, firstRowIndex, checkedImage, uncheckedImage, se
   this.clickReloadComponentId = clickReloadComponentId;
   this.dblClickActionId = dblClickActionId;
   this.dblClickReloadComponentId = dblClickReloadComponentId;
+  this.renderedPartially = renderedPartially;
 
   this.resizerId = undefined;
   this.oldX      = 0;
@@ -212,7 +213,7 @@ Tobago.Sheet.prototype.reloadWithAction = function(source, action, options) {
     var reloadOptions = Tobago.extend({}, this.options);
     reloadOptions = Tobago.extend(reloadOptions, options);
     Tobago.createOverlay(Tobago.element(this.id));
-    Tobago.Updater.update(source, action, this.id, reloadOptions);
+    Tobago.Updater.update(source, action, this.renderedPartially?this.renderedPartially:this.id, reloadOptions);
   };
 
 Tobago.Sheet.prototype.afterDoUpdateSuccess = function() {

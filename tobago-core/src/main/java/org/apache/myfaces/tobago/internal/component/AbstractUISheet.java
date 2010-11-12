@@ -27,6 +27,7 @@ import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.OnComponentPopulated;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.Sorter;
+import org.apache.myfaces.tobago.component.SupportsRenderedPartially;
 import org.apache.myfaces.tobago.event.PageActionEvent;
 import org.apache.myfaces.tobago.event.SheetStateChangeEvent;
 import org.apache.myfaces.tobago.event.SheetStateChangeListener;
@@ -58,7 +59,7 @@ import java.util.Map;
 
 public abstract class AbstractUISheet extends javax.faces.component.UIData
     implements SheetStateChangeSource, SortActionSource, InvokeOnComponent, OnComponentPopulated,
-    LayoutContainer, LayoutComponent {
+    LayoutContainer, LayoutComponent, SupportsRenderedPartially{
 
   private static final Logger LOG = LoggerFactory.getLogger(AbstractUISheet.class);
 
@@ -407,28 +408,29 @@ public abstract class AbstractUISheet extends javax.faces.component.UIData
     int oldRowIndex = getRowIndex();
     try {
       String sheetId = getClientId(context);
-      String idRemainder = clientId.substring(sheetId.length());
-      if (LOG.isInfoEnabled()) {
-        LOG.info("idRemainder = \"" + idRemainder + "\"");
-      }
-      if (idRemainder.matches("^:\\d+:.*")) {
-        idRemainder = idRemainder.substring(1);
-        int idx = idRemainder.indexOf(":");
-        try {
-          int rowIndex = Integer.parseInt(idRemainder.substring(0, idx));
-          if (LOG.isInfoEnabled()) {
-            LOG.info("set rowIndex = \"" + rowIndex + "\"");
-          }
-          setRowIndex(rowIndex);
-
-        } catch (NumberFormatException e) {
-          if (LOG.isInfoEnabled()) {
-            LOG.error("idRemainder = \"" + idRemainder + "\"", e);
-          }
-        }
-      } else {
+      if (clientId.startsWith(sheetId)) {
+        String idRemainder = clientId.substring(sheetId.length());
         if (LOG.isInfoEnabled()) {
-          LOG.info("no match for \"^:\\d+:.*\"");
+          LOG.info("idRemainder = \"" + idRemainder + "\"");
+        }
+        if (idRemainder.matches("^:\\d+:.*")) {
+          idRemainder = idRemainder.substring(1);
+          int idx = idRemainder.indexOf(":");
+          try {
+            int rowIndex = Integer.parseInt(idRemainder.substring(0, idx));
+            if (LOG.isInfoEnabled()) {
+              LOG.info("set rowIndex = \"" + rowIndex + "\"");
+            }
+            setRowIndex(rowIndex);
+          } catch (NumberFormatException e) {
+            if (LOG.isInfoEnabled()) {
+              LOG.error("idRemainder = \"" + idRemainder + "\"", e);
+            }
+          }
+        } else {
+          if (LOG.isInfoEnabled()) {
+            LOG.info("no match for \"^:\\d+:.*\"");
+          }
         }
       }
 

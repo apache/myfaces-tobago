@@ -1641,6 +1641,9 @@ var Tobago = {
   },
 
   parsePartialIds: function(ajaxComponentIds) {
+    if (jQuery.isArray(ajaxComponentIds)) {
+        return ajaxComponentIds;
+    }
     return ajaxComponentIds.split(",");
   },
 

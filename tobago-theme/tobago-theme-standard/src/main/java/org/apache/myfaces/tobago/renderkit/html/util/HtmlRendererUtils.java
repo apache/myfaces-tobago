@@ -490,6 +490,13 @@ public final class HtmlRendererUtils {
       return null;
     }
     String[] list = command.getRenderedPartially();
+    return getRenderedPartiallyJavascriptArray(facesContext, command, list);
+  }
+
+  public static String getRenderedPartiallyJavascriptArray(FacesContext facesContext, UIComponent command, String[] list) {
+    if (list == null) {
+      return null;
+    }
     StringBuilder strBuilder = new StringBuilder();
     strBuilder.append("[");
     for (int i = 0; i < list.length; i++) {

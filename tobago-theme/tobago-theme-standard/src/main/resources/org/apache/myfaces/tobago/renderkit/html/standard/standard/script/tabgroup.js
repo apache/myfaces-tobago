@@ -16,11 +16,12 @@
  */
 
 
-Tobago.TabGroup = function(tabGroupId, activeIndex, size) {
+Tobago.TabGroup = function(tabGroupId, activeIndex, size, renderedPartially) {
   this.tabGroupId = tabGroupId,
   this.activeIndex = activeIndex * 1;
   this.size = size;
   this.activeTabId = tabGroupId + Tobago.SUB_COMPONENT_SEP2 + activeIndex;
+  this.renderedPartially = renderedPartially;
   LOG.debug("activeTabId : " + this.activeTabId);
 
   Tobago.element(this.tabGroupId).jsObject = this;
@@ -131,7 +132,7 @@ Tobago.TabGroup.prototype.next = function(event) {
         var id = idPrefix + this.activeIndex;
         this.removeRelatedAcceleratorKeys(id.substring(0, id.lastIndexOf(Tobago.SUB_COMPONENT_SEP2) + Tobago.SUB_COMPONENT_SEP2.length));
         Tobago.createOverlay(Tobago.element(this.tabGroupId));
-        Tobago.Updater.update(event.srcElement, this.tabGroupId, this.tabGroupId, this.options);
+        Tobago.Updater.update(event.srcElement, this.tabGroupId, this.renderedPartially?this.renderedPartially:this.tabGroupId, this.options);
       } else {
         Tobago.submitAction2(event.srcElement, this.tabGroupId, null, null);
       }
@@ -177,7 +178,7 @@ Tobago.TabGroup.prototype.previous = function(event) {
         var id = idPrefix + this.activeIndex;
         this.removeRelatedAcceleratorKeys(id.substring(0, id.lastIndexOf(Tobago.SUB_COMPONENT_SEP2) + Tobago.SUB_COMPONENT_SEP2.length));
         Tobago.createOverlay(Tobago.element(this.tabGroupId));
-        Tobago.Updater.update(event.srcElement, this.tabGroupId, this.tabGroupId, this.options);
+        Tobago.Updater.update(event.srcElement, this.tabGroupId, this.renderedPartially?this.renderedPartially:this.tabGroupId, this.options);
       } else {
         Tobago.submitAction2(event.srcElement, this.tabGroupId, null, null);
       }
@@ -216,7 +217,7 @@ Tobago.TabGroup.prototype.reloadWithAction = function(event) {
       if (Tobago.Transport.hasTransport()) {
         this.removeRelatedAcceleratorKeys(aId.substring(0, aId.lastIndexOf(Tobago.SUB_COMPONENT_SEP2) + Tobago.SUB_COMPONENT_SEP2.length));
         Tobago.createOverlay(Tobago.element(this.tabGroupId));
-        Tobago.Updater.update(event.srcElement, this.tabGroupId, this.tabGroupId, this.options);
+        Tobago.Updater.update(event.srcElement, this.tabGroupId, this.renderedPartially?this.renderedPartially:this.tabGroupId, this.options);
       } else {
         Tobago.submitAction(event.srcElement, this.tabGroupId);
       }

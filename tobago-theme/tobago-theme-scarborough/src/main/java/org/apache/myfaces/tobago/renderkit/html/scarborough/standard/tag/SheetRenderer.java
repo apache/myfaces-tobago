@@ -133,7 +133,9 @@ public class SheetRenderer extends LayoutComponentRendererBase {
 
     writer.endElement(HtmlElements.DIV);
     // TODO check ajax id
-    if (facesContext instanceof TobagoFacesContext && !((TobagoFacesContext) facesContext).isAjax()) {
+    if (facesContext instanceof TobagoFacesContext
+        && !(((TobagoFacesContext) facesContext).isAjax()
+        && sheetId.equals(((TobagoFacesContext) facesContext).getAjaxComponentId()))) {
 
       ResourceManager resourceManager = ResourceManagerFactory.getResourceManager(facesContext);
       String contextPath = facesContext.getExternalContext().getRequestContextPath();
@@ -147,15 +149,22 @@ public class SheetRenderer extends LayoutComponentRendererBase {
         UIReload update = (UIReload) facetReload;
         frequency = update.getFrequency();
       }
+
+      String[] renderedPartially = sheet.getRenderedPartially();
+      String renderedPartiallyStr = null;
+      if (renderedPartially != null && renderedPartially.length > 0) {
+        renderedPartiallyStr =
+            HtmlRendererUtils.getRenderedPartiallyJavascriptArray(facesContext, sheet, renderedPartially);
+      }
       final String[] cmds = {
           "new Tobago.Sheet(\"" + sheetId + "\", " + sheet.getFirst()
               + ", \"" + checked + "\", \"" + unchecked + "\", \"" + sheet.getSelectable()
               + "\", " + columnSelectorIndex + ", " + frequency
-              + ",  " + (clickAction != null ? HtmlRendererUtils.getJavascriptString(clickAction.getId()) : null)
-              + ",  " + HtmlRendererUtils.getRenderedPartiallyJavascriptArray(facesContext, clickAction)
-              + ",  " + (dblClickAction != null ? HtmlRendererUtils.getJavascriptString(dblClickAction.getId()) : null)
-              + ",  " + HtmlRendererUtils.getRenderedPartiallyJavascriptArray(facesContext, dblClickAction)
-              + ");"
+              + ", " + (clickAction != null ? HtmlRendererUtils.getJavascriptString(clickAction.getId()) : null)
+              + ", " + HtmlRendererUtils.getRenderedPartiallyJavascriptArray(facesContext, clickAction)
+              + ", " + (dblClickAction != null ? HtmlRendererUtils.getJavascriptString(dblClickAction.getId()) : null)
+              + ", " + HtmlRendererUtils.getRenderedPartiallyJavascriptArray(facesContext, dblClickAction)
+              + ", " + renderedPartiallyStr + ");"
       };
 
       HtmlRendererUtils.writeScriptLoader(facesContext, SCRIPTS, cmds);
