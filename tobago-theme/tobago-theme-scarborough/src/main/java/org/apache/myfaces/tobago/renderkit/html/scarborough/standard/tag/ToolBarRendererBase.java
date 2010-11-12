@@ -380,6 +380,7 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
     writer.startElement(HtmlElements.SPAN, command);
     writer.writeClassAttribute(Classes.create(toolBar, "button", selected ? Markup.SELECTED : Markup.NULL));
     writer.writeStyleAttribute(buttonStyle);
+    writer.writeIdAttribute(command.getClientId(facesContext));
     writer.writeAttribute(HtmlAttributes.ONCLICK, commandClick != null ? commandClick : menuClick, true);
     // render icon
     if (showIcon && iconName != null) {

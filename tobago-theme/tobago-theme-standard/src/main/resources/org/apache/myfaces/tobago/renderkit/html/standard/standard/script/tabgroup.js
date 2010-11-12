@@ -128,7 +128,7 @@ Tobago.TabGroup.prototype.next = function(event) {
         LOG.warn("No hidden field for tabindex Id='" + this.tabGroupId + Tobago.SUB_COMPONENT_SEP2 + "activeIndex" + "'");
         LOG.warn("aId = " + aId);
       }
-      if (Tobago.Updater.hasTransport()) {
+      if (Tobago.Transport.hasTransport()) {
         var id = idPrefix + this.activeIndex;
         this.removeRelatedAcceleratorKeys(id.substring(0, id.lastIndexOf(Tobago.SUB_COMPONENT_SEP2) + Tobago.SUB_COMPONENT_SEP2.length));
         Tobago.createOverlay(Tobago.element(this.tabGroupId));
@@ -174,7 +174,7 @@ Tobago.TabGroup.prototype.previous = function(event) {
         LOG.warn("No hidden field for tabindex Id='" + this.tabGroupId + Tobago.SUB_COMPONENT_SEP2 + "activeIndex" + "'");
         LOG.warn("aId = " + aId);
       }
-      if (Tobago.Updater.hasTransport()) {
+      if (Tobago.Transport.hasTransport()) {
         var id = idPrefix + this.activeIndex;
         this.removeRelatedAcceleratorKeys(id.substring(0, id.lastIndexOf(Tobago.SUB_COMPONENT_SEP2) + Tobago.SUB_COMPONENT_SEP2.length));
         Tobago.createOverlay(Tobago.element(this.tabGroupId));
