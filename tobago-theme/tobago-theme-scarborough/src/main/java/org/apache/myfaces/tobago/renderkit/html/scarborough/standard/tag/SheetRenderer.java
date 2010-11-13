@@ -149,13 +149,6 @@ public class SheetRenderer extends LayoutComponentRendererBase {
         UIReload update = (UIReload) facetReload;
         frequency = update.getFrequency();
       }
-
-      String[] renderedPartially = sheet.getRenderedPartially();
-      String renderedPartiallyStr = null;
-      if (renderedPartially != null && renderedPartially.length > 0) {
-        renderedPartiallyStr =
-            HtmlRendererUtils.getRenderedPartiallyJavascriptArray(facesContext, sheet, renderedPartially);
-      }
       final String[] cmds = {
           "new Tobago.Sheet(\"" + sheetId + "\", " + sheet.getFirst()
               + ", \"" + checked + "\", \"" + unchecked + "\", \"" + sheet.getSelectable()
@@ -164,7 +157,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
               + ", " + HtmlRendererUtils.getRenderedPartiallyJavascriptArray(facesContext, clickAction)
               + ", " + (dblClickAction != null ? HtmlRendererUtils.getJavascriptString(dblClickAction.getId()) : null)
               + ", " + HtmlRendererUtils.getRenderedPartiallyJavascriptArray(facesContext, dblClickAction)
-              + ", " + renderedPartiallyStr + ");"
+              + ", " + HtmlRendererUtils.getRenderedPartiallyJavascriptArray(facesContext, sheet, sheet) + ");"
       };
 
       HtmlRendererUtils.writeScriptLoader(facesContext, SCRIPTS, cmds);

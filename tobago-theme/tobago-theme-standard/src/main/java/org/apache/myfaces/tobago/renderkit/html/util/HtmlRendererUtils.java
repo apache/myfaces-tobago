@@ -20,6 +20,7 @@ package org.apache.myfaces.tobago.renderkit.html.util;
 import org.apache.commons.lang.StringUtils;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.SupportsMarkup;
+import org.apache.myfaces.tobago.component.SupportsRenderedPartially;
 import org.apache.myfaces.tobago.component.UICommand;
 import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.component.UISheet;
@@ -489,12 +490,13 @@ public final class HtmlRendererUtils {
     if (command == null) {
       return null;
     }
-    String[] list = command.getRenderedPartially();
-    return getRenderedPartiallyJavascriptArray(facesContext, command, list);
+    return getRenderedPartiallyJavascriptArray(facesContext, command, command);
   }
 
-  public static String getRenderedPartiallyJavascriptArray(FacesContext facesContext, UIComponent command, String[] list) {
-    if (list == null) {
+  public static String getRenderedPartiallyJavascriptArray(FacesContext facesContext, UIComponent searchBase,
+      SupportsRenderedPartially supportsRenderedPartially) {
+    String[] list = supportsRenderedPartially.getRenderedPartially();
+    if (list == null || list.length == 0) {
       return null;
     }
     StringBuilder strBuilder = new StringBuilder();
@@ -504,7 +506,7 @@ public final class HtmlRendererUtils {
         strBuilder.append(",");
       }
       strBuilder.append("\"");
-      strBuilder.append(HtmlRendererUtils.getComponentId(facesContext, command, list[i]));
+      strBuilder.append(HtmlRendererUtils.getComponentId(facesContext, searchBase, list[i]));
       strBuilder.append("\"");
     }
     strBuilder.append("]");
