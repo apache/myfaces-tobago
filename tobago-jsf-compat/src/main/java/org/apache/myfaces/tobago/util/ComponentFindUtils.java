@@ -21,8 +21,14 @@ import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
 
 public class ComponentFindUtils {
-   public static UIComponent findComponent(UIComponent from, String relativeId) {
+  public static UIComponent findComponent(UIComponent from, String relativeId) {
     int idLength = relativeId.length();
+    if (idLength > 0 && relativeId.charAt(0) == '@') {
+      if (relativeId.equals("@this")) {
+        return from;
+      }
+    }
+
     // Figure out how many colons
     int colonCount = 0;
     while (colonCount < idLength) {
