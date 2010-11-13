@@ -88,10 +88,9 @@ public class CommandRendererHelper {
         }
       } else if (command.getAttributes().get(Attributes.ONCLICK) != null) {
         onclick = prepareOnClick(facesContext, command);
-      } else if (command instanceof AbstractUICommandBase
-          && ((AbstractUICommandBase) command).getRenderedPartially().length > 0) {
+      } else if (command.getRenderedPartially().length > 0) {
 
-        String[] componentIds = ((AbstractUICommandBase) command).getRenderedPartially();
+        String[] componentIds = command.getRenderedPartially();
 
           // TODO find a better way
           boolean popupAction = ComponentUtils.containsPopupActionListener(command);
