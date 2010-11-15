@@ -20,6 +20,7 @@ package org.apache.myfaces.tobago.renderkit.html;
 import org.junit.Assert;
 import org.junit.Test;
 
+@SuppressWarnings("deprecation")
 public class StyleClassesUnitTest {
 
   @Test
