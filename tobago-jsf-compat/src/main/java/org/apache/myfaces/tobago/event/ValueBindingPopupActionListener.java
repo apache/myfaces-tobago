@@ -17,9 +17,9 @@ package org.apache.myfaces.tobago.event;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.internal.util.FindComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.apache.myfaces.tobago.util.ComponentFindUtils;
 
 import javax.faces.component.StateHolder;
 import javax.faces.component.UIComponent;
@@ -41,7 +41,7 @@ public class ValueBindingPopupActionListener extends AbstractPopupActionListener
   @Override
   protected UIComponent getPopup(ActionEvent actionEvent) {
     String id = (String) popupIdBinding.getValue(FacesContext.getCurrentInstance());
-    UIComponent popup = ComponentFindUtils.findComponent(actionEvent.getComponent(), id);
+    UIComponent popup = FindComponentUtils.findComponent(actionEvent.getComponent(), id);
     if (popup == null) {
       LOG.error("Found no popup for \""
           + popupIdBinding.getExpressionString() + "\" := \""

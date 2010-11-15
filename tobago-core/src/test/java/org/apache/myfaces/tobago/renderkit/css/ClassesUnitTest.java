@@ -18,7 +18,7 @@ package org.apache.myfaces.tobago.renderkit.css;
  */
 
 import org.apache.myfaces.tobago.component.ComponentTypes;
-import org.apache.myfaces.tobago.component.CreateComponentUtils;
+import org.apache.myfaces.tobago.util.CreateComponentUtils;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.SupportsMarkup;
 import org.apache.myfaces.tobago.component.UIIn;

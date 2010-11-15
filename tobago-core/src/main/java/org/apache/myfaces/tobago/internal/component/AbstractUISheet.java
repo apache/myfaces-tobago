@@ -22,7 +22,7 @@ import org.apache.myfaces.tobago.compat.InvokeOnComponent;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.ColumnEvent;
 import org.apache.myfaces.tobago.component.ComponentTypes;
-import org.apache.myfaces.tobago.component.CreateComponentUtils;
+import org.apache.myfaces.tobago.util.CreateComponentUtils;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.OnComponentPopulated;
 import org.apache.myfaces.tobago.component.RendererTypes;

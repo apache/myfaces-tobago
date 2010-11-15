@@ -31,6 +31,7 @@ import org.apache.myfaces.tobago.internal.component.AbstractUIForm;
 import org.apache.myfaces.tobago.internal.component.AbstractUIInput;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPage;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPopup;
+import org.apache.myfaces.tobago.internal.util.FindComponentUtils;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.slf4j.Logger;
@@ -789,14 +790,19 @@ public class ComponentUtils {
   }
 
   /**
-   * colonCount == 0: fully relative
-   * colonCount == 1: absolute (still normal findComponent syntax)
-   * colonCount > 1: for each extra colon after 1, go up a naming container
+   * The search depends on the number of colons in the relativeId:
+   * <dl>
+   *   <dd>colonCount == 0</dd>
+   *   <dt>fully relative</dt>
+   *   <dd>colonCount == 1</dd>
+   *   <dt>absolute (still normal findComponent syntax)</dt>
+   *   <dd>colonCount > 1</dd>
+   *   <dt>for each extra colon after 1, go up a naming container</dt>
+   * </dl>
    * (to the view root, if naming containers run out)
    */
-
   public static UIComponent findComponent(UIComponent from, String relativeId) {
-    return ComponentFindUtils.findComponent(from, relativeId);
+    return FindComponentUtils.findComponent(from, relativeId);
   }
 
   public static String[] splitList(String renderers) {

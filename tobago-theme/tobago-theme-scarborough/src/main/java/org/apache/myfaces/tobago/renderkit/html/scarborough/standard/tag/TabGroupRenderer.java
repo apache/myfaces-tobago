@@ -20,7 +20,7 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.myfaces.tobago.compat.FacesUtils;
 import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.component.CreateComponentUtils;
+import org.apache.myfaces.tobago.util.CreateComponentUtils;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.UICommand;

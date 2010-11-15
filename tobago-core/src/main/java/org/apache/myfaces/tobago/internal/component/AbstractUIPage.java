@@ -21,7 +21,7 @@ import org.apache.commons.collections.KeyValue;
 import org.apache.myfaces.tobago.compat.FacesUtils;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.ComponentTypes;
-import org.apache.myfaces.tobago.component.CreateComponentUtils;
+import org.apache.myfaces.tobago.util.CreateComponentUtils;
 import org.apache.myfaces.tobago.component.DeprecatedDimension;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.OnComponentPopulated;

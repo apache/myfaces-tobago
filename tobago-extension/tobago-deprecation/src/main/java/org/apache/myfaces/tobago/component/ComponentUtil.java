@@ -23,6 +23,7 @@ import org.apache.myfaces.tobago.internal.util.Deprecation;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
+import org.apache.myfaces.tobago.util.CreateComponentUtils;
 import org.apache.myfaces.tobago.util.DebugUtils;
 
 import javax.faces.application.Application;

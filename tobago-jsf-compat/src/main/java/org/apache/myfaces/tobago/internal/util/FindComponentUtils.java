@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.util;
+package org.apache.myfaces.tobago.internal.util;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -20,7 +20,9 @@ package org.apache.myfaces.tobago.util;
 import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
 
-public class ComponentFindUtils {
+// Will be normally called via ComponentUtils.
+public class FindComponentUtils {
+
   public static UIComponent findComponent(UIComponent from, String relativeId) {
     int idLength = relativeId.length();
     if (idLength > 0 && relativeId.charAt(0) == '@') {

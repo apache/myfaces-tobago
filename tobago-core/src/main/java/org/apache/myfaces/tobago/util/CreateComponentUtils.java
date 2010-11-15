@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.component;
+package org.apache.myfaces.tobago.util;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -17,6 +17,13 @@ package org.apache.myfaces.tobago.component;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.component.Attributes;
+import org.apache.myfaces.tobago.component.ComponentTypes;
+import org.apache.myfaces.tobago.component.Facets;
+import org.apache.myfaces.tobago.component.OnComponentCreated;
+import org.apache.myfaces.tobago.component.OnComponentPopulated;
+import org.apache.myfaces.tobago.component.RendererTypes;
+import org.apache.myfaces.tobago.component.UIMenuSelectOne;
 import org.apache.myfaces.tobago.internal.component.AbstractUIColumn;
 import org.apache.myfaces.tobago.internal.component.AbstractUIOut;
 import org.apache.myfaces.tobago.internal.component.AbstractUISelectBooleanCheckbox;

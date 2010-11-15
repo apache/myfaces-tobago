@@ -19,7 +19,7 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.component.CreateComponentUtils;
+import org.apache.myfaces.tobago.util.CreateComponentUtils;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.UIMenuSelectOne;
 import org.apache.myfaces.tobago.component.UISelectBooleanCommand;

@@ -18,7 +18,7 @@ package org.apache.myfaces.tobago.internal.component;
  */
 
 import org.apache.myfaces.tobago.component.ComponentTypes;
-import org.apache.myfaces.tobago.component.CreateComponentUtils;
+import org.apache.myfaces.tobago.util.CreateComponentUtils;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.OnComponentPopulated;
 import org.apache.myfaces.tobago.component.RendererTypes;
