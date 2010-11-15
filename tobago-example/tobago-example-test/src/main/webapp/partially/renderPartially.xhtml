@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<f:view
+    xmlns:tc="http://myfaces.apache.org/tobago/component"
+    xmlns:tx="http://myfaces.apache.org/tobago/extension"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core">
+  <tc:page id="page">
+    <tc:gridLayoutConstraint width="500px" height="200px"/>
+
+    <tc:box id="box" label="Test the partial reloading of the inner box">
+      <f:facet name="layout">
+        <tc:gridLayout columns="*;*" rows="auto;*"/>
+      </f:facet>
+
+      <tx:in label="Counter:" value="#{partially.counter}" readonly="true"/>
+
+      <tc:button label="Reset Counter" action="#{partially.resetCounter}"/>
+      
+      <tc:box label="Actions to reload this partially ------>">
+        <f:facet name="layout">
+          <tc:gridLayout rows="auto;auto;auto;auto;*"/>
+        </f:facet>
+
+        <tc:button label="Button" action="#{partially.reload}" renderedPartially="partial"/>
+
+        <tc:link label="Link" action="#{partially.reload}" renderedPartially="partial"/>
+
+        <tc:toolBar iconSize="off">
+          <tc:toolBarCommand label="ToolBarCommand" action="#{partially.reload}" renderedPartially="partial"/>
+        </tc:toolBar>
+
+        <tc:menuBar>
+          <tc:menuCommand label="MenuCommand" action="#{partially.reload}" renderedPartially="partial"/>
+        </tc:menuBar>
+
+        <tc:panel/>
+
+      </tc:box>
+
+
+      <tc:box id="partial" label="Only this area should be reloaded.">
+        <f:facet name="layout">
+          <tc:gridLayout/>
+        </f:facet>
+
+        <tx:in label="Counter:" value="#{partially.counter}" readonly="true"/>
+
+      </tc:box>
+
+
+    </tc:box>
+
+<!-- todo automatic tests with selenium -->
+
+  </tc:page>
+</f:view>
