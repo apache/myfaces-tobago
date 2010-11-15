@@ -166,6 +166,8 @@ public final class Attributes {
   public static final String STATE = "state";
   public static final String STATE_PREVIEW = "statePreview";
   public static final String STYLE = "style";
+  /** @deprecated */
+  @Deprecated
   public static final String STYLE_CLASS = "styleClass";
   public static final String SUPPRESS_TOOLBAR_CONTAINER = "suppressToolbarContainer";
   public static final String SWITCH_TYPE = "switchType";
