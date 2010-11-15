@@ -54,6 +54,11 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase implemen
    * Initialize the grid and remove the current width and height values from the component, recursively.
    */
   public void init() {
+
+    if (!getLayoutContainer().isLayoutChildren()) {
+      return;
+    }
+
     grid = new Grid(LayoutTokens.parse(getColumns()), LayoutTokens.parse(getRows()));
 
     List<LayoutComponent> components = getLayoutContainer().getComponents();
@@ -71,6 +76,10 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase implemen
   }
 
   public void fixRelativeInsideAuto(Orientation orientation, boolean auto) {
+
+    if (!getLayoutContainer().isLayoutChildren()) {
+      return;
+    }
 
     BankHead[] heads = grid.getBankHeads(orientation);
     BankHead[] heads2 = grid.getBankHeads(orientation.other());
@@ -117,6 +126,10 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase implemen
   }
 
   public void preProcessing(Orientation orientation) {
+
+    if (!getLayoutContainer().isLayoutChildren()) {
+      return;
+    }
 
     final BankHead[] heads = grid.getBankHeads(orientation);
     final BankHead[] heads2 = grid.getBankHeads(orientation.other());
@@ -206,6 +219,10 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase implemen
 
   public void mainProcessing(Orientation orientation) {
 
+    if (!getLayoutContainer().isLayoutChildren()) {
+      return;
+    }
+
     final BankHead[] heads = grid.getBankHeads(orientation);
     final BankHead[] heads2 = grid.getBankHeads(orientation.other());
 
@@ -277,6 +294,10 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase implemen
   }
 
   public void postProcessing(Orientation orientation) {
+
+    if (!getLayoutContainer().isLayoutChildren()) {
+      return;
+    }
 
     final BankHead[] heads = grid.getBankHeads(orientation);
     final BankHead[] heads2 = grid.getBankHeads(orientation.other());

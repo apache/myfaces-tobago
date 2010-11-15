@@ -511,7 +511,6 @@ public abstract class AbstractUISheet extends javax.faces.component.UIData
 //      sheet.queueEvent(new SheetStateChangeEvent(sheet));
   }
 
-  // LAYOUT Begin
   public List<LayoutComponent> getComponents() {
     List<LayoutComponent> result = new ArrayList<LayoutComponent>();
     for (UIComponent column : (List<UIComponent>) getChildren()) {
@@ -546,6 +545,7 @@ public abstract class AbstractUISheet extends javax.faces.component.UIData
     getFacets().put(Facets.LAYOUT, (AbstractUILayoutBase) layoutManager);
   }
 
-// LAYOUT End
-
+  public boolean isLayoutChildren() {
+    return true;
+  }
 }

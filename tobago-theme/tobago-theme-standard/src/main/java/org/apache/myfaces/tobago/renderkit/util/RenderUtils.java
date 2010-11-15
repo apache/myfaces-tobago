@@ -67,27 +67,8 @@ public class RenderUtils {
     return false;
   }
 
-  public static void encodeChildren(FacesContext facesContext,
-      UIComponent panel)
-      throws IOException {
-//    UIComponent layout = panel.getFacet("layout");
-
-    encodeChildrenWithoutLayout(facesContext, panel);
-    // XXX is the following coded needed?
-
-//    AbstractUILayoutBase layout = AbstractUILayoutBase.getLayout(panel);
-//    if (layout != null) {
-//      layout.encodeChildrenOfComponent(facesContext, panel);
-//    } else {
-//      for (Object o : panel.getChildren()) {
-//        UIComponent child = (UIComponent) o;
-//        encode(facesContext, child);
-//      }
-//    }
-  }
-
-  public static void encodeChildrenWithoutLayout(FacesContext facesContext, UIComponent container) throws IOException {
-    for (UIComponent child : (List<UIComponent>) container.getChildren()) {
+  public static void encodeChildren(FacesContext facesContext, UIComponent panel) throws IOException {
+    for (UIComponent child : (List<UIComponent>) panel.getChildren()) {
       encode(facesContext, child);
     }
   }
@@ -134,7 +115,7 @@ public class RenderUtils {
     if (!component.isRendered()) {
       return;
     }
-    RendererBase renderer = ComponentUtils.getRenderer(facesContext,  component);
+    RendererBase renderer = ComponentUtils.getRenderer(facesContext, component);
     boolean prepareRendersChildren = false;
     if (renderer != null) {
       renderer.prepareRender(facesContext, component);
@@ -319,7 +300,7 @@ public class RenderUtils {
         } else if (value instanceof SelectItem) {
           list.add((SelectItem) value);
         } else {
-          final String message 
+          final String message
               = "TYPE ERROR: value NOT instanceof SelectItem. type="
               + value.getClass().getName() + " value=" + value;
           LOG.error(message);

@@ -26,6 +26,11 @@ public interface LayoutContainer extends LayoutBase {
   LayoutManager getLayoutManager();
   void setLayoutManager(LayoutManager layoutManager);
 
+  /**
+   * Should the children of the this component be laid out from the given layout manager.
+   */
+  boolean isLayoutChildren();
+
   Measure getOffsetLeft();
 
   Measure getOffsetRight();

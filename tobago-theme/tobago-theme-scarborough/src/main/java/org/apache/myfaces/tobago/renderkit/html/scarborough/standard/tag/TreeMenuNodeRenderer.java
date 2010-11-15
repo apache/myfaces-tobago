@@ -133,7 +133,7 @@ public class TreeMenuNodeRenderer extends LayoutComponentRendererBase {
         writer.endElement(HtmlElements.IMG);
       }
 
-      RenderUtils.encodeChildrenWithoutLayout(facesContext, node);
+      RenderUtils.encodeChildren(facesContext, node);
 
       writer.endElement(HtmlElements.DIV);
     }

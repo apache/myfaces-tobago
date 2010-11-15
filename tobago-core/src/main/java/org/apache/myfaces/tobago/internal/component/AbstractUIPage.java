@@ -297,7 +297,6 @@ public abstract class AbstractUIPage extends AbstractUIForm
     }
   }
 
-  // LAYOUT Begin
   public List<LayoutComponent> getComponents() {
     return LayoutUtils.findLayoutChildren(this);
   }
@@ -310,7 +309,9 @@ public abstract class AbstractUIPage extends AbstractUIForm
     getFacets().put(Facets.LAYOUT, (AbstractUILayoutBase) layoutManager);
   }
 
-  // LAYOUT End
+  public boolean isLayoutChildren() {
+    return true;
+  }
 
   public abstract Measure getWidth();
 

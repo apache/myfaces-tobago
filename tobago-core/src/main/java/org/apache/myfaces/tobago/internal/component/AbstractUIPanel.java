@@ -18,7 +18,6 @@ package org.apache.myfaces.tobago.internal.component;
  */
 
 import org.apache.myfaces.tobago.component.ComponentTypes;
-import org.apache.myfaces.tobago.util.CreateComponentUtils;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.OnComponentPopulated;
 import org.apache.myfaces.tobago.component.RendererTypes;
@@ -26,8 +25,7 @@ import org.apache.myfaces.tobago.internal.layout.LayoutUtils;
 import org.apache.myfaces.tobago.layout.LayoutComponent;
 import org.apache.myfaces.tobago.layout.LayoutContainer;
 import org.apache.myfaces.tobago.layout.LayoutManager;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.myfaces.tobago.util.CreateComponentUtils;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -36,8 +34,6 @@ import java.util.List;
 
 public abstract class AbstractUIPanel extends AbstractUIPanelBase
     implements OnComponentPopulated, LayoutContainer, LayoutComponent {
-
-  private static final Logger LOG = LoggerFactory.getLogger(AbstractUIPanel.class);
 
   @Override
   public void encodeBegin(FacesContext facesContext) throws IOException {
@@ -76,5 +72,9 @@ public abstract class AbstractUIPanel extends AbstractUIPanelBase
 
   public void setLayoutManager(LayoutManager layoutManager) {
     getFacets().put(Facets.LAYOUT, (AbstractUILayoutBase) layoutManager);
+  }
+
+  public boolean isLayoutChildren() {
+    return true;
   }
 }

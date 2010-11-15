@@ -17,6 +17,7 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.layout.LayoutContainer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
@@ -34,7 +35,10 @@ public class TabGroupLayoutRenderer extends RendererBase {
   public void encodeChildren(FacesContext facesContext, UIComponent component) throws IOException {
     UIComponent container = component.getParent();
     LOG.info("TAB GROUP LAYOUT RENDERER");
-    RenderUtils.encodeChildrenWithoutLayout(facesContext, container);
+    if (container instanceof LayoutContainer && !((LayoutContainer) container).isLayoutChildren()) {
+      return;
+    }
+    RenderUtils.encodeChildren(facesContext, container);
   }
 
 }

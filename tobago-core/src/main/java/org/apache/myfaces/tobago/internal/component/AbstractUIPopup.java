@@ -183,6 +183,10 @@ public abstract class AbstractUIPopup extends AbstractUIPanelBase
     getFacets().put(Facets.LAYOUT, (AbstractUILayoutBase) layoutManager);
   }
 
+  public boolean isLayoutChildren() {
+    return true;
+  }
+  
   public abstract Measure getWidth();
 
   public abstract void setWidth(Measure width);

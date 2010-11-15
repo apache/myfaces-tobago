@@ -20,6 +20,7 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UIFlowLayout;
 import org.apache.myfaces.tobago.config.Configurable;
+import org.apache.myfaces.tobago.layout.LayoutContainer;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.MarginValues;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
@@ -54,7 +55,10 @@ public class FlowLayoutRenderer extends RendererBase implements SpacingValues, M
   @Override
   public void encodeChildren(FacesContext facesContext, UIComponent component) throws IOException {
     UIComponent container = component.getParent();
-    RenderUtils.encodeChildrenWithoutLayout(facesContext, container);
+    if (container instanceof LayoutContainer && !((LayoutContainer) container).isLayoutChildren()) {
+      return;
+    }
+    RenderUtils.encodeChildren(facesContext, container);
   }
 
   @Override
