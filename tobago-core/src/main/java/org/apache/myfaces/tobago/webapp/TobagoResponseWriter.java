@@ -140,11 +140,23 @@ public abstract class TobagoResponseWriter extends ResponseWriter {
 
   /**
    * Write the class attribute. The value will not escaped.
+   * <br/>
+   * <b>Note:</b> For backward compatibility the value of the Attribute
+   * <code>{@link org.apache.myfaces.tobago.component.Attributes#STYLE_CLASS}</code>
+   * will be inserted additionally. This function will be removed in later releases.
    * @param classes The abstract representation of the css class string, normally created by the renderer.
    */
   public void writeClassAttribute(Classes classes) throws IOException {
-    writeAttribute(HtmlAttributes.CLASS, classes.getStringValue(), false);
+    String styleClasses = getStyleClasses();
+    String stringValue = classes.getStringValue();
+    if (styleClasses != null) {
+      stringValue += " " + styleClasses;
+    }
+    writeAttribute(HtmlAttributes.CLASS, stringValue, false);
   }
+
+  @Deprecated
+  protected abstract String getStyleClasses();
 
   /**
    * Write the class attribute. The value will not escaped.
