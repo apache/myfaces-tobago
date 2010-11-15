@@ -26,6 +26,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabel;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsCollapsible;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutComponent;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutContainer;
 
@@ -35,7 +36,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutContain
 @Tag(name = "box")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIBox",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.component.UIPanel",
+    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIBox",
     componentType = "org.apache.myfaces.tobago.Box",
     rendererType = RendererTypes.BOX,
     facets = {
@@ -46,5 +47,6 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutContain
 
 public interface BoxTagDeclaration
     extends HasIdBindingAndRendered, IsGridLayoutComponent, IsGridLayoutContainer, HasMarkup, HasCurrentMarkup,
-    HasLabel {
+    HasLabel, IsCollapsible {
+
 }

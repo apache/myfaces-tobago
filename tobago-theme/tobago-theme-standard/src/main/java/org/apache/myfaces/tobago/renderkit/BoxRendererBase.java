@@ -18,6 +18,7 @@ package org.apache.myfaces.tobago.renderkit;
  */
 
 import org.apache.myfaces.tobago.component.Facets;
+import org.apache.myfaces.tobago.component.UIBox;
 import org.apache.myfaces.tobago.component.UIMenuBar;
 import org.apache.myfaces.tobago.config.Configurable;
 import org.apache.myfaces.tobago.layout.Measure;
@@ -26,6 +27,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import java.io.IOException;
 
 public abstract class BoxRendererBase extends LayoutComponentRendererBase {
 
@@ -45,8 +47,31 @@ public abstract class BoxRendererBase extends LayoutComponentRendererBase {
     return offsetTop;
   }
 
+  @Override
+  public Measure getMinimumHeight(FacesContext facesContext, Configurable component) {
+    if (component instanceof UIBox && ((UIBox) component).isCollapsed()) {
+      return getOffsetTop(facesContext, component);
+    }
+    return super.getMinimumHeight(facesContext, component);
+  }
+
+  @Override
+  public Measure getMaximumHeight(FacesContext facesContext, Configurable component) {
+    if (component instanceof UIBox && ((UIBox) component).isCollapsed()) {
+      return getOffsetTop(facesContext, component);
+    }
+    return super.getMaximumHeight(facesContext, component);
+  }
+
   protected UIMenuBar getMenuBarFacet(UIComponent component) {
     return (UIMenuBar) component.getFacet(Facets.MENUBAR);
   }
 
+  @Override
+  public void encodeChildren(FacesContext facesContext, UIComponent component) throws IOException {
+    if (component instanceof UIBox && ((UIBox) component).isCollapsed()) {
+      return;
+    }
+    super.encodeChildren(facesContext, component);
+  }
 }
