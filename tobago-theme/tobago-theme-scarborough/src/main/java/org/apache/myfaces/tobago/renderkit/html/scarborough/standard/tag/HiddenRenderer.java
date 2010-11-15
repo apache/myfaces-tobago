@@ -17,11 +17,6 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * limitations under the License.
  */
 
-/*
- * Created 07.02.2003 16:00:00.
- * $Id$
- */
-
 import org.apache.myfaces.tobago.renderkit.InputRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
@@ -33,6 +28,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
+// TODO: Its not nice, that the base class use layout
 public class HiddenRenderer extends InputRendererBase {
 
   public void encodeEnd(FacesContext facesContext,
@@ -50,7 +46,4 @@ public class HiddenRenderer extends InputRendererBase {
     writer.writeAttribute(HtmlAttributes.VALUE, value != null ? value : "", true);
     writer.endElement(HtmlElements.INPUT);
   }
-
-
 }
-
