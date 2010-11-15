@@ -214,7 +214,7 @@ public class ResourceManagerImpl implements ResourceManager {
     return getThemeMeasure(facesContext, configurable.getRendererType(), configurable.getCurrentMarkup(), name);
   }
 
-  public Measure  getThemeMeasure(FacesContext facesContext, String rendererType, Markup markup, String name) {
+  public Measure getThemeMeasure(FacesContext facesContext, String rendererType, Markup markup, String name) {
 
     ClientPropertiesKey clientKey = ClientPropertiesKey.get(facesContext);
     ThemeConfigCacheKey cacheKey = new ThemeConfigCacheKey(clientKey, rendererType, markup, name);
@@ -232,7 +232,8 @@ public class ResourceManagerImpl implements ResourceManager {
             List mProperties = getPaths(clientKey, "", PROPERTY, "tobago-theme-config", "",
                 false, true, false, rendererType + "[" + m + "]" + "." + name, true, true);
             if (mProperties != null) {
-              measure.add(Measure.valueOf(mProperties.get(0)));
+              final Measure summand = Measure.valueOf(mProperties.get(0));
+              measure = measure.add(summand);
             }
           }
         }
