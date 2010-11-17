@@ -20,7 +20,6 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UIIn;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
-import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.internal.ajax.AjaxInternalUtils;
 import org.apache.myfaces.tobago.internal.component.AbstractUIInput;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPage;
@@ -46,7 +45,6 @@ import javax.faces.validator.LengthValidator;
 import javax.faces.validator.Validator;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -54,17 +52,6 @@ public class InRenderer extends InputRendererBase {
 
   private static final Logger LOG = LoggerFactory.getLogger(InRenderer.class);
 
-  private static final String[] SCRIPTS = new String[] {"script/inputSuggest.js"};
-
-  public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
-    super.prepareRender(facesContext, component);
-    if (facesContext instanceof TobagoFacesContext) {
-      if (component instanceof UIIn && ((UIIn) component).getSuggestMethod() != null) {
-        ((TobagoFacesContext) facesContext).getScriptFiles().addAll(Arrays.asList(SCRIPTS));
-      }
-    }
-  }
-  
   @Override
   public void decode(FacesContext facesContext, UIComponent component) {
     super.decode(facesContext, component);
@@ -174,8 +161,7 @@ public class InRenderer extends InputRendererBase {
             "    { });"
         };
 
-//      HtmlRendererUtils.writeStyleLoader(facesContext, STYLES);
-        HtmlRendererUtils.writeScriptLoader(facesContext, SCRIPTS, cmds);
+        HtmlRendererUtils.writeScriptLoader(facesContext, null, cmds);
       }
     }
   }

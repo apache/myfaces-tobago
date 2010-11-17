@@ -32,6 +32,51 @@
         <artifactId>mvn-jstools</artifactId>
         <version>0.1</version>
       </plugin>-->
+      <plugin>
+        <artifactId>myfaces-javascript-plugin</artifactId>
+        <groupId>org.apache.myfaces.buildtools</groupId>
+        <version>1.0.1</version>
+        <extensions>true</extensions>
+        <executions>
+          <execution>
+            <id>compile-standard</id>
+            <goals>
+              <goal>compile</goal>
+            </goals>
+            <phase>process-resources</phase>
+            <configuration>
+              <descriptor>${basedir}/src/main/build/standard-javascript.xml</descriptor>
+              <sourceDirectory>${basedir}/src/main/resources/org/apache/myfaces/tobago/renderkit/html/standard/standard</sourceDirectory>
+            </configuration>
+          </execution>
+          <execution>
+            <id>compile-msie</id>
+            <goals>
+              <goal>compile</goal>
+            </goals>
+            <phase>process-resources</phase>
+            <configuration>
+              <descriptor>${basedir}/src/main/build/msie-javascript.xml</descriptor>
+              <sourceDirectory>${basedir}/src/main/resources/org/apache/myfaces/tobago/renderkit/html/standard/msie_6_0</sourceDirectory>
+            </configuration>
+          </execution>
+          <execution>
+            <id>compress</id>
+            <goals>
+              <goal>compress</goal>
+            </goals>
+            <phase>process-resources</phase>
+            <configuration>
+              <scripts>org/apache/myfaces/tobago/renderkit/html/standard</scripts>
+              <includes>
+                <include>**/tobago.min.js</include>
+              </includes>
+              <compressor>yahooUI</compressor>
+              <webappDirectory>target/classes</webappDirectory>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
     </plugins>
   </build>
 

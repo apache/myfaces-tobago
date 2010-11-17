@@ -31,7 +31,6 @@ import org.apache.myfaces.tobago.component.UITabGroup;
 import org.apache.myfaces.tobago.component.UIToolBar;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
-import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.event.TabChangeEvent;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPanelBase;
 import org.apache.myfaces.tobago.internal.util.AccessKeyMap;
@@ -59,15 +58,12 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
 public class TabGroupRenderer extends LayoutComponentRendererBase {
 
   private static final Logger LOG = LoggerFactory.getLogger(TabGroupRenderer.class);
-
-  private static final String[] SCRIPTS = new String[]{"script/tab.js", "script/tabgroup.js"};
 
   public static final String ACTIVE_INDEX_POSTFIX = "__activeIndex";
 
@@ -94,14 +90,6 @@ public class TabGroupRenderer extends LayoutComponentRendererBase {
   }
 
   @Override
-  public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
-    super.prepareRender(facesContext, component);
-    if (facesContext instanceof TobagoFacesContext) {
-      ((TobagoFacesContext) facesContext).getScriptFiles().addAll(Arrays.asList(SCRIPTS));
-    }
-  }
-
-  @Override
   public void encodeEnd(FacesContext facesContext, UIComponent uiComponent) throws IOException {
 
     UITabGroup tabGroup = (UITabGroup) uiComponent;
@@ -120,8 +108,6 @@ public class TabGroupRenderer extends LayoutComponentRendererBase {
     writer.writeIdAttribute(clientId);
     writer.writeClassAttribute(Classes.create(tabGroup));
 
-    // AJAX
-    HtmlRendererUtils.writeScriptLoader(facesContext, SCRIPTS, ArrayUtils.EMPTY_STRING_ARRAY);
 
     writer.startElement(HtmlElements.INPUT, null);
     writer.writeAttribute(HtmlAttributes.TYPE, "hidden", false);

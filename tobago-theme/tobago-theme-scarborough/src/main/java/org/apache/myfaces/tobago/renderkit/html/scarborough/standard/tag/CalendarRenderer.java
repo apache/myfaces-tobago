@@ -22,7 +22,6 @@ import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UICalendar;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
-import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.model.CalendarModel;
 import org.apache.myfaces.tobago.model.DateModel;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
@@ -39,7 +38,6 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -49,18 +47,6 @@ public class CalendarRenderer extends LayoutComponentRendererBase {
 
   private static final Logger LOG = LoggerFactory.getLogger(CalendarRenderer.class);
 
-  private static final String[] SCRIPTS = {
-        "script/calendar.js",
-        "script/dateConverter.js"
-    };
-
-  @Override
-  public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
-    super.prepareRender(facesContext, component);
-    if (facesContext instanceof TobagoFacesContext) {
-      ((TobagoFacesContext) facesContext).getScriptFiles().addAll(Arrays.asList(SCRIPTS));
-    }
-  }
 
   @Override
   public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
@@ -233,7 +219,7 @@ public class CalendarRenderer extends LayoutComponentRendererBase {
             ? "initCalendarParse('" + id + "', '" + dateTextBoxId + "');"
             : ""
     };
-    HtmlRendererUtils.writeScriptLoader(facesContext, SCRIPTS, cmd);
+    HtmlRendererUtils.writeScriptLoader(facesContext, null, cmd);
   }
   
   private void writeInputHidden(TobagoResponseWriter writer,

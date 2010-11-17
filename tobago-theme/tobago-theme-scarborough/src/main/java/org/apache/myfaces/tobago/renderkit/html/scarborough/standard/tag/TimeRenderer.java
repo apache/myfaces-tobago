@@ -26,7 +26,6 @@ import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UITime;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
-import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.internal.util.DateFormatUtils;
 import org.apache.myfaces.tobago.renderkit.InputRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
@@ -46,7 +45,6 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.DateTimeConverter;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -54,17 +52,6 @@ public class TimeRenderer extends InputRendererBase {
 
   private static final Logger LOG = LoggerFactory.getLogger(TimeRenderer.class);
 
-  private static final String[] SCRIPTS = {
-      "script/calendar.js",
-      "script/dateConverter.js"
-  };
-
-  public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
-    super.prepareRender(facesContext, component);
-    if (facesContext instanceof TobagoFacesContext) {
-      ((TobagoFacesContext) facesContext).getScriptFiles().addAll(Arrays.asList(SCRIPTS));
-    }
-  }
 
   public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
     if (!(component instanceof UITime)) {
@@ -175,7 +162,7 @@ public class TimeRenderer extends InputRendererBase {
 
     if (dateTextBoxId != null) {
       String[] cmds = {"tbgInitTimeParse('" + id + "', '" + dateTextBoxId + "');"};
-      HtmlRendererUtils.writeScriptLoader(facesContext, SCRIPTS, cmds);
+      HtmlRendererUtils.writeScriptLoader(facesContext, null, cmds);
     }
 
     writer.endElement(HtmlElements.DIV);

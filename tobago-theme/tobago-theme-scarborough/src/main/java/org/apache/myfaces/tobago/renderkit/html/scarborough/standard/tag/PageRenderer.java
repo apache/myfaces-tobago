@@ -31,6 +31,7 @@ import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
+import org.apache.myfaces.tobago.internal.ajax.AjaxInternalUtils;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPage;
 import org.apache.myfaces.tobago.internal.layout.LayoutContext;
 import org.apache.myfaces.tobago.internal.util.AccessKeyMap;
@@ -162,91 +163,12 @@ public class PageRenderer extends PageRendererBase {
     formAction = facesContext.getExternalContext().encodeActionURL(formAction);
     String contentType = writer.getContentTypeWithCharSet();
     ResponseUtils.ensureContentTypeHeader(facesContext, contentType);
-    HtmlRendererUtils.renderDojoDndSource(facesContext, component);
+    String clientId = page.getClientId(facesContext);
     final ClientProperties client = VariableResolverUtils.resolveClientProperties(facesContext);
     final boolean debugMode = client.isDebugMode() || developmentMode;
-
-    String title = (String) page.getAttributes().get(Attributes.LABEL);
-
-    writer.startElement(HtmlElements.HEAD, null);
-
-    if (debugMode) {
-      writer.writeJavascript("var TbgHeadStart = new Date();");
-    }
-
-    // meta
-    // this is needed, because websphere 6.0? ignores the setting of the content type on the response
-    writer.startElement(HtmlElements.META, null);
-    writer.writeAttribute(HtmlAttributes.HTTP_EQUIV, "Content-Type", false);
-    writer.writeAttribute(HtmlAttributes.CONTENT, contentType, false);
-    writer.endElement(HtmlElements.META);
-
-    // title
-    writer.startElement(HtmlElements.TITLE, null);
-    writer.writeText(title != null ? title : "");
-    writer.endElement(HtmlElements.TITLE);
-
-    // style files
-    for (String styleFile : facesContext.getStyleFiles()) {
-      List<String> styles = ResourceManagerUtils.getStyles(facesContext, styleFile);
-      for (String styleString : styles) {
-        if (styleString.length() > 0) {
-          writer.startElement(HtmlElements.LINK, null);
-          writer.writeAttribute(HtmlAttributes.REL, "stylesheet", false);
-          writer.writeAttribute(HtmlAttributes.HREF, styleString, false);
-//          writer.writeAttribute(HtmlAttributes.MEDIA, "screen", false);
-          writer.writeAttribute(HtmlAttributes.TYPE, "text/css", false);
-          writer.endElement(HtmlElements.LINK);
-        }
-      }
-    }
-
-    String icon = page.getApplicationIcon();
-    if (icon != null) {
-      // XXX unify with image renderer
-      if (icon.startsWith("HTTP:") || icon.startsWith("FTP:")
-          || icon.startsWith("/")) {
-        // absolute Path to image : nothing to do
-      } else {
-        icon = ResourceManagerUtils.getImageWithPath(facesContext, icon);
-      }
-
-      writer.startElement(HtmlElements.LINK, null);
-      if (icon.endsWith(".ico")) {
-        writer.writeAttribute(HtmlAttributes.REL, "shortcut icon", false);
-        writer.writeAttribute(HtmlAttributes.HREF, icon, false);
-      } else {
-        // XXX IE only supports ICO files for favicons
-        writer.writeAttribute(HtmlAttributes.REL, "icon", false);
-        writer.writeAttribute(HtmlAttributes.TYPE, MimeTypeUtils.getMimeTypeForFile(icon), false);
-        writer.writeAttribute(HtmlAttributes.HREF, icon, false);
-      }
-      writer.endElement(HtmlElements.LINK);
-    }
-
-    // style sniplets
-    Set<String> styleBlocks = facesContext.getStyleBlocks();
-    if (styleBlocks.size() > 0) {
-      writer.startElement(HtmlElements.STYLE, null);
-      for (String cssBlock : styleBlocks) {
-        writer.write(cssBlock);
-      }
-      writer.endElement(HtmlElements.STYLE);
-    }
-
-    // script files
-    List<String> scriptFiles = facesContext.getScriptFiles();
-    // jquery.js and tobago.js needs to be first!
-
-    int pos = 0;
-    scriptFiles.add(pos++, debugMode ? "script/jquery/1_4_2/jquery.js" : "script/jquery/1_4_2/jquery.min.js");
-    scriptFiles.add(pos++, "script/tobago.js");
-    scriptFiles.add(pos++, "script/tobago-menu.js");
-    scriptFiles.add(pos++, "script/theme-config.js");
-    
+    boolean calculateScrollbarWeight = false;
     int clientLogSeverity = 2;
     if (debugMode) {
-      boolean hideClientLogging = true;
       String severity = (String) facesContext.getExternalContext().getRequestMap().get(CLIENT_DEBUG_SEVERITY);
       LOG.info("get " + CLIENT_DEBUG_SEVERITY + " = " + severity);
       if (severity != null) {
@@ -255,103 +177,207 @@ public class PageRenderer extends PageRendererBase {
           if (index == -1) {
             index = severity.length();
           }
-          clientLogSeverity = Integer.parseInt(severity.substring(0, index));
+            clientLogSeverity = Integer.parseInt(severity.substring(0, index));
         } catch (NumberFormatException e) {/* ignore; use default*/ }
-        hideClientLogging = !severity.contains("show");
       }
-      // the jquery ui is used in moment only for the logging area...
-      scriptFiles.add("script/jquery-ui/1_7_2/ui.core.min.js");
-      scriptFiles.add("script/jquery-ui/1_7_2/ui.draggable.min.js");
-      scriptFiles.add("script/logging.js");
-      facesContext.getOnloadScripts().add(0, "new LOG.LogArea({hide: " + hideClientLogging + "});");
     }
 
-    // render remaining script tags
-    for (String scriptFile : scriptFiles) {
-      encodeScripts(writer, facesContext, scriptFile);
-    }
+    if (!facesContext.isAjax()) {
+      HtmlRendererUtils.renderDojoDndSource(facesContext, component);
 
-    // focus id
-    String focusId = page.getFocusId();
-    if (focusId != null) {
-      writer.startJavascript();
-      writer.write("Tobago.focusId = '");
-      writer.write(focusId);
-      writer.write("';");
-      writer.endJavascript();
-    }
+      String title = (String) page.getAttributes().get(Attributes.LABEL);
 
-    if (component.getFacets().containsKey(Facets.ACTION)) {
-      UIComponent command = component.getFacet(Facets.ACTION);
-      if (command != null && command.isRendered()) {
-        int duration = ComponentUtils.getIntAttribute(command, Attributes.DELAY, 100);
-        boolean transition = ComponentUtils.getBooleanAttribute(command, Attributes.TRANSITION);
-        String target = ComponentUtils.getStringAttribute(command, Attributes.TARGET);
-        String action;
-        if (target != null) {
-          action = "Tobago.submitAction(this, '" + command.getClientId(facesContext) + "', "
-                  + transition + ", '" + target + "' )";
-        } else {
-          action = "Tobago.submitAction(this, '"+ command.getClientId(facesContext) + "', " + transition + " )";
+      writer.startElement(HtmlElements.HEAD, null);
+
+      if (debugMode) {
+        writer.writeJavascript("var TbgHeadStart = new Date();");
+      }
+
+      // meta
+      // this is needed, because websphere 6.0? ignores the setting of the content type on the response
+      writer.startElement(HtmlElements.META, null);
+      writer.writeAttribute(HtmlAttributes.HTTP_EQUIV, "Content-Type", false);
+      writer.writeAttribute(HtmlAttributes.CONTENT, contentType, false);
+      writer.endElement(HtmlElements.META);
+
+      // title
+      writer.startElement(HtmlElements.TITLE, null);
+      writer.writeText(title != null ? title : "");
+      writer.endElement(HtmlElements.TITLE);
+
+      // style files
+      for (String styleFile : facesContext.getStyleFiles()) {
+        List<String> styles = ResourceManagerUtils.getStyles(facesContext, styleFile);
+        for (String styleString : styles) {
+          if (styleString.length() > 0) {
+            writer.startElement(HtmlElements.LINK, null);
+            writer.writeAttribute(HtmlAttributes.REL, "stylesheet", false);
+            writer.writeAttribute(HtmlAttributes.HREF, styleString, false);
+  //          writer.writeAttribute(HtmlAttributes.MEDIA, "screen", false);
+            writer.writeAttribute(HtmlAttributes.TYPE, "text/css", false);
+            writer.endElement(HtmlElements.LINK);
+          }
         }
-        facesContext.getOnloadScripts().add("setTimeout(\"" + action  + "\", " + duration + ");\n");
       }
-    }
 
-    String clientId = page.getClientId(facesContext);
+      String icon = page.getApplicationIcon();
+      if (icon != null) {
+        // XXX unify with image renderer
+        if (icon.startsWith("HTTP:") || icon.startsWith("FTP:")
+            || icon.startsWith("/")) {
+          // absolute Path to image : nothing to do
+        } else {
+          icon = ResourceManagerUtils.getImageWithPath(facesContext, icon);
+        }
 
-    final boolean calculateScrollbarWeight
-        = client.getVerticalScrollbarWeight() == null || client.getHorizontalScrollbarWeight() == null;
-    if (calculateScrollbarWeight) {
-      facesContext.getOnloadScripts().add(
-          "Tobago.calculateScrollbarWeights('" + clientId + ComponentUtils.SUB_SEPARATOR + "scrollbarWeight" + "');");
-    } else {
-      facesContext.getOnloadScripts().add(
-          "Tobago.Config.set('Tobago', 'verticalScrollbarWeight', '"
-              + client.getVerticalScrollbarWeight().getPixel() + "');");
-      facesContext.getOnloadScripts().add(
-          "Tobago.Config.set('Tobago', 'horizontalScrollbarWeight', '"
-              + client.getHorizontalScrollbarWeight().getPixel() + "');");
-    }
-
-    if (component.getFacets().containsKey(Facets.RESIZE_ACTION)) {
-      UIComponent facet = component.getFacet(Facets.RESIZE_ACTION);
-      UIComponent command = null;
-      if (facet instanceof UICommand) {
-        command = facet;
-      } else if (facet instanceof UIForm && facet.getChildCount() == 1) {
-        command = (UIComponent) facet.getChildren().get(0);
+        writer.startElement(HtmlElements.LINK, null);
+        if (icon.endsWith(".ico")) {
+          writer.writeAttribute(HtmlAttributes.REL, "shortcut icon", false);
+          writer.writeAttribute(HtmlAttributes.HREF, icon, false);
+        } else {
+          // XXX IE only supports ICO files for favicons
+          writer.writeAttribute(HtmlAttributes.REL, "icon", false);
+          writer.writeAttribute(HtmlAttributes.TYPE, MimeTypeUtils.getMimeTypeForFile(icon), false);
+          writer.writeAttribute(HtmlAttributes.HREF, icon, false);
+        }
+        writer.endElement(HtmlElements.LINK);
       }
-      if (command != null && command.isRendered()) {
-        writer.writeJavascript("Tobago.resizeActionId = '" + command.getClientId(facesContext) + "';");
+
+      // style sniplets
+      Set<String> styleBlocks = facesContext.getStyleBlocks();
+      if (styleBlocks.size() > 0) {
+        writer.startElement(HtmlElements.STYLE, null);
+        for (String cssBlock : styleBlocks) {
+          writer.write(cssBlock);
+        }
+        writer.endElement(HtmlElements.STYLE);
       }
-    }
 
-    writer.startJavascript();
-    // onload script
-    writeEventFunction(writer, facesContext.getOnloadScripts(), "load", false);
+      // script files
+      List<String> scriptFiles = facesContext.getScriptFiles();
+      // jquery.js and tobago.js needs to be first!
 
-    // onunload script
-    writeEventFunction(writer, facesContext.getOnunloadScripts(), "unload", false);
-
-    // onexit script
-    writeEventFunction(writer, facesContext.getOnexitScripts(), "exit", false);
-
-    writeEventFunction(writer, facesContext.getOnsubmitScripts(), "submit", true);
-
-   int debugCounter = 0;
-   for (String scriptBlock : facesContext.getScriptBlocks()) {
-
-      if (LOG.isDebugEnabled()) {
-        LOG.debug("write scriptblock " + ++debugCounter + " :\n" + scriptBlock);
+      int pos = 0;
+      scriptFiles.add(pos++, debugMode ? "script/jquery/1_4_2/jquery.js" : "script/jquery/1_4_2/jquery.min.js");
+      scriptFiles.add(pos++, debugMode ? "script/tobago.js": "script/tobago.min.js");
+      if (debugMode) {
+        scriptFiles.add(pos++, "script/tobago-menu.js");
+        scriptFiles.add(pos++, "script/theme-config.js");
+        scriptFiles.add(pos++, "script/tobago-tabgroup.js");
+        scriptFiles.add(pos++, "script/tobago-tree.js");
+        scriptFiles.add(pos++, "script/tobago-sheet.js");
+        scriptFiles.add(pos++, "script/calendar.js");
+        scriptFiles.add(pos++, "script/dateConverter.js");
       }
-      writer.write(scriptBlock);
-      writer.write('\n');
+
+
+      if (debugMode) {
+        boolean hideClientLogging = true;
+        String severity = (String) facesContext.getExternalContext().getRequestMap().get(CLIENT_DEBUG_SEVERITY);
+        LOG.info("get " + CLIENT_DEBUG_SEVERITY + " = " + severity);
+        if (severity != null) {
+          try {
+            int index = severity.indexOf(';');
+            if (index == -1) {
+              index = severity.length();
+            }
+            clientLogSeverity = Integer.parseInt(severity.substring(0, index));
+          } catch (NumberFormatException e) {/* ignore; use default*/ }
+          hideClientLogging = !severity.contains("show");
+        }
+        // the jquery ui is used in moment only for the logging area...
+        scriptFiles.add("script/jquery-ui/1_7_2/ui.core.min.js");
+        scriptFiles.add("script/jquery-ui/1_7_2/ui.draggable.min.js");
+        scriptFiles.add("script/logging.js");
+        facesContext.getOnloadScripts().add(0, "new LOG.LogArea({hide: " + hideClientLogging + "});");
+      }
+
+      // render remaining script tags
+      for (String scriptFile : scriptFiles) {
+        encodeScripts(writer, facesContext, scriptFile);
+      }
+
+      // focus id
+      String focusId = page.getFocusId();
+      if (focusId != null) {
+        writer.startJavascript();
+        writer.write("Tobago.focusId = '");
+        writer.write(focusId);
+        writer.write("';");
+        writer.endJavascript();
+      }
+
+      if (component.getFacets().containsKey(Facets.ACTION)) {
+        UIComponent command = component.getFacet(Facets.ACTION);
+        if (command != null && command.isRendered()) {
+          int duration = ComponentUtils.getIntAttribute(command, Attributes.DELAY, 100);
+          boolean transition = ComponentUtils.getBooleanAttribute(command, Attributes.TRANSITION);
+          String target = ComponentUtils.getStringAttribute(command, Attributes.TARGET);
+          String action;
+          if (target != null) {
+            action = "Tobago.submitAction(this, '" + command.getClientId(facesContext) + "', "
+                    + transition + ", '" + target + "' )";
+          } else {
+            action = "Tobago.submitAction(this, '"+ command.getClientId(facesContext) + "', " + transition + " )";
+          }
+          facesContext.getOnloadScripts().add("setTimeout(\"" + action  + "\", " + duration + ");\n");
+        }
+      }
+
+
+      calculateScrollbarWeight
+          = client.getVerticalScrollbarWeight() == null || client.getHorizontalScrollbarWeight() == null;
+      if (calculateScrollbarWeight) {
+        facesContext.getOnloadScripts().add(
+            "Tobago.calculateScrollbarWeights('" + clientId + ComponentUtils.SUB_SEPARATOR + "scrollbarWeight" + "');");
+      } else {
+        facesContext.getOnloadScripts().add(
+            "Tobago.Config.set('Tobago', 'verticalScrollbarWeight', '"
+                + client.getVerticalScrollbarWeight().getPixel() + "');");
+        facesContext.getOnloadScripts().add(
+            "Tobago.Config.set('Tobago', 'horizontalScrollbarWeight', '"
+                + client.getHorizontalScrollbarWeight().getPixel() + "');");
+      }
+
+      if (component.getFacets().containsKey(Facets.RESIZE_ACTION)) {
+        UIComponent facet = component.getFacet(Facets.RESIZE_ACTION);
+        UIComponent command = null;
+        if (facet instanceof UICommand) {
+          command = facet;
+        } else if (facet instanceof UIForm && facet.getChildCount() == 1) {
+          command = (UIComponent) facet.getChildren().get(0);
+        }
+        if (command != null && command.isRendered()) {
+          writer.writeJavascript("Tobago.resizeActionId = '" + command.getClientId(facesContext) + "';");
+        }
+      }
+
+      writer.startJavascript();
+      // onload script
+      writeEventFunction(writer, facesContext.getOnloadScripts(), "load", false);
+
+      // onunload script
+      writeEventFunction(writer, facesContext.getOnunloadScripts(), "unload", false);
+
+      // onexit script
+      writeEventFunction(writer, facesContext.getOnexitScripts(), "exit", false);
+
+      writeEventFunction(writer, facesContext.getOnsubmitScripts(), "submit", true);
+
+      int debugCounter = 0;
+      for (String scriptBlock : facesContext.getScriptBlocks()) {
+
+        if (LOG.isDebugEnabled()) {
+          LOG.debug("write scriptblock " + ++debugCounter + " :\n" + scriptBlock);
+        }
+        writer.write(scriptBlock);
+        writer.write('\n');
+      }
+      writer.endJavascript();
+      writer.endElement(HtmlElements.HEAD);
     }
-    writer.endJavascript();
 
     String defaultActionId = page.getDefaultActionId() != null ? page.getDefaultActionId() : "";
-    writer.endElement(HtmlElements.HEAD);
     writer.startElement(HtmlElements.BODY, page);
     writer.writeAttribute(HtmlAttributes.ONLOAD, "Tobago.init('" + clientId + "');", false);
 //    writer.writeAttribute("onunload", "Tobago.onexit();", null);
@@ -525,31 +551,33 @@ public class PageRenderer extends PageRendererBase {
     writer.startElement(HtmlElements.SPAN, null);
     writer.writeIdAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "jsf-state-container");
     writer.flush();
-    if (FacesVersion.supports12()) {
-      viewHandler.writeState(facesContext);
-    } else {
-      // catch the next written stuff into a string and look if it is empty (TOBAGO-909)
-      FastStringWriter buffer = new FastStringWriter(40); // usually only the marker...
-      TobagoResponseWriter originalWriter = (TobagoResponseWriter) facesContext.getResponseWriter();
-      writer = (TobagoResponseWriter) writer.cloneWithWriter(buffer);
-      facesContext.setResponseWriter(writer);
-      viewHandler.writeState(facesContext);
-      final String stateContent = buffer.toString();
-      writer = originalWriter;
-      facesContext.setResponseWriter(writer);
-
-      if (StringUtils.isBlank(stateContent)) {
-        if (LOG.isDebugEnabled()) {
-          LOG.debug("Writing state will not happen! So we write the hidden field manually.");
-        }
-        writer.startElement(HtmlElements.INPUT, null);
-        writer.writeAttribute(HtmlAttributes.TYPE, "hidden", false);
-        writer.writeAttribute(HtmlAttributes.NAME, TobagoResponseStateManager.TREE_PARAM, false);
-        writer.writeAttribute(HtmlAttributes.ID, TobagoResponseStateManager.TREE_PARAM, false);
-        writer.writeAttribute(HtmlAttributes.VALUE, "workaround", false);
-        writer.endElement(HtmlElements.INPUT);
+    if (!facesContext.isAjax()) {
+      if (FacesVersion.supports12()) {
+        viewHandler.writeState(facesContext);
       } else {
-        writer.write(stateContent);
+        // catch the next written stuff into a string and look if it is empty (TOBAGO-909)
+        FastStringWriter buffer = new FastStringWriter(40); // usually only the marker...
+        TobagoResponseWriter originalWriter = (TobagoResponseWriter) facesContext.getResponseWriter();
+        writer = (TobagoResponseWriter) writer.cloneWithWriter(buffer);
+        facesContext.setResponseWriter(writer);
+        viewHandler.writeState(facesContext);
+        final String stateContent = buffer.toString();
+        writer = originalWriter;
+        facesContext.setResponseWriter(writer);
+
+        if (StringUtils.isBlank(stateContent)) {
+          if (LOG.isDebugEnabled()) {
+            LOG.debug("Writing state will not happen! So we write the hidden field manually.");
+          }
+          writer.startElement(HtmlElements.INPUT, null);
+          writer.writeAttribute(HtmlAttributes.TYPE, "hidden", false);
+          writer.writeAttribute(HtmlAttributes.NAME, TobagoResponseStateManager.TREE_PARAM, false);
+          writer.writeAttribute(HtmlAttributes.ID, TobagoResponseStateManager.TREE_PARAM, false);
+          writer.writeAttribute(HtmlAttributes.VALUE, "workaround", false);
+          writer.endElement(HtmlElements.INPUT);
+        } else {
+          writer.write(stateContent);
+        }
       }
     }
     writer.endElement(HtmlElements.SPAN);
@@ -561,6 +589,16 @@ public class PageRenderer extends PageRendererBase {
       writer.writeAttribute(HtmlAttributes.NAME, "tobago.dummy", false);
       writer.writeAttribute(HtmlAttributes.TABINDEX, "-1", false);
       writer.writeAttribute(HtmlAttributes.STYLE, "visibility:hidden;display:none;", false);
+      writer.endElement(HtmlElements.INPUT);
+    }
+
+    List<String> messageClientIds = AjaxInternalUtils.getMessagesClientIds(facesContext);
+    if (messageClientIds != null) {
+      writer.startElement(HtmlElements.INPUT, null);
+      writer.writeAttribute(HtmlAttributes.VALUE, StringUtils.join(messageClientIds, ','), true);
+      writer.writeAttribute(HtmlAttributes.ID, clientId + ComponentUtils.SUB_SEPARATOR + "messagesClientIds", false);
+      writer.writeAttribute(HtmlAttributes.NAME, clientId + ComponentUtils.SUB_SEPARATOR + "messagesClientIds", false);
+      writer.writeAttribute(HtmlAttributes.TYPE, "hidden", false);
       writer.endElement(HtmlElements.INPUT);
     }
 

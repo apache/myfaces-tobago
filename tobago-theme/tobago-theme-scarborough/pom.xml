@@ -39,6 +39,40 @@
           </excludes>
         </configuration>
       </plugin>
+      <plugin>
+        <artifactId>myfaces-javascript-plugin</artifactId>
+        <groupId>org.apache.myfaces.buildtools</groupId>
+        <version>1.0.1</version>
+        <extensions>true</extensions>
+        <executions>
+          <execution>
+            <id>compile</id>
+            <goals>
+              <goal>compile</goal>
+            </goals>
+            <phase>process-resources</phase>
+            <configuration>
+              <descriptor>${basedir}/src/main/build/standard-javascript.xml</descriptor>
+              <sourceDirectory>${basedir}/src/main/resources/</sourceDirectory>
+            </configuration>
+          </execution>
+          <execution>
+            <id>compress</id>
+            <goals>
+              <goal>compress</goal>
+            </goals>
+            <phase>process-resources</phase>
+            <configuration>
+              <scripts>org/apache/myfaces/tobago/renderkit/html/scarborough/standard/</scripts>
+              <includes>
+                <include>**/tobago.min.js</include>
+              </includes>
+              <compressor>yahooUI</compressor>
+              <webappDirectory>target/classes</webappDirectory>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
     </plugins>
   </build>
 

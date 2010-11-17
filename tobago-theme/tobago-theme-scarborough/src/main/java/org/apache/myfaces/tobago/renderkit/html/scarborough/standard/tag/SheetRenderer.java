@@ -72,21 +72,12 @@ public class SheetRenderer extends LayoutComponentRendererBase {
 
   private static final Logger LOG = LoggerFactory.getLogger(SheetRenderer.class);
 
-  private static final String[] SCRIPTS = new String[]{"script/tobago-sheet.js"};
-
   public static final String WIDTHS_POSTFIX = ComponentUtils.SUB_SEPARATOR + "widths";
   public static final String SCROLL_POSTFIX = ComponentUtils.SUB_SEPARATOR + "scrollPosition";
   public static final String SELECTED_POSTFIX = ComponentUtils.SUB_SEPARATOR + "selected";
 
   private static final Integer HEIGHT_0 = 0;
 
-  @Override
-  public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
-    super.prepareRender(facesContext, component);
-    if (facesContext instanceof TobagoFacesContext) {
-      ((TobagoFacesContext) facesContext).getScriptFiles().add(SCRIPTS[0]);
-    }
-  }
 
   @Override
   public void encodeEnd(FacesContext facesContext, UIComponent uiComponent) throws IOException {
@@ -160,7 +151,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
               + ", " + HtmlRendererUtils.getRenderedPartiallyJavascriptArray(facesContext, sheet, sheet) + ");"
       };
 
-      HtmlRendererUtils.writeScriptLoader(facesContext, SCRIPTS, cmds);
+      HtmlRendererUtils.writeScriptLoader(facesContext, null, cmds);
     }
   }
 

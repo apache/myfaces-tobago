@@ -17,7 +17,9 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.ajax.AjaxUtils;
 import org.apache.myfaces.tobago.component.Attributes;
+import org.apache.myfaces.tobago.internal.ajax.AjaxInternalUtils;
 import org.apache.myfaces.tobago.util.CreateComponentUtils;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
@@ -50,8 +52,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 public class MessagesRenderer extends LayoutComponentRendererBase {
@@ -75,13 +76,15 @@ public class MessagesRenderer extends LayoutComponentRendererBase {
     if (LOG.isDebugEnabled()) {
       LOG.debug("facesContext is " + facesContext.getClass().getName());
     }
-    if (facesContext.getMessages().hasNext()) { // in ie empty span gets a height
+    List<UIMessages.Item> messageList = messages.createMessageList(facesContext);
+
+    if (messageList.size() > 0) { // in ie empty span gets a height
       writer.startElement(HtmlElements.SPAN, messages);
       writer.writeClassAttribute(Classes.create(messages));
       writer.writeStyleAttribute(new Style(facesContext, messages));
 
       // with id
-      String focusId = null;
+      /*String focusId = null;
       Iterator clientIds;
       if (ComponentUtils.getBooleanAttribute(messages, Attributes.GLOBAL_ONLY)) {
         ArrayList<String> list = new ArrayList<String>(1);
@@ -89,9 +92,9 @@ public class MessagesRenderer extends LayoutComponentRendererBase {
         clientIds = list.iterator();
       } else {
         clientIds = facesContext.getClientIdsWithMessages();
-      }
+      }*/
 
-      for (UIMessages.Item item : messages.createMessageList(facesContext)) {
+      for (UIMessages.Item item : messageList) {
         encodeMessage(writer, messages, item.getFacesMessage(), item.getClientId());
       }
 /*
@@ -108,6 +111,21 @@ public class MessagesRenderer extends LayoutComponentRendererBase {
       }
 */
       writer.endElement(HtmlElements.SPAN);
+      if (messages.getFor() == null) {
+        String clientId = messages.getClientId(facesContext);
+        writer.startElement(HtmlElements.INPUT, null);
+        writer.writeAttribute(HtmlAttributes.VALUE, Boolean.TRUE.toString(), false);
+        writer.writeAttribute(HtmlAttributes.ID,
+            clientId + ComponentUtils.SUB_SEPARATOR + "messagesExists", false);
+        writer.writeAttribute(HtmlAttributes.NAME,
+            clientId + ComponentUtils.SUB_SEPARATOR + "messagesExists", false);
+        writer.writeAttribute(HtmlAttributes.TYPE, "hidden", false);
+        writer.endElement(HtmlElements.INPUT);
+      }
+    }
+    if (messages.getFor() == null
+        && !AjaxUtils.isAjaxRequest(facesContext) && facesContext instanceof TobagoFacesContext) {
+      AjaxInternalUtils.storeMessagesClientIds((TobagoFacesContext) facesContext, messages);
     }
   }
 

@@ -19,7 +19,6 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.myfaces.tobago.component.UITreeData;
 import org.apache.myfaces.tobago.component.UITreeNode;
-import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.internal.component.AbstractUITree;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
@@ -41,16 +40,6 @@ import java.util.Arrays;
 public class TreeRenderer extends LayoutComponentRendererBase {
 
   private static final Logger LOG = LoggerFactory.getLogger(TreeRenderer.class);
-
-  private static final String SCRIPT = "script/tobago-tree.js";
-
-  public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
-    super.prepareRender(facesContext, component);
-    if (facesContext instanceof TobagoFacesContext) {
-      // todo: this may be removed, it is twice on the page 1. in the header 2. in the ScriptLoader
-      ((TobagoFacesContext) facesContext).getScriptFiles().add(SCRIPT);
-    }
-  }
 
   @Override
   public void decode(FacesContext facesContext, UIComponent component) {
@@ -111,8 +100,6 @@ public class TreeRenderer extends LayoutComponentRendererBase {
       writer.endElement(HtmlElements.INPUT);
     }
 */
-
-    HtmlRendererUtils.writeScriptLoader(facesContext, SCRIPT);
 
     RenderUtils.encode(facesContext, root, Arrays.asList(UITreeNode.class, UITreeData.class));
 
