@@ -134,8 +134,6 @@ public final class Classes {
       builder.setLength(builder.length() - 1);
     }
     this.stringValue = builder.toString();
-
-    collectStatistics();
   }
 
   public String getStringValue() {
