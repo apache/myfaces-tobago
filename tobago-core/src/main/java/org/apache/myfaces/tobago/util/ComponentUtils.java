@@ -33,7 +33,9 @@ import org.apache.myfaces.tobago.internal.component.AbstractUIPage;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPopup;
 import org.apache.myfaces.tobago.internal.util.FindComponentUtils;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
+import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
+import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -384,6 +386,9 @@ public class ComponentUtils {
     return FacesContext.getCurrentInstance().getApplication().createValueBinding(value);
   }
 
+  /**
+   * @deprecated Please use {@link TobagoResponseWriter#writeClassAttribute(Classes classes)}
+   */
   @Deprecated
   public static void setStyleClasses(UIComponent component, String styleClasses) {
     if (styleClasses != null) {
