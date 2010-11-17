@@ -48,6 +48,7 @@
       <supported-markup>
         <markup>disabled</markup>
         <markup>readonly</markup>
+        <markup>required</markup>
         <markup>fatal</markup>
         <markup>error</markup>
         <markup>warn</markup>
@@ -65,6 +66,7 @@
       <supported-markup>
         <markup>disabled</markup>
         <markup>readonly</markup>
+        <markup>required</markup>
         <markup>fatal</markup>
         <markup>error</markup>
         <markup>warn</markup>
@@ -77,6 +79,7 @@
       <supported-markup>
         <markup>disabled</markup>
         <markup>readonly</markup>
+        <markup>required</markup>
         <markup>fatal</markup>
         <markup>error</markup>
         <markup>warn</markup>
@@ -96,6 +99,12 @@
         <markup>top</markup>
         <!-- internal: to mark "cursor" position in the menu -->
         <markup>selected</markup>
+        <markup>disabled</markup>
+      </supported-markup>
+    </renderer>
+    <renderer>
+      <name>MenuCommand</name>
+      <supported-markup>
         <markup>disabled</markup>
       </supported-markup>
     </renderer>
@@ -127,6 +136,7 @@
       <supported-markup>
         <markup>disabled</markup>
         <markup>readonly</markup>
+        <markup>required</markup>
         <markup>fatal</markup>
         <markup>error</markup>
         <markup>warn</markup>
@@ -139,6 +149,7 @@
       <supported-markup>
         <markup>disabled</markup>
         <markup>readonly</markup>
+        <markup>required</markup>
         <markup>fatal</markup>
         <markup>error</markup>
         <markup>warn</markup>
@@ -151,6 +162,7 @@
       <supported-markup>
         <markup>disabled</markup>
         <markup>readonly</markup>
+        <markup>required</markup>
         <markup>fatal</markup>
         <markup>error</markup>
         <markup>warn</markup>
@@ -163,6 +175,7 @@
       <supported-markup>
         <markup>disabled</markup>
         <markup>readonly</markup>
+        <markup>required</markup>
         <markup>fatal</markup>
         <markup>error</markup>
         <markup>warn</markup>
@@ -175,6 +188,7 @@
       <supported-markup>
         <markup>disabled</markup>
         <markup>readonly</markup>
+        <markup>required</markup>
         <markup>fatal</markup>
         <markup>error</markup>
         <markup>warn</markup>
@@ -187,6 +201,7 @@
       <supported-markup>
         <markup>disabled</markup>
         <markup>readonly</markup>
+        <markup>required</markup>
         <markup>fatal</markup>
         <markup>error</markup>
         <markup>warn</markup>
@@ -232,6 +247,7 @@
       <supported-markup>
         <markup>disabled</markup>
         <markup>readonly</markup>
+        <markup>required</markup>
         <markup>fatal</markup>
         <markup>error</markup>
         <markup>warn</markup>
