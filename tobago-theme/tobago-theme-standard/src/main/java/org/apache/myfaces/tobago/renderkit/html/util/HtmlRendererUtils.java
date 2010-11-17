@@ -56,10 +56,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-/*
- * Date: Jan 11, 2005
- * Time: 4:59:36 PM
- */
 public final class HtmlRendererUtils {
 
   private static final Logger LOG = LoggerFactory.getLogger(HtmlRendererUtils.class);
@@ -191,34 +187,12 @@ public final class HtmlRendererUtils {
     return buffer.toString();
   }
 
-  public static String replaceStyleAttribute(String style, String name,
-      String value) {
-    style = removeStyleAttribute(style != null ? style : "", name);
-    return style + " " + name + ": " + value + ";";
-  }
-
-  public static String removeStyleAttribute(String style, String name) {
-    if (style == null) {
-      return null;
-    }
-    String pattern = name + "\\s*?:[^;]*?;";
-    return style.replaceAll(pattern, "").trim();
-  }
-
   /**
    * @deprecated Please use setter;
    */
   @Deprecated
   public static void removeStyleAttribute(UIComponent component, String name) {
     Deprecation.LOG.error("HtmlRendererUtils.removeStyleAttribute() no longer supported. Use setter.");
-  }
-
-  /**
-   * @deprecated Please use StyleClasses.ensureStyleClasses(component).add(clazz);
-   */
-  @Deprecated
-  public static void addCssClass(UIComponent component, String clazz) {
-    StyleClasses.ensureStyleClasses(component).addFullQualifiedClass(clazz);
   }
 
   @Deprecated
@@ -229,32 +203,6 @@ public final class HtmlRendererUtils {
   @Deprecated
   public static void createHeaderAndBodyStyles(FacesContext facesContext, UIComponent component, boolean width) {
     Deprecation.LOG.error("HtmlRendererUtils.createHeaderAndBodyStyles() no longer supported");
-  }
-
-  /**
-   * @deprecated Please use StyleClasses.ensureStyleClasses(component).updateClassAttribute(renderer, component);
-   */
-  @Deprecated
-  public static void updateClassAttribute(String cssClass, String rendererName, UIComponent component) {
-    throw new UnsupportedOperationException(
-        "Please use StyleClasses.ensureStyleClasses(component).updateClassAttribute(renderer, component)");
-  }
-
-  /**
-   * @deprecated Please use StyleClasses.addMarkupClass()
-   */
-  @Deprecated
-  public static void addMarkupClass(UIComponent component, String rendererName,
-      String subComponent, StringBuilder tobagoClass) {
-    throw new UnsupportedOperationException("Please use StyleClasses.addMarkupClass()");
-  }
-
-  /**
-   * @deprecated Please use StyleClasses.addMarkupClass()
-   */
-  @Deprecated
-  public static void addMarkupClass(UIComponent component, String rendererName, StyleClasses classes) {
-    classes.addMarkupClass(component, rendererName);
   }
 
   public static String createSrc(String src, String ext) {
