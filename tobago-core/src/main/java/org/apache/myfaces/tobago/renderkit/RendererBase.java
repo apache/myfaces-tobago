@@ -22,7 +22,6 @@ import org.apache.myfaces.tobago.config.Configurable;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.ResourceManager;
 import org.apache.myfaces.tobago.context.ResourceManagerFactory;
-import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -54,15 +53,6 @@ public class RendererBase extends Renderer {
       final SupportsMarkup supportsMarkup = (SupportsMarkup) component;
       Markup markup = ComponentUtils.updateMarkup(component, supportsMarkup.getMarkup());
       supportsMarkup.setCurrentMarkup(markup);
-    }
-
-    final String rendererType = component.getRendererType();
-    if (rendererType != null) {
-      String rendererName = getRendererName(rendererType);
-      StyleClasses classes = StyleClasses.ensureStyleClasses(component);
-      classes.updateClassAttributeAndMarkup(component, rendererName);
-    } else {
-      LOG.error("No renderType for " + component); 
     }
   }
 
