@@ -23,7 +23,9 @@ import org.apache.myfaces.tobago.internal.component.AbstractUIPopup;
 
 import javax.faces.context.FacesContext;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 
@@ -55,6 +57,7 @@ public class TobagoFacesContext extends FacesContextWrapper {
 
   private boolean ajax;
 
+  private Map<Object, Object> attributes;
 
   public TobagoFacesContext(FacesContext context) {
     super(context);
@@ -68,6 +71,13 @@ public class TobagoFacesContext extends FacesContextWrapper {
     onexitScripts = new ListOrderedSet();
     onsubmitScripts = new ListOrderedSet();
     popups = new ListOrderedSet();
+  }
+
+  public final Map<Object, Object> getAttributes() {
+    if (attributes == null) {
+      attributes = new HashMap<Object, Object>();
+    }
+    return attributes;
   }
 
   public boolean isAjax() {
@@ -143,5 +153,14 @@ public class TobagoFacesContext extends FacesContextWrapper {
   @Override
   public String toString() {
     return getClass().getName() + " wrapped context=" + getContext();
+  }
+
+  @Override
+  public void release() {
+    super.release();
+    if (attributes != null) {
+      attributes.clear();
+    }
+    clearScriptsAndPopups();
   }
 }
