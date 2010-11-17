@@ -80,7 +80,7 @@ public class DebugTobagoResponseWriterWrapper extends TobagoResponseWriter {
   }
 
   public void writeAttribute(String name, String value, boolean escape) throws IOException {
-    responseWriter.writeAttribute(name, value, null);
+    responseWriter.writeAttribute(name, value, escape);
   }
 
   @Override
