@@ -385,8 +385,8 @@ public class ComponentUtils {
   }
 
   /**
-   * @deprecated Please use {@link org.apache.myfaces.tobago.webapp.TobagoResponseWriter#writeClassAttribute(
-     org.apache.myfaces.tobago.renderkit.css.Classes classes)}
+   * @deprecated Please define a {@link Markup} and set it to the component with 
+   * {@link SupportsMarkup#setMarkup(Markup markup)} before the rendering phase.
    */
   @Deprecated
   public static void setStyleClasses(UIComponent component, String styleClasses) {
