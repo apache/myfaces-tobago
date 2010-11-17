@@ -101,7 +101,7 @@ public final class Classes {
 
     assert sub == null || StringUtils.isAlphanumeric(sub) : "Invalid sub element name: '" + sub + "'";
 
-    // These values are statistically tested length of the html class attribute 
+    // These values are statistically tested length of the html class attribute
     StringBuilder builder = new StringBuilder(markup != null ? 80 : 32);
     builder.append("tobago-");
     builder.append(rendererName);
@@ -109,11 +109,11 @@ public final class Classes {
       builder.append('-');
       builder.append(sub);
     }
-    builder.append(' ');
     if (markup != null) {
+      Theme theme = VariableResolverUtils.resolveClientProperties(FacesContext.getCurrentInstance()).getTheme();
       for (String markupString : markup) {
-        Theme theme = VariableResolverUtils.resolveClientProperties(FacesContext.getCurrentInstance()).getTheme();
         if (ignoreMarkupCheck || theme.getRenderersConfig().isMarkupSupported(rendererName, markupString)) {
+          builder.append(' ');
           builder.append("tobago-");
           builder.append(rendererName);
           if (sub != null) {
@@ -122,16 +122,12 @@ public final class Classes {
           }
           builder.append("-markup-");
           builder.append(markupString);
-          builder.append(' ');
         } else if ("none".equals(markupString)) {
           Deprecation.LOG.warn("Markup 'none' is deprecated, please use a NULL pointer instead.");
         } else {
           LOG.warn("Ignoring unknown markup='" + markupString + "' for rendererName='" + rendererName + "'");
         }
       }
-    }
-    if (builder.length() > 0) {
-      builder.setLength(builder.length() - 1);
     }
     this.stringValue = builder.toString();
   }
