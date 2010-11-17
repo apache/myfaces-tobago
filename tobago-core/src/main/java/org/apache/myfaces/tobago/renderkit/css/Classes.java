@@ -101,7 +101,8 @@ public final class Classes {
 
     assert sub == null || StringUtils.isAlphanumeric(sub) : "Invalid sub element name: '" + sub + "'";
 
-    StringBuilder builder = new StringBuilder();
+    // These values are statistically tested length of the html class attribute 
+    StringBuilder builder = new StringBuilder(markup != null ? 80 : 32);
     builder.append("tobago-");
     builder.append(rendererName);
     if (sub != null) {
@@ -133,6 +134,8 @@ public final class Classes {
       builder.setLength(builder.length() - 1);
     }
     this.stringValue = builder.toString();
+
+    collectStatistics();
   }
 
   public String getStringValue() {
