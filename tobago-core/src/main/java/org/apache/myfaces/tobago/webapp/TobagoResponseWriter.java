@@ -156,7 +156,7 @@ public abstract class TobagoResponseWriter extends ResponseWriter {
   }
 
   @Deprecated
-  protected abstract String getStyleClasses();
+  public abstract String getStyleClasses();
 
   /**
    * Write the class attribute. The value will not escaped.

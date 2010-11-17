@@ -255,7 +255,7 @@ public abstract class TobagoResponseWriterBase extends TobagoResponseWriter {
 
   @Override
   @Deprecated
-  protected String getStyleClasses() {
+  public String getStyleClasses() {
     if (component == null) {
       return null;
     }

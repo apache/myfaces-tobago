@@ -76,7 +76,7 @@ public class TobagoResponseWriterWrapper extends TobagoResponseWriter {
 
   @Override
   @Deprecated
-  protected String getStyleClasses() {
+  public String getStyleClasses() {
     return null;
   }
 
