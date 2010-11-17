@@ -125,7 +125,7 @@ public final class AttributeHandler extends TagHandler {
               ValueExpression expression
                   = faceletContext.getVariableMapper().resolveVariable(removeElParenthesis(expressionString));
               if (expression == null) {
-                // when the action hasn't been set while using a componsition.
+                // when the action hasn't been set while using a composition.
                 if (LOG.isDebugEnabled()) {
                   LOG.debug("Variable can't be resolved: value='" + expressionString + "'");
                 }
@@ -153,7 +153,7 @@ public final class AttributeHandler extends TagHandler {
                   = faceletContext.getVariableMapper().resolveVariable(removeElParenthesis(expressionString));
               if (expression == null) {
                 if (LOG.isDebugEnabled()) {
-                  // when the action hasn't been set while using a componsition.
+                  // when the action hasn't been set while using a composition.
                   LOG.debug("Variable can't be resolved: value='" + expressionString + "'");
                 }
                 expressionString = null;
@@ -187,7 +187,7 @@ public final class AttributeHandler extends TagHandler {
                   = faceletContext.getVariableMapper().resolveVariable(removeElParenthesis(expressionString));
               if (expression == null) {
                 if (LOG.isDebugEnabled()) {
-                  // when the action hasn't been set while using a componsition.
+                  // when the action hasn't been set while using a composition.
                   LOG.debug("Variable can't be resolved: value='" + expressionString + "'");
                 }
                 expressionString = null;
