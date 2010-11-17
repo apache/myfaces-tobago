@@ -18,12 +18,15 @@ package org.apache.myfaces.tobago.ajax;
  */
 
 
+import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.internal.ajax.AjaxInternalUtils;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 public class AjaxUtils {
@@ -56,30 +59,31 @@ public class AjaxUtils {
     }
   }
 
-  public static void ensureDecoded(FacesContext facesContext, String clientId) {
-    ensureDecoded(facesContext, facesContext.getViewRoot().findComponent(clientId));
-  }
-
-  public static void ensureDecoded(FacesContext facesContext, UIComponent component) {
-    if (component == null) {
-      LOG.warn("Ignore AjaxComponent: null");
-      return;
+  /**
+   *
+   * @param context
+   * @return true if a UIMessage component has added to renderedPartially
+   */
+  public static boolean addUIMessagesToRenderedPartially(FacesContext context) {
+    if (!isAjaxRequest(context)) {
+      return false;
     }
-    Map<String, UIComponent> ajaxComponents = AjaxInternalUtils.getAjaxComponents(facesContext);
-    if (ajaxComponents != null) {
-      for (UIComponent uiComponent : ajaxComponents.values()) {
-        // is component or a parent of it in the list?
-        UIComponent parent = component;
-        while (parent != null) {
-          if (component == uiComponent) {
-            // nothing to do, because it was already decoded (in the list)
-            return;
-          }
-          parent = parent.getParent();
+    List<String> list = AjaxInternalUtils.getMessagesComponentIds(context);
+    Iterator clientIds = context.getClientIdsWithMessages();
+    boolean added = false;
+
+    if (clientIds.hasNext()) { // messages in the partial part
+      for (String componentClientId: list) {
+        added = AjaxInternalUtils.addNextPossibleAjaxComponent(context, componentClientId);
+      }
+    } else {  // checking for an existing shown error on page
+      for (String componentClientId: list) {
+        if (context.getExternalContext().getRequestParameterMap().containsKey(
+            componentClientId + ComponentUtils.SUB_SEPARATOR + "messagesExists")) {
+          added = AjaxInternalUtils.addNextPossibleAjaxComponent(context, componentClientId);
         }
       }
-      component.processDecodes(facesContext);
     }
+    return added;
   }
-  
 }

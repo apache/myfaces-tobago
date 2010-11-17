@@ -102,23 +102,23 @@ public class AjaxUtils {
   }
 
   /**
-   * @deprecated Please use org.apache.myfaces.tobago.ajax.AjaxUtils.ensureDecoded() 
+   * @deprecated Please use org.apache.myfaces.tobago.internal.ajax.AjaxInternalUtils.ensureDecoded()
    */
   @Deprecated
   public static void ensureDecoded(FacesContext facesContext, String clientId) {
-    org.apache.myfaces.tobago.ajax.AjaxUtils.ensureDecoded(facesContext, clientId);
+    AjaxInternalUtils.ensureDecoded(facesContext, clientId);
   }
 
   /**
-   * @deprecated Please use org.apache.myfaces.tobago.ajax.AjaxUtils.ensureDecoded() 
+   * @deprecated Please use org.apache.myfaces.tobago.internal.ajax.AjaxInternalUtils.ensureDecoded()
    */
   @Deprecated
   public static void ensureDecoded(FacesContext facesContext, UIComponent component) {
-    org.apache.myfaces.tobago.ajax.AjaxUtils.ensureDecoded(facesContext, component);
+    AjaxInternalUtils.ensureDecoded(facesContext, component);
   }
 
   /**
-   * @deprecated Please use org.apache.myfaces.tobago.ajax.AjaxInternalUtils.encodeJavaScriptString() 
+   * @deprecated Please use org.apache.myfaces.tobago.internal.ajax.AjaxInternalUtils.encodeJavaScriptString()
    */
   @Deprecated
   public static String encodeJavascriptString(String value) {
