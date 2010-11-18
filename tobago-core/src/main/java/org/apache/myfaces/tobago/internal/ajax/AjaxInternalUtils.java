@@ -187,7 +187,8 @@ public class AjaxInternalUtils {
       addAjaxComponent(context, component);
       return true;
     } else {
-      LOG.error("Ignore adding ajax component (no instance of UIPanel) id: "+ componentClientId + " component: " + component);
+      LOG.error("Ignore adding ajax component (no instance of UIPanel) id: " + componentClientId + " component: "
+          + component);
       return false;
     }
   }
