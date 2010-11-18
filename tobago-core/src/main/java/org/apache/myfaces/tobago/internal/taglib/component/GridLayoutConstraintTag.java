@@ -253,7 +253,8 @@ public abstract class GridLayoutConstraintTag extends TagSupport {
         if (isPaddingRightLiteral()) {
           ((LayoutContainer) component).setPaddingRight(Measure.valueOf(getPaddingRightValue()));
         } else {
-          FacesUtils.setBindingOrExpression(component, Attributes.PADDING_RIGHT, getPaddingRightAsBindingOrExpression());
+          FacesUtils.setBindingOrExpression(
+              component, Attributes.PADDING_RIGHT, getPaddingRightAsBindingOrExpression());
         }
       } else {
         LOG.warn("Ignoring padding left, because the parent is not a LayoutContainer!");
