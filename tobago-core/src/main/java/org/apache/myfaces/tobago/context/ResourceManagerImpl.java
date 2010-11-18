@@ -465,7 +465,7 @@ public class ResourceManagerImpl implements ResourceManager {
   }
 
   private String[] getStrings(FacesContext facesContext, String name, String type) {
-    String[] result = null;
+    String[] result = new String[0];
     if (name != null) {
       int dot = name.lastIndexOf('.');
       if (dot == -1) {
@@ -474,14 +474,16 @@ public class ResourceManagerImpl implements ResourceManager {
 
       ClientPropertiesKey key = ClientPropertiesKey.get(facesContext);
       MiscCacheKey miscKey = new MiscCacheKey(key, name);
-      result = miscCache.get(miscKey);
-      if (result != null) {
-        return result;
+      String[] cacheResult = miscCache.get(miscKey);
+      if (cacheResult != null) {
+        return cacheResult;
       }
       try {
         List matches = getPaths(key, "", type,
             name.substring(0, dot), name.substring(dot), true, false, true, null, true, false);
-        result = (String[]) matches.toArray(new String[matches.size()]);
+        if (matches != null) {
+          result = (String[]) matches.toArray(new String[matches.size()]);
+        }
         miscCache.put(miscKey, result);
       } catch (Exception e) {
         LOG.error("name = '" + name + "' clientProperties = '" + key.toString() + "'", e);
