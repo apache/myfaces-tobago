@@ -47,7 +47,7 @@ public class
   private Theme defaultTheme;
   private String defaultThemeName;
   private List<String> resourceDirs;
-  private Map<String, Theme> availableTheme;
+  private Map<String, Theme> availableThemes;
   private RenderersConfig renderersConfig;
   private ProjectStage projectStage;
 
@@ -63,7 +63,7 @@ public class
   // TODO one init method
   public void resolveThemes() {
     if (defaultThemeName != null) {
-      defaultTheme = availableTheme.get(defaultThemeName);
+      defaultTheme = availableThemes.get(defaultThemeName);
       checkThemeIsAvailable(defaultThemeName, defaultTheme);
       if (LOG.isDebugEnabled()) {
         LOG.debug("name = '{}'", defaultThemeName);
@@ -71,7 +71,7 @@ public class
       }
     } else {
       int deep = 0;
-      for (Map.Entry<String, Theme> entry : availableTheme.entrySet()) {
+      for (Map.Entry<String, Theme> entry : availableThemes.entrySet()) {
         Theme theme = entry.getValue();
         if (theme.getFallbackList().size() > deep) {
           defaultTheme = theme;
@@ -92,7 +92,7 @@ public class
     }
     if (!supportedThemeNames.isEmpty()) {
       for (String name : supportedThemeNames) {
-        Theme theme = availableTheme.get(name);
+        Theme theme = availableThemes.get(name);
         checkThemeIsAvailable(name, theme);
         supportedThemes.add(theme);
         if (LOG.isDebugEnabled()) {
@@ -107,7 +107,7 @@ public class
     if (theme == null) {
       String error = "Theme not found! name: '" + name + "'. "
           + "Please ensure you have a tobago-theme.xml file in your "
-          + "theme jar. Found the following themes: " + availableTheme.keySet();
+          + "theme jar. Found the following themes: " + availableThemes.keySet();
       LOG.error(error);
       throw new RuntimeException(error);
     }
@@ -173,8 +173,11 @@ public class
     return defaultTheme;
   }
 
-  public void setAvailableThemes(Map<String, Theme> availableTheme) {
-    this.availableTheme = availableTheme;
+  public void setAvailableThemes(Map<String, Theme> availableThemes) {
+    this.availableThemes = availableThemes;
+    for (Theme theme : this.availableThemes.values()) {
+      addResourceDir(theme.getResourcePath());
+    }
   }
 
   public RenderersConfig getRenderersConfig() {

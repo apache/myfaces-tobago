@@ -30,6 +30,7 @@ import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
+import org.apache.myfaces.tobago.context.Theme;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.internal.ajax.AjaxInternalUtils;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPage;
@@ -135,8 +136,6 @@ public class PageRenderer extends PageRendererBase {
       facesContext = new TobagoFacesContext(facesContextOrg);
     }
 
-    boolean developmentMode = TobagoConfig.getInstance(facesContext).getProjectStage() == ProjectStage.Development;
-
     LayoutContext layoutContext = new LayoutContext(page);
     layoutContext.layout();
 
@@ -165,7 +164,10 @@ public class PageRenderer extends PageRendererBase {
     ResponseUtils.ensureContentTypeHeader(facesContext, contentType);
     String clientId = page.getClientId(facesContext);
     final ClientProperties client = VariableResolverUtils.resolveClientProperties(facesContext);
+    final ProjectStage projectStage = TobagoConfig.getInstance(facesContext).getProjectStage();
+    final boolean developmentMode =  projectStage == ProjectStage.Development;
     final boolean debugMode = client.isDebugMode() || developmentMode;
+    final boolean productionMode = !debugMode && projectStage == ProjectStage.Production;
     boolean calculateScrollbarWeight = false;
     int clientLogSeverity = 2;
     if (debugMode) {
@@ -204,20 +206,15 @@ public class PageRenderer extends PageRendererBase {
       writer.startElement(HtmlElements.TITLE, null);
       writer.writeText(title != null ? title : "");
       writer.endElement(HtmlElements.TITLE);
+      final Theme theme = client.getTheme();
 
       // style files
+      for (String styleFile : theme.getStyleResources(productionMode)) {
+        writeStyle(facesContext, writer, styleFile);
+      }
+
       for (String styleFile : facesContext.getStyleFiles()) {
-        List<String> styles = ResourceManagerUtils.getStyles(facesContext, styleFile);
-        for (String styleString : styles) {
-          if (styleString.length() > 0) {
-            writer.startElement(HtmlElements.LINK, null);
-            writer.writeAttribute(HtmlAttributes.REL, "stylesheet", false);
-            writer.writeAttribute(HtmlAttributes.HREF, styleString, false);
-  //          writer.writeAttribute(HtmlAttributes.MEDIA, "screen", false);
-            writer.writeAttribute(HtmlAttributes.TYPE, "text/css", false);
-            writer.endElement(HtmlElements.LINK);
-          }
-        }
+        writeStyle(facesContext, writer, styleFile);
       }
 
       String icon = page.getApplicationIcon();
@@ -253,24 +250,6 @@ public class PageRenderer extends PageRendererBase {
         writer.endElement(HtmlElements.STYLE);
       }
 
-      // script files
-      List<String> scriptFiles = facesContext.getScriptFiles();
-      // jquery.js and tobago.js needs to be first!
-
-      int pos = 0;
-      scriptFiles.add(pos++, debugMode ? "script/jquery/1_4_2/jquery.js" : "script/jquery/1_4_2/jquery.min.js");
-      scriptFiles.add(pos++, debugMode ? "script/tobago.js": "script/tobago.min.js");
-      if (debugMode) {
-        scriptFiles.add(pos++, "script/tobago-menu.js");
-        scriptFiles.add(pos++, "script/theme-config.js");
-        scriptFiles.add(pos++, "script/tobago-tabgroup.js");
-        scriptFiles.add(pos++, "script/tobago-tree.js");
-        scriptFiles.add(pos++, "script/tobago-sheet.js");
-        scriptFiles.add(pos++, "script/calendar.js");
-        scriptFiles.add(pos++, "script/dateConverter.js");
-      }
-
-
       if (debugMode) {
         boolean hideClientLogging = true;
         String severity = (String) facesContext.getExternalContext().getRequestMap().get(CLIENT_DEBUG_SEVERITY);
@@ -286,15 +265,16 @@ public class PageRenderer extends PageRendererBase {
           hideClientLogging = !severity.contains("show");
         }
         // the jquery ui is used in moment only for the logging area...
-        scriptFiles.add("script/jquery-ui/1_7_2/ui.core.min.js");
-        scriptFiles.add("script/jquery-ui/1_7_2/ui.draggable.min.js");
-        scriptFiles.add("script/logging.js");
         facesContext.getOnloadScripts().add(0, "new LOG.LogArea({hide: " + hideClientLogging + "});");
       }
 
       // render remaining script tags
-      for (String scriptFile : scriptFiles) {
-        encodeScripts(writer, facesContext, scriptFile);
+      for (String scriptFile: theme.getScriptResources(productionMode)) {
+        encodeScript(facesContext, writer, scriptFile);
+      }
+
+      for (String scriptFile : facesContext.getScriptFiles()) {
+        encodeScript(facesContext, writer, scriptFile);
       }
 
       // focus id
@@ -513,6 +493,21 @@ public class PageRenderer extends PageRendererBase {
     writer.writeStyleAttribute(style);
   }
 
+  private void writeStyle(TobagoFacesContext facesContext, TobagoResponseWriter writer, String styleFile)
+      throws IOException {
+    List<String> styles = ResourceManagerUtils.getStyles(facesContext, styleFile);
+    for (String styleString : styles) {
+      if (styleString.length() > 0) {
+        writer.startElement(HtmlElements.LINK, null);
+        writer.writeAttribute(HtmlAttributes.REL, "stylesheet", false);
+        writer.writeAttribute(HtmlAttributes.HREF, styleString, false);
+//          writer.writeAttribute(HtmlAttributes.MEDIA, "screen", false);
+        writer.writeAttribute(HtmlAttributes.TYPE, "text/css", false);
+        writer.endElement(HtmlElements.LINK);
+      }
+    }
+  }
+
 //  @Override
 //  public void encodeChildren(FacesContext facesContext, UIComponent component) throws IOException {
 //    UIPage page = (UIPage) component;
@@ -683,7 +678,7 @@ public class PageRenderer extends PageRendererBase {
     }
   }
 
-  private void encodeScripts(TobagoResponseWriter writer, FacesContext facesContext, String script) throws IOException {
+  private void encodeScript(FacesContext facesContext, TobagoResponseWriter writer, String script) throws IOException {
     List<String> list;
     if (StringUtils.startsWith(script, "/") 
         || StringUtils.startsWithIgnoreCase(script, "HTTP:")

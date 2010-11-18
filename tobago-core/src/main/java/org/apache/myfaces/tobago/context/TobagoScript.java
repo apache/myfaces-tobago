@@ -17,24 +17,12 @@ package org.apache.myfaces.tobago.context;
  * limitations under the License.
  */
 
-import java.util.List;
-
-/*
- * Date: 25.03.2006 10:42:24
+/**
+ *
+ * @since 1.5.0
  */
-public interface Theme {
-  String getName();
+public final class TobagoScript extends TobagoResource {
 
-  List<Theme> getFallbackList();
 
-  String getDisplayName();
-
-  String getResourcePath();
-
-  RenderersConfig getRenderersConfig();
-
-  String[] getScriptResources(boolean production);
-
-  String[] getStyleResources(boolean production);
 
 }

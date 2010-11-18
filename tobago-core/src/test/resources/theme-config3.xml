@@ -1,6 +1,6 @@
-package org.apache.myfaces.tobago.context;
+<?xml version="1.0" encoding="UTF-8"?>
 
-/*
+<!--
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
  * this work for additional information regarding copyright ownership.
@@ -15,26 +15,12 @@ package org.apache.myfaces.tobago.context;
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */
+-->
 
-import java.util.List;
-
-/*
- * Date: 25.03.2006 10:42:24
- */
-public interface Theme {
-  String getName();
-
-  List<Theme> getFallbackList();
-
-  String getDisplayName();
-
-  String getResourcePath();
-
-  RenderersConfig getRenderersConfig();
-
-  String[] getScriptResources(boolean production);
-
-  String[] getStyleResources(boolean production);
-
-}
+<tobago-theme>
+  <name>test3</name>
+  <display-name>Test3</display-name>
+  <deprecated-name>Test3</deprecated-name>
+  <resource-path>Test3</resource-path>
+  <fallback>test2</fallback>
+</tobago-theme>

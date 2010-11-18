@@ -47,6 +47,19 @@ class ThemeImpl implements Theme, Serializable {
 
   private RenderersConfigImpl renderersConfig;
 
+  private TobagoResources productionResources;
+
+  private TobagoResources resources;
+
+  private String[] productionScripts;
+
+  private String[] productionStyles;
+
+  private String[] scripts;
+
+  private String[] styles;
+
+
   public String getName() {
     return name;
   }
@@ -140,6 +153,15 @@ class ThemeImpl implements Theme, Serializable {
     }
   }
 
+  public void resolveResources() {
+    ThemeImpl fallback = getFallback();
+    if (fallback != null) {
+      fallback.resolveResources();
+      addResources(fallback.getProductionResources());
+      addResources(fallback.getResources());
+    }
+  }
+
   public String toString() {
 //    LOG.warn("Should not be called!", new Exception());
     return name;
@@ -155,5 +177,80 @@ class ThemeImpl implements Theme, Serializable {
 
   RenderersConfigImpl getRenderersConfigImpl() {
     return renderersConfig;
+  }
+
+  public TobagoResources getResources() {
+    return resources;
+  }
+
+  public TobagoResources getProductionResources() {
+    return productionResources;
+  }
+
+  public void addResources(TobagoResources resources) {
+    if (resources.isProduction()) {
+      if (productionResources != null) {
+        merge(productionResources, resources);
+      } else {
+        productionResources = resources.copy();
+      }
+    } else {
+      if (this.resources != null) {
+        merge(this.resources, resources);
+      } else {
+        this.resources = resources.copy();
+      }
+    }
+  }
+
+  public void init() {
+    productionScripts = new String[productionResources.getScriptList().size()];
+    for (int i = 0; i< productionResources.getScriptList().size(); i++) {
+      productionScripts[i] = productionResources.getScriptList().get(i).getName();
+    }
+    productionStyles = new String[productionResources.getStyleList().size()];
+    for (int i = 0; i< productionResources.getStyleList().size(); i++) {
+      productionStyles[i] = productionResources.getStyleList().get(i).getName();
+    }
+
+    scripts = new String[resources.getScriptList().size()];
+    for (int i = 0; i< resources.getScriptList().size(); i++) {
+      scripts[i] = resources.getScriptList().get(i).getName();
+    }
+    styles = new String[resources.getStyleList().size()];
+    for (int i = 0; i< resources.getStyleList().size(); i++) {
+      styles[i] = resources.getStyleList().get(i).getName();
+    }
+
+  }
+
+  private void merge(TobagoResources resources, TobagoResources toAddResources) {
+    if (resources == toAddResources) {
+      return;
+    }
+    for (int i = toAddResources.getScriptList().size()-1; i >= 0; i--) {
+      TobagoScript script = toAddResources.getScriptList().get(i);
+      resources.getScriptList().remove(script);
+      resources.getScriptList().add(0, script);
+    }
+    for (int i = toAddResources.getStyleList().size()-1; i >= 0; i--) {
+      TobagoStyle style = toAddResources.getStyleList().get(i);
+      resources.getStyleList().remove(style);
+      resources.getStyleList().add(0, style);
+    }
+  }
+
+  public String[] getScriptResources(boolean production) {
+    if (production) {
+      return productionScripts;
+    }
+    return scripts;
+  }
+
+  public String[] getStyleResources(boolean production) {
+    if (production) {
+      return productionStyles;
+    }
+    return styles;
   }
 }

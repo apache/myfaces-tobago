@@ -24,7 +24,28 @@
   </parent>
   <artifactId>tobago-theme-charlotteville</artifactId>
   <name>Tobago Theme Charlotteville</name>
-
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>net.alchim31.maven</groupId>
+        <artifactId>yuicompressor-maven-plugin</artifactId>
+        <version>1.1</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>compress</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <suffix>.min</suffix>
+          <excludes>
+            <exclude>**/*.js</exclude>
+          </excludes>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
   <dependencies>
     <dependency>
       <groupId>org.apache.myfaces.tobago</groupId>

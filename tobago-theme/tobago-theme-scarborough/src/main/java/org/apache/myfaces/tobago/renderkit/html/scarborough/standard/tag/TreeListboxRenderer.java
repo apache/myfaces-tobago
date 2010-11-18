@@ -19,7 +19,6 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.UITreeNode;
-import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.internal.component.AbstractUITree;
 import org.apache.myfaces.tobago.internal.context.ResponseWriterDivider;
 import org.apache.myfaces.tobago.layout.Measure;
@@ -41,17 +40,11 @@ import java.util.List;
 
 public class TreeListboxRenderer extends LayoutComponentRendererBase {
 
-  private static final String SCRIPT = "script/tobago-tree.js";
-  
+
   public static final String DIVIDER = TreeListboxRenderer.class.getName() + "DIVIDER";
 
   public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
     super.prepareRender(facesContext, component);
-    if (facesContext instanceof TobagoFacesContext) {
-      // todo: this may be removed, it is twice on the page 1. in the header 2. in the ScriptLoader
-      ((TobagoFacesContext) facesContext).getScriptFiles().add(SCRIPT);
-    }
-
     setRendererTypeForCommandsAndNodes(component);
   }
 
@@ -116,8 +109,6 @@ public class TreeListboxRenderer extends LayoutComponentRendererBase {
       writer.writeAttribute(HtmlAttributes.VALUE, ";", false);
       writer.endElement(HtmlElements.INPUT);
     }
-
-    HtmlRendererUtils.writeScriptLoader(facesContext, SCRIPT);
 
     RenderUtils.encode(facesContext, root);
 

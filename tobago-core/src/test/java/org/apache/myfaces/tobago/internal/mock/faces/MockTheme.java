@@ -57,4 +57,12 @@ public class MockTheme implements Theme {
   public RenderersConfig getRenderersConfig() {
     return config;
   }
+
+  public String[] getScriptResources(boolean production) {
+    return new String[0];
+  }
+
+  public String[] getStyleResources(boolean production) {
+    return new String[0];
+  }
 }

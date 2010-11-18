@@ -271,7 +271,7 @@
     <renderer>
       <name>TreeNode</name>
       <supported-markup>
-        <markup>strong</markup> <!--XXX has to be in lable and command ? -->
+        <markup>strong</markup> <!--XXX has to be in label and command ? -->
         <markup>marked</markup>
         <markup>folder</markup>
       </supported-markup>
@@ -279,10 +279,30 @@
     <renderer>
       <name>TreeMenuNode</name>
       <supported-markup>
-        <markup>strong</markup> <!--XXX has to be in lable and command ? -->
+        <markup>strong</markup> <!--XXX has to be in label and command ? -->
         <markup>marked</markup>
         <markup>folder</markup>
       </supported-markup>
     </renderer>
   </renderers>
+  <resources production="true">
+    <script name="script/jquery/1_4_2/jquery.min.js"/>
+    <script name="script/tobago.min.js"/>
+    <style name="style/style.min.css"/>
+  </resources>
+  <resources production="false">
+    <script name="script/jquery/1_4_2/jquery.js"/>
+    <script name="script/tobago.js"/>
+    <script name="script/calendar.js"/>
+    <script name="script/dateConverter.js"/>
+    <script name="script/theme-config.js"/>
+    <script name="script/tobago-menu.js"/>
+    <script name="script/tobago-sheet.js"/>
+    <script name="script/tobago-tabgroup.js"/>
+    <script name="script/tobago-tree.js"/>
+    <script name="script/jquery-ui/1_7_2/ui.core.min.js"/>
+    <script name="script/jquery-ui/1_7_2/ui.draggable.min.js"/>
+    <script name="script/logging.js"/>
+    <style name="style/style.css"/>
+  </resources>
 </tobago-theme>

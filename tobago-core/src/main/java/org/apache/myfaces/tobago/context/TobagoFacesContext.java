@@ -31,8 +31,6 @@ import java.util.Set;
 
 public class TobagoFacesContext extends FacesContextWrapper {
 
-  public static final String DEFAULT_STYLE = "style/style.css";
-
   private SetUniqueList scriptFiles;
 
   private Set<String> scriptBlocks;
@@ -64,7 +62,6 @@ public class TobagoFacesContext extends FacesContextWrapper {
     scriptFiles = SetUniqueList.decorate(new ArrayList());
     scriptBlocks = new ListOrderedSet();
     styleFiles = new ListOrderedSet();
-    styleFiles.add(DEFAULT_STYLE);
     styleBlocks = new ListOrderedSet();
     onloadScripts = SetUniqueList.decorate(new ArrayList());
     onunloadScripts = new ListOrderedSet();

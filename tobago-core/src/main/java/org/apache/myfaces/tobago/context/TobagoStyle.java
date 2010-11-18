@@ -1,3 +1,5 @@
+package org.apache.myfaces.tobago.context;
+
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -15,34 +17,10 @@
  * limitations under the License.
  */
 
-/*
- * theme: standard
- * agent: standard
+/**
+ *
+ * @since 1.5.0
  */
+public final class TobagoStyle extends TobagoResource {
 
-/* Global settings ------------------------------------------------------------------ */
-
-form {
-  margin: 0;
 }
-
-/*
-  This is to make the menu bar to be always at the top of the page.
-  The "position: fixed;" doesn't work with ie6 and makes
-  on other browsers problems, when clicking the menu (the scroll panel scrolls then).
-*/
-html, body {
-  height: 100%;
-  width: 100%;
-  padding: 0;
-  margin: 0;
-  overflow: hidden;
-}
-
-/* in ------------------------------------------------------------ */
-
-.tobago-in-suggestPopup a {
-  text-decoration: none;
-  color: black;
-}
-

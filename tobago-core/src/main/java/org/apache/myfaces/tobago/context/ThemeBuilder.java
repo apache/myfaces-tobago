@@ -17,6 +17,7 @@ package org.apache.myfaces.tobago.context;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,8 +35,13 @@ class ThemeBuilder {
   private static final Logger LOG = LoggerFactory.getLogger(ThemeBuilder.class);
 
   private List<ThemeImpl> availableThemes = new ArrayList<ThemeImpl>();
+  private TobagoConfig tobagoConfig;
 
-  public Map<String, Theme> resolveThemes(RenderersConfig renderersConfig) {
+  ThemeBuilder(TobagoConfig tobagoConfig) {
+    this.tobagoConfig = tobagoConfig;
+  }
+
+  public void resolveThemes() {
     Map<String, ThemeImpl> map = new HashMap<String, ThemeImpl>();
     for (ThemeImpl theme : availableThemes) {
       LOG.debug("theme from tobago-theme.xml files: {} ", theme.getName());
@@ -50,7 +56,7 @@ class ThemeBuilder {
       theme.resolveFallbacks();
     }
     for (ThemeImpl theme : availableThemes) {
-      theme.resolveRendererConfig(renderersConfig);
+      theme.resolveRendererConfig(tobagoConfig.getRenderersConfig());
     }
     Map<String, Theme> result = new HashMap<String, Theme>();
     for (ThemeImpl theme : availableThemes) {
@@ -61,8 +67,13 @@ class ThemeBuilder {
         result.put(theme.getDeprecatedName(), theme);
       }
     }
-
-    return Collections.unmodifiableMap(result);
+    for (ThemeImpl theme : availableThemes) {
+      theme.resolveResources();
+    }
+    for (ThemeImpl theme : availableThemes) {
+      theme.init();
+    }
+    tobagoConfig.setAvailableThemes(Collections.unmodifiableMap(result));
   }
 
   public void addTheme(ThemeImpl theme) {

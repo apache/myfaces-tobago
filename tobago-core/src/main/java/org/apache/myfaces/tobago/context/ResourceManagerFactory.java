@@ -22,7 +22,6 @@ import org.apache.myfaces.tobago.config.TobagoConfig;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-import java.util.Map;
 
 public class ResourceManagerFactory {
 
@@ -49,18 +48,12 @@ public class ResourceManagerFactory {
       ServletContext servletContext, TobagoConfig tobagoConfig)
       throws ServletException {
     assert !initialized;
-    ResourceManagerImpl resourceManager
-        = new ResourceManagerImpl(tobagoConfig);
+    ResourceManagerImpl resourceManager= new ResourceManagerImpl(tobagoConfig);
 
-    ThemeBuilder themeBuilder = new ThemeBuilder();
-    ResourceLocator resourceLocator = new ResourceLocator(
-        servletContext, resourceManager, themeBuilder);
+    ThemeBuilder themeBuilder = new ThemeBuilder(tobagoConfig);
+    ResourceLocator resourceLocator = new ResourceLocator(servletContext, resourceManager, themeBuilder);
     resourceLocator.locate();
-    Map<String, Theme> availableThemes = themeBuilder.resolveThemes(tobagoConfig.getRenderersConfig());
-    tobagoConfig.setAvailableThemes(availableThemes);
-    for (Theme theme : availableThemes.values()) {
-      tobagoConfig.addResourceDir(theme.getResourcePath());
-    }
+    themeBuilder.resolveThemes();
 
     servletContext.setAttribute(RESOURCE_MANAGER, resourceManager);
 

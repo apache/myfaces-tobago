@@ -17,24 +17,38 @@ package org.apache.myfaces.tobago.context;
  * limitations under the License.
  */
 
-import java.util.List;
-
-/*
- * Date: 25.03.2006 10:42:24
+/**
+ *
+ * @since 1.5.0
  */
-public interface Theme {
-  String getName();
+public class TobagoResource {
+  private String name;
 
-  List<Theme> getFallbackList();
+  public String getName() {
+    return name;
+  }
 
-  String getDisplayName();
+  public void setName(String name) {
+    this.name = name;
+  }
 
-  String getResourcePath();
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (!(o instanceof TobagoResource)) {
+      return false;
+    }
 
-  RenderersConfig getRenderersConfig();
+    TobagoResource that = (TobagoResource) o;
 
-  String[] getScriptResources(boolean production);
+    return !(name != null ? !name.equals(that.name) : that.name != null);
 
-  String[] getStyleResources(boolean production);
+  }
 
+  @Override
+  public int hashCode() {
+    return name != null ? name.hashCode() : 0;
+  }
 }
