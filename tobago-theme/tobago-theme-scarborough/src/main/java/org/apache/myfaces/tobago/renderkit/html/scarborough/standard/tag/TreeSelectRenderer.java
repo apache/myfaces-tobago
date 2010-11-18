@@ -17,6 +17,7 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * limitations under the License.
  */
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.myfaces.tobago.component.UITreeSelect;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
@@ -51,12 +52,15 @@ public class TreeSelectRenderer extends SelectBooleanCheckboxRenderer {
     writer.endElement(HtmlElements.INPUT);
 
     // label
-    writer.startElement(HtmlElements.LABEL, null);
-    writer.writeClassAttribute(Classes.create(select, "label"));
-    HtmlRendererUtils.renderTip(select, writer);
-    writer.writeAttribute(HtmlAttributes.FOR, id, false);
-    writer.writeText(select.getLabel());
-    writer.endElement(HtmlElements.LABEL);
+    final String label = select.getLabel();
+    if (StringUtils.isNotEmpty(label)) {
+      writer.startElement(HtmlElements.LABEL, null);
+      writer.writeClassAttribute(Classes.create(select, "label"));
+      HtmlRendererUtils.renderTip(select, writer);
+      writer.writeAttribute(HtmlAttributes.FOR, id, false);
+      writer.writeText(label);
+      writer.endElement(HtmlElements.LABEL);
+    }
   }
 
   @Override
