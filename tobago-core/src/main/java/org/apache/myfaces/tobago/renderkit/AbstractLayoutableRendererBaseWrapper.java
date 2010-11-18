@@ -62,20 +62,52 @@ public abstract class AbstractLayoutableRendererBaseWrapper extends AbstractRend
     return ((LayoutComponentRenderer) getRenderer(facesContext)).getMaximumHeight(facesContext, component);
   }
 
-  public Measure getOffsetLeft(FacesContext facesContext, Configurable component) {
-    return ((LayoutComponentRenderer) getRenderer(facesContext)).getOffsetLeft(facesContext, component);
+  public Measure getMarginLeft(FacesContext facesContext, Configurable component) {
+    return ((LayoutComponentRenderer) getRenderer(facesContext)).getMarginLeft(facesContext, component);
   }
 
-  public Measure getOffsetRight(FacesContext facesContext, Configurable component) {
-    return ((LayoutComponentRenderer) getRenderer(facesContext)).getOffsetRight(facesContext, component);
+  public Measure getMarginRight(FacesContext facesContext, Configurable component) {
+    return ((LayoutComponentRenderer) getRenderer(facesContext)).getMarginRight(facesContext, component);
   }
 
-  public Measure getOffsetTop(FacesContext facesContext, Configurable component) {
-    return ((LayoutComponentRenderer) getRenderer(facesContext)).getOffsetTop(facesContext, component);
+  public Measure getMarginTop(FacesContext facesContext, Configurable component) {
+    return ((LayoutComponentRenderer) getRenderer(facesContext)).getMarginTop(facesContext, component);
   }
 
-  public Measure getOffsetBottom(FacesContext facesContext, Configurable component) {
-    return ((LayoutComponentRenderer) getRenderer(facesContext)).getOffsetBottom(facesContext, component);
+  public Measure getMarginBottom(FacesContext facesContext, Configurable component) {
+    return ((LayoutComponentRenderer) getRenderer(facesContext)).getMarginBottom(facesContext, component);
+  }
+
+  public Measure getBorderLeft(FacesContext facesContext, Configurable component) {
+    return ((LayoutComponentRenderer) getRenderer(facesContext)).getBorderLeft(facesContext, component);
+  }
+
+  public Measure getBorderRight(FacesContext facesContext, Configurable component) {
+    return ((LayoutComponentRenderer) getRenderer(facesContext)).getBorderRight(facesContext, component);
+  }
+
+  public Measure getBorderTop(FacesContext facesContext, Configurable component) {
+    return ((LayoutComponentRenderer) getRenderer(facesContext)).getBorderTop(facesContext, component);
+  }
+
+  public Measure getBorderBottom(FacesContext facesContext, Configurable component) {
+    return ((LayoutComponentRenderer) getRenderer(facesContext)).getBorderBottom(facesContext, component);
+  }
+
+  public Measure getPaddingLeft(FacesContext facesContext, Configurable component) {
+    return ((LayoutComponentRenderer) getRenderer(facesContext)).getPaddingLeft(facesContext, component);
+  }
+
+  public Measure getPaddingRight(FacesContext facesContext, Configurable component) {
+    return ((LayoutComponentRenderer) getRenderer(facesContext)).getPaddingRight(facesContext, component);
+  }
+
+  public Measure getPaddingTop(FacesContext facesContext, Configurable component) {
+    return ((LayoutComponentRenderer) getRenderer(facesContext)).getPaddingTop(facesContext, component);
+  }
+
+  public Measure getPaddingBottom(FacesContext facesContext, Configurable component) {
+    return ((LayoutComponentRenderer) getRenderer(facesContext)).getPaddingBottom(facesContext, component);
   }
 
   public Measure getVerticalScrollbarWeight(FacesContext facesContext, Configurable component) {

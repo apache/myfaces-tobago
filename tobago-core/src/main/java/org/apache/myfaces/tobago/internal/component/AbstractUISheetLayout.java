@@ -107,8 +107,8 @@ public abstract class AbstractUISheetLayout extends AbstractUILayoutBase impleme
     if (intervals.size() >= 1) {
       intervals.evaluate();
       Measure size = intervals.getCurrent();
-      size = size.add(LayoutUtils.getOffsetBegin(orientation, getLayoutContainer()));
-      size = size.add(LayoutUtils.getOffsetEnd(orientation, getLayoutContainer()));
+      size = size.add(LayoutUtils.getBorderBegin(orientation, getLayoutContainer()));
+      size = size.add(LayoutUtils.getBorderEnd(orientation, getLayoutContainer()));
       LayoutUtils.setCurrentSize(orientation, getLayoutContainer(), size);
     }
   }
@@ -126,8 +126,8 @@ public abstract class AbstractUISheetLayout extends AbstractUILayoutBase impleme
       LayoutContainer container = getLayoutContainer();
       Measure available = LayoutUtils.getCurrentSize(orientation, container);
       if (available != null) {
-        available = available.subtractNotNegative(LayoutUtils.getOffsetBegin(orientation, container));
-        available = available.subtractNotNegative(LayoutUtils.getOffsetEnd(orientation, container));
+        available = available.subtractNotNegative(LayoutUtils.getBorderBegin(orientation, container));
+        available = available.subtractNotNegative(LayoutUtils.getBorderEnd(orientation, container));
 
         for (LayoutComponent component : getLayoutContainer().getComponents()) {
 
@@ -170,12 +170,12 @@ public abstract class AbstractUISheetLayout extends AbstractUILayoutBase impleme
         component.setDisplay(Display.BLOCK); // TODO: use CSS via classes and style.css
 
         Measure width = Measure.valueOf(widthList.get(index));
-        width = width.subtractNotNegative(LayoutUtils.getOffsetBegin(orientation, sheet));
-        width = width.subtractNotNegative(LayoutUtils.getOffsetEnd(orientation, sheet));
+        width = width.subtractNotNegative(LayoutUtils.getBorderBegin(orientation, sheet));
+        width = width.subtractNotNegative(LayoutUtils.getBorderEnd(orientation, sheet));
         component.setCurrentWidth(width);
 
         // compute the position of the cell
-        Measure position = LayoutUtils.getOffsetBegin(orientation, sheet);
+        Measure position = LayoutUtils.getBorderBegin(orientation, sheet);
         if (orientation == Orientation.HORIZONTAL) {
           component.setLeft(position);
         } else {
@@ -250,8 +250,8 @@ public abstract class AbstractUISheetLayout extends AbstractUILayoutBase impleme
 
       Measure space = data.getCurrentWidth();
       final LayoutComponentRenderer renderer = data.getLayoutComponentRenderer(facesContext);
-      space = space.subtractNotNegative(renderer.getOffsetLeft(facesContext, data));
-      space = space.subtractNotNegative(renderer.getOffsetRight(facesContext, data));
+      space = space.subtractNotNegative(renderer.getBorderLeft(facesContext, data));
+      space = space.subtractNotNegative(renderer.getBorderRight(facesContext, data));
       if (needVerticalScrollbar(facesContext, data)) {
         space = space.subtractNotNegative(renderer.getVerticalScrollbarWeight(facesContext, data));
       }

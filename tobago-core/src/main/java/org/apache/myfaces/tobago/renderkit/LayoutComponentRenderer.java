@@ -42,13 +42,29 @@ public interface LayoutComponentRenderer {
 
   Measure getMaximumHeight(FacesContext facesContext, Configurable component);
 
-  Measure getOffsetLeft(FacesContext facesContext, Configurable component);
+  Measure getMarginLeft(FacesContext facesContext, Configurable component);
 
-  Measure getOffsetRight(FacesContext facesContext, Configurable component);
+  Measure getMarginRight(FacesContext facesContext, Configurable component);
 
-  Measure getOffsetTop(FacesContext facesContext, Configurable component);
+  Measure getMarginTop(FacesContext facesContext, Configurable component);
 
-  Measure getOffsetBottom(FacesContext facesContext, Configurable component);
+  Measure getMarginBottom(FacesContext facesContext, Configurable component);
+
+  Measure getBorderLeft(FacesContext facesContext, Configurable component);
+
+  Measure getBorderRight(FacesContext facesContext, Configurable component);
+
+  Measure getBorderTop(FacesContext facesContext, Configurable component);
+
+  Measure getBorderBottom(FacesContext facesContext, Configurable component);
+
+  Measure getPaddingLeft(FacesContext facesContext, Configurable component);
+
+  Measure getPaddingRight(FacesContext facesContext, Configurable component);
+
+  Measure getPaddingTop(FacesContext facesContext, Configurable component);
+
+  Measure getPaddingBottom(FacesContext facesContext, Configurable component);
 
   Measure getVerticalScrollbarWeight(FacesContext facesContext, Configurable component);
 }

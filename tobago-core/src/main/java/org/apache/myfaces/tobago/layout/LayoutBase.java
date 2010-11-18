@@ -59,4 +59,18 @@ public interface LayoutBase extends Configurable {
 
   Measure getTop();
   void setTop(Measure top);
+
+  Measure getMarginLeft();
+  void setMarginLeft(Measure marginLeft);
+
+  Measure getMarginRight();
+  void setMarginRight(Measure marginRight);
+
+  Measure getMarginTop();
+  void setMarginTop(Measure marginTop);
+
+  Measure getMarginBottom();
+  void setMarginBottom(Measure marginBottom);
+
+
 }

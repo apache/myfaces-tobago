@@ -31,11 +31,27 @@ public interface LayoutContainer extends LayoutBase {
    */
   boolean isLayoutChildren();
 
-  Measure getOffsetLeft();
+  Measure getBorderLeft();
+  void setBorderLeft(Measure borderLeft);
 
-  Measure getOffsetRight();
+  Measure getBorderRight();
+  void setBorderRight(Measure borderRight);
 
-  Measure getOffsetTop();
+  Measure getBorderTop();
+  void setBorderTop(Measure borderTop);
 
-  Measure getOffsetBottom();
+  Measure getBorderBottom();
+  void setBorderBottom(Measure borderBottom);
+
+  Measure getPaddingLeft();
+  void setPaddingLeft(Measure paddingLeft);
+
+  Measure getPaddingRight();
+  void setPaddingRight(Measure paddingRight);
+
+  Measure getPaddingTop();
+  void setPaddingTop(Measure paddingTop);
+
+  Measure getPaddingBottom();
+  void setPaddingBottom(Measure paddingBottom);
 }

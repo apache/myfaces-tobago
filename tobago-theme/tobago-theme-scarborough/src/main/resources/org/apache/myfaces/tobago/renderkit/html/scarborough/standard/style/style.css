@@ -553,6 +553,18 @@ iframe.tobago-menu-ie6bugfix {
   position: absolute;
 }
 
+/* panel -------------------------------------------------------------- */
+
+.tobago-panel {
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
+.tobago-panel-content {
+  overflow-x: auto;
+  overflow-y: auto;
+}
+
 /* popup -------------------------------------------------------------- */
 
 .tobago-popup-shield {

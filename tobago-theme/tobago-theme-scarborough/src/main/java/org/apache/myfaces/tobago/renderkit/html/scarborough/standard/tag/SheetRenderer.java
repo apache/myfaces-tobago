@@ -995,7 +995,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
   }
 
   private Measure getContentBorder(FacesContext facesContext, UISheet data) {
-    return getOffsetLeft(facesContext, data).add(getOffsetRight(facesContext, data));
+    return getBorderLeft(facesContext, data).add(getBorderRight(facesContext, data));
   }
 
 

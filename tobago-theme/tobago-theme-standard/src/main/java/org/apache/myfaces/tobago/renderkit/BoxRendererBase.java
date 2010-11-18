@@ -38,19 +38,19 @@ public abstract class BoxRendererBase extends LayoutComponentRendererBase {
   }
 
   @Override
-  public Measure getOffsetTop(FacesContext facesContext, Configurable component) {
+  public Measure getBorderTop(FacesContext facesContext, Configurable component) {
 
-    Measure offsetTop = super.getOffsetTop(facesContext, component);
+    Measure borderTop = super.getBorderTop(facesContext, component);
     if (getMenuBarFacet((UIComponent) component) != null) {
-      offsetTop = offsetTop.add(19); // todo: get via theme config
+      borderTop = borderTop.add(19); // todo: get via theme config
     }
-    return offsetTop;
+    return borderTop;
   }
 
   @Override
   public Measure getMinimumHeight(FacesContext facesContext, Configurable component) {
     if (component instanceof UIBox && ((UIBox) component).isCollapsed()) {
-      return getOffsetTop(facesContext, component);
+      return getBorderTop(facesContext, component);
     }
     return super.getMinimumHeight(facesContext, component);
   }
@@ -58,7 +58,7 @@ public abstract class BoxRendererBase extends LayoutComponentRendererBase {
   @Override
   public Measure getMaximumHeight(FacesContext facesContext, Configurable component) {
     if (component instanceof UIBox && ((UIBox) component).isCollapsed()) {
-      return getOffsetTop(facesContext, component);
+      return getBorderTop(facesContext, component);
     }
     return super.getMaximumHeight(facesContext, component);
   }

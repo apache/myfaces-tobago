@@ -30,7 +30,16 @@ public final class Attributes {
   public static final String AUTO_RELOAD = "autoReload";
   public static final String BODY_CONTENT = "bodyContent";
   public static final String BORDER = "border";
+  /** Used by a layout manager */
+  public static final String BORDER_BOTTOM = "borderBottom";
+  /** Used by a layout manager */
+  public static final String BORDER_LEFT = "borderLeft";
+  /** Used by a layout manager */
+  public static final String BORDER_RIGHT = "borderRight";
+  /** Used by a layout manager */
+  public static final String BORDER_TOP = "borderTop";
   public static final String CHARSET = "charset";
+  /** @deprecated */
   @Deprecated
   public static final String CELLSPACING = "cellspacing";
   public static final String CLIENT_PROPERTIES = "clientProperties";
@@ -67,8 +76,10 @@ public final class Attributes {
   public static final String IMMEDIATE = "immediate";
   public static final String IMAGE = "image";
   public static final String INLINE = "inline";
+  /** @deprecated */
   @Deprecated
   public static final String INNER_HEIGHT = "innerHeight";
+  /** @deprecated */
   @Deprecated
   public static final String INNER_WIDTH = "innerWidth";
   public static final String ITEM_DESCRIPTION = "itemDescription";
@@ -84,10 +95,15 @@ public final class Attributes {
   public static final String LAYOUT_WIDTH = "layoutWidth";
   public static final String LEFT = "left";
   public static final String LINK = "link";
+  @Deprecated
   public static final String MARGIN = "margin";
+  /** Used by a layout manager */
   public static final String MARGIN_BOTTOM = "marginBottom";
+  /** Used by a layout manager */
   public static final String MARGIN_LEFT = "marginLeft";
+  /** Used by a layout manager */
   public static final String MARGIN_RIGHT = "marginRight";
+  /** Used by a layout manager */
   public static final String MARGIN_TOP = "marginTop";
   public static final String MARKED = "marked";
   public static final String MARKUP = "markup";
@@ -107,14 +123,18 @@ public final class Attributes {
   public static final String NAME = "name";
   public static final String NAVIGATE = "navigate";
   public static final String NUMBER_STYLE = "numberStyle";
-  public static final String OFFSET_BOTTOM = "offsetBottom";
-  public static final String OFFSET_LEFT = "offsetLeft";
-  public static final String OFFSET_RIGHT = "offsetRight";
-  public static final String OFFSET_TOP = "offsetTop";
   public static final String ONCHANGE = "onchange";
   public static final String ONCLICK = "onclick";
   public static final String ORDER_BY = "orderBy";
   public static final String ORIENTATION = "orientation";
+  /** Used by a layout manager */
+  public static final String PADDING_BOTTOM = "paddingBottom";
+  /** Used by a layout manager */
+  public static final String PADDING_LEFT = "paddingLeft";
+  /** Used by a layout manager */
+  public static final String PADDING_RIGHT = "paddingRight";
+  /** Used by a layout manager */
+  public static final String PADDING_TOP = "paddingTop";
   public static final String PAGE_MENU = "pageMenu";
   public static final String PASSWORD = "password";
   public static final String POPUP_CLOSE = "popupClose";

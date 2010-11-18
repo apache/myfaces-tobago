@@ -70,22 +70,18 @@ public class GridLayoutRenderer extends RendererBase implements SpacingValues, M
   }
 
   public Measure getMarginLeft(FacesContext facesContext, Configurable component) {
-    Configurable parent = (Configurable) ((UIComponent) component).getParent();
-    return getResourceManager().getThemeMeasure(facesContext, parent, Attributes.MARGIN_LEFT);
+    return getResourceManager().getThemeMeasure(facesContext, component, Attributes.MARGIN_LEFT);
   }
 
   public Measure getMarginRight(FacesContext facesContext, Configurable component) {
-    Configurable parent = (Configurable) ((UIComponent) component).getParent();
-    return getResourceManager().getThemeMeasure(facesContext, parent, Attributes.MARGIN_RIGHT);
+    return getResourceManager().getThemeMeasure(facesContext, component, Attributes.MARGIN_RIGHT);
   }
 
   public Measure getMarginTop(FacesContext facesContext, Configurable component) {
-    Configurable parent = (Configurable) ((UIComponent) component).getParent();
-    return getResourceManager().getThemeMeasure(facesContext, parent, Attributes.MARGIN_TOP);
+    return getResourceManager().getThemeMeasure(facesContext, component, Attributes.MARGIN_TOP);
   }
 
   public Measure getMarginBottom(FacesContext facesContext, Configurable component) {
-    Configurable parent = (Configurable) ((UIComponent) component).getParent();
-    return getResourceManager().getThemeMeasure(facesContext, parent, Attributes.MARGIN_BOTTOM);
+    return getResourceManager().getThemeMeasure(facesContext, component, Attributes.MARGIN_BOTTOM);
   }
 }

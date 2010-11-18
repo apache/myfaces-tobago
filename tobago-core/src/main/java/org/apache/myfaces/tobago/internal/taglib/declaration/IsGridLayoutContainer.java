@@ -24,42 +24,83 @@ public interface IsGridLayoutContainer {
   /**
    * This attribute is for internal use only.
    *
-   * @param offsetLeft The left offset which is needed by some containers (e. g. a box).
+   * @param borderLeft The left border which is needed by some containers (e. g. a box).
    */
   @UIComponentTagAttribute(
       type = "org.apache.myfaces.tobago.layout.Measure",
       defaultCode = "((org.apache.myfaces.tobago.renderkit.LayoutComponentRenderer)\n"
-          + "getRenderer(getFacesContext())).getOffsetLeft(getFacesContext(), this)")
-  void setOffsetLeft(String offsetLeft);
+          + "getRenderer(getFacesContext())).getBorderLeft(getFacesContext(), this)")
+  void setBorderLeft(String borderLeft);
 
   /**
    * This attribute is for internal use only.
    *
-   * @param offsetRight The right offset which is needed by some containers (e. g. a box).
+   * @param borderRight The right border which is needed by some containers (e. g. a box).
    */
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure",
       defaultCode = "((org.apache.myfaces.tobago.renderkit.LayoutComponentRenderer)\n"
-          + "getRenderer(getFacesContext())).getOffsetRight(getFacesContext(), this)")
-  void setOffsetRight(String offsetRight);
+          + "getRenderer(getFacesContext())).getBorderRight(getFacesContext(), this)")
+  void setBorderRight(String borderRight);
 
   /**
    * This attribute is for internal use only.
    *
-   * @param offsetTop The top offset which is needed by some containers (e. g. a box).
+   * @param borderTop The top border which is needed by some containers (e. g. a box).
    */
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure",
       defaultCode = "((org.apache.myfaces.tobago.renderkit.LayoutComponentRenderer)\n"
-          + "getRenderer(getFacesContext())).getOffsetTop(getFacesContext(), this)")
-  void setOffsetTop(String offsetTop);
+          + "getRenderer(getFacesContext())).getBorderTop(getFacesContext(), this)")
+  void setBorderTop(String borderTop);
 
   /**
    * This attribute is for internal use only.
    *
-   * @param offsetBottom The bottom offset which is needed by some containers (e. g. a box).
+   * @param borderBottom The bottom border which is needed by some containers (e. g. a box).
    */
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure",
       defaultCode = "((org.apache.myfaces.tobago.renderkit.LayoutComponentRenderer)\n"
-          + "getRenderer(getFacesContext())).getOffsetBottom(getFacesContext(), this)")
-  void setOffsetBottom(String offsetBottom);
+          + "getRenderer(getFacesContext())).getBorderBottom(getFacesContext(), this)")
+  void setBorderBottom(String borderBottom);
+
+  /**
+   * This attribute is for internal use only.
+   *
+   * @param paddingLeft The left padding which is needed by some containers (e. g. a box).
+   */
+  @UIComponentTagAttribute(
+      type = "org.apache.myfaces.tobago.layout.Measure",
+      defaultCode = "((org.apache.myfaces.tobago.renderkit.LayoutComponentRenderer)\n"
+          + "getRenderer(getFacesContext())).getPaddingLeft(getFacesContext(), this)")
+  void setPaddingLeft(String paddingLeft);
+
+  /**
+   * This attribute is for internal use only.
+   *
+   * @param paddingRight The right padding which is needed by some containers (e. g. a box).
+   */
+  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure",
+      defaultCode = "((org.apache.myfaces.tobago.renderkit.LayoutComponentRenderer)\n"
+          + "getRenderer(getFacesContext())).getPaddingRight(getFacesContext(), this)")
+  void setPaddingRight(String paddingRight);
+
+  /**
+   * This attribute is for internal use only.
+   *
+   * @param paddingTop The top padding which is needed by some containers (e. g. a box).
+   */
+  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure",
+      defaultCode = "((org.apache.myfaces.tobago.renderkit.LayoutComponentRenderer)\n"
+          + "getRenderer(getFacesContext())).getPaddingTop(getFacesContext(), this)")
+  void setPaddingTop(String paddingTop);
+
+  /**
+   * This attribute is for internal use only.
+   *
+   * @param paddingBottom The bottom padding which is needed by some containers (e. g. a box).
+   */
+  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure",
+      defaultCode = "((org.apache.myfaces.tobago.renderkit.LayoutComponentRenderer)\n"
+          + "getRenderer(getFacesContext())).getPaddingBottom(getFacesContext(), this)")
+  void setPaddingBottom(String paddingBottom);
 
 }

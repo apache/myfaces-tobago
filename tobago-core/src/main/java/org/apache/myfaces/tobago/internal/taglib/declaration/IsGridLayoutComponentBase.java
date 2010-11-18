@@ -104,6 +104,38 @@ public interface IsGridLayoutComponentBase {
   void setMaximumHeight(String maximumHeight);
 
   /**
+   * @param marginLeft The margin at the left of this component.
+   */
+  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure",
+      defaultCode = "((LayoutComponentRenderer) "
+          + "getRenderer(getFacesContext())).getMarginLeft(getFacesContext(), this)")
+  void setMarginLeft(String marginLeft);
+
+  /**
+   * @param marginRight The margin at the right of this component.
+   */
+  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure",
+      defaultCode = "((LayoutComponentRenderer) "
+          + "getRenderer(getFacesContext())).getMarginRight(getFacesContext(), this)")
+  void setMarginRight(String marginRight);
+
+  /**
+   * @param marginTop The margin at the top of this component.
+   */
+  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure",
+      defaultCode = "((LayoutComponentRenderer) "
+          + "getRenderer(getFacesContext())).getMarginTop(getFacesContext(), this)")
+  void setMarginTop(String marginTop);
+
+  /**
+   * @param marginBottom The margin at the bottom of this component.
+   */
+  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure",
+      defaultCode = "((LayoutComponentRenderer) "
+          + "getRenderer(getFacesContext())).getMarginBottom(getFacesContext(), this)")
+  void setMarginBottom(String marginBottom);
+
+  /**
    * This value will usually be set by the layout manager.
    *
    * @param left The left position value for this component.

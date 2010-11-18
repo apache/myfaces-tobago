@@ -22,6 +22,7 @@ import org.apache.myfaces.tobago.component.UIPanel;
 import org.apache.myfaces.tobago.component.UIReload;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPanel;
+import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Position;
@@ -104,11 +105,45 @@ public class PanelRenderer extends LayoutComponentRendererBase {
       HtmlRendererUtils.writeScriptLoader(facesContext, null, cmds);
     }
     HtmlRendererUtils.checkForCommandFacet(panel, facesContext, writer);
+
+    final Measure borderLeft = panel.getBorderLeft();
+    final Measure borderRight = panel.getBorderRight();
+    final Measure borderTop = panel.getBorderTop();
+    final Measure borderBottom = panel.getBorderBottom();
+
+    if (borderLeft.greaterThan(Measure.ZERO) || borderRight.greaterThan(Measure.ZERO)
+        || borderTop.greaterThan(Measure.ZERO) || borderBottom.greaterThan(Measure.ZERO)) {
+      writer.startElement(HtmlElements.DIV, panel);
+      writer.writeClassAttribute(Classes.create(panel, "content")); // needed to be scrollable inside of the panel
+      final Style inner = new Style(facesContext, panel);
+      // Todo: FIXME (be null may occur in sheets)
+      if (inner.getWidth() != null) {
+        inner.setWidth(inner.getWidth().subtract(borderLeft).subtract(borderRight));
+      }
+      // Todo: FIXME (be null may occur in sheets)
+      if (inner.getHeight() != null) {
+        inner.setHeight(inner.getHeight().subtract(borderTop).subtract(borderBottom));
+      }
+      inner.setLeft(borderLeft);
+      inner.setTop(borderTop);
+      writer.writeStyleAttribute(inner);
+    }
   }
 
   @Override
-  public void encodeEnd(FacesContext facesContext, UIComponent uiComponent) throws IOException {
+  public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
     ResponseWriter writer = facesContext.getResponseWriter();
+    AbstractUIPanel panel = (AbstractUIPanel) component;
+    
+    final Measure borderLeft = panel.getBorderLeft();
+    final Measure borderRight = panel.getBorderRight();
+    final Measure borderTop = panel.getBorderTop();
+    final Measure borderBottom = panel.getBorderBottom();
+
+    if (borderLeft.greaterThan(Measure.ZERO) || borderRight.greaterThan(Measure.ZERO)
+        || borderTop.greaterThan(Measure.ZERO) || borderBottom.greaterThan(Measure.ZERO)) {
+    writer.endElement(HtmlElements.DIV);
+    }
     writer.endElement(HtmlElements.DIV);
   }
 }

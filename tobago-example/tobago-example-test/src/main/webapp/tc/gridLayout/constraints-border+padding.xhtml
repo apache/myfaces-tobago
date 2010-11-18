@@ -21,23 +21,30 @@
     xmlns:tx="http://myfaces.apache.org/tobago/extension"
     xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:f="http://java.sun.com/jsf/core">
+
   <tc:page id="page">
-    <tc:gridLayoutConstraint width="500px" height="150px"/>
+    <tc:gridLayoutConstraint width="500px" height="500px"/>
 
-    <tc:box id="box" label="outer box">
-      <tc:gridLayoutConstraint height="300px"/>
-
-      <tc:textarea id="textarea" value="Text.">
-        <tc:gridLayoutConstraint height="500px"/>
+    <tc:panel id="panel">
+      <f:facet name="layout">
+        <tc:gridLayout columns="*;*"/>
+      </f:facet>
+      <tc:gridLayoutConstraint
+          borderLeft="10px" borderRight="20px" borderTop="30px" borderBottom="40px"
+          paddingLeft="50px" paddingRight="60px" paddingTop="70px" paddingBottom="80px"
+          height="500px"/>
+      <tc:textarea/>
+      <tc:textarea
+          id="text"
+          value="panel has borderLeft='10px' borderRight='20px' borderTop='30px' borderBottom='40px' paddingLeft='50px' paddingRight='60px' paddingTop='70px' paddingBottom='80px'">
+        <!-- set height to enforce scrollbars -->
+        <tc:gridLayoutConstraint height="600px"/>
       </tc:textarea>
+    </tc:panel>
 
-    </tc:box>
-
+    <tc:script onload="jQuery('#page\\:panel').css('background-color', '#aabbcc');"/>
     <tc:script file="script/test-utils.js"/>
-
-    <tc:script onload="checkLayout('page:outerbox', 0, 0, 500, 200);"/>
-    <tc:script onload="checkLayout('page:innerbox', 6, 26, 487, 167);"/>
-    <tc:script onload="checkLayout('page:textarea', 12, 52, 474, 134);"/>
+    <tc:script onload="checkLayout('page:text', 60, 100, 470, 430);"/>
 
   </tc:page>
 </f:view>

@@ -145,14 +145,14 @@ without shadow
     writer.startElement(HtmlElements.DIV, null);
     writer.writeClassAttribute(Classes.create(box, "content")); // needed to be scrollable inside of the box
     final Style style = new Style(facesContext, box);
-    final Measure offsetLeft = getOffsetLeft(facesContext, box);
-    final Measure offsetRight = getOffsetRight(facesContext, box);
-    final Measure offsetTop = getOffsetTop(facesContext, box);
-    final Measure offsetBottom = getOffsetBottom(facesContext, box);
-    style.setWidth(style.getWidth().subtract(offsetLeft).subtract(offsetRight));
-    style.setHeight(style.getHeight().subtract(offsetTop).subtract(offsetBottom));
-    style.setLeft(offsetLeft);
-    style.setTop(offsetTop);
+    final Measure borderLeft = box.getBorderLeft();
+    final Measure borderRight = box.getBorderRight();
+    final Measure borderTop = box.getBorderTop();
+    final Measure borderBottom = box.getBorderBottom();
+    style.setWidth(style.getWidth().subtract(borderLeft).subtract(borderRight));
+    style.setHeight(style.getHeight().subtract(borderTop).subtract(borderBottom));
+    style.setLeft(borderLeft);
+    style.setTop(borderTop);
     writer.writeStyleAttribute(style);
   }
 

@@ -70,12 +70,20 @@ public final class LayoutUtils {
     }
   }
 
-  public static Measure getOffsetEnd(Orientation orientation, LayoutContainer container) {
-    return orientation == Orientation.HORIZONTAL ? container.getOffsetRight() : container.getOffsetBottom();
+  public static Measure getBorderEnd(Orientation orientation, LayoutContainer container) {
+    return orientation == Orientation.HORIZONTAL ? container.getBorderRight() : container.getBorderBottom();
   }
 
-  public static Measure getOffsetBegin(Orientation orientation, LayoutContainer container) {
-    return orientation == Orientation.HORIZONTAL ? container.getOffsetLeft() : container.getOffsetTop();
+  public static Measure getBorderBegin(Orientation orientation, LayoutContainer container) {
+    return orientation == Orientation.HORIZONTAL ? container.getBorderLeft() : container.getBorderTop();
+  }
+
+  public static Measure getPaddingEnd(Orientation orientation, LayoutContainer container) {
+    return orientation == Orientation.HORIZONTAL ? container.getPaddingRight() : container.getPaddingBottom();
+  }
+
+  public static Measure getPaddingBegin(Orientation orientation, LayoutContainer container) {
+    return orientation == Orientation.HORIZONTAL ? container.getPaddingLeft() : container.getPaddingTop();
   }
 
   public static Measure getCurrentSize(Orientation orientation, LayoutContainer container) {

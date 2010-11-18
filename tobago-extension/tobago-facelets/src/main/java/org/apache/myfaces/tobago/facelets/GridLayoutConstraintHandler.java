@@ -21,6 +21,7 @@ import com.sun.facelets.FaceletContext;
 import com.sun.facelets.tag.TagAttribute;
 import com.sun.facelets.tag.TagConfig;
 import com.sun.facelets.tag.TagHandler;
+import org.apache.myfaces.tobago.layout.LayoutContainer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.component.Attributes;
@@ -52,6 +53,21 @@ public class GridLayoutConstraintHandler extends TagHandler {
   private final TagAttribute maximumWidth;
   private final TagAttribute maximumHeight;
 
+  private final TagAttribute marginLeft;
+  private final TagAttribute marginRight;
+  private final TagAttribute marginTop;
+  private final TagAttribute marginBottom;
+
+  private final TagAttribute borderLeft;
+  private final TagAttribute borderRight;
+  private final TagAttribute borderTop;
+  private final TagAttribute borderBottom;
+
+  private final TagAttribute paddingLeft;
+  private final TagAttribute paddingRight;
+  private final TagAttribute paddingTop;
+  private final TagAttribute paddingBottom;
+
   public GridLayoutConstraintHandler(TagConfig config) {
     super(config);
     columnSpan = getAttribute(Attributes.COLUMN_SPAN);
@@ -64,6 +80,18 @@ public class GridLayoutConstraintHandler extends TagHandler {
     preferredHeight = getAttribute(Attributes.PREFERRED_HEIGHT);
     maximumWidth = getAttribute(Attributes.MAXIMUM_WIDTH);
     maximumHeight = getAttribute(Attributes.MAXIMUM_HEIGHT);
+    marginLeft = getAttribute(Attributes.MARGIN_LEFT);
+    marginRight = getAttribute(Attributes.MARGIN_RIGHT);
+    marginTop = getAttribute(Attributes.MARGIN_TOP);
+    marginBottom = getAttribute(Attributes.MARGIN_BOTTOM);
+    borderLeft = getAttribute(Attributes.BORDER_LEFT);
+    borderRight = getAttribute(Attributes.BORDER_RIGHT);
+    borderTop = getAttribute(Attributes.BORDER_TOP);
+    borderBottom = getAttribute(Attributes.BORDER_BOTTOM);
+    paddingLeft = getAttribute(Attributes.PADDING_LEFT);
+    paddingRight = getAttribute(Attributes.PADDING_RIGHT);
+    paddingTop = getAttribute(Attributes.PADDING_TOP);
+    paddingBottom = getAttribute(Attributes.PADDING_BOTTOM);
   }
 
   public void apply(FaceletContext faceletContext, UIComponent parent)
@@ -161,8 +189,149 @@ public class GridLayoutConstraintHandler extends TagHandler {
               faceletContext.getFacesContext().getApplication().createValueBinding(maximumHeight.getValue()));
         }
       }
+
+      if (marginLeft != null) {
+        if (marginLeft.isLiteral()) {
+          component.setMarginLeft(Measure.parse(marginLeft.getValue()));
+        } else {
+          parent.setValueBinding(Attributes.MARGIN_LEFT,
+              faceletContext.getFacesContext().getApplication().createValueBinding(marginLeft.getValue()));
+        }
+      }
+
+      if (marginRight != null) {
+        if (marginRight.isLiteral()) {
+          component.setMarginRight(Measure.parse(marginRight.getValue()));
+        } else {
+          parent.setValueBinding(Attributes.MARGIN_RIGHT,
+              faceletContext.getFacesContext().getApplication().createValueBinding(marginRight.getValue()));
+        }
+      }
+
+      if (marginTop != null) {
+        if (marginTop.isLiteral()) {
+          component.setMarginTop(Measure.parse(marginTop.getValue()));
+        } else {
+          parent.setValueBinding(Attributes.MARGIN_TOP,
+              faceletContext.getFacesContext().getApplication().createValueBinding(marginTop.getValue()));
+        }
+      }
+
+      if (marginBottom != null) {
+        if (marginBottom.isLiteral()) {
+          component.setMarginBottom(Measure.parse(marginBottom.getValue()));
+        } else {
+          parent.setValueBinding(Attributes.MARGIN_BOTTOM,
+              faceletContext.getFacesContext().getApplication().createValueBinding(marginBottom.getValue()));
+        }
+      }
+
     } else {
       LOG.warn("Layout Constraints inside of a non LayoutBase component!");
+    }
+
+    if (parent instanceof LayoutContainer) {
+      LayoutContainer container = (LayoutContainer) parent;
+
+      if (borderLeft != null) {
+        if (borderLeft.isLiteral()) {
+          container.setBorderLeft(Measure.parse(borderLeft.getValue()));
+        } else {
+          parent.setValueBinding(Attributes.BORDER_LEFT,
+              faceletContext.getFacesContext().getApplication().createValueBinding(borderLeft.getValue()));
+        }
+      }
+
+      if (borderRight != null) {
+        if (borderRight.isLiteral()) {
+          container.setBorderRight(Measure.parse(borderRight.getValue()));
+        } else {
+          parent.setValueBinding(Attributes.BORDER_RIGHT,
+              faceletContext.getFacesContext().getApplication().createValueBinding(borderRight.getValue()));
+        }
+      }
+
+      if (borderTop != null) {
+        if (borderTop.isLiteral()) {
+          container.setBorderTop(Measure.parse(borderTop.getValue()));
+        } else {
+          parent.setValueBinding(Attributes.BORDER_TOP,
+              faceletContext.getFacesContext().getApplication().createValueBinding(borderTop.getValue()));
+        }
+      }
+
+      if (borderBottom != null) {
+        if (borderBottom.isLiteral()) {
+          container.setBorderBottom(Measure.parse(borderBottom.getValue()));
+        } else {
+          parent.setValueBinding(Attributes.BORDER_BOTTOM,
+              faceletContext.getFacesContext().getApplication().createValueBinding(borderBottom.getValue()));
+        }
+      }
+
+      if (paddingLeft != null) {
+        if (paddingLeft.isLiteral()) {
+          container.setPaddingLeft(Measure.parse(paddingLeft.getValue()));
+        } else {
+          parent.setValueBinding(Attributes.PADDING_LEFT,
+              faceletContext.getFacesContext().getApplication().createValueBinding(paddingLeft.getValue()));
+        }
+      }
+
+      if (paddingRight != null) {
+        if (paddingRight.isLiteral()) {
+          container.setPaddingRight(Measure.parse(paddingRight.getValue()));
+        } else {
+          parent.setValueBinding(Attributes.PADDING_RIGHT,
+              faceletContext.getFacesContext().getApplication().createValueBinding(paddingRight.getValue()));
+        }
+      }
+
+      if (paddingTop != null) {
+        if (paddingTop.isLiteral()) {
+          container.setPaddingTop(Measure.parse(paddingTop.getValue()));
+        } else {
+          parent.setValueBinding(Attributes.PADDING_TOP,
+              faceletContext.getFacesContext().getApplication().createValueBinding(paddingTop.getValue()));
+        }
+      }
+
+      if (paddingBottom != null) {
+        if (paddingBottom.isLiteral()) {
+          container.setPaddingBottom(Measure.parse(paddingBottom.getValue()));
+        } else {
+          parent.setValueBinding(Attributes.PADDING_BOTTOM,
+              faceletContext.getFacesContext().getApplication().createValueBinding(paddingBottom.getValue()));
+        }
+      }
+
+    } else {
+      if (LOG.isWarnEnabled()) {
+        if (borderLeft != null) {
+          LOG.warn("Ignoring border left, because the parent is not a LayoutContainer!");
+        }
+        if (borderRight != null) {
+          LOG.warn("Ignoring border right, because the parent is not a LayoutContainer!");
+        }
+        if (borderTop != null) {
+          LOG.warn("Ignoring border top, because the parent is not a LayoutContainer!");
+        }
+        if (borderBottom != null) {
+          LOG.warn("Ignoring border bottom, because the parent is not a LayoutContainer!");
+        }
+        if (paddingLeft != null) {
+          LOG.warn("Ignoring padding left, because the parent is not a LayoutContainer!");
+        }
+        if (paddingRight != null) {
+          LOG.warn("Ignoring padding right, because the parent is not a LayoutContainer!");
+        }
+        if (paddingTop != null) {
+          LOG.warn("Ignoring padding top, because the parent is not a LayoutContainer!");
+        }
+        if (paddingBottom != null) {
+          LOG.warn("Ignoring padding bottom, because the parent is not a LayoutContainer!");
+        }
+      }
     }
   }
 }

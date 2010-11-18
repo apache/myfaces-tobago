@@ -63,20 +63,52 @@ public abstract class LayoutComponentRendererBase extends RendererBase implement
     return getResourceManager().getThemeMeasure(facesContext, component, Attributes.MAXIMUM_HEIGHT);
   }
 
-  public Measure getOffsetLeft(FacesContext facesContext, Configurable component) {
-    return getResourceManager().getThemeMeasure(facesContext, component, Attributes.OFFSET_LEFT);
+  public Measure getMarginLeft(FacesContext facesContext, Configurable component) {
+    return getResourceManager().getThemeMeasure(facesContext, component, Attributes.MARGIN_LEFT);
   }
 
-  public Measure getOffsetRight(FacesContext facesContext, Configurable component) {
-    return getResourceManager().getThemeMeasure(facesContext, component, Attributes.OFFSET_RIGHT);
+  public Measure getMarginRight(FacesContext facesContext, Configurable component) {
+    return getResourceManager().getThemeMeasure(facesContext, component, Attributes.MARGIN_RIGHT);
   }
 
-  public Measure getOffsetTop(FacesContext facesContext, Configurable component) {
-    return getResourceManager().getThemeMeasure(facesContext, component, Attributes.OFFSET_TOP);
+  public Measure getMarginTop(FacesContext facesContext, Configurable component) {
+    return getResourceManager().getThemeMeasure(facesContext, component, Attributes.MARGIN_TOP);
   }
 
-  public Measure getOffsetBottom(FacesContext facesContext, Configurable component) {
-    return getResourceManager().getThemeMeasure(facesContext, component, Attributes.OFFSET_BOTTOM);
+  public Measure getMarginBottom(FacesContext facesContext, Configurable component) {
+    return getResourceManager().getThemeMeasure(facesContext, component, Attributes.MARGIN_BOTTOM);
+  }
+
+  public Measure getBorderLeft(FacesContext facesContext, Configurable component) {
+    return getResourceManager().getThemeMeasure(facesContext, component, Attributes.BORDER_LEFT);
+  }
+
+  public Measure getBorderRight(FacesContext facesContext, Configurable component) {
+    return getResourceManager().getThemeMeasure(facesContext, component, Attributes.BORDER_RIGHT);
+  }
+
+  public Measure getBorderTop(FacesContext facesContext, Configurable component) {
+    return getResourceManager().getThemeMeasure(facesContext, component, Attributes.BORDER_TOP);
+  }
+
+  public Measure getBorderBottom(FacesContext facesContext, Configurable component) {
+    return getResourceManager().getThemeMeasure(facesContext, component, Attributes.BORDER_BOTTOM);
+  }
+
+  public Measure getPaddingLeft(FacesContext facesContext, Configurable component) {
+    return getResourceManager().getThemeMeasure(facesContext, component, Attributes.PADDING_LEFT);
+  }
+
+  public Measure getPaddingRight(FacesContext facesContext, Configurable component) {
+    return getResourceManager().getThemeMeasure(facesContext, component, Attributes.PADDING_RIGHT);
+  }
+
+  public Measure getPaddingTop(FacesContext facesContext, Configurable component) {
+    return getResourceManager().getThemeMeasure(facesContext, component, Attributes.PADDING_TOP);
+  }
+
+  public Measure getPaddingBottom(FacesContext facesContext, Configurable component) {
+    return getResourceManager().getThemeMeasure(facesContext, component, Attributes.PADDING_BOTTOM);
   }
 
   public Measure getVerticalScrollbarWeight(FacesContext facesContext, Configurable component) {

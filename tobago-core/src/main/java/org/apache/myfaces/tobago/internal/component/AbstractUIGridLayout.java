@@ -209,11 +209,13 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase implemen
     }
 
     // adding the space between the cells
-    sum = sum.add(LayoutUtils.getOffsetBegin(orientation, getLayoutContainer()));
+    sum = sum.add(LayoutUtils.getBorderBegin(orientation, getLayoutContainer()));
+    sum = sum.add(LayoutUtils.getPaddingBegin(orientation, getLayoutContainer()));
     sum = sum.add(getMarginBegin(orientation));
     sum = sum.add(computeSpacing(orientation, 0, heads.length));
     sum = sum.add(getMarginEnd(orientation));
-    sum = sum.add(LayoutUtils.getOffsetEnd(orientation, getLayoutContainer()));
+    sum = sum.add(LayoutUtils.getPaddingEnd(orientation, getLayoutContainer()));
+    sum = sum.add(LayoutUtils.getBorderEnd(orientation, getLayoutContainer()));
     LayoutUtils.setCurrentSize(orientation, getLayoutContainer(), sum);
   }
 
@@ -241,11 +243,13 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase implemen
         for (BankHead head : heads) {
           available = available.subtractNotNegative(head.getCurrent());
         }
-        available = available.subtractNotNegative(LayoutUtils.getOffsetBegin(orientation, container));
+        available = available.subtractNotNegative(LayoutUtils.getBorderBegin(orientation, container));
+        available = available.subtractNotNegative(LayoutUtils.getPaddingBegin(orientation, container));
         available = available.subtractNotNegative(getMarginBegin(orientation));
         available = available.subtractNotNegative(computeSpacing(orientation, 0, heads.length));
         available = available.subtractNotNegative(getMarginEnd(orientation));
-        available = available.subtractNotNegative(LayoutUtils.getOffsetEnd(orientation, container));
+        available = available.subtractNotNegative(LayoutUtils.getPaddingEnd(orientation, container));
+        available = available.subtractNotNegative(LayoutUtils.getBorderEnd(orientation, container));
 
         List<Measure> partition = factorList.partition(available);
 
@@ -313,6 +317,7 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase implemen
 
           // compute the position of the cell
           Measure position = Measure.ZERO;
+          position = position.add(LayoutUtils.getPaddingBegin(orientation, getLayoutContainer()));
           position = position.add(getMarginBegin(orientation));
           for (int k = 0; k < i; k++) {
             if (heads[k] == null) {
