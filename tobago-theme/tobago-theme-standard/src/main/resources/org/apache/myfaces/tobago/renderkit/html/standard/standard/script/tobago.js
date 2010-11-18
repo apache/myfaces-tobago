@@ -16,35 +16,35 @@
  */
 
 var TbgTimer = {
-    startTbgJs: new Date(),
+  startTbgJs: new Date(),
 
-    log: function() {
-      var tbgjs = this.endTbgJs.getTime() - this.startTbgJs.getTime();
+  log: function() {
+    var tbgjs = this.endTbgJs.getTime() - this.startTbgJs.getTime();
 //      var htmljs = this.endBody.getTime() - this.startHtml.getTime();
-      var bodyjs = this.endBody.getTime() - this.startBody.getTime();
-      var onloadjs = this.endOnload.getTime() - this.startOnload.getTime();
-      var bodyToOnload = this.startOnload.getTime() - this.endBody.getTime();
-      var totaljs = this.endTotal.getTime() - this.startTbgJs.getTime();
-      var appOnload = this.endAppOnload.getTime() - this.startAppOnload.getTime();
+    var bodyjs = this.endBody.getTime() - this.startBody.getTime();
+    var onloadjs = this.endOnload.getTime() - this.startOnload.getTime();
+    var bodyToOnload = this.startOnload.getTime() - this.endBody.getTime();
+    var totaljs = this.endTotal.getTime() - this.startTbgJs.getTime();
+    var appOnload = this.endAppOnload.getTime() - this.startAppOnload.getTime();
 //      LOG.show();
-      if (TbgHeadStart) {
-        LOG.debug("startTbgJs-TbgHeadStart: " + (this.startTbgJs.getTime() - TbgHeadStart.getTime()));
-      }
-      LOG.debug("startBody-startTbgJs: " + (this.startBody.getTime() - this.startTbgJs.getTime()));
-      LOG.debug("startTbgJs:" + this.startTbgJs.getTime());
-      LOG.debug("startBody: " + this.startBody.getTime());
-      LOG.debug("parse tobago.js " + tbgjs);
-//      LOG.debug("parse htmltotal " + htmljs);
-      LOG.debug("parse body " + bodyjs);
-      LOG.debug("between body and onload " + bodyToOnload);
-      LOG.debug("execute onload " + onloadjs);
-      LOG.debug("execute appOnload " + appOnload);
-      LOG.debug("bis appOnload " + (this.startAppOnload.getTime() - this.startOnload.getTime()));
-      LOG.debug("bis scriptLoaders " + (this.startScriptLoaders.getTime() - this.startOnload.getTime()));
-      LOG.debug("time scriptLoaders " + (this.endScriptLoaders.getTime() - this.startScriptLoaders.getTime()));
-      LOG.debug("bis nach onload " + (this.endOnload.getTime() - this.startTbgJs.getTime()));
-      LOG.debug("total " + totaljs);
+    if (TbgHeadStart) {
+      LOG.debug('startTbgJs-TbgHeadStart: ' + (this.startTbgJs.getTime() - TbgHeadStart.getTime()));
     }
+    LOG.debug('startBody-startTbgJs: ' + (this.startBody.getTime() - this.startTbgJs.getTime()));
+    LOG.debug('startTbgJs:' + this.startTbgJs.getTime());
+    LOG.debug('startBody: ' + this.startBody.getTime());
+    LOG.debug('parse tobago.js ' + tbgjs);
+//      LOG.debug("parse htmltotal " + htmljs);
+    LOG.debug('parse body ' + bodyjs);
+    LOG.debug('between body and onload ' + bodyToOnload);
+    LOG.debug('execute onload ' + onloadjs);
+    LOG.debug('execute appOnload ' + appOnload);
+    LOG.debug('until appOnload ' + (this.startAppOnload.getTime() - this.startOnload.getTime()));
+    LOG.debug('until scriptLoaders ' + (this.startScriptLoaders.getTime() - this.startOnload.getTime()));
+    LOG.debug('time scriptLoaders ' + (this.endScriptLoaders.getTime() - this.startScriptLoaders.getTime()));
+    LOG.debug('until nach onload ' + (this.endOnload.getTime() - this.startTbgJs.getTime()));
+    LOG.debug('total ' + totaljs);
+  }
 };
 
 var Tobago = {
@@ -53,25 +53,31 @@ var Tobago = {
 
   /**
    * Component separator constant
+   * @const
+   * @type {string}
    */
-  COMPONENT_SEP: ":",
+  COMPONENT_SEP: ':',
 
   /**
-    * Tobago's subComponent separator constant
-    */
-  SUB_COMPONENT_SEP: "::",
+   * Tobago's subComponent separator constant
+   * @const
+   * @type {string}
+   */
+  SUB_COMPONENT_SEP: '::',
 
   /**
-    * Tobago's subComponent separator constant
-    */
-  SUB_COMPONENT_SEP2: "__",
+   * Tobago's subComponent separator constant
+   * @const
+   * @type {string}
+   */
+  SUB_COMPONENT_SEP2: '__',
 
-  EMPTY_HREF: window.all ? "#" : "javascript:;",
+  EMPTY_HREF: window.all ? '#' : 'javascript:;',
 
   /**
-    *  regexp to find non valid javascript name characters in scriptIds
-    */
-  scriptIdRegExp: new RegExp("[/.-]", 'g'),
+   *  regexp to find non valid javascript name characters in scriptIds
+   */
+  scriptIdRegExp: new RegExp('[/.-]', 'g'),
 
   scriptFragmentRegExp: '(?:<script(?:\n|.)*?>)(?:(?:\n|\s)*?<!--)?((\n|.)*?)(?:<\/script>)',
 
@@ -84,15 +90,15 @@ var Tobago = {
   page: null,
 
   /**
-    * The html form object of current page.
-    * set via init function (onload attribute of body)
-    */
+   * The html form object of current page.
+   * set via init function (onload attribute of body)
+   */
   form: null,
 
   /**
-    * The hidden html input object for submitted actionId.
-    * set via init function (onload attribute of body)
-    */
+   * The hidden html input object for submitted actionId.
+   * set via init function (onload attribute of body)
+   */
   action: null,
 
   /**
@@ -107,9 +113,9 @@ var Tobago = {
   blankPage: null,
 
   /**
-    * The id of the element which should became the focus after loading.
-    * Set via renderer if requested.
-    */
+   * The id of the element which should became the focus after loading.
+   * Set via renderer if requested.
+   */
   focusId: undefined,
 
   errorFocusId: undefined,
@@ -117,16 +123,16 @@ var Tobago = {
   lastFocusId: undefined,
 
   /**
-    * The id of the action which should be executed when the window was resized.
-    */
+   * The id of the action which should be executed when the window was resized.
+   */
   resizeActionId: undefined,
   resizeEventCount: 0,
 
   htmlIdIndex: 0,
 
   createHtmlId: function() {
-    var id = "__tbg_id_" + this.htmlIdIndex++;
-    LOG.debug("created id = " + id);
+    var id = '__tbg_id_' + this.htmlIdIndex++;
+    LOG.debug('created id = ' + id);
     return id;
   },
 
@@ -144,7 +150,7 @@ var Tobago = {
     set: function(keyAccelerator) {
       var key = keyAccelerator.modifier + keyAccelerator.key;
       if (this[key]) {
-        LOG.warn("Ignoring duplicate key: " + keyAccelerator.modifier + "-" + keyAccelerator.key + " with function: " + keyAccelerator.func.valueOf());
+        LOG.warn('Ignoring duplicate key: ' + keyAccelerator.modifier + '-' + keyAccelerator.key + ' with function: ' + keyAccelerator.func.valueOf());
       } else {
 //        LOG.debug("add accelerator for " + keyAccelerator.modifier + "-" + keyAccelerator.key);
         this[key] = keyAccelerator;
@@ -152,7 +158,7 @@ var Tobago = {
     },
 
     get: function(event) {
-      if (!event.type == "keypress") {
+      if (!event.type == 'keypress') {
         return;
       }
       var keyCode = event.which ? event.which : event.keyCode;
@@ -160,18 +166,18 @@ var Tobago = {
         return;
       }
       var key = String.fromCharCode(keyCode).toLowerCase();
-      var mod = "";
+      var mod = '';
       if (event.altKey) {
-        mod += "alt";
+        mod += 'alt';
       }
       if (event.ctrlKey || event.metaKey) {
-        mod += "ctrl";
+        mod += 'ctrl';
       }
       if (event.shiftKey) {
-        mod += "shift";
+        mod += 'shift';
       }
       if (mod.length == 0) {
-        mod = "none";
+        mod = 'none';
       }
 //      LOG.debug("event for " + mod + "-" + key);
       return this[mod + key];
@@ -210,26 +216,26 @@ var Tobago = {
   },
 
   /**
-    * Object to store already loaded script files
-    * to prevent multiple loading via Ajax requests.
-    */
+   * Object to store already loaded script files
+   * to prevent multiple loading via Ajax requests.
+   */
   registeredScripts: {},
 
   /**
-    * Array to queue ScriptLoaders.
-    */
+   * Array to queue ScriptLoaders.
+   */
   scriptLoaders: new Array(),
 
   ajaxComponents: {},
 
   /**
-    * Flag indicating that the page is completly loaded.
-    */
+   * Flag indicating that the page is completely loaded.
+   */
   pageIsComplete: false,
 
   /**
-    * Flag indicating that currently a scriptLoader is running.
-    */
+   * Flag indicating that currently a scriptLoader is running.
+   */
   scriptLoadingActive: false,
 
   isSubmit: false,
@@ -249,21 +255,21 @@ var Tobago = {
       return;
     }
     this.initMarker = true;
-    
+
 //    new LOG.LogArea({hide: false});
 //    LOG.show();
     if (TbgTimer.endBody) {
       TbgTimer.startOnload = new Date();
     }
     this.page = this.element(pageId);
-    this.form = this.element(this.page.id + this.SUB_COMPONENT_SEP + "form");
-    this.addBindEventListener(this.form, "submit", this, "onSubmit");
+    this.form = this.element(this.page.id + this.SUB_COMPONENT_SEP + 'form');
+    this.addBindEventListener(this.form, 'submit', this, 'onSubmit');
     this.action = this.element(this.form.id + '-action');
-    this.contextPath = this.element(this.page.id + this.SUB_COMPONENT_SEP + "context-path");
-    this.blankPage = this.contextPath.value + "/org/apache/myfaces/tobago/renderkit/html/standard/blank.html";
-    this.actionPosition = this.element(this.page.id + this.SUB_COMPONENT_SEP + "action-position");
+    this.contextPath = this.element(this.page.id + this.SUB_COMPONENT_SEP + 'context-path');
+    this.blankPage = this.contextPath.value + '/org/apache/myfaces/tobago/renderkit/html/standard/blank.html';
+    this.actionPosition = this.element(this.page.id + this.SUB_COMPONENT_SEP + 'action-position');
 
-    this.addBindEventListener(window, "unload", this, "onUnload");
+    this.addBindEventListener(window, 'unload', this, 'onUnload');
 
     // XXX not nice...
     xxx_tobagoInit();
@@ -278,7 +284,7 @@ var Tobago = {
       TbgTimer.endAppOnload = new Date();
     }
 
-    this.addBindEventListener(document, "keypress", this.acceleratorKeys, "observe");
+    this.addBindEventListener(document, 'keypress', this.acceleratorKeys, 'observe');
 
     if (Tobago.resizeActionId) {
       // firebug submits an onresize event
@@ -310,7 +316,7 @@ var Tobago = {
   },
 
   registerResizeAction: function() {
-    Tobago.addEventListener(window, "resize", Tobago.resizePage);
+    Tobago.addEventListener(window, 'resize', Tobago.resizePage);
   },
 
   onSubmit: function() {
@@ -323,13 +329,13 @@ var Tobago = {
         return false;
       }
     }
-    var hidden = Tobago.element("tobago::partialIds");
+    var hidden = Tobago.element('tobago::partialIds');
     if (hidden) {
       this.form.removeChild(hidden);
     }
     this.isSubmit = true;
-    var clientDimension = this.createInput("hidden", this.form.id + '-clientDimension');
-    clientDimension.value = document.body.clientWidth + ";" + document.body.clientHeight;
+    var clientDimension = this.createInput('hidden', this.form.id + '-clientDimension');
+    clientDimension.value = document.body.clientWidth + ';' + document.body.clientHeight;
     this.form.appendChild(clientDimension);
     Tobago.onBeforeUnload();
     return true;
@@ -345,11 +351,11 @@ var Tobago = {
   },
 
   makeOverlaySemitransparent: function() {
-    var overlay = Tobago.element(Tobago.page.id + "-overlay");
+    var overlay = Tobago.element(Tobago.page.id + '-overlay');
     if (overlay) {
-      var img = document.createElement("IMG");
-      img.style.width = "100%";
-      img.style.height = "100%";
+      var img = document.createElement('IMG');
+      img.style.width = '100%';
+      img.style.height = '100%';
       img.src = Tobago.OVERLAY_BACKGROUND;
       Tobago.fixPngAlpha(img);
       overlay.appendChild(img);
@@ -357,12 +363,12 @@ var Tobago = {
   },
 
   makeOverlayWait: function() {
-    var overlay = Tobago.element(Tobago.page.id + "-overlay");
+    var overlay = Tobago.element(Tobago.page.id + '-overlay');
     if (overlay) {
-      var table = document.createElement("TABLE");
-      table.style.position = "absolute";
-      table.style.top = "0px";
-      table.style.left = "0px";
+      var table = document.createElement('TABLE');
+      table.style.position = 'absolute';
+      table.style.top = '0px';
+      table.style.left = '0px';
       table.border = 1;
       table.cellPadding = 0;
       table.cellSpacing = 0;
@@ -370,10 +376,10 @@ var Tobago = {
       table.style.height = Tobago.page.clientHeight;
       var row = table.insertRow(0);
       var cell = row.insertCell(0);
-      cell.align = "center";
-      cell.width = "100%";
-      var anim = document.createElement("IMG");
-      anim.id = Tobago.page.id + "-overlay-wait";
+      cell.align = 'center';
+      cell.width = '100%';
+      var anim = document.createElement('IMG');
+      anim.id = Tobago.page.id + '-overlay-wait';
       cell.appendChild(anim);
       overlay.appendChild(table);
       setTimeout(Tobago.loadOverlayWait, 0);
@@ -381,19 +387,19 @@ var Tobago = {
   },
 
   loadOverlayWait: function() {
-    var img = Tobago.element(Tobago.page.id + "-overlay-wait");
+    var img = Tobago.element(Tobago.page.id + '-overlay-wait');
     img.src = Tobago.OVERLAY_WAIT;
   },
 
   doOverlayScroll: function() {
-    var overlay = Tobago.element(Tobago.page.id + "-overlay");
+    var overlay = Tobago.element(Tobago.page.id + '-overlay');
     overlay.style.top = overlay.parentNode.scrollTop;
     overlay.style.left = overlay.parentNode.scrollLeft;
   },
 
   /**
-    * Wrapper function to call application generated onunload function
-    */
+   * Wrapper function to call application generated onunload function
+   */
   onUnload: function() {
     if (this.isSubmit && this.applicationOnunload) {
       this.applicationOnunload();
@@ -414,7 +420,7 @@ var Tobago = {
     for (var treeNodeId in this.treeNodes) {
       try {
         this.destroyObject(this.treeNodes[treeNodeId]);
-      } catch(ex) {
+      } catch (ex) {
         // ignore
       }
     }
@@ -422,7 +428,7 @@ var Tobago = {
     for (var i = 0; i < this.jsObjects.length; i++) {
       try {
         this.destroyObject(this.jsObjects[i]);
-      } catch(ex) {
+      } catch (ex) {
         // ignore
       }
     }
@@ -482,7 +488,7 @@ var Tobago = {
         delete obj[item];
       }
       delete obj;
-    } catch(ex) {
+    } catch (ex) {
       // ignore
     }
   },
@@ -490,20 +496,20 @@ var Tobago = {
   /**
    * return true if page loading is complete.
    */
-  isPageComplete: function(){
+  isPageComplete: function() {
     return this.pageIsComplete;
   },
 
   /**
-    * Submitting the page with specified actionId.
-    */
+   * Submitting the page with specified actionId.
+   */
   submitAction: function(source, actionId, transition, target, focus) {
     if (transition === undefined || transition == null) {
       transition = true;
     }
 
     if (focus) {
-      var lastFocusId = this.createInput("hidden", this.page.id + this.SUB_COMPONENT_SEP + 'lastFocusId', focus);
+      var lastFocusId = this.createInput('hidden', this.page.id + this.SUB_COMPONENT_SEP + 'lastFocusId', focus);
       this.form.appendChild(lastFocusId);
     }
 
@@ -515,7 +521,7 @@ var Tobago = {
       if (!this.isSubmit) {
         this.isSubmit = true;
         var req = Tobago.Transport.requests.shift(); // remove this from queue
-        LOG.debug("request removed: " + req.toString());
+        LOG.debug('request removed: ' + req.toString());
         var oldAction = Tobago.action.value;
         var oldTarget = Tobago.form.target;
         Tobago.action.value = actionId;
@@ -530,10 +536,10 @@ var Tobago = {
           try {
             // LOG.debug("submit form with action: " + Tobago.action.value);
             Tobago.form.submit();
-          } catch(e) {
+          } catch (e) {
             Tobago.deleteOverlay(Tobago.page);
             Tobago.isSubmit = false;
-            alert("Submit failed: " + e); // XXX localization, better error handling
+            alert('Submit failed: ' + e); // XXX localization, better error handling
           }
         }
         Tobago.action.value = oldAction;
@@ -545,19 +551,19 @@ var Tobago = {
           Tobago.Transport.pageSubmited = false;
         }
 // old
-/*
-        Tobago.onSubmit();
-  //      LOG.debug("submit form with action: " + Tobago.action.value);
-          Tobago.form.submit();
-        Tobago.action.value = oldAction;
-        if (target) {
-          Tobago.form.target = oldTarget;
-        }
-        if (target || !transition) {
-          this.isSubmit = false;
-          Tobago.Transport.pageSubmited = false;
-        }
-*/
+        /*
+         Tobago.onSubmit();
+         //      LOG.debug("submit form with action: " + Tobago.action.value);
+         Tobago.form.submit();
+         Tobago.action.value = oldAction;
+         if (target) {
+         Tobago.form.target = oldTarget;
+         }
+         if (target || !transition) {
+         this.isSubmit = false;
+         Tobago.Transport.pageSubmited = false;
+         }
+         */
       }
     }, true);
   },
@@ -567,22 +573,22 @@ var Tobago = {
     var sourceTop = Tobago.getAbsoluteTop(source);
     var sourceWidth = Tobago.getWidth(source);
     var sourceHeight = Tobago.getHeight(source);
-    Tobago.actionPosition.value = sourceLeft + "px," + sourceTop + "px," + sourceWidth + "px," + sourceHeight + "px";
+    Tobago.actionPosition.value = sourceLeft + 'px,' + sourceTop + 'px,' + sourceWidth + 'px,' + sourceHeight + 'px';
 //    alert("source='" + source + "' action-position=" + Tobago.actionPosition.value);
   },
 
   getJsfState: function() {
-    var stateContainer = Tobago.element(Tobago.page.id + Tobago.SUB_COMPONENT_SEP + "jsf-state-container");
-    var jsfState = "";
+    var stateContainer = Tobago.element(Tobago.page.id + Tobago.SUB_COMPONENT_SEP + 'jsf-state-container');
+    var jsfState = '';
     if (stateContainer) {
       for (var i = 0; i < stateContainer.childNodes.length; i++) {
         var child = stateContainer.childNodes[i];
-        if (child.tagName == "INPUT") {
+        if (child.tagName == 'INPUT') {
           if (jsfState.length > 0) {
-            jsfState += "&";
+            jsfState += '&';
           }
           jsfState += encodeURIComponent(child.name);
-          jsfState += "=";
+          jsfState += '=';
           jsfState += encodeURIComponent(child.value);
         }
       }
@@ -592,13 +598,13 @@ var Tobago = {
   },
 
   replaceJsfState: function(state) {
-    if (state.indexOf("<script type") == 0) {
+    if (state.indexOf('<script type') == 0) {
       state = state.match(new RegExp(Tobago.scriptFragmentRegExp, 'im'), '')[1];
 //      LOG.debug("eval(" + state + ")");
       eval(state);
       return;
     }
-    var stateContainer = Tobago.element(this.page.id + this.SUB_COMPONENT_SEP + "jsf-state-container");
+    var stateContainer = Tobago.element(this.page.id + this.SUB_COMPONENT_SEP + 'jsf-state-container');
     if (stateContainer) {
       stateContainer.innerHTML = state;
     } else {
@@ -626,47 +632,47 @@ var Tobago = {
   },
 
   /**
-    * Load a specified URL into client
-    */
+   * Load a specified URL into client
+   */
   navigateToUrl: function(toUrl) {
     document.location.href = toUrl;
   },
 
   /**
-    * Register a script file to prevent multiple loadings via Ajax.
-    */
+   * Register a script file to prevent multiple loadings via Ajax.
+   */
   registerScript: function(scriptId) {
-    LOG.debug("register: " + scriptId);
+    LOG.debug('register: ' + scriptId);
     this.registeredScripts[this.genScriptId(scriptId)] = true;
   },
 
   /**
-    * Check if a script is already registered.
-    */
+   * Check if a script is already registered.
+   */
   hasScript: function(scriptId) {
     return this.registeredScripts[this.genScriptId(scriptId)];
   },
 
   /**
-    * Generate an id usable as javascript name.
-    */
+   * Generate an id usable as javascript name.
+   */
   genScriptId: function(script) {
-    script = script.substring(script.indexOf("/html/"));
+    script = script.substring(script.indexOf('/html/'));
     return script.replace(this.scriptIdRegExp, '_');
   },
 
   /**
-    * Check if a style file is already loaded, to prevent multiple loadings
-    * from Ajax requests.
-    */
+   * Check if a style file is already loaded, to prevent multiple loadings
+   * from Ajax requests.
+   */
   styleFileLoaded: function(name) {
     var children = document.getElementsByTagName('head')[0].childNodes;
     for (var i = 0; i < children.length; i++) {
       var child = children[i];
-      if (child.tagName && child.tagName.toUpperCase() == "LINK") {
-        if (child.rel == "stylesheet"
-            && child.type == "text/css"
-            && name ==  child.href.replace(/^http:\/\/.*?\//,"/")){
+      if (child.tagName && child.tagName.toUpperCase() == 'LINK') {
+        if (child.rel == 'stylesheet'
+            && child.type == 'text/css'
+            && name == child.href.replace(/^http:\/\/.*?\//, '/')) {
           return true;
         }
       }
@@ -680,8 +686,8 @@ var Tobago = {
   ensureStyleFile: function(name) {
     if (!this.styleFileLoaded(name)) {
       var style = document.createElement('link');
-      style.rel  = "stylesheet";
-      style.type = "text/css";
+      style.rel = 'stylesheet';
+      style.type = 'text/css';
       style.href = name;
       var head = document.getElementsByTagName('head')[0];
       head.appendChild(style);
@@ -689,8 +695,8 @@ var Tobago = {
   },
 
   /**
-    * Ensure that an array of style files is loaded.
-    */
+   * Ensure that an array of style files is loaded.
+   */
   ensureStyleFiles: function(names) {
     for (var i = 0; i < names.length; i++) {
       this.ensureStyleFile(names[i]);
@@ -704,15 +710,15 @@ var Tobago = {
     var children = document.getElementsByTagName('head')[0].childNodes;
     for (var i = 0; i < children.length; i++) {
       var child = children[i];
-      if (child.nodeType == 1 && child.tagName.toUpperCase() == "SCRIPT" && typeof child.src == "string"){
+      if (child.nodeType == 1 && child.tagName.toUpperCase() == 'SCRIPT' && typeof child.src == 'string') {
         Tobago.registerScript(child.src);
       }
     }
   },
 
   /**
-    * Add a scriptLoader to the queue or start it directly.
-    */
+   * Add a scriptLoader to the queue or start it directly.
+   */
   addScriptLoader: function(scriptLoader) {
     if (! this.pageIsComplete || this.scriptLoadingActive) {
 //      LOG.debug("add one scriptLoader");
@@ -725,8 +731,8 @@ var Tobago = {
   },
 
   /**
-    * Start script loaders from queue
-    */
+   * Start script loaders from queue
+   */
   startScriptLoaders: function() {
     if (! this.pageIsComplete) {
       while (this.scriptLoaders.length > 0) {
@@ -735,9 +741,9 @@ var Tobago = {
       }
     } else {
       var start = new Date().getTime();
-      LOG.debug("start 1 of " + this.scriptLoaders.length + " Loaders");
+      LOG.debug('start 1 of ' + this.scriptLoaders.length + ' Loaders');
       if (this.tbgScLoSt) {
-        LOG.debug("time scriptLoader " + (start - this.tbgScLoSt));
+        LOG.debug('time scriptLoader ' + (start - this.tbgScLoSt));
       }
       this.tbgScLoSt = start;
       if (this.scriptLoaders.length > 0) {
@@ -745,7 +751,7 @@ var Tobago = {
         this.scriptLoaders.shift().ensureScripts();
       } else {
         this.scriptLoadingActive = false;
-        LOG.debug("last time scriptLoader " + (new Date().getTime() - this.tbgScLoSt));
+        LOG.debug('last time scriptLoader ' + (new Date().getTime() - this.tbgScLoSt));
         delete this.tbgScLoSt;
       }
     }
@@ -760,36 +766,36 @@ var Tobago = {
 
   reloadComponent: function(source, id, actionId, options) {
     var container = this.ajaxComponents[id];
-    if (typeof container == "string") {
+    if (typeof container == 'string') {
       if (!actionId) {
         actionId = container;
       }
       Tobago.Updater.update(source, actionId, id, options);
-    } else if ((typeof container == "object") && container.tagName) {
+    } else if ((typeof container == 'object') && container.tagName) {
       if (!actionId) {
         actionId = container.id;
       }
       Tobago.Updater.update(source, actionId, id, options);
-    } else if ((typeof container == "object") && (typeof container.reloadWithAction == "function")) {
+    } else if ((typeof container == 'object') && (typeof container.reloadWithAction == 'function')) {
       if (!actionId) {
         if (container.id) {
           actionId = container.id;
         } else {
-          actionId = "_tbg_no_action_";
+          actionId = '_tbg_no_action_';
         }
       }
       container.reloadWithAction(source, actionId, options);
-    } else if (container === undefined){
+    } else if (container === undefined) {
       Tobago.Updater.update(source, actionId, id, options);
     } else {
-      LOG.warn("Illegal Container for reload:" + (typeof container));
+      LOG.warn('Illegal Container for reload:' + (typeof container));
     }
   },
 
   /**
-    * Focus function for toolbar buttons.
-    *  IE only.
-    */
+   * Focus function for toolbar buttons.
+   *  IE only.
+   */
   toolbarFocus: function(element, event) {
     if (window.event && event.altKey) {
       // ie only set focus on keyboard access, so do the click here.
@@ -800,11 +806,11 @@ var Tobago = {
 
 
 // -------- SelectOne functions ----------------------------------------------------
-   // TODO move SelectOne function in Tobago.SelectOne object
+  // TODO move SelectOne function in Tobago.SelectOne object
 
   /**
-    *  Onchange function for SelectOneListbox.
-    */
+   *  Onchange function for SelectOneListbox.
+   */
   selectOneListboxChange: function(element) {
     if (element.oldValue == undefined) {
       element.oldValue = -1;
@@ -812,8 +818,8 @@ var Tobago = {
   },
 
   /**
-    * Onclick function for SelectOneListbox.
-    */
+   * Onclick function for SelectOneListbox.
+   */
   selectOneListboxClick: function(element) {
     if (element.oldValue == undefined || element.oldValue == element.selectedIndex) {
       element.selectedIndex = -1;
@@ -822,8 +828,8 @@ var Tobago = {
   },
 
   /**
-    * Init function for SelectOneRadio.
-    */
+   * Init function for SelectOneRadio.
+   */
   selectOneRadioInit: function(name) {
     var elements = document.getElementsByName(name);
     for (var i = 0; i < elements.length; i++) {
@@ -832,8 +838,8 @@ var Tobago = {
   },
 
   /**
-    * Onclick function for SelectOneRadio.
-    */
+   * Onclick function for SelectOneRadio.
+   */
   selectOneRadioClick: function(element, name, required, readonly) {
     var elements = document.getElementsByName(name);
     for (var i = 0; i < elements.length; i++) {
@@ -855,7 +861,7 @@ var Tobago = {
   },
 
 // -------- Popup functions ---------------------------------------------------
-    // TODO move popup functions into Tobago.Popup object
+  // TODO move popup functions into Tobago.Popup object
 
   /**
    * Setup popup size
@@ -863,19 +869,19 @@ var Tobago = {
   setupPopup: function() {
 
     // TODO: remove later (after change AJAX, that they replace tags instead of fill them...)
-    jQuery(".tobago-popup-parent > .tobago-popup").unwrap();
+    jQuery('.tobago-popup-parent > .tobago-popup').unwrap();
 
     // The shield is a protection against clicking controls, which are not allowed to click in the modal case.
     // The shield also makes an optical effect (alpha blending).
 
     // remove all old shields
-    jQuery(".tobago-popup-shield").remove();
+    jQuery('.tobago-popup-shield').remove();
 
     // find highest modal popup
     var maxZIndex = -Infinity;
     var maxModalPopup = null;
-    jQuery(".tobago-popup-markup-modal").each(function() {
-      var zIndex = jQuery(this).css("z-index");
+    jQuery('.tobago-popup-markup-modal').each(function() {
+      var zIndex = jQuery(this).css('z-index');
       if (zIndex >= maxZIndex) {
         maxZIndex = zIndex;
         maxModalPopup = jQuery(this);
@@ -886,32 +892,32 @@ var Tobago = {
     if (maxModalPopup != null && maxModalPopup.size() > 0) { // same as == 1
 
       maxModalPopup.prepend("<div class='tobago-popup-shield' onclick='Tobago.popupBlink(this)'/>");
-      var shield = maxModalPopup.children(".tobago-popup-shield");
-      shield.attr("id", maxModalPopup.attr("id") + "::shield");
+      var shield = maxModalPopup.children('.tobago-popup-shield');
+      shield.attr('id', maxModalPopup.attr('id') + '::shield');
 
       // IE6 doesn't support position:fixed
       if (jQuery.browser.msie && parseInt(jQuery.browser.version) <= 6) {
         shield.css({
-          position: "absolute",
+          position: 'absolute',
           left: -maxModalPopup.offset().left,
           top: -maxModalPopup.offset().top,
           width: jQuery(window).width(),
           height: jQuery(window).height(),
-          background: "none",
+          background: 'none',
           filter: "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='"
               + Tobago.OVERLAY_BACKGROUND + "', sizingMethod='scale');"
         });
 
         // IE6 needs an iframe to protect the other controls and protect against select-tag shining through.
         maxModalPopup.prepend("<iframe class='tobago-popup-iframe'/>");
-        var iframe = maxModalPopup.children(".tobago-popup-iframe");
+        var iframe = maxModalPopup.children('.tobago-popup-iframe');
         iframe.css({
-          position: "absolute",
+          position: 'absolute',
           left: -maxModalPopup.offset().left,
           top: -maxModalPopup.offset().top,
           width: jQuery(window).width(),
           height: jQuery(window).height()
-        })
+        });
       }
 
       // disable the page and all popups behind the highest modal popup
@@ -920,28 +926,28 @@ var Tobago = {
   },
 
   /**
-    * Locks the parent page of a popup when it is opened
-    */
+   * Locks the parent page of a popup when it is opened
+   */
   lockBehindPopup: function(popup) {
     // disable all elements and anchors on page not initially disabled and
     // store their ids in a hidden field
     var id = popup.id;
-    var hidden = Tobago.element(id + Tobago.SUB_COMPONENT_SEP + "disabledElements");
+    var hidden = Tobago.element(id + Tobago.SUB_COMPONENT_SEP + 'disabledElements');
     if (hidden == null) {
-      hidden = document.createElement("input");
-      hidden.id = id + Tobago.SUB_COMPONENT_SEP + "disabledElements";
-      hidden.type = "hidden";
+      hidden = document.createElement('input');
+      hidden.id = id + Tobago.SUB_COMPONENT_SEP + 'disabledElements';
+      hidden.type = 'hidden';
       popup.appendChild(hidden);
     }
-    hidden.value = ",";
+    hidden.value = ',';
     var firstPopupElement = null;
     for (var i = 0; i < document.forms[0].elements.length; i++) {
       var element = document.forms[0].elements[i];
-      if (element.type != "hidden" && !element.disabled) {
+      if (element.type != 'hidden' && !element.disabled) {
         if (element.id) {
-          if (element.id.indexOf(id + ":") != 0) { // not starts with
+          if (element.id.indexOf(id + ':') != 0) { // not starts with
             element.disabled = true;
-            hidden.value += element.id + ",";
+            hidden.value += element.id + ',';
           } else {
             if (firstPopupElement == null && Tobago.isFunction(element.focus)) {
               firstPopupElement = element;
@@ -955,9 +961,9 @@ var Tobago = {
       var element = anchors[i];
       if (!element.disabled) {
         if (element.id) {
-          if (element.id.indexOf(id + ":") != 0) { // not starts with
-             element.disabled = true;
-             hidden.value += element.id + ",";
+          if (element.id.indexOf(id + ':') != 0) { // not starts with
+            element.disabled = true;
+            hidden.value += element.id + ',';
           } else {
             if (firstPopupElement == null && element.focus) {
               firstPopupElement = element;
@@ -970,7 +976,8 @@ var Tobago = {
     if (firstPopupElement != null) {
       try {
         firstPopupElement.focus();
-      } catch(e) {/* ignore */}
+      } catch (e) {/* ignore */
+      }
     }
   },
 
@@ -978,9 +985,9 @@ var Tobago = {
    * Make popup blink
    */
   popupBlink: function(element) {
-    var id = jQuery(element).attr("id");
+    var id = jQuery(element).attr('id');
     LOG.debug("Blink: Popup id is '" + id + "'");
-    Tobago.addCssClass(id, "tobago-popup-blink");
+    Tobago.addCssClass(id, 'tobago-popup-blink');
     setTimeout("Tobago.removeCssClass('" + id + "', 'tobago-popup-blink')", 20);
   },
 
@@ -989,38 +996,38 @@ var Tobago = {
    */
   closePopup: function(closeButton) {
     Tobago.unlockBehindPopup();
-    var popup = jQuery(closeButton).parents("div.tobago-popup:first");
+    var popup = jQuery(closeButton).parents('div.tobago-popup:first');
     popup.remove();
     Tobago.setupPopup();
   },
 
   /**
-    * Unlock the parent page of a popup when it is closed
-    */
+   * Unlock the parent page of a popup when it is closed
+   */
   unlockBehindPopup: function() {
-    var maxModalPopup = jQuery(".tobago-popup-shield").parent();
+    var maxModalPopup = jQuery('.tobago-popup-shield').parent();
     if (maxModalPopup.size() == 0) { // there is no modal popup
       return;
     }
-    var id = maxModalPopup.attr("id");
+    var id = maxModalPopup.attr('id');
     // enable all elements and anchors on page stored in a hidden field
     var element;
-    var hidden = Tobago.element(id + Tobago.SUB_COMPONENT_SEP + "disabledElements");
-    if (hidden != null && hidden.value != "") {
-     for (var i = 0; i < document.forms[0].elements.length; i++) {
-       element = document.forms[0].elements[i];
-       if (hidden.value.indexOf("," + element.id + ",") >= 0) {
-         element.disabled = false;
-       }
-     }
-     var anchors = document.getElementsByTagName('a');
-     for (i = 0; i < anchors.length; i++) {
-       element = anchors[i];
-       if (hidden.value.indexOf("," + element.id + ",") >= 0) {
-         element.disabled = false;
-       }
-     }
-   }
+    var hidden = Tobago.element(id + Tobago.SUB_COMPONENT_SEP + 'disabledElements');
+    if (hidden != null && hidden.value != '') {
+      for (var i = 0; i < document.forms[0].elements.length; i++) {
+        element = document.forms[0].elements[i];
+        if (hidden.value.indexOf(',' + element.id + ',') >= 0) {
+          element.disabled = false;
+        }
+      }
+      var anchors = document.getElementsByTagName('a');
+      for (i = 0; i < anchors.length; i++) {
+        element = anchors[i];
+        if (hidden.value.indexOf(',' + element.id + ',') >= 0) {
+          element.disabled = false;
+        }
+      }
+    }
   },
 
   openPopupWithAction: function(source, popupId, actionId, options) {
@@ -1028,8 +1035,8 @@ var Tobago = {
     // If there is no div, create one.
     var div = jQuery(Tobago.escapeClientId(popupId));
     if (div.size() == 0) {
-      jQuery("form:first") // add the new div after the page and the popup divs.
-          .children("(.tobago-page,.tobago-popup):last")
+      jQuery('form:first')// add the new div after the page and the popup divs.
+          .children('(.tobago-page,.tobago-popup):last')
           .after("<div id='" + popupId + "' />");
     }
 
@@ -1051,28 +1058,28 @@ var Tobago = {
 
 // -------- Util functions ----------------------------------------------------
 
-  escapeClientId : function(id) {
-    return "#" + id.replace(/:/g,"\\:");
+  escapeClientId: function(id) {
+    return '#' + id.replace(/:/g, '\\:');
   },
 
   /**
    * Helps to select either elements from the whole DOM or only find in sub trees
    * (in the case of AJAX partial rendering)
    * @param elements a jQuery object to initialize (ajax) or null for initializing the whole document (full load).
-   * @param selector a jQuery selector
+   * @param selector a jQuery selector.
    */
-  selectWidthJQuery : function(elements, selector) {
+  selectWidthJQuery: function(elements, selector) {
     return elements == null
         ? jQuery(selector)
         : elements.find(selector);
   },
 
-  calculateScrollbarWeights : function(id) {
+  calculateScrollbarWeights: function(id) {
     var hidden = jQuery(Tobago.escapeClientId(id));
     var outer = hidden.prev();
-    hidden.val(""
-        + (100 - outer.attr("clientWidth")) + ";"
-        + (100 - outer.attr("clientHeight")));
+    hidden.val(''
+        + (100 - outer.attr('clientWidth')) + ';'
+        + (100 - outer.attr('clientHeight')));
   },
 
   clickOnElement: function(id) {
@@ -1084,13 +1091,13 @@ var Tobago = {
         element.click();
       } else {
 //        LOG.debug("click on new button");
-        var a = document.createElement("input");
-        a.type = "button";
-        a.style.width = "0px;";
-        a.style.height = "0px;";
-        a.style.border = "0px;";
-        a.style.padding = "0px;";
-        a.style.margin = "0px;";
+        var a = document.createElement('input');
+        a.type = 'button';
+        a.style.width = '0px;';
+        a.style.height = '0px;';
+        a.style.border = '0px;';
+        a.style.padding = '0px;';
+        a.style.margin = '0px;';
 //        a.addEventListener("click", function(event) {LOG.debug("button onclick : event " + typeof event);}, false);
         element.appendChild(a);
         a.click();
@@ -1100,9 +1107,9 @@ var Tobago = {
   },
 
   /**
-    * Sets the focus to the requested element or to the first possible if
-    * no element is explicitly requested.
-    */
+   * Sets the focus to the requested element or to the first possible if
+   * no element is explicitly requested.
+   */
   setFocus: function() {
     var elementId;
     if (this.errorFocusId !== undefined) {
@@ -1123,17 +1130,17 @@ var Tobago = {
     if (focusElement) {
       try { // focus() on not visible elements breaks IE
         focusElement.focus();
-      } catch(ex) {
-        LOG.warn("Exception when setting focus on : \"" + this.focusId + "\"");
+      } catch (ex) {
+        LOG.warn('Exception when setting focus on : \"' + this.focusId + '\"');
       }
-    } else if (typeof this.focusId == "undefined") {
+    } else if (typeof this.focusId == 'undefined') {
       var lowestTabIndex = 32768; // HTML max tab index value + 1
       var candidate = null;
       var candidateWithTabIndexZero = null;
-      foriLoop: for (var i = 0 ; i < document.forms.length ; i++) {
+      foriLoop: for (var i = 0; i < document.forms.length; i++) {
         var form = document.forms[i];
-        if (form != null){
-          for (var j = 0 ; j < form.elements.length ; j++) {
+        if (form != null) {
+          for (var j = 0; j < form.elements.length; j++) {
             var element = form.elements[j];
             if (element != null) {
               if (!element.disabled && !element.readOnly
@@ -1158,15 +1165,17 @@ var Tobago = {
         try {
           // focus() on not visible elements breaks IE
           candidate.focus();
-        } catch(ex) { }
+        } catch (ex) {
+        }
       } else if (candidateWithTabIndexZero != null) {
         try {
           // focus() on not visible elements breaks IE
           candidateWithTabIndexZero.focus();
-        } catch(ex) { }
+        } catch (ex) {
+        }
       }
     } else if (this.focusId.length > 0) {
-      LOG.warn("Cannot find component to set focus : \"" + this.focusId + "\"");
+      LOG.warn('Cannot find component to set focus : \"' + this.focusId + '\"');
     }
 
   },
@@ -1176,17 +1185,17 @@ var Tobago = {
    * check if a component type is valid to receive the focus
    */
   isFocusType: function(type) {
-    if ( type == 'text'
+    if (type == 'text'
         || type == 'textarea'
         || type == 'select-one'
         || type == 'select-multiple'
-    //       ||  type == 'button'
+      //       ||  type == 'button'
         || type == 'checkbox'
-    // || type == 'file'
+      // || type == 'file'
         || type == 'password'
         || type == 'radio'
-        ||  type == 'reset'
-        ||  type == 'submit'
+        || type == 'reset'
+        || type == 'submit'
         ) {
       return true;
     }
@@ -1197,11 +1206,11 @@ var Tobago = {
 
   isInputElement: function(tagName) {
     tagName = tagName.toUpperCase();
-    if (   tagName == "INPUT"
-        || tagName == "TEXTAREA"
-        || tagName == "SELECT"
-        || tagName == "A"
-        || tagName == "BUTTON"
+    if (tagName == 'INPUT'
+        || tagName == 'TEXTAREA'
+        || tagName == 'SELECT'
+        || tagName == 'A'
+        || tagName == 'BUTTON'
         ) {
       return true;
     }
@@ -1209,10 +1218,10 @@ var Tobago = {
   },
 
   /**
-    * Create a HTML input element with given type, name and value.
-    */
+   * Create a HTML input element with given type, name and value.
+   */
   createInput: function(type, name, value) {
-    var input = document.createElement("INPUT");
+    var input = document.createElement('INPUT');
     if (type) {
       input.type = type;
     }
@@ -1226,30 +1235,30 @@ var Tobago = {
   },
 
   /**
-    * Add a CSS class name to the className property of an HTML element
-    */
+   * Add a CSS class name to the className property of an HTML element
+   */
   addCssClass: function(element, className) {
     element = Tobago.element(element);
-    element.className = element.className + " " + className;
+    element.className = element.className + ' ' + className;
   },
 
   /**
-    * remove a CSS class name from the className property of an HTML element
-    */
+   * remove a CSS class name from the className property of an HTML element
+   */
   removeCssClass: function(element, className) {
     element = Tobago.element(element);
-    var classes = " " + element.className + " ";
-    var re = new RegExp(" " + className + " ", 'g');
+    var classes = ' ' + element.className + ' ';
+    var re = new RegExp(' ' + className + ' ', 'g');
     while (classes.match(re)) {
-      classes = classes.replace(re, " ");
+      classes = classes.replace(re, ' ');
     }
-    classes = classes.replace(/  /g, " ");
+    classes = classes.replace(/  /g, ' ');
     element.className = classes;
   },
 
   /**
-    * Clear the selection.
-    */
+   * Clear the selection.
+   */
   clearSelection: function() {
     if (document.selection) {  // IE
       document.selection.empty();
@@ -1259,8 +1268,8 @@ var Tobago = {
   },
 
   /**
-    * Returns the computedStyle of an HTML element
-    */
+   * Returns the computedStyle of an HTML element
+   */
   getRuntimeStyle: function(element) {
     if (element.runtimeStyle) { // IE
       return element.runtimeStyle;
@@ -1270,8 +1279,8 @@ var Tobago = {
   },
 
   /**
-    * Return ancestor with given type.
-    */
+   * Return ancestor with given type.
+   */
   // TODO what if no ancestor found? XXX rename anchestor -> ancestor
   findAnchestorWithTagName: function(element, tagName) {
     element = this.element(element);
@@ -1283,42 +1292,42 @@ var Tobago = {
 
 
   /**
-    * Create an overlay with same dimension and wait cursor over an HTML element.
-    */
+   * Create an overlay with same dimension and wait cursor over an HTML element.
+   */
   createOverlay: function(element) {
     element = Tobago.element(element);
     if (!element) {
-      LOG.warn("no element to create overlay");
+      LOG.warn('no element to create overlay');
       return;
     }
     var position = Tobago.getRuntimeStyle(element).position;
-    if (position == "static") {
-      LOG.debug("replace position " + position + " with relative");
-      element.style.position = "relative";
+    if (position == 'static') {
+      LOG.debug('replace position ' + position + ' with relative');
+      element.style.position = 'relative';
     }
-    if (this.getBrowser().type == "msie" && this.getBrowser().version < 7) {
-      var iframe = document.createElement("IFRAME");
-      iframe.id = element.id + "-iframe-overlay";
-      iframe.style.backgroundColor = "red";
-      iframe.style.filter='progid:DXImageTransform.Microsoft.Alpha(style=0,opacity=0)';
+    if (this.getBrowser().type == 'msie' && this.getBrowser().version < 7) {
+      var iframe = document.createElement('IFRAME');
+      iframe.id = element.id + '-iframe-overlay';
+      iframe.style.backgroundColor = 'red';
+      iframe.style.filter = 'progid:DXImageTransform.Microsoft.Alpha(style=0,opacity=0)';
       iframe.style.zIndex = 9999;
-      iframe.frameBorder = "0";
-      iframe.style.position = "absolute";
+      iframe.frameBorder = '0';
+      iframe.style.position = 'absolute';
       iframe.src = Tobago.blankPage;
-      iframe.style.top = "0px";
-      iframe.style.left = "0px";
+      iframe.style.top = '0px';
+      iframe.style.left = '0px';
       iframe.style.width = element.scrollWidth + 'px';
       iframe.style.height = element.scrollHeight + 'px';
       element.appendChild(iframe);
     }
     var overlay = document.createElement('div');
-    overlay.id = element.id + "-overlay";
-    overlay.style.position = "absolute";
-    overlay.style.top = "0px";
-    overlay.style.left = "0px";
+    overlay.id = element.id + '-overlay';
+    overlay.style.position = 'absolute';
+    overlay.style.top = '0px';
+    overlay.style.left = '0px';
     overlay.style.width = element.scrollWidth + 'px';
     overlay.style.height = element.scrollHeight + 'px';
-    overlay.style.cursor = "wait";
+    overlay.style.cursor = 'wait';
     // TODO: better z-index strategy
     overlay.style.zIndex = 10000;
     element.appendChild(overlay);
@@ -1326,28 +1335,28 @@ var Tobago = {
   },
 
   /**
-    * Delete an overlay created by createOverlay.
-    */
+   * Delete an overlay created by createOverlay.
+   */
   deleteOverlay: function(element) {
     if (element == null) {
       return;
     }
-    var overlay = document.getElementById(element.id + "-overlay");
+    var overlay = document.getElementById(element.id + '-overlay');
     if (overlay && overlay.parentNode == element) {
       element.removeChild(overlay);
-      var iframe = document.getElementById(element.id + "-iframe-overlay");
+      var iframe = document.getElementById(element.id + '-iframe-overlay');
       if (iframe) {
         element.removeChild(iframe);
       }
     } else {
-      LOG.warn("Can't find Overlay : \"" + element.id + "-overlay" + "\"");
+      LOG.warn("Can't find Overlay : \"" + element.id + '-overlay' + '\"');
     }
     return element;
   },
 
   /**
-    * Set the width of an HTML element via style
-    */
+   * Set the width of an HTML element via style
+   */
   setElementWidth: function(id, width) {
     var element = this.element(id);
     if (element) {
@@ -1356,20 +1365,20 @@ var Tobago = {
   },
 
   /**
-    * Add an event listener to an HTML element
-    */
+   * Add an event listener to an HTML element
+   */
   addEventListener: function(element, event, myFunction) {
     var el = new Tobago.EventListener(element, event, myFunction);
     if (el.element.addEventListener) { // this is DOM2
       el.element.addEventListener(el.event, el.func, false);
     } else { // IE
-      el.element.attachEvent("on" + el.event, el.func);
+      el.element.attachEvent('on' + el.event, el.func);
     }
   },
 
   /**
-    * Remove an event listener from an HTML element
-    */
+   * Remove an event listener from an HTML element
+   */
   removeEventListener: function(element, event, myFunction) {
     if (!event && !myFunction && element.element && element.event && element.func) {
       myFunction = element.func;
@@ -1380,9 +1389,9 @@ var Tobago = {
       element.removeEventListener(event, myFunction, true);
     }
     else if (element.detachEvent) {  // IE
-      element.detachEvent("on" + event, myFunction);
+      element.detachEvent('on' + event, myFunction);
     } else {
-      LOG.debug("Unknown Element: " + typeof element);
+      LOG.debug('Unknown Element: ' + typeof element);
     }
 
   },
@@ -1452,8 +1461,8 @@ var Tobago = {
 
 
   /**
-    * Stop event bubbling
-    */
+   * Stop event bubbling
+   */
   stopEventPropagation: function(event) {
     if (! event) {
       event = window.event;
@@ -1466,8 +1475,8 @@ var Tobago = {
   },
 
   /**
-    * Returns the absolute top value, related to the body element, for an HTML element.
-    */
+   * Returns the absolute top value, related to the body element, for an HTML element.
+   */
   getAbsoluteTop: function(element) {
     var top = 0;
     var parent = false;
@@ -1475,7 +1484,7 @@ var Tobago = {
       top += element.offsetTop;
       top -= element.scrollTop;
       if (parent && element.currentStyle) { // IE only
-        top += element.currentStyle.borderTopWidth.replace(/\D/g, "") - 0;
+        top += element.currentStyle.borderTopWidth.replace(/\D/g, '') - 0;
       }
       element = element.offsetParent;
       parent = true;
@@ -1507,8 +1516,8 @@ var Tobago = {
 
 
   /**
-    * Returns the absolute left, related to the body element, value for an HTML element.
-    */
+   * Returns the absolute left, related to the body element, value for an HTML element.
+   */
   getAbsoluteLeft: function(element) {
     var left = 0;
     var parent = false;
@@ -1516,7 +1525,7 @@ var Tobago = {
       left += element.offsetLeft;
       left -= element.scrollLeft;
       if (parent && element.currentStyle) {  // IE only
-        left += element.currentStyle.borderLeftWidth.replace(/\D/g, "") - 0;
+        left += element.currentStyle.borderLeftWidth.replace(/\D/g, '') - 0;
       }
       element = element.offsetParent;
       parent = true;
@@ -1525,8 +1534,8 @@ var Tobago = {
   },
 
   /**
-    * Returns the scroll-x value of the body element.
-    */
+   * Returns the scroll-x value of the body element.
+   */
   getBrowserInnerLeft: function() {
     var innerLeft;
     if (document.all) { // ie
@@ -1538,8 +1547,8 @@ var Tobago = {
   },
 
   /**
-    * Returns the scroll-y value of the body element.
-    */
+   * Returns the scroll-y value of the body element.
+   */
   getBrowserInnerTop: function() {
     var innerTop;
     if (document.all) { // ie
@@ -1552,24 +1561,24 @@ var Tobago = {
 
   // TODO check if this is still ok
   doEditorCommand: function(element, id) {
-    LOG.debug("doEditorCommand()");
+    LOG.debug('doEditorCommand()');
     var ta = this.element(id);
     var text = ta.value;
     var marked = text.substring(ta.selectionStart, ta.selectionEnd);
-    LOG.debug("text = " + marked);
-    LOG.debug("start = " + ta.selectionStart + " end =" + ta.selectionEnd);
+    LOG.debug('text = ' + marked);
+    LOG.debug('start = ' + ta.selectionStart + ' end =' + ta.selectionEnd);
     ta.selectionStart--;
     ta.focus();
   },
 
   /**
-    * Returns an HTML element.
-    * valid input types are:
-    * 'string'      : returns the result of document.getElementById()
-    * 'Event'       : returns the currentTarget/srcElement property
-    * 'HtmlElement' : returns the element itself
-    * For all other types return 'undefined'
-    */
+   * Returns an HTML element.
+   * valid input types are:
+   * 'string'      : returns the result of document.getElementById()
+   * 'Event'       : returns the currentTarget/srcElement property
+   * 'HtmlElement' : returns the element itself
+   * For all other types return 'undefined'
+   */
   element: function(arg) {
 //    LOG.debug("arg = " + arg);
 
@@ -1582,17 +1591,17 @@ var Tobago = {
         return arg.currentTarget;
       } else if (typeof arg.srcElement == 'object') {
 //        LOG.debug("arg is IE event ");
-          return arg.srcElement;  // IE doesn't support currentTarget, hope src target helps
+        return arg.srcElement;  // IE doesn't support currentTarget, hope src target helps
       } else if (typeof arg.tagName == 'string') {
 //        LOG.debug("arg is HTML element ");
         return arg;
       }
 
-    } catch(ex) {
+    } catch (ex) {
       return undefined;
     }
     if (! (typeof arg == 'undefined')) {
-      LOG.error("arg is unknown: " + typeof arg + " : " + arg);
+      LOG.error('arg is unknown: ' + typeof arg + ' : ' + arg);
     }
     return undefined;
   },
@@ -1615,14 +1624,14 @@ var Tobago = {
   getBrowser: function() {
     if (!this.browser) {
       var agent = navigator.userAgent.toLowerCase();
-      if (agent.indexOf("msie 7") != -1) {
-        this.browser = {"type": "msie", 'version': 7};
-      } else if (agent.indexOf("msie") != -1) {
-        this.browser = {"type": "msie", 'version': -1};
+      if (agent.indexOf('msie 7') != -1) {
+        this.browser = {'type': 'msie', 'version': 7};
+      } else if (agent.indexOf('msie') != -1) {
+        this.browser = {'type': 'msie', 'version': -1};
       } else if (agent.indexOf('gecko') != -1) {
-        this.browser = {"type": "mozilla", 'version': -1};
+        this.browser = {'type': 'mozilla', 'version': -1};
       } else {
-        this.browser = {"type": "unknown", 'version': -1};
+        this.browser = {'type': 'unknown', 'version': -1};
       }
     }
     return this.browser;
@@ -1642,38 +1651,38 @@ var Tobago = {
 
   parsePartialIds: function(ajaxComponentIds) {
     if (jQuery.isArray(ajaxComponentIds)) {
-        return ajaxComponentIds;
+      return ajaxComponentIds;
     }
-    return ajaxComponentIds.split(",");
+    return ajaxComponentIds.split(',');
   },
 
   setDefaultAction: function(defaultActionId) {
     Tobago.action.value = defaultActionId;
   },
 
-  isFunction: function (func) {
-    return (typeof func == "function") || ((typeof func == "object") && func.call);
+  isFunction: function(func) {
+    return (typeof func == 'function') || ((typeof func == 'object') && func.call);
   },
 
   raiseEvent: function(eventType, element) {
     if (document.createEvent) {
-      var evt = document.createEvent("Events");
+      var evt = document.createEvent('Events');
       evt.initEvent(eventType, true, true);
       element.dispatchEvent(evt);
     }
     else if (document.createEventObject) {
-      var evt = document.createEventObject();   
+      var evt = document.createEventObject();
       element.fireEvent('on' + eventType, evt);
     }
   },
 
   toString: function(element) {
-    var result = "";
+    var result = '';
     for (var property in element) {
       if (property && element[property]) {
-        var value = "" + element[property];
-        if (value != "") {
-          result += "\r\n" + property + "=" + value;
+        var value = '' + element[property];
+        if (value != '') {
+          result += '\r\n' + property + '=' + value;
         }
       }
     }
@@ -1696,15 +1705,15 @@ Tobago.In.prototype.setup = function() {
     if (ctrl.value && ctrl.value.length > 0) {
       Tobago.removeCssClass(this.id, this.requiredClass);
     }
-    Tobago.addBindEventListener(ctrl, "focus", this, "enterRequired");
-    Tobago.addBindEventListener(ctrl, "blur", this, "leaveRequired");
+    Tobago.addBindEventListener(ctrl, 'focus', this, 'enterRequired');
+    Tobago.addBindEventListener(ctrl, 'blur', this, 'leaveRequired');
   }
   if (this.maxLength && this.maxLength > 0) {
     ctrl = Tobago.element(this.id);
-    Tobago.addBindEventListener(ctrl, "change", this, "checkMaxLength");
-    Tobago.addBindEventListener(ctrl, "keypress", this, "checkMaxLength");
-    if (Tobago.getBrowser().type == "msie") {
-      Tobago.addBindEventListener(ctrl, "paste", this, "checkMaxLengthOnPaste");
+    Tobago.addBindEventListener(ctrl, 'change', this, 'checkMaxLength');
+    Tobago.addBindEventListener(ctrl, 'keypress', this, 'checkMaxLength');
+    if (Tobago.getBrowser().type == 'msie') {
+      Tobago.addBindEventListener(ctrl, 'paste', this, 'checkMaxLengthOnPaste');
     }
   }
 };
@@ -1715,7 +1724,7 @@ Tobago.In.prototype.checkMaxLengthOnPaste = function(event) {
     event = window.event;
   }
   var input = Tobago.element(event);
-  var pasteText = window.clipboardData.getData("Text");
+  var pasteText = window.clipboardData.getData('Text');
   var range = document.selection.createRange();
   if (input.value.length - range.text.length + pasteText.length > this.maxLength) {
     pasteText = pasteText.substring(0, this.maxLength - input.value.length + range.text.length);
@@ -1777,7 +1786,7 @@ Tobago.In.prototype.enterRequired = function(e) {
   Tobago.removeCssClass(this.id, this.requiredClass);
 };
 
-Tobago.In.prototype.leaveRequired = function (e) {
+Tobago.In.prototype.leaveRequired = function(e) {
   var ctrl = Tobago.element(this.id);
   if (!ctrl.value || ctrl.value.length == 0) {
     Tobago.addCssClass(ctrl.id, this.requiredClass);
@@ -1815,8 +1824,8 @@ Tobago.Panel.prototype.afterDoUpdateError = function() {
 };
 
 Tobago.Panel.prototype.initReload = function() {
-  if (typeof this.autoReload == "number" && this.autoReload > 0) {
-    Tobago.addReloadTimeout(this.id, Tobago.bind2(this, "reloadWithAction", null, this.id), this.autoReload);
+  if (typeof this.autoReload == 'number' && this.autoReload > 0) {
+    Tobago.addReloadTimeout(this.id, Tobago.bind2(this, 'reloadWithAction', null, this.id), this.autoReload);
   }
 };
 
@@ -1844,25 +1853,27 @@ Tobago.AcceleratorKey = function(func, key, modifier) {
   this.func = func;
   this.key = key.toLowerCase();
   if (! modifier) {
-    modifier = "alt";
+    modifier = 'alt';
   }
   this.modifier = modifier;
-  if (document.all && (modifier == "alt" || modifier == "ctrl")) {
+  if (document.all && (modifier == 'alt' || modifier == 'ctrl')) {
     // keys with modifier 'alt' and 'ctrl' are not caught in IE
     // so special code is needed
-    if (modifier == "alt") {
+    if (modifier == 'alt') {
       // can't make document.createElement("span").accesskey = key working
       // so need to create an element via innerHTML
-      this.ieHelperElementId = "ieHelperElement_" + modifier + key;
-      var span = document.createElement("span");
+      this.ieHelperElementId = 'ieHelperElement_' + modifier + key;
+      var span = document.createElement('span');
       document.body.appendChild(span);
-      var aPrefix = "<a id=\"" + this.ieHelperElementId + "\" href=\"javascript:;\" tabindex=\"-1\" accesskey=\"";
-      var aPostfix = "\" onclick=\"return false;\" ></a>";
+      var aPrefix = '<a id=\"' + this.ieHelperElementId + '\" href=\"javascript:;\" tabindex=\"-1\" accesskey=\"';
+      var aPostfix = '\" onclick=\"return false;\" ></a>';
       span.innerHTML = aPrefix + key.toLowerCase() + aPostfix;
-      span.firstChild.attachEvent("onfocus", function(event) {func(event);});
+      span.firstChild.attachEvent('onfocus', function(event) {
+        func(event);
+      });
       Tobago.acceleratorKeys.set(this);
     } else {
-      LOG.warn("Cannot observe key event for "  + modifier + "-" + key);
+      LOG.warn('Cannot observe key event for ' + modifier + '-' + key);
     }
   } else {
     Tobago.acceleratorKeys.set(this);
@@ -1872,26 +1883,26 @@ Tobago.AcceleratorKey = function(func, key, modifier) {
 Tobago.ScriptLoader = function(names, doAfter) {
   this.scriptIndex = 0;
   this.names = names;
-  this.doAfter = doAfter || ";";
+  this.doAfter = doAfter || ';';
 
   this.ensureScript = function(src) {
     this.actualScript = src;
     if (!Tobago.hasScript(this.actualScript)) {
-      LOG.debug("Load script " + src);
+      LOG.debug('Load script ' + src);
       this.scriptElement = document.createElement('script');
-      this.scriptElement.type = "text/javascript";
+      this.scriptElement.type = 'text/javascript';
       this.scriptElement.src = src;
-      if (typeof(this.scriptElement.onreadystatechange) != "undefined") {
+      if (typeof(this.scriptElement.onreadystatechange) != 'undefined') {
 //        LOG.debug("Set script.onreadystatechange ");
-        this.scriptElement.onreadystatechange = Tobago.bind(this, "stateReady");
+        this.scriptElement.onreadystatechange = Tobago.bind(this, 'stateReady');
       } else {
 //        LOG.debug("Set script.onload");
-        this.scriptElement.onload = Tobago.bind(this, "stateOnLoad");
+        this.scriptElement.onload = Tobago.bind(this, 'stateOnLoad');
       }
       var head = document.getElementsByTagName('head')[0];
       head.appendChild(this.scriptElement);
     } else {
-      LOG.debug("found script " + src);
+      LOG.debug('found script ' + src);
       this.ensureScripts();
     }
 
@@ -1899,12 +1910,12 @@ Tobago.ScriptLoader = function(names, doAfter) {
 
   this.stateReady = function() {
 //      LOG.debug("State " + window.event.srcElement.readyState + " : " + this.actualScript);
-      if (window.event.srcElement.readyState == "loaded"
-          || window.event.srcElement.readyState == "complete" ) {
-        this.scriptElement.onreadystatechange = null;
-        Tobago.registerScript(this.actualScript);
-        this.ensureScripts();
-      }
+    if (window.event.srcElement.readyState == 'loaded'
+        || window.event.srcElement.readyState == 'complete') {
+      this.scriptElement.onreadystatechange = null;
+      Tobago.registerScript(this.actualScript);
+      this.ensureScripts();
+    }
   };
 
   this.stateOnLoad = function() {
@@ -1946,13 +1957,13 @@ Tobago.ScriptLoader = function(names, doAfter) {
   };
 
   this.executeCommands = function() {
-      try {
-        eval(this.doAfter);
-      } catch(ex) {
-        LOG.error(ex);
-        LOG.error("errorCode: " + this.doAfter.valueOf());
-        throw ex;
-      }
+    try {
+      eval(this.doAfter);
+    } catch (ex) {
+      LOG.error(ex);
+      LOG.error('errorCode: ' + this.doAfter.valueOf());
+      throw ex;
+    }
   };
 
   Tobago.addScriptLoader(this);
@@ -1983,7 +1994,7 @@ Tobago.Transport = {
         }
       }
     }
-    return this.ajaxTransport && typeof this.ajaxTransport.request == "function";
+    return this.ajaxTransport && typeof this.ajaxTransport.request == 'function';
   },
 
   request: function(req, submitPage, actionId) {
@@ -2007,11 +2018,11 @@ Tobago.Transport = {
     }
     //LOG.debug('index = ' + index)
     if (index == 1) {
-      LOG.debug("Execute request!");
+      LOG.debug('Execute request!');
       this.startTime = new Date().getTime();
       this.requests[0]();
     } else {
-      LOG.debug("Request queued!");
+      LOG.debug('Request queued!');
     }
     return true;
   },
@@ -2019,9 +2030,9 @@ Tobago.Transport = {
   requestComplete: function() {
     this.requests.shift();
     this.currentActionId = null;
-    LOG.debug("Request complete! Duration: " + (new Date().getTime() - this.startTime) + "ms; Queue size : " + this.requests.length);
+    LOG.debug('Request complete! Duration: ' + (new Date().getTime() - this.startTime) + 'ms; Queue size : ' + this.requests.length);
     if (this.requests.length > 0) {
-      LOG.debug("Execute request!");
+      LOG.debug('Execute request!');
       this.startTime = new Date().getTime();
       this.requests[0]();
     }
@@ -2029,16 +2040,16 @@ Tobago.Transport = {
 
   getAjaxTransport: function() {
     try {
-      if (jQuery && typeof jQuery.ajax == "function") {
+      if (jQuery && typeof jQuery.ajax == 'function') {
         return Tobago.Transport.JqueryTransport;
       }
-    } catch(e) {
+    } catch (e) {
     }
     try {
-      if (dojo && typeof dojo.xhrPost == "function") {
+      if (dojo && typeof dojo.xhrPost == 'function') {
         return Tobago.Transport.DojoTransport;
       }
-    } catch(e) {
+    } catch (e) {
     }
   }
 };
@@ -2048,15 +2059,15 @@ Tobago.Transport.JqueryTransport = {
 
   transportOptions: {
 
-    dataType: "json",
-    type: "POST",
+    dataType: 'json',
+    type: 'POST',
     cache: false,
 
     complete: function() {
       // scripts included in response are executed via setTimeout(..., 10)
       // because of replaceJsfState() is in this scripts the next request
       // must delayed more than that.
-      setTimeout(Tobago.bind(Tobago.Transport, "requestComplete"), 15);
+      setTimeout(Tobago.bind(Tobago.Transport, 'requestComplete'), 15);
     }
   },
 
@@ -2067,7 +2078,7 @@ Tobago.Transport.JqueryTransport = {
     requestObject.timeout = requestOptions.timeout;
 
     requestObject.success = function(data, textStatus) {
-      LOG.debug("requestObject.success()");
+      LOG.debug('requestObject.success()');
       requestOptions.resultData = data;
       requestOptions.textStatus = textStatus;
 
@@ -2075,7 +2086,7 @@ Tobago.Transport.JqueryTransport = {
     };
 
     requestObject.error = function(xhr, textStatus, errorThrown) {
-      LOG.debug("requestOptions.error() : " + textStatus);
+      LOG.debug('requestOptions.error() : ' + textStatus);
       requestOptions.xhr = xhr;
       requestOptions.textStatus = textStatus;
       Tobago.Updater.onError(requestOptions);
@@ -2097,7 +2108,7 @@ Tobago.Transport.DojoTransport = {
 
   transportOptions: {
 
-    handleAs: "json"
+    handleAs: 'json'
 
   },
 
@@ -2108,21 +2119,21 @@ Tobago.Transport.DojoTransport = {
     requestObject.timeout = requestOptions.timeout;
 
     requestObject.load = function(data, ioArgs) {
-      LOG.debug("requestObject.success()");
+      LOG.debug('requestObject.success()');
       requestOptions.resultData = data;
       requestOptions.xhr = ioArgs.xhr;
       try {
         if (ioArgs.xhr.status === 200) {
-          requestOptions.textStatus = "success";
+          requestOptions.textStatus = 'success';
           Tobago.Updater.onSuccess(requestOptions);
           return;
         } else if (ioArgs.xhr.status === 304) {
-          requestOptions.textStatus = "notmodified";
+          requestOptions.textStatus = 'notmodified';
           Tobago.Updater.onError(requestOptions);
           return;
         }
 
-      } catch(e) {
+      } catch (e) {
 
       }
       Tobago.Updater.onError(requestOptions);
@@ -2140,13 +2151,13 @@ Tobago.Transport.DojoTransport = {
   },
 
   error: function(data, ioArgs) {
-    LOG.error("Request failed : " + ioArgs.xhr.status);
+    LOG.error('Request failed : ' + ioArgs.xhr.status);
     requestOptions.xhr = ioArgs.xhr;
     if (ioArgs.xhr.status == 304) {
-      requestOptions.textStatus = "notmodified";
+      requestOptions.textStatus = 'notmodified';
       Tobago.Updater.onError(requestOptions);
     } else {
-      requestOptions.textStatus = "error";
+      requestOptions.textStatus = 'error';
       Tobago.Updater.onError(requestOptions);
     }
     Tobago.Transport.requestComplete();
@@ -2156,11 +2167,11 @@ Tobago.Transport.DojoTransport = {
 };
 
 function tobago_showHidden() {
-  for(var i = 0; i < document.forms.length; i++) {
+  for (var i = 0; i < document.forms.length; i++) {
     var form = document.forms[i];
-    for(var j = 0; j < form.elements.length; j++) {
-      if (form.elements[j].type == "hidden") {
-        form.elements[j].type = "text";
+    for (var j = 0; j < form.elements.length; j++) {
+      if (form.elements[j].type == 'hidden') {
+        form.elements[j].type = 'text';
       }
     }
   }
@@ -2168,11 +2179,16 @@ function tobago_showHidden() {
 
 
 var LOG = {
-  debug: function(text) {},
-  info  : function(text) {},
-  warn: function(text) {},
-  error: function(text) {},
-  show: function() {}
+  debug: function(text) {
+  },
+  info: function(text) {
+  },
+  warn: function(text) {
+  },
+  error: function(text) {
+  },
+  show: function() {
+  }
 };
 
 // ajax response besteht aus einem javascript object:
@@ -2213,7 +2229,7 @@ Tobago.Updater = {
   update: function(source, actionId, ajaxComponentIds, options) {
 
 //    LOG.show();
-    LOG.debug("Updater.update(\"" + actionId + "\", \"" + ajaxComponentIds + "\")");
+    LOG.debug('Updater.update(\"' + actionId + '\", \"' + ajaxComponentIds + '\")');
 
     if (Tobago.Transport.hasTransport()) {
 //    LOG.info("hasTransport");
@@ -2242,7 +2258,7 @@ Tobago.Updater = {
           var id = ids[i];
           var container = Tobago.ajaxComponents[id];
           if (container) {
-            if (typeof container.prepareReload == "function") {
+            if (typeof container.prepareReload == 'function') {
               container.prepareReload();
             } else {
               Tobago.createOverlay(container);
@@ -2255,9 +2271,9 @@ Tobago.Updater = {
 
 
       if (!Tobago.partialRequestIds) {
-        var hidden = document.createElement("input");
-        hidden.type = "hidden";
-        hidden.id = "tobago::partialIds";
+        var hidden = document.createElement('input');
+        hidden.type = 'hidden';
+        hidden.id = 'tobago::partialIds';
         hidden.name = hidden.id;
         Tobago.form.appendChild(hidden);
         Tobago.partialRequestIds = hidden;
@@ -2266,14 +2282,14 @@ Tobago.Updater = {
       var queued = Tobago.Transport.ajaxTransport.request(requestOptions);
 
       if (!queued) {
-        LOG.error("error on update: not queued!");
+        LOG.error('error on update: not queued!');
         if (!ids) {
           ids = Tobago.parsePartialIds(ajaxComponentIds);
         }
         this.doErrorUpdate(ids);
       }
     } else {
-      LOG.info("No Ajax transport found! Doing full page reload.");
+      LOG.info('No Ajax transport found! Doing full page reload.');
       Tobago.submitAction(source, actionId);
     }
   },
@@ -2290,113 +2306,115 @@ Tobago.Updater = {
   },
 
   showFailureMessage: function() {
-    LOG.info("Ajax request failed!");
+    LOG.info('Ajax request failed!');
   },
 
   onSuccess: function(requestOptions) {
-      LOG.debug("Tobago.Updater.onSuccess()");
-      if (!requestOptions.resultData || !requestOptions.resultData.tobagoAjaxResponse) {
-        // unknown response do full page reload
-        LOG.warn("initiating full reload");
-        if (Tobago.Updater.WAIT_ON_ERROR) {
-          alert("wait: initiating full reload");
-        }
-        Tobago.submitAction(null, Tobago.page.id);
-      } else if (requestOptions.resultData.responseCode == Tobago.Updater.CODE_RELOAD_REQUIRED) {
-        // update required do full page reload
-        if (requestionObjects.resultData.jsfState) {
-          Tobago.replaceJsfState(requestOptions.resultData.jsfState);
-        }
-        LOG.info("full reload requested");
-        if (Tobago.Updater.WAIT_ON_RELOAD) {
-          alert("wait: full reload requeste: responseCode = " + requestOptions.resultData.responseCode);
-        }
-        Tobago.submitAction(null, Tobago.page.id);
+    LOG.debug('Tobago.Updater.onSuccess()');
+    if (!requestOptions.resultData || !requestOptions.resultData.tobagoAjaxResponse) {
+      // unknown response do full page reload
+      LOG.warn('initiating full reload');
+      if (Tobago.Updater.WAIT_ON_ERROR) {
+        alert('wait: initiating full reload');
       }
+      Tobago.submitAction(null, Tobago.page.id);
+    } else if (requestOptions.resultData.responseCode == Tobago.Updater.CODE_RELOAD_REQUIRED) {
+      // update required do full page reload
+      if (requestionObjects.resultData.jsfState) {
+        Tobago.replaceJsfState(requestOptions.resultData.jsfState);
+      }
+      LOG.info('full reload requested');
+      if (Tobago.Updater.WAIT_ON_RELOAD) {
+        alert('wait: full reload requeste: responseCode = ' + requestOptions.resultData.responseCode);
+      }
+      Tobago.submitAction(null, Tobago.page.id);
+    }
 
-      Tobago.replaceJsfState(requestOptions.resultData.jsfState);
+    Tobago.replaceJsfState(requestOptions.resultData.jsfState);
 
-      var doneIds = {};
-      for (var partId in requestOptions.resultData) {
-        LOG.debug(partId + "= " + requestOptions.resultData[partId]);
-        if (partId.indexOf("ajaxPart_") == 0) {
-          LOG.debug("doUpdate partId = " + partId) ;
-          this.updateComponent(requestOptions.resultData[partId]);
-          doneIds[requestOptions.resultData[partId].ajaxId] = true;
+    var doneIds = {};
+    for (var partId in requestOptions.resultData) {
+      LOG.debug(partId + '= ' + requestOptions.resultData[partId]);
+      if (partId.indexOf('ajaxPart_') == 0) {
+        LOG.debug('doUpdate partId = ' + partId);
+        this.updateComponent(requestOptions.resultData[partId]);
+        doneIds[requestOptions.resultData[partId].ajaxId] = true;
+      }
+    }
+
+    Tobago.Updater.handleMissingResponses(requestOptions.ajaxComponentIds, doneIds);
+  },
+
+  handleMissingResponses: function(ids, doneIds) {
+    var requestedIds = Tobago.parsePartialIds(ids);
+    var data;
+    for (var i = 0; i < requestedIds.length; i++) {
+      var id = requestedIds[i];
+      if (! doneIds[id]) {
+        LOG.debug('handleMissingResponse id = ' + id);
+        if (!data) {
+          data = {responseCode: Tobago.Updater.CODE_NOT_MODIFIED, html: 'error', script: function() {
+          }};
         }
+        data.ajaxId = id;
+        this.updateComponent(data);
       }
+    }
+  },
 
-      Tobago.Updater.handleMissingResponses(requestOptions.ajaxComponentIds, doneIds);
-    },
-
-    handleMissingResponses: function(ids, doneIds) {
-      var requestedIds = Tobago.parsePartialIds(ids);
-      var data;
-      for (var i = 0; i < requestedIds.length; i++) {
-        var id = requestedIds[i];
-        if (! doneIds[id]) {
-          LOG.debug("handleMissingResponse id = " + id) ;
-          if (!data) {
-            data = {responseCode: Tobago.Updater.CODE_NOT_MODIFIED, html: "error", script: function() {}};
-          }
-          data.ajaxId = id;
-          this.updateComponent(data);
+  handle304Response: function(ids) {
+    for (var i = 0; i < ids.length; i++) {
+      var id = ids[i];
+      LOG.debug('handle304Response id = ' + id);
+      var data = {
+        ajaxId: id,
+        responseCode: Tobago.Updater.CODE_NOT_MODIFIED,
+        html: 'error',
+        script: function() {
         }
-      }
-    },
-
-    handle304Response: function(ids) {
-      for (var i = 0; i < ids.length; i++) {
-        var id = ids[i];
-        LOG.debug("handle304Response id = " + id) ;
-        var data = {
-          ajaxId: id,
-          responseCode: Tobago.Updater.CODE_NOT_MODIFIED,
-          html: "error",
-          script: function() {}
-        };
-        Tobago.Updater.updateComponent(data);
-      }
-    },
+      };
+      Tobago.Updater.updateComponent(data);
+    }
+  },
 
 
-    onError: function(requestObject) {
+  onError: function(requestObject) {
 
-      LOG.warn("Request failed : " + requestObject.statusText);
+    LOG.warn('Request failed : ' + requestObject.statusText);
 
-      if (requestObject.statusText === "timeout") {
-        Tobago.Updater.doErrorUpdate(Tobago.parsePartialIds(requestObject.ajaxComponentIds));
-      } else if (requestObject.statusText === "notmodified") {
-        Tobago.Updater.handle304Response(Tobago.parsePartialIds(requestObject.ajaxComponentIds))
+    if (requestObject.statusText === 'timeout') {
+      Tobago.Updater.doErrorUpdate(Tobago.parsePartialIds(requestObject.ajaxComponentIds));
+    } else if (requestObject.statusText === 'notmodified') {
+      Tobago.Updater.handle304Response(Tobago.parsePartialIds(requestObject.ajaxComponentIds));
+    } else {
+      Tobago.Updater.doErrorUpdate(Tobago.parsePartialIds(requestObject.ajaxComponentIds));
+    }
+  },
+
+  updateComponent: function(componentData) {
+    var ajaxId = componentData.ajaxId;
+    LOG.debug('update Component = ' + ajaxId);
+    if (componentData.responseCode == Tobago.Updater.CODE_RELOAD_REQUIRED) {
+      LOG.debug('nop do reload = ');
+      // nop
+    } else {
+      var container = Tobago.ajaxComponents[ajaxId];
+      if (container) {
+        if (typeof container == 'string') {
+          container = Tobago.element(container);
+        }
+        if (typeof container.doUpdate != 'function') {
+          container.doUpdate = Tobago.Updater.doUpdate;
+        }
+
+        container.doUpdate(componentData);
       } else {
-        Tobago.Updater.doErrorUpdate(Tobago.parsePartialIds(requestObject.ajaxComponentIds));
-      }
-    },
-
-    updateComponent: function(componentData) {
-      var ajaxId = componentData.ajaxId;
-      LOG.debug("update Component = " + ajaxId) ;
-      if (componentData.responseCode == Tobago.Updater.CODE_RELOAD_REQUIRED) {
-        LOG.debug("nop do reload = ") ;
-        // nop
-      } else {
-        var container = Tobago.ajaxComponents[ajaxId];
-        if (container) {
-          if (typeof container == "string") {
-            container = Tobago.element(container);
-          }
-          if (typeof container.doUpdate != "function") {
-            container.doUpdate = Tobago.Updater.doUpdate;
-          }
-
-          container.doUpdate(componentData);
-        } else {
-          LOG.info("no ajax container = " + ajaxId) ;
+        LOG.info('no ajax container = ' + ajaxId);
 //          LOG.debugAjaxComponents();
-          Tobago.Updater.doUpdate(componentData);
-        }
+        Tobago.Updater.doUpdate(componentData);
       }
-    },
+    }
+  },
 
   doUpdate: function(data) {
     if (typeof this.beforeDoUpdate == 'function') {
@@ -2414,7 +2432,7 @@ Tobago.Updater = {
         }
         try {
           var updateScript;
-          eval("updateScript = " + data.script);
+          eval('updateScript = ' + data.script);
           updateScript();
           if (typeof this.afterDoUpdateSuccess == 'function') {
             this.afterDoUpdateSuccess();
@@ -2424,7 +2442,7 @@ Tobago.Updater = {
           }
         } catch (e) {
           // todo: improve exception handling
-          LOG.error("Error in doUpdate: " + e);
+          LOG.error('Error in doUpdate: ' + e);
         }
         break;
       case Tobago.Updater.CODE_NOT_MODIFIED:
@@ -2441,7 +2459,7 @@ Tobago.Updater = {
         Tobago.deleteOverlay(Tobago.element(Tobago.ajaxComponents[data.ajaxId]));
         break;
       default:
-        LOG.error("Unknown response code: " + data.responseCode + " for component id = '" + data.ajaxId + "'");
+        LOG.error('Unknown response code: ' + data.responseCode + " for component id = '" + data.ajaxId + "'");
         Tobago.deleteOverlay(Tobago.element(Tobago.ajaxComponents[data.ajaxId]));
         break;
     }
@@ -2456,38 +2474,38 @@ Tobago.Updater = {
 $(document).ready(function() {
 
   // doing the same for 3 renderer names
-  var rendererNames = new Array("toolBar", "boxToolBar", "tabGroupToolBar");
+  var rendererNames = new Array('toolBar', 'boxToolBar', 'tabGroupToolBar');
   for (var i = 0; i < rendererNames.length; i++) {
     var renderer = rendererNames[i];
-    jQuery(".tobago-" + renderer + "-item")
-        .not(".tobago-" + renderer + "-item-markup-disabled")
+    jQuery('.tobago-' + renderer + '-item')
+        .not('.tobago-' + renderer + '-item-markup-disabled')
         .mouseenter(function() {
-      jQuery(this).addClass("tobago-" + renderer + "-item-markup-hover");
+      jQuery(this).addClass('tobago-' + renderer + '-item-markup-hover');
     })
         .mouseleave(function() {
-      jQuery(this).removeClass("tobago-" + renderer + "-item-markup-hover");
+      jQuery(this).removeClass('tobago-' + renderer + '-item-markup-hover');
     })
-        .children(".tobago-" + renderer + "-button, .tobago-" + renderer + "-menu")
+        .children('.tobago-' + renderer + '-button, .tobago-' + renderer + '-menu')
         .mouseenter(function() {
       jQuery(this)
-          .addClass("tobago-" + renderer + "-button-markup-hover").children("img")
+          .addClass('tobago-' + renderer + '-button-markup-hover').children('img')
           .each(function() {
         // set the src to the hover src url.
-        var hover = jQuery(this).attr("srchover");
+        var hover = jQuery(this).attr('srchover');
         if (hover) {
-          jQuery(this).attr("src", hover);
+          jQuery(this).attr('src', hover);
         }
       });
     })
         .mouseleave(function() {
       jQuery(this)
-          .removeClass("tobago-" + renderer + "-button-markup-hover")
-          .children("img")
+          .removeClass('tobago-' + renderer + '-button-markup-hover')
+          .children('img')
           .each(function() {
         // restore the original/normal src url.
-        var normal = jQuery(this).attr("srcdefault");
+        var normal = jQuery(this).attr('srcdefault');
         if (normal) {
-          jQuery(this).attr("src", normal);
+          jQuery(this).attr('src', normal);
         }
       });
     });
@@ -2504,8 +2522,6 @@ function tobago_toolBarSetRadioValue(id, value) {
   element.value = value;
 }
 
-TbgTimer.endTbgJs = new Date();
-
 // XXX write initialization
 
 function xxx_tobagoInit(elements) {
@@ -2516,7 +2532,7 @@ function xxx_tobagoInit(elements) {
 // inputSuggest.js
 
 Tobago.AutocompleterAjax = function(elementId, required, requiredClass, options) {
-  LOG.debug("new Tobago.AutocompleterAjax " + elementId);
+  LOG.debug('new Tobago.AutocompleterAjax ' + elementId);
   this.id = elementId;
   this.required = required;
   this.requiredClass = requiredClass;
@@ -2540,11 +2556,11 @@ Tobago.AutocompleterAjax = function(elementId, required, requiredClass, options)
 
   var input = Tobago.element(elementId);
 
-  input.setAttribute("autocomplete", "off");
+  input.setAttribute('autocomplete', 'off');
 
   this.oldValue = input.value;
 
-  Tobago.addBindEventListener(input, "keyup", this, "doCheckSuggest");
+  Tobago.addBindEventListener(input, 'keyup', this, 'doCheckSuggest');
 
   Tobago.addAjaxComponent(this.id, this);
 };
@@ -2570,13 +2586,14 @@ Tobago.AutocompleterAjax.prototype.doCheckSuggest = function(event) {
       this.closeSuggest(true);
       return false;
     case 40: // cursor down
-      var div = Tobago.element(this.id + "_suggestDiv");
+      var div = Tobago.element(this.id + '_suggestDiv');
       if (div) {
-        div.style.display = "block";
+        div.style.display = 'block';
         try {
           // focus() on not visible elements breaks IE
           div.firstChild.firstChild.firstChild.focus();
-        } catch(ex) {}
+        } catch (ex) {
+        }
         return false;
       }
   }
@@ -2602,14 +2619,14 @@ Tobago.AutocompleterAjax.prototype.doCheckSuggest = function(event) {
 };
 
 Tobago.AutocompleterAjax.prototype.fetchSuggestions = function(input) {
-   this.currentTimeout = undefined;
-   if (!this.requestActive) {
-      this.requestActive = true;
-      LOG.debug("fetchSuggestions() request Suggestions for " + input.value);
-      Tobago.Updater.update(input, input.id, input.id, this.options);
-    } else {
-      this.rerequest = true;
-    }
+  this.currentTimeout = undefined;
+  if (!this.requestActive) {
+    this.requestActive = true;
+    LOG.debug('fetchSuggestions() request Suggestions for ' + input.value);
+    Tobago.Updater.update(input, input.id, input.id, this.options);
+  } else {
+    this.rerequest = true;
+  }
 };
 
 Tobago.AutocompleterAjax.prototype.beforeDoUpdate = function(data) {
@@ -2617,7 +2634,7 @@ Tobago.AutocompleterAjax.prototype.beforeDoUpdate = function(data) {
     this.rerequest = false;
     this.requestActive = true;
     var input = Tobago.element(this.id);
-    LOG.debug("doUpdate() request Suggestions for " + input.value);
+    LOG.debug('doUpdate() request Suggestions for ' + input.value);
     Tobago.Updater.update(input, input.id, input.id, this.options);
     return false;
   } else {
@@ -2640,14 +2657,14 @@ Tobago.AutocompleterAjax.prototype.afterDoUpdateError = function() {
 
 Tobago.AutocompleterAjax.prototype.suggest = function() {
   if (this.suggestions == null) {
-    LOG.error("No suggestions object!");
+    LOG.error('No suggestions object!');
     return;
   }
-  var div = Tobago.element(this.id + "_suggestDiv");
+  var div = Tobago.element(this.id + '_suggestDiv');
   if (!div) {
     div = this.createSuggestDiv();
   } else {
-    div.style.display = "block";
+    div.style.display = 'block';
   }
 //  div.style.height = "120px";
 
@@ -2668,11 +2685,11 @@ Tobago.AutocompleterAjax.prototype.suggest = function() {
 //    a.id = this.id + "_suggestItem_" + i;
     a.href = Tobago.EMPTY_HREF;
     li.appendChild(a);
-    Tobago.addBindEventListener(a, "keyup", this, "suggestKeyUp");
-    Tobago.addBindEventListener(a, "focus", this, "suggestFocus");
-    Tobago.addBindEventListener(a, "click", this, "selectSuggest");
-    Tobago.addBindEventListener(li, "mouseover", this, "setFocus");
-    Tobago.addBindEventListener(li, "click", this, "selectSuggest");
+    Tobago.addBindEventListener(a, 'keyup', this, 'suggestKeyUp');
+    Tobago.addBindEventListener(a, 'focus', this, 'suggestFocus');
+    Tobago.addBindEventListener(a, 'click', this, 'selectSuggest');
+    Tobago.addBindEventListener(li, 'mouseover', this, 'setFocus');
+    Tobago.addBindEventListener(li, 'click', this, 'selectSuggest');
     ul.appendChild(li);
   }
 
@@ -2687,9 +2704,9 @@ Tobago.AutocompleterAjax.prototype.suggest = function() {
 
   if (div.clientWidth < div.scrollWidth) {
     var runtimeStyle = Tobago.getRuntimeStyle(div);
-    var leftBorder = runtimeStyle.borderLeftWidth.replace(/\D/g, "") - 0;
-    var rightBorder = runtimeStyle.borderRightWidth.replace(/\D/g, "") - 0;
-    div.style.width  = (div.scrollWidth +  leftBorder + rightBorder) + "px";
+    var leftBorder = runtimeStyle.borderLeftWidth.replace(/\D/g, '') - 0;
+    var rightBorder = runtimeStyle.borderRightWidth.replace(/\D/g, '') - 0;
+    div.style.width = (div.scrollWidth + leftBorder + rightBorder) + 'px';
   }
 
   this.suggestions = null;
@@ -2699,23 +2716,25 @@ Tobago.AutocompleterAjax.prototype.suggest = function() {
 Tobago.AutocompleterAjax.prototype.setFocus = function(event) {
   try {
     Tobago.element(event).firstChild.focus();
-  } catch(e) {}
+  } catch (e) {
+  }
 };
 
 Tobago.AutocompleterAjax.prototype.selectSuggest = function(event) {
 
   var a = Tobago.element(event);
-  if (a.tagName == "LI") {
+  if (a.tagName == 'LI') {
     a = a.firstChild;
     try {
       a.focus();
-    } catch(e) {}
+    } catch (e) {
+    }
   }
 
   this.closeSuggest(false);
 
   var suggestItem = a.sugggestItem;
-  LOG.debug("item.value : " + suggestItem.value);
+  LOG.debug('item.value : ' + suggestItem.value);
 
   var input = Tobago.element(this.id);
   input.value = suggestItem.value;
@@ -2725,14 +2744,15 @@ Tobago.AutocompleterAjax.prototype.selectSuggest = function(event) {
     if (suggestItem.values) {
       for (var i = 0; i < suggestItem.values.length; i++) {
         var item = suggestItem.values[i];
-        LOG.debug(item.id + " = " + item.value);
+        LOG.debug(item.id + ' = ' + item.value);
         Tobago.element(item.id).value = item.value;
       }
     }
-  } catch(e) {}
+  } catch (e) {
+  }
 
   var nextFocusElement = input;
-  LOG.debug(" suggestItem.nextFocusId = " + a.nextFocusId);
+  LOG.debug(' suggestItem.nextFocusId = ' + a.nextFocusId);
   if (a.nextFocusId) {
     var element = Tobago.element(a.nextFocusId);
     if (element) {
@@ -2742,7 +2762,8 @@ Tobago.AutocompleterAjax.prototype.selectSuggest = function(event) {
 
   try {
     nextFocusElement.focus();
-  } catch(e) {}
+  } catch (e) {
+  }
 
   Tobago.stopEventPropagation(event);
   return false;
@@ -2754,9 +2775,9 @@ Tobago.AutocompleterAjax.prototype.suggestFocus = function(event) {
   var a = Tobago.element(event);
   var ul = a.parentNode.parentNode;
   for (var i = 0; i < ul.childNodes.length; i++) {
-    Tobago.removeCssClass(ul.childNodes[i], "selected");
+    Tobago.removeCssClass(ul.childNodes[i], 'selected');
   }
-  Tobago.addCssClass(a.parentNode, "selected");
+  Tobago.addCssClass(a.parentNode, 'selected');
 };
 
 Tobago.AutocompleterAjax.prototype.suggestKeyUp = function(event) {
@@ -2780,7 +2801,8 @@ Tobago.AutocompleterAjax.prototype.suggestKeyUp = function(event) {
         try {
           // focus() on not visible elements breaks IE
           li.previousSibling.firstChild.focus();
-        } catch(ex) {}
+        } catch (ex) {
+        }
       }
       handled = true;
       break;
@@ -2789,7 +2811,8 @@ Tobago.AutocompleterAjax.prototype.suggestKeyUp = function(event) {
         try {
           // focus() on not visible elements breaks IE
           li.nextSibling.firstChild.focus();
-        } catch(ex) {}
+        } catch (ex) {
+        }
       }
       handled = true;
       break;
@@ -2801,12 +2824,13 @@ Tobago.AutocompleterAjax.prototype.suggestKeyUp = function(event) {
 
 
 Tobago.AutocompleterAjax.prototype.closeSuggest = function(focus) {
-  var div = Tobago.element(this.id + "_suggestDiv");
-  div.style.display = "none";
+  var div = Tobago.element(this.id + '_suggestDiv');
+  div.style.display = 'none';
   if (focus) {
     try {
       Tobago.element(this.id).focus();
-    } catch(e) {}
+    } catch (e) {
+    }
   }
 };
 
@@ -2815,11 +2839,11 @@ Tobago.AutocompleterAjax.prototype.createSuggestDiv = function() {
   var input = Tobago.element(this.id);
 
   var div = document.createElement('div');
-  div.style.top = (Tobago.getAbsoluteTop(input) + Tobago.getHeight(input)) + "px";
-  div.style.left = Tobago.getAbsoluteLeft(input) + "px";
-  div.style.width = Tobago.getWidth(input) + "px";
-  div.className = "tobago-in-suggestPopup";
-  div.id = this.id + "_suggestDiv";
+  div.style.top = (Tobago.getAbsoluteTop(input) + Tobago.getHeight(input)) + 'px';
+  div.style.left = Tobago.getAbsoluteLeft(input) + 'px';
+  div.style.width = Tobago.getWidth(input) + 'px';
+  div.className = 'tobago-in-suggestPopup';
+  div.id = this.id + '_suggestDiv';
   Tobago.page.appendChild(div);
   return div;
 };
@@ -2828,63 +2852,79 @@ Tobago.AutocompleterAjax.prototype.createSuggestDiv = function() {
 // popup.js
 
 
-function openPopup(url,name,width,height,options,x,y) {
-  //Defaults
-  if (!name)  {
-    var name= "name";
+function openPopup(url, name, width, height, options, x, y) {
+    para = "";
+  if (!name) {
+    name = 'name';
   }
   if (!width) {
-    var width = 800;
+    width = 800;
   }
-  if (!height)  {
-    var height = 600;
+  if (!height) {
+    height = 600;
   }
   if (!x) {
-    var x = parseInt((window.screen.availWidth - width)/2);
+    x = parseInt((window.screen.availWidth - width) / 2);
   }
   if (!y) {
-    var y = parseInt((window.screen.availHeight - height)/2);
+    y = parseInt((window.screen.availHeight - height) / 2);
   }
   if (!url) {
-    var url = '';
+    url = '';
   }
   if (!options) {
-    para = "";
+    para = '';
   }
 
-  var para = setPopupPara(width,height,options);
+  var para = setPopupPara(width, height, options);
 
-  var newwin = window.open(url,name,para);
+  var newwin = window.open(url, name, para);
 
   if (window.focus) {
-    newwin.focus()
+    newwin.focus();
   }
 }
 
-function setPopupPara(width,height,options) {
+function setPopupPara(width, height, options) {
 
-	var parent = "";
-	var dirbar = "";
-	var locationbar = "";
-	var menubar = "";
-	var resizable = "";
-	var scrollbars = "";
-	var statusbar = "";
-	var toolbar = "";
-	if (options) {
-    if (options.indexOf("p") > -1 ) { parent = ",dependent"	}
-		if (options.indexOf("d") > -1 ) { dirbar = ",directories"	}
-		if (options.indexOf("l") > -1 ) { locationbar = ",location"	}
-		if (options.indexOf("m") > -1 ) { menubar = ",menubar"	}
-		if (options.indexOf("r") > -1 ) { resizable = ",resizable"	}
-		if (options.indexOf("s") > -1 ) { scrollbars = ",scrollbars" }
-		if (options.indexOf("u") > -1 ) { statusbar = ",status"	}
-		if (options.indexOf("t") > -1 ) { toolbar = ",toolbar"	}
-	}
-  var width=",width = " + width;
-  var height=",height = " + height;
-  return width + height + parent + dirbar + locationbar
-      + menubar + resizable + scrollbars + statusbar + toolbar;
+  var parent = '';
+  var dirbar = '';
+  var locationbar = '';
+  var menubar = '';
+  var resizable = '';
+  var scrollbars = '';
+  var statusbar = '';
+  var toolbar = '';
+  if (options) {
+    if (options.indexOf('p') > -1) {
+      parent = ',dependent';
+    }
+    if (options.indexOf('d') > -1) {
+      dirbar = ',directories';
+    }
+    if (options.indexOf('l') > -1) {
+      locationbar = ',location';
+    }
+    if (options.indexOf('m') > -1) {
+      menubar = ',menubar';
+    }
+    if (options.indexOf('r') > -1) {
+      resizable = ',resizable';
+    }
+    if (options.indexOf('s') > -1) {
+      scrollbars = ',scrollbars';
+    }
+    if (options.indexOf('u') > -1) {
+      statusbar = ',status';
+    }
+    if (options.indexOf('t') > -1) {
+      toolbar = ',toolbar';
+    }
+  }
+  width = ',width = ' + width;
+  height = ',height = ' + height;
+  return width + height + parent + dirbar + locationbar + menubar + resizable + scrollbars + statusbar + toolbar;
 }
 
 
+TbgTimer.endTbgJs = new Date();
