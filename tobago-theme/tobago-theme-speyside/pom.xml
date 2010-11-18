@@ -142,7 +142,7 @@
           </execution>
         </executions>
       </plugin>
-            <plugin>
+      <plugin>
         <artifactId>myfaces-javascript-plugin</artifactId>
         <groupId>org.apache.myfaces.buildtools</groupId>
         <version>1.0.1</version>

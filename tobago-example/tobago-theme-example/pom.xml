@@ -25,6 +25,63 @@
   <artifactId>tobago-theme-example</artifactId>
   <name>Tobago Theme Example</name>
 
+  <build>
+    <plugins>
+      <plugin>
+        <artifactId>myfaces-javascript-plugin</artifactId>
+        <groupId>org.apache.myfaces.buildtools</groupId>
+        <version>1.0.1</version>
+        <extensions>true</extensions>
+        <executions>
+          <execution>
+            <id>compile</id>
+            <goals>
+              <goal>compile</goal>
+            </goals>
+            <phase>process-resources</phase>
+            <configuration>
+              <descriptor>${basedir}/src/main/build/standard-javascript.xml</descriptor>
+              <sourceDirectory>${basedir}/src/main/resources/</sourceDirectory>
+            </configuration>
+          </execution>
+          <execution>
+            <id>compress</id>
+            <goals>
+              <goal>compress</goal>
+            </goals>
+            <phase>process-resources</phase>
+            <configuration>
+              <scripts>org/apache/myfaces/tobago/renderkit/html/example/standard/</scripts>
+              <includes>
+                <include>**/tobago.min.js</include>
+              </includes>
+              <compressor>yahooUI</compressor>
+              <webappDirectory>target/classes</webappDirectory>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>net.alchim31.maven</groupId>
+        <artifactId>yuicompressor-maven-plugin</artifactId>
+        <version>1.1</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>compress</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <suffix>.min</suffix>
+          <excludes>
+            <exclude>**/*.js</exclude>
+          </excludes>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
   <dependencies>
     <dependency>
       <groupId>org.apache.myfaces.tobago</groupId>
