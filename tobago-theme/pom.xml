@@ -26,6 +26,12 @@
   <name>Tobago Themes</name>
   <artifactId>tobago-theme</artifactId>
 
+  <build>
+    <plugins>
+
+    </plugins>
+  </build>
+
   <modules>
     <module>tobago-theme-standard</module>
     <module>tobago-theme-scarborough</module>

@@ -18,11 +18,11 @@
 
 Tobago.TabGroup = function(tabGroupId, activeIndex, size, renderedPartially) {
   this.tabGroupId = tabGroupId,
-  this.activeIndex = activeIndex * 1;
+  this.activeIndex = parseInt(activeIndex, 10);
   this.size = size;
   this.activeTabId = tabGroupId + Tobago.SUB_COMPONENT_SEP2 + activeIndex;
   this.renderedPartially = renderedPartially;
-  LOG.debug("activeTabId : " + this.activeTabId);
+;;;  LOG.debug("activeTabId : " + this.activeTabId);
 
   Tobago.element(this.tabGroupId).jsObject = this;
   Tobago.addJsObject(this);
@@ -41,16 +41,16 @@ Tobago.TabGroup = function(tabGroupId, activeIndex, size, renderedPartially) {
   this.options = {
   };
 
-  LOG.debug("onComplete = " + this.options.onComplete);
+;;;  LOG.debug("onComplete = " + this.options.onComplete);
 
   this.setUp();
   Tobago.addAjaxComponent(this.tabGroupId, this);
 };
 
 Tobago.TabGroup.prototype.setUp = function() {
-  LOG.debug("tabgroup id " + this.tabGroupId);
-  LOG.debug("setup tabgroup " + this.activeTabId);
-  LOG.debug("activeIndex " + this.activeIndex);
+;;;  LOG.debug("tabgroup id " + this.tabGroupId);
+;;;  LOG.debug("setup tabgroup " + this.activeTabId);
+;;;  LOG.debug("activeIndex " + this.activeIndex);
   var i = 0;
   var idPrefix = this.activeTabId + Tobago.SUB_COMPONENT_SEP2;
 
@@ -59,7 +59,7 @@ Tobago.TabGroup.prototype.setUp = function() {
 
     var anchor = Tobago.element(idPrefix + i);
     if (anchor) {
-      LOG.debug("observe tab " + anchor.id);
+;;;      LOG.debug("observe tab " + anchor.id);
       //      if (i != this.activeIndex) {
       //        Event.observe(anchor, "click", this.reload.bindAsEventListener(this));
       //      }
@@ -98,7 +98,7 @@ Tobago.TabGroup.prototype.setUp = function() {
 };
 
 Tobago.TabGroup.prototype.next = function(event) {
-  LOG.debug("Reload ");
+;;;  LOG.debug("Reload ");
   if (event) {
     var element = Tobago.element(event);
     if (!element.id) {
@@ -109,7 +109,7 @@ Tobago.TabGroup.prototype.next = function(event) {
       //LOG.error(element.id);
       var idPrefix = element.id.substring(0, element.id.lastIndexOf(Tobago.SUB_COMPONENT_SEP2) + Tobago.SUB_COMPONENT_SEP2.length);
       //LOG.error(idPrefix);
-      for (var i = (this.activeIndex * 1) + 1; i < this.size; i++) {
+      for (var i = parseInt(this.activeIndex, 10) + 1; i < this.size; i++) {
         var id = idPrefix + i;
         var span = Tobago.element(id);
         if (span && span.className.indexOf('tobago-tab-link-markup-disabled') == -1) {
@@ -125,8 +125,8 @@ Tobago.TabGroup.prototype.next = function(event) {
         hidden.value = this.activeIndex;
       }
       else {
-        LOG.warn("No hidden field for tabindex Id='" + this.tabGroupId + Tobago.SUB_COMPONENT_SEP2 + "activeIndex" + "'");
-        LOG.warn("aId = " + aId);
+;;;        LOG.warn("No hidden field for tabindex Id='" + this.tabGroupId + Tobago.SUB_COMPONENT_SEP2 + "activeIndex" + "'");
+;;;        LOG.warn("aId = " + aId);
       }
       if (Tobago.Transport.hasTransport()) {
         var id = idPrefix + this.activeIndex;
@@ -138,13 +138,13 @@ Tobago.TabGroup.prototype.next = function(event) {
       }
     }
   } else {
-    LOG.info("No reload Event");
+;;;    LOG.info("No reload Event");
   }
 
 };
 
 Tobago.TabGroup.prototype.previous = function(event) {
-  LOG.debug("Reload ");
+;;;  LOG.debug("Reload ");
   if (event) {
     var element = Tobago.element(event);
     if (!element.id) {
@@ -171,8 +171,8 @@ Tobago.TabGroup.prototype.previous = function(event) {
         hidden.value = this.activeIndex;
       }
       else {
-        LOG.warn("No hidden field for tabindex Id='" + this.tabGroupId + Tobago.SUB_COMPONENT_SEP2 + "activeIndex" + "'");
-        LOG.warn("aId = " + aId);
+;;;        LOG.warn("No hidden field for tabindex Id='" + this.tabGroupId + Tobago.SUB_COMPONENT_SEP2 + "activeIndex" + "'");
+;;;        LOG.warn("aId = " + aId);
       }
       if (Tobago.Transport.hasTransport()) {
         var id = idPrefix + this.activeIndex;
@@ -184,7 +184,7 @@ Tobago.TabGroup.prototype.previous = function(event) {
       }
     }
   } else {
-    LOG.info("No reload Event");
+;;;    LOG.info("No reload Event");
   }
 
 };
@@ -194,7 +194,7 @@ Tobago.TabGroup.prototype.prepareReload = function() {
 };
 
 Tobago.TabGroup.prototype.reloadWithAction = function(event) {
-  LOG.debug("Reload ");
+;;;  LOG.debug("Reload ");
   if (event) {
     var element = Tobago.element(event);
     if (!element.id) {
@@ -204,15 +204,15 @@ Tobago.TabGroup.prototype.reloadWithAction = function(event) {
     if (element.className && element.className.indexOf("tobago-tab-link") != -1) {
       var aId = Tobago.findAnchestorWithTagName(element, 'span').id;
       this.activeIndex = aId.substring(aId.lastIndexOf(Tobago.SUB_COMPONENT_SEP2) + Tobago.SUB_COMPONENT_SEP2.length);
-      LOG.debug("Request tab with index " + this.activeIndex);
+;;;      LOG.debug("Request tab with index " + this.activeIndex);
 
       var hidden = Tobago.element(this.tabGroupId + Tobago.SUB_COMPONENT_SEP2 + "activeIndex");
       if (hidden) {
         hidden.value = this.activeIndex;
       }
       else {
-        LOG.warn("No hidden field for tabindex Id='" + this.tabGroupId + Tobago.SUB_COMPONENT_SEP2 + "activeIndex" + "'");
-        LOG.warn("aId = " + aId);
+;;;        LOG.warn("No hidden field for tabindex Id='" + this.tabGroupId + Tobago.SUB_COMPONENT_SEP2 + "activeIndex" + "'");
+;;;        LOG.warn("aId = " + aId);
       }
       if (Tobago.Transport.hasTransport()) {
         this.removeRelatedAcceleratorKeys(aId.substring(0, aId.lastIndexOf(Tobago.SUB_COMPONENT_SEP2) + Tobago.SUB_COMPONENT_SEP2.length));
@@ -223,7 +223,7 @@ Tobago.TabGroup.prototype.reloadWithAction = function(event) {
       }
     }
   } else {
-    LOG.info("No reload Event");
+;;;    LOG.info("No reload Event");
   }
 
 };
@@ -241,7 +241,7 @@ Tobago.TabGroup.prototype.removeRelatedAcceleratorKeys = function(idPrefix) {
 
 Tobago.TabGroup.prototype.afterDoUpdateSuccess = function() {
   this.activeTabId = Tobago.element(this.tabGroupId).firstChild.id;
-  LOG.debug("activeTabId : " + this.activeTabId);
+;;;  LOG.debug("activeTabId : " + this.activeTabId);
   this.setUp();
 };
 
@@ -260,7 +260,7 @@ function tobago_nextTab(type, controlId, size) {
       + '__activeIndex' /* TabGroupRenderer.ACTIVE_INDEX_POSTFIX*/);
   var selectedIndex = 0;
   if (hidden) {
-    selectedIndex = hidden.value * 1;
+    selectedIndex = parseInt(hidden.value, 10);
   }
   //LOG.error("Selected Index: " + selectedIndex);
   for (i = selectedIndex + 1; i < size; i++) {

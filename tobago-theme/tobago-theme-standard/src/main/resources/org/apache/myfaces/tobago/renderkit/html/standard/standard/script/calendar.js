@@ -397,7 +397,7 @@ function tbgInitTimeParse(timeId, dateId) {
     var minutes = date.getMinutes();
     var seconds = date.getSeconds();
 
-    LOG.debug("init time :" + hours + ":" + minutes + ":" + seconds);
+;;;    LOG.debug("init time :" + hours + ":" + minutes + ":" + seconds);
     tbgInitTimeData(timeId, hours, minutes, seconds);
   }
 }

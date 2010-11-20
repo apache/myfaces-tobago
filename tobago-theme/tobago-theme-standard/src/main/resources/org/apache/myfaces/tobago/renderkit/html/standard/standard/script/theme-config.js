@@ -32,7 +32,7 @@ Tobago.Config =  {
     if (name) {
       return this[name][key];
     } else {
-      LOG.warn("Tobago.Config.get("+ name + ", " + key + ") = undefined" );
+;;;      LOG.warn("Tobago.Config.get("+ name + ", " + key + ") = undefined" );
       return 0;
     }
   },

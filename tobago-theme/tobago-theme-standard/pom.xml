@@ -28,51 +28,108 @@
   <build>
     <plugins>
       <!--<plugin>
-        <groupId>gr.abiss.mvn.plugins</groupId>
-        <artifactId>mvn-jstools</artifactId>
-        <version>0.1</version>
-      </plugin>-->
-      <plugin>
-        <artifactId>myfaces-javascript-plugin</artifactId>
-        <groupId>org.apache.myfaces.buildtools</groupId>
-        <version>1.0.1</version>
-        <extensions>true</extensions>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>wagon-maven-plugin</artifactId>
+        <version>1.0-beta-3</version>
         <executions>
           <execution>
-            <id>compile-standard</id>
+            <id>closure-compiler</id>
+            <phase>initialize</phase>
             <goals>
-              <goal>compile</goal>
+              <goal>download-single</goal>
             </goals>
-            <phase>process-resources</phase>
             <configuration>
-              <descriptor>${basedir}/src/main/build/standard-javascript.xml</descriptor>
-              <sourceDirectory>${basedir}/src/main/resources/org/apache/myfaces/tobago/renderkit/html/standard/standard</sourceDirectory>
+              <serverId>code-google</serverId>
+              <url>http://closure-compiler.googlecode.com/files/</url>
+              <fromFile>compiler-20100917.zip</fromFile>
+              <toDir>${project.build.directory}/closure-compiler</toDir>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>-->
+      <plugin>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <version>1.6</version>
+        <executions>
+          <execution>
+            <id>strip-javascript</id>
+            <goals>
+              <goal>run</goal>
+            </goals>
+            <phase>compile</phase>
+            <configuration>
+              <target>
+                <concat destfile="${project.build.directory}/javascript-min/standard/script/tobago.min.js">
+                  <filelist
+                      dir="${basedir}/src/main/resources/org/apache/myfaces/tobago/renderkit/html/standard/standard/script"
+                      files="tobago.js,calendar.js,dateConverter.js,theme-config.js,tobago-menu.js,tobago-sheet.js,
+                      tobago-tabgroup.js,tobago-tree.js"/>
+                </concat>
+                <concat destfile="${project.build.directory}/javascript-min/msie_6_0/script/tobago.min.js">
+                  <filelist
+                      dir="${basedir}/src/main/resources/org/apache/myfaces/tobago/renderkit/html/standard/msie_6_0/script"
+                      files="tobago.js"/>
+                </concat>
+                <replaceregexp match="^;;;.*$" replace="" byline="true">
+                  <fileset dir="${project.build.directory}/javascript-min">
+                    <include name="**/tobago.min.js"/>
+                  </fileset>
+                </replaceregexp>
+              </target>
+            </configuration>
+          </execution>
+        </executions>
+        <dependencies>
+          <dependency>
+            <groupId>ant</groupId>
+            <artifactId>ant-apache-regexp</artifactId>
+            <version>1.6.5</version>
+          </dependency>
+        </dependencies>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>1.1</version>
+        <executions>
+          <execution>
+            <id>compress-standard</id>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+            <phase>compile</phase>
+            <configuration>
+              <executable>java</executable>
+              <arguments>
+                <argument>-jar</argument>
+                <argument>lib/compiler-20100917.jar</argument>
+                <argument>--js</argument>
+                <argument>${project.build.directory}/javascript-min/standard/script/tobago.min.js</argument>
+                <argument>--js_output_file</argument>
+                <argument>
+                  target/classes/org/apache/myfaces/tobago/renderkit/html/standard/standard/script/tobago.min.js
+                </argument>
+              </arguments>
             </configuration>
           </execution>
           <execution>
-            <id>compile-msie</id>
+            <id>compress-msie_6_0</id>
             <goals>
-              <goal>compile</goal>
+              <goal>exec</goal>
             </goals>
-            <phase>process-resources</phase>
+            <phase>compile</phase>
             <configuration>
-              <descriptor>${basedir}/src/main/build/msie-javascript.xml</descriptor>
-              <sourceDirectory>${basedir}/src/main/resources/org/apache/myfaces/tobago/renderkit/html/standard/msie_6_0</sourceDirectory>
-            </configuration>
-          </execution>
-          <execution>
-            <id>compress</id>
-            <goals>
-              <goal>compress</goal>
-            </goals>
-            <phase>process-resources</phase>
-            <configuration>
-              <scripts>org/apache/myfaces/tobago/renderkit/html/standard</scripts>
-              <includes>
-                <include>**/tobago.min.js</include>
-              </includes>
-              <compressor>yahooUI</compressor>
-              <webappDirectory>target/classes</webappDirectory>
+              <executable>java</executable>
+              <arguments>
+                <argument>-jar</argument>
+                <argument>lib/compiler-20100917.jar</argument>
+                <argument>--js</argument>
+                <argument>${project.build.directory}/javascript-min/msie_6_0/script/tobago.min.js</argument>
+                <argument>--js_output_file</argument>
+                <argument>
+                  target/classes/org/apache/myfaces/tobago/renderkit/html/standard/msie_6_0/script/tobago.min.js
+                </argument>
+              </arguments>
             </configuration>
           </execution>
         </executions>
@@ -95,14 +152,6 @@
           </excludes>
         </configuration>
       </plugin>
-      <!--<plugin>
-        <groupId>ro.isdc.wro4j</groupId>
-        <artifactId>wro4j-maven-plugin</artifactId>
-        <version>1.3.1</version>
-        <configuration>
-
-        </configuration>
-      </plugin>-->
     </plugins>
   </build>
 

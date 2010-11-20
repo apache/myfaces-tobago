@@ -143,35 +143,62 @@
         </executions>
       </plugin>
       <plugin>
-        <artifactId>myfaces-javascript-plugin</artifactId>
-        <groupId>org.apache.myfaces.buildtools</groupId>
-        <version>1.0.1</version>
-        <extensions>true</extensions>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <version>1.6</version>
         <executions>
           <execution>
-            <id>compile</id>
+            <id>strip-javascript</id>
             <goals>
-              <goal>compile</goal>
+              <goal>run</goal>
             </goals>
-            <phase>process-resources</phase>
+            <phase>compile</phase>
             <configuration>
-              <descriptor>${basedir}/src/main/build/standard-javascript.xml</descriptor>
-              <sourceDirectory>${basedir}/src/main/resources/</sourceDirectory>
+              <target>
+                <concat destfile="${project.build.directory}/javascript-min/speyside/script/tobago.min.js">
+                  <filelist
+                      dir="${basedir}/src/main/resources/org/apache/myfaces/tobago/renderkit/html/speyside/standard/script"
+                      files="theme-config.js"/>
+                </concat>
+                <replaceregexp match="^;;;.*$" replace="" byline="true">
+                  <fileset dir="${project.build.directory}/javascript-min">
+                    <include name="**/tobago.min.js"/>
+                  </fileset>
+                </replaceregexp>
+              </target>
             </configuration>
           </execution>
+        </executions>
+        <dependencies>
+          <dependency>
+            <groupId>ant</groupId>
+            <artifactId>ant-apache-regexp</artifactId>
+            <version>1.6.5</version>
+          </dependency>
+        </dependencies>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>1.1</version>
+        <executions>
           <execution>
-            <id>compress</id>
+            <id>compress-standard</id>
             <goals>
-              <goal>compress</goal>
+              <goal>exec</goal>
             </goals>
-            <phase>process-resources</phase>
+            <phase>compile</phase>
             <configuration>
-              <scripts>org/apache/myfaces/tobago/renderkit/html/speyside/standard/</scripts>
-              <includes>
-                <include>**/tobago.min.js</include>
-              </includes>
-              <compressor>yahooUI</compressor>
-              <webappDirectory>target/classes</webappDirectory>
+              <executable>java</executable>
+              <arguments>
+                <argument>-jar</argument>
+                <argument>../tobago-theme-standard/lib/compiler-20100917.jar</argument>
+                <argument>--js</argument>
+                <argument>${project.build.directory}/javascript-min/speyside/script/tobago.min.js</argument>
+                <argument>--js_output_file</argument>
+                <argument>
+                  target/classes/org/apache/myfaces/tobago/renderkit/html/speyside/standard/script/tobago.min.js
+                </argument>
+              </arguments>
             </configuration>
           </execution>
         </executions>
