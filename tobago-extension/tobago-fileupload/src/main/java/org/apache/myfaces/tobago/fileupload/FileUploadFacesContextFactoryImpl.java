@@ -130,7 +130,7 @@ public class FileUploadFacesContextFactoryImpl extends FacesContextFactory {
           LOG.error("", e);
           FacesContext facesContext = facesContextFactory.getFacesContext(context, request, response, lifecycle);
           // TODO  better Message i18n Message?
-          FacesMessage facesMessage = new FacesMessage(e.getCause().getMessage());
+          FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getCause().getMessage(), null);
           facesContext.addMessage(null, facesMessage);
           facesContext.renderResponse();
           return facesContext;
