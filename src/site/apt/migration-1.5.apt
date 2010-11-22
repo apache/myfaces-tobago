@@ -154,5 +154,7 @@ Themes and CSS
 *--+--+--+--+
 | renamed | <<<tobago-input-picker>>> | <<<tobago-datePicker-icon>>> |
 *--+--+--+--+
+| renamed | <<<tobago-popup-iframe>>> | <<<tobago-popup-ie6bugfix>>> |
+*--+--+--+--+
 | renamed | <<<tobago-textArea->>>* | <<<tobago-textarea->>>* |
 *--+--+--+--+

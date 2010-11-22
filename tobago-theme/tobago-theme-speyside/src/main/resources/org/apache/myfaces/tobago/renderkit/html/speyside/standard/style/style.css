@@ -316,14 +316,6 @@ li.tobago-menu-markup-selected {
   background: #E2E2E2;
   font: 12px arial, helvetica, sans-serif;
   margin-bottom: 0px;
-  scrollbar-base-color: #000000;
-  scrollbar-3dlight-color: #000000;
-  scrollbar-darkshadow-color: #CCCCCC;
-  scrollbar-arrow-color: #000000;
-  scrollbar-face-color: #E2E2E2;
-  scrollbar-highlight-color: #E2E2E2;
-  scrollbar-shadow-color: #000000;
-  scrollbar-track-color: #CCCCCC;
 }
 
 /* popup ------------------------------------------------------------------ */
@@ -334,9 +326,7 @@ li.tobago-menu-markup-selected {
 
 .tobago-popup-blink {
   background: #333333;
-  -moz-opacity: .5;
   opacity: .5;
-	filter:alpha(opacity=50);
 }
 
 /* progress --------------------------------------------------------- */

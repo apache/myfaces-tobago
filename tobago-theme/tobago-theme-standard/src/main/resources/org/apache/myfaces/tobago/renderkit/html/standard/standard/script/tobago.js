@@ -909,8 +909,8 @@ var Tobago = {
         });
 
         // IE6 needs an iframe to protect the other controls and protect against select-tag shining through.
-        maxModalPopup.prepend("<iframe class='tobago-popup-iframe'/>");
-        var iframe = maxModalPopup.children('.tobago-popup-iframe');
+        maxModalPopup.prepend("<iframe class='tobago-popup-ie6bugfix'/>");
+        var iframe = maxModalPopup.children('.tobago-popup-ie6bugfix');
         iframe.css({
           position: 'absolute',
           left: -maxModalPopup.offset().left,

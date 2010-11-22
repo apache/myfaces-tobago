@@ -70,8 +70,6 @@ fieldset.tobago-box {
   border: 2px groove #f6faff;
   background: #bbccdd; /*  font-size: 22px; */
   white-space: nowrap;
-  box-sizing: border-box;
-  -moz-box-sizing: border-box;
 }
 
 /* toolBar ----------------------------------------------------------------- */
@@ -322,8 +320,6 @@ div.tobago-gridLayout-first-column {
   margin: 0;
   padding: 0;
   z-index: 5;
-  box-sizing: border-box;
-  -moz-box-sizing: border-box;
 }
 
 .tobago-in-suggestPopup a {
@@ -486,18 +482,6 @@ li.tobago-menu-markup-selected {
   visibility: hidden;
 }
 
-/* workaround for IE6 */
-iframe.tobago-menu-ie6bugfix {
-  position: absolute;
-  display: block;
-  z-index: -1;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  filter: mask();
-}
-
 /* messages --------------------------------------------------- */
 
 .tobago-messages {
@@ -601,20 +585,10 @@ iframe.tobago-menu-ie6bugfix {
   z-index: -1;
   opacity: .40;
   background: url( ../image/popupBg.png );
-  filter: alpha( opacity = 40 );
 }
 
 .tobago-popup-blink {
   background: red;
-}
-
-.tobago-popup-iframe {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  filter: progid:DXImageTransform.Microsoft.Alpha(style=0,opacity=0);
 }
 
 /* progress -------------------------------------------------------------- */
@@ -977,11 +951,6 @@ a:active.tobago-sheet-pagingLink {
 }
 
 /* richTextEditor ---------------------------------------------------------- */
-
-.tobago-richTextEditor {
-  box-sizing: border-box;
-  -moz-box-sizing: border-box;
-}
 
 .tobago-richTextEditor-container {
 }

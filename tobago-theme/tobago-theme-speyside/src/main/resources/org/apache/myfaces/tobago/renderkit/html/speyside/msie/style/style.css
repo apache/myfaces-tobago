@@ -1,0 +1,41 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/*
+ * theme: speyside
+ * agent: msie
+ */
+
+/* page -------------------------------------------------------------------- */
+
+.tobago-page {
+  scrollbar-base-color: #000000;
+  scrollbar-3dlight-color: #000000;
+  scrollbar-darkshadow-color: #CCCCCC;
+  scrollbar-arrow-color: #000000;
+  scrollbar-face-color: #E2E2E2;
+  scrollbar-highlight-color: #E2E2E2;
+  scrollbar-shadow-color: #000000;
+  scrollbar-track-color: #CCCCCC;
+}
+
+/* popup ------------------------------------------------------------------ */
+
+.tobago-popup-blink {
+  -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=50)"; /* IE8 */
+	filter:alpha(opacity=50); /* IE6+IE7 */
+}
