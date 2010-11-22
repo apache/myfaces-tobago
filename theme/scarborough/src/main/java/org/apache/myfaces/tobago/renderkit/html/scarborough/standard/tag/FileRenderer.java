@@ -25,8 +25,6 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
-import static org.apache.myfaces.tobago.TobagoConstants.FACET_LABEL;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIFileInput;
 import org.apache.myfaces.tobago.context.ClientProperties;
@@ -43,6 +41,9 @@ import javax.faces.context.FacesContext;
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 import java.io.IOException;
+
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
+import static org.apache.myfaces.tobago.TobagoConstants.FACET_LABEL;
 
 public class FileRenderer extends InputRendererBase {
 
@@ -92,7 +93,7 @@ public class FileRenderer extends InputRendererBase {
     if (request == null) {
       // should not be possible, because of the check in UIPage
       LOG.error("Can't process multipart/form-data without TobagoRequest. "
-          + "Please check the web.xml and define a TobagoMultipartFormdataFilter. "
+          + "Please use the tobago-fileupload.jar or check the web.xml and define a TobagoMultipartFormdataFilter. "
           + "See documentation for <tc:file>");
     } else {
 

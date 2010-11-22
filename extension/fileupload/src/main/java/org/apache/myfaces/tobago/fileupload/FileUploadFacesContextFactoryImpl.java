@@ -17,19 +17,19 @@ package org.apache.myfaces.tobago.fileupload;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.webapp.TobagoMultipartFormdataRequest;
-import org.apache.myfaces.tobago.util.JndiUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.tobago.util.JndiUtils;
+import org.apache.myfaces.tobago.webapp.TobagoMultipartFormdataRequest;
 
-import javax.faces.context.FacesContextFactory;
-import javax.faces.context.FacesContext;
-import javax.faces.lifecycle.Lifecycle;
 import javax.faces.FacesException;
 import javax.faces.application.FacesMessage;
-import javax.servlet.http.HttpServletRequest;
+import javax.faces.context.FacesContext;
+import javax.faces.context.FacesContextFactory;
+import javax.faces.lifecycle.Lifecycle;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 
 /**
@@ -130,7 +130,7 @@ public class FileUploadFacesContextFactoryImpl extends FacesContextFactory {
           LOG.error("", e);
           FacesContext facesContext = facesContextFactory.getFacesContext(context, request, response, lifecycle);
           // TODO  better Message i18n Message?
-          FacesMessage facesMessage = new FacesMessage(e.getCause().getMessage());
+          FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getCause().getMessage(), null);
           facesContext.addMessage(null, facesMessage);
           facesContext.renderResponse();
           return facesContext;
