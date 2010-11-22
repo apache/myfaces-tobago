@@ -54,11 +54,11 @@ public class TobagoServletContextListener implements ServletContextListener {
 
       // todo: cleanup, use one central TobagoConfig, no singleton ResourceManager
       // resources
+      tobagoConfig.initProjectState(servletContext);
       ResourceManagerFactory.init(servletContext, tobagoConfig);
-
       // prepare themes
       tobagoConfig.resolveThemes();
-      tobagoConfig.initProjectState(servletContext);
+
     } catch (Throwable e) {
       if (LOG.isErrorEnabled()) {
         String error = "Error while deploy process. Tobago can't be initialized! Application will not run!";

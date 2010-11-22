@@ -17,6 +17,7 @@ package org.apache.myfaces.tobago.context;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.application.ProjectStage;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.config.Configurable;
 import org.apache.myfaces.tobago.config.TobagoConfig;
@@ -38,6 +39,7 @@ import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 import javax.faces.render.Renderer;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -48,6 +50,8 @@ public class ResourceManagerImpl implements ResourceManager {
   private static final String PROPERTY = "property";
   private static final String JSP = "jsp";
   private static final String TAG = "tag";
+  private static final String MINIMIZE_SUFFIX = ".min";
+  private boolean production;
 
   private final Map<String, String> resourceList 
       = new ConcurrentHashMap<String, String>(100, 0.75f, 1);
@@ -69,6 +73,7 @@ public class ResourceManagerImpl implements ResourceManager {
 
   public ResourceManagerImpl(TobagoConfig tobagoConfig) {
     this.tobagoConfig = tobagoConfig;
+    this.production = tobagoConfig.getProjectStage() == ProjectStage.Production;
   }
 
   public void add(String resourceKey) {
@@ -308,9 +313,25 @@ public class ResourceManagerImpl implements ResourceManager {
 
     // check first the local web application directory
     for (String localeSuffix : locales) {
-      path = makePath(name, localeSuffix, suffix, key);
-      if (checkPath(prefix, reverseOrder, single, returnKey, returnStrings, matches, path)) {
-        return matches;
+      if (production) {
+        path = makePath(name, MINIMIZE_SUFFIX, localeSuffix, suffix, key);
+        boolean found = checkPath(prefix, reverseOrder, returnKey, returnStrings, matches, path);
+        if (found && (single || !returnStrings)) {
+          return matches;
+        }
+        if (!found) {
+          path = makePath(name, null, localeSuffix, suffix, key);
+          found = checkPath(prefix, reverseOrder, returnKey, returnStrings, matches, path);
+          if (found && (single || !returnStrings)) {
+            return matches;
+          }
+        }
+      } else {
+        path = makePath(name, null, localeSuffix, suffix, key);
+        boolean found = checkPath(prefix, reverseOrder, returnKey, returnStrings, matches, path);
+        if (found && (single || !returnStrings)) {
+          return matches;
+        }
       }
     }
 
@@ -320,17 +341,28 @@ public class ResourceManagerImpl implements ResourceManager {
       for (String resourceDirectory : tobagoConfig.getResourceDirs()) {
         for (String browserType : browser.getFallbackList()) { // browser loop
           for (String localeSuffix : locales) { // locale loop
-            path = makePath(resourceDirectory,
-                contentType,
-                themeName,
-                browserType,
-                subDir,
-                name,
-                localeSuffix,
-                suffix,
-                key);
-            if (checkPath(prefix, reverseOrder, single, returnKey, returnStrings, matches, path)) {
-              return matches;
+            if (production) {
+              path = makePath(resourceDirectory, contentType, themeName, browserType, subDir, name, MINIMIZE_SUFFIX,
+                  localeSuffix, suffix, key);
+              boolean found = checkPath(prefix, reverseOrder, returnKey, returnStrings, matches, path);
+              if (found && (single || !returnStrings)) {
+                return matches;
+              }
+              if (!found) {
+                path = makePath(resourceDirectory, contentType, themeName, browserType, subDir, name, null,
+                  localeSuffix, suffix, key);
+                found = checkPath(prefix, reverseOrder, returnKey, returnStrings, matches, path);
+                if (found && (single || !returnStrings)) {
+                  return matches;
+                }
+              }
+            } else {
+              path = makePath(resourceDirectory, contentType, themeName, browserType, subDir, name, null,
+                  localeSuffix, suffix, key);
+              boolean found = checkPath(prefix, reverseOrder, returnKey, returnStrings, matches, path);
+              if (found && (single || !returnStrings)) {
+                return matches;
+              }
             }
           }
         }
@@ -357,7 +389,7 @@ public class ResourceManagerImpl implements ResourceManager {
   }
 
   private boolean checkPath(
-      String prefix, boolean reverseOrder, boolean single, boolean returnKey, boolean returnStrings,
+      String prefix, boolean reverseOrder, boolean returnKey, boolean returnStrings,
       List matches, String path) {
     if (returnStrings && resourceList.containsKey(path)) {
       String result =
@@ -374,9 +406,7 @@ public class ResourceManagerImpl implements ResourceManager {
         LOG.trace("testing path: {} *", path); // match
       }
 
-      if (single) {
-        return true;
-      }
+      return true;
     } else if (!returnStrings) {
       try {
         path = path.substring(1).replace('/', '.');
@@ -402,7 +432,7 @@ public class ResourceManagerImpl implements ResourceManager {
 
   private String makePath(
       String project, String language, Theme theme, String browser,
-      String subDir, String name, String localeSuffix, String extension, String key) {
+      String subDir, String name, String minimizeSuffix, String localeSuffix, String extension, String key) {
     StringBuilder searchtext = new StringBuilder(64);
 
     searchtext.append('/');
@@ -419,6 +449,9 @@ public class ResourceManagerImpl implements ResourceManager {
     }
     searchtext.append('/');
     searchtext.append(name);
+    if (minimizeSuffix != null) {
+      searchtext.append(minimizeSuffix);
+    }
     searchtext.append(localeSuffix);
     searchtext.append(extension);
     if (key != null) {
@@ -430,11 +463,14 @@ public class ResourceManagerImpl implements ResourceManager {
   }
 
   private String makePath(
-      String name, String localeSuffix, String extension, String key) {
+      String name, String minimizeSuffix, String localeSuffix, String extension, String key) {
     StringBuilder searchtext = new StringBuilder(64);
 
     searchtext.append('/');
     searchtext.append(name);
+    if (minimizeSuffix != null) {
+      searchtext.append(minimizeSuffix);
+    }
     searchtext.append(localeSuffix);
     searchtext.append(extension);
     if (key != null) {

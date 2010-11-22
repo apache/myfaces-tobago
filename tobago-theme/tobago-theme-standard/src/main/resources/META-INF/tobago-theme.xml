@@ -286,9 +286,9 @@
     </renderer>
   </renderers>
   <resources production="true">
-    <script name="script/jquery/1_4_2/jquery.min.js"/>
-    <script name="script/tobago.min.js"/>
-    <style name="style/style.min.css"/>
+    <script name="script/jquery/1_4_2/jquery.js"/>
+    <script name="script/tobago.js"/>
+    <style name="style/style.css"/>
   </resources>
   <resources production="false">
     <script name="script/jquery/1_4_2/jquery.js"/>
