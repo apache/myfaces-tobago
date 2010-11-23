@@ -136,10 +136,10 @@ public class PageRenderer extends PageRendererBase {
       facesContext = new TobagoFacesContext(facesContextOrg);
     }
 
+    RenderUtils.prepareRendererAll(facesContext, page);
+
     LayoutContext layoutContext = new LayoutContext(page);
     layoutContext.layout();
-
-    RenderUtils.prepareRendererAll(facesContext, page);
 
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
