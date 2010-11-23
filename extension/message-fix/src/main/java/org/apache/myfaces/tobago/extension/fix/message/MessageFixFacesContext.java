@@ -17,24 +17,24 @@ package org.apache.myfaces.tobago.extension.fix.message;
  * limitations under the License.
  */
 
-import javax.faces.context.FacesContext;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.ResponseStream;
-import javax.faces.context.ResponseWriter;
 import javax.faces.application.Application;
 import javax.faces.application.FacesMessage;
-import javax.faces.render.RenderKit;
 import javax.faces.component.UIViewRoot;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
+import javax.faces.context.ResponseStream;
+import javax.faces.context.ResponseWriter;
+import javax.faces.render.RenderKit;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Collections;
 import java.util.List;
-import java.util.ArrayList;
+import java.util.Map;
 
-/*
- * Date: Aug 16, 2007
- * Time: 7:41:04 PM
+/**
+ * Alternative faces context which wraps the original.
+ * It fixes a problem with the order of the messages of the RI 1.1.
  */
 public class MessageFixFacesContext extends FacesContext {
   private FacesContext facesContext;
@@ -46,6 +46,17 @@ public class MessageFixFacesContext extends FacesContext {
   MessageFixFacesContext(FacesContext facesContext) {
     this.facesContext = facesContext;
     FacesContext.setCurrentInstance(this);
+
+    // add the messages from the underlying facesContext
+    final Iterator<String> clientIds = this.facesContext.getClientIdsWithMessages();
+    while (clientIds.hasNext()) {
+      String clientId = clientIds.next();
+      Iterator<FacesMessage> i = this.facesContext.getMessages(clientId);
+      while (i.hasNext()) {
+        FacesMessage facesMessage = i.next();
+        addMessage(clientId, facesMessage);
+      }
+    }
   }
 
   public Iterator getMessages() {

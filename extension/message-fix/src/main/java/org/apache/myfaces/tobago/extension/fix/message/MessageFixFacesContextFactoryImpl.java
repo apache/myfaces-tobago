@@ -20,14 +20,13 @@ package org.apache.myfaces.tobago.extension.fix.message;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import javax.faces.context.FacesContextFactory;
-import javax.faces.context.FacesContext;
-import javax.faces.lifecycle.Lifecycle;
 import javax.faces.FacesException;
+import javax.faces.context.FacesContext;
+import javax.faces.context.FacesContextFactory;
+import javax.faces.lifecycle.Lifecycle;
 
-/*
- * Date: Aug 16, 2007
- * Time: 7:41:04 PM
+/**
+ * @see MessageFixFacesContext
  */
 public class MessageFixFacesContextFactoryImpl extends FacesContextFactory {
   private static final Log LOG = LogFactory.getLog(MessageFixFacesContextFactoryImpl.class);
