@@ -33,18 +33,25 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
+
 public class HiddenRenderer extends InputRendererBase {
 
-  public void encodeEnd(FacesContext facesContext,
-      UIComponent component) throws IOException {
+  public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
 
     final String clientId = component.getClientId(facesContext);
     final String value = ComponentUtil.currentValue(component);
 
     TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
-
     writer.startElement(HtmlConstants.INPUT, component);
-    writer.writeAttribute(HtmlAttributes.TYPE, "hidden", false);
+    boolean disabled = ComponentUtil.getBooleanAttribute(component, ATTR_DISABLED);
+    if (disabled) {
+      writer.writeAttribute(HtmlAttributes.TYPE, "text", false);
+      writer.writeStyleAttribute("display:none");
+      writer.writeAttribute(HtmlAttributes.DISABLED, true);
+    } else {
+      writer.writeAttribute(HtmlAttributes.TYPE, "hidden", false);
+    }
     writer.writeNameAttribute(clientId);
     writer.writeIdAttribute(clientId);
     writer.writeAttribute(HtmlAttributes.VALUE, value != null ? value : "", true);

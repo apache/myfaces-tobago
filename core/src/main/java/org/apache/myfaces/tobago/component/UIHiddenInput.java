@@ -18,7 +18,9 @@ package org.apache.myfaces.tobago.component;
  */
 
 import javax.faces.context.FacesContext;
+import javax.faces.el.ValueBinding;
 
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
 
 /*
  * Date: 10.02.2006
@@ -26,20 +28,36 @@ import javax.faces.context.FacesContext;
  */
 public class UIHiddenInput extends javax.faces.component.UIInput {
 
-  private boolean inline = true;
-
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.HiddenInput";
+
+  private Boolean disabled;
+
+  public boolean isDisabled() {
+    if (disabled != null) {
+      return disabled;
+    }
+    ValueBinding vb = getValueBinding(ATTR_DISABLED);
+    if (vb != null) {
+      return (Boolean.TRUE.equals(vb.getValue(getFacesContext())));
+    } else {
+      return false;
+    }
+  }
+
+  public void setDisabled(boolean disabled) {
+    this.disabled = disabled;
+  }
 
   public void restoreState(FacesContext context, Object state) {
     Object[] values = (Object[]) state;
     super.restoreState(context, values[0]);
-    inline = (Boolean) values[1];
+    disabled = (Boolean) values[1];
   }
 
   public Object saveState(FacesContext context) {
     Object[] values = new Object[2];
     values[0] = super.saveState(context);
-    values[1] = inline;
+    values[1] = disabled;
     return values;
   }
 }

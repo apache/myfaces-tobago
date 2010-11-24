@@ -1190,9 +1190,12 @@ var Form = {
     var queryComponents = new Array();
 
     for (var i = 0; i < elements.length; i++) {
-      var queryComponent = Form.Element.serialize(elements[i]);
-      if (queryComponent)
-        queryComponents.push(queryComponent);
+        if (elements[i].disabled !== undefined && elements[i].disabled) {
+            continue;
+        }
+        var queryComponent = Form.Element.serialize(elements[i]);
+        if (queryComponent)
+          queryComponents.push(queryComponent);
     }
 
     return queryComponents.join('&');
