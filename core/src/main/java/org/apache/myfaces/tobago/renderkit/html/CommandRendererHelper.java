@@ -117,7 +117,7 @@ public class CommandRendererHelper {
                 + "','" + clientId + "', {});";
           }
         } else {
-          LOG.error("more than one parially rendered component is currently not supported "
+          LOG.error("more than one partially rendered component is currently not supported "
               + Arrays.toString(componentId));
           onclick = "Tobago.submitAction2(this, '" + clientId + "', " + transition + ", null);";
         }
