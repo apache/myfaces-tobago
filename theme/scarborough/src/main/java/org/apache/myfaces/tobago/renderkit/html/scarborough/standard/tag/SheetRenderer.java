@@ -270,8 +270,8 @@ public class SheetRenderer extends LayoutableRendererBase implements SheetRender
       writer.writeClassAttribute("tobago-sheet-header-div");
 
       HtmlStyleMap headerStyle = (HtmlStyleMap) attributes.get(ATTR_STYLE_HEADER);
+      Integer zIndex = getZIndex(facesContext);
       if (headerStyle != null) {
-        Integer zIndex = getZIndex(facesContext);
         headerStyle.put("z-index", zIndex+1);
         if (ie6SelectOneFix) {
           headerStyle.put("position", "relative");
@@ -504,6 +504,9 @@ public class SheetRenderer extends LayoutableRendererBase implements SheetRender
 
 
     renderFooter(facesContext, data, writer, sheetId, sheetHeight, footerHeight, bodyStyle);
+    if (showHeader) {
+      resetZIndex(facesContext);
+    }
   }
 
   private Integer getZIndex(FacesContext facesContext) {
@@ -515,6 +518,18 @@ public class SheetRenderer extends LayoutableRendererBase implements SheetRender
     }
     facesContext.getExternalContext().getRequestMap().put(TobagoConstants.ATTR_ZINDEX, zIndex);
     return zIndex;
+  }
+
+  private void resetZIndex(FacesContext facesContext) {
+    Integer zIndex = (Integer) facesContext.getExternalContext().getRequestMap().get(TobagoConstants.ATTR_ZINDEX);
+    if (zIndex != null) {
+      if (zIndex == 1) {
+        zIndex = null;
+      } else {
+        zIndex = zIndex - 4;
+      }
+      facesContext.getExternalContext().getRequestMap().put(TobagoConstants.ATTR_ZINDEX, zIndex);
+    }
   }
 
   protected void renderFooter(FacesContext facesContext, UIData data, TobagoResponseWriter writer,
