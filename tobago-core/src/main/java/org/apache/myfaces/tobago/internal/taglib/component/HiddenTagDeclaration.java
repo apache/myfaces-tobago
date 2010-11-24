@@ -24,6 +24,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasConverter;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasValidator;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasValue;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsReadonly;
 
 /**
@@ -36,5 +37,5 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsReadonly;
     rendererType = RendererTypes.HIDDEN,
     allowedChildComponenents = "NONE")
 public interface HiddenTagDeclaration extends HasIdBindingAndRendered, HasValue, HasConverter, HasValidator,
-    IsReadonly {
+    IsReadonly, IsDisabled {
 }
