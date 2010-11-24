@@ -20,16 +20,16 @@
   <parent>
     <groupId>org.apache.myfaces.tobago</groupId>
     <artifactId>tobago-example</artifactId>
-    <version>1.0.32-SNAPSHOT</version>
+    <version>1.0.32</version>
   </parent>
   <artifactId>tobago-example-data</artifactId>
   <packaging>jar</packaging>
   <name>Data for Examples</name>
 
   <scm>
-    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/tobago/branches/tobago-1.0.x/example/data</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/tobago/branches/tobago-1.0.x/example/data</developerConnection>
-    <url>http://svn.apache.org/viewcvs.cgi/myfaces/tobago/branches/tobago-1.0.x/example/data</url>
+    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/tobago/tags/tobago-1.0.32/example/data</connection>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/tobago/tags/tobago-1.0.32/example/data</developerConnection>
+    <url>http://svn.apache.org/viewcvs.cgi/myfaces/tobago/tags/tobago-1.0.32/example/data</url>
   </scm>
 
   <dependencies>
