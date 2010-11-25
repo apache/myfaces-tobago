@@ -491,8 +491,12 @@ public class SheetRenderer extends LayoutableRendererBase implements SheetRender
         writer.endElement(HtmlConstants.TD);
       }
       writer.startElement(HtmlConstants.TD, null);
+      writer.startElement(HtmlConstants.DIV, null);
+      writer.writeClassAttribute("tobago-sheet-cell-outer");
+      writer.writeStyleAttribute("width: 0px;");
       writer.flush();
       writer.write("&nbsp;");
+      writer.endElement(HtmlConstants.DIV);
       writer.endElement(HtmlConstants.TD);
       writer.endElement(HtmlConstants.TR);
     }
