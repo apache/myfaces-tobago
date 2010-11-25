@@ -42,7 +42,7 @@ public class HiddenRenderer extends InputRendererBase {
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
     writer.startElement(HtmlElements.INPUT, component);
-    if (component instanceof UIHidden && ((UIHidden)component).isDisabled()) {
+    if (component instanceof UIHidden && ((UIHidden) component).isDisabled()) {
       writer.writeAttribute(HtmlAttributes.TYPE, "text", false);
       Style style = new Style();
       style.setDisplay(Display.NONE);
