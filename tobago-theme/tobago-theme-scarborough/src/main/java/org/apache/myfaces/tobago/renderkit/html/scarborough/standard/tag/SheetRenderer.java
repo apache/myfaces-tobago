@@ -379,7 +379,6 @@ public class SheetRenderer extends LayoutComponentRendererBase {
 
     if (emptySheet && showHeader) {
       writer.startElement(HtmlElements.TR, null);
-      writer.flush();
       int columnIndex = -1;
       for (UIColumn column : renderedColumnList) {
         columnIndex++;
@@ -393,7 +392,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
         writer.endElement(HtmlElements.TD);
       }
       writer.startElement(HtmlElements.TD, null);
-      writer.flush();
+      writer.writeClassAttribute(Classes.create(sheet, "cell"));
       writer.write("&nbsp;");
       writer.endElement(HtmlElements.TD);
       writer.endElement(HtmlElements.TR);
