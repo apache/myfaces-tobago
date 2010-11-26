@@ -40,7 +40,7 @@ import java.io.OutputStream;
  *   &lt;servlet-class&gt;org.apache.myfaces.tobago.servlet.ResourceServlet&lt;/servlet-class&gt;
  *   &lt;init-param&gt;
  *     &lt;description&gt;The value for the expires header in seconds.
- *            The default for ProjectStage.Production is 86400 sec (24 h) otherwise no expires header.&lt;/description&gt;
+ *       The default for ProjectStage.Production is 86400 sec (24 h) otherwise no expires header.&lt;/description&gt;
  *     &lt;param-name&gt;expires&lt;/param-name&gt;
  *     &lt;param-value&gt;14400&lt;/param-value&gt;
  *   &lt;/init-param&gt;
