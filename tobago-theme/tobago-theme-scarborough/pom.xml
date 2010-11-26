@@ -56,7 +56,7 @@
                       dir="${basedir}/src/main/resources/org/apache/myfaces/tobago/renderkit/html/scarborough/standard/script"
                       files="tobago-sheet.js"/>
                 </concat>
-                <replaceregexp match="^;;;.*$" replace="" byline="true">
+                <replaceregexp match="^.*//.*@DEV_ONLY.*$" replace="" byline="true">
                   <fileset dir="${project.build.directory}/javascript-min">
                     <include name="**/tobago.min.js"/>
                   </fileset>

@@ -19,31 +19,31 @@ var TbgTimer = {
   startTbgJs: new Date(),
 
   log: function() {
-;;;    var tbgjs = this.endTbgJs.getTime() - this.startTbgJs.getTime();
+    var tbgjs = this.endTbgJs.getTime() - this.startTbgJs.getTime(); // @DEV_ONLY
 //      var htmljs = this.endBody.getTime() - this.startHtml.getTime();
-;;;    var bodyjs = this.endBody.getTime() - this.startBody.getTime();
-;;;    var onloadjs = this.endOnload.getTime() - this.startOnload.getTime();
-;;;    var bodyToOnload = this.startOnload.getTime() - this.endBody.getTime();
-;;;    var totaljs = this.endTotal.getTime() - this.startTbgJs.getTime();
-;;;    var appOnload = this.endAppOnload.getTime() - this.startAppOnload.getTime();
+    var bodyjs = this.endBody.getTime() - this.startBody.getTime(); // @DEV_ONLY
+    var onloadjs = this.endOnload.getTime() - this.startOnload.getTime(); // @DEV_ONLY
+    var bodyToOnload = this.startOnload.getTime() - this.endBody.getTime(); // @DEV_ONLY
+    var totaljs = this.endTotal.getTime() - this.startTbgJs.getTime(); // @DEV_ONLY
+    var appOnload = this.endAppOnload.getTime() - this.startAppOnload.getTime(); // @DEV_ONLY
 //      LOG.show();
-;;;    if (TbgHeadStart) {
-;;;      LOG.debug('startTbgJs-TbgHeadStart: ' + (this.startTbgJs.getTime() - TbgHeadStart.getTime()));
-;;;    }
-;;;    LOG.debug('startBody-startTbgJs: ' + (this.startBody.getTime() - this.startTbgJs.getTime()));
-;;;    LOG.debug('startTbgJs:' + this.startTbgJs.getTime());
-;;;    LOG.debug('startBody: ' + this.startBody.getTime());
-;;;    LOG.debug('parse tobago.js ' + tbgjs);
+    if (TbgHeadStart) { // @DEV_ONLY
+      LOG.debug('startTbgJs-TbgHeadStart: ' + (this.startTbgJs.getTime() - TbgHeadStart.getTime())); // @DEV_ONLY
+    } // @DEV_ONLY
+    LOG.debug('startBody-startTbgJs: ' + (this.startBody.getTime() - this.startTbgJs.getTime())); // @DEV_ONLY
+    LOG.debug('startTbgJs:' + this.startTbgJs.getTime()); // @DEV_ONLY
+    LOG.debug('startBody: ' + this.startBody.getTime()); // @DEV_ONLY
+    LOG.debug('parse tobago.js ' + tbgjs); // @DEV_ONLY
 //      LOG.debug("parse htmltotal " + htmljs);
-;;;    LOG.debug('parse body ' + bodyjs);
-;;;    LOG.debug('between body and onload ' + bodyToOnload);
-;;;    LOG.debug('execute onload ' + onloadjs);
-;;;    LOG.debug('execute appOnload ' + appOnload);
-;;;    LOG.debug('until appOnload ' + (this.startAppOnload.getTime() - this.startOnload.getTime()));
-;;;    LOG.debug('until scriptLoaders ' + (this.startScriptLoaders.getTime() - this.startOnload.getTime()));
-;;;    LOG.debug('time scriptLoaders ' + (this.endScriptLoaders.getTime() - this.startScriptLoaders.getTime()));
-;;;    LOG.debug('until nach onload ' + (this.endOnload.getTime() - this.startTbgJs.getTime()));
-;;;    LOG.debug('total ' + totaljs);
+    LOG.debug('parse body ' + bodyjs); // @DEV_ONLY
+    LOG.debug('between body and onload ' + bodyToOnload); // @DEV_ONLY
+    LOG.debug('execute onload ' + onloadjs); // @DEV_ONLY
+    LOG.debug('execute appOnload ' + appOnload); // @DEV_ONLY
+    LOG.debug('until appOnload ' + (this.startAppOnload.getTime() - this.startOnload.getTime())); // @DEV_ONLY
+    LOG.debug('until scriptLoaders ' + (this.startScriptLoaders.getTime() - this.startOnload.getTime())); // @DEV_ONLY
+    LOG.debug('time scriptLoaders ' + (this.endScriptLoaders.getTime() - this.startScriptLoaders.getTime())); // @DEV_ONLY
+    LOG.debug('until nach onload ' + (this.endOnload.getTime() - this.startTbgJs.getTime())); // @DEV_ONLY
+    LOG.debug('total ' + totaljs); // @DEV_ONLY
   }
 };
 
@@ -132,7 +132,7 @@ var Tobago = {
 
   createHtmlId: function() {
     var id = '__tbg_id_' + this.htmlIdIndex++;
-;;;    LOG.debug('created id = ' + id);
+    LOG.debug('created id = ' + id); // @DEV_ONLY
     return id;
   },
 
@@ -150,7 +150,7 @@ var Tobago = {
     set: function(keyAccelerator) {
       var key = keyAccelerator.modifier + keyAccelerator.key;
       if (this[key]) {
-;;;        LOG.warn('Ignoring duplicate key: ' + keyAccelerator.modifier + '-' + keyAccelerator.key + ' with function: ' + keyAccelerator.func.valueOf());
+        LOG.warn('Ignoring duplicate key: ' + keyAccelerator.modifier + '-' + keyAccelerator.key + ' with function: ' + keyAccelerator.func.valueOf()); // @DEV_ONLY
       } else {
 //        LOG.debug("add accelerator for " + keyAccelerator.modifier + "-" + keyAccelerator.key);
         this[key] = keyAccelerator;
@@ -258,9 +258,9 @@ var Tobago = {
 
 //    new LOG.LogArea({hide: false});
 //    LOG.show();
-;;;    if (TbgTimer.endBody) {
-;;;      TbgTimer.startOnload = new Date();
-;;;    }
+    if (TbgTimer.endBody) { // @DEV_ONLY
+      TbgTimer.startOnload = new Date(); // @DEV_ONLY
+    } // @DEV_ONLY
     this.page = this.element(pageId);
     this.form = this.element(this.page.id + this.SUB_COMPONENT_SEP + 'form');
     this.addBindEventListener(this.form, 'submit', this, 'onSubmit');
@@ -274,15 +274,15 @@ var Tobago = {
     // XXX not nice...
     xxx_tobagoInit();
 
-;;;    if (TbgTimer.endBody) {
-;;;      TbgTimer.startAppOnload = new Date();
-;;;    }
+    if (TbgTimer.endBody) { // @DEV_ONLY
+      TbgTimer.startAppOnload = new Date(); // @DEV_ONLY
+    } // @DEV_ONLY
     if (this.applicationOnload) {
       this.applicationOnload();
     }
-;;;    if (TbgTimer.endBody) {
-;;;      TbgTimer.endAppOnload = new Date();
-;;;    }
+    if (TbgTimer.endBody) { // @DEV_ONLY
+      TbgTimer.endAppOnload = new Date(); // @DEV_ONLY
+    } // @DEV_ONLY
 
     this.addBindEventListener(document, 'keypress', this.acceleratorKeys, 'observe');
 
@@ -292,26 +292,26 @@ var Tobago = {
     }
 
     window.setTimeout(Tobago.finishPageLoading, 1);
-;;;    if (TbgTimer.endBody) {
-;;;      TbgTimer.endOnload = new Date();
-;;;    }
+    if (TbgTimer.endBody) { // @DEV_ONLY
+      TbgTimer.endOnload = new Date(); // @DEV_ONLY
+    } // @DEV_ONLY
   },
 
   finishPageLoading: function() {
     Tobago.registerCurrentScripts();
-;;;    if (TbgTimer.endBody) {
-;;;      TbgTimer.startScriptLoaders = new Date();
-;;;  }
+    if (TbgTimer.endBody) { // @DEV_ONLY
+      TbgTimer.startScriptLoaders = new Date(); // @DEV_ONLY
+  } // @DEV_ONLY
     Tobago.startScriptLoaders();
-;;;    if (TbgTimer.endBody) {
-;;;      TbgTimer.endScriptLoaders = new Date();
-;;;    }
+    if (TbgTimer.endBody) { // @DEV_ONLY
+      TbgTimer.endScriptLoaders = new Date(); // @DEV_ONLY
+    } // @DEV_ONLY
     Tobago.pageIsComplete = true;
     Tobago.setFocus();
-;;;    if (TbgTimer.endBody) {
-;;;      TbgTimer.endTotal = new Date();
-;;;      TbgTimer.log();
-;;;    }
+    if (TbgTimer.endBody) { // @DEV_ONLY
+      TbgTimer.endTotal = new Date(); // @DEV_ONLY
+      TbgTimer.log(); // @DEV_ONLY
+    } // @DEV_ONLY
 
   },
 
@@ -521,7 +521,7 @@ var Tobago = {
       if (!this.isSubmit) {
         this.isSubmit = true;
         var req = Tobago.Transport.requests.shift(); // remove this from queue
-;;;        LOG.debug('request removed: ' + req.toString());
+        LOG.debug('request removed: ' + req.toString()); // @DEV_ONLY
         var oldAction = Tobago.action.value;
         var oldTarget = Tobago.form.target;
         Tobago.action.value = actionId;
@@ -608,7 +608,7 @@ var Tobago = {
     if (stateContainer) {
       stateContainer.innerHTML = state;
     } else {
-;;;      LOG.error("Can't find stateContainer!");
+      LOG.error("Can't find stateContainer!"); // @DEV_ONLY
     }
   },
 
@@ -642,7 +642,7 @@ var Tobago = {
    * Register a script file to prevent multiple loadings via Ajax.
    */
   registerScript: function(scriptId) {
-;;;    LOG.debug('register: ' + scriptId);
+    LOG.debug('register: ' + scriptId); // @DEV_ONLY
     this.registeredScripts[this.genScriptId(scriptId)] = true;
   },
 
@@ -740,18 +740,18 @@ var Tobago = {
         scriptLoader.executeCommands();
       }
     } else {
-;;;      var start = new Date().getTime();
-;;;      LOG.debug('start 1 of ' + this.scriptLoaders.length + ' Loaders');
-;;;      if (this.tbgScLoSt) {
-;;;        LOG.debug('time scriptLoader ' + (start - this.tbgScLoSt));
-;;;      }
-;;;      this.tbgScLoSt = start;
+      var start = new Date().getTime(); // @DEV_ONLY
+      LOG.debug('start 1 of ' + this.scriptLoaders.length + ' Loaders'); // @DEV_ONLY
+      if (this.tbgScLoSt) { // @DEV_ONLY
+        LOG.debug('time scriptLoader ' + (start - this.tbgScLoSt)); // @DEV_ONLY
+      } // @DEV_ONLY
+      this.tbgScLoSt = start; // @DEV_ONLY
       if (this.scriptLoaders.length > 0) {
         this.scriptLoadingActive = true;
         this.scriptLoaders.shift().ensureScripts();
       } else {
         this.scriptLoadingActive = false;
-;;;        LOG.debug('last time scriptLoader ' + (new Date().getTime() - this.tbgScLoSt));
+        LOG.debug('last time scriptLoader ' + (new Date().getTime() - this.tbgScLoSt)); // @DEV_ONLY
         delete this.tbgScLoSt;
       }
     }
@@ -788,7 +788,7 @@ var Tobago = {
     } else if (container === undefined) {
       Tobago.Updater.update(source, actionId, id, options);
     } else {
-;;;      LOG.warn('Illegal Container for reload:' + (typeof container));
+      LOG.warn('Illegal Container for reload:' + (typeof container)); // @DEV_ONLY
     }
   },
 
@@ -986,7 +986,7 @@ var Tobago = {
    */
   popupBlink: function(element) {
     var id = jQuery(element).attr('id');
-;;;    LOG.debug("Blink: Popup id is '" + id + "'");
+    LOG.debug("Blink: Popup id is '" + id + "'"); // @DEV_ONLY
     Tobago.addCssClass(id, 'tobago-popup-blink');
     setTimeout("Tobago.removeCssClass('" + id + "', 'tobago-popup-blink')", 20);
   },
@@ -1131,7 +1131,7 @@ var Tobago = {
       try { // focus() on not visible elements breaks IE
         focusElement.focus();
       } catch (ex) {
-;;;        LOG.warn('Exception when setting focus on : \"' + this.focusId + '\"');
+        LOG.warn('Exception when setting focus on : \"' + this.focusId + '\"'); // @DEV_ONLY
       }
     } else if (typeof this.focusId == 'undefined') {
       var lowestTabIndex = 32768; // HTML max tab index value + 1
@@ -1175,7 +1175,7 @@ var Tobago = {
         }
       }
     } else if (this.focusId.length > 0) {
-;;;      LOG.warn('Cannot find component to set focus : \"' + this.focusId + '\"');
+      LOG.warn('Cannot find component to set focus : \"' + this.focusId + '\"'); // @DEV_ONLY
     }
 
   },
@@ -1297,12 +1297,12 @@ var Tobago = {
   createOverlay: function(element) {
     element = Tobago.element(element);
     if (!element) {
-;;;      LOG.warn('no element to create overlay');
+      LOG.warn('no element to create overlay'); // @DEV_ONLY
       return;
     }
     var position = Tobago.getRuntimeStyle(element).position;
     if (position == 'static') {
-;;;      LOG.debug('replace position ' + position + ' with relative');
+      LOG.debug('replace position ' + position + ' with relative'); // @DEV_ONLY
       element.style.position = 'relative';
     }
     if (this.getBrowser().type == 'msie' && this.getBrowser().version < 7) {
@@ -1349,7 +1349,7 @@ var Tobago = {
         element.removeChild(iframe);
       }
     } else {
-;;;      LOG.warn("Can't find Overlay : \"" + element.id + '-overlay' + '\"');
+      LOG.warn("Can't find Overlay : \"" + element.id + '-overlay' + '\"'); // @DEV_ONLY
     }
     return element;
   },
@@ -1391,7 +1391,7 @@ var Tobago = {
     else if (element.detachEvent) {  // IE
       element.detachEvent('on' + event, myFunction);
     } else {
-;;;      LOG.debug('Unknown Element: ' + typeof element);
+      LOG.debug('Unknown Element: ' + typeof element); // @DEV_ONLY
     }
 
   },
@@ -1561,12 +1561,12 @@ var Tobago = {
 
   // TODO check if this is still ok
   doEditorCommand: function(element, id) {
-;;;    LOG.debug('doEditorCommand()');
+    LOG.debug('doEditorCommand()'); // @DEV_ONLY
     var ta = this.element(id);
     var text = ta.value;
     var marked = text.substring(ta.selectionStart, ta.selectionEnd);
-;;;    LOG.debug('text = ' + marked);
-;;;    LOG.debug('start = ' + ta.selectionStart + ' end =' + ta.selectionEnd);
+    LOG.debug('text = ' + marked); // @DEV_ONLY
+    LOG.debug('start = ' + ta.selectionStart + ' end =' + ta.selectionEnd); // @DEV_ONLY
     ta.selectionStart--;
     ta.focus();
   },
@@ -1603,9 +1603,9 @@ var Tobago = {
     } catch (ex) {
       return undefined;
     }
-;;;    if (! (arg === undefined)) {
-;;;      LOG.error('arg is unknown: ' + typeof arg + ' : ' + arg);
-;;;    }
+    if (! (arg === undefined)) { // @DEV_ONLY
+      LOG.error('arg is unknown: ' + typeof arg + ' : ' + arg); // @DEV_ONLY
+    } // @DEV_ONLY
     return undefined;
   },
 
@@ -1709,7 +1709,7 @@ Tobago.Config = {
     if (name) {
       return this[name][key];
     } else {
-;;;      LOG.warn("Tobago.Config.get("+ name + ", " + key + ") = undefined" );
+      LOG.warn("Tobago.Config.get(" + name + ", " + key + ") = undefined"); // @DEV_ONLY
       return 0;
     }
   },
@@ -1913,7 +1913,7 @@ Tobago.AcceleratorKey = function(func, key, modifier) {
       });
       Tobago.acceleratorKeys.set(this);
     } else {
-;;;      LOG.warn('Cannot observe key event for ' + modifier + '-' + key);
+      LOG.warn('Cannot observe key event for ' + modifier + '-' + key); // @DEV_ONLY
     }
   } else {
     Tobago.acceleratorKeys.set(this);
@@ -1928,7 +1928,7 @@ Tobago.ScriptLoader = function(names, doAfter) {
   this.ensureScript = function(src) {
     this.actualScript = src;
     if (!Tobago.hasScript(this.actualScript)) {
-;;;      LOG.debug('Load script ' + src);
+      LOG.debug('Load script ' + src); // @DEV_ONLY
       this.scriptElement = document.createElement('script');
       this.scriptElement.type = 'text/javascript';
       this.scriptElement.src = src;
@@ -1942,7 +1942,7 @@ Tobago.ScriptLoader = function(names, doAfter) {
       var head = document.getElementsByTagName('head')[0];
       head.appendChild(this.scriptElement);
     } else {
-;;;     LOG.debug('found script ' + src);
+     LOG.debug('found script ' + src); // @DEV_ONLY
       this.ensureScripts();
     }
 
@@ -2000,8 +2000,8 @@ Tobago.ScriptLoader = function(names, doAfter) {
     try {
       eval(this.doAfter);
     } catch (ex) {
-;;;      LOG.error(ex);
-;;;      LOG.error('errorCode: ' + this.doAfter.valueOf());
+      LOG.error(ex); // @DEV_ONLY
+      LOG.error('errorCode: ' + this.doAfter.valueOf()); // @DEV_ONLY
       throw ex;
     }
   };
@@ -2044,9 +2044,9 @@ Tobago.Transport = {
       index = this.requests.push(req);
       //LOG.debug('index = ' + index)
     } else if (!this.pageSubmited) { // AJAX case
-;;;      LOG.debug('Current ActionId = ' + this.currentActionId + ' action= ' + actionId);
+      LOG.debug('Current ActionId = ' + this.currentActionId + ' action= ' + actionId); // @DEV_ONLY
       if (actionId && this.currentActionId == actionId) {
-;;;        LOG.debug('Ignoring request');
+        LOG.debug('Ignoring request'); // @DEV_ONLY
         // If actionId equals currentActionId assume double request: do nothing
         return false;
       }
@@ -2058,11 +2058,11 @@ Tobago.Transport = {
     }
     //LOG.debug('index = ' + index)
     if (index == 1) {
-;;;      LOG.debug('Execute request!');
+      LOG.debug('Execute request!'); // @DEV_ONLY
       this.startTime = new Date().getTime();
       this.requests[0]();
     } else {
-;;;      LOG.debug('Request queued!');
+      LOG.debug('Request queued!'); // @DEV_ONLY
     }
     return true;
   },
@@ -2070,9 +2070,9 @@ Tobago.Transport = {
   requestComplete: function() {
     this.requests.shift();
     this.currentActionId = null;
-;;;    LOG.debug('Request complete! Duration: ' + (new Date().getTime() - this.startTime) + 'ms; Queue size : ' + this.requests.length);
+    LOG.debug('Request complete! Duration: ' + (new Date().getTime() - this.startTime) + 'ms; Queue size : ' + this.requests.length); // @DEV_ONLY
     if (this.requests.length > 0) {
-;;;      LOG.debug('Execute request!');
+      LOG.debug('Execute request!'); // @DEV_ONLY
       this.startTime = new Date().getTime();
       this.requests[0]();
     }
@@ -2118,7 +2118,7 @@ Tobago.Transport.JqueryTransport = {
     requestObject.timeout = requestOptions.timeout;
 
     requestObject.success = function(data, textStatus) {
-;;;      LOG.debug('requestObject.success()');
+      LOG.debug('requestObject.success()'); // @DEV_ONLY
       requestOptions.resultData = data;
       requestOptions.textStatus = textStatus;
 
@@ -2126,7 +2126,7 @@ Tobago.Transport.JqueryTransport = {
     };
 
     requestObject.error = function(xhr, textStatus, errorThrown) {
-;;;      LOG.debug('requestOptions.error() : ' + textStatus);
+      LOG.debug('requestOptions.error() : ' + textStatus); // @DEV_ONLY
       requestOptions.xhr = xhr;
       requestOptions.textStatus = textStatus;
       Tobago.Updater.onError(requestOptions);
@@ -2159,7 +2159,7 @@ Tobago.Transport.DojoTransport = {
     requestObject.timeout = requestOptions.timeout;
 
     requestObject.load = function(data, ioArgs) {
-;;;      LOG.debug('requestObject.success()');
+      LOG.debug('requestObject.success()'); // @DEV_ONLY
       requestOptions.resultData = data;
       requestOptions.xhr = ioArgs.xhr;
       try {
@@ -2191,7 +2191,7 @@ Tobago.Transport.DojoTransport = {
   },
 
   error: function(data, ioArgs) {
-;;;    LOG.error('Request failed : ' + ioArgs.xhr.status);
+    LOG.error('Request failed : ' + ioArgs.xhr.status); // @DEV_ONLY
     requestOptions.xhr = ioArgs.xhr;
     if (ioArgs.xhr.status == 304) {
       requestOptions.textStatus = 'notmodified';
@@ -2274,7 +2274,7 @@ Tobago.Updater = {
   update: function(source, actionId, ajaxComponentIds, options) {
 
 //    LOG.show();
-;;;    LOG.debug('Updater.update(\"' + actionId + '\", \"' + ajaxComponentIds + '\")');
+    LOG.debug('Updater.update(\"' + actionId + '\", \"' + ajaxComponentIds + '\")'); // @DEV_ONLY
 
     if (Tobago.Transport.hasTransport()) {
 //    LOG.info("hasTransport");
@@ -2327,14 +2327,14 @@ Tobago.Updater = {
       var queued = Tobago.Transport.ajaxTransport.request(requestOptions);
 
       if (!queued) {
-;;;        LOG.error('error on update: not queued!');
+        LOG.error('error on update: not queued!'); // @DEV_ONLY
         if (!ids) {
           ids = Tobago.parsePartialIds(ajaxComponentIds);
         }
         this.doErrorUpdate(ids);
       }
     } else {
-;;;      LOG.info('No Ajax transport found! Doing full page reload.');
+      LOG.info('No Ajax transport found! Doing full page reload.'); // @DEV_ONLY
       Tobago.submitAction(source, actionId);
     }
   },
@@ -2351,14 +2351,14 @@ Tobago.Updater = {
   },
 
   showFailureMessage: function() {
-;;;    LOG.info('Ajax request failed!');
+    LOG.info('Ajax request failed!'); // @DEV_ONLY
   },
 
   onSuccess: function(requestOptions) {
-;;;    LOG.debug('Tobago.Updater.onSuccess()');
+    LOG.debug('Tobago.Updater.onSuccess()'); // @DEV_ONLY
     if (!requestOptions.resultData || !requestOptions.resultData.tobagoAjaxResponse) {
       // unknown response do full page reload
-;;;      LOG.warn('initiating full reload');
+      LOG.warn('initiating full reload'); // @DEV_ONLY
       if (Tobago.Updater.WAIT_ON_ERROR) {
         alert('wait: initiating full reload');
       }
@@ -2368,7 +2368,7 @@ Tobago.Updater = {
       if (requestionObjects.resultData.jsfState) {
         Tobago.replaceJsfState(requestOptions.resultData.jsfState);
       }
-;;;      LOG.info('full reload requested');
+      LOG.info('full reload requested'); // @DEV_ONLY
       if (Tobago.Updater.WAIT_ON_RELOAD) {
         alert('wait: full reload requeste: responseCode = ' + requestOptions.resultData.responseCode);
       }
@@ -2379,9 +2379,9 @@ Tobago.Updater = {
 
     var doneIds = {};
     for (var partId in requestOptions.resultData) {
-;;;      LOG.debug(partId + '= ' + requestOptions.resultData[partId]);
+      LOG.debug(partId + '= ' + requestOptions.resultData[partId]); // @DEV_ONLY
       if (partId.indexOf('ajaxPart_') == 0) {
-;;;        LOG.debug('doUpdate partId = ' + partId);
+        LOG.debug('doUpdate partId = ' + partId); // @DEV_ONLY
         this.updateComponent(requestOptions.resultData[partId]);
         doneIds[requestOptions.resultData[partId].ajaxId] = true;
       }
@@ -2396,7 +2396,7 @@ Tobago.Updater = {
     for (var i = 0; i < requestedIds.length; i++) {
       var id = requestedIds[i];
       if (! doneIds[id]) {
-;;;        LOG.debug('handleMissingResponse id = ' + id);
+        LOG.debug('handleMissingResponse id = ' + id); // @DEV_ONLY
         if (!data) {
           data = {responseCode: Tobago.Updater.CODE_NOT_MODIFIED, html: 'error', script: function() {
           }};
@@ -2410,7 +2410,7 @@ Tobago.Updater = {
   handle304Response: function(ids) {
     for (var i = 0; i < ids.length; i++) {
       var id = ids[i];
-;;;      LOG.debug('handle304Response id = ' + id);
+      LOG.debug('handle304Response id = ' + id); // @DEV_ONLY
       var data = {
         ajaxId: id,
         responseCode: Tobago.Updater.CODE_NOT_MODIFIED,
@@ -2425,7 +2425,7 @@ Tobago.Updater = {
 
   onError: function(requestObject) {
 
-;;;    LOG.warn('Request failed : ' + requestObject.statusText);
+    LOG.warn('Request failed : ' + requestObject.statusText); // @DEV_ONLY
 
     if (requestObject.statusText === 'timeout') {
       Tobago.Updater.doErrorUpdate(Tobago.parsePartialIds(requestObject.ajaxComponentIds));
@@ -2438,9 +2438,9 @@ Tobago.Updater = {
 
   updateComponent: function(componentData) {
     var ajaxId = componentData.ajaxId;
-;;;    LOG.debug('update Component = ' + ajaxId);
+    LOG.debug('update Component = ' + ajaxId); // @DEV_ONLY
     if (componentData.responseCode == Tobago.Updater.CODE_RELOAD_REQUIRED) {
-;;;      LOG.debug('nop do reload = ');
+      LOG.debug('nop do reload = '); // @DEV_ONLY
       // nop
     } else {
       var container = Tobago.ajaxComponents[ajaxId];
@@ -2454,7 +2454,7 @@ Tobago.Updater = {
 
         container.doUpdate(componentData);
       } else {
-;;;        LOG.info('no ajax container = ' + ajaxId);
+        LOG.info('no ajax container = ' + ajaxId); // @DEV_ONLY
 //          LOG.debugAjaxComponents();
         Tobago.Updater.doUpdate(componentData);
       }
@@ -2485,7 +2485,7 @@ Tobago.Updater = {
             xxx_tobagoInit(newElement);
           }
         } catch (e) {
-;;;          LOG.error('Error in doUpdate: ' + e);
+          LOG.error('Error in doUpdate: ' + e); // @DEV_ONLY
           throw e;
         }
         break;
@@ -2499,11 +2499,11 @@ Tobago.Updater = {
         if (typeof this.afterDoUpdateError == 'function') {
           this.afterDoUpdateError();
         }
-;;;        LOG.warn("ERROR 500 when updating component id = '" + data.ajaxId + "'");
+        LOG.warn("ERROR 500 when updating component id = '" + data.ajaxId + "'"); // @DEV_ONLY
         Tobago.deleteOverlay(Tobago.element(Tobago.ajaxComponents[data.ajaxId]));
         break;
       default:
-;;;        LOG.error('Unknown response code: ' + data.responseCode + " for component id = '" + data.ajaxId + "'");
+        LOG.error('Unknown response code: ' + data.responseCode + " for component id = '" + data.ajaxId + "'"); // @DEV_ONLY
         Tobago.deleteOverlay(Tobago.element(Tobago.ajaxComponents[data.ajaxId]));
         break;
     }
@@ -2576,7 +2576,7 @@ function xxx_tobagoInit(elements) {
 // inputSuggest.js
 
 Tobago.AutocompleterAjax = function(elementId, required, requiredClass, options) {
-;;;  LOG.debug('new Tobago.AutocompleterAjax ' + elementId);
+  LOG.debug('new Tobago.AutocompleterAjax ' + elementId); // @DEV_ONLY
   this.id = elementId;
   this.required = required;
   this.requiredClass = requiredClass;
@@ -2666,7 +2666,7 @@ Tobago.AutocompleterAjax.prototype.fetchSuggestions = function(input) {
   this.currentTimeout = undefined;
   if (!this.requestActive) {
     this.requestActive = true;
-;;;    LOG.debug('fetchSuggestions() request Suggestions for ' + input.value);
+    LOG.debug('fetchSuggestions() request Suggestions for ' + input.value); // @DEV_ONLY
     Tobago.Updater.update(input, input.id, input.id, this.options);
   } else {
     this.rerequest = true;
@@ -2678,7 +2678,7 @@ Tobago.AutocompleterAjax.prototype.beforeDoUpdate = function(data) {
     this.rerequest = false;
     this.requestActive = true;
     var input = Tobago.element(this.id);
-;;;    LOG.debug('doUpdate() request Suggestions for ' + input.value);
+    LOG.debug('doUpdate() request Suggestions for ' + input.value); // @DEV_ONLY
     Tobago.Updater.update(input, input.id, input.id, this.options);
     return false;
   } else {
@@ -2701,7 +2701,7 @@ Tobago.AutocompleterAjax.prototype.afterDoUpdateError = function() {
 
 Tobago.AutocompleterAjax.prototype.suggest = function() {
   if (this.suggestions == null) {
-;;;    LOG.error('No suggestions object!');
+    LOG.error('No suggestions object!'); // @DEV_ONLY
     return;
   }
   var div = Tobago.element(this.id + '_suggestDiv');
@@ -2778,7 +2778,7 @@ Tobago.AutocompleterAjax.prototype.selectSuggest = function(event) {
   this.closeSuggest(false);
 
   var suggestItem = a.sugggestItem;
-;;;  LOG.debug('item.value : ' + suggestItem.value);
+  LOG.debug('item.value : ' + suggestItem.value); // @DEV_ONLY
 
   var input = Tobago.element(this.id);
   input.value = suggestItem.value;
@@ -2788,7 +2788,7 @@ Tobago.AutocompleterAjax.prototype.selectSuggest = function(event) {
     if (suggestItem.values) {
       for (var i = 0; i < suggestItem.values.length; i++) {
         var item = suggestItem.values[i];
-;;;        LOG.debug(item.id + ' = ' + item.value);
+        LOG.debug(item.id + ' = ' + item.value); // @DEV_ONLY
         Tobago.element(item.id).value = item.value;
       }
     }
@@ -2796,7 +2796,7 @@ Tobago.AutocompleterAjax.prototype.selectSuggest = function(event) {
   }
 
   var nextFocusElement = input;
-;;;  LOG.debug(' suggestItem.nextFocusId = ' + a.nextFocusId);
+  LOG.debug(' suggestItem.nextFocusId = ' + a.nextFocusId); // @DEV_ONLY
   if (a.nextFocusId) {
     var element = Tobago.element(a.nextFocusId);
     if (element) {
@@ -2971,4 +2971,4 @@ function setPopupPara(width, height, options) {
 }
 
 
-;;; TbgTimer.endTbgJs = new Date();
+TbgTimer.endTbgJs = new Date(); // @DEV_ONLY

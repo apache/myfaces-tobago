@@ -30,7 +30,7 @@ Tobago.Sheets = {
 // Info: 2nd parameter "enableAjax" was rededicated to "firstRowIndex"
 Tobago.Sheet = function(sheetId, firstRowIndex, checkedImage, uncheckedImage, selectable, columnSelectorIndex, autoReload,
                         clickActionId, clickReloadComponentId, dblClickActionId, dblClickReloadComponentId, renderedPartially) {
-;;;  this.startTime = new Date();
+  this.startTime = new Date(); // @DEV_ONLY
   this.id = sheetId;
   Tobago.Sheets.put(this);
   this.checkedImage = checkedImage;
@@ -79,10 +79,10 @@ Tobago.Sheet = function(sheetId, firstRowIndex, checkedImage, uncheckedImage, se
 
   this.setup();
 
-;;;  LOG.debug("New Sheet with id " + this.id);
-;;;  this.endTime = new Date();
-;;;  LOG.debug("Sheet-setup time = " + (this.setupEnd.getTime() - this.setupStart.getTime()));
-;;;  LOG.debug("Sheet-total time = " + (this.endTime.getTime() - this.startTime.getTime()));
+  LOG.debug("New Sheet with id " + this.id); // @DEV_ONLY
+  this.endTime = new Date(); // @DEV_ONLY
+  LOG.debug("Sheet-setup time = " + (this.setupEnd.getTime() - this.setupStart.getTime())); // @DEV_ONLY
+  LOG.debug("Sheet-total time = " + (this.endTime.getTime() - this.startTime.getTime())); // @DEV_ONLY
 };
 
 Tobago.Sheet.prototype.sortOnclickRegExp
@@ -173,8 +173,8 @@ Tobago.Sheet.prototype.doSort = function(event) {
     while (element && !element.sorterId) {
       element = element.parentNode;
     }
-;;;    LOG.debug("element.id = " + element.id);
-;;;    LOG.debug("sorterId = " + element.sorterId);
+    LOG.debug("element.id = " + element.id); // @DEV_ONLY
+    LOG.debug("sorterId = " + element.sorterId); // @DEV_ONLY
     this.reloadWithAction(event.srcElement, element.sorterId);
   };
 
@@ -209,7 +209,7 @@ Tobago.Sheet.prototype.doPaging = function(event) {
   };
 
 Tobago.Sheet.prototype.reloadWithAction = function(source, action, options) {
-;;;    LOG.debug("reload sheet with action \"" + action + "\"");
+    LOG.debug("reload sheet with action \"" + action + "\""); // @DEV_ONLY
     var reloadOptions = Tobago.extend({}, this.options);
     reloadOptions = Tobago.extend(reloadOptions, options);
     Tobago.createOverlay(Tobago.element(this.id));
@@ -256,7 +256,7 @@ Tobago.Sheet.prototype.insertTarget = function(event, actionId) {
       input.select();
     }
     else {
-;;;      LOG.error("Can't find text field with id = \"" + textId + "\"!");
+      LOG.error("Can't find text field with id = \"" + textId + "\"!"); // @DEV_ONLY
     }
   };
 

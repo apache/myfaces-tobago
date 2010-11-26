@@ -30,13 +30,13 @@ function tobagoSheetEditPagingRow(span, commandId, onClickCommand, commandName) 
 
   var text = Tobago.element(commandId + Tobago.SUB_COMPONENT_SEP + "text");
   if (text) {
-;;;    LOG.debug("text gefunden");
+    LOG.debug("text gefunden"); // @DEV_ONLY
     span = text.parentNode;
     var hiddenId = commandId + Tobago.SUB_COMPONENT_SEP +  "value";
     span.style.cursor = 'auto';
     input = text.inputElement;
     if (! input) {
-;;;      LOG.debug("creating new input");
+      LOG.debug("creating new input"); // @DEV_ONLY
       input = document.createElement('input');
       text.inputElement = input;
       input.textElement = text;      
@@ -54,7 +54,7 @@ function tobagoSheetEditPagingRow(span, commandId, onClickCommand, commandName) 
     input.focus();
     input.select();
   } else {
-;;;    LOG.debug("Can't find start field! ");
+    LOG.debug("Can't find start field! "); // @DEV_ONLY
   }
 }
 
@@ -64,7 +64,7 @@ function delayedHideInput(event) {
   if (input) {
     setTimeout('hideInput("' + input.id + '", 100)');
   } else {
-;;;    LOG.debug("Can't find input field! ");
+    LOG.debug("Can't find input field! "); // @DEV_ONLY
   }
 }
 function hideInput(inputId) {
@@ -73,7 +73,7 @@ function hideInput(inputId) {
     input.parentNode.style.cursor = 'pointer';
     input.parentNode.replaceChild(input.textElement, input);
   } else {
-;;;    LOG.debug("Can't find input field! " + inputId);
+    LOG.debug("Can't find input field! " + inputId); // @DEV_ONLY
   }
 }
 
