@@ -35,8 +35,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-public class
-    TobagoConfig {
+public class TobagoConfig {
 
   private static final Logger LOG = LoggerFactory.getLogger(TobagoConfig.class);
 
@@ -114,8 +113,11 @@ public class
   }
 
   public static TobagoConfig getInstance(FacesContext facesContext) {
-    return (TobagoConfig) facesContext.getExternalContext()
-        .getApplicationMap().get(TOBAGO_CONFIG);
+    return (TobagoConfig) facesContext.getExternalContext().getApplicationMap().get(TOBAGO_CONFIG);
+  }
+
+  public static TobagoConfig getInstance(ServletContext servletContext) {
+    return (TobagoConfig) servletContext.getAttribute(TOBAGO_CONFIG);
   }
 
   public Theme getTheme(String name) {

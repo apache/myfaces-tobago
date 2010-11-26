@@ -18,6 +18,8 @@ package org.apache.myfaces.tobago.servlet;
  */
 
 import org.apache.commons.io.IOUtils;
+import org.apache.myfaces.tobago.application.ProjectStage;
+import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.internal.util.MimeTypeUtils;
@@ -38,7 +40,7 @@ import java.io.OutputStream;
  *   &lt;servlet-class&gt;org.apache.myfaces.tobago.servlet.ResourceServlet&lt;/servlet-class&gt;
  *   &lt;init-param&gt;
  *     &lt;description&gt;The value for the expires header in seconds.
- *            Default is no expires header.&lt;/description&gt;
+ *            The default for ProjectStage.Production is 86400 sec (24 h) otherwise no expires header.&lt;/description&gt;
  *     &lt;param-name&gt;expires&lt;/param-name&gt;
  *     &lt;param-value&gt;14400&lt;/param-value&gt;
  *   &lt;/init-param&gt;
@@ -69,8 +71,11 @@ public class ResourceServlet extends HttpServlet {
   @Override
   public void init(ServletConfig servletConfig) throws ServletException {
     super.init(servletConfig);
+    TobagoConfig tobagoConfig = TobagoConfig.getInstance(servletConfig.getServletContext());
+    if (tobagoConfig != null && tobagoConfig.getProjectStage() == ProjectStage.Production) {
+       expires = 24 * 60 * 60 * 1000L;
+    }
     String expiresString = servletConfig.getInitParameter("expires");
-    expires = null;
     if (expiresString != null) {
       try {
         expires = new Long(expiresString) * 1000;
@@ -99,7 +104,7 @@ public class ResourceServlet extends HttpServlet {
 
     if (expires != null) {
       response.setDateHeader("Last-Modified", 0);
-      response.setHeader("Cache-Control", "Public");
+      response.setHeader("Cache-Control", "Public, max-age=" + expires);
       response.setDateHeader("Expires", System.currentTimeMillis() + expires);
     }
     String contentType = MimeTypeUtils.getMimeTypeForFile(requestURI);
