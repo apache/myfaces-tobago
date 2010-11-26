@@ -295,7 +295,6 @@
     <script name="script/tobago.js"/>
     <script name="script/calendar.js"/>
     <script name="script/dateConverter.js"/>
-    <script name="script/theme-config.js"/>
     <script name="script/tobago-menu.js"/>
     <script name="script/tobago-sheet.js"/>
     <script name="script/tobago-tabgroup.js"/>

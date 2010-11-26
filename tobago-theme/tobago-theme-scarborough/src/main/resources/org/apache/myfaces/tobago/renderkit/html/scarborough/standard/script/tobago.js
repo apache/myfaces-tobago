@@ -15,11 +15,10 @@
  * limitations under the License.
  */
 
+Tobago.Config.set("Tobago", "themeConfig", "scarborough/standard");
 
-Tobago.Config.set("Tobago", "themeConfig", "speyside/standard");
-
-
- /**
-  * Additional left offset for toolbar button dropdown menu
+/**
+  * Width of border from sheets content div := style width * 2
   */
-Tobago.Config.set("Menu", "toolbarLeftOffset", 1);
+Tobago.Config.set("Sheet", "contentBorderWidth", 2);
+

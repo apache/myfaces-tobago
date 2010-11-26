@@ -142,6 +142,7 @@
           </execution>
         </executions>
       </plugin>
+<!--
       <plugin>
         <artifactId>maven-antrun-plugin</artifactId>
         <version>1.6</version>
@@ -192,9 +193,9 @@
               <arguments>
                 <argument>-jar</argument>
                 <argument>../tobago-theme-standard/lib/compiler-20100917.jar</argument>
-                <argument>--js</argument>
+                <argument>&#x2d;&#x2d;js</argument>
                 <argument>${project.build.directory}/javascript-min/speyside/script/tobago.min.js</argument>
-                <argument>--js_output_file</argument>
+                <argument>&#x2d;&#x2d;js_output_file</argument>
                 <argument>
                   target/classes/org/apache/myfaces/tobago/renderkit/html/speyside/standard/script/tobago.min.js
                 </argument>
@@ -203,6 +204,7 @@
           </execution>
         </executions>
       </plugin>
+-->
       <plugin>
         <groupId>net.alchim31.maven</groupId>
         <artifactId>yuicompressor-maven-plugin</artifactId>

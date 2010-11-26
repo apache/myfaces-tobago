@@ -1693,6 +1693,43 @@ var Tobago = {
   }
 };
 
+Tobago.Config = {
+  set: function(name, key, value) {
+    if (!this[name]) {
+      this[name] = {};
+    }
+    this[name][key] = value;
+  },
+
+  get: function(name, key) {
+    while (name && !(this[name] && this[name][key])) {
+      name = this.getFallbackName(name);
+    }
+
+    if (name) {
+      return this[name][key];
+    } else {
+;;;      LOG.warn("Tobago.Config.get("+ name + ", " + key + ") = undefined" );
+      return 0;
+    }
+  },
+
+  fallbackNames: {},
+
+  getFallbackName: function(name){
+    if (this.fallbackNames[name]) {
+      return this.fallbackNames[name];
+    } else if (name == "Tobago") {
+      return undefined;
+    } else {
+      return "Tobago";
+    }
+  }
+};
+
+
+Tobago.Config.set("Tobago", "themeConfig", "standard/standard");
+
 Tobago.In = function(inId, required, requiredClass, maxLength) {
   this.id = inId;
   this.required = required;
