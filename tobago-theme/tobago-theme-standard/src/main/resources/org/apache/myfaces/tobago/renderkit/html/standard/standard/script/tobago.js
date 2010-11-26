@@ -2476,9 +2476,8 @@ Tobago.Updater = {
           element.replaceWith(newElement);
         }
         try {
-          var updateScript;
-          eval('updateScript = ' + data.script);
-          updateScript();
+          eval('var updateScript = ' + data.script);
+          eval('updateScript();');
           if (typeof this.afterDoUpdateSuccess == 'function') {
             this.afterDoUpdateSuccess();
           }
@@ -2486,8 +2485,8 @@ Tobago.Updater = {
             xxx_tobagoInit(newElement);
           }
         } catch (e) {
-          // todo: improve exception handling
 ;;;          LOG.error('Error in doUpdate: ' + e);
+          throw e;
         }
         break;
       case Tobago.Updater.CODE_NOT_MODIFIED:
