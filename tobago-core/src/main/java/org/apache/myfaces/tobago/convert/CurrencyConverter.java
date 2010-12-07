@@ -17,6 +17,8 @@ package org.apache.myfaces.tobago.convert;
  * limitations under the License.
  */
 
+import org.apache.commons.lang.StringUtils;
+
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
@@ -31,11 +33,18 @@ public class CurrencyConverter implements Converter {
 
   public Object getAsObject(FacesContext facesContext, UIComponent component, String string)
       throws ConverterException {
-    return Currency.getInstance(string);
+    if (StringUtils.isBlank(string)) {
+      return null;
+    } else {
+      return Currency.getInstance(string);
+    }
   }
 
   public String getAsString(FacesContext facesContext, UIComponent component, Object object)
       throws ConverterException {
+    if (object == null) {
+      return null;
+    }
     try {
       return ((Currency) object).getCurrencyCode();
     } catch (ClassCastException e) {

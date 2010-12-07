@@ -1007,8 +1007,91 @@ div.tobago-richTextEditor-body {
 
 /* tab ------------------------------------------------------------------ */
 
+.tobago-tab {
+  background-color: #cccccc;
+  border: 1px solid #000000;
+  padding: 2px 6px 1px 6px;
+  margin-top: 2px;
+  margin-right: 2px;
+  vertical-align: top;
+  float: left;
+  cursor: pointer;
+}
+
+.tobago-tab img {
+  height: 12px;
+}
+
+.tobago-tab a:link,
+.tobago-tab a:visited,
+.tobago-tab a:active {
+  color: #000000;
+  text-decoration: none;
+}
+
+.tobago-tab-markup-selected {
+  border-bottom-width: 0;
+  font-weight: bold;
+  background: url("image/box-header-bg.gif") repeat-x scroll center top #E8E8E8;
+  margin-top: 0;
+  padding-bottom: 4px;
+  color: #660000;
+}
+
+.tobago-tab-markup-error span {
+  background-image: url("org/apache/myfaces/tobago/renderkit/html/speyside/standard/image/dialog-error.png");
+  background-repeat: no-repeat;
+  background-position: left center;
+  padding-left: 13px;
+  color: #FF0000;
+}
+
+.tobago-tab-markup-selected a:link,
+.tobago-tab-markup-selected a:visited,
+.tobago-tab-markup-selected a:active {
+  color: #660000;
+}
+
+.tobago-tabGroup {
+  position: absolute;
+  background-color: #fafad2;
+}
+
+.tobago-tabGroup-header {
+  position: relative;
+  background-color: #cccccc;
+  font: 12px arial, helvetica, sans-serif;
+  overflow: hidden;
+}
+
+.tobago-tabGroup-headerInner {
+  border-bottom: 1px solid #000000;
+  height: 20px;
+  width: 10000px;
+  font: 12px arial, helvetica, sans-serif;
+  overflow: visible;
+}
+
+.tobago-tabGroup-toolBar {
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 19px;
+  width: 50px;
+  background-color: #cccccc;
+  border: 1px solid black;
+}
+
+.tobago-tab-content {
+  position: relative;
+  border-color: #ddeeff #778899 #778899 #ddeeff;
+  border-width: 0 1px 1px 1px;
+  border-style: solid;
+}
+
+/*
 .tobago-tab-link {
-  font-family: arial, helvetica, sans-serif; /*  font-size: 14px; */
+  font-family: arial, helvetica, sans-serif; /*  font-size: 14px; * /
   color: #000000;
   cursor: pointer;
   white-space: nowrap;
@@ -1044,6 +1127,13 @@ div.tobago-richTextEditor-body {
   white-space: nowrap;
 }
 
+.tobago-tab-content {
+  border-color: #ddeeff #778899 #778899 #ddeeff;
+  border-width: 0 1px 1px 1px;
+  border-style: solid;
+  padding: 11px 11px;
+}
+
 .tobago-tabGroup-fulfill {
   border-color: #ddeeff;
   border-width: 0 0 1px 0;
@@ -1052,25 +1142,19 @@ div.tobago-richTextEditor-body {
   vertical-align:bottom;
 }
 
-.tobago-tab-content {
-  border-color: #ddeeff #778899 #778899 #ddeeff;
-  border-width: 0 1px 1px 1px;
-  border-style: solid;
-  padding: 11px 11px;
-}
-
 div.tobago-tabGroup-toolBar {
   border-color: #DDEEFF;
   border-style: solid;
   border-width: 1px;
   height: 16px;
   bottom: 0;
-/* width: 59px; */
+/* width: 59px; * /
   margin-right: 0;
   position: absolute;
   overflow: hidden;
   white-space: nowrap;
 }
+*/
 
 /* tabGroupToolBar ----------------------------------------------------------------- */
 
