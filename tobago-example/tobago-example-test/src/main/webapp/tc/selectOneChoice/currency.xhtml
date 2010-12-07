@@ -34,7 +34,7 @@
     <tc:label value="required input"/>
 
     <tx:selectOneChoice required="true" value="#{selectItemModel.currency}" label="Input:">
-      <tc:selectItem itemValue="#{null}" itemLabel="&lt;please select>"/>
+        <tc:selectItem itemLabel="&lt;please select>"/>
       <tc:selectItems value="#{selectItemModel.availableCurrencies}"/>
     </tx:selectOneChoice>
 
