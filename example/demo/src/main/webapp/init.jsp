@@ -29,7 +29,7 @@
     </f:facet>
 
     <tc:image value="image/tobago_head.gif" width="150px" height="83px"/>
-    <tc:out value="Initilizing ..."/>
+    <tc:out value="Initializing ..."/>
 
   </tc:page>
 </f:view>
