@@ -130,7 +130,7 @@ public class ResourceServlet extends HttpServlet {
       }
 
       if (inputStream != null) {
-        IOUtils.copy(inputStream, response.getOutputStream());
+        copy(inputStream, response.getOutputStream());
       } else {
         String message = "Resource '" + resource + "' not found!";
         LOG.warn(message);
