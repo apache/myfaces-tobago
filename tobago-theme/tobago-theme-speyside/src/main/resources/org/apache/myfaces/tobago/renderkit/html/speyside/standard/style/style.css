@@ -506,6 +506,44 @@ hr.tobago-separator, .tobago-separator-start hr, .tobago-separator-end hr {
 
 /* tab ---------------------------------------------------------------------- */
 
+.tobago-tab {
+  background-color: #E2E2E2;
+  border-color: #000000;
+}
+
+.tobago-tab-markup-selected {
+  color: #660000;
+  background: url("../image/box-header-bg.gif") repeat-x scroll center top #E8E8E8;
+}
+
+.tobago-tab-content {
+  border: 1px solid #000000;
+  border-top: 0 solid transparent;
+  background: #FAFAFA;
+}
+
+.tobago-tab-markup-disabled,
+.tobago-tab-markup-disabled a:link,
+.tobago-tab-markup-disabled a:visited,
+.tobago-tab-markup-disabled a:active {
+  color: #808080;
+}
+
+.tobago-tab-markup-selected a:link,
+.tobago-tab-markup-selected a:visited,
+.tobago-tab-markup-selected a:active {
+  color: #660000;
+}
+
+.tobago-tabGroup-headerInner {
+  border-bottom-color: #000000;
+}
+
+.tobago-tabGroup-toolBar {
+  border-bottom-color: #000000;
+}
+
+/*
 .tobago-tab-link {
   font: 12px Arial, Helvetica, sans-serif;
   color: #660000;
@@ -552,13 +590,6 @@ span.tobago-tabGroup-fulfill {
   vertical-align: bottom;
 }
 
-.tobago-tab-content {
-  border: 1px solid #000000;
-  border-top: 0 solid transparent;
-  padding: 10px 10px 10px 10px;
-  background: #FAFAFA;
-}
-
 .tobago-tab-shadow {
   background: #B4B4B4;
   border: 1px solid #B4B4B4;
@@ -569,10 +600,11 @@ span.tobago-tabGroup-fulfill {
 div.tobago-tabGroup-toolBar {
   border-color: #000000;
 }
+*/
 
 /* tabGroupToolBar ----------------------------------------------------------------- */
 
-.tobago-tabGroupToolBar {
+/*.tobago-tabGroupToolBar {
   border: 1px solid #000000;
   background-color: #FFFFFF;
 }
@@ -592,9 +624,11 @@ div.tobago-tabGroup-toolBar {
 }
 
 .tobago-tabGroupToolBar-item-markup-hover {
+*//*
   border-width: 0 1px;
   border-color: #000000;
   margin: 0;
+*//*
 }
 
 .tobago-tabGroupToolBar-item-markup-disabled {
@@ -611,7 +645,7 @@ div.tobago-tabGroup-toolBar {
 
 .tobago-tabGroupToolBar-separator {
   border: 1px solid #DDDDDD;
-}
+}*/
 
 /* textarea ---------------------------------------------------------------- */
 

@@ -23,14 +23,12 @@
     xmlns:h="http://java.sun.com/jsf/html"
     xmlns:f="http://java.sun.com/jsf/core">
   <tc:page>
-    <f:facet name="layout">
-      <tc:gridLayout/>
-    </f:facet>
     <tc:gridLayoutConstraint width="600px" height="300px"/>
 
-    <tc:tabGroup>
+    <tc:tabGroup switchType="client">
+      <tc:gridLayoutConstraint paddingTop="25px"/>
       <tc:tab label="Tab 0">
-        <tc:textarea />
+        <tc:textarea readonly="true" value="#{reload.counter}"/>
       </tc:tab>
       <tc:tab label="Tab 1">
         <f:facet name="layout">
@@ -40,6 +38,16 @@
         <tc:textarea />
         <tc:textarea />
       </tc:tab>
+      <tc:tab label="Tab 2">
+        <tc:textarea />
+      </tc:tab>
+      <tc:tab label="Tab 3">
+        <tc:textarea />
+      </tc:tab>
+      <tc:tab label="Tab 4">
+        <tc:textarea />
+      </tc:tab>
     </tc:tabGroup>
+
   </tc:page>
 </f:view>

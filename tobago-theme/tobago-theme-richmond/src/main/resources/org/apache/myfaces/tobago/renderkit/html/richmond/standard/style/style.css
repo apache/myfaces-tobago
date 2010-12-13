@@ -260,45 +260,37 @@ img.tobago-progress-color2 {
 
 /* tab ---------------------------------------------------------------------- */
 
-.tobago-tab-link {
-  font: bold 12px Arial, Helvetica, sans-serif;
+.tobago-tab {
+  background: #6699FF repeat-x top;
+  border-color: #3366CC;
   color: #D6EBFF;
 }
 
-div.tobago-tab-outer {
-  border-color: #3366CC;
-  background: #6699FF repeat-x top;
-}
-
-div.tobago-tab-outer-markup-selected {
-  padding: 0.2ex 0.2em;
-}
-
-div.tobago-tab-inner {
-  font: bold 12px arial, helvetica, sans-serif;
-  color: #3366CC;
-}
-
-div.tobago-tabGroup-fulfill {
-  border-color: #3366CC;
-  margin: 1px;
-  margin-bottom:0px;
-  margin-top:0px;
-  margin-left:0px;
-}
-
 .tobago-tab-content {
-  border: 1px solid #3366CC;
-  border-top: 0px solid transparent;
-  padding: 14px 10px 12px 13px;
-  background: #FFFFFF;
+  border-color: #3366CC;
+  background: #FAFAFA;
 }
 
-.tobago-tab-shadow {
-  background: #FFFFFF;
-  border: 0px solid #FFFFFF;
-  border-top: 0px solid transparent;
-  border-left: 0px solid transparent;
+.tobago-tab a:link,
+.tobago-tab a:visited,
+.tobago-tab a:active {
+  color: #D6EBFF;
+}
+
+.tobago-tab-markup-disabled,
+.tobago-tab-markup-disabled a:link,
+.tobago-tab-markup-disabled a:visited,
+.tobago-tab-markup-disabled a:active {
+  background: #808080 repeat-x top;
+  color: #e6e6e6;
+}
+
+.tobago-tabGroup-headerInner {
+  border-bottom-color: #3366CC;
+}
+
+.tobago-tabGroup-toolBar {
+  border-bottom-color: #3366CC;
 }
 
 /* toolBar ----------------------------------------------------------------- */

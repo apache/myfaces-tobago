@@ -145,31 +145,31 @@ li.tobago-menu-markup-selected {
 
 /* tab ---------------------------------------------------------------------- */
 
-.tobago-tab-link {
+.tobago-tab {
+  background: #FFEECF;
+  border-color: #FECB66;
   color: #660000;
-}
-
-div.tobago-tab-outer {
-  border-color: #FECB66;
-  background: #FADC9F repeat-x top;
-}
-
-div.tobago-tab-inner {
-  color: #FECB66;
-}
-
-div.tobago-tabGroup-fulfill {
-  border-color: #FECB66;
 }
 
 .tobago-tab-content {
   border-color: #FECB66;
-  background: #FFEECF;
+  background: #FAFAFA;
 }
 
-.tobago-tab-shadow {
-  background: #FECB66;
-  border-color: #FECB66;
+.tobago-tab-markup-disabled,
+.tobago-tab-markup-disabled a:link,
+.tobago-tab-markup-disabled a:visited,
+.tobago-tab-markup-disabled a:active {
+  background: #808080 repeat-x top;
+  color: #e6e6e6;
+}
+
+.tobago-tabGroup-headerInner {
+  border-bottom-color: #FECB66;
+}
+
+.tobago-tabGroup-toolBar {
+  border-bottom-color: #FECB66;
 }
 
 /* tabGroupToolBar ----------------------------------------------------------------- */

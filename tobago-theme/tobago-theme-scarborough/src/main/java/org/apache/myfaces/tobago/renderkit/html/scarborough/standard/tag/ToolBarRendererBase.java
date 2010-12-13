@@ -358,6 +358,12 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
         dropDownMenu != null ? buttonStyle.getWidth().add(menuStyle.getWidth()) : buttonStyle.getWidth());
     itemStyle.setHeight(buttonStyle.getHeight());
 
+    // XXX hack
+    if (dropDownMenu != null && lackImage && !showLabel) {
+      itemStyle.setWidth(openerStyle.getWidth());
+      buttonStyle.setWidth(openerStyle.getWidth());
+    }
+
     // change values when only have one button
     if (dropDownMenu != null && !separateButtons && (!lackImage || StringUtils.isNotBlank(label.getText()))) {
       openerStyle.setLeft(openerStyle.getLeft().add(buttonStyle.getWidth()));

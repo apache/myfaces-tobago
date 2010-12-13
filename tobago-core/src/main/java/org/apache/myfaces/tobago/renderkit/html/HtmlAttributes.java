@@ -92,5 +92,13 @@ public final class HtmlAttributes {
    * Alternate to the src attribute, icon open and close.
    */
   public static final String SRCOPEN = "srcopen";
+  /**
+   * The index of the tab inside the tab group.
+   */
+  public static final String TABGROUPINDEX = "tabgroupindex";
+  /**
+   * The mode of the tab switch: client, reloadTab, reloadPage.
+   */
+  public static final String SWITCHTYPE = "switchtype";
 }
 

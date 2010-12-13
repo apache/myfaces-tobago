@@ -65,13 +65,6 @@ var Tobago = {
    */
   SUB_COMPONENT_SEP: '::',
 
-  /**
-   * Tobago's subComponent separator constant
-   * @const
-   * @type {string}
-   */
-  SUB_COMPONENT_SEP2: '__',
-
   EMPTY_HREF: window.all ? '#' : 'javascript:;',
 
   /**
@@ -1068,10 +1061,10 @@ var Tobago = {
    * @param elements a jQuery object to initialize (ajax) or null for initializing the whole document (full load).
    * @param selector a jQuery selector.
    */
-  selectWidthJQuery: function(elements, selector) {
+    selectWidthJQuery: function(elements, selector) {
     return elements == null
         ? jQuery(selector)
-        : elements.find(selector);
+        : elements.find(selector).add(elements.filter(selector));
   },
 
   calculateScrollbarWeights: function(id) {
@@ -2570,6 +2563,7 @@ function tobago_toolBarSetRadioValue(id, value) {
 
 function xxx_tobagoInit(elements) {
   xxx_tobagoMenuInit(elements);
+  tobago_initTab(elements);
   Tobago.fixPngAlphaAll(elements);
 }
 

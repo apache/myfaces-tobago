@@ -59,7 +59,7 @@
     <tc:script onload="checkLayout('page:rows:a-2', 5, 79, 100, 50);"/>
 
     <!--click the tab to display the elements, they can only be measured if they are not hidden.-->
-    <tc:script onload="document.getElementById('page:tabGroup__1__1').onclick();"/>
+    <tc:script onload="jQuery('#page\\:tabGroup').find('.tobago-tab[tabgroupindex=1]').click();"/>
 
     <tc:script onload="checkLayout('page:columns:a-3', 5, 24, 100, 50);"/>
     <tc:script onload="checkLayout('page:columns:a-4', 110, 24, 100, 50);"/>

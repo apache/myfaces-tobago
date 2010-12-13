@@ -20,7 +20,6 @@ package org.apache.myfaces.tobago.internal.component;
 import org.apache.myfaces.tobago.internal.layout.Interval;
 import org.apache.myfaces.tobago.internal.layout.IntervalList;
 import org.apache.myfaces.tobago.internal.layout.LayoutUtils;
-import org.apache.myfaces.tobago.layout.Display;
 import org.apache.myfaces.tobago.layout.LayoutComponent;
 import org.apache.myfaces.tobago.layout.LayoutContainer;
 import org.apache.myfaces.tobago.layout.LayoutManager;
@@ -75,6 +74,7 @@ public abstract class AbstractUITabGroupLayout extends AbstractUILayoutBase impl
       }
     }
 
+/*
     if (intervals.size() >= 1) {
       intervals.evaluate();
       Measure size = intervals.getCurrent();
@@ -82,6 +82,7 @@ public abstract class AbstractUITabGroupLayout extends AbstractUILayoutBase impl
       size = size.add(LayoutUtils.getBorderEnd(orientation, getLayoutContainer()));
       LayoutUtils.setCurrentSize(orientation, getLayoutContainer(), size);
     }
+*/
   }
 
   public void mainProcessing(Orientation orientation) {
@@ -93,14 +94,9 @@ public abstract class AbstractUITabGroupLayout extends AbstractUILayoutBase impl
       LayoutContainer container = getLayoutContainer();
       Measure available = LayoutUtils.getCurrentSize(orientation, container);
       if (available != null) {
-        available = available.subtractNotNegative(LayoutUtils.getBorderBegin(orientation, container));
-        available = available.subtractNotNegative(LayoutUtils.getBorderEnd(orientation, container));
 
         for (LayoutComponent component : getLayoutContainer().getComponents()) {
-
-          component.setDisplay(Display.BLOCK); // TODO: use CSS via classes and style.css
           LayoutUtils.setCurrentSize(orientation, component, available);
-
 
           // call sub layout manager
           if (component instanceof LayoutContainer) {
@@ -116,19 +112,7 @@ public abstract class AbstractUITabGroupLayout extends AbstractUILayoutBase impl
   public void postProcessing(Orientation orientation) {
 
     // set positions to all sub-layout-managers
-
     for (LayoutComponent component : getLayoutContainer().getComponents()) {
-
-      component.setDisplay(Display.BLOCK); // TODO: use CSS via classes and style.css
-
-      // compute the position of the cell
-      Measure position = LayoutUtils.getBorderBegin(orientation, getLayoutContainer());
-      if (orientation == Orientation.HORIZONTAL) {
-        component.setLeft(position);
-      } else {
-        component.setTop(position);
-      }
-
       // call sub layout manager
       if (component instanceof LayoutContainer) {
         ((LayoutContainer) component).getLayoutManager().postProcessing(orientation);

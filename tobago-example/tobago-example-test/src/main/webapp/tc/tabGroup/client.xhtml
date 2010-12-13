@@ -15,43 +15,43 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 -->
- 
+
 <f:view
     xmlns:tc="http://myfaces.apache.org/tobago/component"
     xmlns:tx="http://myfaces.apache.org/tobago/extension"
     xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:h="http://java.sun.com/jsf/html"
     xmlns:f="http://java.sun.com/jsf/core">
-  <tc:page id="page">
+  <tc:page>
     <tc:gridLayoutConstraint width="600px" height="300px"/>
 
-    <tc:tabGroup id="tabGroup">
-      <tc:tab label="Rows" id="rows">
-        <f:facet name="layout">
-          <tc:gridLayout rows="*;*"/>
-        </f:facet>
-        <tc:textarea id="a-1" />
-        <tc:textarea id="a-2" />
+    <tc:box label="la">
+
+      <tc:tabGroup switchType="client">
+      <tc:gridLayoutConstraint height="350px"/>
+      <tc:tab label="Tab 0">
+        <tc:textarea readonly="true" value="#{reload.counter}"/>
       </tc:tab>
-      <tc:tab label="Columns" id="columns">
-        <f:facet name="layout">
-          <tc:gridLayout columns="*;*" />
-        </f:facet>
-        <tc:textarea id="a-3" />
-        <tc:textarea id="a-4" />
+      <tc:tab label="Tab 1 (disabled)" disabled="true">
+        <tc:textarea value="Tab 1" />
       </tc:tab>
+      <tc:tab label="Tab 2 (not rendered)" rendered="false">
+        <tc:textarea value="Tab 2" />
+      </tc:tab>
+      <tc:tab label="Tab 3 (error)" markup="error">
+        <tc:textarea value="Tab 3"/>
+      </tc:tab>
+<!--
+      <tc:tab label="Tab 4">
+        <tc:textarea value="Tab 4" />
+      </tc:tab>
+-->
     </tc:tabGroup>
+      
+    </tc:box>
 
-    <tc:script file="script/test-utils.js"/>
-
-    <tc:script onload="checkLayout('page:rows:a-1', 6, 26, 588, 131);"/>
-    <tc:script onload="checkLayout('page:rows:a-2', 6, 158, 588, 132);"/>
-
-    <!--click the tab to display the elements, they can only be measured if they are not hidden.-->
-    <tc:script onload="jQuery('#page\\:tabGroup').find('.tobago-tab[tabgroupindex=1]').click();"/>
-
-    <tc:script onload="checkLayout('page:columns:a-3', 5, 24, 291, 269);"/>
-    <tc:script onload="checkLayout('page:columns:a-4', 301, 24, 291, 269);"/>
+    <tc:button onclick="$('.tobago-tabGroup').hide()" label="hide"/>
+    <tc:button onclick="$('.tobago-tabGroup').show()" label="show"/>
 
   </tc:page>
 </f:view>

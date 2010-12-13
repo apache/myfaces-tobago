@@ -233,6 +233,10 @@
       <supported-markup>
         <markup>disabled</markup>
         <markup>selected</markup>
+        <markup>fatal</markup>
+        <markup>error</markup>
+        <markup>warn</markup>
+        <markup>info</markup>
       </supported-markup>
     </renderer>
     <renderer>

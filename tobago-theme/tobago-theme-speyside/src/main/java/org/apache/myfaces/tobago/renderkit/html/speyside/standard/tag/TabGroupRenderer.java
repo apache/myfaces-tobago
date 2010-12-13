@@ -17,20 +17,11 @@ package org.apache.myfaces.tobago.renderkit.html.speyside.standard.tag;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.component.UITab;
-import org.apache.myfaces.tobago.renderkit.css.Classes;
-import org.apache.myfaces.tobago.renderkit.css.Overflow;
-import org.apache.myfaces.tobago.renderkit.css.Style;
-import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
-import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
-import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
-
-import javax.faces.context.FacesContext;
-import java.io.IOException;
-
+/*
 public class TabGroupRenderer
     extends org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag.TabGroupRenderer {
 
+ TODO: not implemented in Tobago 1.5: the shadow may be set by jQuery in Tobago 1.5?
   @Override
   protected void encodeContent(
       TobagoResponseWriter writer, FacesContext facesContext, UITab activeTab, Style body)
@@ -66,3 +57,4 @@ public class TabGroupRenderer
     writer.endElement(HtmlElements.DIV);
   }
 }
+*/
