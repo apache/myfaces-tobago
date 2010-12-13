@@ -18,6 +18,7 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  */
 
 import org.apache.myfaces.tobago.component.Attributes;
+import org.apache.myfaces.tobago.config.Configurable;
 import org.apache.myfaces.tobago.util.CreateComponentUtils;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
@@ -177,7 +178,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
       sheetHeight = style.getHeight();
     }
     Measure footerHeight = getFooterHeight(facesContext, sheet);
-    Measure headerHeight = getResourceManager().getThemeMeasure(facesContext, sheet, "headerHeight");
+    Measure headerHeight = getHeaderHeight(facesContext, sheet);
     String selectable = sheet.getSelectable();
 
     Application application = facesContext.getApplication();
@@ -609,12 +610,22 @@ public class SheetRenderer extends LayoutComponentRendererBase {
     }
   }
 
+  private Measure getHeaderHeight(FacesContext facesContext, UISheet sheet) {
+    return sheet.isShowHeader()
+        ? getResourceManager().getThemeMeasure(facesContext, sheet, "headerHeight")
+        : Measure.ZERO;
+  }
+
+  private Measure getRowHeight(FacesContext facesContext, UISheet sheet) {
+    return getResourceManager().getThemeMeasure(facesContext, sheet, "rowHeight");
+  }
+
   private Measure getFooterHeight(FacesContext facesContext, UISheet sheet) {
     return sheet.isPagingVisible()
         ? getResourceManager().getThemeMeasure(facesContext, sheet, "footerHeight")
         : Measure.ZERO;
   }
-  
+
   private Markup markupForLeftCenterRight(String name) {
     if ("left".equals(name)) {
       return Markup.LEFT;
@@ -997,6 +1008,20 @@ public class SheetRenderer extends LayoutComponentRendererBase {
     return getBorderLeft(facesContext, data).add(getBorderRight(facesContext, data));
   }
 
+  @Override
+  public Measure getPreferredHeight(FacesContext facesContext, Configurable component) {
+    final UISheet sheet = (UISheet) component;
+    Measure headerHeight = getHeaderHeight(facesContext, sheet);
+    Measure rowHeight = getRowHeight(facesContext, sheet);
+    Measure footerHeight = getFooterHeight(facesContext, sheet);
+    int rows = sheet.getRows();
+
+    if (LOG.isDebugEnabled()) {
+      LOG.debug(headerHeight + " " + footerHeight + " " + rowHeight + " " + rows);
+    }
+
+    return headerHeight.add(rowHeight.multiply(rows)).add(footerHeight);
+  }
 
   @Override
   public void encodeChildren(FacesContext context, UIComponent component) throws IOException {
