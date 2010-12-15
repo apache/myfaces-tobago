@@ -158,3 +158,40 @@ Themes and CSS
 *--+--+--+--+
 | renamed | <<<tobago-textArea->>>* | <<<tobago-textarea->>>* |
 *--+--+--+--+
+
+JavaScript
+
+   The JavaScript API has been refactored. Most application do not use the Tobago JavaScript API directly.
+   But if it does, you have to apply some changes.
+
+   The most important things, is the additional first parameter
+   on the submitting functions to compute the position of the action element.
+
+   If you are using <<<submitAction()>>> in the old code, you have to add the action element or just <<<null>>>.
+   If you are using <<<submitAction2()>>> in the old code, you have to rename it to <<<submitAction()>>>.
+
+*--+--+--+--+
+| added first param | <<<submitAction()>>> | |
+*--+--+--+--+
+| renamed | <<<submitAction2()>>> | <<<submitAction()>>> |
+*--+--+--+--+
+| added first param | <<<openPopupWithAction()>>> | |
+*--+--+--+--+
+| renamed | <<<openPopupWithAction2()>>> | <<<openPopupWithAction()>>> |
+*--+--+--+--+
+| added first param | <<<reloadComponent()>>> | |
+*--+--+--+--+
+| renamed | <<<reloadComponent2()>>> | <<<reloadComponent()>>> |
+*--+--+--+--+
+| added first param | <<<Updater.update()>>> | |
+*--+--+--+--+
+| renamed | <<<Updater.update2()>>> | <<<Updater.update()>>> |
+*--+--+--+--+
+| added first param | <<<Sheet.reloadWithAction()>>> | |
+*--+--+--+--+
+| renamed | <<<Sheet.reloadWithAction2()>>> | <<<Sheet.reloadWithAction()>>> |
+*--+--+--+--+
+| added first param | <<<TabGroup.reloadWithAction()>>> | |
+*--+--+--+--+
+| renamed | <<<TabGroup.reloadWithAction2()>>> | <<<TabGroup.reloadWithAction()>>> |
+*--+--+--+--+
