@@ -2563,7 +2563,7 @@ function tobago_toolBarSetRadioValue(id, value) {
 
 function xxx_tobagoInit(elements) {
   xxx_tobagoMenuInit(elements);
-  tobago_initTab(elements);
+  Tobago.TabGroup.init(elements);
   Tobago.fixPngAlphaAll(elements);
 }
 

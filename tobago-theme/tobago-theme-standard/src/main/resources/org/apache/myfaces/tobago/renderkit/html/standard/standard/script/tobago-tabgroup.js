@@ -15,14 +15,16 @@
  * limitations under the License.
  */
 
-function tobago_initTab(elements) {
+Tobago.TabGroup = {};
+
+Tobago.TabGroup.init = function(elements) {
 
   var tabGroups = Tobago.selectWidthJQuery(elements, ".tobago-tabGroup");
 
   // initialize the tab header elements
   // client case
   tabGroups.filter("[switchType='client']").find(".tobago-tab").not(".tobago-tab-markup-disabled").click(function() {
-    var activeIndex = tobago_tabUpdateHidden(jQuery(this));
+    var activeIndex = Tobago.TabGroup.updateHidden(jQuery(this));
     jQuery(this).siblings(".tobago-tab-markup-selected").removeClass("tobago-tab-markup-selected");
     jQuery(this).addClass("tobago-tab-markup-selected");
     var tabGroup = jQuery(this).parents(".tobago-tabGroup:first");
@@ -34,7 +36,7 @@ function tobago_initTab(elements) {
   // initialize the tab header elements
   // reload tab case
   tabGroups.filter("[switchType='reloadTab']").find(".tobago-tab").not(".tobago-tab-markup-disabled").click(function() {
-    var activeIndex = tobago_tabUpdateHidden(jQuery(this));
+    var activeIndex = Tobago.TabGroup.updateHidden(jQuery(this));
     LOG.debug("todo: ajax reload, activeIndex=" + activeIndex); // @DEV_ONLY
     var tabGroup = jQuery(this).parents(".tobago-tabGroup:first");
     Tobago.Updater.update(tabGroup, tabGroup.attr("id"), tabGroup.attr("id"), {});
@@ -43,7 +45,7 @@ function tobago_initTab(elements) {
   // initialize the tab header elements
   // reload page case
   tabGroups.filter("[switchType='reloadPage']").find(".tobago-tab").not(".tobago-tab-markup-disabled").click(function() {
-    var activeIndex = tobago_tabUpdateHidden(jQuery(this));
+    var activeIndex = Tobago.TabGroup.updateHidden(jQuery(this));
     LOG.debug("todo: full reload, activeIndex=" + activeIndex); // @DEV_ONLY
     var tabGroup = jQuery(this).parents(".tobago-tabGroup:first");
     Tobago.submitAction(tabGroup.eq(0), tabGroup.attr("id"));
@@ -78,16 +80,16 @@ function tobago_initTab(elements) {
   // XXX hack for webkit to avoid scrollbars in box
 //  jQuery('.tobago-tabGroup').hide();
 //  jQuery('.tobago-tabGroup').show();
-}
+};
 
 /**
  * Update the hidden field for the active index.
  * @param tab is a jQuery object which represents the clicked tab area.
  */
-function tobago_tabUpdateHidden(tab) {
+Tobago.TabGroup.updateHidden = function(tab) {
   var tabGroup = tab.parents(".tobago-tabGroup:first");
   var hidden = tabGroup.children("input");
   var activeIndex = tab.attr("tabgroupindex");
   hidden.attr("value", activeIndex);
   return activeIndex;
-}
+};
