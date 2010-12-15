@@ -52,11 +52,12 @@
  The menu items of the top level (id="m1") are connected to the sub menus of the store div (id="m1::menu").   
  */
 
-// todo: rename xxx_ and check the other function names.
+Tobago.Menu = {};
+
 /*
   jQuery(this) is the "a" tag of a menu item.
  */
-function xxx_tobagoMenuHandelKey(event) {
+Tobago.Menu.handelKey = function(event) {
 
   var handled = false;
   
@@ -67,7 +68,7 @@ function xxx_tobagoMenuHandelKey(event) {
 
   switch (code) {
     case 27: // escape
-      xxx_tobagoMenuCloseAll(event, jQuery(this));
+      Tobago.Menu.closeAll();
       handled = true;
       break;
     case 37: // cursor left
@@ -110,12 +111,12 @@ function xxx_tobagoMenuHandelKey(event) {
       break;
   }
   return !handled;
-}
+};
 
 /*
   jQuery(this) is a <a> tag of a menu item.
 */
-function xxx_tobagoMenuOpen(event) {
+Tobago.Menu.open = function(event) {
 
   var li = jQuery(this).parent();
   var sub = jQuery(this).tobagoMenu_findSubMenu();
@@ -172,14 +173,14 @@ function xxx_tobagoMenuOpen(event) {
   sub.children('.tobago-menu-markup-selected').removeClass("tobago-menu-markup-selected");
   // "hover" on
   jQuery(this).parents('li').addClass("tobago-menu-markup-selected");
-}
+};
 
-function xxx_tobagoMenuCloseAll() {
+Tobago.Menu.closeAll = function() {
   jQuery(".tobago-menuBar").each(function() {
-    xxx_tobagoMenuSwitchOff(jQuery(this));
+    Tobago.Menu.switchOff(jQuery(this));
   });
   return false;
-}
+};
 
 /**
 * returns the browser specific event which should be used.
@@ -188,41 +189,41 @@ function compatibleKeyEvent() {
   return jQuery.browser.msie || jQuery.browser.safari ? 'keydown' : 'keypress';
 }
 
-function xxx_tobagoMenuMouseOver(event) {
+Tobago.Menu.mouseOver = function(event) {
       jQuery(this).children('a').focus();
       return false;
-}
+};
 
-function xxx_tobagoMenuSwitchOn(menuBar, menu) {
+Tobago.Menu.switchOn = function(menuBar, menu) {
   menuBar.find('li') // direct menus
       .add(menuBar.find('li').children('a').tobagoMenu_findSubMenu().find('li')) // add sub menus
-      .bind('mouseover', xxx_tobagoMenuMouseOver)
+      .bind('mouseover', Tobago.Menu.mouseOver)
       .children('a')
-      .bind('focus', xxx_tobagoMenuOpen)
-      .bind(compatibleKeyEvent(), xxx_tobagoMenuHandelKey);
+      .bind('focus', Tobago.Menu.open)
+      .bind(compatibleKeyEvent(), Tobago.Menu.handelKey);
   menu.children('a').focus();
-  jQuery("body").bind('click', xxx_tobagoMenuCloseAll);
+  jQuery("body").bind('click', Tobago.Menu.closeAll);
   menuBar.attr('menu-active', 'true');        // write state back
-}
+};
 
-function xxx_tobagoMenuSwitchOff(menuBar) {
+Tobago.Menu.switchOff = function(menuBar) {
   menuBar.find("ol")
       .add(menuBar.find('li').children('a').tobagoMenu_findSubMenu().find('ol').andSelf())
       .css('visibility', 'hidden');
   menuBar.find('li').add(menuBar.find('li').children('a').tobagoMenu_findSubMenu().find('li'))
-      .unbind('mouseover', xxx_tobagoMenuMouseOver)
+      .unbind('mouseover', Tobago.Menu.mouseOver)
       .children('a')
-      .unbind('focus', xxx_tobagoMenuOpen)
-      .unbind(compatibleKeyEvent(), xxx_tobagoMenuHandelKey);
-  jQuery("body").unbind('click', xxx_tobagoMenuCloseAll);
+      .unbind('focus', Tobago.Menu.open)
+      .unbind(compatibleKeyEvent(), Tobago.Menu.handelKey);
+  jQuery("body").unbind('click', Tobago.Menu.closeAll);
   menuBar.find('.tobago-menu-markup-selected').removeClass("tobago-menu-markup-selected");
   menuBar.attr('menu-active', 'false');        // write state back
-}
+};
 
 /**
  * @param elements  a jQuery object to initialize (ajax) or null for initializing the whole document (full load).
  */
-function xxx_tobagoMenuInit(elements) {
+Tobago.Menu.init = function(elements) {
 
   var menus = Tobago.selectWidthJQuery(elements, ".tobago-menu-markup-top");
 
@@ -238,9 +239,9 @@ function xxx_tobagoMenuInit(elements) {
     var wasActive = 'true' == menuBar.attr('menu-active'); // read state
 
     if (wasActive) {
-      xxx_tobagoMenuSwitchOff(menuBar);
+      Tobago.Menu.switchOff(menuBar);
     } else {
-      xxx_tobagoMenuSwitchOn(menuBar, jQuery(this));
+      Tobago.Menu.switchOn(menuBar, jQuery(this));
     }
 
     event.stopPropagation();
@@ -272,7 +273,7 @@ function xxx_tobagoMenuInit(elements) {
     return false;
   });
 
-}
+};
 
 jQuery.tobagoMenuParent = function(element) {
   var result = [];
@@ -291,7 +292,7 @@ jQuery.tobagoMenuParent = function(element) {
     tobagoMenu_findSubMenu: function() {
       var menu = jQuery(this).next("ol");
       jQuery(this).each(function() {
-        menu = menu.add(tobagoUtil_findSubComponent(jQuery(this), "menu"));
+        menu = menu.add(Tobago.Utils.findSubComponent(jQuery(this), "menu"));
       });
       return menu;
     }
@@ -307,25 +308,27 @@ jQuery.tobagoMenuParent = function(element) {
     tobagoMenu_findParentMenu: function() {
       var ol = jQuery(this);
       if (ol.attr('id').lastIndexOf("::") >= 0) {
-        return tobagoUtil_findSuperComponent(ol);
+        return Tobago.Utils.findSuperComponent(ol);
     }
         return ol;
       }
   });
 })(jQuery);
 
-function tobagoUtil_findSubComponent(element, subId) {
-  return jQuery(tobagoUtil_getSubComponentId(element.attr('id'), subId));
-}
+Tobago.Utils = {};
 
-function tobagoUtil_getSubComponentId(id, subId) {
+Tobago.Utils.findSubComponent = function(element, subId) {
+  return jQuery(Tobago.Utils.getSubComponentId(element.attr('id'), subId));
+};
+
+Tobago.Utils.getSubComponentId = function(id, subId) {
   return "#" + id.replace(/:/g, "\\:") + "\\:\\:" + subId; 
-}
+};
 
-function tobagoUtil_findSuperComponent(element) {
-  return jQuery(tobagoUtil_getSuperComponentId(element.attr('id')));
-}
+Tobago.Utils.findSuperComponent = function(element) {
+  return jQuery(Tobago.Utils.getSuperComponentId(element.attr('id')));
+};
 
-function tobagoUtil_getSuperComponentId(id) {
+Tobago.Utils.getSuperComponentId = function(id) {
   return "#" + id.substring(0, id.lastIndexOf("::")).replace(/:/g, "\\:"); 
-}
+};
