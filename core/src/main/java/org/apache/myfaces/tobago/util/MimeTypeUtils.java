@@ -37,7 +37,7 @@ public class MimeTypeUtils {
       return "text/css";
     } else if (file.endsWith(".ico")) {
       return "image/vnd.microsoft.icon";
-    } else if (file.endsWith(".html")) {
+    } else if (file.endsWith(".html") || file.endsWith(".htm")) {
       return "text/html";
     }
     return null;
