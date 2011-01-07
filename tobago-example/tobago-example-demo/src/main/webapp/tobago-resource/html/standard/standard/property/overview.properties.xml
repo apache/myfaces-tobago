@@ -42,6 +42,7 @@
   <entry key="basic">Basic Controls</entry>
   <entry key="sheet">Sheet Control</entry>
   <entry key="tree">Tree Control</entry>
+  <entry key="treeEditor">Tree Editor</entry>
   <entry key="tab">Tab Control</entry>
   <entry key="toolbar">Toolbar</entry>
   <entry key="validation">Validation</entry>

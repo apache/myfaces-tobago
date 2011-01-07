@@ -145,6 +145,14 @@
       <to-view-id>/overview/tree.xhtml</to-view-id>
     </navigation-case>
     <navigation-case>
+      <from-outcome>/overview/tree-editor.jspx</from-outcome>
+      <to-view-id>/overview/tree-editor.jspx</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>/overview/tree-editor.xhtml</from-outcome>
+      <to-view-id>/overview/tree-editor.xhtml</to-view-id>
+    </navigation-case>
+    <navigation-case>
       <from-outcome>/overview/tab.jspx</from-outcome>
       <to-view-id>/overview/tab.jspx</to-view-id>
     </navigation-case>
@@ -377,7 +385,13 @@
     <managed-bean-class>org.apache.myfaces.tobago.example.reference.SimpleBeanList</managed-bean-class>
     <managed-bean-scope>request</managed-bean-scope>
   </managed-bean>
-  
+
+  <managed-bean>
+    <managed-bean-name>treeEditor</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.tobago.example.demo.TreeEditor</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+  </managed-bean>
+
   <navigation-rule>
     <navigation-case>
       <from-outcome>reference/intro</from-outcome>

@@ -47,7 +47,9 @@ public class Navigation {
     Node overview = new Node("overview", "/overview/intro");
     overview.add(new Node("basic", "/overview/basic"));
     overview.add(new Node("sheet", "/overview/sheet"));
-    overview.add(new Node("tree", "/overview/tree"));
+    final Node tree = new Node("tree", "/overview/tree");
+    overview.add(tree);
+    tree.add(new Node("treeEditor", "/overview/tree-editor"));
     overview.add(new Node("tab", "/overview/tab"));
     overview.add(new Node("toolbar", "/overview/toolbar"));
     Node validation = new Node("validation", "/overview/validation");
@@ -58,7 +60,7 @@ public class Navigation {
     overview.add(new Node("browser", "/overview/browser"));
     overview.add(new Node("locale", "/overview/locale"));
     overview.add(new Node("layout", "/overview/layout"));
-    tree.add(overview);
+    this.tree.add(overview);
 
     Node bestPractice = new Node("bestPractice", "best-practice/intro");
     bestPractice.add(new Node("error", "best-practice/error"));
@@ -67,7 +69,7 @@ public class Navigation {
     bestPractice.add(new Node("nonFacesResponse", "best-practice/non-faces-response"));
     bestPractice.add(new Node("toolBarCustomizer", "best-practice/tool-bar-customizer"));
     bestPractice.add(new Node("faceletsAsResources", "best-practice/facelets-as-resources"));
-    tree.add(bestPractice);
+    this.tree.add(bestPractice);
 
     Node reference = new Node("reference_intro", "reference/intro");
     reference.add(new Node("reference_command", "reference/command"));
@@ -87,9 +89,9 @@ public class Navigation {
     reference.add(new Node("reference_tool", "reference/tool"));
     reference.add(new Node("reference_partial", "reference/partial"));
     reference.add(new Node("reference_upload", "reference/upload"));
-    tree.add(reference);
+    this.tree.add(reference);
 
-    tree.setExpanded(true);
+    this.tree.setExpanded(true);
     overview.setExpanded(true);
     bestPractice.setExpanded(true);
 

@@ -273,10 +273,6 @@ public class TobagoDemoController {
 
   }
 
-  public static Node createNode(String name, String id) {
-    return new Node(name, id);
-  }
-
   public String clickButton() {
     LOG.info("clickButton");
     return "display";

@@ -17,6 +17,7 @@ package org.apache.myfaces.tobago.example.demo;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.example.data.CategoryTree;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -33,49 +34,9 @@ public class TreeController {
 
   private DefaultMutableTreeNode tree;
 
-//  private TreeState state;
-
   public TreeController() {
     // tree
-    tree = new DefaultMutableTreeNode(new Node("1 Category"));
-    tree.add(new DefaultMutableTreeNode(new Node("1.1 Sports")));
-    tree.add(new DefaultMutableTreeNode(new Node("1.2 Movies")));
-    DefaultMutableTreeNode temp = new DefaultMutableTreeNode(new Node("1.3 Science"));
-    tree.add(temp);
-    DefaultMutableTreeNode music = new DefaultMutableTreeNode(new Node("1.4 Music"));
-    tree.add(music);
-    tree.add(new DefaultMutableTreeNode(new Node("1.5 Games")));
-    temp.add(new DefaultMutableTreeNode(new Node("1.3.1 Geography (strong markup)", STRONG)));
-    temp.add(new DefaultMutableTreeNode(new Node("1.3.2 Mathematics (strong markup)", STRONG)));
-    DefaultMutableTreeNode temp2 = new DefaultMutableTreeNode(new Node("1.3.3 Pictures"));
-    temp2.add(new DefaultMutableTreeNode(new Node("1.3.3.1 Education")));
-    temp2.add(new DefaultMutableTreeNode(new Node("1.3.3.2 Family")));
-    temp2.add(new DefaultMutableTreeNode(new Node("1.3.3.3 Comercial")));
-    temp2.add(new DefaultMutableTreeNode(new Node("1.3.3.4 Summer (disabled)", true)));
-    temp2.add(new DefaultMutableTreeNode(new Node("1.3.3.5 Winter (disabled)", true)));
-    temp2.add(new DefaultMutableTreeNode(new Node("1.3.3.6 Red")));
-    temp2.add(new DefaultMutableTreeNode(new Node("1.3.3.7 Black")));
-    temp2.add(new DefaultMutableTreeNode(new Node("1.3.3.8 White")));
-    temp2.add(new DefaultMutableTreeNode(new Node("1.3.3.9 Good")));
-    temp2.add(new DefaultMutableTreeNode(new Node("1.3.3.10 Evil")));
-    temp2.add(new DefaultMutableTreeNode(new Node("1.3.3.11 Flower")));
-    temp2.add(new DefaultMutableTreeNode(new Node("1.3.3.12 Animal")));
-    temp2.add(new DefaultMutableTreeNode(new Node("1.3.3.13 Personal")));
-    temp.add(temp2);
-    DefaultMutableTreeNode bulk = new DefaultMutableTreeNode(new Node("1.6 Bulk"));
-    for (int i = 0; i < 5; i++) {
-      bulk.add(new DefaultMutableTreeNode(new Node("1.6." + (i + 1) + " Some Node")));
-    }
-    tree.add(bulk);
-    ((Node) tree.getUserObject()).setExpanded(true);
-    ((Node) temp.getUserObject()).setExpanded(true);
-    ((Node) tree.getUserObject()).setSelected(true);
-    ((Node) temp.getUserObject()).setSelected(true);
-
-    // state
-//    state = new TreeState();
-//    state.addSelection(temp2);
-//    state.setMarker(music);
+    tree = CategoryTree.createSample2();
   }
 
   public String action1() {

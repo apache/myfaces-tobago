@@ -17,15 +17,56 @@ package org.apache.myfaces.tobago.example.data;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.context.Markup;
+import org.apache.myfaces.tobago.event.TreeExpansionEvent;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class Node {
+
+  private static final Logger LOG = LoggerFactory.getLogger(Node.class);
 
   private String name;
 
   private String id;
 
+  private String tip;
+
+  private Markup markup;
+
+  private boolean expanded = true;
+
+  private boolean disabled;
+
+  private boolean selected;
+
+  public Node(String name) {
+    this.name = name;
+  }
+
   public Node(String name, String id) {
     this.name = name;
     this.id = id;
+  }
+
+  public Node(String name, Markup markup) {
+    this.name = name;
+    this.markup = markup;
+  }
+
+  public Node(String name, boolean disabled) {
+    this.name = name;
+    this.disabled = disabled;
+  }
+
+  public String action() {
+    LOG.info("action: name='" + name + "'");
+    return null;
+  }
+
+  public void expansionListener(TreeExpansionEvent event) {
+    LOG.info("event='" + event + "'");
+    expanded = event.isNewExpanded();
   }
 
   public String getName() {
@@ -42,6 +83,46 @@ public class Node {
 
   public void setId(String id) {
     this.id = id;
+  }
+
+  public boolean isExpanded() {
+    return expanded;
+  }
+
+  public void setExpanded(boolean expanded) {
+    this.expanded = expanded;
+  }
+
+  public Markup getMarkup() {
+    return markup;
+  }
+
+  public void setMarkup(Markup markup) {
+    this.markup = markup;
+  }
+
+  public String getTip() {
+    return tip;
+  }
+
+  public void setTip(String tip) {
+    this.tip = tip;
+  }
+
+  public boolean isDisabled() {
+    return disabled;
+  }
+
+  public void setDisabled(boolean disabled) {
+    this.disabled = disabled;
+  }
+
+  public boolean isSelected() {
+    return selected;
+  }
+
+  public void setSelected(boolean selected) {
+    this.selected = selected;
   }
 
   public String toString() {
