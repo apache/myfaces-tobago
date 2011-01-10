@@ -23,7 +23,6 @@ import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasBooleanValue;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasConverter;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasConverterMessage;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
@@ -36,6 +35,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasTabIndex;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasValidator;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasValidatorMessage;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasValue;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasValueChangeListener;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsFocus;
@@ -66,7 +66,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsRequired;
         })
 
 public interface SelectBooleanCheckboxTagDeclaration extends HasValidator,
-    HasOnchange, HasValueChangeListener, HasIdBindingAndRendered, HasLabelAndAccessKey, HasBooleanValue, IsDisabled,
+    HasOnchange, HasValueChangeListener, HasIdBindingAndRendered, HasLabelAndAccessKey, HasValue, IsDisabled,
     IsInline, HasTip, IsReadonly, HasMarkup, HasCurrentMarkup, HasTabIndex, IsRequired, HasConverter, IsFocus,
     HasValidatorMessage, HasRequiredMessage, HasConverterMessage, IsGridLayoutComponent {
     // IsImmediateComponent

@@ -20,7 +20,7 @@ package org.apache.myfaces.tobago.internal.taglib.extension;
 import org.apache.myfaces.tobago.apt.annotation.ExtensionTag;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.internal.taglib.SelectBooleanCheckboxTag;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasBooleanValue;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasValue;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasConverterMessage;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasFieldId;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
@@ -50,7 +50,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
 public class SelectBooleanCheckboxExtensionTag extends BodyTagSupport implements
     HasValidator, HasOnchange, HasValueChangeListener, HasIdBindingAndRendered, HasLabel,
     HasValidatorMessage, HasRequiredMessage, HasConverterMessage,
-    HasBooleanValue, HasLabelWidth, IsDisabled, HasTip, IsReadonly, HasMarkup, HasTabIndex, IsRequired,
+    HasValue, HasLabelWidth, IsDisabled, HasTip, IsReadonly, HasMarkup, HasTabIndex, IsRequired,
     IsFocus, HasFieldId {
 
   private String value;

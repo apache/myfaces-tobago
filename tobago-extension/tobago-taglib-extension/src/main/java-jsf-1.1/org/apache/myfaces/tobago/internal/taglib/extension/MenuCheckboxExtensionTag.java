@@ -26,7 +26,7 @@ import org.apache.myfaces.tobago.internal.component.AbstractUICommandBase;
 import org.apache.myfaces.tobago.internal.taglib.MenuCommandTag;
 import org.apache.myfaces.tobago.internal.taglib.SelectBooleanCheckboxTag;
 import org.apache.myfaces.tobago.internal.taglib.declaration.AbstractCommandTagDeclaration;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasBooleanValue;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasValue;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabel;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
@@ -52,7 +52,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
 @Tag(name = "menuCheckbox", tagExtraInfoClassName = "org.apache.myfaces.tobago.internal.taglib.component.CommandTagExtraInfo")
 @ExtensionTag(baseClassName = "org.apache.myfaces.tobago.internal.taglib.component.MenuCheckboxTag")
 public class MenuCheckboxExtensionTag extends BodyTagSupport implements AbstractCommandTagDeclaration,
-    HasIdBindingAndRendered, IsDisabled, HasBooleanValue, HasLabel {
+    HasIdBindingAndRendered, IsDisabled, HasValue, HasLabel {
   private String rendered;
   private String value;
 

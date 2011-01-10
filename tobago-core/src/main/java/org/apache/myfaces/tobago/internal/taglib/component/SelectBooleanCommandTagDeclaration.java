@@ -19,12 +19,12 @@ package org.apache.myfaces.tobago.internal.taglib.component;
 
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.internal.taglib.declaration.AbstractCommandTagDeclaration;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasBooleanValue;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasValue;
 
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UISelectBooleanCommand",
     uiComponentBaseClass = "org.apache.myfaces.tobago.component.UICommand")
-public interface SelectBooleanCommandTagDeclaration extends AbstractCommandTagDeclaration,
-    HasIdBindingAndRendered, HasBooleanValue {
+public interface SelectBooleanCommandTagDeclaration
+    extends AbstractCommandTagDeclaration, HasIdBindingAndRendered, HasValue {
 }

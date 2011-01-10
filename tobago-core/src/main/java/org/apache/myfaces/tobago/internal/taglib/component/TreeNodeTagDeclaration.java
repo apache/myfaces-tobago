@@ -45,7 +45,8 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
         "org.apache.myfaces.tobago.TreeNode",
         "org.apache.myfaces.tobago.TreeData"
     })
-public interface TreeNodeTagDeclaration
+public interface
+    TreeNodeTagDeclaration
     extends HasIdBindingAndRendered, HasMarkup, HasCurrentMarkup, HasTip, IsDisabled {
 
   /**

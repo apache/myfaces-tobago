@@ -22,12 +22,12 @@ import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.RendererTypes;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasBooleanValue;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabel;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasValue;
 
 /**
  * Makes a tree node selectable.
@@ -39,7 +39,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
     rendererType = RendererTypes.TREE_SELECT,
     allowedChildComponenents = "NONE")
 public interface TreeSelectTagDeclaration
-    extends HasIdBindingAndRendered, HasLabel, HasTip, HasMarkup, HasCurrentMarkup, HasBooleanValue {
+    extends HasIdBindingAndRendered, HasLabel, HasTip, HasMarkup, HasCurrentMarkup, HasValue {
 
   /**
    * Show a checkbox to visualize the selection state.

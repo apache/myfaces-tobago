@@ -41,9 +41,7 @@
     <jsp:root version="2.1">
       <jsp:directive.page contentType="text/html; charset=utf-8"/>   
       <layout:overview>
-        <jsp:params>
-          <xsl:apply-templates select="ui:param" mode="parameter"/>
-        </jsp:params>
+        <xsl:apply-templates select="ui:param" mode="parameter"/>
         <jsp:body>
           <xsl:apply-templates/>
         </jsp:body>
@@ -52,7 +50,9 @@
   </xsl:template>
 
   <xsl:template match="ui:param" mode="parameter">
-    <jsp:param name="title" value="BASICS"/>
+    <jsp:params>
+      <jsp:param name="title" value="BASICS"/>
+    </jsp:params>
   </xsl:template>
 
   <xsl:template match="ui:param">

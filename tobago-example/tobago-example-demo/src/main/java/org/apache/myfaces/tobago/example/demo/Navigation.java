@@ -81,7 +81,7 @@ public class Navigation {
     reference.add(new Node("reference_object", "reference/object"));
     reference.add(new Node("reference_popup", "reference/popup"));
     reference.add(new Node("reference_progress", "reference/progress"));
-    reference.add(new Node("reference_select", "reference/select"));
+    reference.add(new Node("reference_select", "/reference/select"));
     reference.add(new Node("reference_sheet", "reference/sheet"));
     reference.add(new Node("reference_tab", "reference/tab"));
     reference.add(new Node("reference_time", "reference/time"));
