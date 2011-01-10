@@ -58,7 +58,7 @@ public class TreeEditor {
     final Enumeration enumeration = categoryTree.depthFirstEnumeration();
     while (enumeration.hasMoreElements()) {
       DefaultMutableTreeNode node = (DefaultMutableTreeNode) enumeration.nextElement();
-      if (((Node)node.getUserObject()).isSelected()) {
+      if (((Node) node.getUserObject()).isSelected()) {
         return node;
       }
     }
