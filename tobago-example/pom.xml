@@ -118,12 +118,6 @@
       </modules>
     </profile>
     <profile>
-      <id>jdk14retro</id>
-      <modules>
-        <module>tobago-example-retro</module>
-      </modules>
-    </profile>
-    <profile>
       <id>apache-release</id>
       <modules>
         <module>tobago-example-blank</module>

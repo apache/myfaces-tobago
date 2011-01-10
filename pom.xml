@@ -997,7 +997,12 @@
     <profile>
       <id>jdk14retro</id>
     </profile>
-
+    <profile>
+      <id>example11</id>
+      <modules>
+        <module>tobago-example11</module>
+      </modules>
+    </profile>
     <profile>
       <id>apache-release</id>
       <!--
