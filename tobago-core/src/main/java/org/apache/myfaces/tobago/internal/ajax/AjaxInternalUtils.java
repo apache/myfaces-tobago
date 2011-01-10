@@ -78,7 +78,7 @@ public class AjaxInternalUtils {
     Map<String, UIComponent> ajaxComponents = new HashMap<String, UIComponent>();
     facesContext.getExternalContext().getRequestMap().put(AJAX_COMPONENTS, ajaxComponents);
     javax.faces.component.UIViewRoot viewRoot = facesContext.getViewRoot();
-    UIComponent page = viewRoot.getChildren().get(0);
+    UIComponent page = (UIComponent) viewRoot.getChildren().get(0);
     ajaxComponents.put(page.getClientId(facesContext), page);
   }
 
@@ -100,7 +100,7 @@ public class AjaxInternalUtils {
 
   public static List<String> getMessagesComponentIds(FacesContext facesContext) {
     Map parameterMap = facesContext.getExternalContext().getRequestParameterMap();
-    UIComponent component = facesContext.getViewRoot().getChildren().get(0);
+    UIComponent component = (UIComponent) facesContext.getViewRoot().getChildren().get(0);
     String clientId = component.getClientId(facesContext);
     String ids = (String) parameterMap.get(clientId + ComponentUtils.SUB_SEPARATOR + "messagesClientIds");
     List<String> list = new ArrayList<String>();
