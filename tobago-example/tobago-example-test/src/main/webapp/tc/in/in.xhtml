@@ -24,11 +24,16 @@
 
   <tc:page>
     <f:facet name="layout">
-      <tc:gridLayout/>
+      <tc:gridLayout rows="auto;auto;auto;*"/>
     </f:facet>
     <tc:gridLayoutConstraint width="600px" height="300px"/>
 
     <tc:in value="Some Value"/>
+    <tc:in value="Some Required Value" required="true"/>
+
+    <tc:button label="submit"/>
+
+    <tc:cell/>
 
   </tc:page>
 </f:view>
