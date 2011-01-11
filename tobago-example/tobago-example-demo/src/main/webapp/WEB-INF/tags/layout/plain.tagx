@@ -17,7 +17,7 @@
  * limitations under the License.
 -->
 
-<jsp:root version="2.0"
+<jsp:root version="2.1"
           xmlns:tc="http://myfaces.apache.org/tobago/component"
           xmlns:tx="http://myfaces.apache.org/tobago/extension"
           xmlns:jsp="http://java.sun.com/JSP/Page"
