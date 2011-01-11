@@ -453,18 +453,14 @@ var Tobago = {
   },
 
   destroyObject: function(obj) {
-    if (obj.addMenuItem) {
-      // Menu Object
-      Tobago.Menu.destroy(obj);
-    } else if (obj.initSelection) {
+    if (obj.initSelection) {
       // Tree object
       Tobago.Tree.destroy(obj);
     } else if (obj.htmlElement) {
       // test
       delete obj.htmlElement.jsObjects;
       delete obj.htmlElement;
-    }
-    else {
+    } else {
       // Unknown Object --> delete all properties
       if (typeof obj == 'Object') {
         this.destroyJsObject(obj);
