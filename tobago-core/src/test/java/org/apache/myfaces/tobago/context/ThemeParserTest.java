@@ -43,8 +43,8 @@ public class ThemeParserTest {
       Assert.assertEquals("test", theme.getName());
       Assert.assertNotNull(theme.getResources());
       Assert.assertNotNull(theme.getProductionResources());
-      TobagoResources resources = theme.getResources();
-      TobagoResources productionResources = theme.getProductionResources();
+      ThemeResources resources = theme.getResources();
+      ThemeResources productionResources = theme.getProductionResources();
 
       Assert.assertEquals(2, resources.getScriptList().size());
       Assert.assertEquals("script/tobago.js", resources.getScriptList().get(0).getName());

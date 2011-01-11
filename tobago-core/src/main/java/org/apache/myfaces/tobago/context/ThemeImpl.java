@@ -47,9 +47,9 @@ class ThemeImpl implements Theme, Serializable {
 
   private RenderersConfigImpl renderersConfig;
 
-  private TobagoResources productionResources;
+  private ThemeResources productionResources;
 
-  private TobagoResources resources;
+  private ThemeResources resources;
 
   private String[] productionScripts;
 
@@ -179,15 +179,15 @@ class ThemeImpl implements Theme, Serializable {
     return renderersConfig;
   }
 
-  public TobagoResources getResources() {
+  public ThemeResources getResources() {
     return resources;
   }
 
-  public TobagoResources getProductionResources() {
+  public ThemeResources getProductionResources() {
     return productionResources;
   }
 
-  public void addResources(TobagoResources resources) {
+  public void addResources(ThemeResources resources) {
     if (resources.isProduction()) {
       if (productionResources != null) {
         merge(productionResources, resources);
@@ -224,7 +224,7 @@ class ThemeImpl implements Theme, Serializable {
 
   }
 
-  private void merge(TobagoResources resources, TobagoResources toAddResources) {
+  private void merge(ThemeResources resources, ThemeResources toAddResources) {
     if (resources == toAddResources) {
       return;
     }

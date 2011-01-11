@@ -17,21 +17,23 @@ package org.apache.myfaces.tobago.context;
  * limitations under the License.
  */
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Manages the script and style files for production and development stage.
  *
  * @since 1.5.0
  */
-public final class TobagoResources {
+public final class ThemeResources implements Serializable {
 
   private boolean production;
   private List<TobagoScript> scriptList = new ArrayList<TobagoScript>();
   private List<TobagoStyle> styleList = new ArrayList<TobagoStyle>();
 
-  public TobagoResources copy() {
-    TobagoResources resources = new TobagoResources();
+  public ThemeResources copy() {
+    ThemeResources resources = new ThemeResources();
     resources.setProduction(isProduction());
     resources.scriptList.addAll(scriptList);
     resources.styleList.addAll(styleList);

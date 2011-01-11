@@ -61,7 +61,7 @@ class ThemeParser {
     digester.addObjectCreate("tobago-theme/renderers/renderer/supported-markup", MarkupConfig.class);
     digester.addSetNext("tobago-theme/renderers/renderer/supported-markup", "setMarkupConfig");
     digester.addCallMethod("tobago-theme/renderers/renderer/supported-markup/markup", "addMarkup", 0);
-    digester.addObjectCreate("tobago-theme/resources", TobagoResources.class);
+    digester.addObjectCreate("tobago-theme/resources", ThemeResources.class);
     digester.addSetProperties("tobago-theme/resources");
     digester.addSetNext("tobago-theme/resources", "addResources");
     digester.addObjectCreate("tobago-theme/resources/script", TobagoScript.class);
