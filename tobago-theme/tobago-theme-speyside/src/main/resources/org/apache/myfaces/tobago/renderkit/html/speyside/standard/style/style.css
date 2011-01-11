@@ -399,7 +399,9 @@ tobago-selectOneChoice-markup-readonly {
 /* selectOneListbox -------------------------------------------------------- */
 
 .tobago-selectOneListbox {
-  border: 1px solid #000000;
+  border-color: #000000;
+  border-width: 1px;
+  border-style: solid;
   font-size: 12px;
 }
 
@@ -410,6 +412,10 @@ tobago-selectOneChoice-markup-readonly {
 
 .tobago-selectOneListbox-markup-readonly {
   background-color: #E8E8E8;
+}
+
+.tobago-selectOneListbox-markup-error {
+  border-color: #ff0000;
 }
 
 /* selectOneRadio --------------------------------------------------------- */
