@@ -385,6 +385,10 @@ public final class HtmlRendererUtils {
     return null;
   }
 
+  /**
+   * @deprecated since Tobago 1.5.0.
+   */
+  @Deprecated
   public static String toStyleString(String key, Integer value) {
     StringBuilder buf = new StringBuilder();
     buf.append(key);
@@ -394,6 +398,10 @@ public final class HtmlRendererUtils {
     return buf.toString();
   }
 
+  /**
+   * @deprecated since Tobago 1.5.0.
+   */
+  @Deprecated
   public static String toStyleString(String key, String value) {
     StringBuilder buf = new StringBuilder();
     buf.append(key);
@@ -403,6 +411,10 @@ public final class HtmlRendererUtils {
     return buf.toString();
   }
 
+  /**
+   * @deprecated since Tobago 1.5.0. Please use getTitleFromTipAndMessages and write it out.
+   */
+  @Deprecated
   public static void renderTip(UIComponent component, TobagoResponseWriter writer) throws IOException {
     Object objTip = component.getAttributes().get(Attributes.TIP);
     if (objTip != null) {
@@ -630,6 +642,10 @@ public final class HtmlRendererUtils {
     }
   }
 
+  /**
+   * @deprecated since Tobago 1.5.0. Please use {@link org.apache.myfaces.tobago.renderkit.css.Classes}.
+   */
+  @Deprecated
   public static void removeStyleClasses(UIComponent cell) {
     Object obj = cell.getAttributes().get(Attributes.STYLE_CLASS);
     if (obj != null && obj instanceof StyleClasses && cell.getRendererType() != null) {
