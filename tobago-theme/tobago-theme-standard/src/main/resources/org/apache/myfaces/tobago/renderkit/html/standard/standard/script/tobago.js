@@ -72,7 +72,7 @@ var Tobago = {
    */
   scriptIdRegExp: new RegExp('[/.-]', 'g'),
 
-  scriptFragmentRegExp: '(?:<script(?:\n|.)*?>)(?:(?:\n|\s)*?<!--)?((\n|.)*?)(?:<\/script>)',
+  scriptFragmentRegExp: /(?:<script(?:\n|.)*?>)(?:(?:\n|\s)*?<!--)?((\n|.)*?)(?:<\/script>)/,
 
   // -------- Variables -------------------------------------------------------
 
