@@ -17,10 +17,40 @@ package org.apache.myfaces.tobago.context;
  * limitations under the License.
  */
 
+import java.io.Serializable;
+
 /**
- *
  * @since 1.5.0
  */
-public final class TobagoStyle extends TobagoResource {
+public class ThemeResource implements Serializable {
 
+  private String name;
+
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (!(o instanceof ThemeResource)) {
+      return false;
+    }
+
+    ThemeResource that = (ThemeResource) o;
+
+    return !(name != null ? !name.equals(that.name) : that.name != null);
+
+  }
+
+  @Override
+  public int hashCode() {
+    return name != null ? name.hashCode() : 0;
+  }
 }

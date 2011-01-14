@@ -64,10 +64,10 @@ class ThemeParser {
     digester.addObjectCreate("tobago-theme/resources", ThemeResources.class);
     digester.addSetProperties("tobago-theme/resources");
     digester.addSetNext("tobago-theme/resources", "addResources");
-    digester.addObjectCreate("tobago-theme/resources/script", TobagoScript.class);
+    digester.addObjectCreate("tobago-theme/resources/script", ThemeScript.class);
     digester.addSetProperties("tobago-theme/resources/script");
     digester.addSetNext("tobago-theme/resources/script", "addScript");
-    digester.addObjectCreate("tobago-theme/resources/style", TobagoStyle.class);
+    digester.addObjectCreate("tobago-theme/resources/style", ThemeStyle.class);
     digester.addSetProperties("tobago-theme/resources/style");
     digester.addSetNext("tobago-theme/resources/style", "addStyle");
 

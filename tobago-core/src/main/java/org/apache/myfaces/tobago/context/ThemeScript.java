@@ -18,11 +18,7 @@ package org.apache.myfaces.tobago.context;
  */
 
 /**
- *
  * @since 1.5.0
  */
-public final class TobagoScript extends TobagoResource {
-
-
-
+public final class ThemeScript extends ThemeResource {
 }

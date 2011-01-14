@@ -29,8 +29,8 @@ import java.util.List;
 public final class ThemeResources implements Serializable {
 
   private boolean production;
-  private List<TobagoScript> scriptList = new ArrayList<TobagoScript>();
-  private List<TobagoStyle> styleList = new ArrayList<TobagoStyle>();
+  private List<ThemeScript> scriptList = new ArrayList<ThemeScript>();
+  private List<ThemeStyle> styleList = new ArrayList<ThemeStyle>();
 
   public ThemeResources copy() {
     ThemeResources resources = new ThemeResources();
@@ -48,19 +48,19 @@ public final class ThemeResources implements Serializable {
     this.production = production;
   }
 
-  public boolean addScript(TobagoScript script) {
+  public boolean addScript(ThemeScript script) {
     return scriptList.add(script);
   }
 
-  public boolean addStyle(TobagoStyle style) {
+  public boolean addStyle(ThemeStyle style) {
     return styleList.add(style);
   }
 
-  public List<TobagoScript> getScriptList() {
+  public List<ThemeScript> getScriptList() {
     return scriptList;
   }
 
-  public List<TobagoStyle> getStyleList() {
+  public List<ThemeStyle> getStyleList() {
     return styleList;
   }
 }

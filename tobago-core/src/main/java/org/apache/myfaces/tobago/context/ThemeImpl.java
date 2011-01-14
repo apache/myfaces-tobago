@@ -229,12 +229,12 @@ class ThemeImpl implements Theme, Serializable {
       return;
     }
     for (int i = toAddResources.getScriptList().size()-1; i >= 0; i--) {
-      TobagoScript script = toAddResources.getScriptList().get(i);
+      ThemeScript script = toAddResources.getScriptList().get(i);
       resources.getScriptList().remove(script);
       resources.getScriptList().add(0, script);
     }
     for (int i = toAddResources.getStyleList().size()-1; i >= 0; i--) {
-      TobagoStyle style = toAddResources.getStyleList().get(i);
+      ThemeStyle style = toAddResources.getStyleList().get(i);
       resources.getStyleList().remove(style);
       resources.getStyleList().add(0, style);
     }
