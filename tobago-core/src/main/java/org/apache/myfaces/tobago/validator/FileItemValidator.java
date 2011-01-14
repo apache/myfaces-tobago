@@ -20,7 +20,7 @@ package org.apache.myfaces.tobago.validator;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.myfaces.tobago.internal.component.AbstractUIFileInput;
 import org.apache.myfaces.tobago.internal.util.ContentType;
-import org.apache.myfaces.tobago.util.MessageFactory;
+import org.apache.myfaces.tobago.util.MessageUtils;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.StateHolder;
@@ -49,13 +49,13 @@ public class FileItemValidator implements Validator, StateHolder {
   private String[] contentType;
   private boolean transientValue;
 
-  public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
+  public void validate(FacesContext facesContext, UIComponent component, Object value) throws ValidatorException {
     if (value != null && component instanceof AbstractUIFileInput) {
       FileItem file = (FileItem) value;
       if (maxSize != null && file.getSize() > maxSize) {
-        Object[] args = {maxSize, component.getId()};
-        FacesMessage facesMessage = MessageFactory.createFacesMessage(context,
-            SIZE_LIMIT_MESSAGE_ID, FacesMessage.SEVERITY_ERROR, args);
+        FacesMessage facesMessage = MessageUtils.getMessage(
+            facesContext, facesContext.getViewRoot().getLocale(), FacesMessage.SEVERITY_ERROR,
+            SIZE_LIMIT_MESSAGE_ID, maxSize, component.getId());
         throw new ValidatorException(facesMessage);
       }
       // Check only a valid file
@@ -74,9 +74,9 @@ public class FileItemValidator implements Validator, StateHolder {
           } else {
             message = Arrays.toString(contentType);
           }
-          Object[] args = {message, component.getId()};
-          FacesMessage facesMessage = MessageFactory.createFacesMessage(context,
-              CONTENT_TYPE_MESSAGE_ID, FacesMessage.SEVERITY_ERROR, args);
+          FacesMessage facesMessage = MessageUtils.getMessage(
+              facesContext, facesContext.getViewRoot().getLocale(), FacesMessage.SEVERITY_ERROR,
+              CONTENT_TYPE_MESSAGE_ID, message, component.getId());
           throw new ValidatorException(facesMessage);
         }
       }

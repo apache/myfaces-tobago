@@ -18,7 +18,7 @@ package org.apache.myfaces.tobago.validator;
  */
 
 import org.apache.myfaces.tobago.apt.annotation.Validator;
-import org.apache.myfaces.tobago.util.MessageFactory;
+import org.apache.myfaces.tobago.util.MessageUtils;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.EditableValueHolder;
@@ -81,14 +81,14 @@ public class SubmittedValueLengthValidator extends LengthValidator {
       String submittedValue = ((EditableValueHolder) uiComponent).getSubmittedValue().toString();
       if (maximum != null && submittedValue.length() > maximum) {
         Object[] args = {maximum, uiComponent.getId()};
-        FacesMessage facesMessage =
-            MessageFactory.createFacesMessage(facesContext, MAXIMUM_MESSAGE_ID, FacesMessage.SEVERITY_ERROR, args);
+        FacesMessage facesMessage = MessageUtils.getMessage(facesContext,
+            facesContext.getViewRoot().getLocale(), FacesMessage.SEVERITY_ERROR, MAXIMUM_MESSAGE_ID, args);
         throw new ValidatorException(facesMessage);
       }
       if (minimum != null && submittedValue.length() < minimum) {
         Object[] args = {minimum, uiComponent.getId()};
-        FacesMessage facesMessage =
-            MessageFactory.createFacesMessage(facesContext, MINIMUM_MESSAGE_ID, FacesMessage.SEVERITY_ERROR, args);
+        FacesMessage facesMessage = MessageUtils.getMessage(facesContext,
+            facesContext.getViewRoot().getLocale(), FacesMessage.SEVERITY_ERROR, MINIMUM_MESSAGE_ID, args);
         throw new ValidatorException(facesMessage);
       }
     }
@@ -99,16 +99,13 @@ public class SubmittedValueLengthValidator extends LengthValidator {
     values[0] = maximum;
     values[1] = minimum;
     return values;
-
   }
-
 
   public void restoreState(FacesContext context, Object state) {
     Object[] values = (Object[]) state;
     maximum = (Integer) values[0];
     minimum = (Integer) values[1];
   }
-
 
   public boolean equals(Object o) {
     if (this == o) {

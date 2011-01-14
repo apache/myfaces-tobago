@@ -21,7 +21,6 @@
   <application>
     <default-render-kit-id>tobago</default-render-kit-id>
     <view-handler>org.apache.myfaces.tobago.internal.application.ViewHandlerImpl</view-handler>
-    <message-bundle>org.apache.myfaces.tobago.context.TobagoResourceBundle</message-bundle>
   </application>
   <component>
     <component-type>javax.faces.NamingContainer</component-type>

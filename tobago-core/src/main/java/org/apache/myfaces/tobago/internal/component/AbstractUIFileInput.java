@@ -19,17 +19,13 @@ package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.commons.fileupload.FileItem;
 import org.apache.myfaces.tobago.layout.LayoutComponent;
-import org.apache.myfaces.tobago.util.MessageFactory;
+import org.apache.myfaces.tobago.util.MessageUtils;
 
 import javax.faces.application.FacesMessage;
+import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 
-/*
- * Date: 10.02.2006
- * Time: 19:02:13
- */
-public abstract class AbstractUIFileInput 
-    extends javax.faces.component.UIInput implements LayoutComponent {
+public abstract class AbstractUIFileInput extends UIInput implements LayoutComponent {
 
   public void validate(FacesContext facesContext) {
     if (isRequired()) {
@@ -48,9 +44,7 @@ public abstract class AbstractUIFileInput
   }
 
   private void addErrorMessage(FacesContext facesContext) {
-    FacesMessage facesMessage = MessageFactory.createFacesMessage(
-        facesContext, REQUIRED_MESSAGE_ID, FacesMessage.SEVERITY_ERROR);
-    facesContext.addMessage(getClientId(facesContext), facesMessage);
+    MessageUtils.addMessage(
+        facesContext, this, FacesMessage.SEVERITY_ERROR, REQUIRED_MESSAGE_ID, new Object[]{getId()});
   }
-
 }

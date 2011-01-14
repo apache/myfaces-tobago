@@ -19,12 +19,13 @@ package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.myfaces.tobago.component.SupportsMarkup;
 import org.apache.myfaces.tobago.layout.LayoutComponent;
-import org.apache.myfaces.tobago.util.MessageFactory;
+import org.apache.myfaces.tobago.util.MessageUtils;
 
 import javax.faces.application.FacesMessage;
+import javax.faces.component.UISelectBoolean;
 import javax.faces.context.FacesContext;
 
-public abstract class AbstractUISelectBooleanCheckbox extends javax.faces.component.UISelectBoolean 
+public abstract class AbstractUISelectBooleanCheckbox extends UISelectBoolean
     implements LayoutComponent, SupportsMarkup {
 
   public boolean isSelected() {
@@ -39,18 +40,17 @@ public abstract class AbstractUISelectBooleanCheckbox extends javax.faces.compon
     }
   }
 
-  protected void validateValue(FacesContext context, Object convertedValue) {
+  protected void validateValue(FacesContext facesContext, Object convertedValue) {
     if (isRequired()) {
       if (convertedValue instanceof Boolean && !((Boolean) convertedValue)
           // String: e. g. if there is no ValueExpression
           || convertedValue instanceof String && !Boolean.parseBoolean((String) convertedValue)) {
-        FacesMessage facesMessage = MessageFactory.createFacesMessage(context,
-            REQUIRED_MESSAGE_ID, FacesMessage.SEVERITY_ERROR, new Object[]{getId()});
-        context.addMessage(getClientId(context), facesMessage);
+        MessageUtils.addMessage(
+            facesContext, this, FacesMessage.SEVERITY_ERROR, REQUIRED_MESSAGE_ID, new Object[]{getId()});
         setValid(false);
         return;
       }
     }
-    super.validateValue(context, convertedValue);
+    super.validateValue(facesContext, convertedValue);
   }
 }

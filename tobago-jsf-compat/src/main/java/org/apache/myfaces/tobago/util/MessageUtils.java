@@ -17,9 +17,12 @@ package org.apache.myfaces.tobago.util;
  * limitations under the License.
  */
 
+import org.apache.commons.beanutils.ConstructorUtils;
 import org.apache.myfaces.tobago.application.LabelValueBindingFacesMessage;
 import org.apache.myfaces.tobago.application.LabelValueExpressionFacesMessage;
 import org.apache.myfaces.tobago.compat.FacesUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
@@ -29,48 +32,62 @@ import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
-// TODO merge with MessageFactory
+/**
+ * Utility to create and add {@link FacesMessage} object to the context.
+ * The message will be internationalized with a bundle in the following order:
+ * <ol>
+ * <li>Application bundle</li>
+ * <li>Tobago bundle</li>
+ * <li>Default JSF bundle</li>
+ * </ol>
+ */
 public class MessageUtils {
 
-    private static final String DETAIL_SUFFIX = "_detail";
-  
-    public static void addMessage(FacesContext facesContext, UIComponent component, FacesMessage.Severity severity,
-        String messageId, Object[] args) {
-      facesContext.addMessage(component.getClientId(facesContext),
-          getMessage(facesContext, facesContext.getViewRoot().getLocale(), severity, messageId, args));
-    }
-  
-    public static FacesMessage getMessage(FacesContext facesContext, Locale locale,
-        FacesMessage.Severity severity, String messageId, Object... args) {
-  
-      String detail;
-      ResourceBundle appBundle = getApplicationBundle(facesContext, locale);
-      String summary = getBundleString(appBundle, messageId);
-      if (summary != null) {
-        detail = getBundleString(appBundle, messageId + DETAIL_SUFFIX);
-      } else {
+  private static final Logger LOG = LoggerFactory.getLogger(MessageUtils.class);
+
+  private static final String DETAIL_SUFFIX = "_detail";
+
+  public static void addMessage(
+      FacesContext facesContext, UIComponent component, FacesMessage.Severity severity,
+      String messageId, Object[] args) {
+    facesContext.addMessage(component.getClientId(facesContext),
+        getMessage(facesContext, facesContext.getViewRoot().getLocale(), severity, messageId, args));
+  }
+
+  public static FacesMessage getMessage(
+      FacesContext facesContext, Locale locale,
+      FacesMessage.Severity severity, String messageId, Object... args) {
+
+    ResourceBundle appBundle = getApplicationBundle(facesContext, locale);
+    String summary = getBundleString(appBundle, messageId);
+    String detail = getBundleString(appBundle, messageId + DETAIL_SUFFIX);
+
+    if (summary == null || detail == null) {
+      ResourceBundle tobagoBundle = getTobagoBundle();
+      if (summary == null) {
+        summary = getBundleString(tobagoBundle, messageId);
+      }
+      if (detail == null) {
+        detail = getBundleString(tobagoBundle, messageId + DETAIL_SUFFIX);
+      }
+
+      if (summary == null || detail == null) {
         ResourceBundle defBundle = getDefaultBundle(facesContext, locale);
-        summary = getBundleString(defBundle, messageId);
-        if (summary != null) {
+        if (summary == null) {
+          summary = getBundleString(defBundle, messageId);
+        }
+        if (detail == null) {
           detail = getBundleString(defBundle, messageId + DETAIL_SUFFIX);
-        } else {
-          //Try to find detail alone
-          detail = getBundleString(appBundle, messageId + DETAIL_SUFFIX);
-          if (detail != null) {
-            summary = null;
-          } else {
-            detail = getBundleString(defBundle, messageId + DETAIL_SUFFIX);
-            if (detail != null) {
-              summary = null;
-            } else {
-              //Neither detail nor summary found
-              facesContext.getExternalContext().log("No message with id " + messageId + " found in any bundle");
-              return new FacesMessage(severity, messageId, null);
-            }
-          }
         }
       }
-  
+    }
+
+    if (summary == null && detail == null) {
+      //Neither detail nor summary found
+      facesContext.getExternalContext().log("No message with id " + messageId + " found in any bundle");
+      return new FacesMessage(severity, messageId, null);
+    }
+
     if (FacesUtils.supportsEL()) {
       if (args != null && args.length > 0) {
         MessageFormat format;
@@ -88,38 +105,50 @@ public class MessageUtils {
     } else {
       return new LabelValueBindingFacesMessage(severity, summary, detail, locale, args);
     }
+  }
+
+  private static String getBundleString(ResourceBundle bundle, String key) {
+    try {
+      return bundle == null ? null : bundle.getString(key);
+    } catch (MissingResourceException e) {
+      return null;
     }
-    
-    private static String getBundleString(ResourceBundle bundle, String key) {
+  }
+
+  private static ResourceBundle getApplicationBundle(FacesContext facesContext, Locale locale) {
+    String bundleName = facesContext.getApplication().getMessageBundle();
+    return bundleName != null ? getBundle(facesContext, locale, bundleName) : null;
+  }
+
+  private static ResourceBundle getTobagoBundle() {
+    // XXX This is ugly, can be removed after merging tobago-jsf-compat to tobago-core
+    try {
+      Class clazz = Class.forName("org.apache.myfaces.tobago.context.TobagoResourceBundle");
+      Object bundle = ConstructorUtils.invokeConstructor(clazz, new Object[0]);
+      return (ResourceBundle) bundle;
+    } catch (Exception e) {
+      LOG.error("Can't create TobagoResourceBundle, but it should be in the core.", e);
+      return null; // should not be possible.
+    }
+  }
+
+  private static ResourceBundle getDefaultBundle(FacesContext facesContext, Locale locale) {
+    return getBundle(facesContext, locale, FacesMessage.FACES_MESSAGES);
+  }
+
+  private static ResourceBundle getBundle(FacesContext facesContext, Locale locale, String bundleName) {
+    try {
+      return ResourceBundle.getBundle(bundleName, locale, MessageUtils.class.getClassLoader());
+    } catch (MissingResourceException ignore2) {
       try {
-        return bundle == null ? null : bundle.getString(key);
-      } catch (MissingResourceException e) {
+        return ResourceBundle.getBundle(bundleName, locale, Thread.currentThread().getContextClassLoader());
+      } catch (MissingResourceException damned) {
+        facesContext.getExternalContext().log("resource bundle " + bundleName + " could not be found");
         return null;
       }
     }
-  
-    private static ResourceBundle getApplicationBundle(FacesContext facesContext, Locale locale) {
-      String bundleName = facesContext.getApplication().getMessageBundle();
-      return bundleName != null ? getBundle(facesContext, locale, bundleName) : null;
-    }
-  
-    private static ResourceBundle getDefaultBundle(FacesContext facesContext, Locale locale) {
-      return getBundle(facesContext, locale, FacesMessage.FACES_MESSAGES);
-    }
-  
-    private static ResourceBundle getBundle(FacesContext facesContext, Locale locale, String bundleName) {
-      try {
-        return ResourceBundle.getBundle(bundleName, locale, MessageUtils.class.getClassLoader());
-      } catch (MissingResourceException ignore2) {
-        try {
-          return ResourceBundle.getBundle(bundleName, locale, Thread.currentThread().getContextClassLoader());
-        } catch (MissingResourceException damned) {
-          facesContext.getExternalContext().log("resource bundle " + bundleName + " could not be found");
-          return null;
-        }
-      }
-    }
-  
+  }
+
   public static String getLabel(FacesContext facesContext, UIComponent component) {
     Object label = component.getAttributes().get("label");
     if (label != null) {
@@ -138,5 +167,4 @@ public class MessageUtils {
     }
     return message;
   }
-
 }

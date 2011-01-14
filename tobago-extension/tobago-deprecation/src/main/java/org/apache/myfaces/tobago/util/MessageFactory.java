@@ -17,8 +17,6 @@ package org.apache.myfaces.tobago.util;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.application.ProjectStage;
-import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 
 import javax.faces.application.FacesMessage;
@@ -30,6 +28,10 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
 
+/**
+ * @deprecated since Tobago 1.5.0. Please use {@link MessageUtils} instead
+ */
+@Deprecated
 public final class MessageFactory {
 
   public MessageFactory() {
@@ -38,16 +40,19 @@ public final class MessageFactory {
 
   private static final Map<Locale, ResourceBundle> FACES_MESSAGES_MAP = new HashMap<Locale, ResourceBundle>();
 
+  @Deprecated
   public static FacesMessage createFacesMessage(
       FacesContext facesContext, String key, FacesMessage.Severity severity, Object[] args) {
     return createFacesMessage(facesContext, "tobago", key, severity, args);
   }
 
+  @Deprecated
   public static FacesMessage createFacesMessage(
       FacesContext facesContext, String key, FacesMessage.Severity severity) {
     return createFacesMessage(facesContext, key, severity, new Object[0]);
   }
 
+  @Deprecated
   public static FacesMessage createFacesMessage(
       FacesContext facesContext, String bundle, String key, FacesMessage.Severity severity, Object[] args) {
     String summary = getMessageText(facesContext, bundle, key);
@@ -67,6 +72,7 @@ public final class MessageFactory {
     return new FacesMessage(severity, summary != null ? summary : key, detail);
   }
 
+  @Deprecated
   public static Locale getLocale(FacesContext facesContext) {
     UIViewRoot root = facesContext.getViewRoot();
     Locale locale;
@@ -78,11 +84,13 @@ public final class MessageFactory {
     return locale;
   }
 
+  @Deprecated
   public static FacesMessage createFacesMessage(
       FacesContext facesContext, String bundle, String key, FacesMessage.Severity severity) {
     return createFacesMessage(facesContext, bundle, key, severity, new Object[0]);
   }
 
+  @Deprecated
   public static String getMessageText(
       FacesContext facesContext, String bundle, String key) {
     String message = ResourceManagerUtils.getProperty(facesContext, bundle, key);
@@ -97,6 +105,7 @@ public final class MessageFactory {
     return message;
   }
 
+  @Deprecated
   public static ResourceBundle getFacesMessages(Locale locale) {
     ResourceBundle facesMessages = FACES_MESSAGES_MAP.get(locale);
     if (facesMessages == null) {
@@ -106,14 +115,4 @@ public final class MessageFactory {
     }
     return facesMessages;
   }
-
-  /**
-   * Creates a message and adds it to the faces context, if the project stage is development.
-   */
-  public static void addDevelopmentMessage(FacesContext facesContext, String message) {
-    if (TobagoConfig.getInstance(FacesContext.getCurrentInstance()).getProjectStage() == ProjectStage.Development) {
-      facesContext.addMessage(null, new FacesMessage(message));
-    }
-  }
-
 }

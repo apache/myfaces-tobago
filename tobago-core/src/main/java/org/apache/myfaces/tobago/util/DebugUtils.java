@@ -17,6 +17,10 @@ package org.apache.myfaces.tobago.util;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.application.ProjectStage;
+import org.apache.myfaces.tobago.config.TobagoConfig;
+
+import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.util.Map;
@@ -87,4 +91,11 @@ public class DebugUtils {
     }
     return buffer.toString();
   }
+
+  public static void addDevelopmentMessage(FacesContext facesContext, String message) {
+    if (TobagoConfig.getInstance(FacesContext.getCurrentInstance()).getProjectStage() == ProjectStage.Development) {
+      facesContext.addMessage(null, new FacesMessage(message));
+    }
+  }
+
 }

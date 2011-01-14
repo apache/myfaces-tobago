@@ -19,7 +19,7 @@ package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.myfaces.tobago.component.SupportsMarkup;
 import org.apache.myfaces.tobago.layout.LayoutComponent;
-import org.apache.myfaces.tobago.util.MessageFactory;
+import org.apache.myfaces.tobago.util.MessageUtils;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -33,9 +33,8 @@ public abstract class AbstactUISelectOneBase extends javax.faces.component.UISel
     if (isRequired()  && !isReadonly()) {
       Object submittedValue = getSubmittedValue();
       if (submittedValue == null || "".equals(submittedValue)) {
-        FacesMessage facesMessage = MessageFactory.createFacesMessage(
-            facesContext, MESSAGE_VALUE_REQUIRED, FacesMessage.SEVERITY_ERROR);
-        facesContext.addMessage(getClientId(facesContext), facesMessage);
+        MessageUtils.addMessage(
+            facesContext, this, FacesMessage.SEVERITY_ERROR, MESSAGE_VALUE_REQUIRED, new Object[]{getId()});
         setValid(false);
       }
     }
