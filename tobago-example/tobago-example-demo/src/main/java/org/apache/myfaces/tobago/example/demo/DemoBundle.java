@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.context;
+package org.apache.myfaces.tobago.example.demo;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -17,14 +17,13 @@ package org.apache.myfaces.tobago.context;
  * limitations under the License.
  */
 
-/**
- * This ResourceBundle encapsulate string resources of Tobago components.
- * This class works like the Java resource bundle mechanism for the resource bundle "tobago"
- * and adds the functionality of the tobago themes and also supports XML properties files.
- */
-public class TobagoResourceBundle extends TobagoBundle {
+import org.apache.myfaces.tobago.context.TobagoBundle;
 
-  public TobagoResourceBundle() {
-    super("tobago");
+/**
+ * Resources of the demo application.
+ */
+public class DemoBundle extends TobagoBundle {
+  public DemoBundle() {
+    super("overview");
   }
 }

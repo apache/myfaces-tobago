@@ -29,9 +29,15 @@ import javax.servlet.jsp.tagext.TagSupport;
 import java.util.Map;
 
 /**
- * Load a resource bundle localized for the Locale of the current view
- * from the tobago resource path, and expose it (as a Map) in the request
- * attributes of the current request.
+ * Load a resource bundle localized for the locale of the current view
+ * from the tobago resource path, and expose it (as a Map) in the session
+ * attributes (session scope is needed to support ajax requests).
+ * <p>
+ * The main difference to the JSF tag f:localBundle is the support of Tobago themes and
+ * the XML formal for properties files.
+ * <p>
+ * Since JSF 1.2 it is possible to use a {@link org.apache.myfaces.tobago.context.TobagoBundle}
+ * and configure it in the faces-config.xml.
  */
 @Tag(name = "loadBundle", bodyContent = BodyContent.EMPTY)
 @TagGeneration(className = "org.apache.myfaces.tobago.internal.taglib.LoadBundleTag")
@@ -56,12 +62,9 @@ public abstract class LoadBundleTag extends TagSupport {
     FacesContext context = FacesContext.getCurrentInstance();
 
     Map toStore = new BundleMapWrapper(getBasenameValue());
-    // TODO find a better way
+    // (session scope is needed to support ajax requests)
     context.getExternalContext().getSessionMap().put(getVarValue(), toStore);
-//        .getRequestMap().put(var, toStore);
 
     return EVAL_BODY_INCLUDE;
   }
-
 }
-

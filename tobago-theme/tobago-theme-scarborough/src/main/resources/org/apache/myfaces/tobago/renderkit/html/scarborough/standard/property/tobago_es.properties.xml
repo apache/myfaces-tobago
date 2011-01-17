@@ -75,41 +75,6 @@
   <!-- messages -->
   <entry key="tobago.message.confirmation.title">Aviso</entry>
 
-  <!-- requiredvalidator -->
-  <entry key="tobago.requiredvalidator.message.empty.summary">Campo requerido.</entry>
-  <entry key="tobago.requiredvalidator.message.empty.detail">Campo es requerido.</entry>
-
-  <!-- longrangevalidator -->
-  <entry key="tobago.longrangevalidator.message.range.summary">Fuera de rango.</entry>
-  <entry key="tobago.longrangevalidator.message.range.detail">El valor debe de ser entre {0} y {1}.</entry>
-  <entry key="tobago.longrangevalidator.message.type.summary">Tipo erroneo.</entry>
-  <entry key="tobago.longrangevalidator.message.type.detail">El valor no es del tipo correcto.</entry>
-  <entry key="tobago.message.number_conversion_error.summary">Número no se puede convertir.</entry>
-  <entry key="tobago.message.number_conversion_error.detail">No se puede convertir ''{0}'' a tipo de número {1}.</entry>
-  <entry key="tobago.message.conversion_error.summary">No se puede convertir.</entry>
-  <entry key="tobago.message.conversion_error.detail">No se puede convertir ''{0}'' al tipo {1}.</entry>
-  <entry key="tobago.tree.MESSAGE_NOT_LEAF">Solo se permite seleccionar hojas.</entry>
-  <entry key="tobago.SelectOne.MESSAGE_VALUE_REQUIRED">Se requiere seleccionar.</entry>
-
-  <!-- richtexteditor -->
-  <entry key="tobago.richtexteditor.edit.label">Editar</entry>
-  <entry key="tobago.richtexteditor.edit.title">Pasar al modo de edición.</entry>
-  <entry key="tobago.richtexteditor.preview.label">Vista previa</entry>
-  <entry key="tobago.richtexteditor.preview.title">Cambiar a modo de vista previa.</entry>
-  <entry key="browser.noframe.message.prefix">[ Tu navegador no soporta frames o está configurado para no desplegar frames. Como sea, puedes visitar</entry>
-  <entry key="browser.noframe.message.postfix">el documento relacionado. ]</entry>
-
-
-  <!--  jsf messages -->
-  <entry key="javax.faces.validator.LengthValidator.MAXIMUM">Maximo de "{0}" caracteres fue excedido!</entry>
-  <entry key="javax.faces.validator.LengthValidator.MAXIMUM_detail">El valor es mayor que el permitido de "{0}" caracteres!</entry>
-  <entry key="javax.faces.validator.LengthValidator.MINIMUM">Minimo de "{0}" caracteres!</entry>
-  <entry key="javax.faces.validator.LengthValidator.MINIMUM_detail">El valor es menor que el permitido de "{0}" caracteres!</entry>
-
   <entry key="tobago.ajax.response.error">Error en el servidor: No hay respuesta del servidor. Probablemente debido a un tiempo agotado de sesion!</entry>
-  <entry key="org.apache.myfaces.tobago.FileItemValidator.CONTENT_TYPE">Error de tipo de contenido</entry>
-  <entry key="org.apache.myfaces.tobago.FileItemValidator.CONTENT_TYPE_detail">El archivo no es del tipo de contenido "{0}".</entry>
-  <entry key="org.apache.myfaces.tobago.FileItemValidator.SIZE_LIMIT">Error en el tamaño del archivo</entry>
-  <entry key="org.apache.myfaces.tobago.FileItemValidator.SIZE_LIMIT_detail">El archivo subido excede el máximo tamaño de {0} bytes.</entry>
 
 </properties>

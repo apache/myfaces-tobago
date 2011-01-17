@@ -18,13 +18,15 @@ package org.apache.myfaces.tobago.context;
  */
 
 /**
- * This ResourceBundle encapsulate string resources of Tobago components.
- * This class works like the Java resource bundle mechanism for the resource bundle "tobago"
+ * This ResourceBundle encapsulate the messages (e. g. validation) of Tobago components.
+ * This class works like the Java resource bundle mechanism for the resource bundle "tobago-message"
  * and adds the functionality of the tobago themes and also supports XML properties files.
+ *
+ * @since 1.5.0
  */
-public class TobagoResourceBundle extends TobagoBundle {
+public class TobagoMessageBundle extends TobagoBundle {
 
-  public TobagoResourceBundle() {
-    super("tobago");
+  public TobagoMessageBundle() {
+    super("tobago-message");
   }
 }

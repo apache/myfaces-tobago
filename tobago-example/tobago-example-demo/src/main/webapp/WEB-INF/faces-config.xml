@@ -17,11 +17,11 @@
  * limitations under the License.
 -->
 
-<!DOCTYPE faces-config PUBLIC
-  "-//Sun Microsystems, Inc.//DTD JavaServer Faces Config 1.1//EN"
-  "http://java.sun.com/dtd/web-facesconfig_1_1.dtd">
-
-<faces-config>
+<faces-config
+    xmlns="http://java.sun.com/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_1_2.xsd"
+    version="1.2">
 
   <application>
     <view-handler>
@@ -38,11 +38,15 @@
       <supported-locale>de_DE</supported-locale>
       <supported-locale>de_AT</supported-locale>
       <supported-locale>de_CH</supported-locale>
-<!--      <supported-locale>es</supported-locale>-->
+      <supported-locale>es</supported-locale>
       <supported-locale>ja_JP</supported-locale>
       <supported-locale>ru_RU</supported-locale>
-<!--      <supported-locale>zh_TW</supported-locale>-->
+      <supported-locale>zh_TW</supported-locale>
     </locale-config>
+    <resource-bundle>
+      <base-name>org.apache.myfaces.tobago.example.demo.DemoBundle</base-name>
+      <var>overviewBundle</var>
+    </resource-bundle>
   </application>
 
   <converter>
