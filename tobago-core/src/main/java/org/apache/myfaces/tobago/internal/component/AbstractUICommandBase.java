@@ -71,5 +71,7 @@ public abstract class AbstractUICommandBase extends javax.faces.component.UIComm
 
   public abstract String getLink();
 
+  public abstract String getOnclick();
+
   public abstract String getTarget();
 }

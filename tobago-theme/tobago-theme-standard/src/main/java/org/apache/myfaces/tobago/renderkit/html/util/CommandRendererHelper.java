@@ -48,15 +48,11 @@ public class CommandRendererHelper {
   private String href;
   private String target;
 
-  public CommandRendererHelper(FacesContext facesContext, AbstractUICommandBase component) {
-    initOnclick(facesContext, component, null);
+  public CommandRendererHelper(FacesContext facesContext, AbstractUICommandBase command) {
+    this(facesContext, command, null);
   }
 
-  public CommandRendererHelper(FacesContext facesContext, AbstractUICommandBase component, Tag tag) {
-    initOnclick(facesContext, component, tag);
-  }
-
-  private void initOnclick(FacesContext facesContext, AbstractUICommandBase command, Tag tag) {
+  public CommandRendererHelper(FacesContext facesContext, AbstractUICommandBase command, Tag tag) {
 
     disabled = ComponentUtils.getBooleanAttribute(command, Attributes.DISABLED);
 
@@ -76,7 +72,7 @@ public class CommandRendererHelper {
       boolean defaultCommand = ComponentUtils.getBooleanAttribute(command, Attributes.DEFAULT_COMMAND);
       boolean transition = ComponentUtils.getBooleanAttribute(command, Attributes.TRANSITION);
 
-      if (command.getLink() != null || command.getResource() != null) {
+      if (StringUtils.isNotEmpty(command.getLink()) || StringUtils.isNotEmpty(command.getResource())) {
         String url = generateUrl(facesContext, command);
         if (tag == Tag.ANCHOR) {
           onclick = null;
@@ -86,25 +82,25 @@ public class CommandRendererHelper {
           // TODO target
           onclick = "Tobago.navigateToUrl('" + url + "');";
         }
-      } else if (command.getAttributes().get(Attributes.ONCLICK) != null) {
+      } else if (StringUtils.isNotEmpty(command.getOnclick())) {
         onclick = prepareOnClick(facesContext, command);
       } else if (command.getRenderedPartially().length > 0) {
 
         String[] componentIds = command.getRenderedPartially();
 
-          // TODO find a better way
-          boolean popupAction = ComponentUtils.containsPopupActionListener(command);
-          if (popupAction) {
-            if (componentIds.length != 1) {
-              LOG.warn("more than one partially rendered component is not supported for popup! using first one: "
-              + Arrays.toString(componentIds));
-            }
-            onclick = "Tobago.openPopupWithAction(this, '"
-                + HtmlRendererUtils.getComponentId(facesContext, command, componentIds[0]) + "', '" + clientId + "');";
-          } else {
-            onclick = "Tobago.reloadComponent(this, '"
-                + HtmlRendererUtils.getComponentIds(facesContext, command, componentIds) + "','" + clientId + "', {});";
+        // TODO find a better way
+        boolean popupAction = ComponentUtils.containsPopupActionListener(command);
+        if (popupAction) {
+          if (componentIds.length != 1) {
+            LOG.warn("more than one partially rendered component is not supported for popup! using first one: "
+                + Arrays.toString(componentIds));
           }
+          onclick = "Tobago.openPopupWithAction(this, '"
+              + HtmlRendererUtils.getComponentId(facesContext, command, componentIds[0]) + "', '" + clientId + "');";
+        } else {
+          onclick = "Tobago.reloadComponent(this, '"
+              + HtmlRendererUtils.getComponentIds(facesContext, command, componentIds) + "','" + clientId + "', {});";
+        }
 
       } else if (defaultCommand) {
         ComponentUtils.findPage(facesContext, command).setDefaultActionId(clientId);
@@ -134,9 +130,8 @@ public class CommandRendererHelper {
     }
   }
 
-  private String prepareOnClick(FacesContext facesContext, UIComponent component) {
-    String onclick;
-    onclick = (String) component.getAttributes().get(Attributes.ONCLICK);
+  private String prepareOnClick(FacesContext facesContext, AbstractUICommandBase component) {
+    String onclick = component.getOnclick();
     if (onclick.contains("@autoId")) {
       onclick = StringUtils.replace(onclick, "@autoId", component.getClientId(facesContext));
     }

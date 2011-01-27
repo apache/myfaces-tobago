@@ -18,6 +18,8 @@ package org.apache.myfaces.tobago.example.demo;
  */
 
 import org.apache.myfaces.tobago.example.data.CategoryTree;
+import org.apache.myfaces.tobago.example.data.MixedCommandTree;
+import org.apache.myfaces.tobago.example.data.NamedNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,9 +36,12 @@ public class TreeController {
 
   private DefaultMutableTreeNode tree;
 
+  private NamedNode mixed;
+
   public TreeController() {
     // tree
     tree = CategoryTree.createSample2();
+    mixed = MixedCommandTree.createSample();
   }
 
   public String action1() {
@@ -94,13 +99,7 @@ public class TreeController {
     this.tree = tree;
   }
 
-/*
-  public TreeState getState() {
-    return state;
+  public NamedNode getMixed() {
+    return mixed;
   }
-
-  public void setState(TreeState state) {
-    this.state = state;
-  }
-*/
 }
