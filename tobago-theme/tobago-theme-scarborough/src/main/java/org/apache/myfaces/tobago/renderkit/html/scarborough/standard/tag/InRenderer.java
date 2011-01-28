@@ -167,37 +167,17 @@ public class InRenderer extends InputRendererBase {
   }
 
   private void encodeAjax(FacesContext facesContext, UIComponent component) throws IOException {
-    if (!(component instanceof AbstractUIInput)) {
-      LOG.error("Wrong type: Need " + AbstractUIInput.class.getName() + ", but was " + component.getClass().getName());
+    if (!(component instanceof UIIn)) {
+      LOG.error("Wrong type: Need " + UIIn.class.getName() + ", but was " + component.getClass().getName());
       return;
     }
 
-    AbstractUIInput input = (AbstractUIInput) component;
-
-    MethodBinding mb;
-    Object o = null;
-    if (input instanceof UIIn) {
-      o = ((UIIn) input).getSuggestMethod();
-    }
-    if (o instanceof MethodBinding) {
-      mb = (MethodBinding) o;
-    } else {
-      // should never occur
-      return;
-    }
-
-    TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
-
-    Object object = mb.invoke(facesContext, new Object[]{(UIIn) input});
-
-    final AutoSuggestItems items;
-    if (object instanceof AutoSuggestItems) {
-      items = (AutoSuggestItems) object;
-    } else {
-      items = createAutoSuggestItems(object);
-    }
-    List<AutoSuggestItem> suggestItems = items.getItems();
-
+    final UIIn input = (UIIn) component;
+    final MethodBinding methodBinding = input.getSuggestMethod();
+    final AutoSuggestItems items
+            = createAutoSuggestItems(methodBinding.invoke(facesContext, new Object[]{input}));
+    final List<AutoSuggestItem> suggestItems = items.getItems();
+    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
     writer.startJavascript();
 
@@ -259,6 +239,9 @@ public class InRenderer extends InputRendererBase {
   }
 
   private AutoSuggestItems createAutoSuggestItems(Object object) {
+    if (object instanceof AutoSuggestItems) {
+      return (AutoSuggestItems) object;
+    }
     AutoSuggestItems autoSuggestItems = new AutoSuggestItems();
     if (object instanceof List && !((List) object).isEmpty()) {
       if (((List) object).get(0) instanceof AutoSuggestItem) {
