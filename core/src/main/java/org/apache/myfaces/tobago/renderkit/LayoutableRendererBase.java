@@ -24,6 +24,8 @@ import static org.apache.myfaces.tobago.TobagoConstants.FACET_MENUBAR;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_READONLY;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TRANSITION;
+
+import org.apache.commons.lang.StringUtils;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UICell;
 import org.apache.myfaces.tobago.component.UICommand;
@@ -193,6 +195,9 @@ public abstract class LayoutableRendererBase
       if (facetAction == null) {
         facetAction = "Tobago.submitAction2(this, '" + facetComponent.getClientId(facesContext) + "', "
             + ComponentUtil.getBooleanAttribute(facetComponent, ATTR_TRANSITION) + ", null, '" + clientId +"')";
+      } else {
+         // Replace @autoId
+        facetAction = StringUtils.replace(facetAction, "@autoId", facetComponent.getClientId(facesContext));
       }
       String script =
           "var element = Tobago.element(\"" + clientId + "\");\n"
