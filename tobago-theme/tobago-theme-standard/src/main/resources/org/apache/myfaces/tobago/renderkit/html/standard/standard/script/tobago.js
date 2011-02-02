@@ -313,7 +313,7 @@ var Tobago = {
   },
 
   onSubmit: function() {
-    if (Tobago.applicationOnsubmit) {
+    if (jQuery.isFunction(Tobago.applicationOnsubmit)) {
       var result = Tobago.applicationOnsubmit();
       if (!result) {
         this.isSubmit = false;
@@ -938,7 +938,7 @@ var Tobago = {
             element.disabled = true;
             hidden.value += element.id + ',';
           } else {
-            if (firstPopupElement == null && Tobago.isFunction(element.focus)) {
+            if (firstPopupElement == null && jQuery.isFunction(element.focus)) {
               firstPopupElement = element;
             }
           }
@@ -954,7 +954,7 @@ var Tobago = {
             element.disabled = true;
             hidden.value += element.id + ',';
           } else {
-            if (firstPopupElement == null && element.focus) {
+            if (firstPopupElement == null && jQuery.isFunction(element.focus)) {
               firstPopupElement = element;
             }
           }
@@ -2268,7 +2268,7 @@ Tobago.Updater = {
     if (Tobago.Transport.hasTransport()) {
 //    LOG.info("hasTransport");
 
-      if (Tobago.applicationOnsubmit) {
+      if (jQuery.isFunction(Tobago.applicationOnsubmit)) {
         var result = Tobago.applicationOnsubmit();
         if (!result) {
           return;
