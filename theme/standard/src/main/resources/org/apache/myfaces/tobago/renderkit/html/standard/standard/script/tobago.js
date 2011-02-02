@@ -1025,7 +1025,7 @@ var Tobago = {
             element.disabled = true;
             hidden.value += element.id + ",";
           } else {
-            if (firstPopupElement == null && Tobago.isFunction(element.focus)) {
+            if (firstPopupElement == null && element.focus) {
               firstPopupElement = element;
             }
           }
@@ -1041,7 +1041,7 @@ var Tobago = {
             anchor.disabled = true;
             hidden.value += anchor.id + ",";
           } else {
-            if (firstPopupElement == null && Tobago.isFunction(anchor.focus)) {
+            if (firstPopupElement == null && anchor.focus) {
               firstPopupElement = anchor;
             }
           }
@@ -2207,6 +2207,8 @@ Tobago.Updater = {
 
   CODE_RELOAD_REQUIRED: "<status code=\"309\"/>",
 
+  CODE_REDIRECT: "<redirect url=\"",
+
   UPDATE_TIMEOUT: 5000,  // Five seconds
 
   options: {
@@ -2223,6 +2225,10 @@ Tobago.Updater = {
       if (transport.status == 304) {
         LOG.debug("skip update response status 304");
         receiver.skipUpdate = true;
+      } else if (response.substring(0, Tobago.Updater.CODE_REDIRECT.length) == Tobago.Updater.CODE_REDIRECT)  {
+        var url = response.substring(Tobago.Updater.CODE_REDIRECT.length);
+        url = url.substring(0, url.indexOf('\"'));
+        window.location = url;
       } else if (response.substring(0, Tobago.Updater.CODE_NOT_MODIFIED.length) == Tobago.Updater.CODE_NOT_MODIFIED) {
         // no update needed, do nothing
         LOG.debug("skip update");
@@ -2271,7 +2277,7 @@ Tobago.Updater = {
       if (options) {
         Tobago.extend(requestOptions, options);
       }
-
+      // TODO should isFunction used?
       if (Tobago.isFunction(requestOptions.createOverlay)) {
         Tobago.createOverlay(container);
         if (requestOptions.onFailure === undefined) {
