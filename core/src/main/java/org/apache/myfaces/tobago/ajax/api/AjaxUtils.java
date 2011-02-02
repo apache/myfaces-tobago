@@ -21,12 +21,22 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIViewRoot;
+import org.apache.myfaces.tobago.util.ResponseUtils;
 
+import javax.faces.FactoryFinder;
+import javax.faces.application.Application;
+import javax.faces.application.ViewHandler;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import javax.faces.context.ResponseWriter;
 import javax.faces.event.PhaseId;
+import javax.faces.render.RenderKit;
+import javax.faces.render.RenderKitFactory;
 import javax.faces.render.Renderer;
+import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -39,7 +49,9 @@ public class AjaxUtils {
   public static final String AJAX_COMPONENTS = AjaxUtils.class.getName() + ".AJAX_COMPONENTS";
 
   public static boolean isAjaxRequest(FacesContext facesContext) {
-    return facesContext.getExternalContext().getRequestMap().containsKey(AJAX_COMPONENTS);
+    Map parameterMap = facesContext.getExternalContext().getRequestParameterMap();
+    String ajaxComponentIds = (String) parameterMap.get(AjaxPhaseListener.AJAX_COMPONENT_ID);
+    return ajaxComponentIds != null;
   }
 
   public static void checkParamValidity(FacesContext facesContext, UIComponent uiComponent, Class compClass) {
@@ -183,5 +195,38 @@ public class AjaxUtils {
       }
       component.processDecodes(facesContext);
     }
+  }
+
+  public static boolean redirect(FacesContext facesContext, String url) throws IOException {
+    if (!isAjaxRequest(facesContext)) {
+      return false;
+    }
+    ResponseWriter writer = facesContext.getResponseWriter();
+    if (writer == null) {
+      RenderKit renderKit = facesContext.getRenderKit();
+      if (renderKit == null) {
+        RenderKitFactory renderFactory = (RenderKitFactory) FactoryFinder.getFactory(FactoryFinder.RENDER_KIT_FACTORY);
+        Application application = facesContext.getApplication();
+        ViewHandler applicationViewHandler = application.getViewHandler();
+        String renderKitId = applicationViewHandler.calculateRenderKitId(facesContext);
+        renderKit = renderFactory.getRenderKit(facesContext, renderKitId);
+      }
+      writer = renderKit.createResponseWriter(((HttpServletResponse)
+              facesContext.getExternalContext().getResponse()).getWriter(),null, null);
+    }
+    ResponseUtils.ensureNoCacheHeader(facesContext);
+    writer.startElement("redirect", null);
+    writer.writeAttribute("url", url, null);
+    writer.endElement("redirect");
+    writer.flush();
+    facesContext.responseComplete();
+    return true;
+  }
+
+  public static void redirect(ServletResponse response, String url) throws IOException {
+    PrintWriter out = response.getWriter();
+    out.print("<redirect url=");
+    out.print(url);
+    out.println("</redirect>");
   }
 }
