@@ -196,13 +196,6 @@ public abstract class AbstractUITabGroup extends AbstractUIPanelBase
   public void broadcast(FacesEvent facesEvent) throws AbortProcessingException {
     super.broadcast(facesEvent);
     if (facesEvent instanceof TabChangeEvent && facesEvent.getComponent() == this) {
-      Integer index = ((TabChangeEvent) facesEvent).getNewTabIndex();
-      if (FacesUtils.hasValueBindingOrValueExpression(this, Attributes.SELECTED_INDEX)) {
-        FacesUtils.setValueOfBindingOrExpression(getFacesContext(), index, this, Attributes.SELECTED_INDEX);
-      } else {
-        setSelectedIndex(index);
-      }
-
       FacesUtils.invokeMethodBinding(getFacesContext(), getTabChangeListener(), facesEvent);
 
       FacesUtils.invokeMethodBinding(getFacesContext(), getActionListener(), facesEvent);
@@ -210,6 +203,12 @@ public abstract class AbstractUITabGroup extends AbstractUIPanelBase
       ActionListener defaultActionListener = getFacesContext().getApplication().getActionListener();
       if (defaultActionListener != null) {
         defaultActionListener.processAction((ActionEvent) facesEvent);
+      }
+      Integer index = ((TabChangeEvent) facesEvent).getNewTabIndex();
+      if (FacesUtils.hasValueBindingOrValueExpression(this, Attributes.SELECTED_INDEX)) {
+        FacesUtils.setValueOfBindingOrExpression(getFacesContext(), index, this, Attributes.SELECTED_INDEX);
+      } else {
+        setSelectedIndex(index);
       }
     }
   }

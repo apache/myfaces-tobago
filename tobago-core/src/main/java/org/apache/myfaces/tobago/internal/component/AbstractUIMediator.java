@@ -25,6 +25,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.FacesEvent;
 import java.io.IOException;
+import java.util.Map;
 
 public abstract class AbstractUIMediator extends AbstractUIPanelBase implements LayoutComponent {
 
@@ -50,10 +51,13 @@ public abstract class AbstractUIMediator extends AbstractUIPanelBase implements 
 
   @Override
   public void broadcast(FacesEvent event) throws AbortProcessingException {
-    FacesContext facesContext = FacesContext.getCurrentInstance();
-    facesContext.getExternalContext().getRequestMap().put(var, this);
-    super.broadcast(event);
-    facesContext.getExternalContext().getRequestMap().remove(var);
+    Map requestMap = FacesContext.getCurrentInstance().getExternalContext().getRequestMap();
+    requestMap.put(var, this);
+    try {
+      super.broadcast(event);
+    } finally {
+      requestMap.remove(var);
+    }
   }
 
   @Override

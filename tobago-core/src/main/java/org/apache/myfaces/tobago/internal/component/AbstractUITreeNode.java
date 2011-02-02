@@ -198,7 +198,7 @@ public abstract class AbstractUITreeNode
   public void broadcast(FacesEvent event) throws AbortProcessingException {
     super.broadcast(event);
     if (event instanceof TreeExpansionEvent) {
-
+      FacesUtils.invokeMethodBinding(getFacesContext(), getTreeExpansionListener(), event);
       boolean expanded = ((TreeExpansionEvent) event).isNewExpanded();
 
       if (FacesUtils.hasValueBindingOrValueExpression(this, Attributes.EXPANDED)) {
@@ -206,8 +206,6 @@ public abstract class AbstractUITreeNode
       } else {
         setExpanded(expanded);
       }
-
-      FacesUtils.invokeMethodBinding(getFacesContext(), getTreeExpansionListener(), event);
     }
   }
 
