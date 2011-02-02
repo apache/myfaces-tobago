@@ -236,13 +236,6 @@ public class UITabGroup extends UIPanelBase implements TabChangeSource, AjaxComp
   public void broadcast(FacesEvent facesEvent) throws AbortProcessingException {
     super.broadcast(facesEvent);
     if (facesEvent instanceof TabChangeEvent && facesEvent.getComponent() == this) {
-      Integer index = ((TabChangeEvent) facesEvent).getNewTabIndex();
-      ValueBinding vb = getValueBinding(ATTR_SELECTED_INDEX);
-      if (vb != null) {
-        vb.setValue(getFacesContext(), index);
-      } else {
-        setSelectedIndex(index);
-      }
       MethodBinding tabChangeListenerBinding = getTabChangeListener();
       if (tabChangeListenerBinding != null) {
         try {
@@ -255,6 +248,13 @@ public class UITabGroup extends UIPanelBase implements TabChangeSource, AjaxComp
             throw e;
           }
         }
+      }
+      Integer index = ((TabChangeEvent) facesEvent).getNewTabIndex();
+      ValueBinding vb = getValueBinding(ATTR_SELECTED_INDEX);
+      if (vb != null) {
+        vb.setValue(getFacesContext(), index);
+      } else {
+        setSelectedIndex(index);
       }
       getFacesContext().renderResponse();
     }
