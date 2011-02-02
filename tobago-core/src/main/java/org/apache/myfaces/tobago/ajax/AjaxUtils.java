@@ -18,13 +18,24 @@ package org.apache.myfaces.tobago.ajax;
  */
 
 
+import org.apache.myfaces.tobago.internal.util.ResponseUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.internal.ajax.AjaxInternalUtils;
 
+import javax.faces.FactoryFinder;
+import javax.faces.application.Application;
+import javax.faces.application.ViewHandler;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import javax.faces.context.ResponseWriter;
+import javax.faces.render.RenderKit;
+import javax.faces.render.RenderKitFactory;
+import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -34,7 +45,9 @@ public class AjaxUtils {
   private static final Logger LOG = LoggerFactory.getLogger(AjaxUtils.class);
 
   public static boolean isAjaxRequest(FacesContext facesContext) {
-    return facesContext.getExternalContext().getRequestMap().containsKey(AjaxInternalUtils.AJAX_COMPONENTS);
+    Map parameterMap = facesContext.getExternalContext().getRequestParameterMap();
+    String ajaxComponentIds = (String) parameterMap.get(AjaxInternalUtils.TOBAGO_PARTIAL_IDS);
+    return ajaxComponentIds != null;
   }
 
   public static void removeAjaxComponent(FacesContext facesContext, String clientId) {
@@ -85,5 +98,38 @@ public class AjaxUtils {
       }
     }
     return added;
+  }
+
+  public static boolean redirect(FacesContext facesContext, String url) throws IOException {
+    if (!isAjaxRequest(facesContext)) {
+      return false;
+    }
+    ResponseWriter writer = facesContext.getResponseWriter();
+    if (writer == null) {
+      RenderKit renderKit = facesContext.getRenderKit();
+      if (renderKit == null) {
+        RenderKitFactory renderFactory = (RenderKitFactory) FactoryFinder.getFactory(FactoryFinder.RENDER_KIT_FACTORY);
+        Application application = facesContext.getApplication();
+        ViewHandler applicationViewHandler = application.getViewHandler();
+        String renderKitId = applicationViewHandler.calculateRenderKitId(facesContext);
+        renderKit = renderFactory.getRenderKit(facesContext, renderKitId);
+      }
+      writer = renderKit.createResponseWriter(((HttpServletResponse)
+              facesContext.getExternalContext().getResponse()).getWriter(), null, null);
+    }
+    ResponseUtils.ensureNoCacheHeader(facesContext);
+    writer.startElement("redirect", null);
+    writer.writeAttribute("url", url, null);
+    writer.endElement("redirect");
+    writer.flush();
+    facesContext.responseComplete();
+    return true;
+  }
+
+  public static void redirect(ServletResponse response, String url) throws IOException {
+    PrintWriter out = response.getWriter();
+    out.print("<redirect url=");
+    out.print(url);
+    out.println("</redirect>");
   }
 }

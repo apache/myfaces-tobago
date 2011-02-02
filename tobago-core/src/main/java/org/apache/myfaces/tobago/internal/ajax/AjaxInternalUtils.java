@@ -44,6 +44,7 @@ public class AjaxInternalUtils {
   public static final String AJAX_COMPONENTS = AjaxUtils.class.getName() + ".AJAX_COMPONENTS";
 
   private static final String TOBAGO_MESSAGES_CLIENT_IDS = "tobago.messages.clientIds";
+  public static final String TOBAGO_PARTIAL_IDS = "tobago::partialIds";
 
   public static void checkParamValidity(FacesContext facesContext, UIComponent uiComponent, Class compClass) {
     if (facesContext == null) {
@@ -117,7 +118,7 @@ public class AjaxInternalUtils {
 
   public static Map<String, UIComponent> parseAndStoreComponents(FacesContext facesContext) {
     Map parameterMap = facesContext.getExternalContext().getRequestParameterMap();
-    String ajaxComponentIds = (String) parameterMap.get("tobago::partialIds");
+    String ajaxComponentIds = (String) parameterMap.get(TOBAGO_PARTIAL_IDS);
     if (ajaxComponentIds != null) {
       if (LOG.isDebugEnabled()) {
         LOG.debug("ajaxComponentIds = \"" + ajaxComponentIds + "\"");
