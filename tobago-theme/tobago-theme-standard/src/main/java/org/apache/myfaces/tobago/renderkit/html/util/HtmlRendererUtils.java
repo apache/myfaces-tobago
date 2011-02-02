@@ -627,6 +627,8 @@ public final class HtmlRendererUtils {
       writer.write("\", function(){");
       String facetAction = (String) facetComponent.getAttributes().get(Attributes.ONCLICK);
       if (facetAction != null) {
+         // Replace @autoId
+        facetAction = StringUtils.replace(facetAction, "@autoId", facetComponent.getClientId(facesContext));
         writer.write(facetAction);
       } else {
         writer.write("Tobago.submitAction(this, '");
