@@ -233,6 +233,10 @@ class ResourceLocator {
         // JBoss 5.0.0 introduced vfszip protocol
         if (protocol.equals("vfszip")) {
           fileName = new File(fileName).getParentFile().getParentFile().getPath();
+          if (File.separatorChar == '\\' && fileName.contains("\\")) {
+            fileName = fileName.replace('\\', '/');
+            LOG.info("Fixed slashes for virtual filesystem protocol on windows system: " + fileName);
+          }
         }
         jarFile = new URL(fileName);
       } catch (MalformedURLException e) {
