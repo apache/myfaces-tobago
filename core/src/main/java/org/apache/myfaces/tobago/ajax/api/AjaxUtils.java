@@ -212,7 +212,7 @@ public class AjaxUtils {
         renderKit = renderFactory.getRenderKit(facesContext, renderKitId);
       }
       writer = renderKit.createResponseWriter(((HttpServletResponse)
-              facesContext.getExternalContext().getResponse()).getWriter(),null, null);
+              facesContext.getExternalContext().getResponse()).getWriter(), null, null);
     }
     ResponseUtils.ensureNoCacheHeader(facesContext);
     writer.startElement("redirect", null);
