@@ -130,8 +130,8 @@ public class AjaxUtils {
    * @deprecated Please use org.apache.myfaces.tobago.ajax.AjaxUtils.redirect
    */
   @Deprecated
-  public static void redirect(FacesContext facesContext, String url) throws IOException {
-    org.apache.myfaces.tobago.ajax.AjaxUtils.redirect(facesContext, url);
+  public static boolean redirect(FacesContext facesContext, String url) throws IOException {
+    return org.apache.myfaces.tobago.ajax.AjaxUtils.redirect(facesContext, url);
   }
 
   /**
