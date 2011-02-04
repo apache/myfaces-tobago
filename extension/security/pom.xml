@@ -20,15 +20,15 @@
   <parent>
     <groupId>org.apache.myfaces.tobago</groupId>
     <artifactId>tobago-extension</artifactId>
-    <version>1.0.33</version>
+    <version>1.0.34-SNAPSHOT</version>
   </parent>
   <packaging>jar</packaging>
   <name>Tobago Security</name>
   <artifactId>tobago-security</artifactId>
   <scm>
-    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/tobago/tags/tobago-1.0.33/extension/security</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/tobago/tags/tobago-1.0.33/extension/security</developerConnection>
-    <url>http://svn.apache.org/viewvc/myfaces/tobago/tags/tobago-1.0.33/extension/security</url>
+    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/tobago/branches/tobago-1.0.x/extension/security</connection>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/tobago/branches/tobago-1.0.x/extension/security</developerConnection>
+    <url>http://svn.apache.org/viewvc/myfaces/tobago/branches/tobago-1.0.x/extension/security</url>
   </scm>
   <dependencies>
     <dependency>
