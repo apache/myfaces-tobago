@@ -202,7 +202,7 @@ public class SimpleSheetRenderer extends SheetRenderer {
     //String uncheckeImage = contextPath + resourceManager.getImage(viewRoot, "image/sheetUnchecked.gif");
     String selectorDisabled = contextPath + resourceManager.getImage(viewRoot, "image/sheetUncheckedDisabled.gif");
     String unchecked = contextPath + resourceManager.getImage(viewRoot, "image/sheetUnchecked.gif");
-    // Outher list div
+    // Outer list div
     writer.startElement(HtmlConstants.DIV, null);
     writer.writeIdAttribute(sheetId + "_data_div");
     writer.writeClassAttribute("tobago-simpleSheet-list");
