@@ -220,8 +220,7 @@ public class PageRenderer extends PageRendererBase {
       String icon = page.getApplicationIcon();
       if (icon != null) {
         // XXX unify with image renderer
-        if (icon.startsWith("HTTP:") || icon.startsWith("FTP:")
-            || icon.startsWith("/")) {
+        if (ResourceManagerUtils.isAbsoluteResource(icon)) {
           // absolute Path to image : nothing to do
         } else {
           icon = ResourceManagerUtils.getImageWithPath(facesContext, icon);
@@ -680,9 +679,7 @@ public class PageRenderer extends PageRendererBase {
 
   private void encodeScript(FacesContext facesContext, TobagoResponseWriter writer, String script) throws IOException {
     List<String> list;
-    if (StringUtils.startsWith(script, "/") 
-        || StringUtils.startsWithIgnoreCase(script, "HTTP:")
-        || StringUtils.startsWithIgnoreCase(script, "FTP:")) {
+    if (ResourceManagerUtils.isAbsoluteResource(script)) {
       list = new ArrayList<String>();
       list.add(script);
     } else {

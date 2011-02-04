@@ -34,7 +34,6 @@ import org.slf4j.LoggerFactory;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
-import java.util.Locale;
 
 public class ImageRenderer extends LayoutComponentRendererBase {
 
@@ -53,9 +52,7 @@ public class ImageRenderer extends LayoutComponentRendererBase {
     final String value = image.getUrl();
     String src = value;
     if (src != null) {
-      final String ucSrc = src.toUpperCase(Locale.ENGLISH);
-      if (ucSrc.startsWith("HTTP:") || ucSrc.startsWith("FTP:")
-          || ucSrc.startsWith("/")) {
+      if (ResourceManagerUtils.isAbsoluteResource(src)) {
         // absolute Path to image : nothing to do
       } else {
         src = null;

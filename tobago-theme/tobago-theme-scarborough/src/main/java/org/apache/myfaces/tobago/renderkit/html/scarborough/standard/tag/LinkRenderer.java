@@ -25,6 +25,7 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UICommand;
 import org.apache.myfaces.tobago.component.UILink;
+import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.internal.component.AbstractUICommand;
 import org.apache.myfaces.tobago.internal.util.AccessKeyMap;
 import org.apache.myfaces.tobago.internal.util.Deprecation;
@@ -94,7 +95,7 @@ public class LinkRenderer extends CommandRendererBase {
 //  image
     String image = (String) link.getAttributes().get(Attributes.IMAGE);
     if (image != null) {
-      if (image.startsWith("HTTP:") || image.startsWith("FTP:") || image.startsWith("/")) {
+      if (ResourceManagerUtils.isAbsoluteResource(image)) {
         // absolute Path to image : nothing to do
       } else {
         image = getImageWithPath(facesContext, image, helper.isDisabled());

@@ -25,6 +25,7 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UIButton;
 import org.apache.myfaces.tobago.config.Configurable;
+import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.internal.util.AccessKeyMap;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.CommandRendererBase;
@@ -79,15 +80,12 @@ public class ButtonRenderer extends CommandRendererBase {
     writer.writeClassAttribute(Classes.create(button));
     writer.flush(); // force closing the start tag
 
-    String imageName = (String) button.getAttributes().get(Attributes.IMAGE);
-    if (imageName != null) {
-      String image;
-      if (imageName.startsWith("HTTP:") || imageName.startsWith("FTP:")
-          || imageName.startsWith("/")) {
-        image = imageName;
+    String image = (String) button.getAttributes().get(Attributes.IMAGE);
+    if (image != null) {
+      if (ResourceManagerUtils.isAbsoluteResource(image)) {
         // absolute Path to image : nothing to do
       } else {
-        image = getImageWithPath(facesContext, imageName, helper.isDisabled());
+        image = getImageWithPath(facesContext, image, helper.isDisabled());
       }
       writer.startElement(HtmlElements.IMG, null);
       writer.writeAttribute(HtmlAttributes.SRC, image, true);
@@ -96,7 +94,7 @@ public class ButtonRenderer extends CommandRendererBase {
     }
 
     if (label.getText() != null) {
-      if (imageName != null) {
+      if (image != null) {
         writer.writeText(" "); // separator: e.g. &nbsp;
       }
       HtmlRendererUtils.writeLabelWithAccessKey(writer, label);

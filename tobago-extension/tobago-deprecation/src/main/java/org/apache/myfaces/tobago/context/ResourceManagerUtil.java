@@ -183,4 +183,12 @@ public class ResourceManagerUtil {
     return ResourceManagerUtils.getThemeMeasure(facesContext, configurable, name);
   }
 
+  /**
+   * @deprecated please use {@link ResourceManagerUtils}
+   */
+  @Deprecated
+  public static boolean isAbsoluteResource(String value) {
+    return ResourceManagerUtils.isAbsoluteResource(value);
+  }
+  
 }
