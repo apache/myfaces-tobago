@@ -66,6 +66,14 @@ public class PartialReloadController {
 
   private String logAndNavigate(String navValue) {
     LOG.info("Return navigate value: " + navValue + "");
+    /*try {
+      //((HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse()).sendRedirect("/tobago-example-demo/index.jsp");
+      //FacesContext.getCurrentInstance().responseComplete();
+      AjaxUtils.redirect(FacesContext.getCurrentInstance(), "/tobago-example-demo/index.jsp");
+
+    } catch (IOException e) {
+      LOG.error("", e);
+    }*/
     return navValue;
   }
 
