@@ -48,6 +48,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.EmptyStackException;
 import java.util.Iterator;
 import java.util.List;
@@ -153,7 +154,7 @@ public class AjaxResponseRenderer {
 
   private void writeResponseReload(FacesContext facesContext, RenderKit renderKit)
       throws IOException {
-    writeResponse(facesContext, renderKit, CODE_RELOAD_REQUIRED, new ArrayList<FastStringWriter>(0), "");
+    writeResponse(facesContext, renderKit, CODE_RELOAD_REQUIRED, Collections.EMPTY_LIST, "");
   }
 
 
