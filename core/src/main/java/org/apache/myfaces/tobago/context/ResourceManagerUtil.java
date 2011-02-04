@@ -23,6 +23,7 @@ import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class ResourceManagerUtil {
 
@@ -146,5 +147,24 @@ public class ResourceManagerUtil {
 
   public static String getPageWithoutContextPath(FacesContext facesContext, String name) {
     return ResourceManagerFactory.getResourceManager(facesContext).getImage(facesContext.getViewRoot(), name);
+  }
+
+  /**
+   * Detects if the value is an absolute resource or if the value has to be processed by the
+   * theme mechanism. A resource will be treated as absolute, if the value starts with HTTP:, HTTPS:, FTP: or a slash.
+   * The case will be ignored by this check. Null values will return true.
+   *
+   * @param value the given resource link.
+   * @return true if it is an external or absolute resource.
+   */
+  public static boolean isAbsoluteResource(String value) {
+    if (value == null) {
+      return true;
+    }
+    String upper = value.toUpperCase(Locale.ENGLISH);
+    return (upper.startsWith("/")
+        || upper.startsWith("HTTP:")
+        || upper.startsWith("HTTPS:")
+        || upper.startsWith("FTP:"));
   }
 }

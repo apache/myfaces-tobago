@@ -24,10 +24,6 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ALT;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_BORDER;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_HEIGHT;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
@@ -41,7 +37,11 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.UIGraphic;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
-import java.util.Locale;
+
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ALT;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_BORDER;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_HEIGHT;
 
 public class ImageRenderer extends LayoutableRendererBase {
   
@@ -58,9 +58,7 @@ public class ImageRenderer extends LayoutableRendererBase {
     final String value = graphic.getUrl();
     String src = value;
     if (src != null) {
-      final String ucSrc = src.toUpperCase(Locale.ENGLISH);
-      if (ucSrc.startsWith("HTTP:") || ucSrc.startsWith("FTP:")
-          || ucSrc.startsWith("/")) {
+      if (ResourceManagerUtil.isAbsoluteResource(src)) {
         // absolute Path to image : nothing to do
       } else {
         src = null;

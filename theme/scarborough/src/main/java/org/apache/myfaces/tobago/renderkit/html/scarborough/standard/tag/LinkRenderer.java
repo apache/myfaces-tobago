@@ -24,8 +24,6 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_IMAGE;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UICommand;
 import org.apache.myfaces.tobago.component.UILinkCommand;
@@ -43,6 +41,9 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import java.io.IOException;
+
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_IMAGE;
 
 public class LinkRenderer extends CommandRendererBase {
 
@@ -90,7 +91,7 @@ public class LinkRenderer extends CommandRendererBase {
 //  image
     String image = (String) command.getAttributes().get(ATTR_IMAGE);
     if (image != null) {
-      if (image.startsWith("HTTP:") || image.startsWith("FTP:") || image.startsWith("/")) {
+      if (ResourceManagerUtil.isAbsoluteResource(image)) {
         // absolute Path to image : nothing to do
       } else {
         image = ResourceManagerUtil.getImageWithPath(facesContext, image, helper);

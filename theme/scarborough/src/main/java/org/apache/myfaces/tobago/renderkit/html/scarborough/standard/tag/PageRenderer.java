@@ -57,7 +57,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.StringTokenizer;
@@ -255,8 +254,7 @@ public class PageRenderer extends PageRendererBase {
     String icon = page.getApplicationIcon();
     if (icon != null) {
       // XXX unify with image renderer
-      if (icon.startsWith("HTTP:") || icon.startsWith("FTP:")
-          || icon.startsWith("/")) {
+      if (ResourceManagerUtil.isAbsoluteResource(icon)) {
         // absolute Path to image : nothing to do
       } else {
         icon = ResourceManagerUtil.getImageWithPath(facesContext, icon);
@@ -609,12 +607,9 @@ public class PageRenderer extends PageRendererBase {
     }
   }
 
-  private void addScripts(TobagoResponseWriter writer, FacesContext facesContext,
-      String script) throws IOException {
+  private void addScripts(TobagoResponseWriter writer, FacesContext facesContext, String script) throws IOException {
     List<String> scripts;
-    final String ucScript = script.toUpperCase(Locale.ENGLISH);
-    if (ucScript.startsWith("HTTP:") || ucScript.startsWith("FTP:")
-        || ucScript.startsWith("/")) {
+    if (ResourceManagerUtil.isAbsoluteResource(script)) {
       scripts = new ArrayList<String>();
       scripts.add(script);
     } else {

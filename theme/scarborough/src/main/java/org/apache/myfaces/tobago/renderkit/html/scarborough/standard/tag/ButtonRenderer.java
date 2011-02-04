@@ -24,9 +24,6 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DEFAULT_COMMAND;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_IMAGE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TRANSITION;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIButtonCommand;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
@@ -44,6 +41,10 @@ import javax.faces.component.UICommand;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
+
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DEFAULT_COMMAND;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_IMAGE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TRANSITION;
 
 public class ButtonRenderer extends CommandRendererBase {
 
@@ -91,15 +92,12 @@ public class ButtonRenderer extends CommandRendererBase {
     writer.flush(); // force closing the start tag
 
 
-    String imageName = (String) command.getAttributes().get(ATTR_IMAGE);
-    if (imageName != null) {
-      String image;
-      if (imageName.startsWith("HTTP:") || imageName.startsWith("FTP:")
-          || imageName.startsWith("/")) {
-        image = imageName;
+    String image = (String) command.getAttributes().get(ATTR_IMAGE);
+    if (image != null) {
+      if (ResourceManagerUtil.isAbsoluteResource(image)) {
         // absolute Path to image : nothing to do
       } else {
-        image = ResourceManagerUtil.getImageWithPath(facesContext, imageName, helper);
+        image = ResourceManagerUtil.getImageWithPath(facesContext, image, helper);
       }
       writer.startElement(HtmlConstants.IMG, null);
       writer.writeAttribute(HtmlAttributes.SRC, image, true);
@@ -108,7 +106,7 @@ public class ButtonRenderer extends CommandRendererBase {
     }
 
     if (label.getText() != null) {
-      if (imageName != null) {
+      if (image != null) {
         writer.writeText(" "); // separator: e.g. &nbsp;
       }
       HtmlRendererUtil.writeLabelWithAccessKey(writer, label);
