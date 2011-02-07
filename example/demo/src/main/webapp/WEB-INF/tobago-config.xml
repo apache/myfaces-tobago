@@ -18,8 +18,8 @@
 -->
 
 <!DOCTYPE tobago-config PUBLIC
-    "-//The Apache Software Foundation//DTD Tobago Config 1.0//EN"
-    "http://myfaces.apache.org/tobago/tobago-config_1_0.dtd">
+    "-//The Apache Software Foundation//DTD Tobago Config 1.0.34//EN"
+    "http://myfaces.apache.org/tobago/tobago-config-1.0.34.dtd">
 
 <tobago-config>
 
@@ -32,4 +32,7 @@
 
   <resource-dir>tobago-resource</resource-dir>
   <ajax-enabled>true</ajax-enabled>
+
+  <create-session-secret>true</create-session-secret>
+  <check-session-secret>true</check-session-secret>
 </tobago-config>

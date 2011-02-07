@@ -45,6 +45,8 @@ public class TobagoConfig {
   private boolean ajaxEnabled;
   private boolean fixResourceOrder;
   private boolean fixLayoutTransparency;
+  private boolean createSessionSecret;
+  private boolean checkSessionSecret;
   private Map<String, Theme> availableTheme;
   private RenderersConfig renderersConfig;
 
@@ -56,6 +58,8 @@ public class TobagoConfig {
     ajaxEnabled = true;
     fixResourceOrder = false;
     fixLayoutTransparency = false;
+    createSessionSecret = false;
+    checkSessionSecret = false;
   }
 
   public void addMappingRule(MappingRule mappingRule) {
@@ -190,6 +194,22 @@ public class TobagoConfig {
 
   public void setFixLayoutTransparency(String fixLayoutTransparency) {
     this.fixLayoutTransparency = Boolean.valueOf(fixLayoutTransparency);
+  }
+
+  public boolean isCreateSessionSecret() {
+    return createSessionSecret;
+  }
+
+  public void setCreateSessionSecret(String createSessionSecret) {
+    this.createSessionSecret = Boolean.valueOf(createSessionSecret);
+  }
+
+  public boolean isCheckSessionSecret() {
+    return checkSessionSecret;
+  }
+
+  public void setCheckSessionSecret(String checkSessionSecret) {
+    this.checkSessionSecret = Boolean.valueOf(checkSessionSecret);
   }
 
   @Deprecated

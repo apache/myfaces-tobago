@@ -30,6 +30,7 @@ import org.apache.myfaces.tobago.component.UIForm;
 import org.apache.myfaces.tobago.component.UILayout;
 import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.component.UIPopup;
+import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.model.PageState;
@@ -43,6 +44,7 @@ import org.apache.myfaces.tobago.util.AccessKeyMap;
 import org.apache.myfaces.tobago.util.FastStringWriter;
 import org.apache.myfaces.tobago.util.MimeTypeUtils;
 import org.apache.myfaces.tobago.util.ResponseUtils;
+import org.apache.myfaces.tobago.webapp.Secret;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.application.Application;
@@ -452,6 +454,10 @@ public class PageRenderer extends PageRendererBase {
     writer.writeNameAttribute(clientId + SUBCOMPONENT_SEP + "action-position");
     writer.writeIdAttribute(clientId + SUBCOMPONENT_SEP + "action-position");
     writer.endElement(HtmlConstants.INPUT);
+
+    if (TobagoConfig.getInstance(FacesContext.getCurrentInstance()).isCreateSessionSecret()) {
+      Secret.encode(facesContext, writer);
+    }
 
     if (debugMode) {
       writer.startElement(HtmlConstants.INPUT, null);

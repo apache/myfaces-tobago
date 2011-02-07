@@ -59,7 +59,8 @@ Object.extend(new Ajax.Base(), {
       "affectedAjaxComponent=" + encodeURIComponent(this.element.id)
           + "&" + encodeURIComponent(this.element.name) + '='
           + encodeURIComponent(this.element.value)
-          + "&" + Tobago.getJsfState();
+          + "&" + Tobago.getJsfState()
+          + "&" + Tobago.getSecretParam();
 
       //    LOG.debug("start new request");
       var requestOptions = Tobago.extend({}, this.options);

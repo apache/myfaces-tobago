@@ -592,6 +592,15 @@ var Tobago = {
     }
   },
 
+  getSecretParam: function() {
+    var secret = Tobago.element("org.apache.myfaces.tobago.webapp.Secret");
+    var suffix = "";
+    suffix += encodeURIComponent(secret.name);
+    suffix += "=";
+    suffix += encodeURIComponent(secret.value);
+    return suffix;
+  },
+
   clearReloadTimer: function(id) {
     var timer = Tobago.reloadTimer[id];
     if (timer) {
