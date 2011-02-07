@@ -34,6 +34,7 @@ import java.util.Map;
  * Time: 10:59:19
  */
 public class TobagoResponseStateManager extends ResponseStateManager {
+
   private static final Log LOG = LogFactory.getLog(TobagoResponseStateManager.class);
 
   public static final String TREE_PARAM = "jsf_tree";
@@ -49,7 +50,6 @@ public class TobagoResponseStateManager extends ResponseStateManager {
     }
 
     return requestMap.get(TREE_PARAM);
-
   }
 
   public Object getComponentStateToRestore(FacesContext facesContext) {
@@ -57,9 +57,9 @@ public class TobagoResponseStateManager extends ResponseStateManager {
     return requestMap.get(STATE_PARAM);
   }
 
-  public void writeState(FacesContext facescontext,
+  public void writeState(FacesContext facesContext,
       StateManager.SerializedView serializedview) throws IOException {
-    ResponseWriter responseWriter = facescontext.getResponseWriter();
+    ResponseWriter responseWriter = facesContext.getResponseWriter();
     Object treeStruct = serializedview.getStructure();
     Object compStates = serializedview.getState();
 
@@ -97,8 +97,7 @@ public class TobagoResponseStateManager extends ResponseStateManager {
     responseWriter.writeAttribute(HtmlAttributes.TYPE, "hidden", null);
     responseWriter.writeAttribute(HtmlAttributes.NAME, VIEWID_PARAM, null);
     responseWriter.writeAttribute(HtmlAttributes.ID, VIEWID_PARAM, null);
-    responseWriter.writeAttribute(HtmlAttributes.VALUE, facescontext.getViewRoot().getViewId(), null);
+    responseWriter.writeAttribute(HtmlAttributes.VALUE, facesContext.getViewRoot().getViewId(), null);
     responseWriter.endElement(HtmlConstants.INPUT);
   }
-
 }
