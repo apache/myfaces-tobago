@@ -39,6 +39,7 @@ public class TobagoConfigParser {
   private static final String TOBAGO_CONFIG_DTD_1_0 = "/org/apache/myfaces/tobago/config/tobago-config_1_0.dtd";
   private static final String TOBAGO_CONFIG_DTD_1_0_29 = "/org/apache/myfaces/tobago/config/tobago-config-1.0.29.dtd";
   private static final String TOBAGO_CONFIG_DTD_1_0_30 = "/org/apache/myfaces/tobago/config/tobago-config-1.0.30.dtd";
+  private static final String TOBAGO_CONFIG_DTD_1_0_34 = "/org/apache/myfaces/tobago/config/tobago-config-1.0.34.dtd";
   private static final String TOBAGO_CONFIG_DTD_1_5 = "/org/apache/myfaces/tobago/config/tobago-config-1.5.dtd";
 
   public TobagoConfig parse(ServletContext context) throws IOException, SAXException, FacesException {
@@ -70,6 +71,10 @@ public class TobagoConfigParser {
 
     // see bug TOBAGO-916
     digester.addCallMethod("tobago-config/fix-layout-transparency", "setFixLayoutTransparency", 0);
+
+    // session secret
+    digester.addCallMethod("tobago-config/create-session-secret", "setCreateSessionSecret", 0);
+    digester.addCallMethod("tobago-config/check-session-secret", "setCheckSessionSecret", 0);
 
     // renderer config
     digester.addObjectCreate("tobago-config/renderers", RenderersConfigImpl.class);
@@ -106,6 +111,7 @@ public class TobagoConfigParser {
     registerDtd(digester, "-//The Apache Software Foundation//DTD Tobago Config 1.0//EN", TOBAGO_CONFIG_DTD_1_0);
     registerDtd(digester, "-//The Apache Software Foundation//DTD Tobago Config 1.0.29//EN", TOBAGO_CONFIG_DTD_1_0_29);
     registerDtd(digester, "-//The Apache Software Foundation//DTD Tobago Config 1.0.30//EN", TOBAGO_CONFIG_DTD_1_0_30);
+    registerDtd(digester, "-//The Apache Software Foundation//DTD Tobago Config 1.0.34//EN", TOBAGO_CONFIG_DTD_1_0_34);
     registerDtd(digester, "-//The Apache Software Foundation//DTD Tobago Config 1.5//EN", TOBAGO_CONFIG_DTD_1_5);
   }
 

@@ -17,11 +17,13 @@ package org.apache.myfaces.tobago.internal.lifecycle;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.config.TobagoConfig;
+import org.apache.myfaces.tobago.portlet.PortletUtils;
 import org.apache.myfaces.tobago.renderkit.TobagoResponseStateManager;
+import org.apache.myfaces.tobago.util.ComponentUtils;
+import org.apache.myfaces.tobago.webapp.Secret;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.apache.myfaces.tobago.portlet.PortletUtils;
-import org.apache.myfaces.tobago.util.ComponentUtils;
 
 import javax.faces.FacesException;
 import javax.faces.application.Application;
@@ -116,6 +118,13 @@ class RestoreViewExecutor implements PhaseExecutor {
       facesContext.renderResponse();
     }
 
+    if (!isSessionSecretValid(facesContext)) {
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("Secret is invalid!");
+      }
+      facesContext.renderResponse();
+    }
+
     recursivelyHandleComponentReferencesAndSetValid(facesContext, viewRoot);
     //noinspection unchecked
     facesContext.getExternalContext().getRequestMap().put(TobagoLifecycle.VIEW_ROOT_KEY, viewRoot);
@@ -125,6 +134,14 @@ class RestoreViewExecutor implements PhaseExecutor {
   private boolean isPostBack(FacesContext facesContext) {
     Map requestParameterMap = facesContext.getExternalContext().getRequestParameterMap();
     return requestParameterMap.containsKey(TobagoResponseStateManager.TREE_PARAM);
+  }
+
+  private boolean isSessionSecretValid(FacesContext facesContext) {
+    if (TobagoConfig.getInstance(FacesContext.getCurrentInstance()).isCheckSessionSecret()) {
+      return Secret.check(facesContext);
+    } else {
+      return true;
+    }
   }
 
   public PhaseId getPhase() {

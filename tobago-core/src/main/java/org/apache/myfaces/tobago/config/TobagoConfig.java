@@ -49,11 +49,15 @@ public class TobagoConfig {
   private Map<String, Theme> availableThemes;
   private RenderersConfig renderersConfig;
   private ProjectStage projectStage;
+  private boolean createSessionSecret;
+  private boolean checkSessionSecret;
 
   public TobagoConfig() {
     supportedThemeNames = new ArrayList<String>();
     supportedThemes = new ArrayList<Theme>();
     resourceDirs = new ArrayList<String>();
+    createSessionSecret = true;
+    checkSessionSecret = true;
   }
 
   public void addSupportedThemeName(String name) {
@@ -232,6 +236,22 @@ public class TobagoConfig {
       }
       projectStage = ProjectStage.Production;
     }
+  }
+
+  public boolean isCreateSessionSecret() {
+    return createSessionSecret;
+  }
+
+  public void setCreateSessionSecret(String createSessionSecret) {
+    this.createSessionSecret = Boolean.valueOf(createSessionSecret);
+  }
+
+  public boolean isCheckSessionSecret() {
+    return checkSessionSecret;
+  }
+
+  public void setCheckSessionSecret(String checkSessionSecret) {
+    this.checkSessionSecret = Boolean.valueOf(checkSessionSecret);
   }
 
   @Deprecated

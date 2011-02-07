@@ -109,13 +109,6 @@
   </build>
 
   <dependencies>
-    <!-- needed for session secret -->
-    <dependency>
-      <groupId>commons-codec</groupId>
-      <artifactId>commons-codec</artifactId>
-      <version>1.4</version>
-    </dependency>
-
     <dependency>
       <groupId>org.apache.myfaces.tobago</groupId>
       <artifactId>tobago-example-data</artifactId>

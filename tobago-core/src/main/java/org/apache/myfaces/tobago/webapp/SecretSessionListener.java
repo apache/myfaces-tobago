@@ -1,17 +1,4 @@
-/**
- * <b>Tobago Framework Component Tag Library 1.5.x -
- * (C) Copyright 2005-2010 The Apache Software Foundation</b>
- */
-@org.apache.myfaces.tobago.apt.annotation.Taglib(
-    shortName = "tc",
-    tlibVersion = "1.5",
-    uri = "http://myfaces.apache.org/tobago/component",
-    listener = {
-        "org.apache.myfaces.tobago.webapp.TobagoServletContextListener",
-        "org.apache.myfaces.tobago.webapp.SecretSessionListener"},
-    fileName = "tobago.tld",
-    displayName = "Tobago Components 1.5.x")
-package org.apache.myfaces.tobago.internal.taglib.component;
+package org.apache.myfaces.tobago.webapp;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -29,3 +16,21 @@ package org.apache.myfaces.tobago.internal.taglib.component;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+import org.apache.myfaces.tobago.config.TobagoConfig;
+
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSessionEvent;
+import javax.servlet.http.HttpSessionListener;
+
+public class SecretSessionListener implements HttpSessionListener {
+
+  public void sessionCreated(HttpSessionEvent sessionEvent) {
+    if (TobagoConfig.getInstance(FacesContext.getCurrentInstance()).isCheckSessionSecret()) {
+      Secret.create(sessionEvent.getSession());
+    }
+  }
+
+  public void sessionDestroyed(HttpSessionEvent se) {
+  }
+}

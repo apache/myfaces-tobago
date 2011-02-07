@@ -52,6 +52,7 @@ import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.util.FacesVersion;
 import org.apache.myfaces.tobago.util.VariableResolverUtils;
+import org.apache.myfaces.tobago.webapp.Secret;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -431,6 +432,10 @@ public class PageRenderer extends PageRendererBase {
       writer.writeNameAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "scrollbarWeight");
       writer.writeIdAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "scrollbarWeight");
       writer.endElement(HtmlElements.INPUT);
+    }
+
+    if (TobagoConfig.getInstance(FacesContext.getCurrentInstance()).isCreateSessionSecret()) {
+      Secret.encode(facesContext, writer);
     }
 
     if (debugMode) {

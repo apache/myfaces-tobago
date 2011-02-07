@@ -59,7 +59,9 @@
             <configuration>
               <outputFiles>
                 <outputFile>org/apache/myfaces/tobago/internal/taglib/component/tobago.tld</outputFile>
+<!--
                 <outputFile>org/apache/myfaces/tobago/internal/taglib/extension/tobago-extension.tld</outputFile>
+-->
               </outputFiles>
               <resourceTargetPath>META-INF</resourceTargetPath>
               <outputDirectory>${project.build.directory}/generated-tld</outputDirectory>
@@ -348,6 +350,10 @@
       <artifactId>myfaces-test12</artifactId>
       <version>${myfaces-test12.version}</version>
       <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>commons-codec</groupId>
+      <artifactId>commons-codec</artifactId>
     </dependency>
   </dependencies>
 
