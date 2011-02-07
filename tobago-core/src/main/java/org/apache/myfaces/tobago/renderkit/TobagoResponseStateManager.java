@@ -17,17 +17,17 @@ package org.apache.myfaces.tobago.renderkit;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 
-import javax.faces.render.ResponseStateManager;
+import javax.faces.application.StateManager;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
-import javax.faces.application.StateManager;
-import java.util.Map;
+import javax.faces.render.ResponseStateManager;
 import java.io.IOException;
+import java.util.Map;
 
 /*
  * Date: 21.05.2006
@@ -57,9 +57,9 @@ public class TobagoResponseStateManager extends ResponseStateManager {
     return requestMap.get(STATE_PARAM);
   }
 
-  public void writeState(FacesContext facescontext,
+  public void writeState(FacesContext facesContext,
       StateManager.SerializedView serializedview) throws IOException {
-    ResponseWriter responseWriter = facescontext.getResponseWriter();
+    ResponseWriter responseWriter = facesContext.getResponseWriter();
     Object treeStruct = serializedview.getStructure();
     Object compStates = serializedview.getState();
 
@@ -98,7 +98,7 @@ public class TobagoResponseStateManager extends ResponseStateManager {
     responseWriter.writeAttribute(HtmlAttributes.TYPE, "hidden", null);
     responseWriter.writeAttribute(HtmlAttributes.NAME, VIEWID_PARAM, null);
     responseWriter.writeAttribute(HtmlAttributes.ID, VIEWID_PARAM, null);
-    responseWriter.writeAttribute(HtmlAttributes.VALUE, facescontext.getViewRoot().getViewId(), null);
+    responseWriter.writeAttribute(HtmlAttributes.VALUE, facesContext.getViewRoot().getViewId(), null);
     responseWriter.endElement(HtmlElements.INPUT);
   }
 
