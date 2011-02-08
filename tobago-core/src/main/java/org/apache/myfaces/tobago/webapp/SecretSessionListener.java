@@ -19,14 +19,14 @@ package org.apache.myfaces.tobago.webapp;
 
 import org.apache.myfaces.tobago.config.TobagoConfig;
 
-import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 
 public class SecretSessionListener implements HttpSessionListener {
 
   public void sessionCreated(HttpSessionEvent sessionEvent) {
-    if (TobagoConfig.getInstance(FacesContext.getCurrentInstance()).isCheckSessionSecret()) {
+    // a session creation may happen outside from JSF 
+    if (TobagoConfig.getInstance(sessionEvent.getSession().getServletContext()).isCheckSessionSecret()) {
       Secret.create(sessionEvent.getSession());
     }
   }
