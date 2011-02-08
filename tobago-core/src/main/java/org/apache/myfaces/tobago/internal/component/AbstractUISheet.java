@@ -341,8 +341,9 @@ public abstract class AbstractUISheet extends javax.faces.component.UIData
     } else if (facesEvent instanceof SortActionEvent) {
       MethodBinding methodBinding = getSortActionListener();
       if (methodBinding!= null) {
-        FacesUtils.invokeMethodBinding(getFacesContext(), methodBinding, facesEvent);
+        // TODO should be first invokeMethodBinding and the update state
         getSheetState(getFacesContext()).updateSortState((SortActionEvent) facesEvent);
+        FacesUtils.invokeMethodBinding(getFacesContext(), methodBinding, facesEvent);
       } else {
         getSheetState(getFacesContext()).updateSortState((SortActionEvent) facesEvent);
         new Sorter().perform((SortActionEvent) facesEvent);
