@@ -37,32 +37,40 @@ public class ResponseUtils {
     ExternalContext externalContext = facesContext.getExternalContext();
     if (externalContext.getResponse() instanceof HttpServletResponse) {
       HttpServletResponse response = (HttpServletResponse) externalContext.getResponse();
-      response.setHeader("Cache-Control", "no-cache,no-store,max-age=0,must-revalidate");
-      response.setHeader("Pragma", "no-cache");
-      response.setDateHeader("Expires", 0);
-      response.setDateHeader("max-age", 0);
+      ensureNoCacheHeader(response);
     }
+  }
+
+  public static void ensureNoCacheHeader(HttpServletResponse response) {
+    response.setHeader("Cache-Control", "no-cache,no-store,max-age=0,must-revalidate");
+    response.setHeader("Pragma", "no-cache");
+    response.setDateHeader("Expires", 0);
+    response.setDateHeader("max-age", 0);
   }
 
   public static void ensureContentTypeHeader(FacesContext facesContext, String contentType) {
     // TODO PortletRequest
     if (facesContext.getExternalContext().getResponse() instanceof HttpServletResponse) {
       HttpServletResponse response = (HttpServletResponse) facesContext.getExternalContext().getResponse();
-      if (!response.containsHeader("Content-Type")) {
-        response.setContentType(contentType);
-      } else {
-        try {
-          String responseContentType = response.getContentType();
-          if (!responseContentType.equalsIgnoreCase(contentType)) {
-            response.setContentType(contentType);
-            if (LOG.isInfoEnabled()) {
-              LOG.info("Reponse already contains Header Content-Type '" + responseContentType
-                  + "'. Setting Content-Type to '" + contentType + "'");
-            }
+      ensureContentTypeHeader(response, contentType);
+    }
+  }
+
+  public static void ensureContentTypeHeader(HttpServletResponse response, String contentType) {
+    if (!response.containsHeader("Content-Type")) {
+      response.setContentType(contentType);
+    } else {
+      try {
+        String responseContentType = response.getContentType();
+        if (!responseContentType.equalsIgnoreCase(contentType)) {
+          response.setContentType(contentType);
+          if (LOG.isInfoEnabled()) {
+            LOG.info("Reponse already contains Header Content-Type '" + responseContentType
+                + "'. Setting Content-Type to '" + contentType + "'");
           }
-        } catch (Error e) {
-          LOG.warn("The method ServletResponse.getContentType() is not available before Servlet 2.4");
         }
+      } catch (Error e) {
+        LOG.warn("The method ServletResponse.getContentType() is not available before Servlet 2.4");
       }
     }
   }

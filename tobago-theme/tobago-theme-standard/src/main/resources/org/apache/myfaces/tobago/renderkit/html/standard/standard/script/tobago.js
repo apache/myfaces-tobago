@@ -2243,6 +2243,8 @@ var LOG = {
 Tobago.Updater = {
   CODE_SUCCESS: 200,
 
+  CODE_REDIRECT: 302,
+
   CODE_NOT_MODIFIED: 304,
 
   CODE_RELOAD_REQUIRED: 309,
@@ -2362,6 +2364,9 @@ Tobago.Updater = {
         alert('wait: full reload requeste: responseCode = ' + requestOptions.resultData.responseCode);
       }
       Tobago.submitAction(null, Tobago.page.id);
+    } else if (requestOptions.resultData.responseCode == Tobago.Updater.CODE_REDIRECT) {
+      window.location = requestOptions.resultData.location;
+      return;
     }
 
     Tobago.replaceJsfState(requestOptions.resultData.jsfState);

@@ -22,7 +22,7 @@ import org.apache.myfaces.tobago.internal.ajax.AjaxInternalUtils;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Map;
 
@@ -138,7 +138,7 @@ public class AjaxUtils {
    * @deprecated Please use org.apache.myfaces.tobago.ajax.AjaxUtils.redirect
    */
   @Deprecated
-  public static void redirect(ServletResponse response, String url) throws IOException {
+  public static void redirect(HttpServletResponse response, String url) throws IOException {
     org.apache.myfaces.tobago.ajax.AjaxUtils.redirect(response, url);
   }
 }

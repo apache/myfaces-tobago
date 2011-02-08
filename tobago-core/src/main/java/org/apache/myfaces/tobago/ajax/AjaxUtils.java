@@ -18,24 +18,18 @@ package org.apache.myfaces.tobago.ajax;
  */
 
 
+import org.apache.myfaces.tobago.internal.ajax.AjaxInternalUtils;
 import org.apache.myfaces.tobago.internal.util.ResponseUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.apache.myfaces.tobago.internal.ajax.AjaxInternalUtils;
 
-import javax.faces.FactoryFinder;
-import javax.faces.application.Application;
-import javax.faces.application.ViewHandler;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
-import javax.faces.render.RenderKit;
-import javax.faces.render.RenderKitFactory;
-import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.Writer;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -104,32 +98,32 @@ public class AjaxUtils {
     if (!isAjaxRequest(facesContext)) {
       return false;
     }
-    ResponseWriter writer = facesContext.getResponseWriter();
-    if (writer == null) {
-      RenderKit renderKit = facesContext.getRenderKit();
-      if (renderKit == null) {
-        RenderKitFactory renderFactory = (RenderKitFactory) FactoryFinder.getFactory(FactoryFinder.RENDER_KIT_FACTORY);
-        Application application = facesContext.getApplication();
-        ViewHandler applicationViewHandler = application.getViewHandler();
-        String renderKitId = applicationViewHandler.calculateRenderKitId(facesContext);
-        renderKit = renderFactory.getRenderKit(facesContext, renderKitId);
-      }
-      writer = renderKit.createResponseWriter(((HttpServletResponse)
-              facesContext.getExternalContext().getResponse()).getWriter(), null, null);
-    }
+    HttpServletResponse httpServletResponse
+          = (HttpServletResponse) facesContext.getExternalContext().getResponse();
+    Writer writer = httpServletResponse.getWriter();
+    String contentType = "application/json; charset=UTF-8";
+    ResponseUtils.ensureContentTypeHeader(facesContext, contentType);
     ResponseUtils.ensureNoCacheHeader(facesContext);
-    writer.startElement("redirect", null);
-    writer.writeAttribute("url", url, null);
-    writer.endElement("redirect");
-    writer.flush();
+    redirectInternal(writer, url);
+    writer.close();
     facesContext.responseComplete();
     return true;
   }
 
-  public static void redirect(ServletResponse response, String url) throws IOException {
-    PrintWriter out = response.getWriter();
-    out.print("<redirect url=");
-    out.print(url);
-    out.println("</redirect>");
+  private static void redirectInternal(Writer writer, String url) throws IOException {
+    writer.write("{\n  \"tobagoAjaxResponse\": true,\n");
+    writer.write("  \"responseCode\": 302,\n");
+    writer.write("  \"location\": \"");
+    writer.write(url);
+    writer.write("\"\n}\n");
+    writer.flush();
+  }
+
+  public static void redirect(HttpServletResponse response, String url) throws IOException {
+    PrintWriter writer = response.getWriter();
+    String contentType = "application/json; charset=UTF-8";
+    ResponseUtils.ensureContentTypeHeader(response, contentType);
+    ResponseUtils.ensureNoCacheHeader(response);
+    redirectInternal(writer, url);
   }
 }
