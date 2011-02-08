@@ -24,6 +24,7 @@ import org.apache.myfaces.tobago.context.Theme;
 import org.apache.myfaces.tobago.util.Deprecation;
 
 import javax.faces.context.FacesContext;
+import javax.servlet.ServletContext;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -110,8 +111,11 @@ public class TobagoConfig {
 
 
   public static TobagoConfig getInstance(FacesContext facesContext) {
-    return (TobagoConfig) facesContext.getExternalContext()
-        .getApplicationMap().get(TOBAGO_CONFIG);
+    return (TobagoConfig) facesContext.getExternalContext().getApplicationMap().get(TOBAGO_CONFIG);
+  }
+
+  public static TobagoConfig getInstance(ServletContext servletContext) {
+    return (TobagoConfig) servletContext.getAttribute(TOBAGO_CONFIG);
   }
 
   public MappingRule getMappingRule(String requestUri) {
