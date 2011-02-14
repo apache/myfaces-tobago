@@ -18,6 +18,8 @@ package org.apache.myfaces.tobago.renderkit;
  */
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.myfaces.tobago.layout.Measure;
+import org.apache.myfaces.tobago.model.PageState;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPage;
@@ -26,6 +28,7 @@ import org.apache.myfaces.tobago.util.ComponentUtils;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import java.util.StringTokenizer;
 
 public class PageRendererBase extends LayoutComponentRendererBase {
 
@@ -35,29 +38,59 @@ public class PageRendererBase extends LayoutComponentRendererBase {
     if (component instanceof AbstractUIPage) {
       AbstractUIPage page = (AbstractUIPage) component;
 
-      String actionIdName = page.getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + "form-action";
-      String newActionId = (String) facesContext.getExternalContext().getRequestParameterMap().get(actionIdName);
-      if (LOG.isDebugEnabled()) {
-        LOG.debug("action = " + newActionId);
-      }
-      page.setActionId(newActionId);
+      decodeActionPosition(facesContext, page);
+      decodePageState(facesContext, page);
+    }
+  }
 
-      try {
-        String actionPositionName = page.getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + "action-position";
-        String actionPositionString = (String)
-            facesContext.getExternalContext().getRequestParameterMap().get(actionPositionName);
-        if (LOG.isDebugEnabled()) {
-          LOG.debug("actionPosition='" + actionPositionString + "'");
-        }
-        if (StringUtils.isNotEmpty(actionPositionString)) {
-          Box actionPosition = new Box(actionPositionString);
-          page.setActionPosition(actionPosition);
-        } else {
-          page.setActionPosition(null);
-        }
-      } catch (Exception e) {
-        LOG.warn("Can't analyse parameter for action-position", e);
+  private void decodeActionPosition(FacesContext facesContext, AbstractUIPage page) {
+    String actionIdName = page.getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + "form-action";
+    String newActionId = (String) facesContext.getExternalContext().getRequestParameterMap().get(actionIdName);
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("action = " + newActionId);
+    }
+    page.setActionId(newActionId);
+
+    try {
+      String actionPositionName = page.getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + "action-position";
+      String actionPositionString = (String)
+          facesContext.getExternalContext().getRequestParameterMap().get(actionPositionName);
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("actionPosition='" + actionPositionString + "'");
       }
+      if (StringUtils.isNotEmpty(actionPositionString)) {
+        Box actionPosition = new Box(actionPositionString);
+        page.setActionPosition(actionPosition);
+      } else {
+        page.setActionPosition(null);
+      }
+    } catch (Exception e) {
+      LOG.warn("Can't analyse parameter for action-position", e);
+    }
+  }
+
+  @SuppressWarnings("unchecked")
+  private void decodePageState(FacesContext facesContext, AbstractUIPage page) {
+    String name;
+    String value = null;
+    try {
+      name = page.getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + "form-clientDimension";
+      value = (String) facesContext.getExternalContext().getRequestParameterMap().get(name);
+      if (value != null) {
+        StringTokenizer tokenizer = new StringTokenizer(value, ";");
+        Measure width = Measure.parse(tokenizer.nextToken());
+        Measure height = Measure.parse(tokenizer.nextToken());
+        // XXX remove me later
+        PageState pageState = page.getPageState(facesContext);
+        if (pageState != null) {
+          pageState.setClientWidth(width.getPixel());
+          pageState.setClientHeight(height.getPixel());
+        }
+        facesContext.getExternalContext().getRequestMap().put("tobago-page-clientDimension-width", width);
+        facesContext.getExternalContext().getRequestMap().put("tobago-page-clientDimension-height", height);
+      }
+    } catch (Exception e) {
+      LOG.error("Error in decoding state: value='" + value + "'", e);
     }
   }
 }

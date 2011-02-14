@@ -21,7 +21,6 @@ import org.apache.commons.collections.KeyValue;
 import org.apache.myfaces.tobago.compat.FacesUtils;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.ComponentTypes;
-import org.apache.myfaces.tobago.util.CreateComponentUtils;
 import org.apache.myfaces.tobago.component.DeprecatedDimension;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.OnComponentPopulated;
@@ -36,6 +35,7 @@ import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.model.PageState;
 import org.apache.myfaces.tobago.model.PageStateImpl;
 import org.apache.myfaces.tobago.util.ComponentUtils;
+import org.apache.myfaces.tobago.util.CreateComponentUtils;
 import org.apache.myfaces.tobago.util.DebugUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -49,7 +49,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.StringTokenizer;
 
 public abstract class AbstractUIPage extends AbstractUIForm
     implements OnComponentPopulated, LayoutContainer, DeprecatedDimension {
@@ -220,31 +219,6 @@ public abstract class AbstractUIPage extends AbstractUIForm
    */
   @Deprecated
   public void updatePageState(FacesContext facesContext) {
-    PageState state = getPageState(facesContext);
-    decodePageState(facesContext, state);
-  }
-
-  @SuppressWarnings("unchecked")
-  private void decodePageState(FacesContext facesContext, PageState pageState) {
-    String name;
-    String value = null;
-    try {
-      name = getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + "form-clientDimension";
-      value = (String) facesContext.getExternalContext().getRequestParameterMap().get(name);
-      if (value != null) {
-        StringTokenizer tokenizer = new StringTokenizer(value, ";");
-        Measure width = Measure.parse(tokenizer.nextToken());
-        Measure height = Measure.parse(tokenizer.nextToken());
-        if (pageState != null) {
-          pageState.setClientWidth(width.getPixel());
-          pageState.setClientHeight(height.getPixel());
-        }
-        facesContext.getExternalContext().getRequestMap().put("tobago-page-clientDimension-width", width);
-        facesContext.getExternalContext().getRequestMap().put("tobago-page-clientDimension-height", height);
-      }
-    } catch (Exception e) {
-      LOG.error("Error in decoding state: value='" + value + "'", e);
-    }
   }
 
   /**
