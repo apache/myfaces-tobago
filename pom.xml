@@ -343,8 +343,8 @@
       </plugin>
 
       <plugin>
-        <groupId>org.apache.rat</groupId>
-        <artifactId>apache-rat-plugin</artifactId>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>rat-maven-plugin</artifactId>
       </plugin>
 
       <plugin>
@@ -909,17 +909,9 @@
         </plugin>
 
         <plugin>
-          <groupId>org.apache.rat</groupId>
-          <artifactId>apache-rat-plugin</artifactId>
-          <version>0.7</version>
-          <executions>
-          <execution>
-            <phase>verify</phase>
-            <goals>
-              <goal>check</goal>
-            </goals>
-          </execution>
-        </executions>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>rat-maven-plugin</artifactId>
+          <version>1.0-alpha-3</version>
           <configuration>
             <excludes>
               <!-- factory config -->
