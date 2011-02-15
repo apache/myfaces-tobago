@@ -53,11 +53,10 @@ public class AjaxResponseRenderer {
   public static final int CODE_NOT_MODIFIED = 304;
   public static final int CODE_RELOAD_REQUIRED = 309;
   public static final int CODE_ERROR = 500;
-
+  public static  final String CONTENT_TYPE = "application/json";
   private static final Logger LOG = LoggerFactory.getLogger(AjaxResponseRenderer.class);
 
   private EncodeAjaxCallback callback;
-  private String contentType = "application/json";
 
   public AjaxResponseRenderer() {
     callback = new EncodeAjaxCallback();
@@ -105,7 +104,7 @@ public class AjaxResponseRenderer {
   private void renderComponent(FacesContext facesContext, RenderKit renderKit, String clientId,
       UIComponent component) throws IOException {
     PrintWriter writer = getPrintWriter(facesContext);
-    ResponseWriter contentWriter = renderKit.createResponseWriter(writer, contentType, null);
+    ResponseWriter contentWriter = renderKit.createResponseWriter(writer, CONTENT_TYPE, null);
     facesContext.setResponseWriter(contentWriter);
 
     if (LOG.isDebugEnabled()) {
@@ -138,7 +137,7 @@ public class AjaxResponseRenderer {
 
   private void saveState(FacesContext facesContext, RenderKit renderKit) throws IOException {
 
-    ResponseWriter stateWriter = renderKit.createResponseWriter(getPrintWriter(facesContext), contentType, null);
+    ResponseWriter stateWriter = renderKit.createResponseWriter(getPrintWriter(facesContext), CONTENT_TYPE, null);
     facesContext.setResponseWriter(stateWriter);
 
     StateManager stateManager = facesContext.getApplication().getStateManager();
@@ -168,7 +167,7 @@ public class AjaxResponseRenderer {
     } else {
       charset = "UTF-8";
     }
-    ensureContentTypeHeader(facesContext, charset, contentType);
+    ensureContentTypeHeader(facesContext, charset, CONTENT_TYPE);
 
     PrintWriter writer = getPrintWriter(facesContext);
     writer.write("{\n  \"tobagoAjaxResponse\": true,\n");
