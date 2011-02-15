@@ -30,4 +30,9 @@ public class ResourceUtilsUnitTest extends TestCase {
         assertEquals("folder/treeNode-icon.gif",
         ResourceUtils.createString("folder", "treeNode", "icon", "gif"));
   }
+
+  public void testAddPostfixToFilename() {
+    assertEquals("folder/treeNode-iconDisabled.gif", 
+        ResourceUtils.addPostfixToFilename("folder/treeNode-icon.gif", "Disabled"));
+  }
 }
