@@ -57,7 +57,6 @@ public class ResourceUtils {
     String extension = filename.substring(dotIndex);
     return new StringBuilder()
         .append(name)
-        .append(SEPARATOR)
         .append(postfix)
         .append(extension)
         .toString();
