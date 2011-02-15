@@ -35,4 +35,16 @@
 
   <create-session-secret>true</create-session-secret>
   <check-session-secret>true</check-session-secret>
+
+  <renderers>
+    <renderer>
+      <name>Column</name>
+      <supported-markup>
+        <markup>sun</markup>
+        <markup>planet</markup>
+        <markup>moon</markup>
+      </supported-markup>
+    </renderer>
+  </renderers>
+
 </tobago-config>

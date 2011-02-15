@@ -128,7 +128,8 @@
           <tc:reload frequency="5000"/>
         </f:facet>
 --%>
-        <tc:column label="#{overviewBundle.solarArrayName}" id="name" sortable="true" resizable="false">
+        <tc:column label="#{overviewBundle.solarArrayName}" id="name" sortable="true" resizable="false"
+                   markup="#{luminary.markup}">
           <tc:out value="#{luminary.name}" id="t_name"/>
         </tc:column>
         <tc:column label="#{overviewBundle.solarArrayNumber}" id="number" sortable="false" resizable="false"
