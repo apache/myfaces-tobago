@@ -17,7 +17,12 @@ package org.apache.myfaces.tobago.context;
  * limitations under the License.
  */
 
-public class Capability {
+import java.io.Serializable;
+
+public class Capability implements Serializable {
+
+  private static final long serialVersionUID = 1L;
+
   public static final Capability PLACEHOLDER = new Capability();
 
   private Capability() {

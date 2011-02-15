@@ -25,10 +25,13 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.io.Serializable;
 import java.security.SecureRandom;
 import java.util.Map;
 
-public class Secret {
+public class Secret implements Serializable {
+
+  private static final long serialVersionUID = 1L;
 
   private static final String KEY = Secret.class.getName();
 
