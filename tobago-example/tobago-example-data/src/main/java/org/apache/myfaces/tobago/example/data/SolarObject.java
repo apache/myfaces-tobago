@@ -65,6 +65,18 @@ public class SolarObject {
     this.name = name;
   }
 
+  public String getMarkup() {
+    if (name.equals("Sun")) {
+      return "sun";
+    } else {
+      if (orbit.equals("Sun")) {
+        return "planet";
+      } else {
+        return "moon";
+      }
+    }
+  }
+
   public String getNumber() {
     return number;
   }
