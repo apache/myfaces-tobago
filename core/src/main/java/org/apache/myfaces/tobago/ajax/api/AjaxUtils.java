@@ -223,7 +223,7 @@ public class AjaxUtils {
     return true;
   }
 
-  public static void redirect(ServletResponse response, String url) throws IOException {
+  public static void redirect(HttpServletResponse response, String url) throws IOException {
     PrintWriter out = response.getWriter();
     out.print("<redirect url=");
     out.print(url);
