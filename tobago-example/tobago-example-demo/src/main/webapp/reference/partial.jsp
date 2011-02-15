@@ -61,13 +61,13 @@
         <tc:button label="Reload left"
                    tip="Reload left side box"
                    action="#{partialReloadController.leftAction}">
-          <tc:attribute value="page:left" name="renderedPartially"/>
+          <tc:attribute value=":page:content:left" name="renderedPartially"/>
         </tc:button>
         <tc:panel/>
         <tc:button label="Reload both"
                    tip="Reload both boxes"
                    action="#{partialReloadController.bothAction}">
-          <tc:attribute value=":page:left,:page:right" name="renderedPartially"/>
+          <tc:attribute value=":page:content:left,:page:content:right" name="renderedPartially"/>
         </tc:button>
         <tc:panel/>
         <tc:selectOneChoice id="navSelect" value="#{partialReloadController.navigateAction}">
@@ -86,7 +86,7 @@
         <tc:button label="Reload right"
                    tip="Reload right side box"
                    action="#{partialReloadController.rightAction}">
-          <tc:attribute value="page:right" name="renderedPartially"/>
+          <tc:attribute value=":page:content:right" name="renderedPartially"/>
         </tc:button>
       </tc:panel>
     </tc:panel>
