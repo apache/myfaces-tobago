@@ -343,8 +343,8 @@
       </plugin>
 
       <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>rat-maven-plugin</artifactId>
+        <groupId>org.apache.rat</groupId>
+        <artifactId>apache-rat-plugin</artifactId>
       </plugin>
 
       <plugin>
@@ -360,11 +360,11 @@
         </reportSets>
       </plugin>
 
-      <plugin>
+      <!--plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-linkcheck-plugin</artifactId>
         <version>1.0.1</version>
-      </plugin>
+      </plugin-->
 
     </plugins>
 
@@ -909,17 +909,25 @@
         </plugin>
 
         <plugin>
-          <groupId>org.codehaus.mojo</groupId>
-          <artifactId>rat-maven-plugin</artifactId>
-          <version>1.0-alpha-3</version>
+          <groupId>org.apache.rat</groupId>
+          <artifactId>apache-rat-plugin</artifactId>
+          <version>0.7</version>
+          <executions>
+          <execution>
+            <phase>verify</phase>
+            <goals>
+              <goal>check</goal>
+            </goals>
+          </execution>
+        </executions>
           <configuration>
             <excludes>
               <!-- factory config -->
               <exclude>**/javax.faces.lifecycle.LifecycleFactory</exclude>
 
               <!-- jQuery -->
-              <exclude>**/script/jquery/*/*.js</exclude>
-              <exclude>**/script/jquery-ui/*/*.js</exclude>
+              <exclude>**/jquery*.js</exclude>
+              <exclude>**/ui.*.js</exclude>
 
               <!-- text and logfiles -->
               <exclude>**/*.log</exclude>
@@ -1042,6 +1050,7 @@
               <doUpdate>false</doUpdate>
               <getRevisionOnlyOnce>true</getRevisionOnlyOnce>
               <buildNumberPropertyName>scm.revision</buildNumberPropertyName>
+              <revisionOnScmFailure>unknown</revisionOnScmFailure>
             </configuration>
           </plugin>
           <plugin>
@@ -1369,6 +1378,7 @@
               <doUpdate>false</doUpdate>
               <getRevisionOnlyOnce>true</getRevisionOnlyOnce>
               <buildNumberPropertyName>scm.revision</buildNumberPropertyName>
+              <revisionOnScmFailure>unknown</revisionOnScmFailure>
             </configuration>
           </plugin>
           <plugin>
