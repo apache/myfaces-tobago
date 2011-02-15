@@ -103,6 +103,7 @@ public class ClientProperties implements Serializable {
     // theme
     String requestTheme = (String) externalContext.getRequestParameterMap().get("tobago.theme");
     TobagoConfig config = TobagoConfig.getInstance(facesContext);
+    // TODO log error if tobago config is not initialized
     this.theme = config.getTheme(requestTheme);
     if (LOG.isInfoEnabled()) {
       LOG.info("theme='" + theme.getName() + "' from requestParameter " + "tobago.theme='" + requestTheme + "'");
