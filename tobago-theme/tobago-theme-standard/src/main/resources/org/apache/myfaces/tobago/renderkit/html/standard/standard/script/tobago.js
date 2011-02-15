@@ -2506,27 +2506,30 @@ Tobago.Updater = {
 };
 
 // -------- ToolBar ----------------------------------------------------
-// todo: namespace etc.
 
-// todo: what is with initialisation of elements which are loaded with AJAX?
-$(document).ready(function() {
+Tobago.ToolBar = {};
+
+/**
+ * Initializes the tool bars.
+ * @param elements  a jQuery object to initialize (ajax) or null for initializing the whole document (full load).
+ */
+Tobago.ToolBar.init = function(elements) {
 
   // doing the same for 3 renderer names
-  var rendererNames = new Array('toolBar', 'boxToolBar', 'tabGroupToolBar');
-  for (var i = 0; i < rendererNames.length; i++) {
-    var renderer = rendererNames[i];
-    jQuery('.tobago-' + renderer + '-item')
-        .not('.tobago-' + renderer + '-item-markup-disabled')
+  // XXX put this in a loop (the first try doesn't work, because we can't use local variables in a anonymous function)
+
+    Tobago.selectWidthJQuery(elements, ".tobago-toolBar").find('.tobago-toolBar-item')
+        .not('.tobago-toolBar-item-markup-disabled')
         .mouseenter(function() {
-      jQuery(this).addClass('tobago-' + renderer + '-item-markup-hover');
+      jQuery(this).addClass('tobago-toolBar-item-markup-hover');
     })
         .mouseleave(function() {
-      jQuery(this).removeClass('tobago-' + renderer + '-item-markup-hover');
+      jQuery(this).removeClass('tobago-toolBar-item-markup-hover');
     })
-        .children('.tobago-' + renderer + '-button, .tobago-' + renderer + '-menu')
+        .children('.tobago-toolBar-button, .tobago-toolBar-menu')
         .mouseenter(function() {
       jQuery(this)
-          .addClass('tobago-' + renderer + '-button-markup-hover').children('img')
+          .addClass('tobago-toolBar-button-markup-hover').children('img')
           .each(function() {
         // set the src to the hover src url.
         var hover = jQuery(this).attr('srchover');
@@ -2537,7 +2540,7 @@ $(document).ready(function() {
     })
         .mouseleave(function() {
       jQuery(this)
-          .removeClass('tobago-' + renderer + '-button-markup-hover')
+          .removeClass('tobago-toolBar-button-markup-hover')
           .children('img')
           .each(function() {
         // restore the original/normal src url.
@@ -2547,24 +2550,90 @@ $(document).ready(function() {
         }
       });
     });
-  }
-});
 
-function tobago_toolBarCheckToggle(id) {
+    Tobago.selectWidthJQuery(elements, ".tobago-boxToolBar").find('.tobago-boxToolBar-item')
+        .not('.tobago-boxToolBar-item-markup-disabled')
+        .mouseenter(function() {
+      jQuery(this).addClass('tobago-boxToolBar-item-markup-hover');
+    })
+        .mouseleave(function() {
+      jQuery(this).removeClass('tobago-boxToolBar-item-markup-hover');
+    })
+        .children('.tobago-boxToolBar-button, .tobago-boxToolBar-menu')
+        .mouseenter(function() {
+      jQuery(this)
+          .addClass('tobago-boxToolBar-button-markup-hover').children('img')
+          .each(function() {
+        // set the src to the hover src url.
+        var hover = jQuery(this).attr('srchover');
+        if (hover) {
+          jQuery(this).attr('src', hover);
+        }
+      });
+    })
+        .mouseleave(function() {
+      jQuery(this)
+          .removeClass('tobago-boxToolBar-button-markup-hover')
+          .children('img')
+          .each(function() {
+        // restore the original/normal src url.
+        var normal = jQuery(this).attr('srcdefault');
+        if (normal) {
+          jQuery(this).attr('src', normal);
+        }
+      });
+    });
+
+    Tobago.selectWidthJQuery(elements, ".tobago-tabGroupToolBar").find('.tobago-tabGroupToolBar-item')
+        .not('.tobago-tabGroupToolBar-item-markup-disabled')
+        .mouseenter(function() {
+      jQuery(this).addClass('tobago-tabGroupToolBar-item-markup-hover');
+    })
+        .mouseleave(function() {
+      jQuery(this).removeClass('tobago-tabGroupToolBar-item-markup-hover');
+    })
+        .children('.tobago-tabGroupToolBar-button, .tobago-tabGroupToolBar-menu')
+        .mouseenter(function() {
+      jQuery(this)
+          .addClass('tobago-tabGroupToolBar-button-markup-hover').children('img')
+          .each(function() {
+        // set the src to the hover src url.
+        var hover = jQuery(this).attr('srchover');
+        if (hover) {
+          jQuery(this).attr('src', hover);
+        }
+      });
+    })
+        .mouseleave(function() {
+      jQuery(this)
+          .removeClass('tobago-tabGroupToolBar-button-markup-hover')
+          .children('img')
+          .each(function() {
+        // restore the original/normal src url.
+        var normal = jQuery(this).attr('srcdefault');
+        if (normal) {
+          jQuery(this).attr('src', normal);
+        }
+      });
+    });
+};
+
+Tobago.ToolBar.checkToggle = function(id) {
   var element = document.getElementById(id);
   element.value = 'true' == element.value ? 'false' : 'true';
-}
+};
 
-function tobago_toolBarSetRadioValue(id, value) {
+Tobago.ToolBar.setRadioValue = function(id, value) {
   var element = document.getElementById(id);
   element.value = value;
-}
+};
 
 // XXX write initialization
 
 function xxx_tobagoInit(elements) {
   Tobago.Menu.init(elements);
   Tobago.TabGroup.init(elements);
+  Tobago.ToolBar.init(elements);
   Tobago.fixPngAlphaAll(elements);
 }
 

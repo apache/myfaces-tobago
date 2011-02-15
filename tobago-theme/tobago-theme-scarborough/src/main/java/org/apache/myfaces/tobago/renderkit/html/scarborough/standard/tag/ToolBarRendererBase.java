@@ -176,7 +176,7 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
           checked = false;
         }
 
-        String onClick = "tobago_toolBarSetRadioValue('" + radioId + "', '" + formattedValue + "');" + suffix;
+        String onClick = "Tobago.ToolBar.setRadioValue('" + radioId + "', '" + formattedValue + "');" + suffix;
         width = renderToolbarButton(facesContext, toolBar, command, writer, checked, onClick, null, width);
       }
 
@@ -208,7 +208,7 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
     if (onClick == null) {
       onClick = "";
     }
-    onClick = "tobago_toolBarCheckToggle('" + clientId + "');" + onClick;
+    onClick = "Tobago.ToolBar.checkToggle('" + clientId + "');" + onClick;
 
     width = renderToolbarButton(facesContext, toolBar, command, writer, checked, onClick, null, width);
 
