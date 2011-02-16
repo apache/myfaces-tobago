@@ -20,7 +20,7 @@
   <parent>
     <groupId>org.apache.myfaces.tobago</groupId>
     <artifactId>tobago-theme</artifactId>
-    <version>1.5.0-alpha-2</version>
+    <version>1.5.0-alpha-3-SNAPSHOT</version>
   </parent>
   <artifactId>tobago-theme-speyside</artifactId>
   <packaging>jar</packaging>
@@ -156,8 +156,7 @@
             <configuration>
               <target>
                 <concat destfile="${project.build.directory}/javascript-min/speyside/script/tobago.min.js">
-                  <filelist dir="${basedir}/src/main/resources/org/apache/myfaces/tobago/renderkit/html/speyside/standard/script"
-                      files="theme-config.js" />
+                  <filelist dir="${basedir}/src/main/resources/org/apache/myfaces/tobago/renderkit/html/speyside/standard/script" files="theme-config.js" />
                 </concat>
                 <replaceregexp match="^.*//.*@DEV_ONLY.*$" replace="" byline="true">
                   <fileset dir="${project.build.directory}/javascript-min">
