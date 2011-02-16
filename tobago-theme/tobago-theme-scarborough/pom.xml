@@ -20,7 +20,7 @@
   <parent>
     <groupId>org.apache.myfaces.tobago</groupId>
     <artifactId>tobago-theme</artifactId>
-    <version>1.5.0-alpha-2-SNAPSHOT</version>
+    <version>1.5.0-alpha-2</version>
   </parent>
   <artifactId>tobago-theme-scarborough</artifactId>
   <packaging>jar</packaging>
@@ -52,13 +52,11 @@
             <configuration>
               <target>
                 <concat destfile="${project.build.directory}/javascript-min/scarborough/script/tobago.min.js">
-                  <filelist
-                      dir="${basedir}/src/main/resources/org/apache/myfaces/tobago/renderkit/html/scarborough/standard/script"
-                      files="tobago-sheet.js"/>
+                  <filelist dir="${basedir}/src/main/resources/org/apache/myfaces/tobago/renderkit/html/scarborough/standard/script" files="tobago-sheet.js" />
                 </concat>
                 <replaceregexp match="^.*//.*@DEV_ONLY.*$" replace="" byline="true">
                   <fileset dir="${project.build.directory}/javascript-min">
-                    <include name="**/tobago.min.js"/>
+                    <include name="**/tobago.min.js" />
                   </fileset>
                 </replaceregexp>
               </target>
