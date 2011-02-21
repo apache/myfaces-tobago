@@ -126,7 +126,7 @@ li.tobago-menu-markup-selected {
   background-color: #FADC9F;
 }
 
-.tobago-sheet-row-markup-selected {
+.tobago-sheet-row-markup-selected, .tobago-sheet-row-markup-selected td {
 	background-color: highlight;
 	color: highlighttext;
 }

@@ -872,7 +872,7 @@ hr.tobago-separator {
   background: #d8e9fb;
 }
 
-.tobago-sheet-row-markup-selected {
+.tobago-sheet-row-markup-selected, .tobago-sheet-row-markup-selected td {
 	background: highlight;
 	color: highlighttext;
 }

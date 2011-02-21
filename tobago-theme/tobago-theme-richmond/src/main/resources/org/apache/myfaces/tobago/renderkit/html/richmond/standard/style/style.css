@@ -241,7 +241,7 @@ img.tobago-progress-color2 {
   background: #EBEFEB;
 }
 
-.tobago-sheet-row-markup-selected {
+.tobago-sheet-row-markup-selected, .tobago-sheet-row-markup-selected td {
 	background: highlight;
 	color: highlighttext;
 }

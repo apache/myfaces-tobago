@@ -467,7 +467,7 @@ hr.tobago-separator, .tobago-separator-start hr, .tobago-separator-end hr {
   background: #ffffff;
 }
 
-.tobago-sheet-row-markup-selected {
+.tobago-sheet-row-markup-selected, .tobago-sheet-row-markup-selected td {
 	background: #EBEAEA;
 	color: #000000;
 }
