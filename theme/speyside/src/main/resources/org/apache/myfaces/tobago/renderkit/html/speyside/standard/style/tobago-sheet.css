@@ -52,7 +52,7 @@
   background: #ffffff;
 }
 
-.tobago-sheet-row-selected {
+.tobago-sheet-row-selected, .tobago-sheet-row-selected td {
 	background: #EBEAEA;
 	color: #000000;
 }

@@ -40,7 +40,7 @@
   background: #EBEFEB;
 }
  
-.tobago-sheet-row-selected {
+.tobago-sheet-row-selected, .tobago-sheet-row-selected td {
 	background: highlight;
 	color: highlighttext;
 }

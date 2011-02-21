@@ -160,7 +160,7 @@ div.tobago-sheet-cell-inner span {
   background: #d8e9fb;
 }
 
-.tobago-sheet-row-selected {
+.tobago-sheet-row-selected, .tobago-sheet-row-selected td {
 	background: highlight;
 	color: highlighttext;
 }
