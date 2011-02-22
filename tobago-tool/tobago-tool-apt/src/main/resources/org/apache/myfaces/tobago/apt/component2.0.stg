@@ -269,6 +269,10 @@ SeverityProperty(property) ::= <<
 <NormalProperty(property)>
 >>
 
+TextAlignProperty(property) ::= <<
+<NormalProperty(property)>
+>>
+
 DisplayProperty(property) ::= <<
 <NormalProperty(property)>
 >>
@@ -365,6 +369,26 @@ public <property.type> get<property.upperCamelCaseName>() {
   if (object != null) {
      return Measure.valueOf(object);
   }
+  <if(property.defaultCode)>
+  return <property.defaultCode>;
+  <else>
+  return null;
+  <endif>
+}
+
+<checkDeprecated(property)>
+public void set<property.upperCamelCaseName>(<property.type> <property.propertyName>) {
+  getStateHelper().put(PropertyKeys.<property.propertyName>, <property.propertyName>);
+}
+>>
+
+TextAlignProperty(property) ::= <<
+
+<createDescription(property)>
+<checkDeprecated(property)>
+public <property.type> get<property.upperCamelCaseName>() {
+  String string = (String) getStateHelper().eval(PropertyKeys.<property.propertyName>);
+  return TextAlign.parse(string);
   <if(property.defaultCode)>
   return <property.defaultCode>;
   <else>

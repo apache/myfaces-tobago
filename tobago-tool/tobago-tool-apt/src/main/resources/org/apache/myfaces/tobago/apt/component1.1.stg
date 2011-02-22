@@ -414,6 +414,10 @@ SeverityProperty(property) ::= <<
 <NormalProperty(property)>
 >>
 
+TextAlignProperty(property) ::= <<
+<NormalProperty(property)>
+>>
+
 DisplayProperty(property) ::= <<
 <NormalProperty(property)>
 >>
@@ -502,6 +506,32 @@ public void set<property.upperCamelCaseName>(Measure <property.propertyName>) {
 }
 >>
 
+TextAlignProperty(property) ::= <<
+
+<createDescription(property)>
+<checkDeprecated(property)>
+public <property.type> get<property.upperCamelCaseName>() {
+  if (<property.propertyName> != null) {
+    return <property.propertyName>;
+  }
+  <getValueExpression(property)>
+  if (ve != null) {
+    String string = (String) <getValue(property)>
+    return TextAlign.parse(string);
+  }
+  <if(property.defaultCode)>
+  return <property.defaultCode>;
+  <else>
+  return null;
+  <endif>
+}
+
+<checkDeprecated(property)>
+public void set<property.upperCamelCaseName>(<property.type> <property.propertyName>) {
+  this.<property.propertyName> = <property.propertyName>;
+}
+>>
+
 MarkupProperty(property) ::= <<
 
 <checkDeprecated(property)>
@@ -567,6 +597,10 @@ MeasureSaveStateProperty() ::= <<
 values[<it.indexPlusOne>] = <it.propertyName>;
 >>
 
+TextAlignSaveStateProperty() ::= <<
+values[<it.indexPlusOne>] = <it.propertyName>;
+>>
+
 MarkupSaveStateProperty() ::= <<
 values[<it.indexPlusOne>] = <it.propertyName>;
 >>
@@ -621,6 +655,10 @@ SeverityRestoreStateProperty() ::= <<
 >>
 
 MeasureRestoreStateProperty() ::= <<
+<it.propertyName> = (<it.type>) values[<it.indexPlusOne>];
+>>
+
+TextAlignRestoreStateProperty() ::= <<
 <it.propertyName> = (<it.type>) values[<it.indexPlusOne>];
 >>
 

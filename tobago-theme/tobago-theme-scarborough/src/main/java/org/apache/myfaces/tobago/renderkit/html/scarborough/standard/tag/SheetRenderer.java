@@ -18,8 +18,6 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  */
 
 import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.config.Configurable;
-import org.apache.myfaces.tobago.util.CreateComponentUtils;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.SupportsMarkup;
@@ -30,6 +28,7 @@ import org.apache.myfaces.tobago.component.UIMenu;
 import org.apache.myfaces.tobago.component.UIMenuCommand;
 import org.apache.myfaces.tobago.component.UIReload;
 import org.apache.myfaces.tobago.component.UISheet;
+import org.apache.myfaces.tobago.config.Configurable;
 import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.ResourceManager;
@@ -40,6 +39,7 @@ import org.apache.myfaces.tobago.event.PageAction;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.layout.LayoutBase;
 import org.apache.myfaces.tobago.layout.Measure;
+import org.apache.myfaces.tobago.layout.TextAlign;
 import org.apache.myfaces.tobago.model.SheetState;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
@@ -51,6 +51,7 @@ import org.apache.myfaces.tobago.renderkit.html.util.CommandRendererHelper;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
+import org.apache.myfaces.tobago.util.CreateComponentUtils;
 import org.apache.myfaces.tobago.util.FacetUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
@@ -322,7 +323,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
           markup = markup.add(Markup.CLICKABLE);
         }
         writer.writeClassAttribute(Classes.create(sheet, "cell", markup));
-        final String align = (String) column.getAttributes().get(Attributes.ALIGN);
+        final TextAlign align = TextAlign.parse((String) column.getAttributes().get(Attributes.ALIGN));
         if (align != null) {
           Style alignStyle = new Style();
           alignStyle.setTextAlign(align);
@@ -739,10 +740,8 @@ public class SheetRenderer extends LayoutComponentRendererBase {
     Style divStyle = new Style();
     divWidth = divWidth - 6; // leftBorder + leftPadding + rightPadding + rightBorder = 6, todo: use Style Constructor
     divStyle.setWidth(Measure.valueOf(divWidth));
-    String align = (String) column.getAttributes().get(Attributes.ALIGN);
-    if (align != null) {
-      divStyle.setTextAlign(align);
-    }
+    TextAlign align = TextAlign.parse((String) column.getAttributes().get(Attributes.ALIGN));
+    divStyle.setTextAlign(align);
 
     writer.startElement(HtmlElements.SPAN, null);
     writer.writeIdAttribute(sheetId + ComponentUtils.SUB_SEPARATOR + "header_box_" + columnIndex);

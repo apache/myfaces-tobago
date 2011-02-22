@@ -21,6 +21,7 @@ import org.apache.myfaces.tobago.component.UIToolBar;
 import org.apache.myfaces.tobago.config.Configurable;
 import org.apache.myfaces.tobago.context.ResourceManager;
 import org.apache.myfaces.tobago.layout.Measure;
+import org.apache.myfaces.tobago.layout.TextAlign;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
@@ -47,7 +48,7 @@ public class ToolBarRenderer extends ToolBarRendererBase {
     Style style = new Style(facesContext, toolBar);
     boolean right = toolBar instanceof UIToolBar && UIToolBar.ORIENTATION_RIGHT.equals(toolBar.getOrientation());
     if (right) {
-      style.setTextAlign("right");
+      style.setTextAlign(TextAlign.RIGHT);
     }
     writer.writeStyleAttribute(style);
     super.encodeEnd(facesContext, toolBar);

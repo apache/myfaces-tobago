@@ -49,6 +49,7 @@ public class FlowLayoutRenderer extends RendererBase implements SpacingValues, M
     style.setMarginRight(getMarginRight(facesContext, layout));
     style.setMarginTop(getMarginTop(facesContext, layout));
     style.setMarginBottom(getMarginBottom(facesContext, layout));
+    style.setTextAlign(layout.getTextAlign());
     writer.writeStyleAttribute(style);
   }
 

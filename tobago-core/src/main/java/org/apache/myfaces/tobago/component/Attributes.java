@@ -194,6 +194,7 @@ public final class Attributes {
   public static final String TAB_INDEX = "tabIndex";
   public static final String TARGET = "target";
   public static final String TIME_STYLE = "timeStyle";
+  public static final String TEXT_ALIGN = "textAlign";
   public static final String TIMEZONE = "timezone";
   public static final String TITLE = "title";
   public static final String TIP = "tip";

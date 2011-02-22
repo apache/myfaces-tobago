@@ -1,4 +1,7 @@
-package org.apache.myfaces.tobago.internal.component;
+package org.apache.myfaces.tobago.layout;
+
+import org.junit.Assert;
+import org.junit.Test;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -17,25 +20,13 @@ package org.apache.myfaces.tobago.internal.component;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.component.SupportsMarkup;
-import org.apache.myfaces.tobago.layout.LayoutManager;
-import org.apache.myfaces.tobago.layout.Orientation;
+public class TextAlignUnitTest {
 
-public abstract class AbstractUIFlowLayout extends AbstractUILayoutBase implements LayoutManager, SupportsMarkup {
-
-  public void init() {
-  }
-
-  public void fixRelativeInsideAuto(Orientation orientation, boolean auto) {
-  }
-
-  public void preProcessing(Orientation orientation) {
-  }
-
-  public void mainProcessing(Orientation orientation) {
-    
-  }
-
-  public void postProcessing(Orientation orientation) {
+  @Test
+  public void testConstants() {
+    Assert.assertEquals(TextAlign.LEFT.getValue(), TextAlign.STRING_LEFT);
+    Assert.assertEquals(TextAlign.RIGHT.getValue(), TextAlign.STRING_RIGHT);
+    Assert.assertEquals(TextAlign.CENTER.getValue(), TextAlign.STRING_CENTER);
+    Assert.assertEquals(TextAlign.JUSTIFY.getValue(), TextAlign.STRING_JUSTIFY);
   }
 }

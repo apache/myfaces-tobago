@@ -22,6 +22,7 @@ import org.apache.myfaces.tobago.layout.Display;
 import org.apache.myfaces.tobago.layout.LayoutBase;
 import org.apache.myfaces.tobago.layout.LayoutComponent;
 import org.apache.myfaces.tobago.layout.Measure;
+import org.apache.myfaces.tobago.layout.TextAlign;
 
 import javax.faces.context.FacesContext;
 import java.io.Serializable;
@@ -49,7 +50,7 @@ public class Style implements Serializable {
   private Measure padding;
   private String backgroundImage;
   private Integer zIndex;
-  private String textAlign;
+  private TextAlign textAlign;
 
   public Style() {
   }
@@ -377,11 +378,11 @@ public class Style implements Serializable {
     this.zIndex = zIndex;
   }
 
-  public String getTextAlign() {
+  public TextAlign getTextAlign() {
     return textAlign;
   }
 
-  public void setTextAlign(String textAlign) {
+  public void setTextAlign(TextAlign textAlign) {
     this.textAlign = textAlign;
   }
 }

@@ -19,7 +19,9 @@ package org.apache.myfaces.tobago.internal.taglib.component;
 
 import org.apache.myfaces.tobago.apt.annotation.BodyContent;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
+import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
+import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasBinding;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
@@ -27,6 +29,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasId;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasMargin;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasMargins;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
+import org.apache.myfaces.tobago.layout.TextAlign;
 
 /**
  * XXX Warning: Still in progress! Please do not use it until other announcement.
@@ -44,4 +47,19 @@ public interface FlowLayoutTagDeclaration
     /*HasSpacing, TODO*/
     HasMargin, HasMargins, /*todo: do we need the margin here? Or should be use the margin from the container? */ 
     HasBinding, HasMarkup, HasCurrentMarkup {
+
+  /**
+   * The alignment of the elements inside of the container, possible values are:
+   * {@value TextAlign#STRING_LEFT},
+   * {@value TextAlign#STRING_RIGHT},
+   * {@value TextAlign#STRING_CENTER} und
+   * {@value TextAlign#STRING_JUSTIFY}.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(
+      type = {"org.apache.myfaces.tobago.layout.TextAlign"},
+      defaultValue = "TextAlign.LEFT",
+      allowedValues = {
+          TextAlign.STRING_LEFT, TextAlign.STRING_RIGHT, TextAlign.STRING_CENTER, TextAlign.STRING_JUSTIFY})
+  void setTextAlign(String textAlign);
 }

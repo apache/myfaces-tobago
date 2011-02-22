@@ -235,6 +235,16 @@ if (<it.propertyName> != null) {
 }
 >>
 
+TextAlign() ::= <<
+if (<it.propertyName> != null) {
+  if (!<it.propertyName>.isLiteralText()) {
+    <createValueBinding(it)>
+  } else {
+    component.set<it.upperCamelCaseName>(org.apache.myfaces.tobago.layout.TextAlign.parse(<it.propertyName>.getExpressionString()));
+  }
+}
+>>
+
 Markup() ::= <<
 if (<it.propertyName> != null) {
   if (!<it.propertyName>.isLiteralText()) {
