@@ -33,9 +33,11 @@ import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.context.Theme;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.internal.ajax.AjaxInternalUtils;
+import org.apache.myfaces.tobago.internal.component.AbstractUICommandBase;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPage;
 import org.apache.myfaces.tobago.internal.layout.LayoutContext;
 import org.apache.myfaces.tobago.internal.util.AccessKeyMap;
+import org.apache.myfaces.tobago.internal.util.Deprecation;
 import org.apache.myfaces.tobago.internal.util.FastStringWriter;
 import org.apache.myfaces.tobago.internal.util.MimeTypeUtils;
 import org.apache.myfaces.tobago.internal.util.ResponseUtils;
@@ -47,6 +49,7 @@ import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
+import org.apache.myfaces.tobago.renderkit.html.util.CommandRendererHelper;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -319,16 +322,31 @@ public class PageRenderer extends PageRendererBase {
                 + client.getHorizontalScrollbarWeight().getPixel() + "');");
       }
 
+      UIComponent command = null;
       if (component.getFacets().containsKey(Facets.RESIZE_ACTION)) {
+        Deprecation.LOG.warn("Please use 'resize' instead of 'resizeAction' as facet.");
         UIComponent facet = component.getFacet(Facets.RESIZE_ACTION);
-        UIComponent command = null;
         if (facet instanceof UICommand) {
           command = facet;
         } else if (facet instanceof UIForm && facet.getChildCount() == 1) {
+          Deprecation.LOG.warn("Please don't use a form, but a command with immediate=true instead.");
           command = (UIComponent) facet.getChildren().get(0);
         }
-        if (command != null && command.isRendered()) {
-          writer.writeJavascript("Tobago.resizeActionId = '" + command.getClientId(facesContext) + "';");
+      }
+
+      if (component.getFacets().containsKey(Facets.RESIZE)) {
+        UIComponent facet = component.getFacet(Facets.RESIZE);
+        if (facet instanceof UICommand) {
+          command = facet;
+        } else if (facet instanceof UIForm && facet.getChildCount() == 1) {
+          Deprecation.LOG.warn("Please don't use a form, but a command with immediate=true instead.");
+          command = (UIComponent) facet.getChildren().get(0);
+        }
+      }
+      if (command != null && command.isRendered()) {
+        final CommandRendererHelper helper = new CommandRendererHelper(facesContext, (AbstractUICommandBase) command);
+        if (!helper.isDisabled()) {
+          writer.writeJavascript("Tobago.resizeAction = function() {\n" + helper.getOnclick() + "\n};\n");
         }
       }
 

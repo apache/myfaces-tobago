@@ -43,6 +43,11 @@ public final class Facets {
   public static final String POPUP = "popup";
   public static final String RADIO = "radio";
   public static final String RELOAD = "reload";
+  public static final String RESIZE = "resize";
+  /**
+   * @deprecated since 1.5.0. Please use {@link #RESIZE}
+   */
+  @Deprecated
   public static final String RESIZE_ACTION = "resizeAction";
   public static final String SORTER = "sorter";
   public static final String TOOL_BAR = "toolBar";

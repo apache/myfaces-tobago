@@ -22,8 +22,10 @@
                 xmlns:tx="http://myfaces.apache.org/tobago/extension"
                 xmlns:ui="http://java.sun.com/jsf/facelets">
   <f:view locale="#{clientConfigController.locale}">
-    <tc:page applicationIcon="icon/favicon.ico" label="#{overviewBundle.pageTitle} - #{title}" id="page" width="1000px"
-             height="750px">
+    <tc:page applicationIcon="icon/favicon.ico" label="#{overviewBundle.pageTitle} - #{title}" id="page">
+      <f:facet name="resize">
+        <tc:command immediate="true"/>
+      </f:facet>
 
       <f:facet name="menuBar">
         <tc:menuBar>

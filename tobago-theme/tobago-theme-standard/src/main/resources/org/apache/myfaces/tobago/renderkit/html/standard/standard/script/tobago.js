@@ -116,9 +116,10 @@ var Tobago = {
   lastFocusId: undefined,
 
   /**
-   * The id of the action which should be executed when the window was resized.
+   * The resize action is a function which should be executed when the window was resized.
+   * Can be defined as facet in the page.
    */
-  resizeActionId: undefined,
+  resizeAction: undefined,
   resizeEventCount: 0,
 
   htmlIdIndex: 0,
@@ -279,8 +280,8 @@ var Tobago = {
 
     this.addBindEventListener(document, 'keypress', this.acceleratorKeys, 'observe');
 
-    if (Tobago.resizeActionId) {
-      // firebug submits an onresize event
+    if (Tobago.resizeAction) {
+      // firefox submits an onresize event
       window.setTimeout(Tobago.registerResizeAction, 1000);
     }
 
@@ -1041,7 +1042,7 @@ var Tobago = {
   resizePageAction: function() {
     Tobago.resizeEventCount--;
     if (Tobago.resizeEventCount == 0) {
-      Tobago.submitAction(Tobago.resizeActionId);
+      Tobago.resizeAction();
     }
   },
 
