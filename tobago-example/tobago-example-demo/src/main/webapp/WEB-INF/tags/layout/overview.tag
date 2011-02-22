@@ -20,11 +20,14 @@
 
 <f:view locale="#{clientConfigController.locale}">
   <tc:loadBundle basename="overview" var="overviewBundle"/>
-  <tc:page applicationIcon="icon/favicon.ico" label="#{overviewBundle.pageTitle} - #{title}"
-           id="page" width="1000px" height="750px">
+  <tc:page applicationIcon="icon/favicon.ico" label="#{overviewBundle.pageTitle} - #{title}" id="page">
     <%-- fixme: #{title} will not evaluated correctly, because it will be evaluated "late", but too late
          fixme: and ${title} is not allowed, because it can't be provided with JSF 1.2 
          fixme: With facelets this works. --%>
+    <f:facet name="resize">
+      <tc:command immediate="true"/>
+    </f:facet>
+
     <f:facet name="menuBar">
       <tc:menuBar>
         <tc:menu label="#{overviewBundle.menu_config}">
