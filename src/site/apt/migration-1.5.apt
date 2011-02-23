@@ -86,6 +86,8 @@ UIComponent Classes
    Some of the UIComponent classes has been renamed or restructured,
    to get a consistent naming schema. The used UIComponents where generated
    and have super classes with an "Abstract" as prefix.
+   All getters and setters are generated in the UIComponent classes.
+   The flowing code will not work in 1.5 <<<uiComponent.getAttributes().remove()>>>. Please set the value to null.
 
    \ 
 
