@@ -1,8 +1,5 @@
 package org.apache.myfaces.tobago.layout;
 
-import org.junit.Assert;
-import org.junit.Test;
-
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -19,6 +16,9 @@ import org.junit.Test;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+import org.junit.Assert;
+import org.junit.Test;
 
 public class TextAlignUnitTest {
 
