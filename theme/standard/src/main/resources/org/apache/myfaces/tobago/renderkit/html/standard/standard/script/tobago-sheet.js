@@ -914,23 +914,25 @@ Tobago.Sheet.prototype.selectAll = function() {
 Tobago.Sheet.prototype.unSelectAll = function() {
     var selected = Tobago.element(this.selectedId);
     var row = Tobago.element(this.firstRowId);
-    var image = this.getSelectionElementForRow(row);
-    if (image) {
-      var i = this.firstRowIndex;
-      var j = 0;
-      while (row) {
-        image = this.getSelectionElementForRow(row);
-        if (!image || !image.src || !image.src.match(/Disabled/)) {
-          var re = new RegExp("," + i + ",", 'g');
-          selected.value = selected.value.replace(re, ",");
+    if (row) {
+      var image = this.getSelectionElementForRow(row);
+      if (image) {
+        var i = this.firstRowIndex;
+        var j = 0;
+        while (row) {
+          image = this.getSelectionElementForRow(row);
+          if (!image || !image.src || !image.src.match(/Disabled/)) {
+            var re = new RegExp("," + i + ",", 'g');
+            selected.value = selected.value.replace(re, ",");
+          }
+          i++;
+          row = this.getSiblingRow(row, ++j);
         }
-        i++;
-        row = this.getSiblingRow(row, ++j);
+      } else {
+        selected.value = ",";
       }
-    } else {
-      selected.value = ",";
+      this.updateSelectionView();
     }
-    this.updateSelectionView();
   };
 
 Tobago.Sheet.prototype.toggleAllSelections = function(sheetId) {
