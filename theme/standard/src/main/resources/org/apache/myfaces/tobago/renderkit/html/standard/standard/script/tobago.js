@@ -595,9 +595,11 @@ var Tobago = {
   getSecretParam: function() {
     var secret = Tobago.element("org.apache.myfaces.tobago.webapp.Secret");
     var suffix = "";
-    suffix += encodeURIComponent(secret.name);
-    suffix += "=";
-    suffix += encodeURIComponent(secret.value);
+    if (secret) {
+      suffix += encodeURIComponent(secret.name);
+      suffix += "=";
+      suffix += encodeURIComponent(secret.value);
+    }
     return suffix;
   },
 
