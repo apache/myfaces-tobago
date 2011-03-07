@@ -24,15 +24,6 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_BORDER;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_CELLSPACING;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_INNER_HEIGHT;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_INNER_WIDTH;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_HEIGHT;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_WIDTH;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SCROLLBARS;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_WIDTH_LIST;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.FixedLayoutToken;
 import org.apache.myfaces.tobago.component.HideLayoutToken;
@@ -44,8 +35,10 @@ import org.apache.myfaces.tobago.component.RelativeLayoutToken;
 import org.apache.myfaces.tobago.component.UICell;
 import org.apache.myfaces.tobago.component.UIForm;
 import org.apache.myfaces.tobago.component.UIGridLayout;
+import org.apache.myfaces.tobago.component.UIHiddenInput;
 import org.apache.myfaces.tobago.component.UILayout;
 import org.apache.myfaces.tobago.component.UIPage;
+import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.renderkit.LayoutInformationProvider;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
@@ -64,6 +57,16 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_BORDER;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_CELLSPACING;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_INNER_HEIGHT;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_INNER_WIDTH;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_HEIGHT;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_WIDTH;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SCROLLBARS;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_WIDTH_LIST;
 
 public class GridLayoutRenderer extends DefaultLayoutRenderer {
 
@@ -393,6 +396,14 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
       }
     }
     writer.endElement(HtmlConstants.TABLE);
+
+    if (TobagoConfig.getInstance(facesContext).isFixLayoutTransparency()) {
+      for (UIComponent child : (List<UIComponent>)layout.getParent().getChildren()) {
+        if (child instanceof UIHiddenInput) {
+          RenderUtil.encode(facesContext, child);
+        }
+      }
+    }
   }
 
   public void encodeEnd(FacesContext facesContext,
