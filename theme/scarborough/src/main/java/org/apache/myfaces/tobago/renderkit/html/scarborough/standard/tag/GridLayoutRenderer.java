@@ -398,7 +398,7 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
     writer.endElement(HtmlConstants.TABLE);
 
     if (TobagoConfig.getInstance(facesContext).isFixLayoutTransparency()) {
-      for (UIComponent child : (List<UIComponent>)layout.getParent().getChildren()) {
+      for (UIComponent child : (List<UIComponent>) layout.getParent().getChildren()) {
         if (child instanceof UIHiddenInput) {
           RenderUtil.encode(facesContext, child);
         }
