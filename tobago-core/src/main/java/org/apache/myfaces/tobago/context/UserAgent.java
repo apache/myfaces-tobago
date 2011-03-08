@@ -137,17 +137,17 @@ public class UserAgent implements Serializable {
   /**
    * e. g. Firefox 2.0
    */
-  public static final UserAgent GECKO_1_8 = new UserAgent("gecko", "1.8");
+  public static final UserAgent GECKO_1_8 = new UserAgent("gecko", "1_8");
 
   /**
    * e. g. Firefox 3.0, 3.5, 3.6
    */
-  public static final UserAgent GECKO_1_9 = new UserAgent("gecko", "1.9");
+  public static final UserAgent GECKO_1_9 = new UserAgent("gecko", "1_9");
 
   /**
    * e. g. Firefox 4.0
    */
-  public static final UserAgent GECKO_2_0 = new UserAgent("gecko", "2.0", Capability.PLACEHOLDER);
+  public static final UserAgent GECKO_2_0 = new UserAgent("gecko", "2_0", Capability.PLACEHOLDER);
 
   /**
    * e. g. Safari 4, Safari 5, Chrome
