@@ -20,16 +20,16 @@
   <parent>
     <groupId>org.apache.myfaces.tobago</groupId>
     <artifactId>tobago-theme</artifactId>
-    <version>1.0.35-SNAPSHOT</version>
+    <version>1.0.35</version>
   </parent>
   <artifactId>tobago-theme-richmond</artifactId>
   <packaging>jar</packaging>
   <name>Theme Richmond</name>
 
   <scm>
-    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/tobago/branches/tobago-1.0.x/theme/richmond</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/tobago/branches/tobago-1.0.x/theme/richmond</developerConnection>
-    <url>http://svn.apache.org/viewvc/myfaces/tobago/branches/tobago-1.0.x/theme/richmond</url>
+    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/tobago/tags/tobago-1.0.35/theme/richmond</connection>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/tobago/tags/tobago-1.0.35/theme/richmond</developerConnection>
+    <url>http://svn.apache.org/viewvc/myfaces/tobago/tags/tobago-1.0.35/theme/richmond</url>
   </scm>
 
   <dependencies>
