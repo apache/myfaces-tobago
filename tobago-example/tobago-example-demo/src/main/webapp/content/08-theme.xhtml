@@ -23,38 +23,44 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core">
-  <ui:param name="title" value="#{overviewBundle.validation}"/>
-  <tc:box label="Validation and Severity">
+  <ui:param name="title" value="#{overviewBundle.theme}"/>
+  <tc:panel>
     <f:facet name="layout">
-      <tc:gridLayout rows="40px;fixed;*;fixed"/>
+      <tc:gridLayout rows="120px;auto;*"/>
     </f:facet>
 
-    <tc:out value="The validation process in JSF creates FacesMessages with different severities.
-      These severities will be used to add an corresponding CSS class to the elements via the markup mechanism,
-      e. g. tobago-label-markup-error."/>
+    <tc:out escape="false" value="#{overviewBundle.theme_text}"/>
+
     <tc:panel>
       <f:facet name="layout">
-        <tc:gridLayout columns="1*;1*"/>
+        <tc:gridLayout columns="*;auto"/>
       </f:facet>
-      <tx:in label="Fatal" value="something" validator="#{validationSeverity.addFatal}"/>
-      <tc:out value="(Validator creates an fatal error)"/>
-      <tx:in label="Error" value="something" validator="#{validationSeverity.addError}"/>
-      <tc:out value="(Validator creates an error)"/>
-      <tx:in label="Warn" value="something" validator="#{validationSeverity.addWarn}"/>
-      <tc:out value="(Validator creates a warning)"/>
-      <tx:in label="Info" value="something" validator="#{validationSeverity.addInfo}"/>
-      <tc:out value="(Validator creates an info)"/>
+
+      <tx:selectOneChoice value="#{clientConfigController2.theme}"
+                          label="#{overviewBundle.theme_label}">
+        <f:selectItems value="#{clientConfigController2.themeItems}"/>
+      </tx:selectOneChoice>
+      <tc:button action="#{clientConfigController2.submit}" label="#{overviewBundle.theme_submit}"/>
     </tc:panel>
 
-    <tc:cell/>
-
     <tc:panel>
       <f:facet name="layout">
-        <tc:gridLayout columns="1*;100px"/>
+        <tc:gridLayout columns="*;480px;*" rows="*;320px;*"/>
       </f:facet>
+
+      <tc:cell spanX="3"/>
+
       <tc:cell/>
-      <tc:button label="#{overviewBundle.validation_submit}"/>
+      <tc:image value="image/theme-photo.jpg"/>
+      <tc:cell/>
+
+      <tc:cell/>
+      <tc:out escape="false" value="#{overviewBundle.theme_photo}"/>
+      <tc:cell/>
+
+      <tc:cell spanX="3"/>
+
     </tc:panel>
 
-  </tc:box>
+  </tc:panel>
 </ui:composition>

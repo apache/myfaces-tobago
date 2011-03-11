@@ -24,14 +24,14 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core">
   <ui:param name="title" value="#{overviewBundle.tree}"/>
-  <tc:panel>
-    <f:facet name="layout">
-      <tc:gridLayout rows="9*;16*"/>
-    </f:facet>
 
-    <tc:out escape="false" value="(UNDER CONSTRUCTION) #{overviewBundle.tree_text}"/>
+    <tc:panel>
+      <f:facet name="layout">
+        <tc:gridLayout rows="9*;16*"/>
+      </f:facet>
 
-    <tc:box label="#{overviewBundle.tree_sampleTitle}">
+      <tc:out escape="false" value="(UNDER CONSTRUCTION) #{overviewBundle.tree_text}"/>
+
       <tc:tabGroup selectedIndex="#{overviewController.treeTabsState}" switchType="reloadPage">
         <tc:tab label="#{overviewBundle.treeLabel}">
           <f:facet name="layout">
@@ -129,7 +129,5 @@
         </tc:tab>
       </tc:tabGroup>
 
-    </tc:box>
-
-  </tc:panel>
+    </tc:panel>
 </ui:composition>

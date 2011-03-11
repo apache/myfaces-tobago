@@ -42,11 +42,12 @@
   <entry key="basic">Basic Controls</entry>
   <entry key="sheet">Sheet Control</entry>
   <entry key="tree">Tree Control</entry>
-  <entry key="treeEditor">Tree Editor</entry>
+  <entry key="tree-editor">Editor</entry>
+  <entry key="treeMenu-different-types">Command Types</entry>
   <entry key="tab">Tab Control</entry>
-  <entry key="toolbar">Toolbar</entry>
+  <entry key="toolBar">Toolbar</entry>
   <entry key="validation">Validation</entry>
-  <entry key="validationSeverity">Severity</entry>
+  <entry key="validation-severity">Severity</entry>
   <entry key="form">Forms</entry>
   <entry key="theme">Themes</entry>
   <entry key="browser">Browser</entry>
@@ -129,7 +130,6 @@
 
 
 <!--  sheet -->
-<entry key="sheet_sampleTitle">Sheet Example</entry>
 <entry key="sheet_text">The sheet control is a simple solution for displaying table based
   information. The essential features are:
     &lt;ul style="margin-top: 2px;"&gt;
@@ -149,7 +149,6 @@
 <entry key="sheet_configTitle">Sheet configuration</entry>
 
 <!--  tree -->
-<entry key="tree_sampleTitle">Tree Example's</entry>
 <entry key="tree_text">The tree control displays a tree which is generated from application data. The key features are:
     &lt;ul style="margin-top: 2px;"&gt;
     &lt;li style="line-height: 130%;"&gt;Attributes control the rendering of the tree.&lt;/li&gt;
@@ -178,7 +177,6 @@
 
 
 <!--  tab -->
-<entry key="tab_sampleTitle">Tab Example</entry>
 <entry key="tab_text">The tab control provides so called tab panels.
     &lt;ul style="margin-top: 2px;"&gt;
     &lt;li style="line-height: 130%;"&gt;Control can take place on server- or clientside.&lt;/li&gt;
@@ -242,7 +240,6 @@
 
 
 <!--  validation -->
-<entry key="validation_sampleTitle">Validation Example</entry>
 <entry key="validation_description">Description</entry>
 <entry key="validation_number">Number</entry>
 <entry key="validation_price">Price</entry>

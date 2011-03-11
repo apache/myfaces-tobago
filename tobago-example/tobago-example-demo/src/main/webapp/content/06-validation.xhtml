@@ -23,50 +23,38 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core">
-  <ui:param name="title" value="#{overviewBundle.theme}"/>
+  <ui:param name="title" value="#{overviewBundle.validation}"/>
   <tc:panel>
     <f:facet name="layout">
-      <tc:gridLayout rows="120px;1* "/>
+      <tc:gridLayout rows="80px;fixed;*;fixed"/>
     </f:facet>
 
-    <tc:out escape="false" value="#{overviewBundle.theme_text}"/>
+    <tc:out escape="false" value="#{overviewBundle.validation_text}"/>
 
-    <tc:box label="#{overviewBundle.theme_title}">
+    <tc:panel>
       <f:facet name="layout">
-        <tc:gridLayout rows="auto;*"/>
+        <tc:gridLayout columns="1*;1*"/>
       </f:facet>
+      <tx:in label="#{overviewBundle.validation_number}" markup="number" required="true">
+        <f:validateLength minimum="7" maximum="7"/>
+        <f:validateLongRange maximum="9000000"/>
+      </tx:in>
+      <tx:in label="#{overviewBundle.validation_price}" markup="number">
+        <f:validateDoubleRange minimum="0.01" maximum="1000"/>
+      </tx:in>
+      <tx:in label="#{overviewBundle.validation_custom}" validator="#{overviewController.customValidator}">
+      </tx:in>
+    </tc:panel>
 
-      <tc:panel>
-        <f:facet name="layout">
-          <tc:gridLayout columns="*;auto"/>
-        </f:facet>
+    <tx:textarea label="#{overviewBundle.validation_description}" required="true"/>
 
-        <tx:selectOneChoice value="#{clientConfigController2.theme}"
-                            label="#{overviewBundle.theme_label}">
-          <f:selectItems value="#{clientConfigController2.themeItems}"/>
-        </tx:selectOneChoice>
-        <tc:button action="#{clientConfigController2.submit}" label="#{overviewBundle.theme_submit}"/>
-      </tc:panel>
+    <tc:panel>
+      <f:facet name="layout">
+        <tc:gridLayout columns="1*;100px"/>
+      </f:facet>
+      <tc:cell/>
+      <tc:button action="#{overviewController.noop}" label="#{overviewBundle.validation_submit}"/>
+    </tc:panel>
 
-      <tc:panel>
-        <f:facet name="layout">
-          <tc:gridLayout columns="*;480px;*" rows="*;320px;*"/>
-        </f:facet>
-
-        <tc:cell spanX="3"/>
-
-        <tc:cell/>
-        <tc:image value="image/theme-photo.jpg"/>
-        <tc:cell/>
-
-        <tc:cell/>
-        <tc:out escape="false" value="#{overviewBundle.theme_photo}"/>
-        <tc:cell/>
-
-        <tc:cell spanX="3"/>
-
-      </tc:panel>
-
-    </tc:box>
   </tc:panel>
 </ui:composition>

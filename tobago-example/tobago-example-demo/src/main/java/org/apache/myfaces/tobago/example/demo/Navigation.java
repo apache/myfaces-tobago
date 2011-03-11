@@ -24,13 +24,22 @@ import org.slf4j.LoggerFactory;
 
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletResponse;
 import javax.swing.tree.DefaultMutableTreeNode;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Navigation {
 
@@ -42,6 +51,12 @@ public class Navigation {
 
   public Navigation() {
 
+    ServletContext servletContext
+        = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
+
+    tree = locateResourcesInWar(servletContext);
+    currentNode = tree;
+/*
     tree = new Node("Root", null);
 
     Node overview = new Node("overview", "/overview/intro");
@@ -96,6 +111,7 @@ public class Navigation {
     bestPractice.setExpanded(true);
 
     currentNode = overview;
+*/
   }
 
   public void selectByViewId(String viewId) {
@@ -174,13 +190,104 @@ public class Navigation {
     return null;
   }
 
-  public class Node extends DefaultMutableTreeNode {
+  private Node locateResourcesInWar(ServletContext servletContext) {
 
-    private String title;
+    String content = "/content";
+
+    Set<String> resourcePaths = servletContext.getResourcePaths(content);
+    List<String> list = new ArrayList<String>();
+
+    for (String path : resourcePaths) {
+      list.add(path);
+    }
+
+    return buildNodes(list);
+  }
+
+  protected Node buildNodes(List<String> list) {
+    List<Node> nodes = new ArrayList<Node>();
+    for (String path : list) {
+      try {
+        nodes.add(new Node(path));
+      } catch (IllegalStateException e) {
+        LOG.error("Found file with wrong pattern: '{}'", path);
+      }
+    }
+
+    Collections.sort(nodes);
+
+    Map<String, Node> map = new HashMap<String, Node>();
+    Node root = new Node();
+    map.put(root.getBranch(), root);
+
+    for (Node node : nodes) {
+      map.put(node.getBranch(), node);
+      String parent = node.getBranch().substring(0, Math.max(node.getBranch().length() - 3, 0));
+      map.get(parent).add(node);
+    }
+
+    return root;
+  }
+
+
+  public class Node extends DefaultMutableTreeNode implements Comparable {
+
+    private String name;
     private String id;
+    private String branch;
+    private String title;
     private String outcome;
     private boolean expanded;
 
+    public Node() {
+      name = "root";
+      branch = "";
+    }
+
+    public Node(String path) {
+
+      outcome = path;
+//      final Pattern pattern = Pattern.compile("(\\d\\d-\\d\\d)-(.*)\\.(xhtml)");
+      final Pattern pattern = Pattern.compile("([\\d\\d|]*\\d\\d)-(.*)\\.(xhtml)");
+      final Matcher matcher = pattern.matcher(path);
+      matcher.find();
+      branch = matcher.group(1);
+      name = matcher.group(2);
+      String extension = matcher.group(3);
+
+/*
+      final StringTokenizer tokenizer = new StringTokenizer(path, "-.", true);
+      final StringBuilder branchBuilder = new StringBuilder();
+      while (tokenizer.hasMoreElements()) {
+        String next = tokenizer.nextToken();
+        if (next.matches("\\d\\d") || next.matches("-")) {
+          branchBuilder.append(next);
+        } else {
+          break;
+        }
+      }
+      if (branchBuilder.length() < 2) {
+        throw new ParseException(path, 0);
+      }
+      branch = branchBuilder.toString();
+
+      final StringBuilder nameBuilder = new StringBuilder();
+      while (tokenizer.hasMoreElements()) {
+        String next = tokenizer.nextToken();
+        nameBuilder.append(next);
+      }
+      name = nameBuilder.toString();
+*/
+
+/*
+      path.matches("")
+      this.title = ResourceManagerUtils.getProperty(FacesContext.getCurrentInstance(), "overview", key);
+      this.id = key;
+      this.outcome = outcome;
+*/
+      this.title = ResourceManagerUtils.getProperty(FacesContext.getCurrentInstance(), "overview", name);
+
+    }
 
     public Node(String key, String outcome) {
       this.title = ResourceManagerUtils.getProperty(FacesContext.getCurrentInstance(), "overview", key);
@@ -188,9 +295,15 @@ public class Navigation {
       this.outcome = outcome;
     }
 
+    public int compareTo(Object o) {
+      Node other = (Node) o;
+      return branch.compareTo(other.getBranch());
+    }
+
     public String action() {
       LOG.info("Navigate to '" + outcome + "'");
       currentNode = this;
+
       return outcome;
     }
 
@@ -206,12 +319,12 @@ public class Navigation {
       return (Node) super.getPreviousNode();
     }
 
-    public String getTitle() {
-      return title;
+    public String getName() {
+      return name;
     }
 
-    public void setTitle(String title) {
-      this.title = title;
+    public void setName(String name) {
+      this.name = name;
     }
 
     public String getId() {
@@ -220,6 +333,22 @@ public class Navigation {
 
     public void setId(String id) {
       this.id = id;
+    }
+
+    public String getBranch() {
+      return branch;
+    }
+
+    public void setBranch(String branch) {
+      this.branch = branch;
+    }
+
+    public String getTitle() {
+      return title;
+    }
+
+    public void setTitle(String title) {
+      this.title = title;
     }
 
     public String getOutcome() {

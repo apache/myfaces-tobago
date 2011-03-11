@@ -24,13 +24,13 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core">
   <ui:param name="title" value="Tree - Editor"/>
-  <tc:box label="Tree - Editor">
+  <tc:panel>
     <f:facet name="layout">
       <tc:gridLayout rows="auto;*"/>
     </f:facet>
 
     <tc:toolBar iconSize="off">
-      <tc:toolBarCommand label="New" action="#{treeEditor.create}" />
+      <tc:toolBarCommand label="New" action="#{treeEditor.create}"/>
       <tc:toolBarCommand label="Delete" action="#{treeEditor.delete}"/>
       <tc:toolBarCommand label="Edit" onclick="alert('Not implemented yet')"/>
       <tc:toolBarCommand label="Cut" onclick="alert('Not implemented yet')"/>
@@ -57,5 +57,5 @@
       </tc:treeData>
     </tc:tree>
 
-  </tc:box>
+  </tc:panel>
 </ui:composition>

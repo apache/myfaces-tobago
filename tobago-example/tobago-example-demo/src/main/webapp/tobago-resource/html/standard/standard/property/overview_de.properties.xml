@@ -98,14 +98,12 @@
   <entry key="basic_text_action">Steuerelemente für die Navigation und zum Ausführen von Aktionen.</entry>
 
 <!--  sheet -->
-  <entry key="sheet_sampleTitle">Tabellen Beispiel</entry>
   <entry key="sheet_text">Das Sheet-Control bietet eine einfache Möglichkeit tabellarische Daten darzustellen. Die wichtigsten Eigenschaften sind: &lt;ul style="margin-top: 2px;"&gt; &lt;li style="line-height: 130%;"&gt;Paging: Es wird nur ein Teil der Gesamtliste angezeigt.   Über die Pfeilknöpfe kann in der Liste navigiert werden.&lt;/li&gt; &lt;li style="line-height: 130%;"&gt;Sortierung: Durch Drücken auf die Spaltenüberschrift   kann die entsprechende Spalte sortiert werden.&lt;/li&gt; &lt;li style="line-height: 130%;"&gt;Inline-Editing: Es können bei Bedarf Werte   direkt in die Tabelle eingegeben werden.&lt;/li&gt; &lt;li style="line-height: 130%;"&gt;Die Spaltenbreite kann direkt mit der Maus   manipuliert werden.&lt;/li&gt; &lt;/ul&gt;</entry>
   <entry key="sheet_resetTip">Hier klicken um den Orginalzustand der Spaltenbreiten wiederherzustellen.</entry>
   <entry key="sheet_configTip">Hier klicken zum Einstellen der Tabellenkonfiguration.</entry>
   <entry key="sheet_configTitle">Tabelle konfigurieren</entry>
 
 <!--  tree -->
-  <entry key="tree_sampleTitle">Baum Beispiel</entry>
   <entry key="tree_text">Das Tree-Control stellt einen Baum dar, der aus Applikationsdaten erzeugt wird. Die wichtigsten Eigenschaften sind: &lt;ul style="margin-top: 2px;"&gt; &lt;li style="line-height: 130%;"&gt;Die Darstellung von Icons und Baumstruktur wird   über Attribute gesteuert.&lt;/li&gt; &lt;li style="line-height: 130%;"&gt;Die Möglichkeit den Baum als "single" oder "multiselect" zu definieren,   also einen oder mehrere Knoten auszuwählbar zu machen.&lt;/li&gt; &lt;li style="line-height: 130%;"&gt;Editiermodus zum einfachen Bearbeiten von   Baumstrukturen in der Applikation.&lt;/li&gt; &lt;/ul&gt; Desweiteren stellt der TreeListbox einen vertikalen Baum dar. Dieser kann z.B. zur Kategorisierung dienen.</entry>
   <entry key="treeShowIcons">Symbole darstellen</entry>
   <entry key="treeShowRoot">Wurzel darstellen</entry>
@@ -124,7 +122,6 @@
   <entry key="siblingLeafOnly">Mehrfach Auswahl, nur Blätter einer Ebene</entry>
 
 <!--  tab -->
-  <entry key="tab_sampleTitle">Tab Beispiel</entry>
   <entry key="tab_text">Das Tab-Control stellt so genannte Tab-Panels zur Verfügung. &lt;ul style="margin-top: 2px;"&gt; &lt;li style="line-height: 130%;"&gt;Die Steuerung kann server- oder clientseitig erfolgen.&lt;/li&gt; &lt;li style="line-height: 130%;"&gt;Tab-Controls können verschachtelt werden.&lt;/li&gt; &lt;li style="line-height: 130%;"&gt;Innerhalb von Tab-Controls können wiederum   beliebige Controls angeordnet werden.&lt;/li&gt; &lt;/ul&gt;</entry>
   <entry key="tabSwitchTypeClient">Clientseitiges Umschalten</entry>
   <entry key="tabSwitchTypeReloadTag">Serverseitges Umschalten per Ajax</entry>
@@ -169,7 +166,6 @@
   <entry key="toolbar_text2">Der Menubar beinhaltet Aktionen, die auf allen Applikationseiten zur Verfügung stehen sollen. &lt;ul style="margin-top: 2px;"&gt;   &lt;li style="line-height: 130%;"&gt;Ein Menü kann mehrere Ebenen beinhalten.&lt;/li&gt;  &lt;li style="line-height: 130%;"&gt;Die Menü-Items können Client oder Serverseitig ausgeführt werden.&lt;/li&gt;  &lt;li style="line-height: 130%;"&gt;Der Status einzelner Menü Items kann angezeigt werden.&lt;/li&gt;&lt;/ul&gt;</entry>
 
 <!--  validation -->
-  <entry key="validation_sampleTitle">Validierungsbeispiel</entry>
   <entry key="validation_description">Beschreibung</entry>
   <entry key="validation_number">Zahl</entry>
   <entry key="validation_price">Preis</entry>

@@ -17,14 +17,13 @@
  * limitations under the License.
 -->
 
-<f:view xmlns:tc="http://myfaces.apache.org/tobago/component"
-        xmlns:tx="http://myfaces.apache.org/tobago/extension"
-        xmlns:ui="http://java.sun.com/jsf/facelets"
-        xmlns:h="http://java.sun.com/jsf/html"
-        xmlns:f="http://java.sun.com/jsf/core">
-  <tc:loadBundle basename="demo" var="bundle"/>
-
-  <tc:page label="Tree Menu" id="page">
+<ui:composition template="/WEB-INF/tags/layout/overview.xhtml"
+                xmlns:tc="http://myfaces.apache.org/tobago/component"
+                xmlns:tx="http://myfaces.apache.org/tobago/extension"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core">
+  <ui:param name="title" value="Tree - Different Command Types"/>
 
     <tc:treeMenu>
       <tc:treeData value="#{treeController.mixed}" var="node" id="data">
@@ -38,5 +37,4 @@
       </tc:treeData>
     </tc:treeMenu>
 
-  </tc:page>
-</f:view>
+</ui:composition>

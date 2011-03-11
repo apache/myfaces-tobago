@@ -48,9 +48,11 @@
 <!--    <priority value="debug" />-->
 <!--  </category>-->
 
+<!--
   <category name="org.apache.myfaces.tobago.internal.layout.LayoutContext">
     <priority value="debug" />
   </category>
+-->
 
   <!--<category name="org.apache.myfaces.tobago.config.ThemeConfig">-->
     <!--<priority value="debug" />-->
@@ -68,9 +70,11 @@
     <!--<priority value="debug" />-->
   <!--</category>-->
 
+<!--
   <category name="org.apache.myfaces.tobago.context.ResourceManagerImpl">
     <priority value="debug" />
   </category>
+-->
 
 <!--
   <category name="org.apache.myfaces.tobago.event">

@@ -17,12 +17,15 @@ package org.apache.myfaces.tobago.example.demo;
  * limitations under the License.
  */
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
+import org.apache.myfaces.tobago.util.VariableResolverUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.apache.myfaces.tobago.util.VariableResolverUtils;
 
 import javax.faces.application.NavigationHandler;
+import javax.faces.application.ViewHandler;
+import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 
 public class MultiplePageDeclarationLanguageNavigationHandler extends NavigationHandler {
@@ -64,7 +67,14 @@ public class MultiplePageDeclarationLanguageNavigationHandler extends Navigation
 
     LOG.info("outcome='"+  outcome + "'");
 
-    navigationHandler.handleNavigation(facesContext, fromAction, outcome);
+    if (StringUtils.startsWith(outcome, "/content/")) {
+      ViewHandler viewHandler = facesContext.getApplication().getViewHandler();
+      UIViewRoot viewRoot = viewHandler.createView(facesContext, outcome);
+      facesContext.setViewRoot(viewRoot);
+      facesContext.renderResponse();
+    } else {
+      navigationHandler.handleNavigation(facesContext, fromAction, outcome);
+    }
   }
 
   private boolean pageExists(FacesContext facesContext, String outcome, String extension) {
