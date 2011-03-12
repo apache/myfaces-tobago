@@ -38,10 +38,10 @@
     <release>
       <Version>
         <name>Latest stable release</name>
-        <created>2011-02-23</created>
-        <revision>1.0.34</revision>
-        <file-release>http://www.apache.org/dyn/closer.cgi/myfaces/binaries/myfaces-tobago-1.0.34-dist.tar.gz</file-release>
-        <file-release>http://www.apache.org/dyn/closer.cgi/myfaces/binaries/myfaces-tobago-1.0.34-dist.zip</file-release>
+        <created>2011-03-13</created>
+        <revision>1.0.35</revision>
+        <file-release>http://www.apache.org/dyn/closer.cgi/myfaces/binaries/myfaces-tobago-1.0.35-dist.tar.gz</file-release>
+        <file-release>http://www.apache.org/dyn/closer.cgi/myfaces/binaries/myfaces-tobago-1.0.35-dist.zip</file-release>
       </Version>
     </release>
     <repository>
