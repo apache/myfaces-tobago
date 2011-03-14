@@ -204,22 +204,26 @@ class ThemeImpl implements Theme, Serializable {
   }
 
   public void init() {
-    productionScripts = new String[productionResources.getScriptList().size()];
-    for (int i = 0; i< productionResources.getScriptList().size(); i++) {
-      productionScripts[i] = productionResources.getScriptList().get(i).getName();
-    }
-    productionStyles = new String[productionResources.getStyleList().size()];
-    for (int i = 0; i< productionResources.getStyleList().size(); i++) {
-      productionStyles[i] = productionResources.getStyleList().get(i).getName();
+    if (productionResources != null) {
+      productionScripts = new String[productionResources.getScriptList().size()];
+      for (int i = 0; i< productionResources.getScriptList().size(); i++) {
+        productionScripts[i] = productionResources.getScriptList().get(i).getName();
+      }
+      productionStyles = new String[productionResources.getStyleList().size()];
+      for (int i = 0; i< productionResources.getStyleList().size(); i++) {
+        productionStyles[i] = productionResources.getStyleList().get(i).getName();
+      }
     }
 
-    scripts = new String[resources.getScriptList().size()];
-    for (int i = 0; i< resources.getScriptList().size(); i++) {
-      scripts[i] = resources.getScriptList().get(i).getName();
-    }
-    styles = new String[resources.getStyleList().size()];
-    for (int i = 0; i< resources.getStyleList().size(); i++) {
-      styles[i] = resources.getStyleList().get(i).getName();
+    if (resources != null) {
+      scripts = new String[resources.getScriptList().size()];
+      for (int i = 0; i< resources.getScriptList().size(); i++) {
+        scripts[i] = resources.getScriptList().get(i).getName();
+      }
+      styles = new String[resources.getStyleList().size()];
+      for (int i = 0; i< resources.getStyleList().size(); i++) {
+        styles[i] = resources.getStyleList().get(i).getName();
+      }
     }
 
   }

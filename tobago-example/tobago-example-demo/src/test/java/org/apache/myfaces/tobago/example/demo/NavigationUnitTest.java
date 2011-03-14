@@ -17,17 +17,17 @@ package org.apache.myfaces.tobago.example.demo;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.internal.mock.faces.AbstractTobagoTestBase;
 import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.List;
 
-public class NavigationUnitTest {
+public class NavigationUnitTest extends AbstractTobagoTestBase {
 
   @Test
   public void testFileNames() {
-    Navigation navigation = new Navigation();
     List<String> list = Arrays.asList(
         "00-test-1.xhtml",
         "00|07-test-2.xhtml",
@@ -36,8 +36,8 @@ public class NavigationUnitTest {
         "bad.xhtml",
         "00_00_bad.xhtml"
     );
-
-    final Navigation.Node root = navigation.buildNodes(list);
+    final Navigation navigation = new Navigation(list);
+    final Navigation.Node root = navigation.getTree();
     Assert.assertEquals(2, root.getChildCount());
     final Navigation.Node n00 = (Navigation.Node) root.getChildAt(0);
     Assert.assertEquals("00", n00.getBranch());

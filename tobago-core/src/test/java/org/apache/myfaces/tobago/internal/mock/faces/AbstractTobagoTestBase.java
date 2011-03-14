@@ -25,12 +25,17 @@ import org.apache.myfaces.tobago.component.UIIn;
 import org.apache.myfaces.tobago.component.UIOut;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.context.ClientProperties;
+import org.apache.myfaces.tobago.context.ResourceManagerFactory;
 import org.apache.myfaces.tobago.context.Theme;
+import org.junit.After;
 import org.junit.Before;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 /**
@@ -45,8 +50,10 @@ import java.util.Map;
 
 public abstract class AbstractTobagoTestBase extends AbstractJsfTestCase {
 
+  private static final Logger LOG = LoggerFactory.getLogger(AbstractTobagoTestBase.class);
+
   /**
-   * <p>Set up instance variables required by this test case.</p>
+   * <p>Set up instance variables required by Tobago test cases.</p>
    */
   @Before
   public void setUp() throws Exception {
@@ -68,6 +75,7 @@ public abstract class AbstractTobagoTestBase extends AbstractJsfTestCase {
 
     final ClientProperties clientProperties = new ClientProperties();
     clientProperties.setTheme(one);
+    clientProperties.setLocale(Locale.ENGLISH);
     session.setAttribute(ClientProperties.MANAGED_BEAN_NAME, clientProperties);
 
     // XXX is there a better way? Get it from Tobagos generated faces-config.xml?
@@ -79,6 +87,24 @@ public abstract class AbstractTobagoTestBase extends AbstractJsfTestCase {
     application.addComponent("org.apache.myfaces.tobago.Link", "org.apache.myfaces.tobago.component.UILink");
     application.addComponent("org.apache.myfaces.tobago.Button", "org.apache.myfaces.tobago.component.UIButton");
 
+    try {
+      ResourceManagerFactory.init(servletContext, tobagoConfig);
+    } catch (AssertionError e) {
+      // ignored in the moment. TODO
+      LOG.error("Todo: remove this hack", e);
+    }
+  }
+
+  @After
+  public void tearDown() throws Exception {
+    try {
+      ResourceManagerFactory.release(servletContext);
+    } catch (AssertionError e) {
+      // ignored in the moment. TODO
+      LOG.error("Todo: remove this hack", e);
+    }
+
+    super.tearDown();
   }
 
   public MockFacesContext getFacesContext() {

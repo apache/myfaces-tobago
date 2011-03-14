@@ -50,68 +50,50 @@ public class Navigation {
   private Node currentNode;
 
   public Navigation() {
-
-    ServletContext servletContext
-        = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
-
-    tree = locateResourcesInWar(servletContext);
+    this((ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext());
     currentNode = tree;
-/*
-    tree = new Node("Root", null);
+  }
 
-    Node overview = new Node("overview", "/overview/intro");
-    overview.add(new Node("basic", "/overview/basic"));
-    overview.add(new Node("sheet", "/overview/sheet"));
-    final Node tree = new Node("tree", "/overview/tree");
-    overview.add(tree);
-    tree.add(new Node("treeEditor", "/overview/tree-editor"));
-    overview.add(new Node("tab", "/overview/tab"));
-    overview.add(new Node("toolbar", "/overview/toolbar"));
-    Node validation = new Node("validation", "/overview/validation");
-    validation.add(new Node("validationSeverity", "/overview/validation-severity"));
-    overview.add(validation);
-    overview.add(new Node("form", "/overview/form"));
-    overview.add(new Node("theme", "/overview/theme"));
-    overview.add(new Node("browser", "/overview/browser"));
-    overview.add(new Node("locale", "/overview/locale"));
-    overview.add(new Node("layout", "/overview/layout"));
-    this.tree.add(overview);
+  protected Navigation(ServletContext servletContext) {
 
-    Node bestPractice = new Node("bestPractice", "best-practice/intro");
-    bestPractice.add(new Node("error", "best-practice/error"));
-    bestPractice.add(new Node("theme", "best-practice/theme"));
-    bestPractice.add(new Node("transition", "best-practice/transition"));
-    bestPractice.add(new Node("nonFacesResponse", "best-practice/non-faces-response"));
-    bestPractice.add(new Node("toolBarCustomizer", "best-practice/tool-bar-customizer"));
-    bestPractice.add(new Node("faceletsAsResources", "best-practice/facelets-as-resources"));
-    this.tree.add(bestPractice);
+    this(locateResourcesInWar(servletContext));
+  }
 
-    Node reference = new Node("reference_intro", "reference/intro");
-    reference.add(new Node("reference_command", "reference/command"));
-    reference.add(new Node("reference_container", "reference/container"));
-    reference.add(new Node("reference_input", "reference/input"));
-    reference.add(new Node("reference_inputSuggest", "reference/inputSuggest"));
-    reference.add(new Node("reference_menu", "reference/menu"));
-    reference.add(new Node("reference_output", "reference/output"));
-    reference.add(new Node("reference_object", "reference/object"));
-    reference.add(new Node("reference_popup", "reference/popup"));
-    reference.add(new Node("reference_progress", "reference/progress"));
-    reference.add(new Node("reference_select", "/reference/select"));
-    reference.add(new Node("reference_sheet", "reference/sheet"));
-    reference.add(new Node("reference_tab", "reference/tab"));
-    reference.add(new Node("reference_time", "reference/time"));
-    reference.add(new Node("reference_tree", "/reference/tree/tree-normal"));
-    reference.add(new Node("reference_tool", "reference/tool"));
-    reference.add(new Node("reference_partial", "reference/partial"));
-    reference.add(new Node("reference_upload", "reference/upload"));
-    this.tree.add(reference);
+  private static List<String> locateResourcesInWar(ServletContext servletContext) {
+    String content = "/content";
 
-    this.tree.setExpanded(true);
-    overview.setExpanded(true);
-    bestPractice.setExpanded(true);
+    Set<String> resourcePaths = servletContext.getResourcePaths(content);
+    List<String> list = new ArrayList<String>();
 
-    currentNode = overview;
-*/
+    if (resourcePaths != null) {
+      for (String path : resourcePaths) {
+        list.add(path);
+      }
+    }
+    return list;
+  }
+
+  protected Navigation(List<String> list) {
+    List<Node> nodes = new ArrayList<Node>();
+    for (String path : list) {
+      try {
+        nodes.add(new Node(path));
+      } catch (IllegalStateException e) {
+        LOG.error("Found file with wrong pattern: '{}'", path);
+      }
+    }
+
+    Collections.sort(nodes);
+
+    Map<String, Node> map = new HashMap<String, Node>();
+    tree = new Node();
+    map.put(tree.getBranch(), tree);
+
+    for (Node node : nodes) {
+      map.put(node.getBranch(), node);
+      String parent = node.getBranch().substring(0, Math.max(node.getBranch().length() - 3, 0));
+      map.get(parent).add(node);
+    }
   }
 
   public void selectByViewId(String viewId) {
@@ -188,45 +170,6 @@ public class Navigation {
 
     facesContext.responseComplete();
     return null;
-  }
-
-  private Node locateResourcesInWar(ServletContext servletContext) {
-
-    String content = "/content";
-
-    Set<String> resourcePaths = servletContext.getResourcePaths(content);
-    List<String> list = new ArrayList<String>();
-
-    for (String path : resourcePaths) {
-      list.add(path);
-    }
-
-    return buildNodes(list);
-  }
-
-  protected Node buildNodes(List<String> list) {
-    List<Node> nodes = new ArrayList<Node>();
-    for (String path : list) {
-      try {
-        nodes.add(new Node(path));
-      } catch (IllegalStateException e) {
-        LOG.error("Found file with wrong pattern: '{}'", path);
-      }
-    }
-
-    Collections.sort(nodes);
-
-    Map<String, Node> map = new HashMap<String, Node>();
-    Node root = new Node();
-    map.put(root.getBranch(), root);
-
-    for (Node node : nodes) {
-      map.put(node.getBranch(), node);
-      String parent = node.getBranch().substring(0, Math.max(node.getBranch().length() - 3, 0));
-      map.get(parent).add(node);
-    }
-
-    return root;
   }
 
 
