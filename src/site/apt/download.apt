@@ -33,10 +33,10 @@ Download MyFaces Tobago
   created using GNU tar extensions. Thus they must be untarred with a GNU compatible
   version of tar.
 
-    << MyFaces Tobago 1.0.35 Distribution >>
+MyFaces Tobago 1.0.35 Distribution
 
     Release notes can be found
-  {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12316183}here}}.
+    {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12316183}here}}.
 
 *-------------------------+---------+----------+-----------+
 |                         | Mirrors | Checksum | Signature |
@@ -52,10 +52,10 @@ Download MyFaces Tobago
 | MyFaces Tobago Example 1.0.35 (zip)      | {{{http://www.apache.org/dyn/closer.cgi/myfaces/binaries/myfaces-tobago-1.0.35-example.zip} myfaces-tobago-1.0.35-example.zip}} | {{{http://www.apache.org/dist/myfaces/binaries/myfaces-tobago-1.0.35-example.zip.md5} myfaces-tobago-1.0.35-example.zip.md5}} | {{{http://www.apache.org/dist/myfaces/binaries/myfaces-tobago-1.0.35-example.zip.asc} myfaces-tobago-1.0.35-example.zip.asc}} |
 *-------------------------+---------+----------+-----------+
 
-<< MyFaces Tobago 1.5.0-alpha-2 Distribution >>
+MyFaces Tobago 1.5.0-alpha-2 Distribution
 
     Release notes can be found
-  {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12316162}here}}.
+    {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12316162}here}}.
 
 *-------------------------+---------+----------+-----------+
 |                         | Mirrors | Checksum | Signature |
@@ -80,10 +80,10 @@ Latest source code from SVN repository
 
 Nightly builds from SVN repository
 
-     There are also nightly {{{https://repository.apache.org/content/repositories/snapshots/org/apache/myfaces/tobago/tobago-assembly} dist builds}} and
-     {{{https://repository.apache.org/content/repositories/snapshots/org/apache/myfaces/tobago/tobago} source builds}}
+    There are also nightly {{{https://repository.apache.org/content/repositories/snapshots/org/apache/myfaces/tobago/tobago-assembly} dist builds}} and
+    {{{https://repository.apache.org/content/repositories/snapshots/org/apache/myfaces/tobago/tobago} source builds}}
 
-     available every 24 hours (11:00 PM EST).
+    available every 24 hours (11:00 PM EST).
 
 Archive of old releases
 
