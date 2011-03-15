@@ -32,8 +32,8 @@ public abstract class AbstractUITabGroupLayout extends AbstractUILayoutBase impl
 
   private static final Logger LOG = LoggerFactory.getLogger(AbstractUIGridLayout.class);
 
-  private boolean horizontalAuto;
-  private boolean verticalAuto;
+//  private boolean horizontalAuto;
+//  private boolean verticalAuto;
 
   public void init() {
     for (LayoutComponent component : getLayoutContainer().getComponents()) {
@@ -45,11 +45,13 @@ public abstract class AbstractUITabGroupLayout extends AbstractUILayoutBase impl
 
   public void fixRelativeInsideAuto(Orientation orientation, boolean auto) {
 
+/*
     if (orientation == Orientation.HORIZONTAL) {
       horizontalAuto = auto;
     } else {
       verticalAuto = auto;
     }
+*/
 
     for (LayoutComponent component : getLayoutContainer().getComponents()) {
       if (component instanceof LayoutContainer) {
@@ -68,28 +70,28 @@ public abstract class AbstractUITabGroupLayout extends AbstractUILayoutBase impl
         ((LayoutContainer) component).getLayoutManager().preProcessing(orientation);
       }
 
-      if (orientation == Orientation.HORIZONTAL && horizontalAuto 
-          || orientation == Orientation.VERTICAL && verticalAuto) {
+//      if (orientation == Orientation.HORIZONTAL && horizontalAuto
+//          || orientation == Orientation.VERTICAL && verticalAuto) {
         intervals.add(new Interval(component, orientation));
-      }
+//      }
     }
 
-/*
     if (intervals.size() >= 1) {
       intervals.evaluate();
       Measure size = intervals.getCurrent();
+/*
       size = size.add(LayoutUtils.getBorderBegin(orientation, getLayoutContainer()));
       size = size.add(LayoutUtils.getBorderEnd(orientation, getLayoutContainer()));
+*/
       LayoutUtils.setCurrentSize(orientation, getLayoutContainer(), size);
     }
-*/
   }
 
   public void mainProcessing(Orientation orientation) {
 
     // find *
-    if (orientation == Orientation.HORIZONTAL && !horizontalAuto 
-        || orientation == Orientation.VERTICAL && !verticalAuto) {
+//    if (orientation == Orientation.HORIZONTAL && !horizontalAuto
+//        || orientation == Orientation.VERTICAL && !verticalAuto) {
       // find rest
       LayoutContainer container = getLayoutContainer();
       Measure available = LayoutUtils.getCurrentSize(orientation, container);
@@ -106,7 +108,7 @@ public abstract class AbstractUITabGroupLayout extends AbstractUILayoutBase impl
       } else {
         LOG.warn("No width/height set but needed for *!"); // todo: more information
       }
-    }
+//    }
   }
 
   public void postProcessing(Orientation orientation) {

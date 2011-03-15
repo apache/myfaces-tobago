@@ -88,10 +88,9 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase implemen
     if (auto) {
       for (int i = 0; i < heads.length; i++) {
         if (heads[i].getToken() instanceof RelativeLayoutToken) {
-          LOG.warn("Fixing layout token from * to auto, because a * in not allowed inside of a auto. "
-              + "For more information please use the debug logging level.");
           if (LOG.isDebugEnabled()) {
-            LOG.debug("Token * at index=" + i + ", orientation=" + orientation + ", grid=\n" + grid);
+            LOG.debug("Fixing layout token from * to auto, because a * in not allowed inside of a auto. "
+                + "Token * at index=" + i + ", orientation=" + orientation + ", grid=\n" + grid);
           }
           heads[i].setToken(AutoLayoutToken.INSTANCE);
         }
@@ -320,9 +319,9 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase implemen
           position = position.add(LayoutUtils.getPaddingBegin(orientation, getLayoutContainer()));
           position = position.add(getMarginBegin(orientation));
           for (int k = 0; k < i; k++) {
-            if (heads[k] == null) {
-              LOG.warn("Measure is null, should be debugged... i=" + i + " k=" + k + " grid=" + grid,
-                  new RuntimeException());
+            if (heads[k] == null || heads[k].getCurrent() == null) {
+              LOG.warn("Measure is null, should be debugged... i=" + i + " k=" + k + " grid=\n" + grid,
+                  new NullPointerException());
             } else {
               if (heads[k].isRendered() && heads[k].getCurrent().greaterThan(Measure.ZERO)) {
                 position = position.add(heads[k].getCurrent());
