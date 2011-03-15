@@ -31,7 +31,7 @@
     <tc:in id="in" value="Width should be 600px"/>
 
     <tc:script file="script/test-utils.js"/>
-    <tc:script onload="checkWidth('page:in', 600);"/>
+    <tc:script onload="checkWidth(document.getElementById('page:in'), 600);"/>
 
   </tc:page>
 </f:view>
