@@ -196,7 +196,7 @@ public final class AttributeHandler extends TagHandler {
                 expressionString = expression.getExpressionString();
               }
             } else {
-              LOG.warn("Only expressions are supported mode=actionListener value='" + expressionString + "'");
+              LOG.warn("Only expressions are supported mode=valueIfSet value='" + expressionString + "'");
               expressionString = null;
               break;
             }
