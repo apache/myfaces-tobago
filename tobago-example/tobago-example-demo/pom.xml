@@ -79,7 +79,8 @@
               <outputDir>${project.build.directory}/tobago-example-demo</outputDir>
               <stylesheet>src/main/xslt/facelet2jsp.xsl</stylesheet>
               <includes>
-                <include>overview/*.xhtml</include>
+                <include>init.xhtml</include>
+                <include>content/*.xhtml</include>
                 <include>reference/**/*.xhtml</include>
               </includes>
               <fileMappers>
