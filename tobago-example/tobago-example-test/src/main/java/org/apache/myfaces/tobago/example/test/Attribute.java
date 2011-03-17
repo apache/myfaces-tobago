@@ -45,4 +45,8 @@ public class Attribute {
   public void setCondition(boolean condition) {
     this.condition = condition;
   }
+  
+  public String getValue() {
+    return "value from model";
+  }
 }
