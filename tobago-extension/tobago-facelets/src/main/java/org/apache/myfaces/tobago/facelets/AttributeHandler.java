@@ -27,13 +27,13 @@ import com.sun.facelets.tag.TagException;
 import com.sun.facelets.tag.TagHandler;
 import com.sun.facelets.tag.jsf.ComponentSupport;
 import org.apache.commons.lang.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.SupportsMarkup;
 import org.apache.myfaces.tobago.component.SupportsRenderedPartially;
 import org.apache.myfaces.tobago.el.ConstantMethodBinding;
 import org.apache.myfaces.tobago.util.ComponentUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.el.ELException;
 import javax.el.ExpressionFactory;
@@ -196,7 +196,7 @@ public final class AttributeHandler extends TagHandler {
                 expressionString = expression.getExpressionString();
               }
             } else {
-              LOG.warn("Only expressions are supported mode=actionListener value='" + expressionString + "'");
+              LOG.warn("Only expressions are supported mode=valueIfSet value='" + expressionString + "'");
               expressionString = null;
               break;
             }
