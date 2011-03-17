@@ -181,13 +181,12 @@ public final class AttributeHandler extends TagHandler {
           }
         } else if ("valueIfSet".equals(mode.getValue())) {
           String expressionString = value.getValue();
-          while (isSimpleExpression(expressionString)) {
-            if (isMethodOrValueExpression(expressionString)) {
+          while (isMethodOrValueExpression(expressionString) && isSimpleExpression(expressionString)) {
               ValueExpression expression
                   = faceletContext.getVariableMapper().resolveVariable(removeElParenthesis(expressionString));
               if (expression == null) {
                 if (LOG.isDebugEnabled()) {
-                  // when the action hasn't been set while using a componsition.
+                // when the action hasn't been set while using a composition.
                   LOG.debug("Variable can't be resolved: value='" + expressionString + "'");
                 }
                 expressionString = null;
@@ -195,15 +194,14 @@ public final class AttributeHandler extends TagHandler {
               } else {
                 expressionString = expression.getExpressionString();
               }
-            } else {
-              LOG.warn("Only expressions are supported mode=valueIfSet value='" + expressionString + "'");
-              expressionString = null;
-              break;
             }
-          }
           if (expressionString != null) {
+            if (containsMethodOrValueExpression(expressionString)) {
             ValueExpression expression = value.getValueExpression(faceletContext, Object.class);
             ELAdaptor.setExpression(parent, name.getValue(faceletContext), expression);
+            } else {
+              parent.getAttributes().put(name.getValue(faceletContext), expressionString);
+          }
           }
         } else {
           throw new FacesException("Type " + mode + " not suppored");
@@ -278,6 +276,11 @@ public final class AttributeHandler extends TagHandler {
 
   private boolean isMethodOrValueExpression(String string) {
     return (string.startsWith("${") || string.startsWith("#{")) && string.endsWith("}");
+  }
+
+  private boolean containsMethodOrValueExpression(String string) {
+    return (StringUtils.contains(string, "${") || StringUtils.contains(string, "#{"))
+        && StringUtils.contains(string, "}");
   }
 
   private boolean isSimpleExpression(String string) {
