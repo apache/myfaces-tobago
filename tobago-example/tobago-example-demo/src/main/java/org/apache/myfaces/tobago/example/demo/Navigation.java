@@ -190,52 +190,16 @@ public class Navigation {
     public Node(String path) {
 
       outcome = path;
-//      final Pattern pattern = Pattern.compile("(\\d\\d-\\d\\d)-(.*)\\.(xhtml)");
       final Pattern pattern = Pattern.compile("([\\d\\d|]*\\d\\d)-(.*)\\.(xhtml)");
       final Matcher matcher = pattern.matcher(path);
       matcher.find();
       branch = matcher.group(1);
       name = matcher.group(2);
       String extension = matcher.group(3);
-
-/*
-      final StringTokenizer tokenizer = new StringTokenizer(path, "-.", true);
-      final StringBuilder branchBuilder = new StringBuilder();
-      while (tokenizer.hasMoreElements()) {
-        String next = tokenizer.nextToken();
-        if (next.matches("\\d\\d") || next.matches("-")) {
-          branchBuilder.append(next);
-        } else {
-          break;
-        }
+      title = ResourceManagerUtils.getProperty(FacesContext.getCurrentInstance(), "overview", name);
+      if (title == null) {
+        title = name;
       }
-      if (branchBuilder.length() < 2) {
-        throw new ParseException(path, 0);
-      }
-      branch = branchBuilder.toString();
-
-      final StringBuilder nameBuilder = new StringBuilder();
-      while (tokenizer.hasMoreElements()) {
-        String next = tokenizer.nextToken();
-        nameBuilder.append(next);
-      }
-      name = nameBuilder.toString();
-*/
-
-/*
-      path.matches("")
-      this.title = ResourceManagerUtils.getProperty(FacesContext.getCurrentInstance(), "overview", key);
-      this.id = key;
-      this.outcome = outcome;
-*/
-      this.title = ResourceManagerUtils.getProperty(FacesContext.getCurrentInstance(), "overview", name);
-
-    }
-
-    public Node(String key, String outcome) {
-      this.title = ResourceManagerUtils.getProperty(FacesContext.getCurrentInstance(), "overview", key);
-      this.id = key;
-      this.outcome = outcome;
     }
 
     public int compareTo(Object o) {
