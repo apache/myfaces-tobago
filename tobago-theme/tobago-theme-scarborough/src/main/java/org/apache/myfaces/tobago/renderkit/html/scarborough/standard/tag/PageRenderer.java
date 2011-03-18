@@ -505,6 +505,7 @@ public class PageRenderer extends PageRendererBase {
     
     writer.startElement(HtmlElements.DIV, page);
     writer.writeClassAttribute(Classes.create(page, "content"));
+    writer.writeIdAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "content");
     Style style = new Style(facesContext, page);
     // XXX position the div, so that the scrollable area is correct.
     // XXX better to take this fact into layout management.

@@ -305,6 +305,7 @@ public class TabGroupRenderer extends LayoutComponentRendererBase {
 
     writer.startElement(HtmlElements.DIV, null);
     writer.writeClassAttribute(Classes.create(tab, "content"));
+    writer.writeIdAttribute(tab.getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + "content");
 
     final Style style = new Style(facesContext, tab);
     final Measure borderLeft = tab.getBorderLeft();
