@@ -69,11 +69,11 @@ public class AutomaticSeleniumTest extends SeleniumTest {
 
     final File file = new File(base + directory);
 
-    if (! file.exists()) {
+    if (!file.exists()) {
       throw new RuntimeException("Input directory doesn't exists: '" + file.getAbsolutePath() + "'");
     }
 
-    if (! file.isDirectory()) {
+    if (!file.isDirectory()) {
       throw new RuntimeException("Input is not a directory: '" + file.getAbsolutePath() + "'");
     }
 
