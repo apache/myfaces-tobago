@@ -41,6 +41,33 @@ var LOG = {
     return this.maximumSeverity;
   },
 
+  getMessages: function(severity) {
+    var result = "";
+    for each (var message in this.messages) {
+      if (message.type >= severity) {
+        result = result.concat(this.getSeverityName(message.type));
+        result = result.concat(": ");
+        result = result.concat(message.message);
+        result = result.concat("\n");
+      }
+    }
+    return result;
+  },
+
+  getSeverityName: function(severity) {
+    if (LOG.ERROR == severity) {
+      return "Error: ";
+    } else if (LOG.WARN == severity) {
+      return "Warn:  ";
+    } else if (LOG.INFO == severity) {
+      return "Info:  ";
+    } else if (LOG.DEBUG == severity) {
+      return "Debug: ";
+    }
+    return "";
+  },
+
+
   addAppender: function(appender) {
     this.appenders.push(appender);
   },
@@ -362,16 +389,7 @@ LOG.LogArea.prototype.append = function(message) {
     if (typeof(message) == "string") {
       logMessage = document.createTextNode(message);
     } else if (typeof(message.type) == "number") {
-      var prefix = "";
-      if (LOG.ERROR == message.type) {
-        prefix = prefix + "Error: ";
-      } else       if (LOG.WARN == message.type) {
-        prefix = prefix + "Warn:  ";
-      } else       if (LOG.INFO == message.type) {
-        prefix = prefix + "Info:  ";
-      } else       if (LOG.DEBUG == message.type) {
-        prefix = prefix + "Debug: ";
-      }
+      var prefix = LOG.getSeverityName(message.type);
       logMessage = document.createTextNode(prefix + message.message);
     }
     listElement.appendChild(logMessage);
