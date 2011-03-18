@@ -53,19 +53,30 @@ public abstract class SeleniumTest {
     return new DefaultSelenium("localhost", 4444, "*firefox", "http://localhost:8080/");
   }
 
-
-
   protected void checkPage() {
-    Assert.assertFalse(
-        "Page '" + selenium.getLocation() + "' " + CONTAINS_A_404 + ". " + getHtmlSource(), pageNotFound());
+    final String location = selenium.getLocation();
+    final String html = getHtmlSource();
+    Assert.assertFalse(format(CONTAINS_A_404, location, html, ""), pageNotFound());
     try {
-      Assert.assertFalse(
-          "Page '" + selenium.getLocation() + "' " + HAS_ERROR_SEVERITY + ". " + getHtmlSource(), isErrorOnPage());
+      if (isErrorOnPage()) {
+        Assert.fail(format(HAS_ERROR_SEVERITY, location, html, getErrors()));
+      }
     } catch (SeleniumException e) {
-      Assert.fail(
-          "Page '" + selenium.getLocation() + "' " + IS_BROKEN + ". Not a Tobago page? " + getHtmlSource()
-              + " exception=" + e);
+      Assert.fail(format(IS_BROKEN, location, html, "Not a Tobago page? Exception=" + e));
     }
+  }
+
+  public String format(String error, String location, String html, String options) {
+    StringBuilder b = new StringBuilder();
+    b.append(error);
+    b.append("\nPage URL: ");
+    b.append(location);
+    b.append("\n");
+    b.append(options);
+    b.append("\n---------------------------------------------------------------------------------------------------\n");
+    b.append(html);
+    b.append("\n---------------------------------------------------------------------------------------------------\n");
+    return b.toString();
   }
 
   /**
@@ -90,10 +101,13 @@ public abstract class SeleniumTest {
     return Boolean.parseBoolean(errorSeverity);
   }
 
+  protected String getErrors() throws SeleniumException {
+    String errors = selenium.getEval("window.LOG.getMessages(window.LOG.INFO)");
+    return errors;
+  }
+
   protected String getHtmlSource() {
-    return "\ncode=\n********************************************************************************\n"
-        + selenium.getHtmlSource()
-        + "\n********************************************************************************\n";
+    return selenium.getHtmlSource();
   }
 
   protected static String createUrl(String page) {

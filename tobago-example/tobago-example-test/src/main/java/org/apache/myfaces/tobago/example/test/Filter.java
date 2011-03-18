@@ -54,11 +54,12 @@ public class Filter {
       "/meta-test/meta-3.*\\.xhtml",
       "/meta-test/meta-4.*",
 
+      "/tc/attribute/mode-valueIfSet.jspx", // set id="${id}" not possible with JSP.
       "/tc/button/plain.html",
       "/tc/button/plain_de.html",
       "/tc/gridLayout/horizontal-600px-default-300px.*",
       "/tc/gridLayout/horizontal-default-default-600px.*"
-      ));
+  ));
 
   public static boolean isValid(String name) {
 

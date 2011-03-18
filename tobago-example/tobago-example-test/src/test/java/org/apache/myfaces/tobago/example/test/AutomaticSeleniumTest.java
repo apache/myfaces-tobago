@@ -24,6 +24,7 @@ import org.junit.runner.RunWith;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 @RunWith(Parameterized.class)
@@ -45,15 +46,38 @@ public class AutomaticSeleniumTest extends SeleniumTest {
 
   @Parameterized.Parameters
   public static Collection<Object[]> findPages() {
+    List<String> paths = new ArrayList<String>();
+
+    collect(paths, MAVEN_TARGET + '/', "");
+
+    Collections.sort(paths);
+
     List<Object[]> result = new ArrayList<Object[]>();
 
-    collect(result, MAVEN_TARGET + '/', "");
+    for (String path : paths) {
+      Object[] objects = {
+          path.replace('.', '_'), // because dots will be displayed strange in the IDE
+          createUrl(path)
+      };
+      result.add(objects);
+    }
 
     return result;
   }
 
-  private static void collect(List<Object[]> result, String base, String directory) {
-    String[] filenames = new File(base + directory).list();
+  private static void collect(List<String> result, String base, String directory) {
+
+    final File file = new File(base + directory);
+
+    if (! file.exists()) {
+      throw new RuntimeException("Input directory doesn't exists: '" + file.getAbsolutePath() + "'");
+    }
+
+    if (! file.isDirectory()) {
+      throw new RuntimeException("Input is not a directory: '" + file.getAbsolutePath() + "'");
+    }
+
+    String[] filenames = file.list();
 
     for (String filename : filenames) {
 
@@ -65,11 +89,7 @@ public class AutomaticSeleniumTest extends SeleniumTest {
       }
 
       if (Filter.isValid(path)) {
-        Object[] objects = {
-            path,
-            createUrl(path)
-        };
-        result.add(objects);
+        result.add(path);
       }
     }
   }
