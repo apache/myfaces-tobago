@@ -293,5 +293,31 @@ mvn compile checkstyle:check</source>
 SUBST X: "C:\Dokumente und Einstellungen\MyUser\Apache Projects\"</source>
       </answer>
     </faq>
+    <faq id="selenium">
+      <question>How can I run the Selenium tests?</question>
+      <answer>
+      <p>
+        In the tobago-example-test application, the pages can be checked with selenium since Tobago 1.5.
+        To run the full test automatically call
+        <source>
+mvn -P integration-test</source>
+        This will start a jetty server and a selenium server and calls every listed page in the test application.
+      </p>
+
+        <p>
+        If you want to run the tests from your IDE, please start the jetty with
+        <source>
+mvn jetty:run</source> or <source>mvn jetty:run-exploded</source>
+        and start the selenium server with
+        <source>
+mvn selenium:start-server</source>
+        Now you can start the selenium tests in the IDE.
+        </p>
+        <p>
+          Sometimes there is a problem with Firefox. You may try to use a different version, or an installation without
+          plugins.
+        </p>
+      </answer>
+    </faq>
   </part>
 </faqs>
