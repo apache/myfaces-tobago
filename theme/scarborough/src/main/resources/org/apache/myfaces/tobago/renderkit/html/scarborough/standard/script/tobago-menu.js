@@ -486,7 +486,7 @@ Tobago.Menu.Item.prototype.keyRight = function() {
 Tobago.Menu.Item.prototype.nextItem = function(start, offset) {
     var i = start + offset;
 
-    while (!(this.subItems[i] && ! this.subItems[i].disabled) && i != start) {
+    while (!(this.subItems[i] && ! this.subItems[i].disabled)) {
       if (offset > 0) {
         if (i >= this.subItems.length) {
           i = -1;
@@ -498,6 +498,9 @@ Tobago.Menu.Item.prototype.nextItem = function(start, offset) {
         }
       }
       i += offset;
+      if (i == start + offset) {
+        return false;
+      }
     }
 
     var j = Tobago.element(this.subItems[i].id).childNodes.length;
