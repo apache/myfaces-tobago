@@ -43,7 +43,8 @@ var LOG = {
 
   getMessages: function(severity) {
     var result = "";
-    for each (var message in this.messages) {
+    for (var i = 0; i < this.messages.length; i++) {
+      var message = this.messages[i];
       if (message.type >= severity) {
         result = result.concat(this.getSeverityName(message.type));
         result = result.concat(": ");
