@@ -19,6 +19,7 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UITreeCommand;
+import org.apache.myfaces.tobago.component.UITreeNode;
 import org.apache.myfaces.tobago.internal.component.AbstractUICommand;
 import org.apache.myfaces.tobago.internal.util.AccessKeyMap;
 import org.apache.myfaces.tobago.renderkit.CommandRendererBase;
@@ -43,6 +44,18 @@ public class TreeCommandRenderer extends CommandRendererBase {
 
   private static final Logger LOG = LoggerFactory.getLogger(TreeCommandRenderer.class);
 
+  @Override
+  public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
+    final UITreeCommand command = (UITreeCommand) component;
+    final UITreeNode node = ComponentUtils.findAncestor(command, UITreeNode.class);
+    if (node.isDisabled()) {
+      command.setDisabled(true);
+    }
+
+    super.prepareRender(facesContext, component);
+  }
+
+  @Override
   public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
 
     UITreeCommand command = (UITreeCommand) component;
@@ -91,6 +104,7 @@ public class TreeCommandRenderer extends CommandRendererBase {
     return new Style(facesContext, link);
   }
 
+  @Override
   public void encodeEnd(FacesContext facesContext, UIComponent component)
       throws IOException {
     ResponseWriter writer = facesContext.getResponseWriter();
