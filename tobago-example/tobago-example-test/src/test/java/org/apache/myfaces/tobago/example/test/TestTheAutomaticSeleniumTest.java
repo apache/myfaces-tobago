@@ -17,10 +17,11 @@ package org.apache.myfaces.tobago.example.test;
  * limitations under the License.
  */
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.thoughtworks.selenium.SeleniumException;
 import org.junit.Assert;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -67,12 +68,8 @@ public class TestTheAutomaticSeleniumTest {
       test.testPageConsistency();
       test.tearDown();
       Assert.fail("The test should fail, but wasn't.");
-    } catch (AssertionError e) {
-      if (e.getMessage().contains(AutomaticSeleniumTest.CONTAINS_A_404)) {
-        // okay, the error was detected.
-      } else {
-        throw e;
-      }
+    } catch (SeleniumException e) {
+      Assert.assertTrue(e.getMessage().contains("Response_Code = 404"));
     }
   }
 

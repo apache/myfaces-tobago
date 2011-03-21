@@ -28,7 +28,6 @@ public abstract class SeleniumTest {
   private static final String CONTEXT_PATH = "tobago-example-test";
   private static final String SERVLET_MAPPING = "faces";
 
-  public static final String CONTAINS_A_404 = "contains a 404";
   public static final String HAS_ERROR_SEVERITY = "has error severity";
   public static final String IS_BROKEN = "is broken";
 
@@ -56,7 +55,6 @@ public abstract class SeleniumTest {
   protected void checkPage() {
     final String location = selenium.getLocation();
     final String html = getHtmlSource();
-    Assert.assertFalse(format(CONTAINS_A_404, location, html, ""), pageNotFound());
     try {
       if (isErrorOnPage()) {
         Assert.fail(format(HAS_ERROR_SEVERITY, location, html, getErrors()));
@@ -77,16 +75,6 @@ public abstract class SeleniumTest {
     b.append(html);
     b.append("\n---------------------------------------------------------------------------------------------------\n");
     return b.toString();
-  }
-
-  /**
-   * Was the page not found?
-   *
-   * @return True if the page not found.
-   */
-  // XXX might be improved, I didn't find a way to read the HTTP status code
-  protected boolean pageNotFound() {
-    return selenium.getHtmlSource().contains("404");
   }
 
   /**
