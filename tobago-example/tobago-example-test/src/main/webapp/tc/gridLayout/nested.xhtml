@@ -67,14 +67,14 @@
       <tc:gridLayoutConstraint columnSpan="2"/>
     </tc:image>
 
-    <tc:script file="script/test-utils.js"/>
+    <tc:script file="script/tobago-assert.js"/>
 
-    <tc:script onload="checkLayout('page:x_5', 0, 0, 100, 310);"/>
-    <tc:script onload="checkLayout('page:x_6', 105, 0, 205, 100);"/>
-    <tc:script onload="checkLayout('page:x_13', 315, 0, 110, 205);"/>
-    <tc:script onload="checkLayout('page:x_14', 430, 0, 220, 205);"/>
-    <tc:script onload="checkLayout('page:x_14_a', 430, 0, 130, 205);"/>
-    <tc:script onload="checkLayout('page:x_14_b', 565, 0, 85, 205);"/>
+    <tc:script onload="TobagoAssert.assertLayout('page:x_5', 0, 0, 100, 310);"/>
+    <tc:script onload="TobagoAssert.assertLayout('page:x_6', 105, 0, 205, 100);"/>
+    <tc:script onload="TobagoAssert.assertLayout('page:x_13', 315, 0, 110, 205);"/>
+    <tc:script onload="TobagoAssert.assertLayout('page:x_14', 430, 0, 220, 205);"/>
+    <tc:script onload="TobagoAssert.assertLayout('page:x_14_a', 430, 0, 130, 205);"/>
+    <tc:script onload="TobagoAssert.assertLayout('page:x_14_b', 565, 0, 85, 205);"/>
     <!--todo: test the other controls ...-->
 
   </tc:page>

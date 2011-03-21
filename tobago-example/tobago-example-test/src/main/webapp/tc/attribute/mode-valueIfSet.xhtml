@@ -27,7 +27,7 @@
     <f:facet name="layout">
       <tc:gridLayout rows="auto"/>
     </f:facet>
-    <tc:gridLayoutConstraint width="600px" height="300px"/>
+    <tc:gridLayoutConstraint width="600px" height="600px"/>
 
     <tc:label value="demo of the valueIfSet mode of tc:attribute (facelets only)"/>
 
@@ -37,36 +37,36 @@
       </f:facet>
 
       <tc:label value="value"/>
-      <tc:in>
+      <tc:in id="direct">
         <tc:attribute name="value" value="direct literal" mode="valueIfSet"/>
       </tc:in>
 
       <c:set var="value1" value="from var"/>
       <tc:label value="value"/>
-      <tc:in>
+      <tc:in id="v1">
         <tc:attribute name="value" value="#{value1}" mode="valueIfSet"/>
       </tc:in>
 
       <c:set var="value2" value="#{value1}"/>
       <tc:label value="value"/>
-      <tc:in>
+      <tc:in id="v2">
         <tc:attribute name="value" value="#{value2}" mode="valueIfSet"/>
       </tc:in>
 
       <c:set var="value3" value="#{value1} ++"/>
       <tc:label value="value"/>
-      <tc:in>
+      <tc:in id="v3">
         <tc:attribute name="value" value="#{value3}" mode="valueIfSet"/>
       </tc:in>
 
       <c:set var="value4" value="#{attribute.value}"/>
       <tc:label value="value"/>
-      <tc:in>
+      <tc:in id="v4">
         <tc:attribute name="value" value="#{value4}" mode="valueIfSet"/>
       </tc:in>
 
       <tc:label value="value (undefined)"/>
-      <tc:in>
+      <tc:in id="vu">
         <tc:attribute name="value" value="#{value_undefined}" mode="valueIfSet"/>
       </tc:in>
 
@@ -100,11 +100,30 @@
 
     </tc:box>
 
+    <tc:script file="script/tobago-assert.js"/>
+    
     <tc:script onload="check()">
       function check() {
+
+        // only to display
         jQuery("#page\\:id-box input").each(function() {
           jQuery(this).attr('value', (jQuery(this).attr('id')));
         });
+
+        // assertions
+        TobagoAssert.assertAttribute("page:direct", "value", "direct literal");
+        TobagoAssert.assertAttribute("page:v1", "value", "from var");
+        TobagoAssert.assertAttribute("page:v2", "value", "from var");
+        TobagoAssert.assertAttribute("page:v3", "value", "from var ++");
+        TobagoAssert.assertAttribute("page:v4", "value", "value from model");
+        TobagoAssert.assertAttribute("page:vu", "value", "");
+
+        var i1 = jQuery(Tobago.escapeClientId("page:id-box")).find("input:eq(0)");
+        TobagoAssert.assertAttribute(i1, "id", "page:my_number_1");
+//        TobagoAssert.assertAttribute(..., "id", "");
+        var i3 = jQuery(Tobago.escapeClientId("page:id-box")).find("input:eq(2)");
+        TobagoAssert.assertAttribute(i3, "id", "page:my_number_3");
+//        TobagoAssert.assertAttribute(..., "id", "");
       }
     </tc:script>
 

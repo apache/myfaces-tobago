@@ -42,11 +42,11 @@
       </f:subview>
     </tc:cell>
 
-    <tc:script file="script/test-utils.js"/>
+    <tc:script file="script/tobago-assert.js"/>
 
-    <tc:script onload="checkLayout('page:i-1', 0, 0, 100, 100);"/>
-    <tc:script onload="checkLayout('page:subview:i-2', 0, 105, 100, 100);"/>
-    <tc:script onload="checkLayout('page:subview:i-3', 0, 210, 100, 100);"/>
+    <tc:script onload="TobagoAssert.assertLayout('page:i-1', 0, 0, 100, 100);"/>
+    <tc:script onload="TobagoAssert.assertLayout('page:subview:i-2', 0, 105, 100, 100);"/>
+    <tc:script onload="TobagoAssert.assertLayout('page:subview:i-3', 0, 210, 100, 100);"/>
 
   </tc:page>
 </f:view>

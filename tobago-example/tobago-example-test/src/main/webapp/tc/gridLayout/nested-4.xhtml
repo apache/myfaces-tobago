@@ -65,13 +65,13 @@
 
     </tc:panel>
 
-    <tc:script file="script/test-utils.js"/>
+    <tc:script file="script/tobago-assert.js"/>
 
-    <tc:script onload="checkLayout('page:image-1', 0, 0, 100, 100);"/>
-    <tc:script onload="checkLayout('page:image-2', 120, 0, 100, 100);"/>
-    <tc:script onload="checkLayout('page:image-3', 0, 120, 100, 100);"/>
-    <tc:script onload="checkLayout('page:image-41', 120, 120, 100, 47);"/>
-    <tc:script onload="checkLayout('page:image-42', 120, 172, 100, 48);"/>
+    <tc:script onload="TobagoAssert.assertLayout('page:image-1', 0, 0, 100, 100);"/>
+    <tc:script onload="TobagoAssert.assertLayout('page:image-2', 120, 0, 100, 100);"/>
+    <tc:script onload="TobagoAssert.assertLayout('page:image-3', 0, 120, 100, 100);"/>
+    <tc:script onload="TobagoAssert.assertLayout('page:image-41', 120, 120, 100, 47);"/>
+    <tc:script onload="TobagoAssert.assertLayout('page:image-42', 120, 172, 100, 48);"/>
 
   </tc:page>
 </f:view>

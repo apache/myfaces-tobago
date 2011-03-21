@@ -45,11 +45,11 @@
 
     </tc:box>
 
-    <tc:script file="script/test-utils.js"/>
+    <tc:script file="script/tobago-assert.js"/>
 
-    <tc:script onload="checkLayout('page:outerbox', 0, 0, 226, 116);"/>
-    <tc:script onload="checkLayout('page:innerbox', 6, 26, 213, 83);"/>
-    <tc:script onload="checkLayout('page:textarea', 12, 52, 200, 50);"/>
+    <tc:script onload="TobagoAssert.assertLayout('page:outerbox', 0, 0, 226, 116);"/>
+    <tc:script onload="TobagoAssert.assertLayout('page:innerbox', 6, 26, 213, 83);"/>
+    <tc:script onload="TobagoAssert.assertLayout('page:textarea', 12, 52, 200, 50);"/>
 
   </tc:page>
 </f:view>

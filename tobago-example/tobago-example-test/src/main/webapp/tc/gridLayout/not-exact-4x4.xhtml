@@ -52,18 +52,18 @@
       <tc:gridLayoutConstraint columnSpan="2"/>
     </tc:image>
 
-    <tc:script file="script/test-utils.js"/>
+    <tc:script file="script/tobago-assert.js"/>
 
-    <tc:script onload="checkLayout('page:image-0', 0, 0, 42, 28);"/>
-    <tc:script onload="checkLayout('page:image-1', 47, 0, 63, 111);"/>
-    <tc:script onload="checkLayout('page:image-2', 115, 0, 111, 28);"/>
-    <tc:script onload="checkLayout('page:image-3', 0, 33, 42, 78);"/>
-    <tc:script onload="checkLayout('page:image-4', 115, 33, 92, 153);"/>
-    <tc:script onload="checkLayout('page:image-5', 212, 33, 14, 78);"/>
-    <tc:script onload="checkLayout('page:image-6', 0, 116, 110, 70);"/>
-    <tc:script onload="checkLayout('page:image-7', 212, 116, 14, 110);"/>
-    <tc:script onload="checkLayout('page:image-8', 0, 191, 42, 35);"/>
-    <tc:script onload="checkLayout('page:image-9', 47, 191, 160, 35);"/>
+    <tc:script onload="TobagoAssert.assertLayout('page:image-0', 0, 0, 42, 28);"/>
+    <tc:script onload="TobagoAssert.assertLayout('page:image-1', 47, 0, 63, 111);"/>
+    <tc:script onload="TobagoAssert.assertLayout('page:image-2', 115, 0, 111, 28);"/>
+    <tc:script onload="TobagoAssert.assertLayout('page:image-3', 0, 33, 42, 78);"/>
+    <tc:script onload="TobagoAssert.assertLayout('page:image-4', 115, 33, 92, 153);"/>
+    <tc:script onload="TobagoAssert.assertLayout('page:image-5', 212, 33, 14, 78);"/>
+    <tc:script onload="TobagoAssert.assertLayout('page:image-6', 0, 116, 110, 70);"/>
+    <tc:script onload="TobagoAssert.assertLayout('page:image-7', 212, 116, 14, 110);"/>
+    <tc:script onload="TobagoAssert.assertLayout('page:image-8', 0, 191, 42, 35);"/>
+    <tc:script onload="TobagoAssert.assertLayout('page:image-9', 47, 191, 160, 35);"/>
 
   </tc:page>
 </f:view>

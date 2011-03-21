@@ -39,10 +39,10 @@
         <tc:button id="button" label="Submit"/>
       </tc:panel>
 
-    <tc:script file="script/test-utils.js"/>
+    <tc:script file="script/tobago-assert.js"/>
 
-    <tc:script onload="checkLayout('page:textarea', 0, 0, 500, 475);"/>
-    <tc:script onload="checkLayout('page:button', 400, 480, 100, 20);"/>
+    <tc:script onload="TobagoAssert.assertLayout('page:textarea', 0, 0, 500, 475);"/>
+    <tc:script onload="TobagoAssert.assertLayout('page:button', 400, 480, 100, 20);"/>
 
   </tc:page>
 </f:view>

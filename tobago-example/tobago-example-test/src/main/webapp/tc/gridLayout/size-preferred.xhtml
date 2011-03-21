@@ -32,9 +32,9 @@
       <tc:gridLayoutConstraint preferredWidth="100px" preferredHeight="100px"/>
     </tc:image>
 
-    <tc:script file="script/test-utils.js"/>
+    <tc:script file="script/tobago-assert.js"/>
 
-    <tc:script onload="checkLayout('page:image-0', 0, 0, 100, 100);"/>
+    <tc:script onload="TobagoAssert.assertLayout('page:image-0', 0, 0, 100, 100);"/>
 
   </tc:page>
 </f:view>

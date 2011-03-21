@@ -34,10 +34,10 @@
     <tc:image id="i-1" value="pidgeon-point.jpg"/>
     <tc:image id="i-2" value="pidgeon-point.jpg"/>
 
-    <tc:script file="script/test-utils.js"/>
-    <tc:script onload="checkLayout('page:i-0', 0, 0, 605, 400);"/>
-    <tc:script onload="checkLayout('page:i-1', 0, 405, 400, 200);"/>
-    <tc:script onload="checkLayout('page:i-2', 405, 405, 200, 200);"/>
+    <tc:script file="script/tobago-assert.js"/>
+    <tc:script onload="TobagoAssert.assertLayout('page:i-0', 0, 0, 605, 400);"/>
+    <tc:script onload="TobagoAssert.assertLayout('page:i-1', 0, 405, 400, 200);"/>
+    <tc:script onload="TobagoAssert.assertLayout('page:i-2', 405, 405, 200, 200);"/>
 
 
   </tc:page>

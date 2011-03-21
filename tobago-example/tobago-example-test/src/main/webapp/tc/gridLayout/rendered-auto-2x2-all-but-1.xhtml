@@ -40,11 +40,11 @@
       <tc:gridLayoutConstraint width="200px" height="200px"/>
     </tc:image>
 
-    <tc:script file="script/test-utils.js"/>
-    <tc:script onload="checkAbsence('page:i-0');"/>
-    <tc:script onload="checkLayout('page:i-1', 405, 0, 200, 400);"/>
-    <tc:script onload="checkLayout('page:i-2', 0, 405, 400, 200);"/>
-    <tc:script onload="checkLayout('page:i-3', 405, 405, 200, 200);"/>
+    <tc:script file="script/tobago-assert.js"/>
+    <tc:script onload="TobagoAssert.assertAbsence('page:i-0');"/>
+    <tc:script onload="TobagoAssert.assertLayout('page:i-1', 405, 0, 200, 400);"/>
+    <tc:script onload="TobagoAssert.assertLayout('page:i-2', 0, 405, 400, 200);"/>
+    <tc:script onload="TobagoAssert.assertLayout('page:i-3', 405, 405, 200, 200);"/>
 
   </tc:page>
 </f:view>
