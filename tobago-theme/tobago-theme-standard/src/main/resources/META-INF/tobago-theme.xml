@@ -273,8 +273,21 @@
       </supported-markup>
     </renderer>
     <renderer>
+      <name>TreeCommand</name>
+      <supported-markup>
+        <markup>disabled</markup>
+      </supported-markup>
+    </renderer>
+    <renderer>
+      <name>TreeLabel</name>
+      <supported-markup>
+        <markup>disabled</markup>
+      </supported-markup>
+    </renderer>
+    <renderer>
       <name>TreeNode</name>
       <supported-markup>
+        <markup>disabled</markup>
         <markup>strong</markup> <!--XXX has to be in label and command ? -->
         <markup>marked</markup>
         <markup>folder</markup>
@@ -283,6 +296,7 @@
     <renderer>
       <name>TreeMenuNode</name>
       <supported-markup>
+        <markup>disabled</markup>
         <markup>strong</markup> <!--XXX has to be in label and command ? -->
         <markup>marked</markup>
         <markup>folder</markup>

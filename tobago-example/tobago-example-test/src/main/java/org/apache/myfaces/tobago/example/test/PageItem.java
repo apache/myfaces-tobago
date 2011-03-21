@@ -17,6 +17,7 @@ package org.apache.myfaces.tobago.example.test;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.util.VariableResolverUtils;
 
 import javax.faces.context.FacesContext;
@@ -30,8 +31,10 @@ public class PageItem extends DefaultMutableTreeNode implements Comparable {
   private boolean jsfResource;
   private String label;
   private boolean folder;
+  private boolean disabled;
+  private boolean todo;
 
-  public PageItem(String name) {
+  public PageItem(String name, boolean disabled, boolean todo) {
     this.name = name;
     resource = name.substring(1);
     jsfResource = name.endsWith(".xhtml") || name.endsWith(".jspx");
@@ -43,6 +46,8 @@ public class PageItem extends DefaultMutableTreeNode implements Comparable {
     }
     label = label.substring(label.lastIndexOf("/") + 1);
 //    label = label.replaceAll("_", "__");
+    this.disabled = disabled;
+    this.todo = todo;
   }
 
   public String getName() {
@@ -67,6 +72,18 @@ public class PageItem extends DefaultMutableTreeNode implements Comparable {
 
   public boolean isFolder() {
     return folder;
+  }
+
+  public boolean isDisabled() {
+    return disabled;
+  }
+
+  public Markup getMarkup() {
+    if (todo) {
+      return Markup.valueOf("todo");
+    } else {
+      return null;
+    }
   }
 
   public String navigate() {

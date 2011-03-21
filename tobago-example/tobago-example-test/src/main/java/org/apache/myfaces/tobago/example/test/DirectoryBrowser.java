@@ -35,7 +35,7 @@ public class DirectoryBrowser {
   private PageItem current;
 
   public DirectoryBrowser() {
-    tree = new PageItem("/");
+    tree = new PageItem("/", false, false);
     ServletContext servletContext
         = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
 
@@ -69,13 +69,13 @@ public class DirectoryBrowser {
             if (LOG.isDebugEnabled()) {
               LOG.debug("childPath dir " + childPath);
             }
-            list.add(new PageItem(childPath));
+            list.add(new PageItem(childPath, Filter.isDisabled(childPath), Filter.isTodo(childPath)));
           }
         }
       } else {
         if (Filter.isValid(childPath)) {
           LOG.info("add resc " + childPath);
-          list.add(new PageItem(childPath));
+          list.add(new PageItem(childPath, Filter.isDisabled(childPath), Filter.isTodo(childPath)));
         }
       }
     }

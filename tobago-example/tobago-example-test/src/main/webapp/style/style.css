@@ -1,5 +1,3 @@
-package org.apache.myfaces.tobago.example.test;
-
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -17,27 +15,6 @@ package org.apache.myfaces.tobago.example.test;
  * limitations under the License.
  */
 
-import org.junit.Assert;
-import org.junit.Test;
-
-public class FilterUnitTest {
-
-  @Test
-  public void testIsValid() {
-    Assert.assertFalse(Filter.isValid("test.html"));
-    Assert.assertTrue(Filter.isValid("/test.html"));
-
-    Assert.assertFalse(Filter.isValid("/WEB-INF"));
-    Assert.assertFalse(Filter.isValid("/WEB-INF/"));
-    Assert.assertFalse(Filter.isValid("/WEB-INF/web.xml"));
-    Assert.assertFalse(Filter.isValid("/WEB-INF/test.xhtml"));
-
-    Assert.assertFalse(Filter.isValid("/NETA-INF"));
-    Assert.assertFalse(Filter.isValid("/META-INF/"));
-
-    Assert.assertTrue(Filter.isValid("/navigation.xhtml"));
-    Assert.assertTrue(Filter.isValid("/nav.xhtml"));
-
-    Assert.assertTrue(Filter.isDisabled("/navigation.xhtml"));
-  }
+.tobago-treeNode .tobago-treeCommand-markup-todo {
+  color: #ff0000;
 }

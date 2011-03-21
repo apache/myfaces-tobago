@@ -47,11 +47,11 @@
 
       <tc:tree>
         <tc:treeData value="#{browser.tree}" var="node">
-          <tc:treeNode expanded="#{node.level lt 2}">
+          <tc:treeNode expanded="#{node.level lt 2}" disabled="#{node.disabled}">
             <tc:treeIndent/>
             <tc:treeIcon/>
             <tc:treeCommand link="#{node.resource}" label="#{node.label}" target="page:content"
-                            rendered="#{node.childCount == 0}"/>
+                            rendered="#{node.childCount == 0}" markup="#{node.markup}"/>
             <tc:treeLabel value="#{node.label}" rendered="#{node.childCount > 0}"/>
           </tc:treeNode>
         </tc:treeData>

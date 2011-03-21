@@ -28,4 +28,14 @@
     <supported-theme>richmond</supported-theme>
     <supported-theme>charlotteville</supported-theme>
   </theme-config>
+
+  <renderers>
+    <renderer>
+      <name>TreeCommand</name>
+      <supported-markup>
+        <markup>disabled</markup>
+        <markup>todo</markup>
+      </supported-markup>
+    </renderer>
+  </renderers>
 </tobago-config>

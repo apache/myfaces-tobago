@@ -88,7 +88,7 @@ public class AutomaticSeleniumTest extends SeleniumTest {
         continue;
       }
 
-      if (Filter.isValid(path)) {
+      if (Filter.isValid(path) && !Filter.isDisabled(path) && !Filter.isTodo(path)) {
         result.add(path);
       }
     }

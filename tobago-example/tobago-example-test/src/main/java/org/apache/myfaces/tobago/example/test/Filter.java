@@ -37,26 +37,37 @@ public class Filter {
       ".*\\.html"
   );
 
-  public static final Set<String> FORBIDDEN = new HashSet<String>(Arrays.asList(
+  public static final Set<String> HIDDEN = new HashSet<String>(Arrays.asList(
       "/META-INF.*",
       "/WEB-INF.*",
       "/org/.*",
       "/src/.*",
-      "/try/.*",
-      ".*/\\.svn/.*",
-      ".*-fragment\\.xhtml",
+      ".*/\\.svn/.*"
+  ));
 
-      "/index.html",
-      "/navigation.xhtml",
+  /**
+   * Internal pages and pages that are impossible to run.
+   */
+  public static final Set<String> DISABLED = new HashSet<String>(Arrays.asList(
+      ".*-fragment\\.xhtml", // intern
 
-      "/meta-test/meta-1.*",
-      "/meta-test/meta-2.*\\.jspx",
-      "/meta-test/meta-3.*\\.xhtml",
-      "/meta-test/meta-4.*",
+      "/index.html", // intern
+      "/navigation.*", // intern
+
+      "/meta-test/meta-1.*", // meta test
+      "/meta-test/meta-2.*\\.jspx", // meta test
+      "/meta-test/meta-3.*\\.xhtml", // meta test
+      "/meta-test/meta-4.*", // meta test
 
       "/tc/attribute/mode-valueIfSet.jspx", // set id="${id}" not possible with JSP.
-      "/tc/button/plain.html",
-      "/tc/button/plain_de.html",
+      "/tc/button/plain.html", // intern
+      "/tc/button/plain_de.html" // intern
+  ));
+
+  /**
+   * Switched off temporary.
+   */
+  public static final Set<String> TODO = new HashSet<String>(Arrays.asList(
       "/tc/gridLayout/horizontal-600px-default-300px.*",
       "/tc/gridLayout/horizontal-default-default-600px.*"
   ));
@@ -83,13 +94,33 @@ public class Filter {
 
     // 3rd the negative check
 
-    for (String forbidden : FORBIDDEN) {
-      if (name.matches(forbidden)) {
+    for (String hidden : HIDDEN) {
+      if (name.matches(hidden)) {
         return false;
       }
     }
 
     return true;
+  }
+
+  public static boolean isDisabled(String name) {
+    for (String disabled : DISABLED) {
+      if (name.matches(disabled)) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  public static boolean isTodo(String name) {
+    for (String todo : TODO) {
+      if (name.matches(todo)) {
+        return true;
+      }
+    }
+
+    return false;
   }
 
 }
