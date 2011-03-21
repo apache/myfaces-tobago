@@ -548,6 +548,7 @@ li.tobago-menu-markup-selected {
 .tobago-page-content {
   position: absolute;
   z-index: 0;
+  overflow: auto;
 }
 
 .tobago-page-scrollbarWeight {
@@ -564,13 +565,7 @@ li.tobago-menu-markup-selected {
 /* panel -------------------------------------------------------------- */
 
 .tobago-panel {
-  overflow-x: hidden;
-  overflow-y: hidden;
-}
-
-.tobago-panel-content {
-  overflow-x: auto;
-  overflow-y: auto;
+  overflow: auto;
 }
 
 /* popup -------------------------------------------------------------- */
@@ -1095,6 +1090,7 @@ div.tobago-richTextEditor-body {
   border-width: 0 1px 1px 1px;
   border-style: solid;
   display: none;
+  overflow: auto;
 }
 
 .tobago-tab-content-markup-selected {
