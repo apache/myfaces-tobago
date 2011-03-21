@@ -26,25 +26,16 @@
     <tc:gridLayoutConstraint width="500px" height="500px"/>
 
     <tc:panel id="panel">
-      <f:facet name="layout">
-        <tc:gridLayout columns="*;*"/>
-      </f:facet>
       <tc:gridLayoutConstraint
           borderLeft="10px" borderRight="20px" borderTop="30px" borderBottom="40px"
-          paddingLeft="50px" paddingRight="60px" paddingTop="70px" paddingBottom="80px"
-          height="500px"/>
-      <tc:textarea/>
+          paddingLeft="50px" paddingRight="60px" paddingTop="70px" paddingBottom="80px"/>
       <tc:textarea
           id="text"
-          value="panel has borderLeft='10px' borderRight='20px' borderTop='30px' borderBottom='40px' paddingLeft='50px' paddingRight='60px' paddingTop='70px' paddingBottom='80px'">
-        <!-- set height to enforce scrollbars -->
-        <tc:gridLayoutConstraint height="600px"/>
-      </tc:textarea>
+          value="panel has borderLeft='10px' borderRight='20px' borderTop='30px' borderBottom='40px' paddingLeft='50px' paddingRight='60px' paddingTop='70px' paddingBottom='80px'"/>
     </tc:panel>
 
     <tc:script onload="jQuery('#page\\:panel').css('background-color', '#aabbcc');"/>
     <tc:script file="script/test-utils.js"/>
-    <tc:script onload="checkLayout('page:text', 60, 100, 470, 430);"/>
-
+    <tc:script onload="checkLayout('page:text', 60, 100, 360, 280);"/>
   </tc:page>
 </f:view>
