@@ -28,6 +28,7 @@ public abstract class SeleniumTest {
   private static final String CONTEXT_PATH = "tobago-example-test";
   private static final String SERVLET_MAPPING = "faces";
 
+  public static final String ERROR_ON_SERVER = "error on server";
   public static final String HAS_ERROR_SEVERITY = "has error severity";
   public static final String IS_BROKEN = "is broken";
 
@@ -55,6 +56,7 @@ public abstract class SeleniumTest {
   protected void checkPage() {
     final String location = selenium.getLocation();
     final String html = getHtmlSource();
+    Assert.assertFalse(format(ERROR_ON_SERVER, location, html, ""), errorOnServer());
     try {
       if (isErrorOnPage()) {
         Assert.fail(format(HAS_ERROR_SEVERITY, location, html, getErrors()));
@@ -75,6 +77,13 @@ public abstract class SeleniumTest {
     b.append(html);
     b.append("\n---------------------------------------------------------------------------------------------------\n");
     return b.toString();
+  }
+
+  /**
+   * Happen an exception from MyFaces on the page?
+   */
+  protected boolean errorOnServer() {
+    return selenium.getHtmlSource().contains("An Error Occurred");
   }
 
   /**
