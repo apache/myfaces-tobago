@@ -27,18 +27,13 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasId;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasRenderRange;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 import org.apache.myfaces.tobago.internal.taglib.declaration.InputTagDeclaration;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsInline;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsReadonly;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsRequired;
-
-/*
- * Created: Aug 5, 2005 5:54:37 PM
- * User: bommel
- * $Id$
- */
 
 /**
  * Render a group of checkboxes.
@@ -53,7 +48,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsRequired;
         "javax.faces.SelectItem",
         "javax.faces.SelectItems"})
 public interface SelectManyCheckboxTagDeclaration extends
-    IsDisabled, HasId,
+    IsDisabled, HasId, HasTip,
     IsInline, HasRenderRange, IsRendered, IsRequired, HasBinding, IsReadonly, HasConverter,
     InputTagDeclaration, HasMarkup, HasCurrentMarkup {
 

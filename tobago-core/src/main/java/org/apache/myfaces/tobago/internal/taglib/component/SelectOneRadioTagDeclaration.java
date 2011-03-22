@@ -29,6 +29,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasBinding;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasConverter;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasId;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasRenderRange;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsInline;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsReadonly;
@@ -58,7 +59,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsRendered;
         allowedChildComponenents = "org.apache.myfaces.tobago.Command")
         })
 public interface SelectOneRadioTagDeclaration extends SelectOneTagDeclaration, IsDisabled, IsReadonly, HasId,
-    IsInline, HasRenderRange, IsRendered, HasBinding, HasConverter {
+    HasTip, IsInline, HasRenderRange, IsRendered, HasBinding, HasConverter {
 
   /**
    * Flag indicating that selecting an Item representing a Value is Required.
