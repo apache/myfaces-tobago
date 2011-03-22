@@ -29,6 +29,7 @@ public final class ComponentTypes {
   public static final String GRID_LAYOUT = "org.apache.myfaces.tobago.GridLayout";
   public static final String IN = "org.apache.myfaces.tobago.In";
   public static final String OUT = "org.apache.myfaces.tobago.Out";
+  public static final String PANEL = "org.apache.myfaces.tobago.Panel";
   public static final String SELECT_BOOLEAN_CHECKBOX = "org.apache.myfaces.tobago.SelectBooleanCheckbox";
   public static final String SHEET_LAYOUT = "org.apache.myfaces.tobago.SheetLayout";
   public static final String TAB_GROUP_LAYOUT = "org.apache.myfaces.tobago.TabGroupLayout";
