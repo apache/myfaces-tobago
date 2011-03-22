@@ -50,6 +50,7 @@ public class Filter {
    */
   public static final Set<String> DISABLED = new HashSet<String>(Arrays.asList(
       ".*-fragment\\.xhtml", // intern
+      ".*-fragment\\.jspx", // intern
 
       "/index.html", // intern
       "/navigation.*", // intern
@@ -58,10 +59,13 @@ public class Filter {
       "/meta-test/meta-2.*\\.jspx", // meta test
       "/meta-test/meta-3.*\\.xhtml", // meta test
       "/meta-test/meta-4.*", // meta test
+      "/meta-test/meta-5.*", // meta test
 
       "/tc/attribute/mode-valueIfSet.jspx", // set id="${id}" not possible with JSP.
       "/tc/button/plain.html", // intern
-      "/tc/button/plain_de.html" // intern
+      "/tc/button/plain_de.html", // intern
+
+      "/tf/.*jspx" // tf: library doen't work with JSP
   ));
 
   /**
@@ -69,7 +73,13 @@ public class Filter {
    */
   public static final Set<String> TODO = new HashSet<String>(Arrays.asList(
       "/tc/gridLayout/horizontal-600px-default-300px.*",
-      "/tc/gridLayout/horizontal-default-default-600px.*"
+      "/tc/gridLayout/horizontal-default-default-600px.*",
+      "/tc/gridLayout/rendered-combinations.jspx", // uses facelets templating
+      "/tc/gridLayout/scrolling-tab.*", // todo: measurement problem with firefox?
+      "/tc/gridLayout/tabGroup-.*", // todo: measurement problem with firefox?
+      "/tc/gridLayout/transparent-for-layout.jspx", // uses facelets templating
+      "/tc/gridLayout/tomahawk-inputHtml.*", // todo
+      "/type/.*" // todo
   ));
 
   public static boolean isValid(String name) {
