@@ -78,7 +78,7 @@ public class Filter {
       "/tc/gridLayout/scrolling-tab.*", // todo: measurement problem with firefox?
       "/tc/gridLayout/tabGroup-.*", // todo: measurement problem with firefox?
       "/tc/gridLayout/transparent-for-layout.jspx", // uses facelets templating
-      "/tc/gridLayout/tomahawk-inputHtml.*", // todo
+      "/tc/mediator/tomahawk-inputHtml.*", // todo
       "/type/.*" // todo
   ));
 
