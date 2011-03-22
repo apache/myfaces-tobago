@@ -27,9 +27,10 @@
 
     <tc:tree id="tree" selectable="single" showRoot="true" showRootJunction="true">
       <tc:treeData value="#{tree.tree}" var="node" id="data">
-        <tc:treeNode label="#{node.userObject.name}"
-                     id="template"
-                     expanded="true"/>
+        <tc:treeNode id="template" expanded="true">
+          <tc:treeIndent/>
+          <tc:treeLabel value="#{node.userObject.name}"/>
+        </tc:treeNode>
       </tc:treeData>
     </tc:tree>
 
