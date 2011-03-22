@@ -17,10 +17,16 @@ package org.apache.myfaces.tobago.util;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.component.ComponentTypes;
+import org.apache.myfaces.tobago.component.RendererTypes;
+import org.apache.myfaces.tobago.component.UIIn;
+import org.apache.myfaces.tobago.internal.mock.faces.AbstractTobagoTestBase;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class ComponentUtilsUnitTest {
+import javax.faces.component.UIComponent;
+
+public class ComponentUtilsUnitTest extends AbstractTobagoTestBase {
 
   @Test
   public void testSplitList() {
@@ -29,5 +35,15 @@ public class ComponentUtilsUnitTest {
     Assert.assertArrayEquals(new String[]{"ab", "cd"}, ComponentUtils.splitList("ab,  cd"));
     Assert.assertArrayEquals(new String[]{"ab", "cd"}, ComponentUtils.splitList("ab , cd"));
     Assert.assertArrayEquals(new String[]{"ab", "cd"}, ComponentUtils.splitList("ab,,cd"));
+  }
+
+  @Test
+  public void testFindDescendant() {
+    final UIComponent p = CreateComponentUtils.createComponent(ComponentTypes.PANEL, RendererTypes.PANEL, "p");
+    final UIComponent i = CreateComponentUtils.createComponent(ComponentTypes.IN, RendererTypes.IN, "i");
+    p.getChildren().add(i);
+
+    final UIIn in = ComponentUtils.findDescendant(p, UIIn.class);
+    Assert.assertEquals(i, in);
   }
 }

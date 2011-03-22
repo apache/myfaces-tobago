@@ -232,11 +232,14 @@ public class ComponentUtils {
     }
   }
 
+  /**
+   * Searches the component tree beneath the component and return the first component matching the type.
+   */
   public static <T extends UIComponent> T findDescendant(UIComponent component, Class<T> type) {
 
     for (UIComponent child : (List<UIComponent>) component.getChildren()) {
       if (type.isAssignableFrom(child.getClass())) {
-        return (T) component;
+        return (T) child;
       }
       final T descendant = findDescendant(child, type);
       if (descendant != null) {
