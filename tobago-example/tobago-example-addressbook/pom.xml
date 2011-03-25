@@ -51,6 +51,18 @@
           </userRealms>
         </configuration>
         <dependencies>
+          <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>jcl-over-slf4j</artifactId>
+            <version>1.6.1</version>
+            <type>jar</type>
+          </dependency>
+          <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.6.1</version>
+            <type>jar</type>
+          </dependency>
         <!--dependency>
           <groupId>org.slf4j</groupId>
           <artifactId>slf4j-jcl</artifactId>
