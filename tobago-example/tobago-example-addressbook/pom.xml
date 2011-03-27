@@ -51,7 +51,7 @@
           </userRealms>
         </configuration>
         <dependencies>
-          <dependency>
+         <!-- <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>jcl-over-slf4j</artifactId>
             <version>1.6.1</version>
@@ -62,7 +62,7 @@
             <artifactId>slf4j-api</artifactId>
             <version>1.6.1</version>
             <type>jar</type>
-          </dependency>
+          </dependency>-->
         <!--dependency>
           <groupId>org.slf4j</groupId>
           <artifactId>slf4j-jcl</artifactId>
@@ -135,6 +135,10 @@
       <groupId>org.apache.myfaces.tobago</groupId>
       <artifactId>tobago-example-addressbook-lib</artifactId>
       <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>jcl-over-slf4j</artifactId>
     </dependency>
   </dependencies>
 </project>
