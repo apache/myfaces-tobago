@@ -27,23 +27,9 @@ import javax.faces.context.FacesContext;
 import javax.faces.component.StateHolder;
 import javax.faces.component.UIComponentBase;
 import javax.faces.application.FacesMessage;
-import javax.annotation.security.RolesAllowed;
-import javax.annotation.security.DenyAll;
-import javax.annotation.security.PermitAll;
-import java.util.Arrays;
-import java.util.Map;
-import java.util.HashMap;
-import java.lang.reflect.Method;
-import java.lang.reflect.AnnotatedElement;
-import java.lang.annotation.Annotation;
 
-/*
- * Date: 19.07.2006
- * Time: 16:11:43
- */
 public class CheckAuthorisationMethodBinding extends MethodBinding implements StateHolder {
   private static final Logger LOG = LoggerFactory.getLogger(CheckAuthorisationMethodBinding.class);
-  private static final Map<String, Annotation> AUTHORISATION_CACHE = new HashMap<String, Annotation>();
 
   private MethodBinding methodBinding;
 
@@ -67,96 +53,14 @@ public class CheckAuthorisationMethodBinding extends MethodBinding implements St
     if (LOG.isDebugEnabled()) {
       LOG.debug("MethodBinding invoke " + getExpressionString());
     }
-    // Methodbindings with a argument list would not be checked for authorisation
-    if ((objects!=null && objects.length > 0) || isAuthorized(facesContext)) {
+    // MethodBindings with a argument list would not be checked for authorisation
+    if ((objects!=null && objects.length > 0) || AuthorizationUtils.isAuthorized(facesContext, getExpressionString())) {
       return methodBinding.invoke(facesContext, objects);
     } else {
       // TODO better message
       facesContext.addMessage(null, new FacesMessage("Not authorised"));
       return null;
     }
-  }
-
-  public boolean isAuthorized(FacesContext facesContext) {
-
-    Annotation securityAnnotation = getSecurityAnnotation(facesContext);
-    if (securityAnnotation == null) {
-      return true;
-    }
-
-    if (securityAnnotation instanceof DenyAll) {
-      if (LOG.isDebugEnabled()) {
-        LOG.debug("DenyAll");
-      }
-      return false;
-    }
-    if (securityAnnotation instanceof RolesAllowed) {
-      String [] roles = ((RolesAllowed) securityAnnotation).value();
-      if (LOG.isDebugEnabled()) {
-        LOG.debug("RolesAllowed " + Arrays.asList(((RolesAllowed) securityAnnotation).value()));
-      }
-      for (String role : roles) {
-        boolean authorised = facesContext.getExternalContext().isUserInRole(role);
-        if (authorised) {
-          return true;
-        }
-      }
-      return false;
-    }
-    if (securityAnnotation instanceof PermitAll) {
-      if (LOG.isDebugEnabled()) {
-        LOG.debug("PermitAll");
-      }
-      return true;
-    }
-    return true;
-  }
-  private Annotation getSecurityAnnotation(FacesContext facesContext) {
-    String expression = getExpressionString();
-    if (AUTHORISATION_CACHE.containsKey(expression)) {
-      return AUTHORISATION_CACHE.get(expression);
-    } else {
-      Annotation securityAnnotation = null;
-      if (expression.startsWith("#{") && expression.endsWith("}")) {
-        expression = expression.substring(2, expression.length()-1);
-        int index = expression.lastIndexOf('.');
-        if (index != -1) {
-          String methodExpression = expression.substring(index+1, expression.length());
-          String beanExpression = expression.substring(0, index);
-          // TODO find a better way
-          Object bean =
-              facesContext.getApplication().getVariableResolver().resolveVariable(facesContext, beanExpression);
-          if (bean != null) {
-            try {
-              Method method = bean.getClass().getMethod(methodExpression);
-              securityAnnotation = getSecurityAnnotations(method);
-              if (securityAnnotation == null) {
-                securityAnnotation = getSecurityAnnotations(bean.getClass());
-              }
-            } catch (NoSuchMethodException e) {
-              LOG.error("No Method " + methodExpression + " in class " + bean.getClass(), e);
-            }
-          }
-        }
-      }
-      AUTHORISATION_CACHE.put(expression, securityAnnotation);
-      return securityAnnotation;
-    }
-  }
-  private Annotation getSecurityAnnotations(AnnotatedElement annotatedElement) {
-    Annotation annotation = annotatedElement.getAnnotation(RolesAllowed.class);
-    if (annotation != null) {
-      return annotation;
-    }
-    annotation = annotatedElement.getAnnotation(DenyAll.class);
-    if (annotation != null) {
-      return annotation;
-    }
-    annotation = annotatedElement.getAnnotation(PermitAll.class);
-    if (annotation != null) {
-      return annotation;
-    }
-    return null;
   }
 
   public Object saveState(FacesContext facesContext) {
@@ -178,5 +82,9 @@ public class CheckAuthorisationMethodBinding extends MethodBinding implements St
     if (methodBinding instanceof StateHolder) {
       ((StateHolder) methodBinding).setTransient(bool);
     }
+  }
+
+  public boolean isAuthorized(FacesContext facesContext) {
+    return AuthorizationUtils.isAuthorized(facesContext, getExpressionString());
   }
 }

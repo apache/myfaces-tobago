@@ -17,33 +17,30 @@ package org.apache.myfaces.tobago.security;
  * limitations under the License.
  */
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.myfaces.tobago.component.UILink;
 
-import javax.faces.application.ApplicationFactory;
-import javax.faces.application.Application;
+import javax.faces.context.FacesContext;
+import javax.faces.el.MethodBinding;
 
-/*
- * Date: 19.07.2006
- * Time: 15:42:14
- */
-public class ApplicationFactoryImpl extends ApplicationFactory {
-  private static final Logger LOG = LoggerFactory.getLogger(ApplicationFactoryImpl.class);
+public class UISecuredLinkCommand extends UILink {
 
-  private ApplicationFactory applicationFactory = null;
+  public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.SecuredLinkCommand";
 
-  public ApplicationFactoryImpl(ApplicationFactory applicationFactory) {
-    if (LOG.isDebugEnabled()) {
-      LOG.debug("Hiding ApplicationFactory");
+  @Override
+  public boolean isDisabled() {
+    if (getAction() instanceof CheckAuthorisationMethodBinding) {
+      return !((CheckAuthorisationMethodBinding) getAction()).isAuthorized(FacesContext.getCurrentInstance())
+          || super.isDisabled();
     }
-    this.applicationFactory = applicationFactory;
+    return super.isDisabled();
   }
 
-  public Application getApplication() {
-    return new ApplicationImpl(applicationFactory.getApplication());
-  }
-
-  public void setApplication(Application application) {
-    applicationFactory.setApplication(application);
+    @Override
+  public void setAction(MethodBinding actionBinding) {
+    if (actionBinding != null) {
+      super.setAction(new CheckAuthorisationMethodBinding(actionBinding));
+    } else {
+      super.setAction(actionBinding);
+    }
   }
 }

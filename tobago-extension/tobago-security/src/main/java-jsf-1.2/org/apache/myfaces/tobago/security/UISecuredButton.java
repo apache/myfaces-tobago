@@ -17,19 +17,31 @@ package org.apache.myfaces.tobago.security;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.component.UILink;
+import org.apache.myfaces.tobago.component.UIButton;
 
+import javax.el.MethodExpression;
 import javax.faces.context.FacesContext;
 
-public class UISecuredLinkCommand extends UILink {
+public class UISecuredButton extends UIButton {
 
-  public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.SecuredLinkCommand";
+  public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.SecuredButton";
 
+  @Override
   public boolean isDisabled() {
-    if (getAction() instanceof CheckAuthorisationMethodBinding) {
-      return !((CheckAuthorisationMethodBinding) getAction()).isAuthorized(FacesContext.getCurrentInstance())
+    if (getActionExpression() instanceof CheckAuthorisationMethodExpression) {
+      return !((CheckAuthorisationMethodExpression)
+          getActionExpression()).isAuthorized(FacesContext.getCurrentInstance())
           || super.isDisabled();
     }
     return super.isDisabled();
+  }
+
+  @Override
+  public void setActionExpression(MethodExpression actionExpression) {
+    if (actionExpression != null) {
+      super.setActionExpression(new CheckAuthorisationMethodExpression(actionExpression));
+    } else {
+      super.setActionExpression(actionExpression);
+    }
   }
 }

@@ -17,25 +17,30 @@ package org.apache.myfaces.tobago.security;
  * limitations under the License.
  */
 
-
-import org.apache.myfaces.tobago.component.UIMenuCommand;
+import org.apache.myfaces.tobago.component.UIButton;
 
 import javax.faces.context.FacesContext;
+import javax.faces.el.MethodBinding;
 
+public class UISecuredButton extends UIButton {
 
-/*
- * Date: Apr 24, 2007
- * Time: 11:11:40 PM
- */
-public class UISecuredMenuCommand extends UIMenuCommand {
+  public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.SecuredButton";
 
-  public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.SecuredMenuCommand";
-
+  @Override
   public boolean isDisabled() {
     if (getAction() instanceof CheckAuthorisationMethodBinding) {
       return !((CheckAuthorisationMethodBinding) getAction()).isAuthorized(FacesContext.getCurrentInstance())
           || super.isDisabled();
     }
     return super.isDisabled();
+  }
+
+  @Override
+  public void setAction(MethodBinding actionBinding) {
+    if (actionBinding != null) {
+      super.setAction(new CheckAuthorisationMethodBinding(actionBinding));
+    } else {
+      super.setAction(actionBinding);
+    }
   }
 }

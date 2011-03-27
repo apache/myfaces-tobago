@@ -21,28 +21,29 @@
 
 <faces-config>
 
-  <factory>
-    <application-factory>org.apache.myfaces.tobago.security.ApplicationFactoryImpl</application-factory>
-  </factory>
-
   <component>
     <component-type>org.apache.myfaces.tobago.Command</component-type>
     <component-class>org.apache.myfaces.tobago.security.UISecuredCommand</component-class>
   </component>
 
   <component>
-    <component-type>org.apache.myfaces.tobago.LinkCommand</component-type>
+    <component-type>org.apache.myfaces.tobago.Link</component-type>
     <component-class>org.apache.myfaces.tobago.security.UISecuredLinkCommand</component-class>
   </component>
 
   <component>
-    <component-type>org.apache.myfaces.tobago.ButtonCommand</component-type>
+    <component-type>org.apache.myfaces.tobago.Button</component-type>
     <component-class>org.apache.myfaces.tobago.security.UISecuredButton</component-class>
   </component>
 
   <component>
     <component-type>org.apache.myfaces.tobago.MenuCommand</component-type>
     <component-class>org.apache.myfaces.tobago.security.UISecuredMenuCommand</component-class>
+  </component>
+
+  <component>
+    <component-type>org.apache.myfaces.tobago.ToolBarCommand</component-type>
+    <component-class>org.apache.myfaces.tobago.security.UISecuredToolBarCommand</component-class>
   </component>
 
 </faces-config>

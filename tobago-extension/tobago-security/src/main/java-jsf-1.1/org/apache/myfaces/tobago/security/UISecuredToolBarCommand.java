@@ -17,25 +17,31 @@ package org.apache.myfaces.tobago.security;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.component.UICommand;
+import org.apache.myfaces.tobago.component.UIToolBarCommand;
 
 import javax.faces.context.FacesContext;
+import javax.faces.el.MethodBinding;
 
 
-/*
- * User: bommel
- * Date: Nov 6, 2006
- * Time: 10:14:09 PM
- */
-public class UISecuredCommand extends UICommand {
+public class UISecuredToolBarCommand extends UIToolBarCommand {
 
-  public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.SecuredCommand";
+  public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.SecuredToolBarCommand";
 
+  @Override
   public boolean isDisabled() {
     if (getAction() instanceof CheckAuthorisationMethodBinding) {
       return !((CheckAuthorisationMethodBinding) getAction()).isAuthorized(FacesContext.getCurrentInstance())
           || super.isDisabled();
     }
     return super.isDisabled();
+  }
+
+  @Override
+  public void setAction(MethodBinding actionBinding) {
+    if (actionBinding != null) {
+      super.setAction(new CheckAuthorisationMethodBinding(actionBinding));
+    } else {
+      super.setAction(actionBinding);
+    }
   }
 }
