@@ -32,18 +32,16 @@ import javax.annotation.security.DenyAll;
 import javax.annotation.security.PermitAll;
 import java.util.Arrays;
 import java.util.Map;
-import java.util.HashMap;
 import java.lang.reflect.Method;
 import java.lang.reflect.AnnotatedElement;
 import java.lang.annotation.Annotation;
+import java.util.concurrent.ConcurrentHashMap;
 
-/*
- * Date: 19.07.2006
- * Time: 16:11:43
- */
+
 public class CheckAuthorisationMethodBinding extends MethodBinding implements StateHolder {
   private static final Log LOG = LogFactory.getLog(CheckAuthorisationMethodBinding.class);
-  private static final Map<String, Annotation> AUTHORISATION_CACHE = new HashMap<String, Annotation>();
+  private static final Object NULL_VALUE = new Object();
+  private static final Map<String, Object> AUTHORISATION_CACHE = new ConcurrentHashMap<String, Object>();
 
   private MethodBinding methodBinding;
 
@@ -114,7 +112,11 @@ public class CheckAuthorisationMethodBinding extends MethodBinding implements St
   private Annotation getSecurityAnnotation(FacesContext facesContext) {
     String expression = getExpressionString();
     if (AUTHORISATION_CACHE.containsKey(expression)) {
-      return AUTHORISATION_CACHE.get(expression);
+      Object obj = AUTHORISATION_CACHE.get(expression);
+      if (obj instanceof Annotation) {
+        return (Annotation) obj;
+      }
+      return null;
     } else {
       Annotation securityAnnotation = null;
       if (expression.startsWith("#{") && expression.endsWith("}")) {
@@ -139,7 +141,11 @@ public class CheckAuthorisationMethodBinding extends MethodBinding implements St
           }
         }
       }
-      AUTHORISATION_CACHE.put(expression, securityAnnotation);
+      if (securityAnnotation != null) {
+        AUTHORISATION_CACHE.put(expression, securityAnnotation);
+      } else {
+        AUTHORISATION_CACHE.put(expression, NULL_VALUE);
+      }
       return securityAnnotation;
     }
   }
