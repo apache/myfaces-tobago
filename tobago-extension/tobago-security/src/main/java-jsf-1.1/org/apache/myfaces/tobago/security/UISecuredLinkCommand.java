@@ -22,6 +22,10 @@ import org.apache.myfaces.tobago.component.UILink;
 import javax.faces.context.FacesContext;
 import javax.faces.el.MethodBinding;
 
+/**
+ * @deprecated since 1.5.0, please use UISecuredLink
+ */
+@Deprecated
 public class UISecuredLinkCommand extends UILink {
 
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.SecuredLinkCommand";

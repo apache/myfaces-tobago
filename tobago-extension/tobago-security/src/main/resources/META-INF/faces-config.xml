@@ -28,7 +28,7 @@
 
   <component>
     <component-type>org.apache.myfaces.tobago.Link</component-type>
-    <component-class>org.apache.myfaces.tobago.security.UISecuredLinkCommand</component-class>
+    <component-class>org.apache.myfaces.tobago.security.UISecuredLink</component-class>
   </component>
 
   <component>

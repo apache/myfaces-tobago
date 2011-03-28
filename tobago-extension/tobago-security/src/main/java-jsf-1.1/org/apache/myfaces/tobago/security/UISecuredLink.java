@@ -19,33 +19,28 @@ package org.apache.myfaces.tobago.security;
 
 import org.apache.myfaces.tobago.component.UILink;
 
-import javax.el.MethodExpression;
 import javax.faces.context.FacesContext;
+import javax.faces.el.MethodBinding;
 
-/**
- * @deprecated since 1.5.0, please use UISecuredLink
- */
-@Deprecated
-public class UISecuredLinkCommand extends UILink {
+public class UISecuredLink extends UILink {
 
-  public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.SecuredLinkCommand";
+  public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.SecuredLink";
 
   @Override
   public boolean isDisabled() {
-    if (getActionExpression() instanceof CheckAuthorisationMethodExpression) {
-      return !((CheckAuthorisationMethodExpression)
-          getActionExpression()).isAuthorized(FacesContext.getCurrentInstance())
+    if (getAction() instanceof CheckAuthorisationMethodBinding) {
+      return !((CheckAuthorisationMethodBinding) getAction()).isAuthorized(FacesContext.getCurrentInstance())
           || super.isDisabled();
     }
     return super.isDisabled();
   }
 
-  @Override
-  public void setActionExpression(MethodExpression actionExpression) {
-    if (actionExpression != null) {
-      super.setActionExpression(new CheckAuthorisationMethodExpression(actionExpression));
+    @Override
+  public void setAction(MethodBinding actionBinding) {
+    if (actionBinding != null) {
+      super.setAction(new CheckAuthorisationMethodBinding(actionBinding));
     } else {
-      super.setActionExpression(actionExpression);
+      super.setAction(actionBinding);
     }
   }
 }
