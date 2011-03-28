@@ -86,8 +86,8 @@ public final class LayoutUtils {
     return orientation == Orientation.HORIZONTAL ? container.getPaddingLeft() : container.getPaddingTop();
   }
 
-  public static Measure getCurrentSize(Orientation orientation, LayoutContainer container) {
-    return orientation == Orientation.HORIZONTAL ? container.getCurrentWidth() : container.getCurrentHeight();
+  public static Measure getCurrentSize(Orientation orientation, LayoutBase component) {
+    return orientation == Orientation.HORIZONTAL ? component.getCurrentWidth() : component.getCurrentHeight();
   }
 
   public static void setCurrentSize(Orientation orientation, LayoutBase component, Measure size) {

@@ -84,7 +84,6 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase implemen
     BankHead[] heads = grid.getBankHeads(orientation);
     BankHead[] heads2 = grid.getBankHeads(orientation.other());
 
-/*
     if (auto) {
       for (int i = 0; i < heads.length; i++) {
         if (heads[i].getToken() instanceof RelativeLayoutToken) {
@@ -96,7 +95,6 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase implemen
         }
       }
     }
-*/
 
     for (int i = 0; i < heads.length; i++) {
       boolean neitherRendered = true;
@@ -178,6 +176,7 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase implemen
       i++;
     }
 
+/*
     IntervalList relatives = new IntervalList();
     for (BankHead head : heads) {
       LayoutToken token = head.getToken();
@@ -189,33 +188,37 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase implemen
       }
     }
     relatives.evaluate();
+*/
 
     // set the size if all sizes of the grid are set
     Measure sum = Measure.ZERO;
     for (BankHead head : heads) {
-      Measure size;
+      Measure size = null;
       final LayoutToken token = head.getToken();
       if (token instanceof RelativeLayoutToken) {
-        final int factor = ((RelativeLayoutToken) token).getFactor();
-        size = relatives.getCurrent().multiply(factor);
+//        final int factor = ((RelativeLayoutToken) token).getFactor();
+//        size = relatives.getCurrent().multiply(factor);
       } else {
         size = head.getCurrent();
       }
       if (size == null) {
-        LOG.error("TODO: Should not happen!");
+        sum = null; // set to invalid
+        break;
+//        LOG.error("TODO: Should not happen!");
       }
       sum = sum.add(size);
     }
-
-    // adding the space between the cells
-    sum = sum.add(LayoutUtils.getBorderBegin(orientation, getLayoutContainer()));
-    sum = sum.add(LayoutUtils.getPaddingBegin(orientation, getLayoutContainer()));
-    sum = sum.add(getMarginBegin(orientation));
-    sum = sum.add(computeSpacing(orientation, 0, heads.length));
-    sum = sum.add(getMarginEnd(orientation));
-    sum = sum.add(LayoutUtils.getPaddingEnd(orientation, getLayoutContainer()));
-    sum = sum.add(LayoutUtils.getBorderEnd(orientation, getLayoutContainer()));
-    LayoutUtils.setCurrentSize(orientation, getLayoutContainer(), sum);
+    if (sum != null) {
+      // adding the space between the cells
+      sum = sum.add(LayoutUtils.getBorderBegin(orientation, getLayoutContainer()));
+      sum = sum.add(LayoutUtils.getPaddingBegin(orientation, getLayoutContainer()));
+      sum = sum.add(getMarginBegin(orientation));
+      sum = sum.add(computeSpacing(orientation, 0, heads.length));
+      sum = sum.add(getMarginEnd(orientation));
+      sum = sum.add(LayoutUtils.getPaddingEnd(orientation, getLayoutContainer()));
+      sum = sum.add(LayoutUtils.getBorderEnd(orientation, getLayoutContainer()));
+      LayoutUtils.setCurrentSize(orientation, getLayoutContainer(), sum);
+    }
   }
 
   public void mainProcessing(Orientation orientation) {
@@ -285,7 +288,10 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase implemen
             size = size.add(heads[i + k].getCurrent());
           }
           size = size.add(computeSpacing(orientation, i, span));
-          LayoutUtils.setCurrentSize(orientation, component, size);
+          Measure current = LayoutUtils.getCurrentSize(orientation, component);
+          if (current == null) {
+            LayoutUtils.setCurrentSize(orientation, component, size);
+          }
 
           // call sub layout manager
           if (component instanceof LayoutContainer) {
