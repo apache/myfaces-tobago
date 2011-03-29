@@ -15,15 +15,15 @@
  * limitations under the License.
  */
 
-img.tobago-progress-color1-markup-ok {
+.tobago-progress-value-markup-ok {
   background: green;
 }
 
-img.tobago-progress-color1-markup-warn {
+.tobago-progress-value-markup-warn {
   background: yellow;
 }
 
-img.tobago-progress-color1-markup-error {
+.tobago-progress-value-markup-error {
   background: red;
 }
 

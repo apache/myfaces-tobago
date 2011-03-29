@@ -202,11 +202,11 @@ li.tobago-menu-markup-selected {
 
 /* progress --------------------------------------------------------- */
 
-img.tobago-progress-color1 {
+.tobago-progress-value {
   background-color: #3366cc;
 }
 
-img.tobago-progress-color2 {
+.tobago-progress {
   background-color: #6699ff;
 }
 

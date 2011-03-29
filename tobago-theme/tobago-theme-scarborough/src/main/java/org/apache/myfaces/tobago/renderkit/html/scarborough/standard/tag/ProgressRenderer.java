@@ -20,9 +20,10 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UICommand;
 import org.apache.myfaces.tobago.component.UIProgress;
-import org.apache.myfaces.tobago.context.ResourceManagerUtils;
+import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
+import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
@@ -48,13 +49,8 @@ public class ProgressRenderer extends LayoutComponentRendererBase {
 
     if (model == null) {
       LOG.warn("'null' value found! Using dummy Model instead!");
-      model = new DefaultBoundedRangeModel(40, 1, 0, 100);
+      model = new DefaultBoundedRangeModel(0, 1, 0, 100);
     }
-
-    String image = ResourceManagerUtils.getImageWithPath(facesContext, "image/1x1.gif");
-
-    String value1 = Integer.toString(model.getValue());
-    String value2 = Integer.toString(model.getMaximum() - model.getValue());
 
     Object title = progress.getAttributes().get(Attributes.TIP);
     if (title == null) {
@@ -62,49 +58,33 @@ public class ProgressRenderer extends LayoutComponentRendererBase {
           / (model.getMaximum() - model.getMinimum())) + " %";
     }
 
-    Integer width = 100; // FIXME: make dynamic (was removed by changing the layouting
-    LOG.error("100; // FIXME: make dynamic (was removed by changing the layouting");
+    final Style style = new Style(facesContext, progress);
+    final Measure width = style.getWidth();
+    final Measure valueWidth = width.multiply(model.getValue()).divide(model.getMaximum() - model.getMinimum());
 
-    String width1 = value1;
-    String width2 = value2;
-
-    if (width != null) {
-      int value = (width - 1) * model.getValue()
-          / (model.getMaximum() - model.getMinimum());
-      width1 = Integer.toString(value);
-      width2 = Integer.toString((width - 2) - value);
-    }
+    final Style valueStyle = new Style();
+    valueStyle.setHeight(style.getHeight());
+    valueStyle.setWidth(valueWidth);
 
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
-    writer.startElement(HtmlElements.SPAN, progress);
+    writer.startElement(HtmlElements.DIV, progress);
     writer.writeClassAttribute(Classes.create(progress));
+    writer.writeStyleAttribute(style);
     writer.writeAttribute(HtmlAttributes.TITLE, String.valueOf(title), true);
 
-    writer.startElement(HtmlElements.IMG, null);
-    writer.writeClassAttribute(Classes.create(progress, "color1"));
-    writer.writeAttribute(HtmlAttributes.SRC, image, false);
-    writer.writeAttribute(HtmlAttributes.ALT, String.valueOf(title), true);
-    writer.writeAttribute(HtmlAttributes.WIDTH, width1, false);
-    writer.writeAttribute(HtmlAttributes.BORDER, 0);
-    writer.endElement(HtmlElements.IMG);
+    writer.startElement(HtmlElements.DIV, null);
+    writer.writeClassAttribute(Classes.create(progress, "value"));
+    writer.writeStyleAttribute(valueStyle);
+    writer.endElement(HtmlElements.DIV);
 
-    writer.startElement(HtmlElements.IMG, null);
-    writer.writeClassAttribute(Classes.create(progress, "color2"));
-    writer.writeAttribute(HtmlAttributes.SRC, image, false);
-    writer.writeAttribute(HtmlAttributes.ALT, String.valueOf(title), true);
-    writer.writeAttribute(HtmlAttributes.WIDTH, width2, false);
-    writer.writeAttribute(HtmlAttributes.BORDER, 0);
-    writer.endElement(HtmlElements.IMG);
+    writer.endElement(HtmlElements.DIV);
 
-    writer.endElement(HtmlElements.SPAN);
     UIComponent facet = progress.getFacet("complete");
-    if (model.getValue() == model.getMaximum() && facet != null
-        && facet instanceof UICommand) {
+    if (model.getValue() == model.getMaximum() && facet instanceof UICommand) {
       UICommand command = (UICommand) facet;
       writer.writeJavascript("Tobago.submitAction(this, '" + command.getClientId(facesContext) + "');");
     }
 
   }
-
 }

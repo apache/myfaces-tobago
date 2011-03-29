@@ -1,3 +1,5 @@
+package org.apache.myfaces.tobago.example.test;
+
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -15,15 +17,23 @@
  * limitations under the License.
  */
 
-.tobago-progress-value-markup-ok {
-  background: green;
-}
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-.tobago-progress-value-markup-warn {
-  background: yellow;
-}
+import javax.swing.BoundedRangeModel;
+import javax.swing.DefaultBoundedRangeModel;
 
-.tobago-progress-value-markup-error {
-  background: red;
-}
+public class Progress {
 
+  private static final Logger LOG = LoggerFactory.getLogger(Progress.class);
+
+  private BoundedRangeModel range;
+
+  public Progress() {
+    this.range = new DefaultBoundedRangeModel(60, 0, 0, 100);
+  }
+
+  public BoundedRangeModel getRange() {
+    return range;
+  }
+}

@@ -587,20 +587,16 @@ li.tobago-menu-markup-selected {
 
 /* progress -------------------------------------------------------------- */
 
-img.tobago-progress-color1 {
+.tobago-progress-value {
   background: #aabbcc;
-  border-width: 1px 0 1px 1px;
-  height: 1.4ex;
+  position: absolute;
+  left: 0;
+  top: 0;
 }
 
-img.tobago-progress-color2 {
+.tobago-progress {
   background: #ddeeff;
-  border-width: 1px 1px 1px 0;
-  height: 1.4ex;
-}
-
-span.tobago-progress {
-  white-space: nowrap;
+  border: 2px inset #bbccdd;
 }
 
 /* selectBooleanCheckbox --------------------------------------------------- */

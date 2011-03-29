@@ -160,6 +160,10 @@ Themes and CSS
 *--+--+--+--+
 | renamed | <<<tobago-textArea->>>* | <<<tobago-textarea->>>* |
 *--+--+--+--+
+| renamed | <<<tobago-progress-color1->>>* | <<<tobago-progress-value->>>* |
+*--+--+--+--+
+| deleted | <<<tobago-progress-color2->>>* | |
+*--+--+--+--+
 
 JavaScript
 
