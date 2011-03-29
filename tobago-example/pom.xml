@@ -89,7 +89,6 @@
       </activation>
       <modules>
         <module>tobago-example-addressbook</module>
-        <module>tobago-example-addressbook-lib</module>
         <module>tobago-example-blank</module>
         <module>tobago-example-data</module>
         <module>tobago-example-demo</module>
@@ -102,7 +101,6 @@
       <id>all-modules</id>
       <modules>
         <module>tobago-example-addressbook</module>
-        <module>tobago-example-addressbook-lib</module>
         <module>tobago-example-blank</module>
         <module>tobago-example-data</module>
         <module>tobago-example-demo</module>
