@@ -201,10 +201,9 @@ td.tobago-calendar-day-markup-selected {
   background: #ffffff;
   height: 25px;
   color: #000000;
-  border-color: #bbccdd;
-  border-style: inset;
-  border-width: 2px;
+  border: 2px inset #bbccdd;
   margin: 0;
+  padding: 2px;
 }
 
 .tobago-date-markup-required {
