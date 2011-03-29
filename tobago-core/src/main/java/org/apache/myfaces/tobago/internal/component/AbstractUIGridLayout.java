@@ -19,6 +19,7 @@ package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.myfaces.tobago.component.SupportsMarkup;
+import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.internal.layout.BankHead;
 import org.apache.myfaces.tobago.internal.layout.Cell;
 import org.apache.myfaces.tobago.internal.layout.FactorList;
@@ -38,6 +39,7 @@ import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.layout.Orientation;
 import org.apache.myfaces.tobago.layout.PixelLayoutToken;
 import org.apache.myfaces.tobago.layout.RelativeLayoutToken;
+import org.apache.myfaces.tobago.util.VariableResolverUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -73,6 +75,9 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase implemen
         ((LayoutContainer) component).getLayoutManager().init();
       }
     }
+
+    grid.setColumnOverflow(isColumnOverflow());
+    grid.setRowOverflow(isRowOverflow());
   }
 
   public void fixRelativeInsideAuto(Orientation orientation, boolean auto) {
@@ -253,6 +258,13 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase implemen
         available = available.subtractNotNegative(LayoutUtils.getPaddingEnd(orientation, container));
         available = available.subtractNotNegative(LayoutUtils.getBorderEnd(orientation, container));
 
+        if (grid.isOverflow(orientation.other())) {
+          ClientProperties client = VariableResolverUtils.resolveClientProperties(FacesContext.getCurrentInstance());
+          final Measure scrollbar = orientation
+              == Orientation.HORIZONTAL ? client.getVerticalScrollbarWeight() : client.getHorizontalScrollbarWeight();
+          available = available.subtractNotNegative(scrollbar);
+        }
+
         List<Measure> partition = factorList.partition(available);
 
         // write values back into the header
@@ -300,6 +312,19 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase implemen
         }
       }
     }
+
+    Measure size = Measure.ZERO;
+    size = size.add(LayoutUtils.getPaddingBegin(orientation, getLayoutContainer()));
+    size = size.add(getMarginBegin(orientation));
+    size = size.add(computeSpacing(orientation, 0, heads.length));
+    for (BankHead head : heads) {
+      size = size.add(head.getCurrent());
+    }
+    size = size.add(getMarginEnd(orientation));
+    size = size.add(LayoutUtils.getPaddingEnd(orientation, getLayoutContainer()));
+    if (size.greaterThan(LayoutUtils.getCurrentSize(orientation, getLayoutContainer()))) {
+      grid.setOverflow(true, orientation);
+    }
   }
 
   public void postProcessing(Orientation orientation) {
@@ -344,6 +369,14 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase implemen
           // call sub layout manager
           if (component instanceof LayoutContainer) {
             ((LayoutContainer) component).getLayoutManager().postProcessing(orientation);
+          }
+
+          // set scrolling stype
+          final boolean scroll = grid.isOverflow(orientation);
+          if (orientation == Orientation.HORIZONTAL) {
+            getLayoutContainer().setOverflowX(scroll);
+          } else {
+            getLayoutContainer().setOverflowY(scroll);
           }
 
           // todo: optimize: the AutoLayoutTokens with columnSpan=1 are already called
@@ -409,6 +442,10 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase implemen
   public abstract Measure getMarginRight();
 
   public abstract Measure getMarginBottom();
+
+  public abstract boolean isColumnOverflow();
+
+  public abstract boolean isRowOverflow();
 
   @Override
   public boolean getRendersChildren() {

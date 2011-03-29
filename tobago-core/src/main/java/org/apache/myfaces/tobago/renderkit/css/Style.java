@@ -21,6 +21,7 @@ import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.layout.Display;
 import org.apache.myfaces.tobago.layout.LayoutBase;
 import org.apache.myfaces.tobago.layout.LayoutComponent;
+import org.apache.myfaces.tobago.layout.LayoutContainer;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.layout.TextAlign;
 
@@ -37,7 +38,8 @@ public class Style implements Serializable {
   private Measure top;
   private Display display;
   private Position position;
-  private Overflow overflow;
+  private Overflow overflowX;
+  private Overflow overflowY;
   private Measure marginLeft;
   private Measure marginRight;
   private Measure marginTop;
@@ -62,7 +64,8 @@ public class Style implements Serializable {
     this.top = map.top;
     this.display = map.display;
     this.position = map.position;
-    this.overflow = map.overflow;
+    this.overflowX = map.overflowX;
+    this.overflowY = map.overflowY;
     this.marginLeft = map.marginLeft;
     this.marginRight = map.marginRight;
     this.marginTop = map.marginTop;
@@ -118,6 +121,11 @@ public class Style implements Serializable {
     if (layout instanceof LayoutComponent) { // fixme
       display = ((LayoutComponent) layout).getDisplay();
     }
+
+    if (layout instanceof LayoutContainer) {
+      overflowX = ((LayoutContainer)layout).isOverflowX() ? Overflow.AUTO : null;
+      overflowY = ((LayoutContainer)layout).isOverflowY() ? Overflow.AUTO : null;
+    }
   }
 
   public String encode() {
@@ -152,9 +160,14 @@ public class Style implements Serializable {
       buf.append(position.getValue());
       buf.append(';');
     }
-    if (overflow != null) {
-      buf.append("overflow:");
-      buf.append(overflow.getValue());
+    if (overflowX != null) {
+      buf.append("overflow-x:");
+      buf.append(overflowX.getValue());
+      buf.append(';');
+    }
+    if (overflowY != null) {
+      buf.append("overflow-y:");
+      buf.append(overflowY.getValue());
       buf.append(';');
     }
     if (marginLeft != null) {
@@ -274,12 +287,20 @@ public class Style implements Serializable {
     this.position = position;
   }
 
-  public Overflow getOverflow() {
-    return overflow;
+  public Overflow getOverflowX() {
+    return overflowX;
   }
 
-  public void setOverflow(Overflow overflow) {
-    this.overflow = overflow;
+  public void setOverflowX(Overflow overflowX) {
+    this.overflowX = overflowX;
+  }
+
+  public Overflow getOverflowY() {
+    return overflowY;
+  }
+
+  public void setOverflowY(Overflow overflowY) {
+    this.overflowY = overflowY;
   }
 
   public Measure getMarginLeft() {

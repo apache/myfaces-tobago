@@ -46,6 +46,9 @@ public class Grid {
   private int columnCursor;
   private int rowCursor;
 
+  private boolean columnOverflow;
+  private boolean rowOverflow;
+
   private List<Integer> errorIndexes;
 
   public Grid(LayoutTokens columns, LayoutTokens rows) {
@@ -172,6 +175,34 @@ public class Grid {
     }
 
     rowCount += newRows;
+  }
+
+  public boolean isOverflow(Orientation orientation) {
+    return orientation == Orientation.HORIZONTAL ? columnOverflow : rowOverflow;
+  }
+
+  public void setOverflow(boolean overflow, Orientation orientation) {
+    if (orientation == Orientation.HORIZONTAL) {
+      this.columnOverflow = overflow;
+    } else {
+      this.rowOverflow = overflow;
+    }
+  }
+
+  public boolean isOverflow() {
+    return columnOverflow;
+  }
+
+  public void setColumnOverflow(boolean columnOverflow) {
+    this.columnOverflow = columnOverflow;
+  }
+
+  public boolean isRowOverflow() {
+    return rowOverflow;
+  }
+
+  public void setRowOverflow(boolean rowOverflow) {
+    this.rowOverflow = rowOverflow;
   }
 
   public void addError(int i, int j) {

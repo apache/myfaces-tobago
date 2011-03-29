@@ -73,25 +73,34 @@ public class LayoutContext {
 
     LayoutManager layoutManager = container.getLayoutManager();
     layoutManager.init();
-    layoutManager.fixRelativeInsideAuto(Orientation.HORIZONTAL, false);
+//    log("after init");
     layoutManager.fixRelativeInsideAuto(Orientation.VERTICAL, false);
-    layoutManager.preProcessing(Orientation.HORIZONTAL);
+//    log("after fixRelativeInsideAuto vertical");
+    layoutManager.fixRelativeInsideAuto(Orientation.HORIZONTAL, false);
+//    log("after fixRelativeInsideAuto horizontal");
     layoutManager.preProcessing(Orientation.VERTICAL);
-    layoutManager.mainProcessing(Orientation.HORIZONTAL);
+//    log("after preProcessing vertical");
+    layoutManager.preProcessing(Orientation.HORIZONTAL);
+//    log("after preProcessing horizontal");
     layoutManager.mainProcessing(Orientation.VERTICAL);
-    layoutManager.postProcessing(Orientation.HORIZONTAL);
+//    log("after mainProcessing vertical");
+    layoutManager.mainProcessing(Orientation.HORIZONTAL);
+//    log("after mainProcessing horizontal");
     layoutManager.postProcessing(Orientation.VERTICAL);
+//    log("after postProcessing vertical");
+    layoutManager.postProcessing(Orientation.HORIZONTAL);
+//    log("after postProcessing horizontal");
 
     if (LOG.isDebugEnabled()) {
         LOG.debug("Laying out takes: {} ns", new DecimalFormat("#,##0").format(System.nanoTime() - begin));
     }
+    log("after layout");
 
-    log();
   }
 
-  private void log() {
+  private void log(String message) {
     if (LOG.isDebugEnabled()) {
-      StringBuffer buffer = new StringBuffer("\n");
+      StringBuffer buffer = new StringBuffer(message + "\n");
       log(buffer, (UIComponent) container, 0);
       LOG.debug(buffer.toString());
     }

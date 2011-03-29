@@ -19,7 +19,9 @@ package org.apache.myfaces.tobago.internal.taglib.component;
 
 import org.apache.myfaces.tobago.apt.annotation.BodyContent;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
+import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
+import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasBinding;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasBorder;
@@ -98,4 +100,25 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasSpacing;
     allowedChildComponenents = "NONE", isLayout = true)
 public interface GridLayoutTagDeclaration extends HasId, HasBorder, HasSpacing, HasMargin,
     HasMargins, HasColumnLayout, HasRowLayout, HasBinding, HasMarkup, HasCurrentMarkup {
+
+  /**
+   * This attribute is a hint for the layout manager. Should not be used in most cases.
+   *
+   * @param columnOverflow Does the component need a horizontal scollbar?
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(
+      type = "boolean")
+  void setColumnOverflow(String columnOverflow);
+
+  /**
+   * This attribute is a hint for the layout manager. Should not be used in most cases.
+   *
+   * @param rowOverflow Does the component need a vertical scollbar?
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(
+      type = "boolean")
+  void setRowOverflow(String rowOverflow);
+
 }

@@ -54,4 +54,10 @@ public interface LayoutContainer extends LayoutBase {
 
   Measure getPaddingBottom();
   void setPaddingBottom(Measure paddingBottom);
+
+  boolean isOverflowX();
+  void setOverflowX(boolean overflowX);
+
+  boolean isOverflowY();
+  void setOverflowY(boolean overflowY);
 }

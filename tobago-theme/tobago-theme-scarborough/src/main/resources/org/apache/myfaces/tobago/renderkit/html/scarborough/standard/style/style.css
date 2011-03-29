@@ -53,7 +53,7 @@ fieldset.tobago-box {
 
 .tobago-box-content {
   position: absolute;
-  overflow: auto;
+  overflow: hidden;
 }
 
 .tobago-box-toolbarOuter {
@@ -547,7 +547,7 @@ li.tobago-menu-markup-selected {
 .tobago-page-content {
   position: absolute;
   z-index: 0;
-  overflow: auto;
+  overflow: hidden;
 }
 
 .tobago-page-scrollbarWeight {
@@ -564,7 +564,7 @@ li.tobago-menu-markup-selected {
 /* panel -------------------------------------------------------------- */
 
 .tobago-panel {
-  overflow: auto;
+  overflow: hidden;
 }
 
 /* popup -------------------------------------------------------------- */
@@ -1085,7 +1085,7 @@ div.tobago-richTextEditor-body {
   border-width: 0 1px 1px 1px;
   border-style: solid;
   display: none;
-  overflow: auto;
+  overflow: hidden;
 }
 
 .tobago-tab-content-markup-selected {

@@ -103,4 +103,22 @@ public interface IsGridLayoutContainer {
           + "getRenderer(getFacesContext())).getPaddingBottom(getFacesContext(), this)")
   void setPaddingBottom(String paddingBottom);
 
+  /**
+   * This attribute is for internal use only.
+   *
+   * @param overflowX Does the component need a horizontal scollbar.
+   */
+  @UIComponentTagAttribute(
+      type = "boolean")
+  void setOverflowX(String overflowX);
+
+  /**
+   * This attribute is for internal use only.
+   *
+   * @param overflowY Does the component need a vertical scollbar.
+   */
+  @UIComponentTagAttribute(
+      type = "boolean")
+  void setOverflowY(String overflowY);
+
 }
