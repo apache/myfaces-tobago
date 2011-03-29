@@ -30,12 +30,47 @@
       <supported-locale>en_GB</supported-locale>
       <supported-locale>en_US</supported-locale>
     </locale-config>
+    <view-handler>com.sun.facelets.FaceletViewHandler</view-handler>
+    <action-listener>org.apache.myfaces.tobago.util.DebugActionListener</action-listener>
+    <navigation-handler>org.apache.myfaces.tobago.util.DebugNavigationHandler</navigation-handler>
+    <variable-resolver>org.springframework.web.jsf.DelegatingVariableResolver</variable-resolver>
+    <message-bundle>error.messages</message-bundle>
   </application>
 
   <lifecycle>
     <phase-listener>org.apache.myfaces.tobago.util.DebugPhaseListener</phase-listener>
     <phase-listener>org.apache.myfaces.tobago.example.addressbook.web.StartupPhaseListener</phase-listener>
   </lifecycle>
+
+  <converter>
+    <converter-for-class>java.util.Locale</converter-for-class>
+    <converter-class>org.apache.myfaces.tobago.example.addressbook.web.LocaleConverter</converter-class>
+  </converter>
+
+  <validator>
+    <validator-id>EmailAddressValidator</validator-id>
+    <validator-class>org.apache.myfaces.tobago.example.addressbook.web.EmailAddressValidator</validator-class>
+  </validator>
+
+  <converter>
+    <converter-for-class>org.apache.myfaces.tobago.example.addressbook.EmailAddress</converter-for-class>
+    <converter-class>org.apache.myfaces.tobago.example.addressbook.web.EmailAddressConverter</converter-class>
+  </converter>
+
+  <navigation-rule>
+    <navigation-case>
+      <from-outcome>editor</from-outcome>
+      <to-view-id>/addressbook/editor.xhtml</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>list</from-outcome>
+      <to-view-id>/addressbook/list.xhtml</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>admin</from-outcome>
+      <to-view-id>/addressbook/admin/admin.xhtml</to-view-id>
+    </navigation-case>
+  </navigation-rule>
 
   <navigation-rule>
     <navigation-case>
