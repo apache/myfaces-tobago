@@ -123,8 +123,8 @@ public class Style implements Serializable {
     }
 
     if (layout instanceof LayoutContainer) {
-      overflowX = ((LayoutContainer)layout).isOverflowX() ? Overflow.AUTO : null;
-      overflowY = ((LayoutContainer)layout).isOverflowY() ? Overflow.AUTO : null;
+      overflowX = ((LayoutContainer) layout).isOverflowX() ? Overflow.AUTO : null;
+      overflowY = ((LayoutContainer) layout).isOverflowY() ? Overflow.AUTO : null;
     }
   }
 
