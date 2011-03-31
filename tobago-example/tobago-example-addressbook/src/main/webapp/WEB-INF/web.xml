@@ -112,15 +112,15 @@
     <url-pattern>/org/apache/myfaces/tobago/renderkit/*</url-pattern>
   </servlet-mapping>
 
-  <servlet-mapping>
+  <!--servlet-mapping>
     <servlet-name>ResourceServlet</servlet-name>
     <url-pattern>/addressbook-resource/*</url-pattern>
-  </servlet-mapping>
+  </servlet-mapping-->
 
-  <servlet-mapping>
+  <!--servlet-mapping>
     <servlet-name>ResourceServlet</servlet-name>
     <url-pattern>/org/tango-project/*</url-pattern>
-  </servlet-mapping>
+  </servlet-mapping-->
 
   <!-- Welcome File List -->
 
