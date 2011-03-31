@@ -190,7 +190,7 @@ public class Navigation {
     public Node(String path) {
 
       outcome = path;
-      final Pattern pattern = Pattern.compile("([\\d\\d|]*\\d\\d)-(.*)\\.(xhtml)");
+      final Pattern pattern = Pattern.compile("([\\d\\d~]*\\d\\d)-(.*)\\.(xhtml)");
       final Matcher matcher = pattern.matcher(path);
       matcher.find();
       branch = matcher.group(1);
