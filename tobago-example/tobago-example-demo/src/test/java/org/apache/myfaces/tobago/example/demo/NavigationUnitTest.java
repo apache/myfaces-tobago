@@ -30,9 +30,9 @@ public class NavigationUnitTest extends AbstractTobagoTestBase {
   public void testFileNames() {
     List<String> list = Arrays.asList(
         "00-test-1.xhtml",
-        "00|07-test-2.xhtml",
+        "00~07-test-2.xhtml",
         "01-test.xhtml",
-        "00|00-test-4.xhtml",
+        "00~00-test-4.xhtml",
         "bad.xhtml",
         "00_00_bad.xhtml"
     );
@@ -46,10 +46,10 @@ public class NavigationUnitTest extends AbstractTobagoTestBase {
     Assert.assertEquals("01", n01.getBranch());
     Assert.assertEquals("test", n01.getName());
     final Navigation.Node n0000 = (Navigation.Node) n00.getChildAt(0);
-    Assert.assertEquals("00|00", n0000.getBranch());
+    Assert.assertEquals("00~00", n0000.getBranch());
     Assert.assertEquals("test-4", n0000.getName());
     final Navigation.Node n0007 = (Navigation.Node) n00.getChildAt(1);
-    Assert.assertEquals("00|07", n0007.getBranch());
+    Assert.assertEquals("00~07", n0007.getBranch());
     Assert.assertEquals("test-2", n0007.getName());
   }
 }
