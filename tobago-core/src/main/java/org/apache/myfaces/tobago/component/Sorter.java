@@ -18,6 +18,7 @@ package org.apache.myfaces.tobago.component;
  */
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.myfaces.tobago.internal.component.AbstractUICommand;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.compat.FacesUtils;
@@ -40,14 +41,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Iterator;
 import java.util.List;
 
-/*
- * User: weber
- * Date: Mar 7, 2005
- * Time: 4:01:27 PM
- */
 public class Sorter {
 
   private static final Logger LOG = LoggerFactory.getLogger(Sorter.class);
@@ -78,9 +73,9 @@ public class Sorter {
         UIComponent child = getFirstSortableChild(column.getChildren());
         if (child != null) {
           String var = data.getVar();
-
-          if (FacesUtils.hasValueBindingOrValueExpression(child, "value")) {
-            String expressionString = FacesUtils.getExpressionString(child, "value");
+          String attributeName = child instanceof AbstractUICommand ? "label":"value";
+          if (FacesUtils.hasValueBindingOrValueExpression(child, attributeName)) {
+            String expressionString = FacesUtils.getExpressionString(child, attributeName);
             if (isSimpleProperty(expressionString)) {
               if (expressionString.startsWith("#{")
                   && expressionString.endsWith("}")) {
@@ -198,21 +193,20 @@ public class Sorter {
   private UIComponent getFirstSortableChild(List children) {
     UIComponent child = null;
 
-    for (Iterator iter = children.iterator(); iter.hasNext();) {
-      child = (UIComponent) iter.next();
+    for (Object aChildren : children) {
+      child = (UIComponent) aChildren;
+      if (child instanceof UISelectMany
+          || child instanceof UISelectOne
+          || child instanceof UISelectBoolean
+          || (child instanceof UIInput && RendererTypes.HIDDEN.equals(child.getRendererType()))) {
+        continue;
+      }
+      if (child instanceof UIOutput || child instanceof AbstractUICommand) {
+        break;
+      }
       if (child instanceof UICommand
           || child instanceof javax.faces.component.UIPanel) {
         child = getFirstSortableChild(child.getChildren());
-      }
-      if (child instanceof UISelectMany
-          || child instanceof UISelectOne
-          || child instanceof UISelectBoolean) {
-        continue;
-      } else if (child instanceof UIInput
-          && RendererTypes.HIDDEN.equals(child.getRendererType())) {
-        continue;
-      } else if (child instanceof UIOutput) {
-        break;
       }
     }
     return child;
