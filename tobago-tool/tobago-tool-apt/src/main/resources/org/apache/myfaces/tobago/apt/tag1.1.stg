@@ -204,7 +204,7 @@ if (<it.propertyName> != null) {
 
 TextAlign() ::= <<
 if (<it.propertyName> != null) {
-  if (isValueReference<it.propertyName>)) {
+  if (isValueReference(<it.propertyName>)) {
     <createValueBinding(it)>
   } else {
     component.set<it.upperCamelCaseName>(org.apache.myfaces.tobago.layout.TextAlign.parse(<it.propertyName>));
