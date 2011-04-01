@@ -111,6 +111,9 @@ public class InExtensionTag extends TobagoExtensionBodyTagSupport {
     if (valueChangeListener != null) {
       inTag.setValueChangeListener(valueChangeListener);
     }
+    if (label != null) {
+      inTag.setLabel(label);
+    }
     if (binding != null) {
       inTag.setBinding(binding);
     }

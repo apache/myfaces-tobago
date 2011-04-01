@@ -155,6 +155,9 @@ public class InExtensionTag extends BodyTagSupport
     if (fieldId != null) {
       inTag.setId(fieldId);
     }
+    if (label != null) {
+      inTag.setLabel(label);
+    }
     if (password != null) {
       inTag.setPassword(password);
     }

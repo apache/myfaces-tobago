@@ -130,6 +130,9 @@ public class SelectBooleanCheckboxExtensionTag extends BodyTagSupport implements
     if (fieldId != null) {
       selectBooleanCheckboxTag.setId(fieldId);
     }
+    if (label != null) {
+      selectBooleanCheckboxTag.setLabel(label);
+    }
     if (readonly != null) {
       selectBooleanCheckboxTag.setReadonly(readonly);
     }

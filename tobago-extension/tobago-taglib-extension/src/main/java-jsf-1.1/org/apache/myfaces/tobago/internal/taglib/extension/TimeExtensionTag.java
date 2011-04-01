@@ -144,6 +144,9 @@ public class TimeExtensionTag extends BodyTagSupport
     if (fieldId != null) {
       timeTag.setId(fieldId);
     }
+    if (label != null) {
+      timeTag.setLabel(label);
+    }
     if (inline != null) {
       timeTag.setInline(inline);
     }

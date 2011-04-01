@@ -113,6 +113,9 @@ public class FileExtensionTag extends TobagoExtensionBodyTagSupport {
     if (fieldId != null) {
       fileTag.setId(fieldId);
     }
+    if (label != null) {
+      fileTag.setLabel(label);
+    }
     if (onchange != null) {
       fileTag.setOnchange(onchange);
     }

@@ -144,6 +144,9 @@ public class SelectOneRadioExtensionTag extends BodyTagSupport
     if (fieldId != null) {
       selectOneRadioTag.setId(fieldId);
     }
+    if (label != null) {
+      selectOneRadioTag.setLabel(label);
+    }
     if (readonly != null) {
       selectOneRadioTag.setReadonly(readonly);
     }

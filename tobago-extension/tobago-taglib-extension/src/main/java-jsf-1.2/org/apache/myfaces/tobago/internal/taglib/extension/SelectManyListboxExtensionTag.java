@@ -118,6 +118,9 @@ public class SelectManyListboxExtensionTag extends TobagoExtensionBodyTagSupport
     if (fieldId != null) {
       selectManyListboxTag.setId(fieldId);
     }
+    if (label != null) {
+      selectManyListboxTag.setLabel(label);
+    }
     if (readonly != null) {
       selectManyListboxTag.setReadonly(readonly);
     }

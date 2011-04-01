@@ -226,7 +226,7 @@ public abstract class TobagoLabelExtensionHandler extends ComponentHandler {
 
   protected MetaRuleset createSubComponentMetaRuleset(Class aClass) {
     MetaRuleset metaRuleset = super.createMetaRuleset(aClass);
-    metaRuleset.ignore(Attributes.LABEL);
+    //metaRuleset.ignore(Attributes.LABEL);
     metaRuleset.ignore(Attributes.TIP);
     metaRuleset.ignore("labelWidth");
     if (SupportsMarkup.class.isAssignableFrom(aClass)) {

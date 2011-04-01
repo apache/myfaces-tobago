@@ -120,6 +120,9 @@ public class SelectOneRadioExtensionTag extends TobagoExtensionBodyTagSupport {
     if (fieldId != null) {
       selectOneRadioTag.setId(fieldId);
     }
+    if (label != null) {
+      selectOneRadioTag.setLabel(label);
+    }
     if (readonly != null) {
       selectOneRadioTag.setReadonly(readonly);
     }

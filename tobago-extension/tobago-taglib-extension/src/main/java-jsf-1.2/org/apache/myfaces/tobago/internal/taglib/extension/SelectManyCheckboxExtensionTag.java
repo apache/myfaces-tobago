@@ -120,6 +120,9 @@ public class SelectManyCheckboxExtensionTag extends TobagoExtensionBodyTagSuppor
     if (fieldId != null) {
       selectManyCheckboxTag.setId(fieldId);
     }
+    if (label != null) {
+      selectManyCheckboxTag.setLabel(label);
+    }
     /*if (height != null) {
       selectManyCheckboxTag.setHeight(height);
     }*/

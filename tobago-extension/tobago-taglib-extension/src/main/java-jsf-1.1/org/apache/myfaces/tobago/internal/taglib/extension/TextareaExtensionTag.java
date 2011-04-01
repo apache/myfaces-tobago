@@ -149,6 +149,9 @@ public class TextareaExtensionTag extends BodyTagSupport
     if (fieldId != null) {
       textareaTag.setId(fieldId);
     }
+    if (label != null) {
+      textareaTag.setLabel(label);
+    }
     if (readonly != null) {
       textareaTag.setReadonly(readonly);
     }

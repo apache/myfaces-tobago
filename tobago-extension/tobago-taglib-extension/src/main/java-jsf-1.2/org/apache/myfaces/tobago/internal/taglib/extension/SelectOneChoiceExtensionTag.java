@@ -121,6 +121,9 @@ public class SelectOneChoiceExtensionTag extends TobagoExtensionBodyTagSupport {
     if (fieldId != null) {
       selectOneChoiceTag.setId(fieldId);
     }
+    if (label != null) {
+      selectOneChoiceTag.setLabel(label);
+    }
     if (readonly != null) {
       selectOneChoiceTag.setReadonly(readonly);
     }

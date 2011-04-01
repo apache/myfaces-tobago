@@ -138,6 +138,9 @@ public class SelectOneListboxExtensionTag
     if (fieldId != null) {
       selectOneListboxTag.setId(fieldId);
     }
+    if (label != null) {
+      selectOneListboxTag.setLabel(label);
+    }
     if (readonly != null) {
       selectOneListboxTag.setReadonly(readonly);
     }

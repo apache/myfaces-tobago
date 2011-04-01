@@ -138,6 +138,9 @@ public class DateExtensionTag extends TobagoExtensionBodyTagSupport {
     if (fieldId != null) {
       dateTag.setId(fieldId);
     }
+    if (label != null) {
+      dateTag.setLabel(label);
+    }
     if (inline != null) {
       dateTag.setInline(inline);
     }

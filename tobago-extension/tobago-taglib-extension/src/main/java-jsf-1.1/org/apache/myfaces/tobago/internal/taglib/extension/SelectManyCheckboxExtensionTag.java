@@ -144,6 +144,9 @@ public class SelectManyCheckboxExtensionTag extends BodyTagSupport
     if (fieldId != null) {
       selectManyCheckboxTag.setId(fieldId);
     }
+    if (label != null) {
+      selectManyCheckboxTag.setLabel(label);
+    }
     /*if (height != null) {
       selectManyCheckboxTag.setHeight(height);
     }*/

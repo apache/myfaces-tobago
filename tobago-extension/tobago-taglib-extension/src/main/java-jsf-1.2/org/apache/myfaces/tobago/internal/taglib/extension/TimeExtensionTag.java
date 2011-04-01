@@ -124,6 +124,9 @@ public class TimeExtensionTag extends TobagoExtensionBodyTagSupport {
     if (fieldId != null) {
       timeTag.setId(fieldId);
     }
+    if (label != null) {
+      timeTag.setLabel(label);
+    }
     if (inline != null) {
       timeTag.setInline(inline);
     }
