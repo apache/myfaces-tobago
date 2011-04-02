@@ -189,6 +189,11 @@ public class TabGroupRenderer extends LayoutComponentRendererBase {
           } else {
             tab.setCurrentMarkup(tab.getCurrentMarkup().remove(Markup.SELECTED));
           }
+          if (ComponentUtils.hasChildrenWithMessages(facesContext, tab)) {
+            tab.setCurrentMarkup(tab.getCurrentMarkup().add(Markup.ERROR));
+          } else {
+            tab.setCurrentMarkup(tab.getCurrentMarkup().remove(Markup.ERROR));
+          }
           writer.startElement(HtmlElements.DIV, tab);
           writer.writeClassAttribute(Classes.create(tab));
           writer.writeAttribute(HtmlAttributes.TABGROUPINDEX, index);

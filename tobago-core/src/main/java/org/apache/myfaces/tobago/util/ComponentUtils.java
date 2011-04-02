@@ -42,6 +42,7 @@ import javax.faces.application.Application;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.ActionSource;
 import javax.faces.component.EditableValueHolder;
+import javax.faces.component.NamingContainer;
 import javax.faces.component.UICommand;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIGraphic;
@@ -885,4 +886,31 @@ public class ComponentUtils {
     return null;
   }
 
+  public static boolean hasChildrenWithMessages(FacesContext facesContext, NamingContainer  container) {
+    if (container instanceof UIComponent) {
+      String clientId = ((UIComponent) container).getClientId(facesContext);
+      for (Iterator ids = facesContext.getClientIdsWithMessages(); ids.hasNext();) {
+        String id = (String) ids.next();
+        if (id.startsWith(clientId)) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
+  public static String[] getChildrenWithMessages(FacesContext facesContext, NamingContainer  container) {
+    if (container instanceof UIComponent) {
+      List<String> clientIds = new ArrayList<String>();
+      String clientId = ((UIComponent) container).getClientId(facesContext);
+      for (Iterator ids = facesContext.getClientIdsWithMessages(); ids.hasNext();) {
+        String id = (String) ids.next();
+        if (id.startsWith(clientId)) {
+          clientIds.add(id);
+        }
+      }
+      return clientIds.toArray(new String[clientIds.size()]);
+    }
+    return ArrayUtils.EMPTY_STRING_ARRAY;
+  }
 }
