@@ -899,7 +899,29 @@ public class ComponentUtils {
     return false;
   }
 
-  public static String[] getChildrenWithMessages(FacesContext facesContext, NamingContainer  container) {
+  public static FacesMessage.Severity getMaximumSeverityOfChildrenMessages(FacesContext facesContext,
+      NamingContainer container) {
+    if (container instanceof UIComponent) {
+      String clientId = ((UIComponent) container).getClientId(facesContext);
+      FacesMessage.Severity max = null;
+      for (Iterator ids = facesContext.getClientIdsWithMessages(); ids.hasNext();) {
+        String id = (String) ids.next();
+        if (id.startsWith(clientId)) {
+          final Iterator messages = facesContext.getMessages(id);
+          while (messages.hasNext()) {
+            FacesMessage message = (FacesMessage) messages.next();
+            if (max == null || message.getSeverity().getOrdinal() > max.getOrdinal()) {
+              max = message.getSeverity();
+            }
+          }
+        }
+      }
+      return max;
+    }
+    return null;
+  }
+
+  public static String[] getChildrenWithMessages(FacesContext facesContext, NamingContainer container) {
     if (container instanceof UIComponent) {
       List<String> clientIds = new ArrayList<String>();
       String clientId = ((UIComponent) container).getClientId(facesContext);

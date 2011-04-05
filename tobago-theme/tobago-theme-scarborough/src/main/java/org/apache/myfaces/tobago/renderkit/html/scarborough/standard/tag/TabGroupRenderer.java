@@ -51,6 +51,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.faces.application.Application;
+import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
@@ -115,7 +116,8 @@ public class TabGroupRenderer extends LayoutComponentRendererBase {
     int index = 0;
     for (UIComponent tab : (List<UIComponent>) tabGroup.getChildren()) {
       if (tab instanceof UITab) {
-        if (tab.isRendered()) {
+        if (tab.isRendered() //&& (UITabGroup.SWITCH_TYPE_CLIENT.equals(switchType) || index == activeIndex)
+          ) {
           encodeContent(writer, facesContext, (UITab) tab, index);
         }
         index++;
@@ -186,13 +188,10 @@ public class TabGroupRenderer extends LayoutComponentRendererBase {
           LabelWithAccessKey label = new LabelWithAccessKey(tab);
           if (activeIndex == index) {
             tab.setCurrentMarkup(tab.getCurrentMarkup().add(Markup.SELECTED));
-          } else {
-            tab.setCurrentMarkup(tab.getCurrentMarkup().remove(Markup.SELECTED));
           }
-          if (ComponentUtils.hasChildrenWithMessages(facesContext, tab)) {
-            tab.setCurrentMarkup(tab.getCurrentMarkup().add(Markup.ERROR));
-          } else {
-            tab.setCurrentMarkup(tab.getCurrentMarkup().remove(Markup.ERROR));
+          FacesMessage.Severity maxSeverity = ComponentUtils.getMaximumSeverityOfChildrenMessages(facesContext, tab);
+          if (maxSeverity != null) {
+            tab.setCurrentMarkup(tab.getCurrentMarkup().add(ComponentUtils.markupOfSeverity(maxSeverity)));
           }
           writer.startElement(HtmlElements.DIV, tab);
           writer.writeClassAttribute(Classes.create(tab));

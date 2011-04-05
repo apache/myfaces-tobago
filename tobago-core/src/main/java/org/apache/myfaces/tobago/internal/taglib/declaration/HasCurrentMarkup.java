@@ -28,6 +28,6 @@ public interface HasCurrentMarkup {
    */
   @UIComponentTagAttribute(
       type = "org.apache.myfaces.tobago.context.Markup",
-      defaultCode = "getMarkup()")
+      isTransient = true)
   void setCurrentMarkup(String markup);
 }
