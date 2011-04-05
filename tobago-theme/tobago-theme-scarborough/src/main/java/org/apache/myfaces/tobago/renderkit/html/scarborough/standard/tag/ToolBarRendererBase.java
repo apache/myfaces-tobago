@@ -231,7 +231,7 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
       return width;
     }
 
-    final String clientId = command.getClientId(facesContext);
+    //final String clientId = command.getClientId(facesContext);
     final boolean disabled = ComponentUtils.getBooleanAttribute(command, Attributes.DISABLED);
     final LabelWithAccessKey label = new LabelWithAccessKey(command);
     final AbstractUIMenu dropDownMenu = FacetUtils.getDropDownMenu(command);
@@ -386,7 +386,9 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
     writer.startElement(HtmlElements.SPAN, command);
     writer.writeClassAttribute(Classes.create(toolBar, "button", selected ? Markup.SELECTED : Markup.NULL));
     writer.writeStyleAttribute(buttonStyle);
-    writer.writeIdAttribute(command.getClientId(facesContext));
+    if (!toolBar.isTransient()) {
+      writer.writeIdAttribute(command.getClientId(facesContext));
+    }
     writer.writeAttribute(HtmlAttributes.ONCLICK, commandClick != null ? commandClick : menuClick, true);
     // render icon
     if (showIcon && iconName != null) {

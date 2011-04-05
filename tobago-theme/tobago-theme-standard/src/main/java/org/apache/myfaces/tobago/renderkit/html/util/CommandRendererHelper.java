@@ -68,7 +68,6 @@ public class CommandRendererHelper {
         }
       }
 
-      String clientId = command.getClientId(facesContext);
       boolean defaultCommand = ComponentUtils.getBooleanAttribute(command, Attributes.DEFAULT_COMMAND);
       boolean transition = ComponentUtils.getBooleanAttribute(command, Attributes.TRANSITION);
 
@@ -85,7 +84,7 @@ public class CommandRendererHelper {
       } else if (StringUtils.isNotEmpty(command.getOnclick())) {
         onclick = prepareOnClick(facesContext, command);
       } else if (command.getRenderedPartially().length > 0) {
-
+        String clientId = command.getClientId(facesContext);
         String[] componentIds = command.getRenderedPartially();
 
         // TODO find a better way
@@ -103,9 +102,11 @@ public class CommandRendererHelper {
         }
 
       } else if (defaultCommand) {
+        String clientId = command.getClientId(facesContext);
         ComponentUtils.findPage(facesContext, command).setDefaultActionId(clientId);
         onclick = null;
       } else {
+        String clientId = command.getClientId(facesContext);
         String target = ComponentUtils.getStringAttribute(command, Attributes.TARGET);
         if (target == null) {
           onclick = "Tobago.submitAction(this, '" + clientId + "', " + transition + ");";
