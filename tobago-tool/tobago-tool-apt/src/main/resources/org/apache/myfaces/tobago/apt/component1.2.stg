@@ -94,13 +94,14 @@ public class <componentInfo.className>
   public void restoreState(FacesContext context, Object componentState) {
     Object[] values = (Object[]) componentState;
     super.restoreState(context, values[0]);
-    <componentInfo.properties:{ p | <p:(p.propertyRestoreStateTemplate)()>}; separator="\n">
+    <componentInfo.nonTransientProperties:{ p | <p:(p.propertyRestoreStateTemplate)()>}; separator="\n">
   }
 
   public Object saveState(FacesContext context) {
-    Object[] values = new Object[<componentInfo.propertiesSizePlusOne>];
+    Object[] values = new Object[<componentInfo.nonTransientPropertiesSizePlusOne>];
     values[0] = super.saveState(context);
-    <componentInfo.properties:{ p | <p:(p.propertySaveStateTemplate)()>}; separator="\n">
+    <componentInfo.nonTransientProperties:{ p | <p:(p.propertySaveStateTemplate)()>}; separator="\n">
+    <componentInfo.transientProperties:{ p | <p:resetField()>}; separator="\n">
     return values;
   }
   <endif>
@@ -498,6 +499,7 @@ public <property.type> get<property.upperCamelCaseName>() {
   if (<property.propertyName> != null) {
     return <property.propertyName>;
   }
+  <if(!property.transient)>
   <getValueExpression(property)>
   if (ve != null) {
     try {
@@ -507,7 +509,12 @@ public <property.type> get<property.upperCamelCaseName>() {
 		  throw new FacesException(e);
 	  }
   }
+  <endif>
+  <if(property.defaultCode)>
+  return <property.defaultCode>;
+  <else>
   return null;
+  <endif>
 }
 
 <checkDeprecated(property)>
@@ -523,147 +530,153 @@ private <it.internalType> <it.propertyName>;
 <endif>
 >>
 
+resetField() ::= <<
+<if(it.elAlternativeAvailable)>
+<else>
+<it.propertyName> = null;
+<endif>
+>>
+
 restoreStateField() ::= <<
 <it.propertyName> = (<it.type>) values[<i>];
 >>
 
 saveStateField() ::= <<
-values[<it.indexPlusOne>] = <it.propertyName>;
+values[<it.nonTransientIndexPlusOne>] = <it.propertyName>;
 >>
 
 WizardSaveStateProperty() ::= <<
-values[<it.indexPlusOne>] = <it.propertyName>;
+values[<it.nonTransientIndexPlusOne>] = <it.propertyName>;
 >>
 
 ObjectSaveStateProperty() ::= <<
-values[<it.indexPlusOne>] = <it.propertyName>;
+values[<it.nonTransientIndexPlusOne>] = <it.propertyName>;
 >>
 
 IntegerSaveStateProperty() ::= <<
-values[<it.indexPlusOne>] = <it.propertyName>;
+values[<it.nonTransientIndexPlusOne>] = <it.propertyName>;
 >>
 
 StringSaveStateProperty() ::= <<
-values[<it.indexPlusOne>] = <it.propertyName>;
+values[<it.nonTransientIndexPlusOne>] = <it.propertyName>;
 >>
 
 StringArraySaveStateProperty() ::= <<
-values[<it.indexPlusOne>] = <it.propertyName>;
+values[<it.nonTransientIndexPlusOne>] = <it.propertyName>;
 >>
 
 booleanSaveStateProperty() ::= <<
-values[<it.indexPlusOne>] = <it.propertyName>;
+values[<it.nonTransientIndexPlusOne>] = <it.propertyName>;
 >>
 
 BooleanSaveStateProperty() ::= <<
-values[<it.indexPlusOne>] = <it.propertyName>;
+values[<it.nonTransientIndexPlusOne>] = <it.propertyName>;
 >>
 
 CharacterSaveStateProperty() ::= <<
-values[<it.indexPlusOne>] = <it.propertyName>;
+values[<it.nonTransientIndexPlusOne>] = <it.propertyName>;
 >>
 
 SeveritySaveStateProperty() ::= <<
-values[<it.indexPlusOne>] = <it.propertyName>;
+values[<it.nonTransientIndexPlusOne>] = <it.propertyName>;
 >>
 
 MeasureSaveStateProperty() ::= <<
-values[<it.indexPlusOne>] = <it.propertyName>;
+values[<it.nonTransientIndexPlusOne>] = <it.propertyName>;
 >>
 
 TextAlignSaveStateProperty() ::= <<
-values[<it.indexPlusOne>] = <it.propertyName>;
+values[<it.nonTransientIndexPlusOne>] = <it.propertyName>;
 >>
 
 MarkupSaveStateProperty() ::= <<
-values[<it.indexPlusOne>] = <it.propertyName>;
+values[<it.nonTransientIndexPlusOne>] = <it.propertyName>;
 >>
 
 DisplaySaveStateProperty() ::= <<
-values[<it.indexPlusOne>] = <it.propertyName>;
+values[<it.nonTransientIndexPlusOne>] = <it.propertyName>;
 >>
 
 OrderBySaveStateProperty() ::= <<
-values[<it.indexPlusOne>] = <it.propertyName>;
+values[<it.nonTransientIndexPlusOne>] = <it.propertyName>;
 >>
 
 MethodBindingSaveStateProperty() ::= <<
 <if(it.elAlternativeAvailable)>
 <else>
-values[<it.indexPlusOne>] = saveAttachedState(context, <it.propertyName>);
+values[<it.nonTransientIndexPlusOne>] = saveAttachedState(context, <it.propertyName>);
 <endif>
 >>
 
 MethodExpressionSaveStateProperty() ::= <<
-values[<it.indexPlusOne>] = saveAttachedState(context, <it.propertyName>);
+values[<it.nonTransientIndexPlusOne>] = saveAttachedState(context, <it.propertyName>);
 >>
 
-
 WizardRestoreStateProperty() ::= <<
-<it.propertyName> = (<it.type>) values[<it.indexPlusOne>];
+<it.propertyName> = (<it.type>) values[<it.nonTransientIndexPlusOne>];
 >>
 
 ObjectRestoreStateProperty() ::= <<
-<it.propertyName> = (<it.type>) values[<it.indexPlusOne>];
+<it.propertyName> = (<it.type>) values[<it.nonTransientIndexPlusOne>];
 >>
 
 IntegerRestoreStateProperty() ::= <<
-<it.propertyName> = (<it.type>) values[<it.indexPlusOne>];
+<it.propertyName> = (<it.type>) values[<it.nonTransientIndexPlusOne>];
 >>
 
 StringRestoreStateProperty() ::= <<
-<it.propertyName> = (<it.type>) values[<it.indexPlusOne>];
+<it.propertyName> = (<it.type>) values[<it.nonTransientIndexPlusOne>];
 >>
 
 StringArrayRestoreStateProperty() ::= <<
-<it.propertyName> = (<it.type>) values[<it.indexPlusOne>];
+<it.propertyName> = (<it.type>) values[<it.nonTransientIndexPlusOne>];
 >>
 
 booleanRestoreStateProperty() ::= <<
-<it.propertyName> = (<it.internalType>) values[<it.indexPlusOne>];
+<it.propertyName> = (<it.internalType>) values[<it.nonTransientIndexPlusOne>];
 >>
 
 BooleanRestoreStateProperty() ::= <<
-<it.propertyName> = (<it.type>) values[<it.indexPlusOne>];
+<it.propertyName> = (<it.type>) values[<it.nonTransientIndexPlusOne>];
 >>
 
 CharacterRestoreStateProperty() ::= <<
-<it.propertyName> = (<it.type>) values[<it.indexPlusOne>];
+<it.propertyName> = (<it.type>) values[<it.nonTransientIndexPlusOne>];
 >>
 
 SeverityRestoreStateProperty() ::= <<
-<it.propertyName> = (<it.type>) values[<it.indexPlusOne>];
+<it.propertyName> = (<it.type>) values[<it.nonTransientIndexPlusOne>];
 >>
 
 MeasureRestoreStateProperty() ::= <<
-<it.propertyName> = (<it.type>) values[<it.indexPlusOne>];
+<it.propertyName> = (<it.type>) values[<it.nonTransientIndexPlusOne>];
 >>
 
 TextAlignRestoreStateProperty() ::= <<
-<it.propertyName> = (<it.type>) values[<it.indexPlusOne>];
+<it.propertyName> = (<it.type>) values[<it.nonTransientIndexPlusOne>];
 >>
 
 MarkupRestoreStateProperty() ::= <<
-<it.propertyName> = (<it.type>) values[<it.indexPlusOne>];
+<it.propertyName> = (<it.type>) values[<it.nonTransientIndexPlusOne>];
 >>
 
 DisplayRestoreStateProperty() ::= <<
-<it.propertyName> = (<it.type>) values[<it.indexPlusOne>];
+<it.propertyName> = (<it.type>) values[<it.nonTransientIndexPlusOne>];
 >>
 
 OrderByRestoreStateProperty() ::= <<
-<it.propertyName> = (<it.type>) values[<it.indexPlusOne>];
+<it.propertyName> = (<it.type>) values[<it.nonTransientIndexPlusOne>];
 >>
 
 MethodBindingRestoreStateProperty() ::= <<
 <if(it.elAlternativeAvailable)>
 <else>
-<it.propertyName> = (<it.type>) restoreAttachedState(context, values[<it.indexPlusOne>]);
+<it.propertyName> = (<it.type>) restoreAttachedState(context, values[<it.nonTransientIndexPlusOne>]);
 <endif>
 >>
 
 MethodExpressionRestoreStateProperty() ::= <<
-<it.propertyName> = (<it.type>) restoreAttachedState(context, values[<it.indexPlusOne>]);
+<it.propertyName> = (<it.type>) restoreAttachedState(context, values[<it.nonTransientIndexPlusOne>]);
 >>
 
 getValueExpression(property) ::= <<

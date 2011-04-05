@@ -208,28 +208,17 @@ public class CreateComponentAnnotationVisitor extends AbstractAnnotationVisitor 
       }
       try {
         Class componentBaseClass = Class.forName(componentTag.uiComponentBaseClass());
-        int index = 0;
         for (PropertyInfo info : properties.values()) {
           String methodName
               = (info.getType().equals("java.lang.Boolean") ? "is" : "get") + info.getUpperCamelCaseName();
-          String possibleUnifiedElAlternative = "set" + info.getUpperCamelCaseName() + "Expression";
+
           try {
             Method method = componentBaseClass.getMethod(methodName);
             if (Modifier.isAbstract(method.getModifiers())) {
-              ComponentPropertyInfo property = addPropertyToComponent(componentInfo, info, index, false);
-              if (elMethods.contains(possibleUnifiedElAlternative)) {
-                addPropertyToComponent(componentInfo, info, index, true);
-                property.setElAlternativeAvailable(true);
-              }
-              index++;
+              addPropertyToComponent(componentInfo, info, elMethods, false);
             }
           } catch (NoSuchMethodException e) {
-            ComponentPropertyInfo property = addPropertyToComponent(componentInfo, info, index, false);
-            if (elMethods.contains(possibleUnifiedElAlternative)) {
-              addPropertyToComponent(componentInfo, info, index, true);
-              property.setElAlternativeAvailable(true);
-            }
-            index++;
+            addPropertyToComponent(componentInfo, info, elMethods, false);
           }
         }
         boolean found = false;
@@ -249,11 +238,9 @@ public class CreateComponentAnnotationVisitor extends AbstractAnnotationVisitor 
 
       } catch (ClassNotFoundException e) {
         Map<String, PropertyInfo> baseClassProperties = getBaseClassProperties(componentTag.uiComponentBaseClass());
-        int index = 0;
         for (PropertyInfo info : properties.values()) {
           if (!baseClassProperties.containsValue(info)) {
-            addPropertyToComponent(componentInfo, info, index, false);
-            index++;
+            addPropertyToComponent(componentInfo, info, elMethods, false);
           }
         }
       }
@@ -300,22 +287,28 @@ public class CreateComponentAnnotationVisitor extends AbstractAnnotationVisitor 
   }
 
   private ComponentPropertyInfo addPropertyToComponent(
-      ComponentInfo componentInfo, PropertyInfo info, int index, boolean methodExpression) {
-
+      ComponentInfo componentInfo, PropertyInfo info, List<String> elMethods, boolean methodExpression) {
     ComponentPropertyInfo componentPropertyInfo = (ComponentPropertyInfo) info.fill(new ComponentPropertyInfo());
-    componentPropertyInfo.setIndex(index);
-    if (methodExpression) {
-      componentPropertyInfo.setType("javax.el.MethodExpression");
-      componentPropertyInfo.setName(info.getName() + "Expression");
+    String possibleUnifiedElAlternative = "set" + info.getUpperCamelCaseName() + "Expression";
+    ComponentPropertyInfo elAlternative = null;
+    if (elMethods.contains(possibleUnifiedElAlternative) && !methodExpression) {
+      elAlternative = addPropertyToComponent(componentInfo, info, elMethods, true);
+      componentPropertyInfo.setElAlternativeAvailable(true);
     }
     componentInfo.addImport(componentPropertyInfo.getUnmodifiedType());
     componentInfo.addImport("javax.faces.context.FacesContext");
-    componentInfo.getProperties().add(componentPropertyInfo);
+
     if ("markup".equals(info.getName())) {
       componentInfo.addInterface("org.apache.myfaces.tobago.component.SupportsMarkup");
     }
     if ("requiredMessage".equals(info.getName())) {
       componentInfo.setMessages(true);
+    }
+    if (methodExpression) {
+      componentPropertyInfo.setType("javax.el.MethodExpression");
+      componentPropertyInfo.setName(info.getName() + "Expression");
+    } else {
+      componentInfo.addPropertyInfo(componentPropertyInfo, elAlternative);
     }
     return componentPropertyInfo;
   }
@@ -414,6 +407,7 @@ public class CreateComponentAnnotationVisitor extends AbstractAnnotationVisitor 
         propertyInfo.setMethodSignature(uiComponentTagAttribute.methodSignature());
         propertyInfo.setDeprecated(declaration.getAnnotation(Deprecated.class) != null);
         propertyInfo.setDescription(getDescription(declaration));
+        propertyInfo.setTransient(uiComponentTagAttribute.isTransient());
         if (properties.containsKey(name)) {
           getEnv().getMessager().printWarning("Redefinition of attribute '" + name + "'.");
         }

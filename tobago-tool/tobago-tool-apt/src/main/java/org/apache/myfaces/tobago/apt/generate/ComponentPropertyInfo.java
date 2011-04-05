@@ -20,6 +20,7 @@ package org.apache.myfaces.tobago.apt.generate;
 public class ComponentPropertyInfo extends PropertyInfo {
   private int index;
   private boolean elAlternativeAvailable;
+  private int nonTransientIndex;
 
   public String getPropertyTemplate() {
     return getShortTypeProperty() + "Property";
@@ -39,6 +40,18 @@ public class ComponentPropertyInfo extends PropertyInfo {
 
   public void setIndex(int index) {
     this.index = index;
+  }
+
+  public int getNonTransientIndex() {
+    return nonTransientIndex;
+  }
+
+  public int getNonTransientIndexPlusOne() {
+    return nonTransientIndex + 1;
+  }
+
+  public void setNonTransientIndex(int index) {
+    this.nonTransientIndex = index;
   }
 
   public int getIndexPlusOne() {

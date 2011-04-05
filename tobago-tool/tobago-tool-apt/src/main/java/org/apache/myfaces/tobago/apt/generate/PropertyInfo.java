@@ -33,6 +33,7 @@ public class PropertyInfo {
   private boolean bodyContent;
   private boolean tagAttribute;
   private String description;
+  private boolean transientValue;
 
   public PropertyInfo() {
   }
@@ -210,6 +211,7 @@ public class PropertyInfo {
     info.setMethodExpressionRequired(methodExpressionRequired);
     info.setTagAttribute(tagAttribute);
     info.setDescription(description);
+    info.setTransient(transientValue);
     return info;
   }
 
@@ -237,5 +239,13 @@ public class PropertyInfo {
 
   public String getDescription() {
     return description;
+  }
+
+  public boolean isTransient() {
+    return transientValue;
+  }
+
+  public void setTransient(boolean transientValue) {
+    this.transientValue = transientValue;
   }
 }

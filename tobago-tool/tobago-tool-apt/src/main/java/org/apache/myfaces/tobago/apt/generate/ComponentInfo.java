@@ -17,15 +17,18 @@ package org.apache.myfaces.tobago.apt.generate;
  * limitations under the License.
  */
 
-/*
- * Date: 13.03.2008
- * Time: 15:27:56
- */
+import java.util.ArrayList;
+import java.util.List;
+
 public class ComponentInfo extends TagInfo {
+  private List<PropertyInfo> nonTransientProperties = new ArrayList<PropertyInfo>();
+  private List<PropertyInfo> transientProperties = new ArrayList<PropertyInfo>();
   private boolean invokeOnComponent;
   private boolean messages;
   private String description;
   private boolean deprecated;
+  private int index = 0;
+  private int nonTransientIndex = 0;
 
   public ComponentInfo(String sourceClass, String qualifiedName, String rendererType) {
     super(sourceClass, qualifiedName, rendererType);
@@ -37,6 +40,51 @@ public class ComponentInfo extends TagInfo {
 
   public void setInvokeOnComponent(boolean invokeOnComponent) {
     this.invokeOnComponent = invokeOnComponent;
+  }
+
+  public void addPropertyInfo(ComponentPropertyInfo propertyInfo, ComponentPropertyInfo elAlternative) {
+    getProperties().add(propertyInfo);
+    propertyInfo.setIndex(index);
+    if (elAlternative != null) {
+      getProperties().add(elAlternative);
+      elAlternative.setIndex(index);
+    }
+    index++;
+    if (!propertyInfo.isTransient()) {
+      nonTransientProperties.add(propertyInfo);
+      propertyInfo.setNonTransientIndex(nonTransientIndex);
+      if (elAlternative != null) {
+        nonTransientProperties.add(elAlternative);
+        elAlternative.setNonTransientIndex(nonTransientIndex);
+      }
+      nonTransientIndex++;
+    } else {
+      transientProperties.add(propertyInfo);
+    }
+  }
+
+  public List<PropertyInfo> getNonTransientProperties() {
+    return nonTransientProperties;
+  }
+
+  public List<PropertyInfo> getTransientProperties() {
+    return transientProperties;
+  }
+
+  public int getPropertiesSize() {
+    return index;
+  }
+
+  public int getPropertiesSizePlusOne() {
+    return index + 1;
+  }
+
+  public int getNonTransientPropertiesSize() {
+    return nonTransientIndex;
+  }
+
+  public int getNonTransientPropertiesSizePlusOne() {
+    return nonTransientIndex + 1;
   }
 
   public boolean isMessages() {

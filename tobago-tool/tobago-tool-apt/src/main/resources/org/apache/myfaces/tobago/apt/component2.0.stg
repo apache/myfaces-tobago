@@ -80,10 +80,11 @@ public class <componentInfo.className>
   public static final String COMPONENT_FAMILY = "<componentInfo.componentFamily>";
 
   <endif>
+  <componentInfo.transientProperties:field(); separator="\n">
+
   <if(componentInfo.properties)>
-  enum PropertyKeys
-  {
-  <componentInfo.properties:field(); separator="\n">
+  enum PropertyKeys {
+    <componentInfo.nonTransientProperties:enumName(); separator="\n">
   }
   <endif>
 
@@ -94,6 +95,13 @@ public class <componentInfo.className>
 
   <endif>
   <componentInfo.properties:{ p | <p:(p.propertyTemplate)()>}; separator="\n">
+
+  <if(componentInfo.transientProperties)>
+  public Object saveState(FacesContext context) {
+    <componentInfo.transientProperties:{ p | <p:resetField()>}; separator="\n">
+    return super.saveState(context);
+  }
+  <endif>
 
   <if(componentInfo.invokeOnComponent)>
   <invokeOnComponent()>
@@ -152,10 +160,16 @@ IntegerProperty(property) ::= <<
 <createDescription(property)>
 <checkDeprecated(property)>
 public <property.type> get<property.upperCamelCaseName>() {
+  <if(property.transient)>
+  if (<property.propertyName> != null) {
+    return <property.propertyName>;
+  }
+  <else>
   Number value  = (Number) getStateHelper().eval(PropertyKeys.<property.propertyName>);
   if (value != null) {
     return value.intValue();
   }
+  <endif>
   <if(property.defaultCode)>
   return <property.defaultCode>;
   <else>
@@ -166,7 +180,11 @@ public <property.type> get<property.upperCamelCaseName>() {
 <checkDeprecated(property)>
 public void set<property.upperCamelCaseName>(<property.type> <property.propertyName>) {
   <logDeprecated(property)>
+  <if(property.transient)>
+  this.<property.propertyName> = <property.propertyName>;
+  <else>
   getStateHelper().put(PropertyKeys.<property.propertyName>, <property.propertyName>);
+  <endif>
 }
 >>
 
@@ -175,13 +193,23 @@ ObjectProperty(property) ::= <<
 <createDescription(property)>
 <checkDeprecated(property)>
 public <property.type> get<property.upperCamelCaseName>() {
+  <if(property.transient)>
+  if (<property.propertyName> != null) {
+    return <property.propertyName>;
+  }
+  <else>
   return getStateHelper().eval(PropertyKeys.<property.propertyName>);
+  <endif>
 }
 
 <checkDeprecated(property)>
 public void set<property.upperCamelCaseName>(<property.type> <property.propertyName>) {
   <logDeprecated(property)>
+  <if(property.transient)>
+  this.<property.propertyName> = <property.propertyName>;
+  <else>
   getStateHelper().put(PropertyKeys.<property.propertyName>, <property.propertyName>);
+  <endif>
 }
 >>
 
@@ -224,10 +252,16 @@ booleanProperty(property) ::= <<
 <createDescription(property)>
 <checkDeprecated(property)>
 public boolean is<property.upperCamelCaseName>() {
+  <if(property.transient)>
+  if (<property.propertyName> != null) {
+    return <property.propertyName>;
+  }
+  <else>
   Boolean bool = (Boolean) getStateHelper().eval(PropertyKeys.<property.propertyName>);
   if (bool != null) {
     return bool;
   }
+  <endif>
   <if(property.defaultCode)>
   return <property.defaultCode>;
   <else>
@@ -238,7 +272,11 @@ public boolean is<property.upperCamelCaseName>() {
 <checkDeprecated(property)>
 public void set<property.upperCamelCaseName>(boolean <property.propertyName>) {
   <logDeprecated(property)>
+  <if(property.transient)>
+  this.<property.propertyName> = <property.propertyName>;
+  <else>
   getStateHelper().put(PropertyKeys.<property.propertyName>, <property.propertyName>);
+  <endif>
 }
 >>
 
@@ -247,10 +285,16 @@ BooleanProperty(property) ::= <<
 <createDescription(property)>
 <checkDeprecated(property)>
 public Boolean get<property.upperCamelCaseName>() {
-   Boolean bool = (Boolean) getStateHelper().eval(PropertyKeys.<property.propertyName>);
-   if (bool != null) {
-     return bool;
-   }
+  <if(property.transient)>
+  if (<property.propertyName> != null) {
+    return <property.propertyName>;
+  }
+  <else>
+  Boolean bool = (Boolean) getStateHelper().eval(PropertyKeys.<property.propertyName>);
+  if (bool != null) {
+    return bool;
+  }
+  <endif>
   <if(property.defaultCode)>
   return <property.defaultCode>;
   <else>
@@ -261,7 +305,11 @@ public Boolean get<property.upperCamelCaseName>() {
 <checkDeprecated(property)>
 public void set<property.upperCamelCaseName>(Boolean <property.propertyName>) {
   <logDeprecated(property)>
+  <if(property.transient)>
+  this.<property.propertyName> = <property.propertyName>;
+  <else>
   getStateHelper().put(PropertyKeys.<property.propertyName>, <property.propertyName>);
+  <endif>
 }
 >>
 
@@ -341,6 +389,12 @@ NormalProperty(property) ::= <<
 <createDescription(property)>
 <checkDeprecated(property)>
 public <property.type> get<property.upperCamelCaseName>() {
+  <logDeprecated(property)>
+  <if(property.transient)>
+  if (<property.propertyName> != null) {
+    return <property.propertyName>;
+  }
+  <else>
   <if(property.defaultCode)>
   <property.type> <property.propertyName> = (<property.type>) getStateHelper().eval(PropertyKeys.<property.propertyName>);
   if (<property.propertyName> != null) {
@@ -349,6 +403,7 @@ public <property.type> get<property.upperCamelCaseName>() {
   <else>
   return (<property.type>) getStateHelper().eval(PropertyKeys.<property.propertyName>);
   <endif>
+  <endif>
   <if(property.defaultCode)>
   return <property.defaultCode>;
   <endif>
@@ -356,7 +411,10 @@ public <property.type> get<property.upperCamelCaseName>() {
 
 <checkDeprecated(property)>
 public void set<property.upperCamelCaseName>(<property.type> <property.propertyName>) {
+  <if(property.transient)>
+  <else>
   getStateHelper().put(PropertyKeys.<property.propertyName>, <property.propertyName>);
+  <endif>
 }
 >>
 
@@ -365,10 +423,16 @@ MeasureProperty(property) ::= <<
 <createDescription(property)>
 <checkDeprecated(property)>
 public <property.type> get<property.upperCamelCaseName>() {
+  <if(property.transient)>
+  if (<property.propertyName> != null) {
+    return <property.propertyName>;
+  }
+  <else>
   Object object = getStateHelper().eval(PropertyKeys.<property.propertyName>);
   if (object != null) {
      return Measure.valueOf(object);
   }
+  <endif>
   <if(property.defaultCode)>
   return <property.defaultCode>;
   <else>
@@ -378,7 +442,12 @@ public <property.type> get<property.upperCamelCaseName>() {
 
 <checkDeprecated(property)>
 public void set<property.upperCamelCaseName>(<property.type> <property.propertyName>) {
+  <logDeprecated(property)>
+  <if(property.transient)>
+  this.<property.propertyName> = <property.propertyName>;
+  <else>
   getStateHelper().put(PropertyKeys.<property.propertyName>, <property.propertyName>);
+  <endif>
 }
 >>
 
@@ -398,6 +467,7 @@ public <property.type> get<property.upperCamelCaseName>() {
 
 <checkDeprecated(property)>
 public void set<property.upperCamelCaseName>(<property.type> <property.propertyName>) {
+  <logDeprecated(property)>
   getStateHelper().put(PropertyKeys.<property.propertyName>, <property.propertyName>);
 }
 >>
@@ -406,22 +476,47 @@ MarkupProperty(property) ::= <<
 
 <checkDeprecated(property)>
 public <property.type> get<property.upperCamelCaseName>() {
+  <if(property.transient)>
+  if (<property.propertyName> != null) {
+    return <property.propertyName>;
+  }
+  <else>
   Object object = getStateHelper().eval(PropertyKeys.<property.propertyName>);
   if (object != null) {
     return Markup.valueOf(object);
   }
+  <endif>
   return null;
 }
 
 <checkDeprecated(property)>
 public void set<property.upperCamelCaseName>(<property.type> <property.propertyName>) {
+  <logDeprecated(property)>
+  <if(property.transient)>
+  this.<property.propertyName> = <property.propertyName>;
+  <else>
   getStateHelper().put(PropertyKeys.<property.propertyName>, <property.propertyName>);
+  <endif>
 }
+>>
+
+enumName() ::= <<
+<if(it.elAlternativeAvailable)>
+<else>
+<it.propertyName>,
+<endif>
 >>
 
 field() ::= <<
 <if(it.elAlternativeAvailable)>
 <else>
-<it.propertyName>,
+private <it.internalType> <it.propertyName>;
+<endif>
+>>
+
+resetField() ::= <<
+<if(it.elAlternativeAvailable)>
+<else>
+<it.propertyName> = null;
 <endif>
 >>

@@ -62,7 +62,6 @@ public @interface UIComponentTagAttribute {
    */
   boolean isReadOnly() default false;
 
-
-
+  boolean isTransient() default false;
 
 }
