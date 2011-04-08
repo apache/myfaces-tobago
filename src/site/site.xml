@@ -31,22 +31,22 @@
   <skin>
     <groupId>org.apache.myfaces.maven</groupId>
     <artifactId>myfaces-site-skin</artifactId>
-    <version>1</version>
+    <version>2</version>
   </skin>
   <body>
     <links>
-      <item name="Apache"        href="http://www.apache.org/"/>
-      <item name="MyFaces"       href="http://myfaces.apache.org/"/>
-      <item name="Tobago"        href="http://myfaces.apache.org/tobago"/>
-      <item name="Download"      href="http://myfaces.apache.org/download.html" />
-      <item name="Mailing Lists" href="http://myfaces.apache.org/tobago/mail-lists.html" />
+      <item name="Apache"   href="http://www.apache.org/"/>
+      <item name="MyFaces"  href="http://myfaces.apache.org/"/>
+      <item name="Tobago"   href="http://myfaces.apache.org/tobago"/>
+      <item name="Download" href="http://myfaces.apache.org/download.html" />
+      <item name="Mailing Lists"    href="http://myfaces.apache.org/tobago/mail-lists.html" />
     </links>
 
     <menu name="Tobago">
-      <item name="Introduction" href="http://myfaces.apache.org/tobago/index.html"/>
-      <item name="Download" href="http://myfaces.apache.org/tobago/download.html"/>
-      <item name="Demo" href="http://myfaces.apache.org/tobago/demo.html"/>
-      <item name="News" href="http://myfaces.apache.org/tobago/news.html"/>
+      <item name="Introduction"  href="http://myfaces.apache.org/tobago/index.html"/>
+      <item name="Download"      href="http://myfaces.apache.org/tobago/download.html"/>
+      <item name="Demo"          href="http://myfaces.apache.org/tobago/demo.html"/>
+      <item name="News"          href="http://myfaces.apache.org/tobago/news.html"/>
       <item name="Mailing Lists" href="mail-lists.html" />
     </menu>
 
@@ -72,6 +72,8 @@
       <item name="ASF" href="http://apache.org/" />
       <item name="Sponsorship" href="http://www.apache.org/foundation/sponsorship.html" />
       <item name="Thanks" href="http://www.apache.org/foundation/thanks.html" />
+      <item name="Security" href="http://www.apache.org/security/" />
+      <item name="License" href="http://www.apache.org/licenses/" />
     </menu>
 
   </body>
