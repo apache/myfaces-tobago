@@ -82,10 +82,12 @@ public class Sorter extends MethodBinding {
 
           UIComponent child = getFirstSortableChild(column.getChildren());
           if (child != null) {
-            ValueBinding valueBinding = child.getValueBinding("value");
-            String var = data.getVar();
+            String attributeName = child instanceof UICommand ? "label":"value";
+            ValueBinding valueBinding = child.getValueBinding(attributeName);
+
 
             if (valueBinding != null) {
+              String var = data.getVar();
               if (isSimpleProperty(valueBinding.getExpressionString())) {
                 String expressionString = valueBinding.getExpressionString();
                 if (expressionString.startsWith("#{")
@@ -206,19 +208,22 @@ public class Sorter extends MethodBinding {
 
     for (Iterator iter = children.iterator(); iter.hasNext();) {
       child = (UIComponent) iter.next();
-      if (child instanceof UICommand
-          || child instanceof javax.faces.component.UIPanel) {
-        child = getFirstSortableChild(child.getChildren());
-      }
       if (child instanceof UISelectMany
           || child instanceof UISelectOne
-          || child instanceof UISelectBoolean) {
+          || child instanceof UISelectBoolean
+          || child instanceof UICommand
+          || (child instanceof UIInput && TobagoConstants.RENDERER_TYPE_HIDDEN.equals(child.getRendererType()))) {
         continue;
-      } else if (child instanceof UIInput
-          && TobagoConstants.RENDERER_TYPE_HIDDEN.equals(child.getRendererType())) {
-        continue;
-      } else if (child instanceof UIOutput) {
+      }
+      if (child instanceof UIOutput) {
         break;
+      }
+      if (child instanceof javax.faces.component.UICommand
+          || child instanceof javax.faces.component.UIPanel) {
+        child = getFirstSortableChild(child.getChildren());
+        if (child instanceof UIOutput) {
+          break;
+        }
       }
     }
     return child;
