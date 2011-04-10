@@ -72,9 +72,10 @@ public class Sorter {
 
         UIComponent child = getFirstSortableChild(column.getChildren());
         if (child != null) {
-          String var = data.getVar();
+
           String attributeName = child instanceof AbstractUICommand ? "label":"value";
           if (FacesUtils.hasValueBindingOrValueExpression(child, attributeName)) {
+            String var = data.getVar();
             String expressionString = FacesUtils.getExpressionString(child, attributeName);
             if (isSimpleProperty(expressionString)) {
               if (expressionString.startsWith("#{")
@@ -198,15 +199,19 @@ public class Sorter {
       if (child instanceof UISelectMany
           || child instanceof UISelectOne
           || child instanceof UISelectBoolean
+          || child instanceof AbstractUICommand
           || (child instanceof UIInput && RendererTypes.HIDDEN.equals(child.getRendererType()))) {
         continue;
       }
-      if (child instanceof UIOutput || child instanceof AbstractUICommand) {
+      if (child instanceof UIOutput) {
         break;
       }
       if (child instanceof UICommand
           || child instanceof javax.faces.component.UIPanel) {
         child = getFirstSortableChild(child.getChildren());
+        if (child instanceof UIOutput) {
+          break;
+        }
       }
     }
     return child;
