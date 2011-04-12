@@ -201,7 +201,8 @@ public class Sorter {
           || child instanceof UISelectBoolean
           || child instanceof AbstractUICommand
           || (child instanceof UIInput && RendererTypes.HIDDEN.equals(child.getRendererType()))) {
-        continue; // look for a better component if any
+        continue;
+        // look for a better component if any
       }
       if (child instanceof UIOutput) {
         break;
