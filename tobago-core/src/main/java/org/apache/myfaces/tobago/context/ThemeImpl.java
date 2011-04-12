@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-class ThemeImpl implements Theme, Serializable {
+public class ThemeImpl implements Theme, Serializable {
 
   private static final long serialVersionUID = 1L;
 

@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<tobago-config
+    xmlns="http://myfaces.apache.org/tobago/tobago-config"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://myfaces.apache.org/tobago/tobago-config http://myfaces.apache.org/tobago/tobago-config-1.5.xsd"
+    version="1.5">
+  <resource-dir>org/apache/myfaces/tobago/renderkit</resource-dir>
+  <theme-definitions>
+    <theme-definition>
+      <name>standard</name>
+      <display-name>Standard Theme</display-name>
+      <deprecated-name>org.apache.myfaces.tobago.context.StandardTheme</deprecated-name>
+      <resource-path>org/apache/myfaces/tobago/renderkit</resource-path>
+      <renderers>
+        <renderer>
+          <name>BoxToolBar</name>
+          <supported-markup>
+            <markup>disabled</markup>
+            <markup>selected</markup>
+          </supported-markup>
+        </renderer>
+        <renderer>
+          <name>Button</name>
+          <supported-markup>
+            <markup>disabled</markup>
+          </supported-markup>
+        </renderer>
+        <renderer>
+          <name>Calendar</name>
+          <supported-markup>
+            <markup>disabled</markup>
+            <markup>selected</markup>
+          </supported-markup>
+        </renderer>
+        <renderer>
+          <name>Date</name>
+          <supported-markup>
+            <markup>disabled</markup>
+            <markup>readonly</markup>
+            <markup>required</markup>
+            <markup>fatal</markup>
+            <markup>error</markup>
+            <markup>warn</markup>
+            <markup>info</markup>
+          </supported-markup>
+        </renderer>
+        <renderer>
+          <name>Image</name>
+          <supported-markup>
+            <markup>disabled</markup>
+          </supported-markup>
+        </renderer>
+        <renderer>
+          <name>In</name>
+          <supported-markup>
+            <markup>disabled</markup>
+            <markup>readonly</markup>
+            <markup>required</markup>
+            <markup>fatal</markup>
+            <markup>error</markup>
+            <markup>warn</markup>
+            <markup>info</markup>
+            <markup>number</markup>
+          </supported-markup>
+        </renderer>
+        <renderer>
+          <name>Label</name>
+          <supported-markup>
+            <markup>disabled</markup>
+            <markup>readonly</markup>
+            <markup>required</markup>
+            <markup>fatal</markup>
+            <markup>error</markup>
+            <markup>warn</markup>
+            <markup>info</markup>
+          </supported-markup>
+        </renderer>
+        <renderer>
+          <name>Link</name>
+          <supported-markup>
+            <markup>disabled</markup>
+          </supported-markup>
+        </renderer>
+        <renderer>
+          <name>Menu</name>
+          <supported-markup>
+            <!-- internal: for the root of the menu -->
+            <markup>top</markup>
+            <!-- internal: to mark "cursor" position in the menu -->
+            <markup>selected</markup>
+            <markup>disabled</markup>
+          </supported-markup>
+        </renderer>
+        <renderer>
+          <name>MenuCommand</name>
+          <supported-markup>
+            <markup>disabled</markup>
+          </supported-markup>
+        </renderer>
+        <renderer>
+          <name>Messages</name>
+          <supported-markup>
+            <markup>fatal</markup>
+            <markup>error</markup>
+            <markup>warn</markup>
+            <markup>info</markup>
+          </supported-markup>
+        </renderer>
+        <renderer>
+          <name>Out</name>
+          <supported-markup>
+            <markup>deleted</markup>
+            <markup>strong</markup>
+            <markup>number</markup>
+          </supported-markup>
+        </renderer>
+        <renderer>
+          <name>Popup</name>
+          <supported-markup>
+            <markup>modal</markup>
+          </supported-markup>
+        </renderer>
+        <renderer>
+          <name>SelectBooleanCheckbox</name>
+          <supported-markup>
+            <markup>disabled</markup>
+            <markup>readonly</markup>
+            <markup>required</markup>
+            <markup>fatal</markup>
+            <markup>error</markup>
+            <markup>warn</markup>
+            <markup>info</markup>
+            <markup>selected</markup>
+          </supported-markup>
+        </renderer>
+        <renderer>
+          <name>SelectManyCheckbox</name>
+          <supported-markup>
+            <markup>disabled</markup>
+            <markup>readonly</markup>
+            <markup>required</markup>
+            <markup>fatal</markup>
+            <markup>error</markup>
+            <markup>warn</markup>
+            <markup>info</markup>
+            <markup>selected</markup>
+          </supported-markup>
+        </renderer>
+        <renderer>
+          <name>SelectManyListbox</name>
+          <supported-markup>
+            <markup>disabled</markup>
+            <markup>readonly</markup>
+            <markup>required</markup>
+            <markup>fatal</markup>
+            <markup>error</markup>
+            <markup>warn</markup>
+            <markup>info</markup>
+            <markup>selected</markup>
+          </supported-markup>
+        </renderer>
+        <renderer>
+          <name>SelectOneChoice</name>
+          <supported-markup>
+            <markup>disabled</markup>
+            <markup>readonly</markup>
+            <markup>required</markup>
+            <markup>fatal</markup>
+            <markup>error</markup>
+            <markup>warn</markup>
+            <markup>info</markup>
+            <markup>selected</markup>
+          </supported-markup>
+        </renderer>
+        <renderer>
+          <name>SelectOneListbox</name>
+          <supported-markup>
+            <markup>disabled</markup>
+            <markup>readonly</markup>
+            <markup>required</markup>
+            <markup>fatal</markup>
+            <markup>error</markup>
+            <markup>warn</markup>
+            <markup>info</markup>
+            <markup>selected</markup>
+          </supported-markup>
+        </renderer>
+        <renderer>
+          <name>SelectOneRadio</name>
+          <supported-markup>
+            <markup>disabled</markup>
+            <markup>readonly</markup>
+            <markup>required</markup>
+            <markup>fatal</markup>
+            <markup>error</markup>
+            <markup>warn</markup>
+            <markup>info</markup>
+            <markup>selected</markup>
+          </supported-markup>
+        </renderer>
+        <renderer>
+          <name>Sheet</name>
+          <supported-markup>
+            <!-- internal: for the paging buttons -->
+            <markup>disabled</markup>
+            <!-- internal: for the header -->
+            <markup>resizable</markup>
+            <!-- for the rows -->
+            <markup>odd</markup>
+            <markup>even</markup>
+            <!-- for the cells -->
+            <markup>clickable</markup>
+            <markup>first</markup>
+            <!-- internal: for the paging fields -->
+            <markup>left</markup>
+            <markup>center</markup>
+            <markup>right</markup>
+          </supported-markup>
+        </renderer>
+        <renderer>
+          <name>Tab</name>
+          <supported-markup>
+            <markup>disabled</markup>
+            <markup>selected</markup>
+            <markup>fatal</markup>
+            <markup>error</markup>
+            <markup>warn</markup>
+            <markup>info</markup>
+          </supported-markup>
+        </renderer>
+        <renderer>
+          <name>TabGroupToolBar</name>
+          <supported-markup>
+            <markup>disabled</markup>
+            <markup>selected</markup>
+          </supported-markup>
+        </renderer>
+        <renderer>
+          <name>Textarea</name>
+          <supported-markup>
+            <markup>disabled</markup>
+            <markup>readonly</markup>
+            <markup>required</markup>
+            <markup>fatal</markup>
+            <markup>error</markup>
+            <markup>warn</markup>
+            <markup>info</markup>
+          </supported-markup>
+        </renderer>
+        <renderer>
+          <name>Time</name>
+          <supported-markup>
+            <!-- internal: for the seconds field -->
+            <markup>seconds</markup>
+          </supported-markup>
+        </renderer>
+        <renderer>
+          <name>ToolBar</name>
+          <supported-markup>
+            <markup>disabled</markup>
+            <markup>selected</markup>
+          </supported-markup>
+        </renderer>
+        <renderer>
+          <name>TreeCommand</name>
+          <supported-markup>
+            <markup>disabled</markup>
+          </supported-markup>
+        </renderer>
+        <renderer>
+          <name>TreeLabel</name>
+          <supported-markup>
+            <markup>disabled</markup>
+          </supported-markup>
+        </renderer>
+        <renderer>
+          <name>TreeNode</name>
+          <supported-markup>
+            <markup>disabled</markup>
+            <!--XXX has to be in label and command ? -->
+            <markup>strong</markup>
+            <markup>marked</markup>
+            <markup>folder</markup>
+          </supported-markup>
+        </renderer>
+        <renderer>
+          <name>TreeMenuNode</name>
+          <supported-markup>
+            <markup>disabled</markup>
+            <!--XXX has to be in label and command ? -->
+            <markup>strong</markup>
+            <markup>marked</markup>
+            <markup>folder</markup>
+          </supported-markup>
+        </renderer>
+      </renderers>
+      <resources production="true">
+        <script name="script/jquery/1_4_2/jquery.js"/>
+        <script name="script/tobago.js"/>
+        <style name="style/style.css"/>
+      </resources>
+      <resources production="false">
+        <script name="script/jquery/1_4_2/jquery.js"/>
+        <script name="script/tobago.js"/>
+        <script name="script/calendar.js"/>
+        <script name="script/dateConverter.js"/>
+        <script name="script/tobago-menu.js"/>
+        <script name="script/tobago-sheet.js"/>
+        <script name="script/tobago-tree.js"/>
+        <script name="script/jquery-ui/1_7_2/ui.core.min.js"/>
+        <script name="script/jquery-ui/1_7_2/ui.draggable.min.js"/>
+        <script name="script/logging.js"/>
+        <style name="style/style.css"/>
+      </resources>
+    </theme-definition>
+  </theme-definitions>
+</tobago-config>

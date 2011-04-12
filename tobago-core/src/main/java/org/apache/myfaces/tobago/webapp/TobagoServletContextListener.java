@@ -17,20 +17,20 @@ package org.apache.myfaces.tobago.webapp;
  * limitations under the License.
  */
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.config.TobagoConfigParser;
 import org.apache.myfaces.tobago.context.ResourceManagerFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
+import java.net.URL;
 
 public class TobagoServletContextListener implements ServletContextListener {
 
-  private static final Logger LOG
-      = LoggerFactory.getLogger(TobagoServletContextListener.class);
+  private static final Logger LOG = LoggerFactory.getLogger(TobagoServletContextListener.class);
 
   public void contextInitialized(ServletContextEvent event) {
 
@@ -48,8 +48,11 @@ public class TobagoServletContextListener implements ServletContextListener {
     try {
 
       // tobago-config.xml
-      TobagoConfig tobagoConfig
-          = new TobagoConfigParser().parse(servletContext);
+      // TobagoConfig tobagoConfig = new TobagoConfigParser().parse(servletContext);
+      final String configPath = "/WEB-INF/tobago-config.xml";
+      final URL url = servletContext.getResource(configPath);
+      final TobagoConfig tobagoConfig = new TobagoConfigParser().parse(url);
+
       servletContext.setAttribute(TobagoConfig.TOBAGO_CONFIG, tobagoConfig);
 
       // todo: cleanup, use one central TobagoConfig, no singleton ResourceManager

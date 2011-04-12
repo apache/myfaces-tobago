@@ -17,11 +17,23 @@
  * limitations under the License.
 -->
 
-<!DOCTYPE tobago-config PUBLIC
-    "-//The Apache Software Foundation//DTD Tobago Config 1.0//EN"
-    "http://myfaces.apache.org/tobago/tobago-config_1_0.dtd">
+<tobago-config
+    xmlns="http://myfaces.apache.org/tobago/tobago-config"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://myfaces.apache.org/tobago/tobago-config http://myfaces.apache.org/tobago/tobago-config-1.5.xsd"
+    version="1.5">
 
-<tobago-config>
+  <name>demo</name>
+
+  <ordering>
+    <after>
+      <name>test-1</name>
+    </after>
+    <before>
+      <name>test-2</name>
+      <name>test-3</name>
+    </before>
+  </ordering>
 
   <theme-config>
     <default-theme>speyside</default-theme>

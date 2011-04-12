@@ -41,6 +41,10 @@ public class TobagoConfig {
 
   public static final String TOBAGO_CONFIG = "org.apache.myfaces.tobago.config.TobagoConfig";
 
+  private String name;
+  private List<String> before;
+  private List<String> after;
+  
   private List<Theme> supportedThemes;
   private List<String> supportedThemeNames;
   private Theme defaultTheme;
@@ -51,11 +55,16 @@ public class TobagoConfig {
   private ProjectStage projectStage;
   private boolean createSessionSecret;
   private boolean checkSessionSecret;
+  // todo
+  private List<Theme> themeDefinitions;
 
   public TobagoConfig() {
+    before = new ArrayList<String>();
+    after = new ArrayList<String>();
     supportedThemeNames = new ArrayList<String>();
     supportedThemes = new ArrayList<Theme>();
     resourceDirs = new ArrayList<String>();
+    themeDefinitions = new ArrayList<Theme>();
     createSessionSecret = true;
     checkSessionSecret = true;
   }
@@ -162,14 +171,14 @@ public class TobagoConfig {
     return resourceDirs;
   }
 
-  /** @deprecated */
+  /** @deprecated since 1.5.0 */
   @Deprecated
   public boolean isAjaxEnabled() {
     Deprecation.LOG.warn("Ajax is always enabled!");
     return true;
   }
 
-  /** @deprecated */
+  /** @deprecated since 1.5.0 */
   @Deprecated
   public void setAjaxEnabled(String value) {
     Deprecation.LOG.error("Ajax is always enabled!");
@@ -238,6 +247,38 @@ public class TobagoConfig {
     }
   }
 
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public List<String> getBefore() {
+    return before;
+  }
+
+  public void addBefore(String name) {
+    before.add(name);
+  }
+
+  public List<String> getAfter() {
+    return after;
+  }
+
+  public void addAfter(String name) {
+    after.add(name);
+  }
+
+  public void addThemeDefinition(Theme theme) {
+    themeDefinitions.add(theme);
+  }
+
+  public List<Theme> getThemeDefinitions() {
+    return themeDefinitions;
+  }
+
   public boolean isCreateSessionSecret() {
     return createSessionSecret;
   }
@@ -254,11 +295,13 @@ public class TobagoConfig {
     this.checkSessionSecret = Boolean.valueOf(checkSessionSecret);
   }
 
+  /** @deprecated since 1.5.0 */
   @Deprecated
   public void setFixResourceOrder(String value) {
     Deprecation.LOG.error("Config fix-resource-order not longer supported. (Is always activated).");
   }
 
+  /** @deprecated since 1.5.0 */
   @Deprecated
   public void setFixLayoutTransparency(String value) {
     Deprecation.LOG.error("Config fix-layout-transparency not longer supported. (Is always activated).");

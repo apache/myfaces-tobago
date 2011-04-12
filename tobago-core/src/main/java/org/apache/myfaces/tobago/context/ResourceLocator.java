@@ -17,10 +17,13 @@ package org.apache.myfaces.tobago.context;
  * limitations under the License.
  */
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.io.IOUtils;
+import org.apache.myfaces.tobago.config.TobagoConfig;
+import org.apache.myfaces.tobago.config.TobagoConfigParser;
+import org.apache.myfaces.tobago.util.XmlUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.apache.myfaces.tobago.util.XmlUtils;
 import org.xml.sax.SAXException;
 
 import javax.servlet.ServletContext;
@@ -32,7 +35,9 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.List;
 import java.util.Properties;
 import java.util.Set;
 import java.util.zip.ZipEntry;
@@ -48,6 +53,7 @@ class ResourceLocator {
 
   private static final Logger LOG = LoggerFactory.getLogger(ResourceLocator.class);
 
+  private static final String META_INF_TOBAGO_CONFIG_XML = "META-INF/tobago-config.xml";
   private static final String META_INF_TOBAGO_THEME_XML = "META-INF/tobago-theme.xml";
   private static final String META_INF_RESOURCES = "META-INF/resources";
 
@@ -129,15 +135,22 @@ class ResourceLocator {
     ThemeParser parser = new ThemeParser();
     try {
       if (LOG.isInfoEnabled()) {
-        LOG.info("Searching for " + META_INF_TOBAGO_THEME_XML);
+        LOG.info("Searching for '" + META_INF_TOBAGO_THEME_XML + "' and '" + META_INF_TOBAGO_CONFIG_XML +"'");
       }
       ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-      Enumeration<URL> urls = classLoader.getResources(META_INF_TOBAGO_THEME_XML);
+      List<URL> urls = new ArrayList<URL>();
+      CollectionUtils.addAll(urls, classLoader.getResources(META_INF_TOBAGO_CONFIG_XML));
+      CollectionUtils.addAll(urls, classLoader.getResources(META_INF_TOBAGO_THEME_XML));
 
-      while (urls.hasMoreElements()) {
-        URL themeUrl = urls.nextElement();
-
-        ThemeImpl theme = parser.parse(themeUrl);
+      for (URL themeUrl : urls) {
+        ThemeImpl theme;
+        if (themeUrl.toString().endsWith(META_INF_TOBAGO_CONFIG_XML)) {
+          TobagoConfig tobagoConfig = new TobagoConfigParser().parse(themeUrl);
+          theme = (ThemeImpl) tobagoConfig.getThemeDefinitions().get(0);
+        } else {
+          // the old way
+          theme = parser.parse(themeUrl);
+        }
         themeBuilder.addTheme(theme);
         String prefix = ensureSlash(theme.getResourcePath());
 

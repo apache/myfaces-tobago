@@ -22,12 +22,15 @@ import org.apache.commons.io.IOUtils;
 import org.apache.myfaces.tobago.context.MarkupConfig;
 import org.apache.myfaces.tobago.context.RendererConfig;
 import org.apache.myfaces.tobago.context.RenderersConfigImpl;
+import org.apache.myfaces.tobago.context.ThemeImpl;
+import org.apache.myfaces.tobago.context.ThemeResources;
+import org.apache.myfaces.tobago.context.ThemeScript;
+import org.apache.myfaces.tobago.context.ThemeStyle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.SAXException;
 
 import javax.faces.FacesException;
-import javax.servlet.ServletContext;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -41,20 +44,43 @@ public class TobagoConfigParser {
   private static final String TOBAGO_CONFIG_DTD_1_0_30 = "/org/apache/myfaces/tobago/config/tobago-config-1.0.30.dtd";
   private static final String TOBAGO_CONFIG_DTD_1_0_34 = "/org/apache/myfaces/tobago/config/tobago-config-1.0.34.dtd";
   private static final String TOBAGO_CONFIG_DTD_1_5 = "/org/apache/myfaces/tobago/config/tobago-config-1.5.dtd";
+  private static final String TOBAGO_CONFIG_XSD_1_5 = "/org/apache/myfaces/tobago/config/tobago-config-1.5.xsd";
 
-  public TobagoConfig parse(ServletContext context) throws IOException, SAXException, FacesException {
+  private Digester digester;
+
+  public TobagoConfigParser() {
+    digester = new Digester();
+    digester.setUseContextClassLoader(true);
+    digester.setValidating(true);
+    configure();
+    registerDtds();
+  }
+
+  public TobagoConfig parse(URL url) throws IOException, SAXException, FacesException {
+
+    if (LOG.isInfoEnabled()) {
+      LOG.info("Parsing configuration file: '{}'", url);
+    }
 
     TobagoConfig tobagoConfig = new TobagoConfig();
-    Digester digester = configure(tobagoConfig);
-    parse(context, digester);
+    digester.push(tobagoConfig);
+    InputStream inputStream = null;
+    try {
+      inputStream = url.openStream();
+      digester.parse(inputStream);
+    } finally {
+      IOUtils.closeQuietly(inputStream);
+    }
+    digester.pop();
     return tobagoConfig;
   }
 
-  private Digester configure(TobagoConfig config) {
-    Digester digester = new Digester();
-    digester.setUseContextClassLoader(true);
-    digester.push(config);
-    digester.setValidating(true);
+  private Digester configure() {
+
+    // ordering
+    digester.addCallMethod("tobago-config/name", "setName", 0);
+    digester.addCallMethod("tobago-config/ordering/before/name", "addBefore", 0);
+    digester.addCallMethod("tobago-config/ordering/after/name", "addAfter", 0);
 
     // theme-config
     digester.addCallMethod("tobago-config/theme-config/default-theme", "setDefaultThemeName", 0);
@@ -86,36 +112,52 @@ public class TobagoConfigParser {
     digester.addSetNext("tobago-config/renderers/renderer/supported-markup", "setMarkupConfig");
     digester.addCallMethod("tobago-config/renderers/renderer/supported-markup/markup", "addMarkup", 0);
 
+    // theme definition
+    digester.addObjectCreate("tobago-config/theme-definitions/theme-definition", ThemeImpl.class);
+    digester.addSetNext("tobago-config/theme-definitions/theme-definition", "addThemeDefinition");
+    digester.addCallMethod("tobago-config/theme-definitions/theme-definition/name", "setName", 0);
+    digester.addCallMethod("tobago-config/theme-definitions/theme-definition/deprecated-name", "setDeprecatedName", 0);
+    digester.addCallMethod("tobago-config/theme-definitions/theme-definition/display-name", "setDisplayName", 0);
+    digester.addCallMethod("tobago-config/theme-definitions/theme-definition/resource-path", "setResourcePath", 0);
+    digester.addCallMethod("tobago-config/theme-definitions/theme-definition/fallback", "setFallbackName", 0);
+    digester.addObjectCreate("tobago-config/theme-definitions/theme-definition/renderers", RenderersConfigImpl.class);
+    digester.addSetNext("tobago-config/theme-definitions/theme-definition/renderers", "setRenderersConfig");
+    digester.addObjectCreate(
+        "tobago-config/theme-definitions/theme-definition/renderers/renderer", RendererConfig.class);
+    digester.addSetNext("tobago-config/theme-definitions/theme-definition/renderers/renderer", "addRenderer");
+    digester.addCallMethod("tobago-config/theme-definitions/theme-definition/renderers/renderer/name", "setName", 0);
+    digester.addObjectCreate(
+        "tobago-config/theme-definitions/theme-definition/renderers/renderer/supported-markup", MarkupConfig.class);
+    digester.addSetNext("tobago-config/theme-definitions/theme-definition/renderers/renderer/supported-markup",
+        "setMarkupConfig");
+    digester.addCallMethod(
+        "tobago-config/theme-definitions/theme-definition/renderers/renderer/supported-markup/markup", "addMarkup", 0);
+    digester.addObjectCreate("tobago-config/theme-definitions/theme-definition/resources", ThemeResources.class);
+    digester.addSetProperties("tobago-config/theme-definitions/theme-definition/resources");
+    digester.addSetNext("tobago-config/theme-definitions/theme-definition/resources", "addResources");
+    digester.addObjectCreate("tobago-config/theme-definitions/theme-definition/resources/script", ThemeScript.class);
+    digester.addSetProperties("tobago-config/theme-definitions/theme-definition/resources/script");
+    digester.addSetNext("tobago-config/theme-definitions/theme-definition/resources/script", "addScript");
+    digester.addObjectCreate("tobago-config/theme-definitions/theme-definition/resources/style", ThemeStyle.class);
+    digester.addSetProperties("tobago-config/theme-definitions/theme-definition/resources/style");
+    digester.addSetNext("tobago-config/theme-definitions/theme-definition/resources/style", "addStyle");
+
     return digester;
   }
 
-  private void parse(ServletContext context, Digester digester) throws IOException, SAXException, FacesException {
-
-    String configPath = "/WEB-INF/tobago-config.xml";
-    InputStream input = null;
-    registerDtds(digester);
-    try {
-      input = context.getResourceAsStream(configPath);
-      if (input != null) {
-        digester.parse(input);
-      } else {
-        LOG.warn("No config file found: '" + configPath + "'. Tobago runs with a default configuration.");
-      }
-    } finally {
-      IOUtils.closeQuietly(input);
-    }
+  private void registerDtds() {
+    registerDtd("-//Atanion GmbH//DTD Tobago Config 1.0//EN", TOBAGO_CONFIG_DTD_1_0);
+    registerDtd("-//The Apache Software Foundation//DTD Tobago Config 1.0//EN", TOBAGO_CONFIG_DTD_1_0);
+    registerDtd("-//The Apache Software Foundation//DTD Tobago Config 1.0.29//EN", TOBAGO_CONFIG_DTD_1_0_29);
+    registerDtd("-//The Apache Software Foundation//DTD Tobago Config 1.0.30//EN", TOBAGO_CONFIG_DTD_1_0_30);
+    registerDtd("-//The Apache Software Foundation//DTD Tobago Config 1.0.34//EN", TOBAGO_CONFIG_DTD_1_0_34);
+    registerDtd("-//The Apache Software Foundation//DTD Tobago Config 1.5//EN", TOBAGO_CONFIG_DTD_1_5);
+    // todo: find a way to register the schema
+    //    registerDtd("http://myfaces.apache.org/tobago/tobago-config", TOBAGO_CONFIG_XSD_1_5);
+    //    registerXsd("http://myfaces.apache.org/tobago/tobago-config", TOBAGO_CONFIG_XSD_1_5);
   }
 
-  private void registerDtds(Digester digester) {
-    registerDtd(digester, "-//Atanion GmbH//DTD Tobago Config 1.0//EN", TOBAGO_CONFIG_DTD_1_0);
-    registerDtd(digester, "-//The Apache Software Foundation//DTD Tobago Config 1.0//EN", TOBAGO_CONFIG_DTD_1_0);
-    registerDtd(digester, "-//The Apache Software Foundation//DTD Tobago Config 1.0.29//EN", TOBAGO_CONFIG_DTD_1_0_29);
-    registerDtd(digester, "-//The Apache Software Foundation//DTD Tobago Config 1.0.30//EN", TOBAGO_CONFIG_DTD_1_0_30);
-    registerDtd(digester, "-//The Apache Software Foundation//DTD Tobago Config 1.0.34//EN", TOBAGO_CONFIG_DTD_1_0_34);
-    registerDtd(digester, "-//The Apache Software Foundation//DTD Tobago Config 1.5//EN", TOBAGO_CONFIG_DTD_1_5);
-  }
-
-  private void registerDtd(Digester digester, String publicId, String entityUrl) {
+  private void registerDtd(String publicId, String entityUrl) {
     URL url = TobagoConfigParser.class.getResource(entityUrl);
     if (LOG.isDebugEnabled()) {
       LOG.debug("Registering dtd: url='{}'", url);
@@ -126,4 +168,19 @@ public class TobagoConfigParser {
       LOG.warn("Unable to retrieve local DTD '" + entityUrl + "'; trying external URL");
     }
   }
+
+/*
+  private void registerXsd(String publicId, String entityUrl) {
+    URL url = TobagoConfigParser.class.getResource(entityUrl);
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("Registering dtd: url='{}'", url);
+    }
+    if (null != url) {
+      digester.setSchema(publicId);
+    //  digester.setSchemaLanguage();
+    } else {
+      LOG.warn("Unable to retrieve local DTD '" + entityUrl + "'; trying external URL");
+    }
+  }
+*/
 }
