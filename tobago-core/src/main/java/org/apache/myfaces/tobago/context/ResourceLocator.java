@@ -45,7 +45,7 @@ import java.util.zip.ZipInputStream;
 
 /**
  * This class helps to locate all resources of the ResourceManager.
- * It will be called in the initializaion phase.
+ * It will be called in the initialization phase.
  *
  * @since 1.0.7
  */
