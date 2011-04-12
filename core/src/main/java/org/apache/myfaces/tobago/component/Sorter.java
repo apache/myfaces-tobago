@@ -213,7 +213,8 @@ public class Sorter extends MethodBinding {
           || child instanceof UISelectBoolean
           || child instanceof UICommand
           || (child instanceof UIInput && TobagoConstants.RENDERER_TYPE_HIDDEN.equals(child.getRendererType()))) {
-        continue;// look for a better component if any
+        continue;
+        // look for a better component if any
       }
       if (child instanceof UIOutput) {
         break;
