@@ -82,7 +82,7 @@ public class Sorter extends MethodBinding {
 
           UIComponent child = getFirstSortableChild(column.getChildren());
           if (child != null) {
-            String attributeName = child instanceof UICommand ? "label":"value";
+            String attributeName = child instanceof UICommand ? TobagoConstants.ATTR_LABEL:TobagoConstants.ATTR_VALUE;
             ValueBinding valueBinding = child.getValueBinding(attributeName);
 
 
