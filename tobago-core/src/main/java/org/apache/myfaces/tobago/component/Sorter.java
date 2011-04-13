@@ -73,7 +73,7 @@ public class Sorter {
         UIComponent child = getFirstSortableChild(column.getChildren());
         if (child != null) {
 
-          String attributeName = child instanceof AbstractUICommand ? "label":"value";
+          String attributeName = child instanceof AbstractUICommand ? Attributes.LABEL:Attributes.VALUE;
           if (FacesUtils.hasValueBindingOrValueExpression(child, attributeName)) {
             String var = data.getVar();
             String expressionString = FacesUtils.getExpressionString(child, attributeName);
