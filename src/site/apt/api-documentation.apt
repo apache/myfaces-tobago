@@ -36,7 +36,11 @@ Sun JSF Documentation
   {{{http://java.sun.com/javaee/javaserverfaces/1.2_MR1/docs/api/index.html}JSF 1.2 API Documentation}}\
   {{{http://java.sun.com/javaee/javaserverfaces/1.2_MR1/docs/tlddocs/index.html}JSF 1.2 Tag Library Documentation}}
 
-  {{{http://java.sun.com/javaee/javaserverfaces/2.0/docs/api/index.html}JSF 2.0 API Documentation}}\
-  {{{http://java.sun.com/javaee/javaserverfaces/2.0/docs/managed-bean-api/index.html}JSF 2.0 Managed Bean API Documentation}}\
-  {{{http://java.sun.com/javaee/javaserverfaces/2.0/docs/pdldocs/facelets/index.html}JSF 2.0 Facelets Tag Library Documentation}}\
-  {{{http://java.sun.com/javaee/javaserverfaces/2.0/docs/pdldocs/jsp/index.html}JSF 2.0 JSP Tag Library Documentation}}
+  {{{http://javaserverfaces.java.net/nonav/docs/2.0/javadocs/index.html}JSF 2.0 API Documentation}}\
+  {{{http://javaserverfaces.java.net/nonav/docs/2.0/renderkitdocs/index.html}JSF 2.0 RenderKit Documentation}}\
+  {{{http://javaserverfaces.java.net/nonav/docs/2.0/managed-bean-api/index.html}JSF 2.0 Managed Bean API Documentation}}\
+  {{{http://javaserverfaces.java.net/nonav/docs/2.0/vdldocs/facelets/index.html}JSF 2.0 Facelets Tag Library Documentation}}\
+  {{{http://javaserverfaces.java.net/nonav/docs/2.0/vdldocs/jsp/index.html}JSF 2.0 JSP Tag Library Documentation}}\
+  {{{http://javaserverfaces.java.net/nonav/docs/2.0/jsdocs/index.html}JSF 2.0 JavaScript API}}
+
+  {{{http://javaserverfaces.java.net/nonav/docs/2.1/}JSF 2.1 Documentation}}\
