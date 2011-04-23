@@ -492,14 +492,20 @@ var Tobago = {
 
   /**
    * Submitting the page with specified actionId.
+   * options.transition
+   * options.focus
+   * options.target
    */
-  submitAction: function(source, actionId, transition, target, focus) {
-    if (transition === undefined || transition == null) {
+  submitAction: function(source, actionId, options) {
+    options = options || {};
+    if (options.transition === undefined || options.transition == null) {
       transition = true;
+    } else {
+      transition = options.transition;
     }
 
-    if (focus) {
-      var lastFocusId = this.createInput('hidden', this.page.id + this.SUB_COMPONENT_SEP + 'lastFocusId', focus);
+    if (options.focus) {
+      var lastFocusId = this.createInput('hidden', this.page.id + this.SUB_COMPONENT_SEP + 'lastFocusId', options.focus);
       this.form.appendChild(lastFocusId);
     }
 
@@ -515,11 +521,11 @@ var Tobago = {
         var oldAction = Tobago.action.value;
         var oldTarget = Tobago.form.target;
         Tobago.action.value = actionId;
-        if (target) {
-          Tobago.form.target = target;
+        if (options.target) {
+          Tobago.form.target = options.target;
         }
         Tobago.oldTransition = Tobago.transition;
-        Tobago.transition = transition && !target;
+        Tobago.transition = transition && !options.target;
 // new
         var onSubmitResult = Tobago.onSubmit();
         if (onSubmitResult) {
@@ -533,10 +539,10 @@ var Tobago = {
           }
         }
         Tobago.action.value = oldAction;
-        if (target) {
+        if (options.target) {
           Tobago.form.target = oldTarget;
         }
-        if (target || !transition || !onSubmitResult) {
+        if (options.target || !transition || !onSubmitResult) {
           this.isSubmit = false;
           Tobago.Transport.pageSubmited = false;
         }

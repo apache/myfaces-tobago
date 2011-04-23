@@ -633,11 +633,11 @@ public final class HtmlRendererUtils {
       } else {
         writer.write("Tobago.submitAction(this, '");
         writer.write(facetComponent.getClientId(facesContext));
-        writer.write("', ");
+        writer.write("', { transition:");
         writer.write(Boolean.toString(ComponentUtils.getBooleanAttribute(facetComponent, Attributes.TRANSITION)));
-        writer.write(", null, '");
+        writer.write(", focus:'");
         writer.write(clientId);
-        writer.write("')");
+        writer.write("'})");
       }
       writer.write("});\n}");
       writer.endJavascript();

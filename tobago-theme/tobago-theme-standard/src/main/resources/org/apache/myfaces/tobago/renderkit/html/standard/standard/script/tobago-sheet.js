@@ -477,7 +477,7 @@ Tobago.Sheet.prototype.doSelection = function(event) {
         if (this.clickReloadComponentId && this.clickReloadComponentId.length > 0) {
           Tobago.reloadComponent(srcElement, this.clickReloadComponentId[0], action)
         } else {
-          Tobago.submitAction(srcElement, action, true, null);
+          Tobago.submitAction(srcElement, action);
         }
       }
     }
@@ -512,7 +512,7 @@ Tobago.Sheet.prototype.doDblClick = function(event) {
         if (this.dblClickReloadComponentId && this.dblClickReloadComponentId.length > 0) {
           Tobago.reloadComponent(srcElement, this.dblClickReloadComponentId[0], action)
         } else {
-          Tobago.submitAction(srcElement, action, true, null);
+          Tobago.submitAction(srcElement, action);
         }
       }
     }
