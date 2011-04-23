@@ -329,7 +329,7 @@ var Tobago = {
     }
     this.isSubmit = true;
     var clientDimension = this.createInput('hidden', this.form.id + '-clientDimension');
-    clientDimension.value = document.body.clientWidth + ';' + document.body.clientHeight;
+    clientDimension.value = jQuery(document).width() + ';' + jQuery(document).height();
     this.form.appendChild(clientDimension);
     Tobago.onBeforeUnload();
     return true;
@@ -565,11 +565,11 @@ var Tobago = {
   },
 
   setActionPosition: function(source) {
-    var sourceLeft = Tobago.getAbsoluteLeft(source);
-    var sourceTop = Tobago.getAbsoluteTop(source);
+    var offset = jQuery(source).offset();
     var sourceWidth = Tobago.getWidth(source);
     var sourceHeight = Tobago.getHeight(source);
-    Tobago.actionPosition.value = sourceLeft + 'px,' + sourceTop + 'px,' + sourceWidth + 'px,' + sourceHeight + 'px';
+    Tobago.actionPosition.value = (offset ? offset.left + 'px,' : '0px,') + (offset ? offset.top + 'px,' : '0px,')
+        + sourceWidth + 'px,' + sourceHeight + 'px';
 //    alert("source='" + source + "' action-position=" + Tobago.actionPosition.value);
   },
 
