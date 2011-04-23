@@ -111,7 +111,8 @@ public class CommandRendererHelper {
         if (target == null) {
           onclick = "Tobago.submitAction(this, '" + clientId + "', { transition:" + transition + "});";
         } else {
-          onclick = "Tobago.submitAction(this, '" + clientId + "', { transition:" + transition + ", target:'" + target + "'});";
+          onclick = "Tobago.submitAction(this, '" + clientId + "', { transition:" + transition
+              + ", target:'" + target + "'});";
         }
       }
 
