@@ -540,6 +540,7 @@ public <property.type> get<property.upperCamelCaseName>() {
   if (<property.propertyName> != null) {
     return <property.propertyName>;
   }
+  <if(!property.transient)>
   <getValueExpression(property)>
   if (vb != null) {
     Object object = <getValue(property)>
