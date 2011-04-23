@@ -3061,8 +3061,8 @@ Tobago.TabGroup.init = function(elements) {
     jQuery(this).siblings(".tobago-tab-markup-selected").removeClass("tobago-tab-markup-selected");
     jQuery(this).addClass("tobago-tab-markup-selected");
     var tabGroup = jQuery(this).parents(".tobago-tabGroup:first");
-    tabGroup.find(".tobago-tab-content-markup-selected").removeClass("tobago-tab-content-markup-selected");
-    tabGroup.find(".tobago-tab-content[tabgroupindex=" + activeIndex
+    tabGroup.children(".tobago-tab-content-markup-selected").removeClass("tobago-tab-content-markup-selected");
+    tabGroup.children(".tobago-tab-content[tabgroupindex=" + activeIndex
         + "]").addClass("tobago-tab-content-markup-selected");
   });
 

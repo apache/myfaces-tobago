@@ -116,8 +116,7 @@ public class TabGroupRenderer extends LayoutComponentRendererBase {
     int index = 0;
     for (UIComponent tab : (List<UIComponent>) tabGroup.getChildren()) {
       if (tab instanceof UITab) {
-        if (tab.isRendered() //&& (UITabGroup.SWITCH_TYPE_CLIENT.equals(switchType) || index == activeIndex)
-          ) {
+        if (tab.isRendered() && (UITabGroup.SWITCH_TYPE_CLIENT.equals(switchType) || index == activeIndex)) {
           encodeContent(writer, facesContext, (UITab) tab, index);
         }
         index++;
