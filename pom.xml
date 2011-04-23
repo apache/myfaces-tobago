@@ -1682,6 +1682,60 @@
       </repositories>
     </profile>
 
+    <profile>
+      <id>mojarra-2.1</id>
+      <activation>
+        <property>
+          <name>jsf</name>
+          <value>mojarra-2.1</value>
+        </property>
+      </activation>
+      <properties>
+        <jsf.target>2.0</jsf.target>
+        <jsf.targetDirectory>1.2</jsf.targetDirectory>
+      </properties>
+      <dependencyManagement>
+        <dependencies>
+          <dependency>
+            <groupId>com.sun.faces</groupId>
+            <artifactId>jsf-api</artifactId>
+            <version>${mojarra21.version}</version>
+            <optional>true</optional>
+          </dependency>
+          <dependency>
+            <groupId>com.sun.faces</groupId>
+            <artifactId>jsf-impl</artifactId>
+            <version>${mojarra21.version}</version>
+            <optional>true</optional>
+          </dependency>
+          <dependency>
+            <groupId>javax.servlet.jsp</groupId>
+            <artifactId>jsp-api</artifactId>
+            <version>2.1</version>
+            <optional>true</optional>
+          </dependency>
+          <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>2.5</version>
+            <optional>true</optional>
+          </dependency>
+        </dependencies>
+      </dependencyManagement>
+      <repositories>
+        <repository>
+          <id>java.net</id>
+          <url>http://download.java.net/maven/1</url>
+          <layout>legacy</layout>
+        </repository>
+        <repository>
+          <id>maven2-repository.dev.java.net</id>
+          <name>Java.net Repository for Maven</name>
+          <url>http://download.java.net/maven/2/</url>
+        </repository>
+      </repositories>
+    </profile>
+
   </profiles>
 
   <repositories>
@@ -1711,21 +1765,22 @@
   </contributors>
 
   <properties>
-    <myfaces11.version>1.1.8</myfaces11.version>
-    <myfaces12.version>1.2.9</myfaces12.version>
+    <myfaces11.version>1.1.9</myfaces11.version>
+    <myfaces12.version>1.2.10</myfaces12.version>
     <myfaces-test12.version>1.0.1</myfaces-test12.version>
-    <myfaces20.version>2.0.2</myfaces20.version>
+    <myfaces20.version>2.0.5</myfaces20.version>
     <mojarra11.version>1.1_02</mojarra11.version>
     <mojarra12.version>1.2_14</mojarra12.version>
-    <mojarra20.version>2.0.3-SNAPSHOT</mojarra20.version>
+    <mojarra20.version>2.0.5-b02</mojarra20.version>
+    <mojarra21.version>2.1.1-b04</mojarra21.version>
     <facelets.version>1.1.14</facelets.version>
-    <jetty.version>6.1.22</jetty.version>
+    <jetty.version>6.1.26</jetty.version>
     <slf4j.version>1.6.1</slf4j.version>
-    <logback.version>0.9.24</logback.version>    
+    <logback.version>0.9.28</logback.version>
     <commons-io.version>1.1</commons-io.version>
     <commons-lang.version>2.4</commons-lang.version>
     <commons-logging.version>1.1.1</commons-logging.version>
-    <commons-digester.version>1.8</commons-digester.version>
+    <commons-digester.version>1.8.1</commons-digester.version>
     <commons-collection.version>3.2.1</commons-collection.version>
     <maven.compile.source>1.5</maven.compile.source>
     <maven.compile.target>1.5</maven.compile.target>
