@@ -35,10 +35,11 @@
             MAVEN_OPTS="-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005"
          -->
         <groupId>org.mortbay.jetty</groupId>
-<!--    for jetty 7 they have changed the artifactId
-        <artifactId>jetty-maven-plugin</artifactId>
-        <version>7.0.0.RC6</version>
--->
+        <!--    for jetty 7 they have changed the artifactId -->
+        <!--
+            <artifactId>jetty-maven-plugin</artifactId>
+            <version>7.4.0.RC0</version>
+        -->
         <artifactId>maven-jetty-plugin</artifactId>
         <!-- to change the port -->
         <configuration>
