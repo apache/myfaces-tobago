@@ -42,7 +42,7 @@
         <artifactId>maven-jetty-plugin</artifactId>
         <!-- to change the port -->
         <configuration>
-          <scanIntervalSeconds>5</scanIntervalSeconds>          
+          <scanIntervalSeconds>5</scanIntervalSeconds>
           <connectors>
             <connector implementation="org.mortbay.jetty.nio.SelectChannelConnector">
               <port>8080</port>
@@ -203,7 +203,7 @@
         <dependency>
           <groupId>org.apache.myfaces.core</groupId>
           <artifactId>myfaces-impl</artifactId>
-          <version>${myfaces11.version}</version>
+          <version>${myfaces20.version}</version>
           <scope>runtime</scope>
         </dependency>
         <dependency>
