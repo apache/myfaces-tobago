@@ -38,18 +38,6 @@ fieldset.tobago-box {
   padding-bottom: 0px;
 }
 
-/* date ---------------------------------------------------------------- */
-
-.tobago-date {
-  margin-top: -1px;
-  margin-bottom: -1px;
-}
-
-textarea.tobago-richTextEditor-body {
-  margin-top: -1px;
-  margin-bottom: -1px;
-}
-
 /* file ---------------------------------------------------------------- */
 
 .tobago-file {
