@@ -17,22 +17,8 @@
 
 /*
  * theme: scarborough
- * agent: msie_6_0
+ * agent: msie_7_0
  */
-
-/* tab/tabGroup -------------------------------------------------------------- */
-
-.tobago-tab {
-  padding-bottom: 0;
-}
-
-.tobago-tab-markup-selected {
-  padding-bottom: 4px;
-}
-
-.tobago-tabGroup-headerInner {
-  overflow-y: hidden;
-}
 
 /* time -------------------------------------------------------------- */
 
