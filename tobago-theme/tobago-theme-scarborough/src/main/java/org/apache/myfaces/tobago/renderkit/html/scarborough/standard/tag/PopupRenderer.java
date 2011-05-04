@@ -96,7 +96,7 @@ public class PopupRenderer extends LayoutComponentRendererBase {
       popup.setLeft(page.getWidth().subtract(popup.getWidth()).divide(2));
     }
     if (popup.getTop() == null) {
-      popup.setTop(page.getHeight().subtract(popup.getWidth()).divide(2));
+      popup.setTop(page.getHeight().subtract(popup.getHeight()).divide(2));
     }
 
     writer.startElement(HtmlElements.DIV, popup);
