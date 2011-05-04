@@ -120,7 +120,7 @@ public class TextareaRenderer extends InputRendererBase {
     boolean required = ComponentUtils.getBooleanAttribute(input, Attributes.REQUIRED);
     if (required || maxLength > 0) {
       final String[] cmds = {
-          "new Tobago.In(\"" + input.getClientId(facesContext) + "\", true ,\""
+          "new Tobago.In(\"" + input.getClientId(facesContext) + "\"," + required + ",\""
               + Classes.requiredWorkaround(input) + "\" " + (maxLength > -1 ? "," + maxLength : "") + "  );"
       };
       HtmlRendererUtils.writeScriptLoader(facesContext, null, cmds);
