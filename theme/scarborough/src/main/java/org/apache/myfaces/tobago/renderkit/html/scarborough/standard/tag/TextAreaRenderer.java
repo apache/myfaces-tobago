@@ -24,9 +24,7 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_READONLY;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ROWS;
+import org.apache.myfaces.tobago.TobagoConstants;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIInput;
 import org.apache.myfaces.tobago.renderkit.HtmlUtils;
@@ -36,13 +34,16 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
-import org.apache.myfaces.tobago.TobagoConstants;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import javax.faces.validator.Validator;
 import javax.faces.validator.LengthValidator;
+import javax.faces.validator.Validator;
 import java.io.IOException;
+
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_READONLY;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ROWS;
 
 public class TextAreaRenderer extends InputRendererBase {
 
@@ -108,7 +109,7 @@ public class TextAreaRenderer extends InputRendererBase {
     if (required || maxLength > 0) {
       String rendererName = HtmlRendererUtil.getRendererName(facesContext, input);
       final String[] cmds = {
-          "new Tobago.In(\"" + input.getClientId(facesContext) + "\", true ,\""
+          "new Tobago.In(\"" + input.getClientId(facesContext) + "\"," + required + ",\""
                   + StyleClasses.PREFIX + rendererName + "\" " + (maxLength > -1? "," + maxLength: "")  + "  );"
       };
       HtmlRendererUtil.writeScriptLoader(facesContext, null, cmds);
