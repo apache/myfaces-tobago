@@ -35,6 +35,33 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
 
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_LAYOUT;
 
+/**
+ * Renders a label to any component.
+ * <br />
+ * Short syntax of:
+ * <br />
+ * <pre>
+ * &lt;tc:panel>
+ *   &lt;f:facet name="layout">
+ *     &lt;tc:gridLayout columns="fixed;*"/>
+ *   &lt;/f:facet>
+ *   &lt;tc:label value="#{label}" for="@auto"/>
+ *     ...
+ * &lt;/tc:panel>
+ * </pre>
+ * This is the universal version of the special versions: &lt;tx:in>, etc.
+ * In other words:
+ * <pre>
+ * &lt;tx:label>
+ *   &lt;tc:in/>
+ * &lt;/tx:label>
+ * </pre>
+ * does the same like
+ * <pre>
+ *   &lt;tx:in/>
+ * </pre>
+ */
+
 @Tag(name = "label")
 @ExtensionTag(baseClassName = "org.apache.myfaces.tobago.taglib.component.LabelTag")
 public class LabelExtensionTag extends BodyTagSupport
