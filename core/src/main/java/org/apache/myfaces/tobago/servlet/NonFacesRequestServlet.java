@@ -41,27 +41,14 @@ public abstract class NonFacesRequestServlet extends HttpServlet {
 
   private static final Log LOG = LogFactory.getLog(NonFacesRequestServlet.class);
 
-  protected void service(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException,
-      IOException {
+  protected void service(HttpServletRequest request, HttpServletResponse response)
+      throws ServletException, IOException {
 
-    LifecycleFactory lFactory = (LifecycleFactory)
-        FactoryFinder.getFactory(FactoryFinder.LIFECYCLE_FACTORY);
-    Lifecycle lifecycle =
-        lFactory.getLifecycle(LifecycleFactory.DEFAULT_LIFECYCLE);
-    FacesContextFactory fcFactory = (FacesContextFactory)
-        FactoryFinder.getFactory(FactoryFinder.FACES_CONTEXT_FACTORY);
-    FacesContext facesContext =
-        fcFactory.getFacesContext(getServletContext(), request, response, lifecycle);
+    LifecycleFactory lFactory = (LifecycleFactory) FactoryFinder.getFactory(FactoryFinder.LIFECYCLE_FACTORY);
+    Lifecycle lifecycle = lFactory.getLifecycle(LifecycleFactory.DEFAULT_LIFECYCLE);
+    FacesContextFactory fcFactory = (FacesContextFactory) FactoryFinder.getFactory(FactoryFinder.FACES_CONTEXT_FACTORY);
+    FacesContext facesContext = fcFactory.getFacesContext(getServletContext(), request, response, lifecycle);
     try {
-      Application application = facesContext.getApplication();
-      ViewHandler viewHandler = application.getViewHandler();
-      String viewId = getFromViewId();
-      UIViewRoot view = viewHandler.createView(facesContext, viewId);
-      facesContext.setViewRoot(view);
-
-//    ExternalContext externalContext = facesContext.getExternalContext();
-//    externalContext.getRequestMap().put("com.sun.faces.INVOCATION_PATH", "/faces");
 
       // invoke application
       String outcome = invokeApplication(facesContext);
@@ -72,8 +59,17 @@ public abstract class NonFacesRequestServlet extends HttpServlet {
       if (LOG.isDebugEnabled()) {
         LOG.debug("outcome = '" + outcome + "'");
       }
+      Application application = facesContext.getApplication();
       NavigationHandler navigationHandler = application.getNavigationHandler();
       navigationHandler.handleNavigation(facesContext, null, outcome);
+
+      if (facesContext.getViewRoot() == null) {
+        ViewHandler viewHandler = application.getViewHandler();
+        String viewId = getFromViewId();
+        UIViewRoot view = viewHandler.createView(facesContext, viewId);
+        facesContext.setViewRoot(view);
+      }
+
       lifecycle.render(facesContext);
     } finally {
       facesContext.release();
@@ -83,7 +79,7 @@ public abstract class NonFacesRequestServlet extends HttpServlet {
   public abstract String invokeApplication(FacesContext facesContext);
 
   /**
-   * will be called to initilize the first ViewRoot,
+   * will be called to initialize the first ViewRoot,
    * may be overwritten by extended classes
    */
   public String getFromViewId() {
