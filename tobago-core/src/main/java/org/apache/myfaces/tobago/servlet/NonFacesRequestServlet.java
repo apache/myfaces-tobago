@@ -43,26 +43,13 @@ public abstract class NonFacesRequestServlet extends HttpServlet {
 
   @Override
   protected void service(HttpServletRequest request, HttpServletResponse response)
-      throws ServletException,
-      IOException {
+      throws ServletException, IOException {
 
-    LifecycleFactory lFactory = (LifecycleFactory)
-        FactoryFinder.getFactory(FactoryFinder.LIFECYCLE_FACTORY);
-    Lifecycle lifecycle =
-        lFactory.getLifecycle(LifecycleFactory.DEFAULT_LIFECYCLE);
-    FacesContextFactory fcFactory = (FacesContextFactory)
-        FactoryFinder.getFactory(FactoryFinder.FACES_CONTEXT_FACTORY);
-    FacesContext facesContext =
-        fcFactory.getFacesContext(getServletContext(), request, response, lifecycle);
+    LifecycleFactory lFactory = (LifecycleFactory) FactoryFinder.getFactory(FactoryFinder.LIFECYCLE_FACTORY);
+    Lifecycle lifecycle = lFactory.getLifecycle(LifecycleFactory.DEFAULT_LIFECYCLE);
+    FacesContextFactory fcFactory = (FacesContextFactory) FactoryFinder.getFactory(FactoryFinder.FACES_CONTEXT_FACTORY);
+    FacesContext facesContext = fcFactory.getFacesContext(getServletContext(), request, response, lifecycle);
     try {
-      Application application = facesContext.getApplication();
-      ViewHandler viewHandler = application.getViewHandler();
-      String viewId = getFromViewId();
-      UIViewRoot view = viewHandler.createView(facesContext, viewId);
-      facesContext.setViewRoot(view);
-
-//    ExternalContext externalContext = facesContext.getExternalContext();
-//    externalContext.getRequestMap().put("com.sun.faces.INVOCATION_PATH", "/faces");
 
       // invoke application
       String outcome = invokeApplication(facesContext);
@@ -73,8 +60,17 @@ public abstract class NonFacesRequestServlet extends HttpServlet {
       if (LOG.isDebugEnabled()) {
         LOG.debug("outcome = '" + outcome + "'");
       }
+      Application application = facesContext.getApplication();
       NavigationHandler navigationHandler = application.getNavigationHandler();
       navigationHandler.handleNavigation(facesContext, null, outcome);
+
+      if (facesContext.getViewRoot() == null) {
+        ViewHandler viewHandler = application.getViewHandler();
+        String viewId = getFromViewId();
+        UIViewRoot view = viewHandler.createView(facesContext, viewId);
+        facesContext.setViewRoot(view);
+      }
+
       lifecycle.render(facesContext);
     } finally {
       facesContext.release();
