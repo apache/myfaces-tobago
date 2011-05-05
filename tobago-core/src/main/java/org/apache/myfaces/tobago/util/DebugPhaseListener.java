@@ -26,6 +26,8 @@ import javax.faces.event.PhaseEvent;
 import javax.faces.event.PhaseId;
 import javax.faces.event.PhaseListener;
 import javax.faces.application.FacesMessage;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
 import java.util.Map;
 import java.util.Iterator;
@@ -60,13 +62,20 @@ public class DebugPhaseListener implements PhaseListener {
       }
 
       if (phaseEvent.getPhaseId().getOrdinal() == 6) {
+        if (LOG.isTraceEnabled()) {
+          HttpServletResponse response = (HttpServletResponse) facesContext.getExternalContext().getResponse();
+          LOG.trace(" response Locale            = \"" + response.getLocale() + "\"");
+          LOG.trace(" response ContentType       = \"" + response.getContentType() + "\"");
+          LOG.trace(" response CharacterEncoding = \"{" + response.getCharacterEncoding() + "}\"");
+        }
+
         Date start = (Date) map.get(KEY + "1S");
         if (start != null) {
           LOG.info("Total response time : "
               + (end.getTime() - start.getTime() + " milliseconds"));
         }
       }
-      for (Iterator iter = phaseEvent.getFacesContext().getClientIdsWithMessages(); iter.hasNext();) {
+      for (Iterator iter = facesContext.getClientIdsWithMessages(); iter.hasNext();) {
         String clientId = (String) iter.next();
 
         for (Iterator msgIter = facesContext.getMessages(clientId); msgIter.hasNext();) {
@@ -92,9 +101,19 @@ public class DebugPhaseListener implements PhaseListener {
 
         if (LOG.isTraceEnabled() && PhaseId.RESTORE_VIEW == phaseId) {
           // this is before restoreView
-          Map params = externalContext.getRequestParameterMap();
-          for (Object key : params.keySet()) {
-            LOG.trace("Param : \"" + key + "\" = \"" + params.get(key) + "\"");
+
+          Object request = externalContext.getRequest();
+          if (request instanceof HttpServletRequest) {
+            HttpServletRequest servletRequest = (HttpServletRequest) request;
+            LOG.trace("RequestURI = " + servletRequest.getRequestURI());
+          }
+          Map headerMap = externalContext.getRequestHeaderMap();
+          for (Object key : headerMap.keySet()) {
+            LOG.trace("Header : \"" + key + "\" = \"" + headerMap.get(key) + "\"");
+          }
+          Map parameterMap = externalContext.getRequestParameterMap();
+          for (Object key : parameterMap.keySet()) {
+            LOG.trace("Param  : \"" + key + "\" = \"" + parameterMap.get(key) + "\"");
           }
         }
 
