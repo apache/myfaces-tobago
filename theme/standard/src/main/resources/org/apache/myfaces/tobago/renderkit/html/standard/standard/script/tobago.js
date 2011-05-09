@@ -1151,20 +1151,31 @@ var Tobago = {
     * Unlock the parent page of a popup when it is closed
     */
   unlockPopupPage: function(id) {
+    Tobago.disableForPopup(id, false);
+  },
+
+  /**
+    * Relock the parent page of a popup
+    */
+  relockPopupPage: function(id) {
+    Tobago.disableForPopup(id, true);
+  },
+
+  disableForPopup: function(id, disabled) {
     // enable all elements and anchors on page stored in a hidden field
     var hidden = Tobago.element(id + Tobago.SUB_COMPONENT_SEP + "disabledElements");
     if (hidden != null && hidden.value != "") {
      for (var i = 0; i < document.forms[0].elements.length; i++) {
        var element = document.forms[0].elements[i];
        if (hidden.value.indexOf("," + element.id + ",") >= 0) {
-         element.disabled = false;
+         element.disabled = disabled;
        }
      }
       var anchors = document.getElementsByTagName('a');
       for (i = 0; i < anchors.length; i++) {
        var anchor = anchors[i];
        if (hidden.value.indexOf("," + anchor.id + ",") >= 0) {
-         anchor.disabled = false;
+         anchor.disabled = disabled;
        }
      }
    }
@@ -1797,16 +1808,29 @@ var Tobago = {
   },
 
   raiseEvent: function (eventType, element) {
-  if (document.createEvent) {
-    var evt = document.createEvent("Events");
-    evt.initEvent(eventType, true, true);
-    element.dispatchEvent(evt);
+    if (document.createEvent) {
+      var evt = document.createEvent("Events");
+      evt.initEvent(eventType, true, true);
+      element.dispatchEvent(evt);
+    }
+    else if (document.createEventObject) {
+      var evt = document.createEventObject();
+      element.fireEvent('on' + eventType, evt);
+    }
+  },
+
+  serializeForm: function() {
+    for (var i = 0; i < Tobago.openPopups.length; i++) {
+      var popupId = Tobago.openPopups[i];
+      Tobago.unlockPopupPage(popupId);
+    }
+    var serializedForm = Form.serialize(this.form);
+    for (var i = 0; i < Tobago.openPopups.length; i++) {
+      var popupId = Tobago.openPopups[i];
+      Tobago.relockPopupPage(popupId);
+    }
+    return serializedForm;
   }
-  else if (document.createEventObject) {  
-    var evt = document.createEventObject();
-    element.fireEvent('on' + eventType, evt);
-  }
-}
 };
 
 
@@ -2181,7 +2205,7 @@ Tobago.Transport = {
       this.requests[0]();
     }
   }
-}
+};
 
 Ajax.Updater.prototype.updateContent = function() {
     var receiver = this.responseIsSuccess() ?
@@ -2324,7 +2348,7 @@ Tobago.Updater = {
         var oldAction = Tobago.action.value;
         Tobago.action.value = actionId;
         requestOptions.parameters = "affectedAjaxComponent=" + ajaxComponentId
-            + '&' + Form.serialize(Tobago.form);
+            + '&' + Tobago.serializeForm();
         Tobago.action.value = oldAction;
         new Ajax.Updater(container, url, requestOptions);
       }, false, actionId);
