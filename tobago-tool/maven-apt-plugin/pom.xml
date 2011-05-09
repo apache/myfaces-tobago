@@ -20,7 +20,7 @@
   <parent>
     <groupId>org.apache.myfaces.tobago</groupId>
     <artifactId>tobago-tool</artifactId>
-    <version>1.0.36-SNAPSHOT</version>
+    <version>1.0.36</version>
   </parent>
   <artifactId>maven-apt-plugin</artifactId>
   <packaging>maven-plugin</packaging>
