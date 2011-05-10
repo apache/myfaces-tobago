@@ -26,7 +26,6 @@ import com.sun.facelets.tag.TagAttribute;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.SupportsMarkup;
 import org.apache.myfaces.tobago.context.Markup;
-import org.apache.myfaces.tobago.util.ComponentUtils;
 
 import javax.el.ValueExpression;
 import javax.faces.component.UIComponent;
