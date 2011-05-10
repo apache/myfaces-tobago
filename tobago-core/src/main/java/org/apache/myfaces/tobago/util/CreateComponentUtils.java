@@ -27,7 +27,7 @@ import org.apache.myfaces.tobago.component.UIMenuSelectOne;
 import org.apache.myfaces.tobago.internal.component.AbstractUIColumn;
 import org.apache.myfaces.tobago.internal.component.AbstractUIOut;
 import org.apache.myfaces.tobago.internal.component.AbstractUISelectBooleanCheckbox;
-import org.apache.myfaces.tobago.internal.taglib.TagUtils;
+import org.apache.myfaces.tobago.internal.util.ComponentAttributeUtils;
 import org.apache.myfaces.tobago.layout.Display;
 import org.apache.myfaces.tobago.layout.LayoutManager;
 
@@ -69,9 +69,9 @@ public class CreateComponentUtils {
   public static AbstractUIColumn createTextColumn(
       String label, String sortable, String align, String value, String clientId) {
     AbstractUIOut text = (AbstractUIOut) createComponent(ComponentTypes.OUT, RendererTypes.OUT, clientId + "_t");
-    TagUtils.setStringProperty(text, Attributes.VALUE, value);
-    TagUtils.setBooleanProperty(text, Attributes.CREATE_SPAN, "false");
-    TagUtils.setBooleanProperty(text, Attributes.ESCAPE, "false");
+    ComponentAttributeUtils.setStringProperty(text, Attributes.VALUE, value);
+    ComponentAttributeUtils.setBooleanProperty(text, Attributes.CREATE_SPAN, "false");
+    ComponentAttributeUtils.setBooleanProperty(text, Attributes.ESCAPE, "false");
     text.setDisplay(Display.INLINE);
     return createColumn(label, sortable, align, text, clientId);
   }
@@ -96,9 +96,9 @@ public class CreateComponentUtils {
 
   public static AbstractUIColumn createColumn(String label, String sortable, String align, String clientId) {
     AbstractUIColumn column = (AbstractUIColumn) createComponent(ComponentTypes.COLUMN, null, clientId);
-    TagUtils.setStringProperty(column, Attributes.LABEL, label);
-    TagUtils.setBooleanProperty(column, Attributes.SORTABLE, sortable);
-    TagUtils.setStringProperty(column, Attributes.ALIGN, align);
+    ComponentAttributeUtils.setStringProperty(column, Attributes.LABEL, label);
+    ComponentAttributeUtils.setBooleanProperty(column, Attributes.SORTABLE, sortable);
+    ComponentAttributeUtils.setStringProperty(column, Attributes.ALIGN, align);
     return column;
   }
 
