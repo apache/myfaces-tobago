@@ -389,7 +389,7 @@ public class ComponentUtils {
   }
 
   /**
-   * @deprecated Please define a {@link Markup} and set it to the component with 
+   * @deprecated Please define a {@link Markup} and set it to the component with
    * {@link SupportsMarkup#setMarkup(Markup markup)} before the rendering phase.
    */
   @Deprecated
@@ -409,6 +409,10 @@ public class ComponentUtils {
     }
   }
 
+  /**
+   * @deprecated since 1.5.0
+   */
+  @Deprecated
   public static void setMarkup(UIComponent markupComponent, String markup) {
     if (markup != null) {
       if (markupComponent instanceof SupportsMarkup) {
@@ -583,8 +587,11 @@ public class ComponentUtils {
     return null;
   }
 
-  public static void setIntegerSizeProperty(UIComponent component,
-      String name, String value) {
+  /**
+   * @deprecated since 1.5.0
+   */
+  @Deprecated
+  public static void setIntegerSizeProperty(UIComponent component, String name, String value) {
     if (value != null) {
       if (UIComponentTag.isValueReference(value)) {
         component.setValueBinding(name, createValueBinding(value));
@@ -686,6 +693,10 @@ public class ComponentUtils {
     return label;
   }
 
+  /**
+   * @deprecated since 1.5.0
+   */
+  @Deprecated
   public static void setValidator(EditableValueHolder editableValueHolder, String validator) {
     if (validator != null && editableValueHolder.getValidator() == null) {
       if (UIComponentTag.isValueReference(validator)) {
@@ -696,6 +707,10 @@ public class ComponentUtils {
     }
   }
 
+  /**
+   * @deprecated since 1.5.0
+   */
+  @Deprecated
   public static void setConverter(ValueHolder valueHolder, String converterId) {
     if (converterId != null && valueHolder.getConverter() == null) {
       final FacesContext facesContext = FacesContext.getCurrentInstance();
@@ -712,8 +727,10 @@ public class ComponentUtils {
     }
   }
 
-
-
+  /**
+   * @deprecated since 1.5.0
+   */
+  @Deprecated
   public static void setAction(ActionSource component, String action) {
     if (action != null) {
       if (UIComponentTag.isValueReference(action)) {
@@ -727,9 +744,10 @@ public class ComponentUtils {
     }
   }
 
-
-
-
+  /**
+   * @deprecated since 1.5.0
+   */
+  @Deprecated
   public static void setActionListener(ActionSource command, String actionListener) {
     final FacesContext facesContext = FacesContext.getCurrentInstance();
     final Application application = facesContext.getApplication();
@@ -745,6 +763,10 @@ public class ComponentUtils {
     }
   }
 
+  /**
+   * @deprecated since 1.5.0
+   */
+  @Deprecated
   public static void setValueChangeListener(EditableValueHolder valueHolder, String valueChangeListener) {
     final FacesContext facesContext = FacesContext.getCurrentInstance();
     final Application application = facesContext.getApplication();
@@ -760,6 +782,10 @@ public class ComponentUtils {
     }
   }
 
+  /**
+   * @deprecated since 1.5.0
+   */
+  @Deprecated
   public static void setValueBinding(UIComponent component, String name, String state) {
     // TODO: check, if it is an writeable object
     if (state != null && UIComponentTag.isValueReference(state)) {
