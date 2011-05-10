@@ -30,6 +30,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.SupportsMarkup;
 import org.apache.myfaces.tobago.component.SupportsRenderedPartially;
+import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.el.ConstantMethodBinding;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
@@ -230,7 +231,7 @@ public final class AttributeHandler extends TagHandler {
         } else if (Attributes.MARKUP.equals(nameValue)) {
           if (parent instanceof SupportsMarkup) {
             if (value.isLiteral()) {
-              ComponentUtils.setMarkup(parent, value.getValue());
+              ((SupportsMarkup) parent).setMarkup(Markup.valueOf(value.getValue()));
             } else {
               ValueExpression expression = value.getValueExpression(faceletContext, Object.class);
               ELAdaptor.setExpression(parent, nameValue, expression);

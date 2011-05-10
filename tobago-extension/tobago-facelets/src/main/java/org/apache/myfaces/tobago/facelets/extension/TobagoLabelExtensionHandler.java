@@ -25,6 +25,7 @@ import com.sun.facelets.tag.TagAttribute;
 import com.sun.facelets.tag.jsf.ComponentConfig;
 import com.sun.facelets.tag.jsf.ComponentHandler;
 import com.sun.facelets.tag.jsf.ComponentSupport;
+import org.apache.myfaces.tobago.context.Markup;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.component.Attributes;
@@ -166,7 +167,7 @@ public abstract class TobagoLabelExtensionHandler extends ComponentHandler {
     }
     if (markupAttribute != null) {
       if (markupAttribute.isLiteral()) {
-        ComponentUtils.setMarkup(label, markupAttribute.getValue());
+        label.setMarkup(Markup.valueOf(markupAttribute.getValue()));
       } else {
         ValueExpression expression = markupAttribute.getValueExpression(faceletContext, Object.class);
         ELAdaptor.setExpression(label, Attributes.MARKUP, expression);
