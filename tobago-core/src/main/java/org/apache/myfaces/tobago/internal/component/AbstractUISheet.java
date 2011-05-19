@@ -22,7 +22,6 @@ import org.apache.myfaces.tobago.compat.InvokeOnComponent;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.ColumnEvent;
 import org.apache.myfaces.tobago.component.ComponentTypes;
-import org.apache.myfaces.tobago.util.CreateComponentUtils;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.OnComponentPopulated;
 import org.apache.myfaces.tobago.component.RendererTypes;
@@ -40,6 +39,7 @@ import org.apache.myfaces.tobago.layout.LayoutManager;
 import org.apache.myfaces.tobago.layout.LayoutTokens;
 import org.apache.myfaces.tobago.model.SheetState;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRenderer;
+import org.apache.myfaces.tobago.util.CreateComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -54,6 +54,7 @@ import javax.faces.event.FacesEvent;
 import javax.faces.event.PhaseId;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -246,7 +247,8 @@ public abstract class AbstractUISheet extends javax.faces.component.UIData
 //      state.setAscending(sortActionListener != null && sortActionListener.isAscending());
       Map attributes = getAttributes();
       //noinspection unchecked
-      state.setSelectedRows((List<Integer>) attributes.get(Attributes.SELECTED_LIST_STRING));
+      final List<Integer> list = (List<Integer>) attributes.get(Attributes.SELECTED_LIST_STRING);
+      state.setSelectedRows(list != null ? list : Collections.<Integer>emptyList());
       state.setColumnWidths((String) attributes.get(Attributes.WIDTH_LIST_STRING));
       state.setScrollPosition((Integer[]) attributes.get(Attributes.SCROLL_POSITION));
       attributes.remove(Attributes.SELECTED_LIST_STRING);

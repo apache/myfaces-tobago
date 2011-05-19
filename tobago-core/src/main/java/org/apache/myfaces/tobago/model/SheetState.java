@@ -17,11 +17,10 @@ package org.apache.myfaces.tobago.model;
  * limitations under the License.
  */
 
+import org.apache.commons.lang.StringUtils;
+import org.apache.myfaces.tobago.event.SortActionEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.apache.commons.lang.StringUtils;
-
-import org.apache.myfaces.tobago.event.SortActionEvent;
 
 import javax.faces.component.UIColumn;
 import java.io.Serializable;
@@ -45,7 +44,6 @@ public class SheetState implements Serializable {
     resetSelected();
   }
 
-
   public void resetSelected() {
     selectedRows = new ArrayList<Integer>();
   }
@@ -55,6 +53,7 @@ public class SheetState implements Serializable {
   }
 
   public void setSelectedRows(List<Integer> selectedRows) {
+    assert selectedRows != null;
     this.selectedRows = selectedRows;
   }
 

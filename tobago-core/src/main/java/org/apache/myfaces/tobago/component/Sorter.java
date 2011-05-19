@@ -18,14 +18,14 @@ package org.apache.myfaces.tobago.component;
  */
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.myfaces.tobago.internal.component.AbstractUICommand;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.compat.FacesUtils;
 import org.apache.myfaces.tobago.event.SortActionEvent;
+import org.apache.myfaces.tobago.internal.component.AbstractUICommand;
 import org.apache.myfaces.tobago.internal.component.AbstractUISheet;
 import org.apache.myfaces.tobago.model.SheetState;
 import org.apache.myfaces.tobago.util.BeanComparator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIColumn;
 import javax.faces.component.UICommand;
@@ -120,7 +120,7 @@ public class Sorter {
 
       // memorize selected rows
       List<Object> selectedDataRows = null;
-      if (sheetState.getSelectedRows() != null && sheetState.getSelectedRows().size() > 0) {
+      if (sheetState.getSelectedRows().size() > 0) {
         selectedDataRows = new ArrayList<Object>(sheetState.getSelectedRows().size());
         Object dataRow;
         for (Integer index : sheetState.getSelectedRows()) {
