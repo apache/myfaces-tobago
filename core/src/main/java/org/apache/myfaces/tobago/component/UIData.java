@@ -48,6 +48,7 @@ import javax.faces.event.PhaseId;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -514,7 +515,8 @@ public class UIData extends javax.faces.component.UIData
 //      state.setAscending(sortActionListener != null && sortActionListener.isAscending());
       Map attributes = getAttributes();
       //noinspection unchecked
-      state.setSelectedRows((List<Integer>) attributes.get(ATTR_SELECTED_LIST_STRING));
+      final List<Integer> list = (List<Integer>) attributes.get(ATTR_SELECTED_LIST_STRING);
+      state.setSelectedRows(list != null ? list : Collections.<Integer>emptyList());
       state.setColumnWidths((String) attributes.get(ATTR_WIDTH_LIST_STRING));
       state.setScrollPosition((Integer[]) attributes.get(ATTR_SCROLL_POSITION));
       attributes.remove(ATTR_SELECTED_LIST_STRING);

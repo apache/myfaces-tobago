@@ -234,7 +234,6 @@ public class SimpleSheetRenderer extends SheetRenderer {
       writer.writeIdAttribute(sheetId + "_data_tr_" + row);
       writer.writeAttribute(HtmlAttributes.STYLE, "top: "+ top+ "px; left: 0px;", false);
       writer.flush();
-      boolean rowSelected = selectedRows.contains(row);
 
       int columnIndex = -1;
       int currentLeft = 0;
