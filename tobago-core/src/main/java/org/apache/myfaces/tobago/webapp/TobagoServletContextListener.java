@@ -18,15 +18,14 @@ package org.apache.myfaces.tobago.webapp;
  */
 
 import org.apache.myfaces.tobago.config.TobagoConfig;
-import org.apache.myfaces.tobago.config.TobagoConfigParser;
 import org.apache.myfaces.tobago.context.ResourceManagerFactory;
+import org.apache.myfaces.tobago.internal.config.TobagoConfigBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
-import java.net.URL;
 
 public class TobagoServletContextListener implements ServletContextListener {
 
@@ -45,30 +44,7 @@ public class TobagoServletContextListener implements ServletContextListener {
       return;
     }
 
-    try {
-
-      // tobago-config.xml
-      // TobagoConfig tobagoConfig = new TobagoConfigParser().parse(servletContext);
-      final String configPath = "/WEB-INF/tobago-config.xml";
-      final URL url = servletContext.getResource(configPath);
-      final TobagoConfig tobagoConfig = new TobagoConfigParser().parse(url);
-
-      servletContext.setAttribute(TobagoConfig.TOBAGO_CONFIG, tobagoConfig);
-
-      // todo: cleanup, use one central TobagoConfig, no singleton ResourceManager
-      // resources
-      tobagoConfig.initProjectState(servletContext);
-      ResourceManagerFactory.init(servletContext, tobagoConfig);
-      // prepare themes
-      tobagoConfig.resolveThemes();
-
-    } catch (Throwable e) {
-      if (LOG.isErrorEnabled()) {
-        String error = "Error while deploy process. Tobago can't be initialized! Application will not run!";
-        LOG.error(error, e);
-        throw new RuntimeException(error, e);
-      }
-    }
+    TobagoConfigBuilder.init(servletContext);
   }
 
   public void contextDestroyed(ServletContextEvent event) {

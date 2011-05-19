@@ -26,6 +26,7 @@ import org.apache.myfaces.tobago.context.ThemeImpl;
 import org.apache.myfaces.tobago.context.ThemeResources;
 import org.apache.myfaces.tobago.context.ThemeScript;
 import org.apache.myfaces.tobago.context.ThemeStyle;
+import org.apache.myfaces.tobago.internal.config.TobagoConfigFragment;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.SAXException;
@@ -51,21 +52,21 @@ public class TobagoConfigParser {
   public TobagoConfigParser() {
     digester = new Digester();
     digester.setUseContextClassLoader(true);
-    digester.setValidating(true);
     configure();
     registerDtds();
   }
 
-  public TobagoConfig parse(URL url) throws IOException, SAXException, FacesException {
+  public TobagoConfigFragment parse(URL url) throws IOException, SAXException, FacesException {
 
     if (LOG.isInfoEnabled()) {
       LOG.info("Parsing configuration file: '{}'", url);
     }
 
-    TobagoConfig tobagoConfig = new TobagoConfig();
+    TobagoConfigFragment tobagoConfig = new TobagoConfigFragment();
     digester.push(tobagoConfig);
     InputStream inputStream = null;
     try {
+      configureValidation(url);
       inputStream = url.openStream();
       digester.parse(inputStream);
     } finally {
@@ -73,6 +74,20 @@ public class TobagoConfigParser {
     }
     digester.pop();
     return tobagoConfig;
+  }
+
+  private void configureValidation(URL url) {
+    // TODO: validating is turned of in case of a schema
+    try {
+      final String xml = IOUtils.toString(url.openStream());
+      if (xml.indexOf("tobago-config-1.5.xsd") > 0) {
+        digester.setValidating(false);
+        return;
+      }
+    } catch (Exception e) {
+      LOG.warn("Error while checking: '" + url + "'", e);
+    }
+    digester.setValidating(true);
   }
 
   private Digester configure() {

@@ -17,7 +17,8 @@ package org.apache.myfaces.tobago.context;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.config.TobagoConfig;
+import org.apache.myfaces.tobago.internal.config.ThemeParser;
+import org.apache.myfaces.tobago.internal.config.TobagoConfigImpl;
 import org.junit.Assert;
 import org.junit.Test;
 import org.xml.sax.SAXException;
@@ -30,7 +31,7 @@ public class ThemeParserTest {
 
   @Test
   public void test() throws IOException, SAXException {
-    TobagoConfig config = new TobagoConfig();
+    TobagoConfigImpl config = new TobagoConfigImpl();
     ThemeBuilder themeBuilder = new ThemeBuilder(config);
     ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
     Enumeration<URL> urls = classLoader.getResources("theme-config.xml");

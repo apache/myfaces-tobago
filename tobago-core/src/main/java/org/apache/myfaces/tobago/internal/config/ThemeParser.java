@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.context;
+package org.apache.myfaces.tobago.internal.config;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -19,6 +19,13 @@ package org.apache.myfaces.tobago.context;
 
 import org.apache.commons.digester.Digester;
 import org.apache.commons.io.IOUtils;
+import org.apache.myfaces.tobago.context.MarkupConfig;
+import org.apache.myfaces.tobago.context.RendererConfig;
+import org.apache.myfaces.tobago.context.RenderersConfigImpl;
+import org.apache.myfaces.tobago.context.ThemeImpl;
+import org.apache.myfaces.tobago.context.ThemeResources;
+import org.apache.myfaces.tobago.context.ThemeScript;
+import org.apache.myfaces.tobago.context.ThemeStyle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.SAXException;
@@ -28,18 +35,17 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 
-/*
- * Date: 14.02.2006 20:34:41
- *
+/**
  * @since 1.0.7
+ * @deprecated since 1.5.0. The grammar is now part of the TobagoConfigParser
  */
-class ThemeParser {
+public class ThemeParser {
 
   private static final Logger LOG = LoggerFactory.getLogger(ThemeParser.class);
 
   private Digester digester;
 
-  ThemeParser() {
+  public ThemeParser() {
     configure();
   }
 

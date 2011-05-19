@@ -20,7 +20,7 @@ package org.apache.myfaces.tobago.context;
 import org.apache.myfaces.tobago.application.ProjectStage;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.config.Configurable;
-import org.apache.myfaces.tobago.config.TobagoConfig;
+import org.apache.myfaces.tobago.internal.config.TobagoConfigImpl;
 import org.apache.myfaces.tobago.internal.context.ClientPropertiesKey;
 import org.apache.myfaces.tobago.internal.context.ImageCacheKey;
 import org.apache.myfaces.tobago.internal.context.JspCacheKey;
@@ -68,9 +68,9 @@ public class ResourceManagerImpl implements ResourceManager {
   private final Map<ThemeConfigCacheKey, MeasureValue> themeCache 
       = new ConcurrentHashMap<ThemeConfigCacheKey, MeasureValue>(100, 0.75f, 1);
   
-  private TobagoConfig tobagoConfig;
+  private TobagoConfigImpl tobagoConfig;
 
-  public ResourceManagerImpl(TobagoConfig tobagoConfig) {
+  public ResourceManagerImpl(TobagoConfigImpl tobagoConfig) {
     this.tobagoConfig = tobagoConfig;
     this.production = tobagoConfig.getProjectStage() == ProjectStage.Production;
   }

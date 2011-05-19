@@ -28,6 +28,7 @@ import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.context.ResourceManagerFactory;
 import org.apache.myfaces.tobago.context.Theme;
+import org.apache.myfaces.tobago.internal.config.TobagoConfigImpl;
 import org.junit.After;
 import org.junit.Before;
 import org.slf4j.Logger;
@@ -63,7 +64,7 @@ public abstract class AbstractTobagoTestBase extends AbstractJsfTestCase {
 
     // Tobago specific extensions
 
-    TobagoConfig tobagoConfig = new TobagoConfig();
+    TobagoConfigImpl tobagoConfig = new TobagoConfigImpl();
     Theme theme = new MockTheme("default", "Default Mock Theme", Collections.EMPTY_LIST);
     Theme one = new MockTheme("one", "Mock Theme One", Arrays.asList(theme));
     Map<String, Theme> availableThemes = new HashMap<String, Theme>();

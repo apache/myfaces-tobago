@@ -17,7 +17,7 @@ package org.apache.myfaces.tobago.context;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.config.TobagoConfig;
+import org.apache.myfaces.tobago.internal.config.TobagoConfigImpl;
 
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
@@ -45,7 +45,7 @@ public class ResourceManagerFactory {
   }
 
   public static void init(
-      ServletContext servletContext, TobagoConfig tobagoConfig)
+      ServletContext servletContext, TobagoConfigImpl tobagoConfig)
       throws ServletException {
     assert !initialized;
     ResourceManagerImpl resourceManager= new ResourceManagerImpl(tobagoConfig);

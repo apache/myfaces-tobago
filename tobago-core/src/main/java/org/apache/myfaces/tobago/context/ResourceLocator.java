@@ -19,8 +19,9 @@ package org.apache.myfaces.tobago.context;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.io.IOUtils;
-import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.config.TobagoConfigParser;
+import org.apache.myfaces.tobago.internal.config.ThemeParser;
+import org.apache.myfaces.tobago.internal.config.TobagoConfigFragment;
 import org.apache.myfaces.tobago.util.XmlUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -145,7 +146,7 @@ class ResourceLocator {
       for (URL themeUrl : urls) {
         ThemeImpl theme;
         if (themeUrl.toString().endsWith(META_INF_TOBAGO_CONFIG_XML)) {
-          TobagoConfig tobagoConfig = new TobagoConfigParser().parse(themeUrl);
+          TobagoConfigFragment tobagoConfig = new TobagoConfigParser().parse(themeUrl);
           theme = (ThemeImpl) tobagoConfig.getThemeDefinitions().get(0);
         } else {
           // the old way
