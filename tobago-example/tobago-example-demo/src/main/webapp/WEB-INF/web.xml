@@ -89,9 +89,11 @@
     <listener-class>org.apache.myfaces.tobago.webapp.TobagoServletContextListener</listener-class>
   </listener>
   <!-- activate this for jetty -->
-  <!--listener>
+  <!--
+  <listener>
     <listener-class>org.apache.myfaces.webapp.StartupServletContextListener</listener-class>
-  </listener-->
+  </listener>
+  -->
 
   <!-- servlet -->
   <!-- no longer needed since Weblogic 8.1 SP 3
