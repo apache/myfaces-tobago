@@ -32,11 +32,13 @@ public class ResourceManagerUtils {
   }
 
   public static String getProperty(FacesContext facesContext, String bundle, String key) {
-    return ResourceManagerFactory.getResourceManager(facesContext).getProperty(facesContext, bundle, key);
+    return     org.apache.myfaces.tobago.internal.context.ResourceManagerFactory
+        .getResourceManager(facesContext).getProperty(facesContext, bundle, key);
   }
 
   public static String getPropertyNotNull(FacesContext facesContext, String bundle, String key) {
-    String result = ResourceManagerFactory.getResourceManager(facesContext).getProperty(facesContext, bundle, key);
+    String result = org.apache.myfaces.tobago.internal.context.ResourceManagerFactory
+        .getResourceManager(facesContext).getProperty(facesContext, bundle, key);
     if (result == null) {
       return "???" + key + "???";
     } else {
@@ -49,14 +51,16 @@ public class ResourceManagerUtils {
    */
   public static String getImageWithPath(FacesContext facesContext, String name) {
     return facesContext.getExternalContext().getRequestContextPath()
-        + ResourceManagerFactory.getResourceManager(facesContext).getImage(facesContext, name);
+        + org.apache.myfaces.tobago.internal.context.ResourceManagerFactory
+        .getResourceManager(facesContext).getImage(facesContext, name);
   }
 
   /**
    * Searches for an image and return it with the context path
    */
   public static String getImageWithPath(FacesContext facesContext, String name, boolean ignoreMissing) {
-    String image = ResourceManagerFactory.getResourceManager(facesContext).getImage(facesContext, name, ignoreMissing);
+    String image = org.apache.myfaces.tobago.internal.context.ResourceManagerFactory
+        .getResourceManager(facesContext).getImage(facesContext, name, ignoreMissing);
     if (image == null) {
       return null;
     } else {
@@ -66,7 +70,8 @@ public class ResourceManagerUtils {
 
   public static List<String> getStyles(FacesContext facesContext, String name) {
     String contextPath = facesContext.getExternalContext().getRequestContextPath();
-    String[] styles = ResourceManagerFactory.getResourceManager(facesContext).getStyles(facesContext, name);
+    String[] styles = org.apache.myfaces.tobago.internal.context.ResourceManagerFactory
+        .getResourceManager(facesContext).getStyles(facesContext, name);
     return addContextPath(styles, contextPath);
   }
 
@@ -80,7 +85,8 @@ public class ResourceManagerUtils {
 
   public static List<String> getScripts(FacesContext facesContext, String name) {
     String contextPath = facesContext.getExternalContext().getRequestContextPath();
-    String[] scripts = ResourceManagerFactory.getResourceManager(facesContext).getScripts(facesContext, name);
+    String[] scripts = org.apache.myfaces.tobago.internal.context.ResourceManagerFactory
+        .getResourceManager(facesContext).getScripts(facesContext, name);
     return addContextPath(scripts, contextPath);
   }
 
@@ -127,11 +133,13 @@ public class ResourceManagerUtils {
   }
 
   public static String getPageWithoutContextPath(FacesContext facesContext, String name) {
-    return ResourceManagerFactory.getResourceManager(facesContext).getImage(facesContext, name);
+    return org.apache.myfaces.tobago.internal.context.ResourceManagerFactory
+        .getResourceManager(facesContext).getImage(facesContext, name);
   }
   
   public static Measure getThemeMeasure(FacesContext facesContext, Configurable configurable, String name) {
-    return ResourceManagerFactory.getResourceManager(facesContext).getThemeMeasure(
+    return org.apache.myfaces.tobago.internal.context.ResourceManagerFactory
+        .getResourceManager(facesContext).getThemeMeasure(
         facesContext, configurable.getRendererType(), configurable.getCurrentMarkup(), name);
   }
 

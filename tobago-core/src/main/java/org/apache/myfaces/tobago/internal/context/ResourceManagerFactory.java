@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.context;
+package org.apache.myfaces.tobago.internal.context;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -17,57 +17,53 @@ package org.apache.myfaces.tobago.context;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.context.ResourceManager;
 import org.apache.myfaces.tobago.internal.config.TobagoConfigImpl;
 
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 
-/**
- * @deprecated since 1.5.0. Has been moved to internal package
- */
-@Deprecated
 public class ResourceManagerFactory {
 
-  /**
-   * @deprecated has been moved to internal package
-   */
-  @Deprecated
   public static final String RESOURCE_MANAGER
-      = org.apache.myfaces.tobago.internal.context.ResourceManagerFactory.RESOURCE_MANAGER;
+      = "org.apache.myfaces.tobago.context.ResourceManager";
 
   private ResourceManagerFactory() {
   }
 
-  /**
-   * @deprecated has been moved to internal package
-   */
-  @Deprecated
+  private static boolean initialized;
+
   public static ResourceManager getResourceManager(FacesContext facesContext) {
-    return org.apache.myfaces.tobago.internal.context.ResourceManagerFactory.getResourceManager(facesContext);
+    assert initialized;
+    return (ResourceManager) facesContext.getExternalContext()
+        .getApplicationMap().get(RESOURCE_MANAGER);
   }
 
-  /**
-   * @deprecated has been moved to internal package
-   */
-  @Deprecated
   public static ResourceManager getResourceManager(ServletContext servletContext) {
-    return org.apache.myfaces.tobago.internal.context.ResourceManagerFactory.getResourceManager(servletContext);
+    assert initialized;
+    return (ResourceManager) servletContext.getAttribute(RESOURCE_MANAGER);
   }
 
-  /**
-   * @deprecated has been moved to internal package
-   */
-  @Deprecated
-  public static void init(ServletContext servletContext, TobagoConfigImpl tobagoConfig) throws ServletException {
-    org.apache.myfaces.tobago.internal.context.ResourceManagerFactory.init(servletContext, tobagoConfig);
+  public static void init(
+      ServletContext servletContext, TobagoConfigImpl tobagoConfig)
+      throws ServletException {
+    assert !initialized;
+    ResourceManagerImpl resourceManager= new ResourceManagerImpl(tobagoConfig);
+
+    ThemeBuilder themeBuilder = new ThemeBuilder(tobagoConfig);
+    ResourceLocator resourceLocator = new ResourceLocator(servletContext, resourceManager, themeBuilder);
+    resourceLocator.locate();
+    themeBuilder.resolveThemes();
+
+    servletContext.setAttribute(RESOURCE_MANAGER, resourceManager);
+
+    initialized = true;
   }
 
-  /**
-   * @deprecated has been moved to internal package
-   */
-  @Deprecated
   public static void release(ServletContext servletContext) {
-    org.apache.myfaces.tobago.internal.context.ResourceManagerFactory.release(servletContext);
+    assert initialized;
+    initialized = false;
+    servletContext.removeAttribute(RESOURCE_MANAGER);
   }
 }

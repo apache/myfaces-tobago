@@ -20,8 +20,7 @@ package org.apache.myfaces.tobago.example.demo.overview;
 import org.apache.commons.lang.StringUtils;
 import org.apache.myfaces.tobago.component.UISheet;
 import org.apache.myfaces.tobago.component.UIToolBar;
-import org.apache.myfaces.tobago.context.ResourceManager;
-import org.apache.myfaces.tobago.context.ResourceManagerFactory;
+import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.event.SortActionEvent;
 import org.apache.myfaces.tobago.example.data.LocaleList;
 import org.apache.myfaces.tobago.example.data.Salutation;
@@ -121,12 +120,12 @@ public class OverviewController {
     toolbarTextPosition = UIToolBar.LABEL_BOTTOM;
   }
 
-  private static SelectItem[] getSalutationSelectItems(ResourceManager resourceManager, String resource) {
+  private static SelectItem[] getSalutationSelectItems(String bundle) {
     Salutation[] salutations = Salutation.values();
     SelectItem[] items = new SelectItem[salutations.length];
     for (int i = 0; i < items.length; i++) {
-      String label = resourceManager.getProperty(
-          FacesContext.getCurrentInstance().getViewRoot(), resource, salutations[i].getKey());
+      String label = ResourceManagerUtils.getProperty(
+          FacesContext.getCurrentInstance(), bundle, salutations[i].getKey());
       if (LOG.isTraceEnabled()) {
         LOG.trace("label = " + label + "");
       }
@@ -138,12 +137,11 @@ public class OverviewController {
     return items;
   }
 
-  private static SelectItem[] getSelectItems(
-      String[] keys, ResourceManager resourceManager, String resource) {
+  private static SelectItem[] getSelectItems(String[] keys, String bundle) {
     SelectItem[] items = new SelectItem[keys.length];
     for (int i = 0; i < items.length; i++) {
-      String label = resourceManager.getProperty(
-          FacesContext.getCurrentInstance().getViewRoot(), resource, keys[i]);
+      String label = ResourceManagerUtils.getProperty(
+          FacesContext.getCurrentInstance(), bundle, keys[i]);
       if (LOG.isTraceEnabled()) {
         LOG.trace("label = " + label + "");
       }
@@ -253,30 +251,22 @@ public class OverviewController {
   }
 
   public SelectItem[] getItems() {
-    ResourceManager resourceManager = ResourceManagerFactory
-        .getResourceManager(FacesContext.getCurrentInstance());
-    return getSalutationSelectItems(resourceManager, "overview");
+    return getSalutationSelectItems("overview");
   }
 
   public SelectItem[] getItems2() {
-    ResourceManager resourceManager = ResourceManagerFactory
-        .getResourceManager(FacesContext.getCurrentInstance());
-    return getSelectItems(TREE_SELECT_MODE_KEYS, resourceManager, "overview");
+    return getSelectItems(TREE_SELECT_MODE_KEYS, "overview");
 
   }
 
 
   public SelectItem[] getTreeSelectModeItems() {
-    ResourceManager resourceManager = ResourceManagerFactory
-        .getResourceManager(FacesContext.getCurrentInstance());
-    return getSelectItems(TREE_SELECT_MODE_KEYS, resourceManager, "overview");
+    return getSelectItems(TREE_SELECT_MODE_KEYS, "overview");
 
   }
 
   public SelectItem[] getTreeListboxSelectModeItems() {
-    ResourceManager resourceManager = ResourceManagerFactory
-        .getResourceManager(FacesContext.getCurrentInstance());
-    return getSelectItems(TREELISTBOX_SELECT_MODE_KEYS, resourceManager, "overview");
+    return getSelectItems(TREELISTBOX_SELECT_MODE_KEYS, "overview");
 
   }
 

@@ -17,7 +17,7 @@ package org.apache.myfaces.tobago.config;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.context.ResourceManagerFactory;
+import org.apache.myfaces.tobago.internal.context.ResourceManagerFactory;
 import org.apache.myfaces.tobago.internal.util.Deprecation;
 
 import javax.faces.component.UIComponent;

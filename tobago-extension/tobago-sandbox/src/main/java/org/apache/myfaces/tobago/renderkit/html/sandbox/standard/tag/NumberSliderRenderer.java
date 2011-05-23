@@ -18,8 +18,7 @@ package org.apache.myfaces.tobago.renderkit.html.sandbox.standard.tag;
  */
 
 import org.apache.myfaces.tobago.component.AbstractUINumberSlider;
-import org.apache.myfaces.tobago.context.ResourceManager;
-import org.apache.myfaces.tobago.context.ResourceManagerFactory;
+import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
@@ -33,7 +32,6 @@ import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
-import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.util.Map;
@@ -178,32 +176,27 @@ public class NumberSliderRenderer extends LayoutComponentRendererBase {
   }
 
   private String getAbsoluteImagePath(FacesContext facesContext, String relativeImagePath) {
-    ResourceManager resourceManager = ResourceManagerFactory.getResourceManager(facesContext);
-    UIViewRoot viewRoot = facesContext.getViewRoot();
-    String contextPath = facesContext.getExternalContext().getRequestContextPath();
-    return contextPath + resourceManager.getImage(viewRoot, relativeImagePath);
+    return facesContext.getExternalContext().getRequestContextPath()
+        + ResourceManagerUtils.getImageWithPath(facesContext, relativeImagePath);
   }
 
-  private String getIdForInputField(FacesContext context,
-      UIComponent component) {
+  private String getIdForInputField(FacesContext context, UIComponent component) {
     String id = component.getClientId(context);
     return id + ComponentUtils.SUB_SEPARATOR + "input";
   }
 
-  private String getIdForSliderTrack(FacesContext context,
-      UIComponent component) {
+  private String getIdForSliderTrack(FacesContext context, UIComponent component) {
     String id = component.getClientId(context);
     return id + ComponentUtils.SUB_SEPARATOR + "track";
   }
 
-  private String getIdForSliderHandle(FacesContext context,
-      UIComponent component) {
+  private String getIdForSliderHandle(FacesContext context, UIComponent component) {
     String id = component.getClientId(context);
     return id + ComponentUtils.SUB_SEPARATOR + "handle";
   }
 
-  private void writeSliderJavaScript(FacesContext context, UIComponent component,
-      TobagoResponseWriter writer) throws IOException {
+  private void writeSliderJavaScript(FacesContext context, UIComponent component, TobagoResponseWriter writer)
+      throws IOException {
     String trackId = getIdForSliderTrack(context, component);
     String handleId = getIdForSliderHandle(context, component);
     String inputId = getIdForInputField(context, component);

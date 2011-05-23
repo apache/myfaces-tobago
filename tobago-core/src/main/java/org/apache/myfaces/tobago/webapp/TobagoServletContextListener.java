@@ -18,8 +18,8 @@ package org.apache.myfaces.tobago.webapp;
  */
 
 import org.apache.myfaces.tobago.config.TobagoConfig;
-import org.apache.myfaces.tobago.context.ResourceManagerFactory;
 import org.apache.myfaces.tobago.internal.config.TobagoConfigBuilder;
+import org.apache.myfaces.tobago.internal.context.ResourceManagerFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -45,6 +45,9 @@ public class TobagoServletContextListener implements ServletContextListener {
     }
 
     TobagoConfigBuilder.init(servletContext);
+    if (LOG.isInfoEnabled()) {
+      LOG.info("tobago config: " + TobagoConfig.getInstance(servletContext));
+    }
   }
 
   public void contextDestroyed(ServletContextEvent event) {

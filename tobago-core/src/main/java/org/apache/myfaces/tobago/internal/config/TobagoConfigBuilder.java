@@ -19,10 +19,9 @@ package org.apache.myfaces.tobago.internal.config;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.myfaces.tobago.config.TobagoConfig;
-import org.apache.myfaces.tobago.config.TobagoConfigParser;
-import org.apache.myfaces.tobago.context.ResourceManagerFactory;
 import org.apache.myfaces.tobago.context.Theme;
 import org.apache.myfaces.tobago.context.ThemeImpl;
+import org.apache.myfaces.tobago.internal.context.ResourceManagerFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.SAXException;
@@ -80,19 +79,6 @@ public class TobagoConfigBuilder {
     final String configPath = "/WEB-INF/tobago-config.xml";
     final URL url = servletContext.getResource(configPath);
     list.add(new TobagoConfigParser().parse(url));
-  }
-
-  private void resolve(ServletContext servletContext) throws ServletException {
-    final TobagoConfigImpl tobagoConfig = mergeList();
-
-    // todo: cleanup, use one central TobagoConfig, no singleton ResourceManager
-    // resources
-    tobagoConfig.initProjectState(servletContext);
-    ResourceManagerFactory.init(servletContext, tobagoConfig);
-    // prepare themes
-    tobagoConfig.resolveThemes();
-
-    servletContext.setAttribute(TobagoConfig.TOBAGO_CONFIG, tobagoConfig);
   }
 
   private TobagoConfigImpl mergeList() {

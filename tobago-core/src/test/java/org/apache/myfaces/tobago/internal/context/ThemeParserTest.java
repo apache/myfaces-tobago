@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.context;
+package org.apache.myfaces.tobago.internal.context;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -17,6 +17,8 @@ package org.apache.myfaces.tobago.context;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.context.ThemeImpl;
+import org.apache.myfaces.tobago.context.ThemeResources;
 import org.apache.myfaces.tobago.internal.config.ThemeParser;
 import org.apache.myfaces.tobago.internal.config.TobagoConfigImpl;
 import org.junit.Assert;

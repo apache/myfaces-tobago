@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.config;
+package org.apache.myfaces.tobago.internal.config;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -26,7 +26,6 @@ import org.apache.myfaces.tobago.context.ThemeImpl;
 import org.apache.myfaces.tobago.context.ThemeResources;
 import org.apache.myfaces.tobago.context.ThemeScript;
 import org.apache.myfaces.tobago.context.ThemeStyle;
-import org.apache.myfaces.tobago.internal.config.TobagoConfigFragment;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.SAXException;

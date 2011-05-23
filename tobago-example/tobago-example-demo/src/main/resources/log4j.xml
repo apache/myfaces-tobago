@@ -71,7 +71,7 @@
   <!--</category>-->
 
 <!--
-  <category name="org.apache.myfaces.tobago.context.ResourceManagerImpl">
+  <category name="org.apache.myfaces.tobago.internal.context.ResourceManagerImpl">
     <priority value="debug" />
   </category>
 -->

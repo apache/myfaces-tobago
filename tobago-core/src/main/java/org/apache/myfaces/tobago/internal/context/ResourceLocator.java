@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.context;
+package org.apache.myfaces.tobago.internal.context;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -19,9 +19,10 @@ package org.apache.myfaces.tobago.context;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.io.IOUtils;
-import org.apache.myfaces.tobago.config.TobagoConfigParser;
+import org.apache.myfaces.tobago.context.ThemeImpl;
 import org.apache.myfaces.tobago.internal.config.ThemeParser;
 import org.apache.myfaces.tobago.internal.config.TobagoConfigFragment;
+import org.apache.myfaces.tobago.internal.config.TobagoConfigParser;
 import org.apache.myfaces.tobago.util.XmlUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

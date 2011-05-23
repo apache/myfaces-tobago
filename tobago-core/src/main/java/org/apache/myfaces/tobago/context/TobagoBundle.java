@@ -47,8 +47,7 @@ public class TobagoBundle extends ResourceBundle {
       LOG.debug("Searching for '{}' in bundle '{}'", key, bundleName);
     }
     FacesContext facesContext = FacesContext.getCurrentInstance();
-    ResourceManager resourceManager = ResourceManagerFactory.getResourceManager(facesContext);
-    return resourceManager.getProperty(facesContext, bundleName, key);
+    return ResourceManagerUtils.getProperty(facesContext, bundleName, key);
   }
 
   public Enumeration<String> getKeys() {

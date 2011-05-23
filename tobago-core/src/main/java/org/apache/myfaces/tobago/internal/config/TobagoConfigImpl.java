@@ -252,4 +252,20 @@ public class TobagoConfigImpl extends TobagoConfig {
   public void setCheckSessionSecret(boolean checkSessionSecret) {
     this.checkSessionSecret = checkSessionSecret;
   }
+
+  @Override
+  public String toString() {
+    return "TobagoConfigImpl{"
+        + "\nsupportedThemes=" + supportedThemes
+        + ", \ndefaultTheme=" + defaultTheme
+        + ", \nresourceDirs=" + resourceDirs
+        + ", \navailableThemes=" + availableThemes
+        + ", \nrenderersConfig=" + renderersConfig
+        + ", \nprojectStage=" + projectStage
+        + ", \ncreateSessionSecret=" + createSessionSecret
+        + ", \ncheckSessionSecret=" + checkSessionSecret
+        + ", \nthemeDefinitions=" + themeDefinitions
+        + ", \nurl=" + url
+        + '}';
+  }
 }

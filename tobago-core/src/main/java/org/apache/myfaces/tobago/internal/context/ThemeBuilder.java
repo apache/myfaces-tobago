@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.context;
+package org.apache.myfaces.tobago.internal.context;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -17,6 +17,8 @@ package org.apache.myfaces.tobago.context;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.context.Theme;
+import org.apache.myfaces.tobago.context.ThemeImpl;
 import org.apache.myfaces.tobago.internal.config.TobagoConfigImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,9 +29,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/*
- * Date: 25.03.2006 08:21:06
- */
 class ThemeBuilder {
 
   private static final Logger LOG = LoggerFactory.getLogger(ThemeBuilder.class);

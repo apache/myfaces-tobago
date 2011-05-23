@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.context;
+package org.apache.myfaces.tobago.internal.context;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -20,16 +20,11 @@ package org.apache.myfaces.tobago.context;
 import org.apache.myfaces.tobago.application.ProjectStage;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.config.Configurable;
+import org.apache.myfaces.tobago.context.Markup;
+import org.apache.myfaces.tobago.context.ResourceManager;
+import org.apache.myfaces.tobago.context.Theme;
+import org.apache.myfaces.tobago.context.UserAgent;
 import org.apache.myfaces.tobago.internal.config.TobagoConfigImpl;
-import org.apache.myfaces.tobago.internal.context.ClientPropertiesKey;
-import org.apache.myfaces.tobago.internal.context.ImageCacheKey;
-import org.apache.myfaces.tobago.internal.context.JspCacheKey;
-import org.apache.myfaces.tobago.internal.context.MeasureValue;
-import org.apache.myfaces.tobago.internal.context.MiscCacheKey;
-import org.apache.myfaces.tobago.internal.context.PropertyCacheKey;
-import org.apache.myfaces.tobago.internal.context.RendererCacheKey;
-import org.apache.myfaces.tobago.internal.context.StringValue;
-import org.apache.myfaces.tobago.internal.context.ThemeConfigCacheKey;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.util.LocaleUtils;
 import org.slf4j.Logger;
