@@ -18,7 +18,6 @@ package org.apache.myfaces.tobago.config;
  */
 
 import org.apache.myfaces.tobago.application.ProjectStage;
-import org.apache.myfaces.tobago.context.RenderersConfig;
 import org.apache.myfaces.tobago.context.Theme;
 
 import javax.faces.context.FacesContext;
@@ -59,7 +58,10 @@ public abstract class TobagoConfig {
 
   public abstract Theme getDefaultTheme();
 
+/*
+  // todo: should this be part of the api?
   public abstract RenderersConfig getRenderersConfig();
+*/
 
   public abstract ProjectStage getProjectStage();
 

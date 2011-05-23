@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.context;
+package org.apache.myfaces.tobago.internal.config;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -20,10 +20,10 @@ package org.apache.myfaces.tobago.context;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Map;
-import java.util.HashMap;
-import java.util.Collection;
 import java.io.Serializable;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 /*
 * Date: Sep 24, 2006
@@ -74,7 +74,7 @@ public class RenderersConfigImpl implements RenderersConfig, Serializable {
     }
   }
 
-  void merge(RenderersConfig renderersConfig, boolean override) {
+  public void merge(RenderersConfig renderersConfig, boolean override) {
     Collection<RendererConfig> renderers = renderersConfig.getRendererConfigs();
     for (RendererConfig rendererConfig : renderers) {
       addRenderer(rendererConfig, override);

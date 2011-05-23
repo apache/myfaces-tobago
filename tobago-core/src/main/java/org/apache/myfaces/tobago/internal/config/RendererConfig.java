@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.context;
+package org.apache.myfaces.tobago.internal.config;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -16,6 +16,8 @@ package org.apache.myfaces.tobago.context;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+import org.apache.myfaces.tobago.context.MarkupConfig;
 
 import java.io.Serializable;
 import java.util.Locale;

@@ -17,6 +17,8 @@ package org.apache.myfaces.tobago.context;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.internal.config.RenderersConfig;
+import org.apache.myfaces.tobago.internal.config.RenderersConfigImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

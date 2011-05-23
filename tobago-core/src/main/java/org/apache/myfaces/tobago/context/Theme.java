@@ -17,6 +17,8 @@ package org.apache.myfaces.tobago.context;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.internal.config.RenderersConfig;
+
 import java.util.List;
 
 /*
@@ -31,6 +33,9 @@ public interface Theme {
 
   String getResourcePath();
 
+  /**
+   * For internal use only.
+   */
   RenderersConfig getRenderersConfig();
 
   String[] getScriptResources(boolean production);

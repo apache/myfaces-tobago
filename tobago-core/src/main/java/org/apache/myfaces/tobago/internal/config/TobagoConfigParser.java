@@ -20,8 +20,6 @@ package org.apache.myfaces.tobago.internal.config;
 import org.apache.commons.digester.Digester;
 import org.apache.commons.io.IOUtils;
 import org.apache.myfaces.tobago.context.MarkupConfig;
-import org.apache.myfaces.tobago.context.RendererConfig;
-import org.apache.myfaces.tobago.context.RenderersConfigImpl;
 import org.apache.myfaces.tobago.context.ThemeImpl;
 import org.apache.myfaces.tobago.context.ThemeResources;
 import org.apache.myfaces.tobago.context.ThemeScript;

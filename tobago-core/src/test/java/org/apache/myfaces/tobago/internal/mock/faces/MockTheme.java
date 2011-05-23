@@ -17,8 +17,8 @@ package org.apache.myfaces.tobago.internal.mock.faces;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.context.RenderersConfig;
 import org.apache.myfaces.tobago.context.Theme;
+import org.apache.myfaces.tobago.internal.config.RenderersConfig;
 
 import java.util.List;
 

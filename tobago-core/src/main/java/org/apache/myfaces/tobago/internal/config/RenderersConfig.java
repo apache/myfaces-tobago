@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.context;
+package org.apache.myfaces.tobago.internal.config;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more

@@ -17,7 +17,6 @@ package org.apache.myfaces.tobago.internal.config;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.context.RenderersConfig;
 import org.apache.myfaces.tobago.context.Theme;
 import org.apache.myfaces.tobago.internal.util.Deprecation;
 import org.slf4j.Logger;
