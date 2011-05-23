@@ -22,6 +22,7 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://myfaces.apache.org/tobago/tobago-config http://myfaces.apache.org/tobago/tobago-config-1.5.xsd"
     version="1.5">
+  <name>tobago-theme-standard</name>
   <resource-dir>org/apache/myfaces/tobago/renderkit</resource-dir>
   <theme-definitions>
     <theme-definition>
