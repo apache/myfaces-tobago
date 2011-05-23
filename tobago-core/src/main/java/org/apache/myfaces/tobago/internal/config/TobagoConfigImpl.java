@@ -32,8 +32,10 @@ import javax.servlet.ServletContext;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class TobagoConfigImpl extends TobagoConfig {
 
@@ -243,16 +245,31 @@ public class TobagoConfigImpl extends TobagoConfig {
 
   @Override
   public String toString() {
-    return "TobagoConfigImpl{"
-        + "\nsupportedThemes=" + supportedThemes
-        + ", \ndefaultTheme=" + defaultTheme
-        + ", \nresourceDirs=" + resourceDirs
-        + ", \navailableThemes=" + availableThemes
-        + ", \nrenderersConfig=" + renderersConfig
-        + ", \nprojectStage=" + projectStage
-        + ", \ncreateSessionSecret=" + createSessionSecret
-        + ", \ncheckSessionSecret=" + checkSessionSecret
-        + ", \nurl=" + url
-        + '}';
+    final StringBuilder builder = new StringBuilder();
+    builder.append("TobagoConfigImpl{");
+    builder.append("\nsupportedThemes=[");
+    for (Theme supportedTheme : supportedThemes) {
+      builder.append(supportedTheme.getName());
+      builder.append(", ");
+    }
+    builder.append("], \ndefaultTheme=");
+    builder.append(defaultTheme.getName());
+    builder.append(", \nresourceDirs=");
+    builder.append(resourceDirs);
+    builder.append(", \navailableThemes=");
+    builder.append(availableThemes.keySet());
+    builder.append(", \nprojectStage=");
+    builder.append(projectStage);
+    builder.append(", \ncreateSessionSecret=");
+    builder.append(createSessionSecret);
+    builder.append(", \ncheckSessionSecret=");
+    builder.append(checkSessionSecret);
+    builder.append(", \nurl=");
+    builder.append(url);
+    builder.append(", \nthemes=");
+    Set<Theme> all = new HashSet<Theme>(availableThemes.values());
+    builder.append(all);
+    builder.append('}');
+    return builder.toString();
   }
 }

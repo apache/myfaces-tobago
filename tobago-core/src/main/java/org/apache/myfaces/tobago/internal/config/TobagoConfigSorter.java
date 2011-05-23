@@ -17,12 +17,17 @@ package org.apache.myfaces.tobago.internal.config;
  * limitations under the License.
  */
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
 public class TobagoConfigSorter implements Comparator<TobagoConfigFragment> {
+
+  private static final Logger LOG = LoggerFactory.getLogger(TobagoConfigSorter.class);
 
   private List<TobagoConfigFragment> list;
   private List<Pair> pairs;
@@ -42,6 +47,19 @@ public class TobagoConfigSorter implements Comparator<TobagoConfigFragment> {
     ensureAntiSymmetric();
 
     sort0();
+
+    if (LOG.isInfoEnabled()) {
+      LOG.info("Order of the Tobago config files:");
+      for (TobagoConfigFragment fragment : list) {
+        String name = fragment.getName();
+        if (name == null) {
+          name = "<unnamed>";
+        } else {
+          name = "'" + name + "'";
+        }
+        LOG.info("name=" + name + " url='" + fragment.getUrl() + "'");
+      }
+    }
 
   }
 
