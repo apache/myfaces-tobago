@@ -13,7 +13,9 @@
 var Prototype = {
   Version: '1.4.0',
 //  ScriptFragment: '(?:<script.*?>)((\n|\r|.)*?)(?:<\/script>)',
-  ScriptFragment: '(?:<script(?:\n|.)*?>)(?:(?:\n|\s)*?<!--)?((\n|.)*?)(?:<\/script>)',
+//  ScriptFragment: '(?:<script(?:\n|.)*?>)(?:(?:\n|\s)*?<!--)?((\n|.)*?)(?:<\/script>)',
+  // script fragment from prototype 1.7 with tobago extension
+  ScriptFragment: '<script[^>]*>(?:\\s*<!--)?([\\S\\s]*?)<\/script>',
 
 
   emptyFunction: function() {},
