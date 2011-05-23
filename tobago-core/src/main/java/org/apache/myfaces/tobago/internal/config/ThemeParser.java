@@ -19,7 +19,6 @@ package org.apache.myfaces.tobago.internal.config;
 
 import org.apache.commons.digester.Digester;
 import org.apache.commons.io.IOUtils;
-import org.apache.myfaces.tobago.context.MarkupConfig;
 import org.apache.myfaces.tobago.context.ThemeImpl;
 import org.apache.myfaces.tobago.context.ThemeResources;
 import org.apache.myfaces.tobago.context.ThemeScript;
@@ -62,9 +61,7 @@ public class ThemeParser {
     digester.addObjectCreate("tobago-theme/renderers/renderer", RendererConfig.class);
     digester.addSetNext("tobago-theme/renderers/renderer", "addRenderer");
     digester.addCallMethod("tobago-theme/renderers/renderer/name", "setName", 0);
-    digester.addObjectCreate("tobago-theme/renderers/renderer/supported-markup", MarkupConfig.class);
-    digester.addSetNext("tobago-theme/renderers/renderer/supported-markup", "setMarkupConfig");
-    digester.addCallMethod("tobago-theme/renderers/renderer/supported-markup/markup", "addMarkup", 0);
+    digester.addCallMethod("tobago-theme/renderers/renderer/supported-markup/markup", "addSupportedMarkup", 0);
     digester.addObjectCreate("tobago-theme/resources", ThemeResources.class);
     digester.addSetProperties("tobago-theme/resources");
     digester.addSetNext("tobago-theme/resources", "addResources");

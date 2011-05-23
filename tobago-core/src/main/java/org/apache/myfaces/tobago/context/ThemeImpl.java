@@ -17,6 +17,7 @@ package org.apache.myfaces.tobago.context;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.internal.config.RendererConfig;
 import org.apache.myfaces.tobago.internal.config.RenderersConfig;
 import org.apache.myfaces.tobago.internal.config.RenderersConfigImpl;
 import org.slf4j.Logger;
@@ -165,8 +166,17 @@ public class ThemeImpl implements Theme, Serializable {
   }
 
   public String toString() {
-//    LOG.warn("Should not be called!", new Exception());
-    return name;
+    StringBuilder builder = new StringBuilder();
+    builder.append("Theme: ");
+    builder.append(name);
+    if (renderersConfig != null) {
+      builder.append("\n");
+      for (RendererConfig config : renderersConfig.getRendererConfigs()) {
+        builder.append(config);
+        builder.append("\n");
+      }
+    }
+    return builder.toString();
   }
 
   public void setRenderersConfig(RenderersConfigImpl renderersConfig) {

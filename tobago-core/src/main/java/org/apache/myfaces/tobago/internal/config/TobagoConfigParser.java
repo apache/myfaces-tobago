@@ -19,7 +19,6 @@ package org.apache.myfaces.tobago.internal.config;
 
 import org.apache.commons.digester.Digester;
 import org.apache.commons.io.IOUtils;
-import org.apache.myfaces.tobago.context.MarkupConfig;
 import org.apache.myfaces.tobago.context.ThemeImpl;
 import org.apache.myfaces.tobago.context.ThemeResources;
 import org.apache.myfaces.tobago.context.ThemeScript;
@@ -41,6 +40,7 @@ public class TobagoConfigParser {
   private static final String TOBAGO_CONFIG_DTD_1_0_29 = "/org/apache/myfaces/tobago/config/tobago-config-1.0.29.dtd";
   private static final String TOBAGO_CONFIG_DTD_1_0_30 = "/org/apache/myfaces/tobago/config/tobago-config-1.0.30.dtd";
   private static final String TOBAGO_CONFIG_DTD_1_0_34 = "/org/apache/myfaces/tobago/config/tobago-config-1.0.34.dtd";
+  @Deprecated
   private static final String TOBAGO_CONFIG_DTD_1_5 = "/org/apache/myfaces/tobago/config/tobago-config-1.5.dtd";
   private static final String TOBAGO_CONFIG_XSD_1_5 = "/org/apache/myfaces/tobago/config/tobago-config-1.5.xsd";
 
@@ -120,9 +120,7 @@ public class TobagoConfigParser {
     digester.addObjectCreate("tobago-config/renderers/renderer", RendererConfig.class);
     digester.addSetNext("tobago-config/renderers/renderer", "addRenderer");
     digester.addCallMethod("tobago-config/renderers/renderer/name", "setName", 0);
-    digester.addObjectCreate("tobago-config/renderers/renderer/supported-markup", MarkupConfig.class);
-    digester.addSetNext("tobago-config/renderers/renderer/supported-markup", "setMarkupConfig");
-    digester.addCallMethod("tobago-config/renderers/renderer/supported-markup/markup", "addMarkup", 0);
+    digester.addCallMethod("tobago-config/renderers/renderer/supported-markup/markup", "addSupportedMarkup", 0);
 
     // theme definition
     digester.addObjectCreate("tobago-config/theme-definitions/theme-definition", ThemeImpl.class);
@@ -138,12 +136,9 @@ public class TobagoConfigParser {
         "tobago-config/theme-definitions/theme-definition/renderers/renderer", RendererConfig.class);
     digester.addSetNext("tobago-config/theme-definitions/theme-definition/renderers/renderer", "addRenderer");
     digester.addCallMethod("tobago-config/theme-definitions/theme-definition/renderers/renderer/name", "setName", 0);
-    digester.addObjectCreate(
-        "tobago-config/theme-definitions/theme-definition/renderers/renderer/supported-markup", MarkupConfig.class);
-    digester.addSetNext("tobago-config/theme-definitions/theme-definition/renderers/renderer/supported-markup",
-        "setMarkupConfig");
     digester.addCallMethod(
-        "tobago-config/theme-definitions/theme-definition/renderers/renderer/supported-markup/markup", "addMarkup", 0);
+        "tobago-config/theme-definitions/theme-definition/renderers/renderer/supported-markup/markup",
+        "addSupportedMarkup", 0);
     digester.addObjectCreate("tobago-config/theme-definitions/theme-definition/resources", ThemeResources.class);
     digester.addSetProperties("tobago-config/theme-definitions/theme-definition/resources");
     digester.addSetNext("tobago-config/theme-definitions/theme-definition/resources", "addResources");

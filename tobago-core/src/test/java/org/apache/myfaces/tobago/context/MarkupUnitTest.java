@@ -112,4 +112,16 @@ public class MarkupUnitTest {
     Assert.assertSame(b, b.remove(a));
     Assert.assertSame(ab, ab.remove(c));
   }
+
+  @Test
+  public void testContains() {
+    Markup a = Markup.valueOf("a");
+    Markup ab = Markup.valueOf("a,b");
+    Assert.assertFalse(Markup.NULL.contains("a"));
+    Assert.assertTrue(a.contains("a"));
+    Assert.assertFalse(a.contains("b"));
+    Assert.assertTrue(ab.contains("a"));
+    Assert.assertTrue(ab.contains("b"));
+    Assert.assertFalse(ab.contains("c"));
+  }
 }

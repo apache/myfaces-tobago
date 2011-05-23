@@ -17,21 +17,17 @@ package org.apache.myfaces.tobago.internal.config;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.context.MarkupConfig;
+import org.apache.myfaces.tobago.context.Markup;
 
 import java.io.Serializable;
 import java.util.Locale;
 
-/*
- * Date: Sep 25, 2006
- * Time: 10:54:19 AM
- */
 public class RendererConfig implements Serializable {
 
   private static final long serialVersionUID = 1L;
 
   private String name;
-  private MarkupConfig markupConfig;
+  private Markup supportedMarkups = Markup.NULL;
 
   public String getName() {
     return name;
@@ -52,27 +48,25 @@ public class RendererConfig implements Serializable {
     final RendererConfig that = (RendererConfig) o;
 
     return name.equals(that.name);
-
   }
 
   public boolean contains(String markup) {
-    return markupConfig.contains(markup);
+    return supportedMarkups.contains(markup);
   }
 
   public int hashCode() {
     return name.hashCode();
   }
 
-  public MarkupConfig getMarkupConfig() {
-    return markupConfig;
+  public void addSupportedMarkup(String markup) {
+    supportedMarkups = supportedMarkups.add(Markup.valueOf(markup));
   }
 
-  public void setMarkupConfig(MarkupConfig markupConfig) {
-    this.markupConfig = markupConfig;
+  public void merge(RendererConfig rendererConfig) {
+     supportedMarkups = supportedMarkups.add(rendererConfig.supportedMarkups);
   }
 
   public String toString() {
-    return "RendererConfig: " + getName() + " " + markupConfig;
+    return "RendererConfig: " + getName() + " " + supportedMarkups;
   }
-
 }

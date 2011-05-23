@@ -35,7 +35,7 @@ public class RenderersConfigImpl implements RenderersConfig, Serializable {
 
   private static final Logger LOG = LoggerFactory.getLogger(RenderersConfigImpl.class);
 
-  private Map<String, RendererConfig> renderer = new HashMap<String, RendererConfig>();
+  private Map<String, RendererConfig> rendererMap = new HashMap<String, RendererConfig>();
 
   private boolean merged = false;
 
@@ -48,16 +48,15 @@ public class RenderersConfigImpl implements RenderersConfig, Serializable {
   }
 
   public Collection<RendererConfig> getRendererConfigs() {
-    return renderer.values();
+    return rendererMap.values();
   }
 
   public void addRenderer(RendererConfig rendererConfig) {
-    addRenderer(rendererConfig, false);
-  }
-
-  public void addRenderer(RendererConfig rendererConfig, boolean override) {
-    if (override || !renderer.containsKey(rendererConfig.getName())) {
-      renderer.put(rendererConfig.getName(), rendererConfig);
+    final String name = rendererConfig.getName();
+    if (rendererMap.containsKey(name)) {
+      rendererMap.get(name).merge(rendererConfig);
+    } else {
+      rendererMap.put(name, rendererConfig);
     }
   }
 
@@ -65,7 +64,7 @@ public class RenderersConfigImpl implements RenderersConfig, Serializable {
     if (LOG.isDebugEnabled()) {
       LOG.debug("calling isMarkupSupported('{}', '{}')", rendererName, markup);
     }
-    RendererConfig rendererConfig = renderer.get(rendererName);
+    RendererConfig rendererConfig = rendererMap.get(rendererName);
     if (rendererConfig != null) {
       return rendererConfig.contains(markup);
     } else {
@@ -77,11 +76,11 @@ public class RenderersConfigImpl implements RenderersConfig, Serializable {
   public void merge(RenderersConfig renderersConfig, boolean override) {
     Collection<RendererConfig> renderers = renderersConfig.getRendererConfigs();
     for (RendererConfig rendererConfig : renderers) {
-      addRenderer(rendererConfig, override);
+      addRenderer(rendererConfig);
     }
   }
 
   public String toString() {
-    return renderer.toString();
+    return rendererMap.toString();
   }
 }

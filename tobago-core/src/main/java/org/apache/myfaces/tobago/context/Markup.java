@@ -265,6 +265,24 @@ public final class Markup implements Serializable, Iterable<String> {
     }
   }
 
+  public boolean contains(String markup) {
+    if (markup == null) {
+      return false;
+    }
+    if (this == NULL) {
+      return this == Markup.valueOf(markup);
+    }
+    if (value != null) {
+      return value.equals(markup);
+    }
+    for (String value : values) {
+        if (value.equals(markup)) {
+          return true;
+        }
+      }
+      return false;
+  }
+
   @Override
   public String toString() {
     if (value != null) {
