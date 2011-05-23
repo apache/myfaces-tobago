@@ -65,7 +65,10 @@ public abstract class TobagoConfig {
 
   public abstract ProjectStage getProjectStage();
 
+/*
+  // todo: should this be part of the api?
   public abstract List<Theme> getThemeDefinitions();
+*/
 
   public abstract boolean isCreateSessionSecret();
 

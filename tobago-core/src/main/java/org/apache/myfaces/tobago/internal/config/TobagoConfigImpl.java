@@ -51,15 +51,12 @@ public class TobagoConfigImpl extends TobagoConfig {
   private ProjectStage projectStage;
   private boolean createSessionSecret;
   private boolean checkSessionSecret;
-  // todo
-  private List<Theme> themeDefinitions;
   private URL url;
 
   public TobagoConfigImpl() {
     supportedThemeNames = new ArrayList<String>();
     supportedThemes = new ArrayList<Theme>();
     resourceDirs = new ArrayList<String>();
-    themeDefinitions = new ArrayList<Theme>();
     createSessionSecret = true;
     checkSessionSecret = true;
   }
@@ -228,14 +225,6 @@ public class TobagoConfigImpl extends TobagoConfig {
     }
   }
 
-  public void addThemeDefinition(Theme theme) {
-    themeDefinitions.add(theme);
-  }
-
-  public List<Theme> getThemeDefinitions() {
-    return themeDefinitions;
-  }
-
   public boolean isCreateSessionSecret() {
     return createSessionSecret;
   }
@@ -263,7 +252,6 @@ public class TobagoConfigImpl extends TobagoConfig {
         + ", \nprojectStage=" + projectStage
         + ", \ncreateSessionSecret=" + createSessionSecret
         + ", \ncheckSessionSecret=" + checkSessionSecret
-        + ", \nthemeDefinitions=" + themeDefinitions
         + ", \nurl=" + url
         + '}';
   }

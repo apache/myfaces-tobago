@@ -19,7 +19,6 @@ package org.apache.myfaces.tobago.internal.config;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.myfaces.tobago.config.TobagoConfig;
-import org.apache.myfaces.tobago.context.Theme;
 import org.apache.myfaces.tobago.context.ThemeImpl;
 import org.apache.myfaces.tobago.internal.context.ResourceManagerFactory;
 import org.slf4j.Logger;
@@ -120,9 +119,11 @@ public class TobagoConfigBuilder {
 
       // theme definition
       // todo
+/*
       for (Theme theme : fragment.getThemeDefinitions()) {
         result.addThemeDefinition(theme);
       }
+*/
 
       // url
       // todo???
