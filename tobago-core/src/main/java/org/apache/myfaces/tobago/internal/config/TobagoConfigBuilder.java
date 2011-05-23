@@ -47,8 +47,8 @@ public class TobagoConfigBuilder {
 
   private TobagoConfigBuilder(ServletContext servletContext) throws ServletException, IOException, SAXException {
     list = new ArrayList<TobagoConfigFragment>();
-    configFromWebInf(servletContext);
     configFromClasspath();
+    configFromWebInf(servletContext);
     final TobagoConfigImpl tobagoConfig = mergeList();
 
     // todo: cleanup, use one central TobagoConfig, no singleton ResourceManager
