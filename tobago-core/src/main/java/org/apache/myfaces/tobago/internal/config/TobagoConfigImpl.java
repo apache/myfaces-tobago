@@ -266,6 +266,7 @@ public class TobagoConfigImpl extends TobagoConfig {
     builder.append(checkSessionSecret);
     builder.append(", \nurl=");
     builder.append(url);
+    // to see only different (ignore alternative names for the same theme)
     builder.append(", \nthemes=");
     Set<Theme> all = new HashSet<Theme>(availableThemes.values());
     builder.append(all);
