@@ -60,16 +60,18 @@ public abstract class NonFacesRequestServlet extends HttpServlet {
       if (LOG.isDebugEnabled()) {
         LOG.debug("outcome = '" + outcome + "'");
       }
-      Application application = facesContext.getApplication();
-      NavigationHandler navigationHandler = application.getNavigationHandler();
-      navigationHandler.handleNavigation(facesContext, null, outcome);
 
+      Application application = facesContext.getApplication();
       if (facesContext.getViewRoot() == null) {
         ViewHandler viewHandler = application.getViewHandler();
         String viewId = getFromViewId();
         UIViewRoot view = viewHandler.createView(facesContext, viewId);
         facesContext.setViewRoot(view);
       }
+
+      NavigationHandler navigationHandler = application.getNavigationHandler();
+      navigationHandler.handleNavigation(facesContext, null, outcome);
+
 
       lifecycle.render(facesContext);
     } finally {
