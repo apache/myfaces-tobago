@@ -368,7 +368,7 @@ public class ResourceManagerImpl implements ResourceManager {
         LOG.error("Path not found, and no fallback. Using empty string.\n"
             + "resourceDirs = '" + tobagoConfig.getResourceDirs()
             + "' contentType = '" + contentType
-            + "' theme = '" + theme
+            + "' theme = '" + theme.getName()
             + "' browser = '" + browser
             + "' subDir = '" + subDir
             + "' name = '" + name
