@@ -65,14 +65,14 @@ public class BestPracticeController {
 
     InputStream inputStream = null;
     try {
-      inputStream = facesContext.getExternalContext().getResourceAsStream("best-practice/sample.pdf");
+      inputStream = facesContext.getExternalContext().getResourceAsStream("content/12/03/x-sample.pdf");
       if (inputStream == null) {
-        inputStream = facesContext.getExternalContext().getResourceAsStream("/best-practice/sample.pdf");
+        inputStream = facesContext.getExternalContext().getResourceAsStream("/content/12/03/x-sample.pdf");
       }
       HttpServletResponse response = (HttpServletResponse) facesContext.getExternalContext().getResponse();
       response.setContentType("application/pdf");
       if (outside) {
-        response.setHeader("Content-Disposition", "attachment; filename=sample.pdf");
+        response.setHeader("Content-Disposition", "attachment; filename=x-sample.pdf");
       }
       IOUtils.copy(inputStream, response.getOutputStream());
     } catch (IOException e) {

@@ -1,4 +1,6 @@
-<%--
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
  * this work for additional information regarding copyright ownership.
@@ -13,24 +15,22 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
---%>
-<%@ taglib uri="http://myfaces.apache.org/tobago/component" prefix="tc" %>
-<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
-<%@ taglib tagdir="/WEB-INF/tags/layout" prefix="layout" %>
+-->
 
-<layout:overview>
-  <jsp:body>
-    <tc:box label="Transitions between pages">
+<ui:composition template="/WEB-INF/tags/layout/overview.xhtml"
+                xmlns:tc="http://myfaces.apache.org/tobago/component"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core">
+  <ui:param name="title" value="Transitions between pages"/>
+
+    <tc:panel>
       <f:facet name="layout">
-        <tc:gridLayout rows="fixed;fixed;fixed;*" />
+        <tc:gridLayout rows="auto;auto;auto" />
       </f:facet>
 
       <tc:out value="Prevent double-clicks" />
       <tc:button label="Sleep 5 s (transition=true)" action="#{transitionController.sleep5s}"/>
       <tc:button label="Sleep 5 s (transition=false)" action="#{transitionController.sleep5s}" transition="false"/>
 
-      <tc:cell />
-
-    </tc:box>
-  </jsp:body>
-</layout:overview>
+    </tc:panel>
+  </ui:composition>

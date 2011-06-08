@@ -187,15 +187,15 @@
     </navigation-case>
     <navigation-case>
       <from-outcome>best-practice/transition</from-outcome>
-      <to-view-id>/best-practice/transition.jsp</to-view-id>
+      <to-view-id>/content/12/02/transition.xhtml</to-view-id>
     </navigation-case>
     <navigation-case>
       <from-outcome>best-practice/transition-after-sleep</from-outcome>
-      <to-view-id>/best-practice/transition-after-sleep.jsp</to-view-id>
+      <to-view-id>/content/12/02/x-transition-after-sleep.xhtml</to-view-id>
     </navigation-case>
     <navigation-case>
       <from-outcome>best-practice/non-faces-response</from-outcome>
-      <to-view-id>/best-practice/non-faces-response.jsp</to-view-id>
+      <to-view-id>/content/12/03/non-faces-response.xhtml</to-view-id>
     </navigation-case>
     <navigation-case>
       <from-outcome>best-practice/tool-bar-customizer</from-outcome>

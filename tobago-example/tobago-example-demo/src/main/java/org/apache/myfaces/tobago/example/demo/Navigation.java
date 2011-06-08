@@ -67,11 +67,17 @@ public class Navigation {
       for (String path : resourcePaths) {
 
         if (path.endsWith("/.svn/")) {
+          // ignoring svn files
           continue;
         }
 
         if (path.endsWith("/")) {
           locateResourcesInWar(servletContext, path, result);
+          continue;
+        }
+
+        if (path.contains("/x-")) {
+          // ignoring excluded files
           continue;
         }
 

@@ -1,4 +1,6 @@
-<%--
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
  * this work for additional information regarding copyright ownership.
@@ -13,22 +15,19 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
---%>
-<%@ taglib uri="http://myfaces.apache.org/tobago/component" prefix="tc" %>
-<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
-<%@ taglib tagdir="/WEB-INF/tags/layout" prefix="layout" %>
+-->
 
-<layout:overview>
-  <jsp:body>
-    <tc:box label="Transition after sleep">
-      <f:facet name="layout">
-        <tc:gridLayout rows="fixed;*" />
-      </f:facet>
+<ui:composition template="/WEB-INF/tags/layout/overview.xhtml"
+                xmlns:tc="http://myfaces.apache.org/tobago/component"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core">
+  <ui:param name="title" value="Transition after sleep"/>
+  <tc:panel>
+    <f:facet name="layout">
+      <tc:gridLayout rows="auto"/>
+    </f:facet>
 
-      <tc:button label="Back" action="best-practice/transition" />
+    <tc:button label="Back" action="best-practice/transition"/>
 
-      <tc:cell />
-
-    </tc:box>
-  </jsp:body>
-</layout:overview>
+  </tc:panel>
+</ui:composition>
