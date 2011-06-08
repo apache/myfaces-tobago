@@ -55,22 +55,31 @@ public class Navigation {
   }
 
   protected Navigation(ServletContext servletContext) {
-
-    this(locateResourcesInWar(servletContext));
+    this(locateResourcesInWar(servletContext, "/content", new ArrayList<String>()));
   }
 
-  private static List<String> locateResourcesInWar(ServletContext servletContext) {
-    String content = "/content";
+  private static List<String> locateResourcesInWar(
+      ServletContext servletContext, String directory, List<String> result) {
 
-    Set<String> resourcePaths = servletContext.getResourcePaths(content);
-    List<String> list = new ArrayList<String>();
+    Set<String> resourcePaths = servletContext.getResourcePaths(directory);
 
     if (resourcePaths != null) {
       for (String path : resourcePaths) {
-        list.add(path);
+
+        if (path.endsWith("/.svn/")) {
+          continue;
+        }
+
+        if (path.endsWith("/")) {
+          locateResourcesInWar(servletContext, path, result);
+          continue;
+        }
+
+        result.add(path);
+
       }
     }
-    return list;
+    return result;
   }
 
   protected Navigation(List<String> list) {
@@ -190,7 +199,7 @@ public class Navigation {
     public Node(String path) {
 
       outcome = path;
-      final Pattern pattern = Pattern.compile("([\\d\\d~]*\\d\\d)-(.*)\\.(xhtml)");
+      final Pattern pattern = Pattern.compile("([\\d\\d/]*\\d\\d)/([^/]*)\\.(xhtml)");
       final Matcher matcher = pattern.matcher(path);
       matcher.find();
       branch = matcher.group(1);
