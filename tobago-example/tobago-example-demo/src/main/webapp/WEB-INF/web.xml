@@ -34,6 +34,12 @@
     <param-value>true</param-value>
   </context-param>
 
+   <!-- disable error handling from myfaces, needed for the demo -->
+  <context-param>
+    <param-name>org.apache.myfaces.ERROR_HANDLING</param-name>
+    <param-value>false</param-value>
+  </context-param>
+
   <context-param>
     <param-name>facelets.DEVELOPMENT</param-name>
     <param-value>true</param-value>
@@ -130,17 +136,17 @@
 
   <error-page>
     <error-code>404</error-code>
-    <location>/faces/error/404.jsp</location>
+    <location>/faces/error/404.xhtml</location>
   </error-page>
 
   <error-page>
     <error-code>500</error-code>
-    <location>/faces/error/throwable.jsp</location>
+    <location>/faces/error/throwable.xhtml</location>
   </error-page>
 
   <error-page>
     <exception-type>java.lang.Throwable</exception-type>
-    <location>/faces/error/throwable.jsp</location>
+    <location>/faces/error/throwable.xhtml</location>
   </error-page>
 
   <!-- The Usual Welcome File List -->

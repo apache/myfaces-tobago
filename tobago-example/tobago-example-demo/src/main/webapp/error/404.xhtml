@@ -1,4 +1,6 @@
-<%--
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
  * this work for additional information regarding copyright ownership.
@@ -13,24 +15,19 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
---%>
-<%@ taglib uri="http://myfaces.apache.org/tobago/component" prefix="tc" %>
-<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
-<%@ taglib tagdir="/WEB-INF/tags/layout" prefix="layout" %>
+-->
 
-<layout:overview>
-  <jsp:body>
+<ui:composition template="/WEB-INF/tags/layout/overview.xhtml"
+                xmlns:tc="http://myfaces.apache.org/tobago/component"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core">
+  <ui:param name="title" value="Error 404"/>
     <tc:panel>
       <f:facet name="layout">
-        <tc:gridLayout rows="80px;160px;*" />
+        <tc:gridLayout rows="auto;*" />
       </f:facet>
 
-      <tc:out value="#{overviewBundle.themesText1}" escape="false" />
-
-      <tc:box label="#{overviewBundle.themesCodeExampleTitle}">
-        <tc:out value="#{overviewBundle.themesCodeExample}" />
-      </tc:box>
-      <tc:cell/>
+      <tc:messages />
+      <tc:out value="The page was not found!"/>
     </tc:panel>
-  </jsp:body>
-</layout:overview>
+</ui:composition>

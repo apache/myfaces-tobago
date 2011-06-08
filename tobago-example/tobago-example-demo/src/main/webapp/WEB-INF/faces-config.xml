@@ -175,15 +175,15 @@
   <navigation-rule>
     <navigation-case>
       <from-outcome>best-practice/intro</from-outcome>
-      <to-view-id>/best-practice/intro.jsp</to-view-id>
+      <to-view-id>/content/12/best-practice.xhtml</to-view-id>
     </navigation-case>
     <navigation-case>
       <from-outcome>best-practice/error</from-outcome>
-      <to-view-id>/best-practice/error.jsp</to-view-id>
+      <to-view-id>/content/12/00/error.xhtml</to-view-id>
     </navigation-case>
     <navigation-case>
       <from-outcome>best-practice/theme</from-outcome>
-      <to-view-id>/best-practice/theme.jsp</to-view-id>
+      <to-view-id>/content/12/01/theme.xhtml</to-view-id>
     </navigation-case>
     <navigation-case>
       <from-outcome>best-practice/transition</from-outcome>
@@ -208,14 +208,14 @@
   </navigation-rule>
 
   <navigation-rule>
-    <from-view-id>/best-practice/error.jsp</from-view-id>
+    <from-view-id>/content/12/00/error.xhtml</from-view-id>
     <navigation-case>
-      <from-outcome>404</from-outcome>
-      <to-view-id>/best-practice/not-existing-page.jsp</to-view-id>
+      <from-outcome>error-404</from-outcome>
+      <to-view-id>/content/12/00/x-not-existing-page.jsp</to-view-id>
     </navigation-case>
     <navigation-case>
       <from-outcome>syntax</from-outcome>
-      <to-view-id>/best-practice/error-in-syntax.jsp</to-view-id>
+      <to-view-id>/content/12/00/x-error-in-syntax.jsp</to-view-id>
     </navigation-case>
   </navigation-rule>
 
