@@ -50,12 +50,35 @@ public class Navigation {
   private Node currentNode;
 
   public Navigation() {
-    this((ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext());
-    currentNode = tree;
-  }
+    final ServletContext servletContext
+        = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
+    final List<String> list = locateResourcesInWar(servletContext, "/content", new ArrayList<String>());
+    list.add("/content/root.xhtml");
+    List<Node> nodes = new ArrayList<Node>();
+    for (String path : list) {
+      try {
+        nodes.add(new Node(path));
+      } catch (IllegalStateException e) {
+        LOG.error("Found file with wrong pattern: '{}'", path);
+      }
+    }
 
-  protected Navigation(ServletContext servletContext) {
-    this(locateResourcesInWar(servletContext, "/content", new ArrayList<String>()));
+    Collections.sort(nodes);
+
+    // after sorting the first node is the root node.
+    tree = nodes.get(0);
+
+    Map<String, Node> map = new HashMap<String, Node>();
+//    map.put(tree.getBranch(), tree);
+
+    for (Node node : nodes) {
+      map.put(node.getBranch(), node);
+      String parent = node.getBranch().substring(0, node.getBranch().lastIndexOf('/'));
+      if (! parent.equals("")) { // is root
+        map.get(parent).add(node);
+      }
+    }
+    currentNode = tree;
   }
 
   private static List<String> locateResourcesInWar(
@@ -86,29 +109,6 @@ public class Navigation {
       }
     }
     return result;
-  }
-
-  protected Navigation(List<String> list) {
-    List<Node> nodes = new ArrayList<Node>();
-    for (String path : list) {
-      try {
-        nodes.add(new Node(path));
-      } catch (IllegalStateException e) {
-        LOG.error("Found file with wrong pattern: '{}'", path);
-      }
-    }
-
-    Collections.sort(nodes);
-
-    Map<String, Node> map = new HashMap<String, Node>();
-    tree = new Node();
-    map.put(tree.getBranch(), tree);
-
-    for (Node node : nodes) {
-      map.put(node.getBranch(), node);
-      String parent = node.getBranch().substring(0, Math.max(node.getBranch().length() - 3, 0));
-      map.get(parent).add(node);
-    }
   }
 
   public void selectByViewId(String viewId) {
@@ -197,15 +197,11 @@ public class Navigation {
     private String outcome;
     private boolean expanded;
 
-    public Node() {
-      name = "root";
-      branch = "";
-    }
-
     public Node(String path) {
 
       outcome = path;
-      final Pattern pattern = Pattern.compile("([\\d\\d/]*\\d\\d)/([^/]*)\\.(xhtml)");
+      final Pattern pattern = Pattern.compile("(.*)/([^/]*)\\.(xhtml)");
+//      final Pattern pattern = Pattern.compile("([\\d\\d/]*\\d\\d[^/]*)/([^/]*)\\.(xhtml)");
       final Matcher matcher = pattern.matcher(path);
       matcher.find();
       branch = matcher.group(1);
@@ -287,6 +283,11 @@ public class Navigation {
 
     public void setExpanded(boolean expanded) {
       this.expanded = expanded;
+    }
+
+    @Override
+    public String toString() {
+      return outcome;
     }
   }
 }
