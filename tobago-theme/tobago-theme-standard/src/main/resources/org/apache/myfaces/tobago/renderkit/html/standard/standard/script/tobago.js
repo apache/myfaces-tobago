@@ -329,7 +329,7 @@ var Tobago = {
     }
     this.isSubmit = true;
     var clientDimension = this.createInput('hidden', this.form.id + '-clientDimension');
-    clientDimension.value = jQuery(document).width() + ';' + jQuery(document).height();
+    clientDimension.value = jQuery("body").width() + ';' + jQuery("body").height();
     this.form.appendChild(clientDimension);
     Tobago.onBeforeUnload();
     return true;
