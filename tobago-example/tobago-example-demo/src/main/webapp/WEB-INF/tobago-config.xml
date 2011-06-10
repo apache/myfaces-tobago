@@ -83,6 +83,13 @@
       </supported-markup>
     </renderer>
 
+    <renderer>
+      <name>Out</name>
+      <supported-markup>
+        <markup>demoSeconds</markup>
+      </supported-markup>
+    </renderer>
+
   </renderers>
 
 </tobago-config>

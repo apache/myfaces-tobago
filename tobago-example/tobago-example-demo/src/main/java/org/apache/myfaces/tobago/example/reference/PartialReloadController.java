@@ -17,10 +17,10 @@ package org.apache.myfaces.tobago.example.reference;
  * limitations under the License.
  */
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.ajax.AjaxUtils;
 import org.apache.myfaces.tobago.example.demo.Navigation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.context.FacesContext;
 import javax.faces.el.VariableResolver;
@@ -36,15 +36,11 @@ public class PartialReloadController {
     return new Date();
   }
 
-  public String leftAction() {
+  public String reload() {
     return logAndNavigate(null);
   }
 
-  public String rightAction() {
-    return logAndNavigate(null);
-  }
-
-  public String bothAction() {
+  public String waitAndReload() {
     synchronized (this) {
       try {
         wait(6000);
@@ -60,7 +56,7 @@ public class PartialReloadController {
     VariableResolver resolver = facesContext.getApplication().getVariableResolver();
     Navigation navigation = (Navigation) resolver.resolveVariable(facesContext, "navigation");
 
-    // in case of both the select controll is not proccessed during lifecycle
+    // in case of both the select control is not processed during lifecycle
     // we need to get the value from the request params
     navigateAction = (String) facesContext.getExternalContext().getRequestParameterMap().get("page:content:navSelect");
 
