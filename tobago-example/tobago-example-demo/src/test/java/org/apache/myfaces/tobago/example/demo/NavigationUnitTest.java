@@ -21,6 +21,7 @@ import org.apache.myfaces.tobago.internal.mock.faces.AbstractTobagoTestBase;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -28,28 +29,30 @@ public class NavigationUnitTest extends AbstractTobagoTestBase {
 
   @Test
   public void testFileNames() {
-    List<String> list = Arrays.asList(
+    List<String> list = new ArrayList<String>(Arrays.asList(
         "/content/00/test-1.xhtml",
+// todo        "/content/00/x-bad.xhtml", // x- means excluded
         "/content/00/07/test-2.xhtml",
+        "/content/00/07/x-bad.xhtml", // x- means excluded
         "/content/01/test.xhtml",
         "/content/00/00/test-4.xhtml",
-        "/content/bad.xhtml",
-        "/content/00_00_bad.xhtml"
-    );
+        "/content/bad.jsp",
+        "/content/00_00_bad.gif"
+    ));
     final Navigation navigation = new Navigation(list);
     final Navigation.Node root = navigation.getTree();
     Assert.assertEquals(2, root.getChildCount());
     final Navigation.Node n00 = (Navigation.Node) root.getChildAt(0);
-    Assert.assertEquals("00", n00.getBranch());
+    Assert.assertEquals("/content/00", n00.getBranch());
     Assert.assertEquals("test-1", n00.getName());
     final Navigation.Node n01 = (Navigation.Node) root.getChildAt(1);
-    Assert.assertEquals("01", n01.getBranch());
+    Assert.assertEquals("/content/01", n01.getBranch());
     Assert.assertEquals("test", n01.getName());
     final Navigation.Node n0000 = (Navigation.Node) n00.getChildAt(0);
-    Assert.assertEquals("00/00", n0000.getBranch());
+    Assert.assertEquals("/content/00/00", n0000.getBranch());
     Assert.assertEquals("test-4", n0000.getName());
     final Navigation.Node n0007 = (Navigation.Node) n00.getChildAt(1);
-    Assert.assertEquals("00/07", n0007.getBranch());
+    Assert.assertEquals("/content/00/07", n0007.getBranch());
     Assert.assertEquals("test-2", n0007.getName());
   }
 }

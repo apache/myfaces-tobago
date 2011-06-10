@@ -17,6 +17,7 @@ package org.apache.myfaces.tobago.example.demo;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.example.demo.jsp.JspFormatter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -82,7 +83,7 @@ public class Navigation implements Serializable {
     for (Node node : nodes) {
       map.put(node.getBranch(), node);
       String parent = node.getBranch().substring(0, node.getBranch().lastIndexOf('/'));
-      if (! parent.equals("")) { // is root
+      if (!parent.equals("")) { // is root
         map.get(parent).add(node);
       }
     }
