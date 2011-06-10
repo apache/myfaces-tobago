@@ -3062,8 +3062,11 @@ Tobago.TabGroup.init = function(elements) {
     jQuery(this).addClass("tobago-tab-markup-selected");
     var tabGroup = jQuery(this).parents(".tobago-tabGroup:first");
     tabGroup.children(".tobago-tab-content-markup-selected").removeClass("tobago-tab-content-markup-selected");
-    tabGroup.children(".tobago-tab-content[tabgroupindex=" + activeIndex
-        + "]").addClass("tobago-tab-content-markup-selected");
+    tabGroup.children(".tobago-tab-content[tabgroupindex=" + activeIndex + "]")
+        .addClass("tobago-tab-content-markup-selected");
+    // scroll the tabs, if necessary
+    var header = jQuery(this).parents(".tobago-tabGroup-header:first");
+    Tobago.TabGroup.ensureScrollPosition(header);
   });
 
   // initialize the tab header elements
@@ -3102,6 +3105,12 @@ Tobago.TabGroup.init = function(elements) {
     selected.nextAll(":not(.tobago-tab-markup-disabled):first").click();
   });
 
+  // init scroll position
+  var header = tabGroups.find(".tobago-tabGroup-header");
+  header.each(function() {
+    Tobago.TabGroup.ensureScrollPosition(jQuery(this));
+  });
+
   // initialize menu
   // XXX ":last" is dangerous, please define e.g. a unique class for "menu"
 //  tabGroups.find(".tobago-tabGroupToolBar-button:last").find(".tobago-menu").click(function() {
@@ -3125,6 +3134,18 @@ Tobago.TabGroup.updateHidden = function(tab) {
   var activeIndex = tab.attr("tabgroupindex");
   hidden.attr("value", activeIndex);
   return activeIndex;
+};
+
+Tobago.TabGroup.ensureScrollPosition = function (header) {
+  var tab = header.find(".tobago-tab-markup-selected");
+  var tabRight = tab.position().left + tab.outerWidth() - header.outerWidth();
+  if (tabRight > 0) {
+    header.scrollLeft(header.scrollLeft() + tabRight + 1); // +1 to avoid rounding problems
+  }
+  var tabLeft = tab.position().left;
+  if (tabLeft < 0) {
+    header.scrollLeft(header.scrollLeft() + tabLeft);
+  }
 };
 
 // ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
