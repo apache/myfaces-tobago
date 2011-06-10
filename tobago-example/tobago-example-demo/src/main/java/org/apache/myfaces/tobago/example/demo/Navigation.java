@@ -17,6 +17,7 @@ package org.apache.myfaces.tobago.example.demo;
  * limitations under the License.
  */
 
+import org.apache.myfaces.extensions.cdi.core.api.scope.conversation.WindowScoped;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.example.demo.jsp.JspFormatter;
 import org.slf4j.Logger;
@@ -41,7 +42,7 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Navigation {
+public class Navigation implements Serializable {
 
   private static final Logger LOG = LoggerFactory.getLogger(Navigation.class);
 
@@ -50,9 +51,17 @@ public class Navigation {
   private Node currentNode;
 
   public Navigation() {
-    final ServletContext servletContext
-        = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
-    final List<String> list = locateResourcesInWar(servletContext, "/content", new ArrayList<String>());
+      final ServletContext servletContext
+          = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
+      final List<String> list = locateResourcesInWar(servletContext, "/content", new ArrayList<String>());
+      init(list);
+  }
+
+  protected Navigation(List<String> list) {
+    init(list);
+  }
+
+  protected void init(List<String> list) {
     list.add("/content/root.xhtml");
     List<Node> nodes = new ArrayList<Node>();
     for (String path : list) {

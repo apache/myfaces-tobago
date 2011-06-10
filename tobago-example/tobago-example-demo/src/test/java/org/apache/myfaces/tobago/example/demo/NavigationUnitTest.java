@@ -29,12 +29,12 @@ public class NavigationUnitTest extends AbstractTobagoTestBase {
   @Test
   public void testFileNames() {
     List<String> list = Arrays.asList(
-        "00/test-1.xhtml",
-        "00/07/test-2.xhtml",
-        "01/test.xhtml",
-        "00/00/test-4.xhtml",
-        "bad.xhtml",
-        "00_00_bad.xhtml"
+        "/content/00/test-1.xhtml",
+        "/content/00/07/test-2.xhtml",
+        "/content/01/test.xhtml",
+        "/content/00/00/test-4.xhtml",
+        "/content/bad.xhtml",
+        "/content/00_00_bad.xhtml"
     );
     final Navigation navigation = new Navigation(list);
     final Navigation.Node root = navigation.getTree();
