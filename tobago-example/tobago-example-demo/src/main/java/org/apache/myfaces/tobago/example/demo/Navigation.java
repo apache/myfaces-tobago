@@ -17,7 +17,6 @@ package org.apache.myfaces.tobago.example.demo;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.example.demo.jsp.JspFormatter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
