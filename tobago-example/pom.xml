@@ -36,19 +36,21 @@
          -->
         <groupId>org.mortbay.jetty</groupId>
         <!--    for jetty 7 they have changed the artifactId -->
-        <!--
             <artifactId>jetty-maven-plugin</artifactId>
             <version>7.4.0.RC0</version>
-        -->
+<!--
         <artifactId>maven-jetty-plugin</artifactId>
+-->
         <!-- to change the port -->
         <configuration>
           <scanIntervalSeconds>5</scanIntervalSeconds>
+<!--
           <connectors>
             <connector implementation="org.mortbay.jetty.nio.SelectChannelConnector">
               <port>8080</port>
             </connector>
           </connectors>
+-->
         </configuration>
       </plugin>
     </plugins>

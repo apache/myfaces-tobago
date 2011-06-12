@@ -81,11 +81,13 @@
     </phase-listener>
   </lifecycle>
 
+<!--
   <managed-bean>
     <managed-bean-name>navigation</managed-bean-name>
     <managed-bean-class>org.apache.myfaces.tobago.example.demo.Navigation</managed-bean-class>
     <managed-bean-scope>session</managed-bean-scope>
   </managed-bean>
+-->
 
   <managed-bean>
     <managed-bean-name>info</managed-bean-name>
@@ -366,7 +368,7 @@ tree-select.xhtml
     </navigation-case>
     <navigation-case>
       <from-outcome>reference/partial</from-outcome>
-      <to-view-id>/reference/partial.jsp</to-view-id>
+      <to-view-id>/content/50/partial.xhtml</to-view-id>
     </navigation-case>
   </navigation-rule>
 

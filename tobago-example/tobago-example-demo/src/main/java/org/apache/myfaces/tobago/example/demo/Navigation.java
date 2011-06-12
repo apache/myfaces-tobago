@@ -17,6 +17,7 @@ package org.apache.myfaces.tobago.example.demo;
  * limitations under the License.
  */
 
+import org.apache.myfaces.extensions.cdi.core.api.scope.conversation.WindowScoped;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.example.demo.jsp.JspFormatter;
 import org.slf4j.Logger;
@@ -24,6 +25,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.inject.Named;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletResponse;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -42,6 +44,8 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+@WindowScoped
+@Named(value = "navigation")
 public class Navigation implements Serializable {
 
   private static final Logger LOG = LoggerFactory.getLogger(Navigation.class);

@@ -101,6 +101,16 @@
   </listener>
   -->
 
+<!--
+  <listener>
+    <listener-class>org.apache.webbeans.servlet.WebBeansConfigurationListener</listener-class>
+  </listener>
+-->
+
+  <listener>
+    <listener-class>org.apacheExtras.myfaces.codi.addon.openwebbeans.startup.OpenWebBeansAwareConfigurationListener</listener-class>
+  </listener>
+
   <!-- servlet -->
   <!-- no longer needed since Weblogic 8.1 SP 3
     <servlet>
