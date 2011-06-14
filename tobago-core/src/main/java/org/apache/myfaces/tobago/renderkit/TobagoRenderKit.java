@@ -54,9 +54,6 @@ public class TobagoRenderKit extends RenderKit {
 
   @Override
   public Renderer getRenderer(String family, String rendererType) {
-    if (LOG.isDebugEnabled()) {
-      LOG.debug("family = '" + family + "'");
-    }
     Renderer renderer = renderers.get(new Key(family, rendererType));
     if (renderer == null) {
       RenderKit renderKit = getHtmlBasicRenderKit();
