@@ -46,18 +46,18 @@ public class MultiplePageDeclarationLanguageNavigationHandler extends Navigation
       PageDeclarationLanguageBean bean = (PageDeclarationLanguageBean)
           VariableResolverUtils.resolveVariable(facesContext, "pageDeclarationLanguage");
 
-      for (PageDeclarationLanguage renderTechnologie : PageDeclarationLanguage.values()) {
-        if (outcome.endsWith(renderTechnologie.getExtension())) {
-          outcome = outcome.substring(0, outcome.lastIndexOf(renderTechnologie.getExtension()));
+      for (PageDeclarationLanguage renderTechnology : PageDeclarationLanguage.values()) {
+        if (outcome.endsWith(renderTechnology.getExtension())) {
+          outcome = outcome.substring(0, outcome.lastIndexOf(renderTechnology.getExtension()));
         }
       }
 
       if (pageExists(facesContext, outcome, bean.getLanguage().getExtension())) {
         outcome = outcome + bean.getLanguage().getExtension();
       } else {
-        for (PageDeclarationLanguage renderTechnologie : PageDeclarationLanguage.values()) {
-          if (pageExists(facesContext, outcome, renderTechnologie.getExtension())) {
-            bean.setLanguage(renderTechnologie);
+        for (PageDeclarationLanguage renderTechnology : PageDeclarationLanguage.values()) {
+          if (pageExists(facesContext, outcome, renderTechnology.getExtension())) {
+            bean.setLanguage(renderTechnology);
             outcome = outcome + bean.getLanguage().getExtension();
             break;
           }
@@ -78,6 +78,9 @@ public class MultiplePageDeclarationLanguageNavigationHandler extends Navigation
   }
 
   private boolean pageExists(FacesContext facesContext, String outcome, String extension) {
+    if (StringUtils.isEmpty(outcome)) {
+      return false;
+    }
     String path = ResourceManagerUtils.getImageWithPath(facesContext, outcome.substring(1) + extension, true);
     return path != null;
   }
