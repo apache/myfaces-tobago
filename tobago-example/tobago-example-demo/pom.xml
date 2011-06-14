@@ -292,12 +292,14 @@
         <version>1.0.1</version>
         <scope>runtime</scope>
     </dependency>
+<!--
         <dependency>
             <groupId>org.apacheExtras.myfaces.codi.addon</groupId>
             <artifactId>controlled-bootstrapping-addon</artifactId>
             <version>1.0.0</version>
             <scope>compile</scope>
         </dependency>
+-->
   </dependencies>
   <repositories>
     <repository>
