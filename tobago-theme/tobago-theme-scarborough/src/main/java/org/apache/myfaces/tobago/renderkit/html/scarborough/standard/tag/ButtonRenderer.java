@@ -89,7 +89,8 @@ public class ButtonRenderer extends CommandRendererBase {
       }
       writer.startElement(HtmlElements.IMG, null);
       writer.writeAttribute(HtmlAttributes.SRC, image, true);
-      HtmlRendererUtils.renderImageTip(component, writer);
+      String tip = button.getTip();
+      writer.writeAttribute(HtmlAttributes.ALT, tip != null ? tip : "", true);
       writer.endElement(HtmlElements.IMG);
     }
 

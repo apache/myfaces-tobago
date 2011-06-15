@@ -22,11 +22,8 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * $Id$
  */
 
-import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.component.UICommand;
 import org.apache.myfaces.tobago.component.UILink;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
-import org.apache.myfaces.tobago.internal.component.AbstractUICommand;
 import org.apache.myfaces.tobago.internal.util.AccessKeyMap;
 import org.apache.myfaces.tobago.internal.util.Deprecation;
 import org.apache.myfaces.tobago.renderkit.CommandRendererBase;
@@ -37,7 +34,6 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.CommandRendererHelper;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
-import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -53,7 +49,7 @@ public class LinkRenderer extends CommandRendererBase {
 
   public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
 
-    AbstractUICommand link = (AbstractUICommand) component;
+    UILink link = (UILink) component;
     String clientId = link.getClientId(facesContext);
     CommandRendererHelper helper = new CommandRendererHelper(facesContext, link, CommandRendererHelper.Tag.ANCHOR);
     String href = helper.getHref();
@@ -93,7 +89,7 @@ public class LinkRenderer extends CommandRendererBase {
     writer.flush();
 
 //  image
-    String image = (String) link.getAttributes().get(Attributes.IMAGE);
+    String image = link.getImage();
     if (image != null) {
       if (ResourceManagerUtils.isAbsoluteResource(image)) {
         // absolute Path to image : nothing to do
@@ -103,8 +99,11 @@ public class LinkRenderer extends CommandRendererBase {
       writer.startElement(HtmlElements.IMG, link);
       writer.writeAttribute(HtmlAttributes.SRC, image, true);
       writer.writeAttribute(HtmlAttributes.BORDER, 0); // TODO: is border=0 setting via style possible?
-      HtmlRendererUtils.renderImageTip(link, writer);
-      HtmlRendererUtils.renderTip(link, writer);
+      String tip = link.getTip();
+      writer.writeAttribute(HtmlAttributes.ALT, tip != null ? tip : "", true);
+      if (tip != null) {
+        writer.writeAttribute(HtmlAttributes.TITLE, tip, true);
+      }
       writer.endElement(HtmlElements.IMG);
     }
 
@@ -119,22 +118,18 @@ public class LinkRenderer extends CommandRendererBase {
     if (label.getAccessKey() != null) {
       if (LOG.isInfoEnabled()
           && !AccessKeyMap.addAccessKey(facesContext, label.getAccessKey())) {
-        LOG.info("dublicated accessKey : " + label.getAccessKey());
+        LOG.info("duplicated accessKey : " + label.getAccessKey());
       }
 
       HtmlRendererUtils.addClickAcceleratorKey(facesContext, clientId, label.getAccessKey());
     }
   }
 
-  public void encodeEnd(FacesContext facesContext, UIComponent component)
-      throws IOException {
-    if (!(component instanceof UICommand)) {
-      LOG.error("Wrong type: Need " + UICommand.class.getName() + ", but was " + component.getClass().getName());
-      return;
-    }
+  public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
 
+    UILink link = (UILink) component;
     ResponseWriter writer = facesContext.getResponseWriter();
-    if (ComponentUtils.getBooleanAttribute(component, Attributes.DISABLED)) {
+    if (link.isDisabled()) {
       writer.endElement(HtmlElements.SPAN);
     } else {
       writer.endElement(HtmlElements.A);

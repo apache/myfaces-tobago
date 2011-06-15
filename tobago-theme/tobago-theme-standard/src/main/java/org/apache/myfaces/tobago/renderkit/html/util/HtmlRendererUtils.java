@@ -27,9 +27,7 @@ import org.apache.myfaces.tobago.component.UISheet;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
-import org.apache.myfaces.tobago.internal.ajax.AjaxInternalUtils;
 import org.apache.myfaces.tobago.internal.util.Deprecation;
-import org.apache.myfaces.tobago.internal.webapp.TobagoResponseJsonWriterImpl;
 import org.apache.myfaces.tobago.internal.webapp.TobagoResponseWriterWrapper;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
@@ -419,20 +417,17 @@ public final class HtmlRendererUtils {
     Object objTip = component.getAttributes().get(Attributes.TIP);
     if (objTip != null) {
       String tip = String.valueOf(objTip);
-      if (writer instanceof TobagoResponseJsonWriterImpl) {
-        tip = AjaxInternalUtils.encodeJavaScriptString(tip);
-      }
       writer.writeAttribute(HtmlAttributes.TITLE, tip, true);
     }
   }
 
+  /**
+   * @deprecated since Tobago 1.5.0. Please use getTitleFromTipAndMessages and write it out.
+   */
   public static void renderImageTip(UIComponent component, TobagoResponseWriter writer) throws IOException {
     Object objTip = component.getAttributes().get(Attributes.TIP);
     if (objTip != null) {
       String tip = String.valueOf(objTip);
-      if (writer instanceof TobagoResponseJsonWriterImpl) {
-        tip = AjaxInternalUtils.encodeJavaScriptString(tip);
-      }
       writer.writeAttribute(HtmlAttributes.ALT, tip, true);
     } else {
       writer.writeAttribute(HtmlAttributes.ALT, "", false);
