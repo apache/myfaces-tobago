@@ -17,8 +17,6 @@ package org.apache.myfaces.tobago.internal.ajax;
  * limitations under the License.
  */
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.compat.FacesUtils;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
@@ -28,6 +26,8 @@ import org.apache.myfaces.tobago.internal.webapp.TobagoResponseJsonWriterImpl;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.util.EncodeAjaxCallback;
 import org.apache.myfaces.tobago.util.RequestUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.FactoryFinder;
 import javax.faces.application.StateManager;
@@ -42,18 +42,17 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.EmptyStackException;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 public class AjaxResponseRenderer {
-  
+
   public static final int CODE_SUCCESS = 200;
   public static final int CODE_NOT_MODIFIED = 304;
   public static final int CODE_RELOAD_REQUIRED = 309;
   public static final int CODE_ERROR = 500;
-  public static  final String CONTENT_TYPE = "application/json";
+  public static final String CONTENT_TYPE = "application/json";
   private static final Logger LOG = LoggerFactory.getLogger(AjaxResponseRenderer.class);
 
   private EncodeAjaxCallback callback;
@@ -101,11 +100,12 @@ public class AjaxResponseRenderer {
     }
   }
 
-  private void renderComponent(FacesContext facesContext, RenderKit renderKit, String clientId,
-      UIComponent component) throws IOException {
-    PrintWriter writer = getPrintWriter(facesContext);
-    ResponseWriter contentWriter = renderKit.createResponseWriter(writer, CONTENT_TYPE, null);
-    facesContext.setResponseWriter(contentWriter);
+  private void renderComponent(FacesContext facesContext, RenderKit renderKit, String clientId, UIComponent component)
+      throws IOException {
+    final PrintWriter writer = getPrintWriter(facesContext);
+    final TobagoResponseJsonWriterImpl jsonWriter = getJsonResponseWriter(renderKit, writer);
+
+    facesContext.setResponseWriter(jsonWriter);
 
     if (LOG.isDebugEnabled()) {
       LOG.debug("write ajax response for {}", component);
@@ -115,23 +115,17 @@ public class AjaxResponseRenderer {
     writer.write("\",\n");
 
     writer.write("    \"html\": \"");
-    try {
-      FacesUtils.invokeOnComponent(facesContext, facesContext.getViewRoot(), clientId, callback);
-    } catch (EmptyStackException e) {
-      //LOG.error(" content = \"" + content.toString() + "\"");
-      throw e;
-    }
+    FacesUtils.invokeOnComponent(facesContext, facesContext.getViewRoot(), clientId, callback);
     writer.write("\",\n");
 
     writer.write("    \"responseCode\": ");
     writer.write(Integer.toString(CODE_SUCCESS));
 
-    if (contentWriter instanceof TobagoResponseJsonWriterImpl) {
-      writer.write(",\n");
-      writer.write("    \"script\": \"function() { ");
-      writer.write(((TobagoResponseJsonWriterImpl) contentWriter).getJavascript());
-      writer.write(" }\"");
-    }
+    writer.write(",\n");
+    writer.write("    \"script\": \"function() { ");
+    writer.write(jsonWriter.getJavascript());
+    writer.write(" }\"");
+
     writer.write("\n  }");
   }
 
@@ -210,5 +204,16 @@ public class AjaxResponseRenderer {
       return httpServletResponse.getWriter();
     }
     throw new IOException("No ResponseWriter found for ExternalContext " + externalContext);
+  }
+
+  private TobagoResponseJsonWriterImpl getJsonResponseWriter(RenderKit renderKit, PrintWriter writer) {
+
+    ResponseWriter newWriter = renderKit.createResponseWriter(writer, CONTENT_TYPE, null);
+    if (newWriter instanceof TobagoResponseJsonWriterImpl) {
+      return (TobagoResponseJsonWriterImpl) newWriter;
+    } else {
+      // with different RenderKit we got not the correct class
+      return new TobagoResponseJsonWriterImpl(newWriter, CONTENT_TYPE, newWriter.getCharacterEncoding());
+    }
   }
 }
