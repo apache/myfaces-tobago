@@ -17,8 +17,6 @@ package org.apache.myfaces.tobago.renderkit;
  * limitations under the License.
  */
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.application.ProjectStage;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.internal.webapp.DebugTobagoResponseWriterWrapper;
@@ -26,6 +24,8 @@ import org.apache.myfaces.tobago.internal.webapp.TobagoResponseJsonWriterImpl;
 import org.apache.myfaces.tobago.internal.webapp.TobagoResponseWriterImpl;
 import org.apache.myfaces.tobago.internal.webapp.TobagoResponseXmlWriterImpl;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.FactoryFinder;
 import javax.faces.context.FacesContext;
@@ -115,7 +115,7 @@ public class TobagoRenderKit extends RenderKit {
       responseWriter = new TobagoResponseWriterImpl(writer, contentType, characterEncoding);
     }
     if (TobagoConfig.getInstance(FacesContext.getCurrentInstance()).getProjectStage() == ProjectStage.Development) {
-      return new DebugTobagoResponseWriterWrapper(responseWriter);
+      responseWriter = new DebugTobagoResponseWriterWrapper(responseWriter);
     }
     return responseWriter;
   }
