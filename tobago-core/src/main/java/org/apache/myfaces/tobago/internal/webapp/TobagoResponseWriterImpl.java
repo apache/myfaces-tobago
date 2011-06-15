@@ -30,10 +30,10 @@ import java.util.Map;
 
 public class TobagoResponseWriterImpl extends TobagoResponseWriterBase {
 
-   private static final String HTML_DOCTYPE =
+  private static final String HTML_DOCTYPE =
       "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\" \"http://www.w3.org/TR/html4/strict.dtd\">";
 
-  private HtmlWriterUtils helper;
+  private final HtmlWriterUtils helper;
 
   public TobagoResponseWriterImpl(
       Writer writer, String contentType, String characterEncoding) {
@@ -60,15 +60,15 @@ public class TobagoResponseWriterImpl extends TobagoResponseWriterBase {
 
   @Override
   protected final void closeEmptyTag() throws IOException {
-     getWriter().write("\n>");
+    getWriter().write("\n>");
   }
 
   @Override
   protected void writerAttributeValue(String value, boolean escape) throws IOException {
     if (escape) {
-       helper.writeAttributeValue(value);
+      helper.writeAttributeValue(value);
     } else {
-       getWriter().write(value);
+      getWriter().write(value);
     }
   }
 
@@ -77,7 +77,10 @@ public class TobagoResponseWriterImpl extends TobagoResponseWriterBase {
         originalWriter, getContentType(), getCharacterEncoding());
   }
 
-
+  /**
+   * @deprecated
+   */
+  @Deprecated
   public static Style ensureHtmlStyleMap(UIComponent component, Style styles) {
     if (styles == null) {
       styles = new Style();
