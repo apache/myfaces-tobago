@@ -19,10 +19,12 @@ package org.apache.myfaces.tobago.renderkit;
 
 import org.apache.myfaces.tobago.application.ProjectStage;
 import org.apache.myfaces.tobago.config.TobagoConfig;
+import org.apache.myfaces.tobago.context.Capability;
 import org.apache.myfaces.tobago.internal.webapp.DebugTobagoResponseWriterWrapper;
 import org.apache.myfaces.tobago.internal.webapp.TobagoResponseJsonWriterImpl;
 import org.apache.myfaces.tobago.internal.webapp.TobagoResponseWriterImpl;
 import org.apache.myfaces.tobago.internal.webapp.TobagoResponseXmlWriterImpl;
+import org.apache.myfaces.tobago.util.VariableResolverUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -99,15 +101,23 @@ public class TobagoRenderKit extends RenderKit {
       LOG.warn("Content-Type '" + contentTypeList + "' not supported! Using text/html");
     }
 
+// XXX enable xhtml here, by hand:
+//    contentType = "application/xhtml+xml";
+
     boolean xml = false;
-    if ("application/xhtml".equals(contentType)
+    if ("application/xhtml+xml".equals(contentType)
+        || "application/xhtml".equals(contentType)
         || "application/xml".equals(contentType)
         || "text/xml".equals(contentType)) {
       xml = true;
     }
-    // XXX for XHTML 1.0 the content type must be set to "text/html" for IE6
-    // XXX so at this time we can't differ ...
-//    xml = true;
+
+    // content type xhtml is not supported in every browser... e. g. IE 6, 7, 8
+    if (!VariableResolverUtils.resolveClientProperties(FacesContext.getCurrentInstance())
+        .getUserAgent().hasCapability(Capability.CONTENT_TYPE_XHTML)) {
+      contentType = "text/html";
+    }
+
     TobagoResponseWriter responseWriter;
     if (xml) {
       responseWriter = new TobagoResponseXmlWriterImpl(writer, contentType, characterEncoding);
