@@ -17,15 +17,15 @@ package org.apache.myfaces.tobago.context;
  * limitations under the License.
  */
 
-import java.io.Serializable;
+public enum Capability {
 
-public class Capability implements Serializable {
+  /**
+   * Support for the placeholder in HTML 5.
+   */
+  PLACEHOLDER,
 
-  private static final long serialVersionUID = 1L;
-
-  public static final Capability PLACEHOLDER = new Capability();
-
-  private Capability() {
-
-  }
+  /**
+   * Does the user agent support "application/xhtml+xml" as content type?
+   */
+  CONTENT_TYPE_XHTML
 }

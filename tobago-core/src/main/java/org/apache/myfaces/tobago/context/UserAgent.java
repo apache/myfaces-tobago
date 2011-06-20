@@ -21,11 +21,9 @@ import org.apache.myfaces.tobago.internal.util.Deprecation;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashSet;
+import java.util.EnumSet;
 import java.util.List;
-import java.util.Set;
 
 public class UserAgent implements Serializable {
 
@@ -62,7 +60,7 @@ public class UserAgent implements Serializable {
 
   public static final UserAgent MSIE_8_0 = new UserAgent("msie", "8_0");
 
-  public static final UserAgent MSIE_9_0 = new UserAgent("msie", "9_0");
+  public static final UserAgent MSIE_9_0 = new UserAgent("msie", "9_0", EnumSet.of(Capability.CONTENT_TYPE_XHTML));
 
   /**
    * @deprecated no longer supported, since Tobago 1.5
@@ -80,7 +78,7 @@ public class UserAgent implements Serializable {
   /**
    * e. g. Opera 10
    */
-  public static final UserAgent PRESTO = new UserAgent("presto", null);
+  public static final UserAgent PRESTO = new UserAgent("presto", null, EnumSet.of(Capability.CONTENT_TYPE_XHTML));
 
   /**
    * @deprecated no longer supported, since Tobago 1.5. Please use {@link #PRESTO}.
@@ -132,38 +130,44 @@ public class UserAgent implements Serializable {
   /**
    * e. g. Firefox
    */
-  public static final UserAgent GECKO = new UserAgent("gecko", null);
+  public static final UserAgent GECKO = new UserAgent("gecko", null, EnumSet.of(Capability.CONTENT_TYPE_XHTML));
 
   /**
    * e. g. Firefox 2.0
    */
-  public static final UserAgent GECKO_1_8 = new UserAgent("gecko", "1_8");
+  public static final UserAgent GECKO_1_8 = new UserAgent("gecko", "1_8", EnumSet.of(Capability.CONTENT_TYPE_XHTML));
 
   /**
    * e. g. Firefox 3.0, 3.5, 3.6
    */
-  public static final UserAgent GECKO_1_9 = new UserAgent("gecko", "1_9");
+  public static final UserAgent GECKO_1_9 = new UserAgent("gecko", "1_9", EnumSet.of(Capability.CONTENT_TYPE_XHTML));
 
   /**
    * e. g. Firefox 4.0
    */
-  public static final UserAgent GECKO_2_0 = new UserAgent("gecko", "2_0", Capability.PLACEHOLDER);
+  public static final UserAgent GECKO_2_0
+      = new UserAgent("gecko", "2_0", EnumSet.of(Capability.PLACEHOLDER, Capability.CONTENT_TYPE_XHTML));
 
   /**
    * e. g. Safari 4, Safari 5, Chrome
    */
-  public static final UserAgent WEBKIT = new UserAgent("webkit", null, Capability.PLACEHOLDER);
+  public static final UserAgent WEBKIT
+      = new UserAgent("webkit", null, EnumSet.of(Capability.PLACEHOLDER, Capability.CONTENT_TYPE_XHTML));
 
-  private String name;
+  private final String name;
 
-  private String version;
+  private final String version;
 
-  private Set<Capability> capabilities = new HashSet<Capability>();
+  private final EnumSet<Capability> capabilities;
 
-  private UserAgent(String name, String version, Capability... capabilities) {
+  private UserAgent(String name, String version) {
+    this(name , version, EnumSet.of(Capability.CONTENT_TYPE_XHTML));
+  }
+
+  private UserAgent(String name, String version, EnumSet<Capability> capabilities) {
     this.name = name;
     this.version = version;
-    this.capabilities.addAll(Arrays.asList(capabilities));
+    this.capabilities = capabilities;
   }
 
   public boolean hasCapability(Capability capability) {
