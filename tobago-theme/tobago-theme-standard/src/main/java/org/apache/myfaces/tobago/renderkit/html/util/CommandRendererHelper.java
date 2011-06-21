@@ -217,11 +217,6 @@ public class CommandRendererHelper {
     return onclick;
   }
 
-  public String getOnclickDoubleQuoted() {
-    return onclick.replace('\'', '\"');
-    
-  }
-
   public boolean isDisabled() {
     return disabled;
   }

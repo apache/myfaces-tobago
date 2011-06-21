@@ -434,12 +434,9 @@ public class SheetRenderer extends LayoutComponentRendererBase {
           pagerCommand = createPagingCommand(application, PageAction.TO_ROW, false);
           sheet.getFacets().put(Facets.PAGER_ROW, pagerCommand);
         }
-        String pagingOnClick = new CommandRendererHelper(facesContext, pagerCommand).getOnclickDoubleQuoted();
         final String pagerCommandId = pagerCommand.getClientId(facesContext);
 
         writer.startElement(HtmlElements.SPAN, null);
-        writer.writeAttribute(HtmlAttributes.ONCLICK,
-            "tobagoSheetEditPagingRow(this, '" + pagerCommandId + "', '" + pagingOnClick + "')", true);
         writer.writeClassAttribute(Classes.create(sheet, "pagingOuter", showRowRange));
         writer.writeAttribute(HtmlAttributes.TITLE,
             ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", "sheetPagingInfoRowPagingTip"), true);
@@ -466,7 +463,6 @@ public class SheetRenderer extends LayoutComponentRendererBase {
           pagerCommand = createPagingCommand(application, PageAction.TO_PAGE, false);
           sheet.getFacets().put(Facets.PAGER_PAGE, pagerCommand);
         }
-        String pagingOnClick = new CommandRendererHelper(facesContext, pagerCommand).getOnclickDoubleQuoted();
         final String pagerCommandId = pagerCommand.getClientId(facesContext);
 
         writer.startElement(HtmlElements.SPAN, null);
@@ -479,8 +475,6 @@ public class SheetRenderer extends LayoutComponentRendererBase {
         link(facesContext, application, atBeginning, PageAction.PREV, sheet);
         writer.startElement(HtmlElements.SPAN, null);
         writer.writeClassAttribute(Classes.create(sheet, "pagingText"));
-        writer.writeAttribute(HtmlAttributes.ONCLICK,
-            "tobagoSheetEditPagingRow(this, '" + pagerCommandId + "', '" + pagingOnClick + "')", true);
         writer.writeAttribute(HtmlAttributes.TITLE,
             ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", "sheetPagingInfoPagePagingTip"), true);
         writer.writeText("");
@@ -775,8 +769,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
         column.getFacets().put(Facets.SORTER, sortCommand);
       }
 
-      String onclick = "Tobago.submitAction(this, '" + sortCommand.getClientId(facesContext) + "')";
-      writer.writeAttribute(HtmlAttributes.ONCLICK, onclick, false);
+      writer.writeAttribute("sorterId", sortCommand.getClientId(facesContext), false);
 
       if (org.apache.commons.lang.StringUtils.isNotEmpty(tip)) {
         tip += " - ";
@@ -887,14 +880,10 @@ public class SheetRenderer extends LayoutComponentRendererBase {
       throws IOException {
     UICommand pagerCommand = (UICommand) sheet.getFacet(Facets.PAGER_PAGE);
     if (pagerCommand == null) {
-      pagerCommand = createPagingCommand(
-          application, PageAction.TO_PAGE, false);
+      pagerCommand = createPagingCommand(application, PageAction.TO_PAGE, false);
       sheet.getFacets().put(Facets.PAGER_PAGE, pagerCommand);
     }
     String pagerCommandId = pagerCommand.getClientId(facesContext);
-    String onclick = new CommandRendererHelper(facesContext, pagerCommand).getOnclickDoubleQuoted();
-    String hrefPostfix = "', '" + onclick + "');";
-
     int linkCount = ComponentUtils.getIntAttribute(sheet, Attributes.DIRECT_LINK_COUNT);
     linkCount--;  // current page needs no link
     ArrayList<Integer> prevs = new ArrayList<Integer>(linkCount);
@@ -945,19 +934,18 @@ public class SheetRenderer extends LayoutComponentRendererBase {
           name = "1";
         }
       }
-      writeLinkElement(writer, sheet, name, Integer.toString(skip),
-          pagerCommandId, hrefPostfix, true);
+      writeLinkElement(writer, sheet, name, Integer.toString(skip), pagerCommandId, true);
     }
     for (Integer prev : prevs) {
       name = prev.toString();
-      writeLinkElement(writer, sheet, name, name, pagerCommandId, hrefPostfix, true);
+      writeLinkElement(writer, sheet, name, name, pagerCommandId, true);
     }
     name = Integer.toString(sheet.getPage());
-    writeLinkElement(writer, sheet, name, name, pagerCommandId, hrefPostfix, false);
+    writeLinkElement(writer, sheet, name, name, pagerCommandId, false);
 
     for (Integer next : nexts) {
       name = next.toString();
-      writeLinkElement(writer, sheet, name, name, pagerCommandId, hrefPostfix, true);
+      writeLinkElement(writer, sheet, name, name, pagerCommandId, true);
     }
 
     skip = nexts.size() > 0 ? nexts.get(nexts.size() - 1) : sheet.getPages();
@@ -971,7 +959,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
           name = Integer.toString(skip);
         }
       }
-      writeLinkElement(writer, sheet, name, Integer.toString(skip), pagerCommandId, hrefPostfix, true);
+      writeLinkElement(writer, sheet, name, Integer.toString(skip), pagerCommandId, true);
     }
   }
 
@@ -987,16 +975,14 @@ public class SheetRenderer extends LayoutComponentRendererBase {
   }
 
   private void writeLinkElement(
-      TobagoResponseWriter writer, UISheet sheet, String str, String skip, String id, String hrefPostfix,
-      boolean makeLink)
+      TobagoResponseWriter writer, UISheet sheet, String str, String skip, String id, boolean makeLink)
       throws IOException {
     String type = makeLink ? HtmlElements.A : HtmlElements.SPAN;
     writer.startElement(type, null);
     writer.writeClassAttribute(Classes.create(sheet, "pagingLink"));
     if (makeLink) {
       writer.writeIdAttribute(id + ComponentUtils.SUB_SEPARATOR + "link_" + skip);
-      writer.writeAttribute(
-          HtmlAttributes.HREF, "javascript: tobagoSheetSetPagerPage('" + id + "', '" + skip + hrefPostfix, true);
+      writer.writeAttribute(HtmlAttributes.HREF, "#", true);
     }
     writer.flush();
     writer.write(str);

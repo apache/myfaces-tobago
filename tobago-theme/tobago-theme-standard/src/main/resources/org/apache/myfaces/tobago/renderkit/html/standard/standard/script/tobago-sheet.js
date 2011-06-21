@@ -85,33 +85,19 @@ Tobago.Sheet = function(sheetId, firstRowIndex, checkedImage, uncheckedImage, se
   LOG.debug("Sheet-total time = " + (this.endTime.getTime() - this.startTime.getTime())); // @DEV_ONLY
 };
 
-Tobago.Sheet.prototype.sortOnclickRegExp
-      = new RegExp("Tobago.submitAction\\(this, ('|\")(.*?)('|\")\\)");
-
 Tobago.Sheet.prototype.setupSortHeaders = function() {
-    var i = 0;
-    var idPrefix = this.id + Tobago.SUB_COMPONENT_SEP + "header_box_";
-    var headerBox = Tobago.element(idPrefix + i++);
-    while (headerBox) {
-      if (headerBox.onclick) {
-        var match = this.sortOnclickRegExp.exec(headerBox.onclick.valueOf());
-//        LOG.debug("match[0] = " + match[0]);
-//        LOG.debug("match[1] = " + match[1]);
-//        LOG.debug("*match[2] = " + match[2]);
-//        LOG.debug("match[3] = " + match[3]);
-//        LOG.debug("match[4] = " + match[4]);
-//        LOG.debug("match[5] = " + match[5]);
-//        LOG.debug("match[6] = " + match[6]);
-//        headerBox.formId = match[2];
-        headerBox.sorterId = match[2];
-//        delete headerBox.onclick;
-        headerBox.onclick = null;
-//        LOG.debug("headerBox.id = " + headerBox.id);
-        Tobago.addBindEventListener(headerBox, "click", this, "doSort");
-      }
-      headerBox = Tobago.element(idPrefix + i++);
+  var sheet = this;
+  jQuery(Tobago.escapeClientId(sheet.id)).find(".tobago-sheet-header").each(function() {
+    var sorterId = jQuery(this).attr("sorterId");
+    // old style (not with jQuery), is todo
+    if (sorterId) {
+      var headerBox = jQuery(this).get(0);
+      LOG.warn("sorterId=" + sorterId + " element-id=" + headerBox.id);
+      headerBox.sorterId = sorterId;
+      Tobago.addBindEventListener(headerBox, "click", sheet, "doSort");
     }
-  };
+  });
+};
 
 Tobago.Sheet.prototype.setupPagingLinks = function() {
     idPrefix = this.id + Tobago.SUB_COMPONENT_SEP;
@@ -120,7 +106,6 @@ Tobago.Sheet.prototype.setupPagingLinks = function() {
       for (i = 0 ; i < linkBox.childNodes.length ; i++) {
         var child = linkBox.childNodes[i];
         if (child.nodeType == 1 && child.tagName.toUpperCase() == "A") {
-          child.href = "#";
           Tobago.addBindEventListener(child, "click", this, "doPagingDirect");
         }
       }
@@ -134,21 +119,10 @@ Tobago.Sheet.prototype.setupPagePaging = function() {
         var child = linkBox.childNodes[i];
         if (child.nodeType == 1 && child.tagName.toUpperCase() == "IMG") {
           // first, prev, next and last commands
-          if (child.onclick) {
-//            delete child.onclick;
-            child.onclick = null;
-            Tobago.addBindEventListener(child, "click", this, "doPaging");
-          }
+          Tobago.addBindEventListener(child, "click", this, "doPaging");
         } else if (child.nodeType == 1 && child.tagName.toUpperCase() == "SPAN") {
-//          LOG.debug("Page : onclick =" + child.onclick);
-          if (child.onclick) {
-//            delete child.onclick;
-            child.onclick = null;
-            var toPageId = this.id + Tobago.COMPONENT_SEP + "ToPage";
-            Tobago.addEventListener(child, "click",
-                Tobago.bind(this, "insertTarget", toPageId));
-          }
-
+          var toPageId = this.id + Tobago.COMPONENT_SEP + "ToPage";
+          Tobago.addEventListener(child, "click", Tobago.bind(this, "insertTarget", toPageId));
         }
       }
     }
@@ -159,12 +133,7 @@ Tobago.Sheet.prototype.setupRowPaging = function() {
     var rowText = Tobago.element(toRowId + Tobago.SUB_COMPONENT_SEP + "text");
     if (rowText) {
       var parent = rowText.parentNode;
-//      LOG.debug("row : onclick =" + parent.onclick);
-      if (parent.onclick) {
-//        delete parent.onclick;
-        parent.onclick = null;
-        Tobago.addEventListener(parent, "click", Tobago.bind(this, "insertTarget", toRowId));
-      }
+      Tobago.addEventListener(parent, "click", Tobago.bind(this, "insertTarget", toRowId));
     }
   };
 
