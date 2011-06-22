@@ -844,14 +844,17 @@ hr.tobago-separator {
 }
 
 .tobago-sheet-cell {
-  padding-left: 0;
-  padding-right: 0;
+  padding: 2px;
   vertical-align: top;
   overflow: hidden;
 }
 
 .tobago-sheet-cell-markup-clickable {
    cursor: pointer;
+}
+
+.tobago-sheet-cell-markup-pure {
+  padding: 0;
 }
 
 .tobago-sheet-row-markup-odd {

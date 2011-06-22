@@ -230,6 +230,7 @@
             <!-- for the cells -->
             <markup>clickable</markup>
             <markup>first</markup>
+            <markup>pure</markup>
             <!-- internal: for the paging fields -->
             <markup>left</markup>
             <markup>center</markup>

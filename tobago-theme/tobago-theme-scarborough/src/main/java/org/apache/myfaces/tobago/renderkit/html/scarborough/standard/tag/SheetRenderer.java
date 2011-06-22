@@ -24,8 +24,10 @@ import org.apache.myfaces.tobago.component.SupportsMarkup;
 import org.apache.myfaces.tobago.component.UIColumnEvent;
 import org.apache.myfaces.tobago.component.UIColumnSelector;
 import org.apache.myfaces.tobago.component.UICommand;
+import org.apache.myfaces.tobago.component.UILink;
 import org.apache.myfaces.tobago.component.UIMenu;
 import org.apache.myfaces.tobago.component.UIMenuCommand;
+import org.apache.myfaces.tobago.component.UIOut;
 import org.apache.myfaces.tobago.component.UIReload;
 import org.apache.myfaces.tobago.component.UISheet;
 import org.apache.myfaces.tobago.config.Configurable;
@@ -322,6 +324,9 @@ public class SheetRenderer extends LayoutComponentRendererBase {
         if (hasClickAction) {
           markup = markup.add(Markup.CLICKABLE);
         }
+        if (isPure(column)) {
+          markup = markup.add(Markup.PURE);
+        }
         writer.writeClassAttribute(Classes.create(sheet, "cell", markup));
         final TextAlign align = TextAlign.parse((String) column.getAttributes().get(Attributes.ALIGN));
         if (align != null) {
@@ -488,6 +493,23 @@ public class SheetRenderer extends LayoutComponentRendererBase {
 
       writer.endElement(HtmlElements.DIV);
     }
+  }
+
+  /**
+   * Differ between simple content and complex content.
+   * Decide if the content of a cell needs usually the whole possible space or
+   * is the character of the content like flowing text.
+   * In the second case, the style usually sets a padding.<br/>
+   * Pure is needed for &lt;tc:panel>,  &lt;tc:in>, etc.<br/>
+   * Pure is not needed for  &lt;tc:out> and &lt;tc:link>
+   */
+  private boolean isPure(UIColumn column) {
+    for (UIComponent child : column.getChildren()) {
+      if (!(child instanceof UIOut) && !(child instanceof UILink)) {
+        return true;
+      }
+    }
+    return false;
   }
 
   private String createSheetPagingInfo(UISheet sheet, FacesContext facesContext, String pagerCommandId, boolean row) {
