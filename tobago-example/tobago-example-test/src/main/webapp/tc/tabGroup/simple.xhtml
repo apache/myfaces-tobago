@@ -22,10 +22,10 @@
     xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:h="http://java.sun.com/jsf/html"
     xmlns:f="http://java.sun.com/jsf/core">
-  <tc:page>
-    <tc:gridLayoutConstraint width="600px" height="300px"/>
+  <tc:page id="p">
+    <tc:gridLayoutConstraint width="1000px" height="300px" paddingLeft="400px"/>
 
-    <tc:tabGroup switchType="client">
+    <tc:tabGroup id="t1" switchType="client" selectedIndex="6">
       <tc:gridLayoutConstraint paddingTop="25px"/>
       <tc:tab label="Tab 0">
         <tc:textarea readonly="true" value="#{reload.counter}"/>
@@ -47,7 +47,57 @@
       <tc:tab label="Tab 4">
         <tc:textarea />
       </tc:tab>
+      <tc:tab label="Tab 5 abcdefghijklmnopqrstuvmxyz">
+        <tc:textarea />
+      </tc:tab>
+      <tc:tab label="Tab 6 abcdefghijklmnopqrstuvmxyz">
+        <tc:textarea />
+      </tc:tab>
+      <tc:tab label="Tab 7 abcdefghijklmnopqrstuvmxyz">
+        <tc:textarea />
+      </tc:tab>
+      <tc:tab label="Tab 8">
+        <tc:textarea />
+      </tc:tab>
     </tc:tabGroup>
+
+    <f:subview id="s">
+      <tc:tabGroup id="t2" switchType="client" selectedIndex="7">
+        <tc:gridLayoutConstraint paddingTop="25px"/>
+        <tc:tab label="Tab 0">
+          <tc:textarea readonly="true" value="#{reload.counter}"/>
+        </tc:tab>
+        <tc:tab label="Tab 1">
+          <f:facet name="layout">
+            <tc:gridLayout columns="*;*" rows="*;*"/>
+          </f:facet>
+          <tc:textarea />
+          <tc:textarea />
+          <tc:textarea />
+        </tc:tab>
+        <tc:tab label="Tab 2">
+          <tc:textarea />
+        </tc:tab>
+        <tc:tab label="Tab 3">
+          <tc:textarea />
+        </tc:tab>
+        <tc:tab label="Tab 4">
+          <tc:textarea />
+        </tc:tab>
+        <tc:tab label="Tab 5 abcdefghijklmnopqrstuvmxyz">
+          <tc:textarea />
+        </tc:tab>
+        <tc:tab label="Tab 6 abcdefghijklmnopqrstuvmxyz">
+          <tc:textarea />
+        </tc:tab>
+        <tc:tab label="Tab 7 abcdefghijklmnopqrstuvmxyz">
+          <tc:textarea />
+        </tc:tab>
+        <tc:tab label="Tab 8">
+          <tc:textarea />
+        </tc:tab>
+      </tc:tabGroup>
+    </f:subview>
 
   </tc:page>
 </f:view>
