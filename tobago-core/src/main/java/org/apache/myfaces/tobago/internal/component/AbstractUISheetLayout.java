@@ -167,7 +167,7 @@ public abstract class AbstractUISheetLayout extends AbstractUILayoutBase impleme
     for (LayoutComponent component : sheet.getComponents()) {
 
       if (component != null) {
-        AbstractUIColumn column = (AbstractUIColumn) ((UIComponent)component).getParent();
+        AbstractUIColumn column = (AbstractUIColumn) ((UIComponent) component).getParent();
 
         component.setDisplay(Display.BLOCK); // TODO: use CSS via classes and style.css
 
