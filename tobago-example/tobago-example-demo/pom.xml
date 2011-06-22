@@ -26,8 +26,8 @@
   <packaging>war</packaging>
   <name>Tobago Example Demo</name>
   <properties>
-    <openwebbeans.version>1.1.1-SNAPSHOT</openwebbeans.version>
-    <myfaces-extcdi.version>1.0.0-SNAPSHOT</myfaces-extcdi.version>
+    <openwebbeans.version>1.1.0</openwebbeans.version>
+    <myfaces-extcdi.version>0.9.5</myfaces-extcdi.version>
   </properties>
   <build>
     <finalName>tobago-example-demo</finalName>
