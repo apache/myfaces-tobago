@@ -93,10 +93,12 @@ fieldset.tobago-box {
   margin: 0;
   left: 0;
   top: 0;
+  cursor: pointer;
 }
 
 .tobago-boxToolBar-item-markup-disabled {
   color: #778899;
+  cursor: default;
 }
 
 .tobago-boxToolBar-button, .tobago-boxToolBar-menu {
