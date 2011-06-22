@@ -276,17 +276,22 @@
       <classifier>tests</classifier>
       <scope>test</scope>
     </dependency>
+<!-- needed for Tomcat 5.5, TODO: make a JavaEE4 profile
     <dependency>
       <groupId>javax.el</groupId>
       <artifactId>el-api</artifactId>
       <version>1.0</version>
       <scope>compile</scope>
     </dependency>
+-->
     <dependency>
       <groupId>com.sun.el</groupId>
       <artifactId>el-ri</artifactId>
       <version>1.0</version>
+      <scope>test</scope>
+<!-- needed for Tomcat 5.5, TODO: make a JavaEE4 profile
       <scope>compile</scope>
+-->
     </dependency>
 <!--
     <dependency>
