@@ -17,23 +17,32 @@ package org.apache.myfaces.tobago.layout;
  * limitations under the License.
  */
 
-import java.util.List;
+import org.apache.myfaces.tobago.config.Configurable;
 
-public interface LayoutContainer extends LayoutBox, LayoutBase {
+public interface LayoutBox extends Configurable {
 
-  List<LayoutComponent> getComponents();
+  Measure getBorderLeft();
+  void setBorderLeft(Measure borderLeft);
 
-  LayoutManager getLayoutManager();
-  void setLayoutManager(LayoutManager layoutManager);
+  Measure getBorderRight();
+  void setBorderRight(Measure borderRight);
 
-  /**
-   * Should the children of the this component be laid out from the given layout manager.
-   */
-  boolean isLayoutChildren();
+  Measure getBorderTop();
+  void setBorderTop(Measure borderTop);
 
-  boolean isOverflowX();
-  void setOverflowX(boolean overflowX);
+  Measure getBorderBottom();
+  void setBorderBottom(Measure borderBottom);
 
-  boolean isOverflowY();
-  void setOverflowY(boolean overflowY);
+  Measure getPaddingLeft();
+  void setPaddingLeft(Measure paddingLeft);
+
+  Measure getPaddingRight();
+  void setPaddingRight(Measure paddingRight);
+
+  Measure getPaddingTop();
+  void setPaddingTop(Measure paddingTop);
+
+  Measure getPaddingBottom();
+  void setPaddingBottom(Measure paddingBottom);
+
 }

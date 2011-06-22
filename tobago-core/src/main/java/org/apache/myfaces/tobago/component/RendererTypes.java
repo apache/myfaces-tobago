@@ -27,6 +27,7 @@ public final class RendererTypes {
   public static final String BUTTON = "Button";
   public static final String CALENDAR = "Calendar";
   public static final String CELL = "Cell";
+  public static final String COLUMN = "Column";
   public static final String COLUMN_SELECTOR = "ColumnSelector";
   public static final String COMMAND = "Command";
   public static final String DATE = "Date";

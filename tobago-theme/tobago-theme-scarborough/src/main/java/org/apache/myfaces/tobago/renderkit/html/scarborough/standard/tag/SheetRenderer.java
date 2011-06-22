@@ -1041,6 +1041,10 @@ public class SheetRenderer extends LayoutComponentRendererBase {
   }
 
   @Override
-  public void prepareRendersChildren(FacesContext context, UIComponent component) {
+  public void prepareRendersChildren(FacesContext facesContext, UIComponent component) throws IOException {
+    UISheet sheet = (UISheet) component;
+    for (UIColumn column : sheet.getRenderedColumns()) {
+      RenderUtils.prepareRendererAll(facesContext, column);
+    }
   }
 }

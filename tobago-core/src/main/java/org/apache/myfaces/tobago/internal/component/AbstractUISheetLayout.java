@@ -167,11 +167,15 @@ public abstract class AbstractUISheetLayout extends AbstractUILayoutBase impleme
     for (LayoutComponent component : sheet.getComponents()) {
 
       if (component != null) {
+        AbstractUIColumn column = (AbstractUIColumn) ((UIComponent)component).getParent();
+
         component.setDisplay(Display.BLOCK); // TODO: use CSS via classes and style.css
 
         Measure width = Measure.valueOf(widthList.get(index));
-        width = width.subtractNotNegative(LayoutUtils.getBorderBegin(orientation, sheet));
-        width = width.subtractNotNegative(LayoutUtils.getBorderEnd(orientation, sheet));
+        width = width.subtractNotNegative(LayoutUtils.getBorderBegin(orientation, column));
+        width = width.subtractNotNegative(LayoutUtils.getPaddingBegin(orientation, column));
+        width = width.subtractNotNegative(LayoutUtils.getPaddingEnd(orientation, column));
+        width = width.subtractNotNegative(LayoutUtils.getBorderEnd(orientation, column));
         component.setCurrentWidth(width);
 
         // compute the position of the cell

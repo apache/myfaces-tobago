@@ -24,11 +24,13 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.ComponentTypes;
 import org.apache.myfaces.tobago.component.Facets;
+import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabel;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutContainer;
 
 /**
  * Renders a UIComponent that represents a single column of data within a
@@ -39,6 +41,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
     uiComponent = "org.apache.myfaces.tobago.component.UIColumn",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIColumn",
     componentType = ComponentTypes.COLUMN,
+    rendererType = RendererTypes.COLUMN,
     facets = {
         @Facet(name = Facets.MENUPOPUP, description = "Deprecated. Please use dropDownMenu facet.",
             allowedChildComponenents = "org.apache.myfaces.tobago.Menu"),
@@ -46,7 +49,8 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
             + " (not implemented yet, work in progress)", // XXX
             allowedChildComponenents = "org.apache.myfaces.tobago.Menu")
     })
-public interface ColumnTagDeclaration extends HasIdBindingAndRendered, HasLabel, HasTip, HasMarkup, HasCurrentMarkup {
+public interface ColumnTagDeclaration
+    extends HasIdBindingAndRendered, HasLabel, HasTip, HasMarkup, HasCurrentMarkup, IsGridLayoutContainer {
   /**
    * Alignment of this column.
    */

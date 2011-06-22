@@ -18,6 +18,7 @@ package org.apache.myfaces.tobago.internal.layout;
  */
 
 import org.apache.myfaces.tobago.layout.LayoutBase;
+import org.apache.myfaces.tobago.layout.LayoutBox;
 import org.apache.myfaces.tobago.layout.LayoutComponent;
 import org.apache.myfaces.tobago.layout.LayoutContainer;
 import org.apache.myfaces.tobago.layout.Measure;
@@ -70,19 +71,19 @@ public final class LayoutUtils {
     }
   }
 
-  public static Measure getBorderEnd(Orientation orientation, LayoutContainer container) {
+  public static Measure getBorderEnd(Orientation orientation, LayoutBox container) {
     return orientation == Orientation.HORIZONTAL ? container.getBorderRight() : container.getBorderBottom();
   }
 
-  public static Measure getBorderBegin(Orientation orientation, LayoutContainer container) {
+  public static Measure getBorderBegin(Orientation orientation, LayoutBox container) {
     return orientation == Orientation.HORIZONTAL ? container.getBorderLeft() : container.getBorderTop();
   }
 
-  public static Measure getPaddingEnd(Orientation orientation, LayoutContainer container) {
+  public static Measure getPaddingEnd(Orientation orientation, LayoutBox container) {
     return orientation == Orientation.HORIZONTAL ? container.getPaddingRight() : container.getPaddingBottom();
   }
 
-  public static Measure getPaddingBegin(Orientation orientation, LayoutContainer container) {
+  public static Measure getPaddingBegin(Orientation orientation, LayoutBox container) {
     return orientation == Orientation.HORIZONTAL ? container.getPaddingLeft() : container.getPaddingTop();
   }
 

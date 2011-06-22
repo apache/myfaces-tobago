@@ -17,9 +17,12 @@ package org.apache.myfaces.tobago.internal.component;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.layout.LayoutBox;
+
 import javax.faces.component.UIColumn;
 
-public abstract class AbstractUIColumn extends UIColumn {
+public abstract class AbstractUIColumn extends UIColumn implements LayoutBox {
 
   public abstract String getWidth();
+
 }

@@ -60,7 +60,7 @@ public class RendererBase extends Renderer {
     return false;
   }
 
-  public void prepareRendersChildren(FacesContext context, UIComponent component) {
+  public void prepareRendersChildren(FacesContext context, UIComponent component) throws IOException {
   }
 
   /**
