@@ -66,7 +66,7 @@ public class Navigation implements Serializable {
   }
 
   protected void init(List<String> list) {
-    list.add("/content/root.xhtml");
+    list.add("/content/root-dummy.xhtml"); // helps to build the tree, this is not an existing file
     List<Node> nodes = new ArrayList<Node>();
     for (String path : list) {
       try {
