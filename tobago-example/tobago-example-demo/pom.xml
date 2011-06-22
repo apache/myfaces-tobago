@@ -102,14 +102,24 @@
 
   <dependencies>
     <dependency>
-      <groupId>javax.enterprise</groupId>
-      <artifactId>cdi-api</artifactId>
-      <version>1.0-SP1</version>
+      <groupId>org.apache.geronimo.specs</groupId>
+      <artifactId>geronimo-jcdi_1.0_spec</artifactId>
+      <version>1.0</version>
     </dependency>
     <dependency>
-      <groupId>javax.validation</groupId>
-      <artifactId>validation-api</artifactId>
-      <version>1.0.0.GA</version>
+      <groupId>org.apache.geronimo.specs</groupId>
+      <artifactId>geronimo-validation_1.0_spec</artifactId>
+      <version>1.1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.geronimo.specs</groupId>
+      <artifactId>geronimo-atinject_1.0_spec</artifactId>
+      <version>1.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.geronimo.specs</groupId>
+      <artifactId>geronimo-interceptor_1.1_spec</artifactId>
+      <version>1.0</version>
     </dependency>
     <dependency>
       <groupId>org.apache.openwebbeans</groupId>
@@ -301,12 +311,14 @@
         </dependency>
 -->
   </dependencies>
+<!--
   <repositories>
     <repository>
         <id>googlecode.com</id>
         <url>https://os890-m2-repository.googlecode.com/svn/tags/apache-extras</url>
     </repository>
   </repositories>
+-->
   <profiles>
     <profile>
       <id>ssl</id>
