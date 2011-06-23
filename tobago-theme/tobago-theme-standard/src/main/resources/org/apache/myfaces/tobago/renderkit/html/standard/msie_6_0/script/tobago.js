@@ -21,7 +21,7 @@
  */
 
 Tobago.fixPngAlphaAll = function(elements) {
-  if (jQuery.browser.msie && parseInt(jQuery.browser.version) <= 6) {
+  if (jQuery.browser.msie && parseInt(jQuery.browser.version, 10) <= 6) {
     // fix png images
     var images = Tobago.selectWidthJQuery(elements, "img[src$='.png']");
     images.each(function() {
@@ -39,7 +39,7 @@ Tobago.fixPngAlphaAll = function(elements) {
 
 Tobago.fixPngAlpha = function(element) {
   if (jQuery.browser.msie
-      && parseInt(jQuery.browser.version) <= 6
+      && parseInt(jQuery.browser.version, 10) <= 6
       && element.src.toLowerCase().match(/.*png/)
       && Tobago.isActiveXEnabled()) {
     Tobago.fixPngAlphaInternal(element);

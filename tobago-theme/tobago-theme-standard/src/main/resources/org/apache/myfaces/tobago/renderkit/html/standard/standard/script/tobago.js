@@ -892,7 +892,7 @@ var Tobago = {
       shield.attr('id', maxModalPopup.attr('id') + '::shield');
 
       // IE6 doesn't support position:fixed
-      if (jQuery.browser.msie && parseInt(jQuery.browser.version) <= 6) {
+      if (jQuery.browser.msie && parseInt(jQuery.browser.version, 10) <= 6) {
         shield.css({
           position: 'absolute',
           left: -maxModalPopup.offset().left,
@@ -2978,10 +2978,10 @@ function openPopup(url, name, width, height, options, x, y) {
     height = 600;
   }
   if (!x) {
-    x = parseInt((window.screen.availWidth - width) / 2);
+    x = parseInt((window.screen.availWidth - width) / 2, 10);
   }
   if (!y) {
-    y = parseInt((window.screen.availHeight - height) / 2);
+    y = parseInt((window.screen.availHeight - height) / 2, 10);
   }
   if (!url) {
     url = '';

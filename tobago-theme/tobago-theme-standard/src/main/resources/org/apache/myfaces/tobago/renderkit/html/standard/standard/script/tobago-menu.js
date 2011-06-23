@@ -155,7 +155,7 @@ Tobago.Menu.open = function(event) {
     sub.css('visibility', 'visible');
     
     // IE6 select-tag fix
-    if (jQuery.browser.msie && parseInt(jQuery.browser.version) <= 6) {
+    if (jQuery.browser.msie && parseInt(jQuery.browser.version, 10) <= 6) {
       //          sub.css('width', sub.width());
       //          sub.css('height', sub.height());
       //          sub.css('display', 'none');
@@ -163,8 +163,8 @@ Tobago.Menu.open = function(event) {
       var iframe = sub.children("iframe:first");
       iframe.css('width', sub.outerWidth());
       iframe.css('height', sub.outerHeight());
-      iframe.css('left', -(parseInt(sub.css('border-left-width')) + parseInt(sub.css('padding-left'))));
-      iframe.css('top', -(parseInt(sub.css('border-top-width')) + parseInt(sub.css('padding-top'))));
+      iframe.css('left', -(parseInt(sub.css('border-left-width'), 10) + parseInt(sub.css('padding-left'), 10)));
+      iframe.css('top', -(parseInt(sub.css('border-top-width'), 10) + parseInt(sub.css('padding-top'), 10)));
     }
   }
       
@@ -250,7 +250,7 @@ Tobago.Menu.init = function(elements) {
   // IE6 select-tag fix
   // put a iframe inside the div, so that a <select> tag doesn't shine through.
   // the iframe must be resized (see above)
-  if (jQuery.browser.msie && parseInt(jQuery.browser.version) <= 6) {
+  if (jQuery.browser.msie && parseInt(jQuery.browser.version, 10) <= 6) {
     menus.children("ol").prepend(
         "<iframe class='tobago-menu-ie6bugfix' src='" + Tobago.blankPage + "'></iframe>");
   }

@@ -301,7 +301,7 @@ Tobago.Sheet.prototype.setup = function() {
   //      this.adjustScrollBars();
   this.setScrollPosition();
 
-  this.firstRowIndex = parseInt(this.getRows().eq(0).attr("rowIndexInModel"));
+  this.firstRowIndex = parseInt(this.getRows().eq(0).attr("rowIndexInModel"), 10);
   this.rowCount = this.getRows().size();
 
   if (this.selectable

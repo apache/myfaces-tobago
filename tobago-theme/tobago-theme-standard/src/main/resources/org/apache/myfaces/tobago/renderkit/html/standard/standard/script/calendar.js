@@ -91,7 +91,7 @@ function addMonth(id, monthDelta) {
   }
   var year = parseInt(document.getElementById(id + ":year").value, 10) + yearDelta;
   var month = parseInt(document.getElementById(id + ":month").value, 10) + monthDelta;
-  var day = parseInt(document.getElementById(id + ":day").value);
+  var day = parseInt(document.getElementById(id + ":day").value, 10);
   if (month < 1) {
     month = 12;
     --year;
@@ -107,9 +107,9 @@ function addMonth(id, monthDelta) {
 }
 
 function recalculateValues(id) {
-  var day = parseInt(document.getElementById(id + ":day").value);
-  var month = parseInt(document.getElementById(id + ":month").value);
-  var year = parseInt(document.getElementById(id + ":year").value);
+  var day = parseInt(document.getElementById(id + ":day").value, 10);
+  var month = parseInt(document.getElementById(id + ":month").value, 10);
+  var year = parseInt(document.getElementById(id + ":year").value, 10);
 //  alert("before " + day + "." + month + "." + year);
 
   if (month < 1) {
@@ -154,9 +154,9 @@ function selectDay(id, row, column) {
 }
 
 function initCalendar(id) {
-  var day = parseInt(document.getElementById(id + ":day").value);
-  var month = parseInt(document.getElementById(id + ":month").value);
-  var year = parseInt(document.getElementById(id + ":year").value);
+  var day = parseInt(document.getElementById(id + ":day").value, 10);
+  var month = parseInt(document.getElementById(id + ":month").value, 10);
+  var year = parseInt(document.getElementById(id + ":year").value, 10);
   var firstDayOfWeek = getFirstDayOfWeek(id);
   var firstDayOffset = Calendar.firstDayOffset(month, year, firstDayOfWeek);
 //  var weekCount = Calendar.weekCount(month, year, firstDayOfWeek);
@@ -232,9 +232,9 @@ function writeIntoField(obj, id) {
   var textBoxId = document.getElementById(id + ":calendar:fieldId");
   var textBox = document.getElementById(textBoxId.value);
 
-  var day = parseInt(document.getElementById(id + ":calendar:day").value);
-  var month = parseInt(document.getElementById(id + ":calendar:month").value);
-  var year = parseInt(document.getElementById(id + ":calendar:year").value);
+  var day = parseInt(document.getElementById(id + ":calendar:day").value, 10);
+  var month = parseInt(document.getElementById(id + ":calendar:month").value, 10);
+  var year = parseInt(document.getElementById(id + ":calendar:year").value, 10);
 
   var idPrefix = id + ":time" + Tobago.SUB_COMPONENT_SEP;
   var hour = document.getElementById(idPrefix + "hour");
