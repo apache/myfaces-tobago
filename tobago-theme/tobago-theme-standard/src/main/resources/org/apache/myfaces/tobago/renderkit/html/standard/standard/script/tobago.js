@@ -1485,7 +1485,7 @@ var Tobago = {
       element = element.offsetParent;
       parent = true;
     }
-    return top;
+    return Math.max(top, 0);
   },
 
   getWidth: function(element) {
