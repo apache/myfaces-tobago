@@ -925,14 +925,14 @@ public class ComponentUtils {
     return false;
   }
 
-  public static FacesMessage.Severity getMaximumSeverityOfChildrenMessages(FacesContext facesContext,
-      NamingContainer container) {
+  public static FacesMessage.Severity getMaximumSeverityOfChildrenMessages(
+      FacesContext facesContext, NamingContainer container) {
     if (container instanceof UIComponent) {
       String clientId = ((UIComponent) container).getClientId(facesContext);
       FacesMessage.Severity max = null;
       for (Iterator ids = facesContext.getClientIdsWithMessages(); ids.hasNext();) {
         String id = (String) ids.next();
-        if (id.startsWith(clientId)) {
+        if (id != null && id.startsWith(clientId)) {
           final Iterator messages = facesContext.getMessages(id);
           while (messages.hasNext()) {
             FacesMessage message = (FacesMessage) messages.next();
