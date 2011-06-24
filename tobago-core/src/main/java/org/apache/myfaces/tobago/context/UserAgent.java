@@ -149,6 +149,12 @@ public class UserAgent implements Serializable {
       = new UserAgent("gecko", "2_0", EnumSet.of(Capability.PLACEHOLDER, Capability.CONTENT_TYPE_XHTML));
 
   /**
+   * e. g. Firefox 5.0
+   */
+  public static final UserAgent GECKO_5_0
+      = new UserAgent("gecko", "5_0", EnumSet.of(Capability.PLACEHOLDER, Capability.CONTENT_TYPE_XHTML));
+
+  /**
    * e. g. Safari 4, Safari 5, Chrome
    */
   public static final UserAgent WEBKIT
@@ -235,6 +241,8 @@ public class UserAgent implements Serializable {
         return GECKO_1_9;
       } else if (header.contains("rv:2.0")) {
         return GECKO_2_0;
+      } else if (header.contains("rv:5.0")) {
+        return GECKO_5_0;
       } else {
         return GECKO;
       }
