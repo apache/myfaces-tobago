@@ -87,15 +87,13 @@ Tobago.Sheet = function(sheetId, firstRowIndex, checkedImage, uncheckedImage, se
 
 Tobago.Sheet.prototype.setupSortHeaders = function() {
   var sheet = this;
-  jQuery(Tobago.escapeClientId(sheet.id)).find(".tobago-sheet-header").each(function() {
-    var sorterId = jQuery(this).attr("sorterId");
-    // old style (not with jQuery), is todo
-    if (sorterId) {
-      var headerBox = jQuery(this).get(0);
-      LOG.warn("sorterId=" + sorterId + " element-id=" + headerBox.id);
-      headerBox.sorterId = sorterId;
-      Tobago.addBindEventListener(headerBox, "click", sheet, "doSort");
-    }
+  jQuery(Tobago.escapeClientId(sheet.id)).find(".tobago-sheet-header[sorterId]").each(function() {
+
+    jQuery(this).click({sheet: sheet, sorterId: jQuery(this).attr("sorterId")}, function(event) {
+
+      event.data.sheet.reloadWithAction(jQuery(this), event.data.sorterId);
+      event.stopPropagation();
+    });
   });
 };
 
@@ -137,15 +135,6 @@ Tobago.Sheet.prototype.setupRowPaging = function() {
     }
   };
 
-Tobago.Sheet.prototype.doSort = function(event) {
-    var element = Tobago.element(event);
-    while (element && !element.sorterId) {
-      element = element.parentNode;
-    }
-    LOG.debug("element.id = " + element.id); // @DEV_ONLY
-    LOG.debug("sorterId = " + element.sorterId); // @DEV_ONLY
-    this.reloadWithAction(event.srcElement, element.sorterId);
-  };
 
 Tobago.Sheet.prototype.doPagingDirect = function(event) {
     var element = Tobago.element(event);
@@ -292,6 +281,13 @@ Tobago.Sheet.prototype.setup = function() {
   this.setupStart = new Date();
 
   this.setupResizer();
+
+  // IE 6+7
+  if (jQuery.browser.msie && parseInt(jQuery.browser.version) <= 7) {
+    jQuery(Tobago.escapeClientId(this.id) + ">div>table>colgroup>col").each(function() {
+      Tobago.Sheet.fixIE67ColWidth(jQuery(this));
+    });
+  }
 
   this.adjustHeaderDiv();
   this.adjustResizer();
@@ -514,7 +510,7 @@ Tobago.Sheet.prototype.isEnabled = function(image) {
 Tobago.Sheet.prototype.getRows = function() {
   // todo: use a util for "id replace"
   // find all rows in current sheet
-  return jQuery("#" + this.id.replace(/:/g, "\\:") + ">div>table>tbody>tr");
+  return jQuery(Tobago.escapeClientId(this.id) + ">div>table>tbody>tr");
 };
 
 Tobago.Sheet.prototype.updateSelectionView = function() {
@@ -731,13 +727,26 @@ Tobago.Sheet.prototype.endResize = function(event) {
       event = window.event;
     }
     if (this.resizerId) {
+      var width = this.newWidth;
       var columnNr = this.resizerId.substring(this.resizerId.lastIndexOf("_") + 1, this.resizerId.length);
-      var table = jQuery("#" + this.id.replace(/:/g, "\\:") + ">div>table");
-      jQuery("colgroup>col", table).eq(columnNr).attr("width", this.newWidth);
+      var table = jQuery(Tobago.escapeClientId(this.id) + ">div>table");
+      var col = jQuery("colgroup>col", table).eq(columnNr);
+      col.width(width);
+
+      if (jQuery.browser.msie && parseInt(jQuery.browser.version) <= 7) {
+        Tobago.Sheet.fixIE67ColWidth(col);
+      }
 
       var index = parseInt(columnNr, 10) + 1;
-      jQuery("td:nth-child(" + index + ")", table).children().borderBoxWidth(this.newWidth);
-//      this.adjustScrollBars();
+      var tds = jQuery("td:nth-child(" + index + ")", table);
+      var horizontalDiff = 0;
+      var widthWithoutPadding = width;
+      if (tds.size() > 0) {
+        horizontalDiff = tds.eq(0).outerWidth() - tds.eq(0).width();
+        widthWithoutPadding = width - horizontalDiff;
+      }
+      tds.children().borderBoxWidth(widthWithoutPadding);
+
       this.adjustHeaderDiv();
       this.adjustResizer();
       this.storeSizes();
@@ -745,10 +754,20 @@ Tobago.Sheet.prototype.endResize = function(event) {
     }
   };
 
+/**
+ * Fixes the wrong computation of col width in IE 6/7: padding will not be handled correctly.
+ * @param col A jQuery object
+ */
+Tobago.Sheet.fixIE67ColWidth = function(col) {
+  var td = col.parents("table:first").children("tbody").children("tr:first").children("td").eq(col.index());
+  var delta = td.outerWidth() - td.width();
+  col.width(col.width() - delta * 2);
+};
+
 Tobago.Sheet.prototype.storeSizes = function() {
     var index = 0;
     var idPrefix = this.id + Tobago.SUB_COMPONENT_SEP + "header_div";
-    var headerDiv = jQuery("#" + idPrefix.replace(/:/g, "\\:"));
+    var headerDiv = jQuery(Tobago.escapeClientId(idPrefix));
 
     var widths = "";
     jQuery(headerDiv).children().each(function() {
@@ -781,7 +800,7 @@ Tobago.Sheet.prototype.doScroll = function(event) {
     return this.each(function() {
        obj = jQuery(this);
        var extraWidth = obj.outerWidth() - obj.width();
-       obj.width(width- extraWidth);
+       obj.width(width - extraWidth);
     });
  };
 })(jQuery);
