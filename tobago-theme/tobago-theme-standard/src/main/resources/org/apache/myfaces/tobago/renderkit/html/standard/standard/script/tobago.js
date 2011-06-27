@@ -1054,6 +1054,11 @@ var Tobago = {
 
 // -------- Util functions ----------------------------------------------------
 
+  /**
+   *
+   * @param id A JSF client id, type=string
+   * @return A string which can be used as a jQuery selector.
+   */
   escapeClientId: function(id) {
     return '#' + id.replace(/:/g, '\\:');
   },

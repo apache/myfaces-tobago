@@ -104,10 +104,6 @@ function nodeStateId(node) {
 // new stuff with jQuery
 // TreeListbox
 
-function asJQueryId(string) {
-  return "#" + string.replace(/:/g, "\\:");
-}
-
 jQuery(document).ready(function () {
 
   // find all option tags and add the dedicated select tag in its data section.
@@ -116,7 +112,7 @@ jQuery(document).ready(function () {
     var option = jQuery(this);
     var optionId = option.attr("id");
     var selectId = optionId + "::select";
-    var select = jQuery(asJQueryId(selectId));
+    var select = jQuery(Tobago.escapeClientId(selectId));
     if (select.length == 1) {
       option.data("select", select);
     } else {
