@@ -49,7 +49,6 @@ import org.apache.myfaces.tobago.renderkit.css.Position;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
-import org.apache.myfaces.tobago.renderkit.html.util.CommandRendererHelper;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -711,11 +710,6 @@ public class SheetRenderer extends LayoutComponentRendererBase {
     writer.writeAttribute(HtmlAttributes.SRC, image, false);
     writer.writeAttribute(HtmlAttributes.TITLE, tip, true);
     writer.writeAttribute(HtmlAttributes.ALT, "", false);
-    if (!disabled) {
-      CommandRendererHelper helper = new CommandRendererHelper(facesContext, link);
-      String onClick = helper.getOnclick();
-      writer.writeAttribute(HtmlAttributes.ONCLICK, onClick, true);
-    }
     writer.endElement(HtmlElements.IMG);
   }
 
