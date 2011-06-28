@@ -568,7 +568,9 @@ var Tobago = {
     var offset = jQuery(source).offset();
     var sourceWidth = Tobago.getWidth(source);
     var sourceHeight = Tobago.getHeight(source);
-    Tobago.actionPosition.value = (offset ? offset.left + 'px,' : '0px,') + (offset ? offset.top + 'px,' : '0px,')
+    Tobago.actionPosition.value
+        = (offset ? parseInt(offset.left) + 'px,' : '0px,')
+        + (offset ? parseInt(offset.top) + 'px,' : '0px,')
         + sourceWidth + 'px,' + sourceHeight + 'px';
 //    alert("source='" + source + "' action-position=" + Tobago.actionPosition.value);
   },
