@@ -17,24 +17,11 @@
 
 /*
  * theme: speyside
- * agent: msie_6_0
+ * agent: msie_7_0
  */
 
 /* button -------------------------------------------------------------- */
 
 .tobago-button {
   height: 20px;
-}
-
-/* label -------------------------------------------------------------- */
-
-.tobago-label-markup-fatal img,
-.tobago-label-markup-error img,
-.tobago-label-markup-warn img,
-.tobago-label-markup-info img {
-  position: absolute;
-  right: 0;
-  top: 2px;
-  width: 16px;
-  height: 16px;
 }
