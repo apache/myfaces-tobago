@@ -88,7 +88,6 @@ public abstract class AbstractUISheetLayout extends AbstractUILayoutBase impleme
     }
 
     // process auto tokens
-    int i = 0;
     IntervalList intervals = new IntervalList();
     for (LayoutComponent component : getLayoutContainer().getComponents()) {
 
