@@ -117,7 +117,9 @@ Tobago.Sheet.prototype.setupPagePaging = function() {
         var child = linkBox.childNodes[i];
         if (child.nodeType == 1 && child.tagName.toUpperCase() == "IMG") {
           // first, prev, next and last commands
-          Tobago.addBindEventListener(child, "click", this, "doPaging");
+          if ("true" != jQuery(child).attr("data-tobago-disabled")) {
+            Tobago.addBindEventListener(child, "click", this, "doPaging");
+          }
         } else if (child.nodeType == 1 && child.tagName.toUpperCase() == "SPAN") {
           var toPageId = this.id + Tobago.COMPONENT_SEP + "ToPage";
           Tobago.addEventListener(child, "click", Tobago.bind(this, "insertTarget", toPageId));
