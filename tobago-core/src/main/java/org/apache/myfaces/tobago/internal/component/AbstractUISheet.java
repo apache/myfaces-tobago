@@ -88,6 +88,8 @@ public abstract class AbstractUISheet extends javax.faces.component.UIData
 
   private transient int ajaxResponseCode;
 
+  private transient List<LayoutComponent> layoutComponents;
+
   public LayoutComponentRenderer getLayoutComponentRenderer(FacesContext context) {
     return (LayoutComponentRenderer) getRenderer(context);
   }
@@ -516,22 +518,45 @@ public abstract class AbstractUISheet extends javax.faces.component.UIData
   }
 
   public List<LayoutComponent> getComponents() {
-    List<LayoutComponent> result = new ArrayList<LayoutComponent>();
+    if (layoutComponents != null) {
+      return layoutComponents;
+    }
+    layoutComponents = new ArrayList<LayoutComponent>();
     for (UIComponent column : (List<UIComponent>) getChildren()) {
       if (column instanceof AbstractUIColumnSelector) {
-        result.add(null); // XXX UIColumnSelector is currently not an instance of LayoutComponent
+        layoutComponents.add(null); // XXX UIColumnSelector is currently not an instance of LayoutComponent
       } else if (column instanceof ColumnEvent) {
         // ignore
       } else if (column instanceof UIColumn) {
+        LayoutComponent layoutComponent = null;
         for (UIComponent component : (List<UIComponent>) column.getChildren()) {
           if (component instanceof LayoutComponent) {
-            result.add((LayoutComponent) component);
-            break;
+            if (layoutComponent == null) {
+              layoutComponent = (LayoutComponent) component;
+            } else {
+              LOG.warn(
+                  "Found more than one layout components inside of a UIColumn: column id='{}' renderer-type='{}'",
+                  column.getClientId(FacesContext.getCurrentInstance()),
+                  component.getRendererType());
+            }
           }
+        }
+        if (layoutComponent != null) {
+          layoutComponents.add(layoutComponent);
+        } else {
+          final FacesContext facesContext = FacesContext.getCurrentInstance();
+          final AbstractUIOut dummy = (AbstractUIOut) CreateComponentUtils.createComponent(
+              facesContext, ComponentTypes.OUT, RendererTypes.OUT, facesContext.getViewRoot().createUniqueId());
+          dummy.setTransient(true);
+          column.getChildren().add(dummy);
+          layoutComponents.add(dummy);
+          LOG.warn(
+              "Found no component inside of a UIColumn: column id='{}'. Creating a dummy with id='{}'!",
+              column.getClientId(facesContext), dummy.getClientId(facesContext));
         }
       }
     }
-    return result;
+    return layoutComponents;
   }
 
   public void onComponentPopulated(FacesContext facesContext, UIComponent parent) {

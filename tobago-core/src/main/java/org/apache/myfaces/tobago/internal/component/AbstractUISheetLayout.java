@@ -64,10 +64,6 @@ public abstract class AbstractUISheetLayout extends AbstractUILayoutBase impleme
 
   public void fixRelativeInsideAuto(Orientation orientation, boolean auto) {
 
-    if (orientation.equals(Orientation.VERTICAL)) {
-      return; // do not vertical layout yet.
-    }
-
     if (orientation == Orientation.HORIZONTAL) {
       horizontalAuto = auto;
     } else {
@@ -82,10 +78,6 @@ public abstract class AbstractUISheetLayout extends AbstractUILayoutBase impleme
   }
 
   public void preProcessing(Orientation orientation) {
-
-    if (orientation.equals(Orientation.VERTICAL)) {
-      return; // do not vertical layout yet.
-    }
 
     // process auto tokens
     IntervalList intervals = new IntervalList();
@@ -114,69 +106,49 @@ public abstract class AbstractUISheetLayout extends AbstractUILayoutBase impleme
 
   public void mainProcessing(Orientation orientation) {
 
-    if (orientation.equals(Orientation.VERTICAL)) {
-      return; // do not vertical layout yet.
-    }
-
     // find *
     if (orientation == Orientation.HORIZONTAL && !horizontalAuto 
         || orientation == Orientation.VERTICAL && !verticalAuto) {
-      // find rest
-      LayoutContainer container = getLayoutContainer();
-      Measure available = LayoutUtils.getCurrentSize(orientation, container);
-      if (available != null) {
-        available = available.subtractNotNegative(LayoutUtils.getBorderBegin(orientation, container));
-        available = available.subtractNotNegative(LayoutUtils.getBorderEnd(orientation, container));
 
-        for (LayoutComponent component : getLayoutContainer().getComponents()) {
+      final FacesContext facesContext = FacesContext.getCurrentInstance();
+      final LayoutContainer container = getLayoutContainer();
+      final AbstractUISheet sheet = (AbstractUISheet) container;
 
-          if (component != null) {
-            // XXX incorrect
-            component.setDisplay(Display.BLOCK); // TODO: use CSS via classes and style.css
-            LayoutUtils.setCurrentSize(orientation, component, available);
+      if (orientation == Orientation.HORIZONTAL) {
 
+        ensureColumnWidthList(facesContext, sheet);
 
-            // call sub layout manager
-            if (component instanceof LayoutContainer) {
-              ((LayoutContainer) component).getLayoutManager().mainProcessing(orientation);
-            }
+        final List<Integer> widthList = sheet.getWidthList();
+
+        int index = 0;
+        for (LayoutComponent component : sheet.getComponents()) {
+          AbstractUIColumn column = (AbstractUIColumn) ((UIComponent) component).getParent();
+          Measure width = Measure.valueOf(widthList.get(index));
+          width = width.subtractNotNegative(LayoutUtils.getBorderBegin(orientation, column));
+          width = width.subtractNotNegative(LayoutUtils.getPaddingBegin(orientation, column));
+          width = width.subtractNotNegative(LayoutUtils.getPaddingEnd(orientation, column));
+          width = width.subtractNotNegative(LayoutUtils.getBorderEnd(orientation, column));
+          LayoutUtils.setCurrentSize(orientation, component, width);
+          component.setDisplay(Display.BLOCK); // TODO: use CSS via classes and style.css
+          // call sub layout manager
+          if (component instanceof LayoutContainer) {
+            ((LayoutContainer) component).getLayoutManager().mainProcessing(orientation);
           }
+          index++;
         }
-      } else {
-        LOG.warn("No width/height set but needed for *!"); // todo: more information
       }
     }
   }
 
   public void postProcessing(Orientation orientation) {
 
-    if (orientation.equals(Orientation.VERTICAL)) {
-      return; // do not vertical layout yet.
-    }
-
-    final FacesContext facesContext = FacesContext.getCurrentInstance();
     final AbstractUISheet sheet = (AbstractUISheet) getLayoutContainer();
-    ensureColumnWidthList(facesContext, sheet);
-
-    final List<Integer> widthList = sheet.getWidthList();
 
     // set positions to all sub-layout-managers
 
-    int index = 0;
     for (LayoutComponent component : sheet.getComponents()) {
 
       if (component != null) {
-        AbstractUIColumn column = (AbstractUIColumn) ((UIComponent) component).getParent();
-
-        component.setDisplay(Display.BLOCK); // TODO: use CSS via classes and style.css
-
-        Measure width = Measure.valueOf(widthList.get(index));
-        width = width.subtractNotNegative(LayoutUtils.getBorderBegin(orientation, column));
-        width = width.subtractNotNegative(LayoutUtils.getPaddingBegin(orientation, column));
-        width = width.subtractNotNegative(LayoutUtils.getPaddingEnd(orientation, column));
-        width = width.subtractNotNegative(LayoutUtils.getBorderEnd(orientation, column));
-        component.setCurrentWidth(width);
-
         // compute the position of the cell
         Measure position = LayoutUtils.getBorderBegin(orientation, sheet);
         if (orientation == Orientation.HORIZONTAL) {
@@ -192,8 +164,6 @@ public abstract class AbstractUISheetLayout extends AbstractUILayoutBase impleme
 
         // todo: optimize: the AutoLayoutTokens with columnSpan=1 are already called
       }
-
-      index++;
     }
   }
 

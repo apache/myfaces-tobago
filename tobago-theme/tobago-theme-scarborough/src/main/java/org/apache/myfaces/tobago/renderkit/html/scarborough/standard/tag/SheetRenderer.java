@@ -364,11 +364,6 @@ public class SheetRenderer extends LayoutComponentRendererBase {
             RenderUtils.prepareRendererAll(facesContext, grandKid);
             RenderUtils.encode(facesContext, grandKid);
           }
-          if (children.size() > 1) {
-            if (LOG.isInfoEnabled()) {
-              LOG.info("Column should contain only one child. Please surround the components with a tc:panel.");
-            }
-          }
         }
 
         writer.endElement(HtmlElements.TD);
