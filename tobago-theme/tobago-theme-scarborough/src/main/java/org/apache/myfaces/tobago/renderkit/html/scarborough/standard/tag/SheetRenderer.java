@@ -132,12 +132,6 @@ public class SheetRenderer extends LayoutComponentRendererBase {
         && !(((TobagoFacesContext) facesContext).isAjax()
         && sheetId.equals(((TobagoFacesContext) facesContext).getAjaxComponentId()))) {
 
-      ResourceManager resourceManager = ResourceManagerFactory.getResourceManager(facesContext);
-      String contextPath = facesContext.getExternalContext().getRequestContextPath();
-
-      String unchecked = contextPath + resourceManager.getImage(facesContext, "image/sheetUnchecked.gif");
-      String checked = contextPath + resourceManager.getImage(facesContext, "image/sheetChecked.gif");
-
       Integer frequency = null;
       UIComponent facetReload = sheet.getFacet(Facets.RELOAD);
       if (facetReload != null && facetReload instanceof UIReload && facetReload.isRendered()) {
@@ -145,8 +139,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
         frequency = update.getFrequency();
       }
       final String[] cmds = {
-          "new Tobago.Sheet(\"" + sheetId + "\", " + sheet.getFirst()
-              + ", \"" + checked + "\", \"" + unchecked + "\", \"" + sheet.getSelectable()
+          "new Tobago.Sheet(\"" + sheetId + "\", " + sheet.getFirst() + ", \"" + sheet.getSelectable()
               + "\", " + columnSelectorIndex + ", " + frequency
               + ", " + (clickAction != null ? HtmlRendererUtils.getJavascriptString(clickAction.getId()) : null)
               + ", " + HtmlRendererUtils.getRenderedPartiallyJavascriptArray(facesContext, clickAction)
@@ -166,12 +159,6 @@ public class SheetRenderer extends LayoutComponentRendererBase {
     String contextPath = facesContext.getExternalContext().getRequestContextPath();
     String sheetId = sheet.getClientId(facesContext);
 
-    String selectorDisabled = contextPath + resourceManager.getImage(facesContext, "image/sheetUncheckedDisabled.gif");
-    String unchecked = contextPath + resourceManager.getImage(facesContext, "image/sheetUnchecked.gif");
-
-    //Style headerStyle = (Style) attributes.get(STYLE_HEADER);
-//    String sheetWidthString = LayoutUtils.getStyleAttributeValue(style,
-//        "width");
     Measure sheetHeight;
     if (style.getHeight() == null) {
       // FIXME: nullpointer if height not defined
@@ -337,15 +324,12 @@ public class SheetRenderer extends LayoutComponentRendererBase {
 
         if (column instanceof UIColumnSelector) {
           final boolean disabled = ComponentUtils.getBooleanAttribute(column, Attributes.DISABLED);
-          writer.startElement(HtmlElements.IMG, null);
+          writer.startElement(HtmlElements.INPUT, null);
+          writer.writeAttribute(HtmlAttributes.TYPE, "checkbox", false);
+          writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
+          writer.writeIdAttribute(sheetId + "_data_row_selector_" + rowIndex);
           writer.writeClassAttribute(Classes.create(sheet, "columnSelector"));
-          if (disabled) {
-            writer.writeAttribute(HtmlAttributes.SRC, selectorDisabled, false);
-            writer.writeAttribute(HtmlAttributes.DISABLED, "true", false);
-          } else {
-            writer.writeAttribute(HtmlAttributes.SRC, unchecked, false);
-          }
-          writer.endElement(HtmlElements.IMG);
+          writer.endElement(HtmlElements.INPUT);
         } else {
           List<UIComponent> children = sheet.getRenderedChildrenOf(column);
           for (UIComponent grandKid : children) {
@@ -402,11 +386,6 @@ public class SheetRenderer extends LayoutComponentRendererBase {
 
     writer.endElement(HtmlElements.TABLE);
     writer.endElement(HtmlElements.DIV);
-
-/*
-    final String initFirstRowIndex = "Tobago.Sheets.get('" + sheetId + "').firstRowIndex = " + sheet.getFirst() + ";";
-    HtmlRendererUtils.writeScriptLoader(facesContext, null, new String[]{initFirstRowIndex});
-*/
 
 // END RENDER BODY CONTENT
 

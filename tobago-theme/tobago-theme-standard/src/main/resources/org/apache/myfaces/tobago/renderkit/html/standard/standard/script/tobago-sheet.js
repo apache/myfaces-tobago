@@ -28,13 +28,11 @@ Tobago.Sheets = {
 };
 
 // Info: 2nd parameter "enableAjax" was rededicated to "firstRowIndex"
-Tobago.Sheet = function(sheetId, firstRowIndex, checkedImage, uncheckedImage, selectable, columnSelectorIndex, autoReload,
+Tobago.Sheet = function(sheetId, firstRowIndex, selectable, columnSelectorIndex, autoReload,
                         clickActionId, clickReloadComponentId, dblClickActionId, dblClickReloadComponentId, renderedPartially) {
   this.startTime = new Date(); // @DEV_ONLY
   this.id = sheetId;
   Tobago.Sheets.put(this);
-  this.checkedImage = checkedImage;
-  this.uncheckedImage = uncheckedImage;
   this.selectable = selectable;
   this.columnSelectorIndex = columnSelectorIndex;
   this.autoReload = autoReload;
@@ -57,6 +55,9 @@ Tobago.Sheet = function(sheetId, firstRowIndex, checkedImage, uncheckedImage, se
   this.selectedId    = this.id + Tobago.SUB_COMPONENT_SEP +"selected";
   this.headerWidthsId = this.id + Tobago.SUB_COMPONENT_SEP + "widths";
   this.scrollPositionId = this.id + Tobago.SUB_COMPONENT_SEP + "scrollPosition";
+
+  this.mouseDownX = undefined;
+  this.mouseDownY = undefined;
 
   Tobago.addAjaxComponent(this.id, this);
   // option are only used for ajax request
@@ -373,6 +374,7 @@ Tobago.Sheet.prototype.addSelectionListener = function() {
   currentSheet.getRows().each(function() {
     var row = this;
     Tobago.addBindEventListener(row, "mousedown", currentSheet, "doMouseDownSelect");
+    Tobago.addBindEventListener(row, "mouseup", currentSheet, "doMouseUpSelect");
     Tobago.addBindEventListener(row, "click", currentSheet, "doSelection");
     if (currentSheet.dblClickActionId) {
       Tobago.addBindEventListener(row, "dblclick", currentSheet, "doDblClick");
@@ -386,6 +388,14 @@ Tobago.Sheet.prototype.doMouseDownSelect = function(event) {
   }
   this.mouseDownX = event.clientX;
   this.mouseDownY = event.clientY;
+};
+
+Tobago.Sheet.prototype.doMouseUpSelect = function(event) {
+  if (!event) {
+    event = window.event;
+  }
+  this.mouseDownX = undefined;
+  this.mouseDownY = undefined;
 };
 
 Tobago.Sheet.prototype.doSelection = function(event) {
@@ -407,9 +417,10 @@ Tobago.Sheet.prototype.doSelection = function(event) {
     //LOG.debug("srcElement = " + srcElement.tagName);
     //LOG.debug("Actionid " + this.clickActionId);
     //LOG.debug("ID " + this.id);
-    if (! Tobago.isInputElement(srcElement.tagName)) {
+    if (srcElement.id.search(/_data_row_selector_/) > -1  || !Tobago.isInputElement(srcElement.tagName)) {
 
-      if (Math.abs(this.mouseDownX - event.clientX) + Math.abs(this.mouseDownY - event.clientY) > 5) {
+      if (this.mouseDownX != undefined &&
+          Math.abs(this.mouseDownX - event.clientX) + Math.abs(this.mouseDownY - event.clientY) > 5) {
         // The user has moved the mouse. We assume, the user want to select some text inside the sheet,
         // so we doesn't select the row.
         return;
@@ -419,7 +430,7 @@ Tobago.Sheet.prototype.doSelection = function(event) {
 
       // find the row, if the has clicked on an element inside the row
       var row = jQuery(Tobago.element(event)).closest("tr");
-      var selector = this.getSelectorImage(row.get(0));
+      var selector = this.getSelectorCheckbox(row.get(0));
       var rowIndex = row.index() + this.firstRowIndex;
       var wasSelected = this.isSelected(rowIndex);
 
@@ -486,10 +497,10 @@ Tobago.Sheet.prototype.doDblClick = function(event) {
   };
 
 /**
- * Get the image-element, which indicates the selection
+ * Get the element, which indicates the selection
  * @param row
  */
-Tobago.Sheet.prototype.getSelectorImage = function(row) {
+Tobago.Sheet.prototype.getSelectorCheckbox = function(row) {
   if (this.columnSelectorIndex >= 0) {
     return row.childNodes[this.columnSelectorIndex].childNodes[0];
   } else {
@@ -501,12 +512,12 @@ Tobago.Sheet.prototype.getSiblingRow = function(row, i) {
   return row.parentNode.childNodes[i];
 };
 
-Tobago.Sheet.prototype.isEnabled = function(image) {
-  return image == null
-      || image.attributes == null
-      || image.attributes.disabled === undefined
-      || image.attributes.disabled == null
-      || image.attributes.disabled.value != "true";
+Tobago.Sheet.prototype.isEnabled = function(checkbox) {
+  return checkbox == null
+      || checkbox.attributes == null
+      || checkbox.attributes.disabled === undefined
+      || checkbox.attributes.disabled == null
+      || checkbox.attributes.disabled.value != "true";
 };
 
 Tobago.Sheet.prototype.getRows = function() {
@@ -525,9 +536,9 @@ Tobago.Sheet.prototype.updateSelectionView = function() {
   var indexB = this.firstRowIndex + rows.size();
   for (var rowIndex = indexA; rowIndex < indexB; rowIndex++) {
     var row = rows.get(rowIndex - this.firstRowIndex);
-    var image = this.getSelectorImage(row);
+    var checkbox = this.getSelectorCheckbox(row);
     if (selected.value.indexOf("," + rowIndex + ",") >= 0) {
-      this.selectRow(selected, rowIndex, row, image);
+      this.selectRow(selected, rowIndex, row, checkbox);
     }
   }
 
@@ -539,14 +550,14 @@ Tobago.Sheet.prototype.isSelected = function(rowIndex) {
   return selected.value.indexOf("," + rowIndex + ",") >= 0;
 };
 
-Tobago.Sheet.prototype.toggleSelection = function(rowIndex, row, image) {
+Tobago.Sheet.prototype.toggleSelection = function(rowIndex, row, checkbox) {
   this.lastClickedRowIndex = rowIndex;
-  if (this.isEnabled(image)) {
+  if (this.isEnabled(checkbox)) {
     var selected = Tobago.element(this.selectedId);
     if (selected.value.indexOf("," + rowIndex + ",") < 0) {
-      this.selectRow(selected, rowIndex, row, image);
+      this.selectRow(selected, rowIndex, row, checkbox);
     } else {
-      this.deselectRow(selected, rowIndex, row, image);
+      this.deselectRow(selected, rowIndex, row, checkbox);
     }
   }
 };
@@ -571,12 +582,12 @@ Tobago.Sheet.prototype.selectRange = function(indexA, indexB, selectDeselected, 
   var rows = this.getRows();
   for (var rowIndex = indexA; rowIndex < indexB; rowIndex++) {
     var row = rows.get(rowIndex - this.firstRowIndex);
-    var image = this.getSelectorImage(row);
-    if (this.isEnabled(image)) {
+    var checkbox = this.getSelectorCheckbox(row);
+    if (this.isEnabled(checkbox)) {
       if (selectDeselected && selected.value.indexOf("," + rowIndex + ",") < 0) {
-        this.selectRow(selected, rowIndex, row, image);
+        this.selectRow(selected, rowIndex, row, checkbox);
       } else if (deselectSelected && selected.value.indexOf("," + rowIndex + ",") >= 0) {
-        this.deselectRow(selected, rowIndex, row, image);
+        this.deselectRow(selected, rowIndex, row, checkbox);
       }
     }
   }
@@ -588,13 +599,13 @@ Tobago.Sheet.prototype.selectRange = function(indexA, indexB, selectDeselected, 
  * @param selected input-element type=hidden: Hidden field with the selection state information
  * @param rowIndex int: zero based index of the row.
  * @param row tr-element: the row.
- * @param image img-element: selector in the row.
+ * @param checkbox input-element: selector in the row.
  */
-Tobago.Sheet.prototype.selectRow = function(selected, rowIndex, row, image) {
+Tobago.Sheet.prototype.selectRow = function(selected, rowIndex, row, checkbox) {
   selected.value = selected.value + rowIndex + ",";
   row.className = row.className + " tobago-sheet-row-markup-selected";
-  if (image != null) {
-    image.src = this.checkedImage;
+  if (checkbox != null) {
+    checkbox.checked = true;
   }
 };
 
@@ -602,15 +613,15 @@ Tobago.Sheet.prototype.selectRow = function(selected, rowIndex, row, image) {
  * @param selected input-element type=hidden: Hidden field with the selection state information
  * @param rowIndex int: zero based index of the row.
  * @param row tr-element: the row.
- * @param image img-element: selector in the row.
+ * @param checkbox input-element: selector in the row.
  */
-Tobago.Sheet.prototype.deselectRow = function(selected, rowIndex, row, image) {
+Tobago.Sheet.prototype.deselectRow = function(selected, rowIndex, row, checkbox) {
   selected.value = selected.value.replace(new RegExp("," + rowIndex + ","), ",");
   var c = " " + row.className + " ";
   c = c.replace(/ tobago-sheet-row-markup-selected /, " ");
   row.className = c.substring(1, c.length - 1);
-  if (image != null) {
-    image.src = this.uncheckedImage;
+  if (checkbox != null) {
+    checkbox.checked = false;
   }
 };
 
