@@ -157,12 +157,6 @@ public class SheetRenderer extends LayoutableRendererBase implements SheetRender
 
     writer.endElement(HtmlConstants.DIV);
 
-    ResourceManager resourceManager = ResourceManagerFactory.getResourceManager(facesContext);
-    UIViewRoot viewRoot = facesContext.getViewRoot();
-    String contextPath = facesContext.getExternalContext().getRequestContextPath();
-
-    String unchecked = contextPath + resourceManager.getImage(viewRoot, "image/sheetUnchecked.gif");
-    String checked = contextPath + resourceManager.getImage(viewRoot, "image/sheetChecked.gif");
     boolean ajaxEnabled = TobagoConfig.getInstance(facesContext).isAjaxEnabled();
 
     final String[] styles = new String[]{"style/tobago-sheet.css"};
@@ -175,7 +169,7 @@ public class SheetRenderer extends LayoutableRendererBase implements SheetRender
     }
     final String[] cmds = {
         "new Tobago.Sheet(\"" + sheetId + "\", " + ajaxEnabled
-            + ", \"" + checked + "\", \"" + unchecked + "\", \"" + data.getSelectable()
+            + ", undefined, undefined, \"" + data.getSelectable()
             + "\", " + columnSelectorIndex + ", "+ frequency
             + ",  " + (clickAction!=null?HtmlRendererUtil.getJavascriptString(clickAction.getId()):null)
             + ",  " + HtmlRendererUtil.getRenderedPartiallyJavascriptArray(facesContext, clickAction)
@@ -428,17 +422,13 @@ public class SheetRenderer extends LayoutableRendererBase implements SheetRender
         writer.flush();
 
         if (column instanceof UIColumnSelector) {
-          final boolean disabled
-              = ComponentUtil.getBooleanAttribute(column, ATTR_DISABLED);
-          writer.startElement(HtmlConstants.IMG, null);
-          if (disabled) {
-            writer.writeAttribute(HtmlAttributes.SRC, selectorDisabled, false);
-          } else {
-            writer.writeAttribute(HtmlAttributes.SRC, unchecked, false);
-          }
+          final boolean disabled = ComponentUtil.getBooleanAttribute(column, ATTR_DISABLED);
+          writer.startElement(HtmlConstants.INPUT, null);
+          writer.writeAttribute(HtmlAttributes.TYPE, "checkbox", false);
+          writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
           writer.writeIdAttribute(sheetId + "_data_row_selector_" + rowIndex);
-          writer.writeClassAttribute("tobago-sheet-column-selector");
-          writer.endElement(HtmlConstants.IMG);
+          writer.writeClassAttribute("tobago-selectBooleanCheckbox-default");
+          writer.endElement(HtmlConstants.INPUT);
         } else {
           List<UIComponent> childs = data.getRenderedChildrenOf(column);
           for (UIComponent grandkid : childs) {
