@@ -122,6 +122,11 @@ public abstract class AbstractUISheetLayout extends AbstractUILayoutBase impleme
 
         int index = 0;
         for (LayoutComponent component : sheet.getComponents()) {
+          if (component == null) {
+            LOG.error("fixme: UIColumnSelector must be a LayoutComponent!"); // fixme
+            index++;
+            continue;
+          }
           AbstractUIColumn column = (AbstractUIColumn) ((UIComponent) component).getParent();
           Measure width = Measure.valueOf(widthList.get(index));
           width = width.subtractNotNegative(LayoutUtils.getBorderBegin(orientation, column));
