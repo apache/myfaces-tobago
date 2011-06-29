@@ -711,9 +711,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
     writer.writeAttribute(HtmlAttributes.SRC, image, false);
     writer.writeAttribute(HtmlAttributes.TITLE, tip, true);
     writer.writeAttribute(HtmlAttributes.ALT, "", false);
-    if (disabled) {
-      writer.writeAttribute(DataAttributes.DISABLED, Boolean.TRUE.toString(), false);
-    }
+    writer.writeAttribute(DataAttributes.DISABLED, disabled);
     writer.endElement(HtmlElements.IMG);
   }
 
