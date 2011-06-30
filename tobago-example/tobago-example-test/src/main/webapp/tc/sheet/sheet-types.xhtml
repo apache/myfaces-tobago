@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <!--
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -19,53 +20,57 @@
 <f:view
     xmlns:tc="http://myfaces.apache.org/tobago/component"
     xmlns:tx="http://myfaces.apache.org/tobago/extension"
-    xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:f="http://java.sun.com/jsf/core">
 
   <tc:page id="page">
-    <tc:gridLayoutConstraint width="1000px" height="600px"/>
+    <tc:gridLayoutConstraint width="1100px" height="600px"/>
 
-    <tc:sheet value="#{sheet.solarArray}" id="sheet" columns="*;*;*;*;*;*;*;2*" var="luminary" rows="20">
-      <tc:column label="&lt;tc:out>" id="out">
+    <tc:sheet value="#{sheet.solarArray}" id="sheet" columns="20px;*;*;*;2*;*;*;*;*;2*" var="luminary" rows="20">
+      <tc:columnSelector />
+      <tc:column label="&lt;tc:out>" id="c_out">
+        <tc:out value="#{luminary.name}"/>
+      </tc:column>
+      <tc:column label="&lt;tc:out>" id="c_out_r">
         <tc:out value="#{luminary.name}"/>
       </tc:column>
       <tc:column label="&lt;tc:in>" id="c_in">
         <tc:in value="#{luminary.name}" id="in"/>
       </tc:column>
-      <tc:column label="&lt;tx:date>" id="date">
-        <tx:date/>
+      <tc:column label="&lt;tx:date>" id="c_date">
+        <tx:date label="Label" labelWidth="100px"/>
       </tc:column>
-      <tc:column label="&lt;tc:button>" id="button">
+      <tc:column label="&lt;tc:button>" id="c_button">
         <tc:button label="#{luminary.name}"/>
       </tc:column>
-      <tc:column label="&lt;tc:link>" id="link">
+      <tc:column label="&lt;tc:link>" id="c_link">
         <tc:link label="#{luminary.name}"/>
       </tc:column>
-      <tc:column label="&lt;tc:selectOneChoice>" id="selectOneChoice">
+      <tc:column label="&lt;tc:selectOneChoice>" id="c_selectOneChoice">
+<!-- XXX Bug: paging doesn't work with selectOneChoice
         <tc:selectOneChoice>
-          <tc:selectItem itemLabel="first"/>
-          <tc:selectItem itemLabel="second"/>
-          <tc:selectItem itemLabel="third"/>
+          <tc:selectItem itemLabel="first" itemValue="1"/>
+          <tc:selectItem itemLabel="second" itemValue="2"/>
+          <tc:selectItem itemLabel="third" itemValue="3"/>
         </tc:selectOneChoice>
+-->
       </tc:column>
-      <tc:column label="&lt;tc:image>" id="image">
+      <tc:column label="&lt;tc:image>" id="c_image">
         <tc:image value="image/foo.gif" width="16px" height="16px"/>
       </tc:column>
-      <tc:column label="&lt;tc:panel>" id="panel">
+      <tc:column label="&lt;tc:panel>" id="c_panel">
         <f:facet name="layout">
           <tc:gridLayout columns="*;10px;*"/>
         </f:facet>
         <tc:panel>
+          <f:facet name="layout">
+            <tc:gridLayout columns="*;10px;*" rows="20px"/>
+          </f:facet>
           <tc:in value="first"/>
           <tc:out value="/"/>
           <tc:in value="second"/>
         </tc:panel>
       </tc:column>
     </tc:sheet>
-
-    <tc:script file="script/tobago-assert.js"/>
-    <!--todo-->
-    <!--<tc:script onload="TobagoAssert.assertLayout('page:todo', 0, 0, 600, 14);"/>-->
 
   </tc:page>
 </f:view>
