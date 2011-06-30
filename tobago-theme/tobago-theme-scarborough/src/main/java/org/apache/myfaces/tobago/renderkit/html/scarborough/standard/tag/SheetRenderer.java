@@ -791,7 +791,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
     writer.writeAttribute(HtmlAttributes.TITLE, tip, true);
 
     if (column instanceof UIColumnSelector) {
-      renderColumnSelectorHeader(facesContext, writer, sheet, column);
+      renderColumnSelectorHeader(facesContext, writer, sheet, (UIColumnSelector) column);
     } else {
       String label = (String) column.getAttributes().get(Attributes.LABEL);
       if (label != null) {
@@ -826,7 +826,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
 
 
   protected void renderColumnSelectorHeader(
-      FacesContext facesContext, TobagoResponseWriter writer, UISheet sheet, UIColumn column)
+      FacesContext facesContext, TobagoResponseWriter writer, UISheet sheet, UIColumnSelector column)
       throws IOException {
 
     writer.startElement(HtmlElements.DIV, null);
