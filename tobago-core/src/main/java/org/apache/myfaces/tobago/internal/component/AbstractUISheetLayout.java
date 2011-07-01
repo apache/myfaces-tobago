@@ -128,6 +128,10 @@ public abstract class AbstractUISheetLayout extends AbstractUILayoutBase impleme
             continue;
           }
           AbstractUIColumn column = (AbstractUIColumn) ((UIComponent) component).getParent();
+          if (!column.isRendered()) {
+            // XXX here not index++, because the widthList has only the rendered=true, todo: change it.
+            continue;
+          }
           Measure width = Measure.valueOf(widthList.get(index));
           width = width.subtractNotNegative(LayoutUtils.getBorderBegin(orientation, column));
           width = width.subtractNotNegative(LayoutUtils.getPaddingBegin(orientation, column));
@@ -184,6 +188,7 @@ public abstract class AbstractUISheetLayout extends AbstractUILayoutBase impleme
 
   private void ensureColumnWidthList(FacesContext facesContext, AbstractUISheet data) {
     List<Integer> currentWidthList = null;
+    // TODO: Refactor: here be should use "getColumns()" instead of "getRenderedColumns()"
     List<UIColumn> renderedColumns = data.getRenderedColumns();
 
     final Map attributes = data.getAttributes();

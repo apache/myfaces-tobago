@@ -25,12 +25,15 @@
   <tc:page id="page">
     <tc:gridLayoutConstraint width="1100px" height="600px"/>
 
-    <tc:sheet value="#{sheet.solarArray}" id="sheet" columns="20px;*;*;*;2*;*;*;*;*;2*" var="luminary" rows="20">
+    <tc:sheet value="#{sheet.solarArray}" id="sheet" columns="20px;*;*;*;*;2*;*;*;*;*;2*" var="luminary" rows="20">
       <tc:columnSelector />
       <tc:column label="&lt;tc:out>" id="c_out">
         <tc:out value="#{luminary.name}"/>
       </tc:column>
       <tc:column label="&lt;tc:out>" id="c_out_r">
+        <tc:out value="#{luminary.name}"/>
+      </tc:column>
+      <tc:column id="c_not_rendered" rendered="false">
         <tc:out value="#{luminary.name}"/>
       </tc:column>
       <tc:column label="&lt;tc:in>" id="c_in">
