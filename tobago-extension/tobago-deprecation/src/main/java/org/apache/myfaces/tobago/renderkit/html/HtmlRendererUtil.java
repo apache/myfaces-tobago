@@ -41,7 +41,6 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.model.SelectItem;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -772,7 +771,7 @@ public final class HtmlRendererUtil {
   @Deprecated
   public static void checkForCommandFacet(UIComponent component, FacesContext facesContext, TobagoResponseWriter writer)
       throws IOException {
-    checkForCommandFacet(component, Arrays.asList(component.getClientId(facesContext)), facesContext, writer);
+    HtmlRendererUtils.checkForCommandFacet(component, facesContext, writer);
   }
 
   /**
@@ -781,78 +780,7 @@ public final class HtmlRendererUtil {
   @Deprecated
   public static void checkForCommandFacet(UIComponent component, List<String> clientIds, FacesContext facesContext,
                                       TobagoResponseWriter writer) throws IOException {
-    if (ComponentUtils.getBooleanAttribute(component, Attributes.READONLY)
-        || ComponentUtils.getBooleanAttribute(component, Attributes.DISABLED)) {
-      return;
-    }
-    Map<String, UIComponent> facets = component.getFacets();
-    for (Map.Entry<String, UIComponent> entry : facets.entrySet()) {
-      if (entry.getValue() instanceof UICommand) {
-        addCommandFacet(clientIds, entry, facesContext, writer);
-      }
-    }
-  }
-
-  /**
-   * @deprecated Please use HtmlRendererUtils
-   */
-  @Deprecated
-  private static void addCommandFacet(List<String> clientIds, Map.Entry<String, UIComponent> facetEntry,
-                               FacesContext facesContext, TobagoResponseWriter writer) throws
-      IOException {
-    for (String clientId : clientIds) {
-      writeScriptForClientId(clientId, facetEntry, facesContext, writer);
-    }
-  }
-
-  /**
-   * @deprecated Please use HtmlRendererUtils
-   */
-  @Deprecated
-  private static void writeScriptForClientId(String clientId, Map.Entry<String, UIComponent> facetEntry,
-                                      FacesContext facesContext, TobagoResponseWriter writer) throws IOException {
-    if (facetEntry.getValue() instanceof UICommand
-        && ((UICommand) facetEntry.getValue()).getRenderedPartially().length > 0) {
-      writer.startJavascript();
-      writer.write("var element = Tobago.element(\"");
-      writer.write(clientId);
-      writer.write("\");\n");
-      writer.write("if (element) {\n");
-      writer.write("   Tobago.addEventListener(element, \"");
-      writer.write(facetEntry.getKey());
-      writer.write("\", function(){Tobago.reloadComponent(this, '");
-      writer.write(HtmlRendererUtil.getComponentIds(facesContext, facetEntry.getValue(),
-              ((UICommand) facetEntry.getValue()).getRenderedPartially()));
-      writer.write("','");
-      writer.write(facetEntry.getValue().getClientId(facesContext)); 
-      writer.write("', {})});\n");
-      writer.write("}");
-      writer.endJavascript();
-    } else {
-      UIComponent facetComponent = facetEntry.getValue();
-
-      writer.startJavascript();
-      writer.write("var element = Tobago.element(\"");
-      writer.write(clientId + "\");\n");
-      writer.write("if (element) {\n");
-      writer.write("   Tobago.addEventListener(element, \"");
-      writer.write(facetEntry.getKey());
-      writer.write("\", function(){");
-      String facetAction = (String) facetComponent.getAttributes().get(Attributes.ONCLICK);
-      if (facetAction != null) {
-        writer.write(facetAction);
-      } else {
-        writer.write("Tobago.submitAction(this, '");
-        writer.write(facetComponent.getClientId(facesContext));
-        writer.write("', ");
-        writer.write(Boolean.toString(ComponentUtils.getBooleanAttribute(facetComponent, Attributes.TRANSITION)));
-        writer.write(", null, '");
-        writer.write(clientId);
-        writer.write("')");
-      }
-      writer.write("});\n}");
-      writer.endJavascript();
-    }
+    HtmlRendererUtils.checkForCommandFacet(component, clientIds, facesContext, writer);
   }
 
   /**
