@@ -93,6 +93,13 @@
     <url-pattern>/faces/*</url-pattern>
   </filter-mapping>
 
+  <listener>
+    <listener-class>org.apache.myfaces.tobago.example.demo.info.ActivitySessionListener</listener-class>
+  </listener>
+  <listener>
+    <listener-class>org.apache.myfaces.tobago.example.demo.info.ActivityServletContextListener</listener-class>
+  </listener>
+
   <!--  workaround (e.g. for Oracle AS 10.1.2.0.0)-->
   <listener>
     <listener-class>org.apache.myfaces.tobago.webapp.TobagoServletContextListener</listener-class>
