@@ -642,7 +642,7 @@ public final class HtmlRendererUtils {
     builder.append("Tobago.submitAction(this,'");
     builder.append(clientId);
     builder.append("',{");
-    if (transition == false) {
+    if (!transition) { // transition == true is the default
       builder.append("transition:false");
       if (target != null || focus != null) {
         builder.append(',');
