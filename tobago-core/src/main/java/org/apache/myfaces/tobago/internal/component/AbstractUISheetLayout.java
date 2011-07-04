@@ -216,7 +216,7 @@ public abstract class AbstractUISheetLayout extends AbstractUILayoutBase impleme
         UIColumn column = allColumns.get(i);
         if (column.isRendered()) {
           if (tokens == null) {
-            if (column instanceof AbstractUIColumn) {
+            if (column instanceof AbstractUIColumn && ((AbstractUIColumn) column).getWidth() != null) {
               newTokens.addToken(LayoutTokens.parseToken(((AbstractUIColumn) column).getWidth()));
             } else {
               newTokens.addToken(RelativeLayoutToken.DEFAULT_INSTANCE);
