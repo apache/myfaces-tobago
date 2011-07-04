@@ -493,16 +493,13 @@ var Tobago = {
   /**
    * Submitting the page with specified actionId.
    * options.transition
-   * options.focus
    * options.target
+   * options.focus
    */
   submitAction: function(source, actionId, options) {
     options = options || {};
-    if (options.transition === undefined || options.transition == null) {
-      transition = true;
-    } else {
-      transition = options.transition;
-    }
+
+    var transition = options.transition === undefined || options.transition == null || options.transition;
 
     if (options.focus) {
       var lastFocusId = this.createInput('hidden', this.page.id + this.SUB_COMPONENT_SEP + 'lastFocusId', options.focus);
