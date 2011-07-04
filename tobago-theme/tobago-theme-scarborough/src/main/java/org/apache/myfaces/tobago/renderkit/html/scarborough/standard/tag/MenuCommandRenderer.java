@@ -67,7 +67,7 @@ public class MenuCommandRenderer extends CommandRendererBase {
     boolean firstLevel = RendererTypes.MENU_BAR.equals(menu.getParent().getRendererType());
     LabelWithAccessKey label = new LabelWithAccessKey(menu);
     String clientId = menu.getClientId(facesContext);
-    String submit = "Tobago.submitAction(this, '" + clientId +"');";
+    String submit = HtmlRendererUtils.createSubmitAction(clientId, true, null, null);
 
     if (menu.getFacet(Facets.CHECKBOX) != null) {
       // checkbox menu

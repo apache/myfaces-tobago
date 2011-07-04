@@ -83,7 +83,7 @@ public class ProgressRenderer extends LayoutComponentRendererBase {
     UIComponent facet = progress.getFacet("complete");
     if (model.getValue() == model.getMaximum() && facet instanceof UICommand) {
       UICommand command = (UICommand) facet;
-      writer.writeJavascript("Tobago.submitAction(this, '" + command.getClientId(facesContext) + "');");
+      writer.writeJavascript(HtmlRendererUtils.createSubmitAction(command.getClientId(facesContext), true, null, null));
     }
 
   }

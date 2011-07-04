@@ -296,13 +296,8 @@ public class PageRenderer extends PageRendererBase {
           int duration = ComponentUtils.getIntAttribute(command, Attributes.DELAY, 100);
           boolean transition = ComponentUtils.getBooleanAttribute(command, Attributes.TRANSITION);
           String target = ComponentUtils.getStringAttribute(command, Attributes.TARGET);
-          String action;
-          if (target != null) {
-            action = "Tobago.submitAction(this, '" + command.getClientId(facesContext) + "', "
-                    + transition + ", '" + target + "' )";
-          } else {
-            action = "Tobago.submitAction(this, '"+ command.getClientId(facesContext) + "', " + transition + " )";
-          }
+          String action
+              = HtmlRendererUtils.createSubmitAction(command.getClientId(facesContext), transition, target, null);
           facesContext.getOnloadScripts().add("setTimeout(\"" + action  + "\", " + duration + ");\n");
         }
       }

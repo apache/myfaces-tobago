@@ -108,12 +108,7 @@ public class CommandRendererHelper {
       } else {
         String clientId = command.getClientId(facesContext);
         String target = ComponentUtils.getStringAttribute(command, Attributes.TARGET);
-        if (target == null) {
-          onclick = "Tobago.submitAction(this, '" + clientId + "', { transition:" + transition + "});";
-        } else {
-          onclick = "Tobago.submitAction(this, '" + clientId + "', { transition:" + transition
-              + ", target:'" + target + "'});";
-        }
+        onclick = HtmlRendererUtils.createSubmitAction(clientId, transition, target, null);
       }
 
       if (command.getAttributes().get(Attributes.POPUP_CLOSE) != null

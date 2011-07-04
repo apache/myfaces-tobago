@@ -626,17 +626,43 @@ public final class HtmlRendererUtils {
         facetAction = StringUtils.replace(facetAction, "@autoId", facetComponent.getClientId(facesContext));
         writer.write(facetAction);
       } else {
-        writer.write("Tobago.submitAction(this, '");
-        writer.write(facetComponent.getClientId(facesContext));
-        writer.write("', { transition:");
-        writer.write(Boolean.toString(ComponentUtils.getBooleanAttribute(facetComponent, Attributes.TRANSITION)));
-        writer.write(", focus:'");
-        writer.write(clientId);
-        writer.write("'})");
+        writer.write(createSubmitAction(
+            facetComponent.getClientId(facesContext),
+            ComponentUtils.getBooleanAttribute(facetComponent, Attributes.TRANSITION),
+            null,
+            clientId));
       }
       writer.write("});\n}");
       writer.endJavascript();
     }
+  }
+
+  public static String createSubmitAction(String clientId, boolean transition, String target, String focus) {
+    StringBuilder builder = new StringBuilder();
+    builder.append("Tobago.submitAction(this,'");
+    builder.append(clientId);
+    builder.append("',{");
+    if (transition == false) {
+      builder.append("transition:false");
+      if (target != null || focus != null) {
+        builder.append(',');
+      }
+    }
+    if (target != null) {
+      builder.append("target:'");
+      builder.append(target);
+      builder.append('\'');
+      if (focus != null) {
+        builder.append(',');
+      }
+    }
+    if (focus != null) {
+      builder.append("focus:'");
+      builder.append(focus);
+      builder.append('\'');
+    }
+    builder.append("});");
+    return builder.toString();
   }
 
   /**

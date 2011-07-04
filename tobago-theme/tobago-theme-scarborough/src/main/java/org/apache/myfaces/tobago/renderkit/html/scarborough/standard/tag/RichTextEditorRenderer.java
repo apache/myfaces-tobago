@@ -18,7 +18,6 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  */
 
 import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.util.CreateComponentUtils;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.UICommand;
@@ -35,6 +34,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
+import org.apache.myfaces.tobago.util.CreateComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -175,8 +175,8 @@ public class RichTextEditorRenderer extends InputRendererBase {
         facesContext, "tobago", "tobago.richtexteditor.edit.title");
     command.getAttributes().put(Attributes.TIP, title);
 
-    String onClick = "Tobago.submitAction(this, '"
-        + clientId + RichTextEditorRenderer.CHANGE_BUTTON + "')";
+    String onClick
+        = HtmlRendererUtils.createSubmitAction(clientId + RichTextEditorRenderer.CHANGE_BUTTON, true, null, null);
     command.getAttributes().put(Attributes.ONCLICK, onClick);
 
     command = (UICommand) CreateComponentUtils.createComponent(
