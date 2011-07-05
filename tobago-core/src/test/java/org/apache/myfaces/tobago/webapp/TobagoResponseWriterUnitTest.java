@@ -17,8 +17,8 @@ package org.apache.myfaces.tobago.webapp;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.internal.webapp.TobagoResponseWriterImpl;
-import org.apache.myfaces.tobago.internal.webapp.TobagoResponseXmlWriterImpl;
+import org.apache.myfaces.tobago.internal.webapp.HtmlResponseWriter;
+import org.apache.myfaces.tobago.internal.webapp.XmlResponseWriter;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.junit.Assert;
@@ -36,7 +36,7 @@ public class TobagoResponseWriterUnitTest {
   @Before
   public void setUp() throws Exception {
     stringWriter = new StringWriter();
-    writer = new TobagoResponseWriterImpl(stringWriter, "", "UTF-8");
+    writer = new HtmlResponseWriter(stringWriter, "", "UTF-8");
   }
 
   @Test
@@ -115,7 +115,7 @@ public class TobagoResponseWriterUnitTest {
 
   @Test
   public void testNonUtf8() throws IOException {
-    TobagoResponseWriter writer1 = new TobagoResponseWriterImpl(stringWriter, "", "ISO-8859-1");
+    TobagoResponseWriter writer1 = new HtmlResponseWriter(stringWriter, "", "ISO-8859-1");
     writer1.startElement(HtmlElements.INPUT, null);
     writer1.writeAttribute(HtmlAttributes.VALUE, "Gutschein über 100 €.", null);
     writer1.writeAttribute(HtmlAttributes.READONLY, true);
@@ -127,7 +127,7 @@ public class TobagoResponseWriterUnitTest {
 
   @Test
   public void testCharArray() throws IOException {
-    TobagoResponseWriter writer = new TobagoResponseXmlWriterImpl(stringWriter, "text/xml", "ISO-8859-1");
+    TobagoResponseWriter writer = new XmlResponseWriter(stringWriter, "text/xml", "ISO-8859-1");
     writer.writeText("123".toCharArray(), 0, 3);
     Assert.assertEquals("123", stringWriter.toString());
   }

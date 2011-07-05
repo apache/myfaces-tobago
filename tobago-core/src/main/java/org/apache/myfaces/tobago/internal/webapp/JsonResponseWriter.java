@@ -17,23 +17,23 @@ package org.apache.myfaces.tobago.internal.webapp;
  * limitations under the License.
  */
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.internal.ajax.AjaxInternalUtils;
 import org.apache.myfaces.tobago.internal.util.FastStringWriter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
 import java.io.IOException;
 import java.io.Writer;
 
-public class TobagoResponseJsonWriterImpl extends TobagoResponseWriterImpl {
+public class JsonResponseWriter extends HtmlResponseWriter {
 
-  private static final Logger LOG = LoggerFactory.getLogger(TobagoResponseWriterImpl.class);
+  private static final Logger LOG = LoggerFactory.getLogger(HtmlResponseWriter.class);
 
   private Writer javascriptWriter;
   private boolean javascriptMode;
 
-  public TobagoResponseJsonWriterImpl(Writer writer, String contentType, String characterEncoding) {
+  public JsonResponseWriter(Writer writer, String contentType, String characterEncoding) {
     super(writer, contentType, characterEncoding);
     this.javascriptWriter = new FastStringWriter();
   }

@@ -20,10 +20,10 @@ package org.apache.myfaces.tobago.renderkit;
 import org.apache.myfaces.tobago.application.ProjectStage;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.context.Capability;
-import org.apache.myfaces.tobago.internal.webapp.DebugTobagoResponseWriterWrapper;
-import org.apache.myfaces.tobago.internal.webapp.TobagoResponseJsonWriterImpl;
-import org.apache.myfaces.tobago.internal.webapp.TobagoResponseWriterImpl;
-import org.apache.myfaces.tobago.internal.webapp.TobagoResponseXmlWriterImpl;
+import org.apache.myfaces.tobago.internal.webapp.DebugResponseWriterWrapper;
+import org.apache.myfaces.tobago.internal.webapp.HtmlResponseWriter;
+import org.apache.myfaces.tobago.internal.webapp.JsonResponseWriter;
+import org.apache.myfaces.tobago.internal.webapp.XmlResponseWriter;
 import org.apache.myfaces.tobago.util.VariableResolverUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
@@ -95,7 +95,7 @@ public class TobagoRenderKit extends RenderKit {
       contentType = "text/fo";
       LOG.warn("patching content type from " + contentTypeList + " to " + contentType + "'");
     } else if (contentTypeList.indexOf("application/json") > -1) {
-      return new TobagoResponseJsonWriterImpl(writer, "application/json", characterEncoding);
+      return new JsonResponseWriter(writer, "application/json", characterEncoding);
     } else {
       contentType = "text/html";
       LOG.warn("Content-Type '" + contentTypeList + "' not supported! Using text/html");
@@ -120,12 +120,12 @@ public class TobagoRenderKit extends RenderKit {
 
     TobagoResponseWriter responseWriter;
     if (xml) {
-      responseWriter = new TobagoResponseXmlWriterImpl(writer, contentType, characterEncoding);
+      responseWriter = new XmlResponseWriter(writer, contentType, characterEncoding);
     } else {
-      responseWriter = new TobagoResponseWriterImpl(writer, contentType, characterEncoding);
+      responseWriter = new HtmlResponseWriter(writer, contentType, characterEncoding);
     }
     if (TobagoConfig.getInstance(FacesContext.getCurrentInstance()).getProjectStage() == ProjectStage.Development) {
-      responseWriter = new DebugTobagoResponseWriterWrapper(responseWriter);
+      responseWriter = new DebugResponseWriterWrapper(responseWriter);
     }
     return responseWriter;
   }

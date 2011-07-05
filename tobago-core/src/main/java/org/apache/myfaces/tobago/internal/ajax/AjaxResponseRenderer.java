@@ -22,7 +22,7 @@ import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.internal.lifecycle.TobagoLifecycle;
 import org.apache.myfaces.tobago.internal.util.ResponseUtils;
-import org.apache.myfaces.tobago.internal.webapp.TobagoResponseJsonWriterImpl;
+import org.apache.myfaces.tobago.internal.webapp.JsonResponseWriter;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.util.EncodeAjaxCallback;
 import org.apache.myfaces.tobago.util.RequestUtils;
@@ -103,7 +103,7 @@ public class AjaxResponseRenderer {
   private void renderComponent(FacesContext facesContext, RenderKit renderKit, String clientId, UIComponent component)
       throws IOException {
     final PrintWriter writer = getPrintWriter(facesContext);
-    final TobagoResponseJsonWriterImpl jsonWriter = getJsonResponseWriter(renderKit, writer);
+    final JsonResponseWriter jsonWriter = getJsonResponseWriter(renderKit, writer);
 
     facesContext.setResponseWriter(jsonWriter);
 
@@ -206,14 +206,14 @@ public class AjaxResponseRenderer {
     throw new IOException("No ResponseWriter found for ExternalContext " + externalContext);
   }
 
-  private TobagoResponseJsonWriterImpl getJsonResponseWriter(RenderKit renderKit, PrintWriter writer) {
+  private JsonResponseWriter getJsonResponseWriter(RenderKit renderKit, PrintWriter writer) {
 
     ResponseWriter newWriter = renderKit.createResponseWriter(writer, CONTENT_TYPE, null);
-    if (newWriter instanceof TobagoResponseJsonWriterImpl) {
-      return (TobagoResponseJsonWriterImpl) newWriter;
+    if (newWriter instanceof JsonResponseWriter) {
+      return (JsonResponseWriter) newWriter;
     } else {
       // with different RenderKit we got not the correct class
-      return new TobagoResponseJsonWriterImpl(newWriter, CONTENT_TYPE, newWriter.getCharacterEncoding());
+      return new JsonResponseWriter(newWriter, CONTENT_TYPE, newWriter.getCharacterEncoding());
     }
   }
 }

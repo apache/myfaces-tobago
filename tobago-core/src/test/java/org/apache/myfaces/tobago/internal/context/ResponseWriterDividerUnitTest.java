@@ -18,7 +18,7 @@ package org.apache.myfaces.tobago.internal.context;
  */
 
 import org.apache.myfaces.tobago.internal.mock.faces.AbstractTobagoTestBase;
-import org.apache.myfaces.tobago.internal.webapp.TobagoResponseXmlWriterImpl;
+import org.apache.myfaces.tobago.internal.webapp.XmlResponseWriter;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -34,7 +34,7 @@ public class ResponseWriterDividerUnitTest extends AbstractTobagoTestBase {
   public void test() throws IOException {
 
     StringWriter stringWriter = new StringWriter();
-    getFacesContext().setResponseWriter(new TobagoResponseXmlWriterImpl(stringWriter, "text/xml", "ISO-8859-1"));
+    getFacesContext().setResponseWriter(new XmlResponseWriter(stringWriter, "text/xml", "ISO-8859-1"));
 
     DefaultMutableTreeNode root = new DefaultMutableTreeNode("Root");
     DefaultMutableTreeNode colors = new DefaultMutableTreeNode("Colors");

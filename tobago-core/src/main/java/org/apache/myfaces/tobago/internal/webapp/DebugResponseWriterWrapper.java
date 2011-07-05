@@ -32,15 +32,15 @@ import java.io.Writer;
 import java.util.EmptyStackException;
 import java.util.Stack;
 
-public class DebugTobagoResponseWriterWrapper extends TobagoResponseWriter {
+public class DebugResponseWriterWrapper extends TobagoResponseWriter {
 
   private Stack<String> stack = new Stack<String>();
 
-  private static final Logger LOG = LoggerFactory.getLogger(DebugTobagoResponseWriterWrapper.class);
+  private static final Logger LOG = LoggerFactory.getLogger(DebugResponseWriterWrapper.class);
 
   private final TobagoResponseWriter responseWriter;
 
-  public DebugTobagoResponseWriterWrapper(TobagoResponseWriter responseWriter) {
+  public DebugResponseWriterWrapper(TobagoResponseWriter responseWriter) {
     this.responseWriter = responseWriter;
   }
 
@@ -62,7 +62,7 @@ public class DebugTobagoResponseWriterWrapper extends TobagoResponseWriter {
   }
 
   public ResponseWriter cloneWithWriter(Writer writer) {
-    return new DebugTobagoResponseWriterWrapper((TobagoResponseWriter) responseWriter.cloneWithWriter(writer));
+    return new DebugResponseWriterWrapper((TobagoResponseWriter) responseWriter.cloneWithWriter(writer));
   }
 
   @Deprecated

@@ -17,81 +17,83 @@ package org.apache.myfaces.tobago.internal.webapp;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.component.Attributes;
+import org.apache.myfaces.tobago.internal.util.HtmlWriterUtils;
+import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
-import org.apache.myfaces.tobago.util.XmlUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
+import javax.faces.component.UIComponent;
 import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 import java.io.Writer;
-import java.util.Arrays;
+import java.util.Map;
 
-public final class TobagoResponseXmlWriterImpl extends TobagoResponseWriterBase {
+public class HtmlResponseWriter extends TobagoResponseWriterBase {
 
-  private static final Logger LOG = LoggerFactory.getLogger(TobagoResponseXmlWriterImpl.class);
+  private static final String HTML_DOCTYPE =
+      "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\" \"http://www.w3.org/TR/html4/strict.dtd\">";
 
-  private static final String XHTML_DOCTYPE =
-      "<!DOCTYPE html      PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\""
-          + "     \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">";
+  private final HtmlWriterUtils helper;
 
-  public static final String XML_VERSION_1_0_ENCODING_UTF_8 = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
-  public static final int XML_VERSION_1_0_ENCODING_UTF_8_LENGTH = XML_VERSION_1_0_ENCODING_UTF_8.length();
-
-  public TobagoResponseXmlWriterImpl(
+  public HtmlResponseWriter(
       Writer writer, String contentType, String characterEncoding) {
     super(writer, contentType, characterEncoding);
+    this.helper = new HtmlWriterUtils(writer, characterEncoding);
+  }
+
+  public final HtmlWriterUtils getHelper() {
+    return helper;
   }
 
   public void writeText(final Object text, final String property)
       throws IOException {
     closeOpenTag();
     final String value = findValue(text, property);
-    write(XmlUtils.escape(value));
+    helper.writeText(value);
   }
 
   public void writeText(final char[] text, final int offset, final int length)
       throws IOException {
     closeOpenTag();
-    getWriter().write(XmlUtils.escape(text, offset, length, true));
+    helper.writeText(text, offset, length);
   }
 
   @Override
-  public void write(char[] cbuf, int off, int len) throws IOException {
-
-    // XXX Seems to be related to http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-696
-    if (cbuf.length == XML_VERSION_1_0_ENCODING_UTF_8_LENGTH
-    && Arrays.equals(cbuf, XML_VERSION_1_0_ENCODING_UTF_8.toCharArray())) {
-      if (LOG.isDebugEnabled()) {
-        LOG.debug("Filtering XML header: " + new String(cbuf));
-      }
-    } else {
-      super.write(cbuf, off, len);
-    }
-  }
-
-  public ResponseWriter cloneWithWriter(final Writer originalWriter) {
-    return new TobagoResponseXmlWriterImpl(
-        originalWriter, getContentType(), getCharacterEncoding());
-  }
-
-  @Override
-  public void closeEmptyTag() throws IOException {
-    getWriter().write("\n/>");
+  protected final void closeEmptyTag() throws IOException {
+    getWriter().write("\n>");
   }
 
   @Override
   protected void writerAttributeValue(String value, boolean escape) throws IOException {
-    getWriter().write(XmlUtils.escape(value));
+    if (escape) {
+      helper.writeAttributeValue(value);
+    } else {
+      getWriter().write(value);
+    }
+  }
+
+  public ResponseWriter cloneWithWriter(final Writer originalWriter) {
+    return new HtmlResponseWriter(
+        originalWriter, getContentType(), getCharacterEncoding());
+  }
+
+  /**
+   * @deprecated
+   */
+  @Deprecated
+  public static Style ensureHtmlStyleMap(UIComponent component, Style styles) {
+    if (styles == null) {
+      styles = new Style();
+      ((Map<String, Object>) component.getAttributes()).put(Attributes.STYLE, styles);
+    }
+    return styles;
   }
 
   @Override
   public void startDocument() throws IOException {
-    getWriter().write(XHTML_DOCTYPE);
+    getWriter().write(HTML_DOCTYPE);
     getWriter().write('\n');
     startElement(HtmlElements.HTML, null);
-    writeAttribute("xmlns", "http://www.w3.org/1999/xhtml", false);
-
   }
 
   @Override
