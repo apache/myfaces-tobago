@@ -177,27 +177,27 @@ JavaScript
    If you are using <<<submitAction2()>>> in the old code, you have to rename it to <<<submitAction()>>>.
 
 *--+--+--+--+
-| added first param | <<<submitAction()>>> | |
+| added first parameter and put all parameters after the second to an options map | <<<submitAction()>>> | |
 *--+--+--+--+
 | renamed | <<<submitAction2()>>> | <<<submitAction()>>> |
 *--+--+--+--+
-| added first param | <<<openPopupWithAction()>>> | |
+| added first parameter | <<<openPopupWithAction()>>> | |
 *--+--+--+--+
 | renamed | <<<openPopupWithAction2()>>> | <<<openPopupWithAction()>>> |
 *--+--+--+--+
-| added first param | <<<reloadComponent()>>> | |
+| added first parameter | <<<reloadComponent()>>> | |
 *--+--+--+--+
 | renamed | <<<reloadComponent2()>>> | <<<reloadComponent()>>> |
 *--+--+--+--+
-| added first param | <<<Updater.update()>>> | |
+| added first parameter | <<<Updater.update()>>> | |
 *--+--+--+--+
 | renamed | <<<Updater.update2()>>> | <<<Updater.update()>>> |
 *--+--+--+--+
-| added first param | <<<Sheet.reloadWithAction()>>> | |
+| added first parameter | <<<Sheet.reloadWithAction()>>> | |
 *--+--+--+--+
 | renamed | <<<Sheet.reloadWithAction2()>>> | <<<Sheet.reloadWithAction()>>> |
 *--+--+--+--+
-| added first param | <<<TabGroup.reloadWithAction()>>> | |
+| added first parameter | <<<TabGroup.reloadWithAction()>>> | |
 *--+--+--+--+
 | renamed | <<<TabGroup.reloadWithAction2()>>> | <<<TabGroup.reloadWithAction()>>> |
 *--+--+--+--+
