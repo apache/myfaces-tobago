@@ -936,8 +936,9 @@ var Tobago = {
     }
     hidden.value = ',';
     var firstPopupElement = null;
-    for (var i = 0; i < document.forms[0].elements.length; i++) {
-      var element = document.forms[0].elements[i];
+    var elements = document.forms[0].elements;
+    for (var i = 0; i < elements.length; i++) {
+      var element = elements[i];
       if (element.type != 'hidden' && !element.disabled) {
         if (element.id) {
           if (element.id.indexOf(id + ':') != 0) { // not starts with
