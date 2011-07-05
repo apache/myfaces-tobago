@@ -32,7 +32,7 @@
 
     <tc:style>
       .tobago-out-markup-demoSeconds {
-      font-size: 96px;
+        font-size: 96px;
       }
     </tc:style>
 
@@ -74,7 +74,7 @@
           &lt;/li>
         &lt;/ul>
 
-        &lt;/p>
+        &lt;br/>
         &lt;b>UNDER CONSTRUCTION! Problems:&lt;/b>
         &lt;ul>
           &lt;li>Fast click on 'Reload left': Error 500&lt;/li>
@@ -109,6 +109,13 @@
                    tip="Reload both boxes"
                    action="#{partialReloadController.reload}">
           <tc:attribute value="left,right" name="renderedPartially"/>
+          <tc:gridLayoutConstraint columnSpan="2"/>
+        </tc:button>
+
+        <tc:button label="Reload full panel"
+                   tip="Reload the full area inside the outer box"
+                   action="#{partialReloadController.reload}">
+          <tc:attribute value="parent" name="renderedPartially"/>
           <tc:gridLayoutConstraint columnSpan="2"/>
         </tc:button>
 
