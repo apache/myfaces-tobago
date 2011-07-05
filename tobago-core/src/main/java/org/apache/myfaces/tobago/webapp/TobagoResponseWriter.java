@@ -190,14 +190,14 @@ public abstract class TobagoResponseWriter extends ResponseWriter {
   }
 
   public void endJavascript() throws IOException {
-    write("\n// -->\n");
+//    write("\n// -->\n"); // todo: for XHMTL we may need
     endElement(HtmlElements.SCRIPT);
   }
 
   public void startJavascript() throws IOException {
     startElement(HtmlElements.SCRIPT, null);
     writeAttribute(HtmlAttributes.TYPE, "text/javascript", false);
-    write("\n<!--\n");
+//    write("\n<!--\n");
   }
 
   /**
