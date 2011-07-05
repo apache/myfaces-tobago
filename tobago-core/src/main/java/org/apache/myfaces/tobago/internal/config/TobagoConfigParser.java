@@ -40,8 +40,6 @@ public class TobagoConfigParser {
   private static final String TOBAGO_CONFIG_DTD_1_0_29 = "/org/apache/myfaces/tobago/config/tobago-config-1.0.29.dtd";
   private static final String TOBAGO_CONFIG_DTD_1_0_30 = "/org/apache/myfaces/tobago/config/tobago-config-1.0.30.dtd";
   private static final String TOBAGO_CONFIG_DTD_1_0_34 = "/org/apache/myfaces/tobago/config/tobago-config-1.0.34.dtd";
-  @Deprecated
-  private static final String TOBAGO_CONFIG_DTD_1_5 = "/org/apache/myfaces/tobago/config/tobago-config-1.5.dtd";
   private static final String TOBAGO_CONFIG_XSD_1_5 = "/org/apache/myfaces/tobago/config/tobago-config-1.5.xsd";
 
   private Digester digester;
@@ -158,7 +156,6 @@ public class TobagoConfigParser {
     registerDtd("-//The Apache Software Foundation//DTD Tobago Config 1.0.29//EN", TOBAGO_CONFIG_DTD_1_0_29);
     registerDtd("-//The Apache Software Foundation//DTD Tobago Config 1.0.30//EN", TOBAGO_CONFIG_DTD_1_0_30);
     registerDtd("-//The Apache Software Foundation//DTD Tobago Config 1.0.34//EN", TOBAGO_CONFIG_DTD_1_0_34);
-    registerDtd("-//The Apache Software Foundation//DTD Tobago Config 1.5//EN", TOBAGO_CONFIG_DTD_1_5);
     // todo: find a way to register the schema
     //    registerDtd("http://myfaces.apache.org/tobago/tobago-config", TOBAGO_CONFIG_XSD_1_5);
     //    registerXsd("http://myfaces.apache.org/tobago/tobago-config", TOBAGO_CONFIG_XSD_1_5);
