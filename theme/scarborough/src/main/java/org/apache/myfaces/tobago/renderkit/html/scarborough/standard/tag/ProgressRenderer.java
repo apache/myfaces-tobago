@@ -24,7 +24,6 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import org.apache.myfaces.tobago.component.UICommand;
 import org.apache.myfaces.tobago.component.UIProgress;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
@@ -41,6 +40,8 @@ import javax.faces.context.FacesContext;
 import javax.swing.BoundedRangeModel;
 import javax.swing.DefaultBoundedRangeModel;
 import java.io.IOException;
+
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 
 public class ProgressRenderer extends LayoutableRendererBase {
 
@@ -94,7 +95,7 @@ public class ProgressRenderer extends LayoutableRendererBase {
     writer.writeClassAttribute(color1Classes);
     writer.writeAttribute(HtmlAttributes.SRC, image, false);
     writer.writeAttribute(HtmlAttributes.ALT, String.valueOf(title), true);
-    writer.writeAttribute(HtmlAttributes.WIDTH, width1, false);
+    writer.writeAttribute(HtmlAttributes.STYLE, "width:" + width1 + "px", false);
     writer.writeAttribute(HtmlAttributes.BORDER, 0);
     writer.endElement(HtmlConstants.IMG);
 
@@ -105,7 +106,7 @@ public class ProgressRenderer extends LayoutableRendererBase {
     writer.writeClassAttribute(color2Classes);
     writer.writeAttribute(HtmlAttributes.SRC, image, false);
     writer.writeAttribute(HtmlAttributes.ALT, String.valueOf(title), true);
-    writer.writeAttribute(HtmlAttributes.WIDTH, width2, false);
+    writer.writeAttribute(HtmlAttributes.STYLE, "width:" + width2 + "px", false);
     writer.writeAttribute(HtmlAttributes.BORDER, 0);
     writer.endElement(HtmlConstants.IMG);
 
