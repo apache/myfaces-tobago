@@ -19,7 +19,6 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.myfaces.tobago.compat.FacesUtils;
 import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.util.CreateComponentUtils;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.UIBox;
@@ -39,6 +38,7 @@ import org.apache.myfaces.tobago.internal.util.DateFormatUtils;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.util.ComponentUtils;
+import org.apache.myfaces.tobago.util.CreateComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -80,7 +80,7 @@ public class DatePickerRenderer extends LinkRenderer {
     final UIGridLayout layoutOfBox = (UIGridLayout) CreateComponentUtils.createComponent(
         facesContext, UIGridLayout.COMPONENT_TYPE, RendererTypes.GRID_LAYOUT, "layout");
     box.getFacets().put(Facets.LAYOUT, layoutOfBox);
-    layoutOfBox.setRows("*;fixed;fixed");
+    layoutOfBox.setRows("*;auto;auto");
 
     final UICalendar calendar = (UICalendar) CreateComponentUtils.createComponent(
         facesContext, UICalendar.COMPONENT_TYPE, RendererTypes.CALENDAR, "calendar");
@@ -93,7 +93,7 @@ public class DatePickerRenderer extends LinkRenderer {
     final UIGridLayout layoutOfTime = (UIGridLayout) CreateComponentUtils.createComponent(
         facesContext, UIGridLayout.COMPONENT_TYPE, RendererTypes.GRID_LAYOUT, "timePanelLayout");
     timePanel.getFacets().put(Facets.LAYOUT, layoutOfTime);
-    layoutOfTime.setColumns("1*;fixed;1*");
+    layoutOfTime.setColumns("1*;auto;1*");
     final UIPanel cell1 = (UIPanel) CreateComponentUtils.createComponent(
         facesContext, UIPanel.COMPONENT_TYPE, RendererTypes.PANEL, "cell1");
     cell1.onComponentPopulated(facesContext, parent);
@@ -117,7 +117,7 @@ public class DatePickerRenderer extends LinkRenderer {
         facesContext, UIGridLayout.COMPONENT_TYPE, RendererTypes.GRID_LAYOUT, "buttonPanelLayout");
     buttonPanel.setLayoutManager(layoutOfButtons);
     layoutOfButtons.setColumns("*;*");
-    layoutOfButtons.setRows("fixed");
+    layoutOfButtons.setRows("auto");
 
     box.getChildren().add(buttonPanel);
     box.onComponentPopulated(facesContext, parent);
@@ -150,7 +150,6 @@ public class DatePickerRenderer extends LinkRenderer {
     picker.getChildren().add(image);
   }
 
-
   @Override
   public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
     UIDatePicker picker = (UIDatePicker) component;
@@ -159,14 +158,9 @@ public class DatePickerRenderer extends LinkRenderer {
     picker.getAttributes().put(
         Attributes.LAYOUT_WIDTH,
         getResourceManager().getThemeMeasure(facesContext, picker, "pickerWidth").getPixel());
-    if (facesContext instanceof TobagoFacesContext) {
-      UIPopup popup = (UIPopup) picker.getFacets().get(Facets.PICKER_POPUP);
-      if (popup != null) {
-        popup.setWidth(getResourceManager().getThemeMeasure(facesContext, picker, "calendarPopupWidth"));
-        popup.setHeight(getResourceManager().getThemeMeasure(facesContext, picker, "calendarPopupHeight"));
-        ((TobagoFacesContext) facesContext).getPopups().add(popup);
-      }
-    }
+
+    ((TobagoFacesContext) facesContext).getPopups().add((UIPopup) picker.getFacets().get(Facets.PICKER_POPUP));
+
     super.prepareRender(facesContext, picker);
   }
 

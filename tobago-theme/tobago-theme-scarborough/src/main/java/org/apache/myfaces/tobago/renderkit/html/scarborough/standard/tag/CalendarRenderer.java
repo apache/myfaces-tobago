@@ -77,28 +77,16 @@ public class CalendarRenderer extends LayoutComponentRendererBase {
     // rendering
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
-    writer.startElement(HtmlElements.TABLE, component);
+    writer.startElement(HtmlElements.DIV, component);
     writer.writeIdAttribute(id);
-    HtmlRendererUtils.renderDojoDndItem(component, writer, true);
     writer.writeClassAttribute(Classes.create(output));
     Style style = new Style(facesContext, output);
     writer.writeStyleAttribute(style);
-    writer.writeAttribute(HtmlAttributes.CELLSPACING, 0);
-    writer.writeAttribute(HtmlAttributes.CELLPADDING, 3);
-    writer.writeAttribute(HtmlAttributes.SUMMARY, "", false);
 
-    writer.startElement(HtmlElements.TR, null);
-    writer.writeClassAttribute(Classes.create(output, "headerRow"));
-    writer.startElement(HtmlElements.TH, null);
-    writer.writeAttribute(HtmlAttributes.COLSPAN, 7);
+    // begin header
+    writer.startElement(HtmlElements.DIV, null);
+    writer.writeClassAttribute(Classes.create(output, "row"));
 
-    writer.startElement(HtmlElements.TABLE, null);
-    writer.writeAttribute(HtmlAttributes.SUMMARY, "", false);
-    writer.writeClassAttribute(Classes.create(output, "header"));
-    writer.startElement(HtmlElements.TR, null);
-
-    writer.startElement(HtmlElements.TD, null);
-    writer.writeAttribute(HtmlAttributes.ALIGN, "left", false);
     writer.startElement(HtmlElements.IMG, null);
     writer.writeClassAttribute(Classes.create(output, "header"));
     writer.writeAttribute(HtmlAttributes.ALT, "", false);
@@ -106,10 +94,7 @@ public class CalendarRenderer extends LayoutComponentRendererBase {
         ResourceManagerUtils.getImageWithPath(facesContext, "image/calendarFastPrev.gif"), false);
     writer.writeAttribute(HtmlAttributes.ONCLICK, "addMonth('" + id + "', -12)", false);
     writer.endElement(HtmlElements.IMG);
-    writer.endElement(HtmlElements.TD);
 
-    writer.startElement(HtmlElements.TD, null);
-    writer.writeAttribute(HtmlAttributes.ALIGN, "left", false);
     writer.startElement(HtmlElements.IMG, null);
     writer.writeClassAttribute(Classes.create(output, "header"));
     writer.writeAttribute(HtmlAttributes.ALT, "", false);
@@ -117,17 +102,13 @@ public class CalendarRenderer extends LayoutComponentRendererBase {
         ResourceManagerUtils.getImageWithPath(facesContext, "image/calendarPrev.gif"), false);
     writer.writeAttribute(HtmlAttributes.ONCLICK, "addMonth('" + id + "', -1)", false);
     writer.endElement(HtmlElements.IMG);
-    writer.endElement(HtmlElements.TD);
 
-    writer.startElement(HtmlElements.TH, null);
-    writer.writeClassAttribute(Classes.create(output, "headerCenter"));
-    writer.writeAttribute(HtmlAttributes.ALIGN, "center", false);
-    writer.writeIdAttribute(id + ":title");
+    writer.startElement(HtmlElements.SPAN, null);
+    writer.writeClassAttribute(Classes.create(output, "header"));
+    writer.writeIdAttribute(id + ":title"); // todo: ComponentUtils.SUB_SEPARATOR
     writer.writeText(dateFormat.format(calendar.getTime()));
-    writer.endElement(HtmlElements.TH);
+    writer.endElement(HtmlElements.SPAN);
 
-    writer.startElement(HtmlElements.TD, null);
-    writer.writeAttribute(HtmlAttributes.ALIGN, "right", false);
     writer.startElement(HtmlElements.IMG, null);
     writer.writeClassAttribute(Classes.create(output, "header"));
     writer.writeAttribute(HtmlAttributes.ALT, "", false);
@@ -135,10 +116,7 @@ public class CalendarRenderer extends LayoutComponentRendererBase {
         ResourceManagerUtils.getImageWithPath(facesContext, "image/calendarNext.gif"), false);
     writer.writeAttribute(HtmlAttributes.ONCLICK, "addMonth('" + id + "', 1)", false);
     writer.endElement(HtmlElements.IMG);
-    writer.endElement(HtmlElements.TD);
 
-    writer.startElement(HtmlElements.TD, null);
-    writer.writeAttribute(HtmlAttributes.ALIGN, "right", false);
     writer.startElement(HtmlElements.IMG, null);
     writer.writeClassAttribute(Classes.create(output, "header"));
     writer.writeAttribute(HtmlAttributes.ALT, "", false);
@@ -146,15 +124,13 @@ public class CalendarRenderer extends LayoutComponentRendererBase {
         ResourceManagerUtils.getImageWithPath(facesContext, "image/calendarFastNext.gif"), false);
     writer.writeAttribute(HtmlAttributes.ONCLICK, "addMonth('" + id + "', 12)", false);
     writer.endElement(HtmlElements.IMG);
-    writer.endElement(HtmlElements.TD);
 
-    writer.endElement(HtmlElements.TR);
-    writer.endElement(HtmlElements.TABLE);
+    writer.endElement(HtmlElements.DIV);
+    // end header
 
-    writer.endElement(HtmlElements.TH);
-    writer.endElement(HtmlElements.TR);
-
-    writer.startElement(HtmlElements.TR, null);
+    // begin weeks
+    writer.startElement(HtmlElements.DIV, null);
+    writer.writeClassAttribute(Classes.create(output, "row"));
 
     dateFormat = new SimpleDateFormat("E", locale);
     for (int dayIt = 0; dayIt < 7; ++dayIt) {
@@ -162,19 +138,21 @@ public class CalendarRenderer extends LayoutComponentRendererBase {
       String dayName = dateFormat.format(date.getCalendar().getTime());
       dayName = StringUtils.substring(dayName, 0, 2);
 
-      writer.startElement(HtmlElements.TH, null);
-      writer.writeClassAttribute(Classes.create(output, "headerInner"));
+      writer.startElement(HtmlElements.SPAN, null);
+      writer.writeClassAttribute(Classes.create(output, "dayOfWeek"));
       writer.writeText(dayName);
-      writer.endElement(HtmlElements.TH);
+      writer.endElement(HtmlElements.SPAN);
     }
 
-    writer.endElement(HtmlElements.TR);
+    writer.endElement(HtmlElements.DIV);
+    // end weeks
 
 //    int weekCount = model.getWeekCount();
     for (int week = 0; week < 6; ++week) {
 //    String style = (week < weekCount) ? "" : "style=\"display: none\"";
-      writer.startElement(HtmlElements.TR, null);
+      writer.startElement(HtmlElements.DIV, null);
       writer.writeIdAttribute(id + ":" + week);
+      writer.writeClassAttribute(Classes.create(output, "row"));
 //      writer.writeAttribute(HtmlAttributes.STYLE, style, null);
 
       for (int dayIt = 0; dayIt < 7; ++dayIt) {
@@ -183,7 +161,7 @@ public class CalendarRenderer extends LayoutComponentRendererBase {
         String dayDescription = String.valueOf(date.getDay());
         String onclick = "selectDay('" + id + "', " + week + " , " + dayIt + ");";
 
-        writer.startElement(HtmlElements.TD, null);
+        writer.startElement(HtmlElements.SPAN, null);
         writer.writeAttribute(HtmlAttributes.ONCLICK, onclick, true);
         writer.writeIdAttribute(id + ":" + week + ":" + dayIt);
         writer.writeClassAttribute(
@@ -191,15 +169,15 @@ public class CalendarRenderer extends LayoutComponentRendererBase {
 
         writer.writeText(dayDescription);
 
-        writer.endElement(HtmlElements.TD);
+        writer.endElement(HtmlElements.SPAN);
 
 //      } else {
 //        % ><td id="< %= id + ":" + week + ":" + day % >">x</td>< %
 //      }
       }
-      writer.endElement(HtmlElements.TR);
+      writer.endElement(HtmlElements.DIV);
     }
-    writer.endElement(HtmlElements.TABLE);
+    writer.endElement(HtmlElements.DIV);
 
     writeInputHidden(writer, "/" + id + "/year", id + ":year", Integer.toString(calendar.get(Calendar.YEAR)));
 

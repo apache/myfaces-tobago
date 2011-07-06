@@ -123,29 +123,18 @@
 
 /* calendar --------------------------------------------------------------- */
 
-.tobago-calendar-header  {
-  text-decoration: underline;
-}
-
 .tobago-calendar-day {
   font: 12px arial, helvetica, sans-serif;
 }
 
-.tobago-calendar-day-markup-disabled {
-  font: 12px arial, helvetica, sans-serif;
-  color: #333333;
-}
-
 .tobago-calendar-day-markup-selected {
-  font: bold 12px arial, helvetica, sans-serif;
+  font-weight: bold;
   color: #660000;
   border: 1px dotted #660000;
   background: #FFFFFF;
-  height: 18px;
 }
 
-.tobago-calendar-headerInner {
-  font: bold 14px arial, helvetica, sans-serif;
+.tobago-calendar-dayOfWeek {
   color: #660000;
 }
 

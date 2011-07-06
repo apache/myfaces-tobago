@@ -165,38 +165,45 @@ fieldset.tobago-box {
 
 /* calendar ------------------------------------------------------------------- */
 
-table.tobago-calendar {
-  width: 100%;
-}
-
-table.tobago-calendar-header {
-  width: 100%;
-}
-
-th.tobago-calendar-headerCenter {
-  width: 100%;
-}
-
-th.tobago-calendar-headerInner {
-  width: 14%;
+.tobago-calendar-row {
+  white-space: nowrap;
 }
 
 img.tobago-calendar-header {
+  width: 15px;
+  height: 15px;
+  padding: 2px;
+  display: inline-block;
   cursor: pointer;
 }
 
-td.tobago-calendar-day, td.tobago-calendar-day-markup-disabled, td.tobago-calendar-day-markup-selected {
-  width: 14%;
+span.tobago-calendar-header {
+  width: 88px;
+  height: 15px;
+  padding: 2px;
+  display: inline-block;
+  cursor: pointer;
   text-align: center;
-  cursor: pointer;
+  vertical-align: bottom;
 }
 
-td.tobago-calendar-day-markup-disabled {
+.tobago-calendar-day, .tobago-calendar-dayOfWeek {
+  padding: 3px;
+  width: 18px;
+  height: 14px;
+  display: inline-block;
+  cursor: pointer;
+  text-align: center;
+}
+
+.tobago-calendar-day-markup-disabled {
   color: #999999;
 }
 
-td.tobago-calendar-day-markup-selected {
+.tobago-calendar-day-markup-selected {
   background-color: #ffffff;
+  padding: 2px;
+  border: 1px;
 }
 
 /* date ---------------------------------------------------------------------- */

@@ -177,14 +177,14 @@ function initCalendar(id) {
         var monthAfterClick = month;
         if (d <= 0) {
           d = prevMonthLength + d;
-          styleClass = "tobago-calendar-day-markup-disabled";
+          styleClass = "tobago-calendar-day tobago-calendar-day-markup-disabled";
           monthAfterClick = month - 1;
         } else if (d > monthLength) {
-          styleClass = "tobago-calendar-day-markup-disabled";
+          styleClass = "tobago-calendar-day tobago-calendar-day-markup-disabled";
           d -= monthLength;
           monthAfterClick = month + 1;
         } else if (d == day) {
-          styleClass = "tobago-calendar-day-markup-selected";
+          styleClass = "tobago-calendar-day tobago-calendar-day-markup-selected";
         }
         el.className = styleClass;
         el.innerHTML = d;
