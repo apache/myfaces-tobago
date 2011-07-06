@@ -17,10 +17,12 @@ package org.apache.myfaces.tobago.internal.taglib.component;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.apt.annotation.Facet;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
+import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
@@ -30,12 +32,20 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutContain
 
 /**
  * Renders a popup panel.
+ * The popup gets a grid layout manager with columns="auto" and rows="auto" as definition.
+ * So a popup should contain only one layout component.
+ * The default layout manager can be overwritten with the layout facet.
  */
 @Tag(name = "popup")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIPopup",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIPopup",
-    rendererType = RendererTypes.POPUP)
+    rendererType = RendererTypes.POPUP,
+    facets = {
+        @Facet(name = Facets.LAYOUT,
+            description = "Contains an instance of AbstractUILayoutBase",
+            allowedChildComponenents = "org.apache.myfaces.tobago.GridLayout")}
+)
 public interface PopupTagDeclaration 
     extends HasIdBindingAndRendered, IsGridLayoutComponentWithDeprecatedDimension, IsGridLayoutContainer,
     HasMarkup, HasCurrentMarkup {

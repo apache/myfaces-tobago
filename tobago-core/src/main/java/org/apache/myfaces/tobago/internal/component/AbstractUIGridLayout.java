@@ -426,7 +426,11 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase implemen
 
   public abstract String getRows();
 
+  public abstract void setRows(String rows);
+
   public abstract String getColumns();
+
+  public abstract void setColumns(String columns);
 
   @Deprecated
   public abstract Measure getCellspacing();
