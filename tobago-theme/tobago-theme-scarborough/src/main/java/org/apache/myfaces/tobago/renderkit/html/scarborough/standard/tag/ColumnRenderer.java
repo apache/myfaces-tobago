@@ -26,6 +26,7 @@ import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
+import java.util.List;
 
 public class ColumnRenderer extends LayoutComponentRendererBase {
 
@@ -48,7 +49,7 @@ public class ColumnRenderer extends LayoutComponentRendererBase {
    * Pure is not needed for  &lt;tc:out> and &lt;tc:link>
    */
   private boolean isPure(UIColumn column) {
-    for (UIComponent child : column.getChildren()) {
+    for (UIComponent child : (List<UIComponent>) column.getChildren()) {
       if (!(child instanceof UIOut) && !(child instanceof UILink)) {
         return true;
       }

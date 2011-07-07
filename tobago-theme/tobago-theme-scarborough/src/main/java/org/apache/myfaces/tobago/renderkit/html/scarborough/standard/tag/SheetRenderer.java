@@ -478,7 +478,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
    * Pure is not needed for  &lt;tc:out> and &lt;tc:link>
    */
   private boolean isPure(UIColumn column) {
-    for (UIComponent child : column.getChildren()) {
+    for (UIComponent child : (List<UIComponent>) column.getChildren()) {
       if (!(child instanceof UIOut) && !(child instanceof UILink)) {
         return true;
       }
