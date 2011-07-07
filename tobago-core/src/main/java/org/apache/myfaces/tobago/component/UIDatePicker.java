@@ -24,6 +24,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.event.FacesEvent;
 import javax.faces.render.Renderer;
+import java.util.List;
 
 /*
  * Date: 30.05.2006
@@ -49,8 +50,7 @@ public class UIDatePicker extends UILink implements OnComponentCreated {
   }
 
   private UIComponent getUIDateInput(UIComponent parent) {
-    for (Object object : parent.getChildren()) {
-      UIComponent child = (UIComponent) object;
+    for (UIComponent child : (List<UIComponent>) parent.getChildren()) {
       if (child instanceof UIDate) {
         return child;
       }
