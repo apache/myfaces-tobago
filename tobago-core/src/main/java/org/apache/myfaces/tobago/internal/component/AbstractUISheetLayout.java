@@ -18,7 +18,6 @@ package org.apache.myfaces.tobago.internal.component;
  */
 
 import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.internal.layout.Interval;
 import org.apache.myfaces.tobago.internal.layout.IntervalList;
 import org.apache.myfaces.tobago.internal.layout.LayoutUtils;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
@@ -88,13 +87,16 @@ public abstract class AbstractUISheetLayout extends AbstractUILayoutBase impleme
           ((LayoutContainer) component).getLayoutManager().preProcessing(orientation);
         }
 
+/*
         if (orientation == Orientation.HORIZONTAL && horizontalAuto
             || orientation == Orientation.VERTICAL && verticalAuto) {
           intervals.add(new Interval(component, orientation));
         }
+*/
       }
     }
 
+/*
     if (intervals.size() >= 1) {
       intervals.evaluate();
       Measure size = intervals.getCurrent();
@@ -102,6 +104,7 @@ public abstract class AbstractUISheetLayout extends AbstractUILayoutBase impleme
       size = size.add(LayoutUtils.getBorderEnd(orientation, getLayoutContainer()));
       LayoutUtils.setCurrentSize(orientation, getLayoutContainer(), size);
     }
+*/
   }
 
   public void mainProcessing(Orientation orientation) {
