@@ -198,6 +198,16 @@ public class FacesUtils {
     return null;
   }
 
+  public static Object createExpressionOrBinding(String string) {
+    if (USE_BINDING) {
+      FacesContext facesContext = FacesContext.getCurrentInstance();
+      ValueBinding valueBinding = facesContext.getApplication().createValueBinding(string);
+      return valueBinding;
+    } else {
+      return FacesUtilsEL.createExpressionOrBinding(string);
+    }
+  }
+
   public static void setValidator(EditableValueHolder editableValueHolder, Object validator) {
     if (USE_BINDING) {
       MethodBinding methodBinding =

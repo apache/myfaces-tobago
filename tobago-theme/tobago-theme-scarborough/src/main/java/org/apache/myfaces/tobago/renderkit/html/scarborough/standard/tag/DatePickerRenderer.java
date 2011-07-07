@@ -72,6 +72,11 @@ public class DatePickerRenderer extends LinkRenderer {
     popup.setRendered(false);
     popup.onComponentPopulated(facesContext, parent);
 
+    FacesUtils.setBindingOrExpression(
+        popup, Attributes.LEFT, FacesUtils.createExpressionOrBinding("#{tobago.actionPosition.right.pixel + 5}"));
+    FacesUtils.setBindingOrExpression(
+        popup, Attributes.TOP, FacesUtils.createExpressionOrBinding("#{tobago.actionPosition.top.pixel}"));
+
     final UIBox box = (UIBox) CreateComponentUtils.createComponent(
         facesContext, UIBox.COMPONENT_TYPE, RendererTypes.BOX, "box");
     popup.getChildren().add(box);

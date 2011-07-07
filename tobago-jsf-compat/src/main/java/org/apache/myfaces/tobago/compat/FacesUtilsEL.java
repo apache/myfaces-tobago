@@ -24,6 +24,7 @@ import org.apache.myfaces.tobago.util.ValueExpressionComparator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.el.ExpressionFactory;
 import javax.el.MethodExpression;
 import javax.el.ValueExpression;
 import javax.faces.component.ActionSource;
@@ -160,6 +161,14 @@ public class FacesUtilsEL {
       return expression.getValue(FacesContext.getCurrentInstance().getELContext());
     }
     return null;
+  }
+
+  public static Object createExpressionOrBinding(String string) {
+    FacesContext facesContext = FacesContext.getCurrentInstance();
+    ExpressionFactory expressionFactory = facesContext.getApplication().getExpressionFactory();
+    ValueExpression valueExpression =
+        expressionFactory.createValueExpression(facesContext.getELContext(), string, Object.class);
+    return valueExpression;
   }
 
   public static void setValidator(EditableValueHolder editableValueHolder, Object validator) {
