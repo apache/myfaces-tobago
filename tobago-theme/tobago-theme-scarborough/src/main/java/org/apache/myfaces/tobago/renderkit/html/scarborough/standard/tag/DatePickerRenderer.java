@@ -86,6 +86,10 @@ public class DatePickerRenderer extends LinkRenderer {
         facesContext, UICalendar.COMPONENT_TYPE, RendererTypes.CALENDAR, "calendar");
     box.getChildren().add(calendar);
 
+     // fixme: should work automatically from the layout manager
+    final Measure width = getResourceManager().getThemeMeasure(facesContext, calendar, "minimumWidth");
+    layoutOfBox.setColumns(width.toString());
+
     // add time input
     final UIPanel timePanel = (UIPanel) CreateComponentUtils.createComponent(
         facesContext, UIPanel.COMPONENT_TYPE, RendererTypes.PANEL, "timePanel");
@@ -212,9 +216,6 @@ public class DatePickerRenderer extends LinkRenderer {
     UIComponent timePanel = box.findComponent("timePanel");
     if (converterPattern != null && (converterPattern.indexOf('h') > -1 || converterPattern.indexOf('H') > -1)) {
       UITime time = (UITime) timePanel.findComponent("time");
-      Measure popupHeight = popup.getCurrentHeight();
-      popupHeight = popupHeight.add(getResourceManager().getThemeMeasure(facesContext, time, "preferredHeight"));
-      popup.setHeight(popupHeight);
       DateTimeConverter dateTimeConverter
           = (DateTimeConverter) facesContext.getApplication().createConverter(DateTimeConverter.CONVERTER_ID);
       if (converterPattern.indexOf('s') > -1) {
