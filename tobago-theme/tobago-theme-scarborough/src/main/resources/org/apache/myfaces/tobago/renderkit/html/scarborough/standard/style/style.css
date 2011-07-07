@@ -1173,6 +1173,7 @@ div.tobago-richTextEditor-body {
   color: #000000;
   overflow: auto;
   margin: 0;
+  resize: none;
 }
 
 .tobago-textarea-markup-readonly {
