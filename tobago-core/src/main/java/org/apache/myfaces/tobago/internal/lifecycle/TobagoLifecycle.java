@@ -121,11 +121,10 @@ public class TobagoLifecycle extends Lifecycle {
   }
 
   public void render(FacesContext facesContext) throws FacesException {
-    // if the response is complete we should not be invoking the phase listeners
     if (!(facesContext instanceof TobagoFacesContext)) {
       facesContext = new TobagoFacesContext(facesContext);
     }
-
+    // if the response is complete we should not be invoking the phase listeners
     if (isResponseComplete(facesContext, renderExecutor.getPhase(), true)) {
       return;
     }
@@ -148,11 +147,9 @@ public class TobagoLifecycle extends Lifecycle {
 
     if (LOG.isTraceEnabled()) {
       LOG.trace(DebugUtils.toString(facesContext.getViewRoot(), 0));
-    }
-
-    if (LOG.isTraceEnabled()) {
       LOG.trace("exiting " + renderExecutor.getPhase() + " in " + TobagoLifecycle.class.getName());
     }
+
   }
 
   private boolean isResponseComplete(FacesContext facesContext, PhaseId phase, boolean before) {

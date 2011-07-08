@@ -169,18 +169,20 @@ public class AjaxResponseRenderer {
     writer.write(reloadRequired ? Integer.toString(CODE_RELOAD_REQUIRED) : Integer.toString(CODE_SUCCESS));
 
     Map<String, UIComponent> ajaxComponents = AjaxInternalUtils.getAjaxComponents(facesContext);
-    int i = 0;
-    for (Map.Entry<String, UIComponent> entry : ajaxComponents.entrySet()) {
-      writer.write(",\n");
-      writer.write("  \"ajaxPart_");
-      writer.write(Integer.toString(i++));
-      writer.write("\": ");
+    if (ajaxComponents != null) {
+      int i = 0;
+      for (Map.Entry<String, UIComponent> entry : ajaxComponents.entrySet()) {
+        writer.write(",\n");
+        writer.write("  \"ajaxPart_");
+        writer.write(Integer.toString(i++));
+        writer.write("\": ");
 
-      UIComponent component = entry.getValue();
-      if (facesContext instanceof TobagoFacesContext) {
-        ((TobagoFacesContext) facesContext).setAjaxComponentId(entry.getKey());
+        UIComponent component = entry.getValue();
+        if (facesContext instanceof TobagoFacesContext) {
+          ((TobagoFacesContext) facesContext).setAjaxComponentId(entry.getKey());
+        }
+        renderComponent(facesContext, renderKit, entry.getKey(), component);
       }
-      renderComponent(facesContext, renderKit, entry.getKey(), component);
     }
 
     if (!reloadRequired) {

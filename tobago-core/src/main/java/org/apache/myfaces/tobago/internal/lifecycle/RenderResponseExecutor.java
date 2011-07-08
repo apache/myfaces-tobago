@@ -17,10 +17,6 @@ package org.apache.myfaces.tobago.internal.lifecycle;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.context.TobagoFacesContext;
-import org.apache.myfaces.tobago.internal.ajax.AjaxInternalUtils;
-import org.apache.myfaces.tobago.internal.ajax.AjaxResponseRenderer;
-
 import javax.faces.FacesException;
 import javax.faces.application.Application;
 import javax.faces.application.ViewHandler;
@@ -35,32 +31,14 @@ import java.io.IOException;
  */
 class RenderResponseExecutor implements PhaseExecutor {
 
-  private AjaxResponseRenderer ajaxResponseRenderer;
-
-
-  public RenderResponseExecutor() {
-    this.ajaxResponseRenderer = new AjaxResponseRenderer();
-  }
-
   public boolean execute(FacesContext facesContext) {
-    if (AjaxInternalUtils.getAjaxComponents(facesContext) != null) {
-      try {
-        if (facesContext instanceof TobagoFacesContext) {
-          ((TobagoFacesContext) facesContext).setAjax(true);
-        }
-        ajaxResponseRenderer.renderResponse(facesContext);
-      } catch (IOException e) {
-        throw new FacesException(e.getMessage(), e);
-      }
-    } else {
-      Application application = facesContext.getApplication();
-      ViewHandler viewHandler = application.getViewHandler();
+    Application application = facesContext.getApplication();
+    ViewHandler viewHandler = application.getViewHandler();
 
-      try {
-        viewHandler.renderView(facesContext, facesContext.getViewRoot());
-      } catch (IOException e) {
-        throw new FacesException(e.getMessage(), e);
-      }
+    try {
+      viewHandler.renderView(facesContext, facesContext.getViewRoot());
+    } catch (IOException e) {
+      throw new FacesException(e.getMessage(), e);
     }
     return false;
   }

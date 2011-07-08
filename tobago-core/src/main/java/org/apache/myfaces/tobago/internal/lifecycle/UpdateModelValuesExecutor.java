@@ -17,16 +17,8 @@ package org.apache.myfaces.tobago.internal.lifecycle;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.compat.FacesUtils;
-import org.apache.myfaces.tobago.component.UIViewRoot;
-import org.apache.myfaces.tobago.internal.ajax.AjaxInternalUtils;
-import org.apache.myfaces.tobago.util.UpdateModelValuesCallback;
-
-import javax.faces.component.ContextCallback;
-import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseId;
-import java.util.Map;
 
 /**
  * Implements the lifecycle as described in Spec. 1.0 PFD Chapter 2
@@ -34,23 +26,9 @@ import java.util.Map;
  */
 class UpdateModelValuesExecutor implements PhaseExecutor {
 
-  private ContextCallback contextCallback;
-
-  public UpdateModelValuesExecutor() {
-    contextCallback = new UpdateModelValuesCallback();
-  }
 
   public boolean execute(FacesContext facesContext) {
-    Map<String, UIComponent> ajaxComponents = AjaxInternalUtils.getAjaxComponents(facesContext);
-    if (ajaxComponents != null) {
-      for (Map.Entry<String, UIComponent> entry : ajaxComponents.entrySet()) {
-        FacesUtils.invokeOnComponent(facesContext, facesContext.getViewRoot(), entry.getKey(), contextCallback);
-      }
-      UIViewRoot viewRoot = ((UIViewRoot) facesContext.getViewRoot());
-      viewRoot.broadcastEventsForPhase(facesContext, PhaseId.UPDATE_MODEL_VALUES);
-    } else {
-      facesContext.getViewRoot().processUpdates(facesContext);
-    }
+    facesContext.getViewRoot().processUpdates(facesContext);
     return false;
   }
 

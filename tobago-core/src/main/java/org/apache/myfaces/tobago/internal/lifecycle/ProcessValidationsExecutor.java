@@ -17,17 +17,8 @@ package org.apache.myfaces.tobago.internal.lifecycle;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.compat.FacesUtils;
-import org.apache.myfaces.tobago.component.UIViewRoot;
-import org.apache.myfaces.tobago.context.TobagoFacesContext;
-import org.apache.myfaces.tobago.internal.ajax.AjaxInternalUtils;
-import org.apache.myfaces.tobago.util.ProcessValidationsCallback;
-
-import javax.faces.component.ContextCallback;
-import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseId;
-import java.util.Map;
 
 /**
  * Implements the lifecycle as described in Spec. 1.0 PFD Chapter 2
@@ -35,26 +26,8 @@ import java.util.Map;
  */
 class ProcessValidationsExecutor implements PhaseExecutor {
 
-  private ContextCallback contextCallback;
-
-  public ProcessValidationsExecutor() {
-    this.contextCallback = new ProcessValidationsCallback();
-  }
-
   public boolean execute(FacesContext facesContext) {
-    Map<String, UIComponent> ajaxComponents = AjaxInternalUtils.getAjaxComponents(facesContext);
-    if (ajaxComponents != null) {
-      for (Map.Entry<String, UIComponent> entry : ajaxComponents.entrySet()) {
-        if (facesContext instanceof TobagoFacesContext) {
-          ((TobagoFacesContext) facesContext).setAjaxComponentId(entry.getKey());
-        }
-        FacesUtils.invokeOnComponent(facesContext, facesContext.getViewRoot(), entry.getKey(), contextCallback);
-      }
-      UIViewRoot viewRoot = ((UIViewRoot) facesContext.getViewRoot());
-      viewRoot.broadcastEventsForPhase(facesContext, PhaseId.PROCESS_VALIDATIONS);
-    } else {
-      facesContext.getViewRoot().processValidators(facesContext);
-    }
+    facesContext.getViewRoot().processValidators(facesContext);
     return false;
   }
 

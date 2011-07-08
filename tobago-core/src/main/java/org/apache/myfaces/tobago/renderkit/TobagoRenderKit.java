@@ -17,6 +17,7 @@ package org.apache.myfaces.tobago.renderkit;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.ajax.AjaxUtils;
 import org.apache.myfaces.tobago.application.ProjectStage;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.context.Capability;
@@ -86,6 +87,10 @@ public class TobagoRenderKit extends RenderKit {
   public ResponseWriter createResponseWriter(
       Writer writer, String contentTypeList, String characterEncoding) {
     String contentType;
+    FacesContext facesContext = FacesContext.getCurrentInstance();
+    if (AjaxUtils.isAjaxRequest(facesContext)) {
+      return new JsonResponseWriter(writer, "application/json", characterEncoding);
+    }
     if (contentTypeList == null) {
       contentType = "text/html";
     } else if (contentTypeList.indexOf("text/html") > -1) {
@@ -124,7 +129,7 @@ public class TobagoRenderKit extends RenderKit {
     } else {
       responseWriter = new HtmlResponseWriter(writer, contentType, characterEncoding);
     }
-    if (TobagoConfig.getInstance(FacesContext.getCurrentInstance()).getProjectStage() == ProjectStage.Development) {
+    if (TobagoConfig.getInstance(facesContext).getProjectStage() == ProjectStage.Development) {
       responseWriter = new DebugResponseWriterWrapper(responseWriter);
     }
     return responseWriter;

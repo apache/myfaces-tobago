@@ -23,12 +23,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
+import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 import java.io.Writer;
 
 public class JsonResponseWriter extends HtmlResponseWriter {
 
-  private static final Logger LOG = LoggerFactory.getLogger(HtmlResponseWriter.class);
+  private static final Logger LOG = LoggerFactory.getLogger(JsonResponseWriter.class);
 
   private Writer javascriptWriter;
   private boolean javascriptMode;
@@ -121,5 +122,19 @@ public class JsonResponseWriter extends HtmlResponseWriter {
       }
       writer.write("\\\"");
     }
+  }
+
+  public ResponseWriter cloneWithWriter(final Writer originalWriter) {
+     return new JsonResponseWriter(
+         originalWriter, getContentType(), getCharacterEncoding());
+   }
+
+
+  @Override
+  public void startDocument() throws IOException {
+  }
+
+  @Override
+  public void endDocument() throws IOException {
   }
 }
