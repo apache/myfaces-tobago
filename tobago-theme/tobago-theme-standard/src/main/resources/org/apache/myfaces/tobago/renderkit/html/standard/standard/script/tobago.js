@@ -1605,7 +1605,7 @@ var Tobago = {
       return undefined;
     }
     if (! (arg === undefined)) { // @DEV_ONLY
-      LOG.error('arg is unknown: ' + typeof arg + ' : ' + arg); // @DEV_ONLY
+      LOG.debug('arg is unknown: ' + typeof arg + ' : ' + arg); // @DEV_ONLY
     } // @DEV_ONLY
     return undefined;
   },
@@ -2169,7 +2169,7 @@ Tobago.Transport.DojoTransport = {
           return;
         } else if (ioArgs.xhr.status === 304) {
           requestOptions.textStatus = 'notmodified';
-          Tobago.Updater.onError(requestOptions);
+          Tobago.Updater.onSuccess(requestOptions);
           return;
         }
 
@@ -2195,7 +2195,7 @@ Tobago.Transport.DojoTransport = {
     requestOptions.xhr = ioArgs.xhr;
     if (ioArgs.xhr.status == 304) {
       requestOptions.textStatus = 'notmodified';
-      Tobago.Updater.onError(requestOptions);
+      Tobago.Updater.onSuccess(requestOptions);
     } else {
       requestOptions.textStatus = 'error';
       Tobago.Updater.onError(requestOptions);
@@ -2358,7 +2358,10 @@ Tobago.Updater = {
 
   onSuccess: function(requestOptions) {
     LOG.debug('Tobago.Updater.onSuccess()'); // @DEV_ONLY
-    if (!requestOptions.resultData || !requestOptions.resultData.tobagoAjaxResponse) {
+    if (requestOptions.textStatus === 'notmodified') {
+      Tobago.Updater.handle304Response(Tobago.parsePartialIds(requestOptions.ajaxComponentIds));
+      return;
+    } else if (!requestOptions.resultData || !requestOptions.resultData.tobagoAjaxResponse) {
       // unknown response do full page reload
       LOG.warn('initiating full reload'); // @DEV_ONLY
       if (Tobago.Updater.WAIT_ON_ERROR) {
@@ -2430,11 +2433,11 @@ Tobago.Updater = {
 
   onError: function(requestObject) {
 
-    LOG.warn('Request failed : ' + requestObject.statusText); // @DEV_ONLY
+    LOG.warn('Request failed : ' + requestObject.textStatus); // @DEV_ONLY
 
-    if (requestObject.statusText === 'timeout') {
+    if (requestObject.textStatus === 'timeout') {
       Tobago.Updater.doErrorUpdate(Tobago.parsePartialIds(requestObject.ajaxComponentIds));
-    } else if (requestObject.statusText === 'notmodified') {
+    } else if (requestObject.textStatus === 'notmodified') {
       Tobago.Updater.handle304Response(Tobago.parsePartialIds(requestObject.ajaxComponentIds));
     } else {
       Tobago.Updater.doErrorUpdate(Tobago.parsePartialIds(requestObject.ajaxComponentIds));
