@@ -580,12 +580,13 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-release-plugin</artifactId>
-        <version>2.1</version>
+        <version>2.2</version>
         <configuration>
           <tagBase>https://svn.apache.org/repos/asf/myfaces/tobago/tags</tagBase>
           <preparationGoals>clean install</preparationGoals>
           <remoteTagging>true</remoteTagging>
           <autoVersionSubmodules>true</autoVersionSubmodules>
+          <waitBeforeTagging>3</waitBeforeTagging>
         </configuration>
       </plugin>
     </plugins>
