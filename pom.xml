@@ -38,8 +38,8 @@
     <url>http://issues.apache.org/jira/secure/BrowseProject.jspa?id=12310273</url>
   </issueManagement>
   <ciManagement>
-    <system>hudson</system>
-    <url>https://hudson.apache.org/hudson/</url>
+    <system>jenkins</system>
+    <url>https://builds.apache.org/hudson/</url>
     <notifiers>
       <notifier>
         <type>mail</type>
@@ -586,7 +586,7 @@
           <preparationGoals>clean install</preparationGoals>
           <remoteTagging>true</remoteTagging>
           <autoVersionSubmodules>true</autoVersionSubmodules>
-          <waitBeforeTagging>3</waitBeforeTagging>
+          <waitBeforeTagging>10</waitBeforeTagging>
         </configuration>
       </plugin>
     </plugins>
@@ -855,7 +855,7 @@
       <id>apache-release</id>
       <!--
       NOTE: To use you need to enable this profile and pass in the passphrase:
-           mvn -Prelease -Dpassphrase=thephrase
+           mvn -Papache-release -Dpassphrase=thephrase
 
            with the release plugin add following profile to your settings.xml
            <profile>
