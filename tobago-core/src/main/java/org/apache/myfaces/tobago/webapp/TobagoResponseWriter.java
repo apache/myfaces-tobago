@@ -225,7 +225,7 @@ public abstract class TobagoResponseWriter extends ResponseWriter {
     }
 
     StringBuilder builder = new StringBuilder(contentType);
-    builder.append("; charset=");
+    builder.append(";charset=");
     builder.append(characterEncoding);
     return builder.toString();
 
