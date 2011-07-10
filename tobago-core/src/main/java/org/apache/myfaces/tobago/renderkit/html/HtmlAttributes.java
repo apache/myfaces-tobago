@@ -20,6 +20,7 @@ package org.apache.myfaces.tobago.renderkit.html;
 public final class HtmlAttributes {
 
   public static final String ACCEPT_CHARSET = "accept-charset";
+  public static final String ACCEPT = "accept";
   public static final String ACTION = "action";
   public static final String ALIGN = "align";
   public static final String ALT = "alt";

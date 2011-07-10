@@ -412,7 +412,8 @@ public class PageRenderer extends PageRendererBase {
     }
     // TODO: enable configuration of  'accept-charset'
     writer.writeAttribute(HtmlAttributes.ACCEPT_CHARSET, AbstractUIPage.FORM_ACCEPT_CHARSET, false);
-
+    // TODO evaluate 'accept' attribute usage
+    //writer.writeAttribute(HtmlAttributes.ACCEPT, );
     writer.startElement(HtmlElements.INPUT, null);
     writer.writeAttribute(HtmlAttributes.TYPE, "hidden", false);
     writer.writeNameAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "form-action");
