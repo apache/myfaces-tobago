@@ -36,13 +36,16 @@ Release Checklist
   * You need to add your GPG keys in {{https://svn.apache.org/repos/asf/myfaces/maven/trunk/KEYS}} before a release.
 
   * Prepare the release with mvn release:prepare -Pall-modules
+    For 1.5: mvn release:prepare -Pall-modules,example11
 
   * Deploy the release to the nexus repository with the apache-release profile\
     cd checkout-of-release\
     mvn deploy -Papache-release,jdk14retro,generate-assembly --no-plugin-updates -Dnon-default-modules -Djava14.home=${java14.jre}\
     For more information please consult the poms.
+    For 1.5:
+    mvn deploy -Papache-release,generate-assembly --no-plugin-updates -Dnon-default-modules\
 
-  * "Close" the repository on the nexus instance for stating (you will receive a mail with the staging location). 
+  * "Close" the repository on the nexus instance for stating (you will receive a mail with the staging location).
 
   * Propose a vote on the dev list with the staging location.
 

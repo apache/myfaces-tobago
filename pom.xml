@@ -953,7 +953,7 @@
             <preparationGoals>clean install</preparationGoals>
             <remoteTagging>true</remoteTagging>
             <autoVersionSubmodules>true</autoVersionSubmodules>
-            <waitBeforeTagging>3</waitBeforeTagging>
+            <waitBeforeTagging>10</waitBeforeTagging>
           </configuration>
         </plugin>
         <plugin>
@@ -1778,7 +1778,7 @@
     <facelets.version>1.1.14</facelets.version>
     <jetty.version>6.1.26</jetty.version>
     <slf4j.version>1.6.1</slf4j.version>
-    <logback.version>0.9.28</logback.version>
+    <logback.version>0.9.29</logback.version>
     <commons-io.version>1.1</commons-io.version>
     <commons-lang.version>2.4</commons-lang.version>
     <commons-logging.version>1.1.1</commons-logging.version>
