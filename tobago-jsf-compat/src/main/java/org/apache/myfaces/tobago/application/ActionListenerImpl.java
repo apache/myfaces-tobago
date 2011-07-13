@@ -62,12 +62,12 @@ public class ActionListenerImpl implements ActionListener {
           fe = fe.getCause();
         }
       }
-      LOG.error("Processing failed. Forwarding to error page. errorOutcome="
-          + errorOutcome, e.getCause());
+      LOG.error("Processing failed. Forwarding to error page. errorOutcome=" + errorOutcome, e.getCause());
       FacesContext facesContext = FacesContext.getCurrentInstance();
-      FacesMessage facesMessage
-          = new FacesMessage(e.getCause().toString());
-      facesContext.addMessage(null, facesMessage);
+      if (e.getCause() != null) {
+         FacesMessage facesMessage = new FacesMessage(e.getCause().toString());
+         facesContext.addMessage(null, facesMessage);
+      }
       UIComponent source = event.getComponent();
       ActionSource actionSource = (ActionSource) source;
       Application application = facesContext.getApplication();
@@ -75,10 +75,8 @@ public class ActionListenerImpl implements ActionListener {
       // Retrieve the NavigationHandler instance..
       NavigationHandler navHandler = application.getNavigationHandler();
       // Invoke nav handling..
-      String navBinding =
-          (null != binding) ? binding.getExpressionString() : null;
-      navHandler.handleNavigation(facesContext, navBinding,
-          errorOutcome);
+      String navBinding = (null != binding) ? binding.getExpressionString() : null;
+      navHandler.handleNavigation(facesContext, navBinding, errorOutcome);
       // Trigger a switch to Render Response if needed
       facesContext.renderResponse();
     }
