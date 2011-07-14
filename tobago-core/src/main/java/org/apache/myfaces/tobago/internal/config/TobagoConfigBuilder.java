@@ -75,9 +75,10 @@ public class TobagoConfigBuilder {
 
   private void configFromWebInf(ServletContext servletContext) throws IOException, SAXException {
 
-    final String configPath = "/WEB-INF/tobago-config.xml";
-    final URL url = servletContext.getResource(configPath);
-    list.add(new TobagoConfigParser().parse(url));
+    final URL url = servletContext.getResource("/WEB-INF/tobago-config.xml");
+    if (url != null) {
+      list.add(new TobagoConfigParser().parse(url));
+    }
   }
 
   private TobagoConfigImpl mergeList() {
