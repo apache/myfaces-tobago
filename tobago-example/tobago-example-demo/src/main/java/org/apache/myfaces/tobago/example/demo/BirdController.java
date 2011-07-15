@@ -47,7 +47,7 @@ public class BirdController implements Serializable {
   }
 
   public String getStatus() {
-    return "Selected: " + status;
+    return status;
   }
 
   public void setStatus(String status) {

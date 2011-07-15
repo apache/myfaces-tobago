@@ -22,8 +22,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.faces.context.FacesContext;
+import java.io.Serializable;
 
-public class Bird {
+public class Bird implements Serializable {
 
   private static final Logger LOG = LoggerFactory.getLogger(Bird.class);
 

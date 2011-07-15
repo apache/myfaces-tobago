@@ -75,11 +75,11 @@
 
     <tc:messages/>
 
-    <tc:cell>
+    <tc:box label="(Label doesn't work in the JSP version) #{title}">
       <f:subview id="content">
         <jsp:doBody/>
       </f:subview>
-    </tc:cell>
+    </tc:box>
 
     <tc:cell>
       <jsp:include page="/footer.jsp"/>
