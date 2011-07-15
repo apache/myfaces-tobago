@@ -28,6 +28,11 @@
   <properties>
     <openwebbeans.version>1.1.0</openwebbeans.version>
     <myfaces-extcdi.version>0.9.5</myfaces-extcdi.version>
+<!--
+    for Java 1.5 support
+    <openwebbeans.version>1.1.1-SNAPSHOT</openwebbeans.version>
+    <myfaces-extcdi.version>1.0.0-SNAPSHOT</myfaces-extcdi.version>
+-->
   </properties>
   <build>
     <finalName>tobago-example-demo</finalName>
@@ -84,7 +89,7 @@
               <stylesheet>src/main/xslt/facelet2jsp.xsl</stylesheet>
               <includes>
                 <include>init.xhtml</include>
-                <include>content/*.xhtml</include>
+                <include>content/**/*.xhtml</include>
                 <include>reference/**/*.xhtml</include>
               </includes>
               <fileMappers>
