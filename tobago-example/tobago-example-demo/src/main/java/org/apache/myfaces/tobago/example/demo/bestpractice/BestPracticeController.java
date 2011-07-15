@@ -25,26 +25,12 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 
 public class BestPracticeController {
 
   private static final Logger LOG = LoggerFactory.getLogger(BestPracticeController.class);
 
-  private List<Bird> birds = new ArrayList<Bird>(Arrays.asList(
-      new Bird("Amsel", 25),
-      new Bird("Drossel", 25),
-      new Bird("Fink", 9),
-      new Bird("Star", 19))
-  );
-
-  private String newBirdName;
-  
-  private int newBirdSize;
-  
   private String status;
 
   public String throwException() {
@@ -85,38 +71,11 @@ public class BestPracticeController {
     return null;
   }
 
-  public List<Bird> getBirds() {
-    return birds;
-  }
-
   public String getStatus() {
     return status;
   }
 
   public void setStatus(String status) {
     this.status = status;
-  }
-
-  public String getNewBirdName() {
-    return newBirdName;
-  }
-
-  public void setNewBirdName(String newBirdName) {
-    this.newBirdName = newBirdName;
-  }
-
-  public int getNewBirdSize() {
-    return newBirdSize;
-  }
-
-  public void setNewBirdSize(int newBirdSize) {
-    this.newBirdSize = newBirdSize;
-  }
-
-  public String addNewBird() {
-    birds.add(new Bird(newBirdName, newBirdSize));
-    newBirdName = null;
-    newBirdSize = 0;
-    return null;
   }
 }

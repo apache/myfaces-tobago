@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.example.demo.bestpractice;
+package org.apache.myfaces.tobago.example.demo;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -17,11 +17,16 @@ package org.apache.myfaces.tobago.example.demo.bestpractice;
  * limitations under the License.
  */
 
+import javax.enterprise.context.SessionScoped;
+import javax.inject.Named;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class BirdController {
+@SessionScoped
+@Named(value = "birdController")
+public class BirdController implements Serializable {
 
   private List<Bird> birds = new ArrayList<Bird>(Arrays.asList(
       new Bird("Amsel", 25),

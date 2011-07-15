@@ -160,12 +160,6 @@
   </managed-bean>
 
   <managed-bean>
-    <managed-bean-name>birdController</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.tobago.example.demo.bestpractice.BirdController</managed-bean-class>
-    <managed-bean-scope>session</managed-bean-scope>
-  </managed-bean>
-
-  <managed-bean>
     <managed-bean-name>transitionController</managed-bean-name>
     <managed-bean-class>org.apache.myfaces.tobago.example.demo.bestpractice.TransitionController</managed-bean-class>
     <managed-bean-scope>request</managed-bean-scope>
