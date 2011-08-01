@@ -250,15 +250,12 @@ public class SimpleSheetRenderer extends SheetRenderer {
             + (align!=null?HtmlRendererUtil.toStyleString("text-align", align):""), false);
         if (column instanceof UIColumnSelector) {
           final boolean disabled = ComponentUtil.getBooleanAttribute(column, TobagoConstants.ATTR_DISABLED);
-          writer.startElement(HtmlConstants.IMG, null);
-          if (disabled) {
-            writer.writeAttribute(HtmlAttributes.SRC, selectorDisabled, false);
-          } else {
-            writer.writeAttribute(HtmlAttributes.SRC, unchecked, false);
-          }
+          writer.startElement(HtmlConstants.INPUT, null);
+          writer.writeAttribute(HtmlAttributes.TYPE, "checkbox", false);
+          writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
           writer.writeIdAttribute(sheetId + "_data_row_selector_" + row);
-          writer.writeClassAttribute("tobago-sheet-column-selector");
-          writer.endElement(HtmlConstants.IMG);
+          writer.writeClassAttribute("tobago-selectBooleanCheckbox-default");
+          writer.endElement(HtmlConstants.INPUT);
         } else {
           List<UIComponent> childs = data.getRenderedChildrenOf(column);
           for (UIComponent grandkid : childs) {
