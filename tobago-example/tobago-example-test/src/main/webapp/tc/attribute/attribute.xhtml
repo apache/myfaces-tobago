@@ -21,7 +21,8 @@
     xmlns:tx="http://myfaces.apache.org/tobago/extension"
     xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:c="http://java.sun.com/jstl/core">
+    xmlns:c="http://java.sun.com/jstl/core"
+    xmlns:jspc="http://java.sun.com/jsp/jstl/core">
 
   <tc:page>
     <f:facet name="layout">
@@ -55,26 +56,26 @@
 
     <tc:label value="conditional action (#{attribute.condition})"/>
     <tc:button label="Click">
-      <c:if test="#{attribute.condition}">
+      <c:if test="${attribute.condition}">
         <tc:attribute name="action" value="#{attribute.reload}"/>
       </c:if>
     </tc:button>
 
     <tc:label value="conditional action not (#{not attribute.condition})"/>
     <tc:button label="Click">
-      <c:if test="#{not attribute.condition}">
+      <c:if test="${not attribute.condition}">
         <tc:attribute name="action" value="#{attribute.reload}"/>
       </c:if>
     </tc:button>
 
     <tc:label value="conditional action (#{attribute.condition}) and link not (#{not attribute.condition})"/>
     <tc:button label="Click">
-      <c:if test="#{attribute.condition}">
+      <c:if test="${attribute.condition}">
         <tc:attribute name="action" value="#{attribute.reload}"/>
       </c:if>
-      <c:if test="#{not attribute.condition}">
+      <c:if test="${not attribute.condition}">
         <tc:attribute name="link" value="/"/>
-      </c:if>   
+      </c:if>
     </tc:button>
 
   </tc:page>
