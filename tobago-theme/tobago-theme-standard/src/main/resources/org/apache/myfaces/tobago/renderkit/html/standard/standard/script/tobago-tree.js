@@ -158,6 +158,12 @@ jQuery(document).ready(function () {
       tobagoTreeNodeToggle(this);
     });
   });
+
+  // normal hover effect (not possible with CSS in IE 6)
+  jQuery(".tobago-treeMenuNode").hover(function() {
+    jQuery(this).toggleClass("tobago-treeMenuNode-markup-hover");
+  });
+
 /*
   jQuery(".tobago-treeListbox > div > div > select > option:selected").change();
 */
