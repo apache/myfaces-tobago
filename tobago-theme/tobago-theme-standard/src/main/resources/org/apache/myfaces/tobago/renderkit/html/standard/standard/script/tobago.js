@@ -2534,11 +2534,8 @@ Tobago.ToolBar.init = function(elements) {
 
     Tobago.selectWidthJQuery(elements, ".tobago-toolBar").find('.tobago-toolBar-item')
         .not('.tobago-toolBar-item-markup-disabled')
-        .mouseenter(function() {
-      jQuery(this).addClass('tobago-toolBar-item-markup-hover');
-    })
-        .mouseleave(function() {
-      jQuery(this).removeClass('tobago-toolBar-item-markup-hover');
+        .hover(function() {
+      jQuery(this).toggleClass('tobago-toolBar-item-markup-hover');
     })
         .children('.tobago-toolBar-button, .tobago-toolBar-menu')
         .mouseenter(function() {
@@ -2565,13 +2562,10 @@ Tobago.ToolBar.init = function(elements) {
       });
     });
 
-    Tobago.selectWidthJQuery(elements, ".tobago-boxToolBar").find('.tobago-boxToolBar-item')
+    Tobago.selectWidthJQuery(elements, ".tobago-box-headerToolBar").find('.tobago-boxToolBar-item')
         .not('.tobago-boxToolBar-item-markup-disabled')
-        .mouseenter(function() {
-      jQuery(this).addClass('tobago-boxToolBar-item-markup-hover');
-    })
-        .mouseleave(function() {
-      jQuery(this).removeClass('tobago-boxToolBar-item-markup-hover');
+        .hover(function() {
+      jQuery(this).toggleClass('tobago-boxToolBar-item-markup-hover');
     })
         .children('.tobago-boxToolBar-button, .tobago-boxToolBar-menu')
         .mouseenter(function() {
@@ -2598,13 +2592,10 @@ Tobago.ToolBar.init = function(elements) {
       });
     });
 
-    Tobago.selectWidthJQuery(elements, ".tobago-tabGroupToolBar").find('.tobago-tabGroupToolBar-item')
+    Tobago.selectWidthJQuery(elements, ".tobago-tabGroup-toolBar").find('.tobago-tabGroupToolBar-item')
         .not('.tobago-tabGroupToolBar-item-markup-disabled')
-        .mouseenter(function() {
-      jQuery(this).addClass('tobago-tabGroupToolBar-item-markup-hover');
-    })
-        .mouseleave(function() {
-      jQuery(this).removeClass('tobago-tabGroupToolBar-item-markup-hover');
+        .hover(function() {
+      jQuery(this).toggleClass('tobago-tabGroupToolBar-item-markup-hover');
     })
         .children('.tobago-tabGroupToolBar-button, .tobago-tabGroupToolBar-menu')
         .mouseenter(function() {

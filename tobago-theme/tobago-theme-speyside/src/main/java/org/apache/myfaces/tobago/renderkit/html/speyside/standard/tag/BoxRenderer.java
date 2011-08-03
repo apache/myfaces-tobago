@@ -166,7 +166,7 @@ without shadow
   protected void renderToolbar(
       FacesContext facesContext, TobagoResponseWriter writer, UIBox box, UIPanel toolbar) throws IOException {
     writer.startElement(HtmlElements.DIV, null);
-    writer.writeClassAttribute(Classes.create(box, "headerToolbar"));
+    writer.writeClassAttribute(Classes.create(box, "headerToolBar"));
     toolbar.setRendererType(RendererTypes.BOX_TOOL_BAR);
     RenderUtils.encode(facesContext, toolbar);
     writer.endElement(HtmlElements.DIV);
