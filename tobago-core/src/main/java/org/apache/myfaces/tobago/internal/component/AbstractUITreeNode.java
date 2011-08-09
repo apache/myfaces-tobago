@@ -202,7 +202,13 @@ public abstract class AbstractUITreeNode
       boolean expanded = ((TreeExpansionEvent) event).isNewExpanded();
 
       if (FacesUtils.hasValueBindingOrValueExpression(this, Attributes.EXPANDED)) {
-        FacesUtils.setValueOfBindingOrExpression(getFacesContext(), expanded, this, Attributes.EXPANDED);
+        try {
+          FacesUtils.setValueOfBindingOrExpression(getFacesContext(), expanded, this, Attributes.EXPANDED);
+        } catch (Exception e) {
+          if (LOG.isDebugEnabled()) {
+            LOG.debug("Can't set expanded.", e);
+          }
+        }
       } else {
         setExpanded(expanded);
       }

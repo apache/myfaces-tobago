@@ -82,8 +82,14 @@ public class TreePath implements Serializable {
    * @return The node applied to the given path.
    */
   public DefaultMutableTreeNode getNode(DefaultMutableTreeNode tree) {
+    if (tree == null) {
+      return null;
+    }
     for (int i = 1; i < path.length; i++) { // i = 1: first entry must be 0 and means the root
       int pos = path[i];
+      if (pos >= tree.getChildCount()) {
+        return null;
+      }
       tree = (DefaultMutableTreeNode) tree.getChildAt(pos);
     }
     return tree;
