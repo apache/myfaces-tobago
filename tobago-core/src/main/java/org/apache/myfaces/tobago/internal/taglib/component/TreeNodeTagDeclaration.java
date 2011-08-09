@@ -32,7 +32,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
 
 /**
  * Creates a tree node. This component represents a single node inside a tree structure.
- * For interating over tree node use tc:treeData.
+ * For iterating over tree node use tc:treeData.
  */
 @SuppressWarnings("ALL")
 @Tag(name = "treeNode")
@@ -80,13 +80,12 @@ public interface
   void setTreeExpansionListener(String treeExpansionListener);
 
   /**
-   * Method binding representing a expansionListener method that ....
+   * Method binding representing a markedListener method that ....
    */
-/*
   @TagAttribute
   @UIComponentTagAttribute(type = {},
       expression = DynamicExpression.METHOD_BINDING_REQUIRED,
-      methodSignature = "org.apache.myfaces.tobago.event.TreeSelectionEvent")
-  void setTreeSelectionListener(String treeSelectionListener);
-*/
+      methodSignature = "org.apache.myfaces.tobago.event.TreeMarkedEvent")
+  void setTreeMarkedListener(String treeMarkedListener);
+
 }
