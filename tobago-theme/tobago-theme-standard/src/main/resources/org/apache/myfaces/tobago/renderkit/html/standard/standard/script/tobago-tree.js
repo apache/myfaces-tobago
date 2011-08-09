@@ -85,6 +85,8 @@ function tobagoTreeNodeToggle(element) {
       Tobago.fixPngAlpha(this);
     });
     expanded.attr("value", "true");
+    node.filter(".tobago-treeNode").addClass("tobago-treeNode-markup-expanded");
+    node.filter(".tobago-treeMenuNode").addClass("tobago-treeMenuNode-markup-expanded");
   } else {
     content.css("display", "none");
     toggle.each(function() {
@@ -92,11 +94,13 @@ function tobagoTreeNodeToggle(element) {
       Tobago.fixPngAlpha(this);
     });
     expanded.attr("value", "false");
+    node.filter(".tobago-treeNode").removeClass("tobago-treeNode-markup-expanded");
+    node.filter(".tobago-treeMenuNode").removeClass("tobago-treeMenuNode-markup-expanded");
   }
 }
 
 function nodeStateId(node) {
-  // this must do the same as nodeStateId() in TreeRenderer.java
+    // this must do the same as nodeStateId() in TreeRenderer.java
   return node.id.substring(node.id.lastIndexOf(':') + 1);
 }
 

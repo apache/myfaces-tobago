@@ -113,6 +113,9 @@ public class TreeNodeRenderer extends LayoutComponentRendererBase {
     if (node.isFolder()) {
       node.setCurrentMarkup(Markup.FOLDER.add(node.getCurrentMarkup()));
     }
+    if (node.isExpanded()) {
+      node.setCurrentMarkup(Markup.EXPANDED.add(node.getCurrentMarkup()));
+    }
   }
 
   @Override

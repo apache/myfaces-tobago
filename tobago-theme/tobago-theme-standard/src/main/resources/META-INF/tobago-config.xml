@@ -301,6 +301,7 @@
             <markup>strong</markup>
             <markup>marked</markup>
             <markup>folder</markup>
+            <markup>expanded</markup>
           </supported-markup>
         </renderer>
         <renderer>
@@ -311,6 +312,7 @@
             <markup>strong</markup>
             <markup>marked</markup>
             <markup>folder</markup>
+            <markup>expanded</markup>
           </supported-markup>
         </renderer>
       </renderers>
