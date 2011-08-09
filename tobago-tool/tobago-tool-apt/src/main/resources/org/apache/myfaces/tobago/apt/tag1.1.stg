@@ -284,6 +284,13 @@ if (<it.propertyName> != null && isValueReference(<it.propertyName>)) {
 }
 >>
 
+TreeMarkedListener() ::= <<
+if (<it.propertyName> != null && isValueReference(<it.propertyName>)) {
+  <createMethodBinding(it)>
+  component.set<it.template>(methodBinding);
+}
+>>
+
 SuggestMethod() ::= <<
 if (<it.propertyName> != null && isValueReference(<it.propertyName>)) {
   <createMethodBinding(it)>

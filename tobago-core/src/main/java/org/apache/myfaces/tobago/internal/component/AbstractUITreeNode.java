@@ -24,6 +24,8 @@ import org.apache.myfaces.tobago.component.TreeModelBuilder;
 import org.apache.myfaces.tobago.config.Configurable;
 import org.apache.myfaces.tobago.event.TreeExpansionEvent;
 import org.apache.myfaces.tobago.event.TreeExpansionListener;
+import org.apache.myfaces.tobago.event.TreeMarkedEvent;
+import org.apache.myfaces.tobago.event.TreeMarkedListener;
 import org.apache.myfaces.tobago.model.MixedTreeModel;
 import org.apache.myfaces.tobago.model.TreePath;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -213,6 +215,22 @@ public abstract class AbstractUITreeNode
         setExpanded(expanded);
       }
     }
+    if (event instanceof TreeMarkedEvent) {
+      FacesUtils.invokeMethodBinding(getFacesContext(), getTreeMarkedListener(), event);
+      boolean marked = ((TreeMarkedEvent) event).isNewMarked();
+
+      if (FacesUtils.hasValueBindingOrValueExpression(this, Attributes.MARKED)) {
+        try {
+          FacesUtils.setValueOfBindingOrExpression(getFacesContext(), marked, this, Attributes.MARKED);
+        } catch (Exception e) {
+          if (LOG.isDebugEnabled()) {
+            LOG.debug("Can't set marked.", e);
+          }
+        }
+      } else {
+        setMarked(marked);
+      }
+    }
   }
 
   public void restoreState(FacesContext context, Object componentState) {
@@ -283,6 +301,22 @@ public abstract class AbstractUITreeNode
   }
 
   public void removeStateChangeListener(TreeExpansionListener listener) {
+    removeFacesListener(listener);
+  }
+
+  public abstract MethodBinding getTreeMarkedListener();
+
+  public abstract void setTreeMarkedListener(MethodBinding treeMarkedListener);
+
+  public void addTreeMarkedListener(TreeMarkedListener listener) {
+    addFacesListener(listener);
+  }
+
+  public TreeMarkedListener[] getTreeMarkedListeners() {
+    return (TreeMarkedListener[]) getFacesListeners(TreeMarkedListener.class);
+  }
+
+  public void removeStateChangeListener(TreeMarkedListener listener) {
     removeFacesListener(listener);
   }
 

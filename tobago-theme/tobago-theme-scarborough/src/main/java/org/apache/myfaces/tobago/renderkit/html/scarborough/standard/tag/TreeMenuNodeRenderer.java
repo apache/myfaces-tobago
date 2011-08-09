@@ -23,6 +23,7 @@ import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.context.UserAgent;
 import org.apache.myfaces.tobago.event.TreeExpansionEvent;
+import org.apache.myfaces.tobago.event.TreeMarkedEvent;
 import org.apache.myfaces.tobago.internal.component.AbstractUITree;
 import org.apache.myfaces.tobago.layout.Display;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
@@ -71,11 +72,14 @@ public class TreeMenuNodeRenderer extends LayoutComponentRendererBase {
       new TreeExpansionEvent(node, node.isExpanded(), expanded).queue();
     }
 
-    // marker
-    String marked = requestParameterMap.get(treeId + AbstractUITree.MARKED);
+    // marked
+    String marked = (String) requestParameterMap.get(treeId + ComponentUtils.SUB_SEPARATOR + AbstractUITree.MARKED);
     if (marked != null) {
       String searchString = treeId + NamingContainer.SEPARATOR_CHAR + nodeStateId;
-      node.setMarked(marked.equals(searchString));
+      boolean markedValue = marked.equals(searchString);
+      if (node.isMarked() != markedValue) {
+        new TreeMarkedEvent(node, node.isMarked(), markedValue).queue();
+      }
     } else {
       LOG.warn("This log message is help clarifying the occurrence of this else case.");
     }

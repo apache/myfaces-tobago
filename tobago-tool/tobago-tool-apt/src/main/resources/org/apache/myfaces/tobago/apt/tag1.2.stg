@@ -311,6 +311,12 @@ if (<it.propertyName> != null) {
 }
 >>
 
+TreeMarkedListener() ::= <<
+if (<it.propertyName> != null) {
+  component.add<it.template>(new org.apache.myfaces.tobago.event.MethodExpressionTreeMarkedListener(<it.propertyName>));
+}
+>>
+
 SuggestMethod() ::= <<
 if (<it.propertyName> != null) {
   component.set<it.template>Expression(<it.propertyName>);

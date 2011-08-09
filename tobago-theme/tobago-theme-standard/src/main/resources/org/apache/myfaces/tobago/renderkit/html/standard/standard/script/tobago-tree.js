@@ -47,32 +47,6 @@ Tobago.Tree.onDblClick = function(element) {
   }
 };
 
-Tobago.Tree.updateMarker = function(node, add) {
-  node = Tobago.element(node);
-  if (node) {
-    node = node.firstChild;
-    while (node) {
-      if (node.className && node.className.indexOf("tobago-treeNode") > -1) {
-        if (add) {
-          Tobago.addCssClass(node, "tobago-treeNode-markup-marked");
-        } else {
-          Tobago.removeCssClass(node, "tobago-treeNode-markup-marked");
-        }
-      }
-      node = node.nextSibling;
-    }
-  }
-};
-
-Tobago.Tree.storeMarker = function(node, treeHiddenId) {
-  var markerHidden = document.getElementById(treeHiddenId + '-marked');
-  if (markerHidden) {
-    Tobago.Tree.updateMarker(markerHidden.value, false);
-    markerHidden.value = node.id;
-  }
-  Tobago.Tree.updateMarker(node.id, true);
-};
-
 function tobagoTreeNodeToggle(element) {
   var node = jQuery(element).closest(".tobago-treeNode, .tobago-treeMenuNode");
   var content = jQuery(Tobago.escapeClientId(node.attr("id") + Tobago.SUB_COMPONENT_SEP + "content"));
@@ -166,6 +140,28 @@ jQuery(document).ready(function () {
   // normal hover effect (not possible with CSS in IE 6)
   jQuery(".tobago-treeMenuNode").hover(function() {
     jQuery(this).toggleClass("tobago-treeMenuNode-markup-hover");
+  });
+
+  // marked for treeNode
+  jQuery(".tobago-treeNode").focus(function() {
+    var command = jQuery(this);
+    var node = command.parent(".tobago-treeNode");
+    var tree = node.closest(".tobago-tree");
+    var marked = tree.children(".tobago-tree-marked");
+    marked.attr("value", node.attr("id"));
+    tree.find(".tobago-treeNode").removeClass("tobago-treeNode-markup-marked");
+    node.addClass("tobago-treeNode-markup-marked");
+  });
+
+  // marked for treeMenuNode
+  jQuery(".tobago-treeMenuCommand").focus(function() {
+    var command = jQuery(this);
+    var node = command.parent(".tobago-treeMenuNode");
+    var tree = node.closest(".tobago-treeMenu");
+    var marked = tree.children(".tobago-treeMenu-marked");
+    marked.attr("value", node.attr("id"));
+    tree.find(".tobago-treeMenuNode").removeClass("tobago-treeMenuNode-markup-marked");
+    node.addClass("tobago-treeMenuNode-markup-marked");
   });
 
 /*

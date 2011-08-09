@@ -209,6 +209,7 @@ public class Navigation implements Serializable {
     private String title;
     private String outcome;
     private boolean expanded;
+    private boolean marked;
 
     public Node(String path) {
 
@@ -296,6 +297,14 @@ public class Navigation implements Serializable {
 
     public void setExpanded(boolean expanded) {
       this.expanded = expanded;
+    }
+
+    public boolean isMarked() {
+      return marked;
+    }
+
+    public void setMarked(boolean marked) {
+      this.marked = marked;
     }
 
     @Override

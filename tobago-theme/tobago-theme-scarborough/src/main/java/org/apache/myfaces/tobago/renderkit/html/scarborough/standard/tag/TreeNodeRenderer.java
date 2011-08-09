@@ -24,8 +24,8 @@ import org.apache.myfaces.tobago.component.UITreeNode;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.ResourceUtils;
 import org.apache.myfaces.tobago.event.TreeExpansionEvent;
+import org.apache.myfaces.tobago.event.TreeMarkedEvent;
 import org.apache.myfaces.tobago.internal.component.AbstractUITree;
-import org.apache.myfaces.tobago.internal.component.AbstractUITreeNode;
 import org.apache.myfaces.tobago.layout.Display;
 import org.apache.myfaces.tobago.model.TreeSelectable;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
@@ -93,10 +93,13 @@ public class TreeNodeRenderer extends LayoutComponentRendererBase {
     }
 
     // marked
-    String marked = (String) requestParameterMap.get(treeId + AbstractUITree.MARKED);
+    String marked = (String) requestParameterMap.get(treeId + ComponentUtils.SUB_SEPARATOR + AbstractUITree.MARKED);
     if (marked != null) {
       searchString = treeId + NamingContainer.SEPARATOR_CHAR + nodeStateId;
-      node.setMarked(marked.equals(searchString));
+      boolean markedValue = marked.equals(searchString);
+      if (node.isMarked() != markedValue) {
+        new TreeMarkedEvent(node, node.isMarked(), markedValue).queue();
+      }
     } else {
       LOG.warn("This log message is help clarifying the occurrence of this else case.");
     }
@@ -124,7 +127,6 @@ public class TreeNodeRenderer extends LayoutComponentRendererBase {
     AbstractUITree tree = ComponentUtils.findAncestor(node, AbstractUITree.class);
 
     final boolean folder = node.isFolder();
-    final boolean marked = node.isMarked();
     final String id = node.getClientId(facesContext);
     final int level = node.getLevel();
     final boolean root = level == 0;
@@ -177,7 +179,7 @@ public class TreeNodeRenderer extends LayoutComponentRendererBase {
   }
 
   private void encodeExpandedHidden(
-      TobagoResponseWriter writer, AbstractUITreeNode node, String clientId, boolean expanded) throws IOException {
+      TobagoResponseWriter writer, UITreeNode node, String clientId, boolean expanded) throws IOException {
     writer.startElement(HtmlElements.INPUT, node);
     writer.writeAttribute(HtmlAttributes.TYPE, "hidden", false);
     writer.writeClassAttribute(Classes.create(node, "expanded", Markup.NULL));

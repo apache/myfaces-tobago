@@ -96,8 +96,8 @@ public class TreeListboxRenderer extends LayoutComponentRendererBase {
 
     writer.startElement(HtmlElements.INPUT, tree);
     writer.writeAttribute(HtmlAttributes.TYPE, "hidden", false);
-    writer.writeNameAttribute(clientId + AbstractUITree.MARKED);
-    writer.writeIdAttribute(clientId + AbstractUITree.MARKED);
+    writer.writeNameAttribute(clientId + ComponentUtils.SUB_SEPARATOR + AbstractUITree.MARKED);
+    writer.writeIdAttribute(clientId + ComponentUtils.SUB_SEPARATOR + AbstractUITree.MARKED);
     writer.writeAttribute(HtmlAttributes.VALUE, "", false);
     writer.endElement(HtmlElements.INPUT);
 

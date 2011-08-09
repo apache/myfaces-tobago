@@ -41,7 +41,7 @@ public abstract class AbstractUITree extends javax.faces.component.UIInput imple
   public static final String SEP = "-";
 
   public static final String SELECT_STATE = SEP + "selectState";
-  public static final String MARKED = SEP + "marked";
+  public static final String MARKED = "marked";
 
   private MixedTreeModel model;
 

@@ -23,6 +23,7 @@ import org.apache.myfaces.tobago.component.UITreeLabel;
 import org.apache.myfaces.tobago.component.UITreeNode;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.event.TreeExpansionEvent;
+import org.apache.myfaces.tobago.event.TreeMarkedEvent;
 import org.apache.myfaces.tobago.internal.component.AbstractUITree;
 import org.apache.myfaces.tobago.internal.context.ResponseWriterDivider;
 import org.apache.myfaces.tobago.layout.Display;
@@ -64,7 +65,6 @@ public class TreeListboxNodeRenderer extends CommandRendererBase {
     }
 
     AbstractUITree tree = ComponentUtils.findAncestor(node, AbstractUITree.class);
-    ;
     String treeId = tree.getClientId(facesContext);
     String nodeStateId = node.nodeStateId(facesContext);
     Map requestParameterMap = facesContext.getExternalContext().getRequestParameterMap();
@@ -77,10 +77,9 @@ public class TreeListboxNodeRenderer extends CommandRendererBase {
     }
 
     // select
-    String searchString;
     if (tree.getSelectableAsEnum() != TreeSelectable.OFF) { // selection
       String selected = (String) requestParameterMap.get(treeId + AbstractUITree.SELECT_STATE);
-      searchString = ";" + nodeStateId + ";";
+      String searchString = ";" + nodeStateId + ";";
       if (StringUtils.contains(selected, searchString)) {
         // TODO: add selection to Component
         //state.addSelection((DefaultMutableTreeNode) node.getValue());
@@ -88,10 +87,13 @@ public class TreeListboxNodeRenderer extends CommandRendererBase {
     }
 
     // marked
-    String marked = (String) requestParameterMap.get(treeId + AbstractUITree.MARKED);
+    String marked = (String) requestParameterMap.get(treeId + ComponentUtils.SUB_SEPARATOR + AbstractUITree.MARKED);
     if (marked != null) {
-      searchString = treeId + NamingContainer.SEPARATOR_CHAR + nodeStateId;
-      node.setMarked(marked.equals(searchString));
+      String searchString = treeId + NamingContainer.SEPARATOR_CHAR + nodeStateId;
+      boolean markedValue = marked.equals(searchString);
+      if (node.isMarked() != markedValue) {
+        new TreeMarkedEvent(node, node.isMarked(), markedValue).queue();
+      }
     } else {
       LOG.warn("This log message is help clarifying the occurrence of this else case.");
     }
