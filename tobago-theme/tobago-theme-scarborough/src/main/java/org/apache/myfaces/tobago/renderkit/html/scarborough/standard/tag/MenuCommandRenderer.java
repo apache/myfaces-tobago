@@ -103,7 +103,7 @@ public class MenuCommandRenderer extends CommandRendererBase {
         String setValue = JQueryUtils.selectId(hiddenId) + ".val('" + JQueryUtils.escapeValue(formattedValue) + "'); ";
         encodeItem(facesContext, writer, null, label, setValue + submit, disabled, firstLevel, image);
       }
-      encodeHidden(writer, hiddenId, radio.getValue());
+      encodeHidden(writer, hiddenId, getCurrentValue(facesContext, radio));
     } else {
       // normal menu command
       CommandRendererHelper helper = new CommandRendererHelper(facesContext, menu);
