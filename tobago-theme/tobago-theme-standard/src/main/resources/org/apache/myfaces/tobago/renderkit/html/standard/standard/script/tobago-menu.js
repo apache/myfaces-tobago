@@ -261,7 +261,7 @@ Tobago.Menu.init = function(elements) {
       elements, ".tobago-toolBar-menu .tobago-boxToolBar-menu .tobago-tabGroupToolBar-menu");
   // a click on toolBar menu opener -> forward to .tobago-menu-markup-top
   toolBarMenu.click(function(event) {
-    $(this).next().find('a').click();
+    jQuery(this).next().find('a').click();
     event.stopPropagation();
   });
 

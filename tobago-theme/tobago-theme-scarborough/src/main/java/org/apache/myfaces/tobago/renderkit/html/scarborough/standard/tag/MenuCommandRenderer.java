@@ -77,7 +77,7 @@ public class MenuCommandRenderer extends CommandRendererBase {
       String hiddenId = checkbox.getClientId(facesContext);
       // the function toggles true <-> false
       String setValue = JQueryUtils.selectId(hiddenId) 
-          + ".each(function(){$(this).val($(this).val() == 'true' ? 'false' : 'true')}); ";
+          + ".each(function(){jQuery(this).val(jQuery(this).val() == 'true' ? 'false' : 'true')}); ";
       encodeItem(facesContext, writer, menu, label, setValue + submit, disabled, firstLevel, image);
       encodeHidden(writer, hiddenId, checked);
     } else if (menu.getFacet(Facets.RADIO) != null) {
