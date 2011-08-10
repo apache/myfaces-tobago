@@ -351,8 +351,6 @@
       <to-view-id>/reference/tree/tree-normal.xhtml</to-view-id>
     </navigation-case>
 <!--
-tree-ajax.jsp
-tree-editor.jsp
 tree-menu.xhtml
 tree-normal.xhtml
 tree-select.xhtml
