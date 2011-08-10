@@ -265,8 +265,7 @@ var Tobago = {
 
     this.addBindEventListener(window, 'unload', this, 'onUnload');
 
-    // XXX not nice...
-    xxx_tobagoInit();
+    Tobago.init0();
 
     if (TbgTimer.endBody) { // @DEV_ONLY
       TbgTimer.startAppOnload = new Date(); // @DEV_ONLY
@@ -1691,6 +1690,17 @@ var Tobago = {
   }
 };
 
+// internal initializer will be called in two cases:
+// 1. full load: elements: undefined
+// 2. ajax load: elements: list of the loaded dom elements
+Tobago.init0 = function(elements) {
+  Tobago.Menu.init(elements);
+  Tobago.TabGroup.init(elements);
+  Tobago.Tree.init(elements);
+  Tobago.ToolBar.init(elements);
+  Tobago.fixPngAlphaAll(elements);
+};
+
 Tobago.Config = {
   set: function(name, key, value) {
     if (!this[name]) {
@@ -2487,7 +2497,7 @@ Tobago.Updater = {
             this.afterDoUpdateSuccess();
           }
           if (data.html.length > 0) {
-            xxx_tobagoInit(newElement);
+            Tobago.init0(newElement);
           }
         } catch (e) {
           LOG.error('Error in doUpdate: ' + e); // @DEV_ONLY
@@ -2629,16 +2639,6 @@ Tobago.ToolBar.setRadioValue = function(id, value) {
   var element = document.getElementById(id);
   element.value = value;
 };
-
-// XXX write initialization
-
-function xxx_tobagoInit(elements) {
-  Tobago.Menu.init(elements);
-  Tobago.TabGroup.init(elements);
-  Tobago.Tree.init(elements);
-  Tobago.ToolBar.init(elements);
-  Tobago.fixPngAlphaAll(elements);
-}
 
 // inputSuggest.js
 
