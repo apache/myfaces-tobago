@@ -298,37 +298,7 @@
       <scope>compile</scope>
 -->
     </dependency>
-<!--
-    <dependency>
-      <groupId>test</groupId>
-      <artifactId>serviceloader-compat</artifactId>
-      <version>1.0-SNAPSHOT</version>
-      <scope>runtime</scope>
-    </dependency>
--->
-    <dependency>
-        <groupId>com.googlecode.backport-spi</groupId>
-        <artifactId>backport-spi</artifactId>
-        <version>1.0.1</version>
-        <scope>runtime</scope>
-    </dependency>
-<!--
-        <dependency>
-            <groupId>org.apacheExtras.myfaces.codi.addon</groupId>
-            <artifactId>controlled-bootstrapping-addon</artifactId>
-            <version>1.0.0</version>
-            <scope>compile</scope>
-        </dependency>
--->
   </dependencies>
-<!--
-  <repositories>
-    <repository>
-        <id>googlecode.com</id>
-        <url>https://os890-m2-repository.googlecode.com/svn/tags/apache-extras</url>
-    </repository>
-  </repositories>
--->
   <profiles>
     <profile>
       <id>ssl</id>
