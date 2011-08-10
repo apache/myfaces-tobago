@@ -235,7 +235,7 @@ public class Navigation implements Serializable {
     public String action() {
       LOG.info("Navigate to '" + outcome + "'");
       currentNode = this;
-
+      expanded = true;
       return outcome;
     }
 
