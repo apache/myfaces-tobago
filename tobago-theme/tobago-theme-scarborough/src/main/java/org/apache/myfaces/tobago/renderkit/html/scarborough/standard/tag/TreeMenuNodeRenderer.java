@@ -60,17 +60,20 @@ public class TreeMenuNodeRenderer extends LayoutComponentRendererBase {
       return;
     }
 
-    UITreeMenu tree = ComponentUtils.findAncestor(node, UITreeMenu.class);
-    String treeId = tree.getClientId(facesContext);
-    String nodeStateId = node.nodeStateId(facesContext);
-    Map<String, String> requestParameterMap = facesContext.getExternalContext().getRequestParameterMap();
-    String id = node.getClientId(facesContext);
+    final UITreeMenu tree = ComponentUtils.findAncestor(node, UITreeMenu.class);
+    final String treeId = tree.getClientId(facesContext);
+    final String nodeStateId = node.nodeStateId(facesContext);
+    final Map<String, String> requestParameterMap = facesContext.getExternalContext().getRequestParameterMap();
+    final String id = node.getClientId(facesContext);
+    final boolean folder = node.isFolder();
 
     // expand state
+//    if (folder) { XXX this value seems to be not restored...
     boolean expanded = Boolean.parseBoolean(requestParameterMap.get(id + ComponentUtils.SUB_SEPARATOR + "expanded"));
     if (node.isExpanded() != expanded) {
       new TreeExpansionEvent(node, node.isExpanded(), expanded).queue();
     }
+//    }
 
     // marked
     String marked = (String) requestParameterMap.get(treeId + ComponentUtils.SUB_SEPARATOR + AbstractUITree.MARKED);
@@ -95,9 +98,9 @@ public class TreeMenuNodeRenderer extends LayoutComponentRendererBase {
     }
     if (node.isFolder()) {
       node.setCurrentMarkup(Markup.FOLDER.add(node.getCurrentMarkup()));
-    }
-    if (node.isExpanded()) {
-      node.setCurrentMarkup(Markup.EXPANDED.add(node.getCurrentMarkup()));
+      if (node.isExpanded()) {
+        node.setCurrentMarkup(Markup.EXPANDED.add(node.getCurrentMarkup()));
+      }
     }
   }
 
@@ -112,7 +115,7 @@ public class TreeMenuNodeRenderer extends LayoutComponentRendererBase {
     final String id = node.getClientId(facesContext);
     final int level = node.getLevel();
     final boolean root = level == 0;
-    final boolean expanded = node.isExpanded() || level == 0;
+    final boolean expanded = folder && node.isExpanded() || level == 0;
     final boolean showRoot = tree.isShowRoot();
     final boolean ie6
         = VariableResolverUtils.resolveClientProperties(facesContext).getUserAgent().equals(UserAgent.MSIE_6_0);

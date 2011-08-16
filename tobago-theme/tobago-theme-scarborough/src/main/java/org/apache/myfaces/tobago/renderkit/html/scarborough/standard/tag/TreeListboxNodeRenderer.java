@@ -64,16 +64,19 @@ public class TreeListboxNodeRenderer extends CommandRendererBase {
       return;
     }
 
-    AbstractUITree tree = ComponentUtils.findAncestor(node, AbstractUITree.class);
-    String treeId = tree.getClientId(facesContext);
-    String nodeStateId = node.nodeStateId(facesContext);
-    Map requestParameterMap = facesContext.getExternalContext().getRequestParameterMap();
-    String id = node.getClientId(facesContext);
+    final AbstractUITree tree = ComponentUtils.findAncestor(node, AbstractUITree.class);
+    final String treeId = tree.getClientId(facesContext);
+    final String nodeStateId = node.nodeStateId(facesContext);
+    final Map<String, String> requestParameterMap = facesContext.getExternalContext().getRequestParameterMap();
+    final String id = node.getClientId(facesContext);
+    final boolean folder = node.isFolder();
 
     // expand state
-    boolean expanded = Boolean.parseBoolean((String) requestParameterMap.get(id + "-expanded"));
-    if (node.isExpanded() != expanded) {
-      new TreeExpansionEvent(node, node.isExpanded(), expanded).queue();
+    if (folder) {
+      boolean expanded = Boolean.parseBoolean((String) requestParameterMap.get(id + "-expanded"));
+      if (node.isExpanded() != expanded) {
+        new TreeExpansionEvent(node, node.isExpanded(), expanded).queue();
+      }
     }
 
     // select
@@ -111,14 +114,15 @@ public class TreeListboxNodeRenderer extends CommandRendererBase {
 
   @Override
   public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
-    UITreeNode node = (UITreeNode) component;
-    AbstractUITree tree = ComponentUtils.findAncestor(node, AbstractUITree.class);
-    TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final UITreeNode node = (UITreeNode) component;
+    final AbstractUITree tree = ComponentUtils.findAncestor(node, AbstractUITree.class);
 
-    boolean folder = node.isFolder();
-    int level = node.getLevel();
-    String id = node.getClientId(facesContext);
-    boolean expanded = node.isExpanded();
+    final boolean folder = node.isFolder();
+    final int level = node.getLevel();
+    final String id = node.getClientId(facesContext);
+    final boolean expanded = folder && node.isExpanded();
+
+    TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
     if (level > 0) { // root will not rendered as an option
       writer.startElement(HtmlElements.OPTION, null);

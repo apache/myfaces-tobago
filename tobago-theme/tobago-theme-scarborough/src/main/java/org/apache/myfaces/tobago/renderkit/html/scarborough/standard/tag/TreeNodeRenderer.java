@@ -69,16 +69,19 @@ public class TreeNodeRenderer extends LayoutComponentRendererBase {
       return;
     }
 
-    AbstractUITree tree = ComponentUtils.findAncestor(node, AbstractUITree.class);
-    String treeId = tree.getClientId(facesContext);
-    String nodeStateId = node.nodeStateId(facesContext);
-    Map<String, String> requestParameterMap = facesContext.getExternalContext().getRequestParameterMap();
-    String id = node.getClientId(facesContext);
+    final AbstractUITree tree = ComponentUtils.findAncestor(node, AbstractUITree.class);
+    final String treeId = tree.getClientId(facesContext);
+    final String nodeStateId = node.nodeStateId(facesContext);
+    final Map<String, String> requestParameterMap = facesContext.getExternalContext().getRequestParameterMap();
+    final String id = node.getClientId(facesContext);
+    final boolean folder = node.isFolder();
 
     // expand state
-    boolean expanded = Boolean.parseBoolean(requestParameterMap.get(id + ComponentUtils.SUB_SEPARATOR + "expanded"));
-    if (node.isExpanded() != expanded) {
-      new TreeExpansionEvent(node, node.isExpanded(), expanded).queue();
+    if (folder) {
+      boolean expanded = Boolean.parseBoolean(requestParameterMap.get(id + ComponentUtils.SUB_SEPARATOR + "expanded"));
+      if (node.isExpanded() != expanded) {
+        new TreeExpansionEvent(node, node.isExpanded(), expanded).queue();
+      }
     }
 
     // select
@@ -115,16 +118,16 @@ public class TreeNodeRenderer extends LayoutComponentRendererBase {
     }
     if (node.isFolder()) {
       node.setCurrentMarkup(Markup.FOLDER.add(node.getCurrentMarkup()));
-    }
-    if (node.isExpanded()) {
-      node.setCurrentMarkup(Markup.EXPANDED.add(node.getCurrentMarkup()));
+      if (node.isExpanded()) {
+        node.setCurrentMarkup(Markup.EXPANDED.add(node.getCurrentMarkup()));
+      }
     }
   }
 
   @Override
   public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
-    UITreeNode node = (UITreeNode) component;
-    AbstractUITree tree = ComponentUtils.findAncestor(node, AbstractUITree.class);
+    final UITreeNode node = (UITreeNode) component;
+    final AbstractUITree tree = ComponentUtils.findAncestor(node, AbstractUITree.class);
 
     final boolean folder = node.isFolder();
     final String id = node.getClientId(facesContext);
@@ -132,9 +135,9 @@ public class TreeNodeRenderer extends LayoutComponentRendererBase {
     final boolean root = level == 0;
     final boolean showRoot = ((UITree) tree).isShowRoot();
     // if the root is hidden, the root node must be expanded (otherwise you will see nothing)
-    final boolean expanded = node.isExpanded() || !showRoot && root;
+    final boolean expanded = folder && node.isExpanded() || !showRoot && root;
 
-    TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
     if (showRoot || !root) {
       writer.startElement(HtmlElements.DIV, null);

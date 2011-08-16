@@ -53,7 +53,7 @@ public class TreeIndentRenderer extends LayoutComponentRendererBase {
     final boolean showRoot = ((UITree) tree).isShowRoot();
     final boolean showJunctions = indent.isShowJunctions();
     final boolean showRootJunction = ((UITree) tree).isShowRootJunction();
-    final boolean expanded = node.isExpanded() || !showRoot && level == 0;
+    final boolean expanded = folder && node.isExpanded() || !showRoot && level == 0;
 
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
