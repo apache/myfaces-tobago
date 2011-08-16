@@ -20,6 +20,7 @@ package org.apache.myfaces.tobago.example.data;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.faces.event.ActionEvent;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 public class NamedNode extends DefaultMutableTreeNode {
@@ -49,6 +50,10 @@ public class NamedNode extends DefaultMutableTreeNode {
   public String action() {
     LOG.info(action);
     return null;
+  }
+
+  public void actionListener(ActionEvent event) {
+    LOG.info("The actionListener() of node '" + name + "' was called.");
   }
 
   public String getScript() {

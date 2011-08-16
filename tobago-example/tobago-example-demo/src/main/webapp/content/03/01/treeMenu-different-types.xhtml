@@ -30,6 +30,7 @@
         <tc:treeNode id="template" expanded="true">
           <tc:treeCommand label="#{node.name}" rendered="#{node.childCount == 0}"
                           action="#{node.action}"
+                          actionListener="#{node.actionListener}"
                           link="#{node.url}"
                           onclick="#{node.script}"/>
           <tc:treeLabel value="#{node.name}" rendered="#{node.childCount > 0}"/>
