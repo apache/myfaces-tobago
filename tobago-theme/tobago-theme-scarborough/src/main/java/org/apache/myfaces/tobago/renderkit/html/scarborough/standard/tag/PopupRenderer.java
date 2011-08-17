@@ -93,10 +93,10 @@ public class PopupRenderer extends LayoutComponentRendererBase {
     // XXX May be computed in the "Layout Manager Phase"
     AbstractUIPage page = ComponentUtils.findPage(facesContext);
     if (popup.getLeft() == null) {
-      popup.setLeft(page.getWidth().subtract(popup.getWidth()).divide(2));
+      popup.setLeft(page.getCurrentWidth().subtract(popup.getCurrentWidth()).divide(2));
     }
     if (popup.getTop() == null) {
-      popup.setTop(page.getHeight().subtract(popup.getHeight()).divide(2));
+      popup.setTop(page.getCurrentHeight().subtract(popup.getCurrentHeight()).divide(2));
     }
 
     writer.startElement(HtmlElements.DIV, popup);
