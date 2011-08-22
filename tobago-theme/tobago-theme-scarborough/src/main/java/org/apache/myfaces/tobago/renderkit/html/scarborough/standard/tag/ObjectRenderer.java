@@ -38,6 +38,7 @@ public class ObjectRenderer extends LayoutComponentRendererBase {
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
     writer.startElement(HtmlElements.IFRAME, object);
+    writer.writeAttribute(HtmlAttributes.FRAMEBORDER, "0", false);
     writer.writeIdAttribute(object.getClientId(facesContext));
     writer.writeNameAttribute(object.getClientId(facesContext));
     Object src = object.getSrc();
