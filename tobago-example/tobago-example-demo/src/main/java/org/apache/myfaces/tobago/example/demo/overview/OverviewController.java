@@ -66,7 +66,10 @@ public class OverviewController {
 
   private Salutation[] multiValue;
 
-  private String basicInput = "";
+/*
+  @Required(parameters = ViolationSeverity.Error.class)
+*/
+  private String basicInput;
 
   private String suggestInput;
 
