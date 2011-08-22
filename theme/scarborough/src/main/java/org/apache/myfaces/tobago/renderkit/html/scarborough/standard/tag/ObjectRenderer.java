@@ -17,7 +17,6 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * limitations under the License.
  */
 
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SRC;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
@@ -29,11 +28,14 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SRC;
+
 public class ObjectRenderer extends LayoutableRendererBase {
   public void encodeEnd(FacesContext facesContext, UIComponent component)
       throws IOException {
     TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
     writer.startElement(HtmlConstants.IFRAME, component);
+    writer.writeAttribute(HtmlAttributes.FRAMEBORDER, "0", false);
     writer.writeIdAttribute(component.getClientId(facesContext));
     writer.writeNameAttribute(component.getClientId(facesContext));
     Object src = component.getAttributes().get(ATTR_SRC);
