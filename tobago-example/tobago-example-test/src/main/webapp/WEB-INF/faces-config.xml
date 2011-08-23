@@ -42,6 +42,12 @@
   </managed-bean>
 
   <managed-bean>
+    <managed-bean-name>in</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.tobago.example.test.InBean</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+  </managed-bean>
+
+  <managed-bean>
     <managed-bean-name>inputSuggest</managed-bean-name>
     <managed-bean-class>org.apache.myfaces.tobago.example.test.InputSuggestController</managed-bean-class>
     <managed-bean-scope>session</managed-bean-scope>

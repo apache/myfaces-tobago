@@ -1,5 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
+package org.apache.myfaces.tobago.example.test;
+
+/*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
  * this work for additional information regarding copyright ownership.
@@ -14,26 +15,27 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
--->
+ */
 
-<f:view
-    xmlns:tc="http://myfaces.apache.org/tobago/component"
-    xmlns:tx="http://myfaces.apache.org/tobago/extension"
-    xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:f="http://java.sun.com/jsf/core">
+public class InBean {
 
-  <tc:page>
-    <f:facet name="layout">
-      <tc:gridLayout rows="auto;auto;auto;*"/>
-    </f:facet>
-    <tc:gridLayoutConstraint width="600px" height="300px"/>
+  private String first;
 
-    <tx:in label="First Value" labelWidth="250px" value="#{in.first}"/>
-    <tx:in label="Second Value (Required)" labelWidth="250px" value="#{in.second}" required="true"/>
+  private String second;
 
-    <tc:button label="submit"/>
+  public String getFirst() {
+    return first;
+  }
 
-    <tc:cell/>
+  public void setFirst(String first) {
+    this.first = first;
+  }
 
-  </tc:page>
-</f:view>
+  public String getSecond() {
+    return second;
+  }
+
+  public void setSecond(String second) {
+    this.second = second;
+  }
+}
