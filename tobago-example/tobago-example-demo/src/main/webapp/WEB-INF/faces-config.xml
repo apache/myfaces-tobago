@@ -327,10 +327,6 @@
       <to-view-id>/reference/sheet.jsp</to-view-id>
     </navigation-case>
     <navigation-case>
-      <from-outcome>reference/object</from-outcome>
-      <to-view-id>/reference/object.jsp</to-view-id>
-    </navigation-case>
-    <navigation-case>
       <from-outcome>reference/tab</from-outcome>
       <to-view-id>/reference/tab.jsp</to-view-id>
     </navigation-case>
