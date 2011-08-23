@@ -55,6 +55,12 @@ public class TobagoRenderKit extends RenderKit {
 
   private Map<Key, Renderer> renderers = new HashMap<Key, Renderer>();
 
+  public TobagoRenderKit() {
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("Creating TobagoRenderKit");
+    }
+  }
+
   @Override
   public Renderer getRenderer(String family, String rendererType) {
     Renderer renderer = renderers.get(new Key(family, rendererType));
