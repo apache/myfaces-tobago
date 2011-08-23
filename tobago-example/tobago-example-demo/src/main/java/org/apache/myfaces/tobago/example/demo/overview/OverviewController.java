@@ -18,6 +18,7 @@ package org.apache.myfaces.tobago.example.demo.overview;
  */
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.myfaces.extensions.cdi.core.api.scope.conversation.WindowScoped;
 import org.apache.myfaces.tobago.component.UISheet;
 import org.apache.myfaces.tobago.component.UIToolBar;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
@@ -36,13 +37,17 @@ import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.validator.ValidatorException;
+import javax.inject.Named;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
-public class OverviewController {
+@WindowScoped
+@Named(value = "overviewController")
+public class OverviewController implements Serializable {
 
   private static final Logger LOG = LoggerFactory.getLogger(OverviewController.class);
 
@@ -67,7 +72,7 @@ public class OverviewController {
   private Salutation[] multiValue;
 
 /*
-  @Required(parameters = ViolationSeverity.Error.class)
+  @Required
 */
   private String basicInput;
 
