@@ -130,8 +130,6 @@ var Tobago = {
     return id;
   },
 
-  treeNodes: {},
-
   reloadTimer: {},
 
   jsObjects: new Array(),
@@ -408,15 +406,6 @@ var Tobago = {
 
   destroyObjects: function() {
     this.removeEventListeners();
-
-    //      delete this.treeNodes[treeNodeId];
-    for (var treeNodeId in this.treeNodes) {
-      try {
-        this.destroyObject(this.treeNodes[treeNodeId]);
-      } catch (ex) {
-        // ignore
-      }
-    }
 
     for (var i = 0; i < this.jsObjects.length; i++) {
       try {
