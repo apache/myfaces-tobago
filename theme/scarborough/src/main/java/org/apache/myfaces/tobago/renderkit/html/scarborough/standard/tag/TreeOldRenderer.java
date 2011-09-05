@@ -53,10 +53,6 @@ public class TreeOldRenderer extends LayoutableRendererBase {
   private static final String[] TREE_IMAGES = {
       "openfoldericon.gif",
       "foldericon.gif",
-      "unchecked.gif",
-      "uncheckedDisabled.gif",
-      "checked.gif",
-      "checkedDisabled.gif",
       "new.gif",
       "T.gif",
       "L.gif",

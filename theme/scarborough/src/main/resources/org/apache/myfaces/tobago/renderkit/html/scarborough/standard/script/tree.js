@@ -175,29 +175,29 @@ function clearSelectionExceptSibling(node, selectState, selectedNode) {
 }
 
 
-function toggleSelect(node, treeHiddenId, uncheckedIcon, checkedIcon) {
+function toggleSelect(node, treeHiddenId) {
   var selectState = document.getElementById(treeHiddenId + '-selectState');
   var hidden = document.getElementById(treeHiddenId);
-  var icon = document.getElementById(node.id + '-markIcon');
+  var mark = document.getElementById(node.id + '-mark');
   var treeNode = Tobago.treeNodes[node.id];
 //  LOG.debug("treeNode.required = " + treeNode.required);
   if (! (treeNode.selectable.match(/LeafOnly$/) && treeNode.childNodes.length > 0)) {
     if (treeNode.selectable.match(/^single/)) {
       if (! (selectState.value.indexOf(";" + nodeStateId(node) + ";", 0) > -1)) {
 //        LOG.debug("single selection changed");
-        icon.src = checkedIcon;
-        oldIcon = getIconForId(node, selectState.value);
+    	mark.checked = true;
+        oldMark = getMarkForId(node, selectState.value);
         oldNode = getNodeForId(treeNode, selectState.value);
-        if (oldIcon && oldIcon != icon
+        if (oldMark && oldMark != mark
             && (!(oldNode && oldNode.childNodes.length > 0 && oldNode.selectable
                   && oldNode.selectable.match(/LeafOnly$/)))) {
-          oldIcon.src = uncheckedIcon;
+          oldMark.checked = false;
         }
         selectState.value = ";" +  nodeStateId(node) + ";" ;
       } else {
 //        LOG.debug("single selection cleared");
         if (! treeNode.required) {
-          icon.src = uncheckedIcon;
+          mark.checked = false;
           selectState.value = ";" ;
         } else {
 //          LOG.debug("single selection hold");
@@ -211,7 +211,7 @@ function toggleSelect(node, treeHiddenId, uncheckedIcon, checkedIcon) {
 //        LOG.debug("nodeSelectState   = " + ";" + nodeStateId(node) + ";" );
 //        LOG.debug("required          = " +  treeNode.required);
         if (!(treeNode.required && selectState.value == ";" + nodeStateId(node) + ";") ) {
-          icon.src = uncheckedIcon;
+          mark.checked = false;
           selectState.value = selectState.value.replace(";" + nodeStateId(node) + ";" , ";");
         }
 
@@ -219,12 +219,10 @@ function toggleSelect(node, treeHiddenId, uncheckedIcon, checkedIcon) {
       } else {
         // actual node is not selected -> set selection
         if (treeNode.selectable.match(/^siblings/)) {
-           // remove all nodes which are not siblings of actual node
+          // remove all nodes which are not siblings of actual node
           // TODO:
-
-
         } else {
-          icon.src = checkedIcon;
+          mark.checked = true;
           selectState.value = selectState.value + nodeStateId(node) + ";" ;
         }
       }
@@ -241,8 +239,8 @@ function createJavascriptVariable(id) {
   }
 }
 
-function getIconForId(node, selectId) {
-  var id = node.id.substring(0, node.id.lastIndexOf(":") + 1) + selectId.replace(/;/g, "") + '-markIcon';
+function getMarkForId(node, selectId) {
+  var id = node.id.substring(0, node.id.lastIndexOf(":") + 1) + selectId.replace(/;/g, "") + '-mark';
   return document.getElementById(id);
 }
 
@@ -449,27 +447,17 @@ TreeOldNode.prototype.toString = function (depth, last) {
         }
       }
       if (this.selectable) {
-        var markIcon = '';
-        var markIconOnClickFunction = '';
-        if (this.selectable.match(/LeafOnly$/) && this.isFolder) {
-          markIcon = this.treeResources.getImage("1x1.gif");
-        } else {
-          if (this.selected) {
-            markIcon = this.treeResources.getImage("checked" + (this.disabled ? "Disabled" : "") + ".gif");
-          } else {
-            markIcon = this.treeResources.getImage("unchecked" + (this.disabled ? "Disabled" : "") + ".gif");
-          }
+        var markOnClickFunction = '';
+        if (!this.selectable.match(/LeafOnly$/) || !this.isFolder) {
           if (!this.disabled) {
-            markIconOnClickFunction
-                = 'onclick="toggleSelect(this.parentNode, \'' + this.treeHiddenId
-                + '\', \'' + this.treeResources.getImage("unchecked.gif")
-                + '\', \'' + this.treeResources.getImage("checked.gif")
-                + '\')"';
+            markOnClickFunction
+                = 'onclick="toggleSelect(this.parentNode, \'' + this.treeHiddenId + '\')"';
           }
+          str += '<input type="checkbox" id="' + this.id + '-mark"' + markOnClickFunction  
+		      +  (this.disabled ? ' disabled="disabled"' : '') 
+		      +  (this.selected ? ' checked="checked"' : '') 
+		      +  ' class="tobago-selectBooleanCheckbox-default"/>';
         }
-
-        str += '<img class="tree-icon" id="' + this.id
-            + '-markIcon" src="' + markIcon + '" ' + markIconOnClickFunction + ' alt="">';
       }
       var itemStyle = this.isFolder ? "tree-folder-label" : "tree-item-label";
       if (this.disabled) {
@@ -586,12 +574,8 @@ TreeOldNode.prototype.doOnClick = function(currentElement) {
       // nothing to do, storeMarker is already done in onFocus()
 //      storeMarker(Tobago.element(this.id), this.treeHiddenId);
     } else if (this.selectable) {
-      toggleSelect(Tobago.element(this.id),
-          this.treeHiddenId,
-          this.treeResources.getImage("unchecked.gif"),
-          this.treeResources.getImage("checked.gif"));
+      toggleSelect(Tobago.element(this.id), this.treeHiddenId);
     } else {
-      // nothing to do, onclick has already done it
       Tobago.submitAction(this.id);
     }
 
