@@ -26,11 +26,7 @@
   <packaging>war</packaging>
   <name>Tobago Example Demo</name>
   <properties>
-    <openwebbeans.version>1.1.0</openwebbeans.version>
-    <!--
-        for Java 1.5 support
-        <openwebbeans.version>1.1.1-SNAPSHOT</openwebbeans.version>
-    -->
+    <openwebbeans.version>1.1.1</openwebbeans.version>
     <myfaces-extcdi.version>1.0.1</myfaces-extcdi.version>
   </properties>
   <build>
