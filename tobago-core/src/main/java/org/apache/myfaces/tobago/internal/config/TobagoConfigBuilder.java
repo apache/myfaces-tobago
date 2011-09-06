@@ -58,6 +58,8 @@ public class TobagoConfigBuilder {
     // prepare themes
     tobagoConfig.resolveThemes();
 
+    tobagoConfig.initDefaultValidatorInfo();
+
     servletContext.setAttribute(TobagoConfig.TOBAGO_CONFIG, tobagoConfig);
   }
 

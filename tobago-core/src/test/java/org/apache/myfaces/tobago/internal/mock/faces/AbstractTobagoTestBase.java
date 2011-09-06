@@ -73,6 +73,7 @@ public abstract class AbstractTobagoTestBase extends AbstractJsfTestCase {
     tobagoConfig.setAvailableThemes(availableThemes);
     tobagoConfig.resolveThemes();
     tobagoConfig.initProjectState(servletContext);
+    tobagoConfig.initDefaultValidatorInfo();
     servletContext.setAttribute(TobagoConfig.TOBAGO_CONFIG, tobagoConfig);
 
     final ClientProperties clientProperties = new ClientProperties();

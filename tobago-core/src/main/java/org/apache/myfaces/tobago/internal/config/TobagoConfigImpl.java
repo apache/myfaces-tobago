@@ -17,6 +17,7 @@ package org.apache.myfaces.tobago.internal.config;
  * limitations under the License.
  */
 
+import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.myfaces.tobago.application.ProjectStage;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.context.Theme;
@@ -25,6 +26,8 @@ import org.apache.myfaces.tobago.internal.util.JndiUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.faces.application.Application;
+import javax.faces.context.FacesContext;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -54,6 +57,7 @@ public class TobagoConfigImpl extends TobagoConfig {
   private boolean createSessionSecret;
   private boolean checkSessionSecret;
   private URL url;
+  private Map<String, String> defaultValidatorInfo;
 
   public TobagoConfigImpl() {
     supportedThemeNames = new ArrayList<String>();
@@ -227,6 +231,25 @@ public class TobagoConfigImpl extends TobagoConfig {
     }
   }
 
+  public synchronized void initDefaultValidatorInfo() {
+    try {
+      final FacesContext facesContext = FacesContext.getCurrentInstance();
+      if (facesContext != null) {
+        final Application application = facesContext.getApplication();
+        final Map<String, String> map
+            = (Map<String, String>) PropertyUtils.getProperty(application, "defaultValidatorInfo");
+        if (application != null && map.size() > 0) {
+          defaultValidatorInfo = Collections.unmodifiableMap(map);
+        } else {
+          defaultValidatorInfo = Collections.emptyMap();
+        }
+      }
+    } catch (Exception e) {
+      LOG.info("Can't initialize default validators. (Will only work with JSF 2.0 and higher)");
+      defaultValidatorInfo = Collections.emptyMap();
+    }
+  }
+
   public boolean isCreateSessionSecret() {
     return createSessionSecret;
   }
@@ -244,11 +267,12 @@ public class TobagoConfigImpl extends TobagoConfig {
   }
 
   public Map<String, String> getDefaultValidatorInfo() {
-    //Map map = new HashMap<String,String>();
-    //map.put("error", "org.apache.myfaces.tobago.example.demo.ErrorValidator");
-    //return map;
-    // TODO get the default validator from application (jsf2.0) or from configuration
-    return Collections.EMPTY_MAP;
+
+    // TODO: if the startup hasn't found a FacesContext and Application, this may depend on the order of the listeners.
+    if (defaultValidatorInfo == null) {
+      initDefaultValidatorInfo();
+    }
+    return defaultValidatorInfo;
   }
 
   @Override
