@@ -116,7 +116,7 @@ public class TobagoComponentHandler extends ComponentHandler {
     if (validators.length > 0) {
       Set classNames = new HashSet();
       // collect classNames of validators
-      for (int i = 0, validatorsLength = validators.length; i < validatorsLength; i++) {
+      for (int i = 0; i < validators.length; i++) {
         classNames.add(validators[i].getClass().getName());
       }
       Iterator it = validatorInfoMap.entrySet().iterator();
