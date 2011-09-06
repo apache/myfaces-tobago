@@ -45,7 +45,7 @@ public class Jsr303Bean {
 
     final FacesContext facesContext = FacesContext.getCurrentInstance();
 
-    if (! FacesVersion.supports20()) {
+    if (!FacesVersion.supports20()) {
       facesContext.addMessage(null,
           new FacesMessage(
               FacesMessage.SEVERITY_WARN, "Bean Validation not available with JSF version less than 2.0.", null));
