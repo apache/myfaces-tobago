@@ -26,6 +26,7 @@ import com.sun.facelets.tag.jsf.ComponentConfig;
 import com.sun.facelets.tag.jsf.ComponentHandler;
 import com.sun.facelets.tag.jsf.ComponentSupport;
 import org.apache.myfaces.tobago.context.Markup;
+import org.apache.myfaces.tobago.facelets.TobagoComponentHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.component.Attributes;
@@ -46,6 +47,7 @@ import javax.el.ELException;
 import javax.el.ValueExpression;
 import javax.faces.FacesException;
 import javax.faces.application.Application;
+import javax.faces.component.EditableValueHolder;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIViewRoot;
 import java.io.IOException;
@@ -186,6 +188,14 @@ public abstract class TobagoLabelExtensionHandler extends ComponentHandler {
       }
     }
     return false;
+  }
+
+  protected void onComponentPopulated(FaceletContext faceletContext, UIComponent component, UIComponent parent) {
+    super.onComponentPopulated(faceletContext, component, parent);
+    if (component.getChildren().size() > 1 && component.getChildren().get(1) instanceof EditableValueHolder) {
+      TobagoComponentHandler.addDefaultValidators(faceletContext.getFacesContext(),
+          (EditableValueHolder) component.getChildren().get(1));
+    }
   }
 
   private void addGridLayout(FaceletContext faceletContext, UIComponent panel, UIViewRoot root) {

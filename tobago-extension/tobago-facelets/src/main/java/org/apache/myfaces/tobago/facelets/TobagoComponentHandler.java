@@ -27,14 +27,23 @@ import org.apache.myfaces.tobago.component.OnComponentCreated;
 import org.apache.myfaces.tobago.component.OnComponentPopulated;
 import org.apache.myfaces.tobago.component.SupportsMarkup;
 import org.apache.myfaces.tobago.component.SupportsRenderedPartially;
+import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.event.SheetStateChangeSource;
 import org.apache.myfaces.tobago.event.SortActionSource;
 import org.apache.myfaces.tobago.event.TabChangeSource;
 import org.apache.myfaces.tobago.internal.component.AbstractUIFlowLayout;
 import org.apache.myfaces.tobago.internal.component.AbstractUIGridLayout;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPopup;
+import org.apache.myfaces.tobago.internal.config.TobagoConfigImpl;
 
+import javax.faces.component.EditableValueHolder;
 import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.validator.Validator;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
 
 public class TobagoComponentHandler extends ComponentHandler {
 
@@ -90,6 +99,38 @@ public class TobagoComponentHandler extends ComponentHandler {
         && component.getAttributes().get(OnComponentPopulated.MARKER) == null) {
       component.getAttributes().put(OnComponentPopulated.MARKER, Boolean.TRUE);
       ((OnComponentPopulated) component).onComponentPopulated(context.getFacesContext(), parent);
+    }
+    // TODO call only if component was created
+    if (component instanceof EditableValueHolder) {
+      addDefaultValidators(context.getFacesContext(), (EditableValueHolder) component);
+    }
+  }
+
+  public static void addDefaultValidators(FacesContext context, EditableValueHolder component) {
+    TobagoConfigImpl tobagoConfig = (TobagoConfigImpl) TobagoConfig.getInstance(context);
+    Map validatorInfoMap = tobagoConfig.getDefaultValidatorInfo();
+    if (validatorInfoMap.isEmpty()) {
+      return;
+    }
+    Validator[] validators = component.getValidators();
+    if (validators.length > 0) {
+      Set classNames = new HashSet();
+      // collect classNames of validators
+      for (int i = 0, validatorsLength = validators.length; i < validatorsLength; i++) {
+        classNames.add(validators[i].getClass().getName());
+      }
+      Iterator it = validatorInfoMap.entrySet().iterator();
+      while (it.hasNext()) {
+        Map.Entry entry = (Map.Entry) it.next();
+        if (!classNames.contains(entry.getValue())) {
+          component.addValidator(context.getApplication().createValidator((String) entry.getKey()));
+        }
+      }
+    } else {
+      Iterator it = validatorInfoMap.keySet().iterator();
+      while (it.hasNext()) {
+        component.addValidator(context.getApplication().createValidator((String) it.next()));
+      }
     }
   }
 }

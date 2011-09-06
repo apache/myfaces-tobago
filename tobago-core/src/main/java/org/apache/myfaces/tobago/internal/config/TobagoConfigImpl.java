@@ -243,6 +243,14 @@ public class TobagoConfigImpl extends TobagoConfig {
     this.checkSessionSecret = checkSessionSecret;
   }
 
+  public Map<String, String> getDefaultValidatorInfo() {
+    //Map map = new HashMap<String,String>();
+    //map.put("error", "org.apache.myfaces.tobago.example.demo.ErrorValidator");
+    //return map;
+    // TODO get the default validator from application (jsf2.0) or from configuration
+    return Collections.EMPTY_MAP;
+  }
+
   @Override
   public String toString() {
     final StringBuilder builder = new StringBuilder();
