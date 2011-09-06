@@ -342,14 +342,21 @@ var Tobago = {
   },
 
   makeOverlaySemitransparent: function() {
-    var overlay = Tobago.element(Tobago.page.id + '-overlay');
-    if (overlay) {
-      var img = document.createElement('IMG');
-      img.style.width = '100%';
-      img.style.height = '100%';
-      img.src = Tobago.OVERLAY_BACKGROUND;
-      Tobago.fixPngAlpha(img);
-      overlay.appendChild(img);
+    var overlay;
+    if (jQuery.browser.webkit) {
+      overlay = jQuery(Tobago.escapeClientId(Tobago.page.id + '-overlay'));
+      overlay.css('opacity', '0.8');
+      overlay.css('background-color', jQuery('.tobago-page').css("background-color"));
+    } else {
+      overlay = Tobago.element(Tobago.page.id + '-overlay');
+      if (overlay) {
+        var img = document.createElement('IMG');
+        img.style.width = '100%';
+        img.style.height = '100%';
+        img.src = Tobago.OVERLAY_BACKGROUND;
+        Tobago.fixPngAlpha(img);
+        overlay.appendChild(img);
+      }
     }
   },
 
