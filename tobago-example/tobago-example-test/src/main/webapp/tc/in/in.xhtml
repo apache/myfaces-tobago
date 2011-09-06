@@ -24,9 +24,11 @@
 
   <tc:page>
     <f:facet name="layout">
-      <tc:gridLayout rows="auto;auto;auto;*"/>
+      <tc:gridLayout rows="auto;auto;auto;auto;*"/>
     </f:facet>
     <tc:gridLayoutConstraint width="600px" height="300px"/>
+
+    <tc:messages/>
 
     <tx:in label="First Value" labelWidth="250px" value="#{in.first}"/>
     <tx:in label="Second Value (Required)" labelWidth="250px" value="#{in.second}" required="true"/>

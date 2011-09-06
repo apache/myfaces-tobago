@@ -69,6 +69,11 @@
     <param-value>true</param-value>
   </context-param>
 
+  <context-param>
+    <param-name>javax.faces.INTERPRET_EMPTY_STRING_SUBMITTED_VALUES_AS_NULL</param-name>
+    <param-value>true</param-value>
+  </context-param>
+
   <filter>
     <filter-name>multipartFormdataFilter</filter-name>
     <filter-class>org.apache.myfaces.tobago.webapp.TobagoMultipartFormdataFilter</filter-class>
