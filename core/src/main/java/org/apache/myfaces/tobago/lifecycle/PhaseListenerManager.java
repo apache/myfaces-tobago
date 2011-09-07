@@ -17,16 +17,16 @@ package org.apache.myfaces.tobago.lifecycle;
  * limitations under the License.
  */
 
-import java.util.HashMap;
-import java.util.Map;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseEvent;
 import javax.faces.event.PhaseId;
 import javax.faces.event.PhaseListener;
 import javax.faces.lifecycle.Lifecycle;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * This class encapsulates the logic used to call PhaseListeners.  It was
@@ -65,11 +65,16 @@ class PhaseListenerManager {
     boolean[] beforePhaseSuccess = new boolean[phaseListeners.length];
     listenerSuccessMap.put(phaseId, beforePhaseSuccess);
 
+    if (phaseListeners.length == 0) {
+      return;
+    }
+    final PhaseEvent event = new PhaseEvent(facesContext, phaseId, lifecycle);
+
     for (int i = 0; i < phaseListeners.length; i++) {
       PhaseListener phaseListener = phaseListeners[i];
       if (isListenerForThisPhase(phaseListener, phaseId)) {
         try {
-          phaseListener.beforePhase(new PhaseEvent(facesContext, phaseId, lifecycle));
+          phaseListener.beforePhase(event);
           beforePhaseSuccess[i] = true;
         } catch (Exception e) {
           beforePhaseSuccess[i] = false; // redundant - for clarity
@@ -83,12 +88,17 @@ class PhaseListenerManager {
   void informPhaseListenersAfter(PhaseId phaseId) {
     boolean[] beforePhaseSuccess = listenerSuccessMap.get(phaseId);
 
+    if (phaseListeners.length == 0) {
+      return;
+    }
+    final PhaseEvent event = new PhaseEvent(facesContext, phaseId, lifecycle);
+
     for (int i = phaseListeners.length - 1; i >= 0; i--) {
       PhaseListener phaseListener = phaseListeners[i];
       if (isListenerForThisPhase(phaseListener, phaseId)
           && beforePhaseSuccess[i]) {
         try {
-          phaseListener.afterPhase(new PhaseEvent(facesContext, phaseId, lifecycle));
+          phaseListener.afterPhase(event);
         } catch (Exception e) {
           LOG.error("Exception in PhaseListener " + phaseId.toString() + " afterPhase", e);
         }
