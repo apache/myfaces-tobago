@@ -101,19 +101,20 @@ class RestoreViewExecutor implements PhaseExecutor {
     Application application = facesContext.getApplication();
     ViewHandler viewHandler = application.getViewHandler();
 
-    // boolean viewCreated = false;
-    viewRoot = viewHandler.restoreView(facesContext, viewId);
+    boolean postBack = isPostBack(facesContext);
+    if (postBack) {
+      viewRoot = viewHandler.restoreView(facesContext, viewId);
+    }
     if (viewRoot == null) {
       viewRoot = viewHandler.createView(facesContext, viewId);
       viewRoot.setViewId(viewId);
       facesContext.renderResponse();
-      // viewCreated = true;
     }
 
     facesContext.setViewRoot(viewRoot);
     ComponentUtils.resetPage(facesContext);
 
-    if (!isPostBack(facesContext)) {
+    if (!postBack) {
       // no POST or query parameters --> set render response flag
       facesContext.renderResponse();
     }
@@ -133,7 +134,8 @@ class RestoreViewExecutor implements PhaseExecutor {
 
   private boolean isPostBack(FacesContext facesContext) {
     Map requestParameterMap = facesContext.getExternalContext().getRequestParameterMap();
-    return requestParameterMap.containsKey(TobagoResponseStateManager.TREE_PARAM);
+    return requestParameterMap.containsKey(TobagoResponseStateManager.TREE_PARAM)
+        || requestParameterMap.containsKey("javax.faces.ViewState");
   }
 
   private boolean isSessionSecretValid(FacesContext facesContext) {

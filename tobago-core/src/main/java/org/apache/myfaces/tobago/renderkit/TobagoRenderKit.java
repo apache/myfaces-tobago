@@ -25,6 +25,7 @@ import org.apache.myfaces.tobago.internal.webapp.DebugResponseWriterWrapper;
 import org.apache.myfaces.tobago.internal.webapp.HtmlResponseWriter;
 import org.apache.myfaces.tobago.internal.webapp.JsonResponseWriter;
 import org.apache.myfaces.tobago.internal.webapp.XmlResponseWriter;
+import org.apache.myfaces.tobago.util.FacesVersion;
 import org.apache.myfaces.tobago.util.VariableResolverUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
@@ -148,8 +149,11 @@ public class TobagoRenderKit extends RenderKit {
 
   @Override
   public ResponseStateManager getResponseStateManager() {
-    //return getHtmlBasicRenderKit().getResponseStateManager();
-    return responseStateManager;
+    if (FacesVersion.supports12()) {
+      return getHtmlBasicRenderKit().getResponseStateManager();
+    } else {
+      return responseStateManager;
+    }
   }
 
   @Override
