@@ -86,7 +86,7 @@ public class TobagoResponseStateManager extends ResponseStateManager {
       if (compStates instanceof String) {
         responseWriter.writeAttribute(HtmlAttributes.VALUE, compStates, null);
       } else {
-        LOG.error("No component states write in response! Unknown instance of " + compStates.getClass().getName());
+        LOG.error("No component states written in response! Unknown instance of " + compStates.getClass().getName());
       }
     } else {
       responseWriter.writeAttribute(HtmlAttributes.VALUE, "", null);
