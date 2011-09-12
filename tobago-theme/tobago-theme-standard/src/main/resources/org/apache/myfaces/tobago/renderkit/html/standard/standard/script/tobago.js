@@ -1071,8 +1071,8 @@ var Tobago = {
     var hidden = jQuery(Tobago.escapeClientId(id));
     var outer = hidden.prev();
     hidden.val(''
-        + (100 - outer.attr('clientWidth')) + ';'
-        + (100 - outer.attr('clientHeight')));
+        + (100 - outer.prop('clientWidth')) + ';'
+        + (100 - outer.prop('clientHeight')));
   },
 
   clickOnElement: function(id) {

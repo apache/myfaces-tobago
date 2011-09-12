@@ -203,7 +203,7 @@ Tobago.Menu.switchOn = function(menuBar, menu) {
       .bind(compatibleKeyEvent(), Tobago.Menu.handelKey);
   menu.children('a').focus();
   jQuery("body").bind('click', Tobago.Menu.closeAll);
-  menuBar.attr('menu-active', 'true');        // write state back
+  menuBar.data('menu-active', true);        // write state back
 };
 
 Tobago.Menu.switchOff = function(menuBar) {
@@ -217,7 +217,7 @@ Tobago.Menu.switchOff = function(menuBar) {
       .unbind(compatibleKeyEvent(), Tobago.Menu.handelKey);
   jQuery("body").unbind('click', Tobago.Menu.closeAll);
   menuBar.find('.tobago-menu-markup-selected').removeClass("tobago-menu-markup-selected");
-  menuBar.attr('menu-active', 'false');        // write state back
+  menuBar.data('menu-active', false);        // write state back
 };
 
 /**
@@ -231,12 +231,12 @@ Tobago.Menu.init = function(elements) {
   menus.click(function(event) {
 
     // e. g. disabled by a popup
-    if (jQuery(this).children("a").attr("disabled")) {
+    if (jQuery(this).children("a").data("disabled")) {
       return;
     }
     // register on click handlers
     var menuBar = jQuery(this).parent();
-    var wasActive = 'true' == menuBar.attr('menu-active'); // read state
+    var wasActive = menuBar.data('menu-active'); // read state
 
     if (wasActive) {
       Tobago.Menu.switchOff(menuBar);
@@ -322,7 +322,11 @@ Tobago.Utils.findSubComponent = function(element, subId) {
 };
 
 Tobago.Utils.getSubComponentId = function(id, subId) {
-  return "#" + id.replace(/:/g, "\\:") + "\\:\\:" + subId; 
+  if (id != null) {
+    return "#" + id.replace(/:/g, "\\:") + "\\:\\:" + subId;
+  } else {
+    return null;
+  }
 };
 
 Tobago.Utils.findSuperComponent = function(element) {
