@@ -215,6 +215,7 @@
             <markup>warn</markup>
             <markup>info</markup>
             <markup>selected</markup>
+            <markup>inline</markup>
           </supported-markup>
         </renderer>
         <renderer>

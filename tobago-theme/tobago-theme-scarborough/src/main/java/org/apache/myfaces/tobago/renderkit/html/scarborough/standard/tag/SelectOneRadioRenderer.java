@@ -19,6 +19,7 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.myfaces.tobago.component.UISelectOneRadio;
 import org.apache.myfaces.tobago.config.Configurable;
+import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.SelectOneRendererBase;
@@ -30,8 +31,6 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
@@ -44,29 +43,24 @@ import java.util.List;
 
 public class SelectOneRadioRenderer extends SelectOneRendererBase {
 
-  private static final Logger LOG = LoggerFactory.getLogger(SelectOneRadioRenderer.class);
-
   public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
-    super.prepareRender(facesContext, component);
+    UISelectOneRadio select = (UISelectOneRadio) component;
+    super.prepareRender(facesContext, select);
     if (facesContext instanceof TobagoFacesContext) {
       ((TobagoFacesContext) facesContext).getOnloadScripts().add("Tobago.selectOneRadioInit('"
-          + component.getClientId(facesContext) + "')");
+          + select.getClientId(facesContext) + "')");
+    }
+    if (select.isInline()) {
+      select.setCurrentMarkup(Markup.INLINE.add(select.getCurrentMarkup()));
     }
   }
 
   public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
-    if (!(component instanceof UISelectOneRadio)) {
-      LOG.error("Wrong type: Need " + UISelectOneRadio.class.getName()
-          + ", but was " + component.getClass().getName());
-      return;
-    }
-
     UISelectOneRadio select = (UISelectOneRadio) component;
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
     String id = select.getClientId(facesContext);
     List<SelectItem> items = RenderUtils.getItemsToRender(select);
-    boolean inline = select.isInline();
     String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, select);
     boolean disabled = select.isDisabled();
     boolean readonly = select.isReadonly();

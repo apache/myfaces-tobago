@@ -726,7 +726,8 @@ li.tobago-menu-markup-selected {
   color: #778899;
 }
 
-.tobago-selectOneRadio-inline, .tobago-selectOneRadio-inline li  {
+/* todo after removing IE6 support please use ">" */
+.tobago-selectOneRadio-markup-inline li  {
   display: inline;
 }
 
