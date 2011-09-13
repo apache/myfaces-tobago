@@ -19,6 +19,7 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.myfaces.tobago.component.UISelectManyCheckbox;
 import org.apache.myfaces.tobago.config.Configurable;
+import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.SelectManyRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
@@ -29,8 +30,6 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
@@ -43,15 +42,15 @@ import java.util.List;
 
 public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
 
-  private static final Logger LOG = LoggerFactory.getLogger(SelectManyCheckboxRenderer.class);
+  public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
+    UISelectManyCheckbox select = (UISelectManyCheckbox) component;
+    super.prepareRender(facesContext, select);
+    if (select.isInline()) {
+      select.setCurrentMarkup(Markup.INLINE.add(select.getCurrentMarkup()));
+    }
+  }
 
   public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
-    if (!(component instanceof UISelectManyCheckbox)) {
-      LOG.error("Wrong type: Need " + UISelectManyCheckbox.class.getName() + ", but was "
-          + component.getClass().getName());
-      return;
-    }
-
     UISelectManyCheckbox select = (UISelectManyCheckbox) component;
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 

@@ -641,7 +641,8 @@ li.tobago-menu-markup-selected {
   color: #778899;
 }
 
-.tobago-selectManyCheckbox-inline, .tobago-selectManyCheckbox-inline li  {
+/* todo after removing IE6 support please use ">" */
+.tobago-selectManyCheckbox-markup-inline li  {
   display: inline;
 }
 
