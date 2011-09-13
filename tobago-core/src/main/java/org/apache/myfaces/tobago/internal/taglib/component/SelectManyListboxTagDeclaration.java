@@ -45,6 +45,6 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsRequired;
     allowedChildComponenents = {"javax.faces.SelectItem", "javax.faces.SelectItems"})
 
 public interface SelectManyListboxTagDeclaration
-    extends InputTagDeclaration, HasId, IsDisabled, IsDeprecatedInline, HasLabelAndAccessKey, IsRendered, HasBinding, HasTip,
-    IsReadonly, HasConverter, IsRequired, HasMarkup, HasCurrentMarkup {
+    extends InputTagDeclaration, HasId, IsDisabled, IsRendered, HasBinding, HasTip,
+    IsReadonly, HasConverter, IsRequired, HasMarkup, HasCurrentMarkup, IsDeprecatedInline, HasLabelAndAccessKey {
 }
