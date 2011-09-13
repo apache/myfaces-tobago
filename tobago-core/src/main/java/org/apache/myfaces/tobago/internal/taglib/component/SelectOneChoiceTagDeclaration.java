@@ -31,7 +31,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasId;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabelAndAccessKey;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
-import org.apache.myfaces.tobago.internal.taglib.declaration.IsInline;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsDeprecatedInline;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsReadonly;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsRendered;
 
@@ -66,7 +66,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsRendered;
         })
 public interface SelectOneChoiceTagDeclaration
     extends SelectOneTagDeclaration, HasId, IsDisabled,
-    IsReadonly, IsInline, HasLabelAndAccessKey,
+    IsReadonly, IsDeprecatedInline, HasLabelAndAccessKey,
     IsRendered, HasConverter, HasBinding, HasTip {
 
   /**

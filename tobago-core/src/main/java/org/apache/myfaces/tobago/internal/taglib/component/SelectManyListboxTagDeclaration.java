@@ -29,7 +29,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 import org.apache.myfaces.tobago.internal.taglib.declaration.InputTagDeclaration;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
-import org.apache.myfaces.tobago.internal.taglib.declaration.IsInline;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsDeprecatedInline;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsReadonly;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsRequired;
@@ -45,6 +45,6 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsRequired;
     allowedChildComponenents = {"javax.faces.SelectItem", "javax.faces.SelectItems"})
 
 public interface SelectManyListboxTagDeclaration
-    extends InputTagDeclaration, HasId, IsDisabled, IsInline, HasLabelAndAccessKey, IsRendered, HasBinding, HasTip,
+    extends InputTagDeclaration, HasId, IsDisabled, IsDeprecatedInline, HasLabelAndAccessKey, IsRendered, HasBinding, HasTip,
     IsReadonly, HasConverter, IsRequired, HasMarkup, HasCurrentMarkup {
 }

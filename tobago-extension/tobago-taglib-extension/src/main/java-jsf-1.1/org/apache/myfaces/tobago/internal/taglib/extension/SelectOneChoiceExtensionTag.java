@@ -38,7 +38,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasValue;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasValueChangeListener;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsFocus;
-import org.apache.myfaces.tobago.internal.taglib.declaration.IsInline;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsDeprecatedInline;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsReadonly;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsRequired;
@@ -55,7 +55,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
 public class SelectOneChoiceExtensionTag
     extends BodyTagSupport
     implements HasId, HasValue, HasValueChangeListener, IsDisabled,
-    IsReadonly, HasOnchange, IsInline, HasLabel, HasLabelWidth, IsRequired,
+    IsReadonly, HasOnchange, IsDeprecatedInline, HasLabel, HasLabelWidth, IsRequired,
     HasValidatorMessage, HasRequiredMessage, HasConverterMessage,
     IsRendered, IsFocus, HasBinding, HasTip, HasValidator, HasConverter, HasMarkup, HasTabIndex, HasFieldId {
 

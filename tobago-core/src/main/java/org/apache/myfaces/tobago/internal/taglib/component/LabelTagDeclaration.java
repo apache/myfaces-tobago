@@ -29,7 +29,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabelWithAccessK
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutComponent;
-import org.apache.myfaces.tobago.internal.taglib.declaration.IsInline;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsDeprecatedInline;
 
 /**
  * Renders a label component.
@@ -41,7 +41,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsInline;
     rendererType = RendererTypes.LABEL,
     allowedChildComponenents = "NONE")
 public interface LabelTagDeclaration extends HasIdBindingAndRendered,
-    HasLabelWithAccessKey, HasFor, IsInline, HasTip, HasMarkup, HasCurrentMarkup, IsGridLayoutComponent {
+    HasLabelWithAccessKey, HasFor, IsDeprecatedInline, HasTip, HasMarkup, HasCurrentMarkup, IsGridLayoutComponent {
 
   /**
    * Text value to display as label. Overwritten by 'labelWithAccessKey'

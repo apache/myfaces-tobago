@@ -36,7 +36,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasValue;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasValueChangeListener;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsFocus;
-import org.apache.myfaces.tobago.internal.taglib.declaration.IsInline;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsDeprecatedInline;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsReadonly;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsRequired;
 
@@ -66,7 +66,7 @@ public class TimeExtensionTag extends BodyTagSupport
     implements HasValue, HasValueChangeListener, HasValidator, HasIdBindingAndRendered,
     HasConverter, IsReadonly, IsDisabled, HasOnchange, IsRequired, HasTip,
     HasValidatorMessage, HasRequiredMessage, HasConverterMessage,
-    HasLabel, HasLabelWidth, IsFocus, IsInline, HasTabIndex, HasFieldId {
+    HasLabel, HasLabelWidth, IsFocus, IsDeprecatedInline, HasTabIndex, HasFieldId {
 
   private String binding;
   private String converter;

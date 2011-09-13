@@ -38,7 +38,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasValue;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasValueChangeListener;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsFocus;
-import org.apache.myfaces.tobago.internal.taglib.declaration.IsInline;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsDeprecatedInline;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsReadonly;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsRequired;
@@ -52,7 +52,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
 @Tag(name = "selectManyListbox")
 @ExtensionTag(baseClassName = "org.apache.myfaces.tobago.internal.taglib.SelectManyListboxTag")
 public class SelectManyListboxExtensionTag extends BodyTagSupport
-    implements HasId, HasValue, HasValueChangeListener, IsDisabled, IsInline,
+    implements HasId, HasValue, HasValueChangeListener, IsDisabled, IsDeprecatedInline,
     HasLabel, HasLabelWidth, IsRendered, HasBinding, HasTip, HasConverter, HasValidator, HasOnchange,
     HasValidatorMessage, HasRequiredMessage, HasConverterMessage,
     IsReadonly, HasMarkup, IsFocus, IsRequired, HasTabIndex, HasFieldId {
