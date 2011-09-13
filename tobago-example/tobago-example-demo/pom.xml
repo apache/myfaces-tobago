@@ -193,7 +193,7 @@
 <!-- which repository-->
     <dependency>
       <groupId>org.apacheExtras.myfaces.codi.addon</groupId>
-      <artifactId>controlled-bootstrapping-addon</artifactId>
+      <artifactId>controlled-owb-bootstrapping-addon</artifactId>
       <version>1.0.0</version>
       <scope>compile</scope>
     </dependency>
@@ -347,9 +347,11 @@
     <repository>
       <id>googlecode.com</id>
       <url>https://os890-m2-repository.googlecode.com/svn/tags/apache-extras</url>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
     </repository>
   </repositories>
-
   <profiles>
     <profile>
       <id>ssl</id>
