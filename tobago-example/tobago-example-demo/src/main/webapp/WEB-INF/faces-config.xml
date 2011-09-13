@@ -343,14 +343,6 @@ tree-menu.xhtml
 tree-normal.xhtml
 tree-select.xhtml
 -->
-    <navigation-case>
-      <from-outcome>reference/upload</from-outcome>
-      <to-view-id>/content/40/upload.xhtml</to-view-id>
-    </navigation-case>
-    <navigation-case>
-      <from-outcome>reference/partial</from-outcome>
-      <to-view-id>/content/50/partial.xhtml</to-view-id>
-    </navigation-case>
   </navigation-rule>
 
 </faces-config>
