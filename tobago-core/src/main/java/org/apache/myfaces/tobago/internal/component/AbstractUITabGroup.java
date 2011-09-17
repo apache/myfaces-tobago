@@ -92,7 +92,8 @@ public abstract class AbstractUITabGroup extends AbstractUIPanelBase
 
   public void queueEvent(FacesEvent event) {
     if (this == event.getSource()) {
-      if (isImmediate()) {
+      if (isImmediate() || isClientType()) {
+        // if switch type client event is always immediate
         event.setPhaseId(PhaseId.APPLY_REQUEST_VALUES);
       } else {
         event.setPhaseId(PhaseId.INVOKE_APPLICATION);
@@ -199,10 +200,11 @@ public abstract class AbstractUITabGroup extends AbstractUIPanelBase
       FacesUtils.invokeMethodBinding(getFacesContext(), getTabChangeListener(), facesEvent);
 
       FacesUtils.invokeMethodBinding(getFacesContext(), getActionListener(), facesEvent);
-
-      ActionListener defaultActionListener = getFacesContext().getApplication().getActionListener();
-      if (defaultActionListener != null) {
-        defaultActionListener.processAction((ActionEvent) facesEvent);
+      if (!isClientType()) {
+        ActionListener defaultActionListener = getFacesContext().getApplication().getActionListener();
+        if (defaultActionListener != null) {
+          defaultActionListener.processAction((ActionEvent) facesEvent);
+        }
       }
       Integer index = ((TabChangeEvent) facesEvent).getNewTabIndex();
       if (FacesUtils.hasValueBindingOrValueExpression(this, Attributes.SELECTED_INDEX)) {
