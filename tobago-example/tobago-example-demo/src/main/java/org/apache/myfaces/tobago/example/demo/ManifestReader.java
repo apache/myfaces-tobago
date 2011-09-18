@@ -17,21 +17,27 @@ package org.apache.myfaces.tobago.example.demo;
  * limitations under the License.
  */
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.List;
 import java.util.Map;
 
 public class ManifestReader {
-  ArrayList<ManifestEntry> manifestList = new ArrayList<ManifestEntry>();
+
+  private static final Logger LOG = LoggerFactory.getLogger(ManifestReader.class);
+
+  private List<ManifestEntry> manifestList = new ArrayList<ManifestEntry>();
 
   public ManifestReader(){
     try {
-      Enumeration<URL> ul = this.getClass().getClassLoader().getResources("META-INF/MANIFEST.MF");
-      ManifestEntry mie;
+      Enumeration<URL> ul = getClass().getClassLoader().getResources("META-INF/MANIFEST.MF");
       String line;
       StringBuilder content;
       BufferedReader in;
@@ -51,15 +57,15 @@ public class ManifestReader {
         manifestList.add(new ManifestEntry(url.toString(), content.toString()));
       }
     } catch (IOException e) {
-      e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+      LOG.error("", e);
     }
   }
 
-  public ArrayList<ManifestEntry> getManifestList() {
+  public List<ManifestEntry> getManifestList() {
     return manifestList;
   }
 
-  public void setManifestList(ArrayList<ManifestEntry> manifestList) {
+  public void setManifestList(List<ManifestEntry> manifestList) {
     this.manifestList = manifestList;
   }
 }
