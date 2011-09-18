@@ -99,6 +99,12 @@
   </managed-bean>
 
   <managed-bean>
+    <managed-bean-name>manifestReader</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.tobago.example.demo.ManifestReader</managed-bean-class>
+    <managed-bean-scope>application</managed-bean-scope>
+  </managed-bean>
+
+  <managed-bean>
     <managed-bean-name>pageDeclarationLanguage</managed-bean-name>
     <managed-bean-class>org.apache.myfaces.tobago.example.demo.PageDeclarationLanguageBean</managed-bean-class>
     <managed-bean-scope>session</managed-bean-scope>

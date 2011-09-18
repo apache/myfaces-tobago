@@ -91,5 +91,22 @@
       </tc:sheet>
     </tc:panel>
 
+    <tc:panel>
+      <f:facet name="layout">
+        <tc:gridLayout columns="auto;*"/>
+      </f:facet>
+
+      <tc:label value="Manifest"/>
+
+      <tc:sheet value="#{manifestReader.manifestList}" var="manifest">
+        <tc:column label="URL">
+          <tc:out value="#{manifest.url}"/>
+        </tc:column>
+        <tc:column label="Content">
+          <tc:out value="#{manifest.content}"/>
+        </tc:column>
+      </tc:sheet>
+    </tc:panel>
+
   </tc:panel>
 </ui:composition>
