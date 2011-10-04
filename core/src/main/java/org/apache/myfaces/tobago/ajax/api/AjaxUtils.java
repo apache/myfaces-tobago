@@ -36,9 +36,12 @@ import javax.faces.render.Renderer;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Set;
 import java.util.StringTokenizer;
 
 public class AjaxUtils {
@@ -135,6 +138,21 @@ public class AjaxUtils {
     while (facetsAndChildren.hasNext() && !facesContext.getResponseComplete()) {
       AjaxUtils.processAjax(facesContext, facetsAndChildren.next());
     }
+  }
+
+  public static Set<String> getRequestPartialIds(FacesContext facesContext) {
+    Map parameterMap = facesContext.getExternalContext().getRequestParameterMap();
+    String ajaxComponentIds = (String) parameterMap.get(AjaxPhaseListener.AJAX_COMPONENT_ID);
+    if (ajaxComponentIds != null) {
+      StringTokenizer tokenizer = new StringTokenizer(ajaxComponentIds, ",");
+      Set<String> ajaxComponents = new HashSet<String>(tokenizer.countTokens());
+      while (tokenizer.hasMoreTokens()) {
+        String ajaxId = tokenizer.nextToken();
+        ajaxComponents.add(ajaxId);
+      }
+      return ajaxComponents;
+    }
+    return Collections.EMPTY_SET;
   }
 
   public static Map<String, UIComponent> parseAndStoreComponents(FacesContext facesContext) {
