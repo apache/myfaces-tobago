@@ -60,6 +60,9 @@ public class UIPopup extends UIPanelBase implements NamingContainer, AjaxCompone
         facesContext.renderResponse();
         throw e;
       }
+      if (facesContext.getRenderResponse()) {
+        setActivated(true);
+      }
       addToPage();
     }
   }
