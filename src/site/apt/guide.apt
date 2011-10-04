@@ -121,7 +121,7 @@ mvn install -Pall-modules
   be added as a dependency. Because the address book example uses JSP as rendering technology we will focus on JSP
   for now.
 
-  Tobago provides to tag libraries --  the core library and the extension library. The corresponding TLDs contain
+  Tobago provides two tag libraries --  the core library and the extension library. The corresponding TLDs contain
   documentation for the provided tags which is generated from annotations on the underlying tag classes. The core tag
   library contains basic controls and the extension library convenience tags for pre-assembled tag compositions -- for
   example a composition of a label and an input control.
