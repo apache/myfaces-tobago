@@ -28,6 +28,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
+@SuppressWarnings("unchecked")
 public final class FacesContextUtils {
   private static final String TOBAGO_AJAX = "org.apache.myfaces.tobago.ajax";
   private static final String TOBAGO_AJAX_COMPONENT_ID = "org.apache.myfaces.tobago.ajaxComponentId";
@@ -67,7 +68,6 @@ public final class FacesContextUtils {
     FacesUtils.getFacesContextAttributes(context).put(TOBAGO_ENCTYPE, enctype);
   }
 
-  @SuppressWarnings("unchecked")
   public static List<String> getScriptFiles(FacesContext context) {
     List<String> list = (List<String>) FacesUtils.getFacesContextAttributes(context).get(TOBAGO_SCRIPT_FILES);
     if (list == null) {
