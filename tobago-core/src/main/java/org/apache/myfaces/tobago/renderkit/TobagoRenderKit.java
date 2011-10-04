@@ -149,7 +149,7 @@ public class TobagoRenderKit extends RenderKit {
 
   @Override
   public ResponseStateManager getResponseStateManager() {
-    if (FacesVersion.supports12()) {
+    if (FacesVersion.supports12() && FacesVersion.isMyfaces()) {
       return getHtmlBasicRenderKit().getResponseStateManager();
     } else {
       return responseStateManager;

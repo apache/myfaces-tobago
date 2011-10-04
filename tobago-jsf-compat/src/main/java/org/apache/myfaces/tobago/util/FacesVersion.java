@@ -26,6 +26,8 @@ public enum FacesVersion {
   VERSION_20;
 
   private static FacesVersion currentVersion;
+  private static boolean mojarra;
+  private static boolean myfaces;
 
   static {
     try {
@@ -44,6 +46,29 @@ public enum FacesVersion {
     } catch (NoSuchMethodException e) {
       currentVersion = VERSION_11;
     }
+    mojarra = isAvailable("com.sun.faces.application.ApplicationImpl");
+    myfaces = isAvailable("org.apache.myfaces.application.ApplicationImpl");
+
+  }
+
+  private static boolean isAvailable(String className) {
+    try {
+      try {
+        Class.forName(className, false, Thread.currentThread().getContextClassLoader());
+        return true;
+      } catch (ClassNotFoundException e) {
+        // ignore
+        try {
+          Class.forName(className, false, FacesVersion.class.getClassLoader());
+          return true;
+        } catch (ClassNotFoundException e1) {
+          // ignore
+        }
+      }
+    } catch (Exception e) {
+      // ignore
+    }
+    return false;
   }
 
   /**
@@ -60,5 +85,13 @@ public enum FacesVersion {
    */
   public static boolean supports20() {
     return currentVersion == VERSION_20;
+  }
+
+  public static boolean isMojarra() {
+    return mojarra;
+  }
+
+  public static boolean isMyfaces() {
+    return myfaces;
   }
 }

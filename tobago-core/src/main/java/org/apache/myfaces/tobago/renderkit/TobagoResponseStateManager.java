@@ -40,6 +40,15 @@ public class TobagoResponseStateManager extends ResponseStateManager {
   private static final String STATE_PARAM = "javax.faces.ViewState";
   private static final String VIEWID_PARAM = "jsf_viewid";
 
+  public Object getState(FacesContext context, String viewId) {
+    Object treeStructure = getTreeStructureToRestore(context, viewId);
+    Object componentStateToRestore = getComponentStateToRestore(context);
+    if (treeStructure != null && componentStateToRestore != null) {
+        return new Object[] {treeStructure, componentStateToRestore};
+    }
+    return null;
+  }
+
   public Object getTreeStructureToRestore(FacesContext facescontext, String viewId) {
     Map requestMap = facescontext.getExternalContext().getRequestParameterMap();
     Object requestViewId = requestMap.get(VIEWID_PARAM);
