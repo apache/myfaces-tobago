@@ -32,10 +32,10 @@ import java.util.Map;
  * Load a resource bundle localized for the locale of the current view
  * from the tobago resource path, and expose it (as a Map) in the session
  * attributes (session scope is needed to support ajax requests).
- * <p>
+ * <p />
  * The main difference to the JSF tag f:localBundle is the support of Tobago themes and
  * the XML formal for properties files.
- * <p>
+ * <p />
  * Since JSF 1.2 it is possible to use a {@link org.apache.myfaces.tobago.context.TobagoBundle}
  * and configure it in the faces-config.xml.
  */

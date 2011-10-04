@@ -46,7 +46,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsRequired;
  * add the tobago-fileupload.jar to your project.
  * The tobago-fileupload.jar contains a FacesContextFactory that wraps the
  * multipart-formdata request inside the facesContext.
- * <p>
+ * <p />
  * For content constraints please use <a href="validateFileItem.html">tc:validateFileItem</a>.
  */
 @Tag(name = "file")
