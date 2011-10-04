@@ -96,6 +96,9 @@ public abstract class AbstractUIPopup extends AbstractUIPanelBase
         facesContext.renderResponse();
         throw e;
       }
+      if (facesContext.getRenderResponse()) {
+        setActivated(true);
+      }
     }
   }
 
