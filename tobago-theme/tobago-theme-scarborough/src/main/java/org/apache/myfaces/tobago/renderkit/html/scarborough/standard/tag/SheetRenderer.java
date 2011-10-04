@@ -128,7 +128,8 @@ public class SheetRenderer extends LayoutComponentRendererBase {
 
     writer.endElement(HtmlElements.DIV);
     // TODO check ajax id
-    if (!(FacesContextUtils.isAjax(facesContext) && sheetId.equals(FacesContextUtils.getAjaxComponentId(facesContext)))) {
+    if (!(FacesContextUtils.isAjax(facesContext)
+        && sheetId.equals(FacesContextUtils.getAjaxComponentId(facesContext)))) {
 
       Integer frequency = null;
       UIComponent facetReload = sheet.getFacet(Facets.RELOAD);

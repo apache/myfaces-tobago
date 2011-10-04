@@ -29,18 +29,18 @@ import java.util.List;
 import java.util.Set;
 
 public final class FacesContextUtils {
-  private final static String TOBAGO_AJAX = "org.apache.myfaces.tobago.ajax";
-  private final static String TOBAGO_AJAX_COMPONENT_ID = "org.apache.myfaces.tobago.ajaxComponentId";
-  private final static String TOBAGO_ENCTYPE = "org.apache.myfaces.tobago.enctype";
-  private final static String TOBAGO_SCRIPT_FILES = "org.apache.myfaces.tobago.scriptFiles";
-  private final static String TOBAGO_SCRIPT_BLOCKS = "org.apache.myfaces.tobago.scriptBlocks";
-  private final static String TOBAGO_STYLE_FILES = "org.apache.myfaces.tobago.styleFiles";
-  private final static String TOBAGO_STYLE_BLOCKS = "org.apache.myfaces.tobago.styleBlocks";
-  private final static String TOBAGO_ONLOAD_SCRIPTS = "org.apache.myfaces.tobago.onloadScripts";
-  private final static String TOBAGO_ONUNLOAD_SCRIPTS = "org.apache.myfaces.tobago.onunloadScripts";
-  private final static String TOBAGO_ONEXIT_SCRIPTS = "org.apache.myfaces.tobago.onexitScripts";
-  private final static String TOBAGO_ONSUBMIT_SCRIPTS = "org.apache.myfaces.tobago.onsubmitScripts";
-  private final static String TOBAGO_POPUPS = "org.apache.myfaces.tobago.popups";
+  private static final String TOBAGO_AJAX = "org.apache.myfaces.tobago.ajax";
+  private static final String TOBAGO_AJAX_COMPONENT_ID = "org.apache.myfaces.tobago.ajaxComponentId";
+  private static final String TOBAGO_ENCTYPE = "org.apache.myfaces.tobago.enctype";
+  private static final String TOBAGO_SCRIPT_FILES = "org.apache.myfaces.tobago.scriptFiles";
+  private static final String TOBAGO_SCRIPT_BLOCKS = "org.apache.myfaces.tobago.scriptBlocks";
+  private static final String TOBAGO_STYLE_FILES = "org.apache.myfaces.tobago.styleFiles";
+  private static final String TOBAGO_STYLE_BLOCKS = "org.apache.myfaces.tobago.styleBlocks";
+  private static final String TOBAGO_ONLOAD_SCRIPTS = "org.apache.myfaces.tobago.onloadScripts";
+  private static final String TOBAGO_ONUNLOAD_SCRIPTS = "org.apache.myfaces.tobago.onunloadScripts";
+  private static final String TOBAGO_ONEXIT_SCRIPTS = "org.apache.myfaces.tobago.onexitScripts";
+  private static final String TOBAGO_ONSUBMIT_SCRIPTS = "org.apache.myfaces.tobago.onsubmitScripts";
+  private static final String TOBAGO_POPUPS = "org.apache.myfaces.tobago.popups";
           
   
   public static boolean isAjax(FacesContext context) {
