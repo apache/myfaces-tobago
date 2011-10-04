@@ -45,7 +45,7 @@ public class ContentTypeRule extends MetaRule {
     }
 
     public void applyMetadata(FaceletContext ctx, Object instance) {
-      String[] components = StringUtils.split(attribute.getValue(), ", ");
+      String[] components = StringUtils.split(attribute.getValue(ctx), ", ");
       ((FileItemValidator) instance).setContentType(components);
     }
   }
