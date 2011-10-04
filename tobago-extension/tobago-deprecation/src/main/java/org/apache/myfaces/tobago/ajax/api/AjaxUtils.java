@@ -25,6 +25,7 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * @deprecated since 1.5.0. 
@@ -140,5 +141,13 @@ public class AjaxUtils {
   @Deprecated
   public static void redirect(HttpServletResponse response, String url) throws IOException {
     org.apache.myfaces.tobago.ajax.AjaxUtils.redirect(response, url);
+  }
+
+  /**
+   * @deprecated Please use org.apache.myfaces.tobago.ajax.AjaxUtils.getRequestPartialIds
+   */
+  @Deprecated
+  public static Set<String> getRequestPartialIds(FacesContext context) {
+    return org.apache.myfaces.tobago.ajax.AjaxUtils.getRequestPartialIds(context);
   }
 }

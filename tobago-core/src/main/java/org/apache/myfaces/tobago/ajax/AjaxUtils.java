@@ -30,9 +30,13 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.Writer;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.StringTokenizer;
 
 public class AjaxUtils {
 
@@ -64,6 +68,21 @@ public class AjaxUtils {
     if (ajaxComponents != null) {
       ajaxComponents.put(component.getClientId(facesContext), component);
     }
+  }
+
+  public static Set<String> getRequestPartialIds(FacesContext facesContext) {
+    Map parameterMap = facesContext.getExternalContext().getRequestParameterMap();
+    String ajaxComponentIds = (String) parameterMap.get(AjaxInternalUtils.TOBAGO_PARTIAL_IDS);
+    if (ajaxComponentIds != null) {
+      StringTokenizer tokenizer = new StringTokenizer(ajaxComponentIds, ",");
+      Set<String> ajaxComponents = new HashSet<String>(tokenizer.countTokens());
+      while (tokenizer.hasMoreTokens()) {
+        String ajaxId = tokenizer.nextToken();
+        ajaxComponents.add(ajaxId);
+      }
+      return ajaxComponents;
+    }
+    return Collections.EMPTY_SET;
   }
 
   /**
