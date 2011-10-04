@@ -17,12 +17,12 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.renderkit.RendererBase;
-import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.component.UIStyle;
+import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
+import org.apache.myfaces.tobago.renderkit.RendererBase;
 
-import javax.faces.context.FacesContext;
 import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
 import java.io.IOException;
 
 
@@ -30,17 +30,14 @@ public class StyleRenderer extends RendererBase {
 
   public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
     super.prepareRender(facesContext, component);
-    if (facesContext instanceof TobagoFacesContext) {
-      TobagoFacesContext pageFacesContext = (TobagoFacesContext) facesContext;
-      UIStyle styleComponent = (UIStyle) component;
-      String file = styleComponent.getFile();
-      if (file != null) {
-        pageFacesContext.getStyleFiles().add(file);
-      }
-      String style = styleComponent.getStyle();
-      if (style != null) {
-        pageFacesContext.getStyleBlocks().add(style);
-      }
+    UIStyle styleComponent = (UIStyle) component;
+    String file = styleComponent.getFile();
+    if (file != null) {
+      FacesContextUtils.addStyleFile(facesContext, file);
+    }
+    String style = styleComponent.getStyle();
+    if (style != null) {
+      FacesContextUtils.addStyleBlock(facesContext, style);
     }
   }
 }

@@ -32,9 +32,9 @@ import org.apache.myfaces.tobago.component.UIPanel;
 import org.apache.myfaces.tobago.component.UIPopup;
 import org.apache.myfaces.tobago.component.UITime;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
-import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.event.PopupActionListener;
 import org.apache.myfaces.tobago.internal.util.DateFormatUtils;
+import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -168,7 +168,7 @@ public class DatePickerRenderer extends LinkRenderer {
         Attributes.LAYOUT_WIDTH,
         getResourceManager().getThemeMeasure(facesContext, picker, "pickerWidth").getPixel());
 
-    ((TobagoFacesContext) facesContext).getPopups().add((UIPopup) picker.getFacets().get(Facets.PICKER_POPUP));
+    FacesContextUtils.addPopup(facesContext, (UIPopup) picker.getFacets().get(Facets.PICKER_POPUP));
 
     super.prepareRender(facesContext, picker);
   }

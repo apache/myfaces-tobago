@@ -19,9 +19,9 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.myfaces.tobago.component.UIPopup;
 import org.apache.myfaces.tobago.context.Markup;
-import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPage;
 import org.apache.myfaces.tobago.internal.layout.LayoutContext;
+import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
@@ -51,13 +51,10 @@ public class PopupRenderer extends LayoutComponentRendererBase {
 
     UIPopup popup = (UIPopup) component;
 
-    if (facesContext instanceof TobagoFacesContext) {
-      ((TobagoFacesContext) facesContext).getPopups().add(popup);
-    }
+    FacesContextUtils.addPopup(facesContext, popup);
 
-    // TODO: where to put this code, it is good here?
-    TobagoFacesContext tobagoContext = (TobagoFacesContext) facesContext;
-    tobagoContext.getScriptBlocks().add("jQuery(document).ready(function() {Tobago.setupPopup();});");
+
+    FacesContextUtils.addScriptBlock(facesContext, "jQuery(document).ready(function() {Tobago.setupPopup();});");
 
     super.prepareRender(facesContext, popup);
 
@@ -70,7 +67,7 @@ public class PopupRenderer extends LayoutComponentRendererBase {
   public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
     // TODO check ajaxId
-    if (facesContext instanceof TobagoFacesContext && ((TobagoFacesContext) facesContext).isAjax()) {
+    if (FacesContextUtils.isAjax(facesContext)) {
       writer.startJavascript();
       writer.write("Tobago.setupPopup();");
       writer.endJavascript();

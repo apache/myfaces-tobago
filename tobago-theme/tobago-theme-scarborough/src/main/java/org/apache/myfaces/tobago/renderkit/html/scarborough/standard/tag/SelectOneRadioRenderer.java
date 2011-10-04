@@ -20,7 +20,7 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 import org.apache.myfaces.tobago.component.UISelectOneRadio;
 import org.apache.myfaces.tobago.config.Configurable;
 import org.apache.myfaces.tobago.context.Markup;
-import org.apache.myfaces.tobago.context.TobagoFacesContext;
+import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.SelectOneRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
@@ -46,10 +46,8 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
   public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
     UISelectOneRadio select = (UISelectOneRadio) component;
     super.prepareRender(facesContext, select);
-    if (facesContext instanceof TobagoFacesContext) {
-      ((TobagoFacesContext) facesContext).getOnloadScripts().add("Tobago.selectOneRadioInit('"
+      FacesContextUtils.addOnloadScript(facesContext, "Tobago.selectOneRadioInit('"
           + select.getClientId(facesContext) + "')");
-    }
     if (select.isInline()) {
       select.setCurrentMarkup(Markup.INLINE.add(select.getCurrentMarkup()));
     }

@@ -20,7 +20,7 @@ package org.apache.myfaces.tobago.internal.ajax;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.myfaces.tobago.ajax.AjaxUtils;
-import org.apache.myfaces.tobago.context.TobagoFacesContext;
+import org.apache.myfaces.tobago.compat.FacesUtils;
 import org.apache.myfaces.tobago.internal.component.AbstractUIMessages;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -83,8 +83,8 @@ public class AjaxInternalUtils {
     ajaxComponents.put(page.getClientId(facesContext), page);
   }
 
-  public static void storeMessagesClientIds(TobagoFacesContext facesContext, AbstractUIMessages messages) {
-    Map<Object, Object> attributes = facesContext.getAttributes();
+  public static void storeMessagesClientIds(FacesContext facesContext, AbstractUIMessages messages) {
+    Map attributes = FacesUtils.getFacesContextAttributes(facesContext);
     List<String> messageClientIds;
     if (attributes.containsKey(TOBAGO_MESSAGES_CLIENT_IDS)) {
       messageClientIds = (List<String>) attributes.get(TOBAGO_MESSAGES_CLIENT_IDS);
@@ -95,8 +95,8 @@ public class AjaxInternalUtils {
     messageClientIds.add(messages.getClientId(facesContext));
   }
 
-  public static List<String> getMessagesClientIds(TobagoFacesContext facesContext) {
-     return (List<String>) facesContext.getAttributes().get(TOBAGO_MESSAGES_CLIENT_IDS);
+  public static List<String> getMessagesClientIds(FacesContext facesContext) {
+     return (List<String>) FacesUtils.getFacesContextAttributes(facesContext).get(TOBAGO_MESSAGES_CLIENT_IDS);
   }
 
   public static List<String> getMessagesComponentIds(FacesContext facesContext) {

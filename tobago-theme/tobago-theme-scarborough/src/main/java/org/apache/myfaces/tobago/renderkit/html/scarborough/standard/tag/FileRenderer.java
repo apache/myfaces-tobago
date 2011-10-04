@@ -26,7 +26,7 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UIFileInput;
 import org.apache.myfaces.tobago.context.ClientProperties;
-import org.apache.myfaces.tobago.context.TobagoFacesContext;
+import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
 import org.apache.myfaces.tobago.internal.webapp.TobagoMultipartFormdataRequest;
 import org.apache.myfaces.tobago.renderkit.InputRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
@@ -52,9 +52,7 @@ public class FileRenderer extends InputRendererBase {
 
   public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
     super.prepareRender(facesContext, component);
-    if (facesContext instanceof TobagoFacesContext) {
-      ((TobagoFacesContext) facesContext).setEnctype("multipart/form-data");
-    }
+    FacesContextUtils.setEnctype(facesContext, "multipart/form-data");
   }
 
   public boolean getRendersChildren() {

@@ -40,6 +40,7 @@ import javax.faces.event.AbortProcessingException;
 import javax.faces.event.FacesEvent;
 import javax.faces.webapp.UIComponentTag;
 import java.util.Comparator;
+import java.util.Map;
 
 @SuppressWarnings("deprecation")
 public class FacesUtils {
@@ -270,6 +271,14 @@ public class FacesUtils {
       actionSource.addActionListener(new ValueBindingPopupActionListener(bindingOrExpression));
     } else {
       FacesUtilsEL.addBindingOrExpressionPopupActionListener(actionSource, bindingOrExpression);
+    }
+  }
+
+  public static Map getFacesContextAttributes(FacesContext context) {
+    if (FacesVersion.supports20()) {
+      return context.getAttributes();
+    } else {
+      return context.getExternalContext().getRequestMap();
     }
   }
 

@@ -20,8 +20,8 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.UIPanel;
 import org.apache.myfaces.tobago.component.UIReload;
-import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPanel;
+import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
@@ -89,7 +89,7 @@ public class PanelRenderer extends LayoutComponentRendererBase {
     HtmlRendererUtils.encodeContextMenu(facesContext, writer, panel);
 
     // TODO check ajax id
-    if (facesContext instanceof TobagoFacesContext && !((TobagoFacesContext) facesContext).isAjax()) {
+    if (FacesContextUtils.isAjax(facesContext)) {
       Integer frequency = null;
       UIComponent facetReload = panel.getFacet(Facets.RELOAD);
       if (facetReload != null && facetReload instanceof UIReload && facetReload.isRendered()) {

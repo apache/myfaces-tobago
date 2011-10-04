@@ -17,11 +17,10 @@ package org.apache.myfaces.tobago.internal.lifecycle;
  * limitations under the License.
  */
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.util.DebugUtils;
 import org.apache.myfaces.tobago.util.RequestUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.FacesException;
 import javax.faces.context.FacesContext;
@@ -64,9 +63,8 @@ public class TobagoLifecycle extends Lifecycle {
     renderExecutor = new RenderResponseExecutor();
   }
 
-  public void execute(FacesContext facesContext) throws FacesException {
+  public void execute(FacesContext context) throws FacesException {
 
-    TobagoFacesContext context = new TobagoFacesContext(facesContext);
     PhaseListenerManager phaseListenerMgr = new PhaseListenerManager(this, context, getPhaseListeners());
 
     // At very first ensure the requestEncoding, this MUST done before
@@ -121,9 +119,6 @@ public class TobagoLifecycle extends Lifecycle {
   }
 
   public void render(FacesContext facesContext) throws FacesException {
-    if (!(facesContext instanceof TobagoFacesContext)) {
-      facesContext = new TobagoFacesContext(facesContext);
-    }
     // if the response is complete we should not be invoking the phase listeners
     if (isResponseComplete(facesContext, renderExecutor.getPhase(), true)) {
       return;

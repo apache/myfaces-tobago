@@ -17,45 +17,42 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.renderkit.RendererBase;
-import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.component.UIScript;
+import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
+import org.apache.myfaces.tobago.renderkit.RendererBase;
 
-import javax.faces.context.FacesContext;
 import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
 import java.io.IOException;
 
 public class ScriptRenderer extends RendererBase {
 
   public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
     super.prepareRender(facesContext, component);
-    if (facesContext instanceof TobagoFacesContext) {
-      TobagoFacesContext pageFacesContext = (TobagoFacesContext) facesContext;
-      UIScript scriptComponent = (UIScript) component;
-      String exit = scriptComponent.getOnexit();
-      if (exit != null) {
-        pageFacesContext.getOnexitScripts().add(exit);
-      }
-      String submit = scriptComponent.getOnsubmit();
-      if (submit != null) {
-        pageFacesContext.getOnsubmitScripts().add(submit);
-      }
-      String load = scriptComponent.getOnload();
-      if (load != null) {
-        pageFacesContext.getOnloadScripts().add(load);
-      }
-      String unload = scriptComponent.getOnunload();
-      if (unload != null) {
-        pageFacesContext.getOnunloadScripts().add(unload);
-      }
-      String script = scriptComponent.getScript();
-      if (script != null) {
-        pageFacesContext.getScriptBlocks().add(script);
-      }
-      String file = scriptComponent.getFile();
-      if (file != null) {
-        pageFacesContext.getScriptFiles().add(file);
-      }
+    UIScript scriptComponent = (UIScript) component;
+    String exit = scriptComponent.getOnexit();
+    if (exit != null) {
+      FacesContextUtils.addOnexitScript(facesContext, exit);
+    }
+    String submit = scriptComponent.getOnsubmit();
+    if (submit != null) {
+      FacesContextUtils.addOnsubmitScript(facesContext, submit);
+    }
+    String load = scriptComponent.getOnload();
+    if (load != null) {
+      FacesContextUtils.addOnloadScript(facesContext, load);
+    }
+    String unload = scriptComponent.getOnunload();
+    if (unload != null) {
+      FacesContextUtils.addOnunloadScript(facesContext, unload);
+    }
+    String script = scriptComponent.getScript();
+    if (script != null) {
+      FacesContextUtils.addScriptBlock(facesContext, script);
+    }
+    String file = scriptComponent.getFile();
+    if (file != null) {
+      FacesContextUtils.addScriptFile(facesContext, file);
     }
   }
 }

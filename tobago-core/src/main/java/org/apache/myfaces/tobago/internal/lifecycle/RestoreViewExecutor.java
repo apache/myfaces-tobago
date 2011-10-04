@@ -134,8 +134,7 @@ class RestoreViewExecutor implements PhaseExecutor {
 
   private boolean isPostBack(FacesContext facesContext) {
     Map requestParameterMap = facesContext.getExternalContext().getRequestParameterMap();
-    return requestParameterMap.containsKey(TobagoResponseStateManager.TREE_PARAM)
-        || requestParameterMap.containsKey("javax.faces.ViewState");
+    return requestParameterMap.containsKey(TobagoResponseStateManager.VIEW_STATE_PARAM);
   }
 
   private boolean isSessionSecretValid(FacesContext facesContext) {

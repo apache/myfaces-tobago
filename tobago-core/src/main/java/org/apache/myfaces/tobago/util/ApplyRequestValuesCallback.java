@@ -18,11 +18,11 @@ package org.apache.myfaces.tobago.util;
  */
 
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
-import org.apache.myfaces.tobago.context.TobagoFacesContext;
+import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -35,8 +35,8 @@ public class ApplyRequestValuesCallback implements TobagoCallback {
   private static final Logger LOG = LoggerFactory.getLogger(ApplyRequestValuesCallback.class);
 
   public void invokeContextCallback(FacesContext context, UIComponent component) {
-    if (context instanceof TobagoFacesContext && ((TobagoFacesContext) context).isAjax()) {
-      final String ajaxId = ((TobagoFacesContext) context).getAjaxComponentId();
+    if (FacesContextUtils.isAjax(context)) {
+      final String ajaxId = FacesContextUtils.getAjaxComponentId(context);
       UIComponent reload = component.getFacet(Facets.RELOAD);
       if (ajaxId != null && ajaxId.equals(component.getClientId(context)) && reload != null && reload.isRendered()
           && ajaxId.equals(ComponentUtils.findPage(context, component).getActionId())) {

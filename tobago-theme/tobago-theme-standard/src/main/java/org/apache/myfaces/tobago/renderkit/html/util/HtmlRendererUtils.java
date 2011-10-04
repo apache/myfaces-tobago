@@ -26,8 +26,8 @@ import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.component.UISheet;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
-import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.internal.util.Deprecation;
+import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
 import org.apache.myfaces.tobago.internal.webapp.TobagoResponseWriterWrapper;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
@@ -237,9 +237,7 @@ public final class HtmlRendererUtils {
       allScripts = ResourceManagerUtils.getScriptsAsJSArray(facesContext, scripts);
     }
     boolean ajax = false;
-    if (facesContext instanceof TobagoFacesContext) {
-      ajax = ((TobagoFacesContext) facesContext).isAjax();
-    }
+    ajax = FacesContextUtils.isAjax(facesContext);
     writer.startJavascript();
     writer.write("new Tobago.ScriptLoader(");
     if (!ajax) {
@@ -487,10 +485,8 @@ public final class HtmlRendererUtils {
       throws IOException {
     Object objDojoType = component.getAttributes().get("dojoType");
     if (null != objDojoType && (objDojoType.equals("dojo.dnd.Source") || objDojoType.equals("dojo.dnd.Target"))) {
-      if (context instanceof TobagoFacesContext) {
-        ((TobagoFacesContext) context).getOnloadScripts().add(createDojoDndType(component,
-            component.getClientId(context), String.valueOf(objDojoType)));
-      }
+      FacesContextUtils.addOnloadScript(context, createDojoDndType(component,
+          component.getClientId(context), String.valueOf(objDojoType)));
     }
   }
 

@@ -47,7 +47,7 @@
     <dependency>
       <groupId>org.apache.myfaces.core</groupId>
       <artifactId>myfaces-api</artifactId>
-      <version>${myfaces12.version}</version>
+      <version>${myfaces20.version}</version>
       <optional>true</optional>
     </dependency>
     <dependency>

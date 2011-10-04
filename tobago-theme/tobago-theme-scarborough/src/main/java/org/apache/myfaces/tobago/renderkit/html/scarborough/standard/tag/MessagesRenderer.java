@@ -19,8 +19,6 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.myfaces.tobago.ajax.AjaxUtils;
 import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.internal.ajax.AjaxInternalUtils;
-import org.apache.myfaces.tobago.util.CreateComponentUtils;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.UIBox;
@@ -34,8 +32,9 @@ import org.apache.myfaces.tobago.component.UIPopup;
 import org.apache.myfaces.tobago.config.Configurable;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
-import org.apache.myfaces.tobago.context.TobagoFacesContext;
+import org.apache.myfaces.tobago.internal.ajax.AjaxInternalUtils;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPage;
+import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
@@ -44,6 +43,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
+import org.apache.myfaces.tobago.util.CreateComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -124,8 +124,8 @@ public class MessagesRenderer extends LayoutComponentRendererBase {
       }
     }
     if (messages.getFor() == null
-        && !AjaxUtils.isAjaxRequest(facesContext) && facesContext instanceof TobagoFacesContext) {
-      AjaxInternalUtils.storeMessagesClientIds((TobagoFacesContext) facesContext, messages);
+        && !AjaxUtils.isAjaxRequest(facesContext)) {
+      AjaxInternalUtils.storeMessagesClientIds(facesContext, messages);
     }
   }
 
@@ -146,7 +146,7 @@ public class MessagesRenderer extends LayoutComponentRendererBase {
     popup.setTop(Measure.valueOf(100));
     popup.setRendered(true);
     popup.setActivated(true);
-    ((TobagoFacesContext) facesContext).getPopups().add(popup);
+    FacesContextUtils.addPopup(facesContext, popup);
 
     Map<String, Object> okButtonAttributes = popup.getAttributes();
     okButtonAttributes.put(Attributes.POPUP_RESET, Boolean.TRUE);

@@ -31,13 +31,13 @@ import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.context.Theme;
-import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.internal.ajax.AjaxInternalUtils;
 import org.apache.myfaces.tobago.internal.component.AbstractUICommandBase;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPage;
 import org.apache.myfaces.tobago.internal.layout.LayoutContext;
 import org.apache.myfaces.tobago.internal.util.AccessKeyMap;
 import org.apache.myfaces.tobago.internal.util.Deprecation;
+import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
 import org.apache.myfaces.tobago.internal.util.FastStringWriter;
 import org.apache.myfaces.tobago.internal.util.MimeTypeUtils;
 import org.apache.myfaces.tobago.internal.util.ResponseUtils;
@@ -128,18 +128,11 @@ public class PageRenderer extends PageRendererBase {
   }
 
   @Override
-  public void encodeBegin(FacesContext facesContextOrg, UIComponent component) throws IOException {
+  public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
 
     UIPage page = (UIPage) component;
 
     // invoke prepareRender
-    TobagoFacesContext facesContext;
-    if (facesContextOrg instanceof TobagoFacesContext) {
-      facesContext = (TobagoFacesContext) facesContextOrg;
-    } else {
-      facesContext = new TobagoFacesContext(facesContextOrg);
-    }
-
     RenderUtils.prepareRendererAll(facesContext, page);
 
     LayoutContext layoutContext = new LayoutContext(page);
@@ -188,7 +181,7 @@ public class PageRenderer extends PageRendererBase {
       }
     }
 
-    if (!facesContext.isAjax()) {
+    if (!FacesContextUtils.isAjax(facesContext)) {
       HtmlRendererUtils.renderDojoDndSource(facesContext, component);
 
       String title = (String) page.getAttributes().get(Attributes.LABEL);
@@ -217,7 +210,7 @@ public class PageRenderer extends PageRendererBase {
         writeStyle(facesContext, writer, styleFile);
       }
 
-      for (String styleFile : facesContext.getStyleFiles()) {
+      for (String styleFile : FacesContextUtils.getStyleFiles(facesContext)) {
         writeStyle(facesContext, writer, styleFile);
       }
 
@@ -244,7 +237,7 @@ public class PageRenderer extends PageRendererBase {
       }
 
       // style sniplets
-      Set<String> styleBlocks = facesContext.getStyleBlocks();
+      Set<String> styleBlocks = FacesContextUtils.getStyleBlocks(facesContext);
       if (styleBlocks.size() > 0) {
         writer.startElement(HtmlElements.STYLE, null);
         for (String cssBlock : styleBlocks) {
@@ -268,7 +261,7 @@ public class PageRenderer extends PageRendererBase {
           hideClientLogging = !severity.contains("show");
         }
         // the jquery ui is used in moment only for the logging area...
-        facesContext.getOnloadScripts().add(0, "new LOG.LogArea({hide: " + hideClientLogging + "});");
+        FacesContextUtils.addOnloadScript(facesContext, 0, "new LOG.LogArea({hide: " + hideClientLogging + "});");
       }
 
       // render remaining script tags
@@ -276,7 +269,7 @@ public class PageRenderer extends PageRendererBase {
         encodeScript(facesContext, writer, scriptFile);
       }
 
-      for (String scriptFile : facesContext.getScriptFiles()) {
+      for (String scriptFile : FacesContextUtils.getScriptFiles(facesContext)) {
         encodeScript(facesContext, writer, scriptFile);
       }
 
@@ -298,7 +291,7 @@ public class PageRenderer extends PageRendererBase {
           String target = ComponentUtils.getStringAttribute(command, Attributes.TARGET);
           String action
               = HtmlRendererUtils.createSubmitAction(command.getClientId(facesContext), transition, target, null);
-          facesContext.getOnloadScripts().add("setTimeout(\"" + action  + "\", " + duration + ");\n");
+          FacesContextUtils.addOnloadScript(facesContext, "setTimeout(\"" + action  + "\", " + duration + ");\n");
         }
       }
 
@@ -306,13 +299,13 @@ public class PageRenderer extends PageRendererBase {
       calculateScrollbarWeight
           = client.getVerticalScrollbarWeight() == null || client.getHorizontalScrollbarWeight() == null;
       if (calculateScrollbarWeight) {
-        facesContext.getOnloadScripts().add(
+        FacesContextUtils.addOnloadScript(facesContext,
             "Tobago.calculateScrollbarWeights('" + clientId + ComponentUtils.SUB_SEPARATOR + "scrollbarWeight" + "');");
       } else {
-        facesContext.getOnloadScripts().add(
+        FacesContextUtils.addOnloadScript(facesContext,
             "Tobago.Config.set('Tobago', 'verticalScrollbarWeight', '"
                 + client.getVerticalScrollbarWeight().getPixel() + "');");
-        facesContext.getOnloadScripts().add(
+        FacesContextUtils.addOnloadScript(facesContext,
             "Tobago.Config.set('Tobago', 'horizontalScrollbarWeight', '"
                 + client.getHorizontalScrollbarWeight().getPixel() + "');");
       }
@@ -347,18 +340,18 @@ public class PageRenderer extends PageRendererBase {
 
       writer.startJavascript();
       // onload script
-      writeEventFunction(writer, facesContext.getOnloadScripts(), "load", false);
+      writeEventFunction(writer, FacesContextUtils.getOnloadScripts(facesContext), "load", false);
 
       // onunload script
-      writeEventFunction(writer, facesContext.getOnunloadScripts(), "unload", false);
+      writeEventFunction(writer, FacesContextUtils.getOnunloadScripts(facesContext), "unload", false);
 
       // onexit script
-      writeEventFunction(writer, facesContext.getOnexitScripts(), "exit", false);
+      writeEventFunction(writer, FacesContextUtils.getOnexitScripts(facesContext), "exit", false);
 
-      writeEventFunction(writer, facesContext.getOnsubmitScripts(), "submit", true);
+      writeEventFunction(writer, FacesContextUtils.getOnsubmitScripts(facesContext), "submit", true);
 
       int debugCounter = 0;
-      for (String scriptBlock : facesContext.getScriptBlocks()) {
+      for (String scriptBlock : FacesContextUtils.getScriptBlocks(facesContext)) {
 
         if (LOG.isDebugEnabled()) {
           LOG.debug("write scriptblock " + ++debugCounter + " :\n" + scriptBlock);
@@ -406,7 +399,7 @@ public class PageRenderer extends PageRendererBase {
     writer.writeAttribute(HtmlAttributes.ACTION, formAction, true);
     writer.writeIdAttribute(page.getFormId(facesContext));
     writer.writeAttribute(HtmlAttributes.METHOD, getMethod(page), false);
-    String enctype = facesContext.getEnctype();
+    String enctype = FacesContextUtils.getEnctype(facesContext);
     if (enctype != null) {
       writer.writeAttribute(HtmlAttributes.ENCTYPE, enctype, false);
     }
@@ -512,7 +505,7 @@ public class PageRenderer extends PageRendererBase {
     writer.writeStyleAttribute(style);
   }
 
-  private void writeStyle(TobagoFacesContext facesContext, TobagoResponseWriter writer, String styleFile)
+  private void writeStyle(FacesContext facesContext, TobagoResponseWriter writer, String styleFile)
       throws IOException {
     List<String> styles = ResourceManagerUtils.getStyles(facesContext, styleFile);
     for (String styleString : styles) {
@@ -534,14 +527,8 @@ public class PageRenderer extends PageRendererBase {
 //  }
 
   @Override
-  public void encodeEnd(FacesContext facesContextOrg, UIComponent component) throws IOException {
+  public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
 
-    TobagoFacesContext facesContext;
-    if (facesContextOrg instanceof TobagoFacesContext) {
-      facesContext = (TobagoFacesContext) facesContextOrg;
-    } else {
-      facesContext = new TobagoFacesContext(facesContextOrg);
-    }
 
     UIPage page = (UIPage) component;
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
@@ -551,7 +538,9 @@ public class PageRenderer extends PageRendererBase {
     // write popup components
     // beware of ConcurrentModificationException in cascading popups!
     // no foreach
-    UIPopup[] popupArray = facesContext.getPopups().toArray(new UIPopup[facesContext.getPopups().size()]);
+
+    UIPopup[] popupArray = FacesContextUtils.getPopups(facesContext).toArray(
+        new UIPopup[FacesContextUtils.getPopups(facesContext).size()]);
     for (UIPopup popup : popupArray) {
       RenderUtils.encode(facesContext, popup);
     }
@@ -559,42 +548,6 @@ public class PageRenderer extends PageRendererBase {
     String clientId = page.getClientId(facesContext);
     final boolean debugMode = VariableResolverUtils.resolveClientProperties(facesContext).isDebugMode();
 
-    Application application = facesContext.getApplication();
-    ViewHandler viewHandler = application.getViewHandler();
-
-    writer.startElement(HtmlElements.SPAN, null);
-    writer.writeIdAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "jsf-state-container");
-    writer.flush();
-    if (!facesContext.isAjax()) {
-      if (FacesVersion.supports12()) {
-        viewHandler.writeState(facesContext);
-      } else {
-        // catch the next written stuff into a string and look if it is empty (TOBAGO-909)
-        FastStringWriter buffer = new FastStringWriter(40); // usually only the marker...
-        TobagoResponseWriter originalWriter = (TobagoResponseWriter) facesContext.getResponseWriter();
-        writer = (TobagoResponseWriter) writer.cloneWithWriter(buffer);
-        facesContext.setResponseWriter(writer);
-        viewHandler.writeState(facesContext);
-        final String stateContent = buffer.toString();
-        writer = originalWriter;
-        facesContext.setResponseWriter(writer);
-
-        if (StringUtils.isBlank(stateContent)) {
-          if (LOG.isDebugEnabled()) {
-            LOG.debug("Writing state will not happen! So we write the hidden field manually.");
-          }
-          writer.startElement(HtmlElements.INPUT, null);
-          writer.writeAttribute(HtmlAttributes.TYPE, "hidden", false);
-          writer.writeAttribute(HtmlAttributes.NAME, TobagoResponseStateManager.TREE_PARAM, false);
-          writer.writeAttribute(HtmlAttributes.ID, TobagoResponseStateManager.TREE_PARAM, false);
-          writer.writeAttribute(HtmlAttributes.VALUE, "workaround", false);
-          writer.endElement(HtmlElements.INPUT);
-        } else {
-          writer.write(stateContent);
-        }
-      }
-    }
-    writer.endElement(HtmlElements.SPAN);
 
     // avoid submit page in ie if the form contains only one input and you press the enter key in the input
     if (VariableResolverUtils.resolveClientProperties(facesContext).getUserAgent().isMsie()) {
@@ -620,7 +573,45 @@ public class PageRenderer extends PageRendererBase {
     writer.startElement(HtmlElements.DIV, page);
     writer.writeClassAttribute(Classes.create(page, "menuStore"));
     writer.endElement(HtmlElements.DIV);
-    
+
+    Application application = facesContext.getApplication();
+    ViewHandler viewHandler = application.getViewHandler();
+
+    writer.startElement(HtmlElements.SPAN, null);
+    writer.writeIdAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "jsf-state-container");
+    writer.flush();
+    if (!FacesContextUtils.isAjax(facesContext)) {
+      if (FacesVersion.supports12()) {
+        viewHandler.writeState(facesContext);
+      } else {
+        // catch the next written stuff into a string and look if it is empty (TOBAGO-909)
+        FastStringWriter buffer = new FastStringWriter(40); // usually only the marker...
+        TobagoResponseWriter originalWriter = (TobagoResponseWriter) facesContext.getResponseWriter();
+        writer = (TobagoResponseWriter) writer.cloneWithWriter(buffer);
+        facesContext.setResponseWriter(writer);
+        viewHandler.writeState(facesContext);
+        final String stateContent = buffer.toString();
+        writer = originalWriter;
+        facesContext.setResponseWriter(writer);
+
+        if (StringUtils.isBlank(stateContent)) {
+          if (LOG.isDebugEnabled()) {
+            LOG.debug("Writing state will not happen! So we write the hidden field manually.");
+          }
+          writer.startElement(HtmlElements.INPUT, null);
+          writer.writeAttribute(HtmlAttributes.TYPE, "hidden", false);
+          writer.writeAttribute(HtmlAttributes.NAME, TobagoResponseStateManager.VIEW_STATE_PARAM, false);
+          writer.writeAttribute(HtmlAttributes.ID, TobagoResponseStateManager.VIEW_STATE_PARAM, false);
+          writer.writeAttribute(HtmlAttributes.VALUE, "workaround", false);
+          writer.endElement(HtmlElements.INPUT);
+        } else {
+          writer.write(stateContent);
+        }
+      }
+    }
+    writer.endElement(HtmlElements.SPAN);
+
+
     writer.endElement(HtmlElements.FORM);
 
     // debugging...

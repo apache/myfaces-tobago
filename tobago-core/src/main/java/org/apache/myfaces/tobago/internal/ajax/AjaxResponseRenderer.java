@@ -19,8 +19,8 @@ package org.apache.myfaces.tobago.internal.ajax;
 
 import org.apache.myfaces.tobago.compat.FacesUtils;
 import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.internal.lifecycle.TobagoLifecycle;
+import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
 import org.apache.myfaces.tobago.internal.util.ResponseUtils;
 import org.apache.myfaces.tobago.internal.webapp.JsonResponseWriter;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -178,9 +178,7 @@ public class AjaxResponseRenderer {
         writer.write("\": ");
 
         UIComponent component = entry.getValue();
-        if (facesContext instanceof TobagoFacesContext) {
-          ((TobagoFacesContext) facesContext).setAjaxComponentId(entry.getKey());
-        }
+        FacesContextUtils.setAjaxComponentId(facesContext, entry.getKey());
         renderComponent(facesContext, renderKit, entry.getKey(), component);
       }
     }

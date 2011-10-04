@@ -35,9 +35,9 @@ import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.ResourceManager;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
-import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.event.PageAction;
 import org.apache.myfaces.tobago.internal.context.ResourceManagerFactory;
+import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.layout.LayoutBase;
 import org.apache.myfaces.tobago.layout.Measure;
@@ -128,9 +128,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
 
     writer.endElement(HtmlElements.DIV);
     // TODO check ajax id
-    if (facesContext instanceof TobagoFacesContext
-        && !(((TobagoFacesContext) facesContext).isAjax()
-        && sheetId.equals(((TobagoFacesContext) facesContext).getAjaxComponentId()))) {
+    if (!(FacesContextUtils.isAjax(facesContext) && sheetId.equals(FacesContextUtils.getAjaxComponentId(facesContext)))) {
 
       Integer frequency = null;
       UIComponent facetReload = sheet.getFacet(Facets.RELOAD);

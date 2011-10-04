@@ -17,22 +17,22 @@ package org.apache.myfaces.tobago.component;
  * limitations under the License.
  */
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.ajax.AjaxUtils;
 import org.apache.myfaces.tobago.compat.FacesUtils;
 import org.apache.myfaces.tobago.compat.InvokeOnComponent;
 import org.apache.myfaces.tobago.context.ClientProperties;
-import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.internal.ajax.AjaxInternalUtils;
 import org.apache.myfaces.tobago.internal.ajax.AjaxResponseRenderer;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPage;
+import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
 import org.apache.myfaces.tobago.util.ApplyRequestValuesCallback;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.util.ProcessValidationsCallback;
 import org.apache.myfaces.tobago.util.TobagoCallback;
 import org.apache.myfaces.tobago.util.UpdateModelValuesCallback;
 import org.apache.myfaces.tobago.util.VariableResolverUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.FacesException;
 import javax.faces.component.ContextCallback;
@@ -209,18 +209,15 @@ public class UIViewRoot extends javax.faces.component.UIViewRoot implements Invo
       AbstractUIPage page = ComponentUtils.findPage(context);
       page.decode(context);
       page.markSubmittedForm(context);
-      if (context instanceof TobagoFacesContext) {
-        ((TobagoFacesContext) context).setAjax(true);
-      }
+      FacesContextUtils.setAjax(context, true);
+
       // decode the action if actionComponent not inside one of the ajaxComponents
       // otherwise it is decoded there
       decodeActionComponent(context, page, ajaxComponents);
 
       // and all ajax components
       for (Map.Entry<String, UIComponent> entry : ajaxComponents.entrySet()) {
-        if (context instanceof TobagoFacesContext) {
-          ((TobagoFacesContext) context).setAjaxComponentId(entry.getKey());
-        }
+        FacesContextUtils.setAjaxComponentId(context, entry.getKey());
         invokeOnComponent(context, entry.getKey(), APPLY_REQUEST_VALUES_CALLBACK);
       }
     } else {
@@ -264,9 +261,7 @@ public class UIViewRoot extends javax.faces.component.UIViewRoot implements Invo
     Map<String, UIComponent> ajaxComponents = AjaxInternalUtils.getAjaxComponents(context);
     if (ajaxComponents != null) {
       for (Map.Entry<String, UIComponent> entry : ajaxComponents.entrySet()) {
-        if (context instanceof TobagoFacesContext) {
-          ((TobagoFacesContext) context).setAjaxComponentId(entry.getKey());
-        }
+        FacesContextUtils.setAjaxComponentId(context, entry.getKey());
         invokeOnComponent(context, entry.getKey(), PROCESS_VALIDATION_CALLBACK);
       }
     } else {

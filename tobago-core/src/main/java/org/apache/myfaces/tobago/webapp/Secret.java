@@ -18,7 +18,6 @@ package org.apache.myfaces.tobago.webapp;
  */
 
 import org.apache.commons.codec.binary.Base64;
-import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 
@@ -85,7 +84,7 @@ public class Secret implements Serializable {
   /**
    * Encode a hidden field with the secret value from the session.
    */
-  public static void encode(TobagoFacesContext facesContext, TobagoResponseWriter writer) throws IOException {
+  public static void encode(FacesContext facesContext, TobagoResponseWriter writer) throws IOException {
     writer.startElement(HtmlElements.INPUT, null);
     writer.writeAttribute(HtmlAttributes.TYPE, "hidden", false);
     writer.writeAttribute(HtmlAttributes.NAME, Secret.KEY, false);
