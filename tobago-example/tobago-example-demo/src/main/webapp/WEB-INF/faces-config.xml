@@ -119,12 +119,6 @@
 
   <!--  overview  -->
 
-  <managed-bean>
-    <managed-bean-name>overviewController</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.tobago.example.demo.overview.OverviewController</managed-bean-class>
-    <managed-bean-scope>session</managed-bean-scope>
-  </managed-bean>
-
   <lifecycle>
     <phase-listener>
       org.apache.myfaces.tobago.example.demo.clientConfig.ClientConfigPhaseListener
