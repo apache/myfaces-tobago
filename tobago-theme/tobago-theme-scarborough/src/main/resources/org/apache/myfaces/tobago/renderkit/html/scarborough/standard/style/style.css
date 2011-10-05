@@ -1418,6 +1418,10 @@ div.tobago-richTextEditor-body {
   font-weight: bold;
 }
 
+.tobago-treeMenuNode-markup-hover {
+  background-color: #d8e9fb;
+}
+
 /* treeListbox ------------------------------------------------------------------- */
 
 .tobago-treeListbox {
