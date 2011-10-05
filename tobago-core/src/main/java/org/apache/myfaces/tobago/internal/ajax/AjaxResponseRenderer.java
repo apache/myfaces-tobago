@@ -49,6 +49,10 @@ import java.util.Map;
 public class AjaxResponseRenderer {
 
   public static final int CODE_SUCCESS = 200;
+  /**
+   * @deprecated since 1.5. May do some stuff on the response like in ApplyRequestValuesCallback.
+   */
+  @Deprecated
   public static final int CODE_NOT_MODIFIED = 304;
   public static final int CODE_RELOAD_REQUIRED = 309;
   public static final int CODE_ERROR = 500;
