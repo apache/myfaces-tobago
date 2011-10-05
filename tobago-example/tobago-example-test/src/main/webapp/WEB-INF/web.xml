@@ -98,7 +98,11 @@
       <url-pattern>/faces/myFacesExtensionResource/*</url-pattern>
   </filter-mapping>
   
-  
+  <error-page>
+    <error-code>404</error-code>
+    <location>/faces/404.xhtml</location>
+  </error-page>
+
   <jsp-config>
     <jsp-property-group>
       <url-pattern>*.jsp</url-pattern>
