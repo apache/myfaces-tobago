@@ -2122,7 +2122,7 @@ Tobago.Transport.JqueryTransport = {
     requestObject.timeout = requestOptions.timeout;
 
     requestObject.success = function(data, textStatus) {
-      LOG.debug('requestObject.success(): status=' + textStatus + "'"); // @DEV_ONLY
+      LOG.debug("requestObject.success(): status='" + textStatus + "'"); // @DEV_ONLY
       requestOptions.resultData = data;
       requestOptions.textStatus = textStatus;
 
@@ -2130,7 +2130,7 @@ Tobago.Transport.JqueryTransport = {
     };
 
     requestObject.error = function(xhr, textStatus, errorThrown) {
-      LOG.warn('requestOptions.error(): status=' + textStatus + "' error='" + errorThrown + "'"); // @DEV_ONLY
+      LOG.warn("requestOptions.error(): status='" + textStatus + "' error='" + errorThrown + "'"); // @DEV_ONLY
       requestOptions.xhr = xhr;
       requestOptions.textStatus = textStatus;
       Tobago.Updater.onError(requestOptions);
