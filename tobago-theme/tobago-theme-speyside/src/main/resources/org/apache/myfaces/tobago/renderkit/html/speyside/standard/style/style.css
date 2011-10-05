@@ -786,7 +786,7 @@ div.tobago-tabGroup-toolBar {
 }
 
 .tobago-treeNode-marker, .tobago-treeNode-marker:focus, .tobago-treeNode-marker a, .tobago-treeNode-marker:focus a {
-	background-color: #d3d3d3;
+	background-color: #eeeeee;
 }
 
 /* treeMenu ------------------------------------------------------------------- */
@@ -794,4 +794,16 @@ div.tobago-tabGroup-toolBar {
 .tobago-treeMenuNode {
   border: 1px solid #888888;
   height: 16px;
+}
+
+.tobago-treeMenuNode-markup-marked, .tobago-treeMenuNode-markup-marked:focus {
+  background-color: #eeeeee;
+}
+
+.tobago-treeMenuNode-markup-hover {
+  background-color: #eeeeee;
+}
+
+.tobago-treeMenuNode-markup-disabled {
+  background-color: transparent;
 }
