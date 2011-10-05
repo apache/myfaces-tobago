@@ -92,7 +92,7 @@ public abstract class AbstractUITabGroup extends AbstractUIPanelBase
 
   public void queueEvent(FacesEvent event) {
     if (this == event.getSource()) {
-      if (isImmediate() || isClientType()) {
+      if (isImmediate() || isSwitchTypeClient()) {
         // if switch type client event is always immediate
         event.setPhaseId(PhaseId.APPLY_REQUEST_VALUES);
       } else {
@@ -131,7 +131,7 @@ public abstract class AbstractUITabGroup extends AbstractUIPanelBase
 
   @Override
   public void processDecodes(FacesContext context) {
-    if (!isClientType()) {
+    if (!isSwitchTypeClient()) {
 
       if (context == null) {
         throw new NullPointerException("context");
@@ -157,7 +157,7 @@ public abstract class AbstractUITabGroup extends AbstractUIPanelBase
 
   @Override
   public void processValidators(FacesContext context) {
-    if (!isClientType()) {
+    if (!isSwitchTypeClient()) {
       if (context == null) {
         throw new NullPointerException("context");
       }
@@ -176,7 +176,7 @@ public abstract class AbstractUITabGroup extends AbstractUIPanelBase
 
   @Override
   public void processUpdates(FacesContext context) {
-    if (!isClientType()) {
+    if (!isSwitchTypeClient()) {
       if (context == null) {
         throw new NullPointerException("context");
       }
@@ -200,7 +200,7 @@ public abstract class AbstractUITabGroup extends AbstractUIPanelBase
       FacesUtils.invokeMethodBinding(getFacesContext(), getTabChangeListener(), facesEvent);
 
       FacesUtils.invokeMethodBinding(getFacesContext(), getActionListener(), facesEvent);
-      if (!isClientType()) {
+      if (!isSwitchTypeClient()) {
         ActionListener defaultActionListener = getFacesContext().getApplication().getActionListener();
         if (defaultActionListener != null) {
           defaultActionListener.processAction((ActionEvent) facesEvent);
@@ -216,13 +216,13 @@ public abstract class AbstractUITabGroup extends AbstractUIPanelBase
   }
 
   public void addTabChangeListener(TabChangeListener listener) {
-    if (LOG.isWarnEnabled() && isClientType()) {
+    if (LOG.isWarnEnabled() && isSwitchTypeClient()) {
       LOG.warn("Adding TabChangeListener to Client side Tabgroup!");
     }
     addFacesListener(listener);
   }
 
-  private boolean isClientType() {
+  public boolean isSwitchTypeClient() {
     String switchType = getSwitchType();
     return (switchType == null || switchType.equals(SWITCH_TYPE_CLIENT));
   }
