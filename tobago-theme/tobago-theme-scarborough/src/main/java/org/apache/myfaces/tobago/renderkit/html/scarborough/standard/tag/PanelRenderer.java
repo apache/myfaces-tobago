@@ -89,7 +89,7 @@ public class PanelRenderer extends LayoutComponentRendererBase {
     HtmlRendererUtils.encodeContextMenu(facesContext, writer, panel);
 
     // TODO check ajax id
-    if (FacesContextUtils.isAjax(facesContext)) {
+    if (!FacesContextUtils.isAjax(facesContext)) {
       Integer frequency = null;
       UIComponent facetReload = panel.getFacet(Facets.RELOAD);
       if (facetReload != null && facetReload instanceof UIReload && facetReload.isRendered()) {
