@@ -27,6 +27,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.faces.FacesException;
+import javax.faces.component.EditableValueHolder;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.component.ValueHolder;
@@ -87,12 +88,12 @@ public class RendererBase extends Renderer {
     return getValue(input);
   }
 
-  protected String getCurrentValue(
-      FacesContext facesContext, UIComponent component) {
+  protected String getCurrentValue(FacesContext facesContext, UIComponent component) {
 
-    if (component instanceof UIInput) {
-      Object submittedValue = ((UIInput) component).getSubmittedValue();
-      if (submittedValue != null) {
+    if (component instanceof EditableValueHolder) {
+      EditableValueHolder editableValueHolder = (EditableValueHolder) component;
+      Object submittedValue = editableValueHolder.getSubmittedValue();
+      if (submittedValue != null || !editableValueHolder.isValid()) {
         return (String) submittedValue;
       }
     }
