@@ -69,8 +69,6 @@ public abstract class AbstractUIPopup extends AbstractUIPanelBase
     if (getLayoutManager() == null) {
       final AbstractUIGridLayout layoutManager = (AbstractUIGridLayout) CreateComponentUtils.createAndInitLayout(
           facesContext, ComponentTypes.GRID_LAYOUT, RendererTypes.GRID_LAYOUT, parent);
-      layoutManager.setColumns("auto");
-      layoutManager.setRows("auto");
       setLayoutManager(layoutManager);
     }
   }
