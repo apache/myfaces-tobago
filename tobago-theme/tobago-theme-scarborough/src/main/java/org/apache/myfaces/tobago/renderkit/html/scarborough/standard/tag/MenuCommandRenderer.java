@@ -25,6 +25,7 @@ import org.apache.myfaces.tobago.component.UISelectBooleanCheckbox;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.internal.util.AccessKeyMap;
+import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.CommandRendererBase;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
@@ -108,7 +109,8 @@ public class MenuCommandRenderer extends CommandRendererBase {
       // normal menu command
       CommandRendererHelper helper = new CommandRendererHelper(facesContext, menu);
       String onclick = helper.getOnclick();
-      encodeItem(facesContext, writer, menu, label, onclick != null ? onclick : submit, disabled, firstLevel, null);
+      String image = menu.getImage();
+      encodeItem(facesContext, writer, menu, label, onclick != null ? onclick : submit, disabled, firstLevel, image);
     }
   }
 
@@ -128,6 +130,9 @@ public class MenuCommandRenderer extends CommandRendererBase {
       String onclick, boolean disabled, boolean firstLevel, String image) throws IOException {
 
     writer.startElement(HtmlElements.LI, null);
+    if (component != null) {
+        writer.writeIdAttribute(component.getClientId(facesContext));
+    }
     Markup markup = null;
     if (component != null) {
       markup = component.getCurrentMarkup();
@@ -138,16 +143,42 @@ public class MenuCommandRenderer extends CommandRendererBase {
     writer.writeClassAttribute(Classes.createWorkaround("menu", markup)); // todo: solve workaround
     writer.writeAttribute(HtmlAttributes.ONCLICK, onclick, true);
 
+
     if (image != null) {
-      Style style = new Style();
-      style.setBackgroundImage("url(" 
-          + ResourceManagerUtils.getImageWithPath(facesContext, image)
-          + ")");
-      writer.writeStyleAttribute(style);
+      if (firstLevel) {
+        Style iconStyle = new Style();
+        iconStyle.setLeft(Measure.valueOf(0));
+        iconStyle.setTop(Measure.valueOf(0));
+        iconStyle.setHeight(Measure.valueOf(16));
+        iconStyle.setWidth(Measure.valueOf(16));
+
+        writer.startElement(HtmlElements.IMG, null);
+        String imageWithPath = ResourceManagerUtils.getImageWithPath(facesContext, image, true);
+        writer.writeAttribute(HtmlAttributes.SRC, imageWithPath, false);
+        String imageHover
+            = ResourceManagerUtils.getImageWithPath(facesContext, HtmlRendererUtils.createSrc(image, "Hover"), true);
+        if (imageHover != null) {
+          writer.writeAttribute(HtmlAttributes.SRCDEFAULT, imageWithPath, false);
+          writer.writeAttribute(HtmlAttributes.SRCHOVER, imageHover, false);
+        }
+
+        writer.writeAttribute(HtmlAttributes.ALT, label.getText(), true);
+        writer.writeStyleAttribute(iconStyle);
+        writer.endElement(HtmlElements.IMG);
+      } else {
+        Style style = new Style();
+        style.setBackgroundImage("url("
+            + ResourceManagerUtils.getImageWithPath(facesContext, image)
+            + ")");
+        writer.writeStyleAttribute(style);
+      }
     }
 
     writer.startElement(HtmlElements.A, null);
     writer.writeAttribute(HtmlAttributes.HREF, "#", false);
+    if (image != null && firstLevel) {
+      writer.writeStyleAttribute("vertical-align:top");
+    }
 //    writer.writeIdAttribute(clientId);
 
     if (label.getText() != null) {

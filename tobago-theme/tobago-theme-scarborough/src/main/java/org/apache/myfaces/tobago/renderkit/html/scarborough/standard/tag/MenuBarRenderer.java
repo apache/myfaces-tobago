@@ -38,6 +38,7 @@ public class MenuBarRenderer extends LayoutComponentRendererBase {
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
     writer.startElement(HtmlElements.OL, menuBar);
+    writer.writeIdAttribute(menuBar.getClientId(facesContext));
     writer.writeClassAttribute(Classes.create(menuBar));
     Style style = new Style(facesContext, menuBar);
     writer.writeStyleAttribute(style);
