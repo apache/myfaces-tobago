@@ -67,6 +67,11 @@ public class DatePickerRenderer extends LinkRenderer {
     final String popupId = linkId != null ? linkId + "popup" : facesContext.getViewRoot().createUniqueId();
     final UIPopup popup = (UIPopup) CreateComponentUtils.createComponent(
         facesContext, UIPopup.COMPONENT_TYPE, RendererTypes.POPUP, popupId);
+    final UIGridLayout layoutOfPopup = (UIGridLayout) CreateComponentUtils.createComponent(
+        facesContext, UIGridLayout.COMPONENT_TYPE, RendererTypes.GRID_LAYOUT, "layoutPopup");
+    layoutOfPopup.setColumns("auto");
+    layoutOfPopup.setRows("auto");
+    popup.getFacets().put(Facets.LAYOUT, layoutOfPopup);
     popup.getAttributes().put(Attributes.Z_INDEX, 10);
     picker.getFacets().put(Facets.PICKER_POPUP, popup);
     popup.setRendered(false);
