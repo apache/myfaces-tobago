@@ -20,8 +20,10 @@ package org.apache.myfaces.tobago.internal.lifecycle;
 import javax.faces.FacesException;
 import javax.faces.application.Application;
 import javax.faces.application.ViewHandler;
+import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseId;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
@@ -36,7 +38,17 @@ class RenderResponseExecutor implements PhaseExecutor {
     ViewHandler viewHandler = application.getViewHandler();
 
     try {
-      viewHandler.renderView(facesContext, facesContext.getViewRoot());
+      final UIViewRoot viewRoot = facesContext.getViewRoot();
+      if (viewRoot.getViewId() != null) {
+        viewHandler.renderView(facesContext, viewRoot);
+      } else {
+        Object respObj = facesContext.getExternalContext().getResponse();
+        if (respObj instanceof HttpServletResponse) {
+            HttpServletResponse respHttp = (HttpServletResponse) respObj;
+            respHttp.sendError(HttpServletResponse.SC_NOT_FOUND);
+            facesContext.responseComplete();
+        }
+      }
     } catch (IOException e) {
       throw new FacesException(e.getMessage(), e);
     }
