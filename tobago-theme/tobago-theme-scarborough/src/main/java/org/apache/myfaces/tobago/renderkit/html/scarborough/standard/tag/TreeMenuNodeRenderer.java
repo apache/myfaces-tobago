@@ -129,10 +129,6 @@ public class TreeMenuNodeRenderer extends LayoutComponentRendererBase {
         encodeExpandedHidden(writer, node, id, expanded);
       }
 
-      if (folder) {
-        encodeIcon(facesContext, writer, expanded, node);
-      }
-
       if (!folder && ie6) { // XXX IE6: without this hack, we can't click beside the label text. Why?
         final String src = ResourceManagerUtils.getImageWithPath(facesContext, "image/1x1.gif");
         writer.startElement(HtmlElements.IMG, null);
@@ -144,6 +140,10 @@ public class TreeMenuNodeRenderer extends LayoutComponentRendererBase {
       }
 
       RenderUtils.encodeChildren(facesContext, node);
+
+      if (folder) {
+        encodeIcon(facesContext, writer, expanded, node);
+      }
 
       writer.endElement(HtmlElements.DIV);
     }

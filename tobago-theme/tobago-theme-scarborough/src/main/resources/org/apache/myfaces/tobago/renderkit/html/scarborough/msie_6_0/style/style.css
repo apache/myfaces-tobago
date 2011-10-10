@@ -45,3 +45,9 @@
 .tobago-time-input {
   margin: -1px 0;
 }
+
+/* treeMenuNode -------------------------------------------------------------- */
+
+.tobago-treeMenuNode a, .tobago-treeMenuNode a:active, .tobago-treeMenuNode a:hover {
+  display: inline-block;
+}

@@ -1368,30 +1368,30 @@ div.tobago-richTextEditor-body {
   padding: 0;
   margin: 0;
   color: black;
-  white-space: nowrap;
 }
 
 .tobago-treeMenuNode {
   border: 1px solid #d8e9fb;
-  height: 18px;
   margin: 0 0 -1px 0;
+  position: relative;
 }
 
 .tobago-treeMenuNode-toggle {
   vertical-align: middle;
   border: 0;
-  float: right;
+  position: absolute;
+  top: 0;
+  right: 0;
 }
 
 .tobago-treeMenuNode a, .tobago-treeMenuNode a:active, .tobago-treeMenuNode a:hover {
-  padding: 1px 2px 1px 2px;
-}
-
-.tobago-treeMenuNode a {
+  padding: 1px 20px 1px 2px;
   color: black;
   text-decoration: none;
   display: block;
-  left:0;
+  position: relative;
+  left: 0;
+  top: 0;
 }
 
 .tobago-treeMenuNode a:hover {
