@@ -58,6 +58,7 @@ public final class Attributes {
   public static final String ENCTYPE = "enctype";
   public static final String ESCAPE = "escape";
   public static final String EXPANDED = "expanded";
+  public static final String EXECUTE = "execute";
   public static final String EVENT = "event";
   public static final String FIRST = "first";
   public static final String FREQUENCY = "frequency";
