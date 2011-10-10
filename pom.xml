@@ -590,11 +590,6 @@
     <url>http://svn.eu.apache.org/viewvc/myfaces/tobago/trunk</url>
   </scm>
 
-  <organization>
-    <name>Apache Software Foundation</name>
-    <url>http://www.apache.org/</url>
-  </organization>
-
   <build>
     <defaultGoal>install</defaultGoal>
     <plugins>
