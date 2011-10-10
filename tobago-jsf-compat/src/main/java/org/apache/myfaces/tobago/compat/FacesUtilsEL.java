@@ -19,6 +19,7 @@ package org.apache.myfaces.tobago.compat;
 
 import org.apache.myfaces.tobago.event.TabChangeSource;
 import org.apache.myfaces.tobago.event.ValueExpressionPopupActionListener;
+import org.apache.myfaces.tobago.event.ValueExpressionResetInputActionListener;
 import org.apache.myfaces.tobago.event.ValueExpressionTabChangeListener;
 import org.apache.myfaces.tobago.util.ValueExpressionComparator;
 import org.slf4j.Logger;
@@ -210,5 +211,9 @@ public class FacesUtilsEL {
 
   public static void addBindingOrExpressionPopupActionListener(ActionSource actionSource, Object bindingOrExpression) {
     actionSource.addActionListener(new ValueExpressionPopupActionListener((ValueExpression) bindingOrExpression));
+  }
+
+  public static void addBindingOrExpressionResetActionListener(ActionSource actionSource, Object bindingOrExpression) {
+    actionSource.addActionListener(new ValueExpressionResetInputActionListener((ValueExpression) bindingOrExpression));
   }
 }

@@ -19,6 +19,7 @@ package org.apache.myfaces.tobago.compat;
 
 import org.apache.myfaces.tobago.event.TabChangeSource;
 import org.apache.myfaces.tobago.event.ValueBindingPopupActionListener;
+import org.apache.myfaces.tobago.event.ValueBindingResetInputActionListener;
 import org.apache.myfaces.tobago.event.ValueBindingTabChangeListener;
 import org.apache.myfaces.tobago.util.FacesVersion;
 import org.apache.myfaces.tobago.util.ValueBindingComparator;
@@ -271,6 +272,14 @@ public class FacesUtils {
       actionSource.addActionListener(new ValueBindingPopupActionListener(bindingOrExpression));
     } else {
       FacesUtilsEL.addBindingOrExpressionPopupActionListener(actionSource, bindingOrExpression);
+    }
+  }
+
+  public static void addBindingOrExpressionResetActionListener(ActionSource actionSource, Object bindingOrExpression) {
+    if (USE_BINDING) {
+      actionSource.addActionListener(new ValueBindingResetInputActionListener(bindingOrExpression));
+    } else {
+      FacesUtilsEL.addBindingOrExpressionResetActionListener(actionSource, bindingOrExpression);
     }
   }
 

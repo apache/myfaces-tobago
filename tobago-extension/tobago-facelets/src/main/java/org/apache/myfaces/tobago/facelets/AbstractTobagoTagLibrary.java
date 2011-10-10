@@ -29,6 +29,7 @@ public class AbstractTobagoTagLibrary  extends AbstractTagLibrary {
     addTagHandler("attribute", AttributeHandler.class);
     addTagHandler("tabChangeListener", TabChangeListenerHandler.class);
     addTagHandler("popupReference", PopupReferenceHandler.class);
+    addTagHandler("resetInputActionListener", ResetInputActionListenerHandler.class);
     addTagHandler("loadBundle", LoadBundleHandler.class);
     addTagHandler("converter", ConverterHandler.class);
     addTagHandler(Tags.GRID_LAYOUT_CONSTRAINT, GridLayoutConstraintHandler.class);
