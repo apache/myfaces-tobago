@@ -20,7 +20,7 @@
   <parent>
     <groupId>org.apache.myfaces</groupId>
     <artifactId>myfaces</artifactId>
-    <version>9</version>
+    <version>10</version>
   </parent>
   <groupId>org.apache.myfaces.tobago</groupId>
   <artifactId>tobago</artifactId>
@@ -39,7 +39,7 @@
   </issueManagement>
   <ciManagement>
     <system>jenkins</system>
-    <url>https://builds.apache.org/hudson/</url>
+    <url>https://builds.apache.org/</url>
     <notifiers>
       <notifier>
         <type>mail</type>
@@ -508,11 +508,6 @@
     <url>http://svn.apache.org/viewvc/myfaces/tobago/branches/tobago-1.0.x</url>
 
   </scm>
-
-  <organization>
-    <name>Apache Software Foundation</name>
-    <url>http://www.apache.org/</url>
-  </organization>
 
   <build>
     <defaultGoal>install</defaultGoal>
