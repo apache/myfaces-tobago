@@ -39,7 +39,7 @@
   </issueManagement>
   <ciManagement>
     <system>jenkins</system>
-    <url>https://builds.apache.org/hudson/</url>
+    <url>https://builds.apache.org/</url>
     <notifiers>
       <notifier>
         <type>mail</type>
