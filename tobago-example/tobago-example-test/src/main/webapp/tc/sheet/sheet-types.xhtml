@@ -23,7 +23,7 @@
     xmlns:f="http://java.sun.com/jsf/core">
 
   <tc:page id="page">
-    <tc:gridLayoutConstraint width="1100px" height="600px"/>
+    <tc:gridLayoutConstraint width="1000px" height="600px"/>
 
     <tc:sheet value="#{sheet.solarArray}" id="sheet" columns="20px;*;*;*;*;2*;*;*;*;*;2*" var="luminary" rows="20">
       <tc:columnSelector />
@@ -61,9 +61,6 @@
         <tc:image value="image/foo.gif" width="16px" height="16px"/>
       </tc:column>
       <tc:column label="&lt;tc:panel>" id="c_panel">
-        <f:facet name="layout">
-          <tc:gridLayout columns="*;10px;*"/>
-        </f:facet>
         <tc:panel>
           <f:facet name="layout">
             <tc:gridLayout columns="*;10px;*" rows="20px"/>
