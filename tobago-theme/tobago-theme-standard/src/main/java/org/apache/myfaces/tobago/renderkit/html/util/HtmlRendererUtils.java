@@ -236,8 +236,7 @@ public final class HtmlRendererUtils {
     if (scripts != null) {
       allScripts = ResourceManagerUtils.getScriptsAsJSArray(facesContext, scripts);
     }
-    boolean ajax = false;
-    ajax = FacesContextUtils.isAjax(facesContext);
+    boolean ajax = FacesContextUtils.isAjax(facesContext);
     writer.startJavascript();
     writer.write("new Tobago.ScriptLoader(");
     if (!ajax) {
@@ -302,6 +301,12 @@ public final class HtmlRendererUtils {
 
   public static void renderSelectItems(UIInput component, List<SelectItem> items, Object[] values,
       TobagoResponseWriter writer, FacesContext facesContext) throws IOException {
+    renderSelectItems(component, items, values, null, writer, facesContext);
+
+  }
+
+  public static void renderSelectItems(UIInput component, List<SelectItem> items, Object[] values, Boolean onlySelected,
+      TobagoResponseWriter writer, FacesContext facesContext) throws IOException {
 
     if (LOG.isDebugEnabled()) {
       LOG.debug("value = '" + Arrays.toString(values) + "'");
@@ -314,15 +319,28 @@ public final class HtmlRendererUtils {
           writer.writeAttribute(HtmlAttributes.DISABLED, true);
         }
         SelectItem[] selectItems = ((SelectItemGroup) item).getSelectItems();
-        renderSelectItems(component, Arrays.asList(selectItems), values, writer, facesContext);
+        renderSelectItems(component, Arrays.asList(selectItems), values, onlySelected, writer, facesContext);
         writer.endElement(HtmlElements.OPTGROUP);
       } else {
-        writer.startElement(HtmlElements.OPTION, null);
+
         Object itemValue = item.getValue();
         // when using selectItem tag with a literal value: use the converted value
         if (itemValue instanceof String && values != null && values.length > 0 && !(values[0] instanceof String)) {
           itemValue = ComponentUtils.getConvertedValue(facesContext, component, (String) itemValue);
         }
+        boolean contains = RenderUtils.contains(values, itemValue);
+        if (onlySelected != null) {
+          if (onlySelected) {
+            if (!contains) {
+              continue;
+            }
+          } else {
+            if (contains) {
+              continue;
+            }
+          }
+        }
+        writer.startElement(HtmlElements.OPTION, null);
         String formattedValue = RenderUtils.getFormattedValue(facesContext, component, itemValue);
         writer.writeAttribute(HtmlAttributes.VALUE, formattedValue, true);
         if (item instanceof org.apache.myfaces.tobago.model.SelectItem) {
@@ -333,7 +351,7 @@ public final class HtmlRendererUtils {
           }
         }
         Markup markup = item instanceof SupportsMarkup ? ((SupportsMarkup) item).getMarkup() : Markup.NULL;
-        if (RenderUtils.contains(values, itemValue)) {
+        if (onlySelected == null && contains) {
           writer.writeAttribute(HtmlAttributes.SELECTED, true);
           markup = Markup.SELECTED.add(markup);
         }

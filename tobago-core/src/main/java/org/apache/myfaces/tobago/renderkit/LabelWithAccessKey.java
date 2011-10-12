@@ -18,10 +18,10 @@ package org.apache.myfaces.tobago.renderkit;
  */
 
 import org.apache.commons.lang.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.RendererTypes;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
 import java.util.Locale;
@@ -35,6 +35,11 @@ public final class LabelWithAccessKey {
   private int pos = -1;
   public static final char INDICATOR = '_';
   public static final String ESCAPED_INDICATOR = "__";
+
+  public LabelWithAccessKey(String label) {
+    text = label;
+    setup(text);
+  }
 
   public LabelWithAccessKey(UIComponent component) {
     Object value;

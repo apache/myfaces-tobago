@@ -14,22 +14,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 --%>
+
+<%@ taglib uri="http://myfaces.apache.org/tobago/sandbox" prefix="tcs" %>
 <%@ taglib uri="http://myfaces.apache.org/tobago/component" prefix="tc" %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 
 <f:view>
-
   <tc:loadBundle basename="demo" var="bundle"/>
 
-  <tc:page label="Sandbox Menu" id="page" width="200px" height="800px">
+  <tc:page label="Sandbox - SelectManyShuttle" width="500px" height="800px">
     <f:facet name="layout">
-      <tc:gridLayout margin="5px" rows="fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;*"/>
+      <tc:gridLayout margin="10px" rows="*"/>
     </f:facet>
-
-    <tc:link link="inputSlider.jsp" label="inputSlider.jsp" target="View"/>
-
-    <tc:link link="selectManyShuffle.jsp" label="selectManyShuffle.jsp" target="View"/>
-
-    <tc:cell/>
+    <tc:box label="SelectManyShuttle">
+      <f:facet name="layout">
+        <tc:gridLayout columns="3*;*" rows="200px;*"/>
+      </f:facet>
+      <tcs:selectManyShuttle value="#{controller.shuffleValue}">
+        <f:selectItem itemValue="suppe" itemLabel="suppe" />
+      </tcs:selectManyShuttle>
+      <tc:button action="#{controller.submit}" label="Submit" />
+      <tc:cell/>
+      <tc:cell/>
+    </tc:box>
   </tc:page>
 </f:view>

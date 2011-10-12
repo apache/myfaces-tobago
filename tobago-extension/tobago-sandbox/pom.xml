@@ -178,6 +178,7 @@
           <showWarnings>true</showWarnings>
           <excludes>
             <exclude>workaround-because-otherwise-this-will-be-excluded-in-the-next-step</exclude>
+            <exclude>org/apache/myfaces/tobago/renderkit/html/sandbox/standard/tag/SelectManyShuttleRenderer.java</exclude>
             <!--<exclude>org/apache/myfaces/tobago/internal/taglib/sandbox/WizardExtensionTag.java</exclude>-->
           </excludes>
         </configuration>
@@ -194,9 +195,11 @@
                 <include>org/apache/myfaces/tobago/internal/taglib/*</include>
                 <include>org/apache/myfaces/tobago/component/*</include>
                 <include>org/apache/myfaces/tobago/renderkit/*</include>
+                <include>org/apache/myfaces/tobago/renderkit/html/sandbox/standard/tag/SelectManyShuttleRenderer.java</include>
                 <!--<include>org/apache/myfaces/tobago/internal/taglib/sandbox/WizardExtensionTag.java</include>-->
               </includes>
               <excludes>
+                <exclude>test</exclude>
               </excludes>
             </configuration>
           </execution>
@@ -247,6 +250,7 @@
         <configuration>
           <taglib.src.dir>${project.build.directory}/generated-tld</taglib.src.dir>
           <tldDocDir>${project.build.directory}/site/tlddoc</tldDocDir>
+          <parseHtml>true</parseHtml>
         </configuration>
       </plugin>
 
@@ -379,7 +383,7 @@
         </plugins>
       </build>
     </profile>
-     <profile>
+    <profile>
       <id>all-modules</id>
       <build>
         <plugins>

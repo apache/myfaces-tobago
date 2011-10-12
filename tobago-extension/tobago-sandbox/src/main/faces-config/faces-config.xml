@@ -23,9 +23,5 @@
 
 <faces-config>
 
-  <render-kit>
-    <render-kit-id>tobago</render-kit-id>
-    <render-kit-class>org.apache.myfaces.tobago.renderkit.TobagoRenderKit</render-kit-class>
-  </render-kit>
 
 </faces-config>

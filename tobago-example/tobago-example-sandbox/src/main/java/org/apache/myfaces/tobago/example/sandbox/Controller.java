@@ -28,6 +28,7 @@ public class Controller {
   private static final Logger LOG = LoggerFactory.getLogger(Controller.class);
 
   private int sliderValue;
+  private String[] shuffleValue;
 
   public String action1() {
     LOG.info("action 1");
@@ -58,6 +59,18 @@ public class Controller {
 
   public String sliderSubmit() {
     LOG.info("Slider: " + sliderValue);
+    return null;
+  }
+
+  public String[] getShuffleValue() {
+    return shuffleValue;
+  }
+
+  public void setShuffleValue(String[] shuffleValue) {
+    this.shuffleValue = shuffleValue;
+  }
+
+  public String submit() {
     return null;
   }
 }

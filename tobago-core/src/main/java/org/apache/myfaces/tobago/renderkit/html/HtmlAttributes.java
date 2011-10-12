@@ -49,6 +49,7 @@ public final class HtmlAttributes {
   public static final String ONBLUR = "onblur";
   public static final String ONCHANGE = "onchange";
   public static final String ONCLICK = "onclick";
+  public static final String ONDBLCLICK = "ondblclick";
   public static final String ONFOCUS = "onfocus";
   public static final String ONFOCUSIN = "onfocusin";
   public static final String ONKEYDOWN = "onkeydown";
