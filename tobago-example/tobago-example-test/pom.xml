@@ -389,7 +389,7 @@
               <container>
                 <containerId>tomcat6x</containerId>
                 <zipUrlInstaller>
-                  <url>http://apache.easy-webs.de/tomcat/tomcat-6/v6.0.20/bin/apache-tomcat-6.0.20.zip</url>
+                  <url>http://archive.apache.org/dist/tomcat/tomcat-6/v6.0.33/bin/apache-tomcat-6.0.33.zip</url>
                   <installDir>${project.build.directory}/tomcat6</installDir>
                 </zipUrlInstaller>
               </container>
@@ -416,7 +416,7 @@
               <container>
                 <containerId>tomcat5x</containerId>
                 <zipUrlInstaller>
-                  <url>http://apache.easy-webs.de/tomcat/tomcat-5/v5.5.28/bin/apache-tomcat-5.5.28.zip</url>
+                  <url>http://archive.apache.org/dist/tomcat/tomcat-5/v5.5.33/bin/apache-tomcat-5.5.33.zip</url>
                   <installDir>${project.build.directory}/tomcat5</installDir>
                 </zipUrlInstaller>
               </container>

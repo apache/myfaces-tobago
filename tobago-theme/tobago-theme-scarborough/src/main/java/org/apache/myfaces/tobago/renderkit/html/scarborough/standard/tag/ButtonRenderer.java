@@ -34,6 +34,7 @@ import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
+import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
 import org.apache.myfaces.tobago.renderkit.html.util.CommandRendererHelper;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
@@ -122,7 +123,7 @@ public class ButtonRenderer extends CommandRendererBase {
 
   private String createButtonType(UIComponent component) {
     boolean defaultCommand = ComponentUtils.getBooleanAttribute(component, Attributes.DEFAULT_COMMAND);
-    return defaultCommand ? "submit" : "button";
+    return defaultCommand ? HtmlInputTypes.SUBMIT : HtmlInputTypes.BUTTON;
   }
 
   @Override
