@@ -848,22 +848,23 @@ var Tobago = {
   },
 
   selectManyShuttleMoveAllItems: function(clientId, direction) {
-    var source = clientId + Tobago.SUB_COMPONENT_SEP + (direction?'source':'target');
-    var target = clientId + Tobago.SUB_COMPONENT_SEP + (direction?'target':'source');
+    var source = clientId + Tobago.SUB_COMPONENT_SEP + (direction?'unselected':'selected');
+    var target = clientId + Tobago.SUB_COMPONENT_SEP + (direction?'selected':'unselected');
     jQuery(Tobago.escapeClientId(source) + ' option').remove().appendTo(Tobago.escapeClientId(target));
     Tobago.selectManyShuttleCopyValues(clientId);
   },
 
   selectManyShuttleMoveSelectedItems: function(clientId, direction) {
-    var source = clientId + Tobago.SUB_COMPONENT_SEP + (direction?'source':'target');
-    var target = clientId + Tobago.SUB_COMPONENT_SEP + (direction?'target':'source');
+    var source = clientId + Tobago.SUB_COMPONENT_SEP + (direction?'unselected':'selected');
+    var target = clientId + Tobago.SUB_COMPONENT_SEP + (direction?'selected':'unselected');
     jQuery(Tobago.escapeClientId(source) + ' option:selected').remove().appendTo(Tobago.escapeClientId(target));
     Tobago.selectManyShuttleCopyValues(clientId);
   },
 
   selectManyShuttleCopyValues: function(clientId) {
     jQuery(Tobago.escapeClientId(clientId) + ' option').remove();
-    jQuery(Tobago.escapeClientId(clientId + Tobago.SUB_COMPONENT_SEP + 'target') + ' option').clone().attr('selected', 'selected').appendTo(Tobago.escapeClientId(clientId));
+    jQuery(Tobago.escapeClientId(clientId + Tobago.SUB_COMPONENT_SEP + 'selected') + ' option')
+        .clone().attr('selected', 'selected').appendTo(Tobago.escapeClientId(clientId));
   },
 
 // -------- Popup functions ---------------------------------------------------

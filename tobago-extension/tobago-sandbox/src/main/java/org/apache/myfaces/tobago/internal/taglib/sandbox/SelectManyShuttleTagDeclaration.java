@@ -19,12 +19,15 @@ package org.apache.myfaces.tobago.internal.taglib.sandbox;
 
 import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
+import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
+import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasBinding;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasConverter;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasId;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasInputLabel;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 import org.apache.myfaces.tobago.internal.taglib.declaration.InputTagDeclaration;
@@ -37,12 +40,28 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsRequired;
 @BodyContentDescription(anyTagOf = "(<f:selectItems>|<f:selectItem>|<tc:selectItem>)+ <f:facet>* ")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UISelectManyShuttle",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUISelectMany",
+    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUISelectManyShuttle",
     rendererType = RendererTypes.SELECT_MANY_SHUTTLE,
     allowedChildComponenents = {
         "javax.faces.SelectItem",
         "javax.faces.SelectItems"})
-public interface SelectManyShuttleDeclaration extends
+public interface SelectManyShuttleTagDeclaration extends
     IsDisabled, HasId, HasTip, IsRendered, IsRequired, HasBinding, IsReadonly, HasConverter,
-    InputTagDeclaration, HasMarkup, HasCurrentMarkup {
+    InputTagDeclaration, HasMarkup, HasCurrentMarkup, HasInputLabel {
+
+  /**
+   * A localized user presentable label for the left select box.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute()
+  void setUnselectedLabel(String label);
+
+
+  /**
+   * A localized user presentable label for the right select box.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute()
+  void setSelectedLabel(String label);
+
 }

@@ -46,34 +46,43 @@ public class SelectManyShuttleRenderer extends SelectManyRendererBase {
     writer.startElement(HtmlElements.DIV, select);
     Style style = new Style(facesContext, select);
     writer.writeStyleAttribute(style);
+
+    String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, select);
+    if (title != null) {
+      writer.writeAttribute(HtmlAttributes.TITLE, title, true);
+    }
+    boolean hasLabel = select.hasLabel();
     // TODO get buttonWidth and label Height from theme
     Measure buttonWidth = Measure.valueOf(50);
+
     Measure labelHeight = Measure.valueOf(18);
     style.setTop(Measure.valueOf(0));
     style.setLeft(Measure.valueOf(0));
     Measure width = style.getWidth();
     Measure selectWidth = width.subtract(buttonWidth).divide(2);
     style.setWidth(selectWidth);
-    Style labelStyle = new Style(style);
-    labelStyle.setHeight(labelHeight);
-    style.setHeight(style.getHeight().subtract(labelHeight));
-    style.setTop(style.getTop().add(labelHeight));
-
+    Style labelStyle = null;
+    if (hasLabel) {
+      labelStyle = new Style(style);
+      labelStyle.setHeight(labelHeight);
+      style.setHeight(style.getHeight().subtract(labelHeight));
+      style.setTop(style.getTop().add(labelHeight));
+    }
     String clientId = select.getClientId(facesContext);
     List<SelectItem> items = RenderUtils.getSelectItems(select);
     boolean disabled = items.size() == 0 || select.isDisabled() || select.isReadonly();
-    // TODO title
-    String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, select);
 
-    // TODO label
-    writer.startElement(HtmlElements.DIV, null);
-    writer.writeStyleAttribute(labelStyle);
-    writer.write("Label");
-
-    writer.endElement(HtmlElements.DIV);
+    String unselectedLabel = select.getUnselectedLabel();
+    if (unselectedLabel != null) {
+      writer.startElement(HtmlElements.DIV, null);
+      writer.writeStyleAttribute(labelStyle);
+      writer.writeClassAttribute(Classes.create(select, "unselectedLabel"));
+      writer.write(unselectedLabel);
+      writer.endElement(HtmlElements.DIV);
+    }
     writer.startElement(HtmlElements.SELECT, null);
-    String sourceClientId = clientId + ComponentUtils.SUB_SEPARATOR + "source";
-    writer.writeIdAttribute(sourceClientId);
+    String unselectedClientId = clientId + ComponentUtils.SUB_SEPARATOR + "unselected";
+    writer.writeIdAttribute(unselectedClientId);
     writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
 
     // TODO tabIndex
@@ -84,15 +93,13 @@ public class SelectManyShuttleRenderer extends SelectManyRendererBase {
 
     writer.writeStyleAttribute(style);
     // TODO define classes
-    writer.writeClassAttribute(Classes.create(select, "source"));
+    writer.writeClassAttribute(Classes.create(select, "unselected"));
 
     // TODO move javascript to js
     writer.writeAttribute(HtmlAttributes.ONDBLCLICK,
         "Tobago.selectManyShuttleMoveSelectedItems('" + clientId + "', true)", true);
     writer.writeAttribute(HtmlAttributes.MULTIPLE, HtmlAttributes.MULTIPLE, false);
-    if (title != null) {
-      writer.writeAttribute(HtmlAttributes.TITLE, title, true);
-    }
+
     Object[] values = select.getSelectedValues();
     HtmlRendererUtils.renderSelectItems(select, items, values, false, writer, facesContext);
 
@@ -102,10 +109,10 @@ public class SelectManyShuttleRenderer extends SelectManyRendererBase {
     style.setWidth(buttonWidth);
     writer.writeStyleAttribute(style);
     writer.startElement(HtmlElements.DIV, null);
-    String targetClientId = clientId + ComponentUtils.SUB_SEPARATOR + "target";
+    String selectedClientId = clientId + ComponentUtils.SUB_SEPARATOR + "selected";
     // TODO css
     writer.writeStyleAttribute("position:absolute;top:50%;margin:-50px 5px;width:50px;height:50px;");
-    createButton(facesContext,component, writer, disabled, ">>", "addAll",
+    createButton(facesContext, component, writer, disabled, ">>", "addAll",
         "Tobago.selectManyShuttleMoveAllItems('" + clientId + "', true)");
     createButton(facesContext, component, writer, disabled, ">", "add",
         "Tobago.selectManyShuttleMoveSelectedItems('" + clientId + "', true)");
@@ -115,14 +122,18 @@ public class SelectManyShuttleRenderer extends SelectManyRendererBase {
         "Tobago.selectManyShuttleMoveAllItems('" + clientId + "', false)");
     writer.endElement(HtmlElements.DIV);
     writer.endElement(HtmlElements.DIV);
-    writer.startElement(HtmlElements.DIV, null);
-    labelStyle.setLeft(labelStyle.getLeft().add(selectWidth).add(buttonWidth));
-    writer.writeStyleAttribute(labelStyle);
-    writer.write("Label");
-    writer.endElement(HtmlElements.DIV);
+    String selectedLabel = select.getSelectedLabel();
+    if (selectedLabel != null) {
+      writer.startElement(HtmlElements.DIV, null);
+      labelStyle.setLeft(labelStyle.getLeft().add(selectWidth).add(buttonWidth));
+      writer.writeStyleAttribute(labelStyle);
+      writer.writeClassAttribute(Classes.create(select, "selectedLabel"));
+      writer.write(selectedLabel);
+      writer.endElement(HtmlElements.DIV);
+    }
 
     writer.startElement(HtmlElements.SELECT, select);
-    writer.writeIdAttribute(targetClientId);
+    writer.writeIdAttribute(selectedClientId);
 
     writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
     if (tabIndex != null) {
@@ -131,20 +142,19 @@ public class SelectManyShuttleRenderer extends SelectManyRendererBase {
     style.setWidth(selectWidth);
     style.setLeft(style.getLeft().add(buttonWidth));
     writer.writeStyleAttribute(style);
-    writer.writeClassAttribute(Classes.create(select, "target"));
-    writer.writeAttribute(HtmlAttributes.ONDBLCLICK,
-        "Tobago.selectManyShuttleMoveSelectedItems('" + clientId + "', false)", true);
-
-    writer.writeAttribute(HtmlAttributes.MULTIPLE, HtmlAttributes.MULTIPLE, false);
-    if (title != null) {
-      writer.writeAttribute(HtmlAttributes.TITLE, title, true);
+    writer.writeClassAttribute(Classes.create(select, "selected"));
+    if (!disabled) {
+        writer.writeAttribute(HtmlAttributes.ONDBLCLICK,
+            "Tobago.selectManyShuttleMoveSelectedItems('" + clientId + "', false)", true);
     }
+    writer.writeAttribute(HtmlAttributes.MULTIPLE, HtmlAttributes.MULTIPLE, false);
     HtmlRendererUtils.renderSelectItems(select, items, values, true, writer, facesContext);
 
     writer.endElement(HtmlElements.SELECT);
     writer.startElement(HtmlElements.SELECT, select);
     writer.writeIdAttribute(clientId);
     writer.writeNameAttribute(clientId);
+    writer.writeAttribute(HtmlAttributes.MULTIPLE, HtmlAttributes.MULTIPLE, false);
     writer.writeStyleAttribute("display:none");
     HtmlRendererUtils.renderSelectItems(select, items, values, writer, facesContext);
 
@@ -162,10 +172,10 @@ public class SelectManyShuttleRenderer extends SelectManyRendererBase {
     writer.startElement(HtmlElements.BUTTON, null);
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.BUTTON, false);
     writer.writeClassAttribute(Classes.create(component, sub));
-    writer.writeIdAttribute(component.getClientId(context) + ComponentUtils.SUB_SEPARATOR + sub );
+    writer.writeIdAttribute(component.getClientId(context) + ComponentUtils.SUB_SEPARATOR + sub);
     // TODO css
     writer.writeStyleAttribute("width:40px");
-    if (onClick != null) {
+    if (onClick != null && !disabled) {
       writer.writeAttribute(HtmlAttributes.ONCLICK, onClick, true);
     }
     writer.writeAttribute(HtmlAttributes.DISABLED, disabled);

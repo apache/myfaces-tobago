@@ -22,20 +22,28 @@
 <f:view>
   <tc:loadBundle basename="demo" var="bundle"/>
 
-  <tc:page label="Sandbox - SelectManyShuttle" width="500px" height="800px">
+  <tc:page label="Sandbox - SelectManyShuttle" width="500px" height="400px">
     <f:facet name="layout">
       <tc:gridLayout margin="10px" rows="*"/>
     </f:facet>
     <tc:box label="SelectManyShuttle">
       <f:facet name="layout">
-        <tc:gridLayout columns="3*;*" rows="200px;*"/>
+        <tc:gridLayout columns="*" rows="200px;*; 25px"/>
       </f:facet>
-      <tcs:selectManyShuttle value="#{controller.shuffleValue}">
+      <tcs:selectManyShuttle value="#{controller.shuffleValue}"
+          unselectedLabel="Available Soups" selectedLabel="Selected Soups">
         <f:selectItem itemValue="suppe" itemLabel="suppe" />
+        <f:selectItem itemValue="soup" itemLabel="soup" />
+        <f:selectItem itemValue="soupe" itemLabel="soupe" />
       </tcs:selectManyShuttle>
-      <tc:button action="#{controller.submit}" label="Submit" />
       <tc:cell/>
-      <tc:cell/>
+      <tc:panel>
+        <f:facet name="layout">
+          <tc:gridLayout columns="*;100px" rows="*"/>
+        </f:facet>
+        <tc:cell/>
+        <tc:button action="#{controller.submit}" label="Submit" />
+      </tc:panel>
     </tc:box>
   </tc:page>
 </f:view>
