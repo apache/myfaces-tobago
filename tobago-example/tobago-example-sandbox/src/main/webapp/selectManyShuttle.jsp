@@ -28,7 +28,7 @@
     </f:facet>
     <tc:box label="SelectManyShuttle">
       <f:facet name="layout">
-        <tc:gridLayout columns="*" rows="200px;*; 25px"/>
+        <tc:gridLayout columns="*" rows="*;25px"/>
       </f:facet>
       <tcs:selectManyShuttle value="#{controller.shuffleValue}"
           unselectedLabel="Available Soups" selectedLabel="Selected Soups">
@@ -36,7 +36,6 @@
         <f:selectItem itemValue="soup" itemLabel="soup" />
         <f:selectItem itemValue="soupe" itemLabel="soupe" />
       </tcs:selectManyShuttle>
-      <tc:cell/>
       <tc:panel>
         <f:facet name="layout">
           <tc:gridLayout columns="*;100px" rows="*"/>

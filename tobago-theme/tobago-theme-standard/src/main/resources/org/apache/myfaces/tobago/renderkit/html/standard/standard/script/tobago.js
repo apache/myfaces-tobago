@@ -847,26 +847,6 @@ var Tobago = {
     }
   },
 
-  selectManyShuttleMoveAllItems: function(clientId, direction) {
-    var source = clientId + Tobago.SUB_COMPONENT_SEP + (direction?'unselected':'selected');
-    var target = clientId + Tobago.SUB_COMPONENT_SEP + (direction?'selected':'unselected');
-    jQuery(Tobago.escapeClientId(source) + ' option').remove().appendTo(Tobago.escapeClientId(target));
-    Tobago.selectManyShuttleCopyValues(clientId);
-  },
-
-  selectManyShuttleMoveSelectedItems: function(clientId, direction) {
-    var source = clientId + Tobago.SUB_COMPONENT_SEP + (direction?'unselected':'selected');
-    var target = clientId + Tobago.SUB_COMPONENT_SEP + (direction?'selected':'unselected');
-    jQuery(Tobago.escapeClientId(source) + ' option:selected').remove().appendTo(Tobago.escapeClientId(target));
-    Tobago.selectManyShuttleCopyValues(clientId);
-  },
-
-  selectManyShuttleCopyValues: function(clientId) {
-    jQuery(Tobago.escapeClientId(clientId) + ' option').remove();
-    jQuery(Tobago.escapeClientId(clientId + Tobago.SUB_COMPONENT_SEP + 'selected') + ' option')
-        .clone().attr('selected', 'selected').appendTo(Tobago.escapeClientId(clientId));
-  },
-
 // -------- Popup functions ---------------------------------------------------
   // TODO move popup functions into Tobago.Popup object
 
@@ -1714,6 +1694,7 @@ Tobago.init0 = function(elements) {
   Tobago.TabGroup.init(elements);
   Tobago.Tree.init(elements);
   Tobago.ToolBar.init(elements);
+  Tobago.SelectManyShuttle.init(elements);
   Tobago.fixPngAlphaAll(elements);
 };
 
@@ -3277,6 +3258,52 @@ Tobago.Tree.init = function(elements) {
   });
 };
 
+Tobago.SelectManyShuttle = {};
+
+Tobago.SelectManyShuttle.init = function(elements) {
+
+  var shuttles = Tobago.selectWidthJQuery(elements, ".tobago-selectManyShuttle:not(.tobago-selectManyShuttle-disabled)");
+
+  shuttles.find(".tobago-selectManyShuttle-unselected").dblclick(function() {
+    Tobago.SelectManyShuttle.moveSelectedItems(jQuery(this).parents(".tobago-selectManyShuttle"), true, false);
+  });
+
+  shuttles.find(".tobago-selectManyShuttle-selected").dblclick(function() {
+    Tobago.SelectManyShuttle.moveSelectedItems(jQuery(this).parents(".tobago-selectManyShuttle"), false, false);
+  });
+
+  shuttles.find(".tobago-selectManyShuttle-addAll").click(function() {
+    Tobago.SelectManyShuttle.moveSelectedItems(jQuery(this).parents(".tobago-selectManyShuttle"), true, true);
+  });
+
+  shuttles.find(".tobago-selectManyShuttle-add").click(function() {
+    Tobago.SelectManyShuttle.moveSelectedItems(jQuery(this).parents(".tobago-selectManyShuttle"), true, false);
+  });
+
+  shuttles.find(".tobago-selectManyShuttle-removeAll").click(function() {
+    Tobago.SelectManyShuttle.moveSelectedItems(jQuery(this).parents(".tobago-selectManyShuttle"), false, true);
+  });
+
+  shuttles.find(".tobago-selectManyShuttle-remove").click(function() {
+    Tobago.SelectManyShuttle.moveSelectedItems(jQuery(this).parents(".tobago-selectManyShuttle"), false, false);
+  });
+};
+
+Tobago.SelectManyShuttle.moveSelectedItems = function(shuttle, direction, all) {
+  var unselected = shuttle.find(".tobago-selectManyShuttle-unselected");
+  var selected = shuttle.find(".tobago-selectManyShuttle-selected");
+  var source = direction ? unselected : selected;
+  var target = direction ? selected : unselected;
+  source.find(all ? "option" : "option:selected").remove().appendTo(target);
+  Tobago.SelectManyShuttle.copyValues(shuttle);
+};
+
+Tobago.SelectManyShuttle.copyValues = function(shuttle) {
+  var hidden = shuttle.find(".tobago-selectManyShuttle-hidden");
+  hidden.find("option").remove();
+  shuttle.find(".tobago-selectManyShuttle-selected option").clone()
+      .attr('selected', 'selected').appendTo(hidden);
+};
 
 // ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

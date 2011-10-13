@@ -180,6 +180,19 @@
           </supported-markup>
         </renderer>
         <renderer>
+          <name>SelectManyShuttle</name>
+          <supported-markup>
+            <markup>disabled</markup>
+            <markup>readonly</markup>
+            <markup>required</markup>
+            <markup>fatal</markup>
+            <markup>error</markup>
+            <markup>warn</markup>
+            <markup>info</markup>
+            <markup>selected</markup>
+          </supported-markup>
+        </renderer>
+        <renderer>
           <name>SelectOneChoice</name>
           <supported-markup>
             <markup>disabled</markup>

@@ -92,12 +92,8 @@ public class SelectManyShuttleRenderer extends SelectManyRendererBase {
     }
 
     writer.writeStyleAttribute(style);
-    // TODO define classes
     writer.writeClassAttribute(Classes.create(select, "unselected"));
 
-    // TODO move javascript to js
-    writer.writeAttribute(HtmlAttributes.ONDBLCLICK,
-        "Tobago.selectManyShuttleMoveSelectedItems('" + clientId + "', true)", true);
     writer.writeAttribute(HtmlAttributes.MULTIPLE, HtmlAttributes.MULTIPLE, false);
 
     Object[] values = select.getSelectedValues();
@@ -112,14 +108,10 @@ public class SelectManyShuttleRenderer extends SelectManyRendererBase {
     String selectedClientId = clientId + ComponentUtils.SUB_SEPARATOR + "selected";
     // TODO css
     writer.writeStyleAttribute("position:absolute;top:50%;margin:-50px 5px;width:50px;height:50px;");
-    createButton(facesContext, component, writer, disabled, ">>", "addAll",
-        "Tobago.selectManyShuttleMoveAllItems('" + clientId + "', true)");
-    createButton(facesContext, component, writer, disabled, ">", "add",
-        "Tobago.selectManyShuttleMoveSelectedItems('" + clientId + "', true)");
-    createButton(facesContext, component, writer, disabled, "<", "remove",
-        "Tobago.selectManyShuttleMoveSelectedItems('" + clientId + "', false)");
-    createButton(facesContext, component, writer, disabled, "<<", "removeAll",
-        "Tobago.selectManyShuttleMoveAllItems('" + clientId + "', false)");
+    createButton(facesContext, component, writer, disabled, ">>", "addAll");
+    createButton(facesContext, component, writer, disabled, ">", "add");
+    createButton(facesContext, component, writer, disabled, "<", "remove");
+    createButton(facesContext, component, writer, disabled, "<<", "removeAll");
     writer.endElement(HtmlElements.DIV);
     writer.endElement(HtmlElements.DIV);
     String selectedLabel = select.getSelectedLabel();
@@ -143,10 +135,6 @@ public class SelectManyShuttleRenderer extends SelectManyRendererBase {
     style.setLeft(style.getLeft().add(buttonWidth));
     writer.writeStyleAttribute(style);
     writer.writeClassAttribute(Classes.create(select, "selected"));
-    if (!disabled) {
-        writer.writeAttribute(HtmlAttributes.ONDBLCLICK,
-            "Tobago.selectManyShuttleMoveSelectedItems('" + clientId + "', false)", true);
-    }
     writer.writeAttribute(HtmlAttributes.MULTIPLE, HtmlAttributes.MULTIPLE, false);
     HtmlRendererUtils.renderSelectItems(select, items, values, true, writer, facesContext);
 
@@ -169,16 +157,13 @@ public class SelectManyShuttleRenderer extends SelectManyRendererBase {
   }
 
   private void createButton(FacesContext context, UIComponent component, TobagoResponseWriter writer,
-        boolean disabled, String label, String sub, String onClick) throws IOException {
+        boolean disabled, String label, String sub) throws IOException {
     writer.startElement(HtmlElements.BUTTON, null);
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.BUTTON, false);
     writer.writeClassAttribute(Classes.create(component, sub));
     writer.writeIdAttribute(component.getClientId(context) + ComponentUtils.SUB_SEPARATOR + sub);
     // TODO css
     writer.writeStyleAttribute("width:40px");
-    if (onClick != null && !disabled) {
-      writer.writeAttribute(HtmlAttributes.ONCLICK, onClick, true);
-    }
     writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
     HtmlRendererUtils.writeLabelWithAccessKey(writer, new LabelWithAccessKey(label));
     writer.endElement(HtmlElements.BUTTON);
