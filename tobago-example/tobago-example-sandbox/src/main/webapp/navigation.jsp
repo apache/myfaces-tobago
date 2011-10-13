@@ -28,7 +28,7 @@
 
     <tc:link link="inputSlider.jsp" label="inputSlider.jsp" target="View"/>
 
-    <tc:link link="selectManyShuffle.jsp" label="selectManyShuffle.jsp" target="View"/>
+    <tc:link link="selectManyShuttle.jsp" label="selectManyShuttle.jsp" target="View"/>
 
     <tc:cell/>
   </tc:page>
