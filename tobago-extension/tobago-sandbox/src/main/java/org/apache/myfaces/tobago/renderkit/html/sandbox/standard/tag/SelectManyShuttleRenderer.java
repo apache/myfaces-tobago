@@ -46,7 +46,7 @@ public class SelectManyShuttleRenderer extends SelectManyRendererBase {
     writer.startElement(HtmlElements.DIV, select);
     Style style = new Style(facesContext, select);
     writer.writeStyleAttribute(style);
-
+    writer.writeClassAttribute(Classes.create(select));
     String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, select);
     if (title != null) {
       writer.writeAttribute(HtmlAttributes.TITLE, title, true);
@@ -152,6 +152,7 @@ public class SelectManyShuttleRenderer extends SelectManyRendererBase {
 
     writer.endElement(HtmlElements.SELECT);
     writer.startElement(HtmlElements.SELECT, select);
+    writer.writeClassAttribute(Classes.create(component, "hidden"));
     writer.writeIdAttribute(clientId);
     writer.writeNameAttribute(clientId);
     writer.writeAttribute(HtmlAttributes.MULTIPLE, HtmlAttributes.MULTIPLE, false);
