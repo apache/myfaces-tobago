@@ -710,11 +710,7 @@ li.tobago-menu-markup-selected {
   width:40px;
 }
 
-.tobago-selectManyShuttle-unselected-markup-error {
-  border-style: solid;
-  border-color: #ff0000;
-}
-
+.tobago-selectManyShuttle-unselected-markup-error,
 .tobago-selectManyShuttle-selected-markup-error {
   border-style: solid;
   border-color: #ff0000;
