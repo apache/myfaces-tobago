@@ -374,6 +374,23 @@ li.tobago-menu-markup-selected {
   background-color: #E8E8E8;
 }
 
+/* selectManyShuttle ------------------------------------------------------- */
+
+.tobago-selectManyShuttle {
+  font: 12px arial, helvetica, sans-serif;
+  color: #000000;
+}
+
+.tobago-selectManyShuttle-markup-disabled {
+  background-color: #E8E8E8;
+  color: #808080;
+}
+
+.tobago-selectManyShuttle-markup-readonly {
+  background-color: #E8E8E8;
+}
+
+
 /* selectOneChoice --------------------------------------------------------- */
 
 .tobago-selectOneChoice {

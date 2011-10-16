@@ -679,7 +679,7 @@ li.tobago-menu-markup-selected {
 .tobago-selectManyShuttle {
   font-family: arial, helvetica, sans-serif;
   color: #000000;
-  background: #ffffff;
+  background: transparent;
 }
 
 .tobago-selectManyShuttle-markup-readonly {
@@ -694,27 +694,18 @@ li.tobago-menu-markup-selected {
 .tobago-selectManyShuttle-toolBar {
   position:absolute;
   top:50%;
-  margin:-50px 5px;
+  margin:-52px 5px;
   width:50px;
-  height:50px;
+  height:52px;
 }
 
 .tobago-selectManyShuttle-hidden {
   display:none
 }
 
-.tobago-selectManyShuttle-addAll {
-  width:40px;
-}
-
-.tobago-selectManyShuttle-add {
-  width:40px;
-}
-
-.tobago-selectManyShuttle-remove {
-  width:40px;
-}
-
+.tobago-selectManyShuttle-addAll,
+.tobago-selectManyShuttle-add,
+.tobago-selectManyShuttle-remove,
 .tobago-selectManyShuttle-removeAll {
   width:40px;
 }
