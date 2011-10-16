@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.renderkit.html.sandbox.standard.tag;
+package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -105,9 +105,7 @@ public class SelectManyShuttleRenderer extends SelectManyRendererBase {
     style.setWidth(buttonWidth);
     writer.writeStyleAttribute(style);
     writer.startElement(HtmlElements.DIV, null);
-    String selectedClientId = clientId + ComponentUtils.SUB_SEPARATOR + "selected";
-    // TODO css
-    writer.writeStyleAttribute("position:absolute;top:50%;margin:-50px 5px;width:50px;height:50px;");
+    writer.writeClassAttribute(Classes.create(select, "toolBar"));
     createButton(facesContext, component, writer, disabled, ">>", "addAll");
     createButton(facesContext, component, writer, disabled, ">", "add");
     createButton(facesContext, component, writer, disabled, "<", "remove");
@@ -125,6 +123,7 @@ public class SelectManyShuttleRenderer extends SelectManyRendererBase {
     }
 
     writer.startElement(HtmlElements.SELECT, select);
+    String selectedClientId = clientId + ComponentUtils.SUB_SEPARATOR + "selected";
     writer.writeIdAttribute(selectedClientId);
 
     writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
@@ -144,7 +143,7 @@ public class SelectManyShuttleRenderer extends SelectManyRendererBase {
     writer.writeIdAttribute(clientId);
     writer.writeNameAttribute(clientId);
     writer.writeAttribute(HtmlAttributes.MULTIPLE, HtmlAttributes.MULTIPLE, false);
-    writer.writeStyleAttribute("display:none");
+
     HtmlRendererUtils.renderSelectItems(select, items, values, writer, facesContext);
 
     writer.endElement(HtmlElements.SELECT);
@@ -162,8 +161,6 @@ public class SelectManyShuttleRenderer extends SelectManyRendererBase {
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.BUTTON, false);
     writer.writeClassAttribute(Classes.create(component, sub));
     writer.writeIdAttribute(component.getClientId(context) + ComponentUtils.SUB_SEPARATOR + sub);
-    // TODO css
-    writer.writeStyleAttribute("width:40px");
     writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
     HtmlRendererUtils.writeLabelWithAccessKey(writer, new LabelWithAccessKey(label));
     writer.endElement(HtmlElements.BUTTON);

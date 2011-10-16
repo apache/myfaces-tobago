@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.internal.taglib.sandbox;
+package org.apache.myfaces.tobago.internal.taglib.component;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
