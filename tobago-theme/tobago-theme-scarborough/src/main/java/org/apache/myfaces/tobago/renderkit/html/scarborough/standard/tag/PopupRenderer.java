@@ -22,6 +22,7 @@ import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPage;
 import org.apache.myfaces.tobago.internal.layout.LayoutContext;
 import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
+import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
@@ -83,6 +84,15 @@ public class PopupRenderer extends LayoutComponentRendererBase {
     layoutContext.layout();
     LOG.info("Laying out takes: " + new DecimalFormat("#,##0").format(System.nanoTime() - begin) + " ns");
 
+    // XXX fixing invisible popups
+    if (popup.getWidth() == null || popup.getWidth().equals(Measure.ZERO)) {
+      LOG.warn("Undefined width of popup with id='" + popup.getClientId(facesContext) + "'");
+      popup.setWidth(getPreferredWidth(facesContext, popup));
+    }
+    if (popup.getHeight() == null || popup.getHeight().equals(Measure.ZERO)) {
+      LOG.warn("Undefined height of popup with id='" + popup.getClientId(facesContext) + "'");
+      popup.setHeight(getPreferredHeight(facesContext, popup));
+    }
 // LAYOUT End
 
     final String clientId = popup.getClientId(facesContext);
