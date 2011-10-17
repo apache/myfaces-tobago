@@ -85,13 +85,13 @@ public class PopupRenderer extends LayoutComponentRendererBase {
     LOG.info("Laying out takes: " + new DecimalFormat("#,##0").format(System.nanoTime() - begin) + " ns");
 
     // XXX fixing invisible popups
-    if (popup.getWidth() == null || popup.getWidth().equals(Measure.ZERO)) {
+    if (popup.getCurrentWidth() == null || popup.getCurrentWidth().equals(Measure.ZERO)) {
       LOG.warn("Undefined width of popup with id='" + popup.getClientId(facesContext) + "'");
-      popup.setWidth(getPreferredWidth(facesContext, popup));
+      popup.setCurrentWidth(getPreferredWidth(facesContext, popup));
     }
-    if (popup.getHeight() == null || popup.getHeight().equals(Measure.ZERO)) {
+    if (popup.getCurrentHeight() == null || popup.getCurrentHeight().equals(Measure.ZERO)) {
       LOG.warn("Undefined height of popup with id='" + popup.getClientId(facesContext) + "'");
-      popup.setHeight(getPreferredHeight(facesContext, popup));
+      popup.setCurrentHeight(getPreferredHeight(facesContext, popup));
     }
 // LAYOUT End
 

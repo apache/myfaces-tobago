@@ -96,6 +96,9 @@
       <tc:button label="Open modeless">
         <f:facet name="popup">
           <tc:popup id="non_modal_popup" modal="false">
+            <f:facet name="layout">
+              <tc:gridLayout rows="auto" columns="auto"/>
+            </f:facet>
             <tc:box label="Non modal text input">
               <f:facet name="layout">
                 <tc:gridLayout rows="auto;*;auto"/>
