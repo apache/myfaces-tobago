@@ -27,6 +27,7 @@ import org.apache.myfaces.tobago.internal.component.AbstractUIPage;
 import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
 import org.apache.myfaces.tobago.util.ApplyRequestValuesCallback;
 import org.apache.myfaces.tobago.util.ComponentUtils;
+import org.apache.myfaces.tobago.util.FacesVersion;
 import org.apache.myfaces.tobago.util.ProcessValidationsCallback;
 import org.apache.myfaces.tobago.util.TobagoCallback;
 import org.apache.myfaces.tobago.util.UpdateModelValuesCallback;
@@ -235,6 +236,15 @@ public class UIViewRoot extends javax.faces.component.UIViewRoot implements Invo
     UIComponent actionComponent = null;
     if (actionId != null) {
       actionComponent = findComponent(actionId);
+      if (actionComponent == null && FacesVersion.supports20() && FacesVersion.isMyfaces()) {
+        String bugActionId = actionId.replaceAll(":\\d+:", ":");
+        try {
+          actionComponent = findComponent(bugActionId);
+          LOG.info("command = \"" + actionComponent + "\"", new Exception());
+        } catch (Exception e) {
+          // ignore
+        }
+      }
     }
     if (actionComponent == null) {
       return;
