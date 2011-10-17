@@ -35,6 +35,7 @@ import org.slf4j.LoggerFactory;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIColumn;
 import javax.faces.component.UIComponent;
+import javax.faces.component.UIData;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
@@ -71,6 +72,8 @@ public class TobagoDemoController {
   private List<UIColumn> solarArrayColumns;
 
   private String solarArrayColumnLayout;
+
+  private SolarObject currentSolarObject;
 
   private DefaultMutableTreeNode tree;
 
@@ -354,6 +357,14 @@ public class TobagoDemoController {
   }
 
 
+  public void selectLuminary(ActionEvent actionEvent) {
+    LOG.info("actionEvent=" + actionEvent);
+//    final List<Integer> selectedRows = sheetState.getSelectedRows();
+    final UIData data = ComponentUtils.findAncestor(actionEvent.getComponent(), UIData.class);
+    currentSolarObject = (SolarObject) data.getRowData();
+    LOG.info("Selected: " + currentSolarObject.getName());
+  }
+
   public void setSolarList(List<SolarObject> solarList) {
     this.solarList = solarList;
   }
@@ -557,4 +568,7 @@ public class TobagoDemoController {
 
   }
 
+  public SolarObject getCurrentSolarObject() {
+    return currentSolarObject;
+  }
 }
