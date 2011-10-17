@@ -47,7 +47,7 @@
 					</tc:columnEvent>
     </tc:sheet>
 
-    <tc:panel id="detail">
+    <tc:panel id="detail" rendered="#{demo.currentSolarObject != null}">
       <tx:in label="Name" value="#{demo.currentSolarObject.name}"/>
     </tc:panel>
 
