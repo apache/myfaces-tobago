@@ -36,7 +36,6 @@ import org.slf4j.LoggerFactory;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
-import java.text.DecimalFormat;
 
 public class PopupRenderer extends LayoutComponentRendererBase {
 
@@ -76,13 +75,8 @@ public class PopupRenderer extends LayoutComponentRendererBase {
     
     UIPopup popup = (UIPopup) component;
 
-// LAYOUT Begin
-
-    // todo: remove time logging
-    long begin = System.nanoTime();
     LayoutContext layoutContext = new LayoutContext(popup);
     layoutContext.layout();
-    LOG.info("Laying out takes: " + new DecimalFormat("#,##0").format(System.nanoTime() - begin) + " ns");
 
     // XXX fixing invisible popups
     if (popup.getCurrentWidth() == null || popup.getCurrentWidth().equals(Measure.ZERO)) {
@@ -93,7 +87,6 @@ public class PopupRenderer extends LayoutComponentRendererBase {
       LOG.warn("Undefined height of popup with id='" + popup.getClientId(facesContext) + "'");
       popup.setCurrentHeight(getPreferredHeight(facesContext, popup));
     }
-// LAYOUT End
 
     final String clientId = popup.getClientId(facesContext);
 
