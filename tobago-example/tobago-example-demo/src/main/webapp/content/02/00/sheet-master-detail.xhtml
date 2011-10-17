@@ -41,14 +41,13 @@
         <tc:out value="#{luminary.name}" id="t_name"/>
       </tc:column>
       <tc:columnEvent event="click">
-						<tc:command actionListener="#{demo.selectLuminary}">
-							<tc:attribute name="renderedPartially" value=":page:detail" />
+						<tc:command actionListener="#{demo.selectLuminary}" renderedPartially=":page:detail">
 						</tc:command>
 					</tc:columnEvent>
     </tc:sheet>
 
-    <tc:panel id="detail" rendered="#{demo.currentSolarObject != null}">
-      <tx:in label="Name" value="#{demo.currentSolarObject.name}"/>
+    <tc:panel id="detail">
+      <tx:in label="Name" value="#{demo.currentSolarObject.name}" readonly="#{demo.currentSolarObject == null}"/>
     </tc:panel>
 
   </tc:panel>

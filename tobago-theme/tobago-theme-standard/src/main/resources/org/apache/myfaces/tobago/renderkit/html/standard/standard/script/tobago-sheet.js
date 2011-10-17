@@ -453,7 +453,7 @@ Tobago.Sheet.prototype.doSelection = function(event) {
         var action = this.id + ":" + rowIndex + ":" + this.clickActionId;
         //LOG.debug("Action " + action);
         if (this.clickReloadComponentId && this.clickReloadComponentId.length > 0) {
-          Tobago.reloadComponent(srcElement, this.clickReloadComponentId[0], action)
+          Tobago.reloadComponent(srcElement, this.clickReloadComponentId, action)
         } else {
           Tobago.submitAction(srcElement, action);
         }
@@ -488,7 +488,7 @@ Tobago.Sheet.prototype.doDblClick = function(event) {
         var action = this.id + ":" + rowIndex + ":" + this.dblClickActionId;
         //LOG.debug("dblAction " + action);
         if (this.dblClickReloadComponentId && this.dblClickReloadComponentId.length > 0) {
-          Tobago.reloadComponent(srcElement, this.dblClickReloadComponentId[0], action)
+          Tobago.reloadComponent(srcElement, this.dblClickReloadComponentId, action)
         } else {
           Tobago.submitAction(srcElement, action);
         }
