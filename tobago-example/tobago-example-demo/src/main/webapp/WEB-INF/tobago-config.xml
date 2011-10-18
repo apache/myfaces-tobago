@@ -52,34 +52,6 @@
         <markup>sun</markup>
         <markup>planet</markup>
         <markup>moon</markup>
-        <!--
-         XXX this is here, because in the moment, the list will be replaced and not be added.
-         XXX this may change in the future. -->
-        <!-- internal: for the paging buttons -->
-        <markup>disabled</markup>
-        <!-- internal: for the header -->
-        <markup>resizable</markup>
-        <!-- for the rows -->
-        <markup>odd</markup>
-        <markup>even</markup>
-        <!-- for the cells -->
-        <markup>clickable</markup>
-        <markup>first</markup>
-        <!-- internal: for the paging fields -->
-        <markup>left</markup>
-        <markup>center</markup>
-        <markup>right</markup>
-      </supported-markup>
-    </renderer>
-
-    <renderer>
-      <name>SelectOneChoice</name>
-      <supported-markup>
-        <markup>disabled</markup>
-        <markup>selected</markup>
-        <markup>ok</markup>
-        <markup>warn</markup>
-        <markup>error</markup>
       </supported-markup>
     </renderer>
 

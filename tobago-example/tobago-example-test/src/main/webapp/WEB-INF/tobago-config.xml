@@ -33,7 +33,6 @@
     <renderer>
       <name>TreeCommand</name>
       <supported-markup>
-        <markup>disabled</markup>
         <markup>todo</markup>
       </supported-markup>
     </renderer>

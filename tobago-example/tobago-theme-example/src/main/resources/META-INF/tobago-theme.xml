@@ -25,23 +25,14 @@
   <fallback>speyside</fallback>
   <renderers>
     <renderer>
-      <name>Out</name>
-      <supported-markup>
-        <markup>strong</markup>
-        <markup>deleted</markup>
-        <markup>number</markup>
-      </supported-markup>
-    </renderer>
-    <renderer>
       <name>In</name>
       <supported-markup>
-        <markup>number</markup>
         <markup>changeaware</markup>
         <markup>blink</markup>
       </supported-markup>
     </renderer>
     <renderer>
-      <name>Column</name>
+      <name>Sheet</name>
       <supported-markup>
         <markup>new</markup>
         <markup>none</markup>

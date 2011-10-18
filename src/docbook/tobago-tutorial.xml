@@ -904,11 +904,11 @@ tobago-resource/html/standard/standard/image/empty-portrait_de.png</programlisti
       results from the following naming rule "tobago-" +
       <literal>rendererName.toLower()</literal> + "-markup-" + <literal>markupName</literal>:</para>
 
-      <programlisting>.tobago-column-markup-new {
+      <programlisting>.tobago-sheet-cell-markup-new {
   background-color: yellow;
 }</programlisting>
 
-      <para>For the Example theme it was decided to render a new column with a
+      <para>For the Example theme it was decided to render a new column (sheet-cell) with a
       yellow background.</para>
 
       <para>The address book example uses a different way to add markup. In

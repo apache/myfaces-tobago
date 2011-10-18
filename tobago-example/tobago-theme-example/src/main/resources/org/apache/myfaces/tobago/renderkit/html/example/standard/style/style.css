@@ -15,10 +15,6 @@
  * limitations under the License.
  */
 
-.tobago-column-markup-new {
-  background-color: yellow;
-}
-
 .tobago-in-markup-changeaware {
   border: 1px solid red;
 }
@@ -28,6 +24,10 @@
 }
 
 .tobago-in-markup-blink {
+  background-color: yellow;
+}
+
+.tobago-sheet-cell-markup-new {
   background-color: yellow;
 }
 
