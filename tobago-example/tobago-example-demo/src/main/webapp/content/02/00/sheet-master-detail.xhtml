@@ -30,24 +30,29 @@
       <tc:gridLayout rows="1*;3*" columns="*;*"/>
     </f:facet>
 
-    <tc:out escape="false" value="Klick on a row and ">
+    <tc:out escape="false" value="Klick on a row">
       <tc:gridLayoutConstraint columnSpan="2"/>
     </tc:out>
 
-    <tc:sheet value="#{demo.solarList}" id="sheet"
-              columns="*" var="luminary"
-              state="#{demo.sheetState}">
-      <tc:column label="#{overviewBundle.solarArrayName}" id="name">
-        <tc:out value="#{luminary.name}" id="t_name"/>
-      </tc:column>
-      <tc:columnEvent event="click">
-						<tc:command actionListener="#{demo.selectLuminary}" renderedPartially=":page:detail">
-						</tc:command>
-					</tc:columnEvent>
-    </tc:sheet>
+    <tc:box label="List of Objects">
+      <tc:sheet value="#{demo.solarList}" id="sheet"
+                columns="*" var="luminary"
+                state="#{demo.sheetState}">
+        <tc:column label="#{overviewBundle.solarArrayName}" id="name">
+          <tc:out value="#{luminary.name}" id="t_name"/>
+        </tc:column>
+        <tc:columnEvent event="click">
+              <tc:command actionListener="#{demo.selectLuminary}" renderedPartially=":page:detail">
+              </tc:command>
+            </tc:columnEvent>
+      </tc:sheet>
+    </tc:box>
 
     <tc:panel id="detail">
-      <tx:in label="Name" rendered="#{demo.currentSolarObject != null}" value="#{demo.currentSolarObject.name}" />
+      <tc:box label="Details" rendered="#{demo.currentSolarObject != null}">
+        <tx:in label="Name" value="#{demo.currentSolarObject.name}"/>
+        <tc:out value="todo..."/>
+      </tc:box> 
     </tc:panel>
 
   </tc:panel>
