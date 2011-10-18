@@ -45,7 +45,7 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
 /**
- * Render a group of checkboxes.
+ * Renders a multi selection option shuttle with a label.
  */
 @Tag(name = "selectManyShuttle")
 @ExtensionTag(baseClassName = "org.apache.myfaces.tobago.internal.taglib.SelectManyShuttleTag")

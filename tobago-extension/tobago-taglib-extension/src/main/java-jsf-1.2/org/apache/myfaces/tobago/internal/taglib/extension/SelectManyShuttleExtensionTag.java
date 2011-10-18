@@ -12,7 +12,7 @@ import javax.servlet.jsp.JspException;
 /**
  * Renders a multi selection option shuttle with a label.
  */
-@Tag(name = "selectManyListbox")
+@Tag(name = "selectManyShuttle")
 @ExtensionTag(baseClassName = "org.apache.myfaces.tobago.internal.taglib.SelectManyShuttleTag")
 public class SelectManyShuttleExtensionTag extends TobagoExtensionBodyTagSupport {
 
