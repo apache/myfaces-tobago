@@ -29,6 +29,7 @@ import org.apache.myfaces.tobago.layout.Display;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
+import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
@@ -175,8 +176,8 @@ public class TreeMenuNodeRenderer extends LayoutComponentRendererBase {
     writer.startElement(HtmlElements.IMG, null);
     writer.writeClassAttribute(Classes.create(node, "toggle"));
     writer.writeAttribute(HtmlAttributes.SRC, src, false);
-    writer.writeAttribute(HtmlAttributes.SRCOPEN, srcOpen, false);
-    writer.writeAttribute(HtmlAttributes.SRCCLOSE, srcClose, false);
+    writer.writeAttribute(DataAttributes.SRCOPEN, srcOpen, false);
+    writer.writeAttribute(DataAttributes.SRCCLOSE, srcClose, false);
     writer.writeAttribute(HtmlAttributes.ALT, "", false);
     writer.endElement(HtmlElements.IMG);
   }

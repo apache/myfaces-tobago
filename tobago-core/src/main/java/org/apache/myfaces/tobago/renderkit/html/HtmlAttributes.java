@@ -79,22 +79,6 @@ public final class HtmlAttributes {
   // Non standard attributes ///////////////////////////////////////////////////////////
 
   /**
-   * Alternate to the src attribute, to implement a hover effect.
-   */
-  public static final String SRCHOVER = "srchover";
-  /**
-   * Alternate to the src attribute, to implement a hover effect.
-   */
-  public static final String SRCDEFAULT = "srcdefault";
-  /**
-   * Alternate to the src attribute, icon open and close.
-   */
-  public static final String SRCCLOSE = "srcclose";
-  /**
-   * Alternate to the src attribute, icon open and close.
-   */
-  public static final String SRCOPEN = "srcopen";
-  /**
    * The index of the tab inside the tab group.
    */
   public static final String TABGROUPINDEX = "tabgroupindex";

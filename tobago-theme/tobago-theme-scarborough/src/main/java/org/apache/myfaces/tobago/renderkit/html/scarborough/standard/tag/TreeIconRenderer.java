@@ -24,6 +24,7 @@ import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.context.ResourceUtils;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
+import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
@@ -89,8 +90,8 @@ public class TreeIconRenderer extends LayoutComponentRendererBase {
 
     writer.writeAttribute(HtmlAttributes.SRC, source, true);
     if (folder) {
-      writer.writeAttribute(HtmlAttributes.SRCOPEN, openSource, true);
-      writer.writeAttribute(HtmlAttributes.SRCCLOSE, closedSource, true);
+      writer.writeAttribute(DataAttributes.SRCOPEN, openSource, true);
+      writer.writeAttribute(DataAttributes.SRCCLOSE, closedSource, true);
     }
     writer.writeAttribute(HtmlAttributes.ALT, "", false);
     writer.endElement(HtmlElements.IMG);

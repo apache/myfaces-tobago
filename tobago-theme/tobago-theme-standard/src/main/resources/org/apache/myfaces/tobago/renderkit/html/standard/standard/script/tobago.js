@@ -2547,7 +2547,7 @@ Tobago.ToolBar.init = function(elements) {
           .addClass('tobago-toolBar-button-markup-hover').children('img')
           .each(function() {
         // set the src to the hover src url.
-        var hover = jQuery(this).attr('srchover');
+        var hover = jQuery(this).data('tobago-srchover');
         if (hover) {
           jQuery(this).attr('src', hover);
         }
@@ -2559,7 +2559,7 @@ Tobago.ToolBar.init = function(elements) {
           .children('img')
           .each(function() {
         // restore the original/normal src url.
-        var normal = jQuery(this).attr('srcdefault');
+        var normal = jQuery(this).data('tobago-srcdefault');
         if (normal) {
           jQuery(this).attr('src', normal);
         }
@@ -2577,7 +2577,7 @@ Tobago.ToolBar.init = function(elements) {
           .addClass('tobago-boxToolBar-button-markup-hover').children('img')
           .each(function() {
         // set the src to the hover src url.
-        var hover = jQuery(this).attr('srchover');
+        var hover = jQuery(this).data('tobago-srchover');
         if (hover) {
           jQuery(this).attr('src', hover);
         }
@@ -2589,7 +2589,7 @@ Tobago.ToolBar.init = function(elements) {
           .children('img')
           .each(function() {
         // restore the original/normal src url.
-        var normal = jQuery(this).attr('srcdefault');
+        var normal = jQuery(this).data('tobago-srcdefault');
         if (normal) {
           jQuery(this).attr('src', normal);
         }
@@ -2607,7 +2607,7 @@ Tobago.ToolBar.init = function(elements) {
           .addClass('tobago-tabGroupToolBar-button-markup-hover').children('img')
           .each(function() {
         // set the src to the hover src url.
-        var hover = jQuery(this).attr('srchover');
+        var hover = jQuery(this).data('tobago-srchover');
         if (hover) {
           jQuery(this).attr('src', hover);
         }
@@ -2619,7 +2619,7 @@ Tobago.ToolBar.init = function(elements) {
           .children('img')
           .each(function() {
         // restore the original/normal src url.
-        var normal = jQuery(this).attr('srcdefault');
+        var normal = jQuery(this).data('tobago-srcdefault');
         if (normal) {
           jQuery(this).attr('src', normal);
         }
@@ -3154,7 +3154,7 @@ Tobago.Tree.toggleNode = function(element) {
   if (content.css("display") == "none") {
     content.css("display", "block");
     toggle.each(function() {
-      jQuery(this).attr("src", jQuery(this).attr("srcopen"));
+      jQuery(this).attr("src", jQuery(this).data("tobago-srcopen"));
       Tobago.fixPngAlpha(this);
     });
     expanded.attr("value", "true");
@@ -3163,7 +3163,7 @@ Tobago.Tree.toggleNode = function(element) {
   } else {
     content.css("display", "none");
     toggle.each(function() {
-      jQuery(this).attr("src", jQuery(this).attr("srcclose"));
+      jQuery(this).attr("src", jQuery(this).attr("tobago-srcclose"));
       Tobago.fixPngAlpha(this);
     });
     expanded.attr("value", "false");

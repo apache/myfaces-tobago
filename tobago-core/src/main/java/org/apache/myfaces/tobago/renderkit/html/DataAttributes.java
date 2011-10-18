@@ -28,4 +28,20 @@ public final class DataAttributes {
    * Custom disabled attribute. Use for element, that don't have the disabled attribute.
    */
   public static final String DISABLED = "data-tobago-disabled";
+  /**
+   * Alternate to the src attribute, to implement a hover effect.
+   */
+  public static final String SRCHOVER = "data-tobago-srchover";
+  /**
+   * Alternate to the src attribute, to implement a hover effect.
+   */
+  public static final String SRCDEFAULT = "data-tobago-srcdefault";
+  /**
+   * Alternate to the src attribute, icon open and close.
+   */
+  public static final String SRCCLOSE = "data-tobago-srcclose";
+  /**
+   * Alternate to the src attribute, icon open and close.
+   */
+  public static final String SRCOPEN = "data-tobago-srcopen";
 }

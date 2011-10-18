@@ -30,6 +30,7 @@ import org.apache.myfaces.tobago.renderkit.CommandRendererBase;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
+import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.CommandRendererHelper;
@@ -158,8 +159,8 @@ public class MenuCommandRenderer extends CommandRendererBase {
         String imageHover
             = ResourceManagerUtils.getImageWithPath(facesContext, HtmlRendererUtils.createSrc(image, "Hover"), true);
         if (imageHover != null) {
-          writer.writeAttribute(HtmlAttributes.SRCDEFAULT, imageWithPath, false);
-          writer.writeAttribute(HtmlAttributes.SRCHOVER, imageHover, false);
+          writer.writeAttribute(DataAttributes.SRCDEFAULT, imageWithPath, false);
+          writer.writeAttribute(DataAttributes.SRCHOVER, imageHover, false);
         }
 
         writer.writeAttribute(HtmlAttributes.ALT, label.getText(), true);

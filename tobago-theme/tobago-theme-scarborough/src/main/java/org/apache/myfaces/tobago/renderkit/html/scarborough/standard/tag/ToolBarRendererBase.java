@@ -37,6 +37,7 @@ import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
+import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
@@ -397,8 +398,8 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
       String imageHover
           = ResourceManagerUtils.getImageWithPath(facesContext, HtmlRendererUtils.createSrc(iconName, "Hover"), true);
       if (imageHover != null) {
-        writer.writeAttribute(HtmlAttributes.SRCDEFAULT, image, false);
-        writer.writeAttribute(HtmlAttributes.SRCHOVER, imageHover, false);
+        writer.writeAttribute(DataAttributes.SRCDEFAULT, image, false);
+        writer.writeAttribute(DataAttributes.SRCHOVER, imageHover, false);
       }
       writer.writeAttribute(HtmlAttributes.ALT, label.getText(), true);
       writer.writeStyleAttribute(iconStyle);
