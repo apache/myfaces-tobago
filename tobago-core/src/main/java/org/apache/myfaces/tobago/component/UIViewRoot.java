@@ -240,7 +240,7 @@ public class UIViewRoot extends javax.faces.component.UIViewRoot implements Invo
         String bugActionId = actionId.replaceAll(":\\d+:", ":");
         try {
           actionComponent = findComponent(bugActionId);
-          LOG.info("command = \"" + actionComponent + "\"", new Exception());
+          //LOG.info("command = \"" + actionComponent + "\"", new Exception());
         } catch (Exception e) {
           // ignore
         }

@@ -130,23 +130,23 @@ public abstract class AbstractUIPage extends AbstractUIForm
     }
 
     UIComponent command = null;
-    try { // todo: try bock should be removed, when tested, that the warning usually not accure.
+    try { // todo: try bock should be removed, when tested, that the warning usually not occure.
       command = findComponent(currentActionId);
     } catch (Exception e) {
       LOG.warn("Should not happen!!! currentActionId='" + currentActionId + "'");
     }
 
-    // TODO: remove this if block if prooven this never happens anymore
+    // TODO: remove this if block if proven this never happens anymore
     if (command == null
         && currentActionId != null && currentActionId.matches(".*:\\d+:.*")) {
       // If currentActionId component was inside a sheet the id contains the
-      // rowindex and is therefore not found here.
+      // rowIndex and is therefore not found here.
       // We do not need the row here because we want just to find the
-      // related form, so removing the rowindex will help here.
+      // related form, so removing the rowIndex will help here.
       currentActionId = currentActionId.replaceAll(":\\d+:", ":");
       try {
         command = findComponent(currentActionId);
-        LOG.info("command = \"" + command + "\"", new Exception());
+        //LOG.info("command = \"" + command + "\"", new Exception());
       } catch (Exception e) {
         // ignore
       }
