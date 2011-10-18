@@ -415,7 +415,7 @@ div.tobago-gridLayout-first-column {
 li.tobago-menu-markup-disabled a,
 li.tobago-menu-markup-disabled a:link,
 li.tobago-menu-markup-disabled a:visited,
-li.tobago-menu-markup-disabled a:active  {
+li.tobago-menu-markup-disabled a:active {
   color: #778899;
 }
 
@@ -637,12 +637,12 @@ li.tobago-menu-markup-selected {
   margin: 0;
 }
 
-.tobago-selectManyCheckbox-markup-disabled  {
+.tobago-selectManyCheckbox-markup-disabled {
   color: #778899;
 }
 
 /* todo after removing IE6 support please use ">" */
-.tobago-selectManyCheckbox-markup-inline li  {
+.tobago-selectManyCheckbox-markup-inline li {
   display: inline;
 }
 
@@ -767,12 +767,12 @@ li.tobago-menu-markup-selected {
   margin: 0;
 }
 
-.tobago-selectOneRadio-markup-disabled  {
+.tobago-selectOneRadio-markup-disabled {
   color: #778899;
 }
 
 /* todo after removing IE6 support please use ">" */
-.tobago-selectOneRadio-markup-inline li  {
+.tobago-selectOneRadio-markup-inline li {
   display: inline;
 }
 

@@ -109,7 +109,7 @@
 
 /* button ------------------------------------------------------------------ */
 
-.tobago-button  {
+.tobago-button {
   border: 1px #000000 solid;
   background: #ffffff;
   font: bold 12px arial, helvetica, sans-serif;
@@ -140,13 +140,13 @@
 
 /* code ------------------------------------------------------------------ */
 
-.tobago-code  {
+.tobago-code {
   font: bold 14px Courier;
   color: #666666;
   padding-bottom: 2px;
 }
 
-.tobago-code-multiline  {
+.tobago-code-multiline {
   background: #CCCCCC;
   width: 530px;
   margin-top: 10px;
@@ -267,7 +267,7 @@
 li.tobago-menu-markup-disabled a,
 li.tobago-menu-markup-disabled a:link,
 li.tobago-menu-markup-disabled a:visited,
-li.tobago-menu-markup-disabled a:active  {
+li.tobago-menu-markup-disabled a:active {
   color: #888888;
 }
 

@@ -61,7 +61,7 @@
 
 /* button ------------------------------------------------------------ */
 
-.tobago-button  {
+.tobago-button {
   border: 1px #FF7D00 solid;
   background: #FFCC66;
   font: 11px arial, helvetica, sans-serif;
@@ -102,13 +102,13 @@ td.tobago-calendar-day-markup-selected {
 
 /* file ------------------------------------------------------------ */
 
-.tobago-file  {
+.tobago-file {
   height: 20px;
 }
 
 /* label ------------------------------------------------------------ */
 
-.tobago-label  {
+.tobago-label {
   background-color: #99ccff;
   color: #3366cc;
 }
@@ -192,7 +192,7 @@ li.tobago-menu-markup-selected {
 
 /* page --------------------------------------------------------------------- */
 
-.tobago-page  {
+.tobago-page {
   background: #ffffff;
   font: 11px arial, helvetica, sans-serif;
   color: #3366CC;
@@ -221,7 +221,7 @@ li.tobago-menu-markup-selected {
   border-bottom: 1px solid #d6ebff;
 }
 
-.tobago-sheet-header  {
+.tobago-sheet-header {
 	border-color: #d6ebff #3366CC #d6ebff #d6ebff;
   background-color: #d6ebff;
   color: #3366CC;

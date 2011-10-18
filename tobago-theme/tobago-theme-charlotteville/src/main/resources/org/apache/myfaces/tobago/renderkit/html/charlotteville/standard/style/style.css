@@ -61,7 +61,7 @@
 
 /* button ------------------------------------------------------------------ */
 
-.tobago-button  {
+.tobago-button {
   background: #FADC9F;
   color: #660000;
 }
@@ -72,13 +72,13 @@
 
 /* label ------------------------------------------------------------------- */
 
-.tobago-label  {
+.tobago-label {
   background-color: #FADC9F;
 }
 
 /* page -------------------------------------------------------------------- */
 
-.tobago-page  {
+.tobago-page {
   background: #FFEECF;
 }
 
@@ -107,7 +107,7 @@ li.tobago-menu-markup-selected {
   border-bottom: 1px solid #FADC9F;
 }
 
-.tobago-sheet-header  {
+.tobago-sheet-header {
 	border-color: #FADC9F #FECB66 #FADC9F #FADC9F;
   background-color: #FADC9F;
   color: #660000;

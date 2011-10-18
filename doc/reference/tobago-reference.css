@@ -20,11 +20,11 @@ body, table {
   background: #E2E2E2
 }
 
-h3  {
+h3 {
   margin-bottom: 5px;
 }
 
-li  {
+li {
   list-style: url("image/squareRed.gif");
   margin-left: -5px;
   width: 600px;
@@ -38,7 +38,7 @@ li  {
   border-bottom: 1px dotted #600;
 }
 
-hr  {
+hr {
   border: 0px solid black;
   border-top: 1px solid black;
 }
@@ -48,13 +48,13 @@ hr  {
   border: 1px solid black;
 }
 
-.mediaobject  {
+.mediaobject {
   padding: 10px;
   background: #ffffff;
   border: 1px solid black;
 }
 
-.classname  {
+.classname {
   line-height: 18px;
 }
 
