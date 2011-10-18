@@ -19,6 +19,9 @@ package org.apache.myfaces.tobago.internal.taglib.extension;
 
 import org.apache.myfaces.tobago.apt.annotation.ExtensionTag;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
+import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
+import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
+import org.apache.myfaces.tobago.internal.taglib.SelectManyShuttleTag;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasBinding;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasConverter;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasConverterMessage;
@@ -73,7 +76,6 @@ public class SelectManyShuttleExtensionTag extends BodyTagSupport
   private String markup;
   private String tabIndex;
   private String focus;
-  private String renderRange;
   private String validatorMessage;
   private String converterMessage;
   private String requiredMessage;
@@ -156,9 +158,6 @@ public class SelectManyShuttleExtensionTag extends BodyTagSupport
     if (markup != null) {
       selectManyShuttleTag.setMarkup(markup);
     }
-    if (renderRange != null) {
-      selectManyShuttleTag.setRenderRange(renderRange);
-    }
     if (tabIndex != null) {
       selectManyShuttleTag.setTabIndex(tabIndex);
     }
@@ -208,7 +207,6 @@ public class SelectManyShuttleExtensionTag extends BodyTagSupport
     selectManyShuttleTag = null;
     labelTag = null;
     focus = null;
-    renderRange = null;
     validatorMessage = null;
     converterMessage = null;
     requiredMessage = null;
@@ -237,10 +235,6 @@ public class SelectManyShuttleExtensionTag extends BodyTagSupport
 
   public void setOnchange(String onchange) {
     this.onchange = onchange;
-  }
-
-  public void setInline(String inline) {
-    this.inline = inline;
   }
 
   public void setLabel(String label) {
@@ -300,10 +294,6 @@ public class SelectManyShuttleExtensionTag extends BodyTagSupport
     this.focus = focus;
   }
 
-  public void setRenderRange(String renderRange) {
-    this.renderRange = renderRange;
-  }
-
   public void setValidatorMessage(String validatorMessage) {
     this.validatorMessage = validatorMessage;
   }
@@ -319,5 +309,4 @@ public class SelectManyShuttleExtensionTag extends BodyTagSupport
   public void setFieldId(String fieldId) {
     this.fieldId = fieldId;
   }
-
 }
