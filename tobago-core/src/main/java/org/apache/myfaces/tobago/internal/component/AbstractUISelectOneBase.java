@@ -22,9 +22,10 @@ import org.apache.myfaces.tobago.layout.LayoutComponent;
 import org.apache.myfaces.tobago.util.MessageUtils;
 
 import javax.faces.application.FacesMessage;
+import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 
-public abstract class AbstactUISelectOneBase extends javax.faces.component.UISelectOne
+public abstract class AbstractUISelectOneBase extends javax.faces.component.UISelectOne
     implements SupportsMarkup, LayoutComponent {
 
   public static final String MESSAGE_VALUE_REQUIRED = "tobago.SelectOne.MESSAGE_VALUE_REQUIRED";
@@ -33,8 +34,14 @@ public abstract class AbstactUISelectOneBase extends javax.faces.component.UISel
     if (isRequired()  && !isReadonly()) {
       Object submittedValue = getSubmittedValue();
       if (submittedValue == null || "".equals(submittedValue)) {
-        MessageUtils.addMessage(
-            facesContext, this, FacesMessage.SEVERITY_ERROR, MESSAGE_VALUE_REQUIRED, new Object[]{getId()});
+        if (getRequiredMessage() != null) {
+          String requiredMessage = getRequiredMessage();
+          facesContext.addMessage(getClientId(facesContext), new FacesMessage(FacesMessage.SEVERITY_ERROR,
+              requiredMessage, requiredMessage));
+        } else {
+          MessageUtils.addMessage(facesContext, this, FacesMessage.SEVERITY_ERROR,
+              UIInput.REQUIRED_MESSAGE_ID, new Object[]{MessageUtils.getLabel(facesContext, this)});
+        }
         setValid(false);
       }
     }
@@ -42,4 +49,6 @@ public abstract class AbstactUISelectOneBase extends javax.faces.component.UISel
   }
 
   public abstract boolean isReadonly();
+
+  public abstract String getRequiredMessage();
 }

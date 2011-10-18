@@ -17,5 +17,5 @@ package org.apache.myfaces.tobago.internal.component;
  * limitations under the License.
  */
 
-public abstract class AbstractUISelectOneChoice extends AbstactUISelectOneBase {
+public abstract class AbstractUISelectOneChoice extends AbstractUISelectOneBase {
 }

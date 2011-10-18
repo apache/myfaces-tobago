@@ -94,7 +94,7 @@ UIComponent Classes
 *--+--+--+--+                                                                                                                                                                   
 |  | <<old name>> | <<new name>> 
 *--+--+--+--+
-| divided | org.apache.myfaces.tobago.component.UISelectOne | org.apache.myfaces.tobago.internal.component.AbstactUISelectOneBase
+| divided | org.apache.myfaces.tobago.component.UISelectOne | org.apache.myfaces.tobago.internal.component.AbstractUISelectOneBase
 *--+--+--+--+                                                                                                                                                                   
 |  |  |                                                                 
 *--+--+--+--+                                                                                                                                                                   
