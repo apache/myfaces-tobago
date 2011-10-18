@@ -47,7 +47,7 @@
     </tc:sheet>
 
     <tc:panel id="detail">
-      <tx:in label="Name" value="#{demo.currentSolarObject.name}" readonly="#{demo.currentSolarObject == null}"/>
+      <tx:in label="Name" rendered="#{demo.currentSolarObject != null}" value="#{demo.currentSolarObject.name}" />
     </tc:panel>
 
   </tc:panel>
