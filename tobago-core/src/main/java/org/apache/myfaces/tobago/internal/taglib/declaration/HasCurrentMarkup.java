@@ -24,7 +24,6 @@ public interface HasCurrentMarkup {
   /**
    * The current markup is the current internal state of the markup.
    * It is the same as markup plus additional values like "required", "error", "selected", ....
-   * TODO: this property may be transient! TOBAGO-912
    */
   @UIComponentTagAttribute(
       type = "org.apache.myfaces.tobago.context.Markup",

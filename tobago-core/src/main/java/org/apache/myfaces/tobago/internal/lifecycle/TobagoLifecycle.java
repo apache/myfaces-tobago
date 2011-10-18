@@ -68,7 +68,7 @@ public class TobagoLifecycle extends Lifecycle {
     PhaseListenerManager phaseListenerMgr = new PhaseListenerManager(this, context, getPhaseListeners());
 
     // At very first ensure the requestEncoding, this MUST done before
-    // accessing request parameters, wich can occur in custom phaseListeners.
+    // accessing request parameters, which can occur in custom phaseListeners.
     RequestUtils.ensureEncoding(context);
 
     for (PhaseExecutor executor : lifecycleExecutors) {
