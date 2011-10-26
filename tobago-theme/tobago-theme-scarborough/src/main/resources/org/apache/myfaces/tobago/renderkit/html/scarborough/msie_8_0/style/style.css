@@ -17,26 +17,16 @@
 
 /*
  * theme: scarborough
- * agent: msie_7_0
+ * agent: msie_8_0
  */
 
 /* button -------------------------------------------------------------- */
-
-.tobago-button {
-  height: 20px;
-}
 
 .tobago-button img {
   margin-top: -3px;
 }
 
 .tobago-button span {
-  margin-top: -2px;
+  margin-top: -1px;
   display: inline-block;
-}
-
-/* time -------------------------------------------------------------- */
-
-.tobago-time-input {
-  margin: -1px 0;
 }

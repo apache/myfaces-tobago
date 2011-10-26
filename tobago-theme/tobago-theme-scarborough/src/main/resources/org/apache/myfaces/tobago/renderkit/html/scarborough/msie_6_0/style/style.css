@@ -26,6 +26,15 @@
   height: 25px;
 }
 
+.tobago-button img {
+  margin-top: -3px;
+}
+
+.tobago-button span {
+  margin-top: -2px;
+  display: inline-block;
+}
+
 /* tab/tabGroup -------------------------------------------------------------- */
 
 .tobago-tab {

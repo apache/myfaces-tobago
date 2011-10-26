@@ -160,7 +160,14 @@ fieldset.tobago-box {
 
 .tobago-button img {
   margin-right: 5px;
+  /* here we need "middle" for icons that are not 16px */
   vertical-align: middle;
+  /* when we use "middle", we need -2px instead of -1px here */
+  margin-top: -2px;
+}
+
+.tobago-button span {
+  vertical-align: top;
 }
 
 /* calendar ------------------------------------------------------------------- */

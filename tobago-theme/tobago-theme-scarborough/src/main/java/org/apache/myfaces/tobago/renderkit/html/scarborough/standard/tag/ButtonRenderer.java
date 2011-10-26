@@ -96,10 +96,9 @@ public class ButtonRenderer extends CommandRendererBase {
     }
 
     if (label.getText() != null) {
-      if (image != null) {
-        writer.writeText(" "); // separator: e.g. &nbsp;
-      }
+      writer.startElement(HtmlElements.SPAN, null);
       HtmlRendererUtils.writeLabelWithAccessKey(writer, label);
+      writer.endElement(HtmlElements.SPAN);
     }
 
     writer.endElement(HtmlElements.BUTTON);
