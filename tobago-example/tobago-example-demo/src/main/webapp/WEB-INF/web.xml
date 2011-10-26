@@ -116,9 +116,31 @@
   </listener>
   -->
 
+<!--
   <listener>
     <listener-class>org.apache.webbeans.servlet.WebBeansConfigurationListener</listener-class>
   </listener>
+-->
+
+<!-- this is an alternative to the WebBeansConfigurationListener
+     you need it e.g. for Tomcat 5.5 or WebPhere 6.1 (see TOBAGO-1043)
+-->
+  <filter>
+      <filter-name>webbeans</filter-name>
+      <filter-class>org.apache.webbeans.servlet.WebBeansConfigurationFilter</filter-class>
+    </filter>
+
+  <filter-mapping>
+      <filter-name>webbeans</filter-name>
+      <servlet-name>FacesServlet</servlet-name>
+      <dispatcher>REQUEST</dispatcher>
+      <dispatcher>ERROR</dispatcher>
+  </filter-mapping>
+
+  <listener>
+    <listener-class>org.apache.webbeans.servlet.WebBeansConfigurationHttpSessionListener</listener-class>
+  </listener>
+
 
 <!--
   <listener>
