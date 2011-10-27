@@ -191,8 +191,10 @@ public final class Markup implements Serializable, Iterable<String> {
     } else {
       // this part is not optimized, but it will be used rarely, in the moment...
       Markup result = this;
-      for (String summand : markup.values) {
-        result = result.add(summand);
+      if (markup.values != null) {
+        for (String summand : markup.values) {
+          result = result.add(summand);
+        }
       }
       return result;
     }
