@@ -17,16 +17,13 @@ package org.apache.myfaces.tobago.util;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.ajax.AjaxUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.faces.application.NavigationHandler;
 import javax.faces.context.FacesContext;
 
-/*
- * Date: Nov 12, 2006
- * Time: 10:32:39 AM
- */
 public class DebugNavigationHandler extends NavigationHandler {
 
   private static final Logger LOG = LoggerFactory.getLogger(DebugNavigationHandler.class);
@@ -37,15 +34,20 @@ public class DebugNavigationHandler extends NavigationHandler {
     this.navigationHandler = navigationHandler;
   }
 
-  public void handleNavigation(FacesContext context, String fromAction, String outcome) {
+  public void handleNavigation(FacesContext facesContext, String fromAction, String outcome) {
     if (LOG.isDebugEnabled()) {
-      LOG.debug("Handle Navigation context: " + context + " fromAction: '"
+      LOG.debug("Handle Navigation context: " + facesContext + " fromAction: '"
           + fromAction + "' outcome: '" + outcome + "'");
     }
-    navigationHandler.handleNavigation(context, fromAction, outcome);
+
+    if (outcome != null && AjaxUtils.isAjaxRequest(facesContext)) {
+        LOG.warn("An AJAX-Request should not have an outcome set: outcome='" + outcome + "'");
+    }
+
+    navigationHandler.handleNavigation(facesContext, fromAction, outcome);
 
     if (LOG.isDebugEnabled()) {
-      LOG.debug("Handled Navigation context: " + context + " fromAction: '"
+      LOG.debug("Handled Navigation context: " + facesContext + " fromAction: '"
           + fromAction + "' outcome: '" + outcome + "'");
     }
 
