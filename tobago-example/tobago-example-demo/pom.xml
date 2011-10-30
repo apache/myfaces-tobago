@@ -97,6 +97,17 @@
           </transformationSets>
         </configuration>
       </plugin>
+      <plugin>
+        <!-- TODO test glassfish -->
+        <groupId>org.glassfish</groupId>
+        <artifactId>maven-embedded-glassfish-plugin</artifactId>
+        <version>3.1.1</version>
+        <configuration>
+          <port>8080</port>
+          <contextRoot>/</contextRoot>
+          <autoDelete>true</autoDelete>
+        </configuration>
+      </plugin>
     </plugins>
   </build>
 
@@ -133,14 +144,6 @@
     </dependency>
     <dependency>
       <groupId>org.apache.openwebbeans</groupId>
-      <artifactId>openwebbeans-jsf12</artifactId>
-<!-- for JSF 2.0 todo: make a profile
-      <artifactId>openwebbeans-jsf</artifactId>
--->
-      <version>${openwebbeans.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.openwebbeans</groupId>
       <artifactId>openwebbeans-web</artifactId>
       <version>${openwebbeans.version}</version>
     </dependency>
@@ -149,13 +152,6 @@
       <artifactId>openwebbeans-resource</artifactId>
       <version>${openwebbeans.version}</version>
     </dependency>
-    <!--
-    <dependency>
-      <groupId>org.apache.myfaces.extensions.cdi</groupId>
-      <artifactId>myfaces-extcdi-dist-jsf12</artifactId>
-      <version>0.9.4</version>
-    </dependency>
--->
 
     <dependency>
       <groupId>org.apache.myfaces.extensions.cdi.core</groupId>
@@ -167,25 +163,6 @@
     <dependency>
       <groupId>org.apache.myfaces.extensions.cdi.core</groupId>
       <artifactId>myfaces-extcdi-core-impl</artifactId>
-      <version>${myfaces-extcdi.version}</version>
-      <scope>runtime</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.myfaces.extensions.cdi.modules</groupId>
-      <artifactId>myfaces-extcdi-jsf12-module-api</artifactId>
-<!-- for JSF 2.0 todo: make a profile
-      <artifactId>myfaces-extcdi-jsf20-module-api</artifactId>
--->
-      <version>${myfaces-extcdi.version}</version>
-      <scope>compile</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>org.apache.myfaces.extensions.cdi.modules</groupId>
-      <artifactId>myfaces-extcdi-jsf12-module-impl</artifactId>
-<!-- for JSF 2.0 todo: make a profile
-      <artifactId>myfaces-extcdi-jsf20-module-impl</artifactId>
--->
       <version>${myfaces-extcdi.version}</version>
       <scope>runtime</scope>
     </dependency>
@@ -301,32 +278,15 @@
       <scope>compile</scope>
     </dependency>
 -->
-    <dependency>
+    <!--dependency>
       <groupId>com.sun.el</groupId>
       <artifactId>el-ri</artifactId>
       <version>1.0</version>
-      <scope>test</scope>
+      <scope>test</scope-->
 <!-- needed for Tomcat 5.5, TODO: make a JavaEE4 profile
       <scope>compile</scope>
 -->
-    </dependency>
-
-<!--
-    for JSF 2.0 and Bean Validation (JSR-303)
-    todo: make a profile
-    <dependency>
-      <groupId>javax.el</groupId>
-      <artifactId>el-api</artifactId>
-      <version>2.2</version>
-      <scope>compile</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>org.glassfish.web</groupId>
-      <artifactId>el-impl</artifactId>
-      <version>2.2</version>
-    </dependency>
--->
+    <!--/dependency-->
 
     <dependency>
       <groupId>org.apache.geronimo.specs</groupId>
@@ -353,6 +313,82 @@
     </repository>
   </repositories>
   <profiles>
+    <profile>
+      <id>myfaces-2.0</id>
+      <activation>
+        <property>
+          <name>jsf</name>
+          <value>myfaces-2.0</value>
+        </property>
+      </activation>
+      <dependencies>
+        <dependency>
+          <groupId>org.apache.openwebbeans</groupId>
+          <artifactId>openwebbeans-jsf</artifactId>
+          <version>${openwebbeans.version}</version>
+        </dependency>
+
+        <dependency>
+          <groupId>org.apache.myfaces.extensions.cdi.modules</groupId>
+          <artifactId>myfaces-extcdi-jsf20-module-api</artifactId>
+          <version>${myfaces-extcdi.version}</version>
+          <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+          <groupId>org.apache.myfaces.extensions.cdi.modules</groupId>
+          <artifactId>myfaces-extcdi-jsf20-module-impl</artifactId>
+          <version>${myfaces-extcdi.version}</version>
+          <scope>runtime</scope>
+        </dependency>
+<!-- for JSF 2.0 and Bean Validation (JSR-303)  -->
+        <dependency>
+          <groupId>javax.el</groupId>
+          <artifactId>el-api</artifactId>
+          <version>2.2</version>
+          <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+          <groupId>org.glassfish.web</groupId>
+          <artifactId>el-impl</artifactId>
+          <version>2.2</version>
+        </dependency>
+
+      </dependencies>
+    </profile>
+
+    <profile>
+      <id>myfaces-1.2</id>
+      <activation>
+        <property>
+          <name>!jsf</name>
+        </property>
+      </activation>
+      <dependencies>
+
+        <dependency>
+          <groupId>org.apache.openwebbeans</groupId>
+          <artifactId>openwebbeans-jsf12</artifactId>
+          <version>${openwebbeans.version}</version>
+        </dependency>
+
+        <dependency>
+          <groupId>org.apache.myfaces.extensions.cdi.modules</groupId>
+          <artifactId>myfaces-extcdi-jsf12-module-api</artifactId>
+          <version>${myfaces-extcdi.version}</version>
+          <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+          <groupId>org.apache.myfaces.extensions.cdi.modules</groupId>
+          <artifactId>myfaces-extcdi-jsf12-module-impl</artifactId>
+          <version>${myfaces-extcdi.version}</version>
+          <scope>runtime</scope>
+        </dependency>
+
+      </dependencies>
+    </profile>
     <profile>
       <id>ssl</id>
       <build>
@@ -390,7 +426,7 @@
               <container>
                 <containerId>tomcat6x</containerId>
                 <zipUrlInstaller>
-                  <url>http://apache.easy-webs.de/tomcat/tomcat-6/v6.0.20/bin/apache-tomcat-6.0.20.zip</url>
+                  <url>http://archive.apache.org/dist/tomcat/tomcat-6/v6.0.33/bin/apache-tomcat-6.0.33.zip</url>
                   <installDir>${project.build.directory}/tomcat6</installDir>
                 </zipUrlInstaller>
               </container>
@@ -417,7 +453,7 @@
               <container>
                 <containerId>tomcat5x</containerId>
                 <zipUrlInstaller>
-                  <url>http://apache.easy-webs.de/tomcat/tomcat-5/v5.5.28/bin/apache-tomcat-5.5.28.zip</url>
+                  <url>http://archive.apache.org/dist/tomcat/tomcat-5/v5.5.33/bin/apache-tomcat-5.5.33.zip</url>
                   <installDir>${project.build.directory}/tomcat5</installDir>
                 </zipUrlInstaller>
               </container>

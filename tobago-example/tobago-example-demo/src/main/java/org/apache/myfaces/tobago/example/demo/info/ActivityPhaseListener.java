@@ -33,7 +33,6 @@ public class ActivityPhaseListener implements PhaseListener {
   private static final Log LOG = LogFactory.getLog(ActivityPhaseListener.class);
 
   public ActivityPhaseListener() {
-    LOG.error("Hier bin ich!");
   }
 
   public void afterPhase(PhaseEvent event) {

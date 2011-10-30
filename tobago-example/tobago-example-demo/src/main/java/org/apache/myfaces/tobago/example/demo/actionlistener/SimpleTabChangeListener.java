@@ -17,10 +17,10 @@ package org.apache.myfaces.tobago.example.demo.actionlistener;
  * limitations under the License.
  */
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.event.TabChangeEvent;
 import org.apache.myfaces.tobago.event.TabChangeListener;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * User: weber
@@ -37,7 +37,7 @@ public class SimpleTabChangeListener implements TabChangeListener {
   }
 
   public void processTabChange(TabChangeEvent tabChangeEvent) {
-    LOG.error("TabState has Changed: from tabIndex " + tabChangeEvent.getOldState()
+    LOG.error("TabState has Changed: from tabIndex " + tabChangeEvent.getOldTabIndex()
         + " to tabIndex " + tabChangeEvent.getNewTabIndex()+ " " + this);
 
   }

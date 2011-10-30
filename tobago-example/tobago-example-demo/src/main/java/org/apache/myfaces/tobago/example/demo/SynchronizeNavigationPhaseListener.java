@@ -34,7 +34,7 @@ public class SynchronizeNavigationPhaseListener implements PhaseListener {
     // synchronizing direct links with controller
     FacesContext facesContext = FacesContext.getCurrentInstance();
     UIViewRoot viewRoot = facesContext.getViewRoot();
-    if (viewRoot.getChildCount() == 0) { // in case of direct links the ViewRoot is empty after "restore view".
+    if (viewRoot != null && viewRoot.getChildCount() == 0) { // in case of direct links the ViewRoot is empty after "restore view".
       String viewId = viewRoot.getViewId();
       Navigation navigation = (Navigation) VariableResolverUtils.resolveVariable(facesContext, "navigation");
       navigation.selectByViewId(viewId);
