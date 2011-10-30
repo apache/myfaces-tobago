@@ -59,26 +59,9 @@ Building All
 +----------------------------------------
 
 
-Deploying the Demo
+The Demo
 
-  To deploy the demo on your local Tomcat 5.5 create a
-  ~/.m2/settings.xml file based on
-  {{{http://svn.apache.org/repos/asf/myfaces/tobago/trunk/settings-example.xml}settings-example.xml}}.
-
-  Make sure the manager user has the role manager; see
-  $TOMCAT_HOME/conf/tomcat-users.xml.
-
-  Change into the demo directory
-  {{{http://svn.apache.org/repos/asf/myfaces/tobago/trunk/tobago-example/tobago-example-demo/}example/demo}}
-  and run
-
-+----------------------------------------
-  mvn tomcat:deploy
-  or
-  mvn tomcat:undeploy tomcat:deploy
-+----------------------------------------
-
-  Alternatively, you can run the demo with jetty
+You can run the demo in tobago-example/tobago-example-demo with jetty
 
 +----------------------------------------
   mvn jetty:run-exploded

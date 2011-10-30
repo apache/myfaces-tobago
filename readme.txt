@@ -1,6 +1,6 @@
 Building
 --------
-You need Maven2 (at least 2.0.6) and Java 5 to build Tobago.
+You need Maven2 (at least 2.2.1) and Java 5 (Tobago 1.0.x) or Java 6 (Tobago 1.5.x) to build Tobago.
 
 In the main directory you can use
 
@@ -17,25 +17,7 @@ mvn install -Pall-modules
 
 Demo
 ----
-To deploy the demo on your local Tomcat 5.5 create a
-~/.m2/settings.xml file based on settings-example.xml.
 
-Make sure the manager user has the role manager; see
-<tomcat>/conf/tomcat-users.xml.
+In the directory tobago-demo/tobago-example-demo
 
-
-  mvn tomcat:deploy
-  or
-  mvn tomcat:undeploy tomcat:deploy
-
-Alternatively, you can run
-
-  mvn package
-
-and deploy the WAR from the target directory
-manually.
-
-It will create a log file in the app-server starting folder.
-You may want to change that in the src/main/webapp/WEB-INF/classes/log4j.xml
-
-
+mvn jetty:run
