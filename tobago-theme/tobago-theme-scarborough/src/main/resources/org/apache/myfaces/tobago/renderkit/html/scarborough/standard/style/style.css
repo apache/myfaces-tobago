@@ -1174,9 +1174,7 @@ div.tobago-richTextEditor-body {
    FIXME may be fixed after TOBAGO-900
 */
 
-.tobago-tabGroupToolBar {
-  border: 1px solid #000000;
-  background-color: #FFFFFF;
+.tobago-tabGroup-toolBar {
   cursor: pointer;
 }
 

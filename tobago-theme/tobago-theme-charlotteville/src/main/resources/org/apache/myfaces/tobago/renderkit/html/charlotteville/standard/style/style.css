@@ -178,10 +178,6 @@ li.tobago-menu-markup-selected {
    FIXME may be fixed after TOBAGO-900
 */
 
-.tobago-tabGroupToolBar {
-  border-color: #FECB66;
-}
-
 .tobago-tabGroupToolBar-item-markup-selected {
   border-color: #FECB66;
 }
