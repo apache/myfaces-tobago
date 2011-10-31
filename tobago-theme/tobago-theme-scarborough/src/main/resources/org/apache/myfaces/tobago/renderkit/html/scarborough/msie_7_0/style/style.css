@@ -35,6 +35,12 @@
   display: inline-block;
 }
 
+/* tab/tabGroup -------------------------------------------------------------- */
+
+.tobago-tabGroupToolBar-item img {
+  position: absolute;
+}
+
 /* time -------------------------------------------------------------- */
 
 .tobago-time-input {

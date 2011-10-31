@@ -49,6 +49,14 @@
   overflow-y: hidden;
 }
 
+.tobago-tabGroupToolBar-item {
+  margin-right: 0;
+}
+
+.tobago-tabGroupToolBar-item img {
+  position: absolute;
+}
+
 /* time -------------------------------------------------------------- */
 
 .tobago-time-input {
