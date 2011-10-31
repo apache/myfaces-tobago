@@ -67,41 +67,62 @@ public class LayoutContext {
   public void layout() {
 
     long begin = 0;
-    if (LOG.isDebugEnabled()) {
+    final boolean debug = LOG.isDebugEnabled();
+    final boolean trace = LOG.isTraceEnabled();
+    if (debug) {
       begin = System.nanoTime();
     }
 
     LayoutManager layoutManager = container.getLayoutManager();
     layoutManager.init();
-//    log("after init");
-    layoutManager.fixRelativeInsideAuto(Orientation.VERTICAL, false);
-//    log("after fixRelativeInsideAuto vertical");
-    layoutManager.fixRelativeInsideAuto(Orientation.HORIZONTAL, false);
-//    log("after fixRelativeInsideAuto horizontal");
-    layoutManager.preProcessing(Orientation.VERTICAL);
-//    log("after preProcessing vertical");
-    layoutManager.preProcessing(Orientation.HORIZONTAL);
-//    log("after preProcessing horizontal");
-    layoutManager.mainProcessing(Orientation.VERTICAL);
-//    log("after mainProcessing vertical");
-    layoutManager.mainProcessing(Orientation.HORIZONTAL);
-//    log("after mainProcessing horizontal");
-    layoutManager.postProcessing(Orientation.VERTICAL);
-//    log("after postProcessing vertical");
-    layoutManager.postProcessing(Orientation.HORIZONTAL);
-//    log("after postProcessing horizontal");
-
-    if (LOG.isDebugEnabled()) {
-        LOG.debug("Laying out takes: {} ns", new DecimalFormat("#,##0").format(System.nanoTime() - begin));
+    if (trace) {
+      log("after init", true);
     }
-    log("after layout");
+    layoutManager.fixRelativeInsideAuto(Orientation.VERTICAL, false);
+    if (trace) {
+      log("after fixRelativeInsideAuto vertical", true);
+    }
+    layoutManager.fixRelativeInsideAuto(Orientation.HORIZONTAL, false);
+    if (trace) {
+      log("after fixRelativeInsideAuto horizontal", true);
+    }
+    layoutManager.preProcessing(Orientation.VERTICAL);
+    if (trace) {
+      log("after preProcessing vertical", true);
+    }
+    layoutManager.preProcessing(Orientation.HORIZONTAL);
+    if (trace) {
+      log("after preProcessing horizontal", true);
+    }
+    layoutManager.mainProcessing(Orientation.VERTICAL);
+    if (trace) {
+      log("after mainProcessing vertical", true);
+    }
+    layoutManager.mainProcessing(Orientation.HORIZONTAL);
+    if (trace) {
+      log("after mainProcessing horizontal", true);
+    }
+    layoutManager.postProcessing(Orientation.VERTICAL);
+    if (trace) {
+      log("after postProcessing vertical", true);
+    }
+    layoutManager.postProcessing(Orientation.HORIZONTAL);
+    if (trace) {
+      log("after postProcessing horizontal", true);
+    }
 
+    if (debug) {
+      LOG.debug("Laying out takes: {} ns", new DecimalFormat("#,##0").format(System.nanoTime() - begin));
+      log("after layout", false);
+    }
   }
 
-  private void log(String message) {
-    if (LOG.isDebugEnabled()) {
-      StringBuffer buffer = new StringBuffer(message + "\n");
-      log(buffer, (UIComponent) container, 0);
+  private void log(String message, boolean trace) {
+    StringBuffer buffer = new StringBuffer(message + "\n");
+    log(buffer, (UIComponent) container, 0);
+    if (trace) {
+      LOG.trace(buffer.toString());
+    } else {
       LOG.debug(buffer.toString());
     }
   }
