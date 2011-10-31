@@ -155,7 +155,7 @@ public class IntervalListUnitTest extends ArrayList<Interval> {
     list.add(new Interval(px(20), px(222), px(2000), null));
     list.add(new Interval(px(30), px(333), px(3000), null));
     list.evaluate();
-    Assert.assertEquals(px(300), list.getCurrent());
+    Assert.assertEquals(px(333), list.getCurrent());
     Assert.assertEquals(px(300), list.getMinimum());
   }
 
