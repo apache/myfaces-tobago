@@ -32,40 +32,22 @@ public class IntervalList extends ArrayList<Interval> {
   private Measure current;
 
   public void evaluate() {
-    List<Measure> currentList = collectCurrent();
     List<Measure> minimumList = collectMinimum();
     List<Measure> maximumList = collectMaximum();
-    // minimum
-    minimum = Measure.max(Measure.max(minimumList), Measure.max(currentList));
-    // current
-    if (!currentList.isEmpty()) {
-      current = Measure.max(Measure.max(minimumList), Measure.max(currentList));
+    minimum = Measure.max(minimumList);
+    Measure maximum = Measure.min(maximumList);
+    if (minimum.greaterThan(maximum)) {
+      LOG.warn("Layout: Found a minimum constraint " + minimum
+          + " which is greater than a maximum constraint " + maximum + "!");
+      current = minimum;
     } else {
-      Measure maximumOfMinimumList = Measure.max(minimumList);
-      Measure minimumOfMaximumList = Measure.min(maximumList);
-      if (maximumOfMinimumList.greaterThan(minimumOfMaximumList)) {
-        LOG.warn("Layout: Found a minimum constraint " + maximumOfMinimumList
-            + " which is greater than a maximum constraint " + minimumOfMaximumList + "!");
-        current = maximumOfMinimumList;
+      List<Measure> preferred = findPreferredInInterval(minimum, maximum);
+      if (!preferred.isEmpty()) {
+        current = Measure.max(preferred);
       } else {
-        List<Measure> preferredInInterval = findPreferredInInterval(maximumOfMinimumList, minimumOfMaximumList);
-        if (!preferredInInterval.isEmpty()) {
-          current = Measure.max(preferredInInterval);
-        } else {
-          current = maximumOfMinimumList;
-        }
+        current = minimum;
       }
     }
-  }
-
-  private List<Measure> collectCurrent() {
-    List<Measure> result = new ArrayList<Measure>();
-    for (Interval interval : this) {
-      if (interval.getCurrent() != null) {
-        result.add(interval.getCurrent());
-      }
-    }
-    return result;
   }
 
   private List<Measure> collectMinimum() {
@@ -73,6 +55,9 @@ public class IntervalList extends ArrayList<Interval> {
     for (Interval interval : this) {
       if (interval.getMinimum() != null) {
         result.add(interval.getMinimum());
+      }
+      if (interval.getCurrent() != null) {
+        result.add(interval.getCurrent());
       }
     }
     return result;
