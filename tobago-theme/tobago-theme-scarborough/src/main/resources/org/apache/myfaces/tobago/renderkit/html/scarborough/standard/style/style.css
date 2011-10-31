@@ -1177,7 +1177,9 @@ div.tobago-richTextEditor-body {
 .tobago-tabGroupToolBar {
   border: 1px solid #000000;
   background-color: #FFFFFF;
+  cursor: pointer;
 }
+
 .tobago-tabGroupToolBar-item {
   position: relative;
   display: block;
@@ -1188,6 +1190,7 @@ div.tobago-richTextEditor-body {
   left: -1px;
   top: 0;
 }
+
 .tobago-tabGroupToolBar-item-markup-selected {
   border-width: 0 1px;
   border-color: #aaaaaa;
