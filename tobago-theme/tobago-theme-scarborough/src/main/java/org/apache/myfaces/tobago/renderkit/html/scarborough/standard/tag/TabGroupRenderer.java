@@ -227,8 +227,8 @@ public class TabGroupRenderer extends LayoutComponentRendererBase {
     body.setHeight(tabGroup.getCurrentHeight().subtract(headerHeight));
     writer.endElement(HtmlElements.DIV);
     if (tabGroup.isShowNavigationBar()) {
-      UIToolBar toolBar = createToolBar(facesContext, tabGroup/*, activeIndex, switchType, tabList*/);
-      renderToolBar(facesContext, writer, tabGroup, toolBar/*, width.subtract(toolBarWidth), toolBarWidth*/);
+      UIToolBar toolBar = createToolBar(facesContext, tabGroup);
+      renderToolBar(facesContext, writer, tabGroup, toolBar);
     }
   }
 
