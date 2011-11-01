@@ -23,7 +23,7 @@
   <tc:page >
     <tc:panel>
       <f:facet name="layout">
-        <tc:gridLayout margin="10px" rows="fixed;fixed;1*" columns="fixed;fixed"/>
+        <tc:gridLayout margin="10px" rows="auto;auto;1*" columns="auto;auto"/>
       </f:facet>
 
         <tc:cell spanY="2">

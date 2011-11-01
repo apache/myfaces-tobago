@@ -22,13 +22,13 @@
   <tc:page >
     <tc:panel>
       <f:facet name="layout">
-        <tc:gridLayout margin="10px" rows="1*;fixed;1*" />
+        <tc:gridLayout margin="10px" rows="1*;auto;1*" />
       </f:facet>
 
       <tc:box label="the outer box">
 
         <f:facet name="layout">
-          <tc:gridLayout margin="10px" rows="fixed;fixed;fixed;fixed" />
+          <tc:gridLayout margin="10px" rows="auto;auto;auto;auto" />
         </f:facet>
 
         <tc:messages />

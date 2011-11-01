@@ -22,7 +22,7 @@
   <jsp:body>
     <tc:panel>
       <f:facet name="layout">
-        <tc:gridLayout columns="*;100px;*" rows="fixed;*;fixed;*"/>
+        <tc:gridLayout columns="*;100px;*" rows="auto;*;auto;*"/>
       </f:facet>
 
       <tc:cell spanX="3">

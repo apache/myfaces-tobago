@@ -22,7 +22,7 @@
   <jsp:body>
     <tc:box label="Login Error">
       <f:facet name="layout">
-        <tc:gridLayout rows="*;fixed"/>
+        <tc:gridLayout rows="*;auto"/>
       </f:facet>
 
       <tc:out value="Your Login Name or Password is wrong"/>

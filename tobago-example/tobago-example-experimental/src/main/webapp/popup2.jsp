@@ -29,7 +29,7 @@
 
            <tc:box id="box" label="Popup">
                <f:facet name="layout">
-                 <tc:gridLayout rows="*;fixed;fixed;fixed;54px;fixed" columns="*;*;*"/>
+                 <tc:gridLayout rows="*;auto;auto;auto;54px;auto" columns="*;*;*"/>
                </f:facet>
                <tc:cell spanX="3">
                  <tc:out value="Text"/>

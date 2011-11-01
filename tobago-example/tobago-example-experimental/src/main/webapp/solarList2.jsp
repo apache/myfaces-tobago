@@ -28,7 +28,7 @@
     </tc:box>
     <tc:panel>
       <f:facet name="layout">
-        <tc:gridLayout columns="1*;fixed;1*"/>
+        <tc:gridLayout columns="1*;auto;1*"/>
       </f:facet>
       <tc:cell/>
       <tc:button action="#{test.export}" label="Export" transition="false" />

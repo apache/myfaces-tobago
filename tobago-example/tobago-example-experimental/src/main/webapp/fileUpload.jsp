@@ -38,7 +38,7 @@
       <tc:cell spanX="2">
         <tc:panel>
           <f:facet name="layout">
-            <tc:gridLayout columns="*;fixed;*" rows="20px"/>
+            <tc:gridLayout columns="*;auto;*" rows="20px"/>
           </f:facet>
           <tc:cell />
           <tc:button label="Submit" defaultCommand="true" />

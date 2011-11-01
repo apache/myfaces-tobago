@@ -23,7 +23,7 @@
 
   <tc:page label="Sandbox Menu" id="page" width="200px" height="800px">
     <f:facet name="layout">
-      <tc:gridLayout margin="5px" rows="fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;*"/>
+      <tc:gridLayout margin="5px" rows="auto;auto;auto;auto;auto;auto;auto;auto;auto;*"/>
     </f:facet>
 
     <tc:link link="inputSlider.jsp" label="inputSlider.jsp" target="View"/>

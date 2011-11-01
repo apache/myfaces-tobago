@@ -24,7 +24,7 @@
 
   <tc:page label="Sandbox - Wizard" id="page" width="500px" height="300px">
     <f:facet name="layout">
-      <tc:gridLayout margin="10px" rows="20px;*"/>  <!-- 20px shoud be replaced with fixed -->
+      <tc:gridLayout margin="10px" rows="20px;*"/>  <!-- 20px shoud be replaced with auto -->
     </f:facet>
 
     <tc:messages/>

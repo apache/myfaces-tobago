@@ -23,7 +23,7 @@
   <tc:page id="page" width="400">
     <tc:panel>
       <f:facet name="layout">
-        <tc:gridLayout margin="10px" rows="fixed;fixed;fixed;fixed;*"/>
+        <tc:gridLayout margin="10px" rows="auto;auto;auto;auto;*"/>
       </f:facet>
 
       <tx:date id="validityStart"

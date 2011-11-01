@@ -24,7 +24,7 @@
     </f:facet>
     <tc:box >
        <f:facet name="layout">
-          <tc:gridLayout columns="1*" rows="fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;*;fixed"/>
+          <tc:gridLayout columns="1*" rows="auto;auto;auto;auto;auto;auto;auto;auto;auto;*;auto"/>
         </f:facet>
        <tx:in value="#{test.name}" label="Name" readonly="true" />
        <tx:in value="#{test.number}" label="Number" readonly="true" />

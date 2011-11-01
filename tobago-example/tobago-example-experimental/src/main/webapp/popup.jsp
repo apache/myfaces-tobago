@@ -31,7 +31,7 @@
               label="Popup">
               <f:facet name="layout">
                 <tc:gridLayout
-                  rows="40px;40px;1*;fixed"
+                  rows="40px;40px;1*;auto"
                   columns="*"/>
               </f:facet>
 
@@ -44,7 +44,7 @@
 
               <tc:panel id="buttonPanel">
                 <f:facet name="layout">
-                  <tc:gridLayout rows="fixed"
+                  <tc:gridLayout rows="auto"
                     columns="*;*;*"/>
                 </f:facet>
                 <tc:button id="button1"

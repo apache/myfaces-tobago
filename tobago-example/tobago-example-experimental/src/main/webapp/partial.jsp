@@ -25,12 +25,12 @@
 
     <tc:panel>
       <f:facet name="layout">
-        <tc:gridLayout margin="10px" rows="fixed;*;fixed"/>
+        <tc:gridLayout margin="10px" rows="auto;*;auto"/>
       </f:facet>
 
       <tc:box label="Test" id="panel">
         <f:facet name="layout">
-          <tc:gridLayout rows="fixed" columns="*;2*"/>
+          <tc:gridLayout rows="auto" columns="*;2*"/>
         </f:facet>
         <tc:form>
           <tx:selectBooleanCheckbox label="Don't process" value="#{controller.suppressProcessing}">

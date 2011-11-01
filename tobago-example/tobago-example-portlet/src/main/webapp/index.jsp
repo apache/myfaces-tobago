@@ -22,7 +22,7 @@
 <f:view>
   <tc:page width="300px" height="50px">
     <f:facet name="layout">
-      <tc:gridLayout columns="*;fixed" rows="fixed;*"/>
+      <tc:gridLayout columns="*;auto" rows="auto;*"/>
     </f:facet>
     <tx:in label="Your Name" tip="Please enter your name here!" value="#{user.name}"/>
     <tc:button action="sayHello" label="Click Here"/>
