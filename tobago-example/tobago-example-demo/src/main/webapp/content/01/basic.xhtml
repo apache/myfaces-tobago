@@ -26,7 +26,7 @@
 
   <tc:panel>
     <f:facet name="layout">
-      <tc:gridLayout rows="fixed;2*;3*;fixed;2*;2*;fixed;2*;2*"/>
+      <tc:gridLayout rows="auto;2*;3*;auto;2*;2*;auto;2*;2*"/>
       <!--<tc:gridLayout border="0" rows="*;*;*;*;*;*;*;*;*;*"/>-->
     </f:facet>
 
@@ -44,7 +44,7 @@
 
       <tc:panel>
         <f:facet name="layout">
-          <tc:gridLayout rows="fixed;fixed;fixed;fixed"/>
+          <tc:gridLayout rows="auto;auto;auto;auto"/>
         </f:facet>
         <tx:in value="#{overviewController.basicInput}" required="true" tabIndex="1"
                label="#{overviewBundle.basic_textboxLabel}" tip="#{overviewBundle.basic_textboxTip}"/>
@@ -87,7 +87,7 @@
 
       <tc:panel>
         <f:facet name="layout">
-          <tc:gridLayout rows="fixed;fixed"/>
+          <tc:gridLayout rows="auto;auto"/>
         </f:facet>
         <tc:selectManyCheckbox value="#{overviewController.multiValue}"
                                id="cbg0" renderRange="1-2" converter="salutationId">
@@ -109,7 +109,7 @@
     <!-- row -->
     <tc:panel>
       <f:facet name="layout">
-        <tc:gridLayout columns="120px;*;120px;*;120px" rows="fixed;fixed" border="0"/>
+        <tc:gridLayout columns="120px;*;120px;*;120px" rows="auto;auto" border="0"/>
       </f:facet>
       <tc:link id="link" action="/content/01/basic"
                actionListener="#{overviewController.click}"

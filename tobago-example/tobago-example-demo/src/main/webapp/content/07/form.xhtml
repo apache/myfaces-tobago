@@ -35,14 +35,14 @@
 
     <tc:box label="#{overviewBundle.form_outTitle}">
       <f:facet name="layout">
-        <tc:gridLayout rows="80px;fixed;fixed;fixed;fixed"/>
+        <tc:gridLayout rows="80px;auto;auto;auto;auto"/>
       </f:facet>
 
       <tc:out escape="false" value="#{overviewBundle.form_text2}"/>
 
       <tc:box label="#{overviewBundle.form_in1Title}">
         <f:facet name="layout">
-          <tc:gridLayout rows="fixed;fixed;" columns="1*;100px"/>
+          <tc:gridLayout rows="auto;auto;" columns="1*;100px"/>
         </f:facet>
 
         <tc:form id="form1">
@@ -57,7 +57,7 @@
 
       <tc:box label="#{overviewBundle.form_in2Title}">
         <f:facet name="layout">
-          <tc:gridLayout rows="fixed;fixed" columns="1*;100px"/>
+          <tc:gridLayout rows="auto;auto" columns="1*;100px"/>
         </f:facet>
 
         <tc:form id="form2">
@@ -73,7 +73,7 @@
       
       <tc:panel>
         <f:facet name="layout">
-          <tc:gridLayout rows="fixed;fixed" columns="*;100px"/>
+          <tc:gridLayout rows="auto;auto" columns="*;100px"/>
         </f:facet>
 
         <tx:in value="#{demo.text[2]}" required="true" label="#{overviewBundle.newValue2}"/>

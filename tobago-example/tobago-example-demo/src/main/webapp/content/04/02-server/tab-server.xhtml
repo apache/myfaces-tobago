@@ -35,7 +35,7 @@
                             binding="#{demo.tabChangeListener}"/>
 
       <tc:tab label="#{overviewBundle.tabPlanet}">
-        <f:facet name="layout"><tc:gridLayout rows="1*;fixed;fixed;1*"/></f:facet>
+        <f:facet name="layout"><tc:gridLayout rows="1*;auto;auto;1*"/></f:facet>
         <tc:cell/>
         <tx:in value="#{demo.solar.planets[0].diameter}" required="true"
                label="#{overviewBundle.solarPlanetDiameter}"/>
@@ -44,7 +44,7 @@
         <tc:cell/>
       </tc:tab>
       <tc:tab label="#{overviewBundle.tabInsolar}">
-        <f:facet name="layout"><tc:gridLayout rows="1*;fixed;fixed;1*"/></f:facet>
+        <f:facet name="layout"><tc:gridLayout rows="1*;auto;auto;1*"/></f:facet>
         <tc:cell/>
         <tx:in value="#{demo.solar.planets[0].sunDistance}"
                label="#{overviewBundle.solarPlanetSunDistance}"/>
