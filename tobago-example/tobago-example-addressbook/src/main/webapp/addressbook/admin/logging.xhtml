@@ -24,7 +24,7 @@
            xmlns:f="http://java.sun.com/jsf/core">
   <tc:panel>
     <f:facet name="layout">
-      <tc:gridLayout rows="2*;3*;fixed" margin="10"/>
+      <tc:gridLayout rows="2*;3*;auto" margin="10"/>
     </f:facet>
 
     <tc:box label="Appenders">
@@ -50,7 +50,7 @@
 
     <tc:box label="Categories">
       <f:facet name="layout">
-        <tc:gridLayout rows="*;fixed"/>
+        <tc:gridLayout rows="*;auto"/>
       </f:facet>
       <tc:sheet columns="5*;25px;*" var="category"
                 value="#{logging.categories}" showDirectLinks="left" showPageRange="right" showRowRange="none"
@@ -73,7 +73,7 @@
       </tc:sheet>
       <tc:panel>
         <f:facet name="layout">
-          <tc:gridLayout columns="*;fixed"/>
+          <tc:gridLayout columns="*;auto"/>
         </f:facet>
         <tc:cell/>
         <tc:button label="Update" action="#{logging.updateCategories}"/>
@@ -82,11 +82,11 @@
 
     <tc:box label="Add Category" id="addCategory">
       <f:facet name="layout">
-        <tc:gridLayout rows="fixed"/>
+        <tc:gridLayout rows="auto"/>
       </f:facet>
       <tc:panel>
         <f:facet name="layout">
-          <tc:gridLayout columns="*;*;fixed"/>
+          <tc:gridLayout columns="*;*;auto"/>
         </f:facet>
         <tx:in label="Category" value="#{logging.category}">
           <tc:attribute name="binding" value="#{logging.categoryControl}"/>

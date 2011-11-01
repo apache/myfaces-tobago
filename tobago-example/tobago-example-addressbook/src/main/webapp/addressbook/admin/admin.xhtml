@@ -24,7 +24,7 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets">
   <ui:param name="title" value="Administration"/>
     <f:facet name="layout">
-      <tc:gridLayout margin="10px" rows="*;fixed"/>
+      <tc:gridLayout margin="10px" rows="*;auto"/>
     </f:facet>
 
     <tc:tabGroup switchType="reloadPage">
@@ -37,7 +37,7 @@
     </tc:tabGroup>
     <tc:panel>
       <f:facet name="layout">
-        <tc:gridLayout columns="*;fixed"/>
+        <tc:gridLayout columns="*;auto"/>
       </f:facet>
       <tc:cell/>
       <tc:button label="Back" action="list"/>

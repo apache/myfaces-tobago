@@ -74,14 +74,14 @@
         <tc:popup id="about" width="400" height="220" left="200" top="200">
           <tc:box label="About">
             <f:facet name="layout">
-              <tc:gridLayout rows="150px;*;fixed" columns="150px;*"/>
+              <tc:gridLayout rows="150px;*;auto" columns="150px;*"/>
             </f:facet>
 
             <tc:image value="image/org/tango-project/tango-icon-theme/address-book-splash-screen.png" width="150"
                       height="150"/>
             <tc:panel>
               <f:facet name="layout">
-                <tc:gridLayout rows="fixed;fixed;fixed;*"/>
+                <tc:gridLayout rows="auto;auto;auto;*"/>
               </f:facet>
 
               <tc:out markup="strong" value="Addressbook Demo"/>
@@ -95,7 +95,7 @@
             <tc:cell spanX="2">
               <tc:panel>
                 <f:facet name="layout">
-                  <tc:gridLayout columns="*;fixed"/>
+                  <tc:gridLayout columns="*;auto"/>
                 </f:facet>
                 <tc:cell/>
                 <tc:button label="OK">

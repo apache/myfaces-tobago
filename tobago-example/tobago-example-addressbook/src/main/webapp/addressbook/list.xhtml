@@ -26,7 +26,7 @@
 
   <tc:panel>
     <f:facet name="layout">
-      <tc:gridLayout margin="10px" rows="fixed;fixed;1*;fixed"/>
+      <tc:gridLayout margin="10px" rows="auto;auto;1*;auto"/>
     </f:facet>
     <tc:toolBar iconSize="big">
       <tc:button label="#{bundle.toolbarAddressList}" action="#{controller.search}" immediate="true"
@@ -44,7 +44,7 @@
 
     <tc:panel>
       <f:facet name="layout">
-        <tc:gridLayout columns="*;fixed"/>
+        <tc:gridLayout columns="*;auto"/>
       </f:facet>
       <tx:in label="#{bundle.listFilter}"
              value="#{controller.searchCriterion}"/>
@@ -54,7 +54,7 @@
 
     <tc:box label="#{bundle.listBoxTitle}">
       <f:facet name="layout">
-        <tc:gridLayout rows="fixed;1*"/>
+        <tc:gridLayout rows="auto;1*"/>
       </f:facet>
       <f:facet name="toolBar">
         <tc:toolBar>
@@ -75,7 +75,7 @@
                         rendered="#{controller.renderPopup}" id="popup">
                 <tc:box label="Select Columns">
                   <f:facet name="layout">
-                    <tc:gridLayout rows="fixed;fixed;fixed;1*;fixed" margin="10"/>
+                    <tc:gridLayout rows="auto;auto;auto;1*;auto" margin="10"/>
                   </f:facet>
 
                   <tc:selectBooleanCheckbox label="First Name" value="#{controller.renderFirstName}"/>

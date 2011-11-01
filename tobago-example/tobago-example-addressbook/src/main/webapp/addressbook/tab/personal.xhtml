@@ -25,7 +25,7 @@
   <tc:loadBundle basename="resource" var="bundle"/>
   <tc:panel>
     <f:facet name="layout">
-      <tc:gridLayout rows="fixed;fixed;*"/>
+      <tc:gridLayout rows="auto;auto;*"/>
     </f:facet>
     <tc:panel>
       <f:facet name="layout">
@@ -33,7 +33,7 @@
       </f:facet>
       <tc:panel>
         <f:facet name="layout">
-          <tc:gridLayout rows="fixed;fixed;fixed;fixed;fixed;*"/>
+          <tc:gridLayout rows="auto;auto;auto;auto;auto;*"/>
         </f:facet>
         <tx:in value="#{controller.currentAddress.firstName}"
                label="#{bundle.editorFirstName}" required="true">
@@ -82,7 +82,7 @@
                         id="popup-fileUpload">
                 <tc:box label="FileUpload">
                   <f:facet name="layout">
-                    <tc:gridLayout rows="fixed;1*;fixed" margin="10"/>
+                    <tc:gridLayout rows="auto;1*;auto" margin="10"/>
                   </f:facet>
                   <tc:file value="#{controller.uploadedFile}" required="true">
                     <tc:validateFileItem contentType="image/*"/>
@@ -105,7 +105,7 @@
     </tc:panel>
     <tc:panel>
       <f:facet name="layout">
-        <tc:gridLayout rows="fixed;fixed;fixed;fixed;fixed;fixed;fixed"/>
+        <tc:gridLayout rows="auto;auto;auto;auto;auto;auto;auto"/>
       </f:facet>
       <tx:in value="#{controller.currentAddress.phone}"
              label="#{bundle.editorPhone}"
