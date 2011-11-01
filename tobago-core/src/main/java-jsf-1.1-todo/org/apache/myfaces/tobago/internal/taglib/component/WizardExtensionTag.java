@@ -82,7 +82,7 @@ public class WizardExtensionTag extends BodyTagSupport {
 
     GridLayoutTag gridLayoutTag = new GridLayoutTag();
     gridLayoutTag.setPageContext(pageContext);
-    gridLayoutTag.setRows("fixed;*;fixed");
+    gridLayoutTag.setRows("auto;*;auto");
     gridLayoutTag.setParent(facetTag);
     gridLayoutTag.doStartTag();
     gridLayoutTag.doEndTag();

@@ -36,7 +36,7 @@ public final class LayoutUtils {
 
   private static final Logger LOG = LoggerFactory.getLogger(LayoutUtils.class);
 
-  private static final Pattern TOKEN_PATTERN = Pattern.compile("^(\\d*px|\\d*\\*|\\d*%|fixed)$");
+  private static final Pattern TOKEN_PATTERN = Pattern.compile("^(\\d*px|\\d*\\*|\\d*%|auto|fixed)$");
 
   private LayoutUtils() {
     // to prevent instantiation

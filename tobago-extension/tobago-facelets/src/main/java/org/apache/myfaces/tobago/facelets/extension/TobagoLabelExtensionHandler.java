@@ -59,7 +59,7 @@ import java.util.List;
  */
 public abstract class TobagoLabelExtensionHandler extends ComponentHandler {
   private static final Logger LOG = LoggerFactory.getLogger(TobagoLabelExtensionHandler.class);
-  private static final String DEFAULT_COLUMNS = "fixed;*";
+  private static final String DEFAULT_COLUMNS = "auto;*";
   private TagAttribute labelWidthAttribute;
   private TagAttribute tipAttribute;
   private TagAttribute labelAttribute;
@@ -82,7 +82,7 @@ public abstract class TobagoLabelExtensionHandler extends ComponentHandler {
   protected abstract String getSubRendererType();
 
   protected String getRows() {
-    return "fixed";
+    return "auto";
   }
 
   protected String getColumns(String first) {
@@ -210,7 +210,7 @@ public abstract class TobagoLabelExtensionHandler extends ComponentHandler {
       }
       gridLayout.setColumns(columns);
     } else {
-      gridLayout.setColumns(getColumns("fixed"));
+      gridLayout.setColumns(getColumns("auto"));
     }
     gridLayout.setRows(getRows());
     gridLayout.setId(root.createUniqueId());

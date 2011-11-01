@@ -36,7 +36,7 @@ import javax.servlet.jsp.JspException;
  * <pre>
  * &lt;tc:panel>
  *   &lt;f:facet name="layout">
- *     &lt;tc:gridLayout columns="fixed;*"/>
+ *     &lt;tc:gridLayout columns="auto;*"/>
  *   &lt;/f:facet>
  *   &lt;tc:label value="#{label}" for="@auto"/>
  *   &lt;tc:in value="#{value}">
@@ -380,7 +380,7 @@ public class InExtensionTag extends TobagoExtensionBodyTagSupport {
   }
 
    /**
-   * The width for the label component. Default: 'fixed'.
+   * The width for the label component. Default: 'auto'.
    * This value is used in the gridLayouts columns attribute.
    * See gridLayout tag for valid values.
    */

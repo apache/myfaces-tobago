@@ -39,8 +39,8 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasSpacing;
  * <pre>
  * columns/rows ::= LAYOUT
  * LAYOUT       ::= TOKEN [";" TOKEN]+
- * TOKEN        ::= FIXED | PIXEL | PROPORTIONAL
- * FIXED        ::= "fixed"
+ * TOKEN        ::= AUTO | PIXEL | PROPORTIONAL
+ * AUTO         ::= "auto" | "fixed"
  * PIXEL        ::= NUMBER "px"
  * PROPORTIONAL ::= [NUMBER] "*"
  * </pre>
@@ -53,20 +53,20 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasSpacing;
  * <th>Remarks</th>
  * </tr>
  * <tr>
- * <td>FIXED</td>
- * <td>any combination of FIXED or PIXEL but no PROPORTIONAL</td>
+ * <td>AUTO</td>
+ * <td>any combination of AUTO or PIXEL but no PROPORTIONAL</td>
  * <td>okay</td>
  * <td>-</td>
  * </tr>
  * <tr>
- * <td>FIXED</td>
+ * <td>AUTO</td>
  * <td>any combination with at least one PROPORTIONAL</td>
  * <td>wrong</td>
- * <td>LayoutManager cannot compute the fixed value.</td>
+ * <td>LayoutManager cannot compute the auto value.</td>
  * </tr>
  * <tr>
  * <td>PIXEL</td>
- * <td>any combination of FIXED or PIXEL but no PROPORTIONAL</td>
+ * <td>any combination of AUTO or PIXEL but no PROPORTIONAL</td>
  * <td>potentially wrong</td>
  * <td>The values depend on each other, the programmer has to keep consistency manually.</td>
  * </tr>
@@ -78,7 +78,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasSpacing;
  * </tr>
  * <tr>
  * <td>PROPORTIONAL</td>
- * <td>any combination of FIXED or PIXEL but no PROPORTIONAL</td>
+ * <td>any combination of AUTO or PIXEL but no PROPORTIONAL</td>
  * <td>potentially wrong</td>
  * <td>No automatic matching:<ul><li>too little space: scroll bar</li>
  * <li>too much space: elements will be spread.</li></ul></td>

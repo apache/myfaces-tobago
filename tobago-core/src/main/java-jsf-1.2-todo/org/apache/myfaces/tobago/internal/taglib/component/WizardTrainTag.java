@@ -68,7 +68,7 @@ public class WizardTrainTag extends BodyTagSupport {
     gridLayoutTag.setPageContext(pageContext);
     StringBuilder columns = new StringBuilder();
     for (WizardStep info : course) {
-      columns.append("fixed;");
+      columns.append("auto;");
     }
     gridLayoutTag.setColumns(createStringValueExpression(columns + "*"));
     gridLayoutTag.setParent(facetTag);

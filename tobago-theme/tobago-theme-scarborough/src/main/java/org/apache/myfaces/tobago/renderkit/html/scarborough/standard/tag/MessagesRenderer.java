@@ -161,7 +161,7 @@ public class MessagesRenderer extends LayoutComponentRendererBase {
     UIComponent layout = CreateComponentUtils.createComponent(
         facesContext, UIGridLayout.COMPONENT_TYPE, RendererTypes.GRID_LAYOUT, "layout");
     box.getFacets().put(Facets.LAYOUT, layout);
-    layout.getAttributes().put(Attributes.ROWS, "*;fixed");
+    layout.getAttributes().put(Attributes.ROWS, "*;auto");
     layout.getAttributes().put(Attributes.MARGIN, "10");
 
     final UICell scrollPanel = (UICell)
@@ -179,7 +179,7 @@ public class MessagesRenderer extends LayoutComponentRendererBase {
         facesContext, UIGridLayout.COMPONENT_TYPE, RendererTypes.GRID_LAYOUT, "buttonPanelLayout");
     buttonPanel.getFacets().put(Facets.LAYOUT, layout);
     layout.getAttributes().put(Attributes.COLUMNS, "*;100px");
-    layout.getAttributes().put(Attributes.ROWS, "fixed");
+    layout.getAttributes().put(Attributes.ROWS, "auto");
 
     box.getChildren().add(buttonPanel);
 

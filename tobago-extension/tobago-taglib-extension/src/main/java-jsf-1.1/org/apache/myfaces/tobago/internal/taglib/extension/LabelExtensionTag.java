@@ -43,7 +43,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  * <pre>
  * &lt;tc:panel>
  *   &lt;f:facet name="layout">
- *     &lt;tc:gridLayout columns="fixed;*"/>
+ *     &lt;tc:gridLayout columns="auto;*"/>
  *   &lt;/f:facet>
  *   &lt;tc:label value="#{label}" for="@auto"/>
  *     ...
@@ -69,13 +69,13 @@ public class LabelExtensionTag extends BodyTagSupport
 
   private static final Logger LOG = LoggerFactory.getLogger(LabelExtensionTag.class);
 
-  public static final String DEFAULT_COLUMNS = "fixed;*";
+  public static final String DEFAULT_COLUMNS = "auto;*";
 
   private String value;
   private String tip;
   private String rendered;
   private String columns = DEFAULT_COLUMNS;
-  private String rows = "fixed";
+  private String rows = "auto";
   private String labelWidth;
   private String markup;
 
@@ -147,7 +147,7 @@ public class LabelExtensionTag extends BodyTagSupport
     tip = null;
     rendered = null;
     columns = DEFAULT_COLUMNS;
-    rows = "fixed";
+    rows = "auto";
     panelTag = null;
     labelWidth = null;
     markup = null;

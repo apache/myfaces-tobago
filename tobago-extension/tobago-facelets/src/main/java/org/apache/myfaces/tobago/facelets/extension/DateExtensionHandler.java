@@ -60,6 +60,6 @@ public class DateExtensionHandler extends TobagoLabelExtensionHandler {
   }
 
   protected String getColumns(String first) {
-    return first + ";*;fixed";
+    return first + ";*;auto";
   }
 }

@@ -327,7 +327,7 @@ public abstract class AbstractUISheetLayout extends AbstractUILayoutBase impleme
           }
         }
         if (LOG.isDebugEnabled()) {
-          LOG.debug("set column " + i + " from fixed to with " + width);
+          LOG.debug("set column " + i + " from 'auto' to width " + width);
         }
       }
     }

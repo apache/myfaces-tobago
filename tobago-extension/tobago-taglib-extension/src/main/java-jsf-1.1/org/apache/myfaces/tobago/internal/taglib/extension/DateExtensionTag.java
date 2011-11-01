@@ -58,7 +58,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  * <pre>
  * &lt;tc:panel>
  *   &lt;f:facet name="layout">
- *     &lt;tc:gridLayout columns="fixed;*"/>
+ *     &lt;tc:gridLayout columns="auto;*"/>
  *   &lt;/f:facet>
  *   &lt;tc:label value="#{label}" for="@auto"/>
  *   &lt;tc:date value="#{value}">
@@ -114,9 +114,9 @@ public class DateExtensionTag extends BodyTagSupport
       labelTag.setValue(label);
     }
     if (labelWidth != null) {
-      labelTag.setColumns(labelWidth + ";*;fixed");
+      labelTag.setColumns(labelWidth + ";*;auto");
     } else {
-      labelTag.setColumns("fixed;*;fixed");
+      labelTag.setColumns("auto;*;auto");
     }
     if (tip != null) {
       labelTag.setTip(tip);

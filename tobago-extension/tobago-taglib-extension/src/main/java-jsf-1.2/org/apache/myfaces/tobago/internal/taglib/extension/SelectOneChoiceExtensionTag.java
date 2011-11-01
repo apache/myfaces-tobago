@@ -328,7 +328,7 @@ public class SelectOneChoiceExtensionTag extends TobagoExtensionBodyTagSupport {
   }
 
   /**
-   * The width for the label component. Default: 'fixed'.
+   * The width for the label component. Default: 'auto'.
    * This value is used in the gridLayouts columns attribute.
    * See gridLayout tag for valid values.
    */
