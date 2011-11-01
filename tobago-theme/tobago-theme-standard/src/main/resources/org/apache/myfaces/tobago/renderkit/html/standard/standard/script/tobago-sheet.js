@@ -88,7 +88,7 @@ Tobago.Sheet = function(sheetId, firstRowIndex, selectable, columnSelectorIndex,
 
 Tobago.Sheet.prototype.setupSortHeaders = function() {
   var sheet = this;
-  jQuery(Tobago.escapeClientId(sheet.id)).find(".tobago-sheet-header[sorterId]").each(function() {
+  jQuery(Tobago.Utils.escapeClientId(sheet.id)).find(".tobago-sheet-header[sorterId]").each(function() {
 
     jQuery(this).click({sheet: sheet, sorterId: jQuery(this).attr("sorterId")}, function(event) {
 
@@ -287,7 +287,7 @@ Tobago.Sheet.prototype.setup = function() {
 
   // IE 6+7
   if (jQuery.browser.msie && parseInt(jQuery.browser.version) <= 7) {
-    jQuery(Tobago.escapeClientId(this.id) + ">div>table>colgroup>col").each(function() {
+    jQuery(Tobago.Utils.escapeClientId(this.id) + ">div>table>colgroup>col").each(function() {
       Tobago.Sheet.fixIE67ColWidth(jQuery(this));
     });
   }
@@ -523,7 +523,7 @@ Tobago.Sheet.prototype.isEnabled = function(checkbox) {
 Tobago.Sheet.prototype.getRows = function() {
   // todo: use a util for "id replace"
   // find all rows in current sheet
-  return jQuery(Tobago.escapeClientId(this.id) + ">div>table>tbody>tr");
+  return jQuery(Tobago.Utils.escapeClientId(this.id) + ">div>table>tbody>tr");
 };
 
 Tobago.Sheet.prototype.updateSelectionView = function() {
@@ -742,7 +742,7 @@ Tobago.Sheet.prototype.endResize = function(event) {
     if (this.resizerId) {
       var width = this.newWidth;
       var columnNr = this.resizerId.substring(this.resizerId.lastIndexOf("_") + 1, this.resizerId.length);
-      var table = jQuery(Tobago.escapeClientId(this.id) + ">div>table");
+      var table = jQuery(Tobago.Utils.escapeClientId(this.id) + ">div>table");
       var col = jQuery("colgroup>col", table).eq(columnNr);
       col.width(width);
 
@@ -780,7 +780,7 @@ Tobago.Sheet.fixIE67ColWidth = function(col) {
 Tobago.Sheet.prototype.storeSizes = function() {
     var index = 0;
     var idPrefix = this.id + Tobago.SUB_COMPONENT_SEP + "header_div";
-    var headerDiv = jQuery(Tobago.escapeClientId(idPrefix));
+    var headerDiv = jQuery(Tobago.Utils.escapeClientId(idPrefix));
 
     var widths = "";
     jQuery(headerDiv).children().each(function() {

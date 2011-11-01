@@ -175,9 +175,9 @@
       });
 
       function fillIdDisplay(i, fieldClass) {
-        var panelIn = jQuery(Tobago.escapeClientId("page:panel" + i));
-        var labelIn = jQuery(Tobago.escapeClientId("page:label" + i));
-        var fieldIn = jQuery(Tobago.escapeClientId("page:field" + i));
+        var panelIn = jQuery(Tobago.Utils.escapeClientId("page:panel" + i));
+        var labelIn = jQuery(Tobago.Utils.escapeClientId("page:label" + i));
+        var fieldIn = jQuery(Tobago.Utils.escapeClientId("page:field" + i));
 
         var panel = panelIn.prev();
         var label = panel.children(".tobago-label");
@@ -189,7 +189,7 @@
       }
 
       function test(testId, expected) {
-        var element = jQuery(Tobago.escapeClientId(testId));
+        var element = jQuery(Tobago.Utils.escapeClientId(testId));
         if (element.attr("value") != expected) {
           element.addClass("tobago-in-markup-error");
           element.attr("title", "expected: '" + expected + "'");

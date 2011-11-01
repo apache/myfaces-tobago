@@ -96,7 +96,7 @@ var TobagoAssert = {
   jQueryElement: function(elementOrId) {
     var element;
     if (typeof elementOrId == "string") {
-      element = jQuery(Tobago.escapeClientId(elementOrId));
+      element = jQuery(Tobago.Utils.escapeClientId(elementOrId));
     } else { // JQuery Object Array
       element = elementOrId;
     }

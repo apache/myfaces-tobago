@@ -344,7 +344,7 @@ var Tobago = {
   makeOverlaySemitransparent: function() {
     var overlay;
     if (jQuery.browser.webkit) {
-      overlay = jQuery(Tobago.escapeClientId(Tobago.page.id + '-overlay'));
+      overlay = jQuery(Tobago.Utils.escapeClientId(Tobago.page.id + '-overlay'));
       overlay.css('opacity', '0.8');
       overlay.css('background-color', jQuery('.tobago-page').css("background-color"));
     } else {
@@ -1023,7 +1023,7 @@ var Tobago = {
   openPopupWithAction: function(source, popupId, actionId, options) {
 
     // If there is no div, create one.
-    var div = jQuery(Tobago.escapeClientId(popupId));
+    var div = jQuery(Tobago.Utils.escapeClientId(popupId));
     if (div.size() == 0) {
       jQuery('form:first')// add the new div after the page and the popup divs.
           .children('(.tobago-page,.tobago-popup):last')
@@ -1049,28 +1049,23 @@ var Tobago = {
 // -------- Util functions ----------------------------------------------------
 
   /**
-   *
-   * @param id A JSF client id, type=string
-   * @return A string which can be used as a jQuery selector.
+   * @deprecated Please use Tobago.Utils.escapeClientId()
    */
   escapeClientId: function(id) {
-    return '#' + id.replace(/:/g, '\\:');
+    LOG.warn("Deprecated method was called. Please use Tobago.Utils.escapeClientId()");
+    return Tobago.Utils.escapeClientId(id);
   },
 
   /**
-   * Helps to select either elements from the whole DOM or only find in sub trees
-   * (in the case of AJAX partial rendering)
-   * @param elements a jQuery object to initialize (ajax) or null for initializing the whole document (full load).
-   * @param selector a jQuery selector.
+   * @deprecated Please use Tobago.Utils.selectWidthJQuery()
    */
-    selectWidthJQuery: function(elements, selector) {
-    return elements == null
-        ? jQuery(selector)
-        : elements.find(selector).add(elements.filter(selector));
+  selectWidthJQuery: function(elements, selector) {
+    LOG.warn("Deprecated method was called. Please use Tobago.Utils.selectWidthJQuery()");
+    return Tobago.Utils.selectWidthJQuery(elements, selector);
   },
 
   calculateScrollbarWeights: function(id) {
-    var hidden = jQuery(Tobago.escapeClientId(id));
+    var hidden = jQuery(Tobago.Utils.escapeClientId(id));
     var outer = hidden.prev();
     hidden.val(''
         + (100 - outer.prop('clientWidth')) + ';'
@@ -2483,7 +2478,7 @@ Tobago.Updater = {
     }
     switch (data.responseCode) {
       case Tobago.Updater.CODE_SUCCESS:
-        var element = jQuery(Tobago.escapeClientId(data.ajaxId));
+        var element = jQuery(Tobago.Utils.escapeClientId(data.ajaxId));
         // if there is html data, we replace the ajax element with the new data
         if (data.html.length > 0) {
           var newElement = jQuery(data.html);
@@ -2538,7 +2533,7 @@ Tobago.ToolBar.init = function(elements) {
   // doing the same for 3 renderer names
   // XXX put this in a loop (the first try doesn't work, because we can't use local variables in a anonymous function)
 
-    Tobago.selectWidthJQuery(elements, ".tobago-toolBar").find('.tobago-toolBar-item')
+    Tobago.Utils.selectWidthJQuery(elements, ".tobago-toolBar").find('.tobago-toolBar-item')
         .not('.tobago-toolBar-item-markup-disabled')
         .hover(function() {
       jQuery(this).toggleClass('tobago-toolBar-item-markup-hover');
@@ -2568,7 +2563,7 @@ Tobago.ToolBar.init = function(elements) {
       });
     });
 
-    Tobago.selectWidthJQuery(elements, ".tobago-box-headerToolBar").find('.tobago-boxToolBar-item')
+    Tobago.Utils.selectWidthJQuery(elements, ".tobago-box-headerToolBar").find('.tobago-boxToolBar-item')
         .not('.tobago-boxToolBar-item-markup-disabled')
         .hover(function() {
       jQuery(this).toggleClass('tobago-boxToolBar-item-markup-hover');
@@ -2598,7 +2593,7 @@ Tobago.ToolBar.init = function(elements) {
       });
     });
 
-    Tobago.selectWidthJQuery(elements, ".tobago-tabGroup-toolBar").find('.tobago-tabGroupToolBar-item')
+    Tobago.Utils.selectWidthJQuery(elements, ".tobago-tabGroup-toolBar").find('.tobago-tabGroupToolBar-item')
         .not('.tobago-tabGroupToolBar-item-markup-disabled')
         .hover(function() {
       jQuery(this).toggleClass('tobago-tabGroupToolBar-item-markup-hover');
@@ -3047,7 +3042,7 @@ Tobago.TabGroup = {};
  */
 Tobago.TabGroup.init = function(elements) {
 
-  var tabGroups = Tobago.selectWidthJQuery(elements, ".tobago-tabGroup");
+  var tabGroups = Tobago.Utils.selectWidthJQuery(elements, ".tobago-tabGroup");
 
   // initialize the tab header elements
   // client case
@@ -3150,7 +3145,7 @@ Tobago.Tree = {};
 
 Tobago.Tree.toggleNode = function(element) {
   var node = element.closest(".tobago-treeNode, .tobago-treeMenuNode");
-  var content = jQuery(Tobago.escapeClientId(node.attr("id") + Tobago.SUB_COMPONENT_SEP + "content"));
+  var content = jQuery(Tobago.Utils.escapeClientId(node.attr("id") + Tobago.SUB_COMPONENT_SEP + "content"));
   var expanded = node.find(".tobago-treeMenuNode-expanded, .tobago-treeNode-expanded");
   var toggle = node.find(".tobago-treeMenuNode-toggle, .tobago-treeNode-toggle");
   if (content.css("display") == "none") {
@@ -3176,7 +3171,7 @@ Tobago.Tree.toggleNode = function(element) {
 
 Tobago.Tree.init = function(elements) {
 
-  var listboxSelects = Tobago.selectWidthJQuery(elements, ".tobago-treeListbox").find("select");
+  var listboxSelects = Tobago.Utils.selectWidthJQuery(elements, ".tobago-treeListbox").find("select");
 
   // find all option tags and add the dedicated select tag in its data section.
 
@@ -3184,7 +3179,7 @@ Tobago.Tree.init = function(elements) {
     var option = jQuery(this);
     var optionId = option.attr("id");
     var selectId = optionId + "::select";
-    var select = jQuery(Tobago.escapeClientId(selectId));
+    var select = jQuery(Tobago.Utils.escapeClientId(selectId));
     if (select.length == 1) {
       option.data("select", select);
     } else {
@@ -3217,11 +3212,11 @@ Tobago.Tree.init = function(elements) {
 
   });
 
-  Tobago.selectWidthJQuery(elements, ".tobago-treeNode-markup-folder .tobago-treeNode-toggle").click(function() {
+  Tobago.Utils.selectWidthJQuery(elements, ".tobago-treeNode-markup-folder .tobago-treeNode-toggle").click(function() {
     Tobago.Tree.toggleNode(jQuery(this));
   });
 
-  Tobago.selectWidthJQuery(elements, ".tobago-treeMenuNode-markup-folder .tobago-treeMenuNode-toggle")
+  Tobago.Utils.selectWidthJQuery(elements, ".tobago-treeMenuNode-markup-folder .tobago-treeMenuNode-toggle")
       .parent().each(function() {
     // if there is no command, than the whole node element should be the toggle
     var toggle = jQuery(this).children(".tobago-treeMenuCommand").size() == 0
@@ -3233,12 +3228,12 @@ Tobago.Tree.init = function(elements) {
   });
 
   // normal hover effect (not possible with CSS in IE 6)
-  Tobago.selectWidthJQuery(elements, ".tobago-treeMenuNode").hover(function() {
+  Tobago.Utils.selectWidthJQuery(elements, ".tobago-treeMenuNode").hover(function() {
     jQuery(this).toggleClass("tobago-treeMenuNode-markup-hover");
   });
 
   // marked for treeNode
-  Tobago.selectWidthJQuery(elements, ".tobago-treeNode").focus(function() {
+  Tobago.Utils.selectWidthJQuery(elements, ".tobago-treeNode").focus(function() {
     var command = jQuery(this);
     var node = command.parent(".tobago-treeNode");
     var tree = node.closest(".tobago-tree");
@@ -3249,7 +3244,7 @@ Tobago.Tree.init = function(elements) {
   });
 
   // marked for treeMenuNode
-  Tobago.selectWidthJQuery(elements, ".tobago-treeMenuCommand").focus(function() {
+  Tobago.Utils.selectWidthJQuery(elements, ".tobago-treeMenuCommand").focus(function() {
     var command = jQuery(this);
     var node = command.parent(".tobago-treeMenuNode");
     var tree = node.closest(".tobago-treeMenu");
@@ -3264,7 +3259,7 @@ Tobago.SelectManyShuttle = {};
 
 Tobago.SelectManyShuttle.init = function(elements) {
 
-  var shuttles = Tobago.selectWidthJQuery(elements, ".tobago-selectManyShuttle:not(.tobago-selectManyShuttle-disabled)");
+  var shuttles = Tobago.Utils.selectWidthJQuery(elements, ".tobago-selectManyShuttle:not(.tobago-selectManyShuttle-disabled)");
 
   shuttles.find(".tobago-selectManyShuttle-unselected").dblclick(function() {
     Tobago.SelectManyShuttle.moveSelectedItems(jQuery(this).parents(".tobago-selectManyShuttle"), true, false);

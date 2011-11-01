@@ -23,13 +23,13 @@
 Tobago.fixPngAlphaAll = function(elements) {
   if (jQuery.browser.msie && parseInt(jQuery.browser.version, 10) <= 6) {
     // fix png images
-    var images = Tobago.selectWidthJQuery(elements, "img[src$='.png']");
+    var images = Tobago.Utils.selectWidthJQuery(elements, "img[src$='.png']");
     images.each(function() {
       Tobago.fixPngAlpha(this);
     });
 
     // fix png backgrounds of the labels
-    Tobago.selectWidthJQuery(elements,
+    Tobago.Utils.selectWidthJQuery(elements,
         "label.tobago-label-markup-fatal, label.tobago-label-markup-error, " +
         "label.tobago-label-markup-warn, label.tobago-label-markup-info").each(function() {
       Tobago.fixBackgroundPngAlpha(this);

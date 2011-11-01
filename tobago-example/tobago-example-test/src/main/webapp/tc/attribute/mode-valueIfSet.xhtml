@@ -119,10 +119,10 @@
         TobagoAssert.assertAttribute("page:v4", "value", "value from model");
         TobagoAssert.assertAttribute("page:vu", "value", "");
 
-        var i1 = jQuery(Tobago.escapeClientId("page:id-box")).find("input:eq(0)");
+        var i1 = jQuery(Tobago.Utils.escapeClientId("page:id-box")).find("input:eq(0)");
         TobagoAssert.assertAttribute(i1, "id", "page:my_number_1");
 //        TobagoAssert.assertAttribute(..., "id", "");
-        var i3 = jQuery(Tobago.escapeClientId("page:id-box")).find("input:eq(2)");
+        var i3 = jQuery(Tobago.Utils.escapeClientId("page:id-box")).find("input:eq(2)");
         TobagoAssert.assertAttribute(i3, "id", "page:my_number_3");
 //        TobagoAssert.assertAttribute(..., "id", "");
       }
