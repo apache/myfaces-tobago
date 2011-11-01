@@ -309,30 +309,9 @@ jQuery.tobagoMenuParent = function(element) {
       var ol = jQuery(this);
       if (ol.attr('id').lastIndexOf("::") >= 0) {
         return Tobago.Utils.findSuperComponent(ol);
-    }
-        return ol;
       }
+      return ol;
+    }
   });
 })(jQuery);
 
-Tobago.Utils = {};
-
-Tobago.Utils.findSubComponent = function(element, subId) {
-  return jQuery(Tobago.Utils.getSubComponentId(element.attr('id'), subId));
-};
-
-Tobago.Utils.getSubComponentId = function(id, subId) {
-  if (id != null) {
-    return "#" + id.replace(/:/g, "\\:") + "\\:\\:" + subId;
-  } else {
-    return null;
-  }
-};
-
-Tobago.Utils.findSuperComponent = function(element) {
-  return jQuery(Tobago.Utils.getSuperComponentId(element.attr('id')));
-};
-
-Tobago.Utils.getSuperComponentId = function(id) {
-  return "#" + id.substring(0, id.lastIndexOf("::")).replace(/:/g, "\\:"); 
-};

@@ -855,6 +855,8 @@ var Tobago = {
    */
   setupPopup: function() {
 
+    Tobago.Utils.keepElementInVisibleArea(jQuery(".tobago-popup"));
+
     // TODO: remove later (after change AJAX, that they replace tags instead of fill them...)
     jQuery('.tobago-popup-parent > .tobago-popup').unwrap();
 
