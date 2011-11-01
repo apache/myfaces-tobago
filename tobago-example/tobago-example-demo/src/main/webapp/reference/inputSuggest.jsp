@@ -23,7 +23,7 @@
   <jsp:body>
     <tc:box label="InputSuggest">
       <f:facet name="layout">
-        <tc:gridLayout rows="fixed;50px;fixed;fixed;50px;150px;fixed;1*"/>
+        <tc:gridLayout rows="auto;50px;auto;auto;50px;150px;auto;1*"/>
       </f:facet>
 
       <tc:separator label="Simple"/>
@@ -50,7 +50,7 @@
 
       <tc:panel >
         <f:facet name="layout">
-          <tc:gridLayout rows="fixed;fixed;1*" columns="350px;1*"/>
+          <tc:gridLayout rows="auto;auto;1*" columns="350px;1*"/>
         </f:facet>
 
         <tc:panel>

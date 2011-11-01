@@ -23,7 +23,7 @@
   <jsp:body>
     <tc:box label="Tool Bar">
       <f:facet name="layout">
-        <tc:gridLayout rows="fixed;*"/>
+        <tc:gridLayout rows="auto;*"/>
       </f:facet>
 
       <tc:toolBar id="toolbar0" iconSize="big">

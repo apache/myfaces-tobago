@@ -22,12 +22,12 @@
   <jsp:body>
     <tc:box label="Sheet">
       <f:facet name="layout">
-        <tc:gridLayout rows="fixed;*;fixed;fixed;fixed"/>
+        <tc:gridLayout rows="auto;*;auto;auto;auto"/>
       </f:facet>
 
       <tc:messages/>
 
-      <tc:sheet value="#{simpleList}" columns="fixed;*" var="bean" rows="5">
+      <tc:sheet value="#{simpleList}" columns="auto;*" var="bean" rows="5">
         <tc:columnSelector/>
         <tc:column label="Number">
           <tc:in value="#{bean.value}" required="true"/>
@@ -36,7 +36,7 @@
 
       <tc:separator>
         <f:facet name="label">
-          <tc:label value="Layout: Sheet with 'fixed' height"/>
+          <tc:label value="Layout: Sheet with 'auto' height"/>
         </f:facet>
       </tc:separator>
 
@@ -56,7 +56,7 @@
 
       <tc:panel>
         <f:facet name="layout">
-          <tc:gridLayout columns="*;fixed"/>
+          <tc:gridLayout columns="*;auto"/>
         </f:facet>
         <tc:cell/>
         <tc:button action="submit" label="Submit"/>

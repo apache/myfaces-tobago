@@ -23,7 +23,7 @@
   <jsp:body>
     <tc:box label="Input">
       <f:facet name="layout">
-        <tc:gridLayout rows="fixed;fixed;fixed;fixed;fixed;fixed;fixed;2*;3*;2*;2*;2*;2*;2*"/>
+        <tc:gridLayout rows="auto;auto;auto;auto;auto;auto;auto;2*;3*;2*;2*;2*;2*;2*"/>
       </f:facet>
 
       <tc:in value="Some Text without Label"/>

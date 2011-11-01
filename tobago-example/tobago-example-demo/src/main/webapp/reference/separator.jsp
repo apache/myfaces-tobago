@@ -28,7 +28,7 @@
 
     <tc:box label="Separator">
       <f:facet name="layout">
-        <tc:gridLayout columns="1*;1*" rows="fixed;*"/>
+        <tc:gridLayout columns="1*;1*" rows="auto;*"/>
       </f:facet>
 
       <tc:cell spanX="2">
@@ -41,7 +41,7 @@
 
       <tc:panel>
         <f:facet name="layout">
-          <tc:gridLayout rows="*;fixed;2*"/>
+          <tc:gridLayout rows="*;auto;2*"/>
         </f:facet>
         <tc:textarea/>
         <tc:separator/>
@@ -50,7 +50,7 @@
 
       <tc:panel>
         <f:facet name="layout">
-          <tc:gridLayout rows="2*;fixed;*"/>
+          <tc:gridLayout rows="2*;auto;*"/>
         </f:facet>
         <tc:textarea/>
         <tc:separator>

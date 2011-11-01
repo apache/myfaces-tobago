@@ -34,13 +34,13 @@
             <%-- the clientId of this popup is "page:sheet:popup1" --%>
             <tc:box label="Popup1">
               <f:facet name="layout" >
-                <tc:gridLayout rows="fixed;1*;fixed"/>
+                <tc:gridLayout rows="auto;1*;auto"/>
               </f:facet>
               <tx:in label="column 1 value:" value="#{popupReference.entry.column1}"/>
               <tc:panel/>
               <tc:panel>
                 <f:facet name="layout">
-                  <tc:gridLayout columns="1*;fixed;fixed"/>
+                  <tc:gridLayout columns="1*;auto;auto"/>
                 </f:facet>
                 <tc:panel/>
                 <tc:button label="Save" actionListener="#{popupReference.saveChanges}" >
@@ -59,7 +59,7 @@
             <%-- the clientId of this popup is "page:sheet:popup2" --%>
             <tc:box label="Popup1">
               <f:facet name="layout" >
-                <tc:gridLayout rows="fixed;fixed;fixed;1*;fixed"/>
+                <tc:gridLayout rows="auto;auto;auto;1*;auto"/>
               </f:facet>
               <tx:in label="column 1 value:" value="#{popupReference.entry.column1}"/>
               <tx:in label="column 2 value:" value="#{popupReference.entry.column2}"/>
@@ -67,7 +67,7 @@
               <tc:panel/>
               <tc:panel>
                 <f:facet name="layout">
-                  <tc:gridLayout columns="1*;fixed;fixed"/>
+                  <tc:gridLayout columns="1*;auto;auto"/>
                 </f:facet>
                 <tc:panel/>
                 <tc:button label="Save" actionListener="#{popupReference.saveChanges}" >

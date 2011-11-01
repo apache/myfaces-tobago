@@ -29,7 +29,7 @@
 
     <tc:panel>
       <f:facet name="layout">
-        <tc:gridLayout rows="fixed;fixed;fixed;*"/>
+        <tc:gridLayout rows="auto;auto;auto;*"/>
       </f:facet>
       <tc:out value="Theme: #{clientConfigController.localizedTheme}"/>
       <tc:out value="Locale: #{clientConfigController.localizedLocale}"/>

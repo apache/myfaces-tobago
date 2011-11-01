@@ -23,7 +23,7 @@
   <jsp:body>
     <tc:box label="Command Controls">
       <f:facet name="layout">
-        <tc:gridLayout columns="100px;100px;100px;100px;100px;*" rows="fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;*"/>
+        <tc:gridLayout columns="100px;100px;100px;100px;100px;*" rows="auto;auto;auto;auto;auto;auto;auto;auto;auto;auto;auto;*"/>
       </f:facet>
 
       <%-- standard --%>
@@ -139,7 +139,7 @@
       <tc:cell spanX="6">
         <tc:panel>
           <f:facet name="layout">
-            <tc:gridLayout rows="fixed" columns="fixed;fixed;fixed;*"/>
+            <tc:gridLayout rows="auto" columns="auto;auto;auto;*"/>
           </f:facet>
 
           <tc:button label="Hello" />
@@ -152,7 +152,7 @@
       <tc:cell spanX="6">
         <tc:panel>
           <f:facet name="layout">
-            <tc:gridLayout rows="fixed" columns="fixed;*"/>
+            <tc:gridLayout rows="auto" columns="auto;*"/>
           </f:facet>
 
           <tc:button label="The goal of Tobago is to provide the community with a well designed set of user interface components." />

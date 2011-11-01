@@ -34,7 +34,7 @@
   <jsp:body>
     <tc:box label="Output Controls">
       <f:facet name="layout">
-        <tc:gridLayout columns="150px;*" rows="fixed;300px;fixed;fixed;90px;*" border="1"/>
+        <tc:gridLayout columns="150px;*" rows="auto;300px;auto;auto;90px;*" border="1"/>
       </f:facet>
 
       <%-- code-sniplet-start id="label" --%>

@@ -29,7 +29,7 @@
         <tc:tab label="Tab 1">
           <tc:panel>
             <f:facet name="layout">
-              <tc:gridLayout rows="1*;fixed;fixed;1*"/>
+              <tc:gridLayout rows="1*;auto;auto;1*"/>
             </f:facet>
             <tc:cell/>
             <tx:in label="label 1" required="true"/>
@@ -40,7 +40,7 @@
         <tc:tab label="Tab 2" rendered="true">
           <tc:panel>
             <f:facet name="layout">
-              <tc:gridLayout rows="1*;fixed;fixed;1*"/>
+              <tc:gridLayout rows="1*;auto;auto;1*"/>
             </f:facet>
             <tc:cell/>
             <tx:in label="label 3"/>
@@ -51,7 +51,7 @@
         <tc:tab label="Tab 3">
           <tc:panel>
             <f:facet name="layout">
-              <tc:gridLayout rows="1*;fixed;fixed;1*"/>
+              <tc:gridLayout rows="1*;auto;auto;1*"/>
             </f:facet>
             <tc:cell/>
             <tx:in label="label 5"/>
@@ -62,7 +62,7 @@
         <tc:tab label="Tab 4 - JavaServerFaces 2.0 is in the JSR review ballot phase. This JSR will bring the best ideas in web application development (circa early 2007) to the Java EE platform.">
           <tc:panel>
             <f:facet name="layout">
-              <tc:gridLayout rows="1*;fixed;fixed;1*"/>
+              <tc:gridLayout rows="1*;auto;auto;1*"/>
             </f:facet>
             <tc:cell/>
             <tx:in label="label 7"/>
