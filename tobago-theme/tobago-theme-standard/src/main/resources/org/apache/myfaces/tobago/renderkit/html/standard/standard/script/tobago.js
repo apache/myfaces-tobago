@@ -3144,6 +3144,7 @@ Tobago.TabGroup.ensureScrollPosition = function (header) {
 Tobago.Tree = {};
 
 Tobago.Tree.toggleNode = function(element) {
+  var src;
   var node = element.closest(".tobago-treeNode, .tobago-treeMenuNode");
   var content = jQuery(Tobago.Utils.escapeClientId(node.attr("id") + Tobago.SUB_COMPONENT_SEP + "content"));
   var expanded = node.find(".tobago-treeMenuNode-expanded, .tobago-treeNode-expanded");
@@ -3151,7 +3152,11 @@ Tobago.Tree.toggleNode = function(element) {
   if (content.css("display") == "none") {
     content.css("display", "block");
     toggle.each(function() {
-      jQuery(this).attr("src", jQuery(this).data("tobago-srcopen"));
+      src = jQuery(this).data("tobago-srcopen");
+      if (src == null) { // use the close icon if there is no open icon
+        src = jQuery(this).data("tobago-srcclose");
+      }
+      jQuery(this).attr("src", src);
       Tobago.fixPngAlpha(this);
     });
     expanded.attr("value", "true");
@@ -3160,7 +3165,11 @@ Tobago.Tree.toggleNode = function(element) {
   } else {
     content.css("display", "none");
     toggle.each(function() {
-      jQuery(this).attr("src", jQuery(this).attr("tobago-srcclose"));
+      src = jQuery(this).data("tobago-srcclose");
+      if (src == null) { // use the open icon if there is no close icon
+        src = jQuery(this).data("tobago-srcopen");
+      }
+      jQuery(this).attr("src", src);
       Tobago.fixPngAlpha(this);
     });
     expanded.attr("value", "false");

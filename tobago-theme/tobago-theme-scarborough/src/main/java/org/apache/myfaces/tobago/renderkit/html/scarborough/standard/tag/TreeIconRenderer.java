@@ -65,7 +65,7 @@ public class TreeIconRenderer extends LayoutComponentRendererBase {
     if (folder) {
       if (imageUrl != null) { // application image
         openSource = ResourceManagerUtils.getImageWithPath(facesContext,
-            ResourceUtils.addPostfixToFilename(imageUrl, "open"), true);
+            ResourceUtils.addPostfixToFilename(imageUrl, "-open"), true);
       } else { // theme image
         openSource = ResourceManagerUtils.getImageWithPath(facesContext, OPEN_FOLDER);
       }
@@ -74,13 +74,16 @@ public class TreeIconRenderer extends LayoutComponentRendererBase {
       openSource = null;
       if (imageUrl != null) { // application image
         source = ResourceManagerUtils.getImageWithPath(facesContext,
-            ResourceUtils.addPostfixToFilename(imageUrl, "leaf"), true);
+            ResourceUtils.addPostfixToFilename(imageUrl, "-leaf"), true);
       } else { // theme image
         source = ResourceManagerUtils.getImageWithPath(facesContext, LEAF);
       }
-      if (source == null) {
-        source = closedSource;
-      }
+    }
+    if (source == null) {
+      source = closedSource;
+    }
+    if (source == null) {
+      source = openSource;
     }
 
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
