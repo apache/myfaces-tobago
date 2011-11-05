@@ -29,13 +29,8 @@
     <finalName>tobago-example-blank</finalName>
     <plugins>
       <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>tomcat-maven-plugin</artifactId>
-        <configuration>
-          <server>tomcat</server>
-          <update>true</update>
-          <url>http://localhost:8080/manager</url>
-        </configuration>
+        <groupId>org.mortbay.jetty</groupId>
+        <artifactId>maven-jetty-plugin</artifactId>
       </plugin>
     </plugins>
   </build>

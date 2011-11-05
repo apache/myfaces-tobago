@@ -29,18 +29,8 @@
     <finalName>tobago-example-seam</finalName>
     <plugins>
       <plugin>
-        <!-- NOTE The demo and addressbook run only with mvn jetty:run-exploded.
-         For the other examples mvn jetty:run should work.
-         For Debugging with jetty set following options
-            MAVEN_OPTS="-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=8000"
-            or
-            MAVEN_OPTS="-Xdebug -Xnoagent -Djava.compiler=NONE -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005"
-         -->
         <groupId>org.mortbay.jetty</groupId>
-        <!-- jetty 6 -->
         <artifactId>maven-jetty-plugin</artifactId>
-        <!-- jetty 7 -->
-        <!--<artifactId>jetty-maven-plugin</artifactId>-->
         <configuration>
           <jettyConfig>src/test/resources/jetty.xml</jettyConfig>
           <userRealms>

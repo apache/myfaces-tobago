@@ -853,8 +853,19 @@
         <plugin>
           <groupId>org.mortbay.jetty</groupId>
           <artifactId>maven-jetty-plugin</artifactId>
-          <version>${jetty.version}</version>
-        </plugin>
+          <version>${jetty6.version}</version>
+            <configuration>
+              <scanIntervalSeconds>5</scanIntervalSeconds>
+            </configuration>
+          </plugin>
+          <plugin>
+            <groupId>org.mortbay.jetty</groupId>
+            <artifactId>jetty-maven-plugin</artifactId>
+            <version>${jetty7.version}</version>
+            <configuration>
+              <scanIntervalSeconds>5</scanIntervalSeconds>
+            </configuration>
+          </plugin>
         <plugin>
           <groupId>org.codehaus.mojo</groupId>
           <artifactId>tomcat-maven-plugin</artifactId>
@@ -1800,7 +1811,9 @@
     <mojarra20.version>2.0.6</mojarra20.version>
     <mojarra21.version>2.1.3_01</mojarra21.version>
     <facelets.version>1.1.14</facelets.version>
-    <jetty.version>6.1.26</jetty.version>
+    <jetty6.version>6.1.26</jetty6.version>
+    <jetty7.version>7.4.0.RC0</jetty7.version>
+    <!--<jetty7.version>7.5.4.v20111024</jetty7.version>-->
     <slf4j.version>1.6.3</slf4j.version>
     <logback.version>0.9.30</logback.version>
     <commons-io.version>1.1</commons-io.version>
