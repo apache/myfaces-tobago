@@ -42,8 +42,9 @@ public final class FacesContextUtils {
   private static final String TOBAGO_ONEXIT_SCRIPTS = "org.apache.myfaces.tobago.onexitScripts";
   private static final String TOBAGO_ONSUBMIT_SCRIPTS = "org.apache.myfaces.tobago.onsubmitScripts";
   private static final String TOBAGO_POPUPS = "org.apache.myfaces.tobago.popups";
+  private static final String TOBAGO_MENU_ACCELERATORS = "org.apache.myfaces.tobago.menuAccelerators";
+
           
-  
   public static boolean isAjax(FacesContext context) {
     return FacesUtils.getFacesContextAttributes(context).containsKey(TOBAGO_AJAX);
   }
@@ -212,6 +213,28 @@ public final class FacesContextUtils {
     if (set == null) {
       set = new ListOrderedSet();
       FacesUtils.getFacesContextAttributes(context).put(TOBAGO_ONSUBMIT_SCRIPTS, set);
+    }
+    set.add(script);
+  }
+
+  public static void clearMenuAcceleratorScripts(FacesContext context) {
+    Set<String> set = (Set<String>) FacesUtils.getFacesContextAttributes(context).get(TOBAGO_MENU_ACCELERATORS);
+    set.clear();
+  }
+
+  public static Set<String> getMenuAcceleratorScripts(FacesContext context) {
+    Set<String> set = (Set<String>) FacesUtils.getFacesContextAttributes(context).get(TOBAGO_MENU_ACCELERATORS);
+    if (set == null) {
+      return Collections.EMPTY_SET;
+    }
+    return set;
+  }
+
+  public static void addMenuAcceleratorScript(FacesContext context, String script) {
+    Set<String> set = (Set<String>) FacesUtils.getFacesContextAttributes(context).get(TOBAGO_MENU_ACCELERATORS);
+    if (set == null) {
+      set = new ListOrderedSet();
+      FacesUtils.getFacesContextAttributes(context).put(TOBAGO_MENU_ACCELERATORS, set);
     }
     set.add(script);
   }
