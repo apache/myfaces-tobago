@@ -52,23 +52,23 @@ MyFaces Tobago 1.0.38 Distribution
 | MyFaces Tobago Example 1.0.38 (zip)      | {{{http://www.apache.org/dyn/closer.cgi/myfaces/binaries/myfaces-tobago-1.0.38-example.zip} myfaces-tobago-1.0.38-example.zip}} | {{{http://www.apache.org/dist/myfaces/binaries/myfaces-tobago-1.0.38-example.zip.md5} myfaces-tobago-1.0.38-example.zip.md5}} | {{{http://www.apache.org/dist/myfaces/binaries/myfaces-tobago-1.0.38-example.zip.asc} myfaces-tobago-1.0.38-example.zip.asc}} |
 *-------------------------+---------+----------+-----------+
 
-MyFaces Tobago 1.5.0-beta-1 Distribution
+MyFaces Tobago 1.5.0-beta-2 Distribution
 
     Release notes can be found
-    {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12316222}here}}.
+    {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12317052}here}}.
 
 *-------------------------+---------+----------+-----------+
 |                         | Mirrors | Checksum | Signature |
 *-------------------------+---------+----------+-----------+
-| MyFaces Tobago 1.5.0-beta-1 (tar.gz)     | {{{http://www.apache.org/dyn/closer.cgi/myfaces/binaries/myfaces-tobago-1.5.0-beta-1-dist.tar.gz} myfaces-tobago-1.5.0-beta-1-dist.tar.gz}} | {{{http://www.apache.org/dist/myfaces/binaries/myfaces-tobago-1.5.0-beta-1-dist.tar.gz.md5} myfaces-tobago-1.5.0-beta-1-dist.tar.gz.md5}} | {{{http://www.apache.org/dist/myfaces/binaries/myfaces-tobago-1.5.0-beta-1-dist.tar.gz.asc} myfaces-tobago-1.5.0-beta-1-dist.tar.gz.asc}} |
+| MyFaces Tobago 1.5.0-beta-2 (tar.gz)     | {{{http://www.apache.org/dyn/closer.cgi/myfaces/binaries/myfaces-tobago-1.5.0-beta-2-dist.tar.gz} myfaces-tobago-1.5.0-beta-2-dist.tar.gz}} | {{{http://www.apache.org/dist/myfaces/binaries/myfaces-tobago-1.5.0-beta-2-dist.tar.gz.md5} myfaces-tobago-1.5.0-beta-2-dist.tar.gz.md5}} | {{{http://www.apache.org/dist/myfaces/binaries/myfaces-tobago-1.5.0-beta-2-dist.tar.gz.asc} myfaces-tobago-1.5.0-beta-2-dist.tar.gz.asc}} |
 *-------------------------+---------+----------+-----------+
-| MyFaces Tobago 1.5.0-beta-1 (zip)      | {{{http://www.apache.org/dyn/closer.cgi/myfaces/binaries/myfaces-tobago-1.5.0-beta-1-dist.zip} myfaces-tobago-1.5.0-beta-1-dist.zip}} | {{{http://www.apache.org/dist/myfaces/binaries/myfaces-tobago-1.5.0-beta-1-dist.zip.md5} myfaces-tobago-1.5.0-beta-1-dist.zip.md5}} | {{{http://www.apache.org/dist/myfaces/binaries/myfaces-tobago-1.5.0-beta-1-dist.zip.asc} myfaces-tobago-1.5.0-beta-1-dist.zip.asc}} |
+| MyFaces Tobago 1.5.0-beta-2 (zip)      | {{{http://www.apache.org/dyn/closer.cgi/myfaces/binaries/myfaces-tobago-1.5.0-beta-2-dist.zip} myfaces-tobago-1.5.0-beta-2-dist.zip}} | {{{http://www.apache.org/dist/myfaces/binaries/myfaces-tobago-1.5.0-beta-2-dist.zip.md5} myfaces-tobago-1.5.0-beta-2-dist.zip.md5}} | {{{http://www.apache.org/dist/myfaces/binaries/myfaces-tobago-1.5.0-beta-2-dist.zip.asc} myfaces-tobago-1.5.0-beta-2-dist.zip.asc}} |
 *-------------------------+---------+----------+-----------+
-| MyFaces Tobago Source 1.5.0-beta-1 (zip)      | {{{http://www.apache.org/dyn/closer.cgi/myfaces/source/myfaces-tobago-1.5.0-beta-1-source-release.zip} myfaces-tobago-1.5.0-beta-1-source-release.zip}} | {{{http://www.apache.org/dist/myfaces/source/myfaces-tobago-1.5.0-beta-1-source-release.zip.md5} myfaces-tobago-1.5.0-beta-1-source-release.zip.md5}} | {{{http://www.apache.org/dist/myfaces/source/myfaces-tobago-1.5.0-beta-1-source-release.zip.asc} myfaces-tobago-1.5.0-beta-1-source-release.zip.asc}} |
+| MyFaces Tobago Source 1.5.0-beta-2 (zip)      | {{{http://www.apache.org/dyn/closer.cgi/myfaces/source/myfaces-tobago-1.5.0-beta-2-source-release.zip} myfaces-tobago-1.5.0-beta-2-source-release.zip}} | {{{http://www.apache.org/dist/myfaces/source/myfaces-tobago-1.5.0-beta-2-source-release.zip.md5} myfaces-tobago-1.5.0-beta-2-source-release.zip.md5}} | {{{http://www.apache.org/dist/myfaces/source/myfaces-tobago-1.5.0-beta-2-source-release.zip.asc} myfaces-tobago-1.5.0-beta-2-source-release.zip.asc}} |
 *-------------------------+---------+----------+-----------+
-| MyFaces Tobago Example 1.5.0-beta-1 (tar.gz)     | {{{http://www.apache.org/dyn/closer.cgi/myfaces/binaries/myfaces-tobago-1.5.0-beta-1-example.tar.gz} myfaces-tobago-1.5.0-beta-1-example.tar.gz}} | {{{http://www.apache.org/dist/myfaces/binaries/myfaces-tobago-1.5.0-beta-1-example.tar.gz.md5} myfaces-tobago-1.5.0-beta-1-example.tar.gz.md5}} | {{{http://www.apache.org/dist/myfaces/binaries/myfaces-tobago-1.5.0-beta-1-example.tar.gz.asc} myfaces-tobago-1.5.0-beta-1-example.tar.gz.asc}} |
+| MyFaces Tobago Example 1.5.0-beta-2 (tar.gz)     | {{{http://www.apache.org/dyn/closer.cgi/myfaces/binaries/myfaces-tobago-1.5.0-beta-2-example.tar.gz} myfaces-tobago-1.5.0-beta-2-example.tar.gz}} | {{{http://www.apache.org/dist/myfaces/binaries/myfaces-tobago-1.5.0-beta-2-example.tar.gz.md5} myfaces-tobago-1.5.0-beta-2-example.tar.gz.md5}} | {{{http://www.apache.org/dist/myfaces/binaries/myfaces-tobago-1.5.0-beta-2-example.tar.gz.asc} myfaces-tobago-1.5.0-beta-2-example.tar.gz.asc}} |
 *-------------------------+---------+----------+-----------+
-| MyFaces Tobago Example 1.5.0-beta-1 (zip)      | {{{http://www.apache.org/dyn/closer.cgi/myfaces/binaries/myfaces-tobago-1.5.0-beta-1-example.zip} myfaces-tobago-1.5.0-beta-1-example.zip}} | {{{http://www.apache.org/dist/myfaces/binaries/myfaces-tobago-1.5.0-beta-1-example.zip.md5} myfaces-tobago-1.5.0-beta-1-example.zip.md5}} | {{{http://www.apache.org/dist/myfaces/binaries/myfaces-tobago-1.5.0-beta-1-example.zip.asc} myfaces-tobago-1.5.0-beta-1-example.zip.asc}} |
+| MyFaces Tobago Example 1.5.0-beta-2 (zip)      | {{{http://www.apache.org/dyn/closer.cgi/myfaces/binaries/myfaces-tobago-1.5.0-beta-2-example.zip} myfaces-tobago-1.5.0-beta-2-example.zip}} | {{{http://www.apache.org/dist/myfaces/binaries/myfaces-tobago-1.5.0-beta-2-example.zip.md5} myfaces-tobago-1.5.0-beta-2-example.zip.md5}} | {{{http://www.apache.org/dist/myfaces/binaries/myfaces-tobago-1.5.0-beta-2-example.zip.asc} myfaces-tobago-1.5.0-beta-2-example.zip.asc}} |
 *-------------------------+---------+----------+-----------+
 
 
