@@ -97,6 +97,23 @@
               </options>
             </configuration>
           </execution>
+          <execution>
+            <id>tobago-checkstyle</id>
+            <goals><goal>process</goal></goals>
+            <phase>process-classes</phase>
+            <configuration>
+              <outputFiles>
+                <outputFile>checkstyle-tobago.xml</outputFile>
+              </outputFiles>
+              <resourceTargetPath>META-INF</resourceTargetPath>
+              <outputDirectory>${project.build.directory}/generated-checkstyle-config</outputDirectory>
+              <factory>org.apache.myfaces.tobago.apt.CheckstyleConfigAnnotationProcessorFactory</factory>
+              <additionalSourceRoots>
+                <additionalSourceRoot>${project.build.directory}/tobago-core-sources</additionalSourceRoot>
+              </additionalSourceRoots>
+              <encoding>${maven.compile.encoding}</encoding>
+            </configuration>
+          </execution>
         </executions>
       </plugin>
 
