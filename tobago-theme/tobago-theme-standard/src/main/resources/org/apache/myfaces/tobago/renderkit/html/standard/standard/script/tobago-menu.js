@@ -186,7 +186,7 @@ Tobago.Menu.closeAll = function() {
 * returns the browser specific event which should be used.
 */
 function compatibleKeyEvent() {
-  return jQuery.browser.msie || jQuery.browser.safari ? 'keydown' : 'keypress';
+  return jQuery.browser.msie || jQuery.browser.webkit ? 'keydown' : 'keypress';
 }
 
 Tobago.Menu.mouseOver = function(event) {
