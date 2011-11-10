@@ -22,11 +22,11 @@
    <body>
      <form>
        <ol class="tobago-menuBar">
-         <li class="tobago-menu-markup-top">
-           <a id="m1">Menu 1</a>
+         <li id="m1" class="tobago-menu-markup-top">
+           <a>Menu 1</a>
          </li>
-         <li class="tobago-menu-markup-top">
-           <a id="m2">Menu 2</a>
+         <li id="m2" class="tobago-menu-markup-top">
+           <a>Menu 2</a>
          </li>
          ...
        </ol>
@@ -101,7 +101,7 @@ Tobago.Menu.handelKey = function(event) {
       break;
     case 40: // cursor down
       if (jQuery(this).parent().hasClass('tobago-menu-markup-top')) {
-        jQuery(this).tobagoMenu_findSubMenu().children(":nth-child(1)").children('a').focus();
+        jQuery(this).parent().tobagoMenu_findSubMenu().children(":nth-child(1)").children('a').focus();
       } else {
         jQuery(this).parent().nextAll('li').children('a').eq(0).focus();
       }
@@ -119,10 +119,10 @@ Tobago.Menu.handelKey = function(event) {
 Tobago.Menu.open = function(event) {
 
   var li = jQuery(this).parent();
-  var sub = jQuery(this).tobagoMenu_findSubMenu();
-  
+  var sub = li.tobagoMenu_findSubMenu();
+
   // close menus in other branches
-  li.siblings().children('a').tobagoMenu_findSubMenu().find('ol').andSelf().css('visibility', 'hidden');
+  li.siblings().tobagoMenu_findSubMenu().find('ol').andSelf().css('visibility', 'hidden');
 
   // close sub sub menu 
   sub.children().find("ol").css('visibility', 'hidden');
@@ -196,7 +196,7 @@ Tobago.Menu.mouseOver = function(event) {
 
 Tobago.Menu.switchOn = function(menuBar, menu) {
   menuBar.find('li') // direct menus
-      .add(menuBar.find('li').children('a').tobagoMenu_findSubMenu().find('li')) // add sub menus
+      .add(menuBar.find('li').tobagoMenu_findSubMenu().find('li')) // add sub menus
       .bind('mouseover', Tobago.Menu.mouseOver)
       .children('a')
       .bind('focus', Tobago.Menu.open)
@@ -208,9 +208,9 @@ Tobago.Menu.switchOn = function(menuBar, menu) {
 
 Tobago.Menu.switchOff = function(menuBar) {
   menuBar.find("ol")
-      .add(menuBar.find('li').children('a').tobagoMenu_findSubMenu().find('ol').andSelf())
+      .add(menuBar.find('li').tobagoMenu_findSubMenu().find('ol').andSelf())
       .css('visibility', 'hidden');
-  menuBar.find('li').add(menuBar.find('li').children('a').tobagoMenu_findSubMenu().find('li'))
+  menuBar.find('li').add(menuBar.find('li').tobagoMenu_findSubMenu().find('li'))
       .unbind('mouseover', Tobago.Menu.mouseOver)
       .children('a')
       .unbind('focus', Tobago.Menu.open)
@@ -284,13 +284,13 @@ jQuery.tobagoMenuParent = function(element) {
 };
 
 /*
-  jQuery(this) is a list of "a" element of a menu item as jQuery object.
+  jQuery(this) is a list of "li" element of a menu item as jQuery object.
   Returns a list of "ol" objects. All sub menus as jQuery object.
 */
 (function(jQuery) {
   jQuery.fn.extend({
     tobagoMenu_findSubMenu: function() {
-      var menu = jQuery(this).next("ol");
+      var menu = jQuery(this).children("ol");
       jQuery(this).each(function() {
         menu = menu.add(Tobago.Utils.findSubComponent(jQuery(this), "menu"));
       });

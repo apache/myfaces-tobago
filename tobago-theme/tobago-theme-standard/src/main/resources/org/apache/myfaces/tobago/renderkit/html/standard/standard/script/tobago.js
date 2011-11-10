@@ -150,7 +150,7 @@ var Tobago = {
     },
 
     get: function(event) {
-      if (!event.type == 'keypress') {
+      if (!event.type == Tobago.Utils.acceleratorKeyEvent()) {
         return;
       }
       var keyCode = event.which ? event.which : event.keyCode;
@@ -275,7 +275,7 @@ var Tobago = {
       TbgTimer.endAppOnload = new Date(); // @DEV_ONLY
     } // @DEV_ONLY
 
-    this.addBindEventListener(document, 'keypress', this.acceleratorKeys, 'observe');
+    this.addBindEventListener(document, Tobago.Utils.acceleratorKeyEvent(), this.acceleratorKeys, 'observe');
 
     if (Tobago.resizeAction) {
       // firefox submits an onresize event

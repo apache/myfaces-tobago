@@ -69,6 +69,7 @@ public class MenuRenderer extends LayoutComponentRendererBase {
 
     writer.startElement(HtmlElements.LI, menu);
     writer.writeClassAttribute(Classes.create(menu, firstLevel ? Markup.TOP : null));
+    writer.writeIdAttribute(clientId);
     if (menu.getImage() != null) {
       Style style = new Style();
       style.setBackgroundImage("url(" + menu.getImage() + ")");
@@ -76,7 +77,6 @@ public class MenuRenderer extends LayoutComponentRendererBase {
     }
     writer.startElement(HtmlElements.A, menu);
     writer.writeAttribute(HtmlAttributes.HREF, "#", false);
-    writer.writeIdAttribute(clientId);
 
     LabelWithAccessKey label = new LabelWithAccessKey(menu);
     if (label.getText() != null) {
