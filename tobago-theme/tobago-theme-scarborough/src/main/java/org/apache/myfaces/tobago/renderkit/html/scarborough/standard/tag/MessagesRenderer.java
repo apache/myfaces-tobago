@@ -242,18 +242,10 @@ public class MessagesRenderer extends LayoutComponentRendererBase {
   }
 
   @Override
-  public Measure getHeight(FacesContext facesContext, Configurable component) {
-    Measure measure = super.getPreferredHeight(facesContext, component);
-    UIMessages messages = (UIMessages) component;
-    int count = messages.createMessageList(facesContext).size();
-    return measure.multiply(count);
-  } 
-
-  /*@Override
   public Measure getPreferredHeight(FacesContext facesContext, Configurable component) {
     Measure measure = super.getPreferredHeight(facesContext, component);
     UIMessages messages = (UIMessages) component;
     int count = messages.createMessageList(facesContext).size();
     return measure.multiply(count);
-  }*/
+  }
 }
