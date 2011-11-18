@@ -28,9 +28,6 @@ public class Node {
 
   private Node parent;
 
-  // XXX is this okay?
-  private String label;
-
   public void add(Node node) {
     initChildren();
     children.add(node);
@@ -96,13 +93,5 @@ public class Node {
 
   public void setParent(Node parent) {
     this.parent = parent;
-  }
-
-  public String getLabel() {
-    return label;
-  }
-
-  public void setLabel(String label) {
-    this.label = label;
   }
 }

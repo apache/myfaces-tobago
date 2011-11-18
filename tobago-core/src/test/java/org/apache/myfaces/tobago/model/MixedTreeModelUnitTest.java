@@ -31,10 +31,8 @@ public class MixedTreeModelUnitTest {
 
     MixedTreeModel model = new MixedTreeModel();
 
-    UITreeNode n1 = new UITreeNode();
-
-    model.beginBuildNode(n1);
-    model.endBuildNode(n1);
+    model.beginBuildNode();
+    model.endBuildNode();
 
     model.onEncodeBegin();
     Assert.assertEquals(new TreePath(0), model.getPath());
@@ -46,16 +44,12 @@ public class MixedTreeModelUnitTest {
 
     MixedTreeModel model = new MixedTreeModel();
 
-    UITreeNode n1 = new UITreeNode();
-    UITreeNode n2 = new UITreeNode();
-    UITreeNode n3 = new UITreeNode();
-
-    model.beginBuildNode(n1);
-    model.beginBuildNode(n2);
-    model.endBuildNode(n2);
-    model.beginBuildNode(n3);
-    model.endBuildNode(n3);
-    model.endBuildNode(n1);
+    model.beginBuildNode();
+    model.beginBuildNode();
+    model.endBuildNode();
+    model.beginBuildNode();
+    model.endBuildNode();
+    model.endBuildNode();
 
     model.onEncodeBegin();
     model.onEncodeBegin();
@@ -78,12 +72,12 @@ public class MixedTreeModelUnitTest {
     UITreeNode node = new UITreeNode();
 
 //    model.beginBuildNodeData(data);
-    model.beginBuildNode(node);
-    model.beginBuildNode(node);
-    model.endBuildNode(node);
-    model.beginBuildNode(node);
-    model.endBuildNode(node);
-    model.endBuildNode(node);
+    model.beginBuildNode();
+    model.beginBuildNode();
+    model.endBuildNode();
+    model.beginBuildNode();
+    model.endBuildNode();
+    model.endBuildNode();
 //    model.endBuildNodeData(data);
 
     model.onEncodeBegin();
@@ -126,20 +120,20 @@ public class MixedTreeModelUnitTest {
     UITreeNode individual = new UITreeNode();
     UITreeNode node = new UITreeNode();
 
-    model.beginBuildNode(root);
-    model.beginBuildNode(individual);
-    model.endBuildNode(individual);
+    model.beginBuildNode();
+    model.beginBuildNode();
+    model.endBuildNode();
 //    model.beginBuildNodeData(data);
-    model.beginBuildNode(node);
-    model.beginBuildNode(node);
-    model.endBuildNode(node);
-    model.beginBuildNode(node);
-    model.beginBuildNode(node);
-    model.endBuildNode(node);
-    model.endBuildNode(node);
-    model.endBuildNode(node);
+    model.beginBuildNode();
+    model.beginBuildNode();
+    model.endBuildNode();
+    model.beginBuildNode();
+    model.beginBuildNode();
+    model.endBuildNode();
+    model.endBuildNode();
+    model.endBuildNode();
 //    model.endBuildNodeData(data);
-    model.endBuildNode(root);
+    model.endBuildNode();
 
     model.onEncodeBegin(); // root
     Assert.assertEquals(new TreePath(0), model.getPath());

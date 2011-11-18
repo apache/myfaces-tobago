@@ -19,8 +19,6 @@ package org.apache.myfaces.tobago.model;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.internal.component.AbstractUITreeNode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,12 +36,8 @@ public class MixedTreeModel {
   private Integer nextChildIndex;
   private Stack<Boolean> junctions = new Stack<Boolean>();
 
-  public void beginBuildNode(AbstractUITreeNode node) {
-    if (LOG.isDebugEnabled()) {
-      LOG.debug("{}", node.getAttributes().get(Attributes.LABEL));
-    }
+  public void beginBuildNode() {
     Node newNode = new Node();
-    newNode.setLabel((String) node.getAttributes().get(Attributes.LABEL));
     if (root == null) {
       root = newNode;
       current = root;
@@ -53,10 +47,7 @@ public class MixedTreeModel {
     }
   }
 
-  public void endBuildNode(AbstractUITreeNode node) {
-    if (LOG.isDebugEnabled()) {
-      LOG.debug("{}", node.getAttributes().get(Attributes.LABEL));
-    }
+  public void endBuildNode() {
     current = current.getParent();
   }
 
