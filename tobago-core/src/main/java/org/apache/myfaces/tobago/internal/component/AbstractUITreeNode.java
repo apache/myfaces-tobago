@@ -54,7 +54,7 @@ public abstract class AbstractUITreeNode
   private boolean hasNextSibling;
 
   public void buildTreeModelBegin(FacesContext facesContext, MixedTreeModel model) {
-    model.beginBuildNode(this);
+    model.beginBuildNode();
     setDepth(computeDepth(this));
     setFolder(computeFolder());
   }
@@ -71,7 +71,7 @@ public abstract class AbstractUITreeNode
   }
 
   public void buildTreeModelEnd(FacesContext facesContext, MixedTreeModel model) {
-    model.endBuildNode(this);
+    model.endBuildNode();
   }
 
   @Override
