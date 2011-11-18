@@ -20,24 +20,10 @@ Tobago.Tree = {};
 Tobago.Tree.toggleNode = function(element) {
   var src;
   var node = element.closest(".tobago-treeNode, .tobago-treeMenuNode");
-  var content = jQuery(Tobago.Utils.escapeClientId(node.attr("id") + Tobago.SUB_COMPONENT_SEP + "content"));
   var expanded = node.find(".tobago-treeMenuNode-expanded, .tobago-treeNode-expanded");
   var toggle = node.find(".tobago-treeMenuNode-toggle, .tobago-treeNode-toggle");
-  if (content.css("display") == "none") {
-    content.css("display", "block");
-    toggle.each(function() {
-      src = jQuery(this).data("tobago-srcopen");
-      if (src == null) { // use the close icon if there is no open icon
-        src = jQuery(this).data("tobago-srcclose");
-      }
-      jQuery(this).attr("src", src);
-      Tobago.fixPngAlpha(this);
-    });
-    expanded.attr("value", "true");
-    node.filter(".tobago-treeNode").addClass("tobago-treeNode-markup-expanded");
-    node.filter(".tobago-treeMenuNode").addClass("tobago-treeMenuNode-markup-expanded");
-  } else {
-    content.css("display", "none");
+  if ("true" == expanded.attr("value")) {
+    Tobago.Tree.hideChildren(node);
     toggle.each(function() {
       src = jQuery(this).data("tobago-srcclose");
       if (src == null) { // use the open icon if there is no close icon
@@ -49,7 +35,46 @@ Tobago.Tree.toggleNode = function(element) {
     expanded.attr("value", "false");
     node.filter(".tobago-treeNode").removeClass("tobago-treeNode-markup-expanded");
     node.filter(".tobago-treeMenuNode").removeClass("tobago-treeMenuNode-markup-expanded");
+  } else {
+    Tobago.Tree.showChildren(node);
+    toggle.each(function() {
+      src = jQuery(this).data("tobago-srcopen");
+      if (src == null) { // use the close icon if there is no open icon
+        src = jQuery(this).data("tobago-srcclose");
+      }
+      jQuery(this).attr("src", src);
+      Tobago.fixPngAlpha(this);
+    });
+    expanded.attr("value", "true");
+    node.filter(".tobago-treeNode").addClass("tobago-treeNode-markup-expanded");
+    node.filter(".tobago-treeMenuNode").addClass("tobago-treeMenuNode-markup-expanded");
   }
+};
+
+/**
+ * Hide all children of the node recursively.
+ * @param node A jQuery-Object as a node of the tree.
+ */
+Tobago.Tree.hideChildren = function (node) {
+  var children = node.nextAll("[data-tobago-treeparent='" + node.attr("id") + "']");
+  children.hide().each(function () {
+    Tobago.Tree.hideChildren(jQuery(this));
+  });
+};
+
+/**
+ * Show the children of the node recursively, there parents are expanded.
+ * @param node A jQuery-Object as a node of the tree.
+ */
+Tobago.Tree.showChildren = function (node) {
+  var children = node.nextAll("[data-tobago-treeparent='" + node.attr("id") + "']");
+  children.show().each(function () {
+    var child = jQuery(this);
+    var expanded = child.find(".tobago-treeMenuNode-expanded, .tobago-treeNode-expanded");
+    if ("true" == expanded.attr("value")) {
+      Tobago.Tree.showChildren(child);
+    }
+  });
 };
 
 Tobago.Tree.init = function(elements) {
@@ -136,5 +161,5 @@ Tobago.Tree.init = function(elements) {
     tree.find(".tobago-treeMenuNode").removeClass("tobago-treeMenuNode-markup-marked");
     node.addClass("tobago-treeMenuNode-markup-marked");
   });
-};
 
+};

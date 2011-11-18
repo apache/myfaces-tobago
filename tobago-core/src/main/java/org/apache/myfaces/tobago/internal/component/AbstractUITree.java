@@ -31,8 +31,10 @@ import javax.faces.context.FacesContext;
 import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 public abstract class AbstractUITree extends javax.faces.component.UIInput implements NamingContainer, LayoutComponent {
 
@@ -44,6 +46,9 @@ public abstract class AbstractUITree extends javax.faces.component.UIInput imple
   public static final String MARKED = "marked";
 
   private MixedTreeModel model;
+
+  // XXX may be removed
+  private Set<String> expandedCache;
 
   public UIComponent getRoot() {
     // find the UITreeNode in the children.
@@ -61,6 +66,7 @@ public abstract class AbstractUITree extends javax.faces.component.UIInput imple
   @Override
   public void encodeEnd(FacesContext facesContext) throws IOException {
     model = new MixedTreeModel();
+    expandedCache = new HashSet<String>();
     for (Object child : getChildren()) {
       if (child instanceof TreeModelBuilder) {
         TreeModelBuilder builder = (TreeModelBuilder) child;
@@ -73,10 +79,15 @@ public abstract class AbstractUITree extends javax.faces.component.UIInput imple
     super.encodeEnd(facesContext);
 
     model = null;
+    expandedCache = null;
   }
 
   public MixedTreeModel getModel() {
     return model;
+  }
+
+  public Set<String> getExpandedCache() {
+    return expandedCache;
   }
 
   @Override

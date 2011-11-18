@@ -108,7 +108,6 @@ public class TreeMenuNodeRenderer extends LayoutComponentRendererBase {
   @Override
   public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
 
-    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
     final UITreeNode node = (UITreeNode) component;
     final UITreeMenu tree = ComponentUtils.findAncestor(node, UITreeMenu.class);
 
@@ -121,10 +120,29 @@ public class TreeMenuNodeRenderer extends LayoutComponentRendererBase {
     final boolean ie6
         = VariableResolverUtils.resolveClientProperties(facesContext).getUserAgent().equals(UserAgent.MSIE_6_0);
 
+    // XXX todo: find a better way to determine the parentId
+    final String clientId = node.getClientId(facesContext);
+    final int colon = clientId.lastIndexOf(":");
+    final int underscore = clientId.substring(0, colon).lastIndexOf("_");
+    final String parentId = root ? null : clientId.substring(0, underscore) + clientId.substring(colon);
+
+    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+
+    if (expanded) {
+      tree.getExpandedCache().add(id);
+    }
+
     if (showRoot || !root) {
       writer.startElement(HtmlElements.DIV, null);
       writer.writeIdAttribute(id);
       writer.writeClassAttribute(Classes.create(node));
+      writer.writeAttribute(DataAttributes.TREEPARENT, parentId, false);
+
+      if (!tree.getExpandedCache().contains(parentId)) {
+        Style style = new Style();
+        style.setDisplay(Display.NONE);
+        writer.writeStyleAttribute(style);
+      }
 
       if (folder) {
         encodeExpandedHidden(writer, node, id, expanded);
@@ -149,13 +167,6 @@ public class TreeMenuNodeRenderer extends LayoutComponentRendererBase {
       writer.endElement(HtmlElements.DIV);
     }
 
-    if (folder) {
-      writer.startElement(HtmlElements.DIV, null);
-      writer.writeIdAttribute(id + ComponentUtils.SUB_SEPARATOR + "content");
-      Style contentStyle = new Style();
-      contentStyle.setDisplay(expanded ? Display.BLOCK : Display.NONE);
-      writer.writeStyleAttribute(contentStyle);
-    }
   }
 
   private void encodeExpandedHidden(
@@ -182,12 +193,4 @@ public class TreeMenuNodeRenderer extends LayoutComponentRendererBase {
     writer.endElement(HtmlElements.IMG);
   }
 
-  @Override
-  public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
-    UITreeNode node = (UITreeNode) component;
-    if (node.isFolder()) {
-      TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
-      writer.endElement(HtmlElements.DIV);
-    }
-  }
 }

@@ -31,6 +31,7 @@ import org.apache.myfaces.tobago.model.TreeSelectable;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
+import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
@@ -126,6 +127,7 @@ public class TreeNodeRenderer extends LayoutComponentRendererBase {
 
   @Override
   public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
+
     final UITreeNode node = (UITreeNode) component;
     final AbstractUITree tree = ComponentUtils.findAncestor(node, AbstractUITree.class);
 
@@ -137,7 +139,17 @@ public class TreeNodeRenderer extends LayoutComponentRendererBase {
     // if the root is hidden, the root node must be expanded (otherwise you will see nothing)
     final boolean expanded = folder && node.isExpanded() || !showRoot && root;
 
+    // XXX todo: find a better way to determine the parentId
+    final String clientId = node.getClientId(facesContext);
+    final int colon = clientId.lastIndexOf(":");
+    final int underscore = clientId.substring(0, colon).lastIndexOf("_");
+    final String parentId = root ? null : clientId.substring(0, underscore) + clientId.substring(colon);
+
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+
+    if (expanded) {
+      tree.getExpandedCache().add(id);
+    }
 
     if (showRoot || !root) {
       writer.startElement(HtmlElements.DIV, null);
@@ -148,6 +160,14 @@ public class TreeNodeRenderer extends LayoutComponentRendererBase {
         HtmlRendererUtils.renderDojoDndItem(node, writer, true);
       }
       writer.writeClassAttribute(Classes.create(node));
+      writer.writeAttribute(DataAttributes.TREEPARENT, parentId, false);
+
+      if (!tree.getExpandedCache().contains(parentId)) {
+        Style style = new Style();
+        style.setDisplay(Display.NONE);
+        writer.writeStyleAttribute(style);
+      }
+
       // div style (width)
       Style style = new Style(facesContext, tree);
       String widthString;
@@ -172,13 +192,6 @@ public class TreeNodeRenderer extends LayoutComponentRendererBase {
       writer.endElement(HtmlElements.DIV);
     }
 
-    if (folder) {
-      writer.startElement(HtmlElements.DIV, null);
-      writer.writeIdAttribute(id + ComponentUtils.SUB_SEPARATOR + "content");
-      Style style = new Style();
-      style.setDisplay(expanded ? Display.BLOCK : Display.NONE);
-      writer.writeStyleAttribute(style);
-    }
   }
 
   private void encodeExpandedHidden(
@@ -191,13 +204,4 @@ public class TreeNodeRenderer extends LayoutComponentRendererBase {
     writer.endElement(HtmlElements.INPUT);
   }
 
-  @Override
-  public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
-    UITreeNode node = (UITreeNode) component;
-    TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
-    boolean folder = node.isFolder();
-    if (folder) {
-      writer.endElement(HtmlElements.DIV);
-    }
-  }
 }
