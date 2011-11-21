@@ -744,7 +744,7 @@ Tobago.Sheet.prototype.endResize = function(event) {
       var columnNr = this.resizerId.substring(this.resizerId.lastIndexOf("_") + 1, this.resizerId.length);
       var table = jQuery(Tobago.Utils.escapeClientId(this.id) + ">div>table");
       var col = jQuery("colgroup>col", table).eq(columnNr);
-      col.width(width);
+      col.attr("width", width);
 
       if (jQuery.browser.msie && parseInt(jQuery.browser.version) <= 7) {
         Tobago.Sheet.fixIE67ColWidth(col);
@@ -772,9 +772,9 @@ Tobago.Sheet.prototype.endResize = function(event) {
  * @param col A jQuery object
  */
 Tobago.Sheet.fixIE67ColWidth = function(col) {
-  var td = col.parents("table:first").children("tbody").children("tr:first").children("td").eq(col.index());
+  var td = col.closest("table").children("tbody").children("tr:first").children("td").eq(col.index());
   var delta = td.outerWidth() - td.width();
-  col.width(col.width() - delta * 2);
+  col.attr("width", col.attr("width") - delta);
 };
 
 Tobago.Sheet.prototype.storeSizes = function() {
