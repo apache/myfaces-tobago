@@ -38,5 +38,14 @@
     <!--todo-->
     <!--<tc:script onload="TobagoAssert.assertLayout('page:todo', 0, 0, 600, 14);"/>-->
 
+    <tc:script>
+      $(document).ready(function() {
+        $("td>span").css("background-color", "white");
+        $("td:odd").css("background-color", "#ffbbff");
+        $("td:even").css("background-color", "#bbffbb");
+      });
+
+    </tc:script>
+
   </tc:page>
 </f:view>
