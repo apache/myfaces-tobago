@@ -786,6 +786,9 @@ public class SheetRenderer extends LayoutComponentRendererBase {
         }
       }
     }
+    if (columnIndex == 0) {
+      markup = markup.add(Markup.FIRST);
+    }
     writer.writeClassAttribute(Classes.create(sheet, "header", markup));
     writer.writeAttribute(HtmlAttributes.TITLE, tip, true);
 
