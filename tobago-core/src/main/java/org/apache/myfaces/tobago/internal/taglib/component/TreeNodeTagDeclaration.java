@@ -36,7 +36,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
  */
 @SuppressWarnings("ALL")
 @Tag(name = "treeNode")
-@BodyContentDescription(anyTagOf = "<tc:treeNode>* <tc:treeData>*")
+@BodyContentDescription(anyTagOf = "<tc:treeIndent>|<tc:treeIcon>|<tc:treeSelect>|<tc:treeLabel>|<tc:treeCommand>")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UITreeNode",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUITreeNode",

@@ -34,7 +34,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutCompone
  * This menu is often used for navigation on the left side of an application.
  */
 @Tag(name = "treeMenu")
-@BodyContentDescription(anyTagOf = "<tc:treeNode>|<tc:treeData>")
+@BodyContentDescription(anyTagOf = "<tc:treeData>")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UITreeMenu",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUITree",

@@ -35,7 +35,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsRequired;
  * Usually used with icons and junction lines to open folder, etc.
  */
 @Tag(name = "tree")
-@BodyContentDescription(anyTagOf = "<tc:treeNode>|<tc:treeData>")
+@BodyContentDescription(anyTagOf = "<tc:treeData>")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UITree",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUITree",
