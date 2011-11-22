@@ -270,6 +270,11 @@ public class CheckstyleConfigAnnotationVisitor extends AbstractAnnotationVisitor
     message.setAttribute("value", messageValue);
     module.appendChild(message);
 
+    Element severity = document.createElement("property");
+    severity.setAttribute("name", "severity");
+    severity.setAttribute("value", "warning");
+    module.appendChild(severity);
+
     return module;
   }
 }
