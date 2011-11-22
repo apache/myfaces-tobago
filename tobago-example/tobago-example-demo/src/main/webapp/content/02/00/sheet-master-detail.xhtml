@@ -36,7 +36,7 @@
 
     <tc:box label="List of Objects">
       <tc:sheet value="#{demo.solarList}" id="sheet"
-                columns="*" var="luminary"
+                columns="*" var="luminary" selectable="single"
                 state="#{demo.sheetState}">
         <tc:column label="#{overviewBundle.solarArrayName}" id="name">
           <tc:out value="#{luminary.name}" id="t_name"/>

@@ -138,8 +138,11 @@ public class SheetRenderer extends LayoutComponentRendererBase {
         frequency = update.getFrequency();
       }
       final String[] cmds = {
-          "new Tobago.Sheet(\"" + sheetId + "\", " + sheet.getFirst() + ", \"" + sheet.getSelectable()
-              + "\", " + columnSelectorIndex + ", " + frequency
+          "new Tobago.Sheet('" + sheetId
+              + "', " + sheet.getFirst()
+              + ", '" + sheet.getSelectable()
+              + "', " + columnSelectorIndex
+              + ", " + frequency
               + ", " + (clickAction != null ? HtmlRendererUtils.getJavascriptString(clickAction.getId()) : null)
               + ", " + HtmlRendererUtils.getRenderedPartiallyJavascriptArray(facesContext, clickAction)
               + ", " + (dblClickAction != null ? HtmlRendererUtils.getJavascriptString(dblClickAction.getId()) : null)
@@ -174,9 +177,8 @@ public class SheetRenderer extends LayoutComponentRendererBase {
     SheetState state = sheet.getSheetState(facesContext);
     List<Integer> columnWidths = sheet.getWidthList();
 
-    String selectedRows = StringUtils.joinWithSurroundingSeparator(getSelectedRows(sheet, state));
-    List<UIColumn> renderedColumnList = sheet.getRenderedColumns();
-
+    final List<Integer> selectedRows = getSelectedRows(sheet, state);
+    final List<UIColumn> renderedColumnList = sheet.getRenderedColumns();
 
     writer.startElement(HtmlElements.INPUT, null);
     writer.writeIdAttribute(sheetId + WIDTHS_POSTFIX);
@@ -203,7 +205,8 @@ public class SheetRenderer extends LayoutComponentRendererBase {
       writer.writeIdAttribute(sheetId + SELECTED_POSTFIX);
       writer.writeNameAttribute(sheetId + SELECTED_POSTFIX);
       writer.writeAttribute(HtmlAttributes.TYPE, "hidden", false);
-      writer.writeAttribute(HtmlAttributes.VALUE, selectedRows, true);
+      writer.writeAttribute(
+          HtmlAttributes.VALUE, StringUtils.joinWithSurroundingSeparator(selectedRows), true);
       writer.endElement(HtmlElements.INPUT);
     }
 
@@ -289,7 +292,11 @@ public class SheetRenderer extends LayoutComponentRendererBase {
       }
 
       writer.startElement(HtmlElements.TR, null);
-      writer.writeClassAttribute(Classes.create(sheet, "row", odd ? Markup.ODD : Markup.EVEN));
+      Markup rowMarkup = odd ? Markup.ODD : Markup.EVEN;
+      if (selectedRows.contains(rowIndex)) {
+        rowMarkup = rowMarkup.add(Markup.SELECTED);
+      }
+      writer.writeClassAttribute(Classes.create(sheet, "row", rowMarkup));
       if (rowIndex == sheet.getFirst()) {
         writer.writeAttribute("rowIndexInModel", Integer.toString(sheet.getFirst()), false);
       }

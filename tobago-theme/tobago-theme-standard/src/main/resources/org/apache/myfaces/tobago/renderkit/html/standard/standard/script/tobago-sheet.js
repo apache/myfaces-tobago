@@ -306,7 +306,6 @@ Tobago.Sheet.prototype.setup = function() {
   if (this.selectable
       && (this.selectable == "single" || this.selectable == "singleOrNone" || this.selectable == "multi")) {
     this.addSelectionListener();
-    this.updateSelectionView();
   }
 
   this.setupSortHeaders();
@@ -524,25 +523,6 @@ Tobago.Sheet.prototype.getRows = function() {
   // todo: use a util for "id replace"
   // find all rows in current sheet
   return jQuery(Tobago.Utils.escapeClientId(this.id) + ">div>table>tbody>tr");
-};
-
-Tobago.Sheet.prototype.updateSelectionView = function() {
-//  LOG.error("init 14");
-  var s = new Date().getTime();
-
-  var selected = Tobago.element(this.selectedId);
-  var rows = this.getRows();
-  var indexA = this.firstRowIndex;
-  var indexB = this.firstRowIndex + rows.size();
-  for (var rowIndex = indexA; rowIndex < indexB; rowIndex++) {
-    var row = rows.get(rowIndex - this.firstRowIndex);
-    var checkbox = this.getSelectorCheckbox(row);
-    if (selected.value.indexOf("," + rowIndex + ",") >= 0) {
-      this.selectRow(selected, rowIndex, row, checkbox);
-    }
-  }
-
-//  LOG.warn("init 14 >>>>>>>> " + (new Date().getTime() - s));
 };
 
 Tobago.Sheet.prototype.isSelected = function(rowIndex) {

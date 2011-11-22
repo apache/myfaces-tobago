@@ -242,6 +242,7 @@
             <!-- for the rows -->
             <markup>odd</markup>
             <markup>even</markup>
+            <markup>selected</markup>
             <!-- for the cells -->
             <markup>clickable</markup>
             <markup>first</markup>
