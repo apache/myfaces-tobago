@@ -17,9 +17,9 @@ package org.apache.myfaces.tobago.internal.layout;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.layout.Measure;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.apache.myfaces.tobago.layout.Measure;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,8 +37,10 @@ public class IntervalList extends ArrayList<Interval> {
     minimum = Measure.max(minimumList);
     Measure maximum = Measure.min(maximumList);
     if (minimum.greaterThan(maximum)) {
-      LOG.warn("Layout: Found a minimum constraint " + minimum
-          + " which is greater than a maximum constraint " + maximum + "!");
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("Layout: Found a minimum constraint " + minimum
+            + " which is greater than a maximum constraint " + maximum + "!");
+      }
       current = minimum;
     } else {
       List<Measure> preferred = findPreferredInInterval(minimum, maximum);
