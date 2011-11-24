@@ -169,7 +169,9 @@ public class PageRenderer extends PageRendererBase {
     int clientLogSeverity = 2;
     if (debugMode) {
       String severity = (String) facesContext.getExternalContext().getRequestMap().get(CLIENT_DEBUG_SEVERITY);
-      LOG.info("get " + CLIENT_DEBUG_SEVERITY + " = " + severity);
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("get " + CLIENT_DEBUG_SEVERITY + " = " + severity);
+      }
       if (severity != null) {
         try {
           int index = severity.indexOf(';');
@@ -249,7 +251,9 @@ public class PageRenderer extends PageRendererBase {
       if (debugMode) {
         boolean hideClientLogging = true;
         String severity = (String) facesContext.getExternalContext().getRequestMap().get(CLIENT_DEBUG_SEVERITY);
-        LOG.info("get " + CLIENT_DEBUG_SEVERITY + " = " + severity);
+        if (LOG.isDebugEnabled()) {
+          LOG.debug("get " + CLIENT_DEBUG_SEVERITY + " = " + severity);
+        }
         if (severity != null) {
           try {
             int index = severity.indexOf(';');
