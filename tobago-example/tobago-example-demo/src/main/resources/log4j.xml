@@ -40,7 +40,7 @@
 <!--    <priority value="info" />-->
 <!--  </category>-->
 
-<!--  <category name="org.apache.myfaces.tobago.demo">-->
+<!--  <category name="org.apache.myfaces.tobago.example.demo">-->
 <!--    <priority value="debug" />-->
 <!--  </category>-->
 
