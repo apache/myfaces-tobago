@@ -315,7 +315,7 @@ public abstract class AbstractUISheet extends javax.faces.component.UIData
         || facesEvent instanceof PageActionEvent)) {
       facesEvent.setPhaseId(PhaseId.INVOKE_APPLICATION);
       if (LOG.isInfoEnabled()) {
-        LOG.info("queueEvent = \"" + facesEvent + "\"");
+        LOG.info("queueEvent = '" + facesEvent + "'");
       }
       parent.queueEvent(facesEvent);
     } else {
@@ -408,39 +408,37 @@ public abstract class AbstractUISheet extends javax.faces.component.UIData
   }
 
   // todo: after removing jsf 1.1: @Override
-  public boolean invokeOnComponent(FacesContext context, String clientId, ContextCallback callback)
+  public boolean invokeOnComponent(FacesContext facesContext, String clientId, ContextCallback callback)
       throws FacesException {
     // we may need setRowIndex on UISheet
     int oldRowIndex = getRowIndex();
     try {
-      String sheetId = getClientId(context);
+      String sheetId = getClientId(facesContext);
       if (clientId.startsWith(sheetId)) {
         String idRemainder = clientId.substring(sheetId.length());
-        if (LOG.isInfoEnabled()) {
-          LOG.info("idRemainder = \"" + idRemainder + "\"");
+        if (LOG.isDebugEnabled()) {
+          LOG.debug("idRemainder = '" + idRemainder + "'");
         }
         if (idRemainder.matches("^:\\d+:.*")) {
           idRemainder = idRemainder.substring(1);
           int idx = idRemainder.indexOf(":");
           try {
             int rowIndex = Integer.parseInt(idRemainder.substring(0, idx));
-            if (LOG.isInfoEnabled()) {
-              LOG.info("set rowIndex = \"" + rowIndex + "\"");
+            if (LOG.isDebugEnabled()) {
+              LOG.debug("set rowIndex = '" + rowIndex + "'");
             }
             setRowIndex(rowIndex);
           } catch (NumberFormatException e) {
-            if (LOG.isInfoEnabled()) {
-              LOG.error("idRemainder = \"" + idRemainder + "\"", e);
-            }
+            LOG.warn("idRemainder = '" + idRemainder + "'", e);
           }
         } else {
-          if (LOG.isInfoEnabled()) {
-            LOG.info("no match for \"^:\\d+:.*\"");
+          if (LOG.isDebugEnabled()) {
+            LOG.debug("no match for '^:\\d+:.*'");
           }
         }
       }
 
-      return FacesUtils.invokeOnComponent(context, this, clientId, callback);
+      return FacesUtils.invokeOnComponent(facesContext, this, clientId, callback);
 
     } finally {
       // we should reset rowIndex on UISheet
