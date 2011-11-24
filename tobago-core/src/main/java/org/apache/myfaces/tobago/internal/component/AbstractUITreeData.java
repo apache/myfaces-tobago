@@ -18,6 +18,7 @@ package org.apache.myfaces.tobago.internal.component;
  */
 
 import org.apache.commons.lang.ObjectUtils;
+import org.apache.myfaces.tobago.compat.FacesUtils;
 import org.apache.myfaces.tobago.component.TreeModelBuilder;
 import org.apache.myfaces.tobago.model.MixedTreeModel;
 import org.apache.myfaces.tobago.model.Node;
@@ -25,6 +26,8 @@ import org.apache.myfaces.tobago.model.TreePath;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.faces.FacesException;
+import javax.faces.component.ContextCallback;
 import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -355,6 +358,43 @@ public abstract class AbstractUITreeData extends javax.faces.component.UIInput
       }
     } else {
       super.broadcast(event);
+    }
+  }
+
+  public boolean invokeOnComponent(FacesContext facesContext, String clientId, ContextCallback callback)
+      throws FacesException {
+    TreePath oldRowIndex = getRowIndex();
+    try {
+      String sheetId = getClientId(facesContext);
+      if (clientId.startsWith(sheetId)) {
+        String idRemainder = clientId.substring(sheetId.length());
+        if (LOG.isDebugEnabled()) {
+          LOG.debug("idRemainder = '" + idRemainder + "'");
+        }
+        if (idRemainder.matches("^:(_\\d+)+:.*")) {
+          idRemainder = idRemainder.substring(1);
+          int idx = idRemainder.indexOf(":");
+          try {
+            TreePath rowIndex = new TreePath(idRemainder.substring(0, idx));
+            if (LOG.isDebugEnabled()) {
+              LOG.debug("set rowIndex = '" + rowIndex + "'");
+            }
+            setRowIndex(facesContext, rowIndex);
+          } catch (NumberFormatException e) {
+            LOG.warn("idRemainder = '" + idRemainder + "'", e);
+          }
+        } else {
+          if (LOG.isDebugEnabled()) {
+            LOG.debug("no match for '^:(_\\d+)+:.*'");
+          }
+        }
+      }
+
+      return FacesUtils.invokeOnComponent(facesContext, this, clientId, callback);
+
+    } finally {
+      // we should reset rowIndex on UISheet
+      setRowIndex(facesContext, oldRowIndex);
     }
   }
 

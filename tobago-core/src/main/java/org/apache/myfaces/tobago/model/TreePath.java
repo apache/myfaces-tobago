@@ -17,6 +17,8 @@ package org.apache.myfaces.tobago.model;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.internal.util.StringUtils;
+
 import javax.swing.tree.DefaultMutableTreeNode;
 import java.io.Serializable;
 import java.util.Arrays;
@@ -50,6 +52,10 @@ public class TreePath implements Serializable {
     path[position.path.length] = addendum;
   }
 
+  public TreePath(String string) throws NumberFormatException {
+    this(StringUtils.parseIntegerList(string, "_"));
+  }
+
   public int[] getPath() {
     return path;
   }
@@ -59,21 +65,23 @@ public class TreePath implements Serializable {
   }
 
   public String getPathString() {
-    StringBuffer buffer = new StringBuffer();
+    StringBuilder builder = new StringBuilder();
     for (int item : path) {
-      buffer.append("_");
-      buffer.append(item);
+      builder.append("_");
+      builder.append(item);
     }
-    return buffer.toString();
+    return builder.toString();
   }
 
+  /** @deprecated */
+  @Deprecated
   public String getParentPathString() {
-    StringBuffer buffer = new StringBuffer();
+    StringBuilder builder = new StringBuilder();
     for (int i = 0; i < path.length - 1; i++) {
-      buffer.append("_");
-      buffer.append(path[i]);
+      builder.append("_");
+      builder.append(path[i]);
     }
-    return buffer.toString();
+    return builder.toString();
   }
 
   /**

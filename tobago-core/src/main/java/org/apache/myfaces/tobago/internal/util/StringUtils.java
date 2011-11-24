@@ -28,11 +28,14 @@ public final class StringUtils {
     // utils class
   }
 
-  public static List<Integer> parseIntegerList(String integerList)
-      throws NumberFormatException {
+  public static List<Integer> parseIntegerList(String integerList) throws NumberFormatException {
+    return parseIntegerList(integerList, ", ");
+  }
+
+  public static List<Integer> parseIntegerList(String integerList, String delimiters) throws NumberFormatException {
     List<Integer> list = new ArrayList<Integer>();
 
-    StringTokenizer tokenizer = new StringTokenizer(integerList, ", ");
+    StringTokenizer tokenizer = new StringTokenizer(integerList, delimiters);
     while (tokenizer.hasMoreElements()) {
       String token = tokenizer.nextToken().trim();
       if (token.length() > 0) {
