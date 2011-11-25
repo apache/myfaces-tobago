@@ -106,16 +106,16 @@
       <id>apache-release</id>
       <modules>
         <module>tobago-example-blank</module>
-        <module>tobago-example-data</module>
-        <module>tobago-example-demo</module>
+        <!--<module>tobago-example-data</module>
+        <module>tobago-example-demo</module>-->
       </modules>
     </profile>
     <profile>
       <id>generate-assembly</id>
       <modules>
         <module>tobago-example-blank</module>
-        <module>tobago-example-data</module>
-        <module>tobago-example-demo</module>
+        <!--<module>tobago-example-data</module>
+        <module>tobago-example-demo</module>-->
         <module>tobago-example-assembly</module>
       </modules>
     </profile>

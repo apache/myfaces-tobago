@@ -28,23 +28,6 @@
     <version>1.5.0-beta-3-SNAPSHOT</version>
   </parent>
 
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.myfaces.maven</groupId>
-        <artifactId>wagon-maven-plugin</artifactId>
-        <version>1.0.1</version>
-        <configuration>
-          <id>myfaces-nightly-builds</id>
-          <url>scpexe://minotaur.apache.org/www/people.apache.org/builds/myfaces/nightly</url>
-          <inputDirectory>target/assembly/out</inputDirectory>
-        </configuration>
-      </plugin>
-
-    </plugins>
-
-  </build>
-
   <dependencies>
 
     <dependency>
