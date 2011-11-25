@@ -119,7 +119,7 @@ public class CommandRendererHelper {
         } else if (value.equals("afterSubmit")
             && command instanceof org.apache.myfaces.tobago.component.UICommand
             && ((org.apache.myfaces.tobago.component.UICommand) command).getRenderedPartially().length > 0) {
-          onclick += "Tobago.closePopup(this);";
+          onclick = "Tobago.unlockBehindPopup();" + onclick + "Tobago.closePopup(this);";
         }
 
       }
