@@ -58,8 +58,6 @@ public class MenuCommandRenderer extends CommandRendererBase {
 
   private static final Logger LOG = LoggerFactory.getLogger(MenuCommandRenderer.class);
 
-  private static final String MENU_ACCELERATOR_KEYS = "menuAcceleratorKeys";
-
   @Override
   public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
     UIMenuCommand menu = (UIMenuCommand) component;
@@ -189,7 +187,7 @@ public class MenuCommandRenderer extends CommandRendererBase {
           LOG.info("duplicated accessKey : " + label.getAccessKey());
         }
         if (!disabled && component != null) {
-          addAcceleratorKey(facesContext, component, label.getAccessKey());
+          HtmlRendererUtils.addAcceleratorKey(facesContext, component, label.getAccessKey());
         }
       }
       HtmlRendererUtils.writeLabelWithAccessKey(writer, label);
@@ -198,20 +196,6 @@ public class MenuCommandRenderer extends CommandRendererBase {
     writer.endElement(HtmlElements.LI);
   }
 
-  private void addAcceleratorKey(FacesContext facesContext, UIComponent component, Character accessKey) {
-    String clientId = component.getClientId(facesContext);
-    while (component != null && !component.getAttributes().containsKey(MENU_ACCELERATOR_KEYS)) {
-      component = component.getParent();
-    }
-    if (component != null) {
-      List<String> keys = (List<String>) component.getAttributes().get(MENU_ACCELERATOR_KEYS);
-      String jsStatement = HtmlRendererUtils.createOnclickAcceleratorKeyJsStatement(clientId, accessKey, null);
-      keys.add(jsStatement);
-    } else {
-      LOG.warn("Can't find menu root component!");
-    }
-  }
-  
   public void encodeChildren(FacesContext facesContext, UIComponent component)
       throws IOException {
   }

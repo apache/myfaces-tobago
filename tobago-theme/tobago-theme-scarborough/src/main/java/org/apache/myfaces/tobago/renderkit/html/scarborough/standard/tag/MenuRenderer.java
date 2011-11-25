@@ -43,8 +43,6 @@ public class MenuRenderer extends LayoutComponentRendererBase {
 
   private static final Logger LOG = LoggerFactory.getLogger(MenuRenderer.class);
 
-  private static final String MENU_ACCELERATOR_KEYS = "menuAcceleratorKeys";
-
   @Override
   public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
     super.prepareRender(facesContext, component);
@@ -86,7 +84,7 @@ public class MenuRenderer extends LayoutComponentRendererBase {
           LOG.info("duplicated accessKey : " + label.getAccessKey());
         }
         if (!disabled) {
-          addAcceleratorKey(facesContext, menu, label.getAccessKey());
+          HtmlRendererUtils.addAcceleratorKey(facesContext, menu, label.getAccessKey());
         }
       }
       HtmlRendererUtils.writeLabelWithAccessKey(writer, label);
@@ -119,9 +117,4 @@ public class MenuRenderer extends LayoutComponentRendererBase {
 
   }
 
-  private void addAcceleratorKey(FacesContext facesContext, UIComponent component, Character accessKey) {
-    String clientId = component.getClientId(facesContext);
-    String jsStatement = HtmlRendererUtils.createOnclickAcceleratorKeyJsStatement(clientId, accessKey, null);
-    FacesContextUtils.addMenuAcceleratorScript(facesContext, jsStatement);
-  }
 }

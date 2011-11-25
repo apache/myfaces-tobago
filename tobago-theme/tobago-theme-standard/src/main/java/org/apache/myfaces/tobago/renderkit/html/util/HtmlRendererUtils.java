@@ -709,4 +709,9 @@ public final class HtmlRendererUtils {
     }
   }
 
+    public static void addAcceleratorKey(FacesContext facesContext, UIComponent component, Character accessKey) {
+      String clientId = component.getClientId(facesContext);
+      String jsStatement = createOnclickAcceleratorKeyJsStatement(clientId, accessKey, null);
+      FacesContextUtils.addMenuAcceleratorScript(facesContext, jsStatement);
+    }
 }
