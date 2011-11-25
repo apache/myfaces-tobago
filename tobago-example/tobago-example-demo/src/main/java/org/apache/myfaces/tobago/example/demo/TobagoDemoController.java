@@ -229,12 +229,12 @@ public class TobagoDemoController {
   }
 
   public TabChangeListener getTabChangeListener() {
-    LOG.error("getTabChangeListener " + tabChangeListener);
+    LOG.debug("getTabChangeListener " + tabChangeListener);
     return tabChangeListener;
   }
 
   public void setTabChangeListener(TabChangeListener tabChangeListener) {
-    LOG.error("Setting TabChangeListener " + tabChangeListener);
+    LOG.debug("Setting TabChangeListener " + tabChangeListener);
     this.tabChangeListener = tabChangeListener;
   }
 
