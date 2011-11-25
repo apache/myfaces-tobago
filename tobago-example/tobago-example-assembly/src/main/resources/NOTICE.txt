@@ -9,10 +9,8 @@ Atanion GmbH (http://www.atanion.com/)
 Copyright 2002-2005 Atanion GmbH.
 
 This product includes software developed by
-Sam Stephenson (the ProtoType library) (http://conio.net/)
+The jQuery Project (http://jquery.org/)
 
 This product includes software developed by
-Thomas Fuchs (the Ruby on Rails Ajax javascript extensions) (http://script.aculo.us/).
-
-
+QOS.ch (slf4j) (http://QOS.ch/)
 
