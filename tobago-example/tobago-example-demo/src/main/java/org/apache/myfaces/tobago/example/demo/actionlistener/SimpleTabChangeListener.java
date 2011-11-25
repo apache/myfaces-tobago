@@ -22,23 +22,17 @@ import org.apache.myfaces.tobago.event.TabChangeListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/**
- * User: weber
- * Date: 13.12.2004
- * Time: 16:55:44
- */
 public class SimpleTabChangeListener implements TabChangeListener {
 
   private static final Logger LOG = LoggerFactory.getLogger(SimpleTabChangeListener.class);
 
-
   public SimpleTabChangeListener() {
-    LOG.error("new SimpleTabChangeListener " +this);
+    LOG.info("new SimpleTabChangeListener id='" + System.identityHashCode(this) + "'");
   }
 
   public void processTabChange(TabChangeEvent tabChangeEvent) {
-    LOG.error("TabState has Changed: from tabIndex " + tabChangeEvent.getOldTabIndex()
-        + " to tabIndex " + tabChangeEvent.getNewTabIndex()+ " " + this);
+    LOG.info("TabState has Changed: from tabIndex '" + tabChangeEvent.getOldTabIndex()
+        + "' to tabIndex '" + tabChangeEvent.getNewTabIndex() + "' id='" + System.identityHashCode(this) + "'");
 
   }
 }
