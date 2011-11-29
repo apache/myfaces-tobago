@@ -885,7 +885,7 @@ var Tobago = {
       shield.attr('id', maxModalPopup.attr('id') + '::shield');
 
       // IE6 doesn't support position:fixed
-      if (jQuery.browser.msie && parseInt(jQuery.browser.version, 10) <= 6) {
+      if (jQuery.browser.msie && parseInt(jQuery.browser.version) <= 6) {
         shield.css({
           position: 'absolute',
           left: -maxModalPopup.offset().left,

@@ -300,7 +300,7 @@ Tobago.Sheet.prototype.setup = function() {
   //      this.adjustScrollBars();
   this.setScrollPosition();
 
-  this.firstRowIndex = parseInt(this.getRows().eq(0).attr("rowIndexInModel"), 10);
+  this.firstRowIndex = parseInt(this.getRows().eq(0).attr("rowIndexInModel"));
   this.rowCount = this.getRows().size();
 
   if (this.selectable
@@ -730,7 +730,7 @@ Tobago.Sheet.prototype.endResize = function(event) {
         Tobago.Sheet.fixIE67ColWidth(col);
       }
 
-      var index = parseInt(columnNr, 10) + 1;
+      var index = parseInt(columnNr) + 1;
       var tds = jQuery("td:nth-child(" + index + ")", table);
       var horizontalDiff = 0;
       var widthWithoutPadding = width;
