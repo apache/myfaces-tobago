@@ -1295,7 +1295,7 @@ var Tobago = {
       LOG.debug('replace position ' + position + ' with relative'); // @DEV_ONLY
       element.style.position = 'relative';
     }
-    if (this.getBrowser().type == 'msie' && this.getBrowser().version < 7) {
+    if (jQuery.browser.msie && parseInt(jQuery.browser.version) <= 6) {
       var iframe = document.createElement('IFRAME');
       iframe.id = element.id + '-iframe-overlay';
       iframe.style.backgroundColor = 'red';
@@ -1614,6 +1614,9 @@ var Tobago = {
     // we need only an implementation in the IE6 file.
   },
 
+    /**
+     * @deprecated Since 1.5.1, please use the jQuery.browser
+     */
   getBrowser: function() {
     if (!this.browser) {
       var agent = navigator.userAgent.toLowerCase();
@@ -1754,7 +1757,7 @@ Tobago.In.prototype.setup = function() {
     ctrl = Tobago.element(this.id);
     Tobago.addBindEventListener(ctrl, 'change', this, 'checkMaxLength');
     Tobago.addBindEventListener(ctrl, 'keypress', this, 'checkMaxLength');
-    if (Tobago.getBrowser().type == 'msie') {
+    if (jQuery.browser.msie) {
       Tobago.addBindEventListener(ctrl, 'paste', this, 'checkMaxLengthOnPaste');
     }
   }
