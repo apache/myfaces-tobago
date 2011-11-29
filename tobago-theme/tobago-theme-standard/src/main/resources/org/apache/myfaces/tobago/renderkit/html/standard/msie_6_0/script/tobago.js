@@ -21,7 +21,7 @@
  */
 
 Tobago.fixPngAlphaAll = function(elements) {
-  if (jQuery.browser.msie && parseInt(jQuery.browser.version, 10) <= 6) {
+  if (jQuery.browser.msie && parseInt(jQuery.browser.version) <= 6) {
     // fix png images
     var images = Tobago.Utils.selectWidthJQuery(elements, "img[src$='.png']");
     images.each(function() {
