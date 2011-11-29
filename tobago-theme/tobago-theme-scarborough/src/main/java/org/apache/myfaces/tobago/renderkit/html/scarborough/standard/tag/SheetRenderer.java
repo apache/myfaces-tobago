@@ -596,7 +596,6 @@ public class SheetRenderer extends LayoutComponentRendererBase {
       int rows = sheet.hasRows()
           ? Math.min(sheet.getRowCount(), first + sheet.getRows()) - first
           : sheet.getRowCount();
-      LOG.error("20; // FIXME: make dynamic (was removed by changing the layout");
       final Measure rowPadding = getCustomMeasure(facesContext, sheet, "rowPadding");
       Measure heightNeeded = getFooterHeight(facesContext, sheet)
               .add(rowPadding.add(20/*fixme*/).multiply(rows))
