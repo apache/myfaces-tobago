@@ -2371,7 +2371,8 @@ Tobago.Updater = {
       Tobago.submitAction(null, Tobago.page.id);
     } else if (requestOptions.resultData.responseCode == Tobago.Updater.CODE_RELOAD_REQUIRED) {
       // update required do full page reload
-      if (requestionObjects.resultData.jsfState) {
+      // XXX todo: check if the second call of this code (aprox. 10 lines later) is okay.
+      if (requestOptions.resultData.jsfState) {
         Tobago.replaceJsfState(requestOptions.resultData.jsfState);
       }
       LOG.info('full reload requested'); // @DEV_ONLY
@@ -2384,7 +2385,9 @@ Tobago.Updater = {
       return;
     }
 
-    Tobago.replaceJsfState(requestOptions.resultData.jsfState);
+    if (requestOptions.resultData.jsfState) {
+      Tobago.replaceJsfState(requestOptions.resultData.jsfState);
+    }
 
     var doneIds = {};
     for (var partId in requestOptions.resultData) {
