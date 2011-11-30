@@ -1061,7 +1061,7 @@ var Tobago = {
    * @deprecated Please use Tobago.Utils.escapeClientId()
    */
   escapeClientId: function(id) {
-    LOG.warn("Deprecated method was called. Please use Tobago.Utils.escapeClientId()");
+    LOG.warn("Deprecated method was called. Please use Tobago.Utils.escapeClientId()"); // @DEV_ONLY
     return Tobago.Utils.escapeClientId(id);
   },
 
@@ -1069,7 +1069,7 @@ var Tobago = {
    * @deprecated Please use Tobago.Utils.selectWidthJQuery()
    */
   selectWidthJQuery: function(elements, selector) {
-    LOG.warn("Deprecated method was called. Please use Tobago.Utils.selectWidthJQuery()");
+    LOG.warn("Deprecated method was called. Please use Tobago.Utils.selectWidthJQuery()"); // @DEV_ONLY
     return Tobago.Utils.selectWidthJQuery(elements, selector);
   },
 
