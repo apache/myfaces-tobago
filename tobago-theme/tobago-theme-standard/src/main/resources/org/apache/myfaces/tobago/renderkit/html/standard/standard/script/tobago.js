@@ -2478,8 +2478,6 @@ Tobago.Updater = {
 
         container.doUpdate(componentData);
       } else {
-        LOG.info('no ajax container = ' + ajaxId); // @DEV_ONLY
-//          LOG.debugAjaxComponents();
         Tobago.Updater.doUpdate(componentData);
       }
     }
