@@ -83,7 +83,6 @@ without shadow
     writer.writeClassAttribute(Classes.create(box));
     writer.writeIdAttribute(clientId);
     writer.writeStyleAttribute(new Style(facesContext, box));
-    writer.writeJavascript("Tobago.addAjaxComponent(\"" + clientId + "\");");
     encodeBox(facesContext, writer, box);
   }
 

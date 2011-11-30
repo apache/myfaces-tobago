@@ -744,11 +744,21 @@ var Tobago = {
     }
   },
 
-  addAjaxComponent: function(componentId, containerId) {
-    if (! containerId) {
-      containerId = componentId;
+  /**
+   * Register components which can be updated via ajax.
+   *
+   * Remark: It is no longer needed to register components which can be replaced completely (since 1.5.0), this
+   * was done by leaving the second parameter blank.
+   *
+   * @param componentId Id of the element which can be updated via ajax.
+   * @param container Either a JS-Object which handles the ajax update, or a id of the element which shall be updated, or nothing (deprecated).
+   */
+  addAjaxComponent: function(componentId, container) {
+    if (! container) {
+      LOG.warn('Call of addAjaxComponent() without a container is no longer needed! componentId=' + componentId); // @DEV_ONLY
+    } else {
+      this.ajaxComponents[componentId] = container;
     }
-    this.ajaxComponents[componentId] = containerId;
   },
 
   reloadComponent: function(source, id, actionId, options) {
@@ -1030,7 +1040,6 @@ var Tobago = {
           .after("<div id='" + popupId + "' />");
     }
 
-    Tobago.addAjaxComponent(popupId);
     Tobago.reloadComponent(source, popupId, actionId, options);
   },
 
