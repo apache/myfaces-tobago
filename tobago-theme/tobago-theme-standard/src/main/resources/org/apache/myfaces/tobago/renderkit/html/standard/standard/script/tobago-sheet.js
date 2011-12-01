@@ -173,7 +173,7 @@ Tobago.Sheet.prototype.reloadWithAction = function(source, action, options) {
     LOG.debug("reload sheet with action \"" + action + "\""); // @DEV_ONLY
     var reloadOptions = Tobago.extend({}, this.options);
     reloadOptions = Tobago.extend(reloadOptions, options);
-    Tobago.createOverlay(Tobago.element(this.id));
+    Tobago.createOverlay(jQuery(Tobago.Utils.escapeClientId(this.id)));
     Tobago.Updater.update(source, action, this.renderedPartially?this.renderedPartially:this.id, reloadOptions);
   };
 

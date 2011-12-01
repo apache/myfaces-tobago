@@ -381,9 +381,6 @@ public class PageRenderer extends PageRendererBase {
     writer.write("Tobago.OVERLAY_BACKGROUND = '");
     writer.write(ResourceManagerUtils.getImageWithPath(facesContext, "image/tobago-overlay-background.png"));
     writer.write("';\n");
-    writer.write("Tobago.OVERLAY_WAIT = '");
-    writer.write(ResourceManagerUtils.getImageWithPath(facesContext, "image/tobago-overlay-wait.gif"));
-    writer.write("';\n");
     writer.endJavascript();
 /*
     if (debugMode) {
@@ -617,6 +614,15 @@ public class PageRenderer extends PageRendererBase {
 
 
     writer.endElement(HtmlElements.FORM);
+
+    // The waiting for the next page image
+    // Warning: The image must be loaded before the submit, otherwise this feature will not work with webkit
+    // browsers. This is the reason, why this code has moved from JavaScript to the renderer here.
+    writer.startElement(HtmlElements.IMG, null);
+    writer.writeClassAttribute(Classes.create(page, "overlayPreloadedImage"));
+    final String wait = ResourceManagerUtils.getImageWithPath(facesContext, "image/tobago-overlay-wait.gif");
+    writer.writeAttribute(HtmlAttributes.SRC, wait, false);
+    writer.endElement(HtmlElements.IMG);
 
     // debugging...
     if (debugMode) {

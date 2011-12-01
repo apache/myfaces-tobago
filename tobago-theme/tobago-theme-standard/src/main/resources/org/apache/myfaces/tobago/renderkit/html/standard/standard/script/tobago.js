@@ -334,65 +334,99 @@ var Tobago = {
 
   onBeforeUnload: function() {
     if (Tobago.transition) {
-      Tobago.createOverlay(Tobago.page);
-      setTimeout(Tobago.makeOverlaySemitransparent, 750);
-      setTimeout(Tobago.makeOverlayWait, 2000);
+      Tobago.createOverlay(jQuery("body"));
     }
     Tobago.transition = Tobago.oldTransition;
   },
 
-  makeOverlaySemitransparent: function() {
-    var overlay;
-    if (jQuery.browser.webkit) {
-      overlay = jQuery(Tobago.Utils.escapeClientId(Tobago.page.id + '-overlay'));
-      overlay.css('opacity', '0.8');
-      overlay.css('background-color', jQuery('.tobago-page').css("background-color"));
-    } else {
-      overlay = Tobago.element(Tobago.page.id + '-overlay');
-      if (overlay) {
-        var img = document.createElement('IMG');
-        img.style.width = '100%';
-        img.style.height = '100%';
-        img.src = Tobago.OVERLAY_BACKGROUND;
-        Tobago.fixPngAlpha(img);
-        overlay.appendChild(img);
+  /**
+   * Create a overlay barrier and animate it.
+   * @param element A jQuery element, must be only one single element.
+   */
+  createOverlay:function (element) {
+
+    // is not a jQuery object? XXX Support of non jQuery objects is deprecated since Tobago 1.5.1
+    if (element == null || typeof element.size != "function") {
+      element = Tobago.element(element);
+      if (!element) {
+        LOG.warn('no element to create overlay'); // @DEV_ONLY
+        return;
       }
+      element = jQuery(element);
+      LOG.warn('Deprecation: Please call createOverlay() with a jQuery object.'); // @DEV_ONLY
     }
-  },
 
-  makeOverlayWait: function() {
-    var overlay = Tobago.element(Tobago.page.id + '-overlay');
-    if (overlay) {
-      var table = document.createElement('TABLE');
-      table.style.position = 'absolute';
-      table.style.top = '0px';
-      table.style.left = '0px';
-      table.border = 1;
-      table.cellPadding = 0;
-      table.cellSpacing = 0;
-      table.style.width = Tobago.page.clientWidth;
-      table.style.height = Tobago.page.clientHeight;
-      var row = table.insertRow(0);
-      var cell = row.insertCell(0);
-      cell.align = 'center';
-      cell.width = '100%';
-      var anim = document.createElement('IMG');
-      anim.id = Tobago.page.id + '-overlay-wait';
-      cell.appendChild(anim);
-      overlay.appendChild(table);
-      setTimeout(Tobago.loadOverlayWait, 0);
+    Tobago.ie6bugfix(element.get(0));
+
+    element.append("<div class='tobago-page-overlayBarrier'></div>");
+
+    if (jQuery.browser.msie && parseInt(jQuery.browser.version) <= 6) {
+      element.children(".tobago-page-overlayBarrier")
+          .css({
+            width:element.css("width"),
+            height:element.css("height")});
     }
+
+    element.children(".tobago-page-overlayBarrier")
+        .css({
+          backgroundColor:jQuery('.tobago-page').css("background-color"),
+          filter:'alpha(opacity=80)', //IE
+          opacity:0})
+        .show()
+        .delay(1000)
+        .animate({opacity:'0.8'}, 250, "linear", function () {
+
+          element.append("<div class='tobago-page-overlayWait'><img></div>");
+          var wait = element.children(".tobago-page-overlayWait");
+          var image = wait.children("img");
+          image.attr("src", jQuery("body > .tobago-page-overlayPreloadedImage").attr("src"));
+          wait.show();
+
+          // fix for IE6: reset the src attribute to enable animation
+          if (jQuery.browser.msie && parseInt(jQuery.browser.version) <= 6) {
+              image.attr("src", image.attr("src"));
+          }
+        });
   },
 
-  loadOverlayWait: function() {
-    var img = Tobago.element(Tobago.page.id + '-overlay-wait');
-    img.src = Tobago.OVERLAY_WAIT;
+  /**
+   * Removes the overlay barrier.
+   * @param element A jQuery element.
+   */
+  deleteOverlay:function (element) {
+
+    // is not a jQuery object? XXX Support of non jQuery objects is deprecated since Tobago 1.5.1
+    if (element == null || typeof element.size != "function") {
+      element = Tobago.element(element);
+      if (!element) {
+        LOG.warn('no element to create overlay'); // @DEV_ONLY
+        return;
+      }
+      element = jQuery(element);
+      LOG.warn('Deprecation: Please call deleteOverlay() with a jQuery object.'); // @DEV_ONLY
+    }
+
+    element.children(".tobago-page-overlayBarrier").remove();
+    element.children(".tobago-page-overlayWait").remove();
   },
 
-  doOverlayScroll: function() {
-    var overlay = Tobago.element(Tobago.page.id + '-overlay');
-    overlay.style.top = overlay.parentNode.scrollTop;
-    overlay.style.left = overlay.parentNode.scrollLeft;
+  ie6bugfix: function(element) {
+    if (this.getBrowser().type == 'msie' && this.getBrowser().version <= 6) {
+      var iframe = document.createElement('IFRAME');
+      iframe.id = element.id + '-iframe-overlay';
+      iframe.style.backgroundColor = 'red';
+      iframe.style.filter = 'progid:DXImageTransform.Microsoft.Alpha(style=0,opacity=0)';
+      // TODO: better z-index strategy
+      iframe.style.zIndex = 9999;
+      iframe.frameBorder = '0';
+      iframe.style.position = 'absolute';
+      iframe.src = Tobago.blankPage;
+      iframe.style.top = '0px';
+      iframe.style.left = '0px';
+      iframe.style.width = element.scrollWidth + 'px';
+      iframe.style.height = element.scrollHeight + 'px';
+      element.appendChild(iframe);
+    }
   },
 
   /**
@@ -522,7 +556,7 @@ var Tobago = {
             // LOG.debug("submit form with action: " + Tobago.action.value);
             Tobago.form.submit();
           } catch (e) {
-            Tobago.deleteOverlay(Tobago.page);
+            Tobago.deleteOverlay(jQuery("body"));
             Tobago.isSubmit = false;
             alert('Submit failed: ' + e); // XXX localization, better error handling
           }
@@ -1289,70 +1323,6 @@ var Tobago = {
     return element;
   },
 
-
-  /**
-   * Create an overlay with same dimension and wait cursor over an HTML element.
-   */
-  createOverlay: function(element) {
-    element = Tobago.element(element);
-    if (!element) {
-      LOG.warn('no element to create overlay'); // @DEV_ONLY
-      return;
-    }
-    var position = Tobago.getRuntimeStyle(element).position;
-    if (position == 'static') {
-      LOG.debug('replace position ' + position + ' with relative'); // @DEV_ONLY
-      element.style.position = 'relative';
-    }
-    if (jQuery.browser.msie && parseInt(jQuery.browser.version) <= 6) {
-      var iframe = document.createElement('IFRAME');
-      iframe.id = element.id + '-iframe-overlay';
-      iframe.style.backgroundColor = 'red';
-      iframe.style.filter = 'progid:DXImageTransform.Microsoft.Alpha(style=0,opacity=0)';
-      iframe.style.zIndex = 9999;
-      iframe.frameBorder = '0';
-      iframe.style.position = 'absolute';
-      iframe.src = Tobago.blankPage;
-      iframe.style.top = '0px';
-      iframe.style.left = '0px';
-      iframe.style.width = element.scrollWidth + 'px';
-      iframe.style.height = element.scrollHeight + 'px';
-      element.appendChild(iframe);
-    }
-    var overlay = document.createElement('div');
-    overlay.id = element.id + '-overlay';
-    overlay.style.position = 'absolute';
-    overlay.style.top = '0px';
-    overlay.style.left = '0px';
-    overlay.style.width = element.scrollWidth + 'px';
-    overlay.style.height = element.scrollHeight + 'px';
-    overlay.style.cursor = 'wait';
-    // TODO: better z-index strategy
-    overlay.style.zIndex = 10000;
-    element.appendChild(overlay);
-    return overlay;
-  },
-
-  /**
-   * Delete an overlay created by createOverlay.
-   */
-  deleteOverlay: function(element) {
-    if (element == null) {
-      return;
-    }
-    var overlay = document.getElementById(element.id + '-overlay');
-    if (overlay && overlay.parentNode == element) {
-      element.removeChild(overlay);
-      var iframe = document.getElementById(element.id + '-iframe-overlay');
-      if (iframe) {
-        element.removeChild(iframe);
-      }
-    } else {
-      LOG.warn("Can't find Overlay : \"" + element.id + '-overlay' + '\"'); // @DEV_ONLY
-    }
-    return element;
-  },
-
   /**
    * Set the width of an HTML element via style
    */
@@ -1884,16 +1854,13 @@ Tobago.Panel.prototype.initReload = function() {
 };
 
 Tobago.Panel.prototype.reloadWithAction = function(source, action, options) {
-  //LOG.debug("reload panel with action \"" + action + "\"");
-  this.prepareReload();
   var reloadOptions = Tobago.extend({}, this.options);
   reloadOptions = Tobago.extend(reloadOptions, options);
   Tobago.Updater.update(source, action, this.id, reloadOptions);
 };
 
 Tobago.Panel.prototype.prepareReload = function() {
-  var element = Tobago.element(this.id);
-  Tobago.createOverlay(element);
+  Tobago.createOverlay(jQuery(Tobago.Utils.escapeClientId(this.id)));
 };
 
 Tobago.EventListener = function(element, event, func) {
@@ -2317,12 +2284,12 @@ Tobago.Updater = {
         for (var i = 0; i < ids.length; i++) {
           var id = ids[i];
           var container = Tobago.ajaxComponents[id];
-          if (container) {
-            if (typeof container.prepareReload == 'function') {
-              container.prepareReload();
-            } else {
-              Tobago.createOverlay(container);
-            }
+          if (container && typeof container.prepareReload == 'function') {
+            container.prepareReload();
+          } else if (container) {
+            Tobago.createOverlay(container);
+          } else {
+            Tobago.createOverlay(jQuery(Tobago.Utils.escapeClientId(id)));
           }
         }
       }
@@ -2521,6 +2488,7 @@ Tobago.Updater = {
         if (typeof this.afterDoUpdateError == 'function') {
           this.afterDoUpdateError();
         }
+        // XXX Here also a double click will be logged, but "warn" is not appropriate.
         LOG.warn("ERROR 500 when updating component id = '" + data.ajaxId + "'"); // @DEV_ONLY
         Tobago.deleteOverlay(Tobago.element(Tobago.ajaxComponents[data.ajaxId]));
         break;
