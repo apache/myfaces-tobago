@@ -162,6 +162,7 @@ public class OverviewController implements Serializable {
   }
 
   public void click(ActionEvent actionEvent) {
+    LOG.info("click the action listener");
     lastAction = actionEvent.getComponent().getId();
   }
 
