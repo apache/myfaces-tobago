@@ -24,8 +24,7 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
  * The width and height attributes can be set explicitly on some components.
  * Generally it should be checked, if using of a layout manager is a better alternative.
  */
-@Deprecated
-public interface IsGridLayoutComponentWithDeprecatedDimension extends IsGridLayoutComponentBase {
+public interface IsGridLayoutComponentWithDimension extends IsGridLayoutComponentBase {
 
   /**
    * The width of the component in the UI.

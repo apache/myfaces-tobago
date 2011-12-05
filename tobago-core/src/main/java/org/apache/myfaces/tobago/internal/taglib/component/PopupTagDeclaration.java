@@ -27,7 +27,7 @@ import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
-import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutComponentWithDeprecatedDimension;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutComponentWithDimension;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutContainer;
 
 /**
@@ -47,7 +47,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutContain
             allowedChildComponenents = "org.apache.myfaces.tobago.GridLayout")}
 )
 public interface PopupTagDeclaration 
-    extends HasIdBindingAndRendered, IsGridLayoutComponentWithDeprecatedDimension, IsGridLayoutContainer,
+    extends HasIdBindingAndRendered, IsGridLayoutComponentWithDimension, IsGridLayoutContainer,
     HasMarkup, HasCurrentMarkup {
 
   @TagAttribute
