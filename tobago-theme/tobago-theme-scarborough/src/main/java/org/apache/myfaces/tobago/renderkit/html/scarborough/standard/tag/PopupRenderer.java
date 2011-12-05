@@ -53,8 +53,7 @@ public class PopupRenderer extends LayoutComponentRendererBase {
 
     FacesContextUtils.addPopup(facesContext, popup);
 
-
-    FacesContextUtils.addScriptBlock(facesContext, "jQuery(document).ready(function() {Tobago.setupPopup();});");
+    FacesContextUtils.addScriptBlock(facesContext, "jQuery(document).ready(function() {Tobago.Popup.setup();});");
 
     super.prepareRender(facesContext, popup);
 
@@ -69,7 +68,7 @@ public class PopupRenderer extends LayoutComponentRendererBase {
     // TODO check ajaxId
     if (FacesContextUtils.isAjax(facesContext)) {
       writer.startJavascript();
-      writer.write("Tobago.setupPopup();");
+      writer.write("Tobago.Popup.setup();");
       writer.endJavascript();
     }
     

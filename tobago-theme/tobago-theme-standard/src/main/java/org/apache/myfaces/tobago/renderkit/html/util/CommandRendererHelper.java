@@ -94,7 +94,7 @@ public class CommandRendererHelper {
             LOG.warn("more than one partially rendered component is not supported for popup! using first one: "
                 + Arrays.toString(componentIds));
           }
-          onclick = "Tobago.openPopupWithAction(this, '"
+          onclick = "Tobago.Popup.openWithAction(this, '"
               + HtmlRendererUtils.getComponentId(facesContext, command, componentIds[0]) + "', '" + clientId + "');";
         } else {
           onclick = "Tobago.reloadComponent(this, '"
@@ -115,11 +115,11 @@ public class CommandRendererHelper {
           && ComponentUtils.isInPopup(command)) {
         String value = (String) command.getAttributes().get(Attributes.POPUP_CLOSE);
         if (value.equals("immediate")) {
-          onclick = "Tobago.closePopup(this);";
+          onclick = "Tobago.Popup.close(this);";
         } else if (value.equals("afterSubmit")
             && command instanceof org.apache.myfaces.tobago.component.UICommand
             && ((org.apache.myfaces.tobago.component.UICommand) command).getRenderedPartially().length > 0) {
-          onclick = "Tobago.unlockBehindPopup();" + onclick + "Tobago.closePopup(this);";
+          onclick = "Tobago.Popup.unlockBehind();" + onclick + "Tobago.Popup.close(this);";
         }
 
       }

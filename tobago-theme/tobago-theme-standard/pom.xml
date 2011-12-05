@@ -60,7 +60,7 @@
             <configuration>
               <target>
                 <concat destfile="${project.build.directory}/javascript-min/standard/script/tobago.min.js">
-                  <filelist dir="${basedir}/src/main/resources/org/apache/myfaces/tobago/renderkit/html/standard/standard/script" files="tobago.js,calendar.js,dateConverter.js,tobago-menu.js,tobago-sheet.js,tobago-tree.js,tobago-utils.js" />
+                  <filelist dir="${basedir}/src/main/resources/org/apache/myfaces/tobago/renderkit/html/standard/standard/script" files="tobago.js,calendar.js,dateConverter.js,tobago-menu.js,tobago-popup.js,tobago-sheet.js,tobago-tree.js,tobago-utils.js" />
                 </concat>
                 <concat destfile="${project.build.directory}/javascript-min/msie_6_0/script/tobago.min.js">
                   <filelist dir="${basedir}/src/main/resources/org/apache/myfaces/tobago/renderkit/html/standard/msie_6_0/script" files="tobago.js" />

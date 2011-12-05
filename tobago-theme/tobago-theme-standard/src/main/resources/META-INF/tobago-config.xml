@@ -343,6 +343,7 @@
         <script name="script/calendar.js"/>
         <script name="script/dateConverter.js"/>
         <script name="script/tobago-menu.js"/>
+        <script name="script/tobago-popup.js"/>
         <script name="script/tobago-sheet.js"/>
         <script name="script/tobago-tree.js"/>
         <script name="script/tobago-utils.js"/>

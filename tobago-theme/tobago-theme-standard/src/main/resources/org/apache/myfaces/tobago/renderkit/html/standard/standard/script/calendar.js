@@ -257,7 +257,7 @@ function writeIntoField(obj, id) {
   }
   var date = new Date(year, month - 1, day, hour, minute, second);
 
-  Tobago.closePopup(obj)
+  Tobago.Popup.close(obj);
 
   textBox.focus();
 

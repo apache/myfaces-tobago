@@ -200,7 +200,7 @@ public class DatePickerRenderer extends LinkRenderer {
     Map<String, Object> attributes = picker.getAttributes();
     UIPopup popup = (UIPopup) picker.getFacets().get(Facets.PICKER_POPUP);
 
-    attributes.put(Attributes.ONCLICK, "Tobago.openPopupWithAction(Tobago.element(event), '"
+    attributes.put(Attributes.ONCLICK, "Tobago.Popup.openWithAction(Tobago.element(event), '"
         + popup.getClientId(facesContext) + "', '"
         + picker.getClientId(facesContext) + "')");
 
