@@ -30,8 +30,8 @@ Tobago.Popup.setup = function () {
   // The shield is a protection against clicking controls, which are not allowed to click in the modal case.
   // The shield also makes an optical effect (alpha blending).
 
-  // remove all old shields
-  jQuery('.tobago-popup-shield').remove();
+  // hide all old shields
+  jQuery('.tobago-popup-shield').css({visibility:"hidden"});
 
   // find highest modal popup
   var maxZIndex = -Infinity;
@@ -156,14 +156,15 @@ Tobago.Popup.close = function (closeButton) {
   Tobago.Popup.unlockBehind();
   var popup = jQuery(closeButton).parents('div.tobago-popup:first');
   popup.remove();
-  Tobago.Popup.setup();
+  var maxModalPopup = jQuery('.tobago-popup-shield').filter(":last");
+  maxModalPopup.css({visibility:"visible"});
 };
 
 /**
  * Unlock the parent page of a popup when it is closed
  */
 Tobago.Popup.unlockBehind = function () {
-  var maxModalPopup = jQuery('.tobago-popup-shield').parent();
+  var maxModalPopup = jQuery('.tobago-popup-shield').filter(":last").parent();
   if (maxModalPopup.size() == 0) { // there is no modal popup
     return;
   }
