@@ -21,33 +21,29 @@ import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 
 /**
- * This interface is useful for migration. The width and height attributes can be set
- * in Tobago 1.0. With this interface it can be set for compatibility.
- *
- * @see IsGridLayoutComponent
+ * The width and height attributes can be set explicitly on some components.
+ * Generally it should be checked, if using of a layout manager is a better alternative.
  */
 @Deprecated
 public interface IsGridLayoutComponentWithDeprecatedDimension extends IsGridLayoutComponentBase {
 
   /**
-   * This value will usually be set by the layout manager.
+   * The width of the component in the UI.
+   * This value will usually be set by the layout manager, but can be set explicitly here.
    *
    * @param width The width for this component.
-   * @deprecated
    */
-  @Deprecated
   @TagAttribute
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure",
       defaultCode = "((LayoutComponentRenderer)getRenderer(getFacesContext())).getWidth(getFacesContext(), this)")
   void setWidth(String width);
 
   /**
-   * This value will usually be set by the layout manager.
+   * The height of the component in the UI.
+   * This value will usually be set by the layout manager, but can be set explicitly here.
    *
    * @param height The height for this component.
-   * @deprecated
    */
-  @Deprecated
   @TagAttribute
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure",
       defaultCode = "((LayoutComponentRenderer)getRenderer(getFacesContext())).getHeight(getFacesContext(), this)")
