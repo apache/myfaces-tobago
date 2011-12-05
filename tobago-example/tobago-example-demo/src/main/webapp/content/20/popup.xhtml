@@ -22,11 +22,9 @@
                 xmlns:tx="http://myfaces.apache.org/tobago/extension"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core">
-  <ui:param name="title" value="#{overviewBundle.basic}"/>
+  <ui:param name="title" value="Popups"/>
 
-  <ui:debug/>
-
-  <tc:box label="Popups">
+  <tc:panel>
     <f:facet name="layout">
       <tc:gridLayout rows="auto;auto;auto;auto;auto;auto;auto;*"/>
     </f:facet>
@@ -188,5 +186,5 @@
 
     <tc:cell/>
 
-  </tc:box>
+  </tc:panel>
 </ui:composition>
