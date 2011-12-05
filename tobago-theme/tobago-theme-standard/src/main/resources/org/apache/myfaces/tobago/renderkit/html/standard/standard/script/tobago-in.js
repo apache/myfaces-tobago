@@ -340,7 +340,6 @@ Tobago.AutocompleterAjax.prototype.registerBodyEvent = function () {
   // register handler on body, to close the suggest, when click anywhere.
   var object = this;
   jQuery("body").one('click.suggest', function () {
-    LOG.error("click on body");
     object.closeSuggest(false);
   });
 };
