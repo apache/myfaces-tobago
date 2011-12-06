@@ -90,7 +90,7 @@
 
       <tc:panel>
         <f:facet name="layout">
-          <tc:gridLayout columns="*;*" rows="auto;auto;auto;auto;auto"/>
+          <tc:gridLayout columns="*;*" rows="auto;auto;auto;auto;auto;auto"/>
         </f:facet>
 
         <tc:button label="Reload left"
@@ -143,6 +143,18 @@
           </tx:selectOneChoice>
 
         </tc:panel>
+
+        <tc:button label="Error left"
+                   tip="Reload left side box, but an exception occures"
+                   action="#{partialReloadController.error}">
+          <tc:attribute value="left" name="renderedPartially"/>
+        </tc:button>
+
+        <tc:button label="Error right"
+                   tip="Reload right side box, but an exception occures"
+                   action="#{partialReloadController.error}">
+          <tc:attribute value="right" name="renderedPartially"/>
+        </tc:button>
 
       </tc:panel>
 

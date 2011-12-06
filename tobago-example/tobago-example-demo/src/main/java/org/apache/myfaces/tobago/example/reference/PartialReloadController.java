@@ -40,6 +40,10 @@ public class PartialReloadController {
     return logAndNavigate(null);
   }
 
+  public String error() {
+    throw new RuntimeException("Test Exception");
+  }
+  
   public String waitAndReload() {
     synchronized (this) {
       try {

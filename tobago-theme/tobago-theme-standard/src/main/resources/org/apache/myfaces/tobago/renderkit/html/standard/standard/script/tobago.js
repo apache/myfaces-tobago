@@ -343,7 +343,7 @@ var Tobago = {
    * Create a overlay barrier and animate it.
    * @param element A jQuery element, must be only one single element.
    */
-  createOverlay:function (element) {
+  createOverlay:function (element, error) {
 
     // is not a jQuery object? XXX Support of non jQuery objects is deprecated since Tobago 1.5.1
     if (element == null || typeof element.size != "function") {
@@ -356,9 +356,29 @@ var Tobago = {
       LOG.warn('Deprecation: Please call createOverlay() with a jQuery object.'); // @DEV_ONLY
     }
 
+    if (element.children(".tobago-page-overlayBarrier").size() > 0) {
+
+      // todo: optimize! May be set an attribute or a alternative class.
+      // is this a error overlay?
+      if (element.find(".tobago-page-overlayBarrier img").attr("src").indexOf("error") > -1) {
+        Tobago.deleteOverlay(element);
+      } else {
+        LOG.warn('There is already a overlay barrier'); // @DEV_ONLY
+        return;
+      }
+    }
+
     Tobago.ie6bugfix(element.get(0));
 
-    element.append("<div class='tobago-page-overlayBarrier'></div>");
+    element.append("<div class='tobago-page-overlayBarrier'><div class='tobago-page-overlayWait'><img></div></div>");
+
+    var wait = element.find(".tobago-page-overlayWait");
+    var image = wait.children("img");
+    var src = error
+        ? jQuery("body > .tobago-page-overlayErrorPreloadedImage").attr("src")
+        : jQuery("body > .tobago-page-overlayWaitPreloadedImage").attr("src");
+    image.attr("src", src);
+    wait.show();
 
     if (jQuery.browser.msie && parseInt(jQuery.browser.version) <= 6) {
       element.children(".tobago-page-overlayBarrier")
@@ -373,14 +393,8 @@ var Tobago = {
           filter:'alpha(opacity=80)', //IE
           opacity:0})
         .show()
-        .delay(1000)
-        .animate({opacity:'0.8'}, 250, "linear", function () {
-
-          element.append("<div class='tobago-page-overlayWait'><img></div>");
-          var wait = element.children(".tobago-page-overlayWait");
-          var image = wait.children("img");
-          image.attr("src", jQuery("body > .tobago-page-overlayPreloadedImage").attr("src"));
-          wait.show();
+        .delay(error ? 0 : 1000)
+        .animate({opacity:'0.8'}, error ? 0 : 250, "linear", function () {
 
           // fix for IE6: reset the src attribute to enable animation
           if (jQuery.browser.msie && parseInt(jQuery.browser.version) <= 6) {
@@ -407,7 +421,6 @@ var Tobago = {
     }
 
     element.children(".tobago-page-overlayBarrier").remove();
-    element.children(".tobago-page-overlayWait").remove();
   },
 
   ie6bugfix: function(element) {
@@ -2270,6 +2283,9 @@ Tobago.Updater = {
         return; // the update should be canceled.
       }
     }
+    var overlay = Tobago.ajaxComponents[data.ajaxId] != null
+        ? jQuery(Tobago.ajaxComponents[data.ajaxId])
+        : jQuery(Tobago.Utils.escapeClientId(data.ajaxId));
     switch (data.responseCode) {
       case Tobago.Updater.CODE_SUCCESS:
         var element = jQuery(Tobago.Utils.escapeClientId(data.ajaxId));
@@ -2296,7 +2312,7 @@ Tobago.Updater = {
         if (typeof this.afterDoUpdateNotModified == 'function') {
           this.afterDoUpdateNotModified();
         }
-        Tobago.deleteOverlay(Tobago.element(Tobago.ajaxComponents[data.ajaxId]));
+        Tobago.deleteOverlay(overlay);
         break;
       case Tobago.Updater.CODE_ERROR:
         if (typeof this.afterDoUpdateError == 'function') {
@@ -2304,11 +2320,12 @@ Tobago.Updater = {
         }
         // XXX Here also a double click will be logged, but "warn" is not appropriate.
         LOG.warn("ERROR 500 when updating component id = '" + data.ajaxId + "'"); // @DEV_ONLY
-        Tobago.deleteOverlay(Tobago.element(Tobago.ajaxComponents[data.ajaxId]));
+        Tobago.deleteOverlay(overlay);
+        Tobago.createOverlay(overlay, true); // error overlay
         break;
       default:
         LOG.error('Unknown response code: ' + data.responseCode + " for component id = '" + data.ajaxId + "'"); // @DEV_ONLY
-        Tobago.deleteOverlay(Tobago.element(Tobago.ajaxComponents[data.ajaxId]));
+        Tobago.deleteOverlay(overlay);
         break;
     }
   }

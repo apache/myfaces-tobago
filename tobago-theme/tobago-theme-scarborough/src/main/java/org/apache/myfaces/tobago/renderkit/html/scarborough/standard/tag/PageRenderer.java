@@ -619,9 +619,15 @@ public class PageRenderer extends PageRendererBase {
     // Warning: The image must be loaded before the submit, otherwise this feature will not work with webkit
     // browsers. This is the reason, why this code has moved from JavaScript to the renderer here.
     writer.startElement(HtmlElements.IMG, null);
-    writer.writeClassAttribute(Classes.create(page, "overlayPreloadedImage"));
+    writer.writeClassAttribute(Classes.create(page, "overlayWaitPreloadedImage"));
     final String wait = ResourceManagerUtils.getImageWithPath(facesContext, "image/tobago-overlay-wait.gif");
     writer.writeAttribute(HtmlAttributes.SRC, wait, false);
+    writer.endElement(HtmlElements.IMG);
+
+    writer.startElement(HtmlElements.IMG, null);
+    writer.writeClassAttribute(Classes.create(page, "overlayErrorPreloadedImage"));
+    final String error = ResourceManagerUtils.getImageWithPath(facesContext, "image/dialog-error.png");
+    writer.writeAttribute(HtmlAttributes.SRC, error, false);
     writer.endElement(HtmlElements.IMG);
 
     // debugging...

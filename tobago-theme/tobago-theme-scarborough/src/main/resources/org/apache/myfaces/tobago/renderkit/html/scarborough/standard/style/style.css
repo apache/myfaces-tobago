@@ -614,7 +614,7 @@ li.tobago-menu-markup-selected {
   top: -5px;
 }
 
-.tobago-page-overlayPreloadedImage {
+.tobago-page-overlayWaitPreloadedImage, .tobago-page-overlayErrorPreloadedImage {
   display: none;
 }
 
