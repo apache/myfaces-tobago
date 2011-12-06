@@ -141,7 +141,7 @@ Tobago.Tree.init = function(elements) {
   });
 
   // marked for treeNode
-  Tobago.Utils.selectWidthJQuery(elements, ".tobago-treeNode").focus(function() {
+  Tobago.Utils.selectWidthJQuery(elements, ".tobago-treeCommand").focus(function() {
     var command = jQuery(this);
     var node = command.parent(".tobago-treeNode");
     var tree = node.closest(".tobago-tree");

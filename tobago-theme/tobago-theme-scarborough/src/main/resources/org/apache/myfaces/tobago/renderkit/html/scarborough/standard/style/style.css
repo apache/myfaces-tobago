@@ -1442,7 +1442,8 @@ div.tobago-richTextEditor-body {
   cursor: default;
 }
 
-.tobago-treeNode-marker, .tobago-treeNode-marker:focus, .tobago-treeNode-marker a, .tobago-treeNode-marker:focus a {
+.tobago-treeNode-markup-marked a, .tobago-treeNode-markup-marked:focus a,
+.tobago-treeNode-markup-marked label, .tobago-treeNode-markup-marked:focus label {
   background-color: #d8e9fb;
 }
 

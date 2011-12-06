@@ -802,7 +802,8 @@ div.tobago-tabGroup-toolBar {
   color: #000000;
 }
 
-.tobago-treeNode-marker, .tobago-treeNode-marker:focus, .tobago-treeNode-marker a, .tobago-treeNode-marker:focus a {
+.tobago-treeNode-markup-marked a, .tobago-treeNode-markup-marked:focus a,
+.tobago-treeNode-markup-marked label, .tobago-treeNode-markup-marked:focus label {
 	background-color: #eeeeee;
 }
 
