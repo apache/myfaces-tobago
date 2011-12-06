@@ -26,6 +26,8 @@ public class MixedCommandTree {
     NamedNode actions = new NamedNode("Actions");
     tree.add(actions);
     actions.add(new NamedNode("Action 1", "Action 1", null, null));
+    actions.add(new NamedNode("Action 2", "Action 2", null, null));
+    actions.add(new NamedNode("Action 3", "Action 3", null, null));
 
     NamedNode links = new NamedNode("Links");
     tree.add(links);
