@@ -44,10 +44,18 @@ public class PartialReloadController {
     throw new RuntimeException("Test Exception");
   }
   
-  public String waitAndReload() {
+  public String waitAndReload3() {
+    return waitAndReload(3000);
+  }
+
+  public String waitAndReload7() {
+    return waitAndReload(7000);
+  }
+
+  private String waitAndReload(long delay) {
     synchronized (this) {
       try {
-        wait(6000);
+        wait(delay);
       } catch (InterruptedException e) {
         //
       }

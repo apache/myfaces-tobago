@@ -90,7 +90,7 @@
 
       <tc:panel>
         <f:facet name="layout">
-          <tc:gridLayout columns="*;*" rows="auto;auto;auto;auto;auto;auto"/>
+          <tc:gridLayout columns="*;*" rows="auto;auto;auto;auto;auto;auto;auto"/>
         </f:facet>
 
         <tc:button label="Reload left"
@@ -119,9 +119,16 @@
           <tc:gridLayoutConstraint columnSpan="2"/>
         </tc:button>
 
-        <tc:button label="Wait 6 s and reload both"
-                   tip="Wait 6 seconds and reload both boxes"
-                   action="#{partialReloadController.waitAndReload}">
+        <tc:button label="Reload both (wait 3 s)"
+                   tip="Reload both boxes, but the server has a delay of 3 seconds"
+                   action="#{partialReloadController.waitAndReload3}">
+          <tc:attribute value="left,right" name="renderedPartially"/>
+          <tc:gridLayoutConstraint columnSpan="2"/>
+        </tc:button>
+
+        <tc:button label="Reload both (wait 7 s)"
+                   tip="Reload both boxes, but the server has a delay of 7 seconds, this is more than the default timeout for AJAX"
+                   action="#{partialReloadController.waitAndReload7}">
           <tc:attribute value="left,right" name="renderedPartially"/>
           <tc:gridLayoutConstraint columnSpan="2"/>
         </tc:button>

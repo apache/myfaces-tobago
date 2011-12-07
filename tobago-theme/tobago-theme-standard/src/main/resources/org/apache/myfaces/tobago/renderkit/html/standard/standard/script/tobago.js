@@ -2074,11 +2074,9 @@ Tobago.Updater = {
 
   WAIT_ON_RELOAD: false,
 
-  TIMEOUT: 5000,
-
   options: {
     createOverlay: true,
-    timeout: this.TIMEOUT
+    timeout: 5000
   },
 
   update: function(source, actionId, ajaxComponentIds, options) {
