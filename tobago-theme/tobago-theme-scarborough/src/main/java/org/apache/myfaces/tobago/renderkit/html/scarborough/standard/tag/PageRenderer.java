@@ -626,7 +626,9 @@ public class PageRenderer extends PageRendererBase {
 
     writer.startElement(HtmlElements.IMG, null);
     writer.writeClassAttribute(Classes.create(page, "overlayErrorPreloadedImage"));
-    final String error = ResourceManagerUtils.getImageWithPath(facesContext, "image/dialog-error.png");
+    final String error = ClientProperties.getInstance(facesContext).getUserAgent().isMsie6()
+        ? ResourceManagerUtils.getImageWithPath(facesContext, "image/remove.gif") // XXX why png doesn't work in ie6?
+        : ResourceManagerUtils.getImageWithPath(facesContext, "image/dialog-error.png");
     writer.writeAttribute(HtmlAttributes.SRC, error, false);
     writer.endElement(HtmlElements.IMG);
 

@@ -35,6 +35,17 @@
   display: inline-block;
 }
 
+/* page -------------------------------------------------------------- */
+
+.tobago-page-overlayCenter {
+  position: absolute;
+  top: 50%;
+}
+
+.tobago-page-overlayCenter img {
+  top: -50%;
+}
+
 /* tab/tabGroup -------------------------------------------------------------- */
 
 .tobago-tab {

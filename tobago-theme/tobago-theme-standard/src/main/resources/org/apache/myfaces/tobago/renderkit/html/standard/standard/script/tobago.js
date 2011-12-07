@@ -356,11 +356,10 @@ var Tobago = {
       LOG.warn('Deprecation: Please call createOverlay() with a jQuery object.'); // @DEV_ONLY
     }
 
-    if (element.children(".tobago-page-overlayBarrier").size() > 0) {
+    if (element.children(".tobago-page-overlay").size() > 0) {
 
-      // todo: optimize! May be set an attribute or a alternative class.
-      // is this a error overlay?
-      if (element.find(".tobago-page-overlayBarrier img").attr("src").indexOf("error") > -1) {
+      // is this an error overlay?
+      if (element.children(".tobago-page-overlay-markup-error").size() > 0) {
         Tobago.deleteOverlay(element);
       } else {
         LOG.warn('There is already a overlay barrier'); // @DEV_ONLY
@@ -370,9 +369,11 @@ var Tobago = {
 
     Tobago.ie6bugfix(element.get(0));
 
-    element.append("<div class='tobago-page-overlayBarrier'><div class='tobago-page-overlayWait'><img></div></div>");
+    element.append("<div class='tobago-page-overlay tobago-page-overlay-markup-"
+            + (error ? "error" : "wait")
+            + "'><div class='tobago-page-overlayCenter'><img></div></div>");
 
-    var wait = element.find(".tobago-page-overlayWait");
+    var wait = element.find(".tobago-page-overlayCenter");
     var image = wait.children("img");
     var src = error
         ? jQuery("body > .tobago-page-overlayErrorPreloadedImage").attr("src")
@@ -381,13 +382,13 @@ var Tobago = {
     wait.show();
 
     if (jQuery.browser.msie && parseInt(jQuery.browser.version) <= 6) {
-      element.children(".tobago-page-overlayBarrier")
+      element.children(".tobago-page-overlay")
           .css({
             width:element.css("width"),
             height:element.css("height")});
     }
 
-    element.children(".tobago-page-overlayBarrier")
+    element.children(".tobago-page-overlay")
         .css({
           backgroundColor:jQuery('.tobago-page').css("background-color"),
           filter:'alpha(opacity=80)', //IE
@@ -420,7 +421,7 @@ var Tobago = {
       LOG.warn('Deprecation: Please call deleteOverlay() with a jQuery object.'); // @DEV_ONLY
     }
 
-    element.children(".tobago-page-overlayBarrier").remove();
+    element.children(".tobago-page-overlay").remove();
   },
 
   ie6bugfix: function(element) {

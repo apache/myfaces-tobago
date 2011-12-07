@@ -581,37 +581,36 @@ li.tobago-menu-markup-selected {
   position: absolute;
 }
 
-.tobago-page-overlayBarrier {
-  display: none;
+.tobago-page-overlay {
+  display: table;
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  cursor: wait;
 /* TODO: better z-index strategy */
   z-index: 10000;
 }
 
-.tobago-page-overlayWait {
-  display: none;
-  position: absolute;
+.tobago-page-overlay-markup-wait {
+  cursor: wait;
+}
+
+.tobago-page-overlay-markup-error {
+  cursor: default;
+}
+
+.tobago-page-overlayCenter {
+  display: table-cell;
   text-align: center;
-  left: 50%;
-  top: 50%;
-  width: 0;
-  height: 0;
-  cursor: wait;
+  vertical-align: middle;
+  width: 100%;
 /* TODO: better z-index strategy */
   z-index: 10000;
 }
 
-.tobago-page-overlayWait img {
-  position: absolute;
-  /* half width of the image */
-  left: -45px;
-  /* half height of the image */
-  top: -5px;
+.tobago-page-overlayCenter img {
+  position: relative;
 }
 
 .tobago-page-overlayWaitPreloadedImage, .tobago-page-overlayErrorPreloadedImage {
