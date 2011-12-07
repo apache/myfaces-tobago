@@ -39,7 +39,7 @@ Tobago.fixPngAlphaAll = function(elements) {
 
 Tobago.fixPngAlpha = function(element) {
   if (jQuery.browser.msie
-      && parseInt(jQuery.browser.version, 10) <= 6
+      && parseInt(jQuery.browser.version) <= 6
       && element.src.toLowerCase().match(/.*png/)
       && Tobago.isActiveXEnabled()) {
     Tobago.fixPngAlphaInternal(element);
