@@ -329,11 +329,11 @@
       </plugin>                              
 
       <!-- TODO test dashboard plugin  -->
-      <plugin>
+      <!--plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>dashboard-maven-plugin</artifactId>
         <version>1.0.0-beta-1</version>
-      </plugin>
+      </plugin-->
 
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
@@ -1804,8 +1804,8 @@
     <myfaces11.version>1.1.9</myfaces11.version>
     <myfaces12.version>1.2.11</myfaces12.version>
     <myfaces-test12.version>1.0.1</myfaces-test12.version>
-    <myfaces20.version>2.0.10</myfaces20.version>
-    <myfaces21.version>2.1.4</myfaces21.version>
+    <myfaces20.version>2.0.11</myfaces20.version>
+    <myfaces21.version>2.1.5</myfaces21.version>
     <mojarra11.version>1.1_02</mojarra11.version>
     <mojarra12.version>1.2_14</mojarra12.version>
     <mojarra20.version>2.0.6</mojarra20.version>
@@ -1814,8 +1814,8 @@
     <jetty6.version>6.1.26</jetty6.version>
     <jetty7.version>7.4.0.RC0</jetty7.version>
     <!--<jetty7.version>7.5.4.v20111024</jetty7.version>-->
-    <slf4j.version>1.6.3</slf4j.version>
-    <logback.version>0.9.30</logback.version>
+    <slf4j.version>1.6.4</slf4j.version>
+    <logback.version>1.0.0</logback.version>
     <commons-io.version>1.1</commons-io.version>
     <commons-lang.version>2.4</commons-lang.version>
     <commons-logging.version>1.1.1</commons-logging.version>
