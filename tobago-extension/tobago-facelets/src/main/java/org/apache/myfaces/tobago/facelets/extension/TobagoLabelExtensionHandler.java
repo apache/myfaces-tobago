@@ -95,10 +95,10 @@ public abstract class TobagoLabelExtensionHandler extends ComponentHandler {
       // ensure that input has no parent (isNew)
       UIComponent input  = (UIComponent) panel.getChildren().remove(1);
       try {
-        input.getAttributes().put("parent", panel);
+        input.getAttributes().put("tobago.panel", panel);
         nextHandler.apply(ctx, input);
       } finally {
-        input.getAttributes().remove("parent");
+        input.getAttributes().remove("tobago.panel");
       }
       UIComponent date = null;
       if (panel.getChildCount() > 1) {
