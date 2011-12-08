@@ -37,7 +37,7 @@ public class TobagoResponseStateManager extends ResponseStateManager {
   private static final Logger LOG = LoggerFactory.getLogger(TobagoResponseStateManager.class);
 
   public static final String TREE_PARAM = "jsf_tree";
-  private static final String STATE_PARAM = "javax.faces.ViewState";
+  public static final String VIEW_STATE_PARAM = "javax.faces.ViewState";
   private static final String VIEWID_PARAM = "jsf_viewid";
 
   public Object getState(FacesContext context, String viewId) {
@@ -63,7 +63,7 @@ public class TobagoResponseStateManager extends ResponseStateManager {
 
   public Object getComponentStateToRestore(FacesContext facesContext) {
     Map requestMap = facesContext.getExternalContext().getRequestParameterMap();
-    return requestMap.get(STATE_PARAM);
+    return requestMap.get(VIEW_STATE_PARAM);
   }
 
   public void writeState(FacesContext facesContext,
@@ -89,8 +89,8 @@ public class TobagoResponseStateManager extends ResponseStateManager {
 
     responseWriter.startElement(HtmlElements.INPUT, null);
     responseWriter.writeAttribute(HtmlAttributes.TYPE, "hidden", null);
-    responseWriter.writeAttribute(HtmlAttributes.NAME, STATE_PARAM, null);
-    responseWriter.writeAttribute(HtmlAttributes.ID, STATE_PARAM, null);
+    responseWriter.writeAttribute(HtmlAttributes.NAME, VIEW_STATE_PARAM, null);
+    responseWriter.writeAttribute(HtmlAttributes.ID, VIEW_STATE_PARAM, null);
     if (compStates != null) {
       if (compStates instanceof String) {
         responseWriter.writeAttribute(HtmlAttributes.VALUE, compStates, null);
