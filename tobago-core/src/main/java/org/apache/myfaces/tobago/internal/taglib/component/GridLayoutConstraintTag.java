@@ -72,6 +72,10 @@ public abstract class GridLayoutConstraintTag extends TagSupport {
       // TODO Message resource i18n
       throw new JspException("Component Instance is not a LayoutBase");
     }
+    // XXX need a better solution
+    if (component.getParent() != null && component.getClass().getName().endsWith("UIExtensionPanel")) {
+        component = component.getParent();
+    }
 
     if (component instanceof LayoutComponent && isColumnSpanSet()) {
       if (isColumnSpanLiteral()) {

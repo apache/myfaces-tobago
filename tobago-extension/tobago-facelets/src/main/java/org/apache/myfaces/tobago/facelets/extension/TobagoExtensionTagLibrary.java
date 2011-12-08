@@ -27,28 +27,28 @@ public class TobagoExtensionTagLibrary extends AbstractTagLibrary {
 
   public TobagoExtensionTagLibrary() {
     super(NAMESPACE);
-    addComponent("in", ComponentTypes.PANEL, "Panel", InExtensionHandler.class);
-    addComponent("file", ComponentTypes.PANEL, "Panel", FileExtensionHandler.class);
-    addComponent("date", ComponentTypes.PANEL, "Panel", DateExtensionHandler.class);
+    addComponent("in", ComponentTypes.EXTENSION_PANEL, "Panel", InExtensionHandler.class);
+    addComponent("file", ComponentTypes.EXTENSION_PANEL, "Panel", FileExtensionHandler.class);
+    addComponent("date", ComponentTypes.EXTENSION_PANEL, "Panel", DateExtensionHandler.class);
     addComponent("menuCheckbox", "org.apache.myfaces.tobago.MenuCommand", "MenuCommand",
         MenuCheckboxExtensionHandler.class);
     addComponent("menuRadio", "org.apache.myfaces.tobago.MenuCommand", "MenuCommand",
         MenuRadioExtensionHandler.class);
-    addComponent("time", ComponentTypes.PANEL, "Panel", TimeExtensionHandler.class);
-    addComponent("textarea", ComponentTypes.PANEL, "Panel", TextareaExtensionHandler.class);
-    addComponent("selectBooleanCheckbox", ComponentTypes.PANEL, "Panel",
+    addComponent("time", ComponentTypes.EXTENSION_PANEL, "Panel", TimeExtensionHandler.class);
+    addComponent("textarea", ComponentTypes.EXTENSION_PANEL, "Panel", TextareaExtensionHandler.class);
+    addComponent("selectBooleanCheckbox", ComponentTypes.EXTENSION_PANEL, "Panel",
         SelectBooleanCheckboxExtensionHandler.class);
-    addComponent("selectManyCheckbox", ComponentTypes.PANEL, "Panel",
+    addComponent("selectManyCheckbox", ComponentTypes.EXTENSION_PANEL, "Panel",
         SelectManyCheckboxExtensionHandler.class);
-    addComponent("selectManyListbox", ComponentTypes.PANEL, "Panel",
+    addComponent("selectManyListbox", ComponentTypes.EXTENSION_PANEL, "Panel",
         SelectManyListboxExtensionHandler.class);
-    addComponent("selectManyShuttle", ComponentTypes.PANEL, "Panel",
+    addComponent("selectManyShuttle", ComponentTypes.EXTENSION_PANEL, "Panel",
             SelectManyShuttleExtensionHandler.class);
-    addComponent("selectOneChoice", ComponentTypes.PANEL, "Panel",
+    addComponent("selectOneChoice", ComponentTypes.EXTENSION_PANEL, "Panel",
         SelectOneChoiceExtensionHandler.class);
-    addComponent("selectOneRadio", ComponentTypes.PANEL, "Panel",
+    addComponent("selectOneRadio", ComponentTypes.EXTENSION_PANEL, "Panel",
         SelectOneRadioExtensionHandler.class);
-    addComponent("selectOneListbox", ComponentTypes.PANEL, "Panel",
+    addComponent("selectOneListbox", ComponentTypes.EXTENSION_PANEL, "Panel",
         SelectOneListboxExtensionHandler.class);
     addComponent("separator", "org.apache.myfaces.tobago.Separator", "Separator",
         SeparatorExtensionHandler.class);

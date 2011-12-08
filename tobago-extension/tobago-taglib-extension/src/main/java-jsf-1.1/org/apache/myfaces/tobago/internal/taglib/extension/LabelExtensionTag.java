@@ -79,12 +79,12 @@ public class LabelExtensionTag extends BodyTagSupport
   private String labelWidth;
   private String markup;
 
-  private PanelTag panelTag;
+  private ExtensionPanelTag panelTag;
 
   @Override
   public int doStartTag() throws JspException {
 
-    panelTag = new PanelTag();
+    panelTag = new ExtensionPanelTag();
     panelTag.setPageContext(pageContext);
     panelTag.setParent(getParent());
     if (rendered != null) {

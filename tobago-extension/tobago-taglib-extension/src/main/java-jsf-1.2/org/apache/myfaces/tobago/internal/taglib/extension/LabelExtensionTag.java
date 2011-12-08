@@ -25,7 +25,6 @@ import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.internal.layout.LayoutUtils;
 import org.apache.myfaces.tobago.internal.taglib.GridLayoutTag;
 import org.apache.myfaces.tobago.internal.taglib.LabelTag;
-import org.apache.myfaces.tobago.internal.taglib.PanelTag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -76,12 +75,12 @@ public class LabelExtensionTag extends TobagoExtensionBodyTagSupport {
   private javax.el.ValueExpression labelWidth;
   private javax.el.ValueExpression markup;
 
-  private PanelTag panelTag;
+  private ExtensionPanelTag panelTag;
 
   @Override
   public int doStartTag() throws JspException {
 
-    panelTag = new PanelTag();
+    panelTag = new ExtensionPanelTag();
     panelTag.setPageContext(pageContext);
     panelTag.setParent(getParent());
     if (rendered != null) {
