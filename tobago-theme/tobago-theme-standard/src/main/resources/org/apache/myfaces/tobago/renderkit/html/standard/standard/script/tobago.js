@@ -2282,9 +2282,15 @@ Tobago.Updater = {
         return; // the update should be canceled.
       }
     }
-    var overlay = Tobago.ajaxComponents[data.ajaxId] != null
-        ? jQuery(Tobago.ajaxComponents[data.ajaxId])
-        : jQuery(Tobago.Utils.escapeClientId(data.ajaxId));
+    var c = Tobago.ajaxComponents[data.ajaxId];
+    var overlay;
+    if (c != null && c.tagName != null) { // is an html element
+      overlay = jQuery(c);
+    } else if (c != null && c.id != null) { // in an JS element like e. g. Tobago.Panel
+      overlay = jQuery(Tobago.Utils.escapeClientId(c.id));
+    } else { // just use the id (not the mapped value)
+      overlay = jQuery(Tobago.Utils.escapeClientId(data.ajaxId))
+    }
     switch (data.responseCode) {
       case Tobago.Updater.CODE_SUCCESS:
         var element = jQuery(Tobago.Utils.escapeClientId(data.ajaxId));
