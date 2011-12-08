@@ -18,6 +18,7 @@ package org.apache.myfaces.tobago.internal.lifecycle;
  */
 
 import org.apache.myfaces.tobago.config.TobagoConfig;
+import org.apache.myfaces.tobago.internal.component.AbstractUIPage;
 import org.apache.myfaces.tobago.portlet.PortletUtils;
 import org.apache.myfaces.tobago.renderkit.TobagoResponseStateManager;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -67,6 +68,9 @@ class RestoreViewExecutor implements PhaseExecutor {
         }
       }
       sessionMap.remove(TobagoLifecycle.FACES_MESSAGES_KEY);
+      if (viewRoot.getChildCount() > 0 && viewRoot.getChildren().get(0) instanceof AbstractUIPage) {
+        viewRoot.getChildren().get(0).decode(facesContext);
+      }
       facesContext.renderResponse();
       return true;
     }
