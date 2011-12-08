@@ -101,7 +101,7 @@ public class GridLayoutConstraintHandler extends TagHandler {
        parent = parent.getParent();
     } else if (parent.getAttributes().get("tobago.panel") != null
          && parent.getAttributes().get("tobago.panel") instanceof UIExtensionPanel) {
-       parent = parent.getParent();
+       parent = (UIComponent) parent.getAttributes().get("tobago.panel");
     }
     if (parent instanceof LayoutBase) {
       LayoutBase component = (LayoutBase) parent;
