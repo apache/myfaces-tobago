@@ -99,6 +99,9 @@ public class GridLayoutConstraintHandler extends TagHandler {
       throws IOException, FacesException, ELException {
     if (parent.getParent() != null && parent.getParent() instanceof UIExtensionPanel) {
        parent = parent.getParent();
+    } else if (parent.getAttributes().get("parent") != null
+         && parent.getAttributes().get("parent") instanceof UIExtensionPanel) {
+       parent = parent.getParent();
     }
     if (parent instanceof LayoutBase) {
       LayoutBase component = (LayoutBase) parent;
