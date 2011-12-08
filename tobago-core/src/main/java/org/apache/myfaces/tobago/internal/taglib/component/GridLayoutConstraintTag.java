@@ -47,6 +47,7 @@ public abstract class GridLayoutConstraintTag extends TagSupport {
 
   private static final Logger LOG = LoggerFactory.getLogger(GridLayoutConstraintTag.class);
 
+
   @Override
   public int doStartTag() throws JspException {
 
@@ -68,14 +69,16 @@ public abstract class GridLayoutConstraintTag extends TagSupport {
       throw new JspException("Component Instance is null");
     }
 
+    // XXX need a better solution
+    if (component.getParent() != null && component.getParent().getClass().getName().endsWith("UIExtensionPanel")) {
+        component = component.getParent();
+    }
+
     if (!(component instanceof LayoutBase)) {
       // TODO Message resource i18n
       throw new JspException("Component Instance is not a LayoutBase");
     }
-    // XXX need a better solution
-    if (component.getParent() != null && component.getClass().getName().endsWith("UIExtensionPanel")) {
-        component = component.getParent();
-    }
+
 
     if (component instanceof LayoutComponent && isColumnSpanSet()) {
       if (isColumnSpanLiteral()) {
