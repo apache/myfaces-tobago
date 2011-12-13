@@ -273,10 +273,12 @@ public class TaglibAnnotationVisitor extends AbstractAnnotationVisitor {
 
 
   protected void addDescription(Declaration decl, Element element, Document document, boolean deprecated) {
-    StringBuilder description = new StringBuilder();
+    final StringBuilder description = new StringBuilder();
+    final Deprecated deprecatedAnnotation = decl.getAnnotation(Deprecated.class);
+    String comment = decl.getDocComment();
+    final String deprecationComment = deprecationComment(comment);
 
-    Deprecated deprecatedAnnotation = decl.getAnnotation(Deprecated.class);
-    if (deprecatedAnnotation != null) {
+    if (deprecatedAnnotation != null || deprecationComment != null) {
       description.append("<p>**** @deprecated. Will be removed in a future version **** </p>");
     }
     if (deprecated) {
@@ -284,6 +286,9 @@ public class TaglibAnnotationVisitor extends AbstractAnnotationVisitor {
       description.append("<p>**** @deprecated. Will be removed in a future version. Use ");
       description.append(annotationTag.name());
       description.append(" instead. **** </p>");
+    }
+    if (deprecationComment != null) {
+      description.append("<p>" + deprecationComment + "</p>");
     }
 
     Preliminary preliminary = decl.getAnnotation(Preliminary.class);
@@ -295,7 +300,6 @@ public class TaglibAnnotationVisitor extends AbstractAnnotationVisitor {
       }
       description.append(" **** </p>");
     }
-    String comment = decl.getDocComment();
     if (comment != null) {
       // remove @param section
       int index = comment.indexOf(" @");
@@ -308,7 +312,6 @@ public class TaglibAnnotationVisitor extends AbstractAnnotationVisitor {
         description.append(comment);
         //description.append("</p>");
       }
-
     }
     UIComponentTag componentTag = decl.getAnnotation(UIComponentTag.class);
     if (componentTag != null) {
@@ -349,6 +352,24 @@ public class TaglibAnnotationVisitor extends AbstractAnnotationVisitor {
     }
     if (description.length() > 0) {
       addLeafCDATAElement(description.toString(), "description", element, document);
+    }
+  }
+
+  private String deprecationComment(String string) {
+    if (string == null) {
+      return null;
+    }
+    final String deprecated = "@deprecated";
+    final int begin = string.indexOf(deprecated);
+    if (begin > -1) {
+      string = string.substring(begin + deprecated.length());
+      final int end = string.indexOf("@");
+      if (end > -1) {
+        string = string.substring(0, end);
+      }
+      return string.trim();
+    } else {
+      return null;
     }
   }
 

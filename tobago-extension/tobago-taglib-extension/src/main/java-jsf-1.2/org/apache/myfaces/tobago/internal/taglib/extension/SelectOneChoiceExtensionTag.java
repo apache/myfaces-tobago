@@ -280,6 +280,7 @@ public class SelectOneChoiceExtensionTag extends TobagoExtensionBodyTagSupport {
 
   /**
    * Flag indicating this component should rendered as an inline element.
+   * @deprecated This should be handled by e.g. a flow layout manager (since 1.5.0)
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "boolean", defaultValue = "false")

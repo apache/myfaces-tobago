@@ -247,10 +247,6 @@ public class SelectOneListboxExtensionTag extends TobagoExtensionBodyTagSupport 
     this.onchange = onchange;
   }
 
-/*  public void setInline(String inline) {
-    this.inline = inline;
-  }*/
-
   /**
    * Text value to display as label.
    * If text contains an underscore the next character is used as accesskey.
