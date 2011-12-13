@@ -14,4 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 --%>
-<jsp:forward page="faces/init.xhtml"/>
+<%@ page session="false"%>
+<%
+  response.sendRedirect("faces/init.xhtml");
+%>
