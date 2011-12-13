@@ -34,6 +34,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import javax.faces.component.UIComponent;
+import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.OutputKeys;
@@ -141,9 +142,9 @@ public class FaceletAnnotationVisitor extends AbstractAnnotationVisitor {
   }
 
   private Document createDocument(JClass libraryClass) throws ParserConfigurationException {
-    javax.xml.parsers.DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+    DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
     dbf.setValidating(false);
-    javax.xml.parsers.DocumentBuilder parser = dbf.newDocumentBuilder();
+    DocumentBuilder parser = dbf.newDocumentBuilder();
     Document document = parser.newDocument();
 
     Element taglib = document.createElement("facelet-taglib");

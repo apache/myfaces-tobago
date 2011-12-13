@@ -41,6 +41,7 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.OutputKeys;
@@ -94,7 +95,7 @@ public class TaglibAnnotationVisitor extends AbstractAnnotationVisitor {
     resetDuplicateList();
     DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
     dbf.setValidating(false);
-    javax.xml.parsers.DocumentBuilder parser = dbf.newDocumentBuilder();
+    DocumentBuilder parser = dbf.newDocumentBuilder();
 
     Document document = parser.newDocument();
 
