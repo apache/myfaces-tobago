@@ -289,7 +289,6 @@ public class SelectOneRadioExtensionTag extends TobagoExtensionBodyTagSupport {
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
-  @Deprecated
   public void setInline(javax.el.ValueExpression inline) {
     this.inline = inline;
   }
