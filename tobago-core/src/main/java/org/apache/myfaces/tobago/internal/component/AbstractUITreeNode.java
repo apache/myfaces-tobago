@@ -85,14 +85,6 @@ public abstract class AbstractUITreeNode
     super.encodeBegin(context);
   }
 
-  @Override
-  public void encodeEnd(FacesContext context) throws IOException {
-    super.encodeEnd(context);
-    AbstractUITree tree = ComponentUtils.findAncestor(this, AbstractUITree.class);
-    MixedTreeModel mixedModel = tree.getModel();
-    mixedModel.onEncodeEnd();
-  }
-
   private int computeDepth(UIComponent component) {
     int depth = 0;
     while (component != null) {

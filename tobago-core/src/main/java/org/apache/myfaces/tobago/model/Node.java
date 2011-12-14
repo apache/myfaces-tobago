@@ -72,6 +72,14 @@ public class Node {
     return parent != null && parent.getIndex(this) + 1 < parent.getChildCount();
   }
 
+  public Node nextSibling() {
+    if (parent == null) {
+      return null;
+    }
+    final int nextIndex = parent.getIndex(this) + 1;
+    return nextIndex < parent.getChildCount() ? parent.getChildAt(nextIndex) : null;
+  }
+
   public TreePath getPath() {
     List<Integer> result = new ArrayList<Integer>();
     Node node = this;

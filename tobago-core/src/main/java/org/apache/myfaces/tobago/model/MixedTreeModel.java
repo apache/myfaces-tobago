@@ -24,16 +24,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
-/**
- * Date: 23.04.2007 16:10:22
- */
 public class MixedTreeModel {
 
   private static final Logger LOG = LoggerFactory.getLogger(MixedTreeModel.class);
 
   private Node root;
   private Node current;
-  private Integer nextChildIndex;
   private Stack<Boolean> junctions = new Stack<Boolean>();
 
   public void beginBuildNode() {
@@ -57,28 +53,26 @@ public class MixedTreeModel {
     }
     if (current == null) {
       current = root;
+      junctions.push(hasCurrentNodeNextSibling());
     } else {
-      current = current.getChildAt(nextChildIndex);
+      if (current.getChildren().size() > 0) {
+        current = current.getChildAt(0);  // first child
+        junctions.push(hasCurrentNodeNextSibling());
+      } else {
+        Node searchParent = current;
+        do {
+          junctions.pop();
+          Node nextSibling = searchParent.nextSibling();
+          if (nextSibling != null) {
+            current = nextSibling;
+            junctions.push(hasCurrentNodeNextSibling());
+            return;
+          }
+          searchParent = searchParent.getParent();
+        } while (searchParent != null);
+        current = null;
+      }
     }
-    nextChildIndex = 0;
-
-    junctions.push(hasCurrentNodeNextSibling());
-  }
-
-  public void onEncodeEnd() {
-    if (LOG.isDebugEnabled()) {
-      LOG.debug("current=" + current);
-    }
-    Node parent = current.getParent();
-    if (parent != null) {
-      nextChildIndex = parent.getIndex(current) + 1;
-      current = parent;
-    } else {
-      nextChildIndex = null;
-      current = null;
-    }
-
-    junctions.pop();
   }
 
   public boolean hasCurrentNodeNextSibling() {
