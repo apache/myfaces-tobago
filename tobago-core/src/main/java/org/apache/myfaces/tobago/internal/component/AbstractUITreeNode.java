@@ -26,124 +26,51 @@ import org.apache.myfaces.tobago.event.TreeExpansionEvent;
 import org.apache.myfaces.tobago.event.TreeExpansionListener;
 import org.apache.myfaces.tobago.event.TreeMarkedEvent;
 import org.apache.myfaces.tobago.event.TreeMarkedListener;
+import org.apache.myfaces.tobago.internal.util.Deprecation;
 import org.apache.myfaces.tobago.model.MixedTreeModel;
 import org.apache.myfaces.tobago.model.TreePath;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.faces.component.UIComponent;
+import javax.faces.component.UIData;
 import javax.faces.component.UIOutput;
 import javax.faces.context.FacesContext;
 import javax.faces.el.MethodBinding;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.FacesEvent;
 import javax.swing.tree.DefaultMutableTreeNode;
-import java.io.IOException;
+import javax.swing.tree.TreeNode;
 import java.util.List;
+import java.util.Stack;
 
 public abstract class AbstractUITreeNode
     extends UIOutput implements SupportsMarkup, TreeModelBuilder, Configurable {
 
   private static final Logger LOG = LoggerFactory.getLogger(AbstractUITreeNode.class);
 
-  private int depth;
-  private boolean folder;
-  private TreePath path;
-  private List<Boolean> junctions;
-  private boolean hasNextSibling;
-
+  /**
+   * @deprecated since XXX 1.6.0 ???
+   */
+  @Deprecated
   public void buildTreeModelBegin(FacesContext facesContext, MixedTreeModel model) {
-    model.beginBuildNode();
-    setDepth(computeDepth(this));
-    setFolder(computeFolder());
+    Deprecation.LOG.error("Doesn't work anymore.");
   }
 
+  /**
+   * @deprecated since XXX 1.6.0 ???
+   */
+  @Deprecated
   public void buildTreeModelChildren(FacesContext facesContext, MixedTreeModel model) {
-    for (Object child : getChildren()) {
-      if (child instanceof TreeModelBuilder) {
-        TreeModelBuilder builder = (TreeModelBuilder) child;
-        builder.buildTreeModelBegin(facesContext, model);
-        builder.buildTreeModelChildren(facesContext, model);
-        builder.buildTreeModelEnd(facesContext, model);
-      }
-    }
+    Deprecation.LOG.error("Doesn't work anymore.");
   }
 
+  /**
+   * @deprecated since XXX 1.6.0 ???
+   */
+  @Deprecated
   public void buildTreeModelEnd(FacesContext facesContext, MixedTreeModel model) {
-    model.endBuildNode();
-  }
-
-  @Override
-  public void encodeBegin(FacesContext context) throws IOException {
-    AbstractUITree tree = ComponentUtils.findAncestor(this, AbstractUITree.class);
-    MixedTreeModel mixedModel = tree.getModel();
-    mixedModel.onEncodeBegin();
-    setPath(mixedModel.getPath());
-    setHasNextSibling(computeHasNextSibling());
-    setJunctions(mixedModel.getJunctions());
-    super.encodeBegin(context);
-  }
-
-  private int computeDepth(UIComponent component) {
-    int depth = 0;
-    while (component != null) {
-      depth++;
-      if (component instanceof AbstractUITree) {
-        return depth;
-      }
-      if (component instanceof AbstractUITreeData) {
-        Object dataTree = ((AbstractUITreeData) component).getValue();
-        // todo: make independent from impl.
-        if (dataTree instanceof DefaultMutableTreeNode) {
-          return ((DefaultMutableTreeNode) dataTree).getDepth(); // XXX expensive
-        }
-        LOG.warn("Tree type not supported");
-      }
-      component = component.getParent();
-    }
-    throw new RuntimeException("Not inside of a UITree");
-  }
-
-  private boolean computeFolder() {
-    DefaultMutableTreeNode node = getDataNode();
-    if (node != null) {
-      return !node.isLeaf();
-    } else {
-      for (UIComponent child : (List<UIComponent>) getChildren()) {
-        if ((child instanceof AbstractUITreeNode || child instanceof AbstractUITreeData) && child.isRendered()) {
-          return true;
-        }
-      }
-      return false;
-    }
-  }
-
-  private boolean computeHasNextSibling() {
-    DefaultMutableTreeNode node = getDataNode();
-    if (node != null) {
-      if (node.isRoot()) {
-        return hasSiblingAfter(getParent().getParent(), getParent());
-      } else {
-        return node.getNextSibling() != null;
-      }
-    } else {
-      return hasSiblingAfter(getParent(), this);
-    }
-  }
-
-  private boolean hasSiblingAfter(UIComponent parent, UIComponent child) {
-    boolean found = false;
-    for (Object sibling : parent.getChildren()) {
-      if (child.equals(sibling)) {
-        found = true;
-        continue;
-      }
-      if (found) {
-        return true;
-      }
-    }
-    return false;
+    Deprecation.LOG.error("Doesn't work anymore.");
   }
 
   /**
@@ -151,7 +78,7 @@ public abstract class AbstractUITreeNode
    * Returns null if it will be called not inside of {@link AbstractUITreeData}
    */
   // todo: make independent from impl.: DefaultMutableTreeNode
-  private DefaultMutableTreeNode getDataNode() {
+/*  private DefaultMutableTreeNode getDataNode() {
     UIComponent component = this;
     while (component != null) {
       if (component instanceof AbstractUITreeData) {
@@ -165,27 +92,34 @@ public abstract class AbstractUITreeNode
       component = component.getParent();
     }
     return null;
-  }
+  }*/
 
   @Override
   public Object getValue() {
-    LOG.error("XXXXXXXXXXX should not be called!!!!!!!!!!!!");
+    LOG.error("XXX: Should not be called!", new Exception());
     return super.getValue();
   }
 
+  protected DefaultMutableTreeNode getRowData() {
+    final UIData data = ComponentUtils.findAncestor(this, UIData.class);
+    final Object rowData = data.getRowData();
+    return (DefaultMutableTreeNode) rowData;
+  }
+  
   /**
    * Returns the level of the tree node inside of the virtual tree. The root node has level 0.
    * The children of the root note have level 1, and so on. 
    */
   public int getLevel() {
-    return path.getLength() - 1;
+    final DefaultMutableTreeNode node = getRowData();
+    return node.getLevel();
   }
 
   public String nodeStateId(FacesContext facesContext) {
-    String clientId = getClientId(facesContext);
-    AbstractUITree tree = ComponentUtils.findAncestor(this, AbstractUITree.class);
-    String treeId = tree.getClientId(facesContext);
-    return clientId.substring(treeId.length() + 1);
+    final String clientId = getClientId(facesContext);
+    final UIData data = ComponentUtils.findAncestor(this, UIData.class);
+    String dataId = data.getClientId(facesContext);
+    return clientId.substring(dataId.length() + 1);
   }
 
   @Override
@@ -225,59 +159,84 @@ public abstract class AbstractUITreeNode
     }
   }
 
-  public void restoreState(FacesContext context, Object componentState) {
-    Object[] values = (Object[]) componentState;
-    super.restoreState(context, values[0]);
-    path = (TreePath) values[1];
-    folder = (Boolean) values[2];
-  }
-
-  public Object saveState(FacesContext context) {
-    Object[] values = new Object[3];
-    values[0] = super.saveState(context);
-    values[1] = path;
-    values[2] = folder;
-    return values;
-  }
-
+  /**
+   * @deprecated since XXX 1.6.0 version???
+   */
+  @Deprecated
   public int getDepth() {
-    return depth;
+    Deprecation.LOG.error("Doesn't work anymore.");
+    return 1;
   }
 
+  /**
+   * @deprecated since XXX 1.6.0 version???
+   */
+  @Deprecated
   public void setDepth(int depth) {
-    this.depth = depth;
+    Deprecation.LOG.error("Doesn't work anymore.");
   }
 
   public boolean isFolder() {
-    return folder;
+    final DefaultMutableTreeNode rowData = getRowData();
+    return !rowData.isLeaf();
   }
 
+  /**
+   * @deprecated since XXX 1.6.0 version???
+   */
+  @Deprecated
   public void setFolder(boolean folder) {
-    this.folder = folder;
+    Deprecation.LOG.error("Doesn't work anymore.");
   }
 
+  /**
+   * @deprecated since XXX 1.6.0 version???
+   */
+  @Deprecated
   public TreePath getPath() {
-    return path;
+    Deprecation.LOG.error("Doesn't work anymore.");
+    return new TreePath(0);
   }
 
+  /**
+   * @deprecated since XXX 1.6.0 version???
+   */
+  @Deprecated
   public void setPath(TreePath path) {
-    this.path = path;
+    Deprecation.LOG.error("Doesn't work anymore.");
   }
 
   public List<Boolean> getJunctions() {
+    final DefaultMutableTreeNode node = getRowData();
+    List<Boolean> junctions = new Stack<Boolean>();
+    for (TreeNode ancestor : node.getPath()) {
+      junctions.add(((DefaultMutableTreeNode)ancestor).getNextSibling() != null);
+    }
     return junctions;
   }
 
+  /**
+   * @deprecated since XXX 1.6.0 version???
+   */
+  @Deprecated
   public void setJunctions(List<Boolean> junctions) {
-    this.junctions = junctions;
+    Deprecation.LOG.error("Doesn't work anymore.");
   }
 
+  /**
+   * @deprecated since XXX 1.6.0 version???
+   */
+  @Deprecated
   public boolean isHasNextSibling() {
-    return hasNextSibling;
+    return getRowData().getNextSibling() != null;
   }
 
+  /**
+   * @deprecated since XXX 1.6.0 version???
+   */
+  @Deprecated
   public void setHasNextSibling(boolean hasNextSibling) {
-    this.hasNextSibling = hasNextSibling;
+    Deprecation.LOG.error("Doesn't work anymore.");
   }
 
   public abstract MethodBinding getTreeExpansionListener();

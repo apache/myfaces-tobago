@@ -66,7 +66,10 @@ public interface TreeListboxTagDeclaration
   /**
    * <strong>ValueBindingExpression</strong> pointing to a object to save the
    * component's state.
+   *
+   * @deprecated since XXX 1.6.0 ???
    */
+  @Deprecated
   @TagAttribute
   @UIComponentTagAttribute(type = "java.lang.Object", expression = DynamicExpression.VALUE_BINDING_REQUIRED)
   void setState(String state);

@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.model;
+package org.apache.myfaces.tobago.internal.model;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -17,21 +17,21 @@ package org.apache.myfaces.tobago.model;
  * limitations under the License.
  */
 
-import javax.swing.tree.DefaultMutableTreeNode;
+public class Expanded {
 
-/**
- * @deprecated since XXX 1.6.0 version???
- */
-@Deprecated
-public class DefaultMutableTreeNodeAnalyser implements TreeAnalyser {
+  private String id;
+  private boolean expanded;
 
-  private DefaultMutableTreeNode node;
-
-  public DefaultMutableTreeNodeAnalyser(DefaultMutableTreeNode node) {
-    this.node = node;
+  public Expanded(String id, boolean expanded) {
+    this.id = id;
+    this.expanded = expanded;
   }
 
-  public int computeDepth() {
-    return node.getDepth();
+  public String getId() {
+    return id;
+  }
+
+  public boolean isExpanded() {
+    return expanded;
   }
 }

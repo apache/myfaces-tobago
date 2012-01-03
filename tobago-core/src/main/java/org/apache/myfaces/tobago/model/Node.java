@@ -58,7 +58,7 @@ public class Node {
     for (int i = 0; i < children.size(); i++) {
       Node child = children.get(i);
       if (child.equals(node)) {
-         return i;
+        return i;
       }
     }
     return -1;

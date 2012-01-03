@@ -39,6 +39,7 @@ import org.apache.myfaces.tobago.layout.LayoutManager;
 import org.apache.myfaces.tobago.layout.LayoutTokens;
 import org.apache.myfaces.tobago.model.SheetState;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRenderer;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.util.CreateComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -58,9 +59,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-public abstract class AbstractUISheet extends javax.faces.component.UIData
+public abstract class AbstractUISheet extends AbstractUIData
     implements SheetStateChangeSource, SortActionSource, InvokeOnComponent, OnComponentPopulated,
-    LayoutContainer, LayoutComponent, SupportsRenderedPartially{
+    LayoutContainer, LayoutComponent, SupportsRenderedPartially {
 
   private static final Logger LOG = LoggerFactory.getLogger(AbstractUISheet.class);
 
@@ -204,10 +205,6 @@ public abstract class AbstractUISheet extends javax.faces.component.UIData
     return getRowCount() != -1;
   }
 
-  public boolean hasRows() {
-    return getRows() != 0;
-  }
-
   public boolean isPagingVisible() {
     return isShowPagingAlways() || hasRows() && (!hasRowCount() || getRowCount() > getRows());
   }
@@ -276,8 +273,8 @@ public abstract class AbstractUISheet extends javax.faces.component.UIData
 
   public List<UIColumn> getAllColumns() {
     List<UIColumn> columns = new ArrayList<UIColumn>();
-    for (UIComponent kid : (List<UIComponent>) getChildren()) {
-      if (kid instanceof UIColumn && !(kid instanceof ColumnEvent)) {
+    for (UIComponent kid : (List<UIComponent>) ComponentUtils.findDescendantList(this, UIColumn.class)) {
+      if (!(kid instanceof ColumnEvent)) {
         columns.add((UIColumn) kid);
       }
     }
@@ -286,8 +283,8 @@ public abstract class AbstractUISheet extends javax.faces.component.UIData
 
   public List<UIColumn> getRenderedColumns() {
     List<UIColumn> columns = new ArrayList<UIColumn>();
-    for (UIComponent kid : (List<UIComponent>) getChildren()) {
-      if (kid instanceof UIColumn && kid.isRendered() && !(kid instanceof ColumnEvent)) {
+    for (UIComponent kid : (List<UIComponent>) ComponentUtils.findDescendantList(this, UIColumn.class)) {
+      if (kid.isRendered() && !(kid instanceof ColumnEvent)) {
         columns.add((UIColumn) kid);
       }
     }
@@ -563,7 +560,7 @@ public abstract class AbstractUISheet extends javax.faces.component.UIData
           facesContext, ComponentTypes.SHEET_LAYOUT, RendererTypes.SHEET_LAYOUT, parent));
     }
   }
-  
+
   public LayoutManager getLayoutManager() {
     return (LayoutManager) getFacet(Facets.LAYOUT);
   }

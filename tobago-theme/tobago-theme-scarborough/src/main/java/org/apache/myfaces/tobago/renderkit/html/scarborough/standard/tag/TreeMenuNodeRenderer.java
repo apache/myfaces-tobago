@@ -17,14 +17,17 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.component.UITreeMenu;
+import org.apache.myfaces.tobago.component.UITree;
 import org.apache.myfaces.tobago.component.UITreeNode;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.context.UserAgent;
 import org.apache.myfaces.tobago.event.TreeExpansionEvent;
 import org.apache.myfaces.tobago.event.TreeMarkedEvent;
+import org.apache.myfaces.tobago.internal.component.AbstractUIData;
 import org.apache.myfaces.tobago.internal.component.AbstractUITree;
+import org.apache.myfaces.tobago.internal.model.Expanded;
+import org.apache.myfaces.tobago.internal.model.TemporaryTreeState;
 import org.apache.myfaces.tobago.layout.Display;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
@@ -33,7 +36,6 @@ import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
-import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.util.VariableResolverUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -42,9 +44,11 @@ import org.slf4j.LoggerFactory;
 
 import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
+import javax.faces.component.UIData;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.util.Map;
+import java.util.Stack;
 
 public class TreeMenuNodeRenderer extends LayoutComponentRendererBase {
 
@@ -61,8 +65,8 @@ public class TreeMenuNodeRenderer extends LayoutComponentRendererBase {
       return;
     }
 
-    final UITreeMenu tree = ComponentUtils.findAncestor(node, UITreeMenu.class);
-    final String treeId = tree.getClientId(facesContext);
+    final UIData data = ComponentUtils.findAncestor(node, UIData.class);
+    final String treeId = data.getClientId(facesContext);
     final String nodeStateId = node.nodeStateId(facesContext);
     final Map<String, String> requestParameterMap = facesContext.getExternalContext().getRequestParameterMap();
     final String id = node.getClientId(facesContext);
@@ -109,64 +113,72 @@ public class TreeMenuNodeRenderer extends LayoutComponentRendererBase {
   public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
 
     final UITreeNode node = (UITreeNode) component;
-    final UITreeMenu tree = ComponentUtils.findAncestor(node, UITreeMenu.class);
+    final AbstractUIData data = ComponentUtils.findAncestor(node, AbstractUIData.class);
 
     final boolean folder = node.isFolder();
-    final String id = node.getClientId(facesContext);
+    final String clientId = node.getClientId(facesContext);
     final int level = node.getLevel();
     final boolean root = level == 0;
-    final boolean expanded = folder && node.isExpanded() || level == 0;
-    final boolean showRoot = tree.isShowRoot();
+    // todo: make it possible to have a showRoot in UISheet
+    final boolean showRoot = data instanceof UITree && ((UITree) data).isShowRoot();
     final boolean ie6
         = VariableResolverUtils.resolveClientProperties(facesContext).getUserAgent().equals(UserAgent.MSIE_6_0);
-
-    // XXX todo: find a better way to determine the parentId
-    final String clientId = node.getClientId(facesContext);
-    final int colon = clientId.lastIndexOf(":");
-    final int underscore = clientId.substring(0, colon).lastIndexOf("_");
-    final String parentId = root ? null : clientId.substring(0, underscore) + clientId.substring(colon);
+    final boolean expanded = folder && node.isExpanded() || level == 0;
+    final TemporaryTreeState state = data.getTemporaryTreeState();
+    final Stack<Expanded> path = state.getPath();
+    while (path.size() > level) {
+      path.pop();
+    }
+    final String parentId = root ? null : path.peek().getId();
+    final boolean visible = root ? showRoot : path.peek().isExpanded();
 
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
-    if (expanded) {
-      tree.getExpandedCache().add(id);
+    if (folder) {
+      path.push(new Expanded(clientId, expanded));
     }
 
-    if (showRoot || !root) {
-      writer.startElement(HtmlElements.DIV, null);
-      writer.writeIdAttribute(id);
-      writer.writeClassAttribute(Classes.create(node));
+    writer.startElement(HtmlElements.DIV, null);
+    writer.writeIdAttribute(clientId);
+    writer.writeClassAttribute(Classes.create(node));
+    if (parentId != null) {
       writer.writeAttribute(DataAttributes.TREEPARENT, parentId, false);
-
-      if (!root && !tree.getExpandedCache().contains(parentId)) {
-        Style style = new Style();
-        style.setDisplay(Display.NONE);
-        writer.writeStyleAttribute(style);
-      }
-
-      if (folder) {
-        encodeExpandedHidden(writer, node, id, expanded);
-      }
-
-      if (!folder && ie6) { // XXX IE6: without this hack, we can't click beside the label text. Why?
-        final String src = ResourceManagerUtils.getImageWithPath(facesContext, "image/1x1.gif");
-        writer.startElement(HtmlElements.IMG, null);
-        writer.writeClassAttribute(Classes.create(node, "icon"));
-        writer.writeAttribute(HtmlAttributes.SRC, src, false);
-        writer.writeAttribute(HtmlAttributes.ALT, "", false);
-        writer.writeStyleAttribute("width: 0px");
-        writer.endElement(HtmlElements.IMG);
-      }
-
-      RenderUtils.encodeChildren(facesContext, node);
-
-      if (folder) {
-        encodeIcon(facesContext, writer, expanded, node);
-      }
-
-      writer.endElement(HtmlElements.DIV);
     }
 
+    if (!visible) {
+      Style style = new Style();
+      style.setDisplay(Display.NONE);
+      writer.writeStyleAttribute(style);
+    }
+
+    if (folder) {
+      encodeExpandedHidden(writer, node, clientId, expanded);
+    }
+
+    if (!folder && ie6) { // XXX IE6: without this hack, we can't click beside the label text. Why?
+      final String src = ResourceManagerUtils.getImageWithPath(facesContext, "image/1x1.gif");
+      writer.startElement(HtmlElements.IMG, null);
+      writer.writeClassAttribute(Classes.create(node, "icon"));
+      writer.writeAttribute(HtmlAttributes.SRC, src, false);
+      writer.writeAttribute(HtmlAttributes.ALT, "", false);
+      writer.writeStyleAttribute("width: 0px");
+      writer.endElement(HtmlElements.IMG);
+    }
+  }
+
+  @Override
+  public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
+    final UITreeNode node = (UITreeNode) component;
+    final int level = node.getLevel();
+    final boolean folder = node.isFolder();
+    final boolean expanded = folder && node.isExpanded() || level == 0;
+
+    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+
+    if (folder) {
+      encodeIcon(facesContext, writer, expanded, node);
+    }
+    writer.endElement(HtmlElements.DIV);
   }
 
   private void encodeExpandedHidden(

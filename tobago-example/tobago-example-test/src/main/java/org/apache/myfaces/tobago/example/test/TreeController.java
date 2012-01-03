@@ -19,14 +19,17 @@ package org.apache.myfaces.tobago.example.test;
 
 import org.apache.myfaces.tobago.example.data.CategoryTree;
 import org.apache.myfaces.tobago.example.data.SmallTree;
+import org.apache.myfaces.tobago.model.TreeDataModel;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 
 public class TreeController {
-  
+
   private DefaultMutableTreeNode tree = CategoryTree.createSample();
 
   private DefaultMutableTreeNode small = SmallTree.createSample();
+
+  private TreeDataModel treeInSheet = new TreeDataModel(tree);
 
   public DefaultMutableTreeNode getTree() {
     return tree;
@@ -34,5 +37,9 @@ public class TreeController {
 
   public DefaultMutableTreeNode getSmall() {
     return small;
+  }
+
+  public TreeDataModel getTreeInSheet() {
+    return treeInSheet;
   }
 }

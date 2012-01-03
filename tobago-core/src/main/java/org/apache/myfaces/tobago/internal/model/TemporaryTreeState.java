@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.model;
+package org.apache.myfaces.tobago.internal.model;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -17,21 +17,17 @@ package org.apache.myfaces.tobago.model;
  * limitations under the License.
  */
 
-import javax.swing.tree.DefaultMutableTreeNode;
+import java.util.Stack;
 
-/**
- * @deprecated since XXX 1.6.0 version???
- */
-@Deprecated
-public class DefaultMutableTreeNodeAnalyser implements TreeAnalyser {
+public class TemporaryTreeState {
 
-  private DefaultMutableTreeNode node;
+  private Stack<Expanded> path;
 
-  public DefaultMutableTreeNodeAnalyser(DefaultMutableTreeNode node) {
-    this.node = node;
+  public TemporaryTreeState() {
+    this.path = new Stack<Expanded>();
   }
 
-  public int computeDepth() {
-    return node.getDepth();
+  public Stack<Expanded> getPath() {
+    return path;
   }
 }

@@ -58,16 +58,6 @@ public class TreeListboxRenderer extends LayoutComponentRendererBase {
   }
 
   @Override
-  public void decode(FacesContext facesContext, UIComponent component) {
-    if (ComponentUtils.isOutputOnly(component)) {
-      return;
-    }
-
-    AbstractUITree tree = (AbstractUITree) component;
-    tree.setValid(true);
-  }
-
-  @Override
   public void encodeChildren(FacesContext context, UIComponent component) throws IOException {
     // will be rendered in encodeEnd()
   }

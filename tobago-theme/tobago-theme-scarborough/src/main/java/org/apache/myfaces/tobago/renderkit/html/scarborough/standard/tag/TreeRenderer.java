@@ -17,7 +17,6 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.component.UITreeData;
 import org.apache.myfaces.tobago.component.UITreeNode;
 import org.apache.myfaces.tobago.internal.component.AbstractUITree;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
@@ -35,7 +34,6 @@ import org.slf4j.LoggerFactory;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
-import java.util.Arrays;
 
 public class TreeRenderer extends LayoutComponentRendererBase {
 
@@ -43,12 +41,22 @@ public class TreeRenderer extends LayoutComponentRendererBase {
 
   @Override
   public void decode(FacesContext facesContext, UIComponent component) {
-    if (ComponentUtils.isOutputOnly(component)) {
-      return;
+    final AbstractUITree tree = (AbstractUITree) component;
+    final int last = tree.hasRows() ? tree.getFirst() + tree.getRows() : Integer.MAX_VALUE;
+    for (int rowIndex = tree.getFirst(); rowIndex < last; rowIndex++) {
+      tree.setRowIndex(rowIndex);
+      if (!tree.isRowAvailable()) {
+        break;
+      }
+      for (UIComponent child : tree.getChildren()) {
+        child.processDecodes(facesContext);
+      }
     }
+  }
 
-    AbstractUITree tree = (AbstractUITree) component;
-    tree.setValid(true);
+  @Override
+  public boolean getRendersChildren() {
+    return true;
   }
 
   @Override
@@ -62,7 +70,7 @@ public class TreeRenderer extends LayoutComponentRendererBase {
     AbstractUITree tree = (AbstractUITree) component;
 
     String clientId = tree.getClientId(facesContext);
-    UIComponent root = tree.getRoot();
+    UIComponent root = ComponentUtils.findDescendant(tree, UITreeNode.class);
     if (root == null) {
       LOG.error("Can't find the tree root. This may occur while updating a tree from Tobago 1.0 to 1.5. "
           + "Please refer the documentation to see how to use tree tags.");
@@ -101,9 +109,24 @@ public class TreeRenderer extends LayoutComponentRendererBase {
       writer.endElement(HtmlElements.INPUT);
     }
 */
+    final int last = tree.hasRows() ? tree.getFirst() + tree.getRows() : Integer.MAX_VALUE;
+    for (int rowIndex = tree.getFirst(); rowIndex < last; rowIndex++) {
+      tree.setRowIndex(rowIndex);
+      if (!tree.isRowAvailable()) {
+        break;
+      }
 
-    RenderUtils.encode(facesContext, root, Arrays.asList(UITreeNode.class, UITreeData.class));
+      for (UIComponent child : tree.getChildren()) {
+        RenderUtils.prepareRendererAll(facesContext, child);
+        RenderUtils.encode(facesContext, child);
+      }
+    }
 
     writer.endElement(HtmlElements.DIV);
+  }
+
+  @Override
+  public boolean getPrepareRendersChildren() {
+    return true;
   }
 }

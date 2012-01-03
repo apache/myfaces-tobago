@@ -18,8 +18,9 @@ package org.apache.myfaces.tobago.model;
  */
 
 /**
- * Date: 04.12.2008
+ * @deprecated since XXX 1.6.0 version???
  */
+@Deprecated
 public interface TreeAnalyser {
 
   int computeDepth();

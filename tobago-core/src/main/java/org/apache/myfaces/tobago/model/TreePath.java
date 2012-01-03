@@ -27,8 +27,10 @@ import java.util.List;
 /**
  * Handles a path in a tree from the root node to the position inside this tree.
  *
- * Date: 02.12.2008
+ * @since 1.5.0
+ * @deprecated
  */
+@Deprecated
 public class TreePath implements Serializable {
 
   private int[] path;
