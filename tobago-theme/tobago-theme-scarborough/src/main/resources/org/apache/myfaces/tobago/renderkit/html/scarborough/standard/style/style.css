@@ -1511,6 +1511,11 @@ div.tobago-richTextEditor-body {
   background-color: #d8e9fb;
 }
 
+.tobago-treeSelect input {
+  margin-top: 1px;
+  margin-bottom: 2px;
+}
+
 /* treeListbox ------------------------------------------------------------------- */
 
 .tobago-treeListbox {

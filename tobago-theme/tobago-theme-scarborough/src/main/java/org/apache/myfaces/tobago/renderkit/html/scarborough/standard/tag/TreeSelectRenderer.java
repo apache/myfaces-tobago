@@ -43,6 +43,9 @@ public class TreeSelectRenderer extends SelectBooleanCheckboxRenderer {
 
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
+    writer.startElement(HtmlElements.SPAN, null);
+    writer.writeClassAttribute(Classes.create(select));
+
     writer.startElement(HtmlElements.INPUT, null);
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.CHECKBOX, false);
     writer.writeAttribute(HtmlAttributes.VALUE, "true", false);
@@ -61,6 +64,8 @@ public class TreeSelectRenderer extends SelectBooleanCheckboxRenderer {
       writer.writeText(label);
       writer.endElement(HtmlElements.LABEL);
     }
+
+    writer.endElement(HtmlElements.SPAN);
   }
 
   @Override
