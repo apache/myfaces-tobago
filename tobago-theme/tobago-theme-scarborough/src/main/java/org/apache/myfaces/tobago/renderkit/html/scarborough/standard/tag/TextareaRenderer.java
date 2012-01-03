@@ -128,7 +128,5 @@ public class TextareaRenderer extends InputRendererBase {
 
     // focus
     HtmlRendererUtils.renderFocusId(facesContext, input);
-
   }
 }
-
