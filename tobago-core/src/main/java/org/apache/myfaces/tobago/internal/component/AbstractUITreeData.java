@@ -40,6 +40,7 @@ public abstract class AbstractUITreeData extends javax.faces.component.UIInput
    * Patch for backward compatibility.
    */
   public void onComponentCreated(FacesContext facesContext, UIComponent parent) {
+    Deprecation.LOG.warn("Please not use the <tc:treeData> tag.");
     if (parent instanceof AbstractUITree) {
       ValueExpression ve = getValueExpression("var");
       if (ve != null) {
