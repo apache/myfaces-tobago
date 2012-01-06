@@ -26,8 +26,6 @@ import org.apache.myfaces.tobago.event.TreeExpansionEvent;
 import org.apache.myfaces.tobago.event.TreeMarkedEvent;
 import org.apache.myfaces.tobago.internal.component.AbstractUIData;
 import org.apache.myfaces.tobago.internal.component.AbstractUITree;
-import org.apache.myfaces.tobago.internal.model.Expanded;
-import org.apache.myfaces.tobago.internal.model.TemporaryTreeState;
 import org.apache.myfaces.tobago.layout.Display;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
@@ -48,7 +46,6 @@ import javax.faces.component.UIData;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.util.Map;
-import java.util.Stack;
 
 public class TreeMenuNodeRenderer extends LayoutComponentRendererBase {
 
@@ -115,6 +112,7 @@ public class TreeMenuNodeRenderer extends LayoutComponentRendererBase {
     final UITreeNode node = (UITreeNode) component;
     final AbstractUIData data = ComponentUtils.findAncestor(node, AbstractUIData.class);
 
+    final boolean dataRendersRowContainer = data.isRendersRowContainer();
     final boolean folder = node.isFolder();
     final String clientId = node.getClientId(facesContext);
     final int level = node.getLevel();
@@ -124,19 +122,10 @@ public class TreeMenuNodeRenderer extends LayoutComponentRendererBase {
     final boolean ie6
         = VariableResolverUtils.resolveClientProperties(facesContext).getUserAgent().equals(UserAgent.MSIE_6_0);
     final boolean expanded = folder && node.isExpanded() || level == 0;
-    final TemporaryTreeState state = data.getTemporaryTreeState();
-    final Stack<Expanded> path = state.getPath();
-    while (path.size() > level) {
-      path.pop();
-    }
-    final String parentId = root ? null : path.peek().getId();
-    final boolean visible = root ? showRoot : path.peek().isExpanded();
+    final String parentId = data.getRowParentClientId();
+    final boolean visible = root ? showRoot : data.isRowVisible();
 
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
-
-    if (folder) {
-      path.push(new Expanded(clientId, expanded));
-    }
 
     writer.startElement(HtmlElements.DIV, null);
     writer.writeIdAttribute(clientId);
@@ -145,7 +134,8 @@ public class TreeMenuNodeRenderer extends LayoutComponentRendererBase {
       writer.writeAttribute(DataAttributes.TREEPARENT, parentId, false);
     }
 
-    if (!visible) {
+    // In the case of a sheet, we need not hiding the node, because the whole TR will be hidden.
+    if (!dataRendersRowContainer && !visible) {
       Style style = new Style();
       style.setDisplay(Display.NONE);
       writer.writeStyleAttribute(style);

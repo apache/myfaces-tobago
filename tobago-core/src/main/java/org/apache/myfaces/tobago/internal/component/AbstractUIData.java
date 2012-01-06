@@ -17,13 +17,10 @@ package org.apache.myfaces.tobago.internal.component;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.internal.model.TemporaryTreeState;
 import org.apache.myfaces.tobago.model.TreeDataModel;
 
-import javax.faces.context.FacesContext;
 import javax.faces.model.DataModel;
 import javax.swing.tree.DefaultMutableTreeNode;
-import java.io.IOException;
 
 public class AbstractUIData extends javax.faces.component.UIData {
 
@@ -33,18 +30,10 @@ public class AbstractUIData extends javax.faces.component.UIData {
   private boolean initialized;
 
   /**
-   * Only for tree model.
+   * Only for tree model, other models come from the parent UIData.
    */
-  private DataModel dataModel;
+  private TreeDataModel dataModel;
 
-  /**
-   * Only for tree model.
-   * Caches the expanded state information and the path of the nodes,
-   * to make these information available in child nodes.
-   */
-  private TemporaryTreeState temporaryTreeState;
-
-  // XXX Is there a better possibility to support tree data models?
   @Override
   protected DataModel getDataModel() {
     if (!initialized) {
@@ -67,19 +56,25 @@ public class AbstractUIData extends javax.faces.component.UIData {
     return getRows() != 0;
   }
 
-  public TemporaryTreeState getTemporaryTreeState() {
-    return temporaryTreeState;
+  public boolean isRowVisible() {
+    return dataModel != null && dataModel.isRowVisible();
   }
 
-  @Override
-  public void encodeBegin(FacesContext context) throws IOException {
-    temporaryTreeState = new TemporaryTreeState();
-    super.encodeBegin(context);
+  public String getRowClientId() {
+    return dataModel != null ? dataModel.getRowClientId() : null;
   }
 
-  @Override
-  public void encodeEnd(FacesContext context) throws IOException {
-    super.encodeEnd(context);
-    temporaryTreeState = null;
+  public String getRowParentClientId() {
+    return dataModel != null ? dataModel.getRowParentClientId() : null;
+  }
+
+  /**
+   * The value describes, if the UIData renderer creates container elements to hold the row information.
+   * This information is important for the TreeNodeRenderer to set the visible state in the output or not.
+   * Typically the Sheet returns true and a Tree returns false, because the sheet renders the HTML TR tags,
+   * the the sheet also is responsible for the visible state.
+   */
+  public boolean isRendersRowContainer() {
+    return false;
   }
 }

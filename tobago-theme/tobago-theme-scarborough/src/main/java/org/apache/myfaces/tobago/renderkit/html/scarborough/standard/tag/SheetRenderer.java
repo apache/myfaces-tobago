@@ -39,6 +39,7 @@ import org.apache.myfaces.tobago.event.PageAction;
 import org.apache.myfaces.tobago.internal.context.ResourceManagerFactory;
 import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
+import org.apache.myfaces.tobago.layout.Display;
 import org.apache.myfaces.tobago.layout.LayoutBase;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.layout.TextAlign;
@@ -297,6 +298,15 @@ public class SheetRenderer extends LayoutComponentRendererBase {
         rowMarkup = rowMarkup.add(Markup.SELECTED);
       }
       writer.writeClassAttribute(Classes.create(sheet, "row", rowMarkup));
+      if (!sheet.isRowVisible()) {
+        Style rowStyle = new Style();
+        rowStyle.setDisplay(Display.NONE);
+        writer.writeStyleAttribute(rowStyle);
+      }
+      final String parentId = sheet.getRowParentClientId();
+      if (parentId != null) {
+        writer.writeAttribute(DataAttributes.TREEPARENT, parentId, false);
+      }
       if (rowIndex == sheet.getFirst()) {
         writer.writeAttribute("rowIndexInModel", Integer.toString(sheet.getFirst()), false);
       }

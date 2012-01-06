@@ -572,4 +572,8 @@ public abstract class AbstractUISheet extends AbstractUIData
   public boolean isLayoutChildren() {
     return true;
   }
+
+  public boolean isRendersRowContainer() {
+    return true;
+  }
 }

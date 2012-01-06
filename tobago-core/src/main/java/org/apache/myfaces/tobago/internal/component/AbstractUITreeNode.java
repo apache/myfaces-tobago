@@ -28,6 +28,7 @@ import org.apache.myfaces.tobago.event.TreeMarkedEvent;
 import org.apache.myfaces.tobago.event.TreeMarkedListener;
 import org.apache.myfaces.tobago.internal.util.Deprecation;
 import org.apache.myfaces.tobago.model.MixedTreeModel;
+import org.apache.myfaces.tobago.model.TreeDataModel;
 import org.apache.myfaces.tobago.model.TreePath;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
@@ -39,8 +40,10 @@ import javax.faces.context.FacesContext;
 import javax.faces.el.MethodBinding;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.FacesEvent;
+import javax.faces.model.DataModel;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeNode;
+import java.io.IOException;
 import java.util.List;
 import java.util.Stack;
 
@@ -48,6 +51,19 @@ public abstract class AbstractUITreeNode
     extends UIOutput implements SupportsMarkup, TreeModelBuilder, Configurable {
 
   private static final Logger LOG = LoggerFactory.getLogger(AbstractUITreeNode.class);
+
+  @Override
+  public void encodeBegin(FacesContext facesContext) throws IOException {
+    final AbstractUIData data = ComponentUtils.findAncestor(this, AbstractUIData.class);
+    DataModel model = data.getDataModel();
+    if (model instanceof TreeDataModel) {
+      final TreeDataModel treeDataModel = (TreeDataModel) model;
+      treeDataModel.setRowExpanded(isExpanded());
+      treeDataModel.setRowClientId(getClientId(facesContext));
+    }
+
+    super.encodeBegin(facesContext);
+  }
 
   /**
    * @deprecated since XXX 1.6.0 ???

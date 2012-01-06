@@ -26,8 +26,6 @@ import org.apache.myfaces.tobago.event.TreeExpansionEvent;
 import org.apache.myfaces.tobago.event.TreeMarkedEvent;
 import org.apache.myfaces.tobago.internal.component.AbstractUIData;
 import org.apache.myfaces.tobago.internal.component.AbstractUITree;
-import org.apache.myfaces.tobago.internal.model.Expanded;
-import org.apache.myfaces.tobago.internal.model.TemporaryTreeState;
 import org.apache.myfaces.tobago.layout.Display;
 import org.apache.myfaces.tobago.layout.LayoutBase;
 import org.apache.myfaces.tobago.model.TreeSelectable;
@@ -49,7 +47,6 @@ import javax.faces.component.UIData;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.util.Map;
-import java.util.Stack;
 
 public class TreeNodeRenderer extends LayoutComponentRendererBase {
 
@@ -136,6 +133,7 @@ public class TreeNodeRenderer extends LayoutComponentRendererBase {
     final UITreeNode node = (UITreeNode) component;
     final AbstractUIData data = ComponentUtils.findAncestor(node, AbstractUIData.class);
 
+    final boolean dataRendersRowContainer = data.isRendersRowContainer();
     final boolean folder = node.isFolder();
     final String clientId = node.getClientId(facesContext);
     final int level = node.getLevel();
@@ -144,19 +142,10 @@ public class TreeNodeRenderer extends LayoutComponentRendererBase {
     final boolean showRoot = data instanceof UITree && ((UITree) data).isShowRoot();
     // if the root is hidden, the root node must be expanded (otherwise you will see nothing)
     final boolean expanded = folder && node.isExpanded() || !showRoot && root;
-    final TemporaryTreeState state = data.getTemporaryTreeState();
-    final Stack<Expanded> path = state.getPath();
-    while (path.size() > level) {
-      path.pop();
-    }
-    final String parentId = root ? null : path.peek().getId();
-    final boolean visible = root ? showRoot : path.peek().isExpanded();
+    final String parentId = data.getRowParentClientId();
+    final boolean visible = root ? showRoot : data.isRowVisible();
 
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
-
-    if (folder) {
-      path.push(new Expanded(clientId, expanded));
-    }
 
     writer.startElement(HtmlElements.DIV, null);
 
@@ -170,7 +159,8 @@ public class TreeNodeRenderer extends LayoutComponentRendererBase {
       writer.writeAttribute(DataAttributes.TREEPARENT, parentId, false);
     }
 
-    if (!visible) {
+    // In the case of a sheet, we need not hiding the node, because the whole TR will be hidden.
+    if (!dataRendersRowContainer && !visible) {
       Style style = new Style();
       style.setDisplay(Display.NONE);
       writer.writeStyleAttribute(style);

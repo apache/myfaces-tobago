@@ -28,7 +28,7 @@
     <tc:sheet value="#{tree.tree}" id="row" columns="*;*" var="row" rows="14">
 
       <tc:column label="Tree" id="tree">
-        <tc:treeNode>
+        <tc:treeNode expanded="#{row.level le 1}">
           <tc:treeIndent/>
           <tc:treeLabel value="#{row.userObject.name}"/>
         </tc:treeNode>
