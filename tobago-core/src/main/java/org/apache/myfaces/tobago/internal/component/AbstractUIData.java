@@ -57,7 +57,11 @@ public class AbstractUIData extends javax.faces.component.UIData {
   }
 
   public boolean isRowVisible() {
-    return dataModel != null && dataModel.isRowVisible();
+    if (dataModel != null) {
+      return dataModel.isRowVisible();
+    } else {
+      return super.getDataModel().isRowAvailable();
+    }
   }
 
   public String getRowClientId() {
