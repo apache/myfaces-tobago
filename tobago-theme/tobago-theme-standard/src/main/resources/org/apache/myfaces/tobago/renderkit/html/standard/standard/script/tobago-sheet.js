@@ -373,7 +373,6 @@ Tobago.Sheet.prototype.addSelectionListener = function() {
   currentSheet.getRows().each(function() {
     var row = this;
     Tobago.addBindEventListener(row, "mousedown", currentSheet, "doMouseDownSelect");
-    Tobago.addBindEventListener(row, "mouseup", currentSheet, "doMouseUpSelect");
     Tobago.addBindEventListener(row, "click", currentSheet, "doSelection");
     if (currentSheet.dblClickActionId) {
       Tobago.addBindEventListener(row, "dblclick", currentSheet, "doDblClick");
@@ -387,14 +386,6 @@ Tobago.Sheet.prototype.doMouseDownSelect = function(event) {
   }
   this.mouseDownX = event.clientX;
   this.mouseDownY = event.clientY;
-};
-
-Tobago.Sheet.prototype.doMouseUpSelect = function(event) {
-  if (!event) {
-    event = window.event;
-  }
-  this.mouseDownX = undefined;
-  this.mouseDownY = undefined;
 };
 
 Tobago.Sheet.prototype.doSelection = function(event) {
@@ -418,8 +409,7 @@ Tobago.Sheet.prototype.doSelection = function(event) {
     //LOG.debug("ID " + this.id);
     if (srcElement.id.search(/_data_row_selector_/) > -1  || !Tobago.isInputElement(srcElement.tagName)) {
 
-      if (this.mouseDownX != undefined &&
-          Math.abs(this.mouseDownX - event.clientX) + Math.abs(this.mouseDownY - event.clientY) > 5) {
+      if (Math.abs(this.mouseDownX - event.clientX) + Math.abs(this.mouseDownY - event.clientY) > 5) {
         // The user has moved the mouse. We assume, the user want to select some text inside the sheet,
         // so we doesn't select the row.
         return;
