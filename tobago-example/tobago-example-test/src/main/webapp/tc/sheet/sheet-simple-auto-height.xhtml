@@ -73,8 +73,6 @@
 
     </tc:box>
     <tc:script file="script/tobago-assert.js"/>
-    <!--todo-->
-    <!--<tc:script onload="TobagoAssert.assertLayout('page:todo', 0, 0, 600, 14);"/>-->
 
     <tc:script>
       jQuery(document).ready(function() {
@@ -84,6 +82,29 @@
         jQuery(".tobago-sheet-body").css("border-color", "Black");
       });
     </tc:script>
+
+    <!--
+    left: 56 = 0 + 6 (box) + 50 (margin)
+    top: 76 = 0 + 26 + 50
+    width: 487 = 600 - 13 (box) - 2*50 margin
+    height: 63 = (3 * (20 (line-height) + 1 (line-distance)) - 1) + 1 (border)
+    -->
+    <tc:script onload="TobagoAssert.assertLayout('page:sheet1', 56, 76, 487, 63);"/>
+
+    <!--
+    height of sheet1 + 21
+    -->
+    <tc:script onload="TobagoAssert.assertLayout('page:sheet2', 56, 189, 487, 84);"/>
+
+    <!--
+    height of sheet1 + 16
+    -->
+    <tc:script onload="TobagoAssert.assertLayout('page:sheet3', 56, 323, 487, 79);"/>
+
+    <!--
+    height of sheet1 + 16 + 21
+    -->
+    <tc:script onload="TobagoAssert.assertLayout('page:sheet4', 56, 452, 487, 100);"/>
 
   </tc:page>
 </f:view>
