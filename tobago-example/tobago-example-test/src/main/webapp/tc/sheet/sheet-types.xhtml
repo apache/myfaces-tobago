@@ -30,7 +30,7 @@
       <tc:column label="&lt;tc:out>" id="c_out">
         <tc:out value="#{luminary.name}"/>
       </tc:column>
-      <tc:column label="&lt;tc:out>" id="c_out_r">
+      <tc:column label="&lt;tc:out>" align="right" id="c_out_r">
         <tc:out value="#{luminary.name}"/>
       </tc:column>
       <tc:column id="c_not_rendered" rendered="false">
@@ -49,7 +49,9 @@
         <tc:link label="#{luminary.name}"/>
       </tc:column>
       <tc:column label="&lt;tc:selectOneChoice>" id="c_selectOneChoice">
-<!-- XXX Bug: paging doesn't work with selectOneChoice
+<!-- XXX Bug: paging doesn't work with selectOneChoice-->
+        <tc:out value="todo"/>
+        <!-- XXX
         <tc:selectOneChoice>
           <tc:selectItem itemLabel="first" itemValue="1"/>
           <tc:selectItem itemLabel="second" itemValue="2"/>
