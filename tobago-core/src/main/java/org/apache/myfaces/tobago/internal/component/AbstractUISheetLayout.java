@@ -269,36 +269,47 @@ public abstract class AbstractUISheetLayout extends AbstractUILayoutBase impleme
     // estimate need of height-scrollbar on client, if yes we have to consider
     // this when calculating column width's
 
+    if (sheet.getNeedVerticalScrollbar() != null) {
+      return sheet.getNeedVerticalScrollbar();
+    }
+
+    Boolean result = null;
+
     final Object forceScrollbar = sheet.getAttributes().get(Attributes.FORCE_VERTICAL_SCROLLBAR);
     if (forceScrollbar != null) {
       if ("true".equals(forceScrollbar)) {
-        return true;
+        result = true;
       } else if ("false".equals(forceScrollbar)) {
-        return false;
+        result = false;
       } else if (!"auto".equals(forceScrollbar)) {
         LOG.warn("Illegal value for attribute 'forceVerticalScrollbar': '" + forceScrollbar + "'");
       }
     }
 
-    if (!sheet.hasRowCount()) {
-      return true;
+    if (result == null && !sheet.hasRowCount()) {
+      result = true;
     }
 
-    if (sheet.getCurrentHeight() != null) {
-      int first = sheet.getFirst();
-      int rows = sheet.hasRows()
-          ? Math.min(sheet.getRowCount(), first + sheet.getRows()) - first
-          : sheet.getRowCount();
-      final LayoutComponentRenderer renderer = sheet.getLayoutComponentRenderer(facesContext);
-      final Measure rowPadding = renderer.getCustomMeasure(facesContext, sheet, "rowPadding");
-      LOG.error("20; // FIXME: make dynamic (was removed by changing the layout");
-      Measure heightNeeded = getFooterHeight(facesContext, sheet)
-              .add(rowPadding.add(20/*fixme*/).multiply(rows))
-              .add(20); // FIXME: make dynamic (was removed by changing the layouting
-      return heightNeeded.greaterThan(sheet.getCurrentHeight());
-    } else {
-      return false;
+    if (result == null) {
+      if (sheet.getCurrentHeight() != null) {
+        int first = sheet.getFirst();
+        int rows = sheet.hasRows()
+            ? Math.min(sheet.getRowCount(), first + sheet.getRows()) - first
+            : sheet.getRowCount();
+        Measure heightNeeded = getRowHeight(facesContext, sheet).multiply(rows);
+        if (sheet.isShowHeader()) {
+          heightNeeded = heightNeeded.add(getHeaderHeight(facesContext, sheet));
+        }
+        if (sheet.isPagingVisible()) {
+          heightNeeded = heightNeeded.add(getFooterHeight(facesContext, sheet));
+        }
+        result = heightNeeded.greaterThan(sheet.getCurrentHeight());
+      } else {
+        result = false;
+      }
     }
+    sheet.setNeedVerticalScrollbar(result);
+    return result;
   }
 
   private void parseFixedWidth(LayoutInfo layoutInfo, List<UIColumn> rendereredColumns) {
@@ -333,6 +344,16 @@ public abstract class AbstractUISheetLayout extends AbstractUILayoutBase impleme
         }
       }
     }
+  }
+
+  private Measure getHeaderHeight(FacesContext facesContext, AbstractUISheet sheet) {
+    return sheet.isShowHeader()
+        ? sheet.getLayoutComponentRenderer(facesContext).getCustomMeasure(facesContext, sheet, "headerHeight")
+        : Measure.ZERO;
+  }
+
+  private Measure getRowHeight(FacesContext facesContext, AbstractUISheet sheet) {
+    return sheet.getLayoutComponentRenderer(facesContext).getCustomMeasure(facesContext, sheet, "rowHeight");
   }
 
   private Measure getFooterHeight(FacesContext facesContext, AbstractUISheet sheet) {

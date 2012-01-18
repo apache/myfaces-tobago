@@ -90,6 +90,8 @@ public abstract class AbstractUISheet extends javax.faces.component.UIData
 
   private transient List<LayoutComponent> layoutComponents;
 
+  private transient Boolean needVerticalScrollbar;
+
   public LayoutComponentRenderer getLayoutComponentRenderer(FacesContext context) {
     return (LayoutComponentRenderer) getRenderer(context);
   }
@@ -574,5 +576,15 @@ public abstract class AbstractUISheet extends javax.faces.component.UIData
 
   public boolean isLayoutChildren() {
     return true;
+  }
+
+  public abstract boolean isShowHeader();
+
+  public Boolean getNeedVerticalScrollbar() {
+    return needVerticalScrollbar;
+  }
+
+  public void setNeedVerticalScrollbar(Boolean needVerticalScrollbar) {
+    this.needVerticalScrollbar = needVerticalScrollbar;
   }
 }

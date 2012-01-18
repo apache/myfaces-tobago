@@ -243,8 +243,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
     bodyStyle.setHeight(null);
     bodyStyle.setTop(null);
     Style sheetBodyStyle = new Style(bodyStyle);
-    final boolean needVerticalScrollbar = needVerticalScrollbar(facesContext, sheet, style);
-    if (needVerticalScrollbar) {
+    if (sheet.getNeedVerticalScrollbar()) {
       tableBodyWidth = tableBodyWidth.subtractNotNegative(getVerticalScrollbarWeight(facesContext, sheet));
     }
     sheetBodyStyle.setWidth(tableBodyWidth);
@@ -263,6 +262,10 @@ public class SheetRenderer extends LayoutComponentRendererBase {
         writer.writeAttribute(HtmlAttributes.WIDTH, columnWidth);
         writer.endElement(HtmlElements.COL);
       }
+      // filler column, which normally is not seen, it appears when resizing the columns
+//      writer.startElement(HtmlElements.COL, null);
+//      writer.writeAttribute(HtmlAttributes.WIDTH, 0);
+//      writer.endElement(HtmlElements.COL);
       writer.endElement(HtmlElements.COLGROUP);
     }
 
@@ -360,8 +363,10 @@ public class SheetRenderer extends LayoutComponentRendererBase {
       }
 
       writer.startElement(HtmlElements.TD, null);
-      writer.writeClassAttribute(Classes.create(sheet, "cell"));
-      writer.write("&nbsp;");
+      writer.writeClassAttribute(Classes.create(sheet, "cell", Markup.FILLER));
+//      writer.write("&nbsp;");
+      writer.startElement(HtmlElements.DIV, null);
+      writer.endElement(HtmlElements.DIV);
       writer.endElement(HtmlElements.TD);
 
       writer.endElement(HtmlElements.TR);
@@ -384,8 +389,10 @@ public class SheetRenderer extends LayoutComponentRendererBase {
         writer.endElement(HtmlElements.TD);
       }
       writer.startElement(HtmlElements.TD, null);
-      writer.writeClassAttribute(Classes.create(sheet, "cell"));
-      writer.write("&nbsp;");
+      writer.writeClassAttribute(Classes.create(sheet, "cell", Markup.FILLER));
+//      writer.write("&nbsp;");
+      writer.startElement(HtmlElements.DIV, null);
+      writer.endElement(HtmlElements.DIV);
       writer.endElement(HtmlElements.TD);
       writer.endElement(HtmlElements.TR);
     }
@@ -403,7 +410,6 @@ public class SheetRenderer extends LayoutComponentRendererBase {
     if (sheet.isPagingVisible()) {
       Style footerStyle = new Style();
       footerStyle.setWidth(sheet.getCurrentWidth());
-      footerStyle.setHeight(footerHeight);
       if (ie6SelectOneFix) {
         footerStyle.setTop(headerHeight);
       }
@@ -570,40 +576,6 @@ public class SheetRenderer extends LayoutComponentRendererBase {
       }
     }
 
-  }
-
-  private boolean needVerticalScrollbar(FacesContext facesContext, UISheet sheet, Style style) {
-    // estimate need of height-scrollbar on client, if yes we have to consider
-    // this when calculating column width's
-
-    final Object forceScrollbar = sheet.getAttributes().get(Attributes.FORCE_VERTICAL_SCROLLBAR);
-    if (forceScrollbar != null) {
-      if ("true".equals(forceScrollbar)) {
-        return true;
-      } else if ("false".equals(forceScrollbar)) {
-        return false;
-      } else if (!"auto".equals(forceScrollbar)) {
-        LOG.warn("Illegal value for attribute 'forceVerticalScrollbar': '" + forceScrollbar + "'");
-      }
-    }
-
-    if (!sheet.hasRowCount()) {
-      return true;
-    }
-
-    if (style.getHeight() != null) {
-      int first = sheet.getFirst();
-      int rows = sheet.hasRows()
-          ? Math.min(sheet.getRowCount(), first + sheet.getRows()) - first
-          : sheet.getRowCount();
-      final Measure rowPadding = getCustomMeasure(facesContext, sheet, "rowPadding");
-      Measure heightNeeded = getFooterHeight(facesContext, sheet)
-              .add(rowPadding.add(20/*fixme*/).multiply(rows))
-              .add(20); // FIXME: make dynamic (was removed by changing the layouting
-      return heightNeeded.greaterThan(style.getHeight());
-    } else {
-      return false;
-    }
   }
 
   private Measure getHeaderHeight(FacesContext facesContext, UISheet sheet) {

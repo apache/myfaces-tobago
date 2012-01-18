@@ -946,13 +946,20 @@ hr.tobago-separator {
 }
 
 .tobago-sheet-cell {
-  padding: 2px;
+  padding: 3px 2px;
   vertical-align: top;
   overflow: hidden;
+  line-height: 14px;
 }
+
 
 .tobago-sheet-cell-markup-clickable {
    cursor: pointer;
+}
+
+.tobago-sheet-cell-markup-filler {
+  padding-left: 0;
+  padding-right: 0;
 }
 
 .tobago-sheet-cell-markup-pure {
@@ -976,6 +983,7 @@ hr.tobago-separator {
   position: relative;
   left: 0;
   top: 0;
+  height: 20px;
   text-align: center;
   overflow: hidden;
 }

@@ -489,8 +489,9 @@ hr.tobago-separator, .tobago-separator-start hr, .tobago-separator-end hr {
   font: bold 10px arial, helvetica, sans-serif;
   color: #333333;
   text-decoration: none;
-  padding: 0px;
+  padding: 0;
   padding-top: 1px;
+  height: 15px;
 }
 
 .tobago-sheet-pagingOuter-markup-left {
