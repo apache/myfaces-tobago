@@ -251,6 +251,7 @@
   font: bold 12px arial, helvetica, sans-serif;
   color: #000000;
   text-decoration: none;
+  line-height: 14px;
 }
 
 .tobago-link-markup-disabled {
