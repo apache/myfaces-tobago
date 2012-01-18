@@ -25,14 +25,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SheetController {
-  
+
   private SolarObject[] solarArray = SolarObject.getArray();
+  private SolarObject[] solarArray3;
+
+  public SheetController() {
+    solarArray3 = new SolarObject[3];
+    for (int i = 0; i < 3; i++) {
+      solarArray3[i] = solarArray[i];
+    }
+  }
 
   // Create a copy for sorting, because the LocaleList.DATA is not modifiable.
   private List<LocaleEntry> localeList = new ArrayList<LocaleEntry>(LocaleList.DATA);
 
   public SolarObject[] getSolarArray() {
     return solarArray;
+  }
+
+  public SolarObject[] getSolarArray3() {
+    return solarArray3;
   }
 
   public List<LocaleEntry> getLocaleList() {
