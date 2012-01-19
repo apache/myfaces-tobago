@@ -243,8 +243,12 @@ public class SheetRenderer extends LayoutComponentRendererBase {
     bodyStyle.setHeight(null);
     bodyStyle.setTop(null);
     Style sheetBodyStyle = new Style(bodyStyle);
-    if (sheet.getNeedVerticalScrollbar()) {
-      tableBodyWidth = tableBodyWidth.subtractNotNegative(getVerticalScrollbarWeight(facesContext, sheet));
+    if (sheet.getNeedVerticalScrollbar() == null) {
+      LOG.warn("Value of needVerticalScrollbar undefined!"); // why this value isn't set by the layout manager?
+    } else {
+      if (sheet.getNeedVerticalScrollbar()) {
+        tableBodyWidth = tableBodyWidth.subtractNotNegative(getVerticalScrollbarWeight(facesContext, sheet));
+      }
     }
     sheetBodyStyle.setWidth(tableBodyWidth);
 
