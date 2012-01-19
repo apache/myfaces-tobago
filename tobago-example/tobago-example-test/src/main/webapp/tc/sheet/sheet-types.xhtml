@@ -23,9 +23,12 @@
     xmlns:f="http://java.sun.com/jsf/core">
 
   <tc:page id="page">
-    <tc:gridLayoutConstraint width="1000px" height="600px"/>
+    <tc:gridLayoutConstraint width="1020px" height="620px"/>
+    <f:facet name="layout">
+      <tc:gridLayout rows="auto" rowSpacing="10px" margin="10px"/>
+    </f:facet>
 
-    <tc:sheet value="#{sheet.solarArray}" id="sheet" columns="20px;*;*;*;*;2*;*;*;*;*;2*" var="luminary" rows="20">
+    <tc:sheet value="#{sheet.solarArray}" id="sheet" columns="20px;*;*;*;*;2*;*;*;*;*;2*" var="luminary" rows="10">
       <tc:columnSelector />
       <tc:column label="&lt;tc:out>" id="c_out">
         <tc:out value="#{luminary.name}"/>
@@ -73,6 +76,13 @@
         </tc:panel>
       </tc:column>
     </tc:sheet>
+
+    <tc:script file="script/tobago-assert.js"/>
+
+    <tc:script onload="TobagoAssert.assertLayout(jQuery('tr:first'), 11, 31, 998, 21);"/>
+
+    <!-- height = 21 + 10 * (20 + 1) + 16 -->
+    <tc:script onload="TobagoAssert.assertLayout('page:sheet', 10, 10, 1000, 247);"/>
 
   </tc:page>
 </f:view>
