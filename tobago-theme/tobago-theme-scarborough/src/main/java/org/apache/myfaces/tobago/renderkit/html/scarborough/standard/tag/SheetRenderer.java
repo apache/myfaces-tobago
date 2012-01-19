@@ -972,6 +972,12 @@ public class SheetRenderer extends LayoutComponentRendererBase {
     Measure rowHeight = getRowHeight(facesContext, sheet);
     Measure footerHeight = getFooterHeight(facesContext, sheet);
     int rows = sheet.getRows();
+    if (rows == 0) {
+      rows = sheet.getRowCount();
+    }
+    if (rows == -1) {
+      rows = 10; // estimating something to get a valid value...
+    }
 
     if (LOG.isDebugEnabled()) {
       LOG.debug(headerHeight + " " + footerHeight + " " + rowHeight + " " + rows);

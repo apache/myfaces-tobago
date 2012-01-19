@@ -21,19 +21,26 @@ import org.apache.myfaces.tobago.example.data.LocaleEntry;
 import org.apache.myfaces.tobago.example.data.LocaleList;
 import org.apache.myfaces.tobago.example.data.SolarObject;
 
+import javax.faces.model.DataModel;
 import java.util.ArrayList;
 import java.util.List;
 
 public class SheetController {
 
   private SolarObject[] solarArray = SolarObject.getArray();
-  private SolarObject[] solarArray3;
+  private SolarObject[] solarArray3 = init3();
+  private DataModel undefined = new UndefinedRowCountDataModel(solarArray3);
 
   public SheetController() {
-    solarArray3 = new SolarObject[3];
+    init3();
+  }
+
+  private SolarObject[] init3() {
+    SolarObject[] help = new SolarObject[3];
     for (int i = 0; i < 3; i++) {
-      solarArray3[i] = solarArray[i];
+      help[i] = solarArray[i];
     }
+    return help;
   }
 
   // Create a copy for sorting, because the LocaleList.DATA is not modifiable.
@@ -49,5 +56,9 @@ public class SheetController {
 
   public List<LocaleEntry> getLocaleList() {
     return localeList;
+  }
+
+  public DataModel getUndefined() {
+    return undefined;
   }
 }

@@ -27,55 +27,71 @@
 
     <tc:box>
 
-    <f:facet name="layout">
-      <tc:gridLayout rows="auto;auto;auto;auto" rowSpacing="50px" margin="50px"/>
-    </f:facet>
+      <f:facet name="layout">
+        <tc:gridLayout rows="auto;auto;auto;auto" rowSpacing="50px" margin="50px"/>
+      </f:facet>
 
-    <tc:sheet value="#{sheet.solarArray3}" id="sheet1" columns="*;*" var="luminary" rows="3"
-        showHeader="false">
-      <tc:column label="Name" id="name" sortable="true">
-        <tc:out value="#{luminary.name}"/>
-      </tc:column>
-      <tc:column label="Orbit Of" id="orbit">
-        <tc:out value="#{luminary.orbit}"/>
-      </tc:column>
-    </tc:sheet>
+      <!--
+        haeder: false
+        footer: false
+       -->
+      <tc:sheet value="#{sheet.solarArray3}" id="sheet1" columns="*;*" var="luminary" rows="3"
+                showHeader="false">
+        <tc:column label="Name" id="name" sortable="true">
+          <tc:out value="#{luminary.name}"/>
+        </tc:column>
+        <tc:column label="Orbit Of" id="orbit">
+          <tc:out value="#{luminary.orbit}"/>
+        </tc:column>
+      </tc:sheet>
 
-    <tc:sheet value="#{sheet.solarArray3}" id="sheet2" columns="*;*" var="luminary" rows="3"
-        showHeader="true">
-      <tc:column label="Name" id="name" sortable="true">
-        <tc:out value="#{luminary.name}"/>
-      </tc:column>
-      <tc:column label="Orbit Of" id="orbit">
-        <tc:out value="#{luminary.orbit}"/>
-      </tc:column>
-    </tc:sheet>
+      <!--
+        haeder: true
+        footer: false
+       -->
+      <tc:sheet value="#{sheet.solarArray3}" id="sheet2" columns="*;*" var="luminary" rows="3"
+                showHeader="true">
+        <tc:column label="Name" id="name" sortable="true">
+          <tc:out value="#{luminary.name}"/>
+        </tc:column>
+        <tc:column label="Orbit Of" id="orbit">
+          <tc:out value="#{luminary.orbit}"/>
+        </tc:column>
+      </tc:sheet>
 
-    <tc:sheet value="#{sheet.solarArray3}" id="sheet3" columns="*;*" var="luminary" rows="3"
-        showHeader="false" showPagingAlways="true">
-      <tc:column label="Name" id="name" sortable="true">
-        <tc:out value="#{luminary.name}"/>
-      </tc:column>
-      <tc:column label="Orbit Of" id="orbit">
-        <tc:out value="#{luminary.orbit}"/>
-      </tc:column>
-    </tc:sheet>
+      <!--
+        haeder: false
+        footer: true
+       -->
+      <tc:sheet value="#{sheet.solarArray3}" id="sheet3" columns="*;*" var="luminary" rows="3"
+                showHeader="false" showPagingAlways="true">
+        <tc:column label="Name" id="name" sortable="true">
+          <tc:out value="#{luminary.name}"/>
+        </tc:column>
+        <tc:column label="Orbit Of" id="orbit">
+          <tc:out value="#{luminary.orbit}"/>
+        </tc:column>
+      </tc:sheet>
 
-    <tc:sheet value="#{sheet.solarArray3}" id="sheet4" columns="*;*" var="luminary" rows="3"
-        showHeader="true" showPagingAlways="true">
-      <tc:column label="Name" id="name" sortable="true">
-        <tc:out value="#{luminary.name}"/>
-      </tc:column>
-      <tc:column label="Orbit Of" id="orbit">
-        <tc:out value="#{luminary.orbit}"/>
-      </tc:column>
-    </tc:sheet>
+      <!--
+        haeder: true
+        footer: true
+       -->
+      <tc:sheet value="#{sheet.solarArray3}" id="sheet4" columns="*;*" var="luminary" rows="3"
+                showHeader="true" showPagingAlways="true">
+        <tc:column label="Name" id="name" sortable="true">
+          <tc:out value="#{luminary.name}"/>
+        </tc:column>
+        <tc:column label="Orbit Of" id="orbit">
+          <tc:out value="#{luminary.orbit}"/>
+        </tc:column>
+      </tc:sheet>
 
     </tc:box>
     <tc:script file="script/tobago-assert.js"/>
 
     <tc:script>
-      jQuery(document).ready(function() {
+      jQuery(document).ready(function () {
         jQuery("td>span").css("background-color", "white");
         jQuery("td:odd").css("background-color", "#ffbbff");
         jQuery("td:even").css("background-color", "#bbffbb");
