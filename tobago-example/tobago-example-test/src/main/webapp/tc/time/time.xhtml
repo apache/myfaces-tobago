@@ -23,16 +23,56 @@
     xmlns:f="http://java.sun.com/jsf/core">
 
   <tc:page>
+  <tc:box>
     <f:facet name="layout">
-      <tc:gridLayout columns="*;*;*"/>
+      <tc:gridLayout columns="*;*;*" rows="auto;auto;auto;auto;auto;auto;*;auto"/>
     </f:facet>
-    <tc:gridLayoutConstraint width="600px" height="300px"/>
+    <tc:gridLayoutConstraint width="900px" height="300px" marginLeft="10px" marginTop="10px" marginRight="10px"/>
 
     <tc:time/>
     <tc:time>
       <f:convertDateTime type="time" pattern="HH:mm:ss"/>
     </tc:time>
-    <tc:in/>
+    <tc:in value="for comparison only"/>
 
+    <tc:time readonly="true"/>
+    <tc:time readonly="true">
+      <f:convertDateTime type="time" pattern="HH:mm:ss"/>
+    </tc:time>
+    <tc:in value="for comparison only" readonly="true"/>
+
+    <tc:time disabled="true"/>
+    <tc:time disabled="true">
+      <f:convertDateTime type="time" pattern="HH:mm:ss"/>
+    </tc:time>
+    <tc:in value="for comparison only" disabled="true"/>
+
+    <tx:time label="Label"/>
+    <tx:time label="Label">
+      <f:convertDateTime type="time" pattern="HH:mm:ss"/>
+    </tx:time>
+    <tx:in  label="Label" value="for comparison only"/>
+
+    <tx:time  label="Label" readonly="true"/>
+    <tx:time label="Label" readonly="true">
+      <f:convertDateTime type="time" pattern="HH:mm:ss"/>
+    </tx:time>
+    <tx:in label="Label" value="for comparison only" readonly="true"/>
+
+    <tx:time label="Label" disabled="true"/>
+    <tx:time label="Label" disabled="true">
+      <f:convertDateTime type="time" pattern="HH:mm:ss"/>
+    </tx:time>
+    <tx:in label="Label" value="for comparison only" disabled="true"/>
+
+    <tc:panel/>
+    <tc:panel/>
+    <tc:panel/>
+
+    <tc:panel/>
+    <tc:panel/>
+    <tc:button label="Submit"/>
+
+  </tc:box>
   </tc:page>
 </f:view>

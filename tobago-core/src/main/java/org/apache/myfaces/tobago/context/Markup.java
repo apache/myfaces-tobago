@@ -72,6 +72,7 @@ public final class Markup implements Serializable, Iterable<String> {
   public static final Markup REQUIRED = valueOf("required");
   public static final Markup RESIZABLE = valueOf("resizable");
   public static final Markup RIGHT = valueOf("right");
+  public static final Markup SECONDS = valueOf("seconds");
   public static final Markup SELECTED = valueOf("selected");
   public static final Markup SORTABLE = valueOf("sortable");
   public static final Markup STRONG = valueOf("strong");

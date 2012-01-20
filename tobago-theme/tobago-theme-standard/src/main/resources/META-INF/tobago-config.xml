@@ -287,6 +287,13 @@
         <renderer>
           <name>Time</name>
           <supported-markup>
+            <markup>disabled</markup>
+            <markup>readonly</markup>
+            <markup>required</markup>
+            <markup>fatal</markup>
+            <markup>error</markup>
+            <markup>warn</markup>
+            <markup>info</markup>
             <!-- internal: for the seconds field -->
             <markup>seconds</markup>
           </supported-markup>

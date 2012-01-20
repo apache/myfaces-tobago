@@ -694,6 +694,15 @@ div.tobago-tabGroup-toolBar {
   width: 53px;
 }
 
+.tobago-time-borderDiv-markup-readonly {
+  background-color: #E8E8E8;
+}
+
+.tobago-time-borderDiv-markup-disabled {
+  color: #808080;
+  background-color: #E8E8E8;
+}
+
 .tobago-time-borderDiv-markup-seconds {
   width: 81px;
 }
@@ -702,11 +711,9 @@ div.tobago-tabGroup-toolBar {
   font-size: 12px;
   height: 14px;
   width: 21px;
-  color: #000000;
 }
 
 .tobago-time-input-markup-selected {
-  border-color: #E8E8E8;
   background: #E8E8E8;
 }
 
