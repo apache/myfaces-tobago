@@ -23,12 +23,68 @@
     xmlns:f="http://java.sun.com/jsf/core">
 
   <tc:page>
-    <f:facet name="layout">
-      <tc:gridLayout/>
-    </f:facet>
-    <tc:gridLayoutConstraint width="600px" height="300px"/>
+    <tc:box>
+      <f:facet name="layout">
+        <tc:gridLayout columns="*;*;*" rows="auto;auto;auto;auto;auto;auto;auto;auto;*;auto"/>
+      </f:facet>
+      <tc:gridLayoutConstraint width="900px" height="300px" marginLeft="10px" marginTop="10px" marginRight="10px"/>
 
-    <tc:date />
+      <tc:date/>
+      <tc:date>
+        <f:convertDateTime type="date" pattern="HH:mm:ss"/>
+      </tc:date>
+      <tc:in value="for comparison only"/>
 
+      <tc:date readonly="true"/>
+      <tc:date readonly="true">
+        <f:convertDateTime type="date" pattern="HH:mm:ss"/>
+      </tc:date>
+      <tc:in value="for comparison only" readonly="true"/>
+
+      <tc:date disabled="true"/>
+      <tc:date disabled="true">
+        <f:convertDateTime type="date" pattern="HH:mm:ss"/>
+      </tc:date>
+      <tc:in value="for comparison only" disabled="true"/>
+
+      <tc:date markup="error"/>
+      <tc:date markup="error">
+        <f:convertDateTime type="date" pattern="HH:mm:ss"/>
+      </tc:date>
+      <tc:in value="for comparison only" markup="error"/>
+
+      <tx:date label="Label"/>
+      <tx:date label="Label">
+        <f:convertDateTime type="date" pattern="HH:mm:ss"/>
+      </tx:date>
+      <tx:in label="Label" value="for comparison only"/>
+
+      <tx:date label="Label" readonly="true"/>
+      <tx:date label="Label" readonly="true">
+        <f:convertDateTime type="date" pattern="HH:mm:ss"/>
+      </tx:date>
+      <tx:in label="Label" value="for comparison only" readonly="true"/>
+
+      <tx:date label="Label" disabled="true"/>
+      <tx:date label="Label" disabled="true">
+        <f:convertDateTime type="date" pattern="HH:mm:ss"/>
+      </tx:date>
+      <tx:in label="Label" value="for comparison only" disabled="true"/>
+
+      <tx:date label="Label" markup="error"/>
+      <tx:date label="Label" markup="error">
+        <f:convertDateTime type="date" pattern="HH:mm:ss"/>
+      </tx:date>
+      <tx:in label="Label" value="for comparison only" markup="error"/>
+
+      <tc:panel/>
+      <tc:panel/>
+      <tc:panel/>
+
+      <tc:panel/>
+      <tc:panel/>
+      <tc:button label="Submit"/>
+
+    </tc:box>
   </tc:page>
 </f:view>
