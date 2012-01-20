@@ -703,6 +703,10 @@ div.tobago-tabGroup-toolBar {
   background-color: #E8E8E8;
 }
 
+.tobago-time-borderDiv-markup-error, .tobago-time-borderDiv-markup-fatal {
+  border: 1px solid #FF0000;
+}
+
 .tobago-time-borderDiv-markup-seconds {
   width: 81px;
 }

@@ -25,7 +25,7 @@
   <tc:page>
   <tc:box>
     <f:facet name="layout">
-      <tc:gridLayout columns="*;*;*" rows="auto;auto;auto;auto;auto;auto;*;auto"/>
+      <tc:gridLayout columns="*;*;*" rows="auto;auto;auto;auto;auto;auto;auto;auto;*;auto"/>
     </f:facet>
     <tc:gridLayoutConstraint width="900px" height="300px" marginLeft="10px" marginTop="10px" marginRight="10px"/>
 
@@ -47,6 +47,12 @@
     </tc:time>
     <tc:in value="for comparison only" disabled="true"/>
 
+    <tc:time markup="error"/>
+    <tc:time markup="error">
+      <f:convertDateTime type="time" pattern="HH:mm:ss"/>
+    </tc:time>
+    <tc:in value="for comparison only" markup="error"/>
+
     <tx:time label="Label"/>
     <tx:time label="Label">
       <f:convertDateTime type="time" pattern="HH:mm:ss"/>
@@ -64,6 +70,12 @@
       <f:convertDateTime type="time" pattern="HH:mm:ss"/>
     </tx:time>
     <tx:in label="Label" value="for comparison only" disabled="true"/>
+
+    <tx:time label="Label" markup="error"/>
+    <tx:time label="Label" markup="error">
+      <f:convertDateTime type="time" pattern="HH:mm:ss"/>
+    </tx:time>
+    <tx:in label="Label" value="for comparison only" markup="error"/>
 
     <tc:panel/>
     <tc:panel/>
