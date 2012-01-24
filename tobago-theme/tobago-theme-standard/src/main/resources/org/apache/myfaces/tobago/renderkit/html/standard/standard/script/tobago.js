@@ -256,7 +256,7 @@ var Tobago = {
     this.page = this.element(pageId);
     this.form = this.element(this.page.id + this.SUB_COMPONENT_SEP + 'form');
     this.addBindEventListener(this.form, 'submit', this, 'onSubmit');
-    this.action = this.element(this.form.id + '-action');
+    this.action = this.element(this.page.id + this.SUB_COMPONENT_SEP + 'form-action');
     this.contextPath = this.element(this.page.id + this.SUB_COMPONENT_SEP + 'context-path');
     this.blankPage = this.contextPath.value + '/org/apache/myfaces/tobago/renderkit/html/standard/blank.html';
     this.actionPosition = this.element(this.page.id + this.SUB_COMPONENT_SEP + 'action-position');
@@ -325,7 +325,7 @@ var Tobago = {
       this.form.removeChild(hidden);
     }
     this.isSubmit = true;
-    var clientDimension = this.createInput('hidden', this.form.id + '-clientDimension');
+    var clientDimension = this.createInput('hidden', this.page.id + this.SUB_COMPONENT_SEP + 'form-clientDimension');
     clientDimension.value = jQuery("body").width() + ';' + jQuery("body").height();
     this.form.appendChild(clientDimension);
     Tobago.onBeforeUnload();
