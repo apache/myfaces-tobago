@@ -1942,12 +1942,13 @@ Tobago.Transport.JqueryTransport = {
     };
 
     return Tobago.Transport.request(function() {
-      requestOptions.oldValue = Tobago.action.value;
+      requestOptions.originalAction = Tobago.action.value;
       requestObject.url = requestOptions.url;
       Tobago.action.value = requestOptions.actionId;
       Tobago.partialRequestIds.value = requestOptions.ajaxComponentIds;
       requestObject.data = jQuery(Tobago.form).serialize();
       requestOptions.xhr = jQuery.ajax(requestObject);
+      Tobago.action.value = requestOptions.originalAction;
     }, false, requestOptions.actionId);
   }
 };
