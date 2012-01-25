@@ -19,8 +19,9 @@ package org.apache.myfaces.tobago.example.reference;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import javax.faces.event.ValueChangeEvent;
+
 import javax.faces.context.FacesContext;
+import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 
 public class Controller {
@@ -91,8 +92,9 @@ public class Controller {
   }
 
   public void valueChanged(ValueChangeEvent event) {
-    LOG.error("value Changed " + event.getComponent().getClientId(FacesContext.getCurrentInstance()));
-    LOG.error("value Changed " + event.getOldValue() + " " + event.getNewValue());
+    LOG.info("Value change event in component with id: '"
+        + event.getComponent().getClientId(FacesContext.getCurrentInstance())
+        + "'. Value changed from '" + event.getOldValue() + "' to '" + event.getNewValue() + "'");
   }
 
   public String getText() {
