@@ -45,16 +45,16 @@ public class Controller {
   public Controller() {
 
     vehicleOptionItems = new SelectItem[]{
-        new SelectItem(new Integer(0), "car"),
-        new SelectItem(new Integer(1), "motorbike")};
+        new SelectItem(0, "car"),
+        new SelectItem(1, "motorbike")};
     carOptionItems = new SelectItem[]{
-        new SelectItem(new Integer(0), "Audi"),
-        new SelectItem(new Integer(1), "BMW"),
-        new SelectItem(new Integer(2), "Mercedes")};
+        new SelectItem(0, "Audi"),
+        new SelectItem(1, "BMW"),
+        new SelectItem(2, "Mercedes")};
     motorbikeOptionItems = new SelectItem[]{
-        new SelectItem(new Integer(3), "Moto Guzzi"),
-        new SelectItem(new Integer(4), "BMW"),
-        new SelectItem(new Integer(5), "KTM")};
+        new SelectItem(3, "Moto Guzzi"),
+        new SelectItem(4, "BMW"),
+        new SelectItem(5, "KTM")};
   }
 
 
@@ -75,7 +75,7 @@ public class Controller {
   }
 
   public String action() {
-    LOG.error("action invoke");
+    LOG.info("Action invoked");
     return null;
   }
 
