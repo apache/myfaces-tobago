@@ -20,8 +20,6 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 import org.apache.myfaces.tobago.component.UILabel;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.util.AccessKeyMap;
-import org.apache.myfaces.tobago.internal.util.Deprecation;
-import org.apache.myfaces.tobago.layout.LayoutBase;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
@@ -60,44 +58,44 @@ public class LabelRenderer extends LayoutComponentRendererBase {
 
   public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
 
-    // todo: remove test after 1.5.0, then UILabel is required
-    if (!(component instanceof UILabel)) {
-      Deprecation.LOG.warn("LabelRenderer should only render UILabel but got " + component.getClass().getName()
-          + " id=" + component.getClientId(facesContext));
-    }
+    UILabel label = (UILabel) component;
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
-    LabelWithAccessKey label = new LabelWithAccessKey(component);
+    String forValue = ComponentUtils.findClientIdFor(label, facesContext);
 
-    String forValue = ComponentUtils.findClientIdFor(component, facesContext);
-
-    String clientId = component.getClientId(facesContext);
-    writer.startElement(HtmlElements.LABEL, component);
-    HtmlRendererUtils.renderDojoDndItem(component, writer, true);
-    final Classes classes = Classes.create(component);
+    String clientId = label.getClientId(facesContext);
+    writer.startElement(HtmlElements.LABEL, label);
+    HtmlRendererUtils.renderDojoDndItem(label, writer, true);
+    final Classes classes = Classes.create(label);
     writer.writeClassAttribute(classes);
-    if (component instanceof LayoutBase) {
-      Style style = new Style(facesContext, (LayoutBase) component);
-      writer.writeStyleAttribute(style);
-    }
+    writer.writeStyleAttribute(new Style(facesContext, label));
     writer.writeIdAttribute(clientId);
     if (forValue != null) {
       writer.writeAttribute(HtmlAttributes.FOR, forValue, false);
     }
+    HtmlRendererUtils.renderTip(label, writer);
 
-    HtmlRendererUtils.renderTip(component, writer);
+    encodeTextContent(facesContext, writer, label);
 
-    if (label.getText() != null) {
-      HtmlRendererUtils.writeLabelWithAccessKey(writer, label);
-    }
-
-    if (label.getAccessKey() != null) {
-      if (LOG.isInfoEnabled()
-          && !AccessKeyMap.addAccessKey(facesContext, label.getAccessKey())) {
-        LOG.info("dublicated accessKey : " + label.getAccessKey());
-      }
-      HtmlRendererUtils.addClickAcceleratorKey(facesContext, clientId, label.getAccessKey());
-    }
     writer.endElement(HtmlElements.LABEL);
+  }
+
+  /** Encodes the text inside of the label. 
+   * Can be overwritten in other themes.
+   */
+  protected void encodeTextContent(FacesContext facesContext, TobagoResponseWriter writer, UILabel label) 
+      throws IOException {
+    String clientId = label.getClientId(facesContext);
+    LabelWithAccessKey key = new LabelWithAccessKey(label);
+    if (key.getText() != null) {
+      HtmlRendererUtils.writeLabelWithAccessKey(writer, key);
+    }
+    if (key.getAccessKey() != null) {
+      if (LOG.isInfoEnabled()
+          && !AccessKeyMap.addAccessKey(facesContext, key.getAccessKey())) {
+        LOG.info("Duplicated accessKey : " + key.getAccessKey());
+      }
+      HtmlRendererUtils.addClickAcceleratorKey(facesContext, clientId, key.getAccessKey());
+    }
   }
 }
