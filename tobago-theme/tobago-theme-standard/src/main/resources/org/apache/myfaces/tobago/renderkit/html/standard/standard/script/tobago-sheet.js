@@ -249,10 +249,10 @@ Tobago.Sheet.prototype.doKeyEvent = function(event) {
       }
       if (keyCode == 13) {
         if (input.value != input.nextSibling.innerHTML) {
+          Tobago.stopEventPropagation(event);
+          event.returnValue = false;
           this.reloadWithAction(event.srcElement, input.actionId);
-          Tobago.stopEventPropagation(event);          
-        }
-        else {
+        } else {
           this.textInput = input;
           this.hideInput();
         }
