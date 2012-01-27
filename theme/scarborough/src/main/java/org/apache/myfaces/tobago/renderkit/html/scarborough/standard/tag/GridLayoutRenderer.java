@@ -515,6 +515,8 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
         needVerticalScroolbar = true;
       }
       layoutHeight(Integer.valueOf(value), layout, facesContext);
+    } else {
+      calculateHiddenForRows(layout.ensureRows());
     }
 
 
@@ -601,16 +603,11 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
         (String) layout.getAttributes().get(ATTR_ROWS),
         rows.size(), rows.size() == 1 ? "1*" : "fixed");*/
 
+    calculateHiddenForRows(rows);
+    
     int renderedRowCount = rows.size();
     for (int i = 0; i < rows.size(); i++) {
-      boolean hidden = true;
-      UIGridLayout.Row row = rows.get(i);
-      List cells = row.getElements();
-      for (Object cell : cells) {
-        hidden &= isHidden(cell);
-      }
-      row.setHidden(hidden);
-      if (hidden) {
+      if (rows.get(i).isHidden()) {
         layoutTokens.set(i, new HideLayoutToken());
         renderedRowCount--;
       }
@@ -629,6 +626,18 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
 
     setColumnHeights(layout, layoutInfo, facesContext);
 
+  }
+
+  private void calculateHiddenForRows(List<UIGridLayout.Row> rows) {
+    for (int i = 0; i < rows.size(); i++) {
+      boolean hidden = true;
+      UIGridLayout.Row row = rows.get(i);
+      List cells = row.getElements();
+      for (Object cell : cells) {
+        hidden &= isHidden(cell);
+      }
+      row.setHidden(hidden);
+    }
   }
 
   private void parseFixedWidth(LayoutInfo layoutInfo, UIGridLayout layout,
