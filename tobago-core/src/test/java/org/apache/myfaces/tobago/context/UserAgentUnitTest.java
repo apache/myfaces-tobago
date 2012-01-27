@@ -63,9 +63,22 @@ public class UserAgentUnitTest {
             "Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0; .NET CLR 2.0.50727;"
             + " .NET CLR 3.0.4506.2152; .NET CLR 3.5.30729)"},
 
+        {"Internet Explorer 8 - Compatibility Mode - Windows XP",
+            UserAgent.MSIE_7_0_COMPAT,
+            "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1; Trident/4.0)"},
+
         {"Internet Explorer 9 preview - Windows 7",
             UserAgent.MSIE_9_0,
             "Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; WOW64; Trident/5.0)"},
+
+        {"Internet Explorer 9 - Windows 7",
+            UserAgent.MSIE_9_0,
+            "Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Win64; x64; Trident/5.0)"},
+
+        {"Internet Explorer 9 - Compatibility Mode - Windows 7",
+            UserAgent.MSIE_7_0_COMPAT,
+            "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.1; Win64; x64; Trident/5.0; "
+                + ".NET CLR 2.0.50727; SLCC2; .NET CLR 3.5.30729; .NET CLR 3.0.30729; Media Center PC 6.0; .NET4.0C)"},
 
         {"Firefox 3.6 - Ubuntu 10.4",
             UserAgent.GECKO_1_9,
