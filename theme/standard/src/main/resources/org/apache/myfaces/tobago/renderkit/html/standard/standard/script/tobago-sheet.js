@@ -313,10 +313,10 @@ Tobago.Sheet.prototype.doKeyEvent = function(event) {
       }
       if (keyCode == 13) {
         if (input.value != input.nextSibling.innerHTML) {
-          this.reloadWithAction2(event.srcElement, input.actionId, null);
           Tobago.stopEventPropagation(event);
-        }
-        else {
+          event.returnValue = false;
+          this.reloadWithAction2(event.srcElement, input.actionId, null);
+        } else {
           this.textInput = input;
           this.hideInput();
         }
