@@ -190,11 +190,8 @@ public class PageRenderer extends PageRendererBase {
 
       writer.startElement(HtmlElements.HEAD, null);
 
-      if (debugMode) {
-        writer.writeJavascript("var TbgHeadStart = new Date();");
-      }
+      // meta tags
 
-      // meta
       // this is needed, because websphere 6.0? ignores the setting of the content type on the response
       writer.startElement(HtmlElements.META, null);
       writer.writeAttribute(HtmlAttributes.HTTP_EQUIV, "Content-Type", false);
@@ -206,6 +203,12 @@ public class PageRenderer extends PageRendererBase {
       writer.writeText(title != null ? title : "");
       writer.endElement(HtmlElements.TITLE);
       final Theme theme = client.getTheme();
+
+      if (debugMode) {
+        // This tag must not be earlier, because the
+        // IE doesn't accept some META tags, when they are not the first ones.
+        writer.writeJavascript("var TbgHeadStart = new Date();");
+      }
 
       // style files
       for (String styleFile : theme.getStyleResources(productionMode)) {
