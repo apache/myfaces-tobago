@@ -232,4 +232,14 @@ public class ClientProperties implements Serializable {
   public void setHorizontalScrollbarWeight(Measure horizontalScrollbarWeight) {
     this.horizontalScrollbarWeight = horizontalScrollbarWeight;
   }
+
+  public void updateUserAgent(FacesContext facesContext) {
+    ExternalContext externalContext = facesContext.getExternalContext();
+    String requestUserAgent = (String) externalContext.getRequestHeaderMap().get("User-Agent");
+    final UserAgent newUserAgent = UserAgent.getInstance(requestUserAgent);
+    if (newUserAgent != userAgent) {
+      userAgent = newUserAgent;
+      reset();
+    }
+  }
 }
