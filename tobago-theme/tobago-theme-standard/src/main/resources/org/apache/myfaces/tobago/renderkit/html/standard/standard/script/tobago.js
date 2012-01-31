@@ -2182,6 +2182,14 @@ Tobago.Updater = {
         Tobago.Updater.doUpdate(componentData);
       }
     }
+
+    /* TOBAGO-1087: Wait Cursor after AJAX in IE with Websphere 6.1  */
+    if (jQuery.browser.msie) {
+      var body = jQuery("body");
+      var originalCursor = body.css("cursor");
+      body.css("cursor", "default");
+      body.css("cursor", originalCursor);
+    }
   },
 
   doUpdate: function(data) {
