@@ -18,9 +18,8 @@ package org.apache.myfaces.tobago.internal.webapp;
  */
 
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
+import org.apache.myfaces.tobago.util.FacesVersion;
 import org.apache.myfaces.tobago.util.XmlUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.faces.context.ResponseWriter;
 import java.io.IOException;
@@ -29,14 +28,9 @@ import java.util.Arrays;
 
 public final class XmlResponseWriter extends TobagoResponseWriterBase {
 
-  private static final Logger LOG = LoggerFactory.getLogger(XmlResponseWriter.class);
-
   private static final String XHTML_DOCTYPE =
       "<!DOCTYPE html      PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\""
           + "     \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">";
-
-  public static final String XML_VERSION_1_0_ENCODING_UTF_8 = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
-  public static final int XML_VERSION_1_0_ENCODING_UTF_8_LENGTH = XML_VERSION_1_0_ENCODING_UTF_8.length();
 
   public XmlResponseWriter(
       Writer writer, String contentType, String characterEncoding) {
@@ -57,14 +51,10 @@ public final class XmlResponseWriter extends TobagoResponseWriterBase {
   }
 
   @Override
-  public void write(char[] cbuf, int off, int len) throws IOException {
-
-    // XXX Seems to be related to http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-696
-    if (cbuf.length == XML_VERSION_1_0_ENCODING_UTF_8_LENGTH
-    && Arrays.equals(cbuf, XML_VERSION_1_0_ENCODING_UTF_8.toCharArray())) {
-      if (LOG.isDebugEnabled()) {
-        LOG.debug("Filtering XML header: " + new String(cbuf));
-      }
+  public void write(final char[] cbuf, final int off, final int len) throws IOException {
+    // XXX Related to http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-696
+    if (! FacesVersion.supports21() && Arrays.equals(cbuf, XML_VERSION_1_0_ENCODING_UTF_8_CHARS)) {
+      // drop
     } else {
       super.write(cbuf, off, len);
     }
