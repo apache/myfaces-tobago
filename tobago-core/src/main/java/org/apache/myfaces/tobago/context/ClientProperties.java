@@ -17,12 +17,13 @@ package org.apache.myfaces.tobago.context;
  * limitations under the License.
  */
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.commons.lang.ObjectUtils;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.internal.context.ClientPropertiesKey;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.util.VariableResolverUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.ExternalContext;
@@ -89,15 +90,15 @@ public class ClientProperties implements Serializable {
         contentType = "wml";
       }
     }
-    if (LOG.isInfoEnabled()) {
-      LOG.info("contentType='" + contentType + "' from header " + "Accept='" + accept + "'");
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("contentType='" + contentType + "' from header " + "Accept='" + accept + "'");
     }
 
     // user agent
     String requestUserAgent = (String) externalContext.getRequestHeaderMap().get("User-Agent");
     this.userAgent = UserAgent.getInstance(requestUserAgent);
-    if (LOG.isInfoEnabled()) {
-      LOG.info("userAgent='" + this.userAgent + "' from header " + "'User-Agent: " + requestUserAgent + "'");
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("userAgent='" + this.userAgent + "' from header " + "'User-Agent: " + requestUserAgent + "'");
     }
 
     // theme
@@ -105,8 +106,8 @@ public class ClientProperties implements Serializable {
     TobagoConfig config = TobagoConfig.getInstance(facesContext);
     // TODO log error if tobago config is not initialized
     this.theme = config.getTheme(requestTheme);
-    if (LOG.isInfoEnabled()) {
-      LOG.info("theme='" + theme.getName() + "' from requestParameter " + "tobago.theme='" + requestTheme + "'");
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("theme='" + theme.getName() + "' from requestParameter " + "tobago.theme='" + requestTheme + "'");
     }
 
     reset();
@@ -211,7 +212,7 @@ public class ClientProperties implements Serializable {
    */
   public void setLocale(Locale locale) {
     // set locale will be called "too often" from the JSF
-    if (this.locale == null && locale != null || this.locale != null && locale == null || !this.locale.equals(locale)) {
+    if (! ObjectUtils.equals(this.locale, locale)) {
       this.locale = locale;
       reset();
     }
