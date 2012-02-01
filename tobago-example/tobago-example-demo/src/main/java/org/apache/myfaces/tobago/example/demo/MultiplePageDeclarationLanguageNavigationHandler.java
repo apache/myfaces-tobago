@@ -40,8 +40,8 @@ public class MultiplePageDeclarationLanguageNavigationHandler extends Navigation
 
   public void handleNavigation(FacesContext facesContext, String fromAction, String outcome) {
 
-    LOG.info("outcome='"+  outcome + "'");
-
+    String original = outcome;
+    
     if (outcome != null) {
       PageDeclarationLanguageBean bean = (PageDeclarationLanguageBean)
           VariableResolverUtils.resolveVariable(facesContext, "pageDeclarationLanguage");
@@ -65,7 +65,7 @@ public class MultiplePageDeclarationLanguageNavigationHandler extends Navigation
       }
     }
 
-    LOG.info("outcome='"+  outcome + "'");
+    LOG.info("Original outcome='"+  original + "', adjusted outcome = '"+ outcome +"'");
 
     if (StringUtils.startsWith(outcome, "/content/")) {
       ViewHandler viewHandler = facesContext.getApplication().getViewHandler();

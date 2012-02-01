@@ -32,13 +32,13 @@
       <tc:gridLayoutConstraint columnSpan="6"/>
     </tc:separator>
 
-    <tc:button immediate="true"
+    <tc:button immediate="true" id="previous"
                image="image/prev.gif"
                action="#{navigation.gotoPrevious}"
                disabled="#{navigation.first}"
                label="#{overviewBundle.footer_previous}"/>
 
-    <tc:button immediate="true"
+    <tc:button immediate="true" id="next"
                image="image/next.gif"
                action="#{navigation.gotoNext}"
                disabled="#{navigation.last}"

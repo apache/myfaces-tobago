@@ -1,5 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
+package org.apache.myfaces.tobago.example.test;
+
+/*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
  * this work for additional information regarding copyright ownership.
@@ -14,21 +15,20 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
--->
+ */
 
-<f:view
-    xmlns:tc="http://myfaces.apache.org/tobago/component"
-    xmlns:tx="http://myfaces.apache.org/tobago/extension"
-    xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:f="http://java.sun.com/jsf/core">
+import org.apache.myfaces.tobago.example.data.SolarObject;
 
-  <tc:page>
-    <tc:gridLayoutConstraint width="600px" height="300px"/>
-    <f:facet name="layout">
-      <tc:gridLayout/>
-    </f:facet>
+import javax.faces.model.ArrayDataModel;
 
-    <tx:time label="Time" />
+public class UndefinedRowCountDataModel extends ArrayDataModel {
 
-  </tc:page>
-</f:view>
+  public UndefinedRowCountDataModel(SolarObject[] array) {
+    super(array);
+  }
+
+  @Override
+  public int getRowCount() {
+    return -1;
+  }
+}

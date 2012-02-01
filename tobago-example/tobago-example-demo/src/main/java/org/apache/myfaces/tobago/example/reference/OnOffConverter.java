@@ -20,25 +20,24 @@ package org.apache.myfaces.tobago.example.reference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
-import javax.faces.context.FacesContext;
-import javax.faces.component.UIComponent;
 
-/**
- * Date: 07.11.2006 13:36:09
- */
 public class OnOffConverter implements Converter {
 
   private static final Logger LOG = LoggerFactory.getLogger(OnOffConverter.class);
 
   public Object getAsObject(FacesContext context, UIComponent component, String value) throws ConverterException {
-    LOG.info("getAsObject" + value);
-    return Boolean.parseBoolean(value) ? "on" : "off";
+    final String result = Boolean.parseBoolean(value) ? "on" : "off";
+    LOG.info("Got value = '" + value + "'. Result = '" + result + "'");
+    return result;
   }
 
   public String getAsString(FacesContext context, UIComponent component, Object value) throws ConverterException {
-    LOG.info("getAsString" + value);
-    return "on".equals(value) ? Boolean.TRUE.toString() : Boolean.FALSE.toString();
+    final String result = "on".equals(value) ? Boolean.TRUE.toString() : Boolean.FALSE.toString();
+    LOG.info("Got value = '" + value + "'. Result: '" + result + "'");
+    return result;
   }
 }

@@ -15,7 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 -->
-  
+
 <f:view
     xmlns:tc="http://myfaces.apache.org/tobago/component"
     xmlns:tx="http://myfaces.apache.org/tobago/extension"
@@ -23,12 +23,22 @@
     xmlns:f="http://java.sun.com/jsf/core">
 
   <tc:page>
-    <tc:gridLayoutConstraint width="600px" height="300px"/>
-    <f:facet name="layout">
-      <tc:gridLayout/>
-    </f:facet>
+    <tc:object src="http://www.apache.org/"/>
 
-    <tx:date label="Date" />
+    <tc:script>
 
+      /* XXX This is a one possible workaround to make the content resizable.
+       * XXX We may find a better solution (e. g. partially switch off layout)
+       */
+
+      jQuery(document).ready(function () {
+        jQuery("form").css("width", "100%");
+        jQuery("form").css("height", "100%");
+        jQuery(".tobago-page-content").css("width", "100%");
+        jQuery(".tobago-page-content").css("height", "100%");
+        jQuery("iframe").css("width", "100%");
+        jQuery("iframe").css("height", "100%");
+      });
+    </tc:script>
   </tc:page>
 </f:view>

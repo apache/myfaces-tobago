@@ -47,14 +47,13 @@
     </tc:selectBooleanCheckbox>
 
     <!-- code-sniplet-start id="selectManyListbox" -->
-    <tx:selectManyListbox inline="true" label="Contact via: ">
+    <tx:selectManyListbox label="Contact via: ">
       <f:selectItem itemValue="Phone" itemLabel="Phone"/>
       <f:selectItem itemValue="eMail" itemLabel="eMail"/>
       <f:selectItem itemValue="Mobile" itemLabel="Mobile"/>
       <f:selectItem itemValue="Fax" itemLabel="Faxscimile"/>
     </tx:selectManyListbox>
-    <tx:selectManyListbox inline="true"
-                          label="Contact via: ">
+    <tx:selectManyListbox label="Contact via: ">
       <f:selectItem itemValue="Phone" itemLabel="Phone"/>
       <f:selectItem itemValue="eMail" itemLabel="eMail"/>
       <f:selectItem itemValue="Mobile" itemLabel="Mobile"/>
@@ -66,7 +65,7 @@
     <!-- code-sniplet-end id="selectManyListbox" -->
 
     <!-- code-sniplet-start id="selectOneChoice" -->
-    <tx:selectOneChoice inline="true" value="selectOneChoice0"
+    <tx:selectOneChoice value="selectOneChoice0"
                         label="Contact me1: ">
       <tc:selectItem itemLabel="Letter" itemValue="letter"/>
       <tc:selectItem itemLabel="Phone" itemValue="phone"/>
@@ -110,11 +109,7 @@
     </tx:selectOneListbox>
     <!-- code-sniplet-end id="selectOneListbox" -->
 
-    <tc:separator>
-      <f:facet name="label">
-        <tc:label value="Layout"/>
-      </f:facet>
-    </tc:separator>
+    <tc:separator label="Layout"/>
 
     <tc:selectOneRadio>
       <tc:selectItem itemValue="sun" itemLabel="Sun"/>

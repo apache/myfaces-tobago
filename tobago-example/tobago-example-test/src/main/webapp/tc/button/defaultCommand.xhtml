@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+    
 <!--
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -21,24 +22,22 @@
     xmlns:tx="http://myfaces.apache.org/tobago/extension"
     xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:f="http://java.sun.com/jsf/core">
-  <tc:page id="page" width="300px" height="500px">
+  <tc:page id="page">
+    <tc:gridLayoutConstraint width="310px" height="100px"/>
     <f:facet name="layout">
-      <tc:gridLayout columns="*;*"/>
+      <tc:gridLayout columns="*;auto;auto" rows="auto;auto;*"/>
     </f:facet>
 
-<!-- XXX commented out because: date.gif is a bad example, because a local icon in the app results in ugly date pickers in the hole app.
-    <tc:out value="The date.gif exists in the app and in the theme. The app image should be displayed, when activating fix-resource-order in tobago config."/>
 
-    <tc:image id="date" value="image/date.gif"/>
--->
+    <tc:panel>
+      <tc:gridLayoutConstraint columnSpan="3"/>
 
-    <tc:out value="The config.gif exists only in the theme."/>
+      <tx:date id="date" fieldId="field" label="Date"/>
+    </tc:panel>
 
-    <tc:image id="config" value="image/config.gif"/>
-
-    <tc:out value="The foo.gif exists only in the app."/>
-
-    <tc:image id="foo" value="image/foo.gif"/>
+    <tc:panel/>
+    <tc:button label="Any" id="b-1"/>
+    <tc:button label="Default" id="b-2" defaultCommand="true"/>
 
   </tc:page>
 </f:view>

@@ -129,7 +129,7 @@ public class Navigation implements Serializable {
     while (enumeration.hasMoreElements()) {
       Node node = ((Node) enumeration.nextElement());
       if (node.getOutcome() != null && viewId.contains(node.getOutcome())) {
-        currentNode = node;
+        gotoNode(node);
         break;
       }
     }
@@ -144,15 +144,13 @@ public class Navigation implements Serializable {
   }
 
   public String gotoFirst() {
-    currentNode = tree.getNextNode();
-    return currentNode.getOutcome();
+    return gotoNode(tree.getNextNode());
   }
 
   public String gotoPrevious() {
     final Node previousNode = currentNode.getPreviousNode();
     if (previousNode != null) {
-      currentNode = previousNode;
-      return currentNode.getOutcome();
+      return gotoNode(previousNode);
     } else {
       LOG.warn("Strange navigation behavior");
       return null;
@@ -162,12 +160,20 @@ public class Navigation implements Serializable {
   public String gotoNext() {
     final Node nextNode = currentNode.getNextNode();
     if (nextNode != null) {
-      currentNode = nextNode;
-      return currentNode.getOutcome();
+      return gotoNode(nextNode);
     } else {
       LOG.warn("Strange navigation behavior");
       return null;
     }
+  }
+
+  protected String gotoNode(Node node) {
+    currentNode.setMarked(false);
+    currentNode = node;
+    currentNode.setMarked(true);
+    currentNode.setExpanded(true);
+    LOG.info("Navigate to '" + currentNode.outcome + "'");
+    return currentNode.getOutcome();
   }
 
   public boolean isFirst() {
@@ -233,10 +239,7 @@ public class Navigation implements Serializable {
     }
 
     public String action() {
-      LOG.info("Navigate to '" + outcome + "'");
-      currentNode = this;
-      expanded = true;
-      return outcome;
+      return gotoNode(this);
     }
 
     public String getMarkup() {
