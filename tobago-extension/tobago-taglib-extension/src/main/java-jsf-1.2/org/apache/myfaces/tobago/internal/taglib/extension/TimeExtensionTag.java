@@ -61,6 +61,7 @@ public class TimeExtensionTag extends TobagoExtensionBodyTagSupport {
   private javax.el.MethodExpression valueChangeListener;
   private javax.el.ValueExpression inline;
   private javax.el.ValueExpression onchange;
+  private javax.el.ValueExpression markup;
   private javax.el.ValueExpression labelWidth;
   private javax.el.ValueExpression tabIndex;
   private javax.el.ValueExpression validatorMessage;
@@ -90,6 +91,9 @@ public class TimeExtensionTag extends TobagoExtensionBodyTagSupport {
     }
     if (labelWidth != null) {
       labelTag.setColumns(createStringValueExpression(labelWidth.getExpressionString() + ";*"));
+    }
+    if (markup != null) {
+      labelTag.setMarkup(markup);
     }
     labelTag.setParent(getParent());
     labelTag.setJspId(jspId + PREFIX + idSuffix++);
@@ -136,6 +140,9 @@ public class TimeExtensionTag extends TobagoExtensionBodyTagSupport {
     if (required != null) {
       timeTag.setRequired(required);
     }
+    if (markup != null) {
+      timeTag.setMarkup(markup);
+    }
     if (tabIndex != null) {
       timeTag.setTabIndex(tabIndex);
     }
@@ -180,6 +187,7 @@ public class TimeExtensionTag extends TobagoExtensionBodyTagSupport {
     value = null;
     onchange = null;
     valueChangeListener = null;
+    markup = null;
     tabIndex = null;
     timeTag = null;
     labelTag = null;
@@ -187,6 +195,16 @@ public class TimeExtensionTag extends TobagoExtensionBodyTagSupport {
     converterMessage = null;
     requiredMessage = null;
     fieldId = null;
+  }
+
+  /**
+   * Indicate markup of this component.
+   * Possible value is 'none'. But this can be overridden in the theme.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(defaultValue = "none", type = "java.lang.String[]")
+  public void setMarkup(javax.el.ValueExpression markup) {
+    this.markup = markup;
   }
 
   /**

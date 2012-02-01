@@ -236,9 +236,9 @@ public class InExtensionTag extends TobagoExtensionBodyTagSupport {
    */
   @TagAttribute
   @UIComponentTagAttribute(
-          type = {},
-          expression = DynamicExpression.METHOD_BINDING_REQUIRED,
-          methodSignature = "javax.faces.event.ValueChangeEvent")
+      type = {},
+      expression = DynamicExpression.METHOD_BINDING_REQUIRED,
+      methodSignature = "javax.faces.event.ValueChangeEvent")
   public void setValueChangeListener(javax.el.MethodExpression valueChangeListener) {
     this.valueChangeListener = valueChangeListener;
   }
@@ -271,6 +271,7 @@ public class InExtensionTag extends TobagoExtensionBodyTagSupport {
   public void setBinding(javax.el.ValueExpression binding) {
     this.binding = binding;
   }
+
   /**
    * Flag indicating whether or not this component should be rendered
    * (during Render Response Phase), or processed on any subsequent form submit.
@@ -326,7 +327,7 @@ public class InExtensionTag extends TobagoExtensionBodyTagSupport {
   @TagAttribute
   @UIComponentTagAttribute(type = {},
       expression = DynamicExpression.METHOD_BINDING,
-      methodSignature = { "javax.faces.context.FacesContext", "javax.faces.component.UIComponent", "java.lang.Object" })
+      methodSignature = {"javax.faces.context.FacesContext", "javax.faces.component.UIComponent", "java.lang.Object"})
   public void setValidator(javax.el.MethodExpression validator) {
     this.validator = validator;
   }
@@ -379,7 +380,7 @@ public class InExtensionTag extends TobagoExtensionBodyTagSupport {
     this.tip = tip;
   }
 
-   /**
+  /**
    * The width for the label component. Default: 'auto'.
    * This value is used in the gridLayouts columns attribute.
    * See gridLayout tag for valid values.

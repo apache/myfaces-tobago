@@ -39,3 +39,10 @@
   -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=50)"; /* IE8 */
 	filter:alpha(opacity=50); /* IE6+IE7 */
 }
+
+/* sheet ------------------------------------------------------------------ */
+
+.tobago-sheet-columnSelector {
+  padding: 1px 2px 3px 2px;
+  margin: -2px 0 -4px 0;
+}

@@ -256,7 +256,7 @@ var Tobago = {
     this.page = this.element(pageId);
     this.form = this.element(this.page.id + this.SUB_COMPONENT_SEP + 'form');
     this.addBindEventListener(this.form, 'submit', this, 'onSubmit');
-    this.action = this.element(this.form.id + '-action');
+    this.action = this.element(this.page.id + this.SUB_COMPONENT_SEP + 'form-action');
     this.contextPath = this.element(this.page.id + this.SUB_COMPONENT_SEP + 'context-path');
     this.blankPage = this.contextPath.value + '/org/apache/myfaces/tobago/renderkit/html/standard/blank.html';
     this.actionPosition = this.element(this.page.id + this.SUB_COMPONENT_SEP + 'action-position');
@@ -325,7 +325,7 @@ var Tobago = {
       this.form.removeChild(hidden);
     }
     this.isSubmit = true;
-    var clientDimension = this.createInput('hidden', this.form.id + '-clientDimension');
+    var clientDimension = this.createInput('hidden', this.page.id + this.SUB_COMPONENT_SEP + 'form-clientDimension');
     clientDimension.value = jQuery("body").width() + ';' + jQuery("body").height();
     this.form.appendChild(clientDimension);
     Tobago.onBeforeUnload();
@@ -563,7 +563,7 @@ var Tobago = {
         }
         Tobago.oldTransition = Tobago.transition;
         Tobago.transition = transition && !options.target;
-// new
+
         var onSubmitResult = Tobago.onSubmit();
         if (onSubmitResult) {
           try {
@@ -581,22 +581,8 @@ var Tobago = {
         }
         if (options.target || !transition || !onSubmitResult) {
           this.isSubmit = false;
-          Tobago.Transport.pageSubmited = false;
+          Tobago.Transport.pageSubmitted = false;
         }
-// old
-        /*
-         Tobago.onSubmit();
-         //      LOG.debug("submit form with action: " + Tobago.action.value);
-         Tobago.form.submit();
-         Tobago.action.value = oldAction;
-         if (target) {
-         Tobago.form.target = oldTarget;
-         }
-         if (target || !transition) {
-         this.isSubmit = false;
-         Tobago.Transport.pageSubmited = false;
-         }
-         */
       }
     }, true);
   },
@@ -1821,22 +1807,22 @@ Tobago.ScriptLoader = function(names, doAfter) {
 Tobago.Transport = {
   requests: new Array(),
   currentActionId: null,
-  pageSubmited: false,
+  pageSubmitted: false,
   ajaxTransport: undefined,
 
-  hasTransport: function() {
+  initTransport: function() {
     if (this.ajaxTransport === undefined) {
       try {
         new XMLHttpRequest();
-        this.ajaxTransport = this.getAjaxTransport();
+        this.ajaxTransport = Tobago.Transport.JqueryTransport;
       } catch (e) {
         try {
           new ActiveXObject('Msxml2.XMLHTTP');
-          this.ajaxTransport = this.getAjaxTransport();
+          this.ajaxTransport = Tobago.Transport.JqueryTransport;
         } catch (e) {
           try {
             new ActiveXObject('Microsoft.XMLHTTP');
-            this.ajaxTransport = this.getAjaxTransport();
+            this.ajaxTransport = Tobago.Transport.JqueryTransport;
           } catch (e) {
             this.ajaxTransport = false;
           }
@@ -1849,10 +1835,10 @@ Tobago.Transport = {
   request: function(req, submitPage, actionId) {
     var index = 0;
     if (submitPage) {
-      this.pageSubmited = true;
+      this.pageSubmitted = true;
       index = this.requests.push(req);
       //LOG.debug('index = ' + index)
-    } else if (!this.pageSubmited) { // AJAX case
+    } else if (!this.pageSubmitted) { // AJAX case
       LOG.debug('Current ActionId = ' + this.currentActionId + ' action= ' + actionId); // @DEV_ONLY
       if (actionId && this.currentActionId == actionId) {
         LOG.debug('Ignoring request'); // @DEV_ONLY
@@ -1885,24 +1871,8 @@ Tobago.Transport = {
       this.startTime = new Date().getTime();
       this.requests[0]();
     }
-  },
-
-  getAjaxTransport: function() {
-    try {
-      if (jQuery && typeof jQuery.ajax == 'function') {
-        return Tobago.Transport.JqueryTransport;
-      }
-    } catch (e) {
-    }
-    try {
-      if (dojo && typeof dojo.xhrPost == 'function') {
-        return Tobago.Transport.DojoTransport;
-      }
-    } catch (e) {
-    }
   }
 };
-
 
 Tobago.Transport.JqueryTransport = {
 
@@ -1942,76 +1912,15 @@ Tobago.Transport.JqueryTransport = {
     };
 
     return Tobago.Transport.request(function() {
-      requestOptions.oldValue = Tobago.action.value;
+      requestOptions.originalAction = Tobago.action.value;
       requestObject.url = requestOptions.url;
       Tobago.action.value = requestOptions.actionId;
       Tobago.partialRequestIds.value = requestOptions.ajaxComponentIds;
       requestObject.data = jQuery(Tobago.form).serialize();
       requestOptions.xhr = jQuery.ajax(requestObject);
+      Tobago.action.value = requestOptions.originalAction;
     }, false, requestOptions.actionId);
   }
-};
-
-Tobago.Transport.DojoTransport = {
-
-  transportOptions: {
-
-    handleAs: 'json'
-
-  },
-
-  request: function(requestOptions) {
-
-    var requestObject = Tobago.extend({}, this.transportOptions);
-
-    requestObject.timeout = requestOptions.timeout;
-
-    requestObject.load = function(data, ioArgs) {
-      LOG.debug('requestObject.success()'); // @DEV_ONLY
-      requestOptions.resultData = data;
-      requestOptions.xhr = ioArgs.xhr;
-      try {
-        if (ioArgs.xhr.status === 200) {
-          requestOptions.textStatus = 'success';
-          Tobago.Updater.onSuccess(requestOptions);
-          return;
-        } else if (ioArgs.xhr.status === 304) {
-          requestOptions.textStatus = 'notmodified';
-          Tobago.Updater.onSuccess(requestOptions);
-          return;
-        }
-
-      } catch (e) {
-
-      }
-      Tobago.Updater.onError(requestOptions);
-    };
-
-
-    return Tobago.Transport.request(function() {
-      requestOptions.oldValue = Tobago.action.value;
-      requestObject.url = requestOptions.url;
-      requestObject.form = Tobago.form.id;
-      Tobago.action.value = requestOptions.actionId;
-      Tobago.partialRequestIds.value = requestOptions.ajaxComponentIds;
-      dojo.xhrPost(requestObject);
-    }, false, requestOptions.actionId);
-  },
-
-  error: function(data, ioArgs) {
-    LOG.error('Request failed : ' + ioArgs.xhr.status); // @DEV_ONLY
-    requestOptions.xhr = ioArgs.xhr;
-    if (ioArgs.xhr.status == 304) {
-      requestOptions.textStatus = 'notmodified';
-      Tobago.Updater.onSuccess(requestOptions);
-    } else {
-      requestOptions.textStatus = 'error';
-      Tobago.Updater.onError(requestOptions);
-    }
-    Tobago.Transport.requestComplete();
-    return data;
-  }
-
 };
 
 function tobago_showHidden() {
@@ -2084,8 +1993,7 @@ Tobago.Updater = {
 //    LOG.show();
     LOG.debug('Updater.update(\"' + actionId + '\", \"' + ajaxComponentIds + '\")'); // @DEV_ONLY
 
-    if (Tobago.Transport.hasTransport()) {
-//    LOG.info("hasTransport");
+    if (Tobago.Transport.initTransport()) {
 
       if (jQuery.isFunction(Tobago.applicationOnsubmit)) {
         var result = Tobago.applicationOnsubmit();
@@ -2273,6 +2181,14 @@ Tobago.Updater = {
       } else {
         Tobago.Updater.doUpdate(componentData);
       }
+    }
+
+    /* TOBAGO-1087: Wait Cursor after AJAX in IE with Websphere 6.1  */
+    if (jQuery.browser.msie) {
+      var body = jQuery("body");
+      var originalCursor = body.css("cursor");
+      body.css("cursor", "default");
+      body.css("cursor", originalCursor);
     }
   },
 

@@ -245,6 +245,7 @@
             <markup>selected</markup>
             <!-- for the cells -->
             <markup>clickable</markup>
+            <markup>filler</markup>
             <markup>first</markup>
             <markup>pure</markup>
             <!-- internal: for the paging fields -->
@@ -286,6 +287,13 @@
         <renderer>
           <name>Time</name>
           <supported-markup>
+            <markup>disabled</markup>
+            <markup>readonly</markup>
+            <markup>required</markup>
+            <markup>fatal</markup>
+            <markup>error</markup>
+            <markup>warn</markup>
+            <markup>info</markup>
             <!-- internal: for the seconds field -->
             <markup>seconds</markup>
           </supported-markup>

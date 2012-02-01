@@ -251,6 +251,7 @@
   font: bold 12px arial, helvetica, sans-serif;
   color: #000000;
   text-decoration: none;
+  line-height: 14px;
 }
 
 .tobago-link-markup-disabled {
@@ -489,8 +490,9 @@ hr.tobago-separator, .tobago-separator-start hr, .tobago-separator-end hr {
   font: bold 10px arial, helvetica, sans-serif;
   color: #333333;
   text-decoration: none;
-  padding: 0px;
+  padding: 0;
   padding-top: 1px;
+  height: 15px;
 }
 
 .tobago-sheet-pagingOuter-markup-left {
@@ -692,6 +694,19 @@ div.tobago-tabGroup-toolBar {
   width: 53px;
 }
 
+.tobago-time-borderDiv-markup-readonly {
+  background-color: #E8E8E8;
+}
+
+.tobago-time-borderDiv-markup-disabled {
+  color: #808080;
+  background-color: #E8E8E8;
+}
+
+.tobago-time-borderDiv-markup-error, .tobago-time-borderDiv-markup-fatal {
+  border: 1px solid #FF0000;
+}
+
 .tobago-time-borderDiv-markup-seconds {
   width: 81px;
 }
@@ -700,11 +715,9 @@ div.tobago-tabGroup-toolBar {
   font-size: 12px;
   height: 14px;
   width: 21px;
-  color: #000000;
 }
 
 .tobago-time-input-markup-selected {
-  border-color: #E8E8E8;
   background: #E8E8E8;
 }
 

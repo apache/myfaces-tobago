@@ -26,17 +26,17 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasFieldId;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabel;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabelWidth;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasOnchange;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasRequiredMessage;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTabIndex;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasValidator;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasValidatorMessage;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasValue;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasValueChangeListener;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsDeprecatedInline;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsFocus;
-import org.apache.myfaces.tobago.internal.taglib.declaration.IsDeprecatedInline;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsReadonly;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsRequired;
 
@@ -64,7 +64,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
 @ExtensionTag(baseClassName = "org.apache.myfaces.tobago.internal.taglib.TimeTag")
 public class TimeExtensionTag extends BodyTagSupport
     implements HasValue, HasValueChangeListener, HasValidator, HasIdBindingAndRendered,
-    HasConverter, IsReadonly, IsDisabled, HasOnchange, IsRequired, HasTip,
+    HasConverter, IsReadonly, IsDisabled, HasOnchange, HasMarkup, IsRequired,
     HasValidatorMessage, HasRequiredMessage, HasConverterMessage,
     HasLabel, HasLabelWidth, IsFocus, IsDeprecatedInline, HasTabIndex, HasFieldId {
 
@@ -82,6 +82,7 @@ public class TimeExtensionTag extends BodyTagSupport
   private String valueChangeListener;
   private String inline;
   private String onchange;
+  private String markup;
   private String labelWidth;
   private String tabIndex;
   private String validatorMessage;
@@ -111,6 +112,9 @@ public class TimeExtensionTag extends BodyTagSupport
     }
     if (labelWidth != null) {
       labelTag.setColumns(labelWidth + ";*");
+    }
+    if (markup != null) {
+      labelTag.setMarkup(markup);
     }
     labelTag.setParent(getParent());
     labelTag.doStartTag();
@@ -156,6 +160,9 @@ public class TimeExtensionTag extends BodyTagSupport
     if (required != null) {
       timeTag.setRequired(required);
     }
+    if (markup != null) {
+      timeTag.setMarkup(markup);
+    }
     if (tabIndex != null) {
       timeTag.setTabIndex(tabIndex);
     }
@@ -200,6 +207,7 @@ public class TimeExtensionTag extends BodyTagSupport
     value = null;
     onchange = null;
     valueChangeListener = null;
+    markup = null;
     tabIndex = null;
     timeTag = null;
     labelTag = null;
@@ -207,6 +215,10 @@ public class TimeExtensionTag extends BodyTagSupport
     converterMessage = null;
     requiredMessage = null;
     fieldId = null;
+  }
+
+  public void setMarkup(String markup) {
+    this.markup = markup;
   }
 
   public void setValue(String value) {
