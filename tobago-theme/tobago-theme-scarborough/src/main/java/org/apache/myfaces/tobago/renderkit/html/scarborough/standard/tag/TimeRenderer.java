@@ -104,9 +104,11 @@ public class TimeRenderer extends InputRendererBase {
 
     writer.startElement(HtmlElements.DIV, time);
     writer.writeAttribute(HtmlAttributes.ID, idPrefix + "borderDiv", false);
-    final Markup markup = hasSeconds ? Markup.valueOf("seconds") : null;
+    Markup markup = time.getCurrentMarkup();
+    if (hasSeconds) {
+      markup = markup.add(Markup.SECONDS);
+    }
     writer.writeClassAttribute(Classes.create(time, "borderDiv", markup));
-
 
     writeInput(writer, time, idPrefix + "hour", hour, true, title);
     writeInputSeparator(writer, time, ":");

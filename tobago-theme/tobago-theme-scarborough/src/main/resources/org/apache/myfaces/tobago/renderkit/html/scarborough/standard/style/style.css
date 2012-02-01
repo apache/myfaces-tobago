@@ -716,7 +716,6 @@ li.tobago-menu-markup-selected {
   border-color: #ff0000;
 }
 
-
 /* selectManyShuttle ----------------------------------------------------------- */
 
 .tobago-selectManyShuttle {
@@ -946,13 +945,20 @@ hr.tobago-separator {
 }
 
 .tobago-sheet-cell {
-  padding: 2px;
+  padding: 3px 2px;
   vertical-align: top;
   overflow: hidden;
+  line-height: 14px;
 }
+
 
 .tobago-sheet-cell-markup-clickable {
    cursor: pointer;
+}
+
+.tobago-sheet-cell-markup-filler {
+  padding-left: 0;
+  padding-right: 0;
 }
 
 .tobago-sheet-cell-markup-pure {
@@ -976,6 +982,7 @@ hr.tobago-separator {
   position: relative;
   left: 0;
   top: 0;
+  height: 20px;
   text-align: center;
   overflow: hidden;
 }
@@ -1290,7 +1297,7 @@ div.tobago-richTextEditor-body {
 
 .tobago-time-borderDiv {
   border: 2px inset #bbccdd;
-  background: white;
+  background-color: white;
   height: 21px;
   width: 58px;
   position: absolute;
@@ -1302,18 +1309,28 @@ div.tobago-richTextEditor-body {
   width: 87px;
 }
 
+.tobago-time-borderDiv-markup-readonly {
+  background: #bbccdd;
+}
+
+.tobago-time-borderDiv-markup-disabled {
+  color: #778899;
+  background: #bbccdd;
+}
+
 .tobago-time-input {
   font-family: arial, helvetica, sans-serif;
   font-size: 16px;
   height: 15px;
   width: 22px;
-  border: 1px solid white;
-  background: white;
+  border-width: 0;
+  padding: 2px 0;
+  background-color: transparent;
   text-align: center;
 }
 
 .tobago-time-input-markup-selected {
-  border: 1px solid yellow;
+  background-color: #fafad2;
 }
 
 .tobago-time-sep {
