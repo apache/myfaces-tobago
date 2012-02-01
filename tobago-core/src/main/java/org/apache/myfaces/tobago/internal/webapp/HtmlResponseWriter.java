@@ -21,11 +21,13 @@ import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.internal.util.HtmlWriterUtils;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
+import org.apache.myfaces.tobago.util.FacesVersion;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 import java.io.Writer;
+import java.util.Arrays;
 import java.util.Map;
 
 public class HtmlResponseWriter extends TobagoResponseWriterBase {
@@ -56,6 +58,16 @@ public class HtmlResponseWriter extends TobagoResponseWriterBase {
       throws IOException {
     closeOpenTag();
     helper.writeText(text, offset, length);
+  }
+
+  @Override
+  public void write(final char[] cbuf, final int off, final int len) throws IOException {
+    // XXX Related to http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-696
+    if (! FacesVersion.supports21() && Arrays.equals(cbuf, XML_VERSION_1_0_ENCODING_UTF_8_CHARS)) {
+      // drop
+    } else {
+      super.write(cbuf, off, len);
+    }
   }
 
   @Override

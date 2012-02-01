@@ -27,5 +27,12 @@ public enum Capability {
   /**
    * Does the user agent support "application/xhtml+xml" as content type?
    */
-  CONTENT_TYPE_XHTML
+  CONTENT_TYPE_XHTML,
+
+  /**
+   * In IE 8 and later, a compatibility mode can be activated in the user agent.
+   * For Tobago pages this should not be activated. So this property can be used to
+   * decide, if a warning should be rendered.
+   */
+  IE_COMPATIBILITY_MODE
 }

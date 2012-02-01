@@ -17,14 +17,14 @@ package org.apache.myfaces.tobago.internal.webapp;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.internal.util.Deprecation;
-import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.component.Attributes;
+import org.apache.myfaces.tobago.internal.util.Deprecation;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
+import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
 import java.io.IOException;
@@ -49,6 +49,16 @@ public abstract class TobagoResponseWriterBase extends TobagoResponseWriter {
       HtmlElements.BASE,
       HtmlElements.META));
 
+  /** @deprecated Since Tobago 1.5.3 */
+  @Deprecated
+  public static final String XML_VERSION_1_0_ENCODING_UTF_8 = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
+
+  /** @deprecated Since Tobago 1.5.3 */
+  @Deprecated
+  public static final int XML_VERSION_1_0_ENCODING_UTF_8_LENGTH = XML_VERSION_1_0_ENCODING_UTF_8.length();
+
+  protected static final char[] XML_VERSION_1_0_ENCODING_UTF_8_CHARS = XML_VERSION_1_0_ENCODING_UTF_8.toCharArray();
+
   private UIComponent component;
 
   private boolean startStillOpen;
@@ -68,8 +78,6 @@ public abstract class TobagoResponseWriterBase extends TobagoResponseWriter {
   protected final Writer getWriter() {
     return writer;
   }
-
-
 
   protected final UIComponent getComponent() {
     return component;

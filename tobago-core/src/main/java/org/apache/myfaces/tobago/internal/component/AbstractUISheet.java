@@ -91,6 +91,8 @@ public abstract class AbstractUISheet extends AbstractUIData
 
   private transient List<LayoutComponent> layoutComponents;
 
+  private transient Boolean needVerticalScrollbar;
+
   public LayoutComponentRenderer getLayoutComponentRenderer(FacesContext context) {
     return (LayoutComponentRenderer) getRenderer(context);
   }
@@ -575,5 +577,15 @@ public abstract class AbstractUISheet extends AbstractUIData
 
   public boolean isRendersRowContainer() {
     return true;
+  }
+
+  public abstract boolean isShowHeader();
+
+  public Boolean getNeedVerticalScrollbar() {
+    return needVerticalScrollbar;
+  }
+
+  public void setNeedVerticalScrollbar(Boolean needVerticalScrollbar) {
+    this.needVerticalScrollbar = needVerticalScrollbar;
   }
 }

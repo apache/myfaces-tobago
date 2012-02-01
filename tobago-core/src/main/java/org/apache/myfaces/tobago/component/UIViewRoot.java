@@ -68,6 +68,7 @@ public class UIViewRoot extends javax.faces.component.UIViewRoot implements Invo
     super.setLocale(locale);
     ClientProperties clientProperties = VariableResolverUtils.resolveClientProperties(getFacesContext());
     clientProperties.setLocale(locale);
+    clientProperties.updateUserAgent(getFacesContext());
   }
 
 /*

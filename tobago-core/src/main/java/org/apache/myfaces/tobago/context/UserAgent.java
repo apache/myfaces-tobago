@@ -52,6 +52,9 @@ public class UserAgent implements Serializable {
 
   public static final UserAgent MSIE_7_0 = new UserAgent("msie", "7_0");
 
+  public static final UserAgent MSIE_7_0_COMPAT
+      = new UserAgent("msie", "7_0", EnumSet.of(Capability.IE_COMPATIBILITY_MODE));
+
   /**
    * @deprecated no longer supported, since Tobago 1.5. Misspelled. Use {@link #MSIE_7_0}
    */
@@ -224,7 +227,11 @@ public class UserAgent implements Serializable {
       if (header.contains("MSIE 6.0")) {
         return MSIE_6_0;
       } else if (header.contains("MSIE 7.0")) {
-        return MSIE_7_0;
+        if (header.contains("Trident")) {
+          return MSIE_7_0_COMPAT;
+        } else {
+          return MSIE_7_0;
+        }
       } else if (header.contains("MSIE 8.0")) {
         return MSIE_8_0;
       } else if (header.contains("MSIE 9.0")) {
