@@ -16,9 +16,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 -->
+
 <!--
-    antiResourceLocking is needed  for proper redeploy under Windows.
+    This file is for Apache Tomcat.
+    The property "antiResourceLocking" is needed for proper redeploy under Windows.
 -->
 
-<Context antiResourceLocking="true">
+<Context antiResourceLocking="true" >
 </Context>
