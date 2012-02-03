@@ -24,7 +24,7 @@
   </parent>
   <artifactId>tobago-example-addressbook</artifactId>
   <packaging>war</packaging>
-  <name>Tobago Example Addressbook</name>
+  <name>Tobago Example Addressbook (Simple, but full functional application with persistence)</name>
 
   <build>
     <finalName>tobago-example-addressbook</finalName>
@@ -47,15 +47,16 @@
       </plugin>
       <plugin>
         <groupId>org.mortbay.jetty</groupId>
-        <artifactId>maven-jetty-plugin</artifactId>
+        <artifactId>jetty-maven-plugin</artifactId>
         <configuration>
-          <contextPath>/</contextPath>
-          <userRealms>
-            <userRealm implementation="org.mortbay.jetty.security.HashUserRealm">
+          <loginServices>
+            <loginService implementation="org.eclipse.jetty.security.HashLoginService">
               <name>addressbook-realm</name>
               <config>src/test/resources/realm.properties</config>
-            </userRealm>
-          </userRealms>
+            </loginService>
+          </loginServices>
+          <stopKey>stopKey</stopKey>
+          <stopPort>9999</stopPort>
         </configuration>
         <dependencies>
          <!-- <dependency>
@@ -111,31 +112,6 @@
       </plugin>
     </plugins>
   </build>
-
-  <profiles>
-    <profile>
-      <id>ssl</id>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.mortbay.jetty</groupId>
-            <artifactId>maven-jetty-plugin</artifactId>
-            <configuration>
-              <connectors>
-                <connector implementation="org.mortbay.jetty.security.SslSocketConnector">
-                  <port>1443</port>
-                  <maxIdleTime>30000</maxIdleTime>
-                  <keystore>src/test/keystore/jettykeystore</keystore>
-                  <password>xxxxxx</password>
-                  <keyPassword>xxxxxx</keyPassword>
-                </connector>
-              </connectors>
-            </configuration>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
-  </profiles>
 
   <dependencies>
     <dependency>

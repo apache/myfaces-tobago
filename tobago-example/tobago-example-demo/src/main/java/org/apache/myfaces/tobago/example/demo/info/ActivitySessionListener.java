@@ -17,17 +17,12 @@ package org.apache.myfaces.tobago.example.demo.info;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 
 public class ActivitySessionListener implements HttpSessionListener {
-
-  private static final Log LOG = LogFactory.getLog(ActivitySessionListener.class);
 
   private static final String SESSION_MAP = ActivitySessionListener.class.getName() + ".SESSION_MAP";
 
