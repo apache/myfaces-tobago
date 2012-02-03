@@ -23,6 +23,7 @@ import org.apache.myfaces.tobago.renderkit.InputRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
+import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -43,13 +44,13 @@ public class HiddenRenderer extends InputRendererBase {
 
     writer.startElement(HtmlElements.INPUT, component);
     if (component instanceof UIHidden && ((UIHidden) component).isDisabled()) {
-      writer.writeAttribute(HtmlAttributes.TYPE, "text", false);
+      writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.TEXT, false);
       Style style = new Style();
       style.setDisplay(Display.NONE);
       writer.writeStyleAttribute(style);
       writer.writeAttribute(HtmlAttributes.DISABLED, true);
     } else {
-      writer.writeAttribute(HtmlAttributes.TYPE, "hidden", false);
+      writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN, false);
     }
     writer.writeNameAttribute(clientId);
     writer.writeIdAttribute(clientId);

@@ -19,6 +19,7 @@ package org.apache.myfaces.tobago.renderkit;
 
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
+import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -75,7 +76,7 @@ public class TobagoResponseStateManager extends ResponseStateManager {
     if (treeStruct != null) {
       if (treeStruct instanceof String) {
         responseWriter.startElement(HtmlElements.INPUT, null);
-        responseWriter.writeAttribute(HtmlAttributes.TYPE, "hidden", null);
+        responseWriter.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN, null);
         responseWriter.writeAttribute(HtmlAttributes.NAME, TREE_PARAM, null);
         responseWriter.writeAttribute(HtmlAttributes.ID, TREE_PARAM, null);
         responseWriter.writeAttribute(HtmlAttributes.VALUE, treeStruct, null);
@@ -88,7 +89,7 @@ public class TobagoResponseStateManager extends ResponseStateManager {
     }
 
     responseWriter.startElement(HtmlElements.INPUT, null);
-    responseWriter.writeAttribute(HtmlAttributes.TYPE, "hidden", null);
+    responseWriter.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN, null);
     responseWriter.writeAttribute(HtmlAttributes.NAME, VIEW_STATE_PARAM, null);
     responseWriter.writeAttribute(HtmlAttributes.ID, VIEW_STATE_PARAM, null);
     if (compStates != null) {
@@ -106,7 +107,7 @@ public class TobagoResponseStateManager extends ResponseStateManager {
     responseWriter.endElement(HtmlElements.INPUT);
 
     responseWriter.startElement(HtmlElements.INPUT, null);
-    responseWriter.writeAttribute(HtmlAttributes.TYPE, "hidden", null);
+    responseWriter.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN, null);
     responseWriter.writeAttribute(HtmlAttributes.NAME, VIEWID_PARAM, null);
     responseWriter.writeAttribute(HtmlAttributes.ID, VIEWID_PARAM, null);
     responseWriter.writeAttribute(HtmlAttributes.VALUE, facesContext.getViewRoot().getViewId(), null);

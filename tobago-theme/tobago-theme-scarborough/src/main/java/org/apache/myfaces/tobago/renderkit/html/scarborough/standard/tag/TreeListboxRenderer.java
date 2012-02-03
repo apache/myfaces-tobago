@@ -28,6 +28,7 @@ import org.apache.myfaces.tobago.renderkit.css.Position;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
+import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -88,14 +89,14 @@ public class TreeListboxRenderer extends LayoutComponentRendererBase {
     writer.writeStyleAttribute(style);
 
     writer.startElement(HtmlElements.INPUT, tree);
-    writer.writeAttribute(HtmlAttributes.TYPE, "hidden", false);
+    writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN, false);
     writer.writeNameAttribute(clientId);
     writer.writeIdAttribute(clientId);
     writer.writeAttribute(HtmlAttributes.VALUE, ";", false);
     writer.endElement(HtmlElements.INPUT);
 
     writer.startElement(HtmlElements.INPUT, tree);
-    writer.writeAttribute(HtmlAttributes.TYPE, "hidden", false);
+    writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN, false);
     writer.writeNameAttribute(clientId + ComponentUtils.SUB_SEPARATOR + AbstractUITree.MARKED);
     writer.writeIdAttribute(clientId + ComponentUtils.SUB_SEPARATOR + AbstractUITree.MARKED);
     writer.writeAttribute(HtmlAttributes.VALUE, "", false);
@@ -103,7 +104,7 @@ public class TreeListboxRenderer extends LayoutComponentRendererBase {
 
     if (tree.getSelectableAsEnum().isSupportedByTreeListbox()) {
       writer.startElement(HtmlElements.INPUT, tree);
-      writer.writeAttribute(HtmlAttributes.TYPE, "hidden", false);
+      writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN, false);
       writer.writeNameAttribute(clientId + AbstractUITree.SELECT_STATE);
       writer.writeIdAttribute(clientId + AbstractUITree.SELECT_STATE);
       writer.writeAttribute(HtmlAttributes.VALUE, ";", false);

@@ -148,13 +148,13 @@ public class TimeRenderer extends InputRendererBase {
     writer.endElement(HtmlElements.IMG);
 
     writer.startElement(HtmlElements.INPUT, time);
-    writer.writeAttribute(HtmlAttributes.TYPE, "hidden", false);
+    writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN, false);
     writer.writeIdAttribute(id + ":converterPattern");
     writer.writeAttribute(HtmlAttributes.VALUE, converterPattern, true);
     writer.endElement(HtmlElements.INPUT);
 
     writer.startElement(HtmlElements.INPUT, time);
-    writer.writeAttribute(HtmlAttributes.TYPE, "hidden", false);
+    writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN, false);
     writer.writeIdAttribute(id);
     writer.writeNameAttribute(id);
     writer.writeAttribute(HtmlAttributes.VALUE, hour + ":" + minute + ":" + second, false);

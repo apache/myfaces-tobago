@@ -31,6 +31,7 @@ import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
+import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -116,7 +117,7 @@ public class RichTextEditorRenderer extends InputRendererBase {
 
     if (previewState) {
       writer.startElement(HtmlElements.INPUT, input);
-      writer.writeAttribute(HtmlAttributes.TYPE, "hidden", false);
+      writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN, false);
       writer.writeNameAttribute(clientId);
       writer.writeAttribute(HtmlAttributes.VALUE, content, true);
       writer.endElement(HtmlElements.INPUT);

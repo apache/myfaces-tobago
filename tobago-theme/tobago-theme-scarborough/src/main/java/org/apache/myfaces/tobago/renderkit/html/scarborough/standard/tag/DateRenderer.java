@@ -17,13 +17,14 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.internal.util.DateFormatUtils;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
+import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
+import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -51,7 +52,7 @@ public class DateRenderer extends InRenderer {
         TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
         String id = component.getClientId(facesContext);
         writer.startElement(HtmlElements.INPUT, component);
-        writer.writeAttribute(HtmlAttributes.TYPE, "hidden", false);
+        writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN, false);
         writer.writeIdAttribute(id + ":converterPattern");
         writer.writeAttribute(HtmlAttributes.VALUE, pattern, false);
         writer.endElement(HtmlElements.INPUT);
