@@ -226,7 +226,7 @@ public abstract class AbstractUITreeNode
     final DefaultMutableTreeNode node = getRowData();
     List<Boolean> junctions = new Stack<Boolean>();
     for (TreeNode ancestor : node.getPath()) {
-      junctions.add(((DefaultMutableTreeNode)ancestor).getNextSibling() != null);
+      junctions.add(((DefaultMutableTreeNode) ancestor).getNextSibling() != null);
     }
     return junctions;
   }

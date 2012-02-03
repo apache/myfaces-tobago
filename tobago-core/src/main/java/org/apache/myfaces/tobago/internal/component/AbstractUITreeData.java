@@ -46,7 +46,7 @@ public abstract class AbstractUITreeData extends javax.faces.component.UIInput
       if (ve != null) {
         parent.setValueExpression("var", ve);
       } else {
-        ((AbstractUITree)parent).setVar(getVar());
+        ((AbstractUITree) parent).setVar(getVar());
       }
     }
 
@@ -55,7 +55,7 @@ public abstract class AbstractUITreeData extends javax.faces.component.UIInput
       if (ve != null) {
         parent.setValueExpression("value", ve);
       } else {
-        ((AbstractUITree)parent).setValue(getValue());
+        ((AbstractUITree) parent).setValue(getValue());
       }
     }
   }
