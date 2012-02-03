@@ -17,8 +17,8 @@ package org.apache.myfaces.tobago.example.demo.info;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -28,7 +28,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class ActivityList {
 
-  private static final Log LOG = LogFactory.getLog(ActivityList.class);
+  private static final Logger LOG = LoggerFactory.getLogger(ActivityList.class);
 
   public static final String NAME = "activities";
 
