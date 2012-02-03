@@ -103,7 +103,6 @@
         <module>tobago-example-test</module>
         <module>tobago-example-assembly</module>
         <module>tobago-theme-example</module>
-        <module>tobago-example-seam</module>
       </modules>
     </profile>
     <profile>
