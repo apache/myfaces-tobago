@@ -412,21 +412,21 @@ public class PageRenderer extends PageRendererBase {
     // TODO evaluate 'accept' attribute usage
     //writer.writeAttribute(HtmlAttributes.ACCEPT, );
     writer.startElement(HtmlElements.INPUT, null);
-    writer.writeAttribute(HtmlAttributes.TYPE, "hidden", false);
+    writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN, false);
     writer.writeNameAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "form-action");
     writer.writeIdAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "form-action");
     writer.writeAttribute(HtmlAttributes.VALUE, defaultActionId, true);
     writer.endElement(HtmlElements.INPUT);
 
     writer.startElement(HtmlElements.INPUT, null);
-    writer.writeAttribute(HtmlAttributes.TYPE, "hidden", false);
+    writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN, false);
     writer.writeNameAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "context-path");
     writer.writeIdAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "context-path");
     writer.writeAttribute(HtmlAttributes.VALUE, facesContext.getExternalContext().getRequestContextPath(), true);
     writer.endElement(HtmlElements.INPUT);
 
     writer.startElement(HtmlElements.INPUT, null);
-    writer.writeAttribute(HtmlAttributes.TYPE, "hidden", false);
+    writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN, false);
     writer.writeNameAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "action-position");
     writer.writeIdAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "action-position");
     writer.endElement(HtmlElements.INPUT);
@@ -439,7 +439,7 @@ public class PageRenderer extends PageRendererBase {
       writer.endElement(HtmlElements.DIV);
 
       writer.startElement(HtmlElements.INPUT, null);
-      writer.writeAttribute(HtmlAttributes.TYPE, "hidden", false);
+      writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN, false);
       writer.writeNameAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "scrollbarWeight");
       writer.writeIdAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "scrollbarWeight");
       writer.endElement(HtmlElements.INPUT);
@@ -454,7 +454,7 @@ public class PageRenderer extends PageRendererBase {
       writer.writeAttribute(HtmlAttributes.VALUE, clientLogSeverity);
       writer.writeAttribute(HtmlAttributes.ID, clientId + ComponentUtils.SUB_SEPARATOR + "clientSeverity", false);
       writer.writeAttribute(HtmlAttributes.NAME, clientId + ComponentUtils.SUB_SEPARATOR + "clientSeverity", false);
-      writer.writeAttribute(HtmlAttributes.TYPE, "hidden", false);
+      writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN, false);
       writer.endElement(HtmlElements.INPUT);
     }
 
@@ -569,7 +569,7 @@ public class PageRenderer extends PageRendererBase {
       writer.writeAttribute(HtmlAttributes.VALUE, StringUtils.join(messageClientIds, ','), true);
       writer.writeAttribute(HtmlAttributes.ID, clientId + ComponentUtils.SUB_SEPARATOR + "messagesClientIds", false);
       writer.writeAttribute(HtmlAttributes.NAME, clientId + ComponentUtils.SUB_SEPARATOR + "messagesClientIds", false);
-      writer.writeAttribute(HtmlAttributes.TYPE, "hidden", false);
+      writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN, false);
       writer.endElement(HtmlElements.INPUT);
     }
 
@@ -603,7 +603,7 @@ public class PageRenderer extends PageRendererBase {
             LOG.debug("Writing state will not happen! So we write the hidden field manually.");
           }
           writer.startElement(HtmlElements.INPUT, null);
-          writer.writeAttribute(HtmlAttributes.TYPE, "hidden", false);
+          writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN, false);
           writer.writeAttribute(HtmlAttributes.NAME, TobagoResponseStateManager.VIEW_STATE_PARAM, false);
           writer.writeAttribute(HtmlAttributes.ID, TobagoResponseStateManager.VIEW_STATE_PARAM, false);
           writer.writeAttribute(HtmlAttributes.VALUE, "workaround", false);

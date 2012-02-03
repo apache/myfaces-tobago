@@ -422,7 +422,7 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
       writer.startElement(HtmlElements.SPAN, command);
       writer.writeClassAttribute(Classes.create(toolBar, "menu"));
       writer.writeStyleAttribute(menuStyle);
-      writer.writeAttribute(HtmlAttributes.TYPE, "button", false);
+      writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.BUTTON, false);
       writer.writeAttribute(HtmlAttributes.ONCLICK, menuClick, true);
     }
 

@@ -41,6 +41,7 @@ import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
+import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.util.CreateComponentUtils;
@@ -119,7 +120,7 @@ public class MessagesRenderer extends LayoutComponentRendererBase {
             clientId + ComponentUtils.SUB_SEPARATOR + "messagesExists", false);
         writer.writeAttribute(HtmlAttributes.NAME,
             clientId + ComponentUtils.SUB_SEPARATOR + "messagesExists", false);
-        writer.writeAttribute(HtmlAttributes.TYPE, "hidden", false);
+        writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN, false);
         writer.endElement(HtmlElements.INPUT);
       }
     }

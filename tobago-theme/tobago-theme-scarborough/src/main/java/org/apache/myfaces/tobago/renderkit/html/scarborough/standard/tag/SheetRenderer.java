@@ -51,6 +51,7 @@ import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
+import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -184,14 +185,14 @@ public class SheetRenderer extends LayoutComponentRendererBase {
     writer.startElement(HtmlElements.INPUT, null);
     writer.writeIdAttribute(sheetId + WIDTHS_POSTFIX);
     writer.writeNameAttribute(sheetId + WIDTHS_POSTFIX);
-    writer.writeAttribute(HtmlAttributes.TYPE, "hidden", false);
+    writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN, false);
     writer.writeAttribute(HtmlAttributes.VALUE, StringUtils.joinWithSurroundingSeparator(columnWidths), false);
     writer.endElement(HtmlElements.INPUT);
 
     writer.startElement(HtmlElements.INPUT, null);
     writer.writeIdAttribute(sheetId + SCROLL_POSTFIX);
     writer.writeNameAttribute(sheetId + SCROLL_POSTFIX);
-    writer.writeAttribute(HtmlAttributes.TYPE, "hidden", false);
+    writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN, false);
     Integer[] scrollPosition = sheet.getScrollPosition();
     if (scrollPosition != null) {
       String scroll = scrollPosition[0] + ";" + scrollPosition[1];
@@ -205,7 +206,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
       writer.startElement(HtmlElements.INPUT, null);
       writer.writeIdAttribute(sheetId + SELECTED_POSTFIX);
       writer.writeNameAttribute(sheetId + SELECTED_POSTFIX);
-      writer.writeAttribute(HtmlAttributes.TYPE, "hidden", false);
+      writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN, false);
       writer.writeAttribute(
           HtmlAttributes.VALUE, StringUtils.joinWithSurroundingSeparator(selectedRows), true);
       writer.endElement(HtmlElements.INPUT);
@@ -348,7 +349,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
         if (column instanceof UIColumnSelector) {
           final boolean disabled = ComponentUtils.getBooleanAttribute(column, Attributes.DISABLED);
           writer.startElement(HtmlElements.INPUT, null);
-          writer.writeAttribute(HtmlAttributes.TYPE, "checkbox", false);
+          writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.CHECKBOX, false);
           writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
           writer.writeIdAttribute(sheetId + "_data_row_selector_" + rowIndex);
           writer.writeClassAttribute(Classes.create(sheet, "columnSelector"));

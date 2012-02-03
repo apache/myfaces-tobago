@@ -20,6 +20,7 @@ package org.apache.myfaces.tobago.webapp;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
+import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
 
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
@@ -86,7 +87,7 @@ public class Secret implements Serializable {
    */
   public static void encode(FacesContext facesContext, TobagoResponseWriter writer) throws IOException {
     writer.startElement(HtmlElements.INPUT, null);
-    writer.writeAttribute(HtmlAttributes.TYPE, "hidden", false);
+    writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN, false);
     writer.writeAttribute(HtmlAttributes.NAME, Secret.KEY, false);
     writer.writeAttribute(HtmlAttributes.ID, Secret.KEY, false);
     Map sessionMap = facesContext.getExternalContext().getSessionMap();

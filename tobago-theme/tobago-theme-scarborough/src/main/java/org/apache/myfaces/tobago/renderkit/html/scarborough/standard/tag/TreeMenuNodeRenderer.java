@@ -33,6 +33,7 @@ import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
+import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.util.VariableResolverUtils;
@@ -174,7 +175,7 @@ public class TreeMenuNodeRenderer extends LayoutComponentRendererBase {
   private void encodeExpandedHidden(
       TobagoResponseWriter writer, UITreeNode node, String clientId, boolean expanded) throws IOException {
     writer.startElement(HtmlElements.INPUT, node);
-    writer.writeAttribute(HtmlAttributes.TYPE, "hidden", false);
+    writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN, false);
     writer.writeClassAttribute(Classes.create(node, "expanded", Markup.NULL));
     writer.writeNameAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "expanded");
     writer.writeAttribute(HtmlAttributes.VALUE, Boolean.toString(expanded), false);
