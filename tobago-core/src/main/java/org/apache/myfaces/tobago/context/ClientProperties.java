@@ -212,7 +212,7 @@ public class ClientProperties implements Serializable {
    */
   public void setLocale(Locale locale) {
     // set locale will be called "too often" from the JSF
-    if (! ObjectUtils.equals(this.locale, locale)) {
+    if (!ObjectUtils.equals(this.locale, locale)) {
       this.locale = locale;
       reset();
     }
