@@ -27,12 +27,6 @@
   <name>Tobago Example Non-Faces-Request</name>
   <build>
     <finalName>tobago-example-nonfacesrequest</finalName>
-    <plugins>
-      <plugin>
-        <groupId>org.mortbay.jetty</groupId>
-        <artifactId>maven-jetty-plugin</artifactId>
-      </plugin>
-    </plugins>
   </build>
   
   <dependencies>

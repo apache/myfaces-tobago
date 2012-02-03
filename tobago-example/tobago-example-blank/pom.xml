@@ -24,17 +24,11 @@
   </parent>
   <artifactId>tobago-example-blank</artifactId>
   <packaging>war</packaging>
-  <name>Tobago Example Blank</name>
+  <name>Tobago Example Blank (A minimal Tobago application)</name>
   <build>
     <finalName>tobago-example-blank</finalName>
-    <plugins>
-      <plugin>
-        <groupId>org.mortbay.jetty</groupId>
-        <artifactId>maven-jetty-plugin</artifactId>
-      </plugin>
-    </plugins>
   </build>
-  
+
   <dependencies>
     <dependency>
       <groupId>org.apache.myfaces.tobago</groupId>

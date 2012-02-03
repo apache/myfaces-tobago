@@ -55,10 +55,6 @@
         </configuration>
       </plugin>
       <plugin>
-        <groupId>org.mortbay.jetty</groupId>
-        <artifactId>maven-jetty-plugin</artifactId>
-      </plugin>
-      <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>xml-maven-plugin</artifactId>
         <version>1.0-beta-3</version>
@@ -174,8 +170,8 @@
     </dependency>
     <dependency>
       <groupId>org.apache.myfaces.tomahawk</groupId>
-      <artifactId>tomahawk</artifactId>
-      <version>1.1.9</version>
+      <artifactId>tomahawk12</artifactId>
+      <version>1.1.11</version>
     </dependency>
     <dependency>
       <groupId>log4j</groupId>
@@ -284,15 +280,14 @@
           -->
           <plugin>
             <groupId>org.mortbay.jetty</groupId>
-            <artifactId>maven-jetty-plugin</artifactId>
+            <artifactId>jetty-maven-plugin</artifactId>
             <configuration>
               <connectors>
-                <connector implementation="org.mortbay.jetty.nio.SelectChannelConnector">
+                <connector implementation="org.eclipse.jetty.server.nio.SelectChannelConnector">
                   <port>8080</port>
                 </connector>
               </connectors>
-              <!-- XXX what is a good name for stopKey? -->
-              <stopKey>foo</stopKey>
+              <stopKey>stopKey</stopKey>
               <stopPort>9999</stopPort>
             </configuration>
             <executions>
@@ -315,7 +310,6 @@
               </execution>
             </executions>
           </plugin>
-
 
           <plugin>
             <groupId>org.codehaus.mojo</groupId>
@@ -343,28 +337,6 @@
                 </goals>
               </execution>
             </executions>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
-    <profile>
-      <id>ssl</id>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.mortbay.jetty</groupId>
-            <artifactId>maven-jetty-plugin</artifactId>
-            <configuration>
-              <connectors>
-                <connector implementation="org.mortbay.jetty.security.SslSocketConnector">
-                  <port>1443</port>
-                  <maxIdleTime>30000</maxIdleTime>
-                  <keystore>src/test/keystore/jettykeystore</keystore>
-                  <password>xxxxxx</password>
-                  <keyPassword>xxxxxx</keyPassword>
-                </connector>
-              </connectors>
-            </configuration>
           </plugin>
         </plugins>
       </build>
