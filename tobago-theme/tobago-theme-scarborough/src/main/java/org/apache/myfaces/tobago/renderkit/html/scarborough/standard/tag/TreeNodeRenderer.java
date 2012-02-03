@@ -17,7 +17,6 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * limitations under the License.
  */
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.myfaces.tobago.component.UITree;
 import org.apache.myfaces.tobago.component.UITreeNode;
 import org.apache.myfaces.tobago.context.Markup;
@@ -28,7 +27,6 @@ import org.apache.myfaces.tobago.internal.component.AbstractUIData;
 import org.apache.myfaces.tobago.internal.component.AbstractUITree;
 import org.apache.myfaces.tobago.layout.Display;
 import org.apache.myfaces.tobago.layout.LayoutBase;
-import org.apache.myfaces.tobago.model.TreeSelectable;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
@@ -42,9 +40,7 @@ import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
-import javax.faces.component.UIData;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.util.Map;
@@ -71,39 +67,28 @@ public class TreeNodeRenderer extends LayoutComponentRendererBase {
       return;
     }
 
-    final UIData data = ComponentUtils.findAncestor(node, UIData.class);
-    final String treeIdWithRow = data.getClientId(facesContext);
+    final AbstractUIData data = ComponentUtils.findAncestor(node, AbstractUIData.class);
     // we need the client id without the iterated row index here
-    final String treeId = treeIdWithRow.substring(0, treeIdWithRow.lastIndexOf(NamingContainer.SEPARATOR_CHAR));
-    final String nodeStateId = node.nodeStateId(facesContext);
+    final String treeId = data.getTreeClientId(facesContext);
+    final int rowIndex = data.getRowIndex();
     final Map<String, String> requestParameterMap = facesContext.getExternalContext().getRequestParameterMap();
     final String id = node.getClientId(facesContext);
     final boolean folder = node.isFolder();
 
     // expand state
     if (folder) {
-      boolean expanded = Boolean.parseBoolean(requestParameterMap.get(id + ComponentUtils.SUB_SEPARATOR + "expanded"));
+      boolean expanded = Boolean.parseBoolean(
+          requestParameterMap.get(id + ComponentUtils.SUB_SEPARATOR + AbstractUITree.SUFFIX_EXPANDED));
       if (node.isExpanded() != expanded) {
         new TreeExpansionEvent(node, node.isExpanded(), expanded).queue();
       }
     }
 
-    // select
-    String searchString;
-    // todo: UISheet
-    if (data instanceof UITree && ((UITree)data).getSelectableAsEnum() != TreeSelectable.OFF) { // selection
-      String selected = (String) requestParameterMap.get(treeId + AbstractUITree.SELECT_STATE);
-      searchString = ";" + nodeStateId + ";";
-      if (StringUtils.contains(selected, searchString)) {
-        // TODO: add selection to Component
-        //state.addSelection((DefaultMutableTreeNode) node.getValue());
-      }
-    }
-
     // marked
-    String marked = (String) requestParameterMap.get(treeId + ComponentUtils.SUB_SEPARATOR + AbstractUITree.MARKED);
+    String marked
+        = (String) requestParameterMap.get(treeId + ComponentUtils.SUB_SEPARATOR + AbstractUITree.SUFFIX_MARKED);
     if (marked != null) {
-      boolean markedValue = marked.equals(id);
+      boolean markedValue = marked.equals("" + rowIndex);
       if (node.isMarked() != markedValue) {
         new TreeMarkedEvent(node, node.isMarked(), markedValue).queue();
       }
@@ -192,8 +177,8 @@ public class TreeNodeRenderer extends LayoutComponentRendererBase {
       TobagoResponseWriter writer, UITreeNode node, String clientId, boolean expanded) throws IOException {
     writer.startElement(HtmlElements.INPUT, node);
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN, false);
-    writer.writeClassAttribute(Classes.create(node, "expanded", Markup.NULL));
-    writer.writeNameAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "expanded");
+    writer.writeClassAttribute(Classes.create(node, AbstractUITree.SUFFIX_EXPANDED, Markup.NULL));
+    writer.writeNameAttribute(clientId + ComponentUtils.SUB_SEPARATOR + AbstractUITree.SUFFIX_EXPANDED);
     writer.writeAttribute(HtmlAttributes.VALUE, Boolean.toString(expanded), false);
     writer.endElement(HtmlElements.INPUT);
   }

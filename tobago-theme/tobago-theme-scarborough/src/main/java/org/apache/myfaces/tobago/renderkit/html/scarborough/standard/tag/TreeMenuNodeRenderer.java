@@ -41,9 +41,7 @@ import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
-import javax.faces.component.UIData;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.util.Map;
@@ -63,26 +61,28 @@ public class TreeMenuNodeRenderer extends LayoutComponentRendererBase {
       return;
     }
 
-    final UIData data = ComponentUtils.findAncestor(node, UIData.class);
-    final String treeId = data.getClientId(facesContext);
-    final String nodeStateId = node.nodeStateId(facesContext);
+    final AbstractUIData data = ComponentUtils.findAncestor(node, AbstractUIData.class);
+    // we need the client id without the iterated row index here
+    final String treeId = data.getTreeClientId(facesContext);
+    final int rowIndex = data.getRowIndex();
     final Map<String, String> requestParameterMap = facesContext.getExternalContext().getRequestParameterMap();
     final String id = node.getClientId(facesContext);
     final boolean folder = node.isFolder();
 
     // expand state
 //    if (folder) { XXX this value seems to be not restored...
-    boolean expanded = Boolean.parseBoolean(requestParameterMap.get(id + ComponentUtils.SUB_SEPARATOR + "expanded"));
+    boolean expanded = Boolean.parseBoolean(
+        requestParameterMap.get(id + ComponentUtils.SUB_SEPARATOR + AbstractUITree.SUFFIX_EXPANDED));
     if (node.isExpanded() != expanded) {
       new TreeExpansionEvent(node, node.isExpanded(), expanded).queue();
     }
 //    }
 
     // marked
-    String marked = (String) requestParameterMap.get(treeId + ComponentUtils.SUB_SEPARATOR + AbstractUITree.MARKED);
+    String marked
+        = (String) requestParameterMap.get(treeId + ComponentUtils.SUB_SEPARATOR + AbstractUITree.SUFFIX_MARKED);
     if (marked != null) {
-      String searchString = treeId + NamingContainer.SEPARATOR_CHAR + nodeStateId;
-      boolean markedValue = marked.equals(searchString);
+      boolean markedValue = marked.equals("" + rowIndex);
       if (node.isMarked() != markedValue) {
         new TreeMarkedEvent(node, node.isMarked(), markedValue).queue();
       }
@@ -176,8 +176,8 @@ public class TreeMenuNodeRenderer extends LayoutComponentRendererBase {
       TobagoResponseWriter writer, UITreeNode node, String clientId, boolean expanded) throws IOException {
     writer.startElement(HtmlElements.INPUT, node);
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN, false);
-    writer.writeClassAttribute(Classes.create(node, "expanded", Markup.NULL));
-    writer.writeNameAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "expanded");
+    writer.writeClassAttribute(Classes.create(node, AbstractUITree.SUFFIX_EXPANDED, Markup.NULL));
+    writer.writeNameAttribute(clientId + ComponentUtils.SUB_SEPARATOR + AbstractUITree.SUFFIX_EXPANDED);
     writer.writeAttribute(HtmlAttributes.VALUE, Boolean.toString(expanded), false);
     writer.endElement(HtmlElements.INPUT);
   }

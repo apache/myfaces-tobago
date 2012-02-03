@@ -39,10 +39,20 @@ public abstract class AbstractUITree extends AbstractUIData
 
   public static final String MESSAGE_NOT_LEAF = "tobago.tree.MESSAGE_NOT_LEAF";
 
+  /** deprecated since Tobago 1.5.? */
+  @Deprecated
   public static final String SEP = "-";
 
+  /** deprecated since Tobago 1.5.? */
+  @Deprecated
   public static final String SELECT_STATE = SEP + "selectState";
+
+  /** deprecated since Tobago 1.5.?  */
+  @Deprecated
   public static final String MARKED = "marked";
+
+  public static final String SUFFIX_MARKED = "marked";
+  public static final String SUFFIX_EXPANDED = "expanded";
 
   @Override
   public void processValidators(FacesContext facesContext) {

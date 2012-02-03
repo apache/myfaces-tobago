@@ -84,32 +84,17 @@ public class TreeRenderer extends LayoutComponentRendererBase {
     writer.writeClassAttribute(Classes.create(tree));
     Style style = new Style(facesContext, tree);
     writer.writeStyleAttribute(style);
-
-    writer.startElement(HtmlElements.INPUT, tree);
-    writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN, false);
-    writer.writeNameAttribute(clientId);
     writer.writeIdAttribute(clientId);
-    writer.writeAttribute(HtmlAttributes.VALUE, ";", false);
-    writer.endElement(HtmlElements.INPUT);
 
     writer.startElement(HtmlElements.INPUT, tree);
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN, false);
-    writer.writeNameAttribute(clientId + ComponentUtils.SUB_SEPARATOR + AbstractUITree.MARKED);
-    writer.writeIdAttribute(clientId + ComponentUtils.SUB_SEPARATOR + AbstractUITree.MARKED);
-    writer.writeClassAttribute(Classes.create(tree, "marked"));
+    final String markedId = clientId + ComponentUtils.SUB_SEPARATOR + AbstractUITree.SUFFIX_MARKED;
+    writer.writeNameAttribute(markedId);
+    writer.writeIdAttribute(markedId);
+    writer.writeClassAttribute(Classes.create(tree, AbstractUITree.SUFFIX_MARKED));
     writer.writeAttribute(HtmlAttributes.VALUE, "", false);
     writer.endElement(HtmlElements.INPUT);
 
-/*
-    if (tree.getSelectableAsEnum().isSupportedByTree()) {
-      writer.startElement(HtmlElements.INPUT, tree);
-      writer.writeAttribute(HtmlAttributes.TYPE, "hidden", false);
-      writer.writeNameAttribute(clientId + AbstractUITree.SELECT_STATE);
-      writer.writeIdAttribute(clientId + AbstractUITree.SELECT_STATE);
-      writer.writeAttribute(HtmlAttributes.VALUE, ";", false);
-      writer.endElement(HtmlElements.INPUT);
-    }
-*/
     final int last = tree.hasRows() ? tree.getFirst() + tree.getRows() : Integer.MAX_VALUE;
     for (int rowIndex = tree.getFirst(); rowIndex < last; rowIndex++) {
       tree.setRowIndex(rowIndex);

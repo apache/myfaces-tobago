@@ -162,7 +162,7 @@ Tobago.Tree.init = function(elements) {
     var node = command.parent(".tobago-treeNode");
     var tree = node.closest(".tobago-tree");
     var marked = tree.children(".tobago-tree-marked");
-    marked.attr("value", node.attr("id"));
+    marked.attr("value", Tobago.Tree.rowIndex(node));
     tree.find(".tobago-treeNode").removeClass("tobago-treeNode-markup-marked");
     node.addClass("tobago-treeNode-markup-marked");
   });
@@ -173,9 +173,13 @@ Tobago.Tree.init = function(elements) {
     var node = command.parent(".tobago-treeMenuNode");
     var tree = node.closest(".tobago-treeMenu");
     var marked = tree.children(".tobago-treeMenu-marked");
-    marked.attr("value", node.attr("id"));
+    marked.attr("value", Tobago.Tree.rowIndex(node));
     tree.find(".tobago-treeMenuNode").removeClass("tobago-treeMenuNode-markup-marked");
     node.addClass("tobago-treeMenuNode-markup-marked");
   });
 
+};
+
+Tobago.Tree.rowIndex = function (node) {
+  return node.attr("id").replace(/.+\:(\d+)(\:\w+)+/, '$1');
 };

@@ -18,11 +18,17 @@ package org.apache.myfaces.tobago.internal.component;
  */
 
 import org.apache.myfaces.tobago.model.TreeDataModel;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import javax.faces.component.NamingContainer;
+import javax.faces.context.FacesContext;
 import javax.faces.model.DataModel;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 public class AbstractUIData extends javax.faces.component.UIData {
+
+  private static final Logger LOG = LoggerFactory.getLogger(AbstractUIData.class);
 
   /**
    * Only for tree model.
@@ -70,6 +76,23 @@ public class AbstractUIData extends javax.faces.component.UIData {
 
   public String getRowParentClientId() {
     return dataModel != null ? dataModel.getRowParentClientId() : null;
+  }
+
+  /**
+   * Returns every time the real client id of the tree without the row id.
+   */
+  public String getTreeClientId(FacesContext facesContext) {
+    final String clientId = getClientId(facesContext);
+    final int rowIndex = getRowIndex();
+    if (rowIndex == -1) {
+      return clientId;
+    } else {
+      final String suffix = "" + NamingContainer.SEPARATOR_CHAR + rowIndex;
+      if (!clientId.endsWith(suffix)) {
+        LOG.error("The clientId has unknown format: '" + clientId + "'. It not ends with: '" + suffix + "'.");
+      }
+      return clientId.substring(0, clientId.length() - suffix.length());
+    }
   }
 
   /**
