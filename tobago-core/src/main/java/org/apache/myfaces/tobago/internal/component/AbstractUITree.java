@@ -39,15 +39,15 @@ public abstract class AbstractUITree extends AbstractUIData
 
   public static final String MESSAGE_NOT_LEAF = "tobago.tree.MESSAGE_NOT_LEAF";
 
-  /** deprecated since Tobago 1.5.? */
+  /** deprecated since XXX 1.6.0 ??? */
   @Deprecated
   public static final String SEP = "-";
 
-  /** deprecated since Tobago 1.5.? */
+  /** deprecated since XXX 1.6.0 ??? */
   @Deprecated
   public static final String SELECT_STATE = SEP + "selectState";
 
-  /** deprecated since Tobago 1.5.?  */
+  /** deprecated since XXX 1.6.0 ???  */
   @Deprecated
   public static final String MARKED = "marked";
 
