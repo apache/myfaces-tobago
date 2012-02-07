@@ -164,13 +164,13 @@ public abstract class AbstractUITreeNode
       if (FacesUtils.hasValueBindingOrValueExpression(this, Attributes.MARKED)) {
         try {
           FacesUtils.setValueOfBindingOrExpression(getFacesContext(), marked, this, Attributes.MARKED);
+          // after processing this, we remove the value, so we'll got the value from the model while rendering
+          ComponentUtils.findAncestor(this, AbstractUIData.class).setSubmittedMarked(null);
         } catch (Exception e) {
           if (LOG.isDebugEnabled()) {
             LOG.debug("Can't set marked.", e);
           }
         }
-      } else {
-        setMarked(marked);
       }
     }
   }

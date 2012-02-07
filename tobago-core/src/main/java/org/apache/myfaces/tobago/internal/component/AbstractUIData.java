@@ -40,6 +40,9 @@ public class AbstractUIData extends javax.faces.component.UIData {
    */
   private TreeDataModel dataModel;
 
+  // is transient
+  private Integer submittedMarked;
+
   @Override
   protected DataModel getDataModel() {
     if (!initialized) {
@@ -103,5 +106,13 @@ public class AbstractUIData extends javax.faces.component.UIData {
    */
   public boolean isRendersRowContainer() {
     return false;
+  }
+
+  public Integer getSubmittedMarked() {
+    return submittedMarked;
+  }
+
+  public void setSubmittedMarked(Integer submittedMarked) {
+    this.submittedMarked = submittedMarked;
   }
 }

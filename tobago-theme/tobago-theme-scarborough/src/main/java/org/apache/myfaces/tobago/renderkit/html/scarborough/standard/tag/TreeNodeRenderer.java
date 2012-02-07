@@ -85,10 +85,9 @@ public class TreeNodeRenderer extends LayoutComponentRendererBase {
     }
 
     // marked
-    String marked
-        = (String) requestParameterMap.get(treeId + ComponentUtils.SUB_SEPARATOR + AbstractUITree.SUFFIX_MARKED);
+    Integer marked = data.getSubmittedMarked();
     if (marked != null) {
-      boolean markedValue = marked.equals("" + rowIndex);
+      boolean markedValue = marked.equals(rowIndex);
       if (node.isMarked() != markedValue) {
         new TreeMarkedEvent(node, node.isMarked(), markedValue).queue();
       }
@@ -102,7 +101,7 @@ public class TreeNodeRenderer extends LayoutComponentRendererBase {
     super.prepareRender(facesContext, component);
 
     final UITreeNode node = (UITreeNode) component;
-    if (node.isMarked()) {
+    if (isMarked(node)) {
       node.setCurrentMarkup(Markup.MARKED.add(node.getCurrentMarkup()));
     }
     if (node.isFolder()) {
@@ -111,6 +110,15 @@ public class TreeNodeRenderer extends LayoutComponentRendererBase {
         node.setCurrentMarkup(Markup.EXPANDED.add(node.getCurrentMarkup()));
       }
     }
+  }
+  
+  private boolean isMarked(UITreeNode node) {
+    final AbstractUIData data = ComponentUtils.findAncestor(node, AbstractUIData.class);
+    final Integer submittedMarked = data.getSubmittedMarked();
+    if (submittedMarked != null && submittedMarked.equals(data.getRowIndex())) {
+      return true;
+    }
+    return node.isMarked();
   }
 
   @Override

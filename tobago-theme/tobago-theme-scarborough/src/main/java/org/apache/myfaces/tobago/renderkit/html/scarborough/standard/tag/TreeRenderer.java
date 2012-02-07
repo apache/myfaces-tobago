@@ -43,6 +43,17 @@ public class TreeRenderer extends LayoutComponentRendererBase {
   @Override
   public void decode(FacesContext facesContext, UIComponent component) {
     final AbstractUITree tree = (AbstractUITree) component;
+
+    // marked
+    String marked = (String) facesContext.getExternalContext().getRequestParameterMap()
+        .get(tree.getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + AbstractUITree.SUFFIX_MARKED);
+    try {
+      tree.setSubmittedMarked(Integer.parseInt(marked));
+    } catch (NumberFormatException e) {
+      LOG.warn("marked: + " + marked + "'", e);
+    }
+
+    // children
     final int last = tree.hasRows() ? tree.getFirst() + tree.getRows() : Integer.MAX_VALUE;
     for (int rowIndex = tree.getFirst(); rowIndex < last; rowIndex++) {
       tree.setRowIndex(rowIndex);
@@ -92,7 +103,8 @@ public class TreeRenderer extends LayoutComponentRendererBase {
     writer.writeNameAttribute(markedId);
     writer.writeIdAttribute(markedId);
     writer.writeClassAttribute(Classes.create(tree, AbstractUITree.SUFFIX_MARKED));
-    writer.writeAttribute(HtmlAttributes.VALUE, "", false);
+    final Integer value = tree.getSubmittedMarked();
+    writer.writeAttribute(HtmlAttributes.VALUE, value != null ? Integer.toString(value) : "", false);
     writer.endElement(HtmlElements.INPUT);
 
     final int last = tree.hasRows() ? tree.getFirst() + tree.getRows() : Integer.MAX_VALUE;
