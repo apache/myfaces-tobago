@@ -48,7 +48,14 @@ public class AutomaticSeleniumTest extends SeleniumTest {
   public static Collection<Object[]> findPages() {
     List<String> paths = new ArrayList<String>();
 
-    collect(paths, MAVEN_TARGET + '/', "");
+    String base = MAVEN_TARGET + '/';
+
+    // e.g. in the IDE normally the base dir is the tobago project root
+    if (! new File(base).exists()) {
+      base = "tobago-example/tobago-example-test/" + base;
+    }
+    
+    collect(paths, base, "");
 
     Collections.sort(paths);
 
