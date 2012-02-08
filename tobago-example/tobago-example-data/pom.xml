@@ -24,7 +24,8 @@
   </parent>
   <artifactId>tobago-example-data</artifactId>
   <packaging>jar</packaging>
-  <name>Tobago Example Data (to use in other examples)</name>
+  <name>Tobago Example Data</name>
+  <description>Data to use in the other examples.</description>
 
   <dependencies>
     <dependency>

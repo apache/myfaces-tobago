@@ -25,7 +25,6 @@
   <artifactId>tobago-tool-apt</artifactId>
   <packaging>jar</packaging>
   <name>Tobago Tool Apt</name>
-  <description>Tobago Tool Apt</description>
 
   <dependencies>
     <dependency>
