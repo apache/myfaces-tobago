@@ -58,7 +58,7 @@ public abstract class AbstractUITreeNode
     DataModel model = data.getDataModel();
     if (model instanceof TreeDataModel) {
       final TreeDataModel treeDataModel = (TreeDataModel) model;
-      treeDataModel.setRowExpanded(isExpanded());
+      treeDataModel.setRowExpanded(isExpandedWithTemporaryState());
       treeDataModel.setRowClientId(getClientId(facesContext));
     }
 
@@ -148,13 +148,13 @@ public abstract class AbstractUITreeNode
       if (FacesUtils.hasValueBindingOrValueExpression(this, Attributes.EXPANDED)) {
         try {
           FacesUtils.setValueOfBindingOrExpression(getFacesContext(), expanded, this, Attributes.EXPANDED);
+          // after processing this, we remove the value, so we'll got the value from the model while rendering
+          ComponentUtils.findAncestor(this, AbstractUIData.class).setSubmittedExpanded(null);
         } catch (Exception e) {
           if (LOG.isDebugEnabled()) {
             LOG.debug("Can't set expanded.", e);
           }
         }
-      } else {
-        setExpanded(expanded);
       }
     }
     if (event instanceof TreeMarkedEvent) {
@@ -298,4 +298,28 @@ public abstract class AbstractUITreeNode
   public abstract boolean isSelected();
 
   public abstract void setSelected(boolean selected);
+
+  // XXX is introduced temporarily:
+  @Deprecated
+  public boolean isMarkedWithTemporaryState() {
+    final AbstractUIData data = ComponentUtils.findAncestor(this, AbstractUIData.class);
+    final Integer submittedMarked = data.getSubmittedMarked();
+    if (submittedMarked != null) {
+      return submittedMarked.equals(data.getRowIndex());
+    }
+    return isMarked();
+  }
+
+  // XXX is introduced temporarily:
+  @Deprecated
+  public boolean isExpandedWithTemporaryState() {
+    final AbstractUIData data = ComponentUtils.findAncestor(this, AbstractUIData.class);
+    final List<Integer> submittedExpanded = data.getSubmittedExpanded();
+    if (submittedExpanded != null) {
+      return submittedExpanded.contains(data.getRowIndex());
+    }
+    return isExpanded();
+  }
+
+
 }

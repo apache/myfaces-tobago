@@ -50,7 +50,7 @@ public class TreeIconRenderer extends LayoutComponentRendererBase {
     final UITreeIcon image = (UITreeIcon) component;
     final UITreeNode node = ComponentUtils.findAncestor(image, UITreeNode.class);
     final boolean folder = node.isFolder();
-    final boolean expanded = folder && node.isExpanded();
+    final boolean expanded = folder && node.isExpandedWithTemporaryState();
 
     String source;
     final String openSource;

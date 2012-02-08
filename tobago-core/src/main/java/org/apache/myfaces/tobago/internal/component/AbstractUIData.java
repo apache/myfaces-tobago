@@ -25,6 +25,7 @@ import javax.faces.component.NamingContainer;
 import javax.faces.context.FacesContext;
 import javax.faces.model.DataModel;
 import javax.swing.tree.DefaultMutableTreeNode;
+import java.util.List;
 
 public class AbstractUIData extends javax.faces.component.UIData {
 
@@ -40,8 +41,15 @@ public class AbstractUIData extends javax.faces.component.UIData {
    */
   private TreeDataModel dataModel;
 
-  // is transient
+  // is transient, for internal use
+  // XXX is introduced temporarily:
+  @Deprecated
   private Integer submittedMarked;
+
+  // is transient, for internal use
+  // XXX is introduced temporarily:
+  @Deprecated
+  private List<Integer> submittedExpanded;
 
   @Override
   protected DataModel getDataModel() {
@@ -108,11 +116,27 @@ public class AbstractUIData extends javax.faces.component.UIData {
     return false;
   }
 
+  // XXX is introduced temporarily:
+  @Deprecated
   public Integer getSubmittedMarked() {
     return submittedMarked;
   }
 
+  // XXX is introduced temporarily:
+  @Deprecated
   public void setSubmittedMarked(Integer submittedMarked) {
     this.submittedMarked = submittedMarked;
+  }
+
+  // XXX is introduced temporarily:
+  @Deprecated
+  public List<Integer> getSubmittedExpanded() {
+    return submittedExpanded;
+  }
+
+  // XXX is introduced temporarily:
+  @Deprecated
+  public void setSubmittedExpanded(List<Integer> submittedExpanded) {
+    this.submittedExpanded = submittedExpanded;
   }
 }

@@ -24,16 +24,13 @@ import org.apache.myfaces.tobago.context.ResourceUtils;
 import org.apache.myfaces.tobago.event.TreeExpansionEvent;
 import org.apache.myfaces.tobago.event.TreeMarkedEvent;
 import org.apache.myfaces.tobago.internal.component.AbstractUIData;
-import org.apache.myfaces.tobago.internal.component.AbstractUITree;
 import org.apache.myfaces.tobago.layout.Display;
 import org.apache.myfaces.tobago.layout.LayoutBase;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
-import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
-import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -43,6 +40,7 @@ import org.slf4j.LoggerFactory;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 public class TreeNodeRenderer extends LayoutComponentRendererBase {
@@ -75,12 +73,11 @@ public class TreeNodeRenderer extends LayoutComponentRendererBase {
     final String id = node.getClientId(facesContext);
     final boolean folder = node.isFolder();
 
-    // expand state
+    // expanded
     if (folder) {
-      boolean expanded = Boolean.parseBoolean(
-          requestParameterMap.get(id + ComponentUtils.SUB_SEPARATOR + AbstractUITree.SUFFIX_EXPANDED));
-      if (node.isExpanded() != expanded) {
-        new TreeExpansionEvent(node, node.isExpanded(), expanded).queue();
+      final List<Integer> submittedExpanded = data.getSubmittedExpanded();
+      if (submittedExpanded != null && submittedExpanded.contains(rowIndex) != node.isExpanded()) {
+        new TreeExpansionEvent(node, node.isExpanded(), submittedExpanded.contains(rowIndex)).queue();
       }
     }
 
@@ -101,26 +98,17 @@ public class TreeNodeRenderer extends LayoutComponentRendererBase {
     super.prepareRender(facesContext, component);
 
     final UITreeNode node = (UITreeNode) component;
-    if (isMarked(node)) {
+    if (node.isMarkedWithTemporaryState()) {
       node.setCurrentMarkup(Markup.MARKED.add(node.getCurrentMarkup()));
     }
     if (node.isFolder()) {
       node.setCurrentMarkup(Markup.FOLDER.add(node.getCurrentMarkup()));
-      if (node.isExpanded()) {
+      if (node.isExpandedWithTemporaryState()) {
         node.setCurrentMarkup(Markup.EXPANDED.add(node.getCurrentMarkup()));
       }
     }
   }
   
-  private boolean isMarked(UITreeNode node) {
-    final AbstractUIData data = ComponentUtils.findAncestor(node, AbstractUIData.class);
-    final Integer submittedMarked = data.getSubmittedMarked();
-    if (submittedMarked != null && submittedMarked.equals(data.getRowIndex())) {
-      return true;
-    }
-    return node.isMarked();
-  }
-
   @Override
   public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
 
@@ -134,8 +122,6 @@ public class TreeNodeRenderer extends LayoutComponentRendererBase {
     final boolean root = level == 0;
     // todo: make it possible to have a showRoot in UISheet
     final boolean showRoot = data instanceof UITree && ((UITree) data).isShowRoot();
-    // if the root is hidden, the root node must be expanded (otherwise you will see nothing)
-    final boolean expanded = folder && node.isExpanded() || !showRoot && root;
     final String parentId = data.getRowParentClientId();
     final boolean visible = root ? showRoot : data.isRowVisible();
 
@@ -169,10 +155,6 @@ public class TreeNodeRenderer extends LayoutComponentRendererBase {
       widthString = "100%";
     }
     writer.writeStyleAttribute(widthString);
-
-    if (folder) {
-      encodeExpandedHidden(writer, node, clientId, expanded);
-    }
   }
 
   @Override
@@ -180,15 +162,4 @@ public class TreeNodeRenderer extends LayoutComponentRendererBase {
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
     writer.endElement(HtmlElements.DIV);
   }
-
-  private void encodeExpandedHidden(
-      TobagoResponseWriter writer, UITreeNode node, String clientId, boolean expanded) throws IOException {
-    writer.startElement(HtmlElements.INPUT, node);
-    writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN, false);
-    writer.writeClassAttribute(Classes.create(node, AbstractUITree.SUFFIX_EXPANDED, Markup.NULL));
-    writer.writeNameAttribute(clientId + ComponentUtils.SUB_SEPARATOR + AbstractUITree.SUFFIX_EXPANDED);
-    writer.writeAttribute(HtmlAttributes.VALUE, Boolean.toString(expanded), false);
-    writer.endElement(HtmlElements.INPUT);
-  }
-
 }
