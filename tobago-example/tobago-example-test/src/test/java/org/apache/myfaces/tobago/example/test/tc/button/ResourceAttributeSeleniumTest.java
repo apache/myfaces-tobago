@@ -34,8 +34,7 @@ public class ResourceAttributeSeleniumTest extends MultiSuffixSeleniumTest {
   public void testHtmlResource() throws InterruptedException {
     open("/tc/button/resource-attribute.");
     getSelenium().click("page:button-html-resource");
-    // XXX This sleep call is not nice...
-    sleep();
+    getSelenium().waitForPageToLoad("5000");
     Assert.assertEquals(getHtmlSource(),
         "Eine einfache Seite für den Resourcen-Test (statisch).", getSelenium().getText("//html/body"));
   }
@@ -44,8 +43,7 @@ public class ResourceAttributeSeleniumTest extends MultiSuffixSeleniumTest {
   public void testXhtmlResource() throws InterruptedException {
     open("/tc/button/resource-attribute.");
     getSelenium().click("page:button-xhtml-resource");
-    // XXX This sleep call is not nice...
-    sleep();
+    getSelenium().waitForPageToLoad("5000");
     Assert.assertTrue(getHtmlSource(),
         getSelenium().getText("//html/body").contains("Eine einfache Seite für den Resourcen-Test (dynamisch)."));
   }
