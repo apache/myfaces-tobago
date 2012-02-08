@@ -55,6 +55,8 @@ public class Filter {
       "/index.html", // intern
       "/navigation.*", // intern
 
+      "/404.*", // meta test
+
       "/meta-test/meta-1.*", // meta test
       "/meta-test/meta-2.*\\.jspx", // meta test
       "/meta-test/meta-3.*\\.xhtml", // meta test
