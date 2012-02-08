@@ -50,7 +50,7 @@ public class TreeRenderer extends LayoutComponentRendererBase {
     String marked = (String) facesContext.getExternalContext().getRequestParameterMap()
         .get(tree.getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + AbstractUITree.SUFFIX_MARKED);
     try {
-      tree.setSubmittedMarked(Integer.parseInt(marked));
+      tree.setSubmittedMarked(org.apache.commons.lang.StringUtils.isNotBlank(marked) ? Integer.parseInt(marked) : null);
     } catch (NumberFormatException e) {
       // should not happen
       LOG.warn("Can't parse marked: + " + marked + "'", e);
@@ -60,8 +60,8 @@ public class TreeRenderer extends LayoutComponentRendererBase {
     String expanded = (String) facesContext.getExternalContext().getRequestParameterMap()
         .get(tree.getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + AbstractUITree.SUFFIX_EXPANDED);
     try {
-      tree.setSubmittedExpanded(StringUtils.parseIntegerList(expanded));
-    } catch (Exception e) {
+      tree.setSubmittedExpanded(expanded != null ? StringUtils.parseIntegerList(expanded) : null);
+    } catch (NumberFormatException e) {
       // should not happen
       LOG.warn("Can't parse expanded: + " + expanded + "'", e);
     }

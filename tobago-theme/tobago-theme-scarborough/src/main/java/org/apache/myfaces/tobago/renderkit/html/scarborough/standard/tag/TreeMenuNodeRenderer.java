@@ -25,7 +25,6 @@ import org.apache.myfaces.tobago.context.UserAgent;
 import org.apache.myfaces.tobago.event.TreeExpansionEvent;
 import org.apache.myfaces.tobago.event.TreeMarkedEvent;
 import org.apache.myfaces.tobago.internal.component.AbstractUIData;
-import org.apache.myfaces.tobago.internal.component.AbstractUITree;
 import org.apache.myfaces.tobago.layout.Display;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
@@ -33,7 +32,6 @@ import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
-import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.util.VariableResolverUtils;
@@ -44,7 +42,7 @@ import org.slf4j.LoggerFactory;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
-import java.util.Map;
+import java.util.List;
 
 public class TreeMenuNodeRenderer extends LayoutComponentRendererBase {
 
@@ -63,26 +61,20 @@ public class TreeMenuNodeRenderer extends LayoutComponentRendererBase {
 
     final AbstractUIData data = ComponentUtils.findAncestor(node, AbstractUIData.class);
     // we need the client id without the iterated row index here
-    final String treeId = data.getTreeClientId(facesContext);
     final int rowIndex = data.getRowIndex();
-    final Map<String, String> requestParameterMap = facesContext.getExternalContext().getRequestParameterMap();
-    final String id = node.getClientId(facesContext);
-    final boolean folder = node.isFolder();
 
-    // expand state
+    // expanded
 //    if (folder) { XXX this value seems to be not restored...
-    boolean expanded = Boolean.parseBoolean(
-        requestParameterMap.get(id + ComponentUtils.SUB_SEPARATOR + AbstractUITree.SUFFIX_EXPANDED));
-    if (node.isExpanded() != expanded) {
-      new TreeExpansionEvent(node, node.isExpanded(), expanded).queue();
+      final List<Integer> submittedExpanded = data.getSubmittedExpanded();
+      if (submittedExpanded != null && submittedExpanded.contains(rowIndex) != node.isExpanded()) {
+        new TreeExpansionEvent(node, node.isExpanded(), submittedExpanded.contains(rowIndex)).queue();
     }
 //    }
 
     // marked
-    String marked
-        = (String) requestParameterMap.get(treeId + ComponentUtils.SUB_SEPARATOR + AbstractUITree.SUFFIX_MARKED);
+    Integer marked = data.getSubmittedMarked();
     if (marked != null) {
-      boolean markedValue = marked.equals("" + rowIndex);
+      boolean markedValue = marked.equals(rowIndex);
       if (node.isMarked() != markedValue) {
         new TreeMarkedEvent(node, node.isMarked(), markedValue).queue();
       }
@@ -96,12 +88,12 @@ public class TreeMenuNodeRenderer extends LayoutComponentRendererBase {
     super.prepareRender(facesContext, component);
 
     final UITreeNode node = (UITreeNode) component;
-    if (node.isMarked()) {
+    if (node.isMarkedWithTemporaryState()) {
       node.setCurrentMarkup(Markup.MARKED.add(node.getCurrentMarkup()));
     }
     if (node.isFolder()) {
       node.setCurrentMarkup(Markup.FOLDER.add(node.getCurrentMarkup()));
-      if (node.isExpanded()) {
+      if (node.isExpandedWithTemporaryState()) {
         node.setCurrentMarkup(Markup.EXPANDED.add(node.getCurrentMarkup()));
       }
     }
@@ -122,7 +114,6 @@ public class TreeMenuNodeRenderer extends LayoutComponentRendererBase {
     final boolean showRoot = data instanceof UITree && ((UITree) data).isShowRoot();
     final boolean ie6
         = VariableResolverUtils.resolveClientProperties(facesContext).getUserAgent().equals(UserAgent.MSIE_6_0);
-    final boolean expanded = folder && node.isExpanded() || level == 0;
     final String parentId = data.getRowParentClientId();
     final boolean visible = root ? showRoot : data.isRowVisible();
 
@@ -142,9 +133,6 @@ public class TreeMenuNodeRenderer extends LayoutComponentRendererBase {
       writer.writeStyleAttribute(style);
     }
 
-    if (folder) {
-      encodeExpandedHidden(writer, node, clientId, expanded);
-    }
 
     if (!folder && ie6) { // XXX IE6: without this hack, we can't click beside the label text. Why?
       final String src = ResourceManagerUtils.getImageWithPath(facesContext, "image/1x1.gif");
@@ -162,7 +150,7 @@ public class TreeMenuNodeRenderer extends LayoutComponentRendererBase {
     final UITreeNode node = (UITreeNode) component;
     final int level = node.getLevel();
     final boolean folder = node.isFolder();
-    final boolean expanded = folder && node.isExpanded() || level == 0;
+    final boolean expanded = folder && node.isExpandedWithTemporaryState() || level == 0;
 
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
@@ -170,16 +158,6 @@ public class TreeMenuNodeRenderer extends LayoutComponentRendererBase {
       encodeIcon(facesContext, writer, expanded, node);
     }
     writer.endElement(HtmlElements.DIV);
-  }
-
-  private void encodeExpandedHidden(
-      TobagoResponseWriter writer, UITreeNode node, String clientId, boolean expanded) throws IOException {
-    writer.startElement(HtmlElements.INPUT, node);
-    writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN, false);
-    writer.writeClassAttribute(Classes.create(node, AbstractUITree.SUFFIX_EXPANDED, Markup.NULL));
-    writer.writeNameAttribute(clientId + ComponentUtils.SUB_SEPARATOR + AbstractUITree.SUFFIX_EXPANDED);
-    writer.writeAttribute(HtmlAttributes.VALUE, Boolean.toString(expanded), false);
-    writer.endElement(HtmlElements.INPUT);
   }
 
   private void encodeIcon(FacesContext facesContext, TobagoResponseWriter writer, boolean expanded, UITreeNode node)

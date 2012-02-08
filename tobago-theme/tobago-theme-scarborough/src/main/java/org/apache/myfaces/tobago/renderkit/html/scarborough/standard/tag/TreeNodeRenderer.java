@@ -41,7 +41,6 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 
 public class TreeNodeRenderer extends LayoutComponentRendererBase {
 
@@ -67,10 +66,7 @@ public class TreeNodeRenderer extends LayoutComponentRendererBase {
 
     final AbstractUIData data = ComponentUtils.findAncestor(node, AbstractUIData.class);
     // we need the client id without the iterated row index here
-    final String treeId = data.getTreeClientId(facesContext);
     final int rowIndex = data.getRowIndex();
-    final Map<String, String> requestParameterMap = facesContext.getExternalContext().getRequestParameterMap();
-    final String id = node.getClientId(facesContext);
     final boolean folder = node.isFolder();
 
     // expanded

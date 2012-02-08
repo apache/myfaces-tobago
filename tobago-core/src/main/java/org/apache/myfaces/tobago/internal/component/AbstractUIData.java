@@ -92,7 +92,8 @@ public class AbstractUIData extends javax.faces.component.UIData {
   /**
    * Returns every time the real client id of the tree without the row id.
    */
-  public String getTreeClientId(FacesContext facesContext) {
+  // XXX delete it?
+  private String getTreeClientId(FacesContext facesContext) {
     final String clientId = getClientId(facesContext);
     final int rowIndex = getRowIndex();
     if (rowIndex == -1) {
