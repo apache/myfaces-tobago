@@ -26,12 +26,14 @@
 
     <tc:panel>
       <f:facet name="layout">
-        <tc:gridLayout rows="auto;*;*" />
+        <tc:gridLayout rows="auto;*;*"/>
       </f:facet>
 
-      <tc:messages />
+      <tc:messages/>
       <tc:out value="The page was not found!"/>
     </tc:panel>
+
+    <tc:script onload="LOG.error('404 - page not found.')"/>
 
   </tc:page>
 </f:view>

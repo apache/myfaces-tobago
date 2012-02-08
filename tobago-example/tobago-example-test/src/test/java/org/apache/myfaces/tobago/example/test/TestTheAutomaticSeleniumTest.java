@@ -17,7 +17,6 @@ package org.apache.myfaces.tobago.example.test;
  * limitations under the License.
  */
 
-import com.thoughtworks.selenium.SeleniumException;
 import org.junit.Assert;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -40,7 +39,7 @@ public class TestTheAutomaticSeleniumTest {
     Collection<Object[]> pages = AutomaticSeleniumTest.findPages();
     for (Object[] page : pages) {
       String url = (String) page[1];
-      String prefix = "/tobago-example-test/faces/meta-test/";
+      String prefix = "/faces/meta-test/";
       if (url.startsWith(prefix)) {
         metaTestList.add(url.substring(prefix.length()));
       }
@@ -68,8 +67,8 @@ public class TestTheAutomaticSeleniumTest {
       test.testPageConsistency();
       test.tearDown();
       Assert.fail("The test should fail, but wasn't.");
-    } catch (SeleniumException e) {
-      Assert.assertTrue(e.getMessage().contains("Response_Code = 404"));
+    } catch (AssertionError e) {
+      Assert.assertTrue(e.getMessage().contains("404 - page not found"));
     }
   }
 

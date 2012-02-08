@@ -25,7 +25,8 @@ import org.junit.Before;
 
 public abstract class SeleniumTest {
 
-  private static final String CONTEXT_PATH = "tobago-example-test";
+  private static final String CONTEXT_PATH = "";
+  //  private static final String CONTEXT_PATH = "tobago-example-test";
   private static final String SERVLET_MAPPING = "faces";
 
   public static final String ERROR_ON_SERVER = "error on server";
@@ -56,7 +57,9 @@ public abstract class SeleniumTest {
   protected void checkPage() {
     final String location = selenium.getLocation();
     final String html = getHtmlSource();
-    Assert.assertFalse(format(ERROR_ON_SERVER, location, html, ""), errorOnServer());
+    if (errorOnServer()) {
+      Assert.fail(format(ERROR_ON_SERVER, location, html, ""));
+    }
     try {
       if (isErrorOnPage()) {
         Assert.fail(format(HAS_ERROR_SEVERITY, location, html, getErrors()));
@@ -109,6 +112,10 @@ public abstract class SeleniumTest {
 
   protected static String createUrl(String page) {
     Assert.assertTrue("Page name must start with a slash.", page.startsWith("/"));
-    return '/' + CONTEXT_PATH + '/' + SERVLET_MAPPING + page;
+    if (CONTEXT_PATH.length() == 0) {
+      return '/' + SERVLET_MAPPING + page;
+    } else {
+      return '/' + CONTEXT_PATH + '/' + SERVLET_MAPPING + page;
+    }
   }
 }
