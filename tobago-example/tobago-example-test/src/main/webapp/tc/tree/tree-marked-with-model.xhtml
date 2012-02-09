@@ -32,8 +32,8 @@
 
     <tc:tree id="tree" value="#{tree.tree}" var="node" showRoot="true" showRootJunction="true">
       <tc:treeNode id="node" expanded="true" marked="#{node.userObject.selected}">
-        <tc:treeIndent/>
-        <tc:treeCommand label="#{node.userObject.name}"/>
+        <tc:treeIndent id="indent"/>
+        <tc:treeCommand label="#{node.userObject.name}" id="command"/>
       </tc:treeNode>
     </tc:tree>
 
