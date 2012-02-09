@@ -26,31 +26,49 @@ import org.junit.runner.RunWith;
 @RunWith(Parameterized.class)
 public class TreeMarkedSeleniumTest extends MultiSuffixSeleniumTest {
 
+  public static final String UNMARKED = "tobago-treeNode";
+  public static final String MARKED = UNMARKED + " " + "tobago-treeNode-markup-marked";
+
   public TreeMarkedSeleniumTest(String suffix) {
     super(suffix);
   }
 
+  /**
+   * The state is not stored in the model, so a new call of the URL directly will result in a unmarked node 1.
+   */
   @Test
-  public void testHtmlResource() throws InterruptedException {
+  public void testWithoutModel() {
+    test("/tc/tree/tree-marked-without-model.", UNMARKED);
+    test("/tc/tree/tree-marked-without-model.", UNMARKED);
+  }
 
-    final String unmarked = "tobago-treeNode";
-    final String marked = unmarked + " " + "tobago-treeNode-markup-marked";
+  /**
+   * The state is stored in the model, so a new call of the URL directly will result in a marked node 1,
+   * because this information was hold in the session.
+   */
+  @Test
+  public void testWithModel() {
+    test("/tc/tree/tree-marked-with-model.", UNMARKED);
+    test("/tc/tree/tree-marked-with-model.", MARKED); // because state was stored in the session
+  }
+
+  private void test(String name, String inital) {
 
     // load page
-    open("/tc/tree/tree-marked-with-model.");
+    open(name);
     Assert.assertEquals(
-        "Node 1 should not be marked!", unmarked, getSelenium().getAttribute("page:tree:1:node@class"));
+        "Node 1 should not be marked!", inital, getSelenium().getAttribute("page:tree:1:node@class"));
     Assert.assertEquals(
-        "Node 2 should not be marked!", unmarked, getSelenium().getAttribute("page:tree:2:node@class"));
+        "Node 2 should not be marked!", UNMARKED, getSelenium().getAttribute("page:tree:2:node@class"));
 
     // click on tree node 1
     getSelenium().click("page:tree:1:command");
     getSelenium().waitForPageToLoad("5000");
 
     Assert.assertEquals(
-        "Node 1 should be marked now!", marked, getSelenium().getAttribute("page:tree:1:node@class"));
+        "Node 1 should be marked now!", MARKED, getSelenium().getAttribute("page:tree:1:node@class"));
     Assert.assertEquals(
-        "Node 2 should not be marked!", unmarked, getSelenium().getAttribute("page:tree:2:node@class"));
+        "Node 2 should not be marked!", UNMARKED, getSelenium().getAttribute("page:tree:2:node@class"));
   }
 
 }

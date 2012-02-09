@@ -23,12 +23,24 @@
     xmlns:f="http://java.sun.com/jsf/core">
 
   <tc:page id="page">
-    <tc:gridLayoutConstraint width="600px" height="300px"/>
+    <tc:gridLayoutConstraint width="600px" height="600px"/>
     <f:facet name="layout">
-      <tc:gridLayout rows="auto;*"/>
+      <tc:gridLayout rows="*;auto;2*"/>
     </f:facet>
 
-    <tc:out value="Tree with a marked node which should be stored tempotarily in the view:"/>
+    <tc:out escape="false" value="Tree with a marked node which should be stored tempotarily in the view.
+    &lt;br/>Checklist:
+    &lt;ol>
+    &lt;li>Check: No node should be marked&lt;/li>
+    &lt;li>Click on the Sports node&lt;/li>
+    &lt;li>Check: Only the Sports node should be marked&lt;/li>
+    &lt;li>Click on the reload button (you will get a new view)&lt;/li>
+    &lt;li>Check: &lt;b>Only the Sports node should be marked&lt;/b>&lt;/li>
+    &lt;li>Click on the Sports node&lt;/li>
+    &lt;li>Check: Only the Sports node should be marked&lt;/li>
+    &lt;/ol>"/>
+
+    <tc:button id="reload" link="#{request.pathInfo}" label="Reload with fresh view"/>
 
     <tc:tree id="tree" value="#{tree.tree}" var="node" showRoot="true" showRootJunction="true">
       <tc:treeNode id="node" expanded="true" marked="#{node.userObject.selected}">
