@@ -34,6 +34,7 @@ public class LinkAttributeSeleniumTest extends MultiSuffixSeleniumTest {
   public void testInternalLinkWithSlash() {
     open("/tc/button/link-attribute.");
     getSelenium().click("page:button-internal-link-with-slash");
+    getSelenium().waitForPageToLoad("5000");
     Assert.assertEquals(
         getHtmlSource(),
         "A simple page for the resource test (static).", getSelenium().getText("//html/body"));
@@ -43,6 +44,7 @@ public class LinkAttributeSeleniumTest extends MultiSuffixSeleniumTest {
   public void testInternalLinkWithoutSlash() {
     open("/tc/button/link-attribute.");
     getSelenium().click("page:button-internal-link-without-slash");
+    getSelenium().waitForPageToLoad("5000");
     Assert.assertEquals(
         getHtmlSource(),
         "A simple page for the resource test (static).", getSelenium().getText("//html/body"));
@@ -52,8 +54,7 @@ public class LinkAttributeSeleniumTest extends MultiSuffixSeleniumTest {
   public void testExternalLink() throws InterruptedException {
     open("/tc/button/link-attribute.");
     getSelenium().click("page:button-external-link");
-    // XXX This sleep call is not nice...
-    sleep();
+    getSelenium().waitForPageToLoad("5000");
     // go to the apache home page
     Assert.assertTrue(
         getHtmlSource(),

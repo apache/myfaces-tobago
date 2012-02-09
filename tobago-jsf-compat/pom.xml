@@ -26,7 +26,7 @@
   <name>Tobago JSF Compatibility</name>
   <description>
     Tobago JSF 1.1-1.2 Compatibility Bridge
-    (makes Tobago independent from differences between JSF 1.1 and JSF 1.2)</description>
+    (makes Tobago independent from differences between JSF 1.1 and JSF 1.2).</description>
   <artifactId>tobago-jsf-compat</artifactId>
   <build>
     <plugins>

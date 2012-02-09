@@ -22,9 +22,10 @@
     <artifactId>tobago-extension</artifactId>
     <version>1.5.3-SNAPSHOT</version>
   </parent>
+  <artifactId>tobago-deprecation</artifactId>
   <packaging>jar</packaging>
   <name>Tobago Deprecation</name>
-  <artifactId>tobago-deprecation</artifactId>
+  <description>Helps to migrate from Tobago 1.0.x to 1.5.x. Should not be used in production.</description>
 
   <dependencies>
     <dependency>

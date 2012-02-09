@@ -24,7 +24,9 @@
   </parent>
   <artifactId>tobago-example-blank</artifactId>
   <packaging>war</packaging>
-  <name>Tobago Example Blank (A minimal Tobago application)</name>
+  <name>Tobago Example Blank</name>
+  <description>A minimal Tobago application.</description>
+
   <build>
     <finalName>tobago-example-blank</finalName>
   </build>

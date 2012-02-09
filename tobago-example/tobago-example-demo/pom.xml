@@ -25,6 +25,8 @@
   <artifactId>tobago-example-demo</artifactId>
   <packaging>war</packaging>
   <name>Tobago Example Demo</name>
+  <description>Demonstration and documentation application.</description>
+
   <properties>
     <openwebbeans.version>1.1.2</openwebbeans.version>
     <myfaces-extcdi.version>1.0.1</myfaces-extcdi.version>

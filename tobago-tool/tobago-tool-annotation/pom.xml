@@ -25,7 +25,6 @@
   <artifactId>tobago-tool-annotation</artifactId>
   <packaging>jar</packaging>
   <name>Tobago Tool Annotation</name>
-  <description>Tobago Tool Annotation</description>
 
   <dependencies>
     <dependency>

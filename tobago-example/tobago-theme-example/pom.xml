@@ -23,7 +23,8 @@
     <version>1.5.3-SNAPSHOT</version>
   </parent>
   <artifactId>tobago-theme-example</artifactId>
-  <name>Tobago Theme Example (Show how to write an own theme)</name>
+  <name>Tobago Theme Example</name>
+  <description>Show how to write an own theme.</description>
 
   <build>
     <plugins>

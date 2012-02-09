@@ -20,7 +20,7 @@
   <artifactId>tobago-example-assembly</artifactId>
   <packaging>pom</packaging>
   <name>Tobago Example Assembly</name>
-  <description>Tobago Example Assembly (Helps to build the Tobago releases)</description>
+  <description>Helps to build the Tobago releases,</description>
 
   <parent>
     <groupId>org.apache.myfaces.tobago</groupId>

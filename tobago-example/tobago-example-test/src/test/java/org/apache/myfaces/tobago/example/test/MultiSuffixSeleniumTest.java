@@ -36,10 +36,6 @@ public abstract class MultiSuffixSeleniumTest extends SeleniumTest {
     getSelenium().open(createUrl(urlFragment + suffix));
   }
 
-  protected void sleep() throws InterruptedException {
-    Thread.sleep(5000L);
-  }
-
   @Parameterized.Parameters
   public static Collection<Object[]> findFormats() {
     return Arrays.asList(
