@@ -961,6 +961,7 @@
 
               <!-- idea exclude -->
               <exclude>**/*.iml</exclude>
+              <exclude>.idea/**/*</exclude>
               <exclude>${basedir}/*.iml</exclude>
               <exclude>${basedir}/*.ipr</exclude>
               <exclude>${basedir}/*.iws</exclude>
