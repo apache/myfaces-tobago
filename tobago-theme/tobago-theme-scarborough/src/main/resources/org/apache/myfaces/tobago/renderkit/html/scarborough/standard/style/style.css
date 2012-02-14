@@ -1452,7 +1452,9 @@ div.tobago-richTextEditor-body {
   text-decoration: none;
 }
 
-.tobago-treeNode-disabled a, .tobago-treeNode-disabled a:hover {
+.tobago-treeNode-markup-disabled span {
+  margin-left: 3px;
+  padding: 1px 2px 1px 2px;
   color: #888888;
   text-decoration: none;
   cursor: default;
