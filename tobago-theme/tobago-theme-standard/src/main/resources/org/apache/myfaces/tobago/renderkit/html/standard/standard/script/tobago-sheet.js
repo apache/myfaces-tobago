@@ -431,6 +431,7 @@ Tobago.Sheet.prototype.doSelection = function(event) {
       if ((!event.ctrlKey && !event.metaKey && !selector)
           || this.selectable == "single" || this.selectable == "singleOrNone") {
         this.deselectAll();
+        this.resetSelected();
       }
 
       if (event.shiftKey && this.selectable == "multi") {
@@ -523,6 +524,11 @@ Tobago.Sheet.prototype.getRows = function() {
 Tobago.Sheet.prototype.isSelected = function(rowIndex) {
   var selected = Tobago.element(this.selectedId);
   return selected.value.indexOf("," + rowIndex + ",") >= 0;
+};
+
+Tobago.Sheet.prototype.resetSelected = function() {
+  var selected = Tobago.element(this.selectedId);
+  return selected.value = ",";
 };
 
 Tobago.Sheet.prototype.toggleSelection = function(rowIndex, row, checkbox) {
