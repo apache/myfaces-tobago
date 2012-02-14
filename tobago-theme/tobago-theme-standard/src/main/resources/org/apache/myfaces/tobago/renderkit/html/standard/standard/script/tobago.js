@@ -328,7 +328,11 @@ var Tobago = {
     var clientDimension = this.createInput('hidden', this.page.id + this.SUB_COMPONENT_SEP + 'form-clientDimension');
     clientDimension.value = jQuery("body").width() + ';' + jQuery("body").height();
     this.form.appendChild(clientDimension);
+
+    Tobago.Popup.unlockBehind();
+
     Tobago.onBeforeUnload();
+
     return true;
   },
 
@@ -547,8 +551,6 @@ var Tobago = {
     }
 
     Tobago.setActionPosition(source);
-
-    Tobago.Popup.unlockBehind();
 
     Tobago.Transport.request(function() {
       if (!this.isSubmit) {

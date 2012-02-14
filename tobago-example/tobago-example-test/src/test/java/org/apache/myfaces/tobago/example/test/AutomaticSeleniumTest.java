@@ -51,7 +51,7 @@ public class AutomaticSeleniumTest extends SeleniumTest {
     String base = MAVEN_TARGET + '/';
 
     // e.g. in the IDE normally the base dir is the tobago project root
-    if (! new File(base).exists()) {
+    if (!new File(base).exists()) {
       base = "tobago-example/tobago-example-test/" + base;
     }
     
