@@ -74,9 +74,8 @@ public class Filter {
    * Switched off temporary.
    */
   public static final Set<String> TODO = new HashSet<String>(Arrays.asList(
-      "/tc/gridLayout/horizontal-600px-default-300px.*",
-      "/tc/gridLayout/horizontal-default-default-600px.*",
       "/tc/gridLayout/rendered-combinations.jspx", // uses facelets templating
+      "/tc/gridLayout/scrolling-2-levels.*", // todo: ?
       "/tc/gridLayout/scrolling-tab.*", // todo: measurement problem with firefox?
       "/tc/gridLayout/tabGroup-.*", // todo: measurement problem with firefox?
       "/tc/gridLayout/transparent-for-layout.jspx", // uses facelets templating
