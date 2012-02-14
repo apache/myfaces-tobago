@@ -180,27 +180,27 @@
   <navigation-rule>
     <navigation-case>
       <from-outcome>best-practice/intro</from-outcome>
-      <to-view-id>/content/12/best-practice.xhtml</to-view-id>
+      <to-view-id>/content/12-best-practice/best-practice.xhtml</to-view-id>
     </navigation-case>
     <navigation-case>
       <from-outcome>best-practice/error</from-outcome>
-      <to-view-id>/content/12/00/error.xhtml</to-view-id>
+      <to-view-id>/content/12-best-practice/00/error.xhtml</to-view-id>
     </navigation-case>
     <navigation-case>
       <from-outcome>best-practice/theme</from-outcome>
-      <to-view-id>/content/12/01/theme.xhtml</to-view-id>
+      <to-view-id>/content/12-best-practice/01/theme.xhtml</to-view-id>
     </navigation-case>
     <navigation-case>
       <from-outcome>best-practice/transition</from-outcome>
-      <to-view-id>/content/12/02/transition.xhtml</to-view-id>
+      <to-view-id>/content/12-best-practice/02/transition.xhtml</to-view-id>
     </navigation-case>
     <navigation-case>
       <from-outcome>best-practice/transition-after-sleep</from-outcome>
-      <to-view-id>/content/12/02/x-transition-after-sleep.xhtml</to-view-id>
+      <to-view-id>/content/12-best-practice/02/x-transition-after-sleep.xhtml</to-view-id>
     </navigation-case>
     <navigation-case>
       <from-outcome>best-practice/non-faces-response</from-outcome>
-      <to-view-id>/content/12/03/non-faces-response.xhtml</to-view-id>
+      <to-view-id>/content/12-best-practice/03/non-faces-response.xhtml</to-view-id>
     </navigation-case>
     <navigation-case>
       <from-outcome>best-practice/tool-bar-customizer</from-outcome>
@@ -213,14 +213,14 @@
   </navigation-rule>
 
   <navigation-rule>
-    <from-view-id>/content/12/00/error.xhtml</from-view-id>
+    <from-view-id>/content/12-best-practice/00/error.xhtml</from-view-id>
     <navigation-case>
       <from-outcome>error-404</from-outcome>
-      <to-view-id>/content/12/00/x-not-existing-page.jsp</to-view-id>
+      <to-view-id>/content/12-best-practice/00/x-not-existing-page.jsp</to-view-id>
     </navigation-case>
     <navigation-case>
       <from-outcome>syntax</from-outcome>
-      <to-view-id>/content/12/00/x-error-in-syntax.jsp</to-view-id>
+      <to-view-id>/content/12-best-practice/00/x-error-in-syntax.jsp</to-view-id>
     </navigation-case>
   </navigation-rule>
 
