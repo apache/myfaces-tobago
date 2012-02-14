@@ -1469,6 +1469,11 @@ div.tobago-richTextEditor-body {
   font-weight: bold;
 }
 
+.tobago-treeLabel {
+  margin-left: 3px;
+  padding: 1px 2px 1px 2px;
+}
+
 /* treeMenu ------------------------------------------------------------------- */
 
 .tobago-treeMenu {
