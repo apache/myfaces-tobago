@@ -323,6 +323,16 @@ var Tobago = {
     var clientDimension = this.createInput("hidden", this.form.id + '-clientDimension');
     clientDimension.value = document.body.clientWidth + ";" + document.body.clientHeight;
     this.form.appendChild(clientDimension);
+
+    if (Tobago.openPopups.length > 0) {
+      // enable all elements on page when this is a submit from a popup
+      // (disabled input elements are not submitted)
+      for (var i = 0; i < document.forms[0].elements.length; i++) {
+        var element = document.forms[0].elements[i];
+        element.disabled = false;
+      }
+    }
+
     Tobago.onBeforeUnload();
     return true;
   },
@@ -504,15 +514,6 @@ var Tobago = {
       this.form.appendChild(lastFocusId);
     }
     Tobago.setActionPosition(source);
-    //LOG.inof("submitAction OpenPopups " + Tobago.openPopups);
-    if (Tobago.openPopups.length > 0) {
-      // enable all elements on page when this is a submit from a popup
-      // (disabled input elements are not submitted)
-      for (var i = 0; i < document.forms[0].elements.length; i++) {
-        var element = document.forms[0].elements[i];
-        element.disabled = false;
-      }
-    }
 
     Tobago.Transport.request(function() {
       if (!this.isSubmit) {
