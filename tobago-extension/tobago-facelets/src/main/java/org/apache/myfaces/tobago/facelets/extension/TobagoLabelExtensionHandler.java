@@ -135,9 +135,9 @@ public abstract class TobagoLabelExtensionHandler extends ComponentHandler {
     UIComponent input = application.createComponent(getSubComponentType());
     input.setRendererType(getSubRendererType());
     input.setId(uid);
-    enrichInput(faceletContext, input);
-    
+
     setSubComponentAttributes(faceletContext, input);
+    enrichInput(faceletContext, input);
 
     panel.getChildren().add(input);
   }

@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<f:view
+    xmlns:tc="http://myfaces.apache.org/tobago/component"
+    xmlns:tx="http://myfaces.apache.org/tobago/extension"
+    xmlns:f="http://java.sun.com/jsf/core">
+
+  <tc:page id="page">
+    <tc:gridLayoutConstraint width="1000px" height="600px"/>
+    <f:facet name="layout">
+      <tc:gridLayout
+          rows="0px;auto;auto"
+          margin="30px"/>
+    </f:facet>
+
+    <!-- XXX hack -->
+    <tc:out value="#{tobago1041.hackFacesMessages}"/>
+
+    <tc:box label="test labels with literals">
+
+      <f:facet name="layout">
+        <tc:gridLayout columns="2*;*;2*"
+                       rows="auto;auto;auto;auto;auto;auto;auto;auto;auto;auto"/>
+      </f:facet>
+
+      <tc:label value="tag"/>
+      <tc:label value="rendered as"/>
+      <tc:label value="label used for messages"/>
+
+      <tc:out value="&lt;tc:selectBooleanCheckbox label='A' itemLabel='B' />"/>
+      <tc:selectBooleanCheckbox id="literal-tc-both" label="A" itemLabel="B"/>
+      <tc:messages for="page:literal-tc-both"/>
+
+      <tc:out value="&lt;tc:selectBooleanCheckbox itemLabel='B' />"/>
+      <tc:selectBooleanCheckbox id="literal-tc-item" itemLabel="B"/>
+      <tc:messages for="page:literal-tc-item"/>
+
+      <tc:out value="&lt;tc:selectBooleanCheckbox label='A' /> (compatibility)"/>
+      <tc:selectBooleanCheckbox id="literal-tc-label" label="A"/>
+      <tc:messages for="page:literal-tc-label"/>
+
+      <tc:out value="&lt;tc:selectBooleanCheckbox/>"/>
+      <tc:selectBooleanCheckbox id="literal-tc-no"/>
+      <tc:messages for="page:literal-tc-no"/>
+
+      <tc:out value="&lt;tx:selectBooleanCheckbox label='A' itemLabel='B' />"/>
+      <tx:selectBooleanCheckbox fieldId="literal-tx-both" label="A" itemLabel="B"/>
+      <tc:messages for="page:literal-tx-both"/>
+
+      <tc:out value="&lt;tx:selectBooleanCheckbox itemLabel='B' />"/>
+      <tx:selectBooleanCheckbox fieldId="literal-tx-item" itemLabel="B"/>
+      <tc:messages for="page:literal-tx-item"/>
+
+      <tc:out value="&lt;tx:selectBooleanCheckbox label='A' />"/>
+      <tx:selectBooleanCheckbox fieldId="literal-tx-label" label="A"/>
+      <tc:messages for="page:literal-tx-label"/>
+
+      <tc:out value="&lt;tx:selectBooleanCheckbox/>"/>
+      <tx:selectBooleanCheckbox fieldId="literal-tx-no"/>
+      <tc:messages for="page:literal-tx-no"/>
+    </tc:box>
+
+    <tc:box label="same with value expressions">
+
+      <f:facet name="layout">
+      <tc:gridLayout columns="2*;*;2*"
+                     rows="auto;auto;auto;auto;auto;auto;auto;auto;auto;auto"/>
+      </f:facet>
+
+      <tc:label value="tag"/>
+      <tc:label value="rendered as"/>
+      <tc:label value="label used for messages"/>
+
+      <tc:out value="&lt;tc:selectBooleanCheckbox label='A' itemLabel='B' />"/>
+      <tc:selectBooleanCheckbox id="expression-tc-both" label="A" itemLabel="B"/>
+      <tc:messages for="page:expression-tc-both"/>
+
+      <tc:out value="&lt;tc:selectBooleanCheckbox itemLabel='B' />"/>
+      <tc:selectBooleanCheckbox id="expression-tc-item" itemLabel="B"/>
+      <tc:messages for="page:expression-tc-item"/>
+
+      <tc:out value="&lt;tc:selectBooleanCheckbox label='A' /> (compatibility)"/>
+      <tc:selectBooleanCheckbox id="expression-tc-label" label="A"/>
+      <tc:messages for="page:expression-tc-label"/>
+
+      <tc:out value="&lt;tc:selectBooleanCheckbox/>"/>
+      <tc:selectBooleanCheckbox id="expression-tc-no"/>
+      <tc:messages for="page:expression-tc-no"/>
+
+      <tc:out value="&lt;tx:selectBooleanCheckbox label='A' itemLabel='B' />"/>
+      <tx:selectBooleanCheckbox fieldId="expression-tx-both" label="A" itemLabel="B"/>
+      <tc:messages for="page:expression-tx-both"/>
+
+      <tc:out value="&lt;tx:selectBooleanCheckbox itemLabel='B' />"/>
+      <tx:selectBooleanCheckbox fieldId="expression-tx-item" itemLabel="B"/>
+      <tc:messages for="page:expression-tx-item"/>
+
+      <tc:out value="&lt;tx:selectBooleanCheckbox label='A' />"/>
+      <tx:selectBooleanCheckbox fieldId="expression-tx-label" label="A"/>
+      <tc:messages for="page:expression-tx-label"/>
+
+      <tc:out value="&lt;tx:selectBooleanCheckbox/>"/>
+      <tx:selectBooleanCheckbox fieldId="expression-tx-no"/>
+      <tc:messages for="page:expression-tx-no"/>
+    </tc:box>
+
+    <tc:script onload="check();">
+      function check() {
+        checkLabel("page:literal-tc-both", "B");
+        checkLabel("page:literal-tc-item", "B");
+        checkLabel("page:literal-tc-label", "A");
+        checkLabel("page:literal-tc-no", null);
+        checkLabel("page:literal-tx-both", "B");
+        checkLabel("page:literal-tx-item", "B");
+        checkLabel("page:literal-tx-label", "");
+        checkLabel("page:literal-tx-no", "");
+
+        checkMessage("page:literal-tc-both", "A");
+        checkMessage("page:literal-tc-item", "-");
+        checkMessage("page:literal-tc-label", "A");
+        checkMessage("page:literal-tc-no", "-");
+        checkMessage("page:literal-tx-both", "A");
+        checkMessage("page:literal-tx-item", "-");
+        checkMessage("page:literal-tx-label", "A");
+        checkMessage("page:literal-tx-no", "-");
+
+        checkLabel("page:expression-tc-both", "B");
+        checkLabel("page:expression-tc-item", "B");
+        checkLabel("page:expression-tc-label", "A");
+        checkLabel("page:expression-tc-no", null);
+        checkLabel("page:expression-tx-both", "B");
+        checkLabel("page:expression-tx-item", "B");
+        checkLabel("page:expression-tx-label", "");
+        checkLabel("page:expression-tx-no", "");
+
+        checkMessage("page:expression-tc-both", "A");
+        checkMessage("page:expression-tc-item", "-");
+        checkMessage("page:expression-tc-label", "A");
+        checkMessage("page:expression-tc-no", "-");
+        checkMessage("page:expression-tx-both", "A");
+        checkMessage("page:expression-tx-item", "-");
+        checkMessage("page:expression-tx-label", "A");
+        checkMessage("page:expression-tx-no", "-");
+      }
+
+      function checkLabel(id, estimate) {
+        var label = jQuery(Tobago.Utils.escapeClientId(id)).next("label");
+        if (estimate != label.html()) {
+          LOG.error("Wrong label (" + id + "). Estimate='" + estimate + "' found='" + label.html() + "'.");
+//        } else {
+//          LOG.info("Correct label (" + id + "). Estimate='" + estimate + "' found='" + label.html() + "'.");
+        }
+      }
+
+      function checkMessage(id, estimate) {
+        var label = jQuery(".tobago-messages label[for='" + id + "']");
+        if (estimate != label.html()) {
+          LOG.error("Wrong message (" + id + "). Estimate='" + estimate + "' found='" + label.html() + "'.");
+//        } else {
+//          LOG.info("Correct label (" + id + "). Estimate='" + estimate + "' found='" + label.html() + "'.");
+        }
+      }
+    </tc:script>
+
+  </tc:page>
+</f:view>
