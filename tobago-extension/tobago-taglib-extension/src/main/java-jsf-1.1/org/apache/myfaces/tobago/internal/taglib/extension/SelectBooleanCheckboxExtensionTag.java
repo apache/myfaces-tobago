@@ -130,9 +130,6 @@ public class SelectBooleanCheckboxExtensionTag extends BodyTagSupport implements
     if (fieldId != null) {
       selectBooleanCheckboxTag.setId(fieldId);
     }
-    if (label != null) {
-      selectBooleanCheckboxTag.setLabel(label);
-    }
     if (readonly != null) {
       selectBooleanCheckboxTag.setReadonly(readonly);
     }
@@ -142,8 +139,13 @@ public class SelectBooleanCheckboxExtensionTag extends BodyTagSupport implements
     if (required != null) {
       selectBooleanCheckboxTag.setRequired(required);
     }
+    if (label != null) {
+      selectBooleanCheckboxTag.setLabel(label);
+    }
     if (itemLabel != null) {
-      selectBooleanCheckboxTag.setLabel(itemLabel);
+      selectBooleanCheckboxTag.setItemLabel(itemLabel);
+    } else {
+      selectBooleanCheckboxTag.setItemLabel("");
     }
     if (markup != null) {
       selectBooleanCheckboxTag.setMarkup(markup);

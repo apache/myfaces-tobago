@@ -22,6 +22,7 @@ import org.apache.myfaces.tobago.apt.annotation.ExtensionTag;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
+import org.apache.myfaces.tobago.compat.FacesUtilsEL;
 import org.apache.myfaces.tobago.internal.taglib.SelectBooleanCheckboxTag;
 
 import javax.el.ValueExpression;
@@ -125,8 +126,13 @@ public class SelectBooleanCheckboxExtensionTag extends TobagoExtensionBodyTagSup
     if (required != null) {
       selectBooleanCheckboxTag.setRequired(required);
     }
+    if (label != null) {
+      selectBooleanCheckboxTag.setLabel(label);
+    }
     if (itemLabel != null) {
-      selectBooleanCheckboxTag.setLabel(itemLabel);
+      selectBooleanCheckboxTag.setItemLabel(itemLabel);
+    } else {
+      selectBooleanCheckboxTag.setItemLabel((ValueExpression) FacesUtilsEL.createExpressionOrBinding(""));
     }
     if (markup != null) {
       selectBooleanCheckboxTag.setMarkup(markup);
