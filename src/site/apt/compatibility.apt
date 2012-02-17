@@ -25,25 +25,25 @@ Compatibility
   \ 
 
 *--+--+--+--+
-| <<Tobago Version>>   | <<1.0.x>>                  | <<1.5.x-jsf-1.1>> \[unsettled\] (planning)  | <<1.5.x>> (planning)
+| <<Tobago Version>>   | <<1.0.x>>                  | <<1.5.x-jsf-1.1>> \[no release\]            | <<1.5.x>>
 *--+--+--+--+
 | <<Specifications>>   |                            |                                             |
 *--+--+--+--+
-| Java                 | 1.4\[retro\], <<1.5>>, 1.6 | 1.4\[retro\], <<1.5>>, 1.6                  | <<1.5>>, 1.6
+| Java                 | 1.4\[retro\], <<1.5>>, 1.6 | 1.4\[retro\], <<1.5>>, 1.6                  | 1.5, 1.6, 1.7
 *--+--+--+--+
-| JSF                  | <<1.1>>, 1.2               | <<1.1>>                                     | <<1.2>>, 2.0\[unsettled\]
+| JSF                  | <<1.1>>, 1.2               | 1.1                                         | 1.2, 2.0\[disable vh\]
 *--+--+--+--+
 | Servlet              | 2.3, <<2.4>>, 2.5          | 2.3, <<2.4>>, 2.5                           | 2.4\[facelets only\], <<2.5>>, 3.0
 *--+--+--+--+
 | JSP                  | 1.2, <<2.0>>, 2.1          | 1.2, <<2.0>>, 2.1                           | <<2.1>>
 *--+--+--+--+
-| Facelets             | <<1.1>>\[ext\]             | <<1.1>>\[ext\] ?                            | <<1.1>>\[ext\] ?
+| Facelets             | <<1.1>>\[ext\]             | <<1.1>>\[ext\]                              | <<1.1>>\[ext\]
 *--+--+--+--+
 | <<Implementations>>  |                            |                                             |
 *--+--+--+--+
-| MyFaces              | <<1.1>>, 1.2               | <<1.1>>                                     | <<1.2>>, 2.0\[unsettled\]
+| MyFaces              | <<1.1>>, 1.2               | 1.1                                         | 1.2, 2.0
 *--+--+--+--+
-| Sun RI               | <<1.1>>, 1.2               | <<1.1>>                                     | <<1.2>>, 2.0\[unsettled\]
+| Sun RI               | <<1.1>>, 1.2               | 1.1                                         | 1.2, 2.0
 *--+--+--+--+
 |                      |                            |                                             |
 *--+--+--+--+
@@ -63,31 +63,26 @@ Compatibility
 *--+--+--+--+
 | <<Browser>>          |                            |                                             |
 *--+--+--+--+
-| Internet Explorer    | 6, 7, 8, 9                 | 6, 7, 8, 9                                  | 6, 7, 8, 9
+| Internet Explorer    | 6, 7, 8, 9, 10             | 6, 7, 8, 9, 10                              | 6, 7, 8, 9, 10
 *--+--+--+--+
-| Firefox              | 2, 3, 3.5, 3.6, 4.0        | 2, 3, 3.5, 3.6, 4.0                         | 2, 3, 3.5, 3.6, 4.0
+| Firefox              | 2, 3, 3.5, 3.6, 4, ..., 10 | 2, 3, 3.5, 3.6, 4, ..., 10                  | 2, 3, 3.5, 3.6, 4, ..., 10
 *--+--+--+--+
 | Safari               |                            | 4, 5                                        | 4, 5
 *--+--+--+--+
-| Chrome               |                            | 5                                           | 5
+| Chrome               |                            | 5, ..., 17                                  | 5, ..., 17
 *--+--+--+--+
-| Opera                |                            | 10                                          | 10
+| Opera                |                            | 10, 11                                      | 10, 11
 *--+--+--+--+
 | others               |                            | \[other browsers\]                          | \[other browsers\]
 *--+--+--+--+
-
- ~~ | WebSphere JSF Impl   | ?                          |
- ~~ *--+--+--+--+
- ~~ | <<Frameworks>>       |                            |
- ~~ *--+--+--+--+
- ~~ | Tomahawk             |        |
- ~~ *--+--+--+--+
- ~~ | Orchestra            |        |
- ~~ *--+--+--+--+
- ~~ | Seam                 |        |
- ~~ *--+--+--+--+
- ~~ | ?                    |        |
- ~~ *--+--+--+--+
+|                      |                            |                                             |
+*--+--+--+--+
+| <<Frameworks>>       |                            |                                             |
+*--+--+--+--+
+| CDI / Codi           |                            |                                             | yes
+*--+--+--+--+
+| JSR-303 / BV         |                            |                                             | yes
+*--+--+--+--+
 
  ~~ JSF Addon-Frameworks: Apache Shale Dialog, Apache Shale Clay, Spring Web Flow, Seam, WebBeans, "Validator", ...
  ~~ IoC Frameworks: Spring, Guice, ...
@@ -108,3 +103,16 @@ Compatibility
   \[other servers\]: other servers should work, when they are compliant to the named specifications
 
   \[other browsers\]: other browsers should work, in their actual version, when they are standard compliant to HTML 4 and CSS 2.1
+
+  \[no release\]: Using Tobago 1.5 with JSF 1.1 is currently not part of the release, but can be build from the sources with mvn -Pjsf-1.1
+
+  \[disable vh\]: Tobago 1.5 works with JSF 2.0 when you are disable the Facelets ViewHandler from JSF 2.0 and using the
+  original Facelets:
+
++----------------------------------------
+  <context-param>
+    <description>For backward compatibility (using "old" Facelets with JSF 2.0)</description>
+    <param-name>javax.faces.DISABLE_FACELET_JSF_VIEWHANDLER</param-name>
+    <param-value>true</param-value>
+  </context-param>
++----------------------------------------
