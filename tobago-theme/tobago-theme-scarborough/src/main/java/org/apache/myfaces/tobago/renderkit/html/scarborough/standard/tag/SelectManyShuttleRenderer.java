@@ -77,6 +77,7 @@ public class SelectManyShuttleRenderer extends SelectManyRendererBase {
       writer.startElement(HtmlElements.DIV, null);
       writer.writeStyleAttribute(labelStyle);
       writer.writeClassAttribute(Classes.create(select, "unselectedLabel"));
+      writer.flush(); // is needed in some cases, e. g. TOBAGO-1094
       writer.write(unselectedLabel);
       writer.endElement(HtmlElements.DIV);
     }
@@ -118,6 +119,7 @@ public class SelectManyShuttleRenderer extends SelectManyRendererBase {
       labelStyle.setLeft(labelStyle.getLeft().add(selectWidth).add(buttonWidth));
       writer.writeStyleAttribute(labelStyle);
       writer.writeClassAttribute(Classes.create(select, "selectedLabel"));
+      writer.flush(); // is needed in some cases, e. g. TOBAGO-1094
       writer.write(selectedLabel);
       writer.endElement(HtmlElements.DIV);
     }

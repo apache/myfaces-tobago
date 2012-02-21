@@ -245,6 +245,7 @@ public class PageRenderer extends PageRendererBase {
       Set<String> styleBlocks = FacesContextUtils.getStyleBlocks(facesContext);
       if (styleBlocks.size() > 0) {
         writer.startElement(HtmlElements.STYLE, null);
+        writer.flush(); // is needed in some cases, e. g. TOBAGO-1094
         for (String cssBlock : styleBlocks) {
           writer.write(cssBlock);
         }
@@ -731,6 +732,7 @@ public class PageRenderer extends PageRendererBase {
       ResponseWriter writer) throws IOException {
     writer.startElement(HtmlElements.DIV, null);
     writer.writeAttribute(HtmlAttributes.STYLE, "color: red", null);
+    writer.flush(); // is needed in some cases, e. g. TOBAGO-1094
     writer.write("[");
     writer.write(id != null ? id : "null");
     writer.write("]");

@@ -130,6 +130,7 @@ public class AjaxUtils {
   }
 
   private static void redirectInternal(Writer writer, String url) throws IOException {
+    writer.flush(); // is needed in some cases, e. g. TOBAGO-1094
     writer.write("{\n  \"tobagoAjaxResponse\": true,\n");
     writer.write("  \"responseCode\": 302,\n");
     writer.write("  \"location\": \"");

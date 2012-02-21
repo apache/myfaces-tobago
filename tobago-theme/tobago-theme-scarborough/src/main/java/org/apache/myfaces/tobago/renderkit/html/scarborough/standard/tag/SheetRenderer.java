@@ -436,7 +436,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
         writer.writeClassAttribute(Classes.create(sheet, "pagingOuter", showRowRange));
         writer.writeAttribute(HtmlAttributes.TITLE,
             ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", "sheetPagingInfoRowPagingTip"), true);
-        writer.writeText("");
+        writer.flush(); // is needed in some cases, e. g. TOBAGO-1094
         writer.write(createSheetPagingInfo(sheet, facesContext, pagerCommandId, true));
         writer.endElement(HtmlElements.SPAN);
       }
@@ -473,7 +473,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
         writer.writeClassAttribute(Classes.create(sheet, "pagingText"));
         writer.writeAttribute(HtmlAttributes.TITLE,
             ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", "sheetPagingInfoPagePagingTip"), true);
-        writer.writeText("");
+        writer.flush(); // is needed in some cases, e. g. TOBAGO-1094
         writer.write(createSheetPagingInfo(sheet, facesContext, pagerCommandId, false));
         writer.endElement(HtmlElements.SPAN);
         boolean atEnd = sheet.isAtEnd();
