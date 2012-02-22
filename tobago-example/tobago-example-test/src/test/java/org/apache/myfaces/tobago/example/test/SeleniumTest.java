@@ -19,9 +19,9 @@ package org.apache.myfaces.tobago.example.test;
 
 import com.thoughtworks.selenium.DefaultSelenium;
 import com.thoughtworks.selenium.SeleniumException;
-import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Assert;
-import org.junit.Before;
+import org.junit.BeforeClass;
 
 public abstract class SeleniumTest {
 
@@ -33,16 +33,16 @@ public abstract class SeleniumTest {
   public static final String HAS_ERROR_SEVERITY = "has error severity";
   public static final String IS_BROKEN = "is broken";
 
-  private DefaultSelenium selenium;
+  private static DefaultSelenium selenium;
 
-  @Before
-  public void setUp() throws Exception {
+  @BeforeClass
+  public static void setUp() throws Exception {
     selenium = createSeleniumClient();
     selenium.start();
   }
 
-  @After
-  public void tearDown() throws Exception {
+  @AfterClass
+  public static void tearDown() throws Exception {
     selenium.stop();
   }
 
@@ -50,7 +50,7 @@ public abstract class SeleniumTest {
     return selenium;
   }
 
-  protected DefaultSelenium createSeleniumClient() throws Exception {
+  protected static DefaultSelenium createSeleniumClient() throws Exception {
     return new DefaultSelenium("localhost", 4444, "*firefox", "http://localhost:8080/");
   }
 
