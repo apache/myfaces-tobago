@@ -23,6 +23,9 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import static org.hamcrest.CoreMatchers.anyOf;
+import static org.hamcrest.CoreMatchers.is;
+
 @RunWith(Parameterized.class)
 public class BugTobago1091SeleniumTest extends MultiSuffixSeleniumTest {
 
@@ -35,8 +38,10 @@ public class BugTobago1091SeleniumTest extends MultiSuffixSeleniumTest {
 
     // load page
     open("/tc/popup/popup-bug-tobago-1091.");
-    Assert.assertEquals(
-        "Checkbox should be checked!", "true", getSelenium().getAttribute("page:check@checked"));
+    Assert.assertThat(
+        "Checkbox should be checked!",
+        getSelenium().getAttribute("page:check@checked"),
+        anyOf(is("true"), is("checked")));
 
     // click on open popup
     getSelenium().click("page:open");
@@ -46,7 +51,9 @@ public class BugTobago1091SeleniumTest extends MultiSuffixSeleniumTest {
     getSelenium().click("page:popup:close");
     getSelenium().waitForPageToLoad("5000");
 
-    Assert.assertEquals(
-        "Checkbox should be checked!", "true", getSelenium().getAttribute("page:check@checked"));
+    Assert.assertThat(
+        "Checkbox should be checked!",
+        getSelenium().getAttribute("page:check@checked"),
+        anyOf(is("true"), is("checked")));
   }
 }
