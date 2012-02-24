@@ -199,7 +199,7 @@ public class Sorter {
       if (child instanceof UISelectMany
           || child instanceof UISelectOne
           || child instanceof UISelectBoolean
-          || child instanceof AbstractUICommand
+          || (child instanceof AbstractUICommand && child.getChildren().isEmpty())
           || (child instanceof UIInput && RendererTypes.HIDDEN.equals(child.getRendererType()))) {
         continue;
         // look for a better component if any

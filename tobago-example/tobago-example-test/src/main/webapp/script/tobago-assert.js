@@ -80,6 +80,14 @@ var TobagoAssert = {
     }
   },
 
+  assertContent: function(elementOrId, expected) {
+    var element = TobagoAssert.jQueryElement(elementOrId);
+    if (element.html() != expected) {
+      LOG.error("The content of element with id=" + element.attr('id')
+          + " is '" + element.html() + "', but expected was '" + expected + "'.");
+    }
+  },
+
   /**
    * Util to get an jQuery object from a plain id string (unescaped) or a jQuery object.
    */
