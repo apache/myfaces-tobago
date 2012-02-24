@@ -54,6 +54,13 @@ public abstract class SeleniumTest {
     return new DefaultSelenium("localhost", 4444, "*firefox", "http://localhost:8080/");
   }
 
+  protected void waitForAjaxComplete() {
+    getSelenium().waitForCondition(
+        "selenium.browserbot.getCurrentWindow().document.getElementsByClassName('tobago-page-overlay').length == 0",
+        "5000"
+    );
+  }
+
   protected void checkPage() {
     final String location = selenium.getLocation();
     final String html = getHtmlSource();
