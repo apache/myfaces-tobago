@@ -108,6 +108,12 @@
   </managed-bean>
 
   <managed-bean>
+    <managed-bean-name>sort</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.tobago.example.test.SheetSortController</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+  </managed-bean>
+
+  <managed-bean>
     <managed-bean-name>tree</managed-bean-name>
     <managed-bean-class>org.apache.myfaces.tobago.example.test.TreeController</managed-bean-class>
     <managed-bean-scope>session</managed-bean-scope>
@@ -141,6 +147,12 @@
     <managed-bean-name>progress</managed-bean-name>
     <managed-bean-class>org.apache.myfaces.tobago.example.test.Progress</managed-bean-class>
     <managed-bean-scope>session</managed-bean-scope>
+  </managed-bean>
+
+  <managed-bean>
+    <managed-bean-name>tobago1041</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.tobago.example.test.Tobago1041</managed-bean-class>
+    <managed-bean-scope>none</managed-bean-scope>
   </managed-bean>
 
   <navigation-rule>

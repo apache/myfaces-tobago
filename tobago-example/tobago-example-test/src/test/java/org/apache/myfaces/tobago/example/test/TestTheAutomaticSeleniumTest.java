@@ -17,7 +17,10 @@ package org.apache.myfaces.tobago.example.test;
  * limitations under the License.
  */
 
+import com.thoughtworks.selenium.SeleniumException;
+import org.junit.AfterClass;
 import org.junit.Assert;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,6 +33,16 @@ import java.util.List;
 public class TestTheAutomaticSeleniumTest {
 
   private static final Logger LOG = LoggerFactory.getLogger(TestTheAutomaticSeleniumTest.class);
+
+  @BeforeClass
+  public static void setUp() throws Exception {
+    AutomaticSeleniumTest.setUp();
+  }
+
+  @AfterClass
+  public static void tearDown() throws Exception {
+    AutomaticSeleniumTest.tearDown();
+  }
 
   @Test
   public void areTheCorrectFilesTested() {
@@ -63,12 +76,14 @@ public class TestTheAutomaticSeleniumTest {
       String url = AutomaticSeleniumTest.createUrl("/meta-test/meta-404-not-existing.xhtml");
       LOG.info("Testing page: '" + url + "'");
       AutomaticSeleniumTest test = new AutomaticSeleniumTest(url, url);
-      test.setUp();
+
       test.testPageConsistency();
-      test.tearDown();
+
       Assert.fail("The test should fail, but wasn't.");
-    } catch (AssertionError e) {
+    } catch (AssertionError e) { // from IDE
       Assert.assertTrue(e.getMessage().contains("404 - page not found"));
+    } catch (SeleniumException e) { // from mvn -Pintegration-test
+      Assert.assertTrue(e.getMessage().contains("Response_Code = 404"));
     }
   }
 
@@ -78,9 +93,9 @@ public class TestTheAutomaticSeleniumTest {
       String url = AutomaticSeleniumTest.createUrl("/meta-test/meta-1-fail.xhtml");
       LOG.info("Testing page: '" + url + "'");
       AutomaticSeleniumTest test = new AutomaticSeleniumTest(url, url);
-      test.setUp();
+
       test.testPageConsistency();
-      test.tearDown();
+
       Assert.fail("The test should fail, but wasn't.");
     } catch (AssertionError e) {
       if (e.getMessage().contains(AutomaticSeleniumTest.HAS_ERROR_SEVERITY)) {
@@ -97,9 +112,9 @@ public class TestTheAutomaticSeleniumTest {
       String url = AutomaticSeleniumTest.createUrl("/meta-test/meta-4-not-tobago.xhtml");
       LOG.info("Testing page: '" + url + "'");
       AutomaticSeleniumTest test = new AutomaticSeleniumTest(url, url);
-      test.setUp();
+
       test.testPageConsistency();
-      test.tearDown();
+
       Assert.fail("The test should fail, but wasn't.");
     } catch (AssertionError e) {
       if (e.getMessage().contains(AutomaticSeleniumTest.IS_BROKEN)) {

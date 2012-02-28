@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.example.test.tc.popup;
+package org.apache.myfaces.tobago.example.test.tc.sheet;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -23,37 +23,42 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static org.hamcrest.CoreMatchers.anyOf;
-import static org.hamcrest.CoreMatchers.is;
-
 @RunWith(Parameterized.class)
-public class BugTobago1091SeleniumTest extends MultiSuffixSeleniumTest {
+public class Tobago986SeleniumTest extends MultiSuffixSeleniumTest {
 
-  public BugTobago1091SeleniumTest(String suffix) {
+  public Tobago986SeleniumTest(String suffix) {
     super(suffix);
   }
 
   @Test
-  public void testWithoutModel() throws InterruptedException {
+  public void test() throws InterruptedException {
 
     // load page
-    open("/tc/popup/popup-bug-tobago-1091.");
-    Assert.assertThat(
-        "Checkbox should be checked!",
-        getSelenium().getAttribute("page:check@checked"),
-        anyOf(is("true"), is("checked")));
+    open("/tc/sheet/sheet-sort.");
 
-    // click on open popup
-    getSelenium().click("page:open");
-    getSelenium().waitForPageToLoad("5000");
+    sort(0, "A");
+    sort(0, "Z");
 
-    // click on open popup
-    getSelenium().click("page:popup:close");
-    getSelenium().waitForPageToLoad("5000");
+    sort(1, "Z");
+    sort(1, "Y");
 
-    Assert.assertThat(
-        "Checkbox should be checked!",
-        getSelenium().getAttribute("page:check@checked"),
-        anyOf(is("true"), is("checked")));
+    sort(2, "Y");
+    sort(2, "X");
+
+    sort(3, "X");
+    sort(3, "W");
+
+    sort(4, "W");
+    sort(4, "V");
+
+    sort(5, "V");
+    sort(5, "U");
+  }
+
+  private void sort(int column, String exprected) {
+    getSelenium().click("page:sheet::header_box_" + column);
+    waitForAjaxComplete();
+    String first = getSelenium().getText("page:sheet:0:out");
+    Assert.assertEquals(exprected, first);
   }
 }

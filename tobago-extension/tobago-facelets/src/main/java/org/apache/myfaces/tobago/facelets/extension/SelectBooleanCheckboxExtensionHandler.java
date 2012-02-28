@@ -42,11 +42,13 @@ public class SelectBooleanCheckboxExtensionHandler extends TobagoLabelExtensionH
     UISelectBooleanCheckbox checkbox = (UISelectBooleanCheckbox) input;
     if (itemLabelAttribute != null) {
       if (itemLabelAttribute.isLiteral()) {
-        checkbox.setLabel(itemLabelAttribute.getValue(faceletContext));
+        checkbox.setItemLabel(itemLabelAttribute.getValue(faceletContext));
       } else {
         ValueExpression expression = itemLabelAttribute.getValueExpression(faceletContext, String.class);
-        ELAdaptor.setExpression(checkbox, Attributes.TIP, expression);
+        ELAdaptor.setExpression(checkbox, Attributes.ITEM_LABEL, expression);
       }
+    } else {
+      checkbox.setItemLabel(""); // for compatibility (TOBAGO-1093)
     }
   }
 

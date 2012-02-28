@@ -65,6 +65,8 @@ public class UserAgent implements Serializable {
 
   public static final UserAgent MSIE_9_0 = new UserAgent("msie", "9_0", EnumSet.of(Capability.CONTENT_TYPE_XHTML));
 
+  public static final UserAgent MSIE_10_0 = new UserAgent("msie", "10_0", EnumSet.of(Capability.CONTENT_TYPE_XHTML));
+
   /**
    * @deprecated no longer supported, since Tobago 1.5
    */
@@ -236,6 +238,8 @@ public class UserAgent implements Serializable {
         return MSIE_8_0;
       } else if (header.contains("MSIE 9.0")) {
         return MSIE_9_0;
+      } else if (header.contains("MSIE 10.0")) {
+        return MSIE_10_0;
       } else {
         return MSIE;
       }

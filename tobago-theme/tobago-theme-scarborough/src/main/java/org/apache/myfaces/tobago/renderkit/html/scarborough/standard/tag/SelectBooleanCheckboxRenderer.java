@@ -67,11 +67,6 @@ public class SelectBooleanCheckboxRenderer extends LayoutComponentRendererBase {
 
   //
   public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
-    if (!(component instanceof UISelectBooleanCheckbox)) {
-      LOG.error("Wrong type: Need " + UISelectBooleanCheckbox.class.getName() 
-          + ", but was " + component.getClass().getName());
-      return;
-    }
 
     UISelectBooleanCheckbox select = (UISelectBooleanCheckbox) component;
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
@@ -109,7 +104,10 @@ public class SelectBooleanCheckboxRenderer extends LayoutComponentRendererBase {
     }
     writer.endElement(HtmlElements.INPUT);
 
-    String label = select.getLabel();
+    String label = select.getItemLabel();
+    if (label == null) {
+      label = select.getLabel(); // compatibility since TOBAGO-1093
+    }
     if (label != null) {
       writer.startElement(HtmlElements.LABEL, select);
       writer.writeAttribute(HtmlAttributes.FOR, id, false);

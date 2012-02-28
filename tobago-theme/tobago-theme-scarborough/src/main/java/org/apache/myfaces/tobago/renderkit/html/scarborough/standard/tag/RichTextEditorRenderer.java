@@ -127,7 +127,7 @@ public class RichTextEditorRenderer extends InputRendererBase {
       writer.writeIdAttribute(clientId);
 
       writer.writeStyleAttribute(style);
-      writer.writeText("");
+      writer.flush(); // is needed in some cases, e. g. TOBAGO-1094
       writer.write(RichTextEditorRenderer.contentToHtml(content));
 
       writer.endElement(HtmlElements.DIV);

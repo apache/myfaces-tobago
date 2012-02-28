@@ -22,13 +22,8 @@
 var TobagoAssert = {
 
   assertLeft: function(elementOrId, left) {
-    var element = TobagoAssert.jQueryElement(elementOrId).get(0);
-    var offsetLeft = element.offsetLeft;
-    var parent = element;
-    while (parent.offsetParent != null) {
-      parent = parent.offsetParent;
-      offsetLeft += parent.offsetLeft;
-    }
+    var element = TobagoAssert.jQueryElement(elementOrId);
+    var offsetLeft = element.offset().left;
     if (offsetLeft != left) {
       LOG.error("The element '" + element.tagName + "' with id='" + element.id + "' has wrong left: expected=" + left
           + " actual=" + offsetLeft);
@@ -36,13 +31,8 @@ var TobagoAssert = {
   },
 
   assertTop: function(elementOrId, top) {
-    var element = TobagoAssert.jQueryElement(elementOrId).get(0);
-    var offsetTop = element.offsetTop;
-    var parent = element;
-    while (parent.offsetParent != null) {
-      parent = parent.offsetParent;
-      offsetTop += parent.offsetTop;
-    }
+    var element = TobagoAssert.jQueryElement(elementOrId);
+    var offsetTop = element.offset().top;
     if (offsetTop != top) {
       LOG.error("The element '" + element.tagName + "' with id='" + element.id + "' has wrong top: expected=" + top
           + " actual=" + offsetTop);
@@ -87,6 +77,14 @@ var TobagoAssert = {
     if (element.attr(attribute) != expected) {
       LOG.error("The attribute '" + attribute + "' of element with id=" + element.attr('id')
           + " is '" + element.attr(attribute) + "', but expected was '" + expected + "'.");
+    }
+  },
+
+  assertContent: function(elementOrId, expected) {
+    var element = TobagoAssert.jQueryElement(elementOrId);
+    if (element.html() != expected) {
+      LOG.error("The content of element with id=" + element.attr('id')
+          + " is '" + element.html() + "', but expected was '" + expected + "'.");
     }
   },
 
