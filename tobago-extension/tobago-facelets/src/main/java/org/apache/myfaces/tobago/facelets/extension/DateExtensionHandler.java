@@ -44,6 +44,7 @@ public class DateExtensionHandler extends TobagoLabelExtensionHandler {
   }
 
   protected void onComponentPopulated(FaceletContext faceletContext, UIComponent panel, UIComponent parent) {
+    super.onComponentPopulated(faceletContext, panel, parent);
     if (panel.getChildCount() == 2) {
       Application application = faceletContext.getFacesContext().getApplication();
       UIDatePicker picker = (UIDatePicker) application.createComponent(UIDatePicker.COMPONENT_TYPE);
