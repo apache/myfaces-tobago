@@ -23,15 +23,13 @@
       <tc:gridLayout rows="*"/>
     </f:facet>
 
-    <tc:treeMenu id="nav">
-      <tc:treeData value="#{navigation.tree}" var="node" id="data">
-        <tc:treeNode expanded="#{node.expanded}">
-          <tc:treeCommand
-              label="#{node.title}"
-              action="#{node.action}"
-              immediate="true"/>
-        </tc:treeNode>
-      </tc:treeData>
+    <tc:treeMenu id="nav" value="#{navigation.tree}" var="node">
+      <tc:treeNode expanded="#{node.expanded}">
+        <tc:treeCommand
+            label="#{node.title}"
+            action="#{node.action}"
+            immediate="true"/>
+      </tc:treeNode>
     </tc:treeMenu>
 
   </tc:panel>
