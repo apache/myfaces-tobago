@@ -17,7 +17,7 @@
  Migration from Tobago 1.0 to 1.5
  ------
 
-Migration from Tobago 1.0 to 1.5 (work in progress)
+Migration from Tobago 1.0 to 1.5
 
    Tobago 1.5 has a lot of changes compared to Tobago 1.0.
 
@@ -27,7 +27,7 @@ Migration from Tobago 1.0 to 1.5 (work in progress)
    The amount of things you have to change in your application depends
    on how do you use it.
    On the Tobago Tag Library are very few changes made.
-   On the Tobago Java Classes are more changes.
+   On the Tobago Java Classes and the Themes are more changes.
    Here you can see which changes has been made.
 
 Deprecated
