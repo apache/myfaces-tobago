@@ -18,6 +18,7 @@ package org.apache.myfaces.tobago.example.test;
  */
 
 import org.apache.myfaces.tobago.example.data.CategoryTree;
+import org.apache.myfaces.tobago.example.data.Node;
 import org.apache.myfaces.tobago.example.data.SmallTree;
 import org.apache.myfaces.tobago.model.TreeDataModel;
 
@@ -29,7 +30,7 @@ public class TreeController {
 
   private DefaultMutableTreeNode small = SmallTree.createSample();
 
-  private TreeDataModel treeInSheet = new TreeDataModel(tree);
+  private TreeDataModel treeInSheet = new TreeDataModel(tree, false);
 
   public DefaultMutableTreeNode getTree() {
     return tree;
@@ -41,5 +42,17 @@ public class TreeController {
 
   public TreeDataModel getTreeInSheet() {
     return treeInSheet;
+  }
+
+  public String openAll() {
+    openAll(tree);
+    return null;
+  }
+
+  public void openAll(DefaultMutableTreeNode node) {
+    ((Node)node.getUserObject()).setExpanded(true);
+    for (int i = 0; i < node.getChildCount(); i++) {
+      openAll((DefaultMutableTreeNode)node.getChildAt(i));
+    }
   }
 }
