@@ -55,9 +55,9 @@ public class AbstractUIData extends javax.faces.component.UIData {
   protected DataModel getDataModel() {
     if (!initialized) {
       Object value = getValue();
-
+      boolean showRoot = isShowRoot();
       if (value instanceof DefaultMutableTreeNode) {
-        dataModel = new TreeDataModel((DefaultMutableTreeNode) value);
+        dataModel = new TreeDataModel((DefaultMutableTreeNode) value, showRoot);
       }
       initialized = true;
     }
@@ -105,6 +105,10 @@ public class AbstractUIData extends javax.faces.component.UIData {
       }
       return clientId.substring(0, clientId.length() - suffix.length());
     }
+  }
+
+  public boolean isShowRoot() {
+    return true;
   }
 
   /**

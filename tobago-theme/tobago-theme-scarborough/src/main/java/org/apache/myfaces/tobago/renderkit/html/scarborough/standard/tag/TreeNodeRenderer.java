@@ -17,7 +17,6 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.component.UITree;
 import org.apache.myfaces.tobago.component.UITreeNode;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.ResourceUtils;
@@ -114,12 +113,8 @@ public class TreeNodeRenderer extends LayoutComponentRendererBase {
     final boolean dataRendersRowContainer = data.isRendersRowContainer();
     final boolean folder = node.isFolder();
     final String clientId = node.getClientId(facesContext);
-    final int level = node.getLevel();
-    final boolean root = level == 0;
-    // todo: make it possible to have a showRoot in UISheet
-    final boolean showRoot = data instanceof UITree && ((UITree) data).isShowRoot();
     final String parentId = data.getRowParentClientId();
-    final boolean visible = root ? showRoot : data.isRowVisible();
+    final boolean visible = data.isRowVisible();
 
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 

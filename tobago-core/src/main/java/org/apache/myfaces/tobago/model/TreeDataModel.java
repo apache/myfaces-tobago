@@ -34,9 +34,11 @@ public class TreeDataModel extends DataModel {
   private int rowIndex = -1;
   private Map<Integer, Data> mapping;
   private Map<DefaultMutableTreeNode, Integer> back;
+  private boolean showRoot;
 
-  public TreeDataModel(DefaultMutableTreeNode data) {
+  public TreeDataModel(DefaultMutableTreeNode data, boolean showRoot) {
     this.data = data;
+    this.showRoot = showRoot;
     init();
   }
 
@@ -100,9 +102,17 @@ public class TreeDataModel extends DataModel {
     if (!isRowAvailable()) {
       return false;
     }
-    DefaultMutableTreeNode node = (DefaultMutableTreeNode) getRowData().getParent();
+    final DefaultMutableTreeNode start = getRowData();
+    if (start.isRoot()) {
+      return showRoot;
+    }
+    DefaultMutableTreeNode node = (DefaultMutableTreeNode) start.getParent();
     while (node != null) {
-      if (!mapping.get(back.get(node)).isExpanded()) {
+      final Data data = mapping.get(back.get(node));
+      if (data.getNode().isRoot() && !showRoot) {
+        return true;
+      }
+      if (!data.isExpanded()) {
         return false;
       }
       node = (DefaultMutableTreeNode) node.getParent();
