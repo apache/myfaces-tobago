@@ -101,7 +101,10 @@ public class SheetRenderer extends LayoutComponentRendererBase {
     // Outer sheet div
     writer.startElement(HtmlElements.DIV, sheet);
     writer.writeIdAttribute(sheetId);
-    writer.writeClassAttribute(Classes.create(sheet, "outer"));
+    final String css = Classes.create(sheet).getStringValue() + " " + Classes.create(sheet, "outer").getStringValue();
+    // todo: please remove the "outer" sub in the future,
+    // todo: it was renamed from tobago-sheet-outer to tobago-sheet because of naming conventions.
+    writer.writeClassAttribute(css);
     writer.writeStyleAttribute(style);
     UICommand clickAction = null;
     UICommand dblClickAction = null;
