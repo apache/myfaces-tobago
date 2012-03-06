@@ -22,6 +22,7 @@ import org.apache.myfaces.tobago.component.UITreeIndent;
 import org.apache.myfaces.tobago.component.UITreeNode;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
+import org.apache.myfaces.tobago.internal.component.AbstractUIData;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
@@ -32,7 +33,6 @@ import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
-import javax.faces.component.UIData;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.util.List;
@@ -44,14 +44,13 @@ public class TreeIndentRenderer extends LayoutComponentRendererBase {
 
     final UITreeIndent indent = (UITreeIndent) component;
     final UITreeNode node = ComponentUtils.findAncestor(indent, UITreeNode.class);
-    final UIData data = ComponentUtils.findAncestor(indent, UIData.class);
+    final AbstractUIData data = ComponentUtils.findAncestor(indent, AbstractUIData.class);
 
     final boolean folder = node.isFolder();
     final int level = node.getLevel();
     final List<Boolean> junctions = node.getJunctions();
 
-    // todo: sheet
-    final boolean showRoot = data instanceof UITree && ((UITree) data).isShowRoot();
+    final boolean showRoot = data.isShowRoot();
     final boolean showJunctions = indent.isShowJunctions();
     // todo: sheet
     final boolean showRootJunction = data instanceof UITree && ((UITree) data).isShowRootJunction();
@@ -66,7 +65,7 @@ public class TreeIndentRenderer extends LayoutComponentRendererBase {
         facesContext, writer, node, showJunctions, showRootJunction, junctions, expanded, folder, level == 0);
   }
 
-  private void   encodeIndent(
+  private void encodeIndent(
       final FacesContext facesContext, final TobagoResponseWriter writer, final UITreeNode node,
       final boolean showJunctions, final boolean showRootJunction, final boolean showRoot,
       final List<Boolean> junctions)

@@ -28,6 +28,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutComponent;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsShowRoot;
 
 /**
  * A tree which will be displayed like a flat menu.
@@ -44,7 +45,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutCompone
         "org.apache.myfaces.tobago.TreeData"
         })
 public interface TreeMenuTagDeclaration
-    extends HasIdBindingAndRendered, IsGridLayoutComponent, HasMarkup, HasCurrentMarkup {
+    extends HasIdBindingAndRendered, IsGridLayoutComponent, HasMarkup, HasCurrentMarkup, IsShowRoot {
 
   /**
    *
@@ -58,11 +59,4 @@ public interface TreeMenuTagDeclaration
   @UIComponentTagAttribute(type = "java.lang.Object", expression = DynamicExpression.VALUE_BINDING_REQUIRED)
   void setState(String state);
 
-  /**
-   * Indicates that the root node should be displayed or not.
-   * Normally the root node of a menu will not be shown, because it has only technical significance.
-   */
-  @TagAttribute
-  @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
-  void setShowRoot(String showRoot);
 }

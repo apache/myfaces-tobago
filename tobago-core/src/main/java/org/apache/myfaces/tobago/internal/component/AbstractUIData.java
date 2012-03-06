@@ -27,9 +27,12 @@ import javax.faces.model.DataModel;
 import javax.swing.tree.DefaultMutableTreeNode;
 import java.util.List;
 
-public class AbstractUIData extends javax.faces.component.UIData {
+public abstract class AbstractUIData extends javax.faces.component.UIData {
 
   private static final Logger LOG = LoggerFactory.getLogger(AbstractUIData.class);
+
+  public static final String SUFFIX_MARKED = "marked";
+  public static final String SUFFIX_EXPANDED = "expanded";
 
   /**
    * Only for tree model.
@@ -107,9 +110,7 @@ public class AbstractUIData extends javax.faces.component.UIData {
     }
   }
 
-  public boolean isShowRoot() {
-    return true;
-  }
+  public abstract boolean isShowRoot();
 
   /**
    * The value describes, if the UIData renderer creates container elements to hold the row information.

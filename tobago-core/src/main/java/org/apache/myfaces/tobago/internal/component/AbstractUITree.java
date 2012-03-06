@@ -51,9 +51,6 @@ public abstract class AbstractUITree extends AbstractUIData
   @Deprecated
   public static final String MARKED = "marked";
 
-  public static final String SUFFIX_MARKED = "marked";
-  public static final String SUFFIX_EXPANDED = "expanded";
-
   @Override
   public void processValidators(FacesContext facesContext) {
     final int last = hasRows() ? getFirst() + getRows() : Integer.MAX_VALUE;

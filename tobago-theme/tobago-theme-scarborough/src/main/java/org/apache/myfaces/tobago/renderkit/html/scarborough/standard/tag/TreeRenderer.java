@@ -18,6 +18,7 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  */
 
 import org.apache.myfaces.tobago.component.UITreeNode;
+import org.apache.myfaces.tobago.internal.component.AbstractUIData;
 import org.apache.myfaces.tobago.internal.component.AbstractUITree;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
@@ -58,7 +59,7 @@ public class TreeRenderer extends LayoutComponentRendererBase {
 
     // expanded
     String expanded = (String) facesContext.getExternalContext().getRequestParameterMap()
-        .get(tree.getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + AbstractUITree.SUFFIX_EXPANDED);
+        .get(tree.getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + AbstractUIData.SUFFIX_EXPANDED);
     try {
       tree.setSubmittedExpanded(expanded != null ? StringUtils.parseIntegerList(expanded) : null);
     } catch (NumberFormatException e) {
@@ -122,10 +123,10 @@ public class TreeRenderer extends LayoutComponentRendererBase {
 
     writer.startElement(HtmlElements.INPUT, tree);
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN, false);
-    final String expandedId = clientId + ComponentUtils.SUB_SEPARATOR + AbstractUITree.SUFFIX_EXPANDED;
+    final String expandedId = clientId + ComponentUtils.SUB_SEPARATOR + AbstractUIData.SUFFIX_EXPANDED;
     writer.writeNameAttribute(expandedId);
     writer.writeIdAttribute(expandedId);
-    writer.writeClassAttribute(Classes.create(tree, AbstractUITree.SUFFIX_EXPANDED));
+    writer.writeClassAttribute(Classes.create(tree, AbstractUIData.SUFFIX_EXPANDED));
     final List<Integer> value = tree.getSubmittedExpanded();
     writer.writeAttribute(HtmlAttributes.VALUE, value != null ? StringUtils.joinWithSurroundingSeparator(value) : "", false);
     writer.endElement(HtmlElements.INPUT);

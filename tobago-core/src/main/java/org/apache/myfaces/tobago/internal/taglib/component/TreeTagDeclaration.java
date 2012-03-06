@@ -31,6 +31,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasValue;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasVar;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutComponent;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsRequired;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsShowRoot;
 
 /**
  * A tree with classical look. 
@@ -47,7 +48,8 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsRequired;
         "org.apache.myfaces.tobago.TreeData"
         })
 public interface TreeTagDeclaration
-    extends HasIdBindingAndRendered, HasValue, HasVar, IsRequired, IsGridLayoutComponent, HasMarkup, HasCurrentMarkup {
+    extends HasIdBindingAndRendered, HasValue, HasVar, IsRequired, IsGridLayoutComponent, HasMarkup, HasCurrentMarkup,
+    IsShowRoot {
 
   /**
    * Flag indicating whether or not this component should be render selectable items.
@@ -71,10 +73,6 @@ public interface TreeTagDeclaration
   @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
   void setShowRootJunction(String showRootJunction);
 
-  @TagAttribute
-  @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
-  void setShowRoot(String showRoot);
-  
   /**
    *
    * <strong>ValueBindingExpression</strong> pointing to a object to save the
