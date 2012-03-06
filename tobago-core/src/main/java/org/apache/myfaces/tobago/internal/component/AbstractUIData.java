@@ -104,6 +104,10 @@ public abstract class AbstractUIData extends javax.faces.component.UIData {
 
   public abstract boolean isShowRoot();
 
+  public boolean isShowRootJunction() {
+    return false;
+  }
+
   /**
    * The value describes, if the UIData renderer creates container elements to hold the row information.
    * This information is important for the TreeNodeRenderer to set the visible state in the output or not.

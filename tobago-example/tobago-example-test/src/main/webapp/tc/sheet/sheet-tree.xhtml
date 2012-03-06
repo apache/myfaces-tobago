@@ -28,7 +28,7 @@
       <tc:gridLayout rows="*;auto"/>
     </f:facet>
 
-    <tc:sheet value="#{tree.tree}" id="sheet" columns="*;*" var="row">
+    <tc:sheet value="#{tree.tree}" id="sheet" columns="*;*" var="row" showRoot="true" showRootJunction="true">
 
       <tc:column label="Tree" id="tree">
         <tc:treeNode expanded="#{row.level le 1}">
