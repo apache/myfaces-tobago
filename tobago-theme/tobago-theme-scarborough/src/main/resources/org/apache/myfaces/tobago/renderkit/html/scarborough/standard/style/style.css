@@ -865,10 +865,12 @@ hr.tobago-separator {
 
 /* sheet ------------------------------------------------------------------ */
 
-.tobago-sheet-outer {
+.tobago-sheet {
   overflow: hidden;
   position: relative;
 }
+
+/* XXX deprecated: .tobago-sheet-outer please use .tobago-sheet */
 
 .tobago-sheet-headerDiv {
   height: 20px;
