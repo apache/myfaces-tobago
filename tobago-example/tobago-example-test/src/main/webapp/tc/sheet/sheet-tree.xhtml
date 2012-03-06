@@ -23,9 +23,12 @@
     xmlns:f="http://java.sun.com/jsf/core">
 
   <tc:page id="page">
-    <tc:gridLayoutConstraint width="1200px" height="1205px"/>
+    <tc:gridLayoutConstraint width="900px" height="500px"/>
+    <f:facet name="layout">
+      <tc:gridLayout rows="*;auto"/>
+    </f:facet>
 
-    <tc:sheet value="#{tree.tree}" id="row" columns="*;*" var="row" rows="14">
+    <tc:sheet value="#{tree.tree}" id="row" columns="*;*" var="row">
 
       <tc:column label="Tree" id="tree">
         <tc:treeNode expanded="#{row.level le 1}">
@@ -44,15 +47,14 @@
 
     </tc:sheet>
 
-<!--
-    <tc:tree showRoot="true" value="#{tree.tree}" var="row">
+    <tc:panel>
+      <f:facet name="layout">
+        <tc:gridLayout columns="*;auto"/>
+      </f:facet>
 
-      <tc:treeNode expanded="true">
-        <tc:treeIndent/>
-        <tc:treeLabel value="#{row.userObject.name}"/>
-      </tc:treeNode>
-    </tc:tree>
--->
+      <tc:panel/>
+      <tc:button label="Submit" id="submit"/>
+    </tc:panel>
 
   </tc:page>
 </f:view>

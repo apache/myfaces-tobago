@@ -54,16 +54,14 @@ public abstract class AbstractUIData extends javax.faces.component.UIData {
   @Deprecated
   private List<Integer> submittedExpanded;
 
+  public boolean isTreeModel() {
+    init();
+    return dataModel != null;
+  }
+
   @Override
   protected DataModel getDataModel() {
-    if (!initialized) {
-      Object value = getValue();
-      boolean showRoot = isShowRoot();
-      if (value instanceof DefaultMutableTreeNode) {
-        dataModel = new TreeDataModel((DefaultMutableTreeNode) value, showRoot);
-      }
-      initialized = true;
-    }
+    init();
 
     if (dataModel != null) {
       return dataModel;
@@ -72,11 +70,23 @@ public abstract class AbstractUIData extends javax.faces.component.UIData {
     }
   }
 
+  private void init() {
+    if (!initialized) {
+      Object value = getValue();
+      boolean showRoot = isShowRoot();
+      if (value instanceof DefaultMutableTreeNode) {
+        dataModel = new TreeDataModel((DefaultMutableTreeNode) value, showRoot);
+      }
+      initialized = true;
+    }
+  }
+
   public boolean hasRows() {
     return getRows() != 0;
   }
 
   public boolean isRowVisible() {
+    init();
     if (dataModel != null) {
       return dataModel.isRowVisible();
     } else {
@@ -85,10 +95,12 @@ public abstract class AbstractUIData extends javax.faces.component.UIData {
   }
 
   public String getRowClientId() {
+    init();
     return dataModel != null ? dataModel.getRowClientId() : null;
   }
 
   public String getRowParentClientId() {
+    init();
     return dataModel != null ? dataModel.getRowParentClientId() : null;
   }
 

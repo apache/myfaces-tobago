@@ -36,6 +36,8 @@ import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.ResourceManager;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.event.PageAction;
+import org.apache.myfaces.tobago.internal.component.AbstractUIData;
+import org.apache.myfaces.tobago.internal.component.AbstractUITree;
 import org.apache.myfaces.tobago.internal.context.ResourceManagerFactory;
 import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
@@ -209,6 +211,19 @@ public class SheetRenderer extends LayoutComponentRendererBase {
       writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN, false);
       writer.writeAttribute(
           HtmlAttributes.VALUE, StringUtils.joinWithSurroundingSeparator(selectedRows), true);
+      writer.endElement(HtmlElements.INPUT);
+    }
+
+    if (sheet.isTreeModel()) {
+      writer.startElement(HtmlElements.INPUT, sheet);
+      writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN, false);
+      final String expandedId = sheetId + ComponentUtils.SUB_SEPARATOR + AbstractUITree.SUFFIX_EXPANDED;
+      writer.writeNameAttribute(expandedId);
+      writer.writeIdAttribute(expandedId);
+      writer.writeClassAttribute(Classes.create(sheet, AbstractUITree.SUFFIX_EXPANDED));
+      final List<Integer> value = sheet.getSubmittedExpanded();
+      writer.writeAttribute(
+          HtmlAttributes.VALUE, value != null ? StringUtils.joinWithSurroundingSeparator(value) : "", false);
       writer.endElement(HtmlElements.INPUT);
     }
 
@@ -554,17 +569,19 @@ public class SheetRenderer extends LayoutComponentRendererBase {
   public void decode(FacesContext facesContext, UIComponent component) {
     super.decode(facesContext, component);
 
-    String key = component.getClientId(facesContext) + WIDTHS_POSTFIX;
+    UISheet sheet = (UISheet) component;
+    
+    String key = sheet.getClientId(facesContext) + WIDTHS_POSTFIX;
 
     Map requestParameterMap = facesContext.getExternalContext().getRequestParameterMap();
     if (requestParameterMap.containsKey(key)) {
       String widths = (String) requestParameterMap.get(key);
       if (widths.trim().length() > 0) {
-        component.getAttributes().put(Attributes.WIDTH_LIST_STRING, widths);
+        sheet.getAttributes().put(Attributes.WIDTH_LIST_STRING, widths);
       }
     }
 
-    key = component.getClientId(facesContext) + SELECTED_POSTFIX;
+    key = sheet.getClientId(facesContext) + SELECTED_POSTFIX;
     if (requestParameterMap.containsKey(key)) {
       String selected = (String) requestParameterMap.get(key);
       if (LOG.isDebugEnabled()) {
@@ -578,19 +595,30 @@ public class SheetRenderer extends LayoutComponentRendererBase {
         selectedRows = Collections.emptyList();
       }
 
-      component.getAttributes().put(Attributes.SELECTED_LIST_STRING, selectedRows);
+      sheet.getAttributes().put(Attributes.SELECTED_LIST_STRING, selectedRows);
     }
 
-    key = component.getClientId(facesContext) + SCROLL_POSTFIX;
+    key = sheet.getClientId(facesContext) + SCROLL_POSTFIX;
     String value = (String) requestParameterMap.get(key);
     if (value != null) {
       Integer[] scrollPosition = SheetState.parseScrollPosition(value);
       if (scrollPosition != null) {
         //noinspection unchecked
-        component.getAttributes().put(Attributes.SCROLL_POSITION, scrollPosition);
+        sheet.getAttributes().put(Attributes.SCROLL_POSITION, scrollPosition);
       }
     }
 
+    if (sheet.isTreeModel()) {
+      // expanded
+      String expanded = (String) facesContext.getExternalContext().getRequestParameterMap()
+          .get(sheet.getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + AbstractUIData.SUFFIX_EXPANDED);
+      try {
+        sheet.setSubmittedExpanded(expanded != null ? StringUtils.parseIntegerList(expanded) : null);
+      } catch (NumberFormatException e) {
+        // should not happen
+        LOG.warn("Can't parse expanded: + " + expanded + "'", e);
+      }
+    }
   }
 
   private Measure getHeaderHeight(FacesContext facesContext, UISheet sheet) {
