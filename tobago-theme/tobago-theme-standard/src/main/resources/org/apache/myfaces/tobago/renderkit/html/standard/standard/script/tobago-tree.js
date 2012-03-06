@@ -140,6 +140,7 @@ Tobago.Tree.init = function(elements) {
 
   Tobago.Utils.selectWidthJQuery(elements, ".tobago-treeNode-markup-folder .tobago-treeNode-toggle").click(function() {
     Tobago.Tree.toggleNode(jQuery(this));
+    return false;
   });
 
   Tobago.Utils.selectWidthJQuery(elements, ".tobago-treeMenuNode-markup-folder .tobago-treeMenuNode-toggle")
