@@ -21,7 +21,7 @@ Tobago.Tree.toggleNode = function(element) {
   var src;
   var node = element.closest(".tobago-treeNode, .tobago-treeMenuNode");
   var expanded = node
-      .closest(".tobago-treeMenu, .tobago-tree, .tobago-sheet-outer")
+      .closest(".tobago-treeMenu, .tobago-tree, .tobago-sheet")
       .children(".tobago-treeMenu-expanded, .tobago-tree-expanded, .tobago-sheet-expanded");
   var toggle = node.find(".tobago-treeMenuNode-toggle, .tobago-treeNode-toggle");
   var rowIndex = Tobago.Tree.rowIndex(node);
