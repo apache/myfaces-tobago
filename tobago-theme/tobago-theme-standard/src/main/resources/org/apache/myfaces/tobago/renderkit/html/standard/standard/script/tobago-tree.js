@@ -184,7 +184,7 @@ Tobago.Tree.init = function(elements) {
   Tobago.Utils.selectWidthJQuery(elements, ".tobago-treeMenu, .tobago-tree, .tobago-sheet").each(function() {
     var expanded = jQuery(this).children(".tobago-treeMenu-expanded, .tobago-tree-expanded, .tobago-sheet-expanded");
     var string = ",";
-    jQuery(this).children(".tobago-treeMenuNode-markup-expanded, .tobago-treeNode-markup-expanded").each(function() {
+    jQuery(this).find(".tobago-treeMenuNode-markup-expanded, .tobago-treeNode-markup-expanded").each(function() {
       string += Tobago.Tree.rowIndex(jQuery(this)) + ",";
     });
     expanded.attr("value", string);

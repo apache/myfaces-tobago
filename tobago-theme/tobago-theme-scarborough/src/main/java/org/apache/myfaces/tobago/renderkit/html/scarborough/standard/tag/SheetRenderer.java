@@ -37,7 +37,6 @@ import org.apache.myfaces.tobago.context.ResourceManager;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.event.PageAction;
 import org.apache.myfaces.tobago.internal.component.AbstractUIData;
-import org.apache.myfaces.tobago.internal.component.AbstractUITree;
 import org.apache.myfaces.tobago.internal.context.ResourceManagerFactory;
 import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
@@ -220,10 +219,10 @@ public class SheetRenderer extends LayoutComponentRendererBase {
     if (sheet.isTreeModel()) {
       writer.startElement(HtmlElements.INPUT, sheet);
       writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN, false);
-      final String expandedId = sheetId + ComponentUtils.SUB_SEPARATOR + AbstractUITree.SUFFIX_EXPANDED;
+      final String expandedId = sheetId + ComponentUtils.SUB_SEPARATOR + AbstractUIData.SUFFIX_EXPANDED;
       writer.writeNameAttribute(expandedId);
       writer.writeIdAttribute(expandedId);
-      writer.writeClassAttribute(Classes.create(sheet, AbstractUITree.SUFFIX_EXPANDED));
+      writer.writeClassAttribute(Classes.create(sheet, AbstractUIData.SUFFIX_EXPANDED));
       final List<Integer> value = sheet.getSubmittedExpanded();
       writer.writeAttribute(
           HtmlAttributes.VALUE, value != null ? StringUtils.joinWithSurroundingSeparator(value) : "", false);
