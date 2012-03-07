@@ -20,24 +20,24 @@ package org.apache.myfaces.tobago.example.test;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class FilterUnitTest {
+public class TestPageFilterUnitTest {
 
   @Test
   public void testIsValid() {
-    Assert.assertFalse(Filter.isValid("test.html"));
-    Assert.assertTrue(Filter.isValid("/test.html"));
+    Assert.assertFalse(TestPageFilter.isValid("test.html"));
+    Assert.assertTrue(TestPageFilter.isValid("/test.html"));
 
-    Assert.assertFalse(Filter.isValid("/WEB-INF"));
-    Assert.assertFalse(Filter.isValid("/WEB-INF/"));
-    Assert.assertFalse(Filter.isValid("/WEB-INF/web.xml"));
-    Assert.assertFalse(Filter.isValid("/WEB-INF/test.xhtml"));
+    Assert.assertFalse(TestPageFilter.isValid("/WEB-INF"));
+    Assert.assertFalse(TestPageFilter.isValid("/WEB-INF/"));
+    Assert.assertFalse(TestPageFilter.isValid("/WEB-INF/web.xml"));
+    Assert.assertFalse(TestPageFilter.isValid("/WEB-INF/test.xhtml"));
 
-    Assert.assertFalse(Filter.isValid("/NETA-INF"));
-    Assert.assertFalse(Filter.isValid("/META-INF/"));
+    Assert.assertFalse(TestPageFilter.isValid("/NETA-INF"));
+    Assert.assertFalse(TestPageFilter.isValid("/META-INF/"));
 
-    Assert.assertTrue(Filter.isValid("/navigation.xhtml"));
-    Assert.assertTrue(Filter.isValid("/nav.xhtml"));
+    Assert.assertTrue(TestPageFilter.isValid("/navigation.xhtml"));
+    Assert.assertTrue(TestPageFilter.isValid("/nav.xhtml"));
 
-    Assert.assertTrue(Filter.isDisabled("/navigation.xhtml"));
+    Assert.assertTrue(TestPageFilter.isDisabled("/navigation.xhtml"));
   }
 }
