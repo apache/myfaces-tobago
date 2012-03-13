@@ -1,6 +1,5 @@
-package org.apache.myfaces.tobago.example.test;
-
-/*
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
  * this work for additional information regarding copyright ownership.
@@ -15,29 +14,31 @@ package org.apache.myfaces.tobago.example.test;
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */
+-->
 
-import org.junit.Assert;
-import org.junit.Test;
+<f:view
+    xmlns:tc="http://myfaces.apache.org/tobago/component"
+    xmlns:tx="http://myfaces.apache.org/tobago/extension"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core">
 
-public class FilterUnitTest {
+  <tc:page>
+    <f:facet name="layout">
+      <tc:gridLayout rows="auto;auto;auto;auto;*" columns="auto"/>
+    </f:facet>
+    <tc:gridLayoutConstraint width="600px" height="300px"/>
 
-  @Test
-  public void testIsValid() {
-    Assert.assertFalse(Filter.isValid("test.html"));
-    Assert.assertTrue(Filter.isValid("/test.html"));
+    <tc:messages/>
 
-    Assert.assertFalse(Filter.isValid("/WEB-INF"));
-    Assert.assertFalse(Filter.isValid("/WEB-INF/"));
-    Assert.assertFalse(Filter.isValid("/WEB-INF/web.xml"));
-    Assert.assertFalse(Filter.isValid("/WEB-INF/test.xhtml"));
+    <tc:image value="image/wait/cat.jpg">
+      <tc:gridLayoutConstraint width="100px" height="106px"/>
+    </tc:image>
 
-    Assert.assertFalse(Filter.isValid("/NETA-INF"));
-    Assert.assertFalse(Filter.isValid("/META-INF/"));
+    <tx:in label="Counter:" value="#{reload.counter}" readonly="true"/>
 
-    Assert.assertTrue(Filter.isValid("/navigation.xhtml"));
-    Assert.assertTrue(Filter.isValid("/nav.xhtml"));
+    <tc:button label="submit" action="#{reload.isReload}"/>
 
-    Assert.assertTrue(Filter.isDisabled("/navigation.xhtml"));
-  }
-}
+    <tc:cell/>
+
+  </tc:page>
+</f:view>

@@ -118,4 +118,14 @@
     <env-entry-value>Development</env-entry-value>
   </env-entry>
 
+  <filter>
+    <filter-name>WaitFilter</filter-name>
+    <filter-class>org.apache.myfaces.tobago.example.test.WaitFilter</filter-class>
+  </filter>
+
+  <filter-mapping>
+      <filter-name>WaitFilter</filter-name>
+      <url-pattern>/image/wait/*</url-pattern>
+  </filter-mapping>
+
 </web-app>

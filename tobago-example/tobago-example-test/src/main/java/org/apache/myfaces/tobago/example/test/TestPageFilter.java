@@ -17,17 +17,12 @@ package org.apache.myfaces.tobago.example.test;
  * limitations under the License.
  */
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class Filter {
-
-  private static final Logger LOG = LoggerFactory.getLogger(Filter.class);
+public class TestPageFilter {
 
   public static final List<String> ALLOWED = Arrays.asList(
       ".*\\/",

@@ -65,17 +65,17 @@ public class DirectoryBrowser {
       if (childPath.endsWith("/")) {
         // ignore, because weblogic puts the path directory itself in the Set
         if (!childPath.equals(path)) {
-          if (Filter.isValid(childPath)) {
+          if (TestPageFilter.isValid(childPath)) {
             if (LOG.isDebugEnabled()) {
               LOG.debug("childPath dir " + childPath);
             }
-            list.add(new PageItem(childPath, Filter.isDisabled(childPath), Filter.isTodo(childPath)));
+            list.add(new PageItem(childPath, TestPageFilter.isDisabled(childPath), TestPageFilter.isTodo(childPath)));
           }
         }
       } else {
-        if (Filter.isValid(childPath)) {
+        if (TestPageFilter.isValid(childPath)) {
           LOG.info("add resc " + childPath);
-          list.add(new PageItem(childPath, Filter.isDisabled(childPath), Filter.isTodo(childPath)));
+          list.add(new PageItem(childPath, TestPageFilter.isDisabled(childPath), TestPageFilter.isTodo(childPath)));
         }
       }
     }

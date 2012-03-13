@@ -95,7 +95,7 @@ public class AutomaticSeleniumTest extends SeleniumTest {
         continue;
       }
 
-      if (Filter.isValid(path) && !Filter.isDisabled(path) && !Filter.isTodo(path)) {
+      if (TestPageFilter.isValid(path) && !TestPageFilter.isDisabled(path) && !TestPageFilter.isTodo(path)) {
         result.add(path);
       }
     }
