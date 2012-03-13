@@ -248,6 +248,12 @@ var Tobago = {
     }
     this.initMarker = true;
 
+/* TODO:INIT
+    if (pageId == undefined) {
+      pageId = jQuery("body").attr("id");
+    }
+*/
+
 //    new LOG.LogArea({hide: false});
 //    LOG.show();
     if (TbgTimer.endBody) { // @DEV_ONLY
@@ -1481,10 +1487,20 @@ var Tobago = {
   }
 };
 
+/* TODO:INIT
+jQuery(document).ready(function() {
+  Tobago.init();
+});
+
+// this is for TOBAGO-694: Unresponsive image url blocks
+setTimeout("Tobago.init()", 1000);
+*/
+
 // internal initializer will be called in two cases:
 // 1. full load: elements: undefined
 // 2. ajax load: elements: list of the loaded dom elements
 Tobago.init0 = function(elements) {
+  Tobago.Panel.init(elements);
   Tobago.Menu.init(elements);
   Tobago.TabGroup.init(elements);
   Tobago.Tree.init(elements);
@@ -1635,16 +1651,22 @@ Tobago.In.prototype.leaveRequired = function(e) {
 
 // XXX: 2nd parameter enableAjax is deprecated
 Tobago.Panel = function(panelId, enableAjax, autoReload) {
-  this.startTime = new Date();
   this.id = panelId;
   this.autoReload = autoReload;
-
   this.options = {
   };
 
-  //LOG.debug("Panel setup  " + this.id);
   this.setup();
   Tobago.addAjaxComponent(this.id, this);
+};
+
+Tobago.Panel.init = function(elements) {
+  var reloads = Tobago.Utils.selectWidthJQuery(elements, ".tobago-panel[data-tobago-reload]");
+  reloads.each(function(){
+    var id = jQuery(this).attr("id");
+    var frequency = parseInt(jQuery(this).attr("data-tobago-reload"));
+    new Tobago.Panel(id, true, frequency);
+  });
 };
 
 Tobago.Panel.prototype.setup = function() {

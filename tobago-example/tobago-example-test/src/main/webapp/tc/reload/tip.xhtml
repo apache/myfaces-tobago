@@ -29,11 +29,13 @@
     <tc:separator label="Reload test for tips."/>
     <tc:panel>
       <f:facet name="layout">
-        <tc:gridLayout margin="10px" rows="auto;20px;auto;" columns="300px"/>
+        <tc:gridLayout margin="10px" rows="20px;auto;20px;auto;" columns="300px"/>
       </f:facet>
       <f:facet name="reload">
         <tc:reload frequency="5000" update="#{reload.reload}"/>
       </f:facet>
+
+      <tc:out value="This panel will be reloaded every 5 seconds."/>
 
       <tc:in value="#{reload.counter}" readonly="true" tip="Test of &quot; (quotation mark)"/>
 

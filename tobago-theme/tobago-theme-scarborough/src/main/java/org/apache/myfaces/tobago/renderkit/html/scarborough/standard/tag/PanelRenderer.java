@@ -27,6 +27,7 @@ import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Position;
 import org.apache.myfaces.tobago.renderkit.css.Style;
+import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
@@ -86,24 +87,17 @@ public class PanelRenderer extends LayoutComponentRendererBase {
       writer.writeAttribute(HtmlAttributes.TITLE, ((UIPanel) panel).getTip(), true);
     }
 
-    HtmlRendererUtils.encodeContextMenu(facesContext, writer, panel);
-
-    // TODO check ajax id
+    // TODO check ajax id?
     if (!FacesContextUtils.isAjax(facesContext)) {
-      Integer frequency = null;
       UIComponent facetReload = panel.getFacet(Facets.RELOAD);
       if (facetReload != null && facetReload instanceof UIReload && facetReload.isRendered()) {
         UIReload update = (UIReload) facetReload;
-        frequency = update.getFrequency();
+        writer.writeAttribute(DataAttributes.RELOAD, Integer.toString(update.getFrequency()), false);
       }
-      if (frequency == null) {
-        frequency = 0;
-      }
-      final String[] cmds = {
-          "new Tobago.Panel(\"" + clientId + "\", " + true + ", " + frequency + ");"
-      };
-      HtmlRendererUtils.writeScriptLoader(facesContext, null, cmds);
     }
+
+    HtmlRendererUtils.encodeContextMenu(facesContext, writer, panel);
+
     HtmlRendererUtils.checkForCommandFacet(panel, facesContext, writer);
 
     final Measure borderLeft = panel.getBorderLeft();
