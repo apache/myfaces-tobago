@@ -373,8 +373,7 @@ public class PageRenderer extends PageRendererBase {
 
     String defaultActionId = page.getDefaultActionId() != null ? page.getDefaultActionId() : "";
     writer.startElement(HtmlElements.BODY, page);
-// TODO:INIT
-    writer.writeAttribute(HtmlAttributes.ONLOAD, "Tobago.init('" + clientId + "');", false);
+//    writer.writeAttribute(HtmlAttributes.ONLOAD, "Tobago.init('" + clientId + "');", false);
 //    writer.writeAttribute("onunload", "Tobago.onexit();", null);
     writer.writeIdAttribute(clientId);
     writer.writeClassAttribute(Classes.create(page));
@@ -664,8 +663,7 @@ public class PageRenderer extends PageRendererBase {
       writer.writeJavascript("TbgTimer.endBody = new Date();");
     }
 
-//TODO:INIT
-    writer.writeJavascript("setTimeout(\"Tobago.init('" + clientId + "')\", 1000)");
+//    writer.writeJavascript("setTimeout(\"Tobago.init('" + clientId + "')\", 1000)");
 
     writer.endElement(HtmlElements.BODY);
 

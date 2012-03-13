@@ -315,3 +315,5 @@ jQuery.tobagoMenuParent = function(element) {
   });
 })(jQuery);
 
+Tobago.registerCallback(Tobago.Menu.init, Tobago.Phase.DOCUMENT_READY);
+Tobago.registerCallback(Tobago.Menu.init, Tobago.Phase.AFTER_UPDATE);
