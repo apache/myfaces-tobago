@@ -43,10 +43,14 @@
   <entry key="sheetDescending">Descendente</entry>
   <entry key="sheetPagingInfoRows">Registros &lt;span id="{3}"&gt;{0}&lt;/span&gt; {1} de {2}</entry>
   <entry key="sheetPagingInfoSingleRow">Registro &lt;span id="{3}"&gt;{0}&lt;/span&gt; de {2}</entry>
+  <entry key="sheetPagingInfoUndefinedRows">Registros &lt;span id="{3}"&gt;{0}&lt;/span&gt; {1}</entry>
+  <entry key="sheetPagingInfoUndefinedSingleRow">Registro &lt;span id="{3}"&gt;{0}&lt;/span&gt;</entry>
   <entry key="sheetPagingInfoEmptyRow">No hay registros disponibles</entry>
   <entry key="sheetPagingInfoRowPagingTip">Click aqui, para cambiar el primer registro desplegado.</entry>
   <entry key="sheetPagingInfoPages">Página &lt;span id="{3}"&gt;{0}&lt;/span&gt; de {1}</entry>
   <entry key="sheetPagingInfoSinglePage">Página &lt;span id="{3}"&gt;{0}&lt;/span&gt; de {1}</entry>
+  <entry key="sheetPagingInfoUndefinedPages">Página &lt;span id="{3}"&gt;{0}&lt;/span&gt;</entry>
+  <entry key="sheetPagingInfoUndefinedSinglePage">Página &lt;span id="{3}"&gt;{0}&lt;/span&gt;</entry>
   <entry key="sheetPagingInfoEmptyPage"></entry>
   <entry key="sheetPagingInfoPagePagingTip">Click aquí, para cambiar el nombre desplegado.</entry>
   <entry key="sheetMenuToggleselect">Invertir seleccion</entry>

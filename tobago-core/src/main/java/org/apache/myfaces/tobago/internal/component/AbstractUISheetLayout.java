@@ -293,9 +293,9 @@ public abstract class AbstractUISheetLayout extends AbstractUILayoutBase impleme
     if (result == null) {
       if (sheet.getCurrentHeight() != null) {
         int first = sheet.getFirst();
-        int rows = sheet.hasRows()
-            ? Math.min(sheet.getRowCount(), first + sheet.getRows()) - first
-            : sheet.getRowCount();
+        int rows = sheet.isRowsUnlimited()
+            ? sheet.getRowCount()
+            : Math.min(sheet.getRowCount(), first + sheet.getRows()) - first;
         Measure heightNeeded = getRowHeight(facesContext, sheet).multiply(rows);
         if (sheet.isShowHeader()) {
           heightNeeded = heightNeeded.add(getHeaderHeight(facesContext, sheet));

@@ -288,7 +288,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
     boolean odd = false;
     boolean emptySheet = true;
     // rows = 0 means: show all
-    final int last = sheet.hasRows() ? sheet.getFirst() + sheet.getRows() : Integer.MAX_VALUE;
+    final int last = sheet.isRowsUnlimited() ? Integer.MAX_VALUE : sheet.getFirst() + sheet.getRows();
     for (int rowIndex = sheet.getFirst(); rowIndex < last; rowIndex++) {
       sheet.setRowIndex(rowIndex);
       if (!sheet.isRowAvailable()) {
@@ -508,30 +508,24 @@ public class SheetRenderer extends LayoutComponentRendererBase {
 
   private String createSheetPagingInfo(UISheet sheet, FacesContext facesContext, String pagerCommandId, boolean row) {
     String sheetPagingInfo;
-    if (sheet.getRowCount() > 0) {
+    if (sheet.getRowCount() != 0) {
       Locale locale = facesContext.getViewRoot().getLocale();
-      int first;
-      int last;
-      if (row) {
-        first = sheet.getFirst() + 1;
-        last = sheet.getLast();
-      } else { // page
-        first = sheet.getPage();
-        last = sheet.getPages();
-      }
-      String key;
-      if (first != last) {
-        key = ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago",
-            "sheetPagingInfo" + (row ? "Rows" : "Pages"));
-      } else {
-        key = ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago",
-            "sheetPagingInfoSingle" + (row ? "Row" : "Page"));
-      }
-      MessageFormat detail = new MessageFormat(key, locale);
+      int first = row ? sheet.getFirst() + 1 : sheet.getCurrentPage() + 1;
+      int last = sheet.hasRowCount()
+          ? row ? sheet.getLastRowIndexOfCurrentPage() : sheet.getPages()
+          : -1;
+      final boolean unknown = !sheet.hasRowCount();
+      final String key = "sheetPagingInfo"
+          + (unknown ? "Undefined" : "")
+          + (first == last ? "Single" : "") 
+          + (row ? "Row" : "Page")
+          + (first == last ? "" : "s"); // plural
+      final String message = ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", key);
+      final MessageFormat detail = new MessageFormat(message, locale);
       Object[] args = {
           first,
-          last,
-          sheet.getRowCount(),
+          last == -1 ? "?" : last,
+          unknown ? "" : sheet.getRowCount(),
           pagerCommandId + ComponentUtils.SUB_SEPARATOR + "text"
       };
       sheetPagingInfo = detail.format(args);
@@ -867,7 +861,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
     int linkCount = ComponentUtils.getIntAttribute(sheet, Attributes.DIRECT_LINK_COUNT);
     linkCount--;  // current page needs no link
     ArrayList<Integer> prevs = new ArrayList<Integer>(linkCount);
-    int page = sheet.getPage();
+    int page = sheet.getCurrentPage() + 1;
     for (int i = 0; i < linkCount && page > 1; i++) {
       page--;
       if (page > 0) {
@@ -876,8 +870,9 @@ public class SheetRenderer extends LayoutComponentRendererBase {
     }
 
     ArrayList<Integer> nexts = new ArrayList<Integer>(linkCount);
-    page = sheet.getPage();
-    for (int i = 0; i < linkCount && page < sheet.getPages(); i++) {
+    page = sheet.getCurrentPage() + 1;
+    final int pages = sheet.hasRowCount() || sheet.isRowsUnlimited() ? sheet.getPages() : Integer.MAX_VALUE;
+    for (int i = 0; i < linkCount && page < pages; i++) {
       page++;
       if (page > 1) {
         nexts.add(page);
@@ -920,7 +915,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
       name = prev.toString();
       writeLinkElement(writer, sheet, name, name, pagerCommandId, true);
     }
-    name = Integer.toString(sheet.getPage());
+    name = Integer.toString(sheet.getCurrentPage() + 1);
     writeLinkElement(writer, sheet, name, name, pagerCommandId, false);
 
     for (Integer next : nexts) {
@@ -928,13 +923,13 @@ public class SheetRenderer extends LayoutComponentRendererBase {
       writeLinkElement(writer, sheet, name, name, pagerCommandId, true);
     }
 
-    skip = nexts.size() > 0 ? nexts.get(nexts.size() - 1) : sheet.getPages();
-    if (skip < sheet.getPages()) {
+    skip = nexts.size() > 0 ? nexts.get(nexts.size() - 1) : pages;
+    if (skip < pages) {
       skip += linkCount / 2;
       skip++;
       name = "...";
-      if (skip > sheet.getPages()) {
-        skip = sheet.getPages();
+      if (skip > pages) {
+        skip = pages;
         if ((nexts.get(nexts.size() - 1)) == skip - 1) {
           name = Integer.toString(skip);
         }
