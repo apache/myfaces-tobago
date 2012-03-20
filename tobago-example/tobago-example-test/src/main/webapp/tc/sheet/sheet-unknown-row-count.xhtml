@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <!--
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -17,18 +16,26 @@
  * limitations under the License.
 -->
 
-<tobago-theme>
-  <name>test</name>
-  <display-name>Test</display-name>
-  <deprecated-name>Test</deprecated-name>
-  <resource-path>Test</resource-path>
-  <resources production="true">
-    <script name="script/tobago.min.js"/>
-    <style name="style.css"/>
-  </resources>
-  <resources production="false">
-    <script name="script/tobago.js"/>
-    <script name="script/logging.js"/>
-    <style name="style.css"/>
-  </resources>
-</tobago-theme>
+<f:view
+    xmlns:tc="http://myfaces.apache.org/tobago/component"
+    xmlns:tx="http://myfaces.apache.org/tobago/extension"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core">
+
+  <tc:page id="page">
+    <tc:gridLayoutConstraint width="600px" height="600px"/>
+    <f:facet name="layout">
+      <tc:gridLayout rows="600px"/>
+    </f:facet>
+
+    <tc:sheet value="#{sheet.undefined}" id="sheet" columns="*;*" var="luminary" rows="20">
+      <tc:column label="Name" id="name" sortable="true">
+        <tc:out value="#{luminary.name}"/>
+      </tc:column>
+      <tc:column label="Orbit Of" id="orbit">
+        <tc:out value="#{luminary.orbit}"/>
+      </tc:column>
+    </tc:sheet>
+
+  </tc:page>
+</f:view>

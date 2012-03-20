@@ -234,19 +234,39 @@ var Tobago = {
 
   initMarker: false,
 
+  callbacks: {
+    documentReady: [],
+    windowLoad: [],
+    afterUpdate: []
+  },
+
   // -------- Functions -------------------------------------------------------
 
+  registerCallback: function(callback, phase) {
+
+    if (Tobago.Phase.DOCUMENT_READY == phase) {
+      Tobago.callbacks.documentReady.push(callback);
+    } else if (Tobago.Phase.WINDOW_LOAD == phase) {
+      Tobago.callbacks.windowLoad.push(callback);
+    } else if (Tobago.Phase.AFTER_UPDATE == phase) {
+      Tobago.callbacks.afterUpdate.push(callback);
+    } else {
+      LOG.error("Unknown phase: " + phase); // @DEV_ONLY
+    }
+  },
 
   /**
    * Tobago's central init function.
-   * Called via onload attribute of body tag
+   * Called when the document (DOM) is ready
    */
-  init: function(pageId) {
+  init: function() {
 
     if (this.initMarker) {
       return;
     }
     this.initMarker = true;
+
+    var pageId = jQuery("body").attr("id");
 
 //    new LOG.LogArea({hide: false});
 //    LOG.show();
@@ -263,7 +283,9 @@ var Tobago = {
 
     this.addBindEventListener(window, 'unload', this, 'onUnload');
 
-    Tobago.init0();
+    for (var i = 0; i < Tobago.callbacks.documentReady.length; i++) {
+      Tobago.callbacks.documentReady[i]();
+    }
 
     if (TbgTimer.endBody) { // @DEV_ONLY
       TbgTimer.startAppOnload = new Date(); // @DEV_ONLY
@@ -1481,16 +1503,23 @@ var Tobago = {
   }
 };
 
-// internal initializer will be called in two cases:
-// 1. full load: elements: undefined
-// 2. ajax load: elements: list of the loaded dom elements
-Tobago.init0 = function(elements) {
-  Tobago.Menu.init(elements);
-  Tobago.TabGroup.init(elements);
-  Tobago.Tree.init(elements);
-  Tobago.ToolBar.init(elements);
-  Tobago.SelectManyShuttle.init(elements);
-  Tobago.fixPngAlphaAll(elements);
+jQuery(document).ready(function() {
+  Tobago.init();
+});
+
+jQuery(window).load(function() {
+  for (var i = 0; i < Tobago.callbacks.windowLoad.length; i++) {
+    Tobago.callbacks.windowLoad[i]();
+  }
+});
+
+Tobago.Phase = {
+  /** after the DOM was build */
+  DOCUMENT_READY:{},
+  /** after all images and CSS was loaded */
+  WINDOW_LOAD:{},
+  /** after an AJAX call */
+  AFTER_UPDATE:{}
 };
 
 Tobago.Config = {
@@ -1635,16 +1664,22 @@ Tobago.In.prototype.leaveRequired = function(e) {
 
 // XXX: 2nd parameter enableAjax is deprecated
 Tobago.Panel = function(panelId, enableAjax, autoReload) {
-  this.startTime = new Date();
   this.id = panelId;
   this.autoReload = autoReload;
-
   this.options = {
   };
 
-  //LOG.debug("Panel setup  " + this.id);
   this.setup();
   Tobago.addAjaxComponent(this.id, this);
+};
+
+Tobago.Panel.init = function(elements) {
+  var reloads = Tobago.Utils.selectWidthJQuery(elements, ".tobago-panel[data-tobago-reload]");
+  reloads.each(function(){
+    var id = jQuery(this).attr("id");
+    var frequency = parseInt(jQuery(this).attr("data-tobago-reload"));
+    new Tobago.Panel(id, true, frequency);
+  });
 };
 
 Tobago.Panel.prototype.setup = function() {
@@ -1678,6 +1713,9 @@ Tobago.Panel.prototype.reloadWithAction = function(source, action, options) {
 Tobago.Panel.prototype.prepareReload = function() {
   Tobago.createOverlay(jQuery(Tobago.Utils.escapeClientId(this.id)));
 };
+
+Tobago.registerCallback(Tobago.Panel.init, Tobago.Phase.DOCUMENT_READY);
+Tobago.registerCallback(Tobago.Panel.init, Tobago.Phase.AFTER_UPDATE);
 
 Tobago.EventListener = function(element, event, func) {
   this.element = element;
@@ -2224,7 +2262,10 @@ Tobago.Updater = {
             this.afterDoUpdateSuccess();
           }
           if (data.html.length > 0) {
-            Tobago.init0(newElement);
+
+            for (var i = 0; i < Tobago.callbacks.afterUpdate.length; i++) {
+              Tobago.callbacks.afterUpdate[i](newElement);
+            }
           }
         } catch (e) {
           LOG.error('Error in doUpdate: ' + e); // @DEV_ONLY
@@ -2369,6 +2410,9 @@ Tobago.ToolBar.setRadioValue = function(id, value) {
   element.value = value;
 };
 
+Tobago.registerCallback(Tobago.ToolBar.init, Tobago.Phase.DOCUMENT_READY);
+Tobago.registerCallback(Tobago.ToolBar.init, Tobago.Phase.AFTER_UPDATE);
+
 // ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // TabGroup
 
@@ -2476,6 +2520,9 @@ Tobago.TabGroup.ensureScrollPosition = function (header) {
   }
 };
 
+Tobago.registerCallback(Tobago.TabGroup.init, Tobago.Phase.DOCUMENT_READY);
+Tobago.registerCallback(Tobago.TabGroup.init, Tobago.Phase.AFTER_UPDATE);
+
 // ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 Tobago.SelectManyShuttle = {};
@@ -2524,6 +2571,9 @@ Tobago.SelectManyShuttle.copyValues = function(shuttle) {
   shuttle.find(".tobago-selectManyShuttle-selected option").clone()
       .attr('selected', 'selected').appendTo(hidden);
 };
+
+Tobago.registerCallback(Tobago.SelectManyShuttle.init, Tobago.Phase.DOCUMENT_READY);
+Tobago.registerCallback(Tobago.SelectManyShuttle.init, Tobago.Phase.AFTER_UPDATE);
 
 // ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

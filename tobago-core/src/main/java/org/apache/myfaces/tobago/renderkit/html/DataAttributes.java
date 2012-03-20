@@ -30,6 +30,11 @@ public final class DataAttributes {
   public static final String DISABLED = "data-tobago-disabled";
 
   /**
+   * Custom reload attribute. Used to reload a panel.
+   */
+  public static final String RELOAD = "data-tobago-reload";
+
+  /**
    * Alternate to the src attribute, to implement a hover effect.
    */
   public static final String SRCHOVER = "data-tobago-srchover";
