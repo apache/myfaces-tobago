@@ -100,7 +100,7 @@ public abstract class AbstractUISheet extends AbstractUIData
   @Override
   public void encodeBegin(FacesContext facesContext) throws IOException {
     SheetState state = getSheetState(facesContext);
-    if (state.getFirst() > -1 && state.getFirst() < getRowCount()) {
+    if (state.getFirst() > -1 && (!hasRowCount() || state.getFirst() < getRowCount())) {
       if (FacesUtils.hasValueBindingOrValueExpression(this, Attributes.FIRST)) {
         FacesUtils.setValueOfBindingOrExpression(facesContext, state.getFirst(), this, Attributes.FIRST);
       } else {
@@ -161,31 +161,72 @@ public abstract class AbstractUISheet extends AbstractUIData
     getAttributes().remove(Attributes.WIDTH_LIST_STRING);
   }
 
+  /**
+   * @deprecated The name of this method is ambiguous.
+   * You may use {@link #getLastRowIndexOfCurrentPage()}. Deprecated since 1.5.5.
+   */
   public int getLast() {
     int last = getFirst() + getRows();
     return last < getRowCount() ? last : getRowCount();
   }
 
-  public int getPage() {
-    int first = getFirst() + 1;
+  /**
+   * The rowIndex of the last row on the current page plus one (because of zero based iterating).
+   * @throws IllegalArgumentException If the number of rows in the model returned
+   * by {@link #getRowCount()} is -1 (undefined).
+   */
+  public int getLastRowIndexOfCurrentPage() {
+    if (!hasRowCount()) {
+      throw new IllegalArgumentException(
+          "Can't determine the last row, because the row count of the model is unknown.");
+    }
+    if (isRowsUnlimited()) {
+      return getRowCount();
+    }
+    int last = getFirst() + getRows();
+    return last < getRowCount() ? last : getRowCount();
+  }
+
+  /**
+   * @return returns the current page (based by 0).
+   */
+  public int getCurrentPage() {
     int rows = getRows();
     if (rows == 0) {
-      // avoid division by zero
+      // if the rows are unlimited, there is only one page
       return 0;
     }
-    if ((first % rows) > 0) {
-      return (first / rows) + 1;
+    int first = getFirst();
+    if (hasRowCount() && first >= getRowCount()) {
+      return getPages() - 1; // last page
     } else {
       return (first / rows);
     }
   }
+  
+  /**
+   * @return returns the current page (based by 1).
+   * @deprecated Please use {@link #getCurrentPage()} which returns the value zero-based. Deprecated since 1.5.5.
+   */
+  @Deprecated
+  public int getPage() {
+    return getCurrentPage() + 1;
+  }
 
+  /**
+   * The number of pages to render.
+   * @throws IllegalArgumentException If the number of rows in the model returned
+   * by {@link #getRowCount()} is -1 (undefined).
+   */
   public int getPages() {
-    int rows = getRows();
-    if (rows == 0) {
-      return 0;
+    if (isRowsUnlimited()) {
+      return 1;
     }
-    return getRowCount() / rows + (getRowCount() % rows == 0 ? 0 : 1);
+    if (!hasRowCount()) {
+      throw new IllegalArgumentException(
+          "Can't determine the number of pages, because the row count of the model is unknown.");
+    }
+    return (getRowCount() - 1) / getRows() + 1;
   }
 
   public List<UIComponent> getRenderedChildrenOf(UIColumn column) {
@@ -199,38 +240,103 @@ public abstract class AbstractUISheet extends AbstractUIData
     return children;
   }
 
+  /**
+   * @return Is the interval to display starting with the first row?
+   */
   public boolean isAtBeginning() {
     return getFirst() == 0;
   }
 
+  /**
+   * @return Does the data model knows the number of rows?
+   */
   public boolean hasRowCount() {
     return getRowCount() != -1;
   }
 
+  /**
+   * @deprecated The name of this method is ambiguous.
+   * You may use {@link #isRowsUnlimited()}. Deprecated since 1.5.5.
+   */
+  @Deprecated
+  public boolean hasRows() {
+    return getRows() != 0;
+  }
+
+  /**
+   * @return Is the (maximum) number of rows to display set to zero?
+   */
+  public boolean isRowsUnlimited() {
+    return getRows() == 0;
+  }
+
+  /**
+   * @return Should the paging controls be rendered? Either because of the need of paging or because
+   * the show is enforced by {@link #isShowPagingAlways()}
+   */
   public boolean isPagingVisible() {
-    return isShowPagingAlways() || hasRows() && (!hasRowCount() || getRowCount() > getRows());
+    return isShowPagingAlways() || needMoreThanOnePage();
+  }
+
+  /**
+   * @return Is panging needed to display all rows? If the number of rows is unknown this method returns true.
+   */
+  public boolean needMoreThanOnePage() {
+    if (isRowsUnlimited()) {
+      return false;
+    } else if (!hasRowCount()) {
+      return true;
+    } else {
+      return getRowCount() > getRows();
+    }
   }
 
   public abstract boolean isShowPagingAlways();
 
   public boolean isAtEnd() {
     if (!hasRowCount()) {
+      final int old = getRowIndex();
       setRowIndex(getFirst() + getRows() + 1);
-      return !isRowAvailable();
+      final boolean atEnd = !isRowAvailable();
+      setRowIndex(old);
+      return atEnd;
     } else {
-      return getFirst() >= getLastPageIndex();
+      return getFirst() >= getFirstRowIndexOfLastPage();
     }
   }
 
+  /**
+   * @deprecated The name of this method is ambiguous.
+   * You may use {@link #getFirstRowIndexOfLastPage()}. Deprecated since 1.5.5.
+   */
+  @Deprecated
   public int getLastPageIndex() {
-    int rows = getRows();
-    if (rows == 0) {
-      // avoid division by zero
+    if (hasRowCount()) {
+      return getFirstRowIndexOfLastPage();
+    } else {
       return 0;
     }
-    int rowCount = getRowCount();
-    int tail = rowCount % rows;
-    return rowCount - (tail != 0 ? tail : rows);
+  }
+
+  /**
+   * Determines the beginning of the last page in the model.
+   * If the number of rows to display on one page is unlimited, the value is 0 (there is only one page).
+   * @return The index of the first row of the last paging page.
+   * @throws IllegalArgumentException If the number of rows in the model returned
+   * by {@link #getRowCount()} is -1 (undefined).
+   */
+  public int getFirstRowIndexOfLastPage() {
+    if (isRowsUnlimited()) {
+      return 0;
+    } else if (!hasRowCount()) {
+      throw new IllegalArgumentException(
+          "Can't determine the last page, because the row count of the model is unknown.");
+    } else {
+      int rows = getRows();
+      int rowCount = getRowCount();
+      int tail = rowCount % rows;
+      return rowCount - (tail != 0 ? tail : rows);
+    }
   }
 
   @Override
@@ -447,25 +553,24 @@ public abstract class AbstractUISheet extends AbstractUIData
 
   public void performPaging(PageActionEvent pageEvent) {
 
-    int first = -1;
+    int first;
 
     if (LOG.isDebugEnabled()) {
       LOG.debug("action = '" + pageEvent.getAction().name() + "'");
     }
 
-    int start;
     switch (pageEvent.getAction()) {
       case FIRST:
         first = 0;
         break;
       case PREV:
-        start = getFirst() - getRows();
-        first = start < 0 ? 0 : start;
+        first = getFirst() - getRows();
+        first = first < 0 ? 0 : first;
         break;
       case NEXT:
         if (hasRowCount()) {
-          start = getFirst() + getRows();
-          first = start > getRowCount() ? getLastPageIndex() : start;
+          first = getFirst() + getRows();
+          first = first > getRowCount() ? getFirstRowIndexOfLastPage() : first;
         } else {
           if (isAtEnd()) {
             first = getFirst();
@@ -475,33 +580,28 @@ public abstract class AbstractUISheet extends AbstractUIData
         }
         break;
       case LAST:
-        first = getLastPageIndex();
+        first = getFirstRowIndexOfLastPage();
         break;
       case TO_ROW:
-        start = pageEvent.getValue() - 1;
-        if (start > getLastPageIndex()) {
-          start = getLastPageIndex();
-        } else if (start < 0) {
-          start = 0;
+        first = pageEvent.getValue() - 1;
+        if (hasRowCount() && first > getFirstRowIndexOfLastPage()) {
+          first = getFirstRowIndexOfLastPage();
+        } else if (first < 0) {
+          first = 0;
         }
-        first = start;
         break;
       case TO_PAGE:
-        start = pageEvent.getValue() - 1;
-        if (LOG.isDebugEnabled()) {
-          LOG.debug("start = " + start + "  sheet.getRows() = "
-              + getRows() + " => start = " + (start * getRows()));
+        int pageIndex = pageEvent.getValue() - 1;
+        first = pageIndex * getRows();
+        if (hasRowCount() && first > getFirstRowIndexOfLastPage()) {
+          first = getFirstRowIndexOfLastPage();
+        } else if (first < 0) {
+          first = 0;
         }
-        start = start * getRows();
-        if (start > getLastPageIndex()) {
-          start = getLastPageIndex();
-        } else if (start < 0) {
-          start = 0;
-        }
-        first = start;
         break;
       default:
-        // can't happen
+        // may not happen
+        first = -1;
     }
 
     if (FacesUtils.hasValueBindingOrValueExpression(this, Attributes.FIRST)) {

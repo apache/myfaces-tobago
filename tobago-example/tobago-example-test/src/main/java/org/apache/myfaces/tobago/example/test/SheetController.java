@@ -29,7 +29,7 @@ public class SheetController {
 
   private SolarObject[] solarArray = SolarObject.getArray();
   private SolarObject[] solarArray3 = init3();
-  private DataModel undefined = new UndefinedRowCountDataModel(solarArray3);
+  private DataModel undefined = new UndefinedRowCountDataModel(solarArray);
 
   public SheetController() {
     init3();

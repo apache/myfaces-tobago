@@ -17,87 +17,367 @@ package org.apache.myfaces.tobago.component;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.internal.mock.faces.AbstractTobagoTestBase;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 import javax.faces.model.ListDataModel;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
-public class UISheetUnitTest {
-  private String[] nineRows =
-      {"one", "two", "three", "four", "five",
-          "six", "seven", "eight", "nine"};
+public class UISheetUnitTest extends AbstractTobagoTestBase {
+
+  private static final String[] DATA = {"one", "two", "three", "four", "five", "six", "seven", "eight", "nine"};
+  private List<String> nineRows;
+  private UISheet data;
+  private UISheet unknown;
+
+  @Before
+  public void setUp() throws Exception {
+    super.setUp();
+    nineRows = new ArrayList<String>();
+    Collections.addAll(nineRows, DATA);
+
+    data = new UISheet();
+    data.setValue(new ListDataModel(nineRows));
+
+    unknown = new UISheet();
+    unknown.setValue(new DataModelWithUnknownRows(nineRows));
+  }
+  
+  @Test
+  public void test5RowsPerPage() {
+    data.setRows(5);
+    // having rowCount 9 and 5 rows to display it looks like this (rotated, X X X X X means one page with 5 rows):
+    // X X X X X
+    // X X X X
+    Assert.assertEquals("number of pages", 2, data.getPages());
+  }
 
   @Test
-  public void testPage() {
-    List<String> list = new ArrayList<String>();
-    list.addAll(Arrays.asList(nineRows));
-    UISheet data = new UISheet();
-    data.setValue(new ListDataModel(list));
-    data.setRows(5);
-    Assert.assertEquals(1, data.getPage());
-    Assert.assertEquals(2, data.getPages());
-
+  public void test9RowsPerPage() {
     data.setRows(9);
-    Assert.assertEquals(1, data.getPage());
-    Assert.assertEquals(1, data.getPages());
+    // X X X X X X X X X
+    Assert.assertEquals("number of pages", 1, data.getPages());
+  }
 
+  @Test
+  public void test2RowsPerPage() {
     data.setRows(2);
-    Assert.assertEquals(1, data.getPage());
-    Assert.assertEquals(5, data.getPages());
+    // X X
+    // X X
+    // X X
+    // X X
+    // X
+    Assert.assertEquals("number of pages", 5, data.getPages());
+  }
 
+  @Test
+  public void test3RowsPerPage() {
     data.setRows(3);
-    Assert.assertEquals(1, data.getPage());
-    Assert.assertEquals(3, data.getPages());
+    // X X X
+    // X X X
+    // X X X
+    Assert.assertEquals("number of pages", 3, data.getPages());
+  }
 
-
+  @Test
+  public void test1RowPerPage() {
     data.setRows(1);
-    Assert.assertEquals(1, data.getPage());
-    Assert.assertEquals(9, data.getPages());
+    // X
+    // X
+    // X
+    // X
+    // X
+    // X
+    // X
+    // X
+    // X
+    Assert.assertEquals("number of pages", 9, data.getPages());
+  }
+
+  @Test
+  public void testAllRowsPerPage() {
+    data.setRows(0); // zero means all
+    // X X X X X X X X X
+    Assert.assertEquals("number of pages", 1, data.getPages());
+  }
+
+  @Test
+  public void testCurrentPageRows5() {
+    data.setRows(5);
+    // initially first = 0
+    // * X X X X
+    // X X X X
+    Assert.assertEquals("current page", 0, data.getCurrentPage());
+    Assert.assertEquals("is at beginning", true, data.isAtBeginning());
+
+    data.setFirst(5);
+    // now we set the first (show as an F)
+    // X X X X X
+    // * X X X
+    Assert.assertEquals("current page", 1, data.getCurrentPage());
+    Assert.assertEquals("is at beginning", false, data.isAtBeginning());
+
+    data.setFirst(0);
+    // * X X X X
+    // X X X X
+    Assert.assertEquals("current page", 0, data.getCurrentPage());
+    Assert.assertEquals("is at beginning", true, data.isAtBeginning());
+
+    data.setFirst(4);
+    // X X X X *
+    // X X X X
+    Assert.assertEquals("current page", 0, data.getCurrentPage());
+    Assert.assertEquals("is at beginning", false, data.isAtBeginning());
+
+    data.setFirst(100);
+    // out of rage
+    Assert.assertEquals("current page", 1, data.getCurrentPage());
+    Assert.assertEquals("is at beginning", false, data.isAtBeginning());
+  }
+
+  @Test
+  public void testCurrentPageRows20() {
+    data.setRows(20); // more rows than data entries
+    // initially first = 0
+    // * X X X X X X X X
+    Assert.assertEquals("current page", 0, data.getCurrentPage());
+    Assert.assertEquals("is at beginning", true, data.isAtBeginning());
+
+    data.setFirst(8);
+    // now we set the first (show as an F)
+    // X X X X X X X X *
+    Assert.assertEquals("current page", 0, data.getCurrentPage());
+    Assert.assertEquals("is at beginning", false, data.isAtBeginning());
+
+    data.setFirst(0);
+    // * X X X X X X X X
+    Assert.assertEquals("current page", 0, data.getCurrentPage());
+    Assert.assertEquals("is at beginning", true, data.isAtBeginning());
+
+    data.setFirst(100);
+    // out of range
+    Assert.assertEquals("current page", 0, data.getCurrentPage());
+    Assert.assertEquals("is at beginning", false, data.isAtBeginning());
+  }
+
+  @Test
+  public void testRowData() {
+    data.setRowIndex(0);
+    Assert.assertEquals("one", data.getRowData());
+    data.setRowIndex(8);
+    Assert.assertEquals("nine", data.getRowData());
+    data.setRowIndex(9);
+    try {
+      data.getRowData();
+      Assert.fail();
+    } catch (IllegalArgumentException e) {
+      // okay: row is unavailable
+    }
+  }
+
+  @Test
+  public void testHasRowCount() {
+    Assert.assertEquals("has row count", true, data.hasRowCount());
+    Assert.assertEquals("has row count", false, unknown.hasRowCount());
+  }
+
+  @Test
+  public void testRowsUnlimited() {
+    data.setRows(5);
+    unknown.setRows(5);
+
+    Assert.assertEquals("unlimited rows", false, data.isRowsUnlimited());
+    Assert.assertEquals("unlimited rows", false, unknown.isRowsUnlimited());
+
+    data.setRows(0);
+    unknown.setRows(0);
+
+    Assert.assertEquals("unlimited rows", true, data.isRowsUnlimited());
+    Assert.assertEquals("unlimited rows", true, unknown.isRowsUnlimited());
+  }
+
+  @Test
+  public void testNeedMoreThanOnePage() {
+
+    // known length:
+
+    data.setRows(0);
+    // * X X X X X X X X
+    Assert.assertEquals("need more than one page", false, data.needMoreThanOnePage());
 
     data.setRows(5);
-    data.setFirst(5);
-    Assert.assertEquals(2, data.getPage());
+    // * X X X X
+    // X X X X
+    Assert.assertEquals("need more than one page", true, data.needMoreThanOnePage());
 
-    data.setRows(9);
-    data.setFirst(6);
-    Assert.assertEquals(1, data.getPage());
+    data.setRows(20);
+    // * X X X X X X X X
+    Assert.assertEquals("need more than one page", false, data.needMoreThanOnePage());
 
-    data.setRows(2);
-    data.setFirst(0);
-    Assert.assertEquals(1, data.getPage());
+    // unknown length:
 
-    data.setRows(2);
-    data.setFirst(1);
-    Assert.assertEquals(1, data.getPage());
+    unknown.setRows(0);
+    // * X X X X X X X X
+    Assert.assertEquals("need more than one page", false, unknown.needMoreThanOnePage());
 
-    data.setRows(2);
-    data.setFirst(2);
-    Assert.assertEquals(2, data.getPage());
+    unknown.setRows(5);
+    // * X X X X
+    // X X X X
+    Assert.assertEquals("need more than one page", true, unknown.needMoreThanOnePage());
 
-    data.setRows(2);
-    data.setFirst(3);
-    Assert.assertEquals(2, data.getPage());
+    unknown.setRows(20);
+    // * X X X X X X X X
+    Assert.assertEquals("need more than one page", true, unknown.needMoreThanOnePage());
+  }
 
-    data.setRows(2);
-    data.setFirst(6);
-    Assert.assertEquals(4, data.getPage());
-    //TODO enable this
-    /*data.setRows(1);
-    data.setFirst(8);
-    data.setRowIndex(8);
-    Assert.assertEquals(data.getRowData(), list.get(8));
-    Assert.assertEquals(9, data.getPage());
-    Assert.assertEquals(9, data.getPages());
+  @Test
+  public void testFirstRowIndexOfLastPage() {
 
-    list.remove(8);
-    Assert.assertEquals(list.size(), data.getRowCount());
-    data.setFirst(0);
-    Assert.assertEquals(1, data.getPage());
-    Assert.assertEquals(8, data.getPages());
-      */
+    // known length:
+
+    data.setRows(0);
+    // * X X X X X X X X
+    Assert.assertEquals("first row index of last page", 0, data.getFirstRowIndexOfLastPage());
+
+    data.setRows(5);
+    // * X X X X
+    // X X X X
+    Assert.assertEquals("first row index of last page", 5, data.getFirstRowIndexOfLastPage());
+
+    data.setRows(20);
+    // * X X X X X X X X
+    Assert.assertEquals("first row index of last page", 0, data.getFirstRowIndexOfLastPage());
+
+    // unknown length:
+
+    unknown.setRows(0);
+    // * X X X X X X X X
+    Assert.assertEquals("first row index of last page", 0, unknown.getFirstRowIndexOfLastPage());
+
+    unknown.setRows(5);
+    // * X X X X
+    // X X X X
+    try {
+      unknown.getFirstRowIndexOfLastPage();
+      Assert.fail("first row index of last page");
+    } catch (IllegalArgumentException e) {
+      // okay: last page can't determined
+    }
+
+    unknown.setRows(20);
+    // * X X X X X X X X
+    try {
+      unknown.getFirstRowIndexOfLastPage();
+      Assert.fail("first row index of last page");
+    } catch (IllegalArgumentException e) {
+      // okay: last page can't determined
+    }
+  }
+
+  @Test
+  public void testLastRowIndexOfCurrentPage() {
+
+    // known length:
+
+    data.setRows(0);
+    // * X X X X X X X X
+    Assert.assertEquals("last row index of current page", 9, data.getLastRowIndexOfCurrentPage());
+
+    data.setRows(5);
+    // * X X X X
+    // X X X X
+    Assert.assertEquals("last row index of current page", 5, data.getLastRowIndexOfCurrentPage());
+
+    data.setRows(20);
+    // * X X X X X X X X
+    Assert.assertEquals("last row index of current page", 9, data.getLastRowIndexOfCurrentPage());
+
+    // unknown length:
+
+    unknown.setRows(0);
+    // * X X X X X X X X
+    try {
+      unknown.getLastRowIndexOfCurrentPage();
+      Assert.fail("last row index of current page");
+    } catch (IllegalArgumentException e) {
+      // okay: last row index of current page can't determined
+    }
+
+    unknown.setRows(5);
+    // * X X X X
+    // X X X X
+    try {
+      unknown.getLastRowIndexOfCurrentPage();
+      Assert.fail("last row index of current page");
+    } catch (IllegalArgumentException e) {
+      // okay: last row index of current page can't determined
+    }
+
+    unknown.setRows(20);
+    // * X X X X X X X X
+    try {
+      unknown.getLastRowIndexOfCurrentPage();
+      Assert.fail("last row index of current page");
+    } catch (IllegalArgumentException e) {
+      // okay: last row index of current page can't determined
+    }
+  }
+
+  @Test
+  public void testGetCurrentPageOnUnknown() {
+
+    // unknown length:
+
+    unknown.setRows(0);
+    // * X X X X X X X X
+    Assert.assertEquals("current page", 0, unknown.getCurrentPage());
+
+    unknown.setRows(5);
+    // * X X X X
+    // X X X X
+    Assert.assertEquals("current page", 0, unknown.getCurrentPage());
+
+    unknown.setFirst(5);
+    // X X X X X
+    // * X X X
+    Assert.assertEquals("current page", 1, unknown.getCurrentPage());
+  }
+
+  @Test
+  public void testGetPagesOnUnknown() {
+
+    // unknown length:
+
+    unknown.setRows(0);
+    // * X X X X X X X X
+    Assert.assertEquals("pages", 1, unknown.getPages());
+
+    unknown.setRows(5);
+    // * X X X X
+    // X X X X
+    try {
+      unknown.getPages();
+      Assert.fail("pages");
+    } catch (IllegalArgumentException e) {
+      // okay: pages can't determined
+    }
+  }
+
+  @Test
+  public void testDynamicRemoval() {
+    nineRows.remove(0);
+    nineRows.remove(0);
+    nineRows.remove(0);
+    data.setRows(5);
+    Assert.assertEquals(2, data.getPages());
+    nineRows.remove(0);
+    nineRows.remove(0);
+    nineRows.remove(0);
+    Assert.assertEquals(1, data.getPages());
   }
 
   @Test
@@ -106,4 +386,16 @@ public class UISheetUnitTest {
     Assert.assertEquals("comp1:comp2", new UISheet().stripRowIndex("comp1:comp2"));
   }
 
+  private static class DataModelWithUnknownRows extends ListDataModel {
+
+    public DataModelWithUnknownRows(List list) {
+      super(list);
+    }
+
+    @Override
+    public int getRowCount() {
+      return -1;
+    }
+  }
+  
 }

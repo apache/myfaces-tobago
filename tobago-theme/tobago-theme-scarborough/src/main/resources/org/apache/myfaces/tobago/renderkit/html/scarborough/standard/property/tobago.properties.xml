@@ -43,10 +43,14 @@
   <entry key="sheetDescending">Descending</entry>
   <entry key="sheetPagingInfoRows">Rows &lt;span id="{3}"&gt;{0}&lt;/span&gt; to {1} of {2}</entry>
   <entry key="sheetPagingInfoSingleRow">Row &lt;span id="{3}"&gt;{0}&lt;/span&gt; of {2}</entry>
+  <entry key="sheetPagingInfoUndefinedRows">Rows &lt;span id="{3}"&gt;{0}&lt;/span&gt; to {1}</entry>
+  <entry key="sheetPagingInfoUndefinedSingleRow">Row &lt;span id="{3}"&gt;{0}&lt;/span&gt;</entry>
   <entry key="sheetPagingInfoEmptyRow">No rows available</entry>
   <entry key="sheetPagingInfoRowPagingTip">Click here, to change the first displayed row</entry>
   <entry key="sheetPagingInfoPages">Page &lt;span id="{3}"&gt;{0}&lt;/span&gt; of {1}</entry>
   <entry key="sheetPagingInfoSinglePage">Page &lt;span id="{3}"&gt;{0}&lt;/span&gt; of {1}</entry>
+  <entry key="sheetPagingInfoUndefinedPages">Page &lt;span id="{3}"&gt;{0}&lt;/span&gt;</entry>
+  <entry key="sheetPagingInfoUndefinedSinglePage">Page &lt;span id="{3}"&gt;{0}&lt;/span&gt;</entry>
   <entry key="sheetPagingInfoEmptyPage"></entry>
   <entry key="sheetPagingInfoPagePagingTip">Click here, to change the displayed page</entry>
   <entry key="sheetMenuToggleselect">Invert selections</entry>
