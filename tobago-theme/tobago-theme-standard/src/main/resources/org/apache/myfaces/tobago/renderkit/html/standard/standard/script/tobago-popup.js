@@ -37,7 +37,7 @@ Tobago.Popup.setup = function () {
   var maxZIndex = -Infinity;
   var maxModalPopup = null;
   jQuery('.tobago-popup-markup-modal').each(function () {
-    var zIndex = jQuery(this).css('z-index');
+    var zIndex = parseInt(jQuery(this).css('z-index'));
     if (zIndex >= maxZIndex) {
       maxZIndex = zIndex;
       maxModalPopup = jQuery(this);
