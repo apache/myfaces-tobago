@@ -57,9 +57,25 @@
                           <f:facet name="layout">
                             <tc:gridLayout rows="auto;auto"/>
                           </f:facet>
-                          <tx:date label="Date" id="date">
+                          <tx:date label="Date" id="txdate" fieldId="date" pickerId="picker">
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                           </tx:date>
+                          <tc:button label="Open Sub Popup (AJAX)" id="open-2">
+                            <tc:attribute name="renderedPartially" value="popup-3"/>
+                            <f:facet name="popup">
+                              <tc:popup modal="false" width="200px" height="53px" left="250px" top="250px" id="popup-3">
+                                <tc:box label="Popup Level 3 (non modal)" id="box-3">
+                                  <f:facet name="layout">
+                                    <tc:gridLayout rows="auto;*"/>
+                                  </f:facet>
+                                  <tc:button label="Cancel" id="close-3">
+                                    <tc:attribute name="popupClose" value="immediate"/>
+                                  </tc:button>
+                                  <tc:panel/>
+                                </tc:box>
+                              </tc:popup>
+                            </f:facet>
+                          </tc:button>
                           <tc:button label="Cancel" id="close-2">
                             <tc:attribute name="popupClose" value="immediate"/>
                           </tc:button>

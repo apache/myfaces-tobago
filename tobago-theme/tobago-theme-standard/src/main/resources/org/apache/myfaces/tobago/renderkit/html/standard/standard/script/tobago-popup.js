@@ -86,55 +86,46 @@ Tobago.Popup.setup = function () {
  */
 Tobago.Popup.lockBehind = function (popup) {
   // disable all elements and anchors on page not initially disabled and
-  // store their ids in a hidden field
+  // store their ids in a data attribute of the popup
   var id = popup.id;
-  var hidden = Tobago.element(id + Tobago.SUB_COMPONENT_SEP + 'disabledElements');
-  if (hidden == null) {
-    hidden = document.createElement('input');
-    hidden.id = id + Tobago.SUB_COMPONENT_SEP + 'disabledElements';
-    hidden.type = 'hidden';
-    popup.appendChild(hidden);
-  }
-  hidden.value = ',';
-  var firstPopupElement = null;
-  var elements = document.forms[0].elements;
-  var element;
-  for (var i = 0; i < elements.length; i++) {
-    element = elements[i];
-    if (element.type != 'hidden' && !element.disabled) {
-      if (element.id) {
-        if (element.id.indexOf(id + ':') != 0) { // not starts with
-          element.disabled = true;
-          hidden.value += element.id + ',';
-        } else {
-          if (firstPopupElement == null && jQuery.isFunction(element.focus)) {
-            firstPopupElement = element;
-          }
-        }
+  // The attribute might be set by the last call, this may happen, when opening a non-modal popup on a modal popup.
+  if (jQuery(popup).data('tobago-disabledElements') == null) {
+    var disabledElements = jQuery();
+    var firstPopupElement = null;
+//    var pageElements = jQuery(document.forms[0].elements);
+    var pageElements = jQuery("form:first :input");
+
+    // disable all active and visible page elements except the popup elements
+    pageElements.each(function () {
+      var element = jQuery(this);
+      if (element.prop("disabled")) {
+        return;
       }
-    }
-  }
-  var anchors = document.getElementsByTagName('a');
-  for (i = 0; i < anchors.length; i++) {
-    element = anchors[i];
-    if (!element.disabled) {
-      if (element.id) {
-        if (element.id.indexOf(id + ':') != 0) { // not starts with
-          element.disabled = true;
-          hidden.value += element.id + ',';
-        } else {
-          if (firstPopupElement == null && jQuery.isFunction(element.focus)) {
-            firstPopupElement = element;
-          }
-        }
+      if (element.attr("type") == "hidden") {
+        return;
       }
-    }
-  }
-  // set focus to first element in popup
-  if (firstPopupElement != null) {
-    try {
-      firstPopupElement.focus();
-    } catch (e) {/* ignore */
+      if (element[0].tagName.toLowerCase() == "form") {
+        return;
+      }
+      var fieldId = element.attr("id");
+      if (fieldId != null && fieldId.indexOf(id + ':') == 0) { // starts with means, is in popup
+        if (firstPopupElement == null && jQuery.isFunction(element.focus)) {
+          firstPopupElement = element;
+        }
+      } else {
+        element.prop({disabled:true}); // disable element
+        jQuery.merge(disabledElements, jQuery(element)); // store it for reactivation
+      }
+    });
+    jQuery(popup).data('tobago-disabledElements', disabledElements);
+
+    // find the first element in the popup for the focus
+    if (firstPopupElement != null) {
+      try {
+        firstPopupElement.focus();
+      } catch (e) {/* ignore */
+        LOG.warn("tried to setting the focus on'" + this + "'." + e); // @DEV_ONLY
+      }
     }
   }
 };
@@ -153,40 +144,37 @@ Tobago.Popup.blink = function (element) {
  * remove a popup without request
  */
 Tobago.Popup.close = function (closeButton) {
-  Tobago.Popup.unlockBehind();
   var popup = jQuery(closeButton).parents('div.tobago-popup:first');
-  popup.remove();
-  var maxModalPopup = jQuery('.tobago-popup-shield').filter(":last");
-  maxModalPopup.css({visibility:"visible"});
+  if (popup.hasClass("tobago-popup-markup-modal")) {
+    Tobago.Popup.unlockBehind(popup);
+    popup.remove();
+    var maxModalPopup = jQuery('.tobago-popup-shield').filter(":last");
+    maxModalPopup.css({visibility:"visible"});
+  } else {
+    popup.remove();
+  }
 };
 
 /**
  * Unlock the parent page of a popup when it is closed
+ * @param popups The popups as jQuery object.
  */
-Tobago.Popup.unlockBehind = function () {
-  var maxModalPopup = jQuery('.tobago-popup-shield').filter(":last").parent();
-  if (maxModalPopup.size() == 0) { // there is no modal popup
-    return;
+Tobago.Popup.unlockBehind = function (popups) {
+  if (popups == null) {
+    LOG.warn("Since Tobago 1.5.5 Tobago.Popup.unlockBehind() has the popup as parameter"); // @DEV_ONLY
+    popups = jQuery('.tobago-popup-shield').filter(":last").parent();
   }
-  var id = maxModalPopup.attr('id');
-  // enable all elements and anchors on page stored in a hidden field
-  var element;
-  var hidden = Tobago.element(id + Tobago.SUB_COMPONENT_SEP + 'disabledElements');
-  if (hidden != null && hidden.value != '') {
-    for (var i = 0; i < document.forms[0].elements.length; i++) {
-      element = document.forms[0].elements[i];
-      if (hidden.value.indexOf(',' + element.id + ',') >= 0) {
-        element.disabled = false;
-      }
+  popups.each(function() {
+    // re-enable all elements and anchors on page stored in the attribute
+    var popup = jQuery(this);
+    var disabledElements = popup.data('tobago-disabledElements');
+    if (disabledElements != null) {
+      disabledElements.each(function() {
+        jQuery(this).prop({disabled: false});
+      });
+      jQuery(popup).removeData('tobago-disabledElements');
     }
-    var anchors = document.getElementsByTagName('a');
-    for (i = 0; i < anchors.length; i++) {
-      element = anchors[i];
-      if (hidden.value.indexOf(',' + element.id + ',') >= 0) {
-        element.disabled = false;
-      }
-    }
-  }
+  });
 };
 
 Tobago.Popup.openWithAction = function (source, popupId, actionId, options) {

@@ -351,7 +351,7 @@ var Tobago = {
     clientDimension.value = jQuery("body").width() + ';' + jQuery("body").height();
     this.form.appendChild(clientDimension);
 
-    Tobago.Popup.unlockBehind();
+    Tobago.Popup.unlockBehind(jQuery(".tobago-popup-markup-modal"));
 
     Tobago.onBeforeUnload();
 
