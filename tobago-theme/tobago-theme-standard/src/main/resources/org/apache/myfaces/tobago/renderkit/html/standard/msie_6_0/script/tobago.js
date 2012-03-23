@@ -94,5 +94,5 @@ Tobago.fixSelectionOnFocus = function() {
   }
 };
 
-Tobago.registerCallback(Tobago.fixPngAlphaAll, Tobago.Phase.WINDOW_LOAD);
-Tobago.registerCallback(Tobago.fixPngAlphaAll, Tobago.Phase.AFTER_UPDATE);
+Tobago.registerListener(Tobago.fixPngAlphaAll, Tobago.Phase.WINDOW_LOAD);
+Tobago.registerListener(Tobago.fixPngAlphaAll, Tobago.Phase.AFTER_UPDATE);
