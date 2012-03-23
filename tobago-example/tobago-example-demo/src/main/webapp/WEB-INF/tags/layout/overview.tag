@@ -76,9 +76,7 @@
     <tc:messages/>
 
     <tc:box label="(Label doesn't work in the JSP version) #{title}">
-      <f:subview id="content">
-        <jsp:doBody/>
-      </f:subview>
+      <jsp:doBody/>
     </tc:box>
 
     <tc:cell>
