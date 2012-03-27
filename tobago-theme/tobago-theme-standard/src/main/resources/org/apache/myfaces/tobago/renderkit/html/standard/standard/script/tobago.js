@@ -78,25 +78,25 @@ var Tobago = {
 
   /**
    * the html body object of current page.
-   * set via init function (onload attribute of body)
+   * set via init function
    */
   page: null,
 
   /**
    * The html form object of current page.
-   * set via init function (onload attribute of body)
+   * set via init function
    */
   form: null,
 
   /**
    * The hidden html input object for submitted actionId.
-   * set via init function (onload attribute of body)
+   * set via init function
    */
   action: null,
 
   /**
    * The hidden html input object for the contextPath.
-   * set via init function (onload attribute of body)
+   * set via init function
    */
   contextPath: null,
 
@@ -266,15 +266,15 @@ var Tobago = {
     }
     this.initMarker = true;
 
-    var pageId = jQuery("body").attr("id");
 
 //    new LOG.LogArea({hide: false});
 //    LOG.show();
     if (TbgTimer.endBody) { // @DEV_ONLY
       TbgTimer.startOnload = new Date(); // @DEV_ONLY
     } // @DEV_ONLY
-    this.page = this.element(pageId);
-    this.form = this.element(this.page.id + this.SUB_COMPONENT_SEP + 'form');
+    var body = jQuery("body");
+    this.page = body.get(0);
+    this.form = body.find("form").get(0); // find() seems to be faster than children()
     this.addBindEventListener(this.form, 'submit', this, 'onSubmit');
     this.action = this.element(this.page.id + this.SUB_COMPONENT_SEP + 'form-action');
     this.contextPath = this.element(this.page.id + this.SUB_COMPONENT_SEP + 'context-path');
