@@ -43,4 +43,8 @@ public abstract class MultiSuffixSeleniumTest extends SeleniumTest {
         new Object[]{"jspx"}
     );
   }
+
+  public boolean isFacelet() {
+    return suffix.equals("xhtml");
+  }
 }

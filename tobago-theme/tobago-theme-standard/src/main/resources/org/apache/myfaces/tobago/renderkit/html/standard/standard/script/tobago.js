@@ -78,25 +78,25 @@ var Tobago = {
 
   /**
    * the html body object of current page.
-   * set via init function (onload attribute of body)
+   * set via init function
    */
   page: null,
 
   /**
    * The html form object of current page.
-   * set via init function (onload attribute of body)
+   * set via init function
    */
   form: null,
 
   /**
    * The hidden html input object for submitted actionId.
-   * set via init function (onload attribute of body)
+   * set via init function
    */
   action: null,
 
   /**
    * The hidden html input object for the contextPath.
-   * set via init function (onload attribute of body)
+   * set via init function
    */
   contextPath: null,
 
@@ -234,7 +234,7 @@ var Tobago = {
 
   initMarker: false,
 
-  callbacks: {
+  listeners: {
     documentReady: [],
     windowLoad: [],
     afterUpdate: []
@@ -242,14 +242,14 @@ var Tobago = {
 
   // -------- Functions -------------------------------------------------------
 
-  registerCallback: function(callback, phase) {
+  registerListener: function(listener, phase) {
 
     if (Tobago.Phase.DOCUMENT_READY == phase) {
-      Tobago.callbacks.documentReady.push(callback);
+      Tobago.listeners.documentReady.push(listener);
     } else if (Tobago.Phase.WINDOW_LOAD == phase) {
-      Tobago.callbacks.windowLoad.push(callback);
+      Tobago.listeners.windowLoad.push(listener);
     } else if (Tobago.Phase.AFTER_UPDATE == phase) {
-      Tobago.callbacks.afterUpdate.push(callback);
+      Tobago.listeners.afterUpdate.push(listener);
     } else {
       LOG.error("Unknown phase: " + phase); // @DEV_ONLY
     }
@@ -266,15 +266,15 @@ var Tobago = {
     }
     this.initMarker = true;
 
-    var pageId = jQuery("body").attr("id");
 
 //    new LOG.LogArea({hide: false});
 //    LOG.show();
     if (TbgTimer.endBody) { // @DEV_ONLY
       TbgTimer.startOnload = new Date(); // @DEV_ONLY
     } // @DEV_ONLY
-    this.page = this.element(pageId);
-    this.form = this.element(this.page.id + this.SUB_COMPONENT_SEP + 'form');
+    var body = jQuery("body");
+    this.page = body.get(0);
+    this.form = body.find("form").get(0); // find() seems to be faster than children()
     this.addBindEventListener(this.form, 'submit', this, 'onSubmit');
     this.action = this.element(this.page.id + this.SUB_COMPONENT_SEP + 'form-action');
     this.contextPath = this.element(this.page.id + this.SUB_COMPONENT_SEP + 'context-path');
@@ -283,8 +283,8 @@ var Tobago = {
 
     this.addBindEventListener(window, 'unload', this, 'onUnload');
 
-    for (var i = 0; i < Tobago.callbacks.documentReady.length; i++) {
-      Tobago.callbacks.documentReady[i]();
+    for (var i = 0; i < Tobago.listeners.documentReady.length; i++) {
+      Tobago.listeners.documentReady[i]();
     }
 
     if (TbgTimer.endBody) { // @DEV_ONLY
@@ -351,7 +351,7 @@ var Tobago = {
     clientDimension.value = jQuery("body").width() + ';' + jQuery("body").height();
     this.form.appendChild(clientDimension);
 
-    Tobago.Popup.unlockBehind();
+    Tobago.Popup.unlockBehind(jQuery(".tobago-popup-markup-modal"));
 
     Tobago.onBeforeUnload();
 
@@ -1508,8 +1508,8 @@ jQuery(document).ready(function() {
 });
 
 jQuery(window).load(function() {
-  for (var i = 0; i < Tobago.callbacks.windowLoad.length; i++) {
-    Tobago.callbacks.windowLoad[i]();
+  for (var i = 0; i < Tobago.listeners.windowLoad.length; i++) {
+    Tobago.listeners.windowLoad[i]();
   }
 });
 
@@ -1714,8 +1714,8 @@ Tobago.Panel.prototype.prepareReload = function() {
   Tobago.createOverlay(jQuery(Tobago.Utils.escapeClientId(this.id)));
 };
 
-Tobago.registerCallback(Tobago.Panel.init, Tobago.Phase.DOCUMENT_READY);
-Tobago.registerCallback(Tobago.Panel.init, Tobago.Phase.AFTER_UPDATE);
+Tobago.registerListener(Tobago.Panel.init, Tobago.Phase.DOCUMENT_READY);
+Tobago.registerListener(Tobago.Panel.init, Tobago.Phase.AFTER_UPDATE);
 
 Tobago.EventListener = function(element, event, func) {
   this.element = element;
@@ -2263,8 +2263,8 @@ Tobago.Updater = {
           }
           if (data.html.length > 0) {
 
-            for (var i = 0; i < Tobago.callbacks.afterUpdate.length; i++) {
-              Tobago.callbacks.afterUpdate[i](newElement);
+            for (var i = 0; i < Tobago.listeners.afterUpdate.length; i++) {
+              Tobago.listeners.afterUpdate[i](newElement);
             }
           }
         } catch (e) {
@@ -2410,8 +2410,8 @@ Tobago.ToolBar.setRadioValue = function(id, value) {
   element.value = value;
 };
 
-Tobago.registerCallback(Tobago.ToolBar.init, Tobago.Phase.DOCUMENT_READY);
-Tobago.registerCallback(Tobago.ToolBar.init, Tobago.Phase.AFTER_UPDATE);
+Tobago.registerListener(Tobago.ToolBar.init, Tobago.Phase.DOCUMENT_READY);
+Tobago.registerListener(Tobago.ToolBar.init, Tobago.Phase.AFTER_UPDATE);
 
 // ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // TabGroup
@@ -2520,8 +2520,8 @@ Tobago.TabGroup.ensureScrollPosition = function (header) {
   }
 };
 
-Tobago.registerCallback(Tobago.TabGroup.init, Tobago.Phase.DOCUMENT_READY);
-Tobago.registerCallback(Tobago.TabGroup.init, Tobago.Phase.AFTER_UPDATE);
+Tobago.registerListener(Tobago.TabGroup.init, Tobago.Phase.DOCUMENT_READY);
+Tobago.registerListener(Tobago.TabGroup.init, Tobago.Phase.AFTER_UPDATE);
 
 // ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -2572,8 +2572,8 @@ Tobago.SelectManyShuttle.copyValues = function(shuttle) {
       .attr('selected', 'selected').appendTo(hidden);
 };
 
-Tobago.registerCallback(Tobago.SelectManyShuttle.init, Tobago.Phase.DOCUMENT_READY);
-Tobago.registerCallback(Tobago.SelectManyShuttle.init, Tobago.Phase.AFTER_UPDATE);
+Tobago.registerListener(Tobago.SelectManyShuttle.init, Tobago.Phase.DOCUMENT_READY);
+Tobago.registerListener(Tobago.SelectManyShuttle.init, Tobago.Phase.AFTER_UPDATE);
 
 // ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

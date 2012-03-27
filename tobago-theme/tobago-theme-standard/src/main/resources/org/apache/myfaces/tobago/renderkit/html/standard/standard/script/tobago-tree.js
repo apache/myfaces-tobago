@@ -201,5 +201,5 @@ Tobago.Tree.rowIndex = function (node) {
   return node.attr("id").replace(/.+\:(\d+)(\:\w+)+/, '$1');
 };
 
-Tobago.registerCallback(Tobago.Tree.init, Tobago.Phase.DOCUMENT_READY);
-Tobago.registerCallback(Tobago.Tree.init, Tobago.Phase.AFTER_UPDATE);
+Tobago.registerListener(Tobago.Tree.init, Tobago.Phase.DOCUMENT_READY);
+Tobago.registerListener(Tobago.Tree.init, Tobago.Phase.AFTER_UPDATE);

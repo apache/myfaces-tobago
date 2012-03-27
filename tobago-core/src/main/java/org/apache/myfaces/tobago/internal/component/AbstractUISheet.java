@@ -411,17 +411,13 @@ public abstract class AbstractUISheet extends AbstractUIData
   public void queueEvent(FacesEvent facesEvent) {
     UIComponent parent = getParent();
     if (parent == null) {
-      throw new IllegalStateException(
-          "component is not a descendant of a UIViewRoot");
+      throw new IllegalStateException("Component is not a descendant of a UIViewRoot");
     }
 
     if (facesEvent.getComponent() == this
         && (facesEvent instanceof SheetStateChangeEvent
         || facesEvent instanceof PageActionEvent)) {
       facesEvent.setPhaseId(PhaseId.INVOKE_APPLICATION);
-      if (LOG.isInfoEnabled()) {
-        LOG.info("queueEvent = '" + facesEvent + "'");
-      }
       parent.queueEvent(facesEvent);
     } else {
       UIComponent source = facesEvent.getComponent();

@@ -75,6 +75,7 @@ public class DateExtensionTag extends TobagoExtensionBodyTagSupport {
   private javax.el.ValueExpression converterMessage;
   private javax.el.ValueExpression requiredMessage;  
   private String fieldId;
+  private String pickerId;
 
   private javax.el.ValueExpression labelWidth;
   private LabelExtensionTag labelTag;
@@ -189,6 +190,9 @@ public class DateExtensionTag extends TobagoExtensionBodyTagSupport {
       datePicker.setTabIndex(tabIndex);
     }
     datePicker.setParent(formTag);
+    if (pickerId != null) {
+      datePicker.setId(pickerId);
+    }
     datePicker.setJspId(jspId + PREFIX + idSuffix++);
     datePicker.doStartTag();
     datePicker.doEndTag();
@@ -224,6 +228,7 @@ public class DateExtensionTag extends TobagoExtensionBodyTagSupport {
     converterMessage = null;
     requiredMessage = null;
     fieldId = null;
+    pickerId = null;
   }
 
   /**
@@ -441,6 +446,16 @@ public class DateExtensionTag extends TobagoExtensionBodyTagSupport {
   @UIComponentTagAttribute
   public void setFieldId(String fieldId) {
     this.fieldId = fieldId;
+  }
+
+  /**
+   * The component identifier for the input field component inside of the container.
+   * This value must be unique within the closest parent component that is a naming container.
+   */
+  @TagAttribute(rtexprvalue = true)
+  @UIComponentTagAttribute
+  public void setPickerId(String pickerId) {
+    this.pickerId = pickerId;
   }
 
   /**

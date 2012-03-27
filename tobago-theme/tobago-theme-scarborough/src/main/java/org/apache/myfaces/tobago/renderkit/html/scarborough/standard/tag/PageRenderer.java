@@ -653,8 +653,6 @@ public class PageRenderer extends PageRendererBase {
         logMessages.add(0, "LOG.show();");
       }
 
-      logMessages.add("LOG.info(\"FacesContext = " + facesContext + "\");");
-
       HtmlRendererUtils.writeScriptLoader(facesContext, null,
           logMessages.toArray(new String[logMessages.size()]));
     }
