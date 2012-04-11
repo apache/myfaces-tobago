@@ -29,6 +29,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.NamingContainer;
@@ -46,7 +47,7 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
     UISelectManyCheckbox select = (UISelectManyCheckbox) component;
     super.prepareRender(facesContext, select);
     if (select.isInline()) {
-      select.setCurrentMarkup(Markup.INLINE.add(select.getCurrentMarkup()));
+      ComponentUtils.addCurrentMarkup(select, Markup.INLINE);
     }
   }
 

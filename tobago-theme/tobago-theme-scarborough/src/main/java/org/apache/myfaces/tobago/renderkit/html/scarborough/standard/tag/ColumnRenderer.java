@@ -22,6 +22,7 @@ import org.apache.myfaces.tobago.component.UILink;
 import org.apache.myfaces.tobago.component.UIOut;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -36,7 +37,7 @@ public class ColumnRenderer extends LayoutComponentRendererBase {
 
     final UIColumn column = (UIColumn) component;
     if (isPure(column)) {
-      column.setCurrentMarkup(Markup.PURE.add(column.getCurrentMarkup()));
+      ComponentUtils.addCurrentMarkup(column, Markup.PURE);
     }
   }
 

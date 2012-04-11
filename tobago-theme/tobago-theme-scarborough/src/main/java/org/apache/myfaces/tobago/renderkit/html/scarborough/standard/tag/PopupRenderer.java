@@ -58,7 +58,7 @@ public class PopupRenderer extends LayoutComponentRendererBase {
     super.prepareRender(facesContext, popup);
 
     if (popup.isModal()) {
-      popup.setCurrentMarkup(popup.getCurrentMarkup().add(Markup.MODAL));
+      ComponentUtils.addCurrentMarkup(popup, Markup.MODAL);
     }
   }
 

@@ -912,6 +912,10 @@ public class ComponentUtils {
     return null;
   }
 
+  public static void addCurrentMarkup(SupportsMarkup component, Markup markup) {
+    component.setCurrentMarkup(markup.add(component.getCurrentMarkup()));
+  }
+
   public static boolean hasChildrenWithMessages(FacesContext facesContext, NamingContainer  container) {
     if (container instanceof UIComponent) {
       String clientId = ((UIComponent) container).getClientId(facesContext);

@@ -186,11 +186,11 @@ public class TabGroupRenderer extends LayoutComponentRendererBase {
         if (tab.isRendered()) {
           LabelWithAccessKey label = new LabelWithAccessKey(tab);
           if (activeIndex == index) {
-            tab.setCurrentMarkup(tab.getCurrentMarkup().add(Markup.SELECTED));
+            ComponentUtils.addCurrentMarkup(tab, Markup.SELECTED);
           }
           FacesMessage.Severity maxSeverity = ComponentUtils.getMaximumSeverityOfChildrenMessages(facesContext, tab);
           if (maxSeverity != null) {
-            tab.setCurrentMarkup(tab.getCurrentMarkup().add(ComponentUtils.markupOfSeverity(maxSeverity)));
+            ComponentUtils.addCurrentMarkup(tab, ComponentUtils.markupOfSeverity(maxSeverity));
           }
           writer.startElement(HtmlElements.DIV, tab);
           writer.writeClassAttribute(Classes.create(tab));
