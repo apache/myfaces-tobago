@@ -1428,6 +1428,10 @@ div.tobago-richTextEditor-body {
   white-space: nowrap;
 }
 
+.tobago-treeNode {
+  width: 100%;
+}
+
 .tobago-treeNode img {
   vertical-align: bottom;
   border: 0;

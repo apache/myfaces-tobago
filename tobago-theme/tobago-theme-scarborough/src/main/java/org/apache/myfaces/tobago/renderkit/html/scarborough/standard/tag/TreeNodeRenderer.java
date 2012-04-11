@@ -130,22 +130,18 @@ public class TreeNodeRenderer extends LayoutComponentRendererBase {
       writer.writeAttribute(DataAttributes.TREEPARENT, parentId, false);
     }
 
+    Style style = new Style();
     // In the case of a sheet, we need not hiding the node, because the whole TR will be hidden.
     if (!dataRendersRowContainer && !visible) {
-      Style style = new Style();
       style.setDisplay(Display.NONE);
-      writer.writeStyleAttribute(style);
     }
 
     // div style (width)
-    Style style = new Style(facesContext, (LayoutBase) data);
-    String widthString;
-    if (style.getWidth() != null) {
-      widthString = "width: " + Integer.toString(style.getWidth().getPixel() - 22); // fixme: 4 + 18 for scrollbar
-    } else {
-      widthString = "100%";
+    Style widthStyle = new Style(facesContext, (LayoutBase) data);
+    if (widthStyle.getWidth() != null) {
+      style.setWidth(widthStyle.getWidth().subtract(22)); // fixme: 4 + 18 for scrollbar
     }
-    writer.writeStyleAttribute(widthString);
+    writer.writeStyleAttribute(style);
   }
 
   @Override
