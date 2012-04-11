@@ -30,6 +30,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.NamingContainer;
@@ -49,7 +50,7 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
       FacesContextUtils.addOnloadScript(facesContext, "Tobago.selectOneRadioInit('"
           + select.getClientId(facesContext) + "')");
     if (select.isInline()) {
-      select.setCurrentMarkup(Markup.INLINE.add(select.getCurrentMarkup()));
+      ComponentUtils.addCurrentMarkup(select, Markup.INLINE);
     }
   }
 

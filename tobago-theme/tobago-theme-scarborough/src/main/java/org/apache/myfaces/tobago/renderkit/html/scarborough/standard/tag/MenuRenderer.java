@@ -50,7 +50,7 @@ public class MenuRenderer extends LayoutComponentRendererBase {
     final UIMenu menu = (UIMenu) component;
     final boolean firstLevel = !RendererTypes.MENU.equals(menu.getParent().getRendererType());
     if (firstLevel) {
-      menu.setCurrentMarkup(menu.getCurrentMarkup().add(Markup.TOP));
+      ComponentUtils.addCurrentMarkup(menu, Markup.TOP);
     }
   }
 
