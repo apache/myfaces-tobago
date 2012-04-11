@@ -46,32 +46,32 @@ public class BugTobago1103SeleniumTest extends MultiSuffixSeleniumTest {
     // click on open 2nd popup
     getSelenium().click("page:popup-1:open-1");
     getSelenium().waitForCondition(
-        "selenium.browserbot.getCurrentWindow().document.getElementById(" +
-            "'page:popup-1:popup-2:" + extraId + "picker') != null", "5000");
+        "selenium.browserbot.getCurrentWindow().document.getElementById("
+            + "'page:popup-1:popup-2:" + extraId + "picker') != null", "5000");
 
     // click on open date popup
     getSelenium().click("page:popup-1:popup-2:" + extraId + "picker");
     getSelenium().waitForCondition(
-        "selenium.browserbot.getCurrentWindow().document.getElementById(" +
-            "'page:popup-1:popup-2:" + extraId + "pickerpopup:cancel') != null", "5000");
+        "selenium.browserbot.getCurrentWindow().document.getElementById("
+            + "'page:popup-1:popup-2:" + extraId + "pickerpopup:cancel') != null", "5000");
 
     // click on close date popup
     getSelenium().click("page:popup-1:popup-2:" + extraId + "pickerpopup:cancel");
     getSelenium().waitForCondition(
-        "selenium.browserbot.getCurrentWindow().document.getElementById(" +
-            "'page:popup-1:popup-2:" + extraId + "pickerpopup:cancel') == null", "5000");
+        "selenium.browserbot.getCurrentWindow().document.getElementById("
+            + "'page:popup-1:popup-2:" + extraId + "pickerpopup:cancel') == null", "5000");
 
     // click on close 2nd popup
     getSelenium().click("page:popup-1:popup-2:close-2");
     getSelenium().waitForCondition(
-        "selenium.browserbot.getCurrentWindow().document.getElementById(" +
-            "'page:popup-1:popup-2') == null", "5000");
+        "selenium.browserbot.getCurrentWindow().document.getElementById("
+            + "'page:popup-1:popup-2') == null", "5000");
 
     // click on close 1st popup
     getSelenium().click("page:popup-1:close-1");
     getSelenium().waitForCondition(
-        "selenium.browserbot.getCurrentWindow().document.getElementById(" +
-            "'page:popup-1') == null", "5000");
+        "selenium.browserbot.getCurrentWindow().document.getElementById("
+            + "'page:popup-1') == null", "5000");
 
     //////////////////////// all closed now
 
@@ -83,32 +83,32 @@ public class BugTobago1103SeleniumTest extends MultiSuffixSeleniumTest {
     // click on open 2nd popup
     getSelenium().click("page:popup-1:open-1");
     getSelenium().waitForCondition(
-        "selenium.browserbot.getCurrentWindow().document.getElementById(" +
-            "'page:popup-1:popup-2:" + extraId + "picker') != null", "5000");
+        "selenium.browserbot.getCurrentWindow().document.getElementById("
+            + "'page:popup-1:popup-2:" + extraId + "picker') != null", "5000");
 
     // click on open 3rd popup
     getSelenium().click("page:popup-1:popup-2:open-2");
     getSelenium().waitForCondition(
-        "selenium.browserbot.getCurrentWindow().document.getElementById(" +
-            "'page:popup-1:popup-2:popup-3') != null", "5000");
+        "selenium.browserbot.getCurrentWindow().document.getElementById("
+            + "'page:popup-1:popup-2:popup-3') != null", "5000");
 
     // click on close date popup
     getSelenium().click("page:popup-1:popup-2:popup-3:close-3");
     getSelenium().waitForCondition(
-        "selenium.browserbot.getCurrentWindow().document.getElementById(" +
-            "'page:popup-1:popup-2:popup-3') == null", "5000");
+        "selenium.browserbot.getCurrentWindow().document.getElementById("
+            + "'page:popup-1:popup-2:popup-3') == null", "5000");
 
     // click on close 2nd popup
     getSelenium().click("page:popup-1:popup-2:close-2");
     getSelenium().waitForCondition(
-        "selenium.browserbot.getCurrentWindow().document.getElementById(" +
-            "'page:popup-1:popup-2') == null", "5000");
+        "selenium.browserbot.getCurrentWindow().document.getElementById("
+            + "'page:popup-1:popup-2') == null", "5000");
 
     // click on close 1st popup
     getSelenium().click("page:popup-1:close-1");
     getSelenium().waitForCondition(
-        "selenium.browserbot.getCurrentWindow().document.getElementById(" +
-            "'page:popup-1') == null", "5000");
+        "selenium.browserbot.getCurrentWindow().document.getElementById("
+            + "'page:popup-1') == null", "5000");
 
 
   }
