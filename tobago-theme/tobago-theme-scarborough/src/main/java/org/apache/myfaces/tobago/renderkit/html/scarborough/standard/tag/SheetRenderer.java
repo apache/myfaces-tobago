@@ -223,9 +223,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
       writer.writeNameAttribute(expandedId);
       writer.writeIdAttribute(expandedId);
       writer.writeClassAttribute(Classes.create(sheet, AbstractUIData.SUFFIX_EXPANDED));
-      final List<Integer> value = sheet.getSubmittedExpanded();
-      writer.writeAttribute(
-          HtmlAttributes.VALUE, value != null ? StringUtils.joinWithSurroundingSeparator(value) : "", false);
+      writer.writeAttribute(HtmlAttributes.VALUE, ",", false);
       writer.endElement(HtmlElements.INPUT);
     }
 
@@ -604,17 +602,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
       }
     }
 
-    if (sheet.isTreeModel()) {
-      // expanded
-      String expanded = (String) facesContext.getExternalContext().getRequestParameterMap()
-          .get(sheet.getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + AbstractUIData.SUFFIX_EXPANDED);
-      try {
-        sheet.setSubmittedExpanded(expanded != null ? StringUtils.parseIntegerList(expanded) : null);
-      } catch (NumberFormatException e) {
-        // should not happen
-        LOG.warn("Can't parse expanded: + " + expanded + "'", e);
-      }
-    }
+    RenderUtils.decodedStateOfTreeData(facesContext, sheet);
   }
 
   private Measure getHeaderHeight(FacesContext facesContext, UISheet sheet) {

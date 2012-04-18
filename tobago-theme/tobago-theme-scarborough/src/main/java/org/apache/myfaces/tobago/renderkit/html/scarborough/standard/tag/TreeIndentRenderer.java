@@ -53,7 +53,7 @@ public class TreeIndentRenderer extends LayoutComponentRendererBase {
     final boolean showRoot = data.isShowRoot();
     final boolean showJunctions = indent.isShowJunctions();
     final boolean showRootJunction = data.isShowRootJunction();
-    final boolean expanded = folder && node.isExpandedWithTemporaryState();
+    final boolean expanded = folder && data.getExpandedState().isExpanded(node.getPath());
     final boolean showLines = showJunctions && data instanceof UITree; // sheet should not show lines
     final boolean showIcons = showJunctions;
 

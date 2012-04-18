@@ -22,6 +22,7 @@ import org.apache.myfaces.tobago.component.UITreeNode;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.context.ResourceUtils;
+import org.apache.myfaces.tobago.internal.component.AbstractUIData;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
@@ -48,9 +49,10 @@ public class TreeIconRenderer extends LayoutComponentRendererBase {
   public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
 
     final UITreeIcon image = (UITreeIcon) component;
+    final AbstractUIData data = ComponentUtils.findAncestor(image, AbstractUIData.class);
     final UITreeNode node = ComponentUtils.findAncestor(image, UITreeNode.class);
     final boolean folder = node.isFolder();
-    final boolean expanded = folder && node.isExpandedWithTemporaryState();
+    final boolean expanded = folder && data.getExpandedState().isExpanded(node.getPath());
 
     String source;
     final String openSource;

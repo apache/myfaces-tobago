@@ -21,18 +21,23 @@
     xmlns:f="http://java.sun.com/jsf/core">
 
   <tc:page id="page">
-    <tc:gridLayoutConstraint width="600px" height="300px"/>
+    <tc:gridLayoutConstraint width="600px" height="600px"/>
     <f:facet name="layout">
-      <tc:gridLayout rows="auto;*"/>
+      <tc:gridLayout rows="20px;*"/>
     </f:facet>
 
-    <tc:out value="Simple tree:"/>
+    <tc:panel>
+      <f:facet name="layout">
+        <tc:flowLayout/>
+      </f:facet>
+      <tc:out value="Infinite tree, showing the "/>
+      <tc:link label="Cantor set" link="http://en.wikipedia.org/wiki/Cantor_set"/>
+    </tc:panel>
 
-    <tc:tree id="tree" value="#{tree.tree}" var="node" showRoot="true" showRootJunction="true"
-             state="#{tree.state}">
-      <tc:treeNode id="node" expanded="#{node.level ne 1}">
+    <tc:tree id="tree" value="#{tree.infinite}" var="interval" showRoot="true" showRootJunction="true">
+      <tc:treeNode id="node">
         <tc:treeIndent/>
-        <tc:treeLabel value="#{node.userObject.name}"/>
+        <tc:treeLabel value="#{interval.label}"/>
       </tc:treeNode>
     </tc:tree>
 

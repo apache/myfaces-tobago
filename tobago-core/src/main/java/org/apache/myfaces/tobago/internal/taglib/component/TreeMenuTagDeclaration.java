@@ -27,6 +27,8 @@ import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasValue;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasVar;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutComponent;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsShowRoot;
 
@@ -45,18 +47,18 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsShowRoot;
         "org.apache.myfaces.tobago.TreeData"
         })
 public interface TreeMenuTagDeclaration
-    extends HasIdBindingAndRendered, IsGridLayoutComponent, HasMarkup, HasCurrentMarkup, IsShowRoot {
+    extends HasIdBindingAndRendered, HasValue, HasVar, IsGridLayoutComponent, HasMarkup, HasCurrentMarkup,
+    IsShowRoot {
 
   /**
    *
    * <strong>ValueBindingExpression</strong> pointing to a object to save the
    * component's state.
-   *
-   * @deprecated since XXX 1.6.0 ???
    */
-  @Deprecated
   @TagAttribute
-  @UIComponentTagAttribute(type = "java.lang.Object", expression = DynamicExpression.VALUE_BINDING_REQUIRED)
+  @UIComponentTagAttribute(
+      type = "org.apache.myfaces.tobago.model.TreeState",
+      expression = DynamicExpression.VALUE_BINDING_REQUIRED)
   void setState(String state);
 
 }

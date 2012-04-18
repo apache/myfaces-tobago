@@ -22,7 +22,6 @@ import org.slf4j.LoggerFactory;
 
 import javax.faces.model.DataModel;
 import javax.swing.tree.DefaultMutableTreeNode;
-import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -35,24 +34,75 @@ public class TreeDataModel extends DataModel {
   private Map<Integer, Data> mapping;
   private Map<DefaultMutableTreeNode, Integer> back;
   private boolean showRoot;
+  private ExpandedState expandedState;
 
-  public TreeDataModel(DefaultMutableTreeNode data, boolean showRoot) {
+  /**
+   * @param data          The tree data, which shall be wrapped.
+   * @param showRoot      Is the root node visible.
+   * @param expandedState Defines which nodes are expanded, (XXX should it be so?) a value of {@code null} means all.
+   */
+  public TreeDataModel(DefaultMutableTreeNode data, boolean showRoot, ExpandedState expandedState) {
     this.data = data;
     this.showRoot = showRoot;
-    init();
+    this.mapping = new HashMap<Integer, Data>();
+    this.back = new HashMap<DefaultMutableTreeNode, Integer>();
+    this.expandedState = expandedState;
+    reset();
   }
 
-  private void init() {
-    mapping = new HashMap<Integer, Data>();
-    back = new HashMap<DefaultMutableTreeNode, Integer>();
-    int counter = 0;
-    final Enumeration enumeration = data.preorderEnumeration();
-    while (enumeration.hasMoreElements()) {
-      DefaultMutableTreeNode node = (DefaultMutableTreeNode) enumeration.nextElement();
-      mapping.put(counter, new Data(node));
-      back.put(node, counter);
-      counter++;
+  public void reset(/*ExpandedState expandedState*/) {
+//    this.expandedState = expandedState;
+    this.mapping.clear();
+    this.back.clear();
+    DefaultMutableTreeNode current = data;
+    for (int counter = back.size(); current != null; counter++) {
+
+      mapping.put(counter, new Data(current));
+      back.put(current, counter);
+
+      // if the node has children and is expanded, go to the children
+      if (current.getChildCount() > 0 && expandedState.isExpanded(current)) {
+        current = (DefaultMutableTreeNode) current.getChildAt(0);
+      } else {
+        current = getNextNodeButNoChild(current);
+      }
     }
+  }
+
+  public void update(ExpandedState expandedState) {
+    this.expandedState = expandedState;
+    DefaultMutableTreeNode current = data;
+    for (int counter = back.size(); current != null; ) {
+
+      if (!back.containsKey(current)) {
+        mapping.put(counter, new Data(current));
+        back.put(current, counter);
+        counter++;
+      }
+
+      // if the node has children and is expanded, go to the children
+      if (current.getChildCount() > 0 && expandedState.isExpanded(current)) {
+        current = (DefaultMutableTreeNode) current.getChildAt(0);
+      } else {
+        current = getNextNodeButNoChild(current);
+      }
+    }
+  }
+
+  private DefaultMutableTreeNode getNextNodeButNoChild(DefaultMutableTreeNode node) {
+    DefaultMutableTreeNode next;
+    while (true) {
+      next = node.getNextSibling();
+      if (next != null) {
+        break;
+      }
+      node = (DefaultMutableTreeNode) node.getParent();
+      if (node == null) {
+        return null;
+      }
+
+    }
+    return next;
   }
 
   @Override
@@ -68,6 +118,10 @@ public class TreeDataModel extends DataModel {
   @Override
   public int getRowIndex() {
     return rowIndex;
+  }
+
+  public TreePath getPath() {
+    return new TreePath(getRowData());
   }
 
   @Override
@@ -90,14 +144,6 @@ public class TreeDataModel extends DataModel {
     this.data = (DefaultMutableTreeNode) data;
   }
 
-  public boolean isRowExpanded() {
-    return mapping.get(rowIndex).isExpanded();
-  }
-
-  public void setRowExpanded(boolean expanded) {
-    mapping.get(rowIndex).setExpanded(expanded);
-  }
-
   public boolean isRowVisible() {
     if (!isRowAvailable()) {
       return false;
@@ -112,7 +158,7 @@ public class TreeDataModel extends DataModel {
       if (data.getNode().isRoot() && !showRoot) {
         return true;
       }
-      if (!data.isExpanded()) {
+      if (!expandedState.isExpanded(new TreePath(node))) {
         return false;
       }
       node = (DefaultMutableTreeNode) node.getParent();
@@ -149,7 +195,7 @@ public class TreeDataModel extends DataModel {
     }
   }
 
-  
+
   /**
    * Here we cache some state information of the nodes, because we can't access the UITreeNode state of the other nodes
    * while rendering.
@@ -157,7 +203,6 @@ public class TreeDataModel extends DataModel {
   private static class Data {
 
     private DefaultMutableTreeNode node;
-    private boolean expanded;
     private String clientId;
 
     private Data(DefaultMutableTreeNode node) {
@@ -166,14 +211,6 @@ public class TreeDataModel extends DataModel {
 
     public DefaultMutableTreeNode getNode() {
       return node;
-    }
-
-    public boolean isExpanded() {
-      return expanded;
-    }
-
-    public void setExpanded(boolean expanded) {
-      this.expanded = expanded;
     }
 
     public String getClientId() {

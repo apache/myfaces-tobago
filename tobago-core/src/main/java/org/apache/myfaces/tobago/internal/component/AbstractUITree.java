@@ -19,11 +19,15 @@ package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.tobago.compat.FacesUtils;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.internal.util.Deprecation;
 import org.apache.myfaces.tobago.layout.LayoutComponent;
+import org.apache.myfaces.tobago.model.ExpandedState;
+import org.apache.myfaces.tobago.model.MarkedState;
 import org.apache.myfaces.tobago.model.MixedTreeModel;
 import org.apache.myfaces.tobago.model.TreeSelectable;
+import org.apache.myfaces.tobago.model.TreeState;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 
 import javax.faces.component.NamingContainer;
@@ -39,17 +43,19 @@ public abstract class AbstractUITree extends AbstractUIData
 
   public static final String MESSAGE_NOT_LEAF = "tobago.tree.MESSAGE_NOT_LEAF";
 
-  /** deprecated since XXX 1.6.0 ??? */
+  /** @deprecated since XXX 1.6.0 ??? */
   @Deprecated
   public static final String SEP = "-";
 
-  /** deprecated since XXX 1.6.0 ??? */
+  /** @deprecated since XXX 1.6.0 ??? */
   @Deprecated
   public static final String SELECT_STATE = SEP + "selectState";
 
-  /** deprecated since XXX 1.6.0 ???  */
+  /** @deprecated since XXX 1.6.0 ???  */
   @Deprecated
   public static final String MARKED = "marked";
+
+  private TreeState state;
 
   @Override
   public void processValidators(FacesContext facesContext) {
@@ -195,7 +201,49 @@ public abstract class AbstractUITree extends AbstractUIData
     // TODO: updating the model here and *NOT* in the decode phase
   }
 */
+  public void setState(TreeState state) {
+    this.state = state;
+  }
 
-  public abstract Object getState();
+  public TreeState getState() {
+    if (state != null) {
+      return state;
+    } else {
+      if (FacesUtils.hasValueBindingOrValueExpression(this, Attributes.STATE)) {
+        final FacesContext facesContext = FacesContext.getCurrentInstance();
+        TreeState state = (TreeState)
+            FacesUtils.getValueFromValueBindingOrValueExpression(facesContext, this, Attributes.STATE);
+        if (state == null) {
+          state = new TreeState(new ExpandedState(2), new MarkedState());
+          FacesUtils.setValueOfBindingOrExpression(facesContext, state, this, Attributes.STATE);
+        }
+        return state;
+      } else {
+        state = new TreeState(new ExpandedState(2), new MarkedState());
+        return state;
+      }
+    }
+  }
 
+  public MarkedState getMarkedState() {
+    return getState().getMarkedState();
+  }
+
+  @Override
+  public ExpandedState getExpandedState() {
+    return getState().getExpandedState();
+  }
+
+  public void restoreState(FacesContext context, Object componentState) {
+    Object[] values = (Object[]) componentState;
+    super.restoreState(context, values[0]);
+    state = (TreeState) values[1];
+  }
+
+  public Object saveState(FacesContext context) {
+    Object[] values = new Object[2];
+    values[0] = super.saveState(context);
+    values[1] = state;
+    return values;
+  }
 }

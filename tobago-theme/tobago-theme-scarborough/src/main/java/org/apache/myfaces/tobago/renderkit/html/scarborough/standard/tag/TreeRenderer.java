@@ -20,7 +20,6 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 import org.apache.myfaces.tobago.component.UITreeNode;
 import org.apache.myfaces.tobago.internal.component.AbstractUIData;
 import org.apache.myfaces.tobago.internal.component.AbstractUITree;
-import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
@@ -37,7 +36,6 @@ import org.slf4j.LoggerFactory;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
-import java.util.List;
 
 public class TreeRenderer extends LayoutComponentRendererBase {
 
@@ -46,38 +44,7 @@ public class TreeRenderer extends LayoutComponentRendererBase {
   @Override
   public void decode(FacesContext facesContext, UIComponent component) {
     final AbstractUITree tree = (AbstractUITree) component;
-
-    // marked
-    String marked = (String) facesContext.getExternalContext().getRequestParameterMap()
-        .get(tree.getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + AbstractUITree.SUFFIX_MARKED);
-    try {
-      tree.setSubmittedMarked(org.apache.commons.lang.StringUtils.isNotBlank(marked) ? Integer.parseInt(marked) : null);
-    } catch (NumberFormatException e) {
-      // should not happen
-      LOG.warn("Can't parse marked: + " + marked + "'", e);
-    }
-
-    // expanded
-    String expanded = (String) facesContext.getExternalContext().getRequestParameterMap()
-        .get(tree.getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + AbstractUIData.SUFFIX_EXPANDED);
-    try {
-      tree.setSubmittedExpanded(expanded != null ? StringUtils.parseIntegerList(expanded) : null);
-    } catch (NumberFormatException e) {
-      // should not happen
-      LOG.warn("Can't parse expanded: + " + expanded + "'", e);
-    }
-
-    // children
-    final int last = tree.hasRows() ? tree.getFirst() + tree.getRows() : Integer.MAX_VALUE;
-    for (int rowIndex = tree.getFirst(); rowIndex < last; rowIndex++) {
-      tree.setRowIndex(rowIndex);
-      if (!tree.isRowAvailable()) {
-        break;
-      }
-      for (UIComponent child : tree.getChildren()) {
-        child.processDecodes(facesContext);
-      }
-    }
+    RenderUtils.decodedStateOfTreeData(facesContext, tree);
   }
 
   @Override
@@ -117,8 +84,7 @@ public class TreeRenderer extends LayoutComponentRendererBase {
     writer.writeNameAttribute(markedId);
     writer.writeIdAttribute(markedId);
     writer.writeClassAttribute(Classes.create(tree, AbstractUITree.SUFFIX_MARKED));
-    final Integer markedValue = tree.getSubmittedMarked();
-    writer.writeAttribute(HtmlAttributes.VALUE, markedValue != null ? Integer.toString(markedValue) : "", false);
+    writer.writeAttribute(HtmlAttributes.VALUE, "", false);
     writer.endElement(HtmlElements.INPUT);
 
     writer.startElement(HtmlElements.INPUT, tree);
@@ -127,8 +93,7 @@ public class TreeRenderer extends LayoutComponentRendererBase {
     writer.writeNameAttribute(expandedId);
     writer.writeIdAttribute(expandedId);
     writer.writeClassAttribute(Classes.create(tree, AbstractUIData.SUFFIX_EXPANDED));
-    final List<Integer> value = tree.getSubmittedExpanded();
-    writer.writeAttribute(HtmlAttributes.VALUE, value != null ? StringUtils.joinWithSurroundingSeparator(value) : "", false);
+    writer.writeAttribute(HtmlAttributes.VALUE, ",", false);
     writer.endElement(HtmlElements.INPUT);
 
     final int last = tree.hasRows() ? tree.getFirst() + tree.getRows() : Integer.MAX_VALUE;

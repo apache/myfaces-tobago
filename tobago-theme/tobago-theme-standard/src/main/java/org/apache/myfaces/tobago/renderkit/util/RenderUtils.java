@@ -20,8 +20,13 @@ package org.apache.myfaces.tobago.renderkit.util;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.config.Configurable;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
+import org.apache.myfaces.tobago.internal.component.AbstractUIData;
+import org.apache.myfaces.tobago.internal.component.AbstractUITree;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.layout.Measure;
+import org.apache.myfaces.tobago.model.ExpandedState;
+import org.apache.myfaces.tobago.model.MarkedState;
+import org.apache.myfaces.tobago.model.TreePath;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.util.DebugUtils;
@@ -41,6 +46,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -356,4 +362,86 @@ public class RenderUtils {
             component.isItemDisabled(), component.getItemImage(), component.getMarkup());
   }
 
+
+  public static void decodedStateOfTreeData(FacesContext facesContext, AbstractUIData data) {
+
+    final boolean isTree = data instanceof AbstractUITree;
+    // marked
+    final Integer markedIndex = isTree ? decodeMarkedIndex(facesContext, data) : null;
+
+    // expanded
+    final List<Integer> expandedIndices = decodeExpandedIndices(facesContext, data);
+
+    final int last = data.isRowsUnlimited() ? Integer.MAX_VALUE : data.getFirst() + data.getRows();
+    for (int rowIndex = data.getFirst(); rowIndex < last; rowIndex++) {
+      data.setRowIndex(rowIndex);
+      if (!data.isRowAvailable()) {
+        break;
+      }
+
+//        final Object rowData = data.getRowData();
+      final TreePath path = data.getPath();
+
+    // marked
+      if (isTree) {
+        final MarkedState markedState = ((AbstractUITree) data).getMarkedState();
+        final boolean oldMarked = markedState.isMarked(path);
+        final boolean newMarked = ((Integer)rowIndex).equals(markedIndex);
+        if (newMarked != oldMarked) {
+  //          new TreeMarkedEvent(node, oldValue, newValue).queue();
+          if (newMarked) {
+            markedState.setMarked(path);
+          } else {
+            markedState.setMarked(null);
+          }
+        }
+      }
+
+      // expanded
+      final ExpandedState expandedState = data.getExpandedState();
+      final boolean oldExpanded = expandedState.isExpanded(path);
+      final boolean newExpanded = expandedIndices.contains(rowIndex);
+      if (newExpanded != oldExpanded) {
+//          new TreeExpansionEvent(node, oldValue, newValue).queue();
+        if (newExpanded) {
+          expandedState.expand(path);
+        } else {
+          expandedState.collapse(path);
+        }
+      }
+
+    }
+    data.setRowIndex(-1);
+  }
+
+  private static Integer decodeMarkedIndex(FacesContext facesContext, AbstractUIData data) {
+    String markedString = null;
+    try {
+      markedString = (String) facesContext.getExternalContext().getRequestParameterMap()
+          .get(data.getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + AbstractUIData.SUFFIX_MARKED);
+      if (org.apache.commons.lang.StringUtils.isBlank(markedString)) {
+        return null;
+      }
+      return Integer.parseInt(markedString);
+    } catch (NumberFormatException e) {
+      // should not happen
+      LOG.warn("Can't parse marked: '" + markedString + "'", e);
+      return null;
+    }
+  }
+
+  private static List<Integer> decodeExpandedIndices(FacesContext facesContext, AbstractUIData data) {
+    List<Integer> expandedIndices;
+    String expandedString = null;
+    try {
+      expandedString = (String) facesContext.getExternalContext().getRequestParameterMap()
+          .get(data.getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + AbstractUIData.SUFFIX_EXPANDED);
+      expandedIndices = StringUtils.parseIntegerList(expandedString);
+    } catch (NumberFormatException e) {
+      // should not happen
+      LOG.warn("Can't parse expanded: '" + expandedString + "'", e);
+      return Collections.emptyList();
+    }
+    return expandedIndices;
+  }
 }

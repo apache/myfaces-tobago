@@ -18,14 +18,10 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  */
 
 import org.apache.myfaces.tobago.component.UITreeNode;
-import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.ResourceUtils;
-import org.apache.myfaces.tobago.event.TreeExpansionEvent;
-import org.apache.myfaces.tobago.event.TreeMarkedEvent;
 import org.apache.myfaces.tobago.internal.component.AbstractUIData;
 import org.apache.myfaces.tobago.layout.Display;
 import org.apache.myfaces.tobago.layout.LayoutBase;
-import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
@@ -39,9 +35,8 @@ import org.slf4j.LoggerFactory;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
-import java.util.List;
 
-public class TreeNodeRenderer extends LayoutComponentRendererBase {
+public class TreeNodeRenderer extends TreeNodeRendererBase {
 
   private static final Logger LOG = LoggerFactory.getLogger(TreeNodeRenderer.class);
 
@@ -52,58 +47,6 @@ public class TreeNodeRenderer extends LayoutComponentRendererBase {
   protected static final String LEAF
       = ResourceUtils.createString("image", "treeNode", "icon", "leaf", ResourceUtils.GIF);
 
-  @Override
-  public void decode(FacesContext facesContext, UIComponent component) {
-
-    UITreeNode node = (UITreeNode) component;
-
-    super.decode(facesContext, node);
-
-    if (ComponentUtils.isOutputOnly(node)) {
-      return;
-    }
-
-    final AbstractUIData data = ComponentUtils.findAncestor(node, AbstractUIData.class);
-    // we need the client id without the iterated row index here
-    final int rowIndex = data.getRowIndex();
-    final boolean folder = node.isFolder();
-
-    // expanded
-    if (folder) {
-      final List<Integer> submittedExpanded = data.getSubmittedExpanded();
-      if (submittedExpanded != null && submittedExpanded.contains(rowIndex) != node.isExpanded()) {
-        new TreeExpansionEvent(node, node.isExpanded(), submittedExpanded.contains(rowIndex)).queue();
-      }
-    }
-
-    // marked
-    Integer marked = data.getSubmittedMarked();
-    if (marked != null) {
-      boolean markedValue = marked.equals(rowIndex);
-      if (node.isMarked() != markedValue) {
-        new TreeMarkedEvent(node, node.isMarked(), markedValue).queue();
-      }
-    } else {
-      LOG.warn("This log message is help clarifying the occurrence of this else case.");
-    }
-  }
-
-  @Override
-  public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
-    super.prepareRender(facesContext, component);
-
-    final UITreeNode node = (UITreeNode) component;
-    if (node.isMarkedWithTemporaryState()) {
-      node.setCurrentMarkup(Markup.MARKED.add(node.getCurrentMarkup()));
-    }
-    if (node.isFolder()) {
-      node.setCurrentMarkup(Markup.FOLDER.add(node.getCurrentMarkup()));
-      if (node.isExpandedWithTemporaryState()) {
-        node.setCurrentMarkup(Markup.EXPANDED.add(node.getCurrentMarkup()));
-      }
-    }
-  }
-  
   @Override
   public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
 

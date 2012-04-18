@@ -20,9 +20,8 @@ Tobago.Tree = {};
 Tobago.Tree.toggleNode = function(element) {
   var src;
   var node = element.closest(".tobago-treeNode, .tobago-treeMenuNode");
-  var expanded = node
-      .closest(".tobago-treeMenu, .tobago-tree, .tobago-sheet")
-      .children(".tobago-treeMenu-expanded, .tobago-tree-expanded, .tobago-sheet-expanded");
+  var data = node.closest(".tobago-treeMenu, .tobago-tree, .tobago-sheet");
+  var expanded = data.children(".tobago-treeMenu-expanded, .tobago-tree-expanded, .tobago-sheet-expanded");
   var toggle = node.find(".tobago-treeMenuNode-toggle, .tobago-treeNode-toggle");
   var rowIndex = Tobago.Tree.rowIndex(node);
   if (Tobago.Tree.isExpanded(node, expanded)) {
@@ -39,18 +38,22 @@ Tobago.Tree.toggleNode = function(element) {
     node.filter(".tobago-treeNode").removeClass("tobago-treeNode-markup-expanded");
     node.filter(".tobago-treeMenuNode").removeClass("tobago-treeMenuNode-markup-expanded");
   } else {
-    Tobago.Tree.showChildren(node, expanded);
-    toggle.each(function() {
-      src = jQuery(this).data("tobago-srcopen");
-      if (src == null) { // use the close icon if there is no open icon
-        src = jQuery(this).data("tobago-srcclose");
-      }
-      jQuery(this).attr("src", src);
-      Tobago.fixPngAlpha(this);
-    });
+    var reload = Tobago.Tree.showChildren(node, expanded);
     expanded.attr("value", expanded.attr("value") + rowIndex + ",");
-    node.filter(".tobago-treeNode").addClass("tobago-treeNode-markup-expanded");
-    node.filter(".tobago-treeMenuNode").addClass("tobago-treeMenuNode-markup-expanded");
+    if (reload) {
+      Tobago.reloadComponent(element, data.attr("id"), null, {});
+    } else {
+      toggle.each(function() {
+        src = jQuery(this).data("tobago-srcopen");
+        if (src == null) { // use the close icon if there is no open icon
+          src = jQuery(this).data("tobago-srcclose");
+        }
+        jQuery(this).attr("src", src);
+        Tobago.fixPngAlpha(this);
+      });
+      node.filter(".tobago-treeNode").addClass("tobago-treeNode-markup-expanded");
+      node.filter(".tobago-treeMenuNode").addClass("tobago-treeMenuNode-markup-expanded");
+    }
   }
 };
 
@@ -76,6 +79,7 @@ Tobago.Tree.hideChildren = function (node) {
 /**
  * Show the children of the node recursively, there parents are expanded.
  * @param node A jQuery-Object as a node of the tree.
+ * @return is reload needed (to get all nodes from the server)
  */
 Tobago.Tree.showChildren = function (node, expanded) {
   var treeParentSelector = "[data-tobago-treeparent='" + node.attr("id") + "']";
@@ -87,12 +91,20 @@ Tobago.Tree.showChildren = function (node, expanded) {
     children = node.nextAll(treeParentSelector);
     children.show();
   }
+  if (children.length == 0) {
+    // no children in DOM, reload it from the server
+    return true;
+  }
   children.each(function () {
     var child = jQuery(this);
     if (Tobago.Tree.isExpanded(child, expanded)) {
-      Tobago.Tree.showChildren(child, expanded);
+      var reload = Tobago.Tree.showChildren(child, expanded);
+      if (reload) {
+        return true;
+      }
     }
   });
+  return false;
 };
 
 Tobago.Tree.init = function(elements) {
@@ -179,6 +191,16 @@ Tobago.Tree.init = function(elements) {
     marked.attr("value", Tobago.Tree.rowIndex(node));
     tree.find(".tobago-treeMenuNode").removeClass("tobago-treeMenuNode-markup-marked");
     node.addClass("tobago-treeMenuNode-markup-marked");
+  });
+
+  // init marked field
+  Tobago.Utils.selectWidthJQuery(elements, ".tobago-treeMenu, .tobago-tree").each(function() {
+    var marked = jQuery(this).children(".tobago-treeMenu-marked, .tobago-tree-marked");
+    var string = "";
+    jQuery(this).find(".tobago-treeMenuNode-markup-marked, .tobago-treeNode-markup-marked").each(function() {
+      string = Tobago.Tree.rowIndex(jQuery(this));
+    });
+    marked.attr("value", string);
   });
 
   // init expanded field
