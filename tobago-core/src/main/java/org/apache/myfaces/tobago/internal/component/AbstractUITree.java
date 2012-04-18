@@ -123,7 +123,6 @@ public abstract class AbstractUITree extends AbstractUIData
     return TreeSelectable.parse(ComponentUtils.getStringAttribute(this, Attributes.SELECTABLE));
   }
 
-/*
   @Override
   public void processDecodes(FacesContext facesContext) {
 
@@ -131,20 +130,20 @@ public abstract class AbstractUITree extends AbstractUIData
       return;
     }
 
-    if (ComponentUtils.isOutputOnly(this)) {
-// XXX     setValid(true);
-    } else {
-      // in tree first decode node and than decode children
-
-      decode(facesContext);
-
-      for (Iterator i = getFacetsAndChildren(); i.hasNext();) {
-        UIComponent uiComponent = ((UIComponent) i.next());
-        uiComponent.processDecodes(facesContext);
+    final int last = hasRows() ? getFirst() + getRows() : Integer.MAX_VALUE;
+    for (int rowIndex = getFirst(); rowIndex < last; rowIndex++) {
+      setRowIndex(rowIndex);
+      if (!isRowAvailable()) {
+        break;
+      }
+      for (UIComponent child : getChildren()) {
+        child.processDecodes(facesContext);
       }
     }
+    setRowIndex(-1);
+
+    decode(facesContext);
   }
-*/
 
 /* XXX
   @Override
