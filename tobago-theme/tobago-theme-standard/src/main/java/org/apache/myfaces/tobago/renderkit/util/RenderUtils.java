@@ -365,6 +365,10 @@ public class RenderUtils {
 
   public static void decodedStateOfTreeData(FacesContext facesContext, AbstractUIData data) {
 
+    if (!data.isTreeModel()) {
+      return;
+    }
+
     final boolean isTree = data instanceof AbstractUITree;
     // marked
     final Integer markedIndex = isTree ? decodeMarkedIndex(facesContext, data) : null;
@@ -382,13 +386,13 @@ public class RenderUtils {
 //        final Object rowData = data.getRowData();
       final TreePath path = data.getPath();
 
-    // marked
+      // marked
       if (isTree) {
         final MarkedState markedState = ((AbstractUITree) data).getMarkedState();
         final boolean oldMarked = markedState.isMarked(path);
         final boolean newMarked = ((Integer) rowIndex).equals(markedIndex);
         if (newMarked != oldMarked) {
-  //          new TreeMarkedEvent(node, oldValue, newValue).queue();
+//          new TreeMarkedEvent(node, oldValue, newValue).queue();
           if (newMarked) {
             markedState.setMarked(path);
           } else {
@@ -423,7 +427,7 @@ public class RenderUtils {
         return null;
       }
       return Integer.parseInt(markedString);
-    } catch (NumberFormatException e) {
+    } catch (Exception e) {
       // should not happen
       LOG.warn("Can't parse marked: '" + markedString + "'", e);
       return null;
@@ -437,7 +441,7 @@ public class RenderUtils {
       expandedString = (String) facesContext.getExternalContext().getRequestParameterMap()
           .get(data.getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + AbstractUIData.SUFFIX_EXPANDED);
       expandedIndices = StringUtils.parseIntegerList(expandedString);
-    } catch (NumberFormatException e) {
+    } catch (Exception e) {
       // should not happen
       LOG.warn("Can't parse expanded: '" + expandedString + "'", e);
       return Collections.emptyList();
