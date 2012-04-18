@@ -22,6 +22,7 @@ import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.example.demo.jsp.JspFormatter;
 import org.apache.myfaces.tobago.model.ExpandedState;
 import org.apache.myfaces.tobago.model.MarkedState;
+import org.apache.myfaces.tobago.model.TreePath;
 import org.apache.myfaces.tobago.model.TreeState;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -172,11 +173,9 @@ public class Navigation implements Serializable {
   }
 
   protected String gotoNode(Node node) {
-    currentNode.setMarked(false);
     currentNode = node;
-    currentNode.setMarked(true);
-    currentNode.setExpanded(true);
-    LOG.info("Navigate to '" + currentNode.outcome + "'");
+    state.getExpandedState().expand(new TreePath(node));
+    LOG.info("Navigate to '" + currentNode.getOutcome() + "'");
     return currentNode.getOutcome();
   }
 
@@ -222,8 +221,6 @@ public class Navigation implements Serializable {
     private String branch;
     private String title;
     private String outcome;
-    private boolean expanded;
-    private boolean marked;
 
     public Node(String path) {
 
@@ -300,22 +297,6 @@ public class Navigation implements Serializable {
 
     public void setOutcome(String outcome) {
       this.outcome = outcome;
-    }
-
-    public boolean isExpanded() {
-      return expanded;
-    }
-
-    public void setExpanded(boolean expanded) {
-      this.expanded = expanded;
-    }
-
-    public boolean isMarked() {
-      return marked;
-    }
-
-    public void setMarked(boolean marked) {
-      this.marked = marked;
     }
 
     @Override
