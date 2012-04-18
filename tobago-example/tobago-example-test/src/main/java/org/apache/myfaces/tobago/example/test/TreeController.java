@@ -66,9 +66,9 @@ public class TreeController {
   }
 
   public void openAll(DefaultMutableTreeNode node) {
-    ((Node)node.getUserObject()).setExpanded(true);
+    ((Node) node.getUserObject()).setExpanded(true);
     for (int i = 0; i < node.getChildCount(); i++) {
-      openAll((DefaultMutableTreeNode)node.getChildAt(i));
+      openAll((DefaultMutableTreeNode) node.getChildAt(i));
     }
   }
 

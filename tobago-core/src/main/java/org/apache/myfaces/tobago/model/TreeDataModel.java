@@ -72,7 +72,8 @@ public class TreeDataModel extends DataModel {
   public void update(ExpandedState expandedState) {
     this.expandedState = expandedState;
     DefaultMutableTreeNode current = data;
-    for (int counter = back.size(); current != null; ) {
+    int counter = back.size();
+    while (current != null) {
 
       if (!back.containsKey(current)) {
         mapping.put(counter, new Data(current));

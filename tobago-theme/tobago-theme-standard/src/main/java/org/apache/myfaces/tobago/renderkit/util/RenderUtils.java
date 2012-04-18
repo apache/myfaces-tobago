@@ -386,7 +386,7 @@ public class RenderUtils {
       if (isTree) {
         final MarkedState markedState = ((AbstractUITree) data).getMarkedState();
         final boolean oldMarked = markedState.isMarked(path);
-        final boolean newMarked = ((Integer)rowIndex).equals(markedIndex);
+        final boolean newMarked = ((Integer) rowIndex).equals(markedIndex);
         if (newMarked != oldMarked) {
   //          new TreeMarkedEvent(node, oldValue, newValue).queue();
           if (newMarked) {

@@ -178,7 +178,7 @@ public abstract class AbstractUIData extends javax.faces.component.UIData implem
   public TreePath getPath() {
     final DataModel model = getDataModel();
     if (model instanceof TreeDataModel) {
-      return ((TreeDataModel)model).getPath();
+      return ((TreeDataModel) model).getPath();
     } else {
       throw new IllegalStateException("Not a tree model");
     }
