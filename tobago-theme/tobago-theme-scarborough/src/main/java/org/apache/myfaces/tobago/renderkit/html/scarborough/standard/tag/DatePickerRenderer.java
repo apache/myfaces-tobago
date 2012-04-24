@@ -186,13 +186,12 @@ public class DatePickerRenderer extends LinkRenderer {
       LOG.error("No required UIDate component found.");
       return;
     }
+    // this can't be done in "onComponentPopulated()" of the picker, it seems to be to early
     if (FacesUtils.hasValueBindingOrValueExpression(dateInput, Attributes.READONLY)) {
-      FacesUtils.copyValueBindingOrValueExpression(picker, Attributes.DISABLED,
-          dateInput, Attributes.READONLY);
+      FacesUtils.copyValueBindingOrValueExpression(dateInput, Attributes.READONLY, picker, Attributes.DISABLED);
     } else {
       if (FacesUtils.hasValueBindingOrValueExpression(dateInput, Attributes.DISABLED)) {
-        FacesUtils.copyValueBindingOrValueExpression(picker, Attributes.DISABLED,
-            dateInput, Attributes.DISABLED);
+        FacesUtils.copyValueBindingOrValueExpression(dateInput, Attributes.DISABLED, picker, Attributes.DISABLED);
       } else {
         picker.setDisabled(dateInput.isReadonly() || dateInput.isDisabled());
       }
