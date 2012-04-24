@@ -18,18 +18,28 @@ package org.apache.myfaces.tobago.internal.taglib.component;
  */
 
 import org.apache.myfaces.tobago.apt.annotation.Tag;
+import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
+import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasBinding;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasConverter;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasConverterMessage;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasId;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabelAndAccessKey;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasOnchange;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasRequiredMessage;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasTabIndex;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
-import org.apache.myfaces.tobago.internal.taglib.declaration.InputTagDeclaration;
-import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasValidator;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasValidatorMessage;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasValueChangeListener;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsDeprecatedInline;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsFocus;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutComponent;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsReadonly;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsRequired;
@@ -45,6 +55,15 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsRequired;
     allowedChildComponenents = {"javax.faces.SelectItem", "javax.faces.SelectItems"})
 
 public interface SelectManyListboxTagDeclaration
-    extends InputTagDeclaration, HasId, IsDisabled, IsRendered, HasBinding, HasTip,
-    IsReadonly, HasConverter, IsRequired, HasMarkup, HasCurrentMarkup, IsDeprecatedInline, HasLabelAndAccessKey {
+    extends HasId, IsDisabled, IsRendered, HasBinding, HasTip,
+    IsReadonly, HasConverter, IsRequired, HasMarkup, HasCurrentMarkup, IsDeprecatedInline, HasLabelAndAccessKey,
+    HasValidator, HasOnchange, HasValueChangeListener,
+    HasValidatorMessage, HasConverterMessage, HasRequiredMessage, HasTabIndex, IsFocus, IsGridLayoutComponent {
+
+  /**
+   * The value of the multi select.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type = {"java.lang.Object[]", "java.util.List"})
+  void setValue(String value);
 }
