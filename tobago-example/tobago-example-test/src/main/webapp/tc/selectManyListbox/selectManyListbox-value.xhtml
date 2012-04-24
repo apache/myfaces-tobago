@@ -19,15 +19,12 @@
 <f:view
     xmlns:tc="http://myfaces.apache.org/tobago/component"
     xmlns:tx="http://myfaces.apache.org/tobago/extension"
-    xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:h="http://java.sun.com/jsf/html">
+    xmlns:f="http://java.sun.com/jsf/core">
 
   <tc:page>
     <tc:gridLayoutConstraint width="630px" height="600px"/>
     <f:facet name="layout">
-      <!-- fixme: rows="20px" -->
-      <tc:gridLayout rows="70px;70px;70px;70px;70px;70px;70px;70px;auto;auto;auto"/>
+      <tc:gridLayout rows="auto;auto;auto;auto;auto"/>
     </f:facet>
 
     <tc:messages>
@@ -44,30 +41,6 @@
       <tc:selectItem itemValue="a" itemLabel="A Value"/>
       <tc:selectItem itemValue="b" itemLabel="An Alternative"/>
     </tx:selectManyListbox>
-<!--
-    <tx:selectManyListbox value="#{selectManyListboxBean.set}" label="set">
-      <tc:selectItem itemValue="a" itemLabel="A Value"/>
-      <tc:selectItem itemValue="b" itemLabel="An Alternative"/>
-    </tx:selectManyListbox>
-    <tx:selectManyListbox value="#{selectManyListboxBean.collection}" label="collection">
-      <tc:selectItem itemValue="a" itemLabel="A Value"/>
-      <tc:selectItem itemValue="b" itemLabel="An Alternative"/>
-    </tx:selectManyListbox>
--->
-<!--
-    <tc:mediator>
-      <h:selectManyListbox value="#{selectManyListboxBean.list}" label="array">
-        <f:selectItem itemValue="a" itemLabel="A Value"/>
-        <f:selectItem itemValue="b" itemLabel="An Alternative"/>
-      </h:selectManyListbox>
-    </tc:mediator>
-    <tc:mediator>
-      <h:selectManyListbox value="#{selectManyListboxBean.array}" label="array">
-        <f:selectItem itemValue="a" itemLabel="A Value"/>
-        <f:selectItem itemValue="b" itemLabel="An Alternative"/>
-      </h:selectManyListbox>
-    </tc:mediator>
--->
 
     <tc:button label="submit"/>
 
