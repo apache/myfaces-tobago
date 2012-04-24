@@ -51,7 +51,6 @@ import java.io.Writer;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -378,26 +377,22 @@ public class CreateComponentAnnotationVisitor extends AbstractAnnotationVisitor 
           propertyInfo.setBodyContent(tagAttribute.bodyContent());
           propertyInfo.setTagAttribute(true);
         }
-        String type;
+        final String type;
         if (uiComponentTagAttribute.expression().isMethodExpression()) {
           propertyInfo.setMethodExpressionRequired(true);
           type = "javax.faces.el.MethodBinding";
-        } else if (uiComponentTagAttribute.expression() == DynamicExpression.VALUE_BINDING_REQUIRED) {
-          propertyInfo.setValueExpressionRequired(true);
+        } else {
+          if (uiComponentTagAttribute.expression() == DynamicExpression.VALUE_BINDING_REQUIRED) {
+            propertyInfo.setValueExpressionRequired(true);
+          } else if (uiComponentTagAttribute.expression() == DynamicExpression.PROHIBITED) {
+            propertyInfo.setLiteralOnly(true);
+          }
+
           if (uiComponentTagAttribute.type().length > 1) {
             type = "java.lang.Object";
           } else {
             type = uiComponentTagAttribute.type()[0];
           }
-
-        } else if (uiComponentTagAttribute.type().length == 1) {
-          if (uiComponentTagAttribute.expression() == DynamicExpression.PROHIBITED) {
-            propertyInfo.setLiteralOnly(true);
-          }
-          type = uiComponentTagAttribute.type()[0];
-        } else {
-          throw new IllegalArgumentException(
-              "Type should be single argument " + Arrays.toString(uiComponentTagAttribute.type()));
         }
         propertyInfo.setType(type);
         propertyInfo.setDefaultValue(

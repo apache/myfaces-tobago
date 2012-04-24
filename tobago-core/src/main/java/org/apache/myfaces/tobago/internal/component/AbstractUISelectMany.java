@@ -22,7 +22,16 @@ import org.apache.myfaces.tobago.component.SupportsMarkup;
 import org.apache.myfaces.tobago.layout.LayoutComponent;
 
 import javax.faces.component.UISelectMany;
+import java.util.Collection;
 
 public abstract class AbstractUISelectMany extends UISelectMany implements SupportsMarkup, LayoutComponent {
 
+  public Object[] getSelectedValues() {
+    Object value = getValue();
+    if (value instanceof Collection) {
+      return ((Collection) value).toArray();
+    } else {
+      return (Object[]) value;
+    }
+  }
 }

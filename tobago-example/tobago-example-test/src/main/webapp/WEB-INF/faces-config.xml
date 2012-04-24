@@ -84,6 +84,12 @@
   </managed-bean>
 
   <managed-bean>
+    <managed-bean-name>selectManyListboxBean</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.tobago.example.test.SelectManyListboxBean</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+  </managed-bean>
+
+  <managed-bean>
     <managed-bean-name>selectItemModel</managed-bean-name>
     <managed-bean-class>org.apache.myfaces.tobago.example.test.SelectItemModel</managed-bean-class>
     <managed-bean-scope>session</managed-bean-scope>
