@@ -32,7 +32,7 @@
       <tc:date readonly="#{false}" id="normal">
         <f:convertDateTime/>
       </tc:date>
-      <tc:datePicker for="normal"/>
+      <tc:datePicker for="normal" id="normalPicker"/>
 
       <tc:date readonly="#{true}" id="readonly">
         <f:convertDateTime/>
@@ -48,6 +48,12 @@
 
       <tc:script onload="check()">
         function check() {
+          // assertions
+          var id0 = "page:normalPicker";
+          if (jQuery(Tobago.Utils.escapeClientId(id0)).filter("a").size() == 0) {
+            LOG.error("The element with id='" + id0 + "' was not found or is not an 'a' tag!");
+          }
+
           // assertions
           var id1 = "page:readonlyPicker";
           if (jQuery(Tobago.Utils.escapeClientId(id1)).filter("span").size() == 0) {
