@@ -27,7 +27,6 @@ import org.apache.myfaces.tobago.component.UICalendar;
 import org.apache.myfaces.tobago.component.UIDate;
 import org.apache.myfaces.tobago.component.UIDatePicker;
 import org.apache.myfaces.tobago.component.UIGridLayout;
-import org.apache.myfaces.tobago.component.UIImage;
 import org.apache.myfaces.tobago.component.UIPanel;
 import org.apache.myfaces.tobago.component.UIPopup;
 import org.apache.myfaces.tobago.component.UITime;
@@ -36,7 +35,6 @@ import org.apache.myfaces.tobago.event.PopupActionListener;
 import org.apache.myfaces.tobago.internal.util.DateFormatUtils;
 import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
 import org.apache.myfaces.tobago.layout.Measure;
-import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.util.CreateComponentUtils;
 import org.slf4j.Logger;
@@ -152,16 +150,7 @@ public class DatePickerRenderer extends LinkRenderer {
 
     buttonPanel.onComponentPopulated(facesContext, parent);
 
-    // create image
-    // check the id: its might be better not calling createUniqueId
-    final String imageId = linkId != null ? linkId + "image" : facesContext.getViewRoot().createUniqueId();
-    final UIImage image = (UIImage) CreateComponentUtils.createComponent(
-        facesContext, UIImage.COMPONENT_TYPE, RendererTypes.IMAGE, imageId);
-    image.setRendered(true);
-    image.setValue("image/date.gif");
-    image.setAlt(""); //TODO: i18n (write a text)
-    StyleClasses.ensureStyleClasses(image).addFullQualifiedClass("tobago-datePicker-icon");
-    picker.getChildren().add(image);
+    picker.setImage("image/date.gif");
   }
 
   @Override
