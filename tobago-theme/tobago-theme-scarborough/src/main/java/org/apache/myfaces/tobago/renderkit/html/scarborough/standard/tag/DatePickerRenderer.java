@@ -30,7 +30,6 @@ import org.apache.myfaces.tobago.component.UIGridLayout;
 import org.apache.myfaces.tobago.component.UIPanel;
 import org.apache.myfaces.tobago.component.UIPopup;
 import org.apache.myfaces.tobago.component.UITime;
-import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.event.PopupActionListener;
 import org.apache.myfaces.tobago.internal.util.DateFormatUtils;
 import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
@@ -75,16 +74,14 @@ public class DatePickerRenderer extends LinkRenderer {
     popup.setRendered(false);
     popup.onComponentPopulated(facesContext, parent);
 
-    FacesUtils.setBindingOrExpression(
-        popup, Attributes.LEFT, FacesUtils.createExpressionOrBinding("#{tobagoContext.actionPosition.right.pixel + 5}"));
-    FacesUtils.setBindingOrExpression(
-        popup, Attributes.TOP, FacesUtils.createExpressionOrBinding("#{tobagoContext.actionPosition.top.pixel}"));
+    FacesUtils.setBindingOrExpression(popup, Attributes.LEFT, "#{tobagoContext.actionPosition.right.pixel + 5}");
+    FacesUtils.setBindingOrExpression(popup, Attributes.TOP, "#{tobagoContext.actionPosition.top.pixel}");
 
     final UIBox box = (UIBox) CreateComponentUtils.createComponent(
         facesContext, UIBox.COMPONENT_TYPE, RendererTypes.BOX, "box");
     popup.getChildren().add(box);
     // TODO: set string resources in renderer
-    box.setLabel(ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", "datePickerTitle"));
+    FacesUtils.setBindingOrExpression(box, Attributes.LABEL, "#{tobagoContext.resourceBundle.datePickerTitle}");
     final UIGridLayout layoutOfBox = (UIGridLayout) CreateComponentUtils.createComponent(
         facesContext, UIGridLayout.COMPONENT_TYPE, RendererTypes.GRID_LAYOUT, "layout");
     box.getFacets().put(Facets.LAYOUT, layoutOfBox);
@@ -137,14 +134,14 @@ public class DatePickerRenderer extends LinkRenderer {
     final UIButton okButton = (UIButton) CreateComponentUtils.createComponent(
         facesContext, UIButton.COMPONENT_TYPE, RendererTypes.BUTTON, "ok");
     buttonPanel.getChildren().add(okButton);
-    okButton.setLabel(ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", "datePickerOk"));
+    FacesUtils.setBindingOrExpression(okButton, Attributes.LABEL, "#{tobagoContext.resourceBundle.datePickerOk}");
     okButton.setOnclick("writeIntoField2(this);");
     okButton.getAttributes().put(Attributes.POPUP_CLOSE, "afterSubmit");
 
     final UIButton cancelButton = (UIButton) CreateComponentUtils.createComponent(
         facesContext, UIButton.COMPONENT_TYPE, RendererTypes.BUTTON, "cancel");
     buttonPanel.getChildren().add(cancelButton);
-    cancelButton.setLabel(ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", "datePickerCancel"));
+    FacesUtils.setBindingOrExpression(okButton, Attributes.LABEL, "#{tobagoContext.resourceBundle.datePickerCancel}");
     cancelButton.setOnclick("writeIntoField2(this);");
     cancelButton.getAttributes().put(Attributes.POPUP_CLOSE, "immediate");
 
