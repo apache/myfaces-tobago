@@ -51,7 +51,7 @@ public class TobagoBundle extends ResourceBundle {
   }
 
   public Enumeration<String> getKeys() {
-    return Collections.enumeration(Collections.EMPTY_LIST);
+    return Collections.enumeration(Collections.<String>emptyList());
   }
 
   public String getBundleName() {
