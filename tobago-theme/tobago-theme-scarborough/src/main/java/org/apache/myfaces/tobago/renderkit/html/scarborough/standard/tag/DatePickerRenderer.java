@@ -80,7 +80,6 @@ public class DatePickerRenderer extends LinkRenderer {
     final UIBox box = (UIBox) CreateComponentUtils.createComponent(
         facesContext, UIBox.COMPONENT_TYPE, RendererTypes.BOX, "box");
     popup.getChildren().add(box);
-    // TODO: set string resources in renderer
     FacesUtils.setBindingOrExpression(box, Attributes.LABEL, "#{tobagoContext.resourceBundle.datePickerTitle}");
     final UIGridLayout layoutOfBox = (UIGridLayout) CreateComponentUtils.createComponent(
         facesContext, UIGridLayout.COMPONENT_TYPE, RendererTypes.GRID_LAYOUT, "layout");
