@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.component;
+package org.apache.myfaces.tobago.internal.component;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -17,66 +17,30 @@ package org.apache.myfaces.tobago.component;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.internal.component.AbstractUIForm;
+import org.apache.myfaces.tobago.component.Attributes;
+import org.apache.myfaces.tobago.component.Facets;
+import org.apache.myfaces.tobago.component.OnComponentCreated;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
+import org.apache.myfaces.tobago.util.ComponentUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.event.FacesEvent;
 import javax.faces.render.Renderer;
-import java.util.List;
 
-/*
- * Date: 30.05.2006
- * Time: 19:22:40
- */
-public class UIDatePicker extends UILink implements OnComponentCreated {
+public abstract class AbstractUIDatePicker extends AbstractUILink implements OnComponentCreated {
 
-  public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.DatePicker";
+  private static final Logger LOG = LoggerFactory.getLogger(AbstractUIDatePicker.class);
 
-  private String forComponent;
+  public abstract String getFor();
 
-  public Object saveState(FacesContext context) {
-    Object[] values = new Object[2];
-    values[0] = super.saveState(context);
-    values[1] = forComponent;
-    return values;
-  }
+  public abstract void setDisabled(boolean disabled);
 
-  public void restoreState(FacesContext context, Object savedState) {
-    Object[] values = (Object[]) savedState;
-    super.restoreState(context, values[0]);
-    forComponent = (String) values[1];
-  }
-
-  private UIComponent getUIDateInput(UIComponent parent) {
-    for (UIComponent child : (List<UIComponent>) parent.getChildren()) {
-      if (child instanceof UIDate) {
-        return child;
-      }
-    }
-    return null;
-  }
-
-  public String getFor() {
-    return forComponent;
-  }
-
-  // XXX May be better use ComponentUtils.evaluateAutoFor()
   public UIComponent getForComponent() {
-    if ("@auto".equals(forComponent)) {
-      UIComponent component = getUIDateInput(getParent());
-      if (component == null && getParent() instanceof AbstractUIForm) {
-        component = getUIDateInput(getParent().getParent());
-      }
-      return component;
-    } else {
-      return findComponent(forComponent);
-    }
-  }
-
-  public void setFor(String forComponent) {
-    this.forComponent = forComponent;
+    ComponentUtils.evaluateAutoFor(this, AbstractUIDate.class);
+    return ComponentUtils.findFor(this);
   }
 
   public void broadcast(FacesEvent facesEvent) {
@@ -98,5 +62,9 @@ public class UIDatePicker extends UILink implements OnComponentCreated {
     if (renderer instanceof RendererBase) {
       ((RendererBase) renderer).onComponentCreated(context, this, parent);
     }
+  }
+
+  public String getTarget() {
+    return null;
   }
 }

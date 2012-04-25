@@ -285,7 +285,9 @@ public class ComponentUtils {
    * In case that the value is equals to "@auto" the children of the parent will be
    * checked if they are a UIInput. The "id" of the first one will be used to reset the "for"
    * attribute of the component.
+   * @deprecated
    */
+  @Deprecated
   public static void evaluateAutoFor(UIComponent component) {
     String forComponent = (String) component.getAttributes().get(Attributes.FOR);
     if (LOG.isDebugEnabled()) {
@@ -293,14 +295,48 @@ public class ComponentUtils {
     }
     if ("@auto".equals(forComponent)) {
       for (Object object : component.getParent().getChildren()) {
-        UIComponent child = (UIComponent) object;
-        if (child instanceof UIInput) {
-          forComponent = child.getId();
-          component.getAttributes().put(Attributes.FOR, forComponent);
+        if (setForToInput(component, (UIComponent) object, AbstractUIInput.class)) {
           break;
         }
       }
     }
+  }
+
+  /**
+   * Looks for the attribute "for" of the component.
+   * In case that the value is equals to "@auto" the children of the parent will be
+   * checked if they are of the type of the parameter clazz. The "id" of the first one will be used to reset the "for"
+   * attribute of the component.
+   */
+  public static void evaluateAutoFor(UIComponent component, Class<? extends UIComponent> clazz) {
+    String forComponent = (String) component.getAttributes().get(Attributes.FOR);
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("for = '" + forComponent + "'");
+    }
+    if ("@auto".equals(forComponent)) {
+      // grand parent
+      for (Object object : component.getParent().getChildren()) {
+        if (setForToInput(component, (UIComponent) object, clazz)) {
+          return;
+        }
+      }
+      // grand parent
+      for (Object object : component.getParent().getParent().getChildren()) {
+        if (setForToInput(component, (UIComponent) object, clazz)) {
+          return;
+        }
+      }
+    }
+  }
+
+  private static boolean setForToInput(UIComponent component, UIComponent child, Class<? extends UIComponent> clazz) {
+    final String forComponent;
+    if (clazz.isAssignableFrom(child.getClass())) { // find the matching component
+      forComponent = child.getId();
+      component.getAttributes().put(Attributes.FOR, forComponent);
+      return true;
+    }
+    return false;
   }
 
   public static boolean isInActiveForm(UIComponent component) {

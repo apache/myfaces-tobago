@@ -183,7 +183,7 @@ public class DatePickerRenderer extends LinkRenderer {
     UIDatePicker picker = (UIDatePicker) component;
     UIDate dateInput = (UIDate) picker.getForComponent();
     if (dateInput == null) {
-      LOG.error("No required UIDate component found.");
+      LOG.error("The required UIDate component wasn't found for component id='" + component.getId());
       return;
     }
     // this can't be done in "onComponentPopulated()" of the picker, it seems to be to early
@@ -246,7 +246,7 @@ public class DatePickerRenderer extends LinkRenderer {
     if (dateInput != null) {
       super.encodeEnd(facesContext, component);
     } else {
-      LOG.error("No required UIDate component found.");
+      LOG.error("The required UIDate component wasn't found for component id='" + component.getId());
     }
   }
 }

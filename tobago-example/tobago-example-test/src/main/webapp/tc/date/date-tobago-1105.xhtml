@@ -25,22 +25,22 @@
   <tc:page id="page">
     <tc:box>
       <f:facet name="layout">
-        <tc:gridLayout columns="2*;*" rows="auto;auto;auto"/>
+        <tc:gridLayout columns="2*;*" rows="auto;auto;auto;auto;auto"/>
       </f:facet>
       <tc:gridLayoutConstraint width="900px" height="300px" marginLeft="10px" marginTop="10px" marginRight="10px"/>
 
-      <tc:date readonly="#{false}" id="x">
-        <f:convertDateTime type="date" pattern="HH:mm:ss"/>
+      <tc:date readonly="#{false}" id="normal">
+        <f:convertDateTime/>
       </tc:date>
-      <tc:datePicker for="x"/>
+      <tc:datePicker for="normal"/>
 
       <tc:date readonly="#{true}" id="readonly">
-        <f:convertDateTime type="date" pattern="HH:mm:ss"/>
+        <f:convertDateTime/>
       </tc:date>
       <tc:datePicker for="readonly" id="readonlyPicker"/>
 
       <tc:date disabled="#{true}" id="disabled">
-        <f:convertDateTime type="date" pattern="HH:mm:ss"/>
+        <f:convertDateTime/>
       </tc:date>
       <tc:datePicker for="disabled" id="disabledPicker"/>
 
@@ -49,13 +49,15 @@
       <tc:script onload="check()">
         function check() {
           // assertions
-          if (jQuery(Tobago.Utils.escapeClientId("page:readonlyPicker")).filter("span").size() == 0) {
-            LOG.error("The element with id='" + "page:readonlyPicker" + "' was not found or is not a 'span' tag!");
+          var id1 = "page:readonlyPicker";
+          if (jQuery(Tobago.Utils.escapeClientId(id1)).filter("span").size() == 0) {
+            LOG.error("The element with id='" + id1 + "' was not found or is not a 'span' tag!");
           }
 
           // assertions
-          if (jQuery(Tobago.Utils.escapeClientId("page:disabledPicker")).filter("span").size() == 0) {
-            LOG.error("The element with id='" + "page:disabledPicker" + "' was not found or is not a 'span' tag!");
+          var id2 = "page:disabledPicker";
+          if (jQuery(Tobago.Utils.escapeClientId(id2)).filter("span").size() == 0) {
+            LOG.error("The element with id='" + id2 + "' was not found or is not a 'span' tag!");
           }
         }
       </tc:script>
