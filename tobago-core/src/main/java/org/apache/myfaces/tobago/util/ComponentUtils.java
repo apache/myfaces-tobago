@@ -886,7 +886,7 @@ public class ComponentUtils {
       if (renderer != null) {
         if (component instanceof UISelectMany) {
           final Object converted = renderer.getConvertedValue(facesContext, component, new String[]{stringValue});
-          return converted instanceof List ? ((List)converted).get(0) : ((Object[]) converted)[0];
+          return converted instanceof List ? ((List) converted).get(0) : ((Object[]) converted)[0];
         } else {
           return renderer.getConvertedValue(facesContext, component, stringValue);
         }
