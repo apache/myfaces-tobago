@@ -147,6 +147,7 @@ public class MessagesRenderer extends LayoutComponentRendererBase {
     popup.setTop(Measure.valueOf(100));
     popup.setRendered(true);
     popup.setActivated(true);
+    popup.onComponentPopulated(facesContext, messages);
     FacesContextUtils.addPopup(facesContext, popup);
 
     Map<String, Object> okButtonAttributes = popup.getAttributes();
@@ -163,7 +164,7 @@ public class MessagesRenderer extends LayoutComponentRendererBase {
         facesContext, UIGridLayout.COMPONENT_TYPE, RendererTypes.GRID_LAYOUT, "layout");
     box.getFacets().put(Facets.LAYOUT, layout);
     layout.getAttributes().put(Attributes.ROWS, "*;auto");
-    layout.getAttributes().put(Attributes.MARGIN, "10");
+    layout.getAttributes().put(Attributes.MARGIN, Measure.valueOf(10));
 
     final UICell scrollPanel = (UICell)
         CreateComponentUtils.createComponent(facesContext, UICell.COMPONENT_TYPE, "Cell", "messagePanel");
@@ -171,6 +172,7 @@ public class MessagesRenderer extends LayoutComponentRendererBase {
 
     messages.getParent().getChildren().remove(messages);
     messages.setConfirmation(false);
+    scrollPanel.onComponentPopulated(facesContext, messages);
     scrollPanel.setScrollbars("auto");
     scrollPanel.getChildren().add(messages);
 
@@ -187,6 +189,7 @@ public class MessagesRenderer extends LayoutComponentRendererBase {
     final UICell space = (UICell)
         CreateComponentUtils.createComponent(facesContext, UICell.COMPONENT_TYPE, "Cell", "space");
     buttonPanel.getChildren().add(space);
+    space.onComponentPopulated(facesContext, messages);
 
     final UICommand okButton = (UICommand) CreateComponentUtils.createComponent(
         facesContext, UIButton.COMPONENT_TYPE, RendererTypes.BUTTON, CLOSE_POPUP);
