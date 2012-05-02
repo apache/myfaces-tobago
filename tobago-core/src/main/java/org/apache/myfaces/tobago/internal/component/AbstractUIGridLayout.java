@@ -350,14 +350,12 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase implemen
           position = position.add(LayoutUtils.getPaddingBegin(orientation, getLayoutContainer()));
           position = position.add(getMarginBegin(orientation));
           for (int k = 0; k < i; k++) {
-            if (heads[k] == null || heads[k].getCurrent() == null) {
-              LOG.warn("Head is null, should be debugged... i=" + i + " k=" + k + " grid=\n" + grid,
-                  new NullPointerException());
-            } else {
-              if (heads[k].isRendered() && heads[k].getCurrent().greaterThan(Measure.ZERO)) {
-                position = position.add(heads[k].getCurrent());
-                position = position.add(getSpacing(orientation));
-              }
+            if (heads[k] != null
+                && heads[k].getCurrent() != null
+                && heads[k].isRendered()
+                && heads[k].getCurrent().greaterThan(Measure.ZERO)) {
+              position = position.add(heads[k].getCurrent());
+              position = position.add(getSpacing(orientation));
             }
           }
           if (orientation == Orientation.HORIZONTAL) {
