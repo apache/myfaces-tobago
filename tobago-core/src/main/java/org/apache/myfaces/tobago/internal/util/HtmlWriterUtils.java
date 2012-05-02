@@ -36,8 +36,8 @@ public final class HtmlWriterUtils {
     CHARS_TO_ESCAPE['&'] = "&amp;".toCharArray();
     CHARS_TO_ESCAPE['<'] = "&lt;".toCharArray();
     CHARS_TO_ESCAPE['>'] = "&gt;".toCharArray();
-    CHARS_TO_ESCAPE['\n'] = "&#13;".toCharArray();
-    CHARS_TO_ESCAPE['\r'] = "&#10;".toCharArray();
+    CHARS_TO_ESCAPE['\n'] = "&#10;".toCharArray();
+    CHARS_TO_ESCAPE['\r'] = "&#13;".toCharArray();
     CHARS_TO_ESCAPE['\t'] = "&#09;".toCharArray();
   }
 
