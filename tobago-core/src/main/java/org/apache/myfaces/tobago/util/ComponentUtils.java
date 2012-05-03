@@ -277,7 +277,7 @@ public class ComponentUtils {
     if (forValue == null) {
       return component.getParent();
     }
-    return component.findComponent(forValue);
+    return ComponentUtils.findComponent(component, forValue);
   }
 
   /**
@@ -295,7 +295,7 @@ public class ComponentUtils {
     }
     if ("@auto".equals(forComponent)) {
       for (Object object : component.getParent().getChildren()) {
-        if (setForToInput(component, (UIComponent) object, AbstractUIInput.class)) {
+        if (setForToInput(component, (UIComponent) object, AbstractUIInput.class, false)) {
           break;
         }
       }
@@ -314,25 +314,30 @@ public class ComponentUtils {
       LOG.debug("for = '" + forComponent + "'");
     }
     if ("@auto".equals(forComponent)) {
-      // grand parent
+      // parent
       for (Object object : component.getParent().getChildren()) {
-        if (setForToInput(component, (UIComponent) object, clazz)) {
+        if (setForToInput(component, (UIComponent) object, clazz, component instanceof NamingContainer)) {
           return;
         }
       }
       // grand parent
       for (Object object : component.getParent().getParent().getChildren()) {
-        if (setForToInput(component, (UIComponent) object, clazz)) {
+        if (setForToInput(component, (UIComponent) object, clazz, component.getParent() instanceof NamingContainer)) {
           return;
         }
       }
     }
   }
 
-  private static boolean setForToInput(UIComponent component, UIComponent child, Class<? extends UIComponent> clazz) {
-    final String forComponent;
+  private static boolean setForToInput(
+      UIComponent component, UIComponent child, Class<? extends UIComponent> clazz, boolean namingContainer) {
     if (clazz.isAssignableFrom(child.getClass())) { // find the matching component
-      forComponent = child.getId();
+      final String forComponent;
+      if (namingContainer) {
+        forComponent = ":::" + child.getId();
+      } else {
+        forComponent = child.getId();
+      }
       component.getAttributes().put(Attributes.FOR, forComponent);
       return true;
     }
