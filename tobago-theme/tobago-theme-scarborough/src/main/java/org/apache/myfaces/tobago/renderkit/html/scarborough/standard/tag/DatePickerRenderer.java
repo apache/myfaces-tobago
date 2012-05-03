@@ -27,16 +27,13 @@ import org.apache.myfaces.tobago.component.UICalendar;
 import org.apache.myfaces.tobago.component.UIDate;
 import org.apache.myfaces.tobago.component.UIDatePicker;
 import org.apache.myfaces.tobago.component.UIGridLayout;
-import org.apache.myfaces.tobago.component.UIImage;
 import org.apache.myfaces.tobago.component.UIPanel;
 import org.apache.myfaces.tobago.component.UIPopup;
 import org.apache.myfaces.tobago.component.UITime;
-import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.event.PopupActionListener;
 import org.apache.myfaces.tobago.internal.util.DateFormatUtils;
 import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
 import org.apache.myfaces.tobago.layout.Measure;
-import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.util.CreateComponentUtils;
 import org.slf4j.Logger;
@@ -77,16 +74,13 @@ public class DatePickerRenderer extends LinkRenderer {
     popup.setRendered(false);
     popup.onComponentPopulated(facesContext, parent);
 
-    FacesUtils.setBindingOrExpression(
-        popup, Attributes.LEFT, FacesUtils.createExpressionOrBinding("#{tobagoContext.actionPosition.right.pixel + 5}"));
-    FacesUtils.setBindingOrExpression(
-        popup, Attributes.TOP, FacesUtils.createExpressionOrBinding("#{tobagoContext.actionPosition.top.pixel}"));
+    FacesUtils.setBindingOrExpression(popup, Attributes.LEFT, "#{tobagoContext.actionPosition.right.pixel + 5}");
+    FacesUtils.setBindingOrExpression(popup, Attributes.TOP, "#{tobagoContext.actionPosition.top.pixel}");
 
     final UIBox box = (UIBox) CreateComponentUtils.createComponent(
         facesContext, UIBox.COMPONENT_TYPE, RendererTypes.BOX, "box");
     popup.getChildren().add(box);
-    // TODO: set string resources in renderer
-    box.setLabel(ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", "datePickerTitle"));
+    FacesUtils.setBindingOrExpression(box, Attributes.LABEL, "#{tobagoContext.resourceBundle.datePickerTitle}");
     final UIGridLayout layoutOfBox = (UIGridLayout) CreateComponentUtils.createComponent(
         facesContext, UIGridLayout.COMPONENT_TYPE, RendererTypes.GRID_LAYOUT, "layout");
     box.getFacets().put(Facets.LAYOUT, layoutOfBox);
@@ -139,29 +133,19 @@ public class DatePickerRenderer extends LinkRenderer {
     final UIButton okButton = (UIButton) CreateComponentUtils.createComponent(
         facesContext, UIButton.COMPONENT_TYPE, RendererTypes.BUTTON, "ok");
     buttonPanel.getChildren().add(okButton);
-    okButton.setLabel(ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", "datePickerOk"));
+    FacesUtils.setBindingOrExpression(okButton, Attributes.LABEL, "#{tobagoContext.resourceBundle.datePickerOk}");
     okButton.setOnclick("writeIntoField2(this);");
     okButton.getAttributes().put(Attributes.POPUP_CLOSE, "afterSubmit");
 
     final UIButton cancelButton = (UIButton) CreateComponentUtils.createComponent(
         facesContext, UIButton.COMPONENT_TYPE, RendererTypes.BUTTON, "cancel");
     buttonPanel.getChildren().add(cancelButton);
-    cancelButton.setLabel(ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", "datePickerCancel"));
-    cancelButton.setOnclick("writeIntoField2(this);");
+    FacesUtils.setBindingOrExpression(cancelButton, Attributes.LABEL, "#{tobagoContext.resourceBundle.datePickerCancel}");
     cancelButton.getAttributes().put(Attributes.POPUP_CLOSE, "immediate");
 
     buttonPanel.onComponentPopulated(facesContext, parent);
 
-    // create image
-    // check the id: its might be better not calling createUniqueId
-    final String imageId = linkId != null ? linkId + "image" : facesContext.getViewRoot().createUniqueId();
-    final UIImage image = (UIImage) CreateComponentUtils.createComponent(
-        facesContext, UIImage.COMPONENT_TYPE, RendererTypes.IMAGE, imageId);
-    image.setRendered(true);
-    image.setValue("image/date.gif");
-    image.setAlt(""); //TODO: i18n (write a text)
-    StyleClasses.ensureStyleClasses(image).addFullQualifiedClass("tobago-datePicker-icon");
-    picker.getChildren().add(image);
+    picker.setImage("image/date.gif");
   }
 
   @Override
@@ -183,16 +167,15 @@ public class DatePickerRenderer extends LinkRenderer {
     UIDatePicker picker = (UIDatePicker) component;
     UIDate dateInput = (UIDate) picker.getForComponent();
     if (dateInput == null) {
-      LOG.error("No required UIDate component found.");
+      LOG.error("The required UIDate component wasn't found for component id='" + component.getId());
       return;
     }
+    // this can't be done in "onComponentPopulated()" of the picker, it seems to be to early
     if (FacesUtils.hasValueBindingOrValueExpression(dateInput, Attributes.READONLY)) {
-      FacesUtils.copyValueBindingOrValueExpression(picker, Attributes.DISABLED,
-          dateInput, Attributes.READONLY);
+      FacesUtils.copyValueBindingOrValueExpression(dateInput, Attributes.READONLY, picker, Attributes.DISABLED);
     } else {
       if (FacesUtils.hasValueBindingOrValueExpression(dateInput, Attributes.DISABLED)) {
-        FacesUtils.copyValueBindingOrValueExpression(picker, Attributes.DISABLED,
-            dateInput, Attributes.DISABLED);
+        FacesUtils.copyValueBindingOrValueExpression(dateInput, Attributes.DISABLED, picker, Attributes.DISABLED);
       } else {
         picker.setDisabled(dateInput.isReadonly() || dateInput.isDisabled());
       }
@@ -247,7 +230,7 @@ public class DatePickerRenderer extends LinkRenderer {
     if (dateInput != null) {
       super.encodeEnd(facesContext, component);
     } else {
-      LOG.error("No required UIDate component found.");
+      LOG.error("The required UIDate component wasn't found for component id='" + component.getId());
     }
   }
 }

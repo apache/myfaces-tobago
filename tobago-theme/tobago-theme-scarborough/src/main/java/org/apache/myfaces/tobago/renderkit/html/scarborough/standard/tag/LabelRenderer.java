@@ -19,6 +19,7 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.myfaces.tobago.component.UILabel;
 import org.apache.myfaces.tobago.context.Markup;
+import org.apache.myfaces.tobago.internal.component.AbstractUIDate;
 import org.apache.myfaces.tobago.internal.util.AccessKeyMap;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
@@ -44,7 +45,7 @@ public class LabelRenderer extends LayoutComponentRendererBase {
   public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
     super.prepareRender(facesContext, component);
 
-    ComponentUtils.evaluateAutoFor(component);
+    ComponentUtils.evaluateAutoFor(component, AbstractUIDate.class);
 
     // adding the markups from the corresponding input component
     final UILabel label = (UILabel) component;

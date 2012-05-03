@@ -37,6 +37,8 @@ public class BugTobago1103SeleniumTest extends MultiSuffixSeleniumTest {
 
     // load page
     open("/tc/popup/popup-bug-tobago-1103.");
+    getSelenium().waitForCondition(
+        "selenium.browserbot.getCurrentWindow().document.getElementById('page:open-0') != null", "5000");
 
     // click on open 1st popup
     getSelenium().click("page:open-0");

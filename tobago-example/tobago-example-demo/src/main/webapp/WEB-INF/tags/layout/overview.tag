@@ -30,34 +30,36 @@
 
     <f:facet name="menuBar">
       <tc:menuBar>
-        <tc:menu label="#{overviewBundle.menu_config}">
-          <tc:menu label="#{overviewBundle.menu_themes}">
-            <tx:menuRadio action="#{clientConfigController.submit}" value="#{clientConfigController.theme}">
-              <f:selectItems value="#{clientConfigController.themeItems}"/>
-            </tx:menuRadio>
+        <tc:form>
+          <tc:menu label="#{overviewBundle.menu_config}">
+            <tc:menu label="#{overviewBundle.menu_themes}">
+              <tx:menuRadio action="#{clientConfigController.submit}" value="#{clientConfigController.theme}">
+                <f:selectItems value="#{clientConfigController.themeItems}"/>
+              </tx:menuRadio>
+            </tc:menu>
+            <tc:menu label="#{overviewBundle.menu_locale}">
+              <tx:menuRadio action="#{clientConfigController.submit}" value="#{clientConfigController.locale}">
+                <f:selectItems value="#{clientConfigController.localeItems}"/>
+              </tx:menuRadio>
+            </tc:menu>
+            <%-- todo: may have something like immediate="true", but in this case, the value will not switched --%>
+            <tx:menuCheckbox action="#{clientConfigController.submit}"
+                             label="#{overviewBundle.menu_debug}"
+                             value="#{clientConfigController.debugMode}"/>
+            <tc:menuCommand action="#{demo.resetSession}" label="Reset"/>
           </tc:menu>
-          <tc:menu label="#{overviewBundle.menu_locale}">
-            <tx:menuRadio action="#{clientConfigController.submit}" value="#{clientConfigController.locale}">
-              <f:selectItems value="#{clientConfigController.localeItems}"/>
-            </tx:menuRadio>
-          </tc:menu>
-          <%-- todo: may have something like immediate="true", but in this case, the value will not switched --%>
-          <tx:menuCheckbox action="#{clientConfigController.submit}"
-                           label="#{overviewBundle.menu_debug}"
-                           value="#{clientConfigController.debugMode}"/>
-          <tc:menuCommand action="#{demo.resetSession}" label="Reset"/>
-        </tc:menu>
 
-        <tc:menu label="#{overviewBundle.menu_help}">
-          <tc:menuCommand
-              onclick="alert('#{overviewBundle.pageTitle}' + String.fromCharCode(10) + '#{info.version}' + String.fromCharCode(10) + '#{overviewBundle.tobago_url}' + String.fromCharCode(10))"
-              label="#{overviewBundle.menu_about}"/>
-          <tc:menuItem link="http://myfaces.apache.org/tobago" label="Tobago in the Web"/>
-          <tc:menuCommand onclick="LOG.show();" label="#{overviewBundle.menu_showLog}"
-                          rendered="#{clientConfigController.debugMode}"/>
-          <tc:menuCommand action="server-info" immediate="true"
-                          label="Server Info" disabled="#{! info.enabled}"/>
-        </tc:menu>
+          <tc:menu label="#{overviewBundle.menu_help}">
+            <tc:menuCommand
+                onclick="alert('#{overviewBundle.pageTitle}' + String.fromCharCode(10) + '#{info.version}' + String.fromCharCode(10) + '#{overviewBundle.tobago_url}' + String.fromCharCode(10))"
+                label="#{overviewBundle.menu_about}"/>
+            <tc:menuItem link="http://myfaces.apache.org/tobago" label="Tobago in the Web"/>
+            <tc:menuCommand onclick="LOG.show();" label="#{overviewBundle.menu_showLog}"
+                            rendered="#{clientConfigController.debugMode}"/>
+            <tc:menuCommand action="server-info" immediate="true"
+                            label="Server Info" disabled="#{! info.enabled}"/>
+          </tc:menu>
+        </tc:form>
       </tc:menuBar>
 
     </f:facet>

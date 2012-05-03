@@ -59,7 +59,7 @@ public class OutRenderer extends LayoutComponentRendererBase {
       HtmlRendererUtils.renderTip(out, writer);
     }
     if (escape) {
-      StringTokenizer tokenizer = new StringTokenizer(text, "\n\r");
+      StringTokenizer tokenizer = new StringTokenizer(text, "\r\n");
       while (tokenizer.hasMoreTokens()) {
         String token = tokenizer.nextToken();
         writer.writeText(token);

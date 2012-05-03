@@ -17,9 +17,13 @@ package org.apache.myfaces.tobago.internal.component;
  * limitations under the License.
  */
 
-public abstract class AbstractUIDate extends AbstractUIInput {
+public abstract class AbstractUILink extends AbstractUICommand {
+
+  public abstract java.lang.String getImage();
+
+  public abstract Integer getTabIndex();
+
+  public abstract String getTip();
 
   public abstract boolean isDisabled();
-
-  public abstract boolean isReadonly();
 }

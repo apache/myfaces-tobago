@@ -43,7 +43,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsDeprecatedInline;
 @BodyContentDescription(anyTagOf = "facestag")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UILink",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.component.UICommand",
+    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUILink",
     interfaces = "org.apache.myfaces.tobago.component.UILinkCommand",
     rendererType = RendererTypes.LINK,
     allowedChildComponenents = "NONE",

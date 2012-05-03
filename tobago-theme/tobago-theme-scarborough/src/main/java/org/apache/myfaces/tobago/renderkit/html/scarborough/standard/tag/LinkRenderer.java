@@ -17,16 +17,10 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * limitations under the License.
  */
 
-/*
- * Created 07.02.2003 16:00:00.
- * $Id$
- */
-
-import org.apache.myfaces.tobago.component.UILink;
 import org.apache.myfaces.tobago.config.Configurable;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
+import org.apache.myfaces.tobago.internal.component.AbstractUILink;
 import org.apache.myfaces.tobago.internal.util.AccessKeyMap;
-import org.apache.myfaces.tobago.internal.util.Deprecation;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.CommandRendererBase;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
@@ -52,7 +46,7 @@ public class LinkRenderer extends CommandRendererBase {
 
   public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
 
-    UILink link = (UILink) component;
+    AbstractUILink link = (AbstractUILink) component;
     String clientId = link.getClientId(facesContext);
     CommandRendererHelper helper = new CommandRendererHelper(facesContext, link, CommandRendererHelper.Tag.ANCHOR);
     String href = helper.getHref();
@@ -71,13 +65,7 @@ public class LinkRenderer extends CommandRendererBase {
       if (helper.getTarget() != null) {
         writer.writeAttribute(HtmlAttributes.TARGET, helper.getTarget(), true);
       }
-      Integer tabIndex = null;
-      if (link instanceof UILink) {
-        tabIndex = ((UILink) link).getTabIndex();
-      } else {
-        Deprecation.LOG.warn("LinkRenderer should only render UILink but got " + link.getClass().getName() 
-        + " id=" + link.getClientId(facesContext));
-      }
+      Integer tabIndex = link.getTabIndex();
       if (tabIndex != null) {
         writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
       }
@@ -129,8 +117,7 @@ public class LinkRenderer extends CommandRendererBase {
   }
 
   public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
-
-    UILink link = (UILink) component;
+    AbstractUILink link = (AbstractUILink) component;
     ResponseWriter writer = facesContext.getResponseWriter();
     if (link.isDisabled()) {
       writer.endElement(HtmlElements.SPAN);
@@ -141,7 +128,7 @@ public class LinkRenderer extends CommandRendererBase {
 
   @Override
   public Measure getPreferredWidth(FacesContext facesContext, Configurable component) {
-    UILink link = (UILink) component;
+    AbstractUILink link = (AbstractUILink) component;
     LabelWithAccessKey label = new LabelWithAccessKey(link);
     return RenderUtils.calculateStringWidth(facesContext, link, label.getText());
   }

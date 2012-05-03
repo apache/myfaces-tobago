@@ -46,13 +46,15 @@ public class TreeSelectRenderer extends SelectBooleanCheckboxRenderer {
     writer.startElement(HtmlElements.SPAN, null);
     writer.writeClassAttribute(Classes.create(select));
 
-    writer.startElement(HtmlElements.INPUT, null);
-    writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.CHECKBOX, false);
-    writer.writeAttribute(HtmlAttributes.VALUE, "true", false);
-    writer.writeNameAttribute(id);
-    writer.writeIdAttribute(id);
-    writer.writeAttribute(HtmlAttributes.CHECKED, checked);
-    writer.endElement(HtmlElements.INPUT);
+    if (select.isShowCheckbox()) {
+      writer.startElement(HtmlElements.INPUT, null);
+      writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.CHECKBOX, false);
+      writer.writeAttribute(HtmlAttributes.VALUE, "true", false);
+      writer.writeNameAttribute(id);
+      writer.writeIdAttribute(id);
+      writer.writeAttribute(HtmlAttributes.CHECKED, checked);
+      writer.endElement(HtmlElements.INPUT);
+    }
 
     // label
     final String label = select.getLabel();

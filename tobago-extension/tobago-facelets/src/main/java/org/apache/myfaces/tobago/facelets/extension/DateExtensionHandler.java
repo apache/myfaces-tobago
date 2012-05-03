@@ -25,6 +25,7 @@ import org.apache.myfaces.tobago.component.OnComponentCreated;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.UIDate;
 import org.apache.myfaces.tobago.component.UIDatePicker;
+import org.apache.myfaces.tobago.component.UIForm;
 
 import javax.faces.application.Application;
 import javax.faces.component.UIComponent;
@@ -51,6 +52,12 @@ public class DateExtensionHandler extends TobagoLabelExtensionHandler {
     super.onComponentPopulated(faceletContext, panel, parent);
     if (panel.getChildCount() == 2) {
       Application application = faceletContext.getFacesContext().getApplication();
+      UIViewRoot root = ComponentSupport.getViewRoot(faceletContext, parent);
+
+      UIForm form = (UIForm) application.createComponent(UIForm.COMPONENT_TYPE);
+      form.setId(root.createUniqueId());
+      panel.getChildren().add(form);
+
       UIDatePicker picker = (UIDatePicker) application.createComponent(UIDatePicker.COMPONENT_TYPE);
       picker.setRendererType(RendererTypes.DATE_PICKER);
       picker.setFor("@auto");
@@ -58,7 +65,7 @@ public class DateExtensionHandler extends TobagoLabelExtensionHandler {
       if (pickerIdAttribute !=  null) {
         id = pickerIdAttribute.getValue(faceletContext);
       } else {
-        UIViewRoot root = ComponentSupport.getViewRoot(faceletContext, parent);
+        root = ComponentSupport.getViewRoot(faceletContext, parent);
         id = root.createUniqueId();
       }
       picker.setId(id);
@@ -66,7 +73,7 @@ public class DateExtensionHandler extends TobagoLabelExtensionHandler {
         picker.getAttributes().put(OnComponentCreated.MARKER, Boolean.TRUE);
         picker.onComponentCreated(faceletContext.getFacesContext(), panel);
       }
-      panel.getChildren().add(picker);
+      form.getChildren().add(picker);
     }
   }
 

@@ -23,14 +23,22 @@ import org.apache.myfaces.tobago.util.ComponentUtils;
 
 import javax.faces.context.FacesContext;
 
-/*
- * Date: 11.06.2008 16:17:03
- */
 public class TobagoContext {
+
+  private static final TobagoResourceBundle RESOURCE_BUNDLE = new TobagoResourceBundle();
+  private static final TobagoMessageBundle MESSAGE_BUNDLE = new TobagoMessageBundle();
 
   public Box getActionPosition() {
     FacesContext facesContext = FacesContext.getCurrentInstance();
     AbstractUIPage page = ComponentUtils.findPage(facesContext);
     return page.getActionPosition();
+  }
+
+  public TobagoResourceBundle getResourceBundle() {
+    return RESOURCE_BUNDLE;
+  }
+
+  public TobagoMessageBundle getMessageBundle() {
+    return MESSAGE_BUNDLE;
   }
 }

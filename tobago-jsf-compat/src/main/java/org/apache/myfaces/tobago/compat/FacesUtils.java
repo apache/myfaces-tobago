@@ -248,6 +248,10 @@ public class FacesUtils {
     }
   }
 
+  public static void setBindingOrExpression(UIComponent component, String name, String valueBindingOrExpression) {
+    setBindingOrExpression(component, name, createExpressionOrBinding(valueBindingOrExpression));
+  }
+
   public static void addBindingOrExpressionTabChangeListener(TabChangeSource source, String type,
       Object bindingOrExpression) {
     if (USE_BINDING) {
