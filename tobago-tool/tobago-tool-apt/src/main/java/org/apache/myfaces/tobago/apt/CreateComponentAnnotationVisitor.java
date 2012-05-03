@@ -112,8 +112,14 @@ public class CreateComponentAnnotationVisitor extends AbstractAnnotationVisitor 
   public void process() {
     for (InterfaceDeclaration declaration : getCollectedInterfaceDeclarations()) {
       if (declaration.getAnnotation(UIComponentTag.class) != null) {
-        createRenderer(declaration);
-        createTagOrComponent(declaration);
+        try {
+          createRenderer(declaration);
+          createTagOrComponent(declaration);
+        } catch (IllegalArgumentException e) {
+          getEnv().getMessager().printError("Error during processing of "
+                  + declaration.getAnnotation(UIComponentTag.class).uiComponent());
+          throw e;
+        }
       }
     }
     for (ClassDeclaration declaration : getCollectedClassDeclarations()) {
