@@ -23,13 +23,13 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.FORM_ACCEPT_CHARSET;
 
 import javax.faces.FacesException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 import java.io.File;
 import java.io.UnsupportedEncodingException;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -37,19 +37,19 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import static org.apache.myfaces.tobago.TobagoConstants.FORM_ACCEPT_CHARSET;
+
 public class TobagoMultipartFormdataRequest extends HttpServletRequestWrapper {
 
-  private static final Log LOG
-      = LogFactory.getLog(TobagoMultipartFormdataRequest.class);
+  private static final Log LOG = LogFactory.getLog(TobagoMultipartFormdataRequest.class);
 
   public static final long ONE_KB = 1024;
   public static final long ONE_MB = ONE_KB * ONE_KB;
   public static final long ONE_GB = ONE_KB * ONE_MB;
 
-  private Map parameters;
+  private Map<String, String[]> parameters;
 
-  private Map fileItems;
-
+  private Map<String, FileItem> fileItems;
 
   public TobagoMultipartFormdataRequest(HttpServletRequest request) {
     this(request, System.getProperty("java.io.tmpdir"), ONE_MB);
@@ -62,13 +62,12 @@ public class TobagoMultipartFormdataRequest extends HttpServletRequestWrapper {
 
   private void init(HttpServletRequest request, String repositoryPath, long maxSize) {
     if (!ServletFileUpload.isMultipartContent(request)) {
-      String errorText = "contentType is not multipart/form-data but '"
-          + request.getContentType() + "'";
+      String errorText = "contentType is not multipart/form-data but '" + request.getContentType() + "'";
       LOG.error(errorText);
       throw new FacesException(errorText);
     } else {
-      parameters = new HashMap();
-      fileItems = new HashMap();
+      parameters = new HashMap<String, String[]>();
+      fileItems = new HashMap<String, FileItem>();
       DiskFileItemFactory factory = new DiskFileItemFactory();
 
       factory.setRepository(new File(repositoryPath));
@@ -89,7 +88,7 @@ public class TobagoMultipartFormdataRequest extends HttpServletRequestWrapper {
         throw new FacesException(e);
       }
       if (LOG.isDebugEnabled()) {
-        LOG.debug("parametercount = " + itemList.size());
+        LOG.debug("parametercount = " + itemList.size() + " + " + request.getParameterMap().size());
       }
       for (FileItem item : itemList) {
         String key = item.getFieldName();
@@ -98,50 +97,56 @@ public class TobagoMultipartFormdataRequest extends HttpServletRequestWrapper {
           if (value.length() > 100) {
             value = value.substring(0, 100) + " [...]";
           }
-          LOG.debug(
-              "Parameter : '" + key + "'='" + value + "' isFormField="
-                  + item.isFormField() + " contentType='" + item.getContentType() + "'");
-
+          LOG.debug("Parameter: '" + key + "'='" + value + "' isFormField=" + item.isFormField()
+              + " contentType='" + item.getContentType() + "'");
         }
         if (item.isFormField()) {
-          Object inStock = parameters.get(key);
-          if (inStock == null) {
-            String[] values;
-            try {
-              // TODO: enable configuration of  'accept-charset'
-              values = new String[]{item.getString(FORM_ACCEPT_CHARSET)};
-            } catch (UnsupportedEncodingException e) {
-              LOG.error("Caught: " + e.getMessage(), e);
-              values = new String[]{item.getString()};
-            }
-            parameters.put(key, values);
-          } else if (inStock instanceof String[]) { // double (or more) parameter
-            String[] oldValues = (String[]) inStock;
-            String[] values = new String[oldValues.length + 1];
-            System.arraycopy(oldValues, 0, values, 0, oldValues.length);
-            try {
-              // TODO: enable configuration of  'accept-charset'
-              values[oldValues.length] = item.getString(FORM_ACCEPT_CHARSET);
-            } catch (UnsupportedEncodingException e) {
-              LOG.error("Caught: " + e.getMessage(), e);
-              values[oldValues.length] = item.getString();
-            }
-            parameters.put(key, values);
-          } else {
-            LOG.error(
-                "Program error. Unsupported class: "
-                    + inStock.getClass().getName());
+          String newValue;
+          try {
+            // TODO: enable configuration of 'accept-charset'
+            newValue = item.getString(FORM_ACCEPT_CHARSET);
+          } catch (UnsupportedEncodingException e) {
+            LOG.error("Caught: " + e.getMessage(), e);
+            newValue = item.getString();
           }
+
+          addParameter(key, newValue);
         } else {
           fileItems.put(key, item);
+        }
+      }
+
+      // merging the GET parameters:
+      Enumeration e = request.getParameterNames();
+      while(e.hasMoreElements()) {
+        final String name = (String) e.nextElement();
+        final String[] newValues = request.getParameterValues(name);
+        if (LOG.isDebugEnabled()) {
+          LOG.debug("Parameter: '" + name + "'='" + Arrays.toString(newValues) + "' (GET)");
+        }
+        for (String newValue : newValues) {
+          addParameter(name, newValue);
         }
       }
     }
   }
 
+  private void addParameter(String key, String newValue) {
+    final String[] inStock = parameters.get(key);
+    final String[] values;
+    if (inStock == null) {
+      values = new String[]{newValue};
+    } else {
+      values = new String[inStock.length + 1];
+      System.arraycopy(inStock, 0, values, 0, inStock.length);
+      values[inStock.length] = newValue;
+    }
+    parameters.put(key, values);
+  }
+
   public FileItem getFileItem(String key) {
     if (fileItems != null) {
-      return (FileItem) fileItems.get(key);
+      return fileItems.get(key);
     }
     return null;
   }
