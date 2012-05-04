@@ -140,7 +140,8 @@ public class DatePickerRenderer extends LinkRenderer {
     final UIButton cancelButton = (UIButton) CreateComponentUtils.createComponent(
         facesContext, UIButton.COMPONENT_TYPE, RendererTypes.BUTTON, "cancel");
     buttonPanel.getChildren().add(cancelButton);
-    FacesUtils.setBindingOrExpression(cancelButton, Attributes.LABEL, "#{tobagoContext.resourceBundle.datePickerCancel}");
+    FacesUtils.setBindingOrExpression(cancelButton, Attributes.LABEL,
+            "#{tobagoContext.resourceBundle.datePickerCancel}");
     cancelButton.getAttributes().put(Attributes.POPUP_CLOSE, "immediate");
 
     buttonPanel.onComponentPopulated(facesContext, parent);

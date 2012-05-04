@@ -26,7 +26,7 @@
   <artifactId>tobago</artifactId>
   <packaging>pom</packaging>
   <name>Apache Tobago</name>
-  <version>1.5.5-SNAPSHOT</version>
+  <version>1.5.6-SNAPSHOT</version>
   <description>The goal of Tobago is to provide the community with a well designed set of user interface components based on JSF and run on MyFaces.</description>
   <prerequisites>
     <maven>2.2.1</maven>
@@ -991,7 +991,7 @@
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-site-plugin</artifactId>
           <version>2.3</version>
-          <!--version>3.0</version-->
+          <!--version>3.1</version-->
         </plugin>
       </plugins>
     </pluginManagement>
