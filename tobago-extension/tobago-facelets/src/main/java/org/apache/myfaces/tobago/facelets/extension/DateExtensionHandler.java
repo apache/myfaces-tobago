@@ -55,6 +55,7 @@ public class DateExtensionHandler extends TobagoLabelExtensionHandler {
       UIViewRoot root = ComponentSupport.getViewRoot(faceletContext, parent);
 
       UIForm form = (UIForm) application.createComponent(UIForm.COMPONENT_TYPE);
+      form.setRendererType(RendererTypes.FORM);
       form.setId(root.createUniqueId());
       panel.getChildren().add(form);
 
