@@ -1794,11 +1794,11 @@
   </contributors>
 
   <properties>
-    <myfaces11.version>1.1.9</myfaces11.version>
-    <myfaces12.version>1.2.11</myfaces12.version>
-    <myfaces-test12.version>1.0.1</myfaces-test12.version>
-    <myfaces20.version>2.0.12</myfaces20.version>
-    <myfaces21.version>2.1.5</myfaces21.version>
+    <myfaces11.version>1.1.10</myfaces11.version>
+    <myfaces12.version>1.2.12</myfaces12.version>
+    <myfaces-test12.version>1.0.4</myfaces-test12.version>
+    <myfaces20.version>2.0.13</myfaces20.version>
+    <myfaces21.version>2.1.7</myfaces21.version>
     <mojarra11.version>1.1_02</mojarra11.version>
     <mojarra12.version>1.2_14</mojarra12.version>
     <mojarra20.version>2.0.6</mojarra20.version>
