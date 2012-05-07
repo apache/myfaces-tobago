@@ -55,22 +55,22 @@ Building All
    For building all the stuff you can use the profile all-modules
 
 +----------------------------------------
- mvn install -Pall-modules
+  mvn install -Pall-modules
 +----------------------------------------
 
 
 The Demo
 
-You can run the demo in tobago-example/tobago-example-demo with jetty
-
-+----------------------------------------
-  mvn jetty:run-exploded
-+----------------------------------------
-
-  the other examples with
+  You can run the examples inside tobago-example with jetty
 
 +----------------------------------------
   mvn jetty:run
++----------------------------------------
+
+  or (for the addressbook and the JSP versions of demo and test)
+
++----------------------------------------
+  mvn jetty:run-exploded
 +----------------------------------------
 
   or
@@ -79,9 +79,20 @@ You can run the demo in tobago-example/tobago-example-demo with jetty
   mvn package
 +----------------------------------------
 
-  and deploy the WAR from the target directory
-  manually.
+  and deploy the WAR from the target directory manually.
 
-  The demo application will create a log file in the app-server
-  starting folder. You may want to change that in
-  {{{http://svn.apache.org/repos/asf/myfaces/tobago/trunk/tobago-example/tobago-example-demo/src/main/webapp/WEB-INF/classes/log4j.xml}src/main/webapp/WEB-INF/classes/log4j.xml}}.
+Using different JSF implementations
+
+  By default the example will be started with MyFaces 1.2.
+  You can run the examples with other version like you see here:
+
++----------------------------------------
+  mvn jetty:run -Djsf=myfaces-1.1
+  mvn jetty:run
+  mvn jetty:run -Djsf=myfaces-2.0
+  mvn jetty:run -Djsf=myfaces-2.1
+  mvn jetty:run -Djsf=mojarra-1.1
+  mvn jetty:run -Djsf=mojarra-1.2
+  mvn jetty:run -Djsf=mojarra-2.0
+  mvn jetty:run -Djsf=mojarra-2.1
++----------------------------------------
