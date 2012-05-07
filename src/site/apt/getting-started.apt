@@ -87,11 +87,9 @@ Using different JSF implementations
   You can run the examples with other version like you see here:
 
 +----------------------------------------
-  mvn jetty:run -Djsf=myfaces-1.1
   mvn jetty:run
   mvn jetty:run -Djsf=myfaces-2.0
   mvn jetty:run -Djsf=myfaces-2.1
-  mvn jetty:run -Djsf=mojarra-1.1
   mvn jetty:run -Djsf=mojarra-1.2
   mvn jetty:run -Djsf=mojarra-2.0
   mvn jetty:run -Djsf=mojarra-2.1
