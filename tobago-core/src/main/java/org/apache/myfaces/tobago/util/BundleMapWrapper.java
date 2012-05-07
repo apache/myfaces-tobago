@@ -20,15 +20,12 @@ package org.apache.myfaces.tobago.util;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 
 import javax.faces.context.FacesContext;
+import java.io.Serializable;
+import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
-import java.util.Collection;
 
-/*
- * Date: 20.04.2006
- * Time: 19:31:21
- */
-public class BundleMapWrapper implements Map {
+public class BundleMapWrapper implements Map, Serializable {
 
   private String basename;
 
