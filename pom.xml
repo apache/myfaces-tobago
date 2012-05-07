@@ -1800,9 +1800,9 @@
     <myfaces20.version>2.0.13</myfaces20.version>
     <myfaces21.version>2.1.7</myfaces21.version>
     <mojarra11.version>1.1_02</mojarra11.version>
-    <mojarra12.version>1.2_14</mojarra12.version>
-    <mojarra20.version>2.0.6</mojarra20.version>
-    <mojarra21.version>2.1.3_01</mojarra21.version>
+    <mojarra12.version>1.2_15</mojarra12.version>
+    <mojarra20.version>2.0.9</mojarra20.version>
+    <mojarra21.version>2.1.7</mojarra21.version>
     <facelets.version>1.1.14</facelets.version>
     <jetty7.version>7.4.5.v20110725</jetty7.version>
     <!--
