@@ -1765,6 +1765,49 @@
       </dependencyManagement>
     </profile>
 
+    <profile>
+      <id>mojarra-2.2</id>
+      <activation>
+        <property>
+          <name>jsf</name>
+          <value>mojarra-2.2</value>
+        </property>
+      </activation>
+      <properties>
+        <jsf.target>2.0</jsf.target>
+        <jsf.targetDirectory>1.2</jsf.targetDirectory>
+      </properties>
+      <dependencyManagement>
+        <dependencies>
+          <dependency>
+            <groupId>com.sun.faces</groupId>
+            <artifactId>jsf-api</artifactId>
+            <version>${mojarra22.version}</version>
+            <optional>true</optional>
+          </dependency>
+          <dependency>
+            <groupId>com.sun.faces</groupId>
+            <artifactId>jsf-impl</artifactId>
+            <version>${mojarra22.version}</version>
+            <optional>true</optional>
+          </dependency>
+          <dependency>
+            <groupId>javax.servlet.jsp</groupId>
+            <artifactId>jsp-api</artifactId>
+            <version>2.1</version>
+            <scope>provided</scope>
+            <optional>true</optional>
+          </dependency>
+          <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>2.5</version>
+            <optional>true</optional>
+          </dependency>
+        </dependencies>
+      </dependencyManagement>
+    </profile>
+
   </profiles>
 
   <repositories>
@@ -1803,6 +1846,7 @@
     <mojarra12.version>1.2_15</mojarra12.version>
     <mojarra20.version>2.0.9</mojarra20.version>
     <mojarra21.version>2.1.7</mojarra21.version>
+    <mojarra22.version>2.2.0-SNAPSHOT</mojarra22.version>
     <facelets.version>1.1.14</facelets.version>
     <jetty7.version>7.4.5.v20110725</jetty7.version>
     <!--

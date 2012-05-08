@@ -559,6 +559,58 @@
     </profile>
 
     <profile>
+      <id>mojarra-2.2</id>
+      <activation>
+        <property>
+          <name>jsf</name>
+          <value>mojarra-2.2</value>
+        </property>
+      </activation>
+      <repositories>
+        <repository>
+          <id>jvnet-nexus-snapshots</id>
+          <name>jvnet-nexus-snapshots</name>
+          <url>https://maven.java.net/content/repositories/snapshots/</url>
+        </repository>
+      </repositories>
+      <dependencies>
+        <dependency>
+          <groupId>org.apache.openwebbeans</groupId>
+          <artifactId>openwebbeans-jsf</artifactId>
+          <version>${openwebbeans.version}</version>
+        </dependency>
+
+        <dependency>
+          <groupId>org.apache.myfaces.extensions.cdi.modules</groupId>
+          <artifactId>myfaces-extcdi-jsf20-module-api</artifactId>
+          <version>${myfaces-extcdi.version}</version>
+          <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+          <groupId>org.apache.myfaces.extensions.cdi.modules</groupId>
+          <artifactId>myfaces-extcdi-jsf20-module-impl</artifactId>
+          <version>${myfaces-extcdi.version}</version>
+          <scope>runtime</scope>
+        </dependency>
+<!-- for JSF 2.0 and Bean Validation (JSR-303)  -->
+        <dependency>
+          <groupId>javax.el</groupId>
+          <artifactId>el-api</artifactId>
+          <version>2.2</version>
+          <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+          <groupId>org.glassfish.web</groupId>
+          <artifactId>el-impl</artifactId>
+          <version>2.2</version>
+        </dependency>
+
+      </dependencies>
+    </profile>
+
+    <profile>
       <!--
        mvn package cargo:start -Ptomcat6x
       -->

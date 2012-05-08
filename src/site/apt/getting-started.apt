@@ -93,4 +93,5 @@ Using different JSF implementations
   mvn jetty:run -Djsf=mojarra-1.2
   mvn jetty:run -Djsf=mojarra-2.0
   mvn jetty:run -Djsf=mojarra-2.1
+  mvn jetty:run -Djsf=mojarra-2.2
 +----------------------------------------
