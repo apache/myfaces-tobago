@@ -17,8 +17,10 @@ package org.apache.myfaces.tobago.internal.webapp;
  * limitations under the License.
  */
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.myfaces.tobago.internal.ajax.AjaxInternalUtils;
 import org.apache.myfaces.tobago.internal.util.FastStringWriter;
+import org.apache.myfaces.tobago.util.FacesVersion;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -52,6 +54,22 @@ public class JsonResponseWriter extends HtmlResponseWriter {
   @Override
   public void write(String string) throws IOException {
     writeInternal(javascriptMode ? javascriptWriter : getWriter(), AjaxInternalUtils.encodeJavaScriptString(string));
+  }
+
+  @Override
+  public void write(char[] chars) throws IOException {
+    // XXX remove me later:
+    // this is a temporary workaround, should be removed after fixing the bug in Mojarra.
+    // http://java.net/jira/browse/JAVASERVERFACES-2411
+    // https://issues.apache.org/jira/browse/TOBAGO-1124
+    if (FacesVersion.isMojarra() && FacesVersion.supports20()) {
+      StackTraceElement[] stackTraceElements = Thread.currentThread().getStackTrace();
+      if (stackTraceElements[2].getClassName().equals("com.sun.faces.renderkit.ServerSideStateHelper")) {
+        super.write(StringUtils.replace(new String(chars), "\"", "\\\""));
+        return;
+      }
+    }
+    super.write(chars);
   }
 
   @Override
