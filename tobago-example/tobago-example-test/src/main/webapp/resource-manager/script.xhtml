@@ -23,30 +23,37 @@
     xmlns:f="http://java.sun.com/jsf/core">
   <tc:page id="page" width="300px" height="500px">
     <f:facet name="layout">
-      <tc:gridLayout rows="30px;auto;auto;auto"/>
+      <tc:gridLayout rows="30px;auto;auto;auto;auto"/>
     </f:facet>
 
     <tc:out value="Tests the order of included script files. The field shows the position of the include in the HTML head."/>
 
     <tx:in readonly="true" fieldId="standard" label="Standard"/>
+    <tx:in readonly="true" fieldId="standardApp" label="Standard Application"/>
     <tx:in readonly="true" fieldId="scarborough" label="Scarborough"/>
     <tx:in readonly="true" fieldId="application" label="Application"/>
 
     <tc:script onload="check()">
       function check() {
         var posStandard = jQuery("head>script[src='/org/apache/myfaces/tobago/renderkit/html/standard/standard/script/tobago.js']").prevAll().size();
+        var posStandardApp = jQuery("head>script[src='/tobago-resource/html/standard/standard/script/tobago.js']").prevAll().size();
         var posScarborough = jQuery("head>script[src='/org/apache/myfaces/tobago/renderkit/html/scarborough/standard/script/tobago.js']").prevAll().size();
         var posApp = jQuery("head>script[src='/script/tobago.js']").prevAll().size();
 
         jQuery(Tobago.Utils.escapeClientId("page:standard")).attr('value', posStandard);
+        jQuery(Tobago.Utils.escapeClientId("page:standardApp")).attr('value', posStandardApp);
         jQuery(Tobago.Utils.escapeClientId("page:scarborough")).attr('value', posScarborough);
         jQuery(Tobago.Utils.escapeClientId("page:application")).attr('value', posApp);
 
-        if (posStandard > posScarborough) {
-          LOG.error("Script for theme 'standard' must be included before the script of 'scarborough'!");
+        if (posStandard >= posStandardApp) {
+          LOG.error("Script for theme 'standard' must be included before the application specific script of 'standard'!");
         }
 
-        if (posScarborough > posApp) {
+        if (posStandardApp >= posScarborough) {
+          LOG.error("Application specific script for theme 'standard' must be included before the script of 'scarborough'!");
+        }
+
+        if (posScarborough >= posApp) {
           LOG.error("Script for theme 'scarborough' must be included before the application specific script!");
         }
       }

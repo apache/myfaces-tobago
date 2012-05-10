@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<!--
+/*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
  * this work for additional information regarding copyright ownership.
@@ -15,28 +13,10 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
--->
+ */
 
-<!DOCTYPE tobago-config PUBLIC
-    "-//The Apache Software Foundation//DTD Tobago Config 1.0//EN"
-    "http://myfaces.apache.org/tobago/tobago-config_1_0.dtd">
+/*
+ * This entry is to test order of included JS Files.
+ * Used in resource-manager/script.xhtml
+ */
 
-<tobago-config>
-  <theme-config>
-    <default-theme>speyside</default-theme>
-    <supported-theme>scarborough</supported-theme>
-    <supported-theme>richmond</supported-theme>
-    <supported-theme>charlotteville</supported-theme>
-  </theme-config>
-
-  <resource-dir>tobago-resource</resource-dir>
-
-  <renderers>
-    <renderer>
-      <name>TreeCommand</name>
-      <supported-markup>
-        <markup>todo</markup>
-      </supported-markup>
-    </renderer>
-  </renderers>
-</tobago-config>
