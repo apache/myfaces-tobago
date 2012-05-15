@@ -153,7 +153,7 @@ public class TobagoConfigImpl extends TobagoConfig {
       if (LOG.isInfoEnabled()) {
         LOG.info("adding resourceDir = '{}'", resourceDir);
       }
-      resourceDirs.add(resourceDir);
+      resourceDirs.add(0, resourceDir);
     }
   }
 
