@@ -97,7 +97,10 @@ public class TobagoResponseWriterUnitTest {
   public void testManyChars() throws IOException {
     writer.startElement(HtmlElements.SELECT, null);
     StringBuffer buffer = new StringBuffer();
-    for (char c = 0x20; c < 0x1ff; c++) {
+    for (char c = 0x20; c < 0x7F; c++) {
+      buffer.append(c);
+    }
+    for (char c = 0xA0; c < 0x1ff; c++) {
       buffer.append(c);
     }
     writer.writeAttribute(HtmlAttributes.VALUE, buffer, null);

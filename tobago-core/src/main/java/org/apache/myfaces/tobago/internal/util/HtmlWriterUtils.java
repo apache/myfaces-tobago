@@ -20,11 +20,6 @@ package org.apache.myfaces.tobago.internal.util;
 import java.io.IOException;
 import java.io.Writer;
 
-/**
- * User: weber
- * Date: Jun 28, 2005
- * Time: 2:07:29 PM
- */
 public final class HtmlWriterUtils {
 
   private static final char[][] CHARS_TO_ESCAPE;
@@ -32,13 +27,28 @@ public final class HtmlWriterUtils {
   static {
     // init lookup table
     CHARS_TO_ESCAPE = new char[0xA0][];
+
+    final char[] EMPTY = "".toCharArray();
+    for (int i = 0; i < 0x20; i++) {
+      CHARS_TO_ESCAPE[i] = EMPTY; // Control characters
+    }
+
+    CHARS_TO_ESCAPE['\t'] = "&#09;".toCharArray(); // Horizontal tabulator
+    CHARS_TO_ESCAPE['\n'] = "&#10;".toCharArray(); // Line feed
+    CHARS_TO_ESCAPE['\r'] = "&#13;".toCharArray(); // Carriage return
+
     CHARS_TO_ESCAPE['"'] = "&quot;".toCharArray();
     CHARS_TO_ESCAPE['&'] = "&amp;".toCharArray();
     CHARS_TO_ESCAPE['<'] = "&lt;".toCharArray();
     CHARS_TO_ESCAPE['>'] = "&gt;".toCharArray();
-    CHARS_TO_ESCAPE['\n'] = "&#10;".toCharArray();
-    CHARS_TO_ESCAPE['\r'] = "&#13;".toCharArray();
-    CHARS_TO_ESCAPE['\t'] = "&#09;".toCharArray();
+
+    CHARS_TO_ESCAPE[0x7F] = EMPTY; // Delete
+
+    for (int i = 0x80; i < 0xA0; i++) {
+      CHARS_TO_ESCAPE[i] = EMPTY; // Control characters
+    }
+
+    // all "normal" character positions contains null
   }
 
   private final Writer out;
