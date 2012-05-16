@@ -69,6 +69,7 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
     style.setDisplay(null);
 
     writer.startElement(HtmlElements.OL, select);
+    writer.writeIdAttribute(id);
     writer.writeStyleAttribute(style);
     writer.writeClassAttribute(Classes.create(select));
     if (title != null) {
