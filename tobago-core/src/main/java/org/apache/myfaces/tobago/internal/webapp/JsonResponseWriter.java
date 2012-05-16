@@ -133,6 +133,8 @@ public class JsonResponseWriter extends HtmlResponseWriter {
       writer.write(' ');
       writer.write(name);
       writer.write("=\\\"");
+      // todo: optimize for performance: replace
+      value = value.replace("\\", "\\\\");
       if (escape) {
         getHelper().writeAttributeValue(value);
       } else {
@@ -141,6 +143,21 @@ public class JsonResponseWriter extends HtmlResponseWriter {
       writer.write("\\\"");
     }
   }
+
+  public void writeText(final Object text, final String property)
+      throws IOException {
+    closeOpenTag();
+    // todo: optimize for performance: replace
+    getHelper().writeText(findValue(text, property).replace("\\", "\\\\"));
+  }
+
+/* TODO: may also encode the backslash \, but will not be used currently
+  public void writeText(final char[] text, final int offset, final int length)
+      throws IOException {
+    closeOpenTag();
+    getHelper().writeText(text, offset, length);
+  }
+*/
 
   public ResponseWriter cloneWithWriter(final Writer originalWriter) {
      return new JsonResponseWriter(
