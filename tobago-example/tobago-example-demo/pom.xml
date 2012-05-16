@@ -28,8 +28,8 @@
   <description>Demonstration and documentation application.</description>
 
   <properties>
-    <openwebbeans.version>1.1.3</openwebbeans.version>
-    <myfaces-extcdi.version>1.0.2</myfaces-extcdi.version>
+    <openwebbeans.version>1.1.4</openwebbeans.version>
+    <myfaces-extcdi.version>1.0.5</myfaces-extcdi.version>
   </properties>
   <build>
     <finalName>tobago-example-demo</finalName>
