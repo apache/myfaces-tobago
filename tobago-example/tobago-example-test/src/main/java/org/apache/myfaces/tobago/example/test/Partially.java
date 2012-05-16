@@ -21,6 +21,27 @@ public class Partially {
 
   private int counter;
 
+  private String characters;
+
+  public Partially() {
+    StringBuilder builder = new StringBuilder();
+    builder.append("test_characters = [ ");
+    for (char c = 0; c < 0x24F; c++) {
+
+      builder.append('\'');
+      if (c == '\'' || c == '\\' || c == '\n' || c == '\r') { // to have a valid JavaScript string.
+        builder.append('\\');
+      }
+      builder.append(c);
+      builder.append("\', ");
+      if (c % 16 == 15) {
+        builder.append("\n");
+      }
+    }
+    builder.append("];");
+    characters = builder.toString();
+  }
+
   public void resetCounter() {
     counter = 0;
   }
@@ -35,5 +56,13 @@ public class Partially {
 
   public void setCounter(int counter) {
     this.counter = counter;
+  }
+
+  public String getCharacters() {
+    return characters;
+  }
+
+  public void setCharacters(String characters) {
+    this.characters = characters;
   }
 }
