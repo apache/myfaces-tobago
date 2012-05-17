@@ -124,7 +124,9 @@ public abstract class AbstractUITreeData extends javax.faces.component.UIInput
   private void updateNodes(FacesContext facesContext, DefaultMutableTreeNode node, TreePath position) {
 
     setRowIndex(facesContext, position);
-    LOG.debug("path index (update) = '" + position + "'");
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("path index (update) = '" + position + "'");
+    }
     AbstractUITreeNode templateComponent = getTemplateComponent();
     templateComponent.processUpdates(facesContext);
     setRowIndex(facesContext, null);
