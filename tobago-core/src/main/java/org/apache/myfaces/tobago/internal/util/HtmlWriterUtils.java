@@ -28,9 +28,9 @@ public final class HtmlWriterUtils {
     // init lookup table
     CHARS_TO_ESCAPE = new char[0xA0][];
 
-    final char[] EMPTY = "".toCharArray();
+    final char[] empty = "".toCharArray();
     for (int i = 0; i < 0x20; i++) {
-      CHARS_TO_ESCAPE[i] = EMPTY; // Control characters
+      CHARS_TO_ESCAPE[i] = empty; // Control characters
     }
 
     CHARS_TO_ESCAPE['\t'] = "&#09;".toCharArray(); // Horizontal tabulator
@@ -42,10 +42,10 @@ public final class HtmlWriterUtils {
     CHARS_TO_ESCAPE['<'] = "&lt;".toCharArray();
     CHARS_TO_ESCAPE['>'] = "&gt;".toCharArray();
 
-    CHARS_TO_ESCAPE[0x7F] = EMPTY; // Delete
+    CHARS_TO_ESCAPE[0x7F] = empty; // Delete
 
     for (int i = 0x80; i < 0xA0; i++) {
-      CHARS_TO_ESCAPE[i] = EMPTY; // Control characters
+      CHARS_TO_ESCAPE[i] = empty; // Control characters
     }
 
     // all "normal" character positions contains null
