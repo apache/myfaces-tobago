@@ -20,7 +20,7 @@ package org.apache.myfaces.tobago.internal.util;
 import java.io.IOException;
 import java.io.Writer;
 
-public final class HtmlWriterUtils extends WriterUtils {
+public final class JavascriptWriterUtils extends WriterUtils {
 
   private static final char[][] CHARS_TO_ESCAPE;
 
@@ -37,9 +37,7 @@ public final class HtmlWriterUtils extends WriterUtils {
     CHARS_TO_ESCAPE['\r'] = "&#13;".toCharArray(); // Carriage return
 
     CHARS_TO_ESCAPE['"'] = "&quot;".toCharArray();
-    CHARS_TO_ESCAPE['&'] = "&amp;".toCharArray();
-    CHARS_TO_ESCAPE['<'] = "&lt;".toCharArray();
-    CHARS_TO_ESCAPE['>'] = "&gt;".toCharArray();
+    CHARS_TO_ESCAPE['\\'] = "\\\\".toCharArray();
 
     CHARS_TO_ESCAPE[0x7F] = EMPTY; // Delete
 
@@ -50,7 +48,7 @@ public final class HtmlWriterUtils extends WriterUtils {
     // all "normal" character positions contains null
   }
 
-  public HtmlWriterUtils(final Writer out, final String characterEncoding) {
+  public JavascriptWriterUtils(final Writer out, final String characterEncoding) {
     super(out, characterEncoding);
   }
 

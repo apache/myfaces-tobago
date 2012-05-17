@@ -18,8 +18,8 @@ package org.apache.myfaces.tobago.internal.webapp;
  */
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.myfaces.tobago.internal.ajax.AjaxInternalUtils;
 import org.apache.myfaces.tobago.internal.util.FastStringWriter;
+import org.apache.myfaces.tobago.internal.util.JavascriptWriterUtils;
 import org.apache.myfaces.tobago.util.FacesVersion;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,26 +34,35 @@ public class JsonResponseWriter extends HtmlResponseWriter {
   private static final Logger LOG = LoggerFactory.getLogger(JsonResponseWriter.class);
 
   private Writer javascriptWriter;
-  private boolean javascriptMode;
+  private boolean javascriptBlock;
+  private JavascriptWriterUtils encodeInJavascriptBlock;
+  private JavascriptWriterUtils encodeOutsideJavascriptBlock;
 
   public JsonResponseWriter(Writer writer, String contentType, String characterEncoding) {
     super(writer, contentType, characterEncoding);
     this.javascriptWriter = new FastStringWriter();
+    this.encodeOutsideJavascriptBlock = new JavascriptWriterUtils(writer, characterEncoding);
+    this.encodeInJavascriptBlock = new JavascriptWriterUtils(javascriptWriter, characterEncoding);
   }
 
   @Override
   public void endJavascript() throws IOException {
-    javascriptMode = false;
+    javascriptBlock = false;
   }
 
   @Override
   public void startJavascript() throws IOException {
-    javascriptMode = true;
+    javascriptBlock = true;
   }
 
   @Override
   public void write(String string) throws IOException {
-    writeInternal(javascriptMode ? javascriptWriter : getWriter(), AjaxInternalUtils.encodeJavaScriptString(string));
+    closeOpenTag();
+    if (javascriptBlock) {
+      encodeInJavascriptBlock.writeText(string);
+    } else {
+      encodeOutsideJavascriptBlock.writeText(string);
+    }
   }
 
   @Override
@@ -74,7 +83,8 @@ public class JsonResponseWriter extends HtmlResponseWriter {
 
   @Override
   public void writeJavascript(String script) throws IOException {
-    writeInternal(javascriptWriter, AjaxInternalUtils.encodeJavaScriptString(script));
+    closeOpenTag();
+    encodeInJavascriptBlock.writeText(script);
   }
 
   public String getJavascript() {
@@ -133,10 +143,7 @@ public class JsonResponseWriter extends HtmlResponseWriter {
       writer.write(' ');
       writer.write(name);
       writer.write("=\\\"");
-      // todo: optimize for performance: replace
-      if (value.contains("\\")) {
-        value = value.replace("\\", "\\\\");
-      }
+
       if (escape) {
         getHelper().writeAttributeValue(value);
       } else {
@@ -149,11 +156,7 @@ public class JsonResponseWriter extends HtmlResponseWriter {
   public void writeText(final Object text, final String property)
       throws IOException {
     closeOpenTag();
-    // todo: optimize for performance: replace
     String value = findValue(text, property);
-    if (value.contains("\\")) {
-      value = value.replace("\\", "\\\\");
-    }
     getHelper().writeText(value);
   }
 
