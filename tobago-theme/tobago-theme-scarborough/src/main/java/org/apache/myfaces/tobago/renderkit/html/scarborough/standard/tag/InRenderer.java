@@ -191,9 +191,9 @@ public class InRenderer extends InputRendererBase {
         writer.write(", ");
       }
       writer.write("{label: \"");
-      writer.write(AjaxInternalUtils.encodeJavaScriptString(suggestItem.getLabel()));
+      writer.write(suggestItem.getLabel());
       writer.write("\", value: \"");
-      writer.write(AjaxInternalUtils.encodeJavaScriptString(suggestItem.getValue()));
+      writer.write(suggestItem.getValue());
       writer.write("\"");
       if (suggestItem.getExtensionItems() != null) {
         writer.write(", values: [");
@@ -205,14 +205,14 @@ public class InRenderer extends InputRendererBase {
           writer.write("{id: \"");
           writer.write(item.getId());
           writer.write("\", value: \"");
-          writer.write(AjaxInternalUtils.encodeJavaScriptString(item.getValue()));
+          writer.write(item.getValue());
           writer.write("\"}");
         }
         writer.write("]");
       }
       if (suggestItem.getNextFocusId() != null) {
         writer.write(", nextFocusId: \"");
-        writer.write(AjaxInternalUtils.encodeJavaScriptString(suggestItem.getNextFocusId()));
+        writer.write(suggestItem.getNextFocusId());
         writer.write("\"");
       }
 
