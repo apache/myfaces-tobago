@@ -86,7 +86,7 @@
               <executable>java</executable>
               <arguments>
                 <argument>-jar</argument>
-                <argument>../tobago-theme-standard/lib/compiler-20100917.jar</argument>
+                <argument>../tobago-theme-standard/lib/compiler-20120430.jar</argument>
                 <argument>--js</argument>
                 <argument>${project.build.directory}/javascript-min/scarborough/script/tobago.min.js</argument>
                 <argument>--js_output_file</argument>

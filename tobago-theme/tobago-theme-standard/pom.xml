@@ -41,7 +41,7 @@
             <configuration>
               <serverId>code-google</serverId>
               <url>http://closure-compiler.googlecode.com/files/</url>
-              <fromFile>compiler-20100917.zip</fromFile>
+              <fromFile>compiler-20120430.zip</fromFile>
               <toDir>${project.build.directory}/closure-compiler</toDir>
             </configuration>
           </execution>
@@ -97,7 +97,7 @@
               <executable>java</executable>
               <arguments>
                 <argument>-jar</argument>
-                <argument>lib/compiler-20100917.jar</argument>
+                <argument>lib/compiler-20120430.jar</argument>
                 <argument>--js</argument>
                 <argument>${project.build.directory}/javascript-min/standard/script/tobago.min.js</argument>
                 <argument>--js_output_file</argument>
@@ -117,7 +117,7 @@
               <executable>java</executable>
               <arguments>
                 <argument>-jar</argument>
-                <argument>lib/compiler-20100917.jar</argument>
+                <argument>lib/compiler-20120430.jar</argument>
                 <argument>--js</argument>
                 <argument>${project.build.directory}/javascript-min/msie_6_0/script/tobago.min.js</argument>
                 <argument>--js_output_file</argument>
