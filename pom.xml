@@ -239,7 +239,7 @@
         <inherited>false</inherited>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-changes-plugin</artifactId>
-        <version>2.0-beta-2</version>
+        <version>2.7.1</version>
         <reportSets>
           <reportSet>
             <configuration>
@@ -484,7 +484,7 @@
       <dependency>
         <groupId>commons-fileupload</groupId>
         <artifactId>commons-fileupload</artifactId>
-        <version>1.2</version>
+        <version>1.2.2</version>
       </dependency>
       <dependency>
         <groupId>commons-codec</groupId>
@@ -627,7 +627,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-enforcer-plugin</artifactId>
-        <version>1.0.1</version>
+        <version>1.1</version>
         <executions>
           <execution>
             <id>enforce</id>
@@ -978,7 +978,7 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-release-plugin</artifactId>
-          <version>2.2.1</version>
+          <version>2.3</version>
           <configuration>
             <tagBase>https://svn.apache.org/repos/asf/myfaces/tobago/tags</tagBase>
             <preparationGoals>clean install</preparationGoals>
@@ -1765,6 +1765,49 @@
       </dependencyManagement>
     </profile>
 
+    <profile>
+      <id>mojarra-2.2</id>
+      <activation>
+        <property>
+          <name>jsf</name>
+          <value>mojarra-2.2</value>
+        </property>
+      </activation>
+      <properties>
+        <jsf.target>2.0</jsf.target>
+        <jsf.targetDirectory>1.2</jsf.targetDirectory>
+      </properties>
+      <dependencyManagement>
+        <dependencies>
+          <dependency>
+            <groupId>com.sun.faces</groupId>
+            <artifactId>jsf-api</artifactId>
+            <version>${mojarra22.version}</version>
+            <optional>true</optional>
+          </dependency>
+          <dependency>
+            <groupId>com.sun.faces</groupId>
+            <artifactId>jsf-impl</artifactId>
+            <version>${mojarra22.version}</version>
+            <optional>true</optional>
+          </dependency>
+          <dependency>
+            <groupId>javax.servlet.jsp</groupId>
+            <artifactId>jsp-api</artifactId>
+            <version>2.1</version>
+            <scope>provided</scope>
+            <optional>true</optional>
+          </dependency>
+          <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>2.5</version>
+            <optional>true</optional>
+          </dependency>
+        </dependencies>
+      </dependencyManagement>
+    </profile>
+
   </profiles>
 
   <repositories>
@@ -1794,15 +1837,16 @@
   </contributors>
 
   <properties>
-    <myfaces11.version>1.1.9</myfaces11.version>
-    <myfaces12.version>1.2.11</myfaces12.version>
-    <myfaces-test12.version>1.0.1</myfaces-test12.version>
-    <myfaces20.version>2.0.12</myfaces20.version>
-    <myfaces21.version>2.1.5</myfaces21.version>
+    <myfaces11.version>1.1.10</myfaces11.version>
+    <myfaces12.version>1.2.12</myfaces12.version>
+    <myfaces-test12.version>1.0.4</myfaces-test12.version>
+    <myfaces20.version>2.0.13</myfaces20.version>
+    <myfaces21.version>2.1.7</myfaces21.version>
     <mojarra11.version>1.1_02</mojarra11.version>
-    <mojarra12.version>1.2_14</mojarra12.version>
-    <mojarra20.version>2.0.6</mojarra20.version>
-    <mojarra21.version>2.1.3_01</mojarra21.version>
+    <mojarra12.version>1.2_15</mojarra12.version>
+    <mojarra20.version>2.0.9</mojarra20.version>
+    <mojarra21.version>2.1.7</mojarra21.version>
+    <mojarra22.version>2.2.0-SNAPSHOT</mojarra22.version>
     <facelets.version>1.1.14</facelets.version>
     <jetty7.version>7.4.5.v20110725</jetty7.version>
     <!--

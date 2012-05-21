@@ -17,8 +17,10 @@ package org.apache.myfaces.tobago.internal.webapp;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.internal.ajax.AjaxInternalUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.myfaces.tobago.internal.util.FastStringWriter;
+import org.apache.myfaces.tobago.internal.util.JavascriptWriterUtils;
+import org.apache.myfaces.tobago.util.FacesVersion;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -32,31 +34,57 @@ public class JsonResponseWriter extends HtmlResponseWriter {
   private static final Logger LOG = LoggerFactory.getLogger(JsonResponseWriter.class);
 
   private Writer javascriptWriter;
-  private boolean javascriptMode;
+  private boolean javascriptBlock;
+  private JavascriptWriterUtils encodeInJavascriptBlock;
+  private JavascriptWriterUtils encodeOutsideJavascriptBlock;
 
   public JsonResponseWriter(Writer writer, String contentType, String characterEncoding) {
     super(writer, contentType, characterEncoding);
     this.javascriptWriter = new FastStringWriter();
+    this.encodeOutsideJavascriptBlock = new JavascriptWriterUtils(writer, characterEncoding);
+    this.encodeInJavascriptBlock = new JavascriptWriterUtils(javascriptWriter, characterEncoding);
   }
 
   @Override
   public void endJavascript() throws IOException {
-    javascriptMode = false;
+    javascriptBlock = false;
   }
 
   @Override
   public void startJavascript() throws IOException {
-    javascriptMode = true;
+    javascriptBlock = true;
   }
 
   @Override
   public void write(String string) throws IOException {
-    writeInternal(javascriptMode ? javascriptWriter : getWriter(), AjaxInternalUtils.encodeJavaScriptString(string));
+    closeOpenTag();
+    if (javascriptBlock) {
+      encodeInJavascriptBlock.writeText(string);
+    } else {
+      encodeOutsideJavascriptBlock.writeText(string);
+    }
+  }
+
+  @Override
+  public void write(char[] chars) throws IOException {
+    // XXX remove me later:
+    // this is a temporary workaround, should be removed after fixing the bug in Mojarra.
+    // http://java.net/jira/browse/JAVASERVERFACES-2411
+    // https://issues.apache.org/jira/browse/TOBAGO-1124
+    if (FacesVersion.isMojarra() && FacesVersion.supports20()) {
+      StackTraceElement[] stackTraceElements = Thread.currentThread().getStackTrace();
+      if (stackTraceElements[2].getClassName().equals("com.sun.faces.renderkit.ServerSideStateHelper")) {
+        super.write(StringUtils.replace(new String(chars), "\"", "\\\""));
+        return;
+      }
+    }
+    super.write(chars);
   }
 
   @Override
   public void writeJavascript(String script) throws IOException {
-    writeInternal(javascriptWriter, AjaxInternalUtils.encodeJavaScriptString(script));
+    closeOpenTag();
+    encodeInJavascriptBlock.writeText(script);
   }
 
   public String getJavascript() {
@@ -115,6 +143,7 @@ public class JsonResponseWriter extends HtmlResponseWriter {
       writer.write(' ');
       writer.write(name);
       writer.write("=\\\"");
+
       if (escape) {
         getHelper().writeAttributeValue(value);
       } else {
@@ -123,6 +152,21 @@ public class JsonResponseWriter extends HtmlResponseWriter {
       writer.write("\\\"");
     }
   }
+
+  public void writeText(final Object text, final String property)
+      throws IOException {
+    closeOpenTag();
+    String value = findValue(text, property);
+    getHelper().writeText(value);
+  }
+
+/* TODO: may also encode the backslash \, but will not be used currently
+  public void writeText(final char[] text, final int offset, final int length)
+      throws IOException {
+    closeOpenTag();
+    getHelper().writeText(text, offset, length);
+  }
+*/
 
   public ResponseWriter cloneWithWriter(final Writer originalWriter) {
      return new JsonResponseWriter(

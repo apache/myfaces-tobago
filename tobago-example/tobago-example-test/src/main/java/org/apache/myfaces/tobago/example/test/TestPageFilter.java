@@ -58,6 +58,7 @@ public class TestPageFilter {
       "/meta-test/meta-4.*", // meta test
       "/meta-test/meta-5.*", // meta test
 
+      "/partially/encoding.jspx", // not possible in JSP
       "/tc/attribute/mode-valueIfSet.jspx", // set id="${id}" not possible with JSP.
       "/tc/button/plain.html", // intern
       "/tc/button/plain_de.html", // intern

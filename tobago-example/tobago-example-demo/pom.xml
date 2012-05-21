@@ -28,8 +28,8 @@
   <description>Demonstration and documentation application.</description>
 
   <properties>
-    <openwebbeans.version>1.1.2</openwebbeans.version>
-    <myfaces-extcdi.version>1.0.1</myfaces-extcdi.version>
+    <openwebbeans.version>1.1.4</openwebbeans.version>
+    <myfaces-extcdi.version>1.0.5</myfaces-extcdi.version>
   </properties>
   <build>
     <finalName>tobago-example-demo</finalName>
@@ -310,7 +310,41 @@
       </snapshots>
     </repository>
   </repositories>
+
   <profiles>
+
+    <profile>
+      <id>myfaces-1.2</id>
+      <activation>
+        <property>
+          <name>!jsf</name>
+        </property>
+      </activation>
+      <dependencies>
+
+        <dependency>
+          <groupId>org.apache.openwebbeans</groupId>
+          <artifactId>openwebbeans-jsf12</artifactId>
+          <version>${openwebbeans.version}</version>
+        </dependency>
+
+        <dependency>
+          <groupId>org.apache.myfaces.extensions.cdi.modules</groupId>
+          <artifactId>myfaces-extcdi-jsf12-module-api</artifactId>
+          <version>${myfaces-extcdi.version}</version>
+          <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+          <groupId>org.apache.myfaces.extensions.cdi.modules</groupId>
+          <artifactId>myfaces-extcdi-jsf12-module-impl</artifactId>
+          <version>${myfaces-extcdi.version}</version>
+          <scope>runtime</scope>
+        </dependency>
+
+      </dependencies>
+    </profile>
+
     <profile>
       <id>myfaces-2.0</id>
       <activation>
@@ -357,10 +391,56 @@
     </profile>
 
     <profile>
-      <id>myfaces-1.2</id>
+      <id>myfaces-2.1</id>
       <activation>
         <property>
-          <name>!jsf</name>
+          <name>jsf</name>
+          <value>myfaces-2.1</value>
+        </property>
+      </activation>
+      <dependencies>
+        <dependency>
+          <groupId>org.apache.openwebbeans</groupId>
+          <artifactId>openwebbeans-jsf</artifactId>
+          <version>${openwebbeans.version}</version>
+        </dependency>
+
+        <dependency>
+          <groupId>org.apache.myfaces.extensions.cdi.modules</groupId>
+          <artifactId>myfaces-extcdi-jsf20-module-api</artifactId>
+          <version>${myfaces-extcdi.version}</version>
+          <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+          <groupId>org.apache.myfaces.extensions.cdi.modules</groupId>
+          <artifactId>myfaces-extcdi-jsf20-module-impl</artifactId>
+          <version>${myfaces-extcdi.version}</version>
+          <scope>runtime</scope>
+        </dependency>
+<!-- for JSF 2.0 and Bean Validation (JSR-303)  -->
+        <dependency>
+          <groupId>javax.el</groupId>
+          <artifactId>el-api</artifactId>
+          <version>2.2</version>
+          <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+          <groupId>org.glassfish.web</groupId>
+          <artifactId>el-impl</artifactId>
+          <version>2.2</version>
+        </dependency>
+
+      </dependencies>
+    </profile>
+
+    <profile>
+      <id>mojarra-1.2</id>
+      <activation>
+        <property>
+          <name>jsf</name>
+          <value>mojarra-1.2</value>
         </property>
       </activation>
       <dependencies>
@@ -387,6 +467,149 @@
 
       </dependencies>
     </profile>
+
+    <profile>
+      <id>mojarra-2.0</id>
+      <activation>
+        <property>
+          <name>jsf</name>
+          <value>mojarra-2.0</value>
+        </property>
+      </activation>
+      <dependencies>
+        <dependency>
+          <groupId>org.apache.openwebbeans</groupId>
+          <artifactId>openwebbeans-jsf</artifactId>
+          <version>${openwebbeans.version}</version>
+        </dependency>
+
+        <dependency>
+          <groupId>org.apache.myfaces.extensions.cdi.modules</groupId>
+          <artifactId>myfaces-extcdi-jsf20-module-api</artifactId>
+          <version>${myfaces-extcdi.version}</version>
+          <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+          <groupId>org.apache.myfaces.extensions.cdi.modules</groupId>
+          <artifactId>myfaces-extcdi-jsf20-module-impl</artifactId>
+          <version>${myfaces-extcdi.version}</version>
+          <scope>runtime</scope>
+        </dependency>
+<!-- for JSF 2.0 and Bean Validation (JSR-303)  -->
+        <dependency>
+          <groupId>javax.el</groupId>
+          <artifactId>el-api</artifactId>
+          <version>2.2</version>
+          <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+          <groupId>org.glassfish.web</groupId>
+          <artifactId>el-impl</artifactId>
+          <version>2.2</version>
+        </dependency>
+
+      </dependencies>
+    </profile>
+
+    <profile>
+      <id>mojarra-2.1</id>
+      <activation>
+        <property>
+          <name>jsf</name>
+          <value>mojarra-2.1</value>
+        </property>
+      </activation>
+      <dependencies>
+        <dependency>
+          <groupId>org.apache.openwebbeans</groupId>
+          <artifactId>openwebbeans-jsf</artifactId>
+          <version>${openwebbeans.version}</version>
+        </dependency>
+
+        <dependency>
+          <groupId>org.apache.myfaces.extensions.cdi.modules</groupId>
+          <artifactId>myfaces-extcdi-jsf20-module-api</artifactId>
+          <version>${myfaces-extcdi.version}</version>
+          <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+          <groupId>org.apache.myfaces.extensions.cdi.modules</groupId>
+          <artifactId>myfaces-extcdi-jsf20-module-impl</artifactId>
+          <version>${myfaces-extcdi.version}</version>
+          <scope>runtime</scope>
+        </dependency>
+<!-- for JSF 2.0 and Bean Validation (JSR-303)  -->
+        <dependency>
+          <groupId>javax.el</groupId>
+          <artifactId>el-api</artifactId>
+          <version>2.2</version>
+          <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+          <groupId>org.glassfish.web</groupId>
+          <artifactId>el-impl</artifactId>
+          <version>2.2</version>
+        </dependency>
+
+      </dependencies>
+    </profile>
+
+    <profile>
+      <id>mojarra-2.2</id>
+      <activation>
+        <property>
+          <name>jsf</name>
+          <value>mojarra-2.2</value>
+        </property>
+      </activation>
+      <repositories>
+        <repository>
+          <id>jvnet-nexus-snapshots</id>
+          <name>jvnet-nexus-snapshots</name>
+          <url>https://maven.java.net/content/repositories/snapshots/</url>
+        </repository>
+      </repositories>
+      <dependencies>
+        <dependency>
+          <groupId>org.apache.openwebbeans</groupId>
+          <artifactId>openwebbeans-jsf</artifactId>
+          <version>${openwebbeans.version}</version>
+        </dependency>
+
+        <dependency>
+          <groupId>org.apache.myfaces.extensions.cdi.modules</groupId>
+          <artifactId>myfaces-extcdi-jsf20-module-api</artifactId>
+          <version>${myfaces-extcdi.version}</version>
+          <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+          <groupId>org.apache.myfaces.extensions.cdi.modules</groupId>
+          <artifactId>myfaces-extcdi-jsf20-module-impl</artifactId>
+          <version>${myfaces-extcdi.version}</version>
+          <scope>runtime</scope>
+        </dependency>
+<!-- for JSF 2.0 and Bean Validation (JSR-303)  -->
+        <dependency>
+          <groupId>javax.el</groupId>
+          <artifactId>el-api</artifactId>
+          <version>2.2</version>
+          <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+          <groupId>org.glassfish.web</groupId>
+          <artifactId>el-impl</artifactId>
+          <version>2.2</version>
+        </dependency>
+
+      </dependencies>
+    </profile>
+
     <profile>
       <!--
        mvn package cargo:start -Ptomcat6x

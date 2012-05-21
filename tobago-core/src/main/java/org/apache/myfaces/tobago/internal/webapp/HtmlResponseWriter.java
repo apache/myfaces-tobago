@@ -19,6 +19,8 @@ package org.apache.myfaces.tobago.internal.webapp;
 
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.internal.util.HtmlWriterUtils;
+import org.apache.myfaces.tobago.internal.util.JsonWriterUtils;
+import org.apache.myfaces.tobago.internal.util.WriterUtils;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.util.FacesVersion;
@@ -35,15 +37,19 @@ public class HtmlResponseWriter extends TobagoResponseWriterBase {
   private static final String HTML_DOCTYPE =
       "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\" \"http://www.w3.org/TR/html4/strict.dtd\">";
 
-  private final HtmlWriterUtils helper;
+  private final WriterUtils helper;
 
   public HtmlResponseWriter(
       Writer writer, String contentType, String characterEncoding) {
     super(writer, contentType, characterEncoding);
-    this.helper = new HtmlWriterUtils(writer, characterEncoding);
+    if ("application/json".equals(contentType)) {
+      this.helper = new JsonWriterUtils(writer, characterEncoding);
+    } else {
+      this.helper = new HtmlWriterUtils(writer, characterEncoding);
+    }
   }
 
-  public final HtmlWriterUtils getHelper() {
+  public final WriterUtils getHelper() {
     return helper;
   }
 

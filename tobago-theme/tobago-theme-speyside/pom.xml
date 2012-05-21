@@ -190,7 +190,7 @@
               <executable>java</executable>
               <arguments>
                 <argument>-jar</argument>
-                <argument>../tobago-theme-standard/lib/compiler-20100917.jar</argument>
+                <argument>../tobago-theme-standard/lib/compiler-20120430.jar</argument>
                 <argument>&#x2d;&#x2d;js</argument>
                 <argument>${project.build.directory}/javascript-min/speyside/script/tobago.min.js</argument>
                 <argument>&#x2d;&#x2d;js_output_file</argument>

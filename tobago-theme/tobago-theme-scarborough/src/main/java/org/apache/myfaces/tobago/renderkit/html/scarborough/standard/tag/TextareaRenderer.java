@@ -101,7 +101,7 @@ public class TextareaRenderer extends InputRendererBase {
       } else if (currentValue.startsWith("\r")) {
         currentValue = "\r" + currentValue;
       }
-      writer.writeText(currentValue, null);
+      writer.writeText(currentValue);
     }
     writer.endElement(HtmlElements.TEXTAREA);
     /*if (placeholder != null && !VariableResolverUtils.resolveClientProperties(facesContext)

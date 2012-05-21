@@ -19,7 +19,6 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.myfaces.tobago.component.UILabel;
 import org.apache.myfaces.tobago.context.Markup;
-import org.apache.myfaces.tobago.internal.component.AbstractUIDate;
 import org.apache.myfaces.tobago.internal.util.AccessKeyMap;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
@@ -34,6 +33,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
+import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
@@ -45,7 +45,7 @@ public class LabelRenderer extends LayoutComponentRendererBase {
   public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
     super.prepareRender(facesContext, component);
 
-    ComponentUtils.evaluateAutoFor(component, AbstractUIDate.class);
+    ComponentUtils.evaluateAutoFor(component, UIInput.class);
 
     // adding the markups from the corresponding input component
     final UILabel label = (UILabel) component;

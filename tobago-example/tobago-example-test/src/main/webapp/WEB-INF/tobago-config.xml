@@ -29,6 +29,8 @@
     <supported-theme>charlotteville</supported-theme>
   </theme-config>
 
+  <resource-dir>tobago-resource</resource-dir>
+
   <renderers>
     <renderer>
       <name>TreeCommand</name>
