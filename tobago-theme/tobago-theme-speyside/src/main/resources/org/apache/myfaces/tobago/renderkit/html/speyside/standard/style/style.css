@@ -783,18 +783,6 @@ div.tobago-tabGroup-toolBar {
   float: right;
 }
 
-.tobago-treeNode img {
-  vertical-align: top;
-	border: 0px;
-}
-
-/*
-.tobago-treeNode a {
-  font-size: 12px;
-  font-family: arial, helvetica, sans-serif;
-}
-
-*/
 .tobago-treeNode-disabled a {
   color: #888888;
   text-decoration: none;

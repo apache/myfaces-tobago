@@ -18,7 +18,6 @@ package org.apache.myfaces.tobago.internal.component;
  */
 
 import org.apache.myfaces.tobago.compat.FacesUtils;
-import org.apache.myfaces.tobago.compat.InvokeOnComponent;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.ColumnEvent;
 import org.apache.myfaces.tobago.component.ComponentTypes;
@@ -37,14 +36,14 @@ import org.apache.myfaces.tobago.layout.LayoutComponent;
 import org.apache.myfaces.tobago.layout.LayoutContainer;
 import org.apache.myfaces.tobago.layout.LayoutManager;
 import org.apache.myfaces.tobago.layout.LayoutTokens;
+import org.apache.myfaces.tobago.model.ExpandedState;
 import org.apache.myfaces.tobago.model.SheetState;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRenderer;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.util.CreateComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.faces.FacesException;
-import javax.faces.component.ContextCallback;
 import javax.faces.component.UIColumn;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -58,9 +57,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-public abstract class AbstractUISheet extends javax.faces.component.UIData
-    implements SheetStateChangeSource, SortActionSource, InvokeOnComponent, OnComponentPopulated,
-    LayoutContainer, LayoutComponent, SupportsRenderedPartially{
+public abstract class AbstractUISheet extends AbstractUIData
+    implements SheetStateChangeSource, SortActionSource, OnComponentPopulated,
+    LayoutContainer, LayoutComponent, SupportsRenderedPartially {
 
   private static final Logger LOG = LoggerFactory.getLogger(AbstractUISheet.class);
 
@@ -263,13 +262,6 @@ public abstract class AbstractUISheet extends javax.faces.component.UIData
   }
 
   /**
-   * @return Is the (maximum) number of rows to display set to zero?
-   */
-  public boolean isRowsUnlimited() {
-    return getRows() == 0;
-  }
-
-  /**
    * @return Should the paging controls be rendered? Either because of the need of paging or because
    * the show is enforced by {@link #isShowPagingAlways()}
    */
@@ -380,8 +372,8 @@ public abstract class AbstractUISheet extends javax.faces.component.UIData
 
   public List<UIColumn> getAllColumns() {
     List<UIColumn> columns = new ArrayList<UIColumn>();
-    for (UIComponent kid : (List<UIComponent>) getChildren()) {
-      if (kid instanceof UIColumn && !(kid instanceof ColumnEvent)) {
+    for (UIComponent kid : (List<UIComponent>) ComponentUtils.findDescendantList(this, UIColumn.class)) {
+      if (!(kid instanceof ColumnEvent)) {
         columns.add((UIColumn) kid);
       }
     }
@@ -390,8 +382,8 @@ public abstract class AbstractUISheet extends javax.faces.component.UIData
 
   public List<UIColumn> getRenderedColumns() {
     List<UIColumn> columns = new ArrayList<UIColumn>();
-    for (UIComponent kid : (List<UIComponent>) getChildren()) {
-      if (kid instanceof UIColumn && kid.isRendered() && !(kid instanceof ColumnEvent)) {
+    for (UIComponent kid : (List<UIComponent>) ComponentUtils.findDescendantList(this, UIColumn.class)) {
+      if (kid.isRendered() && !(kid instanceof ColumnEvent)) {
         columns.add((UIColumn) kid);
       }
     }
@@ -507,45 +499,6 @@ public abstract class AbstractUISheet extends javax.faces.component.UIData
     return searchId;
   }
 
-  // todo: after removing jsf 1.1: @Override
-  public boolean invokeOnComponent(FacesContext facesContext, String clientId, ContextCallback callback)
-      throws FacesException {
-    // we may need setRowIndex on UISheet
-    int oldRowIndex = getRowIndex();
-    try {
-      String sheetId = getClientId(facesContext);
-      if (clientId.startsWith(sheetId)) {
-        String idRemainder = clientId.substring(sheetId.length());
-        if (LOG.isDebugEnabled()) {
-          LOG.debug("idRemainder = '" + idRemainder + "'");
-        }
-        if (idRemainder.matches("^:\\d+:.*")) {
-          idRemainder = idRemainder.substring(1);
-          int idx = idRemainder.indexOf(":");
-          try {
-            int rowIndex = Integer.parseInt(idRemainder.substring(0, idx));
-            if (LOG.isDebugEnabled()) {
-              LOG.debug("set rowIndex = '" + rowIndex + "'");
-            }
-            setRowIndex(rowIndex);
-          } catch (NumberFormatException e) {
-            LOG.warn("idRemainder = '" + idRemainder + "'", e);
-          }
-        } else {
-          if (LOG.isDebugEnabled()) {
-            LOG.debug("no match for '^:\\d+:.*'");
-          }
-        }
-      }
-
-      return FacesUtils.invokeOnComponent(facesContext, this, clientId, callback);
-
-    } finally {
-      // we should reset rowIndex on UISheet
-      setRowIndex(oldRowIndex);
-    }
-  }
-
   public void performPaging(PageActionEvent pageEvent) {
 
     int first;
@@ -657,7 +610,7 @@ public abstract class AbstractUISheet extends javax.faces.component.UIData
           facesContext, ComponentTypes.SHEET_LAYOUT, RendererTypes.SHEET_LAYOUT, parent));
     }
   }
-  
+
   public LayoutManager getLayoutManager() {
     return (LayoutManager) getFacet(Facets.LAYOUT);
   }
@@ -670,6 +623,10 @@ public abstract class AbstractUISheet extends javax.faces.component.UIData
     return true;
   }
 
+  public boolean isRendersRowContainer() {
+    return true;
+  }
+
   public abstract boolean isShowHeader();
 
   public Boolean getNeedVerticalScrollbar() {
@@ -679,4 +636,10 @@ public abstract class AbstractUISheet extends javax.faces.component.UIData
   public void setNeedVerticalScrollbar(Boolean needVerticalScrollbar) {
     this.needVerticalScrollbar = needVerticalScrollbar;
   }
+
+  @Override
+  public ExpandedState getExpandedState() {
+    return getState().getExpandedState();
+  }
+
 }

@@ -17,39 +17,78 @@ package org.apache.myfaces.tobago.internal.component;
  * limitations under the License.
  */
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.tobago.compat.FacesUtils;
 import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.component.TreeModelBuilder;
+import org.apache.myfaces.tobago.internal.util.Deprecation;
 import org.apache.myfaces.tobago.layout.LayoutComponent;
+import org.apache.myfaces.tobago.model.ExpandedState;
+import org.apache.myfaces.tobago.model.MarkedState;
 import org.apache.myfaces.tobago.model.MixedTreeModel;
 import org.apache.myfaces.tobago.model.TreeSelectable;
+import org.apache.myfaces.tobago.model.TreeState;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 
-import javax.faces.application.FacesMessage;
 import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import javax.faces.validator.Validator;
-import javax.faces.validator.ValidatorException;
-import java.io.IOException;
-import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 
-public abstract class AbstractUITree extends javax.faces.component.UIInput implements NamingContainer, LayoutComponent {
+public abstract class AbstractUITree extends AbstractUIData
+// extends javax.faces.component.UIInput
+    implements NamingContainer, LayoutComponent {
+
+  private static final Log LOG = LogFactory.getLog(AbstractUITree.class);
 
   public static final String MESSAGE_NOT_LEAF = "tobago.tree.MESSAGE_NOT_LEAF";
 
+  /** @deprecated since XXX 1.6.0 ??? */
+  @Deprecated
   public static final String SEP = "-";
 
+  /** @deprecated since XXX 1.6.0 ??? */
+  @Deprecated
   public static final String SELECT_STATE = SEP + "selectState";
+
+  /** @deprecated since XXX 1.6.0 ???  */
+  @Deprecated
   public static final String MARKED = "marked";
 
-  private MixedTreeModel model;
+  private TreeState state;
 
-  // XXX may be removed
-  private Set<String> expandedCache;
+  @Override
+  public void processValidators(FacesContext facesContext) {
+    final int last = hasRows() ? getFirst() + getRows() : Integer.MAX_VALUE;
+    for (int rowIndex = getFirst(); rowIndex < last; rowIndex++) {
+      setRowIndex(rowIndex);
+      if (!isRowAvailable()) {
+        break;
+      }
+      for (UIComponent child : getChildren()) {
+        child.processValidators(facesContext);
+      }
+    }
+  }
 
+  @Override
+  public void processUpdates(FacesContext facesContext) {
+    final int last = hasRows() ? getFirst() + getRows() : Integer.MAX_VALUE;
+    for (int rowIndex = getFirst(); rowIndex < last; rowIndex++) {
+      setRowIndex(rowIndex);
+      if (!isRowAvailable()) {
+        break;
+      }
+      for (UIComponent child : getChildren()) {
+        child.processUpdates(facesContext);
+      }
+    }
+  }
+
+  /**
+   * @deprecated since XXX 1.6.0 ???
+   */
+  @Deprecated
   public UIComponent getRoot() {
     // find the UITreeNode in the children.
     for (UIComponent child : (List<UIComponent>) getChildren()) {
@@ -63,31 +102,13 @@ public abstract class AbstractUITree extends javax.faces.component.UIInput imple
     return null;
   }
 
-  @Override
-  public void encodeEnd(FacesContext facesContext) throws IOException {
-    model = new MixedTreeModel();
-    expandedCache = new HashSet<String>();
-    for (Object child : getChildren()) {
-      if (child instanceof TreeModelBuilder) {
-        TreeModelBuilder builder = (TreeModelBuilder) child;
-        builder.buildTreeModelBegin(facesContext, model);
-        builder.buildTreeModelChildren(facesContext, model);
-        builder.buildTreeModelEnd(facesContext, model);
-      }
-    }
-
-    super.encodeEnd(facesContext);
-
-    model = null;
-    expandedCache = null;
-  }
-
+  /**
+   * @deprecated Since 1.5.0.
+   */
+  @Deprecated
   public MixedTreeModel getModel() {
-    return model;
-  }
-
-  public Set<String> getExpandedCache() {
-    return expandedCache;
+    Deprecation.LOG.error("Doesn't work anymore.");
+    return null;
   }
 
   @Override
@@ -109,22 +130,25 @@ public abstract class AbstractUITree extends javax.faces.component.UIInput imple
       return;
     }
 
-    if (ComponentUtils.isOutputOnly(this)) {
-      setValid(true);
-    } else {
-      // in tree first decode node and than decode children
-
-      decode(facesContext);
-
-      for (Iterator i = getFacetsAndChildren(); i.hasNext();) {
-        UIComponent uiComponent = ((UIComponent) i.next());
-        uiComponent.processDecodes(facesContext);
+    final int last = hasRows() ? getFirst() + getRows() : Integer.MAX_VALUE;
+    for (int rowIndex = getFirst(); rowIndex < last; rowIndex++) {
+      setRowIndex(rowIndex);
+      if (!isRowAvailable()) {
+        break;
+      }
+      for (UIComponent child : getChildren()) {
+        child.processDecodes(facesContext);
       }
     }
+    setRowIndex(-1);
+
+    decode(facesContext);
   }
 
+/* XXX
   @Override
   public void validate(FacesContext context) {
+*/
 
 // todo: validate must be written new, without TreeState
 /*
@@ -151,6 +175,7 @@ public abstract class AbstractUITree extends javax.faces.component.UIInput imple
     }
 */
 //  call all validators
+/*
     if (getValidators() != null) {
       for (Validator validator : getValidators()) {
         try {
@@ -174,7 +199,50 @@ public abstract class AbstractUITree extends javax.faces.component.UIInput imple
     // nothing to update for tree's
     // TODO: updating the model here and *NOT* in the decode phase
   }
+*/
+  public void setState(TreeState state) {
+    this.state = state;
+  }
 
-  public abstract Object getState();
+  public TreeState getState() {
+    if (state != null) {
+      return state;
+    } else {
+      if (FacesUtils.hasValueBindingOrValueExpression(this, Attributes.STATE)) {
+        final FacesContext facesContext = FacesContext.getCurrentInstance();
+        TreeState state = (TreeState)
+            FacesUtils.getValueFromValueBindingOrValueExpression(facesContext, this, Attributes.STATE);
+        if (state == null) {
+          state = new TreeState(new ExpandedState(2), new MarkedState());
+          FacesUtils.setValueOfBindingOrExpression(facesContext, state, this, Attributes.STATE);
+        }
+        return state;
+      } else {
+        state = new TreeState(new ExpandedState(2), new MarkedState());
+        return state;
+      }
+    }
+  }
 
+  public MarkedState getMarkedState() {
+    return getState().getMarkedState();
+  }
+
+  @Override
+  public ExpandedState getExpandedState() {
+    return getState().getExpandedState();
+  }
+
+  public void restoreState(FacesContext context, Object componentState) {
+    Object[] values = (Object[]) componentState;
+    super.restoreState(context, values[0]);
+    state = (TreeState) values[1];
+  }
+
+  public Object saveState(FacesContext context) {
+    Object[] values = new Object[2];
+    values[0] = super.saveState(context);
+    values[1] = state;
+    return values;
+  }
 }

@@ -17,16 +17,32 @@ package org.apache.myfaces.tobago.example.test;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.example.data.CantorInterval;
 import org.apache.myfaces.tobago.example.data.CategoryTree;
+import org.apache.myfaces.tobago.example.data.Node;
 import org.apache.myfaces.tobago.example.data.SmallTree;
+import org.apache.myfaces.tobago.model.ExpandedState;
+import org.apache.myfaces.tobago.model.MarkedState;
+import org.apache.myfaces.tobago.model.TreeDataModel;
+import org.apache.myfaces.tobago.model.TreeState;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 
 public class TreeController {
-  
+
   private DefaultMutableTreeNode tree = CategoryTree.createSample();
 
   private DefaultMutableTreeNode small = SmallTree.createSample();
+  
+  private TreeState state = new TreeState(new ExpandedState(1), new MarkedState());
+
+  private TreeDataModel treeInSheet = new TreeDataModel(tree, false, state.getExpandedState());
+
+  private CantorInterval infinite = new CantorInterval();
+
+  public TreeController() {
+    state.getExpandedState().expand(tree);
+  }
 
   public DefaultMutableTreeNode getTree() {
     return tree;
@@ -34,5 +50,29 @@ public class TreeController {
 
   public DefaultMutableTreeNode getSmall() {
     return small;
+  }
+
+  public TreeDataModel getTreeInSheet() {
+    return treeInSheet;
+  }
+
+  public TreeState getState() {
+    return state;
+  }
+
+  public String openAll() {
+    openAll(tree);
+    return null;
+  }
+
+  public void openAll(DefaultMutableTreeNode node) {
+    ((Node) node.getUserObject()).setExpanded(true);
+    for (int i = 0; i < node.getChildCount(); i++) {
+      openAll((DefaultMutableTreeNode) node.getChildAt(i));
+    }
+  }
+
+  public CantorInterval getInfinite() {
+    return infinite;
   }
 }

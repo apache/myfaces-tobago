@@ -24,6 +24,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
+/**
+ * @deprecated since XXX 1.6.0 ???
+ */
+@Deprecated
 public class MixedTreeModel {
 
   private static final Logger LOG = LoggerFactory.getLogger(MixedTreeModel.class);

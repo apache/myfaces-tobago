@@ -59,16 +59,6 @@ public class TreeListboxRenderer extends LayoutComponentRendererBase {
   }
 
   @Override
-  public void decode(FacesContext facesContext, UIComponent component) {
-    if (ComponentUtils.isOutputOnly(component)) {
-      return;
-    }
-
-    AbstractUITree tree = (AbstractUITree) component;
-    tree.setValid(true);
-  }
-
-  @Override
   public void encodeChildren(FacesContext context, UIComponent component) throws IOException {
     // will be rendered in encodeEnd()
   }
@@ -97,8 +87,8 @@ public class TreeListboxRenderer extends LayoutComponentRendererBase {
 
     writer.startElement(HtmlElements.INPUT, tree);
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN, false);
-    writer.writeNameAttribute(clientId + ComponentUtils.SUB_SEPARATOR + AbstractUITree.MARKED);
-    writer.writeIdAttribute(clientId + ComponentUtils.SUB_SEPARATOR + AbstractUITree.MARKED);
+    writer.writeNameAttribute(clientId + ComponentUtils.SUB_SEPARATOR + AbstractUITree.SUFFIX_MARKED);
+    writer.writeIdAttribute(clientId + ComponentUtils.SUB_SEPARATOR + AbstractUITree.SUFFIX_MARKED);
     writer.writeAttribute(HtmlAttributes.VALUE, "", false);
     writer.endElement(HtmlElements.INPUT);
 

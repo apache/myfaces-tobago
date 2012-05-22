@@ -25,12 +25,10 @@
   <tc:page>
     <tc:gridLayoutConstraint width="600px" height="300px"/>
 
-    <tc:treeListbox id="tree">
-      <tc:treeData value="#{tree.tree}" var="node" id="data">
-        <tc:treeNode id="template" expanded="true">
-          <tc:treeLabel value="#{node.userObject.name}"/>
-        </tc:treeNode>
-      </tc:treeData>
+    <tc:treeListbox id="tree" value="#{tree.tree}" var="node">
+      <tc:treeNode id="template" expanded="true">
+        <tc:treeLabel value="#{node.userObject.name}"/>
+      </tc:treeNode>
     </tc:treeListbox>
 
   </tc:page>

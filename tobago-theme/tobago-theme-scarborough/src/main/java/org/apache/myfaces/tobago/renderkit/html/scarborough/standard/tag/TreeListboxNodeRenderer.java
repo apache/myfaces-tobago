@@ -90,7 +90,8 @@ public class TreeListboxNodeRenderer extends CommandRendererBase {
     }
 
     // marked
-    String marked = (String) requestParameterMap.get(treeId + ComponentUtils.SUB_SEPARATOR + AbstractUITree.MARKED);
+    String marked
+        = (String) requestParameterMap.get(treeId + ComponentUtils.SUB_SEPARATOR + AbstractUITree.SUFFIX_MARKED);
     if (marked != null) {
       String searchString = treeId + NamingContainer.SEPARATOR_CHAR + nodeStateId;
       boolean markedValue = marked.equals(searchString);

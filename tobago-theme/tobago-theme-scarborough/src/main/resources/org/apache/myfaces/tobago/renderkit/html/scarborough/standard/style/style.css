@@ -1428,8 +1428,12 @@ div.tobago-richTextEditor-body {
   white-space: nowrap;
 }
 
+.tobago-treeNode {
+  width: 100%;
+}
+
 .tobago-treeNode img {
-  vertical-align: middle;
+  vertical-align: bottom;
   border: 0;
 }
 
@@ -1535,6 +1539,11 @@ div.tobago-richTextEditor-body {
 
 .tobago-treeMenuNode-markup-hover {
   background-color: #d8e9fb;
+}
+
+.tobago-treeSelect input {
+  margin-top: 1px;
+  margin-bottom: 2px;
 }
 
 /* treeListbox ------------------------------------------------------------------- */

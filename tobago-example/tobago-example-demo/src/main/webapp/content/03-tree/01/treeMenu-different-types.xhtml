@@ -25,17 +25,15 @@
                 xmlns:f="http://java.sun.com/jsf/core">
   <ui:param name="title" value="Tree - Different Command Types"/>
 
-    <tc:treeMenu>
-      <tc:treeData value="#{treeController.mixed}" var="node" id="data">
-        <tc:treeNode id="template" expanded="true">
-          <tc:treeCommand label="#{node.name}" rendered="#{node.childCount == 0}"
-                          action="#{node.action}"
-                          actionListener="#{node.actionListener}"
-                          link="#{node.url}"
-                          onclick="#{node.script}"/>
-          <tc:treeLabel value="#{node.name}" rendered="#{node.childCount > 0}"/>
-        </tc:treeNode>
-      </tc:treeData>
-    </tc:treeMenu>
+  <tc:treeMenu value="#{treeController.mixed}" var="node" id="data">
+    <tc:treeNode id="template" expanded="true">
+      <tc:treeCommand label="#{node.name}" rendered="#{node.childCount == 0}"
+                      action="#{node.action}"
+                      actionListener="#{node.actionListener}"
+                      link="#{node.url}"
+                      onclick="#{node.script}"/>
+      <tc:treeLabel value="#{node.name}" rendered="#{node.childCount > 0}"/>
+    </tc:treeNode>
+  </tc:treeMenu>
 
 </ui:composition>

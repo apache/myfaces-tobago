@@ -37,7 +37,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsRequired;
 @BodyContentDescription(anyTagOf = "<tc:treeNode>|<tc:treeData>")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UITreeListbox",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUITree",
+    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUITreeListbox",
     rendererType = RendererTypes.TREE_LISTBOX,
     allowedChildComponenents = {
         "org.apache.myfaces.tobago.TreeNode",
@@ -68,6 +68,8 @@ public interface TreeListboxTagDeclaration
    * component's state.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = "java.lang.Object", expression = DynamicExpression.VALUE_BINDING_REQUIRED)
+  @UIComponentTagAttribute(
+      type = "org.apache.myfaces.tobago.model.TreeState",
+      expression = DynamicExpression.VALUE_BINDING_REQUIRED)
   void setState(String state);
 }

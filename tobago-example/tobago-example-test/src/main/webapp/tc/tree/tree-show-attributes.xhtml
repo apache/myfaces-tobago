@@ -73,14 +73,13 @@
             <tc:box
                 label="#{showRoot}, #{showRootJunction}, #{showJunctions}, #{showIcons}"
                 tip="show root = #{showRoot}, show root junctions = #{showRootJunction}, show junctions = #{showJunctions}, show icons = #{showIcons}">
-              <tc:tree showRoot="#{showRoot}" showRootJunction="#{showRootJunction}">
-                <tc:treeData value="#{tree.small}" var="node" id="data">
+              <tc:tree showRoot="#{showRoot}" showRootJunction="#{showRootJunction}"
+                       value="#{tree.small}" var="node">
                   <tc:treeNode id="template" expanded="true">
                     <tc:treeIndent showJunctions="#{showJunctions}"/>
                     <tc:treeIcon rendered="#{showIcons}"/>
                     <tc:treeCommand label="#{node.userObject.name}" action="#{node.userObject.action}"/>
                   </tc:treeNode>
-                </tc:treeData>
               </tc:tree>
             </tc:box>
 
