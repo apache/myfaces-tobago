@@ -238,36 +238,41 @@ public final class HtmlRendererUtils {
     }
     boolean ajax = FacesContextUtils.isAjax(facesContext);
     writer.startJavascript();
-    writer.write("new Tobago.ScriptLoader(");
-    if (!ajax) {
-      writer.write("\n    ");
-    }
-    writer.write(allScripts);
-
-    if (afterLoadCmds != null && afterLoadCmds.length > 0) {
-      writer.write(", ");
+    if (ajax || scripts != null) {
+      writer.write("new Tobago.ScriptLoader(");
       if (!ajax) {
-        writer.write("\n");
+        writer.write("\n    ");
       }
-      boolean first = true;
-      for (String afterLoadCmd : afterLoadCmds) {
-        String[] splittedStrings = StringUtils.split(afterLoadCmd, '\n'); // split on <CR> to have nicer JS
-        for (String splitted : splittedStrings) {
-          writer.write(first ? "          " : "        + ");
-          writer.write("\"");
-          String cmd = StringUtils.replace(splitted, "\\", "\\\\");
-          cmd = StringUtils.replace(cmd, "\"", "\\\"");
-          writer.write(cmd);
-          writer.write("\"");
-          if (!ajax) {
-            writer.write("\n");
+      writer.write(allScripts);
+
+      if (afterLoadCmds != null && afterLoadCmds.length > 0) {
+        writer.write(", ");
+        if (!ajax) {
+          writer.write("\n");
+        }
+        boolean first = true;
+        for (String afterLoadCmd : afterLoadCmds) {
+          String[] splittedStrings = StringUtils.split(afterLoadCmd, '\n'); // split on <CR> to have nicer JS
+          for (String splitted : splittedStrings) {
+            writer.write(first ? "          " : "        + ");
+            writer.write("\"");
+            String cmd = StringUtils.replace(splitted, "\\", "\\\\");
+            cmd = StringUtils.replace(cmd, "\"", "\\\"");
+            writer.write(cmd);
+            writer.write("\"");
+            if (!ajax) {
+              writer.write("\n");
+            }
+            first = false;
           }
-          first = false;
         }
       }
+      writer.write(");");
+    } else {
+      for (String afterLoadCmd : afterLoadCmds) {
+        writer.write(afterLoadCmd);
+      }
     }
-    writer.write(");");
-
     writer.endJavascript();
   }
 
@@ -622,7 +627,7 @@ public final class HtmlRendererUtils {
       writer.write("','");
       writer.write(facetEntry.getValue().getClientId(facesContext)); 
       writer.write("', {})});\n");
-      writer.write("}");
+      writer.write("};");
       writer.endJavascript();
     } else {
       UIComponent facetComponent = facetEntry.getValue();
@@ -646,7 +651,7 @@ public final class HtmlRendererUtils {
             null,
             clientId));
       }
-      writer.write("});\n}");
+      writer.write("});\n};");
       writer.endJavascript();
     }
   }
