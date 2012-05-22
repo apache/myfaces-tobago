@@ -1,0 +1,831 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/*
+ * theme: speyside
+ * agent: standard
+ */
+
+@errorColor: #FF0000;
+@darkBorderColor: #000000;
+@textColor: #000000;
+@disabledTextColor: #808080;
+@boldFont: bold 12px arial, helvetica, sans-serif;
+@font: 12px arial, helvetica, sans-serif;
+/* box ----------------------------------------------------------------- */
+
+.tobago-box {
+  position: absolute;
+}
+
+.tobago-box-shadow {
+  background-color: #999999;
+  position: absolute;
+  left: 1px;
+  top: 1px;
+}
+
+.tobago-box-border {
+  border: 1px solid @darkBorderColor;
+  position: absolute;
+  overflow: hidden;
+  top: -1px;
+  left: -1px;
+  background-color: #FAFAFA;
+}
+
+.tobago-box-header {
+  background: #E8E8E8 url(../image/box-header-bg.gif) repeat-x top;
+  height: 16px;
+  border-bottom: 1px dotted black;
+  font: @boldFont;
+  color: #660000;
+  padding: 3px 0 0 5px;
+  overflow: hidden;
+  position: relative;
+  white-space: nowrap;
+}
+
+.tobago-box-headerToolBar {
+  position: absolute;
+  top: 0;
+  right: -1px;
+}
+
+/* boxToolBar ----------------------------------------------------------------- */
+
+/* FIXME this is the same code for "toolBar", "boxToolBar" and "tabGroupToolBar"
+   FIXME may be fixed after TOBAGO-900
+*/
+
+.tobago-boxToolBar {
+  border: 1px solid @darkBorderColor;
+  background-color: #FFFFFF;
+}
+.tobago-boxToolBar-item {
+  position: relative;
+  display: inline-block;
+  border-width: 0;
+  border-style: solid;
+  margin: 0 1px;
+  left: -1px;
+  top: 0;
+}
+.tobago-boxToolBar-item-markup-selected {
+  border-width: 0 1px;
+  border-color: #aaaaaa;
+  margin: 0;
+}
+
+.tobago-boxToolBar-item-markup-hover {
+  border-width: 0 1px;
+  border-color: @darkBorderColor;
+  margin: 0;
+}
+
+.tobago-boxToolBar-item-markup-disabled {
+  color: @disabledTextColor;
+}
+
+.tobago-boxToolBar-button-markup-selected {
+  background-color: #EEEEEE;
+}
+
+.tobago-boxToolBar-button-markup-hover {
+  background-color: #DDDDDD;
+}
+
+.tobago-boxToolBar-separator {
+  border: 1px solid #DDDDDD;
+}
+
+/* button ------------------------------------------------------------------ */
+
+.tobago-button {
+  border: 1px @darkBorderColor solid;
+  background: #ffffff;
+  font: @boldFont;
+  color: #660000;
+  height: 14px;
+}
+
+.tobago-button-markup-disabled {
+  color: GrayText;
+}
+
+/* calendar --------------------------------------------------------------- */
+
+.tobago-calendar-day {
+  font: @font;
+}
+
+.tobago-calendar-day-markup-selected {
+  font-weight: bold;
+  color: #660000;
+  border: 1px dotted #660000;
+  background: #FFFFFF;
+}
+
+.tobago-calendar-dayOfWeek {
+  color: #660000;
+}
+
+/* code ------------------------------------------------------------------ */
+
+.tobago-code {
+  font: bold 14px Courier;
+  color: #666666;
+  padding-bottom: 2px;
+}
+
+.tobago-code-multiline {
+  background: #CCCCCC;
+  width: 530px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding: 15px;
+  border: 1px solid black;
+}
+
+/* date ---------------------------------------------------------------------- */
+
+.tobago-date {
+  border: 1px solid @darkBorderColor;
+  height: 14px;
+  font: @font;
+  padding-left: 2px;
+  padding-right: 2px;
+}
+
+.tobago-date-markup-readonly {
+  background-color: #E8E8E8;
+}
+
+.tobago-date-markup-disabled {
+  color: @disabledTextColor;
+  background-color: #E8E8E8;
+}
+
+.tobago-date-markup-error, .tobago-date-markup-fatal {
+  border: 1px solid @errorColor;
+}
+
+/* file  ------------------------------------------------------------------- */
+
+.tobago-file {
+  height: 20px;
+}
+
+/* in ---------------------------------------------------------------------- */
+
+.tobago-in {
+  border: 1px solid @darkBorderColor;
+  height: 14px;
+  font: @font;
+}
+
+.tobago-in-markup-readonly {
+  background-color: #E8E8E8;
+}
+
+.tobago-in-markup-disabled {
+  color: @disabledTextColor;
+  background-color: #E8E8E8;
+}
+
+.tobago-in-markup-error, .tobago-in-markup-fatal {
+  border: 1px solid @errorColor;
+}
+
+/* label ------------------------------------------------------------------- */
+
+.tobago-label {
+  background-color: #E8E8E8;
+  height: 14px;
+  font: @boldFont;
+}
+
+.tobago-label-markup-disabled {
+  color: @disabledTextColor;
+}
+
+.tobago-label-markup-fatal {
+  background-image: url(../image/process-stop.png);
+  background-repeat: no-repeat;
+  background-position: right 2px;
+  color: #FF00FF;
+}
+
+.tobago-label-markup-error {
+  background-image: url(../image/dialog-error.png);
+  background-repeat: no-repeat;
+  background-position: right 2px;
+  color: @errorColor;
+}
+
+.tobago-label-markup-warn {
+  background-image: url(../image/dialog-warning.png);
+  background-repeat: no-repeat;
+  background-position: right 2px;
+  color: #FFA500;
+}
+
+.tobago-label-markup-info {
+  background-image: url(../image/dialog-information.png);
+  background-repeat: no-repeat;
+  background-position: right 2px;
+  color: @textColor;
+}
+
+/* link -------------------------------------------------------- */
+
+.tobago-link {
+  font: @boldFont;
+  color: @textColor;
+  text-decoration: none;
+  line-height: 14px;
+}
+
+.tobago-link-markup-disabled {
+  color: #888888;
+}
+
+/* menuBar -------------------------------------------------------- */
+
+.tobago-menuBar li,
+.tobago-page-menuStore li {
+  background-color: #dddddd;
+}
+
+li.tobago-menu-markup-disabled a,
+li.tobago-menu-markup-disabled a:link,
+li.tobago-menu-markup-disabled a:visited,
+li.tobago-menu-markup-disabled a:active {
+  color: #888888;
+}
+
+li.tobago-menu-markup-selected {
+  background-color: #bbbbbb;
+}
+
+.tobago-menuBar,
+.tobago-page-menuStore {
+  border-bottom-color: #808080;
+  background-color: #dddddd;
+}
+
+.tobago-menuBar ol,
+.tobago-page-menuStore ol {
+  border-color: #888888;
+}
+
+/* messages --------------------------------------------------------------- */
+
+.tobago-messages {
+  font: @boldFont;
+}
+
+/* out -------------------------------------------------------------------- */
+
+.tobago-out {
+  font-family: arial, helvetica, sans-serif;
+  font-size: 12px;
+}
+
+/* page -------------------------------------------------------------------- */
+
+.tobago-page {
+  background: #E2E2E2;
+  font: @font;
+  margin-bottom: 0px;
+}
+
+/* popup ------------------------------------------------------------------ */
+
+.tobago-popup {
+  background: #E2E2E2;
+}
+
+.tobago-popup-blink {
+  background: #333333;
+  opacity: .5;
+}
+
+/* progress --------------------------------------------------------- */
+
+.tobago-progress-value {
+  background-color: #660000;
+}
+
+.tobago-progress {
+  background-color: #ffffff;
+  border: 1px solid @darkBorderColor;
+}
+
+/* richTextEditor ---------------------------------------------------------- */
+
+.tobago-richTextEditor-body {
+  border: 1px solid @darkBorderColor;
+  background: #ffffff;
+  font: @font;
+}
+
+/* selectBooleanCheckbox --------------------------------------------------- */
+
+.tobago-selectBooleanCheckbox {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.tobago-selectBooleanCheckbox-markup-disabled {
+  color: @disabledTextColor;
+}
+
+/* selectManyCheckbox ---------------------------------------------------------- */
+
+.tobago-selectManyCheckbox-markup-disabled {
+  color: @disabledTextColor;
+}
+
+/* selectManyListbox ------------------------------------------------------- */
+
+.tobago-selectManyListbox {
+  border: 1px solid @darkBorderColor;
+  font: @font;
+  padding-top: -1px;
+  color: @textColor;
+  height: 21px;
+
+}
+
+.tobago-selectManyListbox-markup-disabled {
+  background-color: #E8E8E8;
+  color: @disabledTextColor;
+}
+
+.tobago-selectManyListbox-markup-readonly {
+  background-color: #E8E8E8;
+}
+
+/* selectManyShuttle ------------------------------------------------------- */
+
+.tobago-selectManyShuttle {
+  font: @font;
+  color: @textColor;
+}
+
+.tobago-selectManyShuttle-markup-disabled {
+  background-color: #E8E8E8;
+  color: @disabledTextColor;
+}
+
+.tobago-selectManyShuttle-markup-readonly {
+  background-color: #E8E8E8;
+}
+
+
+/* selectOneChoice --------------------------------------------------------- */
+
+.tobago-selectOneChoice {
+  border: 1px solid @darkBorderColor;
+  font: @font;
+  color: @textColor;
+}
+
+tobago-selectOneChoice-markup-readonly {
+  background-color: #E8E8E8;
+}
+
+/* selectOneListbox -------------------------------------------------------- */
+
+.tobago-selectOneListbox {
+  border-color: @darkBorderColor;
+  border-width: 1px;
+  border-style: solid;
+  font-size: 12px;
+}
+
+.tobago-selectOneListbox-markup-disabled {
+  background-color: #E8E8E8;
+  color: @disabledTextColor;
+}
+
+.tobago-selectOneListbox-markup-readonly {
+  background-color: #E8E8E8;
+}
+
+.tobago-selectOneListbox-markup-error {
+  border-color: @errorColor;
+}
+
+/* selectOneRadio --------------------------------------------------------- */
+
+.tobago-selectOneRadio-markup-disabled {
+  color: @disabledTextColor;
+}
+
+/* separator ------------------------------------------------------------------- */
+
+hr.tobago-separator, .tobago-separator-start hr, .tobago-separator-end hr {
+  border-top: 1px solid @darkBorderColor;
+  border-bottom: 0 solid @darkBorderColor;
+}
+
+/* sheet -------------------------------------------------------- */
+
+.tobago-sheet-headerDiv {
+  left: 1px;
+  height: 20px;
+  border-bottom: 1px solid #ffffff;
+}
+
+.tobago-sheet-header {
+  border-color: #b8b6b6 #ffffff #d7d7d7 #b8b6b6;
+  background-color: #d7d7d7;
+  font: @boldFont;
+  color: #333333;
+  text-align: left;
+}
+
+.tobago-sheet-bodyTable {
+  table-layout: fixed;
+}
+
+.tobago-sheet-body {
+  padding-top: 20px;
+  background: #D7D7D7;
+  border: 1px solid #CCCCCC;
+}
+
+.tobago-sheet-row-markup-odd {
+  font: @font;
+  background: #ffffff;
+}
+
+.tobago-sheet-row-markup-even {
+  font: @font;
+  background: #ffffff;
+}
+
+.tobago-sheet-row-markup-selected, .tobago-sheet-row-markup-selected td {
+  background: #EBEAEA;
+  color: @textColor;
+}
+
+.tobago-sheet-cell {
+  border-bottom: 1px solid #E2E2E2;
+}
+
+.tobago-sheet-footer {
+  z-index: 1000;
+  background: #E2E2E2;
+  font: bold 10px arial, helvetica, sans-serif;
+  color: #333333;
+  text-decoration: none;
+  padding: 0;
+  padding-top: 1px;
+  height: 15px;
+}
+
+.tobago-sheet-pagingOuter-markup-left {
+  left: 2px;
+}
+
+.tobago-sheet-pagingOuter-markup-right {
+  right: 2px;
+}
+
+.tobago-sheet-pagingInput {
+  height: 11px;
+  width: 25px;
+  font: bold 10px arial, helvetica, sans-serif;
+  border: 1px solid black;
+}
+
+.tobago-sheet-pagingText {
+  padding-right: 0;
+}
+
+.tobago-sheet-selectorMenu {
+  margin-top: 1px;
+  margin-left: 0px;
+}
+
+/* tab ---------------------------------------------------------------------- */
+
+.tobago-tab {
+  background-color: #E2E2E2;
+  border-color: @darkBorderColor;
+}
+
+.tobago-tab-markup-selected {
+  color: #660000;
+  background: url("../image/box-header-bg.gif") repeat-x scroll center top #E8E8E8;
+}
+
+.tobago-tab-content {
+  border: 1px solid @darkBorderColor;
+  border-top: 0 solid transparent;
+  background: #FAFAFA;
+}
+
+.tobago-tab-markup-disabled,
+.tobago-tab-markup-disabled a:link,
+.tobago-tab-markup-disabled a:visited,
+.tobago-tab-markup-disabled a:active {
+  color: @disabledTextColor;
+}
+
+.tobago-tab-markup-selected a:link,
+.tobago-tab-markup-selected a:visited,
+.tobago-tab-markup-selected a:active {
+  color: #660000;
+}
+
+.tobago-tabGroup-headerInner {
+  border-bottom-color: @darkBorderColor;
+}
+
+.tobago-tabGroup-toolBar {
+  border-bottom-color: @darkBorderColor;
+}
+
+/*
+.tobago-tab-link {
+  font: 12px Arial, Helvetica, sans-serif;
+  color: #660000;
+}
+
+.tobago-tab-link-markup-disabled {
+  color: @disabledTextColor;
+}
+
+.tobago-tab {
+  display: inline-block;
+  height: 100%;
+}
+
+.tobago-tabGroup-header {
+  position: relative;
+}
+
+.tobago-tab-outer {
+  display: inline-block;
+  border-color: @darkBorderColor;
+  background: url(../image/tab-header-unselected-bg.gif) repeat-x top;
+}
+
+.tobago-tab-outer-markup-selected {
+  padding: 0 0 0 0;
+  background: url(../image/tab-header-selected-bg.gif) repeat-x top;
+  height: 18px;
+}
+
+.tobago-tab-inner {
+  font: @font;
+  color: #660000;
+}
+
+.tobago-tab-inner-markup-selected {
+  display: inline-block;
+}
+
+span.tobago-tabGroup-fulfill {
+  border-color: @darkBorderColor;
+  display: inline-block;
+  border-bottom: 1px solid;
+  vertical-align: bottom;
+}
+
+.tobago-tab-shadow {
+  background: #B4B4B4;
+  border: 1px solid #B4B4B4;
+  border-top: 0px solid transparent;
+  border-left: 0px solid transparent;
+}
+
+div.tobago-tabGroup-toolBar {
+  border-color: @darkBorderColor;
+}
+*/
+
+/* tabGroupToolBar ----------------------------------------------------------------- */
+
+/*.tobago-tabGroupToolBar {
+  border: 1px solid @darkBorderColor;
+  background-color: #FFFFFF;
+}
+.tobago-tabGroupToolBar-item {
+  position: relative;
+  display: inline-block;
+  border-width: 0;
+  border-style: solid;
+  margin: 0 1px;
+  left: -1px;
+  top: 0;
+}
+.tobago-tabGroupToolBar-item-markup-selected {
+  border-width: 0 1px;
+  border-color: #aaaaaa;
+  margin: 0;
+}
+
+.tobago-tabGroupToolBar-item-markup-hover {
+  border-width: 0 1px;
+  border-color: @darkBorderColor;
+  margin: 0;
+}
+
+.tobago-tabGroupToolBar-item-markup-disabled {
+  color: @disabledTextColor;
+}
+
+.tobago-tabGroupToolBar-button-markup-selected {
+  background-color: #EEEEEE;
+}
+
+.tobago-tabGroupToolBar-button-markup-hover {
+  background-color: #DDDDDD;
+}
+
+.tobago-tabGroupToolBar-separator {
+  border: 1px solid #DDDDDD;
+}*/
+
+/* textarea ---------------------------------------------------------------- */
+
+.tobago-textarea {
+  font: @font;
+  background: #ffffff;
+  color: @textColor;
+  overflow: auto;
+  border: 1px solid @darkBorderColor;
+  padding: 0 0 0 2px;
+}
+
+.tobago-textarea-markup-readonly {
+  background-color: #E8E8E8;
+}
+
+.tobago-textarea-markup-disabled {
+  color: #808080;
+  background-color: #E8E8E8;
+}
+
+.tobago-textarea-markup-error, .tobago-textarea-markup-fatal {
+  border: 1px solid @errorColor;
+}
+
+/* time -------------------------------------------------------------------- */
+
+.tobago-time-borderDiv {
+  border: 1px solid black;
+  height: 18px;
+  width: 53px;
+}
+
+.tobago-time-borderDiv-markup-readonly {
+  background-color: #E8E8E8;
+}
+
+.tobago-time-borderDiv-markup-disabled {
+  color: #808080;
+  background-color: #E8E8E8;
+}
+
+.tobago-time-borderDiv-markup-error, .tobago-time-borderDiv-markup-fatal {
+  border: 1px solid #FF0000;
+}
+
+.tobago-time-borderDiv-markup-seconds {
+  width: 81px;
+}
+
+.tobago-time-input {
+  font-size: 12px;
+  height: 14px;
+  width: 21px;
+}
+
+.tobago-time-input-markup-selected {
+  background: #E8E8E8;
+}
+
+.tobago-time-incImage, .tobago-time-decImage {
+  left: 60px;
+}
+.tobago-time-incImage-markup-seconds, .tobago-time-decImage-markup-seconds {
+  left: 88px;
+}
+
+/* toolBar ----------------------------------------------------------------- */
+
+/* FIXME this is the same code for "toolBar", "boxToolBar" and "tabGroupToolBar"
+   FIXME may be fixed after TOBAGO-900
+*/
+
+.tobago-toolBar {
+  border: 1px solid @darkBorderColor;
+  background-color: #FFFFFF;
+}
+.tobago-toolBar-item {
+  position: relative;
+  display: inline-block;
+  border-width: 0;
+  border-style: solid;
+  margin: 0 1px;
+  left: -1px;
+  top: 0;
+}
+.tobago-toolBar-item-markup-selected {
+  border-width: 0 1px;
+  border-color: #aaaaaa;
+  margin: 0;
+}
+
+.tobago-toolBar-item-markup-hover {
+  border-width: 0 1px;
+  border-color: @darkBorderColor;
+  margin: 0;
+}
+
+.tobago-toolBar-item-markup-disabled {
+  color: #808080;
+}
+
+.tobago-toolBar-button-markup-selected {
+  background-color: #EEEEEE;
+}
+
+.tobago-toolBar-button-markup-hover {
+  background-color: #DDDDDD;
+}
+
+.tobago-toolBar-separator {
+  border: 1px solid #DDDDDD;
+}
+
+/* tree ------------------------------------------------------------------- */
+
+.tobago-treeNode-icon {
+  width: 16px;
+  height: 16px;
+  float: right;
+}
+
+.tobago-treeNode-disabled a {
+  color: #888888;
+  text-decoration: none;
+}
+
+.tobago-treeNode a:hover {
+  color: @textColor;
+  text-decoration: underline;
+}
+
+.tobago-treeNode-disabled a:hover {
+  color: #888888;
+  text-decoration: none;
+}
+
+.tobago-treeNode a:focus {
+  background: transparent;
+  color: @textColor;
+}
+
+.tobago-treeNode-markup-marked a, .tobago-treeNode-markup-marked:focus a,
+.tobago-treeNode-markup-marked label, .tobago-treeNode-markup-marked:focus label {
+  background-color: #eeeeee;
+}
+
+/* treeMenu ------------------------------------------------------------------- */
+
+.tobago-treeMenuNode {
+  border: 1px solid #888888;
+}
+
+.tobago-treeMenuNode-markup-marked, .tobago-treeMenuNode-markup-marked:focus {
+  background-color: #eeeeee;
+}
+
+.tobago-treeMenuNode-markup-hover {
+  background-color: #eeeeee;
+}
+
+.tobago-treeMenuNode-markup-disabled {
+  background-color: transparent;
+}
