@@ -22,20 +22,35 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://myfaces.apache.org/tobago/tobago-config http://myfaces.apache.org/tobago/tobago-config-1.5.xsd"
     version="1.5">
-  <name>tobago-theme-speyside</name>
+  <name>tobago-theme-example</name>
   <ordering>
     <after>
-      <name>tobago-theme-scarborough</name>
+      <name>tobago-theme-standard</name>
     </after>
   </ordering>
-  <resource-dir>org/apache/myfaces/tobago/renderkit</resource-dir>
   <theme-definitions>
     <theme-definition>
-      <name>speyside</name>
-      <display-name>Speyside</display-name>
-      <deprecated-name>org.apache.myfaces.tobago.context.SpeysideTheme</deprecated-name>
+      <name>example</name>
+      <display-name>Example Theme</display-name>
+      <deprecated-name>org.apache.myfaces.tobago.context.ExampleTheme</deprecated-name>
       <resource-path>org/apache/myfaces/tobago/renderkit</resource-path>
-      <fallback>scarborough</fallback>
+      <fallback>speyside</fallback>
+      <renderers>
+        <renderer>
+          <name>In</name>
+          <supported-markup>
+            <markup>changeaware</markup>
+            <markup>blink</markup>
+          </supported-markup>
+        </renderer>
+        <renderer>
+          <name>Sheet</name>
+          <supported-markup>
+            <markup>new</markup>
+            <markup>none</markup>
+          </supported-markup>
+        </renderer>
+      </renderers>
     </theme-definition>
   </theme-definitions>
 </tobago-config>

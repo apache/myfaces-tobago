@@ -17,10 +17,24 @@
  * limitations under the License.
 -->
 
-<tobago-theme>
-  <name>charlotteville</name>
-  <display-name>Charlotteville</display-name>
-  <deprecated-name>org.apache.myfaces.tobago.context.CharlottevilleTheme</deprecated-name>
-  <resource-path>org/apache/myfaces/tobago/renderkit</resource-path>
-  <fallback>speyside</fallback>
-</tobago-theme>
+<tobago-config
+    xmlns="http://myfaces.apache.org/tobago/tobago-config"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://myfaces.apache.org/tobago/tobago-config http://myfaces.apache.org/tobago/tobago-config-1.5.xsd"
+    version="1.5">
+  <name>tobago-sandbox</name>
+  <ordering>
+    <after>
+      <name>tobago-theme-speyside</name>
+    </after>
+  </ordering>
+  <theme-definitions>
+    <theme-definition>
+      <name>sandbox</name>
+      <display-name>Sandbox Theme</display-name>
+      <deprecated-name>org.apache.myfaces.tobago.context.SandboxTheme</deprecated-name>
+      <resource-path>org/apache/myfaces/tobago/renderkit</resource-path>
+      <fallback>speyside</fallback>
+    </theme-definition>
+  </theme-definitions>
+</tobago-config>
