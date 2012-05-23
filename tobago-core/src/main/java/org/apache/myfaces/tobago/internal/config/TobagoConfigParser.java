@@ -67,7 +67,6 @@ public class TobagoConfigParser {
     } finally {
       IOUtils.closeQuietly(inputStream);
     }
-    digester.pop();
     return tobagoConfig;
   }
 
