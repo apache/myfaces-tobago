@@ -23,6 +23,7 @@ import org.apache.myfaces.tobago.context.ThemeImpl;
 import org.apache.myfaces.tobago.internal.config.ThemeParser;
 import org.apache.myfaces.tobago.internal.config.TobagoConfigFragment;
 import org.apache.myfaces.tobago.internal.config.TobagoConfigParser;
+import org.apache.myfaces.tobago.internal.util.Deprecation;
 import org.apache.myfaces.tobago.util.XmlUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -227,6 +228,10 @@ class ResourceLocator {
   private void addResources(ResourceManagerImpl resources, URL themeUrl, String prefix, int skipPrefix)
       throws IOException, ServletException {
     String fileName = themeUrl.toString();
+    if (fileName.endsWith(META_INF_TOBAGO_THEME_XML)) {
+      Deprecation.LOG.warn(
+          "The use of 'tobago-theme.xml' is deprecated, please use 'tobago-config.xml' to define a theme!");
+    }
     int index = fileName.indexOf("!");
     String protocol = themeUrl.getProtocol();
     if (index != -1) {
