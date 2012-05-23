@@ -145,25 +145,15 @@ class ResourceLocator {
       CollectionUtils.addAll(urls, classLoader.getResources(META_INF_TOBAGO_THEME_XML));
 
       for (URL themeUrl : urls) {
-        ThemeImpl theme;
         if (themeUrl.toString().endsWith(META_INF_TOBAGO_CONFIG_XML)) {
           TobagoConfigFragment tobagoConfig = new TobagoConfigParser().parse(themeUrl);
-          theme = (ThemeImpl) tobagoConfig.getThemeDefinitions().get(0);
+          for (ThemeImpl theme : tobagoConfig.getThemeDefinitions()) {
+            addThemeResources( resources, themeUrl, theme);
+          }
         } else {
           // the old way
-          theme = parser.parse(themeUrl);
+          addThemeResources(resources, themeUrl, parser.parse(themeUrl));
         }
-        themeBuilder.addTheme(theme);
-        String prefix = ensureSlash(theme.getResourcePath());
-
-        String protocol = themeUrl.getProtocol();
-        // tomcat uses jar
-        // weblogic uses zip
-        // IBM WebSphere uses wsjar
-        if (!"jar".equals(protocol) && !"zip".equals(protocol) && !"wsjar".equals(protocol)) {
-          LOG.warn("Unknown protocol '" + themeUrl + "'");
-        }
-        addResources(resources, themeUrl, prefix, 0);
       }
     } catch (IOException e) {
       String msg = "while loading ";
@@ -174,6 +164,21 @@ class ResourceLocator {
       LOG.error(msg, e);
       throw new ServletException(msg, e);
     }
+  }
+
+  private void addThemeResources(ResourceManagerImpl resources, URL themeUrl, ThemeImpl theme)
+      throws IOException, ServletException {
+    themeBuilder.addTheme(theme);
+    String prefix = ensureSlash(theme.getResourcePath());
+
+    String protocol = themeUrl.getProtocol();
+    // tomcat uses jar
+    // weblogic uses zip
+    // IBM WebSphere uses wsjar
+    if (!"jar".equals(protocol) && !"zip".equals(protocol) && !"wsjar".equals(protocol)) {
+      LOG.warn("Unknown protocol '" + themeUrl + "'");
+    }
+    addResources(resources, themeUrl, prefix, 0);
   }
 
   /**
@@ -228,11 +233,12 @@ class ResourceLocator {
       fileName = fileName.substring(protocol.length() + 1, index);
     }
     if (LOG.isInfoEnabled()) {
-      LOG.info("Adding resources from fileName='"+fileName + "' prefix='" + prefix + "' skip=" + skipPrefix + "");
+      LOG.info("Adding resources from fileName='" + fileName + "' prefix='" + prefix + "' skip=" + skipPrefix + "");
     }
 
     // JBoss 5.0.0 introduced vfszip protocol
-    if (!protocol.equals("vfszip") && fileName.endsWith(META_INF_TOBAGO_THEME_XML)) {
+    if (!protocol.equals("vfszip")
+        && (fileName.endsWith(META_INF_TOBAGO_THEME_XML) || fileName.endsWith(META_INF_TOBAGO_CONFIG_XML))) {
       try {
         URI uri = themeUrl.toURI();
         File tobagoThemeXml = new File(uri);
@@ -240,7 +246,7 @@ class ResourceLocator {
         String resourcePath = "";
         resolveTheme(resources, directoryFile, resourcePath, prefix, false);
       } catch (URISyntaxException e) {
-        LOG.error("", e);
+        LOG.error("themeUrl='" + themeUrl + "'", e);
       }
     } else {
       URL jarFile;
@@ -250,7 +256,9 @@ class ResourceLocator {
           fileName = new File(fileName).getParentFile().getParentFile().getPath();
           if (File.separatorChar == '\\' && fileName.contains("\\")) {
             fileName = fileName.replace('\\', '/');
-            LOG.info("Fixed slashes for virtual filesystem protocol on windows system: " + fileName);
+            if (LOG.isInfoEnabled()) {
+              LOG.info("Fixed slashes for virtual filesystem protocol on windows system: " + fileName);
+            }
           }
         }
         jarFile = new URL(fileName);

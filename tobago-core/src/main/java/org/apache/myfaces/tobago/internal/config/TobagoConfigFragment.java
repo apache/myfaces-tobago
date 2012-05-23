@@ -17,7 +17,7 @@ package org.apache.myfaces.tobago.internal.config;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.context.Theme;
+import org.apache.myfaces.tobago.context.ThemeImpl;
 import org.apache.myfaces.tobago.internal.util.Deprecation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,7 +41,7 @@ public class TobagoConfigFragment {
   private Boolean createSessionSecret;
   private Boolean checkSessionSecret;
   // todo
-  private List<Theme> themeDefinitions;
+  private List<ThemeImpl> themeDefinitions;
   private URL url;
 
   public TobagoConfigFragment() {
@@ -49,7 +49,7 @@ public class TobagoConfigFragment {
     after = new ArrayList<String>();
     supportedThemeNames = new ArrayList<String>();
     resourceDirs = new ArrayList<String>();
-    themeDefinitions = new ArrayList<Theme>();
+    themeDefinitions = new ArrayList<ThemeImpl>();
   }
 
   public void addSupportedThemeName(String name) {
@@ -119,11 +119,11 @@ public class TobagoConfigFragment {
     after.add(name);
   }
 
-  public void addThemeDefinition(Theme theme) {
+  public void addThemeDefinition(ThemeImpl theme) {
     themeDefinitions.add(theme);
   }
 
-  public List<Theme> getThemeDefinitions() {
+  public List<ThemeImpl> getThemeDefinitions() {
     return themeDefinitions;
   }
 
