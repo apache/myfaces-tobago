@@ -135,10 +135,16 @@ public class ResponseWriterDivider {
   @Override
   public String toString() {
     StringBuilder builder = new StringBuilder();
-    builder.append("StringBuilder("+System.identityHashCode(this)+") current=" + current + "\n");
+    builder.append("StringBuilder(");
+    builder.append(System.identityHashCode(this));
+    builder.append(") current=");
+    builder.append(current);
+    builder.append("\n");
     int i = 0;
     for (FastStringWriter buffer : buffers) {
-      builder.append("\n- buffer "+ i++ +" ------------------------------------------------------------\n");
+      builder.append("\n- buffer ");
+      builder.append(i++);
+      builder.append(" ------------------------------------------------------------\n");
       builder.append(buffer.toString());
     }
     builder.append("\n-----------------------------------------------------------------------\n");
