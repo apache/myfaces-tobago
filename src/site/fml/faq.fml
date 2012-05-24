@@ -149,8 +149,8 @@
       <question>How do I create my own theme?</question>
       <answer>
         <p>
-          You have to define a new name for the theme in the META-INF/tobago-theme.xml.
-          Choose a fallback theme in the tobago-theme.xml.
+          You have to define a new name for the theme in the META-INF/tobago-config.xml.
+          Choose a fallback theme in the tobago-config.xml.
           Put the modified resources under the resource-path + theme-name.
           An example for this is the charlotteville theme. (TODO more details resource handling)
           </p>
@@ -158,7 +158,7 @@
         Example layout of a theme jar:
         </p>
          <source>
-/META-INF/tobago-theme.xml
+/META-INF/tobago-config.xml
 (resource-path/html/theme-name)
 /org/apache/myfaces/tobago/renderkit/html/xxxxx/standard/style/style.css (standard styles)
 /org/apache/myfaces/tobago/renderkit/html/xxxxx/standard/style/tobago-menu.css (menu styles)
@@ -199,8 +199,8 @@ resource-path/content-type/theme/client/[tag(for renderer)|property|style|script
       <question>How do I use and extend the markup attribute?</question>
       <answer>
         <p>UIBox, UIInput and UIOutput support custom markup with the markup attribute.
-          The supported markup is defined in the tobago-theme.xml.
-          The standard markup is defined in tobago-theme.xml of the tobago-theme-standard.
+          The supported markup is defined in the tobago-config.xml.
+          The standard markup is defined in tobago-config.xml of the tobago-theme-standard.
           This can be extended in your own theme.
           The markup attribute is rendered as a CSS class tobago-[renderer-name.toLowerCase]-markup-[markup].
           For an example please look at the markup number and the CSS class tobago-in-markup-number for UIInput in theme/scarborough/src/main/resources/org/apache/myfaces/tobago/renderkit/html/scarborough/standard/style/style.css
