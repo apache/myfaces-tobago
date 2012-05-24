@@ -51,10 +51,8 @@ public class DebugResponseWriterWrapper extends TobagoResponseWriter {
   public void writeComment(Object comment) throws IOException {
     String commentStr = comment.toString();
     if (commentStr.indexOf("--") > 0) {
-      String trace = getCallingClassStackTraceElementString();
-      LOG.error(
-          "Comment must not contain the sequence '--', comment = '"
-              + comment + "' " + trace.substring(trace.indexOf('(')));
+      LOG.error("Comment must not contain the sequence '--', comment = '" + comment + "'.",
+          new IllegalArgumentException());
 
       commentStr = StringUtils.replace(commentStr, "--", "++");
     }
@@ -131,41 +129,31 @@ public class DebugResponseWriterWrapper extends TobagoResponseWriter {
   }
 
   @Override
+  public void startElement(String name, UIComponent currentComponent)
+      throws IOException {
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("start element: '" + name + "'");
+    }
+    stack.push(name);
+    responseWriter.startElement(name, currentComponent);
+  }
+
+  @Override
   public void endElement(String name) throws IOException {
     if (LOG.isDebugEnabled()) {
-      LOG.debug("end Element: " + name);
+      LOG.debug("end element: '" + name + "'");
     }
     String top = "";
     try {
       top = stack.pop();
     } catch (EmptyStackException e) {
-      LOG.error("Failed to close element \"" + name + "\"!");
-      throw e;
+      LOG.error("Failed to close element \"" + name + "\"!", e);
     }
 
     if (!top.equals(name)) {
-      final String trace = getCallingClassStackTraceElementString();
-      LOG.error("Element end with name='" + name + "' doesn't "
-          + "match with top element on the stack='" + top + "' "
-          + trace.substring(trace.indexOf('(')));
+      LOG.error("Element end with name='" + name + "' doesn't match with top element on the stack='" + top + "'.",
+          new IllegalArgumentException());
     }
     responseWriter.endElement(name);
   }
-
-  @Override
-  public void startElement(String name, UIComponent currentComponent)
-      throws IOException {
-    stack.push(name);
-    responseWriter.startElement(name, currentComponent);
-  }
-  
-  protected final String getCallingClassStackTraceElementString() {
-    final StackTraceElement[] stackTrace = new Exception().getStackTrace();
-    int i = 1;
-    while (stackTrace[i].getClassName().equals(this.getClass().getName())) {
-      i++;
-    }
-    return stackTrace[i].toString();
-  }
-
 }
