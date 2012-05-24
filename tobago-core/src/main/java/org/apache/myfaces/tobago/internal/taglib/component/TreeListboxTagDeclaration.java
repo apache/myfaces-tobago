@@ -27,6 +27,8 @@ import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasValue;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasVar;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutComponent;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsRequired;
 
@@ -44,7 +46,8 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsRequired;
         "org.apache.myfaces.tobago.TreeData"
     })
 public interface TreeListboxTagDeclaration
-    extends HasIdBindingAndRendered, IsRequired, IsGridLayoutComponent, HasMarkup, HasCurrentMarkup {
+    extends HasIdBindingAndRendered, HasValue, HasVar, IsGridLayoutComponent, HasMarkup, HasCurrentMarkup,
+    IsRequired {
 
   /**
    * Flag indicating whether or not this component should be render selectable items.

@@ -115,14 +115,13 @@ Tobago.Tree.init = function(elements) {
 
   listboxSelects.children("option").each(function() {
     var option = jQuery(this);
-    var optionId = option.attr("id");
-    var selectId = optionId + "::select";
-    var select = jQuery(Tobago.Utils.escapeClientId(selectId));
+    var select = option.closest(".tobago-treeListbox-level").next()
+        .find("[data-tobago-treeparent='" + option.attr("id") + "']");
     if (select.length == 1) {
-      option.data("select", select);
+      option.data("tobago-select", select);
     } else {
-      var empty = option.parent().parent().next().children(":first");
-      option.data("select", empty);
+      var empty = option.closest(".tobago-treeListbox-level").next().children(":first");
+      option.data("tobago-select", empty);
     }
   });
 
@@ -133,9 +132,9 @@ Tobago.Tree.init = function(elements) {
 
     jQuery(this).change(function() {
       jQuery(this).children("option:not(:selected)").each(function() {
-        jQuery(this).data("select").hide();
+        jQuery(this).data("tobago-select").hide();
       });
-      jQuery(this).children("option:selected").data("select").show();
+      jQuery(this).children("option:selected").data("tobago-select").show();
 
       // Deeper level (2nd and later) should only show the empty select tag.
       // The first child is the empty selection.

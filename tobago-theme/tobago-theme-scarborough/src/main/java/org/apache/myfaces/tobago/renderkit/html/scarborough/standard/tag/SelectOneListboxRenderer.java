@@ -71,7 +71,7 @@ public class SelectOneListboxRenderer extends SelectOneRendererBase {
     writer.writeStyleAttribute(style);
     writer.writeClassAttribute(Classes.create(select));
     HtmlRendererUtils.renderTip(select, writer);
-    writer.writeAttribute(HtmlAttributes.SIZE, 2); // should be greater 1
+    writer.writeAttribute(HtmlAttributes.SIZE, 9); // must be > 1, but the real size comes from the layout
     if (!ComponentUtils.getBooleanAttribute(select, Attributes.REQUIRED)) {
       writer.writeAttribute(HtmlAttributes.ONCHANGE, "Tobago.selectOneListboxChange(this)", false);
       writer.writeAttribute(HtmlAttributes.ONCLICK, "Tobago.selectOneListboxClick(this)", false);

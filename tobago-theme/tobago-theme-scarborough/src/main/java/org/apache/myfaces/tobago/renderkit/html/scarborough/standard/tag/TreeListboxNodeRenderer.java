@@ -18,20 +18,13 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  */
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.component.UITreeLabel;
 import org.apache.myfaces.tobago.component.UITreeNode;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.event.TreeExpansionEvent;
 import org.apache.myfaces.tobago.event.TreeMarkedEvent;
 import org.apache.myfaces.tobago.internal.component.AbstractUITree;
-import org.apache.myfaces.tobago.internal.context.ResponseWriterDivider;
-import org.apache.myfaces.tobago.layout.Display;
-import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.model.TreeSelectable;
 import org.apache.myfaces.tobago.renderkit.CommandRendererBase;
-import org.apache.myfaces.tobago.renderkit.css.Classes;
-import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
@@ -44,7 +37,6 @@ import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
-import java.util.List;
 import java.util.Map;
 
 public class TreeListboxNodeRenderer extends CommandRendererBase {
@@ -116,86 +108,28 @@ public class TreeListboxNodeRenderer extends CommandRendererBase {
   @Override
   public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
     final UITreeNode node = (UITreeNode) component;
-    final AbstractUITree tree = ComponentUtils.findAncestor(node, AbstractUITree.class);
-
     final boolean folder = node.isFolder();
-    final int level = node.getLevel();
     final String id = node.getClientId(facesContext);
     final boolean expanded = folder && node.isExpanded();
 
-    TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
-    if (level > 0) { // root will not rendered as an option
-      writer.startElement(HtmlElements.OPTION, null);
-      // todo: define where to store the selection of a tree, node.getValue() seems not to be a god place.
-      //        writer.writeAttribute(HtmlAttributes.VALUE, node.getValue().toString(), true); // XXX converter?
-      writer.writeIdAttribute(id);
-      writer.writeAttribute(HtmlAttributes.SELECTED, expanded);
-      writer.writeText("(" + level + ") " + getLabel(node));
-      if (folder) {
-        writer.writeText(" \u2192");
-      }
-      writer.endElement(HtmlElements.OPTION);
-    }
-
-    if (folder) {
-      boolean siblingMode = "siblingLeafOnly".equals(tree.getAttributes().get(Attributes.SELECTABLE));
-      ResponseWriterDivider divider = ResponseWriterDivider.getInstance(facesContext, TreeListboxRenderer.DIVIDER);
-      boolean alreadyExists = divider.activateBranch(facesContext);
-      writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
-      if (!alreadyExists) {
-        writer.startElement(HtmlElements.DIV, null);
-        writer.writeClassAttribute(Classes.create(tree, "level"));
-        Style levelStyle = new Style();
-        levelStyle.setLeft(Measure.valueOf(level * 160)); // xxx 160 should be configurable
-        writer.writeStyleAttribute(levelStyle);
-        // at the start of each div there is an empty and disabled select tag to show empty area.
-        // this is not needed for the 1st level.
-        if (level > 0) {
-          writer.startElement(HtmlElements.SELECT, null);
-          writer.writeAttribute(HtmlAttributes.DISABLED, true);
-          writer.writeAttribute(HtmlAttributes.SIZE, 2); // must be > 1, but the size comes from the layout
-          writer.writeClassAttribute(Classes.create(tree, "select"));
-          writer.endElement(HtmlElements.SELECT);
-        }
-      }
-
-      writer.startElement(HtmlElements.SELECT, node);
-      writer.writeIdAttribute(id + ComponentUtils.SUB_SEPARATOR + "select");
-      writer.writeClassAttribute(Classes.create(tree, "select"));
-      if (!expanded) {
-        Style selectStyle = new Style();
-        selectStyle.setDisplay(Display.NONE);
-      }
-      writer.writeAttribute(HtmlAttributes.SIZE, 2); // must be > 1, but the size comes from the layout
-      writer.writeAttribute(HtmlAttributes.MULTIPLE, siblingMode);
-
-      // XXX insert options here
-      writer.startElement(HtmlElements.OPTGROUP, null);
-      writer.writeAttribute(HtmlAttributes.LABEL, getLabel(node), true);
-      writer.endElement(HtmlElements.OPTGROUP);
-    }
-  }
-
-  // XXX this is a hotfix, may be better calling the renderer?
-  private String getLabel(UITreeNode node) {
-    for (UIComponent component : (List<UIComponent>) node.getChildren()) {
-      if (component instanceof UITreeLabel) {
-        return "" + ((UITreeLabel) component).getValue();
-      }
-    }
-    return null;
+    writer.startElement(HtmlElements.OPTION, null);
+    // todo: define where to store the selection of a tree, node.getValue() seems not to be a god place.
+    //        writer.writeAttribute(HtmlAttributes.VALUE, node.getValue().toString(), true); // XXX converter?
+    writer.writeIdAttribute(id);
+    writer.writeAttribute(HtmlAttributes.SELECTED, expanded);
   }
 
   @Override
   public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
-    UITreeNode node = (UITreeNode) component;
-    boolean folder = node.isFolder();
+    final UITreeNode node = (UITreeNode) component;
+    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final boolean folder = node.isFolder();
+
     if (folder) {
-      TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
-      writer.endElement(HtmlElements.SELECT);
-      ResponseWriterDivider divider = ResponseWriterDivider.getInstance(facesContext, TreeListboxRenderer.DIVIDER);
-      divider.passivateBranch(facesContext);
+      writer.writeText(" \u2192"); // this is an right arrow →
     }
+    writer.endElement(HtmlElements.OPTION);
   }
 }

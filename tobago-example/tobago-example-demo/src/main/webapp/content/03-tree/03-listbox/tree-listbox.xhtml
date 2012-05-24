@@ -27,7 +27,7 @@
 
   <tc:panel>
     <f:facet name="layout">
-      <tc:gridLayout rows="9*;16*"/>
+      <tc:gridLayout rows="50px;*;auto"/>
     </f:facet>
 
     <tc:out escape="false" value="(UNDER CONSTRUCTION) Tree Listbox"/>
@@ -37,6 +37,15 @@
         <tc:treeLabel value="#{node.userObject.name}"/>
       </tc:treeNode>
     </tc:treeListbox>
+
+    <tc:panel>
+      <f:facet name="layout">
+        <tc:gridLayout columns="*;auto" rows="auto"/>
+      </f:facet>
+
+      <tc:panel/>
+      <tc:button label="Submit"/>
+    </tc:panel>
 
   </tc:panel>
 </ui:composition>

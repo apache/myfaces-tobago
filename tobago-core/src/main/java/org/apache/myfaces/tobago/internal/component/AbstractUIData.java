@@ -31,6 +31,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.model.DataModel;
 import javax.swing.tree.DefaultMutableTreeNode;
 import java.io.IOException;
+import java.util.List;
 
 public abstract class AbstractUIData extends javax.faces.component.UIData implements InvokeOnComponent {
 
@@ -176,9 +177,27 @@ public abstract class AbstractUIData extends javax.faces.component.UIData implem
    * @return The TreePath of the current row index.
    */
   public TreePath getPath() {
-    final DataModel model = getDataModel();
-    if (model instanceof TreeDataModel) {
-      return ((TreeDataModel) model).getPath();
+    if (isTreeModel()) {
+      return ((TreeDataModel) getDataModel()).getPath();
+    } else {
+      throw new IllegalStateException("Not a tree model");
+    }
+  }
+
+  /**
+   * @return Is the current row index representing a folder.
+   */
+  public boolean isFolder() {
+    if (isTreeModel()) {
+      return ((TreeDataModel) getDataModel()).isFolder();
+    } else {
+      throw new IllegalStateException("Not a tree model");
+    }
+  }
+
+  public List<Integer> getChildrensRowIndices() {
+    if (isTreeModel()) {
+      return dataModel.getChildrensRowIndices();
     } else {
       throw new IllegalStateException("Not a tree model");
     }

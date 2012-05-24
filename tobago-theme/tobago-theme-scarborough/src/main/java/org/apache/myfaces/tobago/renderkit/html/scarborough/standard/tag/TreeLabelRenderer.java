@@ -17,12 +17,17 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * limitations under the License.
  */
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.myfaces.tobago.component.UITreeLabel;
+import org.apache.myfaces.tobago.internal.component.AbstractUIData;
+import org.apache.myfaces.tobago.internal.component.AbstractUITreeListbox;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
+import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,22 +42,31 @@ public class TreeLabelRenderer extends LayoutComponentRendererBase {
 
   public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
 
+    final AbstractUIData data = ComponentUtils.findAncestor(component, AbstractUIData.class);
+    final boolean listbox = data instanceof AbstractUITreeListbox;
+
     final UITreeLabel label = (UITreeLabel) component;
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final String text = StringUtils.defaultString((String) label.getValue());
 
-    writer.startElement(HtmlElements.LABEL, label);
-    writer.writeClassAttribute(Classes.create(label));
-    writer.writeStyleAttribute(createStyle(facesContext, label));
-    HtmlRendererUtils.renderTip(label, writer);
+    if (listbox) {
+      writer.writeText(text);
+    } else {
+      writer.startElement(HtmlElements.LABEL, label);
+      writer.writeClassAttribute(Classes.create(label));
+      writer.writeStyleAttribute(createStyle(facesContext, label));
+      String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, label);
+      if (title != null) {
+        writer.writeAttribute(HtmlAttributes.TITLE, title, true);
+      }
 
-    if (label.getValue() != null) {
-      writer.writeText((String) label.getValue());
+      writer.writeText(text);
+
+      writer.endElement(HtmlElements.LABEL);
     }
-    writer.endElement(HtmlElements.LABEL);
   }
 
   protected Style createStyle(FacesContext facesContext, UITreeLabel link) {
     return new Style(facesContext, link);
   }
-
 }

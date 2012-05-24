@@ -22,7 +22,9 @@ import org.slf4j.LoggerFactory;
 
 import javax.faces.model.DataModel;
 import javax.swing.tree.DefaultMutableTreeNode;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class TreeDataModel extends DataModel {
@@ -125,6 +127,10 @@ public class TreeDataModel extends DataModel {
     return new TreePath(getRowData());
   }
 
+  public boolean isFolder() {
+    return !getRowData().isLeaf();
+  }
+
   @Override
   public Object getWrappedData() {
     return data;
@@ -196,6 +202,18 @@ public class TreeDataModel extends DataModel {
     }
   }
 
+  public List<Integer> getChildrensRowIndices() {
+    final DefaultMutableTreeNode node = getRowData();
+    final int n = node.getChildCount();
+    final List<Integer> children = new ArrayList<Integer>(n);
+    for (int i = 0; i < n; i++) {
+      final Integer integer = back.get((DefaultMutableTreeNode) node.getChildAt(i));
+      if (integer != null) { // integer == null happens, when the node is not expanded XXX is this a good way to handle that case?
+        children.add(integer);
+      }
+    }
+    return children;
+  }
 
   /**
    * Here we cache some state information of the nodes, because we can't access the UITreeNode state of the other nodes
