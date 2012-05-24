@@ -43,7 +43,7 @@
   <entry key="sheet">Sheet Control</entry>
   <entry key="tree">Tree Control</entry>
   <entry key="tree-editor">Editor</entry>
-  <entry key="treeMenu-different-types">Command Types</entry>
+  <entry key="tree-command-types">Command Types</entry>
   <entry key="tab">Tab Control</entry>
   <entry key="toolBar">Toolbar</entry>
   <entry key="validation">Validation</entry>

@@ -32,97 +32,55 @@
 
     <tc:out escape="false" value="(UNDER CONSTRUCTION) #{overviewBundle.tree_text}"/>
 
-    <tc:tabGroup selectedIndex="#{overviewController.treeTabsState}" switchType="reloadPage">
-      <tc:tab label="#{overviewBundle.treeLabel}">
+    <tc:panel>
+      <f:facet name="layout">
+        <tc:gridLayout columns="2*;1*"/>
+      </f:facet>
+
+      <tc:tree id="tree"
+               showRootJunction="#{demo.showRootJunction}"
+               showRoot="#{demo.showRoot}"
+               value="#{demo.tree}"
+               var="node">
+        <tc:treeNode id="template">
+          <tc:treeIndent showJunctions="#{demo.showJunctions}"/>
+          <tc:treeIcon value="image/feather.png" rendered="#{demo.showIcons}"/>
+          <tc:treeLabel value="#{node.userObject.name}"/>
+        </tc:treeNode>
+        <!--
+        todo: events instead of state
+        todo: test action listener
+        actionListener="org.apache.myfaces.tobago.example.demo.actionlistener.TreeEditor"
+        -->
+      </tc:tree>
+
+      <tc:panel>
         <f:facet name="layout">
-          <tc:gridLayout columns="2*;1*"/>
+          <tc:gridLayout rows="auto;auto;auto;auto;1*;auto;auto;auto"/>
         </f:facet>
 
-        <tc:tree id="tree"
-                 showRootJunction="#{demo.showRootJunction}"
-                 showRoot="#{demo.showRoot}"
-                 value="#{demo.tree}"
-                 var="node">
-          <tc:treeNode id="template" expanded="true">
-            <tc:treeIndent showJunctions="#{demo.showJunctions}"/>
-            <tc:treeIcon value="image/feather.png" rendered="#{demo.showIcons}"/>
-            <tc:treeLabel value="#{node.userObject.name}"/>
-          </tc:treeNode>
-          <!--
-          todo: tree editor
-          todo: events instead of state
-          todo: test action listener
+        <tc:selectBooleanCheckbox label="#{overviewBundle.treeShowIcons}"
+                                  value="#{demo.showIcons}"
+                                  disabled="#{overviewController.treeTabsState != 0}"/>
+        <tc:selectBooleanCheckbox label="#{overviewBundle.treeShowJunctions}"
+                                  value="#{demo.showJunctions}"
+                                  disabled="#{overviewController.treeTabsState != 0}"/>
+        <tc:selectBooleanCheckbox label="#{overviewBundle.treeShowRootJunction}"
+                                  value="#{demo.showRootJunction}"
+                                  disabled="#{overviewController.treeTabsState != 0}"/>
+        <tc:selectBooleanCheckbox label="#{overviewBundle.treeShowRoot}"
+                                  value="#{demo.showRoot}"
+                                  disabled="#{overviewController.treeTabsState != 0}"/>
+        <tc:cell/>
+        <tc:selectOneChoice value="#{overviewController.treeSelectMode}">
+          <f:selectItems value="#{overviewController.treeSelectModeItems}"/>
+        </tc:selectOneChoice>
 
-          actionListener="org.apache.myfaces.tobago.example.demo.actionlistener.TreeEditor"
-          markup="#{node.userObject.markup}"
-          tip="#{node.userObject.tip}"
-          action="#{node.userObject.action}"
-          disabled="#{node.userObject.disabled}"
-          -->
-        </tc:tree>
-
-        <tc:panel>
-          <f:facet name="layout">
-            <tc:gridLayout rows="auto;auto;auto;auto;1*;auto;auto;auto"/>
-          </f:facet>
-
-          <tc:selectBooleanCheckbox label="#{overviewBundle.treeShowIcons}"
-                                    value="#{demo.showIcons}"
-                                    disabled="#{overviewController.treeTabsState != 0}"/>
-          <tc:selectBooleanCheckbox label="#{overviewBundle.treeShowJunctions}"
-                                    value="#{demo.showJunctions}"
-                                    disabled="#{overviewController.treeTabsState != 0}"/>
-          <tc:selectBooleanCheckbox label="#{overviewBundle.treeShowRootJunction}"
-                                    value="#{demo.showRootJunction}"
-                                    disabled="#{overviewController.treeTabsState != 0}"/>
-          <tc:selectBooleanCheckbox label="#{overviewBundle.treeShowRoot}"
-                                    value="#{demo.showRoot}"
-                                    disabled="#{overviewController.treeTabsState != 0}"/>
-          <tc:cell/>
-          <tc:selectOneChoice value="#{overviewController.treeSelectMode}">
-            <f:selectItems value="#{overviewController.treeSelectModeItems}"/>
-          </tc:selectOneChoice>
-
-          <tc:selectBooleanCheckbox label="#{overviewBundle.treeMutable}"
-                                    value="#{demo.mutable}"
-                                    disabled="#{overviewController.treeTabsState != 0}"/>
-          <tc:button action="redisplay" label="#{overviewBundle.submit}"/>
-        </tc:panel>
-
-      </tc:tab>
-      <tc:tab label="#{overviewBundle.treeLabel} as Menu"><!-- todo i18n -->
-        <f:facet name="layout">
-          <tc:gridLayout columns="2*;1*"/>
-        </f:facet>
-
-        <tc:treeMenu id="treeMenu" showRoot="#{demo.showRoot}" value="#{demo.tree}" var="node">
-          <tc:treeNode id="template" expanded="true">
-            <tc:treeLabel value="#{node.userObject.name}"/>
-          </tc:treeNode>
-        </tc:treeMenu>
-
-        <tc:panel>
-          <f:facet name="layout">
-            <tc:gridLayout rows="auto;*;auto"/>
-          </f:facet>
-
-          <tc:selectBooleanCheckbox label="#{overviewBundle.treeShowRoot}"
-                                    value="#{demo.showRoot}"/>
-          <tc:cell/>
-          <tc:button action="redisplay" label="#{overviewBundle.submit}"/>
-        </tc:panel>
-
-      </tc:tab>
-      <tc:tab label="#{overviewBundle.treeListboxLabel} (todo)">
-
-        <tc:treeListbox id="tree" value="#{demo.tree}" var="node">
-          <tc:treeNode id="template" expanded="true">
-            <tc:treeLabel value="#{node.userObject.name}"/>
-          </tc:treeNode>
-        </tc:treeListbox>
-
-      </tc:tab>
-    </tc:tabGroup>
-
+        <tc:selectBooleanCheckbox label="#{overviewBundle.treeMutable}"
+                                  value="#{demo.mutable}"
+                                  disabled="#{overviewController.treeTabsState != 0}"/>
+        <tc:button action="redisplay" label="#{overviewBundle.submit}"/>
+      </tc:panel>
+    </tc:panel>
   </tc:panel>
 </ui:composition>
