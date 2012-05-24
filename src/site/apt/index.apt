@@ -49,74 +49,76 @@ News
 
   []
 
-    * <<11-05-21>> - Apache MyFaces Tobago 1.5.6 released!
+    * <<22-05-2012>> - 1.5.x branch has been created. The trunk is now 1.6.x.
 
-    * <<11-05-12>> - Apache MyFaces Tobago 1.5.5 released!
+    * <<21-05-2012>> - Apache MyFaces Tobago 1.5.6 released!
 
-    * <<05-03-12>> - Apache MyFaces Tobago 1.5.4 released!
+    * <<11-05-2012>> - Apache MyFaces Tobago 1.5.5 released!
 
-    * <<19-02-12>> - Apache MyFaces Tobago 1.0.39 released!
+    * <<05-03-2012>> - Apache MyFaces Tobago 1.5.4 released!
 
-    * <<15-02-12>> - Apache MyFaces Tobago 1.5.3 released!
+    * <<19-02-2012>> - Apache MyFaces Tobago 1.0.39 released!
 
-    * <<24-01-12>> - Apache MyFaces Tobago 1.5.2 released!
+    * <<15-02-2012>> - Apache MyFaces Tobago 1.5.3 released!
 
-    * <<12-12-11>> - Apache MyFaces Tobago 1.5.1 released!
+    * <<24-01-2012>> - Apache MyFaces Tobago 1.5.2 released!
 
-    * <<30-11-11>> - Apache MyFaces Tobago 1.5.0 released!
+    * <<12-12-2011>> - Apache MyFaces Tobago 1.5.1 released!
 
-    * <<09-11-11>> - Apache MyFaces Tobago 1.5.0-beta-2 released!
+    * <<30-11-2011>> - Apache MyFaces Tobago 1.5.0 released!
 
-    * <<23-10-11>> - Apache MyFaces Tobago 1.0.38 released!
+    * <<09-11-2011>> - Apache MyFaces Tobago 1.5.0-beta-2 released!
 
-    * <<14-07-11>> - Apache MyFaces Tobago 1.0.37 and 1.5.0-beta-1 released!
+    * <<23-10-2011>> - Apache MyFaces Tobago 1.0.38 released!
 
-    * <<13-05-11>> - Apache MyFaces Tobago 1.0.36 released!
+    * <<14-07-2011>> - Apache MyFaces Tobago 1.0.37 and 1.5.0-beta-1 released!
 
-    * <<13-03-11>> - Apache MyFaces Tobago 1.0.35 released!
+    * <<13-05-2011>> - Apache MyFaces Tobago 1.0.36 released!
 
-    * <<23-02-11>> - Apache MyFaces Tobago 1.0.34 and 1.5.0-alpha-2 released!
+    * <<13-03-2011>> - Apache MyFaces Tobago 1.0.35 released!
 
-    * <<08-02-11>> - Apache MyFaces Tobago 1.0.33 released!
+    * <<23-02-2011>> - Apache MyFaces Tobago 1.0.34 and 1.5.0-alpha-2 released!
 
-    * <<30-11-10>> - Apache MyFaces Tobago 1.0.32 released!
+    * <<08-02-2011>> - Apache MyFaces Tobago 1.0.33 released!
 
-    * <<04-11-10>> - Apache MyFaces Tobago 1.0.31 released!
+    * <<30-11-2010>> - Apache MyFaces Tobago 1.0.32 released!
 
-    * <<06-10-10>> - Apache MyFaces Tobago 1.0.30 released!
+    * <<04-11-2010>> - Apache MyFaces Tobago 1.0.31 released!
 
-    * <<23-09-10>> - Apache MyFaces Tobago 1.0.29 released!
+    * <<06-10-2010>> - Apache MyFaces Tobago 1.0.30 released!
 
-    * <<18-08-10>> - Apache MyFaces Tobago 1.0.28 released!
+    * <<23-09-2010>> - Apache MyFaces Tobago 1.0.29 released!
 
-    * <<07-06-10>> - Apache MyFaces Tobago 1.0.27 released!
+    * <<18-08-2010>> - Apache MyFaces Tobago 1.0.28 released!
 
-    * <<04-06-10>> - Apache MyFaces Tobago 1.0.26 released!
+    * <<07-06-2010>> - Apache MyFaces Tobago 1.0.27 released!
 
-    * <<01-05-10>> - Apache MyFaces Tobago 1.0.25 released!
+    * <<04-06-2010>> - Apache MyFaces Tobago 1.0.26 released!
 
-    * <<22-01-10>> - Apache MyFaces Tobago 1.0.24 released!
+    * <<01-05-2010>> - Apache MyFaces Tobago 1.0.25 released!
 
-    * <<06-09-09>> - Apache MyFaces Tobago 1.0.23 released!
+    * <<22-01-2010>> - Apache MyFaces Tobago 1.0.24 released!
 
-    * <<16-08-09>> - Apache MyFaces Tobago 1.0.22 released!
+    * <<06-09-2009>> - Apache MyFaces Tobago 1.0.23 released!
 
-    * <<12-06-09>> - Apache MyFaces Tobago 1.0.21 released!
+    * <<16-08-2009>> - Apache MyFaces Tobago 1.0.22 released!
 
-    * <<26-10-08>> - Apache MyFaces Tobago 1.0.20 released!
+    * <<12-06-2009>> - Apache MyFaces Tobago 1.0.21 released!
 
-    * <<06-10-08>> - Apache MyFaces Tobago 1.0.19 released!
+    * <<26-10-2008>> - Apache MyFaces Tobago 1.0.20 released!
 
-    * <<26-08-08>> - Apache MyFaces Tobago 1.0.18 released!
+    * <<06-10-2008>> - Apache MyFaces Tobago 1.0.19 released!
 
-    * <<20-05-08>> - Apache MyFaces Tobago 1.0.17 released!
+    * <<26-08-2008>> - Apache MyFaces Tobago 1.0.18 released!
 
-    * <<16-04-08>> - Apache MyFaces Tobago 1.0.16 released!
+    * <<20-05-2008>> - Apache MyFaces Tobago 1.0.17 released!
 
-    * <<11-04-08>> - The new tree was moved from the sandbox to core (only in 1.5.x which is still alpha).
+    * <<16-04-2008>> - Apache MyFaces Tobago 1.0.16 released!
+
+    * <<11-04-2008>> - The new tree was moved from the sandbox to core (only in 1.5.x which is still alpha).
                      The old one will be available for a few days as tc:treeOld, for migration.
 
-    * <<07-04-08>> - The 1.5.x trunk supports JSF 1.1 and JSF 1.2. The JSF 1.2 version is the default.
+    * <<07-04-2008>> - The 1.5.x trunk supports JSF 1.1 and JSF 1.2. The JSF 1.2 version is the default.
 
-    * <<11-01-08>> - 1.0.x branch has been created.
+    * <<11-01-2008>> - 1.0.x branch has been created.
 
