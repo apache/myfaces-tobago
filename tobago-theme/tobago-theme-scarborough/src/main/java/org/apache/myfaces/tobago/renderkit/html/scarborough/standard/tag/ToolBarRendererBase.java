@@ -422,6 +422,7 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
       writer.startElement(HtmlElements.SPAN, command);
       writer.writeClassAttribute(Classes.create(toolBar, "menu"));
       writer.writeStyleAttribute(menuStyle);
+      // todo: span has not type: use data-tobago-type here (TOBAGO-1004)
       writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.BUTTON, false);
       writer.writeAttribute(HtmlAttributes.ONCLICK, menuClick, true);
     }

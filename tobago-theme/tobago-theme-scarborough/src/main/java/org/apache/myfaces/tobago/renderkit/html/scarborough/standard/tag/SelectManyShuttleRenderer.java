@@ -24,8 +24,8 @@ import org.apache.myfaces.tobago.renderkit.SelectManyRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
+import org.apache.myfaces.tobago.renderkit.html.HtmlButtonTypes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
-import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -160,7 +160,7 @@ public class SelectManyShuttleRenderer extends SelectManyRendererBase {
   private void createButton(FacesContext context, UIComponent component, TobagoResponseWriter writer,
         boolean disabled, String label, String sub) throws IOException {
     writer.startElement(HtmlElements.BUTTON, null);
-    writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.BUTTON, false);
+    writer.writeAttribute(HtmlAttributes.TYPE, HtmlButtonTypes.BUTTON, false);
     writer.writeClassAttribute(Classes.create(component, sub));
     writer.writeIdAttribute(component.getClientId(context) + ComponentUtils.SUB_SEPARATOR + sub);
     writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
