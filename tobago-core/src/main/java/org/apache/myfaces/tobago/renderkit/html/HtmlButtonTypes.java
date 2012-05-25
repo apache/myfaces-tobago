@@ -17,20 +17,13 @@ package org.apache.myfaces.tobago.renderkit.html;
  * limitations under the License.
  */
 
-public final class HtmlInputTypes {
+public final class HtmlButtonTypes {
 
-  public static final String TEXT = "text";
-  public static final String PASSWORD = "password";
-  public static final String CHECKBOX = "checkbox";
-  public static final String RADIO = "radio";
-  public static final String SUBMIT = "submit";
-  public static final String RESET = "reset";
-  public static final String FILE = "file";
-  public static final String HIDDEN = "hidden";
-  public static final String IMAGE = "image";
   public static final String BUTTON = "button";
+  public static final String RESET = "reset";
+  public static final String SUBMIT = "submit";
 
-  private HtmlInputTypes() {
+  private HtmlButtonTypes() {
     // prevent creating objects
   }
 }
