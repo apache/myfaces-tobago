@@ -369,7 +369,7 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase implemen
             ((LayoutContainer) component).getLayoutManager().postProcessing(orientation);
           }
 
-          // set scrolling stype
+          // set scrolling type
           final boolean scroll = grid.isOverflow(orientation);
           if (orientation == Orientation.HORIZONTAL) {
             getLayoutContainer().setOverflowX(scroll);

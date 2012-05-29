@@ -104,7 +104,7 @@ public interface GridLayoutTagDeclaration extends HasId, HasBorder, HasSpacing, 
   /**
    * This attribute is a hint for the layout manager. Should not be used in most cases.
    *
-   * @param columnOverflow Does the component need a horizontal scollbar?
+   * @param columnOverflow Does the component need a horizontal scrollbar?
    */
   @TagAttribute
   @UIComponentTagAttribute(
@@ -114,7 +114,7 @@ public interface GridLayoutTagDeclaration extends HasId, HasBorder, HasSpacing, 
   /**
    * This attribute is a hint for the layout manager. Should not be used in most cases.
    *
-   * @param rowOverflow Does the component need a vertical scollbar?
+   * @param rowOverflow Does the component need a vertical scrollbar?
    */
   @TagAttribute
   @UIComponentTagAttribute(
