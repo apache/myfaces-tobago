@@ -208,8 +208,8 @@ public class TreeDataModel extends DataModel {
     final List<Integer> children = new ArrayList<Integer>(n);
     for (int i = 0; i < n; i++) {
       final Integer integer = back.get((DefaultMutableTreeNode) node.getChildAt(i));
-      if (integer != null) { // integer == null happens, when the node is not expanded XXX is this a good way to handle that case?
-        children.add(integer);
+      if (integer != null) { // integer == null happens, when the node is not expanded
+        children.add(integer); // XXX is this a good way to handle that case?
       }
     }
     return children;
