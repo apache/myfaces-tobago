@@ -112,7 +112,12 @@ public class ButtonRenderer extends CommandRendererBase {
       HtmlRendererUtils.setDefaultTransition(facesContext, transition);
 
       HtmlRendererUtils.writeScriptLoader(facesContext, null, new String[]{
-          "Tobago.setDefaultAction('" + button.getClientId(facesContext) + "')"});      
+          "Tobago.registerListener(\n"
+              + "function() { \n"
+              + "Tobago.setDefaultAction('" + button.getClientId(facesContext) + "') \n"
+              + "}, \n"
+              + "Tobago.Phase.DOCUMENT_READY);"
+              });
     }
   }
 
