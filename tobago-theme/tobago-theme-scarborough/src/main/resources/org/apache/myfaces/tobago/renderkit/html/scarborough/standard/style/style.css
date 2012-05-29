@@ -139,10 +139,11 @@ fieldset.tobago-box {
 /* button ------------------------------------------------------------------ */
 
 .tobago-button {
-  border-left: 1px solid #ddeeff;
-  border-right: 1px solid #6688aa;
-  border-top: 1px solid #ddeeff;
-  border-bottom: 1px solid #6688aa;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #ddeeff;
+  border-right-color: #6688aa;
+  border-bottom-color: #6688aa;
   padding: 2px;
   background: #bbccdd;
   font-weight: normal;
@@ -152,6 +153,11 @@ fieldset.tobago-box {
   -moz-box-sizing: content-box;
   -webkit-box-sizing: content-box;
   -ms-box-sizing: content-box;
+}
+
+.tobago-button-markup-default {
+  border-width: 2px;
+  padding: 1px;
 }
 
 .tobago-button-markup-disabled {

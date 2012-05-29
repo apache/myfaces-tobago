@@ -371,7 +371,6 @@ public class PageRenderer extends PageRendererBase {
       writer.endElement(HtmlElements.HEAD);
     }
 
-    String defaultActionId = page.getDefaultActionId() != null ? page.getDefaultActionId() : "";
     writer.startElement(HtmlElements.BODY, page);
 //    writer.writeAttribute(HtmlAttributes.ONLOAD, "Tobago.init('" + clientId + "');", false);
 //    writer.writeAttribute("onunload", "Tobago.onexit();", null);
@@ -416,7 +415,6 @@ public class PageRenderer extends PageRendererBase {
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN, false);
     writer.writeNameAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "form-action");
     writer.writeIdAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "form-action");
-    writer.writeAttribute(HtmlAttributes.VALUE, defaultActionId, true);
     writer.endElement(HtmlElements.INPUT);
 
     writer.startElement(HtmlElements.INPUT, null);

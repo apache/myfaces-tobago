@@ -68,7 +68,6 @@ public class CommandRendererHelper {
         }
       }
 
-      boolean defaultCommand = ComponentUtils.getBooleanAttribute(command, Attributes.DEFAULT_COMMAND);
       boolean transition = ComponentUtils.getBooleanAttribute(command, Attributes.TRANSITION);
 
       if (StringUtils.isNotEmpty(command.getLink()) || StringUtils.isNotEmpty(command.getResource())) {
@@ -101,10 +100,6 @@ public class CommandRendererHelper {
               + HtmlRendererUtils.getComponentIds(facesContext, command, componentIds) + "','" + clientId + "', {});";
         }
 
-      } else if (defaultCommand) {
-        String clientId = command.getClientId(facesContext);
-        ComponentUtils.findPage(facesContext, command).setDefaultActionId(clientId);
-        onclick = null;
       } else {
         String clientId = command.getClientId(facesContext);
         String target = ComponentUtils.getStringAttribute(command, Attributes.TARGET);

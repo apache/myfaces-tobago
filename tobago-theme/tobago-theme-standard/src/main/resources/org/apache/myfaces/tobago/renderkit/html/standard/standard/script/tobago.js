@@ -337,7 +337,6 @@ var Tobago = {
       var result = Tobago.applicationOnsubmit();
       if (!result) {
         this.isSubmit = false;
-        Tobago.action.value = oldAction;
         Tobago.form.target = oldTarget;
         return false;
       }
@@ -579,7 +578,6 @@ var Tobago = {
         this.isSubmit = true;
         var req = Tobago.Transport.requests.shift(); // remove this from queue
         LOG.debug('request removed: ' + req.toString()); // @DEV_ONLY
-        var oldAction = Tobago.action.value;
         var oldTarget = Tobago.form.target;
         Tobago.action.value = actionId;
         if (options.target) {
@@ -599,7 +597,6 @@ var Tobago = {
             alert('Submit failed: ' + e); // XXX localization, better error handling
           }
         }
-        Tobago.action.value = oldAction;
         if (options.target) {
           Tobago.form.target = oldTarget;
         }
@@ -1469,8 +1466,9 @@ var Tobago = {
     return ajaxComponentIds.split(',');
   },
 
+  /** @deprecated since Tobago 1.5.7 and 1.6.0 */
   setDefaultAction: function(defaultActionId) {
-    Tobago.action.value = defaultActionId;
+    LOG.warn("setDefaultAction is deprecated");
   },
 
   isFunction: function(func) {
@@ -1952,13 +1950,11 @@ Tobago.Transport.JqueryTransport = {
     };
 
     return Tobago.Transport.request(function() {
-      requestOptions.originalAction = Tobago.action.value;
       requestObject.url = requestOptions.url;
       Tobago.action.value = requestOptions.actionId;
       Tobago.partialRequestIds.value = requestOptions.ajaxComponentIds;
       requestObject.data = jQuery(Tobago.form).serialize();
       requestOptions.xhr = jQuery.ajax(requestObject);
-      Tobago.action.value = requestOptions.originalAction;
     }, false, requestOptions.actionId);
   }
 };

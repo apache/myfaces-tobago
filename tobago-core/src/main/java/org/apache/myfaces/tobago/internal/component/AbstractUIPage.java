@@ -26,6 +26,7 @@ import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.OnComponentPopulated;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.layout.LayoutUtils;
+import org.apache.myfaces.tobago.internal.util.Deprecation;
 import org.apache.myfaces.tobago.internal.webapp.TobagoMultipartFormdataRequest;
 import org.apache.myfaces.tobago.layout.Box;
 import org.apache.myfaces.tobago.layout.LayoutComponent;
@@ -64,8 +65,6 @@ public abstract class AbstractUIPage extends AbstractUIForm
   private String actionId;
 
   private Box actionPosition;
-
-  private String defaultActionId;
 
   private List<KeyValue> postfields;
 
@@ -256,12 +255,15 @@ public abstract class AbstractUIPage extends AbstractUIForm
     this.actionPosition = actionPosition;
   }
 
+  /** @deprecated since 1.5.7 and 1.6.0 */
   public String getDefaultActionId() {
-    return defaultActionId;
+    Deprecation.LOG.error("The default action handling has been changed!");
+    return null;
   }
 
+  /** @deprecated since 1.5.7 and 1.6.0 */
   public void setDefaultActionId(String defaultActionId) {
-    this.defaultActionId = defaultActionId;
+    Deprecation.LOG.error("The default action handling has been changed!");
   }
 
   public void onComponentPopulated(FacesContext facesContext, UIComponent parent) {

@@ -131,6 +131,8 @@ public final class HtmlRendererUtils {
     }
   }
 
+  /** @deprecated since 1.5.7 and 1.6.0 */
+  @Deprecated
   public static void setDefaultTransition(FacesContext facesContext, boolean transition)
       throws IOException {
     writeScriptLoader(facesContext, null, new String[]{"Tobago.transition = " + transition + ";"});
