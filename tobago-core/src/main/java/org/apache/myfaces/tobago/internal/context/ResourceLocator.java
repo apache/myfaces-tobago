@@ -148,7 +148,7 @@ class ResourceLocator {
         if (themeUrl.toString().endsWith(META_INF_TOBAGO_CONFIG_XML)) {
           TobagoConfigFragment tobagoConfig = new TobagoConfigParser().parse(themeUrl);
           for (ThemeImpl theme : tobagoConfig.getThemeDefinitions()) {
-            addThemeResources( resources, themeUrl, theme);
+            addThemeResources(resources, themeUrl, theme);
           }
         } else {
           // the old way
