@@ -23,6 +23,11 @@ Migration from Tobago 1.5 to 1.6 (work in progress)
 
    The most changes are in the tree API, which is more easy to use, but also more flexible.
 
+Java-API
+
+   The class org.apache.myfaces.tobago.model.TreeState which has been deprecated in 1.5.x is
+   used in 1.6.x with a changed API. Please check the occurrences.
+
 Deprecated
 
    There are also <<<@Deprecated>>> annotations in the code and some
