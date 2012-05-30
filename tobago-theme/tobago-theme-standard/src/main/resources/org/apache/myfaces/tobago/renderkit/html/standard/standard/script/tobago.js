@@ -2520,6 +2520,94 @@ Tobago.registerListener(Tobago.TabGroup.init, Tobago.Phase.DOCUMENT_READY);
 Tobago.registerListener(Tobago.TabGroup.init, Tobago.Phase.AFTER_UPDATE);
 
 // ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Commands
+
+Tobago.Command = {};
+
+Tobago.Command.initEnter = function(elements) {
+  var body = Tobago.Utils.selectWidthJQuery(elements, "body");
+  body.keypress(function (event) {
+    var code = event.which;
+    if (code == 0) {
+      code = event.keyCode;
+    }
+    if (code == 13) {
+      var target = event.target;
+      if (target.tagName == "A" || target.tagName == "BUTTON") {
+        return;
+      }
+      if (target.tagName == "TEXTAREA") {
+        if (!event.metaKey && !event.ctrlKey) {
+          return;
+        }
+      }
+      var id = target.id;
+      while (id != null) {
+        var command = jQuery("[data-tobago-default='" + id + "']");
+        if (command.size() > 0) {
+          command.click();
+          break;
+        }
+        id = Tobago.Utils.getNamingContainerId(id);
+      }
+      return false;
+    }
+  })};
+
+Tobago.Command.initInputElements = function(elements) {
+  var inputElements = Tobago.Utils.selectWidthJQuery(elements, "input, select, textarea, a, button");
+  inputElements.focus(function (event) {
+    var target = event.target;
+    var id = target.id;
+    var command;
+    if (target.tagName == "A" || target.tagName == "BUTTON") {
+      command = jQuery(target);
+    } else {
+      while (id != null) {
+        command = jQuery("[data-tobago-default='" + id + "']");
+        if (command.size() > 0) {
+          break;
+        }
+        id = Tobago.Utils.getNamingContainerId(id);
+      }
+    }
+
+    if (command.size() > 0) {
+      // add new classes
+      command.filter("a").addClass("tobago-link-markup-default");
+      command.filter("button").addClass("tobago-button-markup-default");
+    }
+  });
+  inputElements.blur(function (event) {
+    var target = event.target;
+    var id = target.id;
+    var command;
+    if (target.tagName == "A" || target.tagName == "BUTTON") {
+      command = jQuery(target);
+    } else {
+      while (id != null) {
+        command = jQuery("[data-tobago-default='" + id + "']");
+        if (command.size() > 0) {
+          break;
+        }
+        id = Tobago.Utils.getNamingContainerId(id);
+      }
+    }
+
+    if (command.size() > 0) {
+      // remove old
+      command.filter("a").removeClass("tobago-link-markup-default");
+      command.filter("button").removeClass("tobago-button-markup-default");
+    }
+  });
+};
+
+Tobago.registerListener(Tobago.Command.initEnter, Tobago.Phase.DOCUMENT_READY);
+
+Tobago.registerListener(Tobago.Command.initInputElements, Tobago.Phase.DOCUMENT_READY);
+Tobago.registerListener(Tobago.Command.initInputElements, Tobago.Phase.AFTER_UPDATE);
+
+// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 Tobago.SelectManyShuttle = {};
 

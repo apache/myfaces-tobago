@@ -59,6 +59,38 @@ Tobago.Utils.getSuperComponentId = function(id) {
 };
 
 /**
+ * "a:b" -> "a"
+ * "a:b:c" -> "a:b"
+ * "a" -> null
+ * null -> null
+ * "a:b::sub-component" -> "a"
+ * "a::sub-component:b" -> "a::sub-component" // should currently not happen in Tobago
+ *
+ * @param id The clientId of a component.
+ * @return The clientId of the naming container.
+ */
+Tobago.Utils.getNamingContainerId = function (id) {
+  if (id == null) {
+    return null;
+  }
+  if (id.lastIndexOf(":") == -1) {
+    return null;
+  }
+  while (true) {
+    var sub = id.lastIndexOf("::");
+    if (sub == -1) {
+      break;
+    }
+    if (sub + 1 == id.lastIndexOf(":")) {
+      id = id.substring(0, sub);
+    } else {
+      break;
+    }
+  }
+  return id.substring(0, id.lastIndexOf(":"));
+};
+
+/**
  * fix position, when the element it is outside of the current page
  * @param elements is an jQuery Array of elements to be fixed.
  */
