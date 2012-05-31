@@ -30,8 +30,8 @@ import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.faces.component.UIColumn;
 import javax.faces.component.UIData;
-import javax.faces.component.UIOutput;
 import javax.faces.context.FacesContext;
 import javax.faces.el.MethodBinding;
 import javax.faces.model.DataModel;
@@ -42,7 +42,7 @@ import java.util.List;
 import java.util.Stack;
 
 public abstract class AbstractUITreeNode
-    extends UIOutput implements SupportsMarkup, TreeModelBuilder, Configurable {
+    extends UIColumn implements SupportsMarkup, TreeModelBuilder, Configurable {
 
   private static final Logger LOG = LoggerFactory.getLogger(AbstractUITreeNode.class);
 
@@ -102,12 +102,6 @@ public abstract class AbstractUITreeNode
     }
     return null;
   }*/
-
-  @Override
-  public Object getValue() {
-    LOG.error("XXX: Should not be called!", new Exception());
-    return super.getValue();
-  }
 
   protected DefaultMutableTreeNode getRowData() {
     final UIData data = ComponentUtils.findAncestor(this, UIData.class);
