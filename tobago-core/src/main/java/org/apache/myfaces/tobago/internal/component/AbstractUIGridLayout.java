@@ -232,6 +232,10 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase implemen
       return;
     }
 
+    if (!isLayoutContainerRendered()) {
+        return;
+    }
+
     final BankHead[] heads = grid.getBankHeads(orientation);
     final BankHead[] heads2 = grid.getBankHeads(orientation.other());
 

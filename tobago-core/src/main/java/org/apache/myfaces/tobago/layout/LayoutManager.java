@@ -30,4 +30,6 @@ public interface LayoutManager extends Configurable {
   void mainProcessing(Orientation orientation);
 
   void postProcessing(Orientation orientation);
+
+  boolean isLayoutContainerRendered();
 }
