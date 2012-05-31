@@ -88,6 +88,9 @@ public class EncodeAjaxCallback implements TobagoCallback {
 
   // TODO merge with RenderUtils.prepareRendererAll
   public static void prepareRendererAll(FacesContext facesContext, UIComponent component) throws IOException {
+    if (!component.isRendered()) {
+      return;
+    }
     RendererBase renderer = ComponentUtils.getRenderer(facesContext,  component);
     boolean prepareRendersChildren = false;
     if (renderer != null) {
