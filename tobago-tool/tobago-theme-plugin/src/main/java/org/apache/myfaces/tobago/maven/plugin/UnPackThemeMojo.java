@@ -166,6 +166,9 @@ public class UnPackThemeMojo extends AbstractThemeMojo {
                           String metaInf = tempLocation + "/META-INF/MANIFEST.MF";
                           properties.load(new StringReader(FileUtils.fileRead(metaInf)));
                           version = properties.getProperty("Implementation-Version");
+                          if (version == null) {
+                            getLog().error("No Implementation-Version found in Manifest-File in " + name);
+                          }
                         }
                       }
                     }
@@ -185,7 +188,7 @@ public class UnPackThemeMojo extends AbstractThemeMojo {
                   String fileName = fileNames[i];
                   File fromFile = new File(tempLocation, fileName);
                   String toFileName = fileName;
-                  if (resourcePath != null && toFileName.startsWith(resourcePath)) {
+                  if (resourcePath != null && version != null && toFileName.startsWith(resourcePath)) {
                     toFileName = resourcePath + "/" + version + "/" +toFileName.substring(resourcePath.length()+1);
                   }
                   if (getLog().isDebugEnabled()) {
