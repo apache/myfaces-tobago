@@ -157,7 +157,15 @@ class ResourceLocator {
               InputStream inputStream = new URL(metaInf).openStream();
               try {
                 properties.load(inputStream);
-                theme.setVersion(properties.getProperty("Implementation-Version"));
+                String version = properties.getProperty("Implementation-Version");
+                if (version != null) {
+                  theme.setVersion(version);
+                } else {
+                  theme.setVersioned(false);
+                  LOG.error("No Implementation-Version found in Manifest-File for " + theme.getName()
+                      + ". Resetting the theme to unversioned. Please correct the Manifest-File.") ;
+                }
+
               } finally {
                 IOUtils.closeQuietly(inputStream);
               }
