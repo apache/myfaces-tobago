@@ -167,7 +167,7 @@ public class UnPackThemeMojo extends AbstractThemeMojo {
                           properties.load(new StringReader(FileUtils.fileRead(metaInf)));
                           version = properties.getProperty("Implementation-Version");
                           if (version == null) {
-                            getLog().error("No Implementation-Version found in Manifest-File in " + name);
+                            getLog().error("No Implementation-Version found in Manifest-File for theme: '" + name + "'.");
                           }
                         }
                       }
