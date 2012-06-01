@@ -178,7 +178,7 @@
 
   <servlet-mapping>
     <servlet-name>ResourceServlet</servlet-name>
-    <url-pattern>/org/apache/myfaces/tobago/renderkit/html/*</url-pattern>
+    <url-pattern>/org/apache/myfaces/tobago/renderkit/*</url-pattern>
   </servlet-mapping>
 
   <error-page>

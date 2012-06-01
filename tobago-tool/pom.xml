@@ -28,5 +28,6 @@
   <modules>
     <module>tobago-tool-apt</module>
     <module>tobago-tool-annotation</module>
+    <module>tobago-theme-plugin</module>
   </modules>
 </project>

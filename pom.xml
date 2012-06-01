@@ -20,7 +20,7 @@
   <parent>
     <groupId>org.apache.myfaces</groupId>
     <artifactId>myfaces</artifactId>
-    <version>10</version>
+    <version>14</version>
   </parent>
   <groupId>org.apache.myfaces.tobago</groupId>
   <artifactId>tobago</artifactId>
@@ -619,9 +619,21 @@
       </plugin>
 
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId>        
+        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-checkstyle-plugin</artifactId>
         <version>2.7</version>
+        <configuration>
+          <configLocation>
+            http://svn.apache.org/repos/asf/myfaces/maven/trunk/build-tools/src/main/resources/org/apache/myfaces/tobago/checkstyle.xml
+          </configLocation>
+          <headerLocation>
+            http://svn.apache.org/repos/asf/myfaces/maven/trunk/build-tools/src/main/resources/org/apache/myfaces/tobago/checkstyle-header.txt
+          </headerLocation>
+          <xrefLocation>xref</xrefLocation>
+          <excludes>**/package-info.java</excludes>
+          <indentSize>2</indentSize>
+          <includeTestSourceDirectory>true</includeTestSourceDirectory>
+        </configuration>
       </plugin>
 
       <plugin>
@@ -646,6 +658,7 @@
                   <unCheckedPlugins>
                     <unCheckedPlugin>org.apache.maven.plugins:maven-idea-plugin</unCheckedPlugin>
                     <unCheckedPlugin>org.apache.maven.plugins:maven-eclipse-plugin</unCheckedPlugin>
+                    <unCheckedPlugin>org.apache.myfaces.tobago:tobago-theme-plugin</unCheckedPlugin>
                   </unCheckedPlugins>
                 </requirePluginVersions>
                 <requireJavaVersion>
@@ -734,8 +747,8 @@
       <plugins>
         <plugin>
           <groupId>org.apache.myfaces.tobago</groupId>
-          <artifactId>maven-theme-plugin</artifactId>
-          <version>1.0.30</version>
+          <artifactId>tobago-theme-plugin</artifactId>
+          <version>${project.version}</version>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
@@ -1097,7 +1110,7 @@
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-enforcer-plugin</artifactId>
-            <version>1.0.1</version>
+            <version>1.1</version>
             <executions>
               <execution>
                 <id>enforce-java</id>

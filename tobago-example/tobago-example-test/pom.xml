@@ -32,7 +32,7 @@
 <!--
       <plugin>
         <groupId>org.apache.myfaces.tobago</groupId>
-        <artifactId>maven-theme-plugin</artifactId>
+        <artifactId>tobago-theme-plugin</artifactId>
         <executions>
           <execution>
             <goals>
