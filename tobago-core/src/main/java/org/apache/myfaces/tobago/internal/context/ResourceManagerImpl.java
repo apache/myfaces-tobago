@@ -303,26 +303,24 @@ public class ResourceManagerImpl implements ResourceManager {
     UserAgent browser = clientkey.getUserAgent();
     List<String> locales = LocaleUtils.getLocaleSuffixList(clientkey.getLocale());
 
-    String path;
-
     // check first the local web application directory
     for (String localeSuffix : locales) {
       if (production) {
-        path = makePath(name, MINIMIZE_SUFFIX, localeSuffix, suffix, key);
-        boolean found = checkPath(prefix, reverseOrder, returnKey, returnStrings, matches, path);
+        boolean found = checkPath(prefix, reverseOrder, returnKey, returnStrings, matches,
+            name, MINIMIZE_SUFFIX, localeSuffix, suffix, key);
         if (found && (single || !returnStrings)) {
           return matches;
         }
         if (!found) {
-          path = makePath(name, null, localeSuffix, suffix, key);
-          found = checkPath(prefix, reverseOrder, returnKey, returnStrings, matches, path);
+          found = checkPath(prefix, reverseOrder, returnKey, returnStrings, matches,
+              name, null, localeSuffix, suffix, key);
           if (found && (single || !returnStrings)) {
             return matches;
           }
         }
       } else {
-        path = makePath(name, null, localeSuffix, suffix, key);
-        boolean found = checkPath(prefix, reverseOrder, returnKey, returnStrings, matches, path);
+        boolean found = checkPath(prefix, reverseOrder, returnKey, returnStrings, matches,
+            name, null, localeSuffix, suffix, key);
         if (found && (single || !returnStrings)) {
           return matches;
         }
@@ -331,29 +329,29 @@ public class ResourceManagerImpl implements ResourceManager {
 
     // after that check the whole resources tree
     // e.g. 1. application, 2. library or renderkit
-    for (Theme themeName : theme.getFallbackList()) { // theme loop
+    for (Theme currentTheme : theme.getFallbackList()) {// theme loop
       for (String resourceDirectory : tobagoConfig.getResourceDirs()) {
         for (String browserType : browser.getFallbackList()) { // browser loop
           for (String localeSuffix : locales) { // locale loop
             if (production) {
-              path = makePath(resourceDirectory, contentType, themeName, browserType, subDir, name, MINIMIZE_SUFFIX,
+              boolean found = checkPath(prefix, reverseOrder, returnKey, returnStrings, matches,
+                  resourceDirectory, contentType, currentTheme, browserType, subDir, name, MINIMIZE_SUFFIX,
                   localeSuffix, suffix, key);
-              boolean found = checkPath(prefix, reverseOrder, returnKey, returnStrings, matches, path);
               if (found && (single || !returnStrings)) {
                 return matches;
               }
               if (!found) {
-                path = makePath(resourceDirectory, contentType, themeName, browserType, subDir, name, null,
-                  localeSuffix, suffix, key);
-                found = checkPath(prefix, reverseOrder, returnKey, returnStrings, matches, path);
+                found = checkPath(prefix, reverseOrder, returnKey, returnStrings, matches,
+                    resourceDirectory, contentType, currentTheme, browserType, subDir, name, null,
+                    localeSuffix, suffix, key);
                 if (found && (single || !returnStrings)) {
                   return matches;
                 }
               }
             } else {
-              path = makePath(resourceDirectory, contentType, themeName, browserType, subDir, name, null,
+              boolean found = checkPath(prefix, reverseOrder, returnKey, returnStrings, matches,
+                  resourceDirectory, contentType, currentTheme, browserType, subDir, name, null,
                   localeSuffix, suffix, key);
-              boolean found = checkPath(prefix, reverseOrder, returnKey, returnStrings, matches, path);
               if (found && (single || !returnStrings)) {
                 return matches;
               }
@@ -384,7 +382,8 @@ public class ResourceManagerImpl implements ResourceManager {
 
   private boolean checkPath(
       String prefix, boolean reverseOrder, boolean returnKey, boolean returnStrings,
-      List matches, String path) {
+      List matches, String name, String minimizeSuffix, String localeSuffix, String extension, String key) {
+    String path = makePath(name, minimizeSuffix, localeSuffix, extension, key);
     if (returnStrings && resourceList.containsKey(path)) {
       String result =
           returnKey
@@ -424,13 +423,65 @@ public class ResourceManagerImpl implements ResourceManager {
     return false;
   }
 
+  private boolean checkPath(
+      String prefix, boolean reverseOrder, boolean returnKey, boolean returnStrings,
+      List matches,  String resourceDirectory, String contentType, Theme currentTheme, String browserType,
+      String subDir, String name, String minimizeSuffix, String localeSuffix, String suffix, String key) {
+    String path = makePath(resourceDirectory, contentType, currentTheme, browserType, subDir, name, minimizeSuffix,
+        localeSuffix, suffix, key, null);
+    if (returnStrings && resourceList.containsKey(path)) {
+      String result;
+      if (prefix.length() == 0 && returnKey && resourceDirectory.equals(currentTheme.getResourcePath())) {
+        result = makePath(resourceDirectory, contentType, currentTheme, browserType, subDir, name, minimizeSuffix,
+            localeSuffix, suffix, key, currentTheme.getVersion());
+      } else {
+        result = returnKey
+            ? prefix + path : prefix + resourceList.get(path);
+      }
+      if (reverseOrder) {
+        matches.add(0, result);
+      } else {
+        matches.add(result);
+      }
+      if (LOG.isTraceEnabled()) {
+        LOG.trace("testing path: {} *", path); // match
+      }
+
+      return true;
+    } else if (!returnStrings) {
+      try {
+        path = path.substring(1).replace('/', '.');
+        Class clazz = Class.forName(path);
+        if (LOG.isTraceEnabled()) {
+          LOG.trace("testing path: " + path + " *"); // match
+        }
+        matches.add(clazz);
+        return true;
+      } catch (ClassNotFoundException e) {
+        // not found
+        if (LOG.isTraceEnabled()) {
+          LOG.trace("testing path: " + path); // no match
+        }
+      }
+    } else {
+      if (LOG.isTraceEnabled()) {
+        LOG.trace("testing path: " + path); // no match
+      }
+    }
+    return false;
+  }
+
   private String makePath(
-      String project, String language, Theme theme, String browser,
-      String subDir, String name, String minimizeSuffix, String localeSuffix, String extension, String key) {
+      String project, String language, Theme theme, String browser, String subDir,
+      String name, String minimizeSuffix, String localeSuffix, String extension, String key, String version) {
     StringBuilder searchtext = new StringBuilder(64);
 
     searchtext.append('/');
     searchtext.append(project);
+    if (version != null) {
+      searchtext.append('/');
+      searchtext.append(version);
+    }
     searchtext.append('/');
     searchtext.append(language);
     searchtext.append('/');

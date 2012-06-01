@@ -149,6 +149,19 @@ class ResourceLocator {
         if (themeUrl.toString().endsWith(META_INF_TOBAGO_CONFIG_XML)) {
           TobagoConfigFragment tobagoConfig = new TobagoConfigParser().parse(themeUrl);
           for (ThemeImpl theme : tobagoConfig.getThemeDefinitions()) {
+            if (theme.isVersioned()) {
+              String themeUrlStr = themeUrl.toString();
+              int index = themeUrlStr.indexOf(META_INF_TOBAGO_CONFIG_XML);
+              String metaInf = themeUrlStr.substring(0, index) + "META-INF/MANIFEST.MF";
+              Properties properties = new Properties();
+              InputStream inputStream = new URL(metaInf).openStream();
+              try {
+                properties.load(inputStream);
+                theme.setVersion(properties.getProperty("Implementation-Version"));
+              } finally {
+                IOUtils.closeQuietly(inputStream);
+              }
+            }
             addThemeResources(resources, themeUrl, theme);
           }
         } else {

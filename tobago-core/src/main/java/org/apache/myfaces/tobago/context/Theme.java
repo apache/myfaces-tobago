@@ -42,4 +42,6 @@ public interface Theme {
 
   String[] getStyleResources(boolean production);
 
+  String getVersion();
+
 }

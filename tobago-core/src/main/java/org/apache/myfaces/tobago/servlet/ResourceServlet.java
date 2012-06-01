@@ -20,6 +20,7 @@ package org.apache.myfaces.tobago.servlet;
 import org.apache.commons.io.IOUtils;
 import org.apache.myfaces.tobago.application.ProjectStage;
 import org.apache.myfaces.tobago.config.TobagoConfig;
+import org.apache.myfaces.tobago.context.Theme;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.internal.util.MimeTypeUtils;
@@ -32,6 +33,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * <p><pre>
@@ -67,6 +70,7 @@ public class ResourceServlet extends HttpServlet {
 
   private Long expires;
   private int bufferSize;
+  private Set<String> resourceDirs = new HashSet<String>();
 
   @Override
   public void init(ServletConfig servletConfig) throws ServletException {
@@ -74,6 +78,14 @@ public class ResourceServlet extends HttpServlet {
     TobagoConfig tobagoConfig = TobagoConfig.getInstance(servletConfig.getServletContext());
     if (tobagoConfig != null && tobagoConfig.getProjectStage() == ProjectStage.Production) {
        expires = 24 * 60 * 60 * 1000L;
+    }
+    for (Theme theme : tobagoConfig.getSupportedThemes()) {
+      String dir = theme.getResourcePath();
+      if (dir.startsWith("/")) {
+        resourceDirs.add(dir.substring(1));
+      } else {
+        resourceDirs.add(dir);
+      }
     }
     String expiresString = servletConfig.getInitParameter("expires");
     if (expiresString != null) {
@@ -101,7 +113,14 @@ public class ResourceServlet extends HttpServlet {
 
     String requestURI = request.getRequestURI();
     String resource = requestURI.substring(request.getContextPath().length() + 1);
-
+    for (String resourceDir : resourceDirs) {
+      if (resource.startsWith(resourceDir)) {
+        if (Character.isDigit(resource.charAt(resourceDir.length()+1))) {
+          resource = resourceDir + resource.substring(resource.indexOf('/', resourceDir.length() + 1));
+          break;
+        }
+      }
+    }
     if (expires != null) {
       response.setDateHeader("Last-Modified", 0);
       response.setHeader("Cache-Control", "Public, max-age=" + expires);
