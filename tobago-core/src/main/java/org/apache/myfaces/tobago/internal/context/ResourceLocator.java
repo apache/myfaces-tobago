@@ -163,7 +163,7 @@ class ResourceLocator {
                 } else {
                   theme.setVersioned(false);
                   LOG.error("No Implementation-Version found in Manifest-File for " + theme.getName()
-                      + ". Resetting the theme to unversioned. Please correct the Manifest-File.") ;
+                      + ". Resetting the theme to unversioned. Please correct the Manifest-File.");
                 }
 
               } finally {
