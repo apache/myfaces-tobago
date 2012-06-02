@@ -34,6 +34,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -79,14 +80,11 @@ public class ResourceServlet extends HttpServlet {
     if (tobagoConfig != null && tobagoConfig.getProjectStage() == ProjectStage.Production) {
        expires = 24 * 60 * 60 * 1000L;
     }
-    for (Theme theme : tobagoConfig.getSupportedThemes()) {
-      String dir = theme.getResourcePath();
-      if (dir.startsWith("/")) {
-        resourceDirs.add(dir.substring(1));
-      } else {
-        resourceDirs.add(dir);
-      }
-    }
+    Theme defaultTheme = tobagoConfig.getDefaultTheme();
+    addResourceDir(defaultTheme);
+    addResourceDir(defaultTheme.getFallbackList());
+    addResourceDir(tobagoConfig.getSupportedThemes());
+
     String expiresString = servletConfig.getInitParameter("expires");
     if (expiresString != null) {
       try {
@@ -106,7 +104,22 @@ public class ResourceServlet extends HttpServlet {
     }
   }
 
-  @Override
+  private void addResourceDir(List<Theme> themes) {
+    for (Theme theme : themes) {
+        addResourceDir(theme);
+    }
+  }
+
+  private void addResourceDir(Theme theme) {
+    String dir = theme.getResourcePath();
+    if (dir.startsWith("/")) {
+      resourceDirs.add(dir.substring(1));
+    } else {
+      resourceDirs.add(dir);
+    }
+  }
+
+    @Override
   protected void doGet(
       HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
