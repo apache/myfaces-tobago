@@ -81,7 +81,7 @@ public class ResourceServlet extends HttpServlet {
        expires = 24 * 60 * 60 * 1000L;
     }
     Theme defaultTheme = tobagoConfig.getDefaultTheme();
-    addResourceDir(defaultTheme);
+    addResourceDir(defaultTheme.getFallbackList());
     addResourceDir(tobagoConfig.getSupportedThemes());
 
     String expiresString = servletConfig.getInitParameter("expires");
@@ -116,7 +116,6 @@ public class ResourceServlet extends HttpServlet {
     } else {
       resourceDirs.add(dir);
     }
-    addResourceDir(theme.getFallbackList());
   }
 
     @Override
