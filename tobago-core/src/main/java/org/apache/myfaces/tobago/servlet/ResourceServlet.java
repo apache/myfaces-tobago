@@ -82,7 +82,6 @@ public class ResourceServlet extends HttpServlet {
     }
     Theme defaultTheme = tobagoConfig.getDefaultTheme();
     addResourceDir(defaultTheme);
-    addResourceDir(defaultTheme.getFallbackList());
     addResourceDir(tobagoConfig.getSupportedThemes());
 
     String expiresString = servletConfig.getInitParameter("expires");
@@ -117,6 +116,7 @@ public class ResourceServlet extends HttpServlet {
     } else {
       resourceDirs.add(dir);
     }
+    addResourceDir(theme.getFallbackList());
   }
 
     @Override
@@ -130,8 +130,8 @@ public class ResourceServlet extends HttpServlet {
       if (resource.startsWith(resourceDir)) {
         if (Character.isDigit(resource.charAt(resourceDir.length()+1))) {
           resource = resourceDir + resource.substring(resource.indexOf('/', resourceDir.length() + 1));
-          break;
         }
+        break;
       }
     }
     if (expires != null) {
