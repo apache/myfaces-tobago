@@ -33,6 +33,7 @@ import org.codehaus.plexus.util.xml.Xpp3Dom;
 import org.codehaus.plexus.util.xml.Xpp3DomBuilder;
 import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.StringReader;
@@ -164,7 +165,7 @@ public class UnPackThemeMojo extends AbstractThemeMojo {
                           resourcePath = resourcePathDom.getValue();
                           Properties properties = new Properties();
                           String metaInf = tempLocation + "/META-INF/MANIFEST.MF";
-                          properties.load(new StringReader(FileUtils.fileRead(metaInf)));
+                          properties.load(new ByteArrayInputStream(FileUtils.fileRead(metaInf).getBytes()));
                           version = properties.getProperty("Implementation-Version");
                           if (version == null) {
                             getLog().error("No Implementation-Version found in Manifest-File for theme: '"
