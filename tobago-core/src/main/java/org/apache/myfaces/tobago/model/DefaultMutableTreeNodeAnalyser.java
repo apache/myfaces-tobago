@@ -20,7 +20,7 @@ package org.apache.myfaces.tobago.model;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 /**
- * @deprecated since XXX 1.6.0 version???
+ * @deprecated since 1.6.0
  */
 @Deprecated
 public class DefaultMutableTreeNodeAnalyser implements TreeAnalyser {

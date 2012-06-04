@@ -18,7 +18,7 @@ package org.apache.myfaces.tobago.model;
  */
 
 /**
- * @deprecated since XXX 1.6.0 version???
+ * @deprecated since 1.6.0
  */
 @Deprecated
 public interface TreeAnalyser {

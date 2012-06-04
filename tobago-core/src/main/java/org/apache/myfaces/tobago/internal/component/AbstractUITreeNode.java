@@ -59,7 +59,7 @@ public abstract class AbstractUITreeNode
   }
 
   /**
-   * @deprecated since XXX 1.6.0 ???
+   * @deprecated since 1.6.0
    */
   @Deprecated
   public void buildTreeModelBegin(FacesContext facesContext, MixedTreeModel model) {
@@ -67,7 +67,7 @@ public abstract class AbstractUITreeNode
   }
 
   /**
-   * @deprecated since XXX 1.6.0 ???
+   * @deprecated since 1.6.0
    */
   @Deprecated
   public void buildTreeModelChildren(FacesContext facesContext, MixedTreeModel model) {
@@ -75,7 +75,7 @@ public abstract class AbstractUITreeNode
   }
 
   /**
-   * @deprecated since XXX 1.6.0 ???
+   * @deprecated since 1.6.0
    */
   @Deprecated
   public void buildTreeModelEnd(FacesContext facesContext, MixedTreeModel model) {
@@ -126,7 +126,7 @@ public abstract class AbstractUITreeNode
   }
 
   /**
-   * @deprecated since XXX 1.6.0 version???
+   * @deprecated since 1.6.0
    */
   @Deprecated
   public int getDepth() {
@@ -135,7 +135,7 @@ public abstract class AbstractUITreeNode
   }
 
   /**
-   * @deprecated since XXX 1.6.0 version???
+   * @deprecated since 1.6.0
    */
   @Deprecated
   public void setDepth(int depth) {
@@ -148,7 +148,7 @@ public abstract class AbstractUITreeNode
   }
 
   /**
-   * @deprecated since XXX 1.6.0 version???
+   * @deprecated since 1.6.0
    */
   @Deprecated
   public void setFolder(boolean folder) {
@@ -160,7 +160,7 @@ public abstract class AbstractUITreeNode
   }
 
   /**
-   * @deprecated since XXX 1.6.0 version???
+   * @deprecated since 1.6.0
    */
   @Deprecated
   public void setPath(TreePath path) {
@@ -177,7 +177,7 @@ public abstract class AbstractUITreeNode
   }
 
   /**
-   * @deprecated since XXX 1.6.0 version???
+   * @deprecated since 1.6.0
    */
   @Deprecated
   public void setJunctions(List<Boolean> junctions) {
@@ -185,7 +185,7 @@ public abstract class AbstractUITreeNode
   }
 
   /**
-   * @deprecated since XXX 1.6.0 version???
+   * @deprecated since 1.6.0
    */
   @Deprecated
   public boolean isHasNextSibling() {
@@ -193,7 +193,7 @@ public abstract class AbstractUITreeNode
   }
 
   /**
-   * @deprecated since XXX 1.6.0 version???
+   * @deprecated since 1.6.0
    */
   @Deprecated
   public void setHasNextSibling(boolean hasNextSibling) {

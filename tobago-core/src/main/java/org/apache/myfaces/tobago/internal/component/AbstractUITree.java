@@ -43,15 +43,21 @@ public abstract class AbstractUITree extends AbstractUIData
 
   public static final String MESSAGE_NOT_LEAF = "tobago.tree.MESSAGE_NOT_LEAF";
 
-  /** @deprecated since XXX 1.6.0 ??? */
+  /**
+   * @deprecated since 1.6.0
+   */
   @Deprecated
   public static final String SEP = "-";
 
-  /** @deprecated since XXX 1.6.0 ??? */
+  /**
+   * @deprecated since 1.6.0
+   */
   @Deprecated
   public static final String SELECT_STATE = SEP + "selectState";
 
-  /** @deprecated since XXX 1.6.0 ???  */
+  /**
+   * @deprecated since 1.6.0
+   */
   @Deprecated
   public static final String MARKED = "marked";
 
@@ -86,7 +92,7 @@ public abstract class AbstractUITree extends AbstractUIData
   }
 
   /**
-   * @deprecated since XXX 1.6.0 ???
+   * @deprecated since 1.6.0
    */
   @Deprecated
   public UIComponent getRoot() {
@@ -150,7 +156,7 @@ public abstract class AbstractUITree extends AbstractUIData
   public void validate(FacesContext context) {
 */
 
-// todo: validate must be written new, without TreeState
+  // todo: validate must be written new, without TreeState
 /*
     if (isRequired() && getState().getSelection().size() == 0) {
       setValid(false);

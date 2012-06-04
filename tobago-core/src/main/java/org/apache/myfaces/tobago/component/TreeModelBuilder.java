@@ -22,25 +22,25 @@ import org.apache.myfaces.tobago.model.MixedTreeModel;
 import javax.faces.context.FacesContext;
 
 /**
- * @deprecated since XXX 1.6.0 ???
+ * @deprecated since 1.6.0
  */
 @Deprecated
 public interface TreeModelBuilder {
 
   /**
-   * @deprecated since XXX 1.6.0 ???
+   * @deprecated since 1.6.0
    */
   @Deprecated
   void buildTreeModelBegin(FacesContext facesContext, MixedTreeModel model);
 
   /**
-   * @deprecated since XXX 1.6.0 ???
+   * @deprecated since 1.6.0
    */
   @Deprecated
   void buildTreeModelChildren(FacesContext facesContext, MixedTreeModel model);
 
   /**
-   * @deprecated since XXX 1.6.0 ???
+   * @deprecated since 1.6.0
    */
   @Deprecated
   void buildTreeModelEnd(FacesContext facesContext, MixedTreeModel model);

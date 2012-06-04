@@ -28,7 +28,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
 /**
- * @deprecated since XXX 1.6.0 ???
+ * @deprecated since 1.6.0
  */
 @Deprecated
 public abstract class AbstractUITreeData extends javax.faces.component.UIInput
@@ -63,7 +63,7 @@ public abstract class AbstractUITreeData extends javax.faces.component.UIInput
   public abstract String getVar();
 
   /**
-   * @deprecated since XXX 1.6.0 ???
+   * @deprecated since 1.6.0
    */
   @Deprecated
   public void buildTreeModelBegin(FacesContext facesContext, MixedTreeModel model) {
@@ -71,7 +71,7 @@ public abstract class AbstractUITreeData extends javax.faces.component.UIInput
   }
 
   /**
-   * @deprecated since XXX 1.6.0 ???
+   * @deprecated since 1.6.0
    */
   @Deprecated
   public void buildTreeModelChildren(FacesContext facesContext, MixedTreeModel model) {
@@ -79,11 +79,10 @@ public abstract class AbstractUITreeData extends javax.faces.component.UIInput
   }
 
   /**
-   * @deprecated since XXX 1.6.0 ???
+   * @deprecated since 1.6.0
    */
   @Deprecated
   public void buildTreeModelEnd(FacesContext facesContext, MixedTreeModel model) {
     Deprecation.LOG.error("Doesn't work anymore.");
   }
-
 }

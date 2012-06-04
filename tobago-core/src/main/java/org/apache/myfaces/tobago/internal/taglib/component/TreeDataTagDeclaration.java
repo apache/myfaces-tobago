@@ -29,7 +29,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasVar;
  * Describes a sub tree of nodes.
  * The value has to be a javax.swing.tree.TreeNode object to use as rootNode in the tree.
  *
- * @deprecated since XXX 1.6.0 ??? Use the "var" and "value" attribute of the parent tree tag.
+ * @deprecated since 1.6.0. Please use the "var" and "value" attribute of the parent tree tag.
  */
 @Deprecated
 @Tag(name = "treeData")
