@@ -17,6 +17,7 @@ package org.apache.myfaces.tobago.model;
  * limitations under the License.
  */
 
+import javax.swing.tree.TreeNode;
 import java.io.Serializable;
 
 public class MarkedState implements Serializable {
@@ -37,5 +38,9 @@ public class MarkedState implements Serializable {
 
   public void setMarked(TreePath marked) {
     this.marked = marked;
+  }
+
+  public void setMarked(TreeNode marked) {
+    this.marked = new TreePath(marked);
   }
 }
