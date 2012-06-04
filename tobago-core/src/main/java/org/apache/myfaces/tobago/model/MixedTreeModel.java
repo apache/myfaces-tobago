@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.Stack;
 
 /**
- * @deprecated since XXX 1.6.0 ???
+ * @deprecated since 1.6.0
  */
 @Deprecated
 public class MixedTreeModel {
