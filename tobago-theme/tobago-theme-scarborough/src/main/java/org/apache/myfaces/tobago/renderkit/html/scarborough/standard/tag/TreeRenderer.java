@@ -96,7 +96,7 @@ public class TreeRenderer extends LayoutComponentRendererBase {
     writer.writeAttribute(HtmlAttributes.VALUE, ",", false);
     writer.endElement(HtmlElements.INPUT);
 
-    final int last = tree.hasRows() ? tree.getFirst() + tree.getRows() : Integer.MAX_VALUE;
+    final int last = tree.isRowsUnlimited() ? Integer.MAX_VALUE : tree.getFirst() + tree.getRows();
     for (int rowIndex = tree.getFirst(); rowIndex < last; rowIndex++) {
       tree.setRowIndex(rowIndex);
       if (!tree.isRowAvailable()) {
