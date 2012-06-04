@@ -394,7 +394,7 @@ public class RenderUtils {
           if (newMarked) {
             markedState.setMarked(path);
           } else {
-            markedState.setMarked((TreePath)null);
+            markedState.setMarked((TreePath) null);
           }
         }
       }
