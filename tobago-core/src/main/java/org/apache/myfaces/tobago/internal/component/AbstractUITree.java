@@ -109,7 +109,7 @@ public abstract class AbstractUITree extends AbstractUIData
   }
 
   /**
-   * @deprecated Since 1.5.0.
+   * @deprecated Since 1.6.0.
    */
   @Deprecated
   public MixedTreeModel getModel() {
