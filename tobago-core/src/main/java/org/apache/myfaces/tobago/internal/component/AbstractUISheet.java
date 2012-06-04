@@ -253,15 +253,6 @@ public abstract class AbstractUISheet extends AbstractUIData
   }
 
   /**
-   * @deprecated The name of this method is ambiguous.
-   * You may use {@link #isRowsUnlimited()}. Deprecated since 1.5.5.
-   */
-  @Deprecated
-  public boolean hasRows() {
-    return getRows() != 0;
-  }
-
-  /**
    * @return Should the paging controls be rendered? Either because of the need of paging or because
    * the show is enforced by {@link #isShowPagingAlways()}
    */

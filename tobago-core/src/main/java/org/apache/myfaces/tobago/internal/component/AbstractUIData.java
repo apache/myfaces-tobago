@@ -88,6 +88,11 @@ public abstract class AbstractUIData extends javax.faces.component.UIData implem
 
   public abstract ExpandedState getExpandedState();
 
+  /**
+   * @deprecated The name of this method is ambiguous.
+   * You may use the inverse of {@link #isRowsUnlimited()}. Deprecated since 1.5.5.
+   */
+  @Deprecated
   public boolean hasRows() {
     return getRows() != 0;
   }
