@@ -19,7 +19,6 @@ package org.apache.myfaces.tobago.example.test;
 
 import org.apache.myfaces.tobago.example.data.CantorInterval;
 import org.apache.myfaces.tobago.example.data.CategoryTree;
-import org.apache.myfaces.tobago.example.data.Node;
 import org.apache.myfaces.tobago.example.data.SmallTree;
 import org.apache.myfaces.tobago.model.ExpandedState;
 import org.apache.myfaces.tobago.model.MarkedState;
@@ -61,15 +60,8 @@ public class TreeController {
   }
 
   public String openAll() {
-    openAll(tree);
+    state.getExpandedState().expandAll();
     return null;
-  }
-
-  public void openAll(DefaultMutableTreeNode node) {
-    ((Node) node.getUserObject()).setExpanded(true);
-    for (int i = 0; i < node.getChildCount(); i++) {
-      openAll((DefaultMutableTreeNode) node.getChildAt(i));
-    }
   }
 
   public CantorInterval getInfinite() {

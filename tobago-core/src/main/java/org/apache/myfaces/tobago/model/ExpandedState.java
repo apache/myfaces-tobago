@@ -17,35 +17,52 @@ package org.apache.myfaces.tobago.model;
  * limitations under the License.
  */
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.TreeNode;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Manages the expanded state of an tree.
+ *
+ * @since 1.6.0
+ */
 public class ExpandedState implements Serializable {
 
   private int defaultExpandedLevels;
   private Set<TreePath> expandedSet;
   private Set<TreePath> collapsedSet;
 
+  /**
+   * Creates a new state object to store which nodes of a tree are expanded and collapsed in a view.
+   *
+   * @param defaultExpandedLevels All nodes up to this level are expanded by default.
+   */
   public ExpandedState(int defaultExpandedLevels) {
     this.defaultExpandedLevels = defaultExpandedLevels;
     this.expandedSet = new HashSet<TreePath>();
     this.collapsedSet = new HashSet<TreePath>();
   }
 
-  private static final Logger LOG = LoggerFactory.getLogger(ExpandedState.class);
-
-  // todo: remove
-  @Deprecated
-  public boolean isExpanded(DefaultMutableTreeNode node) {
+  /**
+   * Checks if a node is expanded.
+   *
+   * @param node The node to check.
+   * @return Is the node expanded?
+   */
+  public boolean isExpanded(TreeNode node) {
     final TreePath path = new TreePath(node);
     return isExpanded(path);
   }
 
+  /**
+   * Checks if a node is expanded.
+   *
+   * @param path The path of the node to check.
+   * @return Is the node behind this path is expanded?
+   */
   public boolean isExpanded(TreePath path) {
     if (expandedSet.contains(path)) {
       return true;
@@ -56,13 +73,21 @@ public class ExpandedState implements Serializable {
     return path.getLength() < defaultExpandedLevels;
   }
 
-  // todo: remove
-  @Deprecated
-  public void expand(DefaultMutableTreeNode node) {
+  /**
+   * Expands a single node.
+   *
+   * @param node The node to expand.
+   */
+  public void expand(TreeNode node) {
     final TreePath path = new TreePath(node);
     expand(path);
   }
 
+  /**
+   * Expands a single node.
+   *
+   * @param path The path of the node to expand.
+   */
   public void expand(TreePath path) {
     if (path.getLength() >= defaultExpandedLevels) {
       expandedSet.add(path);
@@ -71,13 +96,56 @@ public class ExpandedState implements Serializable {
     }
   }
 
-  // todo: remove
-  @Deprecated
-  public void collapse(DefaultMutableTreeNode node) {
+  /**
+   * Expands all nodes that level are lower or equals the parameter level.
+   *
+   * @param level The level to expand.
+   */
+  public void expand(int level) {
+    ArrayList<TreePath> toRemove = new ArrayList<TreePath>();
+    if (level > defaultExpandedLevels) {
+      defaultExpandedLevels = level;
+      for (TreePath treePath : expandedSet) {
+        if (treePath.getLength() < defaultExpandedLevels) {
+          toRemove.add(treePath);
+        }
+      }
+      expandedSet.removeAll(toRemove);
+      collapsedSet.clear();
+    } else {
+      for (TreePath treePath : collapsedSet) {
+        if (treePath.getLength() < level) {
+          toRemove.add(treePath);
+        }
+      }
+      collapsedSet.removeAll(toRemove);
+    }
+  }
+
+  /**
+   * Expands a nodes of the tree.
+   */
+  public void expandAll() {
+    defaultExpandedLevels = Integer.MAX_VALUE;
+    expandedSet.clear();
+    collapsedSet.clear();
+  }
+
+  /**
+   * Collapses a single node.
+   *
+   * @param node The node to collapse.
+   */
+  public void collapse(TreeNode node) {
     final TreePath path = new TreePath(node);
     collapse(path);
   }
 
+  /**
+   * Collapses a single node.
+   *
+   * @param path The path of the node to collapse.
+   */
   public void collapse(TreePath path) {
     if (path.getLength() < defaultExpandedLevels) {
       collapsedSet.add(path);
@@ -86,11 +154,64 @@ public class ExpandedState implements Serializable {
     }
   }
 
-  public Set<TreePath> getExpandedSet() {
-    return expandedSet;
+  /**
+   * Collapses all nodes that level are higher or equals the parameter level.
+   *
+   * @param level The level to expand.
+   */
+  public void collapse(int level) {
+    // to use a symmetric algorithm like in expand
+    level--;
+
+    ArrayList<TreePath> toRemove = new ArrayList<TreePath>();
+    if (level < defaultExpandedLevels) {
+      defaultExpandedLevels = level;
+      for (TreePath treePath : collapsedSet) {
+        if (treePath.getLength() >= defaultExpandedLevels) {
+          toRemove.add(treePath);
+        }
+      }
+      collapsedSet.removeAll(toRemove);
+      expandedSet.clear();
+    } else {
+      for (TreePath treePath : expandedSet) {
+        if (treePath.getLength() >= level) {
+          toRemove.add(treePath);
+        }
+      }
+      expandedSet.removeAll(toRemove);
+    }
   }
 
+  /**
+   * Collapses a nodes of the tree.
+   */
+  public void collapseAll() {
+    defaultExpandedLevels = 0;
+    expandedSet.clear();
+    collapsedSet.clear();
+  }
+
+  /**
+   * Collapses a nodes of the tree. The root node will be expanded.
+   */
+  public void collapseAllButRoot() {
+    defaultExpandedLevels = 1;
+    expandedSet.clear();
+    collapsedSet.clear();
+  }
+
+  /**
+   * @return A unmodifiable set of paths of the expanded nodes.
+   */
+  public Set<TreePath> getExpandedSet() {
+    return Collections.unmodifiableSet(expandedSet);
+  }
+
+  /**
+   * @return A unmodifiable set of paths of the collapsed nodes.
+   */
   public Set<TreePath> getCollapsedSet() {
-    return collapsedSet;
+    return Collections.unmodifiableSet(collapsedSet);
   }
 }

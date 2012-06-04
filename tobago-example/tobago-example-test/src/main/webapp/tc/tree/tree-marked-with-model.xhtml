@@ -42,8 +42,9 @@
 
     <tc:button id="reload" link="#{request.pathInfo}" label="Reload with fresh view"/>
 
-    <tc:tree id="tree" value="#{tree.tree}" var="node" showRoot="true" showRootJunction="true">
-      <tc:treeNode id="node" expanded="true" marked="#{node.userObject.selected}">
+    <tc:tree id="tree" value="#{tree.tree}" var="node" showRoot="true" showRootJunction="true"
+        state="#{tree.state}">
+      <tc:treeNode id="node" marked="#{node.userObject.selected}">
         <tc:treeIndent id="indent"/>
         <tc:treeCommand label="#{node.userObject.name}" id="command"/>
       </tc:treeNode>

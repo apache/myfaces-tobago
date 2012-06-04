@@ -30,7 +30,7 @@
 
     <tc:tree id="tree" value="#{tree.tree}" var="node" showRoot="true" showRootJunction="true"
              state="#{tree.state}">
-      <tc:treeNode id="node" expanded="#{node.level ne 1}">
+      <tc:treeNode id="node">
         <tc:treeIndent/>
         <tc:treeLabel value="#{node.userObject.name}"/>
       </tc:treeNode>

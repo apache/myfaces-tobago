@@ -75,7 +75,7 @@
                 tip="show root = #{showRoot}, show root junctions = #{showRootJunction}, show junctions = #{showJunctions}, show icons = #{showIcons}">
               <tc:tree showRoot="#{showRoot}" showRootJunction="#{showRootJunction}"
                        value="#{tree.small}" var="node">
-                  <tc:treeNode id="template" expanded="true">
+                  <tc:treeNode id="template">
                     <tc:treeIndent showJunctions="#{showJunctions}"/>
                     <tc:treeIcon rendered="#{showIcons}"/>
                     <tc:treeCommand label="#{node.userObject.name}" action="#{node.userObject.action}"/>

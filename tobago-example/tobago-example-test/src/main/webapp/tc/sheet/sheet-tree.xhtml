@@ -31,7 +31,7 @@
     <tc:sheet value="#{tree.tree}" id="sheet" columns="*;*" var="row" showRoot="true" showRootJunction="true">
 
       <tc:column label="Tree" id="tree">
-        <tc:treeNode expanded="#{row.level le 1}">
+        <tc:treeNode>
           <tc:treeIndent/>
           <tc:treeLabel value="#{row.userObject.name}"/>
         </tc:treeNode>

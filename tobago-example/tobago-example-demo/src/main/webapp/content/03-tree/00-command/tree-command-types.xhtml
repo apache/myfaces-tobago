@@ -26,7 +26,7 @@
   <ui:param name="title" value="Tree - Different Command Types"/>
 
   <tc:treeMenu value="#{treeController.mixed}" var="node" id="data">
-    <tc:treeNode id="template" expanded="true">
+    <tc:treeNode id="template">
       <tc:treeCommand label="#{node.name}" rendered="#{node.childCount == 0}"
                       action="#{node.action}"
                       actionListener="#{node.actionListener}"

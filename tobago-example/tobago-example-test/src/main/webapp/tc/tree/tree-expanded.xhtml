@@ -32,8 +32,8 @@
 
     <tc:button label="Reset" action="#{tree.openAll}" id="reset" immediate="true"/>
 
-    <tc:tree id="tree" value="#{tree.tree}" var="node" showRoot="true" showRootJunction="true">
-      <tc:treeNode id="node" expanded="#{node.userObject.expanded}">
+    <tc:tree id="tree" value="#{tree.tree}" state="#{tree.state}" var="node" showRoot="true" showRootJunction="true">
+      <tc:treeNode id="node">
         <tc:treeIndent/>
         <tc:treeCommand label="#{node.userObject.name}"/>
       </tc:treeNode>

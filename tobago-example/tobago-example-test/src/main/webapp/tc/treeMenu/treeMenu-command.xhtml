@@ -31,7 +31,7 @@
     <tc:out value="Tree Menu with commands as nodes:"/>
 
     <tc:treeMenu id="tree" value="#{tree.tree}" var="node" showRoot="true">
-      <tc:treeNode id="node" expanded="true">
+      <tc:treeNode id="node">
         <tc:treeCommand label="#{node.userObject.name}" action="#{node.userObject.action}"/>
       </tc:treeNode>
     </tc:treeMenu>

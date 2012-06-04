@@ -79,10 +79,6 @@ public class CategoryTree {
       bulk.add(new DefaultMutableTreeNode(new Node("1.6." + (i + 1) + " Some Node")));
     }
     tree.add(bulk);
-    ((Node) tree.getUserObject()).setExpanded(true);
-    ((Node) temp.getUserObject()).setExpanded(true);
-    ((Node) tree.getUserObject()).setSelected(true);
-    ((Node) temp.getUserObject()).setSelected(true);
 
     return tree;
   }
