@@ -383,7 +383,6 @@ public class RenderUtils {
         break;
       }
 
-//        final Object rowData = data.getRowData();
       final TreePath path = data.getPath();
 
       // marked
@@ -392,11 +391,10 @@ public class RenderUtils {
         final boolean oldMarked = markedState.isMarked(path);
         final boolean newMarked = ((Integer) rowIndex).equals(markedIndex);
         if (newMarked != oldMarked) {
-//          new TreeMarkedEvent(node, oldValue, newValue).queue();
           if (newMarked) {
             markedState.setMarked(path);
           } else {
-            markedState.setMarked(null);
+            markedState.setMarked((TreePath)null);
           }
         }
       }
@@ -406,7 +404,6 @@ public class RenderUtils {
       final boolean oldExpanded = expandedState.isExpanded(path);
       final boolean newExpanded = expandedIndices.contains(rowIndex);
       if (newExpanded != oldExpanded) {
-//          new TreeExpansionEvent(node, oldValue, newValue).queue();
         if (newExpanded) {
           expandedState.expand(path);
         } else {
