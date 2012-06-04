@@ -60,6 +60,7 @@ public class TestPageFilter {
 
       "/partially/encoding.jspx", // not possible in JSP
       "/tc/attribute/mode-valueIfSet.jspx", // set id="${id}" not possible with JSP.
+      "/tc/tree/tree-simple-with-data.jspx", // not possible in JSP
       "/tc/button/plain.html", // intern
       "/tc/button/plain_de.html", // intern
 
