@@ -30,7 +30,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @deprecated Please use {@link UIIn}
+ * @deprecated since 1.5.0. Please use {@link UIIn}
  */
 @Deprecated
 public interface UIInput extends StateHolder, EditableValueHolder {
