@@ -108,6 +108,7 @@ public class TreeRenderer extends LayoutComponentRendererBase {
         RenderUtils.encode(facesContext, child);
       }
     }
+    tree.setRowIndex(-1);
 
     writer.endElement(HtmlElements.DIV);
   }

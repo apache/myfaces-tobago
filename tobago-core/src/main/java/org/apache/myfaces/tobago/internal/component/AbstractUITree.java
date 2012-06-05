@@ -75,6 +75,7 @@ public abstract class AbstractUITree extends AbstractUIData
         child.processValidators(facesContext);
       }
     }
+    setRowIndex(-1);
   }
 
   @Override
@@ -89,6 +90,7 @@ public abstract class AbstractUITree extends AbstractUIData
         child.processUpdates(facesContext);
       }
     }
+    setRowIndex(-1);
   }
 
   /**
