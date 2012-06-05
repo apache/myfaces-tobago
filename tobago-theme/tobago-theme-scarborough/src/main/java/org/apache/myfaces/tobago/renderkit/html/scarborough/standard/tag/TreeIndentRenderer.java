@@ -59,11 +59,20 @@ public class TreeIndentRenderer extends LayoutComponentRendererBase {
 
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
+    writer.startElement(HtmlElements.SPAN, indent);
+    writer.writeIdAttribute(indent.getClientId(facesContext));
+
     encodeIndent(
         facesContext, writer, node, showLines, showIcons, showRootJunction, showRoot, junctions);
 
     encodeTreeJunction(
         facesContext, writer, node, showLines, showIcons, showRootJunction, junctions, expanded, folder, level == 0);
+  }
+
+  @Override
+  public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
+    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    writer.endElement(HtmlElements.SPAN);
   }
 
   private void encodeIndent(

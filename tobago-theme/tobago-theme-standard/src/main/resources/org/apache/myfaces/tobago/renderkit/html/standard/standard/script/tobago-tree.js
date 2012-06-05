@@ -41,7 +41,7 @@ Tobago.Tree.toggleNode = function(element) {
     var reload = Tobago.Tree.showChildren(node, expanded);
     expanded.attr("value", expanded.attr("value") + rowIndex + ",");
     if (reload) {
-      Tobago.reloadComponent(element, data.attr("id"), null, {});
+      Tobago.reloadComponent(element, data.attr("id"), toggle.parent().attr("id"), {});
     } else {
       toggle.each(function() {
         src = jQuery(this).data("tobago-srcopen");
