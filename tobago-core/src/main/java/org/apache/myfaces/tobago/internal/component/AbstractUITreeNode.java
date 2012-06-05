@@ -27,8 +27,6 @@ import org.apache.myfaces.tobago.model.MixedTreeModel;
 import org.apache.myfaces.tobago.model.TreeDataModel;
 import org.apache.myfaces.tobago.model.TreePath;
 import org.apache.myfaces.tobago.util.ComponentUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIColumn;
 import javax.faces.component.UIData;
@@ -43,8 +41,6 @@ import java.util.Stack;
 
 public abstract class AbstractUITreeNode
     extends UIColumn implements SupportsMarkup, TreeModelBuilder, Configurable {
-
-  private static final Logger LOG = LoggerFactory.getLogger(AbstractUITreeNode.class);
 
   @Override
   public void encodeBegin(FacesContext facesContext) throws IOException {
@@ -82,36 +78,15 @@ public abstract class AbstractUITreeNode
     Deprecation.LOG.error("Doesn't work anymore.");
   }
 
-  /**
-   * Finds the value of the current node via the var attribute of the tree data.
-   * Returns null if it will be called not inside of {@link AbstractUITreeData}
-   */
-  // todo: make independent from impl.: DefaultMutableTreeNode
-/*  private DefaultMutableTreeNode getDataNode() {
-    UIComponent component = this;
-    while (component != null) {
-      if (component instanceof AbstractUITreeData) {
-        final AbstractUITreeData data = (AbstractUITreeData) component;
-        final Object currentNode
-            = FacesContext.getCurrentInstance().getExternalContext().getRequestMap().get(data.getVar());
-        return (DefaultMutableTreeNode) currentNode;
-      } else if (component instanceof AbstractUITree) {
-        return null;
-      }
-      component = component.getParent();
-    }
-    return null;
-  }*/
-
   protected DefaultMutableTreeNode getRowData() {
     final UIData data = ComponentUtils.findAncestor(this, UIData.class);
     final Object rowData = data.getRowData();
     return (DefaultMutableTreeNode) rowData;
   }
-  
+
   /**
    * Returns the level of the tree node inside of the virtual tree. The root node has level 0.
-   * The children of the root note have level 1, and so on. 
+   * The children of the root note have level 1, and so on.
    */
   public int getLevel() {
     final DefaultMutableTreeNode node = getRowData();
@@ -200,47 +175,138 @@ public abstract class AbstractUITreeNode
     Deprecation.LOG.error("Doesn't work anymore.");
   }
 
-  public abstract MethodBinding getTreeExpansionListener();
+  /**
+   * @deprecated since 1.6.0
+   */
+  @Deprecated
+  public MethodBinding getTreeExpansionListener(){
+      Deprecation.LOG.error("treeExpansionListener!");
+      return null;
+    }
 
-  public abstract void setTreeExpansionListener(MethodBinding treeExpansionListener);
+  /**
+   * @deprecated since 1.6.0
+   */
+  @Deprecated
+  public void setTreeExpansionListener(MethodBinding treeExpansionListener){
+        Deprecation.LOG.error("treeExpansionListener!");
+      }
 
+  /**
+   * @deprecated since 1.6.0
+   */
+  @Deprecated
   public void addTreeExpansionListener(TreeExpansionListener listener) {
-    addFacesListener(listener);
+    Deprecation.LOG.error("treeExpansionListener!");
   }
 
+  /**
+   * @deprecated since 1.6.0
+   */
+  @Deprecated
   public TreeExpansionListener[] getTreeExpansionListeners() {
-    return (TreeExpansionListener[]) getFacesListeners(TreeExpansionListener.class);
+    Deprecation.LOG.error("treeExpansionListener!");
+    return null;
   }
 
+  /**
+   * @deprecated since 1.6.0
+   */
+  @Deprecated
   public void removeStateChangeListener(TreeExpansionListener listener) {
-    removeFacesListener(listener);
+    Deprecation.LOG.error("treeExpansionListener!");
   }
 
-  public abstract MethodBinding getTreeMarkedListener();
+  /**
+   * @deprecated since 1.6.0
+   */
+  @Deprecated
+  public  MethodBinding getTreeMarkedListener(){
+        Deprecation.LOG.error("treeMarkedListener!");
+        return null;
+      }
 
-  public abstract void setTreeMarkedListener(MethodBinding treeMarkedListener);
+  /**
+   * @deprecated since 1.6.0
+   */
+  @Deprecated
+  public  void setTreeMarkedListener(MethodBinding treeMarkedListener){
+          Deprecation.LOG.error("treeMarkedListener!");
+        }
 
+  /**
+   * @deprecated since 1.6.0
+   */
+  @Deprecated
   public void addTreeMarkedListener(TreeMarkedListener listener) {
-    addFacesListener(listener);
+    Deprecation.LOG.error("treeMarkedListener!");
   }
 
+  /**
+   * @deprecated since 1.6.0
+   */
+  @Deprecated
   public TreeMarkedListener[] getTreeMarkedListeners() {
-    return (TreeMarkedListener[]) getFacesListeners(TreeMarkedListener.class);
+    Deprecation.LOG.error("treeMarkedListener!");
+    return null;
   }
 
+  /**
+   * @deprecated since 1.6.0
+   */
+  @Deprecated
   public void removeStateChangeListener(TreeMarkedListener listener) {
-    removeFacesListener(listener);
+    Deprecation.LOG.error("treeMarkedListener!");
   }
 
-  public abstract boolean isMarked();
+  /**
+   * @deprecated since 1.6.0
+   */
+  @Deprecated
+  public boolean isMarked() {
+    Deprecation.LOG.error("The marked attribute is no longer supported, please use a tree state!");
+    return false;
+  }
 
-  public abstract void setMarked(boolean b);
+  /**
+   * @deprecated since 1.6.0
+   */
+  @Deprecated
+  public void setMarked(boolean b) {
+    Deprecation.LOG.error("The marked attribute is no longer supported, please use a tree state!");
+  }
 
-  public abstract boolean isExpanded();
+  /**
+   * @deprecated since 1.6.0
+   */
+  @Deprecated
+  public boolean isExpanded() {
+    Deprecation.LOG.error("The expanded attribute is no longer supported, please use a tree state!");
+    return false;
+  }
 
-  public abstract void setExpanded(boolean expanded);
+  /**
+   * @deprecated since 1.6.0
+   */
+  @Deprecated
+  public void setExpanded(boolean expanded) {
+    Deprecation.LOG.error("The expanded attribute is no longer supported, please use a tree state!");
+  }
 
-  public abstract boolean isSelected();
+  /**
+   * @deprecated since 1.6.0
+   */
+  @Deprecated
+  public boolean isSelected() {
+    Deprecation.LOG.error("The selected attribute is no longer supported, please use a tree select!");
+    return false;
+  }
 
-  public abstract void setSelected(boolean selected);
+  /**
+   * @deprecated since 1.6.0
+   */
+  @Deprecated
+  public void setSelected(boolean selected) {
+    Deprecation.LOG.error("The selected attribute is no longer supported, please use a tree select!");
+  }
 }

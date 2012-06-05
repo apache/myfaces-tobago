@@ -19,10 +19,10 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.myfaces.tobago.component.UITree;
 import org.apache.myfaces.tobago.component.UITreeIndent;
-import org.apache.myfaces.tobago.component.UITreeNode;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.internal.component.AbstractUIData;
+import org.apache.myfaces.tobago.internal.component.AbstractUITreeNode;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
@@ -43,7 +43,7 @@ public class TreeIndentRenderer extends LayoutComponentRendererBase {
   public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
 
     final UITreeIndent indent = (UITreeIndent) component;
-    final UITreeNode node = ComponentUtils.findAncestor(indent, UITreeNode.class);
+    final AbstractUITreeNode node = ComponentUtils.findAncestor(indent, AbstractUITreeNode.class);
     final AbstractUIData data = ComponentUtils.findAncestor(indent, AbstractUIData.class);
 
     final boolean folder = node.isFolder();
@@ -67,7 +67,7 @@ public class TreeIndentRenderer extends LayoutComponentRendererBase {
   }
 
   private void encodeIndent(
-      final FacesContext facesContext, final TobagoResponseWriter writer, final UITreeNode node,
+      final FacesContext facesContext, final TobagoResponseWriter writer, final AbstractUITreeNode node,
       final boolean showLines, final boolean showIcons, final boolean showRootJunction, final boolean showRoot,
       final List<Boolean> junctions)
       throws IOException {
@@ -91,7 +91,7 @@ public class TreeIndentRenderer extends LayoutComponentRendererBase {
   }
 
   private void encodeTreeJunction(
-      final FacesContext facesContext, final TobagoResponseWriter writer, final UITreeNode node,
+      final FacesContext facesContext, final TobagoResponseWriter writer, final AbstractUITreeNode node,
       final boolean showLines, final boolean showIcons, final boolean showRootJunction, final List<Boolean> junctions,
       final boolean expanded, final boolean folder, final boolean root)
       throws IOException {

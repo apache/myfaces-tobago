@@ -563,6 +563,8 @@ public abstract class AbstractUISheet extends AbstractUIData
         layoutComponents.add(null); // XXX UIColumnSelector is currently not an instance of LayoutComponent
       } else if (column instanceof ColumnEvent) {
         // ignore
+      } else if (column instanceof AbstractUIColumnNode) {
+        layoutComponents.add((AbstractUIColumnNode) column);
       } else if (column instanceof UIColumn) {
         LayoutComponent layoutComponent = null;
         for (UIComponent component : (List<UIComponent>) column.getChildren()) {

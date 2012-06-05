@@ -17,9 +17,9 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.component.UITreeNode;
 import org.apache.myfaces.tobago.context.ResourceUtils;
 import org.apache.myfaces.tobago.internal.component.AbstractUIData;
+import org.apache.myfaces.tobago.internal.component.AbstractUITreeNode;
 import org.apache.myfaces.tobago.layout.Display;
 import org.apache.myfaces.tobago.layout.LayoutBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
@@ -50,7 +50,7 @@ public class TreeNodeRenderer extends TreeNodeRendererBase {
   @Override
   public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
 
-    final UITreeNode node = (UITreeNode) component;
+    final AbstractUITreeNode node = (AbstractUITreeNode) component;
     final AbstractUIData data = ComponentUtils.findAncestor(node, AbstractUIData.class);
 
     final boolean dataRendersRowContainer = data.isRendersRowContainer();

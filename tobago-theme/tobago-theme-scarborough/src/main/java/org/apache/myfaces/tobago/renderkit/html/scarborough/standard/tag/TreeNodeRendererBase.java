@@ -17,10 +17,10 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.component.UITreeNode;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.component.AbstractUIData;
 import org.apache.myfaces.tobago.internal.component.AbstractUITree;
+import org.apache.myfaces.tobago.internal.component.AbstractUITreeNode;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 
@@ -34,7 +34,7 @@ public class TreeNodeRendererBase extends LayoutComponentRendererBase {
   public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
     super.prepareRender(facesContext, component);
 
-    final UITreeNode node = (UITreeNode) component;
+    final AbstractUITreeNode node = (AbstractUITreeNode) component;
     final AbstractUIData data = ComponentUtils.findAncestor(node, AbstractUIData.class);
     if (data instanceof AbstractUITree && ((AbstractUITree) data).getMarkedState().isMarked(node.getPath())) {
       ComponentUtils.addCurrentMarkup(node, Markup.MARKED);

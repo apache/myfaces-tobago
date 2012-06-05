@@ -29,7 +29,7 @@
     </f:facet>
 
     <tc:tree id="tree" selectable="single" showRoot="true" showRootJunction="true" value="#{tree.tree}" var="node">
-      <tc:treeNode id="template" expanded="true">
+      <tc:treeNode id="template">
         <tc:treeIndent/>
         <tc:treeSelect id="select" label="#{node.userObject.name}" value="#{node.userObject.selected}"/>
       </tc:treeNode>

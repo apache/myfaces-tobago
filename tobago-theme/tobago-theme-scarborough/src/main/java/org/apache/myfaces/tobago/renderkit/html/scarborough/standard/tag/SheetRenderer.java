@@ -36,6 +36,7 @@ import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.ResourceManager;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.event.PageAction;
+import org.apache.myfaces.tobago.internal.component.AbstractUIColumnNode;
 import org.apache.myfaces.tobago.internal.component.AbstractUIData;
 import org.apache.myfaces.tobago.internal.context.ResourceManagerFactory;
 import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
@@ -231,7 +232,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
     final boolean ie6SelectOneFix = showHeader
         && ClientProperties.getInstance(facesContext).getUserAgent().isMsie6()
             && ComponentUtils.findDescendant(sheet, UISelectOne.class) != null;
- 
+
 // BEGIN RENDER BODY CONTENT
     Style bodyStyle = new Style();
     bodyStyle.setPosition(Position.RELATIVE);
@@ -369,6 +370,9 @@ public class SheetRenderer extends LayoutComponentRendererBase {
           writer.writeIdAttribute(sheetId + "_data_row_selector_" + rowIndex);
           writer.writeClassAttribute(Classes.create(sheet, "columnSelector"));
           writer.endElement(HtmlElements.INPUT);
+        } else if (column instanceof AbstractUIColumnNode) {
+          RenderUtils.prepareRendererAll(facesContext, column);
+          RenderUtils.encode(facesContext, column);
         } else {
           List<UIComponent> children = sheet.getRenderedChildrenOf(column);
           for (UIComponent grandKid : children) {
@@ -539,7 +543,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
       final boolean unknown = !sheet.hasRowCount();
       final String key = "sheetPagingInfo"
           + (unknown ? "Undefined" : "")
-          + (first == last ? "Single" : "") 
+          + (first == last ? "Single" : "")
           + (row ? "Row" : "Page")
           + (first == last ? "" : "s"); // plural
       final String message = ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", key);
@@ -564,7 +568,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
     super.decode(facesContext, component);
 
     UISheet sheet = (UISheet) component;
-    
+
     String key = sheet.getClientId(facesContext) + WIDTHS_POSTFIX;
 
     Map requestParameterMap = facesContext.getExternalContext().getRequestParameterMap();
@@ -1026,9 +1030,11 @@ public class SheetRenderer extends LayoutComponentRendererBase {
 
   @Override
   public void prepareRendersChildren(FacesContext facesContext, UIComponent component) throws IOException {
+/*
     UISheet sheet = (UISheet) component;
     for (UIColumn column : sheet.getRenderedColumns()) {
       RenderUtils.prepareRendererAll(facesContext, column);
     }
+*/
   }
 }
