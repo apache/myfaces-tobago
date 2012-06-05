@@ -29,7 +29,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @deprecated Please use {@link UIOut}
+ * @deprecated since 1.5.0. Please use {@link UIOut}
  */
 @Deprecated
 public interface UIOutput extends ValueHolder, StateHolder {

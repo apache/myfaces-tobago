@@ -27,7 +27,7 @@ import javax.faces.el.ValueBinding;
 import java.util.Map;
 
 /**
- * @deprecated Please use {@link UISheet}
+ * @deprecated since 1.5.0. Please use {@link UISheet}
  */
 public interface UIData extends SortActionSource2, SupportsMarkup, SortActionSource {
 
