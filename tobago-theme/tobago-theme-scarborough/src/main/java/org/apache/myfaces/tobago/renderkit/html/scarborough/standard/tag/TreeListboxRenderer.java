@@ -170,9 +170,9 @@ public class TreeListboxRenderer extends LayoutComponentRendererBase {
       writer.endElement(HtmlElements.OPTGROUP);
     }
 
-    final List<Integer> childrensRowIndices = tree.getChildrensRowIndices();
+    final List<Integer> rowIndices = tree.getRowIndicesOfChildren();
 
-    for (Integer rowIndex : childrensRowIndices) {
+    for (Integer rowIndex : rowIndices) {
       tree.setRowIndex(rowIndex);
       if (!tree.isRowAvailable()) {
         break;

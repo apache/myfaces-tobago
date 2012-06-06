@@ -21,6 +21,7 @@ import org.apache.myfaces.tobago.compat.FacesUtils;
 import org.apache.myfaces.tobago.compat.InvokeOnComponent;
 import org.apache.myfaces.tobago.model.ExpandedState;
 import org.apache.myfaces.tobago.model.TreeDataModel;
+import org.apache.myfaces.tobago.model.TreeNodeDataModel;
 import org.apache.myfaces.tobago.model.TreePath;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,7 +30,7 @@ import javax.faces.FacesException;
 import javax.faces.component.ContextCallback;
 import javax.faces.context.FacesContext;
 import javax.faces.model.DataModel;
-import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.TreeNode;
 import java.io.IOException;
 import java.util.List;
 
@@ -55,6 +56,14 @@ public abstract class AbstractUIData extends javax.faces.component.UIData implem
     return dataModel != null;
   }
 
+  public TreeDataModel getTreeDataModel() {
+    if (isTreeModel()) {
+      return dataModel;
+    } else {
+      throw new IllegalStateException("Not a tree model");
+    }
+  }
+
   @Override
   protected DataModel getDataModel() {
     init();
@@ -70,8 +79,9 @@ public abstract class AbstractUIData extends javax.faces.component.UIData implem
     if (!initialized) {
       Object value = getValue();
       boolean showRoot = isShowRoot();
-      if (value instanceof DefaultMutableTreeNode) {
-        dataModel = new TreeDataModel((DefaultMutableTreeNode) value, showRoot, getExpandedState());
+      // TODO: use a factory
+      if (value instanceof TreeNode) {
+        dataModel = new TreeNodeDataModel((TreeNode) value, showRoot, getExpandedState());
       }
       initialized = true;
     }
@@ -200,9 +210,9 @@ public abstract class AbstractUIData extends javax.faces.component.UIData implem
     }
   }
 
-  public List<Integer> getChildrensRowIndices() {
+  public List<Integer> getRowIndicesOfChildren() {
     if (isTreeModel()) {
-      return dataModel.getChildrensRowIndices();
+      return dataModel.getRowIndicesOfChildren();
     } else {
       throw new IllegalStateException("Not a tree model");
     }

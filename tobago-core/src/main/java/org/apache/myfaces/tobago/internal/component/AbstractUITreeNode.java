@@ -32,26 +32,63 @@ import javax.faces.component.UIColumn;
 import javax.faces.component.UIData;
 import javax.faces.context.FacesContext;
 import javax.faces.el.MethodBinding;
-import javax.faces.model.DataModel;
-import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeNode;
 import java.io.IOException;
 import java.util.List;
-import java.util.Stack;
 
 public abstract class AbstractUITreeNode
     extends UIColumn implements SupportsMarkup, TreeModelBuilder, Configurable {
 
   @Override
   public void encodeBegin(FacesContext facesContext) throws IOException {
-    final AbstractUIData data = ComponentUtils.findAncestor(this, AbstractUIData.class);
-    DataModel model = data.getDataModel();
-    if (model instanceof TreeDataModel) {
-      final TreeDataModel treeDataModel = (TreeDataModel) model;
-      treeDataModel.setRowClientId(getClientId(facesContext));
-    }
+    final TreeDataModel model = ComponentUtils.findAncestor(this, AbstractUIData.class).getTreeDataModel();
+    model.setRowClientId(getClientId(facesContext));
 
     super.encodeBegin(facesContext);
+  }
+
+  /**
+   * Returns the level of the tree node inside of the virtual tree. The root node has level 0.
+   * The children of the root note have level 1, and so on.
+   */
+  public int getLevel() {
+    final TreeDataModel model = ComponentUtils.findAncestor(this, AbstractUIData.class).getTreeDataModel();
+    return model.getLevel();
+  }
+
+  public List<Boolean> getJunctions() {
+    final TreeDataModel model = ComponentUtils.findAncestor(this, AbstractUIData.class).getTreeDataModel();
+    return model.getJunctions();
+  }
+
+  public boolean isFolder() {
+    final TreeDataModel model = ComponentUtils.findAncestor(this, AbstractUIData.class).getTreeDataModel();
+    return model.isFolder();
+  }
+
+  public TreePath getPath() {
+    final TreeDataModel model = ComponentUtils.findAncestor(this, AbstractUIData.class).getTreeDataModel();
+    return model.getPath();
+  }
+
+  public String nodeStateId(FacesContext facesContext) {
+    final String clientId = getClientId(facesContext);
+    final UIData data = ComponentUtils.findAncestor(this, UIData.class);
+    String dataId = data.getClientId(facesContext);
+    return clientId.substring(dataId.length() + 1);
+  }
+
+  // ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+  // below only deprecated
+
+  /**
+   * @deprecated since 1.6.0
+   */
+  @Deprecated
+  protected TreeNode getRowData() {
+    final UIData data = ComponentUtils.findAncestor(this, UIData.class);
+    final Object rowData = data.getRowData();
+    return (TreeNode) rowData;
   }
 
   /**
@@ -78,28 +115,6 @@ public abstract class AbstractUITreeNode
     Deprecation.LOG.error("Doesn't work anymore.");
   }
 
-  protected DefaultMutableTreeNode getRowData() {
-    final UIData data = ComponentUtils.findAncestor(this, UIData.class);
-    final Object rowData = data.getRowData();
-    return (DefaultMutableTreeNode) rowData;
-  }
-
-  /**
-   * Returns the level of the tree node inside of the virtual tree. The root node has level 0.
-   * The children of the root note have level 1, and so on.
-   */
-  public int getLevel() {
-    final DefaultMutableTreeNode node = getRowData();
-    return node.getLevel();
-  }
-
-  public String nodeStateId(FacesContext facesContext) {
-    final String clientId = getClientId(facesContext);
-    final UIData data = ComponentUtils.findAncestor(this, UIData.class);
-    String dataId = data.getClientId(facesContext);
-    return clientId.substring(dataId.length() + 1);
-  }
-
   /**
    * @deprecated since 1.6.0
    */
@@ -117,11 +132,6 @@ public abstract class AbstractUITreeNode
     Deprecation.LOG.error("Doesn't work anymore.");
   }
 
-  public boolean isFolder() {
-    final DefaultMutableTreeNode rowData = getRowData();
-    return !rowData.isLeaf();
-  }
-
   /**
    * @deprecated since 1.6.0
    */
@@ -130,25 +140,12 @@ public abstract class AbstractUITreeNode
     Deprecation.LOG.error("Doesn't work anymore.");
   }
 
-  public TreePath getPath() {
-    return new TreePath(getRowData());
-  }
-
   /**
    * @deprecated since 1.6.0
    */
   @Deprecated
   public void setPath(TreePath path) {
     Deprecation.LOG.error("Doesn't work anymore.");
-  }
-
-  public List<Boolean> getJunctions() {
-    final DefaultMutableTreeNode node = getRowData();
-    List<Boolean> junctions = new Stack<Boolean>();
-    for (TreeNode ancestor : node.getPath()) {
-      junctions.add(((DefaultMutableTreeNode) ancestor).getNextSibling() != null);
-    }
-    return junctions;
   }
 
   /**
@@ -164,7 +161,8 @@ public abstract class AbstractUITreeNode
    */
   @Deprecated
   public boolean isHasNextSibling() {
-    return getRowData().getNextSibling() != null;
+    Deprecation.LOG.error("Doesn't work anymore.");
+    return false;
   }
 
   /**

@@ -23,6 +23,7 @@ import org.apache.myfaces.tobago.example.data.SmallTree;
 import org.apache.myfaces.tobago.model.ExpandedState;
 import org.apache.myfaces.tobago.model.MarkedState;
 import org.apache.myfaces.tobago.model.TreeDataModel;
+import org.apache.myfaces.tobago.model.TreeNodeDataModel;
 import org.apache.myfaces.tobago.model.TreeState;
 
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -35,7 +36,7 @@ public class TreeController {
   
   private TreeState state = new TreeState(new ExpandedState(1), new MarkedState());
 
-  private TreeDataModel treeInSheet = new TreeDataModel(tree, false, state.getExpandedState());
+  private TreeDataModel treeInSheet = new TreeNodeDataModel(tree, false, state.getExpandedState());
 
   private CantorInterval infinite = new CantorInterval();
 
