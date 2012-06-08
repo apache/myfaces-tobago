@@ -202,6 +202,15 @@ public class ExpandedState implements Serializable {
   }
 
   /**
+   * Resets the state to the defaults. After this call, the nodes with level smaller than defaultExpandedLevels
+   * are expanded, the other ones are collapsed.
+   */
+  public void reset() {
+    expandedSet.clear();
+    collapsedSet.clear();
+  }
+
+  /**
    * @return A unmodifiable set of paths of the expanded nodes.
    */
   public Set<TreePath> getExpandedSet() {
