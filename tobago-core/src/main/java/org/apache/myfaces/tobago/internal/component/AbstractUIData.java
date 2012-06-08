@@ -79,11 +79,24 @@ public abstract class AbstractUIData extends javax.faces.component.UIData implem
     if (!initialized) {
       Object value = getValue();
       boolean showRoot = isShowRoot();
-      // TODO: use a factory
-      if (value instanceof TreeNode) {
-        dataModel = new TreeNodeDataModel((TreeNode) value, showRoot, getExpandedState());
-      }
+      createTreeDataModel(value, showRoot);
+
       initialized = true;
+    }
+  }
+
+  /**
+   * Creates the TreeDataModel which should be used.
+   * Override this method to use a custom model for an unsupported tree model.
+   * (Currently Tobago supports {@link TreeNode} out of the box.
+   * @param value The reference to the data model
+   *              (comes from the value attribute of the {@link javax.faces.component.UIData})
+   * @param showRoot comes from the showRoot attribute.
+   */
+  protected void createTreeDataModel(Object value, boolean showRoot) {
+    // TODO: use a factory
+    if (value instanceof TreeNode) {
+      dataModel = new TreeNodeDataModel((TreeNode) value, showRoot, getExpandedState());
     }
   }
 
