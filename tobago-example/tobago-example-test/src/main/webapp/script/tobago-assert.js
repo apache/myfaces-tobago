@@ -21,43 +21,43 @@
 
 var TobagoAssert = {
 
-  assertLeft: function(elementOrId, left) {
+  assertLeft:function (elementOrId, left) {
     var element = TobagoAssert.jQueryElement(elementOrId);
     var offsetLeft = element.offset().left;
     if (offsetLeft != left) {
-      LOG.error("The element '" + element.tagName + "' with id='" + element.id + "' has wrong left: expected=" + left
-          + " actual=" + offsetLeft);
+      LOG.error("The element '" + element.get(0).tagName + "' with id='" + element.attr("id")
+          + "' has wrong left: expected=" + left + " actual=" + offsetLeft);
     }
   },
 
-  assertTop: function(elementOrId, top) {
+  assertTop:function (elementOrId, top) {
     var element = TobagoAssert.jQueryElement(elementOrId);
     var offsetTop = element.offset().top;
     if (offsetTop != top) {
-      LOG.error("The element '" + element.tagName + "' with id='" + element.id + "' has wrong top: expected=" + top
-          + " actual=" + offsetTop);
+      LOG.error("The element '" + element.get(0).tagName + "' with id='" + element.attr("id")
+          + "' has wrong top: expected=" + top + " actual=" + offsetTop);
     }
   },
 
-  assertWidth: function(elementOrId, width) {
-    var element = TobagoAssert.jQueryElement(elementOrId).get(0);
-    var offsetWidth = element.offsetWidth;
+  assertWidth:function (elementOrId, width) {
+    var element = TobagoAssert.jQueryElement(elementOrId);
+    var offsetWidth = element.get(0).offsetWidth;
     if (offsetWidth != width) {
-      LOG.error("The element '" + element.tagName + "' with id='" + element.id + "' has wrong width: expected=" + width
-          + " actual=" + offsetWidth);
+      LOG.error("The element '" + element.get(0).tagName + "' with id='" + element.attr("id")
+          + "' has wrong width: expected=" + width + " actual=" + offsetWidth);
     }
   },
 
-  assertHeight: function(elementOrId, height) {
-    var element = TobagoAssert.jQueryElement(elementOrId).get(0);
-    var offsetHeight = element.offsetHeight;
+  assertHeight:function (elementOrId, height) {
+    var element = TobagoAssert.jQueryElement(elementOrId);
+    var offsetHeight = element.get(0).offsetHeight;
     if (offsetHeight != height) {
-      LOG.error("The element '" + element.tagName + "' with id='" + element.id + "' has wrong height: expected="
-          + height + " actual=" + offsetHeight);
+      LOG.error("The element '" + element.get(0).tagName + "' with id='" + element.attr("id")
+          + "' has wrong height: expected=" + height + " actual=" + offsetHeight);
     }
   },
 
-  assertLayout: function(elementOrId, left, top, width, height) {
+  assertLayout:function (elementOrId, left, top, width, height) {
     var element = TobagoAssert.jQueryElement(elementOrId);
     TobagoAssert.assertLeft(element, left);
     TobagoAssert.assertTop(element, top);
@@ -65,14 +65,14 @@ var TobagoAssert = {
     TobagoAssert.assertHeight(element, height);
   },
 
-  assertAbsence: function(id) {
+  assertAbsence:function (id) {
     var element = document.getElementById(id);
     if (element != null) {
       LOG.error("The element with id=" + id + " was found, but should not!");
     }
   },
 
-  assertAttribute: function(elementOrId, attribute, expected) {
+  assertAttribute:function (elementOrId, attribute, expected) {
     var element = TobagoAssert.jQueryElement(elementOrId);
     if (element.attr(attribute) != expected) {
       LOG.error("The attribute '" + attribute + "' of element with id=" + element.attr('id')
@@ -80,7 +80,7 @@ var TobagoAssert = {
     }
   },
 
-  assertContent: function(elementOrId, expected) {
+  assertContent:function (elementOrId, expected) {
     var element = TobagoAssert.jQueryElement(elementOrId);
     if (element.html() != expected) {
       LOG.error("The content of element with id=" + element.attr('id')
@@ -91,7 +91,7 @@ var TobagoAssert = {
   /**
    * Util to get an jQuery object from a plain id string (unescaped) or a jQuery object.
    */
-  jQueryElement: function(elementOrId) {
+  jQueryElement:function (elementOrId) {
     var element;
     if (typeof elementOrId == "string") {
       element = jQuery(Tobago.Utils.escapeClientId(elementOrId));
