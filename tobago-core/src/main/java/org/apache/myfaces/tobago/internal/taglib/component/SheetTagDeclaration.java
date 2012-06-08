@@ -30,6 +30,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasRenderedPartially;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasVar;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutComponent;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutContainer;
 
@@ -50,7 +51,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutContain
                      allowedChildComponenents = "org.apache.myfaces.tobago.Reload")})
 public interface SheetTagDeclaration 
     extends HasIdBindingAndRendered, IsGridLayoutComponent, IsGridLayoutContainer, HasMarkup, HasCurrentMarkup,
-    HasRenderedPartially {
+    HasRenderedPartially, HasVar {
   /**
    * LayoutConstraints for column layout.
    * Semicolon separated list of layout tokens ('&lt;x>*', '&lt;x>px' or '&lt;x>%').
@@ -90,15 +91,6 @@ public interface SheetTagDeclaration
       "java.sql.ResultSet", "java.lang.Object", "javax.faces.model.DataModel"},
       expression = DynamicExpression.VALUE_BINDING_REQUIRED)
   void setValue(String value);
-
-  /**
-   * Name of a request-scope attribute under which the model data for the row
-   * selected by the current value of the "rowIndex" property
-   * (i.e. also the current value of the "rowData" property) will be exposed.
-   */
-  @TagAttribute(required = true)
-  @UIComponentTagAttribute(expression = DynamicExpression.PROHIBITED)
-  void setVar(String var);
 
   /**
    * Flag indicating whether or not the paging panel should be display, if it is not needed for paging.<br />
