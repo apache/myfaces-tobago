@@ -50,7 +50,7 @@ public class TreeExpandedSeleniumTest extends MultiSuffixSeleniumTest {
         getSelenium().getAttribute("page:tree:8:node@class").contains(EXPANDED));
 
     // click on the toggle of node "Science"
-    getSelenium().click("//div[@id='page:tree:8:node']/img[2]");
+    getSelenium().click("//div[@id='page:tree:8:node']/span/img[2]");
 
     // check
     Assert.assertTrue(
