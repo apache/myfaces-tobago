@@ -30,7 +30,7 @@
       <tc:gridLayout rows="9*;16*"/>
     </f:facet>
 
-    <tc:out escape="false" value="(UNDER CONSTRUCTION) #{overviewBundle.tree_text}"/>
+    <tc:out escape="false" value="(UNDER CONSTRUCTION)"/>
 
     <tc:panel>
       <f:facet name="layout">
@@ -44,14 +44,9 @@
                var="node">
         <tc:treeNode id="template">
           <tc:treeIndent showJunctions="#{demo.showJunctions}"/>
-          <tc:treeIcon value="image/feather.png" rendered="#{demo.showIcons}"/>
-          <tc:treeLabel value="#{node.userObject.name}"/>
+          <tc:treeIcon rendered="#{demo.showIcons}"/>
+          <tc:treeSelect showCheckbox="true" value="#{node.userObject.selected}" label="#{node.userObject.name}" />
         </tc:treeNode>
-        <!--
-        todo: events instead of state
-        todo: test action listener
-        actionListener="org.apache.myfaces.tobago.example.demo.actionlistener.TreeEditor"
-        -->
       </tc:tree>
 
       <tc:panel>
@@ -59,18 +54,9 @@
           <tc:gridLayout rows="auto;auto;auto;auto;1*;auto;auto;auto"/>
         </f:facet>
 
-        <tc:selectBooleanCheckbox label="#{overviewBundle.treeShowIcons}"
-                                  value="#{demo.showIcons}"
-                                  disabled="#{overviewController.treeTabsState != 0}"/>
-        <tc:selectBooleanCheckbox label="#{overviewBundle.treeShowJunctions}"
-                                  value="#{demo.showJunctions}"
-                                  disabled="#{overviewController.treeTabsState != 0}"/>
-        <tc:selectBooleanCheckbox label="#{overviewBundle.treeShowRootJunction}"
-                                  value="#{demo.showRootJunction}"
-                                  disabled="#{overviewController.treeTabsState != 0}"/>
-        <tc:selectBooleanCheckbox label="#{overviewBundle.treeShowRoot}"
-                                  value="#{demo.showRoot}"
-                                  disabled="#{overviewController.treeTabsState != 0}"/>
+        <tc:selectOneChoice value="#{overviewController.treeSelectMode}"> <!-- TODO: not implemented -->
+          <f:selectItems value="#{overviewController.treeSelectModeItems}"/>
+        </tc:selectOneChoice>
 
         <tc:button label="#{overviewBundle.submit}" renderedPartially="panel"/>
       </tc:panel>
