@@ -36,8 +36,8 @@
 
     <tc:script file="script/tobago-assert.js"/>
 
-    <tc:script onload="TobagoAssert.assertLayout(jQuery('#page\\:s1').parent(), 0, 25, 200, 19);"/>
-    <tc:script onload="TobagoAssert.assertLayout(jQuery('#page\\:s2').parent(), 330, 25, 200, 19);"/>
+    <tc:script onload="TobagoAssert.assertLayout(jQuery(Tobago.Utils.escapeClientId('page:s1')).parent(), 0, 25, 200, 19);"/>
+    <tc:script onload="TobagoAssert.assertLayout(jQuery(Tobago.Utils.escapeClientId('page:s2')).parent(), 330, 25, 200, 19);"/>
 
   </tc:page>
 </f:view>
