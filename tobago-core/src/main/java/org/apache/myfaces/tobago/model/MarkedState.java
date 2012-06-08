@@ -43,4 +43,11 @@ public class MarkedState implements Serializable {
   public void setMarked(TreeNode marked) {
     this.marked = new TreePath(marked);
   }
+
+  /**
+   * Resets the marked state, so that no TreePath is marked.
+   */
+  public void reset() {
+    marked = null;
+  }
 }

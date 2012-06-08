@@ -23,7 +23,7 @@
   <tc:page id="page">
     <tc:gridLayoutConstraint width="600px" height="600px"/>
     <f:facet name="layout">
-      <tc:gridLayout rows="*;auto;2*"/>
+      <tc:gridLayout rows="*;2*;auto"/>
     </f:facet>
 
     <tc:out escape="false" value="Tree with a marked node which should be stored tempotarily in the view.
@@ -38,8 +38,6 @@
     &lt;li>Check: Only the Sports node should be marked&lt;/li>
     &lt;/ol>"/>
 
-    <tc:button id="reload" link="#{request.pathInfo}" label="Reload with fresh view"/>
-
     <tc:tree id="tree" value="#{tree.tree}" var="node" showRoot="true" showRootJunction="true"
         state="#{tree.state}">
       <tc:treeNode id="node">
@@ -47,6 +45,17 @@
         <tc:treeCommand label="#{node.userObject.name}" id="command"/>
       </tc:treeNode>
     </tc:tree>
+
+    <tc:panel>
+      <f:facet name="layout">
+        <tc:gridLayout columns="*;auto;auto"/>
+      </f:facet>
+
+      <tc:panel/>
+      <tc:button id="reload" link="#{request.pathInfo}" label="Reload with fresh view"/>
+      <tc:button id="clear" action="#{tree.clearMarked}" label="Reload with fresh view"/>
+
+    </tc:panel>
 
   </tc:page>
 </f:view>

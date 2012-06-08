@@ -50,14 +50,15 @@ public class TreeMarkedSeleniumTest extends MultiSuffixSeleniumTest {
   public void testWithModel() {
     test("/tc/tree/tree-marked-with-model.", UNMARKED);
     test("/tc/tree/tree-marked-with-model.", MARKED); // because state was stored in the session
+    resetState();
   }
 
-  private void test(String name, String inital) {
+  private void test(String name, String initial) {
 
     // load page
     open(name);
     Assert.assertEquals(
-        "Node 1 should not be marked!", inital, getSelenium().getAttribute("page:tree:1:node@class"));
+        "Node 1 should not be marked!", initial, getSelenium().getAttribute("page:tree:1:node@class"));
     Assert.assertEquals(
         "Node 2 should not be marked!", UNMARKED, getSelenium().getAttribute("page:tree:2:node@class"));
 
@@ -69,6 +70,12 @@ public class TreeMarkedSeleniumTest extends MultiSuffixSeleniumTest {
         "Node 1 should be marked now!", MARKED, getSelenium().getAttribute("page:tree:1:node@class"));
     Assert.assertEquals(
         "Node 2 should not be marked!", UNMARKED, getSelenium().getAttribute("page:tree:2:node@class"));
+  }
+
+  private void resetState() {
+    // click clear to reset the state
+    getSelenium().click("page:clear");
+    getSelenium().waitForPageToLoad("5000");
   }
 
 }

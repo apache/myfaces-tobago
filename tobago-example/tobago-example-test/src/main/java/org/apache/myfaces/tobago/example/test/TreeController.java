@@ -68,4 +68,9 @@ public class TreeController {
   public CantorInterval getInfinite() {
     return infinite;
   }
+
+  public Object clearMarked() {
+    state.getMarkedState().reset();
+    return null;
+  }
 }
