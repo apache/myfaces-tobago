@@ -53,6 +53,15 @@
         <file-release>http://www.apache.org/dyn/closer.cgi/myfaces/binaries/myfaces-tobago-1.5.6-dist.zip</file-release>
       </Version>
     </release>
+    <release>
+      <Version>
+        <name>Latest stable release of 1.6.x</name>
+        <created>2012-06-06</created>
+        <revision>1.6.0-beta-1</revision>
+        <file-release>http://www.apache.org/dyn/closer.cgi/myfaces/binaries/myfaces-tobago-1.6.0-beta-1-dist.tar.gz</file-release>
+        <file-release>http://www.apache.org/dyn/closer.cgi/myfaces/binaries/myfaces-tobago-1.6.0-beta-1-dist.zip</file-release>
+      </Version>
+    </release>
     <repository>
       <SVNRepository>
         <location rdf:resource="http://svn.apache.org/repos/asf/myfaces/tobago"/>
