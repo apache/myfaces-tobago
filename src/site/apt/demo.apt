@@ -19,6 +19,7 @@
 
 Demo
 
-  A live demo can be found at: {{http://www.irian.biz/tobago-example-demo/}}
+  A live demo can be found at {{http://www.irian.biz/tobago-example-demo/}}
+  for version 1.5.x and at {{http://www.irian.biz/tobago-example-demo-1.0.x//}} for 1.0.x.
 
   The current snapshot of the demo war can be downloaded at: {{https://repository.apache.org/content/repositories/snapshots/org/apache/myfaces/tobago/tobago-example-demo/}}
