@@ -57,7 +57,7 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase implemen
    */
   public void init() {
 
-    if (!getParent().isRendered() || !getLayoutContainer().isLayoutChildren()) {
+    if (!getLayoutContainer().isLayoutChildren()) {
       return;
     }
 
