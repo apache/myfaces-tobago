@@ -223,20 +223,24 @@ public class ResourceManagerImpl implements ResourceManager {
     if (result == null) {
       List properties = getPaths(clientKey, "", PROPERTY, "tobago-theme-config", "",
           false, true, false, rendererType + "." + name, true, true);
-      if (properties != null) {
-        Measure measure = Measure.valueOf(properties.get(0));
 
-        if (markup != null) {
-          for (String m : markup) {
-            List mProperties = getPaths(clientKey, "", PROPERTY, "tobago-theme-config", "",
-                false, true, false, rendererType + "[" + m + "]" + "." + name, true, true);
-            if (mProperties != null) {
-              final Measure summand = Measure.valueOf(mProperties.get(0));
-              measure = measure.add(summand);
-            }
+      Measure measure = null;
+      if (properties != null) {
+        measure = Measure.valueOf(properties.get(0));
+      }
+
+      if (markup != null) {
+        for (String m : markup) {
+          List mProperties = getPaths(clientKey, "", PROPERTY, "tobago-theme-config", "",
+              false, true, false, rendererType + "[" + m + "]" + "." + name, true, true);
+          if (mProperties != null) {
+            final Measure summand = Measure.valueOf(mProperties.get(0));
+            measure = summand.add(measure);
           }
         }
+      }
 
+      if (measure != null) {
         result = new MeasureValue(measure);
       } else {
         result = MeasureValue.NULL;  // to mark and cache that this value is undefined.
@@ -245,7 +249,7 @@ public class ResourceManagerImpl implements ResourceManager {
     }
     return result.getValue();
   }
-  
+
   @Deprecated
   public String getImage(UIViewRoot viewRoot, String name) {
     return getImage(FacesContext.getCurrentInstance(), name);
