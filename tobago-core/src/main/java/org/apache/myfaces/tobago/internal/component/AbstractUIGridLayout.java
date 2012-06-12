@@ -57,7 +57,7 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase implemen
    */
   public void init() {
 
-    if (!getLayoutContainer().isLayoutChildren()) {
+    if (!getParent().isRendered() || !getLayoutContainer().isLayoutChildren()) {
       return;
     }
 
@@ -230,10 +230,6 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase implemen
 
     if (!getLayoutContainer().isLayoutChildren()) {
       return;
-    }
-
-    if (!isLayoutContainerRendered()) {
-        return;
     }
 
     final BankHead[] heads = grid.getBankHeads(orientation);

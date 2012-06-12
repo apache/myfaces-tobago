@@ -75,6 +75,6 @@ public abstract class AbstractUIPanel extends AbstractUIPanelBase
   }
 
   public boolean isLayoutChildren() {
-    return true;
+    return isRendered();
   }
 }

@@ -188,7 +188,7 @@ public abstract class AbstractUIPopup extends AbstractUIPanelBase
   }
 
   public boolean isLayoutChildren() {
-    return true;
+    return isRendered();
   }
   
   public abstract Measure getWidth();

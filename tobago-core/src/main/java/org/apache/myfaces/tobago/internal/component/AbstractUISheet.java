@@ -613,7 +613,7 @@ public abstract class AbstractUISheet extends AbstractUIData
   }
 
   public boolean isLayoutChildren() {
-    return true;
+    return isRendered();
   }
 
   public boolean isRendersRowContainer() {
