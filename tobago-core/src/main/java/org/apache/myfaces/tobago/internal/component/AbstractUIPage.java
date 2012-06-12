@@ -284,7 +284,7 @@ public abstract class AbstractUIPage extends AbstractUIForm
   }
 
   public boolean isLayoutChildren() {
-    return true;
+    return isRendered();
   }
 
   public abstract Measure getWidth();

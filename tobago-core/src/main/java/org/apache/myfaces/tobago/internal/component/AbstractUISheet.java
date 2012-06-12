@@ -667,7 +667,7 @@ public abstract class AbstractUISheet extends javax.faces.component.UIData
   }
 
   public boolean isLayoutChildren() {
-    return true;
+    return isRendered();
   }
 
   public abstract boolean isShowHeader();
