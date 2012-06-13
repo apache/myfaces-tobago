@@ -2661,4 +2661,26 @@ Tobago.registerListener(Tobago.SelectManyShuttle.init, Tobago.Phase.AFTER_UPDATE
 
 // ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+Tobago.File = {};
+
+Tobago.File.init = function(elements) {
+  var files = Tobago.Utils.selectWidthJQuery(elements, ".tobago-file-real");
+  files.change(function () {
+    var file = jQuery(this);
+    var pretty = file.prev();
+    var filename = file.attr('value');
+    // remove path, if any. Some old browsers set the path, others like webkit uses the prefix "C:\facepath\".
+    var pos = Math.max(filename.lastIndexOf('/'), filename.lastIndexOf('\\'));
+    if (pos >= 0) {
+      filename = filename.substr(pos + 1);
+    }
+    pretty.attr('value', filename);
+  });
+};
+
+Tobago.registerListener(Tobago.File.init, Tobago.Phase.DOCUMENT_READY);
+Tobago.registerListener(Tobago.File.init, Tobago.Phase.AFTER_UPDATE);
+
+// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 TbgTimer.endTbgJs = new Date(); // @DEV_ONLY

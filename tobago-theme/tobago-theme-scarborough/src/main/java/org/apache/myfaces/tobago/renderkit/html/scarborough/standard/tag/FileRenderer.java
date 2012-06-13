@@ -17,17 +17,12 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * limitations under the License.
  */
 
-/*
- * Created 07.02.2003 16:00:00.
- * $Id$
- */
-
 import org.apache.commons.fileupload.FileItem;
-import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UIFileInput;
 import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
 import org.apache.myfaces.tobago.internal.webapp.TobagoMultipartFormdataRequest;
+import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.InputRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
@@ -108,29 +103,51 @@ public class FileRenderer extends InputRendererBase {
       return;
     }
 
-    UIFileInput input = (UIFileInput) component;
-    String clientId = input.getClientId(facesContext);
+    final UIFileInput file = (UIFileInput) component;
+    final String clientId = file.getClientId(facesContext);
+    final Style style = new Style(facesContext, file);
 
-    TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
-    writer.startElement(HtmlElements.INPUT, input);
-    writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.FILE, false);
-    writer.writeClassAttribute(Classes.create(input));
-    Style style = new Style(facesContext, input);
-    writer.writeStyleAttribute(style);
-    writer.writeNameAttribute(clientId);
+    writer.startElement(HtmlElements.DIV, file);
     writer.writeIdAttribute(clientId);
-    writer.writeAttribute(HtmlAttributes.READONLY, ComponentUtils.getBooleanAttribute(input, Attributes.DISABLED));
-    Integer tabIndex = input.getTabIndex();
+    writer.writeClassAttribute(Classes.create(file));
+    writer.writeStyleAttribute(style);
+
+    // visible fake input for a pretty look
+    final Style inputStyle = new Style();
+    final Measure prettyWidthSub = getResourceManager().getThemeMeasure(facesContext, file, "prettyWidthSub");
+    inputStyle.setWidth(style.getWidth().subtract(prettyWidthSub));
+    writer.startElement(HtmlElements.INPUT, file);
+    writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.TEXT, false);
+    writer.writeClassAttribute(Classes.create(file, "pretty"));
+    writer.writeStyleAttribute(inputStyle);
+    writer.writeAttribute(HtmlAttributes.DISABLED, true);
+    writer.endElement(HtmlElements.INPUT);
+
+    // invisible file input
+    writer.startElement(HtmlElements.INPUT, file);
+    writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.FILE, false);
+    writer.writeClassAttribute(Classes.create(file, "real"));
+    writer.writeNameAttribute(clientId);
+    // readonly seems not making sense in browsers.
+    writer.writeAttribute(HtmlAttributes.DISABLED, file.isDisabled() || file.isReadonly());
+    writer.writeAttribute(HtmlAttributes.SIZE, "1024", false);
+    final Integer tabIndex = file.getTabIndex();
     if (tabIndex != null) {
       writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
     }
-    HtmlRendererUtils.renderTip(input, writer);
+    final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, file);
+    if (title != null) {
+      writer.writeAttribute(HtmlAttributes.TITLE, title, true);
+    }
     if (ClientProperties.getInstance(facesContext).getUserAgent().isMsie6()) {
       writer.writeAttribute(HtmlAttributes.ONKEYDOWN, "this.blur();return false;", false);
       writer.writeAttribute("oncontextmenu", "return false;", false);
     }
     writer.endElement(HtmlElements.INPUT);
+
+    writer.endElement(HtmlElements.DIV);
   }
 }
 

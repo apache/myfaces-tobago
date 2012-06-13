@@ -261,11 +261,53 @@ span.tobago-calendar-header {
 /* file -------------------------------------------------------------------- */
 
 .tobago-file {
-  height: 25px;
+  background: url("../image/file-upload.gif") no-repeat right center transparent;
 }
 
-.tobago-file-markup-error, .tobago-file-markup-fatal {
+.tobago-file-pretty {
+  color: #000000;
+  background-color: #ffffff;
+  position: absolute;
+  border: 2px inset #bbccdd;
+  height: 17px;
+  padding: 2px;
+  margin: 0;
+  left: 0;
+  right: 21px;
+  top: 0;
+}
+
+.tobago-file-pretty-markup-required {
+  background: url("../image/required.gif") no-repeat 3px 50% #FFFFFF;
+}
+
+.tobago-file-pretty-markup-readonly {
+  background-color: #bbccdd;
+}
+
+.tobago-file-pretty-markup-disabled {
+  color: #778899;
+  background-color: #bbccdd;
+}
+
+.tobago-file-pretty-markup-warn {
+  border-color: #ffa500;
+}
+
+.tobago-file-pretty-markup-error {
   border-color: #ff0000;
+}
+
+.tobago-file-pretty-markup-fatal {
+  border-color: #ff00ff;
+}
+
+.tobago-file-real {
+  position: absolute;
+  right: 0;
+  top: 0;
+  opacity: 0;
+  filter: alpha(opacity: 0);
 }
 
 /* formatted --------------------------------------------------------------- */

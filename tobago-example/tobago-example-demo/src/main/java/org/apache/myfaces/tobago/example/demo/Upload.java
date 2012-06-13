@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.example.reference;
+package org.apache.myfaces.tobago.example.demo;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -18,6 +18,7 @@ package org.apache.myfaces.tobago.example.reference;
  */
 
 import org.apache.commons.fileupload.FileItem;
+import org.apache.myfaces.tobago.example.reference.UploadItem;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,9 +35,16 @@ public class Upload {
 
   public String upload() {
     LOG.info("type=" + file.getContentType());
-    LOG.info("file=" + file.get().length);
-    LOG.info("name=" + file.getName());
-    list.add(new UploadItem(file.getName(), file.get().length, file.getContentType()));
+    LOG.info("size=" + file.get().length);
+    String name = file.getName();
+    int pos = Math.max(name.lastIndexOf('/'), name.lastIndexOf('\\'));
+    if (pos >= 0) {
+      // some old browsers send the name with path.
+      // modern browsers doesn't because of security reasons.
+      name = name.substring(pos + 1);
+    }
+    LOG.info("name=" + name);
+    list.add(new UploadItem(name, file.get().length, file.getContentType()));
     file = null; // we don't need it in this demo.
     return null;
   }

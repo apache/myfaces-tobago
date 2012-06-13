@@ -29,7 +29,7 @@ public class Upload {
 
   public String upload() {
     LOG.info("type=" + file.getContentType());
-    LOG.info("file=" + file.get().length);
+    LOG.info("size=" + file.get().length);
     LOG.info("name=" + file.getName());
     return "/tc/file/file.xhtml";
   }
