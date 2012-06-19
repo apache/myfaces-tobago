@@ -232,7 +232,7 @@ public class Style implements Serializable {
     }
     if (textAlign != null) {
       buf.append("text-align:");
-      buf.append(textAlign);
+      buf.append(textAlign.getValue());
       buf.append(';');
     }
 
