@@ -571,7 +571,6 @@ public class PageRenderer extends PageRendererBase {
     writer.writeJavascript("setTimeout(\"Tobago.init('" + clientId + "')\", 1000)");
 
     writer.startElement(HtmlConstants.NOSCRIPT, null);
-    writer.writeAttribute(HtmlAttributes.TYPE, "text/javascript", false);
     writer.startElement(HtmlConstants.DIV, null);
     writer.writeClassAttribute("tobago-page-noscript");
     writer.writeText(ResourceManagerUtil.getPropertyNotNull(facesContext, "tobago", "pageNoscript"));
