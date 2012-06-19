@@ -42,6 +42,7 @@ public final class HtmlElements {
   public static final String LI = "li";
   public static final String LINK = "link";
   public static final String META = "meta";
+  public static final String NOSCRIPT = "noscript";
   public static final String OL = "ol";
   public static final String OPTGROUP = "optgroup";
   public static final String OPTION = "option";
