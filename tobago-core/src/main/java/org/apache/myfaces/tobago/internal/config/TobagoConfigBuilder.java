@@ -120,6 +120,8 @@ public class TobagoConfigBuilder {
         result.setCheckSessionSecret(fragment.getCheckSessionSecret());
       }
 
+      result.setPreventFrameAttacks(fragment.isPreventFrameAttacks());
+
       // theme definition
       // todo
 /*

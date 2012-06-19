@@ -182,6 +182,7 @@ public class PageRenderer extends PageRendererBase {
         } catch (NumberFormatException e) {/* ignore; use default*/ }
       }
     }
+    boolean frameKiller = TobagoConfig.getInstance(facesContext).isPreventFrameAttacks();
 
     if (!FacesContextUtils.isAjax(facesContext)) {
       HtmlRendererUtils.renderDojoDndSource(facesContext, component);
@@ -204,6 +205,14 @@ public class PageRenderer extends PageRendererBase {
       writer.endElement(HtmlElements.TITLE);
       final Theme theme = client.getTheme();
 
+      if (frameKiller) {
+        writer.writeJavascript("if (self == top) { "
+            + "var forms = document.forms;\n"
+            + "for(var i=0;i<forms.length;i++)\n"
+            + "{ if (forms[i].style.display == 'none') {"
+            + " forms[i].style.display = 'block';} }\n} else { "
+            +"top.location = self.location; }\n");
+      }
       if (debugMode) {
         // This tag must not be earlier, because the
         // IE doesn't accept some META tags, when they are not the first ones.
@@ -400,6 +409,9 @@ public class PageRenderer extends PageRendererBase {
     }
 
     writer.startElement(HtmlElements.FORM, page);
+    if (frameKiller && !FacesContextUtils.isAjax(facesContext)) {
+      writer.writeAttribute(HtmlAttributes.STYLE, "display:none", false);
+    }
     writer.writeAttribute(HtmlAttributes.ACTION, formAction, true);
     writer.writeIdAttribute(page.getFormId(facesContext));
     writer.writeAttribute(HtmlAttributes.METHOD, getMethod(page), false);

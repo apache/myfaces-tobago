@@ -56,6 +56,7 @@ public class TobagoConfigImpl extends TobagoConfig {
   private ProjectStage projectStage;
   private boolean createSessionSecret;
   private boolean checkSessionSecret;
+  private boolean preventFrameAttacks = true;
   private URL url;
   private Map<String, String> defaultValidatorInfo;
 
@@ -264,6 +265,15 @@ public class TobagoConfigImpl extends TobagoConfig {
 
   public void setCheckSessionSecret(boolean checkSessionSecret) {
     this.checkSessionSecret = checkSessionSecret;
+  }
+
+
+  public boolean isPreventFrameAttacks() {
+    return preventFrameAttacks;
+  }
+
+  public void setPreventFrameAttacks(boolean preventFrameAttacks) {
+    this.preventFrameAttacks = preventFrameAttacks;
   }
 
   public Map<String, String> getDefaultValidatorInfo() {

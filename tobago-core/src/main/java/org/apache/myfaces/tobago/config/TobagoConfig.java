@@ -74,4 +74,6 @@ public abstract class TobagoConfig {
 
   public abstract boolean isCheckSessionSecret();
 
+  public abstract boolean isPreventFrameAttacks();
+
 }
