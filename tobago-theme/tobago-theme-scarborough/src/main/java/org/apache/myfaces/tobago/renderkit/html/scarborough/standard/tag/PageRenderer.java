@@ -663,6 +663,14 @@ public class PageRenderer extends PageRendererBase {
 
 //    writer.writeJavascript("setTimeout(\"Tobago.init('" + clientId + "')\", 1000)");
 
+    writer.startElement(HtmlElements.NOSCRIPT, null);
+    writer.writeAttribute(HtmlAttributes.TYPE, "text/javascript", false);
+    writer.startElement(HtmlElements.DIV, null);
+    writer.writeClassAttribute(Classes.create(page, "noscript"));
+    writer.writeText(ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", "pageNoscript"));
+    writer.endElement(HtmlElements.DIV);
+    writer.endElement(HtmlElements.NOSCRIPT);
+
     writer.endElement(HtmlElements.BODY);
 
     if (LOG.isDebugEnabled()) {

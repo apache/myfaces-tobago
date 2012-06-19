@@ -19,6 +19,9 @@
 
 <properties>
 
+  <!-- Page -->
+  <entry key="pageNoscript">Este página requiere JavaScript, pero JavaScript no se activa actualmente en su navegador. Para permitir JavaScript usted puede consultar la documentación del navegador.</entry>
+
   <!-- Client Configuration -->
   <entry key="configTitle">Configuración cliente del framework Tobago</entry>
   <entry key="configTheme">Tema</entry>

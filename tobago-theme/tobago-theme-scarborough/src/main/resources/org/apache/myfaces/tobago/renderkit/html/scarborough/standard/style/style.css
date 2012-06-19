@@ -617,6 +617,18 @@ li.tobago-menu-markup-selected {
   display: none;
 }
 
+.tobago-page-noscript {
+  position: absolute;
+  top: 100px;
+  left: 100px;
+  right: 100px;
+  height: 50px;
+  border: 1px solid black;
+  padding: 30px;
+  background-color: white;
+  font-size: 15px;
+}
+
 /* panel -------------------------------------------------------------- */
 
 .tobago-panel {
