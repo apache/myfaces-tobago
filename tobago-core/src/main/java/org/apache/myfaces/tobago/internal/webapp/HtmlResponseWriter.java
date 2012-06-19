@@ -148,14 +148,22 @@ public class HtmlResponseWriter extends TobagoResponseWriterBase {
   }
 
   @Override
-  public void endDocument() throws IOException {
-    String javascript = getJavascript();
-    if (org.apache.commons.lang.StringUtils.isNotEmpty(javascript)) {
-      startElement(HtmlElements.SCRIPT, null);
-      writeAttribute(HtmlAttributes.TYPE, "text/javascript", false);
-      write(getJavascript());
-      endElement(HtmlElements.SCRIPT);
+  public void endElement(String name) throws IOException {
+    if (name == HtmlElements.BODY) {
+      String javascript = getJavascript();
+      if (org.apache.commons.lang.StringUtils.isNotEmpty(javascript)) {
+        startElement(HtmlElements.SCRIPT, null);
+        writeAttribute(HtmlAttributes.TYPE, "text/javascript", false);
+        write(getJavascript());
+        endElement(HtmlElements.SCRIPT);
+      }
     }
+    super.endElement(name);
+  }
+
+  @Override
+  public void endDocument() throws IOException {
+
     endElement(HtmlElements.HTML);
   }
 }
