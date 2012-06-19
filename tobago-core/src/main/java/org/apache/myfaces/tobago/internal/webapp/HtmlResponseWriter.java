@@ -155,7 +155,7 @@ public class HtmlResponseWriter extends TobagoResponseWriterBase {
         startElement(HtmlElements.SCRIPT, null);
         writeAttribute(HtmlAttributes.TYPE, "text/javascript", false);
         write(getJavascript());
-        endElement(HtmlElements.SCRIPT);
+        super.endElement(HtmlElements.SCRIPT);
       }
     }
     super.endElement(name);
