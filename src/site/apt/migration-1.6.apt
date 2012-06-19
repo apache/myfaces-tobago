@@ -28,6 +28,9 @@ Java-API
    The class org.apache.myfaces.tobago.model.TreeState which has been deprecated in 1.5.x is
    used in 1.6.x with a changed API. Please check the occurrences.
 
+   Class <<<org.apache.myfaces.tobago.component.UIFileInput>>> has been renamed to
+   <<<org.apache.myfaces.tobago.component.UIFile>>>.
+
 Deprecated
 
    There are also <<<@Deprecated>>> annotations in the code and some
@@ -52,4 +55,4 @@ Configuration
   The content of tobago-theme.xml is a subset of the tobago-config.xml, you have only to
   change the root node.
 
-  Please use the tobago-config-1.5.xsd to validate the configuration.
+  Please use the tobago-config-1.6.xsd to validate the configuration.

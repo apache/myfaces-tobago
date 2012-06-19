@@ -18,6 +18,7 @@ package org.apache.myfaces.tobago.internal.component;
  */
 
 import org.apache.commons.fileupload.FileItem;
+import org.apache.myfaces.tobago.component.UIFileInput;
 import org.apache.myfaces.tobago.layout.LayoutComponent;
 import org.apache.myfaces.tobago.util.MessageUtils;
 
@@ -25,7 +26,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 
-public abstract class AbstractUIFileInput extends UIInput implements LayoutComponent {
+public abstract class AbstractUIFile extends UIInput implements LayoutComponent, UIFileInput {
 
   public void validate(FacesContext facesContext) {
     if (isRequired()) {
@@ -47,4 +48,10 @@ public abstract class AbstractUIFileInput extends UIInput implements LayoutCompo
     MessageUtils.addMessage(
         facesContext, this, FacesMessage.SEVERITY_ERROR, REQUIRED_MESSAGE_ID, new Object[]{getId()});
   }
+
+  public abstract boolean isDisabled();
+
+  public abstract boolean isReadonly();
+
+  public abstract Integer getTabIndex();
 }

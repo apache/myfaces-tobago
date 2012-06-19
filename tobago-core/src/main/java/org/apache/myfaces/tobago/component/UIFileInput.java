@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.facelets.extension;
+package org.apache.myfaces.tobago.component;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -17,21 +17,9 @@ package org.apache.myfaces.tobago.facelets.extension;
  * limitations under the License.
  */
 
-import com.sun.facelets.tag.jsf.ComponentConfig;
-import org.apache.myfaces.tobago.component.RendererTypes;
-import org.apache.myfaces.tobago.component.UIFile;
-
-public class FileExtensionHandler extends TobagoLabelExtensionHandler {
-
-  public FileExtensionHandler(ComponentConfig config) {
-    super(config);
-  }
-
-  protected String getSubComponentType() {
-    return UIFile.COMPONENT_TYPE;
-  }
-
-  protected String getSubRendererType() {
-    return RendererTypes.FILE;
-  }
+/**
+ * @deprecated since 1.6.0. Please use {@link UIFile}
+ */
+@Deprecated
+public interface UIFileInput {
 }

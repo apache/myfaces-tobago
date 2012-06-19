@@ -18,8 +18,8 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  */
 
 import org.apache.commons.fileupload.FileItem;
-import org.apache.myfaces.tobago.component.UIFileInput;
 import org.apache.myfaces.tobago.context.ClientProperties;
+import org.apache.myfaces.tobago.internal.component.AbstractUIFile;
 import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
 import org.apache.myfaces.tobago.internal.webapp.TobagoMultipartFormdataRequest;
 import org.apache.myfaces.tobago.layout.Measure;
@@ -55,16 +55,11 @@ public class FileRenderer extends InputRendererBase {
   }
 
   public void decode(FacesContext facesContext, UIComponent component) {
-    if (!(component instanceof UIFileInput)) {
-      LOG.error("Wrong type: Need " + UIFileInput.class.getName() + ", but was " + component.getClass().getName());
-      return;
-    }
-
     if (ComponentUtils.isOutputOnly(component)) {
       return;
     }
 
-    UIFileInput input = (UIFileInput) component;
+    AbstractUIFile input = (AbstractUIFile) component;
 
     TobagoMultipartFormdataRequest request = null;
     Object requestObject = facesContext.getExternalContext().getRequest();
@@ -98,12 +93,8 @@ public class FileRenderer extends InputRendererBase {
   }
 
   public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
-    if (!(component instanceof UIFileInput)) {
-      LOG.error("Wrong type: Need " + UIFileInput.class.getName() + ", but was " + component.getClass().getName());
-      return;
-    }
 
-    final UIFileInput file = (UIFileInput) component;
+    final AbstractUIFile file = (AbstractUIFile) component;
     final String clientId = file.getClientId(facesContext);
     final Style style = new Style(facesContext, file);
 
@@ -150,4 +141,3 @@ public class FileRenderer extends InputRendererBase {
     writer.endElement(HtmlElements.DIV);
   }
 }
-
