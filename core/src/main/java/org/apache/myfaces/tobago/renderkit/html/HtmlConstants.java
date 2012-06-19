@@ -56,6 +56,7 @@ public final class HtmlConstants {
   public static final String AREA = "area";
   public static final String PARAM = "param";
   public static final String BASE = "base";
+  public static final String NOSCRIPT = "noscript";
 
   private HtmlConstants() {
 
