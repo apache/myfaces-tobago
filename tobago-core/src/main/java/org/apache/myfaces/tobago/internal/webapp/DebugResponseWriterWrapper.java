@@ -112,6 +112,21 @@ public class DebugResponseWriterWrapper extends TobagoResponseWriter {
     responseWriter.endDocument();
   }
 
+  @Override
+  public void writeJavascript(String script) throws IOException {
+    responseWriter.writeJavascript(script);
+  }
+
+  @Override
+  public void endJavascript() throws IOException {
+    responseWriter.endJavascript();
+  }
+
+  @Override
+  public void startJavascript() throws IOException {
+    responseWriter.startJavascript();
+  }
+
   public void writeURIAttribute(String name, Object value, String property) throws IOException {
     responseWriter.writeURIAttribute(name, value, property);
   }
