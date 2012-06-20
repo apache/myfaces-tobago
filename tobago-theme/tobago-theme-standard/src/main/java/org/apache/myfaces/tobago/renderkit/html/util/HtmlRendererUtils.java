@@ -234,13 +234,14 @@ public final class HtmlRendererUtils {
       throws IOException {
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
-    String allScripts = "[]";
+    /*String allScripts = "[]";
     if (scripts != null) {
       allScripts = ResourceManagerUtils.getScriptsAsJSArray(facesContext, scripts);
     }
-    boolean ajax = FacesContextUtils.isAjax(facesContext);
+    boolean ajax = FacesContextUtils.isAjax(facesContext);*/
     writer.startJavascript();
-    if (ajax || scripts != null) {
+    /* XXX fix me if scripts != null
+    if (scripts != null) {
       writer.write("new Tobago.ScriptLoader(");
       if (!ajax) {
         writer.write("\n    ");
@@ -270,11 +271,11 @@ public final class HtmlRendererUtils {
         }
       }
       writer.write(");");
-    } else {
-      for (String afterLoadCmd : afterLoadCmds) {
-        writer.write(afterLoadCmd);
-      }
+    } else {*/
+    for (String afterLoadCmd : afterLoadCmds) {
+      writer.write(afterLoadCmd);
     }
+    //}
     writer.endJavascript();
   }
 
