@@ -23,7 +23,7 @@
 <properties>
 
   <!-- Page -->
-  <entry key="pageNoscript">Diese Seite benötigt JavaScript, allerdings ist JavaScript in ihrem Browser derzeit deaktiviert. Um JavaScript zu aktivieren, lesen Sie ggf. die Anleitung Ihres Browsers.</entry>
+  <entry key="pageNoscript">Diese Seite benötigt JavaScript, allerdings ist JavaScript in Ihrem Browser derzeit deaktiviert. Um JavaScript zu aktivieren, lesen Sie ggf. die Anleitung Ihres Browsers.</entry>
 
   <!-- Client Configuration -->
   <entry key="configTitle">Konfiguration des Clients des Tobago-Frameworks</entry>
