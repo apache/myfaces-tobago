@@ -59,7 +59,7 @@ Tobago.fixPngAlphaInternal = function(element) {
   element.runtimeStyle.backgroundImage = "none";
   element.runtimeStyle.filter
       = "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='" + element.src + "', sizingMethod='scale')";
-  element.src = Tobago.pngFixBlankImage;
+  element.src = jQuery(".tobago-page-pngFixBlankImage").attr("src");
 };
 
 Tobago.fixBackgroundPngAlpha = function(element) {

@@ -661,7 +661,10 @@ li.tobago-menu-markup-selected {
   position: relative;
 }
 
-.tobago-page-overlayWaitPreloadedImage, .tobago-page-overlayErrorPreloadedImage {
+.tobago-page-overlayWaitPreloadedImage,
+.tobago-page-overlayErrorPreloadedImage,
+.tobago-page-pngFixBlankImage,
+.tobago-page-overlayBackgroundImage {
   display: none;
 }
 

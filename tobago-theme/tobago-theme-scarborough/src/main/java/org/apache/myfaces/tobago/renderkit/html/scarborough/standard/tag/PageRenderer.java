@@ -206,12 +206,10 @@ public class PageRenderer extends PageRendererBase {
       final Theme theme = client.getTheme();
 
       if (frameKiller) {
-        writer.writeJavascript("if (self == top) { "
-            + "var forms = document.forms;\n"
-            + "for(var i=0;i<forms.length;i++)\n"
-            + "{ if (forms[i].style.display == 'none') {"
-            + " forms[i].style.display = 'block';} }\n} else { "
-            +"top.location = self.location; }\n");
+        writer.writeJavascript("if (self == top) {\n  var forms = document.forms;\n"
+            + "  for(var i=0;i<forms.length;i++) {\n    if (forms[i].style.display == 'none') {"
+            + "      forms[i].style.display = 'block';}\n  }\n} else { "
+            + "  top.location = self.location; }\n");
       }
       if (debugMode) {
         // This tag must not be earlier, because the
@@ -386,14 +384,6 @@ public class PageRenderer extends PageRendererBase {
     writer.writeIdAttribute(clientId);
     writer.writeClassAttribute(Classes.create(page));
 
-    writer.startJavascript();
-    writer.write("Tobago.pngFixBlankImage = '");
-    writer.write(ResourceManagerUtils.getImageWithPath(facesContext, "image/blank.gif"));
-    writer.write("';\n");
-    writer.write("Tobago.OVERLAY_BACKGROUND = '");
-    writer.write(ResourceManagerUtils.getImageWithPath(facesContext, "image/tobago-overlay-background.png"));
-    writer.write("';\n");
-    writer.endJavascript();
 /*
     if (debugMode) {
       final String[] jsFiles = new String[]{
@@ -644,6 +634,19 @@ public class PageRenderer extends PageRendererBase {
         ? ResourceManagerUtils.getImageWithPath(facesContext, "image/remove.gif") // XXX why png doesn't work in ie6?
         : ResourceManagerUtils.getImageWithPath(facesContext, "image/dialog-error.png");
     writer.writeAttribute(HtmlAttributes.SRC, error, false);
+    writer.endElement(HtmlElements.IMG);
+
+    writer.startElement(HtmlElements.IMG, null);
+    writer.writeClassAttribute(Classes.create(page, "pngFixBlankImage"));
+    final String pngFixBlankImage = ResourceManagerUtils.getImageWithPath(facesContext, "image/blank.gif");
+    writer.writeAttribute(HtmlAttributes.SRC, pngFixBlankImage, false);
+    writer.endElement(HtmlElements.IMG);
+
+    writer.startElement(HtmlElements.IMG, null);
+    writer.writeClassAttribute(Classes.create(page, "overlayBackgroundImage"));
+    final String overlayBackgroundImage = ResourceManagerUtils.getImageWithPath(facesContext,
+        "image/tobago-overlay-background.png");
+    writer.writeAttribute(HtmlAttributes.SRC, overlayBackgroundImage, false);
     writer.endElement(HtmlElements.IMG);
 
     // debugging...

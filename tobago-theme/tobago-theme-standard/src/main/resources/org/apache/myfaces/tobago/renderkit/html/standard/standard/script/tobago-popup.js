@@ -53,6 +53,7 @@ Tobago.Popup.setup = function () {
 
     // IE6 doesn't support position:fixed
     if (jQuery.browser.msie && parseInt(jQuery.browser.version) <= 6) {
+      var image = jQuery(".tobago-page-overlayBackgroundImage").attr("src");
       shield.css({
         position:'absolute',
         left:-maxModalPopup.offset().left,
@@ -61,7 +62,7 @@ Tobago.Popup.setup = function () {
         height:jQuery(window).height(),
         background:'none',
         filter:"progid:DXImageTransform.Microsoft.AlphaImageLoader(src='"
-            + Tobago.OVERLAY_BACKGROUND + "', sizingMethod='scale');"
+            + image + "', sizingMethod='scale');"
       });
 
       // IE6 needs an iframe to protect the other controls and protect against select-tag shining through.
