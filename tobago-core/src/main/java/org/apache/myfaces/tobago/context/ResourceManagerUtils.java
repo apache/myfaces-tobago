@@ -161,4 +161,15 @@ public class ResourceManagerUtils {
         || upper.startsWith("HTTPS:")
         || upper.startsWith("FTP:"));
   }
+
+  public static String getImageOrDisabledImageWithPath(FacesContext facesContext, String image, boolean disabled) {
+    String imageWithPath = null;
+    if (disabled) {
+      imageWithPath = ResourceManagerUtils.getDisabledImageWithPath(facesContext, image);
+    }
+    if (imageWithPath == null) {
+      imageWithPath = ResourceManagerUtils.getImageWithPath(facesContext, image);
+    }
+    return imageWithPath;
+  }
 }

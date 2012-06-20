@@ -26,6 +26,9 @@
       <tc:gridLayout rows="auto"/>
     </f:facet>
     <tc:box label="Related to TOBAGO-1136: for='@auto' attribute">
+      <f:facet name="layout">
+        <tc:gridLayout rows="auto;auto;auto;auto;auto;auto;auto;auto;auto;auto;auto;auto;auto"/>
+      </f:facet>
 
       <tx:in label="tx:in" id="in_panel" fieldId="in"/>
 
@@ -47,7 +50,8 @@
       </tx:selectManyListbox>
 
       <tx:selectManyShuttle label="tx:selectManyShuttle" id="shuttle_panel" fieldId="shuttle">
-        <tc:selectItem itemLabel="Test"/>
+        <tc:selectItem itemLabel="Test 1"/>
+        <tc:selectItem itemLabel="Test 2"/>
       </tx:selectManyShuttle>
 
       <tx:selectOneChoice label="tx:selectOneChoice" id="choice_panel" fieldId="choice">
