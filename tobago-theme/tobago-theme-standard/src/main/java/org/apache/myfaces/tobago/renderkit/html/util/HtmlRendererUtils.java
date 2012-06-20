@@ -233,7 +233,9 @@ public final class HtmlRendererUtils {
   public static void writeScriptLoader(FacesContext facesContext, String[] scripts, String[] afterLoadCmds)
       throws IOException {
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
-
+    if (scripts != null) {
+      LOG.error("Scripts argument for writeScriptLoader not supported anymore!");
+    }
     /*String allScripts = "[]";
     if (scripts != null) {
       allScripts = ResourceManagerUtils.getScriptsAsJSArray(facesContext, scripts);
