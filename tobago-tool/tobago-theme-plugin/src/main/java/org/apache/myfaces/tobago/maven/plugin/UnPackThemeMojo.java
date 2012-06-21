@@ -190,7 +190,8 @@ public class UnPackThemeMojo extends AbstractThemeMojo {
                   String fileName = fileNames[i];
                   File fromFile = new File(tempLocation, fileName);
                   String toFileName = fileName;
-                  if (resourcePath != null && version != null && toFileName.startsWith(resourcePath)) {
+                  if (resourcePath != null && version != null && toFileName.startsWith(resourcePath)
+                          && !fileName.endsWith("blank.html")) {
                     toFileName = resourcePath + "/" + version + "/" +toFileName.substring(resourcePath.length()+1);
                   }
                   if (getLog().isDebugEnabled()) {
