@@ -447,15 +447,22 @@ var Tobago = {
     }
 
     element.children(".tobago-page-overlay").remove();
+
+    element.children(".tobago-page-overlay-ie6bugfix").remove();
   },
 
   ie6bugfix: function(element) {
-    if (this.getBrowser().type == 'msie' && this.getBrowser().version <= 6) {
+    if (jQuery.browser.msie && parseInt(jQuery.browser.version) <= 6) {
+
+      if (jQuery(element).children(".tobago-page-overlay-ie6bugfix").size() > 0) {
+        return; // ignore
+      }
+
       var iframe = document.createElement('IFRAME');
       iframe.id = element.id + '-iframe-overlay';
+      iframe.className = 'tobago-page-overlay-ie6bugfix';
       iframe.style.backgroundColor = 'red';
       iframe.style.filter = 'progid:DXImageTransform.Microsoft.Alpha(style=0,opacity=0)';
-      // TODO: better z-index strategy
       iframe.style.zIndex = 9999;
       iframe.frameBorder = '0';
       iframe.style.position = 'absolute';
@@ -1426,25 +1433,6 @@ var Tobago = {
 
   fixPngAlpha: function(element) {
     // we need only an implementation in the IE6 file.
-  },
-
-    /**
-     * @deprecated Since 1.5.1, please use the jQuery.browser
-     */
-  getBrowser: function() {
-    if (!this.browser) {
-      var agent = navigator.userAgent.toLowerCase();
-      if (agent.indexOf('msie 7') != -1) {
-        this.browser = {'type': 'msie', 'version': 7};
-      } else if (agent.indexOf('msie') != -1) {
-        this.browser = {'type': 'msie', 'version': -1};
-      } else if (agent.indexOf('gecko') != -1) {
-        this.browser = {'type': 'mozilla', 'version': -1};
-      } else {
-        this.browser = {'type': 'unknown', 'version': -1};
-      }
-    }
-    return this.browser;
   },
 
   replaceElement: function(item, newTag) {
