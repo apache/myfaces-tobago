@@ -1858,6 +1858,9 @@ Tobago.Transport = {
     return this.ajaxTransport && typeof this.ajaxTransport.request == 'function';
   },
 
+  /**
+   * @return true if the request is queued or ignored, because of a double request.
+   */
   request: function(req, submitPage, actionId) {
     var index = 0;
     if (submitPage) {
@@ -1869,7 +1872,7 @@ Tobago.Transport = {
       if (actionId && this.currentActionId == actionId) {
         LOG.debug('Ignoring request'); // @DEV_ONLY
         // If actionId equals currentActionId assume double request: do nothing
-        return false;
+        return true;
       }
       index = this.requests.push(req);
       //LOG.debug('index = ' + index)
@@ -2064,9 +2067,9 @@ Tobago.Updater = {
         Tobago.partialRequestIds = hidden;
       }
 
-      var queued = Tobago.Transport.ajaxTransport.request(requestOptions);
+      var error = !Tobago.Transport.ajaxTransport.request(requestOptions);
 
-      if (!queued) {
+      if (error) {
         LOG.error('error on update: not queued!'); // @DEV_ONLY
         if (!ids) {
           ids = Tobago.parsePartialIds(ajaxComponentIds);
