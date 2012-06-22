@@ -73,13 +73,6 @@
             &lt;/ul>
           &lt;/li>
         &lt;/ul>
-
-        &lt;br/>
-        &lt;b>UNDER CONSTRUCTION! Problems:&lt;/b>
-        &lt;ul>
-          &lt;li>Fast click on 'Reload left': Error 500&lt;/li>
-          &lt;li>Select control doesn't work in the moment&lt;/li>
-        &lt;/ul>
       "/>
     <tc:panel>
       <f:facet name="layout">
@@ -136,15 +129,18 @@
         <tc:panel>
           <tc:gridLayoutConstraint columnSpan="2"/>
 
-          <tx:selectOneChoice id="navSelect" value="#{partialReloadController.navigateAction}" label="On Change">
+          <tx:selectOneChoice fieldId="navSelect" value="#{partialReloadController.navigateAction}" label="On Change">
             <f:facet name="change">
               <tc:command action="#{partialReloadController.navigateAction}">
-                <tc:attribute value="" name="renderedPartially"/>
+                <!-- XXX value="fixme" should be empty, but it doesn't work with an empty string -->
+                <tc:attribute value="fixme" name="renderedPartially"/>
               </tc:command>
             </f:facet>
             <f:selectItem itemLabel="Select action" itemValue=""/>
-            <f:selectItem itemLabel="Reload parent" itemValue="parent"/>
+            <f:selectItem itemLabel="Reload left" itemValue="left"/>
+            <f:selectItem itemLabel="Reload right" itemValue="right"/>
             <f:selectItem itemLabel="Reload both" itemValue="both"/>
+            <f:selectItem itemLabel="Reload parent" itemValue="parent"/>
             <f:selectItem itemLabel="Goto prev" itemValue="prev"/>
             <f:selectItem itemLabel="Goto next" itemValue="next"/>
           </tx:selectOneChoice>

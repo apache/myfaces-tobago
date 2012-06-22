@@ -70,19 +70,27 @@ public class PartialReloadController {
 
     // in case of both the select control is not processed during lifecycle
     // we need to get the value from the request params
-    navigateAction = (String) facesContext.getExternalContext().getRequestParameterMap().get("page:content:navSelect");
+    navigateAction = (String) facesContext.getExternalContext().getRequestParameterMap().get("page:navSelect");
 
     LOG.info("navigateAction = \"" + navigateAction + "\"");
     if (navigateAction == null) {
       return logAndNavigate(null);
-    } else if ("parent".equals(navigateAction)) {
+    } else if ("left".equals(navigateAction)) {
+      AjaxUtils.addAjaxComponent(facesContext, "page:left");
       navigateAction = null;
-      AjaxUtils.addAjaxComponent(facesContext, "page:content:parent");
+      return logAndNavigate(null);
+    } else if ("right".equals(navigateAction)) {
+      AjaxUtils.addAjaxComponent(facesContext, "page:right");
+      navigateAction = null;
       return logAndNavigate(null);
     } else if ("both".equals(navigateAction)) {
-      AjaxUtils.addAjaxComponent(facesContext, "page:content:left");
-      AjaxUtils.addAjaxComponent(facesContext, "page:content:right");
+      AjaxUtils.addAjaxComponent(facesContext, "page:left");
+      AjaxUtils.addAjaxComponent(facesContext, "page:right");
       navigateAction = null;
+      return logAndNavigate(null);
+    } else if ("parent".equals(navigateAction)) {
+      navigateAction = null;
+      AjaxUtils.addAjaxComponent(facesContext, "page:parent");
       return logAndNavigate(null);
     } else if ("prev".equals(navigateAction)) {
       navigateAction = null;
