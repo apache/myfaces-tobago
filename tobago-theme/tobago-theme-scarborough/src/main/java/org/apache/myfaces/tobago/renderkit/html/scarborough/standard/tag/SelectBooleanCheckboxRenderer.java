@@ -19,6 +19,8 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UISelectBooleanCheckbox;
+import org.apache.myfaces.tobago.internal.util.AccessKeyMap;
+import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
@@ -109,10 +111,18 @@ public class SelectBooleanCheckboxRenderer extends LayoutComponentRendererBase {
       label = select.getLabel(); // compatibility since TOBAGO-1093
     }
     if (label != null) {
+      LabelWithAccessKey labelWithAccessKey = new LabelWithAccessKey(label);
       writer.startElement(HtmlElements.LABEL, select);
       writer.writeAttribute(HtmlAttributes.FOR, id, false);
-      writer.writeText(label);
+      HtmlRendererUtils.writeLabelWithAccessKey(writer, labelWithAccessKey);
       writer.endElement(HtmlElements.LABEL);
+      if (labelWithAccessKey.getAccessKey() != null) {
+        if (LOG.isInfoEnabled()
+            && !AccessKeyMap.addAccessKey(facesContext, labelWithAccessKey.getAccessKey())) {
+          LOG.info("duplicated accessKey : " + labelWithAccessKey.getAccessKey());
+        }
+        HtmlRendererUtils.addClickAcceleratorKey(facesContext, id, labelWithAccessKey.getAccessKey());
+      }
     }
 
     writer.endElement(HtmlElements.DIV);
