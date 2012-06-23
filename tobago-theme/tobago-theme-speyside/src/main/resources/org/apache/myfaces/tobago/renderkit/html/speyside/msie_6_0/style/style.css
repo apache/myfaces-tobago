@@ -38,3 +38,7 @@
   width: 16px;
   height: 16px;
 }
+
+.tobago-box-header {
+  border: 0 solid transparent;
+}
