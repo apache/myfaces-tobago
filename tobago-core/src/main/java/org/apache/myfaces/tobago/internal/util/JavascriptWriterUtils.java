@@ -37,7 +37,7 @@ public final class JavascriptWriterUtils extends WriterUtils {
     CHARS_TO_ESCAPE['\r'] = "\\r".toCharArray(); // Carriage return
 
     CHARS_TO_ESCAPE['"'] = "\\\"".toCharArray();
-    CHARS_TO_ESCAPE['\\'] = "\\\\\\\\".toCharArray();
+    CHARS_TO_ESCAPE['\\'] = "\\\\".toCharArray();
 
     CHARS_TO_ESCAPE[0x7F] = EMPTY; // Delete
 
