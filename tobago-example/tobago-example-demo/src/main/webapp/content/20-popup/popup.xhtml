@@ -81,9 +81,7 @@
                 <tc:button label="Cancel">
                   <tc:attribute name="popupClose" value="immediate"/>
                 </tc:button>
-                <tc:button label="Redisplay">
-                  <tc:attribute name="renderedPartially" value="modal_box"/>
-                </tc:button>
+                <tc:button label="Redisplay" renderedPartially="modal_box"/>
                 <tc:button label="Ok">
                   <tc:attribute name="popupClose" value="afterSubmit"/>
                 </tc:button>
@@ -157,18 +155,15 @@
 
       <tc:label value="Partial Reload"/>
 
-      <tc:button label="Open">
-        <tc:attribute name="renderedPartially" value="modal_popup"/>
+      <tc:button label="Open" renderedPartially="modal_popup">
         <tc:popupReference for="modal_popup"/>
       </tc:button>
 
-      <tc:button label="Open modeless">
-        <tc:attribute name="renderedPartially" value="non_modal_popup"/>
+      <tc:button label="Open modeless" renderedPartially="non_modal_popup">
         <tc:popupReference for="non_modal_popup"/>
       </tc:button>
 
-      <tc:button label="Open here">
-        <tc:attribute name="renderedPartially" value="positioned_popup"/>
+      <tc:button label="Open here" renderedPartially="positioned_popup">
         <tc:popupReference for="positioned_popup"/>
       </tc:button>
 

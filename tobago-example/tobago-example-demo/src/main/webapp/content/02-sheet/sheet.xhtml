@@ -96,9 +96,8 @@
                 <tc:button label="Cancel">
                   <tc:attribute name="popupClose" value="immediate"/>
                 </tc:button>
-                <tc:button label="Ok">
+                <tc:button label="Ok" renderedPartially=":page:content">
                   <tc:attribute name="popupClose" value="afterSubmit"/>
-                  <tc:attribute name="renderedPartially" value=":page:content"/>
                 </tc:button>
               </tc:panel>
             </tc:box>
@@ -162,9 +161,8 @@
         </f:facet>
         <tc:panel>
           <f:facet name="click">
-            <tc:command actionListener="#{demo.selectOrbit}" >
+            <tc:command actionListener="#{demo.selectOrbit}" renderedPartially="sheet">
               <f:param value="#{luminary}" name="luminary"/>
-              <tc:attribute name="renderedPartially" value="sheet"/>
             </tc:command>
           </f:facet>
           <tc:out value="#{luminary.orbit}" id="t_orbit"/>
