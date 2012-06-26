@@ -35,7 +35,7 @@
     </tc:cell>
 
     <!-- code-sniplet-start id="button" -->
-    <tc:button label="Action" action="reference/command"/>
+    <tc:button label="Action" action="#{command.action}"/>
     <!-- code-sniplet-end id="button" -->
     <tc:button label="On Click" onclick="alert('Hallo Tobago!');"/>
     <tc:button label="Link" link="http://www.apache.org/"/>
@@ -43,7 +43,7 @@
     <tc:cell/>
 
     <!-- code-sniplet-start id="link" -->
-    <tc:link label="Action" action="reference/command"/>
+    <tc:link label="Action" action="#{command.action}"/>
     <!-- code-sniplet-end id="link" -->
     <tc:link label="On Click" onclick="alert('Hallo Tobago!');"/>
     <tc:link label="Link" link="http://www.apache.org/"/>
@@ -56,7 +56,7 @@
       <tc:label value="Confirmation" tip="The user will be asked, if the button/link should be executed."/>
     </tc:cell>
 
-    <tc:button label="Action" action="reference/command">
+    <tc:button label="Action" action="#{command.action}">
       <f:facet name="confirmation">
         <tc:out value="Are you sure?"/>
       </f:facet>
@@ -78,7 +78,7 @@
     </tc:button>
     <tc:cell/>
 
-    <tc:link label="Action" action="reference/command">
+    <tc:link label="Action" action="#{command.action}">
       <f:facet name="confirmation">
         <tc:out value="Are you sure?"/>
       </f:facet>
@@ -106,13 +106,13 @@
       <tc:label value="Target"/>
     </tc:cell>
 
-    <tc:button label="Action" action="reference/command" target="Command Target"/>
+    <tc:button label="Action X" action="#{command.action}" target="_blank"/>
     <tc:button label="N/A" disabled="true"/>
     <tc:button label="N/A yet" disabled="true"/>
     <tc:button label="N/A yet" disabled="true"/>
     <tc:cell/>
 
-    <tc:link label="Action" action="reference/command" target="Command Target"/>
+    <tc:link label="Action" action="#{command.action}" target="Command Target"/>
     <tc:link label="N/A" disabled="true"/>
     <tc:link label="Link" link="http://www.apache.org/" target="Command Target"/>
     <tc:link label="Resource" resource="help.html" target="Command Target"/>
@@ -122,7 +122,7 @@
 
     <tc:label value="Default Command"/>
 
-    <tc:button label="Action" action="reference/command" defaultCommand="true"/>
+    <tc:button label="Action" action="#{command.action}" defaultCommand="true"/>
     <tc:cell/>
     <tc:cell/>
     <tc:cell/>
@@ -131,11 +131,7 @@
     <!-- dynamic widths -->
 
     <tc:cell spanX="6">
-      <tc:separator>
-        <f:facet name="label">
-          <tc:label value="Layout"/>
-        </f:facet>
-      </tc:separator>
+      <tc:separator label="Layout"/>
     </tc:cell>
 
     <tc:cell spanX="6">
