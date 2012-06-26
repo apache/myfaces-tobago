@@ -56,10 +56,10 @@
                 value="#{logging.categories}" showDirectLinks="left" showPageRange="right" showRowRange="none"
                 first="#{logging.catergoriesFirst}" rows="#{logging.catergoriesRows}">
         <tc:column label="Name" sortable="true">
-          <tc:link inline="true" action="#{logging.selectCategory}" immediate="true">
+          <tc:link inline="true" action="#{logging.selectCategory}" immediate="true"
+                   renderedPartially=":page:addCategory">
             <f:param value="#{category}" binding="#{logging.currentCategory}"/>
             <tc:out value="#{category.name}"/>
-            <tc:attribute name="renderedPartially" value=":page:addCategory"/>
           </tc:link>
         </tc:column>
         <tc:column label="Inh" tip="Inherited" sortable="true">

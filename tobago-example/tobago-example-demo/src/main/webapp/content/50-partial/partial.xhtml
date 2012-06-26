@@ -86,43 +86,32 @@
           <tc:gridLayout columns="*;*" rows="auto;auto;auto;auto;auto;auto;auto"/>
         </f:facet>
 
-        <tc:button label="Reload left"
-                   tip="Reload left side box"
-                   action="#{partialReloadController.reload}">
-          <tc:attribute value="left" name="renderedPartially"/>
-        </tc:button>
+        <tc:button label="Reload left" tip="Reload left side box"
+                   action="#{partialReloadController.reload}" renderedPartially="left"/>
 
-        <tc:button label="Reload right"
-                   tip="Reload right side box"
-                   action="#{partialReloadController.reload}">
-          <tc:attribute value="right" name="renderedPartially"/>
-        </tc:button>
+        <tc:button label="Reload right" tip="Reload right side box"
+                   action="#{partialReloadController.reload}" renderedPartially="right"/>
 
-        <tc:button label="Reload both"
-                   tip="Reload both boxes"
-                   action="#{partialReloadController.reload}">
-          <tc:attribute value="left,right" name="renderedPartially"/>
+        <tc:button label="Reload both" tip="Reload both boxes"
+                   action="#{partialReloadController.reload}" renderedPartially="left,right">
           <tc:gridLayoutConstraint columnSpan="2"/>
         </tc:button>
 
         <tc:button label="Reload full panel"
                    tip="Reload the full area inside the outer box"
-                   action="#{partialReloadController.reload}">
-          <tc:attribute value="parent" name="renderedPartially"/>
+                   action="#{partialReloadController.reload}" renderedPartially="parent">
           <tc:gridLayoutConstraint columnSpan="2"/>
         </tc:button>
 
         <tc:button label="Reload both (wait 3 s)"
                    tip="Reload both boxes, but the server has a delay of 3 seconds"
-                   action="#{partialReloadController.waitAndReload3}">
-          <tc:attribute value="left,right" name="renderedPartially"/>
+                   action="#{partialReloadController.waitAndReload3}" renderedPartially="left,right">
           <tc:gridLayoutConstraint columnSpan="2"/>
         </tc:button>
 
         <tc:button label="Reload both (wait 7 s)"
                    tip="Reload both boxes, but the server has a delay of 7 seconds, this is more than the default timeout for AJAX"
-                   action="#{partialReloadController.waitAndReload7}">
-          <tc:attribute value="left,right" name="renderedPartially"/>
+                   action="#{partialReloadController.waitAndReload7}" renderedPartially="left,right">
           <tc:gridLayoutConstraint columnSpan="2"/>
         </tc:button>
 
@@ -131,10 +120,8 @@
 
           <tx:selectOneChoice fieldId="navSelect" value="#{partialReloadController.navigateAction}" label="On Change">
             <f:facet name="change">
-              <tc:command action="#{partialReloadController.navigateAction}">
-                <!-- XXX value="fixme" should be empty, but it doesn't work with an empty string -->
-                <tc:attribute value="fixme" name="renderedPartially"/>
-              </tc:command>
+              <!-- XXX value="fixme" should be empty, but it doesn't work with an empty string -->
+              <tc:command action="#{partialReloadController.navigateAction}" renderedPartially="fixme"/>
             </f:facet>
             <f:selectItem itemLabel="Select action" itemValue=""/>
             <f:selectItem itemLabel="Reload left" itemValue="left"/>
@@ -147,17 +134,11 @@
 
         </tc:panel>
 
-        <tc:button label="Error left"
-                   tip="Reload left side box, but an exception occures"
-                   action="#{partialReloadController.error}">
-          <tc:attribute value="left" name="renderedPartially"/>
-        </tc:button>
+        <tc:button label="Error left" tip="Reload left side box, but an exception occures"
+                   action="#{partialReloadController.error}" renderedPartially="left"/>
 
-        <tc:button label="Error right"
-                   tip="Reload right side box, but an exception occures"
-                   action="#{partialReloadController.error}">
-          <tc:attribute value="right" name="renderedPartially"/>
-        </tc:button>
+        <tc:button label="Error right" tip="Reload right side box, but an exception occures"
+                   action="#{partialReloadController.error}" renderedPartially="right"/>
 
       </tc:panel>
 
