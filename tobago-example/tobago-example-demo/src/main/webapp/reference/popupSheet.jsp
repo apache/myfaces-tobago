@@ -43,8 +43,8 @@
                   <tc:gridLayout columns="1*;auto;auto"/>
                 </f:facet>
                 <tc:panel/>
-                <tc:button label="Save" actionListener="#{popupReference.saveChanges}" >
-                  <tc:attribute name="renderedPartially" value=":page:sheet"/>
+                <tc:button label="Save" actionListener="#{popupReference.saveChanges}"
+                    renderedPartially=":page:sheet">
                   <tc:attribute name="popupClose" value="afterSubmit"/>
                 </tc:button>
                 <tc:button label="Cancel" >
@@ -70,8 +70,8 @@
                   <tc:gridLayout columns="1*;auto;auto"/>
                 </f:facet>
                 <tc:panel/>
-                <tc:button label="Save" actionListener="#{popupReference.saveChanges}" >
-                  <tc:attribute name="renderedPartially" value=":page:sheet"/>
+                <tc:button label="Save" actionListener="#{popupReference.saveChanges}"
+                    renderedPartially=":page:sheet">
                   <tc:attribute name="popupClose" value="afterSubmit"/>
                 </tc:button>
                 <tc:button label="Cancel" >
@@ -83,10 +83,9 @@
         </f:facet>
 
         <tc:column label="Column 1">
-          <tc:link label="#{entry.column1}"
-                   actionListener="#{popupReference.selectEntry}">
+          <tc:link label="#{entry.column1}" actionListener="#{popupReference.selectEntry}"
+                   renderedPartially=":page:sheet:popup1">
             <tc:popupReference for=":page:sheet:popup1"/>
-            <tc:attribute name="renderedPartially" value=":page:sheet:popup1"/>
           </tc:link>
         </tc:column>
 
@@ -99,10 +98,9 @@
         </tc:column>
 
         <tc:column label="Edit">
-          <tc:button label="Edit"
-                     actionListener="#{popupReference.selectEntry}">
+          <tc:button label="Edit" actionListener="#{popupReference.selectEntry}"
+                     renderedPartially=":page:sheet:popup2">
             <tc:popupReference for=":page:sheet:popup2"/>
-            <tc:attribute name="renderedPartially" value=":page:sheet:popup2"/>
           </tc:button>
         </tc:column>
 
