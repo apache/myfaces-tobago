@@ -37,8 +37,7 @@
         <f:facet name="layout">
           <tc:gridLayout columns="auto;*"/>
         </f:facet>
-        <tc:button label="Open Popup (AJAX)" id="open-0">
-          <tc:attribute name="renderedPartially" value="popup-1"/>
+        <tc:button label="Open Popup (AJAX)" id="open-0" renderedPartially="popup-1">
           <f:facet name="popup">
             <tc:popup width="400px" height="150px" left="150px" top="150px" id="popup-1">
               <tc:box label="Popup Level 1" id="box-1">
@@ -49,8 +48,7 @@
                   <f:facet name="layout">
                     <tc:gridLayout columns="*;*;*;*"/>
                   </f:facet>
-                  <tc:button label="Open Sub Popup (AJAX)" id="open-1">
-                    <tc:attribute name="renderedPartially" value="popup-2"/>
+                  <tc:button label="Open Sub Popup (AJAX)" id="open-1" renderedPartially="popup-2">
                     <f:facet name="popup">
                       <tc:popup width="400px" height="150px" left="200px" top="200px" id="popup-2">
                         <tc:box label="Popup Level 2" id="box-2">
@@ -60,8 +58,7 @@
                           <tx:date label="Date" id="txdate" fieldId="date" pickerId="picker" formId="form">
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                           </tx:date>
-                          <tc:button label="Open Sub Popup (AJAX)" id="open-2">
-                            <tc:attribute name="renderedPartially" value="popup-3"/>
+                          <tc:button label="Open Sub Popup (AJAX)" id="open-2" renderedPartially="popup-3">
                             <f:facet name="popup">
                               <tc:popup modal="false" width="200px" height="53px" left="250px" top="250px" id="popup-3">
                                 <tc:box label="Popup Level 3 (non modal)" id="box-3">

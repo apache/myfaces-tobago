@@ -20,24 +20,22 @@
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <f:view>
-  <tc:page >
+  <tc:page>
     <tc:panel id="panel">
       <f:facet name="layout">
         <tc:gridLayout margin="10px" rows="auto;auto;1*" columns="auto;auto;*"/>
       </f:facet>
-        <tc:selectOneChoice value="#{controller.value}" >
-          <f:selectItem itemValue="Audi" itemLabel="Audi"/>
-          <f:selectItem itemValue="Mercedes" itemLabel="Mercedes"/>
-          <f:facet name="click" >
-            <tc:command>
-              <tc:attribute name="renderedPartially" value="::panel"/>
-            </tc:command>
-          </f:facet>
-        </tc:selectOneChoice>
-        <tc:in value="#{controller.value}" readonly="true" />
-        <tc:cell/>
-        <tc:messages/>
-        <tc:cell/>
+      <tc:selectOneChoice value="#{controller.value}">
+        <f:selectItem itemValue="Audi" itemLabel="Audi"/>
+        <f:selectItem itemValue="Mercedes" itemLabel="Mercedes"/>
+        <f:facet name="click">
+          <tc:command renderedPartially="::panel"/>
+        </f:facet>
+      </tc:selectOneChoice>
+      <tc:in value="#{controller.value}" readonly="true"/>
+      <tc:cell/>
+      <tc:messages/>
+      <tc:cell/>
     </tc:panel>
   </tc:page>
 </f:view>
