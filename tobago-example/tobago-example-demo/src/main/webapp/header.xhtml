@@ -19,21 +19,19 @@
 
 <f:subview id="header"
            xmlns:f="http://java.sun.com/jsf/core"
-           xmlns:tc="http://myfaces.apache.org/tobago/component"
-           xmlns:tx="http://myfaces.apache.org/tobago/extension"
-           xmlns:ui="http://java.sun.com/jsf/facelets">
+           xmlns:tc="http://myfaces.apache.org/tobago/component">
   <tc:panel>
     <f:facet name="layout">
       <tc:gridLayout columns="150px;*;200px"/>
     </f:facet>
 
-    <tc:link action="#{navigation.gotoFirst}" immediate="true" image="image/tobago_head.gif"/>
+    <tc:link action="#{navigationState.gotoFirst}" immediate="true" image="image/tobago_head.gif"/>
 
     <tc:panel>
       <f:facet name="layout">
         <tc:flowLayout textAlign="center"/>
       </f:facet>
-      <tc:out value="Under construction! The demo will be reorganized in the moment. Not all pages are available from the navigation menu in the moment." markup="strong"/>
+      <tc:out value="The demo is in progress." markup="strong"/>
     </tc:panel>
 
     <tc:panel>

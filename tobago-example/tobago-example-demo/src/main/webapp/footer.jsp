@@ -31,17 +31,17 @@
 
     <tc:button immediate="true"
                image="image/prev.gif"
-               action="#{navigation.gotoPrevious}"
-               disabled="#{navigation.first}"
+               action="#{navigationState.gotoPrevious}"
+               disabled="#{navigationState.first}"
                label="#{overviewBundle.footer_previous}"/>
 
     <tc:button immediate="true"
                image="image/next.gif"
-               action="#{navigation.gotoNext}"
-               disabled="#{navigation.last}"
+               action="#{navigationState.gotoNext}"
+               disabled="#{navigationState.last}"
                label="#{overviewBundle.footer_next}"/>
 
-    <tc:button action="#{navigation.viewSource}"
+    <tc:button action="#{navigationTree.viewSource}"
                immediate="true" label="#{overviewBundle.footer_viewSource}"
                target="Source Viewer" transition="false"/>
 

@@ -23,18 +23,22 @@
       <tc:gridLayout columns="150px;*;200px"/>
     </f:facet>
 
-    <tc:link action="#{navigation.gotoFirst}" immediate="true" image="image/tobago_head.gif"/>
-
-    <tc:cell/>
+    <tc:link action="#{navigationState.gotoFirst}" immediate="true" image="image/tobago_head.gif"/>
 
     <tc:panel>
       <f:facet name="layout">
-        <tc:gridLayout rows="auto;auto;auto;*"/>
+        <tc:flowLayout textAlign="center"/>
+      </f:facet>
+      <tc:out value="The demo is in progress." markup="strong"/>
+    </tc:panel>
+
+    <tc:panel>
+      <f:facet name="layout">
+        <tc:gridLayout rows="auto;auto;auto"/>
       </f:facet>
       <tc:out value="Theme: #{clientConfigController.localizedTheme}"/>
       <tc:out value="Locale: #{clientConfigController.localizedLocale}"/>
       <tc:out value="PDL: JSP/JSPX"/>
-      <tc:cell/>
     </tc:panel>
   </tc:panel>
 </f:subview>
