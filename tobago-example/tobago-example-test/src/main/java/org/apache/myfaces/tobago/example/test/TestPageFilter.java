@@ -73,7 +73,6 @@ public class TestPageFilter {
       "/tc/gridLayout/rendered-combinations.jspx", // uses facelets templating
       "/tc/gridLayout/scrolling-2-levels.*", // todo: ?
       "/tc/gridLayout/scrolling-tab.*", // todo: measurement problem with firefox?
-      "/tc/gridLayout/tabGroup-.*", // todo: measurement problem with firefox?
       "/tc/gridLayout/transparent-for-layout.jspx", // uses facelets templating
       "/tc/mediator/tomahawk-inputHtml.*", // todo
       "/tx/label/label.xhtml", // todo
