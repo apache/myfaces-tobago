@@ -78,9 +78,12 @@ public class IntervalList extends ArrayList<Interval> {
   private List<Measure> findPreferredInInterval(Measure min, Measure max) {
     List<Measure> result = new ArrayList<Measure>();
     for (Interval interval : this) {
-      Measure preferred = interval.getPreferred();
-      if (preferred != null && preferred.greaterOrEqualThan(min) && preferred.lessOrEqualThan(max)) {
-        result.add(preferred);
+      Measure value = interval.getCurrent();
+      if (value == null) {
+        value = interval.getPreferred();
+      }
+      if (value != null && value.greaterOrEqualThan(min) && value.lessOrEqualThan(max)) {
+        result.add(value);
       }
     }
     return result;

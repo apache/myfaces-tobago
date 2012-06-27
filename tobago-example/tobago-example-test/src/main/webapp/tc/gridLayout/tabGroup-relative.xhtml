@@ -45,13 +45,13 @@
     <tc:script file="script/tobago-assert.js"/>
 
     <tc:script onload="TobagoAssert.assertLayout('page:rows:a-1', 6, 26, 588, 131);"/>
-    <tc:script onload="TobagoAssert.assertLayout('page:rows:a-2', 6, 158, 588, 132);"/>
+    <tc:script onload="TobagoAssert.assertLayout('page:rows:a-2', 6, 162, 588, 132);"/>
 
     <!--click the tab to display the elements, they can only be measured if they are not hidden.-->
-    <tc:script onload="jQuery('#page\\:tabGroup').find('.tobago-tab[tabgroupindex=1]').click();"/>
+    <tc:script onload="jQuery(Tobago.Utils.escapeClientId('page:tabGroup')).find('.tobago-tab[tabgroupindex=1]').click();"/>
 
-    <tc:script onload="TobagoAssert.assertLayout('page:columns:a-3', 5, 24, 291, 269);"/>
-    <tc:script onload="TobagoAssert.assertLayout('page:columns:a-4', 301, 24, 291, 269);"/>
+    <tc:script onload="TobagoAssert.assertLayout('page:columns:a-3', 6, 26, 291, 268);"/>
+    <tc:script onload="TobagoAssert.assertLayout('page:columns:a-4', 302, 26, 292, 268);"/>
 
   </tc:page>
 </f:view>
