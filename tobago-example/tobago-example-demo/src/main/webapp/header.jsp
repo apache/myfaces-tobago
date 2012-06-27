@@ -38,7 +38,7 @@
       </f:facet>
       <tc:out value="Theme: #{clientConfigController.localizedTheme}"/>
       <tc:out value="Locale: #{clientConfigController.localizedLocale}"/>
-      <tc:out value="PDL: Facelets"/>
+      <tc:out value="PDL: JSP/JSPX"/>
     </tc:panel>
   </tc:panel>
 </f:subview>
