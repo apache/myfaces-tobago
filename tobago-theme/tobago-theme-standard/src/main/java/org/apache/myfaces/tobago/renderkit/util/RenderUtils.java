@@ -46,7 +46,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -400,14 +399,16 @@ public class RenderUtils {
       }
 
       // expanded
-      final ExpandedState expandedState = data.getExpandedState();
-      final boolean oldExpanded = expandedState.isExpanded(path);
-      final boolean newExpanded = expandedIndices.contains(rowIndex);
-      if (newExpanded != oldExpanded) {
-        if (newExpanded) {
-          expandedState.expand(path);
-        } else {
-          expandedState.collapse(path);
+      if (expandedIndices != null) {
+        final ExpandedState expandedState = data.getExpandedState();
+        final boolean oldExpanded = expandedState.isExpanded(path);
+        final boolean newExpanded = expandedIndices.contains(rowIndex);
+        if (newExpanded != oldExpanded) {
+          if (newExpanded) {
+            expandedState.expand(path);
+          } else {
+            expandedState.collapse(path);
+          }
         }
       }
 
@@ -432,17 +433,17 @@ public class RenderUtils {
   }
 
   private static List<Integer> decodeExpandedIndices(FacesContext facesContext, AbstractUIData data) {
-    List<Integer> expandedIndices;
     String expandedString = null;
     try {
       expandedString = (String) facesContext.getExternalContext().getRequestParameterMap()
           .get(data.getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + AbstractUIData.SUFFIX_EXPANDED);
-      expandedIndices = StringUtils.parseIntegerList(expandedString);
+      if (expandedString != null) {
+        return StringUtils.parseIntegerList(expandedString);
+      }
     } catch (Exception e) {
       // should not happen
       LOG.warn("Can't parse expanded: '" + expandedString + "'", e);
-      return Collections.emptyList();
     }
-    return expandedIndices;
+    return null;
   }
 }
