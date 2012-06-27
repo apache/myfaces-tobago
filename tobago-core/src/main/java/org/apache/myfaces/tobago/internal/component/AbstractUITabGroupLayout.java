@@ -94,17 +94,18 @@ public abstract class AbstractUITabGroupLayout extends AbstractUILayoutBase impl
       LayoutContainer container = getLayoutContainer();
       Measure available = LayoutUtils.getCurrentSize(orientation, container);
       if (available != null) {
-
         for (LayoutComponent component : getLayoutContainer().getComponents()) {
           LayoutUtils.setCurrentSize(orientation, component, available);
-
-          // call sub layout manager
-          if (component instanceof LayoutContainer) {
-            ((LayoutContainer) component).getLayoutManager().mainProcessing(orientation);
-          }
         }
       } else {
         LOG.warn("No width/height set but needed for *!"); // todo: more information
+      }
+    }
+
+    // call sub layout manager
+    for (LayoutComponent component : getLayoutContainer().getComponents()) {
+      if (component instanceof LayoutContainer) {
+        ((LayoutContainer) component).getLayoutManager().mainProcessing(orientation);
       }
     }
   }
