@@ -65,9 +65,6 @@ public class MenuCheckboxExtensionTag extends TobagoExtensionBodyTagSupport {
   private javax.el.ValueExpression transition;
   private javax.el.ValueExpression renderedPartially;
 
-  private String jspId;
-  private int suffixId;
-  
   @Override
   public int doStartTag() throws JspException {
 
@@ -107,7 +104,7 @@ public class MenuCheckboxExtensionTag extends TobagoExtensionBodyTagSupport {
     if (renderedPartially != null) {
       menuCommandTag.setRenderedPartially(renderedPartially);
     }
-    menuCommandTag.setJspId(jspId + PREFIX + suffixId++);
+    menuCommandTag.setJspId(jspId + PREFIX + idSuffix++);
     menuCommandTag.doStartTag();
 
     facetTag = new FacetTag();
@@ -122,7 +119,7 @@ public class MenuCheckboxExtensionTag extends TobagoExtensionBodyTagSupport {
       selectBooleanCheckbox.setValue(value);
     }
     selectBooleanCheckbox.setParent(facetTag);
-    selectBooleanCheckbox.setJspId(jspId + PREFIX + suffixId++);
+    selectBooleanCheckbox.setJspId(jspId + PREFIX + idSuffix++);
     selectBooleanCheckbox.doStartTag();
     return super.doStartTag();
   }
