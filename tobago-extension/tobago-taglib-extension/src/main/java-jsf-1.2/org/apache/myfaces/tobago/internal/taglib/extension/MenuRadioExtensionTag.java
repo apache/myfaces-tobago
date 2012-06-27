@@ -57,7 +57,7 @@ public class MenuRadioExtensionTag extends TobagoExtensionBodyTagSupport {
   private javax.el.ValueExpression value;
 
   private MenuCommandTag menuCommandTag;
-  private SelectOneRadioTag selectOneRadio;
+  private SelectOneRadioTag inTag;
   private FacetTag facetTag;
   private javax.el.MethodExpression action;
   private javax.el.MethodExpression actionListener;
@@ -70,6 +70,7 @@ public class MenuRadioExtensionTag extends TobagoExtensionBodyTagSupport {
   private javax.el.ValueExpression transition;
   private javax.el.ValueExpression converter;
   private javax.el.ValueExpression renderedPartially;
+  private String fieldId;
 
   @Override
   public int doStartTag() throws JspException {
@@ -77,7 +78,9 @@ public class MenuRadioExtensionTag extends TobagoExtensionBodyTagSupport {
     menuCommandTag = new MenuCommandTag();
     menuCommandTag.setPageContext(pageContext);
     menuCommandTag.setParent(getParent());
-
+    if (id != null) {
+      menuCommandTag.setId(id);
+    }
     if (rendered != null) {
       menuCommandTag.setRendered(rendered);
     }
@@ -120,17 +123,20 @@ public class MenuRadioExtensionTag extends TobagoExtensionBodyTagSupport {
     facetTag.setName(Facets.RADIO);
 
     facetTag.doStartTag();
-    selectOneRadio = new SelectOneRadioTag();
-    selectOneRadio.setPageContext(pageContext);
-    selectOneRadio.setParent(facetTag);
+    inTag = new SelectOneRadioTag();
+    inTag.setPageContext(pageContext);
+    inTag.setParent(facetTag);
     if (converter != null) {
-      selectOneRadio.setConverter(converter);
+      inTag.setConverter(converter);
     }
     if (value != null) {
-      selectOneRadio.setValue(value);
+      inTag.setValue(value);
     }
-    selectOneRadio.setJspId(jspId + PREFIX + idSuffix++);
-    selectOneRadio.doStartTag();
+    if (fieldId != null) {
+      inTag.setId(fieldId);
+    }
+    inTag.setJspId(jspId + PREFIX + idSuffix++);
+    inTag.doStartTag();
 
     return super.doStartTag();
   }
@@ -140,18 +146,18 @@ public class MenuRadioExtensionTag extends TobagoExtensionBodyTagSupport {
 
     if (renderedPartially == null) {
       // Move attribute renderedPartially from selectOne to menuCommand component
-      UIComponent selectOneComponent = selectOneRadio.getComponentInstance();
+      UIComponent inComponent = inTag.getComponentInstance();
       AbstractUICommandBase command = (AbstractUICommandBase) menuCommandTag.getComponentInstance();
-      javax.el.ValueExpression expression = selectOneComponent.getValueExpression(Attributes.RENDERED_PARTIALLY);
+      javax.el.ValueExpression expression = inComponent.getValueExpression(Attributes.RENDERED_PARTIALLY);
       if (expression != null) {
         command.setValueExpression(Attributes.RENDERED_PARTIALLY, expression);
       } else {
-        Object renderedPartially = selectOneComponent.getAttributes().get(Attributes.RENDERED_PARTIALLY);
+        Object renderedPartially = inComponent.getAttributes().get(Attributes.RENDERED_PARTIALLY);
         command.setRenderedPartially(StringUtils.split((String) renderedPartially, ", "));
       }
     }
 
-    selectOneRadio.doEndTag();
+    inTag.doEndTag();
     facetTag.doEndTag();
     menuCommandTag.doEndTag();
 
@@ -173,9 +179,10 @@ public class MenuRadioExtensionTag extends TobagoExtensionBodyTagSupport {
     transition = null;
     converter = null;
     renderedPartially = null;
+    fieldId = null;
     menuCommandTag = null;
     facetTag = null;
-    selectOneRadio = null;
+    inTag = null;
   }
 
   /**
@@ -324,5 +331,27 @@ public class MenuRadioExtensionTag extends TobagoExtensionBodyTagSupport {
    @UIComponentTagAttribute(type = "java.lang.String[]")
   public void setRenderedPartially(javax.el.ValueExpression renderedPartially) {
     this.renderedPartially = renderedPartially;
+  }
+
+  /**
+   * The component identifier for the input field component inside of the container.
+   * This value must be unique within the closest parent component that is a naming container.
+   */
+  @TagAttribute(rtexprvalue = true)
+  @UIComponentTagAttribute
+  public void setFieldId(String fieldId) {
+    this.fieldId = fieldId;
+  }
+
+  /**
+   * The component identifier for this component.
+   * This value must be unique within the closest parent component that is a naming container.
+   * For tx components the id will be set to the container (e. g. the panel).
+   * To set the id of the input field, you have to use the attribute "fieldId".
+   */
+  @TagAttribute(rtexprvalue = true)
+  @UIComponentTagAttribute
+  public void setId(String id) {
+    super.setId(id);
   }
 }
