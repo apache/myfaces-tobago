@@ -18,12 +18,12 @@ package org.apache.myfaces.tobago.example.reference;
  */
 
 import org.apache.myfaces.tobago.ajax.AjaxUtils;
-import org.apache.myfaces.tobago.example.demo.Navigation;
+import org.apache.myfaces.tobago.example.demo.NavigationState;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.faces.context.FacesContext;
-import javax.faces.el.VariableResolver;
+import javax.inject.Inject;
 import java.util.Date;
 
 public class PartialReloadController {
@@ -31,6 +31,9 @@ public class PartialReloadController {
   private static final Logger LOG = LoggerFactory.getLogger(PartialReloadController.class);
 
   private String navigateAction;
+
+  @Inject
+  private NavigationState navigationState;
 
   public Date getCurrentDate() {
     return new Date();
@@ -65,8 +68,6 @@ public class PartialReloadController {
 
   public String navigateAction() {
     FacesContext facesContext = FacesContext.getCurrentInstance();
-    VariableResolver resolver = facesContext.getApplication().getVariableResolver();
-    Navigation navigation = (Navigation) resolver.resolveVariable(facesContext, "navigation");
 
     // in case of both the select control is not processed during lifecycle
     // we need to get the value from the request params
@@ -94,10 +95,10 @@ public class PartialReloadController {
       return logAndNavigate(null);
     } else if ("prev".equals(navigateAction)) {
       navigateAction = null;
-      return logAndNavigate(navigation.gotoPrevious());
+      return logAndNavigate(navigationState.gotoPrevious());
     } else if ("next".equals(navigateAction)) {
       navigateAction = null;
-      return logAndNavigate(navigation.gotoNext());
+      return logAndNavigate(navigationState.gotoNext());
     }
     return logAndNavigate(null);
   }

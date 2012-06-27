@@ -39,19 +39,19 @@ public class NavigationUnitTest extends AbstractTobagoTestBase {
         "/content/bad.jsp",
         "/content/00_00_bad.gif"
     ));
-    final Navigation navigation = new Navigation(list);
-    final Navigation.Node root = navigation.getTree();
+    final NavigationTree navigation = new NavigationTree(list);
+    final NavigationNode root = navigation.getTree();
     Assert.assertEquals(2, root.getChildCount());
-    final Navigation.Node n00 = (Navigation.Node) root.getChildAt(0);
+    final NavigationNode n00 = (NavigationNode) root.getChildAt(0);
     Assert.assertEquals("/content/00", n00.getBranch());
     Assert.assertEquals("test-1", n00.getName());
-    final Navigation.Node n01 = (Navigation.Node) root.getChildAt(1);
+    final NavigationNode n01 = (NavigationNode) root.getChildAt(1);
     Assert.assertEquals("/content/01", n01.getBranch());
     Assert.assertEquals("test", n01.getName());
-    final Navigation.Node n0000 = (Navigation.Node) n00.getChildAt(0);
+    final NavigationNode n0000 = (NavigationNode) n00.getChildAt(0);
     Assert.assertEquals("/content/00/00", n0000.getBranch());
     Assert.assertEquals("test-4", n0000.getName());
-    final Navigation.Node n0007 = (Navigation.Node) n00.getChildAt(1);
+    final NavigationNode n0007 = (NavigationNode) n00.getChildAt(1);
     Assert.assertEquals("/content/00/07", n0007.getBranch());
     Assert.assertEquals("test-2", n0007.getName());
   }
