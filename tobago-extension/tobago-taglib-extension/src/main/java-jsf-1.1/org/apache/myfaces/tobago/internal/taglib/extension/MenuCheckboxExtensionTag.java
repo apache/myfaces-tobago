@@ -57,7 +57,7 @@ public class MenuCheckboxExtensionTag extends BodyTagSupport implements Abstract
   private String value;
 
   private MenuCommandTag menuCommandTag;
-  private SelectBooleanCheckboxTag selectBooleanCheckbox;
+  private SelectBooleanCheckboxTag inTag;
   private FacetTag facetTag;
   private String action;
   private String actionListener;
@@ -72,14 +72,17 @@ public class MenuCheckboxExtensionTag extends BodyTagSupport implements Abstract
   private String target;
   private String transition;
   private String renderedPartially;
+  private String fieldId;
 
   @Override
   public int doStartTag() throws JspException {
 
     menuCommandTag = new MenuCommandTag();
     menuCommandTag.setPageContext(pageContext);
-    menuCommandTag.setParent(getParent()); // ???
-
+    menuCommandTag.setParent(getParent());
+    if (id != null) {
+      menuCommandTag.setId(id);
+    }
     if (rendered != null) {
       menuCommandTag.setRendered(rendered);
     }
@@ -130,13 +133,17 @@ public class MenuCheckboxExtensionTag extends BodyTagSupport implements Abstract
     facetTag.setName(Facets.CHECKBOX);
 
     facetTag.doStartTag();
-    selectBooleanCheckbox = new SelectBooleanCheckboxTag();
-    selectBooleanCheckbox.setPageContext(pageContext);
+    inTag = new SelectBooleanCheckboxTag();
+    inTag.setPageContext(pageContext);
+    inTag.setParent(facetTag);
     if (value != null) {
-      selectBooleanCheckbox.setValue(value);
+      inTag.setValue(value);
     }
-    selectBooleanCheckbox.setParent(facetTag);
-    selectBooleanCheckbox.doStartTag();
+    if (fieldId != null) {
+      inTag.setId(fieldId);
+    }
+    inTag.doStartTag();
+
     return super.doStartTag();
   }
 
@@ -145,7 +152,7 @@ public class MenuCheckboxExtensionTag extends BodyTagSupport implements Abstract
 
     if (renderedPartially == null) {
       // Move attribute renderedPartially from selectOne to menuCommand component
-      UIComponent selectBooleanComponent = selectBooleanCheckbox.getComponentInstance();
+      UIComponent selectBooleanComponent = inTag.getComponentInstance();
       AbstractUICommandBase command = (AbstractUICommandBase) menuCommandTag.getComponentInstance();
       ValueBinding binding = selectBooleanComponent.getValueBinding(Attributes.RENDERED_PARTIALLY);
       if (binding != null) {
@@ -156,10 +163,34 @@ public class MenuCheckboxExtensionTag extends BodyTagSupport implements Abstract
       }
     }
 
-    selectBooleanCheckbox.doEndTag();
+    inTag.doEndTag();
     facetTag.doEndTag();
     menuCommandTag.doEndTag();
+
     return super.doEndTag();
+  }
+
+  public void release() {
+    super.release();
+    rendered = null;
+    value = null;
+    action = null;
+    actionListener = null;
+    onclick = null;
+    link = null;
+    resource = null;
+    jsfResource = null;
+    disabled = null;
+    binding = null;
+    label = null;
+    immediate = null;
+    target = null;
+    transition = null;
+    renderedPartially = null;
+    fieldId = null;
+    menuCommandTag = null;
+    facetTag = null;
+    inTag = null;
   }
 
   public void setAction(String action) {
@@ -222,26 +253,7 @@ public class MenuCheckboxExtensionTag extends BodyTagSupport implements Abstract
     this.renderedPartially = renderedPartially;
   }
 
-  public void release() {
-    super.release();
-    rendered = null;
-    value = null;
-    action = null;
-    actionListener = null;
-    onclick = null;
-    link = null;
-    resource = null;
-    jsfResource = null;
-    disabled = null;
-    binding = null;
-    label = null;
-    immediate = null;
-    target = null;
-    transition = null;
-    renderedPartially = null;
-    menuCommandTag = null;
-    facetTag = null;
-    selectBooleanCheckbox = null;
+  public void setFieldId(String fieldId) {
+    this.fieldId = fieldId;
   }
-
 }

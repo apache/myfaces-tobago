@@ -63,7 +63,7 @@ public class MenuRadioExtensionTag extends BodyTagSupport
   private String value;
 
   private MenuCommandTag menuCommandTag;
-  private SelectOneRadioTag selectOneRadio;
+  private SelectOneRadioTag inTag;
   private FacetTag facetTag;
   private String action;
   private String actionListener;
@@ -79,14 +79,17 @@ public class MenuRadioExtensionTag extends BodyTagSupport
   private String transition;
   private String converter;
   private String renderedPartially;
+  private String fieldId;
 
   @Override
   public int doStartTag() throws JspException {
 
     menuCommandTag = new MenuCommandTag();
     menuCommandTag.setPageContext(pageContext);
-    menuCommandTag.setParent(getParent()); // ???
-
+    menuCommandTag.setParent(getParent());
+    if (id != null) {
+      menuCommandTag.setId(id);
+    }
     if (rendered != null) {
       menuCommandTag.setRendered(rendered);
     }
@@ -137,16 +140,19 @@ public class MenuRadioExtensionTag extends BodyTagSupport
     facetTag.setName(Facets.RADIO);
 
     facetTag.doStartTag();
-    selectOneRadio = new SelectOneRadioTag();
-    selectOneRadio.setPageContext(pageContext);
-    selectOneRadio.setParent(facetTag);
+    inTag = new SelectOneRadioTag();
+    inTag.setPageContext(pageContext);
+    inTag.setParent(facetTag);
     if (converter != null) {
-      selectOneRadio.setConverter(converter);
+      inTag.setConverter(converter);
     }
     if (value != null) {
-      selectOneRadio.setValue(value);
+      inTag.setValue(value);
     }
-    selectOneRadio.doStartTag();
+    if (fieldId != null) {
+      inTag.setId(fieldId);
+    }
+    inTag.doStartTag();
 
     return super.doStartTag();
   }
@@ -156,7 +162,7 @@ public class MenuRadioExtensionTag extends BodyTagSupport
 
     if (renderedPartially == null) {
       // Move attribute renderedPartially from selectOne to menuCommand component
-      UIComponent selectOneComponent = selectOneRadio.getComponentInstance();
+      UIComponent selectOneComponent = inTag.getComponentInstance();
       AbstractUICommandBase command = (AbstractUICommandBase) menuCommandTag.getComponentInstance();
       ValueBinding binding = selectOneComponent.getValueBinding(Attributes.RENDERED_PARTIALLY);
       if (binding != null) {
@@ -166,12 +172,36 @@ public class MenuRadioExtensionTag extends BodyTagSupport
         command.setRenderedPartially(StringUtils.split((String) renderedPartially, ", "));
       }
     }
-    
-    selectOneRadio.doEndTag();
+
+    inTag.doEndTag();
     facetTag.doEndTag();
     menuCommandTag.doEndTag();
 
     return super.doEndTag();
+  }
+
+  public void release() {
+    super.release();
+    rendered = null;
+    value = null;
+    action = null;
+    actionListener = null;
+    onclick = null;
+    link = null;
+    resource = null;
+    jsfResource = null;
+    disabled = null;
+    binding = null;
+    label = null;
+    immediate = null;
+    target = null;
+    transition = null;
+    converter = null;
+    renderedPartially = null;
+    fieldId = null;
+    menuCommandTag = null;
+    facetTag = null;
+    inTag = null;
   }
 
   public void setAction(String action) {
@@ -238,27 +268,7 @@ public class MenuRadioExtensionTag extends BodyTagSupport
     this.renderedPartially = renderedPartially;
   }
 
-  public void release() {
-    super.release();
-    rendered = null;
-    value = null;
-    action = null;
-    actionListener = null;
-    onclick = null;
-    link = null;
-    resource = null;
-    jsfResource = null;
-    disabled = null;
-    binding = null;
-    label = null;
-    immediate = null;
-    target = null;
-    transition = null;
-    converter = null;
-    renderedPartially = null;
-    menuCommandTag = null;
-    facetTag = null;
-    selectOneRadio = null;
+  public void setFieldId(String fieldId) {
+    this.fieldId = fieldId;
   }
-
 }
