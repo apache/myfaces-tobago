@@ -52,7 +52,7 @@ public class MenuCheckboxExtensionTag extends TobagoExtensionBodyTagSupport {
   private javax.el.ValueExpression value;
 
   private MenuCommandTag menuCommandTag;
-  private SelectBooleanCheckboxTag selectBooleanCheckbox;
+  private SelectBooleanCheckboxTag inTag;
   private FacetTag facetTag;
   private javax.el.MethodExpression action;
   private javax.el.MethodExpression actionListener;
@@ -64,13 +64,17 @@ public class MenuCheckboxExtensionTag extends TobagoExtensionBodyTagSupport {
   private javax.el.ValueExpression immediate;
   private javax.el.ValueExpression transition;
   private javax.el.ValueExpression renderedPartially;
+  private String fieldId;
 
   @Override
   public int doStartTag() throws JspException {
 
     menuCommandTag = new MenuCommandTag();
     menuCommandTag.setPageContext(pageContext);
-    menuCommandTag.setParent(getParent()); // ???
+    menuCommandTag.setParent(getParent());
+    if (id != null) {
+      menuCommandTag.setId(id);
+    }
     if (rendered != null) {
       menuCommandTag.setRendered(rendered);
     }
@@ -113,14 +117,18 @@ public class MenuCheckboxExtensionTag extends TobagoExtensionBodyTagSupport {
     facetTag.setName(Facets.CHECKBOX);
 
     facetTag.doStartTag();
-    selectBooleanCheckbox = new SelectBooleanCheckboxTag();
-    selectBooleanCheckbox.setPageContext(pageContext);
+    inTag = new SelectBooleanCheckboxTag();
+    inTag.setPageContext(pageContext);
+    inTag.setParent(facetTag);
     if (value != null) {
-      selectBooleanCheckbox.setValue(value);
+      inTag.setValue(value);
     }
-    selectBooleanCheckbox.setParent(facetTag);
-    selectBooleanCheckbox.setJspId(jspId + PREFIX + idSuffix++);
-    selectBooleanCheckbox.doStartTag();
+    if (fieldId != null) {
+      inTag.setId(fieldId);
+    }
+    inTag.setJspId(jspId + PREFIX + idSuffix++);
+    inTag.doStartTag();
+
     return super.doStartTag();
   }
 
@@ -129,21 +137,42 @@ public class MenuCheckboxExtensionTag extends TobagoExtensionBodyTagSupport {
 
     if (renderedPartially == null) {
       // Move attribute renderedPartially from selectOne to menuCommand component
-      UIComponent selectBooleanComponent = selectBooleanCheckbox.getComponentInstance();
+      UIComponent inComponent = inTag.getComponentInstance();
       AbstractUICommandBase command = (AbstractUICommandBase) menuCommandTag.getComponentInstance();
-      javax.el.ValueExpression expression = selectBooleanComponent.getValueExpression(Attributes.RENDERED_PARTIALLY);
+      javax.el.ValueExpression expression = inComponent.getValueExpression(Attributes.RENDERED_PARTIALLY);
       if (expression != null) {
         command.setValueExpression(Attributes.RENDERED_PARTIALLY, expression);
       } else {
-        Object renderedPartially = selectBooleanComponent.getAttributes().get(Attributes.RENDERED_PARTIALLY);
+        Object renderedPartially = inComponent.getAttributes().get(Attributes.RENDERED_PARTIALLY);
         command.setRenderedPartially(StringUtils.split((String) renderedPartially, ", "));
       }
     }
-    
-    selectBooleanCheckbox.doEndTag();
+
+    inTag.doEndTag();
     facetTag.doEndTag();
     menuCommandTag.doEndTag();
+
     return super.doEndTag();
+  }
+
+  public void release() {
+    super.release();
+    rendered = null;
+    value = null;
+    action = null;
+    actionListener = null;
+    onclick = null;
+    link = null;
+    disabled = null;
+    binding = null;
+    label = null;
+    immediate = null;
+    transition = null;
+    renderedPartially = null;
+    fieldId = null;
+    menuCommandTag = null;
+    facetTag = null;
+    inTag = null;
   }
 
   /**
@@ -278,22 +307,25 @@ public class MenuCheckboxExtensionTag extends TobagoExtensionBodyTagSupport {
     this.renderedPartially = renderedPartially;
   }
 
-  public void release() {
-    super.release();
-    rendered = null;
-    value = null;
-    action = null;
-    actionListener = null;
-    onclick = null;
-    link = null;
-    disabled = null;
-    binding = null;
-    label = null;
-    immediate = null;
-    transition = null;
-    renderedPartially = null;
-    menuCommandTag = null;
-    facetTag = null;
-    selectBooleanCheckbox = null;
+  /**
+   * The component identifier for the input field component inside of the container.
+   * This value must be unique within the closest parent component that is a naming container.
+   */
+  @TagAttribute(rtexprvalue = true)
+  @UIComponentTagAttribute
+  public void setFieldId(String fieldId) {
+    this.fieldId = fieldId;
+  }
+
+  /**
+   * The component identifier for this component.
+   * This value must be unique within the closest parent component that is a naming container.
+   * For tx components the id will be set to the container (e. g. the panel).
+   * To set the id of the input field, you have to use the attribute "fieldId".
+   */
+  @TagAttribute(rtexprvalue = true)
+  @UIComponentTagAttribute
+  public void setId(String id) {
+    super.setId(id);
   }
 }

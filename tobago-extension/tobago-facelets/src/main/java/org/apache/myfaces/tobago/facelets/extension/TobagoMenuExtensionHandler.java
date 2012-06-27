@@ -41,9 +41,11 @@ public abstract class TobagoMenuExtensionHandler extends ComponentHandler {
 
   private Class subComponentLastType = Object.class;
   private Metadata subComponentMapper;
+  private TagAttribute fieldIdAttribute;
 
   public TobagoMenuExtensionHandler(ComponentConfig config) {
     super(config);
+    fieldIdAttribute = getAttribute("fieldId");
   }
 
   protected abstract String getSubComponentType();
@@ -68,7 +70,13 @@ public abstract class TobagoMenuExtensionHandler extends ComponentHandler {
     Application application = faceletContext.getFacesContext().getApplication();
     UIViewRoot root = ComponentSupport.getViewRoot(faceletContext, parent);
     UIComponent component = application.createComponent(getSubComponentType());
-    component.setId(root.createUniqueId());
+    final String uid;
+    if (fieldIdAttribute !=  null) {
+      uid = fieldIdAttribute.getValue(faceletContext);
+    } else {
+      uid = root.createUniqueId();
+    }
+    component.setId(uid);
     component.setRendererType(getSubRendererType());
     setSubComponentAttributes(faceletContext, component);
     menuCommand.getFacets().put(getFacetName(), component);
