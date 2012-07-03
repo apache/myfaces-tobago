@@ -46,12 +46,14 @@
       </tc:sheet>
     </tc:box>
 
-    <tc:panel id="detail">
-      <tc:box label="Details" rendered="#{demo.currentSolarObject != null}">
-        <tx:in label="Name" value="#{demo.currentSolarObject.name}"/>
-        <tc:out value="todo..."/>
-      </tc:box>
-    </tc:panel>
+    <tc:box id="detail" label="Details" rendered="#{demo.currentSolarObject != null}">
+      <f:facet name="layout">
+        <tc:gridLayout rows="auto;auto;*"/>
+      </f:facet>
+      <tx:in label="Name" value="#{demo.currentSolarObject.name}"/>
+      <tx:in label="Discoverer" value="#{demo.currentSolarObject.discoverer}"/>
+      <tc:out value="Todo: more info about the solar object ..."/>
+    </tc:box>
 
   </tc:panel>
 </ui:composition>
