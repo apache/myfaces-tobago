@@ -19,33 +19,17 @@
 
 <f:view
     xmlns:tc="http://myfaces.apache.org/tobago/component"
-    xmlns:f="http://java.sun.com/jsf/core">
-
-  <tc:page>
-    <tc:gridLayoutConstraint width="600px" height="300px"/>
-    <f:facet name="menuBar">
-      <tc:menuBar>
-        <tc:menu label="Help">
-          <tc:menuCommand
-              onclick="alert('Help!')"
-              label="Help"/>
-        </tc:menu>
-        <tc:menu label="Help">
-          <tc:menuCommand
-              onclick="alert('Help!')"
-              label="Help"/>
-        </tc:menu>
-        <tc:menu label="Help">
-          <tc:menuCommand
-              onclick="alert('Help!')"
-              label="Help"/>
-        </tc:menu>
-      </tc:menuBar>
-    </f:facet>
-
-    <tc:textarea value="this is to test the position of the menuBar and the scrolling when the brower window is small"/>
-
-    <tc:button label="Reload"/>
-
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:tx="http://myfaces.apache.org/tobago/extension">
+  <tc:page id="page">
+    <tc:menuBar>
+      <tc:menu label="Menu">
+        <tx:menuCheckbox label="x" id="cidXXX" fieldId="fidXXX"/>
+        <tx:menuRadio id="cidAAA" fieldId="fidAAA">
+          <tc:selectItem itemLabel="test" itemValue="test"/>
+        </tx:menuRadio>
+      </tc:menu>
+    </tc:menuBar>
   </tc:page>
+
 </f:view>
