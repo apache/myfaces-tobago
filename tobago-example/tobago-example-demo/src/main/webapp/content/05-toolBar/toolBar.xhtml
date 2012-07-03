@@ -55,16 +55,19 @@
           <f:facet name="popup">
             <tc:popup id="popup" modal="true">
 
+              <f:facet name="layout">
+                <tc:gridLayout rows="auto" columns="auto" />
+              </f:facet>
+
               <tc:box label="Message">
                 <f:facet name="layout">
-                  <tc:gridLayout rows="35px;1*;auto" columns="auto"/>
+                  <tc:gridLayout rows="35px;auto" columns="auto"/>
                 </f:facet>
 
                 <tc:out value="#{overviewBundle.toolbar_popupText}">
                   <tc:gridLayoutConstraint minimumWidth="200px"/>
                 </tc:out>
 
-                <tc:cell/>
                 <tc:button id="popupCloseButton" label="#{overviewBundle.toolbar_closePopupAction}">
                   <tc:attribute name="popupClose" value="immediate"/>
                 </tc:button>
