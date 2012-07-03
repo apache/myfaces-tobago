@@ -17,6 +17,7 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * limitations under the License.
  */
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UIIn;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
@@ -189,11 +190,17 @@ public class InRenderer extends InputRendererBase {
       if (i > 0) {
         writer.write(", ");
       }
-      writer.write("{label: \"");
-      writer.write(suggestItem.getLabel());
-      writer.write("\", value: \"");
-      writer.write(suggestItem.getValue());
-      writer.write("\"");
+      writer.write("{label: '");
+      String label = suggestItem.getLabel();
+      label = StringUtils.replace(label, "\\", "\\\\");
+      label = StringUtils.replace(label, "\"", "\\\"");
+      writer.write(label);
+      writer.write("', value: '");
+      String value = suggestItem.getLabel();
+      value = StringUtils.replace(value, "\\", "\\\\");
+      value = StringUtils.replace(value, "\"", "\\\"");
+      writer.write(value);
+      writer.write("'");
       if (suggestItem.getExtensionItems() != null) {
         writer.write(", values: [");
         for (int j = 0; j < suggestItem.getExtensionItems().size(); j++) {
@@ -201,18 +208,18 @@ public class InRenderer extends InputRendererBase {
           if (j > 0) {
             writer.write(", ");
           }
-          writer.write("{id: \"");
+          writer.write("{id: '");
           writer.write(item.getId());
-          writer.write("\", value: \"");
+          writer.write("', value: '");
           writer.write(item.getValue());
-          writer.write("\"}");
+          writer.write("'}");
         }
         writer.write("]");
       }
       if (suggestItem.getNextFocusId() != null) {
-        writer.write(", nextFocusId: \"");
+        writer.write(", nextFocusId: '");
         writer.write(suggestItem.getNextFocusId());
-        writer.write("\"");
+        writer.write("'");
       }
 
       writer.write("}");
