@@ -110,6 +110,7 @@ public class FileRenderer extends InputRendererBase {
     final Measure prettyWidthSub = getResourceManager().getThemeMeasure(facesContext, file, "prettyWidthSub");
     inputStyle.setWidth(style.getWidth().subtract(prettyWidthSub));
     writer.startElement(HtmlElements.INPUT, file);
+    writer.writeIdAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "pretty");
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.TEXT, false);
     writer.writeClassAttribute(Classes.create(file, "pretty"));
     writer.writeStyleAttribute(inputStyle);
@@ -118,6 +119,7 @@ public class FileRenderer extends InputRendererBase {
 
     // invisible file input
     writer.startElement(HtmlElements.INPUT, file);
+    writer.writeIdAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "real");
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.FILE, false);
     writer.writeClassAttribute(Classes.create(file, "real"));
     writer.writeNameAttribute(clientId);
