@@ -21,6 +21,9 @@ import org.apache.commons.fileupload.FileItem;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+
 public class Upload {
 
   private static final Logger LOG = LoggerFactory.getLogger(Upload.class);
@@ -28,6 +31,11 @@ public class Upload {
   private FileItem file;
 
   public String upload() {
+    if (file == null) {
+      FacesContext.getCurrentInstance().addMessage(
+          null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "No UploadItem found!", null));
+      return null;
+    }
     LOG.info("type=" + file.getContentType());
     LOG.info("file=" + file.get().length);
     LOG.info("name=" + file.getName());
