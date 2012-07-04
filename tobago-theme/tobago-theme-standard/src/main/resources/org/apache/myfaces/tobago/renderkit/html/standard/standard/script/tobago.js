@@ -2667,6 +2667,9 @@ Tobago.File.init = function(elements) {
     }
     pretty.attr('value', filename);
   });
+  if (files.length > 0) {
+    jQuery("form").attr('enctype', 'multipart/form-data')
+  }
 };
 
 Tobago.registerListener(Tobago.File.init, Tobago.Phase.DOCUMENT_READY);

@@ -18,6 +18,7 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  */
 
 import org.apache.commons.fileupload.FileItem;
+import org.apache.myfaces.tobago.ajax.AjaxUtils;
 import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.internal.component.AbstractUIFile;
 import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
