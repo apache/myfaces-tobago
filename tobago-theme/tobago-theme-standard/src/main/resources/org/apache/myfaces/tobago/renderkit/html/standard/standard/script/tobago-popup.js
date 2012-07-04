@@ -18,9 +18,12 @@
 Tobago.Popup = {};
 
 /**
- * Setup popup size
+ * Init popup size
  */
-Tobago.Popup.setup = function () {
+Tobago.Popup.init = function (elements) {
+
+  // here the "elements" are not used in the moment, may change in the future...
+  // this is because this init() function works globally instead of the other init functions
 
   Tobago.Utils.keepElementInVisibleArea(jQuery(".tobago-popup"));
 
@@ -225,6 +228,14 @@ Tobago.openPopupWithAction = function (source, popupId, actionId, options) {
   Tobago.Popup.openWithAction(source, popupId, actionId, options);
 };
 
+/**
+ * Setup popup size
+ * @deprecated since Tobago 1.6.0
+ */
+Tobago.Popup.setup = function () {
+  LOG.warn("Deprecated method was called. Please use Tobago.Popup.init()"); // @DEV_ONLY
+  Tobago.Popup.init();
+};
 
 // ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // old functions...
@@ -305,3 +316,5 @@ function setPopupPara(width, height, options) {
   return width + height + parent + dirbar + locationbar + menubar + resizable + scrollbars + statusbar + toolbar;
 }
 
+Tobago.registerListener(Tobago.Popup.init, Tobago.Phase.DOCUMENT_READY);
+Tobago.registerListener(Tobago.Popup.init, Tobago.Phase.AFTER_UPDATE);

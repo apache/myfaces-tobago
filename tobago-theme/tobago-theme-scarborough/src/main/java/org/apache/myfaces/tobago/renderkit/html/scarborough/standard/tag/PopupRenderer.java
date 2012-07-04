@@ -49,11 +49,8 @@ public class PopupRenderer extends LayoutComponentRendererBase {
   @Override
   public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
 
-    UIPopup popup = (UIPopup) component;
-
+    final UIPopup popup = (UIPopup) component;
     FacesContextUtils.addPopup(facesContext, popup);
-
-    FacesContextUtils.addScriptBlock(facesContext, "jQuery(document).ready(function() {Tobago.Popup.setup();});");
 
     super.prepareRender(facesContext, popup);
 
@@ -64,17 +61,11 @@ public class PopupRenderer extends LayoutComponentRendererBase {
 
   @Override
   public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
-    TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
-    // TODO check ajaxId
-    if (FacesContextUtils.isAjax(facesContext)) {
-      writer.startJavascript();
-      writer.write("Tobago.Popup.setup();");
-      writer.endJavascript();
-    }
-    
-    UIPopup popup = (UIPopup) component;
 
-    LayoutContext layoutContext = new LayoutContext(popup);
+    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final UIPopup popup = (UIPopup) component;
+
+    final LayoutContext layoutContext = new LayoutContext(popup);
     layoutContext.layout();
 
     // XXX fixing invisible popups
