@@ -122,7 +122,14 @@ Tobago.Popup.lockBehind = function (popup) {
     // find the first element in the popup for the focus
     if (firstPopupElement != null) {
       try {
-        firstPopupElement.focus();
+        if (jQuery.browser.msie && parseInt(jQuery.browser.version) <= 8) {
+          // call the focus asynchronous, because of a bug in IE 6, 7, 8 (IE 9 works fine)
+          var focusId = firstPopupElement.attr("id");
+          var selector = Tobago.Utils.escapeClientId(focusId).replace(/\\/g, '\\\\');
+          window.setTimeout("jQuery('" + selector + "').focus()", 0);
+        } else {
+          firstPopupElement.focus();
+        }
       } catch (e) {/* ignore */
         LOG.warn("tried to setting the focus on'" + this + "'." + e); // @DEV_ONLY
       }
