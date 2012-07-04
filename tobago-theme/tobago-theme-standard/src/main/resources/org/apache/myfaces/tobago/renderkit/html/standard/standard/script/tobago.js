@@ -2568,4 +2568,18 @@ Tobago.registerListener(Tobago.SelectManyShuttle.init, Tobago.Phase.AFTER_UPDATE
 
 // ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+Tobago.File = {};
+
+Tobago.File.init = function(elements) {
+  var files = Tobago.Utils.selectWidthJQuery(elements, ".tobago-file");
+  if (files.length > 0) {
+    jQuery("form").attr("enctype", "multipart/form-data");
+  }
+};
+
+Tobago.registerListener(Tobago.File.init, Tobago.Phase.DOCUMENT_READY);
+Tobago.registerListener(Tobago.File.init, Tobago.Phase.AFTER_UPDATE);
+
+// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 TbgTimer.endTbgJs = new Date(); // @DEV_ONLY
