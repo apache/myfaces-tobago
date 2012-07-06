@@ -20,7 +20,7 @@
   <parent>
     <groupId>org.apache.myfaces.tobago</groupId>
     <artifactId>tobago-extension</artifactId>
-    <version>1.5.7</version>
+    <version>1.5.8-SNAPSHOT</version>
   </parent>
   <artifactId>tobago-sandbox</artifactId>
   <packaging>jar</packaging>
