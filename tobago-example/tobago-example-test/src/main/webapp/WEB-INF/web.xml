@@ -73,7 +73,7 @@
 
   <servlet-mapping>
     <servlet-name>ResourceServlet</servlet-name>
-    <url-pattern>/org/apache/myfaces/tobago/renderkit/*</url-pattern>
+    <url-pattern>/org/apache/myfaces/tobago/renderkit/html/*</url-pattern>
   </servlet-mapping>
 
   <filter>
@@ -127,30 +127,5 @@
       <filter-name>WaitFilter</filter-name>
       <url-pattern>/image/wait/*</url-pattern>
   </filter-mapping>
-
-  <filter>
-    <filter-name>multipartFormdataFilter</filter-name>
-    <filter-class>org.apache.myfaces.tobago.webapp.TobagoMultipartFormdataFilter</filter-class>
-    <init-param>
-      <description>Set the size limit for uploaded files. Default value is 1 MB.
-        Format: 10 = 10 bytes
-        10k = 10 KB
-        10m = 10 MB
-        1g = 1 GB
-      </description>
-      <param-name>uploadMaxFileSize</param-name>
-      <param-value>20m</param-value>
-    </init-param>
-    <!--<init-param>
-      <description>Set the upload repository path for uploaded files. Default value is java.io.tmpdir.</description>
-      <param-name>uploadRepositoryPath</param-name>
-      <param-value>/tmp</param-value>
-    </init-param>-->
-  </filter>
-  <filter-mapping>
-    <filter-name>multipartFormdataFilter</filter-name>
-    <url-pattern>/faces/*</url-pattern>
-  </filter-mapping>
-
 
 </web-app>

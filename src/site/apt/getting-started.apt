@@ -19,18 +19,11 @@
 
 Checking Out
 
-  Check out the 1.6.x sources by running the following:
+  Check out the 1.5.x sources by running the following:
 
 +----------------------------------------
   svn checkout http://svn.apache.org/repos/asf/myfaces/tobago/trunk tobago
 +----------------------------------------
-
-  Check out the 1.5.x sources by running the following:
-
-+----------------------------------------
-  svn checkout http://svn.apache.org/repos/asf/myfaces/tobago/branches/tobago-1.5.x tobago-1.5.x
-+----------------------------------------
-
 
   Check out the 1.0.x sources by running the following:
 

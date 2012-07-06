@@ -18,12 +18,9 @@
 Tobago.Popup = {};
 
 /**
- * Init popup size
+ * Setup popup size
  */
-Tobago.Popup.init = function (elements) {
-
-  // here the "elements" are not used in the moment, may change in the future...
-  // this is because this init() function works globally instead of the other init functions
+Tobago.Popup.setup = function () {
 
   Tobago.Utils.keepElementInVisibleArea(jQuery(".tobago-popup"));
 
@@ -56,7 +53,6 @@ Tobago.Popup.init = function (elements) {
 
     // IE6 doesn't support position:fixed
     if (jQuery.browser.msie && parseInt(jQuery.browser.version) <= 6) {
-      var image = jQuery(".tobago-page-overlayBackgroundImage").attr("src");
       shield.css({
         position:'absolute',
         left:-maxModalPopup.offset().left,
@@ -65,7 +61,7 @@ Tobago.Popup.init = function (elements) {
         height:jQuery(window).height(),
         background:'none',
         filter:"progid:DXImageTransform.Microsoft.AlphaImageLoader(src='"
-            + image + "', sizingMethod='scale');"
+            + Tobago.OVERLAY_BACKGROUND + "', sizingMethod='scale');"
       });
 
       // IE6 needs an iframe to protect the other controls and protect against select-tag shining through.
@@ -235,14 +231,6 @@ Tobago.openPopupWithAction = function (source, popupId, actionId, options) {
   Tobago.Popup.openWithAction(source, popupId, actionId, options);
 };
 
-/**
- * Setup popup size
- * @deprecated since Tobago 1.6.0
- */
-Tobago.Popup.setup = function () {
-  LOG.warn("Deprecated method was called. Please use Tobago.Popup.init()"); // @DEV_ONLY
-  Tobago.Popup.init();
-};
 
 // ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // old functions...
@@ -323,5 +311,3 @@ function setPopupPara(width, height, options) {
   return width + height + parent + dirbar + locationbar + menubar + resizable + scrollbars + statusbar + toolbar;
 }
 
-Tobago.registerListener(Tobago.Popup.init, Tobago.Phase.DOCUMENT_READY);
-Tobago.registerListener(Tobago.Popup.init, Tobago.Phase.AFTER_UPDATE);

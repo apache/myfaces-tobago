@@ -23,10 +23,6 @@ import org.junit.Test;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 
-/**
- * @deprecated since 1.6.0
- */
-@Deprecated
 public class MixedTreeModelUnitTest {
 
   @Test

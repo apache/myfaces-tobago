@@ -30,11 +30,6 @@ public final class DataAttributes {
   public static final String DISABLED = "data-tobago-disabled";
 
   /**
-   * Custom form attribute. Used to show the virtual form of the component.
-   */
-  public static final String DEFAULT = "data-tobago-default";
-
-  /**
    * Custom reload attribute. Used to reload a panel.
    */
   public static final String RELOAD = "data-tobago-reload";

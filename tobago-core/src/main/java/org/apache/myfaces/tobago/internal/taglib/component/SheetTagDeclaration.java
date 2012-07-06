@@ -33,8 +33,6 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasRenderedPartiall
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasVar;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutComponent;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutContainer;
-import org.apache.myfaces.tobago.internal.taglib.declaration.IsShowRoot;
-import org.apache.myfaces.tobago.internal.taglib.declaration.IsShowRootJunction;
 
 /**
  * Render a sheet element.
@@ -53,7 +51,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsShowRootJunction;
                      allowedChildComponenents = "org.apache.myfaces.tobago.Reload")})
 public interface SheetTagDeclaration 
     extends HasIdBindingAndRendered, IsGridLayoutComponent, IsGridLayoutContainer, HasMarkup, HasCurrentMarkup,
-    HasRenderedPartially, IsShowRoot, IsShowRootJunction, HasVar {
+    HasRenderedPartially, HasVar {
   /**
    * LayoutConstraints for column layout.
    * Semicolon separated list of layout tokens ('&lt;x>*', '&lt;x>px' or '&lt;x>%').

@@ -37,7 +37,7 @@ public class Upload {
       return null;
     }
     LOG.info("type=" + file.getContentType());
-    LOG.info("size=" + file.get().length);
+    LOG.info("file=" + file.get().length);
     LOG.info("name=" + file.getName());
     return "/tc/file/file.xhtml";
   }

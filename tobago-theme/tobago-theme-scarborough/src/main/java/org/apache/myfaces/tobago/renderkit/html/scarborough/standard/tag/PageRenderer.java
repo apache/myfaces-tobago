@@ -182,7 +182,6 @@ public class PageRenderer extends PageRendererBase {
         } catch (NumberFormatException e) {/* ignore; use default*/ }
       }
     }
-    boolean frameKiller = TobagoConfig.getInstance(facesContext).isPreventFrameAttacks();
 
     if (!FacesContextUtils.isAjax(facesContext)) {
       HtmlRendererUtils.renderDojoDndSource(facesContext, component);
@@ -205,12 +204,6 @@ public class PageRenderer extends PageRendererBase {
       writer.endElement(HtmlElements.TITLE);
       final Theme theme = client.getTheme();
 
-      if (frameKiller) {
-        writer.writeJavascript("if (self == top) {\n  var forms = document.forms;\n"
-            + "  for(var i=0;i<forms.length;i++) {\n    if (forms[i].style.display == 'none') {"
-            + "      forms[i].style.display = 'block';}\n  }\n} else { "
-            + "  top.location = self.location; }\n");
-      }
       if (debugMode) {
         // This tag must not be earlier, because the
         // IE doesn't accept some META tags, when they are not the first ones.
@@ -378,12 +371,21 @@ public class PageRenderer extends PageRendererBase {
       writer.endElement(HtmlElements.HEAD);
     }
 
+    String defaultActionId = page.getDefaultActionId() != null ? page.getDefaultActionId() : "";
     writer.startElement(HtmlElements.BODY, page);
 //    writer.writeAttribute(HtmlAttributes.ONLOAD, "Tobago.init('" + clientId + "');", false);
 //    writer.writeAttribute("onunload", "Tobago.onexit();", null);
     writer.writeIdAttribute(clientId);
     writer.writeClassAttribute(Classes.create(page));
 
+    writer.startJavascript();
+    writer.write("Tobago.pngFixBlankImage = '");
+    writer.write(ResourceManagerUtils.getImageWithPath(facesContext, "image/blank.gif"));
+    writer.write("';\n");
+    writer.write("Tobago.OVERLAY_BACKGROUND = '");
+    writer.write(ResourceManagerUtils.getImageWithPath(facesContext, "image/tobago-overlay-background.png"));
+    writer.write("';\n");
+    writer.endJavascript();
 /*
     if (debugMode) {
       final String[] jsFiles = new String[]{
@@ -399,9 +401,6 @@ public class PageRenderer extends PageRendererBase {
     }
 
     writer.startElement(HtmlElements.FORM, page);
-    if (frameKiller && !FacesContextUtils.isAjax(facesContext)) {
-      writer.writeAttribute(HtmlAttributes.STYLE, "display:none", false);
-    }
     writer.writeAttribute(HtmlAttributes.ACTION, formAction, true);
     writer.writeIdAttribute(page.getFormId(facesContext));
     writer.writeAttribute(HtmlAttributes.METHOD, getMethod(page), false);
@@ -417,6 +416,7 @@ public class PageRenderer extends PageRendererBase {
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN, false);
     writer.writeNameAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "form-action");
     writer.writeIdAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "form-action");
+    writer.writeAttribute(HtmlAttributes.VALUE, defaultActionId, true);
     writer.endElement(HtmlElements.INPUT);
 
     writer.startElement(HtmlElements.INPUT, null);
@@ -634,19 +634,6 @@ public class PageRenderer extends PageRendererBase {
         ? ResourceManagerUtils.getImageWithPath(facesContext, "image/remove.gif") // XXX why png doesn't work in ie6?
         : ResourceManagerUtils.getImageWithPath(facesContext, "image/dialog-error.png");
     writer.writeAttribute(HtmlAttributes.SRC, error, false);
-    writer.endElement(HtmlElements.IMG);
-
-    writer.startElement(HtmlElements.IMG, null);
-    writer.writeClassAttribute(Classes.create(page, "pngFixBlankImage"));
-    final String pngFixBlankImage = ResourceManagerUtils.getImageWithPath(facesContext, "image/blank.gif");
-    writer.writeAttribute(HtmlAttributes.SRC, pngFixBlankImage, false);
-    writer.endElement(HtmlElements.IMG);
-
-    writer.startElement(HtmlElements.IMG, null);
-    writer.writeClassAttribute(Classes.create(page, "overlayBackgroundImage"));
-    final String overlayBackgroundImage = ResourceManagerUtils.getImageWithPath(facesContext,
-        "image/tobago-overlay-background.png");
-    writer.writeAttribute(HtmlAttributes.SRC, overlayBackgroundImage, false);
     writer.endElement(HtmlElements.IMG);
 
     // debugging...

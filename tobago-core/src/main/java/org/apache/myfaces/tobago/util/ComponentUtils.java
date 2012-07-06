@@ -251,24 +251,6 @@ public class ComponentUtils {
   }
 
   /**
-   * Searches the component tree beneath the component and return all component matching the type.
-   */
-  public static List<UIComponent> findDescendantList(UIComponent component, Class type) {
-
-    // todo Can this be generified with T extends UIComponent?
-    
-    List<UIComponent> result = new ArrayList<UIComponent>();
-    
-    for (UIComponent child : (List<UIComponent>) component.getChildren()) {
-      if (type.isAssignableFrom(child.getClass())) {
-        result.add(child);
-      }
-      result.addAll(findDescendantList(child, type));
-    }
-    return result;
-  }
-
-  /**
    * Looks for the attribute "for" in the component. If there is any
    * search for the component which is referenced by the "for" attribute,
    * and return their clientId.

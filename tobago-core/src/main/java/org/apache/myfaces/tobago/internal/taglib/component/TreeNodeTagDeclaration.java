@@ -32,6 +32,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
 
 /**
  * Creates a tree node. This component represents a single node inside a tree structure.
+ * For iterating over tree node use tc:treeData.
  */
 @SuppressWarnings("ALL")
 @Tag(name = "treeNode")
@@ -50,27 +51,21 @@ public interface
 
   /**
    * Flag indicating if the subnodes are to be displayed.
-   * @deprecated since 1.6.0. Please use the state attribute of the tree with a TreeState
    */
-  @Deprecated
   @TagAttribute()
   @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
   void setExpanded(String expanded);
 
   /**
    * Flag indicating if the node is marked, and should be displayed in a special way.
-   * @deprecated since 1.6.0. Please use the state attribute of the tree with a TreeState
    */
-  @Deprecated
   @TagAttribute()
   @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
   void setMarked(String marked);
 
   /**
    * Flag indicating if the node is selected (only possible, when the tree component allows it).
-   * @deprecated since 1.6.0. Please use <code>&lt;tc:treeSelect></code>
    */
-  @Deprecated
   @TagAttribute()
   @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
   void setSelected(String selected);

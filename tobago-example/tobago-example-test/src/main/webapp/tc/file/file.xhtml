@@ -18,6 +18,8 @@
 
 <f:view
     xmlns:tc="http://myfaces.apache.org/tobago/component"
+    xmlns:tx="http://myfaces.apache.org/tobago/extension"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:f="http://java.sun.com/jsf/core">
 
   <tc:page>
@@ -28,6 +30,6 @@
 
     <tc:file value="#{upload.file}" required="true"/>
     <tc:button label="OK" action="#{upload.upload}"/>
-
+    
   </tc:page>
 </f:view>

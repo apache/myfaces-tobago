@@ -89,7 +89,7 @@ public class NavigationTree implements Serializable {
       if (!parent.equals("")) { // is root
         map.get(parent).add(node);
       }
-      node.evaluateTreePath();
+//      node.evaluateTreePath();
     }
   }
 

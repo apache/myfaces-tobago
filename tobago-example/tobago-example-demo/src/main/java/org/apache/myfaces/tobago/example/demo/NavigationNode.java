@@ -18,7 +18,6 @@ package org.apache.myfaces.tobago.example.demo;
  */
 
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
-import org.apache.myfaces.tobago.model.TreePath;
 
 import javax.faces.context.FacesContext;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -31,11 +30,13 @@ public class NavigationNode extends DefaultMutableTreeNode implements Comparable
   private final String branch;
   private final String title;
   private final String outcome;
+  private boolean expanded;
+  private boolean marked;
 
   private NavigationTree tree;
 
   /** Cache the TreePath for optimization. */
-  private TreePath treePath;
+//  private TreePath treePath;
 
   public NavigationNode(String path, NavigationTree tree) {
 
@@ -68,9 +69,9 @@ public class NavigationNode extends DefaultMutableTreeNode implements Comparable
   }
 */
 
-  public void evaluateTreePath() {
-    treePath = new TreePath(this);
-  }
+//  public void evaluateTreePath() {
+//    treePath = new TreePath(this);
+//  }
 
   public NavigationNode getNextNode() {
     return (NavigationNode) super.getNextNode();
@@ -96,10 +97,26 @@ public class NavigationNode extends DefaultMutableTreeNode implements Comparable
     return outcome;
   }
 
-  public TreePath getTreePath() {
-    return treePath;
+  public boolean isExpanded() {
+    return expanded;
   }
 
+  public void setExpanded(boolean expanded) {
+    this.expanded = expanded;
+  }
+
+  public boolean isMarked() {
+    return marked;
+  }
+
+  public void setMarked(boolean marked) {
+    this.marked = marked;
+  }
+
+  //  public TreePath getTreePath() {
+//    return treePath;
+//  }
+//
   @Override
   public String toString() {
     return outcome;

@@ -27,11 +27,8 @@ import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasValue;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasVar;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutComponent;
-import org.apache.myfaces.tobago.internal.taglib.declaration.IsShowRoot;
-import org.apache.myfaces.tobago.internal.taglib.declaration.IsShowRootJunction;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsRequired;
 
 /**
  * A tree with classical look. 
@@ -48,8 +45,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsShowRootJunction;
         "org.apache.myfaces.tobago.TreeData"
         })
 public interface TreeTagDeclaration
-    extends HasIdBindingAndRendered, HasValue, HasVar, IsGridLayoutComponent, HasMarkup, HasCurrentMarkup,
-    IsShowRoot, IsShowRootJunction {
+    extends HasIdBindingAndRendered, IsRequired, IsGridLayoutComponent, HasMarkup, HasCurrentMarkup {
 
   /**
    * Flag indicating whether or not this component should be render selectable items.
@@ -69,14 +65,21 @@ public interface TreeTagDeclaration
       allowedValues = {"multi", "single", "multiLeafOnly", "singleLeafOnly", "off"})
   void setSelectable(String selectable);
 
+  @TagAttribute
+  @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
+  void setShowRootJunction(String showRootJunction);
+
+  @TagAttribute
+  @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
+  void setShowRoot(String showRoot);
+  
   /**
    *
    * <strong>ValueBindingExpression</strong> pointing to a object to save the
    * component's state.
+   *
    */
   @TagAttribute
-  @UIComponentTagAttribute(
-      type = "org.apache.myfaces.tobago.model.TreeState",
-      expression = DynamicExpression.VALUE_BINDING_REQUIRED)
+  @UIComponentTagAttribute(type = "java.lang.Object", expression = DynamicExpression.VALUE_BINDING_REQUIRED)
   void setState(String state);
 }

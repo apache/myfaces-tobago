@@ -62,9 +62,6 @@ public class ThemeImpl implements Theme, Serializable {
 
   private String[] styles;
 
-  private boolean versioned;
-
-  private String version;
 
   public String getName() {
     return name;
@@ -271,21 +268,5 @@ public class ThemeImpl implements Theme, Serializable {
       return productionStyles;
     }
     return styles;
-  }
-
-  public boolean isVersioned() {
-    return versioned;
-  }
-
-  public void setVersioned(boolean versioned) {
-    this.versioned = versioned;
-  }
-
-  public String getVersion() {
-    return version;
-  }
-
-  public void setVersion(String version) {
-    this.version = version;
   }
 }

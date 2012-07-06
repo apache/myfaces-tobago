@@ -36,12 +36,9 @@ import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.ResourceManager;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.event.PageAction;
-import org.apache.myfaces.tobago.internal.component.AbstractUIColumnNode;
-import org.apache.myfaces.tobago.internal.component.AbstractUIData;
 import org.apache.myfaces.tobago.internal.context.ResourceManagerFactory;
 import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
-import org.apache.myfaces.tobago.layout.Display;
 import org.apache.myfaces.tobago.layout.LayoutBase;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.layout.TextAlign;
@@ -217,22 +214,11 @@ public class SheetRenderer extends LayoutComponentRendererBase {
       writer.endElement(HtmlElements.INPUT);
     }
 
-    if (sheet.isTreeModel()) {
-      writer.startElement(HtmlElements.INPUT, sheet);
-      writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN, false);
-      final String expandedId = sheetId + ComponentUtils.SUB_SEPARATOR + AbstractUIData.SUFFIX_EXPANDED;
-      writer.writeNameAttribute(expandedId);
-      writer.writeIdAttribute(expandedId);
-      writer.writeClassAttribute(Classes.create(sheet, AbstractUIData.SUFFIX_EXPANDED));
-      writer.writeAttribute(HtmlAttributes.VALUE, ",", false);
-      writer.endElement(HtmlElements.INPUT);
-    }
-
     final boolean showHeader = sheet.isShowHeader();
     final boolean ie6SelectOneFix = showHeader
         && ClientProperties.getInstance(facesContext).getUserAgent().isMsie6()
             && ComponentUtils.findDescendant(sheet, UISelectOne.class) != null;
-
+ 
 // BEGIN RENDER BODY CONTENT
     Style bodyStyle = new Style();
     bodyStyle.setPosition(Position.RELATIVE);
@@ -322,15 +308,6 @@ public class SheetRenderer extends LayoutComponentRendererBase {
         rowMarkup = rowMarkup.add(Markup.SELECTED);
       }
       writer.writeClassAttribute(Classes.create(sheet, "row", rowMarkup));
-      if (!sheet.isRowVisible()) {
-        Style rowStyle = new Style();
-        rowStyle.setDisplay(Display.NONE);
-        writer.writeStyleAttribute(rowStyle);
-      }
-      final String parentId = sheet.getRowParentClientId();
-      if (parentId != null) {
-        writer.writeAttribute(DataAttributes.TREEPARENT, parentId, false);
-      }
       if (rowIndex == sheet.getFirst()) {
         writer.writeAttribute("rowIndexInModel", Integer.toString(sheet.getFirst()), false);
       }
@@ -370,9 +347,6 @@ public class SheetRenderer extends LayoutComponentRendererBase {
           writer.writeIdAttribute(sheetId + "_data_row_selector_" + rowIndex);
           writer.writeClassAttribute(Classes.create(sheet, "columnSelector"));
           writer.endElement(HtmlElements.INPUT);
-        } else if (column instanceof AbstractUIColumnNode) {
-          RenderUtils.prepareRendererAll(facesContext, column);
-          RenderUtils.encode(facesContext, column);
         } else {
           List<UIComponent> children = sheet.getRenderedChildrenOf(column);
           for (UIComponent grandKid : children) {
@@ -543,7 +517,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
       final boolean unknown = !sheet.hasRowCount();
       final String key = "sheetPagingInfo"
           + (unknown ? "Undefined" : "")
-          + (first == last ? "Single" : "")
+          + (first == last ? "Single" : "") 
           + (row ? "Row" : "Page")
           + (first == last ? "" : "s"); // plural
       final String message = ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", key);
@@ -567,19 +541,17 @@ public class SheetRenderer extends LayoutComponentRendererBase {
   public void decode(FacesContext facesContext, UIComponent component) {
     super.decode(facesContext, component);
 
-    UISheet sheet = (UISheet) component;
-
-    String key = sheet.getClientId(facesContext) + WIDTHS_POSTFIX;
+    String key = component.getClientId(facesContext) + WIDTHS_POSTFIX;
 
     Map requestParameterMap = facesContext.getExternalContext().getRequestParameterMap();
     if (requestParameterMap.containsKey(key)) {
       String widths = (String) requestParameterMap.get(key);
       if (widths.trim().length() > 0) {
-        sheet.getAttributes().put(Attributes.WIDTH_LIST_STRING, widths);
+        component.getAttributes().put(Attributes.WIDTH_LIST_STRING, widths);
       }
     }
 
-    key = sheet.getClientId(facesContext) + SELECTED_POSTFIX;
+    key = component.getClientId(facesContext) + SELECTED_POSTFIX;
     if (requestParameterMap.containsKey(key)) {
       String selected = (String) requestParameterMap.get(key);
       if (LOG.isDebugEnabled()) {
@@ -593,20 +565,19 @@ public class SheetRenderer extends LayoutComponentRendererBase {
         selectedRows = Collections.emptyList();
       }
 
-      sheet.getAttributes().put(Attributes.SELECTED_LIST_STRING, selectedRows);
+      component.getAttributes().put(Attributes.SELECTED_LIST_STRING, selectedRows);
     }
 
-    key = sheet.getClientId(facesContext) + SCROLL_POSTFIX;
+    key = component.getClientId(facesContext) + SCROLL_POSTFIX;
     String value = (String) requestParameterMap.get(key);
     if (value != null) {
       Integer[] scrollPosition = SheetState.parseScrollPosition(value);
       if (scrollPosition != null) {
         //noinspection unchecked
-        sheet.getAttributes().put(Attributes.SCROLL_POSITION, scrollPosition);
+        component.getAttributes().put(Attributes.SCROLL_POSITION, scrollPosition);
       }
     }
 
-    RenderUtils.decodedStateOfTreeData(facesContext, sheet);
   }
 
   private Measure getHeaderHeight(FacesContext facesContext, UISheet sheet) {
@@ -1030,11 +1001,9 @@ public class SheetRenderer extends LayoutComponentRendererBase {
 
   @Override
   public void prepareRendersChildren(FacesContext facesContext, UIComponent component) throws IOException {
-/*
     UISheet sheet = (UISheet) component;
     for (UIColumn column : sheet.getRenderedColumns()) {
       RenderUtils.prepareRendererAll(facesContext, column);
     }
-*/
   }
 }

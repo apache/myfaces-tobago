@@ -32,10 +32,6 @@ public class MockTheme implements Theme {
 
   private RenderersConfig config = new MockRenderersConfig();
 
-  private boolean versioned;
-
-  private String version;
-
   public MockTheme(String name, String displayName, List<Theme> fallbackThemeList) {
     this.name = name;
     this.displayName = displayName;
@@ -68,21 +64,5 @@ public class MockTheme implements Theme {
 
   public String[] getStyleResources(boolean production) {
     return new String[0];
-  }
-
-  public boolean isVersioned() {
-    return versioned;
-  }
-
-  public void setVersioned(boolean versioned) {
-    this.versioned = versioned;
-  }
-
-  public String getVersion() {
-    return version;
-  }
-
-  public void setVersion(String version) {
-    this.version = version;
   }
 }

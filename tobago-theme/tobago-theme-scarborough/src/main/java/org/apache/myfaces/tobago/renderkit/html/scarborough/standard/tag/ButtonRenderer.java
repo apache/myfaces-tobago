@@ -21,14 +21,12 @@ import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UIButton;
 import org.apache.myfaces.tobago.config.Configurable;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
-import org.apache.myfaces.tobago.internal.component.AbstractUIForm;
 import org.apache.myfaces.tobago.internal.util.AccessKeyMap;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.CommandRendererBase;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
-import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlButtonTypes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
@@ -60,7 +58,7 @@ public class ButtonRenderer extends CommandRendererBase {
     LabelWithAccessKey label = new LabelWithAccessKey(button);
 
     writer.startElement(HtmlElements.BUTTON, button);
-    writer.writeAttribute(HtmlAttributes.TYPE, HtmlButtonTypes.BUTTON, false);
+    writer.writeAttribute(HtmlAttributes.TYPE, createButtonType(button), false);
     writer.writeNameAttribute(clientId);
     writer.writeIdAttribute(clientId);
     HtmlRendererUtils.renderTip(button, writer);
@@ -76,10 +74,6 @@ public class ButtonRenderer extends CommandRendererBase {
     writer.writeStyleAttribute(style);
     HtmlRendererUtils.renderDojoDndItem(component, writer, true);
     writer.writeClassAttribute(Classes.create(button));
-    if (((UIButton) component).isDefaultCommand()) {
-      final AbstractUIForm form = ComponentUtils.findAncestor(component, AbstractUIForm.class);
-      writer.writeAttribute(DataAttributes.DEFAULT, form.getClientId(facesContext), false);
-    }
     writer.flush(); // force closing the start tag
 
     String image = (String) button.getAttributes().get(Attributes.IMAGE);
@@ -111,6 +105,19 @@ public class ButtonRenderer extends CommandRendererBase {
       HtmlRendererUtils.addClickAcceleratorKey(
           facesContext, button.getClientId(facesContext), label.getAccessKey());
     }
+
+    if (ComponentUtils.getBooleanAttribute(component, Attributes.DEFAULT_COMMAND)) {
+      boolean transition = ComponentUtils.getBooleanAttribute(button, Attributes.TRANSITION);
+      HtmlRendererUtils.setDefaultTransition(facesContext, transition);
+
+      HtmlRendererUtils.writeScriptLoader(facesContext, null, new String[]{
+          "Tobago.setDefaultAction('" + button.getClientId(facesContext) + "')"});      
+    }
+  }
+
+  private String createButtonType(UIComponent component) {
+    boolean defaultCommand = ComponentUtils.getBooleanAttribute(component, Attributes.DEFAULT_COMMAND);
+    return defaultCommand ? HtmlButtonTypes.SUBMIT : HtmlButtonTypes.BUTTON;
   }
 
   @Override

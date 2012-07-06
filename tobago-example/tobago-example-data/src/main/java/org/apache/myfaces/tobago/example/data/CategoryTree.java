@@ -20,6 +20,7 @@ package org.apache.myfaces.tobago.example.data;
 import org.apache.myfaces.tobago.context.Markup;
 
 import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.MutableTreeNode;
 
 public class CategoryTree {
 
@@ -33,7 +34,7 @@ public class CategoryTree {
     music.insert(createNode("Pop", "pop"), 1);
     music.insert(createNode("World", "world"), 2);
     tree.insert(createNode("Games", "games"), 3);
-    DefaultMutableTreeNode science = createNode("Science", "science");
+    MutableTreeNode science = createNode("Science", "science");
     science.insert(createNode("Geography", "geography"), 0);
     science.insert(createNode("Mathematics", "math"), 0);
     DefaultMutableTreeNode astro = createNode("Astronomy", "astro");
@@ -79,6 +80,10 @@ public class CategoryTree {
       bulk.add(new DefaultMutableTreeNode(new Node("1.6." + (i + 1) + " Some Node")));
     }
     tree.add(bulk);
+    ((Node) tree.getUserObject()).setExpanded(true);
+    ((Node) temp.getUserObject()).setExpanded(true);
+    ((Node) tree.getUserObject()).setSelected(true);
+    ((Node) temp.getUserObject()).setSelected(true);
 
     return tree;
   }

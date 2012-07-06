@@ -139,11 +139,10 @@ fieldset.tobago-box {
 /* button ------------------------------------------------------------------ */
 
 .tobago-button {
-  border-width: 1px;
-  border-style: solid;
-  border-color: #ddeeff;
-  border-right-color: #6688aa;
-  border-bottom-color: #6688aa;
+  border-left: 1px solid #ddeeff;
+  border-right: 1px solid #6688aa;
+  border-top: 1px solid #ddeeff;
+  border-bottom: 1px solid #6688aa;
   padding: 2px;
   background: #bbccdd;
   font-weight: normal;
@@ -153,11 +152,6 @@ fieldset.tobago-box {
   -moz-box-sizing: content-box;
   -webkit-box-sizing: content-box;
   -ms-box-sizing: content-box;
-}
-
-.tobago-button-markup-default {
-  border-width: 2px;
-  padding: 1px;
 }
 
 .tobago-button-markup-disabled {
@@ -261,53 +255,11 @@ span.tobago-calendar-header {
 /* file -------------------------------------------------------------------- */
 
 .tobago-file {
-  background: url("../image/file-upload.gif") no-repeat right center transparent;
+  height: 25px;
 }
 
-.tobago-file-pretty {
-  color: #000000;
-  background-color: #ffffff;
-  position: absolute;
-  border: 2px inset #bbccdd;
-  height: 17px;
-  padding: 2px;
-  margin: 0;
-  left: 0;
-  right: 21px;
-  top: 0;
-}
-
-.tobago-file-pretty-markup-required {
-  background: url("../image/required.gif") no-repeat 3px 50% #FFFFFF;
-}
-
-.tobago-file-pretty-markup-readonly {
-  background-color: #bbccdd;
-}
-
-.tobago-file-pretty-markup-disabled {
-  color: #778899;
-  background-color: #bbccdd;
-}
-
-.tobago-file-pretty-markup-warn {
-  border-color: #ffa500;
-}
-
-.tobago-file-pretty-markup-error {
+.tobago-file-markup-error, .tobago-file-markup-fatal {
   border-color: #ff0000;
-}
-
-.tobago-file-pretty-markup-fatal {
-  border-color: #ff00ff;
-}
-
-.tobago-file-real {
-  position: absolute;
-  right: 0;
-  top: 0;
-  opacity: 0;
-  filter: alpha(opacity: 0);
 }
 
 /* formatted --------------------------------------------------------------- */
@@ -661,10 +613,7 @@ li.tobago-menu-markup-selected {
   position: relative;
 }
 
-.tobago-page-overlayWaitPreloadedImage,
-.tobago-page-overlayErrorPreloadedImage,
-.tobago-page-pngFixBlankImage,
-.tobago-page-overlayBackgroundImage {
+.tobago-page-overlayWaitPreloadedImage, .tobago-page-overlayErrorPreloadedImage {
   display: none;
 }
 
@@ -1491,12 +1440,8 @@ div.tobago-richTextEditor-body {
   white-space: nowrap;
 }
 
-.tobago-treeNode {
-  width: 100%;
-}
-
 .tobago-treeNode img {
-  vertical-align: bottom;
+  vertical-align: middle;
   border: 0;
 }
 
@@ -1602,11 +1547,6 @@ div.tobago-richTextEditor-body {
 
 .tobago-treeMenuNode-markup-hover {
   background-color: #d8e9fb;
-}
-
-.tobago-treeSelect input {
-  margin-top: 1px;
-  margin-bottom: 2px;
 }
 
 /* treeListbox ------------------------------------------------------------------- */

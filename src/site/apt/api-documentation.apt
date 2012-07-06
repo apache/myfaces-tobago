@@ -26,9 +26,9 @@ Tobago API and TLD Documentation
   {{{http://myfaces.apache.org/tobago/tobago-core/tlddoc-1.5.6/index.html}1.5.6 \<tc:\> Component Tag Library Documentation}}\
   {{{http://myfaces.apache.org/tobago/tobago-extension/tobago-taglib-extension/tlddoc-1.5.6/index.html}1.5.6 \<tx:\> Extension Tag Library Documentation}}
 
-  {{{http://myfaces.apache.org/tobago/apidocs-1.6.0-beta-2/index.html}1.6.0-beta-2 API Documentation}}\
-  {{{http://myfaces.apache.org/tobago/tobago-core/tlddoc-1.6.0-beta-2/index.html}1.6.0-beta-2 \<tc:\> Component Tag Library Documentation}}\
-  {{{http://myfaces.apache.org/tobago/tobago-extension/tobago-taglib-extension/tlddoc-1.6.0-beta-2/index.html}1.6.0-beta-2 \<tx:\> Extension Tag Library Documentation}}
+  {{{http://myfaces.apache.org/tobago/apidocs/index.html}Latest 1.5.x SVN API Documentation}}\
+  {{{http://myfaces.apache.org/tobago/tobago-core/tlddoc/index.html}Latest 1.5.x SVN \<tc:\> Component Tag Library Documentation}}\
+  {{{http://myfaces.apache.org/tobago/tobago-extension/tobago-taglib-extension/tlddoc/index.html}Latest 1.5.x SVN \<tx:\> Extension Tag Library Documentation}}
 
   {{{./oldDocumentation.html}Previous Releases}}
 

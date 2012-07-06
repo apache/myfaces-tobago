@@ -41,7 +41,6 @@ public class TobagoConfigParser {
   private static final String TOBAGO_CONFIG_DTD_1_0_30 = "/org/apache/myfaces/tobago/config/tobago-config-1.0.30.dtd";
   private static final String TOBAGO_CONFIG_DTD_1_0_34 = "/org/apache/myfaces/tobago/config/tobago-config-1.0.34.dtd";
   private static final String TOBAGO_CONFIG_XSD_1_5 = "/org/apache/myfaces/tobago/config/tobago-config-1.5.xsd";
-  private static final String TOBAGO_CONFIG_XSD_1_6 = "/org/apache/myfaces/tobago/config/tobago-config-1.6.xsd";
 
   private Digester digester;
 
@@ -75,7 +74,7 @@ public class TobagoConfigParser {
     // TODO: validating is turned of in case of a schema
     try {
       final String xml = IOUtils.toString(url.openStream());
-      if (xml.indexOf("tobago-config-1.5.xsd") > 0 || xml.indexOf("tobago-config-1.6.xsd") > 0) {
+      if (xml.indexOf("tobago-config-1.5.xsd") > 0) {
         digester.setValidating(false);
         return;
       }
@@ -111,7 +110,6 @@ public class TobagoConfigParser {
     // session secret
     digester.addCallMethod("tobago-config/create-session-secret", "setCreateSessionSecret", 0);
     digester.addCallMethod("tobago-config/check-session-secret", "setCheckSessionSecret", 0);
-    digester.addBeanPropertySetter("tobago-config/prevent-frame-attacks", "preventFrameAttacks");
 
     // renderer config
     digester.addObjectCreate("tobago-config/renderers", RenderersConfigImpl.class);
@@ -129,8 +127,6 @@ public class TobagoConfigParser {
     digester.addCallMethod("tobago-config/theme-definitions/theme-definition/display-name", "setDisplayName", 0);
     digester.addCallMethod("tobago-config/theme-definitions/theme-definition/resource-path", "setResourcePath", 0);
     digester.addCallMethod("tobago-config/theme-definitions/theme-definition/fallback", "setFallbackName", 0);
-    digester.addBeanPropertySetter("tobago-config/theme-definitions/theme-definition/versioned",
-        "versioned");
     digester.addObjectCreate("tobago-config/theme-definitions/theme-definition/renderers", RenderersConfigImpl.class);
     digester.addSetNext("tobago-config/theme-definitions/theme-definition/renderers", "setRenderersConfig");
     digester.addObjectCreate(

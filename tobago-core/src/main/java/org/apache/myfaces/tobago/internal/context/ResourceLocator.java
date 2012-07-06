@@ -23,7 +23,6 @@ import org.apache.myfaces.tobago.context.ThemeImpl;
 import org.apache.myfaces.tobago.internal.config.ThemeParser;
 import org.apache.myfaces.tobago.internal.config.TobagoConfigFragment;
 import org.apache.myfaces.tobago.internal.config.TobagoConfigParser;
-import org.apache.myfaces.tobago.internal.util.Deprecation;
 import org.apache.myfaces.tobago.util.XmlUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -149,27 +148,6 @@ class ResourceLocator {
         if (themeUrl.toString().endsWith(META_INF_TOBAGO_CONFIG_XML)) {
           TobagoConfigFragment tobagoConfig = new TobagoConfigParser().parse(themeUrl);
           for (ThemeImpl theme : tobagoConfig.getThemeDefinitions()) {
-            if (theme.isVersioned()) {
-              String themeUrlStr = themeUrl.toString();
-              int index = themeUrlStr.indexOf(META_INF_TOBAGO_CONFIG_XML);
-              String metaInf = themeUrlStr.substring(0, index) + "META-INF/MANIFEST.MF";
-              Properties properties = new Properties();
-              InputStream inputStream = new URL(metaInf).openStream();
-              try {
-                properties.load(inputStream);
-                String version = properties.getProperty("Implementation-Version");
-                if (version != null) {
-                  theme.setVersion(version);
-                } else {
-                  theme.setVersioned(false);
-                  LOG.error("No Implementation-Version found in Manifest-File for theme: '" + theme.getName()
-                      + "'. Resetting the theme to unversioned. Please correct the Manifest-File.");
-                }
-
-              } finally {
-                IOUtils.closeQuietly(inputStream);
-              }
-            }
             addThemeResources(resources, themeUrl, theme);
           }
         } else {
@@ -249,10 +227,6 @@ class ResourceLocator {
   private void addResources(ResourceManagerImpl resources, URL themeUrl, String prefix, int skipPrefix)
       throws IOException, ServletException {
     String fileName = themeUrl.toString();
-    if (fileName.endsWith(META_INF_TOBAGO_THEME_XML)) {
-      Deprecation.LOG.warn(
-          "The use of 'tobago-theme.xml' is deprecated, please use 'tobago-config.xml' to define a theme!");
-    }
     int index = fileName.indexOf("!");
     String protocol = themeUrl.getProtocol();
     if (index != -1) {

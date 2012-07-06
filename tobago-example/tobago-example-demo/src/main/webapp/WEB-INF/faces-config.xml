@@ -255,7 +255,7 @@
 
   <managed-bean>
     <managed-bean-name>upload</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.tobago.example.demo.Upload</managed-bean-class>
+    <managed-bean-class>org.apache.myfaces.tobago.example.reference.Upload</managed-bean-class>
     <managed-bean-scope>session</managed-bean-scope>
   </managed-bean>
 

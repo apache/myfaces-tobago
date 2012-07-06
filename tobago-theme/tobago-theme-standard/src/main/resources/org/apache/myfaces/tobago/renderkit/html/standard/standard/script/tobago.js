@@ -337,6 +337,7 @@ var Tobago = {
       var result = Tobago.applicationOnsubmit();
       if (!result) {
         this.isSubmit = false;
+        Tobago.action.value = oldAction;
         Tobago.form.target = oldTarget;
         return false;
       }
@@ -585,6 +586,7 @@ var Tobago = {
         this.isSubmit = true;
         var req = Tobago.Transport.requests.shift(); // remove this from queue
         LOG.debug('request removed: ' + req.toString()); // @DEV_ONLY
+        var oldAction = Tobago.action.value;
         var oldTarget = Tobago.form.target;
         Tobago.action.value = actionId;
         if (options.target) {
@@ -604,6 +606,7 @@ var Tobago = {
             alert('Submit failed: ' + e); // XXX localization, better error handling
           }
         }
+        Tobago.action.value = oldAction;
         if (options.target) {
           Tobago.form.target = oldTarget;
         }
@@ -1454,9 +1457,8 @@ var Tobago = {
     return ajaxComponentIds.split(',');
   },
 
-  /** @deprecated since Tobago 1.5.7 and 1.6.0 */
   setDefaultAction: function(defaultActionId) {
-    LOG.warn("setDefaultAction is deprecated");
+    Tobago.action.value = defaultActionId;
   },
 
   isFunction: function(func) {
@@ -1941,11 +1943,13 @@ Tobago.Transport.JqueryTransport = {
     };
 
     return Tobago.Transport.request(function() {
+      requestOptions.originalAction = Tobago.action.value;
       requestObject.url = requestOptions.url;
       Tobago.action.value = requestOptions.actionId;
       Tobago.partialRequestIds.value = requestOptions.ajaxComponentIds;
       requestObject.data = jQuery(Tobago.form).serialize();
       requestOptions.xhr = jQuery.ajax(requestObject);
+      Tobago.action.value = requestOptions.originalAction;
     }, false, requestOptions.actionId);
   }
 };
@@ -2511,94 +2515,6 @@ Tobago.registerListener(Tobago.TabGroup.init, Tobago.Phase.DOCUMENT_READY);
 Tobago.registerListener(Tobago.TabGroup.init, Tobago.Phase.AFTER_UPDATE);
 
 // ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Commands
-
-Tobago.Command = {};
-
-Tobago.Command.initEnter = function(elements) {
-  var body = Tobago.Utils.selectWidthJQuery(elements, "body");
-  body.keypress(function (event) {
-    var code = event.which;
-    if (code == 0) {
-      code = event.keyCode;
-    }
-    if (code == 13) {
-      var target = event.target;
-      if (target.tagName == "A" || target.tagName == "BUTTON") {
-        return;
-      }
-      if (target.tagName == "TEXTAREA") {
-        if (!event.metaKey && !event.ctrlKey) {
-          return;
-        }
-      }
-      var id = target.id;
-      while (id != null) {
-        var command = jQuery("[data-tobago-default='" + id + "']");
-        if (command.size() > 0) {
-          command.click();
-          break;
-        }
-        id = Tobago.Utils.getNamingContainerId(id);
-      }
-      return false;
-    }
-  })};
-
-Tobago.Command.initInputElements = function(elements) {
-  var inputElements = Tobago.Utils.selectWidthJQuery(elements, "input, select, textarea, a, button");
-  inputElements.focus(function (event) {
-    var target = event.target;
-    var id = target.id;
-    var command;
-    if (target.tagName == "A" || target.tagName == "BUTTON") {
-      command = jQuery(target);
-    } else {
-      while (id != null) {
-        command = jQuery("[data-tobago-default='" + id + "']");
-        if (command.size() > 0) {
-          break;
-        }
-        id = Tobago.Utils.getNamingContainerId(id);
-      }
-    }
-
-    if (command.size() > 0) {
-      // add new classes
-      command.filter("a").addClass("tobago-link-markup-default");
-      command.filter("button").addClass("tobago-button-markup-default");
-    }
-  });
-  inputElements.blur(function (event) {
-    var target = event.target;
-    var id = target.id;
-    var command;
-    if (target.tagName == "A" || target.tagName == "BUTTON") {
-      command = jQuery(target);
-    } else {
-      while (id != null) {
-        command = jQuery("[data-tobago-default='" + id + "']");
-        if (command.size() > 0) {
-          break;
-        }
-        id = Tobago.Utils.getNamingContainerId(id);
-      }
-    }
-
-    if (command.size() > 0) {
-      // remove old
-      command.filter("a").removeClass("tobago-link-markup-default");
-      command.filter("button").removeClass("tobago-button-markup-default");
-    }
-  });
-};
-
-Tobago.registerListener(Tobago.Command.initEnter, Tobago.Phase.DOCUMENT_READY);
-
-Tobago.registerListener(Tobago.Command.initInputElements, Tobago.Phase.DOCUMENT_READY);
-Tobago.registerListener(Tobago.Command.initInputElements, Tobago.Phase.AFTER_UPDATE);
-
-// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 Tobago.SelectManyShuttle = {};
 
@@ -2655,20 +2571,9 @@ Tobago.registerListener(Tobago.SelectManyShuttle.init, Tobago.Phase.AFTER_UPDATE
 Tobago.File = {};
 
 Tobago.File.init = function(elements) {
-  var files = Tobago.Utils.selectWidthJQuery(elements, ".tobago-file-real");
-  files.change(function () {
-    var file = jQuery(this);
-    var pretty = file.prev();
-    var filename = file.attr('value');
-    // remove path, if any. Some old browsers set the path, others like webkit uses the prefix "C:\facepath\".
-    var pos = Math.max(filename.lastIndexOf('/'), filename.lastIndexOf('\\'));
-    if (pos >= 0) {
-      filename = filename.substr(pos + 1);
-    }
-    pretty.attr('value', filename);
-  });
+  var files = Tobago.Utils.selectWidthJQuery(elements, ".tobago-file");
   if (files.length > 0) {
-    jQuery("form").attr('enctype', 'multipart/form-data')
+    jQuery("form").attr("enctype", "multipart/form-data");
   }
 };
 

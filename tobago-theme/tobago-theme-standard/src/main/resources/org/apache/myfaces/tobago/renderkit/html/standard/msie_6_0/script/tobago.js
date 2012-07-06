@@ -59,7 +59,7 @@ Tobago.fixPngAlphaInternal = function(element) {
   element.runtimeStyle.backgroundImage = "none";
   element.runtimeStyle.filter
       = "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='" + element.src + "', sizingMethod='scale')";
-  element.src = jQuery(".tobago-page-pngFixBlankImage").attr("src");
+  element.src = Tobago.pngFixBlankImage;
 };
 
 Tobago.fixBackgroundPngAlpha = function(element) {
@@ -96,20 +96,3 @@ Tobago.fixSelectionOnFocus = function() {
 
 Tobago.registerListener(Tobago.fixPngAlphaAll, Tobago.Phase.WINDOW_LOAD);
 Tobago.registerListener(Tobago.fixPngAlphaAll, Tobago.Phase.AFTER_UPDATE);
-
-// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-/**
- * Solves issue: TOBAGO-910
- * tc:upload hangs when entering invalid filename in IE 6
- */
-Tobago.File.initIe6 = function(elements) {
-  var files = Tobago.Utils.selectWidthJQuery(elements, ".tobago-file-real");
-  files.keydown(function () {
-    jQuery(this).blur();
-    return false;
-  });
-};
-
-Tobago.registerListener(Tobago.File.initIe6, Tobago.Phase.DOCUMENT_READY);
-Tobago.registerListener(Tobago.File.initIe6, Tobago.Phase.AFTER_UPDATE);

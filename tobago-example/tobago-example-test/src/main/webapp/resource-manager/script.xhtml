@@ -35,53 +35,15 @@
 
     <tc:script onload="check()">
       function check() {
-
-        var pos = -1;
-        var posStandard = -1;
-        var posStandardApp = -1;
-        var posScarborough = -1;
-        var posApp = -1;
-
-        jQuery("html>head>script").each(function () {
-          pos++;
-          var src = jQuery(this).attr("src");
-          if (src == null) {
-            return; // skip
-          }
-          if (src.match(/\/org\/apache\/myfaces\/tobago\/renderkit\/\d.+\/html\/standard\/standard\/script\/tobago.js/)) {
-            posStandard = pos;
-          }
-          if (src.match(/\/tobago-resource\/html\/standard\/standard\/script\/tobago.js/)) {
-            posStandardApp = pos;
-          }
-          if (src.match(/\/org\/apache\/myfaces\/tobago\/renderkit\/\d.+\/html\/scarborough\/standard\/script\/tobago.js/)) {
-            posScarborough = pos;
-          }
-          if (src.match(/\/script\/tobago.js/)) {
-            posApp = pos;
-          }
-        });
+        var posStandard = jQuery("head>script[src='/org/apache/myfaces/tobago/renderkit/html/standard/standard/script/tobago.js']").prevAll().size();
+        var posStandardApp = jQuery("head>script[src='/tobago-resource/html/standard/standard/script/tobago.js']").prevAll().size();
+        var posScarborough = jQuery("head>script[src='/org/apache/myfaces/tobago/renderkit/html/scarborough/standard/script/tobago.js']").prevAll().size();
+        var posApp = jQuery("head>script[src='/script/tobago.js']").prevAll().size();
 
         jQuery(Tobago.Utils.escapeClientId("page:standard")).attr('value', posStandard);
         jQuery(Tobago.Utils.escapeClientId("page:standardApp")).attr('value', posStandardApp);
         jQuery(Tobago.Utils.escapeClientId("page:scarborough")).attr('value', posScarborough);
         jQuery(Tobago.Utils.escapeClientId("page:application")).attr('value', posApp);
-
-        if (posStandard == -1) {
-          LOG.error("Script for theme 'standard' not found!");
-        }
-
-        if (posStandardApp == -1) {
-          LOG.error("The application specific script for theme 'standard' not found!");
-        }
-
-        if (posScarborough == -1) {
-          LOG.error("Script for theme 'scarborough' not found!");
-        }
-
-        if (posApp == -1) {
-          LOG.error("The application specific script not found!");
-        }
 
         if (posStandard >= posStandardApp) {
           LOG.error("Script for theme 'standard' must be included before the application specific script of 'standard'!");

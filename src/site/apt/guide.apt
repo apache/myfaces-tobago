@@ -528,7 +528,7 @@ mvn install -Pall-modules
 | <<<\<tc:treeNode\>>>> | strong                  |
 *-----------------------+-------------------------+
 
-  Also see the {{{https://svn.apache.org/repos/asf/myfaces/tobago/trunk/tobago-theme/tobago-theme-standard/src/main/resources/META-INF/tobago-config.xml}standard <<<tobago-config.xml>>>}}
+  Also see the {{{https://svn.apache.org/repos/asf/myfaces/tobago/trunk/tobago-theme/tobago-theme-standard/src/main/resources/META-INF/tobago-theme.xml}standard <<<tobago-theme.xml>>>}}
 
   The markup <<<strong>>> is normally emphasized, <<<deleted>>> is rendered struck out, and <<<number>>> is
   right aligned. Multiple markups can be combined as a comma separated list:

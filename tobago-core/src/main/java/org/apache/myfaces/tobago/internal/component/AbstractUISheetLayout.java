@@ -23,7 +23,6 @@ import org.apache.myfaces.tobago.internal.layout.LayoutUtils;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.layout.AutoLayoutToken;
 import org.apache.myfaces.tobago.layout.Display;
-import org.apache.myfaces.tobago.layout.LayoutBox;
 import org.apache.myfaces.tobago.layout.LayoutComponent;
 import org.apache.myfaces.tobago.layout.LayoutContainer;
 import org.apache.myfaces.tobago.layout.LayoutManager;
@@ -131,28 +130,23 @@ public abstract class AbstractUISheetLayout extends AbstractUILayoutBase impleme
             index++;
             continue;
           }
-          final UIColumn column = component instanceof AbstractUIColumnNode
-              ? (UIColumn) component
-              : (UIColumn) ((UIComponent) component).getParent();
+          AbstractUIColumn column = (AbstractUIColumn) ((UIComponent) component).getParent();
           if (!column.isRendered()) {
             // XXX here not index++, because the widthList has only the rendered=true, todo: change it.
             continue;
           }
-          if (column instanceof LayoutBox) {
-            LayoutBox box = (LayoutBox) column;
-            Measure width = Measure.valueOf(widthList.get(index));
-            width = width.subtractNotNegative(LayoutUtils.getBorderBegin(orientation, box));
-            width = width.subtractNotNegative(LayoutUtils.getPaddingBegin(orientation, box));
-            width = width.subtractNotNegative(LayoutUtils.getPaddingEnd(orientation, box));
-            width = width.subtractNotNegative(LayoutUtils.getBorderEnd(orientation, box));
-            final LayoutComponentRenderer renderer = sheet.getLayoutComponentRenderer(facesContext);
-            width = width.subtractNotNegative(renderer.getCustomMeasure(facesContext, sheet, "columnSeparator"));
-            LayoutUtils.setCurrentSize(orientation, component, width);
-            component.setDisplay(Display.BLOCK); // TODO: use CSS via classes and style.css
-            // call sub layout manager
-            if (component instanceof LayoutContainer) {
-              ((LayoutContainer) component).getLayoutManager().mainProcessing(orientation);
-            }
+          Measure width = Measure.valueOf(widthList.get(index));
+          width = width.subtractNotNegative(LayoutUtils.getBorderBegin(orientation, column));
+          width = width.subtractNotNegative(LayoutUtils.getPaddingBegin(orientation, column));
+          width = width.subtractNotNegative(LayoutUtils.getPaddingEnd(orientation, column));
+          width = width.subtractNotNegative(LayoutUtils.getBorderEnd(orientation, column));
+          final LayoutComponentRenderer renderer = sheet.getLayoutComponentRenderer(facesContext);
+          width = width.subtractNotNegative(renderer.getCustomMeasure(facesContext, sheet, "columnSeparator"));
+          LayoutUtils.setCurrentSize(orientation, component, width);
+          component.setDisplay(Display.BLOCK); // TODO: use CSS via classes and style.css
+          // call sub layout manager
+          if (component instanceof LayoutContainer) {
+            ((LayoutContainer) component).getLayoutManager().mainProcessing(orientation);
           }
           index++;
         }

@@ -21,10 +21,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-/**
- * @deprecated since 1.6.0
- */
-@Deprecated
+
 public class Node {
 
   private List<Node> children;
@@ -61,7 +58,7 @@ public class Node {
     for (int i = 0; i < children.size(); i++) {
       Node child = children.get(i);
       if (child.equals(node)) {
-        return i;
+         return i;
       }
     }
     return -1;

@@ -20,13 +20,8 @@ package org.apache.myfaces.tobago.renderkit.util;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.config.Configurable;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
-import org.apache.myfaces.tobago.internal.component.AbstractUIData;
-import org.apache.myfaces.tobago.internal.component.AbstractUITree;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.layout.Measure;
-import org.apache.myfaces.tobago.model.ExpandedState;
-import org.apache.myfaces.tobago.model.MarkedState;
-import org.apache.myfaces.tobago.model.TreePath;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.util.DebugUtils;
@@ -361,89 +356,4 @@ public class RenderUtils {
             component.isItemDisabled(), component.getItemImage(), component.getMarkup());
   }
 
-
-  public static void decodedStateOfTreeData(FacesContext facesContext, AbstractUIData data) {
-
-    if (!data.isTreeModel()) {
-      return;
-    }
-
-    final boolean isTree = data instanceof AbstractUITree;
-    // marked
-    final Integer markedIndex = isTree ? decodeMarkedIndex(facesContext, data) : null;
-
-    // expanded
-    final List<Integer> expandedIndices = decodeExpandedIndices(facesContext, data);
-
-    final int last = data.isRowsUnlimited() ? Integer.MAX_VALUE : data.getFirst() + data.getRows();
-    for (int rowIndex = data.getFirst(); rowIndex < last; rowIndex++) {
-      data.setRowIndex(rowIndex);
-      if (!data.isRowAvailable()) {
-        break;
-      }
-
-      final TreePath path = data.getPath();
-
-      // marked
-      if (isTree) {
-        final MarkedState markedState = ((AbstractUITree) data).getMarkedState();
-        final boolean oldMarked = markedState.isMarked(path);
-        final boolean newMarked = ((Integer) rowIndex).equals(markedIndex);
-        if (newMarked != oldMarked) {
-          if (newMarked) {
-            markedState.setMarked(path);
-          } else {
-            markedState.setMarked((TreePath) null);
-          }
-        }
-      }
-
-      // expanded
-      if (expandedIndices != null) {
-        final ExpandedState expandedState = data.getExpandedState();
-        final boolean oldExpanded = expandedState.isExpanded(path);
-        final boolean newExpanded = expandedIndices.contains(rowIndex);
-        if (newExpanded != oldExpanded) {
-          if (newExpanded) {
-            expandedState.expand(path);
-          } else {
-            expandedState.collapse(path);
-          }
-        }
-      }
-
-    }
-    data.setRowIndex(-1);
-  }
-
-  private static Integer decodeMarkedIndex(FacesContext facesContext, AbstractUIData data) {
-    String markedString = null;
-    try {
-      markedString = (String) facesContext.getExternalContext().getRequestParameterMap()
-          .get(data.getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + AbstractUIData.SUFFIX_MARKED);
-      if (org.apache.commons.lang.StringUtils.isBlank(markedString)) {
-        return null;
-      }
-      return Integer.parseInt(markedString);
-    } catch (Exception e) {
-      // should not happen
-      LOG.warn("Can't parse marked: '" + markedString + "'", e);
-      return null;
-    }
-  }
-
-  private static List<Integer> decodeExpandedIndices(FacesContext facesContext, AbstractUIData data) {
-    String expandedString = null;
-    try {
-      expandedString = (String) facesContext.getExternalContext().getRequestParameterMap()
-          .get(data.getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + AbstractUIData.SUFFIX_EXPANDED);
-      if (expandedString != null) {
-        return StringUtils.parseIntegerList(expandedString);
-      }
-    } catch (Exception e) {
-      // should not happen
-      LOG.warn("Can't parse expanded: '" + expandedString + "'", e);
-    }
-    return null;
-  }
 }

@@ -27,8 +27,6 @@ import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasValue;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasVar;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutComponent;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsRequired;
 
@@ -39,15 +37,14 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsRequired;
 @BodyContentDescription(anyTagOf = "<tc:treeNode>|<tc:treeData>")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UITreeListbox",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUITreeListbox",
+    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUITree",
     rendererType = RendererTypes.TREE_LISTBOX,
     allowedChildComponenents = {
         "org.apache.myfaces.tobago.TreeNode",
         "org.apache.myfaces.tobago.TreeData"
     })
 public interface TreeListboxTagDeclaration
-    extends HasIdBindingAndRendered, HasValue, HasVar, IsGridLayoutComponent, HasMarkup, HasCurrentMarkup,
-    IsRequired {
+    extends HasIdBindingAndRendered, IsRequired, IsGridLayoutComponent, HasMarkup, HasCurrentMarkup {
 
   /**
    * Flag indicating whether or not this component should be render selectable items.
@@ -71,8 +68,6 @@ public interface TreeListboxTagDeclaration
    * component's state.
    */
   @TagAttribute
-  @UIComponentTagAttribute(
-      type = "org.apache.myfaces.tobago.model.TreeState",
-      expression = DynamicExpression.VALUE_BINDING_REQUIRED)
+  @UIComponentTagAttribute(type = "java.lang.Object", expression = DynamicExpression.VALUE_BINDING_REQUIRED)
   void setState(String state);
 }

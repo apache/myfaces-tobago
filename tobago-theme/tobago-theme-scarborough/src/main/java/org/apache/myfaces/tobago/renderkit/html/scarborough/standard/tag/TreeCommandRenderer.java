@@ -48,8 +48,10 @@ public class TreeCommandRenderer extends CommandRendererBase {
   public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
     final UITreeCommand command = (UITreeCommand) component;
     final UITreeNode node = ComponentUtils.findAncestor(command, UITreeNode.class);
-    // Todo: use an expression?
-    command.setDisabled(node.isDisabled());
+    if (node.isDisabled()) {
+      command.setDisabled(true);
+    }
+
     super.prepareRender(facesContext, component);
   }
 

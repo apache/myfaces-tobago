@@ -27,12 +27,10 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+// TODO find a better solution for this
 public class SheetState implements Serializable {
-
   private static final long serialVersionUID = 7765536344426661777L;
-
   private static final Logger LOG = LoggerFactory.getLogger(SheetState.class);
-
   public static final String SEPARATOR = ",";
 
   private int first = -1;
@@ -41,7 +39,6 @@ public class SheetState implements Serializable {
   private String columnWidths;
   private List<Integer> selectedRows;
   private Integer[] scrollPosition;
-  private ExpandedState expandedState;
 
   public SheetState() {
     resetSelected();
@@ -110,17 +107,6 @@ public class SheetState implements Serializable {
 
   public void setScrollPosition(Integer[] scrollPosition) {
     this.scrollPosition = scrollPosition;
-  }
-
-  public ExpandedState getExpandedState() {
-    if (expandedState == null) {
-      expandedState = new ExpandedState(2);
-    }
-    return expandedState;
-  }
-
-  public void setExpandedState(ExpandedState expandedState) {
-    this.expandedState = expandedState;
   }
 
   public static Integer[] parseScrollPosition(String value) {

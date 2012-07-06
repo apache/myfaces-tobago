@@ -20,94 +20,40 @@ package org.apache.myfaces.tobago.model;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 
 import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.TreeNode;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 /**
  * Handles a path in a tree from the root node to the position inside this tree.
- * The position of the root node is dropped in the list, because it would always be zero.
- * The path of the root node as length 0.
- * <p/>
- * Example:
- * <pre>
- *  + Root               Path: []
- *  |
- *  +-+ Node             Path: [0]
- *  | |
- *  | +-+ Sub-Node       Path: [0, 0]
- *  | |
- *  | +-+ Sub-Node       Path: [0, 1]
- *  |
- *  +-+ Node             Path: [1]
- *    |
- *    +-+ Sub-Node       Path: [1, 0]
- *    |
- *    +-+ Sub-Node       Path: [1, 1]
- *    |
- *    +-+ Sub-Node       Path: [1, 2]
- * </pre>
  *
- * @since 1.5.0
+ * Date: 02.12.2008
  */
 public class TreePath implements Serializable {
 
-  private final int[] path;
+  private int[] path;
 
   public TreePath(int... path) {
+    assert path[0] == 0;
     this.path = path;
   }
 
   public TreePath(List<Integer> pathList) {
+    assert pathList.get(0) == 0;
     path = new int[pathList.size()];
     for (int i = 0; i < path.length; i++) {
       path[i] = pathList.get(i);
     }
   }
 
-  /**
-   * @deprecated since 1.6.0
-   */
-  @Deprecated
   public TreePath(TreePath position, int addendum) {
     this.path = new int[position.path.length + 1];
     System.arraycopy(position.path, 0, path, 0, position.path.length);
     path[position.path.length] = addendum;
   }
 
-  /**
-   * @deprecated since 1.6.0
-   */
-  @Deprecated
   public TreePath(String string) throws NumberFormatException {
     this(StringUtils.parseIntegerList(string, "_"));
-  }
-
-  public TreePath(TreeNode node) {
-    if (node == null) {
-      throw new IllegalArgumentException();
-    }
-
-    final List<TreeNode> list = new ArrayList<TreeNode>();
-    int n = 0;
-    while (node != null) {
-      list.add(node);
-      node = node.getParent();
-      n++;
-    }
-    path = new int[n - 1];
-    for (int i = n - 2; i >= 0; i--) {
-      TreeNode parent = list.get(i + 1);
-      TreeNode child = list.get(i);
-      for (int j = 0; j < parent.getChildCount(); j++) {
-        if (parent.getChildAt(j) == child) { // == is okay in this case
-          path[n - 2 - i] = j;
-          break;
-        }
-      }
-    }
   }
 
   public int[] getPath() {
@@ -118,9 +64,6 @@ public class TreePath implements Serializable {
     return path.length;
   }
 
-  /**
-   * @deprecated since 1.6.0
-   */
   public String getPathString() {
     StringBuilder builder = new StringBuilder();
     for (int item : path) {
@@ -130,9 +73,7 @@ public class TreePath implements Serializable {
     return builder.toString();
   }
 
-  /**
-   * @deprecated since 1.5.0
-   */
+  /** @deprecated */
   @Deprecated
   public String getParentPathString() {
     StringBuilder builder = new StringBuilder();
@@ -145,12 +86,9 @@ public class TreePath implements Serializable {
 
   /**
    * Returns the node at the position of this NodePath applied to the parameter node.
-   *
    * @param tree The start node.
    * @return The node applied to the given path.
-   * @deprecated since 1.6.0
    */
-  @Deprecated
   public DefaultMutableTreeNode getNode(DefaultMutableTreeNode tree) {
     if (tree == null) {
       return null;
@@ -185,6 +123,6 @@ public class TreePath implements Serializable {
 
   @Override
   public String toString() {
-    return Arrays.toString(path);
+    return getPathString();
   }
 }

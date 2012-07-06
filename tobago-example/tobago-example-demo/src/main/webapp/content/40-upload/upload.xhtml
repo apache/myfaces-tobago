@@ -22,39 +22,35 @@
                 xmlns:tx="http://myfaces.apache.org/tobago/extension"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core">
-  <ui:param name="title" value="File Upload"/>
-  <tc:panel>
+  <ui:param name="title" value="#{overviewBundle.basic}"/>
+  <tc:box label="File Upload">
     <f:facet name="layout">
-      <tc:gridLayout rows="auto;*"/>
+      <tc:gridLayout columns="400px;1*" rows="auto;1*"/>
     </f:facet>
 
-    <tc:panel>
-      <f:facet name="layout">
-        <tc:gridLayout columns="*;auto"/>
-      </f:facet>
+    <tx:file label="Upload file:" value="#{upload.file}">
+<!-- todo: write a 2nd example to demonstrate validation
+      <tc:validateFileItem contentType="image/gif image/png"/>
+-->
+    </tx:file>
+    <tc:button label="Submit" defaultCommand="true" action="#{upload.upload}"/>
 
-      <tx:file label="Upload file:" value="#{upload.file}">
-        <!-- todo: write a 2nd example to demonstrate validation
-              <tc:validateFileItem contentType="image/gif image/png"/>
-        -->
-      </tx:file>
-      <tc:button label="Submit" defaultCommand="true" action="#{upload.upload}"/>
-    </tc:panel>
+      <tc:cell spanX="2">
+        <tc:sheet var="entry" value="#{upload.list}" columns="*;*;*">
 
-    <tc:sheet var="entry" value="#{upload.list}" columns="*;*;*">
+          <tc:column label="Name">
+            <tc:out value="#{entry.name}"/>
+          </tc:column>
 
-      <tc:column label="Name">
-        <tc:out value="#{entry.name}"/>
-      </tc:column>
+          <tc:column label="Type">
+            <tc:out value="#{entry.type}"/>
+          </tc:column>
 
-      <tc:column label="Type">
-        <tc:out value="#{entry.type}"/>
-      </tc:column>
+          <tc:column label="Size">
+            <tc:out value="#{entry.size}"/>
+          </tc:column>
 
-      <tc:column label="Size">
-        <tc:out value="#{entry.size}"/>
-      </tc:column>
-
-    </tc:sheet>
-  </tc:panel>
+        </tc:sheet>
+      </tc:cell>
+  </tc:box>
 </ui:composition>

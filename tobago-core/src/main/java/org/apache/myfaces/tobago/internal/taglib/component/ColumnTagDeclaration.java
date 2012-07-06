@@ -67,6 +67,7 @@ public interface ColumnTagDeclaration
   @UIComponentTagAttribute(type = {"boolean"}, defaultValue = "false")
   void setSortable(String sortable);
 
+
   /**
    * Flag indicating whether or not the width of this column in a sheet is resizable, by the user.
    */

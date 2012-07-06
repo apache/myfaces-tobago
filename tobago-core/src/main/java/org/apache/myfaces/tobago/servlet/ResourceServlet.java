@@ -20,7 +20,6 @@ package org.apache.myfaces.tobago.servlet;
 import org.apache.commons.io.IOUtils;
 import org.apache.myfaces.tobago.application.ProjectStage;
 import org.apache.myfaces.tobago.config.TobagoConfig;
-import org.apache.myfaces.tobago.context.Theme;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.internal.util.MimeTypeUtils;
@@ -33,9 +32,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 /**
  * <p><pre>
@@ -71,7 +67,6 @@ public class ResourceServlet extends HttpServlet {
 
   private Long expires;
   private int bufferSize;
-  private Set<String> resourceDirs = new HashSet<String>();
 
   @Override
   public void init(ServletConfig servletConfig) throws ServletException {
@@ -80,10 +75,6 @@ public class ResourceServlet extends HttpServlet {
     if (tobagoConfig != null && tobagoConfig.getProjectStage() == ProjectStage.Production) {
        expires = 24 * 60 * 60 * 1000L;
     }
-    Theme defaultTheme = tobagoConfig.getDefaultTheme();
-    addResourceDir(defaultTheme.getFallbackList());
-    addResourceDir(tobagoConfig.getSupportedThemes());
-
     String expiresString = servletConfig.getInitParameter("expires");
     if (expiresString != null) {
       try {
@@ -103,36 +94,14 @@ public class ResourceServlet extends HttpServlet {
     }
   }
 
-  private void addResourceDir(List<Theme> themes) {
-    for (Theme theme : themes) {
-        addResourceDir(theme);
-    }
-  }
-
-  private void addResourceDir(Theme theme) {
-    String dir = theme.getResourcePath();
-    if (dir.startsWith("/")) {
-      resourceDirs.add(dir.substring(1));
-    } else {
-      resourceDirs.add(dir);
-    }
-  }
-
-    @Override
+  @Override
   protected void doGet(
       HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
     String requestURI = request.getRequestURI();
     String resource = requestURI.substring(request.getContextPath().length() + 1);
-    for (String resourceDir : resourceDirs) {
-      if (resource.startsWith(resourceDir)) {
-        if (Character.isDigit(resource.charAt(resourceDir.length()+1))) {
-          resource = resourceDir + resource.substring(resource.indexOf('/', resourceDir.length() + 1));
-        }
-        break;
-      }
-    }
+
     if (expires != null) {
       response.setDateHeader("Last-Modified", 0);
       response.setHeader("Cache-Control", "Public, max-age=" + expires);

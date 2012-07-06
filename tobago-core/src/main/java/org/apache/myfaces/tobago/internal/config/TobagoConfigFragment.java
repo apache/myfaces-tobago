@@ -40,7 +40,6 @@ public class TobagoConfigFragment {
   private RenderersConfig renderersConfig;
   private Boolean createSessionSecret;
   private Boolean checkSessionSecret;
-  private boolean preventFrameAttacks = true;
   // todo
   private List<ThemeImpl> themeDefinitions;
   private URL url;
@@ -142,14 +141,6 @@ public class TobagoConfigFragment {
 
   public void setCheckSessionSecret(String checkSessionSecret) {
     this.checkSessionSecret = Boolean.valueOf(checkSessionSecret);
-  }
-
-  public boolean isPreventFrameAttacks() {
-    return preventFrameAttacks;
-  }
-
-  public void setPreventFrameAttacks(boolean preventFrameAttacks) {
-    this.preventFrameAttacks = preventFrameAttacks;
   }
 
   /** @deprecated since 1.5.0 */

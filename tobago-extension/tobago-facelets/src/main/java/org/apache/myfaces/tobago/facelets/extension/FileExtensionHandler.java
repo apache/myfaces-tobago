@@ -19,8 +19,12 @@ package org.apache.myfaces.tobago.facelets.extension;
 
 import com.sun.facelets.tag.jsf.ComponentConfig;
 import org.apache.myfaces.tobago.component.RendererTypes;
-import org.apache.myfaces.tobago.component.UIFile;
+import org.apache.myfaces.tobago.component.UIFileInput;
 
+/*
+ * Date: Aug 8, 2007
+ * Time: 5:45:16 PM
+ */
 public class FileExtensionHandler extends TobagoLabelExtensionHandler {
 
   public FileExtensionHandler(ComponentConfig config) {
@@ -28,7 +32,7 @@ public class FileExtensionHandler extends TobagoLabelExtensionHandler {
   }
 
   protected String getSubComponentType() {
-    return UIFile.COMPONENT_TYPE;
+    return UIFileInput.COMPONENT_TYPE;
   }
 
   protected String getSubRendererType() {

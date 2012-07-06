@@ -18,12 +18,10 @@ package org.apache.myfaces.tobago.internal.webapp;
  */
 
 import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.internal.util.FastStringWriter;
 import org.apache.myfaces.tobago.internal.util.HtmlWriterUtils;
 import org.apache.myfaces.tobago.internal.util.JsonWriterUtils;
 import org.apache.myfaces.tobago.internal.util.WriterUtils;
 import org.apache.myfaces.tobago.renderkit.css.Style;
-import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.util.FacesVersion;
 
@@ -40,8 +38,6 @@ public class HtmlResponseWriter extends TobagoResponseWriterBase {
       "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\" \"http://www.w3.org/TR/html4/strict.dtd\">";
 
   private final WriterUtils helper;
-  private FastStringWriter javascriptWriter;
-  private boolean javascriptMode;
 
   public HtmlResponseWriter(
       Writer writer, String contentType, String characterEncoding) {
@@ -51,35 +47,6 @@ public class HtmlResponseWriter extends TobagoResponseWriterBase {
     } else {
       this.helper = new HtmlWriterUtils(writer, characterEncoding);
     }
-    this.javascriptWriter = new FastStringWriter();
-  }
-
-  @Override
-  public void endJavascript() throws IOException {
-    javascriptMode = false;
-  }
-
-  @Override
-  public void startJavascript() throws IOException {
-    javascriptMode = true;
-  }
-
-  @Override
-  public void write(String string) throws IOException {
-    if (javascriptMode) {
-      writeJavascript(string);
-    } else {
-      writeInternal(getWriter(), string);
-    }
-  }
-
-  @Override
-  public void writeJavascript(String script) throws IOException {
-    writeInternal(javascriptWriter, script);
-  }
-
-  public String getJavascript() {
-    return javascriptWriter.toString();
   }
 
   public final WriterUtils getHelper() {
@@ -148,22 +115,7 @@ public class HtmlResponseWriter extends TobagoResponseWriterBase {
   }
 
   @Override
-  public void endElement(String name) throws IOException {
-    if (name == HtmlElements.BODY) {
-      String javascript = getJavascript();
-      if (org.apache.commons.lang.StringUtils.isNotEmpty(javascript)) {
-        startElement(HtmlElements.SCRIPT, null);
-        writeAttribute(HtmlAttributes.TYPE, "text/javascript", false);
-        write(getJavascript());
-        super.endElement(HtmlElements.SCRIPT);
-      }
-    }
-    super.endElement(name);
-  }
-
-  @Override
   public void endDocument() throws IOException {
-
     endElement(HtmlElements.HTML);
   }
 }

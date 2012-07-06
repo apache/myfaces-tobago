@@ -18,8 +18,8 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  */
 
 import org.apache.myfaces.tobago.component.UISelectManyShuttle;
-import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.layout.Measure;
+import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.SelectManyRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
@@ -107,10 +107,10 @@ public class SelectManyShuttleRenderer extends SelectManyRendererBase {
     writer.writeStyleAttribute(style);
     writer.startElement(HtmlElements.DIV, null);
     writer.writeClassAttribute(Classes.create(select, "toolBar"));
-    createButton(facesContext, component, writer, disabled, "image/selectManyShuttleAddAll.gif", "addAll");
-    createButton(facesContext, component, writer, disabled, "image/selectManyShuttleAdd.gif", "add");
-    createButton(facesContext, component, writer, disabled, "image/selectManyShuttleRemove.gif", "remove");
-    createButton(facesContext, component, writer, disabled, "image/selectManyShuttleRemoveAll.gif", "removeAll");
+    createButton(facesContext, component, writer, disabled, ">>", "addAll");
+    createButton(facesContext, component, writer, disabled, ">", "add");
+    createButton(facesContext, component, writer, disabled, "<", "remove");
+    createButton(facesContext, component, writer, disabled, "<<", "removeAll");
     writer.endElement(HtmlElements.DIV);
     writer.endElement(HtmlElements.DIV);
     String selectedLabel = select.getSelectedLabel();
@@ -153,21 +153,18 @@ public class SelectManyShuttleRenderer extends SelectManyRendererBase {
     writer.endElement(HtmlElements.DIV);
     // TODO focusId
     //HtmlRendererUtils.renderFocusId(facesContext, select);
-    // TODO test command facet
+    // TODO test command faces
     HtmlRendererUtils.checkForCommandFacet(select, facesContext, writer);
   }
 
   private void createButton(FacesContext context, UIComponent component, TobagoResponseWriter writer,
-        boolean disabled, String image, String sub) throws IOException {
+        boolean disabled, String label, String sub) throws IOException {
     writer.startElement(HtmlElements.BUTTON, null);
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlButtonTypes.BUTTON, false);
     writer.writeClassAttribute(Classes.create(component, sub));
     writer.writeIdAttribute(component.getClientId(context) + ComponentUtils.SUB_SEPARATOR + sub);
     writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
-    String imagePath = ResourceManagerUtils.getImageOrDisabledImageWithPath(context, image, disabled);
-    writer.startElement(HtmlElements.IMG, null);
-    writer.writeAttribute(HtmlAttributes.SRC, imagePath, true);
-    writer.endElement(HtmlElements.IMG);
+    HtmlRendererUtils.writeLabelWithAccessKey(writer, new LabelWithAccessKey(label));
     writer.endElement(HtmlElements.BUTTON);
   }
 }

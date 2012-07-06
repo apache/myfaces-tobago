@@ -17,8 +17,8 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.component.UITreeData;
 import org.apache.myfaces.tobago.component.UITreeNode;
-import org.apache.myfaces.tobago.internal.component.AbstractUIData;
 import org.apache.myfaces.tobago.internal.component.AbstractUITree;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
@@ -36,6 +36,7 @@ import org.slf4j.LoggerFactory;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
+import java.util.Arrays;
 
 public class TreeRenderer extends LayoutComponentRendererBase {
 
@@ -43,13 +44,12 @@ public class TreeRenderer extends LayoutComponentRendererBase {
 
   @Override
   public void decode(FacesContext facesContext, UIComponent component) {
-    final AbstractUITree tree = (AbstractUITree) component;
-    RenderUtils.decodedStateOfTreeData(facesContext, tree);
-  }
+    if (ComponentUtils.isOutputOnly(component)) {
+      return;
+    }
 
-  @Override
-  public boolean getRendersChildren() {
-    return true;
+    AbstractUITree tree = (AbstractUITree) component;
+    tree.setValid(true);
   }
 
   @Override
@@ -63,7 +63,7 @@ public class TreeRenderer extends LayoutComponentRendererBase {
     AbstractUITree tree = (AbstractUITree) component;
 
     String clientId = tree.getClientId(facesContext);
-    UIComponent root = ComponentUtils.findDescendant(tree, UITreeNode.class);
+    UIComponent root = tree.getRoot();
     if (root == null) {
       LOG.error("Can't find the tree root. This may occur while updating a tree from Tobago 1.0 to 1.5. "
           + "Please refer the documentation to see how to use tree tags.");
@@ -76,45 +76,35 @@ public class TreeRenderer extends LayoutComponentRendererBase {
     writer.writeClassAttribute(Classes.create(tree));
     Style style = new Style(facesContext, tree);
     writer.writeStyleAttribute(style);
-    writer.writeIdAttribute(clientId);
 
     writer.startElement(HtmlElements.INPUT, tree);
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN, false);
-    final String markedId = clientId + ComponentUtils.SUB_SEPARATOR + AbstractUITree.SUFFIX_MARKED;
-    writer.writeNameAttribute(markedId);
-    writer.writeIdAttribute(markedId);
-    writer.writeClassAttribute(Classes.create(tree, AbstractUITree.SUFFIX_MARKED));
+    writer.writeNameAttribute(clientId);
+    writer.writeIdAttribute(clientId);
+    writer.writeAttribute(HtmlAttributes.VALUE, ";", false);
+    writer.endElement(HtmlElements.INPUT);
+
+    writer.startElement(HtmlElements.INPUT, tree);
+    writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN, false);
+    writer.writeNameAttribute(clientId + ComponentUtils.SUB_SEPARATOR + AbstractUITree.MARKED);
+    writer.writeIdAttribute(clientId + ComponentUtils.SUB_SEPARATOR + AbstractUITree.MARKED);
+    writer.writeClassAttribute(Classes.create(tree, "marked"));
     writer.writeAttribute(HtmlAttributes.VALUE, "", false);
     writer.endElement(HtmlElements.INPUT);
 
-    writer.startElement(HtmlElements.INPUT, tree);
-    writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN, false);
-    final String expandedId = clientId + ComponentUtils.SUB_SEPARATOR + AbstractUIData.SUFFIX_EXPANDED;
-    writer.writeNameAttribute(expandedId);
-    writer.writeIdAttribute(expandedId);
-    writer.writeClassAttribute(Classes.create(tree, AbstractUIData.SUFFIX_EXPANDED));
-    writer.writeAttribute(HtmlAttributes.VALUE, ",", false);
-    writer.endElement(HtmlElements.INPUT);
-
-    final int last = tree.isRowsUnlimited() ? Integer.MAX_VALUE : tree.getFirst() + tree.getRows();
-    for (int rowIndex = tree.getFirst(); rowIndex < last; rowIndex++) {
-      tree.setRowIndex(rowIndex);
-      if (!tree.isRowAvailable()) {
-        break;
-      }
-
-      for (UIComponent child : tree.getChildren()) {
-        RenderUtils.prepareRendererAll(facesContext, child);
-        RenderUtils.encode(facesContext, child);
-      }
+/*
+    if (tree.getSelectableAsEnum().isSupportedByTree()) {
+      writer.startElement(HtmlElements.INPUT, tree);
+      writer.writeAttribute(HtmlAttributes.TYPE, "hidden", false);
+      writer.writeNameAttribute(clientId + AbstractUITree.SELECT_STATE);
+      writer.writeIdAttribute(clientId + AbstractUITree.SELECT_STATE);
+      writer.writeAttribute(HtmlAttributes.VALUE, ";", false);
+      writer.endElement(HtmlElements.INPUT);
     }
-    tree.setRowIndex(-1);
+*/
+
+    RenderUtils.encode(facesContext, root, Arrays.asList(UITreeNode.class, UITreeData.class));
 
     writer.endElement(HtmlElements.DIV);
-  }
-
-  @Override
-  public boolean getPrepareRendersChildren() {
-    return true;
   }
 }

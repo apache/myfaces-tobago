@@ -131,8 +131,6 @@ public final class HtmlRendererUtils {
     }
   }
 
-  /** @deprecated since 1.5.7 and 1.6.0 */
-  @Deprecated
   public static void setDefaultTransition(FacesContext facesContext, boolean transition)
       throws IOException {
     writeScriptLoader(facesContext, null, new String[]{"Tobago.transition = " + transition + ";"});
@@ -233,51 +231,43 @@ public final class HtmlRendererUtils {
   public static void writeScriptLoader(FacesContext facesContext, String[] scripts, String[] afterLoadCmds)
       throws IOException {
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
-    if (scripts != null) {
-      LOG.error("Scripts argument for writeScriptLoader not supported anymore!");
-    }
-    /*String allScripts = "[]";
+
+    String allScripts = "[]";
     if (scripts != null) {
       allScripts = ResourceManagerUtils.getScriptsAsJSArray(facesContext, scripts);
     }
-    boolean ajax = FacesContextUtils.isAjax(facesContext);*/
+    boolean ajax = FacesContextUtils.isAjax(facesContext);
     writer.startJavascript();
-    /* XXX fix me if scripts != null
-    if (scripts != null) {
-      writer.write("new Tobago.ScriptLoader(");
-      if (!ajax) {
-        writer.write("\n    ");
-      }
-      writer.write(allScripts);
-
-      if (afterLoadCmds != null && afterLoadCmds.length > 0) {
-        writer.write(", ");
-        if (!ajax) {
-          writer.write("\n");
-        }
-        boolean first = true;
-        for (String afterLoadCmd : afterLoadCmds) {
-          String[] splittedStrings = StringUtils.split(afterLoadCmd, '\n'); // split on <CR> to have nicer JS
-          for (String splitted : splittedStrings) {
-            writer.write(first ? "          " : "        + ");
-            writer.write("\"");
-            String cmd = StringUtils.replace(splitted, "\\", "\\\\");
-            cmd = StringUtils.replace(cmd, "\"", "\\\"");
-            writer.write(cmd);
-            writer.write("\"");
-            if (!ajax) {
-              writer.write("\n");
-            }
-            first = false;
-          }
-        }
-      }
-      writer.write(");");
-    } else {*/
-    for (String afterLoadCmd : afterLoadCmds) {
-      writer.write(afterLoadCmd);
+    writer.write("new Tobago.ScriptLoader(");
+    if (!ajax) {
+      writer.write("\n    ");
     }
-    //}
+    writer.write(allScripts);
+
+    if (afterLoadCmds != null && afterLoadCmds.length > 0) {
+      writer.write(", ");
+      if (!ajax) {
+        writer.write("\n");
+      }
+      boolean first = true;
+      for (String afterLoadCmd : afterLoadCmds) {
+        String[] splittedStrings = StringUtils.split(afterLoadCmd, '\n'); // split on <CR> to have nicer JS
+        for (String splitted : splittedStrings) {
+          writer.write(first ? "          " : "        + ");
+          writer.write("\"");
+          String cmd = StringUtils.replace(splitted, "\\", "\\\\");
+          cmd = StringUtils.replace(cmd, "\"", "\\\"");
+          writer.write(cmd);
+          writer.write("\"");
+          if (!ajax) {
+            writer.write("\n");
+          }
+          first = false;
+        }
+      }
+    }
+    writer.write(");");
+
     writer.endJavascript();
   }
 
@@ -632,7 +622,7 @@ public final class HtmlRendererUtils {
       writer.write("','");
       writer.write(facetEntry.getValue().getClientId(facesContext)); 
       writer.write("', {})});\n");
-      writer.write("};");
+      writer.write("}");
       writer.endJavascript();
     } else {
       UIComponent facetComponent = facetEntry.getValue();
@@ -656,7 +646,7 @@ public final class HtmlRendererUtils {
             null,
             clientId));
       }
-      writer.write("});\n};");
+      writer.write("});\n}");
       writer.endJavascript();
     }
   }

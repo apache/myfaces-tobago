@@ -19,10 +19,10 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.myfaces.tobago.component.UITree;
 import org.apache.myfaces.tobago.component.UITreeIndent;
+import org.apache.myfaces.tobago.component.UITreeNode;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
-import org.apache.myfaces.tobago.internal.component.AbstractUIData;
-import org.apache.myfaces.tobago.internal.component.AbstractUITreeNode;
+import org.apache.myfaces.tobago.internal.component.AbstractUITree;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
@@ -43,54 +43,41 @@ public class TreeIndentRenderer extends LayoutComponentRendererBase {
   public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
 
     final UITreeIndent indent = (UITreeIndent) component;
-    final AbstractUITreeNode node = ComponentUtils.findAncestor(indent, AbstractUITreeNode.class);
-    final AbstractUIData data = ComponentUtils.findAncestor(indent, AbstractUIData.class);
+    final UITreeNode node = ComponentUtils.findAncestor(indent, UITreeNode.class);
+    final AbstractUITree tree = ComponentUtils.findAncestor(indent, AbstractUITree.class);
 
     final boolean folder = node.isFolder();
     final int level = node.getLevel();
+    final boolean hasNextSibling = node.isHasNextSibling();
     final List<Boolean> junctions = node.getJunctions();
 
-    final boolean showRoot = data.isShowRoot();
+    final boolean showRoot = ((UITree) tree).isShowRoot();
     final boolean showJunctions = indent.isShowJunctions();
-    final boolean showRootJunction = data.isShowRootJunction();
-    final boolean expanded = folder && data.getExpandedState().isExpanded(node.getPath());
-    final boolean showLines = showJunctions && data instanceof UITree; // sheet should not show lines
-    final boolean showIcons = showJunctions;
+    final boolean showRootJunction = ((UITree) tree).isShowRootJunction();
+    final boolean expanded = folder && node.isExpanded() || !showRoot && level == 0;
 
-    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
-    writer.startElement(HtmlElements.SPAN, indent);
-    writer.writeIdAttribute(indent.getClientId(facesContext));
-
-    encodeIndent(
-        facesContext, writer, node, showLines, showIcons, showRootJunction, showRoot, junctions);
+    encodeIndent(facesContext, writer, node, showJunctions, !showRoot || !showRootJunction && showJunctions, junctions);
 
     encodeTreeJunction(
-        facesContext, writer, node, showLines, showIcons, showRootJunction, junctions, expanded, folder, level == 0);
-  }
-
-  @Override
-  public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
-    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
-    writer.endElement(HtmlElements.SPAN);
+        facesContext, writer, node, !showJunctions, !showRootJunction, expanded, folder, level == 0, hasNextSibling);
   }
 
   private void encodeIndent(
-      final FacesContext facesContext, final TobagoResponseWriter writer, final AbstractUITreeNode node,
-      final boolean showLines, final boolean showIcons, final boolean showRootJunction, final boolean showRoot,
-      final List<Boolean> junctions)
+      final FacesContext facesContext, final TobagoResponseWriter writer, final UITreeNode node,
+      final boolean showJunctions, final boolean dropFirst, final List<Boolean> junctions)
       throws IOException {
 
-    final boolean dropFirst = !showRoot || !showRootJunction && (showLines || showIcons);
     final String blank = ResourceManagerUtils.getImageWithPath(facesContext, "image/blank.gif");
     final String perpendicular = ResourceManagerUtils.getImageWithPath(facesContext, "image/I.gif");
 
-    for (int i = dropFirst ? 1 : 0; i < junctions.size() - 1; i++) {
+    for (int i = dropFirst ? 1 : 0; i < junctions.size(); i++) {
       Boolean junction = junctions.get(i);
       writer.startElement(HtmlElements.IMG, null);
       writer.writeClassAttribute(Classes.create(node, "junction"));
       writer.writeAttribute(HtmlAttributes.ALT, "", false);
-      if (junction && showLines) {
+      if (junction && showJunctions) {
         writer.writeAttribute("src", perpendicular, true);
       } else {
         writer.writeAttribute("src", blank, true);
@@ -100,49 +87,38 @@ public class TreeIndentRenderer extends LayoutComponentRendererBase {
   }
 
   private void encodeTreeJunction(
-      final FacesContext facesContext, final TobagoResponseWriter writer, final AbstractUITreeNode node,
-      final boolean showLines, final boolean showIcons, final boolean showRootJunction, final List<Boolean> junctions,
-      final boolean expanded, final boolean folder, final boolean root)
+      FacesContext facesContext, TobagoResponseWriter writer, UITreeNode node,
+      boolean hideJunctions, boolean hideRootJunction, boolean expanded, boolean folder,
+      boolean root, boolean hasNextSibling)
       throws IOException {
-    if (!showIcons || !showRootJunction && root) {
+    if (hideJunctions || hideRootJunction && root) {
       return;
     }
-    final boolean hasNextSibling = junctions.get(junctions.size() - 1); // last element
     writer.startElement(HtmlElements.IMG, null);
     writer.writeClassAttribute(Classes.create(node, "toggle", Markup.NULL));
 
     final String open;
     final String close;
-    if (showLines) {
-      if (root) {
-        open = "Rminus.gif";
-        close = "Rplus.gif";
-      } else {
-        if (hasNextSibling) {
-          if (folder) {
-            open = "Tminus.gif";
-            close = "Tplus.gif";
-          } else {
-            open = "T.gif";
-            close = "T.gif";
-          }
-        } else {
-          if (folder) {
-            open = "Lminus.gif";
-            close = "Lplus.gif";
-          } else {
-            open = "L.gif";
-            close = "L.gif";
-          }
-        }
-      }
+    if (root) {
+      open = "Rminus.gif";
+      close = "Rplus.gif";
     } else {
-      if (folder) {
-        open = "minus.gif";
-        close = "plus.gif";
+      if (hasNextSibling) {
+        if (folder) {
+          open = "Tminus.gif";
+          close = "Tplus.gif";
+        } else {
+          open = "T.gif";
+          close = "T.gif";
+        }
       } else {
-        open = "blank.gif";
-        close = "blank.gif";
+        if (folder) {
+          open = "Lminus.gif";
+          close = "Lplus.gif";
+        } else {
+          open = "L.gif";
+          close = "L.gif";
+        }
       }
     }
 

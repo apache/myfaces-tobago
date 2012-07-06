@@ -60,7 +60,6 @@ public class TestPageFilter {
 
       "/partially/encoding.jspx", // not possible in JSP
       "/tc/attribute/mode-valueIfSet.jspx", // set id="${id}" not possible with JSP.
-      "/tc/tree/tree-simple-with-data.jspx", // not possible in JSP
       "/tc/button/plain.html", // intern
       "/tc/button/plain_de.html", // intern
 
@@ -76,7 +75,6 @@ public class TestPageFilter {
       "/tc/gridLayout/scrolling-tab.*", // todo: measurement problem with firefox?
       "/tc/gridLayout/transparent-for-layout.jspx", // uses facelets templating
       "/tc/mediator/tomahawk-inputHtml.*", // todo
-      "/tc/treeListbox/*", // todo
       "/tx/label/label.xhtml", // todo
       "/type/.*" // todo
   ));

@@ -18,13 +18,15 @@
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 
 <f:subview id="navigator">
-  <tc:treeMenu id="nav" value="#{navigationTree.tree}" var="node" state="#{navigationState.state}">
-    <tc:treeNode id="node">
-      <tc:treeCommand
-          id="cmd"
-          label="#{node.title}"
-          action="#{node.action}"
-          immediate="true"/>
-    </tc:treeNode>
+  <tc:treeMenu id="nav">
+    <tc:treeData value="#{navigationTree.tree}" var="node" id="data">
+      <tc:treeNode expanded="#{node.expanded}" id="node">
+        <tc:treeCommand
+            id="cmd"
+            label="#{node.title}"
+            action="#{node.action}"
+            immediate="true"/>
+      </tc:treeNode>
+    </tc:treeData>
   </tc:treeMenu>
 </f:subview>
