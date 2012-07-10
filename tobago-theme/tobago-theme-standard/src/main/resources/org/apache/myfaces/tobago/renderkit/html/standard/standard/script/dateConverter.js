@@ -20,7 +20,7 @@
 // XXX: reuse Tomahawk date.js
 
 DateFormatSymbols = function() {
-  this.eras = new Array('BC', 'AD');
+//  this.eras = new Array('BC', 'AD');
   this.months = new Array('January', 'February', 'March', 'April',
       'May', 'June', 'July', 'August', 'September', 'October',
       'November', 'December');
@@ -32,11 +32,11 @@ DateFormatSymbols = function() {
   this.shortWeekdays = new Array('Sun', 'Mon', 'Tue',
       'Wed', 'Thu', 'Fri', 'Sat');
   this.ampms = new Array('AM', 'PM');
-  this.zoneStrings = new Array(new Array(0, 'long-name', 'short-name'));
+//  this.zoneStrings = new Array(new Array(0, 'long-name', 'short-name'));
   var threshold = new Date();
   threshold.setYear(threshold.getYear() - 80);
   this.twoDigitYearStart = threshold;
-}
+};
 
 SimpleDateFormatParserContext = function() {
   this.newIndex = 0;
@@ -51,13 +51,13 @@ SimpleDateFormatParserContext = function() {
   this.sec = 0;
   this.ampm = 0;
   this.dateStr = "";
-}
+};
 
 SimpleDateFormat = function(pattern, dateFormatSymbols) {
   this.pattern = pattern;
   this.dateFormatSymbols
       = dateFormatSymbols ? dateFormatSymbols : new DateFormatSymbols();
-}
+};
 
 SimpleDateFormat.prototype._handle = function(dateStr, date, parse) {
   var patternIndex = 0;
@@ -204,6 +204,9 @@ SimpleDateFormat.prototype._handlePatternSub
   if (patternSub == null || patternSub.length == 0)
     return;
 
+  var fragment;
+  var index;
+
   if (patternSub.charAt(0) == 'y') {
     if (parse) {
       /* XXX @Arvid: whatever we do, we need to try to parse
@@ -240,15 +243,15 @@ SimpleDateFormat.prototype._handlePatternSub
   } else if (patternSub.charAt(0) == 'M') {
     if (parse) {
       if (patternSub.length == 3) {
-        var fragment = dateStr.substr(dateIndex, 3);
-        var index = this._indexOf(this.dateFormatSymbols.shortMonths, fragment);
+        fragment = dateStr.substr(dateIndex, 3);
+        index = this._indexOf(this.dateFormatSymbols.shortMonths, fragment);
         if (index != -1) {
           context.month = index;
           context.newIndex = dateIndex + 3;
         }
       } else if (patternSub.length >= 4) {
-        var fragment = dateStr.substr(dateIndex);
-        var index = this._prefixOf(this.dateFormatSymbols.months, fragment);
+        fragment = dateStr.substr(dateIndex);
+        index = this._prefixOf(this.dateFormatSymbols.months, fragment);
         if (index != -1) {
           context.month = index;
           context.newIndex = dateIndex
@@ -278,15 +281,15 @@ SimpleDateFormat.prototype._handlePatternSub
     if (parse) {
       // XXX dayOfWeek is not used to generate date at the moment
       if (patternSub.length <= 3) {
-        var fragment = dateStr.substr(dateIndex, 3);
-        var index = this._indexOf(this.dateFormatSymbols.shortWeekdays, fragment);
+        fragment = dateStr.substr(dateIndex, 3);
+        index = this._indexOf(this.dateFormatSymbols.shortWeekdays, fragment);
         if (index != -1) {
           context.dayOfWeek = index;
           context.newIndex = dateIndex + 3;
         }
       } else {
-        var fragment = dateStr.substr(dateIndex);
-        var index = this._prefixOf(this.dateFormatSymbols.weekdays, fragment);
+        fragment = dateStr.substr(dateIndex);
+        index = this._prefixOf(this.dateFormatSymbols.weekdays, fragment);
         if (index != -1) {
           context.dayOfWeek = index;
           context.newIndex = dateIndex
