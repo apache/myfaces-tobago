@@ -189,7 +189,7 @@ public class DatePickerRenderer extends LinkRenderer {
         + picker.getClientId(facesContext) + "')");
 
     Converter converter = getConverter(facesContext, dateInput);
-    String converterPattern = "yyyy-MM-dd"; // from calendar.js  initCalendarParse
+    String converterPattern = "yyyy-MM-dd"; // from tobago-calendar.js  initCalendarParse
     if (converter instanceof DateTimeConverter) {
       converterPattern = DateFormatUtils.findPattern((DateTimeConverter) converter);
     } else {

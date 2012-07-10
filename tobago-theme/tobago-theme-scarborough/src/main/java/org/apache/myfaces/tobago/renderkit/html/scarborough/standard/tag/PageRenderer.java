@@ -387,7 +387,7 @@ public class PageRenderer extends PageRendererBase {
 /*
     if (debugMode) {
       final String[] jsFiles = new String[]{
-          "script/logging.js"
+          "script/tobago-logging.js"
       };
       final String[] jsCommand = new String[]{"new LOG.LogArea({hide: " + hideClientLogging + "});"};
       HtmlRendererUtils.writeScriptLoader(facesContext, jsFiles, jsCommand);

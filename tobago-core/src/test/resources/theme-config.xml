@@ -28,7 +28,7 @@
   </resources>
   <resources production="false">
     <script name="script/tobago.js"/>
-    <script name="script/logging.js"/>
+    <script name="script/tobago-logging.js"/>
     <style name="style.css"/>
   </resources>
 </tobago-theme>

@@ -52,7 +52,7 @@ public class DateUnitTest extends AbstractJavaScriptTestBase {
 
   protected void setUp() throws Exception {
     super.setUp();
-    loadScriptFile("dateConverter.js");
+    loadScriptFile("tobago-converter.js");
   }
 
   @Test
