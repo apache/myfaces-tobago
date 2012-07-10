@@ -356,6 +356,8 @@
       <resources production="true">
         <script name="script/jquery-1.6.4.js"/>
         <script name="script/tobago.js"/>
+        <style name="style/tobago.css"/>
+        <!-- backward compatibility -->
         <style name="style/style.css"/>
       </resources>
       <resources production="false">
@@ -372,6 +374,8 @@
         <script name="script/jquery-ui/1_7_2/ui.core.min.js"/>
         <script name="script/jquery-ui/1_7_2/ui.draggable.min.js"/>
         <script name="script/tobago-logging.js"/>
+        <style name="style/tobago.css"/>
+        <!-- backward compatibility -->
         <style name="style/style.css"/>
       </resources>
     </theme-definition>

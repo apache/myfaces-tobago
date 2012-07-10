@@ -600,10 +600,13 @@ mvn install -Pall-modules
 +------------------------------------------+
 
   See the address book example 
-  {{{https://svn.apache.org/repos/asf/myfaces/tobago/trunk/tobago-example/tobago-example-addressbook-web/src/main/webapp/tobago-resource/html/speyside/standard/style/style.css}Speyside <<<style.css>>>}}.
+  {{{https://svn.apache.org/repos/asf/myfaces/tobago/trunk/tobago-example/tobago-example-addressbook-web/src/main/webapp/tobago-resource/html/speyside/standard/style/tobago.css}Speyside <<<tobago.css>>>}}.
 
-  The <<<style.css>>> file is collected by the Tobago resource manager and can be used to overwrite and extend the
-  default <<<style.css>>> file of the theme.
+  The <<<tobago.css>>> file is collected by the Tobago resource manager and can be used to overwrite and extend the
+  default <<<tobago.css>>> file of the theme.
+
+  Tobago 1.0.x and Tobago 1.5.x are using the old name <<<style.css>>>, since Tobago 1.6.0
+  <<<tobago.css>>> is used, <<<style.css>>> will also be included for compatibility.
 
   The {{{https://svn.apache.org/repos/asf/myfaces/tobago/trunk/tobago-example/tobago-theme-example/}example theme}} provides
   an example for styling sheet cells and contains more complex examples of markup, which need addtional JavaScript

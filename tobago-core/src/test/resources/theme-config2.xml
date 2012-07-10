@@ -25,6 +25,6 @@
   <fallback>test</fallback>
   <resources production="false">
     <script name="script/test.js"/>
-    <style name="style.css"/>
+    <style name="tobago.css"/>
   </resources>
 </tobago-theme>

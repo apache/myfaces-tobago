@@ -24,11 +24,11 @@
   <resource-path>Test</resource-path>
   <resources production="true">
     <script name="script/tobago.min.js"/>
-    <style name="style.css"/>
+    <style name="tobago.css"/>
   </resources>
   <resources production="false">
     <script name="script/tobago.js"/>
     <script name="script/tobago-logging.js"/>
-    <style name="style.css"/>
+    <style name="tobago.css"/>
   </resources>
 </tobago-theme>

@@ -148,7 +148,7 @@ public abstract class AbstractUISheetLayout extends AbstractUILayoutBase impleme
             final LayoutComponentRenderer renderer = sheet.getLayoutComponentRenderer(facesContext);
             width = width.subtractNotNegative(renderer.getCustomMeasure(facesContext, sheet, "columnSeparator"));
             LayoutUtils.setCurrentSize(orientation, component, width);
-            component.setDisplay(Display.BLOCK); // TODO: use CSS via classes and style.css
+            component.setDisplay(Display.BLOCK); // TODO: use CSS via classes and tobago.css
             // call sub layout manager
             if (component instanceof LayoutContainer) {
               ((LayoutContainer) component).getLayoutManager().mainProcessing(orientation);

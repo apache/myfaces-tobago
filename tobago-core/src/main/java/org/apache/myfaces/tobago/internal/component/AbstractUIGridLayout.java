@@ -290,7 +290,7 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase implemen
         if (cell instanceof OriginCell) {
           LayoutComponent component = cell.getComponent();
 
-          component.setDisplay(Display.BLOCK); // TODO: use CSS via classes and style.css
+          component.setDisplay(Display.BLOCK); // TODO: use CSS via classes and tobago.css
 
           Integer span = ((OriginCell) cell).getSpan(orientation);
 
