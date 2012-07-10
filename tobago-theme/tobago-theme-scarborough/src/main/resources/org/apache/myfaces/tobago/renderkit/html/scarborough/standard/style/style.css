@@ -1394,7 +1394,7 @@ div.tobago-richTextEditor-body {
   text-align: center;
 }
 
-.tobago-time-input-markup-selected {
+.tobago-time-input:focus {
   background-color: #fafad2;
 }
 

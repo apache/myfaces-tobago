@@ -25,6 +25,22 @@ package org.apache.myfaces.tobago.renderkit.html;
 public final class DataAttributes {
 
   /**
+   * Custom command attribute. Is used to mark different client side JavaScript buttons.
+   * Should only contain the command name as a keyword, for security reasons.
+   */
+  public static final String COMMAND = "data-tobago-command";
+
+  /**
+   * Reference to the corresponding date input field. Used for date picker popups.
+   */
+  public static final String DATEINPUTID = "data-tobago-dateinputid";
+
+  /**
+   * Holds the day of a calendar control.
+   */
+  public static final String DAY = "data-tobago-day";
+
+  /**
    * Custom disabled attribute. Use for element, that don't have the disabled attribute.
    */
   public static final String DISABLED = "data-tobago-disabled";
@@ -33,6 +49,31 @@ public final class DataAttributes {
    * Custom form attribute. Used to show the virtual form of the component.
    */
   public static final String DEFAULT = "data-tobago-default";
+
+  /**
+   * Holds the first day of a week of a calendar control.
+   */
+  public static final String FIRSTDAYOFWEEK = "data-tobago-firstdayofweek";
+
+  /**
+   * Defines a maximum value.
+   */
+  public static final String MAX = "data-tobago-max";
+
+  /**
+   * Holds the month of a calendar control.
+   */
+  public static final String MONTH = "data-tobago-month";
+
+  /**
+   * Holds the names of the months of a calendar control.
+   */
+  public static final String MONTHNAMES = "data-tobago-monthnames";
+
+  /**
+   * Custom attribute to describe a pattern, e. g. for an date input field.
+   */
+  public static final String PATTERN = "data-tobago-pattern";
 
   /**
    * Custom reload attribute. Used to reload a panel.
@@ -63,4 +104,15 @@ public final class DataAttributes {
    * Id of the parent node in a tree node.
    */
   public static final String TREEPARENT = "data-tobago-treeparent";
+
+  /**
+   * Defines the unit, e. g. to differ between hours, minutes and seconds in a time control.
+   */
+  public static final String UNIT = "data-tobago-unit";
+
+  /**
+   * Holds the year of a calendar control.
+   */
+  public static final String YEAR = "data-tobago-year";
+
 }

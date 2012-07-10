@@ -332,7 +332,7 @@ li.tobago-menu-markup-selected {
   color: #3366CC;
 }
 
-.tobago-time-input-markup-selected {
+.tobago-time-input:focus {
   background: #D6EBFF;
 }
 

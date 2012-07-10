@@ -17,16 +17,13 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.internal.component.AbstractUIInput;
 import org.apache.myfaces.tobago.internal.util.DateFormatUtils;
-import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
-import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
-import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
-import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
+import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.DateTimeConverter;
@@ -36,29 +33,23 @@ public class DateRenderer extends InRenderer {
 
   private static final Logger LOG = LoggerFactory.getLogger(DateRenderer.class);
 
-
   @Override
-  public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
+  protected void writeAdditionalAttributes(
+      FacesContext facesContext, TobagoResponseWriter writer, AbstractUIInput input) throws IOException {
+    super.writeAdditionalAttributes(facesContext, writer, input);
 
-    super.encodeEnd(facesContext, component);
-
-    Converter help = getConverter(facesContext, component);
-    // TODO is this really needed?
+    Converter help = getConverter(facesContext, input);
     if (help instanceof DateTimeConverter) {
       DateTimeConverter converter = (DateTimeConverter) help;
       String pattern = DateFormatUtils.findPattern(converter);
 
-      if (pattern != null) {
-        TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
-        String id = component.getClientId(facesContext);
-        writer.startElement(HtmlElements.INPUT, component);
-        writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN, false);
-        writer.writeIdAttribute(id + ":converterPattern");
-        writer.writeAttribute(HtmlAttributes.VALUE, pattern, false);
-        writer.endElement(HtmlElements.INPUT);
-      } else {
-        LOG.warn("Can't find the pattern for the converter! DatePicker may not work correctly.");
+      if (pattern == null) {
+        pattern = "yyyy-MM-dd";
+        LOG.warn("Can't find the pattern for the converter! DatePicker may not work correctly. "
+            + "Trying to use: '" + pattern + "'");
       }
+
+      writer.writeAttribute(DataAttributes.PATTERN, pattern, true);
     }
   }
 }

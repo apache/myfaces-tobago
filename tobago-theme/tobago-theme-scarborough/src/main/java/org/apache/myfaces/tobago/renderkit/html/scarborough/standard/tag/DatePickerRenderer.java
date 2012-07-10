@@ -134,7 +134,9 @@ public class DatePickerRenderer extends LinkRenderer {
         facesContext, UIButton.COMPONENT_TYPE, RendererTypes.BUTTON, "ok");
     buttonPanel.getChildren().add(okButton);
     FacesUtils.setBindingOrExpression(okButton, Attributes.LABEL, "#{tobagoContext.resourceBundle.datePickerOk}");
-    okButton.setOnclick("writeIntoField2(this);");
+    //    okButton.setOnclick("writeIntoField2(this);");
+    okButton.setOnclick("/* dummy to trick the CommandRendererHelper */");
+    // XXX find a way to mark this button as the "ok" button for the tobago-calendar.js! data-tobago-datepickerok
     okButton.getAttributes().put(Attributes.POPUP_CLOSE, "afterSubmit");
 
     final UIButton cancelButton = (UIButton) CreateComponentUtils.createComponent(

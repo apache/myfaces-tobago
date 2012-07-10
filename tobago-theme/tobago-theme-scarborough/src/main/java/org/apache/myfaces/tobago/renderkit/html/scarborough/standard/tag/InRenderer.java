@@ -133,6 +133,7 @@ public class InRenderer extends InputRendererBase {
      //      writer.writeAttribute(HtmlAttributes.ONCHANGE, onchange, null);
        }
      } */
+      writeAdditionalAttributes(facesContext, writer, input);
       writer.endElement(HtmlElements.INPUT);
 
       HtmlRendererUtils.checkForCommandFacet(input, facesContext, writer);
@@ -164,6 +165,10 @@ public class InRenderer extends InputRendererBase {
         HtmlRendererUtils.writeScriptLoader(facesContext, null, cmds);
       }
     }
+  }
+
+  protected void writeAdditionalAttributes(
+      FacesContext facesContext, TobagoResponseWriter writer, AbstractUIInput input) throws IOException {
   }
 
   private void encodeAjax(FacesContext facesContext, UIComponent component) throws IOException {

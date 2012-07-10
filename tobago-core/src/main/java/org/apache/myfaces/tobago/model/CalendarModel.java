@@ -17,12 +17,6 @@ package org.apache.myfaces.tobago.model;
  * limitations under the License.
  */
 
-/*
- * Created: Nov 20, 2002 10:05:10 PM
- * $Id$
- */
-
-
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -31,7 +25,6 @@ public class CalendarModel {
 
   private DateModel[][] calendarArray;
   private int firstDayOffset;
-  //private int firstDayOfWeek;
 
   public CalendarModel(Calendar calendar) {
 //    int weekCount = CalendarUtils.weekCount(calendar);
@@ -42,7 +35,6 @@ public class CalendarModel {
     c.set(Calendar.DAY_OF_MONTH, 1);
     // assert c.isLenient() : "'add -x days' may not work in a non-lenient calendar";
     firstDayOffset = firstDayOffset(c);
-    //firstDayOfWeek = c.getFirstDayOfWeek();
     c.add(Calendar.DAY_OF_WEEK, -firstDayOffset);
     for (int week = 0; week < weekCount; ++week) {
       for (int day = 0; day < 7; ++day) {

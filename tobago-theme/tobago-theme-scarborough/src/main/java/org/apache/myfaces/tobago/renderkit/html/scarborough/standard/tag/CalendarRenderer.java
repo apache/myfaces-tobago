@@ -27,13 +27,11 @@ import org.apache.myfaces.tobago.model.DateModel;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
+import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
-import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -46,22 +44,13 @@ import java.util.Locale;
 
 public class CalendarRenderer extends LayoutComponentRendererBase {
 
-  private static final Logger LOG = LoggerFactory.getLogger(CalendarRenderer.class);
-
-
   @Override
   public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
 
     UICalendar output = (UICalendar) component;
     String id = output.getClientId(facesContext);
-    String dateTextBoxId = (String) component.getAttributes().get(Attributes.DATE_INPUT_ID);
-
-    if (LOG.isDebugEnabled()) {
-      LOG.debug("dateTextBoxId = '" + dateTextBoxId + "'");
-    }
 
     Locale locale = facesContext.getViewRoot().getLocale();
-    SimpleDateFormat dateFormat = new SimpleDateFormat("MMMMM yyyy", locale);
 
     Object value = output.getValue();
     Calendar calendar;
@@ -83,6 +72,16 @@ public class CalendarRenderer extends LayoutComponentRendererBase {
     writer.writeClassAttribute(Classes.create(output));
     Style style = new Style(facesContext, output);
     writer.writeStyleAttribute(style);
+    String dateInputId = (String) output.getAttributes().get(Attributes.DATE_INPUT_ID);
+    if (dateInputId != null) {
+      writer.writeAttribute(DataAttributes.DATEINPUTID, dateInputId, false);
+    }
+    writer.writeAttribute(DataAttributes.DAY, Integer.toString(calendar.get(Calendar.YEAR)), false);
+    writer.writeAttribute(DataAttributes.MONTH, Integer.toString(1 + calendar.get(Calendar.MONTH)), false);
+    writer.writeAttribute(DataAttributes.YEAR, Integer.toString(calendar.get(Calendar.DAY_OF_MONTH)), false);
+
+    writer.writeAttribute(DataAttributes.FIRSTDAYOFWEEK, Integer.toString(calendar.getFirstDayOfWeek()), false);
+    writer.writeAttribute(DataAttributes.MONTHNAMES, getMonthNames(locale), false);
 
     // begin header
     writer.startElement(HtmlElements.DIV, null);
@@ -93,7 +92,7 @@ public class CalendarRenderer extends LayoutComponentRendererBase {
     writer.writeAttribute(HtmlAttributes.ALT, "", false);
     writer.writeAttribute(HtmlAttributes.SRC,
         ResourceManagerUtils.getImageWithPath(facesContext, "image/calendarFastPrev.gif"), false);
-    writer.writeAttribute(HtmlAttributes.ONCLICK, "addMonth('" + id + "', -12)", false);
+    writer.writeAttribute(DataAttributes.COMMAND, "fastPrev", false);
     writer.endElement(HtmlElements.IMG);
 
     writer.startElement(HtmlElements.IMG, null);
@@ -101,13 +100,24 @@ public class CalendarRenderer extends LayoutComponentRendererBase {
     writer.writeAttribute(HtmlAttributes.ALT, "", false);
     writer.writeAttribute(HtmlAttributes.SRC,
         ResourceManagerUtils.getImageWithPath(facesContext, "image/calendarPrev.gif"), false);
-    writer.writeAttribute(HtmlAttributes.ONCLICK, "addMonth('" + id + "', -1)", false);
+    writer.writeAttribute(DataAttributes.COMMAND, "prev", false);
     writer.endElement(HtmlElements.IMG);
 
     writer.startElement(HtmlElements.SPAN, null);
     writer.writeClassAttribute(Classes.create(output, "header"));
-    writer.writeIdAttribute(id + ":title"); // todo: ComponentUtils.SUB_SEPARATOR
-    writer.writeText(dateFormat.format(calendar.getTime()));
+
+    writer.startElement(HtmlElements.SPAN, null);
+    writer.writeAttribute(DataAttributes.COMMAND, "month", false);
+    writer.writeText(new SimpleDateFormat("MMMMM", locale).format(calendar.getTime()));
+    writer.endElement(HtmlElements.SPAN);
+
+    writer.writeText(" "); // non breaking space
+
+    writer.startElement(HtmlElements.SPAN, null);
+    writer.writeAttribute(DataAttributes.COMMAND, "year", false);
+    writer.writeText(new SimpleDateFormat("yyyy", locale).format(calendar.getTime()));
+    writer.endElement(HtmlElements.SPAN);
+
     writer.endElement(HtmlElements.SPAN);
 
     writer.startElement(HtmlElements.IMG, null);
@@ -115,7 +125,7 @@ public class CalendarRenderer extends LayoutComponentRendererBase {
     writer.writeAttribute(HtmlAttributes.ALT, "", false);
     writer.writeAttribute(HtmlAttributes.SRC,
         ResourceManagerUtils.getImageWithPath(facesContext, "image/calendarNext.gif"), false);
-    writer.writeAttribute(HtmlAttributes.ONCLICK, "addMonth('" + id + "', 1)", false);
+    writer.writeAttribute(DataAttributes.COMMAND, "next", false);
     writer.endElement(HtmlElements.IMG);
 
     writer.startElement(HtmlElements.IMG, null);
@@ -123,7 +133,7 @@ public class CalendarRenderer extends LayoutComponentRendererBase {
     writer.writeAttribute(HtmlAttributes.ALT, "", false);
     writer.writeAttribute(HtmlAttributes.SRC,
         ResourceManagerUtils.getImageWithPath(facesContext, "image/calendarFastNext.gif"), false);
-    writer.writeAttribute(HtmlAttributes.ONCLICK, "addMonth('" + id + "', 12)", false);
+    writer.writeAttribute(DataAttributes.COMMAND, "fastNext", false);
     writer.endElement(HtmlElements.IMG);
 
     writer.endElement(HtmlElements.DIV);
@@ -133,10 +143,10 @@ public class CalendarRenderer extends LayoutComponentRendererBase {
     writer.startElement(HtmlElements.DIV, null);
     writer.writeClassAttribute(Classes.create(output, "row"));
 
-    dateFormat = new SimpleDateFormat("E", locale);
+    SimpleDateFormat dayInWeekFormat = new SimpleDateFormat("E", locale);
     for (int dayIt = 0; dayIt < 7; ++dayIt) {
       DateModel date = model.getDate(0, dayIt);
-      String dayName = dateFormat.format(date.getCalendar().getTime());
+      String dayName = dayInWeekFormat.format(date.getCalendar().getTime());
       dayName = StringUtils.substring(dayName, 0, 2);
 
       writer.startElement(HtmlElements.SPAN, null);
@@ -148,81 +158,38 @@ public class CalendarRenderer extends LayoutComponentRendererBase {
     writer.endElement(HtmlElements.DIV);
     // end weeks
 
-//    int weekCount = model.getWeekCount();
+    // begin grid
+    writer.startElement(HtmlElements.DIV, null);
+    writer.writeClassAttribute(Classes.create(output, "grid"));
     for (int week = 0; week < 6; ++week) {
-//    String style = (week < weekCount) ? "" : "style=\"display: none\"";
       writer.startElement(HtmlElements.DIV, null);
-      writer.writeIdAttribute(id + ":" + week);
       writer.writeClassAttribute(Classes.create(output, "row"));
-//      writer.writeAttribute(HtmlAttributes.STYLE, style, null);
 
       for (int dayIt = 0; dayIt < 7; ++dayIt) {
-//      if (week < weekCount) {
         DateModel date = model.getDate(week, dayIt);
         String dayDescription = String.valueOf(date.getDay());
-        String onclick = "selectDay('" + id + "', " + week + " , " + dayIt + ");";
 
         writer.startElement(HtmlElements.SPAN, null);
-        writer.writeAttribute(HtmlAttributes.ONCLICK, onclick, true);
-        writer.writeIdAttribute(id + ":" + week + ":" + dayIt);
         writer.writeClassAttribute(
             Classes.create(output, "day", date.getMonth() == model.getMonth() ? null : Markup.DISABLED));
 
         writer.writeText(dayDescription);
 
         writer.endElement(HtmlElements.SPAN);
-
-//      } else {
-//        % ><td id="< %= id + ":" + week + ":" + day % >">x</td>< %
-//      }
       }
       writer.endElement(HtmlElements.DIV);
     }
     writer.endElement(HtmlElements.DIV);
+    // end grid
 
-    writeInputHidden(writer, "/" + id + "/year", id + ":year", Integer.toString(calendar.get(Calendar.YEAR)));
-
-    writeInputHidden(writer, "/" + id + "/month", id + ":month", Integer.toString(1 + calendar.get(Calendar.MONTH)));
-
-    writeInputHidden(writer, "/" + id + "/day", id + ":day", Integer.toString(calendar.get(Calendar.DAY_OF_MONTH)));
-
-    writeInputHidden(writer, id + ":firstDayOfWeek", Integer.toString(calendar.getFirstDayOfWeek()));
-
-    writeInputHidden(writer, id + ":monthNames", getMonthNames(locale));
-
-    writeInputHidden(writer, id + ":fieldId", "");
-
-    String[] cmd = {
-        "document.calendar = new Object();",
-        dateTextBoxId != null
-            ? "initCalendarParse('" + id + "', '" + dateTextBoxId + "');"
-            : ""
-    };
-    HtmlRendererUtils.writeScriptLoader(facesContext, null, cmd);
+    writer.endElement(HtmlElements.DIV);
   }
   
-  private void writeInputHidden(TobagoResponseWriter writer,
-       String id, String value) throws IOException {
-    writeInputHidden(writer, null, id, value);
-   }
-
-  private void writeInputHidden(TobagoResponseWriter writer, String name,
-      String id, String value) throws IOException {
-    writer.startElement(HtmlElements.INPUT, null);
-    writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN, false);
-    if (name != null) {
-      writer.writeNameAttribute(name);
-    }
-    writer.writeIdAttribute(id);
-    writer.writeAttribute(HtmlAttributes.VALUE, value, true);
-    writer.endElement(HtmlElements.INPUT);
-  }
-
   private String getMonthNames(Locale locale) {
     SimpleDateFormat dateFormat = new SimpleDateFormat("MMMMM", locale);
     StringBuilder buffer = new StringBuilder(64);
     Calendar calendar = Calendar.getInstance();
-    calendar.set(2000, 0, 1);
+    calendar.set(2000, Calendar.JANUARY, 1);
     for (int month = 0; month < 12; ++month) {
       if (month > 0) {
         buffer.append(',');
@@ -234,4 +201,3 @@ public class CalendarRenderer extends LayoutComponentRendererBase {
   }
 
 }
-

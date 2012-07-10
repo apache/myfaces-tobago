@@ -15,72 +15,121 @@
  * limitations under the License.
  */
 
-if (!Calendar) {
-  var Calendar = new Object;
-}
+Tobago.Calendar = {};
 
-Calendar.MONTH_LENGTH = [31,28,31,30,31,30,31,31,30,31,30,31];
+Tobago.Calendar.init = function (elements) {
+  // init next/prev buttons
+  var buttons = Tobago.Utils.selectWidthJQuery(elements, ".tobago-calendar-header[data-tobago-command]");
+  buttons.each(function () {
+    var button = jQuery(this);
+    var step;
+    switch (button.data("tobago-command")) {
+      case "fastPrev":
+        step = -12;
+        break;
+      case "prev":
+        step = -1;
+        break;
+      case "next":
+        step = 1;
+        break;
+      case "fastNext":
+        step = 12;
+        break;
+      default:
+        // ignore
+        return;
+    }
+    button.click(function () {
+      Tobago.Calendar.addMonth(jQuery(this).parents(".tobago-calendar"), step);
+    });
+  });
 
-Calendar.isLeapYear = function (year) {
-  return (year%4 == 0) 
-      && (year%100 != 0 || year%400 == 0);
-}
+  // click directly on a day
+  var days = Tobago.Utils.selectWidthJQuery(elements, ".tobago-calendar-day");
+  days.each(function () {
+    var day = jQuery(this);
+    day.click(function () {
+      var day = jQuery(this);
+      var column = day.index();
+      var row = day.parent().index();
+      Tobago.Calendar.selectDay(jQuery(this).parents(".tobago-calendar"), row, column);
+    });
+  });
 
-Calendar.getMonthLength = function (month, year) {
-  if (month == 2 && Calendar.isLeapYear(year)) {
+  // init from data field, if there is any (e. g. we are in date picker popup)
+  var calendarWithDateField = Tobago.Utils.selectWidthJQuery(elements, ".tobago-calendar[data-tobago-dateinputid]");
+  calendarWithDateField.each(function () {
+    var calendar = jQuery(this);
+    Tobago.Calendar.initFromDateField(calendar);
+  });
+
+  // XXX find a way to mark this button as the "ok" button in the DatePickerRenderer.java! data-tobago-datepickerok
+  var okButton = Tobago.Utils.selectWidthJQuery(elements, ".tobago-calendar").parent().find("button").eq(0);
+  okButton.click(function () {
+    var button = jQuery(this);
+    var calendar = button.parent().parent().find(".tobago-calendar");
+    var time = button.parent().parent().find(".tobago-time");
+    Tobago.Calendar.writeIntoField(calendar, time);
+    Tobago.Popup.close(button);
+  });
+
+};
+
+Tobago.Calendar.MONTH_LENGTH = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+
+Tobago.Calendar.isLeapYear = function (year) {
+  return (year % 4 == 0)
+      && (year % 100 != 0 || year % 400 == 0);
+};
+
+Tobago.Calendar.getMonthLength = function (month, year) {
+  if (month == 2 && Tobago.Calendar.isLeapYear(year)) {
     return 29;
   }
-  return Calendar.MONTH_LENGTH[month - 1];
-}  
+  return Tobago.Calendar.MONTH_LENGTH[month - 1];
+};
 
-Calendar.getPreviousMonth = function (month, year) {
-  return (month == 1) ? 12 : month - 1;
-}  
+Tobago.Calendar.getPreviousMonthLength = function (month, year) {
+  if (month == 1) {
+    return Tobago.Calendar.getMonthLength(12, year - 1);
+  } else {
+    return Tobago.Calendar.getMonthLength(month - 1, year);
+  }
+};
 
-Calendar.getDayOfWeek = function(day, month, year) {
+Tobago.Calendar.getDayOfWeek = function (day, month, year) {
   var date = new Date();
   date.setDate(day);
   date.setMonth(month - 1);
   date.setFullYear(year);
   // getDay() -> 0 (Su) to 6 (Sa)
   return date.getDay() + 1; // +1 -> Java compatibility
-}
+};
 
-Calendar.firstDayOffset = function (month, year, firstDayOfWeek) {
-  var day = Calendar.getDayOfWeek(1, month, year);
+Tobago.Calendar.firstDayOffset = function (month, year, firstDayOfWeek) {
+  var day = Tobago.Calendar.getDayOfWeek(1, month, year);
   return (day + 7 - firstDayOfWeek) % 7;
-}
+};
 
-Calendar._weekCount = function (days) {
-  return Math.floor(((days + (7 - 1)) / 7));
-}
+Tobago.Calendar.getMonthName = function (calendar, month) {
+  return calendar.data("tobago-monthnames").split(',')[month - 1];
+};
 
-Calendar.weekCount = function (month, year, firstDayOfWeek) {
-  var firstDayOffset = Calendar.firstDayOffset(month, year, firstDayOfWeek);
-  var daysInMonth = Calendar.getMonthLength(month, year);
-  return Calendar._weekCount(firstDayOffset + daysInMonth);
-}
+/**
+ * @param calendar The base element as jQuery object (root of the component).
+ */
+Tobago.Calendar.initCalendarData = function (calendar, year, month, day) {
+  calendar.data("tobago-day", day);
+  calendar.data("tobago-month", month);
+  calendar.data("tobago-year", year);
+  Tobago.Calendar.recalculateValues(calendar);
+};
 
-// -- calendar control -----------------------------------------------
-
-// XXX make page global
-function getFirstDayOfWeek(id) {
-  return parseInt(document.getElementById(id + ":firstDayOfWeek").value, 10);
-}
-
-// XXX make page global
-function getMonthName(id, month) {
-  return document.getElementById(id + ":monthNames").value.split(',')[month-1];
-}
-
-function initCalendarData(id, year, month, day) {
-  document.getElementById(id + ":day").value = day;
-  document.getElementById(id + ":month").value = month;
-  document.getElementById(id + ":year").value = year;
-  recalculateValues(id);
-}
-
-function addMonth(id, monthDelta) {
+/**
+ * @param calendar The base element as jQuery object (root of the component).
+ */
+Tobago.Calendar.addMonth = function (calendar, monthDelta) {
   var yearDelta = 0;
   if (monthDelta > 0) {
     yearDelta = Math.floor(monthDelta / 12);
@@ -89,9 +138,9 @@ function addMonth(id, monthDelta) {
     yearDelta = -Math.floor(-monthDelta / 12);
     monthDelta = -((-monthDelta) % 12);
   }
-  var year = parseInt(document.getElementById(id + ":year").value, 10) + yearDelta;
-  var month = parseInt(document.getElementById(id + ":month").value, 10) + monthDelta;
-  var day = parseInt(document.getElementById(id + ":day").value, 10);
+  var day = calendar.data("tobago-day");
+  var month = calendar.data("tobago-month") + monthDelta;
+  var year = calendar.data("tobago-year") + yearDelta;
   if (month < 1) {
     month = 12;
     --year;
@@ -99,18 +148,17 @@ function addMonth(id, monthDelta) {
     month = 1;
     ++year;
   }
-  if (day > Calendar.getMonthLength(month, year)) {
-    day = Calendar.getMonthLength(month, year);
+  if (day > Tobago.Calendar.getMonthLength(month, year)) {
+    day = Tobago.Calendar.getMonthLength(month, year);
   }
-  initCalendarData(id, year, month, day);
-  initCalendar(id);
-}
+  Tobago.Calendar.initCalendarData(calendar, year, month, day);
+  Tobago.Calendar.initCalendar(calendar);
+};
 
-function recalculateValues(id) {
-  var day = parseInt(document.getElementById(id + ":day").value, 10);
-  var month = parseInt(document.getElementById(id + ":month").value, 10);
-  var year = parseInt(document.getElementById(id + ":year").value, 10);
-//  alert("before " + day + "." + month + "." + year);
+Tobago.Calendar.recalculateValues = function (calendar) {
+  var day = calendar.data("tobago-day");
+  var month = calendar.data("tobago-month");
+  var year = calendar.data("tobago-year");
 
   if (month < 1) {
     month += 12;
@@ -126,9 +174,9 @@ function recalculateValues(id) {
       month += 12;
       --year;
     }
-    day += Calendar.getMonthLength(month, year);
-  } else if (day > Calendar.getMonthLength(month, year)) {
-    day -= Calendar.getMonthLength(month, year);
+    day += Tobago.Calendar.getMonthLength(month, year);
+  } else if (day > Tobago.Calendar.getMonthLength(month, year)) {
+    day -= Tobago.Calendar.getMonthLength(month, year);
     ++month;
     if (month > 12) {
       month -= 12;
@@ -136,303 +184,291 @@ function recalculateValues(id) {
     }
   }
 
-//  alert("after " + day + "." + month + "." + year);
+  calendar.data("tobago-day", day);
+  calendar.data("tobago-month", month);
+  calendar.data("tobago-year", year);
+};
 
-  document.getElementById(id + ":day").value = day;
-  document.getElementById(id + ":month").value = month;
-  document.getElementById(id + ":year").value = year;
-}
-
-function selectDay(id, row, column) {
+Tobago.Calendar.selectDay = function (calendar, row, column) {
 //  alert(id + " "  + row + " " + column);
-  var month = document.getElementById(id + ":month").value;
-  var year = document.getElementById(id + ":year").value;
-  var firstDayOfWeek = getFirstDayOfWeek(id);
-  var firstDayOffset = Calendar.firstDayOffset(month, year, firstDayOfWeek);
-  initCalendarData(id, year, month, row * 7 + column - firstDayOffset + 1);
-  initCalendar(id);
-}
+  var month = calendar.data("tobago-month");
+  var year = calendar.data("tobago-year");
+  var firstDayOfWeek = calendar.data("tobago-firstdayofweek");
+  var firstDayOffset = Tobago.Calendar.firstDayOffset(month, year, firstDayOfWeek);
+  Tobago.Calendar.initCalendarData(calendar, year, month, row * 7 + column - firstDayOffset + 1);
+  Tobago.Calendar.initCalendar(calendar);
+};
 
-function initCalendar(id) {
-  var day = parseInt(document.getElementById(id + ":day").value, 10);
-  var month = parseInt(document.getElementById(id + ":month").value, 10);
-  var year = parseInt(document.getElementById(id + ":year").value, 10);
-  var firstDayOfWeek = getFirstDayOfWeek(id);
-  var firstDayOffset = Calendar.firstDayOffset(month, year, firstDayOfWeek);
-//  var weekCount = Calendar.weekCount(month, year, firstDayOfWeek);
-  var prevMonthLength = Calendar.getMonthLength(
-      Calendar.getPreviousMonth(month, year), year);
-  var monthLength = Calendar.getMonthLength(month, year);
-  // alert(month + "/" + year + " weekCount: " + weekCount + "; firstDayOffset: " + firstDayOffset);
-  var title = document.getElementById(id + ":title");
-  title.innerHTML = getMonthName(id, month) + " " + year;
-  for (var week = 0; week < 6; ++week) {
-    var row = document.getElementById(id + ":" + week);
-//    if (week < weekCount) {
-      row.style.display = "";
-      for (var column = 0; column < 7; ++column) {
-        var el = document.getElementById(id + ":" + week + ":" + column);
-        var d = (week * 7) + column - firstDayOffset + 1;
-        var styleClass = "tobago-calendar-day";
-        var monthAfterClick = month;
-        if (d <= 0) {
-          d = prevMonthLength + d;
-          styleClass = "tobago-calendar-day tobago-calendar-day-markup-disabled";
-          monthAfterClick = month - 1;
-        } else if (d > monthLength) {
-          styleClass = "tobago-calendar-day tobago-calendar-day-markup-disabled";
-          d -= monthLength;
-          monthAfterClick = month + 1;
-        } else if (d == day) {
-          styleClass = "tobago-calendar-day tobago-calendar-day-markup-selected";
+Tobago.Calendar.initCalendar = function (calendar) {
+  var day = calendar.data("tobago-day");
+  var month = calendar.data("tobago-month");
+  var year = calendar.data("tobago-year");
+  var firstDayOfWeek = calendar.data("tobago-firstdayofweek");
+  var firstDayOffset = Tobago.Calendar.firstDayOffset(month, year, firstDayOfWeek);
+  var prevMonthLength = Tobago.Calendar.getPreviousMonthLength(month, year);
+  var monthLength = Tobago.Calendar.getMonthLength(month, year);
+
+  var monthTitle = calendar.find(".tobago-calendar-header > [data-tobago-command=month]");
+  monthTitle.html(Tobago.Calendar.getMonthName(calendar, month));
+  var yearTitle = calendar.find(".tobago-calendar-header > [data-tobago-command=year]");
+  yearTitle.html(year);
+
+  calendar.find(".tobago-calendar-grid").children(".tobago-calendar-row").each(function (i) {
+    var row = jQuery(this);
+    row.children(".tobago-calendar-day").each(function (j) {
+      var span = jQuery(this);
+      var display = (i * 7) + j - firstDayOffset + 1;
+      if (display <= 0) {
+        span.addClass("tobago-calendar-day-markup-disabled");
+        span.removeClass("tobago-calendar-day-markup-selected");
+        display += prevMonthLength;
+      } else if (display > monthLength) {
+        span.addClass("tobago-calendar-day-markup-disabled");
+        span.removeClass("tobago-calendar-day-markup-selected");
+        display -= monthLength;
+      } else {
+        span.removeClass("tobago-calendar-day-markup-disabled");
+        if (display == day) {
+          span.addClass("tobago-calendar-day-markup-selected");
+        } else {
+          span.removeClass("tobago-calendar-day-markup-selected");
         }
-        el.className = styleClass;
-        el.innerHTML = d;
       }
-//    } else {
-//      row.style.display = "none";
-//    }
-  }
-}
+      span.html(display);
+    });
+  });
+};
 
-function initCalendarParse(id, textBoxId) {
-  var textBox = document.getElementById(textBoxId);
-  document.getElementById(id + ":fieldId").value = textBoxId;
-  var patternField = document.getElementById(textBoxId + ":converterPattern");
-  if (patternField) {
-    document.calendar.formatPattern = patternField.value;
-  } else {
-    document.calendar.formatPattern = "yyyy-MM-dd";
-  }
+/**
+ * @param element jQuery element with a reference to the date field (with data attribute tobago-dateinputid)
+ * @return the date field as jQuery object
+ */
+Tobago.Calendar.getDateField = function (element) {
+  return jQuery(Tobago.Utils.escapeClientId(element.data("tobago-dateinputid")));
+};
 
-  var string = textBox.value;
-  var date = new Date(getDateFromFormat(string, document.calendar.formatPattern));
+Tobago.Calendar.initFromDateField = function (calendar) {
+  var dateField = Tobago.Calendar.getDateField(calendar);
+  var pattern = dateField.data("tobago-pattern");
+  var value = dateField.attr("value");
+  var date = new Date(getDateFromFormat(value, pattern));
   if (date.getTime() == 0) {
     date = new Date();
-  } else if (! document.calendar.formatPattern.match(/d/)) {
-    // XXX Workaround for patterns without day (d) like mm/yyyy (repair the result from parsing)
+  } else if (!pattern.match(/d/)) {
+    // Workaround for patterns without day (d) like mm/yyyy (repair the result from parsing)
     date.setDate(date.getDate() + 1);
   }
   var day = date.getDate();
   var month = date.getMonth() + 1;
   var year = date.getFullYear();
 
-  initCalendarData(id, year, month, day);
-  initCalendar(id);
-}
+  Tobago.Calendar.initCalendarData(calendar, year, month, day);
+  Tobago.Calendar.initCalendar(calendar);
+};
 
-function writeIntoField2(obj) {
-  var id = obj.id;
-  var index = id.lastIndexOf(':');
-  return writeIntoField(obj, id.substring(0, index));
-}
+Tobago.Calendar.writeIntoField = function (calendar, time) {
 
+  var day = calendar.data("tobago-day");
+  var month = calendar.data("tobago-month");
+  var year = calendar.data("tobago-year");
 
-function writeIntoField(obj, id) {
-  var textBoxId = document.getElementById(id + ":calendar:fieldId");
-  var textBox = document.getElementById(textBoxId.value);
+  var hour = Tobago.Time.getValueField(time, "hour");
+  var minute = Tobago.Time.getValueField(time, "minute");
+  var second = Tobago.Time.getValueField(time, "second");
 
-  var day = parseInt(document.getElementById(id + ":calendar:day").value, 10);
-  var month = parseInt(document.getElementById(id + ":calendar:month").value, 10);
-  var year = parseInt(document.getElementById(id + ":calendar:year").value, 10);
-
-  var idPrefix = id + ":time" + Tobago.SUB_COMPONENT_SEP;
-  var hour = document.getElementById(idPrefix + "hour");
-  if (hour) {
-    hour = parseInt(hour.value, 10);
-  } else {
-    hour = 0;
-  }
-  var minute = document.getElementById(idPrefix + "minute");
-  if (minute) {
-    minute = parseInt(minute.value, 10);
-  } else {
-    minute = 0;
-  }
-  var second = document.getElementById(idPrefix + "second");
-  if (second) {
-    second = parseInt(second.value, 10);
-  } else {
-    second = 0;
-  }
   var date = new Date(year, month - 1, day, hour, minute, second);
-
-  Tobago.Popup.close(obj);
-
-  textBox.focus();
-
-  var newValue =  formatDate(date, document.calendar.formatPattern);
-  if (textBox.value != newValue) {
-    textBox.value = newValue;
-    Tobago.raiseEvent("change", textBox);
+  var dateField = Tobago.Calendar.getDateField(calendar);
+  var newValue = formatDate(date, dateField.data("tobago-pattern"));
+  if (dateField.val() != newValue) {
+    dateField.val(newValue);
+    dateField.change();
   }
-}
-// ------------------------------------------------------------------
 
-function tbgGetTimeInput(imageButton) {
-  if (imageButton.parentNode.selectedId) {
-    input = document.getElementById(imageButton.parentNode.selectedId);
-  } else {
-    var id = imageButton.id.substring(0, imageButton.id.lastIndexOf(":"));
-    input = document.getElementById(id + ":hour");
+  dateField.focus();
+};
+
+Tobago.registerListener(Tobago.Calendar.init, Tobago.Phase.DOCUMENT_READY);
+Tobago.registerListener(Tobago.Calendar.init, Tobago.Phase.AFTER_UPDATE);
+
+// --------------------------------------------------------------------------------------------------------------------
+
+Tobago.Time = {};
+
+Tobago.Time.init = function (elements) {
+
+  // time input fields
+  Tobago.Utils.selectWidthJQuery(elements, ".tobago-time-input")
+      .not("[disabled]").not("[readonly]")
+      .focus(function () {
+        Tobago.Time.focus(jQuery(this));
+      })
+      .blur(function () {
+        Tobago.Time.blur(jQuery(this));
+      })
+      .bind("keyup", function (event) {
+        Tobago.Time.keyUp(jQuery(this), event);
+      });
+
+  // increment button
+  Tobago.Utils.selectWidthJQuery(elements, ".tobago-time-incImage")
+      .not("[disabled]").not("[readonly]")
+      .click(function () {
+        Tobago.Time.increment(jQuery(this));
+      });
+
+  // decrement button
+  Tobago.Utils.selectWidthJQuery(elements, ".tobago-time-decImage")
+      .not("[disabled]").not("[readonly]")
+      .click(function () {
+        Tobago.Time.decrement(jQuery(this));
+      });
+
+  // init from data field, if there is any (e. g. we are in date picker popup)
+  Tobago.Utils.selectWidthJQuery(elements, ".tobago-time[data-tobago-dateinputid]")
+      .each(function () {
+        Tobago.Time.initFromDateField(jQuery(this));
+      });
+};
+
+Tobago.Time.getValueField = function (time, name) {
+  var input = Tobago.Time.findElement(time, name);
+  return Tobago.Time.getValue(input);
+};
+
+Tobago.Time.getValue = function (input) {
+  var number = parseInt(input.val(), 10); // use 10 to avoid parsing octal numbers, if the string begins with 0
+  return isNaN(number) ? 0 : number;
+};
+
+Tobago.Time.setValueField = function (time, name, value) {
+  var input = Tobago.Time.findElement(time, name);
+  Tobago.Time.setValue(input, value);
+};
+
+Tobago.Time.setValue = function (input, value) {
+  var max = input.data("tobago-max");
+  while (value >= max) {
+    value -= max;
   }
-  return input;
-}
-
-function tbgSetTimeInputValue(input, value) {
-
-//  LOG.debug("value = " + value);
-  if (input.parentNode.parentNode.hourMode) {
-    if (value < 0) {
-      value = 23;
-    } else if (value > 23) { // TODO: 12/24 hour mode ?
-      value = 0;
-    }
-  } else {
-    if (value < 0) {
-      value = 59;
-    } else if (value > 59) {
-      value = 0;
-    }
+  while (value < 0) {
+    value += max;
   }
-  if (value < 10) {
+  if (value < 10) { // formatting 0#
     value = "0" + value;
   }
-  input.value = value;
-  var id = input.id.substring(0,input.id.lastIndexOf(Tobago.SUB_COMPONENT_SEP));
-  var hidden = document.getElementById(id);
-  if (hidden) {
-     var idPrefix = id + Tobago.SUB_COMPONENT_SEP;
-     var hour = document.getElementById(idPrefix + "hour");
-    if (hour) {
-      hour = parseInt(hour.value, 10);
-      if (hour < 10) {
-        hour = "0" + hour;
-      }
-    } else {
-      hour = "00";
-    }
-    var minute = document.getElementById(idPrefix + "minute");
-    if (minute) {
-      minute = parseInt(minute.value, 10);
-      if (minute < 10) {
-        minute = "0" + minute;
-      }
-    } else {
-      minute = "00";
-    }
-    hidden.value = hour + ":" + minute;
+  input.val(value);
 
-    var second = document.getElementById(idPrefix + "second");
-    if (second) {
-      second = parseInt(second.value, 10);
-      if (second < 10) {
-        second = "0" + second;
-      }
-      hidden.value = hidden.value + ":" + second;
-    }
+  Tobago.Time.updateHidden(input);
+};
+/**
+ * Looks for a specific element inside of the time component.
+ *
+ * @param any jQuery element inside the "time" component.
+ * @param suffix id suffix or null for search for the base time element
+ */
+Tobago.Time.findElement = function (any, suffix) {
+  var id = any.attr("id");
+  var pos = id.lastIndexOf(Tobago.SUB_COMPONENT_SEP);
+  if (pos > -1) {
+    id = id.substring(0, pos);
   }
-//  LOG.debug("value 2 = " + input.value);
-}
-
-function tbgDecTime(imageButton, hour) {
-  var input = tbgGetTimeInput(imageButton);
-  tbgSetTimeInputValue(input, input.value - 1);
-  input.focus();
-}
-function tbgIncTime(imageButton, hour) {
-  var input = tbgGetTimeInput(imageButton);
-  tbgSetTimeInputValue(input, input.value - 0 + 1)
-  input.focus();
-}
-
-function tbgTimerInputFocus(input, hour) {
-//  LOG.debug("focus " + input.id + " hourMode=" + hour);
-  input.parentNode.parentNode.selectedId = input.id;
-  input.parentNode.parentNode.hourMode = hour;
-  Tobago.addCssClass(input, "tobago-time-input-markup-selected");
-  input.oldValue = input.value;
-}
-
-function tbgTimerInputBlur(input) {
-//  LOG.debug("value XX = " + input.value);
-  var value = parseInt(input.value, 10);
-//  LOG.debug("value 3  = " + value);
-  if (value == NaN) {
-    input.value = input.oldValue;
-    return;
+  if (suffix != null) {
+    id += Tobago.SUB_COMPONENT_SEP + suffix;
   }
-  if (input.parentNode.parentNode.hourMode) {
-    if (value > 23 || value < 0) {
-      value = input.oldValue;
-    }
+  return jQuery(Tobago.Utils.escapeClientId(id));
+};
+
+Tobago.Time.updateHidden = function (anyInput) {
+  var time = Tobago.Time.findElement(anyInput, null);
+
+  var hour = Tobago.Time.getValueField(time, "hour");
+  var minute = Tobago.Time.getValueField(time, "minute");
+
+  var second = 0;
+  if (Tobago.Time.findElement(time, "second").length > 0) {
+    second = Tobago.Time.getValueField(time, "second");
+  }
+
+  var pattern = time.data("tobago-pattern");
+  var value = formatDate(new Date(1970, 1, 1, hour, minute, second), pattern);
+  var hidden = Tobago.Time.findElement(time, "field");
+  hidden.val(value);
+};
+
+Tobago.Time.increment = function (imageButton) {
+  var input = Tobago.Time.findCurrent(imageButton);
+  Tobago.Time.setValue(input, Tobago.Time.getValue(input) + 1);
+  input.focus();
+};
+
+Tobago.Time.decrement = function (imageButton) {
+  var input = Tobago.Time.findCurrent(imageButton);
+  Tobago.Time.setValue(input, Tobago.Time.getValue(input) - 1);
+  input.focus();
+};
+
+Tobago.Time.findCurrent = function (imageButton) {
+  var time = Tobago.Time.findElement(imageButton, null);
+  var unit = time.data("tobago-lastactive");
+  var input;
+  if (unit != null) {
+    input = Tobago.Time.findElement(imageButton, unit);
+  }
+  if (input == null) { // if there is no "last active" then use "hour"
+    input = Tobago.Time.findElement(imageButton, "hour");
+  }
+  return input;
+};
+
+Tobago.Time.focus = function (input) {
+  // save the last active
+  var time = Tobago.Time.findElement(input, null);
+  time.data("tobago-lastactive", input.data("tobago-unit"));
+
+  // save the old value
+  input.data("tobago-oldvalue", input.val());
+};
+
+Tobago.Time.blur = function (input) {
+  var value = input.val();
+  if (isNaN(value)) {
+    value = input.data("tobago-oldvalue");
   } else {
-    if (value > 59 || value < 0) {
-      value = input.oldValue;
-    }
+    value = parseInt(value, 10); // use 10 to avoid parsing octal numbers, if the string begins with 0
   }
-  tbgSetTimeInputValue(input, value)
-  Tobago.removeCssClass(input, "tobago-time-input-markup-selected");
-//  LOG.debug("value  4= " + input.value);
-}
+  Tobago.Time.setValue(input, value);
+};
 
-function tbgInitTimeParse(timeId, dateId) {
-  var time = document.getElementById(dateId);
-  if (time) {
+Tobago.Time.initFromDateField = function (time) {
+  var dateField = Tobago.Calendar.getDateField(time);
 
-    var patternField = document.getElementById(dateId + ":converterPattern");
-    var formatPattern;
-    if (patternField) {
-      formatPattern = patternField.value;
-    } else {
-      formatPattern = "HH:mm";
-    }
-
-
-    var date = new Date(getDateFromFormat(time.value, formatPattern));
-    if (date.getTime() == 0) {
-      date = new Date();
-    }
-    var hours = date.getHours();
-    var minutes = date.getMinutes();
-    var seconds = date.getSeconds();
-
-    LOG.debug("init time :" + hours + ":" + minutes + ":" + seconds); // @DEV_ONLY
-    tbgInitTimeData(timeId, hours, minutes, seconds);
+  var pattern = dateField.data("tobago-pattern");
+  if (!pattern) { // todo: test it
+    pattern = "HH:mm";
   }
-}
 
-function tbgInitTimeData(id, hours, minutes, seconds) {
-  var element = document.getElementById(id);
-  if (element) {
-    var idPrefix = id + Tobago.SUB_COMPONENT_SEP;
-    var hourField = document.getElementById(idPrefix + "hour");
-    if (hourField) {
-      hourField.value = hours < 10 ? "0" + hours : hours;
-    }
-    var minuteField = document.getElementById(idPrefix + "minute");
-    if (minuteField) {
-      minuteField.value = minutes < 10 ? "0" + minutes : minutes;
-    }
-    var secondsField = document.getElementById(idPrefix + "second");
-    if (secondsField) {
-      secondsField.value = seconds < 10 ? "0" + seconds : seconds;
-    }
+  var date = new Date(getDateFromFormat(dateField.val(), pattern));
+  if (date.getTime() == 0) {
+    date = new Date();
   }
-}
 
-function tbgTimerKeyUp(inputElement, event) {
-  if (! event) {
-    event = window.event;
+  Tobago.Time.setValueField(time, "hour", date.getHours());
+  Tobago.Time.setValueField(time, "minute", date.getMinutes());
+  if (pattern.indexOf("s") > -1) {
+    Tobago.Time.setValueField(time, "second", date.getSeconds());
   }
+};
+
+Tobago.Time.keyUp = function (input, event) {
   switch (event.keyCode) {
     case 38:
-      tbgSetTimeInputValue(inputElement, inputElement.value - 0 + 1);
+      Tobago.Time.setValue(input, Tobago.Time.getValue(input) + 1);
       break;
     case 40:
-      tbgSetTimeInputValue(inputElement, inputElement.value - 1);
+      Tobago.Time.setValue(input, Tobago.Time.getValue(input) - 1);
       break;
   }
-}
+};
 
-
+Tobago.registerListener(Tobago.Time.init, Tobago.Phase.DOCUMENT_READY);
+Tobago.registerListener(Tobago.Time.init, Tobago.Phase.AFTER_UPDATE);

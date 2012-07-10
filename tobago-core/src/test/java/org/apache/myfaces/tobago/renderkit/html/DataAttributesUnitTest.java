@@ -24,17 +24,16 @@ import java.lang.reflect.Field;
 
 public class DataAttributesUnitTest {
 
-  public static final String PREFIX = "data-tobago-";
-
   @Test
   public void testAttributeNames() throws IllegalAccessException {
     for (Field field : DataAttributes.class.getFields()) {
+
       String value = (String) field.get(null);
-      Assert.assertTrue("Prefix check: value='" + value + "'", value.startsWith(PREFIX));
-      String extension = value.substring(PREFIX.length());
-      Assert.assertTrue("Regexp check: extension='" + extension + "'", extension.matches("[a-z]+(-[a-z]+)*"));
-      String fieldExtension = field.getName().toLowerCase().replace('_', '-');
-      Assert.assertEquals(fieldExtension, extension);
+      Assert.assertTrue("Regexp check: value='" + value + "'", value.matches("data-tobago-[a-z]+"));
+
+      String extension = value.substring("data-tobago-".length());
+      String name = field.getName();
+      Assert.assertEquals(name, extension.toUpperCase());
     }
   }
 }

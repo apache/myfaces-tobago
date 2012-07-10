@@ -17,11 +17,6 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * limitations under the License.
  */
 
-/*
- * Created 07.02.2003 16:00:00.
- * $Id$
- */
-
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UITime;
 import org.apache.myfaces.tobago.context.Markup;
@@ -30,6 +25,7 @@ import org.apache.myfaces.tobago.internal.util.DateFormatUtils;
 import org.apache.myfaces.tobago.renderkit.InputRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
+import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
@@ -52,12 +48,7 @@ public class TimeRenderer extends InputRendererBase {
 
   private static final Logger LOG = LoggerFactory.getLogger(TimeRenderer.class);
 
-
   public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
-    if (!(component instanceof UITime)) {
-      LOG.error("Wrong type: Need " + UITime.class.getName() + ", but was " + component.getClass().getName());
-      return;
-    }
 
     UITime time = (UITime) component;
 
@@ -67,18 +58,18 @@ public class TimeRenderer extends InputRendererBase {
       LOG.debug("currentValue = '" + currentValue + "'");
     }
 
-    String converterPattern = "HH:mm";
+    String pattern = "HH:mm";
     if (time.getConverter() != null) {
       Converter converter = time.getConverter();
       if (converter instanceof DateTimeConverter) {
-        String pattern = DateFormatUtils.findPattern((DateTimeConverter) converter);
-        if (pattern != null && pattern.indexOf('s') > -1) {
-          converterPattern += ":ss";
+        String string = DateFormatUtils.findPattern((DateTimeConverter) converter);
+        if (string != null && string.indexOf('s') > -1) {
+          pattern += ":ss";
         }
       }
     }
 
-    boolean hasSeconds = converterPattern.indexOf('s') > -1;
+    boolean hasSeconds = pattern.indexOf('s') > -1;
 
     Object value = time.getValue();
     Date date;
@@ -96,76 +87,64 @@ public class TimeRenderer extends InputRendererBase {
 
     String id = time.getClientId(facesContext);
     final String idPrefix = id + ComponentUtils.SUB_SEPARATOR;
-    TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+
+    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+
     writer.startElement(HtmlElements.DIV, time);
+    writer.writeIdAttribute(id);
     writer.writeClassAttribute(Classes.create(time));
     Style style = new Style(facesContext, time);
     writer.writeStyleAttribute(style);
+    String dateInputId = (String) time.getAttributes().get(Attributes.DATE_INPUT_ID);
+    if (dateInputId != null) {
+      writer.writeAttribute(DataAttributes.DATEINPUTID, dateInputId, false);
+    }
+    writer.writeAttribute(DataAttributes.PATTERN, pattern, false);
 
     writer.startElement(HtmlElements.DIV, time);
-    writer.writeAttribute(HtmlAttributes.ID, idPrefix + "borderDiv", false);
+    writer.writeIdAttribute(idPrefix + "borderDiv");
     Markup markup = time.getCurrentMarkup();
     if (hasSeconds) {
       markup = markup.add(Markup.SECONDS);
     }
     writer.writeClassAttribute(Classes.create(time, "borderDiv", markup));
 
-    writeInput(writer, time, idPrefix + "hour", hour, true, title);
+    writeInput(writer, time, idPrefix, "hour", hour, title, 24);
     writeInputSeparator(writer, time, ":");
-    writeInput(writer, time, idPrefix + "minute", minute, false, title);
+    writeInput(writer, time, idPrefix, "minute", minute, title, 60);
     if (hasSeconds) {
       writeInputSeparator(writer, time, ":");
-      writeInput(writer, time, idPrefix + "second", second, false, title);
+      writeInput(writer, time, idPrefix, "second", second, title, 60);
     }
 
     writer.endElement(HtmlElements.DIV);
 
-    String imageId = idPrefix + "inc";
-    String imageSrc = "image/timeIncrement.gif";
     writer.startElement(HtmlElements.IMG, null);
-    writer.writeIdAttribute(imageId);
+    writer.writeIdAttribute(idPrefix + "inc");
     writer.writeClassAttribute(Classes.create(time, "incImage", markup));
-    writer.writeAttribute(HtmlAttributes.SRC, ResourceManagerUtils.getImageWithPath(facesContext, imageSrc), true);
+    writer.writeAttribute(HtmlAttributes.SRC,
+        ResourceManagerUtils.getImageWithPath(facesContext, "image/timeIncrement.gif"), true);
     writer.writeAttribute(HtmlAttributes.ALT, "", false); // TODO: tip
-
-    if (!(ComponentUtils.getBooleanAttribute(time, Attributes.DISABLED)
-        || ComponentUtils.getBooleanAttribute(time, Attributes.READONLY))) {
-      writer.writeAttribute(HtmlAttributes.ONCLICK, "tbgIncTime(this)", false);
-    }
+    writer.writeAttribute(HtmlAttributes.READONLY, time.isReadonly());
+    writer.writeAttribute(HtmlAttributes.DISABLED, time.isDisabled());
     writer.endElement(HtmlElements.IMG);
 
-    imageId = idPrefix + "dec";
-    imageSrc = "image/timeDecrement.gif";
     writer.startElement(HtmlElements.IMG, null);
-    writer.writeIdAttribute(imageId);
+    writer.writeIdAttribute(idPrefix + "dec");
     writer.writeClassAttribute(Classes.create(time, "decImage", markup));
-    writer.writeAttribute(HtmlAttributes.SRC, ResourceManagerUtils.getImageWithPath(facesContext, imageSrc), true);
+    writer.writeAttribute(HtmlAttributes.SRC,
+        ResourceManagerUtils.getImageWithPath(facesContext, "image/timeDecrement.gif"), true);
     writer.writeAttribute(HtmlAttributes.ALT, "", false); // TODO: tip
-    if (!(ComponentUtils.getBooleanAttribute(time, Attributes.DISABLED)
-        || ComponentUtils.getBooleanAttribute(time, Attributes.READONLY))) {
-      writer.writeAttribute(HtmlAttributes.ONCLICK, "tbgDecTime(this)", false);
-    }
+    writer.writeAttribute(HtmlAttributes.READONLY, time.isReadonly());
+    writer.writeAttribute(HtmlAttributes.DISABLED, time.isDisabled());
     writer.endElement(HtmlElements.IMG);
 
     writer.startElement(HtmlElements.INPUT, time);
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN, false);
-    writer.writeIdAttribute(id + ":converterPattern");
-    writer.writeAttribute(HtmlAttributes.VALUE, converterPattern, true);
-    writer.endElement(HtmlElements.INPUT);
-
-    writer.startElement(HtmlElements.INPUT, time);
-    writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN, false);
-    writer.writeIdAttribute(id);
+    writer.writeIdAttribute(idPrefix + "field");
     writer.writeNameAttribute(id);
     writer.writeAttribute(HtmlAttributes.VALUE, hour + ":" + minute + ":" + second, false);
     writer.endElement(HtmlElements.INPUT);
-
-    String dateTextBoxId = (String) time.getAttributes().get(Attributes.DATE_INPUT_ID);
-
-    if (dateTextBoxId != null) {
-      String[] cmds = {"tbgInitTimeParse('" + id + "', '" + dateTextBoxId + "');"};
-      HtmlRendererUtils.writeScriptLoader(facesContext, null, cmds);
-    }
 
     writer.endElement(HtmlElements.DIV);
   }
@@ -177,27 +156,24 @@ public class TimeRenderer extends InputRendererBase {
     writer.endElement(HtmlElements.SPAN);
   }
 
-  private void writeInput(TobagoResponseWriter writer, UITime input, String id, String hour, boolean hourMode,
-      String title) throws IOException {
+  private void writeInput(
+      TobagoResponseWriter writer, UITime input, String idPrefix, String unit, String value, String title, int max)
+      throws IOException {
     Integer tabIndex = input.getTabIndex();
     writer.startElement(HtmlElements.INPUT, null);
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.TEXT, false);
-    writer.writeIdAttribute(id);
+    writer.writeIdAttribute(idPrefix + unit);
     if (tabIndex != null) {
       writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
     }
     writer.writeAttribute(HtmlAttributes.TITLE, title, true);
 
     writer.writeClassAttribute(Classes.create(input, "input"));
-    writer.writeAttribute(HtmlAttributes.READONLY, ComponentUtils.getBooleanAttribute(input, Attributes.READONLY));
-    writer.writeAttribute(HtmlAttributes.DISABLED, ComponentUtils.getBooleanAttribute(input, Attributes.DISABLED));
-    if (!(ComponentUtils.getBooleanAttribute(input, Attributes.DISABLED)
-        || ComponentUtils.getBooleanAttribute(input, Attributes.READONLY))) {
-      writer.writeAttribute(HtmlAttributes.ONFOCUS, "tbgTimerInputFocus(this, " + hourMode + ")", false);
-      writer.writeAttribute(HtmlAttributes.ONBLUR, "tbgTimerInputBlur(this)", false);
-      writer.writeAttribute(HtmlAttributes.ONKEYUP, "tbgTimerKeyUp(this, event)", false);
-    }
-    writer.writeAttribute(HtmlAttributes.VALUE, hour, true);
+    writer.writeAttribute(HtmlAttributes.READONLY, input.isReadonly());
+    writer.writeAttribute(HtmlAttributes.DISABLED, input.isDisabled());
+    writer.writeAttribute(HtmlAttributes.VALUE, value, true);
+    writer.writeAttribute(DataAttributes.MAX, Integer.toString(max), true);
+    writer.writeAttribute(DataAttributes.UNIT, unit, true);
     writer.endElement(HtmlElements.INPUT);
   }
 }
