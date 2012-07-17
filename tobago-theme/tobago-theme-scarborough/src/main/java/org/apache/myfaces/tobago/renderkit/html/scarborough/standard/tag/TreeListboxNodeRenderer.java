@@ -23,7 +23,7 @@ import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.event.TreeExpansionEvent;
 import org.apache.myfaces.tobago.event.TreeMarkedEvent;
 import org.apache.myfaces.tobago.internal.component.AbstractUITree;
-import org.apache.myfaces.tobago.model.TreeSelectable;
+import org.apache.myfaces.tobago.model.Selectable;
 import org.apache.myfaces.tobago.renderkit.CommandRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
@@ -72,7 +72,7 @@ public class TreeListboxNodeRenderer extends CommandRendererBase {
     }
 
     // select
-    if (tree.getSelectableAsEnum() != TreeSelectable.OFF) { // selection
+    if (tree.getSelectableAsEnum() != Selectable.NONE) { // selection
       String selected = (String) requestParameterMap.get(treeId + AbstractUITree.SELECT_STATE);
       String searchString = ";" + nodeStateId + ";";
       if (StringUtils.contains(selected, searchString)) {

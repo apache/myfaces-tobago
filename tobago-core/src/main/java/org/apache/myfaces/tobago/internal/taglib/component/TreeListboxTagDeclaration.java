@@ -59,11 +59,11 @@ public interface TreeListboxTagDeclaration
    * <li><strong>singleLeafOnly</strong> : a single section tree is rendered,
    * only Leaf's are selectable</li>
    * </ul>
-   * For any other value or if this attribute is omitted the items are not selectable.
    */
   @TagAttribute
-  @UIComponentTagAttribute(defaultValue = "off",
-      allowedValues = {"single", "multiLeafOnly", "singleLeafOnly", "off"})
+  @UIComponentTagAttribute(
+      defaultValue = "single",
+      allowedValues = {"single", "multiLeafOnly", "singleLeafOnly"})
   void setSelectable(String selectable);
 
   /**

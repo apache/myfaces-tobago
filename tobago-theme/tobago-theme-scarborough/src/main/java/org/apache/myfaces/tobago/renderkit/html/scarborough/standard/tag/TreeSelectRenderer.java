@@ -18,39 +18,84 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  */
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.component.UITreeSelect;
+import org.apache.myfaces.tobago.internal.component.AbstractUIData;
+import org.apache.myfaces.tobago.model.Selectable;
+import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
+import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
-public class TreeSelectRenderer extends SelectBooleanCheckboxRenderer {
+public class TreeSelectRenderer extends RendererBase {
+
+  private static final Log LOG = LogFactory.getLog(TreeSelectRenderer.class);
+
+  public void decode(FacesContext facesContext, UIComponent component) {
+
+    final UITreeSelect select = (UITreeSelect) component;
+    final AbstractUIData data = ComponentUtils.findAncestor(select, AbstractUIData.class);
+
+    if (ComponentUtils.isOutputOnly(select)) {
+      return;
+    }
+
+    final String clientId = select.getClientId(facesContext);
+    final String name;
+    if (data.getSelectableAsEnum().isSingle()) {
+      name = getClientIdWithoutRowIndex(data, clientId);
+    } else {
+      name = clientId;
+    }
+
+    final String newValue = (String) facesContext.getExternalContext().getRequestParameterMap().get(name);
+
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("new value = '" + newValue + "'");
+    }
+
+    select.setSubmittedValue(clientId.equals(newValue) ? "true" : "false");
+  }
 
   @Override
   public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
 
     final UITreeSelect select = (UITreeSelect) component;
+    final AbstractUIData data = ComponentUtils.findAncestor(select, AbstractUIData.class);
 
     final String id = select.getClientId(facesContext);
     final String currentValue = getCurrentValue(facesContext, select);
     final boolean checked = "true".equals(currentValue);
+    final boolean folder = data.isFolder();
+    final Selectable selectable = data.getSelectableAsEnum();
 
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
     writer.startElement(HtmlElements.SPAN, null);
     writer.writeClassAttribute(Classes.create(select));
 
-    if (select.isShowCheckbox()) {
+    if (select.isShowCheckbox()
+        && selectable != Selectable.NONE
+        && (!selectable.isLeafOnly() || !folder)) {
       writer.startElement(HtmlElements.INPUT, null);
-      writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.CHECKBOX, false);
-      writer.writeAttribute(HtmlAttributes.VALUE, "true", false);
-      writer.writeNameAttribute(id);
+      if (selectable.isSingle()) {
+        writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.RADIO, false);
+        writer.writeNameAttribute(getClientIdWithoutRowIndex(data, id));
+      } else {
+        writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.CHECKBOX, false);
+        writer.writeNameAttribute(id);
+      }
+      writer.writeAttribute(HtmlAttributes.VALUE, id, false);
       writer.writeIdAttribute(id);
       writer.writeAttribute(HtmlAttributes.CHECKED, checked);
       writer.endElement(HtmlElements.INPUT);
@@ -68,6 +113,12 @@ public class TreeSelectRenderer extends SelectBooleanCheckboxRenderer {
     }
 
     writer.endElement(HtmlElements.SPAN);
+  }
+
+  private String getClientIdWithoutRowIndex(AbstractUIData data, String id) {
+    return id.replace(
+        "" + NamingContainer.SEPARATOR_CHAR + data.getRowIndex() + NamingContainer.SEPARATOR_CHAR,
+        "" + NamingContainer.SEPARATOR_CHAR);
   }
 
   @Override

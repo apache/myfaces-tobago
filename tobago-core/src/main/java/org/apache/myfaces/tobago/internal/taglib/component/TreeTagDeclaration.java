@@ -55,22 +55,22 @@ public interface TreeTagDeclaration
    * Flag indicating whether or not this component should be render selectable items.
    * Possible values are:
    * <ul>
+   * <li><strong>multi</strong> : not selectable</li>
    * <li><strong>multi</strong> : a multi section tree is rendered</li>
    * <li><strong>single</strong> : a single section tree is rendered</li>
    * <li><strong>multiLeafOnly</strong> : a multi section tree is rendered,
-   * only Leaf's are selectable</li>
+   * only leaf's are selectable</li>
    * <li><strong>singleLeafOnly</strong> : a single section tree is rendered,
-   * only Leaf's are selectable</li>
+   * only leaf's are selectable</li>
    * </ul>
-   * For any other value or if this attribute is omitted the items are not selectable.
    */
   @TagAttribute
-  @UIComponentTagAttribute(defaultValue = "off",
-      allowedValues = {"multi", "single", "multiLeafOnly", "singleLeafOnly", "off"})
+  @UIComponentTagAttribute(
+      defaultValue = "multi",
+      allowedValues = {"none", "multi", "single", "multiLeafOnly", "singleLeafOnly"})
   void setSelectable(String selectable);
 
   /**
-   *
    * <strong>ValueBindingExpression</strong> pointing to a object to save the
    * component's state.
    */

@@ -27,6 +27,7 @@ import org.apache.myfaces.tobago.example.data.LocaleList;
 import org.apache.myfaces.tobago.example.data.Salutation;
 import org.apache.myfaces.tobago.example.data.SolarObject;
 import org.apache.myfaces.tobago.model.SelectItem;
+import org.apache.myfaces.tobago.model.Selectable;
 import org.apache.myfaces.tobago.model.SheetState;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -52,17 +53,18 @@ public class OverviewController implements Serializable {
   private static final Logger LOG = LoggerFactory.getLogger(OverviewController.class);
 
   private static final String[] TREE_SELECT_MODE_KEYS = {
-    "none",
-    "single",
-    "singleLeafOnly",
-    "multi",
-    "multiLeafOnly"
+      Selectable.NONE.getValue(),
+      Selectable.SINGLE.getValue(),
+      Selectable.SINGLE_LEAF_ONLY.getValue(),
+      Selectable.MULTI.getValue(),
+      Selectable.MULTI_LEAF_ONLY.getValue(),
+      Selectable.MULTI_CASCADE.getValue()
   };
 
   private static final String[] TREELISTBOX_SELECT_MODE_KEYS = {
-    "single",
-    "singleLeafOnly",
-    "siblingLeafOnly"
+      Selectable.SINGLE.getValue(),
+      Selectable.SINGLE_LEAF_ONLY.getValue(),
+      Selectable.SIBLING_LEAF_ONLY.getValue()
   };
 
   private Salutation radioValue;
@@ -106,7 +108,7 @@ public class OverviewController implements Serializable {
   public OverviewController() {
     radioValue = Salutation.UNKNOWN;
     singleValue = Salutation.UNKNOWN;
-    treeSelectMode = TREE_SELECT_MODE_KEYS[0];
+    treeSelectMode = TREE_SELECT_MODE_KEYS[3];
     treeListboxSelectMode = TREELISTBOX_SELECT_MODE_KEYS[0];
     multiValue = new Salutation[0];
     treeTabsState = 0;

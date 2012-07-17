@@ -22,6 +22,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * @deprecated since 1.6.0, please use {@link Selectable}
+ */
+@Deprecated
 public enum TreeSelectable {
 
   OFF("off"),

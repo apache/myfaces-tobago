@@ -21,13 +21,12 @@
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:tx="http://myfaces.apache.org/tobago/extension"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core">
   <ui:param name="title" value="#{overviewBundle.tree}"/>
 
   <tc:panel id="panel">
     <f:facet name="layout">
-      <tc:gridLayout rows="9*;16*"/>
+      <tc:gridLayout rows="100px;*"/>
     </f:facet>
 
     <tc:out escape="false" value="(UNDER CONSTRUCTION)"/>
@@ -41,11 +40,12 @@
                showRootJunction="#{demo.showRootJunction}"
                showRoot="#{demo.showRoot}"
                value="#{demo.tree}"
-               var="node">
+               var="node"
+               selectable="#{overviewController.treeSelectMode}">
         <tc:treeNode id="template">
           <tc:treeIndent showJunctions="#{demo.showJunctions}"/>
           <tc:treeIcon rendered="#{demo.showIcons}"/>
-          <tc:treeSelect showCheckbox="true" value="#{node.userObject.selected}" label="#{node.userObject.name}" />
+          <tc:treeSelect id="select" value="#{node.userObject.selected}" label="#{node.userObject.name}"/>
         </tc:treeNode>
       </tc:tree>
 
@@ -54,9 +54,9 @@
           <tc:gridLayout rows="auto;auto;auto;auto;1*;auto;auto;auto"/>
         </f:facet>
 
-        <tc:selectOneChoice value="#{overviewController.treeSelectMode}"> <!-- TODO: not implemented -->
+        <tc:selectOneRadio value="#{overviewController.treeSelectMode}">
           <f:selectItems value="#{overviewController.treeSelectModeItems}"/>
-        </tc:selectOneChoice>
+        </tc:selectOneRadio>
 
         <tc:button label="#{overviewBundle.submit}" renderedPartially="panel"/>
       </tc:panel>

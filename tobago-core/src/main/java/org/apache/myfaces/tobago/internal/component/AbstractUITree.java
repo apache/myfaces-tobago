@@ -26,9 +26,7 @@ import org.apache.myfaces.tobago.layout.LayoutComponent;
 import org.apache.myfaces.tobago.model.ExpandedState;
 import org.apache.myfaces.tobago.model.MarkedState;
 import org.apache.myfaces.tobago.model.MixedTreeModel;
-import org.apache.myfaces.tobago.model.TreeSelectable;
 import org.apache.myfaces.tobago.model.TreeState;
-import org.apache.myfaces.tobago.util.ComponentUtils;
 
 import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
@@ -122,13 +120,6 @@ public abstract class AbstractUITree extends AbstractUIData
   @Override
   public boolean getRendersChildren() {
     return true;
-  }
-
-  /**
-   * Will be obsolete later when selectable has the type TreeSelectable.
-   */
-  public TreeSelectable getSelectableAsEnum() {
-    return TreeSelectable.parse(ComponentUtils.getStringAttribute(this, Attributes.SELECTABLE));
   }
 
   @Override

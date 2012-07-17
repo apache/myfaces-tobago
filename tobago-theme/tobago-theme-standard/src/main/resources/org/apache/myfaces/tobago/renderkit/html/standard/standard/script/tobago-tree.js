@@ -62,16 +62,14 @@ Tobago.Tree.toggleNode = function(element) {
  * @param node A jQuery-Object as a node of the tree.
  */
 Tobago.Tree.hideChildren = function (node) {
-  var treeParentSelector = "[data-tobago-treeparent='" + node.attr("id") + "']";
-  var children;
-  if (node.parent("td").parent("tr").size() == 1) { // tree inside of a sheet
-    children = node.parent("td").parent("tr").nextAll().children().children(treeParentSelector);
-    children.parent().parent().hide();
-  } else { // normal tree
-    children = node.nextAll(treeParentSelector);
-    children.hide();
-  }
-  children.each(function () {
+  var inSheet = Tobago.Tree.isInSheet(node);
+  var children = Tobago.Tree.findChildren(node);
+  children.each(function() {
+    if (inSheet) {
+      jQuery(this).parent().parent().hide();
+    } else {
+      jQuery(this).hide();
+    }
     Tobago.Tree.hideChildren(jQuery(this));
   });
 };
@@ -82,21 +80,19 @@ Tobago.Tree.hideChildren = function (node) {
  * @return is reload needed (to get all nodes from the server)
  */
 Tobago.Tree.showChildren = function (node, expanded) {
-  var treeParentSelector = "[data-tobago-treeparent='" + node.attr("id") + "']";
-  var children;
-  if (node.parent("td").parent("tr").size() == 1) { // tree inside of a sheet
-    children = node.parent("td").parent("tr").nextAll().children().children(treeParentSelector);
-    children.parent().parent().show();
-  } else { // normal tree
-    children = node.nextAll(treeParentSelector);
-    children.show();
-  }
+  var inSheet = Tobago.Tree.isInSheet(node);
+  var children = Tobago.Tree.findChildren(node);
   if (children.length == 0) {
     // no children in DOM, reload it from the server
     return true;
   }
-  children.each(function () {
+  children.each(function() {
     var child = jQuery(this);
+    if (inSheet) {
+      child.parent().parent().show();
+    } else {
+      child.show();
+    }
     if (Tobago.Tree.isExpanded(child, expanded)) {
       var reload = Tobago.Tree.showChildren(child, expanded);
       if (reload) {
@@ -211,6 +207,26 @@ Tobago.Tree.init = function(elements) {
     });
     expanded.attr("value", string);
   });
+
+  // init tree selection
+  Tobago.Utils.selectWidthJQuery(elements, ".tobago-tree[data-tobago-selectable=multiCascade]").each(function() {
+    var tree = jQuery(this);
+    tree.find("input[type=checkbox]").each(function() {
+      jQuery(this).change(function(event) {
+        var node = jQuery(event.target).parents(".tobago-treeNode");
+        var checked = node.find("input[type=checkbox]").prop("checked");
+        var children = Tobago.Tree.findChildren(node);
+        children.each(function() {
+          var childsCheckbox = jQuery(this).find("input[type=checkbox]");
+          if (checked != childsCheckbox.prop("checked")) {
+            childsCheckbox.prop("checked", checked);
+            childsCheckbox.change();
+          }
+        });
+      });
+    });
+  });
+
 };
 
 Tobago.Tree.isExpanded = function(node, expanded) {
@@ -220,6 +236,21 @@ Tobago.Tree.isExpanded = function(node, expanded) {
 
 Tobago.Tree.rowIndex = function (node) {
   return node.attr("id").replace(/.+\:(\d+)(\:\w+)+/, '$1');
+};
+
+Tobago.Tree.findChildren = function (node) {
+  var treeParentSelector = "[data-tobago-treeparent='" + node.attr("id") + "']";
+  var children;
+  if (Tobago.Tree.isInSheet(node)) {
+    children = node.parent("td").parent("tr").nextAll().children().children(treeParentSelector);
+  } else { // normal tree
+    children = node.nextAll(treeParentSelector);
+  }
+  return children;
+};
+
+Tobago.Tree.isInSheet = function(node) {
+  return node.parent("td").size() == 1;
 };
 
 Tobago.registerListener(Tobago.Tree.init, Tobago.Phase.DOCUMENT_READY);

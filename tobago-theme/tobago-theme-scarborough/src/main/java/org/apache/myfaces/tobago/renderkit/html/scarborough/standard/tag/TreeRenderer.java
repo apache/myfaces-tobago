@@ -20,9 +20,11 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 import org.apache.myfaces.tobago.component.UITreeNode;
 import org.apache.myfaces.tobago.internal.component.AbstractUIData;
 import org.apache.myfaces.tobago.internal.component.AbstractUITree;
+import org.apache.myfaces.tobago.model.Selectable;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
+import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
@@ -77,6 +79,11 @@ public class TreeRenderer extends LayoutComponentRendererBase {
     Style style = new Style(facesContext, tree);
     writer.writeStyleAttribute(style);
     writer.writeIdAttribute(clientId);
+
+    final Selectable selectable = tree.getSelectableAsEnum();
+    if (selectable.isSupportedByTree()) {
+      writer.writeAttribute(DataAttributes.SELECTABLE, selectable.getValue(), false);
+    }
 
     writer.startElement(HtmlElements.INPUT, tree);
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN, false);
