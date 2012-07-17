@@ -40,14 +40,14 @@
                           converter="salutationId">
         <f:selectItems value="#{overviewController.items}"/>
       </tx:selectOneChoice>
-      <tc:cell/>
+      <tc:panel/>
 
       <tx:in value="" label="#{overviewBundle.layout_firstName}"/>
       <tx:in value="" label="#{overviewBundle.layout_lastName}"/>
 
-      <tc:cell spanX="2">
-        <tx:in value="" label="#{overviewBundle.layout_co}"/>
-      </tc:cell>
+      <tx:in value="" label="#{overviewBundle.layout_co}">
+        <tc:gridLayoutConstraint columnSpan="2"/>
+      </tx:in>
 
       <tx:in value="" label="#{overviewBundle.layout_street}"/>
       <tx:in value="" label="#{overviewBundle.layout_streetNumber}"/>
@@ -55,9 +55,9 @@
       <tx:in value="" label="#{overviewBundle.layout_zipCode}"/>
       <tx:in value="" label="#{overviewBundle.layout_city}"/>
 
-      <tc:cell spanX="2">
-        <tx:textarea value="" label="#{overviewBundle.layout_note}"/>
-      </tc:cell>
+      <tx:textarea value="" label="#{overviewBundle.layout_note}">
+        <tc:gridLayoutConstraint columnSpan="2"/>
+      </tx:textarea>
     </tc:box>
     <!-- code-sniplet-end id="layoutManagementExample" -->
   </tc:panel>

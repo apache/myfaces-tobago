@@ -114,19 +114,19 @@
       <tc:link id="link" action="/content/01-basic/basic"
                actionListener="#{overviewController.click}"
                label="#{overviewBundle.basic_linkAction}"/>
-      <tc:cell/>
+      <tc:panel/>
       <tc:link id="image" action="/content/01-basic/basic"
                actionListener="#{overviewController.click}"
                image="image/image_button.gif"/>
-      <tc:cell/>
+      <tc:panel/>
       <tc:button id="button" action="/content/01-basic/basic"
                  actionListener="#{overviewController.click}"
                  label="#{overviewBundle.basic_buttonAction}"/>
 
-      <tc:cell spanX="5">
-        <tx:in value="#{overviewController.lastAction}" readonly="true"
-               label="#{overviewBundle.basic_lastActionLabel}"/>
-      </tc:cell>
+      <tx:in value="#{overviewController.lastAction}" readonly="true"
+             label="#{overviewBundle.basic_lastActionLabel}">
+        <tc:gridLayoutConstraint columnSpan="5"/>
+      </tx:in>
     </tc:panel>
 
     <tc:script>

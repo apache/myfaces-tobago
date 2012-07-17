@@ -48,17 +48,21 @@
         <tc:gridLayout columns="*;480px;*" rows="*;320px;*"/>
       </f:facet>
 
-      <tc:cell spanX="3"/>
+      <tc:panel>
+        <tc:gridLayoutConstraint columnSpan="3"/>
+      </tc:panel>
 
-      <tc:cell/>
+      <tc:panel/>
       <tc:image value="image/theme-photo.jpg"/>
-      <tc:cell/>
+      <tc:panel/>
 
-      <tc:cell/>
+      <tc:panel/>
       <tc:out escape="false" value="#{overviewBundle.theme_photo}"/>
-      <tc:cell/>
+      <tc:panel/>
 
-      <tc:cell spanX="3"/>
+      <tc:panel>
+        <tc:gridLayoutConstraint columnSpan="3"/>
+      </tc:panel>
 
     </tc:panel>
 

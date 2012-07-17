@@ -92,56 +92,39 @@
       </tc:toolBar>
     </f:facet>
 
-    <tc:cell spanX="3">
-      <tc:toolBar iconSize="#{overviewController.toolbarIconSize}"
-                  labelPosition="#{overviewController.toolbarTextPosition}"
-                  orientation="left">
-        <tc:toolBarCommand id="button2" action="overview/toolbar"
-                           actionListener="#{overviewController.click}"
-                           label="#{overviewBundle.toolbar_buttonAction}"/>
+    <tc:toolBar iconSize="#{overviewController.toolbarIconSize}"
+                labelPosition="#{overviewController.toolbarTextPosition}"
+                orientation="left">
+      <tc:gridLayoutConstraint columnSpan="3"/>
+      <tc:toolBarCommand id="button2" action="overview/toolbar"
+                         actionListener="#{overviewController.click}"
+                         label="#{overviewBundle.toolbar_buttonAction}"/>
 
-        <tc:toolBarCommand id="imageButton2" action="overview/toolbar"
-                           actionListener="#{overviewController.click}"
-                           label="#{overviewBundle.toolbar_imageButtonAction}"
-                           image="image/toolbar_example_button.gif"/>
+      <tc:toolBarCommand id="imageButton2" action="overview/toolbar"
+                         actionListener="#{overviewController.click}"
+                         label="#{overviewBundle.toolbar_imageButtonAction}"
+                         image="image/toolbar_example_button.gif"/>
 
 
-        <tc:toolBarCommand id="popupButton2"
-                           actionListener="#{overviewController.click}"
-                           label="#{overviewBundle.toolbar_popupButtonAction}">
-          <tc:popupReference for=":page:popup"/>
-          <!--f:facet name="popup">
-            <tc:popup width="200" height="100" id="popup2" >
+      <tc:toolBarCommand id="popupButton2"
+                         actionListener="#{overviewController.click}"
+                         label="#{overviewBundle.toolbar_popupButtonAction}">
+        <tc:popupReference for=":page:popup"/>
+      </tc:toolBarCommand>
 
-              <f:facet name="layout">
-                <tc:gridLayout rows="35px;1*;auto" />
-              </f:facet>
+      <tc:toolBarCommand id="DropDown2" action="overview/toolbar"
+                         actionListener="#{overviewController.click}"
+                         label="#{overviewBundle.toolbar_dropDownAction}">
+        <f:facet name="dropDownMenu">
+          <tc:menu>
+            <tc:menuCommand onclick="alert('test 1')" label="Alert 1"/>
+            <tc:menuCommand onclick="alert('test 2')" label="Alert 2"/>
+            <tc:menuCommand id="dropdown3_2" actionListener="#{overviewController.click}" label="Action 3"/>
+          </tc:menu>
+        </f:facet>
+      </tc:toolBarCommand>
 
-              <tc:out value="#{overviewBundle.toolbar_popupText}"/>
-
-              <tc:cell/>
-              <tc:button id="popupCloseButton2" label="#{overviewBundle.toolbar_closePopupAction}" >
-                <tc:attribute name="popupClose" value="immediate"/>
-              </tc:button>
-
-            </tc:popup>
-          </f:facet-->
-        </tc:toolBarCommand>
-
-        <tc:toolBarCommand id="DropDown2" action="overview/toolbar"
-                           actionListener="#{overviewController.click}"
-                           label="#{overviewBundle.toolbar_dropDownAction}">
-          <f:facet name="dropDownMenu">
-            <tc:menu>
-              <tc:menuCommand onclick="alert('test 1')" label="Alert 1"/>
-              <tc:menuCommand onclick="alert('test 2')" label="Alert 2"/>
-              <tc:menuCommand id="dropdown3_2" actionListener="#{overviewController.click}" label="Action 3"/>
-            </tc:menu>
-          </f:facet>
-        </tc:toolBarCommand>
-
-      </tc:toolBar>
-    </tc:cell>
+    </tc:toolBar>
 
     <tx:in value="#{overviewController.lastAction}" readonly="true"
            label="#{overviewBundle.basic_lastActionLabel}"/>
@@ -153,14 +136,14 @@
       <f:selectItems value="#{overviewController.toolbarIconItems}"/>
     </tc:selectOneChoice>
 
-    <tc:cell/>
-    <tc:cell spanX="2">
-      <tc:button label="updateView"/>
-    </tc:cell>
+    <tc:panel/>
+    <tc:button label="updateView">
+      <tc:gridLayoutConstraint columnSpan="2"/>
+    </tc:button>
 
   </tc:box>
 
-  <tc:cell/>
+  <tc:panel/>
 
   <tc:out escape="false" value="#{overviewBundle.toolbar_text2}"/>
 

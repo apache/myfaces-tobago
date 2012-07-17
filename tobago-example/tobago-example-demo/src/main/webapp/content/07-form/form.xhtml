@@ -47,9 +47,9 @@
 
         <tc:form id="form1">
           <tx:in value="#{demo.text[0]}" required="true" label="#{overviewBundle.newValue1}"/>
-          <tc:cell spanY="2">
-            <tc:button label="#{overviewBundle.submitForm1}"/>
-          </tc:cell>
+          <tc:button label="#{overviewBundle.submitForm1}">
+            <tc:gridLayoutConstraint rowSpan="2"/>
+          </tc:button>
           <tx:in value="#{demo.text[0]}" readonly="true" label="#{overviewBundle.modelValue1}"/>
         </tc:form>
 
@@ -62,9 +62,9 @@
 
         <tc:form id="form2">
           <tx:in value="#{demo.text[1]}" required="true" label="#{overviewBundle.newValue2}"/>
-          <tc:cell spanY="2">
-            <tc:button label="#{overviewBundle.submitForm2}"/>
-          </tc:cell>
+          <tc:button label="#{overviewBundle.submitForm2}">
+            <tc:gridLayoutConstraint rowSpan="2"/>
+          </tc:button>
           <tx:in value="#{demo.text[1]}" readonly="true" label="#{overviewBundle.modelValue2}"/>
         </tc:form>
       </tc:box>

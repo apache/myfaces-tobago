@@ -25,9 +25,9 @@
       <tc:gridLayout columns="auto;auto;auto;auto;auto;*" rows="15px;auto"/>
     </f:facet>
 
-    <tc:cell spanX="6">
-      <tc:separator/>
-    </tc:cell>
+    <tc:separator>
+      <tc:gridLayoutConstraint columnSpan="6"/>
+    </tc:separator>
 
     <tc:button immediate="true"
                image="image/prev.gif"

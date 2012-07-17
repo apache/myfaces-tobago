@@ -86,13 +86,13 @@
                 <f:selectItems value="#{overviewController.sheetConfig.sheetSelectableItems}"/>
               </tx:selectOneChoice>
 
-              <tc:cell/>
+              <tc:panel/>
 
               <tc:panel>
                 <f:facet name="layout">
                   <tc:gridLayout columns="*;auto;auto"/>
                 </f:facet>
-                <tc:cell/>
+                <tc:panel/>
                 <tc:button label="Cancel">
                   <tc:attribute name="popupClose" value="immediate"/>
                 </tc:button>
@@ -118,7 +118,7 @@
       <f:facet name="layout">
         <tc:gridLayout columns="*;auto;auto"/>
       </f:facet>
-      <tc:cell/>
+      <tc:panel/>
       <tc:button label="#{overviewBundle.sheet_resetLabel}" tip="#{overviewBundle.sheet_resetTip}"
                  actionListener="#{overviewController.resetColumnWidths}" />
       <tc:button label="Sheet Configuration" renderedPartially="sheetConfigPopup">

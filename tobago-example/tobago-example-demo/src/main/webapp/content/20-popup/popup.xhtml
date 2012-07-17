@@ -73,7 +73,7 @@
                 <f:convertDateTime pattern="dd/MM/yyyy"/>
               </tx:date>
               <tc:image value="image/feather-leaf.png" width="16px" height="16px"/>
-              <tc:cell/>
+              <tc:panel/>
               <tc:panel>
                 <f:facet name="layout">
                   <tc:gridLayout columns="1*;1*;1*"/>
@@ -104,12 +104,12 @@
               </f:facet>
 
               <tx:in label="Field" required="true"/>
-              <tc:cell/>
+              <tc:panel/>
               <tc:panel>
                 <f:facet name="layout">
                   <tc:gridLayout columns="*;auto;auto"/>
                 </f:facet>
-                <tc:cell/>
+                <tc:panel/>
                 <tc:button label="Cancel">
                   <tc:attribute name="popupClose" value="immediate"/>
                 </tc:button>
@@ -145,7 +145,7 @@
         </f:facet>
       </tc:button>
 
-      <tc:cell/>
+      <tc:panel/>
 
     </tc:panel>
     <tc:panel>
@@ -167,7 +167,7 @@
         <tc:popupReference for="positioned_popup"/>
       </tc:button>
 
-      <tc:cell/>
+      <tc:panel/>
 
     </tc:panel>
 
@@ -179,7 +179,7 @@
 
     <tx:selectOneChoice label="Select"/>
 
-    <tc:cell/>
+    <tc:panel/>
 
   </tc:panel>
 </ui:composition>
