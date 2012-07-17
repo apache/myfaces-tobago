@@ -208,7 +208,7 @@ Tobago.Tree.init = function(elements) {
     expanded.attr("value", string);
   });
 
-  // init tree selection
+  // init tree selection for multiCascade
   Tobago.Utils.selectWidthJQuery(elements, ".tobago-tree[data-tobago-selectable=multiCascade]").each(function() {
     var tree = jQuery(this);
     tree.find("input[type=checkbox]").each(function() {
@@ -218,10 +218,8 @@ Tobago.Tree.init = function(elements) {
         var children = Tobago.Tree.findChildren(node);
         children.each(function() {
           var childsCheckbox = jQuery(this).find("input[type=checkbox]");
-          if (checked != childsCheckbox.prop("checked")) {
-            childsCheckbox.prop("checked", checked);
-            childsCheckbox.change();
-          }
+          childsCheckbox.prop("checked", checked);
+          childsCheckbox.change();
         });
       });
     });
