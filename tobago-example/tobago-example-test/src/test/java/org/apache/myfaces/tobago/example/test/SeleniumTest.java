@@ -79,12 +79,14 @@ public abstract class SeleniumTest {
     if (errorOnServer()) {
       Assert.fail(format(ERROR_ON_SERVER, location, html, ""));
     }
-    try {
-      if (isErrorOnPage()) {
-        Assert.fail(format(HAS_ERROR_SEVERITY, location, html, getErrors()));
+    if (location.endsWith(".xhtml") || location.endsWith(".jspx")) {
+      try {
+        if (isErrorOnPage()) {
+          Assert.fail(format(HAS_ERROR_SEVERITY, location, html, getErrors()));
+        }
+      } catch (SeleniumException e) {
+        Assert.fail(format(IS_BROKEN, location, html, "Not a Tobago page? Exception=" + e));
       }
-    } catch (SeleniumException e) {
-      Assert.fail(format(IS_BROKEN, location, html, "Not a Tobago page? Exception=" + e));
     }
   }
 
