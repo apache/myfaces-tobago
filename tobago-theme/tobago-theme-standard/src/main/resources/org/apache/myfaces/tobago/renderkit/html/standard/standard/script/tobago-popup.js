@@ -194,7 +194,7 @@ Tobago.Popup.openWithAction = function (source, popupId, actionId, options) {
   var div = jQuery(Tobago.Utils.escapeClientId(popupId));
   if (div.size() == 0) {
     jQuery('form:first')// add the new div after the page and the popup divs.
-        .children('(.tobago-page,.tobago-popup):last')
+        .children(".tobago-popup:last")
         .after("<div id='" + popupId + "' />");
   }
 
