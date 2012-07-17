@@ -26,7 +26,7 @@ public class SeleniumScriptItem {
 
   public SeleniumScriptItem(String command, String parameter1, String parameter2) {
     this.command = command;
-    this.parameters = new String[] {parameter1, parameter2};
+    this.parameters = new String[]{parameter1, parameter2};
   }
 
   public String getCommand() {
@@ -39,9 +39,9 @@ public class SeleniumScriptItem {
 
   @Override
   public String toString() {
-    return "SeleniumScriptItem{" +
-        "command='" + command + '\'' +
-        ", parameters=" + (parameters == null ? null : Arrays.asList(parameters)) +
-        '}';
+    return "SeleniumScriptItem{"
+        + "command='" + command + '\''
+        + ", parameters=" + (parameters == null ? null : Arrays.asList(parameters))
+        + '}';
   }
 }
