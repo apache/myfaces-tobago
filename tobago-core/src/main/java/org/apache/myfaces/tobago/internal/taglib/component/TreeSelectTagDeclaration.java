@@ -45,6 +45,6 @@ public interface TreeSelectTagDeclaration
    * Show a checkbox to visualize the selection state.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
+  @UIComponentTagAttribute(type = "boolean", defaultValue = "true")
   void setShowCheckbox(String showCheckbox);
 }
