@@ -272,11 +272,15 @@ Tobago.Calendar.writeIntoField = function (calendar, time) {
   var month = calendar.data("tobago-month");
   var year = calendar.data("tobago-year");
 
-  var hour = Tobago.Time.getValueField(time, "hour");
-  var minute = Tobago.Time.getValueField(time, "minute");
-  var second = Tobago.Time.getValueField(time, "second");
-
-  var date = new Date(year, month - 1, day, hour, minute, second);
+  var date;
+  if (time.length > 0) {
+    var hour = Tobago.Time.getValueField(time, "hour");
+    var minute = Tobago.Time.getValueField(time, "minute");
+    var second = Tobago.Time.getValueField(time, "second");
+    date = new Date(year, month - 1, day, hour, minute, second);
+  } else {
+    date = new Date(year, month - 1, day);
+  }
   var dateField = Tobago.Calendar.getDateField(calendar);
   var newValue = formatDate(date, dateField.data("tobago-pattern"));
   if (dateField.val() != newValue) {

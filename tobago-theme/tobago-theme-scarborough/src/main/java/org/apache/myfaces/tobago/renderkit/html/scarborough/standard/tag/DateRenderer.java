@@ -38,19 +38,19 @@ public class DateRenderer extends InRenderer {
       FacesContext facesContext, TobagoResponseWriter writer, AbstractUIInput input) throws IOException {
     super.writeAdditionalAttributes(facesContext, writer, input);
 
+    String pattern = null;
     Converter help = getConverter(facesContext, input);
     if (help instanceof DateTimeConverter) {
       DateTimeConverter converter = (DateTimeConverter) help;
-      String pattern = DateFormatUtils.findPattern(converter);
-
-      if (pattern == null) {
-        pattern = "yyyy-MM-dd";
-        LOG.warn("Can't find the pattern for the converter! DatePicker may not work correctly. "
-            + "Trying to use: '" + pattern + "'");
-      }
-
-      writer.writeAttribute(DataAttributes.PATTERN, pattern, true);
+      pattern = DateFormatUtils.findPattern(converter);
     }
+    if (pattern == null) {
+      pattern = "yyyy-MM-dd";
+      LOG.warn("Can't find the pattern for the converter! DatePicker may not work correctly. "
+          + "Trying to use: '" + pattern + "'");
+    }
+
+    writer.writeAttribute(DataAttributes.PATTERN, pattern, true);
   }
 }
 
