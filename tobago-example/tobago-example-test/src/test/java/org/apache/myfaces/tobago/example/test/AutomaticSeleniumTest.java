@@ -20,8 +20,13 @@ package org.apache.myfaces.tobago.example.test;
 import org.apache.myfaces.tobago.util.Parameterized;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.xml.sax.SAXException;
 
+import javax.xml.xpath.XPathExpressionException;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -29,6 +34,8 @@ import java.util.List;
 
 @RunWith(Parameterized.class)
 public class AutomaticSeleniumTest extends SeleniumTest {
+
+  private static final Logger LOG = LoggerFactory.getLogger(AutomaticSeleniumTest.class);
 
   private static final String MAVEN_TARGET = "target/tobago-example-test";
 
@@ -39,9 +46,23 @@ public class AutomaticSeleniumTest extends SeleniumTest {
   }
 
   @Test
-  public void testPageConsistency() {
-    getSelenium().open(url);
-    checkPage();
+  public void testPageConsistency() throws Exception {
+    SeleniumScript script = getSeleniumScript(url);
+
+    getCommandProcessor().doCommand("open", new String[] {"http://localhost:8080/" + "KillSession", ""});
+
+    for (SeleniumScriptItem item : script.getItems()) {
+      LOG.info("Calling: " + item);
+      getCommandProcessor().doCommand(item.getCommand(), item.getParameters());
+      checkPage();
+    }
+  }
+
+  private SeleniumScript getSeleniumScript(String url) throws XPathExpressionException, SAXException, IOException {
+    String seleniumUrl = url.substring("/faces/".length());
+    seleniumUrl = seleniumUrl.substring(0, seleniumUrl.lastIndexOf("."));
+    seleniumUrl = "http://localhost:8080/" + seleniumUrl + ".selenium.html";
+    return new SeleniumScript(seleniumUrl, url);
   }
 
   @Parameterized.Parameters

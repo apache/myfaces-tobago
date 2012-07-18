@@ -17,7 +17,9 @@ package org.apache.myfaces.tobago.example.test;
  * limitations under the License.
  */
 
+import com.thoughtworks.selenium.CommandProcessor;
 import com.thoughtworks.selenium.DefaultSelenium;
+import com.thoughtworks.selenium.HttpCommandProcessor;
 import com.thoughtworks.selenium.SeleniumException;
 import org.junit.AfterClass;
 import org.junit.Assert;
@@ -33,25 +35,35 @@ public abstract class SeleniumTest {
   public static final String HAS_ERROR_SEVERITY = "has error severity";
   public static final String IS_BROKEN = "is broken";
 
+  @Deprecated
   private static DefaultSelenium selenium;
+  private static CommandProcessor commandProcessor;
 
   @BeforeClass
   public static void setUp() throws Exception {
     selenium = createSeleniumClient();
     selenium.start();
+//todo alternative   commandProcessor.start();
   }
 
   @AfterClass
   public static void tearDown() throws Exception {
     selenium.stop();
+//todo alternative   commandProcessor.stop();
   }
 
+  @Deprecated
   protected DefaultSelenium getSelenium() {
     return selenium;
   }
 
+  protected CommandProcessor getCommandProcessor() {
+    return commandProcessor;
+  }
+
   protected static DefaultSelenium createSeleniumClient() throws Exception {
-    return new DefaultSelenium("localhost", 4444, "*firefox", "http://localhost:8080/");
+    commandProcessor = new HttpCommandProcessor("localhost", 4444, "*firefox", "http://localhost:8080/");
+    return new DefaultSelenium(commandProcessor);
   }
 
   protected void waitForAjaxComplete() {

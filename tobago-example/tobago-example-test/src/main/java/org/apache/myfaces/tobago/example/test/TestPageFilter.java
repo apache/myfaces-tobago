@@ -37,7 +37,8 @@ public class TestPageFilter {
       "/WEB-INF.*",
       "/org/.*",
       "/src/.*",
-      ".*/\\.svn/.*"
+      ".*/\\.svn/.*",
+      ".*\\.selenium\\.html"
   ));
 
   /**
