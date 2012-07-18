@@ -83,6 +83,34 @@ Tobago.Popup.init = function (elements) {
     // disable the page and all popups behind the highest modal popup
     Tobago.Popup.lockBehind(maxModalPopup.get(0));
   }
+
+  if (jQuery.browser.msie && parseInt(jQuery.browser.version) <= 7) {
+    // not activated for IE 6 and 7, because the handling isn't smooth.
+  } else {
+    // enable drag-and-drop for popups
+    var popups = Tobago.Utils.selectWidthJQuery(elements, ".tobago-popup");
+    // The box header is the drag handle (may change)
+    popups.find(".tobago-box-header")
+        .mousedown(function (event) {
+          var popup = jQuery(event.currentTarget).parents(".tobago-popup");
+          popup.css({cursor: "move"});
+          var page = jQuery(".tobago-page");
+          page.data("tobago-draganddrop", {
+            leftOffset:popup.position().left - event.pageX,
+            topOffset:popup.position().top - event.pageY,
+            popup:popup
+          });
+          page.css({
+            '-moz-user-select':'none',
+            '-webkit-user-select':'none',
+            'user-select':'none',
+            '-ms-user-select':'none'});
+
+          var doc = jQuery(document);
+          doc.bind("mousemove", Tobago.Popup.mousemove);
+          doc.bind("mouseup", Tobago.Popup.mouseup);
+        });
+  }
 };
 
 /**
@@ -197,6 +225,48 @@ Tobago.Popup.openWithAction = function (source, popupId, actionId, options) {
   }
 
   Tobago.reloadComponent(source, popupId, actionId, options);
+};
+
+Tobago.Popup.mousemove = function (event) {
+  var page = jQuery(".tobago-page");
+  var dnd = page.data("tobago-draganddrop");
+  if (dnd) {
+    var popup = dnd.popup;
+    Tobago.Popup.move(event, page, popup, dnd);
+  } else {
+    LOG.warn("Should not happen!"); // @DEV_ONLY
+  }
+  return false;
+};
+
+Tobago.Popup.mouseup = function (event) {
+  var page = jQuery(".tobago-page");
+  var dnd = page.data("tobago-draganddrop");
+  var doc = jQuery(document);
+  if (dnd) {
+    var popup = dnd.popup;
+    Tobago.Popup.move(event, page, popup, dnd);
+    doc.unbind("mousemove", Tobago.Popup.mousemove);
+    doc.unbind("mouseup", Tobago.Popup.mouseup);
+    page.removeData("tobago-draganddrop");
+    popup.css({cursor: ''});
+    page.css({
+      '-moz-user-select':'',
+      '-webkit-user-select':'',
+      'user-select':'',
+      '-ms-user-select':''});
+  }
+};
+
+Tobago.Popup.move = function (event, page, popup, dnd) {
+  var left = event.pageX + dnd.leftOffset;
+  left = Math.max(0, left);
+  left = Math.min(page.width() - popup.width(), left);
+  popup.css("left", left);
+  var top = event.pageY + dnd.topOffset;
+  top = Math.max(0, top);
+  top = Math.min(page.height() - popup.height(), top);
+  popup.css("top", top);
 };
 
 // ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
