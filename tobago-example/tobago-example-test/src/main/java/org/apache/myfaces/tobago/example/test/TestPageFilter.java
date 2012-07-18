@@ -77,6 +77,7 @@ public class TestPageFilter {
       "/tc/gridLayout/transparent-for-layout.jspx", // uses facelets templating
       "/tc/mediator/tomahawk-inputHtml.*", // todo
       "/tx/label/label.xhtml", // todo
+      "/tx/tree/tree-select.*", // todo
       "/type/.*" // todo
   ));
 
