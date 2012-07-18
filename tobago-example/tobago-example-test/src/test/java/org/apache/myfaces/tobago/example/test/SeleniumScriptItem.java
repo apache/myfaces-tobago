@@ -17,8 +17,6 @@ package org.apache.myfaces.tobago.example.test;
  * limitations under the License.
  */
 
-import java.util.Arrays;
-
 public class SeleniumScriptItem {
 
   private String command;
@@ -39,9 +37,6 @@ public class SeleniumScriptItem {
 
   @Override
   public String toString() {
-    return "SeleniumScriptItem{"
-        + "command='" + command + '\''
-        + ", parameters=" + (parameters == null ? null : Arrays.asList(parameters))
-        + '}';
+    return command + "('" + parameters[0] + "', '" + parameters[1] + "')";
   }
 }
