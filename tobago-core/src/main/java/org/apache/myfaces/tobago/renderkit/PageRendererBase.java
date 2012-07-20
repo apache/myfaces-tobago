@@ -18,6 +18,7 @@ package org.apache.myfaces.tobago.renderkit;
  */
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.model.PageState;
 import org.slf4j.Logger;
@@ -50,7 +51,7 @@ public class PageRendererBase extends LayoutComponentRendererBase {
       LOG.debug("action = " + newActionId);
     }
     page.setActionId(newActionId);
-
+    FacesContextUtils.setActionId(facesContext, newActionId);
     try {
       String actionPositionName = page.getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + "action-position";
       String actionPositionString = (String)

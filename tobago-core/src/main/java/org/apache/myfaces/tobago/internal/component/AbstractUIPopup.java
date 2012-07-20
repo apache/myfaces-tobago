@@ -27,6 +27,7 @@ import org.apache.myfaces.tobago.component.OnComponentPopulated;
 import org.apache.myfaces.tobago.component.Position;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.layout.LayoutUtils;
+import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
 import org.apache.myfaces.tobago.layout.LayoutComponent;
 import org.apache.myfaces.tobago.layout.LayoutContainer;
 import org.apache.myfaces.tobago.layout.LayoutManager;
@@ -111,16 +112,15 @@ public abstract class AbstractUIPopup extends AbstractUIPanelBase
   }
 
   private boolean isSubmitted() {
-    String action = ComponentUtils.findPage(getFacesContext(), this).getActionId();
+    String action = FacesContextUtils.getActionId(getFacesContext());
     return action != null && action.startsWith(getClientId(getFacesContext()) + SEPARATOR_CHAR);
   }
 
   private boolean isRedisplay() {
     if (isSubmitted()) {
-      AbstractUIPage page = ComponentUtils.findPage(getFacesContext(), this);
-      String action = page.getActionId();
+      String action = FacesContextUtils.getActionId(getFacesContext());
       if (action != null) {
-        UIComponent command = page.findComponent(SEPARATOR_CHAR + action);
+        UIComponent command = getFacesContext().getViewRoot().findComponent(SEPARATOR_CHAR + action);
         if (command != null && command instanceof UICommand) {
           return !(command.getAttributes().get(Attributes.POPUP_CLOSE) != null);
         }

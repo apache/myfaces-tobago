@@ -22,7 +22,7 @@ import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UIIn;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.internal.component.AbstractUIInput;
-import org.apache.myfaces.tobago.internal.component.AbstractUIPage;
+import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
 import org.apache.myfaces.tobago.model.AutoSuggestExtensionItem;
 import org.apache.myfaces.tobago.model.AutoSuggestItem;
 import org.apache.myfaces.tobago.model.AutoSuggestItems;
@@ -56,8 +56,7 @@ public class InRenderer extends InputRendererBase {
   public void decode(FacesContext facesContext, UIComponent component) {
     super.decode(facesContext, component);
     String clientId = component.getClientId(facesContext);
-    AbstractUIPage page = ComponentUtils.findPage(component);
-    if (clientId.equals(page.getActionId())) {
+    if (clientId.equals(FacesContextUtils.getActionId(facesContext))) {
       // this is a inputSuggest request -> render response
       facesContext.renderResponse();
     }
@@ -71,8 +70,7 @@ public class InRenderer extends InputRendererBase {
     }
 
     String clientId = component.getClientId(facesContext);
-    AbstractUIPage page = ComponentUtils.findPage(component);
-    if (clientId.equals(page.getActionId())) {
+    if (clientId.equals(FacesContextUtils.getActionId(facesContext))) {
       // this is a inputSuggest
       encodeAjax(facesContext, component);
     } else {

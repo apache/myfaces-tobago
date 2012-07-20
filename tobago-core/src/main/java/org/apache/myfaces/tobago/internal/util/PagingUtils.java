@@ -33,7 +33,7 @@ public class PagingUtils {
   private static final Logger LOG = LoggerFactory.getLogger(PagingUtils.class);
 
   public static void decode(FacesContext facesContext, UIComponent component) {
-    String actionId = ComponentUtils.findPage(facesContext, component).getActionId();
+    String actionId = FacesContextUtils.getActionId(facesContext);
     String clientId = component.getClientId(facesContext);
     if (LOG.isDebugEnabled()) {
       LOG.debug("actionId = '" + actionId + "'");

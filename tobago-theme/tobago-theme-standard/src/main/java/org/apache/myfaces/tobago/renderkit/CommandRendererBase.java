@@ -18,6 +18,7 @@ package org.apache.myfaces.tobago.renderkit;
  */
 
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
+import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,7 +36,7 @@ public abstract class CommandRendererBase extends LayoutComponentRendererBase {
     if (ComponentUtils.isOutputOnly(component)) {
       return;
     }
-    String actionId = ComponentUtils.findPage(facesContext, component).getActionId();
+    String actionId = FacesContextUtils.getActionId(facesContext);
     String clientId = component.getClientId(facesContext);
     if (LOG.isDebugEnabled()) {
       LOG.debug("actionId = '" + actionId + "'");

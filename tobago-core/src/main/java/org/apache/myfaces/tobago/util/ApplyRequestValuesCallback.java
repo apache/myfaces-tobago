@@ -39,7 +39,7 @@ public class ApplyRequestValuesCallback implements TobagoCallback {
       final String ajaxId = FacesContextUtils.getAjaxComponentId(context);
       UIComponent reload = component.getFacet(Facets.RELOAD);
       if (ajaxId != null && ajaxId.equals(component.getClientId(context)) && reload != null && reload.isRendered()
-          && ajaxId.equals(ComponentUtils.findPage(context, component).getActionId())) {
+          && ajaxId.equals(FacesContextUtils.getActionId(context))) {
         Boolean immediate = (Boolean) reload.getAttributes().get(Attributes.IMMEDIATE);
         if (immediate != null && immediate) {
           Boolean update = (Boolean) reload.getAttributes().get(Attributes.UPDATE);
