@@ -930,7 +930,13 @@ var Tobago = {
       Tobago.resizeAction();
     }
   },
-
+  frameKiller: function() {
+    if (Tobago.form.style.display == 'none') {
+      if (self == top) {
+        Tobago.form.style.display = 'block';
+      }
+    }
+  },
 // -------- Util functions ----------------------------------------------------
 
   /**
@@ -1544,6 +1550,7 @@ Tobago.Config = {
 
 
 Tobago.Config.set("Tobago", "themeConfig", "standard/standard");
+Tobago.registerListener(Tobago.frameKiller, Tobago.Phase.DOCUMENT_READY);
 
 Tobago.In = function(inId, required, requiredClass, maxLength) {
   this.id = inId;

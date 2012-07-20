@@ -205,12 +205,6 @@ public class PageRenderer extends PageRendererBase {
       writer.endElement(HtmlElements.TITLE);
       final Theme theme = client.getTheme();
 
-      if (frameKiller) {
-        writer.writeJavascript("if (self == top) {\n  var forms = document.forms;\n"
-            + "  for(var i=0;i<forms.length;i++) {\n    if (forms[i].style.display == 'none') {"
-            + "      forms[i].style.display = 'block';}\n  }\n} else { "
-            + "  top.location = self.location; }\n");
-      }
       if (debugMode) {
         // This tag must not be earlier, because the
         // IE doesn't accept some META tags, when they are not the first ones.
