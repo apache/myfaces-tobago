@@ -100,10 +100,15 @@ public class SelectBooleanCheckboxRenderer extends LayoutComponentRendererBase {
       }
     }
     writer.writeAttribute(HtmlAttributes.DISABLED, select.isDisabled());
+    writer.writeAttribute(HtmlAttributes.REQUIRED, select.isRequired());
+
+    HtmlRendererUtils.renderFocus(id, select.isFocus(), ComponentUtils.isError(select), facesContext, writer);
+
     Integer tabIndex = select.getTabIndex();
     if (tabIndex != null) {
       writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
     }
+    HtmlRendererUtils.renderCommandFacet(select, facesContext, writer);
     writer.endElement(HtmlElements.INPUT);
 
     String label = select.getItemLabel();
@@ -114,8 +119,10 @@ public class SelectBooleanCheckboxRenderer extends LayoutComponentRendererBase {
       LabelWithAccessKey labelWithAccessKey = new LabelWithAccessKey(label);
       writer.startElement(HtmlElements.LABEL, select);
       writer.writeAttribute(HtmlAttributes.FOR, id, false);
+      if (labelWithAccessKey.getAccessKey() != null) {
+        writer.writeAttribute(HtmlAttributes.ACCESSKEY, labelWithAccessKey.getAccessKey(), null);
+      }
       HtmlRendererUtils.writeLabelWithAccessKey(writer, labelWithAccessKey);
-      writer.endElement(HtmlElements.LABEL);
       if (labelWithAccessKey.getAccessKey() != null) {
         if (LOG.isInfoEnabled()
             && !AccessKeyMap.addAccessKey(facesContext, labelWithAccessKey.getAccessKey())) {
@@ -123,10 +130,10 @@ public class SelectBooleanCheckboxRenderer extends LayoutComponentRendererBase {
         }
         HtmlRendererUtils.addClickAcceleratorKey(facesContext, id, labelWithAccessKey.getAccessKey());
       }
+      writer.endElement(HtmlElements.LABEL);
     }
 
     writer.endElement(HtmlElements.DIV);
 
-    HtmlRendererUtils.checkForCommandFacet(select, facesContext, writer);
   }
 }

@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.internal.component;
+package org.apache.myfaces.tobago.internal.taglib.declaration;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -17,23 +17,12 @@ package org.apache.myfaces.tobago.internal.component;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.component.SupportsMarkup;
-import org.apache.myfaces.tobago.layout.LayoutComponent;
-import org.apache.myfaces.tobago.util.ComponentUtils;
+import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
+import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 
-import javax.faces.context.FacesContext;
+public interface HasAutocomplete {
 
-public abstract class AbstractUIInput extends javax.faces.component.UIInput
-    implements SupportsMarkup, LayoutComponent {
-
-  // TODO can this removed?
-  public void updateModel(FacesContext facesContext) {
-    if (ComponentUtils.mayUpdateModel(this)) {
-      super.updateModel(facesContext);
-    }
-  }
-
-  public abstract Integer getTabIndex();
-
-  public abstract boolean isFocus();
+  @TagAttribute
+  @UIComponentTagAttribute(type = "boolean", defaultValue = "true")
+  void setAutocomplete(String action);
 }

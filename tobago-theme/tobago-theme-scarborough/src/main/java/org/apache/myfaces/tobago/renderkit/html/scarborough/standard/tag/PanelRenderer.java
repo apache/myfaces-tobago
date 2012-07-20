@@ -95,10 +95,10 @@ public class PanelRenderer extends LayoutComponentRendererBase {
         writer.writeAttribute(DataAttributes.RELOAD, Integer.toString(update.getFrequency()), false);
       }
     }
-
+    HtmlRendererUtils.renderCommandFacet(panel, facesContext, writer);
     HtmlRendererUtils.encodeContextMenu(facesContext, writer, panel);
 
-    HtmlRendererUtils.checkForCommandFacet(panel, facesContext, writer);
+    //HtmlRendererUtils.checkForCommandFacet(panel, facesContext, writer);
 
     final Measure borderLeft = panel.getBorderLeft();
     final Measure borderRight = panel.getBorderRight();

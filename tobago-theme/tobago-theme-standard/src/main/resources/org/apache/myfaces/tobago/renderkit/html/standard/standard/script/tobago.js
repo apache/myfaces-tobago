@@ -42,7 +42,7 @@ var TbgTimer = {
     LOG.debug('until appOnload ' + (this.startAppOnload.getTime() - this.startOnload.getTime())); // @DEV_ONLY
     LOG.debug('until scriptLoaders ' + (this.startScriptLoaders.getTime() - this.startOnload.getTime())); // @DEV_ONLY
     LOG.debug('time scriptLoaders ' + (this.endScriptLoaders.getTime() - this.startScriptLoaders.getTime())); // @DEV_ONLY
-    LOG.debug('until nach onload ' + (this.endOnload.getTime() - this.startTbgJs.getTime())); // @DEV_ONLY
+    LOG.debug('until after onload ' + (this.endOnload.getTime() - this.startTbgJs.getTime())); // @DEV_ONLY
     LOG.debug('total ' + totaljs); // @DEV_ONLY
   }
 };
@@ -304,6 +304,7 @@ var Tobago = {
       window.setTimeout(Tobago.registerResizeAction, 1000);
     }
 
+    Tobago.ensureScrollbarWeights();
     window.setTimeout(Tobago.finishPageLoading, 1);
     if (TbgTimer.endBody) { // @DEV_ONLY
       TbgTimer.endOnload = new Date(); // @DEV_ONLY
@@ -314,7 +315,7 @@ var Tobago = {
     Tobago.registerCurrentScripts();
     if (TbgTimer.endBody) { // @DEV_ONLY
       TbgTimer.startScriptLoaders = new Date(); // @DEV_ONLY
-  } // @DEV_ONLY
+    } // @DEV_ONLY
     Tobago.startScriptLoaders();
     if (TbgTimer.endBody) { // @DEV_ONLY
       TbgTimer.endScriptLoaders = new Date(); // @DEV_ONLY
@@ -930,6 +931,66 @@ var Tobago = {
       Tobago.resizeAction();
     }
   },
+
+  initDom: function(elements) {
+    var autofocus = Tobago.Utils.selectWidthJQuery(elements, '[autofocus]');
+    autofocus.each(function setupFocus() {
+      Tobago.focusId = jQuery(this).attr("id");
+      Tobago.setFocus();
+    });
+    var commandButtons = Tobago.Utils.selectWidthJQuery(elements, '[data-tobago-action]');
+    commandButtons.each(function setupInputFacetCommand() {
+      var command = jQuery(this);
+      var text = command.attr("data-tobago-action");
+      var commands = jQuery.parseJSON(text);
+
+      if (commands.click) {
+        command.click(function() {
+          if (commands.click.partially) {
+            Tobago.reloadComponent(this, commands.click.partially, commands.click.actionId, commands.click);
+          } else {
+            Tobago.submitAction(this, commands.click.actionId, commands.click);
+          }
+        });
+      }
+      if (commands.change) {
+        command.change(function() {
+          if (commands.change.partially) {
+            Tobago.reloadComponent(this, commands.change.partially, commands.change.actionId, commands.change);
+          } else {
+            Tobago.submitAction(this, commands.change.actionId, commands.change);
+          }
+        });
+      }
+
+      if (commands.complete) {
+        if (commands.complete.partially) {
+          Tobago.reloadComponent(this, commands.complete.partially, commands.complete.actionId, commands.complete);
+        } else {
+          Tobago.submitAction(this, commands.complete.actionId, commands.complete);
+        }
+      }
+      if (commands.resize) {
+        Tobago.resizeAction = function() {
+          Tobago.submitAction(this, commands.resize.actionId, commands.resize);
+        }
+      }
+      if (commands.action) {
+        var delay = 100;
+        if (commands.action.delay) {
+          delay = commands.action.delay;
+        }
+        setTimeout(Tobago.submitAction(this, commands.action.actionId, commands.action), delay);
+      }
+    });
+    var accesskeys = Tobago.Utils.selectWidthJQuery(elements, '[accesskey]');
+    accesskeys.each(function setupAccessKey() {
+      var el = jQuery(this);
+      new Tobago.AcceleratorKey(function clickAccelKey() {
+        Tobago.clickOnElement(el.attr("id"))}, el.attr("accesskey"));
+    });
+  },
+
   frameKiller: function() {
     if (Tobago.form.style.display == 'none') {
       if (self == top) {
@@ -955,12 +1016,21 @@ var Tobago = {
     return Tobago.Utils.selectWidthJQuery(elements, selector);
   },
 
-  calculateScrollbarWeights: function(id) {
+  ensureScrollbarWeights: function() {
+    var id = Tobago.page.id + Tobago.SUB_COMPONENT_SEP + 'scrollbarWeight';
     var hidden = jQuery(Tobago.Utils.escapeClientId(id));
-    var outer = hidden.prev();
-    hidden.val(''
-        + (100 - outer.prop('clientWidth')) + ';'
-        + (100 - outer.prop('clientHeight')));
+    if (hidden.val().length == 0) {
+      var outer = hidden.prev();
+      hidden.val(''
+          + (100 - outer.prop('clientWidth')) + ';'
+          + (100 - outer.prop('clientHeight')));
+    } else {
+      var scrollbarWeights = hidden.val().split(",");
+      if (scrollbarWeights.length == 2) {
+        Tobago.Config.set('Tobago', 'verticalScrollbarWeight', scrollbarWeights[0]);
+        Tobago.Config.set('Tobago', 'horizontalScrollbarWeight', scrollbarWeights[1]);
+      }
+    }
   },
 
   clickOnElement: function(id) {
@@ -1551,109 +1621,8 @@ Tobago.Config = {
 
 Tobago.Config.set("Tobago", "themeConfig", "standard/standard");
 Tobago.registerListener(Tobago.frameKiller, Tobago.Phase.DOCUMENT_READY);
-
-Tobago.In = function(inId, required, requiredClass, maxLength) {
-  this.id = inId;
-  this.required = required;
-  this.requiredClass = requiredClass;
-  this.maxLength = maxLength;
-  this.setup();
-};
-
-Tobago.In.prototype.setup = function() {
-  var ctrl;
-  if (this.required) {
-    ctrl = Tobago.element(this.id);
-    if (ctrl.value && ctrl.value.length > 0) {
-      Tobago.removeCssClass(this.id, this.requiredClass);
-    }
-    Tobago.addBindEventListener(ctrl, 'focus', this, 'enterRequired');
-    Tobago.addBindEventListener(ctrl, 'blur', this, 'leaveRequired');
-  }
-  if (this.maxLength && this.maxLength > 0) {
-    ctrl = Tobago.element(this.id);
-    Tobago.addBindEventListener(ctrl, 'change', this, 'checkMaxLength');
-    Tobago.addBindEventListener(ctrl, 'keypress', this, 'checkMaxLength');
-    if (jQuery.browser.msie) {
-      Tobago.addBindEventListener(ctrl, 'paste', this, 'checkMaxLengthOnPaste');
-    }
-  }
-};
-
-// XXX IE only
-Tobago.In.prototype.checkMaxLengthOnPaste = function(event) {
-  if (!event) {
-    event = window.event;
-  }
-  var input = Tobago.element(event);
-  var pasteText = window.clipboardData.getData('Text');
-  var range = document.selection.createRange();
-  if (input.value.length - range.text.length + pasteText.length > this.maxLength) {
-    pasteText = pasteText.substring(0, this.maxLength - input.value.length + range.text.length);
-    range.text = pasteText;
-    event.returnValue = false;
-  }
-};
-
-Tobago.In.prototype.checkMaxLength = function(event) {
-  if (!event) {
-    event = window.event;
-  }
-  var ctrl = Tobago.element(event);
-  var elementLength = ctrl.value.length;
-  if (elementLength > this.maxLength) {
-    // Input is longer than max, truncate and return false.
-    // This takes care of the case where the user has pasted in text
-    // that's too long. Return true here because the onChange event can
-    // continue (now that we've truncated the value). This allows chained
-    // handlers to work.
-    ctrl.value = ctrl.value.substr(0, this.maxLength);
-    return true;
-  }
-
-  // If less than max length (i.e. within acceptable range), return true
-  if (elementLength < this.maxLength) {
-    return true;
-  }
-
-  // If we've made it to here, we know that elementLength == length
-
-  // If this is a change event, the field has already been updated to a string
-  // of the maximum allowable length. This is fine. Continue processing.
-  if (event.type == 'change') {
-    return true;
-  }
-
-  // If we've made it to here, we know that this is a keyPress event
-
-  // If the input is something less than a space (e.g. tab, CR, etc.)
-  // return true.
-  // If key was CTRL-v (or APPLE-v), which will be used to paste some new text,
-  // pass it along.
-  if (event) {
-    if ((event.which < 32)
-        || ((event.which == 118) && (event.ctrlKey || event.metaKey))) {
-      return true;
-    }
-  }
-
-  // Default return FALSE. If we're here, this is an onKeyPress event, it's a
-  // printable character, and elementLength already equals the maximum allowed.
-  // We need to return false here to cancel the event otherwise this last
-  // character will end up in the input field in position MAX+1.
-  return false;
-};
-
-Tobago.In.prototype.enterRequired = function(e) {
-  Tobago.removeCssClass(this.id, this.requiredClass);
-};
-
-Tobago.In.prototype.leaveRequired = function(e) {
-  var ctrl = Tobago.element(this.id);
-  if (!ctrl.value || ctrl.value.length == 0) {
-    Tobago.addCssClass(ctrl.id, this.requiredClass);
-  }
-};
+Tobago.registerListener(Tobago.initDom, Tobago.Phase.DOCUMENT_READY);
+Tobago.registerListener(Tobago.initDom, Tobago.Phase.AFTER_UPDATE);
 
 // XXX: 2nd parameter enableAjax is deprecated
 Tobago.Panel = function(panelId, enableAjax, autoReload) {
@@ -2652,11 +2621,56 @@ Tobago.SelectManyShuttle.copyValues = function(shuttle) {
   hidden.find("option").remove();
   shuttle.find(".tobago-selectManyShuttle-selected option").clone()
       .attr('selected', 'selected').appendTo(hidden);
+  var e = jQuery.Event("change");
+  // trigger an change event for command facets
+  hidden.trigger( e );
 };
 
 Tobago.registerListener(Tobago.SelectManyShuttle.init, Tobago.Phase.DOCUMENT_READY);
 Tobago.registerListener(Tobago.SelectManyShuttle.init, Tobago.Phase.AFTER_UPDATE);
 
+Tobago.SelectOneRadio = {};
+
+Tobago.SelectOneRadio.init = function(elements) {
+  var selectOneRadios = Tobago.Utils.selectWidthJQuery(elements, ".tobago-selectOneRadio");
+  selectOneRadios.each(function() {
+    var ul = jQuery(this);
+    var radios = jQuery('input[name="' + ul.attr('id').replace(/:/g, '\\:') + '"]');
+    radios.each(function () {
+      var selectOneRadio = jQuery(this);
+      selectOneRadio.data('oldValue', selectOneRadio.attr('checked'));
+    });
+    radios.click(function() {
+      var selectOneRadio = jQuery(this);
+      var readonly = selectOneRadio.attr('readonly');
+      var required = selectOneRadio.attr('required');
+      if (!required && !readonly) {
+        if (selectOneRadio.data('oldValue') == selectOneRadio.attr('checked')) {
+          selectOneRadio.attr('checked', false);
+        }
+        selectOneRadio.data('oldValue', selectOneRadio.attr('checked'));
+      }
+      var radios = jQuery('input[name="' + ul.attr('id').replace(/:/g, '\\:') + '"]');
+      if (readonly) {
+        radios.each(function () {
+          var radio = jQuery(this);
+          radio.attr('checked'. radio.data('oldValue'));
+        });
+      } else {
+        radios.each(function () {
+          if (this.id != selectOneRadio.get(0).id) {
+            var radio = jQuery(this);
+            radio.attr('checked', false);
+            radio.data('oldValue', radio.attr('checked'));
+          }
+        });
+      }
+    });
+  });
+};
+
+Tobago.registerListener(Tobago.SelectOneRadio.init, Tobago.Phase.DOCUMENT_READY);
+Tobago.registerListener(Tobago.SelectOneRadio.init, Tobago.Phase.AFTER_UPDATE);
 // ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 Tobago.File = {};

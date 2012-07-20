@@ -25,6 +25,13 @@ package org.apache.myfaces.tobago.renderkit.html;
 public final class DataAttributes {
 
   /**
+   * Custom action attribute. .
+   */
+  public static final String ACTION = "data-tobago-action";
+
+  public static final String ROWACTION = "data-tobago-rowaction";
+
+  /**
    * Custom command attribute. Is used to mark different client side JavaScript buttons.
    * Should only contain the command name as a keyword, for security reasons.
    */
@@ -49,6 +56,8 @@ public final class DataAttributes {
    * Custom form attribute. Used to show the virtual form of the component.
    */
   public static final String DEFAULT = "data-tobago-default";
+
+  public static final String FOR = "data-tobago-for";
 
   /**
    * Holds the first day of a week of a calendar control.
@@ -79,6 +88,20 @@ public final class DataAttributes {
    * Custom reload attribute. Used to reload a panel.
    */
   public static final String RELOAD = "data-tobago-reload";
+
+  /**
+   * Custom suggest attribute. Used for input suggest.
+   */
+  public static final String SUGGEST = "data-tobago-suggest";
+
+  public static final String TRANSITION = "data-tobago-transition";
+
+  public static final String PARTIALLY = "data-tobago-partially";
+
+  public static final String DELAY = "data-tobago-delay";
+
+  public static final String SELECTIONMODE = "data-tobago-selectionmode";
+
 
   /**
    * The selectable attribute e. g. for trees.

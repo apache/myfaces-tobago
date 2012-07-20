@@ -115,6 +115,8 @@ public class FileRenderer extends InputRendererBase {
     writer.writeClassAttribute(Classes.create(file, "pretty"));
     writer.writeStyleAttribute(inputStyle);
     writer.writeAttribute(HtmlAttributes.DISABLED, true);
+    // TODO Focus
+    //HtmlRendererUtils.renderFocus(clientId, file.isFocus(), ComponentUtils.isError(file), facesContext, writer);
     writer.endElement(HtmlElements.INPUT);
 
     // invisible file input
@@ -125,6 +127,8 @@ public class FileRenderer extends InputRendererBase {
     writer.writeNameAttribute(clientId);
     // readonly seems not making sense in browsers.
     writer.writeAttribute(HtmlAttributes.DISABLED, file.isDisabled() || file.isReadonly());
+    writer.writeAttribute(HtmlAttributes.READONLY, file.isReadonly());
+    writer.writeAttribute(HtmlAttributes.REQUIRED, file.isRequired());
     writer.writeAttribute(HtmlAttributes.SIZE, "1024", false);
     final Integer tabIndex = file.getTabIndex();
     if (tabIndex != null) {

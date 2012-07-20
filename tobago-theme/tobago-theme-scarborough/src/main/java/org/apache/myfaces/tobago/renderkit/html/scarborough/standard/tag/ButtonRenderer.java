@@ -69,6 +69,9 @@ public class ButtonRenderer extends CommandRendererBase {
     if (tabIndex != null) {
       writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
     }
+    if (label.getAccessKey() != null && helper.isDisabled()) {
+      writer.writeAttribute(HtmlAttributes.ACCESSKEY, label.getAccessKey(), null);
+    }
     if (helper.getOnclick() != null) {
       writer.writeAttribute(HtmlAttributes.ONCLICK, helper.getOnclick(), true);
     }

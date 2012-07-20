@@ -21,7 +21,6 @@ import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.UIMenu;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.util.AccessKeyMap;
-import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
@@ -37,7 +36,6 @@ import org.slf4j.LoggerFactory;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
-import java.util.Set;
 
 public class MenuRenderer extends LayoutComponentRendererBase {
 
@@ -84,7 +82,7 @@ public class MenuRenderer extends LayoutComponentRendererBase {
           LOG.info("duplicated accessKey : " + label.getAccessKey());
         }
         if (!disabled) {
-          HtmlRendererUtils.addAcceleratorKey(facesContext, menu, label.getAccessKey());
+          writer.writeAttribute(HtmlAttributes.ACCESSKEY, label.getAccessKey(), null);
         }
       }
       HtmlRendererUtils.writeLabelWithAccessKey(writer, label);
@@ -107,13 +105,6 @@ public class MenuRenderer extends LayoutComponentRendererBase {
       writer.endElement(HtmlElements.OL);
     }
     writer.endElement(HtmlElements.LI);
-
-    Set<String> accKeyFunctions = FacesContextUtils.getMenuAcceleratorScripts(facesContext);
-    if (!accKeyFunctions.isEmpty()) {
-      HtmlRendererUtils.writeScriptLoader(facesContext, null,
-          accKeyFunctions.toArray(new String[accKeyFunctions.size()]));
-      FacesContextUtils.clearMenuAcceleratorScripts(facesContext);
-    }
 
   }
 

@@ -21,7 +21,6 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.myfaces.tobago.application.ProjectStage;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
-import org.apache.myfaces.tobago.component.UIForm;
 import org.apache.myfaces.tobago.component.UIMenuBar;
 import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.component.UIPopup;
@@ -32,11 +31,9 @@ import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.context.Theme;
 import org.apache.myfaces.tobago.internal.ajax.AjaxInternalUtils;
-import org.apache.myfaces.tobago.internal.component.AbstractUICommandBase;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPage;
 import org.apache.myfaces.tobago.internal.layout.LayoutContext;
 import org.apache.myfaces.tobago.internal.util.AccessKeyMap;
-import org.apache.myfaces.tobago.internal.util.Deprecation;
 import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
 import org.apache.myfaces.tobago.internal.util.FastStringWriter;
 import org.apache.myfaces.tobago.internal.util.MimeTypeUtils;
@@ -49,7 +46,6 @@ import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
-import org.apache.myfaces.tobago.renderkit.html.util.CommandRendererHelper;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -63,7 +59,6 @@ import org.slf4j.LoggerFactory;
 import javax.faces.application.Application;
 import javax.faces.application.FacesMessage;
 import javax.faces.application.ViewHandler;
-import javax.faces.component.UICommand;
 import javax.faces.component.UIComponent;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
@@ -101,7 +96,7 @@ public class PageRenderer extends PageRendererBase {
     String lastFocusId = (String) 
         externalContext.getRequestParameterMap().get(clientId + ComponentUtils.SUB_SEPARATOR + LAST_FOCUS_ID);
     if (lastFocusId != null) {
-      component.getAttributes().put(LAST_FOCUS_ID, lastFocusId);
+      FacesContextUtils.setFocusId(facesContext, lastFocusId);
     }
 
     // scrollbar weight
@@ -137,7 +132,9 @@ public class PageRenderer extends PageRendererBase {
 
     LayoutContext layoutContext = new LayoutContext(page);
     layoutContext.layout();
-
+    if (FacesContextUtils.getFocusId(facesContext) == null && !StringUtils.isBlank(page.getFocusId())) {
+      FacesContextUtils.setFocusId(facesContext, page.getFocusId());
+    }
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
     // reset responseWriter and render page
@@ -165,7 +162,6 @@ public class PageRenderer extends PageRendererBase {
     final boolean developmentMode =  projectStage == ProjectStage.Development;
     final boolean debugMode = client.isDebugMode() || developmentMode;
     final boolean productionMode = !debugMode && projectStage == ProjectStage.Production;
-    boolean calculateScrollbarWeight = false;
     int clientLogSeverity = 2;
     if (debugMode) {
       String severity = (String) facesContext.getExternalContext().getRequestMap().get(CLIENT_DEBUG_SEVERITY);
@@ -270,7 +266,7 @@ public class PageRenderer extends PageRendererBase {
           hideClientLogging = !severity.contains("show");
         }
         // the jquery ui is used in moment only for the logging area...
-        FacesContextUtils.addOnloadScript(facesContext, 0, "new LOG.LogArea({hide: " + hideClientLogging + "});");
+        //FacesContextUtils.addOnloadScript(facesContext, 0, "new LOG.LogArea({hide: " + hideClientLogging + "});");
       }
 
       // render remaining script tags
@@ -282,70 +278,6 @@ public class PageRenderer extends PageRendererBase {
         encodeScript(facesContext, writer, scriptFile);
       }
 
-      // focus id
-      String focusId = page.getFocusId();
-      if (focusId != null) {
-        writer.startJavascript();
-        writer.write("Tobago.focusId = '");
-        writer.write(focusId);
-        writer.write("';");
-        writer.endJavascript();
-      }
-
-      if (component.getFacets().containsKey(Facets.ACTION)) {
-        UIComponent command = component.getFacet(Facets.ACTION);
-        if (command != null && command.isRendered()) {
-          int duration = ComponentUtils.getIntAttribute(command, Attributes.DELAY, 100);
-          boolean transition = ComponentUtils.getBooleanAttribute(command, Attributes.TRANSITION);
-          String target = ComponentUtils.getStringAttribute(command, Attributes.TARGET);
-          String action
-              = HtmlRendererUtils.createSubmitAction(command.getClientId(facesContext), transition, target, null);
-          FacesContextUtils.addOnloadScript(facesContext, "setTimeout(\"" + action  + "\", " + duration + ");\n");
-        }
-      }
-
-
-      calculateScrollbarWeight
-          = client.getVerticalScrollbarWeight() == null || client.getHorizontalScrollbarWeight() == null;
-      if (calculateScrollbarWeight) {
-        FacesContextUtils.addOnloadScript(facesContext,
-            "Tobago.calculateScrollbarWeights('" + clientId + ComponentUtils.SUB_SEPARATOR + "scrollbarWeight" + "');");
-      } else {
-        FacesContextUtils.addOnloadScript(facesContext,
-            "Tobago.Config.set('Tobago', 'verticalScrollbarWeight', '"
-                + client.getVerticalScrollbarWeight().getPixel() + "');");
-        FacesContextUtils.addOnloadScript(facesContext,
-            "Tobago.Config.set('Tobago', 'horizontalScrollbarWeight', '"
-                + client.getHorizontalScrollbarWeight().getPixel() + "');");
-      }
-
-      UIComponent command = null;
-      if (component.getFacets().containsKey(Facets.RESIZE_ACTION)) {
-        Deprecation.LOG.warn("Please use 'resize' instead of 'resizeAction' as facet.");
-        UIComponent facet = component.getFacet(Facets.RESIZE_ACTION);
-        if (facet instanceof UICommand) {
-          command = facet;
-        } else if (facet instanceof UIForm && facet.getChildCount() == 1) {
-          Deprecation.LOG.warn("Please don't use a form, but a command with immediate=true instead.");
-          command = (UIComponent) facet.getChildren().get(0);
-        }
-      }
-
-      if (component.getFacets().containsKey(Facets.RESIZE)) {
-        UIComponent facet = component.getFacet(Facets.RESIZE);
-        if (facet instanceof UICommand) {
-          command = facet;
-        } else if (facet instanceof UIForm && facet.getChildCount() == 1) {
-          Deprecation.LOG.warn("Please don't use a form, but a command with immediate=true instead.");
-          command = (UIComponent) facet.getChildren().get(0);
-        }
-      }
-      if (command != null && command.isRendered()) {
-        final CommandRendererHelper helper = new CommandRendererHelper(facesContext, (AbstractUICommandBase) command);
-        if (!helper.isDisabled()) {
-          writer.writeJavascript("Tobago.resizeAction = function() {\n" + helper.getOnclick() + "\n};\n");
-        }
-      }
 
       writer.startJavascript();
       // onload script
@@ -373,21 +305,10 @@ public class PageRenderer extends PageRendererBase {
     }
 
     writer.startElement(HtmlElements.BODY, page);
-//    writer.writeAttribute(HtmlAttributes.ONLOAD, "Tobago.init('" + clientId + "');", false);
-//    writer.writeAttribute("onunload", "Tobago.onexit();", null);
     writer.writeIdAttribute(clientId);
     writer.writeClassAttribute(Classes.create(page));
+    HtmlRendererUtils.renderCommandFacet(page, facesContext, writer);
 
-/*
-    if (debugMode) {
-      final String[] jsFiles = new String[]{
-          "script/tobago-logging.js"
-      };
-      final String[] jsCommand = new String[]{"new LOG.LogArea({hide: " + hideClientLogging + "});"};
-      HtmlRendererUtils.writeScriptLoader(facesContext, jsFiles, jsCommand);
-      writer.writeJavascript("TbgTimer.startBody = new Date();");
-    }
-*/
     if (debugMode) {
       writer.writeJavascript("TbgTimer.startBody = new Date();");
     }
@@ -426,19 +347,29 @@ public class PageRenderer extends PageRendererBase {
     writer.writeIdAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "action-position");
     writer.endElement(HtmlElements.INPUT);
 
+    boolean calculateScrollbarWeight =
+        client.getVerticalScrollbarWeight() == null || client.getHorizontalScrollbarWeight() == null;
+
     if (calculateScrollbarWeight) {
       writer.startElement(HtmlElements.DIV, null);
       writer.writeClassAttribute(Classes.create(page, "scrollbarWeight", Markup.NULL));
       writer.startElement(HtmlElements.DIV, null);
       writer.endElement(HtmlElements.DIV);
       writer.endElement(HtmlElements.DIV);
-
-      writer.startElement(HtmlElements.INPUT, null);
-      writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN, false);
-      writer.writeNameAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "scrollbarWeight");
-      writer.writeIdAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "scrollbarWeight");
-      writer.endElement(HtmlElements.INPUT);
     }
+
+    writer.startElement(HtmlElements.INPUT, null);
+    writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN, false);
+    writer.writeNameAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "scrollbarWeight");
+    writer.writeIdAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "scrollbarWeight");
+    if (client.getVerticalScrollbarWeight() != null && client.getHorizontalScrollbarWeight() != null) {
+      StringBuilder buf = new StringBuilder();
+      buf.append(client.getVerticalScrollbarWeight().getPixel());
+      buf.append(";");
+      buf.append(client.getHorizontalScrollbarWeight().getPixel());
+      writer.writeAttribute(HtmlAttributes.VALUE, buf.toString(), false);
+    }
+    writer.endElement(HtmlElements.INPUT);
 
     if (TobagoConfig.getInstance(FacesContext.getCurrentInstance()).isCreateSessionSecret()) {
       Secret.encode(facesContext, writer);
@@ -456,12 +387,6 @@ public class PageRenderer extends PageRendererBase {
     if (component.getFacet("backButtonDetector") != null) {
       UIComponent hidden = component.getFacet("backButtonDetector");
       RenderUtils.encode(facesContext, hidden);
-    }
-
-    String lastFocusId = (String) component.getAttributes().get(LAST_FOCUS_ID);
-    if (lastFocusId != null) {
-      writer.writeJavascript("Tobago.lastFocusId = '" + lastFocusId + "';");
-      component.getAttributes().remove(LAST_FOCUS_ID);
     }
 
     //checkForCommandFacet(component, facesContext, writer);
@@ -734,6 +659,8 @@ public class PageRenderer extends PageRendererBase {
       if (StringUtils.isNotBlank(src)) {
         writer.startElement(HtmlElements.SCRIPT, null);
         writer.writeAttribute(HtmlAttributes.SRC, src, true);
+        // TODO test defer attribute
+        //writer.writeAttribute(HtmlAttributes.DEFER, true);
         writer.writeAttribute(HtmlAttributes.TYPE, "text/javascript", false);
         writer.endElement(HtmlElements.SCRIPT);
       }

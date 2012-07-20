@@ -43,14 +43,23 @@ public final class FacesContextUtils {
   private static final String TOBAGO_ONSUBMIT_SCRIPTS = "org.apache.myfaces.tobago.onsubmitScripts";
   private static final String TOBAGO_POPUPS = "org.apache.myfaces.tobago.popups";
   private static final String TOBAGO_MENU_ACCELERATORS = "org.apache.myfaces.tobago.menuAccelerators";
+  private static final String TOBAGO_FOCUS_ID = "org.apache.myfaces.tobago.focusId";
   private static final String TOBAGO_ACTION_ID = "org.apache.myfaces.tobago.actionId";
-          
+
   public static boolean isAjax(FacesContext context) {
     return FacesUtils.getFacesContextAttributes(context).containsKey(TOBAGO_AJAX);
   }
 
   public static void setAjax(FacesContext context, boolean ajax) {
     FacesUtils.getFacesContextAttributes(context).put(TOBAGO_AJAX, ajax);
+  }
+
+  public static void setFocusId(FacesContext context, String focusId) {
+    FacesUtils.getFacesContextAttributes(context).put(TOBAGO_FOCUS_ID, focusId);
+  }
+
+  public static String getFocusId(FacesContext context) {
+    return (String) FacesUtils.getFacesContextAttributes(context).get(TOBAGO_FOCUS_ID);
   }
 
   public static void setActionId(FacesContext context, String actionId) {

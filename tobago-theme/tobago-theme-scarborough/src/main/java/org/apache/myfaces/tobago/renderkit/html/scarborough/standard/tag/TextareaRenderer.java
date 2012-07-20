@@ -65,6 +65,7 @@ public class TextareaRenderer extends InputRendererBase {
     }
     writer.writeAttribute(HtmlAttributes.READONLY, input.isReadonly());
     writer.writeAttribute(HtmlAttributes.DISABLED, input.isDisabled());
+    writer.writeAttribute(HtmlAttributes.REQUIRED, input.isRequired());
     Integer tabIndex = input.getTabIndex();
     if (tabIndex != null) {
       writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
@@ -77,17 +78,28 @@ public class TextareaRenderer extends InputRendererBase {
     if (onchange != null) {
       writer.writeAttribute(HtmlAttributes.ONCHANGE, onchange, null);
     }
-    /*int maxLength = -1;
+    int maxLength = -1;
+    String pattern = null;
     for (Validator validator : input.getValidators()) {
       if (validator instanceof LengthValidator) {
         LengthValidator lengthValidator = (LengthValidator) validator;
         maxLength = lengthValidator.getMaximum();
       }
+      /*if (validator instanceof RegexValidator) {
+        RegexValidator regexValidator = (RegexValidator) validator;
+        pattern = regexValidator.getPattern();
+      }*/
     }
     if (maxLength > 0) {
       writer.writeAttribute(HtmlAttributes.MAXLENGTH, maxLength);
     }
-    String placeholder = input.getPlaceholder();
+    if (pattern != null) {
+      writer.writeAttribute(HtmlAttributes.PATTERN, pattern, false);
+    }
+    HtmlRendererUtils.renderCommandFacet(input, facesContext, writer);
+    HtmlRendererUtils.renderFocus(clientId, input.isFocus(), ComponentUtils.isError(input), facesContext, writer);
+
+    /*String placeholder = input.getPlaceholder();
     if (placeholder != null) {
       writer.writeAttribute(HtmlAttributes.PLACEHOLDER, placeholder, true);
     }*/
@@ -109,24 +121,5 @@ public class TextareaRenderer extends InputRendererBase {
       HtmlRendererUtils.createPlaceholderDiv(input, currentValue, placeholder, style, writer);
     }*/
 
-    HtmlRendererUtils.checkForCommandFacet(input, facesContext, writer);
-    int maxLength = -1;
-    for (Validator validator : input.getValidators()) {
-      if (validator instanceof LengthValidator) {
-        LengthValidator lengthValidator = (LengthValidator) validator;
-        maxLength = lengthValidator.getMaximum();
-      }
-    }
-    boolean required = ComponentUtils.getBooleanAttribute(input, Attributes.REQUIRED);
-    if (required || maxLength > 0) {
-      final String[] cmds = {
-          "new Tobago.In(\"" + input.getClientId(facesContext) + "\"," + required + ",\""
-              + Classes.requiredWorkaround(input) + "\" " + (maxLength > -1 ? "," + maxLength : "") + "  );"
-      };
-      HtmlRendererUtils.writeScriptLoader(facesContext, null, cmds);
-    }
-
-    // focus
-    HtmlRendererUtils.renderFocusId(facesContext, input);
   }
 }

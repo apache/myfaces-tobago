@@ -418,3 +418,9 @@ LOG.LogMessage.prototype.displayOn = function(type) {
   return this.type <= type;
 };
 
+LOG.init = function() {
+  new LOG.LogArea({hide:true});
+};
+
+Tobago.registerListener(LOG.init, Tobago.Phase.DOCUMENT_READY);
+

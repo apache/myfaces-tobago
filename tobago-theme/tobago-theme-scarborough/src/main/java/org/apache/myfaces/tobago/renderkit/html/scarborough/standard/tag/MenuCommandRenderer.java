@@ -188,7 +188,7 @@ public class MenuCommandRenderer extends CommandRendererBase {
           LOG.info("duplicated accessKey : " + label.getAccessKey());
         }
         if (!disabled && component != null) {
-          HtmlRendererUtils.addAcceleratorKey(facesContext, component, label.getAccessKey());
+          writer.writeAttribute(HtmlAttributes.ACCESSKEY, label.getAccessKey(), null);
         }
       }
       HtmlRendererUtils.writeLabelWithAccessKey(writer, label);

@@ -17,20 +17,26 @@ package org.apache.myfaces.tobago.renderkit.html.util;
  * limitations under the License.
  */
 
+import com.google.gson.Gson;
 import org.apache.commons.lang.StringUtils;
 import org.apache.myfaces.tobago.component.Attributes;
+import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.SupportsMarkup;
 import org.apache.myfaces.tobago.component.SupportsRenderedPartially;
+import org.apache.myfaces.tobago.component.UIColumnEvent;
 import org.apache.myfaces.tobago.component.UICommand;
+import org.apache.myfaces.tobago.component.UIForm;
 import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.component.UISheet;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
+import org.apache.myfaces.tobago.internal.component.AbstractUICommand;
 import org.apache.myfaces.tobago.internal.util.Deprecation;
 import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
 import org.apache.myfaces.tobago.internal.webapp.TobagoResponseWriterWrapper;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
+import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
@@ -50,6 +56,7 @@ import javax.faces.model.SelectItem;
 import javax.faces.model.SelectItemGroup;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -58,6 +65,7 @@ public final class HtmlRendererUtils {
 
   private static final Logger LOG = LoggerFactory.getLogger(HtmlRendererUtils.class);
   private static final String ERROR_FOCUS_KEY = HtmlRendererUtils.class.getName() + ".ErrorFocusId";
+  private static final String FOCUS_KEY = HtmlRendererUtils.class.getName() + ".FocusId";
 
   private HtmlRendererUtils() {
     // to prevent instantiation
@@ -76,6 +84,16 @@ public final class HtmlRendererUtils {
       }
     }
     return FacesContext.getCurrentInstance().getExternalContext().getRequestMap().containsKey(ERROR_FOCUS_KEY);
+  }
+
+  public static void renderFocus(String clientId, boolean focus, boolean error, FacesContext facesContext,
+      TobagoResponseWriter writer) throws IOException {
+    final Map<String, Object> requestMap = facesContext.getExternalContext().getRequestMap();
+    if (!requestMap.containsKey(FOCUS_KEY)
+        && (clientId.equals(FacesContextUtils.getFocusId(facesContext)) || focus || error)) {
+      requestMap.put(FOCUS_KEY, Boolean.TRUE);
+      writer.writeAttribute(HtmlAttributes.AUTOFOCUS, true);
+    }
   }
 
   public static void renderFocusId(final FacesContext facesContext, final UIComponent component)
@@ -141,20 +159,20 @@ public final class HtmlRendererUtils {
   public static void addClickAcceleratorKey(
       FacesContext facesContext, String clientId, char key)
       throws IOException {
-    addClickAcceleratorKey(facesContext, clientId, key, null);
+    //addClickAcceleratorKey(facesContext, clientId, key, null);
   }
 
   public static void addClickAcceleratorKey(
       FacesContext facesContext, String clientId, char key, String modifier)
       throws IOException {
-    String str
-        = createOnclickAcceleratorKeyJsStatement(clientId, key, modifier);
-    writeScriptLoader(facesContext, null, new String[]{str});
+    //String str
+    //    = createOnclickAcceleratorKeyJsStatement(clientId, key, modifier);
+    //writeScriptLoader(facesContext, null, new String[]{str});
   }
 
   public static void addAcceleratorKey(
       FacesContext facesContext, String func, char key) throws IOException {
-    addAcceleratorKey(facesContext, func, key, null);
+    //addAcceleratorKey(facesContext, func, key, null);
   }
 
   public static void addAcceleratorKey(
@@ -236,14 +254,14 @@ public final class HtmlRendererUtils {
     if (scripts != null) {
       LOG.error("Scripts argument for writeScriptLoader not supported anymore!");
     }
-    /*String allScripts = "[]";
+    String allScripts = "[]";
     if (scripts != null) {
       allScripts = ResourceManagerUtils.getScriptsAsJSArray(facesContext, scripts);
     }
-    boolean ajax = FacesContextUtils.isAjax(facesContext);*/
+    boolean ajax = FacesContextUtils.isAjax(facesContext);
     writer.startJavascript();
-    /* XXX fix me if scripts != null
-    if (scripts != null) {
+    // XXX fix me if scripts != null
+    if (ajax || scripts != null) {
       writer.write("new Tobago.ScriptLoader(");
       if (!ajax) {
         writer.write("\n    ");
@@ -273,11 +291,11 @@ public final class HtmlRendererUtils {
         }
       }
       writer.write(");");
-    } else {*/
+    } else {
     for (String afterLoadCmd : afterLoadCmds) {
       writer.write(afterLoadCmd);
     }
-    //}
+    }
     writer.endJavascript();
   }
 
@@ -588,13 +606,75 @@ public final class HtmlRendererUtils {
     return strBuilder.toString();
   }
 
+
+  public static void renderCommandFacet(UIComponent component, FacesContext facesContext,
+      TobagoResponseWriter writer) throws IOException {
+    renderCommandFacet(component, component.getClientId(facesContext), facesContext, writer);
+  }
+
+  public static void renderCommandFacet(UIComponent component, String id, FacesContext facesContext,
+                                        TobagoResponseWriter writer) throws IOException {
+    if (ComponentUtils.getBooleanAttribute(component, Attributes.READONLY)
+        || ComponentUtils.getBooleanAttribute(component, Attributes.DISABLED)) {
+      return;
+    }
+    Map<String, Command> commandMap = null;
+    Map<String, UIComponent> facets = component.getFacets();
+    for (Map.Entry<String, UIComponent> entry : facets.entrySet()) {
+      UIComponent facetComponent = entry.getValue();
+      if (facetComponent.isRendered()
+          && (facetComponent instanceof AbstractUICommand || facetComponent instanceof UIForm)) {
+        if (commandMap == null) {
+          commandMap = new HashMap<String, Command>();
+        }
+        String key = entry.getKey();
+        if (Facets.RESIZE_ACTION.equals(key)) {
+          key = Facets.RESIZE;
+        }
+        commandMap.put(key, getCommandFacet(entry.getValue(), id, facesContext));
+      }
+    }
+    if (commandMap != null) {
+
+      Gson gson = new Gson();
+      writer.writeAttribute(DataAttributes.ACTION, gson.toJson(commandMap), null);
+    }
+  }
+
+  public static boolean renderSheetCommands(UISheet sheet, FacesContext facesContext,
+                                         TobagoResponseWriter writer) throws IOException {
+    Map<String, Command> commandMap = null;
+    for (UIComponent child : (List<UIComponent>) sheet.getChildren()) {
+      if (child instanceof UIColumnEvent) {
+        UIColumnEvent columnEvent = (UIColumnEvent) child;
+        if (columnEvent.isRendered()) {
+          UIComponent selectionChild = (UIComponent) child.getChildren().get(0);
+          if (selectionChild != null && selectionChild instanceof AbstractUICommand && selectionChild.isRendered()) {
+            UICommand action = (UICommand) selectionChild;
+            if (commandMap == null) {
+              commandMap = new HashMap<String, Command>();
+            }
+            commandMap.put(columnEvent.getEvent(), getCommandFacet(action, null, facesContext));
+          }
+        }
+      }
+    }
+    if (commandMap != null) {
+      Gson gson = new Gson();
+      writer.writeAttribute(DataAttributes.ROWACTION, gson.toJson(commandMap), null);
+      return true;
+    }
+    return false;
+  }
+
+
   public static void checkForCommandFacet(UIComponent component, FacesContext facesContext, TobagoResponseWriter writer)
       throws IOException {
     checkForCommandFacet(component, Arrays.asList(component.getClientId(facesContext)), facesContext, writer);
   }
 
   public static void checkForCommandFacet(UIComponent component, List<String> clientIds, FacesContext facesContext,
-                                      TobagoResponseWriter writer) throws IOException {
+      TobagoResponseWriter writer) throws IOException {
     if (ComponentUtils.getBooleanAttribute(component, Attributes.READONLY)
         || ComponentUtils.getBooleanAttribute(component, Attributes.DISABLED)) {
       return;
@@ -605,6 +685,47 @@ public final class HtmlRendererUtils {
         addCommandFacet(clientIds, entry, facesContext, writer);
       }
     }
+  }
+
+
+  private static Command getCommandFacet(UIComponent facetComponent, String focusId,
+        FacesContext facesContext) throws IOException {
+    if (facetComponent instanceof UIForm && facetComponent.getChildCount() == 1) {
+      Deprecation.LOG.warn("Please don't use a form, but a command with immediate=true instead.");
+      facetComponent = (UIComponent) facetComponent.getChildren().get(0);
+    }
+    Command command = new Command();
+    command.actionId = facetComponent.getClientId(facesContext);
+    // transition == true is the default
+    if (!ComponentUtils.getBooleanAttribute(facetComponent, Attributes.TRANSITION)) {
+      command.transistion = Boolean.FALSE;
+    }
+    String target = ComponentUtils.getStringAttribute(facetComponent, Attributes.TARGET);
+    if (target != null) {
+      command.target = target;
+    }
+    if (facetComponent instanceof AbstractUICommand
+        && ((AbstractUICommand) facetComponent).getRenderedPartially().length > 0) {
+      String clientIds = HtmlRendererUtils.getComponentIds(facesContext, facetComponent,
+          ((UICommand) facetComponent).getRenderedPartially());
+      command.partially = clientIds;
+    } else {
+      String facetAction = (String) facetComponent.getAttributes().get(Attributes.ONCLICK);
+      if (facetAction != null) {
+        // Replace @autoId
+        facetAction = StringUtils.replace(facetAction, "@autoId", facetComponent.getClientId(facesContext));
+        command.onclick = facetAction;
+      }
+      if (focusId != null) {
+        command.focus = focusId;
+      }
+    }
+
+    int delay = ComponentUtils.getIntAttribute(facetComponent, Attributes.DELAY);
+    if (delay > 0) {
+      command.delay = delay;
+    }
+    return command;
   }
 
   private static void addCommandFacet(List<String> clientIds, Map.Entry<String, UIComponent> facetEntry,
@@ -724,4 +845,14 @@ public final class HtmlRendererUtils {
       String jsStatement = createOnclickAcceleratorKeyJsStatement(clientId, accessKey, null);
       FacesContextUtils.addMenuAcceleratorScript(facesContext, jsStatement);
     }
+
+  private static class Command {
+    private String actionId;
+    private Boolean transistion;
+    private String target;
+    private String partially;
+    private String focus;
+    private String onclick;
+    private Integer delay;
+  }
 }

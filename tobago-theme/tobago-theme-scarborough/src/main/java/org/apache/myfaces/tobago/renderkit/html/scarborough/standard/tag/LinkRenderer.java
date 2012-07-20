@@ -69,6 +69,9 @@ public class LinkRenderer extends CommandRendererBase {
       if (tabIndex != null) {
         writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
       }
+      if (label.getAccessKey() != null) {
+        writer.writeAttribute(HtmlAttributes.ACCESSKEY, label.getAccessKey(), null);
+      }
     }
     Style style = new Style(facesContext, link);
     writer.writeStyleAttribute(style);
@@ -106,13 +109,13 @@ public class LinkRenderer extends CommandRendererBase {
       HtmlRendererUtils.writeLabelWithAccessKey(writer, label);
     }
 
-    if (label.getAccessKey() != null) {
+    if (label.getAccessKey() != null && !helper.isDisabled()) {
       if (LOG.isInfoEnabled()
           && !AccessKeyMap.addAccessKey(facesContext, label.getAccessKey())) {
         LOG.info("duplicated accessKey : " + label.getAccessKey());
       }
 
-      HtmlRendererUtils.addClickAcceleratorKey(facesContext, clientId, label.getAccessKey());
+      //HtmlRendererUtils.addClickAcceleratorKey(facesContext, clientId, label.getAccessKey());
     }
   }
 

@@ -25,6 +25,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -55,13 +56,17 @@ public class SelectManyListboxRenderer extends SelectManyRendererBase {
 
     String id = select.getClientId(facesContext);
     List<SelectItem> items = RenderUtils.getSelectItems(select);
-    boolean disabled = items.size() == 0 || select.isDisabled() || select.isReadonly();
+    boolean readonly = select.isReadonly();
+    boolean disabled = items.size() == 0 || select.isDisabled() || readonly;
 
     String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, select);
     writer.startElement(HtmlElements.SELECT, select);
     writer.writeNameAttribute(id);
     writer.writeIdAttribute(id);
     writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
+    writer.writeAttribute(HtmlAttributes.READONLY, readonly);
+    writer.writeAttribute(HtmlAttributes.REQUIRED, select.isRequired());
+    HtmlRendererUtils.renderFocus(id, select.isFocus(), ComponentUtils.isError(select), facesContext, writer);
     Integer tabIndex = select.getTabIndex();
     if (tabIndex != null) {
       writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
@@ -73,12 +78,11 @@ public class SelectManyListboxRenderer extends SelectManyRendererBase {
     if (title != null) {
       writer.writeAttribute(HtmlAttributes.TITLE, title, true);
     }
+    HtmlRendererUtils.renderCommandFacet(select, facesContext, writer);
     Object[] values = select.getSelectedValues();
     HtmlRendererUtils.renderSelectItems(select, items, values, writer, facesContext);
 
     writer.endElement(HtmlElements.SELECT);
-    HtmlRendererUtils.renderFocusId(facesContext, select);
-    HtmlRendererUtils.checkForCommandFacet(select, facesContext, writer);
   }
 
 }

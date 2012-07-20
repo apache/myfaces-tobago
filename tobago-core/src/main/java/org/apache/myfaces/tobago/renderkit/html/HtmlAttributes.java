@@ -21,10 +21,12 @@ public final class HtmlAttributes {
 
   public static final String ACCEPT_CHARSET = "accept-charset";
   public static final String ACCEPT = "accept";
+  public static final String ACCESSKEY = "accesskey";
   public static final String ACTION = "action";
   public static final String ALIGN = "align";
   public static final String ALT = "alt";
   public static final String AUTOCOMPLETE = "autocomplete";
+  public static final String AUTOFOCUS = "autofocus";
   public static final String BORDER = "border";
   public static final String CELLPADDING = "cellpadding";
   public static final String CELLSPACING = "cellspacing";
@@ -32,6 +34,7 @@ public final class HtmlAttributes {
   public static final String CLASS = "class";
   public static final String COLSPAN = "colspan";
   public static final String CONTENT = "content";
+  public static final String DEFER = "defer";
   public static final String DISABLED = "disabled";
   public static final String ENCTYPE = "enctype";
   public static final String FOR = "for";
@@ -58,8 +61,10 @@ public final class HtmlAttributes {
   public static final String ONLOAD = "onload";
   public static final String ONMOUSEOVER = "onmouseover";
   public static final String ONMOUSEOUT = "onmouseout";
+  public static final String PATTERN = "pattern";
   public static final String READONLY = "readonly";
   public static final String REL = "rel";
+  public static final String REQUIRED = "required";
   public static final String ROWS = "rows";
   public static final String ROWSPAN = "rowspan";
   public static final String SCROLL = "scroll";

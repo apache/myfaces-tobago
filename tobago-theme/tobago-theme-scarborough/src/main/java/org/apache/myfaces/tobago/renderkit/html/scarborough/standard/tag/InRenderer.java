@@ -29,6 +29,7 @@ import org.apache.myfaces.tobago.model.AutoSuggestItems;
 import org.apache.myfaces.tobago.renderkit.InputRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
+import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
@@ -104,14 +105,22 @@ public class InRenderer extends InputRendererBase {
         writer.writeAttribute(HtmlAttributes.TITLE, title, true);
       }
       int maxLength = 0;
+      String pattern = null;
       for (Validator validator : input.getValidators()) {
         if (validator instanceof LengthValidator) {
           LengthValidator lengthValidator = (LengthValidator) validator;
           maxLength = lengthValidator.getMaximum();
         }
+        /*if (validator instanceof RegexValidator) {
+          RegexValidator regexValidator = (RegexValidator) validator;
+          pattern = regexValidator.getPattern();
+        }*/
       }
       if (maxLength > 0) {
         writer.writeAttribute(HtmlAttributes.MAXLENGTH, maxLength);
+      }
+      if (pattern != null) {
+        writer.writeAttribute(HtmlAttributes.PATTERN, pattern, false);
       }
       writer.writeAttribute(HtmlAttributes.READONLY, ComponentUtils.getBooleanAttribute(input, Attributes.READONLY));
       writer.writeAttribute(HtmlAttributes.DISABLED, ComponentUtils.getBooleanAttribute(input, Attributes.DISABLED));
@@ -122,6 +131,10 @@ public class InRenderer extends InputRendererBase {
       Style style = new Style(facesContext, input);
       writer.writeStyleAttribute(style);
 
+      if (renderAjaxSuggest || (input instanceof UIIn && !((UIIn) input).isAutocomplete())) {
+        writer.writeAttribute(HtmlAttributes.AUTOCOMPLETE, "off", false);
+      }
+
       HtmlRendererUtils.renderDojoDndItem(component, writer, true);
       writer.writeClassAttribute(Classes.create(input));
       /*if (component instanceof AbstractUIInput) {
@@ -131,37 +144,14 @@ public class InRenderer extends InputRendererBase {
      //      writer.writeAttribute(HtmlAttributes.ONCHANGE, onchange, null);
        }
      } */
-      writeAdditionalAttributes(facesContext, writer, input);
-      writer.endElement(HtmlElements.INPUT);
-
-      HtmlRendererUtils.checkForCommandFacet(input, facesContext, writer);
-
       boolean required = ComponentUtils.getBooleanAttribute(input, Attributes.REQUIRED);
-      final String requiredClass = Classes.requiredWorkaround(input);
-      if (required && !renderAjaxSuggest) {
-        final String[] cmds = {
-            "new Tobago.In(\"" + id + "\", true ,\"" + requiredClass + "\"  );"
-        };
+      writer.writeAttribute(HtmlAttributes.REQUIRED, required);
+      writer.writeAttribute(DataAttributes.SUGGEST, renderAjaxSuggest);
 
-        HtmlRendererUtils.writeScriptLoader(facesContext, null, cmds);
-      }
-
-      // focus
-      HtmlRendererUtils.renderFocusId(facesContext, input);
-
-      // input suggest
-      if (renderAjaxSuggest) {
-
-        final String[] cmds = {
-            "new Tobago.AutocompleterAjax(",
-            "    '" + id + "',",
-            "    " + required + ",",
-            "    '" + requiredClass + "',",
-            "    { });"
-        };
-
-        HtmlRendererUtils.writeScriptLoader(facesContext, null, cmds);
-      }
+      HtmlRendererUtils.renderFocus(id, input.isFocus(), ComponentUtils.isError(input), facesContext, writer);
+      writeAdditionalAttributes(facesContext, writer, input);
+      HtmlRendererUtils.renderCommandFacet(input, facesContext, writer);
+      writer.endElement(HtmlElements.INPUT);
     }
   }
 

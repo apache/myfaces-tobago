@@ -59,13 +59,6 @@ Tobago.Sheet = function(sheetId, firstRowIndex, selectable, columnSelectorIndex,
   this.mouseDownX = undefined;
   this.mouseDownY = undefined;
 
-  Tobago.addAjaxComponent(this.id, this);
-  // option are only used for ajax request
-  this.options = {
-    // overlay is created by sheet itself, so disable this in Tobago.Transport
-    createOverlay: false
-  };
-
   this.ppPrefix = Tobago.SUB_COMPONENT_SEP + "pagingPages" + Tobago.SUB_COMPONENT_SEP;
 
   this.firstRegExp = new RegExp(this.ppPrefix + "First$");
@@ -85,6 +78,43 @@ Tobago.Sheet = function(sheetId, firstRowIndex, selectable, columnSelectorIndex,
   LOG.debug("Sheet-setup time = " + (this.setupEnd.getTime() - this.setupStart.getTime())); // @DEV_ONLY
   LOG.debug("Sheet-total time = " + (this.endTime.getTime() - this.startTime.getTime())); // @DEV_ONLY
 };
+
+Tobago.Sheet.init = function(elements) {
+  var sheets = Tobago.Utils.selectWidthJQuery(elements, ".tobago-sheet");
+  sheets.each(function initSheets() {
+    var sheet = jQuery(this);
+    var id = sheet.attr("id");
+    var frequency;
+    var frequencyStr = sheet.attr("data-tobago-reload");
+    if (frequencyStr != undefined) {
+      frequency = parseInt(frequencyStr);
+    }
+    var selectionMode = sheet.attr("data-tobago-selectionmode");
+    var commandStr = sheet.attr("data-tobago-rowaction");
+    var click;
+    var dblclick;
+    if (commandStr != undefined) {
+      var commands = jQuery.parseJSON(commandStr);
+      click = commands.click;
+      dblclick = commands.dblclick;
+    }
+    var columnSelectorIndex;
+    var selectorMenu = sheet.find(".tobago-sheet-headerDiv > .tobago-sheet-header > .tobago-sheet-selectorMenu");
+    if (selectorMenu) {
+      columnSelectorIndex = selectorMenu.parent().index();
+    }
+    new Tobago.Sheet(id, undefined, selectionMode, columnSelectorIndex, frequency,
+        click != undefined ? click.actionId  : undefined,
+        click != undefined ? click.partially : undefined,
+        dblclick != undefined ? dblclick.actionId : undefined,
+        dblclick != undefined ? dblclick.partially: undefined,
+        sheet.attr("data-tobago-partially"));
+  });
+};
+
+Tobago.registerListener(Tobago.Sheet.init, Tobago.Phase.DOCUMENT_READY);
+Tobago.registerListener(Tobago.Sheet.init, Tobago.Phase.AFTER_UPDATE);
+
 
 Tobago.Sheet.prototype.setupSortHeaders = function() {
   var sheet = this;
@@ -171,10 +201,7 @@ Tobago.Sheet.prototype.doPaging = function(event) {
 
 Tobago.Sheet.prototype.reloadWithAction = function(source, action, options) {
     LOG.debug("reload sheet with action \"" + action + "\""); // @DEV_ONLY
-    var reloadOptions = Tobago.extend({}, this.options);
-    reloadOptions = Tobago.extend(reloadOptions, options);
-    Tobago.createOverlay(jQuery(Tobago.Utils.escapeClientId(this.id)));
-    Tobago.Updater.update(source, action, this.renderedPartially?this.renderedPartially:this.id, reloadOptions);
+    Tobago.Updater.update(source, action, this.renderedPartially?this.renderedPartially:this.id, options);
   };
 
 Tobago.Sheet.prototype.afterDoUpdateSuccess = function() {
@@ -281,7 +308,7 @@ Tobago.Sheet.prototype.setupResizer = function() {
   };
 
 Tobago.Sheet.prototype.setup = function() {
-  this.setupStart = new Date();
+  this.setupStart = new Date(); // @DEV_ONLY
 
   this.setupResizer();
 
@@ -319,7 +346,7 @@ Tobago.Sheet.prototype.setup = function() {
   this.setupRowPaging();
 
   this.initReload();
-  this.setupEnd = new Date();
+  this.setupEnd = new Date(); // @DEV_ONLY
 };
 
 Tobago.Sheet.prototype.setScrollPosition = function() {
@@ -407,11 +434,6 @@ Tobago.Sheet.prototype.doSelection = function(event) {
       srcElement = event.srcElement;
     }
 
-    //LOG.debug("event.ctrlKey = " + event.ctrlKey);
-    //LOG.debug("event.shiftKey = " + event.shiftKey);
-    //LOG.debug("srcElement = " + srcElement.tagName);
-    //LOG.debug("Actionid " + this.clickActionId);
-    //LOG.debug("ID " + this.id);
     if (srcElement.id.search(/_data_row_selector_/) > -1  || !Tobago.isInputElement(srcElement.tagName)) {
 
       if (Math.abs(this.mouseDownX - event.clientX) + Math.abs(this.mouseDownY - event.clientY) > 5) {
@@ -443,10 +465,14 @@ Tobago.Sheet.prototype.doSelection = function(event) {
       } else if (this.selectable != "singleOrNone" || !wasSelected) {
         this.toggleSelection(rowIndex, row.get(0), selector);
       }
-      //LOG.debug("selected rows = " + hidden.value);
       if (this.clickActionId) {
-        var action = this.id + ":" + rowIndex + ":" + this.clickActionId;
-        //LOG.debug("Action " + action);
+        var action;
+        var index = this.clickActionId.indexOf(this.id);
+        if (index >= 0) {
+          action = this.id + ":" + rowIndex + ":" + this.clickActionId.substring(index + this.id.length +1);
+        } else {
+          action = this.id + ":" + rowIndex + ":" + this.clickActionId;
+        }
         if (this.clickReloadComponentId && this.clickReloadComponentId.length > 0) {
           Tobago.reloadComponent(srcElement, this.clickReloadComponentId, action)
         } else {
@@ -470,18 +496,17 @@ Tobago.Sheet.prototype.doDblClick = function(event) {
       srcElement = event.srcElement;
     }
 
-    //LOG.debug("event.ctrlKey = " + event.ctrlKey);
-    //LOG.debug("event.shiftKey = " + event.shiftKey);
-    //LOG.debug("srcElement = " + srcElement.tagName);
-    //LOG.debug("Actionid " + this.clickActionId);
-    //LOG.debug("ID " + this.id);
     if (! Tobago.isInputElement(srcElement.tagName)) {
       var row = jQuery(Tobago.element(event)).closest("tr");
       var rowIndex = row.index() + this.firstRowIndex;
-      //LOG.debug("selected rows = " + hidden.value);
       if (this.dblClickActionId) {
-        var action = this.id + ":" + rowIndex + ":" + this.dblClickActionId;
-        //LOG.debug("dblAction " + action);
+        var action;
+        var index = this.clickActionId.indexOf(this.id);
+        if (index >= 0) {
+          action = this.id + ":" + rowIndex + ":" + this.clickActionId.substring(index + this.id.length +1);
+        } else {
+          action = this.id + ":" + rowIndex + ":" + this.clickActionId;
+        }
         if (this.dblClickReloadComponentId && this.dblClickReloadComponentId.length > 0) {
           Tobago.reloadComponent(srcElement, this.dblClickReloadComponentId, action)
         } else {

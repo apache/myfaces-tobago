@@ -33,8 +33,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import javax.swing.BoundedRangeModel;
-import javax.swing.DefaultBoundedRangeModel;
+import javax.swing.*;
 import java.io.IOException;
 
 public class ProgressRenderer extends LayoutComponentRendererBase {
@@ -72,19 +71,16 @@ public class ProgressRenderer extends LayoutComponentRendererBase {
     writer.writeClassAttribute(Classes.create(progress));
     writer.writeStyleAttribute(style);
     writer.writeAttribute(HtmlAttributes.TITLE, String.valueOf(title), true);
-
+    UIComponent facet = progress.getFacet("complete");
+    if (model.getValue() == model.getMaximum() && facet instanceof UICommand) {
+      HtmlRendererUtils.renderCommandFacet(progress, facesContext, writer);
+    }
     writer.startElement(HtmlElements.DIV, null);
     writer.writeClassAttribute(Classes.create(progress, "value"));
     writer.writeStyleAttribute(valueStyle);
     writer.endElement(HtmlElements.DIV);
 
     writer.endElement(HtmlElements.DIV);
-
-    UIComponent facet = progress.getFacet("complete");
-    if (model.getValue() == model.getMaximum() && facet instanceof UICommand) {
-      UICommand command = (UICommand) facet;
-      writer.writeJavascript(HtmlRendererUtils.createSubmitAction(command.getClientId(facesContext), true, null, null));
-    }
 
   }
 }

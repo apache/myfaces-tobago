@@ -21,7 +21,6 @@ import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.SupportsMarkup;
-import org.apache.myfaces.tobago.component.UIColumnEvent;
 import org.apache.myfaces.tobago.component.UIColumnSelector;
 import org.apache.myfaces.tobago.component.UICommand;
 import org.apache.myfaces.tobago.component.UILink;
@@ -39,7 +38,6 @@ import org.apache.myfaces.tobago.event.PageAction;
 import org.apache.myfaces.tobago.internal.component.AbstractUIColumnNode;
 import org.apache.myfaces.tobago.internal.component.AbstractUIData;
 import org.apache.myfaces.tobago.internal.context.ResourceManagerFactory;
-import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.layout.Display;
 import org.apache.myfaces.tobago.layout.LayoutBase;
@@ -106,59 +104,21 @@ public class SheetRenderer extends LayoutComponentRendererBase {
     // todo: it was renamed from tobago-sheet-outer to tobago-sheet because of naming conventions.
     writer.writeClassAttribute(css);
     writer.writeStyleAttribute(style);
-    UICommand clickAction = null;
-    UICommand dblClickAction = null;
-    int columnSelectorIndex = -1;
-    int i = 0;
-    for (UIComponent child : (List<UIComponent>) sheet.getChildren()) {
-      if (child instanceof UIColumnEvent) {
-        UIColumnEvent columnEvent = (UIColumnEvent) child;
-        if (columnEvent.isRendered()) {
-          UIComponent selectionChild = (UIComponent) child.getChildren().get(0);
-          if (selectionChild != null && selectionChild instanceof UICommand && selectionChild.isRendered()) {
-            UICommand action = (UICommand) selectionChild;
-            if ("click".equals(columnEvent.getEvent())) {
-              clickAction = action;
-            }
-            if ("dblclick".equals(columnEvent.getEvent())) {
-              dblClickAction = action;
-            }
-          }
-        }
-      } else if (child instanceof UIColumnSelector) {
-        columnSelectorIndex = i;
-      }
-      i++;
+    UIComponent facetReload = sheet.getFacet(Facets.RELOAD);
+    if (facetReload != null && facetReload instanceof UIReload && facetReload.isRendered()) {
+      UIReload update = (UIReload) facetReload;
+      writer.writeAttribute(DataAttributes.RELOAD, update.getFrequency());
     }
 
-    renderSheet(facesContext, sheet, (clickAction != null || dblClickAction != null), style);
+    writer.writeAttribute(DataAttributes.PARTIALLY,
+        HtmlRendererUtils.getRenderedPartiallyJavascriptArray(facesContext, sheet, sheet), false);
+    writer.writeAttribute(DataAttributes.SELECTIONMODE, sheet.getSelectable(), false);
+
+    boolean rowAction = HtmlRendererUtils.renderSheetCommands(sheet, facesContext, writer);
+
+    renderSheet(facesContext, sheet, rowAction, style);
 
     writer.endElement(HtmlElements.DIV);
-    // TODO check ajax id
-    if (!(FacesContextUtils.isAjax(facesContext)
-        && sheetId.equals(FacesContextUtils.getAjaxComponentId(facesContext)))) {
-
-      Integer frequency = null;
-      UIComponent facetReload = sheet.getFacet(Facets.RELOAD);
-      if (facetReload != null && facetReload instanceof UIReload && facetReload.isRendered()) {
-        UIReload update = (UIReload) facetReload;
-        frequency = update.getFrequency();
-      }
-      final String[] cmds = {
-          "new Tobago.Sheet('" + sheetId
-              + "', " + sheet.getFirst()
-              + ", '" + sheet.getSelectable()
-              + "', " + columnSelectorIndex
-              + ", " + frequency
-              + ", " + (clickAction != null ? HtmlRendererUtils.getJavascriptString(clickAction.getId()) : null)
-              + ", " + HtmlRendererUtils.getRenderedPartiallyJavascriptArray(facesContext, clickAction)
-              + ", " + (dblClickAction != null ? HtmlRendererUtils.getJavascriptString(dblClickAction.getId()) : null)
-              + ", " + HtmlRendererUtils.getRenderedPartiallyJavascriptArray(facesContext, dblClickAction)
-              + ", " + HtmlRendererUtils.getRenderedPartiallyJavascriptArray(facesContext, sheet, sheet) + ");"
-      };
-
-      HtmlRendererUtils.writeScriptLoader(facesContext, null, cmds);
-    }
   }
 
   private void renderSheet(FacesContext facesContext, UISheet sheet, boolean hasClickAction, Style style)

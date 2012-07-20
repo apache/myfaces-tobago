@@ -38,7 +38,6 @@ import javax.faces.component.UISelectMany;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
@@ -60,6 +59,7 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
     String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, select);
     boolean disabled = select.isDisabled();
     boolean readonly = select.isReadonly();
+    boolean required = select.isRequired();
     Style style = new Style(facesContext, select);
     // fixme: use CSS, not the Style Attribute for "display"
     style.setDisplay(null);
@@ -71,12 +71,10 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
     if (title != null) {
       writer.writeAttribute(HtmlAttributes.TITLE, title, true);
     }
-
+    boolean first = true;
     Object[] values = select.getSelectedValues();
-    List<String> clientIds = new ArrayList<String>();
     for (SelectItem item : items) {
       String itemId = id + NamingContainer.SEPARATOR_CHAR + NamingContainer.SEPARATOR_CHAR + item.getValue().toString();
-      clientIds.add(itemId);
       writer.startElement(HtmlElements.LI, select);
       writer.startElement(HtmlElements.INPUT, select);
       writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.CHECKBOX, false);
@@ -88,6 +86,11 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
       writer.writeAttribute(HtmlAttributes.VALUE, formattedValue, true);
       writer.writeAttribute(HtmlAttributes.DISABLED, item.isDisabled() || disabled);
       writer.writeAttribute(HtmlAttributes.READONLY, readonly);
+      writer.writeAttribute(HtmlAttributes.REQUIRED, required);
+      if (first) {
+        HtmlRendererUtils.renderFocus(id, select.isFocus(), ComponentUtils.isError(select), facesContext, writer);
+        first = false;
+      }
       if (readonly) {
         writer.writeAttribute(HtmlAttributes.ONCLICK, "this.checked=" + checked, false);
       }
@@ -95,6 +98,7 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
       if (tabIndex != null) {
         writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
       }
+      HtmlRendererUtils.renderCommandFacet(select, itemId, facesContext, writer);
       writer.endElement(HtmlElements.INPUT);
 
       String label = item.getLabel();
@@ -109,8 +113,6 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
     }
     writer.endElement(HtmlElements.OL);
 
-    HtmlRendererUtils.renderFocusId(facesContext, select);
-    HtmlRendererUtils.checkForCommandFacet(select, clientIds, facesContext, writer);
   }
 
   @Override

@@ -63,6 +63,10 @@ public class SelectOneListboxRenderer extends SelectOneRendererBase {
     writer.writeNameAttribute(id);
     writer.writeIdAttribute(id);
     writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
+    writer.writeAttribute(HtmlAttributes.READONLY, select.isReadonly());
+    writer.writeAttribute(HtmlAttributes.REQUIRED, select.isRequired());
+    HtmlRendererUtils.renderFocus(id, select.isFocus(), ComponentUtils.isError(select), facesContext, writer);
+
     Integer tabIndex = select.getTabIndex();
     if (tabIndex != null) {
       writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
@@ -76,13 +80,12 @@ public class SelectOneListboxRenderer extends SelectOneRendererBase {
       writer.writeAttribute(HtmlAttributes.ONCHANGE, "Tobago.selectOneListboxChange(this)", false);
       writer.writeAttribute(HtmlAttributes.ONCLICK, "Tobago.selectOneListboxClick(this)", false);
     }
+    HtmlRendererUtils.renderCommandFacet(select, facesContext, writer);
     Object[] values = {select.getValue()};
     HtmlRendererUtils.renderSelectItems(select, items, values, writer, facesContext);
 
     writer.endElement(HtmlElements.SELECT);
     super.encodeEnd(facesContext, select);
-    HtmlRendererUtils.renderFocusId(facesContext, select);
-    HtmlRendererUtils.checkForCommandFacet(select, facesContext, writer);
   }
 
 }

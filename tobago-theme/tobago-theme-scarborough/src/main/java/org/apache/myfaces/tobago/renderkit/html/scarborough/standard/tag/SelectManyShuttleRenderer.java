@@ -47,6 +47,8 @@ public class SelectManyShuttleRenderer extends SelectManyRendererBase {
     Style style = new Style(facesContext, select);
     writer.writeStyleAttribute(style);
     writer.writeClassAttribute(Classes.create(select));
+    String clientId = select.getClientId(facesContext);
+    writer.writeIdAttribute(clientId);
     String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, select);
     if (title != null) {
       writer.writeAttribute(HtmlAttributes.TITLE, title, true);
@@ -68,7 +70,6 @@ public class SelectManyShuttleRenderer extends SelectManyRendererBase {
       style.setHeight(style.getHeight().subtract(labelHeight));
       style.setTop(style.getTop().add(labelHeight));
     }
-    String clientId = select.getClientId(facesContext);
     List<SelectItem> items = RenderUtils.getSelectItems(select);
     boolean disabled = items.size() == 0 || select.isDisabled() || select.isReadonly();
 
@@ -142,19 +143,17 @@ public class SelectManyShuttleRenderer extends SelectManyRendererBase {
     writer.endElement(HtmlElements.SELECT);
     writer.startElement(HtmlElements.SELECT, select);
     writer.writeClassAttribute(Classes.create(component, "hidden"));
-    writer.writeIdAttribute(clientId);
+    String hiddenClientId = clientId + ComponentUtils.SUB_SEPARATOR + "hidden";
+    writer.writeIdAttribute(hiddenClientId);
     writer.writeNameAttribute(clientId);
     writer.writeAttribute(HtmlAttributes.MULTIPLE, HtmlAttributes.MULTIPLE, false);
-
+    writer.writeAttribute(HtmlAttributes.REQUIRED, select.isRequired());
+    HtmlRendererUtils.renderCommandFacet(select, facesContext, writer);
     HtmlRendererUtils.renderSelectItems(select, items, values, writer, facesContext);
 
     writer.endElement(HtmlElements.SELECT);
 
     writer.endElement(HtmlElements.DIV);
-    // TODO focusId
-    //HtmlRendererUtils.renderFocusId(facesContext, select);
-    // TODO test command facet
-    HtmlRendererUtils.checkForCommandFacet(select, facesContext, writer);
   }
 
   private void createButton(FacesContext context, UIComponent component, TobagoResponseWriter writer,
