@@ -177,7 +177,7 @@ public class UserAgent implements Serializable {
   private final CspHeader cspHeader;
 
   private UserAgent(String name, String version) {
-    this(name, version, EnumSet.of(Capability.CONTENT_TYPE_XHTML), null);
+    this(name, version, EnumSet.of(Capability.CONTENT_TYPE_XHTML));
   }
 
   private UserAgent(String name, String version, EnumSet<Capability> capabilities) {
