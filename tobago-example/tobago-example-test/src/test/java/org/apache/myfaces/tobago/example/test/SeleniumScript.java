@@ -61,6 +61,11 @@ public class SeleniumScript {
     DocumentFragment fragment = document.createDocumentFragment();
     try {
       parser.parse(scriptUrl, fragment);
+      // not nice, it seems that parse also throws a FileNotFoundException sometimes.
+      // XXX I don't know why
+      if (fragment.getTextContent().contains("The page was not found!")) {
+        throw new FileNotFoundException(scriptUrl);
+      }
       addSeleniumItems(fragment, url);
     } catch (FileNotFoundException e) {
       // using default
