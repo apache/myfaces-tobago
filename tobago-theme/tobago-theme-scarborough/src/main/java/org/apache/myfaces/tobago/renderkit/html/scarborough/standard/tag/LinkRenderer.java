@@ -70,7 +70,7 @@ public class LinkRenderer extends CommandRendererBase {
         writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
       }
       if (label.getAccessKey() != null) {
-        writer.writeAttribute(HtmlAttributes.ACCESSKEY, label.getAccessKey(), null);
+        writer.writeAttribute(HtmlAttributes.ACCESSKEY, Character.toString(label.getAccessKey()), false);
       }
     }
     Style style = new Style(facesContext, link);

@@ -187,8 +187,8 @@ public class MenuCommandRenderer extends CommandRendererBase {
             && !AccessKeyMap.addAccessKey(facesContext, label.getAccessKey())) {
           LOG.info("duplicated accessKey : " + label.getAccessKey());
         }
-        if (!disabled && component != null) {
-          writer.writeAttribute(HtmlAttributes.ACCESSKEY, label.getAccessKey(), null);
+        if (!disabled && component != null && label.getAccessKey() != null) {
+          writer.writeAttribute(HtmlAttributes.ACCESSKEY, Character.toString(label.getAccessKey()), false);
         }
       }
       HtmlRendererUtils.writeLabelWithAccessKey(writer, label);

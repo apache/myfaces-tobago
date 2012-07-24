@@ -120,7 +120,7 @@ public class SelectBooleanCheckboxRenderer extends LayoutComponentRendererBase {
       writer.startElement(HtmlElements.LABEL, select);
       writer.writeAttribute(HtmlAttributes.FOR, id, false);
       if (labelWithAccessKey.getAccessKey() != null) {
-        writer.writeAttribute(HtmlAttributes.ACCESSKEY, labelWithAccessKey.getAccessKey(), null);
+        writer.writeAttribute(HtmlAttributes.ACCESSKEY, Character.toString(labelWithAccessKey.getAccessKey()), false);
       }
       HtmlRendererUtils.writeLabelWithAccessKey(writer, labelWithAccessKey);
       if (labelWithAccessKey.getAccessKey() != null) {

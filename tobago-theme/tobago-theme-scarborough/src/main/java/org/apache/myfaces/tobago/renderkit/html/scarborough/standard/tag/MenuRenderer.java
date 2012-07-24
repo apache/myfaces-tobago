@@ -81,8 +81,8 @@ public class MenuRenderer extends LayoutComponentRendererBase {
             && !AccessKeyMap.addAccessKey(facesContext, label.getAccessKey())) {
           LOG.info("duplicated accessKey : " + label.getAccessKey());
         }
-        if (!disabled) {
-          writer.writeAttribute(HtmlAttributes.ACCESSKEY, label.getAccessKey(), null);
+        if (!disabled && label.getAccessKey() != null) {
+          writer.writeAttribute(HtmlAttributes.ACCESSKEY, Character.toString(label.getAccessKey()), false);
         }
       }
       HtmlRendererUtils.writeLabelWithAccessKey(writer, label);

@@ -70,7 +70,7 @@ public class ButtonRenderer extends CommandRendererBase {
       writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
     }
     if (label.getAccessKey() != null && helper.isDisabled()) {
-      writer.writeAttribute(HtmlAttributes.ACCESSKEY, label.getAccessKey(), null);
+      writer.writeAttribute(HtmlAttributes.ACCESSKEY, Character.toString(label.getAccessKey()), false);
     }
     if (helper.getOnclick() != null) {
       writer.writeAttribute(HtmlAttributes.ONCLICK, helper.getOnclick(), true);

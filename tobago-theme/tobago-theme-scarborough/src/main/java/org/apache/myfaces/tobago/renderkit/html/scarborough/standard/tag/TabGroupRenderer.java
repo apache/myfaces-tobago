@@ -202,7 +202,9 @@ public class TabGroupRenderer extends LayoutComponentRendererBase {
           }
           final String tabId = tab.getClientId(facesContext);
           writer.writeIdAttribute(tabId);
-          writer.writeAttribute(HtmlAttributes.ACCESSKEY, label.getAccessKey(), null);
+          if (label.getAccessKey() != null) {
+            writer.writeAttribute(HtmlAttributes.ACCESSKEY, Character.toString(label.getAccessKey()), false);
+          }
           if (label.getText() != null) {
             HtmlRendererUtils.writeLabelWithAccessKey(writer, label);
           } else {

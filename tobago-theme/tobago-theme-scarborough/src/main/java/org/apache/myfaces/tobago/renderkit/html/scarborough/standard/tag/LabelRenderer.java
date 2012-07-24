@@ -89,7 +89,7 @@ public class LabelRenderer extends LayoutComponentRendererBase {
     String clientId = label.getClientId(facesContext);
     LabelWithAccessKey key = new LabelWithAccessKey(label);
     if (key.getAccessKey() != null) {
-      writer.writeAttribute(HtmlAttributes.ACCESSKEY, key.getAccessKey(), null);
+      writer.writeAttribute(HtmlAttributes.ACCESSKEY, Character.toString(key.getAccessKey()), false);
     }
     if (key.getText() != null) {
       HtmlRendererUtils.writeLabelWithAccessKey(writer, key);

@@ -67,7 +67,7 @@ public final class LabelWithAccessKey {
     } else {
       text = label.substring(0, index)
           + label.substring(index + 1);
-      accessKey = text.charAt(index);
+      setAccessKey(text.charAt(index));
       pos = index - escapedIndicatorCount;
     }
   }
@@ -107,7 +107,17 @@ public final class LabelWithAccessKey {
   }
 
   public void setAccessKey(Character accessKey) {
+    if (! isPermitted(accessKey)) {
+      LOG.warn("Ignoring illegal access key: " + accessKey);
+    }
     this.accessKey = accessKey;
   }
 
+  /**
+   * Ensures, that no illegal character will be write out.
+   * (If this is changed from only allowing letters, the renderers may change the escaping)
+   */
+  private boolean isPermitted(Character accessKey) {
+    return accessKey >= 'a' && accessKey <= 'z' || accessKey >= 'A' && accessKey <= 'Z';
+  }
 }
