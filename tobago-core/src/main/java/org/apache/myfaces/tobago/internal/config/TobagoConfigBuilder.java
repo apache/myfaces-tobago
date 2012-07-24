@@ -122,6 +122,10 @@ public class TobagoConfigBuilder {
 
       result.setPreventFrameAttacks(fragment.isPreventFrameAttacks());
 
+      for(String directive : fragment.getContentSecurityPolicy()) {
+        result.addContentSecurityPolicy(directive);
+      }
+
       // theme definition
       // todo
 /*

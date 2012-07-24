@@ -20,8 +20,8 @@
 <tobago-config
     xmlns="http://myfaces.apache.org/tobago/tobago-config"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://myfaces.apache.org/tobago/tobago-config http://myfaces.apache.org/tobago/tobago-config-1.5.xsd"
-    version="1.5">
+    xsi:schemaLocation="http://myfaces.apache.org/tobago/tobago-config http://myfaces.apache.org/tobago/tobago-config-1.6.xsd"
+    version="1.6">
 
   <name>demo</name>
 
@@ -43,6 +43,19 @@
   </theme-config>
 
   <resource-dir>tobago-resource</resource-dir>
+
+<!-- enable this to test CSP
+  <content-security-policy>
+    <directive>default-src 'self'</directive>
+  </content-security-policy>
+-->
+
+<!-- this may be an alternative way to define (not implemented)
+  <content-security-policy>
+    <default-src>'self'</default-src>
+    <image-src>images.irian.eu</image-src>
+  </content-security-policy>
+-->
 
   <renderers>
 

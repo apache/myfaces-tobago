@@ -111,7 +111,12 @@ public class TobagoConfigParser {
     // session secret
     digester.addCallMethod("tobago-config/create-session-secret", "setCreateSessionSecret", 0);
     digester.addCallMethod("tobago-config/check-session-secret", "setCheckSessionSecret", 0);
+
+    // frame attacks
     digester.addBeanPropertySetter("tobago-config/prevent-frame-attacks", "preventFrameAttacks");
+
+    // content-security-policy
+    digester.addCallMethod("tobago-config/content-security-policy/directive", "addContentSecurityPolicy", 0);
 
     // renderer config
     digester.addObjectCreate("tobago-config/renderers", RenderersConfigImpl.class);

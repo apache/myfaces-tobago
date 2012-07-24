@@ -125,7 +125,8 @@ public class PageRenderer extends PageRendererBase {
   @Override
   public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
 
-    UIPage page = (UIPage) component;
+    final UIPage page = (UIPage) component;
+    final TobagoConfig tobagoConfig = TobagoConfig.getInstance(facesContext);
 
     // invoke prepareRender
     RenderUtils.prepareRendererAll(facesContext, page);
@@ -141,6 +142,8 @@ public class PageRenderer extends PageRendererBase {
     facesContext.setResponseWriter(writer);
 
     ResponseUtils.ensureNoCacheHeader(facesContext);
+
+    ResponseUtils.ensureContentSecurityPolicyHeader(facesContext, tobagoConfig.getContentSecurityPolicy());
 
     if (LOG.isDebugEnabled()) {
       for (Object o : page.getAttributes().entrySet()) {
@@ -158,7 +161,7 @@ public class PageRenderer extends PageRendererBase {
     ResponseUtils.ensureContentTypeHeader(facesContext, contentType);
     String clientId = page.getClientId(facesContext);
     final ClientProperties client = VariableResolverUtils.resolveClientProperties(facesContext);
-    final ProjectStage projectStage = TobagoConfig.getInstance(facesContext).getProjectStage();
+    final ProjectStage projectStage = tobagoConfig.getProjectStage();
     final boolean developmentMode =  projectStage == ProjectStage.Development;
     final boolean debugMode = client.isDebugMode() || developmentMode;
     final boolean productionMode = !debugMode && projectStage == ProjectStage.Production;
@@ -178,7 +181,7 @@ public class PageRenderer extends PageRendererBase {
         } catch (NumberFormatException e) {/* ignore; use default*/ }
       }
     }
-    boolean frameKiller = TobagoConfig.getInstance(facesContext).isPreventFrameAttacks();
+    boolean frameKiller = tobagoConfig.isPreventFrameAttacks();
 
     if (!FacesContextUtils.isAjax(facesContext)) {
       HtmlRendererUtils.renderDojoDndSource(facesContext, component);

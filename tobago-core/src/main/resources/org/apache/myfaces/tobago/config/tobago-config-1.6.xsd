@@ -58,6 +58,7 @@
       <xs:element name="create-session-secret" type="xs:boolean" minOccurs="0"/>
       <xs:element name="check-session-secret" type="xs:boolean" minOccurs="0"/>
       <xs:element name="prevent-frame-attacks" type="xs:boolean" minOccurs="0" default="true"/>
+      <xs:element name="content-security-policy" type="tobago:content-security-policy-type" minOccurs="0"/>
       <xs:element name="renderers" type="tobago:renderers-type" minOccurs="0"/>
       <xs:element name="theme-definitions" type="tobago:theme-definitions-type" minOccurs="0"/>
     </xs:sequence>
@@ -89,6 +90,12 @@
     <xs:sequence>
       <xs:element name="default-theme" type="xs:string"/>
       <xs:element name="supported-theme" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="content-security-policy-type">
+    <xs:sequence>
+      <xs:element name="directive" type="xs:string" maxOccurs="unbounded"/>
     </xs:sequence>
   </xs:complexType>
 

@@ -17,12 +17,15 @@ package org.apache.myfaces.tobago.internal.util;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.context.ClientProperties;
+import org.apache.myfaces.tobago.context.UserAgent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 public class ResponseUtils {
 
@@ -71,6 +74,23 @@ public class ResponseUtils {
         }
       } catch (Error e) {
         LOG.warn("The method ServletResponse.getContentType() is not available before Servlet 2.4");
+      }
+    }
+  }
+
+  public static void ensureContentSecurityPolicyHeader(FacesContext facesContext, List<String> contentSecurityPolicy) {
+    // TODO PortletRequest
+    if (facesContext.getExternalContext().getResponse() instanceof HttpServletResponse) {
+      final UserAgent userAgent = ClientProperties.getInstance(facesContext).getUserAgent();
+      final String cspHeader = userAgent.getCspHeader();
+      if (cspHeader != null) {
+        final StringBuilder value = new StringBuilder();
+        for (String directive : contentSecurityPolicy) {
+          value.append(directive);
+          value.append(";");
+        }
+        final HttpServletResponse response = (HttpServletResponse) facesContext.getExternalContext().getResponse();
+        response.setHeader(cspHeader, value.toString());
       }
     }
   }

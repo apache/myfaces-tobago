@@ -76,4 +76,6 @@ public abstract class TobagoConfig {
 
   public abstract boolean isPreventFrameAttacks();
 
+  public abstract List<String> getContentSecurityPolicy();
+
 }

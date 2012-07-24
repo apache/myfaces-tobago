@@ -33,7 +33,6 @@ public class UserAgent implements Serializable {
 
   public static final UserAgent DEFAULT = new UserAgent(null, null);
 
-
   public static final UserAgent MSIE = new UserAgent("msie", null);
 
   /**
@@ -65,7 +64,8 @@ public class UserAgent implements Serializable {
 
   public static final UserAgent MSIE_9_0 = new UserAgent("msie", "9_0", EnumSet.of(Capability.CONTENT_TYPE_XHTML));
 
-  public static final UserAgent MSIE_10_0 = new UserAgent("msie", "10_0", EnumSet.of(Capability.CONTENT_TYPE_XHTML));
+  public static final UserAgent MSIE_10_0
+      = new UserAgent("msie", "10_0", EnumSet.of(Capability.CONTENT_TYPE_XHTML), CspHeader.CSP_GECKO);
 
   /**
    * @deprecated no longer supported, since Tobago 1.5
@@ -151,19 +151,22 @@ public class UserAgent implements Serializable {
    * e. g. Firefox 4.0
    */
   public static final UserAgent GECKO_2_0
-      = new UserAgent("gecko", "2_0", EnumSet.of(Capability.PLACEHOLDER, Capability.CONTENT_TYPE_XHTML));
+      = new UserAgent("gecko", "2_0",
+      EnumSet.of(Capability.PLACEHOLDER, Capability.CONTENT_TYPE_XHTML), CspHeader.CSP_GECKO);
 
   /**
    * e. g. Firefox 5.0
    */
   public static final UserAgent GECKO_5_0
-      = new UserAgent("gecko", "5_0", EnumSet.of(Capability.PLACEHOLDER, Capability.CONTENT_TYPE_XHTML));
+      = new UserAgent("gecko", "5_0",
+      EnumSet.of(Capability.PLACEHOLDER, Capability.CONTENT_TYPE_XHTML), CspHeader.CSP_GECKO);
 
   /**
    * e. g. Safari 4, Safari 5, Chrome
    */
   public static final UserAgent WEBKIT
-      = new UserAgent("webkit", null, EnumSet.of(Capability.PLACEHOLDER, Capability.CONTENT_TYPE_XHTML));
+      = new UserAgent("webkit", null,
+      EnumSet.of(Capability.PLACEHOLDER, Capability.CONTENT_TYPE_XHTML), CspHeader.CSP_WEBKIT);
 
   private final String name;
 
@@ -171,14 +174,21 @@ public class UserAgent implements Serializable {
 
   private final EnumSet<Capability> capabilities;
 
+  private final CspHeader cspHeader;
+
   private UserAgent(String name, String version) {
-    this(name , version, EnumSet.of(Capability.CONTENT_TYPE_XHTML));
+    this(name, version, EnumSet.of(Capability.CONTENT_TYPE_XHTML), null);
   }
 
   private UserAgent(String name, String version, EnumSet<Capability> capabilities) {
+    this(name, version, capabilities, CspHeader.CSP_NOT_SUPPORTED);
+  }
+
+  private UserAgent(String name, String version, EnumSet<Capability> capabilities, CspHeader cspHeader) {
     this.name = name;
     this.version = version;
     this.capabilities = capabilities;
+    this.cspHeader = cspHeader;
   }
 
   public boolean hasCapability(Capability capability) {
@@ -218,6 +228,13 @@ public class UserAgent implements Serializable {
       Collections.reverse(list);
     }
     return list;
+  }
+
+  /**
+   * @return The HTTP header name for Content-Security-Policy.
+   */
+  public String getCspHeader() {
+    return cspHeader.getName();
   }
 
   public static UserAgent getInstance(String header) {
@@ -281,5 +298,23 @@ public class UserAgent implements Serializable {
     return version != null
         ? name + '_' + version
         : name;
+  }
+
+  private static enum CspHeader {
+
+    CSP_NOT_SUPPORTED(null),
+    CSP_GECKO("X-Content-Security-Policy"),
+    CSP_WEBKIT("X-WebKit-CSP"),
+    CSP_STANDARD("Content-Security-Policy");
+
+    private String name;
+
+    private CspHeader(String name) {
+      this.name = name;
+    }
+
+    public String getName() {
+      return name;
+    }
   }
 }

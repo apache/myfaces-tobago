@@ -41,6 +41,7 @@ public class TobagoConfigFragment {
   private Boolean createSessionSecret;
   private Boolean checkSessionSecret;
   private boolean preventFrameAttacks = true;
+  private List<String> contentSecurityPolicy;
   // todo
   private List<ThemeImpl> themeDefinitions;
   private URL url;
@@ -51,6 +52,7 @@ public class TobagoConfigFragment {
     supportedThemeNames = new ArrayList<String>();
     resourceDirs = new ArrayList<String>();
     themeDefinitions = new ArrayList<ThemeImpl>();
+    contentSecurityPolicy = new ArrayList<String>();
   }
 
   public void addSupportedThemeName(String name) {
@@ -150,6 +152,14 @@ public class TobagoConfigFragment {
 
   public void setPreventFrameAttacks(boolean preventFrameAttacks) {
     this.preventFrameAttacks = preventFrameAttacks;
+  }
+
+  public List<String> getContentSecurityPolicy() {
+    return contentSecurityPolicy;
+  }
+
+  public void addContentSecurityPolicy(String directive) {
+    contentSecurityPolicy.add(directive);
   }
 
   /** @deprecated since 1.5.0 */
