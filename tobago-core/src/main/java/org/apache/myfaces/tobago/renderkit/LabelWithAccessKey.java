@@ -107,7 +107,7 @@ public final class LabelWithAccessKey {
   }
 
   public void setAccessKey(Character accessKey) {
-    if (! isPermitted(accessKey)) {
+    if (!isPermitted(accessKey)) {
       LOG.warn("Ignoring illegal access key: " + accessKey);
     }
     this.accessKey = accessKey;
