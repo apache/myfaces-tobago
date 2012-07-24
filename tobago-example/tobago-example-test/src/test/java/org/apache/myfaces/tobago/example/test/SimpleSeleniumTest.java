@@ -25,7 +25,7 @@ public class SimpleSeleniumTest extends SeleniumTest {
   @Test
   public void testHelloWorld() {
     getSelenium().open("/faces/simple.xhtml");
-    checkPage();
+    getSelenium().checkPage();
     Assert.assertEquals("Simple Test", getSelenium().getValue("page:in"));
     getSelenium().captureScreenshot(SimpleSeleniumTest.class.getName() + ".testHelloWorld.png");
   }

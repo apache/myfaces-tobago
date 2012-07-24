@@ -49,12 +49,12 @@ public class AutomaticSeleniumTest extends SeleniumTest {
   public void testPageConsistency() throws Exception {
     SeleniumScript script = getSeleniumScript(url);
 
-    getCommandProcessor().doCommand("open", new String[] {"http://localhost:8080/" + "KillSession", ""});
+    getSelenium().killSession();
 
     for (SeleniumScriptItem item : script.getItems()) {
       LOG.info("Calling: " + item);
-      getCommandProcessor().doCommand(item.getCommand(), item.getParameters());
-      checkPage();
+      getSelenium().command(item.getCommand(), item.getParameters()[0], item.getParameters()[1]);
+      getSelenium().checkPage();
     }
   }
 
@@ -75,7 +75,7 @@ public class AutomaticSeleniumTest extends SeleniumTest {
     if (!new File(base).exists()) {
       base = "tobago-example/tobago-example-test/" + base;
     }
-    
+
     collect(paths, base, "");
 
     Collections.sort(paths);
