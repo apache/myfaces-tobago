@@ -171,7 +171,7 @@ public abstract class TobagoResponseWriter extends ResponseWriter {
   public void writeStyleAttribute(Style style) throws IOException {
     if (style != null) {
       final String value = style.encode();
-      if (value != null) {
+      if (value.length() > 0) {
         writeAttribute(HtmlAttributes.STYLE, value, style.needsToBeEscaped());
       }
     }
