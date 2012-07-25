@@ -135,7 +135,8 @@ public class UserAgent implements Serializable {
   /**
    * e. g. Firefox
    */
-  public static final UserAgent GECKO = new UserAgent("gecko", null, EnumSet.of(Capability.CONTENT_TYPE_XHTML));
+  public static final UserAgent GECKO
+      = new UserAgent("gecko", null, EnumSet.of(Capability.CONTENT_TYPE_XHTML), CspHeader.CSP_GECKO);
 
   /**
    * e. g. Firefox 2.0

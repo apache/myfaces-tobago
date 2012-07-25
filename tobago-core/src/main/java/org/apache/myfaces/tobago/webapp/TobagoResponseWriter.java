@@ -17,13 +17,16 @@ package org.apache.myfaces.tobago.webapp;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
+import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 
 import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 import java.io.Writer;
@@ -165,14 +168,54 @@ public abstract class TobagoResponseWriter extends ResponseWriter {
   @Deprecated
   public abstract void writeClassAttribute() throws IOException;
 
+/*
+  private long self = 0;
+  private long gson = 0;
+
+  private synchronized void time(long s, long g) {
+    self += s;
+    gson += g;
+  }
+
+  private static final Logger LOG = LoggerFactory.getLogger(TobagoResponseWriter.class);
+
+  public static final Gson GSON = new Gson();
+
+*/
   /**
    * Write the style attribute. The value will not escaped.
    */
   public void writeStyleAttribute(Style style) throws IOException {
     if (style != null) {
-      final String value = style.encode();
-      if (value.length() > 0) {
-        writeAttribute(HtmlAttributes.STYLE, value, style.needsToBeEscaped());
+      if (TobagoConfig.getInstance(FacesContext.getCurrentInstance()).getContentSecurityPolicy().size() > 0) {
+
+//        final long a = System.nanoTime();
+
+        final String json = style.encodeJson();
+
+/*
+        final long b = System.nanoTime();
+
+        final String json2 = GSON.toJson(style);
+
+        final long c = System.nanoTime();
+
+        time(b-a, c-b);
+
+        LOG.error("self: " + json);
+        LOG.error("gson: " + json2);
+        LOG.error("self: " + self + " gson: " + gson);
+
+*/
+        if (json.length() > 2) { // empty "{}" needs not to be written
+          writeAttribute(DataAttributes.STYLE, json, true);
+        }
+      } else {
+
+        final String value = style.encode();
+        if (value.length() > 0) {
+          writeAttribute(HtmlAttributes.STYLE, value, style.needsToBeEscaped());
+        }
       }
     }
   }

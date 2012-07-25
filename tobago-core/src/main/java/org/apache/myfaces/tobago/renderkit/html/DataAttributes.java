@@ -129,6 +129,11 @@ public final class DataAttributes {
   public static final String SRCOPEN = "data-tobago-srcopen";
 
   /**
+   * A way to transport style data in JSON format to the browser. With CSP the normal style attribute isn't allowed.
+   */
+  public static final String STYLE = "data-tobago-style";
+
+  /**
    * Id of the parent node in a tree node.
    */
   public static final String TREEPARENT = "data-tobago-treeparent";

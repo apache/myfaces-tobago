@@ -933,11 +933,15 @@ var Tobago = {
   },
 
   initDom: function(elements) {
+
+    // focus
     var autofocus = Tobago.Utils.selectWidthJQuery(elements, '[autofocus]');
     autofocus.each(function setupFocus() {
       Tobago.focusId = jQuery(this).attr("id");
       Tobago.setFocus();
     });
+
+    // commands
     var commandButtons = Tobago.Utils.selectWidthJQuery(elements, '[data-tobago-action]');
     commandButtons.each(function setupInputFacetCommand() {
       var command = jQuery(this);
@@ -961,7 +965,6 @@ var Tobago = {
           }
         });
       }
-
       if (commands.complete) {
         if (commands.complete.partially) {
           Tobago.reloadComponent(this, commands.complete.partially, commands.complete.actionId, commands.complete);
@@ -982,11 +985,19 @@ var Tobago = {
         setTimeout(Tobago.submitAction(this, commands.action.actionId, commands.action), delay);
       }
     });
+
+    // access keys
     var accesskeys = Tobago.Utils.selectWidthJQuery(elements, '[accesskey]');
     accesskeys.each(function setupAccessKey() {
       var el = jQuery(this);
       new Tobago.AcceleratorKey(function clickAccelKey() {
         Tobago.clickOnElement(el.attr("id"))}, el.attr("accesskey"));
+    });
+
+    // element styles
+    Tobago.Utils.selectWidthJQuery(elements, "[data-tobago-style]").each(function () {
+      var element = jQuery(this);
+      element.css(element.data("tobago-style"));
     });
   },
 

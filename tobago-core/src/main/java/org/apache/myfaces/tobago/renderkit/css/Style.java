@@ -248,6 +248,122 @@ public class Style implements Serializable {
     return buf.toString();
   }
 
+  public String encodeJson() {
+    StringBuilder buf = new StringBuilder("{");
+    if (width != null) {
+      buf.append("\"width\":\"");
+      buf.append(width);
+      buf.append("\",");
+    }
+    if (height != null) {
+      buf.append("\"height\":\"");
+      buf.append(height);
+      buf.append("\",");
+    }
+    if (top != null) {
+      buf.append("\"top\":\"");
+      buf.append(top);
+      buf.append("\",");
+    }
+    if (left != null) {
+      buf.append("\"left\":\"");
+      buf.append(left);
+      buf.append("\",");
+    }
+    if (display != null) {
+      buf.append("\"display\":\"");
+      buf.append(display.getValue());
+      buf.append("\",");
+    }
+    if (position != null) {
+      buf.append("\"position\":\"");
+      buf.append(position.getValue());
+      buf.append("\",");
+    }
+    if (overflowX != null) {
+      buf.append("\"overflowX\":\"");
+      buf.append(overflowX.getValue());
+      buf.append("\",");
+    }
+    if (overflowY != null) {
+      buf.append("\"overflowY\":\"");
+      buf.append(overflowY.getValue());
+      buf.append("\",");
+    }
+    if (marginLeft != null) {
+      buf.append("\"marginLeft\":\"");
+      buf.append(marginLeft);
+      buf.append("\",");
+    }
+    if (marginRight != null) {
+      buf.append("\"marginRight\":\"");
+      buf.append(marginRight);
+      buf.append("\",");
+    }
+    if (marginTop != null) {
+      buf.append("\"marginTop\":\"");
+      buf.append(marginTop);
+      buf.append("\",");
+    }
+    if (marginBottom != null) {
+      buf.append("\"marginBottom\":\"");
+      buf.append(marginBottom);
+      buf.append("\",");
+    }
+    if (margin != null) {
+      buf.append("\"margin\":\"");
+      buf.append(margin);
+      buf.append("\",");
+    }
+    if (paddingLeft != null) {
+      buf.append("\"paddingLeft\":\"");
+      buf.append(paddingLeft);
+      buf.append("\",");
+    }
+    if (paddingRight != null) {
+      buf.append("\"paddingRight\":\"");
+      buf.append(paddingRight);
+      buf.append("\",");
+    }
+    if (paddingTop != null) {
+      buf.append("\"paddingTop\":\"");
+      buf.append(paddingTop);
+      buf.append("\",");
+    }
+    if (paddingBottom != null) {
+      buf.append("\"paddingBottom\":\"");
+      buf.append(paddingBottom);
+      buf.append("\",");
+    }
+    if (padding != null) {
+      buf.append("\"padding\":\"");
+      buf.append(padding);
+      buf.append("\",");
+    }
+    if (backgroundImage != null) {
+      buf.append("\"backgroundImage\":\"");
+      buf.append(backgroundImage);
+      buf.append("\",");
+    }
+    if (zIndex != null) {
+      buf.append("\"zIndex\":");
+      buf.append(zIndex);
+      buf.append(";");
+    }
+    if (textAlign != null) {
+      buf.append("\"textAlign\":\"");
+      buf.append(textAlign.getValue());
+      buf.append("\",");
+    }
+
+    if (buf.length() > 1) {
+      buf.deleteCharAt(buf.length() - 1);
+    }
+
+    buf.append('}');
+    return buf.toString();
+  }
+
   public Measure getWidth() {
     return width;
   }
