@@ -941,8 +941,7 @@ var Tobago = {
     var commandButtons = Tobago.Utils.selectWidthJQuery(elements, '[data-tobago-action]');
     commandButtons.each(function setupInputFacetCommand() {
       var command = jQuery(this);
-      var text = command.data("tobago-action");
-      var commands = jQuery.parseJSON(text);
+      var commands = command.data("tobago-action");
 
       if (commands.click) {
         command.click(function() {
@@ -1639,8 +1638,8 @@ Tobago.Panel.init = function(elements) {
   var reloads = Tobago.Utils.selectWidthJQuery(elements, ".tobago-panel[data-tobago-reload]");
   reloads.each(function(){
     var id = jQuery(this).attr("id");
-    var frequency = parseInt(jQuery(this).data("tobago-reload"));
-    new Tobago.Panel(id, true, frequency);
+    var period = jQuery(this).data("tobago-reload");
+    new Tobago.Panel(id, true, period);
   });
 };
 
