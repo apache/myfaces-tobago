@@ -128,6 +128,15 @@ public class Style implements Serializable {
     }
   }
 
+  /**
+   * Checks if the encode string holds free text, which must be escaped.
+   * This is the case for image URLs.
+   * For {@link Measure}, and enum types like {@link Display} no escaping is needed.
+   */
+  public boolean needsToBeEscaped() {
+    return backgroundImage != null;
+  }
+
   public String encode() {
     StringBuilder buf = new StringBuilder();
     if (width != null) {
