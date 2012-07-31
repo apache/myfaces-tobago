@@ -1,6 +1,5 @@
-package org.apache.myfaces.tobago.example.test;
-
-/*
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
  * this work for additional information regarding copyright ownership.
@@ -15,36 +14,23 @@ package org.apache.myfaces.tobago.example.test;
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */
+-->
 
-import org.apache.myfaces.tobago.util.Parameterized;
-import org.junit.runner.RunWith;
+<f:view
+    xmlns:tc="http://myfaces.apache.org/tobago/component"
+    xmlns:f="http://java.sun.com/jsf/core">
 
-import java.util.Arrays;
-import java.util.Collection;
+  <tc:page id="page">
+    <tc:gridLayoutConstraint width="600px" height="600px"/>
 
-@RunWith(Parameterized.class)
-public abstract class MultiSuffixSeleniumTest extends SeleniumTest {
+    <tc:sheet value="#{sheet.solarArray}" id="s3" columns="*;*" var="luminary" rows="1">
+      <tc:column label="Name" id="name" sortable="true">
+        <tc:out value="#{luminary.name}"/>
+      </tc:column>
+      <tc:column label="Orbit Of" id="orbit">
+        <tc:out value="#{luminary.orbit}"/>
+      </tc:column>
+    </tc:sheet>
 
-  private String suffix;
-
-  public MultiSuffixSeleniumTest(String suffix) {
-    this.suffix = suffix;
-  }
-
-  public void open(String urlFragment) {
-    getSelenium().open(createUrl(urlFragment + suffix));
-  }
-
-  @Parameterized.Parameters
-  public static Collection<Object[]> findFormats() {
-    return Arrays.asList(
-        new Object[]{"xhtml"},
-        new Object[]{"jspx"}
-    );
-  }
-
-  public boolean isFacelet() {
-    return suffix.equals("xhtml");
-  }
-}
+  </tc:page>
+</f:view>

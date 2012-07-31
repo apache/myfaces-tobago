@@ -1,6 +1,5 @@
-package org.apache.myfaces.tobago.example.test;
-
-/*
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
  * this work for additional information regarding copyright ownership.
@@ -15,19 +14,26 @@ package org.apache.myfaces.tobago.example.test;
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */
+-->
 
-import org.junit.Assert;
-import org.junit.Test;
+<f:view
+    xmlns:tc="http://myfaces.apache.org/tobago/component"
+    xmlns:f="http://java.sun.com/jsf/core">
 
-public class SimpleSeleniumTest extends SeleniumTest {
+  <tc:page id="page">
+    <tc:gridLayoutConstraint width="600px" height="600px"/>
+    <f:facet name="layout">
+      <tc:gridLayout rows="100px"/>
+    </f:facet>
 
-  @Test
-  public void testHelloWorld() {
-    getSelenium().open("/faces/simple.xhtml");
-    getSelenium().checkPage();
-    Assert.assertEquals("Simple Test", getSelenium().getValue("page:in"));
-    getSelenium().captureScreenshot(SimpleSeleniumTest.class.getName() + ".testHelloWorld.png");
-  }
+    <tc:sheet value="#{sheet.solarArray}" id="s2" columns="*;*" var="luminary" rows="11">
+      <tc:column label="Name" id="name" sortable="true">
+        <tc:out value="#{luminary.name}"/>
+      </tc:column>
+      <tc:column label="Orbit Of" id="orbit">
+        <tc:out value="#{luminary.orbit}"/>
+      </tc:column>
+    </tc:sheet>
 
-}
+  </tc:page>
+</f:view>

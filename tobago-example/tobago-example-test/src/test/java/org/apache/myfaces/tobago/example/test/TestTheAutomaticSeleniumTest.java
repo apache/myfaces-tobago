@@ -98,7 +98,7 @@ public class TestTheAutomaticSeleniumTest {
 
       Assert.fail("The test should fail, but wasn't.");
     } catch (AssertionError e) {
-      if (e.getMessage().contains(AutomaticSeleniumTest.HAS_ERROR_SEVERITY)) {
+      if (e.getMessage().contains(TobagoSelenium.HAS_ERROR_SEVERITY)) {
         // okay, the error was detected.
       } else {
         throw e;
@@ -117,7 +117,7 @@ public class TestTheAutomaticSeleniumTest {
 
       Assert.fail("The test should fail, but wasn't.");
     } catch (AssertionError e) {
-      if (e.getMessage().contains(AutomaticSeleniumTest.IS_BROKEN)) {
+      if (e.getMessage().contains(TobagoSelenium.IS_BROKEN)) {
         // okay, the error was detected.
       } else {
         throw e;
