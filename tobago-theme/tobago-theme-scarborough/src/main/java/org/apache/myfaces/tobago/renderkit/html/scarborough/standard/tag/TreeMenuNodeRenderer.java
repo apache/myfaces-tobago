@@ -57,6 +57,7 @@ public class TreeMenuNodeRenderer extends TreeNodeRendererBase {
     writer.startElement(HtmlElements.DIV, null);
     writer.writeIdAttribute(clientId);
     writer.writeClassAttribute(Classes.create(node));
+    HtmlRendererUtils.writeDataAttributes(facesContext, writer, node);
     if (parentId != null) {
       writer.writeAttribute(DataAttributes.TREEPARENT, parentId, false);
     }

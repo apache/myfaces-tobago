@@ -103,6 +103,7 @@ public class FileRenderer extends InputRendererBase {
     writer.startElement(HtmlElements.DIV, file);
     writer.writeIdAttribute(clientId);
     writer.writeClassAttribute(Classes.create(file));
+    HtmlRendererUtils.writeDataAttributes(facesContext, writer, file);
     writer.writeStyleAttribute(style);
 
     // visible fake input for a pretty look

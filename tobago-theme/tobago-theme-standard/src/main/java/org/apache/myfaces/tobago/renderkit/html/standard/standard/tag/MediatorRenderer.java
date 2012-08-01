@@ -40,6 +40,7 @@ public class MediatorRenderer extends LayoutComponentRendererBase {
     UIMediator mediator = (UIMediator) component;
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
     writer.startElement(HtmlElements.DIV, mediator);
+    HtmlRendererUtils.writeDataAttributes(facesContext, writer, mediator);
     writer.writeStyleAttribute(new Style(facesContext, mediator));
   }
 

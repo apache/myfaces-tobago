@@ -310,6 +310,7 @@ public class PageRenderer extends PageRendererBase {
     writer.startElement(HtmlElements.BODY, page);
     writer.writeIdAttribute(clientId);
     writer.writeClassAttribute(Classes.create(page));
+    HtmlRendererUtils.writeDataAttributes(facesContext, writer, page);
     HtmlRendererUtils.renderCommandFacet(page, facesContext, writer);
 
     if (debugMode) {

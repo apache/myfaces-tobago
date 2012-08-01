@@ -82,6 +82,7 @@ without shadow
     HtmlRendererUtils.renderDojoDndItem(box, writer, true);
     writer.writeClassAttribute(Classes.create(box));
     writer.writeIdAttribute(clientId);
+    HtmlRendererUtils.writeDataAttributes(facesContext, writer, box);
     writer.writeStyleAttribute(new Style(facesContext, box));
     encodeBox(facesContext, writer, box);
   }

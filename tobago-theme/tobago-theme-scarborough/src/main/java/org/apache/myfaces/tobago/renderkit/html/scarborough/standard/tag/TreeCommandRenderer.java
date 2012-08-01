@@ -80,6 +80,7 @@ public class TreeCommandRenderer extends CommandRendererBase {
     writer.writeStyleAttribute(createStyle(facesContext, command));
     writer.writeClassAttribute(Classes.create(command));
     writer.writeIdAttribute(clientId);
+    HtmlRendererUtils.writeDataAttributes(facesContext, writer, command);
     if (label.getAccessKey() != null) {
       writer.writeAttribute(HtmlAttributes.ACCESSKEY, Character.toString(label.getAccessKey()), false);
     }

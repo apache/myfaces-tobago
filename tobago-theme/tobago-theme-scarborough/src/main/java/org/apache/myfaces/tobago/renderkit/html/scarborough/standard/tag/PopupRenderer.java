@@ -91,6 +91,7 @@ public class PopupRenderer extends LayoutComponentRendererBase {
 
     writer.startElement(HtmlElements.DIV, popup);
     writer.writeIdAttribute(clientId);
+    HtmlRendererUtils.writeDataAttributes(facesContext, writer, popup);
     Style style = new Style(facesContext, popup);
     Integer zIndex = popup.getZIndex();
     if (zIndex == null) {

@@ -52,6 +52,7 @@ public class OutRenderer extends LayoutComponentRendererBase {
       String id = out.getClientId(facesContext);
       writer.startElement(HtmlElements.SPAN, out);
       writer.writeIdAttribute(id);
+      HtmlRendererUtils.writeDataAttributes(facesContext, writer, out);
       Style style = new Style(facesContext, out);
       writer.writeStyleAttribute(style);
       HtmlRendererUtils.renderDojoDndItem(out, writer, true);

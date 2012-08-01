@@ -68,6 +68,7 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
     writer.writeIdAttribute(id);
     writer.writeStyleAttribute(style);
     writer.writeClassAttribute(Classes.create(select));
+    HtmlRendererUtils.writeDataAttributes(facesContext, writer, select);
     if (title != null) {
       writer.writeAttribute(HtmlAttributes.TITLE, title, true);
     }

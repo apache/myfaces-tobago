@@ -63,6 +63,7 @@ public class SelectManyListboxRenderer extends SelectManyRendererBase {
     writer.startElement(HtmlElements.SELECT, select);
     writer.writeNameAttribute(id);
     writer.writeIdAttribute(id);
+    HtmlRendererUtils.writeDataAttributes(facesContext, writer, select);
     writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
     writer.writeAttribute(HtmlAttributes.READONLY, readonly);
     writer.writeAttribute(HtmlAttributes.REQUIRED, select.isRequired());

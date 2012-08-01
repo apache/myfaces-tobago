@@ -79,6 +79,7 @@ public class TreeRenderer extends LayoutComponentRendererBase {
     Style style = new Style(facesContext, tree);
     writer.writeStyleAttribute(style);
     writer.writeIdAttribute(clientId);
+    HtmlRendererUtils.writeDataAttributes(facesContext, writer, tree);
 
     final Selectable selectable = tree.getSelectableAsEnum();
     if (selectable.isSupportedByTree()) {

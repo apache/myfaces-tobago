@@ -59,6 +59,7 @@ public class TextareaRenderer extends InputRendererBase {
     writer.startElement(HtmlElements.TEXTAREA, input);
     writer.writeNameAttribute(clientId);
     writer.writeIdAttribute(clientId);
+    HtmlRendererUtils.writeDataAttributes(facesContext, writer, input);
     writer.writeAttribute(HtmlAttributes.ROWS, null, Attributes.ROWS);
     if (title != null) {
       writer.writeAttribute(HtmlAttributes.TITLE, title, true);

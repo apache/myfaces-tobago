@@ -62,6 +62,7 @@ public class SelectOneListboxRenderer extends SelectOneRendererBase {
     writer.startElement(HtmlElements.SELECT, select);
     writer.writeNameAttribute(id);
     writer.writeIdAttribute(id);
+    HtmlRendererUtils.writeDataAttributes(facesContext, writer, select);
     writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
     writer.writeAttribute(HtmlAttributes.READONLY, select.isReadonly());
     writer.writeAttribute(HtmlAttributes.REQUIRED, select.isRequired());

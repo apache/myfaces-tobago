@@ -98,6 +98,7 @@ public class InRenderer extends InputRendererBase {
       writer.writeAttribute(HtmlAttributes.TYPE, type, false);
       writer.writeNameAttribute(id);
       writer.writeIdAttribute(id);
+      HtmlRendererUtils.writeDataAttributes(facesContext, writer, input);
       if (currentValue != null) {
         writer.writeAttribute(HtmlAttributes.VALUE, currentValue, true);
       }

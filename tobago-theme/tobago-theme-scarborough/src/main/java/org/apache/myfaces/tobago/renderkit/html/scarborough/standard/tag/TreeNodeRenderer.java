@@ -69,6 +69,7 @@ public class TreeNodeRenderer extends TreeNodeRendererBase {
       HtmlRendererUtils.renderDojoDndItem(node, writer, true);
     }
     writer.writeClassAttribute(Classes.create(node));
+    HtmlRendererUtils.writeDataAttributes(facesContext, writer, node);
     if (parentId != null) {
       writer.writeAttribute(DataAttributes.TREEPARENT, parentId, false);
     }

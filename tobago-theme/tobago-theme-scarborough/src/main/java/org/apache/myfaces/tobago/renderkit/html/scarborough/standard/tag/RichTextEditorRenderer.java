@@ -99,6 +99,7 @@ public class RichTextEditorRenderer extends InputRendererBase {
 
     writer.startElement(HtmlElements.DIV, input);
     writer.writeClassAttribute(Classes.create(input, "container"));
+    HtmlRendererUtils.writeDataAttributes(facesContext, writer, input);
     Style style = new Style(facesContext, input);
     writer.writeStyleAttribute(style);
 

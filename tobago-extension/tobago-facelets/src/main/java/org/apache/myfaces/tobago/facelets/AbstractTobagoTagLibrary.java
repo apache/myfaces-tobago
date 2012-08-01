@@ -27,6 +27,7 @@ public class AbstractTobagoTagLibrary  extends AbstractTagLibrary {
   public AbstractTobagoTagLibrary(String namespace) {
     super(namespace);
     addTagHandler("attribute", AttributeHandler.class);
+    addTagHandler("dataAttribute", DataAttributeHandler.class);
     addTagHandler("tabChangeListener", TabChangeListenerHandler.class);
     addTagHandler("popupReference", PopupReferenceHandler.class);
     addTagHandler("resetInputActionListener", ResetInputActionListenerHandler.class);

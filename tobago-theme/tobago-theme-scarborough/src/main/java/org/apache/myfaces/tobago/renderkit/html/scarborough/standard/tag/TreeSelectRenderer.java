@@ -83,6 +83,7 @@ public class TreeSelectRenderer extends RendererBase {
 
     writer.startElement(HtmlElements.SPAN, null);
     writer.writeClassAttribute(Classes.create(select));
+    HtmlRendererUtils.writeDataAttributes(facesContext, writer, select);
 
     if (select.isShowCheckbox()
         && selectable != Selectable.NONE

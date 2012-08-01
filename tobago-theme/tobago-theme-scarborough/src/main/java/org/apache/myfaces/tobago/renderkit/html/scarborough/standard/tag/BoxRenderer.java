@@ -57,6 +57,7 @@ public class BoxRenderer extends BoxRendererBase {
 
     writer.startElement(HtmlElements.FIELDSET, box);
     writer.writeClassAttribute(Classes.create(box));
+    HtmlRendererUtils.writeDataAttributes(facesContext, writer, box);
     writer.writeStyleAttribute(style);
 
     if (label != null || labelString != null) {

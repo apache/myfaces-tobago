@@ -49,6 +49,7 @@ public class SelectManyShuttleRenderer extends SelectManyRendererBase {
     writer.writeClassAttribute(Classes.create(select));
     String clientId = select.getClientId(facesContext);
     writer.writeIdAttribute(clientId);
+    HtmlRendererUtils.writeDataAttributes(facesContext, writer, select);
     String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, select);
     if (title != null) {
       writer.writeAttribute(HtmlAttributes.TITLE, title, true);

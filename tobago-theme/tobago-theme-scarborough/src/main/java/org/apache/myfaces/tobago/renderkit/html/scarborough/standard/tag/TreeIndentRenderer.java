@@ -61,6 +61,7 @@ public class TreeIndentRenderer extends LayoutComponentRendererBase {
 
     writer.startElement(HtmlElements.SPAN, indent);
     writer.writeIdAttribute(indent.getClientId(facesContext));
+    HtmlRendererUtils.writeDataAttributes(facesContext, writer, indent);
 
     encodeIndent(
         facesContext, writer, node, showLines, showIcons, showRootJunction, showRoot, junctions);

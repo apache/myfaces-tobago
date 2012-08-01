@@ -82,6 +82,7 @@ public class MessagesRenderer extends LayoutComponentRendererBase {
     if (messageList.size() > 0) { // in ie empty span gets a height
       writer.startElement(HtmlElements.SPAN, messages);
       writer.writeClassAttribute(Classes.create(messages));
+      HtmlRendererUtils.writeDataAttributes(facesContext, writer, messages);
       writer.writeStyleAttribute(new Style(facesContext, messages));
 
       // with id

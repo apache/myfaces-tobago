@@ -78,6 +78,7 @@ public class ImageRenderer extends LayoutComponentRendererBase {
     writer.startElement(HtmlElements.IMG, image);
     final String clientId = image.getClientId(facesContext);
     writer.writeIdAttribute(clientId);
+    HtmlRendererUtils.writeDataAttributes(facesContext, writer, image);
     if (src != null) {
       writer.writeAttribute(HtmlAttributes.SRC, src, true);
     }

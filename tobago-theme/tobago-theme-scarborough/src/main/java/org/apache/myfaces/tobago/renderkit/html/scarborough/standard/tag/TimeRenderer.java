@@ -93,6 +93,7 @@ public class TimeRenderer extends InputRendererBase {
     writer.startElement(HtmlElements.DIV, time);
     writer.writeIdAttribute(id);
     writer.writeClassAttribute(Classes.create(time));
+    HtmlRendererUtils.writeDataAttributes(facesContext, writer, time);
     Style style = new Style(facesContext, time);
     writer.writeStyleAttribute(style);
     String dateInputId = (String) time.getAttributes().get(Attributes.DATE_INPUT_ID);

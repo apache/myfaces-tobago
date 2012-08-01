@@ -92,7 +92,7 @@ public class TreeIconRenderer extends LayoutComponentRendererBase {
 
     writer.startElement(HtmlElements.IMG, null);
     writer.writeClassAttribute(Classes.create(node, "toggle", Markup.NULL));
-
+    HtmlRendererUtils.writeDataAttributes(facesContext, writer, image);
     writer.writeAttribute(HtmlAttributes.SRC, source, true);
     if (folder) {
       writer.writeAttribute(DataAttributes.SRCOPEN, openSource, true);
