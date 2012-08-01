@@ -99,6 +99,7 @@ public class TimeRenderer extends InputRendererBase {
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
     writer.startElement(HtmlElements.DIV, time);
     writer.writeClassAttribute(Classes.create(time));
+    HtmlRendererUtils.writeDataAttributes(facesContext, writer, time);
     Style style = new Style(facesContext, time);
     writer.writeStyleAttribute(style);
 

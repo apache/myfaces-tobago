@@ -61,6 +61,7 @@ public class ButtonRenderer extends CommandRendererBase {
     writer.writeAttribute(HtmlAttributes.TYPE, createButtonType(button), false);
     writer.writeNameAttribute(clientId);
     writer.writeIdAttribute(clientId);
+    HtmlRendererUtils.writeDataAttributes(facesContext, writer, button);
     HtmlRendererUtils.renderTip(button, writer);
     writer.writeAttribute(HtmlAttributes.DISABLED, helper.isDisabled());
     Integer tabIndex = button.getTabIndex();

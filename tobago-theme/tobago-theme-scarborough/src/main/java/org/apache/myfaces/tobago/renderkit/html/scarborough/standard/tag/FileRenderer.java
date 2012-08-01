@@ -17,11 +17,6 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * limitations under the License.
  */
 
-/*
- * Created 07.02.2003 16:00:00.
- * $Id$
- */
-
 import org.apache.commons.fileupload.FileItem;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UIFileInput;
@@ -116,6 +111,7 @@ public class FileRenderer extends InputRendererBase {
     writer.startElement(HtmlElements.INPUT, input);
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.FILE, false);
     writer.writeClassAttribute(Classes.create(input));
+    HtmlRendererUtils.writeDataAttributes(facesContext, writer, input);
     Style style = new Style(facesContext, input);
     writer.writeStyleAttribute(style);
     writer.writeNameAttribute(clientId);

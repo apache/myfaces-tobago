@@ -77,6 +77,7 @@ public class PanelRenderer extends LayoutComponentRendererBase {
     HtmlRendererUtils.renderDojoDndItem(panel, writer, true);
     writer.writeIdAttribute(clientId);
     writer.writeClassAttribute(Classes.create(panel));
+    HtmlRendererUtils.writeDataAttributes(facesContext, writer, panel);
     Style style = new Style(facesContext, panel);
     // XXX hotfix for panels in sheets
     if (style.getPosition() == null) {

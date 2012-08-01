@@ -66,6 +66,7 @@ public class LabelRenderer extends LayoutComponentRendererBase {
 
     String clientId = label.getClientId(facesContext);
     writer.startElement(HtmlElements.LABEL, label);
+    HtmlRendererUtils.writeDataAttributes(facesContext, writer, label);
     HtmlRendererUtils.renderDojoDndItem(label, writer, true);
     final Classes classes = Classes.create(label);
     writer.writeClassAttribute(classes);

@@ -377,6 +377,7 @@ public class PageRenderer extends PageRendererBase {
 //    writer.writeAttribute("onunload", "Tobago.onexit();", null);
     writer.writeIdAttribute(clientId);
     writer.writeClassAttribute(Classes.create(page));
+    HtmlRendererUtils.writeDataAttributes(facesContext, writer, page);
 
     writer.startJavascript();
     writer.write("Tobago.pngFixBlankImage = '");

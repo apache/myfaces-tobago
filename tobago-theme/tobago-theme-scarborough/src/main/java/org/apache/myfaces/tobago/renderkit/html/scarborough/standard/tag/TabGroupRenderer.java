@@ -101,6 +101,7 @@ public class TabGroupRenderer extends LayoutComponentRendererBase {
     writer.startElement(HtmlElements.DIV, null);
     writer.writeIdAttribute(clientId);
     writer.writeClassAttribute(Classes.create(tabGroup));
+    HtmlRendererUtils.writeDataAttributes(facesContext, writer, tabGroup);
     writer.writeStyleAttribute(new Style(facesContext, tabGroup));
     writer.writeAttribute(HtmlAttributes.SWITCHTYPE, switchType, false);
 

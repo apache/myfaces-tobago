@@ -76,6 +76,7 @@ public class TreeRenderer extends LayoutComponentRendererBase {
     writer.writeClassAttribute(Classes.create(tree));
     Style style = new Style(facesContext, tree);
     writer.writeStyleAttribute(style);
+    HtmlRendererUtils.writeDataAttributes(facesContext, writer, tree);
 
     writer.startElement(HtmlElements.INPUT, tree);
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN, false);

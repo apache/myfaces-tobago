@@ -81,6 +81,7 @@ public class SelectBooleanCheckboxRenderer extends LayoutComponentRendererBase {
     writer.startElement(HtmlElements.DIV, select);
     writer.writeStyleAttribute(new Style(facesContext, select));
     writer.writeClassAttribute(Classes.create(select));
+    HtmlRendererUtils.writeDataAttributes(facesContext, writer, select);
     if (title != null) {
       writer.writeAttribute(HtmlAttributes.TITLE, title, true);
     }

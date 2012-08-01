@@ -70,6 +70,7 @@ public class LinkRenderer extends CommandRendererBase {
         writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
       }
     }
+    HtmlRendererUtils.writeDataAttributes(facesContext, writer, link);
     Style style = new Style(facesContext, link);
     writer.writeStyleAttribute(style);
     HtmlRendererUtils.renderDojoDndItem(component, writer, true);

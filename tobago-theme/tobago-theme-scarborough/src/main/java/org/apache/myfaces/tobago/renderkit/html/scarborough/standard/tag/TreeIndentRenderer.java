@@ -57,6 +57,7 @@ public class TreeIndentRenderer extends LayoutComponentRendererBase {
     final boolean expanded = folder && node.isExpanded() || !showRoot && level == 0;
 
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    HtmlRendererUtils.writeDataAttributes(facesContext, writer, indent);
 
     encodeIndent(facesContext, writer, node, showJunctions, !showRoot || !showRootJunction && showJunctions, junctions);
 

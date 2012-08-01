@@ -41,6 +41,8 @@ import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.el.ELContext;
+import javax.el.ValueExpression;
 import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
@@ -714,4 +716,26 @@ public final class HtmlRendererUtils {
       String jsStatement = createOnclickAcceleratorKeyJsStatement(clientId, accessKey, null);
       FacesContextUtils.addMenuAcceleratorScript(facesContext, jsStatement);
     }
+
+  public static void writeDataAttributes(
+      FacesContext context, TobagoResponseWriter writer, UIComponent component)
+      throws IOException {
+
+    final Map<Object, Object> dataAttributes = ComponentUtils.getDataAttributes(component);
+    if (dataAttributes == null) {
+      return;
+    }
+
+    final ELContext elContext = context.getELContext();
+
+    for (Map.Entry<Object, Object> entry : dataAttributes.entrySet()) {
+      final Object mapKey = entry.getKey();
+      final String name = mapKey instanceof ValueExpression
+          ? ((ValueExpression) mapKey).getValue(elContext).toString() : mapKey.toString();
+      final Object mapValue = entry.getValue();
+      final String value = mapValue instanceof ValueExpression
+          ? ((ValueExpression) mapValue).getValue(elContext).toString() : mapValue.toString();
+      writer.writeAttribute("data-" + name, value, true);
+    }
+  }
 }

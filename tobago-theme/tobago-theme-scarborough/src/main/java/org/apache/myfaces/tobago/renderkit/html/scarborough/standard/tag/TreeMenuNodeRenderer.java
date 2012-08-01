@@ -138,6 +138,7 @@ public class TreeMenuNodeRenderer extends LayoutComponentRendererBase {
       writer.writeIdAttribute(id);
       writer.writeClassAttribute(Classes.create(node));
       writer.writeAttribute(DataAttributes.TREEPARENT, parentId, false);
+      HtmlRendererUtils.writeDataAttributes(facesContext, writer, node);
 
       if (!root && !tree.getExpandedCache().contains(parentId)) {
         Style style = new Style();

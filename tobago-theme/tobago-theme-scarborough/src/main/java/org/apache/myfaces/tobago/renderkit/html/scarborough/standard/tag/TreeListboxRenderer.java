@@ -85,6 +85,7 @@ public class TreeListboxRenderer extends LayoutComponentRendererBase {
 
     writer.startElement(HtmlElements.DIV, tree);
     writer.writeClassAttribute(Classes.create(tree));
+    HtmlRendererUtils.writeDataAttributes(facesContext, writer, tree);
     Style style = new Style(facesContext, tree);
     writer.writeStyleAttribute(style);
 

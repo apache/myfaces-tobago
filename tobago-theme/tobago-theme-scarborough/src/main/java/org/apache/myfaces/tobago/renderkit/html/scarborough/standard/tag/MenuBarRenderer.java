@@ -40,6 +40,7 @@ public class MenuBarRenderer extends LayoutComponentRendererBase {
     writer.startElement(HtmlElements.OL, menuBar);
     writer.writeIdAttribute(menuBar.getClientId(facesContext));
     writer.writeClassAttribute(Classes.create(menuBar));
+    HtmlRendererUtils.writeDataAttributes(facesContext, writer, menuBar);
     Style style = new Style(facesContext, menuBar);
     writer.writeStyleAttribute(style);
   }

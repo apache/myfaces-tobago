@@ -81,6 +81,7 @@ public class CalendarRenderer extends LayoutComponentRendererBase {
     writer.startElement(HtmlElements.DIV, component);
     writer.writeIdAttribute(id);
     writer.writeClassAttribute(Classes.create(output));
+    HtmlRendererUtils.writeDataAttributes(facesContext, writer, component);
     Style style = new Style(facesContext, output);
     writer.writeStyleAttribute(style);
 

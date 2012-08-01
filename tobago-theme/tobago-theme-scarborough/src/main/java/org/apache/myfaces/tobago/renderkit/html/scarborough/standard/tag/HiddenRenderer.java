@@ -54,6 +54,7 @@ public class HiddenRenderer extends InputRendererBase {
     }
     writer.writeNameAttribute(clientId);
     writer.writeIdAttribute(clientId);
+    HtmlRendererUtils.writeDataAttributes(facesContext, writer, component);
     writer.writeAttribute(HtmlAttributes.VALUE, value != null ? value : "", true);
     writer.endElement(HtmlElements.INPUT);
   }

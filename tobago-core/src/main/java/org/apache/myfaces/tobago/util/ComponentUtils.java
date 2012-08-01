@@ -65,6 +65,7 @@ import javax.faces.render.Renderer;
 import javax.faces.webapp.UIComponentTag;
 import javax.servlet.jsp.JspException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -85,6 +86,12 @@ public class ComponentUtils {
   public static final Class[] VALUE_CHANGE_LISTENER_ARGS = {ValueChangeEvent.class};
   public static final Class[] VALIDATOR_ARGS = {FacesContext.class, UIComponent.class, Object.class};
   public static final String LIST_SEPARATOR_CHARS = ", ";
+
+  /**
+   * Name of the map for data attributes in components. New in JSF 2.2.
+   * @since 1.6.0
+   */
+  public static final String DATA_ATTRIBUTES_KEY = "javax.faces.component.DATA_ATTRIBUTES_KEY";
 
   private ComponentUtils() {
   }
@@ -1005,5 +1012,18 @@ public class ComponentUtils {
       return clientIds.toArray(new String[clientIds.size()]);
     }
     return ArrayUtils.EMPTY_STRING_ARRAY;
+  }
+
+  public static void putDataAttribute(UIComponent component, Object name, Object value) {
+    Map<Object, Object> map = (Map<Object, Object>) component.getAttributes().get(DATA_ATTRIBUTES_KEY);
+    if (map == null) {
+      map = new HashMap<Object, Object>();
+      component.getAttributes().put(DATA_ATTRIBUTES_KEY, map);
+    }
+    map.put(name, value);
+  }
+
+  public static Map<Object, Object> getDataAttributes(UIComponent component) {
+    return (Map<Object, Object>) component.getAttributes().get(DATA_ATTRIBUTES_KEY);
   }
 }

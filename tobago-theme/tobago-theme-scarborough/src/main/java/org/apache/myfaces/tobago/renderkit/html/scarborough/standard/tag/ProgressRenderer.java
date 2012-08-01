@@ -70,6 +70,7 @@ public class ProgressRenderer extends LayoutComponentRendererBase {
 
     writer.startElement(HtmlElements.DIV, progress);
     writer.writeClassAttribute(Classes.create(progress));
+    HtmlRendererUtils.writeDataAttributes(facesContext, writer, progress);
     writer.writeStyleAttribute(style);
     writer.writeAttribute(HtmlAttributes.TITLE, String.valueOf(title), true);
 

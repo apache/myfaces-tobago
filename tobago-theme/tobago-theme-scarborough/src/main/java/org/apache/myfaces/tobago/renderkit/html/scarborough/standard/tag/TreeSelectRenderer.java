@@ -49,6 +49,7 @@ public class TreeSelectRenderer extends SelectBooleanCheckboxRenderer {
       writer.writeAttribute(HtmlAttributes.VALUE, "true", false);
       writer.writeNameAttribute(id);
       writer.writeIdAttribute(id);
+      HtmlRendererUtils.writeDataAttributes(facesContext, writer, select);
       writer.writeAttribute(HtmlAttributes.CHECKED, checked);
       writer.endElement(HtmlElements.INPUT);
     }

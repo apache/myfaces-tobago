@@ -62,6 +62,7 @@ public class SelectOneListboxRenderer extends SelectOneRendererBase {
     writer.startElement(HtmlElements.SELECT, select);
     writer.writeNameAttribute(id);
     writer.writeIdAttribute(id);
+    HtmlRendererUtils.writeDataAttributes(facesContext, writer, select);
     writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
     Integer tabIndex = select.getTabIndex();
     if (tabIndex != null) {

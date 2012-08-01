@@ -47,6 +47,7 @@ public class TreeLabelRenderer extends LayoutComponentRendererBase {
 
     writer.startElement(HtmlElements.LABEL, label);
     writer.writeClassAttribute(Classes.create(label));
+    HtmlRendererUtils.writeDataAttributes(facesContext, writer, label);
     writer.writeStyleAttribute(createStyle(facesContext, label));
     HtmlRendererUtils.renderTip(label, writer);
 

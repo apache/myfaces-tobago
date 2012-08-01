@@ -82,6 +82,7 @@ public class TreeCommandRenderer extends CommandRendererBase {
     writer.writeStyleAttribute(createStyle(facesContext, command));
     writer.writeClassAttribute(Classes.create(command));
     writer.writeIdAttribute(clientId);
+    HtmlRendererUtils.writeDataAttributes(facesContext, writer, command);
     HtmlRendererUtils.renderTip(command, writer);
     writer.flush();
 

@@ -41,6 +41,7 @@ public class ObjectRenderer extends LayoutComponentRendererBase {
     writer.writeAttribute(HtmlAttributes.FRAMEBORDER, "0", false);
     writer.writeIdAttribute(object.getClientId(facesContext));
     writer.writeNameAttribute(object.getClientId(facesContext));
+    HtmlRendererUtils.writeDataAttributes(facesContext, writer, object);
     Object src = object.getSrc();
     if (src != null) {
       writer.writeAttribute(HtmlAttributes.SRC, String.valueOf(src), true);
