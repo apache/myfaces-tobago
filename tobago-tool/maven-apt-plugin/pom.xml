@@ -33,6 +33,7 @@
         <artifactId>maven-checkstyle-plugin</artifactId>
         <configuration>
           <configLocation>config/maven_checks.xml</configLocation>
+          <headerLocation>config/maven-header.txt</headerLocation>
           <excludes>**/*.java</excludes>
           <sourceEncoding>utf-8</sourceEncoding>
           <xrefLocation>xref</xrefLocation>
@@ -46,6 +47,7 @@
         <artifactId>maven-checkstyle-plugin</artifactId>
         <configuration>
           <configLocation>config/maven_checks.xml</configLocation>
+          <headerLocation>config/maven-header.txt</headerLocation>
           <excludes>**/*.java</excludes>
           <sourceEncoding>utf-8</sourceEncoding>
           <xrefLocation>xref</xrefLocation>
@@ -82,6 +84,7 @@
         <artifactId>maven-checkstyle-plugin</artifactId>
         <configuration>
           <configLocation>config/maven_checks.xml</configLocation>
+          <headerLocation>config/maven-header.txt</headerLocation>
           <excludes>**/*.java</excludes>
           <sourceEncoding>utf-8</sourceEncoding>
           <xrefLocation>xref</xrefLocation>
