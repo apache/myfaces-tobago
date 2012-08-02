@@ -19,21 +19,20 @@
 
 package org.apache.myfaces.tobago.apt.annotation;
 
-/*
- * Created: Apr 20, 2005 5:08:01 PM
- * $Id$
- */
 public enum BodyContent {
 
   JSP, EMPTY, TAGDEPENDENT;
 
-  public String toString(){
+  public String toString() {
     switch (this) {
-      case JSP: return "JSP";
-      case EMPTY: return "empty";
-      case TAGDEPENDENT: return "tagdependent";
+      case JSP:
+        return "JSP";
+      case EMPTY:
+        return "empty";
+      case TAGDEPENDENT:
+        return "tagdependent";
       default:
-        throw new IllegalStateException("Unexpected BodyContent "+name());
+        throw new IllegalStateException("Unexpected BodyContent " + name());
     }
   }
 }
