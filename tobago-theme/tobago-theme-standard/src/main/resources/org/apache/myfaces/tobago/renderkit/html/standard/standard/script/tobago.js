@@ -237,6 +237,7 @@ var Tobago = {
   listeners: {
     documentReady: [],
     windowLoad: [],
+    beforeSubmit: [],
     afterUpdate: []
   },
 
@@ -248,6 +249,8 @@ var Tobago = {
       Tobago.listeners.documentReady.push(listener);
     } else if (Tobago.Phase.WINDOW_LOAD == phase) {
       Tobago.listeners.windowLoad.push(listener);
+    } else if (Tobago.Phase.BEFORE_SUBMIT == phase) {
+      Tobago.listeners.beforeSubmit.push(listener);
     } else if (Tobago.Phase.AFTER_UPDATE == phase) {
       Tobago.listeners.afterUpdate.push(listener);
     } else {
@@ -334,13 +337,20 @@ var Tobago = {
   },
 
   onSubmit: function() {
-    if (jQuery.isFunction(Tobago.applicationOnsubmit)) {
-      var result = Tobago.applicationOnsubmit();
-      if (!result) {
-        this.isSubmit = false;
-        Tobago.form.target = oldTarget;
-        return false;
+    var result = true; // Do not continue if any function returns false
+    for (var i = 0; i < Tobago.listeners.beforeSubmit.length; i++) {
+      result = Tobago.listeners.beforeSubmit[i]();
+      if (result == false) {
+        break;
       }
+    }
+    if (result != false && jQuery.isFunction(Tobago.applicationOnsubmit)) {
+      result = Tobago.applicationOnsubmit();
+    }
+    if (result == false) {
+      this.isSubmit = false;
+      Tobago.form.target = oldTarget;
+      return false;
     }
     var hidden = Tobago.element('tobago::partialIds');
     if (hidden) {
@@ -1590,6 +1600,8 @@ Tobago.Phase = {
   DOCUMENT_READY:{},
   /** after all images and CSS was loaded */
   WINDOW_LOAD:{},
+  /** before sending a normal submit action (TBD: also AJAX?) */
+  BEFORE_SUBMIT:{},
   /** after an AJAX call */
   AFTER_UPDATE:{}
 };
