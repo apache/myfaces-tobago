@@ -44,14 +44,14 @@
         </f:facet>
         <tc:out value="#{bundle.loginIntro}"/>
         <tc:link label="guest/guest" image="image/org/tango-project/tango-icon-theme/16x16/apps/system-users.png"
-                 onclick="/*fixme*/">
-          <tc:dataAttribute name="login" value='{"username": "guest", "password":"guest"}'/>
+                 onclick="/* fixme: avoid submit */">
+          <tc:dataAttribute name="login" value='{"username": "guest", "password": "guest"}'/>
         </tc:link>
 
         <tc:cell/>
         <tc:link label="admin/admin" image="image/org/tango-project/tango-icon-theme/16x16/apps/system-users.png"
-                 onclick="/*fixme*/">
-          <tc:dataAttribute name="login" value='{"username": "admin", "password":"admin"}'/>
+                 onclick="/* fixme: avoid submit */">
+          <tc:dataAttribute name="login" value='{"username": "admin", "password": "admin"}'/>
         </tc:link>
       </tc:panel>
 

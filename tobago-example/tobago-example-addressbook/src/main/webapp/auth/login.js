@@ -17,6 +17,9 @@
 
 jQuery(document).ready(function() {
 
+  /**
+   * Copies the values from the data-login attribute to the username/password fields.
+   */
   jQuery("a[data-login]").click(function() {
     var link = jQuery(this);
     var login = link.data("login");
@@ -25,10 +28,18 @@ jQuery(document).ready(function() {
     return false;
   });
 
-  jQuery("form").submit(function() {
-    jQuery(Tobago.Utils.escapeClientId("page:j_username")).attr("name", "j_username");
-    jQuery(Tobago.Utils.escapeClientId("page:j_password")).attr("name", "j_password");
-    jQuery(Tobago.Utils.escapeClientId("page::form")).attr("action", Tobago.contextPath.value + "/j_security_check");
-  });
-
 });
+
+Addressbook = {};
+
+/**
+ * This code is needed to "repair" the submit parameter names and url to use
+ * the names that a required for servlet authentication.
+ */
+Addressbook.prepareLoginForm = function() {
+  jQuery(Tobago.Utils.escapeClientId("page:j_username")).attr("name", "j_username");
+  jQuery(Tobago.Utils.escapeClientId("page:j_password")).attr("name", "j_password");
+  jQuery(Tobago.Utils.escapeClientId("page::form")).attr("action", Tobago.contextPath.value + "/j_security_check");
+};
+
+Tobago.registerListener(Addressbook.prepareLoginForm, Tobago.Phase.BEFORE_SUBMIT);
