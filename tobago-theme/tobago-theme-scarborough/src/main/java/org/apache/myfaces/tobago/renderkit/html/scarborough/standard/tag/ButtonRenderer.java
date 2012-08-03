@@ -20,6 +20,7 @@
 package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.myfaces.tobago.component.Attributes;
+import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.UIButton;
 import org.apache.myfaces.tobago.config.Configurable;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
@@ -30,11 +31,12 @@ import org.apache.myfaces.tobago.renderkit.CommandRendererBase;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
+import org.apache.myfaces.tobago.renderkit.html.Command;
+import org.apache.myfaces.tobago.renderkit.html.CommandMap;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlButtonTypes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
-import org.apache.myfaces.tobago.renderkit.html.util.CommandRendererHelper;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -43,6 +45,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
+import javax.faces.component.ValueHolder;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
@@ -52,14 +55,12 @@ public class ButtonRenderer extends CommandRendererBase {
 
   public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
 
-    UIButton button = (UIButton) component;
-    String clientId = button.getClientId(facesContext);
+    final UIButton button = (UIButton) component;
+    final String clientId = button.getClientId(facesContext);
+    final boolean disabled = button.isDisabled();
+    final LabelWithAccessKey label = new LabelWithAccessKey(button);
 
-    CommandRendererHelper helper = new CommandRendererHelper(facesContext, button, CommandRendererHelper.Tag.BUTTON);
-
-    TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
-
-    LabelWithAccessKey label = new LabelWithAccessKey(button);
+    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
     writer.startElement(HtmlElements.BUTTON, button);
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlButtonTypes.BUTTON, false);
@@ -67,17 +68,30 @@ public class ButtonRenderer extends CommandRendererBase {
     writer.writeIdAttribute(clientId);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, button);
     HtmlRendererUtils.renderTip(button, writer);
-    writer.writeAttribute(HtmlAttributes.DISABLED, helper.isDisabled());
-    Integer tabIndex = button.getTabIndex();
-    if (tabIndex != null) {
-      writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
+    writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
+
+    if (!disabled) {
+      final ValueHolder confirmationFacet = (ValueHolder) component.getFacet(Facets.CONFIRMATION);
+      final String confirmation = confirmationFacet != null ? "" + confirmationFacet.getValue() : null;
+
+      final String url = RenderUtils.generateUrl(facesContext, button);
+      final CommandMap map = new CommandMap();
+      map.setClick(new Command(
+          button.isTransition(), button.getTarget(), url, null, null, confirmation, null));
+      writer.writeAttribute(DataAttributes.ACTION, map.encodeJson(), true);
+
+      writer.writeAttribute(HtmlAttributes.HREF, "#", false);
+
+      if (label.getAccessKey() != null) {
+        writer.writeAttribute(HtmlAttributes.ACCESSKEY, Character.toString(label.getAccessKey()), false);
+      }
+
+      final Integer tabIndex = button.getTabIndex();
+      if (tabIndex != null) {
+        writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
+      }
     }
-    if (label.getAccessKey() != null && helper.isDisabled()) {
-      writer.writeAttribute(HtmlAttributes.ACCESSKEY, Character.toString(label.getAccessKey()), false);
-    }
-    if (helper.getOnclick() != null) {
-      writer.writeAttribute(HtmlAttributes.ONCLICK, helper.getOnclick(), true);
-    }
+
     Style style = new Style(facesContext, button);
     writer.writeStyleAttribute(style);
     HtmlRendererUtils.renderDojoDndItem(component, writer, true);
@@ -93,7 +107,7 @@ public class ButtonRenderer extends CommandRendererBase {
       if (ResourceManagerUtils.isAbsoluteResource(image)) {
         // absolute Path to image : nothing to do
       } else {
-        image = getImageWithPath(facesContext, image, helper.isDisabled());
+        image = getImageWithPath(facesContext, image, disabled);
       }
       writer.startElement(HtmlElements.IMG, null);
       writer.writeAttribute(HtmlAttributes.SRC, image, true);

@@ -19,6 +19,7 @@
 
 package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
+import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.config.Configurable;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.internal.component.AbstractUILink;
@@ -28,9 +29,11 @@ import org.apache.myfaces.tobago.renderkit.CommandRendererBase;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
+import org.apache.myfaces.tobago.renderkit.html.Command;
+import org.apache.myfaces.tobago.renderkit.html.CommandMap;
+import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
-import org.apache.myfaces.tobago.renderkit.html.util.CommandRendererHelper;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -38,6 +41,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
+import javax.faces.component.ValueHolder;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import java.io.IOException;
@@ -48,31 +52,40 @@ public class LinkRenderer extends CommandRendererBase {
 
   public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
 
-    AbstractUILink link = (AbstractUILink) component;
-    String clientId = link.getClientId(facesContext);
-    CommandRendererHelper helper = new CommandRendererHelper(facesContext, link, CommandRendererHelper.Tag.ANCHOR);
-    String href = helper.getHref();
-    TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final AbstractUILink link = (AbstractUILink) component;
+    final String clientId = link.getClientId(facesContext);
+    final boolean disabled = link.isDisabled();
+//    final CommandRendererHelper helper = new CommandRendererHelper(facesContext, link, CommandRendererHelper.Tag.ANCHOR);
+//    final String href = helper.getHref();
+
+    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
     LabelWithAccessKey label = new LabelWithAccessKey(link);
 
-    if (helper.isDisabled()) {
+    if (disabled) {
       writer.startElement(HtmlElements.SPAN, link);
     } else {
       writer.startElement(HtmlElements.A, link);
-      writer.writeAttribute(HtmlAttributes.HREF, href, true);
-      if (helper.getOnclick() != null) {
-        writer.writeAttribute(HtmlAttributes.ONCLICK, helper.getOnclick(), true);
-      }
-      if (helper.getTarget() != null) {
-        writer.writeAttribute(HtmlAttributes.TARGET, helper.getTarget(), true);
-      }
-      Integer tabIndex = link.getTabIndex();
-      if (tabIndex != null) {
-        writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
-      }
+//      writer.writeAttribute(HtmlAttributes.HREF, href, true); XXX
+
+      final ValueHolder confirmationFacet = (ValueHolder) component.getFacet(Facets.CONFIRMATION);
+      final String confirmation = confirmationFacet != null ? "" + confirmationFacet.getValue() : null;
+
+      final String url = RenderUtils.generateUrl(facesContext, link);
+      final CommandMap map = new CommandMap();
+      map.setClick(new Command(
+          link.isTransition(), link.getTarget(), url, null, null, confirmation, null));
+      writer.writeAttribute(DataAttributes.ACTION, map.encodeJson(), true);
+
+      writer.writeAttribute(HtmlAttributes.HREF, "#", false);
+
       if (label.getAccessKey() != null) {
         writer.writeAttribute(HtmlAttributes.ACCESSKEY, Character.toString(label.getAccessKey()), false);
+      }
+
+      final Integer tabIndex = link.getTabIndex();
+      if (tabIndex != null) {
+        writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
       }
     }
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, link);
@@ -91,7 +104,7 @@ public class LinkRenderer extends CommandRendererBase {
       if (ResourceManagerUtils.isAbsoluteResource(image)) {
         // absolute Path to image : nothing to do
       } else {
-        image = getImageWithPath(facesContext, image, helper.isDisabled());
+        image = getImageWithPath(facesContext, image, disabled);
       }
       writer.startElement(HtmlElements.IMG, link);
       writer.writeAttribute(HtmlAttributes.SRC, image, true);
@@ -112,7 +125,7 @@ public class LinkRenderer extends CommandRendererBase {
       HtmlRendererUtils.writeLabelWithAccessKey(writer, label);
     }
 
-    if (label.getAccessKey() != null && !helper.isDisabled()) {
+    if (label.getAccessKey() != null && !disabled) {
       if (LOG.isInfoEnabled()
           && !AccessKeyMap.addAccessKey(facesContext, label.getAccessKey())) {
         LOG.info("duplicated accessKey : " + label.getAccessKey());

@@ -22,6 +22,7 @@ package org.apache.myfaces.tobago.renderkit.util;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.config.Configurable;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
+import org.apache.myfaces.tobago.internal.component.AbstractUICommandBase;
 import org.apache.myfaces.tobago.internal.component.AbstractUIData;
 import org.apache.myfaces.tobago.internal.component.AbstractUITree;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
@@ -35,16 +36,21 @@ import org.apache.myfaces.tobago.util.DebugUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.faces.application.Application;
+import javax.faces.application.ViewHandler;
 import javax.faces.component.EditableValueHolder;
 import javax.faces.component.UIComponent;
+import javax.faces.component.UIParameter;
 import javax.faces.component.UISelectItem;
 import javax.faces.component.UISelectItems;
 import javax.faces.component.ValueHolder;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 import javax.faces.model.SelectItem;
 import java.io.IOException;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -448,4 +454,63 @@ public class RenderUtils {
     }
     return null;
   }
+
+  public static String generateUrl(FacesContext facesContext, AbstractUICommandBase component) {
+
+    final Application application = facesContext.getApplication();
+    final ViewHandler viewHandler = application.getViewHandler();
+    final ExternalContext externalContext = facesContext.getExternalContext();
+
+    String url = null;
+
+    if (component.getResource() != null) {
+      boolean jsfResource = component.isJsfResource();
+      url = ResourceManagerUtils.getPageWithoutContextPath(facesContext, component.getResource());
+      if (url != null) {
+        if (jsfResource) {
+          url = viewHandler.getActionURL(facesContext, url);
+          url = externalContext.encodeActionURL(url);
+        } else {
+          url = viewHandler.getResourceURL(facesContext, url);
+          url = externalContext.encodeResourceURL(url);
+        }
+      } else {
+        url = "";
+      }
+    } else if (component.getLink() != null) {
+
+      String link = component.getLink();
+      if (link.startsWith("/")) { // internal absolute link
+        url = viewHandler.getActionURL(facesContext, link);
+        url = externalContext.encodeActionURL(url);
+      } else if (link.contains(":")) { // external link
+        url = link;
+      } else { // internal relative link
+        url = externalContext.encodeResourceURL(link);
+      }
+
+      StringBuilder builder = new StringBuilder(url);
+      boolean firstParameter = !url.contains("?");
+      for (UIComponent child : (List<UIComponent>) component.getChildren()) {
+        if (child instanceof UIParameter) {
+          UIParameter parameter = (UIParameter) child;
+          if (firstParameter) {
+            builder.append("?");
+            firstParameter = false;
+          } else {
+            builder.append("&");
+          }
+          builder.append(parameter.getName());
+          builder.append("=");
+          Object value = parameter.getValue();
+          // TODO encoding
+          builder.append(value != null ? URLDecoder.decode(value.toString()) : null);
+        }
+      }
+      url = builder.toString();
+    }
+
+    return url;
+  }
+
 }

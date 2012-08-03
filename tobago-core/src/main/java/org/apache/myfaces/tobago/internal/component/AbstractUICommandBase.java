@@ -77,5 +77,7 @@ public abstract class AbstractUICommandBase extends javax.faces.component.UIComm
 
   public abstract String getTarget();
 
+  public abstract boolean isTransition();
+
   public abstract String[] getRenderedPartially();
 }

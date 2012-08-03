@@ -69,4 +69,8 @@ public abstract class AbstractUIDatePicker extends AbstractUILink implements OnC
   public String getTarget() {
     return null;
   }
+
+  public boolean isTransition() {
+    return true;
+  }
 }

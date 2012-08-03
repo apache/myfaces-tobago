@@ -874,6 +874,7 @@ public final class HtmlRendererUtils {
 
   private static class Command {
     private String actionId;
+    // XXX rename
     private Boolean transistion;
     private String target;
     private String partially;

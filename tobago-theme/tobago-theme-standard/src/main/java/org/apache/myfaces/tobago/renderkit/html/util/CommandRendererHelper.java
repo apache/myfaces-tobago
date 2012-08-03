@@ -23,23 +23,17 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.UIPopup;
-import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.event.PopupFacetActionListener;
 import org.apache.myfaces.tobago.internal.component.AbstractUICommandBase;
+import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.faces.application.Application;
-import javax.faces.application.ViewHandler;
 import javax.faces.component.UIComponent;
-import javax.faces.component.UIParameter;
 import javax.faces.component.ValueHolder;
-import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import java.net.URLDecoder;
 import java.util.Arrays;
-import java.util.List;
 
 public class CommandRendererHelper {
 
@@ -73,7 +67,7 @@ public class CommandRendererHelper {
       boolean transition = ComponentUtils.getBooleanAttribute(command, Attributes.TRANSITION);
 
       if (StringUtils.isNotEmpty(command.getLink()) || StringUtils.isNotEmpty(command.getResource())) {
-        String url = generateUrl(facesContext, command);
+        String url = RenderUtils.generateUrl(facesContext, command);
         if (tag == Tag.ANCHOR) {
           onclick = null;
           href = url;
@@ -145,64 +139,6 @@ public class CommandRendererHelper {
       onclick = script.toString();
     }
     return onclick;
-  }
-
-  private String generateUrl(FacesContext facesContext, AbstractUICommandBase component) {
-    String url;
-    Application application = facesContext.getApplication();
-    ViewHandler viewHandler = application.getViewHandler();
-    ExternalContext externalContext = facesContext.getExternalContext();
-
-    if (component.getResource() != null) {
-      boolean jsfResource = component.isJsfResource();
-      url = ResourceManagerUtils.getPageWithoutContextPath(facesContext, component.getResource());
-      if (url != null) {
-        if (jsfResource) {
-          url = viewHandler.getActionURL(facesContext, url);
-          url = externalContext.encodeActionURL(url);
-        } else {
-          url = viewHandler.getResourceURL(facesContext, url);
-          url = externalContext.encodeResourceURL(url);
-        }
-      } else {
-        url = "";
-      }
-    } else if (component.getLink() != null) {
-
-      String link = component.getLink();
-      if (link.startsWith("/")) { // internal absolute link
-        url = viewHandler.getActionURL(facesContext, link);
-        url = externalContext.encodeActionURL(url);
-      } else if (link.contains(":")) { // external link
-        url = link;
-      } else { // internal relative link
-        url = externalContext.encodeResourceURL(link);
-      }
-
-      StringBuilder builder = new StringBuilder(url);
-      boolean firstParameter = !url.contains("?");
-      for (UIComponent child : (List<UIComponent>) component.getChildren()) {
-        if (child instanceof UIParameter) {
-          UIParameter parameter = (UIParameter) child;
-          if (firstParameter) {
-            builder.append("?");
-            firstParameter = false;
-          } else {
-            builder.append("&");
-          }
-          builder.append(parameter.getName());
-          builder.append("=");
-          Object value = parameter.getValue();
-          // TODO encoding
-          builder.append(value != null ? URLDecoder.decode(value.toString()) : null);
-        }
-      }
-      url = builder.toString();
-    } else {
-      throw new AssertionError("Needed " + Attributes.LINK + " or " + Attributes.RESOURCE);
-    }
-
-    return url;
   }
 
   public String getOnclick() {

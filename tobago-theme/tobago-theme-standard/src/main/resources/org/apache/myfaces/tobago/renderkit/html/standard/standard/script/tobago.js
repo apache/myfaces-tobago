@@ -959,10 +959,15 @@ var Tobago = {
 
       if (commands.click) {
         command.click(function() {
-          if (commands.click.partially) {
-            Tobago.reloadComponent(this, commands.click.partially, commands.click.actionId, commands.click);
-          } else {
-            Tobago.submitAction(this, commands.click.actionId, commands.click);
+          if (commands.click.confirmation == null || confirm(commands.click.confirmation)) {
+            if (commands.click.partially) {
+              Tobago.reloadComponent(this, commands.click.partially, commands.click.actionId, commands.click);
+            } else if (commands.click.url) {
+              Tobago.navigateToUrl(commands.click.url);
+            } else {
+              var actionId = commands.click.actionId ? commands.click.actionId : jQuery(this).attr("id");
+              Tobago.submitAction(this, actionId, commands.click);
+            }
           }
         });
       }
@@ -2717,6 +2722,54 @@ Tobago.File.init = function(elements) {
 
 Tobago.registerListener(Tobago.File.init, Tobago.Phase.DOCUMENT_READY);
 Tobago.registerListener(Tobago.File.init, Tobago.Phase.AFTER_UPDATE);
+
+// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Tobago.Codi = {};
+
+/**
+ * If the window has no name set we set the name and request a new view with unset windowId, so that the
+ * server will generate a new one for us.
+ */
+Tobago.Codi.init = function() {
+
+  var form = document.forms[0];
+  var windowIdEnabled = Tobago.Codi.hasUrlWindowId(form.action);
+  if (windowIdEnabled && window.name == "") {
+    form.action = Tobago.Codi.urlWithoutWindowId(form.action);
+    window.name = "window";
+    Tobago.submitAction();
+  }
+};
+
+Tobago.Codi.hasUrlWindowId = function(base) {
+  return base.indexOf("?windowId=") || base.indexOf("&windowId=");
+};
+
+/**
+ * taken from myfaces-extcdi (Codi)
+ */
+Tobago.Codi.urlWithoutWindowId = function(base) {
+    var query = base;
+    var vars = query.split(/&|\?/g);
+    var newQuery = "";
+    var iParam = 0;
+    for (var i=0; vars != null && i < vars.length; i++) {
+        var pair = vars[i].split("=");
+        if (pair.length == 1) {
+            newQuery = pair[0];
+        }
+        else {
+            if (pair[0] != "windowId") {
+                var amp = iParam++ > 0 ? "&" : "?";
+                newQuery =  newQuery + amp + pair[0] + "=" + pair[1];
+            }
+        }
+    }
+    return newQuery;
+};
+
+Tobago.registerListener(Tobago.Codi.init, Tobago.Phase.DOCUMENT_READY);
 
 // ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
