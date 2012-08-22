@@ -15,11 +15,12 @@
  * limitations under the License.
  */
 
-jQuery(document).ready(function() {
+Addressbook = {};
 
-  /**
-   * Copies the values from the data-login attribute to the username/password fields.
-   */
+/**
+ * Copies the values from the data-login attribute to the username/password fields.
+ */
+Addressbook.prepareQuickLinks = function() {
   jQuery("a[data-login]").click(function() {
     var link = jQuery(this);
     var login = link.data("login");
@@ -27,10 +28,7 @@ jQuery(document).ready(function() {
     jQuery(Tobago.Utils.escapeClientId("page:j_password")).val(login.password).focus();
     return false;
   });
-
-});
-
-Addressbook = {};
+};
 
 /**
  * This code is needed to "repair" the submit parameter names and url to use
@@ -41,5 +39,7 @@ Addressbook.prepareLoginForm = function() {
   jQuery(Tobago.Utils.escapeClientId("page:j_password")).attr("name", "j_password");
   jQuery(Tobago.Utils.escapeClientId("page::form")).attr("action", Tobago.contextPath.value + "/j_security_check");
 };
+
+Tobago.registerListener(Addressbook.prepareQuickLinks, Tobago.Phase.DOCUMENT_READY);
 
 Tobago.registerListener(Addressbook.prepareLoginForm, Tobago.Phase.BEFORE_SUBMIT);
