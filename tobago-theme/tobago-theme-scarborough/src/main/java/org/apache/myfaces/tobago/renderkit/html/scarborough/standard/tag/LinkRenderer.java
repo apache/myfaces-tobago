@@ -55,8 +55,8 @@ public class LinkRenderer extends CommandRendererBase {
     final AbstractUILink link = (AbstractUILink) component;
     final String clientId = link.getClientId(facesContext);
     final boolean disabled = link.isDisabled();
-//    final CommandRendererHelper helper = new CommandRendererHelper(facesContext, link, CommandRendererHelper.Tag.ANCHOR);
-//    final String href = helper.getHref();
+// final CommandRendererHelper helper = new CommandRendererHelper(facesContext, link, CommandRendererHelper.Tag.ANCHOR);
+// final String href = helper.getHref();
 
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
