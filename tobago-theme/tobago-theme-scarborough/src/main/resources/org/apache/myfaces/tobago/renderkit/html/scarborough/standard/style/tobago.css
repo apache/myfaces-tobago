@@ -31,12 +31,11 @@ form {
   The "position: fixed;" doesn't work with ie6 and makes
   on other browsers problems, when clicking the menu (the scroll panel scrolls then).
 */
-html, body {
+html {
   height: 100%;
   width: 100%;
   padding: 0;
   margin: 0;
-  overflow: hidden;
 }
 
 /* box ---------------------------------------------------------------- */
@@ -604,11 +603,12 @@ li.tobago-menu-markup-selected {
   font-size: 14px;
   padding: 0;
   margin: 0;
+  height: 100%;
   width: 100%;
   top: 0;
   left: 0;
-  overflow: auto;
-  position: absolute;
+  /* relative instead of absolute, because IE: printing wouldn't be scaled */
+  position: relative;
   z-index: 0;
 }
 
