@@ -946,26 +946,28 @@ var Tobago = {
 
     // focus
     var autofocus = Tobago.Utils.selectWidthJQuery(elements, '[autofocus]');
-    autofocus.each(function setupFocus() {
+    autofocus.each(function () {
+      // setupFocus
       Tobago.focusId = jQuery(this).attr("id");
       Tobago.setFocus();
     });
 
     // commands
     var commandButtons = Tobago.Utils.selectWidthJQuery(elements, '[data-tobago-action]');
-    commandButtons.each(function setupInputFacetCommand() {
+    commandButtons.each(function () {
+      // setupInputFacetCommand
       var command = jQuery(this);
       var commands = command.data("tobago-action");
 
       if (commands.click) {
         command.click(function() {
           if (commands.click.confirmation == null || confirm(commands.click.confirmation)) {
+            var actionId = commands.click.actionId ? commands.click.actionId : jQuery(this).attr("id");
             if (commands.click.partially) {
-              Tobago.reloadComponent(this, commands.click.partially, commands.click.actionId, commands.click);
+              Tobago.reloadComponent(this, commands.click.partially, actionId, commands.click);
             } else if (commands.click.url) {
               Tobago.navigateToUrl(commands.click.url);
             } else {
-              var actionId = commands.click.actionId ? commands.click.actionId : jQuery(this).attr("id");
               Tobago.submitAction(this, actionId, commands.click);
             }
           }
@@ -1003,7 +1005,8 @@ var Tobago = {
 
     // access keys
     var accesskeys = Tobago.Utils.selectWidthJQuery(elements, '[accesskey]');
-    accesskeys.each(function setupAccessKey() {
+    accesskeys.each(function () {
+      // setupAccessKey
       var el = jQuery(this);
       new Tobago.AcceleratorKey(function clickAccelKey() {
         Tobago.clickOnElement(el.attr("id"))}, el.attr("accesskey"));
