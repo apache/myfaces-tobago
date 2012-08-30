@@ -84,11 +84,7 @@ Tobago.Sheet.init = function(elements) {
   sheets.each(function initSheets() {
     var sheet = jQuery(this);
     var id = sheet.attr("id");
-    var frequency;
-    var frequencyStr = sheet.attr("data-tobago-reload");
-    if (frequencyStr != undefined) {
-      frequency = parseInt(frequencyStr);
-    }
+    var frequency = sheet.data("tobago-reload");
     var selectionMode = sheet.data("tobago-selectionmode");
     var commands = sheet.data("tobago-rowaction");
     var click = commands.click;
