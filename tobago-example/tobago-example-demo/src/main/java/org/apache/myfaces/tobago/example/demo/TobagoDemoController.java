@@ -363,8 +363,13 @@ public class TobagoDemoController {
     LOG.info("actionEvent=" + actionEvent);
 //    final List<Integer> selectedRows = sheetState.getSelectedRows();
     final UIData data = ComponentUtils.findAncestor(actionEvent.getComponent(), UIData.class);
-    currentSolarObject = (SolarObject) data.getRowData();
-    LOG.info("Selected: " + currentSolarObject.getName());
+    if (data != null) {
+      currentSolarObject = (SolarObject) data.getRowData();
+      LOG.info("Selected: " + currentSolarObject.getName());
+    } else {
+      currentSolarObject = null;
+      LOG.info("Deselect.");
+    }
   }
 
   public void setSolarList(List<SolarObject> solarList) {

@@ -35,6 +35,13 @@
     </tc:out>
 
     <tc:box label="List of Objects">
+      <f:facet name="toolBar">
+        <tc:toolBar>
+          <tc:toolBarCommand label="Deselect" actionListener="#{demo.selectLuminary}"
+                             renderedPartially=":page:detail"/>
+        </tc:toolBar>
+      </f:facet>
+
       <tc:sheet value="#{demo.solarList}" id="sheet"
                 columns="*" var="luminary" selectable="single">
         <tc:column label="#{overviewBundle.solarArrayName}" id="name">
@@ -46,13 +53,27 @@
       </tc:sheet>
     </tc:box>
 
-    <tc:box id="detail" label="Details" rendered="#{demo.currentSolarObject != null}">
-      <f:facet name="layout">
-        <tc:gridLayout rows="auto;auto;*"/>
-      </f:facet>
-      <tx:in label="Name" value="#{demo.currentSolarObject.name}"/>
-      <tx:in label="Discoverer" value="#{demo.currentSolarObject.discoverer}"/>
-      <tc:out value="Todo: more info about the solar object ..."/>
+    <tc:box id="detail" label="Details">
+
+      <tc:panel rendered="#{demo.currentSolarObject != null}">
+        <f:facet name="layout">
+          <tc:gridLayout rows="auto;auto;auto;auto;auto;auto;auto;auto;auto"/>
+        </f:facet>
+        <tx:in label="Name" value="#{demo.currentSolarObject.name}"/>
+        <tx:in label="Number" value="#{demo.currentSolarObject.number}"/>
+        <tx:in label="Orbit" value="#{demo.currentSolarObject.orbit}"/>
+        <tx:in label="Distance" value="#{demo.currentSolarObject.distance}"/>
+        <tx:in label="Period" value="#{demo.currentSolarObject.period}"/>
+        <tx:in label="Obliquity" value="#{demo.currentSolarObject.incl}"/>
+        <tx:in label="Eccentricity" value="#{demo.currentSolarObject.eccen}"/>
+        <tx:in label="Discoverer" value="#{demo.currentSolarObject.discoverer}"/>
+        <tx:in label="Discover Year" value="#{demo.currentSolarObject.discoverYear}"/>
+      </tc:panel>
+
+      <tc:panel rendered="#{demo.currentSolarObject == null}">
+        <tc:out value="Please select a solar object on the left side to show its details."/>
+      </tc:panel>
+
     </tc:box>
 
   </tc:panel>
