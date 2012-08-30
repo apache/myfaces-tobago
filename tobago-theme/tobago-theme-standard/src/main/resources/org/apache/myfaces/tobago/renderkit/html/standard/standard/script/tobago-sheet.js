@@ -87,8 +87,8 @@ Tobago.Sheet.init = function(elements) {
     var frequency = sheet.data("tobago-reload");
     var selectionMode = sheet.data("tobago-selectionmode");
     var commands = sheet.data("tobago-rowaction");
-    var click = commands.click;
-    var dblclick = commands.dblclick;
+    var click = commands ? commands.click : undefined;
+    var dblclick = commands ? commands.dblclick : undefined;
     var columnSelectorIndex;
     var selectorMenu = sheet.find(".tobago-sheet-headerDiv > .tobago-sheet-header > .tobago-sheet-selectorMenu");
     if (selectorMenu) {
