@@ -23,6 +23,8 @@
                 xmlns:c="http://java.sun.com/jstl/core">
   <ui:param name="title" value="Command Controls"/>
 
+  <tc:script file="content/60-command/command.js"/>
+
   <tc:panel>
     <f:facet name="layout">
       <tc:gridLayout rows="auto;auto;auto;auto"/>
@@ -42,7 +44,9 @@
       <!-- code-sniplet-start id="button" -->
       <tc:button label="Action" action="#{command.action}"/>
       <!-- code-sniplet-end id="button" -->
-      <tc:button label="On Click" onclick="alert('Hallo Tobago!');"/>
+      <tc:button label="On Click" onclick="/* fixme: avoid submit */">
+        <tc:dataAttribute name="alert" value="Hello Tobago! (button)"/>
+      </tc:button>
       <tc:button label="Link" link="http://www.apache.org/"/>
       <tc:button label="Resource" resource="content/60-command/sample.html"/>
       <tc:panel/>
@@ -50,7 +54,9 @@
       <!-- code-sniplet-start id="link" -->
       <tc:link label="Action" action="#{command.action}"/>
       <!-- code-sniplet-end id="link" -->
-      <tc:link label="On Click" onclick="alert('Hallo Tobago!');"/>
+      <tc:link label="On Click" onclick="/* fixme: avoid submit */">
+        <tc:dataAttribute name="alert" value="Hello Tobago! (link)"/>
+      </tc:link>
       <tc:link label="Link" link="http://www.apache.org/"/>
       <tc:link label="Resource" resource="content/60-command/sample.html"/>
       <tc:panel/>
@@ -66,10 +72,11 @@
           <tc:out value="Are you sure?"/>
         </f:facet>
       </tc:button>
-      <tc:button label="On Click" onclick="alert('Hallo Tobago!');">
+      <tc:button label="On Click" onclick="/* fixme: avoid submit */;">
         <f:facet name="confirmation">
           <tc:out value="Are you sure?"/>
         </f:facet>
+        <tc:dataAttribute name="alert" value="Hello Tobago! (confirmed button)"/>
       </tc:button>
       <tc:button label="Link" link="http://www.apache.org/">
         <f:facet name="confirmation">
@@ -88,10 +95,11 @@
           <tc:out value="Are you sure?"/>
         </f:facet>
       </tc:link>
-      <tc:link label="On Click" onclick="alert('Hallo Tobago!');">
+      <tc:link label="On Click xxx" onclick="/* fixme: avoid submit */">
         <f:facet name="confirmation">
           <tc:out value="Are you sure?"/>
         </f:facet>
+        <tc:dataAttribute name="alert" value="Hello Tobago! (confirmed link)"/>
       </tc:link>
       <tc:link label="Link" link="http://www.apache.org/">
         <f:facet name="confirmation">
@@ -111,7 +119,7 @@
         <tc:gridLayoutConstraint rowSpan="2"/>
       </tc:label>
 
-      <tc:button label="Action X" action="#{command.action}" target="_blank"/>
+      <tc:button label="Action" action="#{command.action}" target="_blank"/>
       <tc:button label="N/A" disabled="true"/>
       <tc:button label="N/A yet" disabled="true"/>
       <tc:button label="N/A yet" disabled="true"/>
