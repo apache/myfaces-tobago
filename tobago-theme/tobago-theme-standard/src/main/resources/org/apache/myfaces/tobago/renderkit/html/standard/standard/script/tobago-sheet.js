@@ -89,15 +89,10 @@ Tobago.Sheet.init = function(elements) {
     if (frequencyStr != undefined) {
       frequency = parseInt(frequencyStr);
     }
-    var selectionMode = sheet.attr("data-tobago-selectionmode");
-    var commandStr = sheet.attr("data-tobago-rowaction");
-    var click;
-    var dblclick;
-    if (commandStr != undefined) {
-      var commands = jQuery.parseJSON(commandStr);
-      click = commands.click;
-      dblclick = commands.dblclick;
-    }
+    var selectionMode = sheet.data("tobago-selectionmode");
+    var commands = sheet.data("tobago-rowaction");
+    var click = commands.click;
+    var dblclick = commands.dblclick;
     var columnSelectorIndex;
     var selectorMenu = sheet.find(".tobago-sheet-headerDiv > .tobago-sheet-header > .tobago-sheet-selectorMenu");
     if (selectorMenu) {
@@ -108,6 +103,7 @@ Tobago.Sheet.init = function(elements) {
         click != undefined ? click.partially : undefined,
         dblclick != undefined ? dblclick.actionId : undefined,
         dblclick != undefined ? dblclick.partially: undefined,
+        // todo: use sheet.data("data-tobago-partially"). What is the type? Array? Test it.
         sheet.attr("data-tobago-partially"));
   });
 };
