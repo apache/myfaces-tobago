@@ -59,6 +59,7 @@ import javax.faces.context.ResponseWriter;
 import javax.faces.model.SelectItem;
 import javax.faces.model.SelectItemGroup;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -413,6 +414,20 @@ public final class HtmlRendererUtils {
       }
     }
     return sb.toString();
+  }
+
+  public static String[] getComponentIdsAsList(
+      FacesContext context, UIComponent component, String[] componentId) {
+    List<String> result = new ArrayList<String>(componentId.length);
+    for (String id : componentId) {
+      if (!StringUtils.isBlank(id)) {
+        String clientId = getComponentId(context, component, id);
+        if (clientId != null) {
+          result.add(clientId);
+        }
+      }
+    }
+    return (String[]) result.toArray(new String[result.size()]);
   }
 
   public static String getComponentId(FacesContext context, UIComponent component, String componentId) {

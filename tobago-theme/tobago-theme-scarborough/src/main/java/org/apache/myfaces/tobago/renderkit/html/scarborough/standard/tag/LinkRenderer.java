@@ -73,8 +73,14 @@ public class LinkRenderer extends CommandRendererBase {
 
       final String url = RenderUtils.generateUrl(facesContext, link);
       final CommandMap map = new CommandMap();
-      map.setClick(new Command(
-          link.isTransition(), link.getTarget(), url, null, null, confirmation, null));
+      final String[] partialIds
+          = HtmlRendererUtils.getComponentIdsAsList(facesContext, link, link.getRenderedPartially());
+      final Command click = new Command(
+          link.isTransition(), link.getTarget(), url, partialIds, null, confirmation, null);
+      if (link.getOnclick() != null) {
+        click.setScript(link.getOnclick());
+      }
+      map.setClick(click);
       writer.writeAttribute(DataAttributes.ACTION, map.encodeJson(), true);
 
       writer.writeAttribute(HtmlAttributes.HREF, "#", false);

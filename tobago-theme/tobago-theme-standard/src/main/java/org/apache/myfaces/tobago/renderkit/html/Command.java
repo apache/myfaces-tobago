@@ -28,17 +28,20 @@ public class Command {
   private Boolean transition;
   private String target;
   private String url;
-  private String partially;
+  private String[] partially;
   private String focus;
   private String confirmation;
   private Integer delay;
+  /**
+   * @deprecated
+   */
+  @Deprecated
+  private String script;
 
   public Command(
-      Boolean transition, String target, String url, String partially, String focus, String confirmation,
+      Boolean transition, String target, String url, String[] partially, String focus, String confirmation,
       Integer delay) {
-    if (!transition) { // XXX true is the default: this should be applied in the serialization method.
-      this.transition = transition;
-    }
+    this.transition = transition;
     this.target = target;
     this.url = url;
     this.partially = partially;
@@ -47,4 +50,82 @@ public class Command {
     this.delay = delay;
   }
 
+  /**
+   * @deprecated
+   */
+  @Deprecated
+  public void setScript(String script) {
+    this.script = script;
+  }
+
+  public void encodeJson(StringBuilder builder) {
+    builder.append("{");
+    int initialLength = builder.length();
+    if (transition != null && !transition) { // true is the default, so encoding is needed.
+      encodeJsonAttribute(builder, "transition", transition);
+    }
+    if (target != null) {
+      encodeJsonAttribute(builder, "target", target);
+    }
+    if (url != null) {
+      encodeJsonAttribute(builder, "url", url);
+    }
+    if (partially != null && partially.length > 0) {
+      encodeJsonAttribute(builder, "partially", partially);
+    }
+    if (focus != null) {
+      encodeJsonAttribute(builder, "focus", focus);
+    }
+    if (confirmation != null) {
+      encodeJsonAttribute(builder, "confirmation", confirmation);
+    }
+    if (delay != null) {
+      encodeJsonAttribute(builder, "delay", delay);
+    }
+    if (script != null) {
+      encodeJsonAttribute(builder, "script", script);
+    }
+
+    if (builder.length() - initialLength > 0) {
+      builder.deleteCharAt(builder.length() - 1);
+    }
+
+    builder.append("}");
+  }
+
+  private void encodeJsonAttribute(StringBuilder builder, String name, String[] value) {
+    builder.append("\"");
+    builder.append(name);
+    builder.append("\":\"");
+    boolean colon = false;
+    for (String item : value) {
+      if (colon) {
+        builder.append(",");
+      }
+      builder.append(item);
+      colon = true;
+    }
+    builder.append("\",");
+  }
+
+  private void encodeJsonAttribute(StringBuilder builder, String name, Boolean value) {
+    encodeJsonAttributeIntern(builder, name, Boolean.toString(value));
+  }
+
+  private void encodeJsonAttribute(StringBuilder builder, String name, Integer value) {
+    encodeJsonAttributeIntern(builder,  name, Integer.toString(value));
+  }
+
+  private void encodeJsonAttribute(StringBuilder builder, String name, String value) {
+    value = value.replaceAll("\\\"", "\\\\\\\"");
+    encodeJsonAttributeIntern(builder, name, value);
+  }
+
+  private void encodeJsonAttributeIntern(StringBuilder builder, String name, String value) {
+    builder.append("\"");
+    builder.append(name);
+    builder.append("\":\"");
+    builder.append(value);
+    builder.append("\",");
+  }
 }

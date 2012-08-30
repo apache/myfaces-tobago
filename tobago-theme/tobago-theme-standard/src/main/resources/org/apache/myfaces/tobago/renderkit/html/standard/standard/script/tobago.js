@@ -967,6 +967,9 @@ var Tobago = {
               Tobago.reloadComponent(this, commands.click.partially, actionId, commands.click);
             } else if (commands.click.url) {
               Tobago.navigateToUrl(commands.click.url);
+            } else if (commands.click.script) { // XXX this case is deprecated.
+              // not allowed with Content Security Policy (CSP)
+                eval(commands.click.script);
             } else {
               Tobago.submitAction(this, actionId, commands.click);
             }

@@ -19,8 +19,6 @@
 
 package org.apache.myfaces.tobago.renderkit.html;
 
-import com.google.gson.Gson;
-
 /**
  * @since 1.6.0
  */
@@ -37,6 +35,19 @@ public class CommandMap {
   }
 
   public String encodeJson() {
-    return new Gson().toJson(this);
+    StringBuilder builder = new StringBuilder();
+    builder.append("{");
+
+    if (click != null) {
+      builder.append("\"click\":");
+      click.encodeJson(builder);
+      builder.append(",");
+    }
+
+    if (builder.charAt(builder.length() - 1) == ',') {
+      builder.deleteCharAt(builder.length() - 1);
+    }
+    builder.append("}");
+    return builder.toString();
   }
 }

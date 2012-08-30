@@ -76,8 +76,14 @@ public class ButtonRenderer extends CommandRendererBase {
 
       final String url = RenderUtils.generateUrl(facesContext, button);
       final CommandMap map = new CommandMap();
-      map.setClick(new Command(
-          button.isTransition(), button.getTarget(), url, null, null, confirmation, null));
+      final String[] partialIds
+          = HtmlRendererUtils.getComponentIdsAsList(facesContext, button, button.getRenderedPartially());
+      final Command click = new Command(
+          button.isTransition(), button.getTarget(), url, partialIds, null, confirmation, null);
+      if (button.getOnclick() != null) {
+        click.setScript(button.getOnclick());
+      }
+      map.setClick(click);
       writer.writeAttribute(DataAttributes.ACTION, map.encodeJson(), true);
 
       writer.writeAttribute(HtmlAttributes.HREF, "#", false);
