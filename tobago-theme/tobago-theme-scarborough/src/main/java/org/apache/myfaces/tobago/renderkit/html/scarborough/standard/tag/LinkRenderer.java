@@ -34,6 +34,8 @@ import org.apache.myfaces.tobago.renderkit.html.CommandMap;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
+import org.apache.myfaces.tobago.renderkit.html.JsonUtils;
+import org.apache.myfaces.tobago.renderkit.html.Popup;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -75,13 +77,14 @@ public class LinkRenderer extends CommandRendererBase {
       final CommandMap map = new CommandMap();
       final String[] partialIds
           = HtmlRendererUtils.getComponentIdsAsList(facesContext, link, link.getRenderedPartially());
+      final Popup popup = Popup.createPopup(link);
       final Command click = new Command(
-          link.isTransition(), link.getTarget(), url, partialIds, null, confirmation, null);
+          link.isTransition(), link.getTarget(), url, partialIds, null, confirmation, null, popup);
       if (link.getOnclick() != null) {
         click.setScript(link.getOnclick());
       }
       map.setClick(click);
-      writer.writeAttribute(DataAttributes.ACTION, map.encodeJson(), true);
+      writer.writeAttribute(DataAttributes.ACTION, JsonUtils.encode(map), true);
 
       writer.writeAttribute(HtmlAttributes.HREF, "#", false);
 

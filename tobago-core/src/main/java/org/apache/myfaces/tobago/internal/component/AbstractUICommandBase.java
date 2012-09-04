@@ -19,7 +19,11 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
+import org.apache.myfaces.tobago.component.Facets;
+import org.apache.myfaces.tobago.component.OnComponentPopulated;
 import org.apache.myfaces.tobago.component.SupportsRenderedPartially;
+import org.apache.myfaces.tobago.event.PopupFacetActionListener;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -28,7 +32,16 @@ import javax.faces.event.PhaseId;
 import java.util.Iterator;
 
 public abstract class AbstractUICommandBase extends javax.faces.component.UICommand
-    implements SupportsRenderedPartially {
+    implements SupportsRenderedPartially, OnComponentPopulated {
+
+  public void onComponentPopulated(FacesContext facesContext, UIComponent parent) {
+    AbstractUIPopup popup = (AbstractUIPopup) getFacet(Facets.POPUP);
+    if (popup != null) {
+      if (!ComponentUtils.containsPopupActionListener(this)) {
+        addActionListener(new PopupFacetActionListener());
+      }
+    }
+  }
 
   public void processDecodes(FacesContext context) {
     if (context == null) {

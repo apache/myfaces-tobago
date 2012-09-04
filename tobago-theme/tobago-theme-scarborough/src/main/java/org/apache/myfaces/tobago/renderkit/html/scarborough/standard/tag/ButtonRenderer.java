@@ -37,6 +37,8 @@ import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlButtonTypes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
+import org.apache.myfaces.tobago.renderkit.html.JsonUtils;
+import org.apache.myfaces.tobago.renderkit.html.Popup;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -78,13 +80,14 @@ public class ButtonRenderer extends CommandRendererBase {
       final CommandMap map = new CommandMap();
       final String[] partialIds
           = HtmlRendererUtils.getComponentIdsAsList(facesContext, button, button.getRenderedPartially());
+      final Popup popup = Popup.createPopup(button);
       final Command click = new Command(
-          button.isTransition(), button.getTarget(), url, partialIds, null, confirmation, null);
+          button.isTransition(), button.getTarget(), url, partialIds, null, confirmation, null, popup);
       if (button.getOnclick() != null) {
         click.setScript(button.getOnclick());
       }
       map.setClick(click);
-      writer.writeAttribute(DataAttributes.ACTION, map.encodeJson(), true);
+      writer.writeAttribute(DataAttributes.ACTION, JsonUtils.encode(map), true);
 
       writer.writeAttribute(HtmlAttributes.HREF, "#", false);
 

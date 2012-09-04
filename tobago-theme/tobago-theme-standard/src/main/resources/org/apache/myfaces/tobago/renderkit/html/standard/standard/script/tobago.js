@@ -962,16 +962,31 @@ var Tobago = {
       if (commands.click) {
         command.click(function() {
           if (commands.click.confirmation == null || confirm(commands.click.confirmation)) {
-            var actionId = commands.click.actionId ? commands.click.actionId : jQuery(this).attr("id");
-            if (commands.click.partially) {
-              Tobago.reloadComponent(this, commands.click.partially, actionId, commands.click);
-            } else if (commands.click.url) {
-              Tobago.navigateToUrl(commands.click.url);
-            } else if (commands.click.script) { // XXX this case is deprecated.
-              // not allowed with Content Security Policy (CSP)
-                eval(commands.click.script);
+            var popup = commands.click.popup;
+            if (popup && popup.command == "close" && popup.immediate) {
+              Tobago.Popup.close(this);
             } else {
-              Tobago.submitAction(this, actionId, commands.click);
+              if (popup && popup.command == "close") {
+                Tobago.Popup.unlockBehind();
+              }
+              var actionId = commands.click.actionId ? commands.click.actionId : jQuery(this).attr("id");
+              if (commands.click.partially) {
+                if (popup && popup.command == "open") {
+                  Tobago.Popup.openWithAction(this, commands.click.partially, actionId);
+                } else {
+                  Tobago.reloadComponent(this, commands.click.partially, actionId, commands.click);
+                }
+              } else if (commands.click.url) {
+                Tobago.navigateToUrl(commands.click.url);
+              } else if (commands.click.script) { // XXX this case is deprecated.
+                // not allowed with Content Security Policy (CSP)
+                  eval(commands.click.script);
+              } else {
+                Tobago.submitAction(this, actionId, commands.click);
+              }
+              if (popup && popup.command == "close") {
+                Tobago.Popup.close();
+              }
             }
           }
         });

@@ -34,20 +34,7 @@ public class CommandMap {
     this.click = click;
   }
 
-  public String encodeJson() {
-    StringBuilder builder = new StringBuilder();
-    builder.append("{");
-
-    if (click != null) {
-      builder.append("\"click\":");
-      click.encodeJson(builder);
-      builder.append(",");
-    }
-
-    if (builder.charAt(builder.length() - 1) == ',') {
-      builder.deleteCharAt(builder.length() - 1);
-    }
-    builder.append("}");
-    return builder.toString();
+  public Command getClick() {
+    return click;
   }
 }
