@@ -40,7 +40,6 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutCompone
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIDatePicker",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIDatePicker",
-    componentType = "org.apache.myfaces.tobago.DatePicker",
     rendererType = RendererTypes.DATE_PICKER,
     allowedChildComponenents = "NONE")
 public interface DatePickerTagDeclaration

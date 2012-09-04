@@ -40,7 +40,6 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutContain
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIBox",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIBox",
-    componentType = "org.apache.myfaces.tobago.Box",
     rendererType = RendererTypes.BOX,
     facets = {
         @Facet(name = Facets.TOOL_BAR, description = "Contains an instance of UIToolBar",

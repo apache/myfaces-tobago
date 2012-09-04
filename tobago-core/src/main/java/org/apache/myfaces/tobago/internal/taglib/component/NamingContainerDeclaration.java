@@ -21,8 +21,10 @@ package org.apache.myfaces.tobago.internal.taglib.component;
 
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 
+import javax.faces.component.UINamingContainer;
+
 @UIComponentTag(uiComponent = "org.apache.myfaces.tobago.component.UINamingContainer",
     uiComponentBaseClass = "javax.faces.component.UINamingContainer",
-    componentType = "javax.faces.NamingContainer")
+    componentType = UINamingContainer.COMPONENT_TYPE)
 public interface NamingContainerDeclaration {
 }

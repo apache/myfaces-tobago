@@ -34,11 +34,11 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutCompone
  * Renders a separator.
  */
 @Tag(name = "separator")
-@UIComponentTag(rendererType = RendererTypes.SEPARATOR,
+@UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UISeparator",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUISeparator",
     componentFamily = "org.apache.myfaces.tobago.Separator",
-    componentType = "org.apache.myfaces.tobago.Separator",
+    rendererType = RendererTypes.SEPARATOR,
     allowedChildComponenents = "NONE",
     facets = {
         @Facet(name = Facets.LABEL,

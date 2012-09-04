@@ -36,7 +36,6 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRend
 @BodyContentDescription(contentType = "css")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIStyle",
-    componentType = "org.apache.myfaces.tobago.Style",
     componentFamily = "org.apache.myfaces.tobago.Style",
     rendererType = RendererTypes.STYLE,
     isTransparentForLayout = true,

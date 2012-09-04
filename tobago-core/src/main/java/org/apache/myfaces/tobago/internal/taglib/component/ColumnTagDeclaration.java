@@ -24,7 +24,6 @@ import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
-import org.apache.myfaces.tobago.component.ComponentTypes;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
@@ -42,7 +41,6 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutContain
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIColumn",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIColumn",
-    componentType = ComponentTypes.COLUMN,
     rendererType = RendererTypes.COLUMN,
     facets = {
         @Facet(name = Facets.MENUPOPUP, description = "Deprecated. Please use dropDownMenu facet.",

@@ -23,6 +23,7 @@ import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
+import org.apache.myfaces.tobago.component.ComponentTypes;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 
@@ -32,7 +33,6 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRend
 @Tag(name = "script")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIScript",
-    componentType = "org.apache.myfaces.tobago.Script",
     componentFamily = "org.apache.myfaces.tobago.Script",
     rendererType = RendererTypes.SCRIPT,
     isTransparentForLayout = true,

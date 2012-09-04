@@ -44,7 +44,6 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsDeprecatedInline;
     uiComponent = "org.apache.myfaces.tobago.component.UIOut",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIOut",
     interfaces = "org.apache.myfaces.tobago.component.UIOutput",
-    componentType = ComponentTypes.OUT,
     rendererType = RendererTypes.OUT,
     allowedChildComponenents = "NONE")
 
