@@ -23,9 +23,14 @@ import org.apache.myfaces.test.base.junit4.AbstractJsfTestCase;
 import org.apache.myfaces.test.mock.MockFacesContext;
 import org.apache.myfaces.test.mock.MockHttpServletRequest;
 import org.apache.myfaces.tobago.component.ComponentTypes;
+import org.apache.myfaces.tobago.component.UIButton;
+import org.apache.myfaces.tobago.component.UICommand;
 import org.apache.myfaces.tobago.component.UIIn;
+import org.apache.myfaces.tobago.component.UILink;
 import org.apache.myfaces.tobago.component.UIOut;
 import org.apache.myfaces.tobago.component.UIPanel;
+import org.apache.myfaces.tobago.component.UIPopup;
+import org.apache.myfaces.tobago.component.UIViewRoot;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.context.Theme;
@@ -87,11 +92,12 @@ public abstract class AbstractTobagoTestBase extends AbstractJsfTestCase {
     application.addComponent(ComponentTypes.IN, UIIn.class.getName());
     application.addComponent(ComponentTypes.OUT, UIOut.class.getName());
     application.addComponent(ComponentTypes.PANEL, UIPanel.class.getName());
-    application.addComponent("javax.faces.ViewRoot", "org.apache.myfaces.tobago.component.UIViewRoot");
-    application.addComponent("javax.faces.Command", "javax.faces.component.UICommand");
-    application.addComponent("org.apache.myfaces.tobago.Command", "org.apache.myfaces.tobago.component.UICommand");
-    application.addComponent("org.apache.myfaces.tobago.Link", "org.apache.myfaces.tobago.component.UILink");
-    application.addComponent("org.apache.myfaces.tobago.Button", "org.apache.myfaces.tobago.component.UIButton");
+    application.addComponent("javax.faces.ViewRoot", UIViewRoot.class.getName());
+    application.addComponent("javax.faces.Command", javax.faces.component.UICommand.class.getName());
+    application.addComponent(ComponentTypes.COMMAND, UICommand.class.getName());
+    application.addComponent(ComponentTypes.LINK, UILink.class.getName());
+    application.addComponent(ComponentTypes.BUTTON, UIButton.class.getName());
+    application.addComponent(ComponentTypes.POPUP, UIPopup.class.getName());
 
     try {
       ResourceManagerFactory.init(servletContext, tobagoConfig);
