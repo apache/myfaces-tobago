@@ -34,6 +34,7 @@ import org.xml.sax.SAXException;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
@@ -156,20 +157,25 @@ class ResourceLocator {
               int index = themeUrlStr.indexOf(META_INF_TOBAGO_CONFIG_XML);
               String metaInf = themeUrlStr.substring(0, index) + "META-INF/MANIFEST.MF";
               Properties properties = new Properties();
-              InputStream inputStream = new URL(metaInf).openStream();
+              final URL url = new URL(metaInf);
+              InputStream inputStream = null;
+              String version = null;
               try {
+                inputStream = url.openStream();
                 properties.load(inputStream);
-                String version = properties.getProperty("Implementation-Version");
-                if (version != null) {
-                  theme.setVersion(version);
-                } else {
-                  theme.setVersioned(false);
-                  LOG.error("No Implementation-Version found in Manifest-File for theme: '" + theme.getName()
-                      + "'. Resetting the theme to unversioned. Please correct the Manifest-File.");
-                }
-
+                version = properties.getProperty("Implementation-Version");
+              } catch (FileNotFoundException e) {
+                // may happen (e. g. in tests)
+                LOG.error("No Manifest-File found.");
               } finally {
                 IOUtils.closeQuietly(inputStream);
+              }
+              if (version != null) {
+                theme.setVersion(version);
+              } else {
+                theme.setVersioned(false);
+                LOG.error("No Implementation-Version found in Manifest-File for theme: '" + theme.getName()
+                    + "'. Resetting the theme to unversioned. Please correct the Manifest-File.");
               }
             }
             addThemeResources(resources, themeUrl, theme);
