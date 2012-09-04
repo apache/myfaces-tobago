@@ -156,9 +156,7 @@
         <artifactId>maven-checkstyle-plugin</artifactId>
         <version>2.7</version>
         <configuration>
-          <configLocation>
-            http://svn.apache.org/repos/asf/myfaces/myfaces-build-tools/trunk/other/checkstyle-rules/src/main/resources/tobago/checkstyle.xml
-          </configLocation>
+          <configLocation>default/myfaces-checks-standard.xml</configLocation>
           <headerLocation>default/myfaces-header.txt</headerLocation>
           <xrefLocation>xref</xrefLocation>
           <excludes>**/package-info.java</excludes>
@@ -621,15 +619,20 @@
         <artifactId>maven-checkstyle-plugin</artifactId>
         <version>2.7</version>
         <configuration>
-          <configLocation>
-            http://svn.apache.org/repos/asf/myfaces/myfaces-build-tools/trunk/other/checkstyle-rules/src/main/resources/tobago/checkstyle.xml
-          </configLocation>
+          <configLocation>tobago/checkstyle.xml</configLocation>
           <headerLocation>default/myfaces-header.txt</headerLocation>
           <xrefLocation>xref</xrefLocation>
           <excludes>**/package-info.java</excludes>
           <indentSize>2</indentSize>
           <includeTestSourceDirectory>true</includeTestSourceDirectory>
         </configuration>
+        <dependencies>
+          <dependency>
+            <groupId>org.apache.myfaces.buildtools</groupId>
+            <artifactId>checkstyle-rules</artifactId>
+            <version>6</version>
+          </dependency>
+        </dependencies>
       </plugin>
 
       <plugin>
@@ -766,9 +769,7 @@
           <artifactId>maven-checkstyle-plugin</artifactId>
           <version>2.7</version>
           <configuration>
-            <configLocation>
-              http://svn.apache.org/repos/asf/myfaces/myfaces-build-tools/trunk/other/checkstyle-rules/src/main/resources/tobago/checkstyle.xml
-            </configLocation>
+            <configLocation>tobago/checkstyle.xml</configLocation>
             <headerLocation>default/myfaces-header.txt</headerLocation>
             <xrefLocation>xref</xrefLocation>
             <excludes>**/package-info.java</excludes>
