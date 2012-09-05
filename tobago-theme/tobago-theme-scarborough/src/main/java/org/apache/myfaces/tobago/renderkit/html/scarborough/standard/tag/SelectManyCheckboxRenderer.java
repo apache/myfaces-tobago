@@ -94,9 +94,6 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
         HtmlRendererUtils.renderFocus(id, select.isFocus(), ComponentUtils.isError(select), facesContext, writer);
         first = false;
       }
-      if (readonly) {
-        writer.writeAttribute(HtmlAttributes.ONCLICK, "this.checked=" + checked, false);
-      }
       Integer tabIndex = select.getTabIndex();
       if (tabIndex != null) {
         writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);

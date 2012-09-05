@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
-import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UISelectOneListbox;
 import org.apache.myfaces.tobago.renderkit.SelectOneRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
@@ -79,10 +78,6 @@ public class SelectOneListboxRenderer extends SelectOneRendererBase {
     writer.writeClassAttribute(Classes.create(select));
     HtmlRendererUtils.renderTip(select, writer);
     writer.writeAttribute(HtmlAttributes.SIZE, 9); // must be > 1, but the real size comes from the layout
-    if (!ComponentUtils.getBooleanAttribute(select, Attributes.REQUIRED)) {
-      writer.writeAttribute(HtmlAttributes.ONCHANGE, "Tobago.selectOneListboxChange(this)", false);
-      writer.writeAttribute(HtmlAttributes.ONCLICK, "Tobago.selectOneListboxClick(this)", false);
-    }
     HtmlRendererUtils.renderCommandFacet(select, facesContext, writer);
     Object[] values = {select.getValue()};
     HtmlRendererUtils.renderSelectItems(select, items, values, writer, facesContext);

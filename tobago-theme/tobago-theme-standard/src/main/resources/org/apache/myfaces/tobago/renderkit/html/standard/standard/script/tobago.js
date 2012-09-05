@@ -875,11 +875,9 @@ var Tobago = {
   },
 
 
-// -------- SelectOne functions ----------------------------------------------------
-  // TODO move SelectOne function in Tobago.SelectOne object
-
   /**
    *  Onchange function for SelectOneListbox.
+   *  @deprecated since Tobago 1.6.0. Is replaces with SelectOneListbox.init()
    */
   selectOneListboxChange: function(element) {
     if (element.oldValue == undefined) {
@@ -889,6 +887,7 @@ var Tobago = {
 
   /**
    * Onclick function for SelectOneListbox.
+   *  @deprecated since Tobago 1.6.0. Is replaces with SelectOneListbox.init()
    */
   selectOneListboxClick: function(element) {
     if (element.oldValue == undefined || element.oldValue == element.selectedIndex) {
@@ -899,6 +898,7 @@ var Tobago = {
 
   /**
    * Init function for SelectOneRadio.
+   *  @deprecated since Tobago 1.6.0. Is replaces with SelectOneRadio.init()
    */
   selectOneRadioInit: function(name) {
     var elements = document.getElementsByName(name);
@@ -909,6 +909,7 @@ var Tobago = {
 
   /**
    * Onclick function for SelectOneRadio.
+   *  @deprecated since Tobago 1.6.0. Is replaces with SelectOneRadio.init()
    */
   selectOneRadioClick: function(element, name, required, readonly) {
     var elements = document.getElementsByName(name);
@@ -2677,6 +2678,8 @@ Tobago.SelectManyShuttle.copyValues = function(shuttle) {
 Tobago.registerListener(Tobago.SelectManyShuttle.init, Tobago.Phase.DOCUMENT_READY);
 Tobago.registerListener(Tobago.SelectManyShuttle.init, Tobago.Phase.AFTER_UPDATE);
 
+// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 Tobago.SelectOneRadio = {};
 
 Tobago.SelectOneRadio.init = function(elements) {
@@ -2722,6 +2725,32 @@ Tobago.registerListener(Tobago.SelectOneRadio.init, Tobago.Phase.AFTER_UPDATE);
 
 // ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+Tobago.SelectOneListbox = {};
+
+Tobago.SelectOneListbox.init = function (elements) {
+  var selects = Tobago.Utils.selectWidthJQuery(elements, ".tobago-selectOneListbox");
+  var notRequired = selects.not(".tobago-selectOneListbox-markup-required");
+  notRequired
+      .change(function () {
+        var element = jQuery(this);
+        if (element.data("tobago-oldvalue") == undefined) {
+          element.data("tobago-oldvalue", -1);
+        }
+      }).click(function () {
+        var element = jQuery(this);
+        if (element.data("tobago-oldvalue") == undefined
+            || element.data("tobago-oldvalue") == element.prop("selectedIndex")) {
+          element.prop("selectedIndex", -1);
+        }
+        element.data("tobago-oldvalue", element.prop("selectedIndex"));
+      });
+};
+
+Tobago.registerListener(Tobago.SelectOneListbox.init, Tobago.Phase.DOCUMENT_READY);
+Tobago.registerListener(Tobago.SelectOneListbox.init, Tobago.Phase.AFTER_UPDATE);
+
+// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 Tobago.SelectBooleanCheckbox = {};
 
 Tobago.SelectBooleanCheckbox.init = function(elements) {
@@ -2737,6 +2766,24 @@ Tobago.SelectBooleanCheckbox.init = function(elements) {
 
 Tobago.registerListener(Tobago.SelectBooleanCheckbox.init, Tobago.Phase.DOCUMENT_READY);
 Tobago.registerListener(Tobago.SelectBooleanCheckbox.init, Tobago.Phase.AFTER_UPDATE);
+
+// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Tobago.SelectManyCheckbox = {};
+
+Tobago.SelectManyCheckbox.init = function(elements) {
+  var checkboxes = Tobago.Utils.selectWidthJQuery(elements, ".tobago-selectManyCheckbox-markup-readonly input");
+  checkboxes.each(function() {
+    // Save the initial state to restore it, when the user tries to manipulate it.
+    var initial = jQuery(this).is(":checked");
+    jQuery(this).click(function() {
+      jQuery(this).attr("checked", initial);
+    });
+  });
+};
+
+Tobago.registerListener(Tobago.SelectManyCheckbox.init, Tobago.Phase.DOCUMENT_READY);
+Tobago.registerListener(Tobago.SelectManyCheckbox.init, Tobago.Phase.AFTER_UPDATE);
 
 // ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
