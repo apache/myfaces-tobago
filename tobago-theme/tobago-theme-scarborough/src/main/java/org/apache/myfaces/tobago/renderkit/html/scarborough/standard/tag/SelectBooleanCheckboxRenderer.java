@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
-import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UISelectBooleanCheckbox;
 import org.apache.myfaces.tobago.internal.util.AccessKeyMap;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
@@ -94,14 +93,7 @@ public class SelectBooleanCheckboxRenderer extends LayoutComponentRendererBase {
     writer.writeNameAttribute(id);
     writer.writeIdAttribute(id);
     writer.writeAttribute(HtmlAttributes.CHECKED, checked);
-    if (ComponentUtils.getBooleanAttribute(select, Attributes.READONLY)) {
-      writer.writeAttribute(HtmlAttributes.READONLY, true);
-      if (checked) {
-        writer.writeAttribute(HtmlAttributes.ONCLICK, "this.checked=true", false);
-      } else {
-        writer.writeAttribute(HtmlAttributes.ONCLICK, "this.checked=false", false);
-      }
-    }
+    writer.writeAttribute(HtmlAttributes.READONLY, select.isReadonly());
     writer.writeAttribute(HtmlAttributes.DISABLED, select.isDisabled());
     writer.writeAttribute(HtmlAttributes.REQUIRED, select.isRequired());
 

@@ -801,6 +801,10 @@ public final class HtmlRendererUtils {
     }
   }
 
+  /**
+   * @deprecated since 1.6.0. JavaScript should not be rendered in the page. See CSP.
+   */
+  @Deprecated
   public static String createSubmitAction(String clientId, boolean transition, String target, String focus) {
     StringBuilder builder = new StringBuilder();
     builder.append("Tobago.submitAction(this,'");

@@ -2719,6 +2719,25 @@ Tobago.SelectOneRadio.init = function(elements) {
 
 Tobago.registerListener(Tobago.SelectOneRadio.init, Tobago.Phase.DOCUMENT_READY);
 Tobago.registerListener(Tobago.SelectOneRadio.init, Tobago.Phase.AFTER_UPDATE);
+
+// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Tobago.SelectBooleanCheckbox = {};
+
+Tobago.SelectBooleanCheckbox.init = function(elements) {
+  var checkboxes = Tobago.Utils.selectWidthJQuery(elements, ".tobago-selectBooleanCheckbox-markup-readonly input");
+  checkboxes.each(function() {
+    // Save the initial state to restore it, when the user tries to manipulate it.
+    var initial = jQuery(this).is(":checked");
+    jQuery(this).click(function() {
+      jQuery(this).attr("checked", initial);
+    });
+  });
+};
+
+Tobago.registerListener(Tobago.SelectBooleanCheckbox.init, Tobago.Phase.DOCUMENT_READY);
+Tobago.registerListener(Tobago.SelectBooleanCheckbox.init, Tobago.Phase.AFTER_UPDATE);
+
 // ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 Tobago.File = {};
