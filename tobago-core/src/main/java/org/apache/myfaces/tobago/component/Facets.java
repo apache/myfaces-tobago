@@ -41,6 +41,10 @@ public final class Facets {
   public static final String MENUPOPUP = "menupopup";
   public static final String PAGER_PAGE = "pagerPage";
   public static final String PAGER_ROW = "pagerRow";
+  /**
+   * @deprecated since 1.6.0. Please use {@link #POPUP}
+   */
+  @Deprecated
   public static final String PICKER_POPUP = "pickerPopup";
   public static final String POPUP = "popup";
   public static final String RADIO = "radio";

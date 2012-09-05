@@ -33,23 +33,21 @@ public class Popup {
   /**
    * true for close immediately, false for close after submit
    */
-  private boolean immediate;
+  private Boolean immediate;
 
-  private Popup(String command, boolean immediate) {
+  private Popup(String command, Boolean immediate) {
     this.command = command;
     this.immediate = immediate;
   }
 
   public static Popup createPopup(AbstractUICommand component) {
     String command = null;
-    boolean immediate = false;
+    Boolean immediate = null;
 
     final String popupClose = (String) component.getAttributes().get(Attributes.POPUP_CLOSE);
     if (popupClose != null) {
       command = "close";
-      if (popupClose.equals("immediate")) {
-        immediate = true;
-      }
+      immediate = popupClose.equals("immediate");
     } else {
       boolean popupAction = ComponentUtils.containsPopupActionListener(component);
       if (popupAction) {
@@ -67,15 +65,7 @@ public class Popup {
     return command;
   }
 
-  public void setCommand(String command) {
-    this.command = command;
-  }
-
-  public boolean isImmediate() {
+  public Boolean isImmediate() {
     return immediate;
-  }
-
-  public void setImmediate(boolean immediate) {
-    this.immediate = immediate;
   }
 }

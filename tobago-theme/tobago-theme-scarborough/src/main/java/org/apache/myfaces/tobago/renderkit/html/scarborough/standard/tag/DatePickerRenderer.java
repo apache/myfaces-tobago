@@ -36,6 +36,7 @@ import org.apache.myfaces.tobago.event.PopupActionListener;
 import org.apache.myfaces.tobago.internal.util.DateFormatUtils;
 import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
 import org.apache.myfaces.tobago.layout.Measure;
+import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.util.CreateComponentUtils;
 import org.slf4j.Logger;
@@ -46,7 +47,6 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.DateTimeConverter;
 import java.io.IOException;
-import java.util.Map;
 import java.util.TimeZone;
 
 public class DatePickerRenderer extends LinkRenderer {
@@ -61,6 +61,7 @@ public class DatePickerRenderer extends LinkRenderer {
     }
     picker.setImmediate(true);
     final String linkId = picker.getId();
+    picker.setImage("image/date.gif");
 
     // create popup
     final String popupId = linkId != null ? linkId + "popup" : facesContext.getViewRoot().createUniqueId();
@@ -72,9 +73,10 @@ public class DatePickerRenderer extends LinkRenderer {
     layoutOfPopup.setRows("auto");
     popup.getFacets().put(Facets.LAYOUT, layoutOfPopup);
     popup.getAttributes().put(Attributes.Z_INDEX, 10);
-    picker.getFacets().put(Facets.PICKER_POPUP, popup);
+    picker.getFacets().put(Facets.POPUP, popup);
+    picker.onComponentPopulated(facesContext, parent);
     popup.setRendered(false);
-    popup.onComponentPopulated(facesContext, parent);
+    popup.onComponentPopulated(facesContext, picker);
 
     FacesUtils.setBindingOrExpression(popup, Attributes.LEFT, "#{tobagoContext.actionPosition.right.pixel + 5}");
     FacesUtils.setBindingOrExpression(popup, Attributes.TOP, "#{tobagoContext.actionPosition.top.pixel}");
@@ -136,11 +138,8 @@ public class DatePickerRenderer extends LinkRenderer {
         facesContext, UIButton.COMPONENT_TYPE, RendererTypes.BUTTON, "ok");
     buttonPanel.getChildren().add(okButton);
     FacesUtils.setBindingOrExpression(okButton, Attributes.LABEL, "#{tobagoContext.resourceBundle.datePickerOk}");
-    //    okButton.setOnclick("writeIntoField2(this);");
-    okButton.setOnclick("/* dummy to trick the CommandRendererHelper */");
-    // XXX find a way to mark this button as the "ok" button for the tobago-calendar.js! data-tobago-datepickerok
-    okButton.getAttributes().put(Attributes.POPUP_CLOSE, "afterSubmit");
-
+    ComponentUtils.putDataAttributeWithSuffix(okButton, DataAttributes.DATEPICKEROK, true);
+    okButton.getAttributes().put(Attributes.POPUP_CLOSE, "immediate");
     final UIButton cancelButton = (UIButton) CreateComponentUtils.createComponent(
         facesContext, UIButton.COMPONENT_TYPE, RendererTypes.BUTTON, "cancel");
     buttonPanel.getChildren().add(cancelButton);
@@ -149,8 +148,6 @@ public class DatePickerRenderer extends LinkRenderer {
     cancelButton.getAttributes().put(Attributes.POPUP_CLOSE, "immediate");
 
     buttonPanel.onComponentPopulated(facesContext, parent);
-
-    picker.setImage("image/date.gif");
   }
 
   @Override
@@ -162,7 +159,7 @@ public class DatePickerRenderer extends LinkRenderer {
         Attributes.LAYOUT_WIDTH,
         getResourceManager().getThemeMeasure(facesContext, picker, "pickerWidth").getPixel());
 
-    FacesContextUtils.addPopup(facesContext, (UIPopup) picker.getFacets().get(Facets.PICKER_POPUP));
+    FacesContextUtils.addPopup(facesContext, (UIPopup) picker.getFacets().get(Facets.POPUP));
 
     super.prepareRender(facesContext, picker);
   }
@@ -185,13 +182,8 @@ public class DatePickerRenderer extends LinkRenderer {
         picker.setDisabled(dateInput.isReadonly() || dateInput.isDisabled());
       }
     }
-    Map<String, Object> attributes = picker.getAttributes();
-    UIPopup popup = (UIPopup) picker.getFacets().get(Facets.PICKER_POPUP);
-
-    attributes.put(Attributes.ONCLICK, "Tobago.Popup.openWithAction(Tobago.element(event), '"
-        + popup.getClientId(facesContext) + "', '"
-        + picker.getClientId(facesContext) + "')");
-
+    UIPopup popup = (UIPopup) picker.getFacets().get(Facets.POPUP);
+    picker.setRenderedPartially(new String[] {popup.getId()});
     Converter converter = getConverter(facesContext, dateInput);
     String converterPattern = "yyyy-MM-dd"; // from tobago-calendar.js  initCalendarParse
     if (converter instanceof DateTimeConverter) {

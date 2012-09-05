@@ -64,8 +64,8 @@ Tobago.Calendar.init = function (elements) {
     Tobago.Calendar.initFromDateField(calendar);
   });
 
-  // XXX find a way to mark this button as the "ok" button in the DatePickerRenderer.java! data-tobago-datepickerok
-  var okButton = Tobago.Utils.selectWidthJQuery(elements, ".tobago-calendar").parent().find("button").eq(0);
+  var okButton
+      = Tobago.Utils.selectWidthJQuery(elements, ".tobago-calendar").parent().find("button[data-tobago-datepickerok]");
   okButton.click(function () {
     var button = jQuery(this);
     var calendar = button.parent().parent().find(".tobago-calendar");

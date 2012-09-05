@@ -45,6 +45,11 @@ public final class DataAttributes {
   public static final String DATEINPUTID = "data-tobago-dateinputid";
 
   /**
+   * Marker for the OK-button of the date picker popup.
+   */
+  public static final String DATEPICKEROK = "data-tobago-datepickerok";
+
+  /**
    * Holds the day of a calendar control.
    */
   public static final String DAY = "data-tobago-day";

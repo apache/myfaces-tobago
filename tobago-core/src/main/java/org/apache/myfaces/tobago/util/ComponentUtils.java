@@ -1034,6 +1034,14 @@ public class ComponentUtils {
     return ArrayUtils.EMPTY_STRING_ARRAY;
   }
 
+  public static void putDataAttributeWithSuffix(UIComponent component, String name, Object value) {
+    if (name.startsWith("data-")) {
+      putDataAttribute(component, name.substring(5), value);
+    } else {
+      LOG.error("The name must start with 'data-' but it doesn't: '" + name + "'");
+    }
+  }
+
   public static void putDataAttribute(UIComponent component, Object name, Object value) {
     Map<Object, Object> map = (Map<Object, Object>) component.getAttributes().get(DATA_ATTRIBUTES_KEY);
     if (map == null) {

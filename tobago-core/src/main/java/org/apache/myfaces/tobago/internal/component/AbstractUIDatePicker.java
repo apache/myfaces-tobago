@@ -47,7 +47,7 @@ public abstract class AbstractUIDatePicker extends AbstractUILink implements OnC
 
   public void broadcast(FacesEvent facesEvent) {
     FacesContext facesContext = FacesContext.getCurrentInstance();
-    UIComponent popup = (UIComponent) getFacets().get(Facets.PICKER_POPUP);
+    UIComponent popup = (UIComponent) getFacets().get(Facets.POPUP);
     String clientId = getForComponent().getClientId(facesContext);
     UIComponent box = popup.findComponent("box");
     UIComponent calendar = box.findComponent("calendar");
