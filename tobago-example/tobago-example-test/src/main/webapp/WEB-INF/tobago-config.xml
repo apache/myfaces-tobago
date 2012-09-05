@@ -31,7 +31,7 @@
 
   <prevent-frame-attacks>false</prevent-frame-attacks>
 
-  <!-- enable this to test CSP -->
+<!-- uncomment this to enable CSP -->
 <!--
   <content-security-policy>
     <directive>default-src 'self'</directive>

@@ -44,7 +44,7 @@
 
   <resource-dir>tobago-resource</resource-dir>
 
-<!-- enable this to test CSP -->
+<!-- uncomment this to enable CSP -->
 <!--
   <content-security-policy>
     <directive>default-src 'self'</directive>
