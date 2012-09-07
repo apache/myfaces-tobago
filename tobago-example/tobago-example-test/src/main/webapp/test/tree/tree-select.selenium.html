@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-
 <!--
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -17,28 +16,98 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 -->
-
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head profile="http://selenium-ide.openqa.org/profiles/test-case">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<link rel="selenium.base" href="http://localhost:8080/faces/tc/button/link-attribute.xhtml" />
-<title>New Test</title>
+<link rel="selenium.base" href="http://localhost:8080/" />
+<title>Test</title>
 </head>
 <body>
 <table cellpadding="1" cellspacing="1" border="1">
 <thead>
 <tr><td rowspan="1" colspan="3">New Test</td></tr>
 </thead><tbody>
-<tr>
+<tr >
 	<td>open</td>
-	<td>/faces/tc/sheet/sheet-paging-1.xhtml</td>
+	<td>/faces/test/tree/tree-select.xhtml</td>
 	<td></td>
 </tr>
 <tr>
-	<td>verifyText</td>
-	<td>css=.tobago-sheet-footer</td>
-	<td>Zeile 1 von 88123456789...Seite 1 von 88</td>
+	<td>click</td>
+	<td>id=page:tree:5:select</td>
+	<td></td>
 </tr>
+<tr>
+	<td>verifyValue</td>
+	<td>id=page:tree:5:select</td>
+	<td>on</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=page:cancel</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>id=page:tree:5:select</td>
+	<td>off</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=page:tree:5:select</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=page:submit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>id=page:tree:5:select</td>
+	<td>on</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=page:cancel</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>id=page:tree:5:select</td>
+	<td>off</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=page:tree:5:select</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=page:in</td>
+	<td>some text</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=page:submit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>id=page:tree:5:select</td>
+	<td>on</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=page:cancel</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>id=page:tree:5:select</td>
+	<td>on</td>
+</tr>
+
 </tbody></table>
 </body>
 </html>

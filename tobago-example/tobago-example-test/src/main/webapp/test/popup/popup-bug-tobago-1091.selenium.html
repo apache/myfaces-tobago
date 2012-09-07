@@ -19,8 +19,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head profile="http://selenium-ide.openqa.org/profiles/test-case">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<link rel="selenium.base" href="http://localhost:8080/faces/tc/button/link-attribute.xhtml" />
-<title>New Test</title>
+<link rel="selenium.base" href="http://localhost:8080/" />
+<title>Test</title>
 </head>
 <body>
 <table cellpadding="1" cellspacing="1" border="1">
@@ -29,48 +29,28 @@
 </thead><tbody>
 <tr>
 	<td>open</td>
-	<td>/faces/tc/button/link-attribute.xhtml</td>
+	<td>/faces/test/popup/popup-bug-tobago-1091.xhtml</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>id=page:check</td>
+	<td>on</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=page:open</td>
 	<td></td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>id=page:button-internal-link-with-slash</td>
+	<td>id=page:popup:close</td>
 	<td></td>
 </tr>
 <tr>
-	<td>verifyTextPresent</td>
-	<td>A simple page for the resource test (static).</td>
-	<td></td>
-</tr>
-<tr>
-	<td>open</td>
-	<td>/faces/tc/button/link-attribute.xhtml</td>
-	<td></td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>id=page:button-internal-link-without-slash</td>
-	<td></td>
-</tr>
-<tr>
-	<td>verifyTextPresent</td>
-	<td>A simple page for the resource test (static).</td>
-	<td></td>
-</tr>
-<tr>
-	<td>open</td>
-	<td>/faces/tc/button/link-attribute.xhtml</td>
-	<td></td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>id=page:button-external-link</td>
-	<td></td>
-</tr>
-<tr>
-	<td>verifyTextPresent</td>
-	<td>TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION</td>
-	<td></td>
+	<td>verifyValue</td>
+	<td>id=page:check</td>
+	<td>on</td>
 </tr>
 </tbody></table>
 </body>
