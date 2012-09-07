@@ -184,18 +184,17 @@ public final class AttributeHandler extends TagHandler {
           }
         } else if ("valueIfSet".equals(mode.getValue())) {
           String expressionString = value.getValue();
+          String lastExpressionString = null;
           while (isMethodOrValueExpression(expressionString) && isSimpleExpression(expressionString)) {
             ValueExpression expression
                 = faceletContext.getVariableMapper().resolveVariable(removeElParenthesis(expressionString));
-            if (expression == null) {
-              if (LOG.isDebugEnabled()) {
-                // when the action hasn't been set while using a composition.
-                LOG.debug("Variable can't be resolved: value='" + expressionString + "'");
-              }
-              expressionString = null;
-              break;
-            } else {
+            if (expression != null) {
+              lastExpressionString = expressionString;
               expressionString = expression.getExpressionString();
+            } else {
+              // restore last value
+              expressionString = lastExpressionString;
+              break;
             }
           }
           if (expressionString != null) {
@@ -207,7 +206,7 @@ public final class AttributeHandler extends TagHandler {
             }
           }
         } else {
-          throw new FacesException("Type " + mode + " not suppored");
+          throw new FacesException("Type " + mode + " not supported");
         }
       } else {
 
