@@ -28,6 +28,7 @@ import com.sun.facelets.tag.TagConfig;
 import com.sun.facelets.tag.TagException;
 import com.sun.facelets.tag.TagHandler;
 import com.sun.facelets.tag.jsf.ComponentSupport;
+import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.SupportsMarkup;
@@ -48,6 +49,8 @@ import javax.faces.component.EditableValueHolder;
 import javax.faces.component.UIComponent;
 import javax.faces.component.ValueHolder;
 import javax.faces.convert.Converter;
+import java.beans.IntrospectionException;
+import java.beans.PropertyDescriptor;
 
 public final class AttributeHandler extends TagHandler {
 
@@ -198,11 +201,13 @@ public final class AttributeHandler extends TagHandler {
             }
           }
           if (expressionString != null) {
+            final String attributeName = name.getValue(faceletContext);
             if (containsMethodOrValueExpression(expressionString)) {
               ValueExpression expression = value.getValueExpression(faceletContext, Object.class);
-              ELAdaptor.setExpression(parent, name.getValue(faceletContext), expression);
+              ELAdaptor.setExpression(parent, attributeName, expression);
             } else {
-              parent.getAttributes().put(name.getValue(faceletContext), expressionString);
+              final Object literalValue = getValue(faceletContext, parent, expressionString, attributeName);
+              parent.getAttributes().put(attributeName, literalValue);
             }
           }
         } else {
@@ -317,6 +322,21 @@ public final class AttributeHandler extends TagHandler {
     } else {
       return value.getMethodExpression(faceletContext, returnType, args);
     }
+  }
+
+  private Object getValue(
+      FaceletContext faceletContext, UIComponent parent, String expressionString, String attributeName) {
+    Class type = Object.class;
+    try {
+      type = PropertyUtils.getReadMethod(
+          new PropertyDescriptor(attributeName, parent.getClass())).getReturnType();
+    } catch (IntrospectionException e) {
+      LOG.warn("Can't determine expected type", e);
+    }
+    ExpressionFactory expressionFactory = faceletContext.getExpressionFactory();
+    final ValueExpression valueExpression = expressionFactory
+        .createValueExpression(faceletContext, expressionString, type);
+    return valueExpression.getValue(faceletContext);
   }
 
   private void setConverter(FaceletContext faceletContext, UIComponent parent, String nameValue) {

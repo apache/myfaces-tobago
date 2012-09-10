@@ -150,6 +150,12 @@
   </managed-bean>
 
   <managed-bean>
+    <managed-bean-name>popupModalAttribute</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.tobago.example.test.PopupModalAttribute</managed-bean-class>
+    <managed-bean-scope>none</managed-bean-scope>
+  </managed-bean>
+
+  <managed-bean>
     <managed-bean-name>progress</managed-bean-name>
     <managed-bean-class>org.apache.myfaces.tobago.example.test.Progress</managed-bean-class>
     <managed-bean-scope>session</managed-bean-scope>
