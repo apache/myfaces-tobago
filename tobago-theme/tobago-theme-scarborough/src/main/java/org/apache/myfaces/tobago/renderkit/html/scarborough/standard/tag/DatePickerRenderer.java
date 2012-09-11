@@ -138,7 +138,7 @@ public class DatePickerRenderer extends LinkRenderer {
         facesContext, UIButton.COMPONENT_TYPE, RendererTypes.BUTTON, "ok");
     buttonPanel.getChildren().add(okButton);
     FacesUtils.setBindingOrExpression(okButton, Attributes.LABEL, "#{tobagoContext.resourceBundle.datePickerOk}");
-    ComponentUtils.putDataAttributeWithSuffix(okButton, DataAttributes.DATEPICKEROK, true);
+    ComponentUtils.putDataAttributeWithPrefix(okButton, DataAttributes.DATEPICKEROK, true);
     okButton.getAttributes().put(Attributes.POPUP_CLOSE, "afterSubmit");
     okButton.getAttributes().put(Attributes.ONCLICK, "/* fixme: avoid submit */");
     final UIButton cancelButton = (UIButton) CreateComponentUtils.createComponent(
