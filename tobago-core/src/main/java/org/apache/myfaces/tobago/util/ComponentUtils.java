@@ -1016,6 +1016,10 @@ public class ComponentUtils {
     return ArrayUtils.EMPTY_STRING_ARRAY;
   }
 
+  /**
+   * Adding a data attribute to the component.
+   * The name should not start with "data-", e. g. "tobago-foo" or "bar"
+   */
   public static void putDataAttribute(UIComponent component, Object name, Object value) {
     Map<Object, Object> map = (Map<Object, Object>) component.getAttributes().get(DATA_ATTRIBUTES_KEY);
     if (map == null) {
