@@ -89,11 +89,8 @@ Tobago.Sheet.init = function(elements) {
     var commands = sheet.data("tobago-rowaction");
     var click = commands ? commands.click : undefined;
     var dblclick = commands ? commands.dblclick : undefined;
-    var columnSelectorIndex;
-    var selectorMenu = sheet.find(".tobago-sheet-headerDiv > .tobago-sheet-header > .tobago-sheet-selectorMenu");
-    if (selectorMenu) {
-      columnSelectorIndex = selectorMenu.parent().index();
-    }
+    var columnSelectorIndex
+        = sheet.find(".tobago-sheet-headerDiv > .tobago-sheet-header > .tobago-sheet-toolBar").parent().index();
     new Tobago.Sheet(id, undefined, selectionMode, columnSelectorIndex, frequency,
         click != undefined ? click.actionId  : undefined,
         click != undefined ? click.partially : undefined,
