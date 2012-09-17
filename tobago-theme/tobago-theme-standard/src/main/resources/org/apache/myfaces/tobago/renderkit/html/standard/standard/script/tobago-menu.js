@@ -315,5 +315,5 @@ jQuery.tobagoMenuParent = function(element) {
   });
 })(jQuery);
 
-Tobago.registerListener(Tobago.Menu.init, Tobago.Phase.DOCUMENT_READY);
-Tobago.registerListener(Tobago.Menu.init, Tobago.Phase.AFTER_UPDATE);
+Tobago.registerListener(Tobago.Menu.init, Tobago.Phase.DOCUMENT_READY, Tobago.Phase.Order.LATE);
+Tobago.registerListener(Tobago.Menu.init, Tobago.Phase.AFTER_UPDATE, Tobago.Phase.Order.LATE);
