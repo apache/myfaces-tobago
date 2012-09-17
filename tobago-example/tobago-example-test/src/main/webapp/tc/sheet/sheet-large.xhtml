@@ -24,6 +24,9 @@
 
   <tc:page id="page">
     <tc:gridLayoutConstraint width="600px" height="600px"/>
+    <f:facet name="layout">
+      <tc:gridLayout rows="*;auto"/>
+    </f:facet>
 
     <tc:sheet value="#{sheet.localeList}" id="sheet" columns="auto;5*;5*;5*;*" var="entry" rows="1000">
       <tc:columnSelector disabled="#{entry.disabled}"/>
@@ -41,6 +44,21 @@
       </tc:column>
     </tc:sheet>
 
+    <tc:box label="Performance test">
+      <f:facet name="layout">
+        <tc:gridLayout columns="2*;*"/>
+      </f:facet>
+      <tx:in readonly="true" label="Select 1st row"/>
+      <tc:button label="Run" onclick="/* fixme: avoid submit */">
+        <tc:dataAttribute name="clickrow" value="0"/>
+      </tc:button>
+      <tx:in readonly="true" label="Select 2nd row"/>
+      <tc:button label="Run" onclick="/* fixme: avoid submit */">
+        <tc:dataAttribute name="clickrow" value="1"/>
+      </tc:button>
+    </tc:box>
+
+    <tc:script file="tc/sheet/sheet-large.js"/>
     <tc:script file="script/tobago-assert.js"/>
     <!--todo-->
     <!--<tc:script onload="TobagoAssert.assertLayout('page:todo', 0, 0, 600, 14);"/>-->
