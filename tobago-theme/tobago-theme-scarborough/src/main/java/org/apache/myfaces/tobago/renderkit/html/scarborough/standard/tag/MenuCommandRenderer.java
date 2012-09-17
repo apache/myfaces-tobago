@@ -144,7 +144,9 @@ public class MenuCommandRenderer extends CommandRendererBase {
     }
     writer.writeClassAttribute(Classes.createWorkaround("menu", markup)); // todo: solve workaround
     writer.writeAttribute(HtmlAttributes.ONCLICK, onclick, true);
-
+    if (component != null) {
+      HtmlRendererUtils.writeDataAttributes(facesContext, writer, component);
+    }
 
     if (image != null) {
       if (firstLevel) {

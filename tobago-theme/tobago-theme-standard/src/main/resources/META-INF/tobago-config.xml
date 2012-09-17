@@ -108,6 +108,12 @@
             <!-- internal: to mark "cursor" position in the menu -->
             <markup>selected</markup>
             <markup>disabled</markup>
+            <!-- internal: sheet command -->
+            <markup>sheetSelectAll</markup>
+            <!-- internal: sheet command -->
+            <markup>sheetDeselectAll</markup>
+            <!-- internal: sheet command -->
+            <markup>sheetToggleAll</markup>
           </supported-markup>
         </renderer>
         <renderer>

@@ -32,6 +32,7 @@ import org.apache.myfaces.tobago.component.UIMenuCommand;
 import org.apache.myfaces.tobago.component.UIOut;
 import org.apache.myfaces.tobago.component.UIReload;
 import org.apache.myfaces.tobago.component.UISheet;
+import org.apache.myfaces.tobago.component.UIToolBar;
 import org.apache.myfaces.tobago.config.Configurable;
 import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.context.Markup;
@@ -809,46 +810,53 @@ public class SheetRenderer extends LayoutComponentRendererBase {
     }
   }
 
-
   protected void renderColumnSelectorHeader(
       FacesContext facesContext, TobagoResponseWriter writer, UISheet sheet, UIColumnSelector column)
       throws IOException {
 
+    final UIToolBar toolBar = createToolBar(facesContext, sheet);
     writer.startElement(HtmlElements.DIV, null);
-    writer.writeIdAttribute(column.getClientId(facesContext));
-    writer.writeClassAttribute(Classes.create(sheet, "selectorMenu"));
-    writer.endElement(HtmlElements.DIV);
+    writer.writeClassAttribute(Classes.create(sheet, "toolBar"));
 
     if (UISheet.MULTI.equals(sheet.getSelectable())) {
-      UIMenu menu = (UIMenu) CreateComponentUtils.createComponent(
-          facesContext, UIMenu.COMPONENT_TYPE, RendererTypes.MENU, "selectorMenu");
-      menu.setTransient(true);
-      FacetUtils.setDropDownMenu(column, menu);
-      menu.setImage("image/sheetSelectorMenu.gif");
-      menu.setLabel("vv"); //todo remove this after fixing the image above
-
-      String sheetId = column.getParent().getClientId(facesContext);
-
-      createMenuItem(facesContext, menu, "sheetMenuSelect",
-          "Tobago.Sheets.get('" + sheetId + "').selectAll()", "t_selectAll");
-      createMenuItem(facesContext, menu, "sheetMenuUnselect",
-          "Tobago.Sheets.get('" + sheetId + "').deselectAll()", "t_deselectAll");
-      createMenuItem(facesContext, menu, "sheetMenuToggleselect",
-          "Tobago.Sheets.get('" + sheetId + "').toggleAll()", "t_toggleAll");
-
-      writer.startElement(HtmlElements.OL, menu);
-      writer.writeClassAttribute(Classes.create(sheet, "menuBar"));
-      writer.writeStyleAttribute("position:absolute;");  // FIXME: may use a different style class
-      RenderUtils.encode(facesContext, menu);
-      writer.endElement(HtmlElements.OL);
+      RenderUtils.prepareRendererAll(facesContext, toolBar);
+      RenderUtils.encode(facesContext, toolBar);
     }
+
+    writer.endElement(HtmlElements.DIV);
   }
 
-  private void createMenuItem(final FacesContext facesContext, UIMenu menu, String label, String action, String id) {
-    UIMenuCommand menuItem = (UIMenuCommand) CreateComponentUtils.createComponent(
+  private UIToolBar createToolBar(FacesContext facesContext, UISheet sheet) {
+    final Application application = facesContext.getApplication();
+    final UICommand dropDown = (UICommand) CreateComponentUtils.createComponent(
+        facesContext, UICommand.COMPONENT_TYPE, null, "dropDown");
+    final UIMenu menu = (UIMenu) CreateComponentUtils.createComponent(
+        facesContext, UIMenu.COMPONENT_TYPE, RendererTypes.MENU, "menu");
+    FacetUtils.setDropDownMenu(dropDown, menu);
+    final String sheetId = sheet.getClientId(facesContext);
+
+    createMenuItem(facesContext, menu, "sheetMenuSelect", Markup.SHEET_SELECT_ALL, sheetId);
+    createMenuItem(facesContext, menu, "sheetMenuUnselect", Markup.SHEET_DESELECT_ALL, sheetId);
+    createMenuItem(facesContext, menu, "sheetMenuToggleselect", Markup.SHEET_TOGGLE_ALL, sheetId);
+
+    final UIToolBar toolBar = (UIToolBar) application.createComponent(UIToolBar.COMPONENT_TYPE);
+    toolBar.setId(facesContext.getViewRoot().createUniqueId());
+    toolBar.setRendererType("TabGroupToolBar");
+    toolBar.setTransient(true);
+    toolBar.getChildren().add(dropDown);
+    sheet.getFacets().put(Facets.TOOL_BAR, toolBar);
+    return toolBar;
+  }
+
+  private void createMenuItem(
+      final FacesContext facesContext, UIMenu menu, String label, Markup markup, String sheetId) {
+    final String id = markup.toString();
+    final UIMenuCommand menuItem = (UIMenuCommand) CreateComponentUtils.createComponent(
         facesContext, UIMenuCommand.COMPONENT_TYPE, RendererTypes.MENU_COMMAND, id);
-    menuItem.setOnclick(action);
     menuItem.setLabel(ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", label));
+    menuItem.setMarkup(markup);
+    menuItem.setOnclick("/**/"); // XXX avoid submit
+    ComponentUtils.putDataAttributeWithPrefix(menuItem, DataAttributes.SHEETID, sheetId);
     menu.getChildren().add(menuItem);
   }
 

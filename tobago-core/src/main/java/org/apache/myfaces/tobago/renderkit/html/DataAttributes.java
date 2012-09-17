@@ -36,6 +36,18 @@ public final class DataAttributes {
    */
   public static final String RELOAD = "data-tobago-reload";
 
+  public static final String SELECTIONMODE = "data-tobago-selectionmode";
+
+  /**
+   * The selectable attribute e. g. for trees.
+   */
+  public static final String SELECTABLE = "data-tobago-selectable";
+
+  /**
+   * Reference to a sheet.
+   */
+  public static final String SHEETID = "data-tobago-sheetid";
+
   /**
    * Alternate to the src attribute, to implement a hover effect.
    */

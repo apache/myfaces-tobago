@@ -1018,6 +1018,18 @@ public class ComponentUtils {
 
   /**
    * Adding a data attribute to the component.
+   * The name must start with "data-", e. g. "data-tobago-foo" or "data-bar"
+   */
+  public static void putDataAttributeWithPrefix(UIComponent component, String name, Object value) {
+    if (name.startsWith("data-")) {
+      putDataAttribute(component, name.substring(5), value);
+    } else {
+      LOG.error("The name must start with 'data-' but it doesn't: '" + name + "'");
+    }
+  }
+
+  /**
+   * Adding a data attribute to the component.
    * The name should not start with "data-", e. g. "tobago-foo" or "bar"
    */
   public static void putDataAttribute(UIComponent component, Object name, Object value) {

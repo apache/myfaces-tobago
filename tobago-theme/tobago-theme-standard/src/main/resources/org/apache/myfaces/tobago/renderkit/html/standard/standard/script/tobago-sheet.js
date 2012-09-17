@@ -86,6 +86,27 @@ Tobago.Sheet = function(sheetId, firstRowIndex, selectable, columnSelectorIndex,
   LOG.debug("Sheet-total time = " + (this.endTime.getTime() - this.startTime.getTime())); // @DEV_ONLY
 };
 
+Tobago.Sheet.init = function(elements) {
+
+  var commands;
+  commands = Tobago.Utils.selectWidthJQuery(elements, ".tobago-menu-markup-sheetSelectAll");
+  commands.click(function() {
+    Tobago.Sheets.get(jQuery(this).data("tobago-sheetid")).selectAll();
+  });
+  commands = Tobago.Utils.selectWidthJQuery(elements, ".tobago-menu-markup-sheetDeselectAll");
+  commands.click(function() {
+    Tobago.Sheets.get(jQuery(this).data("tobago-sheetid")).deselectAll();
+  });
+  commands = Tobago.Utils.selectWidthJQuery(elements, ".tobago-menu-markup-sheetToggleAll");
+  commands.click(function() {
+    Tobago.Sheets.get(jQuery(this).data("tobago-sheetid")).toggleAll();
+  });
+
+};
+
+Tobago.registerListener(Tobago.Sheet.init, Tobago.Phase.DOCUMENT_READY);
+Tobago.registerListener(Tobago.Sheet.init, Tobago.Phase.AFTER_UPDATE);
+
 Tobago.Sheet.prototype.setupSortHeaders = function() {
   var sheet = this;
   jQuery(Tobago.Utils.escapeClientId(sheet.id)).find(".tobago-sheet-header[sorterId]").each(function() {
