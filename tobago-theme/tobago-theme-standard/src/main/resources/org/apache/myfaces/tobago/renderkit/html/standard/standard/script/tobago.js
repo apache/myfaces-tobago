@@ -235,27 +235,41 @@ var Tobago = {
   initMarker: false,
 
   listeners: {
-    documentReady: [],
-    windowLoad: [],
-    beforeSubmit: [],
-    afterUpdate: []
+    documentReady: [[], [], []],
+    windowLoad: [[], [], []],
+    beforeSubmit: [[], [], []],
+    afterUpdate: [[], [], []]
   },
 
   // -------- Functions -------------------------------------------------------
 
-  registerListener: function(listener, phase) {
+  /**
+   * Register a function to be excecuted on certain events.
+   * @param listener Function to be executed.
+   * @param phase The phase when code should be excecuted (e. g. Tobago.Phase.DOCUMENT_READY).
+   * @param order An optinal order to sort function they depent on others (default: Tobago.Phase.Order.NORMAL).
+   */
+  registerListener: function(listener, phase, order) {
 
+    if (order == undefined) {
+      order = Tobago.Phase.Order.NORMAL;
+    }
+
+    var phaseMap;
     if (Tobago.Phase.DOCUMENT_READY == phase) {
-      Tobago.listeners.documentReady.push(listener);
+      phaseMap = Tobago.listeners.documentReady;
     } else if (Tobago.Phase.WINDOW_LOAD == phase) {
-      Tobago.listeners.windowLoad.push(listener);
+      phaseMap = Tobago.listeners.windowLoad;
     } else if (Tobago.Phase.BEFORE_SUBMIT == phase) {
-      Tobago.listeners.beforeSubmit.push(listener);
+      phaseMap = Tobago.listeners.beforeSubmit;
     } else if (Tobago.Phase.AFTER_UPDATE == phase) {
-      Tobago.listeners.afterUpdate.push(listener);
+      phaseMap = Tobago.listeners.afterUpdate;
     } else {
       LOG.error("Unknown phase: " + phase); // @DEV_ONLY
+      return;
     }
+
+    phaseMap[order].push(listener);
   },
 
   /**
@@ -286,8 +300,11 @@ var Tobago = {
 
     this.addBindEventListener(window, 'unload', this, 'onUnload');
 
-    for (var i = 0; i < Tobago.listeners.documentReady.length; i++) {
-      Tobago.listeners.documentReady[i]();
+    for (var order = 0; order < Tobago.listeners.documentReady.length; order++) {
+      var list = Tobago.listeners.documentReady[order];
+      for (var i = 0; i < list.length; i++) {
+        list[i]();
+      }
     }
 
     if (TbgTimer.endBody) { // @DEV_ONLY
@@ -337,10 +354,13 @@ var Tobago = {
 
   onSubmit: function() {
     var result = true; // Do not continue if any function returns false
-    for (var i = 0; i < Tobago.listeners.beforeSubmit.length; i++) {
-      result = Tobago.listeners.beforeSubmit[i]();
-      if (result == false) {
-        break;
+    for (var order = 0; order < Tobago.listeners.beforeSubmit.length; order++) {
+      var list = Tobago.listeners.beforeSubmit[order];
+      for (var i = 0; i < list.length; i++) {
+        result = list[i]();
+        if (result == false) {
+          break;
+        }
       }
     }
     if (result != false && jQuery.isFunction(Tobago.applicationOnsubmit)) {
@@ -1505,8 +1525,11 @@ jQuery(document).ready(function() {
 });
 
 jQuery(window).load(function() {
-  for (var i = 0; i < Tobago.listeners.windowLoad.length; i++) {
-    Tobago.listeners.windowLoad[i]();
+  for (var order = 0; order < Tobago.listeners.windowLoad.length; order++) {
+    var list = Tobago.listeners.windowLoad[order];
+    for (var i = 0; i < list.length; i++) {
+      list[i]();
+    }
   }
 });
 
@@ -1518,7 +1541,13 @@ Tobago.Phase = {
   /** before sending a normal submit action (TBD: also AJAX?) */
   BEFORE_SUBMIT:{},
   /** after an AJAX call */
-  AFTER_UPDATE:{}
+  AFTER_UPDATE:{},
+
+  Order:{
+    EARLY:0,
+    NORMAL:1,
+    LATE:2
+  }
 };
 
 Tobago.Config = {
@@ -2265,8 +2294,11 @@ Tobago.Updater = {
           }
           if (data.html.length > 0) {
 
-            for (var i = 0; i < Tobago.listeners.afterUpdate.length; i++) {
-              Tobago.listeners.afterUpdate[i](newElement);
+            for (var order = 0; order < Tobago.listeners.afterUpdate.length; order++) {
+              var list = Tobago.listeners.afterUpdate[order];
+              for (var i = 0; i < list.length; i++) {
+                list[i](newElement);
+              }
             }
           }
         } catch (e) {
