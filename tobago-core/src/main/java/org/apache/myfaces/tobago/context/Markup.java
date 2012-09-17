@@ -76,6 +76,9 @@ public final class Markup implements Serializable, Iterable<String> {
   public static final Markup RIGHT = valueOf("right");
   public static final Markup SECONDS = valueOf("seconds");
   public static final Markup SELECTED = valueOf("selected");
+  public static final Markup SHEET_SELECT_ALL = valueOf("sheetSelectAll");
+  public static final Markup SHEET_DESELECT_ALL = valueOf("sheetDeselectAll");
+  public static final Markup SHEET_TOGGLE_ALL = valueOf("sheetToggleAll");
   public static final Markup SORTABLE = valueOf("sortable");
   public static final Markup STRONG = valueOf("strong");
   public static final Markup TOP = valueOf("top");

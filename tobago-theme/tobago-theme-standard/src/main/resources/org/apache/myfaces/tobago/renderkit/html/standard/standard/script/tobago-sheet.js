@@ -102,6 +102,21 @@ Tobago.Sheet.init = function(elements) {
         // todo: use sheet.data("data-tobago-partially"). What is the type? Array? Test it.
         sheet.attr("data-tobago-partially"));
   });
+
+  var commands;
+  commands = Tobago.Utils.selectWidthJQuery(elements, ".tobago-menu-markup-sheetSelectAll");
+  commands.click(function() {
+    Tobago.Sheets.get(jQuery(this).data("tobago-sheetid")).selectAll();
+  });
+  commands = Tobago.Utils.selectWidthJQuery(elements, ".tobago-menu-markup-sheetDeselectAll");
+  commands.click(function() {
+    Tobago.Sheets.get(jQuery(this).data("tobago-sheetid")).deselectAll();
+  });
+  commands = Tobago.Utils.selectWidthJQuery(elements, ".tobago-menu-markup-sheetToggleAll");
+  commands.click(function() {
+    Tobago.Sheets.get(jQuery(this).data("tobago-sheetid")).toggleAll();
+  });
+
 };
 
 Tobago.registerListener(Tobago.Sheet.init, Tobago.Phase.DOCUMENT_READY);
