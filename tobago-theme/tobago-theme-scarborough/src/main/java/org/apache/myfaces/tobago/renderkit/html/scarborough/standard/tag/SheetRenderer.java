@@ -282,7 +282,8 @@ public class SheetRenderer extends LayoutComponentRendererBase {
 
       writer.startElement(HtmlElements.TR, null);
       Markup rowMarkup = odd ? Markup.ODD : Markup.EVEN;
-      if (selectedRows.contains(rowIndex)) {
+      final boolean selected = selectedRows.contains(rowIndex);
+      if (selected) {
         rowMarkup = rowMarkup.add(Markup.SELECTED);
       }
       writer.writeClassAttribute(Classes.create(sheet, "row", rowMarkup));
@@ -330,6 +331,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
           final boolean disabled = ComponentUtils.getBooleanAttribute(column, Attributes.DISABLED);
           writer.startElement(HtmlElements.INPUT, null);
           writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.CHECKBOX, false);
+          writer.writeAttribute(HtmlAttributes.CHECKED, selected);
           writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
           writer.writeIdAttribute(sheetId + "_data_row_selector_" + rowIndex);
           writer.writeClassAttribute(Classes.create(sheet, "columnSelector"));
