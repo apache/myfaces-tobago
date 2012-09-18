@@ -27,7 +27,8 @@ import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 
 /**
- * This tag add client side script to the rendered page.
+ * This tag adds script files to include to the rendered page.
+ * Deprecated (CSP): This tag adds client side script to the rendered page.
  */
 @Tag(name = "script")
 @UIComponentTag(
@@ -41,22 +42,47 @@ public interface ScriptTagDeclaration extends HasIdBindingAndRendered {
   @UIComponentTagAttribute()
   void setFile(String file);
 
+  /**
+   * @deprecated Since 1.6.0. Please include a custom script file via the file attribute and use
+   * <code>Tobago.registerListener(myFunction, Tobago.Phase.DOCUMENT_READY);</code> or
+   * <code>Tobago.registerListener(myFunction, Tobago.Phase.WINDOW_LOAD);</code>
+   */
+  @Deprecated
   @TagAttribute()
   @UIComponentTagAttribute()
   void setOnload(String onload);
 
+  /**
+   * @deprecated Since 1.6.0. Please include a custom script file via the file attribute and use
+   * <code>Tobago.registerListener(myFunction, Tobago.Phase.BEFORE_UNLOAD);</code>
+   */
+  @Deprecated
   @TagAttribute()
   @UIComponentTagAttribute()
   void setOnunload(String onunload);
 
+  /**
+   * @deprecated Since 1.6.0. Please include a custom script file via the file attribute and use
+   * <code>Tobago.registerListener(myFunction, Tobago.Phase.BEFORE_EXIT);</code>
+   */
+  @Deprecated
   @TagAttribute()
   @UIComponentTagAttribute()
   void setOnexit(String onsubmit);
 
+  /**
+   * @deprecated Since 1.6.0. Please include a custom script file via the file attribute and use
+   * <code>Tobago.registerListener(myFunction, Tobago.Phase.BEFORE_SUBMIT);</code>
+   */
+  @Deprecated
   @TagAttribute()
   @UIComponentTagAttribute()
   void setOnsubmit(String onsubmit);
 
+  /**
+   * @deprecated Since 1.6.0. Please include a custom script file via the file attribute.
+   */
+  @Deprecated
   @TagAttribute(bodyContent = true)
   @UIComponentTagAttribute()
   void setScript(String script);
