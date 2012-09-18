@@ -27,7 +27,9 @@ import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 
 /**
- * This tag add client side script to the rendered page.
+ * This tag adds script files to include to the rendered page.
+ * Direct calls can also be registered via special attributes,
+ * This will be deprecated (because of CSP) in later versions.
  */
 @Tag(name = "script")
 @UIComponentTag(
@@ -42,22 +44,47 @@ public interface ScriptTagDeclaration extends HasIdBindingAndRendered {
   @UIComponentTagAttribute()
   void setFile(String file);
 
+  /**
+   * Alternatively include a custom script file via the file attribute and use
+   * <code>Tobago.registerListener(myFunction, Tobago.Phase.DOCUMENT_READY);</code> or
+   * <code>Tobago.registerListener(myFunction, Tobago.Phase.WINDOW_LOAD);</code>
+   */
+  @Deprecated
   @TagAttribute()
   @UIComponentTagAttribute()
   void setOnload(String onload);
 
+  /**
+   * Alternatively include a custom script file via the file attribute and use
+   * <code>Tobago.registerListener(myFunction, Tobago.Phase.BEFORE_UNLOAD);</code>
+   */
+  @Deprecated
   @TagAttribute()
   @UIComponentTagAttribute()
   void setOnunload(String onunload);
 
+  /**
+   * Alternatively include a custom script file via the file attribute and use
+   * <code>Tobago.registerListener(myFunction, Tobago.Phase.BEFORE_EXIT);</code>
+   */
+  @Deprecated
   @TagAttribute()
   @UIComponentTagAttribute()
   void setOnexit(String onsubmit);
 
+  /**
+   * Alternatively include a custom script file via the file attribute and use
+   * <code>Tobago.registerListener(myFunction, Tobago.Phase.BEFORE_SUBMIT);</code>
+   */
+  @Deprecated
   @TagAttribute()
   @UIComponentTagAttribute()
   void setOnsubmit(String onsubmit);
 
+  /**
+   * Alternatively include a custom script file via the file attribute.
+   */
+  @Deprecated
   @TagAttribute(bodyContent = true)
   @UIComponentTagAttribute()
   void setScript(String script);

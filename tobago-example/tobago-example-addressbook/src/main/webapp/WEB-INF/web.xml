@@ -110,6 +110,15 @@
     </init-param>
   </servlet>
 
+  <servlet>
+    <servlet-name>KillSessionServlet</servlet-name>
+    <servlet-class>org.apache.myfaces.tobago.example.addressbook.KillSession</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>KillSessionServlet</servlet-name>
+    <url-pattern>/KillSession</url-pattern>
+  </servlet-mapping>
 
   <servlet-mapping>
     <servlet-name>FacesServlet</servlet-name>

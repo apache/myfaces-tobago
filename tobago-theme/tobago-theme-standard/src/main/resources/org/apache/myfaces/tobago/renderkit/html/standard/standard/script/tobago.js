@@ -238,7 +238,9 @@ var Tobago = {
     documentReady: [[], [], []],
     windowLoad: [[], [], []],
     beforeSubmit: [[], [], []],
-    afterUpdate: [[], [], []]
+    afterUpdate: [[], [], []],
+    beforeUnload: [[], [], []],
+    beforeExit: [[], [], []]
   },
 
   // -------- Functions -------------------------------------------------------
@@ -264,6 +266,10 @@ var Tobago = {
       phaseMap = Tobago.listeners.beforeSubmit;
     } else if (Tobago.Phase.AFTER_UPDATE == phase) {
       phaseMap = Tobago.listeners.afterUpdate;
+    } else if (Tobago.Phase.BEFORE_UNLOAD == phase) {
+      phaseMap = Tobago.listeners.beforeUnload;
+    } else if (Tobago.Phase.BEFORE_EXIT == phase) {
+      phaseMap = Tobago.listeners.beforeExit;
     } else {
       LOG.error("Unknown phase: " + phase); // @DEV_ONLY
       return;
@@ -509,6 +515,17 @@ var Tobago = {
    * Wrapper function to call application generated onunload function
    */
   onUnload: function() {
+
+    var phase = this.isSubmit ? Tobago.listeners.beforeUnload : Tobago.listeners.beforeExit;
+
+    for (var order = 0; order < phase.length; order++) {
+      var list = phase[order];
+      for (var i = 0; i < list.length; i++) {
+        list[i]();
+      }
+    }
+
+    // old:
     if (this.isSubmit && this.applicationOnunload) {
       this.applicationOnunload();
     } else if (!this.isSubmit && this.applicationOnexit) {
@@ -1542,6 +1559,10 @@ Tobago.Phase = {
   BEFORE_SUBMIT:{},
   /** after an AJAX call */
   AFTER_UPDATE:{},
+  /** before ending a page */
+  BEFORE_UNLOAD:{},
+  /** before closing a window or tab */
+  BEFORE_EXIT:{},
 
   Order:{
     EARLY:0,
