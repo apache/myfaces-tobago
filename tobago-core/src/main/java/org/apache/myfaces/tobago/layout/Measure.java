@@ -141,6 +141,8 @@ public abstract class Measure implements Serializable {
 
   public abstract int getPixel();
 
+  public abstract String serialize();
+
   /**
    * Returns the maximum. If all parameters are null, than the result is {@value #ZERO}.
    */

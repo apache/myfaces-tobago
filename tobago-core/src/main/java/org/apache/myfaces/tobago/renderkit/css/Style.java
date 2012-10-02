@@ -143,22 +143,22 @@ public class Style implements Serializable {
     StringBuilder buf = new StringBuilder();
     if (width != null) {
       buf.append("width:");
-      buf.append(width);
+      buf.append(width.serialize());
       buf.append(';');
     }
     if (height != null) {
       buf.append("height:");
-      buf.append(height);
+      buf.append(height.serialize());
       buf.append(';');
     }
     if (top != null) {
       buf.append("top:");
-      buf.append(top);
+      buf.append(top.serialize());
       buf.append(';');
     }
     if (left != null) {
       buf.append("left:");
-      buf.append(left);
+      buf.append(left.serialize());
       buf.append(';');
     }
     if (display != null) {
@@ -183,52 +183,52 @@ public class Style implements Serializable {
     }
     if (marginLeft != null) {
       buf.append("margin-left:");
-      buf.append(marginLeft);
+      buf.append(marginLeft.serialize());
       buf.append(';');
     }
     if (marginRight != null) {
       buf.append("margin-right:");
-      buf.append(marginRight);
+      buf.append(marginRight.serialize());
       buf.append(';');
     }
     if (marginTop != null) {
       buf.append("margin-top:");
-      buf.append(marginTop);
+      buf.append(marginTop.serialize());
       buf.append(';');
     }
     if (marginBottom != null) {
       buf.append("margin-bottom:");
-      buf.append(marginBottom);
+      buf.append(marginBottom.serialize());
       buf.append(';');
     }
     if (margin != null) {
       buf.append("margin:");
-      buf.append(margin);
+      buf.append(margin.serialize());
       buf.append(';');
     }
     if (paddingLeft != null) {
       buf.append("padding-left:");
-      buf.append(paddingLeft);
+      buf.append(paddingLeft.serialize());
       buf.append(';');
     }
     if (paddingRight != null) {
       buf.append("padding-right:");
-      buf.append(paddingRight);
+      buf.append(paddingRight.serialize());
       buf.append(';');
     }
     if (paddingTop != null) {
       buf.append("padding-top:");
-      buf.append(paddingTop);
+      buf.append(paddingTop.serialize());
       buf.append(';');
     }
     if (paddingBottom != null) {
       buf.append("padding-bottom:");
-      buf.append(paddingBottom);
+      buf.append(paddingBottom.serialize());
       buf.append(';');
     }
     if (padding != null) {
       buf.append("padding:");
-      buf.append(padding);
+      buf.append(padding.serialize());
       buf.append(';');
     }
     if (backgroundImage != null) {
@@ -254,22 +254,22 @@ public class Style implements Serializable {
     StringBuilder buf = new StringBuilder("{");
     if (width != null) {
       buf.append("\"width\":\"");
-      buf.append(width);
+      buf.append(width.serialize());
       buf.append("\",");
     }
     if (height != null) {
       buf.append("\"height\":\"");
-      buf.append(height);
+      buf.append(height.serialize());
       buf.append("\",");
     }
     if (top != null) {
       buf.append("\"top\":\"");
-      buf.append(top);
+      buf.append(top.serialize());
       buf.append("\",");
     }
     if (left != null) {
       buf.append("\"left\":\"");
-      buf.append(left);
+      buf.append(left.serialize());
       buf.append("\",");
     }
     if (display != null) {
@@ -294,52 +294,52 @@ public class Style implements Serializable {
     }
     if (marginLeft != null) {
       buf.append("\"marginLeft\":\"");
-      buf.append(marginLeft);
+      buf.append(marginLeft.serialize());
       buf.append("\",");
     }
     if (marginRight != null) {
       buf.append("\"marginRight\":\"");
-      buf.append(marginRight);
+      buf.append(marginRight.serialize());
       buf.append("\",");
     }
     if (marginTop != null) {
       buf.append("\"marginTop\":\"");
-      buf.append(marginTop);
+      buf.append(marginTop.serialize());
       buf.append("\",");
     }
     if (marginBottom != null) {
       buf.append("\"marginBottom\":\"");
-      buf.append(marginBottom);
+      buf.append(marginBottom.serialize());
       buf.append("\",");
     }
     if (margin != null) {
       buf.append("\"margin\":\"");
-      buf.append(margin);
+      buf.append(margin.serialize());
       buf.append("\",");
     }
     if (paddingLeft != null) {
       buf.append("\"paddingLeft\":\"");
-      buf.append(paddingLeft);
+      buf.append(paddingLeft.serialize());
       buf.append("\",");
     }
     if (paddingRight != null) {
       buf.append("\"paddingRight\":\"");
-      buf.append(paddingRight);
+      buf.append(paddingRight.serialize());
       buf.append("\",");
     }
     if (paddingTop != null) {
       buf.append("\"paddingTop\":\"");
-      buf.append(paddingTop);
+      buf.append(paddingTop.serialize());
       buf.append("\",");
     }
     if (paddingBottom != null) {
       buf.append("\"paddingBottom\":\"");
-      buf.append(paddingBottom);
+      buf.append(paddingBottom.serialize());
       buf.append("\",");
     }
     if (padding != null) {
       buf.append("\"padding\":\"");
-      buf.append(padding);
+      buf.append(padding.serialize());
       buf.append("\",");
     }
     if (backgroundImage != null) {

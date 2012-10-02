@@ -96,7 +96,7 @@ public class DatePickerRenderer extends LinkRenderer {
 
      // fixme: should work automatically from the layout manager
     final Measure width = getResourceManager().getThemeMeasure(facesContext, calendar, "minimumWidth");
-    layoutOfBox.setColumns(width.toString());
+    layoutOfBox.setColumns(width.serialize());
 
     // add time input
     final UIPanel timePanel = (UIPanel) CreateComponentUtils.createComponent(

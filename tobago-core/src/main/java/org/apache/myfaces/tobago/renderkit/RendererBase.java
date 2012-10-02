@@ -24,6 +24,7 @@ import org.apache.myfaces.tobago.config.Configurable;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.ResourceManager;
 import org.apache.myfaces.tobago.internal.context.ResourceManagerFactory;
+import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -123,6 +124,9 @@ public class RendererBase extends Renderer {
     if (converter == null) {
       if (currentValue instanceof String) {
         return (String) currentValue;
+      }
+      if (currentValue instanceof Measure) {
+        return ((Measure) currentValue).serialize();
       }
       Class converterType = currentValue.getClass();
       converter = context.getApplication().createConverter(converterType);

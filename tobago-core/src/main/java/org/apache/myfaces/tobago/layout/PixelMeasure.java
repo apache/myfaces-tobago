@@ -101,6 +101,11 @@ public final class PixelMeasure extends Measure {
 
   @Override
   public String toString() {
+    return serialize();
+  }
+
+  @Override
+  public String serialize() {
     return pixel + "px";
   }
 
