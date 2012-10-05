@@ -76,7 +76,7 @@ public class JsonUtils {
       encode(builder, "click", click);
     }
 
-    final Map<String,Command> other = commandMap.getOther();
+    final Map<String, Command> other = commandMap.getOther();
     if (other != null) {
       for(Map.Entry<String, Command> entry : other.entrySet()) {
         encode(builder, entry.getKey(), entry.getValue());
