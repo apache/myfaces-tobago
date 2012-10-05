@@ -27,17 +27,15 @@ package org.apache.myfaces.tobago.renderkit.html;
 public final class DataAttributes {
 
   /**
-   * Custom action attribute. .
-   */
-  public static final String ACTION = "data-tobago-action";
-
-  public static final String ROWACTION = "data-tobago-rowaction";
-
-  /**
    * Custom command attribute. Is used to mark different client side JavaScript buttons.
    * Should only contain the command name as a keyword, for security reasons.
    */
   public static final String COMMAND = "data-tobago-command";
+
+  /**
+   * The list of commands attached to an element.
+   */
+  public static final String COMMANDS = "data-tobago-commands";
 
   /**
    * Reference to the corresponding date input field. Used for date picker popups.
@@ -64,6 +62,8 @@ public final class DataAttributes {
    */
   public static final String DEFAULT = "data-tobago-default";
 
+  public static final String DELAY = "data-tobago-delay";
+
   public static final String FOR = "data-tobago-for";
 
   /**
@@ -86,6 +86,8 @@ public final class DataAttributes {
    */
   public static final String MONTHNAMES = "data-tobago-monthnames";
 
+  public static final String PARTIALLY = "data-tobago-partially";
+
   /**
    * Custom attribute to describe a pattern, e. g. for an date input field.
    */
@@ -96,16 +98,12 @@ public final class DataAttributes {
    */
   public static final String RELOAD = "data-tobago-reload";
 
+  public static final String ROWACTION = "data-tobago-rowaction";
+
   /**
    * Custom suggest attribute. Used for input suggest.
    */
   public static final String SUGGEST = "data-tobago-suggest";
-
-  public static final String TRANSITION = "data-tobago-transition";
-
-  public static final String PARTIALLY = "data-tobago-partially";
-
-  public static final String DELAY = "data-tobago-delay";
 
   public static final String SELECTIONMODE = "data-tobago-selectionmode";
 
@@ -143,6 +141,8 @@ public final class DataAttributes {
    * A way to transport style data in JSON format to the browser. With CSP the normal style attribute isn't allowed.
    */
   public static final String STYLE = "data-tobago-style";
+
+  public static final String TRANSITION = "data-tobago-transition";
 
   /**
    * Id of the parent node in a tree node.

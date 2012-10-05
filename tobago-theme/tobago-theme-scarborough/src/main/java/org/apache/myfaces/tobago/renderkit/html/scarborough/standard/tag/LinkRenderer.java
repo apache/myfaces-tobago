@@ -79,12 +79,12 @@ public class LinkRenderer extends CommandRendererBase {
           = HtmlRendererUtils.getComponentIdsAsList(facesContext, link, link.getRenderedPartially());
       final Popup popup = Popup.createPopup(link);
       final Command click = new Command(
-          link.isTransition(), link.getTarget(), url, partialIds, null, confirmation, null, popup);
+          null, link.isTransition(), link.getTarget(), url, partialIds, null, confirmation, null, popup);
       if (link.getOnclick() != null) {
         click.setScript(link.getOnclick());
       }
       map.setClick(click);
-      writer.writeAttribute(DataAttributes.ACTION, JsonUtils.encode(map), true);
+      writer.writeAttribute(DataAttributes.COMMANDS, JsonUtils.encode(map), true);
 
       writer.writeAttribute(HtmlAttributes.HREF, "#", false);
 

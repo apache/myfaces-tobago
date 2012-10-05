@@ -82,12 +82,12 @@ public class ButtonRenderer extends CommandRendererBase {
           = HtmlRendererUtils.getComponentIdsAsList(facesContext, button, button.getRenderedPartially());
       final Popup popup = Popup.createPopup(button);
       final Command click = new Command(
-          button.isTransition(), button.getTarget(), url, partialIds, null, confirmation, null, popup);
+          null, button.isTransition(), button.getTarget(), url, partialIds, null, confirmation, null, popup);
       if (button.getOnclick() != null) {
         click.setScript(button.getOnclick());
       }
       map.setClick(click);
-      writer.writeAttribute(DataAttributes.ACTION, JsonUtils.encode(map), true);
+      writer.writeAttribute(DataAttributes.COMMANDS, JsonUtils.encode(map), true);
 
       writer.writeAttribute(HtmlAttributes.HREF, "#", false);
 

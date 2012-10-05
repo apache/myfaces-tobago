@@ -19,12 +19,28 @@
 
 package org.apache.myfaces.tobago.renderkit.html;
 
+import org.apache.commons.lang.StringUtils;
+import org.apache.myfaces.tobago.component.Attributes;
+import org.apache.myfaces.tobago.component.UICommand;
+import org.apache.myfaces.tobago.component.UIForm;
+import org.apache.myfaces.tobago.internal.component.AbstractUICommand;
+import org.apache.myfaces.tobago.internal.util.Deprecation;
+import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
+import org.apache.myfaces.tobago.util.ComponentUtils;
+
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+
 /**
  * @since 1.6.0
  */
 // XXX work in progress
 public class Command {
 
+  /**
+   * The action is only needed if the action is not the HTML element itself.
+   */
+  private String action;
   private Boolean transition;
   private String target;
   private String url;
@@ -40,8 +56,9 @@ public class Command {
   private String script;
 
   public Command(
-      Boolean transition, String target, String url, String[] partially, String focus, String confirmation,
-      Integer delay, Popup popup) {
+      String action, Boolean transition, String target, String url, String[] partially, String focus,
+      String confirmation, Integer delay, Popup popup) {
+    this.action = action;
     this.transition = transition;
     this.target = target;
     this.url = url;
@@ -50,6 +67,53 @@ public class Command {
     this.confirmation = confirmation;
     this.delay = delay;
     this.popup = popup;
+  }
+
+  public Command(FacesContext facesContext, UIComponent facetComponent, String focusId) {
+    if (facetComponent instanceof UIForm && facetComponent.getChildCount() == 1) {
+      Deprecation.LOG.warn("Please don't use a form, but a command with immediate=true instead.");
+      facetComponent = (UIComponent) facetComponent.getChildren().get(0);
+    }
+    this.action = facetComponent.getClientId(facesContext);
+    // transition == true is the default
+    if (!ComponentUtils.getBooleanAttribute(facetComponent, Attributes.TRANSITION)) {
+      this.transition = Boolean.FALSE;
+    }
+    String target = ComponentUtils.getStringAttribute(facetComponent, Attributes.TARGET);
+    if (target != null) {
+      this.target = target;
+    }
+    if (facetComponent instanceof AbstractUICommand
+        && ((AbstractUICommand) facetComponent).getRenderedPartially().length > 0) {
+      this.partially = HtmlRendererUtils.getComponentIdsAsList(
+          facesContext, facetComponent, ((UICommand) facetComponent).getRenderedPartially());
+    } else {
+      // XXX Why onclick, or should I ask, why only onclick?
+      String facetAction = (String) facetComponent.getAttributes().get(Attributes.ONCLICK);
+      if (facetAction != null) {
+        // Replace @autoId
+        facetAction = StringUtils.replace(facetAction, "@autoId", facetComponent.getClientId(facesContext));
+        // XXX this case is deprecated.
+        // not allowed with Content Security Policy (CSP)
+        this.script = facetAction;
+      }
+      if (focusId != null) {
+        this.focus = focusId;
+      }
+    }
+
+    int delay = ComponentUtils.getIntAttribute(facetComponent, Attributes.DELAY);
+    if (delay > 0) {
+      this.delay = delay;
+    }
+  }
+
+  public String getAction() {
+    return action;
+  }
+
+  public void setAction(String action) {
+    this.action = action;
   }
 
   public Boolean getTransition() {

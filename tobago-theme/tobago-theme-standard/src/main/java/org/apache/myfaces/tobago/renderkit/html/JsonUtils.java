@@ -19,6 +19,8 @@
 
 package org.apache.myfaces.tobago.renderkit.html;
 
+import java.util.Map;
+
 public class JsonUtils {
 
   private JsonUtils() {
@@ -74,6 +76,13 @@ public class JsonUtils {
       encode(builder, "click", click);
     }
 
+    final Map<String,Command> other = commandMap.getOther();
+    if (other != null) {
+      for(Map.Entry<String, Command> entry : other.entrySet()) {
+        encode(builder, entry.getKey(), entry.getValue());
+      }
+    }
+
     if (builder.length() - initialLength > 0) {
       assert builder.charAt(builder.length() - 1) == ',';
       builder.deleteCharAt(builder.length() - 1);
@@ -89,6 +98,10 @@ public class JsonUtils {
     builder.append("\":{");
     int initialLength = builder.length();
 
+    String action = command.getAction();
+    if (action != null) {
+      encode(builder, "action", action);
+    }
     Boolean transition = command.getTransition();
     if (transition != null && !transition) { // true is the default, so encoding is needed.
       encode(builder, "transition", transition);

@@ -19,13 +19,20 @@
 
 package org.apache.myfaces.tobago.renderkit.html;
 
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+
 /**
+ * Map of commands to be send to the user agent.
+ * It contains the command which shall be executed by click or other events.
+ *
  * @since 1.6.0
  */
-// XXX work in progress
 public class CommandMap {
 
   private Command click;
+  private Map<String, Command> other;
 
   public CommandMap() {
   }
@@ -36,5 +43,24 @@ public class CommandMap {
 
   public Command getClick() {
     return click;
+  }
+
+  public void addCommand(String name, Command command) {
+    if (name.equals("click")) {
+      setClick(command);
+    } else {
+      if (other == null) {
+        other = new HashMap<String, Command>();
+      }
+      other.put(name, command);
+    }
+  }
+
+  public Map<String, Command> getOther() {
+    if (other != null) {
+      return Collections.unmodifiableMap(other);
+    } else {
+      return null;
+    }
   }
 }

@@ -991,11 +991,11 @@ var Tobago = {
     });
 
     // commands
-    var commandButtons = Tobago.Utils.selectWidthJQuery(elements, '[data-tobago-action]');
+    var commandButtons = Tobago.Utils.selectWidthJQuery(elements, '[data-tobago-commands]');
     commandButtons.each(function () {
       // setupInputFacetCommand
       var command = jQuery(this);
-      var commands = command.data("tobago-action");
+      var commands = command.data("tobago-commands");
 
       if (commands.click) {
         command.click(function() {
@@ -1007,12 +1007,12 @@ var Tobago = {
               if (popup && popup.command == "close") {
                 Tobago.Popup.unlockBehind();
               }
-              var actionId = commands.click.actionId ? commands.click.actionId : jQuery(this).attr("id");
+              var action = commands.click.action ? commands.click.action : jQuery(this).attr("id");
               if (commands.click.partially) {
                 if (popup && popup.command == "open") {
-                  Tobago.Popup.openWithAction(this, commands.click.partially, actionId);
+                  Tobago.Popup.openWithAction(this, commands.click.partially, action);
                 } else {
-                  Tobago.reloadComponent(this, commands.click.partially, actionId, commands.click);
+                  Tobago.reloadComponent(this, commands.click.partially, action, commands.click);
                 }
               } else if (commands.click.url) {
                 Tobago.navigateToUrl(commands.click.url);
@@ -1020,7 +1020,7 @@ var Tobago = {
                 // not allowed with Content Security Policy (CSP)
                   eval(commands.click.script);
               } else {
-                Tobago.submitAction(this, actionId, commands.click);
+                Tobago.submitAction(this, action, commands.click);
               }
               if (popup && popup.command == "close") {
                 Tobago.Popup.close();
@@ -1032,22 +1032,22 @@ var Tobago = {
       if (commands.change) {
         command.change(function() {
           if (commands.change.partially) {
-            Tobago.reloadComponent(this, commands.change.partially, commands.change.actionId, commands.change);
+            Tobago.reloadComponent(this, commands.change.partially, commands.change.action, commands.change);
           } else {
-            Tobago.submitAction(this, commands.change.actionId, commands.change);
+            Tobago.submitAction(this, commands.change.action, commands.change);
           }
         });
       }
       if (commands.complete) {
         if (commands.complete.partially) {
-          Tobago.reloadComponent(this, commands.complete.partially, commands.complete.actionId, commands.complete);
+          Tobago.reloadComponent(this, commands.complete.partially, commands.complete.action, commands.complete);
         } else {
-          Tobago.submitAction(this, commands.complete.actionId, commands.complete);
+          Tobago.submitAction(this, commands.complete.action, commands.complete);
         }
       }
       if (commands.resize) {
         Tobago.resizeAction = function() {
-          Tobago.submitAction(this, commands.resize.actionId, commands.resize);
+          Tobago.submitAction(this, commands.resize.action, commands.resize);
         }
       }
       if (commands.action) {
@@ -1055,7 +1055,7 @@ var Tobago = {
         if (commands.action.delay) {
           delay = commands.action.delay;
         }
-        setTimeout(Tobago.submitAction(this, commands.action.actionId, commands.action), delay);
+        setTimeout(Tobago.submitAction(this, commands.action.action, commands.action), delay);
       }
     });
 
