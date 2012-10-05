@@ -21,10 +21,12 @@
  */
 
 @errorColor: #FF0000;
-@borderColor: #999;
+@borderColor: #999999;
 @textColor: #000000;
 @textColor2: #660000;
 @disabledTextColor: #808080;
+@disabledBackgroundColor: #E8E8E8;
+@readonlyBackgroundColor: #E8E8E8;
 @focusColor: lighten(blue, 10%);
 @boldFont: bold 12px arial, helvetica, sans-serif;
 @font: 12px arial, helvetica, sans-serif;
@@ -215,12 +217,12 @@
 }
 
 .tobago-date-markup-readonly {
-  background-color: #E8E8E8;
+  background-color: @readonlyBackgroundColor;
 }
 
 .tobago-date-markup-disabled {
   color: @disabledTextColor;
-  background-color: #E8E8E8;
+  background-color: @disabledBackgroundColor;
 }
 
 .tobago-date-markup-error, .tobago-date-markup-fatal {
@@ -246,12 +248,12 @@
 }
 
 .tobago-file-pretty-markup-readonly {
-  background-color: #E8E8E8;
+  background-color: @readonlyBackgroundColor;
 }
 
 .tobago-file-pretty-markup-disabled {
   color: @disabledTextColor;
-  background-color: #E8E8E8;
+  background-color: @disabledBackgroundColor;
 }
 
 .tobago-file-pretty-markup-warn {
@@ -283,12 +285,12 @@
 }
 
 .tobago-in-markup-readonly {
-  background-color: #E8E8E8;
+  background-color: @readonlyBackgroundColor;
 }
 
 .tobago-in-markup-disabled {
   color: @disabledTextColor;
-  background-color: #E8E8E8;
+  background-color: @disabledBackgroundColor;
 }
 
 .tobago-in-markup-error, .tobago-in-markup-fatal {
@@ -473,12 +475,16 @@ li.tobago-menu-markup-selected {
 }
 
 .tobago-selectManyListbox-markup-disabled {
-  background-color: #E8E8E8;
+  background-color: @disabledBackgroundColor;
   color: @disabledTextColor;
 }
 
 .tobago-selectManyListbox-markup-readonly {
-  background-color: #E8E8E8;
+  background-color: @readonlyBackgroundColor;
+}
+
+.tobago-selectManyListbox-markup-error {
+  border-color: @errorColor;
 }
 
 /* selectManyShuttle ------------------------------------------------------- */
@@ -489,12 +495,12 @@ li.tobago-menu-markup-selected {
 }
 
 .tobago-selectManyShuttle-markup-disabled {
-  background-color: #E8E8E8;
+  background-color: @disabledBackgroundColor;
   color: @disabledTextColor;
 }
 
 .tobago-selectManyShuttle-markup-readonly {
-  background-color: #E8E8E8;
+  background-color: @readonlyBackgroundColor;
 }
 
 .tobago-selectManyShuttle-unselected {
@@ -529,8 +535,17 @@ li.tobago-menu-markup-selected {
   .border-radius;
 }
 
-tobago-selectOneChoice-markup-readonly {
-  background-color: #E8E8E8;
+.tobago-selectOneChoice-markup-disabled {
+  background-color: @disabledBackgroundColor;
+  color: @disabledTextColor;
+}
+
+.tobago-selectOneChoice-markup-readonly {
+  background-color: @readonlyBackgroundColor;
+}
+
+.tobago-selectOneChoice-markup-error {
+  border-color: @errorColor;
 }
 
 /* selectOneListbox -------------------------------------------------------- */
@@ -544,12 +559,12 @@ tobago-selectOneChoice-markup-readonly {
 }
 
 .tobago-selectOneListbox-markup-disabled {
-  background-color: #E8E8E8;
+  background-color: @disabledBackgroundColor;
   color: @disabledTextColor;
 }
 
 .tobago-selectOneListbox-markup-readonly {
-  background-color: #E8E8E8;
+  background-color: @readonlyBackgroundColor;
 }
 
 .tobago-selectOneListbox-markup-error {
@@ -810,12 +825,12 @@ div.tobago-tabGroup-toolBar {
 }
 
 .tobago-textarea-markup-readonly {
-  background-color: #E8E8E8;
+  background-color: @readonlyBackgroundColor;
 }
 
 .tobago-textarea-markup-disabled {
   color: #808080;
-  background-color: #E8E8E8;
+  background-color: @disabledBackgroundColor;
 }
 
 .tobago-textarea-markup-error, .tobago-textarea-markup-fatal {
@@ -832,12 +847,12 @@ div.tobago-tabGroup-toolBar {
 }
 
 .tobago-time-borderDiv-markup-readonly {
-  background-color: #E8E8E8;
+  background-color: @readonlyBackgroundColor;
 }
 
 .tobago-time-borderDiv-markup-disabled {
   color: #808080;
-  background-color: #E8E8E8;
+  background-color: @disabledBackgroundColor;
 }
 
 .tobago-time-borderDiv-markup-error, .tobago-time-borderDiv-markup-fatal {
