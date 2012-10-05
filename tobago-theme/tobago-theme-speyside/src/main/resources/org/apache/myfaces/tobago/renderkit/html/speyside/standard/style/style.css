@@ -382,6 +382,10 @@ li.tobago-menu-markup-selected {
   background-color: #E8E8E8;
 }
 
+.tobago-selectManyListbox-markup-error {
+  border-color: #ff0000;
+}
+
 /* selectManyShuttle ------------------------------------------------------- */
 
 .tobago-selectManyShuttle {
@@ -398,7 +402,6 @@ li.tobago-menu-markup-selected {
   background-color: #E8E8E8;
 }
 
-
 /* selectOneChoice --------------------------------------------------------- */
 
 .tobago-selectOneChoice {
@@ -407,8 +410,16 @@ li.tobago-menu-markup-selected {
   color: #000000;
 }
 
-tobago-selectOneChoice-markup-readonly {
+.tobago-selectOneChoice-markup-disabled {
   background-color: #E8E8E8;
+  color: #808080;
+}
+.tobago-selectOneChoice-markup-readonly {
+  background-color: #E8E8E8;
+}
+
+.tobago-selectOneChoice-markup-error {
+  border-color: #ff0000;
 }
 
 /* selectOneListbox -------------------------------------------------------- */
