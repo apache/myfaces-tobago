@@ -52,6 +52,9 @@ public class CommandMap {
       if (other == null) {
         other = new HashMap<String, Command>();
       }
+
+      assert name.matches("[a-z]+");
+
       other.put(name, command);
     }
   }
