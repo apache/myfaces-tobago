@@ -88,7 +88,6 @@ public class Command {
       this.partially = HtmlRendererUtils.getComponentIdsAsList(
           facesContext, facetComponent, ((UICommand) facetComponent).getRenderedPartially());
     } else {
-      // XXX Why onclick, or should I ask, why only onclick?
       String facetAction = (String) facetComponent.getAttributes().get(Attributes.ONCLICK);
       if (facetAction != null) {
         // Replace @autoId
