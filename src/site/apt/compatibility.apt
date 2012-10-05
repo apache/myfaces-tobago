@@ -25,63 +25,63 @@ Compatibility
   \ 
 
 *--+--+--+--+
-| <<Tobago Version>>   | <<1.0.x>>                  | <<1.5.x-jsf-1.1>> \[no release\]            | <<1.5.x>>
+| <<Tobago Version>>   | <<1.0.x>>                  | <<1.5.x>>                                    | <<1.6.x>>
 *--+--+--+--+
-| <<Specifications>>   |                            |                                             |
+| <<Specifications>>   |                            |                                              |
 *--+--+--+--+
-| Java                 | 1.4\[retro\], <<1.5>>, 1.6 | 1.4\[retro\], <<1.5>>, 1.6                  | 1.5, 1.6, 1.7
+| Java                 | 1.4\[retro\], <<1.5>>, 1.6 | 1.5, 1.6, 1.7                                | 1.5, 1.6, 1.7
 *--+--+--+--+
-| JSF                  | <<1.1>>, 1.2               | 1.1                                         | 1.2, 2.0\[disable vh\]
+| JSF                  | <<1.1>>, 1.2               | 1.2, 2.0\[disable vh\], 2.1\[disable vh\]    | 1.2, 2.0\[disable vh\], 2.1\[disable vh\]
 *--+--+--+--+
-| Servlet              | 2.3, <<2.4>>, 2.5          | 2.3, <<2.4>>, 2.5                           | 2.4\[facelets only\], <<2.5>>, 3.0
+| Servlet              | 2.3, <<2.4>>, 2.5          | 2.4\[facelets only\], <<2.5>>, 3.0           | 2.4\[facelets only\], <<2.5>>, 3.0
 *--+--+--+--+
-| JSP                  | 1.2, <<2.0>>, 2.1          | 1.2, <<2.0>>, 2.1                           | <<2.1>>
+| JSP                  | 1.2, <<2.0>>, 2.1          | <<2.1>>                                      | <<2.1>>
 *--+--+--+--+
-| Facelets             | <<1.1>>\[ext\]             | <<1.1>>\[ext\]                              | <<1.1>>\[ext\]
+| Facelets             | <<1.1>>\[ext\]             | <<1.1>>\[ext\]                               | <<1.1>>\[ext\]
 *--+--+--+--+
-| <<Implementations>>  |                            |                                             |
+| <<Implementations>>  |                            |                                              |
 *--+--+--+--+
-| MyFaces              | <<1.1>>, 1.2               | 1.1                                         | 1.2, 2.0
+| MyFaces              | <<1.1>>, 1.2               | 1.2, 2.0, 2.1                                | 1.2, 2.0, 2.1
 *--+--+--+--+
-| Sun RI               | <<1.1>>, 1.2               | 1.1                                         | 1.2, 2.0
+| Sun RI               | <<1.1>>, 1.2               | 1.2, 2.0, 2.1                                | 1.2, 2.0, 2.1
 *--+--+--+--+
-|                      |                            |                                             |
+|                      |                            |                                              |
 *--+--+--+--+
-| <<Servers>>          |                            |                                             |
+| <<Servers>>          |                            |                                              |
 *--+--+--+--+
-| Tomcat               | 4.1, 5.0, 5.5, 6.0         | 4.1, 5.0, 5.5, 6.0, 7.0                     | 5.5\[facelets only\], 6.0, 7.0
+| Tomcat               | 4.1, 5.0, 5.5, 6.0         | 5.5\[facelets only\], 6.0, 7.0               | 5.5\[facelets only\], 6.0, 7.0
 *--+--+--+--+
-| Jetty                | 6, 7                       | 6, 7                                        | 6, 7
+| Jetty                | 6, 7                       | 6, 7, 8                                      | 6, 7, 8
 *--+--+--+--+
-| WebLogic             | 8.1, 9.0, 9.1, 9.2, 10.3   | 8.1, 9.0, 9.1, 9.2, 10.3                    | 9.2\[facelets only\], 10.3
+| WebLogic             | 8.1, 9.0, 9.1, 9.2, 10.3   | 9.2\[facelets only\], 10, 11                 | 9.2\[facelets only\], 10, 11
 *--+--+--+--+
-| WebSphere            | 6.0, 6.1                   | 6.0, 6.1                                    | 6.1\[facelets only\], 7.0
+| WebSphere            | 6.0, 6.1                   | 6.1\[facelets only\], 7, 8                   | 6.1\[facelets only\], 7, 8
 *--+--+--+--+
-| others               |                            | \[other servers\]                           | \[other servers\]
+| others               |                            | \[other servers\]                            | \[other servers\]
 *--+--+--+--+
-|                      |                            |                                             |
+|                      |                            |                                              |
 *--+--+--+--+
-| <<Browser>>          |                            |                                             |
+| <<Browser>>          |                            |                                              |
 *--+--+--+--+
-| Internet Explorer    | 6, 7, 8, 9, 10             | 6, 7, 8, 9, 10                              | 6, 7, 8, 9, 10
+| Internet Explorer    | 6, 7, 8, 9, 10             | 6, 7, 8, 9, 10                               | 6, 7, 8, 9, 10
 *--+--+--+--+
-| Firefox              | 2, 3, 3.5, 3.6, 4, ..., 10 | 2, 3, 3.5, 3.6, 4, ..., 10                  | 2, 3, 3.5, 3.6, 4, ..., 10
+| Firefox              | 2, 3, 3.5, 3.6, 4, ..., 15 | 2, 3, 3.5, 3.6, 4, ..., 15                   | 2, 3, 3.5, 3.6, 4, ..., 15
 *--+--+--+--+
-| Safari               |                            | 4, 5                                        | 4, 5
+| Safari               |                            | 4, 5, 6                                      | 4, 5, 6
 *--+--+--+--+
-| Chrome               |                            | 5, ..., 17                                  | 5, ..., 17
+| Chrome               |                            | 5, ..., 22                                   | 5, ..., 22
 *--+--+--+--+
-| Opera                |                            | 10, 11                                      | 10, 11
+| Opera                |                            | 10, 11                                       | 10, 11
 *--+--+--+--+
-| others               |                            | \[other browsers\]                          | \[other browsers\]
+| others               |                            | \[other browsers\]                           | \[other browsers\]
 *--+--+--+--+
-|                      |                            |                                             |
+|                      |                            |                                              |
 *--+--+--+--+
-| <<Frameworks>>       |                            |                                             |
+| <<Frameworks>>       |                            |                                              |
 *--+--+--+--+
-| CDI / Codi           |                            |                                             | yes
+| CDI / Codi           |                            | yes                                          | yes
 *--+--+--+--+
-| JSR-303 / BV         |                            |                                             | yes
+| JSR-303 / BV         |                            | yes                                          | yes
 *--+--+--+--+
 
  ~~ JSF Addon-Frameworks: Apache Shale Dialog, Apache Shale Clay, Spring Web Flow, Seam, WebBeans, "Validator", ...
