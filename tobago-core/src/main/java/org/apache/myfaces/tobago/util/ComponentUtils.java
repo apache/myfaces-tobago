@@ -90,6 +90,8 @@ public class ComponentUtils {
   public static final String LIST_SEPARATOR_CHARS = ", ";
 
   /**
+   * PRELIMINARY - SUBJECT TO CHANGE
+   *
    * Name of the map for data attributes in components. New in JSF 2.2.
    * @since 1.6.0
    */
@@ -1017,6 +1019,8 @@ public class ComponentUtils {
   }
 
   /**
+   * PRELIMINARY - SUBJECT TO CHANGE
+   *
    * Adding a data attribute to the component.
    * The name must start with "data-", e. g. "data-tobago-foo" or "data-bar"
    */
@@ -1029,6 +1033,8 @@ public class ComponentUtils {
   }
 
   /**
+   * PRELIMINARY - SUBJECT TO CHANGE
+   *
    * Adding a data attribute to the component.
    * The name should not start with "data-", e. g. "tobago-foo" or "bar"
    */

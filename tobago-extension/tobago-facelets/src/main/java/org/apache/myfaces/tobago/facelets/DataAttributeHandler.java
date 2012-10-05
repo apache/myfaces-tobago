@@ -32,6 +32,9 @@ import javax.el.ELException;
 import javax.faces.FacesException;
 import javax.faces.component.UIComponent;
 
+/**
+  * PRELIMINARY - SUBJECT TO CHANGE
+ */
 public final class DataAttributeHandler extends TagHandler {
 
   private final TagAttribute name;

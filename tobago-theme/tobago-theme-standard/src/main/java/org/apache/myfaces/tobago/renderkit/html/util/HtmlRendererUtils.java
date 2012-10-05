@@ -719,6 +719,9 @@ public final class HtmlRendererUtils {
       FacesContextUtils.addMenuAcceleratorScript(facesContext, jsStatement);
     }
 
+  /**
+   * PRELIMINARY - SUBJECT TO CHANGE
+   */
   public static void writeDataAttributes(
       FacesContext context, TobagoResponseWriter writer, UIComponent component)
       throws IOException {
