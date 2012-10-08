@@ -753,7 +753,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
       }
       tip += ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", "sheetTipSorting");
 
-      markup.add(Markup.SORTABLE);
+      markup = markup.add(Markup.SORTABLE);
 
       SheetState sheetState = sheet.getSheetState(facesContext);
       if (column.getId().equals(sheetState.getSortedColumnId())) {
@@ -761,11 +761,11 @@ public class SheetRenderer extends LayoutComponentRendererBase {
         if (sheetState.isAscending()) {
           sorterImage = contextPath + resourceManager.getImage(facesContext, "image/ascending.gif");
           sortTitle = ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", "sheetAscending");
-          markup.add(Markup.ASCENDING);
+          markup = markup.add(Markup.ASCENDING);
         } else {
           sorterImage = contextPath + resourceManager.getImage(facesContext, "image/descending.gif");
           sortTitle = ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", "sheetDescending");
-          markup.add(Markup.DESCENDING);
+          markup = markup.add(Markup.DESCENDING);
         }
         if (sortTitle != null) {
           tip += " - " + sortTitle;

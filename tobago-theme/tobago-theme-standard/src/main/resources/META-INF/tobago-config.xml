@@ -245,6 +245,9 @@
             <markup>disabled</markup>
             <!-- internal: for the header -->
             <markup>resizable</markup>
+            <markup>sortable</markup>
+            <markup>ascending</markup>
+            <markup>descending</markup>
             <!-- for the rows -->
             <markup>odd</markup>
             <markup>even</markup>
