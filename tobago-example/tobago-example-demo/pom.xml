@@ -28,7 +28,7 @@
   <description>Demonstration and documentation application.</description>
 
   <properties>
-    <openwebbeans.version>1.1.4</openwebbeans.version>
+    <openwebbeans.version>1.1.6</openwebbeans.version>
     <myfaces-extcdi.version>1.0.5</myfaces-extcdi.version>
   </properties>
   <build>
