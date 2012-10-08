@@ -186,6 +186,10 @@ public final class Markup implements Serializable, Iterable<String> {
     return EmptyIterator.INSTANCE;
   }
 
+  /**
+   * Adds one markup to an other.
+   * Attention: The markup itself is not modified, you need to use the result of this operation.
+   */
   public Markup add(Markup markup) {
     if (markup == null) {
       return this;
