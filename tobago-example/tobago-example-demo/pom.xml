@@ -157,20 +157,16 @@
       <version>${myfaces-extcdi.version}</version>
       <scope>compile</scope>
     </dependency>
-
     <dependency>
       <groupId>org.apache.myfaces.extensions.cdi.core</groupId>
       <artifactId>myfaces-extcdi-core-impl</artifactId>
       <version>${myfaces-extcdi.version}</version>
       <scope>runtime</scope>
     </dependency>
-
-<!-- which repository-->
     <dependency>
-      <groupId>org.apacheExtras.myfaces.codi.addon</groupId>
-      <artifactId>controlled-owb-bootstrapping-addon</artifactId>
-      <version>1.0.0</version>
-      <scope>compile</scope>
+      <groupId>org.apache.myfaces.extensions.cdi.modules.jee5-support</groupId>
+      <artifactId>myfaces-extcdi-jee5-openwebbeans-support</artifactId>
+      <version>${myfaces-extcdi.version}</version>
     </dependency>
 
     <dependency>
@@ -299,17 +295,6 @@
     </dependency>
 
   </dependencies>
-
-  <!-- XXX repo für the controlled bootstrapping -->
-  <repositories>
-    <repository>
-      <id>googlecode.com</id>
-      <url>https://os890-m2-repository.googlecode.com/svn/tags/apache-extras</url>
-      <snapshots>
-        <enabled>false</enabled>
-      </snapshots>
-    </repository>
-  </repositories>
 
   <profiles>
 
