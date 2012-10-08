@@ -77,9 +77,9 @@ public interface ColumnTagDeclaration
   /**
    * The layout token for this column.
    * Allowd layout tokens ('*', '&lt;x>*', '&lt;x>px' or '&lt;x>%').
-   * Where '*' is equvalent to '1*'.
+   * Where '*' is equivalent to '1*'.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = "java.lang.String")
+  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
   void setWidth(String width);
 }

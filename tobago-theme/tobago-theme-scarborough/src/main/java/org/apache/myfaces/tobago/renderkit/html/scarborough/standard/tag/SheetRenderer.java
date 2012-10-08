@@ -20,6 +20,7 @@
 package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.myfaces.tobago.component.Attributes;
+import org.apache.myfaces.tobago.component.ComponentTypes;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.SupportsMarkup;
@@ -38,9 +39,15 @@ import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.ResourceManager;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.event.PageAction;
+import org.apache.myfaces.tobago.internal.component.AbstractUIColumn;
 import org.apache.myfaces.tobago.internal.component.AbstractUIColumnNode;
 import org.apache.myfaces.tobago.internal.component.AbstractUIData;
+import org.apache.myfaces.tobago.internal.component.AbstractUIOut;
+import org.apache.myfaces.tobago.internal.component.AbstractUISheet;
 import org.apache.myfaces.tobago.internal.context.ResourceManagerFactory;
+import org.apache.myfaces.tobago.internal.layout.Cell;
+import org.apache.myfaces.tobago.internal.layout.Grid;
+import org.apache.myfaces.tobago.internal.layout.OriginCell;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.layout.Display;
 import org.apache.myfaces.tobago.layout.LayoutBase;
@@ -49,12 +56,14 @@ import org.apache.myfaces.tobago.layout.TextAlign;
 import org.apache.myfaces.tobago.model.SheetState;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
-import org.apache.myfaces.tobago.renderkit.css.Position;
 import org.apache.myfaces.tobago.renderkit.css.Style;
+import org.apache.myfaces.tobago.renderkit.html.Command;
+import org.apache.myfaces.tobago.renderkit.html.CommandMap;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
+import org.apache.myfaces.tobago.renderkit.html.JsonUtils;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -87,6 +96,31 @@ public class SheetRenderer extends LayoutComponentRendererBase {
 
   private static final Integer HEIGHT_0 = 0;
 
+  @Override
+  public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
+    super.prepareRender(facesContext, component);
+    ensureHeader(facesContext, (UISheet) component);
+  }
+
+  private void ensureHeader(FacesContext facesContext, UISheet sheet) {
+    UIComponent header = sheet.getHeader();
+    if (header == null) {
+      header = CreateComponentUtils.createComponent(facesContext, ComponentTypes.PANEL, null, "_header");
+// XXX ??? what about input, etc.?
+//      header.setTransient(true);
+      final List<AbstractUIColumn> columns = sheet.getAllColumns();
+      int i = 0;
+      for (AbstractUIColumn column : columns) {
+        final AbstractUIOut out = (AbstractUIOut) CreateComponentUtils.createComponent(
+            facesContext, ComponentTypes.OUT, RendererTypes.OUT, "_col" + i);
+//        out.setValue(column.getLabel());
+        out.setValue(column.getAttributes().get(Attributes.LABEL));
+        header.getChildren().add(out);
+          i++;
+      }
+      sheet.setHeader(header);
+    }
+  }
 
   @Override
   public void encodeEnd(FacesContext facesContext, UIComponent uiComponent) throws IOException {
@@ -127,10 +161,10 @@ public class SheetRenderer extends LayoutComponentRendererBase {
 
   private void renderSheet(FacesContext facesContext, UISheet sheet, boolean hasClickAction, Style style)
       throws IOException {
-    TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
-    ResourceManager resourceManager = ResourceManagerFactory.getResourceManager(facesContext);
-    String contextPath = facesContext.getExternalContext().getRequestContextPath();
-    String sheetId = sheet.getClientId(facesContext);
+    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final ResourceManager resourceManager = ResourceManagerFactory.getResourceManager(facesContext);
+    final String contextPath = facesContext.getExternalContext().getRequestContextPath();
+    final String sheetId = sheet.getClientId(facesContext);
 
     Measure sheetHeight;
     if (style.getHeight() == null) {
@@ -140,16 +174,16 @@ public class SheetRenderer extends LayoutComponentRendererBase {
     } else {
       sheetHeight = style.getHeight();
     }
-    Measure footerHeight = getFooterHeight(facesContext, sheet);
-    Measure headerHeight = getHeaderHeight(facesContext, sheet);
-    String selectable = sheet.getSelectable();
+    final Measure footerHeight = getFooterHeight(facesContext, sheet);
+    final Measure headerHeight = getHeaderHeight(facesContext, sheet);
+    final String selectable = sheet.getSelectable();
 
-    Application application = facesContext.getApplication();
-    SheetState state = sheet.getSheetState(facesContext);
-    List<Integer> columnWidths = sheet.getWidthList();
+    final Application application = facesContext.getApplication();
+    final SheetState state = sheet.getSheetState(facesContext);
+    final List<Integer> columnWidths = sheet.getWidthList();
 
     final List<Integer> selectedRows = getSelectedRows(sheet, state);
-    final List<UIColumn> renderedColumnList = sheet.getRenderedColumns();
+    final List<AbstractUIColumn> renderedColumnList = sheet.getRenderedColumns();
 
     writer.startElement(HtmlElements.INPUT, null);
     writer.writeIdAttribute(sheetId + WIDTHS_POSTFIX);
@@ -199,7 +233,9 @@ public class SheetRenderer extends LayoutComponentRendererBase {
 
 // BEGIN RENDER BODY CONTENT
     Style bodyStyle = new Style();
+/*
     bodyStyle.setPosition(Position.RELATIVE);
+*/
     Measure tableBodyWidth = sheet.getCurrentWidth().subtractNotNegative(getContentBorder(facesContext, sheet));
     bodyStyle.setWidth(tableBodyWidth);
     if (sheet.isPagingVisible()) {
@@ -213,13 +249,18 @@ public class SheetRenderer extends LayoutComponentRendererBase {
     }
     bodyStyle.setHeight(sheetHeight);
 
+    if (showHeader) {
+      renderColumnHeaders(
+          facesContext, sheet, writer, resourceManager, contextPath, sheetId, renderedColumnList, tableBodyWidth);
+    }
+
     writer.startElement(HtmlElements.DIV, null);
     writer.writeIdAttribute(sheetId + ComponentUtils.SUB_SEPARATOR + "data_div");
     writer.writeClassAttribute(Classes.create(sheet, "body"));
 
-    if (!showHeader || ie6SelectOneFix) {
-      bodyStyle.setPaddingTop(Measure.ZERO);
-    }
+/*
+    bodyStyle.setPaddingTop(ie6SelectOneFix ? Measure.ZERO : headerHeight);
+*/
 
     writer.writeStyleAttribute(bodyStyle);
     bodyStyle.setHeight(null);
@@ -235,8 +276,8 @@ public class SheetRenderer extends LayoutComponentRendererBase {
     sheetBodyStyle.setWidth(tableBodyWidth);
 
     writer.startElement(HtmlElements.TABLE, null);
-    writer.writeAttribute(HtmlAttributes.CELLSPACING, 0);
-    writer.writeAttribute(HtmlAttributes.CELLPADDING, 0);
+    writer.writeAttribute(HtmlAttributes.CELLSPACING, "0", false);
+    writer.writeAttribute(HtmlAttributes.CELLPADDING, "0", false);
     writer.writeAttribute(HtmlAttributes.SUMMARY, "", false);
     writer.writeClassAttribute(Classes.create(sheet, "bodyTable"));
     writer.writeStyleAttribute(sheetBodyStyle);
@@ -401,11 +442,6 @@ public class SheetRenderer extends LayoutComponentRendererBase {
     writer.endElement(HtmlElements.DIV);
 
 // END RENDER BODY CONTENT
-
-    if (showHeader) {
-      renderColumnHeaders(
-          facesContext, sheet, writer, resourceManager, contextPath, sheetId, renderedColumnList, tableBodyWidth);
-    }
 
     if (sheet.isPagingVisible()) {
       Style footerStyle = new Style();
@@ -576,8 +612,9 @@ public class SheetRenderer extends LayoutComponentRendererBase {
   }
 
   private Measure getHeaderHeight(FacesContext facesContext, UISheet sheet) {
+    int rows = sheet.getHeaderGrid().getRowCount();
     return sheet.isShowHeader()
-        ? getResourceManager().getThemeMeasure(facesContext, sheet, "headerHeight")
+        ? getResourceManager().getThemeMeasure(facesContext, sheet, "headerHeight").multiply(rows)
         : Measure.ZERO;
   }
 
@@ -663,146 +700,166 @@ public class SheetRenderer extends LayoutComponentRendererBase {
     writer.endElement(HtmlElements.IMG);
   }
 
+  // TODO sheet.getColumnLayout() liefert ggf. eine falsche Anzahl von Spalten
+  // TODO
+  // TODO
+
   private void renderColumnHeaders(
       FacesContext facesContext, UISheet sheet, TobagoResponseWriter writer, ResourceManager resourceManager,
-      String contextPath, String sheetId, List<UIColumn> renderedColumnList, Measure headerWidth) throws IOException {
-    // begin rendering header
-    writer.startElement(HtmlElements.DIV, null);
-    writer.writeIdAttribute(sheetId + ComponentUtils.SUB_SEPARATOR + "header_div");
+      String contextPath, String sheetId, List<AbstractUIColumn> renderedColumnList, Measure headerWidth)
+      throws IOException {
+
+    final Grid grid = sheet.getHeaderGrid();
+    final List<Integer> widthList = sheet.getWidthList();
+
+    LOG.info("*****************************************************");
+    LOG.info("" + grid);
+    LOG.info("*****************************************************");
+
+    writer.startElement(HtmlElements.DIV, sheet);
     writer.writeClassAttribute(Classes.create(sheet, "headerDiv"));
-    Style style = new Style();
-    style.setWidth(headerWidth);
-    writer.writeStyleAttribute(style);
+    writer.startElement(HtmlElements.TABLE, sheet);
+    writer.writeAttribute(HtmlAttributes.CELLSPACING, "0", false);
+    writer.writeAttribute(HtmlAttributes.CELLPADDING, "0", false);
+    writer.writeAttribute(HtmlAttributes.SUMMARY, "", false);
+    writer.writeClassAttribute(Classes.create(sheet, "headerTable"));
 
-    int columnCount = 0;
-    for (UIColumn column : renderedColumnList) {
-      renderColumnHeader(facesContext, writer, sheet, columnCount, column, resourceManager, contextPath);
-      columnCount++;
+    writer.startElement(HtmlElements.COLGROUP, null);
+    for (int j = 0; j < grid.getColumnCount(); j++) {
+      writer.startElement(HtmlElements.COL, sheet);
+      writer.writeAttribute(HtmlAttributes.WIDTH, Integer.toString(widthList.get(j)), false);
+      writer.endElement(HtmlElements.COL);
     }
-    writer.startElement(HtmlElements.SPAN, null);
-    writer.writeIdAttribute(sheetId + ComponentUtils.SUB_SEPARATOR + "header_box_filler");
-    writer.writeClassAttribute(Classes.create(sheet, "header"));
-    writer.writeStyleAttribute("width:0px");
+    // add a filler column
+    writer.startElement(HtmlElements.COL, null);
+    writer.writeAttribute(HtmlAttributes.WIDTH, "0", false);
+    writer.endElement(HtmlElements.COL);
+    writer.endElement(HtmlElements.COLGROUP);
 
-    writer.endElement(HtmlElements.SPAN);
+    writer.startElement(HtmlElements.TBODY, sheet);
+    for (int i = 0; i < grid.getRowCount(); i++) {
+      writer.startElement(HtmlElements.TR, null);
+      for (int j = 0; j < grid.getColumnCount(); j++) {
+        final Cell cell = grid.getCell(j, i);
+        if (cell instanceof OriginCell) {
+          writer.startElement(HtmlElements.TD, null);
+          if (cell.getColumnSpan() > 1) {
+            writer.writeAttribute(HtmlAttributes.COLSPAN, cell.getColumnSpan());
+          }
+          if (cell.getRowSpan() > 1) {
+            writer.writeAttribute(HtmlAttributes.ROWSPAN, cell.getRowSpan());
+          }
+
+          writer.startElement(HtmlElements.DIV, null);
+          writer.writeClassAttribute(Classes.create(sheet, "headerCell"));
+          writer.startElement(HtmlElements.SPAN, null);
+          Style headerStyle = new Style();
+          Measure headerHeight = Measure.valueOf(20).multiply(cell.getRowSpan()).subtract(6); // XXX todo
+          headerStyle.setHeight(headerHeight);
+          writer.writeStyleAttribute(headerStyle);
+          final AbstractUIColumn column = renderedColumnList.get(j);
+          String sorterImage = null;
+          Markup markup = Markup.NULL;
+          String tip = (String) column.getAttributes().get(Attributes.TIP);
+          if (cell.getColumnSpan() == 1) {
+            final boolean sortable = ComponentUtils.getBooleanAttribute(column, Attributes.SORTABLE);
+            if (sortable) {
+              UICommand sortCommand = (UICommand) column.getFacet(Facets.SORTER);
+              if (sortCommand == null) {
+                final String columnId = column.getClientId(facesContext);
+                final String sorterId = columnId.substring(columnId.lastIndexOf(":") + 1) + "_" + UISheet.SORTER_ID;
+                sortCommand = (UICommand) CreateComponentUtils.createComponent(
+                    facesContext, UICommand.COMPONENT_TYPE, RendererTypes.LINK, sorterId);
+                column.getFacets().put(Facets.SORTER, sortCommand);
+              }
+              final CommandMap map = new CommandMap();
+              final Command click = new Command(sortCommand.getClientId(facesContext),
+                  null, null, null, new String[]{sheet.getClientId(facesContext)}, null, null, null, null);
+              map.setClick(click);
+              writer.writeAttribute(DataAttributes.COMMANDS, JsonUtils.encode(map), true);
+
+              if (tip == null) {
+                tip = "";
+              } else {
+                tip += " - ";
+              }
+              tip += ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", "sheetTipSorting");
+
+              markup = markup.add(Markup.SORTABLE);
+
+              SheetState sheetState = sheet.getSheetState(facesContext);
+              if (column.getId().equals(sheetState.getSortedColumnId())) {
+                String sortTitle;
+                if (sheetState.isAscending()) {
+                  sorterImage = contextPath + resourceManager.getImage(facesContext, "image/ascending.gif");
+                  sortTitle = ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", "sheetAscending");
+                  markup = markup.add(Markup.ASCENDING);
+                } else {
+                  sorterImage = contextPath + resourceManager.getImage(facesContext, "image/descending.gif");
+                  sortTitle = ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", "sheetDescending");
+                  markup = markup.add(Markup.DESCENDING);
+                }
+                if (sortTitle != null) {
+                  tip += " - " + sortTitle;
+                }
+              }
+            }
+          }
+
+          if (j == 0) {
+            markup = markup.add(Markup.FIRST);
+          }
+          writer.writeClassAttribute(Classes.create(sheet, "header", markup));
+          writer.writeAttribute(HtmlAttributes.TITLE, tip, true);
+
+          if (column instanceof UIColumnSelector) {
+            renderColumnSelectorHeader(facesContext, writer, sheet);
+          } else {
+
+            RenderUtils.encode(facesContext, (UIComponent) cell.getComponent());
+
+          }
+
+          if (sorterImage != null) {
+            writer.startElement(HtmlElements.IMG, null);
+            writer.writeAttribute(HtmlAttributes.SRC, sorterImage, false);
+            writer.writeAttribute(HtmlAttributes.ALT, "", false);
+            writer.endElement(HtmlElements.IMG);
+          }
+
+          writer.endElement(HtmlElements.SPAN);
+          if (renderedColumnList.get(j).isResizable()) {
+            encodeResizing(writer, sheet, j + cell.getColumnSpan() - 1);
+          }
+          writer.endElement(HtmlElements.DIV);
+
+          writer.endElement(HtmlElements.TD);
+        }
+      }
+      // add a filler column
+      writer.startElement(HtmlElements.TD, null);
+      writer.writeClassAttribute(Classes.create(sheet, "headerCell", Markup.FILLER));
+      writer.startElement(HtmlElements.DIV, null);
+      writer.endElement(HtmlElements.DIV);
+      writer.endElement(HtmlElements.TD);
+
+      writer.endElement(HtmlElements.TR);
+    }
+    writer.endElement(HtmlElements.TBODY);
+    writer.endElement(HtmlElements.TABLE);
     writer.endElement(HtmlElements.DIV);
-    // end rendering header
   }
 
-  private void renderColumnHeader(
-      FacesContext facesContext, TobagoResponseWriter writer, UISheet sheet, int columnIndex, UIColumn column,
-      ResourceManager resourceManager, String contextPath)
-      throws IOException {
-    String sheetId = sheet.getClientId(facesContext);
-    Application application = facesContext.getApplication();
-
-    Integer divWidth = sheet.getWidthList().get(columnIndex);
-    Style divStyle = new Style();
-    divWidth = divWidth - 6; // leftBorder + leftPadding + rightPadding + rightBorder = 6, todo: use Style Constructor
-    divStyle.setWidth(Measure.valueOf(divWidth));
-    TextAlign align = TextAlign.parse((String) column.getAttributes().get(Attributes.ALIGN));
-    divStyle.setTextAlign(align);
-
+  private void encodeResizing(TobagoResponseWriter writer, AbstractUISheet sheet, int columnIndex) throws IOException {
     writer.startElement(HtmlElements.SPAN, null);
-    writer.writeIdAttribute(sheetId + ComponentUtils.SUB_SEPARATOR + "header_box_" + columnIndex);
-    writer.writeStyleAttribute(divStyle);
-    String tip = (String) column.getAttributes().get(Attributes.TIP);
-    if (tip == null) {
-      tip = "";
-    }
-
-    final UIComponent dropDownMenu = FacetUtils.getDropDownMenu(column);
-    if (dropDownMenu != null) {
-      LOG.error("Drop down menu is not implemented in sheets yet!");
-      // Todo: implement it!
-      // Todo: change description in ColumnTagDeclaration after implementing it.
-    }
-
-    Markup markup = Markup.NULL;
-
-    // sorting
-
-    String sorterImage = null;
-    boolean sortable = ComponentUtils.getBooleanAttribute(column, Attributes.SORTABLE);
-    if (sortable && !(column instanceof UIColumnSelector)) {
-      UICommand sortCommand = (UICommand) column.getFacet(Facets.SORTER);
-      if (sortCommand == null) {
-        String columnId = column.getClientId(facesContext);
-        String sorterId = columnId.substring(columnId.lastIndexOf(":") + 1) + "_" + UISheet.SORTER_ID;
-        sortCommand = (UICommand) application.createComponent(UICommand.COMPONENT_TYPE);
-        sortCommand.setRendererType(RendererTypes.LINK);
-        sortCommand.setId(sorterId);
-        column.getFacets().put(Facets.SORTER, sortCommand);
-      }
-
-      writer.writeAttribute("sorterId", sortCommand.getClientId(facesContext), false);
-
-      if (org.apache.commons.lang.StringUtils.isNotEmpty(tip)) {
-        tip += " - ";
-      }
-      tip += ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", "sheetTipSorting");
-
-      markup = markup.add(Markup.SORTABLE);
-
-      SheetState sheetState = sheet.getSheetState(facesContext);
-      if (column.getId().equals(sheetState.getSortedColumnId())) {
-        String sortTitle;
-        if (sheetState.isAscending()) {
-          sorterImage = contextPath + resourceManager.getImage(facesContext, "image/ascending.gif");
-          sortTitle = ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", "sheetAscending");
-          markup = markup.add(Markup.ASCENDING);
-        } else {
-          sorterImage = contextPath + resourceManager.getImage(facesContext, "image/descending.gif");
-          sortTitle = ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", "sheetDescending");
-          markup = markup.add(Markup.DESCENDING);
-        }
-        if (sortTitle != null) {
-          tip += " - " + sortTitle;
-        }
-      }
-    }
-    if (columnIndex == 0) {
-      markup = markup.add(Markup.FIRST);
-    }
-    writer.writeClassAttribute(Classes.create(sheet, "header", markup));
-    writer.writeAttribute(HtmlAttributes.TITLE, tip, true);
-
-    if (column instanceof UIColumnSelector) {
-      renderColumnSelectorHeader(facesContext, writer, sheet, (UIColumnSelector) column);
-    } else {
-      String label = (String) column.getAttributes().get(Attributes.LABEL);
-      if (label != null) {
-        writer.startElement(HtmlElements.SPAN, null);
-        writer.writeText(label);
-        writer.endElement(HtmlElements.SPAN);
-      }
-    }
-
-    if (sorterImage != null) {
-      writer.startElement(HtmlElements.IMG, null);
-      writer.writeAttribute(HtmlAttributes.SRC, sorterImage, false);
-      writer.writeAttribute(HtmlAttributes.ALT, "", false);
-      writer.endElement(HtmlElements.IMG);
-    }
-
+    writer.writeClassAttribute(Classes.create(sheet, "headerResize"));
+    writer.writeAttribute(DataAttributes.COLUMNINDEX, Integer.toString(columnIndex), false);
+    writer.write("&nbsp;&nbsp;"); // is needed for IE
     writer.endElement(HtmlElements.SPAN);
-
-    // resizing
-    if (ComponentUtils.getBooleanAttribute(column, Attributes.RESIZABLE)) {
-      writer.startElement(HtmlElements.SPAN, null);
-      writer.writeClassAttribute(Classes.create(sheet, "headerSpacerOuter"));
-      writer.startElement(HtmlElements.SPAN, null);
-      writer.writeIdAttribute(sheetId + ComponentUtils.SUB_SEPARATOR + "header_spacer_" + columnIndex);
-      Markup resizeMarkup = column instanceof UIColumnSelector ? Markup.NULL : Markup.RESIZABLE;
-      writer.writeClassAttribute(Classes.create(sheet, "headerSpacer", resizeMarkup));
-      writer.write("&nbsp;&nbsp;"); // is needed for IE6
-      writer.endElement(HtmlElements.SPAN);
-      writer.endElement(HtmlElements.SPAN);
-    }
   }
 
   protected void renderColumnSelectorHeader(
-      FacesContext facesContext, TobagoResponseWriter writer, UISheet sheet, UIColumnSelector column)
+      FacesContext facesContext, TobagoResponseWriter writer, UISheet sheet)
       throws IOException {
 
     final UIToolBar toolBar = createToolBar(facesContext, sheet);
@@ -973,9 +1030,9 @@ public class SheetRenderer extends LayoutComponentRendererBase {
   @Override
   public Measure getPreferredHeight(FacesContext facesContext, Configurable component) {
     final UISheet sheet = (UISheet) component;
-    Measure headerHeight = getHeaderHeight(facesContext, sheet);
-    Measure rowHeight = getRowHeight(facesContext, sheet);
-    Measure footerHeight = getFooterHeight(facesContext, sheet);
+    final Measure headerHeight = getHeaderHeight(facesContext, sheet);
+    final Measure rowHeight = getRowHeight(facesContext, sheet);
+    final Measure footerHeight = getFooterHeight(facesContext, sheet);
     int rows = sheet.getRows();
     if (rows == 0) {
       rows = sheet.getRowCount();

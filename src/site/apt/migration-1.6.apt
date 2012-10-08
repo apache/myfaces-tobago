@@ -64,3 +64,9 @@ JavaScript
   JavaScript code has been removed from the renderers.
   For data the HTML5 data attribute is used instead of directly coding it into the event handler, or using
   hidden input fields.
+
+CSS
+
+  The class <<<tobago-sheet-headerSpacerOuter>>> is renamed to <<<tobago-sheet-headerResize>>>.
+  The class <<<tobago-sheet-headerSpacer>>> is no longer needed.
+  The class <<<tobago-sheet-headerSpacer-markup-resizable>>> is no longer needed.

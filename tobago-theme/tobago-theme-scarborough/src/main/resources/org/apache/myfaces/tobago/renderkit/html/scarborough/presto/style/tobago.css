@@ -22,7 +22,7 @@
 
 /* sheet ------------------------------------------------------------------ */
 
-.tobago-sheet-headerSpacer-markup-resizable {
+.tobago-sheet-headerResize span {
   /* Opera 10.10 doesn't know col-resize */
 	cursor: e-resize;
 }

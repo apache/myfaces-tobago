@@ -27,6 +27,12 @@ package org.apache.myfaces.tobago.renderkit.html;
 public final class DataAttributes {
 
   /**
+   * The index of the column of a sheet. This index means the position of the rendered column. It can differ, if there
+   * are tc:column with rendered=false.
+   */
+  public static final String COLUMNINDEX = "data-tobago-columnindex";
+
+  /**
    * Custom command attribute. Is used to mark different client side JavaScript buttons.
    * Should only contain the command name as a keyword, for security reasons.
    */

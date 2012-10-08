@@ -54,6 +54,7 @@ public final class HtmlElements {
   public static final String SPAN = "span";
   public static final String STYLE = "style";
   public static final String TABLE = "table";
+  public static final String TBODY = "tbody";
   public static final String TD = "td";
   public static final String TEXTAREA = "textarea";
   public static final String TH = "th";

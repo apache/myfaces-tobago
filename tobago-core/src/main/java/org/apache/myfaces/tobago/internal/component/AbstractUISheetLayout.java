@@ -20,8 +20,10 @@
 package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.myfaces.tobago.component.Attributes;
+import org.apache.myfaces.tobago.internal.layout.Grid;
 import org.apache.myfaces.tobago.internal.layout.IntervalList;
 import org.apache.myfaces.tobago.internal.layout.LayoutUtils;
+import org.apache.myfaces.tobago.internal.layout.OriginCell;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.layout.AutoLayoutToken;
 import org.apache.myfaces.tobago.layout.Display;
@@ -57,6 +59,9 @@ public abstract class AbstractUISheetLayout extends AbstractUILayoutBase impleme
   private boolean verticalAuto;
 
   public void init() {
+
+    layoutHeader();
+
     for (LayoutComponent component : getLayoutContainer().getComponents()) {
       if (component instanceof LayoutContainer) {
         ((LayoutContainer) component).getLayoutManager().init();
@@ -202,7 +207,7 @@ public abstract class AbstractUISheetLayout extends AbstractUILayoutBase impleme
   private void ensureColumnWidthList(FacesContext facesContext, AbstractUISheet data) {
     List<Integer> currentWidthList = null;
     // TODO: Refactor: here be should use "getColumns()" instead of "getRenderedColumns()"
-    List<UIColumn> renderedColumns = data.getRenderedColumns();
+    List<AbstractUIColumn> renderedColumns = data.getRenderedColumns();
 
     final Map attributes = data.getAttributes();
     String widthListString = null;
@@ -215,22 +220,26 @@ public abstract class AbstractUISheetLayout extends AbstractUILayoutBase impleme
     }
 
     if (widthListString != null) {
-      currentWidthList = StringUtils.parseIntegerList(widthListString);
+      try {
+        currentWidthList = StringUtils.parseIntegerList(widthListString);
+      } catch (NumberFormatException e) {
+        LOG.warn("Unexpected value for column width list: '" + widthListString + "'");
+      }
     }
-    if (currentWidthList != null && currentWidthList.size() != renderedColumns.size()) {
+    if (currentWidthList != null && currentWidthList.size() != renderedColumns.size() + 1) {
       currentWidthList = null;
     }
 
     if (currentWidthList == null) {
       LayoutTokens tokens = data.getColumnLayout();
-      List<UIColumn> allColumns = data.getAllColumns();
+      List<AbstractUIColumn> allColumns = data.getAllColumns();
       LayoutTokens newTokens = new LayoutTokens();
       for (int i = 0; i < allColumns.size(); i++) {
-        UIColumn column = allColumns.get(i);
+        AbstractUIColumn column = allColumns.get(i);
         if (column.isRendered()) {
           if (tokens == null) {
-            if (column instanceof AbstractUIColumn && ((AbstractUIColumn) column).getWidth() != null) {
-              newTokens.addToken(LayoutTokens.parseToken(((AbstractUIColumn) column).getWidth()));
+            if (column instanceof AbstractUIColumn && column.getWidth() != null) {
+              newTokens.addToken(LayoutTokens.parseToken(column.getWidth().serialize()));
             } else {
               newTokens.addToken(RelativeLayoutToken.DEFAULT_INSTANCE);
             }
@@ -260,16 +269,15 @@ public abstract class AbstractUISheetLayout extends AbstractUILayoutBase impleme
       parseFixedWidth(layoutInfo, renderedColumns);
       layoutInfo.parseColumnLayout(space.getPixel());
       currentWidthList = layoutInfo.getSpaceList();
+      currentWidthList.add(0); // empty filler column
     }
 
-    if (currentWidthList != null) {
-      if (renderedColumns.size() != currentWidthList.size()) {
-        LOG.warn("widthList.size() = " + currentWidthList.size()
-            + " != columns.size() = " + renderedColumns.size() + "  widthList : "
-            + LayoutInfo.listToTokenString(currentWidthList));
-      } else {
-        data.setWidthList(currentWidthList);
-      }
+    if (renderedColumns.size() + 1 != currentWidthList.size()) {
+      LOG.warn("widthList.size() = " + currentWidthList.size()
+          + " != columns.size() = " + renderedColumns.size() + " + 1. The widthList: "
+          + LayoutInfo.listToTokenString(currentWidthList));
+    } else {
+      data.setWidthList(currentWidthList);
     }
   }
 
@@ -320,7 +328,7 @@ public abstract class AbstractUISheetLayout extends AbstractUILayoutBase impleme
     return result;
   }
 
-  private void parseFixedWidth(LayoutInfo layoutInfo, List<UIColumn> rendereredColumns) {
+  private void parseFixedWidth(LayoutInfo layoutInfo, List<AbstractUIColumn> rendereredColumns) {
     LayoutTokens tokens = layoutInfo.getLayoutTokens();
     for (int i = 0; i < tokens.getSize(); i++) {
       LayoutToken token = tokens.get(i);
@@ -328,9 +336,9 @@ public abstract class AbstractUISheetLayout extends AbstractUILayoutBase impleme
         int width = 0;
         if (!rendereredColumns.isEmpty()) {
           if (i < rendereredColumns.size()) {
-            UIColumn column = rendereredColumns.get(i);
+            AbstractUIColumn column = rendereredColumns.get(i);
             if (column instanceof AbstractUIColumnSelector) {
-              width = 20; // FIXME: make dynamic (was removed by changing the layout
+              width = 20; // FIXME: make dynamic (was removedTAD by changing the layout
               LOG.error("20; // FIXME: make dynamic (was removed by changing the layout");
 
             } else {
@@ -368,5 +376,25 @@ public abstract class AbstractUISheetLayout extends AbstractUILayoutBase impleme
     return sheet.isPagingVisible()
         ? sheet.getLayoutComponentRenderer(facesContext).getCustomMeasure(facesContext, sheet, "footerHeight")
         : Measure.ZERO;
+  }
+
+  private void layoutHeader() {
+    final AbstractUISheet sheet = (AbstractUISheet) getLayoutContainer();
+    final UIComponent header = sheet.getHeader();
+    final LayoutTokens rows = new LayoutTokens();
+    rows.addToken(AutoLayoutToken.INSTANCE);
+    final Grid grid = new Grid(sheet.getColumnLayout(), rows);
+
+    for(UIComponent child : header.getChildren()) {
+      if (child instanceof LayoutComponent) {
+        final LayoutComponent c = (LayoutComponent) child;
+        grid.add(new OriginCell(c), c.getColumnSpan(), c.getRowSpan());
+      } else {
+        if (LOG.isDebugEnabled()) {
+          LOG.debug("Found unknown component in header.");
+        }
+      }
+    }
+    sheet.setHeaderGrid(grid);
   }
 }

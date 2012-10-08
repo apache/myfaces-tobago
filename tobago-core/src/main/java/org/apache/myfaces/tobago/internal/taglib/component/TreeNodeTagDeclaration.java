@@ -31,6 +31,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRend
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutContainer;
 
 /**
  * Creates a tree node. This component represents a single node inside a tree structure.
@@ -48,7 +49,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
     })
 public interface
     TreeNodeTagDeclaration
-    extends HasIdBindingAndRendered, HasMarkup, HasCurrentMarkup, HasTip, IsDisabled {
+    extends HasIdBindingAndRendered, HasMarkup, HasCurrentMarkup, HasTip, IsDisabled, IsGridLayoutContainer {
 
   /**
    * Flag indicating if the subnodes are to be displayed.
@@ -95,4 +96,7 @@ public interface
       methodSignature = "org.apache.myfaces.tobago.event.TreeMarkedEvent")
   void setTreeMarkedListener(String treeMarkedListener);
 
+  @TagAttribute
+  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
+  void setWidth(String width);
 }

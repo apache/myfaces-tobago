@@ -262,15 +262,13 @@ public class ComponentUtils {
   /**
    * Searches the component tree beneath the component and return all component matching the type.
    */
-  public static List<UIComponent> findDescendantList(UIComponent component, Class type) {
+  public static <T extends UIComponent> List<T> findDescendantList(UIComponent component, Class<T> type) {
 
-    // todo Can this be generified with T extends UIComponent?
-    
-    List<UIComponent> result = new ArrayList<UIComponent>();
+    List<T> result = new ArrayList<T>();
     
     for (UIComponent child : (List<UIComponent>) component.getChildren()) {
       if (type.isAssignableFrom(child.getClass())) {
-        result.add(child);
+        result.add((T) child);
       }
       result.addAll(findDescendantList(child, type));
     }

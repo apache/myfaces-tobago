@@ -48,4 +48,12 @@ public class SpanCell implements Cell {
   public boolean isVerticalFirst() {
     return verticalFirst;
   }
+
+  public int getColumnSpan() {
+    return origin.getColumnSpan();
+  }
+
+  public int getRowSpan() {
+    return origin.getRowSpan();
+  }
 }

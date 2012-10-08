@@ -19,7 +19,12 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
-import javax.faces.component.UIColumn;
+import org.apache.myfaces.tobago.layout.Measure;
 
-public abstract class AbstractUIColumnSelector extends UIColumn {
+public abstract class AbstractUIColumnSelector extends AbstractUIColumn {
+
+  @Override
+  public Measure getWidth() {
+    return null;
+  }
 }

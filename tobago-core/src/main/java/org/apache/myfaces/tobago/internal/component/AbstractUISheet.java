@@ -34,6 +34,7 @@ import org.apache.myfaces.tobago.event.SheetStateChangeListener;
 import org.apache.myfaces.tobago.event.SheetStateChangeSource;
 import org.apache.myfaces.tobago.event.SortActionEvent;
 import org.apache.myfaces.tobago.event.SortActionSource;
+import org.apache.myfaces.tobago.internal.layout.Grid;
 import org.apache.myfaces.tobago.layout.LayoutComponent;
 import org.apache.myfaces.tobago.layout.LayoutContainer;
 import org.apache.myfaces.tobago.layout.LayoutManager;
@@ -92,6 +93,8 @@ public abstract class AbstractUISheet extends AbstractUIData
   private transient List<LayoutComponent> layoutComponents;
 
   private transient Boolean needVerticalScrollbar;
+
+  private transient Grid headerGrid;
 
   public LayoutComponentRenderer getLayoutComponentRenderer(FacesContext context) {
     return (LayoutComponentRenderer) getRenderer(context);
@@ -363,21 +366,19 @@ public abstract class AbstractUISheet extends AbstractUIData
     sheetState = (SheetState) values[1];
   }
 
-  public List<UIColumn> getAllColumns() {
-    List<UIColumn> columns = new ArrayList<UIColumn>();
-    for (UIComponent kid : (List<UIComponent>) ComponentUtils.findDescendantList(this, UIColumn.class)) {
-      if (!(kid instanceof ColumnEvent)) {
-        columns.add((UIColumn) kid);
-      }
+  public List<AbstractUIColumn> getAllColumns() {
+    List<AbstractUIColumn> columns = new ArrayList<AbstractUIColumn>();
+    for (AbstractUIColumn kid : ComponentUtils.findDescendantList(this, AbstractUIColumn.class)) {
+      columns.add(kid);
     }
     return columns;
   }
 
-  public List<UIColumn> getRenderedColumns() {
-    List<UIColumn> columns = new ArrayList<UIColumn>();
-    for (UIComponent kid : (List<UIComponent>) ComponentUtils.findDescendantList(this, UIColumn.class)) {
-      if (kid.isRendered() && !(kid instanceof ColumnEvent)) {
-        columns.add((UIColumn) kid);
+  public List<AbstractUIColumn> getRenderedColumns() {
+    List<AbstractUIColumn> columns = new ArrayList<AbstractUIColumn>();
+    for (AbstractUIColumn kid : ComponentUtils.findDescendantList(this, AbstractUIColumn.class)) {
+      if (kid.isRendered()) {
+        columns.add(kid);
       }
     }
     return columns;
@@ -637,4 +638,11 @@ public abstract class AbstractUISheet extends AbstractUIData
     return getState().getExpandedState();
   }
 
+  public Grid getHeaderGrid() {
+    return headerGrid;
+  }
+
+  public void setHeaderGrid(Grid headerGrid) {
+    this.headerGrid = headerGrid;
+  }
 }

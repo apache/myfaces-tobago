@@ -30,7 +30,6 @@ import org.apache.myfaces.tobago.model.TreeDataModel;
 import org.apache.myfaces.tobago.model.TreePath;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 
-import javax.faces.component.UIColumn;
 import javax.faces.component.UIData;
 import javax.faces.context.FacesContext;
 import javax.faces.el.MethodBinding;
@@ -39,7 +38,7 @@ import java.io.IOException;
 import java.util.List;
 
 public abstract class AbstractUITreeNode
-    extends UIColumn implements SupportsMarkup, TreeModelBuilder, Configurable {
+    extends AbstractUIColumn implements SupportsMarkup, TreeModelBuilder, Configurable {
 
   @Override
   public void encodeBegin(FacesContext facesContext) throws IOException {

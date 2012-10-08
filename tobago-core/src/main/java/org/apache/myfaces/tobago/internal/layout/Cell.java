@@ -44,4 +44,8 @@ public interface Cell {
    * @return If its at the first position.
    */
   boolean isVerticalFirst();
+
+  int getColumnSpan();
+
+  int getRowSpan();
 }

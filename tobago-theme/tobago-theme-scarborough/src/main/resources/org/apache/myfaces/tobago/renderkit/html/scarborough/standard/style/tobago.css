@@ -936,7 +936,11 @@ hr.tobago-separator {
 /* XXX deprecated: .tobago-sheet-outer please use .tobago-sheet */
 
 .tobago-sheet-headerDiv {
-  height: 20px;
+  overflow: hidden;
+  position: relative;
+}
+
+.tobago-sheet-headerTable {
   width: 100%;
   overflow: hidden;
   padding: 0;
@@ -944,7 +948,12 @@ hr.tobago-separator {
   left: 0;
   top: 0;
   white-space: nowrap;
-  z-index: 2;
+  table-layout: fixed;
+}
+
+.tobago-sheet-headerCell {
+  position: relative;
+  width: 100%;
 }
 
 .tobago-sheet-header {
@@ -953,15 +962,11 @@ hr.tobago-separator {
 	border-style: solid;
 	border-width: 1px;
   padding: 2px;
-  /* 20px - borderTop 1px - borderBottom 1px - paddingTop 2px - paddingButton 2px = 14px */
-  height: 14px;
 	vertical-align: top;
-  display: inline-block;
-  position: relative;
+  display: inherit;
   overflow: hidden;
 	text-overflow: ellipsis;
   white-space: nowrap;
-  z-index: 3;
   text-align: center;
 }
 
@@ -979,34 +984,23 @@ hr.tobago-separator {
    cursor: pointer;
 }
 
-.tobago-sheet-headerSpacerOuter {
-  display: inline-block;
-  position: relative;
-	width: 0;
-  height:100%;
-  z-index: 4;
-}
-
-.tobago-sheet-headerSpacer {
+.tobago-sheet-headerResize {
   position: absolute;
-  left: -5px;
+  right: -5px;
   top: 0;
   width: 10px;
   height: 100%;
-	overflow: hidden;
-}
-
-.tobago-sheet-headerSpacer-markup-resizable {
-	cursor: col-resize; /* col-resize is allowed in CSS3+IE6, opera has a separate definition */
+  z-index: 1;
+  cursor: col-resize; /* col-resize is allowed in CSS3+IE6, opera has a separate definition */
 }
 
 .tobago-sheet-body {
   overflow: auto;
-  padding-top: 20px;
-  position: absolute;
-  left: 0;
-  top: 0;
-  background: #ebf4fd;
+  position: relative;
+}
+
+.tobago-sheet-bodyTable {
+  table-layout: fixed;
 }
 
 .tobago-sheet-cell {
@@ -1015,7 +1009,6 @@ hr.tobago-separator {
   overflow: hidden;
   line-height: 14px;
 }
-
 
 .tobago-sheet-cell-markup-clickable {
    cursor: pointer;
