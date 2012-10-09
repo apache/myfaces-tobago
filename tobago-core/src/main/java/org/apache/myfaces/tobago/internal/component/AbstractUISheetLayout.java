@@ -381,9 +381,14 @@ public abstract class AbstractUISheetLayout extends AbstractUILayoutBase impleme
   private void layoutHeader() {
     final AbstractUISheet sheet = (AbstractUISheet) getLayoutContainer();
     final UIComponent header = sheet.getHeader();
+    final LayoutTokens columns = new LayoutTokens();
+    final List<AbstractUIColumn> renderedColumns = sheet.getRenderedColumns();
+    for (AbstractUIColumn ignored : renderedColumns) {
+      columns.addToken(RelativeLayoutToken.DEFAULT_INSTANCE);
+    }
     final LayoutTokens rows = new LayoutTokens();
     rows.addToken(AutoLayoutToken.INSTANCE);
-    final Grid grid = new Grid(sheet.getColumnLayout(), rows);
+    final Grid grid = new Grid(columns, rows);
 
     for(UIComponent child : header.getChildren()) {
       if (child instanceof LayoutComponent) {
