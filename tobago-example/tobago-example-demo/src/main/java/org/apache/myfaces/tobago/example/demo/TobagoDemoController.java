@@ -225,7 +225,7 @@ public class TobagoDemoController {
       session.invalidate();
     }
     ExternalContext externalContext = facesContext.getExternalContext();
-    externalContext.redirect(externalContext.getRequestContextPath());
+    externalContext.redirect("/" + externalContext.getRequestContextPath());
     facesContext.responseComplete();
     return null;
   }
