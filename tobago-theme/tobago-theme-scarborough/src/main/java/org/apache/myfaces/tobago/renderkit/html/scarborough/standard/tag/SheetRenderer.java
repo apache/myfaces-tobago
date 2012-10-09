@@ -289,10 +289,6 @@ public class SheetRenderer extends LayoutComponentRendererBase {
         writer.writeAttribute(HtmlAttributes.WIDTH, columnWidth);
         writer.endElement(HtmlElements.COL);
       }
-      // filler column, which normally is not seen, it appears when resizing the columns
-//      writer.startElement(HtmlElements.COL, null);
-//      writer.writeAttribute(HtmlAttributes.WIDTH, 0);
-//      writer.endElement(HtmlElements.COL);
       writer.endElement(HtmlElements.COLGROUP);
     }
 
@@ -710,7 +706,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
       throws IOException {
 
     final Grid grid = sheet.getHeaderGrid();
-    final List<Integer> widthList = sheet.getWidthList();
+    final List<Integer> columnWidths = sheet.getWidthList();
 
     LOG.info("*****************************************************");
     LOG.info("" + grid);
@@ -724,17 +720,15 @@ public class SheetRenderer extends LayoutComponentRendererBase {
     writer.writeAttribute(HtmlAttributes.SUMMARY, "", false);
     writer.writeClassAttribute(Classes.create(sheet, "headerTable"));
 
-    writer.startElement(HtmlElements.COLGROUP, null);
-    for (int j = 0; j < grid.getColumnCount(); j++) {
-      writer.startElement(HtmlElements.COL, sheet);
-      writer.writeAttribute(HtmlAttributes.WIDTH, Integer.toString(widthList.get(j)), false);
-      writer.endElement(HtmlElements.COL);
+    if (columnWidths != null) {
+      writer.startElement(HtmlElements.COLGROUP, null);
+      for (Integer columnWidth : columnWidths) {
+        writer.startElement(HtmlElements.COL, null);
+        writer.writeAttribute(HtmlAttributes.WIDTH, columnWidth);
+        writer.endElement(HtmlElements.COL);
+      }
+      writer.endElement(HtmlElements.COLGROUP);
     }
-    // add a filler column
-    writer.startElement(HtmlElements.COL, null);
-    writer.writeAttribute(HtmlAttributes.WIDTH, "0", false);
-    writer.endElement(HtmlElements.COL);
-    writer.endElement(HtmlElements.COLGROUP);
 
     writer.startElement(HtmlElements.TBODY, sheet);
     for (int i = 0; i < grid.getRowCount(); i++) {

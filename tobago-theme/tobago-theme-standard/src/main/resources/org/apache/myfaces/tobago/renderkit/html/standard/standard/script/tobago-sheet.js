@@ -352,16 +352,34 @@ Tobago.Sheet.setup2 = function (sheets) {
         return false;
       });
       body.one("mouseup", {sheet: jQuery(this).closest(".tobago-sheet")}, function (event) {
-//        console.log("end");
+        // switch off the mouse move listener
         jQuery("body").off("mousemove");
+
+        // copy the width values from the header to the body, (and build a list of it)
         var sheet = event.data.sheet;
-        var headerList = sheet.find(".tobago-sheet-headerTable > colgroup > col");
-        var dataList = sheet.find(".tobago-sheet-bodyTable > colgroup > col");
+        var headerTable = sheet.find(".tobago-sheet-headerTable");
+        var bodyTable = sheet.find(".tobago-sheet-bodyTable");
+        var headerList = headerTable.find("col");
+        var bodyList = bodyTable.find("col");
         var widths = ",";
         for (var i = 0; i < headerList.length; i++) {
-          var width = headerList.eq(i).attr("width");
-          dataList.eq(i).attr("width", width);
-          widths = widths + width + ",";
+          var newWidth = headerList.eq(i).width();
+          // for the hidden field
+          widths = widths + newWidth + ",";
+
+          var oldWidth = bodyList.eq(i).width();
+          if (oldWidth != newWidth) {
+            // set to the body
+            bodyList.eq(i).attr("width", newWidth);
+            // reset the width inside of the cells (TD) if the value was changed.
+            var tds = jQuery("td:nth-child(" + (i + 1) + ")", bodyTable);
+            if (tds.size() > 0) {
+              var innerWidth = tds.children().eq(0).width() - oldWidth + newWidth;
+              // setting all sizes of the inner cells to the same value
+              tds.children().width(innerWidth);
+              // XXX later, if we have box-sizing: border-box we can set the width to 100%
+            }
+          }
         }
         // store the width values in a hidden field
         Tobago.Sheet.hidden(sheet, "widths").val(widths);
