@@ -997,6 +997,7 @@ hr.tobago-separator {
 .tobago-sheet-body {
   overflow: auto;
   position: relative;
+  background: #ebf4fd;
 }
 
 .tobago-sheet-bodyTable {
