@@ -339,15 +339,7 @@ Tobago.Sheet.setup2 = function (sheets) {
         column.parent().children("col").each(function() {
           sum += parseInt(jQuery(this).attr("width"));
         });
-/*
-        var table = column.closest("table");
-        table.width(sum);
-        table.find("td").each(function () {
-          var td = jQuery(this);
-          console.log("vorher: " + td.find("div>span:first").outerWidth() + " nacher: " + td.outerWidth());
-          td.find("div>span:first").width(td.width() - 6);
-        });
-*/
+        Tobago.clearSelection();
         return false;
       });
       body.one("mouseup", {sheet: jQuery(this).closest(".tobago-sheet")}, function (event) {
