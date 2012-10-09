@@ -319,7 +319,6 @@ Tobago.Sheet.setup2 = function (sheets) {
       var body = jQuery("body");
       var column = jQuery(this).closest("table").children("colgroup").children("col").eq(columnIndex);
       var filler = column.siblings("col:last");
-      filler.css({backgroundColor: "green", opacity: 0.3});
       var data = {
         columnIndex: columnIndex,
         originalClientX: event.clientX,

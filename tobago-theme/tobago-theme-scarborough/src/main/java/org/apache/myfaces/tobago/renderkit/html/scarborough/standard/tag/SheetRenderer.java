@@ -832,8 +832,9 @@ public class SheetRenderer extends LayoutComponentRendererBase {
       }
       // add a filler column
       writer.startElement(HtmlElements.TD, null);
-      writer.writeClassAttribute(Classes.create(sheet, "headerCell", Markup.FILLER));
       writer.startElement(HtmlElements.DIV, null);
+      // todo: is the filler class needed here?
+      writer.writeClassAttribute(Classes.create(sheet, "headerCell", Markup.FILLER));
       writer.endElement(HtmlElements.DIV);
       writer.endElement(HtmlElements.TD);
 
