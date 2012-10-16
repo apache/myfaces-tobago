@@ -2869,4 +2869,52 @@ Tobago.registerListener(Tobago.File.init, Tobago.Phase.AFTER_UPDATE);
 
 // ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+Tobago.Codi = {};
+
+/**
+ * If the window has no name set we set the name and request a new view with unset windowId, so that the
+ * server will generate a new one for us.
+ */
+Tobago.Codi.init = function() {
+
+  var form = document.forms[0];
+  var windowIdEnabled = Tobago.Codi.hasUrlWindowId(form.action);
+  if (windowIdEnabled && window.name == "") {
+    form.action = Tobago.Codi.urlWithoutWindowId(form.action);
+    window.name = "window";
+    Tobago.submitAction();
+  }
+};
+
+Tobago.Codi.hasUrlWindowId = function(base) {
+  return base.indexOf("?windowId=") > -1 || base.indexOf("&windowId=") > -1;
+};
+
+/**
+ * taken from myfaces-extcdi (Codi)
+ */
+Tobago.Codi.urlWithoutWindowId = function(base) {
+    var query = base;
+    var vars = query.split(/&|\?/g);
+    var newQuery = "";
+    var iParam = 0;
+    for (var i=0; vars != null && i < vars.length; i++) {
+        var pair = vars[i].split("=");
+        if (pair.length == 1) {
+            newQuery = pair[0];
+        }
+        else {
+            if (pair[0] != "windowId") {
+                var amp = iParam++ > 0 ? "&" : "?";
+                newQuery =  newQuery + amp + pair[0] + "=" + pair[1];
+            }
+        }
+    }
+    return newQuery;
+};
+
+Tobago.registerListener(Tobago.Codi.init, Tobago.Phase.DOCUMENT_READY);
+
+// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 TbgTimer.endTbgJs = new Date(); // @DEV_ONLY
