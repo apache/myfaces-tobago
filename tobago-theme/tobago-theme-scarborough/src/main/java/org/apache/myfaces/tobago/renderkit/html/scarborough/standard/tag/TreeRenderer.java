@@ -22,7 +22,10 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 import org.apache.myfaces.tobago.component.UITreeNode;
 import org.apache.myfaces.tobago.internal.component.AbstractUIData;
 import org.apache.myfaces.tobago.internal.component.AbstractUITree;
+import org.apache.myfaces.tobago.model.ExpandedState;
+import org.apache.myfaces.tobago.model.MarkedState;
 import org.apache.myfaces.tobago.model.Selectable;
+import org.apache.myfaces.tobago.model.TreePath;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
@@ -88,23 +91,11 @@ public class TreeRenderer extends LayoutComponentRendererBase {
       writer.writeAttribute(DataAttributes.SELECTABLE, selectable.getValue(), false);
     }
 
-    writer.startElement(HtmlElements.INPUT, tree);
-    writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN, false);
-    final String markedId = clientId + ComponentUtils.SUB_SEPARATOR + AbstractUITree.SUFFIX_MARKED;
-    writer.writeNameAttribute(markedId);
-    writer.writeIdAttribute(markedId);
-    writer.writeClassAttribute(Classes.create(tree, AbstractUITree.SUFFIX_MARKED));
-    writer.writeAttribute(HtmlAttributes.VALUE, "", false);
-    writer.endElement(HtmlElements.INPUT);
+    MarkedState markedState = tree.getMarkedState();
+    String markedValue = "";
 
-    writer.startElement(HtmlElements.INPUT, tree);
-    writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN, false);
-    final String expandedId = clientId + ComponentUtils.SUB_SEPARATOR + AbstractUIData.SUFFIX_EXPANDED;
-    writer.writeNameAttribute(expandedId);
-    writer.writeIdAttribute(expandedId);
-    writer.writeClassAttribute(Classes.create(tree, AbstractUIData.SUFFIX_EXPANDED));
-    writer.writeAttribute(HtmlAttributes.VALUE, ",", false);
-    writer.endElement(HtmlElements.INPUT);
+    ExpandedState expandedState = tree.getExpandedState();
+    StringBuilder expandedValue = new StringBuilder(",");
 
     final int last = tree.isRowsUnlimited() ? Integer.MAX_VALUE : tree.getFirst() + tree.getRows();
     for (int rowIndex = tree.getFirst(); rowIndex < last; rowIndex++) {
@@ -113,12 +104,41 @@ public class TreeRenderer extends LayoutComponentRendererBase {
         break;
       }
 
+      final TreePath path = tree.getPath();
+
+      if (markedState.isMarked(path)) {
+        markedValue += rowIndex;
+      }
+
+      if (tree.isFolder() && expandedState.isExpanded(path)) {
+        expandedValue.append(rowIndex);
+        expandedValue.append(",");
+      }
+
       for (UIComponent child : tree.getChildren()) {
         RenderUtils.prepareRendererAll(facesContext, child);
         RenderUtils.encode(facesContext, child);
       }
     }
     tree.setRowIndex(-1);
+
+    writer.startElement(HtmlElements.INPUT, tree);
+    writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN, false);
+    final String markedId = clientId + ComponentUtils.SUB_SEPARATOR + AbstractUITree.SUFFIX_MARKED;
+    writer.writeNameAttribute(markedId);
+    writer.writeIdAttribute(markedId);
+    writer.writeClassAttribute(Classes.create(tree, AbstractUITree.SUFFIX_MARKED));
+    writer.writeAttribute(HtmlAttributes.VALUE, markedValue, false);
+    writer.endElement(HtmlElements.INPUT);
+
+    writer.startElement(HtmlElements.INPUT, tree);
+    writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN, false);
+    final String expandedId = clientId + ComponentUtils.SUB_SEPARATOR + AbstractUIData.SUFFIX_EXPANDED;
+    writer.writeNameAttribute(expandedId);
+    writer.writeIdAttribute(expandedId);
+    writer.writeClassAttribute(Classes.create(tree, AbstractUIData.SUFFIX_EXPANDED));
+    writer.writeAttribute(HtmlAttributes.VALUE, expandedValue.toString(), false);
+    writer.endElement(HtmlElements.INPUT);
 
     writer.endElement(HtmlElements.DIV);
   }

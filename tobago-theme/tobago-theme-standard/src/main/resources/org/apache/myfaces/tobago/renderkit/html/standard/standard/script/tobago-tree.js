@@ -34,12 +34,12 @@ Tobago.Tree.toggleNode = function(element) {
       jQuery(this).attr("src", src);
       Tobago.fixPngAlpha(this);
     });
-    expanded.attr("value", expanded.attr("value").replace(new RegExp("," + rowIndex + ","), ","));
+    expanded.val(expanded.val().replace(new RegExp("," + rowIndex + ","), ","));
     node.filter(".tobago-treeNode").removeClass("tobago-treeNode-markup-expanded");
     node.filter(".tobago-treeMenuNode").removeClass("tobago-treeMenuNode-markup-expanded");
   } else {
     var reload = Tobago.Tree.showChildren(node, expanded);
-    expanded.attr("value", expanded.attr("value") + rowIndex + ",");
+    expanded.val(expanded.val() + rowIndex + ",");
     if (reload) {
       Tobago.reloadComponent(element, data.attr("id"), toggle.parent().attr("id"), {});
     } else {
@@ -172,7 +172,7 @@ Tobago.Tree.init = function(elements) {
     var node = command.parent(".tobago-treeNode");
     var tree = node.closest(".tobago-tree");
     var marked = tree.children(".tobago-tree-marked");
-    marked.attr("value", Tobago.Tree.rowIndex(node));
+    marked.val(Tobago.Tree.rowIndex(node));
     tree.find(".tobago-treeNode").removeClass("tobago-treeNode-markup-marked");
     node.addClass("tobago-treeNode-markup-marked");
   });
@@ -183,7 +183,7 @@ Tobago.Tree.init = function(elements) {
     var node = command.parent(".tobago-treeMenuNode");
     var tree = node.closest(".tobago-treeMenu");
     var marked = tree.children(".tobago-treeMenu-marked");
-    marked.attr("value", Tobago.Tree.rowIndex(node));
+    marked.val(Tobago.Tree.rowIndex(node));
     tree.find(".tobago-treeMenuNode").removeClass("tobago-treeMenuNode-markup-marked");
     node.addClass("tobago-treeMenuNode-markup-marked");
   });
@@ -195,7 +195,7 @@ Tobago.Tree.init = function(elements) {
     jQuery(this).find(".tobago-treeMenuNode-markup-marked, .tobago-treeNode-markup-marked").each(function() {
       string = Tobago.Tree.rowIndex(jQuery(this));
     });
-    marked.attr("value", string);
+    console.log("ma old='" + string + "' new='" + marked.val() + "'");
   });
 
   // init expanded field
@@ -205,7 +205,7 @@ Tobago.Tree.init = function(elements) {
     jQuery(this).find(".tobago-treeMenuNode-markup-expanded, .tobago-treeNode-markup-expanded").each(function() {
       string += Tobago.Tree.rowIndex(jQuery(this)) + ",";
     });
-    expanded.attr("value", string);
+    console.log("ex old='" + string + "' new='" + expanded.val() + "'");
   });
 
   // init tree selection for multiCascade
@@ -229,7 +229,7 @@ Tobago.Tree.init = function(elements) {
 
 Tobago.Tree.isExpanded = function(node, expanded) {
   var rowIndex = Tobago.Tree.rowIndex(node);
-  return expanded.attr("value").indexOf("," + rowIndex + ",") > -1;
+  return expanded.val().indexOf("," + rowIndex + ",") > -1;
 };
 
 Tobago.Tree.rowIndex = function (node) {
