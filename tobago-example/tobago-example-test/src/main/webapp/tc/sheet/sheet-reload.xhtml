@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<f:view
+    xmlns:tc="http://myfaces.apache.org/tobago/component"
+    xmlns:tx="http://myfaces.apache.org/tobago/extension"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core">
+
+  <tc:page id="page">
+    <tc:gridLayoutConstraint width="600px" height="600px"/>
+    <f:facet name="layout">
+      <tc:gridLayout rows="40px;auto;auto;*"/>
+    </f:facet>
+
+    <tc:out value="Starting by 0 every 2 seconds the page will be reloaded. The counter on the server will
+    be incremented every reload, but odd values will send a 304 (not modified) to the client, so that
+    the sheet must not be updated."/>
+    <tc:out value="After 3 seconds there must only a 304 (not modified) reload, so we expect 0 as value."/>
+    <tc:out value="After 5 seconds there must be a normal reload, so we expect 2 as value."/>
+
+    <tc:sheet value="#{sheet.solarArray}" id="sheet" columns="*;*" var="luminary" rows="5">
+
+      <f:facet name="reload">
+        <tc:reload frequency="2000" update="#{reload.onlyEven}" />
+      </f:facet>
+
+      <tc:column label="Name" id="name" sortable="true">
+        <tc:out value="#{luminary.name}"/>
+      </tc:column>
+      <tc:column label="Reload" id="reload">
+        <tc:out value="#{reload.counter}"/>
+      </tc:column>
+    </tc:sheet>
+
+    <tc:script file="script/tobago-assert.js"/>
+    <tc:script file="tc/sheet/sheet-reload.js"/>
+
+  </tc:page>
+</f:view>
