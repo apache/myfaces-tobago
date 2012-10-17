@@ -28,6 +28,11 @@ public class Reload {
     return true;
   }
   
+  public boolean isOnlyEven() {
+    counter++;
+    return counter % 2 == 0;
+  }
+
   public int getCounter() {
     return counter;
   }
