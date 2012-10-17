@@ -92,9 +92,9 @@ Tobago.Sheet.init = function(elements) {
     var columnSelectorIndex
         = sheet.find(".tobago-sheet-headerTable > .tobago-sheet-header > .tobago-sheet-toolBar").parent().index();
     new Tobago.Sheet(id, undefined, selectionMode, columnSelectorIndex, frequency,
-        click != undefined ? click.actionId  : undefined,
+        click != undefined ? click.action  : undefined,
         click != undefined ? click.partially : undefined,
-        dblclick != undefined ? dblclick.actionId : undefined,
+        dblclick != undefined ? dblclick.action : undefined,
         dblclick != undefined ? dblclick.partially: undefined,
         // todo: use sheet.data("data-tobago-partially"). What is the type? Array? Test it.
         sheet.attr("data-tobago-partially"));
