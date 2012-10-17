@@ -27,24 +27,18 @@
 
   <tc:panel>
     <f:facet name="layout">
-      <tc:gridLayout rows="1*;3*"/>
+      <tc:gridLayout rows="1*;5*"/>
     </f:facet>
 
-    <tc:out value=""/>
+    <tc:out value="For simple column headers, use the lable attribute of the tc:column.
+    For more complex headers, which can span over columns and/or rows use a &lt;f:facet name='header'&gt; in the sheet." />
 
     <tc:sheet value="#{demo.solarList}" id="sheet"
               columns="3*;2*;30px;2*;2*;2*;2*;2*;2*" var="luminary"
               state="#{demo.sheetState}"
-              showHeader="#{overviewController.sheetConfig.sheetShowHeader}"
-              showPagingAlways="#{overviewController.sheetConfig.showPagingAlways}"
-              showRowRange="#{overviewController.sheetConfig.sheetRowPagingPosition}"
-              showPageRange="#{overviewController.sheetConfig.sheetPagePagingPosition}"
-              showDirectLinks="#{overviewController.sheetConfig.sheetDirectPagingPosition}"
-              first="#{overviewController.sheetConfig.sheetFirst}"
-              directLinkCount="#{overviewController.sheetConfig.sheetDirectLinkCount}"
-              stateChangeListener="#{demo.stateChangeListener}"
-              sortActionListener="#{overviewController.sheetSorter}"
-              selectable="#{overviewController.sheetConfig.selectable}">
+              showRowRange="left"
+              showPageRange="right"
+              showDirectLinks="center">
 
       <f:facet name="header">
         <tc:panel>
@@ -76,7 +70,7 @@
 
           <tc:out value="of"/>
           <tc:out value="#{overviewBundle.solarArrayNumber}"/>
-          <tc:out value="#{overviewBundle.solarArrayDistance} [km]"/>
+          <tc:out value="#{overviewBundle.solarArrayDistance} [1000 km]"/>
           <tc:out value="Period [days]"/>
           <tc:out value="Inclination [°]"/>
           <tc:out value="Eccentricity"/>
@@ -109,7 +103,7 @@
       <tc:column sortable="true" id="discoverer">
         <tc:out value="#{luminary.discoverer}" id="t_discoverer"/>
       </tc:column>
-      <tc:column sortable="true" align="right" id="discoverYear">
+      <tc:column sortable="true" align="center" id="discoverYear">
         <tc:out value="#{luminary.discoverYear}" id="t_discoverYear"/>
       </tc:column>
     </tc:sheet>
