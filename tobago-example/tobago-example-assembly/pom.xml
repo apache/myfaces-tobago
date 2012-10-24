@@ -46,12 +46,12 @@
                 </goals>
                 <configuration>
                   <artifactItems>
-                   <!-- <artifactItem>
+                    <artifactItem>
                       <groupId>${project.groupId}</groupId>
                       <artifactId>tobago-example-demo</artifactId>
                       <version>${project.version}</version>
                       <type>war</type>
-                    </artifactItem>-->
+                    </artifactItem>
                     <artifactItem>
                       <groupId>${project.groupId}</groupId>
                       <artifactId>tobago-example-blank</artifactId>
