@@ -345,12 +345,12 @@
   </dependencies>
 
   <profiles>
-    <!-- Mac OS X has not a tools.jar! -->
+    <!-- Apples JDK (until 1.6) has not a tools.jar -->
     <profile>
       <id>tools.jar</id>
       <activation>
-        <!-- needs maven 2.0.3 or higher under Mac OS X -->
         <os><family>!mac</family></os>
+        <jdk>1.7</jdk>
       </activation>
       <dependencies>
         <dependency>

@@ -133,10 +133,12 @@
   </dependencies>
 
   <profiles>
+    <!-- Apples JDK (until 1.6) has not a tools.jar -->
     <profile>
       <id>tools.jar</id>
       <activation>
         <os><family>!mac</family></os>
+        <jdk>1.7</jdk>
       </activation>
       <dependencies>
         <dependency>
