@@ -21,7 +21,7 @@ TestSheet.init = function() {
 
   jQuery("[data-clickrow]").click(function() {
     var rowIndex = jQuery(this).data("clickrow");
-    var row = jQuery("table tbody tr").get(rowIndex);
+    var row = jQuery(".tobago-sheet-body tr").eq(rowIndex);
     var status = jQuery(this).prev().find("input");
     status.val("processing ...");
     var start = new Date();

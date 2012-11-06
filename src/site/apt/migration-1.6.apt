@@ -67,6 +67,7 @@ JavaScript
 
 CSS
 
+  The class <<<tobago-sheet-outer>>> is renamed to <<<tobago-sheet>>>.
   The class <<<tobago-sheet-headerSpacerOuter>>> is renamed to <<<tobago-sheet-headerResize>>>.
   The class <<<tobago-sheet-headerSpacer>>> is no longer needed.
   The class <<<tobago-sheet-headerSpacer-markup-resizable>>> is no longer needed.

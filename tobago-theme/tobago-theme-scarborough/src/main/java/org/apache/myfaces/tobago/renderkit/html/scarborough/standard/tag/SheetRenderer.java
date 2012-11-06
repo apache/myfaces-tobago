@@ -137,10 +137,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
     writer.startElement(HtmlElements.DIV, sheet);
     writer.writeIdAttribute(sheetId);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, sheet);
-    final String css = Classes.create(sheet).getStringValue() + " " + Classes.create(sheet, "outer").getStringValue();
-    // todo: please remove the "outer" sub in the future,
-    // todo: it was renamed from tobago-sheet-outer to tobago-sheet because of naming conventions.
-    writer.writeClassAttribute(css);
+    writer.writeClassAttribute(Classes.create(sheet));
     writer.writeStyleAttribute(style);
     UIComponent facetReload = sheet.getFacet(Facets.RELOAD);
     if (facetReload != null && facetReload instanceof UIReload && facetReload.isRendered()) {
@@ -151,6 +148,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
     writer.writeAttribute(DataAttributes.PARTIALLY,
         HtmlRendererUtils.getRenderedPartiallyJavascriptArray(facesContext, sheet, sheet), false);
     writer.writeAttribute(DataAttributes.SELECTIONMODE, sheet.getSelectable(), false);
+    writer.writeAttribute(DataAttributes.FIRST, Integer.toString(sheet.getFirst()), false);
 
     boolean rowAction = HtmlRendererUtils.renderSheetCommands(sheet, facesContext, writer);
 
@@ -333,9 +331,6 @@ public class SheetRenderer extends LayoutComponentRendererBase {
       if (parentId != null) {
         writer.writeAttribute(DataAttributes.TREEPARENT, parentId, false);
       }
-      if (rowIndex == sheet.getFirst()) {
-        writer.writeAttribute("rowIndexInModel", Integer.toString(sheet.getFirst()), false);
-      }
 
       int columnIndex = -1;
       for (UIColumn column : renderedColumnList) {
@@ -414,7 +409,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
     if (emptySheet && showHeader) {
       writer.startElement(HtmlElements.TR, null);
       int columnIndex = -1;
-      for (UIColumn column : renderedColumnList) {
+      for (UIColumn ignored : renderedColumnList) {
         columnIndex++;
         writer.startElement(HtmlElements.TD, null);
         writer.startElement(HtmlElements.DIV, null);

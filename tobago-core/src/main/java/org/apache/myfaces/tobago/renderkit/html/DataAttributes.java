@@ -73,6 +73,11 @@ public final class DataAttributes {
   public static final String FOR = "data-tobago-for";
 
   /**
+   * Holds the id of the first row in a sheet.
+   */
+  public static final String FIRST = "data-tobago-first";
+
+  /**
    * Holds the first day of a week of a calendar control.
    */
   public static final String FIRSTDAYOFWEEK = "data-tobago-firstdayofweek";
