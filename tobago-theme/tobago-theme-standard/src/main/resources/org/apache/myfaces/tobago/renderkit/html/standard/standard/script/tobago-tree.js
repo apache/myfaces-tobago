@@ -195,7 +195,6 @@ Tobago.Tree.init = function(elements) {
     jQuery(this).find(".tobago-treeMenuNode-markup-marked, .tobago-treeNode-markup-marked").each(function() {
       string = Tobago.Tree.rowIndex(jQuery(this));
     });
-    console.log("ma old='" + string + "' new='" + marked.val() + "'");
   });
 
   // init expanded field
@@ -205,7 +204,6 @@ Tobago.Tree.init = function(elements) {
     jQuery(this).find(".tobago-treeMenuNode-markup-expanded, .tobago-treeNode-markup-expanded").each(function() {
       string += Tobago.Tree.rowIndex(jQuery(this)) + ",";
     });
-    console.log("ex old='" + string + "' new='" + expanded.val() + "'");
   });
 
   // init tree selection for multiCascade
