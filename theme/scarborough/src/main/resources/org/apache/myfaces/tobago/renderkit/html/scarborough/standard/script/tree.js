@@ -388,14 +388,14 @@ TreeOldNode.prototype.toString = function (depth, last) {
       var treeItemClasses = "tree-item";
       var nodeWidth = "";  // given px width should only applyed in menu mode
       if (this.mode == "menu") {
-        treeItemClasses += " tree-menu-item"
+        treeItemClasses += " tree-menu-item";
         nodeWidth = 'style="width: ' + this.width + ';"';
       }
       str += '<div id="' + this.id + '" class="' + treeItemClasses + '" '
           + nodeWidth + '>';
       if (this.mode == "menu") {
         if (this.isFolder) {
-          // FIXME: change the icons when klick on the icon
+          // FIXME: change the icons when click on the icon
           str += '<img class="tobago-tree-menu-icon" id="' + this.id + '-menuIcon"'
               + 'src="' + (this.expanded ? this.treeResources.getImage("treeMenuOpen.gif") : this.treeResources.getImage("treeMenuClose.gif")) + ' " '
               + 'onclick="toggle(this.parentNode, \'' + this.treeHiddenId
@@ -476,7 +476,7 @@ TreeOldNode.prototype.toString = function (depth, last) {
           str += ' tabindex="' + this.tabIndex + "'";
         }
         str += ' href="' + Tobago.EMPTY_HREF +  '"'
-            + ' onclick="Tobago.TreeOld.onClick(this)"'
+            + ' onclick="this.onfocus(); Tobago.TreeOld.onClick(this)"'
             + ' ondblclick="Tobago.TreeOld.onDblClick(this)"'
             + ' onfocus="' + this.onfocus + '"';
       }
