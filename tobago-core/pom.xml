@@ -63,7 +63,7 @@
 -->
               </outputFiles>
               <resourceTargetPath>META-INF</resourceTargetPath>
-              <outputDirectory>${project.build.directory}/generated-tld</outputDirectory>
+              <sourceOutputDirectory>${project.build.directory}/generated-tld</sourceOutputDirectory>
               <factory>org.apache.myfaces.tobago.apt.TaglibAnnotationProcessorFactory</factory>
               <nocompile>true</nocompile>
               <encoding>${maven.compile.encoding}</encoding>
@@ -84,7 +84,7 @@
                 <exclude>org/apache/myfaces/tobago/internal/taglib/component/package-info.java</exclude>
               </excludes>
               <resourceTargetPath>META-INF</resourceTargetPath>
-              <outputDirectory>${project.build.directory}/generated-component</outputDirectory>
+              <sourceOutputDirectory>${project.build.directory}/generated-component</sourceOutputDirectory>
               <factory>org.apache.myfaces.tobago.apt.CreateComponentAnnotationProcessorFactory</factory>
               <fork>true</fork>
               <nocompile>true</nocompile>
@@ -112,7 +112,7 @@
                 <exclude>org/apache/myfaces/tobago/component/*</exclude>
               </excludes>
               <resourceTargetPath>META-INF</resourceTargetPath>
-              <outputDirectory>${project.build.directory}/generated-faces-config</outputDirectory>
+              <sourceOutputDirectory>${project.build.directory}/generated-faces-config</sourceOutputDirectory>
               <factory>org.apache.myfaces.tobago.apt.FacesConfigAnnotationProcessorFactory</factory>
               <fork>true</fork>
               <nocompile>true</nocompile>

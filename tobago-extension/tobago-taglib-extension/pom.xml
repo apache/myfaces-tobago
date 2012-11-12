@@ -88,7 +88,7 @@
                 <additionalSourceRoot>${project.build.directory}/tobago-core-sources</additionalSourceRoot>
               </additionalSourceRoots>
               <resourceTargetPath>META-INF</resourceTargetPath>
-              <outputDirectory>${project.build.directory}/generated-tld</outputDirectory>
+              <sourceOutputDirectory>${project.build.directory}/generated-tld</sourceOutputDirectory>
               <factory>org.apache.myfaces.tobago.apt.TaglibAnnotationProcessorFactory</factory>
               <nocompile>true</nocompile>
               <encoding>${maven.compile.encoding}</encoding>
@@ -106,7 +106,7 @@
                 <outputFile>checkstyle-tobago.xml</outputFile>
               </outputFiles>
               <resourceTargetPath>META-INF</resourceTargetPath>
-              <outputDirectory>${project.build.directory}/generated-checkstyle-config</outputDirectory>
+              <sourceOutputDirectory>${project.build.directory}/generated-checkstyle-config</sourceOutputDirectory>
               <factory>org.apache.myfaces.tobago.apt.CheckstyleConfigAnnotationProcessorFactory</factory>
               <additionalSourceRoots>
                 <additionalSourceRoot>${project.build.directory}/tobago-core-sources</additionalSourceRoot>
@@ -122,8 +122,31 @@
         <executions>
           <execution>
             <id>copy-tld</id>
-            <goals><goal>resources</goal></goals>
+            <goals><goal>copy-resources</goal></goals>
             <phase>process-classes</phase>
+            <configuration>
+              <outputDirectory>${project.build.outputDirectory}</outputDirectory>
+              <resources>
+                <resource>
+                  <targetPath>META-INF</targetPath>
+                  <directory>${project.build.directory}/generated-tld</directory>
+                </resource>
+              </resources>
+            </configuration>
+          </execution>
+          <execution>
+            <id>copy-checkstyle-config</id>
+            <goals><goal>copy-resources</goal></goals>
+            <phase>process-classes</phase>
+            <configuration>
+              <outputDirectory>${project.build.outputDirectory}</outputDirectory>
+              <resources>
+                <resource>
+                  <targetPath>META-INF</targetPath>
+                  <directory>${project.build.directory}/generated-checkstyle-config</directory>
+                </resource>
+              </resources>
+            </configuration>
           </execution>
         </executions>
       </plugin>
@@ -201,7 +224,7 @@
                   <outputFiles>
                     <outputFile>org/apache/myfaces/tobago/internal/taglib/extension/tobago-extension.xml</outputFile>
                   </outputFiles>
-                  <outputDirectory>${project.build.directory}/doc</outputDirectory>
+                  <sourceOutputDirectory>${project.build.directory}/doc</sourceOutputDirectory>
                   <factory>org.apache.myfaces.tobago.apt.TobagoAnnotationProcessorFactory</factory>
                   <nocompile>true</nocompile>
                   <encoding>${maven.compile.encoding}</encoding>
