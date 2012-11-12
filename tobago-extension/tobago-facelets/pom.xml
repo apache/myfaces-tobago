@@ -87,10 +87,34 @@
                 <outputFile>tobago.taglib.xml</outputFile>
               </outputFiles>
               <resourceTargetPath>META-INF</resourceTargetPath>
-              <outputDirectory>${project.build.directory}/generated-sources</outputDirectory>
+              <sourceOutputDirectory>${project.build.directory}/generated-sources</sourceOutputDirectory>
               <factory>org.apache.myfaces.tobago.apt.FaceletAnnotationProcessorFactory</factory>
               <nocompile>true</nocompile>
               <encoding>${maven.compile.encoding}</encoding>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <artifactId>maven-resources-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>copy-taglib</id>
+            <goals>
+              <goal>copy-resources</goal>
+            </goals>
+            <phase>process-classes</phase>
+            <configuration>
+              <outputDirectory>${project.build.outputDirectory}</outputDirectory>
+              <resources>
+                <resource>
+                  <targetPath>META-INF</targetPath>
+                  <directory>${project.build.directory}/generated-sources</directory>
+                  <includes>
+                    <include>tobago.taglib.xml</include>
+                  </includes>
+                </resource>
+              </resources>
             </configuration>
           </execution>
         </executions>

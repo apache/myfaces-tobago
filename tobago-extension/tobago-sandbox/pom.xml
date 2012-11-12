@@ -94,7 +94,7 @@
                 <additionalSourceRoot>${project.build.directory}/tobago-core-sources</additionalSourceRoot>
               </additionalSourceRoots>
               <resourceTargetPath>META-INF</resourceTargetPath>
-              <outputDirectory>${project.build.directory}/generated-tld</outputDirectory>
+              <sourceOutputDirectory>${project.build.directory}/generated-tld</sourceOutputDirectory>
               <factory>org.apache.myfaces.tobago.apt.TaglibAnnotationProcessorFactory</factory>
               <nocompile>true</nocompile>
               <encoding>${maven.compile.encoding}</encoding>
@@ -120,7 +120,7 @@
                 <additionalSourceRoot>${project.build.directory}/tobago-core-sources</additionalSourceRoot>
               </additionalSourceRoots>
               <resourceTargetPath>META-INF</resourceTargetPath>
-              <outputDirectory>${project.build.directory}/generated-component</outputDirectory>
+              <sourceOutputDirectory>${project.build.directory}/generated-component</sourceOutputDirectory>
               <factory>org.apache.myfaces.tobago.apt.CreateComponentAnnotationProcessorFactory</factory>
               <fork>true</fork>
               <nocompile>true</nocompile>
@@ -152,7 +152,7 @@
                 <additionalSourceRoot>${project.build.directory}/tobago-core-sources</additionalSourceRoot>
               </additionalSourceRoots>
               <resourceTargetPath>META-INF</resourceTargetPath>
-              <outputDirectory>${project.build.directory}/generated-faces-config</outputDirectory>
+              <sourceOutputDirectory>${project.build.directory}/generated-faces-config</sourceOutputDirectory>
               <factory>org.apache.myfaces.tobago.apt.FacesConfigAnnotationProcessorFactory</factory>
               <!--<force>true</force>-->
               <fork>true</fork>
