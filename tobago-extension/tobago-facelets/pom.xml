@@ -137,6 +137,7 @@
       <id>tools.jar</id>
       <activation>
         <os><family>!mac</family></os>
+        <jdk>1.7</jdk>
       </activation>
       <dependencies>
         <dependency>
