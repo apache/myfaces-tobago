@@ -28,6 +28,15 @@ public class Reload {
     return true;
   }
   
+  public String tick() {
+    counter++;
+    return null;
+  }
+
+  public void reset() {
+    counter = 0;
+  }
+
   public boolean isOnlyEven() {
     counter++;
     return counter % 2 == 0;
