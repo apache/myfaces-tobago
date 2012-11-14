@@ -40,6 +40,13 @@
 
   <renderers>
     <renderer>
+      <name>Image</name>
+      <supported-markup>
+        <markup>double</markup>
+      </supported-markup>
+    </renderer>
+
+    <renderer>
       <name>TreeCommand</name>
       <supported-markup>
         <markup>todo</markup>

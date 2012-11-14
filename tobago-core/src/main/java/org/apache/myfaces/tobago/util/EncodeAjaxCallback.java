@@ -48,6 +48,7 @@ public class EncodeAjaxCallback implements TobagoCallback {
            }
          }
       }
+      prepareRendererAll(facesContext, component);
       if (component instanceof LayoutContainer) {
         LayoutContainer layoutContainer = (LayoutContainer) component;
         Measure width = layoutContainer.getCurrentWidth();
@@ -60,7 +61,6 @@ public class EncodeAjaxCallback implements TobagoCallback {
         layoutContainer.setWidth(oldWidth);
         layoutContainer.setHeight(oldHeight);
       }
-      prepareRendererAll(facesContext, component);
       encodeAll(facesContext, component);
     } catch (IOException e) {
       throw new FacesException(e);
