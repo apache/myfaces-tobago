@@ -53,7 +53,9 @@ import org.apache.myfaces.tobago.layout.Display;
 import org.apache.myfaces.tobago.layout.LayoutBase;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.layout.TextAlign;
+import org.apache.myfaces.tobago.model.ExpandedState;
 import org.apache.myfaces.tobago.model.SheetState;
+import org.apache.myfaces.tobago.model.TreePath;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
@@ -213,15 +215,11 @@ public class SheetRenderer extends LayoutComponentRendererBase {
       writer.endElement(HtmlElements.INPUT);
     }
 
+    ExpandedState expandedState = null;
+    StringBuilder expandedValue = null;
     if (sheet.isTreeModel()) {
-      writer.startElement(HtmlElements.INPUT, sheet);
-      writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN, false);
-      final String expandedId = sheetId + ComponentUtils.SUB_SEPARATOR + AbstractUIData.SUFFIX_EXPANDED;
-      writer.writeNameAttribute(expandedId);
-      writer.writeIdAttribute(expandedId);
-      writer.writeClassAttribute(Classes.create(sheet, AbstractUIData.SUFFIX_EXPANDED));
-      writer.writeAttribute(HtmlAttributes.VALUE, ",", false);
-      writer.endElement(HtmlElements.INPUT);
+      expandedState = sheet.getExpandedState();
+      expandedValue = new StringBuilder(",");
     }
 
     final boolean showHeader = sheet.isShowHeader();
@@ -313,6 +311,14 @@ public class SheetRenderer extends LayoutComponentRendererBase {
       if (LOG.isDebugEnabled()) {
         LOG.debug("var       " + var);
         LOG.debug("list      " + sheet.getValue());
+      }
+
+      if (sheet.isTreeModel()) {
+        final TreePath path = sheet.getPath();
+        if (sheet.isFolder() && expandedState.isExpanded(path)) {
+          expandedValue.append(rowIndex);
+          expandedValue.append(",");
+        }
       }
 
       writer.startElement(HtmlElements.TR, null);
@@ -505,6 +511,17 @@ public class SheetRenderer extends LayoutComponentRendererBase {
       }
 
       writer.endElement(HtmlElements.DIV);
+    }
+
+    if (sheet.isTreeModel()) {
+      writer.startElement(HtmlElements.INPUT, sheet);
+      writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN, false);
+      final String expandedId = sheetId + ComponentUtils.SUB_SEPARATOR + AbstractUIData.SUFFIX_EXPANDED;
+      writer.writeNameAttribute(expandedId);
+      writer.writeIdAttribute(expandedId);
+      writer.writeClassAttribute(Classes.create(sheet, AbstractUIData.SUFFIX_EXPANDED));
+      writer.writeAttribute(HtmlAttributes.VALUE, expandedValue.toString(), false);
+      writer.endElement(HtmlElements.INPUT);
     }
   }
 
