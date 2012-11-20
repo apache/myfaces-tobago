@@ -52,8 +52,9 @@ public final class Markup implements Serializable, Iterable<String> {
   public static final Markup ASCENDING = valueOf("ascending");
   public static final Markup CENTER = valueOf("center");
   public static final Markup CLICKABLE = valueOf("clickable");
-  public static final Markup DESCENDING = valueOf("descending");
+  public static final Markup DEFAULT = valueOf("default");
   public static final Markup DELETED = valueOf("deleted");
+  public static final Markup DESCENDING = valueOf("descending");
   public static final Markup DISABLED = valueOf("disabled");
   public static final Markup ERROR = valueOf("error");
   public static final Markup EVEN = valueOf("even");

@@ -20,8 +20,10 @@
 package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.myfaces.tobago.component.Attributes;
+import org.apache.myfaces.tobago.component.SupportsMarkup;
 import org.apache.myfaces.tobago.component.UIButton;
 import org.apache.myfaces.tobago.config.Configurable;
+import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.internal.util.AccessKeyMap;
 import org.apache.myfaces.tobago.layout.Measure;
@@ -47,6 +49,16 @@ import java.io.IOException;
 public class ButtonRenderer extends CommandRendererBase {
 
   private static final Logger LOG = LoggerFactory.getLogger(ButtonRenderer.class);
+
+  @Override
+  public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
+    final SupportsMarkup button = (SupportsMarkup) component;
+    final boolean defaultCommand = ComponentUtils.getBooleanAttribute(component, Attributes.DEFAULT_COMMAND);
+    super.prepareRender(facesContext, component);
+    if (defaultCommand) {
+      button.setCurrentMarkup(Markup.DEFAULT.add(button.getCurrentMarkup()));
+    }
+  }
 
   public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
 

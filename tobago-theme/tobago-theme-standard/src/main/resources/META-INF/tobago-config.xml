@@ -41,6 +41,7 @@
         <renderer>
           <name>Button</name>
           <supported-markup>
+            <markup>default</markup>
             <markup>disabled</markup>
           </supported-markup>
         </renderer>

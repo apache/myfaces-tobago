@@ -153,6 +153,11 @@ fieldset.tobago-box {
   -ms-box-sizing: content-box;
 }
 
+.tobago-button-markup-default {
+  border-width: 2px;
+  padding: 1px;
+}
+
 .tobago-button-markup-disabled {
   cursor: default;
 }

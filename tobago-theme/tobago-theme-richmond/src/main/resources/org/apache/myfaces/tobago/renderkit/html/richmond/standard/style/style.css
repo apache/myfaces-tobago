@@ -62,7 +62,7 @@
 /* button ------------------------------------------------------------ */
 
 .tobago-button {
-  border: 1px #FF7D00 solid;
+  border-color: #FF7D00;
   background: #FFCC66;
   font: 11px arial, helvetica, sans-serif;
   color: #3366CC;
