@@ -22,52 +22,52 @@ package org.apache.myfaces.tobago.example.demo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.BufferedReader;
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Named;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
-import java.util.Map;
+import java.util.jar.Attributes;
+import java.util.jar.Manifest;
 
+@ApplicationScoped
+@Named
 public class ManifestReader {
 
   private static final Logger LOG = LoggerFactory.getLogger(ManifestReader.class);
 
-  private List<ManifestEntry> manifestList = new ArrayList<ManifestEntry>();
+  private final List<ManifestEntry> manifestList;
 
-  public ManifestReader(){
+  public ManifestReader() {
+
+    manifestList = new ArrayList<ManifestEntry>();
+
+    URL url = null;
     try {
       Enumeration<URL> ul = getClass().getClassLoader().getResources("META-INF/MANIFEST.MF");
-      String line;
-      StringBuilder content;
-      BufferedReader in;
-      URL url;
 
       while (ul.hasMoreElements()) {
         url = ul.nextElement();
-        in = new BufferedReader(new InputStreamReader(url.openStream()));
-        content  = new StringBuilder();
-        Map.Entry<String, String> e;
 
-        while((line= in.readLine()) != null){
-          content.append(line+"\r\n");
+        String name = url.toString();
+        name = name.replaceAll(".+/([^/]+\\.jar)\\!/META-INF/MANIFEST.MF", "$1");
+        final ManifestEntry jar = new ManifestEntry(name, null);
+        manifestList.add(jar);
+
+        final Manifest manifest = new Manifest(url.openStream());
+        final Attributes attributes = manifest.getMainAttributes();
+        for (Object key : attributes.keySet()) {
+          manifestList.add(new ManifestEntry("     " + key.toString(), attributes.get(key).toString()));
         }
-        in.close();
-
-        manifestList.add(new ManifestEntry(url.toString(), content.toString()));
       }
     } catch (IOException e) {
-      LOG.error("", e);
+      LOG.error("Problem while processing URL: " + url, e);
     }
   }
 
   public List<ManifestEntry> getManifestList() {
     return manifestList;
-  }
-
-  public void setManifestList(List<ManifestEntry> manifestList) {
-    this.manifestList = manifestList;
   }
 }

@@ -19,28 +19,26 @@
 
 package org.apache.myfaces.tobago.example.demo;
 
+import org.apache.myfaces.tobago.context.Markup;
+
 public class ManifestEntry {
-  private String url;
-  private String content;
+  private final String name;
+  private final String value;
 
-  public ManifestEntry(String url, String content) {
-    this.url = url;
-    this.content = content;
+  public ManifestEntry(String name, String value) {
+    this.name = name;
+    this.value = value;
   }
 
-  public String getUrl() {
-    return url;
+  public String getName() {
+    return name;
   }
 
-  public void setUrl(String url) {
-    this.url = url;
+  public String getValue() {
+    return value;
   }
 
-  public String getContent() {
-    return content;
-  }
-
-  public void setContent(String content) {
-    this.content = content;
+  public Markup getMarkup() {
+    return value == null ? Markup.STRONG : Markup.NULL;
   }
 }
