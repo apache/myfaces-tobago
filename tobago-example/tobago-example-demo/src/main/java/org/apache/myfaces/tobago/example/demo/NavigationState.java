@@ -68,22 +68,30 @@ public class NavigationState implements Serializable {
   }
 
   public String gotoPrevious() {
-    final NavigationNode previousNode = currentNode.getPreviousNode();
-    if (previousNode != null) {
-      return gotoNode(previousNode);
+    if (currentNode == null) {
+      return gotoFirst();
     } else {
-      LOG.warn("Strange navigation behavior");
-      return null;
+      final NavigationNode previousNode = currentNode.getPreviousNode();
+      if (previousNode != null) {
+        return gotoNode(previousNode);
+      } else {
+        LOG.warn("Strange navigation behavior");
+        return null;
+      }
     }
   }
 
   public String gotoNext() {
-    final NavigationNode nextNode = currentNode.getNextNode();
-    if (nextNode != null) {
-      return gotoNode(nextNode);
+    if (currentNode == null) {
+      return gotoFirst();
     } else {
-      LOG.warn("Strange navigation behavior");
-      return null;
+      final NavigationNode nextNode = currentNode.getNextNode();
+      if (nextNode != null) {
+        return gotoNode(nextNode);
+      } else {
+        LOG.warn("Strange navigation behavior");
+        return null;
+      }
     }
   }
 
@@ -92,18 +100,28 @@ public class NavigationState implements Serializable {
   }
 
   public String gotoNode(NavigationNode node) {
-    currentNode = node;
-    initState();
-    LOG.info("Navigate to '" + currentNode.getOutcome() + "'");
-    return currentNode.getOutcome();
+    if (node == null) {
+      return gotoFirst();
+    } else {
+      currentNode = node;
+      initState();
+      LOG.info("Navigate to '" + currentNode.getOutcome() + "'");
+      return currentNode.getOutcome();
+    }
   }
 
   public boolean isFirst() {
+    if (currentNode == null) {
+      return false;
+    }
     final NavigationNode previousNode = currentNode.getPreviousNode();
     return previousNode == null || previousNode.isRoot();
   }
 
   public boolean isLast() {
+    if (currentNode == null) {
+      return false;
+    }
     final NavigationNode nextNode = currentNode.getNextNode();
     return nextNode == null;
   }
