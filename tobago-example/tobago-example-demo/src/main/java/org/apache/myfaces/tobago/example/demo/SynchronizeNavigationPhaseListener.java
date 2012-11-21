@@ -32,33 +32,30 @@ public class SynchronizeNavigationPhaseListener implements PhaseListener {
 
   public void beforePhase(PhaseEvent event) {
     if (PhaseId.RENDER_RESPONSE.equals(event.getPhaseId())) {
-      // synchronizing current site with
-      FacesContext facesContext = FacesContext.getCurrentInstance();
-      UIViewRoot viewRoot = facesContext.getViewRoot();
-      // in case of direct links the ViewRoot is empty after "restore view".
-      if (viewRoot != null && viewRoot.getChildCount() == 0) {
-        String viewId = viewRoot.getViewId();
-        NavigationTree navigation = (NavigationTree) VariableResolverUtils.resolveVariable(facesContext, "navigationTree");
-        navigation.gotoNode(navigation.findByViewId(viewId));
-      }
+      synchronizeState();
     }
   }
 
   public void afterPhase(PhaseEvent event) {
     if (PhaseId.RESTORE_VIEW.equals(event.getPhaseId())) {
-      // synchronizing direct links with controller
-      FacesContext facesContext = FacesContext.getCurrentInstance();
-      UIViewRoot viewRoot = facesContext.getViewRoot();
-      // in case of direct links the ViewRoot is empty after "restore view".
-      if (viewRoot != null && viewRoot.getChildCount() == 0) {
-        String viewId = viewRoot.getViewId();
-        NavigationTree navigation = (NavigationTree) VariableResolverUtils.resolveVariable(facesContext, "navigationTree");
-        navigation.gotoNode(navigation.findByViewId(viewId));
-      }
+      synchronizeState();
     }
   }
 
   public PhaseId getPhaseId() {
-    return PhaseId.RESTORE_VIEW;
+    return PhaseId.ANY_PHASE;
+  }
+
+  private void synchronizeState() {
+    // synchronizing current site with
+    FacesContext facesContext = FacesContext.getCurrentInstance();
+    UIViewRoot viewRoot = facesContext.getViewRoot();
+    // in case of direct links the ViewRoot is empty after "restore view".
+    if (viewRoot != null && viewRoot.getChildCount() == 0) {
+      String viewId = viewRoot.getViewId();
+      NavigationTree navigation
+          = (NavigationTree) VariableResolverUtils.resolveVariable(facesContext, "navigationTree");
+      navigation.gotoNode(navigation.findByViewId(viewId));
+    }
   }
 }
