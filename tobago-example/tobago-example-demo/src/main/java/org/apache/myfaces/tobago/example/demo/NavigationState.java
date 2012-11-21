@@ -28,6 +28,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.event.Observes;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
@@ -47,13 +48,15 @@ public class NavigationState implements Serializable {
 
   @PostConstruct
   public void init() {
-    currentNode = tree.getTree().getNextNode();
+    currentNode = tree.findByViewId(FacesContext.getCurrentInstance().getViewRoot().getViewId());
     initState();
   }
 
   private void initState() {
-    state.getMarkedState().setMarked(currentNode.getTreePath());
-    state.getExpandedState().expand(currentNode.getTreePath());
+    if (currentNode != null) {
+      state.getMarkedState().setMarked(currentNode.getTreePath());
+      state.getExpandedState().expand(currentNode.getTreePath());
+    }
   }
 
   public NavigationNode getCurrentNode() {

@@ -27,20 +27,34 @@ import javax.faces.event.PhaseEvent;
 import javax.faces.event.PhaseId;
 import javax.faces.event.PhaseListener;
 
+//todo @JsfPhaseListener
 public class SynchronizeNavigationPhaseListener implements PhaseListener {
 
   public void beforePhase(PhaseEvent event) {
+    if (PhaseId.RENDER_RESPONSE.equals(event.getPhaseId())) {
+      // synchronizing current site with
+      FacesContext facesContext = FacesContext.getCurrentInstance();
+      UIViewRoot viewRoot = facesContext.getViewRoot();
+      // in case of direct links the ViewRoot is empty after "restore view".
+      if (viewRoot != null && viewRoot.getChildCount() == 0) {
+        String viewId = viewRoot.getViewId();
+        NavigationTree navigation = (NavigationTree) VariableResolverUtils.resolveVariable(facesContext, "navigationTree");
+        navigation.gotoNode(navigation.findByViewId(viewId));
+      }
+    }
   }
 
   public void afterPhase(PhaseEvent event) {
-    // synchronizing direct links with controller
-    FacesContext facesContext = FacesContext.getCurrentInstance();
-    UIViewRoot viewRoot = facesContext.getViewRoot();
-    // in case of direct links the ViewRoot is empty after "restore view".
-    if (viewRoot != null && viewRoot.getChildCount() == 0) {
-      String viewId = viewRoot.getViewId();
-     NavigationTree navigation = (NavigationTree) VariableResolverUtils.resolveVariable(facesContext, "navigationTree");
-      navigation.selectByViewId(viewId);
+    if (PhaseId.RESTORE_VIEW.equals(event.getPhaseId())) {
+      // synchronizing direct links with controller
+      FacesContext facesContext = FacesContext.getCurrentInstance();
+      UIViewRoot viewRoot = facesContext.getViewRoot();
+      // in case of direct links the ViewRoot is empty after "restore view".
+      if (viewRoot != null && viewRoot.getChildCount() == 0) {
+        String viewId = viewRoot.getViewId();
+        NavigationTree navigation = (NavigationTree) VariableResolverUtils.resolveVariable(facesContext, "navigationTree");
+        navigation.gotoNode(navigation.findByViewId(viewId));
+      }
     }
   }
 
