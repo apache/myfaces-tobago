@@ -147,7 +147,7 @@ Tobago.In.prototype.leaveRequired = function(e) {
 Tobago.registerListener(Tobago.In.init, Tobago.Phase.DOCUMENT_READY);
 Tobago.registerListener(Tobago.In.init, Tobago.Phase.AFTER_UPDATE);
 
-Tobago.AutocompleterAjax = function (elementId, required, requiredClass, options) {
+Tobago.AutocompleterAjax = function (elementId, required, requiredClass) {
   LOG.debug('new Tobago.AutocompleterAjax ' + elementId); // @DEV_ONLY
   this.id = elementId;
   this.required = required;
@@ -155,20 +155,12 @@ Tobago.AutocompleterAjax = function (elementId, required, requiredClass, options
   this.suggestions = null;
   this.setup();
 
-  this.options = {
-    minPrefixLength:2,
-    eventDelay:500,
-    createOverlay:false
-  };
-
   this.requestActive = false;
   this.rerequest = false;
 
   this.currentTimeout = undefined;
 
   this.index = 0;
-
-  Tobago.extend(this.options, options);
 
   var input = Tobago.element(elementId);
 
@@ -218,7 +210,8 @@ Tobago.AutocompleterAjax.prototype.doCheckSuggest = function (event) {
   }
   this.oldValue = input.value;
 
-  if (input.value.length < this.options.minPrefixLength) {
+  var inputElement = jQuery(Tobago.Utils.escapeClientId(this.id));
+  if (input.value.length < inputElement.data("suggest-min-chars")) {
     return;
   }
 
@@ -229,7 +222,7 @@ Tobago.AutocompleterAjax.prototype.doCheckSuggest = function (event) {
   var self = this;
   this.currentTimeout = setTimeout(function () {
     self.fetchSuggestions(input);
-  }, this.options.eventDelay);
+  }, inputElement.data("suggest-delay"));
 
 };
 
@@ -238,7 +231,7 @@ Tobago.AutocompleterAjax.prototype.fetchSuggestions = function (input) {
   if (!this.requestActive) {
     this.requestActive = true;
     LOG.debug('fetchSuggestions() request Suggestions for ' + input.value); // @DEV_ONLY
-    Tobago.Updater.update(input, input.id, input.id, this.options);
+    Tobago.Updater.update(input, input.id, input.id, {createOverlay: false});
   } else {
     this.rerequest = true;
   }
@@ -250,7 +243,7 @@ Tobago.AutocompleterAjax.prototype.beforeDoUpdate = function (data) {
     this.requestActive = true;
     var input = Tobago.element(this.id);
     LOG.debug('doUpdate() request Suggestions for ' + input.value); // @DEV_ONLY
-    Tobago.Updater.update(input, input.id, input.id, this.options);
+    Tobago.Updater.update(input, input.id, input.id, {createOverlay: false});
     return false;
   } else {
     return true;

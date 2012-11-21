@@ -150,6 +150,11 @@ public class InRenderer extends InputRendererBase {
       boolean required = ComponentUtils.getBooleanAttribute(input, Attributes.REQUIRED);
       writer.writeAttribute(HtmlAttributes.REQUIRED, required);
       writer.writeAttribute(DataAttributes.SUGGEST, renderAjaxSuggest);
+      if (renderAjaxSuggest) {
+        UIIn in = (UIIn) input;
+        writer.writeAttribute(DataAttributes.SUGGEST_MIN_CHARS, in.getSuggestMinChars());
+        writer.writeAttribute(DataAttributes.SUGGEST_DELAY, in.getSuggestDelay());
+      }
 
       HtmlRendererUtils.renderFocus(id, input.isFocus(), ComponentUtils.isError(input), facesContext, writer);
       writeAdditionalAttributes(facesContext, writer, input);

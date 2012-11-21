@@ -111,11 +111,6 @@ public final class DataAttributes {
 
   public static final String ROWACTION = "data-tobago-rowaction";
 
-  /**
-   * Custom suggest attribute. Used for input suggest.
-   */
-  public static final String SUGGEST = "data-tobago-suggest";
-
   public static final String SELECTIONMODE = "data-tobago-selectionmode";
 
   /**
@@ -152,6 +147,15 @@ public final class DataAttributes {
    * A way to transport style data in JSON format to the browser. With CSP the normal style attribute isn't allowed.
    */
   public static final String STYLE = "data-tobago-style";
+
+  /**
+   * Custom suggest attribute. Used for input suggest.
+   */
+  public static final String SUGGEST = "data-tobago-suggest";
+
+  public static final String SUGGEST_DELAY = "data-tobago-suggest-delay";
+
+  public static final String SUGGEST_MIN_CHARS = "data-tobago-suggest-min-chars";
 
   public static final String TRANSITION = "data-tobago-transition";
 

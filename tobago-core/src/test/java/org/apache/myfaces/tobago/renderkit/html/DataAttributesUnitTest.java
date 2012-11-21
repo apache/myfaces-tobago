@@ -31,11 +31,11 @@ public class DataAttributesUnitTest {
     for (Field field : DataAttributes.class.getFields()) {
 
       String value = (String) field.get(null);
-      Assert.assertTrue("Regexp check: value='" + value + "'", value.matches("data-tobago-[a-z]+"));
+      Assert.assertTrue("Regexp check: value='" + value + "'", value.matches("data-tobago(-[a-z]+)*-[a-z]+"));
 
       String extension = value.substring("data-tobago-".length());
       String name = field.getName();
-      Assert.assertEquals(name, extension.toUpperCase());
+      Assert.assertEquals(name, extension.toUpperCase().replaceAll("-", "_"));
     }
   }
 }
