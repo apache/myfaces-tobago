@@ -130,6 +130,9 @@ public class NavigationTree implements Serializable {
   }
 
   public NavigationNode findByViewId(String viewId) {
+    if (viewId.endsWith(".jspx")) {
+      viewId = viewId.substring(0, viewId.lastIndexOf(".jspx")) + ".xhtml";
+    }
     Enumeration enumeration = tree.depthFirstEnumeration();
     while (enumeration.hasMoreElements()) {
       NavigationNode node = ((NavigationNode) enumeration.nextElement());
