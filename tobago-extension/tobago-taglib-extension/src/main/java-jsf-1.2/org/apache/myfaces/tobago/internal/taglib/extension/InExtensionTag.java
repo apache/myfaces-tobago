@@ -28,6 +28,8 @@ import org.apache.myfaces.tobago.internal.taglib.InTag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.el.MethodExpression;
+import javax.el.ValueExpression;
 import javax.servlet.jsp.JspException;
 
 /**
@@ -52,27 +54,29 @@ import javax.servlet.jsp.JspException;
 @ExtensionTag(baseClassName = "org.apache.myfaces.tobago.internal.taglib.InTag")
 public class InExtensionTag extends TobagoExtensionBodyTagSupport {
 
-  private javax.el.ValueExpression binding;
-  private javax.el.ValueExpression converter;
-  private javax.el.MethodExpression validator;
-  private javax.el.ValueExpression disabled;
-  private javax.el.ValueExpression focus;
-  private javax.el.ValueExpression label;
-  private javax.el.ValueExpression password;
-  private javax.el.ValueExpression readonly;
-  private javax.el.ValueExpression rendered;
-  private javax.el.ValueExpression required;
-  private javax.el.ValueExpression tip;
-  private javax.el.ValueExpression value;
-  private javax.el.MethodExpression valueChangeListener;
-  private javax.el.ValueExpression onchange;
-  private javax.el.MethodExpression suggestMethod;
-  private javax.el.ValueExpression markup;
-  private javax.el.ValueExpression labelWidth;
-  private javax.el.ValueExpression tabIndex;
-  private javax.el.ValueExpression validatorMessage;
-  private javax.el.ValueExpression converterMessage;
-  private javax.el.ValueExpression requiredMessage;
+  private ValueExpression binding;
+  private ValueExpression converter;
+  private MethodExpression validator;
+  private ValueExpression disabled;
+  private ValueExpression focus;
+  private ValueExpression label;
+  private ValueExpression password;
+  private ValueExpression readonly;
+  private ValueExpression rendered;
+  private ValueExpression required;
+  private ValueExpression tip;
+  private ValueExpression value;
+  private MethodExpression valueChangeListener;
+  private ValueExpression onchange;
+  private MethodExpression suggestMethod;
+  private ValueExpression suggestMinChars;
+  private ValueExpression suggestDelay;
+  private ValueExpression markup;
+  private ValueExpression labelWidth;
+  private ValueExpression tabIndex;
+  private ValueExpression validatorMessage;
+  private ValueExpression converterMessage;
+  private ValueExpression requiredMessage;
   private String fieldId;
 
   private LabelExtensionTag labelTag;
@@ -130,6 +134,12 @@ public class InExtensionTag extends TobagoExtensionBodyTagSupport {
     }
     if (suggestMethod != null) {
       inTag.setSuggestMethod(suggestMethod);
+    }
+    if (suggestMinChars != null) {
+      inTag.setSuggestMinChars(suggestMinChars);
+    }
+    if (suggestDelay != null) {
+      inTag.setSuggestDelay(suggestDelay);
     }
     if (disabled != null) {
       inTag.setDisabled(disabled);
@@ -199,6 +209,8 @@ public class InExtensionTag extends TobagoExtensionBodyTagSupport {
     valueChangeListener = null;
     onchange = null;
     suggestMethod = null;
+    suggestMinChars = null;
+    suggestDelay = null;
     markup = null;
     tabIndex = null;
     inTag = null;
@@ -215,7 +227,7 @@ public class InExtensionTag extends TobagoExtensionBodyTagSupport {
    */
   @TagAttribute
   @UIComponentTagAttribute(defaultValue = "none", type = "java.lang.String[]")
-  public void setMarkup(javax.el.ValueExpression markup) {
+  public void setMarkup(ValueExpression markup) {
     this.markup = markup;
   }
 
@@ -224,7 +236,7 @@ public class InExtensionTag extends TobagoExtensionBodyTagSupport {
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "java.lang.Object")
-  public void setValue(javax.el.ValueExpression value) {
+  public void setValue(ValueExpression value) {
     this.value = value;
   }
 
@@ -241,7 +253,7 @@ public class InExtensionTag extends TobagoExtensionBodyTagSupport {
       type = {},
       expression = DynamicExpression.METHOD_BINDING_REQUIRED,
       methodSignature = "javax.faces.event.ValueChangeEvent")
-  public void setValueChangeListener(javax.el.MethodExpression valueChangeListener) {
+  public void setValueChangeListener(MethodExpression valueChangeListener) {
     this.valueChangeListener = valueChangeListener;
   }
 
@@ -251,7 +263,7 @@ public class InExtensionTag extends TobagoExtensionBodyTagSupport {
    */
   @TagAttribute
   @UIComponentTagAttribute()
-  public void setLabel(javax.el.ValueExpression label) {
+  public void setLabel(ValueExpression label) {
     this.label = label;
   }
 
@@ -260,7 +272,7 @@ public class InExtensionTag extends TobagoExtensionBodyTagSupport {
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
-  public void setFocus(javax.el.ValueExpression focus) {
+  public void setFocus(ValueExpression focus) {
     this.focus = focus;
   }
 
@@ -270,7 +282,7 @@ public class InExtensionTag extends TobagoExtensionBodyTagSupport {
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "javax.faces.component.UIComponent")
-  public void setBinding(javax.el.ValueExpression binding) {
+  public void setBinding(ValueExpression binding) {
     this.binding = binding;
   }
 
@@ -280,7 +292,7 @@ public class InExtensionTag extends TobagoExtensionBodyTagSupport {
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "boolean", defaultValue = "true")
-  public void setRendered(javax.el.ValueExpression rendered) {
+  public void setRendered(ValueExpression rendered) {
     this.rendered = rendered;
   }
 
@@ -296,7 +308,7 @@ public class InExtensionTag extends TobagoExtensionBodyTagSupport {
   @TagAttribute
   @UIComponentTagAttribute(type = "javax.faces.convert.Converter",
       expression = DynamicExpression.VALUE_BINDING)
-  public void setConverter(javax.el.ValueExpression converter) {
+  public void setConverter(ValueExpression converter) {
     this.converter = converter;
   }
 
@@ -305,19 +317,45 @@ public class InExtensionTag extends TobagoExtensionBodyTagSupport {
    */
   @TagAttribute
   @UIComponentTagAttribute()
-  public void setOnchange(javax.el.ValueExpression onchange) {
+  public void setOnchange(ValueExpression onchange) {
     this.onchange = onchange;
   }
 
   /**
-   * @param suggestMethod
+   * MethodBinding which generates a list of suggested input values based on
+   * the currently entered text, which could be retrieved via getSubmittedValue() on the UIInput.
+   * The expression has to evaluate to a public method which has a javax.faces.component.UIInput parameter
+   * and returns a List&lt;String>(deprecated), a List&lt;org.apache.myfaces.tobago.model.AutoSuggestItem>
+   * or a org.apache.myfaces.tobago.model.AutoSuggestItems.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = {},
       expression = DynamicExpression.METHOD_BINDING_REQUIRED,
       methodSignature = "java.lang.String")
-  public void setSuggestMethod(javax.el.MethodExpression suggestMethod) {
+  public void setSuggestMethod(MethodExpression suggestMethod) {
     this.suggestMethod = suggestMethod;
+  }
+
+  /**
+   * Minimum number of chars to type before the list will be requested.
+   *
+   * @since 1.5.9 and 1.6.0
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type = "java.lang.Integer", defaultValue = "1")
+  public void setSuggestMinChars(ValueExpression suggestMinChars) {
+    this.suggestMinChars = suggestMinChars;
+  }
+
+  /**
+   * Time in milli seconds before the list will be requested.
+   *
+   * @since 1.5.9 and 1.6.0
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type = "java.lang.Integer", defaultValue = "300")
+  public void setSuggestDelay(ValueExpression suggestDelay) {
+    this.suggestDelay = suggestDelay;
   }
 
   /**
@@ -330,7 +368,7 @@ public class InExtensionTag extends TobagoExtensionBodyTagSupport {
   @UIComponentTagAttribute(type = {},
       expression = DynamicExpression.METHOD_BINDING,
       methodSignature = {"javax.faces.context.FacesContext", "javax.faces.component.UIComponent", "java.lang.Object"})
-  public void setValidator(javax.el.MethodExpression validator) {
+  public void setValidator(MethodExpression validator) {
     this.validator = validator;
   }
 
@@ -340,7 +378,7 @@ public class InExtensionTag extends TobagoExtensionBodyTagSupport {
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
-  public void setPassword(javax.el.ValueExpression password) {
+  public void setPassword(ValueExpression password) {
     this.password = password;
   }
 
@@ -349,7 +387,7 @@ public class InExtensionTag extends TobagoExtensionBodyTagSupport {
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
-  public void setReadonly(javax.el.ValueExpression readonly) {
+  public void setReadonly(ValueExpression readonly) {
     this.readonly = readonly;
   }
 
@@ -358,7 +396,7 @@ public class InExtensionTag extends TobagoExtensionBodyTagSupport {
    */
   @TagAttribute()
   @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
-  public void setDisabled(javax.el.ValueExpression disabled) {
+  public void setDisabled(ValueExpression disabled) {
     this.disabled = disabled;
   }
 
@@ -369,7 +407,7 @@ public class InExtensionTag extends TobagoExtensionBodyTagSupport {
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
-  public void setRequired(javax.el.ValueExpression required) {
+  public void setRequired(ValueExpression required) {
     this.required = required;
   }
 
@@ -378,7 +416,7 @@ public class InExtensionTag extends TobagoExtensionBodyTagSupport {
    */
   @TagAttribute
   @UIComponentTagAttribute()
-  public void setTip(javax.el.ValueExpression tip) {
+  public void setTip(ValueExpression tip) {
     this.tip = tip;
   }
 
@@ -389,13 +427,13 @@ public class InExtensionTag extends TobagoExtensionBodyTagSupport {
    */
   @TagAttribute
   @UIComponentTagAttribute()
-  public void setLabelWidth(javax.el.ValueExpression labelWidth) {
+  public void setLabelWidth(ValueExpression labelWidth) {
     this.labelWidth = labelWidth;
   }
 
   @TagAttribute
   @UIComponentTagAttribute(type = "java.lang.Integer")
-  public void setTabIndex(javax.el.ValueExpression tabIndex) {
+  public void setTabIndex(ValueExpression tabIndex) {
     this.tabIndex = tabIndex;
   }
 
@@ -404,7 +442,7 @@ public class InExtensionTag extends TobagoExtensionBodyTagSupport {
    */
   @TagAttribute
   @UIComponentTagAttribute()
-  public void setValidatorMessage(javax.el.ValueExpression validatorMessage) {
+  public void setValidatorMessage(ValueExpression validatorMessage) {
     this.validatorMessage = validatorMessage;
   }
 
@@ -413,7 +451,7 @@ public class InExtensionTag extends TobagoExtensionBodyTagSupport {
    */
   @TagAttribute
   @UIComponentTagAttribute()
-  public void setConverterMessage(javax.el.ValueExpression converterMessage) {
+  public void setConverterMessage(ValueExpression converterMessage) {
     this.converterMessage = converterMessage;
   }
 
@@ -422,7 +460,7 @@ public class InExtensionTag extends TobagoExtensionBodyTagSupport {
    */
   @TagAttribute
   @UIComponentTagAttribute()
-  public void setRequiredMessage(javax.el.ValueExpression requiredMessage) {
+  public void setRequiredMessage(ValueExpression requiredMessage) {
     this.requiredMessage = requiredMessage;
   }
 
