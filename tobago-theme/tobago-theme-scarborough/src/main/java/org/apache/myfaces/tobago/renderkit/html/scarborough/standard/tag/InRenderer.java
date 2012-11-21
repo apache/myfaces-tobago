@@ -156,12 +156,16 @@ public class InRenderer extends InputRendererBase {
       // input suggest
       if (renderAjaxSuggest) {
 
+        UIIn in = (UIIn) input;
+        int suggestMinChars = in.getSuggestMinChars();
+        int suggestDelay = in.getSuggestDelay();
+
         final String[] cmds = {
             "new Tobago.AutocompleterAjax(",
             "    '" + id + "',",
             "    " + required + ",",
             "    '" + requiredClass + "',",
-            "    { });"
+            "    {minPrefixLength:" + suggestMinChars + ",eventDelay:" + suggestDelay + "});"
         };
 
         HtmlRendererUtils.writeScriptLoader(facesContext, null, cmds);

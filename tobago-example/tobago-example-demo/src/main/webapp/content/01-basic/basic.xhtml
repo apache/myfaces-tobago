@@ -50,7 +50,7 @@
                label="#{overviewBundle.basic_textboxLabel}" tip="#{overviewBundle.basic_textboxTip}"/>
         <tx:in value="#{overviewController.suggestInput}" tabIndex="3"
                label="#{overviewBundle.basic_suggestLabel}" tip="#{overviewBundle.basic_suggestTip}"
-               suggestMethod="#{overviewController.getInputSuggestItems}"/>
+               suggestMethod="#{overviewController.getInputSuggestItems}" suggestDelay="300" suggestMinChars="1"/>
         <tx:date value="#{overviewController.basicDate}" tabIndex="4"
                  label="#{overviewBundle.basic_dateLabel}" required="true">
           <f:convertDateTime pattern="dd/MM/yyyy"/>
