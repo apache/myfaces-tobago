@@ -58,7 +58,7 @@ Tobago.AutocompleterAjax.prototype.doCheckSuggest = function (event) {
   var input = Tobago.element(this.id);
 
   var code = event.which;
-  if (code == 0) {
+  if (code == null || code == 0) {
     code = event.keyCode;
   }
 
@@ -71,14 +71,10 @@ Tobago.AutocompleterAjax.prototype.doCheckSuggest = function (event) {
       return false;
     case 40: // cursor down
       this.registerBodyEvent();
-      var div = Tobago.element(this.id + '_suggestDiv');
-      if (div) {
-        div.style.display = 'block';
-        try {
-          // focus() on not visible elements breaks IE
-          div.firstChild.firstChild.firstChild.focus();
-        } catch (ex) {
-        }
+      var div = jQuery(Tobago.Utils.escapeClientId(this.id + '_suggestDiv'));
+      if (div.length != 0) {
+        div.show();
+        div.find("a:first").focus();
         return false;
       }
   }
@@ -271,7 +267,7 @@ Tobago.AutocompleterAjax.prototype.suggestKeyUp = function (event) {
   var li = Tobago.element(event).parentNode;
 
   var code = event.which;
-  if (code == 0) {
+  if (code == null || code == 0) {
     code = event.keyCode;
   }
 
