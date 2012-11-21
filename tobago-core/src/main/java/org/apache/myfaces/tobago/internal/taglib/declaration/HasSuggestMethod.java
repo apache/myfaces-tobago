@@ -23,9 +23,6 @@ import org.apache.myfaces.tobago.apt.annotation.DynamicExpression;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 
-/**
- * $Id$
- */
 public interface HasSuggestMethod {
 
   /**
@@ -42,4 +39,21 @@ public interface HasSuggestMethod {
       methodReturnType = "java.lang.Object")
   void setSuggestMethod(String suggestMethod);
 
+  /**
+   * Minimum number of chars to type before the list will be requested.
+   *
+   * @since 1.5.9 and 1.6.0
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type = "java.lang.Integer", defaultValue = "1")
+  void setSuggestMinChars(String suggestMinChars);
+
+  /**
+   * Time in milli seconds before the list will be requested.
+   *
+   * @since 1.5.9 and 1.6.0
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type = "java.lang.Integer", defaultValue = "300")
+  void setSuggestDelay(String suggestDelay);
 }
