@@ -67,6 +67,8 @@ public class InExtensionTag extends TobagoExtensionBodyTagSupport {
   private javax.el.MethodExpression valueChangeListener;
   private javax.el.ValueExpression onchange;
   private javax.el.MethodExpression suggestMethod;
+  private javax.el.ValueExpression suggestMinChars;
+  private javax.el.ValueExpression suggestDelay;
   private javax.el.ValueExpression markup;
   private javax.el.ValueExpression labelWidth;
   private javax.el.ValueExpression tabIndex;
@@ -130,6 +132,12 @@ public class InExtensionTag extends TobagoExtensionBodyTagSupport {
     }
     if (suggestMethod != null) {
       inTag.setSuggestMethod(suggestMethod);
+    }
+    if (suggestMinChars != null) {
+      inTag.setSuggestMinChars(suggestMinChars);
+    }
+    if (suggestDelay != null) {
+      inTag.setSuggestDelay(suggestDelay);
     }
     if (disabled != null) {
       inTag.setDisabled(disabled);
@@ -199,6 +207,8 @@ public class InExtensionTag extends TobagoExtensionBodyTagSupport {
     valueChangeListener = null;
     onchange = null;
     suggestMethod = null;
+    suggestMinChars = null;
+    suggestDelay = null;
     markup = null;
     tabIndex = null;
     inTag = null;
@@ -310,7 +320,11 @@ public class InExtensionTag extends TobagoExtensionBodyTagSupport {
   }
 
   /**
-   * @param suggestMethod
+   * MethodBinding which generates a list of suggested input values based on
+   * the currently entered text, which could be retrieved via getSubmittedValue() on the UIInput.
+   * The expression has to evaluate to a public method which has a javax.faces.component.UIInput parameter
+   * and returns a List&lt;String>(deprecated), a List&lt;org.apache.myfaces.tobago.model.AutoSuggestItem>
+   * or a org.apache.myfaces.tobago.model.AutoSuggestItems.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = {},
@@ -318,6 +332,28 @@ public class InExtensionTag extends TobagoExtensionBodyTagSupport {
       methodSignature = "java.lang.String")
   public void setSuggestMethod(javax.el.MethodExpression suggestMethod) {
     this.suggestMethod = suggestMethod;
+  }
+
+  /**
+   * Minimum number of chars to type before the list will be requested.
+   *
+   * @since 1.5.9 and 1.6.0
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type = "java.lang.Integer", defaultValue = "1")
+  public void setSuggestMinChars(javax.el.ValueExpression suggestMinChars) {
+    this.suggestMinChars = suggestMinChars;
+  }
+
+  /**
+   * Time in milli seconds before the list will be requested.
+   *
+   * @since 1.5.9 and 1.6.0
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type = "java.lang.Integer", defaultValue = "300")
+  public void setSuggestDelay(javax.el.ValueExpression suggestDelay) {
+    this.suggestDelay = suggestDelay;
   }
 
   /**

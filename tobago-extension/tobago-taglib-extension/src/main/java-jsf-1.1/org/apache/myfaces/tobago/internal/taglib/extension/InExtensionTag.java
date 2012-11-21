@@ -44,6 +44,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsPassword;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsReadonly;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsRequired;
 
+import javax.el.ValueExpression;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
@@ -88,6 +89,8 @@ public class InExtensionTag extends BodyTagSupport
   private String valueChangeListener;
   private String onchange;
   private String suggestMethod;
+  private String suggestMinChars;
+  private String suggestDelay;
   private String markup;
   private String labelWidth;
   private String tabIndex;
@@ -147,6 +150,12 @@ public class InExtensionTag extends BodyTagSupport
     }
     if (suggestMethod != null) {
       inTag.setSuggestMethod(suggestMethod);
+    }
+    if (suggestMinChars != null) {
+      inTag.setSuggestMinChars(suggestMinChars);
+    }
+    if (suggestDelay != null) {
+      inTag.setSuggestDelay(suggestDelay);
     }
     if (disabled != null) {
       inTag.setDisabled(disabled);
@@ -216,6 +225,8 @@ public class InExtensionTag extends BodyTagSupport
     valueChangeListener = null;
     onchange = null;
     suggestMethod = null;
+    suggestMinChars = null;
+    suggestDelay = null;
     markup = null;
     tabIndex = null;
     inTag = null;
@@ -264,6 +275,14 @@ public class InExtensionTag extends BodyTagSupport
 
   public void setSuggestMethod(String suggestMethod) {
     this.suggestMethod = suggestMethod;
+  }
+
+  public void setSuggestMinChars(String suggestMinChars) {
+    this.suggestMinChars = suggestMinChars;
+  }
+
+  public void setSuggestDelay(String suggestDelay) {
+    this.suggestDelay = suggestDelay;
   }
 
   public void setValidator(String validator) {
