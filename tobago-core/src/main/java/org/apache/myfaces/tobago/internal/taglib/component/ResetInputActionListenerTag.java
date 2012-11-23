@@ -29,9 +29,11 @@ import org.apache.myfaces.tobago.event.ResetFormActionListener;
 import org.apache.myfaces.tobago.event.ResetInputActionListener;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 
+import javax.el.ValueExpression;
 import javax.faces.component.ActionSource;
 import javax.faces.component.UIComponent;
-import javax.faces.webapp.UIComponentTag;
+import javax.faces.webapp.UIComponentClassicTagBase;
+import javax.faces.webapp.UIComponentELTag;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.TagSupport;
 
@@ -42,12 +44,14 @@ import javax.servlet.jsp.tagext.TagSupport;
 @TagGeneration(className = "org.apache.myfaces.tobago.internal.taglib.ResetInputActionListenerTag")
 public abstract class ResetInputActionListenerTag extends TagSupport {
 
-  private static final long serialVersionUID = -8444689365088370011L;
+  private static final long serialVersionUID = 1L;
 
   /**
    * The .
    */
-  @TagAttribute(required = false, name = Attributes.EXECUTE)
+  @TagAttribute(required = false, name = Attributes.EXECUTE, type = "java.lang.String")
+  public abstract void setExecute(ValueExpression execute);
+
   public abstract String getExecuteValue();
 
   public abstract boolean isExecuteLiteral();
@@ -59,8 +63,8 @@ public abstract class ResetInputActionListenerTag extends TagSupport {
   public int doStartTag() throws JspException {
 
     // Locate our parent UIComponentTag
-    UIComponentTag tag =
-        UIComponentTag.getParentUIComponentTag(pageContext);
+    UIComponentClassicTagBase tag =
+        UIComponentELTag.getParentUIComponentClassicTagBase(pageContext);
     if (tag == null) {
       // TODO Message resource i18n
       throw new JspException("Not nested in faces tag");

@@ -26,12 +26,12 @@ import org.apache.myfaces.tobago.apt.annotation.TagGeneration;
 import org.apache.myfaces.tobago.compat.FacesUtils;
 import org.apache.myfaces.tobago.event.TabChangeListener;
 import org.apache.myfaces.tobago.event.TabChangeSource;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
+import javax.el.ValueExpression;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import javax.faces.webapp.UIComponentTag;
+import javax.faces.webapp.UIComponentClassicTagBase;
+import javax.faces.webapp.UIComponentELTag;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.TagSupport;
 
@@ -43,15 +43,15 @@ import javax.servlet.jsp.tagext.TagSupport;
 @TagGeneration(className = "org.apache.myfaces.tobago.internal.taglib.TabChangeListenerTag")
 public abstract class TabChangeListenerTag extends TagSupport {
 
-  private static final long serialVersionUID = -419199086962377873L;
-
-  private static final Logger LOG = LoggerFactory.getLogger(TabChangeListenerTag.class);
+  private static final long serialVersionUID = 1L;
 
   /**
    * Fully qualified Java class name of a TabChangeListener to be
    * created and registered.
    */
-  @TagAttribute(required = true, name = "type")
+  @TagAttribute(required = true, name = "type", type = "java.lang.String")
+  public abstract void setType(ValueExpression type);
+
   public abstract String getTypeValue();
 
   public abstract boolean isTypeSet();
@@ -61,8 +61,10 @@ public abstract class TabChangeListenerTag extends TagSupport {
   /**
    * The value binding expression to a TabChangeListener.
    */
-  @TagAttribute(name = "binding")
-  public abstract String getBindingValue();
+  @TagAttribute(name = "binding", type = "org.apache.myfaces.tobago.event.TabChangeListener")
+  public abstract void setBinding(ValueExpression binding);
+
+  public abstract TabChangeListener getBindingValue();
 
   public abstract boolean isBindingSet();
 
@@ -73,7 +75,7 @@ public abstract class TabChangeListenerTag extends TagSupport {
   /**
    * <p>Create a new instance of the specified {@link TabChangeListener}
    * class, and register it with the {@link javax.faces.component.UIComponent} instance associated
-   * with our most immediately surrounding {@link javax.faces.webapp.UIComponentTag} instance, if
+   * with our most immediately surrounding {@link javax.faces.webapp.UIComponentELTag} instance, if
    * the {@link javax.faces.component.UIComponent} instance was created by this execution of the
    * containing JSP page.</p>
    *
@@ -82,8 +84,8 @@ public abstract class TabChangeListenerTag extends TagSupport {
   public int doStartTag() throws JspException {
 
     // Locate our parent UIComponentTag
-    UIComponentTag tag =
-        UIComponentTag.getParentUIComponentTag(pageContext);
+    UIComponentClassicTagBase tag =
+        UIComponentELTag.getParentUIComponentClassicTagBase(pageContext);
     if (tag == null) {
       // TODO Message resource i18n
       throw new JspException("Not nested in faces tag");

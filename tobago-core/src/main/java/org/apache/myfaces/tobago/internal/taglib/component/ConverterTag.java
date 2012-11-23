@@ -26,11 +26,13 @@ import org.apache.myfaces.tobago.apt.annotation.TagGeneration;
 import org.apache.myfaces.tobago.compat.FacesUtils;
 import org.apache.myfaces.tobago.component.Attributes;
 
+import javax.el.ValueExpression;
 import javax.faces.component.UIComponent;
 import javax.faces.component.ValueHolder;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
-import javax.faces.webapp.UIComponentTag;
+import javax.faces.webapp.UIComponentClassicTagBase;
+import javax.faces.webapp.UIComponentELTag;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.TagSupport;
 
@@ -46,12 +48,12 @@ import javax.servlet.jsp.tagext.TagSupport;
 @TagGeneration(className = "org.apache.myfaces.tobago.internal.taglib.ConverterTag")
 public abstract class ConverterTag extends TagSupport {
 
-  private static final long serialVersionUID = 8565994799165107984L;
+  private static final long serialVersionUID = 1L;
 
   /**
    * Create a new instance of the specified {@link javax.faces.convert.Converter}
    * class, and register it with the {@link javax.faces.component.UIComponent} instance associated
-   * with our most immediately surrounding {@link javax.faces.webapp.UIComponentTag} instance, if
+   * with our most immediately surrounding {@link javax.faces.webapp.UIComponentELTag} instance, if
    * the {@link javax.faces.component.UIComponent} instance was created by this execution of the
    * containing JSP page.
    *
@@ -60,8 +62,8 @@ public abstract class ConverterTag extends TagSupport {
   public int doStartTag() throws JspException {
 
     // Locate our parent UIComponentTag
-    UIComponentTag tag =
-        UIComponentTag.getParentUIComponentTag(pageContext);
+    UIComponentClassicTagBase tag =
+        UIComponentELTag.getParentUIComponentClassicTagBase(pageContext);
     if (tag == null) {
       // TODO Message resource i18n
       throw new JspException("Not nested in faces tag");
@@ -125,27 +127,30 @@ public abstract class ConverterTag extends TagSupport {
    * The converterId of a registered converter.
    *
    */
-  @TagAttribute(name = "converterId")
+  @TagAttribute(name = "converterId", type = "java.lang.String")
+  public abstract void setConverterId(ValueExpression converterId);
+
   public abstract String getConverterIdValue();
-
-  public abstract Object getConverterIdAsBindingOrExpression();
-
-  public abstract boolean isConverterIdLiteral();
 
   public abstract boolean isConverterIdSet();
 
+  public abstract boolean isConverterIdLiteral();
+
+  public abstract Object getConverterIdAsBindingOrExpression();
 
   /**
    * The value binding expression to a converter.
    *
    */
-  @TagAttribute(name = "binding")
-  public abstract String getBindingValue();
+  @TagAttribute(name = "binding", type = "javax.faces.convert.Converter")
+  public abstract void setBinding(ValueExpression binding);
 
-  public abstract Object getBindingAsBindingOrExpression();
+  public abstract Converter getBindingValue();
+
+  public abstract boolean isBindingSet();
 
   public abstract boolean isBindingLiteral();
 
-  public abstract boolean isBindingSet();
+  public abstract Object getBindingAsBindingOrExpression();
 
 }

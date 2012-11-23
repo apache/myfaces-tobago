@@ -25,8 +25,10 @@ import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.TagGeneration;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 
+import javax.el.ValueExpression;
 import javax.faces.component.UIComponent;
-import javax.faces.webapp.UIComponentTag;
+import javax.faces.webapp.UIComponentClassicTagBase;
+import javax.faces.webapp.UIComponentELTag;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.TagSupport;
 
@@ -42,32 +44,37 @@ import javax.servlet.jsp.tagext.TagSupport;
 @TagGeneration(className = "org.apache.myfaces.tobago.internal.taglib.DataAttributeTag")
 public abstract class DataAttributeTag extends TagSupport {
 
-  public abstract boolean isNameLiteral();
-
-  public abstract Object getNameAsBindingOrExpression();
+  private static final long serialVersionUID = 1L;
 
   /**
    * PRELIMINARY - SUBJECT TO CHANGE
    *
    * The name of the attribute in the parent component.
    */
-  @TagAttribute(required = true, name = "name")
+  @TagAttribute(required = true, name = "name", type = "java.lang.String")
+  public abstract void setName(ValueExpression name);
+
   public abstract String getNameValue();
 
+  public abstract boolean isNameLiteral();
+
+  public abstract Object getNameAsBindingOrExpression();
+
   public abstract String getNameExpression();
-
-
-  public abstract boolean isValueLiteral();
-
-  public abstract Object getValueAsBindingOrExpression();
 
   /**
    * PRELIMINARY - SUBJECT TO CHANGE
    *
    * The value of the attribute in the parent component.
    */
-  @TagAttribute(required = true, name = "value")
+  @TagAttribute(required = true, name = "value", type = "java.lang.String")
+  public abstract void setValue(ValueExpression value);
+
   public abstract String getValueValue();
+
+  public abstract boolean isValueLiteral();
+
+  public abstract Object getValueAsBindingOrExpression();
 
   public abstract String getValueExpression();
 
@@ -77,8 +84,8 @@ public abstract class DataAttributeTag extends TagSupport {
   public int doStartTag() throws JspException {
 
     // Locate our parent UIComponentTag
-    final UIComponentTag tag =
-        UIComponentTag.getParentUIComponentTag(pageContext);
+    UIComponentClassicTagBase tag =
+        UIComponentELTag.getParentUIComponentClassicTagBase(pageContext);
     if (tag == null) {
       // TODO Message resource i18n
       throw new JspException("Not nested in faces tag");

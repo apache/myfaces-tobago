@@ -25,6 +25,7 @@ import org.apache.myfaces.tobago.apt.annotation.TagGeneration;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.validator.FileItemValidator;
 
+import javax.el.ValueExpression;
 import javax.faces.validator.Validator;
 import javax.faces.webapp.ValidatorTag;
 import javax.servlet.jsp.JspException;
@@ -42,14 +43,18 @@ import javax.servlet.jsp.JspException;
 @TagGeneration(className = "org.apache.myfaces.tobago.internal.taglib.FileItemValidatorTag")
 public abstract class FileItemValidatorTag extends ValidatorTag {
 
-  private static final long serialVersionUID = -1461244883146997440L;
+  private static final long serialVersionUID = 1L;
 
-  @TagAttribute(name = "maxSize")
-  public abstract String getMaxSizeValue();
+  @TagAttribute(name = "maxSize", type = "java.lang.Integer")
+  public abstract void setMaxSize(ValueExpression maxSize);
+
+  public abstract Integer getMaxSizeValue();
 
   public abstract boolean isMaxSizeSet();
 
-  @TagAttribute(name = "contentType")
+  @TagAttribute(name = "contentType", type = "java.lang.String")
+  public abstract void setContentType(ValueExpression contentType);
+
   public abstract String getContentTypeValue();
 
   public abstract boolean isContentTypeSet();
@@ -60,7 +65,7 @@ public abstract class FileItemValidatorTag extends ValidatorTag {
 
     if (isMaxSizeSet()) {
       try {
-        validator.setMaxSize(Integer.parseInt(getMaxSizeValue()));
+        validator.setMaxSize(getMaxSizeValue());
       } catch (NumberFormatException e) {
         // ignore
       }

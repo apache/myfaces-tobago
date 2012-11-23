@@ -477,15 +477,11 @@ public class TaglibAnnotationVisitor extends AbstractAnnotationVisitor {
               attribute.appendChild(deferredMethod);
             } else if (componentTagAttribute != null && componentTagAttribute.expression().isValueExpression()) {
               Element deferredValue = document.createElement("deferred-value");
-              String type = "java.lang.Object";
-              if (componentTagAttribute.expression().isValueExpression()) {
-                if (componentTagAttribute.type().length == 1
-                    // XXX fix me hack
-                    && !"org.apache.myfaces.tobago.layout.Measure".equals(componentTagAttribute.type()[0])) {
-                  type = componentTagAttribute.type()[0];
-                }
-              } else {
+              final String type;
+              if (componentTagAttribute.type().length == 1) {
                 type = componentTagAttribute.type()[0];
+              } else {
+                type = "java.lang.Object";
               }
               addLeafTextElement(type, "type", deferredValue, document);
               attribute.appendChild(deferredValue);

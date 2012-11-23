@@ -1,16 +1,16 @@
 /**
- * <b>Tobago Framework Component Tag Library 1.5.x -
+ * <b>Tobago Framework Component Tag Library 1.6.x -
  * (C) Copyright 2005-2012 The Apache Software Foundation</b>
  */
 @org.apache.myfaces.tobago.apt.annotation.Taglib(
     shortName = "tc",
-    tlibVersion = "1.5",
+    tlibVersion = "1.6",
     uri = "http://myfaces.apache.org/tobago/component",
     listener = {
         "org.apache.myfaces.tobago.webapp.TobagoServletContextListener",
         "org.apache.myfaces.tobago.webapp.SecretSessionListener"},
     fileName = "tobago.tld",
-    displayName = "Tobago Components 1.5.x")
+    displayName = "Tobago Components 1.6.x")
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file

@@ -24,6 +24,7 @@ import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.TagGeneration;
 import org.apache.myfaces.tobago.validator.SubmittedValueLengthValidator;
 
+import javax.el.ValueExpression;
 import javax.faces.validator.Validator;
 import javax.faces.webapp.ValidatorTag;
 import javax.servlet.jsp.JspException;
@@ -38,31 +39,35 @@ import javax.servlet.jsp.JspException;
 @TagGeneration(className = "org.apache.myfaces.tobago.internal.taglib.SubmittedValueLengthValidatorTag")
 public abstract class SubmittedValueLengthValidatorTag extends ValidatorTag {
 
-  private static final long serialVersionUID = 6777040780038715924L;
+  private static final long serialVersionUID = 1L;
+
+  @TagAttribute(name = "minimum", type = "java.lang.Integer")
+  public abstract void setMinimum(ValueExpression minimum);
+
+  public abstract Integer getMinimumValue();
 
   public abstract boolean isMinimumSet();
 
-  @TagAttribute(name = "minimum")
-  public abstract String getMinimumValue();
+  @TagAttribute(name = "maximum", type = "java.lang.Integer")
+  public abstract void setMaximum(ValueExpression maximum);
+
+  public abstract Integer getMaximumValue();
 
   public abstract boolean isMaximumSet();
-
-  @TagAttribute(name = "maximum")
-  public abstract String getMaximumValue();
 
   protected Validator createValidator() throws JspException {
     setValidatorId(SubmittedValueLengthValidator.VALIDATOR_ID);
     SubmittedValueLengthValidator validator = (SubmittedValueLengthValidator) super.createValidator();
     if (isMinimumSet()) {
       try {
-        validator.setMinimum(Integer.parseInt(getMinimumValue()));
+        validator.setMinimum(getMinimumValue());
       } catch (NumberFormatException e) {
         // ignore
       }
     }
     if (isMaximumSet()) {
       try {
-        validator.setMaximum(Integer.parseInt(getMaximumValue()));
+        validator.setMaximum(getMaximumValue());
       } catch (NumberFormatException e) {
         // ignore
       }

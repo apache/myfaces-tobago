@@ -25,6 +25,7 @@ import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.TagGeneration;
 import org.apache.myfaces.tobago.util.BundleMapWrapper;
 
+import javax.el.ValueExpression;
 import javax.faces.context.FacesContext;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.TagSupport;
@@ -45,11 +46,14 @@ import java.util.Map;
 @TagGeneration(className = "org.apache.myfaces.tobago.internal.taglib.LoadBundleTag")
 public abstract class LoadBundleTag extends TagSupport {
 
-  private static final long serialVersionUID = 4949984721486410191L;
+  private static final long serialVersionUID = 1L;
+
   /**
    * Base name of the resource bundle to be loaded.
    */
-  @TagAttribute(required = true, name = "basename")
+  @TagAttribute(required = true, name = "basename", type = "java.lang.String")
+  public abstract void setBasename(ValueExpression basename);
+
   public abstract String getBasenameValue();
 
   /**
@@ -57,6 +61,8 @@ public abstract class LoadBundleTag extends TagSupport {
    * will be exposed.
    */
   @TagAttribute(required = true, name = "var")
+  public abstract void setVar(ValueExpression var);
+
   public abstract String getVarValue();
 
   public int doStartTag() throws JspException {

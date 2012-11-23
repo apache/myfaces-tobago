@@ -219,14 +219,13 @@
             <executions>
               <execution>
                 <id>tobago-doc</id>
-                <goals><goal>execute</goal></goals>
+                <goals><goal>process</goal></goals>
                 <configuration>
                   <outputFiles>
                     <outputFile>org/apache/myfaces/tobago/internal/taglib/extension/tobago-extension.xml</outputFile>
                   </outputFiles>
                   <sourceOutputDirectory>${project.build.directory}/doc</sourceOutputDirectory>
                   <factory>org.apache.myfaces.tobago.apt.TobagoAnnotationProcessorFactory</factory>
-                  <nocompile>true</nocompile>
                   <encoding>${maven.compile.encoding}</encoding>
                 </configuration>
               </execution>

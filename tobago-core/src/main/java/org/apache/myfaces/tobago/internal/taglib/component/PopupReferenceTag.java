@@ -26,9 +26,11 @@ import org.apache.myfaces.tobago.apt.annotation.TagGeneration;
 import org.apache.myfaces.tobago.compat.FacesUtils;
 import org.apache.myfaces.tobago.event.PopupActionListener;
 
+import javax.el.ValueExpression;
 import javax.faces.component.ActionSource;
 import javax.faces.component.UIComponent;
-import javax.faces.webapp.UIComponentTag;
+import javax.faces.webapp.UIComponentClassicTagBase;
+import javax.faces.webapp.UIComponentELTag;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.TagSupport;
 
@@ -45,12 +47,14 @@ import javax.servlet.jsp.tagext.TagSupport;
 @TagGeneration(className = "org.apache.myfaces.tobago.internal.taglib.PopupReferenceTag")
 public abstract class PopupReferenceTag extends TagSupport {
 
-  private static final long serialVersionUID = -8444689365088370011L;
+  private static final long serialVersionUID = 1L;
 
   /**
    * The id of a Popup.
    */
-  @TagAttribute(required = true, name ="for")
+  @TagAttribute(required = true, name ="for", type = "java.lang.String")
+  public abstract void setFor(ValueExpression forValue);
+
   public abstract String getForValue();
 
   public abstract boolean isForLiteral();
@@ -60,8 +64,8 @@ public abstract class PopupReferenceTag extends TagSupport {
   public int doStartTag() throws JspException {
 
     // Locate our parent UIComponentTag
-    UIComponentTag tag =
-        UIComponentTag.getParentUIComponentTag(pageContext);
+    UIComponentClassicTagBase tag =
+        UIComponentELTag.getParentUIComponentClassicTagBase(pageContext);
     if (tag == null) {
       // TODO Message resource i18n
       throw new JspException("Not nested in faces tag");
