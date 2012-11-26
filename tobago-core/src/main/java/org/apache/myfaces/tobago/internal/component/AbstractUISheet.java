@@ -47,6 +47,8 @@ import org.apache.myfaces.tobago.util.CreateComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.el.ELContext;
+import javax.el.ValueExpression;
 import javax.faces.component.UIColumn;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -103,11 +105,13 @@ public abstract class AbstractUISheet extends AbstractUIData
   @Override
   public void encodeBegin(FacesContext facesContext) throws IOException {
     SheetState state = getSheetState(facesContext);
-    if (state.getFirst() > -1 && (!hasRowCount() || state.getFirst() < getRowCount())) {
-      if (FacesUtils.hasValueBindingOrValueExpression(this, Attributes.FIRST)) {
-        FacesUtils.setValueOfBindingOrExpression(facesContext, state.getFirst(), this, Attributes.FIRST);
+    final int first = state.getFirst();
+    if (first > -1 && (!hasRowCount() || first < getRowCount())) {
+      final ValueExpression expression = getValueExpression(Attributes.FIRST);
+      if (expression != null) {
+        expression.setValue(facesContext.getELContext(), first);
       } else {
-        setFirst(state.getFirst());
+        setFirst(first);
       }
     }
     super.encodeBegin(facesContext);
@@ -124,20 +128,21 @@ public abstract class AbstractUISheet extends AbstractUIData
   public SheetState getSheetState(FacesContext facesContext) {
     if (sheetState != null) {
       return sheetState;
-    } else {
-      if (FacesUtils.hasValueBindingOrValueExpression(this, Attributes.STATE)) {
-        SheetState state = (SheetState)
-            FacesUtils.getValueFromValueBindingOrValueExpression(facesContext, this, Attributes.STATE);
-        if (state == null) {
-          state = new SheetState();
-          FacesUtils.setValueOfBindingOrExpression(facesContext, state, this, Attributes.STATE);
-        }
-        return state;
-      } else {
-        sheetState = new SheetState();
-        return sheetState;
-      }
     }
+
+    final ValueExpression expression = getValueExpression(Attributes.STATE);
+    if (expression != null) {
+      final ELContext elContext = facesContext.getELContext();
+      SheetState sheetState = (SheetState) expression.getValue(elContext);
+      if (sheetState == null) {
+        sheetState = new SheetState();
+        expression.setValue(elContext, sheetState);
+      }
+      return sheetState;
+    }
+
+    sheetState = new SheetState();
+    return sheetState;
   }
 
   public abstract String getColumns();
@@ -546,8 +551,9 @@ public abstract class AbstractUISheet extends AbstractUIData
         first = -1;
     }
 
-    if (FacesUtils.hasValueBindingOrValueExpression(this, Attributes.FIRST)) {
-      FacesUtils.setValueOfBindingOrExpression(FacesContext.getCurrentInstance(), first, this, Attributes.FIRST);
+    final ValueExpression expression = getValueExpression(Attributes.FIRST);
+    if (expression != null) {
+      expression.setValue(getFacesContext().getELContext(), first);
     } else {
       setFirst(first);
     }

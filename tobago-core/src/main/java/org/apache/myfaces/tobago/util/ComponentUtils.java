@@ -1060,4 +1060,43 @@ public class ComponentUtils {
   public static Map<Object, Object> getDataAttributes(UIComponent component) {
     return (Map<Object, Object>) component.getAttributes().get(DATA_ATTRIBUTES_KEY);
   }
+
+  public static boolean invokeOnComponent(
+      FacesContext context, UIComponent component, String clientId, javax.faces.component.ContextCallback callback) {
+    String thisClientId = component.getClientId(context);
+
+    if (clientId.equals(thisClientId)) {
+      callback.invokeContextCallback(context, component);
+      return true;
+    } else if (component instanceof NamingContainer) {
+      // This component is a naming container. If the client id shows it's inside this naming container,
+      // then process further.
+      // Otherwise we know the client id we're looking for is not in this naming container,
+      // so for improved performance short circuit and return false.
+      if (clientId.startsWith(thisClientId)
+          && (clientId.charAt(thisClientId.length()) == NamingContainer.SEPARATOR_CHAR)) {
+        if (invokeOnComponentFacetsAndChildren(context, component, clientId, callback)) {
+          return true;
+        }
+      }
+    } else {
+      if (invokeOnComponentFacetsAndChildren(context, component, clientId, callback)) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  private static boolean invokeOnComponentFacetsAndChildren(
+      FacesContext context, UIComponent component, String clientId, javax.faces.component.ContextCallback callback) {
+    for (java.util.Iterator<UIComponent> it = component.getFacetsAndChildren(); it.hasNext();) {
+      UIComponent child = it.next();
+      if (child.invokeOnComponent(context, clientId, callback)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
 }

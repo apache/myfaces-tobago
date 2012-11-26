@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
-import org.apache.myfaces.tobago.compat.FacesUtils;
 import org.apache.myfaces.tobago.compat.InvokeOnComponent;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.model.ExpandedState;
@@ -206,7 +205,7 @@ public abstract class AbstractUIData extends javax.faces.component.UIData implem
         }
       }
 
-      return FacesUtils.invokeOnComponent(facesContext, this, clientId, callback);
+      return ComponentUtils.invokeOnComponent(facesContext, this, clientId, callback);
 
     } finally {
       // we should reset rowIndex on UISheet

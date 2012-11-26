@@ -19,13 +19,12 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.apache.myfaces.tobago.compat.FacesUtils;
 import org.apache.myfaces.tobago.compat.InvokeOnComponent;
 import org.apache.myfaces.tobago.component.Form;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.util.TobagoCallback;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.FacesException;
 import javax.faces.component.ContextCallback;
@@ -107,7 +106,7 @@ public abstract class AbstractUIForm extends UIForm implements InvokeOnComponent
     }
   }
 
-  // todo: after removing jsf 1.1: @Override
+  @Override
   public boolean invokeOnComponent(FacesContext context, String clientId, ContextCallback callback)
       throws FacesException {
     // TODO is this needed?
@@ -117,6 +116,6 @@ public abstract class AbstractUIForm extends UIForm implements InvokeOnComponent
       }
     }
     context.getExternalContext().getRequestMap().put(AbstractUIForm.SUBMITTED_MARKER, isSubmitted());
-    return FacesUtils.invokeOnComponent(context, this, clientId, callback);
+    return ComponentUtils.invokeOnComponent(context, this, clientId, callback);
   }
 }

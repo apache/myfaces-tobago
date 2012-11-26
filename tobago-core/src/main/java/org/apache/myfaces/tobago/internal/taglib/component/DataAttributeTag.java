@@ -25,8 +25,10 @@ import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.TagGeneration;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 
+import javax.el.ELContext;
 import javax.el.ValueExpression;
 import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
 import javax.faces.webapp.UIComponentClassicTagBase;
 import javax.faces.webapp.UIComponentELTag;
 import javax.servlet.jsp.JspException;
@@ -34,7 +36,7 @@ import javax.servlet.jsp.tagext.TagSupport;
 
 /**
  * PRELIMINARY - SUBJECT TO CHANGE
- *
+ * <p/>
  * Add an data attribute on the UIComponent
  * associated with the closest parent UIComponent custom action.
  * Data attributes will be passed through the renderers into the DOM of the user agent and
@@ -44,39 +46,17 @@ import javax.servlet.jsp.tagext.TagSupport;
 @TagGeneration(className = "org.apache.myfaces.tobago.internal.taglib.DataAttributeTag")
 public abstract class DataAttributeTag extends TagSupport {
 
-  private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 2L;
 
-  /**
-   * PRELIMINARY - SUBJECT TO CHANGE
-   *
-   * The name of the attribute in the parent component.
-   */
-  @TagAttribute(required = true, name = "name", type = "java.lang.String")
-  public abstract void setName(ValueExpression name);
+  private javax.el.ValueExpression name;
+  private javax.el.ValueExpression value;
 
-  public abstract String getNameValue();
-
-  public abstract boolean isNameLiteral();
-
-  public abstract Object getNameAsBindingOrExpression();
-
-  public abstract String getNameExpression();
-
-  /**
-   * PRELIMINARY - SUBJECT TO CHANGE
-   *
-   * The value of the attribute in the parent component.
-   */
-  @TagAttribute(required = true, name = "value", type = "java.lang.String")
-  public abstract void setValue(ValueExpression value);
-
-  public abstract String getValueValue();
-
-  public abstract boolean isValueLiteral();
-
-  public abstract Object getValueAsBindingOrExpression();
-
-  public abstract String getValueExpression();
+  @Override
+  public void release() {
+    super.release();
+    name = null;
+    value = null;
+  }
 
   /**
    * @throws javax.servlet.jsp.JspException if a JSP error occurs
@@ -100,30 +80,34 @@ public abstract class DataAttributeTag extends TagSupport {
       // TODO Message resource i18n
       throw new JspException("Component Instance is null");
     }
-    final Object attributeName;
-    if (!isNameLiteral()) {
-      attributeName = getNameAsBindingOrExpression();
-      if (attributeName == null) {
-        // TODO Message resource i18n
-        throw new JspException("Can not get ValueBinding for attribute name " + getNameExpression());
-      }
-    } else {
-      attributeName = getNameValue();
-    }
 
-    final Object attributeValue;
-    if (!isValueLiteral()) {
-      attributeValue = getValueAsBindingOrExpression();
-      if (attributeValue == null) {
-        // TODO Message resource i18n
-        throw new JspException("Can not get ValueBinding for attribute value " + getValueExpression());
-      }
-    } else {
-      attributeValue = getValueValue();
-    }
+    final ELContext elContext = FacesContext.getCurrentInstance().getELContext();
+
+    final Object attributeName = name.getValue(elContext);
+    final Object attributeValue = value.getValue(elContext);
 
     ComponentUtils.putDataAttribute(component, attributeName, attributeValue);
 
     return (SKIP_BODY);
+  }
+
+  /**
+   * PRELIMINARY - SUBJECT TO CHANGE
+   * <p/>
+   * The name of the attribute in the parent component.
+   */
+  @TagAttribute(required = true, name = "name", type = "java.lang.String")
+  public void setName(ValueExpression name) {
+    this.name = name;
+  }
+
+  /**
+   * PRELIMINARY - SUBJECT TO CHANGE
+   * <p/>
+   * The value of the attribute in the parent component.
+   */
+  @TagAttribute(required = true, name = "value", type = "java.lang.String")
+  public void setValue(ValueExpression value) {
+    this.value = value;
   }
 }

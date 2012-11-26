@@ -24,9 +24,12 @@ import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.TagGeneration;
 import org.apache.myfaces.tobago.validator.SubmittedValueLengthValidator;
 
+import javax.el.ELContext;
 import javax.el.ValueExpression;
+import javax.faces.application.Application;
+import javax.faces.context.FacesContext;
 import javax.faces.validator.Validator;
-import javax.faces.webapp.ValidatorTag;
+import javax.faces.webapp.ValidatorELTag;
 import javax.servlet.jsp.JspException;
 
 /**
@@ -37,37 +40,30 @@ import javax.servlet.jsp.JspException;
  */
 @Tag(name = "validateSubmittedValueLength")
 @TagGeneration(className = "org.apache.myfaces.tobago.internal.taglib.SubmittedValueLengthValidatorTag")
-public abstract class SubmittedValueLengthValidatorTag extends ValidatorTag {
+public abstract class SubmittedValueLengthValidatorTag extends ValidatorELTag {
 
-  private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 2L;
 
-  @TagAttribute(name = "minimum", type = "java.lang.Integer")
-  public abstract void setMinimum(ValueExpression minimum);
-
-  public abstract Integer getMinimumValue();
-
-  public abstract boolean isMinimumSet();
-
-  @TagAttribute(name = "maximum", type = "java.lang.Integer")
-  public abstract void setMaximum(ValueExpression maximum);
-
-  public abstract Integer getMaximumValue();
-
-  public abstract boolean isMaximumSet();
+  private ValueExpression minimum;
+  private ValueExpression maximum;
 
   protected Validator createValidator() throws JspException {
-    setValidatorId(SubmittedValueLengthValidator.VALIDATOR_ID);
-    SubmittedValueLengthValidator validator = (SubmittedValueLengthValidator) super.createValidator();
-    if (isMinimumSet()) {
+    final FacesContext facesContext = FacesContext.getCurrentInstance();
+    final Application application = facesContext.getApplication();
+    final SubmittedValueLengthValidator validator
+        = (SubmittedValueLengthValidator) application.createValidator(SubmittedValueLengthValidator.VALIDATOR_ID);
+    final ELContext elContext = FacesContext.getCurrentInstance().getELContext();
+
+    if (minimum != null) {
       try {
-        validator.setMinimum(getMinimumValue());
+        validator.setMinimum((Integer) minimum.getValue(elContext));
       } catch (NumberFormatException e) {
         // ignore
       }
     }
-    if (isMaximumSet()) {
+    if (maximum != null) {
       try {
-        validator.setMaximum(getMaximumValue());
+        validator.setMaximum((Integer) maximum.getValue(elContext));
       } catch (NumberFormatException e) {
         // ignore
       }
@@ -75,5 +71,14 @@ public abstract class SubmittedValueLengthValidatorTag extends ValidatorTag {
     return validator;
   }
 
+  @TagAttribute(name = "minimum", type = "java.lang.Integer")
+  public void setMinimum(ValueExpression minimum) {
+    this.minimum = minimum;
+  }
 
+  @TagAttribute(name = "maximum", type = "java.lang.Integer")
+  public void setMaximum(ValueExpression maximum) {
+    this.maximum = maximum;
+
+  }
 }

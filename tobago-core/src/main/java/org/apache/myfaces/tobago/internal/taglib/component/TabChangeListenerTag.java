@@ -23,10 +23,11 @@ import org.apache.myfaces.tobago.apt.annotation.BodyContent;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.TagGeneration;
-import org.apache.myfaces.tobago.compat.FacesUtils;
 import org.apache.myfaces.tobago.event.TabChangeListener;
 import org.apache.myfaces.tobago.event.TabChangeSource;
+import org.apache.myfaces.tobago.event.ValueExpressionTabChangeListener;
 
+import javax.el.ELContext;
 import javax.el.ValueExpression;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -43,34 +44,27 @@ import javax.servlet.jsp.tagext.TagSupport;
 @TagGeneration(className = "org.apache.myfaces.tobago.internal.taglib.TabChangeListenerTag")
 public abstract class TabChangeListenerTag extends TagSupport {
 
-  private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 2L;
+
+  private ValueExpression type;
+  private ValueExpression binding;
 
   /**
    * Fully qualified Java class name of a TabChangeListener to be
    * created and registered.
    */
   @TagAttribute(required = true, name = "type", type = "java.lang.String")
-  public abstract void setType(ValueExpression type);
-
-  public abstract String getTypeValue();
-
-  public abstract boolean isTypeSet();
-
-  public abstract boolean isTypeLiteral();
+  public void setType(ValueExpression type) {
+    this.type = type;
+  }
 
   /**
    * The value binding expression to a TabChangeListener.
    */
   @TagAttribute(name = "binding", type = "org.apache.myfaces.tobago.event.TabChangeListener")
-  public abstract void setBinding(ValueExpression binding);
-
-  public abstract TabChangeListener getBindingValue();
-
-  public abstract boolean isBindingSet();
-
-  public abstract boolean isBindingLiteral();
-
-  public abstract Object getBindingAsBindingOrExpression();
+  public void setBinding(ValueExpression binding) {
+    this.binding = binding;
+  }
 
   /**
    * <p>Create a new instance of the specified {@link TabChangeListener}
@@ -105,37 +99,35 @@ public abstract class TabChangeListenerTag extends TagSupport {
       throw new JspException("Component " + component.getClass().getName() + " is not instanceof TabChangeSource");
     }
     TabChangeSource changeSource = (TabChangeSource) component;
+    final ELContext elContext = FacesContext.getCurrentInstance().getELContext();
 
     TabChangeListener handler = null;
-    Object valueBinding = null;
-    if (isBindingSet() && !isBindingLiteral()) {
-      valueBinding = getBindingAsBindingOrExpression();
-      if (valueBinding != null) {
-        Object obj = FacesUtils.getValueFromBindingOrExpression(valueBinding);
-        if (obj != null && obj instanceof TabChangeListener) {
-          handler = (TabChangeListener) obj;
-        }
+    if (binding != null && !binding.isLiteralText()) {
+
+      Object value = binding.getValue(elContext);
+      if (value instanceof TabChangeListener) {
+        handler = (TabChangeListener) value;
       }
     }
 
-    if (handler == null && isTypeSet()) {
-      handler = createTabChangeListener(getTypeValue());
-      if (handler != null && valueBinding != null) {
-        FacesUtils.setValueOfBindingOrExpression(FacesContext.getCurrentInstance(), handler, valueBinding);
+    if (handler == null && type != null) {
+      handler = createTabChangeListener((String) type.getValue(elContext));
+      if (handler != null && binding != null) {
+        binding.setValue(elContext, handler);
       }
     }
+
     if (handler != null) {
-      if (valueBinding != null) {
-        FacesUtils.addBindingOrExpressionTabChangeListener(changeSource, getTypeValue(), valueBinding);
+      if (binding != null) {
+        changeSource.addTabChangeListener(
+            new ValueExpressionTabChangeListener((String) type.getValue(elContext), binding));
       } else {
         changeSource.addTabChangeListener(handler);
       }
     }
-    // TODO else LOG.warn?
+
     return (SKIP_BODY);
   }
-
-
 
   /**
    * <p>Create and return a new {@link TabChangeListener} to be registered

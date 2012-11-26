@@ -20,11 +20,14 @@
 package org.apache.myfaces.tobago.internal.taglib.component;
 
 import org.apache.myfaces.tobago.apt.annotation.BodyContent;
+import org.apache.myfaces.tobago.apt.annotation.DynamicExpression;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.TagGeneration;
+import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.util.BundleMapWrapper;
 
+import javax.el.ELContext;
 import javax.el.ValueExpression;
 import javax.faces.context.FacesContext;
 import javax.servlet.jsp.JspException;
@@ -46,33 +49,46 @@ import java.util.Map;
 @TagGeneration(className = "org.apache.myfaces.tobago.internal.taglib.LoadBundleTag")
 public abstract class LoadBundleTag extends TagSupport {
 
-  private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 2L;
+
+  private ValueExpression basename;
+  private String var;
+
+  public int doStartTag() throws JspException {
+
+    FacesContext facesContext = FacesContext.getCurrentInstance();
+    final ELContext elContext = facesContext.getELContext();
+
+    Map toStore = new BundleMapWrapper((String) basename.getValue(elContext));
+    // (session scope is needed to support ajax requests)
+    facesContext.getExternalContext().getSessionMap().put(var, toStore);
+
+    return EVAL_BODY_INCLUDE;
+  }
+
+  @Override
+  public void release() {
+    super.release();
+    basename = null;
+    var = null;
+  }
 
   /**
    * Base name of the resource bundle to be loaded.
    */
   @TagAttribute(required = true, name = "basename", type = "java.lang.String")
-  public abstract void setBasename(ValueExpression basename);
-
-  public abstract String getBasenameValue();
+  public void setBasename(ValueExpression basename) {
+    this.basename = basename;
+  }
 
   /**
    * Name of a session-scope attribute under which the bundle data
    * will be exposed.
    */
   @TagAttribute(required = true, name = "var")
-  public abstract void setVar(ValueExpression var);
-
-  public abstract String getVarValue();
-
-  public int doStartTag() throws JspException {
-
-    FacesContext context = FacesContext.getCurrentInstance();
-
-    Map toStore = new BundleMapWrapper(getBasenameValue());
-    // (session scope is needed to support ajax requests)
-    context.getExternalContext().getSessionMap().put(getVarValue(), toStore);
-
-    return EVAL_BODY_INCLUDE;
+  @UIComponentTagAttribute(expression = DynamicExpression.PROHIBITED)
+  public  void setVar(String var){
+    this.var = var;
   }
+
 }

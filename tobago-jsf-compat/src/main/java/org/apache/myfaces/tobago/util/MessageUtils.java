@@ -20,12 +20,11 @@
 package org.apache.myfaces.tobago.util;
 
 import org.apache.commons.beanutils.ConstructorUtils;
-import org.apache.myfaces.tobago.application.LabelValueBindingFacesMessage;
 import org.apache.myfaces.tobago.application.LabelValueExpressionFacesMessage;
-import org.apache.myfaces.tobago.compat.FacesUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.el.ValueExpression;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -90,23 +89,19 @@ public class MessageUtils {
       return new FacesMessage(severity, messageId, null);
     }
 
-    if (FacesUtils.supportsEL()) {
-      if (args != null && args.length > 0) {
-        MessageFormat format;
-        if (summary != null) {
-          format = new MessageFormat(summary, locale);
-          summary = format.format(args);
-        }
-
-        if (detail != null) {
-          format = new MessageFormat(detail, locale);
-          detail = format.format(args);
-        }
+    if (args != null && args.length > 0) {
+      MessageFormat format;
+      if (summary != null) {
+        format = new MessageFormat(summary, locale);
+        summary = format.format(args);
       }
-      return new LabelValueExpressionFacesMessage(severity, summary, detail);
-    } else {
-      return new LabelValueBindingFacesMessage(severity, summary, detail, locale, args);
+
+      if (detail != null) {
+        format = new MessageFormat(detail, locale);
+        detail = format.format(args);
+      }
     }
+    return new LabelValueExpressionFacesMessage(severity, summary, detail);
   }
 
   private static String getBundleString(ResourceBundle bundle, String key) {
@@ -156,8 +151,9 @@ public class MessageUtils {
     if (label != null) {
       return label.toString();
     }
-    if (FacesUtils.hasValueBindingOrValueExpression(component, "label")) {
-      return FacesUtils.getExpressionString(component, "label");
+    final ValueExpression expression = component.getValueExpression("label");
+    if (expression != null) {
+      return expression.getExpressionString();
     }
     return component.getClientId(facesContext);
   }

@@ -20,7 +20,6 @@
 package org.apache.myfaces.tobago.component;
 
 import org.apache.myfaces.tobago.ajax.AjaxUtils;
-import org.apache.myfaces.tobago.compat.FacesUtils;
 import org.apache.myfaces.tobago.compat.InvokeOnComponent;
 import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.internal.ajax.AjaxInternalUtils;
@@ -337,9 +336,9 @@ public class UIViewRoot extends javax.faces.component.UIViewRoot implements Invo
     }
   }
 
-  // todo: after removing jsf 1.1: @Override
+  @Override
   public boolean invokeOnComponent(FacesContext context, String clientId, ContextCallback callback)
       throws FacesException {
-    return FacesUtils.invokeOnComponent(context, this, clientId, callback);
+    return ComponentUtils.invokeOnComponent(context, this, clientId, callback);
   }
 }

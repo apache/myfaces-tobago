@@ -20,18 +20,16 @@
 package org.apache.myfaces.tobago.facelets;
 
 import com.sun.facelets.FaceletContext;
-import com.sun.facelets.el.LegacyValueBinding;
 import com.sun.facelets.tag.TagAttribute;
 import com.sun.facelets.tag.TagConfig;
 import com.sun.facelets.tag.TagException;
 import com.sun.facelets.tag.TagHandler;
 import com.sun.facelets.tag.jsf.ComponentSupport;
-import org.apache.myfaces.tobago.compat.FacesUtils;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.event.ResetFormActionListener;
 import org.apache.myfaces.tobago.event.ResetInputActionListener;
+import org.apache.myfaces.tobago.event.ValueExpressionResetInputActionListener;
 import org.apache.myfaces.tobago.util.ComponentUtils;
-import org.apache.myfaces.tobago.util.FacesVersion;
 
 import javax.el.ELException;
 import javax.el.ValueExpression;
@@ -60,12 +58,7 @@ public class ResetInputActionListenerHandler extends TagHandler {
           actionSource.addActionListener(new ResetInputActionListener(ComponentUtils.splitList(execute.getValue())));
         } else {
           ValueExpression forValueExpression = execute.getValueExpression(faceletContext, String.class);
-          if (FacesVersion.supports12()) {
-            FacesUtils.addBindingOrExpressionResetActionListener(actionSource, forValueExpression);
-          } else {
-            FacesUtils.addBindingOrExpressionResetActionListener(actionSource,
-                new LegacyValueBinding(forValueExpression));
-          }
+          actionSource.addActionListener(new ValueExpressionResetInputActionListener(forValueExpression));
         }
       }
     } else {

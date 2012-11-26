@@ -33,12 +33,13 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
 public class ValueExpressionResetInputActionListener extends AbstractResetInputActionListener implements StateHolder {
+
   private static final Logger LOG = LoggerFactory.getLogger(ValueExpressionResetInputActionListener.class);
 
   private ValueExpression clientIdsExpression;
 
-  public ValueExpressionResetInputActionListener(Object binding) {
-    clientIdsExpression = (ValueExpression) binding;
+  public ValueExpressionResetInputActionListener(ValueExpression clientIdsExpression) {
+    this.clientIdsExpression = clientIdsExpression;
   }
 
   public void processAction(ActionEvent event) {

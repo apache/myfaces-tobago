@@ -114,6 +114,10 @@ public class FacesUtilsEL {
     }
   }
 
+  /**
+   * @deprecated since 1.6.0
+   */
+  @Deprecated
   public static Object getValueFromValueBindingOrValueExpression(
       FacesContext context, UIComponent component, String name) {
     return component.getValueExpression(name).getValue(context.getELContext());

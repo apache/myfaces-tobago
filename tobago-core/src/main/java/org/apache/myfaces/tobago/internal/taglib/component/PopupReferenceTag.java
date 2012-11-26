@@ -23,21 +23,17 @@ import org.apache.myfaces.tobago.apt.annotation.BodyContent;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.TagGeneration;
-import org.apache.myfaces.tobago.compat.FacesUtils;
+import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.event.PopupActionListener;
 
 import javax.el.ValueExpression;
 import javax.faces.component.ActionSource;
 import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
 import javax.faces.webapp.UIComponentClassicTagBase;
 import javax.faces.webapp.UIComponentELTag;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.TagSupport;
-
-/*
- * Date: Jan 3, 2007
- * Time: 10:42:11 PM
- */
 
 /**
  * Register an PopupActionListener instance on the UIComponent
@@ -47,19 +43,9 @@ import javax.servlet.jsp.tagext.TagSupport;
 @TagGeneration(className = "org.apache.myfaces.tobago.internal.taglib.PopupReferenceTag")
 public abstract class PopupReferenceTag extends TagSupport {
 
-  private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 2L;
 
-  /**
-   * The id of a Popup.
-   */
-  @TagAttribute(required = true, name ="for", type = "java.lang.String")
-  public abstract void setFor(ValueExpression forValue);
-
-  public abstract String getForValue();
-
-  public abstract boolean isForLiteral();
-
-  public abstract Object getForAsBindingOrExpression();
+  private javax.el.ValueExpression forValue;
 
   public int doStartTag() throws JspException {
 
@@ -85,12 +71,24 @@ public abstract class PopupReferenceTag extends TagSupport {
       throw new JspException("Component " + component.getClass().getName() + " is not instanceof ActionSource");
     }
     ActionSource actionSource = (ActionSource) component;
-    if (isForLiteral()) {
-      actionSource.addActionListener(new PopupActionListener(getForValue()));
+
+    component.setValueExpression(Attributes.FOR, forValue);
+
+    if (forValue.isLiteralText()) {
+      actionSource.addActionListener(new PopupActionListener(
+          (String) forValue.getValue(FacesContext.getCurrentInstance().getELContext())));
     } else {
-      FacesUtils.addBindingOrExpressionPopupActionListener(actionSource, getForAsBindingOrExpression());
+      component.setValueExpression(Attributes.FOR, forValue);
     }
     return (SKIP_BODY);
+  }
+
+  /**
+   * The id of a Popup.
+   */
+  @TagAttribute(required = true, name = "for", type = "java.lang.String")
+  public void setFor(ValueExpression forValue) {
+    this.forValue = forValue;
   }
 
 }

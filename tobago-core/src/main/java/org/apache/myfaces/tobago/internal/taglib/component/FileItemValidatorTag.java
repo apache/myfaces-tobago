@@ -24,16 +24,16 @@ import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.TagGeneration;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.validator.FileItemValidator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import javax.el.ELContext;
 import javax.el.ValueExpression;
+import javax.faces.application.Application;
+import javax.faces.context.FacesContext;
 import javax.faces.validator.Validator;
-import javax.faces.webapp.ValidatorTag;
+import javax.faces.webapp.ValidatorELTag;
 import javax.servlet.jsp.JspException;
-
-/*
- * Date: Oct 30, 2006
- * Time: 11:07:35 PM
- */
 
 /**
  * Register an FileItemValidator instance on the UIComponent
@@ -41,38 +41,50 @@ import javax.servlet.jsp.JspException;
  */
 @Tag(name = "validateFileItem")
 @TagGeneration(className = "org.apache.myfaces.tobago.internal.taglib.FileItemValidatorTag")
-public abstract class FileItemValidatorTag extends ValidatorTag {
+// todo: use ValidatorELTag instead of ValidatorTag
+public abstract class FileItemValidatorTag extends ValidatorELTag {
 
-  private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 2L;
 
-  @TagAttribute(name = "maxSize", type = "java.lang.Integer")
-  public abstract void setMaxSize(ValueExpression maxSize);
+  private static final Logger LOG = LoggerFactory.getLogger(FileItemValidatorTag.class);
 
-  public abstract Integer getMaxSizeValue();
-
-  public abstract boolean isMaxSizeSet();
-
-  @TagAttribute(name = "contentType", type = "java.lang.String")
-  public abstract void setContentType(ValueExpression contentType);
-
-  public abstract String getContentTypeValue();
-
-  public abstract boolean isContentTypeSet();
+  private javax.el.ValueExpression contentType;
+  private javax.el.ValueExpression maxSize;
 
   protected Validator createValidator() throws JspException {
-    setValidatorId(FileItemValidator.VALIDATOR_ID);
-    FileItemValidator validator = (FileItemValidator) super.createValidator();
 
-    if (isMaxSizeSet()) {
+    final FacesContext facesContext = FacesContext.getCurrentInstance();
+    final Application application = facesContext.getApplication();
+    final FileItemValidator validator = (FileItemValidator) application.createValidator(FileItemValidator.VALIDATOR_ID);
+    final ELContext elContext = facesContext.getELContext();
+
+    if (maxSize != null) {
       try {
-        validator.setMaxSize(getMaxSizeValue());
+        validator.setMaxSize((Integer) maxSize.getValue(elContext));
       } catch (NumberFormatException e) {
-        // ignore
+        LOG.warn(e.getMessage());
       }
     }
-    if (isContentTypeSet()) {
-      validator.setContentType(ComponentUtils.splitList(getContentTypeValue()));
+    if (contentType != null) {
+      validator.setContentType(ComponentUtils.splitList((String) contentType.getValue(elContext)));
     }
     return validator;
+  }
+
+  @Override
+  public void release() {
+    super.release();
+    contentType = null;
+    maxSize = null;
+  }
+
+  @TagAttribute(name = "maxSize", type = "java.lang.Integer")
+  public void setMaxSize(ValueExpression maxSize) {
+    this.maxSize = maxSize;
+  }
+
+  @TagAttribute(name = "contentType", type = "java.lang.String")
+  public void setContentType(ValueExpression contentType) {
+    this.contentType = contentType;
   }
 }

@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
-import org.apache.myfaces.tobago.compat.FacesUtils;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
@@ -42,6 +41,9 @@ import org.apache.myfaces.tobago.util.CreateComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.el.ELContext;
+import javax.el.ExpressionFactory;
+import javax.el.ValueExpression;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
@@ -78,13 +80,18 @@ public class DatePickerRenderer extends LinkRenderer {
     popup.setRendered(false);
     popup.onComponentPopulated(facesContext, picker);
 
-    FacesUtils.setBindingOrExpression(popup, Attributes.LEFT, "#{tobagoContext.actionPosition.right.pixel + 5}");
-    FacesUtils.setBindingOrExpression(popup, Attributes.TOP, "#{tobagoContext.actionPosition.top.pixel}");
+    final ExpressionFactory expressionFactory = facesContext.getApplication().getExpressionFactory();
+    final ELContext elContext = facesContext.getELContext();
+    popup.setValueExpression(Attributes.LEFT, expressionFactory.createValueExpression(
+        elContext, "#{tobagoContext.actionPosition.right.pixel + 5}", Object.class));
+    popup.setValueExpression(Attributes.TOP, expressionFactory.createValueExpression(
+        elContext, "#{tobagoContext.actionPosition.top.pixel}", Object.class));
 
     final UIBox box = (UIBox) CreateComponentUtils.createComponent(
         facesContext, UIBox.COMPONENT_TYPE, RendererTypes.BOX, "box");
     popup.getChildren().add(box);
-    FacesUtils.setBindingOrExpression(box, Attributes.LABEL, "#{tobagoContext.resourceBundle.datePickerTitle}");
+    box.setValueExpression(Attributes.LABEL, expressionFactory.createValueExpression(
+        elContext, "#{tobagoContext.resourceBundle.datePickerTitle}", String.class));
     final UIGridLayout layoutOfBox = (UIGridLayout) CreateComponentUtils.createComponent(
         facesContext, UIGridLayout.COMPONENT_TYPE, RendererTypes.GRID_LAYOUT, "layout");
     box.getFacets().put(Facets.LAYOUT, layoutOfBox);
@@ -137,15 +144,16 @@ public class DatePickerRenderer extends LinkRenderer {
     final UIButton okButton = (UIButton) CreateComponentUtils.createComponent(
         facesContext, UIButton.COMPONENT_TYPE, RendererTypes.BUTTON, "ok");
     buttonPanel.getChildren().add(okButton);
-    FacesUtils.setBindingOrExpression(okButton, Attributes.LABEL, "#{tobagoContext.resourceBundle.datePickerOk}");
+    okButton.setValueExpression(Attributes.LABEL, expressionFactory.createValueExpression(
+        elContext, "#{tobagoContext.resourceBundle.datePickerOk}", String.class));
     ComponentUtils.putDataAttributeWithPrefix(okButton, DataAttributes.DATEPICKEROK, true);
     okButton.getAttributes().put(Attributes.POPUP_CLOSE, "afterSubmit");
     okButton.getAttributes().put(Attributes.ONCLICK, "/* fixme: avoid submit */");
     final UIButton cancelButton = (UIButton) CreateComponentUtils.createComponent(
         facesContext, UIButton.COMPONENT_TYPE, RendererTypes.BUTTON, "cancel");
     buttonPanel.getChildren().add(cancelButton);
-    FacesUtils.setBindingOrExpression(cancelButton, Attributes.LABEL,
-            "#{tobagoContext.resourceBundle.datePickerCancel}");
+    cancelButton.setValueExpression(Attributes.LABEL, expressionFactory.createValueExpression(
+        elContext, "#{tobagoContext.resourceBundle.datePickerCancel}", String.class));
     cancelButton.getAttributes().put(Attributes.POPUP_CLOSE, "immediate");
 
     buttonPanel.onComponentPopulated(facesContext, parent);
@@ -174,11 +182,13 @@ public class DatePickerRenderer extends LinkRenderer {
       return;
     }
     // this can't be done in "onComponentPopulated()" of the picker, it seems to be to early
-    if (FacesUtils.hasValueBindingOrValueExpression(dateInput, Attributes.READONLY)) {
-      FacesUtils.copyValueBindingOrValueExpression(dateInput, Attributes.READONLY, picker, Attributes.DISABLED);
+    final ValueExpression readonlyExpression = dateInput.getValueExpression(Attributes.READONLY);
+    if (readonlyExpression != null) {
+      picker.setValueExpression(Attributes.DISABLED, readonlyExpression);
     } else {
-      if (FacesUtils.hasValueBindingOrValueExpression(dateInput, Attributes.DISABLED)) {
-        FacesUtils.copyValueBindingOrValueExpression(dateInput, Attributes.DISABLED, picker, Attributes.DISABLED);
+      final ValueExpression disabledExpression = dateInput.getValueExpression(Attributes.DISABLED);
+      if (disabledExpression != null) {
+        picker.setValueExpression(Attributes.DISABLED, disabledExpression);
       } else {
         picker.setDisabled(dateInput.isReadonly() || dateInput.isDisabled());
       }

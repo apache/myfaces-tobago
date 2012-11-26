@@ -20,15 +20,16 @@
 package org.apache.myfaces.tobago.component;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.myfaces.tobago.compat.FacesUtils;
 import org.apache.myfaces.tobago.event.SortActionEvent;
 import org.apache.myfaces.tobago.internal.component.AbstractUICommand;
 import org.apache.myfaces.tobago.internal.component.AbstractUISheet;
 import org.apache.myfaces.tobago.model.SheetState;
 import org.apache.myfaces.tobago.util.BeanComparator;
+import org.apache.myfaces.tobago.util.ValueExpressionComparator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.el.ValueExpression;
 import javax.faces.component.UIColumn;
 import javax.faces.component.UICommand;
 import javax.faces.component.UIComponent;
@@ -71,19 +72,18 @@ public class Sorter {
       String sortProperty;
 
       try {
-
         UIComponent child = getFirstSortableChild(column.getChildren());
         if (child != null) {
 
-          String attributeName = child instanceof AbstractUICommand ? Attributes.LABEL:Attributes.VALUE;
-          if (FacesUtils.hasValueBindingOrValueExpression(child, attributeName)) {
+          String attributeName = child instanceof AbstractUICommand ? Attributes.LABEL : Attributes.VALUE;
+          if (child.getValueExpression(attributeName) != null) {
             String var = data.getVar();
             if (var == null) {
                 LOG.error("No sorting performed. Property var of sheet is not set!");
                 unsetSortableAttribute(column);
                 return;
             }
-            String expressionString = FacesUtils.getExpressionString(child, attributeName);
+            String expressionString = child.getValueExpression(attributeName).getExpressionString();
             if (isSimpleProperty(expressionString)) {
               if (expressionString.startsWith("#{")
                   && expressionString.endsWith("}")) {
@@ -102,8 +102,8 @@ public class Sorter {
             } else {
 
               boolean descending = !sheetState.isAscending();
-              actualComparator =
-                  FacesUtils.getBindingOrExpressionComparator(facesContext, child, var, descending, comparator);
+              ValueExpression expression = child.getValueExpression("value");
+              actualComparator = new ValueExpressionComparator(facesContext, var, expression, descending, comparator);
             }
           } else {
               LOG.error("No sorting performed. No Expression target found for sorting!");

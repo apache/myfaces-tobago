@@ -21,7 +21,6 @@ package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.compat.FacesUtils;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.internal.util.Deprecation;
 import org.apache.myfaces.tobago.layout.LayoutComponent;
@@ -30,6 +29,8 @@ import org.apache.myfaces.tobago.model.MarkedState;
 import org.apache.myfaces.tobago.model.MixedTreeModel;
 import org.apache.myfaces.tobago.model.TreeState;
 
+import javax.el.ELContext;
+import javax.el.ValueExpression;
 import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -208,21 +209,22 @@ public abstract class AbstractUITree extends AbstractUIData
   public TreeState getState() {
     if (state != null) {
       return state;
-    } else {
-      if (FacesUtils.hasValueBindingOrValueExpression(this, Attributes.STATE)) {
-        final FacesContext facesContext = FacesContext.getCurrentInstance();
-        TreeState state = (TreeState)
-            FacesUtils.getValueFromValueBindingOrValueExpression(facesContext, this, Attributes.STATE);
-        if (state == null) {
-          state = new TreeState(new ExpandedState(2), new MarkedState());
-          FacesUtils.setValueOfBindingOrExpression(facesContext, state, this, Attributes.STATE);
-        }
-        return state;
-      } else {
-        state = new TreeState(new ExpandedState(2), new MarkedState());
-        return state;
-      }
     }
+
+    final ELContext elContext = FacesContext.getCurrentInstance().getELContext();
+    final ValueExpression expression = getValueExpression(Attributes.STATE);
+
+    if (expression != null) {
+      TreeState state = (TreeState) expression.getValue(elContext);
+      if (state == null) {
+        state = new TreeState(new ExpandedState(2), new MarkedState());
+        expression.setValue(elContext, state);
+      }
+      return state;
+    }
+
+    state = new TreeState(new ExpandedState(2), new MarkedState());
+    return state;
   }
 
   public MarkedState getMarkedState() {

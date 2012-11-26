@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
-import org.apache.myfaces.tobago.compat.FacesUtils;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.ComponentTypes;
 import org.apache.myfaces.tobago.component.DeprecatedDimension;
@@ -38,6 +37,7 @@ import org.apache.myfaces.tobago.util.CreateComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.el.ValueExpression;
 import javax.faces.component.NamingContainer;
 import javax.faces.component.UICommand;
 import javax.faces.component.UIComponent;
@@ -104,9 +104,10 @@ public abstract class AbstractUIPopup extends AbstractUIPanelBase
 
   @Override
   public boolean isRendered() {
-    if (FacesUtils.hasValueBindingOrValueExpression(this, "rendered")) {
-      return (Boolean)
-          FacesUtils.getValueFromValueBindingOrValueExpression(FacesContext.getCurrentInstance(), this, "rendered");
+    final ValueExpression expression = getValueExpression("rendered");
+    if (expression != null) {
+      FacesContext context = FacesContext.getCurrentInstance();
+      return (Boolean) expression.getValue(context.getELContext());
     } else {
       return isActivated() || isRedisplay();
     }

@@ -23,15 +23,17 @@ import org.apache.myfaces.tobago.apt.annotation.BodyContent;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.TagGeneration;
-import org.apache.myfaces.tobago.compat.FacesUtils;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.event.ResetFormActionListener;
 import org.apache.myfaces.tobago.event.ResetInputActionListener;
+import org.apache.myfaces.tobago.event.ValueExpressionResetInputActionListener;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 
+import javax.el.ELContext;
 import javax.el.ValueExpression;
 import javax.faces.component.ActionSource;
 import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
 import javax.faces.webapp.UIComponentClassicTagBase;
 import javax.faces.webapp.UIComponentELTag;
 import javax.servlet.jsp.JspException;
@@ -44,21 +46,9 @@ import javax.servlet.jsp.tagext.TagSupport;
 @TagGeneration(className = "org.apache.myfaces.tobago.internal.taglib.ResetInputActionListenerTag")
 public abstract class ResetInputActionListenerTag extends TagSupport {
 
-  private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 2L;
 
-  /**
-   * The .
-   */
-  @TagAttribute(required = false, name = Attributes.EXECUTE, type = "java.lang.String")
-  public abstract void setExecute(ValueExpression execute);
-
-  public abstract String getExecuteValue();
-
-  public abstract boolean isExecuteLiteral();
-
-  public abstract Object getExecuteAsBindingOrExpression();
-
-  public abstract boolean isExecuteSet();
+  private ValueExpression execute;
 
   public int doStartTag() throws JspException {
 
@@ -83,15 +73,30 @@ public abstract class ResetInputActionListenerTag extends TagSupport {
       // TODO Message resource i18n
       throw new JspException("Component " + component.getClass().getName() + " is not instanceof ActionSource");
     }
+
+    final ELContext elContext = FacesContext.getCurrentInstance().getELContext();
+
     ActionSource actionSource = (ActionSource) component;
-    if (!isExecuteSet()) {
+    if (execute == null) {
       actionSource.addActionListener(new ResetFormActionListener());
-    } else if (isExecuteLiteral()) {
-      actionSource.addActionListener(new ResetInputActionListener(ComponentUtils.splitList(getExecuteValue())));
+    } else if (execute.isLiteralText()) {
+      actionSource.addActionListener(new ResetInputActionListener(
+          ComponentUtils.splitList((String) execute.getValue(elContext))));
     } else {
-      FacesUtils.addBindingOrExpressionResetActionListener(actionSource, getExecuteAsBindingOrExpression());
+      actionSource.addActionListener(new ValueExpressionResetInputActionListener(execute));
     }
     return (SKIP_BODY);
+  }
+
+  @Override
+  public void release() {
+    super.release();
+    execute = null;
+  }
+
+  @TagAttribute(required = false, name = Attributes.EXECUTE, type = "java.lang.String")
+  public void setExecute(javax.el.ValueExpression execute) {
+    this.execute = execute;
   }
 
 }

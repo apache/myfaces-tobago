@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
-import org.apache.myfaces.tobago.compat.FacesUtils;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
@@ -52,6 +51,7 @@ import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.el.ValueExpression;
 import javax.faces.application.Application;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
@@ -156,8 +156,9 @@ public class TabGroupRenderer extends LayoutComponentRendererBase {
       // resetting index to 0
       closestRenderedTabIndex = 0;
     }
-    if (FacesUtils.hasValueBindingOrValueExpression(tabGroup, Attributes.SELECTED_INDEX)) {
-      FacesUtils.setValueOfBindingOrExpression(context, closestRenderedTabIndex, tabGroup, Attributes.SELECTED_INDEX);
+    final ValueExpression expression = tabGroup.getValueExpression(Attributes.SELECTED_INDEX);
+    if (expression != null) {
+      expression.setValue(context.getELContext(), closestRenderedTabIndex);
     } else {
       tabGroup.setSelectedIndex(closestRenderedTabIndex);
     }

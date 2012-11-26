@@ -20,16 +20,14 @@
 package org.apache.myfaces.tobago.facelets;
 
 import com.sun.facelets.FaceletContext;
-import com.sun.facelets.el.LegacyValueBinding;
 import com.sun.facelets.tag.TagAttribute;
 import com.sun.facelets.tag.TagConfig;
 import com.sun.facelets.tag.TagException;
 import com.sun.facelets.tag.TagHandler;
 import com.sun.facelets.tag.jsf.ComponentSupport;
-import org.apache.myfaces.tobago.compat.FacesUtils;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.event.PopupActionListener;
-import org.apache.myfaces.tobago.util.FacesVersion;
+import org.apache.myfaces.tobago.event.ValueExpressionPopupActionListener;
 
 import javax.el.ELException;
 import javax.el.ValueExpression;
@@ -38,11 +36,6 @@ import javax.faces.component.ActionSource;
 import javax.faces.component.UIComponent;
 import java.io.IOException;
 
-/*
- * User: bommel
- * Date: Jan 4, 2007
- * Time: 6:25:09 PM
- */
 public class PopupReferenceHandler extends TagHandler {
 
   private final TagAttribute forComponent;
@@ -61,12 +54,7 @@ public class PopupReferenceHandler extends TagHandler {
           actionSource.addActionListener(new PopupActionListener(forComponent.getValue()));
         } else {
           ValueExpression forValueExpression = forComponent.getValueExpression(faceletContext, String.class);
-          if (FacesVersion.supports12()) {
-            FacesUtils.addBindingOrExpressionPopupActionListener(actionSource, forValueExpression);
-          } else {
-            FacesUtils.addBindingOrExpressionPopupActionListener(actionSource,
-                new LegacyValueBinding(forValueExpression));
-          }
+          actionSource.addActionListener(new ValueExpressionPopupActionListener(forValueExpression));
         }
       }
     } else {

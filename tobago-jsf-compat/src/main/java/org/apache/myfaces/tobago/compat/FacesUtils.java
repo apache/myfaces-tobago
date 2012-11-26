@@ -20,28 +20,20 @@
 package org.apache.myfaces.tobago.compat;
 
 import org.apache.myfaces.tobago.event.TabChangeSource;
-import org.apache.myfaces.tobago.event.ValueBindingPopupActionListener;
-import org.apache.myfaces.tobago.event.ValueBindingResetInputActionListener;
-import org.apache.myfaces.tobago.event.ValueBindingTabChangeListener;
 import org.apache.myfaces.tobago.util.FacesVersion;
-import org.apache.myfaces.tobago.util.ValueBindingComparator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.faces.component.ActionSource;
 import javax.faces.component.ContextCallback;
 import javax.faces.component.EditableValueHolder;
-import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
 import javax.faces.component.ValueHolder;
 import javax.faces.context.FacesContext;
-import javax.faces.convert.Converter;
 import javax.faces.el.EvaluationException;
 import javax.faces.el.MethodBinding;
-import javax.faces.el.ValueBinding;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.FacesEvent;
-import javax.faces.webapp.UIComponentTag;
 import java.util.Comparator;
 import java.util.Map;
 
@@ -50,60 +42,19 @@ public class FacesUtils {
 
   private static final Logger LOG = LoggerFactory.getLogger(FacesUtilsEL.class);
 
+  /**
+   * @deprecated since 1.6.0
+   */
+  @Deprecated
   public static final Class[] VALIDATOR_ARGS = {FacesContext.class, UIComponent.class, Object.class};
 
-  private static final boolean USE_BINDING = !FacesVersion.supports12();
-
+  /**
+   * @deprecated since 1.6.0. Please use ComponentUtils.invokeOnComponent(context, this, clientId, callback)
+   */
+  @Deprecated
   public static boolean invokeOnComponent(
       FacesContext context, UIComponent component, String clientId, ContextCallback callback) {
-    String thisClientId = component.getClientId(context);
-    if (USE_BINDING) {
-      if (clientId.equals(thisClientId)) {
-        callback.invokeContextCallback(context, component);
-        return true;
-      } else if (component instanceof NamingContainer) {
-        // This component is a naming container. If the client id shows it's inside this naming container,
-        // then process further.
-        // Otherwise we know the client id we're looking for is not in this naming container,
-        // so for improved performance short circuit and return false.
-        if (clientId.startsWith(thisClientId)
-            && (clientId.charAt(thisClientId.length()) == NamingContainer.SEPARATOR_CHAR)) {
-          if (invokeOnComponentFacetsAndChildren(context, component, clientId, callback)) {
-            return true;
-          }
-        }
-      } else {
-        if (invokeOnComponentFacetsAndChildren(context, component, clientId, callback)) {
-          return true;
-        }
-      }
-      return false;
-    } else {
-      return FacesInvokeOnComponent12.invokeOnComponent(context, component, clientId, callback);
-    }
-  }
-
-  private static boolean invokeOnComponentFacetsAndChildren(
-      FacesContext context, UIComponent component, String clientId, ContextCallback callback) {
-    for (java.util.Iterator<UIComponent> it = component.getFacetsAndChildren(); it.hasNext();) {
-      UIComponent child = it.next();
-
-      if (child instanceof InvokeOnComponent) {
-        if (LOG.isDebugEnabled()) {
-          LOG.debug("Found InvokeOnComponent with clientId " + child.getClientId(context));
-        }
-        if (((InvokeOnComponent) child).invokeOnComponent(context, clientId, callback)) {
-          return true;
-        }
-      } else {
-        if (LOG.isDebugEnabled()) {
-          LOG.debug("Did not found InvokeOnComponent " + child.getClass().getName() + " "
-              + child.getClientId(context) + " " + child.getRendererType()
-              + (child.getParent() != null ? child.getParent().getClass().getName() : "null"));
-        }
-      }
-    }
-    return false;
+    return FacesInvokeOnComponent12.invokeOnComponent(context, component, clientId, callback);
   }
 
   public static void invokeMethodBinding(FacesContext facesContext, MethodBinding methodBinding, FacesEvent event) {
@@ -121,172 +72,147 @@ public class FacesUtils {
     }
   }
 
+  /**
+   * @deprecated since 1.6.0
+   */
+  @Deprecated
   public static Object getValueFromValueBindingOrValueExpression(
       FacesContext context, UIComponent component, String name) {
-    if (USE_BINDING) {
-      return component.getValueBinding(name).getValue(context);
-    } else {
       return FacesUtilsEL.getValueFromValueBindingOrValueExpression(context, component, name);
-    }
   }
 
+  /**
+   * @deprecated since 1.6.0
+   */
+  @Deprecated
   public static boolean hasValueBindingOrValueExpression(UIComponent component, String name) {
-    if (USE_BINDING) {
-      return component.getValueBinding(name) != null;
-    } else {
       return FacesUtilsEL.hasValueBindingOrValueExpression(component, name);
-    }
   }
 
+  /**
+   * @deprecated since 1.6.0
+   */
+  @Deprecated
   public static boolean isReadonlyValueBindingOrValueExpression(
       FacesContext context, UIComponent component, String name) {
-    if (USE_BINDING) {
-      return component.getValueBinding(name).isReadOnly(context);
-    } else {
       return FacesUtilsEL.isReadonlyValueBindingOrValueExpression(context, component, name);
-    }
   }
 
+  /**
+   * @deprecated since 1.6.0
+   */
+  @Deprecated
   public static String getExpressionString(UIComponent component, String name) {
-    if (USE_BINDING) {
-      return component.getValueBinding(name).getExpressionString();
-    } else {
       return FacesUtilsEL.getExpressionString(component, name);
-    }
   }
 
+  /**
+   * @deprecated since 1.6.0
+   */
+  @Deprecated
   public static void setValueOfBindingOrExpression(
       FacesContext context, Object value, UIComponent component, String bindingName) {
-    if (USE_BINDING) {
-      ValueBinding vb = component.getValueBinding(bindingName);
-      if (vb != null) {
-        vb.setValue(context, value);
-      }
-    } else {
       FacesUtilsEL.setValueOfBindingOrExpression(context, value, component, bindingName);
-    }
   }
 
+  /**
+   * @deprecated since 1.6.0
+   */
+  @Deprecated
   public static void setValueOfBindingOrExpression(
       FacesContext context, Object value, Object bindingOrExpression) {
-    if (USE_BINDING) {
-      if (bindingOrExpression instanceof ValueBinding) {
-        ValueBinding vb = (ValueBinding) bindingOrExpression;
-        vb.setValue(context, value);
-      }
-    } else {
       FacesUtilsEL.setValueOfBindingOrExpression(context, value, bindingOrExpression);
-    }
   }
 
+  /**
+   * @deprecated since 1.6.0
+   */
+  @Deprecated
   public static void copyValueBindingOrValueExpression(
       UIComponent fromComponent, String fromName, UIComponent toComponent, String toName) {
-    if (USE_BINDING) {
-      ValueBinding vb = fromComponent.getValueBinding(fromName);
-      if (vb != null) {
-        toComponent.setValueBinding(toName, vb);
-      }
-    } else {
       FacesUtilsEL.copyValueBindingOrValueExpression(fromComponent, fromName, toComponent, toName);
-    }
   }
 
+  /**
+   * @deprecated since 1.6.0
+   */
+  @Deprecated
   public static Object getValueFromBindingOrExpression(Object obj) {
-    if (USE_BINDING) {
-      if (obj instanceof ValueBinding) {
-        return ((ValueBinding) obj).getValue(FacesContext.getCurrentInstance());
-      }
-    } else {
       return FacesUtilsEL.getValueFromBindingOrExpression(obj);
-    }
-    return null;
   }
 
+  /**
+   * @deprecated since 1.6.0
+   */
+  @Deprecated
   public static Object createExpressionOrBinding(String string) {
-    if (USE_BINDING) {
-      FacesContext facesContext = FacesContext.getCurrentInstance();
-      ValueBinding valueBinding = facesContext.getApplication().createValueBinding(string);
-      return valueBinding;
-    } else {
       return FacesUtilsEL.createExpressionOrBinding(string);
-    }
   }
 
+  /**
+   * @deprecated since 1.6.0
+   */
+  @Deprecated
   public static void setValidator(EditableValueHolder editableValueHolder, Object validator) {
-    if (USE_BINDING) {
-      MethodBinding methodBinding =
-          FacesContext.getCurrentInstance().getApplication().createMethodBinding(validator.toString(), VALIDATOR_ARGS);
-      editableValueHolder.setValidator(methodBinding);
-    } else {
       FacesUtilsEL.setValidator(editableValueHolder, validator);
-    }
   }
 
+  /**
+   * @deprecated since 1.6.0
+   */
+  @Deprecated
   public static void setConverter(ValueHolder valueHolder, Object converterExpression) {
-    if (USE_BINDING) {
-      if (converterExpression != null && converterExpression instanceof String) {
-        String converterExpressionStr = (String) converterExpression;
-        FacesContext context = FacesContext.getCurrentInstance();
-        if (UIComponentTag.isValueReference(converterExpressionStr)) {
-          ValueBinding valueBinding = context.getApplication().createValueBinding(converterExpressionStr);
-          if (valueHolder instanceof UIComponent) {
-            ((UIComponent) valueHolder).setValueBinding("converter", valueBinding);
-          }
-        } else {
-          Converter converter = context.getApplication().createConverter(converterExpressionStr);
-          valueHolder.setConverter(converter);
-        }
-      }
-    } else {
       FacesUtilsEL.setConverter(valueHolder, converterExpression);
-    }
   }
 
+  /**
+   * @deprecated since 1.6.0
+   */
+  @Deprecated
   public static void setBindingOrExpression(UIComponent component, String name, Object valueBindingOrExpression) {
-    if (USE_BINDING) {
-      component.setValueBinding(name, (ValueBinding) valueBindingOrExpression);
-    } else {
       FacesUtilsEL.setBindingOrExpression(component, name, valueBindingOrExpression);
-    }
   }
 
+  /**
+   * @deprecated since 1.6.0
+   */
+  @Deprecated
   public static void setBindingOrExpression(UIComponent component, String name, String valueBindingOrExpression) {
     setBindingOrExpression(component, name, createExpressionOrBinding(valueBindingOrExpression));
   }
 
+  /**
+   * @deprecated since 1.6.0
+   */
+  @Deprecated
   public static void addBindingOrExpressionTabChangeListener(TabChangeSource source, String type,
       Object bindingOrExpression) {
-    if (USE_BINDING) {
-      source.addTabChangeListener(new ValueBindingTabChangeListener(type, (ValueBinding) bindingOrExpression));
-    } else {
       FacesUtilsEL.addBindingOrExpressionTabChangeListener(source, type, bindingOrExpression);
-    }
   }
 
+  /**
+   * @deprecated since 1.6.0
+   */
+  @Deprecated
   public static Comparator getBindingOrExpressionComparator(
       FacesContext facesContext, UIComponent child, String var, boolean descending, Comparator comparator) {
-    if (USE_BINDING) {
-      ValueBinding valueBinding = child.getValueBinding("value");
-      return new ValueBindingComparator(facesContext, var, valueBinding, descending, comparator);
-    } else {
       return FacesUtilsEL.getBindingOrExpressionComparator(facesContext, child, var, descending, comparator);
-    }
   }
 
+  /**
+   * @deprecated since 1.6.0
+   */
+  @Deprecated
   public static void addBindingOrExpressionPopupActionListener(ActionSource actionSource, Object bindingOrExpression) {
-    if (USE_BINDING) {
-      actionSource.addActionListener(new ValueBindingPopupActionListener(bindingOrExpression));
-    } else {
       FacesUtilsEL.addBindingOrExpressionPopupActionListener(actionSource, bindingOrExpression);
-    }
   }
 
+  /**
+   * @deprecated since 1.6.0
+   */
+  @Deprecated
   public static void addBindingOrExpressionResetActionListener(ActionSource actionSource, Object bindingOrExpression) {
-    if (USE_BINDING) {
-      actionSource.addActionListener(new ValueBindingResetInputActionListener(bindingOrExpression));
-    } else {
       FacesUtilsEL.addBindingOrExpressionResetActionListener(actionSource, bindingOrExpression);
-    }
   }
 
   public static Map getFacesContextAttributes(FacesContext context) {
@@ -297,7 +223,11 @@ public class FacesUtils {
     }
   }
 
+  /**
+   * @deprecated since 1.6.0. Always true.
+   */
+  @Deprecated
   public static boolean supportsEL() {
-    return !USE_BINDING;
+    return true;
   }
 }

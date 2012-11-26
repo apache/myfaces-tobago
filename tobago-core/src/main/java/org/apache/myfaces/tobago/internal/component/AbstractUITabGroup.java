@@ -37,6 +37,7 @@ import org.apache.myfaces.tobago.layout.LayoutManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.el.ValueExpression;
 import javax.faces.component.ActionSource;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -209,8 +210,9 @@ public abstract class AbstractUITabGroup extends AbstractUIPanelBase
         }
       }
       Integer index = ((TabChangeEvent) facesEvent).getNewTabIndex();
-      if (FacesUtils.hasValueBindingOrValueExpression(this, Attributes.SELECTED_INDEX)) {
-        FacesUtils.setValueOfBindingOrExpression(getFacesContext(), index, this, Attributes.SELECTED_INDEX);
+      ValueExpression expression = getValueExpression(Attributes.SELECTED_INDEX);
+      if (expression != null) {
+        expression.setValue(getFacesContext().getELContext(), index);
       } else {
         setSelectedIndex(index);
       }

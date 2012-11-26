@@ -24,12 +24,10 @@ import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.TagGeneration;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
-import org.apache.myfaces.tobago.compat.FacesUtils;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.layout.LayoutBase;
 import org.apache.myfaces.tobago.layout.LayoutComponent;
 import org.apache.myfaces.tobago.layout.LayoutContainer;
-import org.apache.myfaces.tobago.layout.Measure;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -47,10 +45,32 @@ import javax.servlet.jsp.tagext.TagSupport;
 @TagGeneration(className = "org.apache.myfaces.tobago.internal.taglib.GridLayoutConstraintTag")
 public abstract class GridLayoutConstraintTag extends TagSupport {
 
-  private static final long serialVersionUID = 3L;
+  private static final long serialVersionUID = 4L;
 
   private static final Logger LOG = LoggerFactory.getLogger(GridLayoutConstraintTag.class);
 
+  private javax.el.ValueExpression borderBottom;
+  private javax.el.ValueExpression borderLeft;
+  private javax.el.ValueExpression borderRight;
+  private javax.el.ValueExpression borderTop;
+  private javax.el.ValueExpression columnSpan;
+  private javax.el.ValueExpression height;
+  private javax.el.ValueExpression marginBottom;
+  private javax.el.ValueExpression marginLeft;
+  private javax.el.ValueExpression marginRight;
+  private javax.el.ValueExpression marginTop;
+  private javax.el.ValueExpression maximumHeight;
+  private javax.el.ValueExpression maximumWidth;
+  private javax.el.ValueExpression minimumHeight;
+  private javax.el.ValueExpression minimumWidth;
+  private javax.el.ValueExpression paddingBottom;
+  private javax.el.ValueExpression paddingLeft;
+  private javax.el.ValueExpression paddingRight;
+  private javax.el.ValueExpression paddingTop;
+  private javax.el.ValueExpression preferredHeight;
+  private javax.el.ValueExpression preferredWidth;
+  private javax.el.ValueExpression rowSpan;
+  private javax.el.ValueExpression width;
 
   @Override
   public int doStartTag() throws JspException {
@@ -75,7 +95,7 @@ public abstract class GridLayoutConstraintTag extends TagSupport {
 
     // XXX need a better solution
     if (component.getParent() != null && component.getParent().getClass().getName().endsWith("UIExtensionPanel")) {
-        component = component.getParent();
+      component = component.getParent();
     }
 
     if (!(component instanceof LayoutBase)) {
@@ -83,545 +103,358 @@ public abstract class GridLayoutConstraintTag extends TagSupport {
       throw new JspException("Component Instance is not a LayoutBase");
     }
 
+    final boolean isLayoutContainer = component instanceof LayoutContainer;
+    final boolean isLayoutComponent = component instanceof LayoutComponent;
 
-    if (component instanceof LayoutComponent && isColumnSpanSet()) {
-      if (isColumnSpanLiteral()) {
-        ((LayoutComponent) component).setColumnSpan(getColumnSpanValue());
+    if (columnSpan != null) {
+      if (isLayoutComponent) {
+        component.setValueExpression(Attributes.COLUMN_SPAN, columnSpan);
       } else {
-        FacesUtils.setBindingOrExpression(component, Attributes.COLUMN_SPAN, getColumnSpanAsBindingOrExpression());
-      }
-    }
-
-    if (component instanceof LayoutComponent && isRowSpanSet()) {
-      if (isRowSpanLiteral()) {
-        ((LayoutComponent) component).setRowSpan(getRowSpanValue());
-      } else {
-        FacesUtils.setBindingOrExpression(component, Attributes.ROW_SPAN, getRowSpanAsBindingOrExpression());
+        LOG.warn("Ignoring '" + Attributes.COLUMN_SPAN + "', because the parent is not a LayoutComponent!");
       }
     }
 
-    if (isWidthSet()) {
-      if (isWidthLiteral()) {
-        ((LayoutBase) component).setWidth(getWidthValue());
+    if (rowSpan != null) {
+      if (isLayoutComponent) {
+        component.setValueExpression(Attributes.ROW_SPAN, rowSpan);
       } else {
-        FacesUtils.setBindingOrExpression(component, Attributes.WIDTH, getWidthAsBindingOrExpression());
+        LOG.warn("Ignoring '" + Attributes.ROW_SPAN + "', because the parent is not a LayoutComponent!");
       }
     }
 
-    if (isHeightSet()) {
-      if (isHeightLiteral()) {
-        ((LayoutBase) component).setHeight(getHeightValue());
+    if (width != null) {
+      component.setValueExpression(Attributes.WIDTH, width);
+    }
+
+    if (height != null) {
+      component.setValueExpression(Attributes.HEIGHT, height);
+    }
+
+    if (minimumWidth != null) {
+      component.setValueExpression(Attributes.MINIMUM_WIDTH, minimumWidth);
+    }
+
+    if (minimumHeight != null) {
+      component.setValueExpression(Attributes.MINIMUM_HEIGHT, minimumHeight);
+    }
+
+    if (preferredWidth != null) {
+      component.setValueExpression(Attributes.PREFERRED_WIDTH, preferredWidth);
+    }
+
+    if (preferredHeight != null) {
+      component.setValueExpression(Attributes.PREFERRED_HEIGHT, preferredHeight);
+    }
+
+    if (maximumWidth != null) {
+      component.setValueExpression(Attributes.MAXIMUM_WIDTH, maximumWidth);
+    }
+
+    if (maximumHeight != null) {
+      component.setValueExpression(Attributes.MAXIMUM_HEIGHT, maximumHeight);
+    }
+
+    if (marginLeft != null) {
+      component.setValueExpression(Attributes.MARGIN_LEFT, marginLeft);
+    }
+
+    if (marginRight != null) {
+      component.setValueExpression(Attributes.MARGIN_RIGHT, marginRight);
+    }
+
+    if (marginTop != null) {
+      component.setValueExpression(Attributes.MARGIN_TOP, marginTop);
+    }
+
+    if (marginBottom != null) {
+      component.setValueExpression(Attributes.MARGIN_BOTTOM, marginBottom);
+    }
+
+    if (borderLeft != null) {
+      if (isLayoutContainer) {
+        component.setValueExpression(Attributes.BORDER_LEFT, borderLeft);
       } else {
-        FacesUtils.setBindingOrExpression(component, Attributes.HEIGHT, getHeightAsBindingOrExpression());
+        LOG.warn("Ignoring '" + Attributes.BORDER_LEFT + "', because the parent is not a LayoutContainer!");
       }
     }
 
-    if (isMinimumWidthSet()) {
-      if (isMinimumWidthLiteral()) {
-        ((LayoutBase) component).setMinimumWidth(getMinimumWidthValue());
+    if (borderRight != null) {
+      if (isLayoutContainer) {
+        component.setValueExpression(Attributes.BORDER_RIGHT, borderRight);
       } else {
-        FacesUtils.setBindingOrExpression(component, Attributes.MINIMUM_WIDTH, getMinimumWidthAsBindingOrExpression());
+        LOG.warn("Ignoring '" + Attributes.BORDER_RIGHT + "', because the parent is not a LayoutContainer!");
+      }
+    }
+    if (borderTop != null) {
+      if (isLayoutContainer) {
+        component.setValueExpression(Attributes.BORDER_TOP, borderTop);
+      } else {
+        LOG.warn("Ignoring '" + Attributes.BORDER_TOP + "', because the parent is not a LayoutContainer!");
       }
     }
 
-    if (isMinimumHeightSet()) {
-      if (isMinimumHeightLiteral()) {
-        ((LayoutBase) component).setMinimumHeight(getMinimumHeightValue());
+    if (borderBottom != null) {
+      if (isLayoutContainer) {
+        component.setValueExpression(Attributes.BORDER_BOTTOM, borderBottom);
       } else {
-        FacesUtils.setBindingOrExpression(component, Attributes.MINIMUM_WIDTH, getMinimumHeightAsBindingOrExpression());
+        LOG.warn("Ignoring '" + Attributes.BORDER_BOTTOM + "', because the parent is not a LayoutContainer!");
       }
     }
 
-    if (isPreferredWidthSet()) {
-      if (isPreferredWidthLiteral()) {
-        ((LayoutBase) component).setPreferredWidth(getPreferredWidthValue());
+    if (paddingLeft != null) {
+      if (isLayoutContainer) {
+        component.setValueExpression(Attributes.PADDING_LEFT, paddingLeft);
       } else {
-        FacesUtils.setBindingOrExpression(component, Attributes.PREFERRED_WIDTH,
-            getPreferredWidthAsBindingOrExpression());
+        LOG.warn("Ignoring '" + Attributes.PADDING_LEFT + "', because the parent is not a LayoutContainer!");
       }
     }
 
-    if (isPreferredHeightSet()) {
-      if (isPreferredHeightLiteral()) {
-        ((LayoutBase) component).setPreferredHeight(getPreferredHeightValue());
+    if (paddingRight != null) {
+      if (isLayoutContainer) {
+        component.setValueExpression(Attributes.PADDING_RIGHT, paddingRight);
       } else {
-        FacesUtils.setBindingOrExpression(component, Attributes.PREFERRED_WIDTH,
-            getPreferredHeightAsBindingOrExpression());
+        LOG.warn("Ignoring '" + Attributes.PADDING_RIGHT + "', because the parent is not a LayoutContainer!");
+      }
+    }
+    if (paddingTop != null) {
+      if (isLayoutContainer) {
+        component.setValueExpression(Attributes.PADDING_TOP, paddingTop);
+      } else {
+        LOG.warn("Ignoring '" + Attributes.PADDING_TOP + "', because the parent is not a LayoutContainer!");
       }
     }
 
-    if (isMaximumWidthSet()) {
-      if (isMaximumWidthLiteral()) {
-        ((LayoutBase) component).setMaximumWidth(getMaximumWidthValue());
+    if (paddingBottom != null) {
+      if (isLayoutContainer) {
+        component.setValueExpression(Attributes.PADDING_BOTTOM, paddingBottom);
       } else {
-        FacesUtils.setBindingOrExpression(component, Attributes.MAXIMUM_WIDTH, getMaximumWidthAsBindingOrExpression());
-      }
-    }
-
-    if (isMaximumHeightSet()) {
-      if (isMaximumHeightLiteral()) {
-        ((LayoutBase) component).setMaximumHeight(getMaximumHeightValue());
-      } else {
-        FacesUtils.setBindingOrExpression(component, Attributes.MAXIMUM_WIDTH, getMaximumHeightAsBindingOrExpression());
-      }
-    }
-
-    if (isMarginLeftSet()) {
-      if (isMarginLeftLiteral()) {
-        ((LayoutBase) component).setMarginLeft(getMarginLeftValue());
-      } else {
-        FacesUtils.setBindingOrExpression(component, Attributes.MARGIN_LEFT, getMarginLeftAsBindingOrExpression());
-      }
-    }
-
-    if (isMarginRightSet()) {
-      if (isMarginRightLiteral()) {
-        ((LayoutBase) component).setMarginRight(getMarginRightValue());
-      } else {
-        FacesUtils.setBindingOrExpression(component, Attributes.MARGIN_RIGHT, getMarginRightAsBindingOrExpression());
-      }
-    }
-    if (isMarginTopSet()) {
-      if (isMarginTopLiteral()) {
-        ((LayoutBase) component).setMarginTop(getMarginTopValue());
-      } else {
-        FacesUtils.setBindingOrExpression(component, Attributes.MARGIN_TOP, getMarginTopAsBindingOrExpression());
-      }
-    }
-
-    if (isMarginBottomSet()) {
-      if (isMarginBottomLiteral()) {
-        ((LayoutBase) component).setMarginBottom(getMarginBottomValue());
-      } else {
-        FacesUtils.setBindingOrExpression(component, Attributes.MARGIN_BOTTOM, getMarginBottomAsBindingOrExpression());
-      }
-    }
-
-    if (isBorderLeftSet()) {
-      if (component instanceof LayoutContainer) {
-        if (isBorderLeftLiteral()) {
-          ((LayoutContainer) component).setBorderLeft(getBorderLeftValue());
-        } else {
-          FacesUtils.setBindingOrExpression(component, Attributes.BORDER_LEFT, getBorderLeftAsBindingOrExpression());
-        }
-      } else {
-        LOG.warn("Ignoring border left, because the parent is not a LayoutContainer!");
-      }
-    }
-
-    if (isBorderRightSet()) {
-      if (component instanceof LayoutContainer) {
-        if (isBorderRightLiteral()) {
-          ((LayoutContainer) component).setBorderRight(getBorderRightValue());
-        } else {
-          FacesUtils.setBindingOrExpression(component, Attributes.BORDER_RIGHT, getBorderRightAsBindingOrExpression());
-        }
-      } else {
-        LOG.warn("Ignoring border left, because the parent is not a LayoutContainer!");
-      }
-    }
-    if (isBorderTopSet()) {
-      if (component instanceof LayoutContainer) {
-        if (isBorderTopLiteral()) {
-          ((LayoutContainer) component).setBorderTop(getBorderTopValue());
-        } else {
-          FacesUtils.setBindingOrExpression(component, Attributes.BORDER_TOP, getBorderTopAsBindingOrExpression());
-        }
-      } else {
-        LOG.warn("Ignoring border left, because the parent is not a LayoutContainer!");
-      }
-    }
-
-    if (isBorderBottomSet()) {
-      if (component instanceof LayoutContainer) {
-        if (isBorderBottomLiteral()) {
-          ((LayoutContainer) component).setBorderBottom(getBorderBottomValue());
-        } else {
-          FacesUtils
-              .setBindingOrExpression(component, Attributes.BORDER_BOTTOM, getBorderBottomAsBindingOrExpression());
-        }
-      } else {
-        LOG.warn("Ignoring border left, because the parent is not a LayoutContainer!");
-      }
-    }
-
-    if (isPaddingLeftSet()) {
-      if (component instanceof LayoutContainer) {
-        if (isPaddingLeftLiteral()) {
-          ((LayoutContainer) component).setPaddingLeft(getPaddingLeftValue());
-        } else {
-          FacesUtils.setBindingOrExpression(component, Attributes.PADDING_LEFT, getPaddingLeftAsBindingOrExpression());
-        }
-      } else {
-        LOG.warn("Ignoring padding left, because the parent is not a LayoutContainer!");
-      }
-    }
-
-    if (isPaddingRightSet()) {
-      if (component instanceof LayoutContainer) {
-        if (isPaddingRightLiteral()) {
-          ((LayoutContainer) component).setPaddingRight(getPaddingRightValue());
-        } else {
-          FacesUtils.setBindingOrExpression(
-              component, Attributes.PADDING_RIGHT, getPaddingRightAsBindingOrExpression());
-        }
-      } else {
-        LOG.warn("Ignoring padding left, because the parent is not a LayoutContainer!");
-      }
-    }
-    if (isPaddingTopSet()) {
-      if (component instanceof LayoutContainer) {
-        if (isPaddingTopLiteral()) {
-          ((LayoutContainer) component).setPaddingTop(getPaddingTopValue());
-        } else {
-          FacesUtils.setBindingOrExpression(component, Attributes.PADDING_TOP, getPaddingTopAsBindingOrExpression());
-        }
-      } else {
-        LOG.warn("Ignoring padding left, because the parent is not a LayoutContainer!");
-      }
-    }
-
-    if (isPaddingBottomSet()) {
-      if (component instanceof LayoutContainer) {
-        if (isPaddingBottomLiteral()) {
-          ((LayoutContainer) component).setPaddingBottom(getPaddingBottomValue());
-        } else {
-          FacesUtils
-              .setBindingOrExpression(component, Attributes.PADDING_BOTTOM, getPaddingBottomAsBindingOrExpression());
-        }
-      } else {
-        LOG.warn("Ignoring padding left, because the parent is not a LayoutContainer!");
+        LOG.warn("Ignoring '" + Attributes.PADDING_BOTTOM + "', because the parent is not a LayoutContainer!");
       }
     }
 
     return (SKIP_BODY);
   }
 
+  @Override
+  public void release() {
+    super.release();
+    borderBottom = null;
+    borderLeft = null;
+    borderRight = null;
+    borderTop = null;
+    columnSpan = null;
+    height = null;
+    marginBottom = null;
+    marginLeft = null;
+    marginRight = null;
+    marginTop = null;
+    maximumHeight = null;
+    maximumWidth = null;
+    minimumHeight = null;
+    minimumWidth = null;
+    paddingBottom = null;
+    paddingLeft = null;
+    paddingRight = null;
+    paddingTop = null;
+    preferredHeight = null;
+    preferredWidth = null;
+    rowSpan = null;
+    width = null;
+  }
+
   /**
    * The number of horizontal cells this component should use.
    */
   @TagAttribute(name = "columnSpan", type = "java.lang.Integer")
-  public abstract void setColumnSpan(ValueExpression columnSpan);
-
-  public abstract Integer getColumnSpanValue();
-
-  public abstract boolean isColumnSpanSet();
-
-  public abstract boolean isColumnSpanLiteral();
-
-  public abstract Object getColumnSpanAsBindingOrExpression();
+  public void setColumnSpan(ValueExpression columnSpan) {
+    this.columnSpan = columnSpan;
+  }
 
   /**
    * The number of vertical cells this component should use.
    */
   @TagAttribute(name = "rowSpan", type = "java.lang.Integer")
-  public abstract void setRowSpan(ValueExpression rowSpan);
-
-  public abstract Integer getRowSpanValue();
-
-  public abstract boolean isRowSpanSet();
-
-  public abstract boolean isRowSpanLiteral();
-
-  public abstract Object getRowSpanAsBindingOrExpression();
+  public void setRowSpan(ValueExpression rowSpan) {
+    this.rowSpan = rowSpan;
+  }
 
   /**
    * The width for this component.
    */
   @TagAttribute(name = "width", type = "org.apache.myfaces.tobago.layout.Measure")
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
-  public abstract void setWidth(ValueExpression width);
-
-  public abstract Measure getWidthValue();
-
-  public abstract boolean isWidthSet();
-
-  public abstract boolean isWidthLiteral();
-
-  public abstract Object getWidthAsBindingOrExpression();
+  public void setWidth(ValueExpression width) {
+    this.width = width;
+  }
 
   /**
    * The height for this component.
    */
   @TagAttribute(name = "height", type = "org.apache.myfaces.tobago.layout.Measure")
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
-  public abstract void setHeight(ValueExpression height);
-
-  public abstract Measure getHeightValue();
-
-  public abstract boolean isHeightSet();
-
-  public abstract boolean isHeightLiteral();
-
-  public abstract Object getHeightAsBindingOrExpression();
+  public void setHeight(ValueExpression height) {
+    this.height = height;
+  }
 
   /**
    * The minimum width for this component.
    */
   @TagAttribute(name = "minimumWidth", type = "org.apache.myfaces.tobago.layout.Measure")
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
-  public abstract void setMinimumWidth(ValueExpression minimumWidth);
-
-  public abstract Measure getMinimumWidthValue();
-
-  public abstract boolean isMinimumWidthSet();
-
-  public abstract boolean isMinimumWidthLiteral();
-
-  public abstract Object getMinimumWidthAsBindingOrExpression();
+  public void setMinimumWidth(ValueExpression minimumWidth) {
+    this.minimumWidth = minimumWidth;
+  }
 
   /**
    * The minimum height for this component.
    */
   @TagAttribute(name = "minimumHeight", type = "org.apache.myfaces.tobago.layout.Measure")
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
-  public abstract void setMinimumHeight(ValueExpression minimumHeight);
-
-  public abstract Measure getMinimumHeightValue();
-
-  public abstract boolean isMinimumHeightSet();
-
-  public abstract boolean isMinimumHeightLiteral();
-
-  public abstract Object getMinimumHeightAsBindingOrExpression();
+  public void setMinimumHeight(ValueExpression minimumHeight) {
+    this.minimumHeight = minimumHeight;
+  }
 
   /**
    * The preferred width for this component.
    */
   @TagAttribute(name = "preferredWidth", type = "org.apache.myfaces.tobago.layout.Measure")
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
-  public abstract void setPreferredWidth(ValueExpression preferredWidth);
-
-  public abstract Measure getPreferredWidthValue();
-
-  public abstract boolean isPreferredWidthSet();
-
-  public abstract boolean isPreferredWidthLiteral();
-
-  public abstract Object getPreferredWidthAsBindingOrExpression();
+  public void setPreferredWidth(ValueExpression preferredWidth) {
+    this.preferredWidth = preferredWidth;
+  }
 
   /**
    * The preferred height for this component.
    */
   @TagAttribute(name = "preferredHeight", type = "org.apache.myfaces.tobago.layout.Measure")
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
-  public abstract void setPreferredHeight(ValueExpression preferredHeight);
-
-  public abstract Measure getPreferredHeightValue();
-
-  public abstract boolean isPreferredHeightSet();
-
-  public abstract boolean isPreferredHeightLiteral();
-
-  public abstract Object getPreferredHeightAsBindingOrExpression();
+  public void setPreferredHeight(ValueExpression preferredHeight) {
+    this.preferredHeight = preferredHeight;
+  }
 
   /**
    * The maximum width for this component.
    */
   @TagAttribute(name = "maximumWidth", type = "org.apache.myfaces.tobago.layout.Measure")
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
-  public abstract void setMaximumWidth(ValueExpression maximumWidth);
-
-  public abstract Measure getMaximumWidthValue();
-
-  public abstract boolean isMaximumWidthSet();
-
-  public abstract boolean isMaximumWidthLiteral();
-
-  public abstract Object getMaximumWidthAsBindingOrExpression();
+  public void setMaximumWidth(ValueExpression maximumWidth) {
+    this.maximumWidth = maximumWidth;
+  }
 
   /**
    * The maximum height for this component.
    */
   @TagAttribute(name = "maximumHeight", type = "org.apache.myfaces.tobago.layout.Measure")
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
-  public abstract void setMaximumHeight(ValueExpression maximumHeight);
-
-  public abstract Measure getMaximumHeightValue();
-
-  public abstract boolean isMaximumHeightSet();
-
-  public abstract boolean isMaximumHeightLiteral();
-
-  public abstract Object getMaximumHeightAsBindingOrExpression();
+  public void setMaximumHeight(ValueExpression maximumHeight) {
+    this.maximumHeight = maximumHeight;
+  }
 
   /**
    * The left margin for this component.
    */
   @TagAttribute(name = "marginLeft", type = "org.apache.myfaces.tobago.layout.Measure")
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
-  public abstract void setMarginLeft(ValueExpression marginLeft);
-
-  public abstract Measure getMarginLeftValue();
-
-  public abstract boolean isMarginLeftSet();
-
-  public abstract boolean isMarginLeftLiteral();
-
-  public abstract Object getMarginLeftAsBindingOrExpression();
+  public void setMarginLeft(ValueExpression marginLeft) {
+    this.marginLeft = marginLeft;
+  }
 
   /**
    * The right margin for this component.
    */
   @TagAttribute(name = "marginRight", type = "org.apache.myfaces.tobago.layout.Measure")
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
-  public abstract void setMarginRight(ValueExpression marginLeft);
-
-  public abstract Measure getMarginRightValue();
-
-  public abstract boolean isMarginRightSet();
-
-  public abstract boolean isMarginRightLiteral();
-
-  public abstract Object getMarginRightAsBindingOrExpression();
+  public void setMarginRight(ValueExpression marginRight) {
+    this.marginRight = marginRight;
+  }
 
   /**
    * The top margin for this component.
    */
   @TagAttribute(name = "marginTop", type = "org.apache.myfaces.tobago.layout.Measure")
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
-  public abstract void setMarginTop(ValueExpression marginTop);
-
-  public abstract Measure getMarginTopValue();
-
-  public abstract boolean isMarginTopSet();
-
-  public abstract boolean isMarginTopLiteral();
-
-  public abstract Object getMarginTopAsBindingOrExpression();
+  public void setMarginTop(ValueExpression marginTop) {
+    this.marginTop = marginTop;
+  }
 
   /**
    * The bottom margin for this component.
    */
   @TagAttribute(name = "marginBottom", type = "org.apache.myfaces.tobago.layout.Measure")
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
-  public abstract void setMarginBottom(ValueExpression marginBottom);
-
-  public abstract Measure getMarginBottomValue();
-
-  public abstract boolean isMarginBottomSet();
-
-  public abstract boolean isMarginBottomLiteral();
-
-  public abstract Object getMarginBottomAsBindingOrExpression();
+  public void setMarginBottom(ValueExpression marginBottom) {
+    this.marginBottom = marginBottom;
+  }
 
   /**
    * The left border area for this component. Its only applicably for containers.
    */
   @TagAttribute(name = "borderLeft", type = "org.apache.myfaces.tobago.layout.Measure")
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
-  public abstract void setBorderLeft(ValueExpression borderLeft);
-
-  public abstract Measure getBorderLeftValue();
-
-  public abstract boolean isBorderLeftSet();
-
-  public abstract boolean isBorderLeftLiteral();
-
-  public abstract Object getBorderLeftAsBindingOrExpression();
+  public void setBorderLeft(ValueExpression borderLeft) {
+    this.borderLeft = borderLeft;
+  }
 
   /**
    * The right border area for this component. Its only applicably for containers.
    */
   @TagAttribute(name = "borderRight", type = "org.apache.myfaces.tobago.layout.Measure")
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
-  public abstract void setBorderRight(ValueExpression borderRight);
-
-  public abstract Measure getBorderRightValue();
-
-  public abstract boolean isBorderRightSet();
-
-  public abstract boolean isBorderRightLiteral();
-
-  public abstract Object getBorderRightAsBindingOrExpression();
+  public void setBorderRight(ValueExpression borderRight) {
+    this.borderRight = borderRight;
+  }
 
   /**
    * The top border area for this component. Its only applicably for containers.
    */
   @TagAttribute(name = "borderTop", type = "org.apache.myfaces.tobago.layout.Measure")
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
-  public abstract void setBorderTop(ValueExpression borderTop);
-
-  public abstract Measure getBorderTopValue();
-
-  public abstract boolean isBorderTopSet();
-
-  public abstract boolean isBorderTopLiteral();
-
-  public abstract Object getBorderTopAsBindingOrExpression();
+  public void setBorderTop(ValueExpression borderTop) {
+    this.borderTop = borderTop;
+  }
 
   /**
    * The bottom border area for this component. Its only applicably for containers.
    */
   @TagAttribute(name = "borderBottom", type = "org.apache.myfaces.tobago.layout.Measure")
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
-  public abstract void setBorderBottom(ValueExpression borderBottom);
-
-  public abstract Measure getBorderBottomValue();
-
-  public abstract boolean isBorderBottomSet();
-
-  public abstract boolean isBorderBottomLiteral();
-
-  public abstract Object getBorderBottomAsBindingOrExpression();
+  public void setBorderBottom(ValueExpression borderBottom) {
+    this.borderBottom = borderBottom;
+  }
 
   /**
    * The left padding for this component. Its only applicably for containers.
    */
   @TagAttribute(name = "paddingLeft", type = "org.apache.myfaces.tobago.layout.Measure")
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
-  public abstract void setPaddingLeft(ValueExpression paddingLeft);
-
-  public abstract Measure getPaddingLeftValue();
-
-  public abstract boolean isPaddingLeftSet();
-
-  public abstract boolean isPaddingLeftLiteral();
-
-  public abstract Object getPaddingLeftAsBindingOrExpression();
+  public void setPaddingLeft(ValueExpression paddingLeft) {
+    this.paddingLeft = paddingLeft;
+  }
 
   /**
    * The right padding for this component. Its only applicably for containers.
    */
   @TagAttribute(name = "paddingRight", type = "org.apache.myfaces.tobago.layout.Measure")
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
-  public abstract void setPaddingRight(ValueExpression paddingRight);
-
-  public abstract Measure getPaddingRightValue();
-
-  public abstract boolean isPaddingRightSet();
-
-  public abstract boolean isPaddingRightLiteral();
-
-  public abstract Object getPaddingRightAsBindingOrExpression();
+  public void setPaddingRight(ValueExpression paddingRight) {
+    this.paddingRight = paddingRight;
+  }
 
   /**
    * The top padding for this component. Its only applicably for containers.
    */
   @TagAttribute(name = "paddingTop", type = "org.apache.myfaces.tobago.layout.Measure")
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
-  public abstract void setPaddingTop(ValueExpression paddingTop);
-
-  public abstract Measure getPaddingTopValue();
-
-  public abstract boolean isPaddingTopSet();
-
-  public abstract boolean isPaddingTopLiteral();
-
-  public abstract Object getPaddingTopAsBindingOrExpression();
+  public void setPaddingTop(ValueExpression paddingTop) {
+    this.paddingTop = paddingTop;
+  }
 
   /**
    * The bottom padding for this component. Its only applicably for containers.
    */
   @TagAttribute(name = "paddingBottom", type = "org.apache.myfaces.tobago.layout.Measure")
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
-  public abstract void setPaddingBottom(ValueExpression paddingBottom);
-
-  public abstract Measure getPaddingBottomValue();
-
-  public abstract boolean isPaddingBottomSet();
-
-  public abstract boolean isPaddingBottomLiteral();
-
-  public abstract Object getPaddingBottomAsBindingOrExpression();
+  public void setPaddingBottom(ValueExpression paddingBottom) {
+    this.paddingBottom = paddingBottom;
+  }
 }

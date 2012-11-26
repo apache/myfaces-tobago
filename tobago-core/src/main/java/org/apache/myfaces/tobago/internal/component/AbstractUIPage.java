@@ -20,7 +20,6 @@
 package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.commons.collections.KeyValue;
-import org.apache.myfaces.tobago.compat.FacesUtils;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.ComponentTypes;
 import org.apache.myfaces.tobago.component.DeprecatedDimension;
@@ -43,6 +42,8 @@ import org.apache.myfaces.tobago.util.DebugUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.el.ELContext;
+import javax.el.ValueExpression;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -228,12 +229,13 @@ public abstract class AbstractUIPage extends AbstractUIForm
    */
   @Deprecated
   public PageState getPageState(FacesContext facesContext) {
-    if (FacesUtils.hasValueBindingOrValueExpression(this, Attributes.STATE)) {
-      PageState state = (PageState)
-          FacesUtils.getValueFromValueBindingOrValueExpression(facesContext, this, Attributes.STATE);
+    final ValueExpression expression = getValueExpression(Attributes.STATE);
+    if (expression != null) {
+      final ELContext elContext = facesContext.getELContext();
+      PageState state = (PageState) expression.getValue(elContext);
       if (state == null) {
         state = new PageStateImpl();
-        FacesUtils.setValueOfBindingOrExpression(facesContext, state, this, Attributes.STATE);
+        expression.setValue(elContext, state);
       }
       return state;
     } else {

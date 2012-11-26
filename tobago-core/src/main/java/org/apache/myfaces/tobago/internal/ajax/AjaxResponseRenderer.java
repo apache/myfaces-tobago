@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.internal.ajax;
 
-import org.apache.myfaces.tobago.compat.FacesUtils;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.internal.lifecycle.TobagoLifecycle;
 import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
@@ -121,7 +120,7 @@ public class AjaxResponseRenderer {
     writer.write("\",\n");
 
     writer.write("    \"html\": \"");
-    FacesUtils.invokeOnComponent(facesContext, facesContext.getViewRoot(), clientId, callback);
+    ComponentUtils.invokeOnComponent(facesContext, facesContext.getViewRoot(), clientId, callback);
     writer.write("\",\n");
 
     writer.write("    \"responseCode\": ");
