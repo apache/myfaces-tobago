@@ -591,24 +591,6 @@
     <plugins>
 
       <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>build-helper-maven-plugin</artifactId>
-        <executions>
-          <execution>
-            <goals>
-              <goal>add-source</goal>
-            </goals>
-            <phase>process-resources</phase>
-            <configuration>
-              <sources>
-                <source>src/main/java-jsf-${jsf.targetDirectory}</source>
-              </sources>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-
-      <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-pmd-plugin</artifactId>
         <version>2.4</version>
@@ -1473,47 +1455,10 @@
     mvn 
     
     Usage for specific build:
-    mvn -Pjsf-1.1
     mvn -Pjsf-2.0
-    
--->
+    mvn -Pjsf-2.1
 
-    <profile>
-      <id>jsf-1.1</id>
-      <properties>
-        <jsf.target>1.1</jsf.target>
-        <jsf.targetDirectory>1.1</jsf.targetDirectory>
-      </properties>
-      <dependencyManagement>
-        <dependencies>
-          <dependency>
-            <groupId>org.apache.myfaces.core</groupId>
-            <artifactId>myfaces-api</artifactId>
-            <version>${myfaces11.version}</version>
-            <optional>true</optional>
-          </dependency>
-          <dependency>
-            <groupId>org.apache.myfaces.core</groupId>
-            <artifactId>myfaces-impl</artifactId>
-            <version>${myfaces11.version}</version>
-            <optional>true</optional>
-          </dependency>
-          <dependency>
-            <groupId>javax.servlet.jsp</groupId>
-            <artifactId>jsp-api</artifactId>
-            <version>2.0</version>
-            <scope>provided</scope>
-            <optional>true</optional>
-          </dependency>
-          <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
-            <version>2.4</version>
-            <optional>true</optional>
-          </dependency>
-        </dependencies>
-      </dependencyManagement>
-    </profile>
+-->
 
     <profile>
       <id>jsf-2.0</id>
@@ -1525,7 +1470,6 @@
       </activation>
       <properties>
         <jsf.target>2.0</jsf.target>
-        <jsf.targetDirectory>1.2</jsf.targetDirectory>
       </properties>
       <dependencyManagement>
         <dependencies>
@@ -1568,7 +1512,6 @@
       </activation>
       <properties>
         <jsf.target>2.0</jsf.target>
-        <jsf.targetDirectory>1.2</jsf.targetDirectory>
       </properties>
       <dependencyManagement>
         <dependencies>
@@ -1602,49 +1545,6 @@
     </profile>
 
     <profile>
-      <id>mojarra-1.1</id>
-      <activation>
-        <property>
-          <name>jsf</name>
-          <value>mojarra-1.1</value>
-        </property>
-      </activation>
-      <properties>
-        <jsf.target>1.1</jsf.target>
-        <jsf.targetDirectory>1.1</jsf.targetDirectory>
-      </properties>
-      <dependencyManagement>
-        <dependencies>
-          <dependency>
-            <groupId>javax.faces</groupId>
-            <artifactId>jsf-api</artifactId>
-            <version>${mojarra11.version}</version>
-            <optional>true</optional>
-          </dependency>
-          <dependency>
-            <groupId>javax.faces</groupId>
-            <artifactId>jsf-impl</artifactId>
-            <version>${mojarra11.version}</version>
-            <optional>true</optional>
-          </dependency>
-          <dependency>
-            <groupId>javax.servlet.jsp</groupId>
-            <artifactId>jsp-api</artifactId>
-            <version>2.0</version>
-            <scope>provided</scope>
-            <optional>true</optional>
-          </dependency>
-          <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
-            <version>2.4</version>
-            <optional>true</optional>
-          </dependency>
-        </dependencies>
-      </dependencyManagement>
-    </profile>
-
-    <profile>
       <id>mojarra-1.2</id>
       <activation>
         <property>
@@ -1654,7 +1554,6 @@
       </activation>
       <properties>
         <jsf.target>1.2</jsf.target>
-        <jsf.targetDirectory>1.2</jsf.targetDirectory>
       </properties>
       <dependencyManagement>
         <dependencies>
@@ -1697,7 +1596,6 @@
       </activation>
       <properties>
         <jsf.target>2.0</jsf.target>
-        <jsf.targetDirectory>1.2</jsf.targetDirectory>
       </properties>
       <dependencyManagement>
         <dependencies>
@@ -1740,7 +1638,6 @@
       </activation>
       <properties>
         <jsf.target>2.0</jsf.target>
-        <jsf.targetDirectory>1.2</jsf.targetDirectory>
       </properties>
       <dependencyManagement>
         <dependencies>
@@ -1783,7 +1680,6 @@
       </activation>
       <properties>
         <jsf.target>2.0</jsf.target>
-        <jsf.targetDirectory>1.2</jsf.targetDirectory>
       </properties>
       <dependencyManagement>
         <dependencies>
@@ -1874,6 +1770,5 @@
     <maven.compile.encoding>UTF-8</maven.compile.encoding>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <jsf.target>1.2</jsf.target>
-    <jsf.targetDirectory>1.2</jsf.targetDirectory>
   </properties>
 </project>
