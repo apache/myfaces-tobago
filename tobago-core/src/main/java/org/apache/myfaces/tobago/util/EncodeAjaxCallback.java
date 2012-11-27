@@ -79,9 +79,8 @@ public class EncodeAjaxCallback implements TobagoCallback {
       if (component.getRendersChildren()) {
         component.encodeChildren(facesContext);
       } else {
-        for (Object o : component.getChildren()) {
-          UIComponent kid = (UIComponent) o;
-          encodeAll(facesContext, kid);
+        for (UIComponent child : component.getChildren()) {
+          encodeAll(facesContext, child);
         }
       }
       component.encodeEnd(facesContext);

@@ -62,8 +62,8 @@ public class DebugUtils {
           result.append(toString(facet, offset + 1, true));
         }
       }
-      for (Object o : component.getChildren()) {
-        result.append(toString((UIComponent) o, offset + 1, false));
+      for (UIComponent child : component.getChildren()) {
+        result.append(toString(child, offset + 1, false));
       }
     }
     return result.toString();

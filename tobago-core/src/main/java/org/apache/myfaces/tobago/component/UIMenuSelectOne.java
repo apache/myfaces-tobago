@@ -19,6 +19,7 @@
 
 package org.apache.myfaces.tobago.component;
 
+import javax.faces.component.UIComponent;
 import java.util.List;
 
 public class UIMenuSelectOne extends javax.faces.component.UISelectOne {
@@ -28,7 +29,7 @@ public class UIMenuSelectOne extends javax.faces.component.UISelectOne {
 
   // hack to made decoding of menuRadio work
   // selectItems are located at parent component
-  public List getChildren() {
+  public List<UIComponent> getChildren() {
     return getParent().getChildren();
   }
 

@@ -117,7 +117,7 @@ public class TabGroupRenderer extends LayoutComponentRendererBase {
     encodeHeader(facesContext, writer, tabGroup, activeIndex);
 
     int index = 0;
-    for (UIComponent tab : (List<UIComponent>) tabGroup.getChildren()) {
+    for (UIComponent tab : tabGroup.getChildren()) {
       if (tab instanceof UITab) {
         if (tab.isRendered() && (UITabGroup.SWITCH_TYPE_CLIENT.equals(switchType) || index == activeIndex)) {
           encodeContent(writer, facesContext, (UITab) tab, index);
@@ -184,7 +184,7 @@ public class TabGroupRenderer extends LayoutComponentRendererBase {
     writer.writeClassAttribute(Classes.create(tabGroup, "headerInner"));
 
     int index = 0;
-    for (UIComponent child : (List<UIComponent>) tabGroup.getChildren()) {
+    for (UIComponent child : tabGroup.getChildren()) {
       if (child instanceof UITab) {
         UITab tab = (UITab) child;
         if (tab.isRendered()) {
@@ -261,7 +261,7 @@ public class TabGroupRenderer extends LayoutComponentRendererBase {
         facesContext, UIMenu.COMPONENT_TYPE, RendererTypes.MENU, "menu");
     FacetUtils.setDropDownMenu(all, menu);
     int index = 0;
-    for (UIComponent child : (List<UIComponent>) tabGroup.getChildren()) {
+    for (UIComponent child : tabGroup.getChildren()) {
       if (child instanceof UITab) {
         UITab tab = (UITab) child;
         if (tab.isRendered()) {

@@ -106,7 +106,7 @@ public abstract class AbstractUITabGroup extends AbstractUIPanelBase
   }
 
   private void resetTabLayout() {
-    for (UIComponent component : (List<UIComponent>) getChildren()) {
+    for (UIComponent component : getChildren()) {
       component.getAttributes().remove(Attributes.LAYOUT_WIDTH);
       component.getAttributes().remove(Attributes.LAYOUT_HEIGHT);
     }
@@ -114,8 +114,7 @@ public abstract class AbstractUITabGroup extends AbstractUIPanelBase
 
   public AbstractUIPanelBase[] getTabs() {
     List<AbstractUIPanelBase> tabs = new ArrayList<AbstractUIPanelBase>();
-    for (Object o : getChildren()) {
-      UIComponent kid = (UIComponent) o;
+    for (UIComponent kid : getChildren()) {
       if (kid instanceof AbstractUIPanelBase) {
         //if (kid.isRendered()) {
         tabs.add((AbstractUIPanelBase) kid);
@@ -251,7 +250,7 @@ public abstract class AbstractUITabGroup extends AbstractUIPanelBase
 
   private AbstractUIPanelBase getTab(int index) {
     int i = 0;
-    for (UIComponent component : (List<UIComponent>) getChildren()) {
+    for (UIComponent component : getChildren()) {
       if (component instanceof AbstractUIPanelBase) {
         if (i == index) {
           return (AbstractUIPanelBase) component;

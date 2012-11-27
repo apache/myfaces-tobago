@@ -72,7 +72,7 @@ public class Command {
   public Command(FacesContext facesContext, UIComponent facetComponent, String focusId) {
     if (facetComponent instanceof UIForm && facetComponent.getChildCount() == 1) {
       Deprecation.LOG.warn("Please don't use a form, but a command with immediate=true instead.");
-      facetComponent = (UIComponent) facetComponent.getChildren().get(0);
+      facetComponent = facetComponent.getChildren().get(0);
     }
     this.action = facetComponent.getClientId(facesContext);
     // transition == true is the default

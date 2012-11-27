@@ -62,7 +62,7 @@ public class RenderUtil {
 
   public static void encodeChildrenWithoutLayout(FacesContext facesContext, UIComponent container) throws IOException {
     Deprecation.LOG.warn("Using deprecated API");
-    for (UIComponent child : (List<UIComponent>) container.getChildren()) {
+    for (UIComponent child : container.getChildren()) {
       encode(facesContext, child);
     }
   }

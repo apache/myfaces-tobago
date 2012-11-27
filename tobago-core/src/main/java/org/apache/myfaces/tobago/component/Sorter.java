@@ -201,11 +201,11 @@ public class Sorter {
     uiColumn.getAttributes().put(Attributes.SORTABLE, Boolean.FALSE);
   }
 
-  private UIComponent getFirstSortableChild(List children) {
-    UIComponent child = null;
+  private UIComponent getFirstSortableChild(List<UIComponent> children) {
+    UIComponent result = null;
 
-    for (Object aChildren : children) {
-      child = (UIComponent) aChildren;
+    for (UIComponent child : children) {
+      result = child;
       if (child instanceof UISelectMany
           || child instanceof UISelectOne
           || child instanceof UISelectBoolean
@@ -225,7 +225,7 @@ public class Sorter {
         }
       }
     }
-    return child;
+    return result;
   }
 
   public Comparator getComparator() {

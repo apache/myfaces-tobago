@@ -27,10 +27,6 @@ import com.sun.facelets.tag.TagAttribute;
 import com.sun.facelets.tag.jsf.ComponentConfig;
 import com.sun.facelets.tag.jsf.ComponentHandler;
 import com.sun.facelets.tag.jsf.ComponentSupport;
-import org.apache.myfaces.tobago.context.Markup;
-import org.apache.myfaces.tobago.facelets.TobagoComponentHandler;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.InputSuggest;
@@ -41,9 +37,13 @@ import org.apache.myfaces.tobago.component.SupportsMarkup;
 import org.apache.myfaces.tobago.component.UIGridLayout;
 import org.apache.myfaces.tobago.component.UILabel;
 import org.apache.myfaces.tobago.component.UIPanel;
+import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.facelets.SuggestMethodRule;
 import org.apache.myfaces.tobago.facelets.SupportsMarkupRule;
+import org.apache.myfaces.tobago.facelets.TobagoComponentHandler;
 import org.apache.myfaces.tobago.internal.layout.LayoutUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.el.ELException;
 import javax.el.ValueExpression;
@@ -53,7 +53,6 @@ import javax.faces.component.EditableValueHolder;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIViewRoot;
 import java.io.IOException;
-import java.util.List;
 
 /*
  * Date: Jul 31, 2007
@@ -95,7 +94,7 @@ public abstract class TobagoLabelExtensionHandler extends ComponentHandler {
       throws IOException, FacesException, ELException {
     if (ComponentSupport.isNew(panel)) {
       // ensure that input has no parent (isNew)
-      UIComponent input  = (UIComponent) panel.getChildren().remove(1);
+      UIComponent input  = panel.getChildren().remove(1);
       try {
         input.getAttributes().put("tobago.panel", panel);
         nextHandler.apply(ctx, input);
@@ -104,14 +103,14 @@ public abstract class TobagoLabelExtensionHandler extends ComponentHandler {
       }
       UIComponent date = null;
       if (panel.getChildCount() > 1) {
-        date = (UIComponent) panel.getChildren().get(1);
+        date = panel.getChildren().get(1);
       }
       panel.getChildren().add(input);
       if (date != null) {
         panel.getChildren().add(date);
       }
     } else {
-      UIComponent input  = (UIComponent) panel.getChildren().get(1);
+      UIComponent input = panel.getChildren().get(1);
       nextHandler.apply(ctx, input);
     }
   }
@@ -186,9 +185,7 @@ public abstract class TobagoLabelExtensionHandler extends ComponentHandler {
 
   private boolean checkForAlreadyCreated(UIComponent panel, String uid) {
     if (panel.getChildCount() > 0) {
-      List list = panel.getChildren();
-      for (int i = 0; i < list.size(); i++) {
-        UIComponent child = (UIComponent) list.get(i);
+      for (UIComponent child : panel.getChildren()) {
         if (uid.equals(child.getId())) {
           return true;
         }

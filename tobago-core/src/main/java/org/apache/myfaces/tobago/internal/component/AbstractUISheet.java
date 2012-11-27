@@ -239,8 +239,7 @@ public abstract class AbstractUISheet extends AbstractUIData
 
   public List<UIComponent> getRenderedChildrenOf(UIColumn column) {
     List<UIComponent> children = new ArrayList<UIComponent>();
-    for (Object o : column.getChildren()) {
-      UIComponent kid = (UIComponent) o;
+    for (UIComponent kid : column.getChildren()) {
       if (kid.isRendered()) {
         children.add(kid);
       }
@@ -567,7 +566,7 @@ public abstract class AbstractUISheet extends AbstractUIData
       return layoutComponents;
     }
     layoutComponents = new ArrayList<LayoutComponent>();
-    for (UIComponent column : (List<UIComponent>) getChildren()) {
+    for (UIComponent column : getChildren()) {
       if (column instanceof AbstractUIColumnSelector) {
         layoutComponents.add(null); // XXX UIColumnSelector is currently not an instance of LayoutComponent
       } else if (column instanceof ColumnEvent) {
@@ -576,7 +575,7 @@ public abstract class AbstractUISheet extends AbstractUIData
         layoutComponents.add((AbstractUIColumnNode) column);
       } else if (column instanceof UIColumn) {
         LayoutComponent layoutComponent = null;
-        for (UIComponent component : (List<UIComponent>) column.getChildren()) {
+        for (UIComponent component : column.getChildren()) {
           if (component instanceof LayoutComponent) {
             if (layoutComponent == null) {
               layoutComponent = (LayoutComponent) component;

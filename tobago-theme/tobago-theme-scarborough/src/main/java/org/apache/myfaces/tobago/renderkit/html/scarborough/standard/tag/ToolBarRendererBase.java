@@ -88,7 +88,7 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(context);
 
     Measure width = Measure.valueOf(-1);
-    for (UIComponent command : (List<UIComponent>) toolBar.getChildren()) {
+    for (UIComponent command : toolBar.getChildren()) {
       if (command instanceof AbstractUICommandBase) {
         width = renderToolbarCommand(context, toolBar, (AbstractUICommandBase) command, writer, width);
       } else if (command instanceof UIToolBarSeparator) {

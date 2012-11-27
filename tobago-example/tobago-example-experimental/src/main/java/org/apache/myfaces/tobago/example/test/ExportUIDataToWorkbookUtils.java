@@ -70,7 +70,7 @@ public class ExportUIDataToWorkbookUtils {
   private static List<UIColumn> getColumns(UIData table) {
     List<UIColumn> columns = new ArrayList<UIColumn>();
     for (int i = 0; i < table.getChildCount(); i++) {
-      UIComponent child = (UIComponent) table.getChildren().get(i);
+      UIComponent child = table.getChildren().get(i);
       if (child instanceof UIColumn && !(child instanceof UIColumnSelector)) {
         columns.add((UIColumn) child);
       }
@@ -121,7 +121,7 @@ public class ExportUIDataToWorkbookUtils {
     HSSFRow row = sheet.createRow(1 + index);
     for (int j = 0; j < columns.size(); j++) {
       UIColumn column = columns.get(j);
-      addColumnValue(row, (UIComponent) column.getChildren().get(0), j, context);
+      addColumnValue(row, column.getChildren().get(0), j, context);
     }
   }
 }

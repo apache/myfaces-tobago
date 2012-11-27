@@ -62,7 +62,7 @@ public final class LayoutUtils {
   }
 
   private static void addLayoutChildren(UIComponent component, List<LayoutComponent> result) {
-    for (UIComponent child : (List<UIComponent>) component.getChildren()) {
+    for (UIComponent child : component.getChildren()) {
       if (child instanceof LayoutComponent) {
         result.add((LayoutComponent) child);
       } else {

@@ -51,7 +51,7 @@ public class TreeListboxRenderer extends LayoutComponentRendererBase {
   }
 
   protected void setRendererTypeForCommandsAndNodes(UIComponent component) {
-    for (UIComponent child : (List<UIComponent>) component.getChildren()) {
+    for (UIComponent child : component.getChildren()) {
       if (child instanceof UITreeNode) {
         child.setRendererType(RendererTypes.TREE_LISTBOX_NODE);
       }

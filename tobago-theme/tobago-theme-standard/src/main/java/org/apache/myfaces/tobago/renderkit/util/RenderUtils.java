@@ -81,7 +81,7 @@ public class RenderUtils {
   }
 
   public static void encodeChildren(FacesContext facesContext, UIComponent panel) throws IOException {
-    for (UIComponent child : (List<UIComponent>) panel.getChildren()) {
+    for (UIComponent child : panel.getChildren()) {
       encode(facesContext, child);
     }
   }
@@ -106,9 +106,8 @@ public class RenderUtils {
       if (component.getRendersChildren()) {
         component.encodeChildren(facesContext);
       } else {
-        for (Object o : component.getChildren()) {
-          UIComponent kid = (UIComponent) o;
-          encode(facesContext, kid, only);
+        for (UIComponent child : component.getChildren()) {
+          encode(facesContext, child, only);
         }
       }
       component.encodeEnd(facesContext);
@@ -292,19 +291,18 @@ public class RenderUtils {
 
     ArrayList<SelectItem> list = new ArrayList<SelectItem>();
 
-    for (Object o1 : component.getChildren()) {
-      UIComponent kid = (UIComponent) o1;
+    for (UIComponent child : component.getChildren()) {
       if (LOG.isDebugEnabled()) {
-        LOG.debug("kid " + kid);
-        LOG.debug("kid " + kid.getClass().getName());
+        LOG.debug("kid " + child);
+        LOG.debug("kid " + child.getClass().getName());
       }
-      if (kid instanceof UISelectItem) {
-        Object value = ((UISelectItem) kid).getValue();
+      if (child instanceof UISelectItem) {
+        Object value = ((UISelectItem) child).getValue();
         if (value == null) {
-          UISelectItem item = (UISelectItem) kid;
-          if (kid instanceof org.apache.myfaces.tobago.component.UISelectItem) {
+          UISelectItem item = (UISelectItem) child;
+          if (child instanceof org.apache.myfaces.tobago.component.UISelectItem) {
             list.add(getSelectItem(
-                (org.apache.myfaces.tobago.component.UISelectItem) kid));
+                (org.apache.myfaces.tobago.component.UISelectItem) child));
           } else {
             list.add(new SelectItem(item.getItemValue() == null ? "" : item.getItemValue(),
                 item.getItemLabel() != null ? item.getItemLabel() : item.getItemValue().toString(),
@@ -319,8 +317,8 @@ public class RenderUtils {
           LOG.error(message);
           DebugUtils.addDevelopmentMessage(FacesContext.getCurrentInstance(), message);
         }
-      } else if (kid instanceof UISelectItems) {
-        Object value = ((UISelectItems) kid).getValue();
+      } else if (child instanceof UISelectItems) {
+        Object value = ((UISelectItems) child).getValue();
         if (LOG.isDebugEnabled()) {
           LOG.debug("value " + value);
           if (value != null) {
@@ -491,7 +489,7 @@ public class RenderUtils {
 
       StringBuilder builder = new StringBuilder(url);
       boolean firstParameter = !url.contains("?");
-      for (UIComponent child : (List<UIComponent>) component.getChildren()) {
+      for (UIComponent child : component.getChildren()) {
         if (child instanceof UIParameter) {
           UIParameter parameter = (UIParameter) child;
           if (firstParameter) {

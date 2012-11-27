@@ -61,8 +61,7 @@ public class PanelRenderer extends LayoutComponentRendererBase {
   @Override
   public void encodeChildren(FacesContext facesContext, UIComponent uiComponent) throws IOException {
     UIPanel component = (UIPanel) uiComponent;
-    for (Object o : component.getChildren()) {
-      UIComponent child = (UIComponent) o;
+    for (UIComponent child : component.getChildren()) {
       RenderUtils.encode(facesContext, child);
     }
   }

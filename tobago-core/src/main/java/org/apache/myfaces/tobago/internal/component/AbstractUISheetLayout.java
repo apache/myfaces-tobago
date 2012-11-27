@@ -342,7 +342,7 @@ public abstract class AbstractUISheetLayout extends AbstractUILayoutBase impleme
               LOG.error("20; // FIXME: make dynamic (was removed by changing the layout");
 
             } else {
-              for (UIComponent component : (List<UIComponent>) column.getChildren()) {
+              for (UIComponent component : column.getChildren()) {
                 width += 100; // FIXME: make dynamic (was removed by changing the layout
                 LOG.error("100; // FIXME: make dynamic (was removed by changing the layout");
               }

@@ -213,7 +213,7 @@ public class DatePickerRenderer extends LinkRenderer {
   }
 
   private void applyConverterPattern(FacesContext facesContext, UIPopup popup, String converterPattern) {
-    UIComponent box = (UIComponent) popup.getChildren().get(0);
+    UIComponent box = popup.getChildren().get(0);
     UIComponent timePanel = box.findComponent("timePanel");
     if (converterPattern != null && (converterPattern.indexOf('h') > -1 || converterPattern.indexOf('H') > -1)) {
       UITime time = (UITime) timePanel.findComponent("time");

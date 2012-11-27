@@ -34,7 +34,6 @@ import javax.el.ValueExpression;
 import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import java.util.List;
 
 public abstract class AbstractUITree extends AbstractUIData
 // extends javax.faces.component.UIInput
@@ -100,7 +99,7 @@ public abstract class AbstractUITree extends AbstractUIData
   @Deprecated
   public UIComponent getRoot() {
     // find the UITreeNode in the children.
-    for (UIComponent child : (List<UIComponent>) getChildren()) {
+    for (UIComponent child : getChildren()) {
       if (child instanceof AbstractUITreeNode) {
         return child;
       }

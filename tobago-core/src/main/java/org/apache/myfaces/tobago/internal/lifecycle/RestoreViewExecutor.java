@@ -71,7 +71,7 @@ class RestoreViewExecutor implements PhaseExecutor {
       }
       sessionMap.remove(TobagoLifecycle.FACES_MESSAGES_KEY);
       if (viewRoot.getChildCount() > 0 && viewRoot.getChildren().get(0) instanceof AbstractUIPage) {
-        ((UIComponent) viewRoot.getChildren().get(0)).decode(facesContext);
+        viewRoot.getChildren().get(0).decode(facesContext);
       }
       facesContext.renderResponse();
       return true;

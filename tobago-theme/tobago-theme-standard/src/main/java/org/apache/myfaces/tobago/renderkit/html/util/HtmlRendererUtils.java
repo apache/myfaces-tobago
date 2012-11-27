@@ -658,11 +658,11 @@ public final class HtmlRendererUtils {
   public static boolean renderSheetCommands(UISheet sheet, FacesContext facesContext,
                                          TobagoResponseWriter writer) throws IOException {
     CommandMap commandMap = null;
-    for (UIComponent child : (List<UIComponent>) sheet.getChildren()) {
+    for (UIComponent child : sheet.getChildren()) {
       if (child instanceof UIColumnEvent) {
         UIColumnEvent columnEvent = (UIColumnEvent) child;
         if (columnEvent.isRendered()) {
-          UIComponent selectionChild = (UIComponent) child.getChildren().get(0);
+          UIComponent selectionChild = child.getChildren().get(0);
           if (selectionChild != null && selectionChild instanceof AbstractUICommand && selectionChild.isRendered()) {
             UICommand action = (UICommand) selectionChild;
             if (commandMap == null) {

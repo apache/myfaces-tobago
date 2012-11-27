@@ -110,7 +110,7 @@ public class SessionController {
 
   public void actionListener(ActionEvent e) {
     UIComponent component = e.getComponent();
-    for (UIComponent child : (List<UIComponent>) component.getChildren()) {
+    for (UIComponent child : component.getChildren()) {
       if (child instanceof UIParameter) {
         LOG.error("{}", ((UIParameter) child).getValue());
       }

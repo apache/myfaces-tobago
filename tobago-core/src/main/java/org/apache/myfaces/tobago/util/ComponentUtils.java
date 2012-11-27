@@ -181,14 +181,12 @@ public class ComponentUtils {
   }
 
   private static AbstractUIPage findPageBreadthFirst(UIComponent component) {
-    for (Object o : component.getChildren()) {
-      UIComponent child = (UIComponent) o;
+    for (UIComponent child : component.getChildren()) {
       if (child instanceof AbstractUIPage) {
         return (AbstractUIPage) child;
       }
     }
-    for (Object o : component.getChildren()) {
-      UIComponent child = (UIComponent) o;
+    for (UIComponent child : component.getChildren()) {
       AbstractUIPage result = findPageBreadthFirst(child);
       if (result != null) {
         return result;
@@ -247,7 +245,7 @@ public class ComponentUtils {
    */
   public static <T extends UIComponent> T findDescendant(UIComponent component, Class<T> type) {
 
-    for (UIComponent child : (List<UIComponent>) component.getChildren()) {
+    for (UIComponent child : component.getChildren()) {
       if (type.isAssignableFrom(child.getClass())) {
         return (T) child;
       }
@@ -266,7 +264,7 @@ public class ComponentUtils {
 
     List<T> result = new ArrayList<T>();
     
-    for (UIComponent child : (List<UIComponent>) component.getChildren()) {
+    for (UIComponent child : component.getChildren()) {
       if (type.isAssignableFrom(child.getClass())) {
         result.add((T) child);
       }
@@ -319,8 +317,8 @@ public class ComponentUtils {
       LOG.debug("for = '" + forComponent + "'");
     }
     if ("@auto".equals(forComponent)) {
-      for (Object object : component.getParent().getChildren()) {
-        if (setForToInput(component, (UIComponent) object, AbstractUIInput.class, false)) {
+      for (UIComponent child : component.getParent().getChildren()) {
+        if (setForToInput(component, child, AbstractUIInput.class, false)) {
           break;
         }
       }
@@ -340,14 +338,14 @@ public class ComponentUtils {
     }
     if ("@auto".equals(forComponent)) {
       // parent
-      for (Object object : component.getParent().getChildren()) {
-        if (setForToInput(component, (UIComponent) object, clazz, component instanceof NamingContainer)) {
+      for (UIComponent child : component.getParent().getChildren()) {
+        if (setForToInput(component, child, clazz, component instanceof NamingContainer)) {
           return;
         }
       }
       // grand parent
-      for (Object object : component.getParent().getParent().getChildren()) {
-        if (setForToInput(component, (UIComponent) object, clazz, component.getParent() instanceof NamingContainer)) {
+      for (UIComponent child : component.getParent().getParent().getChildren()) {
+        if (setForToInput(component, child, clazz, component.getParent() instanceof NamingContainer)) {
           return;
         }
       }
@@ -595,8 +593,7 @@ public class ComponentUtils {
   }
 
   public static Object findParameter(UIComponent component, String name) {
-    for (Object o : component.getChildren()) {
-      UIComponent child = (UIComponent) o;
+    for (UIComponent child : component.getChildren()) {
       if (child instanceof UIParameter) {
         UIParameter parameter = (UIParameter) child;
         if (LOG.isDebugEnabled()) {
@@ -630,10 +627,9 @@ public class ComponentUtils {
 
   public static UIGraphic getFirstGraphicChild(UIComponent component) {
     UIGraphic graphic = null;
-    for (Object o : component.getChildren()) {
-      UIComponent uiComponent = (UIComponent) o;
-      if (uiComponent instanceof UIGraphic) {
-        graphic = (UIGraphic) uiComponent;
+    for (UIComponent child : component.getChildren()) {
+      if (child instanceof UIGraphic) {
+        graphic = (UIGraphic) child;
         break;
       }
     }
@@ -645,7 +641,7 @@ public class ComponentUtils {
   }
 
   public static UIOutput getFirstNonGraphicChild(UIComponent component) {
-    for (UIComponent child : (List<UIComponent>) component.getChildren()) {
+    for (UIComponent child : component.getChildren()) {
       if (child instanceof UIOutput) {
         return (UIOutput) child;
       }

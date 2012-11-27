@@ -27,7 +27,6 @@ import org.apache.myfaces.tobago.component.UITreeNode;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
-import java.util.List;
 
 public class TreeMenuRenderer extends TreeRenderer {
 
@@ -39,7 +38,7 @@ public class TreeMenuRenderer extends TreeRenderer {
   }
 
   protected void setRendererTypeForCommandsAndNodes(UIComponent component) {
-    for (UIComponent child : (List<UIComponent>) component.getChildren()) {
+    for (UIComponent child : component.getChildren()) {
       if (child instanceof UITreeNode) {
         child.setRendererType(RendererTypes.TREE_MENU_NODE);
       }
