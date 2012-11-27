@@ -41,11 +41,6 @@ public final class Facets {
   public static final String MENUPOPUP = "menupopup";
   public static final String PAGER_PAGE = "pagerPage";
   public static final String PAGER_ROW = "pagerRow";
-  /**
-   * @deprecated since 1.6.0. Please use {@link #POPUP}
-   */
-  @Deprecated
-  public static final String PICKER_POPUP = "pickerPopup";
   public static final String POPUP = "popup";
   public static final String RADIO = "radio";
   public static final String RELOAD = "reload";
@@ -61,4 +56,11 @@ public final class Facets {
   private Facets() {
     // to prevent instantiation
   }
+
+  /**
+   * @deprecated since 1.6.0. Please use {@link #POPUP} The value of the constant is changed for backward compatibility.
+   */
+  @Deprecated
+  public static final String PICKER_POPUP = POPUP;
+
 }

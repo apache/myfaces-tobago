@@ -71,3 +71,7 @@ CSS
   The class <<<tobago-sheet-headerSpacerOuter>>> is renamed to <<<tobago-sheet-headerResize>>>.
   The class <<<tobago-sheet-headerSpacer>>> is no longer needed.
   The class <<<tobago-sheet-headerSpacer-markup-resizable>>> is no longer needed.
+
+Internal
+
+  The facet name of the picker popup is now named "popup" instead of "pickerPopup".
