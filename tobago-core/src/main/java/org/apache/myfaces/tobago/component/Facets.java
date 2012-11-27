@@ -48,22 +48,9 @@ public final class Facets {
   }
 
   /**
-   * @deprecated since 1.5.0. Please use {@link #DROP_DOWN_MENU}
-   */
-  @Deprecated
-  public static final String MENUPOPUP = DROP_DOWN_MENU;
-
-  /**
    * @deprecated since 1.6.0. Please use {@link #POPUP}
    * Using compatible names for  backward compatibility.
    */
   @Deprecated
   public static final String PICKER_POPUP = POPUP;
-
-  /**
-   * @deprecated since 1.5.0. Please use {@link #RESIZE}
-   * Using compatible names for  backward compatibility.
-   */
-  @Deprecated
-  public static final String RESIZE_ACTION = RESIZE;
 }

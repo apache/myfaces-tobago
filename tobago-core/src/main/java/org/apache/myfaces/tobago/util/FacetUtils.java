@@ -21,7 +21,6 @@ package org.apache.myfaces.tobago.util;
 
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.internal.component.AbstractUIMenu;
-import org.apache.myfaces.tobago.internal.util.Deprecation;
 
 import javax.faces.component.UIComponent;
 
@@ -46,19 +45,9 @@ public class FacetUtils {
 
   /**
    * A type save utility to get the facet <code>dropDownMenu</code> from a component.
-   * It also returns the deprecated facet <code>menupopup</code>
    */
   public static AbstractUIMenu getDropDownMenu(UIComponent component) {
-    UIComponent result = component.getFacet(Facets.DROP_DOWN_MENU);
-    if (result == null) {
-      result = component.getFacet(Facets.MENUPOPUP);
-      if (result != null) {
-        if (Deprecation.LOG.isWarnEnabled()) {
-          Deprecation.LOG.warn("Facet 'menupopup' was deprecated, please rename it to 'dropDownMenu'");
-        }
-      }
-    }
-    return (AbstractUIMenu) result;
+    return (AbstractUIMenu) component.getFacet(Facets.DROP_DOWN_MENU);
   }
 
   public static void setDropDownMenu(UIComponent component, AbstractUIMenu menu) {

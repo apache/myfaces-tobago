@@ -51,9 +51,6 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutContain
                 description ="Contains an instance of UICommand which will be executed when the"
                     + "size of the user agent was changed. Typically a <tc:command immediate='true' />",
                 allowedChildComponenents = {"org.apache.myfaces.tobago.Command", "org.apache.myfaces.tobago.Form"}),
-          @Facet(name = Facets.RESIZE_ACTION,
-                description ="Deprecated name for 'resize'",
-                allowedChildComponenents = {"org.apache.myfaces.tobago.Command", "org.apache.myfaces.tobago.Form"}),
           @Facet(name = Facets.MENUBAR, description = "Menubar",
                 allowedChildComponenents = "javax.faces.component.UIPanel"), //fake
           @Facet(name=Facets.LAYOUT, description = "Contains an instance of AbstractUILayoutBase",

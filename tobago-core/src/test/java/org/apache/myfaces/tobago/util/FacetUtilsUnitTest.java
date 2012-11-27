@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.util;
 
-import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.UIMenu;
 import org.apache.myfaces.tobago.component.UIPanel;
 import org.junit.Assert;
@@ -42,19 +41,6 @@ public class FacetUtilsUnitTest {
     Assert.assertNull(FacetUtils.getContextMenu(panel));
     UIMenu menu = new UIMenu();
     FacetUtils.setDropDownMenu(panel, menu);
-    Assert.assertEquals(menu, FacetUtils.getDropDownMenu(panel));
-  }
-
-  /**
-   * @deprecated since 1.5.0
-   */
-  @Test
-  @Deprecated
-  public void testMenupopup() {
-    UIPanel panel = new UIPanel();
-    Assert.assertNull(FacetUtils.getContextMenu(panel));
-    UIMenu menu = new UIMenu();
-    panel.getFacets().put(Facets.MENUPOPUP, menu);
     Assert.assertEquals(menu, FacetUtils.getDropDownMenu(panel));
   }
 }

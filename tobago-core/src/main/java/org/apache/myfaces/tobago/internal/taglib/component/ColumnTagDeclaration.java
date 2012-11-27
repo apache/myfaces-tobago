@@ -43,8 +43,6 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutContain
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIColumn",
     rendererType = RendererTypes.COLUMN,
     facets = {
-        @Facet(name = Facets.MENUPOPUP, description = "Deprecated. Please use dropDownMenu facet.",
-            allowedChildComponenents = "org.apache.myfaces.tobago.Menu"),
         @Facet(name = Facets.DROP_DOWN_MENU, description = "Contains a UIMenu instance to render a drop down menu."
             + " (not implemented yet, work in progress)", // XXX
             allowedChildComponenents = "org.apache.myfaces.tobago.Menu")

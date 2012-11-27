@@ -47,7 +47,9 @@ Tag Library
 
   The main changes in the tag library are
 
-  TODO: What has changed with the tree.
+  TODO: What has changed with the tree?
+
+  Deprecated facets "resizeAction" and "menupopup" was removed.
 
 Configuration
 

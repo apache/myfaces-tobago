@@ -21,7 +21,6 @@ package org.apache.myfaces.tobago.renderkit.html.util;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.SupportsMarkup;
 import org.apache.myfaces.tobago.component.SupportsRenderedPartially;
 import org.apache.myfaces.tobago.component.UIColumnEvent;
@@ -648,9 +647,6 @@ public final class HtmlRendererUtils {
           commandMap = new CommandMap();
         }
         String key = entry.getKey();
-        if (Facets.RESIZE_ACTION.equals(key)) {
-          key = Facets.RESIZE;
-        }
         commandMap.addCommand(key, new Command(facesContext, entry.getValue(), id));
       }
     }

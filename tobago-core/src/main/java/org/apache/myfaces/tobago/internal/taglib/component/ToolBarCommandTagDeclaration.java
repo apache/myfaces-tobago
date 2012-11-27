@@ -51,8 +51,6 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutCompone
             allowedChildComponenents = ComponentTypes.OUT),
         @Facet(name = Facets.POPUP, description = "Contains a UIPopup instance.",
             allowedChildComponenents = "org.apache.myfaces.tobago.Popup"),
-        @Facet(name = Facets.MENUPOPUP, description = "Deprecated. Please use dropDownMenu facet.",
-            allowedChildComponenents = "org.apache.myfaces.tobago.Menu"),
         @Facet(name = Facets.DROP_DOWN_MENU, description = "Contains a UIMenu instance to render a drop down menu.",
             allowedChildComponenents = "org.apache.myfaces.tobago.Menu")
     })
