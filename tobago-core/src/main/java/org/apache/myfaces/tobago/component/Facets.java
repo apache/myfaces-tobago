@@ -34,22 +34,12 @@ public final class Facets {
   public static final String LAYOUT = "layout";
   public static final String LAYOUT_DEFAULT = "layoutDefault";
   public static final String MENUBAR = "menuBar";
-  /**
-   * @deprecated since 1.5.0. Please use {@link #DROP_DOWN_MENU}
-   */
-  @Deprecated
-  public static final String MENUPOPUP = "menupopup";
   public static final String PAGER_PAGE = "pagerPage";
   public static final String PAGER_ROW = "pagerRow";
   public static final String POPUP = "popup";
   public static final String RADIO = "radio";
   public static final String RELOAD = "reload";
   public static final String RESIZE = "resize";
-  /**
-   * @deprecated since 1.5.0. Please use {@link #RESIZE}
-   */
-  @Deprecated
-  public static final String RESIZE_ACTION = "resizeAction";
   public static final String SORTER = "sorter";
   public static final String TOOL_BAR = "toolBar";
 
@@ -58,9 +48,22 @@ public final class Facets {
   }
 
   /**
-   * @deprecated since 1.6.0. Please use {@link #POPUP} The value of the constant is changed for backward compatibility.
+   * @deprecated since 1.5.0. Please use {@link #DROP_DOWN_MENU}
+   */
+  @Deprecated
+  public static final String MENUPOPUP = DROP_DOWN_MENU;
+
+  /**
+   * @deprecated since 1.6.0. Please use {@link #POPUP}
+   * Using compatible names for  backward compatibility.
    */
   @Deprecated
   public static final String PICKER_POPUP = POPUP;
 
+  /**
+   * @deprecated since 1.5.0. Please use {@link #RESIZE}
+   * Using compatible names for  backward compatibility.
+   */
+  @Deprecated
+  public static final String RESIZE_ACTION = RESIZE;
 }
