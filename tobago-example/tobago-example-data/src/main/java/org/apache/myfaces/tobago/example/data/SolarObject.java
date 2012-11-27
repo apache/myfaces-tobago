@@ -19,8 +19,11 @@
 
 package org.apache.myfaces.tobago.example.data;
 
+import javax.swing.tree.DefaultMutableTreeNode;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class SolarObject {
 
@@ -159,7 +162,6 @@ public class SolarObject {
     return DATA;
   }
 
-
   public static List<SolarObject> getList() {
     SolarObject[] array = getArray();
     List<SolarObject> list = new ArrayList<SolarObject>(array.length);
@@ -167,6 +169,22 @@ public class SolarObject {
       list.add(object);
     }
     return list;
+  }
+
+  public static DefaultMutableTreeNode getTree() {
+    final SolarObject[] array = getArray();
+    final Map<String, DefaultMutableTreeNode> cache = new HashMap<String, DefaultMutableTreeNode>();
+    for (SolarObject solar : array) {
+      final DefaultMutableTreeNode node = new DefaultMutableTreeNode(solar);
+      cache.put(solar.getName(), node);
+      final String orbitName = solar.getOrbit();
+      if (orbitName.equals("-")) {
+        continue;
+      }
+      // adds a solar object as node to its orbit as tree child.
+      cache.get(orbitName).add(node);
+    }
+    return cache.get("Sun");
   }
 
   public static List<SolarObject> getSatellites(String center) {

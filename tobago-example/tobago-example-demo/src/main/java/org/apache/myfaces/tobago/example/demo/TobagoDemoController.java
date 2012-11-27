@@ -28,6 +28,7 @@ import org.apache.myfaces.tobago.event.TabChangeListener;
 import org.apache.myfaces.tobago.example.data.CategoryTree;
 import org.apache.myfaces.tobago.example.data.Solar;
 import org.apache.myfaces.tobago.example.data.SolarObject;
+import org.apache.myfaces.tobago.model.ExpandedState;
 import org.apache.myfaces.tobago.model.SheetState;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.util.CreateComponentUtils;
@@ -77,6 +78,8 @@ public class TobagoDemoController {
 
   private SolarObject currentSolarObject;
 
+  private DefaultMutableTreeNode solarTree;
+
   private DefaultMutableTreeNode tree;
 
   private boolean showJunctions;
@@ -110,6 +113,8 @@ public class TobagoDemoController {
   private Object tabState3;
 
   private SheetState sheetState;
+
+  private SheetState sheetTreeState;
 
   private String toolbarIconSize;
 
@@ -152,6 +157,9 @@ public class TobagoDemoController {
         + "ist emphasis__\n\n**und nochmal strong**\n\n**__ strong und emphasis__**";
     solarArray = SolarObject.getArray();
     solarList = SolarObject.getList();
+    solarTree = SolarObject.getTree();
+    sheetTreeState = new SheetState();
+    sheetTreeState.setExpandedState(new ExpandedState(1));
     solarArrayColumns = createSolarArrayColumns();
     solarArrayColumnLayout = "3*; 3*; 3*";
 
@@ -333,6 +341,9 @@ public class TobagoDemoController {
     return solarList;
   }
 
+  public DefaultMutableTreeNode getSolarTree() {
+    return solarTree;
+  }
 
   public void selectOrbit(ActionEvent event) {
     SolarObject clicked = (SolarObject) ComponentUtils.findParameter(event.getComponent(), "luminary");
@@ -526,6 +537,10 @@ public class TobagoDemoController {
 
   public void setSheetState(SheetState sheetState) {
     this.sheetState = sheetState;
+  }
+
+  public SheetState getSheetTreeState() {
+    return sheetTreeState;
   }
 
   public void stateChangeListener(ActionEvent e) {
