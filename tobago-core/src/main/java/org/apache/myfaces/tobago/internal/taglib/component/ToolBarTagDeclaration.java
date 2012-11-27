@@ -39,7 +39,7 @@ import org.apache.myfaces.tobago.internal.component.AbstractUIToolBar;
  * <code>'button'</code> and <code>'link'</code> tags.
  * These are rendered by ToolbarRenderer, so the result has
  * no difference.<p />
- * To add an dropdown menu to a button add a facet <code>'menupopup'</code>
+ * To add an drop down menu to a button add a facet <code>'dropDownMenu'</code>
  * containing a
  * <a href="menu.html"><code>&lt;tc:menu></code></a>
  * tag to the button. Label's and Image's on those menu tag's are ignored
@@ -47,7 +47,7 @@ import org.apache.myfaces.tobago.internal.component.AbstractUIToolBar;
  * <pre>
  *      &lt;tc:button onclick="alert('test 0')"
  *          label="Alert 0" &gt;
- *        &lt;f:facet name="menupopup"&gt;
+ *        &lt;f:facet name="dropDownMenu"&gt;
  *          &lt;tc:menu&gt;
  *            &lt;tc:menuCommand onclick="alert('test 1')" label="Alert 1"/&gt;
  *            &lt;tc:menuCommand onclick="alert('test 2')" label="Alert 2"/&gt;
