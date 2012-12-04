@@ -66,10 +66,10 @@ public class ProgressRenderer extends LayoutableRendererBase {
     String value1 = Integer.toString(model.getValue());
     String value2 = Integer.toString(model.getMaximum() - model.getValue());
 
+    final int diff = model.getMaximum() - model.getMinimum();
     Object title = component.getAttributes().get(ATTR_TIP);
-    if (title == null) {
-      title = Integer.toString(100 * model.getValue()
-          / (model.getMaximum() - model.getMinimum())) + " %";
+    if (title == null && diff > 0) {
+      title = Integer.toString(100 * model.getValue() / diff) + " %";
     }
 
     Integer width = LayoutUtil.getLayoutWidth(component);
@@ -78,8 +78,7 @@ public class ProgressRenderer extends LayoutableRendererBase {
     String width2 = value2;
 
     if (width != null) {
-      int value = (width -1) * model.getValue()
-          / (model.getMaximum() - model.getMinimum());
+      int value = diff > 0 ? (width - 1) * model.getValue() / diff : width;
       width1 = Integer.toString(value);
       width2 = Integer.toString((width - 2) - value);
     }
@@ -88,7 +87,9 @@ public class ProgressRenderer extends LayoutableRendererBase {
 
     writer.startElement(HtmlConstants.SPAN, component);
     writer.writeClassAttribute();
-    writer.writeAttribute(HtmlAttributes.TITLE, String.valueOf(title), true);
+    if (title != null) {
+      writer.writeAttribute(HtmlAttributes.TITLE, String.valueOf(title), true);
+    }
 
     writer.startElement(HtmlConstants.IMG, null);
     StyleClasses color1Classes = new StyleClasses();
@@ -96,7 +97,9 @@ public class ProgressRenderer extends LayoutableRendererBase {
     color1Classes.addMarkupClass(component, "progress", "color1");
     writer.writeClassAttribute(color1Classes);
     writer.writeAttribute(HtmlAttributes.SRC, image, false);
-    writer.writeAttribute(HtmlAttributes.ALT, String.valueOf(title), true);
+    if (title != null) {
+      writer.writeAttribute(HtmlAttributes.ALT, String.valueOf(title), true);
+    }
     writer.writeAttribute(HtmlAttributes.STYLE, "width:" + width1 + "px", false);
     writer.writeAttribute(HtmlAttributes.BORDER, 0);
     writer.endElement(HtmlConstants.IMG);
@@ -107,7 +110,9 @@ public class ProgressRenderer extends LayoutableRendererBase {
     color2Classes.addMarkupClass(component, "progress", "color2");
     writer.writeClassAttribute(color2Classes);
     writer.writeAttribute(HtmlAttributes.SRC, image, false);
-    writer.writeAttribute(HtmlAttributes.ALT, String.valueOf(title), true);
+    if (title != null) {
+      writer.writeAttribute(HtmlAttributes.ALT, String.valueOf(title), true);
+    }
     writer.writeAttribute(HtmlAttributes.STYLE, "width:" + width2 + "px", false);
     writer.writeAttribute(HtmlAttributes.BORDER, 0);
     writer.endElement(HtmlConstants.IMG);
