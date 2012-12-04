@@ -54,15 +54,15 @@ public class ProgressRenderer extends LayoutComponentRendererBase {
       model = new DefaultBoundedRangeModel(0, 1, 0, 100);
     }
 
+    final int diff = model.getMaximum() - model.getMinimum();
     Object title = progress.getAttributes().get(Attributes.TIP);
-    if (title == null) {
-      title = Integer.toString(100 * model.getValue()
-          / (model.getMaximum() - model.getMinimum())) + " %";
+    if (title == null && diff > 0) {
+      title = Integer.toString(100 * model.getValue() / diff) + " %";
     }
 
     final Style style = new Style(facesContext, progress);
     final Measure width = style.getWidth();
-    final Measure valueWidth = width.multiply(model.getValue()).divide(model.getMaximum() - model.getMinimum());
+    final Measure valueWidth = diff > 0 ? width.multiply(model.getValue()).divide(diff) : width;
 
     final Style valueStyle = new Style();
     valueStyle.setHeight(style.getHeight());
@@ -74,7 +74,9 @@ public class ProgressRenderer extends LayoutComponentRendererBase {
     writer.writeClassAttribute(Classes.create(progress));
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, progress);
     writer.writeStyleAttribute(style);
-    writer.writeAttribute(HtmlAttributes.TITLE, String.valueOf(title), true);
+    if (title != null) {
+      writer.writeAttribute(HtmlAttributes.TITLE, String.valueOf(title), true);
+    }
     UIComponent facet = progress.getFacet("complete");
     if (model.getValue() == model.getMaximum() && facet instanceof UICommand) {
       HtmlRendererUtils.renderCommandFacet(progress, facesContext, writer);
