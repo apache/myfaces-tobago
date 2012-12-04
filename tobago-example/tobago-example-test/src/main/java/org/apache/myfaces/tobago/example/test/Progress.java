@@ -30,12 +30,18 @@ public class Progress {
   private static final Logger LOG = LoggerFactory.getLogger(Progress.class);
 
   private BoundedRangeModel range;
+  private BoundedRangeModel emptyRange;
 
   public Progress() {
     this.range = new DefaultBoundedRangeModel(60, 0, 0, 100);
+    this.emptyRange = new DefaultBoundedRangeModel(0, 0, 0, 0);
   }
 
   public BoundedRangeModel getRange() {
     return range;
+  }
+
+  public BoundedRangeModel getEmptyRange() {
+    return emptyRange;
   }
 }
