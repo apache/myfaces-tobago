@@ -351,6 +351,7 @@ Tobago.Time.setValueField = function (time, name, value) {
 
 Tobago.Time.setValue = function (input, value) {
   var max = input.data("tobago-max");
+  value = parseInt(value);
   while (value >= max) {
     value -= max;
   }
@@ -437,11 +438,9 @@ Tobago.Time.focus = function (input) {
 };
 
 Tobago.Time.blur = function (input) {
-  var value = input.val();
+  var value = parseInt(input.val(), 10); // use 10 to avoid parsing octal numbers, if the string begins with 0
   if (isNaN(value)) {
     value = input.data("tobago-oldvalue");
-  } else {
-    value = parseInt(value, 10); // use 10 to avoid parsing octal numbers, if the string begins with 0
   }
   Tobago.Time.setValue(input, value);
 
