@@ -2746,30 +2746,30 @@ Tobago.SelectOneRadio.init = function(elements) {
     var radios = jQuery('input[name="' + ul.attr('id').replace(/:/g, '\\:') + '"]');
     radios.each(function () {
       var selectOneRadio = jQuery(this);
-      selectOneRadio.data('oldValue', selectOneRadio.attr('checked'));
+      selectOneRadio.data("oldValue", selectOneRadio.prop("checked"));
     });
     radios.click(function() {
       var selectOneRadio = jQuery(this);
-      var readonly = selectOneRadio.attr('readonly');
-      var required = selectOneRadio.attr('required');
+      var readonly = selectOneRadio.prop("readonly");
+      var required = selectOneRadio.prop("required");
       if (!required && !readonly) {
-        if (selectOneRadio.data('oldValue') == selectOneRadio.attr('checked')) {
-          selectOneRadio.attr('checked', false);
+        if (selectOneRadio.data("oldValue") == selectOneRadio.prop("checked")) {
+          selectOneRadio.prop("checked", false);
         }
-        selectOneRadio.data('oldValue', selectOneRadio.attr('checked'));
+        selectOneRadio.data("oldValue", selectOneRadio.prop("checked"));
       }
       var radios = jQuery('input[name="' + ul.attr('id').replace(/:/g, '\\:') + '"]');
       if (readonly) {
         radios.each(function () {
           var radio = jQuery(this);
-          radio.attr('checked'. radio.data('oldValue'));
+          radio.prop("checked", radio.data("oldValue"));
         });
       } else {
         radios.each(function () {
           if (this.id != selectOneRadio.get(0).id) {
             var radio = jQuery(this);
-            radio.attr('checked', false);
-            radio.data('oldValue', radio.attr('checked'));
+            radio.prop("checked", false);
+            radio.data("oldValue", radio.prop("checked"));
           }
         });
       }
