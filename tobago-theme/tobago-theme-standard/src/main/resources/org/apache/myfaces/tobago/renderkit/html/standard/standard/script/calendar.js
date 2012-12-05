@@ -356,9 +356,9 @@ function tbgTimerInputFocus(input, hour) {
 
 function tbgTimerInputBlur(input) {
 //  LOG.debug("value XX = " + input.value);
-  var value = parseInt(input.value, 10);
+  var value = parseInt(input.value, 10); // use 10 to avoid parsing octal numbers, if the string begins with 0
 //  LOG.debug("value 3  = " + value);
-  if (value == NaN) {
+  if (isNaN(value)) {
     input.value = input.oldValue;
     return;
   }
