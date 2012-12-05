@@ -970,6 +970,11 @@ hr.tobago-separator {
   text-align: center;
 }
 
+.tobago-sheet-header-markup-pure {
+    padding: 0;
+    border-width: 0;
+}
+
 .tobago-sheet-header-markup-ascending span, .tobago-sheet-header-markup-descending span {
   margin-right: 15px;
 }

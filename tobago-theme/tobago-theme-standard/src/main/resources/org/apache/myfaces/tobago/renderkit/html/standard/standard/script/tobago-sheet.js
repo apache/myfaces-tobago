@@ -284,6 +284,10 @@ Tobago.Sheet.setup2 = function (sheets) {
     jQuery(this).height(jQuery(this).children(":first").height());
   });
 
+  jQuery(sheets).each(function() {
+    Tobago.Sheet.resetInputFieldSize(jQuery(this));
+  });
+
   // resize: mouse events
   jQuery(sheets).find(".tobago-sheet-headerResize").each(function () {
     jQuery(this).click(function () {
@@ -317,6 +321,7 @@ Tobago.Sheet.setup2 = function (sheets) {
         column.parent().children("col").each(function() {
           sum += parseInt(jQuery(this).attr("width"));
         });
+        Tobago.Sheet.resetInputFieldSize(column.closest("table"));
         Tobago.clearSelection();
         return false;
       });
@@ -682,6 +687,14 @@ Tobago.Sheet.fixIE67ColWidth = function(col) {
   var td = col.closest("table").children("tbody").children("tr:first").children("td").eq(col.index());
   var delta = td.outerWidth() - td.width();
   col.attr("width", col.attr("width") - delta);
+};
+
+Tobago.Sheet.resetInputFieldSize = function (table) {
+  var span = table.find("td>div>span");
+  span.children("input,select").each(function () {
+    var input = jQuery(this);
+    input.outerWidth(input.parent().width());
+  });
 };
 
 (function(jQuery){

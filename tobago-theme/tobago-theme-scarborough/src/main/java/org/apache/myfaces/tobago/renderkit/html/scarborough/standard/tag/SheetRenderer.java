@@ -756,11 +756,17 @@ public class SheetRenderer extends LayoutComponentRendererBase {
             writer.writeAttribute(HtmlAttributes.ROWSPAN, cell.getRowSpan());
           }
 
+          final UIComponent cellComponent = (UIComponent) cell.getComponent();
+          final boolean pure = !(cellComponent instanceof UIOut);
+
           writer.startElement(HtmlElements.DIV, null);
           writer.writeClassAttribute(Classes.create(sheet, "headerCell"));
           writer.startElement(HtmlElements.SPAN, null);
           Style headerStyle = new Style();
-          Measure headerHeight = Measure.valueOf(20).multiply(cell.getRowSpan()).subtract(6); // XXX todo
+          Measure headerHeight = Measure.valueOf(20).multiply(cell.getRowSpan());
+          if (!pure) {
+            headerHeight = headerHeight.subtract(6); // XXX todo
+          }
           headerStyle.setHeight(headerHeight);
           writer.writeStyleAttribute(headerStyle);
           final AbstractUIColumn column = renderedColumnList.get(j);
@@ -815,15 +821,16 @@ public class SheetRenderer extends LayoutComponentRendererBase {
           if (j == 0) {
             markup = markup.add(Markup.FIRST);
           }
+          if (pure) {
+             markup = markup.add(Markup.PURE);
+          }
           writer.writeClassAttribute(Classes.create(sheet, "header", markup));
           writer.writeAttribute(HtmlAttributes.TITLE, tip, true);
 
           if (column instanceof UIColumnSelector) {
             renderColumnSelectorHeader(facesContext, writer, sheet);
           } else {
-
-            RenderUtils.encode(facesContext, (UIComponent) cell.getComponent());
-
+             RenderUtils.encode(facesContext, cellComponent);
           }
 
           if (sorterImage != null) {
