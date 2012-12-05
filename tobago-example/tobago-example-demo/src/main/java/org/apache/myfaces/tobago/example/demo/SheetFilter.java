@@ -19,6 +19,7 @@
 
 package org.apache.myfaces.tobago.example.demo;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.myfaces.tobago.example.data.SolarObject;
 import org.apache.myfaces.tobago.model.SelectItem;
 import org.apache.myfaces.tobago.model.SheetState;
@@ -38,6 +39,8 @@ import java.util.List;
 @Named
 public class SheetFilter {
 
+  private static final DistanceRange ANY = new DistanceRange(0, Integer.MAX_VALUE);
+
   private String name;
   private String orbit;
   private DistanceRange distance;
@@ -55,6 +58,7 @@ public class SheetFilter {
 
   public SheetFilter() {
     distanceRangeList = Arrays.asList(
+        new DistanceRange(0, Integer.MAX_VALUE),
         new DistanceRange(0, 10),
         new DistanceRange(10, 100),
         new DistanceRange(100, 1000),
@@ -64,13 +68,14 @@ public class SheetFilter {
         new DistanceRange(1000000, Integer.MAX_VALUE)
     );
     distanceItems = new SelectItem[]{
-        new SelectItem(Integer.toString(0), "≤ 10"),
-        new SelectItem(Integer.toString(1), "10 < x ≤ 100"),
-        new SelectItem(Integer.toString(2), "100 < x ≤ 1000"),
-        new SelectItem(Integer.toString(3), "1000 < x ≤ 10000"),
-        new SelectItem(Integer.toString(4), "10000 < x ≤ 100000"),
-        new SelectItem(Integer.toString(5), "100000 < x ≤ 1000000"),
-        new SelectItem(Integer.toString(6), "1000000 < x"),
+        new SelectItem(Integer.toString(0), "any"),
+        new SelectItem(Integer.toString(1), "≤ 10"),
+        new SelectItem(Integer.toString(2), "10 < x ≤ 100"),
+        new SelectItem(Integer.toString(3), "100 < x ≤ 1000"),
+        new SelectItem(Integer.toString(4), "1000 < x ≤ 10000"),
+        new SelectItem(Integer.toString(5), "10000 < x ≤ 100000"),
+        new SelectItem(Integer.toString(6), "100000 < x ≤ 1000000"),
+        new SelectItem(Integer.toString(7), "1000000 < x"),
     };
 
     converter = new DistanceRangeConverter();
@@ -180,14 +185,22 @@ public class SheetFilter {
   }
 
   public class DistanceRangeConverter implements Converter {
-    public Object getAsObject(
-        FacesContext context, UIComponent component, String value) throws ConverterException {
-      return distanceRangeList.get(Integer.valueOf(value));
+    public Object getAsObject(FacesContext context, UIComponent component, String value)
+        throws ConverterException {
+      if (StringUtils.isBlank(value)) {
+        return distanceRangeList.get(0);
+      } else {
+        return distanceRangeList.get(Integer.valueOf(value));
+      }
     }
 
     public String getAsString(
         FacesContext context, UIComponent component, Object value) throws ConverterException {
-      return Integer.toString(distanceRangeList.indexOf(value));
+      if (value == null) {
+        return Integer.toString(0);
+      } else {
+        return Integer.toString(distanceRangeList.indexOf(value));
+      }
     }
   }
 }
