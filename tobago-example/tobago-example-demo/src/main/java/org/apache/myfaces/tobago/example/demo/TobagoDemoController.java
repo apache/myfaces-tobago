@@ -35,6 +35,7 @@ import org.apache.myfaces.tobago.util.CreateComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIColumn;
 import javax.faces.component.UIComponent;
@@ -44,14 +45,18 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
 import javax.faces.validator.ValidatorException;
+import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 import javax.swing.tree.DefaultMutableTreeNode;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class TobagoDemoController {
+@SessionScoped
+@Named("demo")
+public class TobagoDemoController implements Serializable {
 
   private static final Logger LOG = LoggerFactory.getLogger(TobagoDemoController.class);
 
