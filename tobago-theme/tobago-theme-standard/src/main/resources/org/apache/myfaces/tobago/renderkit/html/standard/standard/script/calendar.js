@@ -281,6 +281,7 @@ function tbgGetTimeInput(imageButton) {
 
 function tbgSetTimeInputValue(input, value) {
 
+  value = parseInt(value);
 //  LOG.debug("value = " + value);
   if (input.parentNode.parentNode.hourMode) {
     if (value < 0) {
