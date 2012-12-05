@@ -564,14 +564,15 @@ Tobago.Sheet.prototype.doDblClick = function(event) {
 
     if (! Tobago.isInputElement(srcElement.tagName)) {
       var row = jQuery(Tobago.element(event)).closest("tr");
+      var sheet = row.closest(".tobago-sheet");
       var rowIndex = row.index() + sheet.data("tobago-first");
       if (this.dblClickActionId) {
         var action;
-        var index = this.clickActionId.indexOf(this.id);
+        var index = this.dblClickActionId.indexOf(this.id);
         if (index >= 0) {
-          action = this.id + ":" + rowIndex + ":" + this.clickActionId.substring(index + this.id.length +1);
+          action = this.id + ":" + rowIndex + ":" + this.dblClickActionId.substring(index + this.id.length +1);
         } else {
-          action = this.id + ":" + rowIndex + ":" + this.clickActionId;
+          action = this.id + ":" + rowIndex + ":" + this.dblClickActionId;
         }
         if (this.dblClickReloadComponentId && this.dblClickReloadComponentId.length > 0) {
           Tobago.reloadComponent(srcElement, this.dblClickReloadComponentId, action)
