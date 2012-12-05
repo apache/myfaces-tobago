@@ -59,6 +59,8 @@ import java.io.Writer;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
@@ -686,7 +688,7 @@ public class FacesConfigAnnotationVisitor extends AbstractAnnotationVisitor {
   }
 
   protected void addElement(InterfaceDeclaration decl, List<Element> components, List<Element> renderer,
-      Namespace namespace) throws IOException {
+      final Namespace namespace) throws IOException {
     UIComponentTag componentTag = decl.getAnnotation(UIComponentTag.class);
     if (componentTag != null) {
       try {
@@ -701,8 +703,20 @@ public class FacesConfigAnnotationVisitor extends AbstractAnnotationVisitor {
               addAttributes(decl, uiComponentClass, properties, attributes, namespace);
               if (!attributes.isEmpty()) {
                 element.addContent(attributes);
+                Collections.sort(attributes, new Comparator<Element>() {
+                  public int compare(org.jdom.Element d1, org.jdom.Element d2) {
+                    return d1.getChildText(ATTRIBUTE_NAME, namespace).compareTo(
+                        d2.getChildText(ATTRIBUTE_NAME, namespace));
+                  }
+                });
               }
               if (!properties.isEmpty()) {
+                Collections.sort(properties, new Comparator<Element>() {
+                  public int compare(org.jdom.Element d1, org.jdom.Element d2) {
+                    return d1.getChildText(PROPERTY_NAME, namespace).compareTo(
+                        d2.getChildText(PROPERTY_NAME, namespace));
+                  }
+                });
                 element.addContent(properties);
               }
               element.addContent(createElementExtension(decl, componentTag, namespace));
