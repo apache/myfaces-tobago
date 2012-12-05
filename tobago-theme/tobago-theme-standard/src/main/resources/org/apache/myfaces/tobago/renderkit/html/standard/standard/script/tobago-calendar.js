@@ -431,6 +431,9 @@ Tobago.Time.focus = function (input) {
 
   // save the old value
   input.data("tobago-oldvalue", input.val());
+
+  // set a class for glow effects
+  time.children(".tobago-time-borderDiv").addClass("tobago-time-borderDiv-markup-focus");
 };
 
 Tobago.Time.blur = function (input) {
@@ -441,6 +444,9 @@ Tobago.Time.blur = function (input) {
     value = parseInt(value, 10); // use 10 to avoid parsing octal numbers, if the string begins with 0
   }
   Tobago.Time.setValue(input, value);
+
+  var time = Tobago.Time.findElement(input, null);
+  time.children(".tobago-time-borderDiv").removeClass("tobago-time-borderDiv-markup-focus");
 };
 
 Tobago.Time.initFromDateField = function (time) {
