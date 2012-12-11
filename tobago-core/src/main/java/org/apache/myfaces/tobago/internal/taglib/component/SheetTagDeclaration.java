@@ -101,7 +101,7 @@ public interface SheetTagDeclaration
    * only when it is needed.</li>
    * <ul>
    * <li>When the rows="0" paging is not needed, so the footer will not be rendered,</li>
-   * <li>when rows="N", N > 0 and the size of the data value is <= N paging is not needed
+   * <li>when rows="N", N &gt; 0 and the size of the data value is &lt;= N paging is not needed
    * and the footer will not be rendered,</li>
    * <li>in any other case the paging footer will be displayed.</li>
    * </ul>
