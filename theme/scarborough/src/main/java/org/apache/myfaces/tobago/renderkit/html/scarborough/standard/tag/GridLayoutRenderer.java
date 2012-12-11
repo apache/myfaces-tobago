@@ -506,7 +506,7 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
     final Map attributes = layout.getParent().getAttributes();
 
 
-    boolean needVerticalScroolbar = false;
+    boolean needVerticalScrollbar = false;
     Integer innerHeight =
           (Integer) attributes.get(ATTR_INNER_HEIGHT);
     if (innerHeight != null && innerHeight.intValue() > 0) {
@@ -514,7 +514,7 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
       int minimum = calculateLayoutHeight(facesContext, layout.getParent(), true);
       if (minimum > value) {
         value = minimum;
-        needVerticalScroolbar = true;
+        needVerticalScrollbar = true;
       }
       layoutHeight(Integer.valueOf(value), layout, facesContext);
     } else {
@@ -526,7 +526,7 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
           (Integer) attributes.get(ATTR_INNER_WIDTH);
     if (innerWidth != null && innerWidth.intValue() != -1) {
       int value = innerWidth.intValue();
-      if (needVerticalScroolbar) {
+      if (needVerticalScrollbar) {
         value -= getConfiguredValue(facesContext, component, "scrollbarWidth");
         HtmlRendererUtil.replaceStyleAttribute(layout, "width", value);
       }

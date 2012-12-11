@@ -719,16 +719,15 @@ public class SheetRenderer extends LayoutableRendererBase implements SheetRender
     // estimate need of height-scrollbar on client, if yes we have to consider
     // this when calculating column width's
 
-    final Object forceScroolbar
+    final Object forceScrollbar
         = data.getAttributes().get(ATTR_FORCE_VERTICAL_SCROLLBAR);
-    if (forceScroolbar != null) {
-      if ("true".equals(forceScroolbar)) {
+    if (forceScrollbar != null) {
+      if ("true".equals(forceScrollbar)) {
         return true;
-      } else if ("false".equals(forceScroolbar)) {
+      } else if ("false".equals(forceScrollbar)) {
         return false;
-      } else if (!"auto".equals(forceScroolbar)) {
-        LOG.warn("Illegal value for attribute 'forceVerticalScrollbar' : \""
-            + forceScroolbar + "\"");
+      } else if (!"auto".equals(forceScrollbar)) {
+        LOG.warn("Illegal value for attribute 'forceVerticalScrollbar' : \"" + forceScrollbar + "\"");
       }
     }
 

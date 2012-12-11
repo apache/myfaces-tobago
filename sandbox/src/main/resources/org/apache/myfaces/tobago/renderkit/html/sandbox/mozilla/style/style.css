@@ -22,7 +22,7 @@ div.tobago-tree-default {
 }
 
 table.tobago-tree-default {
-/* this fixes scroolbar bug in mozilla >= 1.6 */
+/* this fixes scrollbar bug in mozilla >= 1.6 */
   margin: 1px;
 }
 

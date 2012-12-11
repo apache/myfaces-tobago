@@ -36,7 +36,7 @@ div.tobago-treeOld-default {
 }
 
 table.tobago-treeOld-default {
-/* this fixes scroolbar bug in mozilla >= 1.6 */
+/* this fixes scrollbar bug in mozilla >= 1.6 */
   margin: 1px;
 }
 
