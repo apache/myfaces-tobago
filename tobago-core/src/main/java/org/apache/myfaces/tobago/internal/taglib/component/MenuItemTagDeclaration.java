@@ -27,6 +27,7 @@ import org.apache.myfaces.tobago.component.RendererTypes;
  * Renders a menu item.
  * <p>
  * Please use menuCommand instead!
+ * </p>
  * @deprecated
  */
 @Tag(name = "menuItem", 
