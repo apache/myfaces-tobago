@@ -124,7 +124,7 @@ public interface SheetTagDeclaration
    * vertical toolbar when calculating column width's.<br />
    * Possible values are: <pre>
    *      'auto'  : sheet try to estimate the need of scrollbar.
-   *      'true'  : space for scroolbar is reserved.
+   *      'true'  : space for scrollbar is reserved.
    *      'false' : no space is reserved.
    *      </pre>
    */
