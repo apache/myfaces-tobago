@@ -27,7 +27,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.event.Observes;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -93,10 +92,6 @@ public class NavigationState implements Serializable {
         return null;
       }
     }
-  }
-
-  public void gotoNode(@Observes NavigationEvent event) {
-    gotoNode(event.getCurrent());
   }
 
   public String gotoNode(NavigationNode node) {
