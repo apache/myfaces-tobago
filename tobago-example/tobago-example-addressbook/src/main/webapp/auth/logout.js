@@ -18,7 +18,7 @@
 AddressbookLogout = {};
 
 /**
- * Immediately log out. Is used by onexit the the browser window is cloased.
+ * Immediately log out. Is used by onexit the the browser window is closed.
  */
 AddressbookLogout.logout = function() {
   jQuery.ajax({url:"/KillSession",async:false});
