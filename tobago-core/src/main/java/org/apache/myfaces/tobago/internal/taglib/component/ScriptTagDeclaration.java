@@ -70,7 +70,7 @@ public interface ScriptTagDeclaration extends HasIdBindingAndRendered {
   @Deprecated
   @TagAttribute()
   @UIComponentTagAttribute()
-  void setOnexit(String onsubmit);
+  void setOnexit(String onexit);
 
   /**
    * Alternatively include a custom script file via the file attribute and use
