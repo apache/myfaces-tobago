@@ -50,8 +50,13 @@ public class NavigationState implements Serializable {
   }
 
   private void initState() {
-//    state.getMarkedState().setMarked(currentNode.getTreePath());
-//    state.getExpandedState().expand(currentNode.getTreePath());
+    // set marked
+    currentNode.setMarked(true);
+
+    // set expanded
+    for (NavigationNode parent = currentNode; parent != null; parent = (NavigationNode) parent.getParent()) {
+      parent.setExpanded(true);
+    }
   }
 
   public NavigationNode getCurrentNode() {
@@ -120,8 +125,4 @@ public class NavigationState implements Serializable {
     final NavigationNode nextNode = currentNode.getNextNode();
     return nextNode == null;
   }
-
-//  public TreeState getState() {
-//    return state;
-//  }
 }
