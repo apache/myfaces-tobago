@@ -2618,17 +2618,27 @@ Tobago.SelectManyShuttle.init = function(elements) {
 Tobago.SelectManyShuttle.moveSelectedItems = function(shuttle, direction, all) {
   var unselected = shuttle.find(".tobago-selectManyShuttle-unselected");
   var selected = shuttle.find(".tobago-selectManyShuttle-selected");
+  var count = selected.children().size();
   var source = direction ? unselected : selected;
   var target = direction ? selected : unselected;
-  source.find(all ? "option" : "option:selected").remove().appendTo(target);
-  Tobago.SelectManyShuttle.copyValues(shuttle);
-};
+  var shifted = source.find(all ? "option:not(:disabled)" : "option:selected").remove().appendTo(target);
 
-Tobago.SelectManyShuttle.copyValues = function(shuttle) {
+  // synchronize the hidden select
   var hidden = shuttle.find(".tobago-selectManyShuttle-hidden");
-  hidden.find("option").remove();
-  shuttle.find(".tobago-selectManyShuttle-selected option").clone()
-      .attr('selected', 'selected').appendTo(hidden);
+  var hiddenOptions = hidden.find("option");
+  // todo: may be optimized: put values in a hash map?
+  shifted.each(function() {
+    var option = jQuery(this);
+    hiddenOptions.filter("[value='" + option.val() + "']").prop("selected", direction);
+  });
+
+/* XXX
+  if (count != selected.children().size()) {
+    var e = jQuery.Event("change");
+    // trigger an change event for command facets
+    hidden.trigger( e );
+  }
+*/
 };
 
 Tobago.registerListener(Tobago.SelectManyShuttle.init, Tobago.Phase.DOCUMENT_READY);
