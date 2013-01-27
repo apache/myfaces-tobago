@@ -26,9 +26,9 @@
   <name>Tobago Extensions</name>
   <artifactId>tobago-extension</artifactId>
   <scm>
-    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/tobago/tags/tobago-1.0.40-SNAPSHOT/extension</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/tobago/tags/tobago-1.0.40-SNAPSHOT/extension</developerConnection>
-    <url>http://svn.apache.org/viewvc/myfaces/tobago/tags/tobago-1.0.40-SNAPSHOT/extension</url>
+    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/tobago/tags/tobago-1.0.40/extension</connection>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/tobago/tags/tobago-1.0.40/extension</developerConnection>
+    <url>http://svn.apache.org/viewvc/myfaces/tobago/tags/tobago-1.0.40/extension</url>
   </scm>
   <modules>
     <module>facelets</module>

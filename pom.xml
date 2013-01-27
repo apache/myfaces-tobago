@@ -499,9 +499,9 @@
 
   <scm>
 
-    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/tobago/tags/tobago-1.0.40-SNAPSHOT</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/tobago/tags/tobago-1.0.40-SNAPSHOT</developerConnection>
-    <url>http://svn.apache.org/viewvc/myfaces/tobago/tags/tobago-1.0.40-SNAPSHOT</url>
+    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/tobago/tags/tobago-1.0.40</connection>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/tobago/tags/tobago-1.0.40</developerConnection>
+    <url>http://svn.apache.org/viewvc/myfaces/tobago/tags/tobago-1.0.40</url>
 
   </scm>
 
@@ -574,7 +574,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-release-plugin</artifactId>
-        <version>2.2</version>
+        <version>2.2.2</version>
         <configuration>
           <tagBase>https://svn.apache.org/repos/asf/myfaces/tobago/tags</tagBase>
           <preparationGoals>clean install</preparationGoals>

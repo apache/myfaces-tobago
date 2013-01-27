@@ -26,9 +26,9 @@
   <name>Theme Charlotteville</name>
 
   <scm>
-    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/tobago/tags/tobago-1.0.40-SNAPSHOT/theme/charlotteville</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/tobago/tags/tobago-1.0.40-SNAPSHOT/theme/charlotteville</developerConnection>
-    <url>http://svn.apache.org/viewvc/myfaces/tobago/tags/tobago-1.0.40-SNAPSHOT/theme/charlotteville</url>
+    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/tobago/tags/tobago-1.0.40/theme/charlotteville</connection>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/tobago/tags/tobago-1.0.40/theme/charlotteville</developerConnection>
+    <url>http://svn.apache.org/viewvc/myfaces/tobago/tags/tobago-1.0.40/theme/charlotteville</url>
   </scm>
 
   <dependencies>

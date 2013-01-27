@@ -27,9 +27,9 @@
   <name>Data for Examples</name>
 
   <scm>
-    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/tobago/tags/tobago-1.0.40-SNAPSHOT/example/data</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/tobago/tags/tobago-1.0.40-SNAPSHOT/example/data</developerConnection>
-    <url>http://svn.apache.org/viewcvs.cgi/myfaces/tobago/tags/tobago-1.0.40-SNAPSHOT/example/data</url>
+    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/tobago/tags/tobago-1.0.40/example/data</connection>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/tobago/tags/tobago-1.0.40/example/data</developerConnection>
+    <url>http://svn.apache.org/viewcvs.cgi/myfaces/tobago/tags/tobago-1.0.40/example/data</url>
   </scm>
 
   <dependencies>
