@@ -185,6 +185,12 @@
     <managed-bean-scope>session</managed-bean-scope>
   </managed-bean>
 
+  <managed-bean>
+    <managed-bean-name>scriptEvent</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.tobago.example.test.ScriptEvent</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+  </managed-bean>
+
   <navigation-rule>
     <navigation-case>
       <from-outcome>navigation</from-outcome>
