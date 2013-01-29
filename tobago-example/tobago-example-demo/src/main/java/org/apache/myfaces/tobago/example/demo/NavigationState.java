@@ -50,12 +50,14 @@ public class NavigationState implements Serializable {
   }
 
   private void initState() {
-    // set marked
-    currentNode.setMarked(true);
+    if (currentNode != null) {
+      // set marked
+      currentNode.setMarked(true);
 
-    // set expanded
-    for (NavigationNode parent = currentNode; parent != null; parent = (NavigationNode) parent.getParent()) {
-      parent.setExpanded(true);
+      // set expanded
+      for (NavigationNode parent = currentNode; parent != null; parent = (NavigationNode) parent.getParent()) {
+        parent.setExpanded(true);
+      }
     }
   }
 
