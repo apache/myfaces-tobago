@@ -26,7 +26,7 @@ import java.util.List;
 
 public class Shuttle {
 
-  List<String> value;
+  private List<String> value;
 
   public Shuttle() {
     this.value = new ArrayList<String>();
