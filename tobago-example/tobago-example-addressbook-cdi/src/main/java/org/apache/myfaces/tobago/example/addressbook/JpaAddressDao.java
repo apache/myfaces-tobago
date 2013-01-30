@@ -21,7 +21,7 @@ package org.apache.myfaces.tobago.example.addressbook;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.transaction.annotation.Transactional;
+//import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.sql.DataSourceDefinition;
 import javax.enterprise.context.ApplicationScoped;
@@ -36,7 +36,7 @@ import java.util.List;
     url = "jdbc:derby:target/addressDB;create=true",
     className = "org.apache.derby.jdbc.EmbeddedDriver"
 )
-@Transactional
+//@Transactional
 @ApplicationScoped
 public class JpaAddressDao implements AddressDao, Serializable {
 
@@ -57,12 +57,12 @@ public class JpaAddressDao implements AddressDao, Serializable {
     }
     return address;
   }
-  @Transactional(readOnly = true)
+//  @Transactional(readOnly = true)
   public List<Address> findAddresses(String filter) {
     return findAddresses(filter, null, true);
   }
 
-  @Transactional(readOnly = true)
+//  @Transactional(readOnly = true)
   @SuppressWarnings("unchecked")
   public List<Address> findAddresses(String filter, String column, boolean order) {
     StringBuilder builder = new StringBuilder();
@@ -90,7 +90,7 @@ public class JpaAddressDao implements AddressDao, Serializable {
     address = getAddress(address.getId());
     entityManager.remove(address);
   }
-  @Transactional(readOnly = true)
+//  @Transactional(readOnly = true)
   public Address getAddress(Integer id) {
     return entityManager.find(Address.class, id);
   }

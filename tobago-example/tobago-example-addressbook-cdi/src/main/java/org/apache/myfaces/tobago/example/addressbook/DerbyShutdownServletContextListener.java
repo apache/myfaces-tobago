@@ -39,6 +39,8 @@ public class DerbyShutdownServletContextListener implements ServletContextListen
 
   }
 
+  // todo: should not be shutted down in case of the "InMemoryAddressDao" alternative
+
   public void contextDestroyed(ServletContextEvent servletContextEvent) {
     try {
       DriverManager.getConnection("jdbc:derby:target/addressDB;shutdown=true");

@@ -29,7 +29,6 @@
 
   <properties>
     <openjpa.version>1.0.4</openjpa.version>
-    <spring.version>2.5.3</spring.version>
     <openwebbeans.version>1.1.6</openwebbeans.version>
     <myfaces-extcdi.version>1.0.5</myfaces-extcdi.version>
   </properties>
@@ -313,26 +312,6 @@
       <groupId>org.apache.derby</groupId>
       <artifactId>derby</artifactId>
       <version>10.3.1.4</version>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-orm</artifactId>
-      <version>${spring.version}</version>
-    </dependency>
-     <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-jdbc</artifactId>
-      <version>${spring.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-aop</artifactId>
-      <version>${spring.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-web</artifactId>
-      <version>${spring.version}</version>
     </dependency>
     <dependency>
       <groupId>javax.servlet</groupId>

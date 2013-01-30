@@ -19,8 +19,8 @@
 
 package org.apache.myfaces.tobago.example.addressbook;
 
-import org.springframework.instrument.classloading.SimpleInstrumentableClassLoader;
-import org.springframework.instrument.classloading.SimpleLoadTimeWeaver;
+//import org.springframework.instrument.classloading.SimpleInstrumentableClassLoader;
+//import org.springframework.instrument.classloading.SimpleLoadTimeWeaver;
 
 
 /**
@@ -52,6 +52,7 @@ import org.springframework.instrument.classloading.SimpleLoadTimeWeaver;
  * author Marc Prud'hommeaux
  * @since 2.0
  */
+/*
 public class OpenJpaLoadTimeWeaver extends SimpleLoadTimeWeaver {
 
     public OpenJpaLoadTimeWeaver() {
@@ -66,3 +67,4 @@ public class OpenJpaLoadTimeWeaver extends SimpleLoadTimeWeaver {
             excludePackage("org.apache.openjpa");
     }
 }
+*/
