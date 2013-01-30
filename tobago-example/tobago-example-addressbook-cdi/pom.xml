@@ -30,7 +30,9 @@
   <properties>
     <openjpa.version>1.0.4</openjpa.version>
     <openwebbeans.version>1.1.6</openwebbeans.version>
+<!--
     <myfaces-extcdi.version>1.0.5</myfaces-extcdi.version>
+-->
   </properties>
   <build>
     <finalName>tobago-example-addressbook-cdi</finalName>
@@ -145,6 +147,7 @@
       <artifactId>geronimo-annotation_1.1_spec</artifactId>
       <version>1.0.1</version>
     </dependency>
+
     <dependency>
       <groupId>org.apache.openwebbeans</groupId>
       <artifactId>openwebbeans-impl</artifactId>
@@ -171,6 +174,7 @@
       <version>${openwebbeans.version}</version>
     </dependency>
 
+<!--
     <dependency>
       <groupId>org.apache.myfaces.extensions.cdi.core</groupId>
       <artifactId>myfaces-extcdi-core-api</artifactId>
@@ -184,14 +188,17 @@
       <version>${myfaces-extcdi.version}</version>
       <scope>runtime</scope>
     </dependency>
+-->
 
 <!-- which repository-->
+<!--
     <dependency>
       <groupId>org.apacheExtras.myfaces.codi.addon</groupId>
       <artifactId>controlled-owb-bootstrapping-addon</artifactId>
       <version>1.0.0</version>
       <scope>compile</scope>
     </dependency>
+-->
     <dependency>
         <groupId>org.tango-project</groupId>
         <artifactId>tango-icon-theme</artifactId>
@@ -346,6 +353,7 @@
           <version>${openwebbeans.version}</version>
         </dependency>
 
+<!--
         <dependency>
           <groupId>org.apache.myfaces.extensions.cdi.modules</groupId>
           <artifactId>myfaces-extcdi-jsf12-module-api</artifactId>
@@ -359,6 +367,7 @@
           <version>${myfaces-extcdi.version}</version>
           <scope>runtime</scope>
         </dependency>
+-->
 
       </dependencies>
     </profile>
@@ -378,6 +387,7 @@
           <version>${openwebbeans.version}</version>
         </dependency>
 
+<!--
         <dependency>
           <groupId>org.apache.myfaces.extensions.cdi.modules</groupId>
           <artifactId>myfaces-extcdi-jsf20-module-api</artifactId>
@@ -391,6 +401,7 @@
           <version>${myfaces-extcdi.version}</version>
           <scope>runtime</scope>
         </dependency>
+-->
 <!-- for JSF 2.0 and Bean Validation (JSR-303)  -->
         <dependency>
           <groupId>javax.el</groupId>
@@ -423,6 +434,7 @@
           <version>${openwebbeans.version}</version>
         </dependency>
 
+<!--
         <dependency>
           <groupId>org.apache.myfaces.extensions.cdi.modules</groupId>
           <artifactId>myfaces-extcdi-jsf20-module-api</artifactId>
@@ -436,6 +448,7 @@
           <version>${myfaces-extcdi.version}</version>
           <scope>runtime</scope>
         </dependency>
+-->
 <!-- for JSF 2.0 and Bean Validation (JSR-303)  -->
         <dependency>
           <groupId>javax.el</groupId>
@@ -462,6 +475,7 @@
         </property>
       </activation>
       <dependencies>
+<!--
         <dependency>
           <groupId>org.apache.myfaces.extensions.cdi.modules</groupId>
           <artifactId>myfaces-extcdi-jsf20-module-api</artifactId>
@@ -475,6 +489,7 @@
           <version>${myfaces-extcdi.version}</version>
           <scope>runtime</scope>
         </dependency>
+-->
       </dependencies>
     </profile>
 
@@ -494,6 +509,7 @@
           <version>${openwebbeans.version}</version>
         </dependency>
 
+<!--
         <dependency>
           <groupId>org.apache.myfaces.extensions.cdi.modules</groupId>
           <artifactId>myfaces-extcdi-jsf12-module-api</artifactId>
@@ -507,6 +523,7 @@
           <version>${myfaces-extcdi.version}</version>
           <scope>runtime</scope>
         </dependency>
+-->
 
       </dependencies>
     </profile>
@@ -526,6 +543,7 @@
           <version>${openwebbeans.version}</version>
         </dependency>
 
+<!--
         <dependency>
           <groupId>org.apache.myfaces.extensions.cdi.modules</groupId>
           <artifactId>myfaces-extcdi-jsf20-module-api</artifactId>
@@ -539,6 +557,7 @@
           <version>${myfaces-extcdi.version}</version>
           <scope>runtime</scope>
         </dependency>
+-->
 <!-- for JSF 2.0 and Bean Validation (JSR-303)  -->
         <dependency>
           <groupId>javax.el</groupId>
@@ -571,6 +590,7 @@
           <version>${openwebbeans.version}</version>
         </dependency>
 
+<!--
         <dependency>
           <groupId>org.apache.myfaces.extensions.cdi.modules</groupId>
           <artifactId>myfaces-extcdi-jsf20-module-api</artifactId>
@@ -584,6 +604,7 @@
           <version>${myfaces-extcdi.version}</version>
           <scope>runtime</scope>
         </dependency>
+-->
 <!-- for JSF 2.0 and Bean Validation (JSR-303)  -->
         <dependency>
           <groupId>javax.el</groupId>
@@ -623,6 +644,7 @@
           <version>${openwebbeans.version}</version>
         </dependency>
 
+<!--
         <dependency>
           <groupId>org.apache.myfaces.extensions.cdi.modules</groupId>
           <artifactId>myfaces-extcdi-jsf20-module-api</artifactId>
@@ -636,6 +658,7 @@
           <version>${myfaces-extcdi.version}</version>
           <scope>runtime</scope>
         </dependency>
+-->
 <!-- for JSF 2.0 and Bean Validation (JSR-303)  -->
         <dependency>
           <groupId>javax.el</groupId>

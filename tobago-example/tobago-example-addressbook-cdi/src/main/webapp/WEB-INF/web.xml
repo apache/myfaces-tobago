@@ -94,9 +94,11 @@
     </listener>
 -->
 
+<!--
   <listener>
     <listener-class>org.apacheExtras.myfaces.codi.addon.openwebbeans.startup.OpenWebBeansAwareConfigurationListener</listener-class>
   </listener>
+-->
 
   <!-- servlet -->
 
@@ -109,13 +111,6 @@
   <servlet>
     <servlet-name>PictureServlet</servlet-name>
     <servlet-class>org.apache.myfaces.tobago.example.addressbook.web.PictureServlet</servlet-class>
-  </servlet>
-
-  <!-- workaround for a bug in Bea Weblogic 8.1 SP 2 and older -->
-  <servlet>
-    <servlet-name>WeblogicWorkaroundServlet</servlet-name>
-    <servlet-class>org.apache.myfaces.tobago.webapp.WeblogicWorkaroundServlet</servlet-class>
-    <load-on-startup>1</load-on-startup>
   </servlet>
 
   <servlet>
