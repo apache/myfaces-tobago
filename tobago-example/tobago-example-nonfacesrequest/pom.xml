@@ -20,7 +20,7 @@
   <parent>
     <groupId>org.apache.myfaces.tobago</groupId>
     <artifactId>tobago-example</artifactId>
-    <version>1.5.10-SNAPSHOT</version>
+    <version>1.5.9-SNAPSHOT</version>
   </parent>
   <artifactId>tobago-example-nonfacesrequest</artifactId>
   <packaging>war</packaging>
