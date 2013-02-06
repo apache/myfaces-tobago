@@ -1498,6 +1498,7 @@
             <artifactId>servlet-api</artifactId>
             <version>2.5</version>
             <optional>true</optional>
+            <scope>provided</scope>
           </dependency>
         </dependencies>
       </dependencyManagement>
@@ -1540,6 +1541,7 @@
             <artifactId>servlet-api</artifactId>
             <version>2.5</version>
             <optional>true</optional>
+            <scope>provided</scope>
           </dependency>
         </dependencies>
       </dependencyManagement>
@@ -1582,6 +1584,7 @@
             <artifactId>servlet-api</artifactId>
             <version>2.5</version>
             <optional>true</optional>
+            <scope>provided</scope>
           </dependency>
         </dependencies>
       </dependencyManagement>
@@ -1624,6 +1627,7 @@
             <artifactId>servlet-api</artifactId>
             <version>2.5</version>
             <optional>true</optional>
+            <scope>provided</scope>
           </dependency>
         </dependencies>
       </dependencyManagement>
@@ -1666,6 +1670,7 @@
             <artifactId>servlet-api</artifactId>
             <version>2.5</version>
             <optional>true</optional>
+            <scope>provided</scope>
           </dependency>
         </dependencies>
       </dependencyManagement>
@@ -1708,6 +1713,7 @@
             <artifactId>servlet-api</artifactId>
             <version>2.5</version>
             <optional>true</optional>
+            <scope>provided</scope>
           </dependency>
         </dependencies>
       </dependencyManagement>
