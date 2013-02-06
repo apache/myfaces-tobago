@@ -29,7 +29,7 @@
 
   <properties>
     <openjpa.version>1.0.4</openjpa.version>
-    <openwebbeans.version>1.1.6</openwebbeans.version>
+    <openwebbeans.version>1.1.7</openwebbeans.version>
     <myfaces-extcdi.version>1.0.5</myfaces-extcdi.version>
   </properties>
   <build>
