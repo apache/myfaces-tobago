@@ -17,19 +17,16 @@
  * limitations under the License.
 -->
 
-<web-app xmlns="http://java.sun.com/xml/ns/j2ee"
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
-    version="2.4">
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+    version="3.0">
 
-  <display-name>A simple addressbook demo with Tobago</display-name>
+  <display-name>A simple address-book demo (Java EE 6)</display-name>
 
   <context-param>
     <param-name>javax.faces.PROJECT_STAGE</param-name>
-<!--
     <param-value>Development</param-value>
--->
-    <param-value>Production</param-value>
   </context-param>
 
   <context-param>
@@ -58,47 +55,10 @@
     <param-value>.xhtml</param-value>
   </context-param>
 
-  <!--  workaround for a bug in Oracle AS (e.g. 10.1.2.0.0)-->
-<!--
-  <listener>
-    <listener-class>org.apache.myfaces.tobago.webapp.TobagoServletContextListener</listener-class>
-  </listener>
--->
-
-  <listener>
-    <listener-class>org.apache.myfaces.tobago.example.addressbook.DerbyShutdownServletContextListener</listener-class>
-  </listener>
-
-    <listener>
-      <listener-class>org.apache.webbeans.servlet.WebBeansConfigurationListener</listener-class>
-    </listener>
-
-  <!-- this is an alternative to the WebBeansConfigurationListener
-       you need it e.g. for Tomcat 5.5 or WebSphere 6.1 (see TOBAGO-1043)
-  -->
-<!--
-    <filter>
-        <filter-name>webbeans</filter-name>
-        <filter-class>org.apache.webbeans.servlet.WebBeansConfigurationFilter</filter-class>
-      </filter>
-
-    <filter-mapping>
-        <filter-name>webbeans</filter-name>
-        <servlet-name>FacesServlet</servlet-name>
-        <dispatcher>REQUEST</dispatcher>
-        <dispatcher>ERROR</dispatcher>
-    </filter-mapping>
-
-    <listener>
-      <listener-class>org.apache.webbeans.servlet.WebBeansConfigurationHttpSessionListener</listener-class>
-    </listener>
--->
-
-<!--
-  <listener>
-    <listener-class>org.apacheExtras.myfaces.codi.addon.openwebbeans.startup.OpenWebBeansAwareConfigurationListener</listener-class>
-  </listener>
--->
+  <context-param>
+    <param-name>javax.faces.INTERPRET_EMPTY_STRING_SUBMITTED_VALUES_AS_NULL</param-name>
+    <param-value>true</param-value>
+  </context-param>
 
   <!-- servlet -->
 
@@ -106,11 +66,6 @@
     <servlet-name>FacesServlet</servlet-name>
     <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
     <load-on-startup>1</load-on-startup>
-  </servlet>
-
-  <servlet>
-    <servlet-name>PictureServlet</servlet-name>
-    <servlet-class>org.apache.myfaces.tobago.example.addressbook.web.PictureServlet</servlet-class>
   </servlet>
 
   <servlet>
@@ -123,24 +78,9 @@
     </init-param>
   </servlet>
 
-  <servlet>
-    <servlet-name>KillSessionServlet</servlet-name>
-    <servlet-class>org.apache.myfaces.tobago.example.addressbook.KillSession</servlet-class>
-  </servlet>
-
-  <servlet-mapping>
-    <servlet-name>KillSessionServlet</servlet-name>
-    <url-pattern>/KillSession</url-pattern>
-  </servlet-mapping>
-
   <servlet-mapping>
     <servlet-name>FacesServlet</servlet-name>
     <url-pattern>/faces/*</url-pattern>
-  </servlet-mapping>
-
-  <servlet-mapping>
-    <servlet-name>PictureServlet</servlet-name>
-    <url-pattern>/faces/picture</url-pattern>
   </servlet-mapping>
 
   <servlet-mapping>
@@ -148,15 +88,15 @@
     <url-pattern>/org/apache/myfaces/tobago/renderkit/*</url-pattern>
   </servlet-mapping>
 
-  <!--servlet-mapping>
+  <servlet-mapping>
     <servlet-name>ResourceServlet</servlet-name>
     <url-pattern>/addressbook-resource/*</url-pattern>
-  </servlet-mapping-->
+  </servlet-mapping>
 
-  <!--servlet-mapping>
+  <servlet-mapping>
     <servlet-name>ResourceServlet</servlet-name>
     <url-pattern>/org/tango-project/*</url-pattern>
-  </servlet-mapping-->
+  </servlet-mapping>
 
   <!-- Welcome File List -->
 

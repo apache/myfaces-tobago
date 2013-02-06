@@ -23,29 +23,30 @@ import org.apache.myfaces.tobago.example.addressbook.EmailAddress;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import javax.faces.validator.FacesValidator;
 import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+@FacesValidator("EmailAddressValidator")
 public class EmailAddressValidator implements Validator {
 
-  private static final String EMAIL_ATOM
-      = "[^()<>@,;:\\\\.\\[\\]\\\"]";
-  private static final String LOCAL_PART_SPEC
-      = EMAIL_ATOM + "+(\\." + EMAIL_ATOM + "+)*";
-  private static final String DOMAIN_SPEC
-      = EMAIL_ATOM + "+(\\." + EMAIL_ATOM + "+)+";
+  private static final String EMAIL_ATOM = "[^()<>@,;:\\\\.\\[\\]\\\"]";
+  private static final String LOCAL_PART_SPEC = EMAIL_ATOM + "+(\\." + EMAIL_ATOM + "+)*";
+  private static final String DOMAIN_SPEC = EMAIL_ATOM + "+(\\." + EMAIL_ATOM + "+)+";
 
-  private static final Pattern LOCAL_PART_PATTERN
-      = Pattern.compile(LOCAL_PART_SPEC);
-  private static final Pattern DOMAIN_PATTERN
-      = Pattern.compile(DOMAIN_SPEC);
+  private static final Pattern LOCAL_PART_PATTERN = Pattern.compile(LOCAL_PART_SPEC);
+  private static final Pattern DOMAIN_PATTERN = Pattern.compile(DOMAIN_SPEC);
 
-  public void validate(
-      FacesContext facesContext, UIComponent uiComponent, Object value)
+  public void validate(FacesContext facesContext, UIComponent uiComponent, Object value)
       throws ValidatorException {
-    EmailAddress emailAddress = (EmailAddress) value;
+
+    if (value == null) {
+      return;
+    }
+
+    final EmailAddress emailAddress = (EmailAddress) value;
 
     Matcher matcher = LOCAL_PART_PATTERN.matcher(emailAddress.getLocalPart());
     if (!matcher.matches()) {

@@ -20,6 +20,7 @@
 package org.apache.myfaces.tobago.example.addressbook.web;
 
 import org.apache.commons.fileupload.FileItem;
+import org.apache.myfaces.extensions.cdi.core.api.scope.conversation.WindowScoped;
 import org.apache.myfaces.tobago.component.UIColumn;
 import org.apache.myfaces.tobago.component.UISheet;
 import org.apache.myfaces.tobago.config.TobagoConfig;
@@ -28,7 +29,6 @@ import org.apache.myfaces.tobago.context.Theme;
 import org.apache.myfaces.tobago.event.SortActionEvent;
 import org.apache.myfaces.tobago.example.addressbook.Address;
 import org.apache.myfaces.tobago.example.addressbook.AddressDao;
-import org.apache.myfaces.tobago.example.addressbook.JpaAddressDao;
 import org.apache.myfaces.tobago.example.addressbook.Picture;
 import org.apache.myfaces.tobago.model.SheetState;
 import org.apache.myfaces.tobago.util.VariableResolverUtils;
@@ -36,7 +36,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.SessionScoped;
 import javax.faces.application.Application;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
@@ -56,7 +55,7 @@ import java.util.List;
 import java.util.Locale;
 
 @Named("controller")
-@SessionScoped
+@WindowScoped
 public class Controller implements Serializable {
 
   private static final Logger LOG = LoggerFactory.getLogger(Controller.class);
@@ -93,10 +92,6 @@ public class Controller implements Serializable {
 
   private FileItem uploadedFile;
   private boolean renderFileUploadPopup;
-
-  public Controller() {
-    LOG.info("controller constructor ****************************************************************************************************");
-  }
 
   @PostConstruct
   public void init() {

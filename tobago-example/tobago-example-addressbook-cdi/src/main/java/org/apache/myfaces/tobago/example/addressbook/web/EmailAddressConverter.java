@@ -19,11 +19,6 @@
 
 package org.apache.myfaces.tobago.example.addressbook.web;
 
-/*
- * Created 03.12.2004 00:08:01.
- * $Id: EmailAddressConverter.java 1368242 2012-08-01 20:47:33Z lofwyr $
- */
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.example.addressbook.EmailAddress;
@@ -32,7 +27,9 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
+import javax.faces.convert.FacesConverter;
 
+@FacesConverter(forClass = EmailAddress.class)
 public class EmailAddressConverter implements Converter {
 
   private static final Logger LOG = LoggerFactory.getLogger(EmailAddressConverter.class);
@@ -44,14 +41,12 @@ public class EmailAddressConverter implements Converter {
     }
     String[] parts = reference.split("@");
     if (parts == null || parts.length != 2) {
-      throw new ConverterException(MessageUtils.createErrorMessage(
-          "converterEmailParts", facesContext));
+      throw new ConverterException(MessageUtils.createErrorMessage("converterEmailParts", facesContext));
     }
     return new EmailAddress(reference);
   }
 
-  public String getAsString(
-      FacesContext facesContext, UIComponent component, Object object) {
+  public String getAsString(FacesContext facesContext, UIComponent component, Object object) {
     return object.toString();
   }
 

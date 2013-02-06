@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<webappbnd:WebAppBinding xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:webappbnd="webappbnd.xmi" xmlns:webapplication="webapplication.xmi" xmi:id="WebAppBinding_1" virtualHostName="default_host">
+
+  <!-- Needed for WebSphere 8.5 auto deployment
+       Must match the display-name from the web.xml
+  -->
+
+  <webapp href="WEB-INF/web.xml#A simple address-book demo (Java EE 6)"/>
+</webappbnd:WebAppBinding>
