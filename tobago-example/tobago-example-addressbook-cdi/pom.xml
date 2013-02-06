@@ -150,10 +150,7 @@
     </dependency>
     <dependency>
       <groupId>org.apache.geronimo.specs</groupId>
-      <artifactId>geronimo-annotation_1.1_spec</artifactId>
-      <version>1.0.1</version>
-    <!-- XXX websphere-provided -->
-      <scope>provided</scope>
+      <artifactId>geronimo-annotation_1.0_spec</artifactId>
     </dependency>
 
     <dependency>
