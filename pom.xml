@@ -1751,13 +1751,13 @@
     <myfaces11.version>1.1.10</myfaces11.version>
     <myfaces12.version>1.2.12</myfaces12.version>
     <myfaces-test12.version>1.0.4</myfaces-test12.version>
-    <myfaces20.version>2.0.13</myfaces20.version>
-    <myfaces21.version>2.1.7</myfaces21.version>
+    <myfaces20.version>2.0.16</myfaces20.version>
+    <myfaces21.version>2.1.10</myfaces21.version>
     <mojarra11.version>1.1_02</mojarra11.version>
     <mojarra12.version>1.2_15</mojarra12.version>
-    <mojarra20.version>2.0.9</mojarra20.version>
-    <mojarra21.version>2.1.7</mojarra21.version>
-    <mojarra22.version>2.2.0-SNAPSHOT</mojarra22.version>
+    <mojarra20.version>2.0.10</mojarra20.version>
+    <mojarra21.version>2.1.16</mojarra21.version>
+    <mojarra22.version>2.2.0-m07</mojarra22.version>
     <facelets.version>1.1.14</facelets.version>
     <jetty7.version>7.4.5.v20110725</jetty7.version>
     <!--
