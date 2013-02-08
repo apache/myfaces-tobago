@@ -28,6 +28,6 @@ public interface HasValidatorMessage {
    * An expression that specifies the validator message
    */
   @TagAttribute
-  @UIComponentTagAttribute()
+  @UIComponentTagAttribute
   void setValidatorMessage(String validatorMessage);
 }

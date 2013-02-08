@@ -34,6 +34,8 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutComponent;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutContainer;
 
+import javax.faces.component.UIColumn;
+
 /**
  * Creates a tree node inside of a sheet (also known as tree table).
  * This component represents a single node inside a tree structure.
@@ -44,6 +46,8 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutContain
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIColumnNode",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIColumnNode",
+    uiComponentFacesClass = "javax.faces.component.UIColumn",
+    componentFamily = UIColumn.COMPONENT_FAMILY,
     rendererType = RendererTypes.TREE_NODE,
     allowedChildComponenents = {
         "org.apache.myfaces.tobago.TreeIndent",

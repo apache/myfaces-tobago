@@ -32,10 +32,12 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasConverter;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasId;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabelAndAccessKey;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
-import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsDeprecatedInline;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsReadonly;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsRendered;
+
+import javax.faces.component.UISelectOne;
 
 /*
  * Created: Aug 5, 2005 6:05:28 PM
@@ -51,6 +53,8 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsRendered;
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UISelectOneChoice",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUISelectOneChoice",
+    uiComponentFacesClass = "javax.faces.component.UISelectOne",
+    componentFamily = UISelectOne.COMPONENT_FAMILY,
     rendererType = RendererTypes.SELECT_ONE_CHOICE,
     allowedChildComponenents = {
         "javax.faces.SelectItem",

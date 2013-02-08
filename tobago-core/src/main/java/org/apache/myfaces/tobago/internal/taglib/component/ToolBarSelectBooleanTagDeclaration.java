@@ -30,6 +30,8 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasValue;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
 
+import javax.faces.component.UICommand;
+
 /**
  * Renders a selectable command button within a toolbar.
  */
@@ -38,7 +40,10 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
     tagExtraInfoClassName = "org.apache.myfaces.tobago.internal.taglib.component.CommandTagExtraInfo")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIToolBarCheck",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.component.UISelectBooleanCommand",
+    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUICommandBase",
+    uiComponentFacesClass = "javax.faces.component.UICommand",
+    interfaces = "org.apache.myfaces.tobago.component.SelectBooleanCommand",
+    componentFamily = UICommand.COMPONENT_FAMILY,
     rendererType = RendererTypes.MENU_COMMAND,
     allowedChildComponenents = "NONE")
 public interface ToolBarSelectBooleanTagDeclaration

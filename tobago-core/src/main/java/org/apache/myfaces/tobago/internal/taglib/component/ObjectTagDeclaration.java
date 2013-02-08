@@ -30,14 +30,14 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRend
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutComponent;
 
-/*
- * Date: 02.04.2006
- * Time: 15:58:16
- */
+import javax.faces.component.UIOutput;
+
 @Tag(name = "object", bodyContent = BodyContent.EMPTY)
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIObject",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIOut",
+    uiComponentFacesClass = "javax.faces.component.UIOutput",
+    componentFamily = UIOutput.COMPONENT_FAMILY,
     rendererType = RendererTypes.OBJECT,
     allowedChildComponenents = "NONE")
 public interface ObjectTagDeclaration extends HasIdBindingAndRendered, IsGridLayoutComponent, HasMarkup,

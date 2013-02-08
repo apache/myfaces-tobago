@@ -27,6 +27,8 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRend
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasValue;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasVar;
 
+import javax.faces.component.UIInput;
+
 /**
  * Describes a sub tree of nodes.
  * The value has to be a javax.swing.tree.TreeNode object to use as rootNode in the tree.
@@ -39,6 +41,8 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasVar;
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UITreeData",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUITreeData",
+    uiComponentFacesClass = "javax.faces.component.UIInput",
+    componentFamily = UIInput.COMPONENT_FAMILY,
     rendererType = RendererTypes.TREE_DATA,
     allowedChildComponenents = "org.apache.myfaces.tobago.TreeNode")
 public interface TreeDataTagDeclaration extends

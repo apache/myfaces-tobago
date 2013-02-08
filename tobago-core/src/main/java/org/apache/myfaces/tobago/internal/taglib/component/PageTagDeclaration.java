@@ -35,6 +35,8 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutComponentWithDimension;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutContainer;
 
+import javax.faces.component.UIForm;
+
 /**
  * Renders a page element.
  */
@@ -42,6 +44,8 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutContain
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIPage",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIPage",
+    uiComponentFacesClass = "javax.faces.component.UIForm",
+    componentFamily = UIForm.COMPONENT_FAMILY,
     rendererType = RendererTypes.PAGE,
     facets =
         { @Facet(name = Facets.ACTION,

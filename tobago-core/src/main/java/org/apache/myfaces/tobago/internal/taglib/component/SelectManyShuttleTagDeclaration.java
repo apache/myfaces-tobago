@@ -33,7 +33,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasId;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasInputLabel;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasOnchange;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasRequiredMessage;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasRequiredMessageForSelect;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTabIndex;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasValidator;
@@ -44,21 +44,25 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsFocus;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutComponent;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsReadonly;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsRendered;
-import org.apache.myfaces.tobago.internal.taglib.declaration.IsRequired;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsRequiredForSelect;
+
+import javax.faces.component.UISelectMany;
 
 @Tag(name = "selectManyShuttle")
 @BodyContentDescription(anyTagOf = "(<f:selectItems>|<f:selectItem>|<tc:selectItem>)+ <f:facet>* ")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UISelectManyShuttle",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUISelectManyShuttle",
+    uiComponentFacesClass = "javax.faces.component.UISelectMany",
+    componentFamily = UISelectMany.COMPONENT_FAMILY,
     rendererType = RendererTypes.SELECT_MANY_SHUTTLE,
     allowedChildComponenents = {
         "javax.faces.SelectItem",
         "javax.faces.SelectItems"})
 public interface SelectManyShuttleTagDeclaration extends
-    IsDisabled, HasId, HasTip, IsRendered, IsRequired, HasBinding, IsReadonly, HasConverter,
+    IsDisabled, HasId, HasTip, IsRendered, IsRequiredForSelect, HasBinding, IsReadonly, HasConverter,
     HasMarkup, HasCurrentMarkup, HasInputLabel, HasValidator, HasOnchange, HasValueChangeListener,
-    HasValidatorMessage, HasConverterMessage, HasRequiredMessage, HasTabIndex, IsFocus, IsGridLayoutComponent {
+    HasValidatorMessage, HasConverterMessage, HasRequiredMessageForSelect, HasTabIndex, IsFocus, IsGridLayoutComponent {
 
   /**
    * The value of the multi select.

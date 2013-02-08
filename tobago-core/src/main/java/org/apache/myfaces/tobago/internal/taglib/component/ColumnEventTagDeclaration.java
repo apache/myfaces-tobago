@@ -29,8 +29,10 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRend
  * This component creates an event in a UISheet for each row.
  */
 @Tag(name = "columnEvent")
-@UIComponentTag(uiComponent = "org.apache.myfaces.tobago.component.UIColumnEvent",
+@UIComponentTag(
+    uiComponent = "org.apache.myfaces.tobago.component.UIColumnEvent",
     uiComponentBaseClass = "javax.faces.component.UIColumn",
+    uiComponentFacesClass = "javax.faces.component.UIColumn",
     interfaces = "org.apache.myfaces.tobago.component.ColumnEvent")
 public interface ColumnEventTagDeclaration extends HasIdBindingAndRendered {
 

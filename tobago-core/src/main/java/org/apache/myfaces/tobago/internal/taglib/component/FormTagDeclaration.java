@@ -25,15 +25,15 @@ import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasBinding;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasId;
 
-/*
- * Date: 11.02.2006
- * Time: 14:29:26
- */
+import javax.faces.component.UIForm;
+
 @Tag(name = "form")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIForm",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIForm",
+    uiComponentFacesClass = "javax.faces.component.UIForm",
     interfaces = "org.apache.myfaces.tobago.component.Form",
+    componentFamily = UIForm.COMPONENT_FAMILY,
     rendererType = RendererTypes.FORM,
     isTransparentForLayout = true,
     allowedChildComponenents = "ALL")

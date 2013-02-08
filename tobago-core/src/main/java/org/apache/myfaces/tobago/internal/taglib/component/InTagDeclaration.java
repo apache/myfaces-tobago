@@ -40,6 +40,8 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsPassword;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsReadonly;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsRequired;
 
+import javax.faces.component.UIInput;
+
 /**
  * Renders a text input field.
  */
@@ -48,9 +50,11 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsRequired;
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIIn",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIInput",
+    uiComponentFacesClass = "javax.faces.component.UIInput",
+    componentFamily = UIInput.COMPONENT_FAMILY,
     rendererType = RendererTypes.IN,
     allowedChildComponenents = "NONE",
-    interfaces =  {"org.apache.myfaces.tobago.component.InputSuggest", "org.apache.myfaces.tobago.component.UIInput"}, 
+    interfaces =  {"org.apache.myfaces.tobago.component.InputSuggest"},
     facets = {
     @Facet(name = Facets.CHANGE,
         description =

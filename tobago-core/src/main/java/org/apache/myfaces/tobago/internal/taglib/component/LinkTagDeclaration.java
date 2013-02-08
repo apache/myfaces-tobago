@@ -38,6 +38,8 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutComponent;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsDeprecatedInline;
 
+import javax.faces.component.UICommand;
+
 /**
  * Renders a link element.
  */
@@ -46,7 +48,8 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsDeprecatedInline;
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UILink",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUILink",
-    interfaces = "org.apache.myfaces.tobago.component.UILinkCommand",
+    uiComponentFacesClass = "javax.faces.component.UICommand",
+    componentFamily = UICommand.COMPONENT_FAMILY,
     rendererType = RendererTypes.LINK,
     allowedChildComponenents = "NONE",
     facets = {

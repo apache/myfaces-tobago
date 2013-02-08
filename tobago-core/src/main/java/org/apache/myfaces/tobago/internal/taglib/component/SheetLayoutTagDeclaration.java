@@ -34,8 +34,9 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UISheetLayout",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUISheetLayout",
-    rendererType = RendererTypes.SHEET_LAYOUT,
+    uiComponentFacesClass = "javax.faces.component.UIComponentBase",
     componentFamily = "org.apache.myfaces.tobago.SheetLayout",
+    rendererType = RendererTypes.SHEET_LAYOUT,
     allowedChildComponenents = "NONE",
     isLayout = true)
 public interface SheetLayoutTagDeclaration extends HasId, HasMarkup, HasCurrentMarkup {

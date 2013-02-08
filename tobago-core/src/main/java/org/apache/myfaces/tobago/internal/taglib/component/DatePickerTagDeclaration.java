@@ -30,6 +30,8 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTabIndex;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutComponent;
 
+import javax.faces.component.UICommand;
+
 /**
  * Renders a date picker.
  * The component needs a DateFormat Pattern from a converter. The converter
@@ -40,6 +42,8 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutCompone
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIDatePicker",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIDatePicker",
+    uiComponentFacesClass = "javax.faces.component.UICommand",
+    componentFamily = UICommand.COMPONENT_FAMILY,
     rendererType = RendererTypes.DATE_PICKER,
     allowedChildComponenents = "NONE")
 public interface DatePickerTagDeclaration

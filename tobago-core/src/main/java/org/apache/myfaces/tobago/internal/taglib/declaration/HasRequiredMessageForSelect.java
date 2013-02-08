@@ -17,14 +17,17 @@
  * under the License.
  */
 
-package org.apache.myfaces.tobago.internal.taglib.component;
+package org.apache.myfaces.tobago.internal.taglib.declaration;
 
-import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
+import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
+import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 
-import javax.faces.component.UINamingContainer;
 
-@UIComponentTag(uiComponent = "org.apache.myfaces.tobago.component.UINamingContainer",
-    uiComponentBaseClass = "javax.faces.component.UINamingContainer",
-    componentType = UINamingContainer.COMPONENT_TYPE)
-public interface NamingContainerDeclaration {
+public interface HasRequiredMessageForSelect {
+  /**
+   * An expression that specifies the required message
+   */
+  @TagAttribute
+  @UIComponentTagAttribute
+  void setRequiredMessage(String requiredMessage);
 }

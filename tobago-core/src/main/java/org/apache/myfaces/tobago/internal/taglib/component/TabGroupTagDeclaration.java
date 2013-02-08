@@ -37,6 +37,8 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutCompone
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutContainer;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsImmediateCommand;
 
+import javax.faces.component.UIPanel;
+
 /**
  * Renders a tab group which contains tab panels.
  */
@@ -45,9 +47,10 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsImmediateCommand;
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UITabGroup",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUITabGroup",
+    uiComponentFacesClass = "javax.faces.component.UIPanel",
+    componentFamily = UIPanel.COMPONENT_FAMILY,
     rendererType = RendererTypes.TAB_GROUP,
     interfaces = "javax.faces.component.ActionSource",
-//    componentFamily = "org.apache.myfaces.tobago.TabGroup",
     allowedChildComponenents = "org.apache.myfaces.tobago.Tab")
 
 public interface TabGroupTagDeclaration

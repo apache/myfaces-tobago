@@ -17,26 +17,18 @@
  * under the License.
  */
 
-package org.apache.myfaces.tobago.internal.taglib.component;
+package org.apache.myfaces.tobago.internal.taglib.declaration;
 
-import org.apache.myfaces.tobago.apt.annotation.Tag;
-import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
-import org.apache.myfaces.tobago.component.RendererTypes;
+import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
+import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 
-/**
- * Renders a menu item.
- * <p>
- * Please use menuCommand instead!
- * </p>
- * @deprecated
- */
-@Tag(name = "menuItem", 
-    tagExtraInfoClassName = "org.apache.myfaces.tobago.internal.taglib.component.CommandTagExtraInfo")
-@UIComponentTag(
-    uiComponent = "org.apache.myfaces.tobago.component.UIMenuItem",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.component.UIMenuCommand",
-    rendererType = RendererTypes.MENU_COMMAND,
-    allowedChildComponenents = "NONE")
-@Deprecated
-public interface MenuItemTagDeclaration extends MenuCommandTagDeclaration {
+public interface IsRequiredForSelect {
+  /**
+   * Flag indicating that a value is required.
+   * If the value is an empty string a
+   * ValidationError occurs and a Error Message is rendered.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
+  void setRequired(String required);
 }

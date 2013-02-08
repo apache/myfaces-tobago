@@ -22,11 +22,15 @@ package org.apache.myfaces.tobago.internal.taglib.component;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.component.RendererTypes;
 
+import javax.faces.component.UICommand;
+
 /**
  * Render for tree command inside of a tree menu.
  */
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UITreeCommand",
+    uiComponentFacesClass = "javax.faces.component.UICommand",
+    componentFamily = UICommand.COMPONENT_FAMILY,
     generate = false,
     rendererType = RendererTypes.TREE_MENU_COMMAND)
 public interface TreeMenuCommandTagDeclaration extends TreeCommandTagDeclaration {

@@ -23,9 +23,6 @@ import org.apache.myfaces.tobago.apt.annotation.DynamicExpression;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 
-/**
- * $Id$
- */
 public interface HasActionListener {
   /**
    * MethodBinding representing an action listener method that will be
@@ -34,7 +31,9 @@ public interface HasActionListener {
    * parameter, with a return type of void.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = {}, expression = DynamicExpression.METHOD_BINDING_REQUIRED,
+  @UIComponentTagAttribute(
+      type = {},
+      expression = DynamicExpression.METHOD_BINDING_REQUIRED,
       methodSignature = "javax.faces.event.ActionEvent")
   void setActionListener(String actionListener);
 }

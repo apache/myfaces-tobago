@@ -35,6 +35,8 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutCompone
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsShowRoot;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsShowRootJunction;
 
+import javax.faces.component.UIData;
+
 /**
  * A tree with classical look. 
  * Usually used with icons and junction lines to open folder, etc.
@@ -44,6 +46,8 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsShowRootJunction;
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UITree",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUITree",
+    uiComponentFacesClass = "javax.faces.component.UIData",
+    componentFamily = UIData.COMPONENT_FAMILY,
     rendererType = RendererTypes.TREE,
     allowedChildComponenents = {
         "org.apache.myfaces.tobago.TreeNode",
@@ -79,6 +83,7 @@ public interface TreeTagDeclaration
   @TagAttribute
   @UIComponentTagAttribute(
       type = "org.apache.myfaces.tobago.model.TreeState",
-      expression = DynamicExpression.VALUE_BINDING_REQUIRED)
+      expression = DynamicExpression.VALUE_BINDING_REQUIRED,
+      generate = false)
   void setState(String state);
 }

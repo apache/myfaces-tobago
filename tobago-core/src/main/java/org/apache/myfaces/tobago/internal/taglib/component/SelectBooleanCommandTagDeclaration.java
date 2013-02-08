@@ -26,7 +26,8 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasValue;
 
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UISelectBooleanCommand",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.component.UICommand")
+    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUICommandBase",
+    uiComponentFacesClass = "javax.faces.component.UICommand")
 public interface SelectBooleanCommandTagDeclaration
     extends AbstractCommandTagDeclaration, HasIdBindingAndRendered, HasValue {
 }

@@ -34,6 +34,8 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasVar;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutComponent;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsShowRoot;
 
+import javax.faces.component.UIData;
+
 /**
  * A tree which will be displayed like a flat menu.
  * This menu is often used for navigation on the left side of an application.
@@ -43,6 +45,8 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsShowRoot;
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UITreeMenu",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUITree",
+    uiComponentFacesClass = "javax.faces.component.UIData",
+    componentFamily = UIData.COMPONENT_FAMILY,
     rendererType = RendererTypes.TREE_MENU,
     allowedChildComponenents = {
         "org.apache.myfaces.tobago.TreeNode",
@@ -60,7 +64,8 @@ public interface TreeMenuTagDeclaration
   @TagAttribute
   @UIComponentTagAttribute(
       type = "org.apache.myfaces.tobago.model.TreeState",
-      expression = DynamicExpression.VALUE_BINDING_REQUIRED)
+      expression = DynamicExpression.VALUE_BINDING_REQUIRED,
+      generate = false)
   void setState(String state);
 
 }

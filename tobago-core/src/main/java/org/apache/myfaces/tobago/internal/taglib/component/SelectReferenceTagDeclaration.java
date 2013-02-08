@@ -27,6 +27,8 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 
+import javax.faces.component.UIOutput;
+
 /*
  * Date: 31.03.2006
  * Time: 22:02:37
@@ -40,6 +42,8 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRend
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UISelectReference",
     uiComponentBaseClass = "javax.faces.component.UIOutput",
+    uiComponentFacesClass = "javax.faces.component.UIOutput",
+    componentFamily = UIOutput.COMPONENT_FAMILY,
     rendererType = RendererTypes.SELECT_REFERENCE,
     allowedChildComponenents = "NONE")
 public interface SelectReferenceTagDeclaration extends HasIdBindingAndRendered {

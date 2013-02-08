@@ -33,6 +33,8 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutComponent;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsDeprecatedInline;
 
+import javax.faces.component.UIOutput;
+
 /**
  * Renders a label component.
  */
@@ -40,6 +42,8 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsDeprecatedInline;
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UILabel",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUILabel",
+    uiComponentFacesClass = "javax.faces.component.UIOutput",
+    componentFamily = UIOutput.COMPONENT_FAMILY,
     rendererType = RendererTypes.LABEL,
     allowedChildComponenents = "NONE")
 public interface LabelTagDeclaration extends HasIdBindingAndRendered,

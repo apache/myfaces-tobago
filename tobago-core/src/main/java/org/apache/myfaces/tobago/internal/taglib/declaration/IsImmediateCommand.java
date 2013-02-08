@@ -23,6 +23,7 @@ import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 
 public interface IsImmediateCommand {
+
   /**
    * Flag indicating that, if this component is activated by the user,
    * notifications should be delivered to interested listeners and actions

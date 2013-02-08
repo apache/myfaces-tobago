@@ -34,6 +34,8 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasValue;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsDeprecatedInline;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutComponent;
 
+import javax.faces.component.UIOutput;
+
 /**
  * Renders a text
  */
@@ -42,7 +44,8 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutCompone
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIOut",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIOut",
-    interfaces = "org.apache.myfaces.tobago.component.UIOutput",
+    uiComponentFacesClass = "javax.faces.component.UIOutput",
+    componentFamily = UIOutput.COMPONENT_FAMILY,
     rendererType = RendererTypes.OUT,
     allowedChildComponenents = "NONE")
 

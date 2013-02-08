@@ -29,6 +29,8 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRend
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutComponent;
 
+import javax.faces.component.UIPanel;
+
 /**
  * Component to put other components from other frameworks into.
  * Gives the possibility, to interchange layout information.
@@ -37,6 +39,8 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutCompone
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIMediator",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIMediator",
+    uiComponentFacesClass = "javax.faces.component.UIPanel",
+    componentFamily = UIPanel.COMPONENT_FAMILY,
     rendererType = RendererTypes.MEDIATOR,
     interfaces = {"org.apache.myfaces.tobago.component.SupportsMarkup"})
 public interface MediatorTagDeclaration
@@ -46,6 +50,6 @@ public interface MediatorTagDeclaration
    * Name of a request-scope attribute under which this component is accessible.
    */
   @TagAttribute
-  @UIComponentTagAttribute
+  @UIComponentTagAttribute(generate = false)
   void setVar(String var);
 }

@@ -34,7 +34,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasInputLabel;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasOnchange;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasRenderRange;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasRequiredMessage;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasRequiredMessageForSelect;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTabIndex;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasValidator;
@@ -46,7 +46,9 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutCompone
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsInline;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsReadonly;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsRendered;
-import org.apache.myfaces.tobago.internal.taglib.declaration.IsRequired;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsRequiredForSelect;
+
+import javax.faces.component.UISelectMany;
 
 /**
  * Render a group of checkboxes.
@@ -56,14 +58,17 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsRequired;
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UISelectManyCheckbox",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUISelectMany",
+    uiComponentFacesClass = "javax.faces.component.UISelectMany",
+    componentFamily = UISelectMany.COMPONENT_FAMILY,
     rendererType = RendererTypes.SELECT_MANY_CHECKBOX,
     allowedChildComponenents = {
         "javax.faces.SelectItem",
         "javax.faces.SelectItems"})
 public interface SelectManyCheckboxTagDeclaration extends
-    IsDisabled, HasId, HasTip, IsInline, HasRenderRange, IsRendered, IsRequired, HasBinding, IsReadonly, HasConverter,
+    IsDisabled, HasId, HasTip, IsInline, HasRenderRange, IsRendered, IsRequiredForSelect,
+    HasBinding, IsReadonly, HasConverter,
     HasMarkup, HasCurrentMarkup, HasInputLabel, HasValidator, HasOnchange, HasValueChangeListener,
-    HasValidatorMessage, HasConverterMessage, HasRequiredMessage, HasTabIndex, IsFocus, IsGridLayoutComponent {
+    HasValidatorMessage, HasConverterMessage, HasRequiredMessageForSelect, HasTabIndex, IsFocus, IsGridLayoutComponent {
 
   /**
    * The value of the multi select.

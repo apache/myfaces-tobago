@@ -35,9 +35,11 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTabIndex;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsDefaultCommand;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsDeprecatedInline;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutComponent;
-import org.apache.myfaces.tobago.internal.taglib.declaration.IsDeprecatedInline;
+
+import javax.faces.component.UICommand;
 
 /**
  * Renders a button element.
@@ -46,7 +48,9 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsDeprecatedInline;
 @BodyContentDescription(anyTagOf = "facestag")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIButton",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.component.UICommand",
+    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUICommand",
+    uiComponentFacesClass = "javax.faces.component.UICommand",
+    componentFamily = UICommand.COMPONENT_FAMILY,
     rendererType = RendererTypes.BUTTON,
     allowedChildComponenents = "NONE",
     facets = {

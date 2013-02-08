@@ -22,12 +22,16 @@ package org.apache.myfaces.tobago.internal.taglib.component;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.component.RendererTypes;
 
+import javax.faces.component.UIOutput;
+
 /**
  * Render for tree label inside of a tree menu.
  */
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UITreeLabel",
+    uiComponentFacesClass = "javax.faces.component.UIOutput",
     generate = false,
+    componentFamily = UIOutput.COMPONENT_FAMILY,
     rendererType = RendererTypes.TREE_MENU_LABEL)
 public interface TreeMenuLabelTagDeclaration extends TreeLabelTagDeclaration {
 }

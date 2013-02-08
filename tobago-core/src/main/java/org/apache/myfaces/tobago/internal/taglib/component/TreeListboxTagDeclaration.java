@@ -34,6 +34,8 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasVar;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutComponent;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsRequired;
 
+import javax.faces.component.UIData;
+
 /**
  * A tree data structure displayed as a set of list boxes.
  */
@@ -42,6 +44,8 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsRequired;
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UITreeListbox",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUITreeListbox",
+    uiComponentFacesClass = "javax.faces.component.UIData",
+    componentFamily = UIData.COMPONENT_FAMILY,
     rendererType = RendererTypes.TREE_LISTBOX,
     allowedChildComponenents = {
         "org.apache.myfaces.tobago.TreeNode",
@@ -75,6 +79,7 @@ public interface TreeListboxTagDeclaration
   @TagAttribute
   @UIComponentTagAttribute(
       type = "org.apache.myfaces.tobago.model.TreeState",
-      expression = DynamicExpression.VALUE_BINDING_REQUIRED)
+      expression = DynamicExpression.VALUE_BINDING_REQUIRED,
+      generate = false)
   void setState(String state);
 }

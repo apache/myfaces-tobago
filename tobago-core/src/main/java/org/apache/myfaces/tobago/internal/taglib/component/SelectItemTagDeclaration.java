@@ -45,6 +45,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UISelectItem",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUISelectItem",
+    uiComponentFacesClass = "javax.faces.component.UISelectItem",
     allowedChildComponenents = "NONE")
 public interface SelectItemTagDeclaration extends HasBinding, HasId, HasMarkup, HasCurrentMarkup, HasItemLabel {
   /**
@@ -74,7 +75,8 @@ public interface SelectItemTagDeclaration extends HasBinding, HasId, HasMarkup, 
    * the information for this option.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = "javax.faces.model.SelectItem", 
+  @UIComponentTagAttribute(
+      type = "javax.faces.model.SelectItem",
       expression = DynamicExpression.VALUE_BINDING_REQUIRED)
   void setValue(String value);
 

@@ -30,6 +30,8 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutComponent;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutContainer;
 
+import javax.faces.component.UIPanel;
+
 /**
  * Renders a panel-like layout element with the ability to span over more than
  * one layout cell. A cell may only contain one child.
@@ -40,15 +42,19 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutContain
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UICell",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUICell",
+    uiComponentFacesClass = "javax.faces.component.UIPanel",
+    componentFamily = UIPanel.COMPONENT_FAMILY,
     rendererType = RendererTypes.CELL)
 public interface CellTagDeclaration 
     extends HasIdBindingAndRendered, IsGridLayoutComponent, IsGridLayoutContainer, HasMarkup, HasCurrentMarkup {
 
-  @UIComponentTagAttribute(type = {"java.lang.Integer"},
+  @UIComponentTagAttribute(
+      type = {"java.lang.Integer"},
       defaultValue = "1")
   void setColumnSpan(String columnSpan);
 
-  @UIComponentTagAttribute(type = {"java.lang.Integer"},
+  @UIComponentTagAttribute(
+      type = {"java.lang.Integer"},
       defaultValue = "1")
   void setRowSpan(String rowSpan);
 
@@ -56,16 +62,20 @@ public interface CellTagDeclaration
    * Count of layout columns to span over.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = {"java.lang.Integer"},
-      defaultValue = "1")
+  @UIComponentTagAttribute(
+      type = {"java.lang.Integer"},
+      defaultValue = "1",
+      generate = false)
   void setSpanX(String spanX);
 
   /**
    * Count of layout rows to span over.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = {"java.lang.Integer"},
-      defaultValue = "1")
+  @UIComponentTagAttribute(
+      type = {"java.lang.Integer"},
+      defaultValue = "1",
+  generate = false)
   void setSpanY(String spanY);
 
   /**

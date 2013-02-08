@@ -38,6 +38,8 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutContain
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsShowRoot;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsShowRootJunction;
 
+import javax.faces.component.UIData;
+
 /**
  * Render a sheet element.
  */
@@ -47,6 +49,8 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsShowRootJunction;
     uiComponent = "org.apache.myfaces.tobago.component.UISheet",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUISheet",
     interfaces = "org.apache.myfaces.tobago.event.SortActionSource",
+    uiComponentFacesClass = "javax.faces.component.UIData",
+    componentFamily = UIData.COMPONENT_FAMILY,
     rendererType = RendererTypes.SHEET,
     allowedChildComponenents = {
         "javax.faces.Column",
@@ -74,17 +78,22 @@ public interface SheetTagDeclaration
   /**
    * The number of rows to display, starting with the one identified by the
    * "first" property.
-   * <br/> The default has been changed from 100 to 0 because this is the default of the JSF standard (Tobago 1.5).
+   * <br/> The default has been changed from 100 to 0 because this is the default
+   * in the JSF standard (since Tobago 1.5).
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = "java.lang.Integer", defaultValue = "0")
+  @UIComponentTagAttribute(
+      type = "int",
+      defaultValue = "0")
   void setRows(String rows);
 
   /**
    * Zero-relative row number of the first row to be displayed.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = "java.lang.Integer", defaultValue = "0")
+  @UIComponentTagAttribute(
+      type = "int",
+      defaultValue = "0")
   void setFirst(String first);
 
   /**
@@ -176,8 +185,10 @@ public interface SheetTagDeclaration
    * Sheet state saving object.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.model.SheetState",
-      expression = DynamicExpression.VALUE_BINDING_REQUIRED)
+  @UIComponentTagAttribute(
+      type = "org.apache.myfaces.tobago.model.SheetState",
+      expression = DynamicExpression.VALUE_BINDING_REQUIRED,
+      generate = false)
   void setState(String state);
 
   /**
@@ -188,8 +199,8 @@ public interface SheetTagDeclaration
    */
   @TagAttribute
   @UIComponentTagAttribute(type = {},
-       expression = DynamicExpression.METHOD_BINDING_REQUIRED,
-       methodSignature = "javax.faces.event.ActionEvent")
+      expression = DynamicExpression.METHOD_BINDING_REQUIRED,
+      methodSignature = "javax.faces.event.ActionEvent")
   void setStateChangeListener(String stateChangeListener);
 
   /**
@@ -205,9 +216,10 @@ public interface SheetTagDeclaration
    * the sheet's {@link org.apache.myfaces.tobago.model.SheetState} object.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = {},
-       expression = DynamicExpression.METHOD_BINDING_REQUIRED,
-       methodSignature = "javax.faces.event.ActionEvent")
+  @UIComponentTagAttribute(
+      type = {},
+      expression = DynamicExpression.METHOD_BINDING_REQUIRED,
+      methodSignature = "javax.faces.event.ActionEvent")
   void setSortActionListener(String sortActionListener);
 
 }

@@ -23,14 +23,6 @@ import org.apache.myfaces.tobago.apt.annotation.DynamicExpression;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 
-/*
- * Date: 13.12.2005
- * Time: 20:10:50
- */
-
-/**
- *
- */
 public interface HasValidator {
   /**
    * A method binding EL expression,

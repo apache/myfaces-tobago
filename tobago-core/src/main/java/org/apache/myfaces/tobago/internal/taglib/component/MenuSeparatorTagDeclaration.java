@@ -28,6 +28,8 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsRendered;
 
+import javax.faces.component.UIOutput;
+
 /**
  * Renders a separator inside of a menu.
  */
@@ -35,6 +37,8 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsRendered;
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIMenuSeparator",
     uiComponentBaseClass = "javax.faces.component.UIOutput",
+    uiComponentFacesClass = "javax.faces.component.UIOutput",
+    componentFamily = UIOutput.COMPONENT_FAMILY,
     rendererType = RendererTypes.MENU_SEPARATOR,
     allowedChildComponenents = "NONE")
 

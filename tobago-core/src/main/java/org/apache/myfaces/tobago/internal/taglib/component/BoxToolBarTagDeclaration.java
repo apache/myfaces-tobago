@@ -22,9 +22,13 @@ package org.apache.myfaces.tobago.internal.taglib.component;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.component.RendererTypes;
 
+import javax.faces.component.UIPanel;
+
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIToolBar",
+    uiComponentFacesClass = "javax.faces.component.UIPanel",
     generate = false,
+    componentFamily = UIPanel.COMPONENT_FAMILY,
     rendererType = RendererTypes.BOX_TOOL_BAR,
     allowedChildComponenents = {
         "org.apache.myfaces.tobago.SelectOneCommand",

@@ -32,7 +32,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasId;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabelAndAccessKey;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasOnchange;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasRequiredMessage;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasRequiredMessageForSelect;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTabIndex;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasValidator;
@@ -44,7 +44,9 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsFocus;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutComponent;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsReadonly;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsRendered;
-import org.apache.myfaces.tobago.internal.taglib.declaration.IsRequired;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsRequiredForSelect;
+
+import javax.faces.component.UISelectMany;
 
 /**
  * Render a multi selection option listbox.
@@ -53,14 +55,17 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsRequired;
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UISelectManyListbox",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUISelectMany",
+    uiComponentFacesClass = "javax.faces.component.UISelectMany",
+    componentFamily = UISelectMany.COMPONENT_FAMILY,
     rendererType = RendererTypes.SELECT_MANY_LISTBOX,
     allowedChildComponenents = {"javax.faces.SelectItem", "javax.faces.SelectItems"})
 
 public interface SelectManyListboxTagDeclaration
     extends HasId, IsDisabled, IsRendered, HasBinding, HasTip,
-    IsReadonly, HasConverter, IsRequired, HasMarkup, HasCurrentMarkup, IsDeprecatedInline, HasLabelAndAccessKey,
+    IsReadonly, HasConverter, IsRequiredForSelect, HasMarkup, HasCurrentMarkup,
+    IsDeprecatedInline, HasLabelAndAccessKey,
     HasValidator, HasOnchange, HasValueChangeListener,
-    HasValidatorMessage, HasConverterMessage, HasRequiredMessage, HasTabIndex, IsFocus, IsGridLayoutComponent {
+    HasValidatorMessage, HasConverterMessage, HasRequiredMessageForSelect, HasTabIndex, IsFocus, IsGridLayoutComponent {
 
   /**
    * The value of the multi select.

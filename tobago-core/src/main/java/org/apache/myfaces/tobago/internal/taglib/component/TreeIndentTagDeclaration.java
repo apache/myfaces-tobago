@@ -29,6 +29,8 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRend
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 
+import javax.faces.component.UIGraphic;
+
 /**
  * Renders an indent beside a tree node.
  */
@@ -36,6 +38,8 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UITreeIndent",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUITreeIndent",
+    uiComponentFacesClass = "javax.faces.component.UIGraphic",
+    componentFamily = UIGraphic.COMPONENT_FAMILY,
     rendererType = RendererTypes.TREE_INDENT,
     allowedChildComponenents = "NONE")
 public interface TreeIndentTagDeclaration

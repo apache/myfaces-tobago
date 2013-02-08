@@ -28,6 +28,8 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRend
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutComponent;
 
+import javax.faces.component.UIPanel;
+
 /**
 * Renders a menu bar.<br />
 * Add menu bar as facet name="menuBar" to page tag or use it anywhere
@@ -43,7 +45,10 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutCompone
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIMenuBar",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIMenuBar",
-    rendererType = RendererTypes.MENU_BAR, isComponentAlreadyDefined = false,
+    uiComponentFacesClass = "javax.faces.component.UIPanel",
+    componentFamily = UIPanel.COMPONENT_FAMILY,
+    rendererType = RendererTypes.MENU_BAR,
+    isComponentAlreadyDefined = false,
     allowedChildComponenents = {
         "org.apache.myfaces.tobago.Menu",
         "org.apache.myfaces.tobago.MenuCommand",

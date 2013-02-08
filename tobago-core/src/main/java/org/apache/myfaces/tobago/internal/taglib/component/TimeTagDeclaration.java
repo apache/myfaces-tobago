@@ -33,6 +33,8 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsDeprecatedInline;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsReadonly;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsRequired;
 
+import javax.faces.component.UIInput;
+
 /**
  * Renders a time input field.
  */
@@ -40,6 +42,8 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsRequired;
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UITime",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUITime",
+    uiComponentFacesClass = "javax.faces.component.UIInput",
+    componentFamily = UIInput.COMPONENT_FAMILY,
     rendererType = RendererTypes.TIME,
     allowedChildComponenents = "NONE")
 public interface TimeTagDeclaration

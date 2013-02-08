@@ -27,6 +27,8 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRend
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasValue;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
 
+import javax.faces.component.UICommand;
+
 /**
  * Renders a set of radio command button's within a toolbar.
  */
@@ -35,7 +37,10 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
     tagExtraInfoClassName = "org.apache.myfaces.tobago.internal.taglib.component.CommandTagExtraInfo")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIToolBarSelectOne",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.component.UISelectOneCommand",
+    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUICommandBase",
+    uiComponentFacesClass = "javax.faces.component.UICommand",
+    interfaces = "org.apache.myfaces.tobago.component.SelectOneCommand",
+    componentFamily = UICommand.COMPONENT_FAMILY,
     rendererType = RendererTypes.MENU_COMMAND,
     allowedChildComponenents = "NONE")
 public interface ToolBarSelectOneTagDeclaration extends AbstractCommandTagDeclaration,

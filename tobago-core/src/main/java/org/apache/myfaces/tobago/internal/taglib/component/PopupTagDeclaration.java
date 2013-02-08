@@ -32,6 +32,8 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutComponentWithDimension;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutContainer;
 
+import javax.faces.component.UIPanel;
+
 /**
  * Renders a popup panel.
  * The popup gets a grid layout manager with columns="auto" and rows="auto" as definition.
@@ -42,6 +44,8 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutContain
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIPopup",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIPopup",
+    uiComponentFacesClass = "javax.faces.component.UIPanel",
+    componentFamily = UIPanel.COMPONENT_FAMILY,
     rendererType = RendererTypes.POPUP,
     facets = {
         @Facet(name = Facets.LAYOUT,

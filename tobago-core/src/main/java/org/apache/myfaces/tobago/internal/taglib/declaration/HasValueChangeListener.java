@@ -23,10 +23,6 @@ import org.apache.myfaces.tobago.apt.annotation.DynamicExpression;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 
-/*
- * Date: 18.04.2006
- * Time: 11:39:26
- */
 public interface HasValueChangeListener {
   /**
    * MethodBinding representing a value change listener method
@@ -38,8 +34,8 @@ public interface HasValueChangeListener {
    */
   @TagAttribute
   @UIComponentTagAttribute(
-          type = {},
-          expression = DynamicExpression.METHOD_BINDING_REQUIRED,
-          methodSignature = "javax.faces.event.ValueChangeEvent")
+      type = {},
+      expression = DynamicExpression.METHOD_BINDING_REQUIRED,
+      methodSignature = "javax.faces.event.ValueChangeEvent")
   void setValueChangeListener(String valueChangeListener);
 }

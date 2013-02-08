@@ -29,6 +29,8 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasValue;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsReadonly;
 
+import javax.faces.component.UIInput;
+
 /**
  * Renders a hidden input element.
  */
@@ -36,6 +38,8 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsReadonly;
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIHidden",
     uiComponentBaseClass = "javax.faces.component.UIInput",
+    uiComponentFacesClass = "javax.faces.component.UIInput",
+    componentFamily = UIInput.COMPONENT_FAMILY,
     rendererType = RendererTypes.HIDDEN,
     allowedChildComponenents = "NONE")
 public interface HiddenTagDeclaration extends HasIdBindingAndRendered, HasValue, HasConverter, HasValidator,

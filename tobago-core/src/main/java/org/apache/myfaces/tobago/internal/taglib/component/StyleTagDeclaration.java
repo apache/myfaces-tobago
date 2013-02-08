@@ -37,6 +37,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRend
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIStyle",
     componentFamily = "org.apache.myfaces.tobago.Style",
+    uiComponentFacesClass = "javax.faces.component.UIComponentBase",
     rendererType = RendererTypes.STYLE,
     isTransparentForLayout = true,
     allowedChildComponenents = "NONE")

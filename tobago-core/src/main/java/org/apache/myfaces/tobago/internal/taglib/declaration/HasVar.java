@@ -31,6 +31,7 @@ public interface HasVar {
    * (i.e. also the current value of the "rowData" property) will be exposed.
    */
   @TagAttribute(required = true)
-  @UIComponentTagAttribute(expression = DynamicExpression.PROHIBITED)
+  @UIComponentTagAttribute(
+      expression = DynamicExpression.PROHIBITED)
   void setVar(String var);
 }

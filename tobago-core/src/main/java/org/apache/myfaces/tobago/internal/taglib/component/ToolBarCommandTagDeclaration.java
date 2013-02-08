@@ -35,6 +35,8 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutComponent;
 
+import javax.faces.component.UICommand;
+
 /**
  * Renders a command button within a toolbar.
  */
@@ -44,6 +46,8 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutCompone
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIToolBarCommand",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIToolBarCommand",
+    uiComponentFacesClass = "javax.faces.component.UICommand",
+    componentFamily = UICommand.COMPONENT_FAMILY,
     rendererType = RendererTypes.BUTTON,
     allowedChildComponenents = "NONE",
     facets = {

@@ -34,6 +34,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UITabGroupLayout",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUITabGroupLayout",
+    uiComponentFacesClass = "javax.faces.component.UIComponentBase",
     rendererType = RendererTypes.TAB_GROUP_LAYOUT,
     componentFamily = "org.apache.myfaces.tobago.TabGroupLayout",
     allowedChildComponenents = "NONE",

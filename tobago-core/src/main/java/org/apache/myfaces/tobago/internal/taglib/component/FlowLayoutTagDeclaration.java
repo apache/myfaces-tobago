@@ -25,6 +25,7 @@ import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.RendererTypes;
+import org.apache.myfaces.tobago.internal.component.AbstractUIFlowLayout;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasBinding;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasId;
@@ -41,8 +42,9 @@ import org.apache.myfaces.tobago.layout.TextAlign;
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIFlowLayout",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIFlowLayout",
+    uiComponentFacesClass = "javax.faces.component.UIComponentBase",
+    componentFamily = AbstractUIFlowLayout.COMPONENT_FAMILY,
     rendererType = RendererTypes.FLOW_LAYOUT,
-    componentFamily = "org.apache.myfaces.tobago.FlowLayout",
     allowedChildComponenents = "NONE", isLayout = true)
 public interface FlowLayoutTagDeclaration
     extends HasId,

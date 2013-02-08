@@ -33,7 +33,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasItemLabel;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabelAndAccessKey;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasOnchange;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasRequiredMessage;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasRequiredMessageForSelect;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTabIndex;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasValidator;
@@ -45,7 +45,9 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsFocus;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutComponent;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsReadonly;
-import org.apache.myfaces.tobago.internal.taglib.declaration.IsRequired;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsRequiredForSelect;
+
+import javax.faces.component.UISelectBoolean;
 
 /**
  * Renders a checkbox.
@@ -55,6 +57,8 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsRequired;
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UISelectBooleanCheckbox",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUISelectBooleanCheckbox",
+    uiComponentFacesClass = "javax.faces.component.UISelectBoolean",
+    componentFamily = UISelectBoolean.COMPONENT_FAMILY,
     rendererType = RendererTypes.SELECT_BOOLEAN_CHECKBOX,
     allowedChildComponenents = "NONE",
     facets = {
@@ -70,7 +74,8 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsRequired;
 
 public interface SelectBooleanCheckboxTagDeclaration extends HasValidator,
     HasOnchange, HasValueChangeListener, HasIdBindingAndRendered, HasLabelAndAccessKey, HasValue, IsDisabled,
-    IsDeprecatedInline, HasTip, IsReadonly, HasMarkup, HasCurrentMarkup, HasTabIndex, IsRequired, HasConverter, IsFocus,
-    HasValidatorMessage, HasRequiredMessage, HasConverterMessage, IsGridLayoutComponent, HasItemLabel {
+    IsDeprecatedInline, HasTip, IsReadonly, HasMarkup, HasCurrentMarkup, HasTabIndex,
+    IsRequiredForSelect, HasConverter, IsFocus,
+    HasValidatorMessage, HasRequiredMessageForSelect, HasConverterMessage, IsGridLayoutComponent, HasItemLabel {
     // IsImmediateComponent
 }

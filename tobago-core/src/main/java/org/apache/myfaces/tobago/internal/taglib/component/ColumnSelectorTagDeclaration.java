@@ -29,6 +29,8 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutContainer;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsRendered;
 
+import javax.faces.component.UIColumn;
+
 /**
  * Renders a column with checkboxes to mark selected rows.
  */
@@ -36,6 +38,8 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsRendered;
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIColumnSelector",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIColumnSelector",
+    uiComponentFacesClass = "javax.faces.component.UIColumn",
+    componentFamily = UIColumn.COMPONENT_FAMILY,
     rendererType = RendererTypes.COLUMN_SELECTOR,
     allowedChildComponenents = "NONE")
 public interface ColumnSelectorTagDeclaration

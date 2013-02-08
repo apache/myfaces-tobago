@@ -25,6 +25,7 @@ import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.RendererTypes;
+import org.apache.myfaces.tobago.internal.component.AbstractUIGridLayout;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasBinding;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasBorder;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasColumnLayout;
@@ -97,8 +98,9 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasSpacing;
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIGridLayout",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIGridLayout",
+    uiComponentFacesClass = "javax.faces.component.UIComponentBase",
+    componentFamily = AbstractUIGridLayout.COMPONENT_FAMILY,
     rendererType = RendererTypes.GRID_LAYOUT,
-    componentFamily = "org.apache.myfaces.tobago.GridLayout",
     allowedChildComponenents = "NONE", isLayout = true)
 public interface GridLayoutTagDeclaration extends HasId, HasBorder, HasSpacing, HasMargin,
     HasMargins, HasColumnLayout, HasRowLayout, HasBinding, HasMarkup, HasCurrentMarkup {

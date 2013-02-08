@@ -34,7 +34,9 @@ public interface HasAction {
    * The string is directly passed to the navigation handler.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = {}, expression = DynamicExpression.METHOD_BINDING,
+  @UIComponentTagAttribute(
+      type = {},
+      expression = DynamicExpression.METHOD_BINDING,
       methodReturnType = "java.lang.Object")
   void setAction(String action);
 

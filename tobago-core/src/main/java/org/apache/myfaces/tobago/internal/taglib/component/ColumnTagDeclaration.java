@@ -33,6 +33,8 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutContainer;
 
+import javax.faces.component.UIColumn;
+
 /**
  * Renders a UIComponent that represents a single column of data within a
  * parent UISheet component.
@@ -41,6 +43,8 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutContain
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIColumn",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIColumn",
+    uiComponentFacesClass = "javax.faces.component.UIColumn",
+    componentFamily = UIColumn.COMPONENT_FAMILY,
     rendererType = RendererTypes.COLUMN,
     facets = {
         @Facet(name = Facets.DROP_DOWN_MENU, description = "Contains a UIMenu instance to render a drop down menu."

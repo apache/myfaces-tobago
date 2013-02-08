@@ -28,6 +28,6 @@ public interface HasRequiredMessage {
    * An expression that specifies the required message
    */
   @TagAttribute
-  @UIComponentTagAttribute()
+  @UIComponentTagAttribute
   void setRequiredMessage(String requiredMessage);
 }

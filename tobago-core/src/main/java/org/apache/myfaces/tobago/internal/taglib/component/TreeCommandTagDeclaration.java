@@ -37,6 +37,8 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutComponent;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsDeprecatedInline;
 
+import javax.faces.component.UICommand;
+
 /**
  * Renders a command inside of a tree.
  */
@@ -47,6 +49,8 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsDeprecatedInline;
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UITreeCommand",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUICommand",
+    uiComponentFacesClass = "javax.faces.component.UICommand",
+    componentFamily = UICommand.COMPONENT_FAMILY,
     allowedChildComponenents = "NONE",
     facets = {
         @Facet(

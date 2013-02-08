@@ -32,6 +32,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsRendered;
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIToolBarSeparator",
     uiComponentBaseClass = "javax.faces.component.UIOutput",
+    uiComponentFacesClass = "javax.faces.component.UIOutput",
     allowedChildComponenents = "NONE")
 
 public interface ToolBarSeparatorTagDeclaration extends IsRendered, HasBinding {

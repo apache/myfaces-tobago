@@ -33,6 +33,8 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutContainer;
 
+import javax.faces.component.UIColumn;
+
 /**
  * Creates a tree node. This component represents a single node inside a tree structure.
  */
@@ -42,6 +44,8 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutContain
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UITreeNode",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUITreeNode",
+    uiComponentFacesClass = "javax.faces.component.UIColumn",
+    componentFamily = UIColumn.COMPONENT_FAMILY,
     rendererType = RendererTypes.TREE_NODE,
     allowedChildComponenents = {
         "org.apache.myfaces.tobago.TreeNode",

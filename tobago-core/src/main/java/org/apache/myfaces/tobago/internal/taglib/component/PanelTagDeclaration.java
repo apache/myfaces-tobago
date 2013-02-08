@@ -31,6 +31,8 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutComponent;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutContainer;
 
+import javax.faces.component.UIPanel;
+
 /**
  * Intended for use in situations when only one UIComponent child can be
  * nested, such as in the case of facets.
@@ -39,6 +41,8 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutContain
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIPanel",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIPanel",
+    uiComponentFacesClass = "javax.faces.component.UIPanel",
+    componentFamily = UIPanel.COMPONENT_FAMILY,
     rendererType = RendererTypes.PANEL,
     interfaces = "org.apache.myfaces.tobago.component.SupportsMarkup",
     facets = {

@@ -35,6 +35,8 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsReadonly;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsRequired;
 
+import javax.faces.component.UIInput;
+
 /**
  * Renders a multi line text input control.
  */
@@ -42,6 +44,8 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsRequired;
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UITextarea",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIInput",
+    uiComponentFacesClass = "javax.faces.component.UIInput",
+    componentFamily = UIInput.COMPONENT_FAMILY,
     rendererType = RendererTypes.TEXTAREA,
     allowedChildComponenents = "NONE")
 public interface TextareaTagDeclaration

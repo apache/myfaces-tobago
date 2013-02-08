@@ -33,6 +33,8 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutComponent;
 
+import javax.faces.component.UIOutput;
+
 /**
  * Renders a progress bar.
  */
@@ -40,6 +42,8 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutCompone
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIProgress",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIOut",
+    uiComponentFacesClass = "javax.faces.component.UIOutput",
+    componentFamily = UIOutput.COMPONENT_FAMILY,
     rendererType = RendererTypes.PROGRESS,
     allowedChildComponenents = "NONE",
     facets = {@Facet(
@@ -55,7 +59,8 @@ public interface ProgressTagDeclaration
    * The current value of this component.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = { "javax.swing.BoundedRangeModel" },
+  @UIComponentTagAttribute(
+      type = { "javax.swing.BoundedRangeModel" },
       expression = DynamicExpression.VALUE_BINDING_REQUIRED)
   void setValue(String value);
 }

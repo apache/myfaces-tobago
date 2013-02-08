@@ -38,6 +38,8 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsInline;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsReadonly;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsRendered;
 
+import javax.faces.component.UISelectOne;
+
 /**
  * Render a set of radio buttons.
  */
@@ -46,6 +48,8 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsRendered;
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UISelectOneRadio",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUISelectOneRadio",
+    uiComponentFacesClass = "javax.faces.component.UISelectOne",
+    componentFamily = UISelectOne.COMPONENT_FAMILY,
     rendererType = RendererTypes.SELECT_ONE_RADIO,
     allowedChildComponenents = {
         "javax.faces.SelectItem",

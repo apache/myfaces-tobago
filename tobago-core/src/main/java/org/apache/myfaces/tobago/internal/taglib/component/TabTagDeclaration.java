@@ -28,16 +28,23 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabelAndAccessKe
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutComponent;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutContainer;
+
+import javax.faces.component.UIPanel;
 
 /**
- * Renders a tab within a tabgroup.
+ * Renders a tab within a tab group.
  */
 @Tag(name = "tab")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UITab",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.component.UIPanel",
+    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIPanel",
+    uiComponentFacesClass = "javax.faces.component.UIPanel",
     interfaces = "javax.faces.component.NamingContainer",
+    componentFamily = UIPanel.COMPONENT_FAMILY,
     rendererType = RendererTypes.TAB)
 public interface TabTagDeclaration
-    extends HasIdBindingAndRendered, HasLabelAndAccessKey, HasTip, HasMarkup, HasCurrentMarkup, IsDisabled {
+    extends HasIdBindingAndRendered, IsGridLayoutContainer, IsGridLayoutComponent,
+    HasLabelAndAccessKey, HasTip, HasMarkup, HasCurrentMarkup, IsDisabled {
 }

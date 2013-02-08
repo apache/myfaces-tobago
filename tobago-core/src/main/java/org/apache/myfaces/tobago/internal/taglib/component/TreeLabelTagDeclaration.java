@@ -30,6 +30,8 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutComponent;
 
+import javax.faces.component.UIOutput;
+
 /**
  * Renders a label inside of a tree.
  */
@@ -37,6 +39,8 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutCompone
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UITreeLabel",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUILabel",
+    uiComponentFacesClass = "javax.faces.component.UIOutput",
+    componentFamily = UIOutput.COMPONENT_FAMILY,
     rendererType = RendererTypes.TREE_LABEL,
     allowedChildComponenents = "NONE"
 )

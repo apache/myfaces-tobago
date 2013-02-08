@@ -36,6 +36,8 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsReadonly;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsRendered;
 
+import javax.faces.component.UISelectOne;
+
 /**
  * Render a single selection option listbox.
  */
@@ -44,6 +46,8 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsRendered;
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UISelectOneListbox",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUISelectOneListbox",
+    uiComponentFacesClass = "javax.faces.component.UISelectOne",
+    componentFamily = UISelectOne.COMPONENT_FAMILY,
     rendererType = RendererTypes.SELECT_ONE_LISTBOX,
     allowedChildComponenents = {
         "javax.faces.SelectItem",

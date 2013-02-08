@@ -28,9 +28,13 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutComponent;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutContainer;
 
+import javax.faces.component.UIPanel;
+
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIExtensionPanel",
     uiComponentBaseClass = "org.apache.myfaces.tobago.component.UIPanel",
+    uiComponentFacesClass = "javax.faces.component.UIPanel",
+    componentFamily = UIPanel.COMPONENT_FAMILY,
     rendererType = RendererTypes.PANEL)
 public interface ExtensionPanelDeclaration extends HasIdBindingAndRendered, IsGridLayoutComponent,
         IsGridLayoutContainer, HasMarkup, HasCurrentMarkup, HasTip {

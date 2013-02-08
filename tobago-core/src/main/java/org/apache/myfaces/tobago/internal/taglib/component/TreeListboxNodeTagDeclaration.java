@@ -22,12 +22,16 @@ package org.apache.myfaces.tobago.internal.taglib.component;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.component.RendererTypes;
 
+import javax.faces.component.UIColumn;
+
 /**
  * Render a node for a tree as listbox.
  */
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UITreeNode",
     generate = false,
+    uiComponentFacesClass = "javax.faces.component.UIColumn",
+    componentFamily = UIColumn.COMPONENT_FAMILY,
     rendererType = RendererTypes.TREE_LISTBOX_NODE)
 public interface TreeListboxNodeTagDeclaration extends TreeNodeTagDeclaration {
 }

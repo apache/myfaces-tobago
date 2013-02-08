@@ -27,6 +27,8 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.component.AbstractUIToolBar;
 
+import javax.faces.component.UIPanel;
+
 /*
  * Date: 11.02.2006
  * Time: 14:07:05
@@ -63,6 +65,8 @@ import org.apache.myfaces.tobago.internal.component.AbstractUIToolBar;
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIToolBar",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIToolBar",
+    uiComponentFacesClass = "javax.faces.component.UIPanel",
+    componentFamily = UIPanel.COMPONENT_FAMILY,
     rendererType = RendererTypes.TOOL_BAR,
     allowedChildComponenents = {
         "org.apache.myfaces.tobago.SelectOneCommand",

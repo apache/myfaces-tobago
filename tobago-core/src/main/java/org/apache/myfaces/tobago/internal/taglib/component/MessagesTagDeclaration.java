@@ -32,6 +32,8 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRend
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutComponent;
 
+import javax.faces.component.UIMessages;
+
 /*
  * Date: 02.04.2006
  * Time: 15:53:45
@@ -44,6 +46,8 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutCompone
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIMessages",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIMessages",
+    uiComponentFacesClass = "javax.faces.component.UIMessages",
+    componentFamily = UIMessages.COMPONENT_FAMILY,
     rendererType = RendererTypes.MESSAGES,
     allowedChildComponenents = "NONE")
 

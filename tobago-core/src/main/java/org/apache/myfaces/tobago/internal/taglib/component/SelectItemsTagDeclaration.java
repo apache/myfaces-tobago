@@ -37,6 +37,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasId;
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UISelectItems",
     uiComponentBaseClass = "javax.faces.component.UISelectItems",
+    uiComponentFacesClass = "javax.faces.component.UISelectItems",
     isComponentAlreadyDefined = false,
     allowedChildComponenents = "NONE")
 public interface SelectItemsTagDeclaration extends HasId, HasBinding {
@@ -46,7 +47,8 @@ public interface SelectItemsTagDeclaration extends HasId, HasBinding {
    * the information for this option.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = "javax.faces.model.SelectItem[]",
+  @UIComponentTagAttribute(
+      type = "javax.faces.model.SelectItem[]",
       expression = DynamicExpression.VALUE_BINDING_REQUIRED)
   void setValue(String value);
 

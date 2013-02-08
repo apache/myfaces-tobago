@@ -43,6 +43,8 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutCompone
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsReadonly;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsRequired;
 
+import javax.faces.component.UIInput;
+
 /**
  * Renders a file input field.
  * You need to define an org.apache.myfaces.tobago.webapp.TobagoMultipartFormdataFilter in your web.xml or
@@ -56,6 +58,8 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsRequired;
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIFile",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIFile",
+    uiComponentFacesClass = "javax.faces.component.UIInput",
+    componentFamily = UIInput.COMPONENT_FAMILY,
     rendererType = RendererTypes.FILE,
     allowedChildComponenents = "NONE")
 public interface FileTagDeclaration
@@ -69,7 +73,8 @@ public interface FileTagDeclaration
    * uploaded file.
    */
   @TagAttribute()
-  @UIComponentTagAttribute(type = { "org.apache.commons.fileupload.FileItem" },
+  @UIComponentTagAttribute(
+      type = { "org.apache.commons.fileupload.FileItem" },
       expression = DynamicExpression.VALUE_BINDING_REQUIRED)
   void setValue(String value);
 }

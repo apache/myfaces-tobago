@@ -30,13 +30,15 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabel;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasRequiredMessage;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasRequiredMessageForSelect;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasValidatorMessage;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasValue;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasValueChangeListener;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
-import org.apache.myfaces.tobago.internal.taglib.declaration.IsRequired;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsRequiredForSelect;
+
+import javax.faces.component.UISelectBoolean;
 
 /**
  * Makes a tree node selectable.
@@ -45,11 +47,14 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsRequired;
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UITreeSelect",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUITreeSelect",
+    uiComponentFacesClass = "javax.faces.component.UISelectBoolean",
+    componentFamily = UISelectBoolean.COMPONENT_FAMILY,
     rendererType = RendererTypes.TREE_SELECT,
     allowedChildComponenents = "NONE")
 public interface TreeSelectTagDeclaration
     extends HasIdBindingAndRendered, HasLabel, HasTip, HasMarkup, HasCurrentMarkup, HasValue, HasValueChangeListener,
-        IsDisabled, IsRequired, HasConverter, HasValidatorMessage, HasRequiredMessage, HasConverterMessage {
+        IsDisabled, IsRequiredForSelect, HasConverter,
+        HasValidatorMessage, HasRequiredMessageForSelect, HasConverterMessage {
 
   /**
    * Show a checkbox to visualize the selection state.

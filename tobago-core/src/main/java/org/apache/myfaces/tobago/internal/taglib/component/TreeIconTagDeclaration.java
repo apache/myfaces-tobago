@@ -31,6 +31,8 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutComponent;
 
+import javax.faces.component.UIGraphic;
+
 /**
  * Renders an image beside a tree node.
  */
@@ -38,6 +40,8 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutCompone
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UITreeIcon",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIImage",
+    uiComponentFacesClass = "javax.faces.component.UIGraphic",
+    componentFamily = UIGraphic.COMPONENT_FAMILY,
     rendererType = RendererTypes.TREE_ICON,
     allowedChildComponenents = "NONE")
 public interface TreeIconTagDeclaration

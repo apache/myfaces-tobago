@@ -29,6 +29,6 @@ public interface HasConverterMessage {
    * An expression that specifies the converter message
    */
   @TagAttribute
-  @UIComponentTagAttribute()
+  @UIComponentTagAttribute
   void setConverterMessage(String converterMessage);
 }

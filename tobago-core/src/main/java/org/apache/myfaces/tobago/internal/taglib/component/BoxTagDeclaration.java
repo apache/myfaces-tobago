@@ -33,6 +33,8 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsCollapsible;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutComponent;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutContainer;
 
+import javax.faces.component.UIPanel;
+
 /**
  * Renders a panel with border and title.
  */
@@ -40,6 +42,8 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutContain
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIBox",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIBox",
+    uiComponentFacesClass = "javax.faces.component.UIPanel",
+    componentFamily = UIPanel.COMPONENT_FAMILY,
     rendererType = RendererTypes.BOX,
     facets = {
         @Facet(name = Facets.TOOL_BAR, description = "Contains an instance of UIToolBar",

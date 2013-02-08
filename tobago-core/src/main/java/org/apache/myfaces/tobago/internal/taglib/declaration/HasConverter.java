@@ -34,7 +34,8 @@ public interface HasConverter {
    * or an EL expression.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = "javax.faces.convert.Converter",
+  @UIComponentTagAttribute(
+      type = "javax.faces.convert.Converter",
       expression = DynamicExpression.VALUE_BINDING)
   void setConverter(String converter);
 }
