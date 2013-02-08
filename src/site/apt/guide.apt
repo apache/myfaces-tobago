@@ -107,7 +107,7 @@ mvn install -Pall-modules
   you are targeting doesn't contain one.
 
   If you cannot use Java 5 or higher you can use retrotranslated JARs from the Tobago distribution to develop and
-  run Tobago applications with Java\ 1.4.
+  run Tobago applications with Java\ 1.4 (only Tobago 1.0.x).
 
   A Tobago application is a web application which is packaged as a WAR. For a JSF application the <<<FacesServlet>>> needs
   to be configured in the <<</WEB-INF/web.xml>>>. To serve the internal resources of Tobago directly from the Tobago

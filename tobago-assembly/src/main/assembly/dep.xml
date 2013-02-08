@@ -74,13 +74,6 @@
       </includes>
     </fileSet>
     <fileSet>
-      <directory>target/jdk14retro</directory>
-      <outputDirectory>jdk14retro</outputDirectory>
-      <includes>
-        <include>*.jar</include>
-      </includes>
-    </fileSet>
-    <fileSet>
       <directory>target/sandbox</directory>
       <outputDirectory>sandbox</outputDirectory>
       <includes>

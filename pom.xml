@@ -534,12 +534,6 @@
         <scope>provided</scope>
       </dependency>
       <dependency>
-        <groupId>net.sf.retrotranslator</groupId>
-        <artifactId>retrotranslator-runtime</artifactId>
-        <optional>true</optional>
-        <version>1.2.1</version>
-      </dependency>
-      <dependency>
         <groupId>maven-taglib</groupId>
         <artifactId>maven-taglib-plugin</artifactId>
         <version>1.4.2</version>
@@ -815,11 +809,6 @@
           <version>1.0.3</version>
         </plugin>
         <plugin>
-          <groupId>org.codehaus.mojo</groupId>
-          <artifactId>retrotranslator-maven-plugin</artifactId>
-          <version>1.0-alpha-2</version>
-        </plugin>
-        <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-compiler-plugin</artifactId>
           <version>2.4</version>
@@ -1035,9 +1024,6 @@
         <module>tobago-example</module>
         <module>tobago-assembly</module>
       </modules>
-    </profile>
-    <profile>
-      <id>jdk14retro</id>
     </profile>
     <profile>
       <id>apache-release</id>

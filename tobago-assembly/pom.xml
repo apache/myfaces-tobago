@@ -114,13 +114,6 @@
       <artifactId>servlet-api</artifactId>
       <scope>provided</scope>
     </dependency>
-
-    <dependency>
-      <groupId>net.sf.retrotranslator</groupId>
-      <artifactId>retrotranslator-runtime</artifactId>
-      <scope>provided</scope>
-    </dependency>
-
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>jcl-over-slf4j</artifactId>
@@ -130,80 +123,6 @@
   </dependencies>
 
   <profiles>
-    <profile>
-      <id>jdk14retro</id>
-      <build>
-        <plugins>
-          <plugin>
-           <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-dependency-plugin</artifactId>
-            <executions>
-              <execution>
-                <id>copy-jdk14retro</id>
-                <phase>generate-resources</phase>
-                <goals>
-                  <goal>copy</goal>
-                </goals>
-                <configuration>
-                  <artifactItems>
-                    <artifactItem>
-                      <groupId>${project.groupId}</groupId>
-                      <artifactId>tobago-core</artifactId>
-                      <version>${project.version}</version>
-                      <classifier>jdk14retro</classifier>
-                    </artifactItem>
-                    <artifactItem>
-                      <groupId>${project.groupId}</groupId>
-                      <artifactId>tobago-jsf-compat</artifactId>
-                      <version>${project.version}</version>
-                      <classifier>jdk14retro</classifier>
-                    </artifactItem>
-                    <artifactItem>
-                      <groupId>${project.groupId}</groupId>
-                      <artifactId>tobago-theme-standard</artifactId>
-                      <version>${project.version}</version>
-                      <classifier>jdk14retro</classifier>
-                    </artifactItem>
-                    <artifactItem>
-                      <groupId>${project.groupId}</groupId>
-                      <artifactId>tobago-theme-speyside</artifactId>
-                      <version>${project.version}</version>
-                      <classifier>jdk14retro</classifier>
-                    </artifactItem>
-                    <artifactItem>
-                      <groupId>${project.groupId}</groupId>
-                      <artifactId>tobago-theme-scarborough</artifactId>
-                      <version>${project.version}</version>
-                      <classifier>jdk14retro</classifier>
-                    </artifactItem>
-                    <artifactItem>
-                      <groupId>${project.groupId}</groupId>
-                      <artifactId>tobago-taglib-extension</artifactId>
-                      <version>${project.version}</version>
-                      <classifier>jdk14retro</classifier>
-                    </artifactItem>
-                    <artifactItem>
-                      <groupId>${project.groupId}</groupId>
-                      <artifactId>tobago-fileupload</artifactId>
-                      <version>${project.version}</version>
-                      <classifier>jdk14retro</classifier>
-                    </artifactItem>
-                    <artifactItem>
-                      <groupId>${project.groupId}</groupId>
-                      <artifactId>tobago-message-fix</artifactId>
-                      <version>${project.version}</version>
-                      <classifier>jdk14retro</classifier>
-                    </artifactItem>
-                  </artifactItems>
-                  <outputDirectory>${project.build.directory}/jdk14retro
-                  </outputDirectory>
-                </configuration>
-              </execution>
-            </executions>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
     <profile>
       <id>generate-assembly</id>
       <build>

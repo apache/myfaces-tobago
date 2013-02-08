@@ -97,6 +97,8 @@ public final class XmlUtils {
     }
   }
 
+  /** @deprecated */
+  @Deprecated
   public static void load(final Properties properties, final InputStream stream)
       throws IOException {
     Document document;

@@ -26,7 +26,6 @@ import org.apache.myfaces.tobago.internal.config.ThemeParser;
 import org.apache.myfaces.tobago.internal.config.TobagoConfigFragment;
 import org.apache.myfaces.tobago.internal.config.TobagoConfigParser;
 import org.apache.myfaces.tobago.internal.util.Deprecation;
-import org.apache.myfaces.tobago.util.XmlUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.SAXException;
@@ -401,8 +400,7 @@ class ResourceLocator {
     Properties temp = new Properties();
     try {
       if (xml) {
-        // temp.loadFromXML(stream); XXX avoid to be able to retrotranslate it
-        XmlUtils.load(temp, stream);
+        temp.loadFromXML(stream);
         if (LOG.isDebugEnabled()) {
           LOG.debug(childPath);
           LOG.debug("xml properties: {}", temp.size());

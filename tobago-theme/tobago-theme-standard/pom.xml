@@ -186,38 +186,4 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
-  <profiles>
-    <profile>
-      <id>jdk14retro</id>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.codehaus.mojo</groupId>
-            <artifactId>retrotranslator-maven-plugin</artifactId>
-            <executions>
-              <execution>
-                <goals>
-                  <goal>translate-project</goal>
-                </goals>
-                <configuration>
-                  <classifier>jdk14retro</classifier>
-                  <attach>true</attach>
-                  <verify>true</verify>
-                  <verifyClasspath>
-                    <element>${java14.home}/${java.classes.jar}</element>
-                  </verifyClasspath>
-                </configuration>
-              </execution>
-            </executions>
-          </plugin>
-        </plugins>
-      </build>
-      <dependencies>
-        <dependency>
-          <groupId>net.sf.retrotranslator</groupId>
-          <artifactId>retrotranslator-runtime</artifactId>
-        </dependency>
-      </dependencies>
-    </profile>
-  </profiles>
 </project>

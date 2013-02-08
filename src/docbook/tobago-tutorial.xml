@@ -80,7 +80,7 @@
 
     <para>For building the blank example Java 5 and Maven 2 (at least 2.0.6)
     are needed. Running Tobago applications in a Java 1.4 environment is
-    supported, too. The Tobago distribution contains bytecode transformed
+    supported, too (Tobago 1.0.x). The Tobago distribution contains bytecode transformed
     jars, which were generated with Retrotranslator.</para>
 
     <para>A Tobago application is a standard web application and needs a web
