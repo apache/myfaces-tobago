@@ -82,9 +82,7 @@ public class TagInfo extends RendererInfo {
   }
 
   public void setComponentType(String componentType) {
-    if (componentType != null && componentType.length() > 0) {
-      this.componentType = componentType;
-    }
+    this.componentType = componentType;
   }
 
   public String getComponentFamily() {
@@ -92,8 +90,6 @@ public class TagInfo extends RendererInfo {
   }
 
   public void setComponentFamily(String componentFamily) {
-    if (componentFamily != null && componentFamily.length() > 0) {
-      this.componentFamily = componentFamily;
-    }
+    this.componentFamily = componentFamily;
   }
 }

@@ -50,7 +50,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * @deprecated please use {@link ComponentUtils}
+ * @deprecated Since Tobago 1.5 please use {@link ComponentUtils}
  */
 @Deprecated
 public class ComponentUtil {
@@ -368,7 +368,7 @@ public class ComponentUtil {
     ComponentUtils.setAction(component, action);
   }
 
-  public static void setSuggestMethodBinding(UIInput component, String suggestMethod) {
+  public static void setSuggestMethodBinding(UIIn component, String suggestMethod) {
     if (suggestMethod != null) {
       if (UIComponentTag.isValueReference(suggestMethod)) {
         final MethodBinding methodBinding = FacesContext.getCurrentInstance().getApplication()
@@ -387,21 +387,6 @@ public class ComponentUtil {
 
   public static void setValueChangeListener(EditableValueHolder valueHolder, String valueChangeListener) {
     ComponentUtils.setValueChangeListener(valueHolder, valueChangeListener);
-  }
-
-  public static void setSortActionListener(UIData data, String actionListener) {
-    final FacesContext facesContext = FacesContext.getCurrentInstance();
-    final Application application = facesContext.getApplication();
-    if (actionListener != null) {
-      if (UIComponentTag.isValueReference(actionListener)) {
-        MethodBinding binding = application.createMethodBinding(
-            actionListener, ACTION_LISTENER_ARGS);
-        data.setSortActionListener(binding);
-      } else {
-        throw new IllegalArgumentException(
-            "Must be a valueReference (sortActionListener): " + actionListener);
-      }
-    }
   }
 
   public static void setValueBinding(UIComponent component, String name, String state) {

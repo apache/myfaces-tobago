@@ -19,6 +19,9 @@
 
 package org.apache.myfaces.tobago.apt.generate;
 
+import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
+
+import javax.lang.model.element.TypeElement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,6 +35,20 @@ public class ComponentInfo extends TagInfo {
   private int index = 0;
   private int nonTransientIndex = 0;
 
+  public ComponentInfo(TypeElement declaration, UIComponentTag componentTag) {
+    super(declaration.getQualifiedName().toString(), componentTag.uiComponent(), componentTag.rendererType());
+
+    if (componentTag.componentType().length() > 0) {
+      setComponentType(componentTag.componentType());
+    } else {
+      setComponentType(componentTag.uiComponent().replace(".component.UI", "."));
+    }
+    setComponentFamily(componentTag.componentFamily());
+
+    setComponentClassName(componentTag.uiComponent());
+  }
+
+  @Deprecated
   public ComponentInfo(String sourceClass, String qualifiedName, String rendererType) {
     super(sourceClass, qualifiedName, rendererType);
   }

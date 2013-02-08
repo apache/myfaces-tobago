@@ -52,6 +52,8 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase implemen
 
   private static final Logger LOG = LoggerFactory.getLogger(AbstractUIGridLayout.class);
 
+  public static final String COMPONENT_FAMILY = "org.apache.myfaces.tobago.GridLayout";
+
   private Grid grid;
 
   /**

@@ -207,6 +207,24 @@ if (<it.propertyName> != null) {
 }
 >>
 
+int() ::= <<
+if (<it.propertyName> != null) {
+  if (!<it.propertyName>.isLiteralText()) {
+    <createValueBinding(it)>
+  } else {
+    <if(it.widthOrHeight)>
+    String <it.propertyName>Str = <it.propertyName>.getExpressionString();
+    if (<it.propertyName>Str.endsWith("px")) {
+      <it.propertyName>Str = <it.propertyName>Str.substring(0, <it.propertyName>Str.length() - 2);
+    }
+    component.set<it.upperCamelCaseName>(Integer.parseInt(<it.propertyName>Str));
+    <else>
+    component.set<it.upperCamelCaseName>(Integer.parseInt(<it.propertyName>.getExpressionString()));
+    <endif>
+  }
+}
+>>
+
 Integer() ::= <<
 if (<it.propertyName> != null) {
   if (!<it.propertyName>.isLiteralText()) {

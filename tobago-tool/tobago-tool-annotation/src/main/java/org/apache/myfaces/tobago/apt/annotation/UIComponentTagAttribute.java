@@ -66,4 +66,5 @@ public @interface UIComponentTagAttribute {
 
   boolean isTransient() default false;
 
+  boolean generate() default true;
 }

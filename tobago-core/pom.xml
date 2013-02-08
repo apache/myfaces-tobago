@@ -35,162 +35,85 @@
         <executions>
           <execution>
             <id>add-source</id>
-            <phase>process-resources</phase>
+            <phase>generate-sources</phase>
             <goals>
               <goal>add-source</goal>
             </goals>
             <configuration>
               <sources>
-                <source>${project.build.directory}/generated-component</source>
+                <source>${project.build.directory}/generated</source>
               </sources>
             </configuration>
           </execution>
         </executions>
       </plugin>
       <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>apt-maven-plugin</artifactId>
+        <groupId>org.bsc.maven</groupId>
+        <artifactId>maven-processor-plugin</artifactId>
+        <version>2.1.0</version>
         <executions>
           <execution>
-            <id>tobago-tlds</id>
-            <goals><goal>process</goal></goals>
-            <phase>compile</phase>
+            <id>process</id>
+            <goals>
+              <goal>process</goal>
+            </goals>
+            <phase>generate-sources</phase>
             <configuration>
-              <outputFiles>
-                <outputFile>org/apache/myfaces/tobago/internal/taglib/component/tobago.tld</outputFile>
-<!--
-                <outputFile>org/apache/myfaces/tobago/internal/taglib/extension/tobago-extension.tld</outputFile>
--->
-              </outputFiles>
-              <resourceTargetPath>META-INF</resourceTargetPath>
-              <sourceOutputDirectory>${project.build.directory}/generated-tld</sourceOutputDirectory>
-              <factory>org.apache.myfaces.tobago.apt.TaglibAnnotationProcessorFactory</factory>
-              <nocompile>true</nocompile>
-              <encoding>${maven.compile.encoding}</encoding>
-              <options>
-                <option>jsf-version=${jsf.target}</option>
-              </options>
+              <!-- source output directory -->
+              <outputDirectory>${project.build.directory}/generated</outputDirectory>
+              <processors>
+                <processor>org.apache.myfaces.tobago.apt.processor.ClassesGenerator</processor>
+                <processor>org.apache.myfaces.tobago.apt.processor.TldGenerator</processor>
+                <processor>org.apache.myfaces.tobago.apt.processor.FacesConfigGenerator</processor>
+                <processor>org.apache.myfaces.tobago.apt.processor.ReferenceGenerator</processor>
+              </processors>
+              <optionMap>
+                <sourceFacesConfig>${basedir}/src/main/faces-config/faces-config.xml</sourceFacesConfig>
+                <targetFacesConfig>META-INF/faces-config.xml</targetFacesConfig>
+                <targetTld>META-INF</targetTld>
+                <targetReference>META-INF</targetReference>
+                <jsfVersion>${jsf.target}</jsfVersion>
+              </optionMap>
             </configuration>
           </execution>
-          <execution>
-            <id>tobago-components</id>
-            <goals><goal>process</goal></goals>
-            <phase>compile</phase>
-            <configuration>
-              <excludes>
-                <exclude>org/apache/myfaces/tobago/util/CommonsLoggingLogger.java</exclude>
-                <exclude>org/apache/myfaces/tobago/application/FopConverter.java</exclude>
-                <exclude>org/apache/myfaces/tobago/internal/taglib/extension/*</exclude>
-                <exclude>org/apache/myfaces/tobago/internal/taglib/component/package-info.java</exclude>
-              </excludes>
-              <resourceTargetPath>META-INF</resourceTargetPath>
-              <sourceOutputDirectory>${project.build.directory}/generated-component</sourceOutputDirectory>
-              <factory>org.apache.myfaces.tobago.apt.CreateComponentAnnotationProcessorFactory</factory>
-              <fork>true</fork>
-              <nocompile>true</nocompile>
-              <encoding>${maven.compile.encoding}</encoding>
-              <options>
-                <option>jsf-version=${jsf.target}</option>
-              </options>
-              <force>true</force>
-            </configuration>
-          </execution>
-          <execution>
-            <id>tobago-faces-config</id>
-            <goals><goal>process</goal></goals>
-            <phase>process-classes</phase>
-            <configuration>
-              <outputFiles>
-                <outputFile>${project.build.directory}/generated-faces-config/faces-config.xml</outputFile>
-              </outputFiles>
-              <excludes>
-                <exclude>org/apache/myfaces/tobago/util/CommonsLoggingLogger.java</exclude>
-                <exclude>org/apache/myfaces/tobago/application/FopConverter.java</exclude>
-                <exclude>org/apache/myfaces/tobago/internal/taglib/*</exclude>
-                <exclude>org/apache/myfaces/tobago/internal/taglib/component/package-info.java</exclude>
-                <exclude>org/apache/myfaces/tobago/internal/taglib/extension/package-info.java</exclude>
-                <exclude>org/apache/myfaces/tobago/component/*</exclude>
-              </excludes>
-              <resourceTargetPath>META-INF</resourceTargetPath>
-              <sourceOutputDirectory>${project.build.directory}/generated-faces-config</sourceOutputDirectory>
-              <factory>org.apache.myfaces.tobago.apt.FacesConfigAnnotationProcessorFactory</factory>
-              <fork>true</fork>
-              <nocompile>true</nocompile>
-              <encoding>${maven.compile.encoding}</encoding>
-              <options>
-                <option>sourceFacesConfig=${basedir}/src/main/faces-config/faces-config.xml</option>
-                <option>targetFacesConfig=faces-config.xml</option>
-                <option>jsf-version=${jsf.target}</option>
-              </options>
-            </configuration>
-          </execution>
-
         </executions>
+        <dependencies>
+          <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-jdk14</artifactId>
+            <version>${slf4j.version}</version>
+          </dependency>
+        </dependencies>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
         <configuration>
+          <compilerArgument>-proc:none</compilerArgument>
           <source>${maven.compile.source}</source>
           <target>${maven.compile.target}</target>
           <encoding>${maven.compile.encoding}</encoding>
           <showWarnings>true</showWarnings>
           <!-- <compilerArgument>-Xlint:all,-serial,-fallthrough</compilerArgument>-->
-          <excludes>
-            <exclude>org/apache/myfaces/tobago/tablib/extension/*</exclude>
-            <exclude>org/apache/myfaces/tobago/component/UIDatePicker*</exclude>
-          </excludes>
         </configuration>
-        <executions>
-          <execution>
-            <id>compile</id>
-            <goals><goal>compile</goal></goals>
-            <configuration>
-              <source>${maven.compile.source}</source>
-              <target>${maven.compile.target}</target>
-              <encoding>${maven.compile.encoding}</encoding>
-              <showWarnings>true</showWarnings>
-              <!-- <compilerArgument>-Xlint:all,-serial,-fallthrough</compilerArgument>-->              
-              <includes>
-                <include>org/apache/myfaces/tobago/renderkit/*</include>
-                <include>org/apache/myfaces/tobago/internal/taglib/*</include>
-                <include>org/apache/myfaces/tobago/component/*</include>
-                <include>org/apache/myfaces/tobago/component/UIDatePicker*</include>
-              </includes>
-              <excludes>
-                <exclude>test</exclude>
-              </excludes>
-            </configuration>
-          </execution>
-        </executions>
       </plugin>
       <plugin>
         <artifactId>maven-resources-plugin</artifactId>
         <executions>
           <execution>
-            <id>copy-faces-config</id>
+            <id>copy-resources</id>
             <goals><goal>copy-resources</goal></goals>
             <phase>process-classes</phase>
             <configuration>
               <outputDirectory>${project.build.outputDirectory}</outputDirectory>
               <resources>
                 <resource>
-                  <targetPath>META-INF</targetPath>
-                  <directory>${project.build.directory}/generated-faces-config</directory>
-                </resource>
-              </resources>
-            </configuration>
-          </execution>
-          <execution>
-            <id>copy-tld</id>
-            <goals><goal>copy-resources</goal></goals>
-            <phase>process-classes</phase>
-            <configuration>
-              <outputDirectory>${project.build.outputDirectory}</outputDirectory>
-              <resources>
-                <resource>
-                  <targetPath>META-INF</targetPath>
-                  <directory>${project.build.directory}/generated-tld</directory>
+                  <directory>${project.build.directory}/generated</directory>
+                  <includes>
+                    <include>**/*.tld</include>
+                    <include>**/tobago.xml</include>
+                    <include>META-INF/faces-config.xml</include>
+                  </includes>
                 </resource>
               </resources>
             </configuration>
@@ -215,10 +138,6 @@
           </execution>
         </executions>
         <configuration>
-          <excludes>
-            <exclude>org/apache/myfaces/tobago/internal/taglib/component/*Declaration.class</exclude>
-            <!--exclude>org/apache/myfaces/tobago/internal/taglib/declaration/*.class</exclude-->
-          </excludes>
           <archive>
             <manifest>
               <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
@@ -258,7 +177,7 @@
         <groupId>net.sourceforge.maven-taglib</groupId>
         <artifactId>maven-taglib-plugin</artifactId>
         <configuration>
-          <taglib.src.dir>${project.build.directory}/generated-tld</taglib.src.dir>
+          <taglib.src.dir>${project.build.directory}/generated</taglib.src.dir>
           <tldDocDir>${project.build.directory}/site/tlddoc</tldDocDir>
           <parseHtml>true</parseHtml>
         </configuration>
@@ -268,12 +187,6 @@
   </reporting>
 
   <dependencies>
-    <!--dependency>
-      <groupId>org.apache.myfaces.core</groupId>
-      <artifactId>myfaces-impl</artifactId>
-      <optional>true</optional>
-    </dependency-->
-
     <dependency>
       <groupId>org.apache.myfaces.tobago</groupId>
       <artifactId>tobago-jsf-compat</artifactId>
@@ -385,32 +298,6 @@
       </dependencies>
     </profile>
     <profile>
-      <id>generate-tag-reference</id>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.codehaus.mojo</groupId>
-            <artifactId>apt-maven-plugin</artifactId>
-            <executions>
-              <execution>
-                <id>tobago-doc</id>
-                <goals><goal>process</goal></goals>
-                <configuration>
-                  <outputFiles>
-                    <outputFile>org/apache/myfaces/tobago/internal/taglib/component/tobago.xml</outputFile>
-                    <outputFile>org/apache/myfaces/tobago/internal/taglib/extension/tobago-extension.xml</outputFile>
-                  </outputFiles>
-                  <sourceOutputDirectory>${project.build.directory}/doc</sourceOutputDirectory>
-                  <factory>org.apache.myfaces.tobago.apt.TobagoAnnotationProcessorFactory</factory>
-                  <encoding>${maven.compile.encoding}</encoding>
-                </configuration>
-              </execution>
-            </executions>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
-    <profile>
       <id>apache-release</id>
       <build>
         <plugins>
@@ -418,7 +305,7 @@
             <groupId>net.sourceforge.maven-taglib</groupId>
             <artifactId>maven-taglib-plugin</artifactId>
             <configuration>
-              <taglib.src.dir>${project.build.directory}/generated-tld</taglib.src.dir>
+              <taglib.src.dir>${project.build.directory}/generated</taglib.src.dir>
               <tldDocDir>${project.build.directory}/tlddoc</tldDocDir>
             </configuration>
             <executions>
@@ -440,7 +327,7 @@
             <groupId>net.sourceforge.maven-taglib</groupId>
             <artifactId>maven-taglib-plugin</artifactId>
             <configuration>
-              <taglib.src.dir>${project.build.directory}/generated-tld</taglib.src.dir>
+              <taglib.src.dir>${project.build.directory}/generated</taglib.src.dir>
               <tldDocDir>${project.build.directory}/tlddoc</tldDocDir>
             </configuration>
             <executions>

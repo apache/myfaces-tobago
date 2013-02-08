@@ -17,35 +17,11 @@
  * under the License.
  */
 
-package org.apache.myfaces.tobago.internal.component;
+package org.apache.myfaces.tobago.component;
 
-/**
- * @deprecated The Cell is deprecated since Tobago 1.5.0
- */
-@Deprecated
-public abstract class AbstractUICell extends AbstractUIPanel {
+public class UINamingContainer
+    extends javax.faces.component.UINamingContainer {
 
-  public abstract Integer getColumnSpan();
+  public static final String COMPONENT_TYPE = "javax.faces.NamingContainer";
 
-  public abstract void setColumnSpan(Integer columnSpan);
-
-  public abstract Integer getRowSpan();
-
-  public abstract void setRowSpan(Integer rowSpan);
-
-  public Integer getSpanX() {
-    return getColumnSpan();
-  }
-
-  public void setSpanX(Integer spanX) {
-    setColumnSpan(spanX);
-  }
-
-  public Integer getSpanY() {
-    return getRowSpan();
-  }
-
-  public void setSpanY(Integer spanY) {
-    setRowSpan(spanY);
-  }
 }

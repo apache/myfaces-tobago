@@ -38,6 +38,8 @@ public abstract class AbstractUITreeData extends javax.faces.component.UIInput
 
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.TreeData";
 
+  private String var;
+
   /**
    * Patch for backward compatibility.
    */
@@ -62,7 +64,26 @@ public abstract class AbstractUITreeData extends javax.faces.component.UIInput
     }
   }
 
-  public abstract String getVar();
+  public String getVar() {
+    return var;
+  }
+
+  public void setVar(String var) {
+    this.var = var;
+  }
+
+  public void restoreState(FacesContext context, Object componentState) {
+    Object[] values = (Object[]) componentState;
+    super.restoreState(context, values[0]);
+    var = (String) values[1];
+  }
+
+  public Object saveState(FacesContext context) {
+    Object[] values = new Object[2];
+    values[0] = super.saveState(context);
+    values[1] = var;
+    return values;
+  }
 
   /**
    * @deprecated since 1.6.0

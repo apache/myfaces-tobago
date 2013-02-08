@@ -20,14 +20,14 @@
 package org.apache.myfaces.tobago.example.addressbook.web;
 
 import org.apache.commons.io.IOUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.apache.log4j.Appender;
 import org.apache.log4j.Level;
 import org.apache.log4j.LogManager;
-import org.apache.myfaces.tobago.component.UIInput;
+import org.apache.myfaces.tobago.component.UIIn;
 import org.apache.myfaces.tobago.example.addressbook.Log4jUtils;
 import org.apache.myfaces.tobago.model.SelectItem;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -59,7 +59,7 @@ public class LoggingController {
   private List<CategoryModel> categories = new ArrayList<CategoryModel>();
   private List<SelectItem> levels = new ArrayList<SelectItem>();
   private String category;
-  private UIInput categoryControl;
+  private UIIn categoryControl;
   private String level;
   private UIParameter currentCategory;
   private UIParameter currentAppender;
@@ -175,11 +175,11 @@ public class LoggingController {
       this.category = category;
   }
 
-  public UIInput getCategoryControl() {
+  public UIIn getCategoryControl() {
       return categoryControl;
   }
 
-  public void setCategoryControl(UIInput categoryControl) {
+  public void setCategoryControl(UIIn categoryControl) {
       this.categoryControl = categoryControl;
   }
 

@@ -24,11 +24,6 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 import java.lang.annotation.ElementType;
 
-/*
- * Created: Aug 5, 2005 3:11:18 PM
- * $Id$
- */
-
 @Retention(value = RetentionPolicy.SOURCE)
 @Target(value = ElementType.TYPE)
 
@@ -37,6 +32,8 @@ public @interface UIComponentTag {
   String uiComponent();
 
   String uiComponentBaseClass() default "javax.faces.component.UIComponentBase";
+
+  String uiComponentFacesClass() default "javax.faces.component.UIComponentBase";
 
   String componentType() default "";
 

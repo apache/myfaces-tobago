@@ -86,7 +86,7 @@ public abstract class AbstractUISheet extends AbstractUIData
   public static final String SINGLE = "single";
   public static final String MULTI = "multi";
 
-  private SheetState sheetState;
+  private SheetState state;
   private List<Integer> widthList;
   private transient LayoutTokens columnLayout;
 
@@ -118,7 +118,7 @@ public abstract class AbstractUISheet extends AbstractUIData
   }
 
   public void setState(SheetState state) {
-    this.sheetState = state;
+    this.state = state;
   }
 
   public SheetState getState() {
@@ -126,8 +126,8 @@ public abstract class AbstractUISheet extends AbstractUIData
   }
 
   public SheetState getSheetState(FacesContext facesContext) {
-    if (sheetState != null) {
-      return sheetState;
+    if (state != null) {
+      return state;
     }
 
     final ValueExpression expression = getValueExpression(Attributes.STATE);
@@ -141,8 +141,8 @@ public abstract class AbstractUISheet extends AbstractUIData
       return sheetState;
     }
 
-    sheetState = new SheetState();
-    return sheetState;
+    state = new SheetState();
+    return state;
   }
 
   public abstract String getColumns();
@@ -359,7 +359,7 @@ public abstract class AbstractUISheet extends AbstractUIData
   public Object saveState(FacesContext context) {
     Object[] saveState = new Object[2];
     saveState[0] = super.saveState(context);
-    saveState[1] = sheetState;
+    saveState[1] = state;
     return saveState;
   }
 
@@ -367,7 +367,7 @@ public abstract class AbstractUISheet extends AbstractUIData
   public void restoreState(FacesContext context, Object savedState) {
     Object[] values = (Object[]) savedState;
     super.restoreState(context, values[0]);
-    sheetState = (SheetState) values[1];
+    state = (SheetState) values[1];
   }
 
   public List<AbstractUIColumn> getAllColumns() {

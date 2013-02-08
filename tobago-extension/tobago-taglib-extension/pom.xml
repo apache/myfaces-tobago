@@ -70,80 +70,62 @@
       </plugin>
 
       <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>apt-maven-plugin</artifactId>
+        <groupId>org.bsc.maven</groupId>
+        <artifactId>maven-processor-plugin</artifactId>
+        <version>2.1.0</version>
         <executions>
           <execution>
-            <id>tobago-tlds</id>
-            <goals><goal>process</goal></goals>
+            <id>process</id>
+            <goals>
+              <goal>process</goal>
+            </goals>
             <phase>compile</phase>
             <configuration>
-              <outputFiles>
-                <outputFile>org/apache/myfaces/tobago/internal/taglib/extension/tobago-extension.tld</outputFile>
-              </outputFiles>
-              <excludes>
-                <exclude>org/apache/myfaces/tobago/internal/taglib/component/*</exclude>
-              </excludes>
-              <additionalSourceRoots>
-                <additionalSourceRoot>${project.build.directory}/tobago-core-sources</additionalSourceRoot>
-              </additionalSourceRoots>
-              <resourceTargetPath>META-INF</resourceTargetPath>
-              <sourceOutputDirectory>${project.build.directory}/generated-tld</sourceOutputDirectory>
-              <factory>org.apache.myfaces.tobago.apt.TaglibAnnotationProcessorFactory</factory>
-              <nocompile>true</nocompile>
-              <encoding>${maven.compile.encoding}</encoding>
-              <options>
-                <option>jsf-version=${jsf.target}</option>
-              </options>
-            </configuration>
-          </execution>
-          <execution>
-            <id>tobago-checkstyle</id>
-            <goals><goal>process</goal></goals>
-            <phase>process-classes</phase>
-            <configuration>
-              <outputFiles>
-                <outputFile>checkstyle-tobago.xml</outputFile>
-              </outputFiles>
-              <resourceTargetPath>META-INF</resourceTargetPath>
-              <sourceOutputDirectory>${project.build.directory}/generated-checkstyle-config</sourceOutputDirectory>
-              <factory>org.apache.myfaces.tobago.apt.CheckstyleConfigAnnotationProcessorFactory</factory>
-              <additionalSourceRoots>
-                <additionalSourceRoot>${project.build.directory}/tobago-core-sources</additionalSourceRoot>
-              </additionalSourceRoots>
-              <encoding>${maven.compile.encoding}</encoding>
+              <!-- source output directory -->
+              <outputDirectory>${project.build.directory}/generated</outputDirectory>
+              <processors>
+                <processor>org.apache.myfaces.tobago.apt.processor.TldGenerator</processor>
+                <processor>org.apache.myfaces.tobago.apt.processor.ReferenceGenerator</processor>
+                <processor>org.apache.myfaces.tobago.apt.processor.CheckstyleConfigGenerator</processor>
+              </processors>
+              <optionMap>
+                <targetTld>META-INF</targetTld>
+                <targetReference>META-INF</targetReference>
+                <targetCheckstyle>META-INF</targetCheckstyle>
+                <jsfVersion>${jsf.target}</jsfVersion>
+              </optionMap>
+              <additionalSourceDirectories>
+                <additionalSourceDirectory>${project.build.directory}/tobago-core-sources</additionalSourceDirectory>
+              </additionalSourceDirectories>
             </configuration>
           </execution>
         </executions>
+        <dependencies>
+          <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-jdk14</artifactId>
+            <version>${slf4j.version}</version>
+          </dependency>
+        </dependencies>
       </plugin>
 
       <plugin>
         <artifactId>maven-resources-plugin</artifactId>
         <executions>
           <execution>
-            <id>copy-tld</id>
+            <id>copy-resources</id>
             <goals><goal>copy-resources</goal></goals>
             <phase>process-classes</phase>
             <configuration>
               <outputDirectory>${project.build.outputDirectory}</outputDirectory>
               <resources>
                 <resource>
-                  <targetPath>META-INF</targetPath>
-                  <directory>${project.build.directory}/generated-tld</directory>
-                </resource>
-              </resources>
-            </configuration>
-          </execution>
-          <execution>
-            <id>copy-checkstyle-config</id>
-            <goals><goal>copy-resources</goal></goals>
-            <phase>process-classes</phase>
-            <configuration>
-              <outputDirectory>${project.build.outputDirectory}</outputDirectory>
-              <resources>
-                <resource>
-                  <targetPath>META-INF</targetPath>
-                  <directory>${project.build.directory}/generated-checkstyle-config</directory>
+                  <directory>${project.build.directory}/generated</directory>
+                  <includes>
+                    <include>**/*.tld</include>
+                    <include>**/tobago-extension.xml</include>
+                    <include>META-INF/tobago-checkstyle.xml</include>
+                  </includes>
                 </resource>
               </resources>
             </configuration>
@@ -161,7 +143,7 @@
         <groupId>net.sourceforge.maven-taglib</groupId>
         <artifactId>maven-taglib-plugin</artifactId>
         <configuration>
-          <taglib.src.dir>${project.build.directory}/generated-tld</taglib.src.dir>
+          <taglib.src.dir>${project.build.directory}/generated</taglib.src.dir>
           <tldDocDir>${project.build.directory}/site/tlddoc</tldDocDir>
           <parseHtml>true</parseHtml>
         </configuration>
@@ -210,31 +192,6 @@
       </dependencies>
     </profile>
     <profile>
-      <id>generate-tag-reference</id>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.codehaus.mojo</groupId>
-            <artifactId>apt-maven-plugin</artifactId>
-            <executions>
-              <execution>
-                <id>tobago-doc</id>
-                <goals><goal>process</goal></goals>
-                <configuration>
-                  <outputFiles>
-                    <outputFile>org/apache/myfaces/tobago/internal/taglib/extension/tobago-extension.xml</outputFile>
-                  </outputFiles>
-                  <sourceOutputDirectory>${project.build.directory}/doc</sourceOutputDirectory>
-                  <factory>org.apache.myfaces.tobago.apt.TobagoAnnotationProcessorFactory</factory>
-                  <encoding>${maven.compile.encoding}</encoding>
-                </configuration>
-              </execution>
-            </executions>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
-    <profile>
       <id>apache-release</id>
       <build>
         <plugins>
@@ -242,7 +199,7 @@
             <groupId>net.sourceforge.maven-taglib</groupId>
             <artifactId>maven-taglib-plugin</artifactId>
             <configuration>
-              <taglib.src.dir>${project.build.directory}/generated-tld</taglib.src.dir>
+              <taglib.src.dir>${project.build.directory}/generated</taglib.src.dir>
               <tldDocDir>${project.build.directory}/tlddoc</tldDocDir>
             </configuration>
             <executions>
@@ -264,7 +221,7 @@
             <groupId>net.sourceforge.maven-taglib</groupId>
             <artifactId>maven-taglib-plugin</artifactId>
             <configuration>
-              <taglib.src.dir>${project.build.directory}/generated-tld</taglib.src.dir>
+              <taglib.src.dir>${project.build.directory}/generated</taglib.src.dir>
               <tldDocDir>${project.build.directory}/tlddoc</tldDocDir>
             </configuration>
             <executions>

@@ -36,6 +36,7 @@ public class PropertyInfo {
   private boolean tagAttribute;
   private String description;
   private boolean transientValue;
+  private boolean generate;
 
   public PropertyInfo() {
   }
@@ -249,5 +250,13 @@ public class PropertyInfo {
 
   public void setTransient(boolean transientValue) {
     this.transientValue = transientValue;
+  }
+
+  public boolean isGenerate() {
+    return generate;
+  }
+
+  public void setGenerate(boolean generate) {
+    this.generate = generate;
   }
 }

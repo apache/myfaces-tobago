@@ -22,9 +22,9 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 import org.apache.commons.lang.StringUtils;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
+import org.apache.myfaces.tobago.component.SelectBooleanCommand;
+import org.apache.myfaces.tobago.component.SelectOneCommand;
 import org.apache.myfaces.tobago.component.UIMenuSelectOne;
-import org.apache.myfaces.tobago.component.UISelectBooleanCommand;
-import org.apache.myfaces.tobago.component.UISelectOneCommand;
 import org.apache.myfaces.tobago.component.UIToolBar;
 import org.apache.myfaces.tobago.component.UIToolBarSeparator;
 import org.apache.myfaces.tobago.config.Configurable;
@@ -101,9 +101,9 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
 
   private Measure renderToolbarCommand(FacesContext facesContext, UIToolBar toolBar, AbstractUICommandBase command,
       TobagoResponseWriter writer, Measure width) throws IOException {
-    if (command instanceof UISelectBooleanCommand) {
+    if (command instanceof SelectBooleanCommand) {
       return renderSelectBoolean(facesContext, toolBar, command, writer, width);
-    } else if (command instanceof UISelectOneCommand) {
+    } else if (command instanceof SelectOneCommand) {
       return renderSelectOne(facesContext, toolBar, command, writer, width);
     } else {
       if (command.getFacet(Facets.RADIO) != null) {

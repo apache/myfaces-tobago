@@ -20,6 +20,7 @@
 package org.apache.myfaces.tobago.facelets;
 
 import com.sun.facelets.tag.AbstractTagLibrary;
+import org.apache.commons.lang.WordUtils;
 import org.apache.myfaces.tobago.component.Tags;
 import org.apache.myfaces.tobago.validator.FileItemValidator;
 import org.apache.myfaces.tobago.validator.SubmittedValueLengthValidator;
@@ -40,6 +41,17 @@ public class AbstractTobagoTagLibrary  extends AbstractTagLibrary {
     addValidator("validateSubmittedValueLength", SubmittedValueLengthValidator.VALIDATOR_ID);
     addTobagoComponent("script", "org.apache.myfaces.tobago.Script", "Script", ScriptHandler.class);
     addTobagoComponent("style", "org.apache.myfaces.tobago.Style", "Style", StyleHandler.class);
+  }
+
+  protected final void addTobagoComponent(String name) {
+    final String capitalize = WordUtils.capitalize(name);
+    addTobagoComponent(name, capitalize);
+  }
+
+  protected final void addTobagoComponent(String name, String rendererType) {
+    final String capitalize = WordUtils.capitalize(name);
+    final String componentType = "org.apache.myfaces.tobago." + capitalize;
+    addTobagoComponent(name, componentType, rendererType, TobagoComponentHandler.class);
   }
 
   protected final void addTobagoComponent(String name, String componentType, String rendererType, Class handlerType) {

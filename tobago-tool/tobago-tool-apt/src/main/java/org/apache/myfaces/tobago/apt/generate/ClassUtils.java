@@ -19,7 +19,24 @@
 
 package org.apache.myfaces.tobago.apt.generate;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class ClassUtils {
+
+  private static final Map<String, Class> PRIMITIVE_MAP;
+
+  static {
+    PRIMITIVE_MAP = new HashMap<String, Class>(8);
+    PRIMITIVE_MAP.put("boolean", Boolean.class);
+    PRIMITIVE_MAP.put("byte", Byte.class);
+    PRIMITIVE_MAP.put("char", Character.class);
+    PRIMITIVE_MAP.put("short", Short.class);
+    PRIMITIVE_MAP.put("int", Integer.class);
+    PRIMITIVE_MAP.put("long", Long.class);
+    PRIMITIVE_MAP.put("float", Float.class);
+    PRIMITIVE_MAP.put("double", Double.class);
+  }
 
   public static String getPackageName(String qualifiedName) {
     int pos = qualifiedName.lastIndexOf('.');
@@ -41,11 +58,11 @@ public class ClassUtils {
     return qualifiedClassName.startsWith("java.lang.");
   }
 
-  public static boolean isPrimitive(String qualifiedClassName) {
-    return ("int".equals(qualifiedClassName) || "boolean".equals(qualifiedClassName)
-        || "long".equals(qualifiedClassName) || "char".equals(qualifiedClassName)
-        || "float".equals(qualifiedClassName) || "double".equals(qualifiedClassName)
-        || "short".equals(qualifiedClassName) || "byte".equals(qualifiedClassName));
+  public static boolean isPrimitive(String name) {
+    return PRIMITIVE_MAP.containsKey(name);
+  }
 
+  public static Class getWrapper(String primitive) {
+    return PRIMITIVE_MAP.get(primitive);
   }
 }

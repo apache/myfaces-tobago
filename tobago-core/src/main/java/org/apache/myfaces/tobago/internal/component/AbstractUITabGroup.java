@@ -22,7 +22,6 @@ package org.apache.myfaces.tobago.internal.component;
 import org.apache.myfaces.tobago.compat.FacesUtils;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.ComponentTypes;
-import org.apache.myfaces.tobago.util.CreateComponentUtils;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.OnComponentPopulated;
 import org.apache.myfaces.tobago.component.RendererTypes;
@@ -34,13 +33,16 @@ import org.apache.myfaces.tobago.internal.layout.LayoutUtils;
 import org.apache.myfaces.tobago.layout.LayoutComponent;
 import org.apache.myfaces.tobago.layout.LayoutContainer;
 import org.apache.myfaces.tobago.layout.LayoutManager;
+import org.apache.myfaces.tobago.util.CreateComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.el.MethodExpression;
 import javax.el.ValueExpression;
 import javax.faces.component.ActionSource;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import javax.faces.el.MethodBinding;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.ActionListener;
@@ -62,6 +64,9 @@ public abstract class AbstractUITabGroup extends AbstractUIPanelBase
   public static final String SWITCH_TYPE_CLIENT = "client";
   public static final String SWITCH_TYPE_RELOAD_PAGE = "reloadPage";
   public static final String SWITCH_TYPE_RELOAD_TAB = "reloadTab";
+
+  private javax.el.MethodExpression actionExpression;
+  private javax.faces.el.MethodBinding actionListener;
 
   @Override
   public void encodeBegin(FacesContext facesContext) throws IOException {
@@ -312,4 +317,20 @@ public abstract class AbstractUITabGroup extends AbstractUIPanelBase
   public boolean isLayoutChildren() {
     return isRendered();
   }
+
+  public void restoreState(FacesContext context, Object componentState) {
+    Object[] values = (Object[]) componentState;
+    super.restoreState(context, values[0]);
+    actionListener = (MethodBinding) restoreAttachedState(context, values[1]);
+    actionExpression = (MethodExpression) restoreAttachedState(context, values[2]);
+  }
+
+  public Object saveState(FacesContext context) {
+    Object[] values = new Object[3];
+    values[0] = super.saveState(context);
+    values[1] = saveAttachedState(context, actionListener);
+    values[2] = saveAttachedState(context, actionExpression);
+    return values;
+  }
+
 }

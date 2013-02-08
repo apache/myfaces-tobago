@@ -51,6 +51,4 @@ public abstract class AbstractUISelectOneBase extends javax.faces.component.UISe
   }
 
   public abstract boolean isReadonly();
-
-  public abstract String getRequiredMessage();
 }

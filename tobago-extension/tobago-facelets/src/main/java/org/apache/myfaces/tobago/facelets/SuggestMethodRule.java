@@ -25,8 +25,8 @@ import com.sun.facelets.tag.MetaRule;
 import com.sun.facelets.tag.Metadata;
 import com.sun.facelets.tag.MetadataTarget;
 import com.sun.facelets.tag.TagAttribute;
-import org.apache.myfaces.tobago.component.UIInput;
 import org.apache.myfaces.tobago.component.InputSuggest;
+import org.apache.myfaces.tobago.component.UIIn;
 
 /**
  * Date: Sep 17, 2007
@@ -54,7 +54,7 @@ public class SuggestMethodRule extends MetaRule {
     }
 
     public void applyMetadata(FaceletContext ctx, Object instance) {
-      ((UIInput) instance).setSuggestMethod(new LegacyMethodBinding(attribute.getMethodExpression(ctx,
+      ((UIIn) instance).setSuggestMethod(new LegacyMethodBinding(attribute.getMethodExpression(ctx,
           null, SuggestMethodRule.SUGGEST_METHOD)));
     }
   }

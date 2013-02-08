@@ -24,16 +24,12 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-/*
- * Created: Apr 20, 2005 6:55:06 PM
- * $Id$
- */
 @Retention(value = RetentionPolicy.SOURCE)
 @Target(value = ElementType.PACKAGE)
 
 public @interface Taglib {
 
-  String tlibVersion() default "1.0";
+  String tlibVersion() default "1.2";
   String jspVersion() default "1.2";
   String shortName();
   String uri();

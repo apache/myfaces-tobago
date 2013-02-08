@@ -61,8 +61,8 @@
     </dependency>
     <dependency>
       <groupId>org.codehaus.modello</groupId>
-      <artifactId>modello-core</artifactId>
-      <version>1.0-alpha-13</version>
+      <artifactId>modello-plugin-java</artifactId>
+      <version>1.5</version>
     </dependency>
     <dependency>
       <groupId>org.codehaus.plexus</groupId>
