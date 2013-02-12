@@ -31,11 +31,11 @@ Compatibility
 *--+--+--+--+
 | Java                 | 1.4\[retro\], <<1.5>>, 1.6 | 1.5, 1.6, 1.7                                | 1.5, 1.6, 1.7
 *--+--+--+--+
-| JSF                  | <<1.1>>, 1.2               | 1.2, 2.0\[disable vh\], 2.1\[disable vh\]    | 1.2, 2.0\[disable vh\], 2.1\[disable vh\]
+| JSF                  | <<1.1>>, 1.2               | 1.2, 2.0\[disable vh\], 2.1\[disable vh\]    | 1.2 \[tbd\], 2.0\[disable vh\], 2.1\[disable vh\]
 *--+--+--+--+
-| Servlet              | 2.3, <<2.4>>, 2.5          | 2.4\[facelets only\], <<2.5>>, 3.0           | 2.4\[facelets only\], <<2.5>>, 3.0
+| Servlet              | 2.3, <<2.4>>, 2.5          | 2.4\[facelets only\], <<2.5>>, 3.0           | 2.4\[facelets only\], <<2.5>>, <<3.0>>
 *--+--+--+--+
-| JSP                  | 1.2, <<2.0>>, 2.1          | <<2.1>>                                      | <<2.1>>
+| JSP                  | 1.2, <<2.0>>, 2.1          | <<2.1>>, 2.2                                 | <<2.1>>, <<2.2>>
 *--+--+--+--+
 | Facelets             | <<1.1>>\[ext\]             | <<1.1>>\[ext\]                               | <<1.1>>\[ext\]
 *--+--+--+--+
@@ -95,6 +95,8 @@ Compatibility
   \[retro\]: use the JDK 1.4 retro version
 
   \[ext\]: add the tobago-facelets extension
+
+  \[tbd\]: to be defined
 
   \[unsettled\]: this information is unsettled and may change
   
