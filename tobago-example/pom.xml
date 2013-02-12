@@ -268,7 +268,8 @@
       <id>myfaces-1.2</id>
       <activation>
         <property>
-          <name>!jsf</name>
+          <name>jsf</name>
+          <value>myfaces-1.2</value>
         </property>
       </activation>
       <dependencies>
@@ -296,8 +297,7 @@
       <id>myfaces-2.0</id>
       <activation>
         <property>
-          <name>jsf</name>
-          <value>myfaces-2.0</value>
+          <name>!jsf</name>
         </property>
       </activation>
       <dependencies>

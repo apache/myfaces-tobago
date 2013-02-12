@@ -22,16 +22,19 @@ package org.apache.myfaces.tobago.context;
 import org.apache.commons.collections.list.SetUniqueList;
 import org.apache.commons.collections.set.ListOrderedSet;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPopup;
+import org.apache.myfaces.tobago.util.FacesVersion;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.context.FacesContext;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 
 public class TobagoFacesContext extends FacesContextWrapper {
+
+  private static final Logger LOG = LoggerFactory.getLogger(TobagoFacesContext.class);
 
   private SetUniqueList scriptFiles;
 
@@ -57,7 +60,7 @@ public class TobagoFacesContext extends FacesContextWrapper {
 
   private boolean ajax;
 
-  private Map<Object, Object> attributes;
+//  private Map<Object, Object> attributes;
 
   public TobagoFacesContext(FacesContext context) {
     super(context);
@@ -72,12 +75,21 @@ public class TobagoFacesContext extends FacesContextWrapper {
     popups = new ListOrderedSet();
   }
 
+/*  TBD: if we support JSF 1.2 whe have to do something here.*/
+  static {
+    if (!FacesVersion.supports20()) {
+      LOG.error("JSF 1.2 is currently not supported.");
+    }
+  }
+
+/* TBD: if we support JSF 1.2 whe have to do something here.
   public final Map<Object, Object> getAttributes() {
     if (attributes == null) {
       attributes = new HashMap<Object, Object>();
     }
     return attributes;
   }
+*/
 
   public boolean isAjax() {
     return ajax;
@@ -157,9 +169,11 @@ public class TobagoFacesContext extends FacesContextWrapper {
   @Override
   public void release() {
     super.release();
+/*
     if (attributes != null) {
       attributes.clear();
     }
+*/
     clearScriptsAndPopups();
   }
 }

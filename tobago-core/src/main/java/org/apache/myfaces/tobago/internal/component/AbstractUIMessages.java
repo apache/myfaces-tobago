@@ -117,7 +117,9 @@ public abstract class AbstractUIMessages extends javax.faces.component.UIMessage
 
   public abstract OrderBy getOrderBy();
 
+/* TBD: if we support JSF 1.2 whe have to do something here.
   public abstract String getFor();
+*/
 
   public static enum OrderBy {
 
