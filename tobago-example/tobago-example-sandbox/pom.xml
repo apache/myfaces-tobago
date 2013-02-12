@@ -27,39 +27,6 @@
   <name>Tobago Example Sandbox</name>
   <build>
     <finalName>tobago-example-sandbox</finalName>
-    <plugins>
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>apt-maven-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>tobago-facelet-sandbox-taglib</id>
-            <goals><goal>process</goal></goals>
-            <phase>validate</phase>
-            <configuration>
-              <excludes>
-                <exclude>org/apache/myfaces/tobago/*</exclude>
-              </excludes>
-              <includes>
-                <include>org/apache/myfaces/tobago/internal/taglib/component/*</include>
-                <include>org/apache/myfaces/tobago/internal/taglib/declaration/*</include>
-              </includes>
-              <additionalSourceRoots>
-                <additionalSourceRoot>${project.build.directory}/tobago-core-sources</additionalSourceRoot>
-              </additionalSourceRoots>
-              <outputFiles>
-                <outputFile>tobago-sandbox.taglib.xml</outputFile>
-              </outputFiles>
-              <resourceTargetPath>META-INF</resourceTargetPath>
-              <sourceOutputDirectory>target/generated-sources</sourceOutputDirectory>
-              <factory>org.apache.myfaces.tobago.apt.FaceletAnnotationProcessorFactory</factory>
-              <nocompile>true</nocompile>
-              <encoding>${maven.compile.encoding}</encoding>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-    </plugins>
   </build>
 
   <dependencies>

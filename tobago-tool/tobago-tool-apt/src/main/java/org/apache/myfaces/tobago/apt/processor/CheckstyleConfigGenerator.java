@@ -147,19 +147,20 @@ public class CheckstyleConfigGenerator extends AbstractGenerator {
       final String className;
       if (typeElement.getAnnotation(TagGeneration.class) != null) {
         className = typeElement.getAnnotation(TagGeneration.class).className();
-        info("G");
+//        info("G");
       } else if (typeElement.getAnnotation(ExtensionTag.class) != null) {
         className = typeElement.getQualifiedName().toString();
-        info("X");
+//        info("X");
       } else if (typeElement.getAnnotation(UIComponentTag.class) != null) {
         className = "org.apache.myfaces.tobago.internal.taglib." + StringUtils.capitalize(annotationTag.name())
             + "Tag";
-        info("C");
+//        info("C");
       } else {
+/*
         className = typeElement.getQualifiedName().toString()
             .substring(0, typeElement.getQualifiedName().length() - "Declaration".length());
-        info("?");
-        throw new RuntimeException("Not used, or?"); // XXX
+*/
+        throw new RuntimeException("Not supported");
       }
       info("Replacing: " + typeElement.getQualifiedName() + " -> " + className);
       if (typeElement.getAnnotation(Deprecated.class) != null) {
