@@ -48,6 +48,10 @@ Tag Library
   The main changes in the tag library are
 
   TODO: What has changed with the tree?
+  The Tree now extends a UIData.
+  The tc:treeData tag should longer used.
+  The tc:treeNode has no longer the attributes: "selected", "expanded", "marked", "treeMarkedListener", "treeExpansionListener"
+
 
   Deprecated facets "resizeAction" and "menupopup" was removed.
 

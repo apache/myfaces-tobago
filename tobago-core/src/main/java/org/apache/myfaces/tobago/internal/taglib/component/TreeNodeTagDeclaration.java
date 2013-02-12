@@ -61,7 +61,7 @@ public interface
    */
   @Deprecated
   @TagAttribute()
-  @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
+  @UIComponentTagAttribute(type = "boolean", generate = false, defaultValue = "false")
   void setExpanded(String expanded);
 
   /**
@@ -70,7 +70,7 @@ public interface
    */
   @Deprecated
   @TagAttribute()
-  @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
+  @UIComponentTagAttribute(type = "boolean", generate = false, defaultValue = "false")
   void setMarked(String marked);
 
   /**
@@ -79,7 +79,7 @@ public interface
    */
   @Deprecated
   @TagAttribute()
-  @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
+  @UIComponentTagAttribute(type = "boolean", generate = false, defaultValue = "false")
   void setSelected(String selected);
 
   /**
@@ -87,6 +87,7 @@ public interface
    */
   @TagAttribute
   @UIComponentTagAttribute(type = {},
+      generate = false,
       expression = DynamicExpression.METHOD_BINDING_REQUIRED,
       methodSignature = "org.apache.myfaces.tobago.event.TreeExpansionEvent")
   void setTreeExpansionListener(String treeExpansionListener);
@@ -96,6 +97,7 @@ public interface
    */
   @TagAttribute
   @UIComponentTagAttribute(type = {},
+      generate = false,
       expression = DynamicExpression.METHOD_BINDING_REQUIRED,
       methodSignature = "org.apache.myfaces.tobago.event.TreeMarkedEvent")
   void setTreeMarkedListener(String treeMarkedListener);
