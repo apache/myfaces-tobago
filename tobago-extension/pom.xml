@@ -30,7 +30,9 @@
     <module>tobago-deprecation</module>
     <module>tobago-facelets</module>
     <module>tobago-fileupload</module>
+<!-- XXX: disabled, because of a problem while code generation
     <module>tobago-sandbox</module>
+-->
     <module>tobago-security</module>
     <module>tobago-taglib-extension</module>
   </modules>
