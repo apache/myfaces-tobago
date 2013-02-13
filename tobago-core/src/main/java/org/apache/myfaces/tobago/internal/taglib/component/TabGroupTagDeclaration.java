@@ -104,7 +104,7 @@ public interface TabGroupTagDeclaration
   @TagAttribute  
   @UIComponentTagAttribute(
       type = {},
-      expression = DynamicExpression.METHOD_BINDING_REQUIRED,
+      expression = DynamicExpression.METHOD_EXPRESSION_REQUIRED,
       methodSignature = "org.apache.myfaces.tobago.event.TabChangeEvent")
   void setTabChangeListener(String listener);
 }

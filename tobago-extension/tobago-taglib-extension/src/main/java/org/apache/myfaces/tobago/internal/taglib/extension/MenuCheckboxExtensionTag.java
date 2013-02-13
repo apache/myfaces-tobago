@@ -189,7 +189,7 @@ public class MenuCheckboxExtensionTag extends TobagoExtensionBodyTagSupport {
    * The String is directly passed to the Navigationhandler.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = {}, expression = DynamicExpression.METHOD_BINDING,
+  @UIComponentTagAttribute(type = {}, expression = DynamicExpression.METHOD_EXPRESSION,
       methodReturnType = "java.lang.Object")
   public void setAction(javax.el.MethodExpression action) {
     this.action = action;
@@ -202,7 +202,7 @@ public class MenuCheckboxExtensionTag extends TobagoExtensionBodyTagSupport {
    * parameter, with a return type of void.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = {}, expression = DynamicExpression.METHOD_BINDING_REQUIRED,
+  @UIComponentTagAttribute(type = {}, expression = DynamicExpression.METHOD_EXPRESSION_REQUIRED,
       methodSignature = "javax.faces.event.ActionEvent")
   public void setActionListener(javax.el.MethodExpression actionListener) {
     this.actionListener = actionListener;

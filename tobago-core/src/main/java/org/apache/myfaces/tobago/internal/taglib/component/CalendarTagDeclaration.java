@@ -53,6 +53,6 @@ public interface CalendarTagDeclaration
   @TagAttribute
   @UIComponentTagAttribute(
       type = {"java.util.Calendar", "java.util.Date"},
-      expression = DynamicExpression.VALUE_BINDING_REQUIRED)
+      expression = DynamicExpression.VALUE_EXPRESSION_REQUIRED)
   void setValue(String value);
 }

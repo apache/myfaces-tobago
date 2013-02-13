@@ -31,6 +31,6 @@ public interface HasState {
   // TODO is Object right?
   @TagAttribute
   @UIComponentTagAttribute(
-      type = "java.lang.Object", expression = DynamicExpression.VALUE_BINDING_REQUIRED)
+      type = "java.lang.Object", expression = DynamicExpression.VALUE_EXPRESSION_REQUIRED)
   void setState(String state);
 }

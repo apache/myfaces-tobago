@@ -19,15 +19,25 @@
 
 package org.apache.myfaces.tobago.apt.annotation;
 
-/*
- * Created: Apr 27, 2005 5:08:45 PM
- * $Id$
- */
 public enum DynamicExpression {
 
-  VALUE_BINDING(false, true, false), VALUE_BINDING_REQUIRED(true, true, false),
-  METHOD_BINDING(false, false, true), METHOD_BINDING_REQUIRED(true, false, true),
-  PROHIBITED(false, false, false);
+  VALUE_EXPRESSION(false, true, false),
+  VALUE_EXPRESSION_REQUIRED(true, true, false),
+  METHOD_EXPRESSION(false, false, true),
+  METHOD_EXPRESSION_REQUIRED(true, false, true),
+  PROHIBITED(false, false, false),
+  /** @deprecated since 1.6.0 */
+  @Deprecated
+  VALUE_BINDING(false, true, false),
+  /** @deprecated since 1.6.0 */
+  @Deprecated
+  VALUE_BINDING_REQUIRED(true, true, false),
+  /** @deprecated since 1.6.0 */
+  @Deprecated
+  METHOD_BINDING(false, false, true),
+  /** @deprecated since 1.6.0 */
+  @Deprecated
+  METHOD_BINDING_REQUIRED(true, false, true);
 
   private boolean required;
   private boolean valueExpression;
@@ -53,12 +63,16 @@ public enum DynamicExpression {
 
   public String toMetaDataString() {
     switch (this) {
+      case VALUE_EXPRESSION:
       case VALUE_BINDING:
         return "ALLOWED";
+      case METHOD_EXPRESSION:
       case METHOD_BINDING:
         return "ALLOWED";
+      case VALUE_EXPRESSION_REQUIRED:
       case VALUE_BINDING_REQUIRED:
         return "REQUIRED";
+      case METHOD_EXPRESSION_REQUIRED:
       case METHOD_BINDING_REQUIRED:
         return "REQUIRED";
       case PROHIBITED:
@@ -70,12 +84,16 @@ public enum DynamicExpression {
 
   public String toString() {
     switch (this) {
+      case VALUE_EXPRESSION:
       case VALUE_BINDING:
         return "VB";
+      case VALUE_EXPRESSION_REQUIRED:
       case VALUE_BINDING_REQUIRED:
         return "VB";
+      case METHOD_EXPRESSION:
       case METHOD_BINDING:
         return "MB";
+      case METHOD_EXPRESSION_REQUIRED:
       case METHOD_BINDING_REQUIRED:
         return "MB";
       case PROHIBITED:

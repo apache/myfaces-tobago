@@ -88,7 +88,7 @@ public interface
   @TagAttribute
   @UIComponentTagAttribute(type = {},
       generate = false,
-      expression = DynamicExpression.METHOD_BINDING_REQUIRED,
+      expression = DynamicExpression.METHOD_EXPRESSION_REQUIRED,
       methodSignature = "org.apache.myfaces.tobago.event.TreeExpansionEvent")
   void setTreeExpansionListener(String treeExpansionListener);
 
@@ -98,7 +98,7 @@ public interface
   @TagAttribute
   @UIComponentTagAttribute(type = {},
       generate = false,
-      expression = DynamicExpression.METHOD_BINDING_REQUIRED,
+      expression = DynamicExpression.METHOD_EXPRESSION_REQUIRED,
       methodSignature = "org.apache.myfaces.tobago.event.TreeMarkedEvent")
   void setTreeMarkedListener(String treeMarkedListener);
 

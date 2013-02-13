@@ -40,7 +40,7 @@ public @interface UIComponentTagAttribute {
   String[] allowedValues() default { };
 
   /** allow faces expression language, e.g. #{bean}  */
-  DynamicExpression expression() default DynamicExpression.VALUE_BINDING;
+  DynamicExpression expression() default DynamicExpression.VALUE_EXPRESSION;
 
   String[] methodSignature() default { };
 

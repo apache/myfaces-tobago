@@ -64,7 +64,7 @@ public interface TreeMenuTagDeclaration
   @TagAttribute
   @UIComponentTagAttribute(
       type = "org.apache.myfaces.tobago.model.TreeState",
-      expression = DynamicExpression.VALUE_BINDING_REQUIRED,
+      expression = DynamicExpression.VALUE_EXPRESSION_REQUIRED,
       generate = false)
   void setState(String state);
 

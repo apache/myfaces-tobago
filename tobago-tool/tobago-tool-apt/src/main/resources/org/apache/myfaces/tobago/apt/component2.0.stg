@@ -339,13 +339,13 @@ CharacterProperty(property) ::= <<
 <NormalProperty(property)>
 >>
 
-MethodBindingProperty(property) ::= <<
+MethodExpressionProperty(property) ::= <<
 
 /**
  * @deprecated since 1.6.0
  */
 @Deprecated
-public <property.type> get<property.upperCamelCaseName>() {
+public javax.faces.el.MethodBinding get<property.upperCamelCaseName>() {
   javax.el.MethodExpression expression = get<property.upperCamelCaseName>Expression();
   if (expression instanceof MethodBindingToMethodExpression) {
     return ((MethodBindingToMethodExpression)expression).getMethodBinding();
@@ -360,7 +360,7 @@ public <property.type> get<property.upperCamelCaseName>() {
  * @deprecated since 1.6.0
  */
 @Deprecated
-public void set<property.upperCamelCaseName>(<property.type> <property.propertyName>) {
+public void set<property.upperCamelCaseName>(javax.faces.el.MethodBinding <property.propertyName>) {
   if (<property.propertyName> != null) {
     set<property.upperCamelCaseName>Expression(new MethodBindingToMethodExpression(<property.propertyName>));
   } else {
@@ -368,11 +368,11 @@ public void set<property.upperCamelCaseName>(<property.type> <property.propertyN
   }
 }
 
-public javax.el.MethodExpression get<property.upperCamelCaseName>Expression() {
-  return (javax.el.MethodExpression) getStateHelper().eval(PropertyKeys.<property.propertyName>);
+public <property.type> get<property.upperCamelCaseName>Expression() {
+  return (<property.type>) getStateHelper().eval(PropertyKeys.<property.propertyName>);
 }
 
-public void set<property.upperCamelCaseName>Expression(javax.el.MethodExpression <property.propertyName>) {
+public void set<property.upperCamelCaseName>Expression(<property.type> <property.propertyName>) {
   getStateHelper().put(PropertyKeys.<property.propertyName>, <property.propertyName>);
 }
 

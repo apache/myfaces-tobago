@@ -351,7 +351,7 @@ CharacterProperty(property) ::= <<
 <NormalProperty(property)>
 >>
 
-MethodBindingProperty(property) ::= <<
+MethodExpressionProperty(property) ::= <<
 
 /**
  * @deprecated since 1.6.0

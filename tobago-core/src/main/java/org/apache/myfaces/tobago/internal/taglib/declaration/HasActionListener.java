@@ -33,7 +33,7 @@ public interface HasActionListener {
   @TagAttribute
   @UIComponentTagAttribute(
       type = {},
-      expression = DynamicExpression.METHOD_BINDING_REQUIRED,
+      expression = DynamicExpression.METHOD_EXPRESSION_REQUIRED,
       methodSignature = "javax.faces.event.ActionEvent")
   void setActionListener(String actionListener);
 }

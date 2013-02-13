@@ -221,13 +221,11 @@ public class SelectManyCheckboxExtensionTag extends TobagoExtensionBodyTagSuppor
    * that will be notified when a new value has been set for this input component.
    * The expression must evaluate to a public method that takes a ValueChangeEvent
    * parameter, with a return type of void.
-   *
-   * @param valueChangeListener
    */
   @TagAttribute
   @UIComponentTagAttribute(
           type = {},
-          expression = DynamicExpression.METHOD_BINDING_REQUIRED,
+          expression = DynamicExpression.METHOD_EXPRESSION_REQUIRED,
           methodSignature = "javax.faces.event.ValueChangeEvent")
   public void setValueChangeListener(javax.el.MethodExpression valueChangeListener) {
     this.valueChangeListener = valueChangeListener;
@@ -291,7 +289,7 @@ public class SelectManyCheckboxExtensionTag extends TobagoExtensionBodyTagSuppor
    */
   @TagAttribute
   @UIComponentTagAttribute(type = {},
-      expression = DynamicExpression.METHOD_BINDING,
+      expression = DynamicExpression.METHOD_EXPRESSION,
       methodSignature = { "javax.faces.context.FacesContext", "javax.faces.component.UIComponent", "java.lang.Object" })
   public void setValidator(javax.el.MethodExpression validator) {
     this.validator = validator;
@@ -308,7 +306,7 @@ public class SelectManyCheckboxExtensionTag extends TobagoExtensionBodyTagSuppor
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "javax.faces.convert.Converter",
-      expression = DynamicExpression.VALUE_BINDING)
+      expression = DynamicExpression.VALUE_EXPRESSION)
   public void setConverter(javax.el.ValueExpression converter) {
     this.converter = converter;
   }

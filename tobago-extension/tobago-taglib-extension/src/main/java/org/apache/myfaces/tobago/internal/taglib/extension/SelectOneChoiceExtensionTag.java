@@ -217,7 +217,7 @@ public class SelectOneChoiceExtensionTag extends TobagoExtensionBodyTagSupport {
   @TagAttribute
   @UIComponentTagAttribute(
           type = {},
-          expression = DynamicExpression.METHOD_BINDING_REQUIRED,
+          expression = DynamicExpression.METHOD_EXPRESSION_REQUIRED,
           methodSignature = "javax.faces.event.ValueChangeEvent")
   public void setValueChangeListener(javax.el.MethodExpression valueChangeListener) {
     this.valueChangeListener = valueChangeListener;
@@ -231,7 +231,7 @@ public class SelectOneChoiceExtensionTag extends TobagoExtensionBodyTagSupport {
    */
   @TagAttribute
   @UIComponentTagAttribute(type = {},
-      expression = DynamicExpression.METHOD_BINDING,
+      expression = DynamicExpression.METHOD_EXPRESSION,
       methodSignature = { "javax.faces.context.FacesContext", "javax.faces.component.UIComponent", "java.lang.Object" })
   public void setValidator(javax.el.MethodExpression validator) {
     this.validator = validator;
@@ -275,7 +275,7 @@ public class SelectOneChoiceExtensionTag extends TobagoExtensionBodyTagSupport {
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "javax.faces.convert.Converter",
-      expression = DynamicExpression.VALUE_BINDING)
+      expression = DynamicExpression.VALUE_EXPRESSION)
   public void setConverter(javax.el.ValueExpression converter) {
     this.converter = converter;
   }

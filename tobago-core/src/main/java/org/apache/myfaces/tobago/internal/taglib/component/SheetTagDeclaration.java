@@ -102,7 +102,7 @@ public interface SheetTagDeclaration
   @TagAttribute
   @UIComponentTagAttribute(type = {"java.lang.Object[]", "java.util.List", "javax.servlet.jsp.jstl.sql.Result",
       "java.sql.ResultSet", "java.lang.Object", "javax.faces.model.DataModel"},
-      expression = DynamicExpression.VALUE_BINDING_REQUIRED)
+      expression = DynamicExpression.VALUE_EXPRESSION_REQUIRED)
   void setValue(String value);
 
   /**
@@ -187,7 +187,7 @@ public interface SheetTagDeclaration
   @TagAttribute
   @UIComponentTagAttribute(
       type = "org.apache.myfaces.tobago.model.SheetState",
-      expression = DynamicExpression.VALUE_BINDING_REQUIRED,
+      expression = DynamicExpression.VALUE_EXPRESSION_REQUIRED,
       generate = false)
   void setState(String state);
 
@@ -199,7 +199,7 @@ public interface SheetTagDeclaration
    */
   @TagAttribute
   @UIComponentTagAttribute(type = {},
-      expression = DynamicExpression.METHOD_BINDING_REQUIRED,
+      expression = DynamicExpression.METHOD_EXPRESSION_REQUIRED,
       methodSignature = "javax.faces.event.ActionEvent")
   void setStateChangeListener(String stateChangeListener);
 

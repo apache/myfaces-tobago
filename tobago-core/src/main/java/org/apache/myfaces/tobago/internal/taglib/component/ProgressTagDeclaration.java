@@ -61,6 +61,6 @@ public interface ProgressTagDeclaration
   @TagAttribute
   @UIComponentTagAttribute(
       type = { "javax.swing.BoundedRangeModel" },
-      expression = DynamicExpression.VALUE_BINDING_REQUIRED)
+      expression = DynamicExpression.VALUE_EXPRESSION_REQUIRED)
   void setValue(String value);
 }

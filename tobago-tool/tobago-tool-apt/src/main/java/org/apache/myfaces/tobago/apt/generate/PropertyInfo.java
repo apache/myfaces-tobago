@@ -65,7 +65,7 @@ public class PropertyInfo {
     if (valueExpressionRequired) {
       return "ValueExpression";
     }
-    if (isMethodBinding()) {
+    if (isMethodExpression()) {
       return getUpperCamelCaseName();
     }
     return getShortTypeProperty();
@@ -99,8 +99,8 @@ public class PropertyInfo {
     this.type = type;
   }
 
-  public boolean isMethodBinding() {
-    return "javax.faces.el.MethodBinding".equals(type);
+  public boolean isMethodExpression() {
+    return "javax.el.MethodExpression".equals(type);
   }
 
   public String getShortType() {

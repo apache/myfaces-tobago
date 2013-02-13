@@ -36,7 +36,7 @@ public interface HasAction {
   @TagAttribute
   @UIComponentTagAttribute(
       type = {},
-      expression = DynamicExpression.METHOD_BINDING,
+      expression = DynamicExpression.METHOD_EXPRESSION,
       methodReturnType = "java.lang.Object")
   void setAction(String action);
 

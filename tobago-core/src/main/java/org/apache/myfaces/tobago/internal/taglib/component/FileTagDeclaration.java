@@ -75,6 +75,6 @@ public interface FileTagDeclaration
   @TagAttribute()
   @UIComponentTagAttribute(
       type = { "org.apache.commons.fileupload.FileItem" },
-      expression = DynamicExpression.VALUE_BINDING_REQUIRED)
+      expression = DynamicExpression.VALUE_EXPRESSION_REQUIRED)
   void setValue(String value);
 }

@@ -413,9 +413,9 @@ public class ClassesGenerator extends AbstractGenerator {
         final String type;
         if (uiComponentTagAttribute.expression().isMethodExpression()) {
           propertyInfo.setMethodExpressionRequired(true);
-          type = "javax.faces.el.MethodBinding";
+          type = "javax.el.MethodExpression";
         } else {
-          if (uiComponentTagAttribute.expression() == DynamicExpression.VALUE_BINDING_REQUIRED) {
+          if (uiComponentTagAttribute.expression() == DynamicExpression.VALUE_EXPRESSION_REQUIRED) {
             propertyInfo.setValueExpressionRequired(true);
           } else if (uiComponentTagAttribute.expression() == DynamicExpression.PROHIBITED) {
             propertyInfo.setLiteralOnly(true);

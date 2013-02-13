@@ -52,7 +52,7 @@ public interface WizardTagDeclaration
 
   @TagAttribute(required = true)
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.model.Wizard",
-      expression = DynamicExpression.VALUE_BINDING_REQUIRED)
+      expression = DynamicExpression.VALUE_EXPRESSION_REQUIRED)
   void setController(String controller);
 
   /**
