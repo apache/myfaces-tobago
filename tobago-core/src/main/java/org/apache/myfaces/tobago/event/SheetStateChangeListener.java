@@ -21,10 +21,6 @@ package org.apache.myfaces.tobago.event;
 
 import javax.faces.event.FacesListener;
 
-/*
- * Date: 18.12.2005
- * Time: 14:13:38
- */
 public interface SheetStateChangeListener extends FacesListener {
 
   void processSheetStateChange(SheetStateChangeEvent sheetStateChangeEvent);

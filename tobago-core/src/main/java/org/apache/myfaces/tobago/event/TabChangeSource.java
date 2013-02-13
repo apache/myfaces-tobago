@@ -19,15 +19,23 @@
 
 package org.apache.myfaces.tobago.event;
 
-import javax.faces.event.FacesListener;
+public interface TabChangeSource {
 
-/*
- * User: weber
- * Date: 13.12.2004
- * Time: 16:21:54
- */
-public interface TabChangeListener extends FacesListener {
+  /**
+   * @deprecated since 1.6.0
+   */
+  @Deprecated
+  javax.faces.el.MethodBinding getTabChangeListener();
 
-  void processTabChange(TabChangeEvent tabChangeEvent);
+  /**
+   * @deprecated since 1.6.0
+   */
+  @Deprecated
+  void setTabChangeListener(javax.faces.el.MethodBinding actionListener);
 
+  void addTabChangeListener(TabChangeListener listener);
+
+  TabChangeListener[] getTabChangeListeners();
+
+  void removeTabChangeListener(TabChangeListener listener);
 }

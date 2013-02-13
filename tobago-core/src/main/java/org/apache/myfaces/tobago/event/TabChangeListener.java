@@ -17,16 +17,12 @@
  * under the License.
  */
 
-package org.apache.myfaces.tobago.component;
+package org.apache.myfaces.tobago.event;
 
-import javax.faces.el.MethodBinding;
+import javax.faces.event.FacesListener;
 
-/*
- * Date: 05.03.2008
- * Time: 20:14:15
- */
-public interface InputSuggest {
-  MethodBinding getSuggestMethod();
+public interface TabChangeListener extends FacesListener {
 
-  void setSuggestMethod(MethodBinding suggestMethod);
+  void processTabChange(TabChangeEvent tabChangeEvent);
+
 }

@@ -122,6 +122,13 @@ public class MessageUtils {
     try {
       Class clazz = Class.forName("org.apache.myfaces.tobago.context.TobagoResourceBundle");
       Object bundle = ConstructorUtils.invokeConstructor(clazz, new Object[0]);
+      LOG.error("*********************************************************************************************");
+      LOG.error("*********************************************************************************************");
+      LOG.error("*********************************************************************************************");
+      LOG.error("just created: " + bundle + " " + System.identityHashCode(bundle));
+      LOG.error("*********************************************************************************************");
+      LOG.error("*********************************************************************************************");
+      LOG.error("*********************************************************************************************");
       return (ResourceBundle) bundle;
     } catch (Exception e) {
       LOG.error("Can't create TobagoResourceBundle, but it should be in the core.", e);
@@ -158,6 +165,10 @@ public class MessageUtils {
     return component.getClientId(facesContext);
   }
 
+  /**
+   * @deprecated
+   */
+  @Deprecated
   public static String getFormatedMessage(String message, Locale locale, Object... args) {
     if (args != null && args.length > 0 && message != null) {
       MessageFormat format = new MessageFormat(message, locale);

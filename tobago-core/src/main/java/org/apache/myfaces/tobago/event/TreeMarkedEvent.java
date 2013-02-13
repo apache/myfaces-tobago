@@ -20,30 +20,48 @@
 package org.apache.myfaces.tobago.event;
 
 import javax.faces.component.UIComponent;
+import javax.faces.event.FacesEvent;
 import javax.faces.event.FacesListener;
-import javax.faces.event.ActionEvent;
 
-/*
- * User: weber
- * Date: 13.12.2004
- * Time: 16:25:03
- */
-public class SheetStateChangeEvent extends ActionEvent {
+public class TreeMarkedEvent extends FacesEvent {
 
-  private static final long serialVersionUID = 2875570768774425451L;
+  private static final long serialVersionUID = 422186716954088729L;
 
-  public SheetStateChangeEvent(UIComponent uiComponent) {
-    super(uiComponent);
+  private boolean oldMarked;
+  private boolean newMarked;
+
+  public TreeMarkedEvent(UIComponent node, boolean oldMarked, boolean newMarked) {
+    super(node);
+    this.oldMarked = oldMarked;
+    this.newMarked = newMarked;
   }
 
   public boolean isAppropriateListener(FacesListener facesListener) {
-    return facesListener instanceof SheetStateChangeListener;
+    return facesListener instanceof TreeMarkedListener;
   }
 
   public void processListener(FacesListener facesListener) {
-    if (facesListener instanceof SheetStateChangeListener) {
-      ((SheetStateChangeListener) facesListener).processSheetStateChange(this);
+    if (facesListener instanceof TreeMarkedListener) {
+      if (oldMarked && !newMarked) {
+        ((TreeMarkedListener) facesListener).treeMarked(this);
+      } else if (!oldMarked && newMarked) {
+        ((TreeMarkedListener) facesListener).treeMarked(this);
+      } else {
+        // nothing to do
+      }
     }
   }
 
+  public boolean isOldMarked() {
+    return oldMarked;
+  }
+
+  public boolean isNewMarked() {
+    return newMarked;
+  }
+
+  @Override
+  public String toString() {
+    return super.toString() + "marked=" + newMarked;
+  }
 }

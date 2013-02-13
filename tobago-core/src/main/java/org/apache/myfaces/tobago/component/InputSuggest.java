@@ -17,21 +17,20 @@
  * under the License.
  */
 
-package org.apache.myfaces.tobago.event;
+package org.apache.myfaces.tobago.component;
 
-/*
- * Date: 18.12.2005
- * Time: 13:56:59
- */
-public interface SheetStateChangeSource {
+import javax.faces.el.MethodBinding;
 
-  javax.faces.el.MethodBinding getStateChangeListener();
+public interface InputSuggest {
+  /**
+   * @deprecated since 1.6.0
+   */
+  @Deprecated
+  MethodBinding getSuggestMethod();
 
-  void setStateChangeListener(javax.faces.el.MethodBinding actionListener);
-
-  void addStateChangeListener(SheetStateChangeListener listener);
-
-  SheetStateChangeListener[] getStateChangeListeners();
-
-  void removeStateChangeListener(SheetStateChangeListener listener);
+  /**
+   * @deprecated since 1.6.0
+   */
+  @Deprecated
+  void setSuggestMethod(MethodBinding suggestMethod);
 }

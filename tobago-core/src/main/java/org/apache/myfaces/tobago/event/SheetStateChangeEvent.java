@@ -20,52 +20,25 @@
 package org.apache.myfaces.tobago.event;
 
 import javax.faces.component.UIComponent;
-import javax.faces.event.FacesEvent;
 import javax.faces.event.FacesListener;
+import javax.faces.event.ActionEvent;
 
-public class TreeMarkedEvent extends FacesEvent {
+public class SheetStateChangeEvent extends ActionEvent {
 
-  private static final long serialVersionUID = 422186716954088729L;
+  private static final long serialVersionUID = 2875570768774425451L;
 
-  private boolean oldMarked;
-  private boolean newMarked;
-
-  public TreeMarkedEvent(UIComponent node, boolean oldMarked, boolean newMarked) {
-    super(node);
-    this.oldMarked = oldMarked;
-    this.newMarked = newMarked;
+  public SheetStateChangeEvent(UIComponent uiComponent) {
+    super(uiComponent);
   }
 
   public boolean isAppropriateListener(FacesListener facesListener) {
-    return facesListener instanceof TreeMarkedListener;
+    return facesListener instanceof SheetStateChangeListener;
   }
 
   public void processListener(FacesListener facesListener) {
-    if (facesListener instanceof TreeMarkedListener) {
-      if (oldMarked && !newMarked) {
-        ((TreeMarkedListener) facesListener).treeMarked(this);
-      } else if (!oldMarked && newMarked) {
-        ((TreeMarkedListener) facesListener).treeMarked(this);
-      } else {
-        // nothing to do
-      }
+    if (facesListener instanceof SheetStateChangeListener) {
+      ((SheetStateChangeListener) facesListener).processSheetStateChange(this);
     }
   }
 
-  public boolean isOldMarked() {
-    return oldMarked;
-  }
-
-  public boolean isNewMarked() {
-    return newMarked;
-  }
-
-  @Override
-  public String toString() {
-    return new StringBuilder()
-        .append(super.toString())
-        .append("marked=")
-        .append(newMarked)
-        .toString();
-  }
 }

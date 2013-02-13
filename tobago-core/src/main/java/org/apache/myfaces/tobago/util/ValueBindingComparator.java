@@ -27,10 +27,10 @@ import javax.faces.el.ValueBinding;
 import java.util.Comparator;
 import java.util.Map;
 
-/*
- * Created: Mon Apr 15 15:56:44 2002
+/**
+ * @deprecated Since 1.6.0
  */
-@SuppressWarnings("deprecation")
+@Deprecated
 public class ValueBindingComparator extends ComparatorBase {
 
   private static final Logger LOG = LoggerFactory.getLogger(ValueBindingComparator.class);

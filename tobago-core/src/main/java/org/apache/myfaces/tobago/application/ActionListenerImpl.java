@@ -27,17 +27,17 @@ package org.apache.myfaces.tobago.application;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.el.MethodExpression;
+import javax.faces.FacesException;
 import javax.faces.application.Application;
 import javax.faces.application.FacesMessage;
 import javax.faces.application.NavigationHandler;
-import javax.faces.component.ActionSource;
+import javax.faces.component.ActionSource2;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import javax.faces.el.MethodBinding;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.ActionListener;
-import javax.faces.FacesException;
 
 public class ActionListenerImpl implements ActionListener {
 
@@ -71,13 +71,13 @@ public class ActionListenerImpl implements ActionListener {
          facesContext.addMessage(null, facesMessage);
       }
       UIComponent source = event.getComponent();
-      ActionSource actionSource = (ActionSource) source;
+      ActionSource2 actionSource = (ActionSource2) source;
       Application application = facesContext.getApplication();
-      MethodBinding binding = actionSource.getAction();
+      MethodExpression expression = actionSource.getActionExpression();
       // Retrieve the NavigationHandler instance..
       NavigationHandler navHandler = application.getNavigationHandler();
       // Invoke nav handling..
-      String navBinding = (null != binding) ? binding.getExpressionString() : null;
+      String navBinding = (null != expression) ? expression.getExpressionString() : null;
       navHandler.handleNavigation(facesContext, navBinding, errorOutcome);
       // Trigger a switch to Render Response if needed
       facesContext.renderResponse();

@@ -19,19 +19,23 @@
 
 package org.apache.myfaces.tobago.event;
 
-/*
- * Date: 22.12.2005
- * Time: 23:01:03
- */
-public interface TabChangeSource {
+public interface SheetStateChangeSource {
 
-  javax.faces.el.MethodBinding getTabChangeListener();
+  /**
+   * @deprecated since 1.6.0
+   */
+  @Deprecated
+  javax.faces.el.MethodBinding getStateChangeListener();
 
-  void setTabChangeListener(javax.faces.el.MethodBinding actionListener);
+  /**
+   * @deprecated since 1.6.0
+   */
+  @Deprecated
+  void setStateChangeListener(javax.faces.el.MethodBinding actionListener);
 
-  void addTabChangeListener(TabChangeListener listener);
+  void addStateChangeListener(SheetStateChangeListener listener);
 
-  TabChangeListener[] getTabChangeListeners();
+  SheetStateChangeListener[] getStateChangeListeners();
 
-  void removeTabChangeListener(TabChangeListener listener);
+  void removeStateChangeListener(SheetStateChangeListener listener);
 }

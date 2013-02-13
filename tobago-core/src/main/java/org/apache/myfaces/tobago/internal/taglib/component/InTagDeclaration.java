@@ -54,7 +54,7 @@ import javax.faces.component.UIInput;
     componentFamily = UIInput.COMPONENT_FAMILY,
     rendererType = RendererTypes.IN,
     allowedChildComponenents = "NONE",
-    interfaces =  {"org.apache.myfaces.tobago.component.InputSuggest"},
+    interfaces =  {"org.apache.myfaces.tobago.component.InputSuggest2"},
     facets = {
     @Facet(name = Facets.CHANGE,
         description =

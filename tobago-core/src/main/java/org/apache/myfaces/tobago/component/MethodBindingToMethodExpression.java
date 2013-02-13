@@ -30,7 +30,10 @@ import javax.faces.context.FacesContext;
 import javax.faces.el.EvaluationException;
 import javax.faces.el.MethodBinding;
 
-@SuppressWarnings("deprecation")
+/**
+ * @deprecated since 1.6.0
+ */
+@Deprecated
 public class MethodBindingToMethodExpression extends MethodExpression implements StateHolder {
   private MethodBinding methodBinding;
 

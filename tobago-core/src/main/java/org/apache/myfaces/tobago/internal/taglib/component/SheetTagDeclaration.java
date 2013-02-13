@@ -48,7 +48,7 @@ import javax.faces.component.UIData;
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UISheet",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUISheet",
-    interfaces = "org.apache.myfaces.tobago.event.SortActionSource",
+    interfaces = "org.apache.myfaces.tobago.event.SortActionSource2",
     uiComponentFacesClass = "javax.faces.component.UIData",
     componentFamily = UIData.COMPONENT_FAMILY,
     rendererType = RendererTypes.SHEET,

@@ -21,13 +21,17 @@ package org.apache.myfaces.tobago.event;
 
 import javax.faces.el.MethodBinding;
 
-/*
- * Date: 14.04.2006
- * Time: 10:42:38
- */
 public interface SortActionSource {
 
+  /**
+   * @deprecated since 1.6.0
+   */
+  @Deprecated
   MethodBinding getSortActionListener();
 
+  /**
+   * @deprecated since 1.6.0
+   */
+  @Deprecated
   void setSortActionListener(MethodBinding actionListener);
 }

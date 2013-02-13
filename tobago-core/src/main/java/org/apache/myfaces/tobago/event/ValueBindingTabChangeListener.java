@@ -27,12 +27,10 @@ import javax.faces.component.UIComponentBase;
 import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
 
-/*
- * Date: Jan 9, 2007
- * Time: 8:08:01 PM
+/**
+ * @deprecated Since 1.6.0, please use ValueExpressionTabChangeListener
  */
-
-@SuppressWarnings("deprecation")
+@Deprecated
 public class ValueBindingTabChangeListener implements TabChangeListener, StateHolder {
   private static final Logger LOG = LoggerFactory.getLogger(ValueBindingTabChangeListener.class);
   private String type;

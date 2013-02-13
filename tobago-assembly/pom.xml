@@ -145,12 +145,6 @@
                       <version>${project.version}</version>
                       <classifier>javadoc</classifier>
                     </artifactItem>
-                    <artifactItem>
-                      <groupId>${project.groupId}</groupId>
-                      <artifactId>tobago-jsf-compat</artifactId>
-                      <version>${project.version}</version>
-                      <classifier>javadoc</classifier>
-                    </artifactItem>
                   </artifactItems>
                   <outputDirectory>${project.build.directory}/javadoc
                   </outputDirectory>
@@ -265,12 +259,6 @@
                     <artifactItem>
                       <groupId>${project.groupId}</groupId>
                       <artifactId>tobago-core</artifactId>
-                      <version>${project.version}</version>
-                      <classifier>sources</classifier>
-                    </artifactItem>
-                    <artifactItem>
-                      <groupId>${project.groupId}</groupId>
-                      <artifactId>tobago-jsf-compat</artifactId>
                       <version>${project.version}</version>
                       <classifier>sources</classifier>
                     </artifactItem>

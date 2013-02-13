@@ -30,6 +30,10 @@ import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
 import javax.faces.event.ActionEvent;
 
+/**
+ * @deprecated Since 1.6.0, please use ValueExpressionPopupActionListener
+ */
+@Deprecated
 public class ValueBindingPopupActionListener extends AbstractPopupActionListener implements StateHolder {
 
   private static final Logger LOG = LoggerFactory.getLogger(ValueBindingPopupActionListener.class);

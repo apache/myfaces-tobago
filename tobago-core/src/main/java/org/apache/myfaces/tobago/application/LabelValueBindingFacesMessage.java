@@ -27,7 +27,10 @@ import javax.faces.el.ValueBinding;
 import javax.faces.webapp.UIComponentTag;
 import java.util.Locale;
 
-@SuppressWarnings("deprecation")
+/**
+ * @deprecated since 1.6.0. Please use LabelValueExpressionFacesMessage
+ */
+@Deprecated
 public class LabelValueBindingFacesMessage extends FacesMessage {
   private Locale locale;
   private Object[] args;

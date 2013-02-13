@@ -37,12 +37,10 @@ import org.apache.myfaces.tobago.internal.component.AbstractUIPage;
 import org.apache.myfaces.tobago.internal.layout.LayoutContext;
 import org.apache.myfaces.tobago.internal.util.AccessKeyMap;
 import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
-import org.apache.myfaces.tobago.internal.util.FastStringWriter;
 import org.apache.myfaces.tobago.internal.util.MimeTypeUtils;
 import org.apache.myfaces.tobago.internal.util.ResponseUtils;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.PageRendererBase;
-import org.apache.myfaces.tobago.renderkit.TobagoResponseStateManager;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
@@ -51,7 +49,6 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
-import org.apache.myfaces.tobago.util.FacesVersion;
 import org.apache.myfaces.tobago.util.VariableResolverUtils;
 import org.apache.myfaces.tobago.webapp.Secret;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -511,33 +508,7 @@ public class PageRenderer extends PageRendererBase {
     writer.writeIdAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "jsf-state-container");
     writer.flush();
     if (!FacesContextUtils.isAjax(facesContext)) {
-      if (FacesVersion.supports12()) {
         viewHandler.writeState(facesContext);
-      } else {
-        // catch the next written stuff into a string and look if it is empty (TOBAGO-909)
-        FastStringWriter buffer = new FastStringWriter(40); // usually only the marker...
-        TobagoResponseWriter originalWriter = (TobagoResponseWriter) facesContext.getResponseWriter();
-        writer = (TobagoResponseWriter) writer.cloneWithWriter(buffer);
-        facesContext.setResponseWriter(writer);
-        viewHandler.writeState(facesContext);
-        final String stateContent = buffer.toString();
-        writer = originalWriter;
-        facesContext.setResponseWriter(writer);
-
-        if (StringUtils.isBlank(stateContent)) {
-          if (LOG.isDebugEnabled()) {
-            LOG.debug("Writing state will not happen! So we write the hidden field manually.");
-          }
-          writer.startElement(HtmlElements.INPUT, null);
-          writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN, false);
-          writer.writeAttribute(HtmlAttributes.NAME, TobagoResponseStateManager.VIEW_STATE_PARAM, false);
-          writer.writeAttribute(HtmlAttributes.ID, TobagoResponseStateManager.VIEW_STATE_PARAM, false);
-          writer.writeAttribute(HtmlAttributes.VALUE, "workaround", false);
-          writer.endElement(HtmlElements.INPUT);
-        } else {
-          writer.write(stateContent);
-        }
-      }
     }
     writer.endElement(HtmlElements.SPAN);
 

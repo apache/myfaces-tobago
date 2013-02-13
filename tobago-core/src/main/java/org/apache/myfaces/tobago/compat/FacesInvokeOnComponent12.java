@@ -24,8 +24,16 @@ import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
+/**
+ * @deprecated since 1.6.0
+ */
+@Deprecated
 public class FacesInvokeOnComponent12 {
 
+  /**
+   * @deprecated since 1.6.0
+   */
+  @Deprecated
   public static boolean invokeOnComponent(
       FacesContext context, UIComponent component, String clientId, ContextCallback callback) {
     String thisClientId = component.getClientId(context);
@@ -53,6 +61,10 @@ public class FacesInvokeOnComponent12 {
     return false;
   }
 
+  /**
+   * @deprecated since 1.6.0
+   */
+  @Deprecated
   private static boolean invokeOnComponentFacetsAndChildren(
       FacesContext context, UIComponent component, String clientId, ContextCallback callback) {
     for (java.util.Iterator<UIComponent> it = component.getFacetsAndChildren(); it.hasNext();) {

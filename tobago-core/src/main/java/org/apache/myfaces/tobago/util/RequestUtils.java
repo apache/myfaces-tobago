@@ -27,10 +27,6 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
 
-/*
- * Date: 03.07.2006
- * Time: 21:19:38
- */
 public class RequestUtils {
 
   private static final Logger LOG = LoggerFactory.getLogger(RequestUtils.class);

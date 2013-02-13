@@ -26,11 +26,9 @@ import java.util.Comparator;
 
 public abstract class ComparatorBase implements Comparator {
 
-
   private Comparator comparator;
 
   private boolean reverse;
-
 
   protected ComparatorBase() {
   }

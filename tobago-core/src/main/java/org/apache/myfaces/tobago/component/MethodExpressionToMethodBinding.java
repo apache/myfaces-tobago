@@ -27,7 +27,10 @@ import javax.faces.el.EvaluationException;
 import javax.faces.el.MethodBinding;
 import javax.faces.el.MethodNotFoundException;
 
-@SuppressWarnings("deprecation")
+/**
+ * @deprecated since 1.6.0
+ */
+@Deprecated
 public class MethodExpressionToMethodBinding extends MethodBinding implements StateHolder {
 
   private MethodExpression methodExpression;

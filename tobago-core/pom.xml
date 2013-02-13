@@ -188,11 +188,6 @@
 
   <dependencies>
     <dependency>
-      <groupId>org.apache.myfaces.tobago</groupId>
-      <artifactId>tobago-jsf-compat</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-    <dependency>
       <groupId>javax.el</groupId>
       <artifactId>el-api</artifactId>
     </dependency>
@@ -203,6 +198,12 @@
     <dependency>
       <groupId>javax.servlet</groupId>
       <artifactId>servlet-api</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>javax.portlet</groupId>
+      <artifactId>portlet-api</artifactId>
+      <version>1.0</version>
+      <scope>provided</scope>
     </dependency>
 
     <dependency>

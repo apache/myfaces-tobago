@@ -42,8 +42,6 @@ package <componentInfo.packageName>;
 <componentInfo.imports:import(); separator="\n">
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
-import org.apache.myfaces.tobago.component.MethodBindingToMethodExpression;
-import org.apache.myfaces.tobago.component.MethodExpressionToMethodBinding;
 import org.apache.myfaces.tobago.internal.util.Deprecation;
 import org.apache.myfaces.tobago.renderkit.MarginValues;
 import org.apache.myfaces.tobago.renderkit.SpacingValues;
@@ -343,8 +341,11 @@ CharacterProperty(property) ::= <<
 
 MethodBindingProperty(property) ::= <<
 
+/**
+ * @deprecated since 1.6.0
+ */
+@Deprecated
 public <property.type> get<property.upperCamelCaseName>() {
-<if(property.elAlternativeAvailable)>
   javax.el.MethodExpression expression = get<property.upperCamelCaseName>Expression();
   if (expression instanceof MethodBindingToMethodExpression) {
     return ((MethodBindingToMethodExpression)expression).getMethodBinding();
@@ -353,35 +354,28 @@ public <property.type> get<property.upperCamelCaseName>() {
      return new MethodExpressionToMethodBinding(expression);
   }
   return null;
-<else>
-  return (<property.type>) getStateHelper().eval(PropertyKeys.<property.propertyName>);
-<endif>
-
 }
 
+/**
+ * @deprecated since 1.6.0
+ */
+@Deprecated
 public void set<property.upperCamelCaseName>(<property.type> <property.propertyName>) {
-<if(property.elAlternativeAvailable)>
   if (<property.propertyName> != null) {
     set<property.upperCamelCaseName>Expression(new MethodBindingToMethodExpression(<property.propertyName>));
   } else {
     set<property.upperCamelCaseName>Expression(null);
   }
-<else>
-  getStateHelper().put(PropertyKeys.<property.propertyName>, <property.propertyName>);
-<endif>
-
-}
->>
-
-MethodExpressionProperty(property) ::= <<
-
-public <property.type> get<property.upperCamelCaseName>() {
-  return (<property.type>) getStateHelper().eval(PropertyKeys.<property.propertyName>);
 }
 
-public void set<property.upperCamelCaseName>(<property.type> <property.propertyName>) {
+public javax.el.MethodExpression get<property.upperCamelCaseName>Expression() {
+  return (javax.el.MethodExpression) getStateHelper().eval(PropertyKeys.<property.propertyName>);
+}
+
+public void set<property.upperCamelCaseName>Expression(javax.el.MethodExpression <property.propertyName>) {
   getStateHelper().put(PropertyKeys.<property.propertyName>, <property.propertyName>);
 }
+
 >>
 
 NormalProperty(property) ::= <<

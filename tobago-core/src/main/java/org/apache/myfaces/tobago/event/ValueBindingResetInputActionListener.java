@@ -19,39 +19,50 @@
 
 package org.apache.myfaces.tobago.event;
 
+
+import org.apache.commons.lang.StringUtils;
 import org.apache.myfaces.tobago.internal.util.FindComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.el.ValueExpression;
 import javax.faces.component.StateHolder;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIComponentBase;
 import javax.faces.context.FacesContext;
+import javax.faces.el.ValueBinding;
 import javax.faces.event.ActionEvent;
 
 
-public class ValueExpressionPopupActionListener extends AbstractPopupActionListener implements StateHolder {
+/**
+ * @deprecated Since 1.6.0, please use ValueExpressionResetInputActionListener
+ */
+@Deprecated
+public class ValueBindingResetInputActionListener extends AbstractResetInputActionListener implements StateHolder {
+  private static final Logger LOG = LoggerFactory.getLogger(ValueBindingResetInputActionListener.class);
 
-  private static final Logger LOG = LoggerFactory.getLogger(ValueExpressionPopupActionListener.class);
+  private ValueBinding clientIdsBinding;
 
-  private ValueExpression popupIdExpression;
-
-  public ValueExpressionPopupActionListener(Object expression) {
-    popupIdExpression = (ValueExpression) expression;
+  public ValueBindingResetInputActionListener(Object binding) {
+    clientIdsBinding = (ValueBinding) binding;
   }
 
-  @Override
-  protected UIComponent getPopup(ActionEvent actionEvent) {
-    String id = (String) popupIdExpression.getValue(FacesContext.getCurrentInstance().getELContext());
-    UIComponent popup = FindComponentUtils.findComponent(actionEvent.getComponent(), id);
-    if (popup == null) {
-      LOG.error("Found no popup for \""
-          + popupIdExpression.getExpressionString() + "\" := \""
-          + id + "\"! Search base componentId : "
-          + actionEvent.getComponent().getClientId(FacesContext.getCurrentInstance()));
+  public void processAction(ActionEvent event) {
+    Object obj = clientIdsBinding.getValue(FacesContext.getCurrentInstance());
+    String [] clientIds;
+    if (obj instanceof String[]) {
+      clientIds = (String[]) obj;
+    } else if (obj instanceof String) {
+      clientIds= StringUtils.split((String) obj, ", ");
+    } else {
+      LOG.error("Ignore unknown value of " + obj + " for reset.");
+      return;
     }
-    return popup;
+    for (String clientId : clientIds) {
+      UIComponent component = FindComponentUtils.findComponent(event.getComponent(), clientId);
+      if (component != null) {
+        resetChildren(component);
+      }
+    }
   }
 
   public boolean isTransient() {
@@ -60,17 +71,17 @@ public class ValueExpressionPopupActionListener extends AbstractPopupActionListe
 
   public void restoreState(FacesContext context, Object state) {
     Object[] values = (Object[]) state;
-    popupIdExpression = (ValueExpression) UIComponentBase.restoreAttachedState(context, values[0]);
+    clientIdsBinding = (ValueBinding) UIComponentBase.restoreAttachedState(context, values[0]);
   }
 
   public Object saveState(FacesContext context) {
     Object[] values = new Object[1];
-    values[0] = UIComponentBase.saveAttachedState(context, popupIdExpression);
+    values[0] = UIComponentBase.saveAttachedState(context, clientIdsBinding);
     return values;
   }
-
 
   public void setTransient(boolean newTransientValue) {
     // ignore
   }
+
 }

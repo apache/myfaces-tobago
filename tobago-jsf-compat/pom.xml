@@ -81,11 +81,5 @@
       <groupId>maven-taglib</groupId>
       <artifactId>maven-taglib-plugin</artifactId>
     </dependency>
-    <dependency>
-      <groupId>javax.portlet</groupId>
-      <artifactId>portlet-api</artifactId>
-      <version>1.0</version>
-      <scope>provided</scope>
-    </dependency>
   </dependencies>
 </project>

@@ -87,6 +87,10 @@ public class FacesUtilsEL {
     return false;
   }
 
+  /**
+   * @deprecated since 1.6.0
+   */
+  @Deprecated
   public static void invokeMethodBinding(FacesContext facesContext, MethodBinding methodBinding, FacesEvent event) {
     if (methodBinding != null && event != null) {
       try {
@@ -170,19 +174,25 @@ public class FacesUtilsEL {
     return null;
   }
 
+  /**
+   * @deprecated Since 1.6.0, please use createValueExpression()
+   */
+  @Deprecated
   public static Object createExpressionOrBinding(String string) {
+    return createValueExpression(string);
+  }
+
+  public static ValueExpression createValueExpression(String string) {
     FacesContext facesContext = FacesContext.getCurrentInstance();
     ExpressionFactory expressionFactory = facesContext.getApplication().getExpressionFactory();
-    ValueExpression valueExpression =
-        expressionFactory.createValueExpression(facesContext.getELContext(), string, Object.class);
-    return valueExpression;
+    return expressionFactory.createValueExpression(facesContext.getELContext(), string, Object.class);
   }
 
   public static void setValidator(EditableValueHolder editableValueHolder, Object validator) {
     if (validator instanceof MethodExpression) {
       editableValueHolder.addValidator(new MethodExpressionValidator((MethodExpression) validator));
     } else {
-      LOG.error("Unknow instance for validator: " + (validator != null ? validator.getClass().getName() : validator));
+      LOG.error("Unknown instance for validator: " + (validator != null ? validator.getClass().getName() : validator));
     }
   }
 

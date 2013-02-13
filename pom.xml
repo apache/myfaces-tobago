@@ -1005,7 +1005,6 @@
 
   <modules>
     <module>tobago-tool</module>
-    <module>tobago-jsf-compat</module>
     <module>tobago-core</module>
     <module>tobago-theme</module>
     <module>tobago-extension</module>
