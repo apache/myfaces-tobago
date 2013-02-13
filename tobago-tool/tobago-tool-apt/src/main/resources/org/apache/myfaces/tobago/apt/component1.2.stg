@@ -518,17 +518,11 @@ public void set<property.upperCamelCaseName>(<property.type> <property.propertyN
 >>
 
 field() ::= <<
-<if(it.elAlternativeAvailable)>
-<else>
 private <it.internalType> <it.propertyName>;
-<endif>
 >>
 
 resetField() ::= <<
-<if(it.elAlternativeAvailable)>
-<else>
 <it.propertyName> = null;
-<endif>
 >>
 
 restoreStateField() ::= <<
@@ -596,10 +590,7 @@ values[<it.nonTransientIndexPlusOne>] = <it.propertyName>;
 >>
 
 MethodBindingSaveStateProperty() ::= <<
-<if(it.elAlternativeAvailable)>
-<else>
 values[<it.nonTransientIndexPlusOne>] = saveAttachedState(context, <it.propertyName>);
-<endif>
 >>
 
 MethodExpressionSaveStateProperty() ::= <<
@@ -663,10 +654,7 @@ OrderByRestoreStateProperty() ::= <<
 >>
 
 MethodBindingRestoreStateProperty() ::= <<
-<if(it.elAlternativeAvailable)>
-<else>
 <it.propertyName> = (<it.type>) restoreAttachedState(context, values[<it.nonTransientIndexPlusOne>]);
-<endif>
 >>
 
 MethodExpressionRestoreStateProperty() ::= <<

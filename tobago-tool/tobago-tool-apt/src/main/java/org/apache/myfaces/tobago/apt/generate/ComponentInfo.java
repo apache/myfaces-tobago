@@ -61,21 +61,13 @@ public class ComponentInfo extends TagInfo {
     this.invokeOnComponent = invokeOnComponent;
   }
 
-  public void addPropertyInfo(ComponentPropertyInfo propertyInfo, ComponentPropertyInfo elAlternative) {
+  public void addPropertyInfo(ComponentPropertyInfo propertyInfo) {
     getProperties().add(propertyInfo);
     propertyInfo.setIndex(index);
-    if (elAlternative != null) {
-      getProperties().add(elAlternative);
-      elAlternative.setIndex(index);
-    }
     index++;
     if (!propertyInfo.isTransient()) {
       nonTransientProperties.add(propertyInfo);
       propertyInfo.setNonTransientIndex(nonTransientIndex);
-      if (elAlternative != null) {
-        nonTransientProperties.add(elAlternative);
-        elAlternative.setNonTransientIndex(nonTransientIndex);
-      }
       nonTransientIndex++;
     } else {
       transientProperties.add(propertyInfo);

@@ -363,11 +363,6 @@ if (<it.propertyName> != null) {
 }
 >>
 
-createMethodBinding(it) ::= <<
-final javax.faces.el.MethodBinding methodBinding = application.createMethodBinding(<it.propertyName>.getExpressionString(),
-    new Class[] { <first(it.methodSignature):{ n | <n>.class }><rest(it.methodSignature):{ n | , <n>.class}>} );
->>
-
 createStringProperty(it) ::= <<
 if (<it.propertyName> != null) {
   <if(it.literalOnly)>

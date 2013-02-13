@@ -181,13 +181,12 @@ public class ClassesGenerator extends AbstractGenerator {
       componentInfo.setSuperClass(componentTag.uiComponentBaseClass());
       componentInfo.setDescription(getDescription(declaration));
       componentInfo.setDeprecated(declaration.getAnnotation(Deprecated.class) != null);
-      List<String> elMethods = checkForElMethods(componentInfo, componentTag.interfaces());
       for (String interfaces : componentTag.interfaces()) {
         componentInfo.addInterface(interfaces);
       }
 
-        Class<? extends UIComponent> facesClass
-            = Class.forName(componentTag.uiComponentFacesClass()).asSubclass(UIComponent.class);
+      Class<? extends UIComponent> facesClass
+          = Class.forName(componentTag.uiComponentFacesClass()).asSubclass(UIComponent.class);
 
       for (PropertyInfo info : properties.values()) {
         final String infoType = info.getType();
@@ -205,11 +204,10 @@ public class ClassesGenerator extends AbstractGenerator {
           // generate = true
         }
         if (generate) {
-          addPropertyToComponent(componentInfo, info, elMethods, false);
+          addPropertyToComponent(componentInfo, info);
         }
 
-//          }
-        }
+      }
 /*        boolean found = false;
         for (Method method : componentBaseClass.getMethods()) {
           if ("invokeOnComponent".equals(method.getName())) {
@@ -235,57 +233,13 @@ public class ClassesGenerator extends AbstractGenerator {
           }
         }
 */
-/*      }
-*/
 
       componentStringTemplate.setAttribute("componentInfo", componentInfo);
       writeFile(componentInfo, componentStringTemplate);
     }
   }
 
-  private List<String> checkForElMethods(ComponentInfo info, String[] interfaces) {
-    List<String> elMethods = new ArrayList<String>();
-    for (String interfaceName : interfaces) {
-      try {
-        info("/////////////////////////////////////////////////////////////////////////////////////////////////////");
-        info(interfaceName);
-        info("/////////////////////////////////////////////////////////////////////////////////////////////////////");
-        info("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
-        info("currently not working!!! ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
-        info("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
-        info("/////////////////////////////////////////////////////////////////////////////////////////////////////");
-        Class.forName(interfaceName);
-        info("/////////////////////////////////////////////////////////////////////////////////////////////////////");
-        info("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
-        info(" 1 ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
-        info("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
-        info("/////////////////////////////////////////////////////////////////////////////////////////////////////");
-        Class interfaceClass2 = Class.forName(interfaceName + "2");
-        info("/////////////////////////////////////////////////////////////////////////////////////////////////////");
-        info("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
-        info(" 2 ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
-        info("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
-        info("/////////////////////////////////////////////////////////////////////////////////////////////////////");
-        info.addInterface(interfaceClass2.getName());
-        for (Method method : interfaceClass2.getMethods()) {
-          Class[] parameter = method.getParameterTypes();
-          if (parameter.length == 1 && "javax.el.MethodExpression".equals(parameter[0].getName())) {
-            elMethods.add(method.getName());
-          }
-        }
-      } catch (ClassNotFoundException e) {
-        info("/////////////////////////////////////////////////////////////////////////////////////////////////////");
-        info("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
-        info(" X ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
-        info("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
-        info("/////////////////////////////////////////////////////////////////////////////////////////////////////");
-        // ignore
-      }
-    }
-    return elMethods;
-
-  }
-
+/*
   private Map<String, PropertyInfo> getBaseClassProperties(String baseClass) {
 
     for (TypeElement typeElement : getTypes()) {
@@ -301,44 +255,30 @@ public class ClassesGenerator extends AbstractGenerator {
     }
     throw new IllegalStateException("No UIComponentTag found for componentClass " + baseClass);
   }
+*/
 
-  private ComponentPropertyInfo addPropertyToComponent(
-      ComponentInfo componentInfo, PropertyInfo info, List<String> elMethods, boolean methodExpression) {
+  private ComponentPropertyInfo addPropertyToComponent(ComponentInfo componentInfo, PropertyInfo info) {
 
-    ComponentPropertyInfo componentPropertyInfo = (ComponentPropertyInfo) info.fill(new ComponentPropertyInfo());
-    String possibleUnifiedElAlternative = "set" + info.getUpperCamelCaseName() + "Expression";
-    ComponentPropertyInfo elAlternative = null;
-
-    if (elMethods.contains(possibleUnifiedElAlternative) && !methodExpression) {
-      elAlternative = addPropertyToComponent(componentInfo, info, elMethods, true);
-      componentPropertyInfo.setElAlternativeAvailable(true);
-    }
-
+    final ComponentPropertyInfo componentPropertyInfo = (ComponentPropertyInfo) info.fill(new ComponentPropertyInfo());
     componentInfo.addImport(componentPropertyInfo.getUnmodifiedType());
     componentInfo.addImport("javax.faces.context.FacesContext");
-
     if ("markup".equals(info.getName())) {
       componentInfo.addInterface("org.apache.myfaces.tobago.component.SupportsMarkup");
     }
     if ("requiredMessage".equals(info.getName())) {
       componentInfo.setMessages(true);
     }
-    if (methodExpression) {
-      componentPropertyInfo.setType("javax.el.MethodExpression");
-      componentPropertyInfo.setName(info.getName() + "Expression");
-    } else {
-      componentInfo.addPropertyInfo(componentPropertyInfo, elAlternative);
-    }
+    componentInfo.addPropertyInfo(componentPropertyInfo);
     return componentPropertyInfo;
   }
 
   private void createRenderer(TypeElement declaration) throws IOException {
 
-    UIComponentTag componentTag = declaration.getAnnotation(UIComponentTag.class);
-    String rendererType = componentTag.rendererType();
+    final UIComponentTag componentTag = declaration.getAnnotation(UIComponentTag.class);
+    final String rendererType = componentTag.rendererType();
 
     if (rendererType != null && rendererType.length() > 0) {
-      String className = "org.apache.myfaces.tobago.renderkit." + rendererType + "Renderer";
+      final String className = "org.apache.myfaces.tobago.renderkit." + rendererType + "Renderer";
       if (renderer.contains(className)) {
         // already created
         return;

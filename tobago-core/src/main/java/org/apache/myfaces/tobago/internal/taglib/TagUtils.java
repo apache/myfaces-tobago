@@ -45,10 +45,17 @@ import javax.faces.el.ValueBinding;
 import javax.faces.webapp.UIComponentTag;
 import java.lang.reflect.InvocationTargetException;
 
-
+/**
+ * @deprecated since 1.6.0
+ */
+@Deprecated
 public class TagUtils {
   private static final Logger LOG = LoggerFactory.getLogger(TagUtils.class);
 
+  /**
+   * @deprecated since 1.6.0
+   */
+  @Deprecated
   public static void setIntegerProperty(UIComponent component, String name, String value) {
     if (value != null) {
       if (UIComponentTag.isValueReference(value)) {
@@ -67,6 +74,10 @@ public class TagUtils {
     }
   }
 
+  /**
+   * @deprecated since 1.6.0
+   */
+  @Deprecated
   public static void setBooleanProperty(UIComponent component, String name, String value) {
     if (value != null) {
       if (UIComponentTag.isValueReference(value)) {
@@ -77,6 +88,10 @@ public class TagUtils {
     }
   }
 
+  /**
+   * @deprecated since 1.6.0
+   */
+  @Deprecated
   public static void setStringProperty(UIComponent component, String name, String value) {
     if (value != null) {
       if (UIComponentTag.isValueReference(value)) {
@@ -87,6 +102,10 @@ public class TagUtils {
     }
   }
 
+  /**
+   * @deprecated since 1.6.0
+   */
+  @Deprecated
   public static void setConverterProperty(UIComponent component, String name, String value) {
     if (value != null && component instanceof ValueHolder) {
       final FacesContext facesContext = FacesContext.getCurrentInstance();
@@ -101,22 +120,42 @@ public class TagUtils {
     }
   }
 
+  /**
+   * @deprecated since 1.6.0
+   */
+  @Deprecated
   public static void setSeverityProperty(UIComponent component, String name, String value) {
     setStringProperty(component, name, value);
   }
 
+  /**
+   * @deprecated since 1.6.0
+   */
+  @Deprecated
   public static void setObjectProperty(UIComponent component, String name, String value) {
     setStringProperty(component, name, value);
   }
 
+  /**
+   * @deprecated since 1.6.0
+   */
+  @Deprecated
   public static void setCharacterProperty(UIComponent component, String name, String value) {
     setStringProperty(component, name, value);
   }
 
+  /**
+   * @deprecated since 1.6.0
+   */
+  @Deprecated
   public static ValueBinding createValueBinding(String value) {
     return FacesContext.getCurrentInstance().getApplication().createValueBinding(value);
   }
 
+  /**
+   * @deprecated since 1.6.0
+   */
+  @Deprecated
   public static void setStateChangeListenerMethodBinding(UIComponent component, String value, Class[] args) {
     if (value != null && UIComponentTag.isValueReference(value)) {
       MethodBinding methodBinding = FacesContext.getCurrentInstance().getApplication().createMethodBinding(value, args);
@@ -124,6 +163,10 @@ public class TagUtils {
     }
   }
 
+  /**
+   * @deprecated since 1.6.0
+   */
+  @Deprecated
   public static void setSortActionListenerMethodBinding(UIComponent component, String value, Class[] args) {
     if (value != null && UIComponentTag.isValueReference(value)) {
       MethodBinding methodBinding = FacesContext.getCurrentInstance().getApplication().createMethodBinding(value, args);
@@ -131,6 +174,10 @@ public class TagUtils {
     }
   }
 
+  /**
+   * @deprecated since 1.6.0
+   */
+  @Deprecated
   public static void setSuggestMethodMethodBinding(UIComponent component, String value, Class[] args) {
     if (value != null && UIComponentTag.isValueReference(value)) {
       MethodBinding methodBinding = FacesContext.getCurrentInstance().getApplication().createMethodBinding(value, args);
@@ -138,6 +185,10 @@ public class TagUtils {
     }
   }
 
+  /**
+   * @deprecated since 1.6.0
+   */
+  @Deprecated
   public static void setValueChangeListenerMethodBinding(UIComponent component, String value, Class[] args) {
     if (value != null && UIComponentTag.isValueReference(value)) {
       MethodBinding methodBinding = FacesContext.getCurrentInstance().getApplication().createMethodBinding(value, args);
@@ -145,6 +196,10 @@ public class TagUtils {
     }
   }
 
+  /**
+   * @deprecated since 1.6.0
+   */
+  @Deprecated
   public static void setValidatorMethodBinding(UIComponent component, String value, Class[] args) {
     if (value != null && UIComponentTag.isValueReference(value)) {
       MethodBinding methodBinding = FacesContext.getCurrentInstance().getApplication().createMethodBinding(value, args);
@@ -152,6 +207,10 @@ public class TagUtils {
     }
   }
 
+  /**
+   * @deprecated since 1.6.0
+   */
+  @Deprecated
   public static void setActionListenerMethodBinding(UIComponent component, String value, Class[] args) {
     if (value != null && UIComponentTag.isValueReference(value)) {
       MethodBinding methodBinding = FacesContext.getCurrentInstance().getApplication().createMethodBinding(value, args);
@@ -159,6 +218,10 @@ public class TagUtils {
     }
   }
 
+  /**
+   * @deprecated since 1.6.0
+   */
+  @Deprecated
   public static void setActionMethodBinding(UIComponent component, String value, Class[] args) {
     if (value != null) {
       if (UIComponentTag.isValueReference(value)) {
@@ -171,6 +234,10 @@ public class TagUtils {
     }  
   }
 
+  /**
+   * @deprecated since 1.6.0
+   */
+  @Deprecated
   public static void setTabChangeListenerMethodBinding(UIComponent component, String value, Class[] args) {
     if (value != null && UIComponentTag.isValueReference(value)) {
       MethodBinding methodBinding = FacesContext.getCurrentInstance().getApplication().createMethodBinding(value, args);
@@ -178,6 +245,10 @@ public class TagUtils {
     }
   }
 
+  /**
+   * @deprecated since 1.6.0
+   */
+  @Deprecated
   public static void setStringArrayProperty(UIComponent component, String name, String value) {
     if (value != null) {
       if (UIComponentTag.isValueReference(value)) {
@@ -197,6 +268,10 @@ public class TagUtils {
     }
   }
 
+  /**
+   * @deprecated since 1.6.0
+   */
+  @Deprecated
   public static void setValueBindingProperty(UIComponent component, String name, String value) {
     if (value != null && UIComponentTag.isValueReference(value)) {
       ValueBinding valueBinding = createValueBinding(value);
@@ -204,6 +279,10 @@ public class TagUtils {
     }
   }
 
+  /**
+   * @deprecated since 1.6.0
+   */
+  @Deprecated
   public static void setOrderByProperty(UIComponent component, String name, String value) {
     if (value != null) {
       if (UIComponentTag.isValueReference(value)) {
@@ -214,6 +293,10 @@ public class TagUtils {
     }
   }
 
+  /**
+   * @deprecated since 1.6.0
+   */
+  @Deprecated
   public static String getValueFromEl(String script) {
     if (UIComponentTag.isValueReference(script)) {
       ValueBinding valueBinding = createValueBinding(script);

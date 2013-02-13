@@ -495,22 +495,13 @@ public void set<property.upperCamelCaseName>(<property.type> <property.propertyN
 >>
 
 enumName() ::= <<
-<if(it.elAlternativeAvailable)>
-<else>
 <it.propertyName>,
-<endif>
 >>
 
 field() ::= <<
-<if(it.elAlternativeAvailable)>
-<else>
 private <it.internalType> <it.propertyName>;
-<endif>
 >>
 
 resetField() ::= <<
-<if(it.elAlternativeAvailable)>
-<else>
 <it.propertyName> = null;
-<endif>
 >>
