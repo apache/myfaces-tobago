@@ -21,7 +21,6 @@ package org.apache.myfaces.tobago.facelets;
 
 import com.sun.facelets.FaceletContext;
 import com.sun.facelets.el.ELAdaptor;
-import com.sun.facelets.el.LegacyMethodBinding;
 import com.sun.facelets.el.TagMethodExpression;
 import com.sun.facelets.tag.TagAttribute;
 import com.sun.facelets.tag.TagConfig;
@@ -45,10 +44,14 @@ import javax.el.MethodExpression;
 import javax.el.ValueExpression;
 import javax.faces.FacesException;
 import javax.faces.component.ActionSource;
+import javax.faces.component.ActionSource2;
 import javax.faces.component.EditableValueHolder;
 import javax.faces.component.UIComponent;
 import javax.faces.component.ValueHolder;
 import javax.faces.convert.Converter;
+import javax.faces.event.MethodExpressionActionListener;
+import javax.faces.event.MethodExpressionValueChangeListener;
+import javax.faces.validator.MethodExpressionValidator;
 import java.beans.IntrospectionException;
 import java.beans.PropertyDescriptor;
 
@@ -100,7 +103,7 @@ public final class AttributeHandler extends TagHandler {
           } else {
             result = StringUtils.isEmpty(expressionString);
           }
-          parent.getAttributes().put(name.getValue(), Boolean.valueOf(result));
+          parent.getAttributes().put(name.getValue(), result);
         } else if ("isSet".equals(mode.getValue())) {
           boolean result = true;
           String expressionString = value.getValue();
@@ -123,7 +126,7 @@ public final class AttributeHandler extends TagHandler {
           } else {
             result = StringUtils.isNotEmpty(expressionString);
           }
-          parent.getAttributes().put(name.getValue(), Boolean.valueOf(result));
+          parent.getAttributes().put(name.getValue(), result);
         } else if ("action".equals(mode.getValue())) {
           String expressionString = value.getValue();
           while (isSimpleExpression(expressionString)) {
@@ -148,8 +151,7 @@ public final class AttributeHandler extends TagHandler {
             ExpressionFactory expressionFactory = faceletContext.getExpressionFactory();
             MethodExpression action = new TagMethodExpression(value, expressionFactory.createMethodExpression(
                 faceletContext, expressionString, String.class, ComponentUtils.ACTION_ARGS));
-            // TODO jsf 1.2
-            ((ActionSource) parent).setAction(new LegacyMethodBinding(action));
+            ((ActionSource2) parent).setActionExpression(action);
           }
         } else if ("actionListener".equals(mode.getValue())) {
           String expressionString = value.getValue();
@@ -177,8 +179,7 @@ public final class AttributeHandler extends TagHandler {
             ExpressionFactory expressionFactory = faceletContext.getExpressionFactory();
             MethodExpression actionListener = new TagMethodExpression(value, expressionFactory.createMethodExpression(
                 faceletContext, expressionString, null, ComponentUtils.ACTION_LISTENER_ARGS));
-            // TODO jsf 1.2
-            ((ActionSource) parent).setActionListener(new LegacyMethodBinding(actionListener));
+            ((ActionSource) parent).addActionListener(new MethodExpressionActionListener(actionListener));
           }
         } else if ("actionFromValue".equals(mode.getValue())) {
           if (!value.isLiteral()) {
@@ -248,30 +249,27 @@ public final class AttributeHandler extends TagHandler {
         } else if (parent instanceof EditableValueHolder && Attributes.VALIDATOR.equals(nameValue)) {
           MethodExpression methodExpression = getMethodExpression(faceletContext, null, ComponentUtils.VALIDATOR_ARGS);
           if (methodExpression != null) {
-            // TODO jsf 1.2
-            ((EditableValueHolder) parent).setValidator(new LegacyMethodBinding(methodExpression));
+            ((EditableValueHolder) parent).addValidator(new MethodExpressionValidator(methodExpression));
           }
         } else if (parent instanceof EditableValueHolder
             && Attributes.VALUE_CHANGE_LISTENER.equals(nameValue)) {
           MethodExpression methodExpression =
               getMethodExpression(faceletContext, null, ComponentUtils.VALUE_CHANGE_LISTENER_ARGS);
           if (methodExpression != null) {
-            // TODO jsf 1.2
-            ((EditableValueHolder) parent).setValueChangeListener(new LegacyMethodBinding(methodExpression));
+            ((EditableValueHolder) parent).addValueChangeListener(
+                new MethodExpressionValueChangeListener(methodExpression));
           }
         } else if (parent instanceof ValueHolder && Attributes.CONVERTER.equals(nameValue)) {
           setConverter(faceletContext, parent, nameValue);
         } else if (parent instanceof ActionSource && Attributes.ACTION.equals(nameValue)) {
           MethodExpression action = getMethodExpression(faceletContext, String.class, ComponentUtils.ACTION_ARGS);
           if (action != null) {
-            // TODO jsf 1.2
-            ((ActionSource) parent).setAction(new LegacyMethodBinding(action));
+            ((ActionSource2) parent).setActionExpression(action);
           }
         } else if (parent instanceof ActionSource && Attributes.ACTION_LISTENER.equals(nameValue)) {
           MethodExpression action = getMethodExpression(faceletContext, null, ComponentUtils.ACTION_LISTENER_ARGS);
           if (action != null) {
-            // TODO jsf 1.2
-            ((ActionSource) parent).setActionListener(new LegacyMethodBinding(action));
+            ((ActionSource) parent).addActionListener(new MethodExpressionActionListener(action));
           }
         } else if (!parent.getAttributes().containsKey(nameValue)) {
           if (value.isLiteral()) {

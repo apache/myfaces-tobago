@@ -21,10 +21,8 @@ package org.apache.myfaces.tobago.util;
 
 import org.apache.myfaces.tobago.context.ClientProperties;
 
-import javax.faces.application.Application;
+import javax.el.ELContext;
 import javax.faces.context.FacesContext;
-import javax.faces.el.ValueBinding;
-import javax.faces.el.VariableResolver;
 
 public final class VariableResolverUtils {
 
@@ -36,15 +34,8 @@ public final class VariableResolverUtils {
    * Returns the requested object configured in the faces-config or from library.
    */
   public static Object resolveVariable(FacesContext context, String variable) {
-// TODO: JSF 1.2
-//    if (FacesVersion.supports12()) {
-//      final ELContext elContext = context.getELContext();
-//      return elContext.getELResolver().getValue(elContext, null, variable);
-//    } else {
-      final Application application = context.getApplication();
-      final VariableResolver variableResolver = application.getVariableResolver();
-      return variableResolver.resolveVariable(context, variable);
-//    }
+    final ELContext elContext = context.getELContext();
+    return elContext.getELResolver().getValue(elContext, null, variable);
   }
 
   /**
@@ -61,14 +52,7 @@ public final class VariableResolverUtils {
    * Also useful to enforce a new creation of a managed-bean.
    */
   public static void clearVariable(FacesContext context, String variable) {
-// TODO: JSF 1.2
-//    if (FacesVersion.supports12()) {
-//      final ELContext elContext = context.getELContext();
-//      elContext.getELResolver().setValue(elContext, null, variable, null);
-//    } else {
-      final Application application = context.getApplication();
-      final ValueBinding valueBinding = application.createValueBinding("#{" + variable + "}");
-      valueBinding.setValue(context, null);
-//    }
+    final ELContext elContext = context.getELContext();
+    elContext.getELResolver().setValue(elContext, null, variable, null);
   }
 }
