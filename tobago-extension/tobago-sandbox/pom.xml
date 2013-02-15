@@ -29,6 +29,8 @@
   <build>
 
     <plugins>
+<!-- TBD: can this be removed? -->
+<!--
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>build-helper-maven-plugin</artifactId>
@@ -48,6 +50,8 @@
           </execution>
         </executions>
       </plugin>
+-->
+      <!-- TBD: can this be removed? -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-dependency-plugin</artifactId>
