@@ -87,7 +87,7 @@ public class TobagoSelenium extends DefaultSelenium {
    *
    * @return True if the severity level of the page is error
    * @throws com.thoughtworks.selenium.SeleniumException
-   *          If the page is not a Tobago page, or any other problem with JavaScrpt or the page.
+   *          If the page is not a Tobago page, or any other problem with JavaScript or the page.
    */
   protected boolean isErrorOnPage() throws SeleniumException {
     String errorSeverity = getEval("window.LOG.getMaximumSeverity() >= window.LOG.ERROR");
