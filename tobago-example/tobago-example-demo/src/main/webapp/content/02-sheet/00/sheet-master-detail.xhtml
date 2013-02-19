@@ -38,7 +38,9 @@
       <f:facet name="toolBar">
         <tc:toolBar>
           <tc:toolBarCommand label="Deselect" actionListener="#{demo.selectLuminary}"
-                             renderedPartially=":page:detail"/>
+                             renderedPartially=":page:detail">
+            <tc:resetInputActionListener/>
+          </tc:toolBarCommand>
         </tc:toolBar>
       </f:facet>
 
@@ -48,7 +50,9 @@
           <tc:out value="#{luminary.name}" id="t_name"/>
         </tc:column>
         <tc:columnEvent event="click">
-          <tc:command actionListener="#{demo.selectLuminary}" renderedPartially=":page:detail"/>
+          <tc:command actionListener="#{demo.selectLuminary}" renderedPartially=":page:detail">
+            <tc:resetInputActionListener/>
+          </tc:command>
         </tc:columnEvent>
       </tc:sheet>
     </tc:box>
@@ -59,7 +63,7 @@
         <f:facet name="layout">
           <tc:gridLayout rows="auto;auto;auto;auto;auto;auto;auto;auto;auto"/>
         </f:facet>
-        <tx:in label="Name" value="#{demo.currentSolarObject.name}"/>
+        <tx:in label="Name" value="#{demo.currentSolarObject.name}" required="true"/>
         <tx:in label="Number" value="#{demo.currentSolarObject.number}"/>
         <tx:in label="Orbit" value="#{demo.currentSolarObject.orbit}"/>
         <tx:in label="Distance" value="#{demo.currentSolarObject.distance}"/>
