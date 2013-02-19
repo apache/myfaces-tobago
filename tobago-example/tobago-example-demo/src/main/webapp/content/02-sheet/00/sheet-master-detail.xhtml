@@ -38,7 +38,7 @@
       <f:facet name="toolBar">
         <tc:toolBar>
           <tc:toolBarCommand label="Deselect" actionListener="#{demo.selectLuminary}"
-                             renderedPartially=":page:detail">
+                             renderedPartially=":page:detail" immediate="true">
             <tc:resetInputActionListener/>
           </tc:toolBarCommand>
         </tc:toolBar>
@@ -50,7 +50,7 @@
           <tc:out value="#{luminary.name}" id="t_name"/>
         </tc:column>
         <tc:columnEvent event="click">
-          <tc:command actionListener="#{demo.selectLuminary}" renderedPartially=":page:detail">
+          <tc:command actionListener="#{demo.selectLuminary}" renderedPartially=":page:detail" immediate="true">
             <tc:resetInputActionListener/>
           </tc:command>
         </tc:columnEvent>
