@@ -31,6 +31,10 @@ public class ResetInputActionListener extends AbstractResetInputActionListener i
 
   private String [] clientIds;
 
+  public ResetInputActionListener() {
+    clientIds = new String[0];
+  }
+
   public ResetInputActionListener(String[] clientIds) {
     this.clientIds = clientIds;
   }
