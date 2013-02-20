@@ -19,7 +19,7 @@
 
 package org.apache.myfaces.tobago.renderkit.html.sandbox.standard.tag;
 
-import org.apache.myfaces.tobago.component.AbstractUINumberSlider;
+import org.apache.myfaces.tobago.internal.component.AbstractUINumberSlider;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;

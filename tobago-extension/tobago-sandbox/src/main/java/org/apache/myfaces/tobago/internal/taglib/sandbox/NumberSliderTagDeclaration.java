@@ -32,12 +32,18 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutComponent;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsReadonly;
 
+import javax.faces.component.UIInput;
+
+/**
+ * Renders a slider to select a number in a range.
+ */
 @Tag(name = "numberSlider")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UINumberSlider",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.component.AbstractUINumberSlider",
+    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUINumberSlider",
+    uiComponentFacesClass = "javax.faces.component.UIInput",
+    componentFamily = UIInput.COMPONENT_FAMILY,
     rendererType = "NumberSlider")
-
 public interface NumberSliderTagDeclaration
     extends HasIdBindingAndRendered, IsReadonly, IsDisabled, HasMarkup, HasCurrentMarkup,
     HasValue, HasValueChangeListener, IsGridLayoutComponent {

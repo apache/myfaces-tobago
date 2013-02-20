@@ -29,12 +29,12 @@
   <build>
 
     <plugins>
-<!-- TBD: can this be removed? -->
-<!--
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>build-helper-maven-plugin</artifactId>
+<!--
         <version>1.0</version>
+-->
         <executions>
           <execution>
             <id>add-source</id>
@@ -44,14 +44,12 @@
             </goals>
             <configuration>
               <sources>
-                <source>${project.build.directory}/generated-component</source>
+                <source>${project.build.directory}/generated</source>
               </sources>
             </configuration>
           </execution>
         </executions>
       </plugin>
--->
-      <!-- TBD: can this be removed? -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-dependency-plugin</artifactId>
@@ -89,6 +87,9 @@
             <phase>generate-sources</phase>
             <configuration>
               <!-- source output directory -->
+              <additionalSourceDirectories>
+                <additionalSourceDirectory>${project.build.directory}/tobago-core-sources</additionalSourceDirectory>
+              </additionalSourceDirectories>
               <outputDirectory>${project.build.directory}/generated</outputDirectory>
               <processors>
                 <processor>org.apache.myfaces.tobago.apt.processor.ClassesGenerator</processor>
@@ -155,29 +156,19 @@
         <artifactId>maven-resources-plugin</artifactId>
         <executions>
           <execution>
-            <id>copy-faces-config</id>
+            <id>copy-resources</id>
             <goals><goal>copy-resources</goal></goals>
             <phase>process-classes</phase>
             <configuration>
               <outputDirectory>${project.build.outputDirectory}</outputDirectory>
               <resources>
                 <resource>
-                  <targetPath>META-INF</targetPath>
-                  <directory>${project.build.directory}/generated-faces-config</directory>
-                </resource>
-              </resources>
-            </configuration>
-          </execution>
-          <execution>
-            <id>copy-tld</id>
-            <goals><goal>copy-resources</goal></goals>
-            <phase>process-classes</phase>
-            <configuration>
-              <outputDirectory>${project.build.outputDirectory}</outputDirectory>
-              <resources>
-                <resource>
-                  <targetPath>META-INF</targetPath>
-                  <directory>${project.build.directory}/generated-tld</directory>
+                  <directory>${project.build.directory}/generated</directory>
+                  <includes>
+                    <include>**/*.tld</include>
+                    <include>**/tobago-sandbox.xml</include>
+                    <include>META-INF/faces-config.xml</include>
+                  </includes>
                 </resource>
               </resources>
             </configuration>
@@ -219,11 +210,6 @@
     <dependency>
       <groupId>org.apache.myfaces.tobago</groupId>
       <artifactId>tobago-theme-standard</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.myfaces.tobago</groupId>
-      <artifactId>tobago-core</artifactId>
       <version>${project.version}</version>
     </dependency>
     <dependency>
@@ -284,8 +270,7 @@
     </dependency>
     <dependency>
       <groupId>org.apache.myfaces.test</groupId>
-      <artifactId>myfaces-test12</artifactId>
-      <version>${myfaces-test12.version}</version>
+      <artifactId>myfaces-test20</artifactId>
       <scope>test</scope>
     </dependency>
   </dependencies>

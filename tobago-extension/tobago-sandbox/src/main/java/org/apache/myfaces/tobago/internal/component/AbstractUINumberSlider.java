@@ -17,7 +17,7 @@
  * under the License.
  */
 
-package org.apache.myfaces.tobago.component;
+package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.myfaces.tobago.layout.LayoutComponent;
 
