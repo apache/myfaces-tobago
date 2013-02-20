@@ -33,8 +33,9 @@ public class Reload {
     return null;
   }
 
-  public void reset() {
+  public String reset() {
     counter = 0;
+    return null;
   }
 
   public boolean isOnlyEven() {
