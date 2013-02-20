@@ -258,7 +258,6 @@
       <version>${project.version}</version>
       <scope>provided</scope>
     </dependency>
-    <!-- TBD: if we support JSF 1.2 this must be configurable over a profile -->
     <dependency>
       <groupId>org.apache.myfaces.test</groupId>
       <artifactId>myfaces-test20</artifactId>

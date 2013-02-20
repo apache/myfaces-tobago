@@ -174,8 +174,8 @@
     </dependency>
     <dependency>
       <groupId>org.apache.myfaces.test</groupId>
-      <artifactId>myfaces-test12</artifactId>
-      <version>${myfaces-test12.version}</version>
+      <artifactId>myfaces-test20</artifactId>
+      <version>${myfaces-test20.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>

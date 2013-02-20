@@ -541,12 +541,6 @@
       </dependency>
       <dependency>
         <groupId>org.apache.myfaces.test</groupId>
-        <artifactId>myfaces-test12</artifactId>
-        <version>${myfaces-test12.version}</version>
-        <scope>test</scope>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.myfaces.test</groupId>
         <artifactId>myfaces-test20</artifactId>
         <version>${myfaces-test20.version}</version>
         <scope>test</scope>
@@ -1455,57 +1449,14 @@
     They define the JSF version which are generally incompatible.
     They also define the JSF implementation used to compile and for runtime.
     
-    Usage for a standard build (jsf-1.2):
+    Usage for a standard build (jsf-2.0):
     mvn 
     
     Usage for specific build:
-    mvn -Pjsf-2.0
     mvn -Pjsf-2.1
+    mvn -Pjsf-2.2
 
 -->
-
-    <profile>
-      <id>jsf-1.2</id>
-      <activation>
-        <property>
-          <name>jsf</name>
-          <value>myfaces-1.2</value>
-        </property>
-      </activation>
-      <properties>
-        <jsf.target>1.2</jsf.target>
-      </properties>
-      <dependencyManagement>
-        <dependencies>
-          <dependency>
-            <groupId>org.apache.myfaces.core</groupId>
-            <artifactId>myfaces-api</artifactId>
-            <version>${myfaces12.version}</version>
-            <optional>true</optional>
-          </dependency>
-          <dependency>
-            <groupId>org.apache.myfaces.core</groupId>
-            <artifactId>myfaces-impl</artifactId>
-            <version>${myfaces12.version}</version>
-            <optional>true</optional>
-          </dependency>
-          <dependency>
-            <groupId>javax.servlet.jsp</groupId>
-            <artifactId>jsp-api</artifactId>
-            <version>2.1</version>
-            <scope>provided</scope>
-            <optional>true</optional>
-          </dependency>
-          <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
-            <version>2.5</version>
-            <optional>true</optional>
-            <scope>provided</scope>
-          </dependency>
-        </dependencies>
-      </dependencyManagement>
-    </profile>
 
 <!--
     <profile>
@@ -1575,49 +1526,6 @@
             <groupId>org.apache.myfaces.core</groupId>
             <artifactId>myfaces-impl</artifactId>
             <version>${myfaces21.version}</version>
-            <optional>true</optional>
-          </dependency>
-          <dependency>
-            <groupId>javax.servlet.jsp</groupId>
-            <artifactId>jsp-api</artifactId>
-            <version>2.1</version>
-            <scope>provided</scope>
-            <optional>true</optional>
-          </dependency>
-          <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
-            <version>2.5</version>
-            <optional>true</optional>
-            <scope>provided</scope>
-          </dependency>
-        </dependencies>
-      </dependencyManagement>
-    </profile>
-
-    <profile>
-      <id>mojarra-1.2</id>
-      <activation>
-        <property>
-          <name>jsf</name>
-          <value>mojarra-1.2</value>
-        </property>
-      </activation>
-      <properties>
-        <jsf.target>1.2</jsf.target>
-      </properties>
-      <dependencyManagement>
-        <dependencies>
-          <dependency>
-            <groupId>javax.faces</groupId>
-            <artifactId>jsf-api</artifactId>
-            <version>${mojarra12.version}</version>
-            <optional>true</optional>
-          </dependency>
-          <dependency>
-            <groupId>javax.faces</groupId>
-            <artifactId>jsf-impl</artifactId>
-            <version>${mojarra12.version}</version>
             <optional>true</optional>
           </dependency>
           <dependency>
@@ -1796,12 +1704,9 @@
   </contributors>
 
   <properties>
-    <myfaces12.version>1.2.12</myfaces12.version>
-    <myfaces-test12.version>1.0.4</myfaces-test12.version>
     <myfaces-test20.version>1.0.4</myfaces-test20.version>
     <myfaces20.version>2.0.16</myfaces20.version>
     <myfaces21.version>2.1.10</myfaces21.version>
-    <mojarra12.version>1.2_15</mojarra12.version>
     <mojarra20.version>2.0.10</mojarra20.version>
     <mojarra21.version>2.1.16</mojarra21.version>
     <mojarra22.version>2.2.0-m07</mojarra22.version>

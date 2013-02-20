@@ -265,35 +265,6 @@
     </profile>
 
     <profile>
-      <id>myfaces-1.2</id>
-      <activation>
-        <property>
-          <name>jsf</name>
-          <value>myfaces-1.2</value>
-        </property>
-      </activation>
-      <dependencies>
-        <dependency>
-          <groupId>org.apache.myfaces.core</groupId>
-          <artifactId>myfaces-api</artifactId>
-          <version>${myfaces12.version}</version>
-          <scope>compile</scope>
-        </dependency>
-        <dependency>
-          <groupId>org.apache.myfaces.core</groupId>
-          <artifactId>myfaces-impl</artifactId>
-          <version>${myfaces12.version}</version>
-          <scope>runtime</scope>
-        </dependency>
-        <dependency>
-          <groupId>javax.servlet</groupId>
-          <artifactId>jstl</artifactId>
-          <scope>runtime</scope>
-        </dependency>
-      </dependencies>
-    </profile>
-
-    <profile>
       <id>myfaces-2.0</id>
       <activation>
         <property>
@@ -340,35 +311,6 @@
           <groupId>org.apache.myfaces.core</groupId>
           <artifactId>myfaces-impl</artifactId>
           <version>${myfaces21.version}</version>
-          <scope>runtime</scope>
-        </dependency>
-        <dependency>
-          <groupId>javax.servlet</groupId>
-          <artifactId>jstl</artifactId>
-          <scope>runtime</scope>
-        </dependency>
-      </dependencies>
-    </profile>
-
-    <profile>
-      <id>mojarra-1.2</id>
-      <activation>
-        <property>
-          <name>jsf</name>
-          <value>mojarra-1.2</value>
-        </property>
-      </activation>
-      <dependencies>
-        <dependency>
-          <groupId>javax.faces</groupId>
-          <artifactId>jsf-api</artifactId>
-          <version>${mojarra12.version}</version>
-          <scope>compile</scope>
-        </dependency>
-        <dependency>
-          <groupId>javax.faces</groupId>
-          <artifactId>jsf-impl</artifactId>
-          <version>${mojarra12.version}</version>
           <scope>runtime</scope>
         </dependency>
         <dependency>
