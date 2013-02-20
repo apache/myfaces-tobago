@@ -31,6 +31,21 @@ Java-API
    Class <<<org.apache.myfaces.tobago.component.UIFileInput>>> has been renamed to
    <<<org.apache.myfaces.tobago.component.UIFile>>>.
 
+Facelets
+
+   Tobago 1.6.x is using Facelets 2.0. When still using Facelets 1.1 in the current application,
+   this must be removed:
+
+   * Remove facelets JAR (e.g. jsf-facelets-1.1.14.jar) from the library.
+
+   * Remove \<view-handler\>org.apache.myfaces.tobago.internal.application.ViewHandlerImpl\</view-handler\> from the faces-config.xml
+
+   * Remove param javax.faces.DISABLE_FACELET_JSF_VIEWHANDLER from web.xml
+
+   * Remove or replace the facelets.* entries from web.xml
+
+   []
+
 Deprecated
 
    There are also <<<@Deprecated>>> annotations in the code and some
