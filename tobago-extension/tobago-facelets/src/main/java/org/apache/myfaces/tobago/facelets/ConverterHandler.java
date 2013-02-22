@@ -19,24 +19,26 @@
 
 package org.apache.myfaces.tobago.facelets;
 
-import com.sun.facelets.tag.TagHandler;
-import com.sun.facelets.tag.TagAttribute;
-import com.sun.facelets.tag.TagConfig;
-import com.sun.facelets.tag.TagAttributeException;
-import com.sun.facelets.tag.TagException;
-import com.sun.facelets.tag.jsf.ComponentSupport;
-import com.sun.facelets.FaceletContext;
-
-import javax.faces.component.UIComponent;
-import javax.faces.component.ValueHolder;
-import javax.faces.FacesException;
-import javax.faces.context.FacesContext;
-import javax.faces.convert.Converter;
 import javax.el.ELException;
 import javax.el.ValueExpression;
+import javax.faces.FacesException;
+import javax.faces.component.UIComponent;
+import javax.faces.component.ValueHolder;
+import javax.faces.context.FacesContext;
+import javax.faces.convert.Converter;
+import javax.faces.view.facelets.ComponentHandler;
+import javax.faces.view.facelets.FaceletContext;
+import javax.faces.view.facelets.TagAttribute;
+import javax.faces.view.facelets.TagAttributeException;
+import javax.faces.view.facelets.TagConfig;
+import javax.faces.view.facelets.TagException;
+import javax.faces.view.facelets.TagHandler;
 import java.io.IOException;
 
 /*
+
+   TBD: Why we don't use a converter directly via the tobago.taglib.xml?
+
  * Date: Oct 13, 2006
  * Time: 6:17:49 PM
  */
@@ -55,7 +57,7 @@ public class ConverterHandler extends TagHandler {
   public void apply(FaceletContext faceletContext, UIComponent parent)
       throws IOException, FacesException, ELException {
     if (parent instanceof ValueHolder) {
-      if (ComponentSupport.isNew(parent)) {
+      if (ComponentHandler.isNew(parent)) {
         ValueHolder valueHolder = (ValueHolder) parent;
         Converter converter = null;
         ValueExpression valueExpression = null;

@@ -19,12 +19,6 @@
 
 package org.apache.myfaces.tobago.facelets;
 
-import com.sun.facelets.FaceletContext;
-import com.sun.facelets.tag.TagAttribute;
-import com.sun.facelets.tag.TagConfig;
-import com.sun.facelets.tag.TagException;
-import com.sun.facelets.tag.TagHandler;
-import com.sun.facelets.tag.jsf.ComponentSupport;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.event.PopupActionListener;
 import org.apache.myfaces.tobago.event.ValueExpressionPopupActionListener;
@@ -34,6 +28,12 @@ import javax.el.ValueExpression;
 import javax.faces.FacesException;
 import javax.faces.component.ActionSource;
 import javax.faces.component.UIComponent;
+import javax.faces.view.facelets.ComponentHandler;
+import javax.faces.view.facelets.FaceletContext;
+import javax.faces.view.facelets.TagAttribute;
+import javax.faces.view.facelets.TagConfig;
+import javax.faces.view.facelets.TagException;
+import javax.faces.view.facelets.TagHandler;
 import java.io.IOException;
 
 public class PopupReferenceHandler extends TagHandler {
@@ -48,7 +48,7 @@ public class PopupReferenceHandler extends TagHandler {
   public void apply(FaceletContext faceletContext, UIComponent parent)
       throws IOException, FacesException, ELException {
     if (parent instanceof ActionSource) {
-      if (ComponentSupport.isNew(parent)) {
+      if (ComponentHandler.isNew(parent)) {
         ActionSource actionSource = (ActionSource) parent;
         if (forComponent.isLiteral())  {
           actionSource.addActionListener(new PopupActionListener(forComponent.getValue()));

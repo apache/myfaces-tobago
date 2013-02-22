@@ -19,16 +19,15 @@
 
 package org.apache.myfaces.tobago.facelets.extension;
 
-import com.sun.facelets.FaceletContext;
-import com.sun.facelets.el.ELAdaptor;
-import com.sun.facelets.tag.TagAttribute;
-import com.sun.facelets.tag.jsf.ComponentConfig;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.UISelectBooleanCheckbox;
 
 import javax.el.ValueExpression;
 import javax.faces.component.UIComponent;
+import javax.faces.view.facelets.ComponentConfig;
+import javax.faces.view.facelets.FaceletContext;
+import javax.faces.view.facelets.TagAttribute;
 
 public class SelectBooleanCheckboxExtensionHandler extends TobagoLabelExtensionHandler {
 
@@ -47,7 +46,7 @@ public class SelectBooleanCheckboxExtensionHandler extends TobagoLabelExtensionH
         checkbox.setItemLabel(itemLabelAttribute.getValue(faceletContext));
       } else {
         ValueExpression expression = itemLabelAttribute.getValueExpression(faceletContext, String.class);
-        ELAdaptor.setExpression(checkbox, Attributes.ITEM_LABEL, expression);
+        checkbox.setValueExpression(Attributes.ITEM_LABEL, expression);
       }
     } else {
       checkbox.setItemLabel(""); // for compatibility (TOBAGO-1093)

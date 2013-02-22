@@ -29,7 +29,6 @@
       <supported-locale>en_GB</supported-locale>
       <supported-locale>en_US</supported-locale>
     </locale-config>
-    <view-handler>com.sun.facelets.FaceletViewHandler</view-handler>
     <action-listener>org.apache.myfaces.tobago.util.DebugActionListener</action-listener>
     <navigation-handler>org.apache.myfaces.tobago.util.DebugNavigationHandler</navigation-handler>
     <message-bundle>error.messages</message-bundle>

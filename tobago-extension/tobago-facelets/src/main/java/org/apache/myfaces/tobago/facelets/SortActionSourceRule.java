@@ -19,23 +19,24 @@
 
 package org.apache.myfaces.tobago.facelets;
 
-import com.sun.facelets.FaceletContext;
-import com.sun.facelets.el.LegacyMethodBinding;
-import com.sun.facelets.tag.MetaRule;
-import com.sun.facelets.tag.Metadata;
-import com.sun.facelets.tag.MetadataTarget;
-import com.sun.facelets.tag.TagAttribute;
+import org.apache.myfaces.tobago.component.MethodExpressionToMethodBinding;
 import org.apache.myfaces.tobago.event.SortActionSource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.event.ActionEvent;
+import javax.faces.view.facelets.FaceletContext;
+import javax.faces.view.facelets.MetaRule;
+import javax.faces.view.facelets.Metadata;
+import javax.faces.view.facelets.MetadataTarget;
+import javax.faces.view.facelets.TagAttribute;
 
-/*
- * User: bommel
- * Date: 15.04.2006
- * Time: 13:53:41
- */
 public class SortActionSourceRule extends MetaRule {
+
+  private static final Logger LOG = LoggerFactory.getLogger(SortActionSourceRule.class);
+
   static final Class[] ACTION_LISTENER = new Class[]{ActionEvent.class};
+
   public static final SortActionSourceRule INSTANCE = new SortActionSourceRule();
 
   public Metadata applyRule(String name, TagAttribute attribute,
@@ -57,10 +58,9 @@ public class SortActionSourceRule extends MetaRule {
     }
 
     public void applyMetadata(FaceletContext ctx, Object instance) {
-      ((SortActionSource) instance)
-          .setSortActionListener(new LegacyMethodBinding(attribute
-              .getMethodExpression(ctx, null,
-              SortActionSourceRule.ACTION_LISTENER)));
+      LOG.error("TODO: implementation for JSF 1.2 / JSF 2.0");
+      ((SortActionSource) instance).setSortActionListener(new MethodExpressionToMethodBinding(attribute
+          .getMethodExpression(ctx, null, SortActionSourceRule.ACTION_LISTENER)));
     }
   }
 

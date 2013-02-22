@@ -19,11 +19,11 @@
 
 package org.apache.myfaces.tobago.facelets;
 
-import com.sun.facelets.tag.TagHandler;
-import com.sun.facelets.tag.TagAttribute;
-import com.sun.facelets.tag.TagConfig;
+import javax.faces.view.facelets.TagHandler;
+import javax.faces.view.facelets.TagAttribute;
+import javax.faces.view.facelets.TagConfig;
 
-import com.sun.facelets.FaceletContext;
+import javax.faces.view.facelets.FaceletContext;
 
 import org.apache.myfaces.tobago.util.BundleMapWrapper;
 

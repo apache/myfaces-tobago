@@ -19,20 +19,16 @@
 
 package org.apache.myfaces.tobago.facelets;
 
-import com.sun.facelets.tag.MetaRule;
-import com.sun.facelets.tag.Metadata;
-import com.sun.facelets.tag.TagAttribute;
-import com.sun.facelets.tag.MetadataTarget;
-import com.sun.facelets.FaceletContext;
-import com.sun.facelets.el.LegacyMethodBinding;
-import org.apache.myfaces.tobago.event.TabChangeSource;
+import org.apache.myfaces.tobago.component.MethodExpressionToMethodBinding;
 import org.apache.myfaces.tobago.event.TabChangeEvent;
+import org.apache.myfaces.tobago.event.TabChangeSource;
 
-/*
- * User: bommel
- * Date: 15.04.2006
- * Time: 14:24:54
- */
+import javax.faces.view.facelets.FaceletContext;
+import javax.faces.view.facelets.MetaRule;
+import javax.faces.view.facelets.Metadata;
+import javax.faces.view.facelets.MetadataTarget;
+import javax.faces.view.facelets.TagAttribute;
+
 public class TabChangeSourceRule extends MetaRule {
   static final Class[] ACTION_LISTENER = new Class[]{TabChangeEvent.class};
   public static final TabChangeSourceRule INSTANCE = new TabChangeSourceRule();
@@ -56,11 +52,9 @@ public class TabChangeSourceRule extends MetaRule {
     }
 
     public void applyMetadata(FaceletContext ctx, Object instance) {
-      ((TabChangeSource) instance)
-          .setTabChangeListener(new LegacyMethodBinding(attribute
-              .getMethodExpression(ctx, null,
-              TabChangeSourceRule.ACTION_LISTENER)));
+      ((TabChangeSource) instance).setTabChangeListener(
+          new MethodExpressionToMethodBinding(
+              attribute.getMethodExpression(ctx, null, TabChangeSourceRule.ACTION_LISTENER)));
     }
   }
-
 }

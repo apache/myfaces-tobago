@@ -19,20 +19,20 @@
 
 package org.apache.myfaces.tobago.facelets.extension;
 
-import com.sun.facelets.FaceletContext;
-import com.sun.facelets.tag.MetaRuleset;
-import com.sun.facelets.tag.Metadata;
-import com.sun.facelets.tag.TagAttribute;
-import com.sun.facelets.tag.jsf.ComponentConfig;
-import com.sun.facelets.tag.jsf.ComponentHandler;
-import com.sun.facelets.tag.jsf.ComponentSupport;
 import org.apache.myfaces.tobago.component.Attributes;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 
 import javax.el.ELException;
 import javax.faces.FacesException;
 import javax.faces.application.Application;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIViewRoot;
+import javax.faces.view.facelets.ComponentConfig;
+import javax.faces.view.facelets.ComponentHandler;
+import javax.faces.view.facelets.FaceletContext;
+import javax.faces.view.facelets.MetaRuleset;
+import javax.faces.view.facelets.Metadata;
+import javax.faces.view.facelets.TagAttribute;
 import java.io.IOException;
 
 
@@ -56,9 +56,9 @@ public abstract class TobagoMenuExtensionHandler extends ComponentHandler {
 
   protected abstract String getFacetName();
 
-  protected void applyNextHandler(FaceletContext faceletContext, UIComponent menuCommand)
+  public void applyNextHandler(FaceletContext faceletContext, UIComponent menuCommand)
       throws IOException, FacesException, ELException {
-    if (ComponentSupport.isNew(menuCommand)) {
+    if (ComponentHandler.isNew(menuCommand)) {
       UIComponent component = (UIComponent) menuCommand.getFacets().remove(getFacetName());
       nextHandler.apply(faceletContext, component);
       menuCommand.getFacets().put(getFacetName(), component);
@@ -67,10 +67,10 @@ public abstract class TobagoMenuExtensionHandler extends ComponentHandler {
     }
   }
 
-  protected void onComponentCreated(FaceletContext faceletContext, UIComponent menuCommand, UIComponent parent) {
+  public void onComponentCreated(FaceletContext faceletContext, UIComponent menuCommand, UIComponent parent) {
 
     Application application = faceletContext.getFacesContext().getApplication();
-    UIViewRoot root = ComponentSupport.getViewRoot(faceletContext, parent);
+    UIViewRoot root = ComponentUtils.findViewRoot(faceletContext, parent);
     UIComponent component = application.createComponent(getSubComponentType());
     final String uid;
     if (fieldIdAttribute !=  null) {

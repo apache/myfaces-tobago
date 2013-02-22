@@ -24,9 +24,6 @@
     version="1.2">
 
   <application>
-    <view-handler>
-      com.sun.facelets.FaceletViewHandler
-    </view-handler>
     <navigation-handler>
       org.apache.myfaces.tobago.example.demo.MultiplePageDeclarationLanguageNavigationHandler
     </navigation-handler>

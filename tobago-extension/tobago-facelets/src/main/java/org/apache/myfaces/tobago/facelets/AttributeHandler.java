@@ -19,14 +19,6 @@
 
 package org.apache.myfaces.tobago.facelets;
 
-import com.sun.facelets.FaceletContext;
-import com.sun.facelets.el.ELAdaptor;
-import com.sun.facelets.el.TagMethodExpression;
-import com.sun.facelets.tag.TagAttribute;
-import com.sun.facelets.tag.TagConfig;
-import com.sun.facelets.tag.TagException;
-import com.sun.facelets.tag.TagHandler;
-import com.sun.facelets.tag.jsf.ComponentSupport;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.myfaces.tobago.component.Attributes;
@@ -52,6 +44,12 @@ import javax.faces.convert.Converter;
 import javax.faces.event.MethodExpressionActionListener;
 import javax.faces.event.MethodExpressionValueChangeListener;
 import javax.faces.validator.MethodExpressionValidator;
+import javax.faces.view.facelets.ComponentHandler;
+import javax.faces.view.facelets.FaceletContext;
+import javax.faces.view.facelets.TagAttribute;
+import javax.faces.view.facelets.TagConfig;
+import javax.faces.view.facelets.TagException;
+import javax.faces.view.facelets.TagHandler;
 import java.beans.IntrospectionException;
 import java.beans.PropertyDescriptor;
 
@@ -78,7 +76,7 @@ public final class AttributeHandler extends TagHandler {
       throw new TagException(tag, "Parent UIComponent was null");
     }
 
-    if (ComponentSupport.isNew(parent)) {
+    if (ComponentHandler.isNew(parent)) {
 
       if (mode != null) {
         if ("isNotSet".equals(mode.getValue())) {
@@ -205,7 +203,7 @@ public final class AttributeHandler extends TagHandler {
             final String attributeName = name.getValue(faceletContext);
             if (containsMethodOrValueExpression(expressionString)) {
               ValueExpression expression = value.getValueExpression(faceletContext, Object.class);
-              ELAdaptor.setExpression(parent, attributeName, expression);
+              parent.setValueExpression(attributeName, expression);
             } else {
               final Object literalValue = getValue(faceletContext, parent, expressionString, attributeName);
               parent.getAttributes().put(attributeName, literalValue);
@@ -221,7 +219,7 @@ public final class AttributeHandler extends TagHandler {
           if (value.isLiteral()) {
             parent.setRendered(value.getBoolean(faceletContext));
           } else {
-            ELAdaptor.setExpression(parent, nameValue, value.getValueExpression(faceletContext, Boolean.class));
+            parent.setValueExpression(nameValue, value.getValueExpression(faceletContext, Boolean.class));
           }
         } else if (Attributes.RENDERED_PARTIALLY.equals(nameValue)
             && parent instanceof SupportsRenderedPartially) {
@@ -230,7 +228,7 @@ public final class AttributeHandler extends TagHandler {
             String[] components = ComponentUtils.splitList(value.getValue());
             ((SupportsRenderedPartially) parent).setRenderedPartially(components);
           } else {
-            ELAdaptor.setExpression(parent, nameValue, value.getValueExpression(faceletContext, Object.class));
+            parent.setValueExpression(nameValue, value.getValueExpression(faceletContext, Object.class));
           }
         } else if (Attributes.STYLE_CLASS.equals(nameValue)) {
           // TODO expression
@@ -241,7 +239,7 @@ public final class AttributeHandler extends TagHandler {
               ((SupportsMarkup) parent).setMarkup(Markup.valueOf(value.getValue()));
             } else {
               ValueExpression expression = value.getValueExpression(faceletContext, Object.class);
-              ELAdaptor.setExpression(parent, nameValue, expression);
+              parent.setValueExpression(nameValue, expression);
             }
           } else {
             LOG.error("Component is not instanceof SupportsMarkup. Instance is: " + parent.getClass().getName());
@@ -275,7 +273,7 @@ public final class AttributeHandler extends TagHandler {
           if (value.isLiteral()) {
             parent.getAttributes().put(nameValue, value.getValue());
           } else {
-            ELAdaptor.setExpression(parent, nameValue, value.getValueExpression(faceletContext, Object.class));
+            parent.setValueExpression(nameValue, value.getValueExpression(faceletContext, Object.class));
           }
         }
       }
@@ -358,7 +356,7 @@ public final class AttributeHandler extends TagHandler {
           faceletContext.getFacesContext().getApplication().createConverter(expression.getExpressionString());
       ((ValueHolder) parent).setConverter(converter);
     } else {
-      ELAdaptor.setExpression(parent, nameValue, expression);
+      parent.setValueExpression(nameValue, expression);
     }
   }
 }

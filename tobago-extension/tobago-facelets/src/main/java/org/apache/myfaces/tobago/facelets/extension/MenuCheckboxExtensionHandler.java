@@ -19,9 +19,10 @@
 
 package org.apache.myfaces.tobago.facelets.extension;
 
-import com.sun.facelets.tag.jsf.ComponentConfig;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.UISelectBooleanCheckbox;
+
+import javax.faces.view.facelets.ComponentConfig;
 
 /**
  * Facelets handler for the <code>&lt;tx:menuCheckbox></code> extension tag.

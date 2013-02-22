@@ -68,11 +68,6 @@
       <artifactId>el-api</artifactId>
     </dependency>
     <dependency>
-      <groupId>com.sun.facelets</groupId>
-      <artifactId>jsf-facelets</artifactId>
-      <version>${facelets.version}</version>
-    </dependency>
-    <dependency>
       <groupId>org.apache.myfaces.tobago</groupId>
       <artifactId>tobago-tool-annotation</artifactId>
       <version>${project.version}</version>

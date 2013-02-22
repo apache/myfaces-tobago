@@ -19,18 +19,17 @@
 
 package org.apache.myfaces.tobago.facelets;
 
-import com.sun.facelets.FaceletContext;
-import com.sun.facelets.el.ELAdaptor;
-import com.sun.facelets.tag.MetaRule;
-import com.sun.facelets.tag.Metadata;
-import com.sun.facelets.tag.MetadataTarget;
-import com.sun.facelets.tag.TagAttribute;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Position;
 import org.apache.myfaces.tobago.layout.Measure;
 
 import javax.el.ValueExpression;
 import javax.faces.component.UIComponent;
+import javax.faces.view.facelets.FaceletContext;
+import javax.faces.view.facelets.MetaRule;
+import javax.faces.view.facelets.Metadata;
+import javax.faces.view.facelets.MetadataTarget;
+import javax.faces.view.facelets.TagAttribute;
 
 public class PositionRule extends MetaRule {
   
@@ -58,7 +57,7 @@ public class PositionRule extends MetaRule {
         ((Position) instance).setLeft(Measure.parse(attribute.getValue()));
       } else {
         ValueExpression expression = attribute.getValueExpression(ctx, Object.class);
-        ELAdaptor.setExpression((UIComponent) instance, Attributes.LEFT, expression);
+        ((UIComponent) instance).setValueExpression(Attributes.LEFT, expression);
       }
     }
   }
@@ -75,7 +74,7 @@ public class PositionRule extends MetaRule {
          ((Position) instance).setTop(Measure.parse(attribute.getValue()));
       } else {
         ValueExpression expression = attribute.getValueExpression(ctx, Object.class);
-        ELAdaptor.setExpression((UIComponent) instance, Attributes.TOP, expression);
+        ((UIComponent) instance).setValueExpression(Attributes.TOP, expression);
       }
     }
   }

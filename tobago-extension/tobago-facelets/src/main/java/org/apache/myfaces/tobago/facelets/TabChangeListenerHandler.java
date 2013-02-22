@@ -19,12 +19,6 @@
 
 package org.apache.myfaces.tobago.facelets;
 
-import com.sun.facelets.FaceletContext;
-import com.sun.facelets.tag.TagAttribute;
-import com.sun.facelets.tag.TagAttributeException;
-import com.sun.facelets.tag.TagConfig;
-import com.sun.facelets.tag.TagException;
-import com.sun.facelets.tag.TagHandler;
 import org.apache.myfaces.tobago.event.TabChangeListener;
 import org.apache.myfaces.tobago.event.TabChangeSource;
 import org.apache.myfaces.tobago.event.ValueExpressionTabChangeListener;
@@ -33,12 +27,14 @@ import javax.el.ELException;
 import javax.el.ValueExpression;
 import javax.faces.FacesException;
 import javax.faces.component.UIComponent;
+import javax.faces.view.facelets.FaceletContext;
+import javax.faces.view.facelets.TagAttribute;
+import javax.faces.view.facelets.TagAttributeException;
+import javax.faces.view.facelets.TagConfig;
+import javax.faces.view.facelets.TagException;
+import javax.faces.view.facelets.TagHandler;
 import java.io.IOException;
 
-/*
- * Date: 20.04.2006
- * Time: 18:14:11
- */
 public class TabChangeListenerHandler extends TagHandler {
 
   private Class listenerType;

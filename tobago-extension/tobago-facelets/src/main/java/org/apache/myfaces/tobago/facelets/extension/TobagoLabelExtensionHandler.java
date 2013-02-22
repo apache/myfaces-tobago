@@ -19,14 +19,6 @@
 
 package org.apache.myfaces.tobago.facelets.extension;
 
-import com.sun.facelets.FaceletContext;
-import com.sun.facelets.el.ELAdaptor;
-import com.sun.facelets.tag.MetaRuleset;
-import com.sun.facelets.tag.Metadata;
-import com.sun.facelets.tag.TagAttribute;
-import com.sun.facelets.tag.jsf.ComponentConfig;
-import com.sun.facelets.tag.jsf.ComponentHandler;
-import com.sun.facelets.tag.jsf.ComponentSupport;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.InputSuggest;
@@ -42,6 +34,7 @@ import org.apache.myfaces.tobago.facelets.SuggestMethodRule;
 import org.apache.myfaces.tobago.facelets.SupportsMarkupRule;
 import org.apache.myfaces.tobago.facelets.TobagoComponentHandler;
 import org.apache.myfaces.tobago.internal.layout.LayoutUtils;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -52,6 +45,12 @@ import javax.faces.application.Application;
 import javax.faces.component.EditableValueHolder;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIViewRoot;
+import javax.faces.view.facelets.ComponentConfig;
+import javax.faces.view.facelets.ComponentHandler;
+import javax.faces.view.facelets.FaceletContext;
+import javax.faces.view.facelets.MetaRuleset;
+import javax.faces.view.facelets.Metadata;
+import javax.faces.view.facelets.TagAttribute;
 import java.io.IOException;
 
 /*
@@ -90,9 +89,9 @@ public abstract class TobagoLabelExtensionHandler extends ComponentHandler {
     return first + ";*";
   }
 
-  protected void applyNextHandler(FaceletContext ctx, UIComponent panel)
+  public void applyNextHandler(FaceletContext ctx, UIComponent panel)
       throws IOException, FacesException, ELException {
-    if (ComponentSupport.isNew(panel)) {
+    if (ComponentHandler.isNew(panel)) {
       // ensure that input has no parent (isNew)
       UIComponent input  = panel.getChildren().remove(1);
       try {
@@ -115,10 +114,10 @@ public abstract class TobagoLabelExtensionHandler extends ComponentHandler {
     }
   }
 
-  protected void onComponentCreated(FaceletContext faceletContext, UIComponent panel, UIComponent parent) {
+  public void onComponentCreated(FaceletContext faceletContext, UIComponent panel, UIComponent parent) {
 
     Application application = faceletContext.getFacesContext().getApplication();
-    UIViewRoot root = ComponentSupport.getViewRoot(faceletContext, parent);
+    UIViewRoot root = ComponentUtils.findViewRoot(faceletContext, parent);
 
     addGridLayout(faceletContext, panel, root);
 
@@ -161,7 +160,7 @@ public abstract class TobagoLabelExtensionHandler extends ComponentHandler {
         panel.setTip(tipAttribute.getValue(faceletContext));
       } else {
         ValueExpression expression = tipAttribute.getValueExpression(faceletContext, String.class);
-        ELAdaptor.setExpression(panel, Attributes.TIP, expression);
+        panel.setValueExpression(Attributes.TIP, expression);
       }
     }
     if (labelAttribute != null) {
@@ -169,7 +168,7 @@ public abstract class TobagoLabelExtensionHandler extends ComponentHandler {
         label.setValue(labelAttribute.getValue(faceletContext));
       } else {
         ValueExpression expression = labelAttribute.getValueExpression(faceletContext, String.class);
-        ELAdaptor.setExpression(label, Attributes.VALUE, expression);
+        label.setValueExpression(Attributes.VALUE, expression);
       }
     }
     if (markupAttribute != null) {
@@ -177,7 +176,7 @@ public abstract class TobagoLabelExtensionHandler extends ComponentHandler {
         label.setMarkup(Markup.valueOf(markupAttribute.getValue()));
       } else {
         ValueExpression expression = markupAttribute.getValueExpression(faceletContext, Object.class);
-        ELAdaptor.setExpression(label, Attributes.MARKUP, expression);
+        label.setValueExpression(Attributes.MARKUP, expression);
       }
     }
     panel.getChildren().add(label);
@@ -194,7 +193,7 @@ public abstract class TobagoLabelExtensionHandler extends ComponentHandler {
     return false;
   }
 
-  protected void onComponentPopulated(FaceletContext faceletContext, UIComponent component, UIComponent parent) {
+  public void onComponentPopulated(FaceletContext faceletContext, UIComponent component, UIComponent parent) {
     super.onComponentPopulated(faceletContext, component, parent);
     if (component.getChildren().size() > 1 && component.getChildren().get(1) instanceof EditableValueHolder) {
       TobagoComponentHandler.addDefaultValidators(faceletContext.getFacesContext(),

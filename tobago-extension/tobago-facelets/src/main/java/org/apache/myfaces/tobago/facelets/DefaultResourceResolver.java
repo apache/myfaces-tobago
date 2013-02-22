@@ -19,29 +19,31 @@
 
 package org.apache.myfaces.tobago.facelets;
 
-import com.sun.facelets.tag.AbstractTagLibrary;
+import javax.faces.FacesException;
+import javax.faces.context.FacesContext;
+import javax.faces.view.facelets.ResourceResolver;
+import java.io.IOException;
+import java.net.URL;
 
-/**
- * Date: 15.10.2007 15:08:23
+/*
+ * Was copied from MyFaces-Impl, because there is no JSF base class.
  */
-public class TobagoSandboxTagLibrary extends AbstractTagLibrary {
+public class DefaultResourceResolver extends ResourceResolver {
 
-  public static final String NAMESPACE = "http://myfaces.apache.org/tobago/sandbox";
-
-  public static final TobagoSandboxTagLibrary INSTANCE = new TobagoSandboxTagLibrary();
-
-  public TobagoSandboxTagLibrary() {
-
-    super(NAMESPACE);
-
-//    addTobagoComponent("wizard", "org.apache.myfaces.tobago.Wizard", "Wizard", TobagoComponentHandler.class);
+  public DefaultResourceResolver() {
+    super();
   }
 
-  // fixme: double like TobagoTagLibrary
-  protected final void addTobagoComponent(String name, String componentType, String rendererType, Class handlerType) {
-    if (!containsTagHandler(getNamespace(), name)) {
-      addComponent(name, componentType, rendererType, handlerType);
+  public URL resolveUrl(String path) {
+    try {
+      return Resource.getResourceUrl(FacesContext.getCurrentInstance(), path);
+    } catch (IOException e) {
+      throw new FacesException(e);
     }
+  }
+
+  public String toString() {
+    return "DefaultResourceResolver";
   }
 
 }

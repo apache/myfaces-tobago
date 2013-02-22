@@ -19,17 +19,11 @@
 
 package org.apache.myfaces.tobago.facelets.extension;
 
-import com.sun.facelets.FaceletContext;
-import com.sun.facelets.el.ELAdaptor;
-import com.sun.facelets.tag.MetaRuleset;
-import com.sun.facelets.tag.TagAttribute;
-import com.sun.facelets.tag.jsf.ComponentConfig;
-import com.sun.facelets.tag.jsf.ComponentHandler;
-import com.sun.facelets.tag.jsf.ComponentSupport;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.UILabel;
 import org.apache.myfaces.tobago.component.UISeparator;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 
 import javax.el.ELException;
 import javax.el.ValueExpression;
@@ -38,6 +32,11 @@ import javax.faces.application.Application;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIOutput;
 import javax.faces.component.UIViewRoot;
+import javax.faces.view.facelets.ComponentConfig;
+import javax.faces.view.facelets.ComponentHandler;
+import javax.faces.view.facelets.FaceletContext;
+import javax.faces.view.facelets.MetaRuleset;
+import javax.faces.view.facelets.TagAttribute;
 import java.io.IOException;
 
 public class SeparatorExtensionHandler extends ComponentHandler {
@@ -48,9 +47,9 @@ public class SeparatorExtensionHandler extends ComponentHandler {
     labelAttribute = getAttribute(Attributes.LABEL);
   }
 
-  protected void applyNextHandler(FaceletContext faceletContext, UIComponent separator)
+  public void applyNextHandler(FaceletContext faceletContext, UIComponent separator)
       throws IOException, FacesException, ELException {
-    if (ComponentSupport.isNew(separator)) {
+    if (ComponentHandler.isNew(separator)) {
       UIComponent component = (UIComponent) separator.getFacets().remove(Facets.LABEL);
       nextHandler.apply(faceletContext, component);
       separator.getFacets().put(Facets.LABEL, component);
@@ -59,9 +58,9 @@ public class SeparatorExtensionHandler extends ComponentHandler {
     }
   }
 
-  protected void onComponentCreated(FaceletContext faceletContext, UIComponent separator, UIComponent parent) {
+  public void onComponentCreated(FaceletContext faceletContext, UIComponent separator, UIComponent parent) {
     Application application = faceletContext.getFacesContext().getApplication();
-    UIViewRoot root = ComponentSupport.getViewRoot(faceletContext, parent);
+    UIViewRoot root = ComponentUtils.findViewRoot(faceletContext, parent);
     UIOutput label = (UIOutput) application.createComponent(UILabel.COMPONENT_TYPE);
     label.setId(root.createUniqueId());
     label.setRendererType("Label");
@@ -72,7 +71,7 @@ public class SeparatorExtensionHandler extends ComponentHandler {
         label.setValue(labelAttribute.getValue(faceletContext));
       } else {
         ValueExpression expression = labelAttribute.getValueExpression(faceletContext, String.class);
-        ELAdaptor.setExpression(label, Attributes.VALUE, expression);
+        label.setValueExpression(Attributes.VALUE, expression);
       }
     }
   }

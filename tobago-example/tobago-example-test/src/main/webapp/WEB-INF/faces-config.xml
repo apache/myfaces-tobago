@@ -23,12 +23,6 @@
 
 <faces-config>
 
-  <application>
-    <view-handler>
-      com.sun.facelets.FaceletViewHandler
-    </view-handler>
-  </application>
-
   <managed-bean>
     <managed-bean-name>browser</managed-bean-name>
     <managed-bean-class>org.apache.myfaces.tobago.example.test.DirectoryBrowser</managed-bean-class>
@@ -58,13 +52,13 @@
     <managed-bean-class>org.apache.myfaces.tobago.example.test.Immediate</managed-bean-class>
     <managed-bean-scope>session</managed-bean-scope>
   </managed-bean>
-  
+
   <managed-bean>
     <managed-bean-name>hidden</managed-bean-name>
     <managed-bean-class>org.apache.myfaces.tobago.example.test.Hidden</managed-bean-class>
     <managed-bean-scope>request</managed-bean-scope>
   </managed-bean>
-  
+
   <managed-bean>
     <managed-bean-name>upload</managed-bean-name>
     <managed-bean-class>org.apache.myfaces.tobago.example.test.Upload</managed-bean-class>
@@ -239,5 +233,5 @@
       <to-view-id>/tf/wizard/navi/finish.xhtml</to-view-id>
     </navigation-case>
   </navigation-rule>
-  
+
 </faces-config>

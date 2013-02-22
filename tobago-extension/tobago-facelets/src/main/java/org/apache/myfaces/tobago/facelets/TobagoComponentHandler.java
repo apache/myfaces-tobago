@@ -19,10 +19,6 @@
 
 package org.apache.myfaces.tobago.facelets;
 
-import com.sun.facelets.FaceletContext;
-import com.sun.facelets.tag.MetaRuleset;
-import com.sun.facelets.tag.jsf.ComponentConfig;
-import com.sun.facelets.tag.jsf.ComponentHandler;
 import org.apache.myfaces.tobago.component.DeprecatedDimension;
 import org.apache.myfaces.tobago.component.InputSuggest;
 import org.apache.myfaces.tobago.component.OnComponentCreated;
@@ -37,17 +33,29 @@ import org.apache.myfaces.tobago.internal.component.AbstractUIFlowLayout;
 import org.apache.myfaces.tobago.internal.component.AbstractUIGridLayout;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPopup;
 import org.apache.myfaces.tobago.internal.config.TobagoConfigImpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.component.EditableValueHolder;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.Validator;
+import javax.faces.view.facelets.ComponentConfig;
+import javax.faces.view.facelets.ComponentHandler;
+import javax.faces.view.facelets.FaceletContext;
+import javax.faces.view.facelets.MetaRuleset;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
 public class TobagoComponentHandler extends ComponentHandler {
+
+  private static final Logger LOG = LoggerFactory.getLogger(TobagoComponentHandler.class);
+
+  static {
+    LOG.error("init");
+  }
 
   public TobagoComponentHandler(ComponentConfig componentConfig) {
     super(componentConfig);
@@ -88,7 +96,7 @@ public class TobagoComponentHandler extends ComponentHandler {
     return metaRuleset;
   }
 
-  protected void onComponentCreated(FaceletContext context, UIComponent component, UIComponent parent) {
+  public void onComponentCreated(FaceletContext context, UIComponent component, UIComponent parent) {
     if (component instanceof OnComponentCreated
         && component.getAttributes().get(OnComponentCreated.MARKER) == null) {
       component.getAttributes().put(OnComponentCreated.MARKER, Boolean.TRUE);
@@ -96,7 +104,7 @@ public class TobagoComponentHandler extends ComponentHandler {
     }
   }
 
-  protected void onComponentPopulated(FaceletContext context, UIComponent component, UIComponent parent) {
+  public void onComponentPopulated(FaceletContext context, UIComponent component, UIComponent parent) {
     if (component instanceof OnComponentPopulated
         && component.getAttributes().get(OnComponentPopulated.MARKER) == null) {
       component.getAttributes().put(OnComponentPopulated.MARKER, Boolean.TRUE);

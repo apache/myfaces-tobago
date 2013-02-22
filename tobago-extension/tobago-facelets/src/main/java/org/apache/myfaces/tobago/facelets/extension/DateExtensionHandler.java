@@ -19,19 +19,19 @@
 
 package org.apache.myfaces.tobago.facelets.extension;
 
-import com.sun.facelets.FaceletContext;
-import com.sun.facelets.tag.TagAttribute;
-import com.sun.facelets.tag.jsf.ComponentConfig;
-import com.sun.facelets.tag.jsf.ComponentSupport;
 import org.apache.myfaces.tobago.component.OnComponentCreated;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.UIDate;
 import org.apache.myfaces.tobago.component.UIDatePicker;
 import org.apache.myfaces.tobago.component.UIForm;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 
 import javax.faces.application.Application;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIViewRoot;
+import javax.faces.view.facelets.ComponentConfig;
+import javax.faces.view.facelets.FaceletContext;
+import javax.faces.view.facelets.TagAttribute;
 
 public class DateExtensionHandler extends TobagoLabelExtensionHandler {
 
@@ -52,11 +52,11 @@ public class DateExtensionHandler extends TobagoLabelExtensionHandler {
     return RendererTypes.DATE;
   }
 
-  protected void onComponentPopulated(FaceletContext faceletContext, UIComponent panel, UIComponent parent) {
+  public void onComponentPopulated(FaceletContext faceletContext, UIComponent panel, UIComponent parent) {
     super.onComponentPopulated(faceletContext, panel, parent);
     if (panel.getChildCount() == 2) {
       Application application = faceletContext.getFacesContext().getApplication();
-      UIViewRoot root = ComponentSupport.getViewRoot(faceletContext, parent);
+      UIViewRoot root = ComponentUtils.findViewRoot(faceletContext, parent);
 
       UIForm form = (UIForm) application.createComponent(UIForm.COMPONENT_TYPE);
       form.setRendererType(RendererTypes.FORM);

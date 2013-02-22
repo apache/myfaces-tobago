@@ -42,9 +42,6 @@ import javax.faces.render.RenderKitFactory;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 
 public class AjaxResponseRenderer {
@@ -75,6 +72,8 @@ public class AjaxResponseRenderer {
 
     UIViewRoot incomingViewRoot = (UIViewRoot)
         facesContext.getExternalContext().getRequestMap().get(TobagoLifecycle.VIEW_ROOT_KEY);
+    LOG.error("TODO: Reimplement AJAX stuff for JSF 2.0");
+/* XXX: reimplement it for JSF 2.0? Works only, when the TobagoLifecycle is active...
     if (viewRoot != incomingViewRoot) {
       if (LOG.isDebugEnabled()) {
         LOG.debug("requesting full page reload because of navigation to {} from {}",
@@ -101,8 +100,9 @@ public class AjaxResponseRenderer {
       }
       writeResponse(facesContext, renderKit, true);
     } else {
+*/
       writeResponse(facesContext, renderKit, false);
-    }
+//    }
   }
 
   private void renderComponent(FacesContext facesContext, RenderKit renderKit, String clientId, UIComponent component)

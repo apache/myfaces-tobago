@@ -54,11 +54,6 @@
   </context-param>
 
   <context-param>
-    <param-name>javax.faces.DISABLE_FACELET_JSF_VIEWHANDLER</param-name>
-    <param-value>true</param-value>
-  </context-param>
-
-  <context-param>
     <param-name>javax.faces.INTERPRET_EMPTY_STRING_SUBMITTED_VALUES_AS_NULL</param-name>
     <param-value>true</param-value>
   </context-param>
@@ -100,6 +95,7 @@
     <url-pattern>/ScriptEventServlet</url-pattern>
   </servlet-mapping>
 
+<!--
   <filter>
     <filter-name>MyFacesExtensionsFilter</filter-name>
     <filter-class>org.apache.myfaces.webapp.filter.ExtensionsFilter</filter-class>
@@ -109,18 +105,19 @@
       </init-param>
   </filter>
 
-  <!-- extension mapping for adding <script/>, <link/>, and other resource tags to JSF-pages  -->
+  &lt;!&ndash; extension mapping for adding <script/>, <link/>, and other resource tags to JSF-pages  &ndash;&gt;
   <filter-mapping>
       <filter-name>MyFacesExtensionsFilter</filter-name>
-      <!-- servlet-name must match the name of your javax.faces.webapp.FacesServlet entry -->
+      &lt;!&ndash; servlet-name must match the name of your javax.faces.webapp.FacesServlet entry &ndash;&gt;
       <servlet-name>FacesServlet</servlet-name>
   </filter-mapping>
 
-  <!-- extension mapping for serving page-independent resources (javascript, stylesheets, images, etc.)  -->
+  &lt;!&ndash; extension mapping for serving page-independent resources (javascript, stylesheets, images, etc.)  &ndash;&gt;
   <filter-mapping>
       <filter-name>MyFacesExtensionsFilter</filter-name>
       <url-pattern>/faces/myFacesExtensionResource/*</url-pattern>
   </filter-mapping>
+-->
 
   <error-page>
     <error-code>404</error-code>

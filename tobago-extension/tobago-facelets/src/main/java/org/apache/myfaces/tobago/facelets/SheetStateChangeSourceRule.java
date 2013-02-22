@@ -19,26 +19,27 @@
 
 package org.apache.myfaces.tobago.facelets;
 
-import com.sun.facelets.tag.MetaRule;
-import com.sun.facelets.tag.Metadata;
-import com.sun.facelets.tag.TagAttribute;
-import com.sun.facelets.tag.MetadataTarget;
-import com.sun.facelets.FaceletContext;
-import com.sun.facelets.el.LegacyMethodBinding;
+import org.apache.myfaces.tobago.component.MethodExpressionToMethodBinding;
 import org.apache.myfaces.tobago.event.SheetStateChangeSource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.event.ActionEvent;
+import javax.faces.view.facelets.FaceletContext;
+import javax.faces.view.facelets.MetaRule;
+import javax.faces.view.facelets.Metadata;
+import javax.faces.view.facelets.MetadataTarget;
+import javax.faces.view.facelets.TagAttribute;
 
-/*
- * Date: 15.04.2006
- * Time: 14:25:10
- */
 public class SheetStateChangeSourceRule extends MetaRule {
+
+  private static final Logger LOG = LoggerFactory.getLogger(SheetStateChangeSourceRule.class);
+
   static final Class[] ACTION_LISTENER = new Class[]{ActionEvent.class};
+
   public static final SheetStateChangeSourceRule INSTANCE = new SheetStateChangeSourceRule();
 
-  public Metadata applyRule(String name, TagAttribute attribute,
-      MetadataTarget metadataTarget) {
+  public Metadata applyRule(String name, TagAttribute attribute, MetadataTarget metadataTarget) {
     if (metadataTarget.isTargetInstanceOf(SheetStateChangeSource.class)) {
       if ("stateChangeListener".equals(name)) {
         return new SheetStateChangeListenerMapper(attribute);
@@ -56,10 +57,12 @@ public class SheetStateChangeSourceRule extends MetaRule {
     }
 
     public void applyMetadata(FaceletContext ctx, Object instance) {
+LOG.error("TODO: implementation for JSF 1.2 / JSF 2.0");
       ((SheetStateChangeSource) instance)
-          .setStateChangeListener(new LegacyMethodBinding(attribute
+// XXX
+          .setStateChangeListener(new MethodExpressionToMethodBinding(attribute
               .getMethodExpression(ctx, null,
-              SheetStateChangeSourceRule.ACTION_LISTENER)));
+                  SheetStateChangeSourceRule.ACTION_LISTENER)));
     }
   }
 }

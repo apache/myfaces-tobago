@@ -19,13 +19,14 @@
 
 package org.apache.myfaces.tobago.facelets;
 
-import com.sun.facelets.FaceletContext;
-import com.sun.facelets.tag.MetaRule;
-import com.sun.facelets.tag.Metadata;
-import com.sun.facelets.tag.MetadataTarget;
-import com.sun.facelets.tag.TagAttribute;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.validator.FileItemValidator;
+
+import javax.faces.view.facelets.FaceletContext;
+import javax.faces.view.facelets.MetaRule;
+import javax.faces.view.facelets.Metadata;
+import javax.faces.view.facelets.MetadataTarget;
+import javax.faces.view.facelets.TagAttribute;
 
 public class ContentTypeRule extends MetaRule {
 

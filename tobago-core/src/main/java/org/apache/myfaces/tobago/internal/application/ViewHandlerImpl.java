@@ -32,6 +32,12 @@ import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.util.Locale;
 
+/**
+ * Not longer needed.
+ *
+ * @deprecated since Tobago 1.6.0
+ */
+@Deprecated
 public class ViewHandlerImpl extends ViewHandler {
 
   private static final Logger LOG = LoggerFactory.getLogger(ViewHandlerImpl.class);

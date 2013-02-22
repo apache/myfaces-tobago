@@ -19,12 +19,13 @@
 
 package org.apache.myfaces.tobago.facelets;
 
-import com.sun.facelets.tag.MetaRuleset;
-import com.sun.facelets.tag.jsf.ValidateHandler;
-import com.sun.facelets.tag.jsf.ValidatorConfig;
 import org.apache.myfaces.tobago.validator.FileItemValidator;
 
-public class TobagoValidateHandler extends ValidateHandler {
+import javax.faces.view.facelets.MetaRuleset;
+import javax.faces.view.facelets.ValidatorConfig;
+import javax.faces.view.facelets.ValidatorHandler;
+
+public class TobagoValidateHandler extends ValidatorHandler {
 
   public TobagoValidateHandler(ValidatorConfig config) {
     super(config);

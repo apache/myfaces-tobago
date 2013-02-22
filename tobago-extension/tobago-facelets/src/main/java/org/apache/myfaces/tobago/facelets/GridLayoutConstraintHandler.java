@@ -19,22 +19,22 @@
 
 package org.apache.myfaces.tobago.facelets;
 
-import com.sun.facelets.FaceletContext;
-import com.sun.facelets.tag.TagAttribute;
-import com.sun.facelets.tag.TagConfig;
-import com.sun.facelets.tag.TagHandler;
-import org.apache.myfaces.tobago.component.UIExtensionPanel;
-import org.apache.myfaces.tobago.layout.LayoutContainer;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.component.Attributes;
+import org.apache.myfaces.tobago.component.UIExtensionPanel;
 import org.apache.myfaces.tobago.layout.LayoutBase;
 import org.apache.myfaces.tobago.layout.LayoutComponent;
+import org.apache.myfaces.tobago.layout.LayoutContainer;
 import org.apache.myfaces.tobago.layout.Measure;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.el.ELException;
 import javax.faces.FacesException;
 import javax.faces.component.UIComponent;
+import javax.faces.view.facelets.FaceletContext;
+import javax.faces.view.facelets.TagAttribute;
+import javax.faces.view.facelets.TagConfig;
+import javax.faces.view.facelets.TagHandler;
 import java.io.IOException;
 
 public class GridLayoutConstraintHandler extends TagHandler {

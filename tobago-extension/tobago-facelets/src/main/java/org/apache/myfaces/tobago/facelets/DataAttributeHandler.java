@@ -19,18 +19,18 @@
 
 package org.apache.myfaces.tobago.facelets;
 
-import com.sun.facelets.FaceletContext;
-import com.sun.facelets.tag.TagAttribute;
-import com.sun.facelets.tag.TagConfig;
-import com.sun.facelets.tag.TagException;
-import com.sun.facelets.tag.TagHandler;
-import com.sun.facelets.tag.jsf.ComponentSupport;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 
 import javax.el.ELException;
 import javax.faces.FacesException;
 import javax.faces.component.UIComponent;
+import javax.faces.view.facelets.ComponentHandler;
+import javax.faces.view.facelets.FaceletContext;
+import javax.faces.view.facelets.TagAttribute;
+import javax.faces.view.facelets.TagConfig;
+import javax.faces.view.facelets.TagException;
+import javax.faces.view.facelets.TagHandler;
 
 public final class DataAttributeHandler extends TagHandler {
 
@@ -50,7 +50,7 @@ public final class DataAttributeHandler extends TagHandler {
       throw new TagException(tag, "Parent UIComponent was null");
     }
 
-    if (ComponentSupport.isNew(parent)) {
+    if (ComponentHandler.isNew(parent)) {
 
       Object attributeName = name.isLiteral()
           ? (Object) name.getValue(faceletContext)

@@ -19,9 +19,10 @@
 
 package org.apache.myfaces.tobago.facelets.extension;
 
-import com.sun.facelets.tag.jsf.ComponentConfig;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.UISelectManyCheckbox;
+
+import javax.faces.view.facelets.ComponentConfig;
 
 public class SelectManyCheckboxExtensionHandler extends TobagoLabelExtensionHandler {
 

@@ -20,7 +20,6 @@
 <faces-config>
   <application>
     <default-render-kit-id>tobago</default-render-kit-id>
-    <view-handler>org.apache.myfaces.tobago.internal.application.ViewHandlerImpl</view-handler>
   </application>
   <component>
     <component-type>javax.faces.NamingContainer</component-type>

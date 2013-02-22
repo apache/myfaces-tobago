@@ -251,11 +251,6 @@
       <scope>compile</scope>
     </dependency>
     <dependency>
-      <groupId>com.sun.facelets</groupId>
-      <artifactId>jsf-facelets</artifactId>
-      <version>${facelets.version}</version>
-    </dependency>
-    <dependency>
       <groupId>org.apache.myfaces.test</groupId>
       <artifactId>myfaces-test20</artifactId>
       <version>${myfaces-test20.version}</version>

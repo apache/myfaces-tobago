@@ -19,39 +19,39 @@
 
 package org.apache.myfaces.tobago.facelets;
 
-import com.sun.facelets.FaceletContext;
-import com.sun.facelets.tag.TextHandler;
-import com.sun.facelets.tag.jsf.ComponentConfig;
-import com.sun.facelets.tag.jsf.ComponentHandler;
+import org.apache.myfaces.tobago.component.UIScript;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
-import java.util.Iterator;
+import javax.faces.view.facelets.ComponentConfig;
+import javax.faces.view.facelets.ComponentHandler;
+import javax.faces.view.facelets.FaceletContext;
+import javax.faces.view.facelets.FaceletHandler;
+import javax.faces.view.facelets.TextHandler;
 
-import org.apache.myfaces.tobago.component.UIScript;
-
-/*
- * Date: Feb 3, 2007
- * Time: 8:46:45 AM
- */
 public class ScriptHandler extends ComponentHandler {
+
+  private static final Logger LOG = LoggerFactory.getLogger(ScriptHandler.class);
 
   public ScriptHandler(ComponentConfig config) {
     super(config);
   }
 
-  protected void onComponentCreated(FaceletContext context, UIComponent component, UIComponent parent) {
-    StringBuffer content = new StringBuffer();
-    Iterator iter = findNextByType(TextHandler.class);
-    while (iter.hasNext()) {
-      TextHandler text = (TextHandler) iter.next();
-      content.append(text.getText(context));
-    }
-    if (component instanceof UIScript) {
-      ((UIScript) component).setScript(content.toString());
+  public void onComponentCreated(FaceletContext context, UIComponent component, UIComponent parent) {
+    StringBuilder content = new StringBuilder();
+    final FaceletHandler next = getComponentConfig().getNextHandler();
+    if (next instanceof TextHandler) {
+      content.append(((TextHandler) next).getText(context));
+    } else {
+      // TBD: is this okay, or is here something to do?
+      // on the other side, Script inside the page is deprecated.
+      LOG.warn("Not applied for handler: " + next.getClass().getName());
     }
 
+    ((UIScript) component).setScript(content.toString());
   }
 
-  protected void applyNextHandler(FaceletContext ctx, UIComponent c) {
+  public void applyNextHandler(FaceletContext ctx, UIComponent c) {
   }
 }

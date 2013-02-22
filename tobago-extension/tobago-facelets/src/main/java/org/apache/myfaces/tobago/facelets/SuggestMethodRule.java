@@ -19,19 +19,15 @@
 
 package org.apache.myfaces.tobago.facelets;
 
-import com.sun.facelets.FaceletContext;
-import com.sun.facelets.el.LegacyMethodBinding;
-import com.sun.facelets.tag.MetaRule;
-import com.sun.facelets.tag.Metadata;
-import com.sun.facelets.tag.MetadataTarget;
-import com.sun.facelets.tag.TagAttribute;
 import org.apache.myfaces.tobago.component.InputSuggest;
 import org.apache.myfaces.tobago.component.UIIn;
 
-/**
- * Date: Sep 17, 2007
- * Time: 8:59:29 PM
- */
+import javax.faces.view.facelets.FaceletContext;
+import javax.faces.view.facelets.MetaRule;
+import javax.faces.view.facelets.Metadata;
+import javax.faces.view.facelets.MetadataTarget;
+import javax.faces.view.facelets.TagAttribute;
+
 public class SuggestMethodRule extends MetaRule {
   static final Class[] SUGGEST_METHOD = new Class[]{javax.faces.component.UIInput.class};
   public static final SuggestMethodRule INSTANCE = new SuggestMethodRule();
@@ -54,8 +50,8 @@ public class SuggestMethodRule extends MetaRule {
     }
 
     public void applyMetadata(FaceletContext ctx, Object instance) {
-      ((UIIn) instance).setSuggestMethod(new LegacyMethodBinding(attribute.getMethodExpression(ctx,
-          null, SuggestMethodRule.SUGGEST_METHOD)));
+      ((UIIn) instance).setSuggestMethodExpression(
+          attribute.getMethodExpression(ctx, null, SuggestMethodRule.SUGGEST_METHOD));
     }
   }
 }

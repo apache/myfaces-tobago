@@ -16,9 +16,160 @@
  * limitations under the License.
 -->
 
-<!DOCTYPE facelet-taglib PUBLIC
-    "-//Sun Microsystems, Inc.//DTD Facelet Taglib 1.0//EN"
-    "http://java.sun.com/dtd/facelet-taglib_1_0.dtd">
-<facelet-taglib>
-  <library-class>org.apache.myfaces.tobago.facelets.extension.TobagoExtensionTagLibrary</library-class>
+<facelet-taglib
+    version="2.0"
+    xmlns="http://java.sun.com/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facelettaglibrary_2_0.xsd">
+
+  <namespace>http://myfaces.apache.org/tobago/extension</namespace>
+
+  <!-- TODO: generate this content -->
+
+  <tag>
+    <tag-name>date</tag-name>
+    <component>
+      <component-type>org.apache.myfaces.tobago.ExtensionPanel</component-type>
+      <renderer-type>Panel</renderer-type>
+      <handler-class>org.apache.myfaces.tobago.facelets.extension.DateExtensionHandler</handler-class>
+    </component>
+  </tag>
+
+  <tag>
+    <tag-name>file</tag-name>
+    <component>
+      <component-type>org.apache.myfaces.tobago.ExtensionPanel</component-type>
+      <renderer-type>Panel</renderer-type>
+      <handler-class>org.apache.myfaces.tobago.facelets.extension.FileExtensionHandler</handler-class>
+    </component>
+  </tag>
+
+  <tag>
+    <tag-name>in</tag-name>
+    <component>
+      <component-type>org.apache.myfaces.tobago.ExtensionPanel</component-type>
+      <renderer-type>Panel</renderer-type>
+      <handler-class>org.apache.myfaces.tobago.facelets.extension.InExtensionHandler</handler-class>
+    </component>
+  </tag>
+
+  <tag>
+    <tag-name>menuCheckbox</tag-name>
+    <component>
+      <component-type>org.apache.myfaces.tobago.MenuCommand</component-type>
+      <renderer-type>MenuCommand</renderer-type>
+      <handler-class>org.apache.myfaces.tobago.facelets.extension.MenuCheckboxExtensionHandler</handler-class>
+    </component>
+  </tag>
+
+  <tag>
+    <tag-name>menuRadio</tag-name>
+    <component>
+      <component-type>org.apache.myfaces.tobago.MenuCommand</component-type>
+      <renderer-type>MenuCommand</renderer-type>
+      <handler-class>org.apache.myfaces.tobago.facelets.extension.MenuRadioExtensionHandler</handler-class>
+    </component>
+  </tag>
+
+  <tag>
+    <tag-name>selectBooleanCheckbox</tag-name>
+    <component>
+      <component-type>org.apache.myfaces.tobago.ExtensionPanel</component-type>
+      <renderer-type>Panel</renderer-type>
+      <handler-class>org.apache.myfaces.tobago.facelets.extension.SelectBooleanCheckboxExtensionHandler</handler-class>
+    </component>
+  </tag>
+
+  <tag>
+    <tag-name>selectManyCheckbox</tag-name>
+    <component>
+      <component-type>org.apache.myfaces.tobago.ExtensionPanel</component-type>
+      <renderer-type>Panel</renderer-type>
+      <handler-class>org.apache.myfaces.tobago.facelets.extension.SelectManyCheckboxExtensionHandler</handler-class>
+    </component>
+  </tag>
+
+  <tag>
+    <tag-name>selectManyListbox</tag-name>
+    <component>
+      <component-type>org.apache.myfaces.tobago.ExtensionPanel</component-type>
+      <renderer-type>Panel</renderer-type>
+      <handler-class>org.apache.myfaces.tobago.facelets.extension.SelectManyListboxExtensionHandler</handler-class>
+    </component>
+  </tag>
+
+  <tag>
+    <tag-name>selectManyShuttle</tag-name>
+    <component>
+      <component-type>org.apache.myfaces.tobago.ExtensionPanel</component-type>
+      <renderer-type>Panel</renderer-type>
+      <handler-class>org.apache.myfaces.tobago.facelets.extension.SelectManyShuttleExtensionHandler</handler-class>
+    </component>
+  </tag>
+
+  <tag>
+    <tag-name>selectOneChoice</tag-name>
+    <component>
+      <component-type>org.apache.myfaces.tobago.ExtensionPanel</component-type>
+      <renderer-type>Panel</renderer-type>
+      <handler-class>org.apache.myfaces.tobago.facelets.extension.SelectOneChoiceExtensionHandler</handler-class>
+    </component>
+  </tag>
+
+  <tag>
+    <tag-name>selectOneRadio</tag-name>
+    <component>
+      <component-type>org.apache.myfaces.tobago.ExtensionPanel</component-type>
+      <renderer-type>Panel</renderer-type>
+      <handler-class>org.apache.myfaces.tobago.facelets.extension.SelectOneRadioExtensionHandler</handler-class>
+    </component>
+  </tag>
+
+  <tag>
+    <tag-name>selectOneListbox</tag-name>
+    <component>
+      <component-type>org.apache.myfaces.tobago.ExtensionPanel</component-type>
+      <renderer-type>Panel</renderer-type>
+      <handler-class>org.apache.myfaces.tobago.facelets.extension.SelectOneListboxExtensionHandler</handler-class>
+    </component>
+  </tag>
+
+  <tag>
+    <tag-name>separator</tag-name>
+    <component>
+      <component-type>org.apache.myfaces.tobago.Separator</component-type>
+      <renderer-type>Separator</renderer-type>
+      <handler-class>org.apache.myfaces.tobago.facelets.extension.SeparatorExtensionHandler</handler-class>
+    </component>
+  </tag>
+
+  <tag>
+    <tag-name>textarea</tag-name>
+    <component>
+      <component-type>org.apache.myfaces.tobago.ExtensionPanel</component-type>
+      <renderer-type>Panel</renderer-type>
+      <handler-class>org.apache.myfaces.tobago.facelets.extension.TextareaExtensionHandler</handler-class>
+    </component>
+  </tag>
+
+  <tag>
+    <tag-name>time</tag-name>
+    <component>
+      <component-type>org.apache.myfaces.tobago.ExtensionPanel</component-type>
+      <renderer-type>Panel</renderer-type>
+      <handler-class>org.apache.myfaces.tobago.facelets.extension.TimeExtensionHandler</handler-class>
+    </component>
+  </tag>
+
+<!--
+  <tag>
+    <tag-name>wizard</tag-name>
+    <component>
+      <component-type>org.apache.myfaces.tobago.Wizard</component-type>
+      <renderer-type>Wizard</renderer-type>
+      <handler-class>org.apache.myfaces.tobago.facelets.TobagoComponentHandler</handler-class>
+    </component>
+  </tag>
+-->
+
 </facelet-taglib>

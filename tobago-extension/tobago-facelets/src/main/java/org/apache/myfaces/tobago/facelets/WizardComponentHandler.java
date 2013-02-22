@@ -19,13 +19,11 @@
 
 package org.apache.myfaces.tobago.facelets;
 
-import com.sun.facelets.FaceletContext;
-import com.sun.facelets.el.ELAdaptor;
-import com.sun.facelets.tag.TagAttribute;
-import com.sun.facelets.tag.jsf.ComponentConfig;
-
 import javax.el.ValueExpression;
 import javax.faces.component.UIComponent;
+import javax.faces.view.facelets.ComponentConfig;
+import javax.faces.view.facelets.FaceletContext;
+import javax.faces.view.facelets.TagAttribute;
 
 public class WizardComponentHandler extends TobagoComponentHandler {
 
@@ -36,14 +34,14 @@ public class WizardComponentHandler extends TobagoComponentHandler {
     outcomeAttribute = getAttribute("outcome");
   }
 
-  protected void onComponentCreated(FaceletContext faceletContext, UIComponent wizard, UIComponent parent) {
+  public void onComponentCreated(FaceletContext faceletContext, UIComponent wizard, UIComponent parent) {
 
     if (outcomeAttribute != null) {
       if (outcomeAttribute.isLiteral()) {
         wizard.getAttributes().put("outcome", outcomeAttribute.getValue(faceletContext));
       } else {
         ValueExpression expression = outcomeAttribute.getValueExpression(faceletContext, String.class);
-        ELAdaptor.setExpression(wizard, "outcome", expression);
+        wizard.setValueExpression("outcome", expression);
       }
     }
 

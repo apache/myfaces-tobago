@@ -32,9 +32,6 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>build-helper-maven-plugin</artifactId>
-<!--
-        <version>1.0</version>
--->
         <executions>
           <execution>
             <id>add-source</id>
@@ -173,6 +170,20 @@
               </resources>
             </configuration>
           </execution>
+          <execution>
+            <id>copy-tld</id>
+            <goals><goal>copy-resources</goal></goals>
+            <phase>process-classes</phase>
+            <configuration>
+              <outputDirectory>${project.build.outputDirectory}</outputDirectory>
+              <resources>
+                <resource>
+                  <targetPath>META-INF</targetPath>
+                  <directory>${project.build.directory}/generated-tld</directory>
+                </resource>
+              </resources>
+            </configuration>
+          </execution>
         </executions>
       </plugin>
     </plugins>
@@ -258,11 +269,6 @@
           <artifactId>tools</artifactId>
         </exclusion>
       </exclusions>
-    </dependency>
-    <dependency>
-      <groupId>com.sun.facelets</groupId>
-      <artifactId>jsf-facelets</artifactId>
-      <version>${facelets.version}</version>
     </dependency>
     <dependency>
       <groupId>maven-taglib</groupId>

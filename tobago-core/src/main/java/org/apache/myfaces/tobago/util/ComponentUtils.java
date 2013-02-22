@@ -52,6 +52,7 @@ import javax.faces.component.UIInput;
 import javax.faces.component.UIOutput;
 import javax.faces.component.UIParameter;
 import javax.faces.component.UISelectMany;
+import javax.faces.component.UIViewRoot;
 import javax.faces.component.ValueHolder;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
@@ -64,6 +65,7 @@ import javax.faces.model.SelectItem;
 import javax.faces.render.RenderKit;
 import javax.faces.render.RenderKitFactory;
 import javax.faces.render.Renderer;
+import javax.faces.view.facelets.FaceletContext;
 import javax.faces.webapp.UIComponentTag;
 import javax.servlet.jsp.JspException;
 import java.util.ArrayList;
@@ -144,15 +146,27 @@ public class ComponentUtils {
   }
 
   public static void resetPage(FacesContext context) {
-    javax.faces.component.UIViewRoot view = context.getViewRoot();
+    UIViewRoot view = context.getViewRoot();
     if (view != null) {
       view.getAttributes().remove(PAGE_KEY);
     }
   }
 
-  @SuppressWarnings("unchecked")
+  /**
+   * Tries to walk up the parents to find the UIViewRoot, if not found, then go to FaceletContext's FacesContext for
+   * the view root.
+   */
+  public static UIViewRoot findViewRoot(FaceletContext faceletContext, UIComponent component) {
+    UIViewRoot viewRoot = findAncestor(component, UIViewRoot.class);
+    if (viewRoot != null) {
+      return viewRoot;
+    } else {
+      return faceletContext.getFacesContext().getViewRoot();
+    }
+  }
+
   public static AbstractUIPage findPage(FacesContext context, UIComponent component) {
-    javax.faces.component.UIViewRoot view = context.getViewRoot();
+    UIViewRoot view = context.getViewRoot();
     if (view != null) {
       TransientStateHolder stateHolder = (TransientStateHolder) view.getAttributes().get(PAGE_KEY);
       if (stateHolder == null || stateHolder.isEmpty()) {
@@ -381,8 +395,7 @@ public class ComponentUtils {
   }
 
   public static FacesMessage.Severity getMaximumSeverity(UIComponent component) {
-    final boolean invalid = component instanceof javax.faces.component.UIInput
-        && !((javax.faces.component.UIInput) component).isValid();
+    final boolean invalid = component instanceof UIInput && !((UIInput) component).isValid();
     FacesMessage.Severity max = invalid ? FacesMessage.SEVERITY_ERROR : null;
     FacesContext facesContext = FacesContext.getCurrentInstance();
     final Iterator messages = facesContext.getMessages(component.getClientId(facesContext));
@@ -395,7 +408,7 @@ public class ComponentUtils {
     return max;
   }
 
-  public static boolean isError(javax.faces.component.UIInput uiInput) {
+  public static boolean isError(UIInput uiInput) {
     FacesContext facesContext = FacesContext.getCurrentInstance();
     return !uiInput.isValid()
         || facesContext.getMessages(uiInput.getClientId(facesContext)).hasNext();
