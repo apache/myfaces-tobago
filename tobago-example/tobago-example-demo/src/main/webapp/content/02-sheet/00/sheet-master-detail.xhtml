@@ -48,7 +48,9 @@
           <tc:out value="#{luminary.name}" id="t_name"/>
         </tc:column>
         <tc:columnEvent event="click">
-          <tc:command actionListener="#{demo.selectLuminary}" renderedPartially=":page:detail"/>
+          <tc:command actionListener="#{demo.selectLuminary}" renderedPartially=":page:detail" immediate="true">
+            <tc:resetInputActionListener/>
+          </tc:command>
         </tc:columnEvent>
       </tc:sheet>
     </tc:box>
@@ -59,7 +61,7 @@
         <f:facet name="layout">
           <tc:gridLayout rows="auto;auto;auto;auto;auto;auto;auto;auto;auto"/>
         </f:facet>
-        <tx:in label="Name" value="#{demo.currentSolarObject.name}"/>
+        <tx:in label="Name" value="#{demo.currentSolarObject.name}" required="true"/>
         <tx:in label="Number" value="#{demo.currentSolarObject.number}"/>
         <tx:in label="Orbit" value="#{demo.currentSolarObject.orbit}"/>
         <tx:in label="Distance" value="#{demo.currentSolarObject.distance}"/>

@@ -20,9 +20,11 @@
 package org.apache.myfaces.tobago.example.test;
 
 import org.apache.myfaces.tobago.example.data.CategoryTree;
+import org.apache.myfaces.tobago.example.data.Node;
 import org.apache.myfaces.tobago.example.data.SmallTree;
 
 import javax.swing.tree.DefaultMutableTreeNode;
+import java.util.Enumeration;
 
 public class TreeController {
   
@@ -37,4 +39,17 @@ public class TreeController {
   public DefaultMutableTreeNode getSmall() {
     return small;
   }
+
+  public String openAll() {
+    final Enumeration enumeration = tree.depthFirstEnumeration();
+    while (enumeration.hasMoreElements()) {
+      DefaultMutableTreeNode node = (DefaultMutableTreeNode) enumeration.nextElement();
+      if (!node.isLeaf()) {
+        Node userObject = (Node) node.getUserObject();
+        userObject.setExpanded(true);
+      }
+    }
+    return null;
+  }
+
 }

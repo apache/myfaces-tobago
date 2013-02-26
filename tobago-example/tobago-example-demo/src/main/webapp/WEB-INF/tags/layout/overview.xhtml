@@ -52,7 +52,7 @@
               <tc:menuCommand
                   onclick="alert('#{overviewBundle.pageTitle}' + String.fromCharCode(10) + '#{info.version}' + String.fromCharCode(10) + '#{overviewBundle.tobago_url}' + String.fromCharCode(10))"
                   label="#{overviewBundle.menu_about}"/>
-              <tc:menuItem link="http://myfaces.apache.org/tobago" label="Tobago in the Web"/>
+              <tc:menuCommand link="http://myfaces.apache.org/tobago" label="Tobago in the Web"/>
               <tc:menuCommand onclick="LOG.show();"
                               label="#{overviewBundle.menu_showLog}"
                               rendered="#{clientConfigController.debugMode}"/>

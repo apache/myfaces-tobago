@@ -28,7 +28,7 @@
   <description>Demonstration and documentation application.</description>
 
   <properties>
-    <openwebbeans.version>1.1.6</openwebbeans.version>
+    <openwebbeans.version>1.1.7</openwebbeans.version>
     <myfaces-extcdi.version>1.0.5</myfaces-extcdi.version>
   </properties>
   <build>
@@ -284,10 +284,10 @@
 
     <dependency>
       <groupId>org.apache.geronimo.specs</groupId>
-      <artifactId>geronimo-annotation_1.1_spec</artifactId>
-      <version>1.0.1</version>
+      <artifactId>geronimo-annotation_1.0_spec</artifactId>
+      <!-- compile or provided depends on the used server -->
+      <scope>compile</scope>
     </dependency>
-
     <dependency>
         <groupId>org.hibernate</groupId>
         <artifactId>hibernate-validator</artifactId>
