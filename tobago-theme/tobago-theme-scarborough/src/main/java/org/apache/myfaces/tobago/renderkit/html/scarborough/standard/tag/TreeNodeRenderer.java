@@ -81,12 +81,12 @@ public class TreeNodeRenderer extends LayoutComponentRendererBase {
     final boolean folder = node.isFolder();
 
     // expand state
-    if (folder) {
+//    if (folder) { // XXX the state of folder seems to be not restored!
       boolean expanded = Boolean.parseBoolean(requestParameterMap.get(id + ComponentUtils.SUB_SEPARATOR + "expanded"));
       if (node.isExpanded() != expanded) {
         new TreeExpansionEvent(node, node.isExpanded(), expanded).queue();
       }
-    }
+//    }
 
     // select
     String searchString;
