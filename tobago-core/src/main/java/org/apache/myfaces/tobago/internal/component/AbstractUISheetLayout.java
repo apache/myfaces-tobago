@@ -53,7 +53,7 @@ import java.util.Map;
  */ 
 public abstract class AbstractUISheetLayout extends AbstractUILayoutBase implements LayoutManager {
 
-  private static final Logger LOG = LoggerFactory.getLogger(AbstractUIGridLayout.class);
+  private static final Logger LOG = LoggerFactory.getLogger(AbstractUISheetLayout.class);
 
   private boolean horizontalAuto;
   private boolean verticalAuto;
@@ -266,7 +266,9 @@ public abstract class AbstractUISheetLayout extends AbstractUILayoutBase impleme
 */
       LayoutInfo layoutInfo =
           new LayoutInfo(newTokens.getSize(), space.getPixel(), newTokens, data.getClientId(facesContext), false);
-      parseFixedWidth(layoutInfo, renderedColumns);
+      final Measure columnSelectorWidth
+          = data.getLayoutComponentRenderer(facesContext).getCustomMeasure(facesContext, data, "columnSelectorWidth");
+      parseFixedWidth(layoutInfo, renderedColumns, columnSelectorWidth);
       layoutInfo.parseColumnLayout(space.getPixel());
       currentWidthList = layoutInfo.getSpaceList();
       currentWidthList.add(0); // empty filler column
@@ -328,19 +330,18 @@ public abstract class AbstractUISheetLayout extends AbstractUILayoutBase impleme
     return result;
   }
 
-  private void parseFixedWidth(LayoutInfo layoutInfo, List<AbstractUIColumn> rendereredColumns) {
+  private void parseFixedWidth(
+      LayoutInfo layoutInfo, List<AbstractUIColumn> renderedColumns, Measure columnSelectorWidth) {
     LayoutTokens tokens = layoutInfo.getLayoutTokens();
     for (int i = 0; i < tokens.getSize(); i++) {
       LayoutToken token = tokens.get(i);
       if (token instanceof AutoLayoutToken) {
         int width = 0;
-        if (!rendereredColumns.isEmpty()) {
-          if (i < rendereredColumns.size()) {
-            AbstractUIColumn column = rendereredColumns.get(i);
+        if (!renderedColumns.isEmpty()) {
+          if (i < renderedColumns.size()) {
+            AbstractUIColumn column = renderedColumns.get(i);
             if (column instanceof AbstractUIColumnSelector) {
-              width = 20; // FIXME: make dynamic (was removedTAD by changing the layout
-              LOG.error("20; // FIXME: make dynamic (was removed by changing the layout");
-
+              width = columnSelectorWidth.getPixel();
             } else {
               for (UIComponent component : column.getChildren()) {
                 width += 100; // FIXME: make dynamic (was removed by changing the layout
