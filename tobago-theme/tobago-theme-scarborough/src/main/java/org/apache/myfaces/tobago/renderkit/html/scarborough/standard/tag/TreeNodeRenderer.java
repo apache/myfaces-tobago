@@ -144,14 +144,16 @@ public class TreeNodeRenderer extends LayoutComponentRendererBase {
 
     // XXX todo: find a better way to determine the parentId
     final String clientId = node.getClientId(facesContext);
-    final int colon = clientId.lastIndexOf(":");
-    final int underscore = clientId.substring(0, colon).lastIndexOf("_");
-    final String parentId = root ? null : clientId.substring(0, underscore) + clientId.substring(colon);
+    final int colon2 = clientId.lastIndexOf(":");
+    final int colon1 = clientId.substring(0, colon2 - 1).lastIndexOf(":");
+    final String structure = clientId.substring(colon1 + 1, colon2);
+    String parentStructure = getParentStructure(structure);
+    final String parentId = root ? null : clientId.substring(0, colon1 + 1) + parentStructure + clientId.substring(colon2);
 
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
     if (expanded) {
-      tree.getExpandedCache().add(id);
+      tree.getExpandedCache().add(structure);
     }
 
     if (showRoot || !root) {
@@ -166,10 +168,16 @@ public class TreeNodeRenderer extends LayoutComponentRendererBase {
       writer.writeAttribute(DataAttributes.TREEPARENT, parentId, false);
       HtmlRendererUtils.writeDataAttributes(facesContext, writer, node);
 
-      if (!root && !tree.getExpandedCache().contains(parentId)) {
-        Style style = new Style();
-        style.setDisplay(Display.NONE);
-        writer.writeStyleAttribute(style);
+      if (!root) {
+        while (parentStructure != null) {
+          if (!tree.getExpandedCache().contains(parentStructure)) {
+            Style style = new Style();
+            style.setDisplay(Display.NONE);
+            writer.writeStyleAttribute(style);
+            break;
+          }
+          parentStructure = getParentStructure(parentStructure);
+        }
       }
 
       // div style (width)
@@ -196,6 +204,11 @@ public class TreeNodeRenderer extends LayoutComponentRendererBase {
       writer.endElement(HtmlElements.DIV);
     }
 
+  }
+
+  private String getParentStructure(String structure) {
+    final int underscore = structure.lastIndexOf("_");
+    return underscore <= 0 ? null : structure.substring(0, underscore);
   }
 
   private void encodeExpandedHidden(
