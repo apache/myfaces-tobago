@@ -66,7 +66,7 @@ public class ReferenceGenerator extends TldGenerator {
     final Map<String, String> options = processingEnv.getOptions();
     targetReference = options.get(TARGET_REFERENCE);
 
-    info("Generating the faces-config.xml");
+    info("Generating the tobago.xml");
     info("Options:");
     info(TARGET_REFERENCE + ": " + targetReference);
   }

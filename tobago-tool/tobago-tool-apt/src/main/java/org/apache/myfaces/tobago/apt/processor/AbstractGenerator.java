@@ -48,6 +48,13 @@ public abstract class AbstractGenerator extends AbstractProcessor {
 
   public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
 
+    info("**********************************************************************************");
+    info("* Starting generator: " + getClass().getName());
+    info("* Number of annotations:   " + annotations.size());
+    for (TypeElement typeElement : annotations) {
+      info("* Type element: " + typeElement.getQualifiedName());
+    }
+
     if (annotations.size() == 0) {
       // TDB Why this case happen?
       return false;
