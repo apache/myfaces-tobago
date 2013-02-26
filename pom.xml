@@ -985,6 +985,11 @@
           <version>2.3</version>
           <!--version>3.1</version-->
         </plugin>
+        <plugin>
+          <groupId>org.bsc.maven</groupId>
+          <artifactId>maven-processor-plugin</artifactId>
+          <version>2.1.1</version>
+        </plugin>
       </plugins>
     </pluginManagement>
   </build>
