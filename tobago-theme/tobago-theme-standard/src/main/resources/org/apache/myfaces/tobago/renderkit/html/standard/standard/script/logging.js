@@ -306,7 +306,7 @@ LOG.LogArea.prototype.initialize = function() {
     LOG.addAppender(this);
 
     /* Select the logging area with jQuery. TODO: The selector is fragile! */
-    jQuery("body > .tobagoLogArea").draggable();
+    jQuery("body > .tobagoLogArea").draggable({handle: "div:first"});
 };
 
 LOG.LogArea.prototype.show = function() {
