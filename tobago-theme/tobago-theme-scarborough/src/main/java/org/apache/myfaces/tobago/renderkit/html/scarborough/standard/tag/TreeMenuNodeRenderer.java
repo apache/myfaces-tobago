@@ -129,7 +129,8 @@ public class TreeMenuNodeRenderer extends LayoutComponentRendererBase {
     final int colon1 = clientId.substring(0, colon2 - 1).lastIndexOf(":");
     final String structure = clientId.substring(colon1 + 1, colon2);
     String parentStructure = getParentStructure(structure);
-    final String parentId = root ? null : clientId.substring(0, colon1 + 1) + parentStructure + clientId.substring(colon2);
+    final String parentId
+        = root ? null : clientId.substring(0, colon1 + 1) + parentStructure + clientId.substring(colon2);
 
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
