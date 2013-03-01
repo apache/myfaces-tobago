@@ -64,7 +64,8 @@ public abstract class AbstractUIData extends javax.faces.component.UIData implem
     if (isTreeModel()) {
       return dataModel;
     } else {
-      throw new IllegalStateException("Not a tree model");
+      LOG.warn("Not a tree model");
+      return null;
     }
   }
 
@@ -220,7 +221,8 @@ public abstract class AbstractUIData extends javax.faces.component.UIData implem
     if (isTreeModel()) {
       return ((TreeDataModel) getDataModel()).getPath();
     } else {
-      throw new IllegalStateException("Not a tree model");
+      LOG.warn("Not a tree model");
+      return null;
     }
   }
 
@@ -231,7 +233,8 @@ public abstract class AbstractUIData extends javax.faces.component.UIData implem
     if (isTreeModel()) {
       return ((TreeDataModel) getDataModel()).isFolder();
     } else {
-      throw new IllegalStateException("Not a tree model");
+      LOG.warn("Not a tree model");
+      return false;
     }
   }
 
@@ -239,7 +242,8 @@ public abstract class AbstractUIData extends javax.faces.component.UIData implem
     if (isTreeModel()) {
       return dataModel.getRowIndicesOfChildren();
     } else {
-      throw new IllegalStateException("Not a tree model");
+      LOG.warn("Not a tree model");
+      return null;
     }
   }
 }
