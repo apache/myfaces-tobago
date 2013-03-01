@@ -28,6 +28,12 @@ public class UISecuredButton extends UIButton {
 
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.SecuredButton";
 
+  /**
+   * No-arg constructor used during restoreState
+   */
+  public UISecuredButton() {
+  }
+
   @Override
   public boolean isDisabled() {
     if (getActionExpression() instanceof CheckAuthorisationMethodExpression) {

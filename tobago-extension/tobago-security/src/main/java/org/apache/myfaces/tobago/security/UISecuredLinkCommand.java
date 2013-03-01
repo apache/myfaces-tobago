@@ -32,6 +32,12 @@ public class UISecuredLinkCommand extends UILink {
 
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.SecuredLinkCommand";
 
+  /**
+   * No-arg constructor used during restoreState
+   */
+  public UISecuredLinkCommand() {
+  }
+
   @Override
   public boolean isDisabled() {
     if (getActionExpression() instanceof CheckAuthorisationMethodExpression) {

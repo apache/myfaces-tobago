@@ -28,6 +28,12 @@ public class UISecuredToolBarCommand extends UIToolBarCommand {
 
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.SecuredToolBarCommand";
 
+  /**
+   * No-arg constructor used during restoreState
+   */
+  public UISecuredToolBarCommand() {
+  }
+
   @Override
   public boolean isDisabled() {
     if (getActionExpression() instanceof CheckAuthorisationMethodExpression) {

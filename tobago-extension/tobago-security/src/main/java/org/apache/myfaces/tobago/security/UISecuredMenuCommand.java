@@ -30,6 +30,12 @@ public class UISecuredMenuCommand extends UIMenuCommand {
 
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.SecuredMenuCommand";
 
+  /**
+   * No-arg constructor used during restoreState
+   */
+  public UISecuredMenuCommand() {
+  }
+
   @Override
   public boolean isDisabled() {
     if (getActionExpression() instanceof CheckAuthorisationMethodExpression) {

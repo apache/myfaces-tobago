@@ -51,6 +51,12 @@ public class FileItemValidator implements Validator, StateHolder {
   private String[] contentType;
   private boolean transientValue;
 
+  /**
+   * No-arg constructor used during restoreState
+   */
+  public FileItemValidator() {
+  }
+
   public void validate(FacesContext facesContext, UIComponent component, Object value) throws ValidatorException {
     if (value != null && component instanceof AbstractUIFile) {
       FileItem file = (FileItem) value;

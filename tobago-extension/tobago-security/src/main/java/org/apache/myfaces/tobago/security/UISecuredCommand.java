@@ -29,6 +29,12 @@ public class UISecuredCommand extends UICommand {
 
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.SecuredCommand";
 
+  /**
+   * No-arg constructor used during restoreState
+   */
+  public UISecuredCommand() {
+  }
+
   @Override
   public boolean isDisabled() {
     if (getActionExpression() instanceof CheckAuthorisationMethodExpression) {

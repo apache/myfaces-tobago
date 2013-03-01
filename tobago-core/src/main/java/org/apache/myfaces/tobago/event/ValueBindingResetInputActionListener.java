@@ -42,6 +42,12 @@ public class ValueBindingResetInputActionListener extends AbstractResetInputActi
 
   private ValueBinding clientIdsBinding;
 
+  /**
+   * No-arg constructor used during restoreState
+   */
+  public ValueBindingResetInputActionListener() {
+  }
+
   public ValueBindingResetInputActionListener(Object binding) {
     clientIdsBinding = (ValueBinding) binding;
   }

@@ -49,6 +49,12 @@ public class ValueExpressionPopupActionListener extends AbstractPopupActionListe
     popupIdExpression = (ValueExpression) expression;
   }
 
+  /**
+   * No-arg constructor used during restoreState
+   */
+  public ValueExpressionPopupActionListener() {
+  }
+
   @Override
   protected UIComponent getPopup(ActionEvent actionEvent) {
     String id = (String) popupIdExpression.getValue(FacesContext.getCurrentInstance().getELContext());

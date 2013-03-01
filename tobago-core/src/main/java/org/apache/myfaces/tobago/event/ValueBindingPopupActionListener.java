@@ -40,6 +40,12 @@ public class ValueBindingPopupActionListener extends AbstractPopupActionListener
 
   private ValueBinding popupIdBinding;
 
+  /**
+   * No-arg constructor used during restoreState
+   */
+  public ValueBindingPopupActionListener() {
+  }
+
   public ValueBindingPopupActionListener(Object binding) {
     popupIdBinding = (ValueBinding) binding;
   }

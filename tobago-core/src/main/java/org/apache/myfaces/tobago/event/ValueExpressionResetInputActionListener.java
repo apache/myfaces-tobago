@@ -38,6 +38,12 @@ public class ValueExpressionResetInputActionListener extends AbstractResetInputA
 
   private ValueExpression clientIdsExpression;
 
+  /**
+   * No-arg constructor used during restoreState
+   */
+  public ValueExpressionResetInputActionListener() {
+  }
+
   public ValueExpressionResetInputActionListener(ValueExpression clientIdsExpression) {
     this.clientIdsExpression = clientIdsExpression;
   }
