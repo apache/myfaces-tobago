@@ -110,7 +110,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
       header = CreateComponentUtils.createComponent(facesContext, ComponentTypes.PANEL, null, "_header");
 // XXX ??? what about input, etc.?
 //      header.setTransient(true);
-      final List<AbstractUIColumn> columns = sheet.getAllColumns();
+      final List<AbstractUIColumn> columns = sheet.getRenderedColumns();
       int i = 0;
       for (AbstractUIColumn column : columns) {
         final AbstractUIOut out = (AbstractUIOut) CreateComponentUtils.createComponent(
