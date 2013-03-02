@@ -256,9 +256,9 @@ public class TabGroupRenderer extends LayoutComponentRendererBase {
 
     // all: sub menu to select any tab directly
     UICommand all = (UICommand) CreateComponentUtils.createComponent(
-        facesContext, UICommand.COMPONENT_TYPE, null, "all");
+        facesContext, UICommand.COMPONENT_TYPE, null);
     UIMenu menu = (UIMenu) CreateComponentUtils.createComponent(
-        facesContext, UIMenu.COMPONENT_TYPE, RendererTypes.MENU, "menu");
+        facesContext, UIMenu.COMPONENT_TYPE, RendererTypes.MENU);
     FacetUtils.setDropDownMenu(all, menu);
     int index = 0;
     for (UIComponent child : tabGroup.getChildren()) {
