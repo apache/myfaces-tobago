@@ -22,11 +22,6 @@ package org.apache.myfaces.tobago.internal.taglib.declaration;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 
-/*
- * Created: Apr 9, 2005 3:14:01 PM
- * User: bommel
- * $Id$
- */
 public interface HasOnchange {
 
   /**

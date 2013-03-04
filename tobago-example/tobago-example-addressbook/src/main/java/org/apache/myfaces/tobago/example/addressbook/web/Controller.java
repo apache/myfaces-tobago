@@ -19,11 +19,6 @@
 
 package org.apache.myfaces.tobago.example.addressbook.web;
 
-/*
- * Created 29.11.2004 17:36:20.
- * $Id$
- */
-
 import org.apache.commons.fileupload.FileItem;
 import org.apache.myfaces.tobago.component.UIColumn;
 import org.apache.myfaces.tobago.component.UISheet;

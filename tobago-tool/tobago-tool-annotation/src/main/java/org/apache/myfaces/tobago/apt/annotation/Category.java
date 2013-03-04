@@ -19,9 +19,6 @@
 
 package org.apache.myfaces.tobago.apt.annotation;
 
-/*
- * $Id$
- */
 public enum Category {
   
   GENERAL, DATA, APPEARANCE, EVENT, ADVANCED;

@@ -19,12 +19,6 @@
 
 package org.apache.myfaces.tobago.example.demo.jsp;
 
-/*
- * Created on: Apr 10, 2002, 11:04:12 PM
- * $Id$
- */
-
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -32,7 +26,6 @@ import java.io.Serializable;
 import java.util.Enumeration;
 import java.util.Map;
 import java.util.Vector;
-
 
 public class StringExpression implements Serializable {
 

@@ -23,11 +23,6 @@ import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 
 import javax.servlet.jsp.JspException;
 
-/**
- * Created: Apr 9, 2005 2:36:06 PM
- * User: bommel
- * $Id$
- */
 public interface Component {
 
   @TagAttribute

@@ -19,11 +19,6 @@
 
 package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
-/*
- * Created 07.02.2003 16:00:00.
- * $Id$
- */
-
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 
 public class SelectItemsRenderer extends LayoutComponentRendererBase {

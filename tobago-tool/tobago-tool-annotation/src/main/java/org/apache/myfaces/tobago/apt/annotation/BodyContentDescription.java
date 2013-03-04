@@ -19,11 +19,6 @@
 
 package org.apache.myfaces.tobago.apt.annotation;
 
-/*
- * Created: Apr 20, 2005 4:02:24 PM
- * $Id$
- */
-
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;

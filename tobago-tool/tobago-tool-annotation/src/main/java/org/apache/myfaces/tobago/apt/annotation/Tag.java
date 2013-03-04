@@ -24,10 +24,6 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-/*
- * Created: Mar 8, 2005 5:40:59 PM
- * $Id$
- */
 @Retention(value = RetentionPolicy.SOURCE)
 @Target(value = ElementType.TYPE)
 public @interface Tag {

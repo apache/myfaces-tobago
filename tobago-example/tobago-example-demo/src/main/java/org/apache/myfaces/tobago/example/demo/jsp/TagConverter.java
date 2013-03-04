@@ -19,11 +19,6 @@
 
 package org.apache.myfaces.tobago.example.demo.jsp;
 
-/*
- * Created on: 02.09.2002, 23:40:26
- * $Id$
- */
-
 import org.apache.oro.text.regex.MalformedPatternException;
 import org.apache.oro.text.regex.Pattern;
 

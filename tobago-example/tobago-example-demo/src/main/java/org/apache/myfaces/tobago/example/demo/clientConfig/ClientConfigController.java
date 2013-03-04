@@ -19,11 +19,6 @@
 
 package org.apache.myfaces.tobago.example.demo.clientConfig;
 
-/*
- * Created 21.08.2002 at 18:00:22.
- * $Id$
- */
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.config.TobagoConfig;

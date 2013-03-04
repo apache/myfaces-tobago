@@ -19,11 +19,6 @@
 
 package org.apache.myfaces.tobago.validator;
 
-/*
- * Created 22.10.2003 16:57:20.
- * $Id$
- */
-
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

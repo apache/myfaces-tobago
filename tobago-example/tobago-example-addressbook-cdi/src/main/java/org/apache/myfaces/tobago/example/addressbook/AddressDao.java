@@ -19,11 +19,6 @@
 
 package org.apache.myfaces.tobago.example.addressbook;
 
-/*
- * Created 29.11.2004 17:36:20.
- * $Id: AddressDao.java 1368242 2012-08-01 20:47:33Z lofwyr $
- */
-
 import java.util.List;
 
 public interface AddressDao {

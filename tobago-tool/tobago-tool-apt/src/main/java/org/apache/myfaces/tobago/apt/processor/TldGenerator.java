@@ -131,7 +131,6 @@ public class TldGenerator extends AbstractGenerator {
     addLeafTextElement(taglibAnnotation.uri(), "uri", taglib, document);
     for (String listenerClass : taglibAnnotation.listener()) {
       Element listener = document.createElement("listener");
-      // TODO check listenerClass implements ServletContextListener !!
       addLeafTextElement(listenerClass, "listener-class", listener, document);
       taglib.appendChild(listener);
     }

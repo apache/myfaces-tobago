@@ -21,11 +21,6 @@ package org.apache.myfaces.tobago.internal.taglib.declaration;
 
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 
-/*
- * Created: Apr 9, 2005 2:28:22 PM
- * User: bommel
- * $Id$
- */
 public interface HasStateBinding {
 
   @TagAttribute

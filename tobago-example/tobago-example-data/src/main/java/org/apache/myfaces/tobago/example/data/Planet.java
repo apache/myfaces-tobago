@@ -19,11 +19,6 @@
 
 package org.apache.myfaces.tobago.example.data;
 
-/*
- * Created 20.09.2002 at 10:54:32.
- * $Id$
- */
-
 import java.util.ArrayList;
 import java.util.List;
 

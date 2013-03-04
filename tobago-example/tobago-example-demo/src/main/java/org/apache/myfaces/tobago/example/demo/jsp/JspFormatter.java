@@ -19,11 +19,6 @@
 
 package org.apache.myfaces.tobago.example.demo.jsp;
 
-/*
- * Created on: 02.09.2002, 22:11:52
- * $Id$
- */
-
 import javax.servlet.jsp.JspWriter;
 import java.io.FileNotFoundException;
 import java.io.FileReader;

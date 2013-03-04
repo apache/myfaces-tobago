@@ -19,11 +19,6 @@
 
 package org.apache.myfaces.tobago.example.demo.jsp;
 
-/*
- * Created on: 02.09.2002, 23:37:54
- * $Id$
- */
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.util.XmlUtils;

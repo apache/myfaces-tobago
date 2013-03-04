@@ -19,11 +19,6 @@
 
 package org.apache.myfaces.tobago.example.addressbook.web;
 
-/*
- * Created 03.12.2004 00:08:01.
- * $Id$
- */
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.example.addressbook.EmailAddress;

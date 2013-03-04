@@ -19,11 +19,6 @@
 
 package org.apache.myfaces.tobago.example.demo.jsp;
 
-/*
- * Created on: 02.09.2002, 23:26:31
- * $Id$
- */
-
 public interface Converter {
 
   String convertMisc(String fragment);

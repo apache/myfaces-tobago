@@ -19,11 +19,6 @@
 
 package org.apache.myfaces.tobago.example.demo.clientConfig;
 
-/*
-  * Created 13.07.2004 at 10:48:28.
-  * $Id$
-  */
-
 import org.apache.commons.collections.KeyValue;
 import org.apache.commons.collections.keyvalue.DefaultKeyValue;
 import org.apache.commons.io.IOUtils;

@@ -19,11 +19,6 @@
 
 package org.apache.myfaces.tobago.el;
 
-/*
- * Created 09.01.2004 11:57:24.
- * $Id$
- */
-
 import javax.faces.context.FacesContext;
 import javax.faces.el.MethodBinding;
 import java.io.Serializable;

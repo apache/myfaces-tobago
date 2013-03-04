@@ -19,11 +19,6 @@
 
 package org.apache.myfaces.tobago.internal.taglib;
 
-/*
- * Created on: 15.02.2002, 16:19:49
- * $Id$
- */
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

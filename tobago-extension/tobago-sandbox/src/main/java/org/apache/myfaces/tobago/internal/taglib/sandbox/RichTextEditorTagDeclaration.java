@@ -25,11 +25,6 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRend
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabelAndAccessKey;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasValue;*/
 
-/*
- * Created: Aug 5, 2005 4:58:19 PM
- * User: bommel
- * $Id$
- */
 /**
  * Renders a text editor.
  */
