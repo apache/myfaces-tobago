@@ -29,10 +29,6 @@ import javax.faces.render.RenderKit;
 import javax.faces.component.UIViewRoot;
 import java.util.Iterator;
 
-/*
- * Date: Feb 28, 2007
- * Time: 8:01:37 PM
- */
 public class FacesContextWrapper extends javax.faces.context.FacesContext {
   private FacesContext context;
 

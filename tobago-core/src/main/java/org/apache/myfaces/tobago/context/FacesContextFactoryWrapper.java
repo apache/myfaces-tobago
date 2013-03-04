@@ -24,10 +24,6 @@ import javax.faces.context.FacesContext;
 import javax.faces.lifecycle.Lifecycle;
 import javax.faces.FacesException;
 
-/*
- * Date: Feb 28, 2007
- * Time: 10:09:52 PM
- */
 public class FacesContextFactoryWrapper extends FacesContextFactory {
   private FacesContextFactory facesContextFactory;
 

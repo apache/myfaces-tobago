@@ -24,10 +24,6 @@ import org.apache.myfaces.tobago.component.UITextarea;
 
 import javax.faces.view.facelets.ComponentConfig;
 
-/*
- * Date: Aug 8, 2007
- * Time: 5:49:07 PM
- */
 public class TextareaExtensionHandler extends TobagoLabelExtensionHandler {
 
   public TextareaExtensionHandler(ComponentConfig config) {

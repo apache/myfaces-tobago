@@ -21,9 +21,6 @@ package org.apache.myfaces.tobago.example.test;
 
 import org.apache.myfaces.custom.schedule.model.SimpleScheduleModel;
 
-/**
- * Date: 03.05.2007 18:42:54
- */
 public class Tomahawk {
 
   private SimpleScheduleModel schedule;

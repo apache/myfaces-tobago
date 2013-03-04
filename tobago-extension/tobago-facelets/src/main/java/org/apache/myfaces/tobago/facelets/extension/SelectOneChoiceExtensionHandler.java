@@ -23,10 +23,6 @@ import javax.faces.view.facelets.ComponentConfig;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.UISelectOneChoice;
 
-/*
- * Date: Aug 9, 2007
- * Time: 8:38:28 PM
- */
 public class SelectOneChoiceExtensionHandler extends TobagoLabelExtensionHandler {
 
   public SelectOneChoiceExtensionHandler(ComponentConfig config) {

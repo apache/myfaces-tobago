@@ -19,10 +19,6 @@
 
 package org.apache.myfaces.tobago.layout;
 
-/*
- * Date: May 2, 2007
- * Time: 7:16:55 PM
- */
 public final class MinimumLayoutToken extends LayoutToken {
   public String toString() {
     return "minimum";

@@ -21,11 +21,6 @@ package org.apache.myfaces.tobago.example.addressbook.web;
 
 import org.apache.log4j.Logger;
 
-/**
- * User: idus
- * Date: 12.04.2007
- * Time: 22:40:06
- */
 public class CategoryModel {
 
   private Logger logger;

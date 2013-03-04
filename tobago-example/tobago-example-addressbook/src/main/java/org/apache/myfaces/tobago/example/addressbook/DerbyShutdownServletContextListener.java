@@ -26,11 +26,6 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import java.sql.DriverManager;
 
-/*
- * User: bommel
- * Date: Mar 17, 2007
- * Time: 9:18:20 AM
- */
 public class DerbyShutdownServletContextListener implements ServletContextListener {
 
   private static final Logger LOG = LoggerFactory.getLogger(DerbyShutdownServletContextListener.class);

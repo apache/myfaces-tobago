@@ -24,10 +24,6 @@ import javax.faces.component.StateHolder;
 import javax.faces.context.FacesContext;
 import java.io.Serializable;
 
-/*
- * Date: May 3, 2007
- * Time: 5:44:04 PM
- */
 public class TransientStateHolder implements StateHolder, Serializable {
 
   private static final long serialVersionUID = -5260593843885016768L;

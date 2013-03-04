@@ -38,7 +38,6 @@ import java.io.ObjectOutput;
 
 /**
  * Jacob Hookom
- * @version $Id: TagMethodExpression.java 1187700 2011-10-22 12:19:37Z bommel $
  */
 public final class TagMethodExpression extends MethodExpression
     implements Externalizable, FacesWrapper<MethodExpression> {

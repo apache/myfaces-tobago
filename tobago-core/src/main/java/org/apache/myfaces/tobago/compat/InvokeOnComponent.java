@@ -24,10 +24,6 @@ import javax.faces.component.ContextCallback;
 import javax.faces.FacesException;
 import javax.faces.context.FacesContext;
 
-/*
- * Date: 13.03.2008
- * Time: 16:43:16
- */
 public interface InvokeOnComponent {
 
   boolean invokeOnComponent(FacesContext context, String clientId, ContextCallback callback)

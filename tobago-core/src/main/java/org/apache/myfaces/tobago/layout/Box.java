@@ -19,10 +19,6 @@
 
 package org.apache.myfaces.tobago.layout;
 
-/**
- * Date: 28.05.2008 15:10:29
- */
-
 public class Box {
 
   private Position position;

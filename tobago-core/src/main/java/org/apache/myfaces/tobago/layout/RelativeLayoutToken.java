@@ -19,10 +19,6 @@
 
 package org.apache.myfaces.tobago.layout;
 
-/*
- * Date: May 2, 2007
- * Time: 1:34:11 PM
- */
 public class RelativeLayoutToken extends LayoutToken {
 
   static final String SUFFIX = "*";

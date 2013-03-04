@@ -19,10 +19,6 @@
 
 package org.apache.myfaces.tobago.layout;
 
-/*
- * Date: May 2, 2007
- * Time: 7:17:34 PM
- */
 public final class HideLayoutToken extends LayoutToken {
   public String toString() {
     return "hide";

@@ -25,11 +25,6 @@ import javax.faces.convert.ConverterException;
 import javax.faces.render.Renderer;
 import java.io.IOException;
 
-/*
- * User: bommel
- * Date: Mar 9, 2007
- * Time: 7:39:10 PM
- */
 public class RendererBaseWrapper extends LayoutComponentRendererBase {
   private Renderer renderer;
 

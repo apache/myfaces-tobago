@@ -23,10 +23,6 @@ import javax.faces.view.facelets.ComponentConfig;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.UISelectManyListbox;
 
-/*
- * Date: Aug 9, 2007
- * Time: 8:37:36 PM
- */
 public class SelectManyListboxExtensionHandler extends TobagoLabelExtensionHandler {
 
   public SelectManyListboxExtensionHandler(ComponentConfig config) {

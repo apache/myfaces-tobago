@@ -22,10 +22,6 @@ package org.apache.myfaces.tobago.internal.taglib.declaration;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 
-/*
- * Date: Jan 15, 2007
- * Time: 4:49:14 PM
- */
 public interface HasLabelWidth {
   /**
    * The width for the label component. Default: 'auto'.

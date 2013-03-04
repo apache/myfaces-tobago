@@ -29,11 +29,6 @@ import java.util.Enumeration;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * User: idus
- * Date: 12.04.2007
- * Time: 22:41:11
- */
 public class Log4jUtils {
 
   public static Set<Appender> getAllAppenders() {

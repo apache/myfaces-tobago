@@ -19,9 +19,6 @@
 
 package org.apache.myfaces.tobago.layout;
 
-/**
- * Date: 23.01.2008 20:18:45
- */
 public class Position {
 
   private Measure left;

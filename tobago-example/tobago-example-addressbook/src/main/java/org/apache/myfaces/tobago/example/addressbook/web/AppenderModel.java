@@ -23,11 +23,6 @@ import org.apache.log4j.Appender;
 import org.apache.log4j.FileAppender;
 import org.apache.log4j.PatternLayout;
 
-/**
- * User: idus
- * Date: 12.04.2007
- * Time: 22:39:46
- */
 public class AppenderModel {
 
   private Appender appender;

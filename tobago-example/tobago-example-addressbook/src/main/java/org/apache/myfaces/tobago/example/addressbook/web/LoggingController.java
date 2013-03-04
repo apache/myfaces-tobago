@@ -43,12 +43,6 @@ import java.util.Enumeration;
 import java.util.List;
 import java.util.Set;
 
-/**
- * User: idus
- * Date: 12.04.2007
- * Time: 22:39:05
- */
-
 @Component("logging")
 @Scope("session")
 public class LoggingController {

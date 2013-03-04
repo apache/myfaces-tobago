@@ -53,10 +53,6 @@ import javax.faces.view.facelets.Metadata;
 import javax.faces.view.facelets.TagAttribute;
 import java.io.IOException;
 
-/*
- * Date: Jul 31, 2007
- * Time: 6:14:34 PM
- */
 public abstract class TobagoLabelExtensionHandler extends ComponentHandler {
   private static final Logger LOG = LoggerFactory.getLogger(TobagoLabelExtensionHandler.class);
   private static final String DEFAULT_COLUMNS = "auto;*";

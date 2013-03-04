@@ -38,8 +38,6 @@ import java.net.URL;
  *  &lt;/context-param&gt;
  * </pre>
  * <p/>
- * Date: 12.05.2009
- * Time: 12:25:31
  */
 public class MetaInfResourcesClasspathResourceResolver extends DefaultResourceResolver {
 

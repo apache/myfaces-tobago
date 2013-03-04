@@ -19,10 +19,6 @@
 
 package org.apache.myfaces.tobago.model;
 
-/**
- * Date: 15.05.2008 09:33:43
- */
-
 public class WizardStep {
 
   private String outcome;

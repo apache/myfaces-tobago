@@ -29,10 +29,6 @@ import java.lang.management.ManagementFactory;
 import java.lang.management.MemoryMXBean;
 import java.lang.management.MemoryUsage;
 
-/*
- * Date: Mar 28, 2007
- * Time: 11:20:53 PM
- */
 @Component("admin")
 @Scope("session")
 public class AdminController {

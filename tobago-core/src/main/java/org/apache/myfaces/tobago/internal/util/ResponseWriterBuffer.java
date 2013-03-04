@@ -19,29 +19,20 @@
 
 package org.apache.myfaces.tobago.internal.util;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.io.IOException;
 import java.io.Writer;
 
-//
-// Buffering scheme: we use a tremendously simple buffering
-// scheme that greatly reduces the number of calls into the
-// Writer/PrintWriter.  In practice this has produced significant
-// measured performance gains (at least in JDK 1.3.1).  We only
-// support adding single characters to the buffer, so anytime
-// multiple characters need to be written out, the entire buffer
-// gets flushed.  In practice, this is good enough, and keeps
-// the core simple.
-//
-
 /**
- * Date: 07.05.2007 12:03:26
+ * Buffering scheme: we use a tremendously simple buffering
+ * scheme that greatly reduces the number of calls into the
+ * Writer/PrintWriter.  In practice this has produced significant
+ * measured performance gains (at least in JDK 1.3.1).  We only
+ * support adding single characters to the buffer, so anytime
+ * multiple characters need to be written out, the entire buffer
+ * gets flushed.  In practice, this is good enough, and keeps
+ * the core simple.
  */
 public class ResponseWriterBuffer {
-
-  private static final Logger LOG = LoggerFactory.getLogger(ResponseWriterBuffer.class);
 
   private static final int BUFFER_SIZE = 64;
 

@@ -19,10 +19,6 @@
 
 package org.apache.myfaces.tobago.layout;
 
-/*
- * Date: May 2, 2007
- * Time: 4:29:28 PM
- */
 public class PercentLayoutToken extends LayoutToken {
 
   static final String SUFFIX = "%";
