@@ -32,16 +32,10 @@ import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
 import java.util.Arrays;
 
-/*
- * Date: Oct 30, 2006
- * Time: 9:59:13 PM
- */
-
 /**
  * <p><strong>FileItemValidator</strong> is a {@link Validator} that checks
  * the FileItem in the value of the associated component.
  */
-
 @org.apache.myfaces.tobago.apt.annotation.Validator(id = FileItemValidator.VALIDATOR_ID)
 public class FileItemValidator implements Validator, StateHolder {
   public static final String VALIDATOR_ID = "org.apache.myfaces.tobago.FileItem";

@@ -23,10 +23,6 @@ import javax.servlet.jsp.tagext.TagData;
 import javax.servlet.jsp.tagext.TagExtraInfo;
 import javax.servlet.jsp.tagext.ValidationMessage;
 
-/*
- * Date: 19.04.2006
- * Time: 10:56:39
- */
 public class CommandTagExtraInfo extends TagExtraInfo {
   private static final ValidationMessage[] EMPTY_MESSAGE = new ValidationMessage[0];
 

@@ -23,10 +23,6 @@ import java.util.Set;
 import java.util.HashSet;
 import java.io.Serializable;
 
-/*
- * Date: Sep 24, 2006
- * Time: 10:09:35 PM
- */
 public class MarkupConfig implements Serializable {
 
   private static final long serialVersionUID = 1L;

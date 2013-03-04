@@ -23,9 +23,6 @@ import org.apache.myfaces.tobago.internal.config.RenderersConfig;
 
 import java.util.List;
 
-/*
- * Date: 25.03.2006 10:42:24
- */
 public interface Theme {
   String getName();
 

@@ -29,7 +29,6 @@ import java.util.Locale;
  * This code is taken from myfaces core.
  * TODO: Should be sharable (e.g. myfaces-commons).
  * <p/>
- * Date: 06.11.2006 17:20:29
  */
 public class DateFormatUtils {
 

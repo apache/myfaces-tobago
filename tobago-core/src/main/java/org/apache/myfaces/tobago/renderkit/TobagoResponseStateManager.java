@@ -32,10 +32,6 @@ import javax.faces.render.ResponseStateManager;
 import java.io.IOException;
 import java.util.Map;
 
-/*
- * Date: 21.05.2006
- * Time: 10:59:19
- */
 public class TobagoResponseStateManager extends ResponseStateManager {
   private static final Logger LOG = LoggerFactory.getLogger(TobagoResponseStateManager.class);
 

@@ -21,10 +21,6 @@ package org.apache.myfaces.tobago.internal.config;
 
 import java.util.Collection;
 
-/*
- * Date: Sep 24, 2006
- * Time: 12:32:35 PM
- */
 public interface RenderersConfig {
 
   boolean isMarkupSupported(String rendererName, String markup);

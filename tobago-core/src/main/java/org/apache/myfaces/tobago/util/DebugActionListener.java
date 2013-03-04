@@ -26,10 +26,6 @@ import javax.faces.event.ActionListener;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.AbortProcessingException;
 
-/*
- * Date: Nov 12, 2006
- * Time: 10:44:02 AM
- */
 public class DebugActionListener implements ActionListener {
 
   private static final Logger LOG = LoggerFactory.getLogger(DebugActionListener.class);

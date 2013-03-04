@@ -29,16 +29,11 @@ import javax.faces.context.FacesContext;
 import javax.faces.validator.LengthValidator;
 import javax.faces.validator.ValidatorException;
 
-/*
- * Date: Oct 16, 2006
- * Time: 11:58:47 PM
- */
 /**
  * <p><strong>SubmittedLengthValidator</strong> is a {@link Validator} that checks
  * the number of characters in the submitted value of the
  * associated component.
  */
-
 @Validator(id = SubmittedValueLengthValidator.VALIDATOR_ID)
 public class SubmittedValueLengthValidator extends LengthValidator {
   public static final String VALIDATOR_ID = "org.apache.myfaces.tobago.SubmittedValueLength";

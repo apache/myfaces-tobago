@@ -29,11 +29,6 @@ import org.apache.myfaces.tobago.internal.component.AbstractUIToolBar;
 
 import javax.faces.component.UIPanel;
 
-/*
- * Date: 11.02.2006
- * Time: 14:07:05
- */
-
 /**
  * <p/>
  * Renders a toolbar.<p />

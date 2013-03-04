@@ -36,11 +36,7 @@ import javax.faces.view.facelets.TagHandler;
 import java.io.IOException;
 
 /*
-
    TBD: Why we don't use a converter directly via the tobago.taglib.xml?
-
- * Date: Oct 13, 2006
- * Time: 6:17:49 PM
  */
 public class ConverterHandler extends TagHandler {
 

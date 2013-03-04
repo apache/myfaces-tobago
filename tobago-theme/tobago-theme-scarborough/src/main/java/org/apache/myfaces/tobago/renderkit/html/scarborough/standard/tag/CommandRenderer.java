@@ -21,9 +21,5 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.myfaces.tobago.renderkit.CommandRendererBase;
 
-/*
- * Date: 05.08.2006
- * Time: 13:47:27
- */
 public class CommandRenderer extends CommandRendererBase {
 }

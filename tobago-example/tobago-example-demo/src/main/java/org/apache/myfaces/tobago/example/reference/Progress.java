@@ -22,10 +22,6 @@ package org.apache.myfaces.tobago.example.reference;
 import javax.swing.DefaultBoundedRangeModel;
 import javax.swing.BoundedRangeModel;
 
-/*
- * Date: Dec 18, 2006
- * Time: 7:54:19 PM
- */
 public class Progress {
   private DefaultBoundedRangeModel progress = new DefaultBoundedRangeModel(0, 0, 0, 100);
   private boolean update;

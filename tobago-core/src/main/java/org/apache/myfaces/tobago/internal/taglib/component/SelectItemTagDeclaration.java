@@ -31,11 +31,6 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasId;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasItemLabel;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
 
-/*
- * Date: 02.04.2006
- * Time: 16:20:59
- */
-
 /**
  * Add a child UISelectItem component to the UIComponent
  * associated with the closed parent UIComponent custom

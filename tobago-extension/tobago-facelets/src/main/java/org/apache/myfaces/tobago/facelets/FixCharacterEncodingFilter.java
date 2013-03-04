@@ -27,11 +27,6 @@ import javax.servlet.ServletResponse;
 import javax.servlet.FilterChain;
 import java.io.IOException;
 
-/*
- * User: bommel
- * Date: 19.04.2006
- * Time: 20:23:15
- */
 public class FixCharacterEncodingFilter implements Filter {
   public void init(FilterConfig filterConfig) throws ServletException {
 

@@ -28,10 +28,6 @@ import javax.faces.component.StateHolder;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
-/*
- * Date: Dec 23, 2006
- * Time: 10:59:53 AM
- */
 public class PopupActionListener extends AbstractPopupActionListener implements StateHolder {
 
   private static final Logger LOG = LoggerFactory.getLogger(PopupActionListener.class);

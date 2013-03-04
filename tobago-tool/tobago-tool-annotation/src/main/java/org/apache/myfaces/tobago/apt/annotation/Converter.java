@@ -24,11 +24,6 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 import java.lang.annotation.ElementType;
 
-/*
- * Date: Oct 4, 2006
- * Time: 7:59:19 PM
- */
-
 @Retention(value = RetentionPolicy.SOURCE)
 @Target(value = ElementType.TYPE)
 public @interface Converter {

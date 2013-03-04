@@ -24,10 +24,6 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 
-/*
- * Date: 01.08.2006
- * Time: 20:04:26
- */
 public class SalutationConverter implements Converter {
 
   public Object getAsObject(FacesContext context, UIComponent component, String value) throws ConverterException {

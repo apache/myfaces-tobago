@@ -34,11 +34,6 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutCompone
 
 import javax.faces.component.UIMessages;
 
-/*
- * Date: 02.04.2006
- * Time: 15:53:45
- */
-
 /**
  * Renders error/validation messages.
  */

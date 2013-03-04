@@ -24,10 +24,6 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 import java.lang.annotation.ElementType;
 
-/*
- * Date: Oct 6, 2006
- * Time: 9:35:39 PM
- */
 @Retention(value = RetentionPolicy.SOURCE)
 @Target(value = ElementType.TYPE)
 public @interface Validator {

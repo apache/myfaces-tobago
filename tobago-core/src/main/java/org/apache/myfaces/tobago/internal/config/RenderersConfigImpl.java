@@ -27,10 +27,6 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-/*
-* Date: Sep 24, 2006
-* Time: 3:46:11 PM
-*/
 public class RenderersConfigImpl implements RenderersConfig, Serializable {
 
   private static final long serialVersionUID = 1L;

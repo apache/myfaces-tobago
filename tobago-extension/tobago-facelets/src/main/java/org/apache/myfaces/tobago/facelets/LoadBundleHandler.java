@@ -33,11 +33,6 @@ import javax.faces.context.FacesContext;
 import javax.el.ELException;
 import java.io.IOException;
 
-/*
- * User: bommel
- * Date: 20.04.2006
- * Time: 19:35:29
- */
 public class LoadBundleHandler extends TagHandler {
   private final TagAttribute basename;
 

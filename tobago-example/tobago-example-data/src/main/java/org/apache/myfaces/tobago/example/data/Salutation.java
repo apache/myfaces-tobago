@@ -19,10 +19,6 @@
 
 package org.apache.myfaces.tobago.example.data;
 
-/*
- * Date: 27.07.2006
- * Time: 21:21:12
-  */
 public enum Salutation {
 
   UNKNOWN("basic_itemUnknown"),

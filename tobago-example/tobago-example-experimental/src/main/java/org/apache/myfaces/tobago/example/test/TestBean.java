@@ -47,10 +47,6 @@ import java.sql.Types;
 import java.util.Date;
 import java.util.Map;
 
-/*
- * Date: 18.02.2006
- * Time: 11:08:45
- */
 public class TestBean {
   private static final Logger LOG = LoggerFactory.getLogger(TestBean.class);
 

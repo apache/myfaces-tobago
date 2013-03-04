@@ -21,10 +21,6 @@ package org.apache.myfaces.tobago.internal.util;
 
 import org.apache.commons.lang.StringUtils;
 
-/*
- * Date: Oct 30, 2006
- * Time: 10:26:27 PM
- */
 public class ContentType {
   private String primaryType;
   private String subType;

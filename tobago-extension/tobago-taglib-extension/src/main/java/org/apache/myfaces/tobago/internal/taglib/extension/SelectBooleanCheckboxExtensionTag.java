@@ -30,10 +30,6 @@ import org.apache.myfaces.tobago.internal.taglib.SelectBooleanCheckboxTag;
 import javax.el.ValueExpression;
 import javax.servlet.jsp.JspException;
 
-/*
- * Date: Oct 7, 2006
- * Time: 9:13:21 AM
- */
 /**
  * Renders a checkbox.
  */
