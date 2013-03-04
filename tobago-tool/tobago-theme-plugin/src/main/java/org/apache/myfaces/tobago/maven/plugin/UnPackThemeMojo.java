@@ -46,8 +46,6 @@ import java.util.Locale;
 import java.util.Properties;
 
 /**
- *
- * @version $Id$
  * @goal resources
  * @phase process-resources
  * @requiresDependencyResolution runtime
