@@ -33,9 +33,8 @@ public @interface Taglib {
   String jspVersion() default "1.2";
   String shortName();
   String uri();
-  String fileName() default "";
+  String name();
   String displayName() default "";
   // TODO change to Class !!
   String [] listener() default {};
-
 }

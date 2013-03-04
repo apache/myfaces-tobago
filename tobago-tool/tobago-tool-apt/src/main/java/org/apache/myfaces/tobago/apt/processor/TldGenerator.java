@@ -150,7 +150,7 @@ public class TldGenerator extends AbstractGenerator {
     Writer writer = null;
     try {
       final String name = (StringUtils.isNotBlank(targetTld) ? targetTld + '/' : "")
-          + packageElement.getQualifiedName().toString().replace('.', '/') + '/' + taglibAnnotation.fileName();
+          + packageElement.getQualifiedName().toString().replace('.', '/') + '/' + taglibAnnotation.name() + ".tld";
       final FileObject resource = processingEnv.getFiler().createResource(StandardLocation.SOURCE_OUTPUT, "", name);
       info("Writing to file: " + resource.toUri());
       writer = resource.openWriter();

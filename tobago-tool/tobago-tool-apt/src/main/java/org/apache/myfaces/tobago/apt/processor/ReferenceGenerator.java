@@ -38,7 +38,6 @@ import javax.lang.model.element.PackageElement;
 import javax.lang.model.element.TypeElement;
 import javax.tools.FileObject;
 import javax.tools.StandardLocation;
-import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
@@ -71,21 +70,12 @@ public class ReferenceGenerator extends TldGenerator {
     info(TARGET_REFERENCE + ": " + targetReference);
   }
 
-  public void generate() throws IOException, TransformerException, ParserConfigurationException,
-      ClassNotFoundException {
-    for (PackageElement packageElement : getPackages()) {
-      Taglib taglibAnnotation = packageElement.getAnnotation(Taglib.class);
-      Document document = createTaglib(taglibAnnotation, packageElement);
-      writeTaglib(packageElement, taglibAnnotation, document);
-    }
-  }
-
   @Override
   protected void writeTaglib(PackageElement packageElement, Taglib taglibAnnotation, Document document)
       throws IOException, TransformerException {
     Writer writer = null;
     try {
-      final String file = taglibAnnotation.fileName().substring(0, taglibAnnotation.fileName().length() - 3) + "xml";
+      final String file = taglibAnnotation.name() + ".xml";
       final String name = (StringUtils.isNotBlank(targetReference) ? targetReference + '/' : "")
           + packageElement.getQualifiedName().toString().replace('.', '/') + '/' + file;
       final FileObject resource = processingEnv.getFiler().createResource(StandardLocation.SOURCE_OUTPUT, "", name);
