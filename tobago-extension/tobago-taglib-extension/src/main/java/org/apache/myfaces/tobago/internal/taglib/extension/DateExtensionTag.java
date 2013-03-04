@@ -30,10 +30,6 @@ import org.apache.myfaces.tobago.internal.taglib.FormTag;
 
 import javax.servlet.jsp.JspException;
 
-/*
- * Date: 19.12.2005
- * Time: 20:13:26
- */
 /**
  * Renders a date input field with a date picker and a label.
  * <br />

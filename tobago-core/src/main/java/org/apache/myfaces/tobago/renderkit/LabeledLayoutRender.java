@@ -19,11 +19,6 @@
 
 package org.apache.myfaces.tobago.renderkit;
 
-/*
- * User: weber
- * Date: Jun 20, 2005
- * Time: 1:03:23 PM
- */
 public interface LabeledLayoutRender {
   String getDefaultLayoutOrder();
 }

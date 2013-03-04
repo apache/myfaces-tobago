@@ -35,10 +35,6 @@ import java.util.Map;
 import java.util.Iterator;
 import java.text.MessageFormat;
 
-/*
- * Date: Dec 6, 2005
- * Time: 7:50:25 PM
- */
 public class DebugPhaseListener implements PhaseListener {
   private static final Logger LOG = LoggerFactory.getLogger(DebugPhaseListener.class);
   private static final String KEY = DebugPhaseListener.class.getName() + "_ID_";

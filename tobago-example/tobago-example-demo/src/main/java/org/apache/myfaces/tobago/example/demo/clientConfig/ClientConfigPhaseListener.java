@@ -24,11 +24,6 @@ import javax.faces.event.PhaseEvent;
 import javax.faces.event.PhaseId;
 import javax.faces.event.PhaseListener;
 
-/*
- * User: weber
- * Date: Jan 26, 2005
- * Time: 11:28:20 AM
- */
 public class ClientConfigPhaseListener implements PhaseListener {
 
   public static final String[] BEAN_NAMES

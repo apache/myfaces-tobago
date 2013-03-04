@@ -24,11 +24,6 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 import java.lang.annotation.ElementType;
 
-/*
- * Created 05.03.2005 16:13:42.
- * $Id$
- */
-
 @Retention(value = RetentionPolicy.SOURCE)
 @Target(value = ElementType.METHOD)
 

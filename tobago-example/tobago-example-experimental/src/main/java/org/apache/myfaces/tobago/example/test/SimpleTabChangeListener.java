@@ -26,9 +26,6 @@ import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.event.TabChangeEvent;
 import org.apache.myfaces.tobago.event.TabChangeListener;
 
-/**
- * User: weber Date: 13.12.2004 Time: 16:55:44
- */
 public class SimpleTabChangeListener implements TabChangeListener {
 
   private static final Logger LOG = LoggerFactory.getLogger(SimpleTabChangeListener.class);

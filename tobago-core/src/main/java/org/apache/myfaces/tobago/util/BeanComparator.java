@@ -26,10 +26,6 @@ import org.slf4j.LoggerFactory;
 import java.util.Comparator;
 import java.io.Serializable;
 
-/**
- * Created: Mon Apr 15 15:56:44 2002
- */
-
 public class BeanComparator extends ComparatorBase implements Serializable {
 
   private static final long serialVersionUID = -7450094725566090886L;

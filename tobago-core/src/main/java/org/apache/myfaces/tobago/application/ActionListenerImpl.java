@@ -19,11 +19,6 @@
 
 package org.apache.myfaces.tobago.application;
 
-/*
- * Created 22.11.2004 18:33:44.
- * $Id$
- */
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

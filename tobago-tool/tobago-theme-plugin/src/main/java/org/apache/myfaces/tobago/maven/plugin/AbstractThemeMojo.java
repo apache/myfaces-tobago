@@ -25,10 +25,6 @@ import org.codehaus.plexus.util.DirectoryScanner;
 
 import java.io.File;
 
-/*
- * Date: 23.10.2005
- * Time: 16:37:04
- */
 public abstract class AbstractThemeMojo extends AbstractMojo {
   /**
    * The maven project.

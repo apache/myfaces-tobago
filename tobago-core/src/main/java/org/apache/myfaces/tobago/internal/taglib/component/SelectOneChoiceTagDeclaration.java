@@ -39,12 +39,6 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsRendered;
 
 import javax.faces.component.UISelectOne;
 
-/*
- * Created: Aug 5, 2005 6:05:28 PM
- * User: bommel
- * $Id$
- */
-
 /**
  * Render a single selection dropdown list.
  */

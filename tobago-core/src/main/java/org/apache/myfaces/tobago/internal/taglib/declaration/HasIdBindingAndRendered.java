@@ -19,10 +19,5 @@
 
 package org.apache.myfaces.tobago.internal.taglib.declaration;
 
-/*
- * User: weber
- * Date: Apr 19, 2005
- * Time: 4:16:09 PM
- */
 public interface HasIdBindingAndRendered extends HasId, HasBinding, IsRendered {
 }
