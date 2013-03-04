@@ -23,7 +23,6 @@
  */
 @org.apache.myfaces.tobago.apt.annotation.Taglib(
     shortName = "tx",
-    tlibVersion = "1.5",
     uri = "http://myfaces.apache.org/tobago/extension",
     name = "tobago-extension",
     displayName = "Tobago Extensions 1.6.x")

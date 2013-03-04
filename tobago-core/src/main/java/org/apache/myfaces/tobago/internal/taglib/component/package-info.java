@@ -23,7 +23,6 @@
  */
 @org.apache.myfaces.tobago.apt.annotation.Taglib(
     shortName = "tc",
-    tlibVersion = "1.6",
     uri = "http://myfaces.apache.org/tobago/component",
     listener = {
         "org.apache.myfaces.tobago.webapp.TobagoServletContextListener",

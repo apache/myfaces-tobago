@@ -29,12 +29,9 @@ import java.lang.annotation.Target;
 
 public @interface Taglib {
 
-  String tlibVersion() default "1.2";
-  String jspVersion() default "1.2";
   String shortName();
   String uri();
   String name();
   String displayName() default "";
-  // TODO change to Class !!
   String [] listener() default {};
 }
