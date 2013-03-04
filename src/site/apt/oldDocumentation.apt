@@ -23,6 +23,8 @@ Tobago Javadoc Documentation
 
   {{{http://myfaces.apache.org/tobago/apidocs-1.6.0-beta-1/index.html}1.6.0-beta-1 API Documentation}}
 
+  {{{http://myfaces.apache.org/tobago/apidocs-1.5.9/index.html}1.5.9 API Documentation}}
+
   {{{http://myfaces.apache.org/tobago/apidocs-1.5.8/index.html}1.5.8 API Documentation}}
 
   {{{http://myfaces.apache.org/tobago/apidocs-1.5.7/index.html}1.5.7 API Documentation}}
@@ -40,6 +42,8 @@ Tobago Javadoc Documentation
   {{{http://myfaces.apache.org/tobago/apidocs-1.5.1/index.html}1.5.1 API Documentation}}
 
   {{{http://myfaces.apache.org/tobago/apidocs-1.5.0/index.html}1.5.0 API Documentation}}
+
+  {{{http://myfaces.apache.org/tobago/apidocs-1.0.40/index.html}1.0.40 Javadoc Documentation}}
 
   {{{http://myfaces.apache.org/tobago/apidocs-1.0.39/index.html}1.0.39 Javadoc Documentation}}
 
@@ -115,6 +119,9 @@ Tobago TLD Documentation
   {{{http://myfaces.apache.org/tobago/tobago-core/tlddoc-1.6.0-beta-1/index.html}1.6.0-beta-1 \<tc:\> Component Tag Library Documentation}}\
   {{{http://myfaces.apache.org/tobago/tobago-extension/tobago-taglib-extension/tlddoc-1.6.0-beta-1/index.html}1.6.0-beta-1 \<tx:\> Extension Tag Library Documentation}}
 
+  {{{http://myfaces.apache.org/tobago/tobago-core/tlddoc-1.5.9/index.html}1.5.9 \<tc:\> Component Tag Library Documentation}}\
+  {{{http://myfaces.apache.org/tobago/tobago-extension/tobago-taglib-extension/tlddoc-1.5.9/index.html}1.5.9 \<tx:\> Extension Tag Library Documentation}}
+
   {{{http://myfaces.apache.org/tobago/tobago-core/tlddoc-1.5.8/index.html}1.5.8 \<tc:\> Component Tag Library Documentation}}\
   {{{http://myfaces.apache.org/tobago/tobago-extension/tobago-taglib-extension/tlddoc-1.5.8/index.html}1.5.8 \<tx:\> Extension Tag Library Documentation}}
 
@@ -141,6 +148,8 @@ Tobago TLD Documentation
 
   {{{http://myfaces.apache.org/tobago/tobago-core/tlddoc-1.5.0/index.html}1.5.0 \<tc:\> Component Tag Library Documentation}}\
   {{{http://myfaces.apache.org/tobago/tobago-extension/tobago-taglib-extension/tlddoc-1.5.0/index.html}1.5.0 \<tx:\> Extension Tag Library Documentation}}
+
+  {{{http://myfaces.apache.org/tobago/tobago-core/tlddoc-1.0.40/index.html}1.0.40 TLD Documentation}}
 
   {{{http://myfaces.apache.org/tobago/tobago-core/tlddoc-1.0.39/index.html}1.0.39 TLD Documentation}}
 
