@@ -41,7 +41,7 @@ public class Upload {
     LOG.info("type=" + file.getContentType());
     LOG.info("size=" + file.get().length);
     LOG.info("name=" + file.getName());
-    return "/tc/file/file.xhtml";
+    return "/test/file/file.xhtml";
   }
   
   public FileItem getFile() {
