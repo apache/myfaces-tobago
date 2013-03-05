@@ -28,7 +28,6 @@
 
   <modules>
     <module>tobago-deprecation</module>
-    <module>tobago-facelets</module>
     <module>tobago-fileupload</module>
     <module>tobago-sandbox</module>
     <module>tobago-security</module>

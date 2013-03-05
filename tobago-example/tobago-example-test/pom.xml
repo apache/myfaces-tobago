@@ -120,11 +120,11 @@
       <artifactId>tobago-theme-scarborough</artifactId>
       <version>${project.version}</version>
     </dependency>
-    <!--dependency>
+    <dependency>
       <groupId>org.apache.myfaces.tobago</groupId>
       <artifactId>tobago-sandbox</artifactId>
       <version>${project.version}</version>
-    </dependency-->
+    </dependency>
     <dependency>
       <groupId>org.apache.myfaces.tobago</groupId>
       <artifactId>tobago-theme-speyside</artifactId>
@@ -144,18 +144,6 @@
       <groupId>org.apache.myfaces.tobago</groupId>
       <artifactId>tobago-core</artifactId>
       <version>${project.version}</version>
-      <exclusions>
-        <exclusion>
-          <groupId>sun.jdk</groupId>
-          <artifactId>tools</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.myfaces.tobago</groupId>
-      <artifactId>tobago-facelets</artifactId>
-      <version>${project.version}</version>
-      <scope>compile</scope>
       <exclusions>
         <exclusion>
           <groupId>sun.jdk</groupId>

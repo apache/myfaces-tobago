@@ -254,18 +254,6 @@
       <optional>true</optional>
     </dependency>
     <dependency>
-      <groupId>org.apache.myfaces.tobago</groupId>
-      <artifactId>tobago-facelets</artifactId>
-      <version>${project.version}</version>
-      <scope>compile</scope>
-      <exclusions>
-        <exclusion>
-          <groupId>sun.jdk</groupId>
-          <artifactId>tools</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-    <dependency>
       <groupId>maven-taglib</groupId>
       <artifactId>maven-taglib-plugin</artifactId>
     </dependency>

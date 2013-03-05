@@ -90,11 +90,6 @@
     </dependency>
     <dependency>
       <groupId>${project.groupId}</groupId>
-      <artifactId>tobago-facelets</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>${project.groupId}</groupId>
       <artifactId>tobago-fileupload</artifactId>
       <version>${project.version}</version>
     </dependency>
@@ -289,12 +284,6 @@
                     <artifactItem>
                       <groupId>${project.groupId}</groupId>
                       <artifactId>tobago-theme-standard</artifactId>
-                      <version>${project.version}</version>
-                      <classifier>sources</classifier>
-                    </artifactItem>
-                    <artifactItem>
-                      <groupId>${project.groupId}</groupId>
-                      <artifactId>tobago-facelets</artifactId>
                       <version>${project.version}</version>
                       <classifier>sources</classifier>
                     </artifactItem>
