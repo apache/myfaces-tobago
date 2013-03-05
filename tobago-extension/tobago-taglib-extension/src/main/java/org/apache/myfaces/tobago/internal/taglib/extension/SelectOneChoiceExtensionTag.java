@@ -33,7 +33,9 @@ import javax.servlet.jsp.JspException;
  */
 
 @Tag(name = "selectOneChoice")
-@ExtensionTag(baseClassName = "org.apache.myfaces.tobago.internal.taglib.SelectOneChoiceTag")
+@ExtensionTag(
+    baseClassName = "org.apache.myfaces.tobago.internal.taglib.SelectOneChoiceTag",
+    faceletHandler = "org.apache.myfaces.tobago.facelets.extension.SelectOneChoiceExtensionHandler")
 public class SelectOneChoiceExtensionTag extends TobagoExtensionBodyTagSupport {
 
   private javax.el.ValueExpression required;

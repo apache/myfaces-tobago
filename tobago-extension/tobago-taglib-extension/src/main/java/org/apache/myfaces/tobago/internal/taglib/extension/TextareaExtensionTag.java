@@ -47,7 +47,9 @@ import javax.servlet.jsp.JspException;
  */
 
 @Tag(name = "textarea")
-@ExtensionTag(baseClassName = "org.apache.myfaces.tobago.internal.taglib.TextareaTag")
+@ExtensionTag(
+    baseClassName = "org.apache.myfaces.tobago.internal.taglib.TextareaTag",
+    faceletHandler = "org.apache.myfaces.tobago.facelets.extension.TextareaExtensionHandler")
 public class TextareaExtensionTag extends TobagoExtensionBodyTagSupport {
 
   private javax.el.ValueExpression binding;

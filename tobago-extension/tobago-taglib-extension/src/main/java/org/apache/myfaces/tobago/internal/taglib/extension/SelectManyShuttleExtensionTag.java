@@ -32,7 +32,9 @@ import javax.servlet.jsp.JspException;
  * Renders a multi selection option shuttle with a label.
  */
 @Tag(name = "selectManyShuttle")
-@ExtensionTag(baseClassName = "org.apache.myfaces.tobago.internal.taglib.SelectManyShuttleTag")
+@ExtensionTag(
+    baseClassName = "org.apache.myfaces.tobago.internal.taglib.SelectManyShuttleTag",
+    faceletHandler = "org.apache.myfaces.tobago.facelets.extension.SelectManyShuttleExtensionHandler")
 public class SelectManyShuttleExtensionTag extends TobagoExtensionBodyTagSupport {
 
   private javax.el.ValueExpression required;

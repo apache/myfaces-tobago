@@ -50,7 +50,11 @@ import javax.servlet.jsp.JspException;
 @Tag(
     name = "menuCheckbox",
     tagExtraInfoClassName = "org.apache.myfaces.tobago.internal.taglib.component.CommandTagExtraInfo")
-@ExtensionTag(baseClassName = "org.apache.myfaces.tobago.internal.taglib.component.MenuCheckboxTag")
+@ExtensionTag(
+    baseClassName = "org.apache.myfaces.tobago.internal.taglib.component.MenuCheckboxTag",
+    componentType = "org.apache.myfaces.tobago.MenuCommand",
+    rendererType = "MenuCommand",
+    faceletHandler = "org.apache.myfaces.tobago.facelets.extension.MenuCheckboxExtensionHandler")
 public class MenuCheckboxExtensionTag extends TobagoExtensionBodyTagSupport {
   private javax.el.ValueExpression rendered;
   private javax.el.ValueExpression value;

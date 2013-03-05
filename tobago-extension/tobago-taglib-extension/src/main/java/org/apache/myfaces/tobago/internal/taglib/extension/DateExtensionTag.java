@@ -48,7 +48,9 @@ import javax.servlet.jsp.JspException;
  * </pre>
  */
 @Tag(name = "date")
-@ExtensionTag(baseClassName = "org.apache.myfaces.tobago.internal.taglib.DateTag")
+@ExtensionTag(
+    baseClassName = "org.apache.myfaces.tobago.internal.taglib.DateTag",
+    faceletHandler = "org.apache.myfaces.tobago.facelets.extension.DateExtensionHandler")
 public class DateExtensionTag extends TobagoExtensionBodyTagSupport {
 
   private static final long serialVersionUID = 2044784791513107420L;

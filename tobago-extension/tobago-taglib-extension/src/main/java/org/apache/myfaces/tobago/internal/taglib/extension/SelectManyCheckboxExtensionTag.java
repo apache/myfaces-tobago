@@ -32,7 +32,9 @@ import javax.servlet.jsp.JspException;
  * Render a group of checkboxes.
  */
 @Tag(name = "selectManyCheckbox")
-@ExtensionTag(baseClassName = "org.apache.myfaces.tobago.internal.taglib.SelectManyCheckboxTag")
+@ExtensionTag(
+    baseClassName = "org.apache.myfaces.tobago.internal.taglib.SelectManyCheckboxTag",
+    faceletHandler = "org.apache.myfaces.tobago.facelets.extension.SelectManyCheckboxExtensionHandler")
 public class SelectManyCheckboxExtensionTag extends TobagoExtensionBodyTagSupport {
 
   private javax.el.ValueExpression required;

@@ -32,7 +32,9 @@ import javax.servlet.jsp.JspException;
  * Renders a multi selection option listbox with a label.
  */
 @Tag(name = "selectManyListbox")
-@ExtensionTag(baseClassName = "org.apache.myfaces.tobago.internal.taglib.SelectManyListboxTag")
+@ExtensionTag(
+    baseClassName = "org.apache.myfaces.tobago.internal.taglib.SelectManyListboxTag",
+    faceletHandler = "org.apache.myfaces.tobago.facelets.extension.SelectManyListboxExtensionHandler")
 public class SelectManyListboxExtensionTag extends TobagoExtensionBodyTagSupport {
 
   private javax.el.ValueExpression required;

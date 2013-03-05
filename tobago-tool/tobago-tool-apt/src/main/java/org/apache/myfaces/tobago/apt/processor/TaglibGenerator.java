@@ -428,11 +428,7 @@ public class TaglibGenerator extends AbstractGenerator {
         case JSP:
           return target + path.replace('.', '/') + '/' + name + ".tld";
         case FACELETS:
-          if (name.equals("tobago-extension")) {
-            return target + name + "-2.taglib.xml"; // XXX The extension lib will not be generated corretly... fix it!
-          } else {
-            return target + name + ".taglib.xml";
-          }
+          return target + name + ".taglib.xml";
         default:
           throw new IllegalArgumentException("Program error");
       }
@@ -540,6 +536,15 @@ public class TaglibGenerator extends AbstractGenerator {
               addLeafTextElement(componentTag.rendererType(), "renderer-type", componentElement, document);
             }
             addLeafTextElement(componentTag.faceletHandler(), "handler-class", componentElement, document);
+          }
+
+          ExtensionTag extensionTag = typeElement.getAnnotation(ExtensionTag.class);
+          if (extensionTag != null) {
+            Element componentElement = document.createElement("component");
+            tagElement.appendChild(componentElement);
+            addLeafTextElement(extensionTag.componentType(), "component-type", componentElement, document);
+            addLeafTextElement(extensionTag.rendererType(), "renderer-type", componentElement, document);
+            addLeafTextElement(extensionTag.faceletHandler(), "handler-class", componentElement, document);
           }
 
           SimpleTag simpleTag = typeElement.getAnnotation(SimpleTag.class);

@@ -34,7 +34,9 @@ import javax.servlet.jsp.JspException;
  * Renders a checkbox.
  */
 @Tag(name = "selectBooleanCheckbox")
-@ExtensionTag(baseClassName = "org.apache.myfaces.tobago.internal.taglib.SelectBooleanCheckboxTag")
+@ExtensionTag(
+    baseClassName = "org.apache.myfaces.tobago.internal.taglib.SelectBooleanCheckboxTag",
+    faceletHandler = "org.apache.myfaces.tobago.facelets.extension.SelectBooleanCheckboxExtensionHandler")
 public class SelectBooleanCheckboxExtensionTag extends TobagoExtensionBodyTagSupport {
 
   private javax.el.ValueExpression value;

@@ -46,7 +46,9 @@ import javax.servlet.jsp.JspException;
  * </pre>
  */
 @Tag(name = "time")
-@ExtensionTag(baseClassName = "org.apache.myfaces.tobago.internal.taglib.TimeTag")
+@ExtensionTag(
+    baseClassName = "org.apache.myfaces.tobago.internal.taglib.TimeTag",
+        faceletHandler = "org.apache.myfaces.tobago.facelets.extension.TimeExtensionHandler")
 public class TimeExtensionTag extends TobagoExtensionBodyTagSupport {
 
   private javax.el.ValueExpression binding;

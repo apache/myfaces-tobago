@@ -54,7 +54,11 @@ import javax.servlet.jsp.JspException;
 @Tag(
     name = "menuRadio",
     tagExtraInfoClassName = "org.apache.myfaces.tobago.internal.taglib.component.CommandTagExtraInfo")
-@ExtensionTag(baseClassName = "org.apache.myfaces.tobago.internal.taglib.MenuRadioTag")
+@ExtensionTag(
+    baseClassName = "org.apache.myfaces.tobago.internal.taglib.MenuRadioTag",
+    componentType = "org.apache.myfaces.tobago.MenuCommand",
+    rendererType = "MenuCommand",
+    faceletHandler = "org.apache.myfaces.tobago.facelets.extension.MenuRadioExtensionHandler")
 public class MenuRadioExtensionTag extends TobagoExtensionBodyTagSupport {
 
   private javax.el.ValueExpression rendered;

@@ -32,7 +32,9 @@ import javax.servlet.jsp.JspException;
  * Render a single selection option listbox.
  */
 @Tag(name = "selectOneListbox")
-@ExtensionTag(baseClassName = "org.apache.myfaces.tobago.internal.taglib.SelectOneListboxTag")
+@ExtensionTag(
+    baseClassName = "org.apache.myfaces.tobago.internal.taglib.SelectOneListboxTag",
+    faceletHandler = "org.apache.myfaces.tobago.facelets.extension.SelectOneListboxExtensionHandler")
 public class SelectOneListboxExtensionTag extends TobagoExtensionBodyTagSupport {
   private javax.el.ValueExpression required;
   private javax.el.ValueExpression value;

@@ -17,22 +17,27 @@
  * under the License.
  */
 
-package org.apache.myfaces.tobago.apt.annotation;
+package org.apache.myfaces.tobago.facelets.extension;
 
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
-import java.lang.annotation.ElementType;
+import org.apache.myfaces.tobago.component.RendererTypes;
+import org.apache.myfaces.tobago.component.UILabel;
 
-@Retention(value = RetentionPolicy.SOURCE)
-@Target(value = ElementType.TYPE)
-public @interface ExtensionTag {
+import javax.faces.view.facelets.ComponentConfig;
 
-  String baseClassName();
+/**
+ * XXX Still not implemented correctly!
+ */
+public class LabelExtensionHandler extends TobagoLabelExtensionHandler {
 
-  String componentType() default "org.apache.myfaces.tobago.ExtensionPanel";
+  public LabelExtensionHandler(ComponentConfig config) {
+    super(config);
+  }
 
-  String rendererType() default "Panel";
+  protected String getSubComponentType() {
+    return UILabel.COMPONENT_TYPE;
+  }
 
-  String faceletHandler();
+  protected String getSubRendererType() {
+    return RendererTypes.LABEL;
+  }
 }

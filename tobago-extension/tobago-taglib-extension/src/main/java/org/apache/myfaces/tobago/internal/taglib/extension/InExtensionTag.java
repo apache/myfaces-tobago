@@ -51,7 +51,9 @@ import javax.servlet.jsp.JspException;
  */
 
 @Tag(name = "in")
-@ExtensionTag(baseClassName = "org.apache.myfaces.tobago.internal.taglib.InTag")
+@ExtensionTag(
+    baseClassName = "org.apache.myfaces.tobago.internal.taglib.InTag",
+    faceletHandler = "org.apache.myfaces.tobago.facelets.extension.InExtensionHandler")
 public class InExtensionTag extends TobagoExtensionBodyTagSupport {
 
   private ValueExpression binding;

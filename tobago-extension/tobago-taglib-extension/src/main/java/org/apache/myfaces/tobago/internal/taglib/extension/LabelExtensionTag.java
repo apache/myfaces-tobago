@@ -62,7 +62,9 @@ import javax.servlet.jsp.JspException;
  */
 
 @Tag(name = "label")
-@ExtensionTag(baseClassName = "org.apache.myfaces.tobago.internal.taglib.LabelTag")
+@ExtensionTag(
+    baseClassName = "org.apache.myfaces.tobago.internal.taglib.LabelTag",
+    faceletHandler = "org.apache.myfaces.tobago.facelets.extension.LabelExtensionHandler")
 public class LabelExtensionTag extends TobagoExtensionBodyTagSupport {
 
   private static final Logger LOG = LoggerFactory.getLogger(LabelExtensionTag.class);

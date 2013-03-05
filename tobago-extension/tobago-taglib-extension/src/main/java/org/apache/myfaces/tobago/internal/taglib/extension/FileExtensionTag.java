@@ -47,7 +47,9 @@ import javax.servlet.jsp.JspException;
  */
 
 @Tag(name = "file")
-@ExtensionTag(baseClassName = "org.apache.myfaces.tobago.internal.taglib.FileTag")
+@ExtensionTag(
+    baseClassName = "org.apache.myfaces.tobago.internal.taglib.FileTag",
+    faceletHandler = "org.apache.myfaces.tobago.facelets.extension.FileExtensionHandler")
 public class FileExtensionTag extends TobagoExtensionBodyTagSupport {
 
   private javax.el.ValueExpression binding;

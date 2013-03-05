@@ -34,7 +34,9 @@ import javax.servlet.jsp.JspException;
  * @since 1.0.13
  */
 @Tag(name = "selectOneRadio")
-@ExtensionTag(baseClassName = "org.apache.myfaces.tobago.internal.taglib.SelectOneRadioTag")
+@ExtensionTag(
+    baseClassName = "org.apache.myfaces.tobago.internal.taglib.SelectOneRadioTag",
+    faceletHandler = "org.apache.myfaces.tobago.facelets.extension.SelectOneRadioExtensionHandler")
 public class SelectOneRadioExtensionTag extends TobagoExtensionBodyTagSupport {
 
   private javax.el.ValueExpression required;

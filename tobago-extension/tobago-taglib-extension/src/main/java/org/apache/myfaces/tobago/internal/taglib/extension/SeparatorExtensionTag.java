@@ -19,6 +19,8 @@
 
 package org.apache.myfaces.tobago.internal.taglib.extension;
 
+import org.apache.myfaces.tobago.apt.annotation.ExtensionTag;
+import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.Facets;
@@ -41,7 +43,13 @@ import javax.servlet.jsp.JspException;
  * &lt;/tc:separator>
  * </pre>
  */
-
+@Tag(
+    name = "separator")
+@ExtensionTag(
+    baseClassName = "org.apache.myfaces.tobago.internal.taglib.component.SeparatorTag",
+    componentType = "org.apache.myfaces.tobago.Separator",
+    rendererType = "Separator",
+    faceletHandler = "org.apache.myfaces.tobago.facelets.extension.SeparatorExtensionHandler")
 public class SeparatorExtensionTag extends TobagoExtensionBodyTagSupport {
   
   private javax.el.ValueExpression binding;
