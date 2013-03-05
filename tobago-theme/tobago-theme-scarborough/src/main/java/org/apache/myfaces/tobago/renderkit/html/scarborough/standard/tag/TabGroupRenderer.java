@@ -256,9 +256,10 @@ public class TabGroupRenderer extends LayoutComponentRendererBase {
 
     // all: sub menu to select any tab directly
     UICommand all = (UICommand) CreateComponentUtils.createComponent(
-        facesContext, UICommand.COMPONENT_TYPE, null);
+        facesContext, UICommand.COMPONENT_TYPE, null, null);
     UIMenu menu = (UIMenu) CreateComponentUtils.createComponent(
-        facesContext, UIMenu.COMPONENT_TYPE, RendererTypes.MENU);
+        facesContext, UIMenu.COMPONENT_TYPE, RendererTypes.MENU, null);
+    menu.setTransient(true);
     FacetUtils.setDropDownMenu(all, menu);
     int index = 0;
     for (UIComponent child : tabGroup.getChildren()) {
@@ -266,7 +267,8 @@ public class TabGroupRenderer extends LayoutComponentRendererBase {
         UITab tab = (UITab) child;
         if (tab.isRendered()) {
           UIMenuCommand entry = (UIMenuCommand) CreateComponentUtils.createComponent(
-              facesContext, UIMenuCommand.COMPONENT_TYPE, RendererTypes.MENU_COMMAND, "entry-" + index);
+              facesContext, UIMenuCommand.COMPONENT_TYPE, RendererTypes.MENU_COMMAND, null);
+          entry.setTransient(true);
           LabelWithAccessKey label = new LabelWithAccessKey(tab);
           entry.setLabel(label.getText());
           if (tab.isDisabled()) {

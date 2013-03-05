@@ -69,8 +69,6 @@ public class MenuCommandRenderer extends CommandRendererBase {
     boolean disabled = menu.isDisabled();
     boolean firstLevel = RendererTypes.MENU_BAR.equals(menu.getParent().getRendererType());
     LabelWithAccessKey label = new LabelWithAccessKey(menu);
-    String clientId = menu.getClientId(facesContext);
-    String submit = HtmlRendererUtils.createSubmitAction(clientId, true, null, null);
 
     if (menu.getFacet(Facets.CHECKBOX) != null) {
       // checkbox menu
@@ -79,12 +77,16 @@ public class MenuCommandRenderer extends CommandRendererBase {
       String image = checked ? "image/MenuCheckmark.gif" : null;
       String hiddenId = checkbox.getClientId(facesContext);
       // the function toggles true <-> false
+      String clientId = menu.getClientId(facesContext);
+      String submit = HtmlRendererUtils.createSubmitAction(clientId, true, null, null);
       String setValue = JQueryUtils.selectId(hiddenId) 
           + ".each(function(){jQuery(this).val(jQuery(this).val() == 'true' ? 'false' : 'true')}); ";
       encodeItem(facesContext, writer, menu, label, setValue + submit, disabled, firstLevel, image);
       encodeHidden(writer, hiddenId, checked);
     } else if (menu.getFacet(Facets.RADIO) != null) {
       // radio menu
+      String clientId = menu.getClientId(facesContext);
+      String submit = HtmlRendererUtils.createSubmitAction(clientId, true, null, null);
       UISelectOne radio = (UISelectOne) menu.getFacet(Facets.RADIO);
       List<SelectItem> items = RenderUtils.getSelectItems(radio);
       String hiddenId = radio.getClientId(facesContext);
@@ -93,6 +95,7 @@ public class MenuCommandRenderer extends CommandRendererBase {
         String image = checked ? "image/MenuRadioChecked.gif" : null;
         final String labelText = item.getLabel();
         label.reset();
+
         if (labelText != null) {
           if (labelText.indexOf(LabelWithAccessKey.INDICATOR) > -1) {
             label.setup(labelText);
@@ -111,8 +114,12 @@ public class MenuCommandRenderer extends CommandRendererBase {
       // normal menu command
       CommandRendererHelper helper = new CommandRendererHelper(facesContext, menu);
       String onclick = helper.getOnclick();
+      if (onclick == null) {
+        String clientId = menu.getClientId(facesContext);
+        onclick = HtmlRendererUtils.createSubmitAction(clientId, true, null, null);
+      }
       String image = menu.getImage();
-      encodeItem(facesContext, writer, menu, label, onclick != null ? onclick : submit, disabled, firstLevel, image);
+      encodeItem(facesContext, writer, menu, label, onclick, disabled, firstLevel, image);
     }
   }
 
@@ -132,8 +139,8 @@ public class MenuCommandRenderer extends CommandRendererBase {
       String onclick, boolean disabled, boolean firstLevel, String image) throws IOException {
 
     writer.startElement(HtmlElements.LI, null);
-    if (component != null) {
-        writer.writeIdAttribute(component.getClientId(facesContext));
+    if (component != null && !component.isTransient()) {
+      writer.writeIdAttribute(component.getClientId(facesContext));
     }
     Markup markup = null;
     if (component != null) {
