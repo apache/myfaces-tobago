@@ -63,11 +63,9 @@ public class MenuRenderer extends LayoutComponentRendererBase {
     final boolean disabled = menu.isDisabled();
     final boolean firstLevel = !RendererTypes.MENU.equals(menu.getParent().getRendererType());
     final boolean isParentMenu = menu.getChildCount() > 0; // todo: may be not correct
-    final String clientId = menu.getClientId(facesContext);
 
     writer.startElement(HtmlElements.LI, menu);
     writer.writeClassAttribute(Classes.create(menu, firstLevel ? Markup.TOP : null));
-    writer.writeIdAttribute(clientId);
     if (menu.getImage() != null) {
       Style style = new Style();
       style.setBackgroundImage("url(" + menu.getImage() + ")");
@@ -92,7 +90,6 @@ public class MenuRenderer extends LayoutComponentRendererBase {
     writer.endElement(HtmlElements.A);
     if (isParentMenu) {
       writer.startElement(HtmlElements.OL, menu);
-      writer.writeIdAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "menu");
     }
   }
 

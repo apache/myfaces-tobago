@@ -255,6 +255,14 @@ Tobago.Menu.init = function(elements) {
         "<iframe class='tobago-menu-ie6bugfix' src='" + Tobago.blankPage + "'></iframe>");
   }
 
+  // put the sub-menu in the data to find it later
+  menus.each(function() {
+    var superMenu = jQuery(this);
+    var subMenu = superMenu.children("ol");
+    superMenu.data("sub-menu", subMenu);
+    subMenu.data("super-menu", superMenu);
+  });
+
   jQuery(".tobago-page-menuStore").append(menus.children("ol"));
 
   var toolBarMenu = Tobago.Utils.selectWidthJQuery(
@@ -292,7 +300,7 @@ jQuery.tobagoMenuParent = function(element) {
     tobagoMenu_findSubMenu: function() {
       var menu = jQuery(this).children("ol");
       jQuery(this).each(function() {
-        menu = menu.add(Tobago.Utils.findSubComponent(jQuery(this), "menu"));
+        menu = menu.add(jQuery(this).data("sub-menu"));
       });
       return menu;
     }
@@ -307,8 +315,9 @@ jQuery.tobagoMenuParent = function(element) {
   jQuery.fn.extend({
     tobagoMenu_findParentMenu: function() {
       var ol = jQuery(this);
-      if (ol.attr('id').lastIndexOf("::") >= 0) {
-        return Tobago.Utils.findSuperComponent(ol);
+      var superMenu = ol.data("superMenu");
+      if (superMenu != null) {
+        return superMenu;
       }
       return ol;
     }

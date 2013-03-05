@@ -50,6 +50,7 @@ Tobago.Utils.getSubComponentId = function(id, subId) {
   }
 };
 
+/** @deprecated */
 Tobago.Utils.findSuperComponent = function(element) {
   return jQuery(Tobago.Utils.getSuperComponentId(element.attr('id')));
 };
