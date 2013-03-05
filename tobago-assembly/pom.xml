@@ -226,12 +226,6 @@
                       <version>${project.version}</version>
                     </artifactItem>
 
-                    <artifactItem>
-                      <groupId>${project.groupId}</groupId>
-                      <artifactId>tobago-taglib-extension</artifactId>
-                      <version>${project.version}</version>
-                    </artifactItem>
-
                   </artifactItems>
                   <outputDirectory>${project.build.directory}/tld
                   </outputDirectory>
@@ -290,12 +284,6 @@
                     <artifactItem>
                       <groupId>${project.groupId}</groupId>
                       <artifactId>tobago-fileupload</artifactId>
-                      <version>${project.version}</version>
-                      <classifier>sources</classifier>
-                    </artifactItem>
-                    <artifactItem>
-                      <groupId>${project.groupId}</groupId>
-                      <artifactId>tobago-taglib-extension</artifactId>
                       <version>${project.version}</version>
                       <classifier>sources</classifier>
                     </artifactItem>

@@ -600,7 +600,7 @@
             <dependencies>
               <dependency>
                 <groupId>org.apache.myfaces.tobago</groupId>
-                <artifactId>tobago-taglib-extension</artifactId>
+                <artifactId>tobago-core</artifactId>
                 <version>${project.version}</version>
               </dependency>
             </dependencies>

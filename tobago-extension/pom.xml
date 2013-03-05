@@ -31,7 +31,6 @@
     <module>tobago-fileupload</module>
     <module>tobago-sandbox</module>
     <module>tobago-security</module>
-    <module>tobago-taglib-extension</module>
   </modules>
 
   <dependencies>

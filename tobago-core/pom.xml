@@ -64,11 +64,13 @@
                 <processor>org.apache.myfaces.tobago.apt.processor.ClassesGenerator</processor>
                 <processor>org.apache.myfaces.tobago.apt.processor.TaglibGenerator</processor>
                 <processor>org.apache.myfaces.tobago.apt.processor.FacesConfigGenerator</processor>
+                <processor>org.apache.myfaces.tobago.apt.processor.CheckstyleConfigGenerator</processor>
               </processors>
               <optionMap>
                 <sourceFacesConfig>${basedir}/src/main/faces-config/faces-config.xml</sourceFacesConfig>
                 <targetFacesConfig>META-INF/faces-config.xml</targetFacesConfig>
                 <targetTaglib>META-INF</targetTaglib>
+                <targetCheckstyle>META-INF</targetCheckstyle>
                 <jsfVersion>${jsf.target}</jsfVersion>
               </optionMap>
             </configuration>
