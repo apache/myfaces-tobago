@@ -12,8 +12,7 @@
                 xmlns:tx="http://myfaces.apache.org/tobago/extension"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:jspc="http://java.sun.com/jsp/jstl/core"
-                xmlns:c="http://java.sun.com/jstl/core"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
                 xmlns:layout="urn:jsptagdir:/WEB-INF/tags/layout">
 
   <xsl:output method="xml" encoding="UTF-8" indent="yes"/>
@@ -92,13 +91,6 @@
   <xsl:template match="ui:param">
     <!-- ignore -->
   </xsl:template>
-
-  <xsl:template match="c:*">
-      <xsl:element name="jspc:{local-name()}">
-        <xsl:copy-of select="@*" />
-        <xsl:apply-templates/>
-      </xsl:element>
-   </xsl:template>
 
   <xsl:template match="*">
     <xsl:copy>
