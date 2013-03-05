@@ -35,6 +35,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRend
     uiComponent = "org.apache.myfaces.tobago.component.UIScript",
     uiComponentFacesClass = "javax.faces.component.UIComponentBase",
     componentFamily = "org.apache.myfaces.tobago.Script",
+    faceletHandler = "org.apache.myfaces.tobago.facelets.ScriptHandler",
     rendererType = RendererTypes.SCRIPT,
     isTransparentForLayout = true,
     allowedChildComponenents = "NONE")

@@ -19,8 +19,6 @@
 
 package org.apache.myfaces.tobago.apt.processor;
 
-import org.w3c.dom.Document;
-
 import javax.annotation.processing.AbstractProcessor;
 import javax.annotation.processing.RoundEnvironment;
 import javax.annotation.processing.SupportedSourceVersion;
@@ -112,18 +110,6 @@ public abstract class AbstractGenerator extends AbstractProcessor {
     final StringWriter out = new StringWriter();
     e.printStackTrace(new PrintWriter(out));
     processingEnv.getMessager().printMessage(Diagnostic.Kind.ERROR, "" + e.getMessage() + "\n" + out.toString());
-  }
-
-  protected void addLeafTextElement(String text, String node, org.w3c.dom.Element parent, Document document) {
-    org.w3c.dom.Element element = document.createElement(node);
-    element.appendChild(document.createTextNode(text));
-    parent.appendChild(element);
-  }
-
-  protected void addLeafCDATAElement(String text, String node, org.w3c.dom.Element parent, Document document) {
-    org.w3c.dom.Element element = document.createElement(node);
-    element.appendChild(document.createCDATASection(text));
-    parent.appendChild(element);
   }
 
   public List<TypeElement> getTypes() {

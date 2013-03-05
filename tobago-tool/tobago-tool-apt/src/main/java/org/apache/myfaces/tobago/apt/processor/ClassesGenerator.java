@@ -23,12 +23,14 @@ import org.antlr.stringtemplate.StringTemplate;
 import org.antlr.stringtemplate.StringTemplateGroup;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.myfaces.tobago.apt.annotation.AnnotationUtils;
 import org.apache.myfaces.tobago.apt.annotation.DynamicExpression;
+import org.apache.myfaces.tobago.apt.annotation.SimpleTag;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
-import org.apache.myfaces.tobago.apt.annotation.TagGeneration;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
+import org.apache.myfaces.tobago.apt.annotation.ValidatorTag;
 import org.apache.myfaces.tobago.apt.generate.ClassInfo;
 import org.apache.myfaces.tobago.apt.generate.ComponentInfo;
 import org.apache.myfaces.tobago.apt.generate.ComponentPropertyInfo;
@@ -66,7 +68,7 @@ import java.util.Set;
     "org.apache.myfaces.tobago.apt.annotation.UIComponentTag",
     "org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute",
     "org.apache.myfaces.tobago.apt.annotation.Taglib",
-    "org.apache.myfaces.tobago.apt.annotation.TagGeneration"})
+    "org.apache.myfaces.tobago.apt.annotation.SimpleTag"})
 @SupportedOptions({
     ClassesGenerator.TAG_VERSION,
     ClassesGenerator.JSF_VERSION})
@@ -127,7 +129,7 @@ public class ClassesGenerator extends AbstractGenerator {
           throw new RuntimeException(
               "Error during processing of " + element.getAnnotation(UIComponentTag.class).uiComponent(), e);
         }
-      } else if (element.getAnnotation(Tag.class) != null && element.getAnnotation(TagGeneration.class) != null) {
+      } else if (element.getAnnotation(SimpleTag.class) != null || element.getAnnotation(ValidatorTag.class) != null) {
         createTag(element);
       }
     }
@@ -136,9 +138,9 @@ public class ClassesGenerator extends AbstractGenerator {
   private void createTag(TypeElement declaration) throws IOException {
     List<PropertyInfo> properties = new ArrayList<PropertyInfo>();
     addPropertiesForTagOnly(declaration, properties);
-    TagGeneration tagGeneration = declaration.getAnnotation(TagGeneration.class);
+    String className = AnnotationUtils.generatedTagName(declaration);
 
-    TagInfo tagInfo = new TagInfo(declaration.getQualifiedName().toString(), tagGeneration.className());
+    TagInfo tagInfo = new TagInfo(declaration.getQualifiedName().toString(), className);
     tagInfo.setSuperClass(declaration.getQualifiedName().toString());
     StringTemplate stringTemplate = tagAbstractStringTemplateGroup.getInstanceOf("tag");
     stringTemplate.setAttribute("tagInfo", tagInfo);

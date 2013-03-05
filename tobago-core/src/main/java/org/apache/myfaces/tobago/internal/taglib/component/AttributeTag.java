@@ -22,7 +22,7 @@ package org.apache.myfaces.tobago.internal.taglib.component;
 import org.apache.myfaces.tobago.apt.annotation.BodyContent;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
-import org.apache.myfaces.tobago.apt.annotation.TagGeneration;
+import org.apache.myfaces.tobago.apt.annotation.SimpleTag;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.SupportsRenderedPartially;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -43,7 +43,8 @@ import javax.servlet.jsp.tagext.TagSupport;
  * associated with the closest parent UIComponent custom action.
  */
 @Tag(name = "attribute", bodyContent = BodyContent.EMPTY)
-@TagGeneration(className = "org.apache.myfaces.tobago.internal.taglib.AttributeTag")
+@SimpleTag(
+    faceletHandler = "org.apache.myfaces.tobago.facelets.AttributeHandler")
 public abstract class AttributeTag extends TagSupport {
 
   private static final long serialVersionUID = 2L;

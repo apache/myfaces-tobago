@@ -19,10 +19,25 @@
 
 package org.apache.myfaces.tobago.apt.annotation;
 
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
+import javax.lang.model.element.TypeElement;
 
-@Retention(value = RetentionPolicy.SOURCE)
-public @interface TagGeneration {
-  String className();
+public final class AnnotationUtils {
+
+  private AnnotationUtils() {
+  }
+
+  public static String componentType(UIComponentTag componentTag) {
+    final String s = componentTag.componentType();
+    if (s != null && s.length() > 0) {
+      return s;
+    } else {
+      return componentTag.uiComponent().replace(".component.UI", ".");
+    }
+  }
+
+  public static String generatedTagName(TypeElement typeElement) {
+    final String s = typeElement.getQualifiedName().toString();
+    return s.replace(".component.", ".");
+  }
+
 }

@@ -20,9 +20,10 @@
 package org.apache.myfaces.tobago.internal.taglib.component;
 
 import org.apache.myfaces.tobago.apt.annotation.BodyContent;
+import org.apache.myfaces.tobago.apt.annotation.Preliminary;
+import org.apache.myfaces.tobago.apt.annotation.SimpleTag;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
-import org.apache.myfaces.tobago.apt.annotation.TagGeneration;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 
 import javax.el.ELContext;
@@ -42,8 +43,10 @@ import javax.servlet.jsp.tagext.TagSupport;
  * Data attributes will be passed through the renderers into the DOM of the user agent and
  * can be used by scripts.
  */
+@Preliminary
 @Tag(name = "dataAttribute", bodyContent = BodyContent.EMPTY)
-@TagGeneration(className = "org.apache.myfaces.tobago.internal.taglib.DataAttributeTag")
+@SimpleTag(
+    faceletHandler = "org.apache.myfaces.tobago.facelets.DataAttributeHandler")
 public abstract class DataAttributeTag extends TagSupport {
 
   private static final long serialVersionUID = 2L;

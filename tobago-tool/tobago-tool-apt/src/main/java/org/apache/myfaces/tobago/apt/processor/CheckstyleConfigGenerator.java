@@ -22,13 +22,15 @@ package org.apache.myfaces.tobago.apt.processor;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.myfaces.tobago.apt.annotation.AnnotationUtils;
 import org.apache.myfaces.tobago.apt.annotation.ExtensionTag;
+import org.apache.myfaces.tobago.apt.annotation.SimpleTag;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
-import org.apache.myfaces.tobago.apt.annotation.TagGeneration;
 import org.apache.myfaces.tobago.apt.annotation.Taglib;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
+import org.apache.myfaces.tobago.apt.annotation.ValidatorTag;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -145,22 +147,15 @@ public class CheckstyleConfigGenerator extends AbstractGenerator {
       checkDuplicates(annotationTag.name());
       // TODO configure replacement
       final String className;
-      if (typeElement.getAnnotation(TagGeneration.class) != null) {
-        className = typeElement.getAnnotation(TagGeneration.class).className();
-//        info("G");
+      if (typeElement.getAnnotation(SimpleTag.class) != null || typeElement.getAnnotation(ValidatorTag.class) != null) {
+        className = AnnotationUtils.generatedTagName(typeElement);
       } else if (typeElement.getAnnotation(ExtensionTag.class) != null) {
         className = typeElement.getQualifiedName().toString();
-//        info("X");
       } else if (typeElement.getAnnotation(UIComponentTag.class) != null) {
         className = "org.apache.myfaces.tobago.internal.taglib." + StringUtils.capitalize(annotationTag.name())
             + "Tag";
-//        info("C");
       } else {
-/*
-        className = typeElement.getQualifiedName().toString()
-            .substring(0, typeElement.getQualifiedName().length() - "Declaration".length());
-*/
-        throw new RuntimeException("Not supported");
+        throw new RuntimeException("Not supported: " + typeElement.getQualifiedName());
       }
       info("Replacing: " + typeElement.getQualifiedName() + " -> " + className);
       if (typeElement.getAnnotation(Deprecated.class) != null) {

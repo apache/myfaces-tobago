@@ -41,6 +41,8 @@ public @interface UIComponentTag {
 
   String rendererType() default "";
 
+  String faceletHandler() default "org.apache.myfaces.tobago.facelets.TobagoComponentHandler";
+
   String displayName() default "";
 
   boolean isLayout() default false;

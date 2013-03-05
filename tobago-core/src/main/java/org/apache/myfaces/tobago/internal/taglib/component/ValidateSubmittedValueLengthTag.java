@@ -21,11 +21,8 @@ package org.apache.myfaces.tobago.internal.taglib.component;
 
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
-import org.apache.myfaces.tobago.apt.annotation.TagGeneration;
-import org.apache.myfaces.tobago.util.ComponentUtils;
-import org.apache.myfaces.tobago.validator.FileItemValidator;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.myfaces.tobago.apt.annotation.ValidatorTag;
+import org.apache.myfaces.tobago.validator.SubmittedValueLengthValidator;
 
 import javax.el.ELContext;
 import javax.el.ValueExpression;
@@ -36,55 +33,53 @@ import javax.faces.webapp.ValidatorELTag;
 import javax.servlet.jsp.JspException;
 
 /**
- * Register an FileItemValidator instance on the UIComponent
+ * Register an SubmittedValueLengthValidator instance on the UIComponent
  * associated with the closest parent UIComponent custom action.
+ * The standard LengthValidator validate the length on the converted value.toString()
+ * not on the submitted value. Sometime you need to check the length of the submitted value.
  */
-@Tag(name = "validateFileItem")
-@TagGeneration(className = "org.apache.myfaces.tobago.internal.taglib.FileItemValidatorTag")
-// todo: use ValidatorELTag instead of ValidatorTag
-public abstract class FileItemValidatorTag extends ValidatorELTag {
+@Tag(name = "validateSubmittedValueLength")
+@ValidatorTag(
+    validatorId = SubmittedValueLengthValidator.VALIDATOR_ID)
+public abstract class ValidateSubmittedValueLengthTag extends ValidatorELTag {
 
   private static final long serialVersionUID = 2L;
 
-  private static final Logger LOG = LoggerFactory.getLogger(FileItemValidatorTag.class);
-
-  private javax.el.ValueExpression contentType;
-  private javax.el.ValueExpression maxSize;
+  private ValueExpression minimum;
+  private ValueExpression maximum;
 
   protected Validator createValidator() throws JspException {
-
     final FacesContext facesContext = FacesContext.getCurrentInstance();
     final Application application = facesContext.getApplication();
-    final FileItemValidator validator = (FileItemValidator) application.createValidator(FileItemValidator.VALIDATOR_ID);
-    final ELContext elContext = facesContext.getELContext();
+    final SubmittedValueLengthValidator validator
+        = (SubmittedValueLengthValidator) application.createValidator(SubmittedValueLengthValidator.VALIDATOR_ID);
+    final ELContext elContext = FacesContext.getCurrentInstance().getELContext();
 
-    if (maxSize != null) {
+    if (minimum != null) {
       try {
-        validator.setMaxSize((Integer) maxSize.getValue(elContext));
+        validator.setMinimum((Integer) minimum.getValue(elContext));
       } catch (NumberFormatException e) {
-        LOG.warn(e.getMessage());
+        // ignore
       }
     }
-    if (contentType != null) {
-      validator.setContentType(ComponentUtils.splitList((String) contentType.getValue(elContext)));
+    if (maximum != null) {
+      try {
+        validator.setMaximum((Integer) maximum.getValue(elContext));
+      } catch (NumberFormatException e) {
+        // ignore
+      }
     }
     return validator;
   }
 
-  @Override
-  public void release() {
-    super.release();
-    contentType = null;
-    maxSize = null;
+  @TagAttribute(name = "minimum", type = "java.lang.Integer")
+  public void setMinimum(ValueExpression minimum) {
+    this.minimum = minimum;
   }
 
-  @TagAttribute(name = "maxSize", type = "java.lang.Integer")
-  public void setMaxSize(ValueExpression maxSize) {
-    this.maxSize = maxSize;
-  }
+  @TagAttribute(name = "maximum", type = "java.lang.Integer")
+  public void setMaximum(ValueExpression maximum) {
+    this.maximum = maximum;
 
-  @TagAttribute(name = "contentType", type = "java.lang.String")
-  public void setContentType(ValueExpression contentType) {
-    this.contentType = contentType;
   }
 }

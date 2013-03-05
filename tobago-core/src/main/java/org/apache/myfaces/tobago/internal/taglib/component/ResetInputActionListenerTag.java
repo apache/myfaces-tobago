@@ -22,7 +22,7 @@ package org.apache.myfaces.tobago.internal.taglib.component;
 import org.apache.myfaces.tobago.apt.annotation.BodyContent;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
-import org.apache.myfaces.tobago.apt.annotation.TagGeneration;
+import org.apache.myfaces.tobago.apt.annotation.SimpleTag;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.event.ResetFormActionListener;
 import org.apache.myfaces.tobago.event.ResetInputActionListener;
@@ -44,7 +44,8 @@ import javax.servlet.jsp.tagext.TagSupport;
  * of a page or in a sub-form or part of the component tree.
  */
 @Tag(name = "resetInputActionListener", bodyContent = BodyContent.EMPTY)
-@TagGeneration(className = "org.apache.myfaces.tobago.internal.taglib.ResetInputActionListenerTag")
+@SimpleTag(
+    faceletHandler = "org.apache.myfaces.tobago.facelets.ResetInputActionListenerHandler")
 public abstract class ResetInputActionListenerTag extends TagSupport {
 
   private static final long serialVersionUID = 2L;

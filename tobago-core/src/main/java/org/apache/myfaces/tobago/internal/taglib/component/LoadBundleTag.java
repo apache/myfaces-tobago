@@ -23,7 +23,7 @@ import org.apache.myfaces.tobago.apt.annotation.BodyContent;
 import org.apache.myfaces.tobago.apt.annotation.DynamicExpression;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
-import org.apache.myfaces.tobago.apt.annotation.TagGeneration;
+import org.apache.myfaces.tobago.apt.annotation.SimpleTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.util.BundleMapWrapper;
 
@@ -46,7 +46,8 @@ import java.util.Map;
  * and configure it in the faces-config.xml.
  */
 @Tag(name = "loadBundle", bodyContent = BodyContent.EMPTY)
-@TagGeneration(className = "org.apache.myfaces.tobago.internal.taglib.LoadBundleTag")
+@SimpleTag(
+    faceletHandler = "org.apache.myfaces.tobago.facelets.LoadBundleHandler")
 public abstract class LoadBundleTag extends TagSupport {
 
   private static final long serialVersionUID = 2L;

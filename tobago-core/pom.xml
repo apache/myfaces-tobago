@@ -62,15 +62,13 @@
               <outputDirectory>${project.build.directory}/generated</outputDirectory>
               <processors>
                 <processor>org.apache.myfaces.tobago.apt.processor.ClassesGenerator</processor>
-                <processor>org.apache.myfaces.tobago.apt.processor.TldGenerator</processor>
+                <processor>org.apache.myfaces.tobago.apt.processor.TaglibGenerator</processor>
                 <processor>org.apache.myfaces.tobago.apt.processor.FacesConfigGenerator</processor>
-                <processor>org.apache.myfaces.tobago.apt.processor.ReferenceGenerator</processor>
               </processors>
               <optionMap>
                 <sourceFacesConfig>${basedir}/src/main/faces-config/faces-config.xml</sourceFacesConfig>
                 <targetFacesConfig>META-INF/faces-config.xml</targetFacesConfig>
-                <targetTld>META-INF</targetTld>
-                <targetReference>META-INF</targetReference>
+                <targetTaglib>META-INF</targetTaglib>
                 <jsfVersion>${jsf.target}</jsfVersion>
               </optionMap>
             </configuration>
@@ -109,9 +107,7 @@
                 <resource>
                   <directory>${project.build.directory}/generated</directory>
                   <includes>
-                    <include>**/*.tld</include>
-                    <include>**/tobago.xml</include>
-                    <include>META-INF/faces-config.xml</include>
+                    <include>META-INF/**/*</include>
                   </includes>
                 </resource>
               </resources>

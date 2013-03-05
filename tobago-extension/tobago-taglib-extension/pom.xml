@@ -83,13 +83,11 @@
               <!-- source output directory -->
               <outputDirectory>${project.build.directory}/generated</outputDirectory>
               <processors>
-                <processor>org.apache.myfaces.tobago.apt.processor.TldGenerator</processor>
-                <processor>org.apache.myfaces.tobago.apt.processor.ReferenceGenerator</processor>
+                <processor>org.apache.myfaces.tobago.apt.processor.TaglibGenerator</processor>
                 <processor>org.apache.myfaces.tobago.apt.processor.CheckstyleConfigGenerator</processor>
               </processors>
               <optionMap>
-                <targetTld>META-INF</targetTld>
-                <targetReference>META-INF</targetReference>
+                <targetTaglib>META-INF</targetTaglib>
                 <targetCheckstyle>META-INF</targetCheckstyle>
                 <jsfVersion>${jsf.target}</jsfVersion>
               </optionMap>
@@ -121,9 +119,7 @@
                 <resource>
                   <directory>${project.build.directory}/generated</directory>
                   <includes>
-                    <include>**/*.tld</include>
-                    <include>**/tobago-extension.xml</include>
-                    <include>META-INF/tobago-checkstyle.xml</include>
+                    <include>META-INF/**/*</include>
                   </includes>
                 </resource>
               </resources>

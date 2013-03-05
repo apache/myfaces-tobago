@@ -19,19 +19,10 @@
 
 package org.apache.myfaces.tobago.apt.annotation;
 
-import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
 
 @Retention(value = RetentionPolicy.SOURCE)
-@Target(value = ElementType.PACKAGE)
-
-public @interface Taglib {
-
-  String shortName();
-  String uri();
-  String name();
-  String displayName();
-  String [] listener() default {};
+public @interface SimpleTag {
+  String faceletHandler();
 }
