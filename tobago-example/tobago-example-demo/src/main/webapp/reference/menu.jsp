@@ -47,9 +47,9 @@
             <tc:menuCommand label="Copy"/>
             <tc:menuCommand label="Cut"/>
             <tc:menuCommand label="Paste"/>
-            <%-- code-sniplet-start id="menuItem" --%>
+            <%-- code-sniplet-start id="menuCommand" --%>
             <tc:menuCommand label="Delete"/>
-            <%-- code-sniplet-end id="menuItem" --%>
+            <%-- code-sniplet-end id="menuCommand" --%>
             <tc:menuSeparator/>
             <tc:menu label="_Delete">
               <tc:menuCommand label="As Spam"/>
