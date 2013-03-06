@@ -85,11 +85,6 @@
     </dependency>
     <dependency>
       <groupId>${project.groupId}</groupId>
-      <artifactId>tobago-taglib-extension</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>${project.groupId}</groupId>
       <artifactId>tobago-fileupload</artifactId>
       <version>${project.version}</version>
     </dependency>
@@ -194,13 +189,6 @@
                     <artifactItem>
                       <groupId>${project.groupId}</groupId>
                       <artifactId>tobago-core</artifactId>
-                      <version>${project.version}</version>
-                      <classifier>tlddoc</classifier>
-                    </artifactItem>
-
-                    <artifactItem>
-                      <groupId>${project.groupId}</groupId>
-                      <artifactId>tobago-taglib-extension</artifactId>
                       <version>${project.version}</version>
                       <classifier>tlddoc</classifier>
                     </artifactItem>
