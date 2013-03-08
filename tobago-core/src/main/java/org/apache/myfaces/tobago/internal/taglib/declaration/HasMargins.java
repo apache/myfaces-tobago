@@ -31,8 +31,8 @@ public interface HasMargins {
   @UIComponentTagAttribute(
       type = "org.apache.myfaces.tobago.layout.Measure",
       defaultCode = "getMargin() != null\n"
-          + " ? getMargin()\n"
-          + " : ((MarginValues)getRenderer(getFacesContext())).getMarginLeft(getFacesContext(), this)")
+          + " ? getMargin()\n : getRendererType() != null"
+          + " ? ((MarginValues)getRenderer(getFacesContext())).getMarginLeft(getFacesContext(), this) : Measure.ZERO")
   void setMarginLeft(String margin);
 
   /**
@@ -42,8 +42,8 @@ public interface HasMargins {
   @UIComponentTagAttribute(
       type = "org.apache.myfaces.tobago.layout.Measure",
       defaultCode = "getMargin() != null\n"
-          + " ? getMargin()\n"
-          + " : ((MarginValues)getRenderer(getFacesContext())).getMarginRight(getFacesContext(), this)")
+          + " ? getMargin()\n : getRendererType() != null"
+          + " ? ((MarginValues)getRenderer(getFacesContext())).getMarginRight(getFacesContext(), this) : Measure.ZERO")
   void setMarginRight(String margin);
 
   /**
@@ -53,8 +53,8 @@ public interface HasMargins {
   @UIComponentTagAttribute(
       type = "org.apache.myfaces.tobago.layout.Measure",
       defaultCode = "getMargin() != null\n"
-          + " ? getMargin()\n"
-          + " : ((MarginValues)getRenderer(getFacesContext())).getMarginTop(getFacesContext(), this)")
+          + " ? getMargin()\n : getRendererType() != null"
+          + " ? ((MarginValues)getRenderer(getFacesContext())).getMarginTop(getFacesContext(), this) : Measure.ZERO")
   void setMarginTop(String margin);
 
   /**
@@ -64,8 +64,8 @@ public interface HasMargins {
   @UIComponentTagAttribute(
       type = "org.apache.myfaces.tobago.layout.Measure",
       defaultCode = "getMargin() != null\n"
-          + " ? getMargin()\n"
-          + " : ((MarginValues)getRenderer(getFacesContext())).getMarginBottom(getFacesContext(), this)")
+          + " ? getMargin()\n : getRendererType() != null"
+          + " ? ((MarginValues)getRenderer(getFacesContext())).getMarginBottom(getFacesContext(), this) : Measure.ZERO")
   void setMarginBottom(String margin);
 
 }

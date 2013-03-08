@@ -30,8 +30,8 @@ public interface IsGridLayoutContainer {
    */
   @UIComponentTagAttribute(
       type = "org.apache.myfaces.tobago.layout.Measure",
-      defaultCode = "((org.apache.myfaces.tobago.renderkit.LayoutComponentRenderer)\n"
-          + "getRenderer(getFacesContext())).getBorderLeft(getFacesContext(), this)")
+      defaultCode = "getRendererType() != null ? ((org.apache.myfaces.tobago.renderkit.LayoutComponentRenderer)\n"
+          + " getRenderer(getFacesContext())).getBorderLeft(getFacesContext(), this) : Measure.ZERO")
   void setBorderLeft(String borderLeft);
 
   /**
@@ -40,8 +40,8 @@ public interface IsGridLayoutContainer {
    * @param borderRight The right border which is needed by some containers (e. g. a box).
    */
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure",
-      defaultCode = "((org.apache.myfaces.tobago.renderkit.LayoutComponentRenderer)\n"
-          + "getRenderer(getFacesContext())).getBorderRight(getFacesContext(), this)")
+      defaultCode = "getRendererType() != null ? ((org.apache.myfaces.tobago.renderkit.LayoutComponentRenderer)\n"
+          + "getRenderer(getFacesContext())).getBorderRight(getFacesContext(), this) : Measure.ZERO")
   void setBorderRight(String borderRight);
 
   /**
@@ -50,8 +50,8 @@ public interface IsGridLayoutContainer {
    * @param borderTop The top border which is needed by some containers (e. g. a box).
    */
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure",
-      defaultCode = "((org.apache.myfaces.tobago.renderkit.LayoutComponentRenderer)\n"
-          + "getRenderer(getFacesContext())).getBorderTop(getFacesContext(), this)")
+      defaultCode = "getRendererType() != null ? ((org.apache.myfaces.tobago.renderkit.LayoutComponentRenderer)\n"
+          + "getRenderer(getFacesContext())).getBorderTop(getFacesContext(), this) : Measure.ZERO")
   void setBorderTop(String borderTop);
 
   /**
@@ -60,8 +60,8 @@ public interface IsGridLayoutContainer {
    * @param borderBottom The bottom border which is needed by some containers (e. g. a box).
    */
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure",
-      defaultCode = "((org.apache.myfaces.tobago.renderkit.LayoutComponentRenderer)\n"
-          + "getRenderer(getFacesContext())).getBorderBottom(getFacesContext(), this)")
+      defaultCode = "getRendererType() != null ? ((org.apache.myfaces.tobago.renderkit.LayoutComponentRenderer)\n"
+          + "getRenderer(getFacesContext())).getBorderBottom(getFacesContext(), this) : Measure.ZERO")
   void setBorderBottom(String borderBottom);
 
   /**
@@ -71,8 +71,8 @@ public interface IsGridLayoutContainer {
    */
   @UIComponentTagAttribute(
       type = "org.apache.myfaces.tobago.layout.Measure",
-      defaultCode = "((org.apache.myfaces.tobago.renderkit.LayoutComponentRenderer)\n"
-          + "getRenderer(getFacesContext())).getPaddingLeft(getFacesContext(), this)")
+      defaultCode = "getRendererType() != null ? ((org.apache.myfaces.tobago.renderkit.LayoutComponentRenderer)\n"
+          + "getRenderer(getFacesContext())).getPaddingLeft(getFacesContext(), this) : Measure.ZERO")
   void setPaddingLeft(String paddingLeft);
 
   /**
@@ -81,8 +81,8 @@ public interface IsGridLayoutContainer {
    * @param paddingRight The right padding which is needed by some containers (e. g. a box).
    */
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure",
-      defaultCode = "((org.apache.myfaces.tobago.renderkit.LayoutComponentRenderer)\n"
-          + "getRenderer(getFacesContext())).getPaddingRight(getFacesContext(), this)")
+      defaultCode = "getRendererType() != null ? ((org.apache.myfaces.tobago.renderkit.LayoutComponentRenderer)\n"
+          + "getRenderer(getFacesContext())).getPaddingRight(getFacesContext(), this) : Measure.ZERO")
   void setPaddingRight(String paddingRight);
 
   /**
@@ -91,8 +91,8 @@ public interface IsGridLayoutContainer {
    * @param paddingTop The top padding which is needed by some containers (e. g. a box).
    */
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure",
-      defaultCode = "((org.apache.myfaces.tobago.renderkit.LayoutComponentRenderer)\n"
-          + "getRenderer(getFacesContext())).getPaddingTop(getFacesContext(), this)")
+      defaultCode = "getRendererType() != null ? ((org.apache.myfaces.tobago.renderkit.LayoutComponentRenderer)\n"
+          + "getRenderer(getFacesContext())).getPaddingTop(getFacesContext(), this) : Measure.ZERO")
   void setPaddingTop(String paddingTop);
 
   /**
@@ -101,8 +101,8 @@ public interface IsGridLayoutContainer {
    * @param paddingBottom The bottom padding which is needed by some containers (e. g. a box).
    */
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure",
-      defaultCode = "((org.apache.myfaces.tobago.renderkit.LayoutComponentRenderer)\n"
-          + "getRenderer(getFacesContext())).getPaddingBottom(getFacesContext(), this)")
+      defaultCode = "getRendererType() != null ? ((org.apache.myfaces.tobago.renderkit.LayoutComponentRenderer)\n"
+          + "getRenderer(getFacesContext())).getPaddingBottom(getFacesContext(), this) : Measure.ZERO")
   void setPaddingBottom(String paddingBottom);
 
   /**

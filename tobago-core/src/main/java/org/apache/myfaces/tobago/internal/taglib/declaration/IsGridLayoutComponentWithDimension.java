@@ -36,7 +36,8 @@ public interface IsGridLayoutComponentWithDimension extends IsGridLayoutComponen
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure",
-      defaultCode = "((LayoutComponentRenderer)getRenderer(getFacesContext())).getWidth(getFacesContext(), this)")
+      defaultCode = "getRendererType() != null ? ((LayoutComponentRenderer)"
+          + " getRenderer(getFacesContext())).getWidth(getFacesContext(), this) : Measure.ZERO")
   void setWidth(String width);
 
   /**
@@ -47,7 +48,8 @@ public interface IsGridLayoutComponentWithDimension extends IsGridLayoutComponen
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure",
-      defaultCode = "((LayoutComponentRenderer)getRenderer(getFacesContext())).getHeight(getFacesContext(), this)")
+      defaultCode = "getRendererType() != null ? ((LayoutComponentRenderer)"
+          + " getRenderer(getFacesContext())).getHeight(getFacesContext(), this) : Measure.ZERO")
   void setHeight(String height);
 
 }

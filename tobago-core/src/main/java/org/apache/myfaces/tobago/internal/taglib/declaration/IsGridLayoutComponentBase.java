@@ -61,80 +61,80 @@ public interface IsGridLayoutComponentBase {
    * @param minimumWidth The minimum width for this component.
    */
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure",
-      defaultCode = "((LayoutComponentRenderer)"
-          + "getRenderer(getFacesContext())).getMinimumWidth(getFacesContext(), this)")
+      defaultCode = "getRendererType() != null ? ((LayoutComponentRenderer) "
+          + "getRenderer(getFacesContext())).getMinimumWidth(getFacesContext(), this) : Measure.ZERO")
   void setMinimumWidth(String minimumWidth);
 
   /**
    * @param minimumHeight The minimum height for this component.
    */
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure",
-      defaultCode = "((LayoutComponentRenderer) "
-          + "getRenderer(getFacesContext())).getMinimumHeight(getFacesContext(), this)")
+      defaultCode = "getRendererType() != null ? ((LayoutComponentRenderer) "
+          + "getRenderer(getFacesContext())).getMinimumHeight(getFacesContext(), this) : Measure.ZERO")
   void setMinimumHeight(String minimumHeight);
 
   /**
    * @param preferredWidth The preferred width for this component.
    */
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure",
-      defaultCode = "((LayoutComponentRenderer) "
-          + "getRenderer(getFacesContext())).getPreferredWidth(getFacesContext(), this)")
+      defaultCode = "getRendererType() != null ? ((LayoutComponentRenderer) "
+          + "getRenderer(getFacesContext())).getPreferredWidth(getFacesContext(), this) : Measure.ZERO")
   void setPreferredWidth(String preferredWidth);
 
   /**
    * @param preferredHeight The preferred height for this component.
    */
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure",
-      defaultCode = "((LayoutComponentRenderer) "
-          + "getRenderer(getFacesContext())).getPreferredHeight(getFacesContext(), this)")
+      defaultCode = "getRendererType() != null ? ((LayoutComponentRenderer) "
+          + "getRenderer(getFacesContext())).getPreferredHeight(getFacesContext(), this) : Measure.ZERO")
   void setPreferredHeight(String preferredHeight);
 
   /**
    * @param maximumWidth The maximum width for this component.
    */
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure",
-      defaultCode = "((LayoutComponentRenderer) "
-          + "getRenderer(getFacesContext())).getMaximumWidth(getFacesContext(), this)")
+      defaultCode = "getRendererType() != null ? ((LayoutComponentRenderer) "
+          + "getRenderer(getFacesContext())).getMaximumWidth(getFacesContext(), this) : Measure.ZERO")
   void setMaximumWidth(String maximumWidth);
 
   /**
    * @param maximumHeight The maximum height for this component.
    */
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure",
-      defaultCode = "((LayoutComponentRenderer) "
-          + "getRenderer(getFacesContext())).getMaximumHeight(getFacesContext(), this)")
+      defaultCode = "getRendererType() != null ? ((LayoutComponentRenderer) "
+          + "getRenderer(getFacesContext())).getMaximumHeight(getFacesContext(), this) : Measure.ZERO")
   void setMaximumHeight(String maximumHeight);
 
   /**
    * @param marginLeft The margin at the left of this component.
    */
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure",
-      defaultCode = "((LayoutComponentRenderer) "
-          + "getRenderer(getFacesContext())).getMarginLeft(getFacesContext(), this)")
+      defaultCode = "getRendererType() != null ? ((LayoutComponentRenderer) "
+          + "getRenderer(getFacesContext())).getMarginLeft(getFacesContext(), this) : Measure.ZERO")
   void setMarginLeft(String marginLeft);
 
   /**
    * @param marginRight The margin at the right of this component.
    */
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure",
-      defaultCode = "((LayoutComponentRenderer) "
-          + "getRenderer(getFacesContext())).getMarginRight(getFacesContext(), this)")
+      defaultCode = "getRendererType() != null ? ((LayoutComponentRenderer) "
+          + "getRenderer(getFacesContext())).getMarginRight(getFacesContext(), this) : Measure.ZERO")
   void setMarginRight(String marginRight);
 
   /**
    * @param marginTop The margin at the top of this component.
    */
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure",
-      defaultCode = "((LayoutComponentRenderer) "
-          + "getRenderer(getFacesContext())).getMarginTop(getFacesContext(), this)")
+      defaultCode = "getRendererType() != null ? ((LayoutComponentRenderer) "
+          + "getRenderer(getFacesContext())).getMarginTop(getFacesContext(), this) : Measure.ZERO")
   void setMarginTop(String marginTop);
 
   /**
    * @param marginBottom The margin at the bottom of this component.
    */
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure",
-      defaultCode = "((LayoutComponentRenderer) "
-          + "getRenderer(getFacesContext())).getMarginBottom(getFacesContext(), this)")
+      defaultCode = "getRendererType() != null ? ((LayoutComponentRenderer) "
+          + "getRenderer(getFacesContext())).getMarginBottom(getFacesContext(), this) : Measure.ZERO")
   void setMarginBottom(String marginBottom);
 
   /**
