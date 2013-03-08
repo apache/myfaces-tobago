@@ -144,9 +144,13 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase implemen
     for (BankHead head : heads) {
       LayoutToken token = head.getToken();
 
-      if (token instanceof PixelLayoutToken && head.isRendered()) {
-        int pixel = ((PixelLayoutToken) token).getPixel();
-        heads[i].setCurrent(Measure.valueOf(pixel)); // XXX refactor
+      if (token instanceof PixelLayoutToken) {
+        if (head.isRendered()) {
+          int pixel = ((PixelLayoutToken) token).getPixel();
+          heads[i].setCurrent(Measure.valueOf(pixel)); // XXX refactor
+        } else {
+          heads[i].setCurrent(Measure.ZERO);
+        }
       }
 
       IntervalList intervalList = new IntervalList();
