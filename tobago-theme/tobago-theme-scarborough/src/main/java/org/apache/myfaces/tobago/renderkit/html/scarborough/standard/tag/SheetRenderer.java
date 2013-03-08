@@ -620,7 +620,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
   }
 
   private Measure getHeaderHeight(FacesContext facesContext, UISheet sheet) {
-    int rows = sheet.getHeaderGrid().getRowCount();
+    int rows = sheet.getHeaderGrid() != null ? sheet.getHeaderGrid().getRowCount() : 0;
     return sheet.isShowHeader()
         ? getResourceManager().getThemeMeasure(facesContext, sheet, "headerHeight").multiply(rows)
         : Measure.ZERO;
