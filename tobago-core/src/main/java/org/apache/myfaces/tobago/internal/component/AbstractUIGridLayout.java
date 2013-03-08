@@ -148,8 +148,7 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase implemen
 
       if (token instanceof PixelLayoutToken) {
         if (head.isRendered()) {
-          int pixel = ((PixelLayoutToken) token).getPixel();
-          heads[i].setCurrent(Measure.valueOf(pixel)); // XXX refactor
+          heads[i].setCurrent(((PixelLayoutToken) token).getMeasure());
         } else {
           heads[i].setCurrent(Measure.ZERO);
         }

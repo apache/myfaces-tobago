@@ -26,11 +26,11 @@ public final class PixelMeasure extends Measure {
 
   private static final Logger LOG = LoggerFactory.getLogger(PixelMeasure.class);
 
-  static final Measure[] PIXEL_CACHE;
+  static final PixelMeasure[] PIXEL_CACHE;
   static final int PIXEL_CACHE_MAX = 4000;
   
   static {
-    PIXEL_CACHE = new Measure[PIXEL_CACHE_MAX + 1];
+    PIXEL_CACHE = new PixelMeasure[PIXEL_CACHE_MAX + 1];
     for (int i = 0; i < PIXEL_CACHE.length; i++) {
       PIXEL_CACHE[i] = new PixelMeasure(i);
     }
@@ -42,7 +42,7 @@ public final class PixelMeasure extends Measure {
     this.pixel = pixel;
   }
 
-  static Measure pixelValueOf(int value) {
+  static PixelMeasure pixelValueOf(int value) {
     if (value >= 0 && value <= PixelMeasure.PIXEL_CACHE_MAX) {
       return PixelMeasure.PIXEL_CACHE[value];
     }

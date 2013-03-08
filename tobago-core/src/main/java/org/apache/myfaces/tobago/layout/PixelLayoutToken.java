@@ -24,13 +24,21 @@ public class PixelLayoutToken extends LayoutToken {
 
   static final String SUFFIX = "px";
 
-  private int pixel = 0;
+  private final PixelMeasure pixel;
 
   public PixelLayoutToken(int pixel) {
+    this(PixelMeasure.pixelValueOf(pixel));
+  }
+
+  public PixelLayoutToken(PixelMeasure pixel) {
     this.pixel = pixel;
   }
 
   public int getPixel() {
+    return pixel.getPixel();
+  }
+
+  public PixelMeasure getMeasure() {
     return pixel;
   }
 
@@ -56,6 +64,6 @@ public class PixelLayoutToken extends LayoutToken {
   }
 
   public int hashCode() {
-    return pixel;
+    return pixel.hashCode();
   }
 }
