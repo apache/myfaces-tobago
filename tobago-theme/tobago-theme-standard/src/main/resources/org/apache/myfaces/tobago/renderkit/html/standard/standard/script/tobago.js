@@ -1538,9 +1538,8 @@ var Tobago = {
   doEditorCommand: function(element, id) {
     LOG.debug('doEditorCommand()'); // @DEV_ONLY
     var ta = this.element(id);
-    var text = ta.value;
-    var marked = text.substring(ta.selectionStart, ta.selectionEnd);
-    LOG.debug('text = ' + marked); // @DEV_ONLY
+    var selection = ta.value.substring(ta.selectionStart, ta.selectionEnd); // @DEV_ONLY
+    LOG.debug('text = ' + selection); // @DEV_ONLY
     LOG.debug('start = ' + ta.selectionStart + ' end =' + ta.selectionEnd); // @DEV_ONLY
     ta.selectionStart--;
     ta.focus();
