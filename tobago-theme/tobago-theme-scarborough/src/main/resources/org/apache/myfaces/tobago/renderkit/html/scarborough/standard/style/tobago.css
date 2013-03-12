@@ -511,6 +511,7 @@ li.tobago-menu-markup-selected {
   border-color: #888888;
   visibility: hidden;
   position: absolute;
+  display: none;
 }
 
 .tobago-menu {

@@ -127,6 +127,10 @@ Tobago.Menu.open = function(event) {
   // close sub sub menu 
   sub.children().find("ol").css('visibility', 'hidden');
 
+  // we have to set display to none, because otherwise, the sub-menu may produce scroll-bars.
+  // we have to set the display back to block, before evaluating the positions
+  sub.css('display', 'block');
+
   // open sub menu
   if (sub.size() > 0) {
     // compute position
