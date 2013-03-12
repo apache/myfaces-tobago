@@ -130,23 +130,26 @@ Tobago.Menu.open = function(event) {
   // open sub menu
   if (sub.size() > 0) {
     // compute position
-    // XXX Todo: "compute position" is not perfect! Should be enhanced, especially for sub menus.
-    // XXX The problem is, when the menu opens at the edge of the visual window.
     var left;
     var top;
+    var page = jQuery(".tobago-page-content:first");
     if (li.hasClass('tobago-menu-markup-top')) {
       // is top menu
       left = li.offset().left;
       top = li.offset().top + li.outerHeight();
       // fix menu position, when it is outside of the current page
-      var page = jQuery(".tobago-page-content:first");
       left = Math.max(0, Math.min(left, page.outerWidth() - sub.outerWidth()));
       top = Math.max(0, Math.min(top, page.outerHeight() - sub.outerHeight()));
     } else {
       // is sub menu
-      left = li.position().left + li.outerWidth();
+      // fix menu position, when it is outside of the current page
+      if (li.offset().left + li.outerWidth() + sub.outerWidth() <= page.outerWidth()) {
+        left = li.position().left + li.outerWidth();
+      } else {
+        left = -sub.outerWidth();
+      }
       top = li.position().top - 1; // 1 = border-top
-      // XXX todo: fix sub menu position, when it is outside of the page
+      top = Math.min(top, page.outerHeight() - sub.outerHeight() + top - li.offset().top);
     }
     sub.css('left', left);
     sub.css('top', top);
