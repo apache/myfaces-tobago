@@ -27,14 +27,15 @@ import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
 import org.apache.myfaces.tobago.apt.annotation.ExtensionTag;
 import org.apache.myfaces.tobago.apt.annotation.Facet;
 import org.apache.myfaces.tobago.apt.annotation.Preliminary;
+import org.apache.myfaces.tobago.apt.annotation.SimpleTag;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
-import org.apache.myfaces.tobago.apt.annotation.SimpleTag;
 import org.apache.myfaces.tobago.apt.annotation.Taglib;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.ValidatorTag;
 import org.apache.myfaces.tobago.apt.generate.ClassUtils;
+import org.w3c.dom.Comment;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -118,10 +119,20 @@ public class TaglibGenerator extends AbstractGenerator {
 
     Element taglib = type.createTaglib(document);
     String description = processingEnv.getElementUtils().getDocComment(packageElement);
+
+    addComment("The next tags are commented because of MYFACES-3537. "
+        + "The application will not run with MyFaces before 2.0.14/2.1.8. "
+        + "This also affects WebSphere 8.5", taglib, document);
+    addComment("<description>" + description + "</description>", taglib, document);
+    addComment("<display-name>" + taglibAnnotation.displayName() + "</display-name>", taglib, document);
+
+/* XXX disabled, because of the bug explained in the comment above.
     if (description != null) {
       addLeafCDATAElement(description, "description", taglib, document);
     }
     addLeafTextElement(taglibAnnotation.displayName(), "display-name", taglib, document);
+*/
+
     type.addMisc(taglib, document, taglibAnnotation);
 
     type.addListeners(taglib, document, taglibAnnotation);
@@ -404,6 +415,11 @@ public class TaglibGenerator extends AbstractGenerator {
         throw new IllegalArgumentException("Only setter allowed found: " + simpleName);
       }
     }
+  }
+
+  protected static void addComment(String text, org.w3c.dom.Element parent, Document document) {
+    Comment comment = document.createComment(text);
+    parent.appendChild(comment);
   }
 
   protected static void addLeafTextElement(String text, String node, org.w3c.dom.Element parent, Document document) {
