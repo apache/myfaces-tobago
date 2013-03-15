@@ -218,6 +218,10 @@ public class PageRenderer extends PageRendererBase {
         writeStyle(facesContext, writer, styleFile);
       }
 
+      if (!productionMode) {
+        checkDuplicates(theme.getStyleResources(productionMode), FacesContextUtils.getStyleFiles(facesContext));
+      }
+
       String icon = page.getApplicationIcon();
       if (icon != null) {
         // XXX unify with image renderer
@@ -280,6 +284,9 @@ public class PageRenderer extends PageRendererBase {
         encodeScript(facesContext, writer, scriptFile);
       }
 
+      if (!productionMode) {
+        checkDuplicates(theme.getScriptResources(productionMode), FacesContextUtils.getScriptFiles(facesContext));
+      }
 
       writer.startJavascript();
       // onload script
@@ -430,6 +437,16 @@ public class PageRenderer extends PageRendererBase {
     style.setHeight(page.getCurrentHeight().subtract(border));
     style.setTop(border);
     writer.writeStyleAttribute(style);
+  }
+
+  private void checkDuplicates(String[] resources, Collection<String> files) {
+    for (String resource : resources) {
+      if (files.contains(resource)) {
+        throw new RuntimeException("The resource '" + resource + "' will be included twice! "
+            + "The resource is in the theme list, and explicit in the page. "
+            + "Please remove it from the page!");
+      }
+    }
   }
 
   private void writeStyle(FacesContext facesContext, TobagoResponseWriter writer, String styleFile)
