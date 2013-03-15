@@ -43,7 +43,7 @@ public class PixelLayoutToken extends LayoutToken {
   }
 
   public String toString() {
-    return pixel + SUFFIX;
+    return pixel.toString();
   }
 
   public boolean equals(Object o) {
