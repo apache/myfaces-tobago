@@ -19,13 +19,11 @@
 
 package org.apache.myfaces.tobago.example.demo;
 
-import org.apache.myfaces.tobago.util.FacesVersion;
 import org.hibernate.validator.constraints.Length;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.enterprise.context.RequestScoped;
-import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.validation.constraints.NotNull;
@@ -44,16 +42,7 @@ public class Jsr303Bean {
 
   public String action() {
     LOG.info("Action of JSR-303 called.");
-
-    final FacesContext facesContext = FacesContext.getCurrentInstance();
-
-    if (!FacesVersion.supports20()) {
-      facesContext.addMessage(null,
-          new FacesMessage(
-              FacesMessage.SEVERITY_WARN, "Bean Validation not available with JSF version less than 2.0.", null));
-    }
-
-    return facesContext.getViewRoot().getViewId();
+    return FacesContext.getCurrentInstance().getViewRoot().getViewId();
   }
 
   public String getRequired() {

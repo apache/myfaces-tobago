@@ -21,7 +21,6 @@ package org.apache.myfaces.tobago.internal.util;
 
 import org.apache.commons.collections.list.SetUniqueList;
 import org.apache.commons.collections.set.ListOrderedSet;
-import org.apache.myfaces.tobago.compat.FacesUtils;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPopup;
 
 import javax.faces.context.FacesContext;
@@ -49,48 +48,48 @@ public final class FacesContextUtils {
   private static final String TOBAGO_ACTION_ID = "org.apache.myfaces.tobago.actionId";
 
   public static boolean isAjax(FacesContext context) {
-    return FacesUtils.getFacesContextAttributes(context).containsKey(TOBAGO_AJAX);
+    return context.getAttributes().containsKey(TOBAGO_AJAX);
   }
 
   public static void setAjax(FacesContext context, boolean ajax) {
-    FacesUtils.getFacesContextAttributes(context).put(TOBAGO_AJAX, ajax);
+    context.getAttributes().put(TOBAGO_AJAX, ajax);
   }
 
   public static void setFocusId(FacesContext context, String focusId) {
-    FacesUtils.getFacesContextAttributes(context).put(TOBAGO_FOCUS_ID, focusId);
+    context.getAttributes().put(TOBAGO_FOCUS_ID, focusId);
   }
 
   public static String getFocusId(FacesContext context) {
-    return (String) FacesUtils.getFacesContextAttributes(context).get(TOBAGO_FOCUS_ID);
+    return (String) context.getAttributes().get(TOBAGO_FOCUS_ID);
   }
 
   public static void setActionId(FacesContext context, String actionId) {
-    FacesUtils.getFacesContextAttributes(context).put(TOBAGO_ACTION_ID, actionId);
+    context.getAttributes().put(TOBAGO_ACTION_ID, actionId);
   }
 
   public static String getActionId(FacesContext context) {
-    return (String) FacesUtils.getFacesContextAttributes(context).get(TOBAGO_ACTION_ID);
+    return (String) context.getAttributes().get(TOBAGO_ACTION_ID);
   }
 
 
   public static String getAjaxComponentId(FacesContext context) {
-    return (String) FacesUtils.getFacesContextAttributes(context).get(TOBAGO_AJAX_COMPONENT_ID);
+    return (String) context.getAttributes().get(TOBAGO_AJAX_COMPONENT_ID);
   }
 
   public static void setAjaxComponentId(FacesContext context, String ajaxComponentId) {
-    FacesUtils.getFacesContextAttributes(context).put(TOBAGO_AJAX_COMPONENT_ID, ajaxComponentId);
+    context.getAttributes().put(TOBAGO_AJAX_COMPONENT_ID, ajaxComponentId);
   }
 
   public static String getEnctype(FacesContext context) {
-    return (String) FacesUtils.getFacesContextAttributes(context).get(TOBAGO_ENCTYPE);
+    return (String) context.getAttributes().get(TOBAGO_ENCTYPE);
   }
 
   public static void setEnctype(FacesContext context, String enctype) {
-    FacesUtils.getFacesContextAttributes(context).put(TOBAGO_ENCTYPE, enctype);
+    context.getAttributes().put(TOBAGO_ENCTYPE, enctype);
   }
 
   public static List<String> getScriptFiles(FacesContext context) {
-    List<String> list = (List<String>) FacesUtils.getFacesContextAttributes(context).get(TOBAGO_SCRIPT_FILES);
+    List<String> list = (List<String>) context.getAttributes().get(TOBAGO_SCRIPT_FILES);
     if (list == null) {
       return Collections.EMPTY_LIST;
     }
@@ -98,17 +97,17 @@ public final class FacesContextUtils {
   }
   
   public static void addScriptFile(FacesContext context, String file) {
-    List<String> list = (List<String>) FacesUtils.getFacesContextAttributes(context).get(TOBAGO_SCRIPT_FILES);
+    List<String> list = (List<String>) context.getAttributes().get(TOBAGO_SCRIPT_FILES);
     if (list == null) {
       list = SetUniqueList.decorate(new ArrayList());
-      FacesUtils.getFacesContextAttributes(context).put(TOBAGO_SCRIPT_FILES, list);
+      context.getAttributes().put(TOBAGO_SCRIPT_FILES, list);
     }
     list.add(file);
 
   }
 
   public static Set<String> getScriptBlocks(FacesContext context) {
-     Set<String> set = (Set<String>) FacesUtils.getFacesContextAttributes(context).get(TOBAGO_SCRIPT_BLOCKS);
+    Set<String> set = (Set<String>) context.getAttributes().get(TOBAGO_SCRIPT_BLOCKS);
      if (set == null) {
       return Collections.EMPTY_SET;
     }
@@ -116,17 +115,17 @@ public final class FacesContextUtils {
   }
 
   public static void addScriptBlock(FacesContext context, String script) {
-    Set<String> set = (Set<String>) FacesUtils.getFacesContextAttributes(context).get(TOBAGO_SCRIPT_BLOCKS);
+    Set<String> set = (Set<String>) context.getAttributes().get(TOBAGO_SCRIPT_BLOCKS);
     if (set == null) {
       set = new ListOrderedSet();
-      FacesUtils.getFacesContextAttributes(context).put(TOBAGO_SCRIPT_BLOCKS, set);
+      context.getAttributes().put(TOBAGO_SCRIPT_BLOCKS, set);
     }
     set.add(script);
   }
 
 
   public static Set<String> getStyleFiles(FacesContext context) {
-    Set<String> set = (Set<String>) FacesUtils.getFacesContextAttributes(context).get(TOBAGO_STYLE_FILES);
+    Set<String> set = (Set<String>) context.getAttributes().get(TOBAGO_STYLE_FILES);
     if (set == null) {
       return Collections.EMPTY_SET;
     }
@@ -134,16 +133,16 @@ public final class FacesContextUtils {
   }
 
   public static void addStyleFile(FacesContext context, String script) {
-    Set<String> set = (Set<String>) FacesUtils.getFacesContextAttributes(context).get(TOBAGO_STYLE_FILES);
+    Set<String> set = (Set<String>) context.getAttributes().get(TOBAGO_STYLE_FILES);
     if (set == null) {
       set = new ListOrderedSet();
-      FacesUtils.getFacesContextAttributes(context).put(TOBAGO_STYLE_FILES, set);
+      context.getAttributes().put(TOBAGO_STYLE_FILES, set);
     }
     set.add(script);
   }
 
   public static Set<String> getStyleBlocks(FacesContext context) {
-    Set<String> set = (Set<String>) FacesUtils.getFacesContextAttributes(context).get(TOBAGO_STYLE_BLOCKS);
+    Set<String> set = (Set<String>) context.getAttributes().get(TOBAGO_STYLE_BLOCKS);
     if (set == null) {
       return Collections.EMPTY_SET;
     }
@@ -151,16 +150,16 @@ public final class FacesContextUtils {
   }
 
   public static void addStyleBlock(FacesContext context, String script) {
-    Set<String> set = (Set<String>) FacesUtils.getFacesContextAttributes(context).get(TOBAGO_STYLE_BLOCKS);
+    Set<String> set = (Set<String>) context.getAttributes().get(TOBAGO_STYLE_BLOCKS);
     if (set == null) {
       set = new ListOrderedSet();
-      FacesUtils.getFacesContextAttributes(context).put(TOBAGO_STYLE_BLOCKS, set);
+      context.getAttributes().put(TOBAGO_STYLE_BLOCKS, set);
     }
     set.add(script);
   }
 
   public static List<String> getOnloadScripts(FacesContext context) {
-    List<String> list = (List<String>) FacesUtils.getFacesContextAttributes(context).get(TOBAGO_ONLOAD_SCRIPTS);
+    List<String> list = (List<String>) context.getAttributes().get(TOBAGO_ONLOAD_SCRIPTS);
     if (list == null) {
       return Collections.EMPTY_LIST;
     }
@@ -169,25 +168,25 @@ public final class FacesContextUtils {
 
 
   public static void addOnloadScript(FacesContext context, String file) {
-    List<String> list = (List<String>) FacesUtils.getFacesContextAttributes(context).get(TOBAGO_ONLOAD_SCRIPTS);
+    List<String> list = (List<String>) context.getAttributes().get(TOBAGO_ONLOAD_SCRIPTS);
     if (list == null) {
       list = SetUniqueList.decorate(new ArrayList());
-      FacesUtils.getFacesContextAttributes(context).put(TOBAGO_ONLOAD_SCRIPTS, list);
+      context.getAttributes().put(TOBAGO_ONLOAD_SCRIPTS, list);
     }
     list.add(file);
   }
 
   public static void addOnloadScript(FacesContext context, int position, String file) {
-    List<String> list = (List<String>) FacesUtils.getFacesContextAttributes(context).get(TOBAGO_ONLOAD_SCRIPTS);
+    List<String> list = (List<String>) context.getAttributes().get(TOBAGO_ONLOAD_SCRIPTS);
     if (list == null) {
       list = SetUniqueList.decorate(new ArrayList());
-      FacesUtils.getFacesContextAttributes(context).put(TOBAGO_ONLOAD_SCRIPTS, list);
+      context.getAttributes().put(TOBAGO_ONLOAD_SCRIPTS, list);
     }
     list.add(position, file);
   }
 
   public static Set<String> getOnunloadScripts(FacesContext context) {
-    Set<String> set = (Set<String>) FacesUtils.getFacesContextAttributes(context).get(TOBAGO_ONUNLOAD_SCRIPTS);
+    Set<String> set = (Set<String>) context.getAttributes().get(TOBAGO_ONUNLOAD_SCRIPTS);
     if (set == null) {
       return Collections.EMPTY_SET;
     }
@@ -195,16 +194,16 @@ public final class FacesContextUtils {
   }
 
   public static void addOnunloadScript(FacesContext context, String script) {
-    Set<String> set = (Set<String>) FacesUtils.getFacesContextAttributes(context).get(TOBAGO_ONUNLOAD_SCRIPTS);
+    Set<String> set = (Set<String>) context.getAttributes().get(TOBAGO_ONUNLOAD_SCRIPTS);
     if (set == null) {
       set = new ListOrderedSet();
-      FacesUtils.getFacesContextAttributes(context).put(TOBAGO_ONUNLOAD_SCRIPTS, set);
+      context.getAttributes().put(TOBAGO_ONUNLOAD_SCRIPTS, set);
     }
     set.add(script);
   }
 
   public static Set<String> getOnexitScripts(FacesContext context) {
-    Set<String> set = (Set<String>) FacesUtils.getFacesContextAttributes(context).get(TOBAGO_ONEXIT_SCRIPTS);
+    Set<String> set = (Set<String>) context.getAttributes().get(TOBAGO_ONEXIT_SCRIPTS);
     if (set == null) {
       return Collections.EMPTY_SET;
     }
@@ -212,16 +211,16 @@ public final class FacesContextUtils {
   }
 
   public static void addOnexitScript(FacesContext context, String script) {
-    Set<String> set = (Set<String>) FacesUtils.getFacesContextAttributes(context).get(TOBAGO_ONEXIT_SCRIPTS);
+    Set<String> set = (Set<String>) context.getAttributes().get(TOBAGO_ONEXIT_SCRIPTS);
     if (set == null) {
       set = new ListOrderedSet();
-      FacesUtils.getFacesContextAttributes(context).put(TOBAGO_ONEXIT_SCRIPTS, set);
+      context.getAttributes().put(TOBAGO_ONEXIT_SCRIPTS, set);
     }
     set.add(script);
   }
 
   public static Set<String> getOnsubmitScripts(FacesContext context) {
-    Set<String> set = (Set<String>) FacesUtils.getFacesContextAttributes(context).get(TOBAGO_ONSUBMIT_SCRIPTS);
+    Set<String> set = (Set<String>) context.getAttributes().get(TOBAGO_ONSUBMIT_SCRIPTS);
     if (set == null) {
       return Collections.EMPTY_SET;
     }
@@ -229,21 +228,21 @@ public final class FacesContextUtils {
   }
 
   public static void addOnsubmitScript(FacesContext context, String script) {
-    Set<String> set = (Set<String>) FacesUtils.getFacesContextAttributes(context).get(TOBAGO_ONSUBMIT_SCRIPTS);
+    Set<String> set = (Set<String>) context.getAttributes().get(TOBAGO_ONSUBMIT_SCRIPTS);
     if (set == null) {
       set = new ListOrderedSet();
-      FacesUtils.getFacesContextAttributes(context).put(TOBAGO_ONSUBMIT_SCRIPTS, set);
+      context.getAttributes().put(TOBAGO_ONSUBMIT_SCRIPTS, set);
     }
     set.add(script);
   }
 
   public static void clearMenuAcceleratorScripts(FacesContext context) {
-    Set<String> set = (Set<String>) FacesUtils.getFacesContextAttributes(context).get(TOBAGO_MENU_ACCELERATORS);
+    Set<String> set = (Set<String>) context.getAttributes().get(TOBAGO_MENU_ACCELERATORS);
     set.clear();
   }
 
   public static Set<String> getMenuAcceleratorScripts(FacesContext context) {
-    Set<String> set = (Set<String>) FacesUtils.getFacesContextAttributes(context).get(TOBAGO_MENU_ACCELERATORS);
+    Set<String> set = (Set<String>) context.getAttributes().get(TOBAGO_MENU_ACCELERATORS);
     if (set == null) {
       return Collections.EMPTY_SET;
     }
@@ -251,16 +250,16 @@ public final class FacesContextUtils {
   }
 
   public static void addMenuAcceleratorScript(FacesContext context, String script) {
-    Set<String> set = (Set<String>) FacesUtils.getFacesContextAttributes(context).get(TOBAGO_MENU_ACCELERATORS);
+    Set<String> set = (Set<String>) context.getAttributes().get(TOBAGO_MENU_ACCELERATORS);
     if (set == null) {
       set = new ListOrderedSet();
-      FacesUtils.getFacesContextAttributes(context).put(TOBAGO_MENU_ACCELERATORS, set);
+      context.getAttributes().put(TOBAGO_MENU_ACCELERATORS, set);
     }
     set.add(script);
   }
 
   public static Set<AbstractUIPopup> getPopups(FacesContext context) {
-    Set<AbstractUIPopup> set = (Set<AbstractUIPopup>) FacesUtils.getFacesContextAttributes(context).get(TOBAGO_POPUPS);
+    Set<AbstractUIPopup> set = (Set<AbstractUIPopup>) context.getAttributes().get(TOBAGO_POPUPS);
     if (set == null) {
       return Collections.EMPTY_SET;
     }
@@ -268,10 +267,10 @@ public final class FacesContextUtils {
   }
 
   public static void addPopup(FacesContext context, AbstractUIPopup popup) {
-    Set<AbstractUIPopup> set = (Set<AbstractUIPopup>) FacesUtils.getFacesContextAttributes(context).get(TOBAGO_POPUPS);
+    Set<AbstractUIPopup> set = (Set<AbstractUIPopup>) context.getAttributes().get(TOBAGO_POPUPS);
     if (set == null) {
       set = new ListOrderedSet();
-      FacesUtils.getFacesContextAttributes(context).put(TOBAGO_POPUPS, set);
+      context.getAttributes().put(TOBAGO_POPUPS, set);
     }
     set.add(popup);
   }

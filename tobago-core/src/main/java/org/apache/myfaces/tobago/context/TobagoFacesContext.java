@@ -22,7 +22,6 @@ package org.apache.myfaces.tobago.context;
 import org.apache.commons.collections.list.SetUniqueList;
 import org.apache.commons.collections.set.ListOrderedSet;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPopup;
-import org.apache.myfaces.tobago.util.FacesVersion;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -74,22 +73,6 @@ public class TobagoFacesContext extends FacesContextWrapper {
     onsubmitScripts = new ListOrderedSet();
     popups = new ListOrderedSet();
   }
-
-/*  TBD: if we support JSF 1.2 whe have to do something here.*/
-  static {
-    if (!FacesVersion.supports20()) {
-      LOG.error("JSF 1.2 is currently not supported.");
-    }
-  }
-
-/* TBD: if we support JSF 1.2 whe have to do something here.
-  public final Map<Object, Object> getAttributes() {
-    if (attributes == null) {
-      attributes = new HashMap<Object, Object>();
-    }
-    return attributes;
-  }
-*/
 
   public boolean isAjax() {
     return ajax;

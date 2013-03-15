@@ -22,7 +22,6 @@ package org.apache.myfaces.tobago.internal.lifecycle;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPage;
 import org.apache.myfaces.tobago.portlet.PortletUtils;
-import org.apache.myfaces.tobago.renderkit.TobagoResponseStateManager;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.Secret;
 import org.slf4j.Logger;
@@ -39,6 +38,7 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
 import javax.faces.event.PhaseId;
+import javax.faces.render.ResponseStateManager;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.Iterator;
@@ -140,7 +140,7 @@ class RestoreViewExecutor implements PhaseExecutor {
 
   private boolean isPostBack(FacesContext facesContext) {
     Map requestParameterMap = facesContext.getExternalContext().getRequestParameterMap();
-    return requestParameterMap.containsKey(TobagoResponseStateManager.VIEW_STATE_PARAM);
+    return requestParameterMap.containsKey(ResponseStateManager.VIEW_STATE_PARAM);
   }
 
   private boolean isSessionSecretValid(FacesContext facesContext) {
@@ -164,7 +164,7 @@ class RestoreViewExecutor implements PhaseExecutor {
 
     String viewId = externalContext.getRequestPathInfo(); // getPathInfo
     if (viewId == null) {
-      // No extra path info found, so it is propably extension mapping
+      // No extra path info found, so it is probably extension mapping
       viewId = externalContext.getRequestServletPath(); // getServletPath
       if (viewId == null) {
         String msg = "RequestServletPath is null, cannot determine viewId of current page.";

@@ -20,9 +20,6 @@
 package org.apache.myfaces.tobago.compat;
 
 import org.apache.myfaces.tobago.event.TabChangeSource;
-import org.apache.myfaces.tobago.util.FacesVersion;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.faces.component.ActionSource;
 import javax.faces.component.ContextCallback;
@@ -39,8 +36,6 @@ import java.util.Map;
 
 @SuppressWarnings("deprecation")
 public class FacesUtils {
-
-  private static final Logger LOG = LoggerFactory.getLogger(FacesUtilsEL.class);
 
   /**
    * @deprecated since 1.6.0
@@ -215,12 +210,12 @@ public class FacesUtils {
       FacesUtilsEL.addBindingOrExpressionResetActionListener(actionSource, bindingOrExpression);
   }
 
-  public static Map getFacesContextAttributes(FacesContext context) {
-    if (FacesVersion.supports20()) {
-      return context.getAttributes();
-    } else {
-      return context.getExternalContext().getRequestMap();
-    }
+  /**
+   * @deprecated since 1.6.0 Please call facesContext.getAttributes() directly.
+   */
+  @Deprecated
+  public static Map getFacesContextAttributes(FacesContext facesContext) {
+    return facesContext.getAttributes();
   }
 
   /**

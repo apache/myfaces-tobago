@@ -25,7 +25,6 @@ import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.context.Theme;
 import org.apache.myfaces.tobago.internal.util.Deprecation;
 import org.apache.myfaces.tobago.internal.util.JndiUtils;
-import org.apache.myfaces.tobago.util.FacesVersion;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -238,26 +237,22 @@ public class TobagoConfigImpl extends TobagoConfig {
   }
 
   public synchronized void initDefaultValidatorInfo() {
-    if (FacesVersion.supports20()) {
-      final FacesContext facesContext = FacesContext.getCurrentInstance();
-      if (facesContext != null) {
-        try {
-          final Application application = facesContext.getApplication();
-          final Map<String, String> map;
-          map = (Map<String, String>) PropertyUtils.getProperty(application, "defaultValidatorInfo");
-          if (application != null && map.size() > 0) {
-            defaultValidatorInfo = Collections.unmodifiableMap(map);
-          } else {
-            defaultValidatorInfo = Collections.emptyMap();
-          }
-        } catch (Exception e) {
-          // should not happen
-          LOG.error("Can't initialize default validators.", e);
+    final FacesContext facesContext = FacesContext.getCurrentInstance();
+    if (facesContext != null) {
+      try {
+        final Application application = facesContext.getApplication();
+        final Map<String, String> map;
+        map = (Map<String, String>) PropertyUtils.getProperty(application, "defaultValidatorInfo");
+        if (application != null && map.size() > 0) {
+          defaultValidatorInfo = Collections.unmodifiableMap(map);
+        } else {
           defaultValidatorInfo = Collections.emptyMap();
         }
+      } catch (Exception e) {
+        // should not happen
+        LOG.error("Can't initialize default validators.", e);
+        defaultValidatorInfo = Collections.emptyMap();
       }
-    } else {
-      defaultValidatorInfo = Collections.emptyMap();
     }
   }
 
