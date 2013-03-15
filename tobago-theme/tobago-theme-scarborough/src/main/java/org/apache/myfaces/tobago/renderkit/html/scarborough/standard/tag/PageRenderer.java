@@ -521,9 +521,9 @@ public class PageRenderer extends PageRendererBase {
     writer.writeStyleAttribute(style);
   }
 
-  private void checkDuplicates(String[] scriptResources, Collection<String> scriptFiles) {
-    for (String resource : scriptResources) {
-      if (scriptFiles.contains(resource)) {
+  private void checkDuplicates(String[] resources, Collection<String> files) {
+    for (String resource : resources) {
+      if (files.contains(resource)) {
         throw new RuntimeException("The resource '" + resource + "' will be included twice! "
             + "The resource is in the theme list, and explicit in the page. "
             + "Please remove it from the page!");
