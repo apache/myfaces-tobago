@@ -28,7 +28,7 @@ public class PixelLayoutToken extends LayoutToken {
 
   public PixelLayoutToken(int pixel) {
     // here we cannot use this(PixelMeasure.pixelValueOf(pixel)), because of class initialization problems
-    this((PixelMeasure)Measure.valueOf(pixel));
+    this((PixelMeasure) Measure.valueOf(pixel));
   }
 
   public PixelLayoutToken(PixelMeasure pixel) {
