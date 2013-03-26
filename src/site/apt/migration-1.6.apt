@@ -23,6 +23,15 @@ Migration from Tobago 1.5 to 1.6 (work in progress)
 
    The most changes are in the tree API, which is more easy to use, but also more flexible.
 
+Artifacts (JAR-Files)
+
+  The following JAR files are no longer needed. They have to be removed from the project
+  (depends on your build system).
+
+  * tobago-taglib-extension-\<version\>.jar
+
+  * tobago-facelets-\<version\>.jar
+
 Java-API
 
    The class org.apache.myfaces.tobago.model.TreeState which has been deprecated in 1.5.x is
