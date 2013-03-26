@@ -84,12 +84,10 @@ public class AjaxUtils {
       }
       return ajaxComponents;
     }
-    return Collections.EMPTY_SET;
+    return Collections.emptySet();
   }
 
   /**
-   *
-   * @param context
    * @return true if a UIMessage component has added to renderedPartially
    */
   public static boolean addUIMessagesToRenderedPartially(FacesContext context) {

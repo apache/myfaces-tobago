@@ -72,7 +72,7 @@ public abstract class AbstractTobagoTestBase extends AbstractJsfTestCase {
     // Tobago specific extensions
 
     TobagoConfigImpl tobagoConfig = new TobagoConfigImpl();
-    Theme theme = new MockTheme("default", "Default Mock Theme", Collections.EMPTY_LIST);
+    Theme theme = new MockTheme("default", "Default Mock Theme", Collections.<Theme>emptyList());
     Theme one = new MockTheme("one", "Mock Theme One", Arrays.asList(theme));
     Map<String, Theme> availableThemes = new HashMap<String, Theme>();
     availableThemes.put(theme.getName(), theme);
