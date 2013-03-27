@@ -22,18 +22,23 @@ package org.apache.myfaces.tobago.example.demo.info;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Named;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class ActivityList {
+@Named
+@ApplicationScoped
+public class ActivityList implements Serializable {
 
   private static final Logger LOG = LoggerFactory.getLogger(ActivityList.class);
 
-  public static final String NAME = "activities";
-
+  // XXX using the session id as key is not good for applications with login, because the container should change
+  // XXX the session id while the login process.
   private Map<String, Activity> data = new ConcurrentHashMap<String, Activity>();
 
   public void add(Activity activity) {
@@ -43,7 +48,7 @@ public class ActivityList {
 
   public void remove(String sessionId) {
     LOG.info("Removing session id: " + sessionId);
-    final Activity activity = data.remove(sessionId);
+    data.remove(sessionId);
   }
 
   public List<Activity> getValues() {
@@ -53,11 +58,11 @@ public class ActivityList {
     return result;
   }
 
-  public void jsfRequest(String sessionId) {
-    data.get(sessionId).jsfRequest();
+  public void executeJsfRequest(String sessionId) {
+    data.get(sessionId).executeJsfRequest();
   }
 
-  public void ajaxRequest(String sessionId) {
-    data.get(sessionId).ajaxRequest();
+  public void executeAjaxRequest(String sessionId) {
+    data.get(sessionId).executeAjaxRequest();
   }
 }

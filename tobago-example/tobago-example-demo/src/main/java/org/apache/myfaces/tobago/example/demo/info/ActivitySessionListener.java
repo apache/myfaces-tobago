@@ -19,26 +19,25 @@
 
 package org.apache.myfaces.tobago.example.demo.info;
 
-import javax.servlet.ServletContext;
+import org.apache.myfaces.extensions.cdi.core.api.provider.BeanManagerProvider;
+
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 
 public class ActivitySessionListener implements HttpSessionListener {
 
-  private static final String SESSION_MAP = ActivitySessionListener.class.getName() + ".SESSION_MAP";
-
   public void sessionCreated(HttpSessionEvent event) {
     final HttpSession session = event.getSession();
-    final ServletContext application = session.getServletContext();
-    final ActivityList activityList = (ActivityList) application.getAttribute(ActivityList.NAME);
+    final ActivityList activityList = BeanManagerProvider.getInstance().getContextualReference(ActivityList.class);
+
     activityList.add(new Activity(session));
   }
 
   public void sessionDestroyed(HttpSessionEvent event) {
     final HttpSession session = event.getSession();
-    final ServletContext application = session.getServletContext();
-    final ActivityList activityList = (ActivityList) application.getAttribute(ActivityList.NAME);
+    final ActivityList activityList = BeanManagerProvider.getInstance().getContextualReference(ActivityList.class);
+
     activityList.remove(session.getId());
   }
 }

@@ -20,9 +20,10 @@
 package org.apache.myfaces.tobago.example.demo.info;
 
 import javax.servlet.http.HttpSession;
+import java.io.Serializable;
 import java.util.Date;
 
-public class Activity {
+public class Activity implements Serializable {
 
   private String sessionId;
 
@@ -37,11 +38,11 @@ public class Activity {
     this.creationDate = new Date(session.getCreationTime());
   }
 
-  public void jsfRequest() {
+  public void executeJsfRequest() {
     jsfRequest++;
   }
 
-  public void ajaxRequest() {
+  public void executeAjaxRequest() {
       ajaxRequest++;
   }
 

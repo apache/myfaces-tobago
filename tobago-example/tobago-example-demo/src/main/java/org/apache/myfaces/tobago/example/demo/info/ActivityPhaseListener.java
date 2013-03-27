@@ -19,34 +19,39 @@
 
 package org.apache.myfaces.tobago.example.demo.info;
 
+import org.apache.myfaces.extensions.cdi.core.api.Advanced;
+import org.apache.myfaces.extensions.cdi.jsf.api.listener.phase.JsfPhaseListener;
 import org.apache.myfaces.tobago.ajax.AjaxUtils;
-import org.apache.myfaces.tobago.util.VariableResolverUtils;
 
 import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseEvent;
 import javax.faces.event.PhaseId;
 import javax.faces.event.PhaseListener;
+import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
+@Advanced
+@JsfPhaseListener
 public class ActivityPhaseListener implements PhaseListener {
+
+  @Inject
+  private ActivityList activityList;
 
   public ActivityPhaseListener() {
   }
 
-  public void afterPhase(PhaseEvent event) {
-  }
-
   public void beforePhase(PhaseEvent event) {
     final FacesContext facesContext = event.getFacesContext();
-    final ActivityList activityList
-        = (ActivityList) VariableResolverUtils.resolveVariable(facesContext, ActivityList.NAME);
     String sessionId = ((HttpSession) facesContext.getExternalContext().getSession(true)).getId();
 
     if (AjaxUtils.isAjaxRequest(facesContext)) {
-      activityList.ajaxRequest(sessionId);
+      activityList.executeAjaxRequest(sessionId);
     } else {
-      activityList.jsfRequest(sessionId);
+      activityList.executeJsfRequest(sessionId);
     }
+  }
+
+  public void afterPhase(PhaseEvent event) {
   }
 
   public PhaseId getPhaseId() {
