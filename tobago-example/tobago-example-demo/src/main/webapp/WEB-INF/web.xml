@@ -95,30 +95,30 @@
   <listener>
     <listener-class>org.apache.myfaces.tobago.example.demo.info.ActivitySessionListener</listener-class>
   </listener>
-  <listener>
-    <listener-class>org.apache.myfaces.tobago.example.demo.info.ActivityServletContextListener</listener-class>
-  </listener>
 
   <!--  workaround (e.g. for Oracle AS 10.1.2.0.0)-->
+  <!--
   <listener>
     <listener-class>org.apache.myfaces.tobago.webapp.TobagoServletContextListener</listener-class>
   </listener>
-  <!-- activate this for jetty -->
+  -->
+
+  <!-- activate this for some containers -->
   <!--
   <listener>
     <listener-class>org.apache.myfaces.webapp.StartupServletContextListener</listener-class>
   </listener>
   -->
 
-<!--
+<!-- this is not needed for websphere 8.5 -->
   <listener>
     <listener-class>org.apache.webbeans.servlet.WebBeansConfigurationListener</listener-class>
   </listener>
--->
 
 <!-- this is an alternative to the WebBeansConfigurationListener
      you need it e.g. for Tomcat 5.5 or WebSphere 6.1 (see TOBAGO-1043)
 -->
+<!--
   <filter>
       <filter-name>webbeans</filter-name>
       <filter-class>org.apache.webbeans.servlet.WebBeansConfigurationFilter</filter-class>
@@ -133,12 +133,6 @@
 
   <listener>
     <listener-class>org.apache.webbeans.servlet.WebBeansConfigurationHttpSessionListener</listener-class>
-  </listener>
-
-
-<!--
-  <listener>
-    <listener-class>org.apacheExtras.myfaces.codi.addon.openwebbeans.startup.OpenWebBeansAwareConfigurationListener</listener-class>
   </listener>
 -->
 

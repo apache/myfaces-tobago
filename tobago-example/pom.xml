@@ -41,55 +41,12 @@
         <groupId>org.mortbay.jetty</groupId>
         <artifactId>jetty-maven-plugin</artifactId>
       </plugin>
-<!--
-      <plugin>
-      &lt;!&ndash; install the liberty server zip into the local maven repo &ndash;&gt;
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-install-plugin</artifactId>
-          <version>2.2</version>
-          <executions>
-              <execution>
-                  <id>install-liberty-to-repo</id>
-                  <phase>process-resources</phase>
-                  <goals>
-                      <goal>install-file</goal>
-                  </goals>
-                  <configuration>
-                      <file>/Volumes/C/IBM/IMShared/native/wlp_1.0.1.cl0120121004-1949.zip</file>
-                      <groupId>com.ibm.ws.liberty.test</groupId>
-                      <artifactId>liberty-test-server</artifactId>
-                      <version>1.0</version>
-                      <packaging>zip</packaging>
-                  </configuration>
-               </execution>
-      </executions>
-      </plugin>
--->
-      <!-- install the liberty server as maven artifact -->
-<!--
+      <!-- The usage is documented in the FAQ -->
       <plugin>
         <groupId>com.ibm.websphere.wlp.maven.plugins</groupId>
         <artifactId>liberty-maven-plugin</artifactId>
         <version>1.0</version>
         <executions>
-          <execution>
-            <id>install-liberty-server</id>
-            <phase>compile</phase>
-            <goals>
-              <goal>install-server</goal>
-            </goals>
-          </execution>
-          <execution>
-            <id>create-liberty-server</id>
-            <phase>pre-integration-test</phase>
-            <goals>
-              <goal>create-server</goal>
-            </goals>
-            <configuration>
-              <serverHome>${project.build.directory}/wlp</serverHome>
-              <serverName>test</serverName>
-            </configuration>
-          </execution>
           <execution>
             <id>deployapp</id>
             <phase>pre-integration-test</phase>
@@ -99,17 +56,11 @@
           </execution>
         </executions>
         <configuration>
-          <assemblyArtifact>
-            <groupId>com.ibm.ws.liberty.test</groupId>
-            <artifactId>liberty-test-server</artifactId>
-            <version>1.0</version>
-            <type>zip</type>
-          </assemblyArtifact>
+          <serverHome>${wlp.directory}/wlp</serverHome>
           <appArchive>${project.build.directory}/${project.build.finalName}.war</appArchive>
-          <serverName>test</serverName>
+          <serverName>tobago</serverName>
         </configuration>
       </plugin>
--->
     </plugins>
   </build>
 
@@ -124,9 +75,8 @@
       <id>codehaus-snapshots</id>
       <url>http://snapshots.repository.codehaus.org/</url>
     </pluginRepository>
-<!--
     <pluginRepository>
-      &lt;!&ndash; For IBM Websphere &ndash;&gt;
+      <!-- For IBM Websphere Liberty Profile (WLP) -->
       <id>Liberty</id>
       <name>Liberty Repository</name>
       <url>http://public.dhe.ibm.com/ibmdl/export/pub/software/websphere/wasdev/maven/repository/</url>
@@ -138,7 +88,6 @@
         <enabled>true</enabled>
       </releases>
     </pluginRepository>
--->
   </pluginRepositories>
 
   <dependencies>
@@ -255,11 +204,13 @@
           <groupId>org.apache.myfaces.core</groupId>
           <artifactId>myfaces-api</artifactId>
           <version>${myfaces20.version}</version>
+          <scope>provided</scope>
         </dependency>
         <dependency>
           <groupId>org.apache.myfaces.core</groupId>
           <artifactId>myfaces-impl</artifactId>
           <version>${myfaces20.version}</version>
+          <scope>provided</scope>
         </dependency>
       </dependencies>
     </profile>

@@ -319,5 +319,93 @@ mvn selenium:start-server</source>
         </p>
       </answer>
     </faq>
+    <faq id="liberty">
+      <question>How can I run the Tobago demo with WebSphere Liberty Profile (WLP) from Maven?</question>
+      <answer>
+        <p>
+          <b>Please use at least Tobago 1.6 for this guidance (in this version the pom.xml files are prepared).</b>
+        </p>
+        <p>
+          You will need to do the following steps for preparation:
+        </p>
+        <ul>
+          <li>Download the server like:
+            <source>wlp-developers-8.5.next.beta.jar</source>
+            from
+            <a href="https://www.ibm.com/developerworks/mydeveloperworks/blogs/wasdev/entry/download?lang=en">IBM</a>
+            (Todo: check if this is the correct version)
+          </li>
+          <li>
+            Unpack the server anywhere in you file system, e.g. like this
+            <source>mkdir /opt/wlp-developers-8.5.next.beta
+cd /opt/wlp-developers-8.5.next.beta
+java -jar ~/Downloads/wlp-developers-8.5.next.beta.jar
+            </source>
+          </li>
+          <li>
+            Adding some features to the wlp/templates/servers/defaultServer/server.xml
+            <source>&lt;feature&gt;cdi-1.0&lt;/feature&gt;
+&lt;feature&gt;servlet-3.0&lt;/feature&gt;
+&lt;feature&gt;jsf-2.0&lt;/feature&gt;</source>
+          </li>
+          <li>
+            Adding your server home to a property in the settings.xml of Maven
+            <source>&lt;wlp.directory&gt;/opt/wlp-developers-8.5.next.beta&lt;/wlp.directory&gt;</source>
+          </li>
+        </ul>
+        <p>
+          After these steps you can start/stop the server and deploy an built artifact.
+          For these steps, you need to be in a Tobago example directory.
+          <source>cd tobago-examples/tobago-example-demo</source>
+        </p>
+        <ul>
+          <li>
+            Start the server
+            <source>mvn liberty:start-server</source>
+          </li>
+          <li>
+            Build an artifact (you need the "provided" property, because JSF and OWB comes from the server)
+            <source>mvn package -Djsf=provided</source>
+          </li>
+          <li>
+            Deploy an artifact
+            <source>mvn liberty:deploy</source>
+          </li>
+          <li>
+            You will find the web application under this URL
+            <source>http://localhost:9080/tobago-example-demo/</source>
+          </li>
+          <li>
+            Redeploy an artifact: The same as deploy.
+          </li>
+          <li>
+            Stop the server
+            <source>mvn liberty:stop-server</source>
+          </li>
+        </ul>
+        <p>
+          The server starts very fast and is simple to use (very different from the full WebSphere installation).
+          The log files you will find here:
+          <source>cd /opt/wlp-developers-8.5.next.beta/wlp/usr/servers/tobago/logs/</source>
+          Sometime you may need to the clean the server, in particular when you are changing JAR dependencies.
+          For doing that
+        </p>
+        <ul>
+          <li>
+            Stop the server
+          </li>
+          <li>
+            Remove the whole concrete server installation
+            <source>rm -r /opt/wlp-developers-8.5.next.beta/wlp/usr/servers/tobago</source>
+          </li>
+          <li>
+            Start the server
+          </li>
+          <li>
+            Deploy again
+          </li>
+        </ul>
+      </answer>
+    </faq>
   </part>
 </faqs>

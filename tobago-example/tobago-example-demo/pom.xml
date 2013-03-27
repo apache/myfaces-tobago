@@ -125,52 +125,31 @@
       <artifactId>geronimo-interceptor_1.1_spec</artifactId>
       <version>1.0</version>
     </dependency>
-    <dependency>
-      <groupId>org.apache.openwebbeans</groupId>
-      <artifactId>openwebbeans-impl</artifactId>
-      <version>${openwebbeans.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>javassist</groupId>
-      <artifactId>javassist</artifactId>
-      <version>3.12.1.GA</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.openwebbeans</groupId>
-      <artifactId>openwebbeans-spi</artifactId>
-      <version>${openwebbeans.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.openwebbeans</groupId>
-      <artifactId>openwebbeans-web</artifactId>
-      <version>${openwebbeans.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.openwebbeans</groupId>
-      <artifactId>openwebbeans-resource</artifactId>
-      <version>${openwebbeans.version}</version>
-    </dependency>
 
+    <!-- Codi -->
     <dependency>
       <groupId>org.apache.myfaces.extensions.cdi.core</groupId>
       <artifactId>myfaces-extcdi-core-api</artifactId>
       <version>${myfaces-extcdi.version}</version>
       <scope>compile</scope>
     </dependency>
-
     <dependency>
       <groupId>org.apache.myfaces.extensions.cdi.core</groupId>
       <artifactId>myfaces-extcdi-core-impl</artifactId>
       <version>${myfaces-extcdi.version}</version>
       <scope>runtime</scope>
     </dependency>
-
-<!-- which repository-->
     <dependency>
-      <groupId>org.apacheExtras.myfaces.codi.addon</groupId>
-      <artifactId>controlled-owb-bootstrapping-addon</artifactId>
-      <version>1.0.0</version>
+      <groupId>org.apache.myfaces.extensions.cdi.modules</groupId>
+      <artifactId>myfaces-extcdi-jsf20-module-api</artifactId>
+      <version>${myfaces-extcdi.version}</version>
       <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.myfaces.extensions.cdi.modules</groupId>
+      <artifactId>myfaces-extcdi-jsf20-module-impl</artifactId>
+      <version>${myfaces-extcdi.version}</version>
+      <scope>runtime</scope>
     </dependency>
 
     <dependency>
@@ -251,23 +230,6 @@
       <classifier>tests</classifier>
       <scope>test</scope>
     </dependency>
-<!-- needed for Tomcat 5.5, TODO: make a JavaEE4 profile
-    <dependency>
-      <groupId>javax.el</groupId>
-      <artifactId>el-api</artifactId>
-      <version>1.0</version>
-      <scope>compile</scope>
-    </dependency>
--->
-    <!--dependency>
-      <groupId>com.sun.el</groupId>
-      <artifactId>el-ri</artifactId>
-      <version>1.0</version>
-      <scope>test</scope-->
-<!-- needed for Tomcat 5.5, TODO: make a JavaEE4 profile
-      <scope>compile</scope>
--->
-    <!--/dependency-->
 
     <dependency>
       <groupId>org.apache.geronimo.specs</groupId>
@@ -284,18 +246,18 @@
 
   </dependencies>
 
-  <!-- XXX repo für the controlled bootstrapping -->
-  <repositories>
-    <repository>
-      <id>googlecode.com</id>
-      <url>https://os890-m2-repository.googlecode.com/svn/tags/apache-extras</url>
-      <snapshots>
-        <enabled>false</enabled>
-      </snapshots>
-    </repository>
-  </repositories>
-
   <profiles>
+
+    <profile>
+      <id>jsf-provided</id>
+      <!-- use this profile for containers that provide JSF and OWB e.g. WebSphere 8.5 -->
+      <activation>
+        <property>
+          <name>jsf</name>
+          <value>provided</value>
+        </property>
+      </activation>
+    </profile>
 
     <profile>
       <id>myfaces-2.0</id>
@@ -305,33 +267,39 @@
         </property>
       </activation>
       <dependencies>
+
+        <!-- OWB -->
         <dependency>
           <groupId>org.apache.openwebbeans</groupId>
           <artifactId>openwebbeans-jsf</artifactId>
           <version>${openwebbeans.version}</version>
         </dependency>
-
         <dependency>
-          <groupId>org.apache.myfaces.extensions.cdi.modules</groupId>
-          <artifactId>myfaces-extcdi-jsf20-module-api</artifactId>
-          <version>${myfaces-extcdi.version}</version>
-          <scope>compile</scope>
+          <groupId>org.apache.openwebbeans</groupId>
+          <artifactId>openwebbeans-web</artifactId>
+          <version>${openwebbeans.version}</version>
+        </dependency>
+        <dependency>
+          <groupId>org.apache.openwebbeans</groupId>
+          <artifactId>openwebbeans-resource</artifactId>
+          <version>${openwebbeans.version}</version>
         </dependency>
 
+        <!-- Codi for JavaEE5 -->
         <dependency>
-          <groupId>org.apache.myfaces.extensions.cdi.modules</groupId>
-          <artifactId>myfaces-extcdi-jsf20-module-impl</artifactId>
+          <groupId>org.apache.myfaces.extensions.cdi.modules.jee5-support</groupId>
+          <artifactId>myfaces-extcdi-jee5-openwebbeans-support</artifactId>
           <version>${myfaces-extcdi.version}</version>
           <scope>runtime</scope>
         </dependency>
-<!-- for JSF 2.0 and Bean Validation (JSR-303)  -->
+
+        <!-- for JSF 2.0 and Bean Validation (JSR-303)  -->
         <dependency>
           <groupId>javax.el</groupId>
           <artifactId>el-api</artifactId>
           <version>2.2</version>
           <scope>compile</scope>
         </dependency>
-
         <dependency>
           <groupId>org.glassfish.web</groupId>
           <artifactId>el-impl</artifactId>
@@ -350,26 +318,33 @@
         </property>
       </activation>
       <dependencies>
+
+        <!-- OWB -->
         <dependency>
           <groupId>org.apache.openwebbeans</groupId>
           <artifactId>openwebbeans-jsf</artifactId>
           <version>${openwebbeans.version}</version>
         </dependency>
-
         <dependency>
-          <groupId>org.apache.myfaces.extensions.cdi.modules</groupId>
-          <artifactId>myfaces-extcdi-jsf20-module-api</artifactId>
-          <version>${myfaces-extcdi.version}</version>
-          <scope>compile</scope>
+          <groupId>org.apache.openwebbeans</groupId>
+          <artifactId>openwebbeans-web</artifactId>
+          <version>${openwebbeans.version}</version>
+        </dependency>
+        <dependency>
+          <groupId>org.apache.openwebbeans</groupId>
+          <artifactId>openwebbeans-resource</artifactId>
+          <version>${openwebbeans.version}</version>
         </dependency>
 
+        <!-- Codi for JavaEE5 -->
         <dependency>
-          <groupId>org.apache.myfaces.extensions.cdi.modules</groupId>
-          <artifactId>myfaces-extcdi-jsf20-module-impl</artifactId>
+          <groupId>org.apache.myfaces.extensions.cdi.modules.jee5-support</groupId>
+          <artifactId>myfaces-extcdi-jee5-openwebbeans-support</artifactId>
           <version>${myfaces-extcdi.version}</version>
           <scope>runtime</scope>
         </dependency>
-<!-- for JSF 2.0 and Bean Validation (JSR-303)  -->
+
+        <!-- for JSF 2.0 and Bean Validation (JSR-303)  -->
         <dependency>
           <groupId>javax.el</groupId>
           <artifactId>el-api</artifactId>
@@ -395,26 +370,33 @@
         </property>
       </activation>
       <dependencies>
+
+        <!-- OWB -->
         <dependency>
           <groupId>org.apache.openwebbeans</groupId>
           <artifactId>openwebbeans-jsf</artifactId>
           <version>${openwebbeans.version}</version>
         </dependency>
-
         <dependency>
-          <groupId>org.apache.myfaces.extensions.cdi.modules</groupId>
-          <artifactId>myfaces-extcdi-jsf20-module-api</artifactId>
-          <version>${myfaces-extcdi.version}</version>
-          <scope>compile</scope>
+          <groupId>org.apache.openwebbeans</groupId>
+          <artifactId>openwebbeans-web</artifactId>
+          <version>${openwebbeans.version}</version>
+        </dependency>
+        <dependency>
+          <groupId>org.apache.openwebbeans</groupId>
+          <artifactId>openwebbeans-resource</artifactId>
+          <version>${openwebbeans.version}</version>
         </dependency>
 
+        <!-- Codi for JavaEE5 -->
         <dependency>
-          <groupId>org.apache.myfaces.extensions.cdi.modules</groupId>
-          <artifactId>myfaces-extcdi-jsf20-module-impl</artifactId>
+          <groupId>org.apache.myfaces.extensions.cdi.modules.jee5-support</groupId>
+          <artifactId>myfaces-extcdi-jee5-openwebbeans-support</artifactId>
           <version>${myfaces-extcdi.version}</version>
           <scope>runtime</scope>
         </dependency>
-<!-- for JSF 2.0 and Bean Validation (JSR-303)  -->
+
+        <!-- for JSF 2.0 and Bean Validation (JSR-303)  -->
         <dependency>
           <groupId>javax.el</groupId>
           <artifactId>el-api</artifactId>
@@ -440,26 +422,33 @@
         </property>
       </activation>
       <dependencies>
+
+        <!-- OWB -->
         <dependency>
           <groupId>org.apache.openwebbeans</groupId>
           <artifactId>openwebbeans-jsf</artifactId>
           <version>${openwebbeans.version}</version>
         </dependency>
-
         <dependency>
-          <groupId>org.apache.myfaces.extensions.cdi.modules</groupId>
-          <artifactId>myfaces-extcdi-jsf20-module-api</artifactId>
-          <version>${myfaces-extcdi.version}</version>
-          <scope>compile</scope>
+          <groupId>org.apache.openwebbeans</groupId>
+          <artifactId>openwebbeans-web</artifactId>
+          <version>${openwebbeans.version}</version>
+        </dependency>
+        <dependency>
+          <groupId>org.apache.openwebbeans</groupId>
+          <artifactId>openwebbeans-resource</artifactId>
+          <version>${openwebbeans.version}</version>
         </dependency>
 
+        <!-- Codi for JavaEE5 -->
         <dependency>
-          <groupId>org.apache.myfaces.extensions.cdi.modules</groupId>
-          <artifactId>myfaces-extcdi-jsf20-module-impl</artifactId>
+          <groupId>org.apache.myfaces.extensions.cdi.modules.jee5-support</groupId>
+          <artifactId>myfaces-extcdi-jee5-openwebbeans-support</artifactId>
           <version>${myfaces-extcdi.version}</version>
           <scope>runtime</scope>
         </dependency>
-<!-- for JSF 2.0 and Bean Validation (JSR-303)  -->
+
+        <!-- for JSF 2.0 and Bean Validation (JSR-303)  -->
         <dependency>
           <groupId>javax.el</groupId>
           <artifactId>el-api</artifactId>
@@ -492,26 +481,33 @@
         </repository>
       </repositories>
       <dependencies>
+
+        <!-- OWB -->
         <dependency>
           <groupId>org.apache.openwebbeans</groupId>
           <artifactId>openwebbeans-jsf</artifactId>
           <version>${openwebbeans.version}</version>
         </dependency>
-
         <dependency>
-          <groupId>org.apache.myfaces.extensions.cdi.modules</groupId>
-          <artifactId>myfaces-extcdi-jsf20-module-api</artifactId>
-          <version>${myfaces-extcdi.version}</version>
-          <scope>compile</scope>
+          <groupId>org.apache.openwebbeans</groupId>
+          <artifactId>openwebbeans-web</artifactId>
+          <version>${openwebbeans.version}</version>
+        </dependency>
+        <dependency>
+          <groupId>org.apache.openwebbeans</groupId>
+          <artifactId>openwebbeans-resource</artifactId>
+          <version>${openwebbeans.version}</version>
         </dependency>
 
+        <!-- Codi for JavaEE5 -->
         <dependency>
-          <groupId>org.apache.myfaces.extensions.cdi.modules</groupId>
-          <artifactId>myfaces-extcdi-jsf20-module-impl</artifactId>
+          <groupId>org.apache.myfaces.extensions.cdi.modules.jee5-support</groupId>
+          <artifactId>myfaces-extcdi-jee5-openwebbeans-support</artifactId>
           <version>${myfaces-extcdi.version}</version>
           <scope>runtime</scope>
         </dependency>
-<!-- for JSF 2.0 and Bean Validation (JSR-303)  -->
+
+        <!-- for JSF 2.0 and Bean Validation (JSR-303)  -->
         <dependency>
           <groupId>javax.el</groupId>
           <artifactId>el-api</artifactId>
