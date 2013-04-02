@@ -46,15 +46,6 @@
         <groupId>com.ibm.websphere.wlp.maven.plugins</groupId>
         <artifactId>liberty-maven-plugin</artifactId>
         <version>1.0</version>
-        <executions>
-          <execution>
-            <id>deployapp</id>
-            <phase>pre-integration-test</phase>
-            <goals>
-              <goal>deploy</goal>
-            </goals>
-          </execution>
-        </executions>
         <configuration>
           <serverHome>${wlp.directory}/wlp</serverHome>
           <appArchive>${project.build.directory}/${project.build.finalName}.war</appArchive>
