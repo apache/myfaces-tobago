@@ -57,7 +57,7 @@ public abstract class AbstractUISheetLayout extends AbstractUILayoutBase impleme
 
   public void init() {
     for (LayoutComponent component : getLayoutContainer().getComponents()) {
-      if (component instanceof LayoutContainer) {
+      if (component instanceof LayoutContainer && component.isRendered()) {
         ((LayoutContainer) component).getLayoutManager().init();
       }
     }
@@ -72,7 +72,7 @@ public abstract class AbstractUISheetLayout extends AbstractUILayoutBase impleme
     }
 
     for (LayoutComponent component : getLayoutContainer().getComponents()) {
-      if (component instanceof LayoutContainer) {
+      if (component instanceof LayoutContainer && component.isRendered()) {
         ((LayoutContainer) component).getLayoutManager().fixRelativeInsideAuto(orientation, auto);
       }
     }
@@ -85,7 +85,7 @@ public abstract class AbstractUISheetLayout extends AbstractUILayoutBase impleme
     for (LayoutComponent component : getLayoutContainer().getComponents()) {
 
       if (component != null) {
-        if (component instanceof LayoutContainer) {
+        if (component instanceof LayoutContainer && component.isRendered()) {
           ((LayoutContainer) component).getLayoutManager().preProcessing(orientation);
         }
 
@@ -149,7 +149,7 @@ public abstract class AbstractUISheetLayout extends AbstractUILayoutBase impleme
           LayoutUtils.setCurrentSize(orientation, component, width);
           component.setDisplay(Display.BLOCK); // TODO: use CSS via classes and style.css
           // call sub layout manager
-          if (component instanceof LayoutContainer) {
+          if (component instanceof LayoutContainer && component.isRendered()) {
             ((LayoutContainer) component).getLayoutManager().mainProcessing(orientation);
           }
           index++;
@@ -176,7 +176,7 @@ public abstract class AbstractUISheetLayout extends AbstractUILayoutBase impleme
         }
 
         // call sub layout manager
-        if (component instanceof LayoutContainer) {
+        if (component instanceof LayoutContainer && component.isRendered()) {
           ((LayoutContainer) component).getLayoutManager().postProcessing(orientation);
         }
 

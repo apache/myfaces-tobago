@@ -73,7 +73,7 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase implemen
       if (LOG.isDebugEnabled()) {
         LOG.debug("\n" + grid);
       }
-      if (component instanceof LayoutContainer) {
+      if (component instanceof LayoutContainer && component.isRendered()) {
         ((LayoutContainer) component).getLayoutManager().init();
       }
     }
@@ -115,7 +115,7 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase implemen
         if (cell instanceof OriginCell) {
           OriginCell origin = (OriginCell) cell;
           LayoutComponent component = cell.getComponent();
-          if (component instanceof LayoutContainer) {
+          if (component instanceof LayoutContainer && component.isRendered()) {
             LayoutManager layoutManager = ((LayoutContainer) component).getLayoutManager();
             // TODO: may be improved
             boolean childAuto = origin.getSpan(orientation) == 1 && heads[i].getToken() instanceof AutoLayoutToken;
@@ -160,7 +160,7 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase implemen
           OriginCell origin = (OriginCell) cell;
           LayoutComponent component = cell.getComponent();
 
-          if (component instanceof LayoutContainer) {
+          if (component instanceof LayoutContainer && component.isRendered()) {
             ((LayoutContainer) component).getLayoutManager().preProcessing(orientation);
           }
 
@@ -312,7 +312,7 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase implemen
           }
 
           // call sub layout manager
-          if (component instanceof LayoutContainer) {
+          if (component instanceof LayoutContainer && component.isRendered()) {
             ((LayoutContainer) component).getLayoutManager().mainProcessing(orientation);
           }
         }
@@ -371,7 +371,7 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase implemen
           }
 
           // call sub layout manager
-          if (component instanceof LayoutContainer) {
+          if (component instanceof LayoutContainer && component.isRendered()) {
             ((LayoutContainer) component).getLayoutManager().postProcessing(orientation);
           }
 
