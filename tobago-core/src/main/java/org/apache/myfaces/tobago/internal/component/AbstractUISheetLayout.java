@@ -63,7 +63,7 @@ public abstract class AbstractUISheetLayout extends AbstractUILayoutBase impleme
     layoutHeader();
 
     for (LayoutComponent component : getLayoutContainer().getComponents()) {
-      if (component instanceof LayoutContainer) {
+      if (component instanceof LayoutContainer && component.isRendered()) {
         ((LayoutContainer) component).getLayoutManager().init();
       }
     }
@@ -78,7 +78,7 @@ public abstract class AbstractUISheetLayout extends AbstractUILayoutBase impleme
     }
 
     for (LayoutComponent component : getLayoutContainer().getComponents()) {
-      if (component instanceof LayoutContainer) {
+      if (component instanceof LayoutContainer && component.isRendered()) {
         ((LayoutContainer) component).getLayoutManager().fixRelativeInsideAuto(orientation, auto);
       }
     }
@@ -91,7 +91,7 @@ public abstract class AbstractUISheetLayout extends AbstractUILayoutBase impleme
     for (LayoutComponent component : getLayoutContainer().getComponents()) {
 
       if (component != null) {
-        if (component instanceof LayoutContainer) {
+        if (component instanceof LayoutContainer && component.isRendered()) {
           ((LayoutContainer) component).getLayoutManager().preProcessing(orientation);
         }
 
@@ -185,7 +185,7 @@ public abstract class AbstractUISheetLayout extends AbstractUILayoutBase impleme
         }
 
         // call sub layout manager
-        if (component instanceof LayoutContainer) {
+        if (component instanceof LayoutContainer && component.isRendered()) {
           ((LayoutContainer) component).getLayoutManager().postProcessing(orientation);
         }
 
