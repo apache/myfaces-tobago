@@ -34,7 +34,12 @@ import java.util.List;
 
 /**
  * Implements the lifecycle as described in Spec. 1.0 PFD Chapter 2
+ *
+ * Not longer needed.
+ *
+ * @deprecated since Tobago 1.6.0
  */
+@Deprecated
 public class TobagoLifecycle extends Lifecycle {
 
   private static final Logger LOG = LoggerFactory.getLogger(TobagoLifecycle.class);

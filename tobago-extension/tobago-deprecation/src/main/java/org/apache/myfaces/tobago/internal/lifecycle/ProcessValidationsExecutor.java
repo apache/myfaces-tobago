@@ -24,17 +24,21 @@ import javax.faces.event.PhaseId;
 
 /**
  * Implements the lifecycle as described in Spec. 1.0 PFD Chapter 2
- * <p/>
- * Apply request values phase (JSF Spec 2.2.2)
+ * Process validations phase (JSF Spec 2.2.3)
+ *
+ * Not longer needed.
+ *
+ * @deprecated since Tobago 1.6.0
  */
-class ApplyRequestValuesExecutor implements PhaseExecutor {
+@Deprecated
+class ProcessValidationsExecutor implements PhaseExecutor {
 
   public boolean execute(FacesContext facesContext) {
-    facesContext.getViewRoot().processDecodes(facesContext);
+    facesContext.getViewRoot().processValidators(facesContext);
     return false;
   }
 
   public PhaseId getPhase() {
-    return PhaseId.APPLY_REQUEST_VALUES;
+    return PhaseId.PROCESS_VALIDATIONS;
   }
 }

@@ -32,7 +32,12 @@ import java.io.IOException;
  * Implements the lifecycle as described in Spec. 1.0 PFD Chapter 2
  * <p/>
  * render response phase (JSF Spec 2.2.6)
+ *
+ * Not longer needed.
+ *
+ * @deprecated since Tobago 1.6.0
  */
+@Deprecated
 class RenderResponseExecutor implements PhaseExecutor {
 
   public boolean execute(FacesContext facesContext) {

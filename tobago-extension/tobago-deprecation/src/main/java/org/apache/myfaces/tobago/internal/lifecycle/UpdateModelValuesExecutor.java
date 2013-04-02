@@ -25,7 +25,12 @@ import javax.faces.event.PhaseId;
 /**
  * Implements the lifecycle as described in Spec. 1.0 PFD Chapter 2
  * Update model values phase (JSF Spec 2.2.4)
+ *
+ * Not longer needed.
+ *
+ * @deprecated since Tobago 1.6.0
  */
+@Deprecated
 class UpdateModelValuesExecutor implements PhaseExecutor {
 
 

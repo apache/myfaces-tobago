@@ -25,15 +25,21 @@ import javax.faces.event.PhaseId;
 /**
  * Implements the lifecycle as described in Spec. 1.0 PFD Chapter 2
  * <p/>
- * Invoke application phase (JSF Spec 2.2.5)
+ * Apply request values phase (JSF Spec 2.2.2)
+ *
+ * Not longer needed.
+ *
+ * @deprecated since Tobago 1.6.0
  */
-class InvokeApplicationExecutor implements PhaseExecutor {
+@Deprecated
+class ApplyRequestValuesExecutor implements PhaseExecutor {
+
   public boolean execute(FacesContext facesContext) {
-    facesContext.getViewRoot().processApplication(facesContext);
+    facesContext.getViewRoot().processDecodes(facesContext);
     return false;
   }
 
   public PhaseId getPhase() {
-    return PhaseId.INVOKE_APPLICATION;
+    return PhaseId.APPLY_REQUEST_VALUES;
   }
 }

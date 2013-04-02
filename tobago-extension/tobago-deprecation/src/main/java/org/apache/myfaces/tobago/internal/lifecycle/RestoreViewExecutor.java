@@ -49,7 +49,12 @@ import java.util.Map;
  * Implements the life cycle as described in Spec. 1.0 PFD Chapter 2
  * <p/>
  * Restore view phase (JSF Spec 2.2.1)
+ *
+ * Not longer needed.
+ *
+ * @deprecated since Tobago 1.6.0
  */
+@Deprecated
 class RestoreViewExecutor implements PhaseExecutor {
 
   private static final Logger LOG = LoggerFactory.getLogger(RestoreViewExecutor.class);

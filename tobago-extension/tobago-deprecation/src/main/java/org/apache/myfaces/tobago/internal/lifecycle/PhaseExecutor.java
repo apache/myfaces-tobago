@@ -24,7 +24,12 @@ import javax.faces.event.PhaseId;
 
 /**
  * Implements the PhaseExecutor for a lifecycle
+ *
+ * Not longer needed.
+ *
+ * @deprecated since Tobago 1.6.0
  */
+@Deprecated
 interface PhaseExecutor {
 
   /**

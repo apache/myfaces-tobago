@@ -26,6 +26,12 @@ import javax.faces.lifecycle.Lifecycle;
 import javax.faces.lifecycle.LifecycleFactory;
 import java.util.Iterator;
 
+/**
+ * Not longer needed.
+ *
+ * @deprecated since Tobago 1.6.0
+ */
+@Deprecated
 public class TobagoLifecycleFactory extends LifecycleFactory {
 
   private static final Logger LOG = LoggerFactory.getLogger(TobagoLifecycleFactory.class);

@@ -34,7 +34,12 @@ import java.util.Map;
  * This class encapsulates the logic used to call PhaseListeners.  It was
  * needed because of issue 9 of the JSF 1.2 spec.  See section 11.3 for more
  * details.
+ *
+ * Not longer needed.
+ *
+ * @deprecated since Tobago 1.6.0
  */
+@Deprecated
 class PhaseListenerManager {
 
   private static final Logger LOG = LoggerFactory.getLogger(PhaseListenerManager.class);
