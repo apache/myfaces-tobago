@@ -53,5 +53,6 @@ public class LayoutTokensUnitTest {
     Assert.assertEquals(new RelativeLayoutToken(3), LayoutTokens.parseToken("3*"));
     Assert.assertEquals(new PercentLayoutToken(33), LayoutTokens.parseToken("33%"));
     Assert.assertEquals(new PixelLayoutToken(120), LayoutTokens.parseToken("120px"));
+    Assert.assertEquals(new PixelLayoutToken(0), LayoutTokens.parseToken("0px"));
   }
 }
