@@ -50,6 +50,8 @@
           <serverHome>${wlp.directory}/wlp</serverHome>
           <appArchive>${project.build.directory}/${project.build.finalName}.war</appArchive>
           <serverName>tobago</serverName>
+          <!-- default debugging port is 7777 -->
+          <!--<debug>true</debug>-->
         </configuration>
       </plugin>
     </plugins>
