@@ -26,9 +26,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.SAXException;
 
+import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPathExpressionException;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -60,11 +62,12 @@ public class AutomaticSeleniumTest extends SeleniumTest {
     }
   }
 
-  private SeleniumScript getSeleniumScript(String url) throws XPathExpressionException, SAXException, IOException {
+  private SeleniumScript getSeleniumScript(String url)
+      throws XPathExpressionException, SAXException, IOException, ParserConfigurationException {
     String seleniumUrl = url.substring("/faces/".length());
     seleniumUrl = seleniumUrl.substring(0, seleniumUrl.lastIndexOf("."));
     seleniumUrl = "http://localhost:8080/" + seleniumUrl + ".selenium.html";
-    return new SeleniumScript(seleniumUrl, url);
+    return new SeleniumScript(new URL(seleniumUrl), url);
   }
 
   @Parameterized.Parameters
