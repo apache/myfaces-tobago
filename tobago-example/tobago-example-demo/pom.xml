@@ -105,27 +105,6 @@
   </build>
 
   <dependencies>
-    <dependency>
-      <groupId>org.apache.geronimo.specs</groupId>
-      <artifactId>geronimo-jcdi_1.0_spec</artifactId>
-      <version>1.0</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.geronimo.specs</groupId>
-      <artifactId>geronimo-validation_1.0_spec</artifactId>
-      <version>1.1</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.geronimo.specs</groupId>
-      <artifactId>geronimo-atinject_1.0_spec</artifactId>
-      <version>1.0</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.geronimo.specs</groupId>
-      <artifactId>geronimo-interceptor_1.1_spec</artifactId>
-      <version>1.0</version>
-    </dependency>
-
     <!-- Codi -->
     <dependency>
       <groupId>org.apache.myfaces.extensions.cdi.core</groupId>
@@ -257,6 +236,33 @@
           <value>provided</value>
         </property>
       </activation>
+      <dependencies>
+        <!-- Specs -->
+        <dependency>
+          <groupId>org.apache.geronimo.specs</groupId>
+          <artifactId>geronimo-jcdi_1.0_spec</artifactId>
+          <version>1.0</version>
+          <scope>provided</scope>
+        </dependency>
+        <dependency>
+          <groupId>org.apache.geronimo.specs</groupId>
+          <artifactId>geronimo-validation_1.0_spec</artifactId>
+          <version>1.1</version>
+          <scope>provided</scope>
+        </dependency>
+        <dependency>
+          <groupId>org.apache.geronimo.specs</groupId>
+          <artifactId>geronimo-atinject_1.0_spec</artifactId>
+          <version>1.0</version>
+          <scope>provided</scope>
+        </dependency>
+        <dependency>
+          <groupId>org.apache.geronimo.specs</groupId>
+          <artifactId>geronimo-interceptor_1.1_spec</artifactId>
+          <version>1.0</version>
+          <scope>provided</scope>
+        </dependency>
+      </dependencies>
     </profile>
 
     <profile>
@@ -267,6 +273,28 @@
         </property>
       </activation>
       <dependencies>
+
+        <!-- Specs -->
+        <dependency>
+          <groupId>org.apache.geronimo.specs</groupId>
+          <artifactId>geronimo-jcdi_1.0_spec</artifactId>
+          <version>1.0</version>
+        </dependency>
+        <dependency>
+          <groupId>org.apache.geronimo.specs</groupId>
+          <artifactId>geronimo-validation_1.0_spec</artifactId>
+          <version>1.1</version>
+        </dependency>
+        <dependency>
+          <groupId>org.apache.geronimo.specs</groupId>
+          <artifactId>geronimo-atinject_1.0_spec</artifactId>
+          <version>1.0</version>
+        </dependency>
+        <dependency>
+          <groupId>org.apache.geronimo.specs</groupId>
+          <artifactId>geronimo-interceptor_1.1_spec</artifactId>
+          <version>1.0</version>
+        </dependency>
 
         <!-- OWB -->
         <dependency>
@@ -318,6 +346,28 @@
         </property>
       </activation>
       <dependencies>
+
+        <!-- Specs -->
+        <dependency>
+          <groupId>org.apache.geronimo.specs</groupId>
+          <artifactId>geronimo-jcdi_1.0_spec</artifactId>
+          <version>1.0</version>
+        </dependency>
+        <dependency>
+          <groupId>org.apache.geronimo.specs</groupId>
+          <artifactId>geronimo-validation_1.0_spec</artifactId>
+          <version>1.1</version>
+        </dependency>
+        <dependency>
+          <groupId>org.apache.geronimo.specs</groupId>
+          <artifactId>geronimo-atinject_1.0_spec</artifactId>
+          <version>1.0</version>
+        </dependency>
+        <dependency>
+          <groupId>org.apache.geronimo.specs</groupId>
+          <artifactId>geronimo-interceptor_1.1_spec</artifactId>
+          <version>1.0</version>
+        </dependency>
 
         <!-- OWB -->
         <dependency>
@@ -371,6 +421,28 @@
       </activation>
       <dependencies>
 
+        <!-- Specs -->
+        <dependency>
+          <groupId>org.apache.geronimo.specs</groupId>
+          <artifactId>geronimo-jcdi_1.0_spec</artifactId>
+          <version>1.0</version>
+        </dependency>
+        <dependency>
+          <groupId>org.apache.geronimo.specs</groupId>
+          <artifactId>geronimo-validation_1.0_spec</artifactId>
+          <version>1.1</version>
+        </dependency>
+        <dependency>
+          <groupId>org.apache.geronimo.specs</groupId>
+          <artifactId>geronimo-atinject_1.0_spec</artifactId>
+          <version>1.0</version>
+        </dependency>
+        <dependency>
+          <groupId>org.apache.geronimo.specs</groupId>
+          <artifactId>geronimo-interceptor_1.1_spec</artifactId>
+          <version>1.0</version>
+        </dependency>
+
         <!-- OWB -->
         <dependency>
           <groupId>org.apache.openwebbeans</groupId>
@@ -422,6 +494,28 @@
         </property>
       </activation>
       <dependencies>
+
+        <!-- Specs -->
+        <dependency>
+          <groupId>org.apache.geronimo.specs</groupId>
+          <artifactId>geronimo-jcdi_1.0_spec</artifactId>
+          <version>1.0</version>
+        </dependency>
+        <dependency>
+          <groupId>org.apache.geronimo.specs</groupId>
+          <artifactId>geronimo-validation_1.0_spec</artifactId>
+          <version>1.1</version>
+        </dependency>
+        <dependency>
+          <groupId>org.apache.geronimo.specs</groupId>
+          <artifactId>geronimo-atinject_1.0_spec</artifactId>
+          <version>1.0</version>
+        </dependency>
+        <dependency>
+          <groupId>org.apache.geronimo.specs</groupId>
+          <artifactId>geronimo-interceptor_1.1_spec</artifactId>
+          <version>1.0</version>
+        </dependency>
 
         <!-- OWB -->
         <dependency>
@@ -481,6 +575,28 @@
         </repository>
       </repositories>
       <dependencies>
+
+        <!-- Specs -->
+        <dependency>
+          <groupId>org.apache.geronimo.specs</groupId>
+          <artifactId>geronimo-jcdi_1.0_spec</artifactId>
+          <version>1.0</version>
+        </dependency>
+        <dependency>
+          <groupId>org.apache.geronimo.specs</groupId>
+          <artifactId>geronimo-validation_1.0_spec</artifactId>
+          <version>1.1</version>
+        </dependency>
+        <dependency>
+          <groupId>org.apache.geronimo.specs</groupId>
+          <artifactId>geronimo-atinject_1.0_spec</artifactId>
+          <version>1.0</version>
+        </dependency>
+        <dependency>
+          <groupId>org.apache.geronimo.specs</groupId>
+          <artifactId>geronimo-interceptor_1.1_spec</artifactId>
+          <version>1.0</version>
+        </dependency>
 
         <!-- OWB -->
         <dependency>
