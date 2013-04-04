@@ -19,21 +19,25 @@
 
 package org.apache.myfaces.tobago.example.test;
 
-import org.apache.html.dom.HTMLDocumentImpl;
-import org.cyberneko.html.parsers.DOMFragmentParser;
 import org.junit.Assert;
-import org.w3c.dom.DocumentFragment;
+import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.w3c.dom.html.HTMLDocument;
+import org.xml.sax.EntityResolver;
+import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.StringReader;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,35 +53,38 @@ public class SeleniumScript {
   static {
     try {
       XPATH_FACTORY = XPathFactory.newInstance();
-      XPATH_EXPRESSION = XPATH_FACTORY.newXPath().compile("//TABLE/TBODY");
-      TR_XPATH = XPATH_FACTORY.newXPath().compile("TR");
-      TD_XPATH = XPATH_FACTORY.newXPath().compile("TD");
+      XPATH_EXPRESSION = XPATH_FACTORY.newXPath().compile("//table/tbody");
+      TR_XPATH = XPATH_FACTORY.newXPath().compile("tr");
+      TD_XPATH = XPATH_FACTORY.newXPath().compile("td");
     } catch (XPathExpressionException e) {
       throw new RuntimeException(e);
     }
   }
 
-  public SeleniumScript(String scriptUrl, String url) throws IOException, SAXException, XPathExpressionException {
-    DOMFragmentParser parser = new DOMFragmentParser();
-    HTMLDocument document = new HTMLDocumentImpl();
-    DocumentFragment fragment = document.createDocumentFragment();
+  public SeleniumScript(URL scriptUrl, String url)
+      throws IOException, XPathExpressionException, SAXException, ParserConfigurationException {
     try {
-      parser.parse(scriptUrl, fragment);
-      // not nice, it seems that parse also throws a FileNotFoundException sometimes.
-      // XXX I don't know why
-      if (fragment.getTextContent().contains("The page was not found!")) {
-        throw new FileNotFoundException(scriptUrl);
-      }
-      addSeleniumItems(fragment, url);
+      DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+      DocumentBuilder parser = factory.newDocumentBuilder();
+      parser.setEntityResolver(new EntityResolver() {
+        public InputSource resolveEntity(String publicId, String systemId)
+            throws SAXException, IOException {
+          // do not any resource resolving
+          return new InputSource(new StringReader(""));
+        }
+      });
+
+      Document document = parser.parse(scriptUrl.openStream());
+      addSeleniumItems(document, url);
     } catch (FileNotFoundException e) {
       // using default
       items.add(new SeleniumScriptItem("open", url, ""));
     }
   }
 
-  private void addSeleniumItems(DocumentFragment fragment, String url) throws XPathExpressionException {
+  private void addSeleniumItems(Document document, String url) throws XPathExpressionException {
 
-    final Object table = XPATH_EXPRESSION.evaluate(fragment, XPathConstants.NODE);
+    final Object table = XPATH_EXPRESSION.evaluate(document, XPathConstants.NODE);
     final NodeList trList = (NodeList) TR_XPATH.evaluate(table, XPathConstants.NODESET);
 
     for (int i = 0; i < trList.getLength(); i++) {
