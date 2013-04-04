@@ -42,6 +42,7 @@
         <artifactId>jetty-maven-plugin</artifactId>
       </plugin>
       <plugin>
+        <!-- usage: mvn clean package tomee:run -Djsf=provided -->
         <groupId>org.apache.openejb.maven</groupId>
         <artifactId>tomee-maven-plugin</artifactId>
         <version>1.0.0</version>
