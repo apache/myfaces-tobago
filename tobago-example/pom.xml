@@ -41,8 +41,17 @@
         <groupId>org.mortbay.jetty</groupId>
         <artifactId>jetty-maven-plugin</artifactId>
       </plugin>
-      <!-- The usage is documented in the FAQ -->
       <plugin>
+        <groupId>org.apache.openejb.maven</groupId>
+        <artifactId>tomee-maven-plugin</artifactId>
+        <version>1.0.0</version>
+        <configuration>
+          <tomeeVersion>1.5.0</tomeeVersion>
+          <tomeeClassifier>plus</tomeeClassifier>
+        </configuration>
+      </plugin>
+      <plugin>
+        <!-- The usage is documented in the FAQ -->
         <groupId>com.ibm.websphere.wlp.maven.plugins</groupId>
         <artifactId>liberty-maven-plugin</artifactId>
         <version>1.0</version>
