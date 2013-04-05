@@ -28,7 +28,7 @@ import org.apache.myfaces.tobago.internal.component.AbstractUITree;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.model.ExpandedState;
-import org.apache.myfaces.tobago.model.MarkedState;
+import org.apache.myfaces.tobago.model.SelectedState;
 import org.apache.myfaces.tobago.model.TreePath;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -62,6 +62,10 @@ public class RenderUtils {
 
   private static final Logger LOG = LoggerFactory.getLogger(RenderUtils.class);
 
+  /**
+   * @deprecated since 1.6.0
+   */
+  @Deprecated
   public static final String COMPONENT_IN_REQUEST = "org.apache.myfaces.tobago.component";
 
   private RenderUtils() {
@@ -115,7 +119,7 @@ public class RenderUtils {
   }
 
   private static boolean matchFilter(UIComponent component, List<? extends Class<? extends UIComponent>> only) {
-    for (Class clazz : only) {
+    for (Class<? extends UIComponent> clazz : only) {
       if (clazz.isAssignableFrom(component.getClass())) {
         return true;
       }
@@ -374,12 +378,11 @@ public class RenderUtils {
       return;
     }
 
-    final boolean isTree = data instanceof AbstractUITree;
-    // marked
-    final Integer markedIndex = isTree ? decodeMarkedIndex(facesContext, data) : null;
+    // selected
+    final List<Integer> selectedIndices = decodeIndices(facesContext, data, AbstractUIData.SUFFIX_SELECTED);
 
     // expanded
-    final List<Integer> expandedIndices = decodeExpandedIndices(facesContext, data);
+    final List<Integer> expandedIndices = decodeIndices(facesContext, data, AbstractUIData.SUFFIX_EXPANDED);
 
     final int last = data.isRowsUnlimited() ? Integer.MAX_VALUE : data.getFirst() + data.getRows();
     for (int rowIndex = data.getFirst(); rowIndex < last; rowIndex++) {
@@ -390,19 +393,17 @@ public class RenderUtils {
 
       final TreePath path = data.getPath();
 
-      // marked
-      if (isTree) {
-        final MarkedState markedState = ((AbstractUITree) data).getMarkedState();
-        final boolean oldMarked = markedState.isMarked(path);
-        final boolean newMarked = ((Integer) rowIndex).equals(markedIndex);
-        if (newMarked != oldMarked) {
-          if (newMarked) {
-            markedState.setMarked(path);
+      // selected
+        final SelectedState selectedState = ((AbstractUITree) data).getSelectedState();
+        final boolean oldSelected = selectedState.isSelected(path);
+        final boolean newSelected = selectedIndices.contains(rowIndex);
+        if (newSelected != oldSelected) {
+          if (newSelected) {
+            selectedState.select(path);
           } else {
-            markedState.setMarked((TreePath) null);
+            selectedState.unselect(path);
           }
         }
-      }
 
       // expanded
       if (expandedIndices != null) {
@@ -422,33 +423,17 @@ public class RenderUtils {
     data.setRowIndex(-1);
   }
 
-  private static Integer decodeMarkedIndex(FacesContext facesContext, AbstractUIData data) {
-    String markedString = null;
+  private static List<Integer> decodeIndices(FacesContext facesContext, AbstractUIData data, String suffix) {
+    String string = null;
+    final String key = data.getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + suffix;
     try {
-      markedString = (String) facesContext.getExternalContext().getRequestParameterMap()
-          .get(data.getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + AbstractUIData.SUFFIX_MARKED);
-      if (org.apache.commons.lang.StringUtils.isBlank(markedString)) {
-        return null;
-      }
-      return Integer.parseInt(markedString);
-    } catch (Exception e) {
-      // should not happen
-      LOG.warn("Can't parse marked: '" + markedString + "'", e);
-      return null;
-    }
-  }
-
-  private static List<Integer> decodeExpandedIndices(FacesContext facesContext, AbstractUIData data) {
-    String expandedString = null;
-    try {
-      expandedString = (String) facesContext.getExternalContext().getRequestParameterMap()
-          .get(data.getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + AbstractUIData.SUFFIX_EXPANDED);
-      if (expandedString != null) {
-        return StringUtils.parseIntegerList(expandedString);
+      string = facesContext.getExternalContext().getRequestParameterMap().get(key);
+      if (string != null) {
+        return StringUtils.parseIntegerList(string);
       }
     } catch (Exception e) {
       // should not happen
-      LOG.warn("Can't parse expanded: '" + expandedString + "'", e);
+      LOG.warn("Can't parse " + suffix + ": '" + string + "' from parameter '" + key + "'", e);
     }
     return null;
   }

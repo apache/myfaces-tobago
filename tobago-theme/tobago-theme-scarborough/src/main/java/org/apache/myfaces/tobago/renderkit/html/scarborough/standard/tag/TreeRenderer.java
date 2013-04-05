@@ -23,7 +23,7 @@ import org.apache.myfaces.tobago.component.UITreeNode;
 import org.apache.myfaces.tobago.internal.component.AbstractUIData;
 import org.apache.myfaces.tobago.internal.component.AbstractUITree;
 import org.apache.myfaces.tobago.model.ExpandedState;
-import org.apache.myfaces.tobago.model.MarkedState;
+import org.apache.myfaces.tobago.model.SelectedState;
 import org.apache.myfaces.tobago.model.Selectable;
 import org.apache.myfaces.tobago.model.TreePath;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
@@ -91,11 +91,11 @@ public class TreeRenderer extends LayoutComponentRendererBase {
       writer.writeAttribute(DataAttributes.SELECTABLE, selectable.getValue(), false);
     }
 
-    MarkedState markedState = tree.getMarkedState();
-    String markedValue = "";
+    final SelectedState selectedState = tree.getSelectedState();
+    final StringBuilder selectedValue = new StringBuilder(",");
 
-    ExpandedState expandedState = tree.getExpandedState();
-    StringBuilder expandedValue = new StringBuilder(",");
+    final ExpandedState expandedState = tree.getExpandedState();
+    final StringBuilder expandedValue = new StringBuilder(",");
 
     final int last = tree.isRowsUnlimited() ? Integer.MAX_VALUE : tree.getFirst() + tree.getRows();
     for (int rowIndex = tree.getFirst(); rowIndex < last; rowIndex++) {
@@ -106,8 +106,9 @@ public class TreeRenderer extends LayoutComponentRendererBase {
 
       final TreePath path = tree.getPath();
 
-      if (markedState.isMarked(path)) {
-        markedValue += rowIndex;
+      if (selectedState.isSelected(path)) {
+        selectedValue.append(rowIndex);
+        selectedValue.append(",");
       }
 
       if (tree.isFolder() && expandedState.isExpanded(path)) {
@@ -124,11 +125,11 @@ public class TreeRenderer extends LayoutComponentRendererBase {
 
     writer.startElement(HtmlElements.INPUT, tree);
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN, false);
-    final String markedId = clientId + ComponentUtils.SUB_SEPARATOR + AbstractUITree.SUFFIX_MARKED;
-    writer.writeNameAttribute(markedId);
-    writer.writeIdAttribute(markedId);
-    writer.writeClassAttribute(Classes.create(tree, AbstractUITree.SUFFIX_MARKED));
-    writer.writeAttribute(HtmlAttributes.VALUE, markedValue, false);
+    final String selectedId = clientId + ComponentUtils.SUB_SEPARATOR + AbstractUITree.SUFFIX_SELECTED;
+    writer.writeNameAttribute(selectedId);
+    writer.writeIdAttribute(selectedId);
+    writer.writeClassAttribute(Classes.create(tree, AbstractUITree.SUFFIX_SELECTED));
+    writer.writeAttribute(HtmlAttributes.VALUE, selectedValue.toString(), false);
     writer.endElement(HtmlElements.INPUT);
 
     writer.startElement(HtmlElements.INPUT, tree);

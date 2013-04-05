@@ -25,7 +25,7 @@ import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.internal.util.Deprecation;
 import org.apache.myfaces.tobago.layout.LayoutComponent;
 import org.apache.myfaces.tobago.model.ExpandedState;
-import org.apache.myfaces.tobago.model.MarkedState;
+import org.apache.myfaces.tobago.model.SelectedState;
 import org.apache.myfaces.tobago.model.MixedTreeModel;
 import org.apache.myfaces.tobago.model.TreeState;
 
@@ -216,18 +216,18 @@ public abstract class AbstractUITree extends AbstractUIData
     if (expression != null) {
       TreeState state = (TreeState) expression.getValue(elContext);
       if (state == null) {
-        state = new TreeState(new ExpandedState(2), new MarkedState());
+        state = new TreeState(new ExpandedState(2), new SelectedState());
         expression.setValue(elContext, state);
       }
       return state;
     }
 
-    state = new TreeState(new ExpandedState(2), new MarkedState());
+    state = new TreeState(new ExpandedState(2), new SelectedState());
     return state;
   }
 
-  public MarkedState getMarkedState() {
-    return getState().getMarkedState();
+  public SelectedState getSelectedState() {
+    return getState().getSelectedState();
   }
 
   @Override

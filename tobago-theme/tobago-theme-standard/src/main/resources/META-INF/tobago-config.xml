@@ -346,7 +346,7 @@
             <markup>disabled</markup>
             <!--XXX has to be in label and command ? -->
             <markup>strong</markup>
-            <markup>marked</markup>
+            <markup>selected</markup>
             <markup>folder</markup>
             <markup>expanded</markup>
           </supported-markup>
@@ -357,7 +357,7 @@
             <markup>disabled</markup>
             <!--XXX has to be in label and command ? -->
             <markup>strong</markup>
-            <markup>marked</markup>
+            <markup>selected</markup>
             <markup>folder</markup>
             <markup>expanded</markup>
           </supported-markup>

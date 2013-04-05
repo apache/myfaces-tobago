@@ -17,39 +17,11 @@
  * under the License.
  */
 
-package org.apache.myfaces.tobago.model;
+package org.apache.myfaces.tobago.event;
 
-import javax.swing.tree.TreeNode;
-import java.io.Serializable;
+import javax.faces.event.FacesListener;
 
-public class MarkedState implements Serializable {
+public interface TreeSelectedListener extends FacesListener {
 
-  private TreePath marked;
-
-  public boolean isMarked(TreePath path) {
-    if (marked != null) {
-      return marked.equals(path);
-    } else {
-      return marked == path; // == null
-    }
-  }
-
-  public TreePath getMarked() {
-    return marked;
-  }
-
-  public void setMarked(TreePath marked) {
-    this.marked = marked;
-  }
-
-  public void setMarked(TreeNode marked) {
-    this.marked = new TreePath(marked);
-  }
-
-  /**
-   * Resets the marked state, so that no TreePath is marked.
-   */
-  public void reset() {
-    marked = null;
-  }
+  void treeSelected(TreeSelectedEvent event);
 }

@@ -26,24 +26,20 @@ import javax.el.MethodExpression;
 import javax.faces.component.StateHolder;
 import javax.faces.context.FacesContext;
 
-/**
- * @deprecated since 1.6.0 replaced by MethodExpressionTreeSelectedListener
- */
-@Deprecated
-public class MethodExpressionTreeMarkedListener implements TreeMarkedListener, StateHolder {
+public class MethodExpressionTreeSelectedListener implements TreeSelectedListener, StateHolder {
 
   private MethodExpression methodExpression;
 
   private boolean isTransient = false;
 
-  public MethodExpressionTreeMarkedListener() {
+  public MethodExpressionTreeSelectedListener() {
   }
 
-  public MethodExpressionTreeMarkedListener(MethodExpression methodExpression) {
+  public MethodExpressionTreeSelectedListener(MethodExpression methodExpression) {
     this.methodExpression = methodExpression;
   }
 
-  public void treeMarked(TreeMarkedEvent event) {
+  public void treeSelected(TreeSelectedEvent event) {
     FacesUtilsEL.invokeMethodExpression(FacesContext.getCurrentInstance(), methodExpression, event);
   }
 

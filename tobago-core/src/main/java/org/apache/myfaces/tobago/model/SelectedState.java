@@ -20,22 +20,50 @@
 package org.apache.myfaces.tobago.model;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
-public class TreeState implements Serializable {
+/**
+ * Manages the selected tree paths of a tree.
+ */
+public class SelectedState implements Serializable {
 
-  private ExpandedState expandedState;
-  private SelectedState selectedState;
+  private Set<TreePath> selected = new HashSet<TreePath>();
 
-  public TreeState(ExpandedState expandedState, SelectedState selectedState) {
-    this.expandedState = expandedState;
-    this.selectedState = selectedState;
+  /**
+   * Checks if the given is selected.
+   */
+  public boolean isSelected(TreePath path) {
+    return selected.contains(path);
   }
 
-  public ExpandedState getExpandedState() {
-    return expandedState;
+  /**
+   * Select the given path.
+   */
+  public void select(TreePath path) {
+    selected.add(path);
   }
 
-  public SelectedState getSelectedState() {
-    return selectedState;
+  /**
+   * Unselect the given path.
+   */
+  public void unselect(TreePath path) {
+    selected.remove(path);
+  }
+
+  /**
+   * Set the selected path and remove all prior selections.
+   * This is useful for "single selection" mode.
+   */
+  public void clearAndSelect(TreePath path) {
+    clear();
+    select(path);
+  }
+
+  /**
+   * Clears the selected state, so that no TreePath is selected.
+   */
+  public void clear() {
+    selected.clear();
   }
 }

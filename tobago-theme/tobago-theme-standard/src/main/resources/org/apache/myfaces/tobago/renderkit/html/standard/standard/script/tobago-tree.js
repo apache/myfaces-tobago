@@ -166,34 +166,34 @@ Tobago.Tree.init = function(elements) {
     jQuery(this).toggleClass("tobago-treeMenuNode-markup-hover");
   });
 
-  // marked for treeNode
+  // selected for treeNode
   Tobago.Utils.selectWidthJQuery(elements, ".tobago-treeCommand").focus(function() {
     var command = jQuery(this);
     var node = command.parent(".tobago-treeNode");
     var tree = node.closest(".tobago-tree");
-    var marked = tree.children(".tobago-tree-marked");
-    marked.val(Tobago.Tree.rowIndex(node));
-    tree.find(".tobago-treeNode").removeClass("tobago-treeNode-markup-marked");
-    node.addClass("tobago-treeNode-markup-marked");
+    var selected = tree.children(".tobago-tree-selected");
+    selected.val(Tobago.Tree.rowIndex(node));
+    tree.find(".tobago-treeNode").removeClass("tobago-treeNode-markup-selected");
+    node.addClass("tobago-treeNode-markup-selected");
   });
 
-  // marked for treeMenuNode
+  // selected for treeMenuNode
   Tobago.Utils.selectWidthJQuery(elements, ".tobago-treeMenuCommand").focus(function() {
     var command = jQuery(this);
     var node = command.parent(".tobago-treeMenuNode");
     var tree = node.closest(".tobago-treeMenu");
-    var marked = tree.children(".tobago-treeMenu-marked");
-    marked.val(Tobago.Tree.rowIndex(node));
-    tree.find(".tobago-treeMenuNode").removeClass("tobago-treeMenuNode-markup-marked");
-    node.addClass("tobago-treeMenuNode-markup-marked");
+    var selected = tree.children(".tobago-treeMenu-selected");
+    selected.val(Tobago.Tree.rowIndex(node));
+    tree.find(".tobago-treeMenuNode").removeClass("tobago-treeMenuNode-markup-selected");
+    node.addClass("tobago-treeMenuNode-markup-selected");
   });
 
-  // init marked field
-  Tobago.Utils.selectWidthJQuery(elements, ".tobago-treeMenu, .tobago-tree").each(function() {
-    var marked = jQuery(this).children(".tobago-treeMenu-marked, .tobago-tree-marked");
+  // init selected field
+  Tobago.Utils.selectWidthJQuery(elements, ".tobago-treeMenu, .tobago-tree, .tobago-sheet").each(function() {
+    var selected = jQuery(this).children(".tobago-treeMenu-selected, .tobago-tree-selected, .tobago-sheet-selected");
     var string = "";
-    jQuery(this).find(".tobago-treeMenuNode-markup-marked, .tobago-treeNode-markup-marked").each(function() {
-      string = Tobago.Tree.rowIndex(jQuery(this));
+    jQuery(this).find(".tobago-treeMenuNode-markup-selected, .tobago-treeNode-markup-selected").each(function() {
+      string += Tobago.Tree.rowIndex(jQuery(this)) + ",";
     });
   });
 

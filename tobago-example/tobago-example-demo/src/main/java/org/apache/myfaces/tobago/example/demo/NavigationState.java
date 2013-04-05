@@ -21,7 +21,7 @@ package org.apache.myfaces.tobago.example.demo;
 
 import org.apache.myfaces.extensions.cdi.core.api.scope.conversation.WindowScoped;
 import org.apache.myfaces.tobago.model.ExpandedState;
-import org.apache.myfaces.tobago.model.MarkedState;
+import org.apache.myfaces.tobago.model.SelectedState;
 import org.apache.myfaces.tobago.model.TreeState;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,7 +43,7 @@ public class NavigationState implements Serializable {
 
   private NavigationNode currentNode;
 
-  private TreeState state = new TreeState(new ExpandedState(1), new MarkedState());
+  private TreeState state = new TreeState(new ExpandedState(1), new SelectedState());
 
   @PostConstruct
   public void init() {
@@ -53,7 +53,7 @@ public class NavigationState implements Serializable {
 
   private void initState() {
     if (currentNode != null) {
-      state.getMarkedState().setMarked(currentNode.getTreePath());
+      state.getSelectedState().clearAndSelect(currentNode.getTreePath());
       state.getExpandedState().expand(currentNode.getTreePath());
     }
   }

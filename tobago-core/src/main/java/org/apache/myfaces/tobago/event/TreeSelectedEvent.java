@@ -23,49 +23,45 @@ import javax.faces.component.UIComponent;
 import javax.faces.event.FacesEvent;
 import javax.faces.event.FacesListener;
 
-/**
- * @deprecated since 1.6.0 replaced by TreeSelectedEvent
- */
-@Deprecated
-public class TreeMarkedEvent extends FacesEvent {
+public class TreeSelectedEvent extends FacesEvent {
 
   private static final long serialVersionUID = 422186716954088729L;
 
-  private boolean oldMarked;
-  private boolean newMarked;
+  private boolean oldSelected;
+  private boolean newSelected;
 
-  public TreeMarkedEvent(UIComponent node, boolean oldMarked, boolean newMarked) {
+  public TreeSelectedEvent(UIComponent node, boolean oldSelected, boolean newSelected) {
     super(node);
-    this.oldMarked = oldMarked;
-    this.newMarked = newMarked;
+    this.oldSelected = oldSelected;
+    this.newSelected = newSelected;
   }
 
   public boolean isAppropriateListener(FacesListener facesListener) {
-    return facesListener instanceof TreeMarkedListener;
+    return facesListener instanceof TreeSelectedListener;
   }
 
   public void processListener(FacesListener facesListener) {
-    if (facesListener instanceof TreeMarkedListener) {
-      if (oldMarked && !newMarked) {
-        ((TreeMarkedListener) facesListener).treeMarked(this);
-      } else if (!oldMarked && newMarked) {
-        ((TreeMarkedListener) facesListener).treeMarked(this);
+    if (facesListener instanceof TreeSelectedListener) {
+      if (oldSelected && !newSelected) {
+        ((TreeSelectedListener) facesListener).treeSelected(this);
+      } else if (!oldSelected && newSelected) {
+        ((TreeSelectedListener) facesListener).treeSelected(this);
       } else {
         // nothing to do
       }
     }
   }
 
-  public boolean isOldMarked() {
-    return oldMarked;
+  public boolean isOldSelected() {
+    return oldSelected;
   }
 
-  public boolean isNewMarked() {
-    return newMarked;
+  public boolean isNewSelected() {
+    return newSelected;
   }
 
   @Override
   public String toString() {
-    return super.toString() + "marked=" + newMarked;
+    return super.toString() + "selected=" + newSelected;
   }
 }
