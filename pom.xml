@@ -1862,13 +1862,13 @@
     <myfaces11.version>1.1.10</myfaces11.version>
     <myfaces12.version>1.2.12</myfaces12.version>
     <myfaces-test12.version>1.0.4</myfaces-test12.version>
-    <myfaces20.version>2.0.16</myfaces20.version>
-    <myfaces21.version>2.1.10</myfaces21.version>
+    <myfaces20.version>2.0.17</myfaces20.version>
+    <myfaces21.version>2.1.11</myfaces21.version>
     <mojarra11.version>1.1_02</mojarra11.version>
     <mojarra12.version>1.2_15</mojarra12.version>
-    <mojarra20.version>2.0.10</mojarra20.version>
-    <mojarra21.version>2.1.16</mojarra21.version>
-    <mojarra22.version>2.2.0-m07</mojarra22.version>
+    <mojarra20.version>2.0.11</mojarra20.version>
+    <mojarra21.version>2.1.20</mojarra21.version>
+    <mojarra22.version>2.2.0-m12</mojarra22.version>
     <facelets.version>1.1.14</facelets.version>
     <jetty7.version>7.4.5.v20110725</jetty7.version>
     <!--
@@ -1876,8 +1876,8 @@
     <jetty7.version>7.6.0.RC4</jetty7.version>
     <jetty7.version>8.1.0.RC5</jetty7.version>
     -->
-    <slf4j.version>1.6.4</slf4j.version>
-    <logback.version>1.0.0</logback.version>
+    <slf4j.version>1.7.5</slf4j.version>
+    <logback.version>1.0.11</logback.version>
     <commons-io.version>1.1</commons-io.version>
     <commons-lang.version>2.4</commons-lang.version>
     <commons-logging.version>1.1.1</commons-logging.version>
