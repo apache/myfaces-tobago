@@ -2551,6 +2551,17 @@ Tobago.TabGroup.init = function(elements) {
     Tobago.TabGroup.ensureScrollPosition(jQuery(this));
   });
 
+    // tool tips
+  tabGroups.each(function() {
+    var tabGroup = jQuery(this);
+    tabGroup.find(".tobago-tab").each(function() {
+      var tab = jQuery(this);
+      var tabContent = tabGroup.find(".tobago-tab-content[tabgroupindex=" + tab.attr("tabgroupindex") + "]");
+      tabContent.attr("title", tab.attr("title"));
+    });
+  });
+
+
   // initialize menu
   // XXX ":last" is dangerous, please define e.g. a unique class for "menu"
 //  tabGroups.find(".tobago-tabGroupToolBar-button:last").find(".tobago-menu").click(function() {
