@@ -1194,10 +1194,10 @@
   </contributors>
 
   <properties>
-    <myfaces.version>1.1.8</myfaces.version>
-    <myfaces12.version>1.2.9</myfaces12.version>
+    <myfaces.version>1.1.10</myfaces.version>
+    <myfaces12.version>1.2.12</myfaces12.version>
     <sunjsf.version>1.1_02</sunjsf.version>
-    <sunjsf12.version>1.2_14</sunjsf12.version>
+    <sunjsf12.version>1.2_15</sunjsf12.version>
     <facelets.version>1.1.14</facelets.version>
     <jetty.version>6.1.25</jetty.version>
     <common-io.version>1.1</common-io.version>
