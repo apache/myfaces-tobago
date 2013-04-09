@@ -40,6 +40,7 @@ import org.apache.myfaces.tobago.layout.LayoutContainer;
 import org.apache.myfaces.tobago.layout.LayoutManager;
 import org.apache.myfaces.tobago.layout.LayoutTokens;
 import org.apache.myfaces.tobago.model.ExpandedState;
+import org.apache.myfaces.tobago.model.SelectedState;
 import org.apache.myfaces.tobago.model.SheetState;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRenderer;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -641,6 +642,11 @@ public abstract class AbstractUISheet extends AbstractUIData
   @Override
   public ExpandedState getExpandedState() {
     return getState().getExpandedState();
+  }
+
+  @Override
+  public SelectedState getSelectedState() {
+    return getState().getSelectedState();
   }
 
   public Grid getHeaderGrid() {

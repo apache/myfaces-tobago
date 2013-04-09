@@ -19,8 +19,10 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
+import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.config.Configurable;
 
+import javax.el.ValueExpression;
 import javax.faces.component.UISelectBoolean;
 import javax.faces.context.FacesContext;
 
@@ -29,5 +31,15 @@ public abstract class AbstractUITreeSelect extends UISelectBoolean implements Co
   @Override
   public void updateModel(FacesContext context) {
     super.updateModel(context);
+  }
+
+  /**
+   * The value is stored in the state of the parent UITree, if the value attribute has not a value expression.
+   * The value is stored normally, if there is a value expression.
+   * @return Is the value stored in the state of the UITree parent object?
+   */
+  public boolean isValueStoredInState() {
+    final ValueExpression valueExpression = getValueExpression(Attributes.VALUE);
+    return valueExpression == null;
   }
 }

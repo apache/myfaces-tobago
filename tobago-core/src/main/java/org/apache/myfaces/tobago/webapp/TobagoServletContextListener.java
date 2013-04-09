@@ -47,8 +47,8 @@ public class TobagoServletContextListener implements ServletContextListener {
     }
 
     TobagoConfigBuilder.init(servletContext);
-    if (LOG.isDebugEnabled()) {
-      LOG.debug("tobago config: " + TobagoConfig.getInstance(servletContext));
+    if (LOG.isInfoEnabled()) {
+      LOG.info("tobago config: " + TobagoConfig.getInstance(servletContext));
     }
   }
 

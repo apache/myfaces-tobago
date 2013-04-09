@@ -177,6 +177,24 @@ Tobago.Tree.init = function(elements) {
     node.addClass("tobago-treeNode-markup-selected");
   });
 
+  // selected for treeSelect
+  Tobago.Utils.selectWidthJQuery(elements, ".tobago-treeSelect > input").change(function () {
+    var select = jQuery(this);
+    var selected = select.prop("checked");
+    var data = select.closest(".tobago-treeMenu, .tobago-tree, .tobago-sheet");
+    var hidden = data.children(".tobago-treeMenu-selected, .tobago-tree-selected, .tobago-sheet-selected");
+    var newValue;
+    if (select.attr("type") == "radio") {
+      newValue = "," + Tobago.Tree.rowIndex(select) + ",";
+    } else if (selected) {
+      newValue = hidden.val() + Tobago.Tree.rowIndex(select) + ",";
+    } else {
+      newValue = hidden.val().replace(new RegExp("," + Tobago.Tree.rowIndex(select) + ","), ",");
+    }
+    // XXX optimize: regexp and Tobago.Tree.rowIndex
+    hidden.val(newValue);
+  });
+
   // selected for treeMenuNode
   Tobago.Utils.selectWidthJQuery(elements, ".tobago-treeMenuCommand").focus(function() {
     var command = jQuery(this);
@@ -190,20 +208,22 @@ Tobago.Tree.init = function(elements) {
 
   // init selected field
   Tobago.Utils.selectWidthJQuery(elements, ".tobago-treeMenu, .tobago-tree, .tobago-sheet").each(function() {
-    var selected = jQuery(this).children(".tobago-treeMenu-selected, .tobago-tree-selected, .tobago-sheet-selected");
-    var string = "";
+    var hidden = jQuery(this).children(".tobago-treeMenu-selected, .tobago-tree-selected, .tobago-sheet-selected");
+    var string = ",";
     jQuery(this).find(".tobago-treeMenuNode-markup-selected, .tobago-treeNode-markup-selected").each(function() {
       string += Tobago.Tree.rowIndex(jQuery(this)) + ",";
     });
+    hidden.val(string);
   });
 
   // init expanded field
   Tobago.Utils.selectWidthJQuery(elements, ".tobago-treeMenu, .tobago-tree, .tobago-sheet").each(function() {
-    var expanded = jQuery(this).children(".tobago-treeMenu-expanded, .tobago-tree-expanded, .tobago-sheet-expanded");
+    var hidden = jQuery(this).children(".tobago-treeMenu-expanded, .tobago-tree-expanded, .tobago-sheet-expanded");
     var string = ",";
     jQuery(this).find(".tobago-treeMenuNode-markup-expanded, .tobago-treeNode-markup-expanded").each(function() {
       string += Tobago.Tree.rowIndex(jQuery(this)) + ",";
     });
+    hidden.val(string);
   });
 
   // init tree selection for multiCascade

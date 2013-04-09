@@ -26,6 +26,7 @@ import java.util.Set;
 /**
  * Manages the selected tree paths of a tree.
  */
+// TODO: might be renamed to SelectedTreeState?
 public class SelectedState implements Serializable {
 
   private Set<TreePath> selected = new HashSet<TreePath>();
@@ -65,5 +66,16 @@ public class SelectedState implements Serializable {
    */
   public void clear() {
     selected.clear();
+  }
+
+  /**
+   * Set the selection state of the given path
+   */
+  public void select(TreePath path, boolean selected) {
+    if (selected) {
+      select(path);
+    } else {
+      unselect(path);
+    }
   }
 }

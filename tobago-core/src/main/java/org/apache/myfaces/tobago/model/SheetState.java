@@ -44,6 +44,7 @@ public class SheetState implements Serializable {
   private List<Integer> selectedRows;
   private Integer[] scrollPosition;
   private ExpandedState expandedState;
+  private SelectedState selectedState;
 
   public SheetState() {
     resetSelected();
@@ -123,6 +124,17 @@ public class SheetState implements Serializable {
 
   public void setExpandedState(ExpandedState expandedState) {
     this.expandedState = expandedState;
+  }
+
+  public SelectedState getSelectedState() {
+    if (selectedState == null) {
+      selectedState = new SelectedState();
+    }
+    return selectedState;
+  }
+
+  public void setSelectedState(SelectedState selectedState) {
+    this.selectedState = selectedState;
   }
 
   public static Integer[] parseScrollPosition(String value) {

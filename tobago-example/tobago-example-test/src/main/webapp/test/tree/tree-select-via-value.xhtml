@@ -24,10 +24,13 @@
   <tc:page id="page">
     <tc:gridLayoutConstraint width="600px" height="300px"/>
     <f:facet name="layout">
-      <tc:gridLayout rows="*;auto;auto"/>
+      <tc:gridLayout rows="20px;*;auto;auto"/>
     </f:facet>
 
-    <tc:tree id="tree" selectable="single" showRoot="true" showRootJunction="true" value="#{tree.tree}" var="node">
+    <tc:out value="Stores the selection value in the value attribute of the tc:treeSelect component."/>
+
+    <tc:tree id="tree" selectable="single" showRoot="true" showRootJunction="true"
+             value="#{tree.tree}" state="#{tree.state}" var="node">
       <tc:treeNode id="template">
         <tc:treeIndent/>
         <tc:treeSelect id="select" label="#{node.userObject.name}" value="#{node.userObject.selected}"/>

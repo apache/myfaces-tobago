@@ -226,6 +226,7 @@ public abstract class AbstractUITree extends AbstractUIData
     return state;
   }
 
+  @Override
   public SelectedState getSelectedState() {
     return getState().getSelectedState();
   }
@@ -235,12 +236,14 @@ public abstract class AbstractUITree extends AbstractUIData
     return getState().getExpandedState();
   }
 
+  @Override
   public void restoreState(FacesContext context, Object componentState) {
     Object[] values = (Object[]) componentState;
     super.restoreState(context, values[0]);
     state = (TreeState) values[1];
   }
 
+  @Override
   public Object saveState(FacesContext context) {
     Object[] values = new Object[2];
     values[0] = super.saveState(context);

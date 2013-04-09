@@ -24,6 +24,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.component.UITreeSelect;
 import org.apache.myfaces.tobago.internal.component.AbstractUIData;
+import org.apache.myfaces.tobago.internal.component.AbstractUITreeNode;
 import org.apache.myfaces.tobago.model.Selectable;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
@@ -46,7 +47,8 @@ public class TreeSelectRenderer extends RendererBase {
   public void decode(FacesContext facesContext, UIComponent component) {
 
     final UITreeSelect select = (UITreeSelect) component;
-    final AbstractUIData data = ComponentUtils.findAncestor(select, AbstractUIData.class);
+    final AbstractUITreeNode node = ComponentUtils.findAncestor(select, AbstractUITreeNode.class);
+    final AbstractUIData data = ComponentUtils.findAncestor(node, AbstractUIData.class);
 
     if (ComponentUtils.isOutputOnly(select)) {
       return;
@@ -60,24 +62,34 @@ public class TreeSelectRenderer extends RendererBase {
       name = clientId;
     }
 
-    final String newValue = (String) facesContext.getExternalContext().getRequestParameterMap().get(name);
+    final String parameter = (String) facesContext.getExternalContext().getRequestParameterMap().get(name);
 
     if (LOG.isDebugEnabled()) {
-      LOG.debug("new value = '" + newValue + "'");
+      LOG.debug("parameter = '" + parameter + "'");
     }
 
-    select.setSubmittedValue(clientId.equals(newValue) ? "true" : "false");
+    final boolean selected = clientId.equals(parameter);
+    if (!select.isValueStoredInState()) {
+      select.setSubmittedValue(selected ? "true" : "false");
+    }
   }
 
   @Override
   public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
 
     final UITreeSelect select = (UITreeSelect) component;
-    final AbstractUIData data = ComponentUtils.findAncestor(select, AbstractUIData.class);
+    final AbstractUITreeNode node = ComponentUtils.findAncestor(select, AbstractUITreeNode.class);
+    final AbstractUIData data = ComponentUtils.findAncestor(node, AbstractUIData.class);
 
     final String id = select.getClientId(facesContext);
     final String currentValue = getCurrentValue(facesContext, select);
-    final boolean checked = "true".equals(currentValue);
+    final boolean checked;
+    if (select.isValueStoredInState()) {
+      checked = data.getSelectedState().isSelected(node.getPath());
+    } else {
+      checked = "true".equals(currentValue);
+    }
+
     final boolean folder = data.isFolder();
     final Selectable selectable = data.getSelectableAsEnum();
 
