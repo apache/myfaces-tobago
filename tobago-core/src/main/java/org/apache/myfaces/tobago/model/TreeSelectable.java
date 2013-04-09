@@ -25,7 +25,7 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * @deprecated since 1.6.0, please use {@link Selectable}
+ * @deprecated since 2.0.0, please use {@link Selectable}
  */
 @Deprecated
 public enum TreeSelectable {

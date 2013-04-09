@@ -323,7 +323,7 @@ mvn selenium:start-server</source>
       <question>How can I run the Tobago demo with WebSphere Liberty Profile (WLP) from Maven?</question>
       <answer>
         <p>
-          <b>Please use at least Tobago 1.6 for this guidance (in this version the pom.xml files are prepared).</b>
+          <b>Please use at least Tobago 2.0 for this guidance (in this version the pom.xml files are prepared).</b>
         </p>
         <p>
           You will need to do the following steps for preparation:

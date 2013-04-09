@@ -31,7 +31,7 @@ import javax.faces.el.ValueBinding;
 import javax.faces.event.ActionEvent;
 
 /**
- * @deprecated Since 1.6.0, please use ValueExpressionPopupActionListener
+ * @deprecated Since 2.0.0, please use ValueExpressionPopupActionListener
  */
 @Deprecated
 public class ValueBindingPopupActionListener extends AbstractPopupActionListener implements StateHolder {

@@ -24,7 +24,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * @deprecated since 1.6.0
+ * @deprecated since 2.0.0
  */
 @Deprecated
 public class Node {

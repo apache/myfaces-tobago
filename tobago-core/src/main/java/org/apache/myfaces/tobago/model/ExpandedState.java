@@ -29,7 +29,7 @@ import java.util.Set;
 /**
  * Manages the expanded state of an tree.
  *
- * @since 1.6.0
+ * @since 2.0.0
  */
 public class ExpandedState implements Serializable {
 

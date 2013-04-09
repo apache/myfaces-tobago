@@ -63,7 +63,7 @@ public class RenderUtils {
   private static final Logger LOG = LoggerFactory.getLogger(RenderUtils.class);
 
   /**
-   * @deprecated since 1.6.0
+   * @deprecated since 2.0.0
    */
   @Deprecated
   public static final String COMPONENT_IN_REQUEST = "org.apache.myfaces.tobago.component";

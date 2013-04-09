@@ -14,12 +14,12 @@
  ~~ limitations under the License.
 
  ------
- Migration from Tobago 1.5 to 1.6 (work in progress)
+ Migration from Tobago 1.5 to 2.0 (work in progress)
  ------
 
-Migration from Tobago 1.5 to 1.6 (work in progress)
+Migration from Tobago 1.5 to 2.0 (work in progress)
 
-   Tobago 1.6 has some API changes compared to Tobago 1.5.
+   Tobago 2.0 has some API changes compared to Tobago 1.5.
 
    The most changes are in the tree API, which is more easy to use, but also more flexible.
 
@@ -35,14 +35,14 @@ Artifacts (JAR-Files)
 Java-API
 
    The class org.apache.myfaces.tobago.model.TreeState which has been deprecated in 1.5.x is
-   used in 1.6.x with a changed API. Please check the occurrences.
+   used in 2.0.x with a changed API. Please check the occurrences.
 
    Class <<<org.apache.myfaces.tobago.component.UIFileInput>>> has been renamed to
    <<<org.apache.myfaces.tobago.component.UIFile>>>.
 
 Facelets
 
-   Tobago 1.6.x is using Facelets 2.0. When still using Facelets 1.1 in the current application,
+   Tobago 2.0.x is using Facelets 2.0. When still using Facelets 1.1 in the current application,
    this must be removed:
 
    * Remove facelets JAR (e.g. jsf-facelets-1.1.14.jar) from the library.
@@ -85,7 +85,7 @@ Configuration
   The content of tobago-theme.xml is a subset of the tobago-config.xml, you have only to
   change the root node.
 
-  Please use the tobago-config-1.6.xsd to validate the configuration.
+  Please use the tobago-config-2.0.xsd to validate the configuration.
 
 JavaScript
 

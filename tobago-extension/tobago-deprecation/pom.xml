@@ -25,7 +25,7 @@
   <artifactId>tobago-deprecation</artifactId>
   <packaging>jar</packaging>
   <name>Tobago Deprecation</name>
-  <description>Helps to migrate from Tobago 1.0.x to 1.5.x or 1.6.x. Should not be used in production.</description>
+  <description>Helps to migrate from Tobago 1.0.x to 1.5.x or 2.0.x. Should not be used in production.</description>
 
   <dependencies>
     <dependency>

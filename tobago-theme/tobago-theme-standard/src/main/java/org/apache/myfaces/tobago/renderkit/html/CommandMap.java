@@ -27,7 +27,7 @@ import java.util.Map;
  * Map of commands to be send to the user agent.
  * It contains the command which shall be executed by click or other events.
  *
- * @since 1.6.0
+ * @since 2.0.0
  */
 public class CommandMap {
 

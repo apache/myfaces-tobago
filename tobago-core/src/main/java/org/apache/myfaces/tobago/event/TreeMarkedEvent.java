@@ -24,7 +24,7 @@ import javax.faces.event.FacesEvent;
 import javax.faces.event.FacesListener;
 
 /**
- * @deprecated since 1.6.0 replaced by TreeSelectedEvent
+ * @deprecated since 2.0.0 replaced by TreeSelectedEvent
  */
 @Deprecated
 public class TreeMarkedEvent extends FacesEvent {

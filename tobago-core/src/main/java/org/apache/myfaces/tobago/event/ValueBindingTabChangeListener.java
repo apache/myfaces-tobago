@@ -28,7 +28,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
 
 /**
- * @deprecated Since 1.6.0, please use ValueExpressionTabChangeListener
+ * @deprecated Since 2.0.0, please use ValueExpressionTabChangeListener
  */
 @Deprecated
 public class ValueBindingTabChangeListener implements TabChangeListener, StateHolder {

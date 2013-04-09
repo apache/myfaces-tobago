@@ -13,6 +13,12 @@
  ~~ See the License for the specific language governing permissions and
  ~~ limitations under the License.
 
+April 9, 2013 - MyFaces Tobago trunk version is now 2.0.x
+
+      Because of the extensive upgrade of this version, the major version number was increased.
+
+      Version 1.6.x will be replaced with 2.0.x.
+
 March 4, 2013 - MyFaces Tobago 1.5.9 Released
 
       The MyFaces Tobago component library in version 1.5.9 has been released.

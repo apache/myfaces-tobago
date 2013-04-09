@@ -28,7 +28,7 @@ import java.util.Comparator;
 import java.util.Map;
 
 /**
- * @deprecated Since 1.6.0
+ * @deprecated Since 2.0.0
  */
 @Deprecated
 public class ValueBindingComparator extends ComparatorBase {

@@ -20,7 +20,7 @@
 package org.apache.myfaces.tobago.component;
 
 /**
- * @deprecated since 1.6.0. Please use {@link UIFile}
+ * @deprecated since 2.0.0. Please use {@link UIFile}
  */
 @Deprecated
 public interface UIFileInput {

@@ -26,16 +26,16 @@ public enum DynamicExpression {
   METHOD_EXPRESSION(false, false, true),
   METHOD_EXPRESSION_REQUIRED(true, false, true),
   PROHIBITED(false, false, false),
-  /** @deprecated since 1.6.0 */
+  /** @deprecated since 2.0.0 */
   @Deprecated
   VALUE_BINDING(false, true, false),
-  /** @deprecated since 1.6.0 */
+  /** @deprecated since 2.0.0 */
   @Deprecated
   VALUE_BINDING_REQUIRED(true, true, false),
-  /** @deprecated since 1.6.0 */
+  /** @deprecated since 2.0.0 */
   @Deprecated
   METHOD_BINDING(false, false, true),
-  /** @deprecated since 1.6.0 */
+  /** @deprecated since 2.0.0 */
   @Deprecated
   METHOD_BINDING_REQUIRED(true, false, true);
 

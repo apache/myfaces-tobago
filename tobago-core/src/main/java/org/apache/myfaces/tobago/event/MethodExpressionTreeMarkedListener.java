@@ -27,7 +27,7 @@ import javax.faces.component.StateHolder;
 import javax.faces.context.FacesContext;
 
 /**
- * @deprecated since 1.6.0 replaced by MethodExpressionTreeSelectedListener
+ * @deprecated since 2.0.0 replaced by MethodExpressionTreeSelectedListener
  */
 @Deprecated
 public class MethodExpressionTreeMarkedListener implements TreeMarkedListener, StateHolder {

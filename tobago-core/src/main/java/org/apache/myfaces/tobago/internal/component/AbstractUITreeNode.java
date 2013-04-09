@@ -83,7 +83,7 @@ public abstract class AbstractUITreeNode
   // below only deprecated
 
   /**
-   * @deprecated since 1.6.0
+   * @deprecated since 2.0.0
    */
   @Deprecated
   protected TreeNode getRowData() {
@@ -93,7 +93,7 @@ public abstract class AbstractUITreeNode
   }
 
   /**
-   * @deprecated since 1.6.0
+   * @deprecated since 2.0.0
    */
   @Deprecated
   public void buildTreeModelBegin(FacesContext facesContext, MixedTreeModel model) {
@@ -101,7 +101,7 @@ public abstract class AbstractUITreeNode
   }
 
   /**
-   * @deprecated since 1.6.0
+   * @deprecated since 2.0.0
    */
   @Deprecated
   public void buildTreeModelChildren(FacesContext facesContext, MixedTreeModel model) {
@@ -109,7 +109,7 @@ public abstract class AbstractUITreeNode
   }
 
   /**
-   * @deprecated since 1.6.0
+   * @deprecated since 2.0.0
    */
   @Deprecated
   public void buildTreeModelEnd(FacesContext facesContext, MixedTreeModel model) {
@@ -117,7 +117,7 @@ public abstract class AbstractUITreeNode
   }
 
   /**
-   * @deprecated since 1.6.0
+   * @deprecated since 2.0.0
    */
   @Deprecated
   public int getDepth() {
@@ -126,7 +126,7 @@ public abstract class AbstractUITreeNode
   }
 
   /**
-   * @deprecated since 1.6.0
+   * @deprecated since 2.0.0
    */
   @Deprecated
   public void setDepth(int depth) {
@@ -134,7 +134,7 @@ public abstract class AbstractUITreeNode
   }
 
   /**
-   * @deprecated since 1.6.0
+   * @deprecated since 2.0.0
    */
   @Deprecated
   public void setFolder(boolean folder) {
@@ -142,7 +142,7 @@ public abstract class AbstractUITreeNode
   }
 
   /**
-   * @deprecated since 1.6.0
+   * @deprecated since 2.0.0
    */
   @Deprecated
   public void setPath(TreePath path) {
@@ -150,7 +150,7 @@ public abstract class AbstractUITreeNode
   }
 
   /**
-   * @deprecated since 1.6.0
+   * @deprecated since 2.0.0
    */
   @Deprecated
   public void setJunctions(List<Boolean> junctions) {
@@ -158,7 +158,7 @@ public abstract class AbstractUITreeNode
   }
 
   /**
-   * @deprecated since 1.6.0
+   * @deprecated since 2.0.0
    */
   @Deprecated
   public boolean isHasNextSibling() {
@@ -167,7 +167,7 @@ public abstract class AbstractUITreeNode
   }
 
   /**
-   * @deprecated since 1.6.0
+   * @deprecated since 2.0.0
    */
   @Deprecated
   public void setHasNextSibling(boolean hasNextSibling) {
@@ -175,7 +175,7 @@ public abstract class AbstractUITreeNode
   }
 
   /**
-   * @deprecated since 1.6.0
+   * @deprecated since 2.0.0
    */
   @Deprecated
   public MethodBinding getTreeExpansionListener(){
@@ -184,7 +184,7 @@ public abstract class AbstractUITreeNode
     }
 
   /**
-   * @deprecated since 1.6.0
+   * @deprecated since 2.0.0
    */
   @Deprecated
   public void setTreeExpansionListener(MethodBinding treeExpansionListener){
@@ -192,7 +192,7 @@ public abstract class AbstractUITreeNode
       }
 
   /**
-   * @deprecated since 1.6.0
+   * @deprecated since 2.0.0
    */
   @Deprecated
   public void addTreeExpansionListener(TreeExpansionListener listener) {
@@ -200,7 +200,7 @@ public abstract class AbstractUITreeNode
   }
 
   /**
-   * @deprecated since 1.6.0
+   * @deprecated since 2.0.0
    */
   @Deprecated
   public TreeExpansionListener[] getTreeExpansionListeners() {
@@ -209,7 +209,7 @@ public abstract class AbstractUITreeNode
   }
 
   /**
-   * @deprecated since 1.6.0
+   * @deprecated since 2.0.0
    */
   @Deprecated
   public void removeStateChangeListener(TreeExpansionListener listener) {
@@ -217,7 +217,7 @@ public abstract class AbstractUITreeNode
   }
 
   /**
-   * @deprecated since 1.6.0
+   * @deprecated since 2.0.0
    */
   @Deprecated
   public  MethodBinding getTreeMarkedListener(){
@@ -226,7 +226,7 @@ public abstract class AbstractUITreeNode
       }
 
   /**
-   * @deprecated since 1.6.0
+   * @deprecated since 2.0.0
    */
   @Deprecated
   public  void setTreeMarkedListener(MethodBinding treeMarkedListener){
@@ -234,7 +234,7 @@ public abstract class AbstractUITreeNode
         }
 
   /**
-   * @deprecated since 1.6.0
+   * @deprecated since 2.0.0
    */
   @Deprecated
   public void addTreeMarkedListener(TreeMarkedListener listener) {
@@ -242,7 +242,7 @@ public abstract class AbstractUITreeNode
   }
 
   /**
-   * @deprecated since 1.6.0
+   * @deprecated since 2.0.0
    */
   @Deprecated
   public TreeMarkedListener[] getTreeMarkedListeners() {
@@ -251,7 +251,7 @@ public abstract class AbstractUITreeNode
   }
 
   /**
-   * @deprecated since 1.6.0
+   * @deprecated since 2.0.0
    */
   @Deprecated
   public void removeStateChangeListener(TreeMarkedListener listener) {
@@ -259,7 +259,7 @@ public abstract class AbstractUITreeNode
   }
 
   /**
-   * @deprecated since 1.6.0
+   * @deprecated since 2.0.0
    */
   @Deprecated
   public boolean isMarked() {
@@ -268,7 +268,7 @@ public abstract class AbstractUITreeNode
   }
 
   /**
-   * @deprecated since 1.6.0
+   * @deprecated since 2.0.0
    */
   @Deprecated
   public void setMarked(boolean b) {
@@ -276,7 +276,7 @@ public abstract class AbstractUITreeNode
   }
 
   /**
-   * @deprecated since 1.6.0
+   * @deprecated since 2.0.0
    */
   @Deprecated
   public boolean isExpanded() {
@@ -285,7 +285,7 @@ public abstract class AbstractUITreeNode
   }
 
   /**
-   * @deprecated since 1.6.0
+   * @deprecated since 2.0.0
    */
   @Deprecated
   public void setExpanded(boolean expanded) {
@@ -293,7 +293,7 @@ public abstract class AbstractUITreeNode
   }
 
   /**
-   * @deprecated since 1.6.0
+   * @deprecated since 2.0.0
    */
   @Deprecated
   public boolean isSelected() {
@@ -302,7 +302,7 @@ public abstract class AbstractUITreeNode
   }
 
   /**
-   * @deprecated since 1.6.0
+   * @deprecated since 2.0.0
    */
   @Deprecated
   public void setSelected(boolean selected) {

@@ -88,7 +88,7 @@ public class FacesUtilsEL {
   }
 
   /**
-   * @deprecated since 1.6.0
+   * @deprecated since 2.0.0
    */
   @Deprecated
   public static void invokeMethodBinding(FacesContext facesContext, MethodBinding methodBinding, FacesEvent event) {
@@ -119,7 +119,7 @@ public class FacesUtilsEL {
   }
 
   /**
-   * @deprecated since 1.6.0
+   * @deprecated since 2.0.0
    */
   @Deprecated
   public static Object getValueFromValueBindingOrValueExpression(
@@ -175,7 +175,7 @@ public class FacesUtilsEL {
   }
 
   /**
-   * @deprecated Since 1.6.0, please use createValueExpression()
+   * @deprecated Since 2.0.0, please use createValueExpression()
    */
   @Deprecated
   public static Object createExpressionOrBinding(String string) {

@@ -914,7 +914,7 @@ var Tobago = {
 
   /**
    *  Onchange function for SelectOneListbox.
-   *  @deprecated since Tobago 1.6.0. Is replaces with SelectOneListbox.init()
+   *  @deprecated since Tobago 2.0.0. Is replaces with SelectOneListbox.init()
    */
   selectOneListboxChange: function(element) {
     if (element.oldValue == undefined) {
@@ -924,7 +924,7 @@ var Tobago = {
 
   /**
    * Onclick function for SelectOneListbox.
-   *  @deprecated since Tobago 1.6.0. Is replaces with SelectOneListbox.init()
+   *  @deprecated since Tobago 2.0.0. Is replaces with SelectOneListbox.init()
    */
   selectOneListboxClick: function(element) {
     if (element.oldValue == undefined || element.oldValue == element.selectedIndex) {
@@ -935,7 +935,7 @@ var Tobago = {
 
   /**
    * Init function for SelectOneRadio.
-   *  @deprecated since Tobago 1.6.0. Is replaces with SelectOneRadio.init()
+   *  @deprecated since Tobago 2.0.0. Is replaces with SelectOneRadio.init()
    */
   selectOneRadioInit: function(name) {
     var elements = document.getElementsByName(name);
@@ -946,7 +946,7 @@ var Tobago = {
 
   /**
    * Onclick function for SelectOneRadio.
-   *  @deprecated since Tobago 1.6.0. Is replaces with SelectOneRadio.init()
+   *  @deprecated since Tobago 2.0.0. Is replaces with SelectOneRadio.init()
    */
   selectOneRadioClick: function(element, name, required, readonly) {
     var elements = document.getElementsByName(name);
@@ -1617,7 +1617,7 @@ var Tobago = {
     return ajaxComponentIds.split(',');
   },
 
-  /** @deprecated since Tobago 1.5.7 and 1.6.0 */
+  /** @deprecated since Tobago 1.5.7 and 2.0.0 */
   setDefaultAction: function(defaultActionId) {
     LOG.warn("setDefaultAction is deprecated");
   },

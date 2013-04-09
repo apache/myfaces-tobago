@@ -24,13 +24,13 @@ import javax.faces.el.MethodBinding;
 public interface SortActionSource {
 
   /**
-   * @deprecated since 1.6.0
+   * @deprecated since 2.0.0
    */
   @Deprecated
   MethodBinding getSortActionListener();
 
   /**
-   * @deprecated since 1.6.0
+   * @deprecated since 2.0.0
    */
   @Deprecated
   void setSortActionListener(MethodBinding actionListener);

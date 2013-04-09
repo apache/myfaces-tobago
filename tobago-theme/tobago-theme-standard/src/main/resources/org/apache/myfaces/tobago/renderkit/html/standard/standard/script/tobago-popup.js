@@ -305,7 +305,7 @@ Tobago.openPopupWithAction = function (source, popupId, actionId, options) {
 
 /**
  * Setup popup size
- * @deprecated since Tobago 1.6.0
+ * @deprecated since Tobago 2.0.0
  */
 Tobago.Popup.setup = function () {
   LOG.warn("Deprecated method was called. Please use Tobago.Popup.init()"); // @DEV_ONLY

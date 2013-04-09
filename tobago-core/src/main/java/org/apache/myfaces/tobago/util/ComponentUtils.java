@@ -93,7 +93,7 @@ public class ComponentUtils {
 
   /**
    * Name of the map for data attributes in components. New in JSF 2.2.
-   * @since 1.6.0
+   * @since 2.0.0
    */
   public static final String DATA_ATTRIBUTES_KEY = "javax.faces.component.DATA_ATTRIBUTES_KEY";
 

@@ -42,7 +42,7 @@ public interface HasSuggestMethod {
   /**
    * Minimum number of chars to type before the list will be requested.
    *
-   * @since 1.5.9 and 1.6.0
+   * @since 1.5.9 and 2.0.0
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "java.lang.Integer", defaultValue = "1")
@@ -51,7 +51,7 @@ public interface HasSuggestMethod {
   /**
    * Time in milli seconds before the list will be requested.
    *
-   * @since 1.5.9 and 1.6.0
+   * @since 1.5.9 and 2.0.0
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "java.lang.Integer", defaultValue = "300")

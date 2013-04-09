@@ -42,7 +42,7 @@ public class ValueExpressionPopupActionListener extends AbstractPopupActionListe
   }
 
   /**
-   * @deprecated Since 1.6.0, please use the other constructor with explicit type
+   * @deprecated Since 2.0.0, please use the other constructor with explicit type
    */
   @Deprecated
   public ValueExpressionPopupActionListener(Object expression) {

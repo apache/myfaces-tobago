@@ -35,7 +35,7 @@ import java.io.IOException;
  *
  * Not longer needed.
  *
- * @deprecated since Tobago 1.6.0
+ * @deprecated since Tobago 2.0.0
  */
 @Deprecated
 class RenderResponseExecutor implements PhaseExecutor {

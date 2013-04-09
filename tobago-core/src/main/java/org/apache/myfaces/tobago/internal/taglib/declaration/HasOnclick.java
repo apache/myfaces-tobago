@@ -23,7 +23,7 @@ import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 
 /**
- * @deprecated since Tobago 1.6.0. Conflicts with CSP.
+ * @deprecated since Tobago 2.0.0. Conflicts with CSP.
  */
 @Deprecated
 public interface HasOnclick {

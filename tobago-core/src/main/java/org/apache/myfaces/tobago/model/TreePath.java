@@ -70,7 +70,7 @@ public class TreePath implements Serializable {
   }
 
   /**
-   * @deprecated since 1.6.0
+   * @deprecated since 2.0.0
    */
   @Deprecated
   public TreePath(TreePath position, int addendum) {
@@ -80,7 +80,7 @@ public class TreePath implements Serializable {
   }
 
   /**
-   * @deprecated since 1.6.0
+   * @deprecated since 2.0.0
    */
   @Deprecated
   public TreePath(String string) throws NumberFormatException {
@@ -121,7 +121,7 @@ public class TreePath implements Serializable {
   }
 
   /**
-   * @deprecated since 1.6.0
+   * @deprecated since 2.0.0
    */
   public String getPathString() {
     StringBuilder builder = new StringBuilder();
@@ -150,7 +150,7 @@ public class TreePath implements Serializable {
    *
    * @param tree The start node.
    * @return The node applied to the given path.
-   * @deprecated since 1.6.0
+   * @deprecated since 2.0.0
    */
   @Deprecated
   public DefaultMutableTreeNode getNode(DefaultMutableTreeNode tree) {

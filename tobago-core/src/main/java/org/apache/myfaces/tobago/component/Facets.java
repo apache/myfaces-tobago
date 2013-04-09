@@ -48,7 +48,7 @@ public final class Facets {
   }
 
   /**
-   * @deprecated since 1.6.0. Please use {@link #POPUP}
+   * @deprecated since 2.0.0. Please use {@link #POPUP}
    * Using compatible names for  backward compatibility.
    */
   @Deprecated

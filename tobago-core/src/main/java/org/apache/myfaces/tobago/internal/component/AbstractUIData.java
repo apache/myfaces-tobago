@@ -44,7 +44,7 @@ public abstract class AbstractUIData extends javax.faces.component.UIData implem
   private static final Logger LOG = LoggerFactory.getLogger(AbstractUIData.class);
 
   /**
-   * @deprecated Since 1.6.0. The marked concept has been replaced by "selected".
+   * @deprecated Since 2.0.0. The marked concept has been replaced by "selected".
    */
   @Deprecated
   public static final String SUFFIX_MARKED = "marked";

@@ -22,13 +22,13 @@ package org.apache.myfaces.tobago.event;
 public interface TabChangeSource {
 
   /**
-   * @deprecated since 1.6.0
+   * @deprecated since 2.0.0
    */
   @Deprecated
   javax.faces.el.MethodBinding getTabChangeListener();
 
   /**
-   * @deprecated since 1.6.0
+   * @deprecated since 2.0.0
    */
   @Deprecated
   void setTabChangeListener(javax.faces.el.MethodBinding actionListener);

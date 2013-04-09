@@ -22,7 +22,7 @@ package org.apache.myfaces.tobago.event;
 import javax.faces.event.FacesListener;
 
 /**
- * @deprecated since 1.6.0 replaced by TreeSelectedListener
+ * @deprecated since 2.0.0 replaced by TreeSelectedListener
  */
 @Deprecated
 public interface TreeMarkedListener extends FacesListener {

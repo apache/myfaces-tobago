@@ -34,7 +34,7 @@ import javax.faces.event.ActionEvent;
 
 
 /**
- * @deprecated Since 1.6.0, please use ValueExpressionResetInputActionListener
+ * @deprecated Since 2.0.0, please use ValueExpressionResetInputActionListener
  */
 @Deprecated
 public class ValueBindingResetInputActionListener extends AbstractResetInputActionListener implements StateHolder {

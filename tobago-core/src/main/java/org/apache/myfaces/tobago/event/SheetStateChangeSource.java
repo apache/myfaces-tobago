@@ -22,13 +22,13 @@ package org.apache.myfaces.tobago.event;
 public interface SheetStateChangeSource {
 
   /**
-   * @deprecated since 1.6.0
+   * @deprecated since 2.0.0
    */
   @Deprecated
   javax.faces.el.MethodBinding getStateChangeListener();
 
   /**
-   * @deprecated since 1.6.0
+   * @deprecated since 2.0.0
    */
   @Deprecated
   void setStateChangeListener(javax.faces.el.MethodBinding actionListener);

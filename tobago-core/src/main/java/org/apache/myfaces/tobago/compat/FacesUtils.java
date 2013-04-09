@@ -38,13 +38,13 @@ import java.util.Map;
 public class FacesUtils {
 
   /**
-   * @deprecated since 1.6.0
+   * @deprecated since 2.0.0
    */
   @Deprecated
   public static final Class[] VALIDATOR_ARGS = {FacesContext.class, UIComponent.class, Object.class};
 
   /**
-   * @deprecated since 1.6.0. Please use ComponentUtils.invokeOnComponent(context, this, clientId, callback)
+   * @deprecated since 2.0.0. Please use ComponentUtils.invokeOnComponent(context, this, clientId, callback)
    */
   @Deprecated
   public static boolean invokeOnComponent(
@@ -68,7 +68,7 @@ public class FacesUtils {
   }
 
   /**
-   * @deprecated since 1.6.0
+   * @deprecated since 2.0.0
    */
   @Deprecated
   public static Object getValueFromValueBindingOrValueExpression(
@@ -77,7 +77,7 @@ public class FacesUtils {
   }
 
   /**
-   * @deprecated since 1.6.0
+   * @deprecated since 2.0.0
    */
   @Deprecated
   public static boolean hasValueBindingOrValueExpression(UIComponent component, String name) {
@@ -85,7 +85,7 @@ public class FacesUtils {
   }
 
   /**
-   * @deprecated since 1.6.0
+   * @deprecated since 2.0.0
    */
   @Deprecated
   public static boolean isReadonlyValueBindingOrValueExpression(
@@ -94,7 +94,7 @@ public class FacesUtils {
   }
 
   /**
-   * @deprecated since 1.6.0
+   * @deprecated since 2.0.0
    */
   @Deprecated
   public static String getExpressionString(UIComponent component, String name) {
@@ -102,7 +102,7 @@ public class FacesUtils {
   }
 
   /**
-   * @deprecated since 1.6.0
+   * @deprecated since 2.0.0
    */
   @Deprecated
   public static void setValueOfBindingOrExpression(
@@ -111,7 +111,7 @@ public class FacesUtils {
   }
 
   /**
-   * @deprecated since 1.6.0
+   * @deprecated since 2.0.0
    */
   @Deprecated
   public static void setValueOfBindingOrExpression(
@@ -120,7 +120,7 @@ public class FacesUtils {
   }
 
   /**
-   * @deprecated since 1.6.0
+   * @deprecated since 2.0.0
    */
   @Deprecated
   public static void copyValueBindingOrValueExpression(
@@ -129,7 +129,7 @@ public class FacesUtils {
   }
 
   /**
-   * @deprecated since 1.6.0
+   * @deprecated since 2.0.0
    */
   @Deprecated
   public static Object getValueFromBindingOrExpression(Object obj) {
@@ -137,7 +137,7 @@ public class FacesUtils {
   }
 
   /**
-   * @deprecated since 1.6.0
+   * @deprecated since 2.0.0
    */
   @Deprecated
   public static Object createExpressionOrBinding(String string) {
@@ -145,7 +145,7 @@ public class FacesUtils {
   }
 
   /**
-   * @deprecated since 1.6.0
+   * @deprecated since 2.0.0
    */
   @Deprecated
   public static void setValidator(EditableValueHolder editableValueHolder, Object validator) {
@@ -153,7 +153,7 @@ public class FacesUtils {
   }
 
   /**
-   * @deprecated since 1.6.0
+   * @deprecated since 2.0.0
    */
   @Deprecated
   public static void setConverter(ValueHolder valueHolder, Object converterExpression) {
@@ -161,7 +161,7 @@ public class FacesUtils {
   }
 
   /**
-   * @deprecated since 1.6.0
+   * @deprecated since 2.0.0
    */
   @Deprecated
   public static void setBindingOrExpression(UIComponent component, String name, Object valueBindingOrExpression) {
@@ -169,7 +169,7 @@ public class FacesUtils {
   }
 
   /**
-   * @deprecated since 1.6.0
+   * @deprecated since 2.0.0
    */
   @Deprecated
   public static void setBindingOrExpression(UIComponent component, String name, String valueBindingOrExpression) {
@@ -177,7 +177,7 @@ public class FacesUtils {
   }
 
   /**
-   * @deprecated since 1.6.0
+   * @deprecated since 2.0.0
    */
   @Deprecated
   public static void addBindingOrExpressionTabChangeListener(TabChangeSource source, String type,
@@ -186,7 +186,7 @@ public class FacesUtils {
   }
 
   /**
-   * @deprecated since 1.6.0
+   * @deprecated since 2.0.0
    */
   @Deprecated
   public static Comparator getBindingOrExpressionComparator(
@@ -195,7 +195,7 @@ public class FacesUtils {
   }
 
   /**
-   * @deprecated since 1.6.0
+   * @deprecated since 2.0.0
    */
   @Deprecated
   public static void addBindingOrExpressionPopupActionListener(ActionSource actionSource, Object bindingOrExpression) {
@@ -203,7 +203,7 @@ public class FacesUtils {
   }
 
   /**
-   * @deprecated since 1.6.0
+   * @deprecated since 2.0.0
    */
   @Deprecated
   public static void addBindingOrExpressionResetActionListener(ActionSource actionSource, Object bindingOrExpression) {
@@ -211,7 +211,7 @@ public class FacesUtils {
   }
 
   /**
-   * @deprecated since 1.6.0 Please call facesContext.getAttributes() directly.
+   * @deprecated since 2.0.0 Please call facesContext.getAttributes() directly.
    */
   @Deprecated
   public static Map getFacesContextAttributes(FacesContext facesContext) {
@@ -219,7 +219,7 @@ public class FacesUtils {
   }
 
   /**
-   * @deprecated since 1.6.0. Always true.
+   * @deprecated since 2.0.0. Always true.
    */
   @Deprecated
   public static boolean supportsEL() {

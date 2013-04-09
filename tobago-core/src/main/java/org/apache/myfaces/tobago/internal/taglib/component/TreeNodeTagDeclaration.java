@@ -57,7 +57,7 @@ public interface
 
   /**
    * Flag indicating if the subnodes are to be displayed.
-   * @deprecated since 1.6.0. Please use the state attribute of the tree with a TreeState
+   * @deprecated since 2.0.0. Please use the state attribute of the tree with a TreeState
    */
   @Deprecated
   @TagAttribute()
@@ -66,7 +66,7 @@ public interface
 
   /**
    * Flag indicating if the node is marked, and should be displayed in a special way.
-   * @deprecated since 1.6.0. Please use the state attribute of the tree with a TreeState
+   * @deprecated since 2.0.0. Please use the state attribute of the tree with a TreeState
    */
   @Deprecated
   @TagAttribute()
@@ -75,7 +75,7 @@ public interface
 
   /**
    * Flag indicating if the node is selected (only possible, when the tree component allows it).
-   * @deprecated since 1.6.0. Please use <code>&lt;tc:treeSelect></code>
+   * @deprecated since 2.0.0. Please use <code>&lt;tc:treeSelect></code>
    */
   @Deprecated
   @TagAttribute()

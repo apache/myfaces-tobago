@@ -31,7 +31,7 @@ import javax.faces.el.EvaluationException;
 import javax.faces.el.MethodBinding;
 
 /**
- * @deprecated since 1.6.0
+ * @deprecated since 2.0.0
  */
 @Deprecated
 public class MethodBindingToMethodExpression extends MethodExpression implements StateHolder {

@@ -33,7 +33,7 @@ import java.io.IOException;
 import java.util.Map;
 
 /**
- * @deprecated since 1.6.0 No longer needed for JSF 2.0
+ * @deprecated since 2.0.0 No longer needed for JSF 2.0
  */
 @Deprecated
 public class TobagoResponseStateManager extends ResponseStateManager {

@@ -25,13 +25,13 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
 /**
- * @deprecated since 1.6.0
+ * @deprecated since 2.0.0
  */
 @Deprecated
 public class FacesInvokeOnComponent12 {
 
   /**
-   * @deprecated since 1.6.0
+   * @deprecated since 2.0.0
    */
   @Deprecated
   public static boolean invokeOnComponent(
@@ -62,7 +62,7 @@ public class FacesInvokeOnComponent12 {
   }
 
   /**
-   * @deprecated since 1.6.0
+   * @deprecated since 2.0.0
    */
   @Deprecated
   private static boolean invokeOnComponentFacetsAndChildren(

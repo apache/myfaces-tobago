@@ -45,7 +45,7 @@ public interface ScriptTagDeclaration extends HasIdBindingAndRendered {
   void setFile(String file);
 
   /**
-   * @deprecated Since 1.6.0. Please include a custom script file via the file attribute and use
+   * @deprecated Since 2.0.0. Please include a custom script file via the file attribute and use
    * <code>Tobago.registerListener(myFunction, Tobago.Phase.DOCUMENT_READY);</code> or
    * <code>Tobago.registerListener(myFunction, Tobago.Phase.WINDOW_LOAD);</code>
    */
@@ -55,7 +55,7 @@ public interface ScriptTagDeclaration extends HasIdBindingAndRendered {
   void setOnload(String onload);
 
   /**
-   * @deprecated Since 1.6.0. Please include a custom script file via the file attribute and use
+   * @deprecated Since 2.0.0. Please include a custom script file via the file attribute and use
    * <code>Tobago.registerListener(myFunction, Tobago.Phase.BEFORE_UNLOAD);</code>
    */
   @Deprecated
@@ -64,7 +64,7 @@ public interface ScriptTagDeclaration extends HasIdBindingAndRendered {
   void setOnunload(String onunload);
 
   /**
-   * @deprecated Since 1.6.0. Please include a custom script file via the file attribute and use
+   * @deprecated Since 2.0.0. Please include a custom script file via the file attribute and use
    * <code>Tobago.registerListener(myFunction, Tobago.Phase.BEFORE_EXIT);</code>
    */
   @Deprecated
@@ -73,7 +73,7 @@ public interface ScriptTagDeclaration extends HasIdBindingAndRendered {
   void setOnexit(String onexit);
 
   /**
-   * @deprecated Since 1.6.0. Please include a custom script file via the file attribute and use
+   * @deprecated Since 2.0.0. Please include a custom script file via the file attribute and use
    * <code>Tobago.registerListener(myFunction, Tobago.Phase.BEFORE_SUBMIT);</code>
    */
   @Deprecated
@@ -82,7 +82,7 @@ public interface ScriptTagDeclaration extends HasIdBindingAndRendered {
   void setOnsubmit(String onsubmit);
 
   /**
-   * @deprecated Since 1.6.0. Please include a custom script file via the file attribute.
+   * @deprecated Since 2.0.0. Please include a custom script file via the file attribute.
    */
   @Deprecated
   @TagAttribute(bodyContent = true)

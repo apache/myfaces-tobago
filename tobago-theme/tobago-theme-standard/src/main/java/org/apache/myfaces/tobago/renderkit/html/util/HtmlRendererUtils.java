@@ -154,7 +154,7 @@ public final class HtmlRendererUtils {
     }
   }
 
-  /** @deprecated since 1.5.7 and 1.6.0 */
+  /** @deprecated since 1.5.7 and 2.0.0 */
   @Deprecated
   public static void setDefaultTransition(FacesContext facesContext, boolean transition)
       throws IOException {
@@ -710,7 +710,7 @@ public final class HtmlRendererUtils {
   }
 
   /**
-   * @deprecated Since Tobago 1.6.0. Because of CSP.
+   * @deprecated Since Tobago 2.0.0. Because of CSP.
    */
   @Deprecated
   private static void writeScriptForClientId(
@@ -761,7 +761,7 @@ public final class HtmlRendererUtils {
   }
 
   /**
-   * @deprecated since 1.6.0. JavaScript should not be rendered in the page. See CSP.
+   * @deprecated since 2.0.0. JavaScript should not be rendered in the page. See CSP.
    */
   @Deprecated
   public static String createSubmitAction(String clientId, boolean transition, String target, String focus) {

@@ -259,13 +259,13 @@ public abstract class AbstractUIPage extends AbstractUIForm
     this.actionPosition = actionPosition;
   }
 
-  /** @deprecated since 1.5.7 and 1.6.0 */
+  /** @deprecated since 1.5.7 and 2.0.0 */
   public String getDefaultActionId() {
     Deprecation.LOG.error("The default action handling has been changed!");
     return null;
   }
 
-  /** @deprecated since 1.5.7 and 1.6.0 */
+  /** @deprecated since 1.5.7 and 2.0.0 */
   public void setDefaultActionId(String defaultActionId) {
     Deprecation.LOG.error("The default action handling has been changed!");
   }
