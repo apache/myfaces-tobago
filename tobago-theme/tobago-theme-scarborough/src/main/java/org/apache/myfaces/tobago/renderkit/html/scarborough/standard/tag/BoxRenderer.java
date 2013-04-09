@@ -27,6 +27,7 @@ import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.BoxRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
+import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
@@ -59,6 +60,10 @@ public class BoxRenderer extends BoxRendererBase {
 
     writer.startElement(HtmlElements.FIELDSET, box);
     writer.writeClassAttribute(Classes.create(box));
+    String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, box);
+    if (title != null) {
+      writer.writeAttribute(HtmlAttributes.TITLE, title, true);
+    }
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, box);
     writer.writeStyleAttribute(style);
 
