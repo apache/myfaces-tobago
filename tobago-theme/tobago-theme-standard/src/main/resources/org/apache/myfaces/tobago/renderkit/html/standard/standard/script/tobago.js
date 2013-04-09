@@ -2536,6 +2536,16 @@ Tobago.TabGroup.init = function(elements) {
     selected.nextAll(":not(.tobago-tab-markup-disabled):first").click();
   });
 
+  // tool tips
+  tabGroups.each(function() {
+    var tabGroup = jQuery(this);
+    tabGroup.find(".tobago-tab").each(function() {
+      var tab = jQuery(this);
+      var tabContent = tabGroup.find(".tobago-tab-content[tabgroupindex=" + tab.attr("tabgroupindex") + "]");
+      tabContent.attr("title", tab.attr("title"));
+    });
+  });
+
   // init scroll position
   var header = tabGroups.find(".tobago-tabGroup-header");
   header.each(function() {

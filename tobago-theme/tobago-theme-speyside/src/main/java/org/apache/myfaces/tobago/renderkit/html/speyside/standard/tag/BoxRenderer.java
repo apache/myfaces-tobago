@@ -28,6 +28,7 @@ import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.BoxRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
+import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
@@ -84,6 +85,10 @@ without shadow
     HtmlRendererUtils.renderDojoDndItem(box, writer, true);
     writer.writeClassAttribute(Classes.create(box));
     writer.writeIdAttribute(clientId);
+    String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, box);
+    if (title != null) {
+      writer.writeAttribute(HtmlAttributes.TITLE, title, true);
+    }
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, box);
     writer.writeStyleAttribute(new Style(facesContext, box));
     encodeBox(facesContext, writer, box);

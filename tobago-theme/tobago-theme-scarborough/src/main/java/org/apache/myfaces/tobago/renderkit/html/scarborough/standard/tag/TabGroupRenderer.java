@@ -198,6 +198,10 @@ public class TabGroupRenderer extends LayoutComponentRendererBase {
           writer.startElement(HtmlElements.DIV, tab);
           writer.writeClassAttribute(Classes.create(tab));
           writer.writeAttribute(HtmlAttributes.TABGROUPINDEX, index);
+          String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, tab);
+          if (title != null) {
+            writer.writeAttribute(HtmlAttributes.TITLE, title, true);
+          }
 
           writer.startElement(HtmlElements.A, tab);
           if (!tab.isDisabled()) {
