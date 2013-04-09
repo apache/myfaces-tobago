@@ -1727,7 +1727,8 @@
     <commons-io.version>2.4</commons-io.version>
     <commons-lang.version>2.6</commons-lang.version>
     <commons-logging.version>1.1.1</commons-logging.version>
-    <commons-digester.version>2.1</commons-digester.version>
+    <!-- XXX digester 2.1 doesn't work -->
+    <commons-digester.version>1.8.1</commons-digester.version>
     <commons-collection.version>3.2.1</commons-collection.version>
     <maven.compile.source>1.5</maven.compile.source>
     <maven.compile.target>1.5</maven.compile.target>
