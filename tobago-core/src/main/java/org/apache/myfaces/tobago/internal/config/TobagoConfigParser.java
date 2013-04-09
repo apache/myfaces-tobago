@@ -43,7 +43,9 @@ public class TobagoConfigParser {
   private static final String TOBAGO_CONFIG_DTD_1_0_30 = "/org/apache/myfaces/tobago/config/tobago-config-1.0.30.dtd";
   private static final String TOBAGO_CONFIG_DTD_1_0_34 = "/org/apache/myfaces/tobago/config/tobago-config-1.0.34.dtd";
   private static final String TOBAGO_CONFIG_XSD_1_5 = "/org/apache/myfaces/tobago/config/tobago-config-1.5.xsd";
+  @Deprecated
   private static final String TOBAGO_CONFIG_XSD_1_6 = "/org/apache/myfaces/tobago/config/tobago-config-1.6.xsd";
+  private static final String TOBAGO_CONFIG_XSD_2_0 = "/org/apache/myfaces/tobago/config/tobago-config-2.0.xsd";
 
   private Digester digester;
 
@@ -77,7 +79,9 @@ public class TobagoConfigParser {
     // TODO: validating is turned of in case of a schema
     try {
       final String xml = IOUtils.toString(url.openStream());
-      if (xml.indexOf("tobago-config-1.5.xsd") > 0 || xml.indexOf("tobago-config-1.6.xsd") > 0) {
+      if (xml.indexOf("tobago-config-1.5.xsd") > 0
+          || xml.indexOf("tobago-config-1.6.xsd") > 0
+          || xml.indexOf("tobago-config-2.0.xsd") > 0) {
         digester.setValidating(false);
         return;
       }

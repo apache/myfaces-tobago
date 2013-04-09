@@ -18,8 +18,8 @@
 -->
 <tobago-config xmlns="http://myfaces.apache.org/tobago/tobago-config"
    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-   xsi:schemaLocation="http://myfaces.apache.org/tobago/tobago-config http://myfaces.apache.org/tobago/tobago-config-1.6.xsd"
-   version="1.6">
+   xsi:schemaLocation="http://myfaces.apache.org/tobago/tobago-config http://myfaces.apache.org/tobago/tobago-config-2.0.xsd"
+   version="2.0">
 
   <theme-config>
     <default-theme>speyside</default-theme>
