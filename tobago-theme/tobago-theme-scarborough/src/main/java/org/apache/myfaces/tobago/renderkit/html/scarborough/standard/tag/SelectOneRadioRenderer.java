@@ -47,12 +47,12 @@ import java.util.List;
 public class SelectOneRadioRenderer extends SelectOneRendererBase {
 
   public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
-    UISelectOneRadio select = (UISelectOneRadio) component;
+    UISelectOne select = (UISelectOne) component;
     super.prepareRender(facesContext, select);
       FacesContextUtils.addOnloadScript(facesContext, "Tobago.selectOneRadioInit('"
           + select.getClientId(facesContext) + "')");
-    if (select.isInline()) {
-      ComponentUtils.addCurrentMarkup(select, Markup.INLINE);
+    if (select instanceof UISelectOneRadio && ((UISelectOneRadio)select).isInline()) {
+      ComponentUtils.addCurrentMarkup(((UISelectOneRadio)select), Markup.INLINE);
     }
   }
 
