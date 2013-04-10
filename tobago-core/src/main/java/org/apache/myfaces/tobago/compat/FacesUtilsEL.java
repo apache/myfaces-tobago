@@ -175,7 +175,7 @@ public class FacesUtilsEL {
   }
 
   /**
-   * @deprecated Since 2.0.0, please use createValueExpression()
+   * @deprecated Since 2.0.0, please use {@link FacesUtilsEL#createValueExpression(String string)}
    */
   @Deprecated
   public static Object createExpressionOrBinding(String string) {

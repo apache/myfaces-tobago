@@ -19,22 +19,18 @@
 
 package org.apache.myfaces.tobago.internal.util;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.myfaces.tobago.compat.FacesUtilsEL;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
 
-
 public class ComponentAttributeUtils {
-
-  private static final Logger LOG = LoggerFactory.getLogger(ComponentAttributeUtils.class);
 
   public static void setBooleanProperty(UIComponent component, String name, String value) {
     if (value != null) {
       if (isValueReference(value)) {
-        component.setValueBinding(name, createValueBinding(value));
+        component.setValueExpression(name, FacesUtilsEL.createValueExpression(value));
       } else {
         component.getAttributes().put(name, Boolean.valueOf(value));
       }
@@ -44,7 +40,7 @@ public class ComponentAttributeUtils {
   public static void setStringProperty(UIComponent component, String name, String value) {
     if (value != null) {
       if (isValueReference(value)) {
-        component.setValueBinding(name, createValueBinding(value));
+        component.setValueExpression(name, FacesUtilsEL.createValueExpression(value));
       } else {
         component.getAttributes().put(name, value);
       }
@@ -61,6 +57,10 @@ public class ComponentAttributeUtils {
       return (end >=0 && start < end);
   }
 
+  /**
+   * @deprecated Since 2.0.0, please use {@link FacesUtilsEL#createValueExpression(String string)}
+   */
+  @Deprecated
   public static ValueBinding createValueBinding(String value) {
     return FacesContext.getCurrentInstance().getApplication().createValueBinding(value);
   }
