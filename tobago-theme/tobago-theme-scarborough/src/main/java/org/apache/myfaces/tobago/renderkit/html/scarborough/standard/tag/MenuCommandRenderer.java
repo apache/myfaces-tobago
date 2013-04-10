@@ -32,13 +32,14 @@ import org.apache.myfaces.tobago.renderkit.CommandRendererBase;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
+import org.apache.myfaces.tobago.renderkit.html.Command;
+import org.apache.myfaces.tobago.renderkit.html.CommandMap;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
-import org.apache.myfaces.tobago.renderkit.html.util.CommandRendererHelper;
+import org.apache.myfaces.tobago.renderkit.html.JsonUtils;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
-import org.apache.myfaces.tobago.renderkit.util.JQueryUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -76,17 +77,12 @@ public class MenuCommandRenderer extends CommandRendererBase {
       boolean checked = ComponentUtils.getBooleanAttribute(checkbox, Attributes.VALUE);
       String image = checked ? "image/MenuCheckmark.gif" : null;
       String hiddenId = checkbox.getClientId(facesContext);
-      // the function toggles true <-> false
-      String clientId = menu.getClientId(facesContext);
-      String submit = HtmlRendererUtils.createSubmitAction(clientId, true, null, null);
-      String setValue = JQueryUtils.selectId(hiddenId) 
-          + ".each(function(){jQuery(this).val(jQuery(this).val() == 'true' ? 'false' : 'true')}); ";
-      encodeItem(facesContext, writer, menu, label, setValue + submit, disabled, firstLevel, image);
+      final CommandMap map = new CommandMap(new Command());
+      encodeItem(facesContext, writer, menu, label, map, disabled, firstLevel, image, null, "selectBoolean");
       encodeHidden(writer, hiddenId, checked);
     } else if (menu.getFacet(Facets.RADIO) != null) {
       // radio menu
       String clientId = menu.getClientId(facesContext);
-      String submit = HtmlRendererUtils.createSubmitAction(clientId, true, null, null);
       UISelectOne radio = (UISelectOne) menu.getFacet(Facets.RADIO);
       List<SelectItem> items = RenderUtils.getSelectItems(radio);
       String hiddenId = radio.getClientId(facesContext);
@@ -105,28 +101,22 @@ public class MenuCommandRenderer extends CommandRendererBase {
         } else {
           LOG.warn("Menu item has label=null where clientId=" + clientId);
         }
-        String formattedValue = RenderUtils.getFormattedValue(facesContext, radio, item.getValue());
-        String setValue = JQueryUtils.selectId(hiddenId) + ".val('" + JQueryUtils.escapeValue(formattedValue) + "'); ";
-        encodeItem(facesContext, writer, null, label, setValue + submit, disabled, firstLevel, image);
+        final String formattedValue = RenderUtils.getFormattedValue(facesContext, radio, item.getValue());
+        final CommandMap map = new CommandMap(new Command(clientId, null, null, null, null, null, null, null, null));
+        encodeItem(facesContext, writer, null, label, map, disabled, firstLevel, image, formattedValue, "selectOne");
       }
       encodeHidden(writer, hiddenId, getCurrentValue(facesContext, radio));
     } else {
       // normal menu command
-      CommandRendererHelper helper = new CommandRendererHelper(facesContext, menu);
-      String onclick = helper.getOnclick();
-      if (onclick == null) {
-        String clientId = menu.getClientId(facesContext);
-        onclick = HtmlRendererUtils.createSubmitAction(clientId, true, null, null);
-      }
       String image = menu.getImage();
-      encodeItem(facesContext, writer, menu, label, onclick, disabled, firstLevel, image);
+      CommandMap map = new CommandMap(new Command(facesContext, menu));
+      encodeItem(facesContext, writer, menu, label, map, disabled, firstLevel, image, null, null);
     }
   }
 
   private void encodeHidden(TobagoResponseWriter writer, String hiddenId, Object value) throws IOException {
     writer.startElement(HtmlElements.INPUT, null);
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN, false);
-    writer.writeIdAttribute(hiddenId);
     writer.writeNameAttribute(hiddenId);
     if (value != null) {
       writer.writeAttribute(HtmlAttributes.VALUE, value.toString(), true);
@@ -136,7 +126,8 @@ public class MenuCommandRenderer extends CommandRendererBase {
 
   private void encodeItem(
       FacesContext facesContext, TobagoResponseWriter writer, UIMenuCommand component, LabelWithAccessKey label,
-      String onclick, boolean disabled, boolean firstLevel, String image) throws IOException {
+      CommandMap map, boolean disabled, boolean firstLevel, String image, String value, String sub)
+      throws IOException {
 
     writer.startElement(HtmlElements.LI, null);
     if (component != null && !component.isTransient()) {
@@ -149,8 +140,15 @@ public class MenuCommandRenderer extends CommandRendererBase {
         markup = Markup.TOP.add(markup);
       }
     }
-    writer.writeClassAttribute(Classes.createWorkaround("menu", markup)); // todo: solve workaround
-    writer.writeAttribute(HtmlAttributes.ONCLICK, onclick, true);
+     // todo: solve workaround
+    String css = Classes.createWorkaround("menu", markup).getStringValue();
+    if (sub != null) {
+      css += " tobago-menu-" + sub;
+    }
+    writer.writeClassAttribute(css);
+    writer.writeAttribute(DataAttributes.COMMANDS, JsonUtils.encode(map), true);
+    writer.writeAttribute(DataAttributes.VALUE, value, true);
+
     if (component != null) {
       HtmlRendererUtils.writeDataAttributes(facesContext, writer, component);
     }

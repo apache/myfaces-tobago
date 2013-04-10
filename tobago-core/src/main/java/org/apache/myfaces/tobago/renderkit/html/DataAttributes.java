@@ -33,6 +33,7 @@ public final class DataAttributes {
   public static final String COLUMNINDEX = "data-tobago-columnindex";
 
   /**
+   * TBD: needed? may replace with VALUE?
    * Custom command attribute. Is used to mark different client side JavaScript buttons.
    * Should only contain the command name as a keyword, for security reasons.
    */

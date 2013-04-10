@@ -254,6 +254,22 @@ Tobago.Menu.init = function(elements) {
     event.stopPropagation();
   });
 
+  // selectOne
+  var selectOne = Tobago.Utils.selectWidthJQuery(elements, ".tobago-menu-selectOne");
+  selectOne.click(function() {
+    var menu = jQuery(this);
+    var hidden = menu.nextAll("input[type=hidden]").first();
+    hidden.val(menu.data("tobago-value"));
+  });
+
+  // selectBoolean
+  var selectBoolean = Tobago.Utils.selectWidthJQuery(elements, ".tobago-menu-selectBoolean");
+  selectBoolean.click(function() {
+    var menu = jQuery(this);
+    var hidden = menu.nextAll("input[type=hidden]").first();
+    hidden.val(hidden.val() == "true" ? "false" : "true");
+  });
+
   // IE6 select-tag fix
   // put a iframe inside the div, so that a <select> tag doesn't shine through.
   // the iframe must be resized (see above)

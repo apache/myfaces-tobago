@@ -19,6 +19,10 @@
 
 package org.apache.myfaces.tobago.renderkit.util;
 
+/**
+ * @deprecated since 2.0.0. JavaScript should not be used no server side (CSP)
+ */
+@Deprecated
 public class JQueryUtils {
 
   private JQueryUtils() {
