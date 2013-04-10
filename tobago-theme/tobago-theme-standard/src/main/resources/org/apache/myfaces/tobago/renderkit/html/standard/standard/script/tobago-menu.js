@@ -273,10 +273,10 @@ Tobago.Menu.init = function(elements) {
   jQuery(".tobago-page-menuStore").append(menus.children("ol"));
 
   var toolBarMenu = Tobago.Utils.selectWidthJQuery(
-      elements, ".tobago-toolBar-menu .tobago-boxToolBar-menu .tobago-tabGroupToolBar-menu");
+      elements, ".tobago-toolBar-menu, .tobago-boxToolBar-menu, .tobago-tabGroupToolBar-menu");
   // a click on toolBar menu opener -> forward to .tobago-menu-markup-top
   toolBarMenu.click(function(event) {
-    jQuery(this).next().find('a').click();
+    jQuery(this).find('a').click();
     event.stopPropagation();
   });
 

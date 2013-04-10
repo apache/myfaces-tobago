@@ -24,7 +24,6 @@ import org.apache.myfaces.tobago.config.Configurable;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.internal.component.AbstractUICommandBase;
 import org.apache.myfaces.tobago.internal.component.AbstractUIData;
-import org.apache.myfaces.tobago.internal.component.AbstractUITree;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.model.ExpandedState;
@@ -394,7 +393,7 @@ public class RenderUtils {
       final TreePath path = data.getPath();
 
       // selected
-        final SelectedState selectedState = ((AbstractUITree) data).getSelectedState();
+        final SelectedState selectedState = data.getSelectedState();
         final boolean oldSelected = selectedState.isSelected(path);
         final boolean newSelected = selectedIndices.contains(rowIndex);
         if (newSelected != oldSelected) {

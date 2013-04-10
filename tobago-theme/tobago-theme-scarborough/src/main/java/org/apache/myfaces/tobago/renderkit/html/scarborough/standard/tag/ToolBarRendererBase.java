@@ -39,11 +39,13 @@ import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
+import org.apache.myfaces.tobago.renderkit.html.Command;
+import org.apache.myfaces.tobago.renderkit.html.CommandMap;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
-import org.apache.myfaces.tobago.renderkit.html.util.CommandRendererHelper;
+import org.apache.myfaces.tobago.renderkit.html.JsonUtils;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -111,10 +113,9 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
       } else if (command.getFacet(Facets.CHECKBOX) != null) {
         return renderSelectBoolean(facesContext, toolBar, command, writer, width);
       } else {
-        String onCommandClick = createCommandOnClick(facesContext, command);
-        String onMenuClick = createMenuOnClick(command);
+        final CommandMap map = hasAnyCommand(command) ? new CommandMap(new Command(facesContext, command)) : null;
         return renderToolbarButton(
-            facesContext, toolBar, command, writer, false, onCommandClick, onMenuClick, width);
+            facesContext, toolBar, command, writer, false, width, map, null);
       }
     }
   }
@@ -124,12 +125,7 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
   private Measure renderSelectOne(FacesContext facesContext, UIToolBar toolBar, AbstractUICommandBase command,
       TobagoResponseWriter writer, Measure width) throws IOException {
 
-    String suffix = createCommandOnClick(facesContext, command);
-    if (suffix == null) {
-      suffix = "";
-    }
-
-    List<SelectItem> items;
+    final List<SelectItem> items;
 
     UIMenuSelectOne radio = (UIMenuSelectOne) command.getFacet(Facets.RADIO);
     if (radio == null) {
@@ -141,6 +137,8 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
     }
 
     if (radio != null) {
+      writer.startElement(HtmlElements.SPAN, radio);
+      writer.writeClassAttribute(Classes.createWorkaround("toolBar", "selectOne", null));
       Object value = radio.getValue();
 
       String currentValue = "";
@@ -179,16 +177,17 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
           checked = false;
         }
 
-        String onClick = "Tobago.ToolBar.setRadioValue('" + radioId + "', '" + formattedValue + "');" + suffix;
-        width = renderToolbarButton(facesContext, toolBar, command, writer, checked, onClick, null, width);
+        final CommandMap map = new CommandMap(new Command());
+        width = renderToolbarButton(
+            facesContext, toolBar, command, writer, checked, width, map, formattedValue);
       }
 
       writer.startElement(HtmlElements.INPUT, null);
       writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN, false);
-      writer.writeIdAttribute(radioId);
       writer.writeNameAttribute(radioId);
       writer.writeAttribute(HtmlAttributes.VALUE, currentValue, true);
       writer.endElement(HtmlElements.INPUT);
+      writer.endElement(HtmlElements.SPAN);
     }
     return width;
   }
@@ -207,20 +206,17 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
     final boolean checked = ComponentUtils.getBooleanAttribute(checkbox, Attributes.VALUE);
     final String clientId = checkbox.getClientId(facesContext);
 
-    String onClick = createCommandOnClick(facesContext, command);
-    if (onClick == null) {
-      onClick = "";
-    }
-    onClick = "Tobago.ToolBar.checkToggle('" + clientId + "');" + onClick;
-
-    width = renderToolbarButton(facesContext, toolBar, command, writer, checked, onClick, null, width);
+    writer.startElement(HtmlElements.SPAN, checkbox);
+    writer.writeClassAttribute(Classes.createWorkaround("toolBar", "selectBoolean", null));
+    final CommandMap map = new CommandMap(new Command());
+    width = renderToolbarButton(facesContext, toolBar, command, writer, checked, width, map, null);
 
     writer.startElement(HtmlElements.INPUT, null);
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN, false);
-    writer.writeIdAttribute(clientId);
     writer.writeNameAttribute(clientId);
     writer.writeAttribute(HtmlAttributes.VALUE, Boolean.toString(checked), false);
     writer.endElement(HtmlElements.INPUT);
+    writer.endElement(HtmlElements.SPAN);
 
     return width;
   }
@@ -228,7 +224,7 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
 
   private Measure renderToolbarButton(
       FacesContext facesContext, UIToolBar toolBar, AbstractUICommandBase command, TobagoResponseWriter writer,
-      boolean selected, String commandClick, String menuClick, Measure width)
+      boolean selected, Measure width, CommandMap map, String value)
       throws IOException {
     if (!command.isRendered()) {
       return width;
@@ -387,12 +383,24 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
     writer.writeStyleAttribute(itemStyle);
 
     writer.startElement(HtmlElements.SPAN, command);
-    writer.writeClassAttribute(Classes.create(toolBar, "button", selected ? Markup.SELECTED : Markup.NULL));
+    if (separateButtons || dropDownMenu == null) {
+      writer.writeClassAttribute(Classes.create(toolBar, "button", selected ? Markup.SELECTED : Markup.NULL));
+    } else {
+      writer.writeClassAttribute(Classes.create(toolBar, "menu"));
+    }
     writer.writeStyleAttribute(buttonStyle);
     if (!toolBar.isTransient()) {
       writer.writeIdAttribute(command.getClientId(facesContext));
     }
-    writer.writeAttribute(HtmlAttributes.ONCLICK, commandClick != null ? commandClick : menuClick, true);
+//    writer.writeAttribute(HtmlAttributes.ONCLICK, commandClick != null ? commandClick : menuClick, true);
+    writer.writeAttribute(HtmlAttributes.ONCLICK, "/* dropped */", true);
+    if (map != null) {
+      writer.writeAttribute(DataAttributes.COMMANDS, JsonUtils.encode(map), true);
+    }
+    if (value != null) {
+      writer.writeAttribute(DataAttributes.VALUE, value, true);
+    }
+
     // render icon
     if (showIcon && iconName != null) {
       writer.startElement(HtmlElements.IMG, command);
@@ -426,7 +434,8 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
       writer.writeStyleAttribute(menuStyle);
       // todo: span has not type: use data-tobago-type here (TOBAGO-1004)
       writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.BUTTON, false);
-      writer.writeAttribute(HtmlAttributes.ONCLICK, menuClick, true);
+//      writer.writeAttribute(HtmlAttributes.ONCLICK, menuClick, true);
+      writer.writeAttribute(HtmlAttributes.ONCLICK, "/* dropped */", true);
     }
 
     // render sub menu popup button
@@ -510,15 +519,6 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
     return result;
   }
 
-  private String createCommandOnClick(FacesContext facesContext, AbstractUICommandBase command) {
-    if (hasNoCommand(command) && FacetUtils.getDropDownMenu(command) != null) {
-      return null;
-    } else {
-      CommandRendererHelper helper = new CommandRendererHelper(facesContext, command);
-      return helper.getOnclick();
-    }
-  }
-
   private boolean hasAnyCommand(AbstractUICommandBase command) {
     return !hasNoCommand(command);
   }
@@ -529,19 +529,6 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
         && command.getActionListeners().length == 0
         && command.getLink() == null
         && command.getAttributes().get(Attributes.ONCLICK) == null;
-  }
-
-  private String createMenuOnClick(AbstractUICommandBase command) {
-    if (FacetUtils.getDropDownMenu(command) != null) {
-      return "jQuery(this).find('a').click(); " 
-          + "if (event.stopPropagation === undefined) { "
-          + "  event.cancelBubble = true; " // IE
-          + "} else { "
-          + "  event.stopPropagation(); " // other
-          + "}"; // todo: register a onclick handler with jQuery
-    } else {
-      return null;
-    }
   }
 
   private String getImage(

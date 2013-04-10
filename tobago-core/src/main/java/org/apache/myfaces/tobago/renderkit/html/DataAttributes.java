@@ -170,6 +170,11 @@ public final class DataAttributes {
   public static final String UNIT = "data-tobago-unit";
 
   /**
+   * Holds the value (for tags, that don't have a value in HTML).
+   */
+  public static final String VALUE = "data-tobago-value";
+
+  /**
    * Holds the year of a calendar control.
    */
   public static final String YEAR = "data-tobago-year";
