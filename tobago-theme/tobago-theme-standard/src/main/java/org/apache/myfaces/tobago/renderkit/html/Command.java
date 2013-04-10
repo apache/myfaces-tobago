@@ -21,14 +21,18 @@ package org.apache.myfaces.tobago.renderkit.html;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.myfaces.tobago.component.Attributes;
+import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.UICommand;
 import org.apache.myfaces.tobago.component.UIForm;
 import org.apache.myfaces.tobago.internal.component.AbstractUICommand;
+import org.apache.myfaces.tobago.internal.component.AbstractUICommandBase;
 import org.apache.myfaces.tobago.internal.util.Deprecation;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
+import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 
 import javax.faces.component.UIComponent;
+import javax.faces.component.ValueHolder;
 import javax.faces.context.FacesContext;
 
 /**
@@ -50,10 +54,13 @@ public class Command {
   private Integer delay;
   private Popup popup;
   /**
-   * @deprecated
+   * @deprecated Script will not work when CSP is activated
    */
   @Deprecated
   private String script;
+
+  public Command() {
+  }
 
   public Command(
       String action, Boolean transition, String target, String url, String[] partially, String focus,
@@ -67,6 +74,22 @@ public class Command {
     this.confirmation = confirmation;
     this.delay = delay;
     this.popup = popup;
+  }
+
+   public Command(FacesContext facesContext, AbstractUICommandBase command) {
+    this(
+        null,
+        command.isTransition(),
+        command.getTarget(),
+        RenderUtils.generateUrl(facesContext, command),
+        HtmlRendererUtils.getComponentIdsAsList(facesContext, command, command.getRenderedPartially()),
+        null,
+        getConfirmation(command),
+        null,
+        Popup.createPopup(command));
+    if (command.getOnclick() != null) {
+      script = command.getOnclick();
+    }
   }
 
   public Command(FacesContext facesContext, UIComponent facetComponent, String focusId) {
@@ -105,6 +128,11 @@ public class Command {
     if (delay > 0) {
       this.delay = delay;
     }
+  }
+
+  private static String getConfirmation(AbstractUICommandBase command) {
+    final ValueHolder facet = (ValueHolder) command.getFacet(Facets.CONFIRMATION);
+    return facet != null ? "" + facet.getValue() : null;
   }
 
   public String getAction() {
@@ -180,14 +208,14 @@ public class Command {
   }
 
   /**
-   * @deprecated
+   * @deprecated Script will not work when CSP is activated
    */
   public String getScript() {
     return script;
   }
 
   /**
-   * @deprecated
+   * @deprecated Script will not work when CSP is activated
    */
   @Deprecated
   public void setScript(String script) {

@@ -625,7 +625,6 @@ public final class HtmlRendererUtils {
     return strBuilder.toString();
   }
 
-
   public static void renderCommandFacet(UIComponent component, FacesContext facesContext,
       TobagoResponseWriter writer) throws IOException {
     renderCommandFacet(component, component.getClientId(facesContext), facesContext, writer);

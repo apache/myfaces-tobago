@@ -20,7 +20,6 @@
 package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.UIButton;
 import org.apache.myfaces.tobago.config.Configurable;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
@@ -38,7 +37,6 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlButtonTypes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.JsonUtils;
-import org.apache.myfaces.tobago.renderkit.html.Popup;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -47,7 +45,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
-import javax.faces.component.ValueHolder;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
@@ -73,20 +70,7 @@ public class ButtonRenderer extends CommandRendererBase {
     writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
 
     if (!disabled) {
-      final ValueHolder confirmationFacet = (ValueHolder) component.getFacet(Facets.CONFIRMATION);
-      final String confirmation = confirmationFacet != null ? "" + confirmationFacet.getValue() : null;
-
-      final String url = RenderUtils.generateUrl(facesContext, button);
-      final CommandMap map = new CommandMap();
-      final String[] partialIds
-          = HtmlRendererUtils.getComponentIdsAsList(facesContext, button, button.getRenderedPartially());
-      final Popup popup = Popup.createPopup(button);
-      final Command click = new Command(
-          null, button.isTransition(), button.getTarget(), url, partialIds, null, confirmation, null, popup);
-      if (button.getOnclick() != null) {
-        click.setScript(button.getOnclick());
-      }
-      map.setClick(click);
+      final CommandMap map = new CommandMap(new Command(facesContext, button));
       writer.writeAttribute(DataAttributes.COMMANDS, JsonUtils.encode(map), true);
 
       writer.writeAttribute(HtmlAttributes.HREF, "#", false);

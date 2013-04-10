@@ -34,7 +34,17 @@ public class CommandMap {
   private Command click;
   private Map<String, Command> other;
 
+  /**
+   * Creates an empty command map, which may hold different command triggered by different keys.
+   */
   public CommandMap() {
+  }
+
+  /**
+   * Creates a command map, which hold the given command triggered by "click".
+   */
+  public CommandMap(Command click) {
+    this.click = click;
   }
 
   public void setClick(Command click) {

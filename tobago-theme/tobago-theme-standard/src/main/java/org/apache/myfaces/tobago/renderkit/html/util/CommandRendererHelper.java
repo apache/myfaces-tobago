@@ -35,6 +35,10 @@ import javax.faces.component.ValueHolder;
 import javax.faces.context.FacesContext;
 import java.util.Arrays;
 
+/**
+ * @deprecated since 2.0.0. Please use {@link org.apache.myfaces.tobago.renderkit.html.CommandMap}
+ */
+@Deprecated
 public class CommandRendererHelper {
 
   private static final Logger LOG = LoggerFactory.getLogger(CommandRendererHelper.class);

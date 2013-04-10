@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
-import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.config.Configurable;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.internal.component.AbstractUILink;
@@ -35,7 +34,6 @@ import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.JsonUtils;
-import org.apache.myfaces.tobago.renderkit.html.Popup;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -43,7 +41,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
-import javax.faces.component.ValueHolder;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import java.io.IOException;
@@ -70,20 +67,7 @@ public class LinkRenderer extends CommandRendererBase {
       writer.startElement(HtmlElements.A, link);
 //      writer.writeAttribute(HtmlAttributes.HREF, href, true); XXX
 
-      final ValueHolder confirmationFacet = (ValueHolder) component.getFacet(Facets.CONFIRMATION);
-      final String confirmation = confirmationFacet != null ? "" + confirmationFacet.getValue() : null;
-
-      final String url = RenderUtils.generateUrl(facesContext, link);
-      final CommandMap map = new CommandMap();
-      final String[] partialIds
-          = HtmlRendererUtils.getComponentIdsAsList(facesContext, link, link.getRenderedPartially());
-      final Popup popup = Popup.createPopup(link);
-      final Command click = new Command(
-          null, link.isTransition(), link.getTarget(), url, partialIds, null, confirmation, null, popup);
-      if (link.getOnclick() != null) {
-        click.setScript(link.getOnclick());
-      }
-      map.setClick(click);
+      final CommandMap map = new CommandMap(new Command(facesContext, link));
       writer.writeAttribute(DataAttributes.COMMANDS, JsonUtils.encode(map), true);
 
       writer.writeAttribute(HtmlAttributes.HREF, "#", false);
