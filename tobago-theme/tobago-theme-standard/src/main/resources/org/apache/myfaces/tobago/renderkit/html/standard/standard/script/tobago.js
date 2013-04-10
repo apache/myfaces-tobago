@@ -2440,6 +2440,19 @@ Tobago.ToolBar.init = function(elements) {
       });
     });
 
+  Tobago.Utils.selectWidthJQuery(elements, ".tobago-tabGroup-toolBar")
+      .find(".tobago-menu[data-tobago-index]").each(function () {
+        var menu = jQuery(this);
+        menu.data("tobago-tabGroup", menu.closest(".tobago-tabGroup"));
+        menu.click(function (event) {
+          var menu = jQuery(this);
+          var tabGroup = menu.data("tobago-tabGroup");
+          var tab = tabGroup.find(".tobago-tab[tabgroupindex=" + menu.data("tobago-index") + "]");
+          tab.click();
+          event.stopPropagation();
+        })
+      });
+
     Tobago.Utils.selectWidthJQuery(elements, ".tobago-tabGroup-toolBar").find('.tobago-tabGroupToolBar-item')
         .not('.tobago-tabGroupToolBar-item-markup-disabled')
         .hover(function() {

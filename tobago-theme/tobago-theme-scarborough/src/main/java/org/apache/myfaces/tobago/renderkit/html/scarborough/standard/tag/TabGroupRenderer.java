@@ -42,7 +42,6 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
-import org.apache.myfaces.tobago.renderkit.util.JQueryUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.util.CreateComponentUtils;
@@ -278,14 +277,7 @@ public class TabGroupRenderer extends LayoutComponentRendererBase {
           if (tab.isDisabled()) {
             entry.setDisabled(true);
           } else {
-            entry.setOnclick(JQueryUtils.selectId(clientId)
-                + ".find('.tobago-tab[tabgroupindex=" + index + "]')"
-                + ".click();"
-                + "if (event.stopPropagation === undefined) { "
-                + "  event.cancelBubble = true; " // IE
-                + "} else { "
-                + "  event.stopPropagation(); " // other
-                + "}"); // todo: register a onclick handler with jQuery
+            ComponentUtils.putDataAttribute(entry, "tobago-index", index); // XXX todo, define a DataAttribute
           }
           menu.getChildren().add(entry);
         }
