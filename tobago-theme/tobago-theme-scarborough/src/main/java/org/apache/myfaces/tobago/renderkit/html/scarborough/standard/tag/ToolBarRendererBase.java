@@ -392,8 +392,6 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
     if (!toolBar.isTransient()) {
       writer.writeIdAttribute(command.getClientId(facesContext));
     }
-//    writer.writeAttribute(HtmlAttributes.ONCLICK, commandClick != null ? commandClick : menuClick, true);
-    writer.writeAttribute(HtmlAttributes.ONCLICK, "/* dropped */", true);
     if (map != null) {
       writer.writeAttribute(DataAttributes.COMMANDS, JsonUtils.encode(map), true);
     }
@@ -434,8 +432,6 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
       writer.writeStyleAttribute(menuStyle);
       // todo: span has not type: use data-tobago-type here (TOBAGO-1004)
       writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.BUTTON, false);
-//      writer.writeAttribute(HtmlAttributes.ONCLICK, menuClick, true);
-      writer.writeAttribute(HtmlAttributes.ONCLICK, "/* dropped */", true);
     }
 
     // render sub menu popup button
