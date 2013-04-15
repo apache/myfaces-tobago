@@ -60,47 +60,10 @@
           <tomeeClassifier>plus</tomeeClassifier>
         </configuration>
       </plugin>
-      <plugin>
-        <!-- The usage is documented in the FAQ -->
-        <groupId>com.ibm.websphere.wlp.maven.plugins</groupId>
-        <artifactId>liberty-maven-plugin</artifactId>
-        <version>1.0</version>
-        <configuration>
-          <serverHome>${wlp.directory}/wlp</serverHome>
-          <appArchive>${project.build.directory}/${project.build.finalName}.war</appArchive>
-          <serverName>tobago</serverName>
-          <!-- default debugging port is 7777 -->
-          <!--<debug>true</debug>-->
-        </configuration>
-      </plugin>
+
     </plugins>
   </build>
 
-  <pluginRepositories>
-    <pluginRepository>
-      <releases>
-        <enabled>false</enabled>
-      </releases>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-      <id>codehaus-snapshots</id>
-      <url>http://snapshots.repository.codehaus.org/</url>
-    </pluginRepository>
-    <pluginRepository>
-      <!-- For IBM Websphere Liberty Profile (WLP) -->
-      <id>Liberty</id>
-      <name>Liberty Repository</name>
-      <url>http://public.dhe.ibm.com/ibmdl/export/pub/software/websphere/wasdev/maven/repository/</url>
-      <layout>default</layout>
-      <snapshots>
-        <enabled>false</enabled>
-      </snapshots>
-      <releases>
-        <enabled>true</enabled>
-      </releases>
-    </pluginRepository>
-  </pluginRepositories>
 
   <dependencies>
     <dependency>
@@ -370,6 +333,41 @@
         </dependency>
       </dependencies>
     </profile>
+    <profile>
+      <id>liberty</id>
+      <build>
+        <plugins>
+          <plugin>
+            <!-- The usage is documented in the FAQ -->
+            <groupId>com.ibm.websphere.wlp.maven.plugins</groupId>
+            <artifactId>liberty-maven-plugin</artifactId>
+            <version>1.0</version>
+            <configuration>
+              <serverHome>${wlp.directory}/wlp</serverHome>
+              <appArchive>${project.build.directory}/${project.build.finalName}.war</appArchive>
+              <serverName>tobago</serverName>
+              <!-- default debugging port is 7777 -->
+              <!--<debug>true</debug>-->
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+      <pluginRepositories>
+        <pluginRepository>
+          <!-- For IBM Websphere Liberty Profile (WLP) -->
+          <id>Liberty</id>
+          <name>Liberty Repository</name>
+          <url>http://public.dhe.ibm.com/ibmdl/export/pub/software/websphere/wasdev/maven/repository/</url>
+          <layout>default</layout>
+          <snapshots>
+            <enabled>false</enabled>
+          </snapshots>
+          <releases>
+            <enabled>true</enabled>
+          </releases>
+        </pluginRepository>
+      </pluginRepositories>
 
+    </profile>
   </profiles>
 </project>
