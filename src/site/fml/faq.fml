@@ -361,7 +361,7 @@ java -jar ~/Downloads/wlp-developers-runtime-8.5.next.beta.jar
         <ul>
           <li>
             Start the server
-            <source>mvn liberty:start-server</source>
+            <source>mvn -Pliberty liberty:start-server</source>
           </li>
           <li>
             Build an artifact (you need the "provided" property, because JSF and OWB comes from the server)
@@ -369,7 +369,7 @@ java -jar ~/Downloads/wlp-developers-runtime-8.5.next.beta.jar
           </li>
           <li>
             Deploy an artifact
-            <source>mvn liberty:deploy</source>
+            <source>mvn -Pliberty liberty:deploy</source>
           </li>
           <li>
             You will find the web application under this URL
@@ -380,7 +380,7 @@ java -jar ~/Downloads/wlp-developers-runtime-8.5.next.beta.jar
           </li>
           <li>
             Stop the server
-            <source>mvn liberty:stop-server</source>
+            <source>mvn -Pliberty liberty:stop-server</source>
           </li>
         </ul>
         <p>
