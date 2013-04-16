@@ -115,13 +115,13 @@
           <tc:gridLayoutConstraint columnSpan="2"/>
         </tc:button>
 
-        <tc:panel>
+        <tc:panel id="navTest">
           <tc:gridLayoutConstraint columnSpan="2"/>
 
           <tx:selectOneChoice fieldId="navSelect" value="#{partialReloadController.navigateAction}" label="On Change">
             <f:facet name="change">
               <!-- XXX value="fixme" should be empty, but it doesn't work with an empty string -->
-              <tc:command action="#{partialReloadController.navigateAction}" renderedPartially="fixme"/>
+              <tc:command action="#{partialReloadController.navigateAction}" renderedPartially="navTest"/>
             </f:facet>
             <f:selectItem itemLabel="Select action" itemValue=""/>
             <f:selectItem itemLabel="Reload left" itemValue="left"/>

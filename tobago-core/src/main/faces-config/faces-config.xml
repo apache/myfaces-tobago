@@ -25,6 +25,11 @@
   <application>
     <default-render-kit-id>tobago</default-render-kit-id>
   </application>
+
+  <lifecycle>
+    <phase-listener>org.apache.myfaces.tobago.internal.ajax.AjaxNavigationListener</phase-listener>
+  </lifecycle>
+
   <component>
     <component-type>javax.faces.NamingContainer</component-type>
     <component-class>org.apache.myfaces.tobago.component.UINamingContainer</component-class>

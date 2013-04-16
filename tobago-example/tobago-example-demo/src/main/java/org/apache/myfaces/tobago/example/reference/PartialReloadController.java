@@ -24,6 +24,8 @@ import org.apache.myfaces.tobago.example.demo.NavigationState;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.el.ELContext;
+import javax.el.ValueExpression;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import java.util.Date;
@@ -73,7 +75,16 @@ public class PartialReloadController {
 
     // in case of both the select control is not processed during lifecycle
     // we need to get the value from the request params
-    navigateAction = (String) facesContext.getExternalContext().getRequestParameterMap().get("page:navSelect");
+//    navigateAction = (String) facesContext.getExternalContext().getRequestParameterMap().get("page:navSelect");
+
+    AjaxUtils.removeAjaxComponent(facesContext, "page:navTest");
+
+    if (navigationState == null) {
+      ELContext elContext = facesContext.getELContext();
+      ValueExpression expression = facesContext.getApplication().getExpressionFactory()
+          .createValueExpression(elContext, "#{navigationState}", NavigationState.class);
+      navigationState = (NavigationState) expression.getValue(elContext);
+    }
 
     LOG.info("navigateAction = \"" + navigateAction + "\"");
     if (navigateAction == null) {

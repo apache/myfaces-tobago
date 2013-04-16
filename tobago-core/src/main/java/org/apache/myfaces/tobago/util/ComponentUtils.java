@@ -181,13 +181,17 @@ public class ComponentUtils {
   }
 
   public static AbstractUIPage findPage(UIComponent component) {
-    while (component != null) {
-      if (component instanceof AbstractUIPage) {
-        return (AbstractUIPage) component;
+    if (component instanceof UIViewRoot) {
+      return findPageBreadthFirst(component);
+    } else {
+      while (component != null) {
+        if (component instanceof AbstractUIPage) {
+          return (AbstractUIPage) component;
+        }
+        component = component.getParent();
       }
-      component = component.getParent();
+      return null;
     }
-    return null;
   }
 
   public static AbstractUIPage findPage(FacesContext facesContext) {
