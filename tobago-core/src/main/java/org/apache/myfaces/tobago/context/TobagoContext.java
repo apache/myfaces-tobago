@@ -21,6 +21,7 @@ package org.apache.myfaces.tobago.context;
 
 import org.apache.myfaces.tobago.internal.component.AbstractUIPage;
 import org.apache.myfaces.tobago.layout.Box;
+import org.apache.myfaces.tobago.layout.Dimension;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 
 import javax.faces.context.FacesContext;
@@ -34,6 +35,16 @@ public class TobagoContext {
     FacesContext facesContext = FacesContext.getCurrentInstance();
     AbstractUIPage page = ComponentUtils.findPage(facesContext);
     return page.getActionPosition();
+  }
+
+  /**
+   * Returns the dimension of the page. Might be useful to set the size of a popup.
+   * E. g. <code>width="#{tobagoContext.pageDimension.width.pixel - 100}"</code>
+   */
+  public Dimension getPageDimension() {
+    FacesContext facesContext = FacesContext.getCurrentInstance();
+    AbstractUIPage page = ComponentUtils.findPage(facesContext);
+    return new Dimension(page.getWidth(), page.getHeight());
   }
 
   public TobagoResourceBundle getResourceBundle() {
