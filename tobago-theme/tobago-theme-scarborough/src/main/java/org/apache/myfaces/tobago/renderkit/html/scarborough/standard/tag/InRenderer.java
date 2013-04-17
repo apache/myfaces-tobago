@@ -264,7 +264,8 @@ public class InRenderer extends InputRendererBase {
         }
         autoSuggestItems.setItems(items);
       } else {
-        throw new IllegalArgumentException("Cant create AutoSuggestItems from " + object);
+        throw new ClassCastException("Cant create AutoSuggestItems from '" + object + "'. "
+            + "Elements needs to be " + String.class.getName() + " or " + AutoSuggestItem.class.getName());
       }
     } else {
       autoSuggestItems.setItems(Collections.<AutoSuggestItem>emptyList());
