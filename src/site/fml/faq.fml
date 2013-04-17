@@ -343,12 +343,6 @@ java -jar ~/Downloads/wlp-developers-runtime-8.5.next.beta.jar
             </source>
           </li>
           <li>
-            Adding some features to the wlp/templates/servers/defaultServer/server.xml
-            <source>&lt;feature&gt;cdi-1.0&lt;/feature&gt;
-&lt;feature&gt;servlet-3.0&lt;/feature&gt;
-&lt;feature&gt;jsf-2.0&lt;/feature&gt;</source>
-          </li>
-          <li>
             Adding your server home to a property in the settings.xml of Maven
             <source>&lt;wlp.directory&gt;/opt/wlp-developers-runtime-8.5.next.beta&lt;/wlp.directory&gt;</source>
           </li>
