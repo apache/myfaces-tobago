@@ -138,7 +138,7 @@ public class AjaxResponseRenderer {
     writer.write(reloadRequired ? Integer.toString(CODE_RELOAD_REQUIRED) : Integer.toString(CODE_SUCCESS));
 
     Map<String, UIComponent> ajaxComponents = AjaxInternalUtils.getAjaxComponents(facesContext);
-    if (ajaxComponents != null) {
+    if (!reloadRequired && ajaxComponents != null) {
       int i = 0;
       for (Map.Entry<String, UIComponent> entry : ajaxComponents.entrySet()) {
         writer.write(",\n");
