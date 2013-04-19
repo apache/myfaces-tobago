@@ -430,13 +430,12 @@ var Tobago = {
 
     Tobago.ie6bugfix(element.get(0));
 
-    element.append(
-        "<div class='tobago-page-overlay tobago-page-overlay-markup-" + (error ? "error" : "wait") + "'>"
-            + "<div class='tobago-page-overlayCenter'>"
-            + "</div>"
-            + "</div>");
-
-    var wait = element.find(".tobago-page-overlayCenter");
+    var overlay = error
+        ? jQuery("<div class='tobago-page-overlay tobago-page-overlay-markup-error'></div>")
+        : jQuery("<div class='tobago-page-overlay tobago-page-overlay-markup-wait'></div>");
+    element.append(overlay);
+    var wait = jQuery("<div class='tobago-page-overlayCenter'></div>");
+    overlay.append(wait);
     var image = jQuery(error
         ? "body > .tobago-page-overlayErrorPreloadedImage"
         : "body > .tobago-page-overlayWaitPreloadedImage");
@@ -447,6 +446,7 @@ var Tobago = {
     }
     image.appendTo(wait).removeClass("tobago-page-overlayWaitPreloadedImage tobago-page-overlayErrorPreloadedImage");
     wait.show();
+    overlay.show();
 
     if (jQuery.browser.msie && parseInt(jQuery.browser.version) <= 6) {
       element.children(".tobago-page-overlay")
