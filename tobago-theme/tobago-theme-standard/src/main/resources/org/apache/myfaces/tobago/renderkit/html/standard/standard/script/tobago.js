@@ -396,7 +396,7 @@ var Tobago = {
 
   onBeforeUnload: function() {
     if (Tobago.transition) {
-      Tobago.createOverlay(jQuery("body"));
+      Tobago.createOverlay(jQuery("body"), false, false);
     }
     Tobago.transition = Tobago.oldTransition;
   },
@@ -405,7 +405,7 @@ var Tobago = {
    * Create a overlay barrier and animate it.
    * @param element A jQuery element, must be only one single element.
    */
-  createOverlay:function (element, error) {
+  createOverlay:function (element, error, ajax) {
 
     // is not a jQuery object? XXX Support of non jQuery objects is deprecated since Tobago 1.5.1
     if (element == null || typeof element.size != "function") {
@@ -431,16 +431,22 @@ var Tobago = {
 
     Tobago.ie6bugfix(element.get(0));
 
-    element.append("<div class='tobago-page-overlay tobago-page-overlay-markup-"
-            + (error ? "error" : "wait")
-            + "'><div class='tobago-page-overlayCenter'><img></div></div>");
+    element.append(
+        "<div class='tobago-page-overlay tobago-page-overlay-markup-" + (error ? "error" : "wait") + "'>"
+            + "<div class='tobago-page-overlayCenter'>"
+            + "</div>"
+            + "</div>");
 
     var wait = element.find(".tobago-page-overlayCenter");
-    var image = wait.children("img");
-    var src = error
-        ? jQuery("body > .tobago-page-overlayErrorPreloadedImage").attr("src")
-        : jQuery("body > .tobago-page-overlayWaitPreloadedImage").attr("src");
-    image.attr("src", src);
+    var image = jQuery(error
+        ? "body > .tobago-page-overlayErrorPreloadedImage"
+        : "body > .tobago-page-overlayWaitPreloadedImage");
+    // in case of AJAX, we may need more of these objects, on the other side, on an normal submit
+    // the animation stops, if we use the clone (don't know why, seems to be needed only in WebKit)
+    if (ajax) {
+      image = image.clone();
+    }
+    image.appendTo(wait).removeClass("tobago-page-overlayWaitPreloadedImage tobago-page-overlayErrorPreloadedImage");
     wait.show();
 
     if (jQuery.browser.msie && parseInt(jQuery.browser.version) <= 6) {
@@ -646,6 +652,11 @@ var Tobago = {
           try {
             // LOG.debug("submit form with action: " + Tobago.action.value);
             Tobago.form.submit();
+            if (jQuery.browser.msie) {
+              // without this "redundant" code the animation will not be animated in IE
+              var image = jQuery(".tobago-page-overlayCenter img");
+              image.appendTo(image.parent());
+            }
           } catch (e) {
             Tobago.deleteOverlay(jQuery("body"));
             Tobago.isSubmit = false;
@@ -1778,7 +1789,7 @@ Tobago.Panel.prototype.reloadWithAction = function(source, action, options) {
 };
 
 Tobago.Panel.prototype.prepareReload = function() {
-  Tobago.createOverlay(jQuery(Tobago.Utils.escapeClientId(this.id)));
+  Tobago.createOverlay(jQuery(Tobago.Utils.escapeClientId(this.id)), false, true);
 };
 
 Tobago.registerListener(Tobago.Panel.init, Tobago.Phase.DOCUMENT_READY);
@@ -2129,9 +2140,9 @@ Tobago.Updater = {
           if (container && typeof container.prepareReload == 'function') {
             container.prepareReload();
           } else if (container) {
-            Tobago.createOverlay(container);
+            Tobago.createOverlay(container, false, true);
           } else {
-            Tobago.createOverlay(jQuery(Tobago.Utils.escapeClientId(id)));
+            Tobago.createOverlay(jQuery(Tobago.Utils.escapeClientId(id)), false, true);
           }
         }
       }
@@ -2356,7 +2367,7 @@ Tobago.Updater = {
         // XXX Here also a double click will be logged, but "warn" is not appropriate.
         LOG.warn("ERROR 500 when updating component id = '" + data.ajaxId + "'"); // @DEV_ONLY
         Tobago.deleteOverlay(overlay);
-        Tobago.createOverlay(overlay, true); // error overlay
+        Tobago.createOverlay(overlay, true, true); // error overlay
         break;
       default:
         LOG.error('Unknown response code: ' + data.responseCode + " for component id = '" + data.ajaxId + "'"); // @DEV_ONLY
