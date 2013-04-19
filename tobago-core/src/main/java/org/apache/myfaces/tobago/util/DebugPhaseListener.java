@@ -76,10 +76,10 @@ public class DebugPhaseListener implements PhaseListener {
           LOG.info("Total response time : " + (end - start + " milliseconds"));
         }
       }
-      for (Iterator iterator = facesContext.getClientIdsWithMessages(); iterator.hasNext(); ) {
+      for (Iterator iterator = facesContext.getClientIdsWithMessages(); iterator.hasNext();) {
         final String clientId = (String) iterator.next();
 
-        for (Iterator messageIterator = facesContext.getMessages(clientId); messageIterator.hasNext(); ) {
+        for (Iterator messageIterator = facesContext.getMessages(clientId); messageIterator.hasNext();) {
           final FacesMessage msg = (FacesMessage) messageIterator.next();
           LOG.info(MessageFormat.format("Faces message found."
               + "\n  Component: {0} \n  Severity : {1}"
