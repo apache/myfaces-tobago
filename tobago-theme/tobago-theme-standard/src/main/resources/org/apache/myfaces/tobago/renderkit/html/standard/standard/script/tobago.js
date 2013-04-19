@@ -445,7 +445,7 @@ var Tobago = {
     if (ajax) {
       image = image.clone();
     }
-    image.appendTo(wait).removeClass("tobago-page-overlayWaitPreloadedImage");
+    image.appendTo(wait).removeClass("tobago-page-overlayWaitPreloadedImage tobago-page-overlayErrorPreloadedImage");
     wait.show();
 
     if (jQuery.browser.msie && parseInt(jQuery.browser.version) <= 6) {
