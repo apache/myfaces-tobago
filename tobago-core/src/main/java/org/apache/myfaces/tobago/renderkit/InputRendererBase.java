@@ -19,6 +19,8 @@
 
 package org.apache.myfaces.tobago.renderkit;
 
+import org.apache.commons.lang.StringUtils;
+import org.apache.myfaces.tobago.component.Attributes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -33,7 +35,7 @@ public class InputRendererBase extends LayoutComponentRendererBase {
   private static final Logger LOG = LoggerFactory.getLogger(InputRendererBase.class);
 
   public void decode(FacesContext context, UIComponent component) {
-    UIInput uiInput;
+    final UIInput uiInput;
     if (component instanceof UIInput) {
       uiInput = (UIInput) component;
     } else {
@@ -44,19 +46,17 @@ public class InputRendererBase extends LayoutComponentRendererBase {
       return;
     }
 
-    String clientId = component.getClientId(context);
+    final String clientId = component.getClientId(context);
 
-    Map requestParameterMap = context.getExternalContext()
-        .getRequestParameterMap();
+    final Map requestParameterMap = context.getExternalContext().getRequestParameterMap();
     if (requestParameterMap.containsKey(clientId)) {
+      final String newValue = (String) requestParameterMap.get(clientId);
       if (LOG.isDebugEnabled()) {
+        final boolean password = ComponentUtils.getBooleanAttribute(component, Attributes.PASSWORD);
         LOG.debug("clientId = '" + clientId + "'");
         LOG.debug("requestParameterMap.get(clientId) = '"
-            + requestParameterMap.get(clientId) + "'");
-        LOG.debug("requestParameterMap.get(clientId).getClass().getName() = '"
-            + requestParameterMap.get(clientId).getClass().getName() + "'");
+            + (password ? StringUtils.leftPad("", newValue.length(), '*') : newValue) + "'");
       }
-      String newValue = (String) requestParameterMap.get(clientId);
       uiInput.setSubmittedValue(newValue);
     }
   }
