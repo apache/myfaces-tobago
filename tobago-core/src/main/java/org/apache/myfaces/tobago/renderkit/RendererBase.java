@@ -29,6 +29,7 @@ import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.el.ValueExpression;
 import javax.faces.FacesException;
 import javax.faces.component.EditableValueHolder;
 import javax.faces.component.UIComponent;
@@ -37,7 +38,6 @@ import javax.faces.component.ValueHolder;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
-import javax.faces.el.ValueBinding;
 import javax.faces.render.Renderer;
 import java.io.IOException;
 import java.util.Locale;
@@ -141,11 +141,7 @@ public class RendererBase extends Renderer {
 
   protected Object getValue(UIComponent component) {
     if (component instanceof ValueHolder) {
-      Object value = ((ValueHolder) component).getValue();
-      if (LOG.isDebugEnabled()) {
-        LOG.debug("component.getValue() returned " + value);
-      }
-      return value;
+      return ((ValueHolder) component).getValue();
     } else {
       return null;
     }
@@ -157,9 +153,9 @@ public class RendererBase extends Renderer {
       converter = ((ValueHolder) component).getConverter();
     }
     if (converter == null) {
-      ValueBinding valueBinding = component.getValueBinding("value");
-      if (valueBinding != null) {
-        Class converterType = valueBinding.getType(context);
+      ValueExpression valueExpression = component.getValueExpression("value");
+      if (valueExpression != null) {
+        Class converterType = valueExpression.getType(context.getELContext());
         if (converterType == null || converterType == String.class
             || converterType == Object.class) {
           return null;

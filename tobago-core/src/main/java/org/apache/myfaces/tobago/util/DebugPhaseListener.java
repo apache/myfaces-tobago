@@ -19,121 +19,127 @@
 
 package org.apache.myfaces.tobago.util;
 
+import org.apache.myfaces.tobago.application.ProjectStage;
+import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.faces.context.FacesContext;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseEvent;
 import javax.faces.event.PhaseId;
 import javax.faces.event.PhaseListener;
-import javax.faces.application.FacesMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Date;
-import java.util.Map;
-import java.util.Iterator;
 import java.text.MessageFormat;
+import java.util.Iterator;
+import java.util.Map;
 
 public class DebugPhaseListener implements PhaseListener {
+
   private static final Logger LOG = LoggerFactory.getLogger(DebugPhaseListener.class);
+
   private static final String KEY = DebugPhaseListener.class.getName() + "_ID_";
 
-  @SuppressWarnings("unchecked")
   public void afterPhase(PhaseEvent phaseEvent) {
+    final FacesContext facesContext = FacesContext.getCurrentInstance();
+    final boolean productionMode = TobagoConfig.getInstance(facesContext).getProjectStage() == ProjectStage.Production;
+    if (productionMode) {
+      return;
+    }
+
     if (LOG.isInfoEnabled()) {
-      Date end = new Date();
-      FacesContext facesContext = phaseEvent.getFacesContext();
-      Map map = facesContext.getExternalContext().getRequestMap();
+      final Long end = System.currentTimeMillis();
+      final Map<String, Object> map = facesContext.getExternalContext().getRequestMap();
       map.put(KEY + phaseEvent.getPhaseId().getOrdinal() + "E", end);
 
       if (LOG.isTraceEnabled()) {
-        LOG.trace("After Phase :" + phaseEvent.getPhaseId()
-            + " Time=" + end.getTime());
+        LOG.trace("After Phase :" + phaseEvent.getPhaseId() + " Time=" + end);
       }
 
       if (LOG.isDebugEnabled()) {
-        Date start
-            = (Date) map.get(KEY + phaseEvent.getPhaseId().getOrdinal() + "S");
-        LOG.debug("Phase " + phaseEvent.getPhaseId() + " needs "
-            + (end.getTime() - start.getTime() + " milliseconds"));
+        final Long start = (Long) map.get(KEY + phaseEvent.getPhaseId().getOrdinal() + "S");
+        LOG.debug("Phase " + phaseEvent.getPhaseId() + " needs " + (end - start + " milliseconds"));
       }
 
       if (phaseEvent.getPhaseId().getOrdinal() == 6) {
         if (LOG.isTraceEnabled()) {
-          HttpServletResponse response = (HttpServletResponse) facesContext.getExternalContext().getResponse();
-          LOG.trace(" response Locale            = \"" + response.getLocale() + "\"");
-          LOG.trace(" response ContentType       = \"" + response.getContentType() + "\"");
-          LOG.trace(" response CharacterEncoding = \"{" + response.getCharacterEncoding() + "}\"");
+          final HttpServletResponse response = (HttpServletResponse) facesContext.getExternalContext().getResponse();
+          LOG.trace(" response Locale            = '" + response.getLocale() + "'");
+          LOG.trace(" response ContentType       = '" + response.getContentType() + "'");
+          LOG.trace(" response CharacterEncoding = '{" + response.getCharacterEncoding() + "}'");
         }
 
-        Date start = (Date) map.get(KEY + "1S");
+        final Long start = (Long) map.get(KEY + "1S");
         if (start != null) {
-          LOG.info("Total response time : "
-              + (end.getTime() - start.getTime() + " milliseconds"));
+          LOG.info("Total response time : " + (end - start + " milliseconds"));
         }
       }
-      for (Iterator iter = facesContext.getClientIdsWithMessages(); iter.hasNext();) {
-        String clientId = (String) iter.next();
+      for (Iterator iterator = facesContext.getClientIdsWithMessages(); iterator.hasNext(); ) {
+        final String clientId = (String) iterator.next();
 
-        for (Iterator msgIter = facesContext.getMessages(clientId); msgIter.hasNext();) {
-          FacesMessage msg = (FacesMessage) msgIter.next();
+        for (Iterator messageIterator = facesContext.getMessages(clientId); messageIterator.hasNext(); ) {
+          final FacesMessage msg = (FacesMessage) messageIterator.next();
           LOG.info(MessageFormat.format("Faces message found."
               + "\n  Component: {0} \n  Severity : {1}"
               + "\n  Summary  : {2} \n  Detail   : {3}",
-              new Object[]{clientId, msg.getSeverity(), msg.getSummary(), msg.getDetail()}));
+              clientId, msg.getSeverity(), msg.getSummary(), msg.getDetail()));
         }
       }
     }
   }
 
-  @SuppressWarnings("unchecked")
   public void beforePhase(PhaseEvent phaseEvent) {
+    final FacesContext facesContext = FacesContext.getCurrentInstance();
+    final boolean productionMode = TobagoConfig.getInstance(facesContext).getProjectStage() == ProjectStage.Production;
+    if (productionMode) {
+      LOG.warn("DebugPhaseListener disabled, because the project stage is 'production'.");
+      return;
+    }
+
     if (LOG.isInfoEnabled()) {
-      Date start = null;
-      Map map = null;
-      PhaseId phaseId = phaseEvent.getPhaseId();
+      final PhaseId phaseId = phaseEvent.getPhaseId();
       if (LOG.isDebugEnabled() || phaseId.getOrdinal() == 1) {
 
-        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+        final ExternalContext externalContext = facesContext.getExternalContext();
 
         if (LOG.isTraceEnabled() && PhaseId.RESTORE_VIEW == phaseId) {
           // this is before restoreView
 
-          Object request = externalContext.getRequest();
+          final Object request = externalContext.getRequest();
           if (request instanceof HttpServletRequest) {
             HttpServletRequest servletRequest = (HttpServletRequest) request;
             LOG.trace("RequestURI = " + servletRequest.getRequestURI());
           }
-          Map headerMap = externalContext.getRequestHeaderMap();
+          final Map headerMap = externalContext.getRequestHeaderMap();
           for (Object key : headerMap.keySet()) {
-            LOG.trace("Header : \"" + key + "\" = \"" + headerMap.get(key) + "\"");
+            LOG.trace("Header : '" + key + "' = '" + headerMap.get(key) + "'");
           }
-          Map parameterMap = externalContext.getRequestParameterMap();
+          final Map parameterMap = externalContext.getRequestParameterMap();
           for (Object key : parameterMap.keySet()) {
-            LOG.trace("Param  : \"" + key + "\" = \"" + parameterMap.get(key) + "\"");
+            LOG.trace("Param  : '" + key + "' = '" + parameterMap.get(key) + "'");
           }
         }
 
-        start = new Date();
-        map = externalContext.getRequestMap();
+        final Long start = System.currentTimeMillis();
+        final Map<String, Object> map = externalContext.getRequestMap();
         map.put(KEY + phaseId.getOrdinal() + "S", start);
-      }
 
-      if (LOG.isDebugEnabled()) {
-        Date end = null;
-        int ordinal = phaseId.getOrdinal();
-        while (end == null && ordinal > 0) {
-          end = (Date) map.get(KEY + --ordinal + "E");
+        if (LOG.isDebugEnabled()) {
+          Long end = null;
+          int ordinal = phaseId.getOrdinal();
+          while (end == null && ordinal > 0) {
+            end = (Long) map.get(KEY + --ordinal + "E");
+          }
+          if (end != null) {
+            LOG.debug("Time between phases " + ordinal + " and " + phaseId.getOrdinal() + ": "
+                + (start - end) + " milliseconds");
+          }
         }
-        if (end != null) {
-          LOG.debug("Time between phases " + ordinal + " and " + phaseId.getOrdinal() + ": "
-              + (start.getTime() - end.getTime()) + " milliseconds");
+        if (LOG.isTraceEnabled()) {
+          LOG.trace("Before Phase :" + phaseId + " Time=" + start);
         }
-      }
-      if (LOG.isTraceEnabled()) {
-        LOG.trace("Before Phase :" + phaseId
-            + " Time=" + start.getTime());
       }
     }
   }

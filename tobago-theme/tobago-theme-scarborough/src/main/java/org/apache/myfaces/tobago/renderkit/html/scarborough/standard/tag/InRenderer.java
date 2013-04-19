@@ -82,12 +82,14 @@ public class InRenderer extends InputRendererBase {
 
       String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, input);
 
-      String currentValue = getCurrentValue(facesContext, input);
+      final String currentValue = getCurrentValue(facesContext, input);
+      final boolean password = ComponentUtils.getBooleanAttribute(input, Attributes.PASSWORD);
       if (LOG.isDebugEnabled()) {
-        LOG.debug("currentValue = '" + currentValue + "'");
+        LOG.debug("currentValue = '" +
+            (password && currentValue != null ? StringUtils.leftPad("", currentValue.length(), '*') : currentValue)
+            + "'");
       }
-      String type = ComponentUtils.getBooleanAttribute(input,
-          Attributes.PASSWORD) ? HtmlInputTypes.PASSWORD : HtmlInputTypes.TEXT;
+      final String type = password ? HtmlInputTypes.PASSWORD : HtmlInputTypes.TEXT;
 
       // Todo: check for valid binding
       boolean renderAjaxSuggest = false;
