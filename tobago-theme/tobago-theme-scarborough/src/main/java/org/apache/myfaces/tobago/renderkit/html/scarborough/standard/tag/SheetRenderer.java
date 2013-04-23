@@ -251,12 +251,9 @@ public class SheetRenderer extends LayoutComponentRendererBase {
     bodyStyle.setHeight(null);
     bodyStyle.setTop(null);
     Style sheetBodyStyle = new Style(bodyStyle);
-    if (sheet.getNeedVerticalScrollbar() == null) {
-      LOG.warn("Value of needVerticalScrollbar undefined!"); // why this value isn't set by the layout manager?
-    } else {
-      if (sheet.getNeedVerticalScrollbar()) {
-        tableBodyWidth = tableBodyWidth.subtractNotNegative(getVerticalScrollbarWeight(facesContext, sheet));
-      }
+    // is null, in AJAX case.
+    if (sheet.getNeedVerticalScrollbar() == Boolean.TRUE) {
+      tableBodyWidth = tableBodyWidth.subtractNotNegative(getVerticalScrollbarWeight(facesContext, sheet));
     }
     sheetBodyStyle.setWidth(tableBodyWidth);
 
