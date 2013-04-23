@@ -659,45 +659,40 @@ Tobago.Sheet.prototype.adjustResizer = function() {
   };
 
 Tobago.Sheet.prototype.adjustHeaderDiv = function () {
-    var headerDiv = Tobago.element(this.headerDivId);
-    if (!headerDiv) {
+    var headerDiv = jQuery(Tobago.Utils.escapeClientId(this.headerDivId));
+    if (headerDiv.size() == 0) {
       return;
     }
-    var contentDiv = Tobago.element(this.contentDivId);
-    var contentTable = contentDiv.getElementsByTagName("table")[0];
-    contentTable.style.width = "10px";
-    var contentWidth = contentDiv.style.width.replace(/px/, "") - 0;
-    var clientWidth = contentDiv.clientWidth;
+    var contentDiv = jQuery(Tobago.Utils.escapeClientId(this.contentDivId));
+    var contentTable = contentDiv.children("table").eq(0);
+    contentTable.width(10);
+    var contentWidth = contentDiv.width();
+    var clientWidth = contentDiv.prop("clientWidth");
     var boxSum = 0;
-    var idx = 0;
-    var box = Tobago.element(this.id + Tobago.SUB_COMPONENT_SEP + "header_box_" + idx++);
-    while (box) {
-      boxSum += (box.style.width.replace(/px/, "") - 0);
-      box = Tobago.element(this.id + Tobago.SUB_COMPONENT_SEP + "header_box_" + idx++);
+    var headers = headerDiv.find(".tobago-sheet-header");
+    for (var i = 0; i < headers.length; i++) {
+      boxSum += headers.eq(i).outerWidth();
     }
     if (clientWidth == 0) {
       clientWidth = Math.min(contentWidth, boxSum);
     }
-    var minWidth = contentWidth - Tobago.Config.get("Tobago", "verticalScrollbarWeight")
-                   - Tobago.Config.get("Sheet", "contentBorderWidth");
+    var minWidth = contentWidth
+        - Tobago.Config.get("Tobago", "verticalScrollbarWeight")
+        - Tobago.Config.get("Sheet", "contentBorderWidth");
     minWidth = Math.max(minWidth, 0); // not less than 0
-    headerDiv.style.width = Math.max(clientWidth, minWidth);
-    var fillBox = Tobago.element(this.id + Tobago.SUB_COMPONENT_SEP + "header_box_filler");
-    fillBox.style.width = Math.max(headerDiv.style.width.replace(/px/, "") - boxSum, 0);
-    //  LOG.debug("adjustHeaderDiv(" + sheetId + ") : clientWidth = " + clientWidth + " :: width => " + headerDiv.style.width);
-    //headerDiv.style.width = clientWidth;
-    var clientWidth2 = contentDiv.clientWidth;
+    headerDiv.width(Math.max(clientWidth, minWidth));
+    var fillBox = jQuery(Tobago.Utils.escapeClientId(this.id + Tobago.SUB_COMPONENT_SEP + "header_box_filler"));
+    fillBox.width(Math.max(headerDiv.width() - boxSum, 0));
+    var clientWidth2 = contentDiv.prop("clientWidth");
     if (clientWidth > clientWidth2) {
       // IE needs this
-      headerDiv.style.width = Math.max(clientWidth2, minWidth);
-      //    LOG.debug("second time adjustHeaderDiv(" + sheetId + ") : clientWidth2 = " + clientWidth2 + " :: width => " + headerDiv.style.width);
+      headerDiv.width(Math.max(clientWidth2, minWidth));
     }
-    contentTable.style.width = contentDiv.clientWidth + "px";
+    contentTable.width(contentDiv.prop("clientWidth"));
     //  LOG.debug("div width   :" + contentDiv.clientWidth);
     //  LOG.debug("table width :" + contentTable.clientWidth);
     //  LOG.debug("boxSum      :" + boxSum);
-    //  LOG.debug("filler      :" + fillBox.clientWidth);
-    //  LOG.debug("fillerstyle :" + fillBox.style.width);
+    //  LOG.debug("fillerstyle :" + fillBox.width());
     //  LOG.debug("##########################################");
   };
 
