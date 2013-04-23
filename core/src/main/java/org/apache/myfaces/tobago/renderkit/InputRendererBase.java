@@ -19,8 +19,10 @@
 
 package org.apache.myfaces.tobago.renderkit;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.tobago.TobagoConstants;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 
 import javax.faces.component.UIComponent;
@@ -49,14 +51,13 @@ public class InputRendererBase extends LayoutableRendererBase {
     Map requestParameterMap = context.getExternalContext()
         .getRequestParameterMap();
     if (requestParameterMap.containsKey(clientId)) {
+      String newValue = (String) requestParameterMap.get(clientId);
       if (LOG.isDebugEnabled()) {
+        final boolean password = ComponentUtil.getBooleanAttribute(component, TobagoConstants.ATTR_PASSWORD);
         LOG.debug("clientId = '" + clientId + "'");
         LOG.debug("requestParameterMap.get(clientId) = '"
-            + requestParameterMap.get(clientId) + "'");
-        LOG.debug("requestParameterMap.get(clientId).getClass().getName() = '"
-            + requestParameterMap.get(clientId).getClass().getName() + "'");
+            + (password ? StringUtils.leftPad("", newValue.length(), '*') : newValue) + "'");
       }
-      String newValue = (String) requestParameterMap.get(clientId);
       uiInput.setSubmittedValue(newValue);
     }
   }

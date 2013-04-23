@@ -24,6 +24,7 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * $Id$
  */
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.ajax.api.AjaxPhaseListener;
@@ -67,12 +68,14 @@ public class InRenderer extends InputRendererBase implements AjaxRenderer {
 
     String title = HtmlRendererUtil.getTitleFromTipAndMessages(facesContext, input);
 
+    final boolean password = ComponentUtil.getBooleanAttribute(input, ATTR_PASSWORD);
     String currentValue = getCurrentValue(facesContext, input);
     if (LOG.isDebugEnabled()) {
-      LOG.debug("currentValue = '" + currentValue + "'");
+      LOG.debug("currentValue = '" +
+          (password && currentValue != null ? StringUtils.leftPad("", currentValue.length(), '*') : currentValue)
+          + "'");
     }
-    String type = ComponentUtil.getBooleanAttribute(input,
-        ATTR_PASSWORD) ? "password" : "text";
+    String type = password ? "password" : "text";
 
     // Todo: check for valid binding
     boolean renderAjaxSuggest = input.getSuggestMethod() != null;

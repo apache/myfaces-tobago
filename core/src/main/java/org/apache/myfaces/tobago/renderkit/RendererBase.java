@@ -100,11 +100,7 @@ public class RendererBase extends Renderer {
 
   protected Object getValue(UIComponent component) {
     if (component instanceof ValueHolder) {
-      Object value = ((ValueHolder) component).getValue();
-      if (LOG.isDebugEnabled()) {
-        LOG.debug("component.getValue() returned " + value);
-      }
-      return value;
+      return ((ValueHolder) component).getValue();
     } else {
       return null;
     }
