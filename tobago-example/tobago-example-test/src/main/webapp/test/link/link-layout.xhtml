@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<f:view
+        xmlns:tc="http://myfaces.apache.org/tobago/component"
+        xmlns:f="http://java.sun.com/jsf/core">
+
+    <tc:page id="page">
+        <f:facet name="layout">
+            <tc:gridLayout rows="auto" columns="auto"/>
+        </f:facet>
+        <tc:box label="Tests the layout of links">
+
+            <f:facet name="layout">
+                <tc:gridLayout columns="auto;auto;auto;auto;auto;auto;auto"/>
+            </f:facet>
+
+            <tc:link id="l1" label="l" tip="3px"/>
+            <tc:link id="l2" label="g" tip="7px"/>
+            <tc:link id="l3" label="W" tip="11px"/>
+
+            <tc:link id="l4" label="l" image="image/feather-leaf.png" tip="16px + 4px + 3px"/>
+            <tc:link id="l5" label="g" image="image/feather-leaf.png" tip="16px + 4px + 7px"/>
+            <tc:link id="l6" label="W" image="image/feather-leaf.png" tip="16px + 4px + 11px"/>
+
+            <tc:link id="l7" image="image/feather-leaf.png" tip="16px"/>
+
+            <tc:out value="2nd row">
+                <tc:gridLayoutConstraint columnSpan="10"/>
+            </tc:out>
+
+        </tc:box>
+
+        <tc:script file="script/tobago-assert.js"/>
+        <tc:script onload="TobagoAssert.assertLayout('page:l1', 6, 26, 3, 14);"/>
+        <tc:script onload="TobagoAssert.assertLayout('page:l2', 14, 26, 7, 14);"/>
+        <tc:script onload="TobagoAssert.assertLayout('page:l3', 26, 26, 11, 14);"/>
+        <tc:script onload="TobagoAssert.assertLayout('page:l4', 42, 26, 23, 14);"/>
+        <tc:script onload="TobagoAssert.assertLayout('page:l5', 70, 26, 27, 14);"/>
+        <tc:script onload="TobagoAssert.assertLayout('page:l6', 102, 26, 31, 14);"/>
+        <tc:script onload="TobagoAssert.assertLayout('page:l7', 138, 26, 16, 14);"/>
+
+    </tc:page>
+</f:view>

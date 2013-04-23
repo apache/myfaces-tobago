@@ -24,6 +24,7 @@ import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.internal.component.AbstractUILink;
 import org.apache.myfaces.tobago.internal.util.AccessKeyMap;
 import org.apache.myfaces.tobago.layout.Measure;
+import org.apache.myfaces.tobago.layout.PixelMeasure;
 import org.apache.myfaces.tobago.renderkit.CommandRendererBase;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
@@ -91,6 +92,7 @@ public class LinkRenderer extends CommandRendererBase {
         image = getImageWithPath(facesContext, image, helper.isDisabled());
       }
       writer.startElement(HtmlElements.IMG, link);
+      writer.writeClassAttribute(Classes.create(link, "image"));
       writer.writeAttribute(HtmlAttributes.SRC, image, true);
       writer.writeAttribute(HtmlAttributes.BORDER, 0); // TODO: is border=0 setting via style possible?
       String tip = link.getTip();
@@ -131,8 +133,22 @@ public class LinkRenderer extends CommandRendererBase {
 
   @Override
   public Measure getPreferredWidth(FacesContext facesContext, Configurable component) {
-    AbstractUILink link = (AbstractUILink) component;
-    LabelWithAccessKey label = new LabelWithAccessKey(link);
-    return RenderUtils.calculateStringWidth(facesContext, link, label.getText());
+    final AbstractUILink link = (AbstractUILink) component;
+    final LabelWithAccessKey label = new LabelWithAccessKey(link);
+    final String text = label.getText();
+    final String image = link.getImage();
+
+    Measure width = PixelMeasure.ZERO;
+    if (text != null) {
+      final Measure m = RenderUtils.calculateStringWidth(facesContext, link, text);
+      width = width.add(m);
+    }
+    if ((text != null && image != null)) {
+      width = width.add(4);
+    }
+    if (image != null) {
+      width = width.add(16);
+    }
+    return width;
   }
 }
