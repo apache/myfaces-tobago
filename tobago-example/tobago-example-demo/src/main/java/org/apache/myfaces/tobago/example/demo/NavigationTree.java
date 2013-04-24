@@ -156,7 +156,7 @@ public class NavigationTree implements Serializable {
     ExternalContext externalContext = facesContext.getExternalContext();
     String viewId = facesContext.getViewRoot().getViewId();
     HttpServletResponse response = (HttpServletResponse) externalContext.getResponse();
-    response.setContentType("text/html;charset=UTF-8");
+    response.setContentType("text/html; charset=UTF-8");
 
     try {
       InputStream resourceAsStream = externalContext.getResourceAsStream(viewId);

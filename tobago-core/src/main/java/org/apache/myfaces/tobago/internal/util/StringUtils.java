@@ -101,4 +101,66 @@ public final class StringUtils {
     }
     return builder.toString();
   }
+
+  /**
+   * Is the same string, by ignoring differences that are only whitespaces.
+   * (null and "" are not equal)
+   */
+  @SuppressWarnings("StringEquality")
+  public static boolean equalsIgnoreCaseAndWhitespace(final String type1, final String type2) {
+
+    // StringEquality
+    if (type1 == type2) {
+      return true;
+    }
+
+    if (type1 == null || type2 == null) {
+      return false;
+    }
+
+    final char[] chars1 = type1.toCharArray();
+    final char[] chars2 = type2.toCharArray();
+    final int length1 = chars1.length;
+    final int length = chars2.length;
+
+    int i = 0;
+    int j = 0;
+
+    while (i < length1 && j < length) {
+      if (chars1[i] == chars2[j] || Character.toUpperCase(chars1[i]) == Character.toUpperCase(chars2[j])) {
+        i++;
+        j++;
+        // okay
+      } else if (Character.isWhitespace(chars1[i])) {
+        i++;
+        // okay, ignore space
+      } else if (Character.isWhitespace(chars2[j])) {
+        j++;
+        // try again
+      } else {
+        return false;
+      }
+    }
+
+    while (i < length1) {
+      if (Character.isWhitespace(chars1[i])) {
+        i++;
+        // okay, ignore space
+      } else {
+        return false;
+      }
+    }
+
+    while (j < length) {
+      if (Character.isWhitespace(chars2[j])) {
+        j++;
+        // okay, ignore space
+      } else {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
 }

@@ -63,11 +63,11 @@ public class ResponseUtils {
       response.setContentType(contentType);
     } else {
       String responseContentType = response.getContentType();
-      if (!responseContentType.equalsIgnoreCase(contentType)) {
+      if (!StringUtils.equalsIgnoreCaseAndWhitespace(responseContentType, contentType)) {
         response.setContentType(contentType);
-        if (LOG.isInfoEnabled()) {
-          LOG.info("Reponse already contains Header Content-Type '" + responseContentType
-              + "'. Setting Content-Type to '" + contentType + "'");
+        if (LOG.isDebugEnabled()) {
+          LOG.debug("Response already contains Header Content-Type '" + responseContentType
+              + "'. Overwriting with '" + contentType + "'");
         }
       }
     }
