@@ -1,7 +1,7 @@
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
- * distributed with this work for additional information
+ * distributed with this work for additional debugrmation
  * regarding copyright ownership.  The ASF licenses this file
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
@@ -36,35 +36,35 @@ public class TobagoLifecycleFactory extends LifecycleFactory {
   public TobagoLifecycleFactory(LifecycleFactory factory) {
     this.factory = factory;
     defaultLifecycle = new TobagoLifecycle();
-    if (LOG.isInfoEnabled()) {
-      LOG.info("new TobagoLifecycleFactory");
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("new TobagoLifecycleFactory");
     }
   }
 
   public void addLifecycle(String lifecycleId, Lifecycle lifecycle) {
     factory.addLifecycle(lifecycleId, lifecycle);
-    if (LOG.isInfoEnabled()) {
-      LOG.info("Lifecycle added : " + lifecycleId + " = " + lifecycle.getClass().getName() + "");
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("Lifecycle added : " + lifecycleId + " = " + lifecycle.getClass().getName() + "");
     }
   }
 
   public Lifecycle getLifecycle(String lifecycleId) {
     if (LifecycleFactory.DEFAULT_LIFECYCLE.equals(lifecycleId)) {
-      if (LOG.isInfoEnabled()) {
-        LOG.info("getLifecycle(\"" + lifecycleId + "\")  -> TobagoLifecycle");
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("getLifecycle(\"" + lifecycleId + "\")  -> TobagoLifecycle");
       }
       return defaultLifecycle;
     } else {
-      if (LOG.isInfoEnabled()) {
-        LOG.info("getLifecycle(\"" + lifecycleId + "\")  -> other Lifecycle");
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("getLifecycle(\"" + lifecycleId + "\")  -> other Lifecycle");
       }
       return factory.getLifecycle(lifecycleId);
     }
   }
 
   public Iterator getLifecycleIds() {
-    if (LOG.isInfoEnabled()) {
-      LOG.info("getLifecycleIds()");
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("getLifecycleIds()");
     }
     return factory.getLifecycleIds();
   }
