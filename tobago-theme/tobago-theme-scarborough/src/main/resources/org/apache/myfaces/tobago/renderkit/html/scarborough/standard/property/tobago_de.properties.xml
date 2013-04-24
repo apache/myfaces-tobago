@@ -90,4 +90,7 @@
   <entry key="tobago.richtexteditor.preview.label">Vorschau</entry>
   <entry key="tobago.richtexteditor.preview.title">Zur Vorschau umschalten.</entry>
 
+  <entry key="browser.noframe.message.prefix">Ihr Browser stellt keine so genannten Frames dar. Den Inhalt können Sie hier erreichen:</entry>
+  <entry key="browser.noframe.message.postfix"></entry>
+
 </properties>

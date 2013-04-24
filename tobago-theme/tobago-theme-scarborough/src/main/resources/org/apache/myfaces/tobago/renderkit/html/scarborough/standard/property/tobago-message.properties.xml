@@ -35,9 +35,6 @@
   <entry key="tobago.tree.MESSAGE_NOT_LEAF">Only leaf selection allowed.</entry>
   <entry key="tobago.SelectOne.MESSAGE_VALUE_REQUIRED">Selection required</entry>
 
-  <entry key="browser.noframe.message.prefix">[ Your user agent does not support frames or is currently configured not to display frames. However, you may visit</entry>
-  <entry key="browser.noframe.message.postfix">the related document. ]</entry>
-
   <entry key="org.apache.myfaces.tobago.FileItemValidator.CONTENT_TYPE">Content type error</entry>
   <entry key="org.apache.myfaces.tobago.FileItemValidator.CONTENT_TYPE_detail">The given file is not content type of "{0}".</entry>
   <entry key="org.apache.myfaces.tobago.FileItemValidator.SIZE_LIMIT">File size error</entry>

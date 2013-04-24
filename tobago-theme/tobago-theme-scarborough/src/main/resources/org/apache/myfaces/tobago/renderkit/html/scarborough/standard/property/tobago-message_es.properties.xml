@@ -35,9 +35,6 @@
   <entry key="tobago.tree.MESSAGE_NOT_LEAF">Solo se permite seleccionar hojas.</entry>
   <entry key="tobago.SelectOne.MESSAGE_VALUE_REQUIRED">Se requiere seleccionar.</entry>
 
-  <entry key="browser.noframe.message.prefix">[ Tu navegador no soporta frames o está configurado para no desplegar frames. Como sea, puedes visitar</entry>
-  <entry key="browser.noframe.message.postfix">el documento relacionado. ]</entry>
-
   <entry key="tobago.ajax.response.error">Error en el servidor: No hay respuesta del servidor. Probablemente debido a un tiempo agotado de sesion!</entry>
   <entry key="org.apache.myfaces.tobago.FileItemValidator.CONTENT_TYPE">Error de tipo de contenido</entry>
   <entry key="org.apache.myfaces.tobago.FileItemValidator.CONTENT_TYPE_detail">El archivo no es del tipo de contenido "{0}".</entry>
