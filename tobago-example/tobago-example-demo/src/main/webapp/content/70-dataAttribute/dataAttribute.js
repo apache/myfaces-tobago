@@ -15,13 +15,55 @@
  * limitations under the License.
  */
 
-jQuery(document).ready(function () {
-  jQuery("[data-colored]")
-      .css("background-color", "#aaaaaa")
-      .click(function () {
-        jQuery(this).css("background-color", jQuery(this).data("colored"));
-      })
-      .dblclick(function () {
-        jQuery(this).css("background-color", "#aaaaaa");
-      });
-});
+/*
+ jQuery(document).ready(function () {
+ jQuery("[data-colored]")
+ .css("background-color", "#aaaaaa")
+ .click(function () {
+ jQuery(this).css("background-color", jQuery(this).data("colored"));
+ })
+ .dblclick(function () {
+ jQuery(this).css("background-color", "#aaaaaa");
+ });
+ });
+ */
+
+(function ($) {
+
+    $.widget("demo.colored", {
+
+        options: {
+            resetColor: "#aaaaaa"
+        },
+
+        _create: function () {
+            this.element.css("background-color", this.options.resetColor);
+            this._on({
+                click: function (event) {
+                    this.element.css("background-color", this.element.data("color"));
+                },
+                dblclick: function (event) {
+                    this.element.css("background-color", this.options.resetColor);
+                }
+            });
+        },
+
+        _setOption: function (key, value) {
+            switch (key) {
+                case "resetColor":
+                    this.options.resetColor = value;
+                    break;
+            }
+            this._super("_setOption", key, value);
+        },
+
+        _destroy: function () {
+        }
+
+    });
+
+}(jQuery));
+
+Tobago.registerListener(function() {
+    jQuery("[data-color]").colored({resetColor: "#333333"});
+}, Tobago.Phase.DOCUMENT_READY);
