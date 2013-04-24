@@ -19,6 +19,7 @@
 
 package org.apache.myfaces.tobago.internal.lifecycle;
 
+import org.apache.myfaces.tobago.internal.util.Deprecation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -42,36 +43,26 @@ public class TobagoLifecycleFactory extends LifecycleFactory {
   public TobagoLifecycleFactory(LifecycleFactory factory) {
     this.factory = factory;
     defaultLifecycle = new TobagoLifecycle();
-    if (LOG.isInfoEnabled()) {
-      LOG.info("new TobagoLifecycleFactory");
-    }
+    Deprecation.LOG.warn("new TobagoLifecycleFactory");
   }
 
   public void addLifecycle(String lifecycleId, Lifecycle lifecycle) {
     factory.addLifecycle(lifecycleId, lifecycle);
-    if (LOG.isInfoEnabled()) {
-      LOG.info("Lifecycle added : " + lifecycleId + " = " + lifecycle.getClass().getName() + "");
-    }
+    Deprecation.LOG.warn("Lifecycle added : " + lifecycleId + " = " + lifecycle.getClass().getName() + "");
   }
 
   public Lifecycle getLifecycle(String lifecycleId) {
     if (LifecycleFactory.DEFAULT_LIFECYCLE.equals(lifecycleId)) {
-      if (LOG.isInfoEnabled()) {
-        LOG.info("getLifecycle(\"" + lifecycleId + "\")  -> TobagoLifecycle");
-      }
+      Deprecation.LOG.warn("getLifecycle(\"" + lifecycleId + "\")  -> TobagoLifecycle");
       return defaultLifecycle;
     } else {
-      if (LOG.isInfoEnabled()) {
-        LOG.info("getLifecycle(\"" + lifecycleId + "\")  -> other Lifecycle");
-      }
+      Deprecation.LOG.warn("getLifecycle(\"" + lifecycleId + "\")  -> other Lifecycle");
       return factory.getLifecycle(lifecycleId);
     }
   }
 
-  public Iterator getLifecycleIds() {
-    if (LOG.isInfoEnabled()) {
-      LOG.info("getLifecycleIds()");
-    }
+  public Iterator<String> getLifecycleIds() {
+    Deprecation.LOG.warn("getLifecycleIds()");
     return factory.getLifecycleIds();
   }
 }
