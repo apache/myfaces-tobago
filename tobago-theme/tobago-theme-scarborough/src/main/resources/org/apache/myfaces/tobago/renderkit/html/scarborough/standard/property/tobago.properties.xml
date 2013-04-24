@@ -95,4 +95,7 @@
   <!-- The String contains all widths for char 32 to 127. Each pair of 2 chars is a hex value-->
   <entry key="tobago.font.widths">04040508080c09030505050804050404080808080808080808080404080808080e09090a0a09090b0a040709080c0a0b090b0a09090a090d0909090404040708050808070808040808030307030c0808080805070408070a070707050405080b</entry>
 
+  <entry key="browser.noframe.message.prefix">Your user agent does not support frames or is currently configured not to display frames. However, you may visit the related document manually: </entry>
+  <entry key="browser.noframe.message.postfix"></entry>
+
 </properties>
