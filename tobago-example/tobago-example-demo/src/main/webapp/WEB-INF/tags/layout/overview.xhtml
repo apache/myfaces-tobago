@@ -52,13 +52,15 @@
             </tc:menu>
 
             <tc:menu label="#{overviewBundle.menu_help}">
-              <tc:menuCommand
-                  onclick="alert('#{overviewBundle.pageTitle}' + String.fromCharCode(10) + '#{info.version}' + String.fromCharCode(10) + '#{overviewBundle.tobago_url}' + String.fromCharCode(10))"
-                  label="#{overviewBundle.menu_about}"/>
+              <tc:menuCommand label="#{overviewBundle.menu_about}">
+                <tc:dataAttribute name="alert-text"
+                                  value="#{overviewBundle.pageTitle} - #{info.version} - #{overviewBundle.tobago_url}"/>
+              </tc:menuCommand>
               <tc:menuCommand link="http://myfaces.apache.org/tobago" label="Tobago in the Web"/>
-              <tc:menuCommand onclick="LOG.show();"
-                              label="#{overviewBundle.menu_showLog}"
-                              rendered="#{clientConfigController.debugMode}"/>
+              <tc:menuCommand label="#{overviewBundle.menu_showLog}" omit="true"
+                              rendered="#{clientConfigController.debugMode}">
+                <tc:dataAttribute name="show-log" value="true"/>
+              </tc:menuCommand>
               <tc:menuCommand action="server-info" immediate="true"
                               label="Server Info"
                               disabled="#{! info.enabled}"/>

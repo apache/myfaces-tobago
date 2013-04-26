@@ -44,7 +44,7 @@
       <!-- code-sniplet-start id="button" -->
       <tc:button label="Action" action="#{command.action}"/>
       <!-- code-sniplet-end id="button" -->
-      <tc:button label="On Click" onclick="/* fixme: avoid submit */">
+      <tc:button label="On Click" omit="true">
         <tc:dataAttribute name="alert" value="Hello Tobago! (button)"/>
       </tc:button>
       <tc:button label="Link" link="http://www.apache.org/"/>
@@ -54,7 +54,7 @@
       <!-- code-sniplet-start id="link" -->
       <tc:link label="Action" action="#{command.action}"/>
       <!-- code-sniplet-end id="link" -->
-      <tc:link label="On Click" onclick="/* fixme: avoid submit */">
+      <tc:link label="On Click" omit="true">
         <tc:dataAttribute name="alert" value="Hello Tobago! (link)"/>
       </tc:link>
       <tc:link label="Link" link="http://www.apache.org/"/>
@@ -72,7 +72,7 @@
           <tc:out value="Are you sure?"/>
         </f:facet>
       </tc:button>
-      <tc:button label="On Click" onclick="/* fixme: avoid submit */;">
+      <tc:button label="On Click" omit="true">
         <f:facet name="confirmation">
           <tc:out value="Are you sure?"/>
         </f:facet>
@@ -95,7 +95,7 @@
           <tc:out value="Are you sure?"/>
         </f:facet>
       </tc:link>
-      <tc:link label="On Click xxx" onclick="/* fixme: avoid submit */">
+      <tc:link label="On Click xxx" omit="true">
         <f:facet name="confirmation">
           <tc:out value="Are you sure?"/>
         </f:facet>
