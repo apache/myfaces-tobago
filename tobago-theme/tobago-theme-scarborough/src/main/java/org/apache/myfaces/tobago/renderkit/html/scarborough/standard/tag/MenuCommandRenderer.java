@@ -102,7 +102,8 @@ public class MenuCommandRenderer extends CommandRendererBase {
           LOG.warn("Menu item has label=null where clientId=" + clientId);
         }
         final String formattedValue = RenderUtils.getFormattedValue(facesContext, radio, item.getValue());
-        final CommandMap map = new CommandMap(new Command(clientId, null, null, null, null, null, null, null, null));
+        final CommandMap map = new CommandMap(
+            new Command(clientId, null, null, null, null, null, null, null, null, null));
         encodeItem(facesContext, writer, null, label, map, disabled, firstLevel, image, formattedValue, "selectOne");
       }
       encodeHidden(writer, hiddenId, getCurrentValue(facesContext, radio));

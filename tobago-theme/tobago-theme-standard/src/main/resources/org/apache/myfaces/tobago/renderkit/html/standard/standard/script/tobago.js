@@ -1009,31 +1009,33 @@ var Tobago = {
 
       if (commands.click) {
         command.click(function() {
-          if (commands.click.confirmation == null || confirm(commands.click.confirmation)) {
-            var popup = commands.click.popup;
-            if (popup && popup.command == "close" && popup.immediate) {
-              Tobago.Popup.close(this);
-            } else {
-              if (popup && popup.command == "close") {
-                Tobago.Popup.unlockBehind();
-              }
-              var action = commands.click.action ? commands.click.action : jQuery(this).attr("id");
-              if (commands.click.partially) {
-                if (popup && popup.command == "open") {
-                  Tobago.Popup.openWithAction(this, commands.click.partially, action);
-                } else {
-                  Tobago.reloadComponent(this, commands.click.partially, action, commands.click);
-                }
-              } else if (commands.click.url) {
-                Tobago.navigateToUrl(commands.click.url);
-              } else if (commands.click.script) { // XXX this case is deprecated.
-                // not allowed with Content Security Policy (CSP)
-                  eval(commands.click.script);
+          if (commands.click.omit != true) {
+            if (commands.click.confirmation == null || confirm(commands.click.confirmation)) {
+              var popup = commands.click.popup;
+              if (popup && popup.command == "close" && popup.immediate) {
+                Tobago.Popup.close(this);
               } else {
-                Tobago.submitAction(this, action, commands.click);
-              }
-              if (popup && popup.command == "close") {
-                Tobago.Popup.close();
+                if (popup && popup.command == "close") {
+                  Tobago.Popup.unlockBehind();
+                }
+                var action = commands.click.action ? commands.click.action : jQuery(this).attr("id");
+                if (commands.click.partially) {
+                  if (popup && popup.command == "open") {
+                    Tobago.Popup.openWithAction(this, commands.click.partially, action);
+                  } else {
+                    Tobago.reloadComponent(this, commands.click.partially, action, commands.click);
+                  }
+                } else if (commands.click.url) {
+                  Tobago.navigateToUrl(commands.click.url);
+                } else if (commands.click.script) { // XXX this case is deprecated.
+                  // not allowed with Content Security Policy (CSP)
+                    eval(commands.click.script);
+                } else {
+                  Tobago.submitAction(this, action, commands.click);
+                }
+                if (popup && popup.command == "close") {
+                  Tobago.Popup.close();
+                }
               }
             }
           }

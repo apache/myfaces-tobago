@@ -395,6 +395,7 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
     if (map != null) {
       writer.writeAttribute(DataAttributes.COMMANDS, JsonUtils.encode(map), true);
     }
+    HtmlRendererUtils.writeDataAttributes(facesContext, writer, command);
     if (value != null) {
       writer.writeAttribute(DataAttributes.VALUE, value, true);
     }

@@ -126,6 +126,7 @@ public final class Attributes {
   public static final String NAME = "name";
   public static final String NAVIGATE = "navigate";
   public static final String NUMBER_STYLE = "numberStyle";
+  public static final String OMIT = "omit";
   public static final String ONCHANGE = "onchange";
   public static final String ONCLICK = "onclick";
   public static final String ORDER_BY = "orderBy";

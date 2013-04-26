@@ -138,6 +138,10 @@ public class JsonUtils {
     if (script != null) {
       encode(builder, "script", script);
     }
+    Boolean omit = command.getOmit();
+    if (omit != null && omit) { // false is the default, so encoding is needed.
+      encode(builder, "omit", omit);
+    }
 
     if (builder.length() - initialLength > 0) {
       assert builder.charAt(builder.length() - 1) == ',';

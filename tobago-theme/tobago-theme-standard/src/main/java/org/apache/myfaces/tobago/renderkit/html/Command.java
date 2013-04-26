@@ -53,6 +53,7 @@ public class Command {
   private String confirmation;
   private Integer delay;
   private Popup popup;
+  private Boolean omit;
   /**
    * @deprecated Script will not work when CSP is activated
    */
@@ -64,7 +65,7 @@ public class Command {
 
   public Command(
       String action, Boolean transition, String target, String url, String[] partially, String focus,
-      String confirmation, Integer delay, Popup popup) {
+      String confirmation, Integer delay, Popup popup, Boolean omit) {
     this.action = action;
     this.transition = transition;
     this.target = target;
@@ -74,9 +75,10 @@ public class Command {
     this.confirmation = confirmation;
     this.delay = delay;
     this.popup = popup;
+    this.omit = omit;
   }
 
-   public Command(FacesContext facesContext, AbstractUICommandBase command) {
+  public Command(FacesContext facesContext, AbstractUICommandBase command) {
     this(
         null,
         command.isTransition(),
@@ -86,7 +88,8 @@ public class Command {
         null,
         getConfirmation(command),
         null,
-        Popup.createPopup(command));
+        Popup.createPopup(command),
+        command.isOmit());
     if (command.getOnclick() != null) {
       script = command.getOnclick();
     }
@@ -127,6 +130,10 @@ public class Command {
     int delay = ComponentUtils.getIntAttribute(facetComponent, Attributes.DELAY);
     if (delay > 0) {
       this.delay = delay;
+    }
+    // omit == false is the default
+    if (!ComponentUtils.getBooleanAttribute(facetComponent, Attributes.OMIT)) {
+      this.omit = Boolean.TRUE;
     }
   }
 
@@ -205,6 +212,14 @@ public class Command {
 
   public void setPopup(Popup popup) {
     this.popup = popup;
+  }
+
+  public Boolean getOmit() {
+    return omit;
+  }
+
+  public void setOmit(Boolean omit) {
+    this.omit = omit;
   }
 
   /**
