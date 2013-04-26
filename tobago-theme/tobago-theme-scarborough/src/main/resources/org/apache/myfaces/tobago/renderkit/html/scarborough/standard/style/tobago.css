@@ -1440,6 +1440,7 @@ div.tobago-richTextEditor-body {
   margin: 0;
   left: 0;
   top: 0;
+  cursor: pointer;
 }
 
 .tobago-toolBar-item-markup-disabled {
