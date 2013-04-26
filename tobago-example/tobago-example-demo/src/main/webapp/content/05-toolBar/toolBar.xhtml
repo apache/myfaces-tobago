@@ -81,8 +81,12 @@
                            label="#{overviewBundle.toolbar_dropDownAction}">
           <f:facet name="dropDownMenu">
             <tc:menu>
-              <tc:menuCommand onclick="alert('test 1')" label="Alert 1"/>
-              <tc:menuCommand onclick="alert('test 2')" label="Alert 2"/>
+              <tc:menuCommand label="Alert 1" omit="true">
+                  <tc:dataAttribute name="alert-text" value="Test 1"/>
+              </tc:menuCommand>
+              <tc:menuCommand label="Alert 2" omit="true">
+                  <tc:dataAttribute name="alert-text" value="Test 2"/>
+              </tc:menuCommand>
               <tc:menuCommand action="#{overviewController.ping}" id="dropdown3"
                               actionListener="#{overviewController.click}" label="Action 3"/>
             </tc:menu>

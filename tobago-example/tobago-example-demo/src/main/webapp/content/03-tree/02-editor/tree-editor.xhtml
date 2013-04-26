@@ -32,12 +32,24 @@
     <tc:toolBar iconSize="off">
       <tc:toolBarCommand label="New" action="#{treeEditor.create}"/>
       <tc:toolBarCommand label="Delete" action="#{treeEditor.delete}"/>
-      <tc:toolBarCommand label="Edit" onclick="alert('Not implemented yet')"/>
-      <tc:toolBarCommand label="Cut" onclick="alert('Not implemented yet')"/>
-      <tc:toolBarCommand label="Copy" onclick="alert('Not implemented yet')"/>
-      <tc:toolBarCommand label="Paste" onclick="alert('Not implemented yet')"/>
-      <tc:toolBarCommand label="Up" onclick="alert('Not implemented yet')"/>
-      <tc:toolBarCommand label="Down" onclick="alert('Not implemented yet')"/>
+      <tc:toolBarCommand label="Edit" omit="true">
+        <tc:dataAttribute name="alert-text" value="Not implemented yet"/>
+      </tc:toolBarCommand>
+      <tc:toolBarCommand label="Cut" omit="true">
+        <tc:dataAttribute name="alert-text" value="Not implemented yet"/>
+      </tc:toolBarCommand>
+      <tc:toolBarCommand label="Copy" omit="true">
+        <tc:dataAttribute name="alert-text" value="Not implemented yet"/>
+      </tc:toolBarCommand>
+      <tc:toolBarCommand label="Paste" omit="true">
+        <tc:dataAttribute name="alert-text" value="Not implemented yet"/>
+      </tc:toolBarCommand>
+      <tc:toolBarCommand label="Up" omit="true">
+        <tc:dataAttribute name="alert-text" value="Not implemented yet"/>
+      </tc:toolBarCommand>
+      <tc:toolBarCommand label="Down" omit="true">
+        <tc:dataAttribute name="alert-text" value="Not implemented yet"/>
+      </tc:toolBarCommand>
     </tc:toolBar>
 
     <tc:tree id="tree"

@@ -45,11 +45,10 @@
   <resource-dir>tobago-resource</resource-dir>
 
 <!-- uncomment this to enable CSP -->
-<!--
   <content-security-policy>
     <directive>default-src 'self'</directive>
+    <directive>frame-src http://maps.google.com</directive>
   </content-security-policy>
--->
 
 <!-- this may be an alternative way to define (not implemented)
   <content-security-policy>

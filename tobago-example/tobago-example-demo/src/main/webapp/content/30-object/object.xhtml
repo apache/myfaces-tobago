@@ -28,28 +28,26 @@
 
   <tc:panel>
     <f:facet name="layout">
-      <tc:gridLayout rows="auto;*"/>
+      <tc:gridLayout rows="35px;auto;*"/>
     </f:facet>
 
-    <tc:panel>
-      <f:facet name="layout">
-        <tc:gridLayout columns="80px;80px;80px;*"/>
-      </f:facet>
-      <tc:link label="Show Tobago" onclick="/* fixme */">
-          <tc:dataAttribute name="maps-position" value="11.249123,-60.687103"/>
-          <tc:dataAttribute name="maps-zoom" value="12"/>
-          <tc:dataAttribute name="maps-target" value="page:map"/>
-      </tc:link>
-      <tc:link label="Show Plane" onclick="/* fixme */">
-          <tc:dataAttribute name="maps-position" value="50.053839,8.624933"/>
-          <tc:dataAttribute name="maps-zoom" value="17"/>
-          <tc:dataAttribute name="maps-target" value="page:map"/>
-      </tc:link>
-      <tc:link label="Show World" onclick="/* fixme */">
-          <tc:dataAttribute name="maps-target" value="page:map"/>
-      </tc:link>
-      <tc:panel/>
-    </tc:panel>
+    <tc:out value="External objects can be included. When CSP is activated, you may add a frame-src policy to the tobago-config.xml"/>
+
+    <tc:toolBar iconSize="off" >
+      <tc:toolBarCommand label="Show Tobago" omit="true">
+        <tc:dataAttribute name="maps-position" value="11.249123,-60.687103"/>
+        <tc:dataAttribute name="maps-zoom" value="12"/>
+        <tc:dataAttribute name="maps-target" value="page:map"/>
+      </tc:toolBarCommand>
+      <tc:toolBarCommand label="Show Plane" omit="true">
+        <tc:dataAttribute name="maps-position" value="50.053839,8.624933"/>
+        <tc:dataAttribute name="maps-zoom" value="17"/>
+        <tc:dataAttribute name="maps-target" value="page:map"/>
+      </tc:toolBarCommand>
+      <tc:toolBarCommand label="Show World" omit="true">
+        <tc:dataAttribute name="maps-target" value="page:map"/>
+      </tc:toolBarCommand>
+    </tc:toolBar>
 
     <tc:object id="map"/>
 
