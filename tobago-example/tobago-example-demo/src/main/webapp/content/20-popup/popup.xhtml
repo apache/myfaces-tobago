@@ -58,7 +58,9 @@
               <f:facet name="menuBar">
                 <tc:menuBar>
                   <tc:menu label="Menu">
-                    <tc:menuCommand label="Say okay" onclick="alert('okay');"/>
+                    <tc:menuCommand label="Say okay" omit="true">
+                      <tc:dataAttribute name="alert-text" value="Okay!"/>
+                    </tc:menuCommand>
                   </tc:menu>
                 </tc:menuBar>
               </f:facet>
