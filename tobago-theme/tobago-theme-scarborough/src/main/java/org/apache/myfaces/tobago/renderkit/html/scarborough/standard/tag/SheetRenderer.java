@@ -717,9 +717,11 @@ public class SheetRenderer extends LayoutComponentRendererBase {
     final Grid grid = sheet.getHeaderGrid();
     final List<Integer> columnWidths = sheet.getWidthList();
 
-    LOG.info("*****************************************************");
-    LOG.info("" + grid);
-    LOG.info("*****************************************************");
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("*****************************************************");
+      LOG.debug("" + grid);
+      LOG.debug("*****************************************************");
+    }
 
     writer.startElement(HtmlElements.DIV, sheet);
     writer.writeClassAttribute(Classes.create(sheet, "headerDiv"));
