@@ -19,6 +19,7 @@
 
 package org.apache.myfaces.tobago.internal.ajax;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -90,10 +91,13 @@ public class AjaxResponseRenderer {
     writer.write("    \"responseCode\": ");
     writer.write(Integer.toString(CODE_SUCCESS));
 
-    writer.write(",\n");
-    writer.write("    \"script\": \"function() { ");
-    writer.write(jsonWriter.getJavascript());
-    writer.write(" }\"");
+    final String javascript = jsonWriter.getJavascript();
+    if (StringUtils.isNotBlank(javascript)) {
+      writer.write(",\n");
+      writer.write("    \"script\": \"function() { ");
+      writer.write(javascript);
+      writer.write(" }\"");
+    }
 
     writer.write("\n  }");
   }

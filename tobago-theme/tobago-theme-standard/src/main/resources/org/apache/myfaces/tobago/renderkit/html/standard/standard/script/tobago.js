@@ -2336,8 +2336,12 @@ Tobago.Updater = {
           element.replaceWith(newElement);
         }
         try {
-          eval('var updateScript = ' + data.script);
-          eval('updateScript();');
+          if (data.script != null) {
+            // XXX this case is deprecated.
+            // not allowed with Content Security Policy (CSP)
+            eval('var updateScript = ' + data.script);
+            eval('updateScript();');
+          }
           if (typeof this.afterDoUpdateSuccess == 'function') {
             this.afterDoUpdateSuccess();
           }
