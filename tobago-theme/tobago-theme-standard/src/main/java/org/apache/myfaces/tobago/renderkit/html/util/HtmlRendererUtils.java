@@ -248,11 +248,19 @@ public final class HtmlRendererUtils {
     }
   }
 
+  /**
+   * @deprecated Since Tobago 2.0.0. Because of CSP.
+   */
+  @Deprecated
   public static void writeScriptLoader(FacesContext facesContext, String script)
       throws IOException {
     writeScriptLoader(facesContext, new String[]{script}, null);
   }
 
+  /**
+   * @deprecated Since Tobago 2.0.0. Because of CSP.
+   */
+  @Deprecated
   public static void writeScriptLoader(FacesContext facesContext, String[] scripts, String[] afterLoadCmds)
       throws IOException {
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
@@ -304,6 +312,10 @@ public final class HtmlRendererUtils {
     writer.endJavascript();
   }
 
+  /**
+   * @deprecated Since Tobago 2.0.0. Because of CSP.
+   */
+  @Deprecated
   public static void writeStyleLoader(
       FacesContext facesContext, String[] styles) throws IOException {
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
