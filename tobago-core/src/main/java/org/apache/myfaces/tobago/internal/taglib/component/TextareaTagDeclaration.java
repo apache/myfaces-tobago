@@ -56,6 +56,6 @@ public interface TextareaTagDeclaration
    * The row count for this component.
    */
   @TagAttribute
-  @UIComponentTagAttribute()
+  @UIComponentTagAttribute(type = "java.lang.Integer")
   void setRows(String rows);
 }
