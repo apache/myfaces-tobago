@@ -731,15 +731,16 @@
           </signature>
         </configuration>
       </plugin>
+<!--
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
-        <!-- XXX better use antrun? -->
+        &lt;!&ndash; XXX better use antrun? &ndash;&gt;
         <artifactId>maven-resources-plugin</artifactId>
         <executions>
           <execution>
             <id>copy-config-schema</id>
-<!-- XXX why it is not possible to use the site phase here? -->
-            <!--<phase>site</phase>-->
+&lt;!&ndash; XXX why it is not possible to use the site phase here? &ndash;&gt;
+            &lt;!&ndash;<phase>site</phase>&ndash;&gt;
             <phase>package</phase>
             <goals>
               <goal>copy-resources</goal>
@@ -759,6 +760,7 @@
           </execution>
         </executions>
       </plugin>
+-->
     </plugins>
     <pluginManagement>
       <plugins>
@@ -922,7 +924,10 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-resources-plugin</artifactId>
+<!--
           <version>2.6</version>
+-->
+          <version>2.5</version>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
@@ -1011,7 +1016,10 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-site-plugin</artifactId>
+<!--
           <version>3.2</version>
+-->
+          <version>3.1</version>
         </plugin>
         <plugin>
           <groupId>org.bsc.maven</groupId>
