@@ -113,7 +113,7 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
       } else if (command.getFacet(Facets.CHECKBOX) != null) {
         return renderSelectBoolean(facesContext, toolBar, command, writer, width);
       } else {
-        final CommandMap map = hasAnyCommand(command) ? new CommandMap(new Command(facesContext, command)) : null;
+        final CommandMap map = new CommandMap(new Command(facesContext, command));
         return renderToolbarButton(
             facesContext, toolBar, command, writer, false, width, map, null);
       }
