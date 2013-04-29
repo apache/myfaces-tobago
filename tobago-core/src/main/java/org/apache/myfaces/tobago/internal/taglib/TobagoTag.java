@@ -23,10 +23,10 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.myfaces.tobago.component.OnComponentCreated;
 
 import javax.faces.component.UIComponent;
-import javax.faces.webapp.UIComponentTag;
+import javax.faces.webapp.UIComponentELTag;
 import javax.servlet.jsp.JspException;
 
-public abstract class TobagoTag extends UIComponentTag {
+public abstract class TobagoTag extends UIComponentELTag {
 
   public int doStartTag() throws JspException {
     int result = super.doStartTag();

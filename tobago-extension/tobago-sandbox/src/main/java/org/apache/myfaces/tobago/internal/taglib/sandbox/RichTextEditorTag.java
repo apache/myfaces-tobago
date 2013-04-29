@@ -21,9 +21,9 @@ package org.apache.myfaces.tobago.internal.taglib.sandbox;
 
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
-import org.apache.myfaces.tobago.internal.taglib.TagUtils;
 import org.apache.myfaces.tobago.internal.taglib.TobagoTag;
 
+import javax.el.ValueExpression;
 import javax.faces.component.UIComponent;
 import javax.servlet.jsp.JspException;
 
@@ -33,7 +33,7 @@ import javax.servlet.jsp.JspException;
 public abstract class RichTextEditorTag extends TobagoTag
     implements RichTextEditorTagDeclaration {
 
-  private String statePreview;
+  private ValueExpression statePreview;
 
 
   public int doEndTag() throws JspException {
@@ -44,8 +44,16 @@ public abstract class RichTextEditorTag extends TobagoTag
   }
 
   protected void setProperties(UIComponent component) {
+
     super.setProperties(component);
-    TagUtils.setBooleanProperty(component, Attributes.STATE_PREVIEW, statePreview);
+
+    if (statePreview != null) {
+      if (!statePreview.isLiteralText()) {
+        component.setValueExpression(Attributes.STATE_PREVIEW, statePreview);
+      } else {
+        component.getAttributes().put(Attributes.STATE_PREVIEW, statePreview.getExpressionString());
+      }
+    }
   }
 
   public void release() {
@@ -53,11 +61,11 @@ public abstract class RichTextEditorTag extends TobagoTag
     statePreview = null;
   }
 
-  public String getStatePreview() {
+  public ValueExpression getStatePreview() {
     return statePreview;
   }
 
-  public void setStatePreview(String statePreview) {
+  public void setStatePreview(ValueExpression statePreview) {
     this.statePreview = statePreview;
   }
 }

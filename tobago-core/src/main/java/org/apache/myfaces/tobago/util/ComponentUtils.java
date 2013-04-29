@@ -27,7 +27,6 @@ import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.SupportsMarkup;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.TransientStateHolder;
-import org.apache.myfaces.tobago.el.ConstantMethodBinding;
 import org.apache.myfaces.tobago.event.AbstractPopupActionListener;
 import org.apache.myfaces.tobago.internal.component.AbstractUIForm;
 import org.apache.myfaces.tobago.internal.component.AbstractUIInput;
@@ -56,7 +55,6 @@ import javax.faces.component.UIViewRoot;
 import javax.faces.component.ValueHolder;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
-import javax.faces.el.MethodBinding;
 import javax.faces.el.ValueBinding;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.ActionListener;
@@ -66,7 +64,6 @@ import javax.faces.render.RenderKit;
 import javax.faces.render.RenderKitFactory;
 import javax.faces.render.Renderer;
 import javax.faces.view.facelets.FaceletContext;
-import javax.faces.webapp.UIComponentTag;
 import javax.servlet.jsp.JspException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -484,17 +481,7 @@ public class ComponentUtils {
    */
   @Deprecated
   public static void setMarkup(UIComponent markupComponent, String markup) {
-    if (markup != null) {
-      if (markupComponent instanceof SupportsMarkup) {
-        if (UIComponentTag.isValueReference(markup)) {
-          markupComponent.setValueBinding(Attributes.MARKUP, createValueBinding(markup));
-        } else {
-          ((SupportsMarkup) markupComponent).setMarkup(Markup.valueOf(markup));
-        }
-      } else {
-        LOG.error("Component did not support Markup " + markupComponent.getClass().getName());
-      }
-    }
+    Deprecation.LOG.error("markup=" + markup);
   }
 
   public static Object getAttribute(UIComponent component, String name) {
@@ -660,14 +647,7 @@ public class ComponentUtils {
    */
   @Deprecated
   public static void setIntegerSizeProperty(UIComponent component, String name, String value) {
-    if (value != null) {
-      if (UIComponentTag.isValueReference(value)) {
-        component.setValueBinding(name, createValueBinding(value));
-      } else {
-        value = removePx(value);
-        component.getAttributes().put(name, new Integer(value));
-      }
-    }
+    Deprecation.LOG.error("name=" + name + " value=" + value);
   }
 
   public static String removePx(String value) {
@@ -766,13 +746,7 @@ public class ComponentUtils {
    */
   @Deprecated
   public static void setValidator(EditableValueHolder editableValueHolder, String validator) {
-    if (validator != null && editableValueHolder.getValidator() == null) {
-      if (UIComponentTag.isValueReference(validator)) {
-        MethodBinding methodBinding =
-            FacesContext.getCurrentInstance().getApplication().createMethodBinding(validator, VALIDATOR_ARGS);
-        editableValueHolder.setValidator(methodBinding);
-      }
-    }
+    Deprecation.LOG.error("validator=" + validator);
   }
 
   /**
@@ -780,19 +754,7 @@ public class ComponentUtils {
    */
   @Deprecated
   public static void setConverter(ValueHolder valueHolder, String converterId) {
-    if (converterId != null && valueHolder.getConverter() == null) {
-      final FacesContext facesContext = FacesContext.getCurrentInstance();
-      final Application application = facesContext.getApplication();
-      if (UIComponentTag.isValueReference(converterId)) {
-        ValueBinding valueBinding = application.createValueBinding(converterId);
-        if (valueHolder instanceof UIComponent) {
-          ((UIComponent) valueHolder).setValueBinding(Attributes.CONVERTER, valueBinding);
-        }
-      } else {
-        Converter converter = application.createConverter(converterId);
-        valueHolder.setConverter(converter);
-      }
-    }
+    Deprecation.LOG.error("converterId=" + converterId);
   }
 
   /**
@@ -800,16 +762,7 @@ public class ComponentUtils {
    */
   @Deprecated
   public static void setAction(ActionSource component, String action) {
-    if (action != null) {
-      if (UIComponentTag.isValueReference(action)) {
-        final FacesContext facesContext = FacesContext.getCurrentInstance();
-        final Application application = facesContext.getApplication();
-        MethodBinding binding = application.createMethodBinding(action, null);
-        component.setAction(binding);
-      } else {
-        component.setAction(new ConstantMethodBinding(action));
-      }
-    }
+    Deprecation.LOG.error("action=" + action);
   }
 
   /**
@@ -817,18 +770,7 @@ public class ComponentUtils {
    */
   @Deprecated
   public static void setActionListener(ActionSource command, String actionListener) {
-    final FacesContext facesContext = FacesContext.getCurrentInstance();
-    final Application application = facesContext.getApplication();
-    if (actionListener != null) {
-      if (UIComponentTag.isValueReference(actionListener)) {
-        MethodBinding binding
-            = application.createMethodBinding(actionListener, ACTION_LISTENER_ARGS);
-        command.setActionListener(binding);
-      } else {
-        throw new IllegalArgumentException(
-            "Must be a valueReference (actionListener): " + actionListener);
-      }
-    }
+    Deprecation.LOG.error("actionListener=" + actionListener);
   }
 
   /**
@@ -836,18 +778,7 @@ public class ComponentUtils {
    */
   @Deprecated
   public static void setValueChangeListener(EditableValueHolder valueHolder, String valueChangeListener) {
-    final FacesContext facesContext = FacesContext.getCurrentInstance();
-    final Application application = facesContext.getApplication();
-    if (valueChangeListener != null) {
-      if (UIComponentTag.isValueReference(valueChangeListener)) {
-        MethodBinding binding
-            = application.createMethodBinding(valueChangeListener, VALUE_CHANGE_LISTENER_ARGS);
-        valueHolder.setValueChangeListener(binding);
-      } else {
-        throw new IllegalArgumentException(
-            "Must be a valueReference (valueChangeListener): " + valueChangeListener);
-      }
-    }
+    Deprecation.LOG.error("valueChangeListener=" + valueChangeListener);
   }
 
   /**
@@ -855,11 +786,7 @@ public class ComponentUtils {
    */
   @Deprecated
   public static void setValueBinding(UIComponent component, String name, String state) {
-    // TODO: check, if it is an writeable object
-    if (state != null && UIComponentTag.isValueReference(state)) {
-      ValueBinding valueBinding = createValueBinding(state);
-      component.setValueBinding(name, valueBinding);
-    }
+    Deprecation.LOG.error("name=" + name + " state=" + state);
   }
 
   /**
@@ -1051,7 +978,7 @@ public class ComponentUtils {
    * The name should not start with "data-", e. g. "tobago-foo" or "bar"
    */
   public static void putDataAttribute(UIComponent component, Object name, Object value) {
-    Map<Object, Object> map = (Map<Object, Object>) component.getAttributes().get(DATA_ATTRIBUTES_KEY);
+    Map<Object, Object> map = getDataAttributes(component);
     if (map == null) {
       map = new HashMap<Object, Object>();
       component.getAttributes().put(DATA_ATTRIBUTES_KEY, map);
@@ -1059,6 +986,7 @@ public class ComponentUtils {
     map.put(name, value);
   }
 
+  @SuppressWarnings("unchecked")
   public static Map<Object, Object> getDataAttributes(UIComponent component) {
     return (Map<Object, Object>) component.getAttributes().get(DATA_ATTRIBUTES_KEY);
   }
