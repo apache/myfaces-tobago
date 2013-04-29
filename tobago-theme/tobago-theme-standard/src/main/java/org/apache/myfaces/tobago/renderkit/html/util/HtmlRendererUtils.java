@@ -42,7 +42,6 @@ import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.JsonUtils;
-import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.util.FacetUtils;
@@ -126,12 +125,13 @@ public final class HtmlRendererUtils {
     }
   }
 
+  /**
+   * @deprecated Since Tobago 2.0.0
+   */
+  @Deprecated
   public static void createCssClass(FacesContext facesContext, UIComponent component) {
     String rendererName = getRendererName(facesContext, component);
-    if (rendererName != null) {
-      StyleClasses classes = StyleClasses.ensureStyleClasses(component);
-      classes.updateClassAttributeAndMarkup(component, rendererName);
-    }
+    Deprecation.LOG.error("Can't render style class for renderer " + rendererName);
   }
 
   public static String getRendererName(FacesContext facesContext, UIComponent component) {
@@ -577,10 +577,6 @@ public final class HtmlRendererUtils {
     if (objDndData != null) {
       writer.writeAttribute("dndData", String.valueOf(objDndData), false);
     }
-    if (addStyle && (null != objDndType || null != objDndData)) {
-      StyleClasses styles = StyleClasses.ensureStyleClasses(component);
-      styles.addFullQualifiedClass("dojoDndItem");
-    }
   }
 
   private static String createDojoDndType(UIComponent component, String clientId, String dojoType) {
@@ -808,18 +804,7 @@ public final class HtmlRendererUtils {
    */
   @Deprecated
   public static void removeStyleClasses(UIComponent cell) {
-    Object obj = cell.getAttributes().get(Attributes.STYLE_CLASS);
-    if (obj != null && obj instanceof StyleClasses && cell.getRendererType() != null) {
-      StyleClasses styleClasses = (StyleClasses) obj;
-      if (!styleClasses.isEmpty()) {
-        String rendererName = cell.getRendererType().substring(0, 1).toLowerCase(Locale.ENGLISH)
-            + cell.getRendererType().substring(1);
-        styleClasses.removeTobagoClasses(rendererName);
-      }
-      if (styleClasses.isEmpty()) {
-        cell.getAttributes().remove(Attributes.STYLE_CLASS);
-      }
-    }
+    Deprecation.LOG.warn("cell = '" + cell + "'");
   }
 
   public static void encodeContextMenu(FacesContext facesContext, TobagoResponseWriter writer, UIComponent parent)

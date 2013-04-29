@@ -25,7 +25,6 @@ import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
-import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -131,15 +130,6 @@ public abstract class TobagoResponseWriter extends ResponseWriter {
   @Deprecated
   public void writeClassAttribute(String cssClass) throws IOException {
     writeAttribute(HtmlAttributes.CLASS, cssClass, false);
-  }
-
-  /**
-   * Write the class attribute. The value will not escaped.
-   * @deprecated since Tobago 1.5.0
-   */
-  @Deprecated
-  public void writeClassAttribute(StyleClasses styleClasses) throws IOException {
-    writeAttribute(HtmlAttributes.CLASS, styleClasses.toString(), false);
   }
 
   /**

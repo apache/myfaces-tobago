@@ -33,9 +33,9 @@ import org.apache.myfaces.tobago.internal.component.AbstractUIForm;
 import org.apache.myfaces.tobago.internal.component.AbstractUIInput;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPage;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPopup;
+import org.apache.myfaces.tobago.internal.util.Deprecation;
 import org.apache.myfaces.tobago.internal.util.FindComponentUtils;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
-import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -470,24 +470,13 @@ public class ComponentUtils {
   }
 
   /**
-   * @deprecated Please define a {@link Markup} and set it to the component with
+   * @deprecated since 1.5.0
+   * Please define a {@link Markup} and set it to the component with
    * {@link SupportsMarkup#setMarkup(Markup markup)} before the rendering phase.
    */
   @Deprecated
   public static void setStyleClasses(UIComponent component, String styleClasses) {
-    if (styleClasses != null) {
-      if (UIComponentTag.isValueReference(styleClasses)) {
-        component.setValueBinding(Attributes.STYLE_CLASS, createValueBinding(styleClasses));
-      } else {
-        String[] classes = splitList(styleClasses);
-        if (classes.length > 0) {
-          StyleClasses styles = StyleClasses.ensureStyleClasses(component);
-          for (String clazz : classes) {
-            styles.addFullQualifiedClass(clazz);
-          }
-        }
-      }
-    }
+    Deprecation.LOG.warn("style class " + styleClasses);
   }
 
   /**

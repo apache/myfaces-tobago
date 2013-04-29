@@ -19,11 +19,8 @@
 
 package org.apache.myfaces.tobago.internal.webapp;
 
-import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.internal.util.Deprecation;
-import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
-import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -264,15 +261,15 @@ public abstract class TobagoResponseWriterBase extends TobagoResponseWriter {
   }
 
   @Override
+  /**
+   * @deprecated Since Tobago 2.0.0
+   */
   @Deprecated
   public String getStyleClasses() {
     if (component == null) {
       return null;
     }
-    StyleClasses clazz = (StyleClasses) component.getAttributes().get(Attributes.STYLE_CLASS);
-    if (clazz != null) {
-      return clazz.toString();
-    }
+    Deprecation.LOG.error("Can't get style classes.");
     return null;
   }
 
@@ -281,11 +278,7 @@ public abstract class TobagoResponseWriterBase extends TobagoResponseWriter {
    */
   @Deprecated
   public void writeClassAttribute() throws IOException {
-    Deprecation.LOG.warn("Please use writeClassAttribute(org.apache.myfaces.tobago.renderkit.css.Classes)");
-    StyleClasses clazz = (StyleClasses) component.getAttributes().get(Attributes.STYLE_CLASS);
-    if (clazz != null) {
-      writeAttribute(HtmlAttributes.CLASS, clazz.toString(), false);
-    }
+    Deprecation.LOG.error("Please use writeClassAttribute(org.apache.myfaces.tobago.renderkit.css.Classes)");
   }
 
 
