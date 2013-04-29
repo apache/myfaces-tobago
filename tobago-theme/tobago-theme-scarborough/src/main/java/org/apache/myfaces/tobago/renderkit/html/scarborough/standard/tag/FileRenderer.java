@@ -20,7 +20,6 @@
 package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.fileupload.FileItem;
-import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.internal.component.AbstractUIFile;
 import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
 import org.apache.myfaces.tobago.internal.webapp.TobagoMultipartFormdataRequest;
@@ -140,10 +139,6 @@ public class FileRenderer extends InputRendererBase {
     final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, file);
     if (title != null) {
       writer.writeAttribute(HtmlAttributes.TITLE, title, true);
-    }
-    if (ClientProperties.getInstance(facesContext).getUserAgent().isMsie6()) {
-      writer.writeAttribute(HtmlAttributes.ONKEYDOWN, "this.blur();return false;", false);
-      writer.writeAttribute("oncontextmenu", "return false;", false);
     }
     writer.endElement(HtmlElements.INPUT);
 

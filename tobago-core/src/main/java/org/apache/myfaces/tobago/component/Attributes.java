@@ -98,6 +98,7 @@ public final class Attributes {
   public static final String LAYOUT_WIDTH = "layoutWidth";
   public static final String LEFT = "left";
   public static final String LINK = "link";
+  /** @deprecated */
   @Deprecated
   public static final String MARGIN = "margin";
   /** Used by a layout manager */
@@ -127,7 +128,11 @@ public final class Attributes {
   public static final String NAVIGATE = "navigate";
   public static final String NUMBER_STYLE = "numberStyle";
   public static final String OMIT = "omit";
+  /** @deprecated Since 2.0.0. This attribute work not with SCP */
+  @Deprecated
   public static final String ONCHANGE = "onchange";
+  /** @deprecated Since 2.0.0. This attribute work not with SCP */
+  @Deprecated
   public static final String ONCLICK = "onclick";
   public static final String ORDER_BY = "orderBy";
   public static final String ORIENTATION = "orientation";

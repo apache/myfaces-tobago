@@ -27,6 +27,8 @@
 
   <tc:treeMenu value="#{treeController.mixed}" var="node" id="data">
     <tc:treeNode id="template">
+      <!-- todo: remove onclick -->
+      <!-- todo: remove mixing action and link -->
       <tc:treeCommand label="#{node.name}" rendered="#{node.childCount == 0}"
                       action="#{node.action}"
                       actionListener="#{node.actionListener}"

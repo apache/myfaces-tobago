@@ -109,7 +109,28 @@ Tobago.File.initIe6 = function(elements) {
     jQuery(this).blur();
     return false;
   });
+  files.contextmenu(function () {
+    return false;
+  });
 };
 
 Tobago.registerListener(Tobago.File.initIe6, Tobago.Phase.DOCUMENT_READY);
 Tobago.registerListener(Tobago.File.initIe6, Tobago.Phase.AFTER_UPDATE);
+
+// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/**
+ * Solves issue: TOBAGO-789
+ */
+Tobago.initIe6 = function(elements) {
+  var selects = Tobago.Utils.selectWidthJQuery(elements, ".tobago-selectOneChoice");
+  selects.focusin(function () {
+    Tobago.fixSelectionOnFocusIn();
+  });
+  selects.focus(function () {
+    Tobago.fixSelectionOnFocus();
+  });
+};
+
+Tobago.registerListener(Tobago.initIe6, Tobago.Phase.DOCUMENT_READY);
+Tobago.registerListener(Tobago.initIe6, Tobago.Phase.AFTER_UPDATE);

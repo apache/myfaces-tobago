@@ -22,11 +22,15 @@ package org.apache.myfaces.tobago.internal.taglib.declaration;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 
+/** @deprecated Since 2.0.0. This attribute work not with SCP */
+@Deprecated
 public interface HasOnchange {
 
   /**
-   * Clientside script function to add to this component's onchange handler.
+   * Client side script function to add to this component's onchange handler.
+   * @deprecated Since 2.0.0. This attribute work not with SCP
    */
+  @Deprecated
   @TagAttribute
   @UIComponentTagAttribute()
   void setOnchange(String onchange);
