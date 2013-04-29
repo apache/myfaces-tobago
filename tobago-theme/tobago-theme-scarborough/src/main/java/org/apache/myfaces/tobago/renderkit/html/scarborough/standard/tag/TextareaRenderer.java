@@ -21,10 +21,11 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UITextarea;
-import org.apache.myfaces.tobago.renderkit.HtmlUtils;
 import org.apache.myfaces.tobago.renderkit.InputRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
+import org.apache.myfaces.tobago.renderkit.html.Command;
+import org.apache.myfaces.tobago.renderkit.html.CommandMap;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
@@ -51,38 +52,43 @@ public class TextareaRenderer extends InputRendererBase {
       return;
     }
 
-    UITextarea input = (UITextarea) component;
-    String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, component);
+    final UITextarea input = (UITextarea) component;
+    final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, component);
+    final String clientId = input.getClientId(facesContext);
+    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
-    String clientId = input.getClientId(facesContext);
-    String onchange = HtmlUtils.generateOnchange(input, facesContext);
-
-    TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
     writer.startElement(HtmlElements.TEXTAREA, input);
     writer.writeNameAttribute(clientId);
     writer.writeIdAttribute(clientId);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, input);
-    writer.writeAttribute(HtmlAttributes.ROWS, null, Attributes.ROWS);
+    final Integer rows = input.getRows();
+    if (rows != null) {
+      writer.writeAttribute(HtmlAttributes.ROWS, rows);
+    }
     if (title != null) {
       writer.writeAttribute(HtmlAttributes.TITLE, title, true);
     }
     writer.writeAttribute(HtmlAttributes.READONLY, input.isReadonly());
     writer.writeAttribute(HtmlAttributes.DISABLED, input.isDisabled());
     writer.writeAttribute(HtmlAttributes.REQUIRED, input.isRequired());
-    Integer tabIndex = input.getTabIndex();
+    final Integer tabIndex = input.getTabIndex();
     if (tabIndex != null) {
       writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
     }
     HtmlRendererUtils.renderDojoDndItem(component, writer, true);
 
     writer.writeClassAttribute(Classes.create(input));
-    Style style = new Style(facesContext, input);
+    final Style style = new Style(facesContext, input);
     writer.writeStyleAttribute(style);
+    final String onchange = ComponentUtils.getStringAttribute(input, Attributes.ONCHANGE);
     if (onchange != null) {
-      writer.writeAttribute(HtmlAttributes.ONCHANGE, onchange, null);
+      final CommandMap map = new CommandMap();
+      final Command change = new Command();
+      change.setScript(onchange);
+      map.addCommand("change", change);
     }
     int maxLength = -1;
-    String pattern = null;
+    final String pattern = null;
     for (Validator validator : input.getValidators()) {
       if (validator instanceof LengthValidator) {
         LengthValidator lengthValidator = (LengthValidator) validator;

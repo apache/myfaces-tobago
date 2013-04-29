@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
-import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UITreeCommand;
 import org.apache.myfaces.tobago.component.UITreeNode;
 import org.apache.myfaces.tobago.internal.component.AbstractUICommand;
@@ -28,9 +27,12 @@ import org.apache.myfaces.tobago.renderkit.CommandRendererBase;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
+import org.apache.myfaces.tobago.renderkit.html.Command;
+import org.apache.myfaces.tobago.renderkit.html.CommandMap;
+import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
-import org.apache.myfaces.tobago.renderkit.html.util.CommandRendererHelper;
+import org.apache.myfaces.tobago.renderkit.html.JsonUtils;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -58,25 +60,17 @@ public class TreeCommandRenderer extends CommandRendererBase {
   @Override
   public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
 
-    UITreeCommand command = (UITreeCommand) component;
-    String clientId = command.getClientId(facesContext);
-    CommandRendererHelper helper = new CommandRendererHelper(facesContext, command, CommandRendererHelper.Tag.ANCHOR);
-    String href = helper.getHref();
-    TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final UITreeCommand command = (UITreeCommand) component;
+    final String clientId = command.getClientId(facesContext);
+    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final LabelWithAccessKey label = new LabelWithAccessKey(command);
 
-    LabelWithAccessKey label = new LabelWithAccessKey(command);
-
-    if (helper.isDisabled()) {
+    if (command.isDisabled()) {
       writer.startElement(HtmlElements.SPAN, command);
     } else {
       writer.startElement(HtmlElements.A, command);
-      writer.writeAttribute(HtmlAttributes.HREF, href, true);
-      if (helper.getOnclick() != null) {
-        writer.writeAttribute(HtmlAttributes.ONCLICK, helper.getOnclick(), true);
-      }
-      if (helper.getTarget() != null) {
-        writer.writeAttribute(HtmlAttributes.TARGET, helper.getTarget(), true);
-      }
+      final CommandMap map = new CommandMap(new Command(facesContext, command));
+      writer.writeAttribute(DataAttributes.COMMANDS, JsonUtils.encode(map), true);
       writer.writeNameAttribute(clientId);
     }
     writer.writeStyleAttribute(createStyle(facesContext, command));
@@ -109,10 +103,10 @@ public class TreeCommandRenderer extends CommandRendererBase {
   }
 
   @Override
-  public void encodeEnd(FacesContext facesContext, UIComponent component)
-      throws IOException {
-    ResponseWriter writer = facesContext.getResponseWriter();
-    if (ComponentUtils.getBooleanAttribute(component, Attributes.DISABLED)) {
+  public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
+    final UITreeCommand command = (UITreeCommand) component;
+    final ResponseWriter writer = facesContext.getResponseWriter();
+    if (command.isDisabled()) {
       writer.endElement(HtmlElements.SPAN);
     } else {
       writer.endElement(HtmlElements.A);

@@ -383,7 +383,6 @@ NormalProperty(property) ::= <<
 <createDescription(property)>
 <checkDeprecated(property)>
 public <property.type> get<property.upperCamelCaseName>() {
-  <logDeprecated(property)>
   <if(property.transient)>
   if (<property.propertyName> != null) {
     return <property.propertyName>;
@@ -405,6 +404,7 @@ public <property.type> get<property.upperCamelCaseName>() {
 
 <checkDeprecated(property)>
 public void set<property.upperCamelCaseName>(<property.type> <property.propertyName>) {
+  <logDeprecated(property)>
   <if(property.transient)>
   <else>
   getStateHelper().put(PropertyKeys.<property.propertyName>, <property.propertyName>);
