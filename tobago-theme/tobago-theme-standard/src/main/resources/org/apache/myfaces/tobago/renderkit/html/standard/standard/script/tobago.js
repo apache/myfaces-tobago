@@ -383,15 +383,21 @@ var Tobago = {
       this.form.removeChild(hidden);
     }
     this.isSubmit = true;
-    var clientDimension = this.createInput('hidden', this.page.id + this.SUB_COMPONENT_SEP + 'form-clientDimension');
-    clientDimension.value = jQuery("body").width() + ';' + jQuery("body").height();
-    this.form.appendChild(clientDimension);
+
+    Tobago.storeClientDimension();
 
     Tobago.Popup.unlockBehind(jQuery(".tobago-popup-markup-modal"));
 
     Tobago.onBeforeUnload();
 
     return true;
+  },
+
+  storeClientDimension: function() {
+    var body = jQuery("body");
+    body.children("form").first()
+        .children(Tobago.Utils.escapeClientId(this.page.id + this.SUB_COMPONENT_SEP + 'form-clientDimension'))
+        .val(body.width() + ';' + body.height());
   },
 
   onBeforeUnload: function() {
@@ -2160,6 +2166,8 @@ Tobago.Updater = {
         Tobago.partialRequestIds = hidden;
       }
 
+      Tobago.storeClientDimension();
+
       var error = !Tobago.Transport.ajaxTransport.request(requestOptions);
 
       if (error) {
@@ -2549,34 +2557,34 @@ Tobago.TabGroup.init = function(elements) {
   // initialize the tab header elements
   // client case
   tabGroups.filter("[switchType='client']").find(".tobago-tab").not(".tobago-tab-markup-disabled").click(function() {
-    var activeIndex = Tobago.TabGroup.updateHidden(jQuery(this));
-    jQuery(this).siblings(".tobago-tab-markup-selected").removeClass("tobago-tab-markup-selected");
-    jQuery(this).addClass("tobago-tab-markup-selected");
-    var tabGroup = jQuery(this).parents(".tobago-tabGroup:first");
-    tabGroup.children(".tobago-tab-content-markup-selected").removeClass("tobago-tab-content-markup-selected");
-    tabGroup.children(".tobago-tab-content[tabgroupindex=" + activeIndex + "]")
-        .addClass("tobago-tab-content-markup-selected");
-    // scroll the tabs, if necessary
-    var header = jQuery(this).parents(".tobago-tabGroup-header:first");
-    Tobago.TabGroup.ensureScrollPosition(header);
+          var activeIndex = Tobago.TabGroup.updateHidden(jQuery(this));
+          jQuery(this).siblings(".tobago-tab-markup-selected").removeClass("tobago-tab-markup-selected");
+          jQuery(this).addClass("tobago-tab-markup-selected");
+          var tabGroup = jQuery(this).parents(".tobago-tabGroup:first");
+          tabGroup.children(".tobago-tab-content-markup-selected").removeClass("tobago-tab-content-markup-selected");
+          tabGroup.children(".tobago-tab-content[tabgroupindex=" + activeIndex + "]")
+              .addClass("tobago-tab-content-markup-selected");
+          // scroll the tabs, if necessary
+          var header = jQuery(this).parents(".tobago-tabGroup-header:first");
+          Tobago.TabGroup.ensureScrollPosition(header);
   });
 
   // initialize the tab header elements
   // reload tab case
   tabGroups.filter("[switchType='reloadTab']").find(".tobago-tab").not(".tobago-tab-markup-disabled").click(function() {
-    var activeIndex = Tobago.TabGroup.updateHidden(jQuery(this));
-    LOG.debug("todo: ajax reload, activeIndex=" + activeIndex); // @DEV_ONLY
-    var tabGroup = jQuery(this).parents(".tobago-tabGroup:first");
-    Tobago.Updater.update(tabGroup, tabGroup.attr("id"), tabGroup.attr("id"), {});
+          var activeIndex = Tobago.TabGroup.updateHidden(jQuery(this));
+          LOG.debug("todo: ajax reload, activeIndex=" + activeIndex); // @DEV_ONLY
+          var tabGroup = jQuery(this).parents(".tobago-tabGroup:first");
+          Tobago.Updater.update(tabGroup, tabGroup.attr("id"), tabGroup.attr("id"), {});
   });
 
   // initialize the tab header elements
   // reload page case
   tabGroups.filter("[switchType='reloadPage']").find(".tobago-tab").not(".tobago-tab-markup-disabled").click(function() {
-    var activeIndex = Tobago.TabGroup.updateHidden(jQuery(this));
-    LOG.debug("todo: full reload, activeIndex=" + activeIndex); // @DEV_ONLY
-    var tabGroup = jQuery(this).parents(".tobago-tabGroup:first");
-    Tobago.submitAction(tabGroup.eq(0), tabGroup.attr("id"));
+          var activeIndex = Tobago.TabGroup.updateHidden(jQuery(this));
+          LOG.debug("todo: full reload, activeIndex=" + activeIndex); // @DEV_ONLY
+          var tabGroup = jQuery(this).parents(".tobago-tabGroup:first");
+          Tobago.submitAction(tabGroup.eq(0), tabGroup.attr("id"));
   });
 
   // initialize previous button
@@ -2641,13 +2649,13 @@ Tobago.TabGroup.updateHidden = function(tab) {
 
 Tobago.TabGroup.ensureScrollPosition = function (header) {
   var tab = header.find(".tobago-tab-markup-selected");
-  var tabRight = tab.position().left + tab.outerWidth() - header.outerWidth();
-  if (tabRight > 0) {
-    header.scrollLeft(header.scrollLeft() + tabRight + 1); // +1 to avoid rounding problems
-  }
-  var tabLeft = tab.position().left;
-  if (tabLeft < 0) {
-    header.scrollLeft(header.scrollLeft() + tabLeft);
+    var tabRight = tab.position().left + tab.outerWidth() - header.outerWidth();
+    if (tabRight > 0) {
+      header.scrollLeft(header.scrollLeft() + tabRight + 1); // +1 to avoid rounding problems
+    }
+    var tabLeft = tab.position().left;
+    if (tabLeft < 0) {
+      header.scrollLeft(header.scrollLeft() + tabLeft);
   }
 };
 

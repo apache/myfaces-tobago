@@ -79,7 +79,7 @@ public class PageRendererBase extends LayoutComponentRendererBase {
     try {
       name = page.getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + "form-clientDimension";
       value = (String) facesContext.getExternalContext().getRequestParameterMap().get(name);
-      if (value != null) {
+      if (StringUtils.isNotBlank(value)) {
         StringTokenizer tokenizer = new StringTokenizer(value, ";");
         Measure width = Measure.parse(tokenizer.nextToken());
         Measure height = Measure.parse(tokenizer.nextToken());

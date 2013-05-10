@@ -357,6 +357,12 @@ public class PageRenderer extends PageRendererBase {
     writer.writeIdAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "action-position");
     writer.endElement(HtmlElements.INPUT);
 
+    writer.startElement(HtmlElements.INPUT, null);
+    writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN, false);
+    writer.writeNameAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "form-clientDimension");
+    writer.writeIdAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "form-clientDimension");
+    writer.endElement(HtmlElements.INPUT);
+
     boolean calculateScrollbarWeight =
         client.getVerticalScrollbarWeight() == null || client.getHorizontalScrollbarWeight() == null;
 
@@ -615,7 +621,7 @@ public class PageRenderer extends PageRendererBase {
     if (!eventFunctions.isEmpty()) {
       writer.write("Tobago.applicationOn");
       writer.write(event);
-      writer.write(" = function() {\n");
+      writer.write(" = function(listenerOptions) {\n");
       if (returnBoolean) {
         writer.write("  var result;\n");
       }
