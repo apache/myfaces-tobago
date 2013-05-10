@@ -324,6 +324,10 @@ public class SheetRenderer extends LayoutComponentRendererBase {
       if (selected) {
         rowMarkup = rowMarkup.add(Markup.SELECTED);
       }
+      String[] rowMarkups = (String[]) sheet.getAttributes().get("rowMarkup");
+      if (rowMarkups != null) {
+        rowMarkup = rowMarkup.add(Markup.valueOf(rowMarkups));
+      }
       writer.writeClassAttribute(Classes.create(sheet, "row", rowMarkup));
       if (!sheet.isRowVisible()) {
         Style rowStyle = new Style();
