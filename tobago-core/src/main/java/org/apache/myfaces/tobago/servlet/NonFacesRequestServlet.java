@@ -25,7 +25,6 @@ import org.slf4j.LoggerFactory;
 import javax.faces.FactoryFinder;
 import javax.faces.application.Application;
 import javax.faces.application.NavigationHandler;
-import javax.faces.application.ViewHandler;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 import javax.faces.context.FacesContextFactory;
@@ -65,10 +64,7 @@ public abstract class NonFacesRequestServlet extends HttpServlet {
 
       Application application = facesContext.getApplication();
       if (facesContext.getViewRoot() == null) {
-        ViewHandler viewHandler = application.getViewHandler();
-        String viewId = getFromViewId();
-        UIViewRoot view = viewHandler.createView(facesContext, viewId);
-        facesContext.setViewRoot(view);
+        facesContext.setViewRoot(createViewRoot(facesContext));
       }
 
       NavigationHandler navigationHandler = application.getNavigationHandler();
@@ -79,6 +75,10 @@ public abstract class NonFacesRequestServlet extends HttpServlet {
     } finally {
       facesContext.release();
     }
+  }
+
+  protected UIViewRoot createViewRoot(FacesContext facesContext) {
+    return facesContext.getApplication().getViewHandler().createView(facesContext, getFromViewId());
   }
 
   public abstract String invokeApplication(FacesContext facesContext);
