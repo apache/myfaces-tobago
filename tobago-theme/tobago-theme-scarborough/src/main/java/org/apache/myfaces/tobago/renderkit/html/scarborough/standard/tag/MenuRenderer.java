@@ -74,6 +74,10 @@ public class MenuRenderer extends LayoutComponentRendererBase {
     writer.startElement(HtmlElements.A, menu);
     writer.writeAttribute(HtmlAttributes.HREF, "#", false);
 
+    if (component != null && !component.isTransient()) {
+      writer.writeIdAttribute(component.getClientId(facesContext));
+    }
+
     LabelWithAccessKey label = new LabelWithAccessKey(menu);
     if (label.getText() != null) {
       if (label.getAccessKey() != null) {

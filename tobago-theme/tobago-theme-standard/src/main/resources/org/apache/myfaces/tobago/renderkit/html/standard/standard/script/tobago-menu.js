@@ -73,9 +73,17 @@ Tobago.Menu.handelKey = function(event) {
       break;
     case 37: // cursor left
       if (jQuery(this).parent().hasClass('tobago-menu-markup-top')) {
-        jQuery(this).parent().prev('li').children('a').focus();
-      } else if (jQuery(this).parent().parent().tobagoMenu_findParentMenu().parent().hasClass('tobago-menu-markup-top')) {
-        jQuery(this).parent().parent().tobagoMenu_findParentMenu().parent().prev('li').children('a').focus();
+        // on top: if on first goto last else goto prev
+        var prevMenu = jQuery(this).parent().prev('li');
+        if (prevMenu.length == 0) {
+          // goto last
+          jQuery(this).parent().nextAll('li:last').children('a').eq(0).focus();
+        } else {
+          // goto prev
+          prevMenu.children('a').focus();
+        }
+      } else if (jQuery(this).parent().parent().tobagoMenu_findParentMenu().hasClass('tobago-menu-markup-top')) {
+        jQuery(this).parent().parent().tobagoMenu_findParentMenu().prev('li').children('a').focus();
       } else {
         jQuery(this).closest('ol').prev('a').focus();
       }
@@ -83,27 +91,53 @@ Tobago.Menu.handelKey = function(event) {
       break;
     case 38: // cursor up
       if (jQuery(this).parent().hasClass('tobago-menu-markup-top')) {
-        // nothing
+        // on top: goto last child
+        jQuery(this).parent().tobagoMenu_findSubMenu().children(":last-child").children('a').focus();
       } else {
-        jQuery(this).parent().prevAll('li').children('a').eq(0).focus();
+        // if on first goto last else goto prev
+        var prevAll = jQuery(this).parent().prevAll('li');
+        if (prevAll.length == 0) {
+          // goto last
+          jQuery(this).parent().nextAll('li:last').children('a').eq(0).focus();
+        } else {
+          // goto prev
+          prevAll.children('a').eq(0).focus();
+        }
       }
       handled = true;
       break;
     case 39: // cursor right
       if (jQuery(this).parent().hasClass('tobago-menu-markup-top')) {
-        jQuery(this).parent().next('li').children('a').focus();
+        // on top: if on last goto first else goto next
+        var nextMenu = jQuery(this).parent().next('li');
+        if (nextMenu.length == 0) {
+          // goto first
+          jQuery(this).parent().prevAll('li:last').children('a').eq(0).focus();
+        } else {
+          // goto next
+          nextMenu.children('a').eq(0).focus();
+        }
       } else if (jQuery(this).next('ol').size() > 0) {
         jQuery(this).next('ol').children(":nth-child(1)").children('a').focus();
       } else {
-        jQuery(this).parents('ol:last').tobagoMenu_findParentMenu().parent().next('li').children('a').focus();
+        jQuery(this).parents('ol:last').tobagoMenu_findParentMenu().next('li').children('a').focus();
       }
       handled = true;
       break;
     case 40: // cursor down
       if (jQuery(this).parent().hasClass('tobago-menu-markup-top')) {
-        jQuery(this).parent().tobagoMenu_findSubMenu().children(":nth-child(1)").children('a').focus();
+        // on top: goto first child
+        jQuery(this).parent().tobagoMenu_findSubMenu().children(":first-child").children('a').focus();
       } else {
-        jQuery(this).parent().nextAll('li').children('a').eq(0).focus();
+        // if on last goto first else goto next
+        var nextAll2 = jQuery(this).parent().nextAll('li');
+        if (nextAll2.length == 0) {
+          // goto first
+          jQuery(this).parent().prevAll('li:last').children('a').eq(0).focus();
+        } else {
+          // goto next
+          nextAll2.children('a').eq(0).focus();
+        }
       }
       handled = true;
       break;
