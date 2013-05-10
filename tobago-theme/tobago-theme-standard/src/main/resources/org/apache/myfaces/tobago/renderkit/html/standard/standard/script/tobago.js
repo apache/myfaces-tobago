@@ -359,23 +359,22 @@ var Tobago = {
     Tobago.addEventListener(window, 'resize', Tobago.resizePage);
   },
 
-  onSubmit: function() {
+  onSubmit: function(listenerOptions) {
     var result = true; // Do not continue if any function returns false
     for (var order = 0; order < Tobago.listeners.beforeSubmit.length; order++) {
       var list = Tobago.listeners.beforeSubmit[order];
       for (var i = 0; i < list.length; i++) {
-        result = list[i]();
+        result = list[i](listenerOptions);
         if (result == false) {
           break;
         }
       }
     }
     if (result != false && jQuery.isFunction(Tobago.applicationOnsubmit)) {
-      result = Tobago.applicationOnsubmit();
+      result = Tobago.applicationOnsubmit(listenerOptions);
     }
     if (result == false) {
       this.isSubmit = false;
-      Tobago.form.target = oldTarget;
       return false;
     }
     var hidden = Tobago.element('tobago::partialIds');
@@ -642,8 +641,6 @@ var Tobago = {
     Tobago.Transport.request(function() {
       if (!this.isSubmit) {
         this.isSubmit = true;
-        var req = Tobago.Transport.requests.shift(); // remove this from queue
-        LOG.debug('request removed: ' + req.toString()); // @DEV_ONLY
         var oldTarget = Tobago.form.target;
         Tobago.action.value = actionId;
         if (options.target) {
@@ -652,7 +649,12 @@ var Tobago = {
         Tobago.oldTransition = Tobago.transition;
         Tobago.transition = transition && !options.target;
 
-        var onSubmitResult = Tobago.onSubmit();
+        var listenerOptions = {
+          source: source,
+          actionId: actionId,
+          options: options
+        };
+        var onSubmitResult = Tobago.onSubmit(listenerOptions);
         if (onSubmitResult) {
           try {
             // LOG.debug("submit form with action: " + Tobago.action.value);
@@ -676,6 +678,11 @@ var Tobago = {
           Tobago.Transport.pageSubmitted = false;
         }
       }
+      if (!this.isSubmit) {
+        Tobago.Transport.requestComplete(); // remove this from queue
+      }
+
+
     }, true);
   },
 
@@ -888,6 +895,31 @@ var Tobago = {
   },
 
   reloadComponent: function(source, id, actionId, options) {
+
+    var listenerOptions = {
+      source: source,
+      ajaxComponentIds: id,
+      actionId: actionId,
+      options: options
+    };
+
+    var result = true; // Do not continue if any function returns false
+    for (var order = 0; order < Tobago.listeners.beforeSubmit.length; order++) {
+      var list = Tobago.listeners.beforeSubmit[order];
+      for (var i = 0; i < list.length; i++) {
+        result = list[i](listenerOptions);
+        if (!result) {
+          break;
+        }
+      }
+    }
+    if (result != false && jQuery.isFunction(Tobago.applicationOnsubmit)) {
+      result = Tobago.applicationOnsubmit(listenerOptions);
+    }
+    if (!result) {
+      return false;
+    }
+
     var container = this.ajaxComponents[id];
     if (typeof container == 'string') {
       if (!actionId) {
@@ -1014,7 +1046,7 @@ var Tobago = {
       var commands = command.data("tobago-commands");
 
       if (commands.click) {
-        command.click(function() {
+        command.click(function(event) {
           if (commands.click.omit != true) {
             if (commands.click.confirmation == null || confirm(commands.click.confirmation)) {
               var popup = commands.click.popup;
@@ -1035,7 +1067,7 @@ var Tobago = {
                   Tobago.navigateToUrl(commands.click.url);
                 } else if (commands.click.script) { // XXX this case is deprecated.
                   // not allowed with Content Security Policy (CSP)
-                    eval(commands.click.script);
+                  new Function('event' , commands.click.script)(event);
                 } else {
                   Tobago.submitAction(this, action, commands.click);
                 }
@@ -2120,9 +2152,14 @@ Tobago.Updater = {
     LOG.debug('Updater.update(\"' + actionId + '\", \"' + ajaxComponentIds + '\")'); // @DEV_ONLY
 
     if (Tobago.Transport.initTransport()) {
-
+      var listenerOptions = {
+        source: source,
+        ajaxComponentIds: ajaxComponentIds,
+        actionId: actionId,
+        options: options
+      };
       if (jQuery.isFunction(Tobago.applicationOnsubmit)) {
-        var result = Tobago.applicationOnsubmit();
+        var result = Tobago.applicationOnsubmit(listenerOptions);
         if (!result) {
           return;
         }
