@@ -22,6 +22,7 @@ package org.apache.myfaces.tobago.model;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeNode;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -157,6 +158,14 @@ public class TreeNodeDataModel extends TreeDataModel {
   }
 
   @Override
+  public int getDepth() {
+    if (data instanceof DefaultMutableTreeNode) {
+      return ((DefaultMutableTreeNode) data).getDepth();
+    }
+    return -1;
+  }
+
+  @Override
   public boolean isFolder() {
     return !getRowData().isLeaf();
   }
@@ -191,7 +200,7 @@ public class TreeNodeDataModel extends TreeDataModel {
       return showRoot;
     }
     TreeNode node = start.getParent();
-    while (node != null) {
+    while (node != null && back.get(node) != null) {
       final Data data = mapping.get(back.get(node));
       if (data.getNode().getParent() == null && !showRoot) {
         return true;
@@ -223,7 +232,7 @@ public class TreeNodeDataModel extends TreeDataModel {
   public String getRowParentClientId() {
     if (isRowAvailable()) {
       final TreeNode parent = mapping.get(rowIndex).getNode().getParent();
-      if (parent != null) {
+      if (parent != null && back.get(parent) != null) {
         return mapping.get(back.get(parent)).getClientId();
       } else {
         return null;

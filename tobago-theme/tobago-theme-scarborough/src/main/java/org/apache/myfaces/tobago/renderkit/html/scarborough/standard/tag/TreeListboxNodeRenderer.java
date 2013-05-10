@@ -21,6 +21,7 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.myfaces.tobago.component.UITreeNode;
+import org.apache.myfaces.tobago.component.UITreeSelect;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.event.TreeExpansionEvent;
 import org.apache.myfaces.tobago.event.TreeMarkedEvent;
@@ -76,10 +77,10 @@ public class TreeListboxNodeRenderer extends CommandRendererBase {
     // select
     if (tree.getSelectableAsEnum() != Selectable.NONE) { // selection
       String selected = (String) requestParameterMap.get(treeId + AbstractUITree.SELECT_STATE);
-      String searchString = ";" + nodeStateId + ";";
-      if (StringUtils.contains(selected, searchString)) {
-        // TODO: add selection to Component
-        //state.addSelection((DefaultMutableTreeNode) node.getValue());
+      String searchString = ";" + node.getClientId(facesContext) + ";";
+      UITreeSelect treeSelect = ComponentUtils.findDescendant(node, UITreeSelect.class);
+      if (treeSelect != null) {
+        treeSelect.setSubmittedValue(StringUtils.contains(selected, searchString));
       }
     }
 
@@ -119,6 +120,7 @@ public class TreeListboxNodeRenderer extends CommandRendererBase {
     writer.startElement(HtmlElements.OPTION, null);
     // todo: define where to store the selection of a tree, node.getValue() seems not to be a god place.
     //        writer.writeAttribute(HtmlAttributes.VALUE, node.getValue().toString(), true); // XXX converter?
+    writer.writeAttribute(HtmlAttributes.VALUE, id, true);
     writer.writeIdAttribute(id);
     writer.writeAttribute(HtmlAttributes.SELECTED, expanded);
   }

@@ -104,47 +104,7 @@ Tobago.Tree.showChildren = function (node, expanded) {
 };
 
 Tobago.Tree.init = function(elements) {
-
-  var listboxSelects = Tobago.Utils.selectWidthJQuery(elements, ".tobago-treeListbox").find("select");
-
-  // find all option tags and add the dedicated select tag in its data section.
-
-  listboxSelects.children("option").each(function() {
-    var option = jQuery(this);
-    var select = option.closest(".tobago-treeListbox-level").next()
-        .find("[data-tobago-treeparent='" + option.attr("id") + "']");
-    if (select.length == 1) {
-      option.data("tobago-select", select);
-    } else {
-      var empty = option.closest(".tobago-treeListbox-level").next().children(":first");
-      option.data("tobago-select", empty);
-    }
-  });
-
-  // add on change on all select tag, all options that are not selected hide there dedicated
-  // select tag, and the selected option show its dedicated select tag.
-
-  listboxSelects.each(function() {
-
-    jQuery(this).change(function() {
-      jQuery(this).children("option:not(:selected)").each(function() {
-        jQuery(this).data("tobago-select").hide();
-      });
-      jQuery(this).children("option:selected").data("tobago-select").show();
-
-      // Deeper level (2nd and later) should only show the empty select tag.
-      // The first child is the empty selection.
-      jQuery(this).parent().nextAll(":not(:first)").children(":not(:first)").hide();
-      jQuery(this).parent().nextAll(":not(:first)").children(":first").show();
-
-    });
-
-    jQuery(this).focus(function() {
-      jQuery(this).change();
-    });
-
-  });
-
+  
   Tobago.Utils.selectWidthJQuery(elements, ".tobago-treeNode-markup-folder .tobago-treeNode-toggle").click(function() {
     Tobago.Tree.toggleNode(jQuery(this));
     return false;
@@ -271,3 +231,73 @@ Tobago.Tree.isInSheet = function(node) {
 
 Tobago.registerListener(Tobago.Tree.init, Tobago.Phase.DOCUMENT_READY);
 Tobago.registerListener(Tobago.Tree.init, Tobago.Phase.AFTER_UPDATE);
+
+
+Tobago.TreeListbox = {};
+
+Tobago.TreeListbox.init = function(elements) {
+
+  var treeListbox = Tobago.Utils.selectWidthJQuery(elements, ".tobago-treeListbox");
+  // hide select tags for level > root
+  treeListbox.children().find("select:not(:first)").hide();
+
+  var listboxSelects = treeListbox.find("select");
+
+  listboxSelects.children("option").each(Tobago.TreeListbox.initNextLevel);
+  listboxSelects.each(Tobago.TreeListbox.initListeners);
+};
+
+// find all option tags and add the dedicated select tag in its data section.
+Tobago.TreeListbox.initNextLevel = function() {
+  var option = jQuery(this);
+  var select = option.closest(".tobago-treeListbox-level").next()
+      .find("[data-tobago-treeparent='" + option.attr("id") + "']");
+  if (select.length == 1) {
+    option.data("tobago-select", select);
+  } else {
+    var empty = option.closest(".tobago-treeListbox-level").next().children(":first");
+    option.data("tobago-select", empty);
+  }
+};
+
+// add on change on all select tag, all options that are not selected hide there dedicated
+// select tag, and the selected option show its dedicated select tag.
+Tobago.TreeListbox.initListeners = function() {
+
+  jQuery(this).change(Tobago.TreeListbox.onChange);
+
+  jQuery(this).focus(function() {
+    jQuery(this).change();
+  });
+};
+
+Tobago.TreeListbox.onChange = function() {
+  var listbox = jQuery(this);
+  listbox.children("option:not(:selected)").each(function() {
+    jQuery(this).data("tobago-select").hide();
+  });
+  listbox.children("option:selected").data("tobago-select").show();
+  Tobago.TreeListbox.setSelected(listbox);
+
+  // Deeper level (2nd and later) should only show the empty select tag.
+  // The first child is the empty selection.
+  listbox.parent().nextAll(":not(:first)").each(function() {
+    jQuery(this).children(":not(:first)").hide();
+    jQuery(this).children(":first").show();
+  });
+
+};
+
+Tobago.TreeListbox.setSelected = function(listbox) {
+  var hidden = listbox.closest(".tobago-treeListbox").children("[data-tobago-selectionmode]");
+  if (hidden.length == 1){
+    var selectedValue = ";";
+    listbox.children("option:selected").each(function() {
+      selectedValue += jQuery(this).attr("id") + ";";
+    });
+    hidden.val(selectedValue);
+  }
+};
+
+Tobago.registerListener(Tobago.TreeListbox.init, Tobago.Phase.DOCUMENT_READY);
+Tobago.registerListener(Tobago.TreeListbox.init, Tobago.Phase.AFTER_UPDATE);

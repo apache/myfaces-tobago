@@ -24,6 +24,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.component.UITreeSelect;
 import org.apache.myfaces.tobago.internal.component.AbstractUIData;
+import org.apache.myfaces.tobago.internal.component.AbstractUITreeListbox;
 import org.apache.myfaces.tobago.internal.component.AbstractUITreeNode;
 import org.apache.myfaces.tobago.model.Selectable;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
@@ -81,6 +82,13 @@ public class TreeSelectRenderer extends RendererBase {
     final AbstractUITreeNode node = ComponentUtils.findAncestor(select, AbstractUITreeNode.class);
     final AbstractUIData data = ComponentUtils.findAncestor(node, AbstractUIData.class);
 
+    TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+
+    if (data instanceof AbstractUITreeListbox) {
+      writer.write(StringUtils.defaultString((String) select.getLabel()));
+      return;
+    }
+
     final String id = select.getClientId(facesContext);
     final String currentValue = getCurrentValue(facesContext, select);
     final boolean checked;
@@ -93,7 +101,6 @@ public class TreeSelectRenderer extends RendererBase {
     final boolean folder = data.isFolder();
     final Selectable selectable = data.getSelectableAsEnum();
 
-    TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
     writer.startElement(HtmlElements.SPAN, null);
     writer.writeClassAttribute(Classes.create(select));

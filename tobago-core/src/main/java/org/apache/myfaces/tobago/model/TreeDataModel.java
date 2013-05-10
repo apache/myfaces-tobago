@@ -41,6 +41,8 @@ public abstract class TreeDataModel extends DataModel {
 
   public abstract TreePath getPath();
 
+  public abstract int getDepth();
+
   public abstract boolean isFolder();
 
   @Override

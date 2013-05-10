@@ -34,7 +34,8 @@
 
     <tc:treeListbox id="tree" value="#{demo.tree}" var="node">
       <tc:treeNode id="template">
-        <tc:treeLabel value="#{node.userObject.name}"/>
+        <tc:treeSelect label="#{node.userObject.name}"
+                       value="#{node.userObject.selected}"/>
       </tc:treeNode>
     </tc:treeListbox>
 

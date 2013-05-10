@@ -20,8 +20,8 @@
 package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.myfaces.tobago.component.RendererTypes;
-import org.apache.myfaces.tobago.component.UITreeLabel;
 import org.apache.myfaces.tobago.component.UITreeNode;
+import org.apache.myfaces.tobago.component.UITreeSelect;
 import org.apache.myfaces.tobago.internal.component.AbstractUITree;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
@@ -105,18 +105,26 @@ public class TreeListboxRenderer extends LayoutComponentRendererBase {
       writer.writeNameAttribute(clientId + AbstractUITree.SELECT_STATE);
       writer.writeIdAttribute(clientId + AbstractUITree.SELECT_STATE);
       writer.writeAttribute(HtmlAttributes.VALUE, ";", false);
+      writer.writeAttribute(DataAttributes.SELECTIONMODE, tree.getSelectableAsEnum().name(), false);
       writer.endElement(HtmlElements.INPUT);
     }
 
     List<Integer> thisLevel = new ArrayList<Integer>();
     thisLevel.add(0);
     List<Integer> nextLevel = new ArrayList<Integer>();
-    for (int level = 0; level < 7; level++) { // XXX not a fix value!!!
+    int depth = tree.getTreeDataModel().getDepth() != -1
+        ? tree.getTreeDataModel().getDepth()
+        : 7;  // XXX not a fix value!!!
+    // todo: use (TreeListbox ?)Layout
+    Measure currentWidth = tree.getCurrentWidth();
+    Measure width = currentWidth.divide(depth);
+    for (int level = 0; level < depth; level++) {
 
       writer.startElement(HtmlElements.DIV, null);
       writer.writeClassAttribute(Classes.create(tree, "level"));
       Style levelStyle = new Style();
-      levelStyle.setLeft(Measure.valueOf(level * 160)); // xxx 160 should be configurable
+      levelStyle.setLeft(width.multiply(level));
+      levelStyle.setWidth(width);
       writer.writeStyleAttribute(levelStyle);
       // at the start of each div there is an empty and disabled select tag to show empty area.
       // this is not needed for the 1st level.
@@ -165,8 +173,8 @@ public class TreeListboxRenderer extends LayoutComponentRendererBase {
     writer.writeAttribute(HtmlAttributes.SIZE, 9); // must be > 1, but the real size comes from the layout
 //    writer.writeAttribute(HtmlAttributes.MULTIPLE, siblingMode);
 
-    final UITreeLabel label = ComponentUtils.findDescendant(tree, UITreeLabel.class);
-    final Object labelValue = label.getValue();
+    final UITreeSelect label = ComponentUtils.findDescendant(tree, UITreeSelect.class);
+    final Object labelValue = label.getLabel();
     if (labelValue != null) {
       writer.startElement(HtmlElements.OPTGROUP, tree);
       writer.writeAttribute(HtmlAttributes.LABEL, labelValue.toString(), true);
