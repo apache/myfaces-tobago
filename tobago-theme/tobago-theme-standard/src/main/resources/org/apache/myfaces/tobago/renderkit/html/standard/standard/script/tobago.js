@@ -1072,7 +1072,7 @@ var Tobago = {
                   Tobago.submitAction(this, action, commands.click);
                 }
                 if (popup && popup.command == "close") {
-                  Tobago.Popup.close();
+                  Tobago.Popup.close(this);
                 }
               }
             }
