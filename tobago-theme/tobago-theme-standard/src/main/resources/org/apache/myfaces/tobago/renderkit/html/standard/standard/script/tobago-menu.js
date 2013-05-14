@@ -372,7 +372,7 @@ jQuery.tobagoMenuParent = function(element) {
   jQuery.fn.extend({
     tobagoMenu_findParentMenu: function() {
       var ol = jQuery(this);
-      var superMenu = ol.data("superMenu");
+      var superMenu = ol.data("super-menu");
       if (superMenu != null) {
         return superMenu;
       }
