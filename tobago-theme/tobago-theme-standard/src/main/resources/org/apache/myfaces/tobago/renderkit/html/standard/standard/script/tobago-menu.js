@@ -22,10 +22,10 @@
    <body>
      <form>
        <ol class="tobago-menuBar">
-         <li id="m1" class="tobago-menu-markup-top">
+         <li class="tobago-menu-markup-top" data-sub-menu="...">
            <a>Menu 1</a>
          </li>
-         <li id="m2" class="tobago-menu-markup-top">
+         <li class="tobago-menu-markup-top" data-sub-menu="...">
            <a>Menu 2</a>
          </li>
          ...
@@ -35,7 +35,7 @@
        </div>
        <span ... </span>
        <div class="tobago-menu-store">  // container for the sub menus.
-         <ol id="m1::menu">
+         <ol data-super-menu="...">
 --->         insert iframe here
            <li class="tobago-menu">
              <a>Sub Menu 1.1</a>
