@@ -320,7 +320,18 @@ Tobago.Menu.init = function(elements) {
     subMenu.data("super-menu", superMenu);
   });
 
-  jQuery(".tobago-page-menuStore").append(menus.children("ol"));
+  menus.children("ol").each(function() {
+    var subMenuContainer = jQuery(this);
+    jQuery(".tobago-page-menuStore").append(subMenuContainer);
+    if (elements) {
+      // this is ajax case: the commands are just removed from elements and therefore not handled by Tobago.initDom,
+      // so do it here
+      Tobago.Utils.selectWidthJQuery(subMenuContainer, '[data-tobago-commands]')
+          .each(function () {Tobago.initCommand(jQuery(this));});
+    }
+  });
+
+//  jQuery(".tobago-page-menuStore").append(menus.children("ol"));
 
   var toolBarMenu = Tobago.Utils.selectWidthJQuery(
       elements, ".tobago-toolBar-menu, .tobago-boxToolBar-menu, .tobago-tabGroupToolBar-menu");
