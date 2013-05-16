@@ -380,6 +380,7 @@ var Tobago = {
     var hidden = Tobago.element('tobago::partialIds');
     if (hidden) {
       this.form.removeChild(hidden);
+      Tobago.partialRequestIds = undefined;
     }
     this.isSubmit = true;
     var clientDimension = this.createInput('hidden', this.page.id + this.SUB_COMPONENT_SEP + 'form-clientDimension');
