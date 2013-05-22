@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<f:view
+    xmlns:tc="http://myfaces.apache.org/tobago/component"
+    xmlns:tx="http://myfaces.apache.org/tobago/extension"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core">
+
+  <tc:page id="page">
+    <tc:gridLayoutConstraint width="600px" height="600px"/>
+    <f:facet name="layout">
+      <tc:gridLayout rows="20px;auto;20px;auto;20px;auto;60px;"/>
+    </f:facet>
+
+    <tc:panel>
+      <f:facet name="layout">
+        <tc:flowLayout textAlign="left"/>
+      </f:facet>
+
+      <tc:out id="left" value="left"/>
+    </tc:panel>
+
+    <tc:separator/>
+
+    <tc:panel>
+      <f:facet name="layout">
+        <tc:flowLayout textAlign="right"/>
+      </f:facet>
+
+      <tc:out id="right" value="right"/>
+    </tc:panel>
+
+    <tc:separator/>
+
+    <tc:panel>
+      <f:facet name="layout">
+        <tc:flowLayout textAlign="center"/>
+      </f:facet>
+
+      <tc:out id="center" value="center"/>
+    </tc:panel>
+
+    <tc:separator/>
+
+    <tc:panel>
+      <f:facet name="layout">
+        <tc:flowLayout textAlign="justify"/>
+      </f:facet>
+
+      1_XXXXXXXXXXX XXXXXXXXXXX XXXXXXXXXXX XXXXXXXXXXX XXXXXXXXXXX XXXXXXXXXXX
+      2_XXXXXXXXXX XXXXXXXXXX XXXXXXXXXX XXXXXXXXXX XXXXXXXXXX XXXXXXXXXX XXXXXXXXXX
+      3_XXXXXXXX XXXXXXXX XXXXXXXX XXXXXXXX XXXXXXXX XXXXXXXX XXXXXXXX <tc:out id="justify" value="justify"/>
+      4_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+    </tc:panel>
+
+    <tc:script file="script/tobago-assert.js"/>
+    <tc:script onload="TobagoAssert.assertLayout('page:left', 0, 0, 16, 14);"/>
+    <tc:script onload="TobagoAssert.assertLayout('page:right', 577, 31, 23, 14);"/>
+    <tc:script onload="TobagoAssert.assertLayout('page:center', 283, 62, 33, 14);"/>
+    <tc:script onload="TobagoAssert.assertLayout('page:justify', 569, 122, 31, 14);"/>
+
+    <!-- TODO: the values are not exact, write a tolerance value epsilon -->
+
+  </tc:page>
+</f:view>
