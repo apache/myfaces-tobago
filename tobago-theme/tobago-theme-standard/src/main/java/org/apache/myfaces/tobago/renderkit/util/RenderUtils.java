@@ -208,6 +208,8 @@ public class RenderUtils {
       }
     }
 
+    width += width / 10 + 1; // fixes the problem, that sometime some browsers add some pixels
+
     return Measure.valueOf(width);
   }
 
