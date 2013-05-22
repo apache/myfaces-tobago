@@ -21,6 +21,9 @@ package org.apache.myfaces.tobago.layout;
 
 import java.beans.PropertyEditorSupport;
 
+/**
+ * Converter for {@link org.apache.myfaces.tobago.layout.Measure}
+ */
 public class MeasureEditor extends PropertyEditorSupport {
 
     @Override

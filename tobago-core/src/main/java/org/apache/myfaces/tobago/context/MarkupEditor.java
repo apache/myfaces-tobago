@@ -21,11 +21,13 @@ package org.apache.myfaces.tobago.context;
 
 import java.beans.PropertyEditorSupport;
 
+/**
+ * Converter for {@link org.apache.myfaces.tobago.context.MarkupEditor}
+ */
 public class MarkupEditor extends PropertyEditorSupport {
 
     @Override
     public void setAsText(String text) throws IllegalArgumentException {
         setValue(Markup.valueOf(text));
     }
-
 }

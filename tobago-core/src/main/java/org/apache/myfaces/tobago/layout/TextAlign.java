@@ -36,7 +36,7 @@ public enum TextAlign {
   public static final String STRING_CENTER = "center";
   public static final String STRING_JUSTIFY = "justify";
 
-  private String value;
+  private final String value;
 
   TextAlign(String value) {
     this.value = value;

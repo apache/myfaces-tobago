@@ -44,6 +44,8 @@ import java.util.List;
  * A markup must be registered for a component, before it can be used.
  * <p/>
  * A markup should only contain ASCII characters and digits.
+ * <p/>
+ * In JSPs the class {@link org.apache.myfaces.tobago.context.MarkupEditor} will convert the string literals.
  */
 public final class Markup implements Serializable, Iterable<String> {
 

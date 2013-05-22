@@ -26,6 +26,9 @@ import org.slf4j.LoggerFactory;
 import java.io.Serializable;
 import java.util.List;
 
+/**
+ *  In JSPs the class {@link org.apache.myfaces.tobago.layout.MeasureEditor} will convert the string literals.
+ */
 public abstract class Measure implements Serializable {
 
   private static final long serialVersionUID = 1L;
