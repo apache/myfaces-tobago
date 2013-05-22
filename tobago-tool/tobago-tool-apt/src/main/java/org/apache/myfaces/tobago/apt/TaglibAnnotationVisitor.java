@@ -482,7 +482,8 @@ public class TaglibAnnotationVisitor extends AbstractAnnotationVisitor {
               if (componentTagAttribute.expression().isValueExpression()) {
                 if (componentTagAttribute.type().length == 1
                     // XXX fix me hack
-                    && !"org.apache.myfaces.tobago.layout.Measure".equals(componentTagAttribute.type()[0])) {
+                    && !"org.apache.myfaces.tobago.layout.Measure".equals(componentTagAttribute.type()[0])
+                    && !"org.apache.myfaces.tobago.layout.TextAlign".equals(componentTagAttribute.type()[0])) {
                   type = componentTagAttribute.type()[0];
                 }
               } else {
