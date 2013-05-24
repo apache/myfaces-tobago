@@ -25,15 +25,17 @@
   <tc:page id="page">
     <tc:gridLayoutConstraint width="600px" height="300px"/>
     <f:facet name="layout">
-      <tc:gridLayout columns="auto" rows="auto;auto"/>
+      <tc:gridLayout columns="auto" rows="auto"/>
     </f:facet>
 
-    <tc:button id="button" label="looooooooooong"/>
-
-    <tc:panel/>
+    <tc:button label="looooooooooong">
+      <tc:dataAttribute name="assert-left" value="0"/>
+      <tc:dataAttribute name="assert-top" value="0"/>
+      <tc:dataAttribute name="assert-width" value="128"/>
+      <tc:dataAttribute name="assert-height" value="20"/>
+    </tc:button>
 
     <tc:script file="script/tobago-assert.js"/>
-    <tc:script onload="TobagoAssert.assertLayout('page:button', 0, 0, 128, 20);"/>
 
   </tc:page>
 </f:view>
