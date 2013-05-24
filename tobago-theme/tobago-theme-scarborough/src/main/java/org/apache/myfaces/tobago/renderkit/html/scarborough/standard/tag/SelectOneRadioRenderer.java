@@ -51,8 +51,8 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
     super.prepareRender(facesContext, select);
       FacesContextUtils.addOnloadScript(facesContext, "Tobago.selectOneRadioInit('"
           + select.getClientId(facesContext) + "')");
-    if (select instanceof UISelectOneRadio && ((UISelectOneRadio)select).isInline()) {
-      ComponentUtils.addCurrentMarkup(((UISelectOneRadio)select), Markup.INLINE);
+    if (select instanceof UISelectOneRadio && ((UISelectOneRadio) select).isInline()) {
+      ComponentUtils.addCurrentMarkup(((UISelectOneRadio) select), Markup.INLINE);
     }
   }
 
