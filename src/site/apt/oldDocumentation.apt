@@ -23,6 +23,8 @@ Tobago Javadoc Documentation
 
   {{{http://myfaces.apache.org/tobago/apidocs-1.6.0-beta-1/index.html}1.6.0-beta-1 API Documentation}}
 
+  {{{http://myfaces.apache.org/tobago/apidocs-1.5.10/index.html}1.5.10 API Documentation}}
+
   {{{http://myfaces.apache.org/tobago/apidocs-1.5.9/index.html}1.5.9 API Documentation}}
 
   {{{http://myfaces.apache.org/tobago/apidocs-1.5.8/index.html}1.5.8 API Documentation}}
@@ -118,6 +120,9 @@ Tobago TLD Documentation
 
   {{{http://myfaces.apache.org/tobago/tobago-core/tlddoc-1.6.0-beta-1/index.html}1.6.0-beta-1 \<tc:\> Component Tag Library Documentation}}\
   {{{http://myfaces.apache.org/tobago/tobago-extension/tobago-taglib-extension/tlddoc-1.6.0-beta-1/index.html}1.6.0-beta-1 \<tx:\> Extension Tag Library Documentation}}
+
+  {{{http://myfaces.apache.org/tobago/tobago-core/tlddoc-1.5.10/index.html}1.5.10 \<tc:\> Component Tag Library Documentation}}\
+  {{{http://myfaces.apache.org/tobago/tobago-extension/tobago-taglib-extension/tlddoc-1.5.10/index.html}1.5.10 \<tx:\> Extension Tag Library Documentation}}
 
   {{{http://myfaces.apache.org/tobago/tobago-core/tlddoc-1.5.9/index.html}1.5.9 \<tc:\> Component Tag Library Documentation}}\
   {{{http://myfaces.apache.org/tobago/tobago-extension/tobago-taglib-extension/tlddoc-1.5.9/index.html}1.5.9 \<tx:\> Extension Tag Library Documentation}}
