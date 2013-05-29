@@ -365,7 +365,7 @@
       </renderers>
       <resources production="true">
         <script name="script/jquery-1.8.2.js"/>
-        <script name="script/jquery-ui-1.9.1.custom.js"/>
+        <script name="script/jquery-ui-1.10.3.custom.js"/>
         <script name="script/tobago.js"/>
         <style name="style/tobago.css"/>
         <!-- backward compatibility -->
@@ -373,7 +373,7 @@
       </resources>
       <resources production="false">
         <script name="script/jquery-1.8.2.js"/>
-        <script name="script/jquery-ui-1.9.1.custom.js"/>
+        <script name="script/jquery-ui-1.10.3.custom.js"/>
         <script name="script/tobago.js"/>
         <script name="script/tobago-calendar.js"/>
         <script name="script/tobago-converter.js"/>
