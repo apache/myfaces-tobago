@@ -63,7 +63,6 @@ public class AjaxNavigationState {
     while (iterator.hasNext()) {
       addFacesMessages(facesContext, iterator.next());
     }
-    addFacesMessages(facesContext, null);
     if (LOG.isTraceEnabled()) {
       LOG.trace("Saved viewRoot.getViewId() = \"{}\"", viewRoot.getViewId());
       LOG.trace("Saved clientWidth = \"{}\"", clientWidth);
