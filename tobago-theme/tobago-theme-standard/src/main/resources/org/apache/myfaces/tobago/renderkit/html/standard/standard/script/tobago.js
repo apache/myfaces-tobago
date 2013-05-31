@@ -141,10 +141,10 @@ var Tobago = {
     * Please try to use jQuery.support instead of this object!
     */
   browser: {
-    isIe: false,
-    isIe6OrLess: false,
-    isIe7OrLess: false,
-    isIe8OrLess: false,
+    isMsie: false,
+    isMsie6: false,
+    isMsie67: false,
+    isMsie678: false,
     isGecko: false,
     isWebkit: false
   },
@@ -465,7 +465,7 @@ var Tobago = {
     image.appendTo(wait).removeClass("tobago-page-overlayWaitPreloadedImage tobago-page-overlayErrorPreloadedImage");
     wait.show();
 
-    if (Tobago.browser.isIe6OrLess) {
+    if (Tobago.browser.isMsie6) {
       element.children(".tobago-page-overlay")
           .css({
             width:element.css("width"),
@@ -482,7 +482,7 @@ var Tobago = {
         .animate({opacity:'0.8'}, error ? 0 : 250, "linear", function () {
 
           // fix for IE6: reset the src attribute to enable animation
-          if (Tobago.browser.isIe6OrLess) {
+          if (Tobago.browser.isMsie6) {
               image.attr("src", image.attr("src"));
           }
         });
@@ -511,7 +511,7 @@ var Tobago = {
   },
 
   ie6bugfix: function(element) {
-    if (Tobago.browser.isIe6OrLess) {
+    if (Tobago.browser.isMsie6) {
 
       if (jQuery(element).children(".tobago-page-overlay-ie6bugfix").size() > 0) {
         return; // ignore
@@ -671,7 +671,7 @@ var Tobago = {
           try {
             // LOG.debug("submit form with action: " + Tobago.action.value);
             Tobago.form.submit();
-            if (Tobago.browser.isIe) {
+            if (Tobago.browser.isMsie) {
               // without this "redundant" code the animation will not be animated in IE
               var image = jQuery(".tobago-page-overlayCenter img");
               image.appendTo(image.parent());
@@ -1718,17 +1718,16 @@ var Tobago = {
   initBrowser: function() {
     var ua = navigator.userAgent;
     if (ua.indexOf("MSIE") > -1) {
-      Tobago.browser.isIe = true;
+      Tobago.browser.isMsie = true;
       if (ua.indexOf("MSIE 6") > -1) {
-        Tobago.browser.isIe = true;
-        Tobago.browser.isIe6OrLess = true;
-        Tobago.browser.isIe7OrLess = true;
-        Tobago.browser.isIe8OrLess = true;
+        Tobago.browser.isMsie6 = true;
+        Tobago.browser.isMsie67 = true;
+        Tobago.browser.isMsie678 = true;
       } else if (ua.indexOf("MSIE 7") > -1) {
-        Tobago.browser.isIe7OrLess = true;
-        Tobago.browser.isIe8OrLess = true;
+        Tobago.browser.isMsie67 = true;
+        Tobago.browser.isMsie678 = true;
       } else if (ua.indexOf("MSIE 8") > -1) {
-        Tobago.browser.isIe8OrLess = true;
+        Tobago.browser.isMsie678 = true;
       }
     } else if (ua.indexOf("AppleWebKit") > -1) {
       Tobago.browser.isWebkit = true;
@@ -2387,7 +2386,7 @@ Tobago.Updater = {
     }
 
     /* TOBAGO-1087: Wait Cursor after AJAX in IE with Websphere 6.1  */
-    if (Tobago.browser.isIe) {
+    if (Tobago.browser.isMsie) {
       var body = jQuery("body");
       var originalCursor = body.css("cursor");
       body.css("cursor", "default");
