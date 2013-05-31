@@ -55,7 +55,7 @@ Tobago.Popup.init = function (elements) {
     shield.attr('id', maxModalPopup.attr('id') + '::shield');
 
     // IE6 doesn't support position:fixed
-    if (jQuery.browser.msie && parseInt(jQuery.browser.version) <= 6) {
+    if (Tobago.browser.isIe6OrLess) {
       var image = jQuery(".tobago-page-overlayBackgroundImage").attr("src");
       shield.css({
         position:'absolute',
@@ -84,7 +84,7 @@ Tobago.Popup.init = function (elements) {
     Tobago.Popup.lockBehind(maxModalPopup.get(0));
   }
 
-  if (jQuery.browser.msie && parseInt(jQuery.browser.version) <= 7) {
+  if (Tobago.browser.isIe7OrLess) {
     // not activated for IE 6 and 7, because the handling isn't smooth.
   } else {
     // enable drag-and-drop for popups
@@ -154,7 +154,7 @@ Tobago.Popup.lockBehind = function (popup) {
     // find the first element in the popup for the focus
     if (firstPopupElement != null) {
       try {
-        if (jQuery.browser.msie && parseInt(jQuery.browser.version) <= 8) {
+        if (Tobago.browser.isIe8OrLess) {
           // call the focus asynchronous, because of a bug in IE 6, 7, 8 (IE 9 works fine)
           var focusId = firstPopupElement.attr("id");
           var selector = Tobago.Utils.escapeClientId(focusId).replace(/\\/g, '\\\\');

@@ -446,7 +446,7 @@ Tobago.Sheet.prototype.setup = function() {
   this.setupStart = new Date(); // @DEV_ONLY
 
   // IE 6+7
-  if (jQuery.browser.msie && parseInt(jQuery.browser.version) <= 7) {
+  if (Tobago.browser.isIe7OrLess) {
     jQuery(Tobago.Utils.escapeClientId(this.id) + ">div>table>colgroup>col").each(function() {
       Tobago.Sheet.fixIE67ColWidth(jQuery(this));
     });

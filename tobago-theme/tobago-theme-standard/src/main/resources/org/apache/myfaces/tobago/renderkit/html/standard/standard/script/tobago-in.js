@@ -63,7 +63,7 @@ Tobago.In.prototype.setup = function() {
     ctrl = Tobago.element(this.id);
     Tobago.addBindEventListener(ctrl, 'change', this, 'checkMaxLength');
     Tobago.addBindEventListener(ctrl, 'keypress', this, 'checkMaxLength');
-    if (jQuery.browser.msie) {
+    if (Tobago.browser.isIe) {
       Tobago.addBindEventListener(ctrl, 'paste', this, 'checkMaxLengthOnPaste');
     }
   }
