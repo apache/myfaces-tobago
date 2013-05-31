@@ -307,7 +307,7 @@ Tobago.Sheet.prototype.setup = function() {
   this.setupResizer();
 
   // IE 6+7
-  if (jQuery.browser.msie && parseInt(jQuery.browser.version) <= 7) {
+  if (Tobago.browser.isMsie67) {
     jQuery(Tobago.Utils.escapeClientId(this.id) + ">div>table>colgroup>col").each(function() {
       Tobago.Sheet.fixIE67ColWidth(jQuery(this));
     });
@@ -743,7 +743,7 @@ Tobago.Sheet.prototype.endResize = function(event) {
       var col = jQuery("colgroup>col", table).eq(columnNr);
       col.attr("width", width);
 
-      if (jQuery.browser.msie && parseInt(jQuery.browser.version) <= 7) {
+      if (Tobago.browser.isMsie67) {
         Tobago.Sheet.fixIE67ColWidth(col);
 
         table.find(".tobago-sheet-cell-markup-filler").each(function() {

@@ -52,7 +52,7 @@ Tobago.Popup.setup = function () {
     shield.attr('id', maxModalPopup.attr('id') + '::shield');
 
     // IE6 doesn't support position:fixed
-    if (jQuery.browser.msie && parseInt(jQuery.browser.version) <= 6) {
+    if (Tobago.browser.isMsie6) {
       shield.css({
         position:'absolute',
         left:-maxModalPopup.offset().left,
@@ -122,7 +122,7 @@ Tobago.Popup.lockBehind = function (popup) {
     // find the first element in the popup for the focus
     if (firstPopupElement != null) {
       try {
-        if (jQuery.browser.msie && parseInt(jQuery.browser.version) <= 8) {
+        if (Tobago.browser.isMsie678) {
           // call the focus asynchronous, because of a bug in IE 6, 7, 8 (IE 9 works fine)
           var focusId = firstPopupElement.attr("id");
           var selector = Tobago.Utils.escapeClientId(focusId).replace(/\\/g, '\\\\');

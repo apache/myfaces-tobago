@@ -162,7 +162,7 @@ Tobago.Menu.open = function(event) {
     sub.css('visibility', 'visible');
     
     // IE6 select-tag fix
-    if (jQuery.browser.msie && parseInt(jQuery.browser.version) <= 6) {
+    if (Tobago.browser.isMsie6) {
       //          sub.css('width', sub.width());
       //          sub.css('height', sub.height());
       //          sub.css('display', 'none');
@@ -193,7 +193,7 @@ Tobago.Menu.closeAll = function() {
 * returns the browser specific event which should be used.
 */
 function compatibleKeyEvent() {
-  return jQuery.browser.msie || jQuery.browser.webkit ? 'keydown' : 'keypress';
+  return Tobago.browser.isMsie || Tobago.browser.isWebkit ? 'keydown' : 'keypress';
 }
 
 Tobago.Menu.mouseOver = function(event) {
@@ -257,7 +257,7 @@ Tobago.Menu.init = function(elements) {
   // IE6 select-tag fix
   // put a iframe inside the div, so that a <select> tag doesn't shine through.
   // the iframe must be resized (see above)
-  if (jQuery.browser.msie && parseInt(jQuery.browser.version) <= 6) {
+  if (Tobago.browser.isMsie6) {
     menus.children("ol").prepend(
         "<iframe class='tobago-menu-ie6bugfix' src='" + Tobago.blankPage + "'></iframe>");
   }

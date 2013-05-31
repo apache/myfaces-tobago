@@ -77,5 +77,5 @@ Tobago.Utils.keepElementInVisibleArea = function(elements) {
 };
 
 Tobago.Utils.acceleratorKeyEvent = function() {
-  return jQuery.browser.webkit || jQuery.browser.mozilla ? 'keydown' : 'keypress';
+  return Tobago.browser.isWebkit || Tobago.browser.isGecko ? 'keydown' : 'keypress';
 };

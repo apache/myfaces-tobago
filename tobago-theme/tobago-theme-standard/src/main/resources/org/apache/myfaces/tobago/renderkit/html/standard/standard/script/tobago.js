@@ -136,7 +136,18 @@ var Tobago = {
 
   eventListeners: new Array(),
 
-  browser: undefined,
+  /**
+    * Check browser types and versions.
+    * Please try to use jQuery.support instead of this object!
+    */
+  browser: {
+    isMsie: false,
+    isMsie6: false,
+    isMsie67: false,
+    isMsie678: false,
+    isGecko: false,
+    isWebkit: false
+  },
 
   acceleratorKeys: {
     set: function(keyAccelerator) {
@@ -449,7 +460,7 @@ var Tobago = {
     wait.show();
     overlay.show();
 
-    if (jQuery.browser.msie && parseInt(jQuery.browser.version) <= 6) {
+    if (Tobago.browser.isMsie6) {
       element.children(".tobago-page-overlay")
           .css({
             width:element.css("width"),
@@ -466,7 +477,7 @@ var Tobago = {
         .animate({opacity:'0.8'}, error ? 0 : 250, "linear", function () {
 
           // fix for IE6: reset the src attribute to enable animation
-          if (jQuery.browser.msie && parseInt(jQuery.browser.version) <= 6) {
+          if (Tobago.browser.isMsie6) {
               image.attr("src", image.attr("src"));
           }
         });
@@ -495,7 +506,7 @@ var Tobago = {
   },
 
   ie6bugfix: function(element) {
-    if (jQuery.browser.msie && parseInt(jQuery.browser.version) <= 6) {
+    if (Tobago.browser.isMsie6) {
 
       if (jQuery(element).children(".tobago-page-overlay-ie6bugfix").size() > 0) {
         return; // ignore
@@ -653,7 +664,7 @@ var Tobago = {
           try {
             // LOG.debug("submit form with action: " + Tobago.action.value);
             Tobago.form.submit();
-            if (jQuery.browser.msie) {
+            if (Tobago.browser.isMsie) {
               // without this "redundant" code the animation will not be animated in IE
               var image = jQuery(".tobago-page-overlayCenter img");
               image.appendTo(image.parent());
@@ -1550,8 +1561,31 @@ var Tobago = {
       }
     }
     return result;
+  },
+
+  initBrowser: function () {
+    var ua = navigator.userAgent;
+    if (ua.indexOf("MSIE") > -1) {
+      Tobago.browser.isMsie = true;
+      if (ua.indexOf("MSIE 6") > -1) {
+        Tobago.browser.isMsie6 = true;
+        Tobago.browser.isMsie67 = true;
+        Tobago.browser.isMsie678 = true;
+      } else if (ua.indexOf("MSIE 7") > -1) {
+        Tobago.browser.isMsie67 = true;
+        Tobago.browser.isMsie678 = true;
+      } else if (ua.indexOf("MSIE 8") > -1) {
+        Tobago.browser.isMsie678 = true;
+      }
+    } else if (ua.indexOf("AppleWebKit") > -1) {
+      Tobago.browser.isWebkit = true;
+    } else if (ua.indexOf("Gecko") > -1) {
+      Tobago.browser.isGecko = true;
+    }
   }
 };
+
+Tobago.initBrowser();
 
 jQuery(document).ready(function() {
   Tobago.init();
@@ -1646,7 +1680,7 @@ Tobago.In.prototype.setup = function() {
     ctrl = Tobago.element(this.id);
     Tobago.addBindEventListener(ctrl, 'change', this, 'checkMaxLength');
     Tobago.addBindEventListener(ctrl, 'keypress', this, 'checkMaxLength');
-    if (jQuery.browser.msie) {
+    if (Tobago.browser.isMsie) {
       Tobago.addBindEventListener(ctrl, 'paste', this, 'checkMaxLengthOnPaste');
     }
   }
@@ -2292,7 +2326,7 @@ Tobago.Updater = {
     }
 
     /* TOBAGO-1087: Wait Cursor after AJAX in IE with Websphere 6.1  */
-    if (jQuery.browser.msie) {
+    if (Tobago.browser.isMsie) {
       var body = jQuery("body");
       var originalCursor = body.css("cursor");
       body.css("cursor", "default");
