@@ -21,37 +21,41 @@
 
 var TobagoAssert = {
 
-  assertLeft:function (elementOrId, left) {
+  assertLeft:function (elementOrId, left, epsilon) {
     var element = TobagoAssert.jQueryElement(elementOrId);
+    epsilon = epsilon != null ? epsilon : 0;
     var offsetLeft = element.offset().left;
-    if (offsetLeft != left) {
+    if (Math.abs(offsetLeft - left) > epsilon) {
       LOG.error("The element '" + element.get(0).tagName + "' with id='" + element.attr("id")
           + "' has wrong left: expected=" + left + " actual=" + offsetLeft);
     }
   },
 
-  assertTop:function (elementOrId, top) {
+  assertTop:function (elementOrId, top, epsilon) {
     var element = TobagoAssert.jQueryElement(elementOrId);
+    epsilon = epsilon != null ? epsilon : 0;
     var offsetTop = element.offset().top;
-    if (offsetTop != top) {
+    if (Math.abs(offsetTop - top) > epsilon) {
       LOG.error("The element '" + element.get(0).tagName + "' with id='" + element.attr("id")
           + "' has wrong top: expected=" + top + " actual=" + offsetTop);
     }
   },
 
-  assertWidth:function (elementOrId, width) {
+  assertWidth:function (elementOrId, width, epsilon) {
     var element = TobagoAssert.jQueryElement(elementOrId);
+    epsilon = epsilon != null ? epsilon : 0;
     var offsetWidth = element.get(0).offsetWidth;
-    if (offsetWidth != width) {
+    if (Math.abs(offsetWidth - width) > epsilon) {
       LOG.error("The element '" + element.get(0).tagName + "' with id='" + element.attr("id")
           + "' has wrong width: expected=" + width + " actual=" + offsetWidth);
     }
   },
 
-  assertHeight:function (elementOrId, height) {
+  assertHeight:function (elementOrId, height, epsilon) {
     var element = TobagoAssert.jQueryElement(elementOrId);
+    epsilon = epsilon != null ? epsilon : 0;
     var offsetHeight = element.get(0).offsetHeight;
-    if (offsetHeight != height) {
+    if (Math.abs(offsetHeight - height) > epsilon) {
       LOG.error("The element '" + element.get(0).tagName + "' with id='" + element.attr("id")
           + "' has wrong height: expected=" + height + " actual=" + offsetHeight);
     }
@@ -101,3 +105,40 @@ var TobagoAssert = {
     return element;
   }
 };
+
+(function ($) {
+
+  $.widget("test.assertLayout", {
+
+    _create: function () {
+
+      var epsilon = this.element.data("assert-epsilon");
+
+      var left = this.element.data("assert-left");
+      if (left != null) {
+        TobagoAssert.assertLeft(this.element, left, epsilon);
+      }
+      var top = this.element.data("assert-top");
+      if (top != null) {
+        TobagoAssert.assertTop(this.element, top, epsilon);
+      }
+      var width = this.element.data("assert-width");
+      if (width != null) {
+        TobagoAssert.assertWidth(this.element, width, epsilon);
+      }
+      var height = this.element.data("assert-height");
+      if (height != null) {
+        TobagoAssert.assertHeight(this.element, height, epsilon);
+      }
+    },
+
+    _destroy: function () {
+    }
+
+  });
+
+}(jQuery));
+
+Tobago.registerListener(function() {
+    jQuery("[data-assert-width],[data-assert-height],[data-assert-left],[data-assert-top]").assertLayout();
+}, Tobago.Phase.DOCUMENT_READY);
