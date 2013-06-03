@@ -1029,7 +1029,9 @@ var Tobago = {
       new Tobago.AcceleratorKey(function clickAccelKey() {
         Tobago.clickOnElement(el.attr("id"))}, el.attr("accesskey"));
     });
+  },
 
+  initCss: function(elements) {
     // element styles
     Tobago.Utils.selectWidthJQuery(elements, "[data-tobago-style]").each(function () {
       var element = jQuery(this);
@@ -1713,6 +1715,10 @@ Tobago.registerListener(Tobago.frameKiller, Tobago.Phase.DOCUMENT_READY);
 // e. g. selectOne in a toolBar).
 Tobago.registerListener(Tobago.initDom, Tobago.Phase.DOCUMENT_READY, Tobago.Phase.Order.LATER);
 Tobago.registerListener(Tobago.initDom, Tobago.Phase.AFTER_UPDATE, Tobago.Phase.Order.LATER);
+
+// the inline css should be applied early, so that other init functions can use the dimensions
+Tobago.registerListener(Tobago.initCss, Tobago.Phase.DOCUMENT_READY, Tobago.Phase.Order.EARLY);
+Tobago.registerListener(Tobago.initCss, Tobago.Phase.AFTER_UPDATE, Tobago.Phase.Order.EARLY);
 
 // XXX: 2nd parameter enableAjax is deprecated
 Tobago.Panel = function(panelId, enableAjax, autoReload) {
