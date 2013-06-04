@@ -109,8 +109,7 @@ public interface GridLayoutTagDeclaration extends HasId, HasBorder, HasSpacing, 
    * @param columnOverflow Does the component need a horizontal scrollbar?
    */
   @TagAttribute
-  @UIComponentTagAttribute(
-      type = "boolean")
+  @UIComponentTagAttribute(type = "boolean")
   void setColumnOverflow(String columnOverflow);
 
   /**
@@ -119,8 +118,14 @@ public interface GridLayoutTagDeclaration extends HasId, HasBorder, HasSpacing, 
    * @param rowOverflow Does the component need a vertical scrollbar?
    */
   @TagAttribute
-  @UIComponentTagAttribute(
-      type = "boolean")
+  @UIComponentTagAttribute(type = "boolean")
   void setRowOverflow(String rowOverflow);
+
+  /**
+   * This attribute advises the layout manager, to not use space that comes from non rendered components.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type = "boolean")
+  void setRigid(String rigid);
 
 }
