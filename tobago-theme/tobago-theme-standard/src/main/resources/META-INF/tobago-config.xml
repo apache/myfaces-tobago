@@ -363,13 +363,13 @@
         </renderer>
       </renderers>
       <resources production="true">
-        <script name="script/jquery-1.6.4.js"/>
+        <script name="script/jquery-1.10.1.js"/>
         <script name="script/jquery-ui-1.10.3.custom.js"/>
         <script name="script/tobago.js"/>
         <style name="style/style.css"/>
       </resources>
       <resources production="false">
-        <script name="script/jquery-1.6.4.js"/>
+        <script name="script/jquery-1.10.1.js"/>
         <script name="script/jquery-ui-1.10.3.custom.js"/>
         <script name="script/tobago.js"/>
         <script name="script/calendar.js"/>
