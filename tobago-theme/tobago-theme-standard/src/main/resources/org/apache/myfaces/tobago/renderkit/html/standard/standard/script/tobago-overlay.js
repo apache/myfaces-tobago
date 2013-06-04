@@ -48,8 +48,6 @@
         this.overlay.addClass("tobago-page-overlay-markup-wait");
       }
 
-      //      this.element.data("tobago-overlay", this.overlay);
-
       this.overlay.outerWidth(this.element.outerWidth());
       this.overlay.outerHeight(this.element.outerHeight());
       this.overlay.offset(this.element.offset());
