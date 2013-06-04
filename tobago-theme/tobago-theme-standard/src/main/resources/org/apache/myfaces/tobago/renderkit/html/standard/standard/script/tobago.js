@@ -42,7 +42,7 @@ var TbgTimer = {
     LOG.debug('until appOnload ' + (this.startAppOnload.getTime() - this.startOnload.getTime())); // @DEV_ONLY
     LOG.debug('until scriptLoaders ' + (this.startScriptLoaders.getTime() - this.startOnload.getTime())); // @DEV_ONLY
     LOG.debug('time scriptLoaders ' + (this.endScriptLoaders.getTime() - this.startScriptLoaders.getTime())); // @DEV_ONLY
-    LOG.debug('until nach onload ' + (this.endOnload.getTime() - this.startTbgJs.getTime())); // @DEV_ONLY
+    LOG.debug('until after onload ' + (this.endOnload.getTime() - this.startTbgJs.getTime())); // @DEV_ONLY
     LOG.debug('total ' + totaljs); // @DEV_ONLY
   }
 };
@@ -257,10 +257,10 @@ var Tobago = {
   // -------- Functions -------------------------------------------------------
 
   /**
-   * Register a function to be excecuted on certain events.
+   * Register a function to be executed on certain events.
    * @param listener Function to be executed.
-   * @param phase The phase when code should be excecuted (e. g. Tobago.Phase.DOCUMENT_READY).
-   * @param order An optinal order to sort function they depent on others (default: Tobago.Phase.Order.NORMAL).
+   * @param phase The phase when code should be executed (e. g. Tobago.Phase.DOCUMENT_READY).
+   * @param order An optional order to sort function they depend on others (default: Tobago.Phase.Order.NORMAL).
    */
   registerListener: function(listener, phase, order) {
 
@@ -351,7 +351,7 @@ var Tobago = {
     Tobago.registerCurrentScripts();
     if (TbgTimer.endBody) { // @DEV_ONLY
       TbgTimer.startScriptLoaders = new Date(); // @DEV_ONLY
-  } // @DEV_ONLY
+    } // @DEV_ONLY
     Tobago.startScriptLoaders();
     if (TbgTimer.endBody) { // @DEV_ONLY
       TbgTimer.endScriptLoaders = new Date(); // @DEV_ONLY
@@ -407,126 +407,23 @@ var Tobago = {
 
   onBeforeUnload: function() {
     if (Tobago.transition) {
-      Tobago.createOverlay(jQuery("body"), false, false);
+      jQuery("body").overlay();
     }
     Tobago.transition = Tobago.oldTransition;
   },
 
   /**
-   * Create a overlay barrier and animate it.
-   * @param element A jQuery element, must be only one single element.
+   * @deprecated
    */
-  createOverlay:function (element, error, ajax) {
-
-    // is not a jQuery object? XXX Support of non jQuery objects is deprecated since Tobago 1.5.1
-    if (element == null || typeof element.size != "function") {
-      element = Tobago.element(element);
-      if (!element) {
-        LOG.warn('no element to create overlay'); // @DEV_ONLY
-        return;
-      }
-      element = jQuery(element);
-      LOG.warn('Deprecation: Please call createOverlay() with a jQuery object.'); // @DEV_ONLY
-    }
-
-    if (element.children(".tobago-page-overlay").size() > 0) {
-
-      // is this an error overlay?
-      if (element.children(".tobago-page-overlay-markup-error").size() > 0) {
-        Tobago.deleteOverlay(element);
-      } else {
-        LOG.warn('There is already a overlay barrier'); // @DEV_ONLY
-        return;
-      }
-    }
-
-    Tobago.ie6bugfix(element.get(0));
-
-    var overlay = error
-        ? jQuery("<div class='tobago-page-overlay tobago-page-overlay-markup-error'></div>")
-        : jQuery("<div class='tobago-page-overlay tobago-page-overlay-markup-wait'></div>");
-    element.append(overlay);
-    var wait = jQuery("<div class='tobago-page-overlayCenter'></div>");
-    overlay.append(wait);
-    var image = jQuery(error
-        ? "body > .tobago-page-overlayErrorPreloadedImage"
-        : "body > .tobago-page-overlayWaitPreloadedImage");
-    // in case of AJAX, we may need more of these objects, on the other side, on an normal submit
-    // the animation stops, if we use the clone (don't know why, seems to be needed only in WebKit)
-    if (ajax) {
-      image = image.clone();
-    }
-    image.appendTo(wait).removeClass("tobago-page-overlayWaitPreloadedImage tobago-page-overlayErrorPreloadedImage");
-    wait.show();
-    overlay.show();
-
-    if (Tobago.browser.isMsie6) {
-      element.children(".tobago-page-overlay")
-          .css({
-            width:element.css("width"),
-            height:element.css("height")});
-    }
-
-    element.children(".tobago-page-overlay")
-        .css({
-          backgroundColor:jQuery('.tobago-page').css("background-color"),
-          filter:'alpha(opacity=80)', //IE
-          opacity:0})
-        .show()
-        .delay(error ? 0 : 1000)
-        .animate({opacity:'0.8'}, error ? 0 : 250, "linear", function () {
-
-          // fix for IE6: reset the src attribute to enable animation
-          if (Tobago.browser.isMsie6) {
-              image.attr("src", image.attr("src"));
-          }
-        });
+  createOverlay: function (element, error, ajax) {
+    element.overlay({error: error, ajax: ajax});
   },
 
   /**
-   * Removes the overlay barrier.
-   * @param element A jQuery element.
+   * @deprecated
    */
   deleteOverlay:function (element) {
-
-    // is not a jQuery object? XXX Support of non jQuery objects is deprecated since Tobago 1.5.1
-    if (element == null || typeof element.size != "function") {
-      element = Tobago.element(element);
-      if (!element) {
-        LOG.warn('no element to create overlay'); // @DEV_ONLY
-        return;
-      }
-      element = jQuery(element);
-      LOG.warn('Deprecation: Please call deleteOverlay() with a jQuery object.'); // @DEV_ONLY
-    }
-
-    element.children(".tobago-page-overlay").remove();
-
-    element.children(".tobago-page-overlay-ie6bugfix").remove();
-  },
-
-  ie6bugfix: function(element) {
-    if (Tobago.browser.isMsie6) {
-
-      if (jQuery(element).children(".tobago-page-overlay-ie6bugfix").size() > 0) {
-        return; // ignore
-      }
-
-      var iframe = document.createElement('IFRAME');
-      iframe.id = element.id + '-iframe-overlay';
-      iframe.className = 'tobago-page-overlay-ie6bugfix';
-      iframe.style.backgroundColor = 'red';
-      iframe.style.filter = 'progid:DXImageTransform.Microsoft.Alpha(style=0,opacity=0)';
-      iframe.style.zIndex = 9999;
-      iframe.frameBorder = '0';
-      iframe.style.position = 'absolute';
-      iframe.src = Tobago.blankPage;
-      iframe.style.top = '0px';
-      iframe.style.left = '0px';
-      iframe.style.width = element.scrollWidth + 'px';
-      iframe.style.height = element.scrollHeight + 'px';
-      element.appendChild(iframe);
-    }
+    element.overlay("destroy");
   },
 
   /**
@@ -543,7 +440,7 @@ var Tobago = {
       }
     }
 
-    // old:
+    // deprecated:
     if (this.isSubmit && this.applicationOnunload) {
       this.applicationOnunload();
     } else if (!this.isSubmit && this.applicationOnexit) {
@@ -670,7 +567,7 @@ var Tobago = {
               image.appendTo(image.parent());
             }
           } catch (e) {
-            Tobago.deleteOverlay(jQuery("body"));
+            jQuery("body").overlay("destroy");
             Tobago.isSubmit = false;
             alert('Submit failed: ' + e); // XXX localization, better error handling
           }
@@ -1655,7 +1552,6 @@ Tobago.Config = {
   }
 };
 
-
 Tobago.Config.set("Tobago", "themeConfig", "standard/standard");
 
 Tobago.In = function(inId, required, requiredClass, maxLength) {
@@ -1810,7 +1706,7 @@ Tobago.Panel.prototype.reloadWithAction = function(source, action, options) {
 };
 
 Tobago.Panel.prototype.prepareReload = function() {
-  Tobago.createOverlay(jQuery(Tobago.Utils.escapeClientId(this.id)), false, true);
+  jQuery(Tobago.Utils.escapeClientId(this.id)).overlay({error: false, ajax: true});
 };
 
 Tobago.registerListener(Tobago.Panel.init, Tobago.Phase.DOCUMENT_READY);
@@ -2163,9 +2059,9 @@ Tobago.Updater = {
           if (container && typeof container.prepareReload == 'function') {
             container.prepareReload();
           } else if (container) {
-            Tobago.createOverlay(container, false, true);
+            container.overlay({error: false, ajax: true});
           } else {
-            Tobago.createOverlay(jQuery(Tobago.Utils.escapeClientId(id)), false, true);
+            jQuery(Tobago.Utils.escapeClientId(id)).overlay({error: false, ajax: true});
           }
         }
       }
@@ -2381,7 +2277,7 @@ Tobago.Updater = {
         if (typeof this.afterDoUpdateNotModified == 'function') {
           this.afterDoUpdateNotModified();
         }
-        Tobago.deleteOverlay(overlay);
+        overlay.overlay("destroy");
         break;
       case Tobago.Updater.CODE_ERROR:
         if (typeof this.afterDoUpdateError == 'function') {
@@ -2389,12 +2285,12 @@ Tobago.Updater = {
         }
         // XXX Here also a double click will be logged, but "warn" is not appropriate.
         LOG.warn("ERROR 500 when updating component id = '" + data.ajaxId + "'"); // @DEV_ONLY
-        Tobago.deleteOverlay(overlay);
-        Tobago.createOverlay(overlay, true, true); // error overlay
+//        overlay.overlay("destroy");
+        overlay.overlay({error: true, ajax: true});
         break;
       default:
         LOG.error('Unknown response code: ' + data.responseCode + " for component id = '" + data.ajaxId + "'"); // @DEV_ONLY
-        Tobago.deleteOverlay(overlay);
+        overlay.overlay("destroy");
         break;
     }
   }
