@@ -75,7 +75,7 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase implemen
       if (LOG.isDebugEnabled()) {
         LOG.debug("\n" + grid);
       }
-      if (component instanceof LayoutContainer && component.isRendered()) {
+      if (component instanceof LayoutContainer && (component.isRendered() || isRigid())) {
         ((LayoutContainer) component).getLayoutManager().init();
       }
     }
@@ -125,7 +125,7 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase implemen
           }
         }
       }
-      if (neitherRendered) {
+      if (neitherRendered && !isRigid()) {
         heads[i].setRendered(false);
       }
     }
@@ -147,7 +147,7 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase implemen
       LayoutToken token = head.getToken();
 
       if (token instanceof PixelLayoutToken) {
-        if (head.isRendered()) {
+        if (head.isRendered() || isRigid()) {
           heads[i].setCurrent(((PixelLayoutToken) token).getMeasure());
         } else {
           heads[i].setCurrent(Measure.ZERO);
@@ -161,12 +161,12 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase implemen
           OriginCell origin = (OriginCell) cell;
           LayoutComponent component = cell.getComponent();
 
-          if (component instanceof LayoutContainer && component.isRendered()) {
+          if (component instanceof LayoutContainer && (component.isRendered() || isRigid())) {
             ((LayoutContainer) component).getLayoutManager().preProcessing(orientation);
           }
 
           if (token instanceof AutoLayoutToken || token instanceof RelativeLayoutToken) {
-            if (origin.getSpan(orientation) == 1 && component.isRendered()) {
+            if (origin.getSpan(orientation) == 1 && (component.isRendered() || isRigid())) {
               intervalList.add(new Interval(component, orientation));
             } else {
               if (LOG.isDebugEnabled()) {
@@ -313,7 +313,7 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase implemen
           }
 
           // call sub layout manager
-          if (component instanceof LayoutContainer && component.isRendered()) {
+          if (component instanceof LayoutContainer && (component.isRendered() || isRigid())) {
             ((LayoutContainer) component).getLayoutManager().mainProcessing(orientation);
           }
         }
@@ -372,7 +372,7 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase implemen
           }
 
           // call sub layout manager
-          if (component instanceof LayoutContainer && component.isRendered()) {
+          if (component instanceof LayoutContainer && (component.isRendered() || isRigid())) {
             ((LayoutContainer) component).getLayoutManager().postProcessing(orientation);
           }
 
@@ -455,6 +455,8 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase implemen
   public abstract boolean isColumnOverflow();
 
   public abstract boolean isRowOverflow();
+
+  public abstract boolean isRigid();
 
   @Override
   public boolean getRendersChildren() {

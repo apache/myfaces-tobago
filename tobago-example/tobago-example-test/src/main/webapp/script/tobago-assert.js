@@ -26,8 +26,7 @@ var TobagoAssert = {
     epsilon = epsilon != null ? epsilon : 0;
     var offsetLeft = element.offset().left;
     if (Math.abs(offsetLeft - left) > epsilon) {
-      LOG.error("The element '" + element.get(0).tagName + "' with id='" + element.attr("id")
-          + "' has wrong left: expected=" + left + " actual=" + offsetLeft);
+      TobagoAssert.fail("left", element, left, offsetLeft);
     }
   },
 
@@ -36,8 +35,7 @@ var TobagoAssert = {
     epsilon = epsilon != null ? epsilon : 0;
     var offsetTop = element.offset().top;
     if (Math.abs(offsetTop - top) > epsilon) {
-      LOG.error("The element '" + element.get(0).tagName + "' with id='" + element.attr("id")
-          + "' has wrong top: expected=" + top + " actual=" + offsetTop);
+      TobagoAssert.fail("top", element, top, offsetTop);
     }
   },
 
@@ -46,8 +44,7 @@ var TobagoAssert = {
     epsilon = epsilon != null ? epsilon : 0;
     var offsetWidth = element.get(0).offsetWidth;
     if (Math.abs(offsetWidth - width) > epsilon) {
-      LOG.error("The element '" + element.get(0).tagName + "' with id='" + element.attr("id")
-          + "' has wrong width: expected=" + width + " actual=" + offsetWidth);
+      TobagoAssert.fail("width", element, width, offsetWidth);
     }
   },
 
@@ -56,9 +53,17 @@ var TobagoAssert = {
     epsilon = epsilon != null ? epsilon : 0;
     var offsetHeight = element.get(0).offsetHeight;
     if (Math.abs(offsetHeight - height) > epsilon) {
-      LOG.error("The element '" + element.get(0).tagName + "' with id='" + element.attr("id")
-          + "' has wrong height: expected=" + height + " actual=" + offsetHeight);
+      TobagoAssert.fail("height", element, height, offsetHeight);
     }
+  },
+
+  fail: function(name, element, expected, actual) {
+    element.overlay({error: true, ajax: true});
+    var text = "The element '" + element.get(0).tagName + "' with id='" + element.attr("id")
+        + "' has wrong " + name + ": expected=" + expected + " actual=" + actual;
+    var overlay = element.data("tobago-overlay").overlay;
+    overlay.attr("title", (overlay.attr("title") === undefined ? "" : overlay.attr("title")+ "\n" ) + text);
+    LOG.error(text);
   },
 
   assertLayout:function (elementOrId, left, top, width, height) {
