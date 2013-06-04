@@ -193,6 +193,9 @@ public class DateExtensionTag extends TobagoExtensionBodyTagSupport {
     if (tabIndex != null) {
       datePicker.setTabIndex(tabIndex);
     }
+    if (markup != null) {
+      datePicker.setMarkup(markup);
+    }
     datePicker.setParent(formTag);
     if (pickerId != null) {
       datePicker.setId(pickerId);
