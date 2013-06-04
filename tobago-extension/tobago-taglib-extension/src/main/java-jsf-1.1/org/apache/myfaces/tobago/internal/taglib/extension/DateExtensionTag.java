@@ -208,6 +208,9 @@ public class DateExtensionTag extends BodyTagSupport
     if (tabIndex != null) {
       datePicker.setTabIndex(tabIndex);
     }
+    if (markup != null) {
+      datePicker.setMarkup(markup);
+    }
     datePicker.setParent(formTag);
     datePicker.doStartTag();
     datePicker.doEndTag();

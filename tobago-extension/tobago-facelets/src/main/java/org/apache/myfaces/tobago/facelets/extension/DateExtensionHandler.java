@@ -20,15 +20,19 @@
 package org.apache.myfaces.tobago.facelets.extension;
 
 import com.sun.facelets.FaceletContext;
+import com.sun.facelets.el.ELAdaptor;
 import com.sun.facelets.tag.TagAttribute;
 import com.sun.facelets.tag.jsf.ComponentConfig;
 import com.sun.facelets.tag.jsf.ComponentSupport;
+import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.OnComponentCreated;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.UIDate;
 import org.apache.myfaces.tobago.component.UIDatePicker;
 import org.apache.myfaces.tobago.component.UIForm;
+import org.apache.myfaces.tobago.context.Markup;
 
+import javax.el.ValueExpression;
 import javax.faces.application.Application;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIViewRoot;
@@ -37,11 +41,13 @@ public class DateExtensionHandler extends TobagoLabelExtensionHandler {
 
   private TagAttribute pickerIdAttribute;
   private TagAttribute formIdAttribute;
+  private TagAttribute markupAttribute;
 
   public DateExtensionHandler(ComponentConfig config) {
     super(config);
     pickerIdAttribute = getAttribute("pickerId");
     formIdAttribute = getAttribute("formId");
+    markupAttribute = getAttribute(Attributes.MARKUP);
   }
 
   protected String getSubComponentType() {
@@ -70,6 +76,14 @@ public class DateExtensionHandler extends TobagoLabelExtensionHandler {
       if (picker.getAttributes().get(OnComponentCreated.MARKER) == null) {
         picker.getAttributes().put(OnComponentCreated.MARKER, Boolean.TRUE);
         picker.onComponentCreated(faceletContext.getFacesContext(), panel);
+      }
+      if (markupAttribute != null) {
+        if (markupAttribute.isLiteral()) {
+          picker.setMarkup(Markup.valueOf(markupAttribute.getValue()));
+        } else {
+          ValueExpression expression = markupAttribute.getValueExpression(faceletContext, Object.class);
+          ELAdaptor.setExpression(picker, Attributes.MARKUP, expression);
+        }
       }
       form.getChildren().add(picker);
     }
