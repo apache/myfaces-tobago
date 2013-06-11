@@ -2219,6 +2219,10 @@ Tobago.Updater = {
     }
 
     Tobago.Updater.handleMissingResponses(requestOptions.ajaxComponentIds, doneIds);
+
+    if (typeof requestOptions.afterDoUpdateSuccess == 'function') {
+      requestOptions.afterDoUpdateSuccess(requestOptions);
+    }
   },
 
   handleMissingResponses: function(ids, doneIds) {
@@ -2265,6 +2269,11 @@ Tobago.Updater = {
     } else {
       Tobago.Updater.doErrorUpdate(Tobago.parsePartialIds(requestObject.ajaxComponentIds));
     }
+
+    if (typeof requestObject.afterDoUpdateError == 'function') {
+      requestObject.afterDoUpdateError();
+    }
+
   },
 
   updateComponent: function(componentData) {
