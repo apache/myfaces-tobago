@@ -302,6 +302,12 @@ public class SheetRenderer extends LayoutComponentRendererBase {
       if (!sheet.isRowAvailable()) {
         break;
       }
+
+      Object rowRendered = sheet.getAttributes().get("rowRendered");
+      if (rowRendered instanceof  Boolean && !((Boolean) rowRendered)) {
+        continue;
+      }
+
       emptySheet = false;
       odd = !odd;
 
