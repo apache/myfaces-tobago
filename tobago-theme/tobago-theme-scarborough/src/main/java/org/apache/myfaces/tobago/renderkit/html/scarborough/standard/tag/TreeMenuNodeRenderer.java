@@ -142,7 +142,7 @@ public class TreeMenuNodeRenderer extends LayoutComponentRendererBase {
       writer.startElement(HtmlElements.DIV, null);
       writer.writeIdAttribute(id);
       writer.writeClassAttribute(Classes.create(node));
-      writer.writeAttribute(DataAttributes.TREEPARENT, parentId, false);
+      writer.writeAttribute(DataAttributes.TREE_PARENT, parentId, false);
       HtmlRendererUtils.writeDataAttributes(facesContext, writer, node);
 
       if (!root) {
@@ -205,8 +205,8 @@ public class TreeMenuNodeRenderer extends LayoutComponentRendererBase {
     writer.startElement(HtmlElements.IMG, null);
     writer.writeClassAttribute(Classes.create(node, "toggle"));
     writer.writeAttribute(HtmlAttributes.SRC, src, false);
-    writer.writeAttribute(DataAttributes.SRCOPEN, srcOpen, false);
-    writer.writeAttribute(DataAttributes.SRCCLOSE, srcClose, false);
+    writer.writeAttribute(DataAttributes.SRC_OPEN, srcOpen, false);
+    writer.writeAttribute(DataAttributes.SRC_CLOSE, srcClose, false);
     writer.writeAttribute(HtmlAttributes.ALT, "", false);
     writer.endElement(HtmlElements.IMG);
   }

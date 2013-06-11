@@ -31,12 +31,15 @@ public class DataAttributesUnitTest {
   @Test
   public void testAttributeNames() throws IllegalAccessException {
     for (Field field : DataAttributes.class.getFields()) {
+      if (field.getAnnotation(Deprecated.class) != null) {
+        // ignore the check for deprecated fields
+        continue;
+      }
       String value = (String) field.get(null);
       Assert.assertTrue("Prefix check: value='" + value + "'", value.startsWith(PREFIX));
       String extension = value.substring(PREFIX.length());
       Assert.assertTrue("Regexp check: extension='" + extension + "'", extension.matches("[a-z]+(-[a-z]+)*"));
-      String fieldExtension = field.getName().toLowerCase().replace('_', '-');
-      Assert.assertEquals(fieldExtension, extension);
+      Assert.assertEquals(field.getName().replaceAll("_", ""), extension.toUpperCase().replaceAll("-", ""));
     }
   }
 }

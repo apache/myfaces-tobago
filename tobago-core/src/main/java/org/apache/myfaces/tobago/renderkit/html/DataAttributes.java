@@ -36,40 +36,68 @@ public final class DataAttributes {
    */
   public static final String RELOAD = "data-tobago-reload";
 
+  /** @deprecated Since 1.5.11 */
+  @Deprecated
   public static final String SELECTIONMODE = "data-tobago-selectionmode";
+
+  public static final String SELECTION_MODE = SELECTIONMODE;
 
   /**
    * The selectable attribute e. g. for trees.
    */
   public static final String SELECTABLE = "data-tobago-selectable";
 
-  /**
-   * Reference to a sheet.
-   */
+  /** @deprecated Since 1.5.11 */
+  @Deprecated
   public static final String SHEETID = "data-tobago-sheetid";
 
   /**
-   * Alternate to the src attribute, to implement a hover effect.
+   * Reference to a sheet.
    */
+  public static final String SHEET_ID = SHEETID;
+
+  /** @deprecated Since 1.5.11 */
+  @Deprecated
   public static final String SRCHOVER = "data-tobago-srchover";
 
   /**
    * Alternate to the src attribute, to implement a hover effect.
    */
+  public static final String SRC_HOVER = SRCHOVER;
+
+  /** @deprecated Since 1.5.11 */
+  @Deprecated
   public static final String SRCDEFAULT = "data-tobago-srcdefault";
 
   /**
-   * Alternate to the src attribute, icon open and close.
+   * Alternate to the src attribute, to implement a hover effect.
    */
+  public static final String SRC_DEFAULT = SRCDEFAULT;
+
+  /** @deprecated Since 1.5.11 */
+  @Deprecated
   public static final String SRCCLOSE = "data-tobago-srcclose";
 
   /**
    * Alternate to the src attribute, icon open and close.
    */
+  public static final String SRC_CLOSE = SRCCLOSE;
+
+  /** @deprecated Since 1.5.11 */
+  @Deprecated
   public static final String SRCOPEN = "data-tobago-srcopen";
+
+  /**
+   * Alternate to the src attribute, icon open and close.
+   */
+  public static final String SRC_OPEN = SRCOPEN;
+
+  /** @deprecated Since 1.5.11 */
+  @Deprecated
+  public static final String TREEPARENT = "data-tobago-treeparent";
 
   /**
    * Id of the parent node in a tree node.
    */
-  public static final String TREEPARENT = "data-tobago-treeparent";
+  public static final String TREE_PARENT = TREEPARENT;
 }

@@ -166,7 +166,7 @@ public class TreeNodeRenderer extends LayoutComponentRendererBase {
         HtmlRendererUtils.renderDojoDndItem(node, writer, true);
       }
       writer.writeClassAttribute(Classes.create(node));
-      writer.writeAttribute(DataAttributes.TREEPARENT, parentId, false);
+      writer.writeAttribute(DataAttributes.TREE_PARENT, parentId, false);
       HtmlRendererUtils.writeDataAttributes(facesContext, writer, node);
 
       if (!root) {
