@@ -77,14 +77,14 @@ public class CalendarRenderer extends LayoutComponentRendererBase {
     writer.writeStyleAttribute(style);
     String dateInputId = (String) output.getAttributes().get(Attributes.DATE_INPUT_ID);
     if (dateInputId != null) {
-      writer.writeAttribute(DataAttributes.DATEINPUTID, dateInputId, false);
+      writer.writeAttribute(DataAttributes.DATE_INPUT_ID, dateInputId, false);
     }
     writer.writeAttribute(DataAttributes.DAY, Integer.toString(calendar.get(Calendar.YEAR)), false);
     writer.writeAttribute(DataAttributes.MONTH, Integer.toString(1 + calendar.get(Calendar.MONTH)), false);
     writer.writeAttribute(DataAttributes.YEAR, Integer.toString(calendar.get(Calendar.DAY_OF_MONTH)), false);
 
-    writer.writeAttribute(DataAttributes.FIRSTDAYOFWEEK, Integer.toString(calendar.getFirstDayOfWeek()), false);
-    writer.writeAttribute(DataAttributes.MONTHNAMES, getMonthNames(locale), false);
+    writer.writeAttribute(DataAttributes.FIRST_DAY_OF_WEEK, Integer.toString(calendar.getFirstDayOfWeek()), false);
+    writer.writeAttribute(DataAttributes.MONTH_NAMES, getMonthNames(locale), false);
 
     // begin header
     writer.startElement(HtmlElements.DIV, null);

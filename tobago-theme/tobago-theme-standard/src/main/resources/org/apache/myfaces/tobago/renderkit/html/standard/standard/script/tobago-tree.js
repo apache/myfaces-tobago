@@ -27,9 +27,9 @@ Tobago.Tree.toggleNode = function(element) {
   if (Tobago.Tree.isExpanded(node, expanded)) {
     Tobago.Tree.hideChildren(node);
     toggle.each(function() {
-      src = jQuery(this).data("tobago-srcclose");
+      src = jQuery(this).data("tobago-src-close");
       if (src == null) { // use the open icon if there is no close icon
-        src = jQuery(this).data("tobago-srcopen");
+        src = jQuery(this).data("tobago-src-open");
       }
       jQuery(this).attr("src", src);
       Tobago.fixPngAlpha(this);
@@ -44,9 +44,9 @@ Tobago.Tree.toggleNode = function(element) {
       Tobago.reloadComponent(element, data.attr("id"), toggle.parent().attr("id"), {});
     } else {
       toggle.each(function() {
-        src = jQuery(this).data("tobago-srcopen");
+        src = jQuery(this).data("tobago-src-open");
         if (src == null) { // use the close icon if there is no open icon
-          src = jQuery(this).data("tobago-srcclose");
+          src = jQuery(this).data("tobago-src-close");
         }
         jQuery(this).attr("src", src);
         Tobago.fixPngAlpha(this);
@@ -215,7 +215,7 @@ Tobago.Tree.rowIndex = function (node) {
 };
 
 Tobago.Tree.findChildren = function (node) {
-  var treeParentSelector = "[data-tobago-treeparent='" + node.attr("id") + "']";
+  var treeParentSelector = "[data-tobago-tree-parent='" + node.attr("id") + "']";
   var children;
   if (Tobago.Tree.isInSheet(node)) {
     children = node.parent("td").parent("tr").nextAll().children().children(treeParentSelector);
@@ -251,7 +251,7 @@ Tobago.TreeListbox.init = function(elements) {
 Tobago.TreeListbox.initNextLevel = function() {
   var option = jQuery(this);
   var select = option.closest(".tobago-treeListbox-level").next()
-      .find("[data-tobago-treeparent='" + option.attr("id") + "']");
+      .find("[data-tobago-tree-parent='" + option.attr("id") + "']");
   if (select.length == 1) {
     option.data("tobago-select", select);
   } else {
@@ -289,7 +289,7 @@ Tobago.TreeListbox.onChange = function() {
 };
 
 Tobago.TreeListbox.setSelected = function(listbox) {
-  var hidden = listbox.closest(".tobago-treeListbox").children("[data-tobago-selectionmode]");
+  var hidden = listbox.closest(".tobago-treeListbox").children("[data-tobago-selection-mode]");
   if (hidden.length == 1){
     var selectedValue = ";";
     listbox.children("option:selected").each(function() {

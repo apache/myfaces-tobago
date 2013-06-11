@@ -58,14 +58,14 @@ Tobago.Calendar.init = function (elements) {
   });
 
   // init from data field, if there is any (e. g. we are in date picker popup)
-  var calendarWithDateField = Tobago.Utils.selectWidthJQuery(elements, ".tobago-calendar[data-tobago-dateinputid]");
+  var calendarWithDateField = Tobago.Utils.selectWidthJQuery(elements, ".tobago-calendar[data-tobago-date-input-id]");
   calendarWithDateField.each(function () {
     var calendar = jQuery(this);
     Tobago.Calendar.initFromDateField(calendar);
   });
 
   var okButton
-      = Tobago.Utils.selectWidthJQuery(elements, ".tobago-calendar").parent().find("button[data-tobago-datepickerok]");
+      = Tobago.Utils.selectWidthJQuery(elements, ".tobago-calendar").parent().find("button[data-tobago-date-picker-ok]");
   okButton.click(function () {
     var button = jQuery(this);
     var calendar = button.parent().parent().find(".tobago-calendar");
@@ -113,7 +113,7 @@ Tobago.Calendar.firstDayOffset = function (month, year, firstDayOfWeek) {
 };
 
 Tobago.Calendar.getMonthName = function (calendar, month) {
-  return calendar.data("tobago-monthnames").split(',')[month - 1];
+  return calendar.data("tobago-month-names").split(',')[month - 1];
 };
 
 /**
@@ -193,7 +193,7 @@ Tobago.Calendar.selectDay = function (calendar, row, column) {
 //  alert(id + " "  + row + " " + column);
   var month = calendar.data("tobago-month");
   var year = calendar.data("tobago-year");
-  var firstDayOfWeek = calendar.data("tobago-firstdayofweek");
+  var firstDayOfWeek = calendar.data("tobago-first-day-of-week");
   var firstDayOffset = Tobago.Calendar.firstDayOffset(month, year, firstDayOfWeek);
   Tobago.Calendar.initCalendarData(calendar, year, month, row * 7 + column - firstDayOffset + 1);
   Tobago.Calendar.initCalendar(calendar);
@@ -203,7 +203,7 @@ Tobago.Calendar.initCalendar = function (calendar) {
   var day = calendar.data("tobago-day");
   var month = calendar.data("tobago-month");
   var year = calendar.data("tobago-year");
-  var firstDayOfWeek = calendar.data("tobago-firstdayofweek");
+  var firstDayOfWeek = calendar.data("tobago-first-day-of-week");
   var firstDayOffset = Tobago.Calendar.firstDayOffset(month, year, firstDayOfWeek);
   var prevMonthLength = Tobago.Calendar.getPreviousMonthLength(month, year);
   var monthLength = Tobago.Calendar.getMonthLength(month, year);
@@ -240,11 +240,11 @@ Tobago.Calendar.initCalendar = function (calendar) {
 };
 
 /**
- * @param element jQuery element with a reference to the date field (with data attribute tobago-dateinputid)
+ * @param element jQuery element with a reference to the date field (with data attribute tobago-date-input-id)
  * @return the date field as jQuery object
  */
 Tobago.Calendar.getDateField = function (element) {
-  return jQuery(Tobago.Utils.escapeClientId(element.data("tobago-dateinputid")));
+  return jQuery(Tobago.Utils.escapeClientId(element.data("tobago-date-input-id")));
 };
 
 Tobago.Calendar.initFromDateField = function (calendar) {
@@ -328,7 +328,7 @@ Tobago.Time.init = function (elements) {
       });
 
   // init from data field, if there is any (e. g. we are in date picker popup)
-  Tobago.Utils.selectWidthJQuery(elements, ".tobago-time[data-tobago-dateinputid]")
+  Tobago.Utils.selectWidthJQuery(elements, ".tobago-time[data-tobago-date-input-id]")
       .each(function () {
         Tobago.Time.initFromDateField(jQuery(this));
       });

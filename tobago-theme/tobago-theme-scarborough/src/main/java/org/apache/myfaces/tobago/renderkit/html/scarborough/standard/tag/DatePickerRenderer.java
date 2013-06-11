@@ -146,7 +146,7 @@ public class DatePickerRenderer extends LinkRenderer {
     buttonPanel.getChildren().add(okButton);
     okButton.setValueExpression(Attributes.LABEL, expressionFactory.createValueExpression(
         elContext, "#{tobagoContext.resourceBundle.datePickerOk}", String.class));
-    ComponentUtils.putDataAttributeWithPrefix(okButton, DataAttributes.DATEPICKEROK, true);
+    ComponentUtils.putDataAttributeWithPrefix(okButton, DataAttributes.DATE_PICKER_OK, true);
     okButton.getAttributes().put(Attributes.POPUP_CLOSE, "afterSubmit");
     okButton.setOmit(true);
     final UIButton cancelButton = (UIButton) CreateComponentUtils.createComponent(

@@ -100,7 +100,7 @@ public class TimeRenderer extends InputRendererBase {
     writer.writeStyleAttribute(style);
     String dateInputId = (String) time.getAttributes().get(Attributes.DATE_INPUT_ID);
     if (dateInputId != null) {
-      writer.writeAttribute(DataAttributes.DATEINPUTID, dateInputId, false);
+      writer.writeAttribute(DataAttributes.DATE_INPUT_ID, dateInputId, false);
     }
     writer.writeAttribute(DataAttributes.PATTERN, pattern, false);
 

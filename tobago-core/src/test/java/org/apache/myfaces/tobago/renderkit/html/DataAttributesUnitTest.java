@@ -30,6 +30,10 @@ public class DataAttributesUnitTest {
   public void testAttributeNames() throws IllegalAccessException {
     for (Field field : DataAttributes.class.getFields()) {
 
+      if (field.getAnnotation(Deprecated.class) != null) {
+        // ignore the check for deprecated fields
+        continue;
+      }
       String value = (String) field.get(null);
       Assert.assertTrue("Regexp check: value='" + value + "'", value.matches("data-tobago(-[a-z]+)*-[a-z]+"));
 

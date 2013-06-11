@@ -168,8 +168,8 @@ public class MenuCommandRenderer extends CommandRendererBase {
         String imageHover
             = ResourceManagerUtils.getImageWithPath(facesContext, HtmlRendererUtils.createSrc(image, "Hover"), true);
         if (imageHover != null) {
-          writer.writeAttribute(DataAttributes.SRCDEFAULT, imageWithPath, false);
-          writer.writeAttribute(DataAttributes.SRCHOVER, imageHover, false);
+          writer.writeAttribute(DataAttributes.SRC_DEFAULT, imageWithPath, false);
+          writer.writeAttribute(DataAttributes.SRC_HOVER, imageHover, false);
         }
 
         writer.writeAttribute(HtmlAttributes.ALT, label.getText(), true);

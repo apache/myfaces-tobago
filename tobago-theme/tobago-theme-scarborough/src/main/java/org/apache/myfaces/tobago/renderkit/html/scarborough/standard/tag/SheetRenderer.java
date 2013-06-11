@@ -149,7 +149,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
 
     writer.writeAttribute(DataAttributes.PARTIALLY,
         HtmlRendererUtils.getRenderedPartiallyJavascriptArray(facesContext, sheet, sheet), false);
-    writer.writeAttribute(DataAttributes.SELECTIONMODE, sheet.getSelectable(), false);
+    writer.writeAttribute(DataAttributes.SELECTION_MODE, sheet.getSelectable(), false);
     writer.writeAttribute(DataAttributes.FIRST, Integer.toString(sheet.getFirst()), false);
 
     boolean rowAction = HtmlRendererUtils.renderSheetCommands(sheet, facesContext, writer);
@@ -336,7 +336,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
       }
       final String parentId = sheet.getRowParentClientId();
       if (parentId != null) {
-        writer.writeAttribute(DataAttributes.TREEPARENT, parentId, false);
+        writer.writeAttribute(DataAttributes.TREE_PARENT, parentId, false);
       }
 
       int columnIndex = -1;
@@ -870,7 +870,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
   private void encodeResizing(TobagoResponseWriter writer, AbstractUISheet sheet, int columnIndex) throws IOException {
     writer.startElement(HtmlElements.SPAN, null);
     writer.writeClassAttribute(Classes.create(sheet, "headerResize"));
-    writer.writeAttribute(DataAttributes.COLUMNINDEX, Integer.toString(columnIndex), false);
+    writer.writeAttribute(DataAttributes.COLUMN_INDEX, Integer.toString(columnIndex), false);
     writer.write("&nbsp;&nbsp;"); // is needed for IE
     writer.endElement(HtmlElements.SPAN);
   }
@@ -921,7 +921,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
     menuItem.setLabel(ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", label));
     menuItem.setMarkup(markup);
     menuItem.setOnclick("/**/"); // XXX avoid submit
-    ComponentUtils.putDataAttributeWithPrefix(menuItem, DataAttributes.SHEETID, sheetId);
+    ComponentUtils.putDataAttributeWithPrefix(menuItem, DataAttributes.SHEET_ID, sheetId);
     menu.getChildren().add(menuItem);
   }
 

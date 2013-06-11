@@ -681,7 +681,7 @@ public final class HtmlRendererUtils {
       }
     }
     if (commandMap != null) {
-      writer.writeAttribute(DataAttributes.ROWACTION, JsonUtils.encode(commandMap), true);
+      writer.writeAttribute(DataAttributes.ROW_ACTION, JsonUtils.encode(commandMap), true);
       return true;
     }
     return false;

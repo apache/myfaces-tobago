@@ -97,8 +97,8 @@ public class TreeIconRenderer extends LayoutComponentRendererBase {
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, image);
     writer.writeAttribute(HtmlAttributes.SRC, source, true);
     if (folder) {
-      writer.writeAttribute(DataAttributes.SRCOPEN, openSource, true);
-      writer.writeAttribute(DataAttributes.SRCCLOSE, closedSource, true);
+      writer.writeAttribute(DataAttributes.SRC_OPEN, openSource, true);
+      writer.writeAttribute(DataAttributes.SRC_CLOSE, closedSource, true);
     }
     writer.writeAttribute(HtmlAttributes.ALT, "", false);
     writer.endElement(HtmlElements.IMG);

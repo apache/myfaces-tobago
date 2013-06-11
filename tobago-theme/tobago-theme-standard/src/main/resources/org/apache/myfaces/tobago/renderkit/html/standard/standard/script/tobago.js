@@ -2393,7 +2393,7 @@ Tobago.ToolBar.init = function(elements) {
           .addClass('tobago-toolBar-button-markup-hover').children('img')
           .each(function() {
         // set the src to the hover src url.
-        var hover = jQuery(this).data('tobago-srchover');
+        var hover = jQuery(this).data('tobago-src-hover');
         if (hover) {
           jQuery(this).attr('src', hover);
         }
@@ -2405,7 +2405,7 @@ Tobago.ToolBar.init = function(elements) {
           .children('img')
           .each(function() {
         // restore the original/normal src url.
-        var normal = jQuery(this).data('tobago-srcdefault');
+        var normal = jQuery(this).data('tobago-src-default');
         if (normal) {
           jQuery(this).attr('src', normal);
         }
@@ -2423,7 +2423,7 @@ Tobago.ToolBar.init = function(elements) {
           .addClass('tobago-boxToolBar-button-markup-hover').children('img')
           .each(function() {
         // set the src to the hover src url.
-        var hover = jQuery(this).data('tobago-srchover');
+        var hover = jQuery(this).data('tobago-src-hover');
         if (hover) {
           jQuery(this).attr('src', hover);
         }
@@ -2435,7 +2435,7 @@ Tobago.ToolBar.init = function(elements) {
           .children('img')
           .each(function() {
         // restore the original/normal src url.
-        var normal = jQuery(this).data('tobago-srcdefault');
+        var normal = jQuery(this).data('tobago-src-default');
         if (normal) {
           jQuery(this).attr('src', normal);
         }
@@ -2466,7 +2466,7 @@ Tobago.ToolBar.init = function(elements) {
           .addClass('tobago-tabGroupToolBar-button-markup-hover').children('img')
           .each(function() {
         // set the src to the hover src url.
-        var hover = jQuery(this).data('tobago-srchover');
+        var hover = jQuery(this).data('tobago-src-hover');
         if (hover) {
           jQuery(this).attr('src', hover);
         }
@@ -2478,7 +2478,7 @@ Tobago.ToolBar.init = function(elements) {
           .children('img')
           .each(function() {
         // restore the original/normal src url.
-        var normal = jQuery(this).data('tobago-srcdefault');
+        var normal = jQuery(this).data('tobago-src-default');
         if (normal) {
           jQuery(this).attr('src', normal);
         }

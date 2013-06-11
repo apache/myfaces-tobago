@@ -154,8 +154,8 @@ public class TreeIndentRenderer extends LayoutComponentRendererBase {
     final String src = expanded ? srcOpen : srcClose;
     writer.writeAttribute(HtmlAttributes.SRC, src, true);
     if (folder) {
-      writer.writeAttribute(DataAttributes.SRCOPEN, srcOpen, true);
-      writer.writeAttribute(DataAttributes.SRCCLOSE, srcClose, true);
+      writer.writeAttribute(DataAttributes.SRC_OPEN, srcOpen, true);
+      writer.writeAttribute(DataAttributes.SRC_CLOSE, srcClose, true);
     }
     writer.writeAttribute(HtmlAttributes.ALT, "", false);
     writer.endElement(HtmlElements.IMG);

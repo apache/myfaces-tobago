@@ -63,7 +63,7 @@ Tobago.Sheet.init = function(elements) {
   sheets.each(function initSheets() {
     var sheet = jQuery(this);
     var id = sheet.attr("id");
-    var commands = sheet.data("tobago-rowaction");
+    var commands = sheet.data("tobago-row-action");
     var click = commands ? commands.click : undefined;
     var dblclick = commands ? commands.dblclick : undefined;
     new Tobago.Sheet(id, undefined, undefined, undefined, undefined,
@@ -80,17 +80,17 @@ Tobago.Sheet.init = function(elements) {
   var commands;
   commands = Tobago.Utils.selectWidthJQuery(elements, ".tobago-menu-markup-sheetSelectAll");
   commands.click(function() {
-    var sheet = jQuery(Tobago.Utils.escapeClientId(jQuery(this).data("tobago-sheetid")));
+    var sheet = jQuery(Tobago.Utils.escapeClientId(jQuery(this).data("tobago-sheet-id")));
     Tobago.Sheet.selectAll(sheet);
   });
   commands = Tobago.Utils.selectWidthJQuery(elements, ".tobago-menu-markup-sheetDeselectAll");
   commands.click(function() {
-    var sheet = jQuery(Tobago.Utils.escapeClientId(jQuery(this).data("tobago-sheetid")));
+    var sheet = jQuery(Tobago.Utils.escapeClientId(jQuery(this).data("tobago-sheet-id")));
     Tobago.Sheet.deselectAll(sheet);
   });
   commands = Tobago.Utils.selectWidthJQuery(elements, ".tobago-menu-markup-sheetToggleAll");
   commands.click(function() {
-    var sheet = jQuery(Tobago.Utils.escapeClientId(jQuery(this).data("tobago-sheetid")));
+    var sheet = jQuery(Tobago.Utils.escapeClientId(jQuery(this).data("tobago-sheet-id")));
     Tobago.Sheet.toggleAll(sheet);
   });
 
@@ -297,7 +297,7 @@ Tobago.Sheet.setup2 = function (sheets) {
       // begin resizing
 //      console.log("begin");
 //      console.log(event);
-      var columnIndex = jQuery(this).data("tobago-columnindex");
+      var columnIndex = jQuery(this).data("tobago-column-index");
       var body = jQuery("body");
       var column = jQuery(this).closest("table").children("colgroup").children("col").eq(columnIndex);
       var filler = column.siblings("col:last");
@@ -401,7 +401,7 @@ Tobago.Sheet.setup2 = function (sheets) {
   // add selection listeners
   jQuery(sheets).each(function () {
     var sheet = jQuery(this);
-    var selectionMode = sheet.data("tobago-selectionmode");
+    var selectionMode = sheet.data("tobago-selection-mode");
     if (selectionMode == "single" || selectionMode == "singleOrNone" || selectionMode == "multi") {
       Tobago.Sheet.getRows(sheet).each(function () {
         var row = jQuery(this);
@@ -513,7 +513,7 @@ Tobago.Sheet.prototype.doSelection = function(event) {
       var selector = Tobago.Sheet.getSelectorCheckbox(row);
       var rowIndex = row.index() + sheet.data("tobago-first");
       var wasSelected = Tobago.Sheet.isSelected(sheet, rowIndex);
-      var selectionMode = sheet.data("tobago-selectionmode");
+      var selectionMode = sheet.data("tobago-selection-mode");
 
       if ((!event.ctrlKey && !event.metaKey && selector.size() == 0)
           || selectionMode == "single" || selectionMode == "singleOrNone") {

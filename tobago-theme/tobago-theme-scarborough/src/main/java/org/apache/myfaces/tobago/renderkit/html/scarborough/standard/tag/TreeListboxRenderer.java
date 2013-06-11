@@ -105,7 +105,7 @@ public class TreeListboxRenderer extends LayoutComponentRendererBase {
       writer.writeNameAttribute(clientId + AbstractUITree.SELECT_STATE);
       writer.writeIdAttribute(clientId + AbstractUITree.SELECT_STATE);
       writer.writeAttribute(HtmlAttributes.VALUE, ";", false);
-      writer.writeAttribute(DataAttributes.SELECTIONMODE, tree.getSelectableAsEnum().name(), false);
+      writer.writeAttribute(DataAttributes.SELECTION_MODE, tree.getSelectableAsEnum().name(), false);
       writer.endElement(HtmlElements.INPUT);
     }
 
@@ -167,7 +167,7 @@ public class TreeListboxRenderer extends LayoutComponentRendererBase {
     writer.startElement(HtmlElements.SELECT, tree);
     writer.writeClassAttribute(Classes.create(tree, "select"));
     if (parentId != null) {
-      writer.writeAttribute(DataAttributes.TREEPARENT, parentId, false);
+      writer.writeAttribute(DataAttributes.TREE_PARENT, parentId, false);
     }
 
     writer.writeAttribute(HtmlAttributes.SIZE, 9); // must be > 1, but the real size comes from the layout

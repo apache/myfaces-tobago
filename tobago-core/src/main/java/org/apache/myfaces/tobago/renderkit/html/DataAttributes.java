@@ -30,7 +30,11 @@ public final class DataAttributes {
    * The index of the column of a sheet. This index means the position of the rendered column. It can differ, if there
    * are tc:column with rendered=false.
    */
-  public static final String COLUMNINDEX = "data-tobago-columnindex";
+  public static final String COLUMN_INDEX = "data-tobago-column-index";
+
+  /** @deprecated Since 1.5.11 */
+  @Deprecated
+  public static final String COLUMNINDEX = COLUMN_INDEX;
 
   /**
    * TBD: needed? may replace with VALUE?
@@ -47,12 +51,20 @@ public final class DataAttributes {
   /**
    * Reference to the corresponding date input field. Used for date picker popups.
    */
-  public static final String DATEINPUTID = "data-tobago-dateinputid";
+  public static final String DATE_INPUT_ID = "data-tobago-date-input-id";
+
+  /** @deprecated Since 1.5.11 */
+  @Deprecated
+  public static final String DATEINPUTID = DATE_INPUT_ID;
 
   /**
    * Marker for the OK-button of the date picker popup.
    */
-  public static final String DATEPICKEROK = "data-tobago-datepickerok";
+  public static final String DATE_PICKER_OK = "data-tobago-date-picker-ok";
+
+  /** @deprecated Since 1.5.11 */
+  @Deprecated
+  public static final String DATEPICKEROK = DATE_PICKER_OK;
 
   /**
    * Holds the day of a calendar control.
@@ -81,7 +93,11 @@ public final class DataAttributes {
   /**
    * Holds the first day of a week of a calendar control.
    */
-  public static final String FIRSTDAYOFWEEK = "data-tobago-firstdayofweek";
+  public static final String FIRST_DAY_OF_WEEK = "data-tobago-first-day-of-week";
+
+  /** @deprecated Since 1.5.11 */
+  @Deprecated
+  public static final String FIRSTDAYOFWEEK = FIRST_DAY_OF_WEEK;
 
   /**
    * Defines a maximum value.
@@ -96,7 +112,11 @@ public final class DataAttributes {
   /**
    * Holds the names of the months of a calendar control.
    */
-  public static final String MONTHNAMES = "data-tobago-monthnames";
+  public static final String MONTH_NAMES = "data-tobago-month-names";
+
+  /** @deprecated Since 1.5.11 */
+  @Deprecated
+  public static final String MONTHNAMES = MONTH_NAMES;
 
   public static final String PARTIALLY = "data-tobago-partially";
 
@@ -110,9 +130,17 @@ public final class DataAttributes {
    */
   public static final String RELOAD = "data-tobago-reload";
 
-  public static final String ROWACTION = "data-tobago-rowaction";
+  public static final String ROW_ACTION = "data-tobago-row-action";
 
-  public static final String SELECTIONMODE = "data-tobago-selectionmode";
+  /** @deprecated Since 1.5.11 */
+  @Deprecated
+  public static final String ROWACTION = ROW_ACTION;
+
+  public static final String SELECTION_MODE = "data-tobago-selection-mode";
+
+  /** @deprecated Since 1.5.11 */
+  @Deprecated
+  public static final String SELECTIONMODE = SELECTION_MODE;
 
   /**
    * The selectable attribute e. g. for trees.
@@ -122,27 +150,47 @@ public final class DataAttributes {
   /**
    * Reference to a sheet.
    */
-  public static final String SHEETID = "data-tobago-sheetid";
+  public static final String SHEET_ID = "data-tobago-sheet-id";
+
+  /** @deprecated Since 1.5.11 */
+  @Deprecated
+  public static final String SHEETID = SHEET_ID;
 
   /**
    * Alternate to the src attribute, to implement a hover effect.
    */
-  public static final String SRCHOVER = "data-tobago-srchover";
+  public static final String SRC_HOVER = "data-tobago-src-hover";
+
+  /** @deprecated Since 1.5.11 */
+  @Deprecated
+  public static final String SRCHOVER = SRC_HOVER;
 
   /**
    * Alternate to the src attribute, to implement a hover effect.
    */
-  public static final String SRCDEFAULT = "data-tobago-srcdefault";
+  public static final String SRC_DEFAULT = "data-tobago-src-default";
+
+  /** @deprecated Since 1.5.11 */
+  @Deprecated
+  public static final String SRCDEFAULT = SRC_DEFAULT;
 
   /**
    * Alternate to the src attribute, icon open and close.
    */
-  public static final String SRCCLOSE = "data-tobago-srcclose";
+  public static final String SRC_CLOSE = "data-tobago-src-close";
+
+  /** @deprecated Since 1.5.11 */
+  @Deprecated
+  public static final String SRCCLOSE = SRC_CLOSE;
 
   /**
    * Alternate to the src attribute, icon open and close.
    */
-  public static final String SRCOPEN = "data-tobago-srcopen";
+  public static final String SRC_OPEN = "data-tobago-src-open";
+
+  /** @deprecated Since 1.5.11 */
+  @Deprecated
+  public static final String SRCOPEN = SRC_OPEN;
 
   /**
    * A way to transport style data in JSON format to the browser. With CSP the normal style attribute isn't allowed.
@@ -163,7 +211,11 @@ public final class DataAttributes {
   /**
    * Id of the parent node in a tree node.
    */
-  public static final String TREEPARENT = "data-tobago-treeparent";
+  public static final String TREE_PARENT = "data-tobago-tree-parent";
+
+  /** @deprecated Since 1.5.11 */
+  @Deprecated
+  public static final String TREEPARENT = TREE_PARENT;
 
   /**
    * Defines the unit, e. g. to differ between hours, minutes and seconds in a time control.
