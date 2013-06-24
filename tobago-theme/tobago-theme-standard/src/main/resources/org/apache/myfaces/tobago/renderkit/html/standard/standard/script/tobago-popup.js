@@ -217,13 +217,7 @@ Tobago.Popup.unlockBehind = function (popups) {
 };
 
 Tobago.Popup.openWithAction = function (source, popupId, actionId, options) {
-
-  // If there is no div, create one.
-  var div = jQuery(Tobago.Utils.escapeClientId(popupId));
-  if (div.size() == 0) {
-    jQuery('form').append("<div id='" + popupId + "' />");
-  }
-
+  // div creation moved to onComplete
   Tobago.reloadComponent(source, popupId, actionId, options);
 };
 
