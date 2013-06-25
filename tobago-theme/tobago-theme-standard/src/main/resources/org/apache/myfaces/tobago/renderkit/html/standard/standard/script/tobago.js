@@ -999,11 +999,10 @@ var Tobago = {
       }
     }
     if (commands.action) {
-      var delay = 100;
-      if (commands.action.delay) {
-        delay = commands.action.delay;
-      }
-      setTimeout(Tobago.submitAction(this, commands.action.action, commands.action), delay);
+      setTimeout(function () {
+            Tobago.submitAction(this, commands.action.action, commands.action);
+          },
+          commands.action.delay || 100);
     }
   },
 
