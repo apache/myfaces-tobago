@@ -22,6 +22,7 @@ package org.apache.myfaces.tobago.example.data;
 import org.apache.commons.lang.StringUtils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -33,6 +34,10 @@ public class LocaleList {
   public static final List<LocaleEntry> DATA;
 
   public static final List<String> COUNTRY_LANGUAGE;
+
+  public static final List<String> COUNTRY;
+
+  public static final List<String> HOLIDAY;
 
   static {
     List<LocaleEntry> init = new ArrayList<LocaleEntry>();
@@ -57,6 +62,34 @@ public class LocaleList {
     Collections.sort(list);
     COUNTRY_LANGUAGE = Collections.unmodifiableList(list);
   }
+
+  static {
+    Set<String> init = new HashSet<String>();
+    for (LocaleEntry localeEntry : DATA) {
+      if (StringUtils.isNotBlank(localeEntry.getCountry())) {
+        init.add(localeEntry.getCountry());
+      }
+    }
+    final ArrayList<String> list = new ArrayList<String>(init);
+    Collections.sort(list);
+    COUNTRY = Collections.unmodifiableList(list);
+  }
+
+  static {
+    final List<String> list = Arrays.asList(
+        "Trinidad and Tobago",
+        "Portugal",
+        "Norway",
+        "New Zealand",
+        "Equador",
+        "Greece",
+        "Reunion",
+        "Mauritius",
+        "Dominica");
+    Collections.sort(list);
+    HOLIDAY = Collections.unmodifiableList(list);
+  }
+
 
   private LocaleList() {
     // do not call

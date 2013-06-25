@@ -341,6 +341,16 @@ if (<it.propertyName> != null) {
 }
 >>
 
+SuggestFilter() ::= <<
+if (<it.propertyName> != null) {
+  if (!<it.propertyName>.isLiteralText()) {
+    <createValueBinding(it)>
+  } else {
+    component.set<it.upperCamelCaseName>(org.apache.myfaces.tobago.model.SuggestFilter.parse(<it.propertyName>.getExpressionString()));
+  }
+}
+>>
+
 Validator() ::= <<
 if (<it.propertyName> != null) {
   component.addValidator(new javax.faces.validator.MethodExpressionValidator(<it.propertyName>));

@@ -333,7 +333,7 @@ public class InExtensionTag extends TobagoExtensionBodyTagSupport {
   @TagAttribute
   @UIComponentTagAttribute(type = {},
       expression = DynamicExpression.METHOD_EXPRESSION_REQUIRED,
-      methodSignature = "java.lang.String")
+      methodSignature = "javax.faces.component.UIInput")
   public void setSuggestMethod(MethodExpression suggestMethod) {
     this.suggestMethod = suggestMethod;
   }

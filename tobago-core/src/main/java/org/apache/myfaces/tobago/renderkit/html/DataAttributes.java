@@ -199,12 +199,20 @@ public final class DataAttributes {
 
   /**
    * Custom suggest attribute. Used for input suggest.
+   * @deprecated Since Tobago 2.0.0. No longer needed.
    */
+  @Deprecated
   public static final String SUGGEST = "data-tobago-suggest";
 
   public static final String SUGGEST_DELAY = "data-tobago-suggest-delay";
 
+  public static final String SUGGEST_MAX_ITEMS = "data-tobago-suggest-max-items";
+
   public static final String SUGGEST_MIN_CHARS = "data-tobago-suggest-min-chars";
+
+  public static final String SUGGEST_TOTAL_COUNT = "data-tobago-suggest-total-count";
+
+  public static final String SUGGEST_UPDATE = "data-tobago-suggest-update";
 
   public static final String TRANSITION = "data-tobago-transition";
 

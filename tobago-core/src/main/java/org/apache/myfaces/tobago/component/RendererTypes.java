@@ -68,6 +68,7 @@ public final class RendererTypes {
   public static final String SHEET_PAGE_COMMAND = "SheetPageCommand";
   public static final String SHEET_LAYOUT = "SheetLayout";
   public static final String STYLE = "Style";
+  public static final String SUGGEST = "Suggest";
   public static final String TEXTAREA = "Textarea";
   public static final String TAB = "Tab";
   public static final String TAB_GROUP = "TabGroup";

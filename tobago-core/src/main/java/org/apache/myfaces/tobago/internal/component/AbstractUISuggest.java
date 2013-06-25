@@ -19,5 +19,26 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
-public abstract class AbstractUIDate extends AbstractUIInput {
+import org.apache.myfaces.tobago.component.InputSuggest2;
+import org.apache.myfaces.tobago.component.SupportsMarkup;
+import org.apache.myfaces.tobago.model.SuggestFilter;
+
+import javax.faces.component.UIComponentBase;
+
+public abstract class AbstractUISuggest
+    extends UIComponentBase implements SupportsMarkup, InputSuggest2 {
+
+  public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.Suggest";
+  public static final String COMPONENT_FAMILY = "org.apache.myfaces.tobago.Suggest";
+
+  @Override
+  public String getFamily() {
+    return COMPONENT_FAMILY;
+  }
+
+  public abstract void setDelay(Integer delay);
+
+  public abstract void setMinimumCharacters(Integer minimumCharacters);
+
+  public abstract void setFilter(SuggestFilter filter);
 }

@@ -382,6 +382,7 @@
         <script name="script/tobago-overlay.js"/>
         <script name="script/tobago-popup.js"/>
         <script name="script/tobago-sheet.js"/>
+        <script name="script/tobago-suggest.js"/>
         <script name="script/tobago-tree.js"/>
         <script name="script/tobago-utils.js"/>
         <script name="script/tobago-logging.js"/>

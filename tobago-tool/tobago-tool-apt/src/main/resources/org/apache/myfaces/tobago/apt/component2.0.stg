@@ -319,6 +319,10 @@ TextAlignProperty(property) ::= <<
 <NormalProperty(property)>
 >>
 
+SuggestFilterProperty(property) ::= <<
+<NormalProperty(property)>
+>>
+
 DisplayProperty(property) ::= <<
 <NormalProperty(property)>
 >>
@@ -442,27 +446,6 @@ public void set<property.upperCamelCaseName>(<property.type> <property.propertyN
   <else>
   getStateHelper().put(PropertyKeys.<property.propertyName>, <property.propertyName>);
   <endif>
-}
->>
-
-TextAlignProperty(property) ::= <<
-
-<createDescription(property)>
-<checkDeprecated(property)>
-public <property.type> get<property.upperCamelCaseName>() {
-  String string = (String) getStateHelper().eval(PropertyKeys.<property.propertyName>);
-  return TextAlign.parse(string);
-  <if(property.defaultCode)>
-  return <property.defaultCode>;
-  <else>
-  return null;
-  <endif>
-}
-
-<checkDeprecated(property)>
-public void set<property.upperCamelCaseName>(<property.type> <property.propertyName>) {
-  <logDeprecated(property)>
-  getStateHelper().put(PropertyKeys.<property.propertyName>, <property.propertyName>);
 }
 >>
 

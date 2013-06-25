@@ -1124,6 +1124,12 @@ a:active.tobago-sheet-pagingLink {
   margin-left: 1px;
 }
 
+/* suggest ---------------------------------------------------------------------- */
+
+.tobago-suggest {
+  position: absolute;
+}
+
 /* richTextEditor ---------------------------------------------------------- */
 
 .tobago-richTextEditor-container {

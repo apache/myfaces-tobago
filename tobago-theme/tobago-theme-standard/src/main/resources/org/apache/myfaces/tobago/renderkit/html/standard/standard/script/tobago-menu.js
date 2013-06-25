@@ -231,8 +231,11 @@ function compatibleKeyEvent() {
 }
 
 Tobago.Menu.mouseOver = function(event) {
-      jQuery(this).children('a').focus();
-      return false;
+  var a = jQuery(this).children('a');
+  if (! a.data("tobago-ignore-focus")) { // can be removed, after refactoring to a jQuery widget variable
+    a.focus();
+  }
+  return false;
 };
 
 Tobago.Menu.switchOn = function(menuBar, menu) {
@@ -242,7 +245,10 @@ Tobago.Menu.switchOn = function(menuBar, menu) {
       .children('a')
       .bind('focus', Tobago.Menu.open)
       .bind(compatibleKeyEvent(), Tobago.Menu.handelKey);
-  menu.children('a').focus();
+  var a = menu.children('a');
+  if (! a.data("tobago-ignore-focus")) { // can be removed, after refactoring to a jQuery widget variable
+    a.focus();
+  }
   jQuery("body").bind('click', Tobago.Menu.closeAll);
   menuBar.data('menu-active', true);        // write state back
 };

@@ -17,7 +17,17 @@
  * under the License.
  */
 
-package org.apache.myfaces.tobago.internal.component;
+package org.apache.myfaces.tobago.model;
 
-public abstract class AbstractUIDate extends AbstractUIInput {
+import org.junit.Assert;
+import org.junit.Test;
+
+public class SuggestFilterUnitTest {
+
+  @Test
+  public void testConstants() {
+    Assert.assertEquals(SuggestFilter.ALL.getValue(), SuggestFilter.STRING_ALL);
+    Assert.assertEquals(SuggestFilter.PREFIX.getValue(), SuggestFilter.STRING_PREFIX);
+    Assert.assertEquals(SuggestFilter.CONTAINS.getValue(), SuggestFilter.STRING_CONTAINS);
+  }
 }

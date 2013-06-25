@@ -38,4 +38,9 @@ public abstract class AbstractUIInput extends javax.faces.component.UIInput
   public abstract Integer getTabIndex();
 
   public abstract boolean isFocus();
+
+  public abstract boolean isDisabled();
+
+  public abstract boolean isReadonly();
+
 }

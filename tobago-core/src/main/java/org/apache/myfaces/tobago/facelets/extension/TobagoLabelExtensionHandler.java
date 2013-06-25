@@ -191,9 +191,15 @@ public abstract class TobagoLabelExtensionHandler extends ComponentHandler {
 
   public void onComponentPopulated(FaceletContext faceletContext, UIComponent component, UIComponent parent) {
     super.onComponentPopulated(faceletContext, component, parent);
-    if (component.getChildren().size() > 1 && component.getChildren().get(1) instanceof EditableValueHolder) {
-      TobagoComponentHandler.addDefaultValidators(faceletContext.getFacesContext(),
-          (EditableValueHolder) component.getChildren().get(1));
+
+    if (component.getChildren().size() > 1) {
+      UIComponent input = component.getChildren().get(1);
+      if (input instanceof EditableValueHolder) {
+        TobagoComponentHandler.addDefaultValidators(faceletContext.getFacesContext(), (EditableValueHolder) input);
+      }
+      if (input instanceof OnComponentPopulated) {
+        ((OnComponentPopulated) input).onComponentPopulated(faceletContext.getFacesContext(), component);
+      }
     }
   }
 

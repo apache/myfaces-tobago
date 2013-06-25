@@ -19,17 +19,17 @@
 
 package org.apache.myfaces.tobago.example.reference;
 
+import org.apache.commons.lang.math.RandomUtils;
 import org.apache.myfaces.tobago.model.AutoSuggestExtensionItem;
 import org.apache.myfaces.tobago.model.AutoSuggestItem;
 import org.apache.myfaces.tobago.model.AutoSuggestItems;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIInput;
 import javax.faces.model.SelectItem;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class InputSuggestController {
 
@@ -115,15 +115,16 @@ public class InputSuggestController {
 
   public List<String> getSimpleSuggestItems(UIInput component) {
     String prefix = (String) component.getSubmittedValue();
-    LOG.info("createing items for prefix :\"" + prefix + "\"");
-    List<String> li = new ArrayList<String>();
-    li.add(prefix+1);
-    li.add(prefix+2);
-    li.add(prefix+3);
-    li.add(prefix+4);
-    li.add(prefix+5);
-    li.add(prefix+6);
-    return li;
+    LOG.info("Creating items for prefix '" + prefix + "'");
+    if (prefix == null) {
+      prefix = "";
+    }
+    List<String> list = new ArrayList<String>();
+    int n = RandomUtils.nextInt(10);
+    for (int i = 0; i < n; i++) {
+      list.add(prefix + i);
+    }
+    return list;
   }
 
   public AutoSuggestItems getZipSuggestItems(UIInput component) {

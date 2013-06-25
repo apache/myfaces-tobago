@@ -17,7 +17,26 @@
  * under the License.
  */
 
-package org.apache.myfaces.tobago.internal.component;
+package org.apache.myfaces.tobago.model;
 
-public abstract class AbstractUIDate extends AbstractUIInput {
+public enum SuggestFilter {
+
+  ALL,
+  PREFIX,
+  CONTAINS;
+
+  public static final String STRING_ALL = "all";
+  public static final String STRING_PREFIX = "prefix";
+  public static final String STRING_CONTAINS = "contains";
+
+  public String getValue() {
+    return name().toLowerCase();
+  }
+
+  public static SuggestFilter parse(String string) {
+    if (string == null) {
+      return null;
+    }
+    return valueOf(string.toUpperCase());
+  }
 }

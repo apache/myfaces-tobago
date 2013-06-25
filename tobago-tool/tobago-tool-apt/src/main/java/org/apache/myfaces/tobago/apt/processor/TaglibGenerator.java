@@ -606,7 +606,8 @@ public class TaglibGenerator extends AbstractGenerator {
                 String clazz;
                 if (componentTagAttribute.type().length == 1
                     // XXX This is because an enum will not be converted in JSP with the PropertyEditor
-                    && !"org.apache.myfaces.tobago.layout.TextAlign".equals(componentTagAttribute.type()[0])) {
+                    && !"org.apache.myfaces.tobago.layout.TextAlign".equals(componentTagAttribute.type()[0])
+                    && !"org.apache.myfaces.tobago.model.SuggestFilter".equals(componentTagAttribute.type()[0])) {
                   clazz = componentTagAttribute.type()[0];
                   Class wrapper = ClassUtils.getWrapper(clazz);
                   if (wrapper != null) {

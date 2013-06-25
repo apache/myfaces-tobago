@@ -19,8 +19,9 @@
 
 package org.apache.myfaces.tobago.facelets;
 
-import org.apache.myfaces.tobago.component.InputSuggest;
-import org.apache.myfaces.tobago.component.UIIn;
+import org.apache.myfaces.tobago.component.InputSuggest2;
+import org.apache.myfaces.tobago.internal.component.AbstractUISuggest;
+import org.apache.myfaces.tobago.model.SuggestFilter;
 
 import javax.faces.view.facelets.FaceletContext;
 import javax.faces.view.facelets.MetaRule;
@@ -29,14 +30,23 @@ import javax.faces.view.facelets.MetadataTarget;
 import javax.faces.view.facelets.TagAttribute;
 
 public class SuggestMethodRule extends MetaRule {
-  static final Class[] SUGGEST_METHOD = new Class[]{javax.faces.component.UIInput.class};
+
+  public static final Class[] SUGGEST_METHOD = new Class[]{javax.faces.component.UIInput.class};
+
   public static final SuggestMethodRule INSTANCE = new SuggestMethodRule();
 
-  public Metadata applyRule(String name, TagAttribute attribute,
-      MetadataTarget metadataTarget) {
-    if (metadataTarget.isTargetInstanceOf(InputSuggest.class)) {
+  public Metadata applyRule(String name, TagAttribute attribute, MetadataTarget metadataTarget) {
+
+    if (metadataTarget.isTargetInstanceOf(InputSuggest2.class)) {
       if ("suggestMethod".equals(name)) {
         return new SuggestMethodMapper(attribute);
+      }
+    }
+    if (metadataTarget.isTargetInstanceOf(AbstractUISuggest.class)) {
+      if (attribute.isLiteral()) {
+        if ("filter".equals(name)) {
+          return new SuggestFilterMapper(attribute);
+        }
       }
     }
     return null;
@@ -50,8 +60,21 @@ public class SuggestMethodRule extends MetaRule {
     }
 
     public void applyMetadata(FaceletContext ctx, Object instance) {
-      ((UIIn) instance).setSuggestMethodExpression(
+      ((InputSuggest2) instance).setSuggestMethodExpression(
           attribute.getMethodExpression(ctx, null, SuggestMethodRule.SUGGEST_METHOD));
     }
   }
+
+  static final class SuggestFilterMapper extends Metadata {
+    private final TagAttribute attribute;
+
+    SuggestFilterMapper(TagAttribute attribute) {
+      this.attribute = attribute;
+    }
+
+    public void applyMetadata(FaceletContext ctx, Object instance) {
+      ((AbstractUISuggest) instance).setFilter(SuggestFilter.parse(attribute.getValue()));
+    }
+  }
+
 }
