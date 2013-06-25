@@ -163,10 +163,10 @@ public class MenuCommandRenderer extends CommandRendererBase {
         iconStyle.setWidth(Measure.valueOf(16));
 
         writer.startElement(HtmlElements.IMG, null);
-        String imageWithPath = ResourceManagerUtils.getImageWithPath(facesContext, image, true);
+        String imageWithPath = ResourceManagerUtils.getImageOrDisabledImageWithPath(facesContext, image, disabled);
         writer.writeAttribute(HtmlAttributes.SRC, imageWithPath, false);
-        String imageHover
-            = ResourceManagerUtils.getImageWithPath(facesContext, HtmlRendererUtils.createSrc(image, "Hover"), true);
+        String imageHover = ResourceManagerUtils
+            .getImageOrDisabledImageWithPath(facesContext, HtmlRendererUtils.createSrc(image, "Hover"), disabled);
         if (imageHover != null) {
           writer.writeAttribute(DataAttributes.SRC_DEFAULT, imageWithPath, false);
           writer.writeAttribute(DataAttributes.SRC_HOVER, imageHover, false);
@@ -178,7 +178,7 @@ public class MenuCommandRenderer extends CommandRendererBase {
       } else {
         Style style = new Style();
         style.setBackgroundImage("url("
-            + ResourceManagerUtils.getImageWithPath(facesContext, image)
+            + ResourceManagerUtils.getImageOrDisabledImageWithPath(facesContext, image, disabled)
             + ")");
         writer.writeStyleAttribute(style);
       }
