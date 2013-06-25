@@ -22,6 +22,7 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.UIMenu;
 import org.apache.myfaces.tobago.context.Markup;
+import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.internal.util.AccessKeyMap;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
@@ -68,12 +69,16 @@ public class MenuRenderer extends LayoutComponentRendererBase {
     writer.writeClassAttribute(Classes.create(menu, firstLevel ? Markup.TOP : null));
     if (menu.getImage() != null) {
       Style style = new Style();
-      style.setBackgroundImage("url(" + menu.getImage() + ")");
+      style.setBackgroundImage("url("
+          + ResourceManagerUtils.getImageOrDisabledImageWithPath(facesContext, menu.getImage(), menu.isDisabled())
+          + ")");
       writer.writeStyleAttribute(style);
     }
     writer.startElement(HtmlElements.A, menu);
     writer.writeAttribute(HtmlAttributes.HREF, "#", false);
-
+    if (isParentMenu && !firstLevel) {
+      writer.writeClassAttribute(Classes.create(menu, "subitem-ancor"));
+    }
     if (component != null && !component.isTransient()) {
       writer.writeIdAttribute(component.getClientId(facesContext));
     }
@@ -93,6 +98,14 @@ public class MenuRenderer extends LayoutComponentRendererBase {
     }
     writer.endElement(HtmlElements.A);
     if (isParentMenu) {
+      if (!firstLevel) {
+        writer.startElement(HtmlElements.IMG, menu);
+        String arrow = ResourceManagerUtils
+            .getImageOrDisabledImageWithPath(facesContext, "image/MenuArrow.gif", menu.isDisabled());
+        writer.writeAttribute(HtmlAttributes.SRC, arrow, false);
+        writer.writeClassAttribute(Classes.create(menu, "subitem-arrow"));
+        writer.endElement(HtmlElements.IMG);
+      }
       writer.startElement(HtmlElements.OL, menu);
     }
   }
