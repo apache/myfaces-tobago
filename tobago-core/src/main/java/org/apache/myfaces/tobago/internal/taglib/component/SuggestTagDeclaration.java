@@ -39,8 +39,8 @@ import javax.faces.component.UIInput;
  * <ul>
  *   <li>provide a list directly while rendering (not AJAX needed) [todo]</li>
  *   <li>update by typing (AJAX)</li>
- *   <li>minimum number of typed characters (to avoid useless requests) [todo]</li>
- *   <li>update delay (useful for optimization) [todo]</li>
+ *   <li>minimum number of typed characters (to avoid useless requests)</li>
+ *   <li>update delay (useful for optimization)</li>
  *   <li>filter on client side (useful for optimization) [todo]</li>
  * </ul>
  *
