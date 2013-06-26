@@ -243,11 +243,11 @@ Tobago.Menu.switchOn = function(menuBar, menu) {
       .add(menuBar.find('li').tobagoMenu_findSubMenu().find('li')) // add sub menus
       .bind('mouseover', Tobago.Menu.mouseOver)
       .children('a')
-      .bind('focus', Tobago.Menu.open)
+      .bind('focusin', Tobago.Menu.open)
       .bind(compatibleKeyEvent(), Tobago.Menu.handelKey);
   var a = menu.children('a');
   if (! a.data("tobago-ignore-focus")) { // can be removed, after refactoring to a jQuery widget variable
-    a.focus();
+    a.focusin();
   }
   jQuery("body").bind('click', Tobago.Menu.closeAll);
   menuBar.data('menu-active', true);        // write state back
@@ -260,7 +260,7 @@ Tobago.Menu.switchOff = function(menuBar) {
   menuBar.find('li').add(menuBar.find('li').tobagoMenu_findSubMenu().find('li'))
       .unbind('mouseover', Tobago.Menu.mouseOver)
       .children('a')
-      .unbind('focus', Tobago.Menu.open)
+      .unbind('focusin', Tobago.Menu.open)
       .unbind(compatibleKeyEvent(), Tobago.Menu.handelKey);
   jQuery("body").unbind('click', Tobago.Menu.closeAll);
   menuBar.find('.tobago-menu-markup-selected').removeClass("tobago-menu-markup-selected");
