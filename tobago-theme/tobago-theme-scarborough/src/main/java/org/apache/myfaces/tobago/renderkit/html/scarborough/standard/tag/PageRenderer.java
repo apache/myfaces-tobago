@@ -180,7 +180,7 @@ public class PageRenderer extends PageRendererBase {
         } catch (NumberFormatException e) {/* ignore; use default*/ }
       }
     }
-    boolean frameKiller = tobagoConfig.isPreventFrameAttacks();
+    boolean preventFrameAttacks = tobagoConfig.isPreventFrameAttacks();
 
     if (!FacesContextUtils.isAjax(facesContext)) {
       HtmlRendererUtils.renderDojoDndSource(facesContext, component);
@@ -324,8 +324,8 @@ public class PageRenderer extends PageRendererBase {
     }
 
     writer.startElement(HtmlElements.FORM, page);
-    if (frameKiller && !FacesContextUtils.isAjax(facesContext)) {
-      writer.writeAttribute(HtmlAttributes.STYLE, "display:none", false);
+    if (preventFrameAttacks && !FacesContextUtils.isAjax(facesContext)) {
+      writer.writeClassAttribute(Classes.create(page, "preventFrameAttacks", Markup.NULL));
     }
     writer.writeAttribute(HtmlAttributes.ACTION, formAction, true);
     writer.writeIdAttribute(page.getFormId(facesContext));

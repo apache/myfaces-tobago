@@ -29,6 +29,7 @@
   </theme-config>
   <resource-dir>tobago-resource</resource-dir>
 
+  <!-- because this application uses frames -->
   <prevent-frame-attacks>false</prevent-frame-attacks>
 
 <!-- uncomment this to enable CSP -->

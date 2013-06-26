@@ -690,6 +690,10 @@ li.tobago-menu-markup-selected {
   font-size: 15px;
 }
 
+.tobago-page-preventFrameAttacks {
+  display: none;
+}
+
 /* panel -------------------------------------------------------------- */
 
 .tobago-panel {
