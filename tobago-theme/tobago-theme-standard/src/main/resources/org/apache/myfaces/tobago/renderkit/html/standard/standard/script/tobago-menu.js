@@ -31,7 +31,7 @@
          ...
        </ol>
        <div class="tobago-page">
-         // page content     
+         // page content
        </div>
        <span ... </span>
        <div class="tobago-menu-store">  // container for the sub menus.
@@ -49,7 +49,7 @@
      </form>
    </body>
  </html>
- The menu items of the top level (id="m1") are connected to the sub menus of the store div (id="m1::menu").   
+ The menu items of the top level (id="m1") are connected to the sub menus of the store div (id="m1::menu").
  */
 
 Tobago.Menu = {};
@@ -60,7 +60,7 @@ Tobago.Menu = {};
 Tobago.Menu.handelKey = function(event) {
 
   var handled = false;
-  
+
   var code = event.which;
   if (code  == 0) {
     code = event.keyCode;
@@ -113,9 +113,9 @@ Tobago.Menu.handelKey = function(event) {
   return !handled;
 };
 
-/*
-  jQuery(this) is a <a> tag of a menu item.
-*/
+/**
+ * jQuery(this) is a <a> tag of a menu item.
+ */
 Tobago.Menu.open = function(event) {
 
   var li = jQuery(this).parent();
@@ -124,7 +124,7 @@ Tobago.Menu.open = function(event) {
   // close menus in other branches
   li.siblings().tobagoMenu_findSubMenu().find('ol').andSelf().css('visibility', 'hidden');
 
-  // close sub sub menu 
+  // close sub sub menu
   sub.children().find("ol").css('visibility', 'hidden');
 
   // we have to set display to none, because otherwise, the sub-menu may produce scroll-bars.
@@ -160,7 +160,7 @@ Tobago.Menu.open = function(event) {
 
     // show
     sub.css('visibility', 'visible');
-    
+
     // IE6 select-tag fix
     if (Tobago.browser.isMsie6) {
       //          sub.css('width', sub.width());
@@ -174,7 +174,7 @@ Tobago.Menu.open = function(event) {
       iframe.css('top', -(parseInt(sub.css('border-top-width')) + parseInt(sub.css('padding-top'))));
     }
   }
-      
+
   // old "hover" off
   li.siblings('.tobago-menu-markup-selected').removeClass("tobago-menu-markup-selected");
   sub.children('.tobago-menu-markup-selected').removeClass("tobago-menu-markup-selected");
@@ -206,9 +206,9 @@ Tobago.Menu.switchOn = function(menuBar, menu) {
       .add(menuBar.find('li').tobagoMenu_findSubMenu().find('li')) // add sub menus
       .bind('mouseover', Tobago.Menu.mouseOver)
       .children('a')
-      .bind('focus', Tobago.Menu.open)
+      .bind('focusin', Tobago.Menu.open)
       .bind(compatibleKeyEvent(), Tobago.Menu.handelKey);
-  menu.children('a').focus();
+  menu.children('a').focusin();
   jQuery("body").bind('click', Tobago.Menu.closeAll);
   menuBar.data('menu-active', true);        // write state back
 };
@@ -220,7 +220,7 @@ Tobago.Menu.switchOff = function(menuBar) {
   menuBar.find('li').add(menuBar.find('li').tobagoMenu_findSubMenu().find('li'))
       .unbind('mouseover', Tobago.Menu.mouseOver)
       .children('a')
-      .unbind('focus', Tobago.Menu.open)
+      .unbind('focusin', Tobago.Menu.open)
       .unbind(compatibleKeyEvent(), Tobago.Menu.handelKey);
   jQuery("body").unbind('click', Tobago.Menu.closeAll);
   menuBar.find('.tobago-menu-markup-selected').removeClass("tobago-menu-markup-selected");
@@ -308,7 +308,7 @@ jQuery.tobagoMenuParent = function(element) {
 
 /*
   jQuery(this) is a "ol" element which represents a sub menu.
-  returns the "a" element connected with the given sub menu.  
+  returns the "a" element connected with the given sub menu.
 */
 (function(jQuery) {
   jQuery.fn.extend({
