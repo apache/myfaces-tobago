@@ -2926,7 +2926,7 @@ Tobago.File.init = function(elements) {
   files.change(function () {
     var file = jQuery(this);
     var pretty = file.prev();
-    var filename = file.attr('value');
+    var filename = file.val();
     // remove path, if any. Some old browsers set the path, others like webkit uses the prefix "C:\facepath\".
     var pos = Math.max(filename.lastIndexOf('/'), filename.lastIndexOf('\\'));
     if (pos >= 0) {
