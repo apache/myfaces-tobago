@@ -2641,7 +2641,7 @@ Tobago.TabGroup.updateHidden = function(tab) {
   var tabGroup = tab.parents(".tobago-tabGroup:first");
   var hidden = tabGroup.children("input");
   var activeIndex = tab.attr("tabgroupindex");
-  hidden.attr("value", activeIndex);
+  hidden.val(activeIndex);
   return activeIndex;
 };
 
@@ -2932,7 +2932,7 @@ Tobago.File.init = function(elements) {
     if (pos >= 0) {
       filename = filename.substr(pos + 1);
     }
-    pretty.attr('value', filename);
+    pretty.val(filename);
   });
   if (files.length > 0) {
     jQuery("form").attr('enctype', 'multipart/form-data')

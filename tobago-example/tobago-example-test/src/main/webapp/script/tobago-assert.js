@@ -82,10 +82,21 @@ var TobagoAssert = {
   },
 
   assertAttribute:function (elementOrId, attribute, expected) {
+    if ("value" == attribute) {
+      LOG.error("The assertAttribute() is not allowed for the value attribute, please use assertValue() instead.");
+    }
     var element = TobagoAssert.jQueryElement(elementOrId);
     if (element.attr(attribute) != expected) {
       LOG.error("The attribute '" + attribute + "' of element with id=" + element.attr('id')
           + " is '" + element.attr(attribute) + "', but expected was '" + expected + "'.");
+    }
+  },
+
+  assertValue:function (elementOrId, expected) {
+    var element = TobagoAssert.jQueryElement(elementOrId);
+    if (element.val() != expected) {
+      LOG.error("The value of element with id=" + element.attr('id')
+          + " is '" + element.val() + "', but expected was '" + expected + "'.");
     }
   },
 

@@ -250,7 +250,7 @@ Tobago.Calendar.getDateField = function (element) {
 Tobago.Calendar.initFromDateField = function (calendar) {
   var dateField = Tobago.Calendar.getDateField(calendar);
   var pattern = dateField.data("tobago-pattern");
-  var value = dateField.attr("value");
+  var value = dateField.val();
   var date = new Date(getDateFromFormat(value, pattern));
   if (date.getTime() == 0) {
     date = new Date();

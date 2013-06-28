@@ -107,16 +107,16 @@
 
         // only to display
         jQuery("#page\\:id-box input").each(function() {
-          jQuery(this).attr('value', (jQuery(this).attr('id')));
+          jQuery(this).val(jQuery(this).attr('id'));
         });
 
         // assertions
-        TobagoAssert.assertAttribute("page:direct", "value", "direct literal");
-        TobagoAssert.assertAttribute("page:v1", "value", "from var");
-        TobagoAssert.assertAttribute("page:v2", "value", "from var");
-        TobagoAssert.assertAttribute("page:v3", "value", "from var ++");
-        TobagoAssert.assertAttribute("page:v4", "value", "value from model");
-        TobagoAssert.assertAttribute("page:vu", "value", "");
+        TobagoAssert.assertValue("page:direct", "direct literal");
+        TobagoAssert.assertValue("page:v1", "from var");
+        TobagoAssert.assertValue("page:v2", "from var");
+        TobagoAssert.assertValue("page:v3", "from var ++");
+        TobagoAssert.assertValue("page:v4", "value from model");
+        TobagoAssert.assertValue("page:vu", "");
 
         var i1 = jQuery(Tobago.Utils.escapeClientId("page:id-box")).find("input:eq(0)");
         TobagoAssert.assertAttribute(i1, "id", "page:my_number_1");

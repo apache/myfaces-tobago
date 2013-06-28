@@ -62,10 +62,10 @@
           }
         });
 
-        jQuery(Tobago.Utils.escapeClientId("page:standard")).attr('value', posStandard);
-        jQuery(Tobago.Utils.escapeClientId("page:standardApp")).attr('value', posStandardApp);
-        jQuery(Tobago.Utils.escapeClientId("page:scarborough")).attr('value', posScarborough);
-        jQuery(Tobago.Utils.escapeClientId("page:application")).attr('value', posApp);
+        jQuery(Tobago.Utils.escapeClientId("page:standard")).val(posStandard);
+        jQuery(Tobago.Utils.escapeClientId("page:standardApp")).val(posStandardApp);
+        jQuery(Tobago.Utils.escapeClientId("page:scarborough")).val(posScarborough);
+        jQuery(Tobago.Utils.escapeClientId("page:application")).val(posApp);
 
         if (posStandard == -1) {
           LOG.error("Script for theme 'standard' not found!");
