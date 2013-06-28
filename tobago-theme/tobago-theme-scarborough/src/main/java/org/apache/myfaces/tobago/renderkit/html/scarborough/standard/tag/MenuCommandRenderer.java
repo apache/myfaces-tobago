@@ -147,7 +147,9 @@ public class MenuCommandRenderer extends CommandRendererBase {
       css += " tobago-menu-" + sub;
     }
     writer.writeClassAttribute(css);
-    writer.writeAttribute(DataAttributes.COMMANDS, JsonUtils.encode(map), true);
+    if (!disabled) {
+      writer.writeAttribute(DataAttributes.COMMANDS, JsonUtils.encode(map), true);
+    }
     writer.writeAttribute(DataAttributes.VALUE, value, true);
 
     if (component != null) {

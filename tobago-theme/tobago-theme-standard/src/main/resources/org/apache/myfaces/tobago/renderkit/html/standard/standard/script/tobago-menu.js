@@ -66,39 +66,48 @@ Tobago.Menu.handelKey = function(event) {
     code = event.keyCode;
   }
 
+  var anchor = jQuery(this);
   switch (code) {
     case 27: // escape
       Tobago.Menu.closeAll();
       handled = true;
       break;
     case 37: // cursor left
-      if (jQuery(this).parent().hasClass('tobago-menu-markup-top')) {
+      if (anchor.parent().hasClass('tobago-menu-markup-top')) {
         // on top: if on first goto last else goto prev
-        var prevMenu = jQuery(this).parent().prev('li');
+        var prevMenu = anchor.parent().prevAll('li').not(".tobago-menu-markup-disabled");
         if (prevMenu.length == 0) {
           // goto last
-          jQuery(this).parent().nextAll('li:last').children('a').eq(0).focus();
+          anchor.parent().nextAll('li').not(".tobago-menu-markup-disabled").last().children('a').eq(0).focus();
         } else {
           // goto prev
-          prevMenu.children('a').focus();
+          prevMenu.eq(0).children('a').focus();
         }
-      } else if (jQuery(this).parent().parent().tobagoMenu_findParentMenu().hasClass('tobago-menu-markup-top')) {
-        jQuery(this).parent().parent().tobagoMenu_findParentMenu().prev('li').children('a').focus();
+      } else if (anchor.parent().parent().tobagoMenu_findParentMenu().hasClass('tobago-menu-markup-top')) {
+        var prevParent = anchor.parent().parent().tobagoMenu_findParentMenu()
+            .prevAll('li').not(".tobago-menu-markup-disabled").eq(0);
+        if (prevParent.length == 0) {
+          anchor.parent().parent().tobagoMenu_findParentMenu().nextAll('li').not(".tobago-menu-markup-disabled").last()
+              .children('a').focus();
+        } else {
+          prevParent.children('a').focus();
+        }
       } else {
-        jQuery(this).closest('ol').prev('a').focus();
+        anchor.closest('ol').prevAll('a').focus();
       }
       handled = true;
       break;
     case 38: // cursor up
-      if (jQuery(this).parent().hasClass('tobago-menu-markup-top')) {
+      if (anchor.parent().hasClass('tobago-menu-markup-top')) {
         // on top: goto last child
-        jQuery(this).parent().tobagoMenu_findSubMenu().children(":last-child").children('a').focus();
+        anchor.parent().tobagoMenu_findSubMenu().children().not(".tobago-menu-markup-disabled").last()
+            .children('a').focus();
       } else {
         // if on first goto last else goto prev
-        var prevAll = jQuery(this).parent().prevAll('li');
+        var prevAll = anchor.parent().prevAll('li').not(".tobago-menu-markup-disabled");
         if (prevAll.length == 0) {
           // goto last
-          jQuery(this).parent().nextAll('li:last').children('a').eq(0).focus();
+          anchor.parent().nextAll('li').not(".tobago-menu-markup-disabled").last().children('a').eq(0).focus();
         } else {
           // goto prev
           prevAll.children('a').eq(0).focus();
@@ -107,33 +116,41 @@ Tobago.Menu.handelKey = function(event) {
       handled = true;
       break;
     case 39: // cursor right
-      if (jQuery(this).parent().hasClass('tobago-menu-markup-top')) {
+      if (anchor.parent().hasClass('tobago-menu-markup-top')) {
         // on top: if on last goto first else goto next
-        var nextMenu = jQuery(this).parent().next('li');
+        var nextMenu = anchor.parent().nextAll('li').not(".tobago-menu-markup-disabled");
         if (nextMenu.length == 0) {
           // goto first
-          jQuery(this).parent().prevAll('li:last').children('a').eq(0).focus();
+          anchor.parent().prevAll('li').not(".tobago-menu-markup-disabled").last().children('a').eq(0).focus();
         } else {
           // goto next
           nextMenu.children('a').eq(0).focus();
         }
-      } else if (jQuery(this).next('ol').size() > 0) {
-        jQuery(this).next('ol').children(":nth-child(1)").children('a').focus();
+      } else if (anchor.nextAll('ol').children('li').not(".tobago-menu-markup-disabled").size() > 0) {
+        anchor.nextAll('ol').children('li').not(".tobago-menu-markup-disabled").first().children('a').focus();
       } else {
-        jQuery(this).parents('ol:last').tobagoMenu_findParentMenu().next('li').children('a').focus();
+        var menuTop = anchor.parent().tobagoMenu_findTopMenu();
+        var nextTop = menuTop.nextAll().not(".tobago-menu-markup-disabled");
+        if (nextTop.length == 0) {
+          menuTop.prevAll().not(".tobago-menu-markup-disabled").last().children('a').focus();
+        } else {
+          nextTop.eq(0).children('a').focus();
+        }
       }
       handled = true;
       break;
     case 40: // cursor down
-      if (jQuery(this).parent().hasClass('tobago-menu-markup-top')) {
+      if (anchor.parent().hasClass('tobago-menu-markup-top')) {
         // on top: goto first child
-        jQuery(this).parent().tobagoMenu_findSubMenu().children(":first-child").children('a').focus();
+        anchor.parent().tobagoMenu_findSubMenu().children(":first-child").children('a').focus();
+        anchor.parent().tobagoMenu_findSubMenu().children().not(".tobago-menu-markup-disabled").first()
+            .children('a').focus();
       } else {
         // if on last goto first else goto next
-        var nextAll2 = jQuery(this).parent().nextAll('li');
+        var nextAll2 = anchor.parent().nextAll('li').not(".tobago-menu-markup-disabled");
         if (nextAll2.length == 0) {
           // goto first
-          jQuery(this).parent().prevAll('li:last').children('a').eq(0).focus();
+          anchor.parent().prevAll('li').not(".tobago-menu-markup-disabled").last().children('a').eq(0).focus();
         } else {
           // goto next
           nextAll2.children('a').eq(0).focus();
@@ -383,7 +400,7 @@ jQuery.tobagoMenuParent = function(element) {
 
 /*
   jQuery(this) is a "ol" element which represents a sub menu.
-  returns the "a" element connected with the given sub menu.  
+  returns the "li" element connected with the given sub menu.
 */
 (function(jQuery) {
   jQuery.fn.extend({
@@ -394,6 +411,23 @@ jQuery.tobagoMenuParent = function(element) {
         return superMenu;
       }
       return ol;
+    }
+  });
+})(jQuery);
+
+/*
+  jQuery(this) is a "li" element which represents a menu item.
+  returns the topmost "li" element connected with the given menu item.
+*/
+(function(jQuery) {
+  jQuery.fn.extend({
+    tobagoMenu_findTopMenu: function() {
+      var parentMenu = jQuery(this).parent().tobagoMenu_findParentMenu();
+      if (parentMenu.hasClass("tobago-menu-markup-top")) {
+        return parentMenu;
+      } else {
+        return parentMenu.tobagoMenu_findTopMenu();
+      }
     }
   });
 })(jQuery);
