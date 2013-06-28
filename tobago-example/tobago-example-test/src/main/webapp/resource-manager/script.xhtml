@@ -40,10 +40,10 @@
         var posScarborough = jQuery("head>script[src='/org/apache/myfaces/tobago/renderkit/html/scarborough/standard/script/tobago.js']").prevAll().size();
         var posApp = jQuery("head>script[src='/script/tobago.js']").prevAll().size();
 
-        jQuery(Tobago.Utils.escapeClientId("page:standard")).attr('value', posStandard);
-        jQuery(Tobago.Utils.escapeClientId("page:standardApp")).attr('value', posStandardApp);
-        jQuery(Tobago.Utils.escapeClientId("page:scarborough")).attr('value', posScarborough);
-        jQuery(Tobago.Utils.escapeClientId("page:application")).attr('value', posApp);
+        jQuery(Tobago.Utils.escapeClientId("page:standard")).val(posStandard);
+        jQuery(Tobago.Utils.escapeClientId("page:standardApp")).val(posStandardApp);
+        jQuery(Tobago.Utils.escapeClientId("page:scarborough")).val(posScarborough);
+        jQuery(Tobago.Utils.escapeClientId("page:application")).val(posApp);
 
         if (posStandard >= posStandardApp) {
           LOG.error("Script for theme 'standard' must be included before the application specific script of 'standard'!");

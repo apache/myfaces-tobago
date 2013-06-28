@@ -183,14 +183,14 @@
         var label = panel.children(".tobago-label");
         var field = panel.children(fieldClass);
 
-        panelIn.attr("value", panel.attr("id"));
-        labelIn.attr("value", label.attr("id"));
-        fieldIn.attr("value", field.attr("id"));
+        panelIn.val(panel.attr("id"));
+        labelIn.val(label.attr("id"));
+        fieldIn.val(field.attr("id"));
       }
 
       function test(testId, expected) {
         var element = jQuery(Tobago.Utils.escapeClientId(testId));
-        if (element.attr("value") != expected) {
+        if (element.val() != expected) {
           element.addClass("tobago-in-markup-error");
           element.attr("title", "expected: '" + expected + "'");
         }

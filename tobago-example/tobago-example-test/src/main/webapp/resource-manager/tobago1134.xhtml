@@ -25,7 +25,7 @@
 
     <tc:script onload="check()">
       function check() {
-        var value = jQuery(Tobago.Utils.escapeClientId("page:in")).attr("value");
+        var value = jQuery(Tobago.Utils.escapeClientId("page:in")).val();
         if ("666px" != value) {
           LOG.error("value not == 666px");
         }

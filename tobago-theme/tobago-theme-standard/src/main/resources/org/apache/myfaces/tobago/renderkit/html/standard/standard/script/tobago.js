@@ -2515,7 +2515,7 @@ Tobago.TabGroup.updateHidden = function(tab) {
   var tabGroup = tab.parents(".tobago-tabGroup:first");
   var hidden = tabGroup.children("input");
   var activeIndex = tab.attr("tabgroupindex");
-  hidden.attr("value", activeIndex);
+  hidden.val(activeIndex);
   return activeIndex;
 };
 

@@ -22,7 +22,7 @@ Tobago.Tree.toggleNode = function(element) {
   var node = element.closest(".tobago-treeNode, .tobago-treeMenuNode");
   var expanded = node.find(".tobago-treeMenuNode-expanded, .tobago-treeNode-expanded");
   var toggle = node.find(".tobago-treeMenuNode-toggle, .tobago-treeNode-toggle");
-  if ("true" == expanded.attr("value")) {
+  if ("true" == expanded.val()) {
     Tobago.Tree.hideChildren(node);
     toggle.each(function() {
       src = jQuery(this).data("tobago-srcclose");
@@ -32,7 +32,7 @@ Tobago.Tree.toggleNode = function(element) {
       jQuery(this).attr("src", src);
       Tobago.fixPngAlpha(this);
     });
-    expanded.attr("value", "false");
+    expanded.val("false");
     node.filter(".tobago-treeNode").removeClass("tobago-treeNode-markup-expanded");
     node.filter(".tobago-treeMenuNode").removeClass("tobago-treeMenuNode-markup-expanded");
   } else {
@@ -45,7 +45,7 @@ Tobago.Tree.toggleNode = function(element) {
       jQuery(this).attr("src", src);
       Tobago.fixPngAlpha(this);
     });
-    expanded.attr("value", "true");
+    expanded.val("true");
     node.filter(".tobago-treeNode").addClass("tobago-treeNode-markup-expanded");
     node.filter(".tobago-treeMenuNode").addClass("tobago-treeMenuNode-markup-expanded");
   }
@@ -71,7 +71,7 @@ Tobago.Tree.showChildren = function (node) {
   children.show().each(function () {
     var child = jQuery(this);
     var expanded = child.find(".tobago-treeMenuNode-expanded, .tobago-treeNode-expanded");
-    if ("true" == expanded.attr("value")) {
+    if ("true" == expanded.val()) {
       Tobago.Tree.showChildren(child);
     }
   });
@@ -146,7 +146,7 @@ Tobago.Tree.init = function(elements) {
     var node = command.parent(".tobago-treeNode");
     var tree = node.closest(".tobago-tree");
     var marked = tree.children(".tobago-tree-marked");
-    marked.attr("value", node.attr("id"));
+    marked.val(node.attr("id"));
     tree.find(".tobago-treeNode").removeClass("tobago-treeNode-markup-marked");
     node.addClass("tobago-treeNode-markup-marked");
   });
@@ -157,7 +157,7 @@ Tobago.Tree.init = function(elements) {
     var node = command.parent(".tobago-treeMenuNode");
     var tree = node.closest(".tobago-treeMenu");
     var marked = tree.children(".tobago-treeMenu-marked");
-    marked.attr("value", node.attr("id"));
+    marked.val(node.attr("id"));
     tree.find(".tobago-treeMenuNode").removeClass("tobago-treeMenuNode-markup-marked");
     node.addClass("tobago-treeMenuNode-markup-marked");
   });
