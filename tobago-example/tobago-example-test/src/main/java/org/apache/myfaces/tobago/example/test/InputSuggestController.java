@@ -19,10 +19,10 @@
 
 package org.apache.myfaces.tobago.example.test;
 
-import org.apache.myfaces.tobago.component.UIIn;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.faces.component.UIInput;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,7 +31,7 @@ public class InputSuggestController {
 
   private static final Logger LOG = LoggerFactory.getLogger(InputSuggestController.class);
 
-  public List<String> getInputSuggestItems(UIIn component) {
+  public List<String> inputSuggestItems(UIInput component) {
     String prefix = (String) component.getSubmittedValue();
     LOG.info("Creating items for prefix :\"" + prefix + "\"");
     List<String> li = new ArrayList<String>();
