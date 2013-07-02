@@ -56,20 +56,24 @@
       </tc:box>
     </tc:panel>
 
-    <tc:out escape="false" value="
-        &lt;ul>
-          &lt;li> Click on 'Reload Left' button to reload the left panel.&lt;/li>
-          &lt;li> Click on 'Reload Right' button to reload the right panel.&lt;/li>
-          &lt;li> Or select a option from the selectOneChoise control:
-            &lt;ul>
-              &lt;li>Select 'Reload parent' to reload both panels parent container&lt;/li>
-              &lt;li>Select 'Reload both' to reload both panels in one request&lt;/li>
-              &lt;li>Select 'Goto prev' to navigate to previous page&lt;/li>
-              &lt;li>Select 'Goto next' to navigate to next page&lt;/li>
-            &lt;/ul>
-          &lt;/li>
-        &lt;/ul>
-      "/>
+    <tc:panel>
+      <f:facet name="layout">
+        <tc:flowLayout/>
+      </f:facet>
+      <ul>
+        <li>Click on 'Reload Left' button to reload the left panel."</li>
+        <li>Click on 'Reload Right' button to reload the right panel."</li>
+        <li>Or select a option from the selectOneChoise control:"
+          <ul>
+            <li>Select 'Reload parent' to reload both panels parent container"</li>
+            <li>Select 'Reload both' to reload both panels in one request"</li>
+            <li>Select 'Goto prev' to navigate to previous page"</li>
+            <li>Select 'Goto next' to navigate to next page"</li>
+          </ul>
+        </li>
+      </ul>
+    </tc:panel>
+
     <tc:panel>
       <f:facet name="layout">
         <tc:gridLayout columns="*;205px;*"/>
