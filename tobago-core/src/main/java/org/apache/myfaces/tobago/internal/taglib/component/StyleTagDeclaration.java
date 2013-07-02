@@ -29,8 +29,9 @@ import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 
 /**
- * Add a style tag.
- * Collected bodyContent is rendered as content into a style tag.
+ * Add a style tag with the given file name.
+ * <p/>
+ * Remark: Inline styles are deprecated because of CSP.
  */
 @Tag(name = "style", bodyContent = BodyContent.TAGDEPENDENT)
 @BodyContentDescription(contentType = "css")
@@ -53,7 +54,9 @@ public interface StyleTagDeclaration extends HasIdBindingAndRendered {
 
   /**
    * stylesheet to add to page.
+   * @deprecated inline styles are deprecated because of CSP
    */
+  @Deprecated
   @TagAttribute(bodyContent = true)
   @UIComponentTagAttribute()
   void setStyle(String style);
