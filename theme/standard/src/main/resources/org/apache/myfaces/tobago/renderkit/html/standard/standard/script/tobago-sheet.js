@@ -671,8 +671,8 @@ Tobago.Sheet.prototype.toggleSelectionForRow = function(dataRow) {
 
 Tobago.Sheet.prototype.toggleSelection = function(rowIndex) {
     this.tobagoLastClickedRowId = Tobago.element(this.id + "_data_tr_" + rowIndex).id;
-    var selector = Tobago.element(this.id + "_data_row_selector_" + rowIndex);
-    if (!selector || !selector.src || !selector.src.match(/Disabled/)) {
+    var checkbox = Tobago.element(this.id + "_data_row_selector_" + rowIndex);
+    if (this.isEnabled(checkbox)) {
       var re = new RegExp("," + rowIndex + ",");
       var selected = Tobago.element(this.selectedId);
       if (selected.value.search(re) != -1) {
@@ -702,8 +702,8 @@ Tobago.Sheet.prototype.selectRange = function(dataRow) {
     for (var i = start; i <= end; i++) {
       var re = new RegExp("," + i + ",");
       if (selected.value.search(re) == -1) {
-        var selector = Tobago.element(this.id + "_data_row_selector_" + i);
-        if (!selector || !selector.src || !selector.src.match(/Disabled/)) {
+        var checkbox = Tobago.element(this.id + "_data_row_selector_" + i);
+        if (this.isEnabled(checkbox)) {
           selected.value = selected.value + i + ",";
         }
       }
@@ -916,7 +916,13 @@ Tobago.Sheet.prototype.doScroll = function(event) {
     //LOG.debug("----------------------------------------------");
   };
 
-
+Tobago.Sheet.prototype.isEnabled = function(checkbox) {
+  return checkbox == null
+      || checkbox.attributes == null
+      || checkbox.attributes.disabled == null
+      || checkbox.attributes.disabled.value != "disabled" && checkbox.attributes.disabled.value != "true";
+  // FF: "disabled", IE: "true"
+};
 
 Tobago.Sheet.prototype.selectAll = function() {
     var row = Tobago.element(this.firstRowId);
@@ -924,8 +930,8 @@ Tobago.Sheet.prototype.selectAll = function() {
     var j = 0;
     var selected = Tobago.element(this.selectedId);
     while (row) {
-      var image = this.getSelectionElementForRow(row);
-      if (!image || !image.src || !image.src.match(/Disabled/)) {
+      var checkbox = this.getSelectionElementForRow(row);
+      if (this.isEnabled(checkbox)) {
         var re = new RegExp("," + i + ",");
         if (selected.value.search(re) == -1) {
           selected.value = selected.value + i + ",";
@@ -946,8 +952,8 @@ Tobago.Sheet.prototype.unSelectAll = function() {
         var i = this.firstRowIndex;
         var j = 0;
         while (row) {
-          image = this.getSelectionElementForRow(row);
-          if (!image || !image.src || !image.src.match(/Disabled/)) {
+          checkbox = this.getSelectionElementForRow(row);
+          if (this.isEnabled(checkbox)) {
             var re = new RegExp("," + i + ",", 'g');
             selected.value = selected.value.replace(re, ",");
           }
