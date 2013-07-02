@@ -528,14 +528,6 @@ Tobago.Sheet.prototype.getSiblingRow = function(row, i) {
   return row.parentNode.childNodes[i];
 };
 
-Tobago.Sheet.prototype.isEnabled = function(checkbox) {
-  return checkbox == null
-      || checkbox.attributes == null
-      || checkbox.attributes.disabled === undefined
-      || checkbox.attributes.disabled == null
-      || checkbox.attributes.disabled.value != "true";
-};
-
 Tobago.Sheet.prototype.getRows = function() {
   // todo: use a util for "id replace"
   // find all rows in current sheet
@@ -554,7 +546,7 @@ Tobago.Sheet.prototype.resetSelected = function() {
 
 Tobago.Sheet.prototype.toggleSelection = function(rowIndex, row, checkbox) {
   this.lastClickedRowIndex = rowIndex;
-  if (this.isEnabled(checkbox)) {
+  if (!jQuery(checkbox).prop("disabled")) {
     var selected = Tobago.element(this.selectedId);
     if (selected.value.indexOf("," + rowIndex + ",") < 0) {
       this.selectRow(selected, rowIndex, row, checkbox);
@@ -585,7 +577,7 @@ Tobago.Sheet.prototype.selectRange = function(indexA, indexB, selectDeselected, 
   for (var rowIndex = indexA; rowIndex < indexB; rowIndex++) {
     var row = rows.get(rowIndex - this.firstRowIndex);
     var checkbox = this.getSelectorCheckbox(row);
-    if (this.isEnabled(checkbox)) {
+    if (!jQuery(checkbox).prop("disabled")) {
       if (selectDeselected && selected.value.indexOf("," + rowIndex + ",") < 0) {
         this.selectRow(selected, rowIndex, row, checkbox);
       } else if (deselectSelected && selected.value.indexOf("," + rowIndex + ",") >= 0) {

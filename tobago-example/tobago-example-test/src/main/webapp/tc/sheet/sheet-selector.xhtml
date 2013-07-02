@@ -24,12 +24,49 @@
 
   <tc:page id="page">
     <f:facet name="layout">
-      <tc:gridLayout rows="auto" columns="600px"/>
+      <tc:gridLayout rows="160px;auto" columns="600px"/>
     </f:facet>
+
+    <tc:panel>
+      <f:facet name="layout">
+        <tc:flowLayout />
+      </f:facet>
+
+      <ul>
+        <li>
+          <tc:out value="Selection in a sheet."/>
+        </li>
+        <li>
+          <tc:out value="Planets aren't selectable."/>
+        </li>
+      </ul>
+
+      <ol>
+        <li>
+          <tc:out value="Select all"/>
+        </li>
+        <li>
+          <tc:out value="Unselect all"/>
+        </li>
+        <li>
+          <tc:out value="Select 1st, 2nd (disabled) and 11th row"/>
+        </li>
+        <li>
+          <tc:out value="Toggle all"/>
+        </li>
+        <li>
+          <tc:out value="Go to the 2nd page"/>
+        </li>
+        <li>
+          <tc:out value="Go back to the 1st page"/>
+        </li>
+      </ol>
+
+    </tc:panel>
 
     <tc:sheet value="#{sheet.solarArray}" id="sheet" columns="auto;*;*" var="luminary" rows="20">
 
-      <tc:columnSelector/>
+      <tc:columnSelector disabled="#{luminary.orbit == 'Sun'}"/>
 
       <tc:column label="Name" id="name" sortable="true">
         <tc:out value="#{luminary.name}"/>
