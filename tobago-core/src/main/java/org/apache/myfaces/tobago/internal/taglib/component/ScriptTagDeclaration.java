@@ -27,8 +27,9 @@ import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 
 /**
- * This tag adds script files to include to the rendered page.
- * Deprecated (CSP): This tag adds client side script to the rendered page.
+ * This tag adds script files to include into the rendered page.
+ * <p/>
+ * Deprecated (because of CSP): This tag adds client side script to the rendered page.
  */
 @Tag(name = "script")
 @UIComponentTag(
@@ -40,6 +41,11 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRend
     isTransparentForLayout = true,
     allowedChildComponenents = "NONE")
 public interface ScriptTagDeclaration extends HasIdBindingAndRendered {
+
+  /**
+   * File name to include into the rendered page.
+   * @param file A JavaScript file.
+   */
   @TagAttribute()
   @UIComponentTagAttribute()
   void setFile(String file);
