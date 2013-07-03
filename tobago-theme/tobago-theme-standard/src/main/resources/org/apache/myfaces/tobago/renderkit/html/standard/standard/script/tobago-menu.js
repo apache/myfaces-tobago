@@ -164,9 +164,9 @@ Tobago.Menu.handelKey = function(event) {
   return !handled;
 };
 
-/*
-  jQuery(this) is a <a> tag of a menu item.
-*/
+/**
+ * jQuery(this) is a <a> tag of a menu item.
+ */
 Tobago.Menu.open = function(event) {
 
   var li = jQuery(this).parent();
@@ -175,7 +175,7 @@ Tobago.Menu.open = function(event) {
   // close menus in other branches
   li.siblings().tobagoMenu_findSubMenu().find('ol').andSelf().css('visibility', 'hidden');
 
-  // close sub sub menu 
+  // close sub sub menu
   sub.children().find("ol").css('visibility', 'hidden');
 
   // we have to set display to none, because otherwise, the sub-menu may produce scroll-bars.
@@ -211,7 +211,7 @@ Tobago.Menu.open = function(event) {
 
     // show
     sub.css('visibility', 'visible');
-    
+
     // IE6 select-tag fix
     if (Tobago.browser.isMsie6) {
       //          sub.css('width', sub.width());
@@ -225,7 +225,7 @@ Tobago.Menu.open = function(event) {
       iframe.css('top', -(parseInt(sub.css('border-top-width')) + parseInt(sub.css('padding-top'))));
     }
   }
-      
+
   // old "hover" off
   li.siblings('.tobago-menu-markup-selected').removeClass("tobago-menu-markup-selected");
   sub.children('.tobago-menu-markup-selected').removeClass("tobago-menu-markup-selected");
@@ -248,7 +248,7 @@ function compatibleKeyEvent() {
 }
 
 Tobago.Menu.mouseOver = function(event) {
-  var a = jQuery(this).children('a');
+  var a = jQuery(this).children('a'); // needed for "suggest"
   if (! a.data("tobago-ignore-focus")) { // can be removed, after refactoring to a jQuery widget variable
     a.focus();
   }
@@ -260,11 +260,17 @@ Tobago.Menu.switchOn = function(menuBar, menu) {
       .add(menuBar.find('li').tobagoMenu_findSubMenu().find('li')) // add sub menus
       .bind('mouseover', Tobago.Menu.mouseOver)
       .children('a')
-      .bind('focusin', Tobago.Menu.open)
+      .on('focus', Tobago.Menu.open)
       .bind(compatibleKeyEvent(), Tobago.Menu.handelKey);
   var a = menu.children('a');
   if (! a.data("tobago-ignore-focus")) { // can be removed, after refactoring to a jQuery widget variable
-    a.focusin();
+    if (menu.parents(".tobago-toolBar").size() == 0 && menu.parents(".tobago-box-headerToolBar").size() == 0) {
+      a.trigger("focus");
+    } else {
+      // XXX the call in the previous line doesn't work with toolBar -> dropDown (don't know why), so using direct call
+      // XXX the problem is since updating jQuery from 1.6.4 to 1.10.1
+      a.each(Tobago.Menu.open);
+    }
   }
   jQuery("body").bind('click', Tobago.Menu.closeAll);
   menuBar.data('menu-active', true);        // write state back
@@ -277,7 +283,7 @@ Tobago.Menu.switchOff = function(menuBar) {
   menuBar.find('li').add(menuBar.find('li').tobagoMenu_findSubMenu().find('li'))
       .unbind('mouseover', Tobago.Menu.mouseOver)
       .children('a')
-      .unbind('focusin', Tobago.Menu.open)
+      .off('focus', Tobago.Menu.open)
       .unbind(compatibleKeyEvent(), Tobago.Menu.handelKey);
   jQuery("body").unbind('click', Tobago.Menu.closeAll);
   menuBar.find('.tobago-menu-markup-selected').removeClass("tobago-menu-markup-selected");
