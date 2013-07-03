@@ -19,31 +19,16 @@ var TbgTimer = {
   startTbgJs: new Date(),
 
   log: function() {
-    var tbgjs = this.endTbgJs.getTime() - this.startTbgJs.getTime(); // @DEV_ONLY
-//      var htmljs = this.endBody.getTime() - this.startHtml.getTime();
-    var bodyjs = this.endBody.getTime() - this.startBody.getTime(); // @DEV_ONLY
-    var onloadjs = this.endOnload.getTime() - this.startOnload.getTime(); // @DEV_ONLY
-    var bodyToOnload = this.startOnload.getTime() - this.endBody.getTime(); // @DEV_ONLY
-    var totaljs = this.endTotal.getTime() - this.startTbgJs.getTime(); // @DEV_ONLY
-    var appOnload = this.endAppOnload.getTime() - this.startAppOnload.getTime(); // @DEV_ONLY
-//      LOG.show();
-    if (TbgHeadStart) { // @DEV_ONLY
-      LOG.debug('startTbgJs-TbgHeadStart: ' + (this.startTbgJs.getTime() - TbgHeadStart.getTime())); // @DEV_ONLY
-    } // @DEV_ONLY
-    LOG.debug('startBody-startTbgJs: ' + (this.startBody.getTime() - this.startTbgJs.getTime())); // @DEV_ONLY
-    LOG.debug('startTbgJs:' + this.startTbgJs.getTime()); // @DEV_ONLY
-    LOG.debug('startBody: ' + this.startBody.getTime()); // @DEV_ONLY
-    LOG.debug('parse tobago.js ' + tbgjs); // @DEV_ONLY
-//      LOG.debug("parse htmltotal " + htmljs);
-    LOG.debug('parse body ' + bodyjs); // @DEV_ONLY
-    LOG.debug('between body and onload ' + bodyToOnload); // @DEV_ONLY
-    LOG.debug('execute onload ' + onloadjs); // @DEV_ONLY
-    LOG.debug('execute appOnload ' + appOnload); // @DEV_ONLY
-    LOG.debug('until appOnload ' + (this.startAppOnload.getTime() - this.startOnload.getTime())); // @DEV_ONLY
-    LOG.debug('until scriptLoaders ' + (this.startScriptLoaders.getTime() - this.startOnload.getTime())); // @DEV_ONLY
-    LOG.debug('time scriptLoaders ' + (this.endScriptLoaders.getTime() - this.startScriptLoaders.getTime())); // @DEV_ONLY
-    LOG.debug('until after onload ' + (this.endOnload.getTime() - this.startTbgJs.getTime())); // @DEV_ONLY
-    LOG.debug('total ' + totaljs); // @DEV_ONLY
+    var start = this.startTbgJs.getTime(); // @DEV_ONLY
+    LOG.debug('starting at ' + start); // @DEV_ONLY
+    LOG.debug('end of parsing tobago*.js ' + (this.endTbgJs.getTime() - start)); // @DEV_ONLY
+    LOG.debug('startOnload                ' + (this.startOnload.getTime() - start)); // @DEV_ONLY
+    LOG.debug('startAppOnload             ' + (this.startAppOnload.getTime() - start)); // @DEV_ONLY
+    LOG.debug('endAppOnload               ' + (this.endAppOnload.getTime() - start)); // @DEV_ONLY
+    LOG.debug('endOnload                  ' + (this.endOnload.getTime() - start)); // @DEV_ONLY
+    LOG.debug('startScriptLoaders         ' + (this.startScriptLoaders.getTime() - start)); // @DEV_ONLY
+    LOG.debug('endScriptLoaders           ' + (this.endScriptLoaders.getTime() - start)); // @DEV_ONLY
+    LOG.debug('total                      ' + (this.endTotal.getTime() - start)); // @DEV_ONLY
   }
 };
 
@@ -303,9 +288,7 @@ var Tobago = {
 
 //    new LOG.LogArea({hide: false});
 //    LOG.show();
-    if (TbgTimer.endBody) { // @DEV_ONLY
-      TbgTimer.startOnload = new Date(); // @DEV_ONLY
-    } // @DEV_ONLY
+    TbgTimer.startOnload = new Date(); // @DEV_ONLY
     var body = jQuery("body");
     this.page = body.get(0);
     this.form = body.find("form").get(0); // find() seems to be faster than children()
@@ -324,15 +307,11 @@ var Tobago = {
       }
     }
 
-    if (TbgTimer.endBody) { // @DEV_ONLY
-      TbgTimer.startAppOnload = new Date(); // @DEV_ONLY
-    } // @DEV_ONLY
+    TbgTimer.startAppOnload = new Date(); // @DEV_ONLY
     if (this.applicationOnload) {
       this.applicationOnload();
     }
-    if (TbgTimer.endBody) { // @DEV_ONLY
-      TbgTimer.endAppOnload = new Date(); // @DEV_ONLY
-    } // @DEV_ONLY
+    TbgTimer.endAppOnload = new Date(); // @DEV_ONLY
 
     this.addBindEventListener(document, Tobago.Utils.acceleratorKeyEvent(), this.acceleratorKeys, 'observe');
 
@@ -343,27 +322,18 @@ var Tobago = {
 
     Tobago.ensureScrollbarWeights();
     window.setTimeout(Tobago.finishPageLoading, 1);
-    if (TbgTimer.endBody) { // @DEV_ONLY
-      TbgTimer.endOnload = new Date(); // @DEV_ONLY
-    } // @DEV_ONLY
+    TbgTimer.endOnload = new Date(); // @DEV_ONLY
   },
 
   finishPageLoading: function() {
     Tobago.registerCurrentScripts();
-    if (TbgTimer.endBody) { // @DEV_ONLY
-      TbgTimer.startScriptLoaders = new Date(); // @DEV_ONLY
-    } // @DEV_ONLY
+    TbgTimer.startScriptLoaders = new Date(); // @DEV_ONLY
     Tobago.startScriptLoaders();
-    if (TbgTimer.endBody) { // @DEV_ONLY
-      TbgTimer.endScriptLoaders = new Date(); // @DEV_ONLY
-    } // @DEV_ONLY
+    TbgTimer.endScriptLoaders = new Date(); // @DEV_ONLY
     Tobago.pageIsComplete = true;
     Tobago.setFocus();
-    if (TbgTimer.endBody) { // @DEV_ONLY
-      TbgTimer.endTotal = new Date(); // @DEV_ONLY
-      TbgTimer.log(); // @DEV_ONLY
-    } // @DEV_ONLY
-
+    TbgTimer.endTotal = new Date(); // @DEV_ONLY
+    TbgTimer.log(); // @DEV_ONLY
   },
 
   registerResizeAction: function() {
@@ -1475,7 +1445,7 @@ var Tobago = {
    */
   getBrowserInnerLeft: function() {
     var innerLeft;
-    if (document.all) { // ie
+    if (Tobago.browser.isMsie) {
       innerLeft = document.body.scrollLeft;
     } else {
       innerLeft = window.scrollX;
@@ -1488,7 +1458,7 @@ var Tobago = {
    */
   getBrowserInnerTop: function() {
     var innerTop;
-    if (document.all) { // ie
+    if (Tobago.browser.isMsie) {
       innerTop = document.body.scrollTop;
     } else {
       innerTop = window.scrollY;
@@ -1787,7 +1757,7 @@ Tobago.AcceleratorKey = function(func, key, modifier) {
     modifier = 'alt';
   }
   this.modifier = modifier;
-  if (document.all && (modifier == 'alt' || modifier == 'ctrl')) {
+  if (Tobago.browser.isMsie && (modifier == 'alt' || modifier == 'ctrl')) {
     // keys with modifier 'alt' and 'ctrl' are not caught in IE
     // so special code is needed
     if (modifier == 'alt') {
@@ -2990,6 +2960,3 @@ Tobago.Codi.urlWithoutWindowId = function(base) {
 
 Tobago.registerListener(Tobago.Codi.init, Tobago.Phase.DOCUMENT_READY);
 
-// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-TbgTimer.endTbgJs = new Date(); // @DEV_ONLY

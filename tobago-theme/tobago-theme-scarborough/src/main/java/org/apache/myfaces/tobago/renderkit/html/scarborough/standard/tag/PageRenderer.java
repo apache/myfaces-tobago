@@ -176,8 +176,10 @@ public class PageRenderer extends PageRendererBase {
           if (index == -1) {
             index = severity.length();
           }
-            clientLogSeverity = Integer.parseInt(severity.substring(0, index));
-        } catch (NumberFormatException e) {/* ignore; use default*/ }
+          clientLogSeverity = Integer.parseInt(severity.substring(0, index));
+        } catch (NumberFormatException e) {
+          // ignore; use default
+        }
       }
     }
     boolean preventFrameAttacks = tobagoConfig.isPreventFrameAttacks();
@@ -202,12 +204,6 @@ public class PageRenderer extends PageRendererBase {
       writer.writeText(title != null ? title : "");
       writer.endElement(HtmlElements.TITLE);
       final Theme theme = client.getTheme();
-
-      if (debugMode) {
-        // This tag must not be earlier, because the
-        // IE doesn't accept some META tags, when they are not the first ones.
-        writer.writeJavascript("var TbgHeadStart = new Date();");
-      }
 
       // style files
       for (String styleFile : theme.getStyleResources(productionMode)) {
@@ -255,26 +251,6 @@ public class PageRenderer extends PageRendererBase {
         writer.endElement(HtmlElements.STYLE);
       }
 
-      if (debugMode) {
-        boolean hideClientLogging = true;
-        String severity = (String) facesContext.getExternalContext().getRequestMap().get(CLIENT_DEBUG_SEVERITY);
-        if (LOG.isDebugEnabled()) {
-          LOG.debug("get " + CLIENT_DEBUG_SEVERITY + " = " + severity);
-        }
-        if (severity != null) {
-          try {
-            int index = severity.indexOf(';');
-            if (index == -1) {
-              index = severity.length();
-            }
-            clientLogSeverity = Integer.parseInt(severity.substring(0, index));
-          } catch (NumberFormatException e) {/* ignore; use default*/ }
-          hideClientLogging = !severity.contains("show");
-        }
-        // the jquery ui is used in moment only for the logging area...
-        //FacesContextUtils.addOnloadScript(facesContext, 0, "new LOG.LogArea({hide: " + hideClientLogging + "});");
-      }
-
       // render remaining script tags
       for (String scriptFile: theme.getScriptResources(productionMode)) {
         encodeScript(facesContext, writer, scriptFile);
@@ -318,10 +294,6 @@ public class PageRenderer extends PageRendererBase {
     writer.writeClassAttribute(Classes.create(page));
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, page);
     HtmlRendererUtils.renderCommandFacet(page, facesContext, writer);
-
-    if (debugMode) {
-      writer.writeJavascript("TbgTimer.startBody = new Date();");
-    }
 
     writer.startElement(HtmlElements.FORM, page);
     if (preventFrameAttacks && !FacesContextUtils.isAjax(facesContext)) {
@@ -379,11 +351,10 @@ public class PageRenderer extends PageRendererBase {
     writer.writeNameAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "scrollbarWeight");
     writer.writeIdAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "scrollbarWeight");
     if (client.getVerticalScrollbarWeight() != null && client.getHorizontalScrollbarWeight() != null) {
-      StringBuilder buf = new StringBuilder();
-      buf.append(client.getVerticalScrollbarWeight().getPixel());
-      buf.append(";");
-      buf.append(client.getHorizontalScrollbarWeight().getPixel());
-      writer.writeAttribute(HtmlAttributes.VALUE, buf.toString(), false);
+      writer.writeAttribute(
+          HtmlAttributes.VALUE,
+          client.getVerticalScrollbarWeight().getPixel() + ";" + client.getHorizontalScrollbarWeight().getPixel(),
+          false);
     }
     writer.endElement(HtmlElements.INPUT);
 
@@ -479,9 +450,8 @@ public class PageRenderer extends PageRendererBase {
   @Override
   public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
 
-
-    UIPage page = (UIPage) component;
-    TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final UIPage page = (UIPage) component;
+    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
     writer.endElement(HtmlElements.DIV);
 
@@ -489,13 +459,13 @@ public class PageRenderer extends PageRendererBase {
     // beware of ConcurrentModificationException in cascading popups!
     // no foreach
 
-    UIPopup[] popupArray = FacesContextUtils.getPopups(facesContext).toArray(
+    final UIPopup[] popupArray = FacesContextUtils.getPopups(facesContext).toArray(
         new UIPopup[FacesContextUtils.getPopups(facesContext).size()]);
     for (UIPopup popup : popupArray) {
       RenderUtils.encode(facesContext, popup);
     }
 
-    String clientId = page.getClientId(facesContext);
+    final String clientId = page.getClientId(facesContext);
     final boolean debugMode = VariableResolverUtils.resolveClientProperties(facesContext).isDebugMode();
 
 
@@ -504,7 +474,7 @@ public class PageRenderer extends PageRendererBase {
       writer.startElement(HtmlElements.INPUT, null);
       writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.TEXT, false);
       writer.writeAttribute(HtmlAttributes.NAME, "tobago.dummy", false);
-      writer.writeAttribute(HtmlAttributes.TABINDEX, "-1", false);
+      writer.writeAttribute(HtmlAttributes.TABINDEX, -1);
       writer.writeAttribute(HtmlAttributes.STYLE, "visibility:hidden;display:none;", false);
       writer.endElement(HtmlElements.INPUT);
     }
@@ -588,12 +558,6 @@ public class PageRenderer extends PageRendererBase {
       HtmlRendererUtils.writeScriptLoader(facesContext, null,
           logMessages.toArray(new String[logMessages.size()]));
     }
-
-    if (debugMode) {
-      writer.writeJavascript("TbgTimer.endBody = new Date();");
-    }
-
-//    writer.writeJavascript("setTimeout(\"Tobago.init('" + clientId + "')\", 1000)");
 
     writer.startElement(HtmlElements.NOSCRIPT, null);
     writer.startElement(HtmlElements.DIV, null);
