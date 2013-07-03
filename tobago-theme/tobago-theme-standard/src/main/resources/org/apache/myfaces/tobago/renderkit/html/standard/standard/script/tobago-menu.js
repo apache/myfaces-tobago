@@ -206,9 +206,15 @@ Tobago.Menu.switchOn = function(menuBar, menu) {
       .add(menuBar.find('li').tobagoMenu_findSubMenu().find('li')) // add sub menus
       .bind('mouseover', Tobago.Menu.mouseOver)
       .children('a')
-      .bind('focusin', Tobago.Menu.open)
+      .on('focus', Tobago.Menu.open)
       .bind(compatibleKeyEvent(), Tobago.Menu.handelKey);
-  menu.children('a').focusin();
+  if (menu.parents(".tobago-toolBar").size() == 0 && menu.parents(".tobago-box-headerToolBar").size() == 0) {
+    menu.children('a').trigger("focus");
+  } else {
+    // XXX the call in the previous line doesn't work with toolBar -> dropDown (don't know why), so using direct call
+    // XXX the problem is since updating jQuery from 1.6.4 to 1.10.1
+    menu.children('a').each(Tobago.Menu.open);
+  }
   jQuery("body").bind('click', Tobago.Menu.closeAll);
   menuBar.data('menu-active', true);        // write state back
 };
@@ -220,7 +226,7 @@ Tobago.Menu.switchOff = function(menuBar) {
   menuBar.find('li').add(menuBar.find('li').tobagoMenu_findSubMenu().find('li'))
       .unbind('mouseover', Tobago.Menu.mouseOver)
       .children('a')
-      .unbind('focusin', Tobago.Menu.open)
+      .off('focus', Tobago.Menu.open)
       .unbind(compatibleKeyEvent(), Tobago.Menu.handelKey);
   jQuery("body").unbind('click', Tobago.Menu.closeAll);
   menuBar.find('.tobago-menu-markup-selected').removeClass("tobago-menu-markup-selected");
