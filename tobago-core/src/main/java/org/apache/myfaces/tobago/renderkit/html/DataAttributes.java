@@ -90,6 +90,11 @@ public final class DataAttributes {
    */
   public static final String FIRST = "data-tobago-first";
 
+  /*
+   * Holds the index of the row in a sheet, if the sheed has a rowRendered attribute.
+   */
+  public static final String ROW_INDEX = "data-tobago-row-index";
+
   /**
    * Holds the first day of a week of a calendar control.
    */
