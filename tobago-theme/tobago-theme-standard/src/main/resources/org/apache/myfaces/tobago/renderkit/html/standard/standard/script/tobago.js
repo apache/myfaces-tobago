@@ -776,30 +776,6 @@ var Tobago = {
 
   reloadComponent: function(source, id, actionId, options) {
 
-    var listenerOptions = {
-      source: source,
-      ajaxComponentIds: id,
-      actionId: actionId,
-      options: options
-    };
-
-    var result = true; // Do not continue if any function returns false
-    for (var order = 0; order < Tobago.listeners.beforeSubmit.length; order++) {
-      var list = Tobago.listeners.beforeSubmit[order];
-      for (var i = 0; i < list.length; i++) {
-        result = list[i](listenerOptions);
-        if (!result) {
-          break;
-        }
-      }
-    }
-    if (result != false && jQuery.isFunction(Tobago.applicationOnsubmit)) {
-      result = Tobago.applicationOnsubmit(listenerOptions);
-    }
-    if (!result) {
-      return false;
-    }
-
     var container = this.ajaxComponents[id];
     if (typeof container == 'string') {
       if (!actionId) {
@@ -2067,11 +2043,22 @@ Tobago.Updater = {
         actionId: actionId,
         options: options
       };
-      if (jQuery.isFunction(Tobago.applicationOnsubmit)) {
-        var result = Tobago.applicationOnsubmit(listenerOptions);
-        if (!result) {
-          return;
+
+      var result = true; // Do not continue if any function returns false
+      for (var order = 0; order < Tobago.listeners.beforeSubmit.length; order++) {
+        var list = Tobago.listeners.beforeSubmit[order];
+        for (var i = 0; i < list.length; i++) {
+          result = list[i](listenerOptions);
+          if (!result) {
+            break;
+          }
         }
+      }
+      if (result != false && jQuery.isFunction(Tobago.applicationOnsubmit)) {
+        result = Tobago.applicationOnsubmit(listenerOptions);
+      }
+      if (!result) {
+        return false;
       }
 
       var requestOptions = Tobago.extend({}, this.options);
