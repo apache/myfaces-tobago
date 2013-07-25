@@ -1601,7 +1601,7 @@ Tobago.Phase = {
   DOCUMENT_READY:{},
   /** after all images and CSS was loaded */
   WINDOW_LOAD:{},
-  /** before sending a normal submit action (TBD: also AJAX?) */
+  /** before sending a normal submit action */
   BEFORE_SUBMIT:{},
   /** after an AJAX call */
   AFTER_UPDATE:{},
