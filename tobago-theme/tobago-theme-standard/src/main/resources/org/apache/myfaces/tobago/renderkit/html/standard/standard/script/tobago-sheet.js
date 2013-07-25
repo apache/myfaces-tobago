@@ -511,7 +511,12 @@ Tobago.Sheet.prototype.doSelection = function(event) {
 
       var rows = Tobago.Sheet.getRows(sheet);
       var selector = Tobago.Sheet.getSelectorCheckbox(row);
-      var rowIndex = row.index() + sheet.data("tobago-first");
+      var rowIndex = +row.data("tobago-row-index");
+      if (!rowIndex) {
+        rowIndex = row.index();
+      }
+      rowIndex += sheet.data("tobago-first");
+
       var wasSelected = Tobago.Sheet.isSelected(sheet, rowIndex);
       var selectionMode = sheet.data("tobago-selection-mode");
 

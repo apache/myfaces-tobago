@@ -325,6 +325,10 @@ public class SheetRenderer extends LayoutComponentRendererBase {
       }
 
       writer.startElement(HtmlElements.TR, null);
+      if (rowRendered instanceof  Boolean) {
+        // if rowRendered attribute is set we need the rowIndex on the client
+        writer.writeAttribute(DataAttributes.ROW_INDEX, rowIndex);
+      }
       Markup rowMarkup = odd ? Markup.ODD : Markup.EVEN;
       final boolean selected = selectedRows.contains(rowIndex);
       if (selected) {
