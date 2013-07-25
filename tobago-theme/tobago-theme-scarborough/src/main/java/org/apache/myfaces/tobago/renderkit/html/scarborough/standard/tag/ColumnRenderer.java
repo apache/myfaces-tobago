@@ -23,8 +23,11 @@ import org.apache.myfaces.tobago.component.UIColumn;
 import org.apache.myfaces.tobago.component.UILink;
 import org.apache.myfaces.tobago.component.UIOut;
 import org.apache.myfaces.tobago.context.Markup;
+import org.apache.myfaces.tobago.internal.component.AbstractUIMenu;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
+import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
+import org.apache.myfaces.tobago.util.FacetUtils;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -62,6 +65,14 @@ public class ColumnRenderer extends LayoutComponentRendererBase {
   @Override
   public boolean getPrepareRendersChildren() {
     return true;
+  }
+
+  @Override
+  public void prepareRendersChildren(FacesContext facesContext, UIComponent component) throws IOException {
+    AbstractUIMenu dropDownMenu = FacetUtils.getDropDownMenu(component);
+    if (dropDownMenu != null) {
+      RenderUtils.prepareRendererAll(facesContext, dropDownMenu);
+    }
   }
 
   @Override

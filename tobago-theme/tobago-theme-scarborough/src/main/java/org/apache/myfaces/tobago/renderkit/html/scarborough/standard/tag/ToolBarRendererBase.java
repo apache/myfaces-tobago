@@ -573,7 +573,8 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
     return facesContext.getExternalContext().getRequestContextPath() + image;
   }
 
-  private void renderDropDownMenu(FacesContext facesContext, TobagoResponseWriter writer, AbstractUIMenu dropDownMenu)
+  public static void renderDropDownMenu(
+      FacesContext facesContext, TobagoResponseWriter writer, AbstractUIMenu dropDownMenu)
       throws IOException {
     writer.startElement(HtmlElements.OL, dropDownMenu);
     // XXX fix naming conventions for CSS classes

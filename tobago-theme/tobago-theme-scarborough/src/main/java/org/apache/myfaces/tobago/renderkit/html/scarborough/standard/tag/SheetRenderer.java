@@ -42,6 +42,7 @@ import org.apache.myfaces.tobago.event.PageAction;
 import org.apache.myfaces.tobago.internal.component.AbstractUIColumn;
 import org.apache.myfaces.tobago.internal.component.AbstractUIColumnNode;
 import org.apache.myfaces.tobago.internal.component.AbstractUIData;
+import org.apache.myfaces.tobago.internal.component.AbstractUIMenu;
 import org.apache.myfaces.tobago.internal.component.AbstractUIOut;
 import org.apache.myfaces.tobago.internal.component.AbstractUISheet;
 import org.apache.myfaces.tobago.internal.context.ResourceManagerFactory;
@@ -843,7 +844,25 @@ public class SheetRenderer extends LayoutComponentRendererBase {
           if (column instanceof UIColumnSelector) {
             renderColumnSelectorHeader(facesContext, writer, sheet);
           } else {
-             RenderUtils.encode(facesContext, cellComponent);
+            RenderUtils.encode(facesContext, cellComponent);
+
+            AbstractUIMenu dropDownMenu = FacetUtils.getDropDownMenu(column);
+            // render sub menu popup button
+            if (dropDownMenu != null && dropDownMenu.isRendered()) {
+
+              writer.startElement(HtmlElements.SPAN, column);
+              writer.writeClassAttribute(Classes.create(column, "menu"));
+
+              writer.startElement(HtmlElements.IMG, column);
+              String menuImage = ResourceManagerUtils.getImageWithPath(facesContext, "image/sheetSelectorMenu.gif");
+              writer.writeAttribute(HtmlAttributes.TITLE, "", false);
+              writer.writeAttribute(HtmlAttributes.SRC, menuImage, false);
+              writer.endElement(HtmlElements.IMG);
+              ToolBarRendererBase.renderDropDownMenu(facesContext, writer, dropDownMenu);
+
+              writer.endElement(HtmlElements.SPAN);
+            }
+
           }
 
           if (sorterImage != null) {
@@ -1087,11 +1106,9 @@ public class SheetRenderer extends LayoutComponentRendererBase {
 
   @Override
   public void prepareRendersChildren(FacesContext facesContext, UIComponent component) throws IOException {
-/*
     UISheet sheet = (UISheet) component;
     for (UIColumn column : sheet.getRenderedColumns()) {
       RenderUtils.prepareRendererAll(facesContext, column);
     }
-*/
   }
 }

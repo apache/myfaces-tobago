@@ -47,8 +47,7 @@ import javax.faces.component.UIColumn;
     componentFamily = UIColumn.COMPONENT_FAMILY,
     rendererType = RendererTypes.COLUMN,
     facets = {
-        @Facet(name = Facets.DROP_DOWN_MENU, description = "Contains a UIMenu instance to render a drop down menu."
-            + " (not implemented yet, work in progress)", // XXX
+        @Facet(name = Facets.DROP_DOWN_MENU, description = "Contains a UIMenu instance to render a drop down menu.",
             allowedChildComponenents = "org.apache.myfaces.tobago.Menu")
     })
 public interface ColumnTagDeclaration

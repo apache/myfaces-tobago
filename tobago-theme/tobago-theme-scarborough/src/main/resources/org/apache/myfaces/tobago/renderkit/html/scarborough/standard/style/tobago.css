@@ -989,9 +989,9 @@ hr.tobago-separator {
     border-width: 0;
 }
 
-.tobago-sheet-header-markup-ascending span, .tobago-sheet-header-markup-descending span {
-  margin-right: 15px;
-}
+/*.tobago-sheet-header-markup-ascending span, .tobago-sheet-header-markup-descending span {*/
+  /*margin-right: 15px;*/
+/*}*/
 
 .tobago-sheet-header-markup-ascending img, .tobago-sheet-header-markup-descending img {
   position: absolute;
@@ -1011,6 +1011,21 @@ hr.tobago-separator {
   height: 100%;
   z-index: 1;
   cursor: col-resize; /* col-resize is allowed in CSS3+IE6, opera has a separate definition */
+}
+
+.tobago-column-menu {
+  position: absolute;
+  border-width: 0;
+  padding: 0;
+  margin: 0;
+  background-color: transparent;
+  vertical-align: middle;
+}
+
+.tobago-column-menu img{
+  position: relative;
+  top: 0px;
+  right: 0px;
 }
 
 .tobago-sheet-body {
