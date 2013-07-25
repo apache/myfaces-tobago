@@ -2205,7 +2205,10 @@ Tobago.Updater = {
           }};
         }
         data.ajaxId = id;
-        this.updateComponent(data);
+        try {
+          this.updateComponent(data);
+        } catch (e) {
+        }
       }
     }
   },
