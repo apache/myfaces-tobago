@@ -361,9 +361,9 @@
       </plugin>
 
       <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>rat-maven-plugin</artifactId>
-        <version>1.0-alpha-3</version>
+        <groupId>org.apache.rat</groupId>
+        <artifactId>apache-rat-plugin</artifactId>
+        <version>0.9</version>
       </plugin>
 
       <plugin>
@@ -686,19 +686,10 @@
           </execution>
         </executions>
       </plugin-->
-      <!--plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>rat-maven-plugin</artifactId>
-        <executions>
-          <execution>
-            <phase>verify</phase>
-            <goals>
-              <goal>check</goal>
-            </goals>
-          </execution>
-        </executions>
-
-      </plugin-->
+      <plugin>
+        <groupId>org.apache.rat</groupId>
+        <artifactId>apache-rat-plugin</artifactId>
+      </plugin>
       <plugin>
         <artifactId>maven-remote-resources-plugin</artifactId>
         <executions>
@@ -966,9 +957,9 @@
         </plugin>
 
         <plugin>
-          <groupId>org.codehaus.mojo</groupId>
-          <artifactId>rat-maven-plugin</artifactId>
-          <version>1.0-alpha-3</version>
+          <groupId>org.apache.rat</groupId>
+          <artifactId>apache-rat-plugin</artifactId>
+          <version>0.9</version>
           <configuration>
             <excludes>
               <!-- jQuery -->
@@ -986,6 +977,9 @@
               <exclude>${basedir}/*.iml</exclude>
               <exclude>${basedir}/*.ipr</exclude>
               <exclude>${basedir}/*.iws</exclude>
+
+              <!-- photo shop -->
+              <exclude>**/*.psd</exclude>
             </excludes>
           </configuration>
         </plugin>
