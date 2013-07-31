@@ -972,11 +972,10 @@
               <exclude>**/target/**/*</exclude>
 
               <!-- idea -->
-              <exclude>**/*.iml</exclude>
               <exclude>.idea/**/*</exclude>
-              <exclude>${basedir}/*.iml</exclude>
-              <exclude>${basedir}/*.ipr</exclude>
-              <exclude>${basedir}/*.iws</exclude>
+              <exclude>**/*.iml</exclude>
+              <exclude>**/*.ipr</exclude>
+              <exclude>**/*.iws</exclude>
 
               <!-- photo shop -->
               <exclude>**/*.psd</exclude>
