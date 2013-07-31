@@ -33,10 +33,9 @@ Release Checklist
 
   * Perform a mvn checkstyle:check apache-rat:check -Pall-modules for all modules.
 
-  * You need to add your GPG keys in {{https://svn.apache.org/repos/asf/myfaces/maven/trunk/KEYS}} before a release.
+  * You need to add your GPG keys in {{https://svn.apache.org/repos/asf/myfaces/keys/KEYS}} before a release.
 
   * Prepare the release with mvn release:prepare -Pall-modules
-    For 1.5: mvn release:prepare -Pall-modules
 
   * Deploy the release to the nexus repository with the apache-release profile\
     cd checkout-of-release\
