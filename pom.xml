@@ -973,16 +973,14 @@
             <excludes>
               <!-- jQuery -->
               <exclude>**/jquery*.js</exclude>
-              <exclude>**/ui.*.js</exclude>
 
-              <!-- text and logfiles -->
+              <!-- log files -->
               <exclude>**/*.log</exclude>
-              <exclude>**/*.txt</exclude>
 
-              <!-- maven exclude -->
+              <!-- maven -->
               <exclude>**/target/**/*</exclude>
 
-              <!-- idea exclude -->
+              <!-- idea -->
               <exclude>**/*.iml</exclude>
               <exclude>.idea/**/*</exclude>
               <exclude>${basedir}/*.iml</exclude>
