@@ -71,8 +71,8 @@ public class InRenderer extends InputRendererBase implements AjaxRenderer {
     final boolean password = ComponentUtil.getBooleanAttribute(input, ATTR_PASSWORD);
     String currentValue = getCurrentValue(facesContext, input);
     if (LOG.isDebugEnabled()) {
-      LOG.debug("currentValue = '" +
-          (password && currentValue != null ? StringUtils.leftPad("", currentValue.length(), '*') : currentValue)
+      LOG.debug("currentValue = '"
+          + (password && currentValue != null ? StringUtils.leftPad("", currentValue.length(), '*') : currentValue)
           + "'");
     }
     String type = password ? "password" : "text";
