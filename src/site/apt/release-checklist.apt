@@ -21,34 +21,66 @@ Release Checklist
 
   Checklist of tasks to perform for each release:
 
+* Preparation
+
   * Ensure that all open bugs have been either fixed or moved to an other release.
 
   * Ensure that all examples are working with the release candidate.
 
   * Post a note on the list and ask for problems with the release candidate.
 
-  * Install a jdk 1.4 and a jdk 1.5 on your computer.
+  * Install a jdk 1.4 and a jdk 1.5 on your computer (only for Tobago 1.0.x).
 
-  * Please switch to jdk 1.5 for a release build.
+  * Please switch to jdk 1.5 for a release build (only for Tobago 1.0.x).
 
-  * Perform a mvn checkstyle:check apache-rat:check -Pall-modules for all modules.
+  * Perform basic checks for all modules for Tobago 1.0.x
 
-  * You need to add your GPG keys in {{https://svn.apache.org/repos/asf/myfaces/keys/KEYS}} before a release.
++------------------------+
+mvn checkstyle:check rat:check -Pall-modules
++------------------------+
 
-  * Prepare the release with mvn release:prepare -Pall-modules
+    or for Tobago 1.5.x and higher
 
-  * Deploy the release to the nexus repository with the apache-release profile\
-    cd checkout-of-release\
-    mvn deploy -Papache-release,jdk14retro,generate-assembly --no-plugin-updates -Dnon-default-modules -Djava14.home=${java14.jre}\
-    For more information please consult the poms.
-    For 1.5:
-    mvn deploy -Papache-release,generate-assembly --no-plugin-updates -Dnon-default-modules\
++------------------------+
+mvn clean install -Pall-modules && mvn checkstyle:check apache-rat:check animal-sniffer:check -Pall-modules
++------------------------+
+
+  * You need to add your GPG keys in {{{https://svn.apache.org/repos/asf/myfaces/keys/KEYS}Subversion}} and the {{{https://www.apache.org/dist/myfaces/KEYS}Apache site}} before a release.
+
+* Building the release
+
+  * Prepare the release with
+
++------------------------+
+mvn release:prepare -Pall-modules
++------------------------+
+
+  * Deploy the release to the nexus repository with the apache-release profile. For Tobago 1.0.x
+
++------------------------+
+cd checkout-of-release
+mvn deploy -Papache-release,jdk14retro,generate-assembly --no-plugin-updates -Dnon-default-modules -Djava14.home=${java14.jre}
++------------------------+
+
+    For Tobago 1.5.x and higher:
+
++------------------------+
+mvn deploy -Papache-release,generate-assembly --no-plugin-updates -Dnon-default-modules
++------------------------+
+
+    For more information please consult the pom.xml files.
 
   * "Close" the repository on the nexus instance for stating (you will receive a mail with the staging location).
 
+* Voting
+
   * Propose a vote on the dev list with the staging location.
 
+  * For a positive result wait at least 72 hours.
+
   * Once a vote is successful, post the result to the dev list.
+
+* Publishing
 
   * Close all resolved jira issuse for the release.
 
