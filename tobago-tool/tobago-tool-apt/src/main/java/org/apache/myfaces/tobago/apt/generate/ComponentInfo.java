@@ -19,7 +19,7 @@
 
 package org.apache.myfaces.tobago.apt.generate;
 
-import org.apache.myfaces.tobago.apt.annotation.AnnotationUtils;
+import org.apache.myfaces.tobago.apt.AnnotationUtils;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 
 import javax.lang.model.element.TypeElement;

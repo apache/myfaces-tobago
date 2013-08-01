@@ -26,6 +26,23 @@
   <packaging>jar</packaging>
   <name>Tobago Tool Apt</name>
 
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>animal-sniffer-maven-plugin</artifactId>
+        <configuration>
+          <signature>
+            <groupId>org.codehaus.mojo.signature</groupId>
+            <!-- the apt works only with 1.6 and higher, but that's okay, because it's needed for Tobago at runtime -->
+            <artifactId>java16</artifactId>
+            <version>1.0</version>
+          </signature>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
   <dependencies>
     <dependency>
       <groupId>org.apache.myfaces.core</groupId>

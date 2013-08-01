@@ -17,7 +17,9 @@
  * under the License.
  */
 
-package org.apache.myfaces.tobago.apt.annotation;
+package org.apache.myfaces.tobago.apt;
+
+import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 
 import javax.lang.model.element.TypeElement;
 
