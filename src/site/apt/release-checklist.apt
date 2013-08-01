@@ -58,14 +58,14 @@ mvn release:prepare -Pall-modules
   * Deploy the release to the nexus repository with the apache-release profile. For Tobago 1.0.x
 
 +------------------------+
-    cd checkout-of-release
-    mvn deploy -Papache-release,jdk14retro,generate-assembly --no-plugin-updates -Dnon-default-modules -Djava14.home=${java14.jre}
+cd checkout-of-release
+mvn deploy -Papache-release,jdk14retro,generate-assembly --no-plugin-updates -Dnon-default-modules -Djava14.home=${java14.jre}
 +------------------------+
 
     For Tobago 1.5.x and higher:
 
 +------------------------+
-    mvn deploy -Papache-release,generate-assembly --no-plugin-updates -Dnon-default-modules
+mvn deploy -Papache-release,generate-assembly --no-plugin-updates -Dnon-default-modules
 +------------------------+
 
     For more information please consult the pom.xml files.
