@@ -72,6 +72,15 @@ public class TobagoResponseWriterUnitTest {
     writer.endElement(HtmlElements.SELECT);
     Assert.assertEquals("attr tag", "<select value=\"0\"\n></select>", stringWriter.toString());
   }
+  
+  @Test
+  public void testURIAttribute() throws IOException {
+    writer.startElement(HtmlElements.A, null);
+    writer.writeURIAttribute(HtmlAttributes.HREF, "http://example.org/web?text=äöüß", null);
+    writer.endElement(HtmlElements.A);
+    Assert.assertEquals("uri attr tag", "<a href=\"http://example.org/web?text=%C3%A4%C3%B6%C3%BC%C3%9F\"\n></a>",
+            stringWriter.toString());
+  }
 
   @Test
   public void testAttributeQuoting() throws IOException {
