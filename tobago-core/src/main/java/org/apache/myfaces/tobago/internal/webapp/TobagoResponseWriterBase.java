@@ -28,6 +28,7 @@ import org.slf4j.LoggerFactory;
 import javax.faces.component.UIComponent;
 import java.io.IOException;
 import java.io.Writer;
+import java.net.URI;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
@@ -248,9 +249,12 @@ public abstract class TobagoResponseWriterBase extends TobagoResponseWriter {
     return stackTrace[i].toString();
   }
 
-  public void writeURIAttribute(final String s, final Object obj, final String s1)
+  public void writeURIAttribute(final String name, final Object value, final String property)
       throws IOException {
-    LOG.error("Not implemented yet!");
+    if (value != null) {
+      final URI uri = URI.create(value.toString());
+      writeAttribute(name, uri.toASCIIString(), property);
+    }
   }
 
 // interface TobagoResponseWriter //////////////////////////////////////////////////////////////////////////////////
