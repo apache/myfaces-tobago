@@ -201,3 +201,10 @@ JavaScript
 *--+--+--+--+
 | renamed | <<<TabGroup.reloadWithAction2()>>> | <<<TabGroup.reloadWithAction()>>> |
 *--+--+--+--+
+
+Own Components and Renderers
+
+  The renderers must now declared inside the <<<faces-config.xml>>>.
+
+  For the Tobago classes, this will be generated at compile time from annotations like in e. g.
+  <<<org.apache.myfaces.tobago.internal.taglib.component.BoxTagDeclaration>>>.

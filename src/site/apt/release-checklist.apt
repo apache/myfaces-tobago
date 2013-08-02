@@ -19,11 +19,11 @@
 
 Release Checklist
 
-  Checklist of tasks to perform for each release:
+  Checklist of tasks to perform for each release. For general information about Apache releases you may also consult {{{http://www.apache.org/dev/publishing-maven-artifacts.html}Publishing Maven Artifacts}}.
 
 * Preparation
 
-  * Ensure that all open bugs have been either fixed or moved to an other release.
+  * Ensure that all open bugs have been either fixed or moved to an other release version.
 
   * Ensure that all examples are working with the release candidate.
 
@@ -33,44 +33,47 @@ Release Checklist
 
   * Please switch to jdk 1.5 for a release build (only for Tobago 1.0.x).
 
-  * Perform basic checks for all modules for Tobago 1.0.x
+  * Perform basic checks on an unmodified checkout for all modules:
 
 +------------------------+
+# for Tobago 1.0.x
 mvn checkstyle:check rat:check -Pall-modules
-+------------------------+
 
-    or for Tobago 1.5.x and higher
-
-+------------------------+
+# for Tobago 1.5.x and higher
 mvn clean install -Pall-modules && mvn checkstyle:check apache-rat:check animal-sniffer:check -Pall-modules
 +------------------------+
 
   * You need to add your GPG keys in {{{https://svn.apache.org/repos/asf/myfaces/keys/KEYS}Subversion}} and the {{{https://www.apache.org/dist/myfaces/KEYS}Apache site}} before a release.
 
-* Building the release
+* Building the Release
 
-  * Prepare the release with
+  * Prepare the release with:
 
 +------------------------+
 mvn release:prepare -Pall-modules
 +------------------------+
 
-  * Deploy the release to the nexus repository with the apache-release profile. For Tobago 1.0.x
+  * Check out a fresh copy of the svn tag:
 
 +------------------------+
-cd checkout-of-release
+cd ..
+svn co https://svn.apache.org/repos/asf/myfaces/tobago/tags/tobago-<version>
+cd tobago-<version>
++------------------------+
+
+  * Deploy the fresh copy to the Nexus repository with the apache-release profile (we are not using release:perform here, because of some different options):
+
++------------------------+
+# for Tobago 1.0.x
 mvn deploy -Papache-release,jdk14retro,generate-assembly --no-plugin-updates -Dnon-default-modules -Djava14.home=${java14.jre}
-+------------------------+
 
-    For Tobago 1.5.x and higher:
-
-+------------------------+
+# for Tobago 1.5.x and higher
 mvn deploy -Papache-release,generate-assembly --no-plugin-updates -Dnon-default-modules
 +------------------------+
 
     For more information please consult the pom.xml files.
 
-  * "Close" the repository on the nexus instance for stating (you will receive a mail with the staging location).
+  * <Close> the repository on the {{{https://repository.apache.org/}Nexus}} instance for stating (you will receive a mail with the staging location).
 
 * Voting
 
@@ -123,7 +126,7 @@ Staging repository:
 http://people.apache.org/
 
 
-The Vote is open for 72h.
+The vote is open for 72h.
 
 [ ] +1
 [ ] +0
