@@ -250,19 +250,22 @@ public class TabGroupRenderer extends LayoutComponentRendererBase {
     UICommand previous = (UICommand) application.createComponent(UICommand.COMPONENT_TYPE);
     previous.setRendererType(null);
     previous.getAttributes().put(Attributes.IMAGE, "image/tabPrev.gif");
-    previous.setOnclick("/**/"); // XXX avoid submit
+    previous.setOmit(true); // avoid submit
     // next
     UICommand next = (UICommand) application.createComponent(UICommand.COMPONENT_TYPE);
     next.setRendererType(null);
     next.getAttributes().put(Attributes.IMAGE, "image/tabNext.gif");
-    next.setOnclick("/**/"); // XXX avoid submit
+    next.setOmit(true); // avoid submit
 
     // all: sub menu to select any tab directly
     UICommand all = (UICommand) CreateComponentUtils.createComponent(
         facesContext, UICommand.COMPONENT_TYPE, null, null);
+    all.setOmit(true); // avoid submit
+
     UIMenu menu = (UIMenu) CreateComponentUtils.createComponent(
         facesContext, UIMenu.COMPONENT_TYPE, RendererTypes.MENU, null);
     menu.setTransient(true);
+    ComponentUtils.addCurrentMarkup(menu, Markup.TOP);
     FacetUtils.setDropDownMenu(all, menu);
     int index = 0;
     for (UIComponent child : tabGroup.getChildren()) {
@@ -272,6 +275,7 @@ public class TabGroupRenderer extends LayoutComponentRendererBase {
           UIMenuCommand entry = (UIMenuCommand) CreateComponentUtils.createComponent(
               facesContext, UIMenuCommand.COMPONENT_TYPE, RendererTypes.MENU_COMMAND, null);
           entry.setTransient(true);
+          entry.setOmit(true); // avoid submit
           LabelWithAccessKey label = new LabelWithAccessKey(tab);
           entry.setLabel(label.getText());
           if (tab.isDisabled()) {

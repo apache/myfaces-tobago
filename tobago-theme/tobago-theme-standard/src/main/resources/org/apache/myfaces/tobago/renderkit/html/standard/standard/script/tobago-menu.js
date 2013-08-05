@@ -264,8 +264,10 @@ Tobago.Menu.switchOn = function(menuBar, menu) {
       .bind(compatibleKeyEvent(), Tobago.Menu.handelKey);
   var a = menu.children('a');
   if (! a.data("tobago-ignore-focus")) { // can be removed, after refactoring to a jQuery widget variable
-    if (menu.parents(".tobago-toolBar").size() == 0 && menu.parents(".tobago-box-headerToolBar").size() == 0
-        && menu.parents(".tobago-column-menu").size() == 0) {
+    if (menu.parents(".tobago-toolBar").size() == 0
+        && menu.parents(".tobago-box-headerToolBar").size() == 0
+        && menu.parents(".tobago-column-menu").size() == 0
+        && menu.parents(".tobago-tabGroupToolBar-menu").size() == 0) {
       a.trigger("focus");
     } else {
       // XXX the call in the previous line doesn't work with toolBar -> dropDown (don't know why), so using direct call
