@@ -121,6 +121,7 @@ public abstract class AbstractUIData extends javax.faces.component.UIData implem
 
   @Override
   public void encodeBegin(FacesContext context) throws IOException {
+    initialized = false;
     init();
     if (dataModel != null) {
       dataModel.reset();
