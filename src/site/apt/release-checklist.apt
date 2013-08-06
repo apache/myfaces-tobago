@@ -87,14 +87,16 @@ mvn deploy -Papache-release,generate-assembly --no-plugin-updates -Dnon-default-
 
   * Close all resolved jira issuse for the release.
 
-  * "release" the staging repository on the apache nexus instance.
+  * <Release> the staging repository on the {{{https://repository.apache.org/}Nexus}} instance.
 
-  * Update the download site after the distribution is on the apache mirrors available.
+  * Copy the download artifacts from the repository to the site (see script below)
 
-  * Delete old assemblies in /www/www.apache.org/dist/myfaces/binaries on minotaur.apache.org.
+  * Update the site after the distribution is on the Apache mirrors available.
+
+  * Delete old assemblies in /www/www.apache.org/dist/myfaces/binaries on people.apache.org.
     Older releases are automatic available in the {{{http://archive.apache.org/dist/myfaces/} archive}}.
 
-  * Delete old snapshots in /www/people.apache.org/builds/myfaces/nightly/ on minotaur.apache.org.
+  * Delete old snapshots in /www/people.apache.org/builds/myfaces/nightly/ on people.apache.org.
 
   * Create and send Announcement.
 
@@ -168,6 +170,77 @@ Subject: [ANNOUNCE] Apache Tobago <version>
  Have fun,
  -The MyFaces team
 
+----------------------------------------
+
+
+
+Copy the download artifacts from the repository to the site
+
+----------------------------------------
+#!/bin/sh
+set -e
+
+VERSION=2.0.0-alpha-1
+REPOSITORY=https://repository.apache.org/content/repositories/releases
+
+# download file and hashes/signatures
+function download() {
+  DIR="$1"
+  FILE_ON_REPO="$2"
+  FILE="$3"
+
+  curl --fail "${REPOSITORY}/${DIR}/${VERSION}/${FILE_ON_REPO}"      -o ${FILE}
+  curl --fail "${REPOSITORY}/${DIR}/${VERSION}/${FILE_ON_REPO}.asc"  -o ${FILE}.asc
+  curl --fail "${REPOSITORY}/${DIR}/${VERSION}/${FILE_ON_REPO}.md5"  -o ${FILE}.md5
+  curl --fail "${REPOSITORY}/${DIR}/${VERSION}/${FILE_ON_REPO}.sha1" -o ${FILE}.sha1
+}
+
+# this performs check of the hashes (if this fails, something might went wrong absolutely)
+function check() {
+  FILE="$1"
+
+  echo "Checking file ${FILE}: "
+
+  md5 -q "${FILE}" > "${FILE}.md5.temp"
+  if ! diff --ignore-all-space "${FILE}.md5" "${FILE}.md5.temp" ; then
+    echo "Error: MD5 check failed!"
+    exit -1
+  fi
+  echo "  MD5 hash okay"
+
+  shasum "${FILE}" | cut "-d " -f1 > "${FILE}.sha1.temp"
+  if ! diff --ignore-all-space "${FILE}.sha1" "${FILE}.sha1.temp" ; then
+    echo "Error: SHA1 check failed!"
+    exit -1
+  fi
+  echo "  SHA1 hash okay"
+
+  if ! gpg --verify "${FILE}.asc" ; then
+    echo "Error: GPG check failed!"
+    exit -1
+  fi
+  echo "  GPG signature okay"
+}
+
+# commands
+
+download "org/apache/myfaces/tobago/tobago-assembly"         "tobago-assembly-${VERSION}-dist.tar.gz"            "myfaces-tobago-${VERSION}-dist.tar.gz"
+download "org/apache/myfaces/tobago/tobago-assembly"         "tobago-assembly-${VERSION}-dist.zip"               "myfaces-tobago-${VERSION}-dist.zip"
+download "org/apache/myfaces/tobago/tobago-example-assembly" "tobago-example-assembly-${VERSION}-example.tar.gz" "myfaces-tobago-${VERSION}-example.tar.gz"
+download "org/apache/myfaces/tobago/tobago-example-assembly" "tobago-example-assembly-${VERSION}-example.zip"    "myfaces-tobago-${VERSION}-example.zip"
+download "org/apache/myfaces/tobago/tobago"                  "tobago-${VERSION}-source-release.zip"              "myfaces-tobago-${VERSION}-source-release.zip"
+
+check "myfaces-tobago-${VERSION}-dist.tar.gz"
+check "myfaces-tobago-${VERSION}-dist.zip"
+check "myfaces-tobago-${VERSION}-example.tar.gz"
+check "myfaces-tobago-${VERSION}-example.zip"
+check "myfaces-tobago-${VERSION}-source-release.zip"
+
+rm *.temp
+
+scp myfaces-tobago-${VERSION}-dist.*           people.apache.org:/www/www.apache.org/dist/myfaces/binaries
+scp myfaces-tobago-${VERSION}-example.*        people.apache.org:/www/www.apache.org/dist/myfaces/binaries
+scp myfaces-tobago-${VERSION}-source-release.* people.apache.org:/www/www.apache.org/dist/myfaces/source
 ----------------------------------------
 
 
