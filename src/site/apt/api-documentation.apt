@@ -14,23 +14,27 @@
  ~~ limitations under the License.
 
  ------
- Documentation
+ Tobago API Documentation
  ------
 
-Tobago API and TLD Documentation
+Tobago API Documentation
 
-  {{{http://myfaces.apache.org/tobago/apidocs-1.0.40/index.html}1.0.40 Core API Documentation}}\
-  {{{http://myfaces.apache.org/tobago/tobago-core/tlddoc-1.0.40/index.html}1.0.40 Tag Library Documentation}}
+  Documentation of the Java classes and the tags.
 
-  {{{http://myfaces.apache.org/tobago/apidocs-1.5.10/index.html}1.5.10 API Documentation}}\
-  {{{http://myfaces.apache.org/tobago/tobago-core/tlddoc-1.5.10/index.html}1.5.10 \<tc:\> Component Tag Library Documentation}}\
-  {{{http://myfaces.apache.org/tobago/tobago-extension/tobago-taglib-extension/tlddoc-1.5.10/index.html}1.5.10 \<tx:\> Extension Tag Library Documentation}}
+*---------------+-------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------+
+|| Version      || JavaDoc API Documentation                                                    || Tag Library Documentation (TLD)                                                                                                        |
+*---------------+-------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------+
+| 2.0.0-alpha-1 | {{{./doc/2.0.0-alpha-1/api/index.html}2.0.0-alpha-1 API Documentation}}       | {{{./doc/2.0.0-alpha-1/tld/index.html}2.0.0-alpha-1 TLD Documentation}} \                                                               |
+|               |                                                                               |                                                                                                                                         |
+*---------------+-------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------+
+| 1.5.10        | {{{./apidocs-1.5.10/index.html}1.5.10 API Documentation}}                     | {{{./tobago-core/tlddoc-1.5.10/index.html}1.5.10 TLD Documentation of \<tc:\>}} \                                                       |
+|               |                                                                               | {{{./tobago-extension/tobago-taglib-extension/tlddoc-1.5.10/index.html}1.5.10 TLD Documentation of \<tx:\>}}                            |
+*---------------+-------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------+
+| 1.0.40        | {{{./apidocs-1.0.40/index.html}1.0.40 API Documentation}}                     | {{{./tobago-core/tlddoc-1.0.40/index.html}1.0.40 TLD Documentation}} \                                                                  |
+|               |                                                                               |                                                                                                                                         |
+*---------------+-------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------+
 
-  {{{http://myfaces.apache.org/tobago/apidocs-1.6.0-beta-2/index.html}1.6.0-beta-2 API Documentation}}\
-  {{{http://myfaces.apache.org/tobago/tobago-core/tlddoc-1.6.0-beta-2/index.html}1.6.0-beta-2 \<tc:\> Component Tag Library Documentation}}\
-  {{{http://myfaces.apache.org/tobago/tobago-extension/tobago-taglib-extension/tlddoc-1.6.0-beta-2/index.html}1.6.0-beta-2 \<tx:\> Extension Tag Library Documentation}}
-
-  {{{./oldDocumentation.html}Previous Releases}}
+  {{{./api-all.html}All Releases}}
 
 Sun JSF Documentation
 

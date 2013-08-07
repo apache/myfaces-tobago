@@ -14,10 +14,10 @@
  ~~ limitations under the License.
 
  ------
- Release Checklist
+ Release Checklist (Developer Info)
  ------
 
-Release Checklist
+Release Checklist (Developer Info)
 
   Checklist of tasks to perform for each release. For general information about Apache releases you may also consult {{{http://www.apache.org/dev/publishing-maven-artifacts.html}Publishing Maven Artifacts}}.
 
@@ -90,6 +90,25 @@ mvn deploy -Papache-release,generate-assembly --no-plugin-updates -Dnon-default-
   * <Release> the staging repository on the {{{https://repository.apache.org/}Nexus}} instance.
 
   * Copy the download artifacts from the repository to the site (see script below)
+
+  * Building the site
+
+    * Note: The site can only be build correctly on file systems that supports to differ upper-/lower-case.
+      This is not the default on Windows and Mac OS X machines.
+      On Mac OS X you can mount a virtual filesystem (sparse bundle) that supports upper-/lower-case with the
+      Disk Utility.
+
++------------------------+
+cd /Volumes/tobago-site
+svn co https://svn.apache.org/repos/asf/myfaces/tobago/trunk tobago
+svn co https://svn.apache.org/repos/asf/myfaces/site/publish/tobago tobago-publish
+cd tobago
+export MAVEN_OPTS="-Xmx1500m -XX:MaxPermSize=512m ${MAVEN_OPTS}"
+mvn package
+mvn site:site
+mvn site:stage -DstagingDirectory=/Volumes/tobago-site/tobago-publish
++------------------------+
+
 
   * Update the site after the distribution is on the Apache mirrors available.
 
@@ -176,7 +195,7 @@ Subject: [ANNOUNCE] Apache Tobago <version>
 
 Copy the download artifacts from the repository to the site
 
-----------------------------------------
++------------------------+
 #!/bin/sh
 set -e
 
@@ -241,7 +260,7 @@ rm *.temp
 scp myfaces-tobago-${VERSION}-dist.*           people.apache.org:/www/www.apache.org/dist/myfaces/binaries
 scp myfaces-tobago-${VERSION}-example.*        people.apache.org:/www/www.apache.org/dist/myfaces/binaries
 scp myfaces-tobago-${VERSION}-source-release.* people.apache.org:/www/www.apache.org/dist/myfaces/source
-----------------------------------------
++------------------------+
 
 
 
