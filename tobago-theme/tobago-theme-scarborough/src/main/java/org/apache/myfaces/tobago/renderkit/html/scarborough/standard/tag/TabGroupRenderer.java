@@ -54,6 +54,7 @@ import javax.el.ValueExpression;
 import javax.faces.application.Application;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
+import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.util.List;
@@ -245,25 +246,28 @@ public class TabGroupRenderer extends LayoutComponentRendererBase {
   private UIToolBar createToolBar(FacesContext facesContext, UITabGroup tabGroup) {
     final String clientId = tabGroup.getClientId(facesContext);
     Application application = facesContext.getApplication();
+    UIViewRoot viewRoot = facesContext.getViewRoot();
 
     // previous
     UICommand previous = (UICommand) application.createComponent(UICommand.COMPONENT_TYPE);
+    previous.setId(viewRoot.createUniqueId());
     previous.setRendererType(null);
     previous.getAttributes().put(Attributes.IMAGE, "image/tabPrev.gif");
     previous.setOmit(true); // avoid submit
     // next
     UICommand next = (UICommand) application.createComponent(UICommand.COMPONENT_TYPE);
+    next.setId(viewRoot.createUniqueId());
     next.setRendererType(null);
     next.getAttributes().put(Attributes.IMAGE, "image/tabNext.gif");
     next.setOmit(true); // avoid submit
 
     // all: sub menu to select any tab directly
     UICommand all = (UICommand) CreateComponentUtils.createComponent(
-        facesContext, UICommand.COMPONENT_TYPE, null, null);
+        facesContext, UICommand.COMPONENT_TYPE, null, viewRoot.createUniqueId());
     all.setOmit(true); // avoid submit
 
     UIMenu menu = (UIMenu) CreateComponentUtils.createComponent(
-        facesContext, UIMenu.COMPONENT_TYPE, RendererTypes.MENU, null);
+        facesContext, UIMenu.COMPONENT_TYPE, RendererTypes.MENU, viewRoot.createUniqueId());
     menu.setTransient(true);
     ComponentUtils.addCurrentMarkup(menu, Markup.TOP);
     FacetUtils.setDropDownMenu(all, menu);
@@ -273,7 +277,7 @@ public class TabGroupRenderer extends LayoutComponentRendererBase {
         UITab tab = (UITab) child;
         if (tab.isRendered()) {
           UIMenuCommand entry = (UIMenuCommand) CreateComponentUtils.createComponent(
-              facesContext, UIMenuCommand.COMPONENT_TYPE, RendererTypes.MENU_COMMAND, null);
+              facesContext, UIMenuCommand.COMPONENT_TYPE, RendererTypes.MENU_COMMAND, viewRoot.createUniqueId());
           entry.setTransient(true);
           entry.setOmit(true); // avoid submit
           LabelWithAccessKey label = new LabelWithAccessKey(tab);
@@ -289,7 +293,7 @@ public class TabGroupRenderer extends LayoutComponentRendererBase {
       }
     }
     UIToolBar toolBar = (UIToolBar) application.createComponent(UIToolBar.COMPONENT_TYPE);
-    toolBar.setId(facesContext.getViewRoot().createUniqueId());
+    toolBar.setId(viewRoot.createUniqueId());
     toolBar.setRendererType("TabGroupToolBar");
     toolBar.setTransient(true);
     toolBar.getChildren().add(previous);
