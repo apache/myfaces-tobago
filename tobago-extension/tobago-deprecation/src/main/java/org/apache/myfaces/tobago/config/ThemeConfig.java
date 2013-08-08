@@ -28,6 +28,9 @@ import javax.faces.context.FacesContext;
 @Deprecated
 public class ThemeConfig {
 
+  private ThemeConfig() {
+  }
+
   /**
    * @deprecated since 1.5.0, please use ThemeConfig.getMeasure()
    */

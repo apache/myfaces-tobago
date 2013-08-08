@@ -47,6 +47,9 @@ public class AjaxInternalUtils {
   private static final String TOBAGO_MESSAGES_CLIENT_IDS = "tobago.messages.clientIds";
   public static final String TOBAGO_PARTIAL_IDS = "tobago::partialIds";
 
+  private AjaxInternalUtils() {
+  }
+
   public static void checkParamValidity(FacesContext facesContext, UIComponent uiComponent, Class compClass) {
     if (facesContext == null) {
       throw new NullPointerException("facesContext may not be null");

@@ -37,6 +37,9 @@ import java.util.Properties;
 
 public final class XmlUtils {
 
+  private XmlUtils() {
+  }
+
   public static String escape(final String s) {
     return escape(s, true);
   }

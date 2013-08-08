@@ -31,6 +31,9 @@ public class JndiUtils {
 
   private static final Logger LOG = LoggerFactory.getLogger(JndiUtils.class);
 
+  private JndiUtils() {
+  }
+
   public static Object getJndiProperty(Context ctx, String... path) throws NamingException {
     return getJndiProperty(ctx, null, path);
   }

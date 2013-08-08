@@ -30,6 +30,9 @@ public class PageActionUtil {
 
   private static final Map<String, PageAction> MAPPING;
 
+  private PageActionUtil() {
+  }
+
   static {
     MAPPING = new HashMap<String, PageAction>();
 

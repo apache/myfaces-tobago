@@ -37,6 +37,9 @@ import java.util.Map;
 @SuppressWarnings("deprecation")
 public class FacesUtils {
 
+  private FacesUtils() {
+  }
+
   /**
    * @deprecated since 2.0.0
    */

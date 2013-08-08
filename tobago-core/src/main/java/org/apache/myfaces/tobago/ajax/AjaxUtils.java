@@ -44,6 +44,9 @@ public class AjaxUtils {
 
   private static final Logger LOG = LoggerFactory.getLogger(AjaxUtils.class);
 
+  private AjaxUtils() {
+  }
+
   public static boolean isAjaxRequest(FacesContext facesContext) {
     Map parameterMap = facesContext.getExternalContext().getRequestParameterMap();
     String ajaxComponentIds = (String) parameterMap.get(AjaxInternalUtils.TOBAGO_PARTIAL_IDS);

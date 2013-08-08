@@ -47,6 +47,9 @@ public final class FacesContextUtils {
   private static final String TOBAGO_FOCUS_ID = "org.apache.myfaces.tobago.focusId";
   private static final String TOBAGO_ACTION_ID = "org.apache.myfaces.tobago.actionId";
 
+  private FacesContextUtils() {
+  }
+
   public static boolean isAjax(FacesContext context) {
     return context.getAttributes().containsKey(TOBAGO_AJAX);
   }

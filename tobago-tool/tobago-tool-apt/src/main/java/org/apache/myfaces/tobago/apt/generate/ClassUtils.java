@@ -38,6 +38,9 @@ public class ClassUtils {
     PRIMITIVE_MAP.put("double", Double.class);
   }
 
+  private ClassUtils() {
+  }
+
   public static String getPackageName(String qualifiedName) {
     int pos = qualifiedName.lastIndexOf('.');
     if (pos != -1) {

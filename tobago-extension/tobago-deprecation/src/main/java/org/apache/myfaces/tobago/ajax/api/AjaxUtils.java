@@ -35,6 +35,9 @@ import java.util.Set;
 @Deprecated
 public class AjaxUtils {
 
+  private AjaxUtils() {
+  }
+
   /**
    * @deprecated
    */

@@ -25,6 +25,9 @@ import javax.faces.component.UIComponent;
 // Will be normally called via ComponentUtils.
 public class FindComponentUtils {
 
+  private FindComponentUtils() {
+  }
+
   public static UIComponent findComponent(UIComponent from, String relativeId) {
     int idLength = relativeId.length();
     if (idLength > 0 && relativeId.charAt(0) == '@') {

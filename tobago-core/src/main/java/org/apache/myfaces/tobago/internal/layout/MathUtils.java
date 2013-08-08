@@ -26,6 +26,9 @@ public class MathUtils {
    */
   public static final double EPSILON = 0.0000001;
 
+  private MathUtils() {
+  }
+
   /**
    * Adjusts the list of double values to rounded values with the same sum.
    * E. g. 2.3, 2.4, 2.5, 2.8 -> 2.0, 2.0, 3.0, 3.0

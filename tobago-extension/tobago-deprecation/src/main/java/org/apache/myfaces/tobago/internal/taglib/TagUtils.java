@@ -52,6 +52,9 @@ import java.lang.reflect.InvocationTargetException;
 public class TagUtils {
   private static final Logger LOG = LoggerFactory.getLogger(TagUtils.class);
 
+  private TagUtils() {
+  }
+
   /**
    * @deprecated since 2.0.0
    */

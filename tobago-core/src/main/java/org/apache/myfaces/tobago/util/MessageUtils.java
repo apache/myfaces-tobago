@@ -48,6 +48,9 @@ public class MessageUtils {
 
   private static final String DETAIL_SUFFIX = "_detail";
 
+  private MessageUtils() {
+  }
+
   public static void addMessage(
       FacesContext facesContext, UIComponent component, FacesMessage.Severity severity,
       String messageId, Object[] args) {

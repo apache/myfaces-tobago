@@ -36,7 +36,7 @@ import java.util.ResourceBundle;
 @Deprecated
 public final class MessageFactory {
 
-  public MessageFactory() {
+  private MessageFactory() {
     // utils class
   }
 

@@ -39,6 +39,9 @@ public class AuthorizationUtils {
   private static final Object NULL_VALUE = new Object();
   private static final Map<String, Object> AUTHORISATION_CACHE = new ConcurrentHashMap<String, Object>();
 
+  private AuthorizationUtils() {
+  }
+
   public static boolean isAuthorized(FacesContext facesContext, String expression) {
 
     Annotation securityAnnotation = getSecurityAnnotation(facesContext, expression);

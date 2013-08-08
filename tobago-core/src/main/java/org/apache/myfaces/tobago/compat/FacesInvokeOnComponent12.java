@@ -30,6 +30,9 @@ import javax.faces.context.FacesContext;
 @Deprecated
 public class FacesInvokeOnComponent12 {
 
+  private FacesInvokeOnComponent12() {
+  }
+
   /**
    * @deprecated since 2.0.0
    */

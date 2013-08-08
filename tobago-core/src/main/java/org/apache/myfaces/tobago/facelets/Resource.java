@@ -40,6 +40,9 @@ public class Resource {
 
   private static final Logger LOG = LoggerFactory.getLogger(Resource.class);
 
+  private Resource() {
+  }
+
   /**
    * Get an URL of an internal resource. First, {@link javax.faces.context.ExternalContext#getResource(String)} is
    * checked for an non-null URL return value. In the case of a null return value (as it is the case for Weblogic 8.1

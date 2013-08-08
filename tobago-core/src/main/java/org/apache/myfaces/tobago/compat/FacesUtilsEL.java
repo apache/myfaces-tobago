@@ -48,6 +48,9 @@ public class FacesUtilsEL {
 
   private static final Logger LOG = LoggerFactory.getLogger(FacesUtilsEL.class);
 
+  private FacesUtilsEL() {
+  }
+
   public static boolean invokeOnComponent(
       FacesContext context, UIComponent component, String clientId, ContextCallback callback) {
     String thisClientId = component.getClientId(context);

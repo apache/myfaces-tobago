@@ -40,6 +40,9 @@ import javax.faces.el.ValueBinding;
 
 public class CreateComponentUtils {
 
+  private CreateComponentUtils() {
+  }
+
   @Deprecated
   public static UIComponent createComponent(String componentType, String rendererType) {
     return createComponent(componentType, rendererType, null);

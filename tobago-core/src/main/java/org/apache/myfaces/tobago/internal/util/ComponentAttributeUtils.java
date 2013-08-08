@@ -27,6 +27,9 @@ import javax.faces.el.ValueBinding;
 
 public class ComponentAttributeUtils {
 
+  private ComponentAttributeUtils() {
+  }
+
   public static void setBooleanProperty(UIComponent component, String name, String value) {
     if (value != null) {
       if (isValueReference(value)) {

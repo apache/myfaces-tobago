@@ -31,6 +31,9 @@ public class RequestUtils {
 
   private static final Logger LOG = LoggerFactory.getLogger(RequestUtils.class);
 
+  private RequestUtils() {
+  }
+
   public static void ensureEncoding(FacesContext facesContext) {
     Object requestObject = facesContext.getExternalContext().getRequest();
     try {
