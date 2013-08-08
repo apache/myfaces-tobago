@@ -39,11 +39,6 @@
   </appender>
 
 <!--
-  <category name="org.apache.myfaces.tobago.config.ThemeConfig">
-    <priority value="debug"/>
-  </category>
--->
-
   <root>
     <priority value="info" />
     <appender-ref ref="console" />
