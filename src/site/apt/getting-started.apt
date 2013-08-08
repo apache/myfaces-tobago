@@ -42,9 +42,10 @@ Checking Out
 Building
 
   You need {{{http://maven.apache.org/download.html}Maven 2}} (at least 2.2.1)
-  and {{{http://www.oracle.com/technetwork/java/javase/downloads/index.html}Java 5}} to build Tobago 1.0.x
-  or {{{http://www.oracle.com/technetwork/java/javase/downloads/index.html}Java 6}} to build Tobago 1.5.x.
-
+  and {{{http://www.oracle.com/technetwork/java/javase/downloads/index.html}Java 5}} to build Tobago 1.0.x.\
+  You need {{{http://maven.apache.org/download.html}Maven}} (at least 3.0.4)
+  and {{{http://www.oracle.com/technetwork/java/javase/downloads/index.html}Java 6 or 7}} to build Tobago 1.5.x and
+  Tobago 2.0.x.
 
   In the
   {{{http://svn.apache.org/repos/asf/myfaces/tobago/trunk/}main directory}}
