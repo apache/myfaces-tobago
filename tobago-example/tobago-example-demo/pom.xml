@@ -696,13 +696,13 @@
     </profile>
 
     <profile>
-      <id>checkstyle-for-pdl</id>
+      <id>checkstyle-for-view-definition-language</id>
       <build>
         <plugins>
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-checkstyle-plugin</artifactId>
-            <version>2.7</version>
+            <version>2.9</version>
             <configuration>
               <configLocation>META-INF/checkstyle-tobago.xml</configLocation>
               <includes>**/*.xhtml,**/*.jsp,**/*.tag</includes>

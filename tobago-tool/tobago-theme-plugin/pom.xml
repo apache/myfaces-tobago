@@ -60,21 +60,6 @@
     </dependency>
   </dependencies>
   <build>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-checkstyle-plugin</artifactId>
-        <version>2.7</version>
-        <configuration>
-          <configLocation>tobago/checkstyle.xml</configLocation>
-          <headerLocation>default/myfaces-header.txt</headerLocation>
-          <xrefLocation>xref</xrefLocation>
-          <excludes>**/package-info.java</excludes>
-          <indentSize>2</indentSize>
-          <includeTestSourceDirectory>true</includeTestSourceDirectory>
-        </configuration>
-      </plugin>
-    </plugins>
     <pluginManagement>
       <plugins>
         <plugin>

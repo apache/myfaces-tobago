@@ -140,6 +140,7 @@
             <tag>TODO</tag>
             <tag>FIXME</tag>
             <tag>XXX</tag>
+            <tag>TBD</tag>
             <tag>@deprecated</tag>
           </tags>
         </configuration>
@@ -154,9 +155,9 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-checkstyle-plugin</artifactId>
-        <version>2.7</version>
+        <version>2.9</version>
         <configuration>
-          <configLocation>default/myfaces-checks-standard.xml</configLocation>
+          <configLocation>tobago/checkstyle.xml</configLocation>
           <headerLocation>default/myfaces-header.txt</headerLocation>
           <xrefLocation>xref</xrefLocation>
           <excludes>**/package-info.java</excludes>
@@ -607,7 +608,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-checkstyle-plugin</artifactId>
-        <version>2.7</version>
+        <version>2.9</version>
         <configuration>
           <configLocation>tobago/checkstyle.xml</configLocation>
           <headerLocation>default/myfaces-header.txt</headerLocation>
@@ -778,7 +779,7 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-checkstyle-plugin</artifactId>
-          <version>2.7</version>
+          <version>2.9</version>
           <configuration>
             <configLocation>tobago/checkstyle.xml</configLocation>
             <headerLocation>default/myfaces-header.txt</headerLocation>
