@@ -248,8 +248,9 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
     final boolean showLabelBottom = UIToolBar.LABEL_BOTTOM.equals(labelPosition);
     final boolean showLabelRight = UIToolBar.LABEL_RIGHT.equals(labelPosition);
     final boolean showLabel = showLabelBottom || showLabelRight;
+    final boolean showDropDownMenu = dropDownMenu != null && dropDownMenu.isRendered();
     // two separate buttons for the command and the sub menu
-    final boolean separateButtons = hasAnyCommand(command) && dropDownMenu != null;
+    final boolean separateButtons = hasAnyCommand(command) && showDropDownMenu;
 
     final Measure paddingTop = resources.getThemeMeasure(facesContext, toolBar, "custom.padding-top");
     final Measure paddingMiddle = resources.getThemeMeasure(facesContext, toolBar, "custom.padding-middle");
@@ -354,17 +355,17 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
       itemStyle.setLeft(resources.getThemeMeasure(facesContext, toolBar, "css.border-right-width"));
     }
     itemStyle.setWidth(
-        dropDownMenu != null ? buttonStyle.getWidth().add(menuStyle.getWidth()) : buttonStyle.getWidth());
+        showDropDownMenu ? buttonStyle.getWidth().add(menuStyle.getWidth()) : buttonStyle.getWidth());
     itemStyle.setHeight(buttonStyle.getHeight());
 
     // XXX hack
-    if (dropDownMenu != null && lackImage && !showLabel) {
+    if (showDropDownMenu && lackImage && !showLabel) {
       itemStyle.setWidth(openerStyle.getWidth());
       buttonStyle.setWidth(openerStyle.getWidth());
     }
 
     // change values when only have one button
-    if (dropDownMenu != null && !separateButtons && (!lackImage || StringUtils.isNotBlank(label.getText()))) {
+    if (showDropDownMenu && !separateButtons && (!lackImage || StringUtils.isNotBlank(label.getText()))) {
       openerStyle.setLeft(openerStyle.getLeft().add(buttonStyle.getWidth()));
       buttonStyle.setWidth(buttonStyle.getWidth().add(menuStyle.getWidth()));
     }
@@ -383,7 +384,7 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
     writer.writeStyleAttribute(itemStyle);
 
     writer.startElement(HtmlElements.SPAN, command);
-    if (separateButtons || dropDownMenu == null) {
+    if (separateButtons || !showDropDownMenu) {
       writer.writeClassAttribute(Classes.create(toolBar, "button", selected ? Markup.SELECTED : Markup.NULL));
     } else {
       writer.writeClassAttribute(Classes.create(toolBar, "menu"));
@@ -436,9 +437,11 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
     }
 
     // render sub menu popup button
-    if (dropDownMenu != null) {
+    if (showDropDownMenu) {
       writer.startElement(HtmlElements.IMG, command);
-      String menuImage = ResourceManagerUtils.getImageWithPath(facesContext, "image/toolbarButtonMenu.gif");
+      boolean dropDownDisabled = ComponentUtils.getBooleanAttribute(dropDownMenu, Attributes.DISABLED) || disabled;
+      String menuImage = ResourceManagerUtils
+          .getImageOrDisabledImageWithPath(facesContext, "image/toolbarButtonMenu.gif", dropDownDisabled);
       writer.writeAttribute(HtmlAttributes.SRC, menuImage, false);
       writer.writeStyleAttribute(openerStyle);
       writer.endElement(HtmlElements.IMG);
