@@ -579,4 +579,17 @@ public class ResourceManagerImpl implements ResourceManager {
     return result;
   }
 
+  @Override
+  public String toString() {
+    return "ResourceManagerImpl{"
+        + "production=" + production
+        + ", resourceList=" + resourceList.size()
+        + ", rendererCache=" + rendererCache.size()
+        + ", imageCache=" + imageCache.size()
+        + ", jspCache=" + jspCache.size()
+        + ", miscCache=" + miscCache.size()
+        + ", propertyCache=" + propertyCache.size()
+        + ", themeCache=" + themeCache.size()
+        + '}';
+  }
 }
