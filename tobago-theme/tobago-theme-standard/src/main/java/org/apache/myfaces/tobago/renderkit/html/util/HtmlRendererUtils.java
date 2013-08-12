@@ -36,6 +36,7 @@ import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
 import org.apache.myfaces.tobago.internal.webapp.TobagoResponseWriterWrapper;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
+import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.Command;
 import org.apache.myfaces.tobago.renderkit.html.CommandMap;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
@@ -391,8 +392,11 @@ public final class HtmlRendererUtils {
         if (item instanceof org.apache.myfaces.tobago.model.SelectItem) {
           String image = ((org.apache.myfaces.tobago.model.SelectItem) item).getImage();
           if (image != null) {
-            String imagePath = ResourceManagerUtils.getImageWithPath(facesContext, image);
-            writer.writeStyleAttribute("background-image: url('" + imagePath + "')");
+            final Style style = new Style();
+            style.setBackgroundImage("url('"
+                + ResourceManagerUtils.getImageOrDisabledImageWithPath(facesContext, image, item.isDisabled())
+                + "')");
+            writer.writeStyleAttribute(style);
           }
         }
         Markup markup = item instanceof SupportsMarkup ? ((SupportsMarkup) item).getMarkup() : Markup.NULL;

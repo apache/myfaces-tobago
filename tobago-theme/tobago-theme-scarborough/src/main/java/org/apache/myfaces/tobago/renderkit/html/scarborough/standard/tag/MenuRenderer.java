@@ -69,9 +69,9 @@ public class MenuRenderer extends LayoutComponentRendererBase {
     writer.writeClassAttribute(Classes.create(menu));
     if (menu.getImage() != null) {
       Style style = new Style();
-      style.setBackgroundImage("url("
+      style.setBackgroundImage("url('"
           + ResourceManagerUtils.getImageOrDisabledImageWithPath(facesContext, menu.getImage(), menu.isDisabled())
-          + ")");
+          + "')");
       writer.writeStyleAttribute(style);
     }
     writer.startElement(HtmlElements.A, menu);

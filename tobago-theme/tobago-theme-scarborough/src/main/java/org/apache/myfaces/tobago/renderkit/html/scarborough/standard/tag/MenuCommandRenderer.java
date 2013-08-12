@@ -179,9 +179,9 @@ public class MenuCommandRenderer extends CommandRendererBase {
         writer.endElement(HtmlElements.IMG);
       } else {
         Style style = new Style();
-        style.setBackgroundImage("url("
+        style.setBackgroundImage("url('"
             + ResourceManagerUtils.getImageOrDisabledImageWithPath(facesContext, image, disabled)
-            + ")");
+            + "')");
         writer.writeStyleAttribute(style);
       }
     }
