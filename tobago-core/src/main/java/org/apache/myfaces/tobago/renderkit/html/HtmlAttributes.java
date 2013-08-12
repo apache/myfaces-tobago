@@ -97,6 +97,8 @@ public final class HtmlAttributes {
   public static final String SELECTED = "selected";
   public static final String SIZE = "size";
   public static final String SRC = "src";
+  /** @deprecated Since 2.0.0. This attribute work not with SCP */
+  @Deprecated
   public static final String STYLE = "style";
   public static final String SUMMARY = "summary";
   public static final String TABINDEX = "tabindex";
