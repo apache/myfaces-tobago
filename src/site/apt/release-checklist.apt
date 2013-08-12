@@ -164,7 +164,7 @@ Announcement template
 Subject: [ANNOUNCE] Apache Tobago <version>
 
  The Apache MyFaces team is pleased to announce the release of Apache Tobago <v>.
- Apache Tobago is a renderkit for JSF and runs with MyFaces Core.
+ Apache Tobago is a component library for JSF.
 
  Main new features
  -----------------
