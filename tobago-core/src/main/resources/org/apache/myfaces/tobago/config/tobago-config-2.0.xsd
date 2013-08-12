@@ -69,7 +69,7 @@
 
   <xs:simpleType name="tobago-config-version-type">
     <xs:restriction base="xs:token">
-      <xs:enumeration value="1.6"/>
+      <xs:enumeration value="2.0"/>
     </xs:restriction>
   </xs:simpleType>
 
