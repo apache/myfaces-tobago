@@ -30,6 +30,7 @@ import org.apache.myfaces.tobago.event.SortActionEvent;
 import org.apache.myfaces.tobago.example.addressbook.Address;
 import org.apache.myfaces.tobago.example.addressbook.AddressDao;
 import org.apache.myfaces.tobago.example.addressbook.Picture;
+import org.apache.myfaces.tobago.model.SelectItem;
 import org.apache.myfaces.tobago.model.SheetState;
 import org.apache.myfaces.tobago.util.VariableResolverUtils;
 import org.slf4j.Logger;
@@ -41,7 +42,6 @@ import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
-import javax.faces.model.SelectItem;
 import javax.faces.validator.ValidatorException;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -50,9 +50,11 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 @Named("controller")
 @WindowScoped
@@ -62,6 +64,8 @@ public class Controller implements Serializable {
 
   private static final String OUTCOME_LIST = "list";
   private static final String OUTCOME_EDITOR = "editor";
+
+  public static final Map<Locale, String> FLAGS;
 
   private List<Address> currentAddressList;
   private Address currentAddress;
@@ -92,6 +96,13 @@ public class Controller implements Serializable {
 
   private FileItem uploadedFile;
   private boolean renderFileUploadPopup;
+
+  static {
+    FLAGS = new HashMap<Locale, String>(3);
+    FLAGS.put(Locale.GERMAN, "image/addressbook/icon/flag-de.png");
+    FLAGS.put(Locale.UK, "image/addressbook/icon/flag-gb.png");
+    FLAGS.put(Locale.US, "image/addressbook/icon/flag-us.png");
+  }
 
   @PostConstruct
   public void init() {
@@ -414,7 +425,7 @@ public class Controller implements Serializable {
     Iterator supportedLocales = application.getSupportedLocales();
     while (supportedLocales.hasNext()) {
       Locale locale = (Locale) supportedLocales.next();
-      SelectItem item = new SelectItem(locale, locale.getDisplayName(language));
+      SelectItem item = new SelectItem(locale, locale.getDisplayName(language), null, FLAGS.get(locale));
       languages.add(item);
     }
     Collections.sort(languages, new SelectItemComparator());

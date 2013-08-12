@@ -37,7 +37,9 @@
   </application>
 
   <lifecycle>
+<!--
     <phase-listener>org.apache.myfaces.tobago.util.DebugPhaseListener</phase-listener>
+-->
     <phase-listener>org.apache.myfaces.tobago.example.addressbook.web.StartupPhaseListener</phase-listener>
   </lifecycle>
 
