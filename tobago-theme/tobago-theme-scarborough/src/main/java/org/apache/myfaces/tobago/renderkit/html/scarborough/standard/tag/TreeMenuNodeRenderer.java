@@ -24,6 +24,7 @@ import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.context.UserAgent;
 import org.apache.myfaces.tobago.internal.component.AbstractUIData;
 import org.apache.myfaces.tobago.layout.Display;
+import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
@@ -78,7 +79,9 @@ public class TreeMenuNodeRenderer extends TreeNodeRendererBase {
       writer.writeClassAttribute(Classes.create(node, "icon"));
       writer.writeAttribute(HtmlAttributes.SRC, src, false);
       writer.writeAttribute(HtmlAttributes.ALT, "", false);
-      writer.writeStyleAttribute("width: 0px");
+      Style style = new Style();
+      style.setWidth(Measure.ZERO);
+      writer.writeStyleAttribute(style);
       writer.endElement(HtmlElements.IMG);
     }
   }
