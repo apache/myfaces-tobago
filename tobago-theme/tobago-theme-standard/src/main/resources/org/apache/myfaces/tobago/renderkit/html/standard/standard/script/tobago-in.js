@@ -141,3 +141,51 @@ Tobago.In.prototype.leaveRequired = function(e) {
 
 Tobago.registerListener(Tobago.In.init, Tobago.Phase.DOCUMENT_READY);
 Tobago.registerListener(Tobago.In.init, Tobago.Phase.AFTER_UPDATE);
+
+// placeholder --------------------------------------------------------------------------------------------------------
+
+// adding placeholder to the feature detection
+jQuery.support.placeholder = (function(){
+  return 'placeholder' in document.createElement('input');
+})();
+
+Tobago.In.initPlaceholder = function(elements) {
+  if (!jQuery.support.placeholder) {
+    var fields = Tobago.Utils.selectWidthJQuery(elements, "[placeholder]");
+    fields.each(function () {
+      jQuery(this)
+          .on("focus", function () {
+            var input = jQuery(this);
+            var placeholder = input.next(".tobago-in-placeholder");
+            placeholder.hide();
+          })
+          .on("blur", function () {
+            var input = jQuery(this);
+            var placeholder = input.next(".tobago-in-placeholder");
+            if (placeholder.size() == 0) {
+              // lazy init, create a new one
+              placeholder = input.after("<span/>").next();
+              placeholder.addClass("tobago-in-placeholder");
+              placeholder.text(input.attr("placeholder")); // the text
+              placeholder.css(
+                  {
+                    left: input.css("left"),
+                    top: input.css("top")
+                  }
+              );
+              placeholder.on("click", function(event) {
+                jQuery(this).prev().focus();
+              });
+            }
+            if (input.val() == "") {
+              // xxx why this doesn't work?
+              // placeholder.show();
+              placeholder.css("display", "block");
+            }
+          }).trigger("blur"); // for initialization
+    });
+  }
+};
+
+Tobago.registerListener(Tobago.In.initPlaceholder, Tobago.Phase.DOCUMENT_READY);
+Tobago.registerListener(Tobago.In.initPlaceholder, Tobago.Phase.AFTER_UPDATE);
