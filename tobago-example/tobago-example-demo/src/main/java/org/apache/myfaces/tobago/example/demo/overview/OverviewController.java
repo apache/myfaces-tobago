@@ -82,6 +82,8 @@ public class OverviewController implements Serializable {
 
   private String suggestInput;
 
+  private String placeholder;
+
   private String basicArea = "";
 
   private Date basicDate = new Date();
@@ -353,6 +355,14 @@ public class OverviewController implements Serializable {
 
   public void setSuggestInput(String suggestInput) {
     this.suggestInput = suggestInput;
+  }
+
+  public String getPlaceholder() {
+    return placeholder;
+  }
+
+  public void setPlaceholder(String placeholder) {
+    this.placeholder = placeholder;
   }
 
   public String getBasicArea() {

@@ -67,6 +67,7 @@ public class InExtensionTag extends TobagoExtensionBodyTagSupport {
   private ValueExpression rendered;
   private ValueExpression required;
   private ValueExpression tip;
+  private ValueExpression placeholder;
   private ValueExpression value;
   private MethodExpression valueChangeListener;
   private ValueExpression onchange;
@@ -121,6 +122,9 @@ public class InExtensionTag extends TobagoExtensionBodyTagSupport {
     }
     if (label != null) {
       inTag.setLabel(label);
+    }
+    if (placeholder != null) {
+      inTag.setPlaceholder(placeholder);
     }
     if (binding != null) {
       inTag.setBinding(binding);
@@ -207,6 +211,7 @@ public class InExtensionTag extends TobagoExtensionBodyTagSupport {
     rendered = null;
     required = null;
     tip = null;
+    placeholder = null;
     value = null;
     valueChangeListener = null;
     onchange = null;
@@ -420,6 +425,16 @@ public class InExtensionTag extends TobagoExtensionBodyTagSupport {
   @UIComponentTagAttribute()
   public void setTip(ValueExpression tip) {
     this.tip = tip;
+  }
+
+  /**
+   * Displays a short text in the input field, that describes the meaning of this field.
+   * This is part of HTML 5, the theme should emulate the behaviour, when the browser doesn't support it.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute()
+  public void setPlaceholder(ValueExpression placeholder) {
+    this.placeholder = placeholder;
   }
 
   /**

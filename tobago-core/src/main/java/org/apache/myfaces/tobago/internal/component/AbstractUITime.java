@@ -42,4 +42,9 @@ public abstract class AbstractUITime extends AbstractUIInput {
     }
     return converter;
   }
+
+  @Override
+  public String getPlaceholder() {
+    return null;
+  }
 }

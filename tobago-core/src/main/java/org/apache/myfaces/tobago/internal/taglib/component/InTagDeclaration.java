@@ -31,6 +31,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasInputLabel;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasPlaceholder;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasSuggestMethod;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 import org.apache.myfaces.tobago.internal.taglib.declaration.InputTagDeclaration;
@@ -64,6 +65,6 @@ import javax.faces.component.UIInput;
 public interface InTagDeclaration
     extends HasIdBindingAndRendered, HasConverter, IsReadonly, IsDisabled, IsRequired, HasTip, IsPassword,
     HasSuggestMethod, HasMarkup, HasCurrentMarkup, InputTagDeclaration, HasInputLabel, IsDeprecatedInline,
-    HasAutocomplete {
+    HasAutocomplete, HasPlaceholder {
 
 }

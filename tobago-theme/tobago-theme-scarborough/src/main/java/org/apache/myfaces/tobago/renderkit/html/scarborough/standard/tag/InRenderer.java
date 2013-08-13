@@ -69,9 +69,12 @@ public class InRenderer extends InputRendererBase {
           + "'");
     }
     final String type = password ? HtmlInputTypes.PASSWORD : HtmlInputTypes.TEXT;
-
     final String id = input.getClientId(facesContext);
+    final boolean readonly = input.isReadonly();
+    final boolean disabled = input.isDisabled();
+
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+
     writer.startElement(HtmlElements.INPUT, input);
     writer.writeAttribute(HtmlAttributes.TYPE, type, false);
     writer.writeNameAttribute(id);
@@ -101,14 +104,19 @@ public class InRenderer extends InputRendererBase {
     if (pattern != null) {
       writer.writeAttribute(HtmlAttributes.PATTERN, pattern, false);
     }
-    writer.writeAttribute(HtmlAttributes.READONLY, input.isReadonly());
-    writer.writeAttribute(HtmlAttributes.DISABLED, input.isDisabled());
+    writer.writeAttribute(HtmlAttributes.READONLY, readonly);
+    writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
     Integer tabIndex = input.getTabIndex();
     if (tabIndex != null) {
       writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
     }
     Style style = new Style(facesContext, input);
     writer.writeStyleAttribute(style);
+
+    final String placeholder = input.getPlaceholder();
+    if (!disabled && !readonly && StringUtils.isNotBlank(placeholder)) {
+      writer.writeAttribute(HtmlAttributes.PLACEHOLDER, placeholder, true);
+    }
 
     if (input instanceof AbstractUIIn && ((AbstractUIIn) input).getSuggest() != null) {
       writer.writeAttribute(HtmlAttributes.AUTOCOMPLETE, "off", false);

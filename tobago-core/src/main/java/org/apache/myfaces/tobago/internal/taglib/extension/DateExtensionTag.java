@@ -28,6 +28,8 @@ import org.apache.myfaces.tobago.internal.taglib.DatePickerTag;
 import org.apache.myfaces.tobago.internal.taglib.DateTag;
 import org.apache.myfaces.tobago.internal.taglib.FormTag;
 
+import javax.el.MethodExpression;
+import javax.el.ValueExpression;
 import javax.servlet.jsp.JspException;
 
 /**
@@ -53,32 +55,33 @@ import javax.servlet.jsp.JspException;
     faceletHandler = "org.apache.myfaces.tobago.facelets.extension.DateExtensionHandler")
 public class DateExtensionTag extends TobagoExtensionBodyTagSupport {
 
-  private static final long serialVersionUID = 2044784791513107420L;
+  private static final long serialVersionUID = 1L;
 
-  private javax.el.ValueExpression binding;
-  private javax.el.ValueExpression converter;
-  private javax.el.MethodExpression validator;
-  private javax.el.ValueExpression disabled;
-  private javax.el.ValueExpression focus;
-  private javax.el.ValueExpression label;
-  private javax.el.ValueExpression readonly;
-  private javax.el.ValueExpression rendered;
-  private javax.el.ValueExpression required;
-  private javax.el.ValueExpression tip;
-  private javax.el.ValueExpression value;
-  private javax.el.MethodExpression valueChangeListener;
-  private javax.el.ValueExpression inline;
-  private javax.el.ValueExpression onchange;
-  private javax.el.ValueExpression tabIndex;
-  private javax.el.ValueExpression markup;
-  private javax.el.ValueExpression validatorMessage;
-  private javax.el.ValueExpression converterMessage;
-  private javax.el.ValueExpression requiredMessage;  
+  private ValueExpression binding;
+  private ValueExpression converter;
+  private MethodExpression validator;
+  private ValueExpression disabled;
+  private ValueExpression focus;
+  private ValueExpression label;
+  private ValueExpression readonly;
+  private ValueExpression rendered;
+  private ValueExpression required;
+  private ValueExpression tip;
+  private ValueExpression placeholder;
+  private ValueExpression value;
+  private MethodExpression valueChangeListener;
+  private ValueExpression inline;
+  private ValueExpression onchange;
+  private ValueExpression tabIndex;
+  private ValueExpression markup;
+  private ValueExpression validatorMessage;
+  private ValueExpression converterMessage;
+  private ValueExpression requiredMessage;
   private String fieldId;
   private String pickerId;
   private String formId;
 
-  private javax.el.ValueExpression labelWidth;
+  private ValueExpression labelWidth;
   private LabelExtensionTag labelTag;
   private DateTag dateTag;
 
@@ -118,6 +121,9 @@ public class DateExtensionTag extends TobagoExtensionBodyTagSupport {
     }
     if (valueChangeListener != null) {
       dateTag.setValueChangeListener(valueChangeListener);
+    }
+    if (placeholder != null) {
+      dateTag.setPlaceholder(placeholder);
     }
     if (binding != null) {
       dateTag.setBinding(binding);
@@ -224,6 +230,7 @@ public class DateExtensionTag extends TobagoExtensionBodyTagSupport {
     rendered = null;
     required = null;
     tip = null;
+    placeholder = null;
     value = null;
     valueChangeListener = null;
     onchange = null;
@@ -244,7 +251,7 @@ public class DateExtensionTag extends TobagoExtensionBodyTagSupport {
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "java.lang.Object")
-  public void setValue(javax.el.ValueExpression value) {
+  public void setValue(ValueExpression value) {
     this.value = value;
   }
 
@@ -253,15 +260,13 @@ public class DateExtensionTag extends TobagoExtensionBodyTagSupport {
    * that will be notified when a new value has been set for this input component.
    * The expression must evaluate to a public method that takes a ValueChangeEvent
    * parameter, with a return type of void.
-   *
-   * @param valueChangeListener
    */
   @TagAttribute
   @UIComponentTagAttribute(
           type = {},
           expression = DynamicExpression.METHOD_EXPRESSION_REQUIRED,
           methodSignature = "javax.faces.event.ValueChangeEvent")
-  public void setValueChangeListener(javax.el.MethodExpression valueChangeListener) {
+  public void setValueChangeListener(MethodExpression valueChangeListener) {
     this.valueChangeListener = valueChangeListener;
   }
 
@@ -271,16 +276,16 @@ public class DateExtensionTag extends TobagoExtensionBodyTagSupport {
    */
   @TagAttribute
   @UIComponentTagAttribute()
-  public void setLabel(javax.el.ValueExpression label) {
+  public void setLabel(ValueExpression label) {
     this.label = label;
   }
 
   /**
-   * Clientside script function to add to this component's onchange handler.
+   * Client side script function to add to this component's onchange handler.
    */
   @TagAttribute
   @UIComponentTagAttribute()
-  public void setOnchange(javax.el.ValueExpression onchange) {
+  public void setOnchange(ValueExpression onchange) {
     this.onchange = onchange;
   }
 
@@ -289,7 +294,7 @@ public class DateExtensionTag extends TobagoExtensionBodyTagSupport {
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
-  public void setFocus(javax.el.ValueExpression focus) {
+  public void setFocus(ValueExpression focus) {
     this.focus = focus;
   }
 
@@ -299,7 +304,7 @@ public class DateExtensionTag extends TobagoExtensionBodyTagSupport {
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "javax.faces.component.UIComponent")
-  public void setBinding(javax.el.ValueExpression binding) {
+  public void setBinding(ValueExpression binding) {
     this.binding = binding;
   }
 
@@ -309,7 +314,7 @@ public class DateExtensionTag extends TobagoExtensionBodyTagSupport {
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "boolean", defaultValue = "true")
-  public void setRendered(javax.el.ValueExpression rendered) {
+  public void setRendered(ValueExpression rendered) {
     this.rendered = rendered;
   }
 
@@ -325,7 +330,7 @@ public class DateExtensionTag extends TobagoExtensionBodyTagSupport {
   @TagAttribute
   @UIComponentTagAttribute(type = "javax.faces.convert.Converter",
       expression = DynamicExpression.VALUE_EXPRESSION)
-  public void setConverter(javax.el.ValueExpression converter) {
+  public void setConverter(ValueExpression converter) {
     this.converter = converter;
   }
 
@@ -339,7 +344,7 @@ public class DateExtensionTag extends TobagoExtensionBodyTagSupport {
   @UIComponentTagAttribute(type = {},
       expression = DynamicExpression.METHOD_EXPRESSION,
       methodSignature = { "javax.faces.context.FacesContext", "javax.faces.component.UIComponent", "java.lang.Object" })
-  public void setValidator(javax.el.MethodExpression validator) {
+  public void setValidator(MethodExpression validator) {
     this.validator = validator;
   }
 
@@ -350,7 +355,7 @@ public class DateExtensionTag extends TobagoExtensionBodyTagSupport {
   @TagAttribute
   @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
   @Deprecated
-  public void setInline(javax.el.ValueExpression inline) {
+  public void setInline(ValueExpression inline) {
     this.inline = inline;
   }
 
@@ -359,7 +364,7 @@ public class DateExtensionTag extends TobagoExtensionBodyTagSupport {
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
-  public void setReadonly(javax.el.ValueExpression readonly) {
+  public void setReadonly(ValueExpression readonly) {
     this.readonly = readonly;
   }
 
@@ -368,7 +373,7 @@ public class DateExtensionTag extends TobagoExtensionBodyTagSupport {
    */
   @TagAttribute()
   @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
-  public void setDisabled(javax.el.ValueExpression disabled) {
+  public void setDisabled(ValueExpression disabled) {
     this.disabled = disabled;
   }
 
@@ -379,7 +384,7 @@ public class DateExtensionTag extends TobagoExtensionBodyTagSupport {
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
-  public void setRequired(javax.el.ValueExpression required) {
+  public void setRequired(ValueExpression required) {
     this.required = required;
   }
 
@@ -388,8 +393,18 @@ public class DateExtensionTag extends TobagoExtensionBodyTagSupport {
    */
   @TagAttribute
   @UIComponentTagAttribute()
-  public void setTip(javax.el.ValueExpression tip) {
+  public void setTip(ValueExpression tip) {
     this.tip = tip;
+  }
+
+  /**
+   * Displays a short text in the input field, that describes the meaning of this field.
+   * This is part of HTML 5, the theme should emulate the behaviour, when the browser doesn't support it.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute()
+  public void setPlaceholder(ValueExpression placeholder) {
+    this.placeholder = placeholder;
   }
 
    /**
@@ -399,7 +414,7 @@ public class DateExtensionTag extends TobagoExtensionBodyTagSupport {
    */
   @TagAttribute
   @UIComponentTagAttribute()
-  public void setLabelWidth(javax.el.ValueExpression labelWidth) {
+  public void setLabelWidth(ValueExpression labelWidth) {
     this.labelWidth = labelWidth;
   }
 
@@ -409,13 +424,13 @@ public class DateExtensionTag extends TobagoExtensionBodyTagSupport {
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "java.lang.String[]", defaultValue = "none")
-  public void setMarkup(javax.el.ValueExpression markup) {
+  public void setMarkup(ValueExpression markup) {
     this.markup = markup;
   }
 
   @TagAttribute
   @UIComponentTagAttribute(type = "java.lang.Integer")
-  public void setTabIndex(javax.el.ValueExpression tabIndex) {
+  public void setTabIndex(ValueExpression tabIndex) {
     this.tabIndex = tabIndex;
   }
 
@@ -424,7 +439,7 @@ public class DateExtensionTag extends TobagoExtensionBodyTagSupport {
    */
   @TagAttribute
   @UIComponentTagAttribute()
-  public void setValidatorMessage(javax.el.ValueExpression validatorMessage) {
+  public void setValidatorMessage(ValueExpression validatorMessage) {
     this.validatorMessage = validatorMessage;
   }
 
@@ -433,7 +448,7 @@ public class DateExtensionTag extends TobagoExtensionBodyTagSupport {
    */
   @TagAttribute
   @UIComponentTagAttribute()
-  public void setConverterMessage(javax.el.ValueExpression converterMessage) {
+  public void setConverterMessage(ValueExpression converterMessage) {
     this.converterMessage = converterMessage;
   }
 
@@ -442,7 +457,7 @@ public class DateExtensionTag extends TobagoExtensionBodyTagSupport {
    */
   @TagAttribute
   @UIComponentTagAttribute()
-  public void setRequiredMessage(javax.el.ValueExpression requiredMessage) {
+  public void setRequiredMessage(ValueExpression requiredMessage) {
     this.requiredMessage = requiredMessage;
   }
 

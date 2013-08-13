@@ -88,6 +88,7 @@ public final class HtmlAttributes {
   @Deprecated
   public static final String ONMOUSEOUT = "onmouseout";
   public static final String PATTERN = "pattern";
+  public static final String PLACEHOLDER = "placeholder";
   public static final String READONLY = "readonly";
   public static final String REL = "rel";
   public static final String REQUIRED = "required";

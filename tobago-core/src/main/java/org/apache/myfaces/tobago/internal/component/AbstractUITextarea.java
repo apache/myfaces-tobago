@@ -19,30 +19,10 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
-import org.apache.myfaces.tobago.component.SupportsMarkup;
-import org.apache.myfaces.tobago.layout.LayoutComponent;
-import org.apache.myfaces.tobago.util.ComponentUtils;
+public abstract class AbstractUITextarea extends AbstractUIInput {
 
-import javax.faces.context.FacesContext;
-
-public abstract class AbstractUIInput extends javax.faces.component.UIInput
-    implements SupportsMarkup, LayoutComponent {
-
-  // TODO can this removed?
-  public void updateModel(FacesContext facesContext) {
-    if (ComponentUtils.mayUpdateModel(this)) {
-      super.updateModel(facesContext);
-    }
+  @Override
+  public String getPlaceholder() {
+    return null;
   }
-
-  public abstract Integer getTabIndex();
-
-  public abstract boolean isFocus();
-
-  public abstract boolean isDisabled();
-
-  public abstract boolean isReadonly();
-
-  public abstract String getPlaceholder();
-
 }
