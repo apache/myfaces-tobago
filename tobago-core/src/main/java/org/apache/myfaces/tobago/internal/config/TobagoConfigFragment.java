@@ -42,7 +42,7 @@ public class TobagoConfigFragment {
   private RenderersConfig renderersConfig;
   private Boolean createSessionSecret;
   private Boolean checkSessionSecret;
-  private boolean preventFrameAttacks = true;
+  private Boolean preventFrameAttacks;
   private List<String> contentSecurityPolicy;
   // todo
   private List<ThemeImpl> themeDefinitions;
@@ -148,11 +148,11 @@ public class TobagoConfigFragment {
     this.checkSessionSecret = Boolean.valueOf(checkSessionSecret);
   }
 
-  public boolean isPreventFrameAttacks() {
+  public Boolean getPreventFrameAttacks() {
     return preventFrameAttacks;
   }
 
-  public void setPreventFrameAttacks(boolean preventFrameAttacks) {
+  public void setPreventFrameAttacks(Boolean preventFrameAttacks) {
     this.preventFrameAttacks = preventFrameAttacks;
   }
 

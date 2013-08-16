@@ -58,7 +58,7 @@ public class TobagoConfigImpl extends TobagoConfig {
   private ProjectStage projectStage;
   private boolean createSessionSecret;
   private boolean checkSessionSecret;
-  private boolean preventFrameAttacks = true;
+  private boolean preventFrameAttacks;
   private List<String> contentSecurityPolicy;
   private URL url;
   private Map<String, String> defaultValidatorInfo;
@@ -69,6 +69,7 @@ public class TobagoConfigImpl extends TobagoConfig {
     resourceDirs = new ArrayList<String>();
     createSessionSecret = true;
     checkSessionSecret = true;
+    preventFrameAttacks = true;
     contentSecurityPolicy = new ArrayList<String>();
   }
 

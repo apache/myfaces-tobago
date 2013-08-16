@@ -62,7 +62,64 @@ public class TobagoConfigSorter implements Comparator<TobagoConfigFragment> {
         LOG.info("name=" + name + " url='" + fragment.getUrl() + "'");
       }
     }
+  }
 
+  public TobagoConfigImpl merge() {
+// todo
+    LOG.warn("Merge implementation in progress...)");
+
+    TobagoConfigImpl result = new TobagoConfigImpl();
+
+    for (TobagoConfigFragment fragment : list) {
+      // default theme
+      final String defaultTheme = fragment.getDefaultThemeName();
+      if (defaultTheme != null) {
+        result.setDefaultThemeName(defaultTheme);
+      }
+
+      // supported themes
+      for (String supported : fragment.getSupportedThemeNames()) {
+        result.addSupportedThemeName(supported);
+      }
+
+      // resource dirs
+      for (String dir : fragment.getResourceDirs()) {
+        result.addResourceDir(dir);
+      }
+
+      // renderers config
+      // TODO: merging not implemented yet!!!
+      result.setRenderersConfig(fragment.getRenderersConfig());
+
+      // session secret
+      if (fragment.getCreateSessionSecret() != null) {
+        result.setCreateSessionSecret(fragment.getCreateSessionSecret());
+      }
+      if (fragment.getCheckSessionSecret() != null) {
+        result.setCheckSessionSecret(fragment.getCheckSessionSecret());
+      }
+
+      if (fragment.getPreventFrameAttacks() != null) {
+        result.setPreventFrameAttacks(fragment.getPreventFrameAttacks());
+      }
+
+      for(String directive : fragment.getContentSecurityPolicy()) {
+        result.addContentSecurityPolicy(directive);
+      }
+
+      // theme definition
+      // todo
+/*
+      for (Theme theme : fragment.getThemeDefinitions()) {
+        result.addThemeDefinition(theme);
+      }
+*/
+
+      // url
+      // todo???
+
+    }
+    return result;
   }
 
   protected void makeTransitive() {

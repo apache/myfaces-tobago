@@ -51,7 +51,9 @@ public class TobagoConfigBuilder {
     list = new ArrayList<TobagoConfigFragment>();
     configFromClasspath();
     configFromWebInf(servletContext);
-    final TobagoConfigImpl tobagoConfig = mergeList();
+    final TobagoConfigSorter sorter = new TobagoConfigSorter(list);
+    sorter.sort();
+    final TobagoConfigImpl tobagoConfig = sorter.merge();
 
     // todo: cleanup, use one central TobagoConfig, no singleton ResourceManager
     // resources
@@ -83,64 +85,6 @@ public class TobagoConfigBuilder {
     if (url != null) {
       list.add(new TobagoConfigParser().parse(url));
     }
-  }
-
-  private TobagoConfigImpl mergeList() {
-// todo
-    LOG.warn("Merge implementation in progress...)");
-
-    TobagoConfigSorter sorter = new TobagoConfigSorter(list);
-    sorter.sort();
-    TobagoConfigImpl result = new TobagoConfigImpl();
-
-    for (TobagoConfigFragment fragment : list) {
-      // default theme
-      final String defaultTheme = fragment.getDefaultThemeName();
-      if (defaultTheme != null) {
-        result.setDefaultThemeName(defaultTheme);
-      }
-
-      // supported themes
-      for (String supported : fragment.getSupportedThemeNames()) {
-        result.addSupportedThemeName(supported);
-      }
-
-      // resource dirs
-      for (String dir : fragment.getResourceDirs()) {
-        result.addResourceDir(dir);
-      }
-
-      // renderers config
-      // TODO: merging not implemented yet!!!
-      result.setRenderersConfig(fragment.getRenderersConfig());
-
-      // session secret
-      if (fragment.getCreateSessionSecret() != null) {
-        result.setCreateSessionSecret(fragment.getCreateSessionSecret());
-      }
-      if (fragment.getCheckSessionSecret() != null) {
-        result.setCheckSessionSecret(fragment.getCheckSessionSecret());
-      }
-
-      result.setPreventFrameAttacks(fragment.isPreventFrameAttacks());
-
-      for(String directive : fragment.getContentSecurityPolicy()) {
-        result.addContentSecurityPolicy(directive);
-      }
-
-      // theme definition
-      // todo
-/*
-      for (Theme theme : fragment.getThemeDefinitions()) {
-        result.addThemeDefinition(theme);
-      }
-*/
-
-      // url
-      // todo???
-
-    }
-    return result;
   }
 
   private void configFromClasspath() throws ServletException {
