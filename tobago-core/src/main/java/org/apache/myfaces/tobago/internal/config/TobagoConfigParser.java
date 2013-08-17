@@ -136,7 +136,6 @@ public class TobagoConfigParser {
     digester.addObjectCreate("tobago-config/theme-definitions/theme-definition", ThemeImpl.class);
     digester.addSetNext("tobago-config/theme-definitions/theme-definition", "addThemeDefinition");
     digester.addCallMethod("tobago-config/theme-definitions/theme-definition/name", "setName", 0);
-    digester.addCallMethod("tobago-config/theme-definitions/theme-definition/deprecated-name", "setDeprecatedName", 0);
     digester.addCallMethod("tobago-config/theme-definitions/theme-definition/display-name", "setDisplayName", 0);
     digester.addCallMethod("tobago-config/theme-definitions/theme-definition/resource-path", "setResourcePath", 0);
     digester.addCallMethod("tobago-config/theme-definitions/theme-definition/fallback", "setFallbackName", 0);

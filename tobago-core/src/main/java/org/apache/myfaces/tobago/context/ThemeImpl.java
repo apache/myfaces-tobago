@@ -40,8 +40,6 @@ public class ThemeImpl implements Theme, Serializable {
 
   private String displayName;
 
-  private String deprecatedName;
-
   private String resourcePath;
 
   private ThemeImpl fallback;
@@ -82,14 +80,6 @@ public class ThemeImpl implements Theme, Serializable {
 
   public void setDisplayName(String displayName) {
     this.displayName = displayName;
-  }
-
-  public String getDeprecatedName() {
-    return deprecatedName;
-  }
-
-  public void setDeprecatedName(String deprecatedName) {
-    this.deprecatedName = deprecatedName;
   }
 
   public String getResourcePath() {

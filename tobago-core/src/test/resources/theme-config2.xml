@@ -20,7 +20,6 @@
 <tobago-theme>
   <name>test2</name>
   <display-name>Test2</display-name>
-  <deprecated-name>Test2</deprecated-name>
   <resource-path>Test2</resource-path>
   <fallback>test</fallback>
   <resources production="false">

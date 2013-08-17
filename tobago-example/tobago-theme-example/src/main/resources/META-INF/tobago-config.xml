@@ -32,7 +32,6 @@
     <theme-definition>
       <name>example</name>
       <display-name>Example Theme</display-name>
-      <deprecated-name>org.apache.myfaces.tobago.context.ExampleTheme</deprecated-name>
       <resource-path>org/apache/myfaces/tobago/renderkit</resource-path>
       <fallback>speyside</fallback>
       <renderers>

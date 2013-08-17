@@ -28,7 +28,6 @@
     <theme-definition>
       <name>standard</name>
       <display-name>Standard Theme</display-name>
-      <deprecated-name>org.apache.myfaces.tobago.context.StandardTheme</deprecated-name>
       <resource-path>org/apache/myfaces/tobago/renderkit</resource-path>
       <versioned>true</versioned>
       <renderers>

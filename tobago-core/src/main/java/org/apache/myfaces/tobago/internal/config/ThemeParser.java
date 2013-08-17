@@ -54,7 +54,6 @@ public class ThemeParser {
     // todo   digester.setValidating(true);
     digester.setValidating(false);
     digester.addCallMethod("tobago-theme/name", "setName", 0);
-    digester.addCallMethod("tobago-theme/deprecated-name", "setDeprecatedName", 0);
     digester.addCallMethod("tobago-theme/display-name", "setDisplayName", 0);
     digester.addCallMethod("tobago-theme/resource-path", "setResourcePath", 0);
     digester.addCallMethod("tobago-theme/fallback", "setFallbackName", 0);

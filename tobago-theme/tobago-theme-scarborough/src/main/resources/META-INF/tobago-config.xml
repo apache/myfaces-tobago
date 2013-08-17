@@ -32,7 +32,6 @@
     <theme-definition>
       <name>scarborough</name>
       <display-name>Scarborough</display-name>
-      <deprecated-name>org.apache.myfaces.tobago.context.ScarboroughTheme</deprecated-name>
       <resource-path>org/apache/myfaces/tobago/renderkit</resource-path>
       <fallback>standard</fallback>
       <versioned>true</versioned>

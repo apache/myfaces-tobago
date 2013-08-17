@@ -32,7 +32,6 @@
     <theme-definition>
       <name>richmond</name>
       <display-name>Richmond</display-name>
-      <deprecated-name>org.apache.myfaces.tobago.context.RichmondTheme</deprecated-name>
       <resource-path>org/apache/myfaces/tobago/renderkit</resource-path>
       <fallback>speyside</fallback>
       <versioned>true</versioned>

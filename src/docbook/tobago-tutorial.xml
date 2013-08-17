@@ -883,9 +883,6 @@ tobago-resource/html/standard/standard/image/empty-portrait_de.png</programlisti
 
       <programlisting role="XML">&lt;tobago-theme&gt;
   &lt;name&gt;example&lt;/name&gt;
-  &lt;deprecated-name&gt;
-    org.apache.myfaces.tobago.context.ExampleTheme
-  &lt;/deprecated-name&gt;
   &lt;resource-path&gt;org/apache/myfaces/tobago/renderkit&lt;/resource-path&gt;
   <emphasis role="bold">&lt;fallback&gt;speyside&lt;/fallback&gt;</emphasis>
   &lt;renderers&gt;

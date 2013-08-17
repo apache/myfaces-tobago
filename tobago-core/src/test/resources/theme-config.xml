@@ -20,7 +20,6 @@
 <tobago-theme>
   <name>test</name>
   <display-name>Test</display-name>
-  <deprecated-name>Test</deprecated-name>
   <resource-path>Test</resource-path>
   <resources production="true">
     <script name="script/tobago.min.js"/>

@@ -32,7 +32,6 @@
     <theme-definition>
       <name>sandbox</name>
       <display-name>Sandbox Theme</display-name>
-      <deprecated-name>org.apache.myfaces.tobago.context.SandboxTheme</deprecated-name>
       <resource-path>org/apache/myfaces/tobago/renderkit</resource-path>
       <fallback>speyside</fallback>
     </theme-definition>

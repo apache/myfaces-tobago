@@ -64,11 +64,6 @@ class ThemeBuilder {
       result.put(theme.getName(), theme);
     }
     for (ThemeImpl theme : availableThemes) {
-      if (theme.getDeprecatedName() != null) {
-        result.put(theme.getDeprecatedName(), theme);
-      }
-    }
-    for (ThemeImpl theme : availableThemes) {
       theme.resolveResources();
     }
     for (ThemeImpl theme : availableThemes) {
