@@ -18,6 +18,10 @@
 /**
  * Create a overlay barrier and animate it.
  */
+
+Tobago.Config.set("Tobago", "waitOverlayDelay", 1000);
+Tobago.Config.set("Ajax", "waitOverlayDelay", 1000);
+
 (function ($) {
 
   $.widget("tobago.overlay", {
@@ -32,7 +36,11 @@
        * We need this information, because AJAX need to clone the animated image, but for a normal submit
        * we must not clone it, because the animation stops in some browsers.
        */
-      ajax: false
+      ajax: false,
+      /**
+       * The delay for the wait overlay. If not set the default delay is read from Tobago.Config.
+       */
+      waitOverlayDelay: undefined
     },
 
     overlay: null,
@@ -73,12 +81,16 @@
           : "tobago-page-overlayWaitPreloadedImage");
       wait.show();
 
+      var waitOverlayDelay = this.options.waitOverlayDelay
+          ? this.options.waitOverlayDelay
+          : Tobago.Config.get(this.options.ajax ? "Ajax" : "Tobago", "waitOverlayDelay");
+
       this.overlay.css({
         backgroundColor: jQuery('.tobago-page').css("background-color"),
         filter: 'alpha(opacity=80)', //IE
         opacity: 0})
           .show()
-          .delay(this.options.error ? 0 : 1000)
+          .delay(this.options.error ? 0 : waitOverlayDelay)
           .animate({opacity: '0.8'}, this.options.error ? 0 : 250, "linear", function () {
 
             // fix for IE6: reset the src attribute to enable animation
