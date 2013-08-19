@@ -83,7 +83,8 @@ public class ThemeParserTest {
       URL themeUrl = urls.nextElement();
       theme3 = parser.parse(themeUrl);
       Assert.assertEquals("test3", theme3.getName());
-      Assert.assertNull(theme3.getResources());
+      Assert.assertEquals(0, theme3.getResources().getScriptList().size());
+      Assert.assertEquals(0, theme3.getResources().getStyleList().size());
       themeBuilder.addTheme(theme3);
     } else {
       Assert.fail();
@@ -96,7 +97,8 @@ public class ThemeParserTest {
       URL themeUrl = urls.nextElement();
       theme4 = parser.parse(themeUrl);
       Assert.assertEquals("test4", theme4.getName());
-      Assert.assertNull(theme4.getResources());
+      Assert.assertEquals(0, theme4.getResources().getScriptList().size());
+      Assert.assertEquals(0, theme4.getResources().getStyleList().size());
       themeBuilder.addTheme(theme4);
     } else {
       Assert.fail();

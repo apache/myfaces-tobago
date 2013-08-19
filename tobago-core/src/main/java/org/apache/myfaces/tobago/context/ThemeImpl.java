@@ -66,6 +66,12 @@ public class ThemeImpl implements Theme, Serializable {
 
   private String version;
 
+  public ThemeImpl() {
+    resources = new ThemeResources();
+    productionResources = new ThemeResources();
+    productionResources.setProduction(true);
+  }
+
   public String getName() {
     return name;
   }
@@ -194,61 +200,33 @@ public class ThemeImpl implements Theme, Serializable {
     return productionResources;
   }
 
-  public void addResources(ThemeResources resources) {
-    if (resources.isProduction()) {
-      if (productionResources != null) {
-        merge(productionResources, resources);
-      } else {
-        productionResources = resources.copy();
-      }
+  public void addResources(ThemeResources themeResources) {
+    if (themeResources.isProduction()) {
+      productionResources.merge(themeResources);
     } else {
-      if (this.resources != null) {
-        merge(this.resources, resources);
-      } else {
-        this.resources = resources.copy();
-      }
+      resources.merge(themeResources);
     }
   }
 
   public void init() {
-    if (productionResources != null) {
-      productionScripts = new String[productionResources.getScriptList().size()];
-      for (int i = 0; i< productionResources.getScriptList().size(); i++) {
-        productionScripts[i] = productionResources.getScriptList().get(i).getName();
-      }
-      productionStyles = new String[productionResources.getStyleList().size()];
-      for (int i = 0; i< productionResources.getStyleList().size(); i++) {
-        productionStyles[i] = productionResources.getStyleList().get(i).getName();
-      }
+    productionScripts = new String[productionResources.getScriptList().size()];
+    for (int i = 0; i < productionResources.getScriptList().size(); i++) {
+      productionScripts[i] = productionResources.getScriptList().get(i).getName();
+    }
+    productionStyles = new String[productionResources.getStyleList().size()];
+    for (int i = 0; i < productionResources.getStyleList().size(); i++) {
+      productionStyles[i] = productionResources.getStyleList().get(i).getName();
     }
 
-    if (resources != null) {
-      scripts = new String[resources.getScriptList().size()];
-      for (int i = 0; i< resources.getScriptList().size(); i++) {
-        scripts[i] = resources.getScriptList().get(i).getName();
-      }
-      styles = new String[resources.getStyleList().size()];
-      for (int i = 0; i< resources.getStyleList().size(); i++) {
-        styles[i] = resources.getStyleList().get(i).getName();
-      }
+    scripts = new String[resources.getScriptList().size()];
+    for (int i = 0; i < resources.getScriptList().size(); i++) {
+      scripts[i] = resources.getScriptList().get(i).getName();
+    }
+    styles = new String[resources.getStyleList().size()];
+    for (int i = 0; i < resources.getStyleList().size(); i++) {
+      styles[i] = resources.getStyleList().get(i).getName();
     }
 
-  }
-
-  private void merge(ThemeResources resources, ThemeResources toAddResources) {
-    if (resources == toAddResources) {
-      return;
-    }
-    for (int i = toAddResources.getScriptList().size()-1; i >= 0; i--) {
-      ThemeScript script = toAddResources.getScriptList().get(i);
-      resources.getScriptList().remove(script);
-      resources.getScriptList().add(0, script);
-    }
-    for (int i = toAddResources.getStyleList().size()-1; i >= 0; i--) {
-      ThemeStyle style = toAddResources.getStyleList().get(i);
-      resources.getStyleList().remove(style);
-      resources.getStyleList().add(0, style);
-    }
   }
 
   public String[] getScriptResources(boolean production) {

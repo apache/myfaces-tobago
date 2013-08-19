@@ -34,12 +34,20 @@ public final class ThemeResources implements Serializable {
   private List<ThemeScript> scriptList = new ArrayList<ThemeScript>();
   private List<ThemeStyle> styleList = new ArrayList<ThemeStyle>();
 
-  public ThemeResources copy() {
-    ThemeResources resources = new ThemeResources();
-    resources.setProduction(isProduction());
-    resources.scriptList.addAll(scriptList);
-    resources.styleList.addAll(styleList);
-    return resources;
+  public void merge(ThemeResources toAddResources) {
+    if (this == toAddResources) {
+      return;
+    }
+    for (int i = toAddResources.getScriptList().size()-1; i >= 0; i--) {
+      ThemeScript script = toAddResources.getScriptList().get(i);
+      this.getScriptList().remove(script);
+      this.getScriptList().add(0, script);
+    }
+    for (int i = toAddResources.getStyleList().size()-1; i >= 0; i--) {
+      ThemeStyle style = toAddResources.getStyleList().get(i);
+      this.getStyleList().remove(style);
+      this.getStyleList().add(0, style);
+    }
   }
 
   public boolean isProduction() {
