@@ -908,7 +908,13 @@ var Tobago = {
                   Tobago.reloadComponent(this, commands.click.partially, action, commands.click);
                 }
               } else if (commands.click.url) {
-                Tobago.navigateToUrl(commands.click.url);
+                if (commands.click.target) {
+                  window.open(commands.click.url, commands.click.target)
+                } else {
+                  Tobago.navigateToUrl(commands.click.url);
+                  event.preventDefault();
+                  return false;
+                }
               } else if (commands.click.script) { // XXX this case is deprecated.
                 // not allowed with Content Security Policy (CSP)
                 new Function('event' , commands.click.script)(event);
