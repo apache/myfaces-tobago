@@ -93,8 +93,9 @@ public class TobagoConfigImpl extends TobagoConfig {
       }
       if (defaultTheme == null) {
         String error = "Did not found any theme! "
-            + "Please ensure you have a tobago-theme.xml file in your "
-            + "theme jar. Please add a theme jar to your WEB-INF/lib";
+            + "Please ensure you have a tobago-config.xml with a theme-definition "
+            + "or a tobago-theme.xml file (deprecated) in your "
+            + "theme JAR. Please add a theme JAR to your WEB-INF/lib";
         LOG.error(error);
         throw new RuntimeException(error);
       } else {
@@ -119,7 +120,8 @@ public class TobagoConfigImpl extends TobagoConfig {
   private void checkThemeIsAvailable(String name, Theme theme) {
     if (theme == null) {
       String error = "Theme not found! name: '" + name + "'. "
-          + "Please ensure you have a tobago-theme.xml file in your "
+          + "Please ensure you have a tobago-config.xml with a theme-definition "
+          + "or a tobago-theme.xml file (deprecated) in your "
           + "theme jar. Found the following themes: " + availableThemes.keySet();
       LOG.error(error);
       throw new RuntimeException(error);

@@ -45,7 +45,7 @@ class ThemeBuilder {
   public void resolveThemes() {
     Map<String, ThemeImpl> map = new HashMap<String, ThemeImpl>();
     for (ThemeImpl theme : availableThemes) {
-      LOG.debug("theme from tobago-theme.xml files: {} ", theme.getName());
+      LOG.debug("theme from XML files: {} ", theme.getName());
       map.put(theme.getName(), theme);
     }
     for (ThemeImpl theme : availableThemes) {
