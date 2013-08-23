@@ -56,13 +56,15 @@ Facelets
    Tobago 2.0.x is using Facelets 2.0. When still using Facelets 1.1 in the current application,
    this must be removed:
 
-   * Remove facelets JAR (e.g. jsf-facelets-1.1.14.jar) from the library.
+   * Remove facelets JAR (e.g. <<<jsf-facelets-1.1.14.jar>>>) from the library.
 
-   * Remove \<view-handler\>org.apache.myfaces.tobago.internal.application.ViewHandlerImpl\</view-handler\> from the faces-config.xml
+   * Remove \<view-handler\>org.apache.myfaces.tobago.internal.application.ViewHandlerImpl\</view-handler\> from the faces-config.xml file.
 
-   * Remove param javax.faces.DISABLE_FACELET_JSF_VIEWHANDLER from web.xml
+   * Remove the parameter <<<javax.faces.DISABLE_FACELET_JSF_VIEWHANDLER>>> from the <<<web.xml>>> file.
 
-   * Remove or replace the facelets.* entries from web.xml
+   * Remove or replace the <<<facelets.*>>> entries from the <<<web.xml>>> file.
+
+   * Rename all JSTL deklarations from <<<xmlns:c="http://java.sun.com/jstl/core">>> to <<<xmlns:c="http://java.sun.com/jsp/jstl/core">>> in the Facelets.
 
    []
 
@@ -74,9 +76,9 @@ Deprecated
 
 Internal
 
-   The <<<internal>>> package contains classes that should not be used directly in an application.
-   This classes may change in minor revisions without announcement. Classes in the <<<renderkit>>>
-   package a handled in the same manner.
+   The package <<<org.apache.myfaces.tobago.internal>>> contains classes that should not be used directly in an application.
+   This classes may change in minor revisions without announcement. Classes in the package <<<org.apache.myfaces.tobago.renderkit>>>
+   are handled in the same manner.
 
 Tag Library
 

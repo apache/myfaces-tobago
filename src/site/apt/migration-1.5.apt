@@ -202,6 +202,14 @@ JavaScript
 | renamed | <<<TabGroup.reloadWithAction2()>>> | <<<TabGroup.reloadWithAction()>>> |
 *--+--+--+--+
 
+Configuration
+
+  To define an own theme, please use now a file tobago-config.xml instead of tobago-theme.xml.
+  The content of tobago-theme.xml is a subset of the tobago-config.xml, you have only to
+  change the root node.
+
+  Please use the tobago-config-1.5.xsd to validate the configuration.
+
 Own Components and Renderers
 
   The renderers must now declared inside the <<<faces-config.xml>>>.
