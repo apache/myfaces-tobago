@@ -21,7 +21,6 @@ package org.apache.myfaces.tobago.internal.config;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.myfaces.tobago.config.TobagoConfig;
-import org.apache.myfaces.tobago.context.ThemeImpl;
 import org.apache.myfaces.tobago.internal.context.ResourceManagerFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,7 +28,9 @@ import org.xml.sax.SAXException;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
+import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,14 +41,11 @@ public class TobagoConfigBuilder {
 
   private static final String WEB_INF_TOBAGO_CONFIG_XML = "WEB-INF/tobago-config.xml";
   private static final String META_INF_TOBAGO_CONFIG_XML = "META-INF/tobago-config.xml";
-  /**
-   * @deprecated Since 1.5.0
-   */
-  private static final String META_INF_TOBAGO_THEME_XML = "META-INF/tobago-theme.xml";
 
   private List<TobagoConfigFragment> list;
 
-  private TobagoConfigBuilder(ServletContext servletContext) throws ServletException, IOException, SAXException {
+  private TobagoConfigBuilder(ServletContext servletContext)
+      throws ServletException, IOException, SAXException, ParserConfigurationException, URISyntaxException {
     list = new ArrayList<TobagoConfigFragment>();
     configFromClasspath();
     configFromWebInf(servletContext);
@@ -79,9 +77,10 @@ public class TobagoConfigBuilder {
     }
   }
 
-  private void configFromWebInf(ServletContext servletContext) throws IOException, SAXException {
+  private void configFromWebInf(ServletContext servletContext)
+      throws IOException, SAXException, ParserConfigurationException, URISyntaxException {
 
-    final URL url = servletContext.getResource("/WEB-INF/tobago-config.xml");
+    final URL url = servletContext.getResource("/" + WEB_INF_TOBAGO_CONFIG_XML);
     if (url != null) {
       list.add(new TobagoConfigParser().parse(url));
     }
@@ -89,43 +88,31 @@ public class TobagoConfigBuilder {
 
   private void configFromClasspath() throws ServletException {
 
-    ThemeParser parser = new ThemeParser();
     try {
       if (LOG.isInfoEnabled()) {
-        LOG.info("Searching for '" + META_INF_TOBAGO_THEME_XML + "' and '" + META_INF_TOBAGO_CONFIG_XML + "'");
+        LOG.info("Searching for '" + META_INF_TOBAGO_CONFIG_XML + "'");
       }
-      ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-      List<URL> urls = new ArrayList<URL>();
+      final ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+      final List<URL> urls = new ArrayList<URL>();
       CollectionUtils.addAll(urls, classLoader.getResources(META_INF_TOBAGO_CONFIG_XML));
-      CollectionUtils.addAll(urls, classLoader.getResources(META_INF_TOBAGO_THEME_XML));
 
-      for (URL themeUrl : urls) {
-        TobagoConfigFragment tobagoConfig;
-        if (themeUrl.toString().endsWith(META_INF_TOBAGO_CONFIG_XML)) {
-          tobagoConfig = new TobagoConfigParser().parse(themeUrl);
-        } else {
-          // the old way
-          tobagoConfig = new TobagoConfigFragment();
-          final ThemeImpl theme = parser.parse(themeUrl);
-          tobagoConfig.addThemeDefinition(theme);
-        }
-        tobagoConfig.setUrl(themeUrl);
-        String protocol = themeUrl.getProtocol();
+      for (final URL themeUrl : urls) {
+        final TobagoConfigFragment fragment = new TobagoConfigParser().parse(themeUrl);
+        fragment.setUrl(themeUrl);
+        list.add(fragment);
+
         // tomcat uses jar
         // weblogic uses zip
         // IBM WebSphere uses wsjar
+        final String protocol = themeUrl.getProtocol();
         if (!"jar".equals(protocol) && !"zip".equals(protocol) && !"wsjar".equals(protocol)) {
           LOG.warn("Unknown protocol '" + themeUrl + "'");
         }
-
-        list.add(tobagoConfig);
       }
     } catch (Exception e) {
-      String msg = "while loading ";
+      final String msg = "while loading ";
       LOG.error(msg, e);
       throw new ServletException(msg, e);
     }
   }
-
-
 }

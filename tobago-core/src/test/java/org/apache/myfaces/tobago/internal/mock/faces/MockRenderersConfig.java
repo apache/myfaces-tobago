@@ -22,7 +22,7 @@ package org.apache.myfaces.tobago.internal.mock.faces;
 import org.apache.myfaces.tobago.internal.config.RendererConfig;
 import org.apache.myfaces.tobago.internal.config.RenderersConfig;
 
-import java.util.Collection;
+import java.util.List;
 
 public class MockRenderersConfig implements RenderersConfig {
 
@@ -33,7 +33,7 @@ public class MockRenderersConfig implements RenderersConfig {
     return markup.length() < 10;
   }
 
-  public Collection<RendererConfig> getRendererConfigs() {
+  public List<RendererConfig> getRendererConfigs() {
     return null;
   }
 }

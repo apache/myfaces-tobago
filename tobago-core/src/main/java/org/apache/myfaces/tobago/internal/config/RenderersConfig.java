@@ -19,12 +19,12 @@
 
 package org.apache.myfaces.tobago.internal.config;
 
-import java.util.Collection;
+import java.util.List;
 
 public interface RenderersConfig {
 
   boolean isMarkupSupported(String rendererName, String markup);
 
-  Collection<RendererConfig> getRendererConfigs();
+  List<RendererConfig> getRendererConfigs();
 
 }

@@ -225,16 +225,6 @@
       <scope>provided</scope>
     </dependency>
     <dependency>
-      <groupId>commons-digester</groupId>
-      <artifactId>commons-digester</artifactId>
-      <exclusions>
-        <exclusion>
-          <groupId>xml-apis</groupId>
-          <artifactId>xml-apis</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-    <dependency>
       <groupId>commons-fileupload</groupId>
       <artifactId>commons-fileupload</artifactId>
     </dependency>

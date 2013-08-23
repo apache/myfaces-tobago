@@ -17,13 +17,21 @@
  * limitations under the License.
 -->
 
-<tobago-theme>
-  <name>test2</name>
-  <display-name>Test2</display-name>
-  <resource-path>Test2</resource-path>
-  <fallback>test</fallback>
-  <resources production="false">
-    <script name="script/test.js"/>
-    <style name="tobago.css"/>
-  </resources>
-</tobago-theme>
+<tobago-config
+    xmlns="http://myfaces.apache.org/tobago/tobago-config"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://myfaces.apache.org/tobago/tobago-config http://myfaces.apache.org/tobago/tobago-config-2.0.xsd"
+    version="2.0">
+  <theme-definitions>
+    <theme-definition>
+      <name>test2</name>
+      <display-name>Test2</display-name>
+      <resource-path>Test2</resource-path>
+      <fallback>test</fallback>
+      <resources production="false">
+        <script name="script/test.js"/>
+        <style name="tobago.css"/>
+      </resources>
+    </theme-definition>
+  </theme-definitions>
+</tobago-config>

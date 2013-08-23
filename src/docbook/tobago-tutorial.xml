@@ -107,12 +107,12 @@
   &lt;/theme-config&gt;
 &lt;/tobago-config&gt;</programlisting>
 
-    <para>A Tobago web application needs to package many libraries. First of
+    <para>A Tobago web application needs to package some libraries. First of
     all, the Tobago core jar and theme jars should be made available in the
     application. Some themes depend on each other, for example to be able to
     use the Speyside theme the Scarborough theme and Standard theme have to be
     included as well. These dependencies are defined in the
-    <filename>META-INF/tobago-theme.xml</filename> files inside the theme jars.</para>
+    <filename>META-INF/tobago-config.xml</filename> files inside the theme jars.</para>
 
     <para>Tobago depends on several Jakarta Commons libraries:</para>
 
@@ -126,7 +126,7 @@
       </listitem>
 
       <listitem>
-        <para>commons-digester</para>
+        <para>commons-digester (only Tobago 1.x)</para>
       </listitem>
 
       <listitem>

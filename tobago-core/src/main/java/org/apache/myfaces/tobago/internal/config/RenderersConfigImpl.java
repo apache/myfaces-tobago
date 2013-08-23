@@ -23,8 +23,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class RenderersConfigImpl implements RenderersConfig, Serializable {
@@ -45,8 +47,10 @@ public class RenderersConfigImpl implements RenderersConfig, Serializable {
     this.merged = merged;
   }
 
-  public Collection<RendererConfig> getRendererConfigs() {
-    return rendererMap.values();
+  public List<RendererConfig> getRendererConfigs() {
+    final ArrayList<RendererConfig> result = new ArrayList<RendererConfig>();
+    result.addAll(rendererMap.values());
+    return result;
   }
 
   public void addRenderer(RendererConfig rendererConfig) {
@@ -60,7 +64,7 @@ public class RenderersConfigImpl implements RenderersConfig, Serializable {
 
   public boolean isMarkupSupported(String rendererName, String markup) {
     if (LOG.isDebugEnabled()) {
-      LOG.debug("calling isMarkupSupported('{}', '{}')", rendererName, markup);
+      LOG.debug("Calling isMarkupSupported('{}', '{}')", rendererName, markup);
     }
     RendererConfig rendererConfig = rendererMap.get(rendererName);
     if (rendererConfig != null) {

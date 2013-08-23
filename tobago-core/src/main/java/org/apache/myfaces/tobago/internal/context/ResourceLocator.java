@@ -19,16 +19,12 @@
 
 package org.apache.myfaces.tobago.internal.context;
 
-import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.myfaces.tobago.context.ThemeImpl;
-import org.apache.myfaces.tobago.internal.config.ThemeParser;
 import org.apache.myfaces.tobago.internal.config.TobagoConfigFragment;
 import org.apache.myfaces.tobago.internal.config.TobagoConfigParser;
-import org.apache.myfaces.tobago.internal.util.Deprecation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.xml.sax.SAXException;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -40,9 +36,7 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Enumeration;
-import java.util.List;
 import java.util.Properties;
 import java.util.Set;
 import java.util.zip.ZipEntry;
@@ -59,7 +53,6 @@ class ResourceLocator {
   private static final Logger LOG = LoggerFactory.getLogger(ResourceLocator.class);
 
   private static final String META_INF_TOBAGO_CONFIG_XML = "META-INF/tobago-config.xml";
-  private static final String META_INF_TOBAGO_THEME_XML = "META-INF/tobago-theme.xml";
   private static final String META_INF_RESOURCES = "META-INF/resources";
 
   private ServletContext servletContext;
@@ -75,7 +68,7 @@ class ResourceLocator {
 
   public void locate()
       throws ServletException {
-    // TODO should the resourcedir used from tobago-config.xml?
+    // TBD should the resource dir used from tobago-config.xml?
     locateResourcesInWar(servletContext, resourceManager, "/");
     locateResourcesFromClasspath(resourceManager);
     locateResourcesServlet30Alike(resourceManager);
@@ -137,61 +130,52 @@ class ResourceLocator {
   private void locateResourcesFromClasspath(ResourceManagerImpl resources)
       throws ServletException {
 
-    ThemeParser parser = new ThemeParser();
     try {
       if (LOG.isInfoEnabled()) {
-        LOG.info("Searching for '" + META_INF_TOBAGO_THEME_XML + "' and '" + META_INF_TOBAGO_CONFIG_XML +"'");
+        LOG.info("Searching for and '" + META_INF_TOBAGO_CONFIG_XML +"'");
       }
-      ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-      List<URL> urls = new ArrayList<URL>();
-      CollectionUtils.addAll(urls, classLoader.getResources(META_INF_TOBAGO_CONFIG_XML));
-      CollectionUtils.addAll(urls, classLoader.getResources(META_INF_TOBAGO_THEME_XML));
+      final ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+      final Enumeration<URL> urls = classLoader.getResources(META_INF_TOBAGO_CONFIG_XML);
 
-      for (URL themeUrl : urls) {
-        if (themeUrl.toString().endsWith(META_INF_TOBAGO_CONFIG_XML)) {
-          TobagoConfigFragment tobagoConfig = new TobagoConfigParser().parse(themeUrl);
-          for (ThemeImpl theme : tobagoConfig.getThemeDefinitions()) {
-            if (theme.isVersioned()) {
-              String themeUrlStr = themeUrl.toString();
-              int index = themeUrlStr.indexOf(META_INF_TOBAGO_CONFIG_XML);
-              String metaInf = themeUrlStr.substring(0, index) + "META-INF/MANIFEST.MF";
-              Properties properties = new Properties();
-              final URL url = new URL(metaInf);
-              InputStream inputStream = null;
-              String version = null;
-              try {
-                inputStream = url.openStream();
-                properties.load(inputStream);
-                version = properties.getProperty("Implementation-Version");
-              } catch (FileNotFoundException e) {
-                // may happen (e. g. in tests)
-                LOG.error("No Manifest-File found.");
-              } finally {
-                IOUtils.closeQuietly(inputStream);
-              }
-              if (version != null) {
-                theme.setVersion(version);
-              } else {
-                theme.setVersioned(false);
-                LOG.error("No Implementation-Version found in Manifest-File for theme: '" + theme.getName()
-                    + "'. Resetting the theme to unversioned. Please correct the Manifest-File.");
-              }
+      while (urls.hasMoreElements()) {
+        URL themeUrl = urls.nextElement();
+        TobagoConfigFragment tobagoConfig = new TobagoConfigParser().parse(themeUrl);
+        for (ThemeImpl theme : tobagoConfig.getThemeDefinitions()) {
+          if (theme.isVersioned()) {
+            String themeUrlStr = themeUrl.toString();
+            int index = themeUrlStr.indexOf(META_INF_TOBAGO_CONFIG_XML);
+            String metaInf = themeUrlStr.substring(0, index) + "META-INF/MANIFEST.MF";
+            Properties properties = new Properties();
+            final URL url = new URL(metaInf);
+            InputStream inputStream = null;
+            String version = null;
+            try {
+              inputStream = url.openStream();
+              properties.load(inputStream);
+              version = properties.getProperty("Implementation-Version");
+            } catch (FileNotFoundException e) {
+              // may happen (e. g. in tests)
+              LOG.error("No Manifest-File found.");
+            } finally {
+              IOUtils.closeQuietly(inputStream);
             }
-            addThemeResources(resources, themeUrl, theme);
+            if (version != null) {
+              theme.setVersion(version);
+            } else {
+              theme.setVersioned(false);
+              LOG.error("No Implementation-Version found in Manifest-File for theme: '" + theme.getName()
+                  + "'. Resetting the theme to unversioned. Please correct the Manifest-File.");
+            }
           }
-        } else {
-          // the old way
-          addThemeResources(resources, themeUrl, parser.parse(themeUrl));
+          addThemeResources(resources, themeUrl, theme);
         }
       }
-    } catch (IOException e) {
-      String msg = "while loading ";
-      LOG.error(msg, e);
-      throw new ServletException(msg, e);
-    } catch (SAXException e) {
-      String msg = "while loading ";
-      LOG.error(msg, e);
-      throw new ServletException(msg, e);
+    } catch (Exception e) {
+      if (e instanceof ServletException) {
+        throw (ServletException) e;
+      } else {
+        throw new ServletException(e);
+      }
     }
   }
 
@@ -256,10 +240,6 @@ class ResourceLocator {
   private void addResources(ResourceManagerImpl resources, URL themeUrl, String prefix, int skipPrefix)
       throws IOException, ServletException {
     String fileName = themeUrl.toString();
-    if (fileName.endsWith(META_INF_TOBAGO_THEME_XML)) {
-      Deprecation.LOG.warn(
-          "The use of 'tobago-theme.xml' is deprecated, please use 'tobago-config.xml' to define a theme!");
-    }
     int index = fileName.indexOf("!");
     String protocol = themeUrl.getProtocol();
     if (index != -1) {
@@ -270,8 +250,7 @@ class ResourceLocator {
     }
 
     // JBoss 5.0.0 introduced vfszip protocol
-    if (!protocol.equals("vfszip")
-        && (fileName.endsWith(META_INF_TOBAGO_THEME_XML) || fileName.endsWith(META_INF_TOBAGO_CONFIG_XML))) {
+    if (!protocol.equals("vfszip") && fileName.endsWith(META_INF_TOBAGO_CONFIG_XML)) {
       try {
         URI uri = themeUrl.toURI();
         File tobagoThemeXml = new File(uri);
@@ -324,19 +303,21 @@ class ResourceLocator {
   private void resolveTheme(ResourceManagerImpl resources, File directoryFile,
       String resourcePath, String prefix, boolean inResourcePath) throws ServletException {
     File[] files = directoryFile.listFiles();
-    for (File file : files) {
-      if (file.isDirectory()) {
-        String currentResourcePath = resourcePath + File.separator + file.getName();
-        if (!inResourcePath && currentResourcePath.startsWith(prefix)) {
-          inResourcePath = true;
-        }
-        resolveTheme(resources, file, currentResourcePath, prefix, inResourcePath);
-      } else {
-        if (LOG.isInfoEnabled()) {
-          LOG.info(resourcePath + File.separator + file.getName());
-        }
-        if (inResourcePath) {
-          addResource(resources, resourcePath + File.separator + file.getName(), 0);
+    if (files != null) {
+      for (File file : files) {
+        if (file.isDirectory()) {
+          String currentResourcePath = resourcePath + File.separator + file.getName();
+          if (!inResourcePath && currentResourcePath.startsWith(prefix)) {
+            inResourcePath = true;
+          }
+          resolveTheme(resources, file, currentResourcePath, prefix, inResourcePath);
+        } else {
+          if (LOG.isInfoEnabled()) {
+            LOG.info(resourcePath + File.separator + file.getName());
+          }
+          if (inResourcePath) {
+            addResource(resources, resourcePath + File.separator + file.getName(), 0);
+          }
         }
       }
     }

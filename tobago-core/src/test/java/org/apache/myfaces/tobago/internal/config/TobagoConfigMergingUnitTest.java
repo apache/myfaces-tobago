@@ -23,7 +23,9 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.xml.sax.SAXException;
 
+import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +33,8 @@ import java.util.List;
 public class TobagoConfigMergingUnitTest {
 
   @Test
-  public void testPreventFrameAttacksCascadingDefault() throws IOException, SAXException {
+  public void testPreventFrameAttacksCascadingDefault()
+      throws IOException, SAXException, ParserConfigurationException, URISyntaxException {
 
     final TobagoConfigImpl config = loadAndMerge(
         "tobago-config-0.xml",
@@ -41,24 +44,25 @@ public class TobagoConfigMergingUnitTest {
   }
 
   @Test
-  public void testPreventFrameAttacks() throws IOException, SAXException {
+  public void testPreventFrameAttacks()
+      throws IOException, SAXException, ParserConfigurationException, URISyntaxException {
 
-    final TobagoConfigImpl config = loadAndMerge(
-        "tobago-config-0.xml");
+    final TobagoConfigImpl config = loadAndMerge("tobago-config-0.xml");
 
     Assert.assertFalse(config.isPreventFrameAttacks());
   }
 
   @Test
-  public void testPreventFrameAttacksDefault() throws IOException, SAXException {
+  public void testPreventFrameAttacksDefault()
+      throws IOException, SAXException, ParserConfigurationException, URISyntaxException {
 
-    final TobagoConfigImpl config = loadAndMerge(
-        "tobago-config-1.xml");
+    final TobagoConfigImpl config = loadAndMerge("tobago-config-1.xml");
 
     Assert.assertTrue(config.isPreventFrameAttacks());
   }
 
-  private TobagoConfigImpl loadAndMerge(String... names) throws IOException, SAXException {
+  private TobagoConfigImpl loadAndMerge(String... names)
+      throws IOException, SAXException, ParserConfigurationException, URISyntaxException {
 
     final List<TobagoConfigFragment> list = new ArrayList<TobagoConfigFragment>();
 

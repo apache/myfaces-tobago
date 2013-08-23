@@ -19,10 +19,10 @@
 
 package org.apache.myfaces.tobago.internal.config;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.myfaces.tobago.context.Markup;
 
 import java.io.Serializable;
-import java.util.Locale;
 
 public class RendererConfig implements Serializable {
 
@@ -36,7 +36,7 @@ public class RendererConfig implements Serializable {
   }
 
   public void setName(String name) {
-    this.name = name.substring(0, 1).toLowerCase(Locale.ENGLISH) + name.substring(1);
+    this.name = StringUtils.uncapitalize(name);
   }
 
   public boolean equals(Object o) {
