@@ -32,6 +32,14 @@
   <xs:annotation>
     <xs:documentation>
       <![CDATA[
+      ************************************************************************************
+      ************************************************************************************
+      WARNING
+      THIS IS A PRE-RELEASE VERSION OF THIS FILE, PLEASE CHECK IF THERE IS AN UPDATE ON
+      http://myfaces.apache.org/tobago/tobago-config-2.0.xsd
+      ************************************************************************************
+      ************************************************************************************
+
       This is the XML schema for the Tobago configuration files version 2.0.
 
       Use the following definition:
@@ -55,8 +63,8 @@
       <xs:element name="ordering" type="tobago:ordering-type" minOccurs="0"/>
       <xs:element name="theme-config" type="tobago:theme-config-type" minOccurs="0"/>
       <xs:element name="resource-dir" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
-      <xs:element name="create-session-secret" type="xs:boolean" minOccurs="0"/>
-      <xs:element name="check-session-secret" type="xs:boolean" minOccurs="0"/>
+      <xs:element name="create-session-secret" type="xs:boolean" minOccurs="0" default="true"/>
+      <xs:element name="check-session-secret" type="xs:boolean" minOccurs="0" default="true"/>
       <xs:element name="prevent-frame-attacks" type="xs:boolean" minOccurs="0" default="true"/>
       <xs:element name="content-security-policy" type="tobago:content-security-policy-type" minOccurs="0"/>
       <xs:element name="renderers" type="tobago:renderers-type" minOccurs="0"/>
@@ -97,6 +105,10 @@
     <xs:sequence>
       <xs:element name="directive" type="xs:string" maxOccurs="unbounded"/>
     </xs:sequence>
+<!--
+    <xs:attribute name="disabled" type="xs:boolean" default="false"/>
+    <xs:attribute name="replace" type="xs:boolean" default="false"/>
+-->
   </xs:complexType>
 
   <xs:complexType name="renderers-type">
