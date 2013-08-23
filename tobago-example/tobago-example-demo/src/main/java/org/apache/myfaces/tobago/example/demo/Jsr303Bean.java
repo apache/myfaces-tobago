@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.example.demo;
 
-import org.hibernate.validator.constraints.Length;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,6 +26,7 @@ import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @RequestScoped
 @Named(value = "jsr303")
@@ -37,7 +37,7 @@ public class Jsr303Bean {
   @NotNull
   private String required;
 
-  @Length(min = 5, max = 10)
+  @Size(min = 5, max = 10, message = "Must be between 5 and 10")
   private String length;
 
   public String action() {
