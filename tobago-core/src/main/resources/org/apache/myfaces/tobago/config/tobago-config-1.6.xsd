@@ -33,7 +33,12 @@
     <xs:documentation>
       <![CDATA[
 
+      ************************************************************************************
+      ************************************************************************************
       Warning: This version is not officially release, please use version 2.0!
+      http://myfaces.apache.org/tobago/tobago-config-2.0.xsd
+      ************************************************************************************
+      ************************************************************************************
 
       This is the XML schema for the tobago configuration files version 1.6.
 
