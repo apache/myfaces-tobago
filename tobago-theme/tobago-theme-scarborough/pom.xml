@@ -51,7 +51,7 @@
             <phase>compile</phase>
             <configuration>
               <target>
-                <concat destfile="${project.build.directory}/javascript-min/scarborough/script/tobago.min.js">
+                <concat destfile="${project.build.directory}/javascript-min/scarborough/script/tobago.min.js" force="no">
                   <filelist dir="${basedir}/src/main/resources/org/apache/myfaces/tobago/renderkit/html/scarborough/standard/script" files="tobago.js" />
                 </concat>
                 <replaceregexp match="^.*//.*@DEV_ONLY.*$" replace="" byline="true">

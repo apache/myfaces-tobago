@@ -35,6 +35,10 @@ public abstract class AbstractThemeMojo extends AbstractMojo {
    */
   private MavenProject project;
 
+  private String[] includes = new String[]{"**"};
+  private String[] excludes = new String[]{"META-INF/**/*",
+      "**/*.properties", "**/*.xml", "**/*.class"};
+
   public MavenProject getProject() {
     return project;
   }
@@ -42,10 +46,19 @@ public abstract class AbstractThemeMojo extends AbstractMojo {
   protected String[] getThemeFiles(File sourceDir) {
     DirectoryScanner scanner = new DirectoryScanner();
     scanner.setBasedir(sourceDir);
-    scanner.setIncludes(new String[]{"**"});
-    scanner.setExcludes(new String [] {"META-INF/**/*",
-        "**/*.properties", "**/*.xml", "**/*.class"});
+    scanner.setIncludes(includes);
+    scanner.setExcludes(excludes);
     scanner.scan();
     return scanner.getIncludedFiles();
   }
+
+  public String[] getIncludes() {
+    return includes;
+  }
+
+  public String[] getExcludes() {
+    return excludes;
+  }
+
+
 }

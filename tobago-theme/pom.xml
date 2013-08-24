@@ -28,7 +28,17 @@
 
   <build>
     <plugins>
-
+      <plugin>
+        <groupId>org.apache.myfaces.tobago</groupId>
+        <artifactId>tobago-theme-plugin</artifactId>
+        <executions>
+          <execution>
+            <goals>
+              <goal>index</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
     </plugins>
   </build>
 
