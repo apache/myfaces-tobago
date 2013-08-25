@@ -45,14 +45,14 @@ public class IndexThemeMojo extends AbstractThemeMojo {
   private File outputDirectory;
 
   /**
-   * @parameter default-value="${project.build.outputDirectory}/META-INF/tobago-resources.properties"
+   * @parameter default-value="${project.build.outputDirectory}/META-INF/tobago-resources-index.txt"
    * @required
    */
   private File tobagoResourcesFile;
 
   public void execute() throws MojoExecutionException, MojoFailureException {
     if ("pom".equalsIgnoreCase(getProject().getPackaging())) {
-      getLog().info("Not creating tobago-resources.properties as the project is a pom package");
+      getLog().info("Not creating " + tobagoResourcesFile.getName() + " as the project is a pom package");
       return;
     }
     if (getLog().isDebugEnabled()) {
@@ -61,6 +61,10 @@ public class IndexThemeMojo extends AbstractThemeMojo {
 
     if (!outputDirectory.isAbsolute()) {
       outputDirectory = new File(getProject().getBasedir(), outputDirectory.getPath());
+    }
+    if (!outputDirectory.exists()) {
+      getLog().info("Not creating " + tobagoResourcesFile.getName() + " as the project has no outputDirectory");
+      return;
     }
     StaleCheckDirectoryScanner scanner = new StaleCheckDirectoryScanner(tobagoResourcesFile.lastModified());
     scanner.setBasedir(outputDirectory);
@@ -74,8 +78,7 @@ public class IndexThemeMojo extends AbstractThemeMojo {
       return;
     }
 
-    if (scanner.isUp2date) {
-    //tobagoResourcesFile.lastModified() == 0L || scanner.maxLastModified > tobagoResourcesFile.lastModified()) {
+    if (!scanner.isUp2date) {
       File metaInf = tobagoResourcesFile.getParentFile();
       if (!metaInf.exists()) {
         if (!metaInf.mkdirs()) {
@@ -91,8 +94,7 @@ public class IndexThemeMojo extends AbstractThemeMojo {
           bufferedWriter.newLine();
         }
         bufferedWriter.flush();
-        // TODO encoding
-        FileUtils.fileWrite(tobagoResourcesFile, stringWriter.toString());
+        FileUtils.fileWrite(tobagoResourcesFile, "utf-8", stringWriter.toString());
       } catch (IOException e) {
         getLog().error("Error creating resource file " + tobagoResourcesFile.getName(), e);
       } finally {
