@@ -43,8 +43,19 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
 /**
+ * <p>
  * This class helps to locate all resources of the ResourceManager.
  * It will be called in the initialization phase.
+ * </p>
+ * <p>
+ * Basically it looks at the following places:
+ * <ul>
+ *   <li>Directly in the root of the webapp.</li>
+ *   <li>The root of all JARs which containing a <code>/META-INF/tobago-config.xml</code></li>
+ *   <li>The directory <code>/META-INF/resources</code> of all JARs, if they contains such directory.</li>
+ * </ul>
+ * </p>
+ *
  *
  * @since 1.0.7
  */
@@ -138,36 +149,18 @@ class ResourceLocator {
       final Enumeration<URL> urls = classLoader.getResources(META_INF_TOBAGO_CONFIG_XML);
 
       while (urls.hasMoreElements()) {
-        URL themeUrl = urls.nextElement();
-        TobagoConfigFragment tobagoConfig = new TobagoConfigParser().parse(themeUrl);
+        URL tobagoConfigUrl = urls.nextElement();
+        TobagoConfigFragment tobagoConfig = new TobagoConfigParser().parse(tobagoConfigUrl);
         for (ThemeImpl theme : tobagoConfig.getThemeDefinitions()) {
-          if (theme.isVersioned()) {
-            String themeUrlStr = themeUrl.toString();
-            int index = themeUrlStr.indexOf(META_INF_TOBAGO_CONFIG_XML);
-            String metaInf = themeUrlStr.substring(0, index) + "META-INF/MANIFEST.MF";
-            Properties properties = new Properties();
-            final URL url = new URL(metaInf);
-            InputStream inputStream = null;
-            String version = null;
-            try {
-              inputStream = url.openStream();
-              properties.load(inputStream);
-              version = properties.getProperty("Implementation-Version");
-            } catch (FileNotFoundException e) {
-              // may happen (e. g. in tests)
-              LOG.error("No Manifest-File found.");
-            } finally {
-              IOUtils.closeQuietly(inputStream);
-            }
-            if (version != null) {
-              theme.setVersion(version);
-            } else {
-              theme.setVersioned(false);
-              LOG.error("No Implementation-Version found in Manifest-File for theme: '" + theme.getName()
-                  + "'. Resetting the theme to unversioned. Please correct the Manifest-File.");
-            }
+          detectThemeVersion(tobagoConfigUrl, theme);
+          themeBuilder.addTheme(theme);
+          final String prefix = ensureSlash(theme.getResourcePath());
+          final String protocol = tobagoConfigUrl.getProtocol();
+          // tomcat uses jar // weblogic uses zip // IBM WebSphere uses wsjar
+          if (!"jar".equals(protocol) && !"zip".equals(protocol) && !"wsjar".equals(protocol)) {
+            LOG.warn("Unknown protocol '" + tobagoConfigUrl + "'");
           }
-          addThemeResources(resources, themeUrl, theme);
+          addResources(resources, tobagoConfigUrl, prefix, 0);
         }
       }
     } catch (Exception e) {
@@ -177,21 +170,6 @@ class ResourceLocator {
         throw new ServletException(e);
       }
     }
-  }
-
-  private void addThemeResources(ResourceManagerImpl resources, URL themeUrl, ThemeImpl theme)
-      throws IOException, ServletException {
-    themeBuilder.addTheme(theme);
-    String prefix = ensureSlash(theme.getResourcePath());
-
-    String protocol = themeUrl.getProtocol();
-    // tomcat uses jar
-    // weblogic uses zip
-    // IBM WebSphere uses wsjar
-    if (!"jar".equals(protocol) && !"zip".equals(protocol) && !"wsjar".equals(protocol)) {
-      LOG.warn("Unknown protocol '" + themeUrl + "'");
-    }
-    addResources(resources, themeUrl, prefix, 0);
   }
 
   /**
@@ -237,13 +215,14 @@ class ResourceLocator {
     }
   }
 
-  private void addResources(ResourceManagerImpl resources, URL themeUrl, String prefix, int skipPrefix)
+  private void addResources(
+      final ResourceManagerImpl resources, final URL themeUrl, final String prefix, final int skipPrefix)
       throws IOException, ServletException {
     String fileName = themeUrl.toString();
-    int index = fileName.indexOf("!");
-    String protocol = themeUrl.getProtocol();
-    if (index != -1) {
-      fileName = fileName.substring(protocol.length() + 1, index);
+    final int exclamationPoint = fileName.indexOf("!");
+    final String protocol = themeUrl.getProtocol();
+    if (exclamationPoint != -1) {
+      fileName = fileName.substring(protocol.length() + 1, exclamationPoint);
     }
     if (LOG.isInfoEnabled()) {
       LOG.info("Adding resources from fileName='" + fileName + "' prefix='" + prefix + "' skip=" + skipPrefix + "");
@@ -252,10 +231,10 @@ class ResourceLocator {
     // JBoss 5.0.0 introduced vfszip protocol
     if (!protocol.equals("vfszip") && fileName.endsWith(META_INF_TOBAGO_CONFIG_XML)) {
       try {
-        URI uri = themeUrl.toURI();
-        File tobagoThemeXml = new File(uri);
-        File directoryFile = tobagoThemeXml.getParentFile().getParentFile();
-        String resourcePath = "";
+        final URI uri = themeUrl.toURI();
+        final File tobagoThemeXml = new File(uri);
+        final File directoryFile = tobagoThemeXml.getParentFile().getParentFile();
+        final String resourcePath = "";
         resolveTheme(resources, directoryFile, resourcePath, prefix, false);
       } catch (URISyntaxException e) {
         LOG.error("themeUrl='" + themeUrl + "'", e);
@@ -410,4 +389,34 @@ class ResourceLocator {
       }
     }
   }
+
+  private void detectThemeVersion(final URL tobagoConfigUrl, final ThemeImpl theme) throws IOException {
+    if (theme.isVersioned()) {
+      final String themeUrlStr = tobagoConfigUrl.toString();
+      final int index = themeUrlStr.indexOf(META_INF_TOBAGO_CONFIG_XML);
+      final String metaInf = themeUrlStr.substring(0, index) + "META-INF/MANIFEST.MF";
+      final Properties properties = new Properties();
+      final URL url = new URL(metaInf);
+      InputStream inputStream = null;
+      String version = null;
+      try {
+        inputStream = url.openStream();
+        properties.load(inputStream);
+        version = properties.getProperty("Implementation-Version");
+      } catch (FileNotFoundException e) {
+        // may happen (e. g. in tests)
+        LOG.error("No Manifest-File found.");
+      } finally {
+        IOUtils.closeQuietly(inputStream);
+      }
+      if (version != null) {
+        theme.setVersion(version);
+      } else {
+        theme.setVersioned(false);
+        LOG.error("No Implementation-Version found in Manifest-File for theme: '" + theme.getName()
+            + "'. Resetting the theme to unversioned. Please correct the Manifest-File.");
+      }
+    }
+  }
+
 }
