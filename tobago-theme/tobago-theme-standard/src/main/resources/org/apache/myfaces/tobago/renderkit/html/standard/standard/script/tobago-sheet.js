@@ -364,14 +364,15 @@ Tobago.Sheet.setup2 = function (sheets) {
 
   // scrolling
   jQuery(sheets).find(".tobago-sheet-body").bind("scroll", function () {
-    var scrollLeft = jQuery(this).prop("scrollLeft");
-    var scrollTop = jQuery(this).prop("scrollTop");
+    var sheetBody = jQuery(this);
+    var scrollLeft = sheetBody.prop("scrollLeft");
+    var scrollTop = sheetBody.prop("scrollTop");
 
     // scrolling the table should move the header
-    jQuery(this).siblings(".tobago-sheet-headerDiv").prop("scrollLeft", scrollLeft);
+    sheetBody.siblings(".tobago-sheet-headerDiv").prop("scrollLeft", scrollLeft);
 
     // store the position in a hidden field
-    var hidden = Tobago.Sheet.hidden(jQuery(this).parent(), "scrollPosition");
+    var hidden = Tobago.Sheet.hidden(sheetBody.parent(), "scrollPosition");
     hidden.val(scrollLeft + ";" + scrollTop);
   });
 
@@ -388,13 +389,10 @@ Tobago.Sheet.setup2 = function (sheets) {
     if (sep != -1) {
       var scrollLeft = hidden.val().substr(0, sep);
       var scrollTop = hidden.val().substr(sep + 1);
-      sheet.children(".tobago-sheet-body").css({
-        "scroll-left": scrollLeft,
-        "scroll-top": scrollTop
-      });
-      sheet.children(".tobago-sheet-headerDiv").css({
-        "scroll-left": scrollLeft
-      });
+      var body = sheet.children(".tobago-sheet-body");
+      body.prop("scrollLeft", scrollLeft);
+      body.prop("scrollTop", scrollTop);
+      sheet.children(".tobago-sheet-headerDiv").prop("scrollLeft", scrollLeft);
     }
   });
 
