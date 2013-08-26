@@ -132,7 +132,7 @@ class ResourceLocator {
 
     try {
       if (LOG.isInfoEnabled()) {
-        LOG.info("Searching for and '" + META_INF_TOBAGO_CONFIG_XML +"'");
+        LOG.info("Searching for and '" + META_INF_TOBAGO_CONFIG_XML + "'");
       }
       final ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
       final Enumeration<URL> urls = classLoader.getResources(META_INF_TOBAGO_CONFIG_XML);
@@ -213,7 +213,7 @@ class ResourceLocator {
       while (urls.hasMoreElements()) {
         URL resourcesUrl = urls.nextElement();
 
-        LOG.info("resourcesUrl='"+resourcesUrl + "'");
+        LOG.info("resourcesUrl='" + resourcesUrl + "'");
         if (!resourcesUrl.toString().matches(".*/WEB-INF/lib/.*\\.jar\\!.*")) {
           LOG.info("skip ...");
           continue;
@@ -300,7 +300,8 @@ class ResourceLocator {
     }
   }
 
-  private void resolveTheme(ResourceManagerImpl resources, File directoryFile,
+  private void resolveTheme(
+      ResourceManagerImpl resources, File directoryFile,
       String resourcePath, String prefix, boolean inResourcePath) throws ServletException {
     File[] files = directoryFile.listFiles();
     if (files != null) {
@@ -401,7 +402,7 @@ class ResourceLocator {
       IOUtils.closeQuietly(stream);
     }
 
-    for (Enumeration e = temp.propertyNames(); e.hasMoreElements();) {
+    for (Enumeration e = temp.propertyNames(); e.hasMoreElements(); ) {
       String key = (String) e.nextElement();
       resources.add(directory + '/' + locale + '/' + key, temp.getProperty(key));
       if (LOG.isDebugEnabled()) {
