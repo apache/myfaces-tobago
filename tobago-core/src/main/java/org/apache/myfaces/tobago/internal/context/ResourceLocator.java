@@ -50,12 +50,11 @@ import java.util.zip.ZipInputStream;
  * <p>
  * Basically it looks at the following places:
  * <ul>
- *   <li>Directly in the root of the webapp.</li>
- *   <li>The root of all JARs which containing a <code>/META-INF/tobago-config.xml</code></li>
- *   <li>The directory <code>/META-INF/resources</code> of all JARs, if they contains such directory.</li>
+ * <li>Directly in the root of the webapp.</li>
+ * <li>The root of all JARs which containing a <code>/META-INF/tobago-config.xml</code></li>
+ * <li>The directory <code>/META-INF/resources</code> of all JARs, if they contains such directory.</li>
  * </ul>
  * </p>
- *
  *
  * @since 1.0.7
  */
@@ -347,18 +346,16 @@ class ResourceLocator {
       InputStream stream, ResourceManagerImpl resources, String childPath, boolean xml, int skipPrefix)
       throws ServletException {
 
-    String directory = childPath.substring(skipPrefix, childPath.lastIndexOf('/'));
-    String filename = childPath.substring(childPath.lastIndexOf('/') + 1);
+    final String directory = childPath.substring(skipPrefix, childPath.lastIndexOf('/'));
+    final String filename = childPath.substring(childPath.lastIndexOf('/') + 1);
 
     int end = filename.lastIndexOf('.');
     if (xml) {
       end = filename.lastIndexOf('.', end - 1);
     }
+    final String locale = filename.substring(0, end);
 
-    String locale = filename.substring(0, end);
-
-
-    Properties temp = new Properties();
+    final Properties temp = new Properties();
     try {
       if (xml) {
         temp.loadFromXML(stream);
@@ -374,15 +371,16 @@ class ResourceLocator {
         }
       }
     } catch (IOException e) {
-      String msg = "while loading " + childPath;
+      final String msg = "while loading " + childPath;
       LOG.error(msg, e);
       throw new ServletException(msg, e);
     } finally {
       IOUtils.closeQuietly(stream);
     }
 
-    for (Enumeration e = temp.propertyNames(); e.hasMoreElements(); ) {
-      String key = (String) e.nextElement();
+    final Enumeration e = temp.propertyNames();
+    while (e.hasMoreElements()) {
+      final String key = (String) e.nextElement();
       resources.add(directory + '/' + locale + '/' + key, temp.getProperty(key));
       if (LOG.isDebugEnabled()) {
         LOG.debug(directory + '/' + locale + '/' + key + "=" + temp.getProperty(key));
