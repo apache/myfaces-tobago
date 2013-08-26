@@ -193,18 +193,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
     writer.writeAttribute(HtmlAttributes.VALUE, StringUtils.joinWithSurroundingSeparator(columnWidths), false);
     writer.endElement(HtmlElements.INPUT);
 
-    writer.startElement(HtmlElements.INPUT, null);
-    writer.writeIdAttribute(sheetId + SCROLL_POSTFIX);
-    writer.writeNameAttribute(sheetId + SCROLL_POSTFIX);
-    writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN, false);
-    Integer[] scrollPosition = sheet.getScrollPosition();
-    if (scrollPosition != null) {
-      String scroll = scrollPosition[0] + ";" + scrollPosition[1];
-      writer.writeAttribute(HtmlAttributes.VALUE, scroll, false);
-    } else {
-      writer.writeAttribute(HtmlAttributes.VALUE, "", false);
-    }
-    writer.endElement(HtmlElements.INPUT);
+    RenderUtils.writeScrollPosition(facesContext, writer, sheet, sheet.getScrollPosition());
 
     if (!UISheet.NONE.equals(selectable)) {
       writer.startElement(HtmlElements.INPUT, null);
@@ -618,16 +607,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
       sheet.getAttributes().put(Attributes.SELECTED_LIST_STRING, selectedRows);
     }
 
-    key = sheet.getClientId(facesContext) + SCROLL_POSTFIX;
-    String value = (String) requestParameterMap.get(key);
-    if (value != null) {
-      Integer[] scrollPosition = SheetState.parseScrollPosition(value);
-      if (scrollPosition != null) {
-        //noinspection unchecked
-        sheet.getAttributes().put(Attributes.SCROLL_POSITION, scrollPosition);
-      }
-    }
-
+    RenderUtils.decodeScrollPosition(facesContext, sheet);
     RenderUtils.decodedStateOfTreeData(facesContext, sheet);
   }
 

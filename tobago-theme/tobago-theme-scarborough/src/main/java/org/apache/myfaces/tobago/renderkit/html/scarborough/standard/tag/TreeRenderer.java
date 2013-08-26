@@ -50,6 +50,7 @@ public class TreeRenderer extends LayoutComponentRendererBase {
 
   @Override
   public void decode(FacesContext facesContext, UIComponent component) {
+    RenderUtils.decodeScrollPosition(facesContext, component);
     final AbstractUITree tree = (AbstractUITree) component;
     RenderUtils.decodedStateOfTreeData(facesContext, tree);
   }
@@ -85,6 +86,7 @@ public class TreeRenderer extends LayoutComponentRendererBase {
     writer.writeStyleAttribute(style);
     writer.writeIdAttribute(clientId);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, tree);
+    writer.writeAttribute("data-tobago-scroll-panel", "true", true);
 
     final Selectable selectable = tree.getSelectableAsEnum();
     if (selectable.isSupportedByTree()) {
@@ -140,6 +142,8 @@ public class TreeRenderer extends LayoutComponentRendererBase {
     writer.writeClassAttribute(Classes.create(tree, AbstractUIData.SUFFIX_EXPANDED));
     writer.writeAttribute(HtmlAttributes.VALUE, expandedValue.toString(), false);
     writer.endElement(HtmlElements.INPUT);
+
+    RenderUtils.writeScrollPosition(facesContext, writer, tree);
 
     writer.endElement(HtmlElements.DIV);
   }

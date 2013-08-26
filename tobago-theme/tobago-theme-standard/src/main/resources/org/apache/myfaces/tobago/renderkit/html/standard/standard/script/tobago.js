@@ -980,6 +980,35 @@ var Tobago = {
       new Tobago.AcceleratorKey(function clickAccelKey() {
         Tobago.clickOnElement(el.attr("id"))}, el.attr("accesskey"));
     });
+
+    Tobago.initScrollPosition(elements ? elements : jQuery("body"));
+  },
+
+  initScrollPosition: function(elements) {
+    var scrollPanels;
+    if (elements.data("tobago-scroll-panel")) {
+      scrollPanels = elements;
+    } else {
+      scrollPanels = elements.find("[data-tobago-scroll-panel]");
+    }
+    scrollPanels.bind("scroll", function () {
+      var panel = jQuery(this);
+      var scrollLeft = panel.prop("scrollLeft");
+      var scrollTop = panel.prop("scrollTop");
+      // store the position in a hidden field
+      panel.children("[data-tobago-scroll-position]").val(scrollLeft + ";" + scrollTop);
+    });
+    scrollPanels.each(function () {
+      var panel = jQuery(this);
+      var hidden = panel.children("[data-tobago-scroll-position]");
+      var sep = hidden.val().indexOf(";");
+      if (sep != -1) {
+        var scrollLeft = hidden.val().substr(0, sep);
+        var scrollTop = hidden.val().substr(sep + 1);
+        panel.prop("scrollLeft", scrollLeft);
+        panel.prop("scrollTop", scrollTop);
+      }
+    });
   },
 
   initCss: function(elements) {

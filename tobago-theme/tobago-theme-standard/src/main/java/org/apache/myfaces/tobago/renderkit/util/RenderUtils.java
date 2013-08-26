@@ -30,8 +30,13 @@ import org.apache.myfaces.tobago.model.ExpandedState;
 import org.apache.myfaces.tobago.model.SelectedState;
 import org.apache.myfaces.tobago.model.TreePath;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
+import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
+import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
+import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.util.DebugUtils;
+import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -66,6 +71,8 @@ public class RenderUtils {
    */
   @Deprecated
   public static final String COMPONENT_IN_REQUEST = "org.apache.myfaces.tobago.component";
+
+  public static final String SCROLL_POSTFIX = ComponentUtils.SUB_SEPARATOR + "scrollPosition";
 
   private RenderUtils() {
     // to prevent instantiation
@@ -437,6 +444,66 @@ public class RenderUtils {
       LOG.warn("Can't parse " + suffix + ": '" + string + "' from parameter '" + key + "'", e);
     }
     return null;
+  }
+
+  public static void writeScrollPosition(FacesContext facesContext, TobagoResponseWriter writer, UIComponent component)
+      throws IOException {
+    Integer[] scrollPosition = (Integer[]) component.getAttributes().get(Attributes.SCROLL_POSITION);
+    if (scrollPosition == null) {
+      final String key = component.getClientId(facesContext) + SCROLL_POSTFIX;
+      scrollPosition = parseScrollPosition(facesContext.getExternalContext().getRequestParameterMap().get(key));
+    }
+    writeScrollPosition(facesContext,  writer, component, scrollPosition);
+  }
+  
+  public static void writeScrollPosition(
+      FacesContext facesContext, TobagoResponseWriter writer, UIComponent component, Integer[] scrollPosition)
+      throws IOException {
+    final String clientId = component.getClientId(facesContext);
+    writer.startElement(HtmlElements.INPUT, null);
+    writer.writeIdAttribute(clientId + SCROLL_POSTFIX);
+    writer.writeNameAttribute(clientId + SCROLL_POSTFIX);
+    writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN, false);
+    if (scrollPosition != null) {
+      String scroll = scrollPosition[0] + ";" + scrollPosition[1];
+      writer.writeAttribute(HtmlAttributes.VALUE, scroll, false);
+    } else {
+      writer.writeAttribute(HtmlAttributes.VALUE, "", false);
+    }
+    writer.writeAttribute("data-tobago-scroll-position", "true", true);
+    writer.endElement(HtmlElements.INPUT);
+  }
+
+  public static void decodeScrollPosition(FacesContext facesContext, UIComponent component) {
+    String key;
+    key = component.getClientId(facesContext) + SCROLL_POSTFIX;
+    String value = (String) facesContext.getExternalContext().getRequestParameterMap().get(key);
+    if (value != null) {
+      Integer[] scrollPosition = parseScrollPosition(value);
+      if (scrollPosition != null) {
+        //noinspection unchecked
+        component.getAttributes().put(Attributes.SCROLL_POSITION, scrollPosition);
+      }
+    }
+  }
+
+  public static Integer[] parseScrollPosition(String value) {
+    Integer[] position = null;
+    if (!org.apache.commons.lang.StringUtils.isBlank(value)) {
+      int sep = value.indexOf(";");
+      if (LOG.isInfoEnabled()) {
+        LOG.info("value = \"" + value + "\"  sep = " + sep + "");
+      }
+      if (sep == -1) {
+        throw new NumberFormatException(value);
+      }
+      int left = Integer.parseInt(value.substring(0, sep));
+      int top = Integer.parseInt(value.substring(sep + 1));
+      position = new Integer[2];
+      position[0] = left;
+      position[1] = top;
+    }
+    return position;
   }
 
   public static String generateUrl(FacesContext facesContext, AbstractUICommandBase component) {
