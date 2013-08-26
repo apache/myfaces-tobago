@@ -94,7 +94,6 @@ public class SheetRenderer extends LayoutComponentRendererBase {
   private static final Logger LOG = LoggerFactory.getLogger(SheetRenderer.class);
 
   public static final String WIDTHS_POSTFIX = ComponentUtils.SUB_SEPARATOR + "widths";
-  public static final String SCROLL_POSTFIX = ComponentUtils.SUB_SEPARATOR + "scrollPosition";
   public static final String SELECTED_POSTFIX = ComponentUtils.SUB_SEPARATOR + "selected";
 
   private static final Integer HEIGHT_0 = 0;
