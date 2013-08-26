@@ -33,8 +33,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Enumeration;
 import java.util.Properties;
@@ -182,7 +180,7 @@ class ResourceLocator {
 
     try {
       if (LOG.isInfoEnabled()) {
-        LOG.info("Searching for " + META_INF_RESOURCES);
+        LOG.info("Searching for '" + META_INF_RESOURCES + "'");
       }
       ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
       Enumeration<URL> urls = classLoader.getResources(META_INF_RESOURCES);
@@ -227,78 +225,41 @@ class ResourceLocator {
       LOG.info("Adding resources from fileName='" + fileName + "' prefix='" + prefix + "' skip=" + skipPrefix + "");
     }
 
-    // JBoss 5.0.0 introduced vfszip protocol
-    if (!protocol.equals("vfszip") && fileName.endsWith(META_INF_TOBAGO_CONFIG_XML)) {
-      try {
-        final URI uri = themeUrl.toURI();
-        final File tobagoThemeXml = new File(uri);
-        final File directoryFile = tobagoThemeXml.getParentFile().getParentFile();
-        final String resourcePath = "";
-        resolveTheme(resources, directoryFile, resourcePath, prefix, false);
-      } catch (URISyntaxException e) {
-        LOG.error("themeUrl='" + themeUrl + "'", e);
-      }
-    } else {
-      URL jarFile;
-      try {
-        // JBoss 5.0.0 introduced vfszip protocol
-        if (protocol.equals("vfszip")) {
-          fileName = new File(fileName).getParentFile().getParentFile().getPath();
-          if (File.separatorChar == '\\' && fileName.contains("\\")) {
-            fileName = fileName.replace('\\', '/');
-            if (LOG.isInfoEnabled()) {
-              LOG.info("Fixed slashes for virtual filesystem protocol on windows system: " + fileName);
-            }
-          }
-        }
-        jarFile = new URL(fileName);
-      } catch (MalformedURLException e) {
-        // workaround for weblogic on windows
-        jarFile = new URL("file:" + fileName);
-      }
-      InputStream stream = null;
-      ZipInputStream zipStream = null;
-      try {
-        stream = jarFile.openStream();
-        zipStream = new ZipInputStream(stream);
-        while (zipStream.available() > 0) {
-          ZipEntry nextEntry = zipStream.getNextEntry();
-          if (nextEntry == null || nextEntry.isDirectory()) {
-            continue;
-          }
-          String name = "/" + nextEntry.getName();
-          if (name.startsWith(prefix)) {
-            addResource(resources, name, skipPrefix);
-          }
-        }
-      } finally {
-        IOUtils.closeQuietly(stream);
-        IOUtils.closeQuietly(zipStream);
-      }
-    }
-  }
-
-  private void resolveTheme(
-      ResourceManagerImpl resources, File directoryFile,
-      String resourcePath, String prefix, boolean inResourcePath) throws ServletException {
-    File[] files = directoryFile.listFiles();
-    if (files != null) {
-      for (File file : files) {
-        if (file.isDirectory()) {
-          String currentResourcePath = resourcePath + File.separator + file.getName();
-          if (!inResourcePath && currentResourcePath.startsWith(prefix)) {
-            inResourcePath = true;
-          }
-          resolveTheme(resources, file, currentResourcePath, prefix, inResourcePath);
-        } else {
+    URL jarFile;
+    try {
+      // JBoss 5.0.0 introduced vfszip protocol
+      if (protocol.equals("vfszip")) {
+        fileName = new File(fileName).getParentFile().getParentFile().getPath();
+        if (File.separatorChar == '\\' && fileName.contains("\\")) {
+          fileName = fileName.replace('\\', '/');
           if (LOG.isInfoEnabled()) {
-            LOG.info(resourcePath + File.separator + file.getName());
-          }
-          if (inResourcePath) {
-            addResource(resources, resourcePath + File.separator + file.getName(), 0);
+            LOG.info("Fixed slashes for virtual filesystem protocol on windows system: " + fileName);
           }
         }
       }
+      jarFile = new URL(fileName);
+    } catch (MalformedURLException e) {
+      // workaround for weblogic on windows
+      jarFile = new URL("file:" + fileName);
+    }
+    InputStream stream = null;
+    ZipInputStream zipStream = null;
+    try {
+      stream = jarFile.openStream();
+      zipStream = new ZipInputStream(stream);
+      while (zipStream.available() > 0) {
+        ZipEntry nextEntry = zipStream.getNextEntry();
+        if (nextEntry == null || nextEntry.isDirectory()) {
+          continue;
+        }
+        String name = "/" + nextEntry.getName();
+        if (name.startsWith(prefix)) {
+          addResource(resources, name, skipPrefix);
+        }
+      }
+    } finally {
+      IOUtils.closeQuietly(stream);
+      IOUtils.closeQuietly(zipStream);
     }
   }
 
