@@ -2136,14 +2136,9 @@ Tobago.Updater = {
 
       Tobago.storeClientDimension();
 
-      var error = !Tobago.Transport.ajaxTransport.request(requestOptions);
-
-      if (error) {
-        LOG.error('error on update: not queued!'); // @DEV_ONLY
-        if (!ids) {
-          ids = Tobago.parsePartialIds(ajaxComponentIds);
-        }
-        this.doErrorUpdate(ids);
+      if (!Tobago.Transport.ajaxTransport.request(requestOptions)) {
+        LOG.error('Page was submitted, request not queued!'); // @DEV_ONLY
+        Tobago.Updater.handleMissingResponses(ajaxComponentIds, {});
       }
     } else {
       LOG.info('No Ajax transport found! Doing full page reload.'); // @DEV_ONLY
