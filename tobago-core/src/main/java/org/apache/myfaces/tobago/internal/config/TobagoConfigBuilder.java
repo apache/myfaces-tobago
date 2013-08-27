@@ -97,16 +97,20 @@ public class TobagoConfigBuilder {
       CollectionUtils.addAll(urls, classLoader.getResources(META_INF_TOBAGO_CONFIG_XML));
 
       for (final URL themeUrl : urls) {
-        final TobagoConfigFragment fragment = new TobagoConfigParser().parse(themeUrl);
-        fragment.setUrl(themeUrl);
-        list.add(fragment);
+        try {
+          final TobagoConfigFragment fragment = new TobagoConfigParser().parse(themeUrl);
+          fragment.setUrl(themeUrl);
+          list.add(fragment);
 
-        // tomcat uses jar
-        // weblogic uses zip
-        // IBM WebSphere uses wsjar
-        final String protocol = themeUrl.getProtocol();
-        if (!"jar".equals(protocol) && !"zip".equals(protocol) && !"wsjar".equals(protocol)) {
-          LOG.warn("Unknown protocol '" + themeUrl + "'");
+          // tomcat uses jar
+          // weblogic uses zip
+          // IBM WebSphere uses wsjar
+          final String protocol = themeUrl.getProtocol();
+          if (!"jar".equals(protocol) && !"zip".equals(protocol) && !"wsjar".equals(protocol)) {
+            LOG.warn("Unknown protocol '" + themeUrl + "'");
+          }
+        } catch (Exception e) {
+          throw new Exception(e.getClass().getName() + " on themeUrl: " + themeUrl, e);
         }
       }
     } catch (Exception e) {
