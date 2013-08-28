@@ -17,6 +17,9 @@
  * limitations under the License.
 -->
 
+<!--
+    this is for the websphere liberty profile
+-->
 <server description="new server">
 
     <!-- Enable features -->
