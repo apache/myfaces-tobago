@@ -247,9 +247,8 @@ class ResourceLocator {
     try {
       stream = jarFile.openStream();
       zipStream = new ZipInputStream(stream);
-      while (zipStream.available() > 0) {
-        ZipEntry nextEntry = zipStream.getNextEntry();
-        if (nextEntry == null || nextEntry.isDirectory()) {
+      for (ZipEntry nextEntry = zipStream.getNextEntry(); nextEntry != null; nextEntry = zipStream.getNextEntry()) {
+        if (nextEntry.isDirectory()) {
           continue;
         }
         String name = "/" + nextEntry.getName();
