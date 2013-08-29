@@ -32,6 +32,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.LineNumberReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Enumeration;
@@ -61,6 +63,7 @@ class ResourceLocator {
   private static final Logger LOG = LoggerFactory.getLogger(ResourceLocator.class);
 
   private static final String META_INF_TOBAGO_CONFIG_XML = "META-INF/tobago-config.xml";
+  private static final String META_INF_RESOURCES_INDEX = "META-INF/tobago-resources-index.txt";
   private static final String META_INF_RESOURCES = "META-INF/resources";
 
   private ServletContext servletContext;
@@ -203,7 +206,12 @@ class ResourceLocator {
         if (!"jar".equals(protocol) && !"zip".equals(protocol) && !"wsjar".equals(protocol)) {
           LOG.warn("Unknown protocol '" + resourcesUrl + "'");
         }
-        addResources(resources, resourcesUrl, "/" + META_INF_RESOURCES, META_INF_RESOURCES.length() + 1);
+        addResourcesFromZip(
+            resources,
+            resourcesUrl.getFile(),
+            resourcesUrl.getProtocol(),
+            "/" + META_INF_RESOURCES,
+            META_INF_RESOURCES.length() + 1);
       }
     } catch (IOException e) {
       String msg = "while loading ";
@@ -215,14 +223,77 @@ class ResourceLocator {
   private void addResources(
       final ResourceManagerImpl resources, final URL themeUrl, final String prefix, final int skipPrefix)
       throws IOException, ServletException {
-    String fileName = themeUrl.toString();
+
+    final String fileName = themeUrl.getFile();
+    LOG.info("fileName='" + fileName + "'");
+    final String resourceIndex
+        = fileName.substring(0, fileName.lastIndexOf(META_INF_TOBAGO_CONFIG_XML)) + META_INF_RESOURCES_INDEX;
+    LOG.info("resourceIndex='" + resourceIndex + "'");
+
+
+
+
+    final URL resource = findMatchingResourceIndexUrl(themeUrl);
+
+
+    LOG.info("resource='" + resource + "'");
+    if (resource != null) {
+      addResourcesFromIndexFile(resources, resource.openStream(), skipPrefix);
+    } else {
+      addResourcesFromZip(resources, fileName, themeUrl.getProtocol(), prefix, skipPrefix);
+    }
+  }
+
+  /**
+   * Find a matching tobago-resources-index.txt to the given tobago-config.xml
+   * We look here all possible URL from ClassLoader, because an AppServer may protect direct access...
+   */
+  private URL findMatchingResourceIndexUrl(final URL themeUrl) throws IOException {
+    final String themeProtocol = themeUrl.getProtocol();
+    final String themeDir
+        = themeUrl.getFile().substring(0, themeUrl.getFile().length() - META_INF_TOBAGO_CONFIG_XML.length());
+    final ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+    final Enumeration<URL> urls = classLoader.getResources(META_INF_RESOURCES_INDEX);
+    URL url = null;
+    while (urls.hasMoreElements()) {
+      url = urls.nextElement();
+      if (url.getProtocol().equals(themeProtocol)
+          && url.getFile().startsWith(themeDir)) {
+        break;
+      }
+      url = null;
+    }
+    return url;
+  }
+
+  private void addResourcesFromIndexFile(
+      ResourceManagerImpl resources, final InputStream indexStream, final int skipPrefix)
+      throws IOException, ServletException {
+    final LineNumberReader reader = new LineNumberReader(new InputStreamReader(indexStream));
+    String name;
+    while (null != (name = reader.readLine())) {
+      addResource(resources, name, skipPrefix);
+    }
+  }
+
+  private void addResourcesFromZip(
+      final ResourceManagerImpl resources, String fileName, final String protocol,
+      final String prefix, final int skipPrefix)
+      throws ServletException, IOException {
+
     final int exclamationPoint = fileName.indexOf("!");
-    final String protocol = themeUrl.getProtocol();
     if (exclamationPoint != -1) {
-      fileName = fileName.substring(protocol.length() + 1, exclamationPoint);
+      fileName = fileName.substring(0, exclamationPoint);
     }
     if (LOG.isInfoEnabled()) {
       LOG.info("Adding resources from fileName='" + fileName + "' prefix='" + prefix + "' skip=" + skipPrefix + "");
+    }
+
+    // JBoss 6 introduced vfs protocol
+    if (protocol.equals("vfs")) {
+      LOG.warn("Protocol '" + protocol + "' is not supported. If resource is needed by the application, you'll"
+          + "need to put a index file tobago-resources-index.txt in the JAR. File='" + fileName + "'");
+      return;
     }
 
     URL jarFile;
