@@ -36,6 +36,11 @@ import java.io.StringWriter;
  */
 public class IndexThemeMojo extends AbstractThemeMojo {
 
+  private static final String[] EXCLUDES = new String[]{
+      "META-INF/**/*",
+      "**/*.class"
+  };
+
   /**
    * Directory containing the resource files that should be listed into the tobago-resources.properties.
    *
@@ -90,6 +95,7 @@ public class IndexThemeMojo extends AbstractThemeMojo {
         StringWriter stringWriter = new StringWriter();
         bufferedWriter = new BufferedWriter(stringWriter);
         for (String file : scanner.getIncludedFiles()) {
+          bufferedWriter.append('/');
           bufferedWriter.append(file);
           bufferedWriter.newLine();
         }
@@ -103,6 +109,10 @@ public class IndexThemeMojo extends AbstractThemeMojo {
     } else {
       getLog().info("Skipping create resource file " + tobagoResourcesFile.getName());
     }
+  }
+
+  public String[] getExcludes() {
+    return EXCLUDES;
   }
 
   private static class StaleCheckDirectoryScanner extends DirectoryScanner {
