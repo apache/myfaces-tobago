@@ -50,7 +50,7 @@ public class IndexThemeMojo extends AbstractThemeMojo {
   private File outputDirectory;
 
   /**
-   * @parameter default-value="${project.build.outputDirectory}/META-INF/tobago-resources-index.txt"
+   * @parameter default-value="${project.build.outputDirectory}/META-INF/tobago-resource-index.txt"
    * @required
    */
   private File tobagoResourcesFile;

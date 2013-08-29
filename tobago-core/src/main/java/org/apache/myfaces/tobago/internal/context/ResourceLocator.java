@@ -63,7 +63,7 @@ class ResourceLocator {
   private static final Logger LOG = LoggerFactory.getLogger(ResourceLocator.class);
 
   private static final String META_INF_TOBAGO_CONFIG_XML = "META-INF/tobago-config.xml";
-  private static final String META_INF_RESOURCES_INDEX = "META-INF/tobago-resources-index.txt";
+  private static final String META_INF_RESOURCE_INDEX = "META-INF/tobago-resource-index.txt";
   private static final String META_INF_RESOURCES = "META-INF/resources";
 
   private ServletContext servletContext;
@@ -227,7 +227,7 @@ class ResourceLocator {
     final String fileName = themeUrl.getFile();
     LOG.info("fileName='" + fileName + "'");
     final String resourceIndex
-        = fileName.substring(0, fileName.lastIndexOf(META_INF_TOBAGO_CONFIG_XML)) + META_INF_RESOURCES_INDEX;
+        = fileName.substring(0, fileName.lastIndexOf(META_INF_TOBAGO_CONFIG_XML)) + META_INF_RESOURCE_INDEX;
     LOG.info("resourceIndex='" + resourceIndex + "'");
 
 
@@ -245,7 +245,7 @@ class ResourceLocator {
   }
 
   /**
-   * Find a matching tobago-resources-index.txt to the given tobago-config.xml
+   * Find a matching tobago-resource-index.txt to the given tobago-config.xml
    * We look here all possible URL from ClassLoader, because an AppServer may protect direct access...
    */
   private URL findMatchingResourceIndexUrl(final URL themeUrl) throws IOException {
@@ -253,7 +253,7 @@ class ResourceLocator {
     final String themeDir
         = themeUrl.getFile().substring(0, themeUrl.getFile().length() - META_INF_TOBAGO_CONFIG_XML.length());
     final ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-    final Enumeration<URL> urls = classLoader.getResources(META_INF_RESOURCES_INDEX);
+    final Enumeration<URL> urls = classLoader.getResources(META_INF_RESOURCE_INDEX);
     URL url = null;
     while (urls.hasMoreElements()) {
       url = urls.nextElement();
@@ -292,7 +292,7 @@ class ResourceLocator {
     // JBoss 6 introduced vfs protocol
     if (protocol.equals("vfs")) {
       LOG.warn("Protocol '" + protocol + "' is not supported. If resource is needed by the application, you'll"
-          + "need to put a index file tobago-resources-index.txt in the JAR. File='" + fileName + "'");
+          + "need to put a index file tobago-resource-index.txt in the JAR. File='" + fileName + "'");
       return;
     }
 
