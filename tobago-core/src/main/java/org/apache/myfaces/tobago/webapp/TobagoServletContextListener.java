@@ -48,7 +48,16 @@ public class TobagoServletContextListener implements ServletContextListener {
 
     TobagoConfigBuilder.init(servletContext);
     if (LOG.isInfoEnabled()) {
-      LOG.info("TobagoConfig: " + TobagoConfig.getInstance(servletContext));
+      final TobagoConfig tobagoConfig = TobagoConfig.getInstance(servletContext);
+      LOG.info("TobagoConfig: " + tobagoConfig);
+      if (tobagoConfig.isContentSecurityPolicyActive()) {
+        LOG.info("********************************************************************************");
+        LOG.info("* Note: CSP is activated!                                                      *");
+        LOG.info("* You may need to check application specific JavaScript code.                  *");
+        LOG.info("* Otherwise the application will not run in browsers, that are supporting CSP. *");
+        LOG.info("* For more information see http://myfaces.apache.org/tobago/migration-2.0.html *");
+        LOG.info("********************************************************************************");
+      }
       LOG.info("ResourcesManager: " + ResourceManagerFactory.getResourceManager(servletContext));
     }
   }

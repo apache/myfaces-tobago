@@ -41,7 +41,20 @@ CSP
   All allowed sources for JavaScript, CSS and other resources have to be declared in special header.
   If you have own renderers or own JavaScript in your application, this code also needs to support SCP, to use this feature.
 
-  TODO: How to configure
+* Warning:
+
+  CSP requires a different handling of JavaScript and other resources.
+  If you use own JavaScript in the HTML page or including resources from other sites you may need to
+  adapt your application, (or turn this feature off).
+
+* Configuration
+
+  To add sites to the CSP headers, add <<<\<directive\>>>> tags to <<<\<content-security-policy\>>>> in
+  the <<<tobago-config.xml>>>.
+
+  To turn off CSP, add an empty <<<\<content-security-policy extension-mode="replace"\>>>> tag in the configuration.
+  This will reset the list of directive entries.
+  If there is no entry, the feature is disabled.
 
 Java-API
 
