@@ -169,7 +169,7 @@ public abstract class TobagoResponseWriter extends ResponseWriter {
    */
   public void writeStyleAttribute(Style style) throws IOException {
     if (style != null) {
-      if (TobagoConfig.getInstance(FacesContext.getCurrentInstance()).getContentSecurityPolicy().size() > 0) {
+      if (TobagoConfig.getInstance(FacesContext.getCurrentInstance()).isContentSecurityPolicyActive()) {
 
 //        final long a = System.nanoTime();
 

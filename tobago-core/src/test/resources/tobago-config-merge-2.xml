@@ -23,45 +23,15 @@
     xsi:schemaLocation="http://myfaces.apache.org/tobago/tobago-config http://myfaces.apache.org/tobago/tobago-config-2.0.xsd"
     version="2.0">
 
-  <name>demo</name>
+  <name>name-2</name>
 
   <ordering>
     <after>
-      <name>tobago-theme-speyside</name>
+      <name>name-1</name>
     </after>
   </ordering>
 
-  <theme-config>
-    <default-theme>speyside</default-theme>
-    <supported-theme>scarborough</supported-theme>
-    <supported-theme>richmond</supported-theme>
-    <supported-theme>charlotteville</supported-theme>
-  </theme-config>
-
-  <resource-dir>tobago-resource</resource-dir>
-
-  <content-security-policy>
-    <directive>frame-src https://maps.google.com</directive>
+  <content-security-policy extension-mode="replace">
   </content-security-policy>
-
-  <renderers>
-
-    <renderer>
-      <name>Sheet</name>
-      <supported-markup>
-        <markup>sun</markup>
-        <markup>planet</markup>
-        <markup>moon</markup>
-      </supported-markup>
-    </renderer>
-
-    <renderer>
-      <name>Out</name>
-      <supported-markup>
-        <markup>demoSeconds</markup>
-      </supported-markup>
-    </renderer>
-
-  </renderers>
 
 </tobago-config>

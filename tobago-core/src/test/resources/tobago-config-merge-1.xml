@@ -31,4 +31,8 @@
     </after>
   </ordering>
 
+  <content-security-policy>
+    <directive>image-src http://apache.org</directive>
+  </content-security-policy>
+
 </tobago-config>

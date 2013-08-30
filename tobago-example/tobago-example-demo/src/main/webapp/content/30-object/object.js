@@ -37,7 +37,7 @@
             zoom = this.options.zoom;
           }
           var target = this.element.data("maps-target");
-          var url = 'http://maps.google.com/maps?'
+          var url = 'https://maps.google.com/maps?'
               + 'ie=UTF8&ll=' + position + '&t=h&z=' + zoom + '&output=embed&f=q&cd=1';
           jQuery(Tobago.Utils.escapeClientId(target)).attr('src', url);
         }

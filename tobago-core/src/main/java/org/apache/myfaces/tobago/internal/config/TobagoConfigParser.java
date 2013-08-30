@@ -141,9 +141,8 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
         break;
 
       case CONTENT_SECURITY_POLICY:
-        LOG.warn("todo: not implemented yet!"); // todo
-        attributes.getValue("disabled");
-        attributes.getValue("replace");
+        final String extensionMode = attributes.getValue("extension-mode");
+        tobagoConfig.setContentSecurityPolicyExtensionModeReplace("replace".equals(extensionMode));
         break;
 
       case RENDERERS:

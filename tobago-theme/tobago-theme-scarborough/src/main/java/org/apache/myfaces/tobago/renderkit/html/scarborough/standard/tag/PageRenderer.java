@@ -142,7 +142,9 @@ public class PageRenderer extends PageRendererBase {
 
     ResponseUtils.ensureNoCacheHeader(facesContext);
 
-    ResponseUtils.ensureContentSecurityPolicyHeader(facesContext, tobagoConfig.getContentSecurityPolicy());
+    if (tobagoConfig.isContentSecurityPolicyActive()) {
+      ResponseUtils.ensureContentSecurityPolicyHeader(facesContext, tobagoConfig.getContentSecurityPolicy());
+    }
 
     if (LOG.isDebugEnabled()) {
       for (Object o : page.getAttributes().entrySet()) {

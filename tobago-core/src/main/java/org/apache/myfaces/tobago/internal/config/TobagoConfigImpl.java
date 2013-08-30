@@ -290,6 +290,10 @@ public class TobagoConfigImpl extends TobagoConfig {
     contentSecurityPolicy.add(directive);
   }
 
+  public boolean isContentSecurityPolicyActive() {
+    return contentSecurityPolicy.size() > 0;
+  }
+
   public Map<String, String> getDefaultValidatorInfo() {
 
     // TODO: if the startup hasn't found a FacesContext and Application, this may depend on the order of the listeners.

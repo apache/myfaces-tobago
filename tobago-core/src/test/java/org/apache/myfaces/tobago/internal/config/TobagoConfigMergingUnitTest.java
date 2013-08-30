@@ -37,8 +37,8 @@ public class TobagoConfigMergingUnitTest {
       throws IOException, SAXException, ParserConfigurationException, URISyntaxException {
 
     final TobagoConfigImpl config = loadAndMerge(
-        "tobago-config-0.xml",
-        "tobago-config-1.xml");
+        "tobago-config-merge-0.xml",
+        "tobago-config-merge-1.xml");
 
     Assert.assertFalse(config.isPreventFrameAttacks());
   }
@@ -47,7 +47,7 @@ public class TobagoConfigMergingUnitTest {
   public void testPreventFrameAttacks()
       throws IOException, SAXException, ParserConfigurationException, URISyntaxException {
 
-    final TobagoConfigImpl config = loadAndMerge("tobago-config-0.xml");
+    final TobagoConfigImpl config = loadAndMerge("tobago-config-merge-0.xml");
 
     Assert.assertFalse(config.isPreventFrameAttacks());
   }
@@ -56,9 +56,48 @@ public class TobagoConfigMergingUnitTest {
   public void testPreventFrameAttacksDefault()
       throws IOException, SAXException, ParserConfigurationException, URISyntaxException {
 
-    final TobagoConfigImpl config = loadAndMerge("tobago-config-1.xml");
+    final TobagoConfigImpl config = loadAndMerge("tobago-config-merge-1.xml");
 
     Assert.assertTrue(config.isPreventFrameAttacks());
+  }
+
+  @Test
+  public void testContentSecurityPolicy()
+      throws IOException, SAXException, ParserConfigurationException, URISyntaxException {
+
+    final TobagoConfigImpl config = loadAndMerge(
+        "tobago-config-merge-0.xml");
+
+    Assert.assertTrue(config.isContentSecurityPolicyActive());
+    Assert.assertEquals(1, config.getContentSecurityPolicy().size());
+    Assert.assertEquals("default-src 'self'", config.getContentSecurityPolicy().get(0));
+  }
+
+  @Test
+  public void testContentSecurityPolicyExtend()
+      throws IOException, SAXException, ParserConfigurationException, URISyntaxException {
+
+    final TobagoConfigImpl config = loadAndMerge(
+        "tobago-config-merge-0.xml",
+        "tobago-config-merge-1.xml");
+
+    Assert.assertTrue(config.isContentSecurityPolicyActive());
+    Assert.assertEquals(2, config.getContentSecurityPolicy().size());
+    Assert.assertEquals("default-src 'self'", config.getContentSecurityPolicy().get(0));
+    Assert.assertEquals("image-src http://apache.org", config.getContentSecurityPolicy().get(1));
+  }
+
+  @Test
+  public void testContentSecurityPolicyOff()
+      throws IOException, SAXException, ParserConfigurationException, URISyntaxException {
+
+    final TobagoConfigImpl config = loadAndMerge(
+        "tobago-config-merge-0.xml",
+        "tobago-config-merge-1.xml",
+        "tobago-config-merge-2.xml");
+
+    Assert.assertFalse(config.isContentSecurityPolicyActive());
+    Assert.assertEquals(0, config.getContentSecurityPolicy().size());
   }
 
   private TobagoConfigImpl loadAndMerge(String... names)

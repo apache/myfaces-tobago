@@ -27,4 +27,8 @@
 
   <prevent-frame-attacks>false</prevent-frame-attacks>
 
+  <content-security-policy>
+    <directive>default-src 'self'</directive>
+  </content-security-policy>
+
 </tobago-config>

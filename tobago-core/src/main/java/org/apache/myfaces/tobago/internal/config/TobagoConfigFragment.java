@@ -44,7 +44,7 @@ public class TobagoConfigFragment {
   private Boolean checkSessionSecret;
   private Boolean preventFrameAttacks;
   private List<String> contentSecurityPolicy;
-  // todo
+  private boolean contentSecurityPolicyExtensionModeReplace;
   private List<ThemeImpl> themeDefinitions;
   private URL url;
 
@@ -162,6 +162,14 @@ public class TobagoConfigFragment {
 
   public void addContentSecurityPolicy(String directive) {
     contentSecurityPolicy.add(directive);
+  }
+
+  public boolean isContentSecurityPolicyExtensionModeReplace() {
+    return contentSecurityPolicyExtensionModeReplace;
+  }
+
+  public void setContentSecurityPolicyExtensionModeReplace(boolean contentSecurityPolicyExtensionModeReplace) {
+    this.contentSecurityPolicyExtensionModeReplace = contentSecurityPolicyExtensionModeReplace;
   }
 
   /** @deprecated since 1.5.0 */

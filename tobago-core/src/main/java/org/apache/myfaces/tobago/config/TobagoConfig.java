@@ -43,32 +43,26 @@ public abstract class TobagoConfig {
   public abstract List<Theme> getSupportedThemes();
 
 /*
-  // todo: should this be part of the api?
+  // TBD: should this be part of the public api?
   public abstract void addResourceDir(String resourceDir);
 */
 
 /*
-  // todo: should this be part of the api?
+  // TBD: should this be part of the public api?
   public abstract List<String> getResourceDirs();
 */
-
-  /**
-   * @deprecated since 1.5.0
-   */
-  @Deprecated
-  public abstract boolean isAjaxEnabled();
 
   public abstract Theme getDefaultTheme();
 
 /*
-  // todo: should this be part of the api?
+  // TBD: should this be part of the public api?
   public abstract RenderersConfig getRenderersConfig();
 */
 
   public abstract ProjectStage getProjectStage();
 
 /*
-  // todo: should this be part of the api?
+  // TBD: should this be part of the public api?
   public abstract List<Theme> getThemeDefinitions();
 */
 
@@ -79,5 +73,7 @@ public abstract class TobagoConfig {
   public abstract boolean isPreventFrameAttacks();
 
   public abstract List<String> getContentSecurityPolicy();
+
+  public abstract boolean isContentSecurityPolicyActive();
 
 }
