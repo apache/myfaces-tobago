@@ -393,8 +393,10 @@ public abstract class AbstractUISheetLayout extends AbstractUILayoutBase impleme
 
     for(UIComponent child : header.getChildren()) {
       if (child instanceof LayoutComponent) {
-        final LayoutComponent c = (LayoutComponent) child;
-        grid.add(new OriginCell(c), c.getColumnSpan(), c.getRowSpan());
+        if (child.isRendered()) {
+          final LayoutComponent c = (LayoutComponent) child;
+          grid.add(new OriginCell(c), c.getColumnSpan(), c.getRowSpan());
+        }
       } else {
         if (LOG.isDebugEnabled()) {
           LOG.debug("Found unknown component in header.");

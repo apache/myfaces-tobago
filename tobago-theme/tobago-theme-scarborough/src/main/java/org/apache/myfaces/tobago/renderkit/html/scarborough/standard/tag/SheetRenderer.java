@@ -76,6 +76,7 @@ import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.el.ValueExpression;
 import javax.faces.application.Application;
 import javax.faces.component.UIColumn;
 import javax.faces.component.UIComponent;
@@ -108,17 +109,28 @@ public class SheetRenderer extends LayoutComponentRendererBase {
     UIComponent header = sheet.getHeader();
     if (header == null) {
       header = CreateComponentUtils.createComponent(facesContext, ComponentTypes.PANEL, null, "_header");
-// XXX ??? what about input, etc.?
-//      header.setTransient(true);
-      final List<AbstractUIColumn> columns = sheet.getRenderedColumns();
+      header.setTransient(true);
+      final List<AbstractUIColumn> columns = ComponentUtils.findDescendantList(sheet, AbstractUIColumn.class);
       int i = 0;
       for (AbstractUIColumn column : columns) {
         final AbstractUIOut out = (AbstractUIOut) CreateComponentUtils.createComponent(
             facesContext, ComponentTypes.OUT, RendererTypes.OUT, "_col" + i);
+        out.setTransient(true);
 //        out.setValue(column.getLabel());
-        out.setValue(column.getAttributes().get(Attributes.LABEL));
+        ValueExpression valueExpression = column.getValueExpression(Attributes.LABEL);
+        if (valueExpression != null) {
+          out.setValueExpression(Attributes.VALUE, valueExpression);
+        } else {
+          out.setValue(column.getAttributes().get(Attributes.LABEL));
+        }
+        valueExpression = column.getValueExpression(Attributes.RENDERED);
+        if (valueExpression != null) {
+          out.setValueExpression(Attributes.RENDERED, valueExpression);
+        } else {
+          out.setRendered((Boolean) column.getAttributes().get(Attributes.RENDERED));
+        }
         header.getChildren().add(out);
-          i++;
+        i++;
       }
       sheet.setHeader(header);
     }
