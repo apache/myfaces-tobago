@@ -35,12 +35,18 @@ public class TestPageFilter {
   );
 
   public static final Set<String> HIDDEN = new HashSet<String>(Arrays.asList(
-      "/META-INF.*",
-      "/WEB-INF.*",
+      "/META-INF/.*",
+      "/WEB-INF/.*",
+      "/script/.*",
+      "/style/.*",
       "/org/.*",
       "/src/.*",
       ".*/\\.svn/.*",
-      ".*\\.selenium\\.html"
+      ".*\\.selenium\\.html",
+      "/javax\\.faces/.*",
+      "/oam\\.custom\\..*",
+      "/org\\.apache\\.myfaces/.*",
+      "/org\\.apache\\.myfaces\\.custom/.*"
   ));
 
   /**

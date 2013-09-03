@@ -24,12 +24,13 @@ import org.slf4j.LoggerFactory;
 
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
-public class DirectoryBrowser {
+public class DirectoryBrowser implements Serializable {
 
   private static final Logger LOG = LoggerFactory.getLogger(DirectoryBrowser.class);
 
