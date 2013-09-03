@@ -17,10 +17,11 @@
  * limitations under the License.
 -->
 
-<faces-config xmlns="http://java.sun.com/xml/ns/javaee"
-              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-              xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
-              version="2.0">
+<faces-config
+    xmlns="http://java.sun.com/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
+    version="2.0">
 
   <application>
     <default-render-kit-id>tobago</default-render-kit-id>
@@ -44,7 +45,7 @@
     <component-type>javax.faces.ViewRoot</component-type>
     <component-class>org.apache.myfaces.tobago.component.UIViewRoot</component-class>
   </component>
-  
+
   <managed-bean>
     <managed-bean-name>tobagoClientProperties</managed-bean-name>
     <managed-bean-class>org.apache.myfaces.tobago.context.ClientProperties</managed-bean-class>
