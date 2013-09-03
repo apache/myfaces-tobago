@@ -57,7 +57,7 @@
         <executions>
           <execution>
             <id>unpack-external-images</id>
-            <phase>prepare-package</phase>
+            <phase>process-resources</phase>
             <goals>
               <goal>unpack</goal>
             </goals>
@@ -79,7 +79,7 @@
         <executions>
           <execution>
             <id>copy-external-images</id>
-            <phase>prepare-package</phase>
+            <phase>process-resources</phase>
             <goals>
               <goal>copy-resources</goal>
             </goals>
