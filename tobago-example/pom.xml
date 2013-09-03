@@ -62,26 +62,27 @@
       </plugin>
 
     </plugins>
+
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.mortbay.jetty</groupId>
+          <artifactId>jetty-maven-plugin</artifactId>
+          <version>7.6.12.v20130726</version>
+          <!--<version>8.1.0.RC5</version>-->
+          <!--<version>8.1.9.v20130131</version>-->
+          <configuration>
+            <scanIntervalSeconds>5</scanIntervalSeconds>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
   </build>
 
-
-  <dependencies>
-    <dependency>
-      <groupId>javax.servlet</groupId>
-      <artifactId>servlet-api</artifactId>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>javax.servlet.jsp</groupId>
-      <artifactId>jsp-api</artifactId>
-      <scope>provided</scope>
-    </dependency>
-  </dependencies>
-  
   <profiles>
     <profile>
       <id>default-modules</id>
-       <activation>
+      <activation>
         <property>
           <name>!non-default-modules</name>
         </property>

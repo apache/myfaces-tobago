@@ -21,16 +21,12 @@ package org.apache.myfaces.tobago.example.test;
 
 import org.apache.myfaces.tobago.context.ResourceManager;
 import org.apache.myfaces.tobago.internal.context.ResourceManagerFactory;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.faces.context.FacesContext;
 import java.util.Arrays;
 import java.util.List;
 
 public class ResourceBean {
-
-  private static final Logger LOG = LoggerFactory.getLogger(ResourceBean.class);
 
   private List<ResourceEntry> resources;
   private int fails;

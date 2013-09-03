@@ -60,11 +60,8 @@
   </managed-bean>
 
   <lifecycle>
-    <phase-listener>
-      org.apache.myfaces.tobago.util.DebugPhaseListener
-    </phase-listener>
+    <phase-listener>org.apache.myfaces.tobago.util.DebugPhaseListener</phase-listener>
   </lifecycle>
-
 
   <navigation-rule>
     <navigation-case>
