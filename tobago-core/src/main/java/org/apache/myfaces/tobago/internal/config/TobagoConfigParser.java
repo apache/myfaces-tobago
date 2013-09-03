@@ -81,7 +81,7 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
   private RendererConfig currentRenderer;
   private ThemeImpl currentTheme;
   private Boolean production;
-  private String text;
+  private StringBuilder buffer;
 
   private Stack<String> stack;
 
@@ -119,7 +119,14 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
   }
 
   @Override
+  public void ignorableWhitespace(char[] ch, int start, int length) throws SAXException {
+    super.ignorableWhitespace(ch, start, length);
+  }
+
+  @Override
   public void startDocument() throws SAXException {
+
+    buffer = new StringBuilder();
     stack = new Stack<String>();
   }
 
@@ -132,6 +139,10 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
   @Override
   public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
 
+    // No unused content should be collected, specially text mixed with tags.
+    assert buffer.toString().trim().length() == 0;
+
+    buffer.setLength(0);
     stack.add(qName);
 
     switch (qName.hashCode()) {
@@ -214,12 +225,15 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
 
   @Override
   public void characters(char[] ch, int start, int length) throws SAXException {
-    text = new String(ch, start, length);
+    buffer.append(ch, start, length);
   }
 
   @Override
   public void endElement(String uri, String localName, String qName) throws SAXException {
     assert qName.equals(stack.peek());
+
+    final String text = buffer.toString().trim();
+    buffer.setLength(0);
 
     switch (qName.hashCode()) {
 

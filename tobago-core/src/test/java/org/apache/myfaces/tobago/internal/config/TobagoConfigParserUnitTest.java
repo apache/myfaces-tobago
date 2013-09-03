@@ -24,7 +24,10 @@ import org.apache.myfaces.tobago.context.ThemeImpl;
 import org.junit.Test;
 import org.xml.sax.SAXException;
 
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.IOException;
 import java.lang.reflect.Field;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -35,8 +38,17 @@ public class TobagoConfigParserUnitTest {
 
   @Test
   public void testParser() throws Exception {
+    generalTest("tobago-config-2.0.xml");
+  }
 
-    final URL url = getClass().getClassLoader().getResource("tobago-config-2.0.xml");
+  @Test
+  public void testParserUntidy() throws Exception {
+    generalTest("tobago-config-untidy-2.0.xml");
+  }
+
+  private void generalTest(String name)
+      throws IOException, SAXException, ParserConfigurationException, URISyntaxException {
+    final URL url = getClass().getClassLoader().getResource(name);
     final TobagoConfigParser parser = new TobagoConfigParser();
 
     final TobagoConfigFragment fragment = parser.parse(url);
