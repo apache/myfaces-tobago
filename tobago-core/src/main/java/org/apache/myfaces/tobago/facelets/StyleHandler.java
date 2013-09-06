@@ -19,9 +19,8 @@
 
 package org.apache.myfaces.tobago.facelets;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.myfaces.tobago.component.UIStyle;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.view.facelets.ComponentConfig;
@@ -32,25 +31,19 @@ import javax.faces.view.facelets.TextHandler;
 
 public class StyleHandler extends ComponentHandler {
 
-  private static final Logger LOG = LoggerFactory.getLogger(StyleHandler.class);
-
   public StyleHandler(ComponentConfig config) {
     super(config);
   }
 
   public void onComponentCreated(FaceletContext context, UIComponent component, UIComponent parent) {
 
-    StringBuilder content = new StringBuilder();
     final FaceletHandler next = getComponentConfig().getNextHandler();
     if (next instanceof TextHandler) {
-      content.append(((TextHandler) next).getText(context));
-    } else {
-      // TBD: is this okay, or is here something to do?
-      // on the other side, Script inside the page is deprecated.
-      LOG.warn("Not applied for handler: " + next.getClass().getName());
+      final String style = ((TextHandler) next).getText(context);
+      if (StringUtils.isNotBlank(style)) {
+        ((UIStyle) component).setStyle(style);
+      }
     }
-
-    ((UIStyle) component).setStyle(content.toString());
   }
 
   public void applyNextHandler(FaceletContext ctx, UIComponent c) {
