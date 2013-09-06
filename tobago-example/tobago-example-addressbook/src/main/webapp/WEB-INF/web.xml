@@ -33,17 +33,12 @@
   </context-param>
 
   <context-param>
-    <param-name>facelets.DEVELOPMENT</param-name>
+    <param-name>javax.faces.FACELETS_SKIP_COMMENTS</param-name>
     <param-value>true</param-value>
   </context-param>
 
   <context-param>
-    <param-name>facelets.SKIP_COMMENTS</param-name>
-    <param-value>true</param-value>
-  </context-param>
-
-  <context-param>
-    <param-name>facelets.RESOURCE_RESOLVER</param-name>
+    <param-name>javax.faces.FACELETS_RESOURCE_RESOLVER</param-name>
     <param-value>org.apache.myfaces.tobago.facelets.MetaInfResourcesClasspathResourceResolver</param-value>
   </context-param>
 

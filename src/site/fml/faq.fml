@@ -70,6 +70,15 @@
     <faq id="tobago/facelets">
       <question>Does Tobago supports Facelets?</question>
       <answer>
+        <p>Tobago 2.0.x:</p>
+        <p>Tobago supports the JSF 2.0 Facelets.
+          Note: Please add following context param in your web.xml</p>
+        <source>
+&lt;context-param>
+  &lt;param-name>javax.faces.FACELETS_SKIP_COMMENTS&lt;/param-name>
+  &lt;param-value>true&lt;/param-value>
+&lt;/context-param></source>
+        <p>Tobago 1.0.x and 1.5.x:</p>
         <p>Tobago supports Facelets with the tobago-facelets.jar.
         Note: Please add following context param in your web.xml</p>
         <source>

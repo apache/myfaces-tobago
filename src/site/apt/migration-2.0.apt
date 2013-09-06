@@ -79,6 +79,8 @@ Facelets
 
    * Rename all JSTL deklarations from <<<xmlns:c="http://java.sun.com/jstl/core">>> to <<<xmlns:c="http://java.sun.com/jsp/jstl/core">>> in the Facelets.
 
+   * Ensure the version of the faces-config tag in the faces-config.xml is at least 2.0.
+
    []
 
 Deprecated

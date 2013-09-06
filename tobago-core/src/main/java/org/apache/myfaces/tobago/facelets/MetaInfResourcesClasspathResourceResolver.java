@@ -31,7 +31,7 @@ import java.net.URL;
  * To configure this ResourceResolver put this code into the web.xml file:
  * <pre>
  *  &lt;context-param&gt;
- *    &lt;param-name&gt;facelets.RESOURCE_RESOLVER&lt;/param-name&gt;
+ *    &lt;param-name&gt;javax.faces.FACELETS_RESOURCE_RESOLVER&lt;/param-name&gt;
  *    &lt;param-value&gt;
  *        org.apache.myfaces.tobago.facelets.MetaInfResourcesClasspathResourceResolver
  *    &lt;/param-value&gt;
