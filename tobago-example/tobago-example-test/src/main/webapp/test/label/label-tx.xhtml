@@ -24,7 +24,7 @@
 
   <tc:page id="page">
     <f:facet name="layout">
-      <tc:gridLayout rows="auto;auto;auto;auto"/>
+      <tc:gridLayout rows="auto;*"/>
     </f:facet>
     <tc:gridLayoutConstraint width="600px" height="600px"/>
 
@@ -33,6 +33,8 @@
     <tx:label value="label">
       <tc:in value="value"/>
     </tx:label>
+
+    <tc:out value="tx:label should not be used directly, because it is not working with facelets, only with JSP" />
 
   </tc:page>
 </f:view>
