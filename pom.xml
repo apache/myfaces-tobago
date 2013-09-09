@@ -1724,11 +1724,11 @@
 
   <properties>
     <myfaces-test20.version>1.0.4</myfaces-test20.version>
-    <myfaces20.version>2.0.17</myfaces20.version>
-    <myfaces21.version>2.1.11</myfaces21.version>
+    <myfaces20.version>2.0.18</myfaces20.version>
+    <myfaces21.version>2.1.12</myfaces21.version>
     <mojarra20.version>2.0.11</mojarra20.version>
-    <mojarra21.version>2.1.20</mojarra21.version>
-    <mojarra22.version>2.2.0-m12</mojarra22.version>
+    <mojarra21.version>2.1.25</mojarra21.version>
+    <mojarra22.version>2.2.2</mojarra22.version>
     <slf4j.version>1.7.5</slf4j.version>
     <logback.version>1.0.11</logback.version>
     <log4j.version>1.2.17</log4j.version>
