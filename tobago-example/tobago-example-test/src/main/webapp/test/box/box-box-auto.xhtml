@@ -28,16 +28,28 @@
     </f:facet>
 
     <tc:box id="outerbox" label="outer box">
+      <tc:dataAttribute name="assert-left" value="0"/>
+      <tc:dataAttribute name="assert-top" value="0"/>
+      <tc:dataAttribute name="assert-width" value="226"/>
+      <tc:dataAttribute name="assert-height" value="116"/>
       <f:facet name="layout">
         <tc:gridLayout columns="auto" rows="auto"/>
       </f:facet>
 
       <tc:box id="innerbox" label="inner box">
+        <tc:dataAttribute name="assert-left" value="6"/>
+        <tc:dataAttribute name="assert-top" value="26"/>
+        <tc:dataAttribute name="assert-width" value="213"/>
+        <tc:dataAttribute name="assert-height" value="83"/>
         <f:facet name="layout">
           <tc:gridLayout columns="auto" rows="auto"/>
         </f:facet>
 
         <tc:textarea id="textarea" value="Some text.">
+          <tc:dataAttribute name="assert-left" value="12"/>
+          <tc:dataAttribute name="assert-top" value="52"/>
+          <tc:dataAttribute name="assert-width" value="200"/>
+          <tc:dataAttribute name="assert-height" value="50"/>
           <tc:gridLayoutConstraint preferredWidth="200px" preferredHeight="50px"/>
         </tc:textarea>
 
@@ -46,10 +58,6 @@
     </tc:box>
 
     <tc:script file="script/tobago-assert.js"/>
-
-    <tc:script onload="TobagoAssert.assertLayout('page:outerbox', 0, 0, 226, 116);"/>
-    <tc:script onload="TobagoAssert.assertLayout('page:innerbox', 6, 26, 213, 83);"/>
-    <tc:script onload="TobagoAssert.assertLayout('page:textarea', 12, 52, 200, 50);"/>
 
   </tc:page>
 </f:view>
