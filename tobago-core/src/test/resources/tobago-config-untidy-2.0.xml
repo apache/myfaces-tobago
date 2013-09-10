@@ -85,8 +85,7 @@
     false
   </prevent-frame-attacks>
 
-  <content-security-policy
-      extension-mode="replace">
+  <content-security-policy mode="on">
     <directive>
       default-src 'self'
     </directive>

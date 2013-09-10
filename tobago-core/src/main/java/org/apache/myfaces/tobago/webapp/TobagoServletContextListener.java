@@ -20,6 +20,7 @@
 package org.apache.myfaces.tobago.webapp;
 
 import org.apache.myfaces.tobago.config.TobagoConfig;
+import org.apache.myfaces.tobago.internal.config.ContentSecurityPolicy;
 import org.apache.myfaces.tobago.internal.config.TobagoConfigBuilder;
 import org.apache.myfaces.tobago.internal.context.ResourceManagerFactory;
 import org.slf4j.Logger;
@@ -50,14 +51,19 @@ public class TobagoServletContextListener implements ServletContextListener {
     if (LOG.isInfoEnabled()) {
       final TobagoConfig tobagoConfig = TobagoConfig.getInstance(servletContext);
       LOG.info("TobagoConfig: " + tobagoConfig);
-      if (tobagoConfig.isContentSecurityPolicyActive()) {
-        LOG.info("********************************************************************************");
-        LOG.info("* Note: CSP is activated!                                                      *");
-        LOG.info("* You may need to check application specific JavaScript code.                  *");
-        LOG.info("* Otherwise the application will not run in browsers, that are supporting CSP. *");
-        LOG.info("* For more information see http://myfaces.apache.org/tobago/migration-2.0.html *");
-        LOG.info("********************************************************************************");
+      final ContentSecurityPolicy.Mode mode = tobagoConfig.getContentSecurityPolicy().getMode();
+      StringBuilder builder = new StringBuilder();
+      builder.append("\n*************************************************************************************");
+      builder.append("\nNote: CSP is ");
+      builder.append(mode);
+      if (mode == ContentSecurityPolicy.Mode.ON) {
+        builder.append("\nYou may need to check application specific JavaScript code.");
+        builder.append("\nOtherwise the application will not run in modern browsers, that are supporting CSP.");
+        builder.append("\nFor more information see http://myfaces.apache.org/tobago/migration-2.0.html");
       }
+      builder.append("\n*************************************************************************************");
+      final String note = builder.toString();
+      LOG.info(note);
       LOG.info("ResourcesManager: " + ResourceManagerFactory.getResourceManager(servletContext));
     }
   }

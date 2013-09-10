@@ -68,9 +68,9 @@ public class TobagoConfigMergingUnitTest {
     final TobagoConfigImpl config = loadAndMerge(
         "tobago-config-merge-0.xml");
 
-    Assert.assertTrue(config.isContentSecurityPolicyActive());
-    Assert.assertEquals(1, config.getContentSecurityPolicy().size());
-    Assert.assertEquals("default-src 'self'", config.getContentSecurityPolicy().get(0));
+    Assert.assertTrue(config.getContentSecurityPolicy().getMode() == ContentSecurityPolicy.Mode.ON);
+    Assert.assertEquals(1, config.getContentSecurityPolicy().getDirectiveList().size());
+    Assert.assertEquals("default-src 'self'", config.getContentSecurityPolicy().getDirectiveList().get(0));
   }
 
   @Test
@@ -81,10 +81,10 @@ public class TobagoConfigMergingUnitTest {
         "tobago-config-merge-0.xml",
         "tobago-config-merge-1.xml");
 
-    Assert.assertTrue(config.isContentSecurityPolicyActive());
-    Assert.assertEquals(2, config.getContentSecurityPolicy().size());
-    Assert.assertEquals("default-src 'self'", config.getContentSecurityPolicy().get(0));
-    Assert.assertEquals("image-src http://apache.org", config.getContentSecurityPolicy().get(1));
+    Assert.assertTrue(config.getContentSecurityPolicy().getMode() == ContentSecurityPolicy.Mode.REPORT_ONLY);
+    Assert.assertEquals(2, config.getContentSecurityPolicy().getDirectiveList().size());
+    Assert.assertEquals("default-src 'self'", config.getContentSecurityPolicy().getDirectiveList().get(0));
+    Assert.assertEquals("image-src http://apache.org", config.getContentSecurityPolicy().getDirectiveList().get(1));
   }
 
   @Test
@@ -96,8 +96,8 @@ public class TobagoConfigMergingUnitTest {
         "tobago-config-merge-1.xml",
         "tobago-config-merge-2.xml");
 
-    Assert.assertFalse(config.isContentSecurityPolicyActive());
-    Assert.assertEquals(0, config.getContentSecurityPolicy().size());
+    Assert.assertTrue(config.getContentSecurityPolicy().getMode() == ContentSecurityPolicy.Mode.OFF);
+    Assert.assertEquals(2, config.getContentSecurityPolicy().getDirectiveList().size());
   }
 
   private TobagoConfigImpl loadAndMerge(String... names)

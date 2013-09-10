@@ -31,7 +31,7 @@
     </after>
   </ordering>
 
-  <content-security-policy>
+  <content-security-policy mode="report-only">
     <directive>image-src http://apache.org</directive>
   </content-security-policy>
 

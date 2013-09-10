@@ -27,7 +27,7 @@
 
   <resource-dir>org/apache/myfaces/tobago/renderkit</resource-dir>
 
-  <content-security-policy>
+  <content-security-policy mode="on">
     <directive>default-src 'self'</directive>
   </content-security-policy>
 

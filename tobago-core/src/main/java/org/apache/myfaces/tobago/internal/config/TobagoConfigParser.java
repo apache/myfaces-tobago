@@ -152,8 +152,8 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
         break;
 
       case CONTENT_SECURITY_POLICY:
-        final String extensionMode = attributes.getValue("extension-mode");
-        tobagoConfig.setContentSecurityPolicyExtensionModeReplace("replace".equals(extensionMode));
+        final String mode = attributes.getValue("mode");
+        tobagoConfig.setContentSecurityPolicy(new ContentSecurityPolicy(mode));
         break;
 
       case RENDERERS:
@@ -296,7 +296,7 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
         break;
 
       case DIRECTIVE:
-        tobagoConfig.addContentSecurityPolicy(text);
+        tobagoConfig.getContentSecurityPolicy().getDirectiveList().add(text);
         break;
 
       case MARKUP:

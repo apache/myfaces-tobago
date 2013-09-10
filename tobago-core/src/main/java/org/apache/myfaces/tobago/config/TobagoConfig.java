@@ -21,6 +21,7 @@ package org.apache.myfaces.tobago.config;
 
 import org.apache.myfaces.tobago.application.ProjectStage;
 import org.apache.myfaces.tobago.context.Theme;
+import org.apache.myfaces.tobago.internal.config.ContentSecurityPolicy;
 
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
@@ -72,8 +73,6 @@ public abstract class TobagoConfig {
 
   public abstract boolean isPreventFrameAttacks();
 
-  public abstract List<String> getContentSecurityPolicy();
-
-  public abstract boolean isContentSecurityPolicyActive();
+  public abstract ContentSecurityPolicy getContentSecurityPolicy();
 
 }

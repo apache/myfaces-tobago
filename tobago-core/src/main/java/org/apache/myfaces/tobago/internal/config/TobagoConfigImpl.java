@@ -59,7 +59,7 @@ public class TobagoConfigImpl extends TobagoConfig {
   private boolean createSessionSecret;
   private boolean checkSessionSecret;
   private boolean preventFrameAttacks;
-  private List<String> contentSecurityPolicy;
+  private ContentSecurityPolicy contentSecurityPolicy;
   private URL url;
   private Map<String, String> defaultValidatorInfo;
 
@@ -70,7 +70,7 @@ public class TobagoConfigImpl extends TobagoConfig {
     createSessionSecret = true;
     checkSessionSecret = true;
     preventFrameAttacks = true;
-    contentSecurityPolicy = new ArrayList<String>();
+    contentSecurityPolicy = new ContentSecurityPolicy(ContentSecurityPolicy.Mode.OFF.getValue());
   }
 
   public void addSupportedThemeName(String name) {
@@ -282,16 +282,8 @@ public class TobagoConfigImpl extends TobagoConfig {
     this.preventFrameAttacks = preventFrameAttacks;
   }
 
-  public List<String> getContentSecurityPolicy() {
+  public ContentSecurityPolicy getContentSecurityPolicy() {
     return contentSecurityPolicy;
-  }
-
-  public void addContentSecurityPolicy(String directive) {
-    contentSecurityPolicy.add(directive);
-  }
-
-  public boolean isContentSecurityPolicyActive() {
-    return contentSecurityPolicy.size() > 0;
   }
 
   public Map<String, String> getDefaultValidatorInfo() {

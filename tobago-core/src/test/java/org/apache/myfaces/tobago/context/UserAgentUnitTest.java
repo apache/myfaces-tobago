@@ -99,8 +99,12 @@ public class UserAgentUnitTest {
             "Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.2.3pre) Gecko/20100328 Ubuntu/9.10 (karmic) "
                 + "Namoroka/3.6.3pre"},
 
+        {"Firefox 23.0 - Mac OS X Mountain Lion",
+            UserAgent.GECKO_23_0,
+            "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.8; rv:23.0) Gecko/20100101 Firefox/23.0"},
+
         {"Firefox 5.0 - Mac OS X Snow Leopard",
-            UserAgent.GECKO_5_0,
+            UserAgent.GECKO_2_0,
             "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.6; rv:5.0) Gecko/20100101 Firefox/5.0"},
 
         {"Firefox 4.0 beta 2 - Mac OS X Snow Leopard",

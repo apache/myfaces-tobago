@@ -85,6 +85,7 @@ public class TestTheAutomaticSeleniumTest {
     } catch (AssertionError e) { // from IDE
       Assert.assertTrue(e.getMessage().contains("404 - page not found"));
     } catch (SeleniumException e) { // from mvn -Pintegration-test
+      LOG.info("Exception: '" + e.getMessage() + "'");
       Assert.assertTrue(e.getMessage().contains("Response_Code = 404"));
     }
   }

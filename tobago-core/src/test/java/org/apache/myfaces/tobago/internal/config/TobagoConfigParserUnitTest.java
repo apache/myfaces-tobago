@@ -70,11 +70,9 @@ public class TobagoConfigParserUnitTest {
     Assert.assertEquals(false, fragment.getCheckSessionSecret().booleanValue());
     Assert.assertEquals(false, fragment.getPreventFrameAttacks().booleanValue());
 
-    Assert.assertEquals(2, fragment.getContentSecurityPolicy().size());
-    Assert.assertEquals("default-src 'self'", fragment.getContentSecurityPolicy().get(0));
-    Assert.assertEquals("frame-src http://apache.org", fragment.getContentSecurityPolicy().get(1));
-    // todo: disabled
-    // todo: replace
+    Assert.assertEquals(2, fragment.getContentSecurityPolicy().getDirectiveList().size());
+    Assert.assertEquals("default-src 'self'", fragment.getContentSecurityPolicy().getDirectiveList().get(0));
+    Assert.assertEquals("frame-src http://apache.org", fragment.getContentSecurityPolicy().getDirectiveList().get(1));
 
     Assert.assertEquals(2, fragment.getRenderersConfig().getRendererConfigs().size());
     Assert.assertTrue(fragment.getRenderersConfig().isMarkupSupported("myRenderer-1", "my-markup-1"));

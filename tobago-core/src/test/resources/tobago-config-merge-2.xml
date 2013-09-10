@@ -31,7 +31,6 @@
     </after>
   </ordering>
 
-  <content-security-policy extension-mode="replace">
-  </content-security-policy>
+  <content-security-policy mode="off"/>
 
 </tobago-config>

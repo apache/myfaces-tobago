@@ -103,12 +103,8 @@ public class TobagoConfigSorter implements Comparator<TobagoConfigFragment> {
         result.setPreventFrameAttacks(fragment.getPreventFrameAttacks());
       }
 
-      if (fragment.isContentSecurityPolicyExtensionModeReplace()) {
-        result.getContentSecurityPolicy().clear();
-      } else {
-        for (String directive : fragment.getContentSecurityPolicy()) {
-          result.addContentSecurityPolicy(directive);
-        }
+      if (fragment.getContentSecurityPolicy() != null) {
+        result.getContentSecurityPolicy().merge(fragment.getContentSecurityPolicy());
       }
 
       // theme definition

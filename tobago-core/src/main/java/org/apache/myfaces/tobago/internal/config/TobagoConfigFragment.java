@@ -43,8 +43,7 @@ public class TobagoConfigFragment {
   private Boolean createSessionSecret;
   private Boolean checkSessionSecret;
   private Boolean preventFrameAttacks;
-  private List<String> contentSecurityPolicy;
-  private boolean contentSecurityPolicyExtensionModeReplace;
+  private ContentSecurityPolicy contentSecurityPolicy;
   private List<ThemeImpl> themeDefinitions;
   private URL url;
 
@@ -54,7 +53,6 @@ public class TobagoConfigFragment {
     supportedThemeNames = new ArrayList<String>();
     resourceDirs = new ArrayList<String>();
     themeDefinitions = new ArrayList<ThemeImpl>();
-    contentSecurityPolicy = new ArrayList<String>();
   }
 
   public void addSupportedThemeName(String name) {
@@ -156,20 +154,12 @@ public class TobagoConfigFragment {
     this.preventFrameAttacks = preventFrameAttacks;
   }
 
-  public List<String> getContentSecurityPolicy() {
+  public ContentSecurityPolicy getContentSecurityPolicy() {
     return contentSecurityPolicy;
   }
 
-  public void addContentSecurityPolicy(String directive) {
-    contentSecurityPolicy.add(directive);
-  }
-
-  public boolean isContentSecurityPolicyExtensionModeReplace() {
-    return contentSecurityPolicyExtensionModeReplace;
-  }
-
-  public void setContentSecurityPolicyExtensionModeReplace(boolean contentSecurityPolicyExtensionModeReplace) {
-    this.contentSecurityPolicyExtensionModeReplace = contentSecurityPolicyExtensionModeReplace;
+  public void setContentSecurityPolicy(ContentSecurityPolicy contentSecurityPolicy) {
+    this.contentSecurityPolicy = contentSecurityPolicy;
   }
 
   /** @deprecated since 1.5.0 */

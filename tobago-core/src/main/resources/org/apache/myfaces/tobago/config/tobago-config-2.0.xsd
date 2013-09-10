@@ -105,15 +105,14 @@
     <xs:sequence>
       <xs:element name="directive" type="xs:string" maxOccurs="unbounded" minOccurs="0"/>
     </xs:sequence>
-    <xs:attribute name="extension-mode"
-                  type="tobago:extension-mode-type"
-                  default="add"/>
+    <xs:attribute name="mode" type="tobago:scp-mode-type" use="required"/>
   </xs:complexType>
 
-  <xs:simpleType name="extension-mode-type">
+  <xs:simpleType name="scp-mode-type">
     <xs:restriction base="xs:token">
-      <xs:enumeration value="add"/>
-      <xs:enumeration value="replace"/>
+      <xs:enumeration value="on"/>
+      <xs:enumeration value="off"/>
+      <xs:enumeration value="report-only"/>
     </xs:restriction>
   </xs:simpleType>
 

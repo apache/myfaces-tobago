@@ -33,7 +33,7 @@
   <prevent-frame-attacks>false</prevent-frame-attacks>
 
   <!-- this disables CSP -->
-  <content-security-policy extension-mode="replace"/>
+  <content-security-policy mode="report-only"/>
 
   <renderers>
     <renderer>

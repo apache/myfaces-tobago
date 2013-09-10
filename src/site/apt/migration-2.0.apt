@@ -34,12 +34,12 @@ Artifacts (JAR-Files)
 
 CSP
 
-  Tobago supports Content Security Policy (SCP) to prevent cross-site
+  Tobago supports Content Security Policy (CSP) to prevent cross-site
   scripting (XSS) and related attacks.
   Specification link http://www.w3.org/TR/CSP/
   In short: The HTML page doesn't contain any JavaScript or CSS information.
   All allowed sources for JavaScript, CSS and other resources have to be declared in special header.
-  If you have own renderers or own JavaScript in your application, this code also needs to support SCP, to use this feature.
+  If you have own renderers or own JavaScript in your application, this code also needs to support CSP, to use this feature.
 
 * Warning:
 
@@ -52,9 +52,8 @@ CSP
   To add sites to the CSP headers, add <<<\<directive\>>>> tags to <<<\<content-security-policy\>>>> in
   the <<<tobago-config.xml>>>.
 
-  To turn off CSP, add an empty <<<\<content-security-policy extension-mode="replace"\>>>> tag in the configuration.
-  This will reset the list of directive entries.
-  If there is no entry, the feature is disabled.
+  To turn off CSP, add an empty <<<\<content-security-policy mode="off"\>>>> tag in the configuration.
+  For development, you may also use mode="report-only", which sets the appropriate header.
 
 Java-API
 

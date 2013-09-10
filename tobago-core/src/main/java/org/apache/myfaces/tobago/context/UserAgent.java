@@ -20,16 +20,21 @@
 package org.apache.myfaces.tobago.context;
 
 import org.apache.myfaces.tobago.internal.util.Deprecation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.EnumSet;
 import java.util.List;
+import java.util.StringTokenizer;
 
 public class UserAgent implements Serializable {
 
   private static final long serialVersionUID = 2L;
+
+  private static final Logger LOG = LoggerFactory.getLogger(UserAgent.class);
 
   public static final String DEFAULT_NAME = "standard";
 
@@ -49,12 +54,14 @@ public class UserAgent implements Serializable {
   @Deprecated
   public static final UserAgent MSIE_5_5 = new UserAgent("msie", "5_5");
 
-  public static final UserAgent MSIE_6_0 = new UserAgent("msie", "6_0");
+  public static final UserAgent MSIE_6_0
+      = new UserAgent("msie", "6_0", null, CspHeader.NOT_SUPPORTED, CsproHeader.NOT_SUPPORTED);
 
-  public static final UserAgent MSIE_7_0 = new UserAgent("msie", "7_0");
+  public static final UserAgent MSIE_7_0
+      = new UserAgent("msie", "7_0", null, CspHeader.NOT_SUPPORTED, CsproHeader.NOT_SUPPORTED);
 
-  public static final UserAgent MSIE_7_0_COMPAT
-      = new UserAgent("msie", "7_0", EnumSet.of(Capability.IE_COMPATIBILITY_MODE));
+  public static final UserAgent MSIE_7_0_COMPAT = new UserAgent(
+      "msie", "7_0", EnumSet.of(Capability.IE_COMPATIBILITY_MODE), CspHeader.NOT_SUPPORTED, CsproHeader.NOT_SUPPORTED);
 
   /**
    * @deprecated no longer supported, since Tobago 1.5. Misspelled. Use {@link #MSIE_7_0}
@@ -62,12 +69,15 @@ public class UserAgent implements Serializable {
   @Deprecated
   public static final UserAgent MSIE_7_O = MSIE_7_0;
 
-  public static final UserAgent MSIE_8_0 = new UserAgent("msie", "8_0");
+  public static final UserAgent MSIE_8_0 = new UserAgent(
+      "msie", "8_0", EnumSet.of(Capability.CONTENT_TYPE_XHTML), CspHeader.NOT_SUPPORTED, CsproHeader.NOT_SUPPORTED);
 
-  public static final UserAgent MSIE_9_0 = new UserAgent("msie", "9_0", EnumSet.of(Capability.CONTENT_TYPE_XHTML));
+  public static final UserAgent MSIE_9_0 = new UserAgent(
+      "msie", "9_0", EnumSet.of(Capability.CONTENT_TYPE_XHTML), CspHeader.NOT_SUPPORTED, CsproHeader.NOT_SUPPORTED);
 
-  public static final UserAgent MSIE_10_0
-      = new UserAgent("msie", "10_0", EnumSet.of(Capability.CONTENT_TYPE_XHTML), CspHeader.CSP_GECKO);
+  // CSP is not fully supported, only sandboxing
+  public static final UserAgent MSIE_10_0 = new UserAgent(
+      "msie", "10_0", EnumSet.of(Capability.CONTENT_TYPE_XHTML), CspHeader.X, CsproHeader.X);
 
   /**
    * @deprecated no longer supported, since Tobago 1.5
@@ -137,61 +147,71 @@ public class UserAgent implements Serializable {
   /**
    * e. g. Firefox
    */
-  public static final UserAgent GECKO
-      = new UserAgent("gecko", null, EnumSet.of(Capability.CONTENT_TYPE_XHTML), CspHeader.CSP_GECKO);
+  public static final UserAgent GECKO = new UserAgent("gecko", null, EnumSet.of(Capability.CONTENT_TYPE_XHTML));
 
   /**
    * e. g. Firefox 2.0
    */
-  public static final UserAgent GECKO_1_8 = new UserAgent("gecko", "1_8", EnumSet.of(Capability.CONTENT_TYPE_XHTML));
+  public static final UserAgent GECKO_1_8 = new UserAgent("gecko", "1_8", EnumSet.of(Capability.CONTENT_TYPE_XHTML),
+      CspHeader.NOT_SUPPORTED, CsproHeader.NOT_SUPPORTED);
 
   /**
    * e. g. Firefox 3.0, 3.5, 3.6
    */
-  public static final UserAgent GECKO_1_9 = new UserAgent("gecko", "1_9", EnumSet.of(Capability.CONTENT_TYPE_XHTML));
+  public static final UserAgent GECKO_1_9 = new UserAgent("gecko", "1_9", EnumSet.of(Capability.CONTENT_TYPE_XHTML),
+      CspHeader.NOT_SUPPORTED, CsproHeader.NOT_SUPPORTED);
 
   /**
-   * e. g. Firefox 4.0
+   * e. g. Firefox 4 to 22
    */
   public static final UserAgent GECKO_2_0
-      = new UserAgent("gecko", "2_0",
-      EnumSet.of(Capability.PLACEHOLDER, Capability.CONTENT_TYPE_XHTML), CspHeader.CSP_GECKO);
+      = new UserAgent("gecko", null,
+      EnumSet.of(Capability.PLACEHOLDER, Capability.CONTENT_TYPE_XHTML), CspHeader.X, CsproHeader.X);
 
   /**
-   * e. g. Firefox 5.0
+   * e. g. Firefox 23 or higher
    */
-  public static final UserAgent GECKO_5_0
-      = new UserAgent("gecko", "5_0",
-      EnumSet.of(Capability.PLACEHOLDER, Capability.CONTENT_TYPE_XHTML), CspHeader.CSP_GECKO);
+  public static final UserAgent GECKO_23_0
+      = new UserAgent("gecko", null,
+      EnumSet.of(Capability.PLACEHOLDER, Capability.CONTENT_TYPE_XHTML), CspHeader.STANDARD, CsproHeader.STANDARD);
 
   /**
    * e. g. Safari 4, Safari 5, Chrome
    */
   public static final UserAgent WEBKIT
       = new UserAgent("webkit", null,
-      EnumSet.of(Capability.PLACEHOLDER, Capability.CONTENT_TYPE_XHTML), CspHeader.CSP_WEBKIT);
+      EnumSet.of(Capability.PLACEHOLDER, Capability.CONTENT_TYPE_XHTML), CspHeader.WEBKIT, CsproHeader.WEBKIT);
 
   private final String name;
 
+  /**
+   * @deprecated Version shouldn't be used in the future. Use capability instead, even better
+   * use same code on the server when possible and use capability via JavaScript.
+   */
+  @Deprecated
   private final String version;
 
   private final EnumSet<Capability> capabilities;
 
   private final CspHeader cspHeader;
 
+  private final CsproHeader csproHeader;
+
   private UserAgent(String name, String version) {
     this(name, version, EnumSet.of(Capability.CONTENT_TYPE_XHTML));
   }
 
   private UserAgent(String name, String version, EnumSet<Capability> capabilities) {
-    this(name, version, capabilities, CspHeader.CSP_NOT_SUPPORTED);
+    this(name, version, capabilities, CspHeader.STANDARD, CsproHeader.STANDARD);
   }
 
-  private UserAgent(String name, String version, EnumSet<Capability> capabilities, CspHeader cspHeader) {
+  private UserAgent(
+      String name, String version, EnumSet<Capability> capabilities, CspHeader cspHeader, CsproHeader csproHeader) {
     this.name = name;
     this.version = version;
     this.capabilities = capabilities;
     this.cspHeader = cspHeader;
+    this.csproHeader = csproHeader;
   }
 
   public boolean hasCapability(Capability capability) {
@@ -234,10 +254,17 @@ public class UserAgent implements Serializable {
   }
 
   /**
-   * @return The HTTP header name for Content-Security-Policy.
+   * @return The HTTP header names for Content-Security-Policy.
    */
-  public String getCspHeader() {
-    return cspHeader.getName();
+  public String[] getCspHeaders() {
+    return cspHeader.getNames();
+  }
+
+  /**
+   * @return The HTTP header name for Content-Security-Policy-Report-Only.
+   */
+  public String[] getCspReportOnlyHeaders() {
+    return csproHeader.getNames();
   }
 
   public static UserAgent getInstance(String header) {
@@ -270,11 +297,22 @@ public class UserAgent implements Serializable {
         return GECKO_1_8;
       } else if (header.contains("rv:1.9")) {
         return GECKO_1_9;
-      } else if (header.contains("rv:2.0")) {
-        return GECKO_2_0;
-      } else if (header.contains("rv:5.0")) {
-        return GECKO_5_0;
       } else {
+        final int index = header.indexOf("rv:");
+        final StringTokenizer tokenizer = new StringTokenizer(header.substring(index + 3), " .");
+        final String versionString = tokenizer.nextToken();
+        try {
+          int version = Integer.parseInt(versionString);
+          if (version >= 23) {
+            return GECKO_23_0;
+          } else if (version >= 2) {
+            return GECKO_2_0;
+          }
+        } catch (NumberFormatException e) {
+          if (LOG.isDebugEnabled()) {
+            LOG.debug(header, e);
+          }
+        }
         return GECKO;
       }
     } else if (header.contains("Presto")) {
@@ -305,19 +343,37 @@ public class UserAgent implements Serializable {
 
   private static enum CspHeader {
 
-    CSP_NOT_SUPPORTED(null),
-    CSP_GECKO("X-Content-Security-Policy"),
-    CSP_WEBKIT("X-WebKit-CSP"),
-    CSP_STANDARD("Content-Security-Policy");
+    NOT_SUPPORTED(new String[] {}),
+    X(new String[] {"Content-Security-Policy", "X-Content-Security-Policy"}),
+    WEBKIT(new String[] {"Content-Security-Policy", "X-WebKit-CSP"}),
+    STANDARD(new String[] {"Content-Security-Policy"});
 
-    private String name;
+    private String[] names;
 
-    private CspHeader(String name) {
-      this.name = name;
+    private CspHeader(String[] names) {
+      this.names = names;
     }
 
-    public String getName() {
-      return name;
+    public String[] getNames() {
+      return names;
+    }
+  }
+
+  private static enum CsproHeader {
+
+    NOT_SUPPORTED(new String[] {}),
+    X(new String[] {"Content-Security-Policy-Report-Only", "X-Content-Security-Policy-Report-Only"}),
+    WEBKIT(new String[] {"Content-Security-Policy-Report-Only", "X-WebKit-CSP-Report-Only"}),
+    STANDARD(new String[] {"Content-Security-Policy-Report-Only"});
+
+    private String[] names;
+
+    private CsproHeader(String[] names) {
+      this.names = names;
+    }
+
+    public String[] getNames() {
+      return names;
     }
   }
 }
