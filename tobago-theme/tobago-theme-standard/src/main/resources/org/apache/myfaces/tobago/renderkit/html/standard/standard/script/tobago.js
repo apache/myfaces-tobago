@@ -2251,7 +2251,11 @@ Tobago.Updater = {
     LOG.warn('Request failed : ' + requestObject.textStatus); // @DEV_ONLY
 
     if (requestObject.textStatus === 'timeout') {
-      Tobago.Updater.doErrorUpdate(Tobago.parsePartialIds(requestObject.ajaxComponentIds));
+      if (Tobago.Config.get("Ajax", "timeoutAction") == "fullReload") {
+        Tobago.submitAction(null, Tobago.page.id);
+      } else {
+        Tobago.Updater.doErrorUpdate(Tobago.parsePartialIds(requestObject.ajaxComponentIds));
+      }
     } else if (requestObject.textStatus === 'notmodified') {
       Tobago.Updater.handle304Response(Tobago.parsePartialIds(requestObject.ajaxComponentIds));
     } else {
@@ -2359,7 +2363,11 @@ Tobago.Updater = {
         // XXX Here also a double click will be logged, but "warn" is not appropriate.
         LOG.warn("ERROR 500 when updating component id = '" + data.ajaxId + "'"); // @DEV_ONLY
 //        overlay.overlay("destroy");
-        overlay.overlay({error: true, ajax: true});
+        if (Tobago.Config.get("Ajax", "errorAction") == "fullReload") {
+          Tobago.submitAction(null, Tobago.page.id);
+        } else {
+          overlay.overlay({error:true, ajax:true});
+        }
         break;
       default:
         LOG.error('Unknown response code: ' + data.responseCode + " for component id = '" + data.ajaxId + "'"); // @DEV_ONLY
