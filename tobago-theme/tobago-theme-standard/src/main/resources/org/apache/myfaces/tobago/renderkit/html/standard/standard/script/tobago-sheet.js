@@ -420,6 +420,7 @@ Tobago.Sheet.setup2 = function (sheets) {
         }
       });
     }
+    sheet.find("input.tobago-sheet-columnSelector").click(function(event) {event.preventDefault()});
   });
 
     // init reload
@@ -668,7 +669,8 @@ Tobago.Sheet.selectRange = function(sheet, rows, first, rowCount, selectDeselect
 Tobago.Sheet.selectRow = function(selected, rowIndex, row, checkbox) {
   selected.val(selected.val() + rowIndex + ",");
   row.addClass("tobago-sheet-row-markup-selected");
-  checkbox.prop("checked", true);
+//  checkbox.prop("checked", true);
+  setTimeout(function() {checkbox.prop("checked", true);}, 0);
 };
 
 /**
@@ -680,7 +682,8 @@ Tobago.Sheet.selectRow = function(selected, rowIndex, row, checkbox) {
 Tobago.Sheet.deselectRow = function(selected, rowIndex, row, checkbox) {
   selected.val(selected.val().replace(new RegExp("," + rowIndex + ","), ","));
   row.removeClass("tobago-sheet-row-markup-selected");
-  checkbox.prop("checked", false);
+//  checkbox.prop("checked", false);
+  setTimeout(function() {checkbox.prop("checked", false);}, 0);
 };
 
 /**
