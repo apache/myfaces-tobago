@@ -38,7 +38,6 @@ import javax.faces.context.FacesContext;
 /**
  * @since 2.0.0
  */
-// XXX work in progress
 public class Command {
 
   /**
