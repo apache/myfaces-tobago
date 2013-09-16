@@ -71,17 +71,17 @@ public class DebugUtils {
 
   public static String toString(UIComponent component) {
     StringBuilder buf = new StringBuilder(component.getClass().getName());
-    buf.append('@');
-    buf.append(Integer.toHexString(component.hashCode()));
+//    buf.append('@');
+//    buf.append(Integer.toHexString(component.hashCode()));
     buf.append(" ");
     buf.append(component.getRendererType());
     buf.append(" ");
-    if (component instanceof javax.faces.component.UIViewRoot) {
-      buf.append(((javax.faces.component.UIViewRoot) component).getViewId());
-    } else {
-      buf.append(component.getId());
-      buf.append(" ");
+//      buf.append(component.getId());
+//      buf.append(" ");
       buf.append(component.getClientId(FacesContext.getCurrentInstance()));
+    if (component instanceof javax.faces.component.UIViewRoot) {
+      buf.append(" viewId=");
+      buf.append(((javax.faces.component.UIViewRoot) component).getViewId());
     }
     return buf.toString();
   }

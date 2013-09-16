@@ -48,9 +48,10 @@
         </f:facet>
         <tx:in value="#{overviewController.basicInput}" required="true" tabIndex="1"
                label="#{overviewBundle.basic_textboxLabel}" tip="#{overviewBundle.basic_textboxTip}"/>
-        <tx:in value="#{overviewController.suggestInput}" tabIndex="3"
-               label="#{overviewBundle.basic_suggestLabel}" tip="#{overviewBundle.basic_suggestTip}"
-               suggestMethod="#{overviewController.getInputSuggestItems}" suggestDelay="300" suggestMinChars="1"/>
+        <tx:in value="#{overviewController.suggestInput}" tabIndex="3" fieldId="suggest"
+               label="#{overviewBundle.basic_suggestLabel}" tip="#{overviewBundle.basic_suggestTip}">
+          <tc:suggest suggestMethod="#{overviewController.getInputSuggestItems}" delay="300" minimumCharacters="1"/>
+        </tx:in>
         <tx:date value="#{overviewController.basicDate}" tabIndex="4"
                  label="#{overviewBundle.basic_dateLabel}" required="true">
           <f:convertDateTime pattern="dd/MM/yyyy"/>
