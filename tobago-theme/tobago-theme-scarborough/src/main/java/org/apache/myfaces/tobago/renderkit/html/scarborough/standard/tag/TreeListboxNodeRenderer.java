@@ -36,8 +36,8 @@ import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
+import javax.faces.component.UINamingContainer;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.util.Map;
@@ -88,7 +88,7 @@ public class TreeListboxNodeRenderer extends CommandRendererBase {
     String marked
         = (String) requestParameterMap.get(treeId + ComponentUtils.SUB_SEPARATOR + AbstractUITree.SUFFIX_MARKED);
     if (marked != null) {
-      String searchString = treeId + NamingContainer.SEPARATOR_CHAR + nodeStateId;
+      String searchString = treeId + UINamingContainer.getSeparatorChar(facesContext) + nodeStateId;
       boolean markedValue = marked.equals(searchString);
       if (node.isMarked() != markedValue) {
         new TreeMarkedEvent(node, node.isMarked(), markedValue).queue();

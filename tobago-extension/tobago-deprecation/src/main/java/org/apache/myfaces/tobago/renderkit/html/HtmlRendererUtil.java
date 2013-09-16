@@ -35,10 +35,10 @@ import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIData;
 import javax.faces.component.UIInput;
+import javax.faces.component.UINamingContainer;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.model.SelectItem;
@@ -570,7 +570,7 @@ public final class HtmlRendererUtil {
       if (partiallyComponent instanceof UIData) {
         int rowIndex = ((UIData) partiallyComponent).getRowIndex();
         if (rowIndex >= 0 && clientId.endsWith(Integer.toString(rowIndex))) {
-          return clientId.substring(0, clientId.lastIndexOf(NamingContainer.SEPARATOR_CHAR));
+          return clientId.substring(0, clientId.lastIndexOf(UINamingContainer.getSeparatorChar(context)));
         }
       }
       return clientId;

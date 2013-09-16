@@ -36,8 +36,8 @@ import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
-import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
+import javax.faces.component.UINamingContainer;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
@@ -138,9 +138,8 @@ public class TreeSelectRenderer extends RendererBase {
   }
 
   private String getClientIdWithoutRowIndex(AbstractUIData data, String id) {
-    return id.replace(
-        "" + NamingContainer.SEPARATOR_CHAR + data.getRowIndex() + NamingContainer.SEPARATOR_CHAR,
-        "" + NamingContainer.SEPARATOR_CHAR);
+    final char separatorChar = UINamingContainer.getSeparatorChar(FacesContext.getCurrentInstance());
+    return id.replace("" + separatorChar + data.getRowIndex() + separatorChar, "" + separatorChar);
   }
 
   @Override

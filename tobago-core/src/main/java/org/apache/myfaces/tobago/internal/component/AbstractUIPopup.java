@@ -41,6 +41,7 @@ import javax.el.ValueExpression;
 import javax.faces.component.NamingContainer;
 import javax.faces.component.UICommand;
 import javax.faces.component.UIComponent;
+import javax.faces.component.UINamingContainer;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.util.Iterator;
@@ -114,17 +115,20 @@ public abstract class AbstractUIPopup extends AbstractUIPanelBase
   }
 
   private boolean isSubmitted() {
-    String action = FacesContextUtils.getActionId(getFacesContext());
-    return action != null && action.startsWith(getClientId(getFacesContext()) + SEPARATOR_CHAR);
+    final FacesContext facesContext = getFacesContext();
+    final String action = FacesContextUtils.getActionId(facesContext);
+    return action != null && action.startsWith(
+        getClientId(facesContext) + UINamingContainer.getSeparatorChar(facesContext));
   }
 
   private boolean isRedisplay() {
     if (isSubmitted()) {
       String action = FacesContextUtils.getActionId(getFacesContext());
       if (action != null) {
-        UIComponent command = getFacesContext().getViewRoot().findComponent(SEPARATOR_CHAR + action);
+        final UIComponent command = getFacesContext().getViewRoot().findComponent(
+            UINamingContainer.getSeparatorChar(getFacesContext()) + action);
         if (command != null && command instanceof UICommand) {
-          return !(command.getAttributes().get(Attributes.POPUP_CLOSE) != null);
+          return command.getAttributes().get(Attributes.POPUP_CLOSE) == null;
         }
       }
     }

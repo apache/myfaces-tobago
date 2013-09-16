@@ -21,6 +21,8 @@ package org.apache.myfaces.tobago.internal.util;
 
 import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
+import javax.faces.component.UINamingContainer;
+import javax.faces.context.FacesContext;
 
 // Will be normally called via ComponentUtils.
 public class FindComponentUtils {
@@ -39,7 +41,7 @@ public class FindComponentUtils {
     // Figure out how many colons
     int colonCount = 0;
     while (colonCount < idLength) {
-      if (relativeId.charAt(colonCount) != NamingContainer.SEPARATOR_CHAR) {
+      if (relativeId.charAt(colonCount) != UINamingContainer.getSeparatorChar(FacesContext.getCurrentInstance())) {
         break;
       }
       colonCount++;

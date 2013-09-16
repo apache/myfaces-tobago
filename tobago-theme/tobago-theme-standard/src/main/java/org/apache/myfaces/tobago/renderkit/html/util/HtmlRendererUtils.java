@@ -52,9 +52,9 @@ import org.slf4j.LoggerFactory;
 
 import javax.el.ELContext;
 import javax.el.ValueExpression;
-import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
+import javax.faces.component.UINamingContainer;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.model.SelectItem;
@@ -453,7 +453,7 @@ public final class HtmlRendererUtils {
       if (partiallyComponent instanceof UISheet) {
         int rowIndex = ((UISheet) partiallyComponent).getRowIndex();
         if (rowIndex >= 0 && clientId.endsWith(Integer.toString(rowIndex))) {
-          return clientId.substring(0, clientId.lastIndexOf(NamingContainer.SEPARATOR_CHAR));
+          return clientId.substring(0, clientId.lastIndexOf(UINamingContainer.getSeparatorChar(context)));
         }
       }
       return clientId;

@@ -22,12 +22,14 @@ package org.apache.myfaces.tobago.compat;
 import javax.faces.component.ContextCallback;
 import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
+import javax.faces.component.UINamingContainer;
 import javax.faces.context.FacesContext;
 
 /**
  * @deprecated since 2.0.0
  */
 @Deprecated
+@SuppressWarnings("deprecation")
 public class FacesInvokeOnComponent12 {
 
   private FacesInvokeOnComponent12() {
@@ -50,7 +52,7 @@ public class FacesInvokeOnComponent12 {
       // Otherwise we know the client id we're looking for is not in this naming container,
       // so for improved performance short circuit and return false.
       if (clientId.startsWith(thisClientId)
-          && (clientId.charAt(thisClientId.length()) == NamingContainer.SEPARATOR_CHAR)) {
+          && (clientId.charAt(thisClientId.length()) == UINamingContainer.getSeparatorChar(context))) {
         if (invokeOnComponentFacetsAndChildren(context, component, clientId, callback)) {
           return true;
         }

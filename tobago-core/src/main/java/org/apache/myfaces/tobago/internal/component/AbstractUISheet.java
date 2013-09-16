@@ -52,6 +52,7 @@ import javax.el.ELContext;
 import javax.el.ValueExpression;
 import javax.faces.component.UIColumn;
 import javax.faces.component.UIComponent;
+import javax.faces.component.UINamingContainer;
 import javax.faces.context.FacesContext;
 import javax.faces.el.MethodBinding;
 import javax.faces.event.AbortProcessingException;
@@ -486,7 +487,7 @@ public abstract class AbstractUISheet extends AbstractUIData
     if (searchId.length() > 0 && Character.isDigit(searchId.charAt(0))) {
       for (int i = 1; i < searchId.length(); ++i) {
         char c = searchId.charAt(i);
-        if (c == SEPARATOR_CHAR) {
+        if (c == UINamingContainer.getSeparatorChar(getFacesContext())) {
           searchId = searchId.substring(i + 1);
           break;
         }

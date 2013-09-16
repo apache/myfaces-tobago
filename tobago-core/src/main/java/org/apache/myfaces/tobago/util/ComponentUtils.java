@@ -48,6 +48,7 @@ import javax.faces.component.UICommand;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIGraphic;
 import javax.faces.component.UIInput;
+import javax.faces.component.UINamingContainer;
 import javax.faces.component.UIOutput;
 import javax.faces.component.UIParameter;
 import javax.faces.component.UISelectMany;
@@ -1004,7 +1005,7 @@ public class ComponentUtils {
       // Otherwise we know the client id we're looking for is not in this naming container,
       // so for improved performance short circuit and return false.
       if (clientId.startsWith(thisClientId)
-          && (clientId.charAt(thisClientId.length()) == NamingContainer.SEPARATOR_CHAR)) {
+          && (clientId.charAt(thisClientId.length()) == UINamingContainer.getSeparatorChar(context))) {
         if (invokeOnComponentFacetsAndChildren(context, component, clientId, callback)) {
           return true;
         }
