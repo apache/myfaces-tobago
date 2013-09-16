@@ -1099,7 +1099,16 @@ public class SheetRenderer extends LayoutComponentRendererBase {
   public void prepareRendersChildren(FacesContext facesContext, UIComponent component) throws IOException {
     UISheet sheet = (UISheet) component;
     for (UIColumn column : sheet.getRenderedColumns()) {
-      RenderUtils.prepareRendererAll(facesContext, column);
+      if (column instanceof AbstractUIColumnNode) {
+        if (LOG.isDebugEnabled()) {
+          LOG.debug("TODO: AbstractUIColumnNode are not prepared.");
+        }
+        // TBD: when the column should be prepared for rendering, I think we need to
+        // TBD: iterate over each row to prepare it.
+        // TBD: in the moment this method TreeNodeRendererBase.prepareRender() will not be called in sheets
+      } else {
+        RenderUtils.prepareRendererAll(facesContext, column);
+      }
     }
   }
 }
