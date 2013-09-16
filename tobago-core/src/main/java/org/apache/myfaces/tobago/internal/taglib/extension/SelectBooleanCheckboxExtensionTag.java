@@ -132,7 +132,7 @@ public class SelectBooleanCheckboxExtensionTag extends TobagoExtensionBodyTagSup
     if (itemLabel != null) {
       selectBooleanCheckboxTag.setItemLabel(itemLabel);
     } else {
-      selectBooleanCheckboxTag.setItemLabel((ValueExpression) FacesUtilsEL.createValueExpression(""));
+      selectBooleanCheckboxTag.setItemLabel(FacesUtilsEL.createValueExpression(""));
     }
     if (markup != null) {
       selectBooleanCheckboxTag.setMarkup(markup);

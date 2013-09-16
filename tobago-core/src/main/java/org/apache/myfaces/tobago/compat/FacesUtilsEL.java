@@ -195,6 +195,9 @@ public class FacesUtilsEL {
     return expressionFactory.createValueExpression(facesContext.getELContext(), string, Object.class);
   }
 
+  /**
+   * @deprecated since 2.0.0
+   */
   public static void setValidator(EditableValueHolder editableValueHolder, Object validator) {
     if (validator instanceof MethodExpression) {
       editableValueHolder.addValidator(new MethodExpressionValidator((MethodExpression) validator));
@@ -203,6 +206,9 @@ public class FacesUtilsEL {
     }
   }
 
+  /**
+   * @deprecated since 2.0.0
+   */
   public static void setConverter(ValueHolder valueHolder, Object converterExpression) {
     if (converterExpression instanceof ValueExpression) {
       ValueExpression expression = (ValueExpression) converterExpression;
@@ -215,6 +221,9 @@ public class FacesUtilsEL {
     }
   }
 
+  /**
+   * @deprecated since 2.0.0
+   */
   public static void setBindingOrExpression(UIComponent component, String name, Object valueBindingOrExpression) {
     component.setValueExpression(name, (ValueExpression) valueBindingOrExpression);
   }
@@ -229,16 +238,25 @@ public class FacesUtilsEL {
     }
   }
 
+  /**
+   * @deprecated since 2.0.0
+   */
   public static Comparator getBindingOrExpressionComparator(
       FacesContext facesContext, UIComponent child, String var, boolean descending, Comparator comparator) {
     ValueExpression valueBinding = child.getValueExpression("value");
     return new ValueExpressionComparator(facesContext, var, valueBinding, descending, comparator);
   }
 
+  /**
+   * @deprecated since 2.0.0
+   */
   public static void addBindingOrExpressionPopupActionListener(ActionSource actionSource, Object bindingOrExpression) {
     actionSource.addActionListener(new ValueExpressionPopupActionListener((ValueExpression) bindingOrExpression));
   }
 
+  /**
+   * @deprecated since 2.0.0
+   */
   public static void addBindingOrExpressionResetActionListener(ActionSource actionSource, Object bindingOrExpression) {
     actionSource.addActionListener(new ValueExpressionResetInputActionListener((ValueExpression) bindingOrExpression));
   }
