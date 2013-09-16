@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
-import org.apache.myfaces.tobago.compat.FacesUtils;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.ColumnEvent;
 import org.apache.myfaces.tobago.component.ComponentTypes;
@@ -31,9 +30,9 @@ import org.apache.myfaces.tobago.component.SupportsRenderedPartially;
 import org.apache.myfaces.tobago.event.PageActionEvent;
 import org.apache.myfaces.tobago.event.SheetStateChangeEvent;
 import org.apache.myfaces.tobago.event.SheetStateChangeListener;
-import org.apache.myfaces.tobago.event.SheetStateChangeSource;
+import org.apache.myfaces.tobago.event.SheetStateChangeSource2;
 import org.apache.myfaces.tobago.event.SortActionEvent;
-import org.apache.myfaces.tobago.event.SortActionSource;
+import org.apache.myfaces.tobago.event.SortActionSource2;
 import org.apache.myfaces.tobago.internal.layout.Grid;
 import org.apache.myfaces.tobago.layout.LayoutComponent;
 import org.apache.myfaces.tobago.layout.LayoutContainer;
@@ -49,12 +48,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.el.ELContext;
+import javax.el.MethodExpression;
 import javax.el.ValueExpression;
 import javax.faces.component.UIColumn;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UINamingContainer;
 import javax.faces.context.FacesContext;
-import javax.faces.el.MethodBinding;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.FacesEvent;
 import javax.faces.event.PhaseId;
@@ -65,7 +64,7 @@ import java.util.List;
 import java.util.Map;
 
 public abstract class AbstractUISheet extends AbstractUIData
-    implements SheetStateChangeSource, SortActionSource, OnComponentPopulated,
+    implements SheetStateChangeSource2, SortActionSource2, OnComponentPopulated,
     LayoutContainer, LayoutComponent, SupportsRenderedPartially {
 
   private static final Logger LOG = LoggerFactory.getLogger(AbstractUISheet.class);
@@ -427,19 +426,21 @@ public abstract class AbstractUISheet extends AbstractUIData
   public void broadcast(FacesEvent facesEvent) throws AbortProcessingException {
     super.broadcast(facesEvent);
     if (facesEvent instanceof SheetStateChangeEvent) {
-      FacesUtils.invokeMethodBinding(getFacesContext(), getStateChangeListener(), facesEvent);
+      final MethodExpression listener = getStateChangeListenerExpression();
+      listener.invoke(getFacesContext().getELContext(), new Object[]{facesEvent});
     } else if (facesEvent instanceof PageActionEvent) {
       if (facesEvent.getComponent() == this) {
-        FacesUtils.invokeMethodBinding(
-            getFacesContext(), getStateChangeListener(), new SheetStateChangeEvent(this));
+        final MethodExpression listener = getStateChangeListenerExpression();
+        listener.invoke(getFacesContext().getELContext(), new Object[]{facesEvent});
+
         performPaging((PageActionEvent) facesEvent);
       }
     } else if (facesEvent instanceof SortActionEvent) {
-      MethodBinding methodBinding = getSortActionListener();
-      if (methodBinding!= null) {
+      MethodExpression expression = getSortActionListenerExpression();
+      if (expression!= null) {
         // TODO should be first invokeMethodBinding and the update state
         getSheetState(getFacesContext()).updateSortState((SortActionEvent) facesEvent);
-        FacesUtils.invokeMethodBinding(getFacesContext(), methodBinding, facesEvent);
+        expression.invoke(getFacesContext().getELContext(), new Object[]{facesEvent});
       } else {
         getSheetState(getFacesContext()).updateSortState((SortActionEvent) facesEvent);
         new Sorter().perform((SortActionEvent) facesEvent);

@@ -19,10 +19,8 @@
 
 package org.apache.myfaces.tobago.facelets;
 
-import org.apache.myfaces.tobago.component.MethodExpressionToMethodBinding;
 import org.apache.myfaces.tobago.event.SheetStateChangeSource;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.myfaces.tobago.event.SheetStateChangeSource2;
 
 import javax.faces.event.ActionEvent;
 import javax.faces.view.facelets.FaceletContext;
@@ -32,8 +30,6 @@ import javax.faces.view.facelets.MetadataTarget;
 import javax.faces.view.facelets.TagAttribute;
 
 public class SheetStateChangeSourceRule extends MetaRule {
-
-  private static final Logger LOG = LoggerFactory.getLogger(SheetStateChangeSourceRule.class);
 
   static final Class[] ACTION_LISTENER = new Class[]{ActionEvent.class};
 
@@ -57,12 +53,8 @@ public class SheetStateChangeSourceRule extends MetaRule {
     }
 
     public void applyMetadata(FaceletContext ctx, Object instance) {
-LOG.error("TODO: implementation for JSF 1.2 / JSF 2.0");
-      ((SheetStateChangeSource) instance)
-// XXX
-          .setStateChangeListener(new MethodExpressionToMethodBinding(attribute
-              .getMethodExpression(ctx, null,
-                  SheetStateChangeSourceRule.ACTION_LISTENER)));
+      ((SheetStateChangeSource2) instance).setStateChangeListenerExpression(
+          attribute.getMethodExpression(ctx, null, SheetStateChangeSourceRule.ACTION_LISTENER));
     }
   }
 }

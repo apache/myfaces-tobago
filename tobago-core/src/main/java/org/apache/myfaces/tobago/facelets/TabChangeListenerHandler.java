@@ -20,7 +20,7 @@
 package org.apache.myfaces.tobago.facelets;
 
 import org.apache.myfaces.tobago.event.TabChangeListener;
-import org.apache.myfaces.tobago.event.TabChangeSource;
+import org.apache.myfaces.tobago.event.TabChangeSource2;
 import org.apache.myfaces.tobago.event.ValueExpressionTabChangeListener;
 
 import javax.el.ELException;
@@ -62,10 +62,10 @@ public class TabChangeListenerHandler extends TagHandler {
 
   public void apply(FaceletContext faceletContext, UIComponent parent)
       throws IOException, FacesException, ELException {
-    if (parent instanceof TabChangeSource) {
+    if (parent instanceof TabChangeSource2) {
       // only process if parent was just created
       if (parent.getParent() == null) {
-        TabChangeSource changeSource = (TabChangeSource) parent;
+        TabChangeSource2 changeSource = (TabChangeSource2) parent;
         TabChangeListener listener = null;
         ValueExpression valueExpression = null;
         if (binding != null) {

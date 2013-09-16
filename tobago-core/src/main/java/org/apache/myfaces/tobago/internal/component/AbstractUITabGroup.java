@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
-import org.apache.myfaces.tobago.compat.FacesUtils;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.ComponentTypes;
 import org.apache.myfaces.tobago.component.Facets;
@@ -28,7 +27,7 @@ import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.SupportsRenderedPartially;
 import org.apache.myfaces.tobago.event.TabChangeEvent;
 import org.apache.myfaces.tobago.event.TabChangeListener;
-import org.apache.myfaces.tobago.event.TabChangeSource;
+import org.apache.myfaces.tobago.event.TabChangeSource2;
 import org.apache.myfaces.tobago.internal.layout.LayoutUtils;
 import org.apache.myfaces.tobago.layout.LayoutComponent;
 import org.apache.myfaces.tobago.layout.LayoutContainer;
@@ -37,24 +36,20 @@ import org.apache.myfaces.tobago.util.CreateComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.el.MethodExpression;
 import javax.el.ValueExpression;
-import javax.faces.component.ActionSource;
+import javax.faces.component.ActionSource2;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import javax.faces.el.MethodBinding;
 import javax.faces.event.AbortProcessingException;
-import javax.faces.event.ActionEvent;
 import javax.faces.event.ActionListener;
 import javax.faces.event.FacesEvent;
 import javax.faces.event.PhaseId;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 public abstract class AbstractUITabGroup extends AbstractUIPanelBase
-    implements TabChangeSource, ActionSource, LayoutContainer, LayoutComponent, OnComponentPopulated,
+    implements TabChangeSource2, ActionSource2, LayoutContainer, LayoutComponent, OnComponentPopulated,
     SupportsRenderedPartially {
 
   private static final Logger LOG = LoggerFactory.getLogger(AbstractUITabGroup.class);
@@ -64,9 +59,6 @@ public abstract class AbstractUITabGroup extends AbstractUIPanelBase
   public static final String SWITCH_TYPE_CLIENT = "client";
   public static final String SWITCH_TYPE_RELOAD_PAGE = "reloadPage";
   public static final String SWITCH_TYPE_RELOAD_TAB = "reloadTab";
-
-  private javax.el.MethodExpression actionExpression;
-  private javax.faces.el.MethodBinding actionListener;
 
   @Override
   public void encodeBegin(FacesContext facesContext) throws IOException {
@@ -148,7 +140,7 @@ public abstract class AbstractUITabGroup extends AbstractUIPanelBase
       }
       AbstractUIPanelBase renderedTab = getRenderedTab();
       renderedTab.processDecodes(context);
-      for (UIComponent facet : (Collection<UIComponent>) getFacets().values()) {
+      for (UIComponent facet : getFacets().values()) {
         facet.processDecodes(context);
       }
       try {
@@ -173,7 +165,7 @@ public abstract class AbstractUITabGroup extends AbstractUIPanelBase
       }
       AbstractUIPanelBase renderedTab = getRenderedTab();
       renderedTab.processValidators(context);
-      for (UIComponent facet : (Collection<UIComponent>) getFacets().values()) {
+      for (UIComponent facet : getFacets().values()) {
         facet.processValidators(context);
       }
     } else {
@@ -192,7 +184,7 @@ public abstract class AbstractUITabGroup extends AbstractUIPanelBase
       }
       AbstractUIPanelBase renderedTab = getRenderedTab();
       renderedTab.processUpdates(context);
-      for (UIComponent facet : (Collection<UIComponent>) getFacets().values()) {
+      for (UIComponent facet : getFacets().values()) {
         facet.processUpdates(context);
       }
 
@@ -204,16 +196,27 @@ public abstract class AbstractUITabGroup extends AbstractUIPanelBase
   public void broadcast(FacesEvent facesEvent) throws AbortProcessingException {
     super.broadcast(facesEvent);
     if (facesEvent instanceof TabChangeEvent && facesEvent.getComponent() == this) {
-      FacesUtils.invokeMethodBinding(getFacesContext(), getTabChangeListener(), facesEvent);
+      final TabChangeEvent event = (TabChangeEvent) facesEvent;
 
-      FacesUtils.invokeMethodBinding(getFacesContext(), getActionListener(), facesEvent);
+// switched off, because this is already called in super.broadcast()
+//      final TabChangeListener[] tabChangeListeners = getTabChangeListeners();
+//      for (TabChangeListener listener : tabChangeListeners) {
+//        listener.processTabChange(event);
+//      }
+//
+//      final ActionListener[] actionListeners = getActionListeners();
+//      for (ActionListener listener : actionListeners) {
+//        listener.processAction(event);
+//      }
+
+      // XXX is this needed?
       if (!isSwitchTypeClient()) {
         ActionListener defaultActionListener = getFacesContext().getApplication().getActionListener();
         if (defaultActionListener != null) {
-          defaultActionListener.processAction((ActionEvent) facesEvent);
+          defaultActionListener.processAction(event);
         }
       }
-      Integer index = ((TabChangeEvent) facesEvent).getNewTabIndex();
+      Integer index = event.getNewTabIndex();
       ValueExpression expression = getValueExpression(Attributes.SELECTED_INDEX);
       if (expression != null) {
         expression.setValue(getFacesContext().getELContext(), index);
@@ -225,7 +228,7 @@ public abstract class AbstractUITabGroup extends AbstractUIPanelBase
 
   public void addTabChangeListener(TabChangeListener listener) {
     if (LOG.isWarnEnabled() && isSwitchTypeClient()) {
-      LOG.warn("Adding TabChangeListener to Client side Tabgroup!");
+      LOG.warn("Adding TabChangeListener to client side TabGroup!");
     }
     addFacesListener(listener);
   }
@@ -305,7 +308,7 @@ public abstract class AbstractUITabGroup extends AbstractUIPanelBase
           facesContext, ComponentTypes.TAB_GROUP_LAYOUT, RendererTypes.TAB_GROUP_LAYOUT, parent));
     }
   }
-  
+
   public LayoutManager getLayoutManager() {
     return (LayoutManager) getFacet(Facets.LAYOUT);
   }
@@ -316,21 +319,6 @@ public abstract class AbstractUITabGroup extends AbstractUIPanelBase
 
   public boolean isLayoutChildren() {
     return isRendered();
-  }
-
-  public void restoreState(FacesContext context, Object componentState) {
-    Object[] values = (Object[]) componentState;
-    super.restoreState(context, values[0]);
-    actionListener = (MethodBinding) restoreAttachedState(context, values[1]);
-    actionExpression = (MethodExpression) restoreAttachedState(context, values[2]);
-  }
-
-  public Object saveState(FacesContext context) {
-    Object[] values = new Object[3];
-    values[0] = super.saveState(context);
-    values[1] = saveAttachedState(context, actionListener);
-    values[2] = saveAttachedState(context, actionExpression);
-    return values;
   }
 
 }

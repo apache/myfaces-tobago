@@ -19,10 +19,8 @@
 
 package org.apache.myfaces.tobago.facelets;
 
-import org.apache.myfaces.tobago.component.MethodExpressionToMethodBinding;
 import org.apache.myfaces.tobago.event.SortActionSource;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.myfaces.tobago.event.SortActionSource2;
 
 import javax.faces.event.ActionEvent;
 import javax.faces.view.facelets.FaceletContext;
@@ -32,8 +30,6 @@ import javax.faces.view.facelets.MetadataTarget;
 import javax.faces.view.facelets.TagAttribute;
 
 public class SortActionSourceRule extends MetaRule {
-
-  private static final Logger LOG = LoggerFactory.getLogger(SortActionSourceRule.class);
 
   static final Class[] ACTION_LISTENER = new Class[]{ActionEvent.class};
 
@@ -58,9 +54,8 @@ public class SortActionSourceRule extends MetaRule {
     }
 
     public void applyMetadata(FaceletContext ctx, Object instance) {
-      LOG.error("TODO: implementation for JSF 1.2 / JSF 2.0");
-      ((SortActionSource) instance).setSortActionListener(new MethodExpressionToMethodBinding(attribute
-          .getMethodExpression(ctx, null, SortActionSourceRule.ACTION_LISTENER)));
+      ((SortActionSource2) instance).setSortActionListenerExpression(
+          attribute.getMethodExpression(ctx, null, SortActionSourceRule.ACTION_LISTENER));
     }
   }
 

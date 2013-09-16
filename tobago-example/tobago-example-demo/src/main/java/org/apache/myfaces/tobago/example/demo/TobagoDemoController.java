@@ -549,7 +549,7 @@ public class TobagoDemoController implements Serializable {
   }
 
   public void stateChangeListener(ActionEvent e) {
-    LOG.error("SheetState has Changed: " + e);
+    LOG.info("SheetState has Changed: " + e);
 
   }
 

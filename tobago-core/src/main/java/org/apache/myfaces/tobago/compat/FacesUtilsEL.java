@@ -52,6 +52,9 @@ public class FacesUtilsEL {
   private FacesUtilsEL() {
   }
 
+  /**
+   * @deprecated since 2.0.0
+   */
   public static boolean invokeOnComponent(
       FacesContext context, UIComponent component, String clientId, ContextCallback callback) {
     String thisClientId = component.getClientId(context);
@@ -196,7 +199,7 @@ public class FacesUtilsEL {
     if (validator instanceof MethodExpression) {
       editableValueHolder.addValidator(new MethodExpressionValidator((MethodExpression) validator));
     } else {
-      LOG.error("Unknown instance for validator: " + (validator != null ? validator.getClass().getName() : validator));
+      LOG.error("Unknown instance for validator: " + (validator != null ? validator.getClass().getName() : "<null>"));
     }
   }
 
@@ -216,6 +219,9 @@ public class FacesUtilsEL {
     component.setValueExpression(name, (ValueExpression) valueBindingOrExpression);
   }
 
+  /**
+   * @deprecated since 2.0.0
+   */
   public static void addBindingOrExpressionTabChangeListener(
       TabChangeSource source, String type, Object bindingOrExpression) {
     if (bindingOrExpression instanceof ValueExpression) {

@@ -34,6 +34,10 @@ import javax.faces.event.FacesEvent;
 import java.util.Comparator;
 import java.util.Map;
 
+/**
+ * @deprecated since 2.0.0
+ */
+@Deprecated
 @SuppressWarnings("deprecation")
 public class FacesUtils {
 
@@ -55,6 +59,10 @@ public class FacesUtils {
     return FacesInvokeOnComponent12.invokeOnComponent(context, component, clientId, callback);
   }
 
+  /**
+   * @deprecated since 2.0.0
+   */
+  @Deprecated
   public static void invokeMethodBinding(FacesContext facesContext, MethodBinding methodBinding, FacesEvent event) {
     if (methodBinding != null && event != null) {
       try {

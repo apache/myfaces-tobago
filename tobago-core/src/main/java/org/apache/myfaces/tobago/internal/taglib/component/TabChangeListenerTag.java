@@ -20,11 +20,11 @@
 package org.apache.myfaces.tobago.internal.taglib.component;
 
 import org.apache.myfaces.tobago.apt.annotation.BodyContent;
+import org.apache.myfaces.tobago.apt.annotation.SimpleTag;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
-import org.apache.myfaces.tobago.apt.annotation.SimpleTag;
 import org.apache.myfaces.tobago.event.TabChangeListener;
-import org.apache.myfaces.tobago.event.TabChangeSource;
+import org.apache.myfaces.tobago.event.TabChangeSource2;
 import org.apache.myfaces.tobago.event.ValueExpressionTabChangeListener;
 
 import javax.el.ELContext;
@@ -95,11 +95,11 @@ public abstract class TabChangeListenerTag extends TagSupport {
       // TODO Message resource i18n
       throw new JspException("Component Instance is null");
     }
-    if (!(component instanceof TabChangeSource)) {
+    if (!(component instanceof TabChangeSource2)) {
       // TODO Message resource i18n
-      throw new JspException("Component " + component.getClass().getName() + " is not instanceof TabChangeSource");
+      throw new JspException("Component " + component.getClass().getName() + " is not instanceof TabChangeSource2");
     }
-    TabChangeSource changeSource = (TabChangeSource) component;
+    TabChangeSource2 changeSource = (TabChangeSource2) component;
     final ELContext elContext = FacesContext.getCurrentInstance().getELContext();
 
     TabChangeListener handler = null;
