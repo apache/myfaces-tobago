@@ -358,8 +358,19 @@ java -jar ~/Downloads/wlp-developers-runtime-8.5.next.beta.jar
         </ul>
         <p>
           After these steps you can start/stop the server and deploy an built artifact.
-          For these steps, you need to be in a Tobago example directory.
+          For these steps, you need to be in the Tobago example demo directory.
           <source>cd tobago-examples/tobago-example-demo</source>
+          This is <b>important</b> for the first start of the server,
+          because at the first start the server will be initialized.
+          For the setup the file
+          <source>test/resources/server.xml</source>
+          will be read. It contains the features, the WLP server will be support, and other configurations.
+          In our case we have the following features:
+          <source>
+            &lt;feature>cdi-1.0&lt;/feature>
+            &lt;feature>jsp-2.2&lt;/feature>
+            &lt;feature>servlet-3.0&lt;/feature>
+            &lt;feature>jsf-2.0&lt;/feature></source>
         </p>
         <ul>
           <li>
@@ -402,12 +413,16 @@ java -jar ~/Downloads/wlp-developers-runtime-8.5.next.beta.jar
             <source>rm -r /opt/wlp-developers-8.5.next.beta/wlp/usr/servers/tobago</source>
           </li>
           <li>
-            Start the server
+            Start the server (don't forget the server.xml)
           </li>
           <li>
             Deploy again
           </li>
         </ul>
+        Please also consider the plugin configuration in the tobago-example/pom.xml
+        <source>
+          &lt;groupId>com.ibm.websphere.wlp.maven.plugins&lt;/groupId>
+          &lt;artifactId>liberty-maven-plugin&lt;/artifactId></source>
       </answer>
     </faq>
   </part>
