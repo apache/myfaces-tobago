@@ -20,13 +20,15 @@
 package org.apache.myfaces.tobago.util;
 
 import javax.faces.application.Application;
+import javax.faces.context.FacesContext;
 
 public enum FacesVersion {
 
   VERSION_11,
   VERSION_12,
   VERSION_20,
-  VERSION_21;
+  VERSION_21,
+  VERSION_22;
 
   private static FacesVersion currentVersion;
   private static boolean mojarra;
@@ -39,8 +41,10 @@ public enum FacesVersion {
       currentVersion = VERSION_12;
       Application.class.getMethod("getDefaultValidatorInfo");
       currentVersion = VERSION_20;
-      Application.class.getMethod("getExceptionHandler");
+      FacesContext.class.getMethod("isReleased");
       currentVersion = VERSION_21;
+      Application.class.getMethod("getFlowHandler");
+      currentVersion = VERSION_22;
     } catch (NoSuchMethodException e) {
       // ignore
     }
@@ -75,7 +79,10 @@ public enum FacesVersion {
    * @return Supports 1.2 or higher
    */
   public static boolean supports12() {
-    return currentVersion == VERSION_12 || currentVersion == VERSION_20 || currentVersion == VERSION_21;
+    return currentVersion == VERSION_12
+        || currentVersion == VERSION_20
+        || currentVersion == VERSION_21
+        || currentVersion == VERSION_22;
   }
 
   /**
@@ -83,7 +90,9 @@ public enum FacesVersion {
    * @return Supports 2.0 or higher
    */
   public static boolean supports20() {
-    return currentVersion == VERSION_20 || currentVersion == VERSION_21;
+    return currentVersion == VERSION_20
+        || currentVersion == VERSION_21
+        || currentVersion == VERSION_22;
   }
 
   /**
@@ -91,7 +100,16 @@ public enum FacesVersion {
    * @return Supports 2.1 or higher
    */
   public static boolean supports21() {
-    return currentVersion == VERSION_21;
+    return currentVersion == VERSION_21
+        || currentVersion == VERSION_22;
+  }
+
+  /**
+   * Does the JSF is version 2.2 or higher
+   * @return Supports 2.2 or higher
+   */
+  public static boolean supports22() {
+    return currentVersion == VERSION_22;
   }
 
   public static boolean isMojarra() {
