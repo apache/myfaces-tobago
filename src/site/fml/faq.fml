@@ -379,7 +379,7 @@ java -jar ~/Downloads/wlp-developers-runtime-8.5.next.beta.jar
           </li>
           <li>
             Build an artifact (you need the "provided" property, because JSF and OWB comes from the server)
-            <source>mvn package -Djsf=provided</source>
+            <source>mvn clean package -Djsf=provided</source>
           </li>
           <li>
             Deploy an artifact
