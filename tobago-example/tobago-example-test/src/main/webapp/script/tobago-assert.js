@@ -58,12 +58,18 @@ var TobagoAssert = {
   },
 
   fail: function(name, element, expected, actual) {
-    element.overlay({error: true, ajax: true});
-    var text = "The element '" + element.get(0).tagName + "' with id='" + element.attr("id")
-        + "' has wrong " + name + ": expected=" + expected + " actual=" + actual;
-    var overlay = element.data("tobago-overlay").overlay;
-    overlay.attr("title", (overlay.attr("title") === undefined ? "" : overlay.attr("title")+ "\n" ) + text);
-    LOG.error(text);
+    var text;
+    if (element) {
+      element.overlay({error: true, ajax: true});
+      text = "The element '" + element.get(0).tagName + "' with id='" + element.attr("id")
+          + "' has wrong " + name + ": expected=" + expected + " actual=" + actual;
+      var overlay = element.data("tobago-overlay").overlay;
+      overlay.attr("title", (overlay.attr("title") === undefined ? "" : overlay.attr("title") + "\n" ) + text);
+      LOG.error(text);
+    } else {
+      text = name + ": expected=" + expected + " actual=" + actual;
+      LOG.error(text);
+    }
   },
 
   assertLayout:function (elementOrId, left, top, width, height) {
