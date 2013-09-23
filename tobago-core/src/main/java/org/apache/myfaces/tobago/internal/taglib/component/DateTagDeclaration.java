@@ -29,6 +29,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabelAndAccessKey;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasPlaceholder;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 import org.apache.myfaces.tobago.internal.taglib.declaration.InputTagDeclaration;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
@@ -53,6 +54,5 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsRequired;
 public interface DateTagDeclaration
     extends InputTagDeclaration, HasIdBindingAndRendered, IsReadonly,
     IsDisabled, HasConverter, IsDeprecatedInline, HasLabelAndAccessKey,
-    HasTip, IsRequired, HasMarkup, HasCurrentMarkup {
-
+    HasTip, IsRequired, HasMarkup, HasCurrentMarkup, HasPlaceholder {
 }

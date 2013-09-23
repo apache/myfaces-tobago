@@ -26,7 +26,7 @@
 
   <tc:panel>
     <f:facet name="layout">
-      <tc:gridLayout rows="auto;2*;3*;auto;2*;2*;auto;2*;2*"/>
+      <tc:gridLayout rows="auto;3*;6*;auto;3*;4*;auto;3*;4*"/>
       <!--<tc:gridLayout border="0" rows="*;*;*;*;*;*;*;*;*;*"/>-->
     </f:facet>
 
@@ -44,7 +44,7 @@
 
       <tc:panel>
         <f:facet name="layout">
-          <tc:gridLayout rows="auto;auto;auto;auto"/>
+          <tc:gridLayout rows="auto;auto;auto;auto;auto"/>
         </f:facet>
         <tx:in value="#{overviewController.basicInput}" required="true" tabIndex="1"
                label="#{overviewBundle.basic_textboxLabel}" tip="#{overviewBundle.basic_textboxTip}"/>
@@ -58,6 +58,8 @@
         </tx:date>
         <tx:time label="#{overviewBundle.basic_timeLabel}" tabIndex="5"
                  value="#{overviewController.basicTime}"/>
+        <tx:in value="#{overviewController.placeholder}" tabIndex="6"
+               label="Placeholder" placeholder="Search..."/>
       </tc:panel>
 
       <tx:textarea value="#{overviewController.basicArea}" tabIndex="2"

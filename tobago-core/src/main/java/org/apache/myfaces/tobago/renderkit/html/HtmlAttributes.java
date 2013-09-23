@@ -60,6 +60,7 @@ public final class HtmlAttributes {
   public static final String ONLOAD = "onload";
   public static final String ONMOUSEOVER = "onmouseover";
   public static final String ONMOUSEOUT = "onmouseout";
+  public static final String PLACEHOLDER = "placeholder";
   public static final String READONLY = "readonly";
   public static final String REL = "rel";
   public static final String ROWS = "rows";

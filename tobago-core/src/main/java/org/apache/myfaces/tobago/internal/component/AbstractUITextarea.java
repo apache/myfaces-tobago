@@ -25,23 +25,7 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.DateTimeConverter;
 import java.util.TimeZone;
 
-public abstract class AbstractUITime extends AbstractUIInput {
-
-  @Override
-  public Converter getConverter() {
-    Converter converter = super.getConverter();
-    if (converter == null) {
-      // setting required default converter
-      Application application
-          = FacesContext.getCurrentInstance().getApplication();
-      DateTimeConverter dateTimeConverter
-          = (DateTimeConverter) application.createConverter(DateTimeConverter.CONVERTER_ID);
-      dateTimeConverter.setPattern("HH:mm");
-      dateTimeConverter.setTimeZone(TimeZone.getDefault());
-      setConverter(dateTimeConverter);
-    }
-    return converter;
-  }
+public abstract class AbstractUITextarea extends AbstractUIInput {
 
   @Override
   public String getPlaceholder() {

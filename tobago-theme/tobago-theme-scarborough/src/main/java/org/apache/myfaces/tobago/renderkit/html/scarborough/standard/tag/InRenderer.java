@@ -91,6 +91,8 @@ public class InRenderer extends InputRendererBase {
             + "'");
       }
       final String type = password ? HtmlInputTypes.PASSWORD : HtmlInputTypes.TEXT;
+      final boolean readonly = ComponentUtils.getBooleanAttribute(input, Attributes.READONLY);
+      final boolean disabled = ComponentUtils.getBooleanAttribute(input, Attributes.DISABLED);
 
       // Todo: check for valid binding
       boolean renderAjaxSuggest = false;
@@ -120,14 +122,19 @@ public class InRenderer extends InputRendererBase {
       if (maxLength > 0) {
         writer.writeAttribute(HtmlAttributes.MAXLENGTH, maxLength);
       }
-      writer.writeAttribute(HtmlAttributes.READONLY, ComponentUtils.getBooleanAttribute(input, Attributes.READONLY));
-      writer.writeAttribute(HtmlAttributes.DISABLED, ComponentUtils.getBooleanAttribute(input, Attributes.DISABLED));
+      writer.writeAttribute(HtmlAttributes.READONLY, readonly);
+      writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
       Integer tabIndex = input.getTabIndex();
       if (tabIndex != null) {
         writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
       }
       Style style = new Style(facesContext, input);
       writer.writeStyleAttribute(style);
+
+      final String placeholder = input.getPlaceholder();
+      if (!disabled && !readonly && StringUtils.isNotBlank(placeholder)) {
+        writer.writeAttribute(HtmlAttributes.PLACEHOLDER, placeholder, true);
+      }
 
       HtmlRendererUtils.renderDojoDndItem(component, writer, true);
       writer.writeClassAttribute(Classes.create(input));

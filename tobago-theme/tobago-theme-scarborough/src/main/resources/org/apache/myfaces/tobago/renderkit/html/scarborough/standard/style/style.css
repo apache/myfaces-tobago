@@ -334,6 +334,13 @@ div.tobago-gridLayout-first-column {
   border: 2px solid #ff0000;
 }
 
+.tobago-in-placeholder {
+  position: absolute;
+  padding: 3px 4px;
+  color: #aaaaaa;
+  cursor: text;
+}
+
 .tobago-in-suggestPopup {
   position: absolute;
   overflow: hidden;

@@ -17,26 +17,21 @@
  * under the License.
  */
 
-package org.apache.myfaces.tobago.internal.component;
+package org.apache.myfaces.tobago.internal.taglib.declaration;
 
-import org.apache.myfaces.tobago.component.SupportsMarkup;
-import org.apache.myfaces.tobago.layout.LayoutComponent;
-import org.apache.myfaces.tobago.util.ComponentUtils;
+import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
+import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 
-import javax.faces.context.FacesContext;
+public interface HasPlaceholder {
 
-public abstract class AbstractUIInput extends javax.faces.component.UIInput
-    implements SupportsMarkup, LayoutComponent {
-
-  // TODO can this removed?
-  public void updateModel(FacesContext facesContext) {
-    if (ComponentUtils.mayUpdateModel(this)) {
-      super.updateModel(facesContext);
-    }
-  }
-
-  public abstract Integer getTabIndex();
-
-  public abstract String getPlaceholder();
-
+  /**
+   * Displays a short text in the input field, that describes the meaning of this field.
+   * This is part of HTML 5, the theme should emulate the behaviour, when the browser doesn't support it.
+   * <p/>
+   * The text will not be displayed, when the input field is readonly or disabled.
+   * @param placeholder The text to display
+   */
+  @TagAttribute
+  @UIComponentTagAttribute
+  void setPlaceholder(String placeholder);
 }
