@@ -60,6 +60,10 @@ public class JsonResponseWriter extends HtmlResponseWriter {
   @Override
   public void write(String string) throws IOException {
     closeOpenTag();
+    if (FacesVersion.isMojarra() && FacesVersion.supports21() && XML_VERSION_1_0_ENCODING_UTF_8.equals(string)) {
+      // ignore
+      return;
+    }
     if (javascriptBlock) {
       encodeInJavascriptBlock.writeText(string);
     } else {
