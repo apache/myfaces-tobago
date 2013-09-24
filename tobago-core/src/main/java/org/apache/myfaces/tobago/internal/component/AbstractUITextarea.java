@@ -19,12 +19,6 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
-import javax.faces.application.Application;
-import javax.faces.context.FacesContext;
-import javax.faces.convert.Converter;
-import javax.faces.convert.DateTimeConverter;
-import java.util.TimeZone;
-
 public abstract class AbstractUITextarea extends AbstractUIInput {
 
   @Override
