@@ -51,4 +51,12 @@
     <!--    <module>tobago-theme-boccoo</module>-->
   </modules>
 
+  <dependencies>
+    <dependency>
+      <groupId>org.apache.myfaces.core</groupId>
+      <artifactId>myfaces-api</artifactId>
+      <optional>true</optional>
+    </dependency>
+  </dependencies>
+
 </project>

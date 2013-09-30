@@ -551,12 +551,6 @@
     </dependency>
 
     <dependency>
-      <groupId>org.apache.myfaces.core</groupId>
-      <artifactId>myfaces-api</artifactId>
-      <optional>true</optional>
-    </dependency>
-
-    <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>jcl-over-slf4j</artifactId>
       <optional>true</optional>

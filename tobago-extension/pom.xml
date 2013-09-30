@@ -35,6 +35,11 @@
 
   <dependencies>
     <dependency>
+      <groupId>org.apache.myfaces.core</groupId>
+      <artifactId>myfaces-api</artifactId>
+      <optional>true</optional>
+    </dependency>
+    <dependency>
       <groupId>javax.servlet.jsp</groupId>
       <artifactId>jsp-api</artifactId>
     </dependency>
