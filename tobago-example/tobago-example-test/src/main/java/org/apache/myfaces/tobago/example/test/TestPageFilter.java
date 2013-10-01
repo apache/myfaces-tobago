@@ -62,10 +62,10 @@ public class TestPageFilter {
       "/meta-test/meta-5.*", // meta test
 
       "/partially/encoding.jspx", // not possible in JSP
-      "/tc/attribute/mode-valueIfSet.jspx", // set id="${id}" not possible with JSP.
-      "/tc/attribute/popup-modal.jspx", // not possible with JSP.
-      "/tc/button/plain.html", // intern
-      "/tc/button/plain_de.html", // intern
+      "/test/attribute/mode-valueIfSet.jspx", // set id="${id}" not possible with JSP.
+      "/test/attribute/popup-modal.jspx", // not possible with JSP.
+      "/test/button/plain.html", // intern
+      "/test/button/plain_de.html", // intern
 
       "/tf/.*jspx" // tf: library doen't work with JSP
   ));
@@ -74,14 +74,14 @@ public class TestPageFilter {
    * Switched off temporary.
    */
   public static final Set<String> TODO = new HashSet<String>(Arrays.asList(
-      "/tc/gridLayout/rendered-combinations.jspx", // uses facelets templating
-      "/tc/gridLayout/scrolling-2-levels.*", // todo: ?
-      "/tc/gridLayout/scrolling-tab.*", // todo: measurement problem with firefox?
-      "/tc/gridLayout/transparent-for-layout.jspx", // uses facelets templating
-      "/tc/mediator/tomahawk-inputHtml.*", // todo
-      "/tc/tree/tree-select.*", // todo
-      "/tx/label/label.xhtml", // todo
-      "/type/.*" // todo
+      "/test/gridLayout/rendered-combinations.jspx", // uses facelets templating
+      "/test/gridLayout/scrolling-2-levels.*", // todo: ?
+      "/test/gridLayout/scrolling-tab.*", // todo: measurement problem with firefox?
+      "/test/gridLayout/transparent-for-layout.jspx", // uses facelets templating
+      "/test/mediator/tomahawk-inputHtml.*", // todo
+      "/test/tree/tree-select.*", // todo
+      "/test/label/label-tx.xhtml", // todo
+      "/test/type/.*" // todo
   ));
 
   public static boolean isValid(String name) {

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-
 <!--
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -17,7 +16,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 -->
-
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head profile="http://selenium-ide.openqa.org/profiles/test-case">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -31,41 +29,48 @@
 </thead><tbody>
 <tr>
 	<td>open</td>
-	<td>/faces/tc/tree/tree-expanded.xhtml</td>
+	<td>/faces/test/button/link-attribute.xhtml</td>
 	<td></td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>id=page:reset</td>
+	<td>id=page:button-internal-link-with-slash</td>
 	<td></td>
 </tr>
-<!--node expanded-->
 <tr>
-	<td>assertAttribute</td>
-	<td>//div[@id='page:tree:data:_0_4:node']@class</td>
-	<td>tobago-treeNode tobago-treeNode-markup-expanded tobago-treeNode-markup-folder</td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>//div[@id='page:tree:data:_0_4:node']/img[2]</td>
+	<td>verifyTextPresent</td>
+	<td>A simple page for the resource test (static).</td>
 	<td></td>
 </tr>
-<!--node expanded-->
 <tr>
-	<td>assertAttribute</td>
-	<td>//div[@id='page:tree:data:_0_4:node']@class</td>
-	<td>tobago-treeNode tobago-treeNode-markup-folder</td>
+	<td>open</td>
+	<td>/faces/test/button/link-attribute.xhtml</td>
+	<td></td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>id=page:tree:data:_0_3:command</td>
+	<td>id=page:button-internal-link-without-slash</td>
 	<td></td>
 </tr>
-<!--node collapsed-->
 <tr>
-	<td>assertAttribute</td>
-	<td>//div[@id='page:tree:data:_0_4:node']@class</td>
-	<td>tobago-treeNode tobago-treeNode-markup-folder</td>
+	<td>verifyTextPresent</td>
+	<td>A simple page for the resource test (static).</td>
+	<td></td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>/faces/test/button/link-attribute.xhtml</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=page:button-external-link</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION</td>
+	<td></td>
 </tr>
 </tbody></table>
 </body>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
 <!--
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -16,10 +17,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 -->
+
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head profile="http://selenium-ide.openqa.org/profiles/test-case">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<link rel="selenium.base" href="http://localhost:8080/faces/tc/button/link-attribute.xhtml" />
+<link rel="selenium.base" href="http://localhost:8080/faces/test/button/link-attribute.xhtml" />
 <title>New Test</title>
 </head>
 <body>
@@ -29,128 +31,188 @@
 </thead><tbody>
 <tr>
 	<td>open</td>
-	<td>/faces/tc/popup/popup-bug-tobago-1103.xhtml</td>
+	<td>/faces/test/sheet/sheet-sort.xhtml</td>
 	<td></td>
 </tr>
 <tr>
 	<td>click</td>
-	<td>id=page:open-0</td>
-	<td></td>
-</tr>
-<tr>
-	<td>waitForElementPresent</td>
-	<td>id=page:popup-1:open-1</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>id=page:popup-1:open-1</td>
-	<td></td>
-</tr>
-<tr>
-	<td>waitForElementPresent</td>
-	<td>id=page:popup-1:popup-2:form:picker</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>id=page:popup-1:popup-2:form:picker</td>
-	<td></td>
-</tr>
-<tr>
-	<td>waitForElementPresent</td>
-	<td>id=page:popup-1:popup-2:form:pickerpopup:cancel</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>id=page:popup-1:popup-2:form:pickerpopup:cancel</td>
+	<td>id=page:sheet::header_box_0</td>
 	<td></td>
 </tr>
 <tr>
 	<td>waitForElementNotPresent</td>
-	<td>id=page:popup-1:popup-2:form:pickerpopup</td>
+	<td>css=.tobago-page-overlay</td>
 	<td></td>
 </tr>
 <tr>
+	<td>verifyText</td>
+	<td>id=page:sheet:0:out</td>
+	<td>A</td>
+</tr>
+<tr>
 	<td>click</td>
-	<td>id=page:popup-1:popup-2:close-2</td>
+	<td>id=page:sheet::header_box_0</td>
 	<td></td>
 </tr>
 <tr>
 	<td>waitForElementNotPresent</td>
-	<td>id=page:popup-1:popup-2</td>
+	<td>css=.tobago-page-overlay</td>
 	<td></td>
 </tr>
 <tr>
+	<td>verifyText</td>
+	<td>id=page:sheet:0:out</td>
+	<td>Z</td>
+</tr>
+<tr>
 	<td>click</td>
-	<td>id=page:popup-1:close-1</td>
+	<td>id=page:sheet::header_box_1</td>
 	<td></td>
 </tr>
 <tr>
 	<td>waitForElementNotPresent</td>
-	<td>id=page:popup-1</td>
+	<td>css=.tobago-page-overlay</td>
 	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>id=page:sheet:0:out</td>
+	<td>Z</td>
 </tr>
 <tr>
 	<td>click</td>
-	<td>id=page:open-0</td>
-	<td></td>
-</tr>
-<tr>
-	<td>waitForElementPresent</td>
-	<td>id=page:popup-1:open-1</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>id=page:popup-1:open-1</td>
-	<td></td>
-</tr>
-<tr>
-	<td>waitForElementPresent</td>
-	<td>id=page:popup-1:popup-2:form:picker</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>id=page:popup-1:popup-2:open-2</td>
-	<td></td>
-</tr>
-<tr>
-	<td>waitForElementPresent</td>
-	<td>id=page:popup-1:popup-2:popup-3:close-3</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>id=page:popup-1:popup-2:popup-3:close-3</td>
+	<td>id=page:sheet::header_box_1</td>
 	<td></td>
 </tr>
 <tr>
 	<td>waitForElementNotPresent</td>
-	<td>id=page:popup-1:popup-2:popup-3</td>
+	<td>css=.tobago-page-overlay</td>
 	<td></td>
 </tr>
 <tr>
+	<td>verifyText</td>
+	<td>id=page:sheet:0:out</td>
+	<td>Y</td>
+</tr>
+<tr>
 	<td>click</td>
-	<td>id=page:popup-1:popup-2:close-2</td>
+	<td>id=page:sheet::header_box_2</td>
 	<td></td>
 </tr>
 <tr>
 	<td>waitForElementNotPresent</td>
-	<td>id=page:popup-1:popup-2</td>
+	<td>css=.tobago-page-overlay</td>
 	<td></td>
 </tr>
 <tr>
+	<td>verifyText</td>
+	<td>id=page:sheet:0:out</td>
+	<td>Y</td>
+</tr>
+<tr>
 	<td>click</td>
-	<td>id=page:popup-1:close-1</td>
+	<td>id=page:sheet::header_box_2</td>
 	<td></td>
 </tr>
 <tr>
 	<td>waitForElementNotPresent</td>
-	<td>id=page:popup-1</td>
+	<td>css=.tobago-page-overlay</td>
 	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>id=page:sheet:0:out</td>
+	<td>X</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=page:sheet::header_box_3</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementNotPresent</td>
+	<td>css=.tobago-page-overlay</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>id=page:sheet:0:out</td>
+	<td>X</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=page:sheet::header_box_3</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementNotPresent</td>
+	<td>css=.tobago-page-overlay</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>id=page:sheet:0:out</td>
+	<td>W</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=page:sheet::header_box_4</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementNotPresent</td>
+	<td>css=.tobago-page-overlay</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>id=page:sheet:0:out</td>
+	<td>W</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=page:sheet::header_box_4</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementNotPresent</td>
+	<td>css=.tobago-page-overlay</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>id=page:sheet:0:out</td>
+	<td>V</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=page:sheet::header_box_5</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementNotPresent</td>
+	<td>css=.tobago-page-overlay</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>id=page:sheet:0:out</td>
+	<td>V</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=page:sheet::header_box_5</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementNotPresent</td>
+	<td>css=.tobago-page-overlay</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>id=page:sheet:0:out</td>
+	<td>U</td>
 </tr>
 </tbody></table>
 </body>

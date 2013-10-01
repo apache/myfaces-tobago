@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
 <!--
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -16,10 +17,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 -->
+
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head profile="http://selenium-ide.openqa.org/profiles/test-case">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<link rel="selenium.base" href="http://localhost:8080/faces/tc/button/link-attribute.xhtml" />
+<link rel="selenium.base" href="http://localhost:8080/faces/test/button/link-attribute.xhtml" />
 <title>New Test</title>
 </head>
 <body>
@@ -29,33 +31,67 @@
 </thead><tbody>
 <tr>
 	<td>open</td>
-	<td>/faces/tc/button/resource-attribute.xhtml</td>
+	<td>/faces/test/tree/tree-marked-without-model.xhtml</td>
 	<td></td>
+</tr>
+<!--nothing marked-->
+<tr>
+	<td>assertAttribute</td>
+	<td>//div[@id='page:tree:1:node']@class</td>
+	<td>tobago-treeNode</td>
+</tr>
+<tr>
+	<td>assertAttribute</td>
+	<td>//div[@id='page:tree:2:node']@class</td>
+	<td>tobago-treeNode</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>id=page:button-html-resource</td>
+	<td>id=page:tree:1:command</td>
 	<td></td>
 </tr>
+<!--sports marked-->
 <tr>
-	<td>verifyTextPresent</td>
-	<td>Eine einfache Seite für den Resourcen-Test (statisch).</td>
-	<td></td>
+	<td>assertAttribute</td>
+	<td>//div[@id='page:tree:1:node']@class</td>
+	<td>tobago-treeNode tobago-treeNode-markup-marked</td>
 </tr>
 <tr>
-	<td>open</td>
-	<td>/faces/tc/button/resource-attribute.xhtml</td>
-	<td></td>
+	<td>assertAttribute</td>
+	<td>//div[@id='page:tree:2:node']@class</td>
+	<td>tobago-treeNode</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>id=page:button-xhtml-resource</td>
+	<td>id=page:reload</td>
 	<td></td>
 </tr>
+<!--nothing marked-->
 <tr>
-	<td>verifyTextPresent</td>
-	<td>Eine einfache Seite für den Resourcen-Test (dynamisch).<br /></td>
+	<td>assertAttribute</td>
+	<td>//div[@id='page:tree:1:node']@class</td>
+	<td>tobago-treeNode</td>
+</tr>
+<tr>
+	<td>assertAttribute</td>
+	<td>//div[@id='page:tree:2:node']@class</td>
+	<td>tobago-treeNode</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=page:tree:1:command</td>
 	<td></td>
+</tr>
+<!--sports marked-->
+<tr>
+	<td>assertAttribute</td>
+	<td>//div[@id='page:tree:1:node']@class</td>
+	<td>tobago-treeNode tobago-treeNode-markup-marked</td>
+</tr>
+<tr>
+	<td>assertAttribute</td>
+	<td>//div[@id='page:tree:2:node']@class</td>
+	<td>tobago-treeNode</td>
 </tr>
 </tbody></table>
 </body>

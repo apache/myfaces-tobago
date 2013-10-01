@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-
 <!--
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -17,11 +16,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 -->
-
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head profile="http://selenium-ide.openqa.org/profiles/test-case">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<link rel="selenium.base" href="http://localhost:8080/faces/tc/button/link-attribute.xhtml" />
+<link rel="selenium.base" href="http://localhost:8080/" />
 <title>New Test</title>
 </head>
 <body>
@@ -31,59 +29,115 @@
 </thead><tbody>
 <tr>
 	<td>open</td>
-	<td>/faces/tc/sheet/sheet-bug-tobago-1090.xhtml</td>
+	<td>/faces/test/attribute/popup-modal.xhtml</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//button[1]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>class=tobago-popup tobago-popup-markup-modal</td>
 	<td></td>
 </tr>
 <tr>
 	<td>click</td>
-	<td>id=page:sheet:2:name</td>
+	<td>//div[2]/button</td>
 	<td></td>
 </tr>
 <tr>
-	<td>assertValue</td>
-	<td>page:sheet::selected</td>
-	<td>,2,</td>
+	<td>clickAndWait</td>
+	<td>//button[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>class=tobago-popup tobago-popup-markup-modal</td>
+	<td></td>
 </tr>
 <tr>
 	<td>click</td>
-	<td>id=page:sheet::pagingPages::Next</td>
+	<td>//div[2]/button</td>
 	<td></td>
 </tr>
 <tr>
-	<td>assertValue</td>
-	<td>page:sheet::selected</td>
-	<td>,2,</td>
+	<td>clickAndWait</td>
+	<td>//button[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>class=tobago-popup</td>
+	<td></td>
 </tr>
 <tr>
 	<td>click</td>
-	<td>id=page:sheet:6:name</td>
+	<td>//div[2]/button</td>
 	<td></td>
 </tr>
 <tr>
-	<td>assertValue</td>
-	<td>page:sheet::selected</td>
-	<td>,6,</td>
+	<td>clickAndWait</td>
+	<td>//button[4]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>class=tobago-popup tobago-popup-markup-modal</td>
+	<td></td>
 </tr>
 <tr>
 	<td>click</td>
-	<td>id=page:sheet::pagingPages::Prev</td>
+	<td>//div[2]/button</td>
 	<td></td>
 </tr>
 <tr>
-	<td>assertValue</td>
-	<td>page:sheet::selected</td>
-	<td>,6,</td>
+	<td>clickAndWait</td>
+	<td>//button[5]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>class=tobago-popup</td>
+	<td></td>
 </tr>
 <tr>
 	<td>click</td>
-	<td>id=page:sheet::pagingPages::Next</td>
+	<td>//div[2]/button</td>
 	<td></td>
 </tr>
 <tr>
-	<td>assertValue</td>
-	<td>page:sheet::selected</td>
-	<td>,6,</td>
+	<td>clickAndWait</td>
+	<td>//button[6]</td>
+	<td></td>
 </tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>class=tobago-popup tobago-popup-markup-modal</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[2]/button</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//button[7]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>class=tobago-popup</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[2]/button</td>
+	<td></td>
+</tr>
+
 </tbody></table>
 </body>
 </html>

@@ -19,7 +19,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head profile="http://selenium-ide.openqa.org/profiles/test-case">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<link rel="selenium.base" href="http://localhost:8080/" />
+<link rel="selenium.base" href="http://localhost:8080/faces/test/button/link-attribute.xhtml" />
 <title>New Test</title>
 </head>
 <body>
@@ -29,115 +29,129 @@
 </thead><tbody>
 <tr>
 	<td>open</td>
-	<td>/faces/tc/attribute/popup-modal.xhtml</td>
-	<td></td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>//button[1]</td>
-	<td></td>
-</tr>
-<tr>
-	<td>waitForElementPresent</td>
-	<td>class=tobago-popup tobago-popup-markup-modal</td>
+	<td>/faces/test/popup/popup-bug-tobago-1103.xhtml</td>
 	<td></td>
 </tr>
 <tr>
 	<td>click</td>
-	<td>//div[2]/button</td>
-	<td></td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>//button[2]</td>
+	<td>id=page:open-0</td>
 	<td></td>
 </tr>
 <tr>
 	<td>waitForElementPresent</td>
-	<td>class=tobago-popup tobago-popup-markup-modal</td>
+	<td>id=page:popup-1:open-1</td>
 	<td></td>
 </tr>
 <tr>
 	<td>click</td>
-	<td>//div[2]/button</td>
-	<td></td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>//button[3]</td>
+	<td>id=page:popup-1:open-1</td>
 	<td></td>
 </tr>
 <tr>
 	<td>waitForElementPresent</td>
-	<td>class=tobago-popup</td>
+	<td>id=page:popup-1:popup-2:form:picker</td>
 	<td></td>
 </tr>
 <tr>
 	<td>click</td>
-	<td>//div[2]/button</td>
-	<td></td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>//button[4]</td>
+	<td>id=page:popup-1:popup-2:form:picker</td>
 	<td></td>
 </tr>
 <tr>
 	<td>waitForElementPresent</td>
-	<td>class=tobago-popup tobago-popup-markup-modal</td>
+	<td>id=page:popup-1:popup-2:form:pickerpopup:cancel</td>
 	<td></td>
 </tr>
 <tr>
 	<td>click</td>
-	<td>//div[2]/button</td>
+	<td>id=page:popup-1:popup-2:form:pickerpopup:cancel</td>
 	<td></td>
 </tr>
 <tr>
-	<td>clickAndWait</td>
-	<td>//button[5]</td>
+	<td>waitForElementNotPresent</td>
+	<td>id=page:popup-1:popup-2:form:pickerpopup</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=page:popup-1:popup-2:close-2</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementNotPresent</td>
+	<td>id=page:popup-1:popup-2</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=page:popup-1:close-1</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementNotPresent</td>
+	<td>id=page:popup-1</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=page:open-0</td>
 	<td></td>
 </tr>
 <tr>
 	<td>waitForElementPresent</td>
-	<td>class=tobago-popup</td>
+	<td>id=page:popup-1:open-1</td>
 	<td></td>
 </tr>
 <tr>
 	<td>click</td>
-	<td>//div[2]/button</td>
-	<td></td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>//button[6]</td>
+	<td>id=page:popup-1:open-1</td>
 	<td></td>
 </tr>
 <tr>
 	<td>waitForElementPresent</td>
-	<td>class=tobago-popup tobago-popup-markup-modal</td>
+	<td>id=page:popup-1:popup-2:form:picker</td>
 	<td></td>
 </tr>
 <tr>
 	<td>click</td>
-	<td>//div[2]/button</td>
-	<td></td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>//button[7]</td>
+	<td>id=page:popup-1:popup-2:open-2</td>
 	<td></td>
 </tr>
 <tr>
 	<td>waitForElementPresent</td>
-	<td>class=tobago-popup</td>
+	<td>id=page:popup-1:popup-2:popup-3:close-3</td>
 	<td></td>
 </tr>
 <tr>
 	<td>click</td>
-	<td>//div[2]/button</td>
+	<td>id=page:popup-1:popup-2:popup-3:close-3</td>
 	<td></td>
 </tr>
-
+<tr>
+	<td>waitForElementNotPresent</td>
+	<td>id=page:popup-1:popup-2:popup-3</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=page:popup-1:popup-2:close-2</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementNotPresent</td>
+	<td>id=page:popup-1:popup-2</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=page:popup-1:close-1</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementNotPresent</td>
+	<td>id=page:popup-1</td>
+	<td></td>
+</tr>
 </tbody></table>
 </body>
 </html>
