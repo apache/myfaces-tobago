@@ -17,26 +17,31 @@
 
 TestVersion = {};
 
-TestVersion.init = function() {
+// XXX: initialization order problem: "do this a bit later"
+TestVersion.init0 = function () {
+  setTimeout(TestVersion.init, 0);
+};
+
+TestVersion.init = function () {
 
   var checked = jQuery("input[checked]");
   if (checked.size() != 2) {
     TobagoAssert.fail("2 field must be checked", null, 2, checked);
   }
 
-  var version = checked.eq(0).next().html();
-  var packageVersion = "Version " + jQuery("input[type=text]").eq(0).val();
+  var version = checked.eq(0).next().html().toLowerCase();
+  var packageVersion = "version " + jQuery("input[type=text]").eq(0).val().toLowerCase();
 
-  if (version != packageVersion) {
+  if (packageVersion.indexOf(version) == -1) {
     TobagoAssert.fail("Version number", null, version, packageVersion);
   }
 
-  var impl = checked.eq(1).next().html();
-  var packageImpl = jQuery("input[type=text]").eq(1).val();
+  var impl = checked.eq(1).next().html().toLowerCase();
+  var packageImpl = jQuery("input[type=text]").eq(1).val().toLowerCase();
 
-  if (impl != packageImpl) {
-    TobagoAssert.fail("Implementation", null, version, packageVersion);
+  if (packageImpl.indexOf(impl) == -1) {
+    TobagoAssert.fail("Implementation", null, impl, packageImpl);
   }
 };
 
-Tobago.registerListener(TestVersion.init, Tobago.Phase.DOCUMENT_READY);
+Tobago.registerListener(TestVersion.init0, Tobago.Phase.DOCUMENT_READY);

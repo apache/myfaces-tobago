@@ -45,12 +45,12 @@ public class Version {
     return FacesVersion.supports22();
   }
 
-  public boolean isMojarra() {
-    return FacesVersion.isMojarra();
-  }
-
   public boolean isMyfaces() {
     return FacesVersion.isMyfaces();
+  }
+
+  public boolean isMojarra() {
+    return FacesVersion.isMojarra();
   }
 
   public String getJsfVersion() {
