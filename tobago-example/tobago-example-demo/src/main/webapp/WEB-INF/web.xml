@@ -26,9 +26,7 @@
 
   <context-param>
     <param-name>javax.faces.PROJECT_STAGE</param-name>
-<!--
-    <param-value>Development</param-value>
--->
+    <!--<param-value>Development</param-value>-->
     <param-value>Production</param-value>
   </context-param>
 
@@ -181,12 +179,12 @@
 
   <error-page>
     <error-code>500</error-code>
-    <location>/faces/error/throwable.xhtml</location>
+    <location>/faces/error/exception.xhtml</location>
   </error-page>
 
   <error-page>
-    <exception-type>java.lang.Throwable</exception-type>
-    <location>/faces/error/throwable.xhtml</location>
+    <exception-type>java.lang.Exception</exception-type>
+    <location>/faces/error/exception.xhtml</location>
   </error-page>
 
   <!-- The Usual Welcome File List -->
