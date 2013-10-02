@@ -34,7 +34,6 @@ import org.apache.myfaces.tobago.facelets.SuggestMethodRule;
 import org.apache.myfaces.tobago.facelets.SupportsMarkupRule;
 import org.apache.myfaces.tobago.facelets.TobagoComponentHandler;
 import org.apache.myfaces.tobago.internal.layout.LayoutUtils;
-import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -44,7 +43,6 @@ import javax.faces.FacesException;
 import javax.faces.application.Application;
 import javax.faces.component.EditableValueHolder;
 import javax.faces.component.UIComponent;
-import javax.faces.component.UIViewRoot;
 import javax.faces.view.facelets.ComponentConfig;
 import javax.faces.view.facelets.ComponentHandler;
 import javax.faces.view.facelets.FaceletContext;
@@ -54,8 +52,11 @@ import javax.faces.view.facelets.TagAttribute;
 import java.io.IOException;
 
 public abstract class TobagoLabelExtensionHandler extends ComponentHandler {
+
   private static final Logger LOG = LoggerFactory.getLogger(TobagoLabelExtensionHandler.class);
+
   private static final String DEFAULT_COLUMNS = "auto;*";
+
   private TagAttribute labelWidthAttribute;
   private TagAttribute tipAttribute;
   private TagAttribute labelAttribute;
@@ -89,7 +90,7 @@ public abstract class TobagoLabelExtensionHandler extends ComponentHandler {
       throws IOException, FacesException, ELException {
     if (ComponentHandler.isNew(panel)) {
       // ensure that input has no parent (isNew)
-      UIComponent input  = panel.getChildren().remove(1);
+      UIComponent input = panel.getChildren().remove(1);
       try {
         input.getAttributes().put("tobago.panel", panel);
         nextHandler.apply(ctx, input);
@@ -112,17 +113,16 @@ public abstract class TobagoLabelExtensionHandler extends ComponentHandler {
 
   public void onComponentCreated(FaceletContext faceletContext, UIComponent panel, UIComponent parent) {
 
-    Application application = faceletContext.getFacesContext().getApplication();
-    UIViewRoot root = ComponentUtils.findViewRoot(faceletContext, parent);
+    final Application application = faceletContext.getFacesContext().getApplication();
 
-    addGridLayout(faceletContext, panel, root);
+    addGridLayout(faceletContext, panel, application);
+    addLabel(faceletContext, (UIPanel) panel, application);
 
-    addLabel(faceletContext, (UIPanel) panel, root);
     String uid;
-    if (fieldIdAttribute !=  null) {
+    if (fieldIdAttribute != null) {
       uid = fieldIdAttribute.getValue(faceletContext);
     } else {
-      uid = root.createUniqueId();
+      uid = "_tx_" + faceletContext.generateUniqueId("field");
     }
     if (checkForAlreadyCreated(panel, uid)) {
       return;
@@ -141,13 +141,12 @@ public abstract class TobagoLabelExtensionHandler extends ComponentHandler {
   protected void enrichInput(FaceletContext faceletContext, UIComponent input) {
   }
 
-  private void addLabel(FaceletContext faceletContext, UIPanel panel, UIViewRoot root) {
-    String uid = root.createUniqueId();
+  private void addLabel(FaceletContext faceletContext, UIPanel panel, final Application application) {
+    final String uid = "_tx_" + faceletContext.generateUniqueId("label");
     if (checkForAlreadyCreated(panel, uid)) {
       return;
     }
-    Application application = faceletContext.getFacesContext().getApplication();
-    UILabel label = (UILabel) application.createComponent(UILabel.COMPONENT_TYPE);
+    final UILabel label = (UILabel) application.createComponent(UILabel.COMPONENT_TYPE);
     label.setRendererType(RendererTypes.LABEL);
     label.setId(uid);
     label.getAttributes().put(Attributes.FOR, "@auto");
@@ -155,7 +154,7 @@ public abstract class TobagoLabelExtensionHandler extends ComponentHandler {
       if (tipAttribute.isLiteral()) {
         panel.setTip(tipAttribute.getValue(faceletContext));
       } else {
-        ValueExpression expression = tipAttribute.getValueExpression(faceletContext, String.class);
+        final ValueExpression expression = tipAttribute.getValueExpression(faceletContext, String.class);
         panel.setValueExpression(Attributes.TIP, expression);
       }
     }
@@ -163,7 +162,7 @@ public abstract class TobagoLabelExtensionHandler extends ComponentHandler {
       if (labelAttribute.isLiteral()) {
         label.setValue(labelAttribute.getValue(faceletContext));
       } else {
-        ValueExpression expression = labelAttribute.getValueExpression(faceletContext, String.class);
+        final ValueExpression expression = labelAttribute.getValueExpression(faceletContext, String.class);
         label.setValueExpression(Attributes.VALUE, expression);
       }
     }
@@ -171,7 +170,7 @@ public abstract class TobagoLabelExtensionHandler extends ComponentHandler {
       if (markupAttribute.isLiteral()) {
         label.setMarkup(Markup.valueOf(markupAttribute.getValue()));
       } else {
-        ValueExpression expression = markupAttribute.getValueExpression(faceletContext, Object.class);
+        final ValueExpression expression = markupAttribute.getValueExpression(faceletContext, Object.class);
         label.setValueExpression(Attributes.MARKUP, expression);
       }
     }
@@ -203,9 +202,8 @@ public abstract class TobagoLabelExtensionHandler extends ComponentHandler {
     }
   }
 
-  private void addGridLayout(FaceletContext faceletContext, UIComponent panel, UIViewRoot root) {
-    Application application = faceletContext.getFacesContext().getApplication();
-    UIGridLayout gridLayout = (UIGridLayout) application.createComponent(UIGridLayout.COMPONENT_TYPE);
+  private void addGridLayout(FaceletContext faceletContext, UIComponent panel, final Application application) {
+    final UIGridLayout gridLayout = (UIGridLayout) application.createComponent(UIGridLayout.COMPONENT_TYPE);
     gridLayout.setRendererType(RendererTypes.GRID_LAYOUT);
     if (labelWidthAttribute != null) {
       String columns = getColumns(labelWidthAttribute.getValue(faceletContext));
@@ -218,7 +216,7 @@ public abstract class TobagoLabelExtensionHandler extends ComponentHandler {
       gridLayout.setColumns(getColumns("auto"));
     }
     gridLayout.setRows(getRows());
-    gridLayout.setId(root.createUniqueId());
+    gridLayout.setId("_tx_" + faceletContext.generateUniqueId("layout"));
     if (gridLayout instanceof OnComponentCreated) {
       ((OnComponentCreated) gridLayout).onComponentCreated(faceletContext.getFacesContext(), panel);
     }
@@ -255,7 +253,7 @@ public abstract class TobagoLabelExtensionHandler extends ComponentHandler {
 
   protected MetaRuleset createMetaRuleset(Class aClass) {
     MetaRuleset metaRuleset = super.createMetaRuleset(aClass);
-    TagAttribute [] attrs = tag.getAttributes().getAll();
+    TagAttribute[] attrs = tag.getAttributes().getAll();
     for (int i = 0; i < attrs.length; i++) {
       TagAttribute attr = attrs[i];
       if (!attr.getLocalName().equals("rendered")) {

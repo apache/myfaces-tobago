@@ -65,13 +65,19 @@ public class DateExtensionHandler extends TobagoLabelExtensionHandler {
 
       UIForm form = (UIForm) application.createComponent(UIForm.COMPONENT_TYPE);
       form.setRendererType(RendererTypes.FORM);
-      form.setId(formIdAttribute != null ? formIdAttribute.getValue(faceletContext) : root.createUniqueId());
+      final String formId = formIdAttribute != null
+          ? formIdAttribute.getValue(faceletContext)
+          : "_tx_" + faceletContext.generateUniqueId("form");
+      form.setId(formId);
       panel.getChildren().add(form);
 
       UIDatePicker picker = (UIDatePicker) application.createComponent(UIDatePicker.COMPONENT_TYPE);
       picker.setRendererType(RendererTypes.DATE_PICKER);
       picker.setFor("@auto");
-      picker.setId(pickerIdAttribute != null ? pickerIdAttribute.getValue(faceletContext) : root.createUniqueId());
+      final String pickerId = pickerIdAttribute != null
+          ? pickerIdAttribute.getValue(faceletContext)
+          : "_tx_" + faceletContext.generateUniqueId("picker");
+      picker.setId(pickerId);
       if (picker.getAttributes().get(OnComponentCreated.MARKER) == null) {
         picker.getAttributes().put(OnComponentCreated.MARKER, Boolean.TRUE);
         picker.onComponentCreated(faceletContext.getFacesContext(), panel);

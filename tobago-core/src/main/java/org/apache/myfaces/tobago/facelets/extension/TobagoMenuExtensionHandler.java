@@ -20,13 +20,11 @@
 package org.apache.myfaces.tobago.facelets.extension;
 
 import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.util.ComponentUtils;
 
 import javax.el.ELException;
 import javax.faces.FacesException;
 import javax.faces.application.Application;
 import javax.faces.component.UIComponent;
-import javax.faces.component.UIViewRoot;
 import javax.faces.view.facelets.ComponentConfig;
 import javax.faces.view.facelets.ComponentHandler;
 import javax.faces.view.facelets.FaceletContext;
@@ -69,15 +67,11 @@ public abstract class TobagoMenuExtensionHandler extends ComponentHandler {
 
   public void onComponentCreated(FaceletContext faceletContext, UIComponent menuCommand, UIComponent parent) {
 
-    Application application = faceletContext.getFacesContext().getApplication();
-    UIViewRoot root = ComponentUtils.findViewRoot(faceletContext, parent);
-    UIComponent component = application.createComponent(getSubComponentType());
-    final String uid;
-    if (fieldIdAttribute !=  null) {
-      uid = fieldIdAttribute.getValue(faceletContext);
-    } else {
-      uid = root.createUniqueId();
-    }
+    final Application application = faceletContext.getFacesContext().getApplication();
+    final UIComponent component = application.createComponent(getSubComponentType());
+    final String uid = fieldIdAttribute != null
+        ? fieldIdAttribute.getValue(faceletContext)
+        : "_tx_" + faceletContext.generateUniqueId("sub");
     component.setId(uid);
     component.setRendererType(getSubRendererType());
     setSubComponentAttributes(faceletContext, component);

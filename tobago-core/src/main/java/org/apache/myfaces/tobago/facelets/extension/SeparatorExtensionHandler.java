@@ -62,7 +62,7 @@ public class SeparatorExtensionHandler extends ComponentHandler {
     Application application = faceletContext.getFacesContext().getApplication();
     UIViewRoot root = ComponentUtils.findViewRoot(faceletContext, parent);
     UIOutput label = (UIOutput) application.createComponent(UILabel.COMPONENT_TYPE);
-    label.setId(root.createUniqueId());
+    label.setId("_tx_" + faceletContext.generateUniqueId("label"));
     label.setRendererType("Label");
     setAttributes(faceletContext, label);
     separator.getFacets().put(Facets.LABEL, label);

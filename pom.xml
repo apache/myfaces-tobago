@@ -1718,10 +1718,8 @@
 
   <properties>
     <myfaces-test20.version>1.0.4</myfaces-test20.version>
-    <!--Not using myfaces 2.0.17 or higher because of change https://issues.apache.org/jira/browse/MYFACES-3663-->
-    <myfaces20.version>2.0.16</myfaces20.version>
-    <!--Not using myfaces 2.1.11 or higher because of change https://issues.apache.org/jira/browse/MYFACES-3663-->
-    <myfaces21.version>2.1.10</myfaces21.version>
+    <myfaces20.version>2.0.18</myfaces20.version>
+    <myfaces21.version>2.1.12</myfaces21.version>
     <mojarra20.version>2.0.11</mojarra20.version>
     <mojarra21.version>2.1.25</mojarra21.version>
     <mojarra22.version>2.2.2</mojarra22.version>
