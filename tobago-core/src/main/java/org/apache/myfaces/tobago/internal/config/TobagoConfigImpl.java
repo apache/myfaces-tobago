@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.internal.config;
 
-import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.myfaces.tobago.application.ProjectStage;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.context.Theme;
@@ -242,15 +241,14 @@ public class TobagoConfigImpl extends TobagoConfig {
     if (facesContext != null) {
       try {
         final Application application = facesContext.getApplication();
-        final Map<String, String> map;
-        map = (Map<String, String>) PropertyUtils.getProperty(application, "defaultValidatorInfo");
-        if (application != null && map.size() > 0) {
+        final Map<String, String> map = application.getDefaultValidatorInfo();
+        if (map.size() > 0) {
           defaultValidatorInfo = Collections.unmodifiableMap(map);
         } else {
           defaultValidatorInfo = Collections.emptyMap();
         }
       } catch (Exception e) {
-        // should not happen
+        // should not happen (occurred with JBoss GateIn 3.6.0)
         LOG.error("Can't initialize default validators.", e);
         defaultValidatorInfo = Collections.emptyMap();
       }

@@ -19,10 +19,8 @@
 
 package org.apache.myfaces.tobago.util;
 
-import org.apache.commons.beanutils.ConstructorUtils;
 import org.apache.myfaces.tobago.application.LabelValueExpressionFacesMessage;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.myfaces.tobago.context.TobagoResourceBundle;
 
 import javax.el.ValueExpression;
 import javax.faces.application.FacesMessage;
@@ -43,8 +41,6 @@ import java.util.ResourceBundle;
  * </ol>
  */
 public class MessageUtils {
-
-  private static final Logger LOG = LoggerFactory.getLogger(MessageUtils.class);
 
   private static final String DETAIL_SUFFIX = "_detail";
 
@@ -67,7 +63,7 @@ public class MessageUtils {
     String detail = getBundleString(appBundle, messageId + DETAIL_SUFFIX);
 
     if (summary == null || detail == null) {
-      ResourceBundle tobagoBundle = getTobagoBundle();
+      ResourceBundle tobagoBundle = new TobagoResourceBundle();
       if (summary == null) {
         summary = getBundleString(tobagoBundle, messageId);
       }
@@ -120,25 +116,6 @@ public class MessageUtils {
     return bundleName != null ? getBundle(facesContext, locale, bundleName) : null;
   }
 
-  private static ResourceBundle getTobagoBundle() {
-    // XXX This is ugly, can be removed after merging tobago-jsf-compat to tobago-core
-    try {
-      Class clazz = Class.forName("org.apache.myfaces.tobago.context.TobagoResourceBundle");
-      Object bundle = ConstructorUtils.invokeConstructor(clazz, new Object[0]);
-      LOG.error("*********************************************************************************************");
-      LOG.error("*********************************************************************************************");
-      LOG.error("*********************************************************************************************");
-      LOG.error("just created: " + bundle + " " + System.identityHashCode(bundle));
-      LOG.error("*********************************************************************************************");
-      LOG.error("*********************************************************************************************");
-      LOG.error("*********************************************************************************************");
-      return (ResourceBundle) bundle;
-    } catch (Exception e) {
-      LOG.error("Can't create TobagoResourceBundle, but it should be in the core.", e);
-      return null; // should not be possible.
-    }
-  }
-
   private static ResourceBundle getDefaultBundle(FacesContext facesContext, Locale locale) {
     return getBundle(facesContext, locale, FacesMessage.FACES_MESSAGES);
   }
@@ -169,7 +146,7 @@ public class MessageUtils {
   }
 
   /**
-   * @deprecated
+   * @deprecated Since Tobago 2.0.0
    */
   @Deprecated
   public static String getFormatedMessage(String message, Locale locale, Object... args) {

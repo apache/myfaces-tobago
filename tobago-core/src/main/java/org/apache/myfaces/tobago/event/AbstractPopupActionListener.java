@@ -19,38 +19,29 @@
 
 package org.apache.myfaces.tobago.event;
 
-import org.apache.commons.beanutils.BeanUtils;
+import org.apache.myfaces.tobago.internal.component.AbstractUIPopup;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.ActionListener;
-import java.lang.reflect.InvocationTargetException;
 
 public abstract class AbstractPopupActionListener implements ActionListener {
 
   private static final Logger LOG = LoggerFactory.getLogger(AbstractPopupActionListener.class);
 
   public void processAction(ActionEvent actionEvent) throws AbortProcessingException {
-    UIComponent popup = getPopup(actionEvent);
+    AbstractUIPopup popup = getPopup(actionEvent);
     if (popup != null) {
       if (LOG.isDebugEnabled()) {
-        LOG.debug("activated "
-            + actionEvent.getComponent().getClientId(FacesContext.getCurrentInstance()));
+        LOG.debug("Setting activated for component: clientId='"
+            + actionEvent.getComponent().getClientId(FacesContext.getCurrentInstance()) + "'");
       }
-      // XXX this is called via reflection, because the class AbstractUIPopup is not available here.
-      try {
-        BeanUtils.setProperty(popup, "activated", true);
-      } catch (IllegalAccessException e) {
-        LOG.error("", e);
-      } catch (InvocationTargetException e) {
-        LOG.error("", e);
-      }
+      popup.setActivated(true);
     }
   }
 
-  protected abstract UIComponent getPopup(ActionEvent actionEvent);
+  protected abstract AbstractUIPopup getPopup(ActionEvent actionEvent);
 }

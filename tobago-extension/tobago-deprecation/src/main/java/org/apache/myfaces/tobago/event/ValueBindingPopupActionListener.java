@@ -19,6 +19,7 @@
 
 package org.apache.myfaces.tobago.event;
 
+import org.apache.myfaces.tobago.internal.component.AbstractUIPopup;
 import org.apache.myfaces.tobago.internal.util.FindComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -51,16 +52,18 @@ public class ValueBindingPopupActionListener extends AbstractPopupActionListener
   }
 
   @Override
-  protected UIComponent getPopup(ActionEvent actionEvent) {
+  protected AbstractUIPopup getPopup(ActionEvent actionEvent) {
     String id = (String) popupIdBinding.getValue(FacesContext.getCurrentInstance());
     UIComponent popup = FindComponentUtils.findComponent(actionEvent.getComponent(), id);
-    if (popup == null) {
+    if (popup instanceof AbstractUIPopup) {
+      return (AbstractUIPopup) popup;
+    } else {
       LOG.error("Found no popup for \""
           + popupIdBinding.getExpressionString() + "\" := \""
           + id + "\"! Search base componentId : "
           + actionEvent.getComponent().getClientId(FacesContext.getCurrentInstance()));
+      return null;
     }
-    return popup;
   }
 
   public boolean isTransient() {

@@ -33,12 +33,15 @@ public class PopupFacetActionListener extends AbstractPopupActionListener {
   private static final Logger LOG = LoggerFactory.getLogger(PopupActionListener.class);
 
   @Override
-  protected UIComponent getPopup(ActionEvent actionEvent) {
+  protected AbstractUIPopup getPopup(ActionEvent actionEvent) {
     UIComponent component = actionEvent.getComponent().getFacet(Facets.POPUP);
     if (component instanceof AbstractUIPopup) {
-      return component;
+      return (AbstractUIPopup) component;
+    } else if (component != null) {
+      LOG.error("Found wrong type='" + component.getClass().getName() + "' in popup facet of component "
+          + actionEvent.getComponent().getClientId(FacesContext.getCurrentInstance()));
     } else {
-      LOG.error("Found no popup facet in component "
+      LOG.error("Found no popup facet of component "
           + actionEvent.getComponent().getClientId(FacesContext.getCurrentInstance()));
     }
     return null;

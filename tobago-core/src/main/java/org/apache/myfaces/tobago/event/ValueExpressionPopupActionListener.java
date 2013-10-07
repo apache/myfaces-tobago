@@ -19,6 +19,7 @@
 
 package org.apache.myfaces.tobago.event;
 
+import org.apache.myfaces.tobago.internal.component.AbstractUIPopup;
 import org.apache.myfaces.tobago.internal.util.FindComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -56,16 +57,18 @@ public class ValueExpressionPopupActionListener extends AbstractPopupActionListe
   }
 
   @Override
-  protected UIComponent getPopup(ActionEvent actionEvent) {
+  protected AbstractUIPopup getPopup(ActionEvent actionEvent) {
     String id = (String) popupIdExpression.getValue(FacesContext.getCurrentInstance().getELContext());
     UIComponent popup = FindComponentUtils.findComponent(actionEvent.getComponent(), id);
-    if (popup == null) {
+    if (popup instanceof AbstractUIPopup) {
+      return (AbstractUIPopup) popup;
+    } else {
       LOG.error("Found no popup for \""
           + popupIdExpression.getExpressionString() + "\" := \""
           + id + "\"! Search base componentId : "
           + actionEvent.getComponent().getClientId(FacesContext.getCurrentInstance()));
+      return null;
     }
-    return popup;
   }
 
   public boolean isTransient() {
