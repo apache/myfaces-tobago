@@ -431,8 +431,9 @@ public abstract class AbstractUISheet extends AbstractUIData
     } else if (facesEvent instanceof PageActionEvent) {
       if (facesEvent.getComponent() == this) {
         final MethodExpression listener = getStateChangeListenerExpression();
-        listener.invoke(getFacesContext().getELContext(), new Object[]{facesEvent});
-
+        if (listener != null) {
+          listener.invoke(getFacesContext().getELContext(), new Object[]{facesEvent});
+        }
         performPaging((PageActionEvent) facesEvent);
       }
     } else if (facesEvent instanceof SortActionEvent) {
