@@ -80,8 +80,14 @@ public final class ClientPropertiesKey implements Serializable {
     if (!contentType.equals(that.contentType)) {
       return false;
     }
-    if (!locale.equals(that.locale)) {
-      return false;
+    if (locale == null) {
+      if (that.locale != null) {
+        return false;
+      }
+    } else {
+      if (!locale.equals(that.locale)) {
+        return false;
+      }
     }
     if (!theme.equals(that.theme)) {
       return false;
@@ -97,7 +103,9 @@ public final class ClientPropertiesKey implements Serializable {
     int result = contentType.hashCode();
     result = 31 * result + theme.hashCode();
     result = 31 * result + userAgent.hashCode();
-    result = 31 * result + locale.hashCode();
+    if (locale != null) {
+      result = 31 * result + locale.hashCode();
+    }
     return result;
   }
 
