@@ -457,7 +457,7 @@ public class PageRenderer extends PageRendererBase {
       writer.endElement(HtmlElements.INPUT);
     }
 
-    if (TobagoConfig.getInstance(FacesContext.getCurrentInstance()).isCreateSessionSecret()) {
+    if (TobagoConfig.getInstance(FacesContext.getCurrentInstance()).isCheckSessionSecret()) {
       Secret.encode(facesContext, writer);
     }
 
