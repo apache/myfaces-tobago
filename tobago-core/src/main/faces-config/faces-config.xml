@@ -29,6 +29,7 @@
 
   <lifecycle>
     <phase-listener>org.apache.myfaces.tobago.internal.ajax.AjaxNavigationListener</phase-listener>
+    <phase-listener>org.apache.myfaces.tobago.lifecycle.SecretPhaseListener</phase-listener>
   </lifecycle>
 
   <component>
