@@ -19,10 +19,13 @@
 
 package org.apache.myfaces.tobago.portlet;
 
+import org.apache.myfaces.tobago.webapp.Secret;
+
 import javax.faces.context.FacesContext;
 import javax.portlet.ActionRequest;
 import javax.portlet.PortletContext;
 import javax.portlet.PortletRequest;
+import javax.portlet.PortletSession;
 import javax.portlet.PortletURL;
 import javax.portlet.RenderResponse;
 import java.io.UnsupportedEncodingException;
@@ -98,6 +101,15 @@ public final class PortletUtils {
     ActionRequest request = (ActionRequest) facesContext.getExternalContext().getRequest();
     if (request.getCharacterEncoding() == null) {
       request.setCharacterEncoding("UTF-8");
+    }
+  }
+
+  public static Secret getAttributeFromSessionForApplication(Object session, String name) {
+
+    if (PORTLET_API_AVAILABLE && session instanceof PortletSession) {
+      return (Secret) ((PortletSession) session).getAttribute(name, PortletSession.APPLICATION_SCOPE);
+    } else {
+      throw new IllegalArgumentException("Unknown session type: " + session.getClass().getName());
     }
   }
 }

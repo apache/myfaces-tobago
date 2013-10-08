@@ -20,6 +20,7 @@
 package org.apache.myfaces.tobago.webapp;
 
 import org.apache.commons.codec.binary.Base64;
+import org.apache.myfaces.tobago.portlet.PortletUtils;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 
@@ -75,24 +76,34 @@ public class Secret implements Serializable {
    * Checks that the request contains a parameter {@link org.apache.myfaces.tobago.webapp.Secret#KEY}
    * which is equals to a secret value in the session.
    */
-  public static boolean check(FacesContext facesContext) {
-    Map requestParameterMap = facesContext.getExternalContext().getRequestParameterMap();
-    String fromRequest = (String) requestParameterMap.get(Secret.KEY);
-    Map sessionMap = facesContext.getExternalContext().getSessionMap();
-    Secret secret = (Secret) sessionMap.get(Secret.KEY);
+  public static boolean check(final FacesContext facesContext) {
+    final Map requestParameterMap = facesContext.getExternalContext().getRequestParameterMap();
+    final String fromRequest = (String) requestParameterMap.get(Secret.KEY);
+    final Object session = facesContext.getExternalContext().getSession(true);
+    final Secret secret;
+    if (session instanceof HttpSession) {
+      secret = (Secret) ((HttpSession) session).getAttribute(Secret.KEY);
+    } else {
+      secret = PortletUtils.getAttributeFromSessionForApplication(session, Secret.KEY);
+    }
     return secret != null && secret.secret.equals(fromRequest);
   }
 
   /**
    * Encode a hidden field with the secret value from the session.
    */
-  public static void encode(FacesContext facesContext, TobagoResponseWriter writer) throws IOException {
+  public static void encode(final FacesContext facesContext, final TobagoResponseWriter writer) throws IOException {
     writer.startElement(HtmlConstants.INPUT, null);
     writer.writeAttribute(HtmlAttributes.TYPE, "hidden", false);
     writer.writeAttribute(HtmlAttributes.NAME, Secret.KEY, false);
     writer.writeAttribute(HtmlAttributes.ID, Secret.KEY, false);
-    Map sessionMap = facesContext.getExternalContext().getSessionMap();
-    Secret secret = (Secret) sessionMap.get(Secret.class.getName());
+    final Object session = facesContext.getExternalContext().getSession(true);
+    final Secret secret;
+    if (session instanceof HttpSession) {
+      secret = (Secret) ((HttpSession) session).getAttribute(Secret.KEY);
+    } else {
+      secret = PortletUtils.getAttributeFromSessionForApplication(session, Secret.KEY);
+    }
     writer.writeAttribute(HtmlAttributes.VALUE, secret.secret, false);
     writer.endElement(HtmlConstants.INPUT);
   }
