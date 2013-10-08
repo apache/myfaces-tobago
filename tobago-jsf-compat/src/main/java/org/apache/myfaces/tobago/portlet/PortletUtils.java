@@ -23,6 +23,7 @@ import javax.faces.context.FacesContext;
 import javax.portlet.ActionRequest;
 import javax.portlet.PortletContext;
 import javax.portlet.PortletRequest;
+import javax.portlet.PortletSession;
 import javax.portlet.PortletURL;
 import javax.portlet.RenderResponse;
 import java.io.UnsupportedEncodingException;
@@ -98,6 +99,15 @@ public final class PortletUtils {
     ActionRequest request = (ActionRequest) facesContext.getExternalContext().getRequest();
     if (request.getCharacterEncoding() == null) {
       request.setCharacterEncoding("UTF-8");
+    }
+  }
+
+  public static Object getAttributeFromSessionForApplication(Object session, String name) {
+
+    if (PORTLET_API_AVAILABLE && session instanceof PortletSession) {
+      return ((PortletSession) session).getAttribute(name, PortletSession.APPLICATION_SCOPE);
+    } else {
+      throw new IllegalArgumentException("Unknown session type: " + session.getClass().getName());
     }
   }
 }
