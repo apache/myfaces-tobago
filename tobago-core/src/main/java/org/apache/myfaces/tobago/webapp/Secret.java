@@ -85,7 +85,7 @@ public class Secret implements Serializable {
     if (session instanceof HttpSession) {
       secret = (Secret) ((HttpSession) session).getAttribute(Secret.KEY);
     } else {
-      secret = PortletUtils.getAttributeFromSessionForApplication(session, Secret.KEY);
+      secret = (Secret) PortletUtils.getAttributeFromSessionForApplication(session, Secret.KEY);
     }
     return secret != null && secret.secret.equals(fromRequest);
   }
@@ -103,7 +103,7 @@ public class Secret implements Serializable {
     if (session instanceof HttpSession) {
       secret = (Secret) ((HttpSession) session).getAttribute(Secret.KEY);
     } else {
-      secret = PortletUtils.getAttributeFromSessionForApplication(session, Secret.KEY);
+      secret = (Secret) PortletUtils.getAttributeFromSessionForApplication(session, Secret.KEY);
     }
     writer.writeAttribute(HtmlAttributes.VALUE, secret.secret, false);
     writer.endElement(HtmlElements.INPUT);
