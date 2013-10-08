@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:tc="http://myfaces.apache.org/tobago/component"
+        xmlns:tx="http://myfaces.apache.org/tobago/extension"
+        xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+  <tc:page width="800px" height="800px" label="Dynamic Include">
+    <tc:box label="Dynamic Included Panels">
+      <f:facet name="layout">
+        <tc:gridLayout margin="10px" columns="500px" rows="auto;auto;auto;auto;auto"/>
+      </f:facet>
+      <tc:messages/>
+      <c:forEach var="panel" items="#{dynamic.panels}">
+        <ui:include src="#{panel.name}"/>
+      </c:forEach>
+      <tc:panel>
+        <f:facet name="layout">
+          <tc:gridLayout columns="100px;100px;*" rows="fixed"/>
+        </f:facet>
+        <tc:button label="Next" action="#{dynamic.addPanel}"/>
+        <tc:button label="Reset" immediate="true" action="#{dynamic.reset}"/>
+      </tc:panel>
+    </tc:box>
+  </tc:page>
+</f:view>
