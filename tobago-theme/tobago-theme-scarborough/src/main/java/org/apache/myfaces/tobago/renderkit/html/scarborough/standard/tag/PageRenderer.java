@@ -85,14 +85,14 @@ public class PageRenderer extends PageRendererBase {
     ExternalContext externalContext = facesContext.getExternalContext();
 
     // severity
-    String severity = (String)
-        externalContext.getRequestParameterMap().get(clientId + ComponentUtils.SUB_SEPARATOR + "clientSeverity");
+    String severity
+        = externalContext.getRequestParameterMap().get(clientId + ComponentUtils.SUB_SEPARATOR + "clientSeverity");
     if (severity != null) {
       externalContext.getRequestMap().put(CLIENT_DEBUG_SEVERITY, severity);
     }
 
     // last focus
-    String lastFocusId = (String) 
+    String lastFocusId =
         externalContext.getRequestParameterMap().get(clientId + ComponentUtils.SUB_SEPARATOR + LAST_FOCUS_ID);
     if (lastFocusId != null) {
       FacesContextUtils.setFocusId(facesContext, lastFocusId);
@@ -102,7 +102,7 @@ public class PageRenderer extends PageRendererBase {
     String name = clientId + ComponentUtils.SUB_SEPARATOR + "scrollbarWeight";
     String value = null;
     try {
-      value = (String) facesContext.getExternalContext().getRequestParameterMap().get(name);
+      value = facesContext.getExternalContext().getRequestParameterMap().get(name);
       if (StringUtils.isNotBlank(value)) {
         StringTokenizer tokenizer = new StringTokenizer(value, ";");
         Measure vertical = Measure.valueOf(tokenizer.nextToken());
