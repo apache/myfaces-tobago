@@ -19,8 +19,6 @@
 
 package org.apache.myfaces.tobago.portlet;
 
-import org.apache.myfaces.tobago.webapp.Secret;
-
 import javax.faces.context.FacesContext;
 import javax.portlet.ActionRequest;
 import javax.portlet.PortletContext;
@@ -104,10 +102,10 @@ public final class PortletUtils {
     }
   }
 
-  public static Secret getAttributeFromSessionForApplication(Object session, String name) {
+  public static Object getAttributeFromSessionForApplication(Object session, String name) {
 
     if (PORTLET_API_AVAILABLE && session instanceof PortletSession) {
-      return (Secret) ((PortletSession) session).getAttribute(name, PortletSession.APPLICATION_SCOPE);
+      return ((PortletSession) session).getAttribute(name, PortletSession.APPLICATION_SCOPE);
     } else {
       throw new IllegalArgumentException("Unknown session type: " + session.getClass().getName());
     }
