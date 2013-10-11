@@ -11,8 +11,19 @@
   <tc:page width="800px" height="800px" label="Dynamic Include">
     <tc:box label="Dynamic Included Panels">
       <f:facet name="layout">
-        <tc:gridLayout margin="10px" columns="500px" rows="auto;auto;auto;auto;auto"/>
+        <tc:gridLayout margin="10px" columns="500px" rows="100px;auto;auto;auto;auto;auto"/>
       </f:facet>
+      <tc:panel>
+        <p>
+          This example demonstrates dynamic includes with Facelets.
+        </p>
+        <p>
+          It seems to work with Mojarra, but not with MyFaces.
+        </p>
+        <p>
+          <b>Warning:</b> Using c:forEach with dynamic content may produces several problems.
+        </p>
+      </tc:panel>
       <tc:messages/>
       <c:forEach var="panel" items="#{dynamic.panels}">
         <ui:include src="#{panel.name}"/>

@@ -44,12 +44,12 @@ public class DynamicBean {
         FacesContext.getCurrentInstance().addMessage(null,
             new FacesMessage(FacesMessage.SEVERITY_WARN, "All panels where added!", null));
     }
-    return null;
+    return "/test/forEach/dynamic-include.xhtml";
   }
 
   public String reset() {
     panels.clear();
-    return "test/forEach/dynamic-include.xhtml";
+    return "/test/forEach/dynamic-include.xhtml";
   }
 
   public List<DynamicPanel> getPanels() {
