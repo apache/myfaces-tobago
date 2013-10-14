@@ -113,6 +113,36 @@ Tobago.Popup.init = function (elements) {
   }
 };
 
+Tobago.Popup.getDisabledElements = function(popupId) {
+  var data = jQuery("body").data("tobago-popups-disabled-elements");
+  if (data) {
+    // data is Array of {id: popupId, elements: jQueryObject}
+    for (var i = 0; i < data.length; i++) {
+      if (data[i].id == popupId) {
+        return data[i].elements;
+      }
+    }
+  }
+  return undefined;
+};
+
+Tobago.Popup.storeDisabledElements = function(popupId, elements) {
+  var jBody = jQuery("body");
+  var data = jBody.data("tobago-popups-disabled-elements");
+  if (!data) {
+    data = new Array();
+    jBody.data("tobago-popups-disabled-elements", data);
+  }
+  // data is Array of {id: popupId, elements: jQueryObject}
+  for (var i = 0; i < data.length; i++) {
+    if (data[i].id == popupId) {
+      data[i].elements = elements;
+      return;
+    }
+  }
+  data.push({id: popupId, elements: elements});
+};
+
 /**
  * Locks the parent page of a popup when it is opened
  */
@@ -121,7 +151,7 @@ Tobago.Popup.lockBehind = function (popup) {
   // store their ids in a data attribute of the popup
   var id = popup.id;
   // The attribute might be set by the last call, this may happen, when opening a non-modal popup on a modal popup.
-  if (jQuery(popup).data('tobago-disabledElements') == null) {
+  if (Tobago.Popup.getDisabledElements(popup.id) === undefined) {
     var disabledElements = jQuery();
     var firstPopupElement = null;
 //    var pageElements = jQuery(document.forms[0].elements);
@@ -149,7 +179,7 @@ Tobago.Popup.lockBehind = function (popup) {
         jQuery.merge(disabledElements, jQuery(element)); // store it for reactivation
       }
     });
-    jQuery(popup).data('tobago-disabledElements', disabledElements);
+    Tobago.Popup.storeDisabledElements(popup.id, disabledElements);
 
     // find the first element in the popup for the focus
     if (firstPopupElement != null) {
@@ -205,13 +235,12 @@ Tobago.Popup.unlockBehind = function (popups) {
   }
   popups.each(function() {
     // re-enable all elements and anchors on page stored in the attribute
-    var popup = jQuery(this);
-    var disabledElements = popup.data('tobago-disabledElements');
+    var disabledElements = Tobago.Popup.getDisabledElements(this.id);
     if (disabledElements != null) {
       disabledElements.each(function() {
         jQuery(this).prop({disabled: false});
       });
-      jQuery(popup).removeData('tobago-disabledElements');
+      Tobago.Popup.storeDisabledElements(this.id, undefined);
     }
   });
 };
