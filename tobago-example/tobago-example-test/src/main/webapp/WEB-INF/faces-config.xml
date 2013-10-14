@@ -203,6 +203,24 @@
     <managed-bean-scope>session</managed-bean-scope>
   </managed-bean>
 
+  <managed-bean>
+    <managed-bean-name>panel1</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.tobago.example.test.DynamicPanel1</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+  </managed-bean>
+
+  <managed-bean>
+    <managed-bean-name>panel2</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.tobago.example.test.DynamicPanel2</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+  </managed-bean>
+
+  <managed-bean>
+    <managed-bean-name>panel3</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.tobago.example.test.DynamicPanel3</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+  </managed-bean>
+
   <navigation-rule>
     <navigation-case>
       <from-outcome>navigation</from-outcome>
