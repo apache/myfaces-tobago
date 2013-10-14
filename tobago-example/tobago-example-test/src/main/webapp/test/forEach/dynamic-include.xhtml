@@ -18,10 +18,11 @@
           This example demonstrates dynamic includes with Facelets.
         </p>
         <p>
-          It seems to work with Mojarra, but not with MyFaces.
+          <b>Important:</b> Use the "panel" variable only in Facelet Tags like ui:include, not in Components!
         </p>
         <p>
-          <b>Warning:</b> Using c:forEach with dynamic content may produces several problems.
+          <b>Important:</b> The action has to return a view-id, and not null,
+          So you ensure you get a new view, and no problems with ids.
         </p>
       </tc:panel>
       <tc:messages/>
