@@ -16,25 +16,37 @@
  * limitations under the License.
 -->
 
-<f:view xmlns:f="http://java.sun.com/jsf/core"
-        xmlns:tc="http://myfaces.apache.org/tobago/component">
-  <tc:loadBundle basename="overview" var="overviewBundle"/>
-  <tc:page label="404 - page not found" id="page" width="1000px" height="750px">
-    <f:facet name="layout">
-      <tc:gridLayout/>
-    </f:facet>
+<f:view
+    xmlns:tc="http://myfaces.apache.org/tobago/component"
+    xmlns:tx="http://myfaces.apache.org/tobago/extension"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core">
 
-    <tc:panel>
+  <tc:page>
+    <tc:gridLayoutConstraint width="600px" height="300px"/>
+
+    <tc:box label="Error Test">
       <f:facet name="layout">
-        <tc:gridLayout rows="auto;*;*"/>
+        <tc:gridLayout rows="100px;auto"/>
       </f:facet>
 
-      <tc:messages/>
-      <tc:out value="The page was not found!"/>
-      <tc:out escape="false" value="&lt;h1>404 - page not found&lt;/h1>"/>
-    </tc:panel>
+      <tc:panel>
+        Please click the button, then an error occures!
+        <br/>
+        <b>Note:</b> This example seems not to work. Todo: Check why!
+        <br/>
+        <b>Note:</b> Can only work in production mode.
+      </tc:panel>
 
-    <tc:script onload="LOG.error('404 - page not found')"/>
+      <tc:panel>
+        <f:facet name="layout">
+          <tc:gridLayout columns="*;auto"/>
+        </f:facet>
 
+        <tc:panel/>
+        <tc:button label="Error" action="#{errorTest.error}"/>
+      </tc:panel>
+
+    </tc:box>
   </tc:page>
 </f:view>

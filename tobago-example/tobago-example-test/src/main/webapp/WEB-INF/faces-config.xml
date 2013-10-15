@@ -23,6 +23,18 @@
     xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
     version="2.0">
 
+  <lifecycle>
+    <phase-listener>
+      org.apache.myfaces.tobago.example.test.DebugModePhaseListener
+    </phase-listener>
+  </lifecycle>
+
+  <factory>
+    <exception-handler-factory>
+      org.apache.myfaces.tobago.example.test.TestExceptionHandlerFactory
+    </exception-handler-factory>
+  </factory>
+
   <managed-bean>
     <managed-bean-name>browser</managed-bean-name>
     <managed-bean-class>org.apache.myfaces.tobago.example.test.DirectoryBrowser</managed-bean-class>
@@ -192,6 +204,12 @@
   </managed-bean>
 
   <managed-bean>
+    <managed-bean-name>errorTest</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.tobago.example.test.ErrorTest</managed-bean-class>
+    <managed-bean-scope>none</managed-bean-scope>
+  </managed-bean>
+
+  <managed-bean>
     <managed-bean-name>version</managed-bean-name>
     <managed-bean-class>org.apache.myfaces.tobago.example.test.Version</managed-bean-class>
     <managed-bean-scope>none</managed-bean-scope>
@@ -231,12 +249,6 @@
       <to-view-id>/test/file/file.xhtml</to-view-id>
     </navigation-case>
   </navigation-rule>
-
-  <lifecycle>
-    <phase-listener>
-      org.apache.myfaces.tobago.example.test.DebugModePhaseListener
-    </phase-listener>
-  </lifecycle>
 
   <!-- Wizard -->
 
