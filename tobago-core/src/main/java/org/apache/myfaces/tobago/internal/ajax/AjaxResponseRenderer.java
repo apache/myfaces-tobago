@@ -104,11 +104,11 @@ public class AjaxResponseRenderer {
 
   private void saveState(FacesContext facesContext, RenderKit renderKit) throws IOException {
 
-    ResponseWriter stateWriter = renderKit.createResponseWriter(getPrintWriter(facesContext), CONTENT_TYPE, null);
+    final ResponseWriter stateWriter = renderKit.createResponseWriter(getPrintWriter(facesContext), CONTENT_TYPE, null);
     facesContext.setResponseWriter(stateWriter);
 
-    StateManager stateManager = facesContext.getApplication().getStateManager();
-    StateManager.SerializedView serializedView = stateManager.saveSerializedView(facesContext);
+    final StateManager stateManager = facesContext.getApplication().getStateManager();
+    final Object serializedView = stateManager.saveView(facesContext);
     stateManager.writeState(facesContext, serializedView);
   }
 
