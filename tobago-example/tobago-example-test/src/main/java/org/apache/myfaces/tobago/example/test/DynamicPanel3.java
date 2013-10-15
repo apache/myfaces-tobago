@@ -21,8 +21,8 @@ package org.apache.myfaces.tobago.example.test;
 
 public class DynamicPanel3 extends DynamicPanel {
 
-  public String street;
-  public String city;
+  private String street;
+  private String city;
 
   public String getStreet() {
     return street;

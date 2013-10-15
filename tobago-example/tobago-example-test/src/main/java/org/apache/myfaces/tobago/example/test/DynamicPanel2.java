@@ -21,8 +21,8 @@ package org.apache.myfaces.tobago.example.test;
 
 public class DynamicPanel2 extends DynamicPanel {
 
-  public String firstName;
-  public String secondName;
+  private String firstName;
+  private String secondName;
 
   public String getFirstName() {
     return firstName;
