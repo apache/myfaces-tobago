@@ -199,7 +199,7 @@ Copy the download artifacts from the repository to the site
 #!/bin/sh
 set -e
 
-VERSION=2.0.0-alpha-1
+VERSION=2.0.0-alpha-2
 REPOSITORY=https://repository.apache.org/content/repositories/releases
 
 # download file and hashes/signatures
