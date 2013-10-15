@@ -116,15 +116,27 @@ public class AjaxNavigationState {
   }
 
   public static void storeIncomingView(FacesContext facesContext) {
-    UIViewRoot viewRoot = facesContext.getViewRoot();
-    LOG.trace("incoming viewId = \"{}\"", viewRoot.getViewId());
+    final UIViewRoot viewRoot = facesContext.getViewRoot();
+    if (LOG.isTraceEnabled()) {
+      if (viewRoot != null) {
+        LOG.trace("incoming viewId = '{}'", viewRoot.getViewId());
+      } else {
+        LOG.trace("incoming viewRoot is null");
+      }
+    }
     facesContext.getExternalContext().getRequestMap().put(AjaxNavigationState.VIEW_ROOT_KEY, viewRoot);
   }
 
   public static boolean isNavigation(FacesContext facesContext) {
 
     final UIViewRoot viewRoot = facesContext.getViewRoot();
-    LOG.trace("current viewId = \"{}\"", viewRoot.getViewId());
+    if (LOG.isTraceEnabled()) {
+      if (viewRoot != null) {
+        LOG.trace("current viewId = '{}'", viewRoot.getViewId());
+      } else {
+        LOG.trace("current viewRoot is null");
+      }
+    }
 
     ExternalContext externalContext = facesContext.getExternalContext();
     Map<String, Object> requestMap = externalContext.getRequestMap();
