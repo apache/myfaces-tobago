@@ -54,11 +54,11 @@ public class UserAgent implements Serializable {
   @Deprecated
   public static final UserAgent MSIE_5_5 = new UserAgent("msie", "5_5");
 
-  public static final UserAgent MSIE_6_0
-      = new UserAgent("msie", "6_0", EnumSet.noneOf(Capability.class), CspHeader.NOT_SUPPORTED, CsproHeader.NOT_SUPPORTED);
+  public static final UserAgent MSIE_6_0 = new UserAgent(
+      "msie", "6_0", EnumSet.noneOf(Capability.class), CspHeader.NOT_SUPPORTED, CsproHeader.NOT_SUPPORTED);
 
-  public static final UserAgent MSIE_7_0
-      = new UserAgent("msie", "7_0", EnumSet.noneOf(Capability.class), CspHeader.NOT_SUPPORTED, CsproHeader.NOT_SUPPORTED);
+  public static final UserAgent MSIE_7_0 = new UserAgent(
+      "msie", "7_0", EnumSet.noneOf(Capability.class), CspHeader.NOT_SUPPORTED, CsproHeader.NOT_SUPPORTED);
 
   public static final UserAgent MSIE_7_0_COMPAT = new UserAgent(
       "msie", "7_0", EnumSet.of(Capability.IE_COMPATIBILITY_MODE), CspHeader.NOT_SUPPORTED, CsproHeader.NOT_SUPPORTED);
