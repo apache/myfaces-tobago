@@ -246,6 +246,8 @@ public class MessagesRenderer extends LayoutComponentRendererBase {
     writer.endElement(HtmlElements.LABEL);
     writer.startElement(HtmlElements.BR, null);
     writer.endElement(HtmlElements.BR);
+
+    message.rendered();
   }
 
   @Override
