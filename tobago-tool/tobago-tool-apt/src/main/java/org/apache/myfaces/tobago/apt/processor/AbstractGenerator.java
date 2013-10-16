@@ -99,17 +99,20 @@ public abstract class AbstractGenerator extends AbstractProcessor {
   protected abstract void generate() throws Exception;
 
   protected void info(String message) {
-    processingEnv.getMessager().printMessage(Diagnostic.Kind.NOTE, message);
+    processingEnv.getMessager().printMessage(Diagnostic.Kind.NOTE,
+        "<" + getClass().getSimpleName() + "> " + message);
   }
 
   protected void warn(String message) {
-    processingEnv.getMessager().printMessage(Diagnostic.Kind.WARNING, message);
+    processingEnv.getMessager().printMessage(Diagnostic.Kind.WARNING,
+        "<" + getClass().getSimpleName() + "> " + message);
   }
 
   protected void error(Exception e) {
     final StringWriter out = new StringWriter();
     e.printStackTrace(new PrintWriter(out));
-    processingEnv.getMessager().printMessage(Diagnostic.Kind.ERROR, "" + e.getMessage() + "\n" + out.toString());
+    processingEnv.getMessager().printMessage(Diagnostic.Kind.ERROR,
+        "<" + getClass().getSimpleName() + "> " + e.getMessage() + "\n" + out.toString());
   }
 
   public List<TypeElement> getTypes() {
