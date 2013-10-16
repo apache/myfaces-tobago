@@ -46,6 +46,7 @@ import javax.el.ELContext;
 import javax.el.ValueExpression;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
+import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
@@ -131,12 +132,8 @@ public abstract class AbstractUIPage extends AbstractUIForm
       LOG.debug("actionId = '" + currentActionId + "'");
     }
 
-    UIComponent command = null;
-    try { // todo: try bock should be removed, when tested, that the warning usually not occure.
-      command = findComponent(currentActionId);
-    } catch (Exception e) {
-      LOG.warn("Should not happen!!! currentActionId='" + currentActionId + "'");
-    }
+    final UIViewRoot viewRoot = facesContext.getViewRoot();
+    UIComponent command = viewRoot.findComponent(currentActionId);
 
     // TODO: remove this if block if proven this never happens anymore
     if (command == null
@@ -147,7 +144,7 @@ public abstract class AbstractUIPage extends AbstractUIForm
       // related form, so removing the rowIndex will help here.
       currentActionId = currentActionId.replaceAll(":\\d+:", ":");
       try {
-        command = findComponent(currentActionId);
+        command = viewRoot.findComponent(currentActionId);
         //LOG.info("command = \"" + command + "\"", new Exception());
       } catch (Exception e) {
         // ignore
@@ -157,7 +154,7 @@ public abstract class AbstractUIPage extends AbstractUIForm
     if (LOG.isTraceEnabled()) {
       LOG.trace(currentActionId);
       LOG.trace("command:{}", command);
-      LOG.trace(DebugUtils.toString(facesContext.getViewRoot(), 0));
+      LOG.trace(DebugUtils.toString(viewRoot, 0));
     }
 
     if (command != null) {

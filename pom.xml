@@ -517,9 +517,9 @@
         <scope>provided</scope>
       </dependency>
       <dependency>
-        <groupId>portlet-api</groupId>
+        <groupId>javax.portlet</groupId>
         <artifactId>portlet-api</artifactId>
-        <version>1.0</version>
+        <version>2.0</version>
         <scope>provided</scope>
       </dependency>
       <dependency>
@@ -1721,7 +1721,7 @@
     <myfaces20.version>2.0.18</myfaces20.version>
     <myfaces21.version>2.1.12</myfaces21.version>
     <mojarra20.version>2.0.11</mojarra20.version>
-    <mojarra21.version>2.1.25</mojarra21.version>
+    <mojarra21.version>2.1.7</mojarra21.version>
     <mojarra22.version>2.2.2</mojarra22.version>
     <slf4j.version>1.7.5</slf4j.version>
     <logback.version>1.0.11</logback.version>
