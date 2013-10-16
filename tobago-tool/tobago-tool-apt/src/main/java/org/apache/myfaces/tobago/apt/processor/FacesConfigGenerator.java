@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.apt.processor;
 
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.myfaces.tobago.apt.annotation.Converter;
 import org.apache.myfaces.tobago.apt.annotation.Facet;
@@ -28,6 +27,7 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.Validator;
 import org.apache.myfaces.tobago.apt.generate.ComponentInfo;
+import org.codehaus.plexus.util.FileUtils;
 import org.jdom.Attribute;
 import org.jdom.Comment;
 import org.jdom.Document;
@@ -43,7 +43,6 @@ import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.TypeElement;
 import javax.tools.FileObject;
 import javax.tools.StandardLocation;
-import java.io.File;
 import java.io.IOException;
 import java.io.StringReader;
 import java.io.StringWriter;
@@ -148,7 +147,7 @@ public class FacesConfigGenerator extends AbstractGenerator {
     Document document;
     Writer writer = null;
     try {
-      String content = FileUtils.readFileToString(new File(sourceFacesConfigFile), "UTF-8");
+      String content = FileUtils.fileRead(sourceFacesConfigFile);
       SAXBuilder builder = new SAXBuilder();
       document = builder.build(new StringReader(content));
 
