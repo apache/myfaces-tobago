@@ -19,6 +19,7 @@
 
 package org.apache.myfaces.tobago.apt.processor;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.myfaces.tobago.apt.annotation.Converter;
 import org.apache.myfaces.tobago.apt.annotation.Facet;
@@ -27,7 +28,6 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.Validator;
 import org.apache.myfaces.tobago.apt.generate.ComponentInfo;
-import org.codehaus.plexus.util.FileUtils;
 import org.jdom.Attribute;
 import org.jdom.Comment;
 import org.jdom.Document;
@@ -36,9 +36,6 @@ import org.jdom.filter.ContentFilter;
 import org.jdom.input.SAXBuilder;
 import org.jdom.output.Format;
 import org.jdom.output.XMLOutputter;
-import org.xml.sax.EntityResolver;
-import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
 
 import javax.annotation.processing.SupportedAnnotationTypes;
 import javax.annotation.processing.SupportedOptions;
@@ -46,8 +43,8 @@ import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.TypeElement;
 import javax.tools.FileObject;
 import javax.tools.StandardLocation;
+import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.io.Writer;
@@ -151,18 +148,8 @@ public class FacesConfigGenerator extends AbstractGenerator {
     Document document;
     Writer writer = null;
     try {
-      String content = FileUtils.fileRead(sourceFacesConfigFile);
+      String content = FileUtils.readFileToString(new File(sourceFacesConfigFile), "UTF-8");
       SAXBuilder builder = new SAXBuilder();
-      builder.setEntityResolver(new EntityResolver() {
-        public InputSource resolveEntity(String publicId, String systemId) throws SAXException, IOException {
-          if ("-//Sun Microsystems, Inc.//DTD JavaServer Faces Config 1.1//EN".equals(publicId)) {
-            InputStream stream = getClass().getResourceAsStream(
-                "/org/apache/myfaces/tobago/dtd/web-facesconfig_1_1.dtd");
-            return new InputSource(stream);
-          }
-          return null;
-        }
-      });
       document = builder.build(new StringReader(content));
 
       // Normalise line endings. For some reason, JDOM replaces \r\n inside a comment with \n.
@@ -171,25 +158,16 @@ public class FacesConfigGenerator extends AbstractGenerator {
       // rewrite DOM as a string to find differences, since text outside the root element is not tracked
 
       org.jdom.Element rootElement = document.getRootElement();
-      if (is12()) {
-        rootElement.setNamespace(Namespace.getNamespace("http://java.sun.com/xml/ns/javaee"));
-        Namespace xsi = Namespace.getNamespace("xsi", "http://www.w3.org/2001/XMLSchema-instance");
-        rootElement.addNamespaceDeclaration(Namespace.getNamespace("xi", "http://www.w3.org/2001/XInclude"));
-        rootElement.setAttribute(new Attribute("schemaLocation",
-            "http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_1_2.xsd", xsi));
-        rootElement.setAttribute("version", "1.2");
-      } else if (is20()) {
-        rootElement.setNamespace(Namespace.getNamespace("http://java.sun.com/xml/ns/javaee"));
-        Namespace xsi = Namespace.getNamespace("xsi", "http://www.w3.org/2001/XMLSchema-instance");
-        rootElement.addNamespaceDeclaration(Namespace.getNamespace("xi", "http://www.w3.org/2001/XInclude"));
-        rootElement.setAttribute(new Attribute("schemaLocation",
-            "http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd", xsi));
-        rootElement.setAttribute("version", "2.0");
-      }
+
+      rootElement.setNamespace(Namespace.getNamespace("http://java.sun.com/xml/ns/javaee"));
+      Namespace xsi = Namespace.getNamespace("xsi", "http://www.w3.org/2001/XMLSchema-instance");
+      rootElement.addNamespaceDeclaration(Namespace.getNamespace("xi", "http://www.w3.org/2001/XInclude"));
+      rootElement.setAttribute(new Attribute("schemaLocation",
+          "http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd", xsi));
+      rootElement.setAttribute("version", "2.0");
+
       Namespace namespace = rootElement.getNamespace();
-      if (is12() || is20()) {
-        applyNamespace(rootElement, namespace);
-      }
+      applyNamespace(rootElement, namespace);
       List<org.jdom.Element> components = rootElement.getChildren(COMPONENT, namespace);
 
       List<org.jdom.Element> newComponents = new ArrayList<org.jdom.Element>();
@@ -550,58 +528,17 @@ public class FacesConfigGenerator extends AbstractGenerator {
   protected void addAttributes(
       TypeElement typeElement, List<org.jdom.Element> attributes, List<org.jdom.Element> properties,
       Namespace namespace) {
-/*
-    addAttributes((List<TypeMirror>) typeElement.getInterfaces(), uiComponentClass, attributes, properties, namespace);
-    addAttributes(typeElement.getSuperclass(), uiComponentClass, attributes, properties, namespace);
-*/
 
-//    final List<ExecutableElement> members = new ArrayList<ExecutableElement>();
     for (javax.lang.model.element.Element element : processingEnv.getElementUtils().getAllMembers(typeElement)) {
       ExecutableElement executableElement = (ExecutableElement) element;
       if (executableElement.getAnnotation(TagAttribute.class) == null
           && executableElement.getAnnotation(UIComponentTagAttribute.class) == null) {
         continue;
       }
-//      if (!members.contains(element)) {
-//        members.add((ExecutableElement) element);
-//      }
+
       addAttribute(executableElement, attributes, properties, namespace);
     }
-/*
-    Collections.sort(members, new Comparator<ExecutableElement>() {
-      public int compare(ExecutableElement d1, ExecutableElement d2) {
-        return d1.getSimpleName().toString().compareTo(d2.getSimpleName().toString());
-      }
-    });
-*/
-
-/*
-    for (ExecutableElement executableElement : members) {
-      addAttribute(executableElement, uiComponentClass, attributes, properties, namespace);
-    }
-*/
   }
-
-/*
-  protected void addAttributes(
-      List<TypeMirror> interfaces, Class uiComponentClass, List<Element> attributes, List<Element> properties,
-      Namespace namespace) {
-    for (TypeMirror typeMirror : interfaces) {
-      addAttributes(typeMirror, uiComponentClass, attributes, properties, namespace);
-    }
-  }
-*/
-
-/*
-  protected void addAttributes(
-      TypeMirror typeMirror, Class uiComponentClass, List<Element> attributes, List<Element> properties,
-      Namespace namespace) {
-    if (typeMirror.getKind() != TypeKind.NONE) {
-      addAttributes((TypeElement) (environment.getTypeUtils().asElement(typeMirror)),
-          uiComponentClass, attributes, properties, namespace);
-    }
-  }
-*/
 
   private void addFacets(UIComponentTag componentTag, Namespace namespace, org.jdom.Element element) {
     Facet[] facets = componentTag.facets();
@@ -679,10 +616,6 @@ public class FacesConfigGenerator extends AbstractGenerator {
       Comment c = (Comment) i.next();
       c.setText(c.getText().replaceAll("\n", SEPARATOR));
     }
-  }
-
-  private boolean is12() {
-    return "1.2".equals(jsfVersion);
   }
 
   private boolean is20() {
