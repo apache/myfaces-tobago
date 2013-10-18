@@ -24,17 +24,17 @@ import javax.faces.context.ExceptionHandlerFactory;
 
 public class TestExceptionHandlerFactory extends ExceptionHandlerFactory {
 
-   private ExceptionHandlerFactory parent;
+  private ExceptionHandlerFactory parent;
 
-   public TestExceptionHandlerFactory( ExceptionHandlerFactory parent ) {
-      this.parent = parent;
-   }
+  public TestExceptionHandlerFactory(ExceptionHandlerFactory parent) {
+    this.parent = parent;
+  }
 
-   @Override
-   public ExceptionHandler getExceptionHandler() {
-      ExceptionHandler result = parent.getExceptionHandler();
-      result = new TestExceptionHandler(result);
-      return result;
-   }
+  @Override
+  public ExceptionHandler getExceptionHandler() {
+    ExceptionHandler result = parent.getExceptionHandler();
+    result = new TestExceptionHandler(result);
+    return result;
+  }
 
 }
