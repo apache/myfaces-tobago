@@ -141,8 +141,8 @@ public class AjaxResponseRenderer {
     facesContext.setResponseWriter(stateWriter);
 
     StateManager stateManager = facesContext.getApplication().getStateManager();
-    StateManager.SerializedView serializedView = stateManager.saveSerializedView(facesContext);
-    stateManager.writeState(facesContext, serializedView);
+    Object view = stateManager.saveView(facesContext);
+    stateManager.writeState(facesContext, view);
   }
 
   private static void ensureContentTypeHeader(FacesContext facesContext, String charset, String contentType) {
