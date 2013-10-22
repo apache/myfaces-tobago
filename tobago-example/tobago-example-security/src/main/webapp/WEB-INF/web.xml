@@ -37,13 +37,6 @@
     <load-on-startup>1</load-on-startup>
   </servlet>
 
-  <!-- workaround for a bug in Bea Weblogic 8.1 SP 2 and older -->
-  <servlet>
-    <servlet-name>WeblogicWorkaroundServlet</servlet-name>
-    <servlet-class>org.apache.myfaces.tobago.webapp.WeblogicWorkaroundServlet</servlet-class>
-    <load-on-startup>1</load-on-startup>
-  </servlet>
-
   <servlet>
     <servlet-name>ResourceServlet</servlet-name>
     <servlet-class>org.apache.myfaces.tobago.servlet.ResourceServlet</servlet-class>
