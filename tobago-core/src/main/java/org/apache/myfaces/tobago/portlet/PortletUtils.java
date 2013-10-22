@@ -19,36 +19,23 @@
 
 package org.apache.myfaces.tobago.portlet;
 
-import javax.faces.context.FacesContext;
-import javax.portlet.ActionRequest;
-import javax.portlet.PortletContext;
 import javax.portlet.PortletRequest;
-import javax.portlet.PortletSession;
-import javax.portlet.PortletURL;
-import javax.portlet.RenderResponse;
-import java.io.UnsupportedEncodingException;
-
 
 /**
  * Static utility class for portlet-related operations.
  */
 public final class PortletUtils {
 
-  private static final boolean PORTLET_API_AVAILABLE = portletApiAvailable();
+  private static final boolean PORTLET_API_AVAILABLE;
 
-  /**
-   * This flag is imbedded in the request.
-   * It signifies that the request is coming from a portlet.
-   */
-//  public static final String PORTLET_REQUEST = PortletUtils.class.getName() + ".PORTLET_REQUEST";
-  private static final String VIEW_ID = PortletUtils.class.getName() + ".VIEW_ID";
-
-  private static boolean portletApiAvailable() {
+  static {
+    boolean result;
     try {
-      return PortletRequest.class != null; // never false
+      result = PortletRequest.class != null;
     } catch (NoClassDefFoundError e) {
-      return false;
+      result = false;
     }
+    PORTLET_API_AVAILABLE = result;
   }
 
   private PortletUtils() {
@@ -56,58 +43,13 @@ public final class PortletUtils {
   }
 
   /**
-   * Determine if we are processing a portlet RenderResponse.
+   * The Portlet API is optional in the class path. We are only allowed to check instance of e. g. PortletRequest,
+   * if the API exists.
    *
-   * @param facesContext The current FacesContext.
-   * @return <code>true</code> if we are processing a RenderResponse,
-   * <code>false</code> otherwise.
+   * @return Are the Portlet classes available?
    */
-  public static boolean isRenderResponse(FacesContext facesContext) {
-    return PORTLET_API_AVAILABLE && facesContext.getExternalContext().getResponse() instanceof RenderResponse;
+  public static boolean isPortletApiAvailable() {
+    return PORTLET_API_AVAILABLE;
   }
 
-  /**
-   * Determine if we are running as a portlet.
-   *
-   * @param facesContext The current FacesContext.
-   * @return <code>true</code> if we are running as a portlet,
-   * <code>false</code> otherwise.
-   */
-//  public static boolean isPortletRequest(FacesContext facesContext) {
-//    return facesContext.getExternalContext().getSessionMap().get(PORTLET_REQUEST) != null;
-//  }
-  public static boolean isPortletRequest(FacesContext facesContext) {
-    return PORTLET_API_AVAILABLE && facesContext.getExternalContext().getContext() instanceof PortletContext;
-  }
-
-  public static String getViewId(FacesContext facesContext) {
-    PortletRequest request = (PortletRequest) facesContext.getExternalContext().getRequest();
-    return request.getParameter(PortletUtils.VIEW_ID);
-  }
-
-  /**
-   * @return The action url.
-   */
-  public static String setViewIdForUrl(FacesContext facesContext, String viewId) {
-    RenderResponse response = (RenderResponse) facesContext.getExternalContext().getResponse();
-    PortletURL url = response.createActionURL();
-    url.setParameter(VIEW_ID, viewId);
-    return url.toString();
-  }
-
-  public static void ensureEncoding(FacesContext facesContext) throws UnsupportedEncodingException {
-    ActionRequest request = (ActionRequest) facesContext.getExternalContext().getRequest();
-    if (request.getCharacterEncoding() == null) {
-      request.setCharacterEncoding("UTF-8");
-    }
-  }
-
-  public static Object getAttributeFromSessionForApplication(Object session, String name) {
-
-    if (PORTLET_API_AVAILABLE && session instanceof PortletSession) {
-      return ((PortletSession) session).getAttribute(name, PortletSession.APPLICATION_SCOPE);
-    } else {
-      throw new IllegalArgumentException("Unknown session type: " + session.getClass().getName());
-    }
-  }
 }

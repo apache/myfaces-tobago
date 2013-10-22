@@ -21,7 +21,6 @@ package org.apache.myfaces.tobago.internal.lifecycle;
 
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPage;
-import org.apache.myfaces.tobago.portlet.PortletUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.Secret;
 import org.slf4j.Logger;
@@ -163,10 +162,12 @@ class RestoreViewExecutor implements PhaseExecutor {
   private static String deriveViewId(FacesContext facesContext) {
     ExternalContext externalContext = facesContext.getExternalContext();
 
+/*
     if (PortletUtils.isPortletRequest(facesContext)) {
       return PortletUtils.getViewId(facesContext);
     }
 
+*/
     String viewId = externalContext.getRequestPathInfo(); // getPathInfo
     if (viewId == null) {
       // No extra path info found, so it is probably extension mapping

@@ -20,26 +20,27 @@
 package org.apache.myfaces.tobago.internal.ajax;
 
 import org.apache.commons.lang.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
 import org.apache.myfaces.tobago.internal.util.ResponseUtils;
 import org.apache.myfaces.tobago.internal.webapp.JsonResponseWriter;
+import org.apache.myfaces.tobago.portlet.PortletUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.util.EncodeAjaxCallback;
 import org.apache.myfaces.tobago.util.RequestUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.FactoryFinder;
 import javax.faces.application.StateManager;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIViewRoot;
-import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.render.RenderKit;
 import javax.faces.render.RenderKitFactory;
+import javax.portlet.PortletResponse;
+import javax.portlet.ResourceResponse;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -169,14 +170,13 @@ public class AjaxResponseRenderer {
   }
 
   private PrintWriter getPrintWriter(FacesContext facesContext) throws IOException {
-    ExternalContext externalContext = facesContext.getExternalContext();
-    //TODO: fix this to work in PortletRequest as well
-    if (externalContext.getResponse() instanceof HttpServletResponse) {
-      final HttpServletResponse httpServletResponse
-          = (HttpServletResponse) externalContext.getResponse();
-      return httpServletResponse.getWriter();
+    final Object response = facesContext.getExternalContext().getResponse();
+    if (response instanceof HttpServletResponse) {
+      return ((HttpServletResponse) response).getWriter();
+    } else if (PortletUtils.isPortletApiAvailable() && response instanceof PortletResponse) {
+      return ((ResourceResponse) response).getWriter();
     }
-    throw new IOException("No ResponseWriter found for ExternalContext " + externalContext);
+    throw new IOException("No ResponseWriter found for response " + response);
   }
 
   private JsonResponseWriter getJsonResponseWriter(RenderKit renderKit, PrintWriter writer) {

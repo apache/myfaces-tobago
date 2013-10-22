@@ -19,11 +19,10 @@
 
 package org.apache.myfaces.tobago.internal.application;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.apache.myfaces.tobago.portlet.PortletUtils;
 import org.apache.myfaces.tobago.util.DebugUtils;
 import org.apache.myfaces.tobago.util.RequestUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.FacesException;
 import javax.faces.application.ViewHandler;
@@ -82,10 +81,12 @@ public class ViewHandlerImpl extends ViewHandler {
 
   public String getActionURL(FacesContext facesContext, String viewId) {
 
+/*
     if (PortletUtils.isRenderResponse(facesContext)) {
       return PortletUtils.setViewIdForUrl(facesContext, viewId);
     }
 
+*/
     return base.getActionURL(facesContext, viewId);
   }
 

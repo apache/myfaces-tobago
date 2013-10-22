@@ -19,11 +19,12 @@
 
 package org.apache.myfaces.tobago.util;
 
+import org.apache.myfaces.tobago.portlet.PortletUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.apache.myfaces.tobago.portlet.PortletUtils;
 
 import javax.faces.context.FacesContext;
+import javax.portlet.ClientDataRequest;
 import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
 
@@ -34,19 +35,21 @@ public class RequestUtils {
   private RequestUtils() {
   }
 
-  public static void ensureEncoding(FacesContext facesContext) {
-    Object requestObject = facesContext.getExternalContext().getRequest();
+  public static void ensureEncoding(final FacesContext facesContext) {
+    final Object request = facesContext.getExternalContext().getRequest();
     try {
-      if (requestObject instanceof HttpServletRequest) {
-        HttpServletRequest request = (HttpServletRequest) requestObject;
-        if (request.getCharacterEncoding() == null) {
-          request.setCharacterEncoding("UTF-8");
+      if (request instanceof HttpServletRequest) {
+        final HttpServletRequest servletRequest = (HttpServletRequest) request;
+        if (servletRequest.getCharacterEncoding() == null) {
+          servletRequest.setCharacterEncoding("UTF-8");
         }
-      } else if (PortletUtils.isPortletRequest(facesContext)) {
-        PortletUtils.ensureEncoding(facesContext);
+      } else if (PortletUtils.isPortletApiAvailable() && request instanceof ClientDataRequest) {
+        final ClientDataRequest portletRequest = (ClientDataRequest) request;
+        if (portletRequest.getCharacterEncoding() == null) {
+          portletRequest.setCharacterEncoding("UTF-8");
+        }
       }
-
-    } catch (UnsupportedEncodingException e) {
+    } catch (final UnsupportedEncodingException e) {
       LOG.error("" + e, e);
     }
   }

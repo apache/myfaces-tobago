@@ -26,6 +26,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
 
 import javax.faces.context.FacesContext;
+import javax.portlet.PortletSession;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.Serializable;
@@ -84,8 +85,10 @@ public class Secret implements Serializable {
     final Secret secret;
     if (session instanceof HttpSession) {
       secret = (Secret) ((HttpSession) session).getAttribute(Secret.KEY);
+    } else if (PortletUtils.isPortletApiAvailable() && session instanceof PortletSession) {
+      secret = (Secret) ((PortletSession) session).getAttribute(Secret.KEY, PortletSession.APPLICATION_SCOPE);
     } else {
-      secret = (Secret) PortletUtils.getAttributeFromSessionForApplication(session, Secret.KEY);
+      throw new IllegalArgumentException("Unknown session type: " + session);
     }
     return secret != null && secret.secret.equals(fromRequest);
   }
@@ -102,8 +105,10 @@ public class Secret implements Serializable {
     final Secret secret;
     if (session instanceof HttpSession) {
       secret = (Secret) ((HttpSession) session).getAttribute(Secret.KEY);
+    } else if (PortletUtils.isPortletApiAvailable() && session instanceof PortletSession) {
+      secret = (Secret) ((PortletSession) session).getAttribute(Secret.KEY, PortletSession.APPLICATION_SCOPE);
     } else {
-      secret = (Secret) PortletUtils.getAttributeFromSessionForApplication(session, Secret.KEY);
+      throw new IllegalArgumentException("Unknown session type: " + session);
     }
     writer.writeAttribute(HtmlAttributes.VALUE, secret.secret, false);
     writer.endElement(HtmlElements.INPUT);
