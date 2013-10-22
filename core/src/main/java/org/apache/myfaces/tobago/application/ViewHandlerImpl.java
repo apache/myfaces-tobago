@@ -21,7 +21,6 @@ package org.apache.myfaces.tobago.application;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_CLIENT_PROPERTIES;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.util.RequestUtils;
@@ -33,6 +32,8 @@ import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.util.Locale;
 
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_CLIENT_PROPERTIES;
+
 public class ViewHandlerImpl extends ViewHandler {
 
   private static final Log LOG = LogFactory.getLog(ViewHandlerImpl.class);
@@ -43,7 +44,7 @@ public class ViewHandlerImpl extends ViewHandler {
 
   public ViewHandlerImpl(ViewHandler base) {
     if (LOG.isInfoEnabled()) {
-      LOG.info("Hiding RI base implemation: " + base);
+      LOG.info("Hiding RI base implementation: " + base);
     }
     this.base = base;
   }
