@@ -29,6 +29,7 @@ import org.slf4j.LoggerFactory;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseId;
+import javax.portlet.PortletResponse;
 import javax.servlet.http.HttpServletResponse;
 
 public class ApplyRequestValuesCallback implements TobagoCallback {
@@ -46,9 +47,11 @@ public class ApplyRequestValuesCallback implements TobagoCallback {
         if (immediate != null && immediate) {
           Boolean update = (Boolean) reload.getAttributes().get(Attributes.UPDATE);
           if (update != null && !update) {
-            if (context.getExternalContext().getResponse() instanceof HttpServletResponse) {
-              ((HttpServletResponse) context.getExternalContext().getResponse())
-                  .setStatus(HttpServletResponse.SC_NOT_MODIFIED);
+            final Object response = context.getExternalContext().getResponse();
+            if (response instanceof HttpServletResponse) {
+              ((HttpServletResponse) response).setStatus(HttpServletResponse.SC_NOT_MODIFIED);
+            } else if (response instanceof PortletResponse) {
+              // TBD: Portlet: what is to do here?
             }
             context.responseComplete();
             return;

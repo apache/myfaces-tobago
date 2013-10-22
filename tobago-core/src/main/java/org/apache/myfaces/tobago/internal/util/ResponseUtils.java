@@ -22,11 +22,12 @@ package org.apache.myfaces.tobago.internal.util;
 import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.context.UserAgent;
 import org.apache.myfaces.tobago.internal.config.ContentSecurityPolicy;
+import org.apache.myfaces.tobago.portlet.PortletUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.portlet.MimeResponse;
 import javax.servlet.http.HttpServletResponse;
 
 public class ResponseUtils {
@@ -38,11 +39,11 @@ public class ResponseUtils {
   }
 
   public static void ensureNoCacheHeader(FacesContext facesContext) {
-    // TODO PortletRequest
-    ExternalContext externalContext = facesContext.getExternalContext();
-    if (externalContext.getResponse() instanceof HttpServletResponse) {
-      HttpServletResponse response = (HttpServletResponse) externalContext.getResponse();
-      ensureNoCacheHeader(response);
+    Object response = facesContext.getExternalContext().getResponse();
+    if (response instanceof HttpServletResponse) {
+      ensureNoCacheHeader((HttpServletResponse)response);
+    } else if (PortletUtils.isPortletApiAvailable() && response instanceof MimeResponse) {
+      ensureNoCacheHeader((MimeResponse)response);
     }
   }
 
@@ -53,11 +54,17 @@ public class ResponseUtils {
     response.setDateHeader("max-age", 0);
   }
 
+  public static void ensureNoCacheHeader(MimeResponse response) {
+    // TODO validate this
+    response.getCacheControl().setExpirationTime(0);
+  }
+
   public static void ensureContentTypeHeader(FacesContext facesContext, String contentType) {
-    // TODO PortletRequest
-    if (facesContext.getExternalContext().getResponse() instanceof HttpServletResponse) {
-      HttpServletResponse response = (HttpServletResponse) facesContext.getExternalContext().getResponse();
-      ensureContentTypeHeader(response, contentType);
+    final Object response = facesContext.getExternalContext().getResponse();
+    if (response instanceof HttpServletResponse) {
+      ensureContentTypeHeader((HttpServletResponse) response, contentType);
+    } else if (PortletUtils.isPortletApiAvailable() && response instanceof MimeResponse) {
+      ensureContentTypeHeader((MimeResponse) response, contentType);
     }
   }
 
@@ -65,7 +72,7 @@ public class ResponseUtils {
     if (!response.containsHeader("Content-Type")) {
       response.setContentType(contentType);
     } else {
-      String responseContentType = response.getContentType();
+      final String responseContentType = response.getContentType();
       if (!StringUtils.equalsIgnoreCaseAndWhitespace(responseContentType, contentType)) {
         response.setContentType(contentType);
         if (LOG.isDebugEnabled()) {
@@ -76,10 +83,22 @@ public class ResponseUtils {
     }
   }
 
+  public static void ensureContentTypeHeader(MimeResponse response, String contentType) {
+    final String responseContentType = response.getContentType();
+    if (!StringUtils.equalsIgnoreCaseAndWhitespace(responseContentType, contentType)) {
+      response.setContentType(contentType);
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("Response already contains Header Content-Type '" + responseContentType
+            + "'. Overwriting with '" + contentType + "'");
+      }
+    }
+  }
+
   public static void ensureContentSecurityPolicyHeader(
       FacesContext facesContext, ContentSecurityPolicy contentSecurityPolicy) {
-    // TODO PortletRequest
-    if (facesContext.getExternalContext().getResponse() instanceof HttpServletResponse) {
+    final Object response = facesContext.getExternalContext().getResponse();
+    if (response instanceof HttpServletResponse) {
+      final HttpServletResponse servletResponse = (HttpServletResponse) response;
       final UserAgent userAgent = ClientProperties.getInstance(facesContext).getUserAgent();
       final String[] cspHeaders;
       switch (contentSecurityPolicy.getMode()) {
@@ -102,9 +121,11 @@ public class ResponseUtils {
       }
       String value = builder.toString();
       for (String cspHeader : cspHeaders) {
-        final HttpServletResponse response = (HttpServletResponse) facesContext.getExternalContext().getResponse();
-        response.setHeader(cspHeader, value);
+        servletResponse.setHeader(cspHeader, value);
       }
+    } else if (PortletUtils.isPortletApiAvailable() && response instanceof MimeResponse) {
+     // TODO Portlet
+      LOG.warn("CSP not implemented for Portlet!");
     }
   }
 }
