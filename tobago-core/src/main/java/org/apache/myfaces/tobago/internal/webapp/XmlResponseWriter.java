@@ -20,7 +20,6 @@
 package org.apache.myfaces.tobago.internal.webapp;
 
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
-import org.apache.myfaces.tobago.util.FacesVersion;
 import org.apache.myfaces.tobago.util.XmlUtils;
 
 import javax.faces.context.ResponseWriter;
@@ -55,7 +54,7 @@ public final class XmlResponseWriter extends TobagoResponseWriterBase {
   @Override
   public void write(final char[] cbuf, final int off, final int len) throws IOException {
     // Related to http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-696
-    if (!FacesVersion.supports21() && Arrays.equals(cbuf, XML_VERSION_1_0_ENCODING_UTF_8_CHARS)) {
+    if (Arrays.equals(cbuf, XML_VERSION_1_0_ENCODING_UTF_8_CHARS)) {
       // drop
     } else {
       super.write(cbuf, off, len);
