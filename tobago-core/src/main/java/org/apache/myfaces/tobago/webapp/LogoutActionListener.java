@@ -46,7 +46,7 @@ public class LogoutActionListener implements ActionListener {
         ((HttpSession) session).invalidate();
       }
       if (PortletUtils.isPortletApiAvailable() && session instanceof PortletSession) {
-        ((PortletSession)session).invalidate();
+        ((PortletSession) session).invalidate();
       }
     }
     String forward = externalContext.getRequestContextPath() + "/";

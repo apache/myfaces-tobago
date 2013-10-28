@@ -41,9 +41,9 @@ public class ResponseUtils {
   public static void ensureNoCacheHeader(FacesContext facesContext) {
     Object response = facesContext.getExternalContext().getResponse();
     if (response instanceof HttpServletResponse) {
-      ensureNoCacheHeader((HttpServletResponse)response);
+      ensureNoCacheHeader((HttpServletResponse) response);
     } else if (PortletUtils.isPortletApiAvailable() && response instanceof MimeResponse) {
-      ensureNoCacheHeader((MimeResponse)response);
+      ensureNoCacheHeader((MimeResponse) response);
     }
   }
 
