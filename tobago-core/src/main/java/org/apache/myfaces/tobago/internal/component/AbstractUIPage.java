@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
-import org.apache.commons.collections.KeyValue;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.ComponentTypes;
 import org.apache.myfaces.tobago.component.DeprecatedDimension;
@@ -51,7 +50,6 @@ import javax.faces.context.FacesContext;
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -69,8 +67,6 @@ public abstract class AbstractUIPage extends AbstractUIForm
   private String actionId;
 
   private Box actionPosition;
-
-  private List<KeyValue> postfields;
 
   @Override
   public boolean getRendersChildren() {
@@ -197,13 +193,6 @@ public abstract class AbstractUIPage extends AbstractUIForm
         facesContext.addMessage(null, new FacesMessage("An error has occured!"));
       }
     }
-  }
-
-  public List<KeyValue> getPostfields() {
-    if (postfields == null) {
-      postfields = new ArrayList<KeyValue>();
-    }
-    return postfields;
   }
 
   @Override
