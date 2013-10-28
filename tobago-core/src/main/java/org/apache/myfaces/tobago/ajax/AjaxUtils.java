@@ -116,6 +116,9 @@ public class AjaxUtils {
     return added;
   }
 
+  /**
+   * @deprecated since 2.0.0. Is no longer needed
+   */
   public static boolean redirect(FacesContext facesContext, String url) throws IOException {
     if (!isAjaxRequest(facesContext)) {
       return false;
@@ -132,6 +135,9 @@ public class AjaxUtils {
     return true;
   }
 
+  /**
+   * @deprecated since 2.0.0. Is no longer needed
+   */
   private static void redirectInternal(Writer writer, String url) throws IOException {
     writer.flush(); // is needed in some cases, e. g. TOBAGO-1094
     writer.write("{\n  \"tobagoAjaxResponse\": true,\n");
@@ -142,6 +148,9 @@ public class AjaxUtils {
     writer.flush();
   }
 
+  /**
+   * @deprecated since 2.0.0. Is no longer needed
+   */
   public static void redirect(HttpServletResponse response, String url) throws IOException {
     PrintWriter writer = response.getWriter();
     String contentType = "application/json; charset=UTF-8";
