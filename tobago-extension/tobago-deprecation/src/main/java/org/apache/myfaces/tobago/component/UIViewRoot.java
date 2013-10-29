@@ -51,6 +51,9 @@ import java.util.ListIterator;
 import java.util.Locale;
 import java.util.Map;
 
+/**
+ * @deprecated since 2.0.0
+ */
 public class UIViewRoot extends javax.faces.component.UIViewRoot implements InvokeOnComponent {
 
   private static final Logger LOG = LoggerFactory.getLogger(UIViewRoot.class);

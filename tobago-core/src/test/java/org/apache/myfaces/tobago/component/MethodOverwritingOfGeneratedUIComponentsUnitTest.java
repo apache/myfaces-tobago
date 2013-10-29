@@ -39,7 +39,6 @@ public class MethodOverwritingOfGeneratedUIComponentsUnitTest {
 
   private static final List<String> IGNORED_METHODS = Arrays.asList("getFamily", "saveState", "restoreState");
   private static final List<String> IGNORED_COMPONENTS = Arrays.asList(
-      UIViewRoot.class.getSimpleName(),
       UIExtensionPanel.class.getSimpleName(),
       UIMenuSelectOne.class.getSimpleName(),
       UIWizard.class.getSimpleName(), // TODO: check what is here to do. Wizard is not currently working.

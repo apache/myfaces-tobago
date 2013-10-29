@@ -19,14 +19,18 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
+import org.apache.myfaces.tobago.ajax.AjaxUtils;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.ComponentTypes;
 import org.apache.myfaces.tobago.component.DeprecatedDimension;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.OnComponentPopulated;
 import org.apache.myfaces.tobago.component.RendererTypes;
+import org.apache.myfaces.tobago.internal.ajax.AjaxInternalUtils;
+import org.apache.myfaces.tobago.internal.ajax.AjaxResponseRenderer;
 import org.apache.myfaces.tobago.internal.layout.LayoutUtils;
 import org.apache.myfaces.tobago.internal.util.Deprecation;
+import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
 import org.apache.myfaces.tobago.internal.webapp.TobagoMultipartFormdataRequest;
 import org.apache.myfaces.tobago.layout.Box;
 import org.apache.myfaces.tobago.layout.LayoutComponent;
@@ -35,15 +39,22 @@ import org.apache.myfaces.tobago.layout.LayoutManager;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.model.PageState;
 import org.apache.myfaces.tobago.model.PageStateImpl;
+import org.apache.myfaces.tobago.util.ApplyRequestValuesCallback;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.util.CreateComponentUtils;
 import org.apache.myfaces.tobago.util.DebugUtils;
+import org.apache.myfaces.tobago.util.FacesVersion;
+import org.apache.myfaces.tobago.util.ProcessValidationsCallback;
+import org.apache.myfaces.tobago.util.TobagoCallback;
+import org.apache.myfaces.tobago.util.UpdateModelValuesCallback;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.el.ELContext;
 import javax.el.ValueExpression;
+import javax.faces.FacesException;
 import javax.faces.application.FacesMessage;
+import javax.faces.component.ContextCallback;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
@@ -52,6 +63,7 @@ import javax.servlet.http.HttpServletRequestWrapper;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 public abstract class AbstractUIPage extends AbstractUIForm
     implements OnComponentPopulated, LayoutContainer, DeprecatedDimension {
@@ -61,6 +73,10 @@ public abstract class AbstractUIPage extends AbstractUIForm
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.Page";
 
   public static final String FORM_ACCEPT_CHARSET = "utf-8";
+
+  private static final TobagoCallback APPLY_REQUEST_VALUES_CALLBACK = new ApplyRequestValuesCallback();
+  private static final ContextCallback PROCESS_VALIDATION_CALLBACK = new ProcessValidationsCallback();
+  private static final ContextCallback UPDATE_MODEL_VALUES_CALLBACK = new UpdateModelValuesCallback();
 
   private String formId;
 
@@ -82,26 +98,30 @@ public abstract class AbstractUIPage extends AbstractUIForm
 
   @Override
   public void encodeBegin(FacesContext facesContext) throws IOException {
-
-    super.encodeBegin(facesContext);
-    ((AbstractUILayoutBase) getLayoutManager()).encodeBegin(facesContext);
+    if (!AjaxUtils.isAjaxRequest(facesContext)) {
+      super.encodeBegin(facesContext);
+      ((AbstractUILayoutBase) getLayoutManager()).encodeBegin(facesContext);
+    }
   }
 
   @Override
   public void encodeChildren(FacesContext facesContext) throws IOException {
-
-    ((AbstractUILayoutBase) getLayoutManager()).encodeChildren(facesContext);
+    if (AjaxUtils.isAjaxRequest(facesContext)) {
+      new AjaxResponseRenderer().renderResponse(facesContext);
+    } else {
+      ((AbstractUILayoutBase) getLayoutManager()).encodeChildren(facesContext);
+    }
   }
 
   @Override
   public void encodeEnd(FacesContext facesContext) throws IOException {
-
-    ((AbstractUILayoutBase) getLayoutManager()).encodeEnd(facesContext);
-    super.encodeEnd(facesContext);
+    if (!AjaxUtils.isAjaxRequest(facesContext)) {
+      ((AbstractUILayoutBase) getLayoutManager()).encodeEnd(facesContext);
+      super.encodeEnd(facesContext);
+    }
   }
 
-  @Override
-  public void processDecodes(FacesContext facesContext) {
+  private void processDecodes0(FacesContext facesContext) {
 
     checkTobagoRequest(facesContext);
 
@@ -110,11 +130,111 @@ public abstract class AbstractUIPage extends AbstractUIForm
     markSubmittedForm(facesContext);
 
     // invoke processDecodes() on children
-    for (Iterator kids = getFacetsAndChildren(); kids.hasNext();) {
-      UIComponent kid = (UIComponent) kids.next();
+    for (final Iterator kids = getFacetsAndChildren(); kids.hasNext();) {
+      final UIComponent kid = (UIComponent) kids.next();
       kid.processDecodes(facesContext);
     }
   }
+
+  @Override
+  public void processDecodes(FacesContext context) {
+    if (context == null) {
+      throw new NullPointerException("context");
+    }
+    Map<String, UIComponent> ajaxComponents = AjaxInternalUtils.parseAndStoreComponents(context);
+    if (ajaxComponents != null) {
+      // first decode the page
+      AbstractUIPage page = ComponentUtils.findPage(context);
+      page.decode(context);
+      page.markSubmittedForm(context);
+      FacesContextUtils.setAjax(context, true);
+
+      // decode the action if actionComponent not inside one of the ajaxComponents
+      // otherwise it is decoded there
+      decodeActionComponent(context, page, ajaxComponents);
+
+      // and all ajax components
+      for (Map.Entry<String, UIComponent> entry : ajaxComponents.entrySet()) {
+        FacesContextUtils.setAjaxComponentId(context, entry.getKey());
+        invokeOnComponent(context, entry.getKey(), APPLY_REQUEST_VALUES_CALLBACK);
+      }
+    } else {
+      processDecodes0(context);
+    }
+  }
+
+  private void decodeActionComponent(
+      FacesContext facesContext, AbstractUIPage page, Map<String,
+      UIComponent> ajaxComponents) {
+    String actionId = page.getActionId();
+    UIComponent actionComponent = null;
+    if (actionId != null) {
+      actionComponent = findComponent(actionId);
+      if (actionComponent == null && FacesVersion.supports20() && FacesVersion.isMyfaces()) {
+        String bugActionId = actionId.replaceAll(":\\d+:", ":");
+        try {
+          actionComponent = findComponent(bugActionId);
+          //LOG.info("command = \"" + actionComponent + "\"", new Exception());
+        } catch (Exception e) {
+          // ignore
+        }
+      }
+    }
+    if (actionComponent == null) {
+      return;
+    }
+    for (UIComponent ajaxComponent : ajaxComponents.values()) {
+      UIComponent component = actionComponent;
+      while (component != null) {
+        if (component == ajaxComponent) {
+          return;
+        }
+        component = component.getParent();
+      }
+    }
+    invokeOnComponent(facesContext, actionId, APPLY_REQUEST_VALUES_CALLBACK);
+  }
+
+
+  @Override
+  public void processValidators(FacesContext context) {
+    if (context == null) {
+      throw new NullPointerException("context");
+    }
+
+    Map<String, UIComponent> ajaxComponents = AjaxInternalUtils.getAjaxComponents(context);
+    if (ajaxComponents != null) {
+      for (Map.Entry<String, UIComponent> entry : ajaxComponents.entrySet()) {
+        FacesContextUtils.setAjaxComponentId(context, entry.getKey());
+        invokeOnComponent(context, entry.getKey(), PROCESS_VALIDATION_CALLBACK);
+      }
+    } else {
+      super.processValidators(context);
+    }
+  }
+
+  @Override
+  public void processUpdates(FacesContext context) {
+    if (context == null) {
+      throw new NullPointerException("context");
+    }
+    Map<String, UIComponent> ajaxComponents = AjaxInternalUtils.getAjaxComponents(context);
+    if (ajaxComponents != null) {
+      for (Map.Entry<String, UIComponent> entry : ajaxComponents.entrySet()) {
+        invokeOnComponent(context, entry.getKey(), UPDATE_MODEL_VALUES_CALLBACK);
+      }
+    } else {
+      super.processUpdates(context);
+    }
+  }
+
+
+  @Override
+  public boolean invokeOnComponent(FacesContext context, String clientId, ContextCallback callback)
+      throws FacesException {
+    return ComponentUtils.invokeOnComponent(context, this, clientId, callback);
+  }
+
 
   public void markSubmittedForm(FacesContext facesContext) {
     // find the form of the action command and set submitted to it and all
@@ -171,16 +291,14 @@ public abstract class AbstractUIPage extends AbstractUIForm
 
   private void checkTobagoRequest(FacesContext facesContext) {
     // multipart/form-data must use TobagoMultipartFormdataRequest
-    String contentType = (String) facesContext.getExternalContext()
-        .getRequestHeaderMap().get("content-type");
+    String contentType = facesContext.getExternalContext().getRequestHeaderMap().get("content-type");
     if (contentType != null && contentType.startsWith("multipart/form-data")) {
       Object request = facesContext.getExternalContext().getRequest();
       boolean okay = false;
       if (request instanceof TobagoMultipartFormdataRequest) {
         okay = true;
       } else if (request instanceof HttpServletRequestWrapper) {
-        ServletRequest wrappedRequest
-            = ((HttpServletRequestWrapper) request).getRequest();
+        ServletRequest wrappedRequest = ((HttpServletRequestWrapper) request).getRequest();
         if (wrappedRequest instanceof TobagoMultipartFormdataRequest) {
           okay = true;
         }
@@ -190,19 +308,12 @@ public abstract class AbstractUIPage extends AbstractUIForm
         LOG.error("Can't process multipart/form-data without TobagoRequest. "
             + "Please check the web.xml and define a TobagoMultipartFormdataFilter. "
             + "See documentation for <tc:file>");
-        facesContext.addMessage(null, new FacesMessage("An error has occured!"));
+        facesContext.addMessage(null, new FacesMessage("An error has occurred!"));
       }
     }
   }
 
-  @Override
-  public void processUpdates(FacesContext context) {
-    super.processUpdates(context);
-    updatePageState(context);
-  }
-
   /**
-   *
    * @deprecated PageState is deprecated since 1.5.0
    */
   @Deprecated
@@ -210,7 +321,6 @@ public abstract class AbstractUIPage extends AbstractUIForm
   }
 
   /**
-   *
    * @deprecated PageState is deprecated since 1.5.0
    */
   @Deprecated
@@ -245,13 +355,17 @@ public abstract class AbstractUIPage extends AbstractUIForm
     this.actionPosition = actionPosition;
   }
 
-  /** @deprecated since 1.5.7 and 2.0.0 */
+  /**
+   * @deprecated since 1.5.7 and 2.0.0
+   */
   public String getDefaultActionId() {
     Deprecation.LOG.error("The default action handling has been changed!");
     return null;
   }
 
-  /** @deprecated since 1.5.7 and 2.0.0 */
+  /**
+   * @deprecated since 1.5.7 and 2.0.0
+   */
   public void setDefaultActionId(String defaultActionId) {
     Deprecation.LOG.error("The default action handling has been changed!");
   }

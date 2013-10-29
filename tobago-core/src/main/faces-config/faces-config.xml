@@ -41,12 +41,6 @@
     <component-class>org.apache.myfaces.tobago.component.UIMenuSelectOne</component-class>
   </component>
 
-  <!-- use Tobagos UIViewRoot -->
-  <component>
-    <component-type>javax.faces.ViewRoot</component-type>
-    <component-class>org.apache.myfaces.tobago.component.UIViewRoot</component-class>
-  </component>
-
   <managed-bean>
     <managed-bean-name>tobagoClientProperties</managed-bean-name>
     <managed-bean-class>org.apache.myfaces.tobago.context.ClientProperties</managed-bean-class>

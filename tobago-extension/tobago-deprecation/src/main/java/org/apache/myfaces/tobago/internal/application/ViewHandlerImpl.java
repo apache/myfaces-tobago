@@ -62,21 +62,7 @@ public class ViewHandlerImpl extends ViewHandler {
     if (LOG.isDebugEnabled()) {
       LOG.debug("creating new view with viewId:        '{}'", viewId);
     }
-    UIViewRoot viewRoot = base.createView(facesContext, viewId);
-    // ensure tobago UIViewRoot RI don't create the component via application
-    if (!(viewRoot instanceof org.apache.myfaces.tobago.component.UIViewRoot)) {
-      UIViewRoot tobagoViewRoot = (UIViewRoot)
-          facesContext.getApplication().createComponent(UIViewRoot.COMPONENT_TYPE);
-      if (!(tobagoViewRoot instanceof org.apache.myfaces.tobago.component.UIViewRoot)) {
-        LOG.warn("Application creating wrong UIViewRoot, forcing Tobago");
-        tobagoViewRoot = new org.apache.myfaces.tobago.component.UIViewRoot();
-      }
-      tobagoViewRoot.setLocale(viewRoot.getLocale());
-      tobagoViewRoot.setViewId(viewId);
-      tobagoViewRoot.setRenderKitId(viewRoot.getRenderKitId());
-      viewRoot = tobagoViewRoot;
-    }
-    return viewRoot;
+    return base.createView(facesContext, viewId);
   }
 
   public String getActionURL(FacesContext facesContext, String viewId) {
