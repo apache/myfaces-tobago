@@ -2277,7 +2277,10 @@ Tobago.Updater = {
         if (typeof this.afterDoUpdateNotModified == 'function') {
           this.afterDoUpdateNotModified();
         }
-        overlay.overlay("destroy");
+        // todo: find out a better method to check if there is an overlay.
+        if (overlay.data("tobago-overlay") !== undefined) {
+          overlay.overlay("destroy");
+        }
         break;
       case Tobago.Updater.CODE_ERROR:
         if (typeof this.afterDoUpdateError == 'function') {
@@ -2285,12 +2288,14 @@ Tobago.Updater = {
         }
         // XXX Here also a double click will be logged, but "warn" is not appropriate.
         LOG.warn("ERROR 500 when updating component id = '" + data.ajaxId + "'"); // @DEV_ONLY
-//        overlay.overlay("destroy");
         overlay.overlay({error: true, ajax: true});
         break;
       default:
         LOG.error('Unknown response code: ' + data.responseCode + " for component id = '" + data.ajaxId + "'"); // @DEV_ONLY
-        overlay.overlay("destroy");
+        // todo: find out a better method to check if there is an overlay.
+        if (overlay.data("tobago-overlay") !== undefined) {
+          overlay.overlay("destroy");
+        }
         break;
     }
   }
