@@ -77,7 +77,6 @@ public class ClientConfigController {
 
     client.setDebugMode(debugMode);
     client.setTheme(theme);
-    client.setContentType(contentType);
   }
 
   public void loadFromClientProperties() {
@@ -86,7 +85,6 @@ public class ClientConfigController {
 
     debugMode = client.isDebugMode();
     theme = client.getTheme();
-    contentType = client.getContentType();
   }
 
   public List<SelectItem> getLocaleItems() {
@@ -110,12 +108,6 @@ public class ClientConfigController {
     } else {
       return new SelectItem(localeItem, localeItem.getDisplayName(localeItem));
     }
-  }
-
-  public static ClientConfigController getCurrentInstance(
-      FacesContext facesContext, String beanName) {
-    return (ClientConfigController) facesContext.getApplication()
-        .getVariableResolver().resolveVariable(facesContext, beanName);
   }
 
   public boolean isDebugMode() {
