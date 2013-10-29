@@ -73,17 +73,6 @@ public class ClientProperties implements Serializable {
 
     ExternalContext externalContext = facesContext.getExternalContext();
 
-    // content type
-    String accept = (String) externalContext.getRequestHeaderMap().get("Accept");
-    if (accept != null) {
-      if (accept.indexOf("text/vnd.wap.wml") > -1) {
-        contentType = "wml";
-      }
-    }
-    if (LOG.isDebugEnabled()) {
-      LOG.debug("contentType='" + contentType + "' from header " + "Accept='" + accept + "'");
-    }
-
     // user agent
     String requestUserAgent = (String) externalContext.getRequestHeaderMap().get("User-Agent");
     this.userAgent = UserAgent.getInstance(requestUserAgent);

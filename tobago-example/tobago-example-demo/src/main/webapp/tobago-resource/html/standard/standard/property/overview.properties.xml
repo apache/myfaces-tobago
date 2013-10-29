@@ -308,7 +308,7 @@
     &lt;li style="line-height: 130%;"&gt;Tobago reacts on the value delivered by the   HTTP header 'User-Agent' to decide which controls have to be rendered.&lt;/li&gt;
     &lt;li style="line-height: 130%;"&gt;Control defaulting: The implentation of themes   can be both browser independant and based on other themes to prevent   code redundancy.&lt;/li&gt;
     &lt;li style="line-height: 130%;"&gt;More browsers can be supported easily.&lt;/li&gt;
-    &lt;li style="line-height: 130%;"&gt;Additional clients are supported, too: HTML, Simple HTML, WML&lt;/li&gt;
+    &lt;li style="line-height: 130%;"&gt;Additional clients are supported, too: HTML, Simple HTML&lt;/li&gt;
     &lt;/ul&gt;
 </entry>
 

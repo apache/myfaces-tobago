@@ -113,16 +113,6 @@
     <env-entry-value>Development</env-entry-value>
   </env-entry>
 
-  <!-- mime -->
-  <mime-mapping>
-    <extension>wml</extension>
-    <mime-type>text/vnd.wap.wml</mime-type>
-  </mime-mapping>
-  <mime-mapping>
-    <extension>wbmp</extension>
-    <mime-type>image/vnd.wap.wbmp</mime-type>
-  </mime-mapping>
-
   <!-- The Usual Welcome File List -->
   <welcome-file-list>
     <welcome-file>index.jsp</welcome-file>

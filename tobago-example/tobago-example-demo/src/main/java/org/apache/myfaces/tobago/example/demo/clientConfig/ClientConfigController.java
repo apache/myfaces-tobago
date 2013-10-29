@@ -45,9 +45,6 @@ public class ClientConfigController {
 
   private Locale locale;
 
-  private String contentType;
-  private SelectItem[] contentTypeItems;
-
   public ClientConfigController() {
 
     // theme
@@ -66,14 +63,6 @@ public class ClientConfigController {
     // locale
 
     locale = facesContext.getViewRoot().getLocale();
-
-    // contentType
-
-    contentTypeItems = new SelectItem[]{
-      new SelectItem("html"),
-      new SelectItem("wml", "wml (experimental)"),
-      new SelectItem("fo", "fo (experimental)")
-    };
 
     // load
 
@@ -208,19 +197,4 @@ public class ClientConfigController {
     this.locale = locale;
   }
 
-  public String getContentType() {
-    return contentType;
-  }
-
-  public void setContentType(String contentType) {
-    this.contentType = contentType;
-  }
-
-  public SelectItem[] getContentTypeItems() {
-    return contentTypeItems;
-  }
-
-  public void setContentTypeItems(SelectItem[] contentTypeItems) {
-    this.contentTypeItems = contentTypeItems;
-  }
 }
