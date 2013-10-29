@@ -32,6 +32,9 @@ public class Controller {
   private int sliderValue;
   private String[] shuffleValue;
 
+  private String splitLayout1 = "1*;1*";
+  private String splitLayout2 = "1*;1*";
+
   public String action1() {
     LOG.info("action 1");
     return null;
@@ -74,5 +77,21 @@ public class Controller {
 
   public String submit() {
     return null;
+  }
+
+  public String getSplitLayout1() {
+    return splitLayout1;
+  }
+
+  public void setSplitLayout1(String splitLayout1) {
+    this.splitLayout1 = splitLayout1;
+  }
+
+  public String getSplitLayout2() {
+    return splitLayout2;
+  }
+
+  public void setSplitLayout2(String splitLayout2) {
+    this.splitLayout2 = splitLayout2;
   }
 }

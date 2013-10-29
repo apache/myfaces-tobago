@@ -47,3 +47,17 @@
   height: 3px;
   background-color: #660000;
 }
+
+.tobago-splitLayout-vertical:hover {
+  cursor: n-resize;
+  border: dotted #000000 thin;
+  /*background-color: blue;*/
+  z-index: 10000;
+}
+
+.tobago-splitLayout-horizontal:hover {
+  cursor: e-resize;
+  border: dotted #000000 thin;
+  /*background-color: blue;*/
+  z-index: 10000;
+}

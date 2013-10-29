@@ -39,6 +39,10 @@
     </layout>
   </appender>
 
+  <!--<category name="org.apache.myfaces.tobago.internal.context.ResourceLocator">-->
+    <!--<priority value="info"/>-->
+  <!--</category>-->
+
   <root>
     <priority value="info" />
     <appender-ref ref="console" />
