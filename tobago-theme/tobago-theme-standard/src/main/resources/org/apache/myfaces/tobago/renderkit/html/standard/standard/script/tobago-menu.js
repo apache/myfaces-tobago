@@ -209,7 +209,10 @@ Tobago.Menu.switchOn = function(menuBar, menu) {
       .on('focus', Tobago.Menu.open)
       .bind(compatibleKeyEvent(), Tobago.Menu.handelKey);
   var a = menu.children('a');
-  if (menu.parents(".tobago-toolBar").size() == 0 && menu.parents(".tobago-box-headerToolBar").size() == 0) {
+  if (menu.parents(".tobago-toolBar").size() == 0
+      && menu.parents(".tobago-box-headerToolBar").size() == 0
+      && menu.parents(".tobago-sheet-toolBar").size() == 0
+      && menu.parents(".tobago-tabGroup-toolBar").size() == 0) {
     a.trigger("focus");
   } else {
     // XXX the call in the previous line doesn't work with toolBar -> dropDown (don't know why), so using direct call
