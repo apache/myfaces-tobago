@@ -2,7 +2,6 @@ package org.apache.myfaces.tobago.renderkit.html.sandbox.standard.tag;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import sun.util.calendar.LocalGregorianCalendar;
 
 import org.apache.myfaces.tobago.internal.component.AbstractUISplitLayout;
 import org.apache.myfaces.tobago.layout.Display;
