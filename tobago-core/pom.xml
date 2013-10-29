@@ -202,11 +202,6 @@
       <groupId>javax.servlet</groupId>
       <artifactId>servlet-api</artifactId>
     </dependency>
-    <dependency>
-      <groupId>javax.portlet</groupId>
-      <artifactId>portlet-api</artifactId>
-      <scope>provided</scope>
-    </dependency>
 
     <dependency>
       <groupId>maven-taglib</groupId>

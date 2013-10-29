@@ -574,6 +574,12 @@
       <scope>provided</scope>
     </dependency>
 
+    <dependency>
+      <groupId>javax.portlet</groupId>
+      <artifactId>portlet-api</artifactId>
+      <scope>provided</scope>
+    </dependency>
+
     <!-- you may want to add this for debugging -->
 <!--
     <dependency>
