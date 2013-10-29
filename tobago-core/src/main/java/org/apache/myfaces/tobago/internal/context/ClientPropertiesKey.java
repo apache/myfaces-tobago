@@ -24,6 +24,7 @@ import org.apache.myfaces.tobago.context.Theme;
 import org.apache.myfaces.tobago.context.UserAgent;
 import org.apache.myfaces.tobago.util.VariableResolverUtils;
 
+import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 import java.io.Serializable;
 import java.util.Locale;
@@ -46,7 +47,7 @@ public final class ClientPropertiesKey implements Serializable {
     ClientPropertiesKey key = (ClientPropertiesKey) requestMap.get(KEY_IN_REQUEST);
     if (key == null) {
       ClientProperties clientProperties = VariableResolverUtils.resolveClientProperties(facesContext);
-      key = new ClientPropertiesKey(clientProperties);
+      key = new ClientPropertiesKey(clientProperties, facesContext.getViewRoot());
       requestMap.put(KEY_IN_REQUEST, key);
     }
 
@@ -58,11 +59,11 @@ public final class ClientPropertiesKey implements Serializable {
     requestMap.remove(KEY_IN_REQUEST);
   }
   
-  private ClientPropertiesKey(ClientProperties clientProperties) {
+  private ClientPropertiesKey(final ClientProperties clientProperties, final UIViewRoot viewRoot) {
     contentType = clientProperties.getContentType();
     theme = clientProperties.getTheme();
     userAgent = clientProperties.getUserAgent();
-    locale = clientProperties.getLocale();
+    locale = viewRoot.getLocale();
     hashCode = calcHashCode();
   }
 

@@ -19,9 +19,9 @@
 
 package org.apache.myfaces.tobago.context;
 
-import org.apache.commons.lang.ObjectUtils;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.internal.context.ClientPropertiesKey;
+import org.apache.myfaces.tobago.internal.util.Deprecation;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.util.VariableResolverUtils;
 import org.slf4j.Logger;
@@ -31,8 +31,6 @@ import javax.faces.component.UIViewRoot;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 
 /**
@@ -61,8 +59,6 @@ public class ClientProperties implements Serializable {
   private UserAgent userAgent = UserAgent.DEFAULT;
   private boolean debugMode;
 
-  private Locale locale;
-
   private Measure verticalScrollbarWeight;
   private Measure horizontalScrollbarWeight;
 
@@ -71,14 +67,6 @@ public class ClientProperties implements Serializable {
    */
   public ClientProperties() {
     this(FacesContext.getCurrentInstance());
-  }
-
-  /**
-   * @deprecated since 1.5.
-   */
-  private ClientProperties(TobagoConfig tobagoConfig) {
-    theme = tobagoConfig.getDefaultTheme();
-    reset();
   }
 
   private ClientProperties(FacesContext facesContext) {
@@ -115,46 +103,8 @@ public class ClientProperties implements Serializable {
     reset();
   }
 
-  /**
-   * @deprecated since 1.5.
-   */
-  @Deprecated
-  public static ClientProperties getDefaultInstance(FacesContext facesContext) {
-    return new ClientProperties(TobagoConfig.getInstance(facesContext));
-  }
-
-  /**
-   * @deprecated since 1.5. Please use
-   * {@link #getInstance(javax.faces.context.FacesContext)}
-   */
-  @Deprecated
-  public static ClientProperties getInstance(UIViewRoot viewRoot) {
-    return getInstance(FacesContext.getCurrentInstance());
-  }
-
   public static ClientProperties getInstance(FacesContext facesContext) {
     return (ClientProperties) VariableResolverUtils.resolveVariable(facesContext, MANAGED_BEAN_NAME);
-  }
-
-  /**
-   * @deprecated since 1.5. Please use 
-   * {@link org.apache.myfaces.tobago.util.LocaleUtils#getLocaleSuffixList(java.util.Locale)} 
-   */
-  @Deprecated
-  public static List<String> getLocaleList(Locale locale, boolean propertyPathMode) {
-    String string = locale.toString();
-    String prefix = propertyPathMode ? "" : "_";
-    List<String> locales = new ArrayList<String>(4);
-    locales.add(prefix + string);
-    int underscore;
-    while ((underscore = string.lastIndexOf('_')) > 0) {
-      string = string.substring(0, underscore);
-      locales.add(prefix + string);
-    }
-
-    locales.add(propertyPathMode ? "default" : ""); // default suffix
-
-    return locales;
   }
 
   private void reset() {
@@ -196,21 +146,22 @@ public class ClientProperties implements Serializable {
     this.debugMode = debugMode;
   }
 
+  /**
+   * @deprecated since 2.0.0, please use {@link UIViewRoot#getLocale()}
+   */
   public Locale getLocale() {
-    return locale;
+    Deprecation.LOG.warn("Please get locale via UIViewRoot.");
+    return FacesContext.getCurrentInstance().getViewRoot().getLocale();
   }
 
   /**
-   * Holds the locale of the user, which is located in the UIViewRoot.
-   * This setter should not be called from the application directly, 
+   * @deprecated since 2.0.0
+   * This setter should not be called from the application directly,
    * but via {@link UIViewRoot#setLocale(Locale locale)} 
    */
   public void setLocale(Locale locale) {
-    // set locale will be called "too often" from the JSF
-    if (!ObjectUtils.equals(this.locale, locale)) {
-      this.locale = locale;
-      reset();
-    }
+    Deprecation.LOG.warn("Please set locale via UIViewRoot.");
+    FacesContext.getCurrentInstance().getViewRoot().setLocale(locale);
   }
 
   public Measure getVerticalScrollbarWeight() {
