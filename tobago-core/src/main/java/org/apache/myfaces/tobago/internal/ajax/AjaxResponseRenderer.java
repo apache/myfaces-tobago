@@ -39,8 +39,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.render.RenderKit;
 import javax.faces.render.RenderKitFactory;
-import javax.portlet.PortletResponse;
-import javax.portlet.ResourceResponse;
+import javax.portlet.RenderResponse;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -173,8 +172,8 @@ public class AjaxResponseRenderer {
     final Object response = facesContext.getExternalContext().getResponse();
     if (response instanceof HttpServletResponse) {
       return ((HttpServletResponse) response).getWriter();
-    } else if (PortletUtils.isPortletApiAvailable() && response instanceof PortletResponse) {
-      return ((ResourceResponse) response).getWriter();
+    } else if (PortletUtils.isPortletApiAvailable() && response instanceof RenderResponse) {
+      return ((RenderResponse) response).getWriter();
     }
     throw new IOException("No ResponseWriter found for response " + response);
   }
