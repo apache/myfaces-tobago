@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.renderkit.html.sandbox.standard.tag;
+package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,7 +14,6 @@ import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
-import org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag.GridLayoutRenderer;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;

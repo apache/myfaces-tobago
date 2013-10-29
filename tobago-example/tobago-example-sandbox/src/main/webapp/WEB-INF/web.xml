@@ -82,6 +82,11 @@
     <url-pattern>/org/apache/myfaces/tobago/renderkit/*</url-pattern>
   </servlet-mapping>
 
+  <servlet-mapping>
+    <servlet-name>ResourceServlet</servlet-name>
+    <url-pattern>/org/apache/myfaces/tobago/scarborough/*</url-pattern>
+  </servlet-mapping>
+
   <welcome-file-list>
     <welcome-file>index.jsp</welcome-file>
   </welcome-file-list>

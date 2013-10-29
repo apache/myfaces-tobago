@@ -35,5 +35,11 @@
       <resource-path>org/apache/myfaces/tobago/renderkit</resource-path>
       <fallback>speyside</fallback>
     </theme-definition>
+    <theme-definition>
+      <name>scarborough</name>
+      <display-name>scarborough Theme</display-name>
+      <resource-path>org/apache/myfaces/tobago/scarborough</resource-path>
+      <fallback>standard</fallback>
+    </theme-definition>
   </theme-definitions>
 </tobago-config>
