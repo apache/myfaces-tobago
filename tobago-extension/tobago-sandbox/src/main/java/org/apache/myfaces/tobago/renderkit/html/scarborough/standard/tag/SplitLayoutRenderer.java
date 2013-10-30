@@ -47,13 +47,12 @@ import java.util.Map;
 public class SplitLayoutRenderer extends GridLayoutRenderer {
   
   private static final Logger LOG = LoggerFactory.getLogger(SplitLayoutRenderer.class);
-  private static final String HANDLE_ID_POSTFIX = "_spLH";
   private static final String POSITION_ID_POSTFIX = "_spLP";
 
   @Override
   public void decode(FacesContext facesContext, UIComponent component) {
     String clientId = component.getClientId();
-    if ((clientId + HANDLE_ID_POSTFIX).equals(ComponentUtils.findPage(facesContext).getActionId())) {
+    if (clientId.equals(ComponentUtils.findPage(facesContext).getActionId())) {
       // only decode and update layout at resize request
       Map<String, String> parameterMap = facesContext.getExternalContext().getRequestParameterMap();
       String position = parameterMap.get(clientId + POSITION_ID_POSTFIX);
@@ -85,7 +84,7 @@ public class SplitLayoutRenderer extends GridLayoutRenderer {
     
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
     writer.startElement(HtmlElements.SPAN, layout);
-    writer.writeIdAttribute(id + HANDLE_ID_POSTFIX);
+    writer.writeIdAttribute(id);
     writer.writeAttribute("data-tobago-split-layout", layout.getOrientation().toLowerCase(), true);
     Style style = calculateHandleStyle(layout);
     writer.writeStyleAttribute(style);
