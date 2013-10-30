@@ -32,14 +32,9 @@
     <theme-definition>
       <name>sandbox</name>
       <display-name>Sandbox Theme</display-name>
-      <resource-path>org/apache/myfaces/tobago/renderkit</resource-path>
+      <resource-path>org/apache/myfaces/tobago/sandbox</resource-path>
       <fallback>speyside</fallback>
-    </theme-definition>
-    <theme-definition>
-      <name>scarborough</name>
-      <display-name>scarborough Theme</display-name>
-      <resource-path>org/apache/myfaces/tobago/scarborough</resource-path>
-      <fallback>standard</fallback>
+      <versioned>true</versioned>
     </theme-definition>
   </theme-definitions>
 </tobago-config>
