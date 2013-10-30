@@ -27,7 +27,7 @@ Tobago.SplitLayout = {
     }
     var panel = Tobago.SplitLayout.findParentElementWithId(ui.helper);
     var clientId = panel.id;
-    Tobago.reloadComponent(panel, clientId, clientId);
+    Tobago.reloadComponent(panel, clientId, ui.helper.get(0).id);
   },
 
   findParentElementWithId: function(element) {

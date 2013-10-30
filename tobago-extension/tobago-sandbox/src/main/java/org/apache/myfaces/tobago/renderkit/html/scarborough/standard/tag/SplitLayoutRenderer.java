@@ -3,6 +3,8 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import org.apache.myfaces.tobago.component.UIPage;
+import org.apache.myfaces.tobago.internal.component.AbstractUIPage;
 import org.apache.myfaces.tobago.internal.component.AbstractUISplitLayout;
 import org.apache.myfaces.tobago.layout.Display;
 import org.apache.myfaces.tobago.layout.LayoutComponent;
@@ -16,6 +18,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
@@ -27,13 +30,18 @@ import java.util.Map;
 public class SplitLayoutRenderer extends GridLayoutRenderer {
   
   private static final Logger LOG = LoggerFactory.getLogger(SplitLayoutRenderer.class);
+  private static final String HANDLE_ID_POSTFIX = "_spLH";
+  private static final String POSITION_ID_POSTFIX = "_spLP";
 
   @Override
   public void decode(FacesContext facesContext, UIComponent component) {
     String clientId = component.getClientId();
-    Map<String,String> parameterMap = facesContext.getExternalContext().getRequestParameterMap();
-    String position = parameterMap.get(clientId + "_spLP");
-    ((AbstractUISplitLayout) component).updateLayout(Integer.parseInt(position));
+    if ((clientId + HANDLE_ID_POSTFIX).equals(ComponentUtils.findPage(facesContext).getActionId())) {
+      // only decode and update layout at resize request
+      Map<String,String> parameterMap = facesContext.getExternalContext().getRequestParameterMap();
+      String position = parameterMap.get(clientId + POSITION_ID_POSTFIX);
+      ((AbstractUISplitLayout) component).updateLayout(Integer.parseInt(position));
+    }
   }
 
   @Override
@@ -48,7 +56,10 @@ public class SplitLayoutRenderer extends GridLayoutRenderer {
       }
       RenderUtils.encode(facesContext, (UIComponent) components.get(0));
       RenderUtils.encode(facesContext, (UIComponent) components.get(1));
-      encodeHandle(facesContext, (AbstractUISplitLayout) component);
+      if (((UIComponent) components.get(0)).isRendered() && ((UIComponent) components.get(1)).isRendered()) {
+        // only when both components are rendered
+        encodeHandle(facesContext, (AbstractUISplitLayout) component);
+      }
     }
   }
 
@@ -57,7 +68,7 @@ public class SplitLayoutRenderer extends GridLayoutRenderer {
     
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
     writer.startElement(HtmlElements.SPAN, layout);
-    writer.writeIdAttribute(id + "_spLH");
+    writer.writeIdAttribute(id + HANDLE_ID_POSTFIX);
     writer.writeAttribute("data-tobago-split-layout", layout.getOrientation().toLowerCase(), true);
     Style style = calculateHandleStyle(layout);
     writer.writeStyleAttribute(style);
@@ -70,8 +81,8 @@ public class SplitLayoutRenderer extends GridLayoutRenderer {
       position = style.getTop().getPixel();
     }
     writer.startElement(HtmlElements.INPUT, null);
-    writer.writeIdAttribute(id + "_spLP");
-    writer.writeNameAttribute(id + "_spLP");
+    writer.writeIdAttribute(id + POSITION_ID_POSTFIX);
+    writer.writeNameAttribute(id + POSITION_ID_POSTFIX);
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN, false);
     writer.writeAttribute(HtmlAttributes.VALUE, Integer.toString(position), false);
     writer.endElement(HtmlElements.INPUT);
