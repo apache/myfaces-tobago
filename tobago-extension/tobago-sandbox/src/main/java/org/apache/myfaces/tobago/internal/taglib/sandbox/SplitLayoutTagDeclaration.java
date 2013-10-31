@@ -64,7 +64,7 @@ public interface SplitLayoutTagDeclaration extends HasId, HasBorder, HasSpacing,
    * Possible values are 'HORIZONTAL' and 'VERTICAL'.
    */
 
-  @TagAttribute
+  @TagAttribute(required = true)
   @UIComponentTagAttribute(allowedValues = {"HORIZONTAL", "VERTICAL"})
   void setOrientation(String orientation);
 
