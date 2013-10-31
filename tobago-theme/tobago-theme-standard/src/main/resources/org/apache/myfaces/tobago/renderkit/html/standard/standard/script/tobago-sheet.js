@@ -288,6 +288,24 @@ Tobago.Sheet.setup2 = function (sheets) {
     Tobago.Sheet.resetInputFieldSize(jQuery(this));
   });
 
+
+  // adjust body row filler cells if no scrollbar present but was calculated
+  jQuery(sheets).find("[data-tobago-sheet-verticalscrollbarwidth]").each(function() {
+    var table = jQuery(this);
+    var verticalScrollbarWidth = table.data("tobago-sheet-verticalscrollbarwidth");
+    if (verticalScrollbarWidth !== undefined) {
+      var bodyDiv = table.parent().next();
+      var bodyHeight = bodyDiv.css("height").replace("px", "");
+      var scrollHeight = bodyDiv.prop("scrollHeight");
+      if (bodyHeight >= scrollHeight) {
+        table = bodyDiv.find("table");
+        table.find("col").last().attr("width", verticalScrollbarWidth);
+        var tableWidth = table.css("width").replace("px", "") * 1;
+        table.css("width", tableWidth + verticalScrollbarWidth);
+      }
+    }
+  });
+
   // resize: mouse events
   jQuery(sheets).find(".tobago-sheet-headerResize").each(function () {
     jQuery(this).click(function () {

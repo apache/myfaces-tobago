@@ -283,7 +283,7 @@ public abstract class AbstractUISheetLayout extends AbstractUILayoutBase impleme
     }
   }
 
-  private boolean needVerticalScrollbar(FacesContext facesContext, AbstractUISheet sheet) {
+  public boolean needVerticalScrollbar(FacesContext facesContext, AbstractUISheet sheet) {
     // estimate need of height-scrollbar on client, if yes we have to consider
     // this when calculating column width's
 

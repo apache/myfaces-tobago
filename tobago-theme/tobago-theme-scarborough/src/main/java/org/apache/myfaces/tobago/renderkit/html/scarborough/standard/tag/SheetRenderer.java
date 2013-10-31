@@ -45,6 +45,7 @@ import org.apache.myfaces.tobago.internal.component.AbstractUIData;
 import org.apache.myfaces.tobago.internal.component.AbstractUIMenu;
 import org.apache.myfaces.tobago.internal.component.AbstractUIOut;
 import org.apache.myfaces.tobago.internal.component.AbstractUISheet;
+import org.apache.myfaces.tobago.internal.component.AbstractUISheetLayout;
 import org.apache.myfaces.tobago.internal.context.ResourceManagerFactory;
 import org.apache.myfaces.tobago.internal.layout.Cell;
 import org.apache.myfaces.tobago.internal.layout.Grid;
@@ -729,6 +730,9 @@ public class SheetRenderer extends LayoutComponentRendererBase {
       LOG.debug("*****************************************************");
     }
 
+    boolean needVerticalScrollbar = needVerticalScrollbar(facesContext, sheet);
+    int verticalScrollbarWidth = 0;
+
     writer.startElement(HtmlElements.DIV, sheet);
     writer.writeClassAttribute(Classes.create(sheet, "headerDiv"));
     writer.startElement(HtmlElements.TABLE, sheet);
@@ -736,12 +740,22 @@ public class SheetRenderer extends LayoutComponentRendererBase {
     writer.writeAttribute(HtmlAttributes.CELLPADDING, "0", false);
     writer.writeAttribute(HtmlAttributes.SUMMARY, "", false);
     writer.writeClassAttribute(Classes.create(sheet, "headerTable"));
+    if (needVerticalScrollbar) {
+      verticalScrollbarWidth = getVerticalScrollbarWeight(facesContext, sheet).getPixel();
+      writer.writeAttribute("data-tobago-sheet-verticalscrollbarwidth", String.valueOf(verticalScrollbarWidth), false);
+    }
 
     if (columnWidths != null) {
       writer.startElement(HtmlElements.COLGROUP, null);
-      for (Integer columnWidth : columnWidths) {
+      for (int i = 0 ; i < columnWidths.size(); i++) {
         writer.startElement(HtmlElements.COL, null);
-        writer.writeAttribute(HtmlAttributes.WIDTH, columnWidth);
+        if (i == columnWidths.size() - 2 && needVerticalScrollbar) {
+          // if scrollbar is needed the coll for column in header must have own width + scrollbarWidth
+          writer.writeAttribute(
+              HtmlAttributes.WIDTH, columnWidths.get(i) + verticalScrollbarWidth);
+        } else {
+          writer.writeAttribute(HtmlAttributes.WIDTH, columnWidths.get(i));
+        }
         writer.endElement(HtmlElements.COL);
       }
       writer.endElement(HtmlElements.COLGROUP);
@@ -885,6 +899,10 @@ public class SheetRenderer extends LayoutComponentRendererBase {
     writer.endElement(HtmlElements.TBODY);
     writer.endElement(HtmlElements.TABLE);
     writer.endElement(HtmlElements.DIV);
+  }
+
+  private boolean needVerticalScrollbar(FacesContext facesContext, UISheet sheet) {
+    return ((AbstractUISheetLayout) sheet.getLayoutManager()).needVerticalScrollbar(facesContext, sheet);
   }
 
   private void encodeResizing(TobagoResponseWriter writer, AbstractUISheet sheet, int columnIndex) throws IOException {
