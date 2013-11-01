@@ -86,6 +86,7 @@ public class SplitLayoutRenderer extends GridLayoutRenderer {
     writer.startElement(HtmlElements.SPAN, layout);
     writer.writeIdAttribute(id);
     writer.writeAttribute("data-tobago-split-layout", layout.getOrientation().toLowerCase(), true);
+    writer.writeAttribute("data-tobago-split-layout-containment", createDraggableContainment(layout), true);
     Style style = calculateHandleStyle(layout);
     writer.writeStyleAttribute(style);
     writer.writeClassAttribute(Classes.create(layout, layout.getOrientation().toLowerCase()));
@@ -106,6 +107,26 @@ public class SplitLayoutRenderer extends GridLayoutRenderer {
 
     writer.endElement(HtmlElements.SPAN);
 
+  }
+
+  private String createDraggableContainment(AbstractUISplitLayout layout) {
+    LayoutContainer container = (LayoutContainer) ((AbstractUISplitLayout) layout).getParent();
+    LayoutComponent firstComponent = container.getComponents().get(0);
+    LayoutComponent secondComponent = container.getComponents().get(1);
+
+    if (AbstractUISplitLayout.HORIZONTAL.equals(layout.getOrientation())) {
+      int minimumSize1 = firstComponent.getMinimumWidth().getPixel();
+      int minimumSize2 = secondComponent.getMinimumWidth().getPixel();
+      int totalSize = container.getCurrentWidth().getPixel();
+      return new StringBuilder("[").append(minimumSize1).append(", 0, ").append(totalSize-minimumSize2).append(", 0]")
+          .toString();
+    } else {
+      int minimumSize1 = firstComponent.getMinimumHeight().getPixel();
+      int minimumSize2 = secondComponent.getMinimumHeight().getPixel();
+      int totalSize = container.getCurrentHeight().getPixel();
+      return new StringBuilder("[0, ").append(minimumSize1).append(", 0, ").append(totalSize-minimumSize2).append("]")
+          .toString();
+    }
   }
 
   private Style calculateHandleStyle(AbstractUISplitLayout layout) {

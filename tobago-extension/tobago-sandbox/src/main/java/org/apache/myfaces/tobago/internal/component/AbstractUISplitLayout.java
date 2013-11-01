@@ -19,6 +19,7 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
+import org.apache.myfaces.tobago.layout.LayoutComponent;
 import org.apache.myfaces.tobago.layout.LayoutContainer;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.layout.Orientation;
@@ -34,35 +35,32 @@ public abstract class AbstractUISplitLayout extends AbstractUIGridLayout {
 
   private String submittedLayout;
 
-//  @Override
-//  public LayoutContainer getLayoutContainer() {
-//    return new SplitLayoutContainer(this);
-//  }        
-
   public void updateLayout(int position) {
     LayoutContainer container = (LayoutContainer) getParent();
+    LayoutComponent firstComponent = container.getComponents().get(0);
+    LayoutComponent secondComponent = container.getComponents().get(1);
     int oldPosition;
 
-    int currentMeasure1;
-    int currentMeasure2;
+    int currentSize1;
+    int currentSize2;
     if (HORIZONTAL.equals(getOrientation())) {
-      oldPosition = container.getComponents().get(1).getLeft().getPixel() - 5;
-      currentMeasure1 = container.getComponents().get(0).getCurrentWidth().getPixel();
-      currentMeasure2 = container.getComponents().get(1).getCurrentWidth().getPixel();
+      oldPosition = secondComponent.getLeft().getPixel() - 5;
+      currentSize1 = firstComponent.getCurrentWidth().getPixel();
+      currentSize2 = secondComponent.getCurrentWidth().getPixel();
     } else {
-      oldPosition = container.getComponents().get(1).getTop().getPixel() - 5;
-      currentMeasure1 = container.getComponents().get(0).getCurrentHeight().getPixel();
-      currentMeasure2 = container.getComponents().get(1).getCurrentHeight().getPixel();
+      oldPosition = secondComponent.getTop().getPixel() - 5;
+      currentSize1 = firstComponent.getCurrentHeight().getPixel();
+      currentSize2 = secondComponent.getCurrentHeight().getPixel();
     }
 
     int offset = position - oldPosition;
-    int newMeasure1 = currentMeasure1 + offset;
-    int newMeasure2 = currentMeasure2 - offset;
+    int newSize1 = currentSize1 + offset;
+    int newSize2 = currentSize2 - offset;
 
-    int ggt = gcd(newMeasure1, newMeasure2);
+    int ggt = gcd(newSize1, newSize2);
     submittedLayout = new StringBuilder()
-        .append(Integer.toString(newMeasure1 / ggt)).append("*;")
-        .append(Integer.toString(newMeasure2 / ggt)).append("*")
+        .append(Integer.toString(newSize1 / ggt)).append("*;")
+        .append(Integer.toString(newSize2 / ggt)).append("*")
         .toString();
   }
 

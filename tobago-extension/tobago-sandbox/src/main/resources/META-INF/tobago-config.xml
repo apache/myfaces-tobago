@@ -34,7 +34,15 @@
       <display-name>Sandbox Theme</display-name>
       <resource-path>org/apache/myfaces/tobago/sandbox</resource-path>
       <fallback>speyside</fallback>
-      <versioned>true</versioned>
+      <versioned>false</versioned>
+      <resources production="true">
+        <script name="script/tobago.js"/>
+        <style name="style/tobago.css"/>
+      </resources>
+      <resources production="false">
+        <script name="script/tobago.js"/>
+        <style name="style/tobago.css"/>
+      </resources>
     </theme-definition>
   </theme-definitions>
 </tobago-config>

@@ -5,20 +5,33 @@ Tobago.SplitLayout = {
 
   initLayout: function() {
     var handle = jQuery(this);
+    var offset = handle.parent().offset();
+    var containment = handle.data("tobago-split-layout-containment");
     var options = {
-      containment: "parent",
       distance: 10,
+      containment: [offset.left + containment[0], offset.top + containment[1],
+          offset.left + containment[2], offset.top + containment[3]],
+      axis: handle.data("tobago-split-layout") == "horizontal" ? "x" : "y",
+      start: Tobago.SplitLayout.startDragging,
       stop: Tobago.SplitLayout.stopDragging
     };
-    if (handle.data("tobago-split-layout") == "horizontal") {
-      options.axis = "x"
-    } else {
-      options.axis = "y"
-    }
     handle.draggable(options)
   },
 
+  startDragging: function(event, ui) {
+    ui.helper.parent().find("iframe").each(function() {
+      var iframe = jQuery(this);
+      iframe.data("tobago-split-layout-iframe-zindex", iframe.css("z-index"));
+      iframe.css("z-index", "-1");
+    });
+  },
+
+
   stopDragging: function(event, ui) {
+    ui.helper.parent().find("iframe").each(function() {
+      var iframe = jQuery(this);
+      iframe.css("z-index", iframe.data("tobago-split-layout-iframe-zindex"));
+    });
     var hidden = ui.helper.children("input");
     if (ui.helper.data("tobago-split-layout") == "horizontal") {
       hidden.val(ui.position.left)
