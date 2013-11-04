@@ -125,7 +125,9 @@ public class ResponseUtils {
       }
     } else if (PortletUtils.isPortletApiAvailable() && response instanceof MimeResponse) {
      // TODO Portlet
-      LOG.warn("CSP not implemented for Portlet!");
+      if (contentSecurityPolicy.getMode() != ContentSecurityPolicy.Mode.OFF) {
+        LOG.warn("CSP not implemented for Portlet!");
+      }
     }
   }
 }
