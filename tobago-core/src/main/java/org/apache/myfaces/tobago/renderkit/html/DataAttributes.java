@@ -125,6 +125,8 @@ public final class DataAttributes {
 
   public static final String PARTIALLY = "data-tobago-partially";
 
+  public static final String PARTIAL_ACTION = "data-tobago-partial-action";
+
   /**
    * Custom attribute to describe a pattern, e. g. for an date input field.
    */

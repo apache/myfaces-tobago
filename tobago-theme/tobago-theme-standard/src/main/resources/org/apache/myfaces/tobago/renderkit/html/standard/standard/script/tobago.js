@@ -2104,7 +2104,12 @@ Tobago.Updater = {
       requestOptions.source = source;
       requestOptions.actionId = actionId;
       requestOptions.ajaxComponentIds = ajaxComponentIds;
-      requestOptions.url = Tobago.form.action;
+      var form = jQuery(Tobago.form);
+      if (form.data("tobago-partial-action") != undefined) {
+        requestOptions.url =  form.data("tobago-partial-action");
+      } else {
+        requestOptions.url = form.attr("action");
+      }
 
       var ids;
       if (requestOptions.createOverlay) {

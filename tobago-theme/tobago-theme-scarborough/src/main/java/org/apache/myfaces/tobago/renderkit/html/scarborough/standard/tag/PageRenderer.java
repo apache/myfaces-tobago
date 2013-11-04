@@ -21,11 +21,7 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.myfaces.tobago.application.ProjectStage;
-import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.component.Facets;
-import org.apache.myfaces.tobago.component.UIMenuBar;
-import org.apache.myfaces.tobago.component.UIPage;
-import org.apache.myfaces.tobago.component.UIPopup;
+import org.apache.myfaces.tobago.component.*;
 import org.apache.myfaces.tobago.config.Configurable;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.context.ClientProperties;
@@ -40,9 +36,11 @@ import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
 import org.apache.myfaces.tobago.internal.util.MimeTypeUtils;
 import org.apache.myfaces.tobago.internal.util.ResponseUtils;
 import org.apache.myfaces.tobago.layout.Measure;
+import org.apache.myfaces.tobago.portlet.PortletUtils;
 import org.apache.myfaces.tobago.renderkit.PageRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
+import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
@@ -62,14 +60,10 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
+import javax.portlet.MimeResponse;
+import javax.portlet.ResourceURL;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.StringTokenizer;
+import java.util.*;
 
 public class PageRenderer extends PageRendererBase {
 
@@ -151,14 +145,24 @@ public class PageRenderer extends PageRendererBase {
       }
     }
 
-    Application application = facesContext.getApplication();
-    ViewHandler viewHandler = application.getViewHandler();
-    String viewId = facesContext.getViewRoot().getViewId();
-    String formAction = viewHandler.getActionURL(facesContext, viewId);
-    formAction = facesContext.getExternalContext().encodeActionURL(formAction);
-    String contentType = writer.getContentTypeWithCharSet();
+    final Object response = facesContext.getExternalContext().getResponse();
+    final Application application = facesContext.getApplication();
+    final ViewHandler viewHandler = application.getViewHandler();
+    final String viewId = facesContext.getViewRoot().getViewId();
+    final String formAction
+        = facesContext.getExternalContext().encodeActionURL(viewHandler.getActionURL(facesContext, viewId));
+    final String partialAction;
+    if (PortletUtils.isPortletApiAvailable() && response instanceof MimeResponse) {
+      final MimeResponse mimeResponse = (MimeResponse) response;
+      final ResourceURL resourceURL = mimeResponse.createResourceURL();
+      partialAction = facesContext.getExternalContext().encodeResourceURL(resourceURL.toString());
+    } else {
+      partialAction = null;
+    }
+
+    final String contentType = writer.getContentTypeWithCharSet();
     ResponseUtils.ensureContentTypeHeader(facesContext, contentType);
-    String clientId = page.getClientId(facesContext);
+    final String clientId = page.getClientId(facesContext);
     final ClientProperties client = VariableResolverUtils.resolveClientProperties(facesContext);
     final ProjectStage projectStage = tobagoConfig.getProjectStage();
     final boolean developmentMode =  projectStage == ProjectStage.Development;
@@ -300,6 +304,10 @@ public class PageRenderer extends PageRendererBase {
       writer.writeClassAttribute(Classes.create(page, "preventFrameAttacks", Markup.NULL));
     }
     writer.writeAttribute(HtmlAttributes.ACTION, formAction, true);
+    if (partialAction != null) {
+      writer.writeAttribute(DataAttributes.PARTIAL_ACTION, partialAction, true);
+    }
+    LOG.info("partial action = " + partialAction);
     writer.writeIdAttribute(page.getFormId(facesContext));
     writer.writeAttribute(HtmlAttributes.METHOD, getMethod(page), false);
     String enctype = FacesContextUtils.getEnctype(facesContext);
