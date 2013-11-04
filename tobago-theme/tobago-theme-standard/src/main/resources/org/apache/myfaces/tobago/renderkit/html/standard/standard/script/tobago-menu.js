@@ -145,7 +145,7 @@ Tobago.Menu.open = function(event) {
       left = Math.max(0, Math.min(left, page.outerWidth() - sub.outerWidth()));
       top = Math.max(0, Math.min(top, page.outerHeight() - sub.outerHeight()));
       if (Tobago.browser.isMsie678) {
-        left = Math.max(0, left - 1); // XXX occurs when the browser window is maximized on the desktop
+        left = Math.max(0, left - 1); // XXX TOBAGO-1339
       }
     } else {
       // is sub menu
