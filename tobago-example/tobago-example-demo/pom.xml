@@ -412,6 +412,80 @@
     </profile>
 
     <profile>
+      <id>myfaces-2.2</id>
+      <activation>
+        <property>
+          <name>jsf</name>
+          <value>myfaces-2.2</value>
+        </property>
+      </activation>
+      <dependencies>
+
+        <!-- Specs -->
+        <dependency>
+          <groupId>org.apache.geronimo.specs</groupId>
+          <artifactId>geronimo-jcdi_1.0_spec</artifactId>
+          <version>1.0</version>
+        </dependency>
+        <dependency>
+          <groupId>org.apache.geronimo.specs</groupId>
+          <artifactId>geronimo-validation_1.0_spec</artifactId>
+          <version>1.1</version>
+        </dependency>
+        <dependency>
+          <groupId>org.apache.geronimo.specs</groupId>
+          <artifactId>geronimo-atinject_1.0_spec</artifactId>
+          <version>1.0</version>
+        </dependency>
+        <dependency>
+          <groupId>org.apache.geronimo.specs</groupId>
+          <artifactId>geronimo-interceptor_1.1_spec</artifactId>
+          <version>1.0</version>
+        </dependency>
+
+        <!-- OWB -->
+        <dependency>
+          <groupId>org.apache.openwebbeans</groupId>
+          <artifactId>openwebbeans-jsf</artifactId>
+          <version>${openwebbeans.version}</version>
+        </dependency>
+        <dependency>
+          <groupId>org.apache.openwebbeans</groupId>
+          <artifactId>openwebbeans-web</artifactId>
+          <version>${openwebbeans.version}</version>
+        </dependency>
+        <dependency>
+          <groupId>org.apache.openwebbeans</groupId>
+          <artifactId>openwebbeans-resource</artifactId>
+          <version>${openwebbeans.version}</version>
+        </dependency>
+
+        <!-- Codi for JavaEE5 -->
+        <dependency>
+          <groupId>org.apache.myfaces.extensions.cdi.modules.jee5-support</groupId>
+          <artifactId>myfaces-extcdi-jee5-openwebbeans-support</artifactId>
+          <version>${myfaces-extcdi.version}</version>
+          <scope>runtime</scope>
+        </dependency>
+
+        <!-- for JSF 2.0 and Bean Validation (JSR-303)  -->
+        <dependency>
+          <groupId>javax.el</groupId>
+          <artifactId>el-api</artifactId>
+          <version>2.2</version>
+          <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+          <groupId>org.glassfish.web</groupId>
+          <artifactId>el-impl</artifactId>
+          <version>2.2</version>
+        </dependency>
+
+      </dependencies>
+    </profile>
+
+    <profile>
       <id>mojarra-2.0</id>
       <activation>
         <property>

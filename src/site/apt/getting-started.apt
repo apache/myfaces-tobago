@@ -89,7 +89,7 @@ The Demo
 
   and deploy the WAR from the target directory manually.
 
-Using different JSF implementations
+Using different JSF implementations (Tobago 1.x)
 
   By default the example will be started with MyFaces 1.2.
   You can run the examples with other version like you see here:
@@ -99,6 +99,20 @@ Using different JSF implementations
   mvn jetty:run -Djsf=myfaces-2.0
   mvn jetty:run -Djsf=myfaces-2.1
   mvn jetty:run -Djsf=mojarra-1.2
+  mvn jetty:run -Djsf=mojarra-2.0
+  mvn jetty:run -Djsf=mojarra-2.1
+  mvn jetty:run -Djsf=mojarra-2.2
++----------------------------------------
+
+Using different JSF implementations (Tobago 2.x)
+
+  By default the example will be started with MyFaces 2.0
+  You can run the examples with other version like you see here:
+
++----------------------------------------
+  mvn jetty:run
+  mvn jetty:run -Djsf=myfaces-2.1
+  mvn jetty:run -Djsf=myfaces-2.2
   mvn jetty:run -Djsf=mojarra-2.0
   mvn jetty:run -Djsf=mojarra-2.1
   mvn jetty:run -Djsf=mojarra-2.2

@@ -1589,6 +1589,49 @@
     </profile>
 
     <profile>
+      <id>jsf-2.2</id>
+      <activation>
+        <property>
+          <name>jsf</name>
+          <value>myfaces-2.2</value>
+        </property>
+      </activation>
+      <properties>
+        <jsf.target>2.0</jsf.target>
+      </properties>
+      <dependencyManagement>
+        <dependencies>
+          <dependency>
+            <groupId>org.apache.myfaces.core</groupId>
+            <artifactId>myfaces-api</artifactId>
+            <version>${myfaces22.version}</version>
+            <optional>true</optional>
+          </dependency>
+          <dependency>
+            <groupId>org.apache.myfaces.core</groupId>
+            <artifactId>myfaces-impl</artifactId>
+            <version>${myfaces22.version}</version>
+            <optional>true</optional>
+          </dependency>
+          <dependency>
+            <groupId>javax.servlet.jsp</groupId>
+            <artifactId>jsp-api</artifactId>
+            <version>2.1</version>
+            <scope>provided</scope>
+            <optional>true</optional>
+          </dependency>
+          <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>2.5</version>
+            <optional>true</optional>
+            <scope>provided</scope>
+          </dependency>
+        </dependencies>
+      </dependencyManagement>
+    </profile>
+
+    <profile>
       <id>mojarra-2.0</id>
       <activation>
         <property>
@@ -1747,8 +1790,9 @@
 
   <properties>
     <myfaces-test20.version>1.0.4</myfaces-test20.version>
-    <myfaces20.version>2.0.18</myfaces20.version>
-    <myfaces21.version>2.1.12</myfaces21.version>
+    <myfaces20.version>2.0.19</myfaces20.version>
+    <myfaces21.version>2.1.13</myfaces21.version>
+    <myfaces22.version>2.2.0-beta</myfaces22.version>
     <mojarra20.version>2.0.11</mojarra20.version>
     <mojarra21.version>2.1.7</mojarra21.version>
     <mojarra22.version>2.2.2</mojarra22.version>
