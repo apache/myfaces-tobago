@@ -61,6 +61,9 @@ public class ClientProperties implements Serializable {
   private Measure verticalScrollbarWeight;
   private Measure horizontalScrollbarWeight;
 
+  private Measure pageWidth;
+  private Measure pageHeight;
+
   /** 
    * managed bean constructor
    */
@@ -166,6 +169,22 @@ public class ClientProperties implements Serializable {
 
   public void setHorizontalScrollbarWeight(final Measure horizontalScrollbarWeight) {
     this.horizontalScrollbarWeight = horizontalScrollbarWeight;
+  }
+
+  public Measure getPageWidth() {
+    return pageWidth;
+  }
+
+  public void setPageWidth(Measure pageWidth) {
+    this.pageWidth = pageWidth;
+  }
+
+  public Measure getPageHeight() {
+    return pageHeight;
+  }
+
+  public void setPageHeight(Measure pageHeight) {
+    this.pageHeight = pageHeight;
   }
 
   public void updateUserAgent(final FacesContext facesContext) {

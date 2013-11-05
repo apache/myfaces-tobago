@@ -22,8 +22,6 @@ package org.apache.myfaces.tobago.internal.ajax;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import org.apache.myfaces.tobago.layout.Measure;
-
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.ExternalContext;
@@ -37,27 +35,19 @@ import java.util.Map;
 public class AjaxNavigationState {
 
   private static final Logger LOG = LoggerFactory.getLogger(AjaxNavigationState.class);
-  
+
   private static final String SESSION_KEY = "tobago-AjaxNavigationState";
 
   private static final String VIEW_ROOT_KEY = "tobago-AjaxNavigationState-VIEW_ROOT_KEY";
 
   private UIViewRoot viewRoot;
-  
-  private Measure clientWidth;
-  
-  private Measure clientHeight;
-  
+
   private Map<String, List<FacesMessage>> messages;
 
   private AjaxNavigationState(FacesContext facesContext) {
     ExternalContext externalContext = facesContext.getExternalContext();
     externalContext.getSessionMap().put(SESSION_KEY, this);
     viewRoot = facesContext.getViewRoot();
-    // TODO: Save page dimension
-//    AbstractUIPage page = ComponentUtils.findPage((UIViewRoot) externalContext.getRequestMap().get(VIEW_ROOT_KEY));
-//    clientWidth = page.getCurrentWidth();
-//    clientHeight = page.getCurrentHeight();
     messages = new HashMap<String, List<FacesMessage>>();
     Iterator<String> iterator = facesContext.getClientIdsWithMessages();
     while (iterator.hasNext()) {
@@ -65,8 +55,6 @@ public class AjaxNavigationState {
     }
     if (LOG.isTraceEnabled()) {
       LOG.trace("Saved viewRoot.getViewId() = \"{}\"", viewRoot.getViewId());
-      LOG.trace("Saved clientWidth = \"{}\"", clientWidth);
-      LOG.trace("Saved clientHeight = \"{}\"", clientHeight);
       for (Map.Entry<String, List<FacesMessage>> entry : messages.entrySet()) {
         for (FacesMessage message : entry.getValue()) {
           LOG.trace("Saved message \"{}\" : \"{}\"", entry.getKey(), message);
@@ -93,9 +81,6 @@ public class AjaxNavigationState {
 
   private void restoreView(FacesContext facesContext) {
     facesContext.setViewRoot(viewRoot);
-    Map<String, Object> requestMap = facesContext.getExternalContext().getRequestMap();
-    requestMap.put("tobago-page-clientDimension-width", clientWidth);
-    requestMap.put("tobago-page-clientDimension-height", clientHeight);
     for (Map.Entry<String, List<FacesMessage>> entry : messages.entrySet()) {
       for (FacesMessage facesMessage : entry.getValue()) {
         facesContext.addMessage(entry.getKey(), facesMessage);
@@ -104,8 +89,6 @@ public class AjaxNavigationState {
     facesContext.renderResponse();
     if (LOG.isTraceEnabled()) {
       LOG.trace("Restored viewRoot.getViewId() = \"{}\"", viewRoot.getViewId());
-      LOG.trace("Restored clientWidth = \"{}\"", clientWidth);
-      LOG.trace("Restored clientHeight = \"{}\"", clientHeight);
       for (Map.Entry<String, List<FacesMessage>> entry : messages.entrySet()) {
         for (FacesMessage message : entry.getValue()) {
           LOG.trace("Restored message \"{}\" : \"{}\"", entry.getKey(), message);
@@ -130,17 +113,18 @@ public class AjaxNavigationState {
   public static boolean isNavigation(FacesContext facesContext) {
 
     final UIViewRoot viewRoot = facesContext.getViewRoot();
-    if (LOG.isTraceEnabled()) {
-      if (viewRoot != null) {
-        LOG.trace("current viewId = '{}'", viewRoot.getViewId());
-      } else {
-        LOG.trace("current viewRoot is null");
+    if (viewRoot != null) {
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("current viewId = '{}'", viewRoot.getViewId());
       }
+    } else {
+      LOG.warn("current viewRoot is null");
+      return false;
     }
 
-    ExternalContext externalContext = facesContext.getExternalContext();
-    Map<String, Object> requestMap = externalContext.getRequestMap();
-    UIViewRoot incomingViewRoot = (UIViewRoot) requestMap.get(VIEW_ROOT_KEY);
+    final ExternalContext externalContext = facesContext.getExternalContext();
+    final Map<String, Object> requestMap = externalContext.getRequestMap();
+    final UIViewRoot incomingViewRoot = (UIViewRoot) requestMap.get(VIEW_ROOT_KEY);
     if (viewRoot != incomingViewRoot) {
       if (LOG.isDebugEnabled()) {
         LOG.debug("requesting full page reload because of navigation to {} from {}",
