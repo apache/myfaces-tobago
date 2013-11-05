@@ -28,7 +28,11 @@ import org.slf4j.LoggerFactory;
 import javax.faces.application.NavigationHandler;
 import javax.faces.application.ViewHandler;
 import javax.faces.component.UIViewRoot;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import java.io.IOException;
+import java.util.Collections;
+import java.util.List;
 
 public class MultiplePageDeclarationLanguageNavigationHandler extends NavigationHandler {
 
@@ -73,7 +77,14 @@ public class MultiplePageDeclarationLanguageNavigationHandler extends Navigation
       ViewHandler viewHandler = facesContext.getApplication().getViewHandler();
       UIViewRoot viewRoot = viewHandler.createView(facesContext, outcome);
       facesContext.setViewRoot(viewRoot);
-      facesContext.renderResponse();
+      final ExternalContext externalContext = facesContext.getExternalContext();
+      try {
+        externalContext.redirect(
+            externalContext.encodeRedirectURL("/faces" + outcome, Collections.<String, List<String>>emptyMap()));
+      } catch (IOException e) {
+        // not nice?
+        facesContext.renderResponse();
+      }
     } else {
       navigationHandler.handleNavigation(facesContext, fromAction, outcome);
     }
