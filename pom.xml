@@ -565,13 +565,11 @@
     <dependency>
       <groupId>javax.servlet.jsp</groupId>
       <artifactId>jsp-api</artifactId>
-      <scope>provided</scope>
     </dependency>
 
     <dependency>
       <groupId>javax.servlet</groupId>
       <artifactId>servlet-api</artifactId>
-      <scope>provided</scope>
     </dependency>
 
     <dependency>
@@ -1570,20 +1568,6 @@
             <version>${myfaces21.version}</version>
             <optional>true</optional>
           </dependency>
-          <dependency>
-            <groupId>javax.servlet.jsp</groupId>
-            <artifactId>jsp-api</artifactId>
-            <version>2.1</version>
-            <scope>provided</scope>
-            <optional>true</optional>
-          </dependency>
-          <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
-            <version>2.5</version>
-            <optional>true</optional>
-            <scope>provided</scope>
-          </dependency>
         </dependencies>
       </dependencyManagement>
     </profile>
@@ -1612,20 +1596,6 @@
             <artifactId>myfaces-impl</artifactId>
             <version>${myfaces22.version}</version>
             <optional>true</optional>
-          </dependency>
-          <dependency>
-            <groupId>javax.servlet.jsp</groupId>
-            <artifactId>jsp-api</artifactId>
-            <version>2.1</version>
-            <scope>provided</scope>
-            <optional>true</optional>
-          </dependency>
-          <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
-            <version>2.5</version>
-            <optional>true</optional>
-            <scope>provided</scope>
           </dependency>
         </dependencies>
       </dependencyManagement>
@@ -1656,20 +1626,6 @@
             <version>${mojarra20.version}</version>
             <optional>true</optional>
           </dependency>
-          <dependency>
-            <groupId>javax.servlet.jsp</groupId>
-            <artifactId>jsp-api</artifactId>
-            <version>2.1</version>
-            <scope>provided</scope>
-            <optional>true</optional>
-          </dependency>
-          <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
-            <version>2.5</version>
-            <optional>true</optional>
-            <scope>provided</scope>
-          </dependency>
         </dependencies>
       </dependencyManagement>
     </profile>
@@ -1699,20 +1655,6 @@
             <version>${mojarra21.version}</version>
             <optional>true</optional>
           </dependency>
-          <dependency>
-            <groupId>javax.servlet.jsp</groupId>
-            <artifactId>jsp-api</artifactId>
-            <version>2.1</version>
-            <scope>provided</scope>
-            <optional>true</optional>
-          </dependency>
-          <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
-            <version>2.5</version>
-            <optional>true</optional>
-            <scope>provided</scope>
-          </dependency>
         </dependencies>
       </dependencyManagement>
     </profile>
@@ -1741,20 +1683,6 @@
             <artifactId>jsf-impl</artifactId>
             <version>${mojarra22.version}</version>
             <optional>true</optional>
-          </dependency>
-          <dependency>
-            <groupId>javax.servlet.jsp</groupId>
-            <artifactId>jsp-api</artifactId>
-            <version>2.1</version>
-            <scope>provided</scope>
-            <optional>true</optional>
-          </dependency>
-          <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
-            <version>2.5</version>
-            <optional>true</optional>
-            <scope>provided</scope>
           </dependency>
         </dependencies>
       </dependencyManagement>

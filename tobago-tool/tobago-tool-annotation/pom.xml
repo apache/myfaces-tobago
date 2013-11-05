@@ -26,13 +26,6 @@
   <packaging>jar</packaging>
   <name>Tobago Tool Annotation</name>
 
-  <dependencies>
-    <dependency>
-      <groupId>javax.servlet.jsp</groupId>
-      <artifactId>jsp-api</artifactId>
-    </dependency>
-  </dependencies>
-
   <profiles>
     <!-- Apples JDK (until 1.6) has not a tools.jar -->
     <profile>
