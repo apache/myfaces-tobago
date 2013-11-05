@@ -21,7 +21,11 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.myfaces.tobago.application.ProjectStage;
-import org.apache.myfaces.tobago.component.*;
+import org.apache.myfaces.tobago.component.Attributes;
+import org.apache.myfaces.tobago.component.Facets;
+import org.apache.myfaces.tobago.component.UIMenuBar;
+import org.apache.myfaces.tobago.component.UIPage;
+import org.apache.myfaces.tobago.component.UIPopup;
 import org.apache.myfaces.tobago.config.Configurable;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.context.ClientProperties;
@@ -63,7 +67,13 @@ import javax.faces.context.ResponseWriter;
 import javax.portlet.MimeResponse;
 import javax.portlet.ResourceURL;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.StringTokenizer;
 
 public class PageRenderer extends PageRendererBase {
 
