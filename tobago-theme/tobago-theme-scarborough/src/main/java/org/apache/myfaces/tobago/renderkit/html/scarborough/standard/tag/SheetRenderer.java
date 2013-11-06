@@ -747,7 +747,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
 
     if (columnWidths != null) {
       writer.startElement(HtmlElements.COLGROUP, null);
-      for (int i = 0 ; i < columnWidths.size(); i++) {
+      for (int i = 0; i < columnWidths.size(); i++) {
         writer.startElement(HtmlElements.COL, null);
         if (i == columnWidths.size() - 2 && needVerticalScrollbar) {
           // if scrollbar is needed the coll for column in header must have own width + scrollbarWidth
