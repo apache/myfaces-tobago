@@ -55,11 +55,19 @@ public class HtmlResponseWriter extends TobagoResponseWriterBase {
     this.javascriptWriter = new FastStringWriter();
   }
 
+  /**
+   * @deprecated Should not be used, because it conflicts with CSP.
+   */
+  @Deprecated
   @Override
   public void endJavascript() throws IOException {
     javascriptMode = false;
   }
 
+  /**
+   * @deprecated Should not be used, because it conflicts with CSP.
+   */
+  @Deprecated
   @Override
   public void startJavascript() throws IOException {
     javascriptMode = true;
@@ -74,6 +82,10 @@ public class HtmlResponseWriter extends TobagoResponseWriterBase {
     }
   }
 
+  /**
+   * @deprecated Should not be used, because it conflicts with CSP.
+   */
+  @Deprecated
   @Override
   public void writeJavascript(String script) throws IOException {
     writeInternal(javascriptWriter, script);

@@ -170,17 +170,29 @@ public abstract class TobagoResponseWriter extends ResponseWriter {
     writeAttribute(HtmlAttributes.STYLE, style, false);
   }
 
+  /**
+   * @deprecated Should not be used, because it conflicts with CSP.
+   */
+  @Deprecated
   public void writeJavascript(String script) throws IOException {
     startJavascript();
     write(script);
     endJavascript();
   }
 
+  /**
+   * @deprecated Should not be used, because it conflicts with CSP.
+   */
+  @Deprecated
   public void endJavascript() throws IOException {
 //    write("\n// -->\n"); // todo: for XHMTL we may need
     endElement(HtmlElements.SCRIPT);
   }
 
+  /**
+   * @deprecated Should not be used, because it conflicts with CSP.
+   */
+  @Deprecated
   public void startJavascript() throws IOException {
     startElement(HtmlElements.SCRIPT, null);
     writeAttribute(HtmlAttributes.TYPE, "text/javascript", false);
