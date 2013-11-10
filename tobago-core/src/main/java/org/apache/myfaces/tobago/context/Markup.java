@@ -72,6 +72,7 @@ public final class Markup implements Serializable, Iterable<String> {
   public static final Markup MODAL = valueOf("modal");
   public static final Markup NUMBER = valueOf("number");
   public static final Markup ODD = valueOf("odd");
+  public static final Markup PORTLET = valueOf("portlet");
   public static final Markup PURE = valueOf("pure");
   public static final Markup READONLY = valueOf("readonly");
   public static final Markup REQUIRED = valueOf("required");

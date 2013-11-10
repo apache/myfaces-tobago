@@ -160,6 +160,12 @@
           </supported-markup>
         </renderer>
         <renderer>
+          <name>Page</name>
+          <supported-markup>
+            <markup>portlet</markup>
+          </supported-markup>
+        </renderer>
+        <renderer>
           <name>Popup</name>
           <supported-markup>
             <markup>modal</markup>

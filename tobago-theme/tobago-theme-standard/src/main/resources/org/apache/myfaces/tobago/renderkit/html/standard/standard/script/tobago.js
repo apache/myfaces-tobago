@@ -289,7 +289,7 @@ var Tobago = {
 //    new LOG.LogArea({hide: false});
 //    LOG.show();
     TbgTimer.startOnload = new Date(); // @DEV_ONLY
-    var body = jQuery("body");
+    var body = jQuery(".tobago-page");
     this.page = body.get(0);
     this.form = body.find("form").get(0); // find() seems to be faster than children()
     this.addBindEventListener(this.form, 'submit', this, 'onSubmit');

@@ -635,6 +635,10 @@ li.tobago-menu-markup-selected {
   overflow: hidden;
 }
 
+.tobago-page-content-markup-portlet {
+    position: relative;
+}
+
 .tobago-page-scrollbarWeight {
   width: 100px;
   height: 100px;

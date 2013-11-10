@@ -155,17 +155,17 @@ public class PageRenderer extends PageRendererBase {
       }
     }
 
-    final Object response = facesContext.getExternalContext().getResponse();
+    final ExternalContext externalContext = facesContext.getExternalContext();
+    final Object response = externalContext.getResponse();
     final Application application = facesContext.getApplication();
     final ViewHandler viewHandler = application.getViewHandler();
     final String viewId = facesContext.getViewRoot().getViewId();
-    final String formAction
-        = facesContext.getExternalContext().encodeActionURL(viewHandler.getActionURL(facesContext, viewId));
+    final String formAction = externalContext.encodeActionURL(viewHandler.getActionURL(facesContext, viewId));
     final String partialAction;
     if (PortletUtils.isPortletApiAvailable() && response instanceof MimeResponse) {
       final MimeResponse mimeResponse = (MimeResponse) response;
       final ResourceURL resourceURL = mimeResponse.createResourceURL();
-      partialAction = facesContext.getExternalContext().encodeResourceURL(resourceURL.toString());
+      partialAction = externalContext.encodeResourceURL(resourceURL.toString());
     } else {
       partialAction = null;
     }
@@ -180,7 +180,7 @@ public class PageRenderer extends PageRendererBase {
     final boolean productionMode = !debugMode && projectStage == ProjectStage.Production;
     int clientLogSeverity = 2;
     if (debugMode) {
-      String severity = (String) facesContext.getExternalContext().getRequestMap().get(CLIENT_DEBUG_SEVERITY);
+      String severity = (String) externalContext.getRequestMap().get(CLIENT_DEBUG_SEVERITY);
       if (LOG.isDebugEnabled()) {
         LOG.debug("get " + CLIENT_DEBUG_SEVERITY + " = " + severity);
       }
@@ -303,9 +303,14 @@ public class PageRenderer extends PageRendererBase {
       writer.endElement(HtmlElements.HEAD);
     }
 
-    writer.startElement(HtmlElements.BODY, page);
+    if (PortletUtils.isPortletApiAvailable() && response instanceof MimeResponse) {
+      writer.startElement(HtmlElements.DIV, page);
+      writer.writeClassAttribute(Classes.create(page, Markup.PORTLET));
+    } else {
+      writer.startElement(HtmlElements.BODY, page);
+      writer.writeClassAttribute(Classes.create(page));
+    }
     writer.writeIdAttribute(clientId);
-    writer.writeClassAttribute(Classes.create(page));
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, page);
     HtmlRendererUtils.renderCommandFacet(page, facesContext, writer);
 
@@ -338,7 +343,7 @@ public class PageRenderer extends PageRendererBase {
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN, false);
     writer.writeNameAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "context-path");
     writer.writeIdAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "context-path");
-    writer.writeAttribute(HtmlAttributes.VALUE, facesContext.getExternalContext().getRequestContextPath(), true);
+    writer.writeAttribute(HtmlAttributes.VALUE, externalContext.getRequestContextPath(), true);
     writer.endElement(HtmlElements.INPUT);
 
     writer.startElement(HtmlElements.INPUT, null);
@@ -422,7 +427,7 @@ public class PageRenderer extends PageRendererBase {
 //    page.encodeLayoutBegin(facesContext);
     
     writer.startElement(HtmlElements.DIV, page);
-    writer.writeClassAttribute(Classes.create(page, "content"));
+    writer.writeClassAttribute(Classes.create(page, "content", Markup.PORTLET));
     writer.writeIdAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "content");
     Style style = new Style(facesContext, page);
     // XXX position the div, so that the scrollable area is correct.
@@ -558,23 +563,19 @@ public class PageRenderer extends PageRendererBase {
 
     // debugging...
     if (debugMode) {
-      List<String> logMessages = new ArrayList<String>();
-      for (Iterator ids = facesContext.getClientIdsWithMessages();
-           ids.hasNext();) {
-        String id = (String) ids.next();
-        for (Iterator messages = facesContext.getMessages(id);
-             messages.hasNext();) {
-          FacesMessage message = (FacesMessage) messages.next();
+      final List<String> logMessages = new ArrayList<String>();
+      for (Iterator ids = facesContext.getClientIdsWithMessages(); ids.hasNext();) {
+        final String id = (String) ids.next();
+        for (Iterator messages = facesContext.getMessages(id); messages.hasNext();) {
+          final FacesMessage message = (FacesMessage) messages.next();
           logMessages.add(errorMessageForDebugging(id, message));
         }
-        
       }
       if (!logMessages.isEmpty()) {
         logMessages.add(0, "LOG.show();");
       }
 
-      HtmlRendererUtils.writeScriptLoader(facesContext, null,
-          logMessages.toArray(new String[logMessages.size()]));
+      HtmlRendererUtils.writeScriptLoader(facesContext, null, logMessages.toArray(new String[logMessages.size()]));
     }
 
     writer.startElement(HtmlElements.NOSCRIPT, null);
@@ -584,13 +585,16 @@ public class PageRenderer extends PageRendererBase {
     writer.endElement(HtmlElements.DIV);
     writer.endElement(HtmlElements.NOSCRIPT);
 
-    writer.endElement(HtmlElements.BODY);
+    final Object response = facesContext.getExternalContext().getResponse();
+    if (PortletUtils.isPortletApiAvailable() && response instanceof MimeResponse) {
+      writer.endElement(HtmlElements.DIV);
+    } else {
+      writer.endElement(HtmlElements.BODY);
+    }
 
     if (LOG.isDebugEnabled()) {
-      LOG.debug("unused AccessKeys    : "
-          + AccessKeyMap.getUnusedKeys(facesContext));
-      LOG.debug("duplicated AccessKeys: "
-          + AccessKeyMap.getDublicatedKeys(facesContext));
+      LOG.debug("unused AccessKeys    : " + AccessKeyMap.getUnusedKeys(facesContext));
+      LOG.debug("duplicated AccessKeys: " + AccessKeyMap.getDublicatedKeys(facesContext));
     }
 
     if (facesContext.getExternalContext().getRequestParameterMap().get("X") != null) {
@@ -598,8 +602,9 @@ public class PageRenderer extends PageRendererBase {
     }
   }
 
-  private void writeEventFunction(TobagoResponseWriter writer, Collection<String> eventFunctions,
-      String event, boolean returnBoolean) throws IOException {
+  private void writeEventFunction(
+      TobagoResponseWriter writer, Collection<String> eventFunctions, String event, boolean returnBoolean)
+      throws IOException {
     if (!eventFunctions.isEmpty()) {
       writer.write("Tobago.applicationOn");
       writer.write(event);
@@ -649,8 +654,7 @@ public class PageRenderer extends PageRendererBase {
     }
   }
 
-  private void errorMessageForDebugging(String id, FacesMessage message,
-      ResponseWriter writer) throws IOException {
+  private void errorMessageForDebugging(String id, FacesMessage message, ResponseWriter writer) throws IOException {
     writer.startElement(HtmlElements.DIV, null);
     writer.writeAttribute(HtmlAttributes.STYLE, "color: red", null);
     writer.flush(); // is needed in some cases, e. g. TOBAGO-1094
