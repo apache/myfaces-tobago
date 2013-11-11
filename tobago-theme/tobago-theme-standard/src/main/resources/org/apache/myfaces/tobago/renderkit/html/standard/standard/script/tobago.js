@@ -289,9 +289,9 @@ var Tobago = {
 //    new LOG.LogArea({hide: false});
 //    LOG.show();
     TbgTimer.startOnload = new Date(); // @DEV_ONLY
-    var body = jQuery(".tobago-page");
-    this.page = body.get(0);
-    this.form = body.find("form").get(0); // find() seems to be faster than children()
+    var page = jQuery(".tobago-page");
+    this.page = page.get(0);
+    this.form = page.find("form").get(0); // find() seems to be faster than children()
     this.addBindEventListener(this.form, 'submit', this, 'onSubmit');
     this.action = this.element(this.page.id + this.SUB_COMPONENT_SEP + 'form-action');
     this.contextPath = this.element(this.page.id + this.SUB_COMPONENT_SEP + 'context-path');
@@ -375,15 +375,15 @@ var Tobago = {
   },
 
   storeClientDimension: function() {
-    var body = jQuery("body");
-    body.children("form").first()
+    var page = jQuery(".tobago-page");
+    page.children("form").first()
         .children(Tobago.Utils.escapeClientId(this.page.id + this.SUB_COMPONENT_SEP + 'form-clientDimension'))
-        .val(body.width() + ';' + body.height());
+        .val(page.width() + ';' + page.height());
   },
 
   onBeforeUnload: function() {
     if (Tobago.transition) {
-      jQuery("body").overlay();
+      jQuery(".tobago-page").overlay();
     }
     Tobago.transition = Tobago.oldTransition;
   },
@@ -545,7 +545,7 @@ var Tobago = {
               image.appendTo(image.parent());
             }
           } catch (e) {
-            jQuery("body").overlay("destroy");
+            jQuery(".tobago-page").overlay("destroy");
             Tobago.isSubmit = false;
             alert('Submit failed: ' + e); // XXX localization, better error handling
           }
@@ -981,7 +981,7 @@ var Tobago = {
         Tobago.clickOnElement(el.attr("id"))}, el.attr("accesskey"));
     });
 
-    Tobago.initScrollPosition(elements ? elements : jQuery("body"));
+    Tobago.initScrollPosition(elements ? elements : jQuery(".tobago-page"));
   },
 
   initScrollPosition: function(elements) {
@@ -2297,10 +2297,10 @@ Tobago.Updater = {
 
     /* TOBAGO-1087: Wait Cursor after AJAX in IE with Websphere 6.1  */
     if (Tobago.browser.isMsie) {
-      var body = jQuery("body");
-      var originalCursor = body.css("cursor");
-      body.css("cursor", "default");
-      body.css("cursor", originalCursor);
+      var page = jQuery(".tobago-page");
+      var originalCursor = page.css("cursor");
+      page.css("cursor", "default");
+      page.css("cursor", originalCursor);
     }
   },
 
@@ -2671,8 +2671,8 @@ Tobago.registerListener(Tobago.TabGroup.init, Tobago.Phase.AFTER_UPDATE);
 Tobago.Command = {};
 
 Tobago.Command.initEnter = function(elements) {
-  var body = Tobago.Utils.selectWidthJQuery(elements, "body");
-  body.keypress(function (event) {
+  var page = Tobago.Utils.selectWidthJQuery(elements, ".tobago-page");
+  page.keypress(function (event) {
     var code = event.which;
     if (code == 0) {
       code = event.keyCode;
