@@ -193,7 +193,7 @@ Subject: [ANNOUNCE] Apache Tobago <version>
 
 
 
-Copy the download artifacts from the repository to the site
+Copy the download artifacts from the repository to the site (release-tobago.sh)
 
 +------------------------+
 #!/bin/sh
