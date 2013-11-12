@@ -28,7 +28,6 @@ import org.apache.myfaces.tobago.layout.Measure;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.el.ELException;
 import javax.faces.component.UIComponent;
 import javax.faces.view.facelets.FaceletContext;
 import javax.faces.view.facelets.TagAttribute;
@@ -96,8 +95,7 @@ public class GridLayoutConstraintHandler extends TagHandler {
     paddingBottom = getAttribute(Attributes.PADDING_BOTTOM);
   }
 
-  public void apply(FaceletContext faceletContext, UIComponent parent)
-      throws IOException, ELException {
+  public void apply(FaceletContext faceletContext, UIComponent parent) throws IOException {
     if (parent.getParent() != null && parent.getParent() instanceof UIExtensionPanel) {
        parent = parent.getParent();
     } else if (parent.getAttributes().get("tobago.panel") != null

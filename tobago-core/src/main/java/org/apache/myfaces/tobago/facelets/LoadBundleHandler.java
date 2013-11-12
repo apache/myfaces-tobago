@@ -21,7 +21,6 @@ package org.apache.myfaces.tobago.facelets;
 
 import org.apache.myfaces.tobago.util.BundleMapWrapper;
 
-import javax.el.ELException;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.view.facelets.FaceletContext;
@@ -41,8 +40,7 @@ public class LoadBundleHandler extends TagHandler {
     this.var = getRequiredAttribute("var");
   }
 
-  public void apply(FaceletContext faceletContext, UIComponent parent)
-      throws IOException, ELException {
+  public void apply(FaceletContext faceletContext, UIComponent parent) throws IOException {
     String name = basename.getValue(faceletContext);
     BundleMapWrapper map = new BundleMapWrapper(name);
     FacesContext facesContext = faceletContext.getFacesContext();

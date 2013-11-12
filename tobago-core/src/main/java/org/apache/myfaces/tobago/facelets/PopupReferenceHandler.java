@@ -23,7 +23,6 @@ import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.event.PopupActionListener;
 import org.apache.myfaces.tobago.event.ValueExpressionPopupActionListener;
 
-import javax.el.ELException;
 import javax.el.ValueExpression;
 import javax.faces.component.ActionSource;
 import javax.faces.component.UIComponent;
@@ -44,8 +43,7 @@ public class PopupReferenceHandler extends TagHandler {
     forComponent = getAttribute(Attributes.FOR);
   }
 
-  public void apply(FaceletContext faceletContext, UIComponent parent)
-      throws IOException, ELException {
+  public void apply(FaceletContext faceletContext, UIComponent parent) throws IOException {
     if (parent instanceof ActionSource) {
       if (ComponentHandler.isNew(parent)) {
         ActionSource actionSource = (ActionSource) parent;

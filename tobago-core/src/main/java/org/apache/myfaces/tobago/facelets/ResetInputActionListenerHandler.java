@@ -25,7 +25,6 @@ import org.apache.myfaces.tobago.event.ResetInputActionListener;
 import org.apache.myfaces.tobago.event.ValueExpressionResetInputActionListener;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 
-import javax.el.ELException;
 import javax.el.ValueExpression;
 import javax.faces.component.ActionSource;
 import javax.faces.component.UIComponent;
@@ -46,8 +45,7 @@ public class ResetInputActionListenerHandler extends TagHandler {
     execute = getAttribute(Attributes.EXECUTE);
   }
 
-  public void apply(FaceletContext faceletContext, UIComponent parent)
-      throws IOException, ELException {
+  public void apply(FaceletContext faceletContext, UIComponent parent) throws IOException {
     if (parent instanceof ActionSource) {
       if (ComponentHandler.isNew(parent)) {
         ActionSource actionSource = (ActionSource) parent;
