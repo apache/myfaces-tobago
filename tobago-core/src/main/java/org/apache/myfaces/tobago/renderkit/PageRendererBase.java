@@ -20,13 +20,14 @@
 package org.apache.myfaces.tobago.renderkit;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.myfaces.tobago.layout.Measure;
-import org.apache.myfaces.tobago.model.PageState;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPage;
 import org.apache.myfaces.tobago.layout.Box;
+import org.apache.myfaces.tobago.layout.Measure;
+import org.apache.myfaces.tobago.model.PageState;
 import org.apache.myfaces.tobago.util.ComponentUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -80,16 +81,17 @@ public class PageRendererBase extends LayoutComponentRendererBase {
       value = (String) facesContext.getExternalContext().getRequestParameterMap().get(name);
       if (value != null) {
         StringTokenizer tokenizer = new StringTokenizer(value, ";");
-        Measure width = Measure.parse(tokenizer.nextToken());
-        Measure height = Measure.parse(tokenizer.nextToken());
+        final Measure width = Measure.valueOf(tokenizer.nextToken());
+        final Measure height = Measure.valueOf(tokenizer.nextToken());
         // XXX remove me later
         PageState pageState = page.getPageState(facesContext);
         if (pageState != null) {
           pageState.setClientWidth(width.getPixel());
           pageState.setClientHeight(height.getPixel());
         }
-        facesContext.getExternalContext().getRequestMap().put("tobago-page-clientDimension-width", width);
-        facesContext.getExternalContext().getRequestMap().put("tobago-page-clientDimension-height", height);
+        final ClientProperties clientProperties = ClientProperties.getInstance(facesContext);
+        clientProperties.setPageWidth(width);
+        clientProperties.setPageHeight(height);
       }
     } catch (Exception e) {
       LOG.error("Error in decoding state: value='" + value + "'", e);

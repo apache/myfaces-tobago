@@ -813,8 +813,7 @@ public class PageRenderer extends PageRendererBase {
   @Override
   public Measure getWidth(FacesContext facesContext, Configurable component) {
     // width of the actual browser window
-    Measure width = (Measure) FacesContext.getCurrentInstance().getExternalContext()
-        .getRequestMap().get("tobago-page-clientDimension-width");
+    Measure width = ClientProperties.getInstance(facesContext).getPageWidth();
     if (width != null) {
       return width;
     } else {
@@ -825,8 +824,7 @@ public class PageRenderer extends PageRendererBase {
   @Override
   public Measure getHeight(FacesContext facesContext, Configurable component) {
     // height of the actual browser window
-    Measure height = (Measure) FacesContext.getCurrentInstance().getExternalContext()
-        .getRequestMap().get("tobago-page-clientDimension-height");
+    Measure height = ClientProperties.getInstance(facesContext).getPageHeight();
     if (height != null) {
       return height;
     } else {
