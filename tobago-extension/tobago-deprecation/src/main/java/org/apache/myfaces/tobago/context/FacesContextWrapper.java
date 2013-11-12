@@ -29,6 +29,10 @@ import javax.faces.render.RenderKit;
 import javax.faces.component.UIViewRoot;
 import java.util.Iterator;
 
+/**
+ * @deprecated since 2.0.0
+ */
+@Deprecated
 public class FacesContextWrapper extends javax.faces.context.FacesContext {
   private FacesContext context;
 

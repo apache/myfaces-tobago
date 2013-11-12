@@ -24,14 +24,19 @@ import javax.faces.context.FacesContext;
 import javax.faces.lifecycle.Lifecycle;
 import javax.faces.FacesException;
 
+/**
+ * @deprecated since 2.0.0
+ */
+@Deprecated
 public class FacesContextFactoryWrapper extends FacesContextFactory {
   private FacesContextFactory facesContextFactory;
 
-  public FacesContextFactoryWrapper(FacesContextFactory facesContextFactory) {
+  public FacesContextFactoryWrapper(final FacesContextFactory facesContextFactory) {
     this.facesContextFactory = facesContextFactory;
   }
 
-  public FacesContext getFacesContext(Object context, Object request, Object response, Lifecycle lifecycle)
+  public FacesContext getFacesContext(
+      final Object context, final Object request, final Object response, final Lifecycle lifecycle)
       throws FacesException {
     return facesContextFactory.getFacesContext(context, request, response, lifecycle);
   }

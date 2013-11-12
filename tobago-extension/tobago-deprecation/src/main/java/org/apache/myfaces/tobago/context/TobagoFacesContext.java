@@ -22,18 +22,20 @@ package org.apache.myfaces.tobago.context;
 import org.apache.commons.collections.list.SetUniqueList;
 import org.apache.commons.collections.set.ListOrderedSet;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPopup;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.faces.context.FacesContext;
+import javax.faces.context.FacesContextWrapper;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-
+/**
+ * @deprecated since 2.0.0
+ */
+@Deprecated
 public class TobagoFacesContext extends FacesContextWrapper {
 
-  private static final Logger LOG = LoggerFactory.getLogger(TobagoFacesContext.class);
+  private final FacesContext wrapped;
 
   private SetUniqueList scriptFiles;
 
@@ -59,10 +61,8 @@ public class TobagoFacesContext extends FacesContextWrapper {
 
   private boolean ajax;
 
-//  private Map<Object, Object> attributes;
-
-  public TobagoFacesContext(FacesContext context) {
-    super(context);
+  public TobagoFacesContext(FacesContext wrapped) {
+    this.wrapped = wrapped;
     scriptFiles = SetUniqueList.decorate(new ArrayList());
     scriptBlocks = new ListOrderedSet();
     styleFiles = new ListOrderedSet();
@@ -146,17 +146,17 @@ public class TobagoFacesContext extends FacesContextWrapper {
 
   @Override
   public String toString() {
-    return getClass().getName() + " wrapped context=" + getContext();
+    return getClass().getName() + " wrapped context=" + getWrapped();
   }
 
   @Override
   public void release() {
     super.release();
-/*
-    if (attributes != null) {
-      attributes.clear();
-    }
-*/
     clearScriptsAndPopups();
+  }
+
+  @Override
+  public FacesContext getWrapped() {
+    return wrapped;
   }
 }
