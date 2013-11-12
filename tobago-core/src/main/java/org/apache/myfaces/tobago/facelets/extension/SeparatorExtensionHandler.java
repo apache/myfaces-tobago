@@ -27,7 +27,6 @@ import org.apache.myfaces.tobago.util.ComponentUtils;
 
 import javax.el.ELException;
 import javax.el.ValueExpression;
-import javax.faces.FacesException;
 import javax.faces.application.Application;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIOutput;
@@ -48,7 +47,7 @@ public class SeparatorExtensionHandler extends ComponentHandler {
   }
 
   public void applyNextHandler(FaceletContext faceletContext, UIComponent separator)
-      throws IOException, FacesException, ELException {
+      throws IOException, ELException {
     if (ComponentHandler.isNew(separator)) {
       UIComponent component = (UIComponent) separator.getFacets().remove(Facets.LABEL);
       nextHandler.apply(faceletContext, component);

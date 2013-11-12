@@ -19,18 +19,15 @@
 
 package org.apache.myfaces.tobago.facelets;
 
-import javax.faces.view.facelets.TagHandler;
-import javax.faces.view.facelets.TagAttribute;
-import javax.faces.view.facelets.TagConfig;
-
-import javax.faces.view.facelets.FaceletContext;
-
 import org.apache.myfaces.tobago.util.BundleMapWrapper;
 
-import javax.faces.component.UIComponent;
-import javax.faces.FacesException;
-import javax.faces.context.FacesContext;
 import javax.el.ELException;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.view.facelets.FaceletContext;
+import javax.faces.view.facelets.TagAttribute;
+import javax.faces.view.facelets.TagConfig;
+import javax.faces.view.facelets.TagHandler;
 import java.io.IOException;
 
 public class LoadBundleHandler extends TagHandler {
@@ -45,7 +42,7 @@ public class LoadBundleHandler extends TagHandler {
   }
 
   public void apply(FaceletContext faceletContext, UIComponent parent)
-      throws IOException, FacesException, ELException {
+      throws IOException, ELException {
     String name = basename.getValue(faceletContext);
     BundleMapWrapper map = new BundleMapWrapper(name);
     FacesContext facesContext = faceletContext.getFacesContext();

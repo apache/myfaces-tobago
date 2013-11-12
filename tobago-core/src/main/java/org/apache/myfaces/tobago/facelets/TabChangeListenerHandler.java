@@ -25,7 +25,6 @@ import org.apache.myfaces.tobago.event.ValueExpressionTabChangeListener;
 
 import javax.el.ELException;
 import javax.el.ValueExpression;
-import javax.faces.FacesException;
 import javax.faces.component.UIComponent;
 import javax.faces.view.facelets.FaceletContext;
 import javax.faces.view.facelets.TagAttribute;
@@ -61,7 +60,7 @@ public class TabChangeListenerHandler extends TagHandler {
   }
 
   public void apply(FaceletContext faceletContext, UIComponent parent)
-      throws IOException, FacesException, ELException {
+      throws IOException, ELException {
     if (parent instanceof TabChangeSource2) {
       // only process if parent was just created
       if (parent.getParent() == null) {

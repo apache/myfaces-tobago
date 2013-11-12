@@ -22,7 +22,6 @@ package org.apache.myfaces.tobago.facelets.extension;
 import org.apache.myfaces.tobago.component.Attributes;
 
 import javax.el.ELException;
-import javax.faces.FacesException;
 import javax.faces.application.Application;
 import javax.faces.component.UIComponent;
 import javax.faces.view.facelets.ComponentConfig;
@@ -55,7 +54,7 @@ public abstract class TobagoMenuExtensionHandler extends ComponentHandler {
   protected abstract String getFacetName();
 
   public void applyNextHandler(FaceletContext faceletContext, UIComponent menuCommand)
-      throws IOException, FacesException, ELException {
+      throws IOException, ELException {
     if (ComponentHandler.isNew(menuCommand)) {
       UIComponent component = (UIComponent) menuCommand.getFacets().remove(getFacetName());
       nextHandler.apply(faceletContext, component);

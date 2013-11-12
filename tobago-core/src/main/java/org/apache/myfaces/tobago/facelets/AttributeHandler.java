@@ -70,8 +70,7 @@ public final class AttributeHandler extends TagHandler {
     this.mode = getAttribute(Attributes.MODE);
   }
 
-  public void apply(FaceletContext faceletContext, UIComponent parent)
-      throws FacesException, ELException {
+  public void apply(FaceletContext faceletContext, UIComponent parent) throws ELException {
     if (parent == null) {
       throw new TagException(tag, "Parent UIComponent was null");
     }

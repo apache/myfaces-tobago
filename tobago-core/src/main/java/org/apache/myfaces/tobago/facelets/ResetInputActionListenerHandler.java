@@ -27,7 +27,6 @@ import org.apache.myfaces.tobago.util.ComponentUtils;
 
 import javax.el.ELException;
 import javax.el.ValueExpression;
-import javax.faces.FacesException;
 import javax.faces.component.ActionSource;
 import javax.faces.component.UIComponent;
 import javax.faces.view.facelets.ComponentHandler;
@@ -48,7 +47,7 @@ public class ResetInputActionListenerHandler extends TagHandler {
   }
 
   public void apply(FaceletContext faceletContext, UIComponent parent)
-      throws IOException, FacesException, ELException {
+      throws IOException, ELException {
     if (parent instanceof ActionSource) {
       if (ComponentHandler.isNew(parent)) {
         ActionSource actionSource = (ActionSource) parent;

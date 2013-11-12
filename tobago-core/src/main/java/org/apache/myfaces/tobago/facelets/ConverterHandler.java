@@ -21,7 +21,6 @@ package org.apache.myfaces.tobago.facelets;
 
 import javax.el.ELException;
 import javax.el.ValueExpression;
-import javax.faces.FacesException;
 import javax.faces.component.UIComponent;
 import javax.faces.component.ValueHolder;
 import javax.faces.context.FacesContext;
@@ -48,7 +47,7 @@ public class ConverterHandler extends TagHandler {
   }
 
   public void apply(FaceletContext faceletContext, UIComponent parent)
-      throws IOException, FacesException, ELException {
+      throws IOException, ELException {
     if (parent instanceof ValueHolder) {
       if (ComponentHandler.isNew(parent)) {
         ValueHolder valueHolder = (ValueHolder) parent;

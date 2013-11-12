@@ -29,7 +29,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.el.ELException;
-import javax.faces.FacesException;
 import javax.faces.component.UIComponent;
 import javax.faces.view.facelets.FaceletContext;
 import javax.faces.view.facelets.TagAttribute;
@@ -98,7 +97,7 @@ public class GridLayoutConstraintHandler extends TagHandler {
   }
 
   public void apply(FaceletContext faceletContext, UIComponent parent)
-      throws IOException, FacesException, ELException {
+      throws IOException, ELException {
     if (parent.getParent() != null && parent.getParent() instanceof UIExtensionPanel) {
        parent = parent.getParent();
     } else if (parent.getAttributes().get("tobago.panel") != null

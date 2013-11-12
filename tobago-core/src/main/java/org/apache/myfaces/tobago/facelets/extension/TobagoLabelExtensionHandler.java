@@ -39,7 +39,6 @@ import org.slf4j.LoggerFactory;
 
 import javax.el.ELException;
 import javax.el.ValueExpression;
-import javax.faces.FacesException;
 import javax.faces.application.Application;
 import javax.faces.component.EditableValueHolder;
 import javax.faces.component.UIComponent;
@@ -87,7 +86,7 @@ public abstract class TobagoLabelExtensionHandler extends ComponentHandler {
   }
 
   public void applyNextHandler(FaceletContext ctx, UIComponent panel)
-      throws IOException, FacesException, ELException {
+      throws IOException, ELException {
     if (ComponentHandler.isNew(panel)) {
       // ensure that input has no parent (isNew)
       UIComponent input = panel.getChildren().remove(1);

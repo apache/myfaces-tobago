@@ -23,7 +23,6 @@ import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 
 import javax.el.ELException;
-import javax.faces.FacesException;
 import javax.faces.component.UIComponent;
 import javax.faces.view.facelets.ComponentHandler;
 import javax.faces.view.facelets.FaceletContext;
@@ -44,8 +43,7 @@ public final class DataAttributeHandler extends TagHandler {
     this.value = getRequiredAttribute(Attributes.VALUE);
   }
 
-  public void apply(FaceletContext faceletContext, UIComponent parent)
-      throws FacesException, ELException {
+  public void apply(FaceletContext faceletContext, UIComponent parent) throws ELException {
     if (parent == null) {
       throw new TagException(tag, "Parent UIComponent was null");
     }
