@@ -27,19 +27,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public class ResourceManagerUtils {
+public final class ResourceManagerUtils {
 
   private ResourceManagerUtils() {
     // no instance
   }
 
-  public static String getProperty(FacesContext facesContext, String bundle, String key) {
+  public static String getProperty(final FacesContext facesContext, final String bundle, final String key) {
     return     org.apache.myfaces.tobago.internal.context.ResourceManagerFactory
         .getResourceManager(facesContext).getProperty(facesContext, bundle, key);
   }
 
-  public static String getPropertyNotNull(FacesContext facesContext, String bundle, String key) {
-    String result = org.apache.myfaces.tobago.internal.context.ResourceManagerFactory
+  public static String getPropertyNotNull(final FacesContext facesContext, final String bundle, final String key) {
+    final String result = org.apache.myfaces.tobago.internal.context.ResourceManagerFactory
         .getResourceManager(facesContext).getProperty(facesContext, bundle, key);
     if (result == null) {
       return "???" + key + "???";
@@ -51,7 +51,7 @@ public class ResourceManagerUtils {
   /**
    * Searches for an image and return it with the context path
    */
-  public static String getImageWithPath(FacesContext facesContext, String name) {
+  public static String getImageWithPath(final FacesContext facesContext, final String name) {
     return facesContext.getExternalContext().getRequestContextPath()
         + org.apache.myfaces.tobago.internal.context.ResourceManagerFactory
         .getResourceManager(facesContext).getImage(facesContext, name);
@@ -60,8 +60,9 @@ public class ResourceManagerUtils {
   /**
    * Searches for an image and return it with the context path
    */
-  public static String getImageWithPath(FacesContext facesContext, String name, boolean ignoreMissing) {
-    String image = org.apache.myfaces.tobago.internal.context.ResourceManagerFactory
+  public static String getImageWithPath(
+      final FacesContext facesContext, final String name, final boolean ignoreMissing) {
+    final String image = org.apache.myfaces.tobago.internal.context.ResourceManagerFactory
         .getResourceManager(facesContext).getImage(facesContext, name, ignoreMissing);
     if (image == null) {
       return null;
@@ -70,46 +71,46 @@ public class ResourceManagerUtils {
     }
   }
 
-  public static List<String> getStyles(FacesContext facesContext, String name) {
-    String contextPath = facesContext.getExternalContext().getRequestContextPath();
-    String[] styles = org.apache.myfaces.tobago.internal.context.ResourceManagerFactory
+  public static List<String> getStyles(final FacesContext facesContext, final String name) {
+    final String contextPath = facesContext.getExternalContext().getRequestContextPath();
+    final String[] styles = org.apache.myfaces.tobago.internal.context.ResourceManagerFactory
         .getResourceManager(facesContext).getStyles(facesContext, name);
     return addContextPath(styles, contextPath);
   }
 
-  private static List<String> addContextPath(String[] strings, String contextPath) {
-    List<String> withContext = new ArrayList<String>(strings.length);
+  private static List<String> addContextPath(final String[] strings, final String contextPath) {
+    final List<String> withContext = new ArrayList<String>(strings.length);
     for (String string : strings) {
       withContext.add(contextPath + string);
     }
     return withContext;
   }
 
-  public static List<String> getScripts(FacesContext facesContext, String name) {
-    String contextPath = facesContext.getExternalContext().getRequestContextPath();
-    String[] scripts = org.apache.myfaces.tobago.internal.context.ResourceManagerFactory
+  public static List<String> getScripts(final FacesContext facesContext, final String name) {
+    final String contextPath = facesContext.getExternalContext().getRequestContextPath();
+    final String[] scripts = org.apache.myfaces.tobago.internal.context.ResourceManagerFactory
         .getResourceManager(facesContext).getScripts(facesContext, name);
     return addContextPath(scripts, contextPath);
   }
 
-  public static String getScriptsAsJSArray(FacesContext facesContext, String[] names) {
-    List<String> fileNames = new ArrayList<String>();
+  public static String getScriptsAsJSArray(final FacesContext facesContext, final String[] names) {
+    final List<String> fileNames = new ArrayList<String>();
     for (String name : names) {
       fileNames.addAll(getScripts(facesContext, name));
     }
     return toJSArray(fileNames);
   }
 
-  public static String getStylesAsJSArray(FacesContext facesContext, String[] names) {
-    List<String> fileNames = new ArrayList<String>();
+  public static String getStylesAsJSArray(final FacesContext facesContext, final String[] names) {
+    final List<String> fileNames = new ArrayList<String>();
     for (String name : names) {
       fileNames.addAll(getStyles(facesContext, name));
     }
     return toJSArray(fileNames);
   }
 
-  public static String toJSArray(List<String> list) {
-    StringBuilder sb = new StringBuilder();
+  public static String toJSArray(final List<String> list) {
+    final StringBuilder sb = new StringBuilder();
     for (String name : list) {
       if (sb.length() > 0) {
         sb.append(", ");
@@ -121,25 +122,26 @@ public class ResourceManagerUtils {
     return "[" + sb.toString() + "]";
   }
 
-  public static String getDisabledImageWithPath(FacesContext facesContext, String image) {
-    String filename = ResourceUtils.addPostfixToFilename(image, "Disabled");
+  public static String getDisabledImageWithPath(final FacesContext facesContext, final String image) {
+    final String filename = ResourceUtils.addPostfixToFilename(image, "Disabled");
     return getImageWithPath(facesContext, filename, true);
   }
 
   /**
    * Blank page e. g. useful to set src of iframes (to prevent https problems in ie, see TOBAGO-538)
    */
-  public static String getBlankPage(FacesContext facesContext) {
+  public static String getBlankPage(final FacesContext facesContext) {
     return facesContext.getExternalContext().getRequestContextPath()
         + "/org/apache/myfaces/tobago/renderkit/html/standard/blank.html";
   }
 
-  public static String getPageWithoutContextPath(FacesContext facesContext, String name) {
+  public static String getPageWithoutContextPath(final FacesContext facesContext, final String name) {
     return org.apache.myfaces.tobago.internal.context.ResourceManagerFactory
         .getResourceManager(facesContext).getImage(facesContext, name);
   }
   
-  public static Measure getThemeMeasure(FacesContext facesContext, Configurable configurable, String name) {
+  public static Measure getThemeMeasure(
+      final FacesContext facesContext, final Configurable configurable, final String name) {
     return org.apache.myfaces.tobago.internal.context.ResourceManagerFactory
         .getResourceManager(facesContext).getThemeMeasure(
         facesContext, configurable.getRendererType(), configurable.getCurrentMarkup(), name);
@@ -153,18 +155,19 @@ public class ResourceManagerUtils {
    * @param value the given resource link.
    * @return true if it is an external or absolute resource.
    */
-  public static boolean isAbsoluteResource(String value) {
+  public static boolean isAbsoluteResource(final String value) {
     if (value == null) {
       return true;
     }
-    String upper = value.toUpperCase(Locale.ENGLISH);
+    final String upper = value.toUpperCase(Locale.ENGLISH);
     return (upper.startsWith("/")
         || upper.startsWith("HTTP:")
         || upper.startsWith("HTTPS:")
         || upper.startsWith("FTP:"));
   }
 
-  public static String getImageOrDisabledImageWithPath(FacesContext facesContext, String image, boolean disabled) {
+  public static String getImageOrDisabledImageWithPath(
+      final FacesContext facesContext, final String image, final boolean disabled) {
     String imageWithPath = null;
     if (disabled) {
       imageWithPath = ResourceManagerUtils.getDisabledImageWithPath(facesContext, image);

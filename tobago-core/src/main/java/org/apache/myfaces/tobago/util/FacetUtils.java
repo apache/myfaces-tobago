@@ -27,7 +27,7 @@ import javax.faces.component.UIComponent;
 /**
  * Utility class to provide a type save way to get a specific facet from a components.
  */
-public class FacetUtils {
+public final class FacetUtils {
 
   private FacetUtils() {
   }

@@ -30,7 +30,7 @@ import javax.faces.context.FacesContext;
 import javax.portlet.MimeResponse;
 import javax.servlet.http.HttpServletResponse;
 
-public class ResponseUtils {
+public final class ResponseUtils {
 
   private static final Logger LOG = LoggerFactory.getLogger(ResponseUtils.class);
 

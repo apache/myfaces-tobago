@@ -25,7 +25,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 
-public class HtmlUtils {
+public final class HtmlUtils {
 
   public static final String LAYOUT_ATTRIBUTE_PREFIX = "layout.";
   public static final String CHAR_NON_BEAKING_SPACE = "\u00a0";

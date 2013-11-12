@@ -66,25 +66,26 @@ public final class Classes {
 
   private final String stringValue;
 
-  public static Classes create(UIComponent component) {
+  public static Classes create(final UIComponent component) {
     return create(component, true, null, null, false);
   }
 
-  public static Classes create(UIComponent component, String sub) {
+  public static Classes create(final UIComponent component, final String sub) {
     return create(component, true, sub, null, false);
   }
 
-  public static Classes create(UIComponent component, Markup explicit) {
+  public static Classes create(final UIComponent component, final Markup explicit) {
     return create(component, false, null, explicit, false);
   }
 
-  public static Classes create(UIComponent component, String sub, Markup explicit) {
+  public static Classes create(final UIComponent component, final String sub, final Markup explicit) {
     return create(component, false, sub, explicit, false);
   }
 
   // XXX optimize synchronized
   private static synchronized Classes create(
-      UIComponent component, boolean markupFromComponent, String sub, Markup explicit, boolean ignoreCheck) {
+      final UIComponent component, final boolean markupFromComponent, final String sub,
+      final Markup explicit, final boolean ignoreCheck) {
     final String rendererName = StringUtils.uncapitalize(component.getRendererType());
     final Markup markup = markupFromComponent ? ((SupportsMarkup) component).getCurrentMarkup() : explicit;
     Classes value = (Classes) CACHE.get(rendererName, markup, sub);
@@ -93,18 +94,18 @@ public final class Classes {
       CACHE.put(rendererName, markup, sub, value);
       if (LOG.isDebugEnabled()) {
         LOG.debug("Element added (size={}) to cache (renderName='{}', markup='{}', sub='{}')",
-            new Object[] {CACHE.size(), rendererName, markup, sub});
+            CACHE.size(), rendererName, markup, sub);
       }
     }
     return value;
   }
 
-  private Classes(String rendererName, Markup markup, String sub, boolean ignoreMarkupCheck) {
+  private Classes(final String rendererName, final Markup markup, final String sub, boolean ignoreMarkupCheck) {
 
     assert sub == null || StringUtils.isAlphanumeric(sub) : "Invalid sub element name: '" + sub + "'";
 
     // These values are statistically tested length of the html class attribute
-    StringBuilder builder = new StringBuilder(markup != null ? 80 : 32);
+    final StringBuilder builder = new StringBuilder(markup != null ? 80 : 32);
     builder.append("tobago-");
     builder.append(rendererName);
     if (sub != null) {
@@ -112,8 +113,8 @@ public final class Classes {
       builder.append(sub);
     }
     if (markup != null) {
-      Theme theme = VariableResolverUtils.resolveClientProperties(FacesContext.getCurrentInstance()).getTheme();
-      for (String markupString : markup) {
+      final Theme theme = VariableResolverUtils.resolveClientProperties(FacesContext.getCurrentInstance()).getTheme();
+      for (final String markupString : markup) {
         if (ignoreMarkupCheck || theme.getRenderersConfig().isMarkupSupported(rendererName, markupString)) {
           builder.append(' ');
           builder.append("tobago-");
@@ -140,7 +141,7 @@ public final class Classes {
 
   /** @deprecated This workaround will be removed later */
   @Deprecated
-  public static String requiredWorkaround(UIComponent component) {
+  public static String requiredWorkaround(final UIComponent component) {
     final String rendererName = StringUtils.uncapitalize(component.getRendererType());
     return "tobago-" + rendererName + "-markup-required";
   }
@@ -149,7 +150,8 @@ public final class Classes {
    * @deprecated This workaround will be removed later
    */
   @Deprecated
-  public static Classes createWorkaround(String rendererName, String sub, Markup explicit) {
+  public static Classes createWorkaround(
+      final String rendererName, final String sub, final Markup explicit) {
     return new Classes(rendererName, explicit, sub, false);
   }
 
@@ -157,7 +159,8 @@ public final class Classes {
    * @deprecated This workaround will be removed later
    */
   @Deprecated
-  public static Classes createWorkaround(String rendererName, Markup explicit) {
+  public static Classes createWorkaround(
+      final String rendererName, final Markup explicit) {
     return new Classes(rendererName, explicit, null, false);
   }
 

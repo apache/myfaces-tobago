@@ -33,7 +33,7 @@ import java.io.Serializable;
 import java.security.SecureRandom;
 import java.util.Map;
 
-public class Secret implements Serializable {
+public final class Secret implements Serializable {
 
   private static final long serialVersionUID = 1L;
 

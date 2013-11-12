@@ -38,42 +38,45 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
 
-public class CreateComponentUtils {
+public final class CreateComponentUtils {
 
   private CreateComponentUtils() {
   }
 
   @Deprecated
-  public static UIComponent createComponent(String componentType, String rendererType) {
+  public static UIComponent createComponent(final String componentType, final String rendererType) {
     return createComponent(componentType, rendererType, null);
   }
 
-  public static UIComponent createComponent(String componentType, String rendererType, String clientId) {
+  public static UIComponent createComponent(
+      final String componentType, final String rendererType, final String clientId) {
     final FacesContext facesContext = FacesContext.getCurrentInstance();
     return createComponent(facesContext, componentType, rendererType, clientId);
   }
 
   @Deprecated
-  public static UIComponent createComponent(FacesContext facesContext, String componentType, String rendererType) {
+  public static UIComponent createComponent(
+      final FacesContext facesContext, final String componentType, final String rendererType) {
     return createComponent(facesContext, componentType, rendererType, null);
   }
 
   public static UIComponent createComponent(
-      FacesContext facesContext, String componentType, String rendererType, String clientId) {
-    UIComponent component  = facesContext.getApplication().createComponent(componentType);
+      final FacesContext facesContext, final String componentType, final String rendererType, final String clientId) {
+    final UIComponent component  = facesContext.getApplication().createComponent(componentType);
     component.setRendererType(rendererType);
     component.setId(clientId);
     return component;
   }
 
   @Deprecated
-  public static AbstractUIColumn createTextColumn(String label, String sortable, String align, String value) {
+  public static AbstractUIColumn createTextColumn(
+      final String label, final String sortable, final String align, final String value) {
     return createTextColumn(label, sortable, align, value, null);
   }
 
   public static AbstractUIColumn createTextColumn(
-      String label, String sortable, String align, String value, String clientId) {
-    AbstractUIOut text = (AbstractUIOut) createComponent(ComponentTypes.OUT, RendererTypes.OUT, clientId + "_t");
+      final String label, final String sortable, final String align, final String value, final String clientId) {
+    final AbstractUIOut text = (AbstractUIOut) createComponent(ComponentTypes.OUT, RendererTypes.OUT, clientId + "_t");
     ComponentAttributeUtils.setStringProperty(text, Attributes.VALUE, value);
     ComponentAttributeUtils.setBooleanProperty(text, Attributes.CREATE_SPAN, "false");
     ComponentAttributeUtils.setBooleanProperty(text, Attributes.ESCAPE, "false");
@@ -82,25 +85,27 @@ public class CreateComponentUtils {
   }
 
   @Deprecated
-  public static AbstractUIColumn createColumn(String label, String sortable, String align, UIComponent child) {
+  public static AbstractUIColumn createColumn(
+      final String label, final String sortable, final String align, final UIComponent child) {
     return createColumn(label, sortable, align, child, null);
   }
 
   public static AbstractUIColumn createColumn(
-      String label, String sortable, String align, UIComponent child, String clientId) {
-    AbstractUIColumn column = createColumn(label, sortable, align, clientId);
+      final String label, final String sortable, final String align, final UIComponent child, final String clientId) {
+    final AbstractUIColumn column = createColumn(label, sortable, align, clientId);
     //noinspection unchecked
     column.getChildren().add(child);
     return column;
   }
 
   @Deprecated
-  public static AbstractUIColumn createColumn(String label, String sortable, String align) {
+  public static AbstractUIColumn createColumn(final String label, final String sortable, final String align) {
     return createColumn(label, sortable, align, (String) null);
   }
 
-  public static AbstractUIColumn createColumn(String label, String sortable, String align, String clientId) {
-    AbstractUIColumn column = (AbstractUIColumn) createComponent(ComponentTypes.COLUMN, null, clientId);
+  public static AbstractUIColumn createColumn(
+      final String label, final String sortable, final String align, final String clientId) {
+    final AbstractUIColumn column = (AbstractUIColumn) createComponent(ComponentTypes.COLUMN, null, clientId);
     ComponentAttributeUtils.setStringProperty(column, Attributes.LABEL, label);
     ComponentAttributeUtils.setBooleanProperty(column, Attributes.SORTABLE, sortable);
     ComponentAttributeUtils.setStringProperty(column, Attributes.ALIGN, align);
@@ -108,15 +113,15 @@ public class CreateComponentUtils {
   }
 
   @Deprecated
-  public static UIMenuSelectOne createUIMenuSelectOneFacet(FacesContext facesContext,
-      javax.faces.component.UICommand command) {
+  public static UIMenuSelectOne createUIMenuSelectOneFacet(
+      final FacesContext facesContext, final UICommand command) {
     return createUIMenuSelectOneFacet(facesContext, command, null);
   }
 
   public static UIMenuSelectOne createUIMenuSelectOneFacet(
-      FacesContext facesContext, javax.faces.component.UICommand command, String clientId) {
+      final FacesContext facesContext, final UICommand command, final String clientId) {
 
-    UIMenuSelectOne radio = (UIMenuSelectOne) createComponent(
+    final UIMenuSelectOne radio = (UIMenuSelectOne) createComponent(
         facesContext, UIMenuSelectOne.COMPONENT_TYPE, RendererTypes.SELECT_ONE_RADIO, clientId);
     //noinspection unchecked
     command.getFacets().put(Facets.RADIO, radio);
@@ -130,22 +135,22 @@ public class CreateComponentUtils {
   }
 
   @Deprecated
-  public static UIComponent createUISelectBooleanFacet(FacesContext facesContext, UICommand command) {
+  public static UIComponent createUISelectBooleanFacet(final FacesContext facesContext, final UICommand command) {
     return createUISelectBooleanFacet(facesContext, command, null);
   }
 
-  public static AbstractUISelectBooleanCheckbox createUISelectBooleanFacetWithId(FacesContext facesContext,
-      UICommand command) {
+  public static AbstractUISelectBooleanCheckbox createUISelectBooleanFacetWithId(
+      final FacesContext facesContext, final UICommand command) {
     return createUISelectBooleanFacet(facesContext, command, facesContext.getViewRoot().createUniqueId());
   }
 
-  public static AbstractUISelectBooleanCheckbox createUISelectBooleanFacet(FacesContext facesContext, UICommand command,
-      String clientId) {
-    AbstractUISelectBooleanCheckbox checkbox = (AbstractUISelectBooleanCheckbox) createComponent(
+  public static AbstractUISelectBooleanCheckbox createUISelectBooleanFacet(
+      final FacesContext facesContext, final UICommand command, final String clientId) {
+    final AbstractUISelectBooleanCheckbox checkbox = (AbstractUISelectBooleanCheckbox) createComponent(
         facesContext, ComponentTypes.SELECT_BOOLEAN_CHECKBOX, RendererTypes.SELECT_BOOLEAN_CHECKBOX, clientId);
     //noinspection unchecked
     command.getFacets().put(Facets.CHECKBOX, checkbox);
-    ValueBinding valueBinding = command.getValueBinding(Attributes.VALUE);
+    final ValueBinding valueBinding = command.getValueBinding(Attributes.VALUE);
     if (valueBinding != null) {
       checkbox.setValueBinding(Attributes.VALUE, valueBinding);
     } else {
@@ -156,9 +161,10 @@ public class CreateComponentUtils {
   }
 
   public static LayoutManager createAndInitLayout(
-      FacesContext facesContext, String componentType, String rendererType, UIComponent parent) {
+      final FacesContext facesContext, final String componentType, final String rendererType,
+      final UIComponent parent) {
 
-    LayoutManager layoutManager = (LayoutManager) CreateComponentUtils.createComponent(
+    final LayoutManager layoutManager = (LayoutManager) CreateComponentUtils.createComponent(
         facesContext, componentType, rendererType, facesContext.getViewRoot().createUniqueId());
     if (layoutManager instanceof OnComponentCreated) {
       ((OnComponentCreated) layoutManager).onComponentCreated(facesContext, parent);

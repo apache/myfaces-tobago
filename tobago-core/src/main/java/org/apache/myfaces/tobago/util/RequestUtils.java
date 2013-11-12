@@ -28,7 +28,7 @@ import javax.portlet.ClientDataRequest;
 import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
 
-public class RequestUtils {
+public final class RequestUtils {
 
   private static final Logger LOG = LoggerFactory.getLogger(RequestUtils.class);
 

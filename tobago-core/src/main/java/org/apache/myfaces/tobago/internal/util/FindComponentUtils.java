@@ -25,7 +25,7 @@ import javax.faces.component.UINamingContainer;
 import javax.faces.context.FacesContext;
 
 // Will be normally called via ComponentUtils.
-public class FindComponentUtils {
+public final class FindComponentUtils {
 
   private FindComponentUtils() {
   }

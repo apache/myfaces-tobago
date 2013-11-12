@@ -35,7 +35,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TobagoConfigBuilder {
+public final class TobagoConfigBuilder {
 
   private static final Logger LOG = LoggerFactory.getLogger(TobagoConfigBuilder.class);
 

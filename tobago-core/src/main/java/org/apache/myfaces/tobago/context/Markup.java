@@ -93,23 +93,23 @@ public final class Markup implements Serializable, Iterable<String> {
   private final String[] values;
   private final String value;
 
-  private Markup(String[] values) {
+  private Markup(final String[] values) {
     this.values = values;
     this.value = null;
   }
 
-  private Markup(String value) {
+  private Markup(final String value) {
     this.values = null;
     this.value = value;
   }
 
-  public static Markup valueOf(String[] values) {
+  public static Markup valueOf(final String[] values) {
     if (values == null || values.length == 0) {
       return null;
     } else if (values.length == 1) {
       return valueOf(values[0]);
     } else {
-      Markup markup = new Markup((String[]) ArrayUtils.clone(values));
+      final Markup markup = new Markup((String[]) ArrayUtils.clone(values));
       for (int i = 0; i < markup.values.length; i++) {
         markup.values[i] = markup.values[i].trim();
       }
@@ -117,19 +117,19 @@ public final class Markup implements Serializable, Iterable<String> {
     }
   }
 
-  public static Markup valueOf(String value) {
+  public static Markup valueOf(final String value) {
     if (StringUtils.isEmpty(value)) {
       return null;
     }
     if (value.contains(",")) {
-      String[] strings = StringUtils.split(value, ", \t\n");
+      final String[] strings = StringUtils.split(value, ", \t\n");
       return new Markup(strings);
     } else {
       return new Markup(value.trim());
     }
   }
 
-  public static Markup valueOf(Object value) {
+  public static Markup valueOf(final Object value) {
     if (value == null) {
       return null;
     }
@@ -153,7 +153,7 @@ public final class Markup implements Serializable, Iterable<String> {
   }
 
   @Override
-  public boolean equals(Object o) {
+  public boolean equals(final Object o) {
     if (this == o) {
       return true;
     }
@@ -161,7 +161,7 @@ public final class Markup implements Serializable, Iterable<String> {
       return false;
     }
 
-    Markup markup = (Markup) o;
+    final Markup markup = (Markup) o;
 
     if (value != null ? !value.equals(markup.value) : markup.value != null) {
       return false;
@@ -194,7 +194,7 @@ public final class Markup implements Serializable, Iterable<String> {
    * Adds one markup to an other.
    * Attention: The markup itself is not modified, you need to use the result of this operation.
    */
-  public Markup add(Markup markup) {
+  public Markup add(final Markup markup) {
     if (markup == null) {
       return this;
     }
@@ -215,7 +215,7 @@ public final class Markup implements Serializable, Iterable<String> {
     }
   }
 
-  private Markup add(String summand) {
+  private Markup add(final String summand) {
     if (summand == null) {
       return this;
     }
@@ -241,7 +241,7 @@ public final class Markup implements Serializable, Iterable<String> {
     }
   }
 
-  public Markup remove(Markup markup) {
+  public Markup remove(final Markup markup) {
     if (markup.value != null) {
       return remove(markup.value);
     } else {
@@ -254,7 +254,7 @@ public final class Markup implements Serializable, Iterable<String> {
     }
   }
 
-  private Markup remove(String summand) {
+  private Markup remove(final String summand) {
     if (summand == null) {
       return this;
     }
@@ -285,7 +285,7 @@ public final class Markup implements Serializable, Iterable<String> {
     }
   }
 
-  public boolean contains(String markup) {
+  public boolean contains(final String markup) {
     if (markup == null) {
       return false;
     }
@@ -295,7 +295,7 @@ public final class Markup implements Serializable, Iterable<String> {
     if (value != null) {
       return value.equals(markup);
     }
-    for (String value : values) {
+    for (final String value : values) {
         if (value.equals(markup)) {
           return true;
         }

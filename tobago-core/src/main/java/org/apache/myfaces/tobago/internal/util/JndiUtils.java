@@ -27,7 +27,7 @@ import javax.naming.Context;
 import javax.naming.NamingEnumeration;
 import javax.naming.NamingException;
 
-public class JndiUtils {
+public final class JndiUtils {
 
   private static final Logger LOG = LoggerFactory.getLogger(JndiUtils.class);
 

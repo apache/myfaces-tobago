@@ -30,7 +30,7 @@ import java.util.Locale;
  * TODO: Should be sharable (e.g. myfaces-commons).
  * <p/>
  */
-public class DateFormatUtils {
+public final class DateFormatUtils {
 
   private static final String TYPE_DATE = "date";
   private static final String TYPE_TIME = "time";

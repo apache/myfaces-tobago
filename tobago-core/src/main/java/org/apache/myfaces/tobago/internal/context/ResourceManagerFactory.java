@@ -26,7 +26,7 @@ import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 
-public class ResourceManagerFactory {
+public final class ResourceManagerFactory {
 
   public static final String RESOURCE_MANAGER
       = "org.apache.myfaces.tobago.context.ResourceManager";

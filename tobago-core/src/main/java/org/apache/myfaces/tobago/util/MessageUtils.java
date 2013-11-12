@@ -40,7 +40,7 @@ import java.util.ResourceBundle;
  * <li>Default JSF bundle</li>
  * </ol>
  */
-public class MessageUtils {
+public final class MessageUtils {
 
   private static final String DETAIL_SUFFIX = "_detail";
 

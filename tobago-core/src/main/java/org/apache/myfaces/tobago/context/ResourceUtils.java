@@ -19,7 +19,7 @@
 
 package org.apache.myfaces.tobago.context;
 
-public class ResourceUtils {
+public final class ResourceUtils {
 
   public static final char FOLDER_SEPARATOR = '/';
   public static final char SEPARATOR = '-';
@@ -27,44 +27,24 @@ public class ResourceUtils {
 
   public static final String GIF = "gif";
 
-  public static String createString(String folder, String component, String name, String postfix, String extension) {
-    return new StringBuilder()
-        .append(folder)
-        .append(FOLDER_SEPARATOR)
-        .append(component)
-        .append(SEPARATOR)
-        .append(name)
-        .append(SEPARATOR)
-        .append(postfix)
-        .append(DOT)
-        .append(extension)
-        .toString();
-  }
-
-  public static String createString(String folder, String component, String name, String extension) {
-    return new StringBuilder()
-        .append(folder)
-        .append(FOLDER_SEPARATOR)
-        .append(component)
-        .append(SEPARATOR)
-        .append(name)
-        .append(DOT)
-        .append(extension)
-        .toString();
-  }
-
-  public static String addPostfixToFilename(String filename, String postfix) {
-    int dotIndex = filename.lastIndexOf('.');
-    String name = filename.substring(0, dotIndex);
-    String extension = filename.substring(dotIndex);
-    return new StringBuilder()
-        .append(name)
-        .append(postfix)
-        .append(extension)
-        .toString();
-  }
-
   private ResourceUtils() {
+    assert false;
   }
 
+  public static String createString(
+      final String folder, final String component, final String name, final String postfix, final String extension) {
+    return folder + FOLDER_SEPARATOR + component + SEPARATOR + name + SEPARATOR + postfix + DOT + extension;
+  }
+
+  public static String createString(
+      final String folder, final String component, final String name, final String extension) {
+    return folder + FOLDER_SEPARATOR + component + SEPARATOR + name + DOT + extension;
+  }
+
+  public static String addPostfixToFilename(final String filename, final String postfix) {
+    final int dotIndex = filename.lastIndexOf('.');
+    final String name = filename.substring(0, dotIndex);
+    final String extension = filename.substring(dotIndex);
+    return name + postfix + extension;
+  }
 }

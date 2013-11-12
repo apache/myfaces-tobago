@@ -52,32 +52,32 @@ public class Sorter {
 
   private Comparator comparator;
 
-  public void perform(SortActionEvent sortEvent) {
+  public void perform(final SortActionEvent sortEvent) {
     if (LOG.isDebugEnabled()) {
       LOG.debug("sorterId = {}", sortEvent.getComponent().getId());
     }
-    UIColumn column = sortEvent.getColumn();
-    AbstractUISheet data = (AbstractUISheet) sortEvent.getComponent();
+    final UIColumn column = sortEvent.getColumn();
+    final AbstractUISheet data = (AbstractUISheet) sortEvent.getComponent();
 
     Object value = data.getValue();
     if (value instanceof DataModel) {
       value = ((DataModel) value).getWrappedData();
     }
-    FacesContext facesContext = FacesContext.getCurrentInstance();
-    SheetState sheetState = data.getSheetState(facesContext);
+    final FacesContext facesContext = FacesContext.getCurrentInstance();
+    final SheetState sheetState = data.getSheetState(facesContext);
 
-    Comparator actualComparator = null;
+    Comparator actualComparator;
 
     if (value instanceof List || value instanceof Object[]) {
       String sortProperty;
 
       try {
-        UIComponent child = getFirstSortableChild(column.getChildren());
+        final UIComponent child = getFirstSortableChild(column.getChildren());
         if (child != null) {
 
-          String attributeName = child instanceof AbstractUICommand ? Attributes.LABEL : Attributes.VALUE;
+          final String attributeName = child instanceof AbstractUICommand ? Attributes.LABEL : Attributes.VALUE;
           if (child.getValueExpression(attributeName) != null) {
-            String var = data.getVar();
+            final String var = data.getVar();
             if (var == null) {
                 LOG.error("No sorting performed. Property var of sheet is not set!");
                 unsetSortableAttribute(column);
@@ -101,8 +101,8 @@ public class Sorter {
               }
             } else {
 
-              boolean descending = !sheetState.isAscending();
-              ValueExpression expression = child.getValueExpression("value");
+              final boolean descending = !sheetState.isAscending();
+              final ValueExpression expression = child.getValueExpression("value");
               actualComparator = new ValueExpressionComparator(facesContext, var, expression, descending, comparator);
             }
           } else {
@@ -115,7 +115,7 @@ public class Sorter {
           unsetSortableAttribute(column);
           return;
         }
-      } catch (Exception e) {
+      } catch (final Exception e) {
         LOG.error("Error while extracting sortMethod :" + e.getMessage(), e);
         if (column != null) {
           unsetSortableAttribute(column);
@@ -133,7 +133,7 @@ public class Sorter {
       if (sheetState.getSelectedRows().size() > 0) {
         selectedDataRows = new ArrayList<Object>(sheetState.getSelectedRows().size());
         Object dataRow;
-        for (Integer index : sheetState.getSelectedRows()) {
+        for (final Integer index : sheetState.getSelectedRows()) {
           if (value instanceof List) {
             dataRow = ((List) value).get(index);
           } else {
@@ -182,11 +182,11 @@ public class Sorter {
 
   // XXX needs to be tested
   // XXX was based on ^#\{(\w+(\.\w)*)\}$ which is wrong, because there is a + missing after the last \w
-  boolean isSimpleProperty(String expressionString) {
+  boolean isSimpleProperty(final String expressionString) {
     if (expressionString.startsWith("#{") && expressionString.endsWith("}")) {
-      String inner = expressionString.substring(2, expressionString.length() - 1);
-      String[] parts = StringUtils.split(inner, ".");
-      for (String part : parts) {
+      final String inner = expressionString.substring(2, expressionString.length() - 1);
+      final String[] parts = StringUtils.split(inner, ".");
+      for (final String part : parts) {
         if (!StringUtils.isAlpha(part)) {
           return false;
         }
@@ -196,12 +196,12 @@ public class Sorter {
     return false;
   }
 
-  private void unsetSortableAttribute(UIColumn uiColumn) {
+  private void unsetSortableAttribute(final UIColumn uiColumn) {
     LOG.warn("removing attribute sortable from column " + uiColumn.getId());
     uiColumn.getAttributes().put(Attributes.SORTABLE, Boolean.FALSE);
   }
 
-  private UIComponent getFirstSortableChild(List<UIComponent> children) {
+  private UIComponent getFirstSortableChild(final List<UIComponent> children) {
     UIComponent result = null;
 
     for (UIComponent child : children) {
@@ -232,7 +232,7 @@ public class Sorter {
     return comparator;
   }
 
-  public void setComparator(Comparator comparator) {
+  public void setComparator(final Comparator comparator) {
     this.comparator = comparator;
   }
 }

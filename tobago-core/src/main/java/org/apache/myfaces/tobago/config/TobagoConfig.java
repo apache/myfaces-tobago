@@ -31,15 +31,15 @@ public abstract class TobagoConfig {
 
   public static final String TOBAGO_CONFIG = "org.apache.myfaces.tobago.config.TobagoConfig";
 
-  public static TobagoConfig getInstance(FacesContext facesContext) {
+  public static TobagoConfig getInstance(final FacesContext facesContext) {
     return (TobagoConfig) facesContext.getExternalContext().getApplicationMap().get(TOBAGO_CONFIG);
   }
 
-  public static TobagoConfig getInstance(ServletContext servletContext) {
+  public static TobagoConfig getInstance(final ServletContext servletContext) {
     return (TobagoConfig) servletContext.getAttribute(TOBAGO_CONFIG);
   }
 
-  public abstract Theme getTheme(String name);
+  public abstract Theme getTheme(final String name);
 
   public abstract List<Theme> getSupportedThemes();
 

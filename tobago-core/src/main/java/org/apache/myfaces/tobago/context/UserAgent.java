@@ -30,7 +30,7 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.StringTokenizer;
 
-public class UserAgent implements Serializable {
+public final class UserAgent implements Serializable {
 
   private static final long serialVersionUID = 2L;
 

@@ -29,11 +29,11 @@ public class MarkupConfig implements Serializable {
 
   private Set<String> markups = new HashSet<String>();
 
-  public boolean contains(String markup) {
+  public boolean contains(final String markup) {
     return markups.contains(markup);
   }
 
-  public void addMarkup(String markup) {
+  public void addMarkup(final String markup) {
     this.markups.add(markup);
   }
 

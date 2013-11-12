@@ -19,16 +19,12 @@
 
 package org.apache.myfaces.tobago.internal.layout;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.layout.Measure;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class FactorList extends ArrayList<Integer> {
-
-  private static final Logger LOG = LoggerFactory.getLogger(FactorList.class);
 
   public List<Measure> partition(Measure size) {
 

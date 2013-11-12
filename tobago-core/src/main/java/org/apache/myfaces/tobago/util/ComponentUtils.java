@@ -72,7 +72,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-public class ComponentUtils {
+public final class ComponentUtils {
 
   private static final Logger LOG = LoggerFactory.getLogger(ComponentUtils.class);
 

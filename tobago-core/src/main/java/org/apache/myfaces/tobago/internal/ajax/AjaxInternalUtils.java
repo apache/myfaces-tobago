@@ -38,7 +38,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
 
-public class AjaxInternalUtils {
+public final class AjaxInternalUtils {
 
   private static final Logger LOG = LoggerFactory.getLogger(AjaxInternalUtils.class);
 

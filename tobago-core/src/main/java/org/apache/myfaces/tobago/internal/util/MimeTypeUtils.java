@@ -19,7 +19,7 @@
 
 package org.apache.myfaces.tobago.internal.util;
 
-public class MimeTypeUtils {
+public final class MimeTypeUtils {
 
   private MimeTypeUtils() {
     // utils class

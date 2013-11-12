@@ -32,7 +32,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-public class AjaxNavigationState {
+public final class AjaxNavigationState {
 
   private static final Logger LOG = LoggerFactory.getLogger(AjaxNavigationState.class);
 

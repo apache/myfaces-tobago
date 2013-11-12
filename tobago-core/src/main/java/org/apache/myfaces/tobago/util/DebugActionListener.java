@@ -30,14 +30,14 @@ public class DebugActionListener implements ActionListener {
 
   private static final Logger LOG = LoggerFactory.getLogger(DebugActionListener.class);
 
-  private ActionListener actionListener;
+  private final ActionListener actionListener;
 
 
-  public DebugActionListener(ActionListener actionListener) {
+  public DebugActionListener(final ActionListener actionListener) {
     this.actionListener = actionListener;
   }
 
-  public void processAction(ActionEvent actionEvent) throws AbortProcessingException {
+  public void processAction(final ActionEvent actionEvent) throws AbortProcessingException {
     if (LOG.isDebugEnabled()) {
       LOG.debug("processAction " + actionEvent);
     }

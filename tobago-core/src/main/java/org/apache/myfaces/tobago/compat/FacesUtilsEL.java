@@ -45,7 +45,7 @@ import javax.faces.event.FacesEvent;
 import javax.faces.validator.MethodExpressionValidator;
 import java.util.Comparator;
 
-public class FacesUtilsEL {
+public final class FacesUtilsEL {
 
   private static final Logger LOG = LoggerFactory.getLogger(FacesUtilsEL.class);
 
@@ -56,8 +56,8 @@ public class FacesUtilsEL {
    * @deprecated since 2.0.0
    */
   public static boolean invokeOnComponent(
-      FacesContext context, UIComponent component, String clientId, ContextCallback callback) {
-    String thisClientId = component.getClientId(context);
+      final FacesContext context, final UIComponent component, final String clientId, final ContextCallback callback) {
+    final String thisClientId = component.getClientId(context);
 
     if (clientId.equals(thisClientId)) {
       callback.invokeContextCallback(context, component);
@@ -83,9 +83,9 @@ public class FacesUtilsEL {
   }
 
   private static boolean invokeOnComponentFacetsAndChildren(
-      FacesContext context, UIComponent component, String clientId, ContextCallback callback) {
+      final FacesContext context, final UIComponent component, final String clientId, final ContextCallback callback) {
     for (java.util.Iterator<UIComponent> it = component.getFacetsAndChildren(); it.hasNext();) {
-      UIComponent child = it.next();
+      final UIComponent child = it.next();
 
       if (child.invokeOnComponent(context, clientId, callback)) {
         return true;
@@ -98,12 +98,13 @@ public class FacesUtilsEL {
    * @deprecated since 2.0.0
    */
   @Deprecated
-  public static void invokeMethodBinding(FacesContext facesContext, MethodBinding methodBinding, FacesEvent event) {
+  public static void invokeMethodBinding(
+      final FacesContext facesContext, final MethodBinding methodBinding, final FacesEvent event) {
     if (methodBinding != null && event != null) {
       try {
         methodBinding.invoke(facesContext, new Object[]{event});
       } catch (EvaluationException e) {
-        Throwable cause = e.getCause();
+        final Throwable cause = e.getCause();
         if (cause instanceof AbortProcessingException) {
           throw (AbortProcessingException) cause;
         } else {

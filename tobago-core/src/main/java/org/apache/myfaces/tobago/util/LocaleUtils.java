@@ -26,7 +26,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
-public class LocaleUtils {
+public final class LocaleUtils {
 
   private LocaleUtils() {
   }

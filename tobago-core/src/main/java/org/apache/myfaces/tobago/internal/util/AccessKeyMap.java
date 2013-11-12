@@ -24,7 +24,7 @@ import java.util.HashSet;
 import java.util.Locale;
 import java.util.Map;
 
-public class AccessKeyMap {
+public final class AccessKeyMap {
 
   private static final char[] KEYS = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
       'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o',

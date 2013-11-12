@@ -36,7 +36,7 @@ import java.net.URLStreamHandler;
 /*
  * Was copied from MyFaces-Impl, because there is no JSF base class.
  */
-public class Resource {
+public final class Resource {
 
   private static final Logger LOG = LoggerFactory.getLogger(Resource.class);
 

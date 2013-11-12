@@ -25,7 +25,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
 
-public class ComponentAttributeUtils {
+public final class ComponentAttributeUtils {
 
   private ComponentAttributeUtils() {
   }

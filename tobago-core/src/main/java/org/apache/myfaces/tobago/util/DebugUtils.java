@@ -29,7 +29,7 @@ import java.util.Map;
 import java.util.Set;
 
 
-public class DebugUtils {
+public final class DebugUtils {
 
   private DebugUtils() {
     // to prevent instantiation
