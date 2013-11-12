@@ -29,7 +29,6 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 
-import javax.faces.FacesException;
 import javax.xml.XMLConstants;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
@@ -89,7 +88,7 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
   }
 
   public TobagoConfigFragment parse(URL url)
-      throws IOException, SAXException, FacesException, ParserConfigurationException, URISyntaxException {
+      throws IOException, SAXException, ParserConfigurationException, URISyntaxException {
 
     if (LOG.isInfoEnabled()) {
       LOG.info("Parsing configuration file: '{}'", url);
