@@ -40,49 +40,49 @@ import java.util.Map;
 import java.util.Set;
 import java.util.StringTokenizer;
 
-public class AjaxUtils {
+public final class AjaxUtils {
 
   private static final Logger LOG = LoggerFactory.getLogger(AjaxUtils.class);
 
   private AjaxUtils() {
   }
 
-  public static boolean isAjaxRequest(FacesContext facesContext) {
-    Map parameterMap = facesContext.getExternalContext().getRequestParameterMap();
-    String ajaxComponentIds = (String) parameterMap.get(AjaxInternalUtils.TOBAGO_PARTIAL_IDS);
+  public static boolean isAjaxRequest(final FacesContext facesContext) {
+    final Map parameterMap = facesContext.getExternalContext().getRequestParameterMap();
+    final String ajaxComponentIds = (String) parameterMap.get(AjaxInternalUtils.TOBAGO_PARTIAL_IDS);
     return ajaxComponentIds != null;
   }
 
-  public static void removeAjaxComponent(FacesContext facesContext, String clientId) {
-    Map<String, UIComponent> ajaxComponents = AjaxInternalUtils.getAjaxComponents(facesContext);
+  public static void removeAjaxComponent(final FacesContext facesContext, final String clientId) {
+    final Map<String, UIComponent> ajaxComponents = AjaxInternalUtils.getAjaxComponents(facesContext);
     if (ajaxComponents != null) {
       ajaxComponents.remove(clientId);
     }
   }
 
-  public static void addAjaxComponent(FacesContext facesContext, String clientId) {
+  public static void addAjaxComponent(final FacesContext facesContext, final String clientId) {
     addAjaxComponent(facesContext, facesContext.getViewRoot().findComponent(clientId));
   }
 
-  public static void addAjaxComponent(FacesContext facesContext, UIComponent component) {
+  public static void addAjaxComponent(final FacesContext facesContext, final UIComponent component) {
     if (component == null) {
       LOG.warn("Ignore AjaxComponent: null");
       return;
     }
-    Map<String, UIComponent> ajaxComponents = AjaxInternalUtils.getAjaxComponents(facesContext);
+    final Map<String, UIComponent> ajaxComponents = AjaxInternalUtils.getAjaxComponents(facesContext);
     if (ajaxComponents != null) {
       ajaxComponents.put(component.getClientId(facesContext), component);
     }
   }
 
-  public static Set<String> getRequestPartialIds(FacesContext facesContext) {
-    Map parameterMap = facesContext.getExternalContext().getRequestParameterMap();
-    String ajaxComponentIds = (String) parameterMap.get(AjaxInternalUtils.TOBAGO_PARTIAL_IDS);
+  public static Set<String> getRequestPartialIds(final FacesContext facesContext) {
+    final Map parameterMap = facesContext.getExternalContext().getRequestParameterMap();
+    final String ajaxComponentIds = (String) parameterMap.get(AjaxInternalUtils.TOBAGO_PARTIAL_IDS);
     if (ajaxComponentIds != null) {
-      StringTokenizer tokenizer = new StringTokenizer(ajaxComponentIds, ",");
-      Set<String> ajaxComponents = new HashSet<String>(tokenizer.countTokens());
+      final StringTokenizer tokenizer = new StringTokenizer(ajaxComponentIds, ",");
+      final Set<String> ajaxComponents = new HashSet<String>(tokenizer.countTokens());
       while (tokenizer.hasMoreTokens()) {
-        String ajaxId = tokenizer.nextToken();
+        final String ajaxId = tokenizer.nextToken();
         ajaxComponents.add(ajaxId);
       }
       return ajaxComponents;
@@ -93,12 +93,12 @@ public class AjaxUtils {
   /**
    * @return true if a UIMessage component has added to renderedPartially
    */
-  public static boolean addUIMessagesToRenderedPartially(FacesContext context) {
+  public static boolean addUIMessagesToRenderedPartially(final FacesContext context) {
     if (!isAjaxRequest(context)) {
       return false;
     }
-    List<String> list = AjaxInternalUtils.getMessagesComponentIds(context);
-    Iterator clientIds = context.getClientIdsWithMessages();
+    final List<String> list = AjaxInternalUtils.getMessagesComponentIds(context);
+    final Iterator clientIds = context.getClientIdsWithMessages();
     boolean added = false;
 
     if (clientIds.hasNext()) { // messages in the partial part
@@ -119,14 +119,14 @@ public class AjaxUtils {
   /**
    * @deprecated since 2.0.0. Is no longer needed
    */
-  public static boolean redirect(FacesContext facesContext, String url) throws IOException {
+  public static boolean redirect(final FacesContext facesContext, final String url) throws IOException {
     if (!isAjaxRequest(facesContext)) {
       return false;
     }
-    HttpServletResponse httpServletResponse
+    final HttpServletResponse httpServletResponse
           = (HttpServletResponse) facesContext.getExternalContext().getResponse();
-    Writer writer = httpServletResponse.getWriter();
-    String contentType = "application/json; charset=UTF-8";
+    final Writer writer = httpServletResponse.getWriter();
+    final String contentType = "application/json; charset=UTF-8";
     ResponseUtils.ensureContentTypeHeader(facesContext, contentType);
     ResponseUtils.ensureNoCacheHeader(facesContext);
     redirectInternal(writer, url);
@@ -138,7 +138,7 @@ public class AjaxUtils {
   /**
    * @deprecated since 2.0.0. Is no longer needed
    */
-  private static void redirectInternal(Writer writer, String url) throws IOException {
+  private static void redirectInternal(final Writer writer, final String url) throws IOException {
     writer.flush(); // is needed in some cases, e. g. TOBAGO-1094
     writer.write("{\n  \"tobagoAjaxResponse\": true,\n");
     writer.write("  \"responseCode\": 302,\n");
@@ -151,7 +151,7 @@ public class AjaxUtils {
   /**
    * @deprecated since 2.0.0. Is no longer needed
    */
-  public static void redirect(HttpServletResponse response, String url) throws IOException {
+  public static void redirect(final HttpServletResponse response, final String url) throws IOException {
     PrintWriter writer = response.getWriter();
     String contentType = "application/json; charset=UTF-8";
     ResponseUtils.ensureContentTypeHeader(response, contentType);

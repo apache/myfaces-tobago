@@ -28,30 +28,31 @@ public class LabelValueExpressionFacesMessage extends FacesMessage {
     super();
   }
 
-  public LabelValueExpressionFacesMessage(FacesMessage.Severity severity, String summary, String detail) {
+  public LabelValueExpressionFacesMessage(
+      final FacesMessage.Severity severity, final String summary, final String detail) {
     super(severity, summary, detail);
   }
 
-  public LabelValueExpressionFacesMessage(String summary, String detail) {
+  public LabelValueExpressionFacesMessage(final String summary, final String detail) {
     super(summary, detail);
   }
 
-  public LabelValueExpressionFacesMessage(String summary) {
+  public LabelValueExpressionFacesMessage(final String summary) {
     super(summary);
   }
 
   @Override
   public String getDetail() {
-    FacesContext facesContext = FacesContext.getCurrentInstance();
-    ValueExpression value = facesContext.getApplication().getExpressionFactory().
+    final FacesContext facesContext = FacesContext.getCurrentInstance();
+    final ValueExpression value = facesContext.getApplication().getExpressionFactory().
         createValueExpression(facesContext.getELContext(), super.getDetail(), String.class);
     return (String) value.getValue(facesContext.getELContext());
   }
 
   @Override
   public String getSummary() {
-    FacesContext facesContext = FacesContext.getCurrentInstance();
-    ValueExpression value = facesContext.getApplication().getExpressionFactory().
+    final FacesContext facesContext = FacesContext.getCurrentInstance();
+    final ValueExpression value = facesContext.getApplication().getExpressionFactory().
         createValueExpression(facesContext.getELContext(), super.getSummary(), String.class);
     return (String) value.getValue(facesContext.getELContext());
   }

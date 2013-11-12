@@ -42,11 +42,11 @@ public class ActionListenerImpl implements ActionListener {
 
   private String errorOutcome = "error";
 
-  public ActionListenerImpl(ActionListener base) {
+  public ActionListenerImpl(final ActionListener base) {
     this.base = base;
   }
 
-  public void processAction(ActionEvent event) throws AbortProcessingException {
+  public void processAction(final ActionEvent event) throws AbortProcessingException {
     try {
       base.processAction(event);
     } catch (Throwable e) {
@@ -60,19 +60,19 @@ public class ActionListenerImpl implements ActionListener {
         }
       }
       LOG.error("Processing failed. Forwarding to error page. errorOutcome=" + errorOutcome, e.getCause());
-      FacesContext facesContext = FacesContext.getCurrentInstance();
+      final FacesContext facesContext = FacesContext.getCurrentInstance();
       if (e.getCause() != null) {
          FacesMessage facesMessage = new FacesMessage(e.getCause().toString());
          facesContext.addMessage(null, facesMessage);
       }
-      UIComponent source = event.getComponent();
-      ActionSource2 actionSource = (ActionSource2) source;
-      Application application = facesContext.getApplication();
-      MethodExpression expression = actionSource.getActionExpression();
+      final UIComponent source = event.getComponent();
+      final ActionSource2 actionSource = (ActionSource2) source;
+      final Application application = facesContext.getApplication();
+      final MethodExpression expression = actionSource.getActionExpression();
       // Retrieve the NavigationHandler instance..
-      NavigationHandler navHandler = application.getNavigationHandler();
+      final NavigationHandler navHandler = application.getNavigationHandler();
       // Invoke nav handling..
-      String navBinding = (null != expression) ? expression.getExpressionString() : null;
+      final String navBinding = (null != expression) ? expression.getExpressionString() : null;
       navHandler.handleNavigation(facesContext, navBinding, errorOutcome);
       // Trigger a switch to Render Response if needed
       facesContext.renderResponse();
@@ -83,7 +83,7 @@ public class ActionListenerImpl implements ActionListener {
     return errorOutcome;
   }
 
-  public void setErrorOutcome(String errorOutcome) {
+  public void setErrorOutcome(final String errorOutcome) {
     this.errorOutcome = errorOutcome;
   }
 }
