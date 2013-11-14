@@ -31,7 +31,13 @@ Release Checklist (Developer Info)
 
   * Install a jdk 1.4 and a jdk 1.5 on your computer (only for Tobago 1.0.x).
 
-  * Please switch to jdk 1.5 for a release build (only for Tobago 1.0.x).
+  * Please switch to a jdk depending of the version to build:
+
+    * for Tobago 1.0.x use jdk 1.5.
+
+    * for Tobago 1.5.x use jdk 1.6 or 1.7.
+
+    * for Tobago 2.0.x use jdk 1.6, 1.7 or 1.8.
 
   * Perform basic checks on an unmodified checkout for all modules:
 
