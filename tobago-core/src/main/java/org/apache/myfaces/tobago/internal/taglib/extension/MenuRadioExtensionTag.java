@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.internal.taglib.extension;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.myfaces.tobago.apt.annotation.DynamicExpression;
 import org.apache.myfaces.tobago.apt.annotation.ExtensionTag;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
@@ -30,6 +29,7 @@ import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.internal.component.AbstractUICommandBase;
 import org.apache.myfaces.tobago.internal.taglib.MenuCommandTag;
 import org.apache.myfaces.tobago.internal.taglib.SelectOneRadioTag;
+import org.apache.myfaces.tobago.internal.util.StringUtils;
 
 import javax.faces.component.UIComponent;
 import javax.faces.webapp.FacetTag;
@@ -224,8 +224,6 @@ public class MenuRadioExtensionTag extends TobagoExtensionBodyTagSupport {
 
   /**
    * Script to be invoked when clicked
-   *
-   * @param onclick
    */
   @TagAttribute
   @UIComponentTagAttribute()
@@ -235,8 +233,6 @@ public class MenuRadioExtensionTag extends TobagoExtensionBodyTagSupport {
 
   /**
    * Link to an arbitrary URL
-   *
-   * @param link
    */
   @TagAttribute
   @UIComponentTagAttribute()

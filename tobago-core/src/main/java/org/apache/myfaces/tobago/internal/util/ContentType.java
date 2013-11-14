@@ -19,8 +19,6 @@
 
 package org.apache.myfaces.tobago.internal.util;
 
-import org.apache.commons.lang.StringUtils;
-
 public class ContentType {
   private String primaryType;
   private String subType;

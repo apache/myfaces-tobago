@@ -19,7 +19,7 @@
 
 package org.apache.myfaces.tobago.layout;
 
-import org.apache.commons.lang.math.NumberUtils;
+import org.apache.myfaces.tobago.internal.util.NumberUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -151,8 +151,7 @@ public final class LayoutTokens implements Iterable<LayoutToken> {
   }
 
   static boolean isNumberAndSuffix(String token, String suffix) {
-    return token.endsWith(suffix)
-        && NumberUtils.isDigits(removeSuffix(token, suffix));
+    return token.endsWith(suffix) && NumberUtils.isDigits(removeSuffix(token, suffix));
   }
 
   private static String removeSuffix(String token, String suffix) {

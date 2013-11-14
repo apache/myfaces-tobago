@@ -19,8 +19,8 @@
 
 package org.apache.myfaces.tobago.facelets;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.myfaces.tobago.component.UIScript;
+import org.apache.myfaces.tobago.internal.util.StringUtils;
 
 import javax.faces.component.UIComponent;
 import javax.faces.view.facelets.ComponentConfig;

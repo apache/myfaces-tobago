@@ -19,8 +19,8 @@
 
 package org.apache.myfaces.tobago.renderkit;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.myfaces.tobago.component.Attributes;
+import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -55,7 +55,7 @@ public class InputRendererBase extends LayoutComponentRendererBase {
         final boolean password = ComponentUtils.getBooleanAttribute(component, Attributes.PASSWORD);
         LOG.debug("clientId = '" + clientId + "'");
         LOG.debug("requestParameterMap.get(clientId) = '"
-            + (password ? StringUtils.leftPad("", newValue.length(), '*') : newValue) + "'");
+            + (password ? StringUtils.repeat("*", newValue.length()) : newValue) + "'");
       }
       uiInput.setSubmittedValue(newValue);
     }

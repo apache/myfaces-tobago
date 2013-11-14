@@ -19,9 +19,9 @@
 
 package org.apache.myfaces.tobago.renderkit;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.RendererTypes;
+import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

@@ -23,6 +23,7 @@ import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.internal.util.FastStringWriter;
 import org.apache.myfaces.tobago.internal.util.HtmlWriterUtils;
 import org.apache.myfaces.tobago.internal.util.JsonWriterUtils;
+import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.internal.util.WriterUtils;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
@@ -164,7 +165,7 @@ public class HtmlResponseWriter extends TobagoResponseWriterBase {
   public void endElement(String name) throws IOException {
     if (name == HtmlElements.BODY) {
       String javascript = getJavascript();
-      if (org.apache.commons.lang.StringUtils.isNotEmpty(javascript)) {
+      if (StringUtils.isNotEmpty(javascript)) {
         startElement(HtmlElements.SCRIPT, null);
         writeAttribute(HtmlAttributes.TYPE, "text/javascript", false);
         write(getJavascript());

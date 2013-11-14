@@ -19,10 +19,10 @@
 
 package org.apache.myfaces.tobago.internal.ajax;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
 import org.apache.myfaces.tobago.internal.util.ResponseUtils;
+import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.internal.webapp.JsonResponseWriter;
 import org.apache.myfaces.tobago.portlet.PortletUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;

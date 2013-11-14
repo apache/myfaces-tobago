@@ -20,9 +20,9 @@
 package org.apache.myfaces.tobago.internal.ajax;
 
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.myfaces.tobago.ajax.AjaxUtils;
 import org.apache.myfaces.tobago.internal.component.AbstractUIMessages;
+import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;

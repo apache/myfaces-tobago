@@ -19,7 +19,7 @@
 
 package org.apache.myfaces.tobago.util;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.myfaces.tobago.internal.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;

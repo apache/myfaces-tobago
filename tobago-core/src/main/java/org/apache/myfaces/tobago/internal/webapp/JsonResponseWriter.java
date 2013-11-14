@@ -19,9 +19,9 @@
 
 package org.apache.myfaces.tobago.internal.webapp;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.myfaces.tobago.internal.util.FastStringWriter;
 import org.apache.myfaces.tobago.internal.util.JavascriptWriterUtils;
+import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.util.FacesVersion;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

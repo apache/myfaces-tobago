@@ -19,10 +19,10 @@
 
 package org.apache.myfaces.tobago.renderkit;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPage;
 import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
+import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.layout.Box;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.model.PageState;
