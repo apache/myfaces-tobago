@@ -19,8 +19,8 @@
 
 package org.apache.myfaces.tobago.internal.taglib;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.myfaces.tobago.component.OnComponentCreated;
+import org.apache.myfaces.tobago.internal.util.StringUtils;
 
 import javax.faces.component.UIComponent;
 import javax.faces.webapp.UIComponentELTag;

@@ -19,10 +19,10 @@
 
 package org.apache.myfaces.tobago.internal.config;
 
-import org.apache.commons.io.IOUtils;
 import org.apache.myfaces.tobago.context.ThemeImpl;
 import org.apache.myfaces.tobago.context.ThemeScript;
 import org.apache.myfaces.tobago.context.ThemeStyle;
+import org.apache.myfaces.tobago.internal.util.IoUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.Attributes;
@@ -112,7 +112,7 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
       final SAXParser saxParser = factory.newSAXParser();
       saxParser.parse(inputStream, this);
     } finally {
-      IOUtils.closeQuietly(inputStream);
+      IoUtils.closeQuietly(inputStream);
     }
     return tobagoConfig;
   }

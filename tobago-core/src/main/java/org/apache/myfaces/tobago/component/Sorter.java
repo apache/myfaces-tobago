@@ -19,10 +19,10 @@
 
 package org.apache.myfaces.tobago.component;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.myfaces.tobago.event.SortActionEvent;
 import org.apache.myfaces.tobago.internal.component.AbstractUICommand;
 import org.apache.myfaces.tobago.internal.component.AbstractUISheet;
+import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.model.SheetState;
 import org.apache.myfaces.tobago.util.BeanComparator;
 import org.apache.myfaces.tobago.util.ValueExpressionComparator;
@@ -185,7 +185,7 @@ public class Sorter {
   boolean isSimpleProperty(final String expressionString) {
     if (expressionString.startsWith("#{") && expressionString.endsWith("}")) {
       final String inner = expressionString.substring(2, expressionString.length() - 1);
-      final String[] parts = StringUtils.split(inner, ".");
+      final String[] parts = StringUtils.split(inner, '.');
       for (final String part : parts) {
         if (!StringUtils.isAlpha(part)) {
           return false;

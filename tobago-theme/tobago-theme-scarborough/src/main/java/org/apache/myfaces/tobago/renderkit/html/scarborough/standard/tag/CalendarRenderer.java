@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UICalendar;
 import org.apache.myfaces.tobago.context.Markup;
@@ -150,7 +149,9 @@ public class CalendarRenderer extends LayoutComponentRendererBase {
     for (int dayIt = 0; dayIt < 7; ++dayIt) {
       DateModel date = model.getDate(0, dayIt);
       String dayName = dayInWeekFormat.format(date.getCalendar().getTime());
-      dayName = StringUtils.substring(dayName, 0, 2);
+      if (dayName != null) {
+        dayName = dayName.substring(0, 2);
+      }
 
       writer.startElement(HtmlElements.SPAN, null);
       writer.writeClassAttribute(Classes.create(output, "dayOfWeek"));

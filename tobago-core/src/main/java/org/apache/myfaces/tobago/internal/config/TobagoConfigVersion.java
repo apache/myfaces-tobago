@@ -19,7 +19,7 @@
 
 package org.apache.myfaces.tobago.internal.config;
 
-import org.apache.commons.io.IOUtils;
+import org.apache.myfaces.tobago.internal.util.IoUtils;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 
@@ -47,7 +47,7 @@ public class TobagoConfigVersion extends TobagoConfigEntityResolver {
       SAXParser saxParser = factory.newSAXParser();
       saxParser.parse(inputStream, this);
     } finally {
-      IOUtils.closeQuietly(inputStream);
+      IoUtils.closeQuietly(inputStream);
     }
   }
 

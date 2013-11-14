@@ -40,8 +40,8 @@ component(componentInfo) ::= <<
 package <componentInfo.packageName>;
 
 <componentInfo.imports:import(); separator="\n">
-import org.apache.commons.lang.ArrayUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.myfaces.tobago.internal.util.ArrayUtils;
+import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.internal.util.Deprecation;
 import org.apache.myfaces.tobago.renderkit.MarginValues;
 import org.apache.myfaces.tobago.renderkit.SpacingValues;
@@ -230,12 +230,12 @@ public String[] get<property.upperCamelCaseName>() {
       }
       return result.toArray(new String[result.size()]);
     } else if (strArray == null) {
-      return ArrayUtils.EMPTY_STRING_ARRAY;
+      return org.apache.myfaces.tobago.internal.util.ArrayUtils.EMPTY_STRING_ARRAY;
     } else {
       return new String[]{strArray.toString()};
     }
   }
-  return ArrayUtils.EMPTY_STRING_ARRAY;
+  return org.apache.myfaces.tobago.internal.util.ArrayUtils.EMPTY_STRING_ARRAY;
 }
 
 <checkDeprecated(property)>

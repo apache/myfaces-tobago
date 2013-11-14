@@ -19,7 +19,7 @@
 
 package org.apache.myfaces.tobago.layout;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

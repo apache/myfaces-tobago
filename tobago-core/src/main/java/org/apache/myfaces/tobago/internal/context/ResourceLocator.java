@@ -19,10 +19,10 @@
 
 package org.apache.myfaces.tobago.internal.context;
 
-import org.apache.commons.io.IOUtils;
 import org.apache.myfaces.tobago.context.ThemeImpl;
 import org.apache.myfaces.tobago.internal.config.TobagoConfigFragment;
 import org.apache.myfaces.tobago.internal.config.TobagoConfigParser;
+import org.apache.myfaces.tobago.internal.util.IoUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -119,7 +119,7 @@ class ResourceLocator {
           try {
             addProperties(inputStream, resources, childPath, false, 0);
           } finally {
-            IOUtils.closeQuietly(inputStream);
+            IoUtils.closeQuietly(inputStream);
           }
         } else if (childPath.endsWith(".properties.xml")) {
           InputStream inputStream = servletContext.getResourceAsStream(childPath);
@@ -129,7 +129,7 @@ class ResourceLocator {
             LOG.error("childPath = \"" + childPath + "\" ", e);
             throw e;
           } finally {
-            IOUtils.closeQuietly(inputStream);
+            IoUtils.closeQuietly(inputStream);
           }
         } else {
           resources.add(childPath);
@@ -328,8 +328,8 @@ class ResourceLocator {
         }
       }
     } finally {
-      IOUtils.closeQuietly(stream);
-      IOUtils.closeQuietly(zipStream);
+      IoUtils.closeQuietly(stream);
+      IoUtils.closeQuietly(zipStream);
     }
   }
 
@@ -346,7 +346,7 @@ class ResourceLocator {
       try {
         addProperties(inputStream, resources, name, false, skipPrefix);
       } finally {
-        IOUtils.closeQuietly(inputStream);
+        IoUtils.closeQuietly(inputStream);
       }
     } else if (name.endsWith(".properties.xml")) {
       if (LOG.isInfoEnabled()) {
@@ -356,7 +356,7 @@ class ResourceLocator {
       try {
         addProperties(inputStream, resources, name, true, skipPrefix);
       } finally {
-        IOUtils.closeQuietly(inputStream);
+        IoUtils.closeQuietly(inputStream);
       }
     } else {
       resources.add(name.substring(skipPrefix));
@@ -406,7 +406,7 @@ class ResourceLocator {
       LOG.error(msg, e);
       throw new ServletException(msg, e);
     } finally {
-      IOUtils.closeQuietly(stream);
+      IoUtils.closeQuietly(stream);
     }
 
     final Enumeration e = temp.propertyNames();
@@ -436,7 +436,7 @@ class ResourceLocator {
         // may happen (e. g. in tests)
         LOG.error("No Manifest-File found.");
       } finally {
-        IOUtils.closeQuietly(inputStream);
+        IoUtils.closeQuietly(inputStream);
       }
       if (version != null) {
         theme.setVersion(version);

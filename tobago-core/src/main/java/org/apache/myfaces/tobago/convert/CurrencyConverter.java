@@ -19,7 +19,7 @@
 
 package org.apache.myfaces.tobago.convert;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.myfaces.tobago.internal.util.StringUtils;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;

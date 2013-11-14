@@ -19,7 +19,7 @@
 
 package org.apache.myfaces.tobago.internal.layout;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.internal.component.AbstractUIGridLayout;
 import org.apache.myfaces.tobago.layout.LayoutBase;
 import org.apache.myfaces.tobago.layout.LayoutContainer;

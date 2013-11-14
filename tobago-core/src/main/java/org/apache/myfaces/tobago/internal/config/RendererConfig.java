@@ -19,8 +19,8 @@
 
 package org.apache.myfaces.tobago.internal.config;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.myfaces.tobago.context.Markup;
+import org.apache.myfaces.tobago.internal.util.StringUtils;
 
 import java.io.Serializable;
 

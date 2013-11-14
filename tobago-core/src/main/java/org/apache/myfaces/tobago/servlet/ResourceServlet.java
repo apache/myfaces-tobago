@@ -19,13 +19,13 @@
 
 package org.apache.myfaces.tobago.servlet;
 
-import org.apache.commons.io.IOUtils;
 import org.apache.myfaces.tobago.application.ProjectStage;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.context.Theme;
+import org.apache.myfaces.tobago.internal.util.IoUtils;
+import org.apache.myfaces.tobago.internal.util.MimeTypeUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.apache.myfaces.tobago.internal.util.MimeTypeUtils;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -170,7 +170,7 @@ public class ResourceServlet extends HttpServlet {
         response.sendError(HttpServletResponse.SC_NOT_FOUND, message);
       }
     } finally {
-      IOUtils.closeQuietly(inputStream);
+      IoUtils.closeQuietly(inputStream);
     }
   }
 

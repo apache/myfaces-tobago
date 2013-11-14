@@ -20,12 +20,12 @@
 package org.apache.myfaces.tobago.facelets;
 
 import org.apache.commons.beanutils.PropertyUtils;
-import org.apache.commons.lang.StringUtils;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.SupportsMarkup;
 import org.apache.myfaces.tobago.component.SupportsRenderedPartially;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.el.ConstantMethodBinding;
+import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -284,8 +284,7 @@ public final class AttributeHandler extends TagHandler {
   }
 
   private boolean containsMethodOrValueExpression(String string) {
-    return (StringUtils.contains(string, "${") || StringUtils.contains(string, "#{"))
-        && StringUtils.contains(string, "}");
+    return (string.contains("${") || string.contains("#{")) && string.contains("}");
   }
 
   private boolean isSimpleExpression(String string) {

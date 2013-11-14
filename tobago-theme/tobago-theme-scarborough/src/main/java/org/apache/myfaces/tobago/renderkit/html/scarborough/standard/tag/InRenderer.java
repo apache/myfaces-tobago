@@ -19,11 +19,11 @@
 
 package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.internal.component.AbstractUIIn;
 import org.apache.myfaces.tobago.internal.component.AbstractUIInput;
 import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
+import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.renderkit.InputRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
@@ -64,9 +64,11 @@ public class InRenderer extends InputRendererBase {
     final String currentValue = getCurrentValue(facesContext, input);
     final boolean password = ComponentUtils.getBooleanAttribute(input, Attributes.PASSWORD);
     if (LOG.isDebugEnabled()) {
-      LOG.debug("currentValue = '"
-          + (password && currentValue != null ? StringUtils.leftPad("", currentValue.length(), '*') : currentValue)
-          + "'");
+      if (password) {
+        LOG.debug("currentValue is a password");
+      } else {
+        LOG.debug("currentValue = '" + currentValue + "'");
+      }
     }
     final String type = password ? HtmlInputTypes.PASSWORD : HtmlInputTypes.TEXT;
     final String id = input.getClientId(facesContext);

@@ -22,8 +22,8 @@ package org.apache.myfaces.tobago.context;
 import org.apache.commons.collections.iterators.EmptyIterator;
 import org.apache.commons.collections.iterators.ObjectArrayIterator;
 import org.apache.commons.collections.iterators.SingletonIterator;
-import org.apache.commons.lang.ArrayUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.myfaces.tobago.internal.util.ArrayUtils;
+import org.apache.myfaces.tobago.internal.util.StringUtils;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -109,7 +109,7 @@ public final class Markup implements Serializable, Iterable<String> {
     } else if (values.length == 1) {
       return valueOf(values[0]);
     } else {
-      final Markup markup = new Markup((String[]) ArrayUtils.clone(values));
+      final Markup markup = new Markup(values.clone());
       for (int i = 0; i < markup.values.length; i++) {
         markup.values[i] = markup.values[i].trim();
       }
@@ -313,4 +313,5 @@ public final class Markup implements Serializable, Iterable<String> {
     }
     return Arrays.toString(values);
   }
+
 }

@@ -165,7 +165,7 @@ public class ClassesGenerator extends AbstractGenerator {
       }
       tagInfo.setSuperClass("org.apache.myfaces.tobago.internal.taglib.TobagoELTag");
       tagInfo.setComponentClassName(componentTag.uiComponent());
-      tagInfo.addImport("org.apache.commons.lang.StringUtils");
+      tagInfo.addImport("org.apache.myfaces.tobago.internal.util.StringUtils");
       tagInfo.addImport("org.slf4j.Logger");
       tagInfo.addImport("org.slf4j.LoggerFactory");
       tagInfo.addImport("javax.faces.application.Application");

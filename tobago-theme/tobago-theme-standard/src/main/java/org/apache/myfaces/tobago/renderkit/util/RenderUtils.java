@@ -475,9 +475,8 @@ public class RenderUtils {
   }
 
   public static void decodeScrollPosition(FacesContext facesContext, UIComponent component) {
-    String key;
-    key = component.getClientId(facesContext) + SCROLL_POSTFIX;
-    String value = (String) facesContext.getExternalContext().getRequestParameterMap().get(key);
+    String key = component.getClientId(facesContext) + SCROLL_POSTFIX;
+    String value = facesContext.getExternalContext().getRequestParameterMap().get(key);
     if (value != null) {
       Integer[] scrollPosition = parseScrollPosition(value);
       if (scrollPosition != null) {
@@ -489,7 +488,7 @@ public class RenderUtils {
 
   public static Integer[] parseScrollPosition(String value) {
     Integer[] position = null;
-    if (!org.apache.commons.lang.StringUtils.isBlank(value)) {
+    if (!StringUtils.isBlank(value)) {
       int sep = value.indexOf(";");
       if (LOG.isInfoEnabled()) {
         LOG.info("value = \"" + value + "\"  sep = " + sep + "");

@@ -19,10 +19,10 @@
 
 package org.apache.myfaces.tobago.renderkit;
 
-import org.apache.commons.lang.ArrayUtils;
+import org.apache.myfaces.tobago.internal.util.ArrayUtils;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.apache.myfaces.tobago.util.ComponentUtils;
 
 import javax.faces.FacesException;
 import javax.faces.component.UIComponent;

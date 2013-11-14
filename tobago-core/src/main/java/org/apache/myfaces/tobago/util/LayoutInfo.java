@@ -19,17 +19,17 @@
 
 package org.apache.myfaces.tobago.util;
 
-import org.apache.commons.lang.builder.ToStringBuilder;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.layout.HideLayoutToken;
 import org.apache.myfaces.tobago.layout.LayoutToken;
 import org.apache.myfaces.tobago.layout.LayoutTokens;
 import org.apache.myfaces.tobago.layout.PercentLayoutToken;
 import org.apache.myfaces.tobago.layout.PixelLayoutToken;
 import org.apache.myfaces.tobago.layout.RelativeLayoutToken;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -377,13 +377,13 @@ public class LayoutInfo {
     }
   }
 
+  @Override
   public String toString() {
-    return new ToStringBuilder(this).
-        append("cellLeft", cellsLeft).
-        append("spaceLeft", spaceLeft).
-        append("spaces", spaces).
-        append("layoutTokens", layoutTokens).
-        toString();
+    return "LayoutInfo{"
+        + "cellsLeft=" + cellsLeft
+        + ", spaceLeft=" + spaceLeft
+        + ", spaces=" + Arrays.toString(spaces)
+        + ", layoutTokens=" + layoutTokens
+        + '}';
   }
 }
-

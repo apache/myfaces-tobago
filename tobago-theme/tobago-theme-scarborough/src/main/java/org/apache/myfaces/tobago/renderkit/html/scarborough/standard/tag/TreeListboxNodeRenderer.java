@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.myfaces.tobago.component.UITreeNode;
 import org.apache.myfaces.tobago.component.UITreeSelect;
 import org.apache.myfaces.tobago.context.Markup;
@@ -68,7 +67,7 @@ public class TreeListboxNodeRenderer extends CommandRendererBase {
 
     // expand state
     if (folder) {
-      boolean expanded = Boolean.parseBoolean((String) requestParameterMap.get(id + "-expanded"));
+      boolean expanded = Boolean.parseBoolean(requestParameterMap.get(id + "-expanded"));
       if (node.isExpanded() != expanded) {
         new TreeExpansionEvent(node, node.isExpanded(), expanded).queue();
       }
@@ -76,17 +75,16 @@ public class TreeListboxNodeRenderer extends CommandRendererBase {
 
     // select
     if (tree.getSelectableAsEnum() != Selectable.NONE) { // selection
-      String selected = (String) requestParameterMap.get(treeId + AbstractUITree.SELECT_STATE);
+      String selected = requestParameterMap.get(treeId + AbstractUITree.SELECT_STATE);
       String searchString = ";" + node.getClientId(facesContext) + ";";
       UITreeSelect treeSelect = ComponentUtils.findDescendant(node, UITreeSelect.class);
       if (treeSelect != null) {
-        treeSelect.setSubmittedValue(StringUtils.contains(selected, searchString));
+        treeSelect.setSubmittedValue(selected.contains(searchString));
       }
     }
 
     // marked
-    String marked
-        = (String) requestParameterMap.get(treeId + ComponentUtils.SUB_SEPARATOR + AbstractUITree.SUFFIX_MARKED);
+    String marked = requestParameterMap.get(treeId + ComponentUtils.SUB_SEPARATOR + AbstractUITree.SUFFIX_MARKED);
     if (marked != null) {
       String searchString = treeId + UINamingContainer.getSeparatorChar(facesContext) + nodeStateId;
       boolean markedValue = marked.equals(searchString);

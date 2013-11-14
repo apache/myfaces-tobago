@@ -30,16 +30,17 @@ public final class StringUtils {
     // utils class
   }
 
-  public static List<Integer> parseIntegerList(String integerList) throws NumberFormatException {
+  public static List<Integer> parseIntegerList(final String integerList) throws NumberFormatException {
     return parseIntegerList(integerList, ", ");
   }
 
-  public static List<Integer> parseIntegerList(String integerList, String delimiters) throws NumberFormatException {
-    List<Integer> list = new ArrayList<Integer>();
+  public static List<Integer> parseIntegerList(final String integerList, final String delimiters)
+      throws NumberFormatException {
+    final List<Integer> list = new ArrayList<Integer>();
 
-    StringTokenizer tokenizer = new StringTokenizer(integerList, delimiters);
+    final StringTokenizer tokenizer = new StringTokenizer(integerList, delimiters);
     while (tokenizer.hasMoreElements()) {
-      String token = tokenizer.nextToken().trim();
+      final String token = tokenizer.nextToken().trim();
       if (token.length() > 0) {
         list.add(new Integer(token));
       }
@@ -48,26 +49,26 @@ public final class StringUtils {
     return list;
   }
 
-  public static <T> String joinWithSurroundingSeparator(List<T> list) {
-    StringBuilder buffer = new StringBuilder(",");
-    for (T t : list) {
+  public static <T> String joinWithSurroundingSeparator(final List<T> list) {
+    final StringBuilder buffer = new StringBuilder(",");
+    for (final T t : list) {
       buffer.append(t);
       buffer.append(",");
     }
     return buffer.toString();
   }
 
-  public static int[] getIndices(String list) {
-    List<String> indexList = new ArrayList<String>();
-    StringTokenizer st = new StringTokenizer(list, ",");
+  public static int[] getIndices(final String list) {
+    final List<String> indexList = new ArrayList<String>();
+    final StringTokenizer st = new StringTokenizer(list, ",");
     while (st.hasMoreTokens()) {
-      String token = st.nextToken().trim();
-      int idx = token.indexOf('-');
+      final String token = st.nextToken().trim();
+      final int idx = token.indexOf('-');
       if (idx == -1) {
         indexList.add(token);
       } else {
-        int start = Integer.parseInt(token.substring(0, idx).trim());
-        int end = Integer.parseInt(token.substring(idx + 1).trim());
+        final int start = Integer.parseInt(token.substring(0, idx).trim());
+        final int end = Integer.parseInt(token.substring(idx + 1).trim());
         if (start < end) {
           for (int i = start; i < end + 1; i++) {
             indexList.add(Integer.toString(i));
@@ -80,14 +81,14 @@ public final class StringUtils {
       }
     }
 
-    int[] indices = new int[indexList.size()];
+    final int[] indices = new int[indexList.size()];
     for (int i = 0; i < indices.length; i++) {
       indices[i] = Integer.parseInt(indexList.get(i));
     }
     return indices;
   }
 
-  public static String constantToCamelCase(String constant) {
+  public static String constantToCamelCase(final String constant) {
     final StringBuilder builder = new StringBuilder(constant.length());
     final char[] chars = constant.toCharArray();
     for (int i = 0; i < chars.length; i++) {
@@ -161,5 +162,280 @@ public final class StringUtils {
     }
 
     return true;
+  }
+
+  /**
+   * Basically taken from commons-lang
+   */
+  public static boolean endsWith(final String string, final String suffix) {
+    if (string == null || suffix == null) {
+      return (string == null && suffix == null);
+    }
+    if (suffix.length() > string.length()) {
+      return false;
+    }
+    final int strOffset = string.length() - suffix.length();
+    return string.regionMatches(false, strOffset, suffix, 0, suffix.length());
+  }
+
+  /**
+   * Basically taken from commons-lang
+   */
+  public static String[] split(final String string, final char separator) {
+    // Performance tuned for 2.0 (JDK1.4)
+
+    if (string == null) {
+      return null;
+    }
+    final int len = string.length();
+    if (len == 0) {
+      return ArrayUtils.EMPTY_STRING_ARRAY;
+    }
+    final List<String> list = new ArrayList<String>();
+    int i = 0;
+    int start = 0;
+    boolean match = false;
+    while (i < len) {
+      if (string.charAt(i) == separator) {
+        if (match) {
+          list.add(string.substring(start, i));
+          match = false;
+        }
+        start = ++i;
+        continue;
+      }
+      match = true;
+      i++;
+    }
+    if (match) {
+      list.add(string.substring(start, i));
+    }
+    return list.toArray(new String[list.size()]);
+  }
+
+  /**
+   * Basically taken from commons-lang
+   */
+  public static String[] split(final String string, final String separator) {
+    final int max = -1;
+    // Performance tuned for 2.0 (JDK1.4)
+    // Direct code is quicker than StringTokenizer.
+    // Also, StringTokenizer uses isSpace() not isWhitespace()
+
+    if (string == null) {
+      return null;
+    }
+    final int len = string.length();
+    if (len == 0) {
+      return ArrayUtils.EMPTY_STRING_ARRAY;
+    }
+    final List<String> list = new ArrayList<String>();
+    int sizePlus1 = 1;
+    int i = 0;
+    int start = 0;
+    boolean match = false;
+    if (separator == null) {
+      // Null separator means use whitespace
+      while (i < len) {
+        if (Character.isWhitespace(string.charAt(i))) {
+          if (match) {
+            if (sizePlus1++ == max) {
+              i = len;
+            }
+            list.add(string.substring(start, i));
+            match = false;
+          }
+          start = ++i;
+          continue;
+        }
+        match = true;
+        i++;
+      }
+    } else if (separator.length() == 1) {
+      // Optimise 1 character case
+      final char sep = separator.charAt(0);
+      while (i < len) {
+        if (string.charAt(i) == sep) {
+          if (match) {
+            if (sizePlus1++ == max) {
+              i = len;
+            }
+            list.add(string.substring(start, i));
+            match = false;
+          }
+          start = ++i;
+          continue;
+        }
+        match = true;
+        i++;
+      }
+    } else {
+      // standard case
+      while (i < len) {
+        if (separator.indexOf(string.charAt(i)) >= 0) {
+          if (match) {
+            if (sizePlus1++ == max) {
+              i = len;
+            }
+            list.add(string.substring(start, i));
+            match = false;
+          }
+          start = ++i;
+          continue;
+        }
+        match = true;
+        i++;
+      }
+    }
+    if (match) {
+      list.add(string.substring(start, i));
+    }
+    return list.toArray(new String[list.size()]);
+  }
+
+  /**
+   * Basically taken from commons-lang
+   */
+  public static boolean isAlpha(final String string) {
+    if (string == null) {
+      return false;
+    }
+    final int sz = string.length();
+    for (int i = 0; i < sz; i++) {
+      if (!Character.isLetter(string.charAt(i))) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  /**
+   * Basically taken from commons-lang
+   */
+  public static boolean isEmpty(final String value) {
+    return value == null || value.length() == 0;
+  }
+
+  /**
+   * Basically taken from commons-lang
+   */
+  public static boolean isNotEmpty(final String value) {
+    return !isEmpty(value);
+  }
+
+  /**
+   * Basically taken from commons-lang
+   */
+  public static boolean isBlank(final String string) {
+    final int strLen = string.length();
+    if (string == null || strLen == 0) {
+      return true;
+    }
+    for (int i = 0; i < strLen; i++) {
+      if ((!Character.isWhitespace(string.charAt(i)))) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  /**
+   * Basically taken from commons-lang
+   */
+  public static boolean isNotBlank(String str) {
+    return !isBlank(str);
+  }
+
+  /**
+   * Basically taken from commons-lang
+   */
+  public static String replace(final String text, final String searchString, final String replacement) {
+    int max = -1;
+    if (isEmpty(text) || isEmpty(searchString) || replacement == null) {
+      return text;
+    }
+    int start = 0;
+    int end = text.indexOf(searchString, start);
+    if (end == -1) {
+      return text;
+    }
+    final int replLength = searchString.length();
+    int increase = replacement.length() - replLength;
+    increase = (increase < 0 ? 0 : increase);
+    increase *= (max < 0 ? 16 : (max > 64 ? 64 : max));
+    final StringBuilder buf = new StringBuilder(text.length() + increase);
+    while (end != -1) {
+      buf.append(text.substring(start, end)).append(replacement);
+      start = end + replLength;
+      if (--max == 0) {
+        break;
+      }
+      end = text.indexOf(searchString, start);
+    }
+    buf.append(text.substring(start));
+    return buf.toString();
+  }
+
+  /**
+   * Basically taken from commons-lang
+   */
+  public static String repeat(String str, int repeat) {
+    int outputLength = str.length() * repeat;
+    StringBuilder buf = new StringBuilder(outputLength);
+    for (int i = 0; i < repeat; i++) {
+      buf.append(str);
+    }
+    return buf.toString();
+  }
+
+  /**
+   * Basically taken from commons-lang
+   */
+  public static String uncapitalize(String str) {
+    return String.valueOf(Character.toLowerCase(str.charAt(0))) + str.substring(1);
+  }
+
+  /**
+   * Basically taken from commons-lang
+   */
+  public static boolean isAlphanumeric(String str) {
+    int sz = str.length();
+    for (int i = 0; i < sz; i++) {
+      if (!Character.isLetterOrDigit(str.charAt(i))) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  /**
+   * Basically taken from commons-lang
+   */
+  public static String join(List<String> list, char separator) {
+    final int size = list.size();
+    if (size <= 0) {
+      return "";
+    }
+
+    int bufSize = size * list.get(0).length() + 1;
+    StringBuilder builder = new StringBuilder(bufSize);
+
+    for (int i = 0; i < size; i++) {
+      if (i > 0) {
+        builder.append(separator);
+      }
+      final String string = list.get(i);
+      if (string != null) {
+        builder.append(string);
+      }
+    }
+    return builder.toString();
+  }
+
+  /**
+   * Basically taken from commons-lang
+   */
+  public static String defaultString(String string) {
+    return string == null ? "" : string;
   }
 }
