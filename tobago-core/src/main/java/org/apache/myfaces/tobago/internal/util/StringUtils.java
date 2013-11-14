@@ -327,8 +327,11 @@ public final class StringUtils {
    * Basically taken from commons-lang
    */
   public static boolean isBlank(final String string) {
+    if (string == null) {
+      return true;
+    }
     final int strLen = string.length();
-    if (string == null || strLen == 0) {
+    if (strLen == 0) {
       return true;
     }
     for (int i = 0; i < strLen; i++) {
