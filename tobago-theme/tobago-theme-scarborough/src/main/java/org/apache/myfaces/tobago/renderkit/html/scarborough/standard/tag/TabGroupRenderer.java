@@ -67,38 +67,38 @@ public class TabGroupRenderer extends LayoutComponentRendererBase {
   public static final String ACTIVE_INDEX_POSTFIX = ComponentUtils.SUB_SEPARATOR + "activeIndex";
 
   @Override
-  public void decode(FacesContext facesContext, UIComponent component) {
+  public void decode(final FacesContext facesContext, final UIComponent component) {
     if (ComponentUtils.isOutputOnly(component)) {
       return;
     }
 
-    int oldIndex = ((UITabGroup) component).getRenderedIndex();
+    final int oldIndex = ((UITabGroup) component).getRenderedIndex();
 
-    String clientId = component.getClientId(facesContext);
+    final String clientId = component.getClientId(facesContext);
     final Map parameters = facesContext.getExternalContext().getRequestParameterMap();
-    String newValue = (String) parameters.get(clientId + ACTIVE_INDEX_POSTFIX);
+    final String newValue = (String) parameters.get(clientId + ACTIVE_INDEX_POSTFIX);
     try {
-      int activeIndex = Integer.parseInt(newValue);
+      final int activeIndex = Integer.parseInt(newValue);
       if (activeIndex != oldIndex) {
-        TabChangeEvent event = new TabChangeEvent(component, oldIndex, activeIndex);
+        final TabChangeEvent event = new TabChangeEvent(component, oldIndex, activeIndex);
         component.queueEvent(event);
       }
-    } catch (NumberFormatException e) {
+    } catch (final NumberFormatException e) {
       LOG.error("Can't parse activeIndex: '" + newValue + "'");
     }
   }
 
   @Override
-  public void encodeEnd(FacesContext facesContext, UIComponent uiComponent) throws IOException {
+  public void encodeEnd(final FacesContext facesContext, final UIComponent uiComponent) throws IOException {
 
-    UITabGroup tabGroup = (UITabGroup) uiComponent;
+    final UITabGroup tabGroup = (UITabGroup) uiComponent;
 
-    int activeIndex = ensureRenderedActiveIndex(facesContext, tabGroup);
+    final int activeIndex = ensureRenderedActiveIndex(facesContext, tabGroup);
 
     final String clientId = tabGroup.getClientId(facesContext);
     final String hiddenId = clientId + TabGroupRenderer.ACTIVE_INDEX_POSTFIX;
     final String switchType = tabGroup.getSwitchType();
-    TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
     writer.startElement(HtmlElements.DIV, null);
     writer.writeIdAttribute(clientId);
@@ -117,7 +117,7 @@ public class TabGroupRenderer extends LayoutComponentRendererBase {
     encodeHeader(facesContext, writer, tabGroup, activeIndex);
 
     int index = 0;
-    for (UIComponent tab : tabGroup.getChildren()) {
+    for (final UIComponent tab : tabGroup.getChildren()) {
       if (tab instanceof UITab) {
         if (tab.isRendered() && (UITabGroup.SWITCH_TYPE_CLIENT.equals(switchType) || index == activeIndex)) {
           encodeContent(writer, facesContext, (UITab) tab, index);
@@ -129,12 +129,12 @@ public class TabGroupRenderer extends LayoutComponentRendererBase {
     writer.endElement(HtmlElements.DIV);
   }
 
-  private int ensureRenderedActiveIndex(FacesContext context, UITabGroup tabGroup) {
-    int activeIndex = tabGroup.getSelectedIndex();
+  private int ensureRenderedActiveIndex(final FacesContext context, final UITabGroup tabGroup) {
+    final int activeIndex = tabGroup.getSelectedIndex();
     // ensure to select a rendered tab
     int index = -1;
     int closestRenderedTabIndex = -1;
-    for (UIComponent tab : (List<UIComponent>) tabGroup.getChildren()) {
+    for (final UIComponent tab : (List<UIComponent>) tabGroup.getChildren()) {
       index++;
       if (tab instanceof AbstractUIPanelBase) {
         if (index == activeIndex) {
@@ -166,13 +166,14 @@ public class TabGroupRenderer extends LayoutComponentRendererBase {
   }
 
   private void encodeHeader(
-      FacesContext facesContext, TobagoResponseWriter writer, UITabGroup tabGroup, int activeIndex)
+      final FacesContext facesContext, final TobagoResponseWriter writer, final UITabGroup tabGroup,
+      final int activeIndex)
       throws IOException {
 
-    Measure width = tabGroup.getCurrentWidth();
-    Measure headerHeight = getResourceManager().getThemeMeasure(facesContext, tabGroup, "headerHeight");
-    Measure toolBarWidth = getResourceManager().getThemeMeasure(facesContext, tabGroup, "toolBarWidth");
-    Style header = new Style();
+    final Measure width = tabGroup.getCurrentWidth();
+    final Measure headerHeight = getResourceManager().getThemeMeasure(facesContext, tabGroup, "headerHeight");
+    final Measure toolBarWidth = getResourceManager().getThemeMeasure(facesContext, tabGroup, "toolBarWidth");
+    final Style header = new Style();
     header.setPosition(Position.RELATIVE);
     header.setWidth(width.subtractNotNegative(toolBarWidth));
     header.setHeight(headerHeight);
@@ -184,22 +185,23 @@ public class TabGroupRenderer extends LayoutComponentRendererBase {
     writer.writeClassAttribute(Classes.create(tabGroup, "headerInner"));
 
     int index = 0;
-    for (UIComponent child : tabGroup.getChildren()) {
+    for (final UIComponent child : tabGroup.getChildren()) {
       if (child instanceof UITab) {
-        UITab tab = (UITab) child;
+        final UITab tab = (UITab) child;
         if (tab.isRendered()) {
-          LabelWithAccessKey label = new LabelWithAccessKey(tab);
+          final LabelWithAccessKey label = new LabelWithAccessKey(tab);
           if (activeIndex == index) {
             ComponentUtils.addCurrentMarkup(tab, Markup.SELECTED);
           }
-          FacesMessage.Severity maxSeverity = ComponentUtils.getMaximumSeverityOfChildrenMessages(facesContext, tab);
+          final FacesMessage.Severity maxSeverity
+              = ComponentUtils.getMaximumSeverityOfChildrenMessages(facesContext, tab);
           if (maxSeverity != null) {
             ComponentUtils.addCurrentMarkup(tab, ComponentUtils.markupOfSeverity(maxSeverity));
           }
           writer.startElement(HtmlElements.DIV, tab);
           writer.writeClassAttribute(Classes.create(tab));
           writer.writeAttribute(HtmlAttributes.TABGROUPINDEX, index);
-          String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, tab);
+          final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, tab);
           if (title != null) {
             writer.writeAttribute(HtmlAttributes.TITLE, title, true);
           }
@@ -233,54 +235,54 @@ public class TabGroupRenderer extends LayoutComponentRendererBase {
       index++;
     }
     writer.endElement(HtmlElements.DIV);
-    Style body = new Style();
+    final Style body = new Style();
     body.setWidth(width);
     body.setHeight(tabGroup.getCurrentHeight().subtract(headerHeight));
     writer.endElement(HtmlElements.DIV);
     if (tabGroup.isShowNavigationBar()) {
-      UIToolBar toolBar = createToolBar(facesContext, tabGroup);
+      final UIToolBar toolBar = createToolBar(facesContext, tabGroup);
       renderToolBar(facesContext, writer, tabGroup, toolBar);
     }
   }
 
-  private UIToolBar createToolBar(FacesContext facesContext, UITabGroup tabGroup) {
+  private UIToolBar createToolBar(final FacesContext facesContext, final UITabGroup tabGroup) {
     final String clientId = tabGroup.getClientId(facesContext);
-    Application application = facesContext.getApplication();
-    UIViewRoot viewRoot = facesContext.getViewRoot();
+    final Application application = facesContext.getApplication();
+    final UIViewRoot viewRoot = facesContext.getViewRoot();
 
     // previous
-    UICommand previous = (UICommand) application.createComponent(UICommand.COMPONENT_TYPE);
+    final UICommand previous = (UICommand) application.createComponent(UICommand.COMPONENT_TYPE);
     previous.setId(viewRoot.createUniqueId());
     previous.setRendererType(null);
     previous.getAttributes().put(Attributes.IMAGE, "image/tabPrev.gif");
     previous.setOmit(true); // avoid submit
     // next
-    UICommand next = (UICommand) application.createComponent(UICommand.COMPONENT_TYPE);
+    final UICommand next = (UICommand) application.createComponent(UICommand.COMPONENT_TYPE);
     next.setId(viewRoot.createUniqueId());
     next.setRendererType(null);
     next.getAttributes().put(Attributes.IMAGE, "image/tabNext.gif");
     next.setOmit(true); // avoid submit
 
     // all: sub menu to select any tab directly
-    UICommand all = (UICommand) CreateComponentUtils.createComponent(
+    final UICommand all = (UICommand) CreateComponentUtils.createComponent(
         facesContext, UICommand.COMPONENT_TYPE, null, viewRoot.createUniqueId());
     all.setOmit(true); // avoid submit
 
-    UIMenu menu = (UIMenu) CreateComponentUtils.createComponent(
+    final UIMenu menu = (UIMenu) CreateComponentUtils.createComponent(
         facesContext, UIMenu.COMPONENT_TYPE, RendererTypes.MENU, viewRoot.createUniqueId());
     menu.setTransient(true);
     ComponentUtils.addCurrentMarkup(menu, Markup.TOP);
     FacetUtils.setDropDownMenu(all, menu);
     int index = 0;
-    for (UIComponent child : tabGroup.getChildren()) {
+    for (final UIComponent child : tabGroup.getChildren()) {
       if (child instanceof UITab) {
-        UITab tab = (UITab) child;
+        final UITab tab = (UITab) child;
         if (tab.isRendered()) {
-          UIMenuCommand entry = (UIMenuCommand) CreateComponentUtils.createComponent(
+          final UIMenuCommand entry = (UIMenuCommand) CreateComponentUtils.createComponent(
               facesContext, UIMenuCommand.COMPONENT_TYPE, RendererTypes.MENU_COMMAND, viewRoot.createUniqueId());
           entry.setTransient(true);
           entry.setOmit(true); // avoid submit
-          LabelWithAccessKey label = new LabelWithAccessKey(tab);
+          final LabelWithAccessKey label = new LabelWithAccessKey(tab);
           entry.setLabel(label.getText());
           if (tab.isDisabled()) {
             entry.setDisabled(true);
@@ -292,7 +294,7 @@ public class TabGroupRenderer extends LayoutComponentRendererBase {
         index++;
       }
     }
-    UIToolBar toolBar = (UIToolBar) application.createComponent(UIToolBar.COMPONENT_TYPE);
+    final UIToolBar toolBar = (UIToolBar) application.createComponent(UIToolBar.COMPONENT_TYPE);
     toolBar.setId(viewRoot.createUniqueId());
     toolBar.setRendererType("TabGroupToolBar");
     toolBar.setTransient(true);
@@ -304,7 +306,8 @@ public class TabGroupRenderer extends LayoutComponentRendererBase {
   }
 
   private void renderToolBar(
-      FacesContext facesContext, TobagoResponseWriter writer, UITabGroup tabGroup, UIToolBar toolBar)
+      final FacesContext facesContext, final TobagoResponseWriter writer, final UITabGroup tabGroup,
+      final UIToolBar toolBar)
       throws IOException {
     writer.startElement(HtmlElements.DIV, null);
     writer.writeClassAttribute(Classes.create(tabGroup, "toolBar"));
@@ -312,7 +315,8 @@ public class TabGroupRenderer extends LayoutComponentRendererBase {
     writer.endElement(HtmlElements.DIV);
   }
 
-  protected void encodeContent(TobagoResponseWriter writer, FacesContext facesContext, UITab tab, int index)
+  protected void encodeContent(
+      final TobagoResponseWriter writer, final FacesContext facesContext, final UITab tab, final int index)
       throws IOException {
 
     if (tab.isDisabled()) {

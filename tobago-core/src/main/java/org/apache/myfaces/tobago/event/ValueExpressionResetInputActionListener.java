@@ -44,13 +44,13 @@ public class ValueExpressionResetInputActionListener extends AbstractResetInputA
   public ValueExpressionResetInputActionListener() {
   }
 
-  public ValueExpressionResetInputActionListener(ValueExpression clientIdsExpression) {
+  public ValueExpressionResetInputActionListener(final ValueExpression clientIdsExpression) {
     this.clientIdsExpression = clientIdsExpression;
   }
 
-  public void processAction(ActionEvent event) {
-    Object obj = clientIdsExpression.getValue(FacesContext.getCurrentInstance().getELContext());
-    String [] clientIds;
+  public void processAction(final ActionEvent event) {
+    final Object obj = clientIdsExpression.getValue(FacesContext.getCurrentInstance().getELContext());
+    final String [] clientIds;
     if (obj instanceof String[]) {
       clientIds = (String[]) obj;
     } else if (obj instanceof String) {
@@ -59,8 +59,8 @@ public class ValueExpressionResetInputActionListener extends AbstractResetInputA
       LOG.error("Ignore unknown value of " + obj + " for reset.");
       return;
     }
-    for (String clientId : clientIds) {
-      UIComponent component = FindComponentUtils.findComponent(event.getComponent(), clientId);
+    for (final String clientId : clientIds) {
+      final UIComponent component = FindComponentUtils.findComponent(event.getComponent(), clientId);
       if (component != null) {
         resetChildren(component);
       }
@@ -71,19 +71,19 @@ public class ValueExpressionResetInputActionListener extends AbstractResetInputA
     return false;
   }
 
-  public void restoreState(FacesContext context, Object state) {
-    Object[] values = (Object[]) state;
+  public void restoreState(final FacesContext context, final Object state) {
+    final Object[] values = (Object[]) state;
     clientIdsExpression = (ValueExpression) UIComponentBase.restoreAttachedState(context, values[0]);
   }
 
-  public Object saveState(FacesContext context) {
-    Object[] values = new Object[1];
+  public Object saveState(final FacesContext context) {
+    final Object[] values = new Object[1];
     values[0] = UIComponentBase.saveAttachedState(context, clientIdsExpression);
     return values;
   }
 
 
-  public void setTransient(boolean newTransientValue) {
+  public void setTransient(final boolean newTransientValue) {
     // ignore
   }
 

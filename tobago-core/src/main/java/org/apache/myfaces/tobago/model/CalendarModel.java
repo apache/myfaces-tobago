@@ -28,11 +28,11 @@ public class CalendarModel {
   private DateModel[][] calendarArray;
   private int firstDayOffset;
 
-  public CalendarModel(Calendar calendar) {
+  public CalendarModel(final Calendar calendar) {
 //    int weekCount = CalendarUtils.weekCount(calendar);
-    int weekCount = 6; // switching off dynamic weekCount!
+    final int weekCount = 6; // switching off dynamic weekCount!
     calendarArray = new DateModel[weekCount][7];
-    Calendar c = (Calendar) calendar.clone();
+    final Calendar c = (Calendar) calendar.clone();
     c.clear(Calendar.DAY_OF_MONTH);
     c.set(Calendar.DAY_OF_MONTH, 1);
     // assert c.isLenient() : "'add -x days' may not work in a non-lenient calendar";
@@ -58,35 +58,35 @@ public class CalendarModel {
     return calendarArray[0][firstDayOffset].getYear();
   }
 
-  public DateModel getDate(int week, int day) {
+  public DateModel getDate(final int week, final int day) {
     return calendarArray[week][day];
   }
 
-  private int firstDayOffset(Calendar calendar) {
-    Calendar c = (Calendar) calendar.clone();
+  private int firstDayOffset(final Calendar calendar) {
+    final Calendar c = (Calendar) calendar.clone();
     c.clear(Calendar.DAY_OF_MONTH);
     c.set(Calendar.DAY_OF_MONTH, 1);
-    int day = c.get(Calendar.DAY_OF_WEEK);
-    int firstDayOfWeek = c.getFirstDayOfWeek();
+    final int day = c.get(Calendar.DAY_OF_WEEK);
+    final int firstDayOfWeek = c.getFirstDayOfWeek();
     // Fails: assertEquals((1+7-3)%7, (1-3)%7);
     return (day + 7 - firstDayOfWeek) % 7;
   }
 
   public String toString() {
-    StringBuilder buffer = new StringBuilder();
+    final StringBuilder buffer = new StringBuilder();
     buffer.append("Month: ").append(getMonth()).append("\n");
-    int weekCount = getWeekCount();
-    DecimalFormat format = new DecimalFormat("00");
-    SimpleDateFormat dateFormat = new SimpleDateFormat("E");
+    final int weekCount = getWeekCount();
+    final DecimalFormat format = new DecimalFormat("00");
+    final SimpleDateFormat dateFormat = new SimpleDateFormat("E");
     for (int day = 0; day < 7; ++day) {
-      DateModel date = getDate(0, day);
-      String dayName = dateFormat.format(date.getCalendar().getTime());
+      final DateModel date = getDate(0, day);
+      final String dayName = dateFormat.format(date.getCalendar().getTime());
       buffer.append(dayName.substring(0, 2)).append(" ");
     }
     buffer.append("\n");
     for (int week = 0; week < weekCount; ++week) {
       for (int day = 0; day < 7; ++day) {
-        DateModel date = getDate(week, day);
+        final DateModel date = getDate(week, day);
         buffer.append(format.format(date.getDay())).append(" ");
       }
       buffer.append("\n");

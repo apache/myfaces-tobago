@@ -33,38 +33,38 @@ public class TobagoResponseWriterWrapper extends TobagoResponseWriter {
 
   private ResponseWriter responseWriter;
 
-  public TobagoResponseWriterWrapper(ResponseWriter responseWriter) {
+  public TobagoResponseWriterWrapper(final ResponseWriter responseWriter) {
     this.responseWriter = responseWriter;
   }
 
-  public void startElement(String name, UIComponent component) throws IOException {
+  public void startElement(final String name, final UIComponent component) throws IOException {
     responseWriter.startElement(name, component);
   }
 
-  public void endElement(String name) throws IOException {
+  public void endElement(final String name) throws IOException {
     responseWriter.endElement(name);
   }
 
 
-  public void write(String string) throws IOException {
+  public void write(final String string) throws IOException {
     responseWriter.write(string);
   }
 
-  public void writeComment(Object comment) throws IOException {
+  public void writeComment(final Object comment) throws IOException {
     responseWriter.writeComment(comment);
   }
 
-  public ResponseWriter cloneWithWriter(Writer writer) {
+  public ResponseWriter cloneWithWriter(final Writer writer) {
     return responseWriter.cloneWithWriter(writer);
   }
 
   @Deprecated
-  public void writeAttribute(String name, Object value, String property) throws IOException {
+  public void writeAttribute(final String name, final Object value, final String property) throws IOException {
     responseWriter.writeAttribute(name, value, property);
   }
 
   @Deprecated
-  public void writeText(Object text, String property) throws IOException {
+  public void writeText(final Object text, final String property) throws IOException {
     responseWriter.writeText(text, property);
   }
 
@@ -72,7 +72,7 @@ public class TobagoResponseWriterWrapper extends TobagoResponseWriter {
     responseWriter.flush();
   }
 
-  public void writeAttribute(String name, String value, boolean escape) throws IOException {
+  public void writeAttribute(final String name, final String value, final boolean escape) throws IOException {
     responseWriter.writeAttribute(name, value, null);
   }
 
@@ -107,15 +107,15 @@ public class TobagoResponseWriterWrapper extends TobagoResponseWriter {
     responseWriter.endDocument();
   }
 
-  public void writeURIAttribute(String name, Object value, String property) throws IOException {
+  public void writeURIAttribute(final String name, final Object value, final String property) throws IOException {
     responseWriter.writeURIAttribute(name, value, property);
   }
 
-  public void writeText(char[] text, int off, int len) throws IOException {
+  public void writeText(final char[] text, final int off, final int len) throws IOException {
     responseWriter.writeText(text, off, len);
   }
 
-  public void write(char[] chars, int i, int i1) throws IOException {
+  public void write(final char[] chars, final int i, final int i1) throws IOException {
     responseWriter.write(chars, i, i1);
   }
 

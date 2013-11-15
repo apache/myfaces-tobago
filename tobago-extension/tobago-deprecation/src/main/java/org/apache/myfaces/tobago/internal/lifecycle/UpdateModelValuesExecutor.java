@@ -34,7 +34,7 @@ import javax.faces.event.PhaseId;
 class UpdateModelValuesExecutor implements PhaseExecutor {
 
 
-  public boolean execute(FacesContext facesContext) {
+  public boolean execute(final FacesContext facesContext) {
     facesContext.getViewRoot().processUpdates(facesContext);
     return false;
   }

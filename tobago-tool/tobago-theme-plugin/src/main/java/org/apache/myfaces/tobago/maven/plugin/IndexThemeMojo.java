@@ -71,20 +71,20 @@ public class IndexThemeMojo extends AbstractThemeMojo {
       getLog().info("Not creating " + tobagoResourcesFile.getName() + " as the project has no outputDirectory");
       return;
     }
-    StaleCheckDirectoryScanner scanner = new StaleCheckDirectoryScanner(tobagoResourcesFile.lastModified());
+    final StaleCheckDirectoryScanner scanner = new StaleCheckDirectoryScanner(tobagoResourcesFile.lastModified());
     scanner.setBasedir(outputDirectory);
     scanner.setIncludes(getIncludes());
     scanner.setExcludes(getExcludes());
     scanner.scan();
 
-    String[] fileNames = scanner.getIncludedFiles();
+    final String[] fileNames = scanner.getIncludedFiles();
     if (fileNames != null && fileNames.length == 0) {
       getLog().info("Skipping create resource file " + tobagoResourcesFile.getName() + ". No resources found");
       return;
     }
 
     if (!scanner.isUp2date) {
-      File metaInf = tobagoResourcesFile.getParentFile();
+      final File metaInf = tobagoResourcesFile.getParentFile();
       if (!metaInf.exists()) {
         if (!metaInf.mkdirs()) {
           getLog().error("Error creating directory " + metaInf.getName());
@@ -92,16 +92,16 @@ public class IndexThemeMojo extends AbstractThemeMojo {
       }
       BufferedWriter bufferedWriter = null;
       try {
-        StringWriter stringWriter = new StringWriter();
+        final StringWriter stringWriter = new StringWriter();
         bufferedWriter = new BufferedWriter(stringWriter);
-        for (String file : scanner.getIncludedFiles()) {
+        for (final String file : scanner.getIncludedFiles()) {
           bufferedWriter.append('/');
           bufferedWriter.append(file);
           bufferedWriter.newLine();
         }
         bufferedWriter.flush();
         FileUtils.fileWrite(tobagoResourcesFile, "utf-8", stringWriter.toString());
-      } catch (IOException e) {
+      } catch (final IOException e) {
         getLog().error("Error creating resource file " + tobagoResourcesFile.getName(), e);
       } finally {
         IOUtil.close(bufferedWriter);
@@ -119,13 +119,13 @@ public class IndexThemeMojo extends AbstractThemeMojo {
     private long lastModified;
     private boolean isUp2date = true;
 
-    private StaleCheckDirectoryScanner(long lastModified) {
+    private StaleCheckDirectoryScanner(final long lastModified) {
       this.lastModified = lastModified;
     }
 
     @Override
-    protected boolean isSelected(String name, File file) {
-      long lastModified = file.lastModified();
+    protected boolean isSelected(final String name, final File file) {
+      final long lastModified = file.lastModified();
       if (lastModified > this.lastModified) {
         isUp2date = false;
       }

@@ -30,12 +30,12 @@ public class SolarServlet extends NonFacesRequestServlet {
 
   private static final Logger LOG = LoggerFactory.getLogger(SolarServlet.class);
 
-  public String invokeApplication(FacesContext facesContext) {
+  public String invokeApplication(final FacesContext facesContext) {
 
-    String id = (String) facesContext.getExternalContext().getRequestParameterMap().get("id");
+    final String id = (String) facesContext.getExternalContext().getRequestParameterMap().get("id");
     LOG.info("id='" + id + "'");
 
-    TestBean testBean = (TestBean) VariableResolverUtils.resolveVariable(facesContext, "test");
+    final TestBean testBean = (TestBean) VariableResolverUtils.resolveVariable(facesContext, "test");
 
     return testBean.select(id);
     

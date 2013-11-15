@@ -34,21 +34,21 @@ public class SelectedState implements Serializable {
   /**
    * Checks if the given is selected.
    */
-  public boolean isSelected(TreePath path) {
+  public boolean isSelected(final TreePath path) {
     return selected.contains(path);
   }
 
   /**
    * Select the given path.
    */
-  public void select(TreePath path) {
+  public void select(final TreePath path) {
     selected.add(path);
   }
 
   /**
    * Unselect the given path.
    */
-  public void unselect(TreePath path) {
+  public void unselect(final TreePath path) {
     selected.remove(path);
   }
 
@@ -56,7 +56,7 @@ public class SelectedState implements Serializable {
    * Set the selected path and remove all prior selections.
    * This is useful for "single selection" mode.
    */
-  public void clearAndSelect(TreePath path) {
+  public void clearAndSelect(final TreePath path) {
     clear();
     select(path);
   }
@@ -71,7 +71,7 @@ public class SelectedState implements Serializable {
   /**
    * Set the selection state of the given path
    */
-  public void select(TreePath path, boolean selected) {
+  public void select(final TreePath path, final boolean selected) {
     if (selected) {
       select(path);
     } else {

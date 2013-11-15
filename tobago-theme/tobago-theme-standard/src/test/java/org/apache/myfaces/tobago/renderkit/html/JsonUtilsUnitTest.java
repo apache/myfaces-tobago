@@ -34,13 +34,13 @@ public class JsonUtilsUnitTest extends AbstractTobagoTestBase {
 
   @Test
   public void empty() {
-    CommandMap map = new CommandMap();
+    final CommandMap map = new CommandMap();
     Assert.assertEquals("{}", JsonUtils.encode(map));
   }
 
   @Test
   public void click() {
-    CommandMap map = new CommandMap();
+    final CommandMap map = new CommandMap();
     map.setClick(new Command(null, null, null, null, new String[0], null, null, null, null, null));
     final String expected = "{'click':{}}".replaceAll("'", "\"");
     Assert.assertEquals(expected, JsonUtils.encode(map));
@@ -48,7 +48,7 @@ public class JsonUtilsUnitTest extends AbstractTobagoTestBase {
 
   @Test
   public void change() {
-    CommandMap map = new CommandMap();
+    final CommandMap map = new CommandMap();
     map.addCommand("change", new Command(null, null, null, null, new String[0], null, null, null, null, null));
     final String expected = "{'change':{}}".replaceAll("'", "\"");
     Assert.assertEquals(expected, JsonUtils.encode(map));
@@ -56,7 +56,7 @@ public class JsonUtilsUnitTest extends AbstractTobagoTestBase {
 
   @Test
   public void two() {
-    CommandMap map = new CommandMap();
+    final CommandMap map = new CommandMap();
     map.addCommand("click", new Command(null, null, "target", null, new String[0], null, null, null, null, null));
     map.addCommand("change", new Command(null, null, null, null, new String[0], null, null, null, null, null));
     final String expected = "{'click':{'target':'target'},'change':{}}".replaceAll("'", "\"");
@@ -65,7 +65,7 @@ public class JsonUtilsUnitTest extends AbstractTobagoTestBase {
 
   @Test
   public void transition() {
-    CommandMap commandMap = new CommandMap();
+    final CommandMap commandMap = new CommandMap();
     commandMap.setClick(new Command(null, false, null, null, new String[0], null, null, null, null, null));
     final String expected = "{'click':{'transition':false}}".replaceAll("'", "\"");
     Assert.assertEquals(expected, JsonUtils.encode(commandMap));
@@ -73,7 +73,7 @@ public class JsonUtilsUnitTest extends AbstractTobagoTestBase {
 
   @Test
   public void more() {
-    CommandMap map = new CommandMap();
+    final CommandMap map = new CommandMap();
     final AbstractUICommandBase command = (AbstractUICommandBase)
         CreateComponentUtils.createComponent(facesContext, ComponentTypes.BUTTON, RendererTypes.BUTTON, "command");
     command.getAttributes().put(Attributes.POPUP_CLOSE, "immediate");

@@ -33,7 +33,7 @@ public class Bird implements Serializable {
   private String name;
   private int size;
 
-  public Bird(String name, int size) {
+  public Bird(final String name, final int size) {
     this.name = name;
     this.size = size;
   }
@@ -44,7 +44,7 @@ public class Bird implements Serializable {
    */
   public String select() {
     LOG.info("Select Bird: name=" + name + " size=" + size);
-    BirdController controller = (BirdController)
+    final BirdController controller = (BirdController)
         VariableResolverUtils.resolveVariable(FacesContext.getCurrentInstance(), "birdController");
     controller.setStatus("Selected bird is " + name);
     return null;
@@ -54,7 +54,7 @@ public class Bird implements Serializable {
     return name;
   }
 
-  public void setName(String name) {
+  public void setName(final String name) {
     this.name = name;
   }
 
@@ -62,7 +62,7 @@ public class Bird implements Serializable {
     return size;
   }
 
-  public void setSize(int size) {
+  public void setSize(final int size) {
     this.size = size;
   }
 }

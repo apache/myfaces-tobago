@@ -47,9 +47,9 @@ public class BestPracticeController {
     return viewPdf(true);
   }
 
-  private String viewPdf(boolean outside) {
+  private String viewPdf(final boolean outside) {
 
-    FacesContext facesContext = FacesContext.getCurrentInstance();
+    final FacesContext facesContext = FacesContext.getCurrentInstance();
 
     InputStream inputStream = null;
     try {
@@ -57,13 +57,13 @@ public class BestPracticeController {
       if (inputStream == null) {
         inputStream = facesContext.getExternalContext().getResourceAsStream("/content/12/03/x-sample.pdf");
       }
-      HttpServletResponse response = (HttpServletResponse) facesContext.getExternalContext().getResponse();
+      final HttpServletResponse response = (HttpServletResponse) facesContext.getExternalContext().getResponse();
       response.setContentType("application/pdf");
       if (outside) {
         response.setHeader("Content-Disposition", "attachment; filename=x-sample.pdf");
       }
       IOUtils.copy(inputStream, response.getOutputStream());
-    } catch (IOException e) {
+    } catch (final IOException e) {
       LOG.warn("Cannot deliver pdf", e);
       return "error"; // response via faces
     } finally {
@@ -77,7 +77,7 @@ public class BestPracticeController {
     return status;
   }
 
-  public void setStatus(String status) {
+  public void setStatus(final String status) {
     this.status = status;
   }
 }

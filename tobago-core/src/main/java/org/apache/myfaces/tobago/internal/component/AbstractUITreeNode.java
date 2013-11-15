@@ -41,7 +41,7 @@ public abstract class AbstractUITreeNode
     extends AbstractUIColumn implements SupportsMarkup, TreeModelBuilder, Configurable {
 
   @Override
-  public void encodeBegin(FacesContext facesContext) throws IOException {
+  public void encodeBegin(final FacesContext facesContext) throws IOException {
     final TreeDataModel model = ComponentUtils.findAncestor(this, AbstractUIData.class).getTreeDataModel();
     model.setRowClientId(getClientId(facesContext));
 
@@ -72,10 +72,10 @@ public abstract class AbstractUITreeNode
     return model.getPath();
   }
 
-  public String nodeStateId(FacesContext facesContext) {
+  public String nodeStateId(final FacesContext facesContext) {
     final String clientId = getClientId(facesContext);
     final UIData data = ComponentUtils.findAncestor(this, UIData.class);
-    String dataId = data.getClientId(facesContext);
+    final String dataId = data.getClientId(facesContext);
     return clientId.substring(dataId.length() + 1);
   }
 
@@ -96,7 +96,7 @@ public abstract class AbstractUITreeNode
    * @deprecated since 2.0.0
    */
   @Deprecated
-  public void buildTreeModelBegin(FacesContext facesContext, MixedTreeModel model) {
+  public void buildTreeModelBegin(final FacesContext facesContext, final MixedTreeModel model) {
     Deprecation.LOG.error("Doesn't work anymore.");
   }
 
@@ -104,7 +104,7 @@ public abstract class AbstractUITreeNode
    * @deprecated since 2.0.0
    */
   @Deprecated
-  public void buildTreeModelChildren(FacesContext facesContext, MixedTreeModel model) {
+  public void buildTreeModelChildren(final FacesContext facesContext, final MixedTreeModel model) {
     Deprecation.LOG.error("Doesn't work anymore.");
   }
 
@@ -112,7 +112,7 @@ public abstract class AbstractUITreeNode
    * @deprecated since 2.0.0
    */
   @Deprecated
-  public void buildTreeModelEnd(FacesContext facesContext, MixedTreeModel model) {
+  public void buildTreeModelEnd(final FacesContext facesContext, final MixedTreeModel model) {
     Deprecation.LOG.error("Doesn't work anymore.");
   }
 
@@ -129,7 +129,7 @@ public abstract class AbstractUITreeNode
    * @deprecated since 2.0.0
    */
   @Deprecated
-  public void setDepth(int depth) {
+  public void setDepth(final int depth) {
     Deprecation.LOG.error("Doesn't work anymore.");
   }
 
@@ -137,7 +137,7 @@ public abstract class AbstractUITreeNode
    * @deprecated since 2.0.0
    */
   @Deprecated
-  public void setFolder(boolean folder) {
+  public void setFolder(final boolean folder) {
     Deprecation.LOG.error("Doesn't work anymore.");
   }
 
@@ -145,7 +145,7 @@ public abstract class AbstractUITreeNode
    * @deprecated since 2.0.0
    */
   @Deprecated
-  public void setPath(TreePath path) {
+  public void setPath(final TreePath path) {
     Deprecation.LOG.error("Doesn't work anymore.");
   }
 
@@ -153,7 +153,7 @@ public abstract class AbstractUITreeNode
    * @deprecated since 2.0.0
    */
   @Deprecated
-  public void setJunctions(List<Boolean> junctions) {
+  public void setJunctions(final List<Boolean> junctions) {
     Deprecation.LOG.error("Doesn't work anymore.");
   }
 
@@ -170,7 +170,7 @@ public abstract class AbstractUITreeNode
    * @deprecated since 2.0.0
    */
   @Deprecated
-  public void setHasNextSibling(boolean hasNextSibling) {
+  public void setHasNextSibling(final boolean hasNextSibling) {
     Deprecation.LOG.error("Doesn't work anymore.");
   }
 
@@ -187,7 +187,7 @@ public abstract class AbstractUITreeNode
    * @deprecated since 2.0.0
    */
   @Deprecated
-  public void setTreeExpansionListener(MethodBinding treeExpansionListener){
+  public void setTreeExpansionListener(final MethodBinding treeExpansionListener){
         Deprecation.LOG.error("treeExpansionListener!");
       }
 
@@ -195,7 +195,7 @@ public abstract class AbstractUITreeNode
    * @deprecated since 2.0.0
    */
   @Deprecated
-  public void addTreeExpansionListener(TreeExpansionListener listener) {
+  public void addTreeExpansionListener(final TreeExpansionListener listener) {
     Deprecation.LOG.error("treeExpansionListener!");
   }
 
@@ -212,7 +212,7 @@ public abstract class AbstractUITreeNode
    * @deprecated since 2.0.0
    */
   @Deprecated
-  public void removeStateChangeListener(TreeExpansionListener listener) {
+  public void removeStateChangeListener(final TreeExpansionListener listener) {
     Deprecation.LOG.error("treeExpansionListener!");
   }
 
@@ -229,7 +229,7 @@ public abstract class AbstractUITreeNode
    * @deprecated since 2.0.0
    */
   @Deprecated
-  public  void setTreeMarkedListener(MethodBinding treeMarkedListener){
+  public  void setTreeMarkedListener(final MethodBinding treeMarkedListener){
           Deprecation.LOG.error("treeMarkedListener!");
         }
 
@@ -237,7 +237,7 @@ public abstract class AbstractUITreeNode
    * @deprecated since 2.0.0
    */
   @Deprecated
-  public void addTreeMarkedListener(TreeMarkedListener listener) {
+  public void addTreeMarkedListener(final TreeMarkedListener listener) {
     Deprecation.LOG.error("treeMarkedListener!");
   }
 
@@ -254,7 +254,7 @@ public abstract class AbstractUITreeNode
    * @deprecated since 2.0.0
    */
   @Deprecated
-  public void removeStateChangeListener(TreeMarkedListener listener) {
+  public void removeStateChangeListener(final TreeMarkedListener listener) {
     Deprecation.LOG.error("treeMarkedListener!");
   }
 
@@ -271,7 +271,7 @@ public abstract class AbstractUITreeNode
    * @deprecated since 2.0.0
    */
   @Deprecated
-  public void setMarked(boolean b) {
+  public void setMarked(final boolean b) {
     Deprecation.LOG.error("The marked attribute is no longer supported, please use a tree state!");
   }
 
@@ -288,7 +288,7 @@ public abstract class AbstractUITreeNode
    * @deprecated since 2.0.0
    */
   @Deprecated
-  public void setExpanded(boolean expanded) {
+  public void setExpanded(final boolean expanded) {
     Deprecation.LOG.error("The expanded attribute is no longer supported, please use a tree state!");
   }
 
@@ -305,7 +305,7 @@ public abstract class AbstractUITreeNode
    * @deprecated since 2.0.0
    */
   @Deprecated
-  public void setSelected(boolean selected) {
+  public void setSelected(final boolean selected) {
     Deprecation.LOG.error("The selected attribute is no longer supported, please use a tree select!");
   }
 }

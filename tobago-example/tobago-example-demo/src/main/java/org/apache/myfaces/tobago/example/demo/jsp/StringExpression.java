@@ -35,7 +35,7 @@ public class StringExpression implements Serializable {
 
   private String string;
 
-  public StringExpression(String string) {
+  public StringExpression(final String string) {
     this.string = string;
   }
 
@@ -43,28 +43,28 @@ public class StringExpression implements Serializable {
     return string;
   }
 
-  public String substitute(Map<String, String> variables) {
+  public String substitute(final Map<String, String> variables) {
     return replaceVariables(string, variables);
   }
 
   // implementation copied from ant.ProjectHelper
   private static String replaceVariables(
-      String stringExpression, Map<String, String> variables) {
+      final String stringExpression, final Map<String, String> variables) {
     if (stringExpression == null) {
       return null;
     }
 
-    Vector<String> fragments = new Vector<String>();
-    Vector<String> propertyRefs = new Vector<String>();
+    final Vector<String> fragments = new Vector<String>();
+    final Vector<String> propertyRefs = new Vector<String>();
     parsePropertyString(stringExpression, fragments, propertyRefs);
 
-    StringBuilder sb = new StringBuilder();
-    Enumeration<String> i = fragments.elements();
-    Enumeration<String> j = propertyRefs.elements();
+    final StringBuilder sb = new StringBuilder();
+    final Enumeration<String> i = fragments.elements();
+    final Enumeration<String> j = propertyRefs.elements();
     while (i.hasMoreElements()) {
       String fragment = i.nextElement();
       if (fragment == null) {
-        String propertyName = j.nextElement();
+        final String propertyName = j.nextElement();
         if (!variables.containsKey(propertyName)) {
           // throw exception ?
           LOG.error("Property ${" + propertyName + "} has not been set");
@@ -79,7 +79,7 @@ public class StringExpression implements Serializable {
   }
 
   private static void parsePropertyString(
-      String value, Vector<String> fragments, Vector<String> propertyRefs) {
+      final String value, final Vector<String> fragments, final Vector<String> propertyRefs) {
     int prev = 0;
     int pos;
     while ((pos = value.indexOf("$", prev)) >= 0) {
@@ -93,11 +93,11 @@ public class StringExpression implements Serializable {
         fragments.addElement(value.substring(pos + 1, pos + 2));
         prev = pos + 2;
       } else {
-        int endName = value.indexOf('}', pos);
+        final int endName = value.indexOf('}', pos);
         if (endName < 0) {
           throw new IllegalArgumentException("Syntax error in property: " + value);
         }
-        String propertyName = value.substring(pos + 2, endName);
+        final String propertyName = value.substring(pos + 2, endName);
         fragments.addElement(null);
         propertyRefs.addElement(propertyName);
         prev = endName + 1;

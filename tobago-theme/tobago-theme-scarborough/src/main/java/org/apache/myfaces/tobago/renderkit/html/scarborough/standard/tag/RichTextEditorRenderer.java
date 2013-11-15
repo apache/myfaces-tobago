@@ -56,16 +56,16 @@ public class RichTextEditorRenderer extends InputRendererBase {
   public static final String CHANGE_BUTTON = "togleState";
 
   @Override
-  public void decode(FacesContext facesContext, UIComponent component) {
+  public void decode(final FacesContext facesContext, final UIComponent component) {
     if (ComponentUtils.isOutputOnly(component)) {
       return;
     }
 
     super.decode(facesContext, component);
-    String actionId = ComponentUtils.findPage(facesContext, component).getActionId();
+    final String actionId = ComponentUtils.findPage(facesContext, component).getActionId();
     if (actionId != null
         && actionId.equals(component.getClientId(facesContext) + CHANGE_BUTTON)) {
-      boolean state
+      final boolean state
           = ComponentUtils.getBooleanAttribute(component, Attributes.STATE_PREVIEW);
       component.getAttributes().put(Attributes.STATE_PREVIEW, !state);
       facesContext.renderResponse();
@@ -74,35 +74,35 @@ public class RichTextEditorRenderer extends InputRendererBase {
     ((EditableValueHolder) component).setValid(true);
   }
 
-  public static String contentToHtml(String content) {
+  public static String contentToHtml(final String content) {
     try {
       LOG.warn("richtext switched off, because of dependencies");
       return content;
 //  FIXME: check dependencies
 //      return WikiParser.toHtml(content);
-    } catch (Exception e) {
+    } catch (final Exception e) {
       LOG.error("failed to parser wiki markup", e);
     }
     return content;
   }
 
   @Override
-  public void encodeEnd(FacesContext facesContext,      UIComponent component) throws IOException {
+  public void encodeEnd(final FacesContext facesContext,      final UIComponent component) throws IOException {
 
-    UIIn input = (UIIn) component;
+    final UIIn input = (UIIn) component;
 
-    boolean previewState
+    final boolean previewState
         = ComponentUtils.getBooleanAttribute(input, Attributes.STATE_PREVIEW);
     // FIXME: remove this when i18n is ok
 
-    String clientId = input.getClientId(facesContext);
+    final String clientId = input.getClientId(facesContext);
 
-    TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
     writer.startElement(HtmlElements.DIV, input);
     writer.writeClassAttribute(Classes.create(input, "container"));
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, input);
-    Style style = new Style(facesContext, input);
+    final Style style = new Style(facesContext, input);
     writer.writeStyleAttribute(style);
 
     UIComponent toolbar = input.getFacet(Facets.TOOL_BAR);
@@ -116,7 +116,7 @@ public class RichTextEditorRenderer extends InputRendererBase {
     RenderUtils.encode(facesContext, toolbar);
 //    renderToolBar(facesContext, writer, input);
 
-    String content = getCurrentValue(facesContext, input);
+    final String content = getCurrentValue(facesContext, input);
 
     if (previewState) {
       writer.startElement(HtmlElements.INPUT, input);
@@ -140,7 +140,7 @@ public class RichTextEditorRenderer extends InputRendererBase {
       writer.writeNameAttribute(clientId);
       writer.writeIdAttribute(clientId);
       writer.writeStyleAttribute(style);
-      String onchange = HtmlUtils.generateOnchange(input, facesContext);
+      final String onchange = HtmlUtils.generateOnchange(input, facesContext);
       if (null != onchange) {
         writer.writeAttribute(HtmlAttributes.ONCHANGE, onchange, null);
       }
@@ -154,10 +154,10 @@ public class RichTextEditorRenderer extends InputRendererBase {
     writer.endElement(HtmlElements.DIV);
   }
 
-  private UIComponent createToolbar(FacesContext facesContext, UIIn component) {
-    UIPanel toolbar = (UIPanel) CreateComponentUtils.createComponent(
+  private UIComponent createToolbar(final FacesContext facesContext, final UIIn component) {
+    final UIPanel toolbar = (UIPanel) CreateComponentUtils.createComponent(
         facesContext, UIPanel.COMPONENT_TYPE, RendererTypes.TOOL_BAR);
-    String clientId = component.getClientId(facesContext);
+    final String clientId = component.getClientId(facesContext);
 
     component.getFacets().put(Facets.TOOL_BAR, toolbar);
     toolbar.getAttributes().put(Attributes.ICON_SIZE, UIToolBar.ICON_SMALL);
@@ -179,7 +179,7 @@ public class RichTextEditorRenderer extends InputRendererBase {
         facesContext, "tobago", "tobago.richtexteditor.edit.title");
     command.getAttributes().put(Attributes.TIP, title);
 
-    String onClick
+    final String onClick
         = HtmlRendererUtils.createSubmitAction(clientId + RichTextEditorRenderer.CHANGE_BUTTON, true, null, null);
     command.getAttributes().put(Attributes.ONCLICK, onClick);
 

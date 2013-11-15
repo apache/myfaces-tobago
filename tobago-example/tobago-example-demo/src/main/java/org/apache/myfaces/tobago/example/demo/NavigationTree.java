@@ -62,17 +62,17 @@ public class NavigationTree implements Serializable {
       init(list);
   }
 
-  protected NavigationTree(List<String> list) {
+  protected NavigationTree(final List<String> list) {
     init(list);
   }
 
-  protected void init(List<String> list) {
+  protected void init(final List<String> list) {
     list.add("/content/root-dummy.xhtml"); // helps to build the tree, this is not an existing file
-    List<NavigationNode> nodes = new ArrayList<NavigationNode>();
-    for (String path : list) {
+    final List<NavigationNode> nodes = new ArrayList<NavigationNode>();
+    for (final String path : list) {
       try {
         nodes.add(new NavigationNode(path, this));
-      } catch (IllegalStateException e) {
+      } catch (final IllegalStateException e) {
         LOG.error("Found file with wrong pattern: '{}'", path);
       }
     }
@@ -82,12 +82,12 @@ public class NavigationTree implements Serializable {
     // after sorting the first node is the root node.
     tree = nodes.get(0);
 
-    Map<String, NavigationNode> map = new HashMap<String, NavigationNode>();
+    final Map<String, NavigationNode> map = new HashMap<String, NavigationNode>();
 //    map.put(tree.getBranch(), tree);
 
-    for (NavigationNode node : nodes) {
+    for (final NavigationNode node : nodes) {
       map.put(node.getBranch(), node);
-      String parent = node.getBranch().substring(0, node.getBranch().lastIndexOf('/'));
+      final String parent = node.getBranch().substring(0, node.getBranch().lastIndexOf('/'));
       if (!parent.equals("")) { // is root
         map.get(parent).add(node);
       }
@@ -96,12 +96,12 @@ public class NavigationTree implements Serializable {
   }
 
   private static List<String> locateResourcesInWar(
-      ServletContext servletContext, String directory, List<String> result) {
+      final ServletContext servletContext, final String directory, final List<String> result) {
 
-    Set<String> resourcePaths = servletContext.getResourcePaths(directory);
+    final Set<String> resourcePaths = servletContext.getResourcePaths(directory);
 
     if (resourcePaths != null) {
-      for (String path : resourcePaths) {
+      for (final String path : resourcePaths) {
 
         if (path.endsWith("/.svn/")) {
           // ignoring svn files
@@ -125,7 +125,7 @@ public class NavigationTree implements Serializable {
     return result;
   }
 
-  public void selectByViewId(String viewId) {
+  public void selectByViewId(final String viewId) {
     gotoNode(findByViewId(viewId));
   }
 
@@ -133,9 +133,9 @@ public class NavigationTree implements Serializable {
     if (viewId.endsWith(".jspx")) {
       viewId = viewId.substring(0, viewId.lastIndexOf(".jspx")) + ".xhtml";
     }
-    Enumeration enumeration = tree.depthFirstEnumeration();
+    final Enumeration enumeration = tree.depthFirstEnumeration();
     while (enumeration.hasMoreElements()) {
-      NavigationNode node = ((NavigationNode) enumeration.nextElement());
+      final NavigationNode node = ((NavigationNode) enumeration.nextElement());
       if (node.getOutcome() != null && viewId.contains(node.getOutcome())) {
         return node;
       }
@@ -147,22 +147,22 @@ public class NavigationTree implements Serializable {
     return tree;
   }
 
-  public void gotoNode(NavigationNode node) {
+  public void gotoNode(final NavigationNode node) {
     events.fire(new NavigationEvent(node));
   }
 
   public String viewSource() {
-    FacesContext facesContext = FacesContext.getCurrentInstance();
-    ExternalContext externalContext = facesContext.getExternalContext();
-    String viewId = facesContext.getViewRoot().getViewId();
-    HttpServletResponse response = (HttpServletResponse) externalContext.getResponse();
+    final FacesContext facesContext = FacesContext.getCurrentInstance();
+    final ExternalContext externalContext = facesContext.getExternalContext();
+    final String viewId = facesContext.getViewRoot().getViewId();
+    final HttpServletResponse response = (HttpServletResponse) externalContext.getResponse();
     response.setContentType("text/html; charset=UTF-8");
 
     try {
-      InputStream resourceAsStream = externalContext.getResourceAsStream(viewId);
-      InputStreamReader reader = new InputStreamReader(resourceAsStream);
+      final InputStream resourceAsStream = externalContext.getResourceAsStream(viewId);
+      final InputStreamReader reader = new InputStreamReader(resourceAsStream);
       JspFormatter.writeJsp(reader, new PrintWriter(response.getOutputStream()));
-    } catch (IOException e) {
+    } catch (final IOException e) {
       LOG.error("", e);
       return "error";
     }

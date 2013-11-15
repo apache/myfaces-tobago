@@ -33,7 +33,7 @@ public class AutoSuggestItem extends AutoSuggestExtensionItem {
     return label;
   }
 
-  public void setLabel(String label) {
+  public void setLabel(final String label) {
     this.label = label;
   }
 
@@ -41,7 +41,7 @@ public class AutoSuggestItem extends AutoSuggestExtensionItem {
     return nextFocusId;
   }
 
-  public void setNextFocusId(String nextFocusId) {
+  public void setNextFocusId(final String nextFocusId) {
     this.nextFocusId = nextFocusId;
   }
 
@@ -49,7 +49,7 @@ public class AutoSuggestItem extends AutoSuggestExtensionItem {
     return extensionItems;
   }
 
-  public void setExtensionItems(List<AutoSuggestExtensionItem> extensionItems) {
+  public void setExtensionItems(final List<AutoSuggestExtensionItem> extensionItems) {
     this.extensionItems = extensionItems;
   }
 }

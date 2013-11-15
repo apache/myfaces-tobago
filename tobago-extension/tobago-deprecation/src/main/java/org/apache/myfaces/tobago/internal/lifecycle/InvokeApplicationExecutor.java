@@ -33,7 +33,7 @@ import javax.faces.event.PhaseId;
  */
 @Deprecated
 class InvokeApplicationExecutor implements PhaseExecutor {
-  public boolean execute(FacesContext facesContext) {
+  public boolean execute(final FacesContext facesContext) {
     facesContext.getViewRoot().processApplication(facesContext);
     return false;
   }

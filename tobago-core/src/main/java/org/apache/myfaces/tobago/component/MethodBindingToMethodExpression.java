@@ -51,7 +51,7 @@ public class MethodBindingToMethodExpression extends MethodExpression implements
    * Creates a new instance of MethodBindingToMethodExpression
    * @param methodBinding The MethodBinding to wrap.
    */
-  public MethodBindingToMethodExpression(MethodBinding methodBinding) {
+  public MethodBindingToMethodExpression(final MethodBinding methodBinding) {
     checkNullArgument(methodBinding, "methodBinding");
     this.methodBinding = methodBinding;
   }
@@ -64,7 +64,7 @@ public class MethodBindingToMethodExpression extends MethodExpression implements
     return methodBinding;
   }
 
-  void setMethodBinding(MethodBinding methodBinding) {
+  void setMethodBinding(final MethodBinding methodBinding) {
     this.methodBinding = methodBinding;
   }
 
@@ -73,7 +73,7 @@ public class MethodBindingToMethodExpression extends MethodExpression implements
    *
    * @throws IllegalStateException if expected params types have not been determined.
    */
-  public MethodInfo getMethodInfo(ELContext context) throws ELException {
+  public MethodInfo getMethodInfo(final ELContext context) throws ELException {
     checkNullArgument(context, "elcontext");
     checkNullState(methodBinding, "methodBinding");
 
@@ -90,7 +90,7 @@ public class MethodBindingToMethodExpression extends MethodExpression implements
     return methodInfo;
   }
 
-  public Object invoke(ELContext context, final Object[] params) throws ELException {
+  public Object invoke(final ELContext context, final Object[] params) throws ELException {
     checkNullArgument(context, "elcontext");
     checkNullState(methodBinding, "methodBinding");
     final FacesContext facesContext = (FacesContext) context.getContext(FacesContext.class);
@@ -108,7 +108,7 @@ public class MethodBindingToMethodExpression extends MethodExpression implements
     if (methodBinding == null) {
       throw new IllegalStateException("methodBinding is null");
     }
-    String expr = methodBinding.getExpressionString();
+    final String expr = methodBinding.getExpressionString();
     return !(expr.startsWith("#{") && expr.endsWith("}"));
   }
 
@@ -116,10 +116,10 @@ public class MethodBindingToMethodExpression extends MethodExpression implements
     return methodBinding.getExpressionString();
   }
 
-  public Object saveState(FacesContext context) {
+  public Object saveState(final FacesContext context) {
     if (!isTransient()) {
       if (methodBinding instanceof StateHolder) {
-        Object[] state = new Object[2];
+        final Object[] state = new Object[2];
         state[0] = methodBinding.getClass().getName();
         state[1] = ((StateHolder) methodBinding).saveState(context);
         return state;
@@ -130,19 +130,19 @@ public class MethodBindingToMethodExpression extends MethodExpression implements
     return null;
   }
 
-  public void restoreState(FacesContext context, Object state) {
+  public void restoreState(final FacesContext context, final Object state) {
     if (state instanceof MethodBinding) {
       methodBinding = (MethodBinding) state;
       methodInfo = null;
     } else if (state != null) {
-      Object[] values = (Object[]) state;
+      final Object[] values = (Object[]) state;
       methodBinding = (MethodBinding) newInstance(values[0].toString());
       ((StateHolder) methodBinding).restoreState(context, values[1]);
       methodInfo = null;
     }
   }
 
-  public void setTransient(boolean transientFlag) {
+  public void setTransient(final boolean transientFlag) {
     this.transientFlag = transientFlag;
   }
 
@@ -159,7 +159,7 @@ public class MethodBindingToMethodExpression extends MethodExpression implements
   }
 
   @Override
-  public boolean equals(Object obj) {
+  public boolean equals(final Object obj) {
     if (this == obj) {
       return true;
     }
@@ -180,24 +180,24 @@ public class MethodBindingToMethodExpression extends MethodExpression implements
     return true;
   }
 
-  private void checkNullState(Object notNullInstance, String instanceName) {
+  private void checkNullState(final Object notNullInstance, final String instanceName) {
     if (notNullInstance == null) {
       throw new IllegalStateException(instanceName + " is null");
     }
   }
 
-  private void checkNullArgument(Object notNullInstance, String instanceName) {
+  private void checkNullArgument(final Object notNullInstance, final String instanceName) {
     if (notNullInstance == null) {
       throw new IllegalArgumentException(instanceName + " is null");
     }
   }
 
-  private <T> T invoke(Invoker<T> invoker) {
+  private <T> T invoke(final Invoker<T> invoker) {
     try {
       return invoker.invoke();
-    } catch (javax.faces.el.MethodNotFoundException e) {
+    } catch (final javax.faces.el.MethodNotFoundException e) {
       throw new MethodNotFoundException(e.getMessage(), e);
-    } catch (EvaluationException e) {
+    } catch (final EvaluationException e) {
       throw new ELException(e.getMessage(), e);
     }
   }
@@ -206,24 +206,24 @@ public class MethodBindingToMethodExpression extends MethodExpression implements
     T invoke();
   }
 
-  private static Object newInstance(String type) {
+  private static Object newInstance(final String type) {
     if (type == null) {
       throw new NullPointerException("type");
     }
     try {
       try {
         return Class.forName(type, false, Thread.currentThread().getContextClassLoader()).newInstance();
-      } catch (ClassNotFoundException e) {
+      } catch (final ClassNotFoundException e) {
         // ignore
         return Class.forName(type, false, MethodBindingToMethodExpression.class.getClassLoader()).newInstance();
       }
-    } catch (ClassNotFoundException e) {
+    } catch (final ClassNotFoundException e) {
       throw new FacesException(e);
-    } catch (NoClassDefFoundError e) {
+    } catch (final NoClassDefFoundError e) {
       throw new FacesException(e);
-    } catch (InstantiationException e) {
+    } catch (final InstantiationException e) {
       throw new FacesException(e);
-    } catch (IllegalAccessException e) {
+    } catch (final IllegalAccessException e) {
       throw new FacesException(e);
     }
   }

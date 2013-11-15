@@ -41,12 +41,12 @@ import java.io.IOException;
 public class FlowLayoutRenderer extends RendererBase implements SpacingValues, MarginValues {
 
   @Override
-  public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
-    TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
-    UIFlowLayout layout = (UIFlowLayout) component;
+  public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
+    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final UIFlowLayout layout = (UIFlowLayout) component;
     writer.startElement(HtmlElements.DIV, layout);
     writer.writeClassAttribute(Classes.create(layout));
-    Style style = new Style();
+    final Style style = new Style();
     style.setMarginLeft(getMarginLeft(facesContext, layout));
     style.setMarginRight(getMarginRight(facesContext, layout));
     style.setMarginTop(getMarginTop(facesContext, layout));
@@ -56,8 +56,8 @@ public class FlowLayoutRenderer extends RendererBase implements SpacingValues, M
   }
 
   @Override
-  public void encodeChildren(FacesContext facesContext, UIComponent component) throws IOException {
-    UIComponent container = component.getParent();
+  public void encodeChildren(final FacesContext facesContext, final UIComponent component) throws IOException {
+    final UIComponent container = component.getParent();
     if (container instanceof LayoutContainer && !((LayoutContainer) container).isLayoutChildren()) {
       return;
     }
@@ -65,36 +65,36 @@ public class FlowLayoutRenderer extends RendererBase implements SpacingValues, M
   }
 
   @Override
-  public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
-    TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
+    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
     writer.endElement(HtmlElements.DIV);
   }
 
-  public Measure getColumnSpacing(FacesContext facesContext, Configurable component) {
+  public Measure getColumnSpacing(final FacesContext facesContext, final Configurable component) {
     return getResourceManager().getThemeMeasure(facesContext, component, Attributes.COLUMN_SPACING);
   }
 
-  public Measure getRowSpacing(FacesContext facesContext, Configurable component) {
+  public Measure getRowSpacing(final FacesContext facesContext, final Configurable component) {
     return getResourceManager().getThemeMeasure(facesContext, component, Attributes.ROW_SPACING);
   }
 
-  public Measure getMarginLeft(FacesContext facesContext, Configurable component) {
-    Configurable parent = (Configurable) ((UIComponent) component).getParent();
+  public Measure getMarginLeft(final FacesContext facesContext, final Configurable component) {
+    final Configurable parent = (Configurable) ((UIComponent) component).getParent();
     return getResourceManager().getThemeMeasure(facesContext, parent, Attributes.MARGIN_LEFT);
   }
 
-  public Measure getMarginRight(FacesContext facesContext, Configurable component) {
-    Configurable parent = (Configurable) ((UIComponent) component).getParent();
+  public Measure getMarginRight(final FacesContext facesContext, final Configurable component) {
+    final Configurable parent = (Configurable) ((UIComponent) component).getParent();
     return getResourceManager().getThemeMeasure(facesContext, parent, Attributes.MARGIN_RIGHT);
   }
 
-  public Measure getMarginTop(FacesContext facesContext, Configurable component) {
-    Configurable parent = (Configurable) ((UIComponent) component).getParent();
+  public Measure getMarginTop(final FacesContext facesContext, final Configurable component) {
+    final Configurable parent = (Configurable) ((UIComponent) component).getParent();
     return getResourceManager().getThemeMeasure(facesContext, parent, Attributes.MARGIN_TOP);
   }
 
-  public Measure getMarginBottom(FacesContext facesContext, Configurable component) {
-    Configurable parent = (Configurable) ((UIComponent) component).getParent();
+  public Measure getMarginBottom(final FacesContext facesContext, final Configurable component) {
+    final Configurable parent = (Configurable) ((UIComponent) component).getParent();
     return getResourceManager().getThemeMeasure(facesContext, parent, Attributes.MARGIN_BOTTOM);
   }
 

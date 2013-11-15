@@ -47,44 +47,44 @@ public class SelectOneChoiceRenderer extends SelectOneRendererBase {
     return true;
   }
 
-  public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
+  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
     if (!(component instanceof UISelectOneChoice)) {
       LOG.error("Wrong type: Need " + UISelectOneChoice.class.getName()
           + ", but was " + component.getClass().getName());
       return;
     }
 
-    UISelectOneChoice select = (UISelectOneChoice) component;
-    TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final UISelectOneChoice select = (UISelectOneChoice) component;
+    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
-    String id = select.getClientId(facesContext);
-    List<SelectItem> items = RenderUtils.getSelectItems(select);
-    String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, select);
-    boolean disabled = items.size() == 0 || select.isDisabled() || select.isReadonly();
+    final String id = select.getClientId(facesContext);
+    final List<SelectItem> items = RenderUtils.getSelectItems(select);
+    final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, select);
+    final boolean disabled = items.size() == 0 || select.isDisabled() || select.isReadonly();
 
     writer.startElement(HtmlElements.SELECT, select);
     writer.writeNameAttribute(id);
     writer.writeIdAttribute(id);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, select);
     writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
-    Integer tabIndex = select.getTabIndex();
+    final Integer tabIndex = select.getTabIndex();
     if (tabIndex != null) {
       writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
     }
-    Style style = new Style(facesContext, select);
+    final Style style = new Style(facesContext, select);
     writer.writeStyleAttribute(style);
     writer.writeClassAttribute(Classes.create(select));
     if (title != null) {
       writer.writeAttribute(HtmlAttributes.TITLE, title, true);
     }
-    String onchange = HtmlUtils.generateOnchange(select, facesContext);
+    final String onchange = HtmlUtils.generateOnchange(select, facesContext);
     if (onchange != null) {
       writer.writeAttribute(HtmlAttributes.ONCHANGE, onchange, true);
     }
     HtmlRendererUtils.renderCommandFacet(select, facesContext , writer);
     HtmlRendererUtils.renderFocus(id, select.isFocus(), ComponentUtils.isError(select), facesContext, writer);
     
-    Object[] values = {select.getValue()};
+    final Object[] values = {select.getValue()};
 
     HtmlRendererUtils.renderSelectItems(select, items, values, writer, facesContext);
 

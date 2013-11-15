@@ -36,7 +36,7 @@ public class PageItem extends DefaultMutableTreeNode implements Comparable {
   private boolean disabled;
   private boolean todo;
 
-  public PageItem(String name, boolean disabled, boolean todo) {
+  public PageItem(final String name, final boolean disabled, final boolean todo) {
     this.name = name;
     resource = name.substring(1);
     jsfResource = name.endsWith(".xhtml") || name.endsWith(".jspx");
@@ -68,7 +68,7 @@ public class PageItem extends DefaultMutableTreeNode implements Comparable {
     return label;
   }
 
-  public int compareTo(Object object) {
+  public int compareTo(final Object object) {
     return label.compareTo(((PageItem) object).label);
   }
 
@@ -89,7 +89,7 @@ public class PageItem extends DefaultMutableTreeNode implements Comparable {
   }
 
   public String navigate() {
-    DirectoryBrowser browser =
+    final DirectoryBrowser browser =
         (DirectoryBrowser) VariableResolverUtils.resolveVariable(FacesContext.getCurrentInstance(), "browser");
     browser.setCurrent(this);
     return null; // here it works, but return null is usually not a good idea.

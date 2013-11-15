@@ -46,7 +46,7 @@ public abstract class SeleniumTest {
     return selenium;
   }
 
-  protected static String createUrl(String page) {
+  protected static String createUrl(final String page) {
     Assert.assertTrue("Page name must start with a slash.", page.startsWith("/"));
     if (CONTEXT_PATH.length() == 0) {
       return '/' + SERVLET_MAPPING + page;

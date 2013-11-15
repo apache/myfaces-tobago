@@ -28,7 +28,7 @@ public final class AnnotationUtils {
   private AnnotationUtils() {
   }
 
-  public static String componentType(UIComponentTag componentTag) {
+  public static String componentType(final UIComponentTag componentTag) {
     final String s = componentTag.componentType();
     if (s != null && s.length() > 0) {
       return s;
@@ -37,7 +37,7 @@ public final class AnnotationUtils {
     }
   }
 
-  public static String generatedTagName(TypeElement typeElement) {
+  public static String generatedTagName(final TypeElement typeElement) {
     final String s = typeElement.getQualifiedName().toString();
     return s.replace(".component.", ".");
   }

@@ -27,15 +27,15 @@ public class SheetStateChangeEvent extends ActionEvent {
 
   private static final long serialVersionUID = 2875570768774425451L;
 
-  public SheetStateChangeEvent(UIComponent uiComponent) {
+  public SheetStateChangeEvent(final UIComponent uiComponent) {
     super(uiComponent);
   }
 
-  public boolean isAppropriateListener(FacesListener facesListener) {
+  public boolean isAppropriateListener(final FacesListener facesListener) {
     return facesListener instanceof SheetStateChangeListener;
   }
 
-  public void processListener(FacesListener facesListener) {
+  public void processListener(final FacesListener facesListener) {
     if (facesListener instanceof SheetStateChangeListener) {
       ((SheetStateChangeListener) facesListener).processSheetStateChange(this);
     }

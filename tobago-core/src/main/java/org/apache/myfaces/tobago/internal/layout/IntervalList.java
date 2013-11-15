@@ -34,10 +34,10 @@ public class IntervalList extends ArrayList<Interval> {
   private Measure current;
 
   public void evaluate() {
-    List<Measure> minimumList = collectMinimum();
-    List<Measure> maximumList = collectMaximum();
+    final List<Measure> minimumList = collectMinimum();
+    final List<Measure> maximumList = collectMaximum();
     minimum = Measure.max(minimumList);
-    Measure maximum = Measure.min(maximumList);
+    final Measure maximum = Measure.min(maximumList);
     if (minimum.greaterThan(maximum)) {
       if (LOG.isDebugEnabled()) {
         LOG.debug("Layout: Found a minimum constraint " + minimum
@@ -45,7 +45,7 @@ public class IntervalList extends ArrayList<Interval> {
       }
       current = minimum;
     } else {
-      List<Measure> preferred = findPreferredInInterval(minimum, maximum);
+      final List<Measure> preferred = findPreferredInInterval(minimum, maximum);
       if (!preferred.isEmpty()) {
         current = Measure.max(preferred);
       } else {
@@ -55,8 +55,8 @@ public class IntervalList extends ArrayList<Interval> {
   }
 
   private List<Measure> collectMinimum() {
-    List<Measure> result = new ArrayList<Measure>();
-    for (Interval interval : this) {
+    final List<Measure> result = new ArrayList<Measure>();
+    for (final Interval interval : this) {
       if (interval.getMinimum() != null) {
         result.add(interval.getMinimum());
       }
@@ -68,8 +68,8 @@ public class IntervalList extends ArrayList<Interval> {
   }
 
   private List<Measure> collectMaximum() {
-    List<Measure> result = new ArrayList<Measure>();
-    for (Interval interval : this) {
+    final List<Measure> result = new ArrayList<Measure>();
+    for (final Interval interval : this) {
       if (interval.getMaximum() != null) {
         result.add(interval.getMaximum());
       }
@@ -77,9 +77,9 @@ public class IntervalList extends ArrayList<Interval> {
     return result;
   }
 
-  private List<Measure> findPreferredInInterval(Measure min, Measure max) {
-    List<Measure> result = new ArrayList<Measure>();
-    for (Interval interval : this) {
+  private List<Measure> findPreferredInInterval(final Measure min, final Measure max) {
+    final List<Measure> result = new ArrayList<Measure>();
+    for (final Interval interval : this) {
       Measure value = interval.getCurrent();
       if (value == null) {
         value = interval.getPreferred();

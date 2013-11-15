@@ -33,7 +33,7 @@ public class SecretPhaseListener implements PhaseListener {
 
   private static final Logger LOG = LoggerFactory.getLogger(SecretPhaseListener.class);
 
-  public void afterPhase(PhaseEvent event) {
+  public void afterPhase(final PhaseEvent event) {
     final FacesContext facesContext = event.getFacesContext();
     if (facesContext.isPostback()
         && TobagoConfig.getInstance(facesContext).isCheckSessionSecret()
@@ -45,7 +45,7 @@ public class SecretPhaseListener implements PhaseListener {
     }
   }
 
-  public void beforePhase(PhaseEvent event) {
+  public void beforePhase(final PhaseEvent event) {
   }
 
   public PhaseId getPhaseId() {

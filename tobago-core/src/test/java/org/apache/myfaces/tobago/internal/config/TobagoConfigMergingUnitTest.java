@@ -100,12 +100,12 @@ public class TobagoConfigMergingUnitTest {
     Assert.assertEquals(2, config.getContentSecurityPolicy().getDirectiveList().size());
   }
 
-  private TobagoConfigImpl loadAndMerge(String... names)
+  private TobagoConfigImpl loadAndMerge(final String... names)
       throws IOException, SAXException, ParserConfigurationException, URISyntaxException {
 
     final List<TobagoConfigFragment> list = new ArrayList<TobagoConfigFragment>();
 
-    for (String name : names) {
+    for (final String name : names) {
       final URL url = getClass().getClassLoader().getResource(name);
       final TobagoConfigParser parser = new TobagoConfigParser();
       list.add(parser.parse(url));

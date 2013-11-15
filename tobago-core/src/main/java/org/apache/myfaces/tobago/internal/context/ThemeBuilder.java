@@ -38,43 +38,43 @@ class ThemeBuilder {
   private List<ThemeImpl> availableThemes = new ArrayList<ThemeImpl>();
   private TobagoConfigImpl tobagoConfig;
 
-  ThemeBuilder(TobagoConfigImpl tobagoConfig) {
+  ThemeBuilder(final TobagoConfigImpl tobagoConfig) {
     this.tobagoConfig = tobagoConfig;
   }
 
   public void resolveThemes() {
-    Map<String, ThemeImpl> map = new HashMap<String, ThemeImpl>();
-    for (ThemeImpl theme : availableThemes) {
+    final Map<String, ThemeImpl> map = new HashMap<String, ThemeImpl>();
+    for (final ThemeImpl theme : availableThemes) {
       if (LOG.isDebugEnabled()) {
         LOG.debug("Theme from XML files: {} ", theme.getName());
       }
       map.put(theme.getName(), theme);
     }
-    for (ThemeImpl theme : availableThemes) {
-      String fallbackName = theme.getFallbackName();
-      ThemeImpl fallback = map.get(fallbackName);
+    for (final ThemeImpl theme : availableThemes) {
+      final String fallbackName = theme.getFallbackName();
+      final ThemeImpl fallback = map.get(fallbackName);
       theme.setFallback(fallback);
     }
-    for (ThemeImpl theme : availableThemes) {
+    for (final ThemeImpl theme : availableThemes) {
       theme.resolveFallbacks();
     }
-    for (ThemeImpl theme : availableThemes) {
+    for (final ThemeImpl theme : availableThemes) {
       theme.resolveRendererConfig(tobagoConfig.getRenderersConfig());
     }
-    Map<String, Theme> result = new HashMap<String, Theme>();
-    for (ThemeImpl theme : availableThemes) {
+    final Map<String, Theme> result = new HashMap<String, Theme>();
+    for (final ThemeImpl theme : availableThemes) {
       result.put(theme.getName(), theme);
     }
-    for (ThemeImpl theme : availableThemes) {
+    for (final ThemeImpl theme : availableThemes) {
       theme.resolveResources();
     }
-    for (ThemeImpl theme : availableThemes) {
+    for (final ThemeImpl theme : availableThemes) {
       theme.init();
     }
     tobagoConfig.setAvailableThemes(Collections.unmodifiableMap(result));
   }
 
-  public void addTheme(ThemeImpl theme) {
+  public void addTheme(final ThemeImpl theme) {
     availableThemes.add(theme);
   }
 }

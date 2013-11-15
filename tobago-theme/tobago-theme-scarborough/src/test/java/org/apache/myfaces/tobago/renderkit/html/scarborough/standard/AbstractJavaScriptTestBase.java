@@ -51,12 +51,12 @@ public abstract class AbstractJavaScriptTestBase {
 
   }
 
-  protected Object eval(String script) {
+  protected Object eval(final String script) {
     return cx.evaluateString(scope, script, "test", 1, null);
   }
 
-  protected int evalInt(String script) {
-    Object o = eval(script);
+  protected int evalInt(final String script) {
+    final Object o = eval(script);
     if (o instanceof Number) {
       return ((Number) o).intValue();
     }
@@ -64,8 +64,8 @@ public abstract class AbstractJavaScriptTestBase {
         + o.getClass().getName() + " with value " + o, 0);
   }
 
-  protected long evalLong(String script) {
-    Object o = eval(script);
+  protected long evalLong(final String script) {
+    final Object o = eval(script);
     if (o instanceof Number) {
       return ((Number) o).longValue();
     }
@@ -73,8 +73,8 @@ public abstract class AbstractJavaScriptTestBase {
         + o.getClass().getName() + " with value " + o, 0);
   }
 
-  protected boolean evalBoolean(String script) {
-    Object o = eval(script);
+  protected boolean evalBoolean(final String script) {
+    final Object o = eval(script);
     if (o instanceof Boolean) {
       return ((Boolean) o).booleanValue();
     }
@@ -83,7 +83,7 @@ public abstract class AbstractJavaScriptTestBase {
   }
 
   // XXX directory handling +  Maven reactor current dir problem
-  protected void loadScriptFile(String jsFile)
+  protected void loadScriptFile(final String jsFile)
       throws IOException {
     String fileName
         = "src/main/resources/org/apache/myfaces/tobago/renderkit/html/scarborough/standard/script/" + jsFile;
@@ -92,7 +92,7 @@ public abstract class AbstractJavaScriptTestBase {
       fileName = System.getProperty("basedir") + "/" + fileName;
       file = new File(fileName);
     }
-    FileReader fileReader = new FileReader(file);
+    final FileReader fileReader = new FileReader(file);
     cx.evaluateReader(scope, fileReader, jsFile, 0, null);
   }
 }

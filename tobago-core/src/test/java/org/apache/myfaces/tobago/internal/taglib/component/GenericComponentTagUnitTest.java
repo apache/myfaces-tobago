@@ -41,7 +41,7 @@ public class GenericComponentTagUnitTest extends GenericTestBase {
 
   @Before
   public void setUp() throws Exception {
-    String[] tldPaths = new String[1];
+    final String[] tldPaths = new String[1];
     tldPaths[0] = "META-INF/org/apache/myfaces/tobago/internal/taglib/component/tobago.tld";
     setTldPaths(tldPaths);
     super.setUp();
@@ -65,9 +65,9 @@ public class GenericComponentTagUnitTest extends GenericTestBase {
     }*/
   }
 
-  private void testComponent(Tag tag) throws JspException {
+  private void testComponent(final Tag tag) throws JspException {
     if (tag instanceof TobagoTag) {
-      TobagoTag tobagoTag = (TobagoTag) tag;
+      final TobagoTag tobagoTag = (TobagoTag) tag;
       //MockViewTag root = new MockViewTag();
       //root.setPageContext(pageContext);
       //root.setRendered("false");
@@ -78,16 +78,16 @@ public class GenericComponentTagUnitTest extends GenericTestBase {
       //tobagoTag.setDisabled("#{peter.male}");
       //tobagoTag.setHeight("#{marry.size}");
       tobagoTag.doStartTag();
-      UIComponent component = tobagoTag.getComponentInstance();
-      UICommand command = (UICommand) component;
-      Object disabled = component.getAttributes().get(Attributes.DISABLED);
+      final UIComponent component = tobagoTag.getComponentInstance();
+      final UICommand command = (UICommand) component;
+      final Object disabled = component.getAttributes().get(Attributes.DISABLED);
       LOG.debug("disabled = '" + disabled + "'");
-      Map attributes = component.getAttributes();
-      for (Iterator i = attributes.keySet().iterator(); i.hasNext();) {
-        Object value = i.next();
+      final Map attributes = component.getAttributes();
+      for (final Iterator i = attributes.keySet().iterator(); i.hasNext();) {
+        final Object value = i.next();
         LOG.debug("value = " + value);
       }
-      Object height = attributes.get(Attributes.HEIGHT);
+      final Object height = attributes.get(Attributes.HEIGHT);
       LOG.debug("height = '" + height + "'");
 
       Assert.assertTrue(ComponentUtils.getBooleanAttribute(command, Attributes.DISABLED));

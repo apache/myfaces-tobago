@@ -67,8 +67,8 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase implemen
 
     grid = new Grid(LayoutTokens.parse(getColumns()), LayoutTokens.parse(getRows()));
 
-    List<LayoutComponent> components = getLayoutContainer().getComponents();
-    for (LayoutComponent component : components) {
+    final List<LayoutComponent> components = getLayoutContainer().getComponents();
+    for (final LayoutComponent component : components) {
       component.setCurrentHeight(null);
       component.setCurrentWidth(null);
       grid.add(new OriginCell(component), component.getColumnSpan(), component.getRowSpan());
@@ -84,14 +84,14 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase implemen
     grid.setRowOverflow(isRowOverflow());
   }
 
-  public void fixRelativeInsideAuto(Orientation orientation, boolean auto) {
+  public void fixRelativeInsideAuto(final Orientation orientation, final boolean auto) {
 
     if (!getLayoutContainer().isLayoutChildren()) {
       return;
     }
 
-    BankHead[] heads = grid.getBankHeads(orientation);
-    BankHead[] heads2 = grid.getBankHeads(orientation.other());
+    final BankHead[] heads = grid.getBankHeads(orientation);
+    final BankHead[] heads2 = grid.getBankHeads(orientation.other());
 
     if (auto) {
       for (int i = 0; i < heads.length; i++) {
@@ -108,19 +108,20 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase implemen
     for (int i = 0; i < heads.length; i++) {
       boolean neitherRendered = true;
       for (int j = 0; j < heads2.length; j++) {
-        Cell cell = grid.getCell(i, j, orientation);
+        final Cell cell = grid.getCell(i, j, orientation);
         // check rendered = false
         if (cell != null && cell.getComponent().isRendered()) {
           neitherRendered = false;
         }
         // recursion
         if (cell instanceof OriginCell) {
-          OriginCell origin = (OriginCell) cell;
-          LayoutComponent component = cell.getComponent();
+          final OriginCell origin = (OriginCell) cell;
+          final LayoutComponent component = cell.getComponent();
           if (component instanceof LayoutContainer && component.isRendered()) {
-            LayoutManager layoutManager = ((LayoutContainer) component).getLayoutManager();
+            final LayoutManager layoutManager = ((LayoutContainer) component).getLayoutManager();
             // TODO: may be improved
-            boolean childAuto = origin.getSpan(orientation) == 1 && heads[i].getToken() instanceof AutoLayoutToken;
+            final boolean childAuto
+                = origin.getSpan(orientation) == 1 && heads[i].getToken() instanceof AutoLayoutToken;
             layoutManager.fixRelativeInsideAuto(orientation, childAuto);
           }
         }
@@ -131,7 +132,7 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase implemen
     }
   }
 
-  public void preProcessing(Orientation orientation) {
+  public void preProcessing(final Orientation orientation) {
 
     if (!getLayoutContainer().isLayoutChildren()) {
       return;
@@ -143,8 +144,8 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase implemen
     // process auto tokens
     int i = 0;
 
-    for (BankHead head : heads) {
-      LayoutToken token = head.getToken();
+    for (final BankHead head : heads) {
+      final LayoutToken token = head.getToken();
 
       if (token instanceof PixelLayoutToken) {
         if (head.isRendered() || isRigid()) {
@@ -154,12 +155,12 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase implemen
         }
       }
 
-      IntervalList intervalList = new IntervalList();
+      final IntervalList intervalList = new IntervalList();
       for (int j = 0; j < heads2.length; j++) {
-        Cell cell = grid.getCell(i, j, orientation);
+        final Cell cell = grid.getCell(i, j, orientation);
         if (cell instanceof OriginCell) {
-          OriginCell origin = (OriginCell) cell;
-          LayoutComponent component = cell.getComponent();
+          final OriginCell origin = (OriginCell) cell;
+          final LayoutComponent component = cell.getComponent();
 
           if (component instanceof LayoutContainer && (component.isRendered() || isRigid())) {
             ((LayoutContainer) component).getLayoutManager().preProcessing(orientation);
@@ -204,7 +205,7 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase implemen
 
     // set the size if all sizes of the grid are set
     Measure sum = Measure.ZERO;
-    for (BankHead head : heads) {
+    for (final BankHead head : heads) {
       Measure size = null;
       final LayoutToken token = head.getToken();
       if (token instanceof RelativeLayoutToken) {
@@ -233,7 +234,7 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase implemen
     }
   }
 
-  public void mainProcessing(Orientation orientation) {
+  public void mainProcessing(final Orientation orientation) {
 
     if (!getLayoutContainer().isLayoutChildren()) {
       return;
@@ -243,18 +244,18 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase implemen
     final BankHead[] heads2 = grid.getBankHeads(orientation.other());
 
     // find *
-    FactorList factorList = new FactorList();
-    for (BankHead head : heads) {
+    final FactorList factorList = new FactorList();
+    for (final BankHead head : heads) {
       if (head.getToken() instanceof RelativeLayoutToken && head.isRendered()) {
         factorList.add(((RelativeLayoutToken) head.getToken()).getFactor());
       }
     }
     if (!factorList.isEmpty()) {
       // find rest
-      LayoutContainer container = getLayoutContainer();
+      final LayoutContainer container = getLayoutContainer();
       Measure available = LayoutUtils.getCurrentSize(orientation, container);
       if (available != null) {
-        for (BankHead head : heads) {
+        for (final BankHead head : heads) {
           available = available.subtractNotNegative(head.getCurrent());
         }
         available = available.subtractNotNegative(LayoutUtils.getBorderBegin(orientation, container));
@@ -266,18 +267,19 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase implemen
         available = available.subtractNotNegative(LayoutUtils.getBorderEnd(orientation, container));
 
         if (grid.isOverflow(orientation.other())) {
-          ClientProperties client = VariableResolverUtils.resolveClientProperties(FacesContext.getCurrentInstance());
+          final ClientProperties client
+              = VariableResolverUtils.resolveClientProperties(FacesContext.getCurrentInstance());
           final Measure scrollbar = orientation
               == Orientation.HORIZONTAL ? client.getVerticalScrollbarWeight() : client.getHorizontalScrollbarWeight();
           available = available.subtractNotNegative(scrollbar);
         }
 
-        List<Measure> partition = factorList.partition(available);
+        final List<Measure> partition = factorList.partition(available);
 
         // write values back into the header
         int i = 0; // index of head
         int j = 0; // index of partition
-        for (BankHead head : heads) {
+        for (final BankHead head : heads) {
           if (head.getToken() instanceof RelativeLayoutToken && head.isRendered()) {
             // respect the minimum
             heads[i].setCurrent(Measure.max(partition.get(j), heads[i].getIntervalList().getMinimum()));
@@ -293,13 +295,13 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase implemen
     // call manage sizes for all sub-layout-managers
     for (int i = 0; i < heads.length; i++) {
       for (int j = 0; j < heads2.length; j++) {
-        Cell cell = grid.getCell(i, j, orientation);
+        final Cell cell = grid.getCell(i, j, orientation);
         if (cell instanceof OriginCell) {
-          LayoutComponent component = cell.getComponent();
+          final LayoutComponent component = cell.getComponent();
 
           component.setDisplay(Display.BLOCK); // TODO: use CSS via classes and tobago.css
 
-          Integer span = ((OriginCell) cell).getSpan(orientation);
+          final Integer span = ((OriginCell) cell).getSpan(orientation);
 
           // compute the size of the cell
           Measure size = Measure.ZERO;
@@ -307,7 +309,7 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase implemen
             size = size.add(heads[i + k].getCurrent());
           }
           size = size.add(computeSpacing(orientation, i, span));
-          Measure current = LayoutUtils.getCurrentSize(orientation, component);
+          final Measure current = LayoutUtils.getCurrentSize(orientation, component);
           if (current == null) {
             LayoutUtils.setCurrentSize(orientation, component, size);
           }
@@ -324,7 +326,7 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase implemen
     size = size.add(LayoutUtils.getPaddingBegin(orientation, getLayoutContainer()));
     size = size.add(getMarginBegin(orientation));
     size = size.add(computeSpacing(orientation, 0, heads.length));
-    for (BankHead head : heads) {
+    for (final BankHead head : heads) {
       size = size.add(head.getCurrent());
     }
     size = size.add(getMarginEnd(orientation));
@@ -334,7 +336,7 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase implemen
     }
   }
 
-  public void postProcessing(Orientation orientation) {
+  public void postProcessing(final Orientation orientation) {
 
     if (!getLayoutContainer().isLayoutChildren()) {
       return;
@@ -346,9 +348,9 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase implemen
     // call manage sizes for all sub-layout-managers
     for (int i = 0; i < heads.length; i++) {
       for (int j = 0; j < heads2.length; j++) {
-        Cell cell = grid.getCell(i, j, orientation);
+        final Cell cell = grid.getCell(i, j, orientation);
         if (cell instanceof OriginCell) {
-          LayoutComponent component = cell.getComponent();
+          final LayoutComponent component = cell.getComponent();
 
           component.setDisplay(Display.BLOCK);
 
@@ -395,15 +397,15 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase implemen
     return ((LayoutContainer) getParent());
   }
 
-  public Measure getSpacing(Orientation orientation) {
+  public Measure getSpacing(final Orientation orientation) {
     return orientation == Orientation.HORIZONTAL ? getColumnSpacing() : getRowSpacing();
   }
 
-  public Measure getMarginBegin(Orientation orientation) {
+  public Measure getMarginBegin(final Orientation orientation) {
     return orientation == Orientation.HORIZONTAL ? getMarginLeft() : getMarginTop();
   }
 
-  public Measure getMarginEnd(Orientation orientation) {
+  public Measure getMarginEnd(final Orientation orientation) {
     return orientation == Orientation.HORIZONTAL ? getMarginRight() : getMarginBottom();
   }
 
@@ -411,7 +413,7 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase implemen
    * Compute the sum of the space between the cells.
    * There is one "space" less than cells that are not void.
    */
-  private Measure computeSpacing(Orientation orientation, int startIndex, int length) {
+  private Measure computeSpacing(final Orientation orientation, final int startIndex, final int length) {
 
     final BankHead[] heads = grid.getBankHeads(orientation);
 
@@ -463,8 +465,8 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase implemen
     return false;
   }
 
-  public String toString(int depth) {
-    StringBuilder builder = new StringBuilder();
+  public String toString(final int depth) {
+    final StringBuilder builder = new StringBuilder();
     builder.append(getClass().getSimpleName()).append("#");
     builder.append(getClientId(FacesContext.getCurrentInstance()));
     builder.append("\n");

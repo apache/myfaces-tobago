@@ -22,10 +22,7 @@ package org.apache.myfaces.tobago.renderkit.html;
 import org.apache.commons.lang.StringUtils;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UICommand;
-import org.apache.myfaces.tobago.component.UIPage;
-import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.internal.util.Deprecation;
-import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
 import org.apache.myfaces.tobago.internal.webapp.TobagoResponseWriterWrapper;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.css.Style;
@@ -68,8 +65,8 @@ public final class HtmlRendererUtil {
     if (ComponentUtils.isError(input)) {
       if (!FacesContext.getCurrentInstance().getExternalContext().getRequestMap().containsKey(ERROR_FOCUS_KEY)) {
         FacesContext.getCurrentInstance().getExternalContext().getRequestMap().put(ERROR_FOCUS_KEY, Boolean.TRUE);
-        TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
-        String id = input.getClientId(facesContext);        
+        final TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
+        final String id = input.getClientId(facesContext);
         writer.writeJavascript("Tobago.errorFocusId = '" + id + "';");
         return true;
       } else {
@@ -96,39 +93,22 @@ public final class HtmlRendererUtil {
   @Deprecated
   public static void renderFocusId(final FacesContext facesContext, final UIInput component)
       throws IOException {
-    if (renderErrorFocusId(facesContext, component)) {
-      return;
-    }
-    if (ComponentUtils.getBooleanAttribute(component, Attributes.FOCUS)) {
-      UIPage page = (UIPage) ComponentUtils.findPage(facesContext, component);
-      String id = component.getClientId(facesContext);
-      if (!StringUtils.isBlank(page.getFocusId()) && !page.getFocusId().equals(id)) {
-        LOG.warn("page focusId = \"" + page.getFocusId() + "\" ignoring new value \""
-            + id + "\"");
-      } else {
-        TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
-        writer.writeJavascript("Tobago.focusId = '" + id + "';");
-      }
-    }
+    HtmlRendererUtils.renderFocusId(facesContext, component);
   }
 
   /**
    * @deprecated Please use HtmlRendererUtils
    */
   @Deprecated
-  public static void createCssClass(FacesContext facesContext, UIComponent component) {
-    String rendererName = getRendererName(facesContext, component);
-    if (rendererName != null) {
-      StyleClasses classes = StyleClasses.ensureStyleClasses(component);
-      classes.updateClassAttributeAndMarkup(component, rendererName);
-    }
+  public static void createCssClass(final FacesContext facesContext, final UIComponent component) {
+    HtmlRendererUtils.createCssClass(facesContext, component);
   }
 
   /**
    * @deprecated Please use HtmlRendererUtils
    */
   @Deprecated
-  public static String getRendererName(FacesContext facesContext, UIComponent component) {
+  public static String getRendererName(final FacesContext facesContext, final UIComponent component) {
     return HtmlRendererUtils.getRendererName(facesContext, component);
   }
 
@@ -136,26 +116,16 @@ public final class HtmlRendererUtil {
    * @deprecated Please use HtmlRendererUtils
    */
   @Deprecated
-  public static void writeLabelWithAccessKey(TobagoResponseWriter writer, LabelWithAccessKey label)
+  public static void writeLabelWithAccessKey(final TobagoResponseWriter writer, final LabelWithAccessKey label)
       throws IOException {
-    int pos = label.getPos();
-    String text = label.getText();
-    if (pos == -1) {
-      writer.writeText(text);
-    } else {
-      writer.writeText(text.substring(0, pos));
-      writer.startElement(HtmlElements.U, null);
-      writer.writeText(Character.toString(text.charAt(pos)));
-      writer.endElement(HtmlElements.U);
-      writer.writeText(text.substring(pos + 1));
-    }
+    HtmlRendererUtils.writeLabelWithAccessKey(writer, label);
   }
 
   /**
    * @deprecated Please use HtmlRendererUtils
    */
   @Deprecated
-  public static void setDefaultTransition(FacesContext facesContext, boolean transition)
+  public static void setDefaultTransition(final FacesContext facesContext, final boolean transition)
       throws IOException {
     writeScriptLoader(facesContext, null, new String[]{"Tobago.transition = " + transition + ";"});
   }
@@ -165,7 +135,7 @@ public final class HtmlRendererUtil {
    */
   @Deprecated
   public static void addClickAcceleratorKey(
-      FacesContext facesContext, String clientId, char key)
+      final FacesContext facesContext, final String clientId, final char key)
       throws IOException {
     addClickAcceleratorKey(facesContext, clientId, key, null);
   }
@@ -175,9 +145,9 @@ public final class HtmlRendererUtil {
    */
   @Deprecated
   public static void addClickAcceleratorKey(
-      FacesContext facesContext, String clientId, char key, String modifier)
+      final FacesContext facesContext, final String clientId, final char key, final String modifier)
       throws IOException {
-    String str
+    final String str
         = createOnclickAcceleratorKeyJsStatement(clientId, key, modifier);
     writeScriptLoader(facesContext, null, new String[]{str});
   }
@@ -187,7 +157,7 @@ public final class HtmlRendererUtil {
    */
   @Deprecated
   public static void addAcceleratorKey(
-      FacesContext facesContext, String func, char key) throws IOException {
+      final FacesContext facesContext, final String func, final char key) throws IOException {
     addAcceleratorKey(facesContext, func, key, null);
   }
 
@@ -196,9 +166,9 @@ public final class HtmlRendererUtil {
    */
   @Deprecated
   public static void addAcceleratorKey(
-      FacesContext facesContext, String func, char key, String modifier)
+      final FacesContext facesContext, final String func, final char key, final String modifier)
       throws IOException {
-    String str = createAcceleratorKeyJsStatement(func, key, modifier);
+    final String str = createAcceleratorKeyJsStatement(func, key, modifier);
     writeScriptLoader(facesContext, null, new String[]{str});
   }
 
@@ -207,8 +177,8 @@ public final class HtmlRendererUtil {
    */
   @Deprecated
   public static String createOnclickAcceleratorKeyJsStatement(
-      String clientId, char key, String modifier) {
-    String func = "Tobago.clickOnElement('" + clientId + "');";
+      final String clientId, final char key, final String modifier) {
+    final String func = "Tobago.clickOnElement('" + clientId + "');";
     return createAcceleratorKeyJsStatement(func, key, modifier);
   }
 
@@ -217,27 +187,16 @@ public final class HtmlRendererUtil {
    */
   @Deprecated
   public static String createAcceleratorKeyJsStatement(
-      String func, char key, String modifier) {
-    StringBuilder buffer = new StringBuilder("new Tobago.AcceleratorKey(function() {");
-    buffer.append(func);
-    if (!func.endsWith(";")) {
-      buffer.append(';');
-    }
-    buffer.append("}, \"");
-    buffer.append(key);
-    if (modifier != null) {
-      buffer.append("\", \"");
-      buffer.append(modifier);
-    }
-    buffer.append("\");");
-    return buffer.toString();
+      final String func, final char key, final String modifier) {
+    return HtmlRendererUtils.createAcceleratorKeyJsStatement(func, key, modifier);
   }
 
   /**
    * @deprecated Please use setter;
    */
   @Deprecated
-  public static void replaceStyleAttribute(UIComponent component, String styleAttribute, String value) {
+  public static void replaceStyleAttribute(
+      final UIComponent component, final String styleAttribute, final String value) {
     Deprecation.LOG.error("HtmlRendererUtils.replaceStyleAttribute() no longer supported. Use setter.");
   }
 
@@ -245,8 +204,8 @@ public final class HtmlRendererUtil {
    * @deprecated Please use setter;
    */
   @Deprecated
-  public static void replaceStyleAttribute(UIComponent component, String attribute,
-      String styleAttribute, String value) {
+  public static void replaceStyleAttribute(final UIComponent component, final String attribute,
+      final String styleAttribute, final String value) {
     Deprecation.LOG.error("HtmlRendererUtils.replaceStyleAttribute() no longer supported. Use setter.");
   }
 
@@ -254,7 +213,7 @@ public final class HtmlRendererUtil {
    * @deprecated Please use setter;
    */
   @Deprecated
-  public static void replaceStyleAttribute(UIComponent component, String styleAttribute, int value) {
+  public static void replaceStyleAttribute(final UIComponent component, final String styleAttribute, final int value) {
     Deprecation.LOG.error("HtmlRendererUtils.replaceStyleAttribute() no longer supported. Use setter.");
   }
 
@@ -262,8 +221,8 @@ public final class HtmlRendererUtil {
    * @deprecated Please use setter;
    */
   @Deprecated
-  public static void replaceStyleAttribute(UIComponent component, String attribute,
-      String styleAttribute, int value) {
+  public static void replaceStyleAttribute(final UIComponent component, final String attribute,
+      final String styleAttribute, final int value) {
     Deprecation.LOG.error("HtmlRendererUtils.replaceStyleAttribute() no longer supported. Use setter.");
 
   }
@@ -272,7 +231,7 @@ public final class HtmlRendererUtil {
    * @deprecated Please use HtmlRendererUtils
    */
   @Deprecated
-  private static Style ensureStyleAttributeMap(UIComponent component) {
+  private static Style ensureStyleAttributeMap(final UIComponent component) {
     return ensureStyleAttributeMap(component, Attributes.STYLE);
   }
 
@@ -280,7 +239,7 @@ public final class HtmlRendererUtil {
    * @deprecated Please use HtmlRendererUtils
    */
   @Deprecated
-  private static Style ensureStyleAttributeMap(UIComponent component, String attribute) {
+  private static Style ensureStyleAttributeMap(final UIComponent component, final String attribute) {
     final Map attributes = component.getAttributes();
     Style style = (Style) attributes.get(attribute);
     if (style == null) {
@@ -294,8 +253,8 @@ public final class HtmlRendererUtil {
    * @deprecated Please use HtmlRendererUtils
    */
   @Deprecated
-  public static String replaceStyleAttribute(String style, String name,
-      String value) {
+  public static String replaceStyleAttribute(String style, final String name,
+      final String value) {
     style = removeStyleAttribute(style != null ? style : "", name);
     return style + " " + name + ": " + value + ";";
   }
@@ -304,11 +263,11 @@ public final class HtmlRendererUtil {
    * @deprecated Please use HtmlRendererUtils
    */
   @Deprecated
-  public static String removeStyleAttribute(String style, String name) {
+  public static String removeStyleAttribute(final String style, final String name) {
     if (style == null) {
       return null;
     }
-    String pattern = name + "\\s*?:[^;]*?;";
+    final String pattern = name + "\\s*?:[^;]*?;";
     return style.replaceAll(pattern, "").trim();
   }
 
@@ -316,7 +275,7 @@ public final class HtmlRendererUtil {
    * @deprecated Please use setter;
    */
   @Deprecated
-  public static void removeStyleAttribute(UIComponent component, String name) {
+  public static void removeStyleAttribute(final UIComponent component, final String name) {
     Deprecation.LOG.error("HtmlRendererUtils.removeStyleAttribute() no longer supported. Use setter.");
   }
 
@@ -324,17 +283,18 @@ public final class HtmlRendererUtil {
    * @deprecated Please use StyleClasses.ensureStyleClasses(component).add(clazz);
    */
   @Deprecated
-  public static void addCssClass(UIComponent component, String clazz) {
+  public static void addCssClass(final UIComponent component, final String clazz) {
     StyleClasses.ensureStyleClasses(component).addFullQualifiedClass(clazz);
   }
 
   @Deprecated
-  public static void createHeaderAndBodyStyles(FacesContext facesContext, UIComponent component) {
+  public static void createHeaderAndBodyStyles(final FacesContext facesContext, final UIComponent component) {
     Deprecation.LOG.error("HtmlRendererUtils.createHeaderAndBodyStyles() no longer supported");
   }
 
   @Deprecated
-  public static void createHeaderAndBodyStyles(FacesContext facesContext, UIComponent component, boolean width) {
+  public static void createHeaderAndBodyStyles(
+      final FacesContext facesContext, final UIComponent component, final boolean width) {
     Deprecation.LOG.error("HtmlRendererUtils.createHeaderAndBodyStyles() no longer supported");
   }
 
@@ -342,7 +302,8 @@ public final class HtmlRendererUtil {
    * @deprecated Please use StyleClasses.ensureStyleClasses(component).updateClassAttribute(renderer, component);
    */
   @Deprecated
-  public static void updateClassAttribute(String cssClass, String rendererName, UIComponent component) {
+  public static void updateClassAttribute(
+      final String cssClass, final String rendererName, final UIComponent component) {
     throw new UnsupportedOperationException(
         "Please use StyleClasses.ensureStyleClasses(component).updateClassAttribute(renderer, component)");
   }
@@ -351,8 +312,8 @@ public final class HtmlRendererUtil {
    * @deprecated Please use StyleClasses.addMarkupClass()
    */
   @Deprecated
-  public static void addMarkupClass(UIComponent component, String rendererName,
-      String subComponent, StringBuilder tobagoClass) {
+  public static void addMarkupClass(final UIComponent component, final String rendererName,
+      final String subComponent, final StringBuilder tobagoClass) {
     throw new UnsupportedOperationException("Please use StyleClasses.addMarkupClass()");
   }
 
@@ -360,7 +321,8 @@ public final class HtmlRendererUtil {
    * @deprecated Please use StyleClasses.addMarkupClass()
    */
   @Deprecated
-  public static void addMarkupClass(UIComponent component, String rendererName, StyleClasses classes) {
+  public static void addMarkupClass(
+      final UIComponent component, final String rendererName, final StyleClasses classes) {
     classes.addMarkupClass(component, rendererName);
   }
 
@@ -368,7 +330,8 @@ public final class HtmlRendererUtil {
    * @deprecated
    */
   @Deprecated
-  public static void addImageSources(FacesContext facesContext, TobagoResponseWriter writer, String src, String id)
+  public static void addImageSources(
+      final FacesContext facesContext, final TobagoResponseWriter writer, final String src, final String id)
       throws IOException {
     Deprecation.LOG.error("using deprecated API");
   }
@@ -377,8 +340,8 @@ public final class HtmlRendererUtil {
    * @deprecated Please use HtmlRendererUtils
    */
   @Deprecated
-  public static String createSrc(String src, String ext) {
-    int dot = src.lastIndexOf('.');
+  public static String createSrc(final String src, final String ext) {
+    final int dot = src.lastIndexOf('.');
     if (dot == -1) {
       LOG.warn("Image src without extension: '" + src + "'");
       return src;
@@ -391,9 +354,9 @@ public final class HtmlRendererUtil {
    * @deprecated Please use HtmlRendererUtils
    */
   @Deprecated
-  public static TobagoResponseWriter getTobagoResponseWriter(FacesContext facesContext) {
+  public static TobagoResponseWriter getTobagoResponseWriter(final FacesContext facesContext) {
 
-    ResponseWriter writer = facesContext.getResponseWriter();
+    final ResponseWriter writer = facesContext.getResponseWriter();
     if (writer instanceof TobagoResponseWriter) {
       return (TobagoResponseWriter) writer;
     } else {
@@ -405,7 +368,7 @@ public final class HtmlRendererUtil {
    * @deprecated use TobagoResponseWriter.writeJavascript()
    */
   @Deprecated
-  public static void writeJavascript(ResponseWriter writer, String script) throws IOException {
+  public static void writeJavascript(final ResponseWriter writer, final String script) throws IOException {
     startJavascript(writer);
     writer.write(script);
     endJavascript(writer);
@@ -415,7 +378,7 @@ public final class HtmlRendererUtil {
    * @deprecated use TobagoResponseWriter.writeJavascript()
    */
   @Deprecated
-  public static void startJavascript(ResponseWriter writer) throws IOException {
+  public static void startJavascript(final ResponseWriter writer) throws IOException {
     writer.startElement(HtmlElements.SCRIPT, null);
     writer.writeAttribute(HtmlAttributes.TYPE, "text/javascript", null);
     writer.write("\n<!--\n");
@@ -425,7 +388,7 @@ public final class HtmlRendererUtil {
    * @deprecated use TobagoResponseWriter.writeJavascript()
    */
   @Deprecated
-  public static void endJavascript(ResponseWriter writer) throws IOException {
+  public static void endJavascript(final ResponseWriter writer) throws IOException {
     writer.write("\n// -->\n");
     writer.endElement(HtmlElements.SCRIPT);
   }
@@ -434,7 +397,7 @@ public final class HtmlRendererUtil {
    * @deprecated Please use HtmlRendererUtils
    */
   @Deprecated
-  public static void writeScriptLoader(FacesContext facesContext, String script)
+  public static void writeScriptLoader(final FacesContext facesContext, final String script)
       throws IOException {
     writeScriptLoader(facesContext, new String[]{script}, null);
   }
@@ -443,50 +406,10 @@ public final class HtmlRendererUtil {
    * @deprecated Please use HtmlRendererUtils
    */
   @Deprecated
-  public static void writeScriptLoader(FacesContext facesContext, String[] scripts, String[] afterLoadCmds)
+  public static void writeScriptLoader(
+      final FacesContext facesContext, final String[] scripts, final String[] afterLoadCmds)
       throws IOException {
-    TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
-
-    String allScripts = "[]";
-    if (scripts != null) {
-      allScripts = ResourceManagerUtils.getScriptsAsJSArray(facesContext, scripts);
-    }
-    boolean ajax = false;
-
-    ajax = FacesContextUtils.isAjax(facesContext);
-
-    writer.startJavascript();
-    writer.write("new Tobago.ScriptLoader(");
-    if (!ajax) {
-      writer.write("\n    ");
-    }
-    writer.write(allScripts);
-
-    if (afterLoadCmds != null && afterLoadCmds.length > 0) {
-      writer.write(", ");
-      if (!ajax) {
-        writer.write("\n");
-      }
-      boolean first = true;
-      for (String afterLoadCmd : afterLoadCmds) {
-        String[] splittedStrings = StringUtils.split(afterLoadCmd, '\n'); // split on <CR> to have nicer JS
-        for (String splitted : splittedStrings) {
-          writer.write(first ? "          " : "        + ");
-          writer.write("\"");
-          String cmd = StringUtils.replace(splitted, "\\", "\\\\");
-          cmd = StringUtils.replace(cmd, "\"", "\\\"");
-          writer.write(cmd);
-          writer.write("\"");
-          if (!ajax) {
-            writer.write("\n");
-          }
-          first = false;
-        }
-      }
-    }
-    writer.write(");");
-
-    writer.endJavascript();
+    HtmlRendererUtils.writeScriptLoader(facesContext, scripts, afterLoadCmds);
   }
 
   /**
@@ -494,22 +417,16 @@ public final class HtmlRendererUtil {
    */
   @Deprecated
   public static void writeStyleLoader(
-      FacesContext facesContext, String[] styles) throws IOException {
-    TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
-
-    writer.startJavascript();
-    writer.write("Tobago.ensureStyleFiles(");
-    writer.write(ResourceManagerUtils.getStylesAsJSArray(facesContext, styles));
-    writer.write(");");
-    writer.endJavascript();
+      final FacesContext facesContext, final String[] styles) throws IOException {
+    HtmlRendererUtils.writeStyleLoader(facesContext, styles);
   }
 
   /**
    * @deprecated Please use HtmlRendererUtils
    */
   @Deprecated
-  public static String getTitleFromTipAndMessages(FacesContext facesContext, UIComponent component) {
-    String messages = ComponentUtils.getFacesMessageAsString(facesContext, component);
+  public static String getTitleFromTipAndMessages(final FacesContext facesContext, final UIComponent component) {
+    final String messages = ComponentUtils.getFacesMessageAsString(facesContext, component);
     return HtmlRendererUtil.addTip(messages, component.getAttributes().get(Attributes.TIP));
   }
 
@@ -517,7 +434,7 @@ public final class HtmlRendererUtil {
    * @deprecated Please use HtmlRendererUtils
    */
   @Deprecated
-  public static String addTip(String title, Object tip) {
+  public static String addTip(String title, final Object tip) {
     if (tip != null) {
       if (title != null && title.length() > 0) {
         title += " :: ";
@@ -534,8 +451,8 @@ public final class HtmlRendererUtil {
    */
   @Deprecated
   public static void renderSelectItems(
-      UIInput component, List<SelectItem> items, Object[] values,
-      TobagoResponseWriter writer, FacesContext facesContext) throws IOException {
+      final UIInput component, final List<SelectItem> items, final Object[] values,
+      final TobagoResponseWriter writer, final FacesContext facesContext) throws IOException {
     HtmlRendererUtils.renderSelectItems(component, items, values, writer, facesContext);
   }
 
@@ -543,14 +460,15 @@ public final class HtmlRendererUtil {
    * @deprecated Please use HtmlRendererUtils
    */
   @Deprecated
-  public static String getComponentIds(FacesContext context, UIComponent component, String[] componentId) {
-    StringBuilder sb = new StringBuilder();
-    for (String id : componentId) {
+  public static String getComponentIds(
+      final FacesContext context, final UIComponent component, final String[] componentId) {
+    final StringBuilder sb = new StringBuilder();
+    for (final String id : componentId) {
       if (!StringUtils.isBlank(id)) {
         if (sb.length() > 0) {
           sb.append(",");
         }
-        String clientId = getComponentId(context, component, id);
+        final String clientId = getComponentId(context, component, id);
         if (clientId != null) {
           sb.append(clientId);
         }
@@ -563,12 +481,13 @@ public final class HtmlRendererUtil {
    * @deprecated Please use HtmlRendererUtils
    */
   @Deprecated
-  public static String getComponentId(FacesContext context, UIComponent component, String componentId) {
-    UIComponent partiallyComponent = ComponentUtils.findComponent(component, componentId);
+  public static String getComponentId(
+      final FacesContext context, final UIComponent component, final String componentId) {
+    final UIComponent partiallyComponent = ComponentUtils.findComponent(component, componentId);
     if (partiallyComponent != null) {
-      String clientId = partiallyComponent.getClientId(context);
+      final String clientId = partiallyComponent.getClientId(context);
       if (partiallyComponent instanceof UIData) {
-        int rowIndex = ((UIData) partiallyComponent).getRowIndex();
+        final int rowIndex = ((UIData) partiallyComponent).getRowIndex();
         if (rowIndex >= 0 && clientId.endsWith(Integer.toString(rowIndex))) {
           return clientId.substring(0, clientId.lastIndexOf(UINamingContainer.getSeparatorChar(context)));
         }
@@ -583,8 +502,8 @@ public final class HtmlRendererUtil {
    * @deprecated Please use HtmlRendererUtils
    */
   @Deprecated
-  public static String toStyleString(String key, Integer value) {
-    StringBuilder buf = new StringBuilder();
+  public static String toStyleString(final String key, final Integer value) {
+    final StringBuilder buf = new StringBuilder();
     buf.append(key);
     buf.append(":");
     buf.append(value);
@@ -596,8 +515,8 @@ public final class HtmlRendererUtil {
    * @deprecated Please use HtmlRendererUtils
    */
   @Deprecated
-  public static String toStyleString(String key, String value) {
-    StringBuilder buf = new StringBuilder();
+  public static String toStyleString(final String key, final String value) {
+    final StringBuilder buf = new StringBuilder();
     buf.append(key);
     buf.append(":");
     buf.append(value);
@@ -609,7 +528,7 @@ public final class HtmlRendererUtil {
    * @deprecated Please use HtmlRendererUtils
    */
   @Deprecated
-  public static void renderTip(UIComponent component, TobagoResponseWriter writer) throws IOException {
+  public static void renderTip(final UIComponent component, final TobagoResponseWriter writer) throws IOException {
     HtmlRendererUtils.renderTip(component, writer);
   }
 
@@ -617,7 +536,7 @@ public final class HtmlRendererUtil {
    * @deprecated Please use HtmlRendererUtils
    */
   @Deprecated
-  public static void renderImageTip(UIComponent component, TobagoResponseWriter writer) throws IOException {
+  public static void renderImageTip(final UIComponent component, final TobagoResponseWriter writer) throws IOException {
     HtmlRendererUtils.renderImageTip(component, writer);
   }
 
@@ -625,7 +544,7 @@ public final class HtmlRendererUtil {
    * @deprecated Please use HtmlRendererUtils
    */
   @Deprecated
-  public static String getJavascriptString(String str) {
+  public static String getJavascriptString(final String str) {
     if (str != null) {
       return "\"" + str + "\"";
     }
@@ -636,12 +555,12 @@ public final class HtmlRendererUtil {
    * @deprecated Please use HtmlRendererUtils
    */
   @Deprecated
-  public static String getRenderedPartiallyJavascriptArray(FacesContext facesContext, UICommand command) {
+  public static String getRenderedPartiallyJavascriptArray(final FacesContext facesContext, final UICommand command) {
     if (command == null) {
       return null;
     }
-    String[] list = command.getRenderedPartially();
-    StringBuilder strBuilder = new StringBuilder();
+    final String[] list = command.getRenderedPartially();
+    final StringBuilder strBuilder = new StringBuilder();
     strBuilder.append("[");
     for (int i = 0; i < list.length; i++) {
       if (i != 0) {
@@ -659,8 +578,8 @@ public final class HtmlRendererUtil {
    * @deprecated Please use HtmlRendererUtils
    */
   @Deprecated
-  public static String getJavascriptArray(String[] list) {
-    StringBuilder strBuilder = new StringBuilder();
+  public static String getJavascriptArray(final String[] list) {
+    final StringBuilder strBuilder = new StringBuilder();
     strBuilder.append("[");
     for (int i = 0; i < list.length; i++) {
       if (i != 0) {
@@ -678,98 +597,35 @@ public final class HtmlRendererUtil {
    * @deprecated Please use HtmlRendererUtils
    */
   @Deprecated
-  public static void renderDojoDndSource(FacesContext context, UIComponent component)
+  public static void renderDojoDndSource(final FacesContext context, final UIComponent component)
       throws IOException {
-    Object objDojoType = component.getAttributes().get("dojoType");
-    if (null != objDojoType && (objDojoType.equals("dojo.dnd.Source") || objDojoType.equals("dojo.dnd.Target"))) {
-      FacesContextUtils.addOnloadScript(context, createDojoDndType(component,
-          component.getClientId(context), String.valueOf(objDojoType)));
-    }
+    HtmlRendererUtils.renderDojoDndSource(context, component);
   }
 
   /**
    * @deprecated Please use HtmlRendererUtils
    */
   @Deprecated
-  public static void renderDojoDndItem(UIComponent component, TobagoResponseWriter writer, boolean addStyle)
+  public static void renderDojoDndItem(
+      final UIComponent component, final TobagoResponseWriter writer, final boolean addStyle)
       throws IOException {
-    Object objDndType = component.getAttributes().get("dndType");
-    if (objDndType != null) {
-      writer.writeAttribute("dndType", String.valueOf(objDndType), false);
-    }
-    Object objDndData = component.getAttributes().get("dndData");
-    if (objDndData != null) {
-      writer.writeAttribute("dndData", String.valueOf(objDndData), false);
-    }
-    if (addStyle && (null != objDndType || null != objDndData)) {
-      StyleClasses styles = StyleClasses.ensureStyleClasses(component);
-      styles.addFullQualifiedClass("dojoDndItem");
-    }
+    HtmlRendererUtils.renderDojoDndItem(component, writer, addStyle);
   }
 
   /**
    * @deprecated Please use HtmlRendererUtils
    */
   @Deprecated
-  private static String createDojoDndType(UIComponent component, String clientId, String dojoType) {
-    StringBuilder strBuilder = new StringBuilder();
-    strBuilder.append("new ").append(dojoType).append("('").append(clientId).append("'");
-    StringBuilder parameter = new StringBuilder();
-
-    Object objHorizontal = component.getAttributes().get("horizontal");
-    if (objHorizontal != null) {
-      parameter.append("horizontal: ").append(String.valueOf(objHorizontal)).append(",");
-    }
-    Object objCopyOnly = component.getAttributes().get("copyOnly");
-    if (objCopyOnly != null) {
-      parameter.append("copyOnly: ").append(String.valueOf(objCopyOnly)).append(",");
-    }
-    Object objSkipForm = component.getAttributes().get("skipForm");
-    if (objSkipForm != null) {
-      parameter.append("skipForm: ").append(String.valueOf(objSkipForm)).append(",");
-    }
-    Object objWithHandles = component.getAttributes().get("withHandles");
-    if (objWithHandles != null) {
-      parameter.append("withHandles: ").append(String.valueOf(objWithHandles)).append(",");
-    }
-    Object objAccept = component.getAttributes().get("accept");
-    if (objAccept != null) {
-      String accept = null;
-      if (objAccept instanceof String[]) {
-        String[] allowed = (String[]) objAccept;
-        if (allowed.length > 1) {
-          // TODO replace this
-          accept = "'" + allowed[0] + "'";
-          for (int i = 1; i < allowed.length; i++) {
-            accept += ",'" + allowed[i] + "'";
-          }
-        }
-      } else {
-        accept = (String) objAccept;
-      }
-      parameter.append("accept: [").append(accept).append("],");
-    }
-    Object objSingular = component.getAttributes().get("singular");
-    if (objSingular != null) {
-      parameter.append("singular: ").append(String.valueOf(objSingular)).append(",");
-    }
-    Object objCreator = component.getAttributes().get("creator");
-    if (objCreator != null) {
-      parameter.append("creator: ").append(String.valueOf(objCreator)).append(",");
-    }
-    if (parameter.length() > 0) {
-      parameter.deleteCharAt(parameter.lastIndexOf(","));
-      strBuilder.append(",{").append(parameter).append("}");
-    }
-    strBuilder.append(");");
-    return strBuilder.toString();
+  private static String createDojoDndType(final UIComponent component, final String clientId, final String dojoType) {
+    return HtmlRendererUtils.createDojoDndType(component, clientId, dojoType);
   }
 
   /**
    * @deprecated Please use HtmlRendererUtils
    */
   @Deprecated
-  public static void checkForCommandFacet(UIComponent component, FacesContext facesContext, TobagoResponseWriter writer)
+  public static void checkForCommandFacet(
+      final UIComponent component, final FacesContext facesContext, final TobagoResponseWriter writer)
       throws IOException {
     HtmlRendererUtils.checkForCommandFacet(component, facesContext, writer);
   }
@@ -778,8 +634,9 @@ public final class HtmlRendererUtil {
    * @deprecated Please use HtmlRendererUtils
    */
   @Deprecated
-  public static void checkForCommandFacet(UIComponent component, List<String> clientIds, FacesContext facesContext,
-                                      TobagoResponseWriter writer) throws IOException {
+  public static void checkForCommandFacet(
+      final UIComponent component, final List<String> clientIds, final FacesContext facesContext,
+      final TobagoResponseWriter writer) throws IOException {
     HtmlRendererUtils.checkForCommandFacet(component, clientIds, facesContext, writer);
   }
 
@@ -787,12 +644,12 @@ public final class HtmlRendererUtil {
    * @deprecated Please use HtmlRendererUtils
    */
   @Deprecated
-  public static void removeStyleClasses(UIComponent cell) {
-    Object obj = cell.getAttributes().get(Attributes.STYLE_CLASS);
+  public static void removeStyleClasses(final UIComponent cell) {
+    final Object obj = cell.getAttributes().get(Attributes.STYLE_CLASS);
     if (obj != null && obj instanceof StyleClasses && cell.getRendererType() != null) {
-      StyleClasses styleClasses = (StyleClasses) obj;
+      final StyleClasses styleClasses = (StyleClasses) obj;
       if (!styleClasses.isEmpty()) {
-        String rendererName = cell.getRendererType().substring(0, 1).toLowerCase(Locale.ENGLISH)
+        final String rendererName = cell.getRendererType().substring(0, 1).toLowerCase(Locale.ENGLISH)
             + cell.getRendererType().substring(1);
         styleClasses.removeTobagoClasses(rendererName);
       }

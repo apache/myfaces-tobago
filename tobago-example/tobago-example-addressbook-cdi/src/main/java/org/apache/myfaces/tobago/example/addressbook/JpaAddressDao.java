@@ -45,11 +45,11 @@ public class JpaAddressDao implements AddressDao, Serializable {
   @PersistenceContext(unitName = "addressBook")
   private EntityManager entityManager;
 
-  public Address updateAddress(Address address) {
+  public Address updateAddress(final Address address) {
     if (address.getId() == null) {
       entityManager.persist(address);
     } else {
-      Picture picture = address.getPicture();
+      final Picture picture = address.getPicture();
       if (picture != null && picture.getId() == null) {
         entityManager.persist(picture);
       }
@@ -58,14 +58,14 @@ public class JpaAddressDao implements AddressDao, Serializable {
     return address;
   }
 //  @Transactional(readOnly = true)
-  public List<Address> findAddresses(String filter) {
+  public List<Address> findAddresses(final String filter) {
     return findAddresses(filter, null, true);
   }
 
 //  @Transactional(readOnly = true)
   @SuppressWarnings("unchecked")
-  public List<Address> findAddresses(String filter, String column, boolean order) {
-    StringBuilder builder = new StringBuilder();
+  public List<Address> findAddresses(String filter, final String column, final boolean order) {
+    final StringBuilder builder = new StringBuilder();
     builder.append("select a from Address a");
     if (filter != null) {
       if (filter.indexOf('_') == -1 && filter.indexOf('%') == -1) {
@@ -82,7 +82,7 @@ public class JpaAddressDao implements AddressDao, Serializable {
       builder.append(column);
       builder.append(order ? " desc" : " asc");
     }
-    Query query = entityManager.createQuery(builder.toString());
+    final Query query = entityManager.createQuery(builder.toString());
     return query.getResultList();
   }
 
@@ -91,7 +91,7 @@ public class JpaAddressDao implements AddressDao, Serializable {
     entityManager.remove(address);
   }
 //  @Transactional(readOnly = true)
-  public Address getAddress(Integer id) {
+  public Address getAddress(final Integer id) {
     return entityManager.find(Address.class, id);
   }
 }

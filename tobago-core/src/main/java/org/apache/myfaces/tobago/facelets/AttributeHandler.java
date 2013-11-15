@@ -63,14 +63,14 @@ public final class AttributeHandler extends TagHandler {
 
   private final TagAttribute mode;
 
-  public AttributeHandler(TagConfig config) {
+  public AttributeHandler(final TagConfig config) {
     super(config);
     this.name = getRequiredAttribute(Attributes.NAME);
     this.value = getRequiredAttribute(Attributes.VALUE);
     this.mode = getAttribute(Attributes.MODE);
   }
 
-  public void apply(FaceletContext faceletContext, UIComponent parent) throws ELException {
+  public void apply(final FaceletContext faceletContext, final UIComponent parent) throws ELException {
     if (parent == null) {
       throw new TagException(tag, "Parent UIComponent was null");
     }
@@ -84,7 +84,7 @@ public final class AttributeHandler extends TagHandler {
           if (!value.isLiteral()) {
             while (isSimpleExpression(expressionString)) {
               if (isMethodOrValueExpression(expressionString)) {
-                ValueExpression expression
+                final ValueExpression expression
                     = faceletContext.getVariableMapper().resolveVariable(removeElParenthesis(expressionString));
                 if (expression == null) {
                   result = true;
@@ -107,7 +107,7 @@ public final class AttributeHandler extends TagHandler {
           if (!value.isLiteral()) {
             while (isSimpleExpression(expressionString)) {
               if (isMethodOrValueExpression(expressionString)) {
-                ValueExpression expression
+                final ValueExpression expression
                     = faceletContext.getVariableMapper().resolveVariable(removeElParenthesis(expressionString));
                 if (expression == null) {
                   result = false;
@@ -128,7 +128,7 @@ public final class AttributeHandler extends TagHandler {
           String expressionString = value.getValue();
           while (isSimpleExpression(expressionString)) {
             if (isMethodOrValueExpression(expressionString)) {
-              ValueExpression expression
+              final ValueExpression expression
                   = faceletContext.getVariableMapper().resolveVariable(removeElParenthesis(expressionString));
               if (expression == null) {
                 // when the action hasn't been set while using a composition.
@@ -145,8 +145,8 @@ public final class AttributeHandler extends TagHandler {
             }
           }
           if (expressionString != null) {
-            ExpressionFactory expressionFactory = faceletContext.getExpressionFactory();
-            MethodExpression action = new TagMethodExpression(value, expressionFactory.createMethodExpression(
+            final ExpressionFactory expressionFactory = faceletContext.getExpressionFactory();
+            final MethodExpression action = new TagMethodExpression(value, expressionFactory.createMethodExpression(
                 faceletContext, expressionString, String.class, ComponentUtils.ACTION_ARGS));
             ((ActionSource2) parent).setActionExpression(action);
           }
@@ -154,7 +154,7 @@ public final class AttributeHandler extends TagHandler {
           String expressionString = value.getValue();
           while (isSimpleExpression(expressionString)) {
             if (isMethodOrValueExpression(expressionString)) {
-              ValueExpression expression
+              final ValueExpression expression
                   = faceletContext.getVariableMapper().resolveVariable(removeElParenthesis(expressionString));
               if (expression == null) {
                 if (LOG.isDebugEnabled()) {
@@ -173,21 +173,22 @@ public final class AttributeHandler extends TagHandler {
             }
           }
           if (expressionString != null) {
-            ExpressionFactory expressionFactory = faceletContext.getExpressionFactory();
-            MethodExpression actionListener = new TagMethodExpression(value, expressionFactory.createMethodExpression(
+            final ExpressionFactory expressionFactory = faceletContext.getExpressionFactory();
+            final MethodExpression actionListener
+                = new TagMethodExpression(value, expressionFactory.createMethodExpression(
                 faceletContext, expressionString, null, ComponentUtils.ACTION_LISTENER_ARGS));
             ((ActionSource) parent).addActionListener(new MethodExpressionActionListener(actionListener));
           }
         } else if ("actionFromValue".equals(mode.getValue())) {
           if (!value.isLiteral()) {
-            String result = value.getValue(faceletContext);
+            final String result = value.getValue(faceletContext);
             parent.getAttributes().put(name.getValue(), new ConstantMethodBinding(result));
           }
         } else if ("valueIfSet".equals(mode.getValue())) {
           String expressionString = value.getValue();
           String lastExpressionString = null;
           while (isMethodOrValueExpression(expressionString) && isSimpleExpression(expressionString)) {
-            ValueExpression expression
+            final ValueExpression expression
                 = faceletContext.getVariableMapper().resolveVariable(removeElParenthesis(expressionString));
             if (expression != null) {
               lastExpressionString = expressionString;
@@ -201,7 +202,7 @@ public final class AttributeHandler extends TagHandler {
           if (expressionString != null) {
             final String attributeName = name.getValue(faceletContext);
             if (containsMethodOrValueExpression(expressionString)) {
-              ValueExpression expression = value.getValueExpression(faceletContext, Object.class);
+              final ValueExpression expression = value.getValueExpression(faceletContext, Object.class);
               parent.setValueExpression(attributeName, expression);
             } else {
               final Object literalValue = getValue(faceletContext, parent, expressionString, attributeName);
@@ -213,7 +214,7 @@ public final class AttributeHandler extends TagHandler {
         }
       } else {
 
-        String nameValue = name.getValue(faceletContext);
+        final String nameValue = name.getValue(faceletContext);
         if (Attributes.RENDERED.equals(nameValue)) {
           if (value.isLiteral()) {
             parent.setRendered(value.getBoolean(faceletContext));
@@ -224,7 +225,7 @@ public final class AttributeHandler extends TagHandler {
             && parent instanceof SupportsRenderedPartially) {
 
           if (value.isLiteral()) {
-            String[] components = ComponentUtils.splitList(value.getValue());
+            final String[] components = ComponentUtils.splitList(value.getValue());
             ((SupportsRenderedPartially) parent).setRenderedPartially(components);
           } else {
             parent.setValueExpression(nameValue, value.getValueExpression(faceletContext, Object.class));
@@ -237,20 +238,21 @@ public final class AttributeHandler extends TagHandler {
             if (value.isLiteral()) {
               ((SupportsMarkup) parent).setMarkup(Markup.valueOf(value.getValue()));
             } else {
-              ValueExpression expression = value.getValueExpression(faceletContext, Object.class);
+              final ValueExpression expression = value.getValueExpression(faceletContext, Object.class);
               parent.setValueExpression(nameValue, expression);
             }
           } else {
             LOG.error("Component is not instanceof SupportsMarkup. Instance is: " + parent.getClass().getName());
           }
         } else if (parent instanceof EditableValueHolder && Attributes.VALIDATOR.equals(nameValue)) {
-          MethodExpression methodExpression = getMethodExpression(faceletContext, null, ComponentUtils.VALIDATOR_ARGS);
+          final MethodExpression methodExpression
+              = getMethodExpression(faceletContext, null, ComponentUtils.VALIDATOR_ARGS);
           if (methodExpression != null) {
             ((EditableValueHolder) parent).addValidator(new MethodExpressionValidator(methodExpression));
           }
         } else if (parent instanceof EditableValueHolder
             && Attributes.VALUE_CHANGE_LISTENER.equals(nameValue)) {
-          MethodExpression methodExpression =
+          final MethodExpression methodExpression =
               getMethodExpression(faceletContext, null, ComponentUtils.VALUE_CHANGE_LISTENER_ARGS);
           if (methodExpression != null) {
             ((EditableValueHolder) parent).addValueChangeListener(
@@ -259,12 +261,13 @@ public final class AttributeHandler extends TagHandler {
         } else if (parent instanceof ValueHolder && Attributes.CONVERTER.equals(nameValue)) {
           setConverter(faceletContext, parent, nameValue);
         } else if (parent instanceof ActionSource && Attributes.ACTION.equals(nameValue)) {
-          MethodExpression action = getMethodExpression(faceletContext, String.class, ComponentUtils.ACTION_ARGS);
+          final MethodExpression action = getMethodExpression(faceletContext, String.class, ComponentUtils.ACTION_ARGS);
           if (action != null) {
             ((ActionSource2) parent).setActionExpression(action);
           }
         } else if (parent instanceof ActionSource && Attributes.ACTION_LISTENER.equals(nameValue)) {
-          MethodExpression action = getMethodExpression(faceletContext, null, ComponentUtils.ACTION_LISTENER_ARGS);
+          final MethodExpression action
+              = getMethodExpression(faceletContext, null, ComponentUtils.ACTION_LISTENER_ARGS);
           if (action != null) {
             ((ActionSource) parent).addActionListener(new MethodExpressionActionListener(action));
           }
@@ -279,35 +282,36 @@ public final class AttributeHandler extends TagHandler {
     }
   }
 
-  private boolean isMethodOrValueExpression(String string) {
+  private boolean isMethodOrValueExpression(final String string) {
     return (string.startsWith("${") || string.startsWith("#{")) && string.endsWith("}");
   }
 
-  private boolean containsMethodOrValueExpression(String string) {
+  private boolean containsMethodOrValueExpression(final String string) {
     return (string.contains("${") || string.contains("#{")) && string.contains("}");
   }
 
-  private boolean isSimpleExpression(String string) {
+  private boolean isSimpleExpression(final String string) {
     return string.indexOf('.') < 0 && string.indexOf('[') < 0;
   }
 
-  private String removeElParenthesis(String string) {
+  private String removeElParenthesis(final String string) {
     return string.substring(2, string.length() - 1);
   }
 
-  private ValueExpression getExpression(FaceletContext faceletContext) {
-    String myValue = removeElParenthesis(value.getValue());
+  private ValueExpression getExpression(final FaceletContext faceletContext) {
+    final String myValue = removeElParenthesis(value.getValue());
     return faceletContext.getVariableMapper().resolveVariable(myValue);
   }
 
-  private MethodExpression getMethodExpression(FaceletContext faceletContext, Class returnType, Class[] args) {
+  private MethodExpression getMethodExpression(
+      final FaceletContext faceletContext, final Class returnType, final Class[] args) {
     // in a composition may be we get the method expression string from the current variable mapper
     // the expression can be empty
     // in this case return nothing
     if (value.getValue().startsWith("${")) {
-      ValueExpression expression = getExpression(faceletContext);
+      final ValueExpression expression = getExpression(faceletContext);
       if (expression != null) {
-        ExpressionFactory expressionFactory = faceletContext.getExpressionFactory();
+        final ExpressionFactory expressionFactory = faceletContext.getExpressionFactory();
         return new TagMethodExpression(value, expressionFactory.createMethodExpression(faceletContext,
             expression.getExpressionString(), returnType, args));
       } else {
@@ -319,26 +323,27 @@ public final class AttributeHandler extends TagHandler {
   }
 
   private Object getValue(
-      FaceletContext faceletContext, UIComponent parent, String expressionString, String attributeName) {
+      final FaceletContext faceletContext, final UIComponent parent, final String expressionString,
+      final String attributeName) {
     Class type = Object.class;
     try {
       type = PropertyUtils.getReadMethod(
           new PropertyDescriptor(attributeName, parent.getClass())).getReturnType();
-    } catch (IntrospectionException e) {
+    } catch (final IntrospectionException e) {
       LOG.warn("Can't determine expected type", e);
     }
-    ExpressionFactory expressionFactory = faceletContext.getExpressionFactory();
+    final ExpressionFactory expressionFactory = faceletContext.getExpressionFactory();
     final ValueExpression valueExpression = expressionFactory
         .createValueExpression(faceletContext, expressionString, type);
     return valueExpression.getValue(faceletContext);
   }
 
-  private void setConverter(FaceletContext faceletContext, UIComponent parent, String nameValue) {
+  private void setConverter(final FaceletContext faceletContext, final UIComponent parent, final String nameValue) {
     // in a composition may be we get the converter expression string from the current variable mapper
     // the expression can be empty
     // in this case return nothing
     if (value.getValue().startsWith("${")) {
-      ValueExpression expression = getExpression(faceletContext);
+      final ValueExpression expression = getExpression(faceletContext);
       if (expression != null) {
         setConverter(faceletContext, parent, nameValue, expression);
       }
@@ -348,9 +353,10 @@ public final class AttributeHandler extends TagHandler {
   }
 
   private void setConverter(
-      FaceletContext faceletContext, UIComponent parent, String nameValue, ValueExpression expression) {
+      final FaceletContext faceletContext, final UIComponent parent, final String nameValue,
+      final ValueExpression expression) {
     if (expression.isLiteralText()) {
-      Converter converter =
+      final Converter converter =
           faceletContext.getFacesContext().getApplication().createConverter(expression.getExpressionString());
       ((ValueHolder) parent).setConverter(converter);
     } else {

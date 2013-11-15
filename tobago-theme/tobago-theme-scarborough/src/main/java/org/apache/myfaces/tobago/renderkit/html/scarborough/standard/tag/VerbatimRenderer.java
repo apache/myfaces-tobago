@@ -35,14 +35,14 @@ public class VerbatimRenderer extends LayoutComponentRendererBase {
 
   private static final Logger LOG = LoggerFactory.getLogger(VerbatimRenderer.class);
 
-  public void encodeEnd(FacesContext facesContext,
-      UIComponent component) throws IOException {
+  public void encodeEnd(final FacesContext facesContext,
+      final UIComponent component) throws IOException {
 
     LOG.info("HI! " + component.getClientId(facesContext), new Exception());
 
-    ResponseWriter writer = facesContext.getResponseWriter();
+    final ResponseWriter writer = facesContext.getResponseWriter();
 
-    String value = RenderUtils.currentValue(component);
+    final String value = RenderUtils.currentValue(component);
     if (value == null) {
       return;
     }

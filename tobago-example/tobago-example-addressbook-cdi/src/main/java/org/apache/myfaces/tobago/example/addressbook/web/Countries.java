@@ -30,11 +30,11 @@ import java.util.Locale;
 @SessionScoped
 public class Countries extends ArrayList<SelectItem> {
 
-  public void init(Locale language) {
+  public void init(final Locale language) {
     clear();
-    Locale[] availableLocales = Locale.getAvailableLocales();
-    for (Locale locale : availableLocales) {
-      String displayCountry = locale.getDisplayCountry(language);
+    final Locale[] availableLocales = Locale.getAvailableLocales();
+    for (final Locale locale : availableLocales) {
+      final String displayCountry = locale.getDisplayCountry(language);
       if (displayCountry != null && displayCountry.length() > 0) {
         add(new SelectItem(locale, displayCountry));
       }

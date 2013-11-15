@@ -30,16 +30,16 @@ public abstract class AbstractUIFlowLayout extends AbstractUILayoutBase implemen
   public void init() {
   }
 
-  public void fixRelativeInsideAuto(Orientation orientation, boolean auto) {
+  public void fixRelativeInsideAuto(final Orientation orientation, final boolean auto) {
   }
 
-  public void preProcessing(Orientation orientation) {
+  public void preProcessing(final Orientation orientation) {
   }
 
-  public void mainProcessing(Orientation orientation) {
+  public void mainProcessing(final Orientation orientation) {
     
   }
 
-  public void postProcessing(Orientation orientation) {
+  public void postProcessing(final Orientation orientation) {
   }
 }

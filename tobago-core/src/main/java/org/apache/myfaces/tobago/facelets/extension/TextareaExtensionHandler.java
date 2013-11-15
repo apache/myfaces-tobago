@@ -26,7 +26,7 @@ import javax.faces.view.facelets.ComponentConfig;
 
 public class TextareaExtensionHandler extends TobagoLabelExtensionHandler {
 
-  public TextareaExtensionHandler(ComponentConfig config) {
+  public TextareaExtensionHandler(final ComponentConfig config) {
     super(config);
   }
 

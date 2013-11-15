@@ -29,7 +29,7 @@ import javax.faces.view.facelets.ComponentConfig;
  */
 public class LabelExtensionHandler extends TobagoLabelExtensionHandler {
 
-  public LabelExtensionHandler(ComponentConfig config) {
+  public LabelExtensionHandler(final ComponentConfig config) {
     super(config);
   }
 

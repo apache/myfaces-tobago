@@ -47,9 +47,9 @@ public class InRenderer extends InputRendererBase {
   private static final Logger LOG = LoggerFactory.getLogger(InRenderer.class);
 
   @Override
-  public void decode(FacesContext facesContext, UIComponent component) {
+  public void decode(final FacesContext facesContext, final UIComponent component) {
     super.decode(facesContext, component);
-    String clientId = component.getClientId(facesContext);
+    final String clientId = component.getClientId(facesContext);
     if (clientId.equals(FacesContextUtils.getActionId(facesContext))) {
       // this is a inputSuggest request -> render response
       facesContext.renderResponse();
@@ -57,7 +57,7 @@ public class InRenderer extends InputRendererBase {
   }
 
   @Override
-  public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
+  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
 
     final AbstractUIInput input = (AbstractUIInput) component;
     final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, input);
@@ -85,10 +85,10 @@ public class InRenderer extends InputRendererBase {
       writer.writeAttribute(HtmlAttributes.TITLE, title, true);
     }
     int maxLength = 0;
-    String pattern = null;
-    for (Validator validator : input.getValidators()) {
+    final String pattern = null;
+    for (final Validator validator : input.getValidators()) {
       if (validator instanceof LengthValidator) {
-        LengthValidator lengthValidator = (LengthValidator) validator;
+        final LengthValidator lengthValidator = (LengthValidator) validator;
         maxLength = lengthValidator.getMaximum();
       }
         /*if (validator instanceof RegexValidator) {
@@ -104,11 +104,11 @@ public class InRenderer extends InputRendererBase {
     }
     writer.writeAttribute(HtmlAttributes.READONLY, readonly);
     writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
-    Integer tabIndex = input.getTabIndex();
+    final Integer tabIndex = input.getTabIndex();
     if (tabIndex != null) {
       writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
     }
-    Style style = new Style(facesContext, input);
+    final Style style = new Style(facesContext, input);
     writer.writeStyleAttribute(style);
 
     final String placeholder = input.getPlaceholder();
@@ -129,7 +129,7 @@ public class InRenderer extends InputRendererBase {
      //      writer.writeAttribute(HtmlAttributes.ONCHANGE, onchange, null);
        }
      } */
-    boolean required = ComponentUtils.getBooleanAttribute(input, Attributes.REQUIRED);
+    final boolean required = ComponentUtils.getBooleanAttribute(input, Attributes.REQUIRED);
     writer.writeAttribute(HtmlAttributes.REQUIRED, required);
     HtmlRendererUtils.renderFocus(id, input.isFocus(), ComponentUtils.isError(input), facesContext, writer);
     writeAdditionalAttributes(facesContext, writer, input);
@@ -138,6 +138,7 @@ public class InRenderer extends InputRendererBase {
   }
 
   protected void writeAdditionalAttributes(
-      FacesContext facesContext, TobagoResponseWriter writer, AbstractUIInput input) throws IOException {
+      final FacesContext facesContext, final TobagoResponseWriter writer, final AbstractUIInput input)
+      throws IOException {
   }
 }

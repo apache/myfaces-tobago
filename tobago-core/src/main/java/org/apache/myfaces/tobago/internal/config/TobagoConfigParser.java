@@ -87,7 +87,7 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
   public TobagoConfigParser() {
   }
 
-  public TobagoConfigFragment parse(URL url)
+  public TobagoConfigFragment parse(final URL url)
       throws IOException, SAXException, ParserConfigurationException, URISyntaxException {
 
     if (LOG.isInfoEnabled()) {
@@ -118,7 +118,7 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
   }
 
   @Override
-  public void ignorableWhitespace(char[] ch, int start, int length) throws SAXException {
+  public void ignorableWhitespace(final char[] ch, final int start, final int length) throws SAXException {
     super.ignorableWhitespace(ch, start, length);
   }
 
@@ -136,7 +136,8 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
   }
 
   @Override
-  public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
+  public void startElement(final String uri, final String localName, final String qName, final Attributes attributes)
+      throws SAXException {
 
     // No unused content should be collected, specially text mixed with tags.
     assert buffer.toString().trim().length() == 0;
@@ -223,12 +224,12 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
   }
 
   @Override
-  public void characters(char[] ch, int start, int length) throws SAXException {
+  public void characters(final char[] ch, final int start, final int length) throws SAXException {
     buffer.append(ch, start, length);
   }
 
   @Override
-  public void endElement(String uri, String localName, String qName) throws SAXException {
+  public void endElement(final String uri, final String localName, final String qName) throws SAXException {
     assert qName.equals(stack.peek());
 
     final String text = buffer.toString().trim();
@@ -348,17 +349,17 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
   }
 
   @Override
-  public void warning(SAXParseException e) throws SAXException {
+  public void warning(final SAXParseException e) throws SAXException {
     throw e;
   }
 
   @Override
-  public void error(SAXParseException e) throws SAXException {
+  public void error(final SAXParseException e) throws SAXException {
     throw e;
   }
 
   @Override
-  public void fatalError(SAXParseException e) throws SAXException {
+  public void fatalError(final SAXParseException e) throws SAXException {
     throw e;
   }
 

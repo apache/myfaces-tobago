@@ -44,8 +44,8 @@ public class DateUnitTest extends AbstractJavaScriptTestBase {
     createDate(1972, 1, 29)
   );
 
-  private static Date createDate(int year, int month, int day) {
-    Calendar calendar = Calendar.getInstance(Locale.ENGLISH); // XXX
+  private static Date createDate(final int year, final int month, final int day) {
+    final Calendar calendar = Calendar.getInstance(Locale.ENGLISH); // XXX
     calendar.set(Calendar.YEAR, year);
     calendar.set(Calendar.MONTH, month - 1);
     calendar.set(Calendar.DAY_OF_MONTH, day);
@@ -59,7 +59,7 @@ public class DateUnitTest extends AbstractJavaScriptTestBase {
 
   @Test
   public void testNumberOnlyDateFormats() throws IOException {
-    for (Date date : DATES) {
+    for (final Date date : DATES) {
       checkFormat("yyyyMMdd", date, YEAR_MONTH_DAY, Locale.ENGLISH);
       checkFormat("ddMMyyyy", date, YEAR_MONTH_DAY, Locale.ENGLISH);
       checkFormat("d.M.yyyy", date, YEAR_MONTH_DAY, Locale.ENGLISH);
@@ -74,8 +74,8 @@ public class DateUnitTest extends AbstractJavaScriptTestBase {
   @Test
   public void testEnglishMonths() throws IOException {
     for (int month = 1; month <= 12; ++month) {
-      Date date = createDate(2005, month, 10);
-      StringBuilder format = new StringBuilder("M");
+      final Date date = createDate(2005, month, 10);
+      final StringBuilder format = new StringBuilder("M");
       for (int i = 0; i < 4; ++i) {
         format.append('M');
         checkFormat(format.toString(), date, new int[] {Calendar.MONTH}, Locale.ENGLISH);
@@ -90,12 +90,12 @@ public class DateUnitTest extends AbstractJavaScriptTestBase {
   }
 
   @Test
-  public void checkTwoDigitYears(Locale locale) throws IOException, ParseException {
-    DecimalFormat decimalFormat = new DecimalFormat("00");
-    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yy", locale);
-    Calendar calendar = Calendar.getInstance(locale);
+  public void checkTwoDigitYears(final Locale locale) throws IOException, ParseException {
+    final DecimalFormat decimalFormat = new DecimalFormat("00");
+    final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yy", locale);
+    final Calendar calendar = Calendar.getInstance(locale);
     for (int year = 0; year < 100; ++year) {
-      String yearString = decimalFormat.format(year);
+      final String yearString = decimalFormat.format(year);
       calendar.setTime(simpleDateFormat.parse(yearString));
       Assert.assertEquals(calendar.get(Calendar.YEAR), evalParseDate(yearString, "yy", locale).get(Calendar.YEAR));
     }
@@ -104,11 +104,11 @@ public class DateUnitTest extends AbstractJavaScriptTestBase {
   @Test
   public void testEnglishWeekDays() throws IOException {
     for (int day = 1; day <= 7; ++day) {
-      Calendar calendar = Calendar.getInstance();
+      final Calendar calendar = Calendar.getInstance();
       calendar.set(Calendar.DAY_OF_WEEK, day);
-      Date date = calendar.getTime();
+      final Date date = calendar.getTime();
 
-      StringBuilder format = new StringBuilder();
+      final StringBuilder format = new StringBuilder();
       for (int i = 0; i < 4; ++i) {
         format.append('E');
         checkFormat(format.toString(), date, new int[0], Locale.ENGLISH); // XXX new int[] {Calendar.DAY_OF_WEEK}
@@ -116,7 +116,7 @@ public class DateUnitTest extends AbstractJavaScriptTestBase {
     }
   }
 
-  private Object evalFormatDate(Date date, String format) {
+  private Object evalFormatDate(final Date date, final String format) {
     // SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
     return eval("new SimpleDateFormat(\"" + format + "\")"
         + ".format(new Date(" + date.getTime() + "))");
@@ -128,7 +128,7 @@ public class DateUnitTest extends AbstractJavaScriptTestBase {
     Assert.assertEquals("Januar", eval(createSymbols("s", Locale.GERMAN) + "s.months[0]"));
   }
 
-  private String createSymbols(String var, Locale locale) {
+  private String createSymbols(final String var, final Locale locale) {
     return "var " + var + " = new DateFormatSymbols(); "
         + var + ".months = new Array("
         + createStringList(DateTestUtils.createMonthNames(true, locale)) + ");"
@@ -140,14 +140,14 @@ public class DateUnitTest extends AbstractJavaScriptTestBase {
         + createStringList(DateTestUtils.createDayNames(false, locale)) + ");";
   }
 
-  private String createStringList(List<String> strings) {
+  private String createStringList(final List<String> strings) {
     return "'" + join(strings, "', '") + "'";
   }
 
-  private String join(List<String> strings, String separator) {
-    StringBuilder builder = new StringBuilder();
+  private String join(final List<String> strings, final String separator) {
+    final StringBuilder builder = new StringBuilder();
     for (int i = 0; i < strings.size(); i++) {
-      String s = strings.get(i);
+      final String s = strings.get(i);
       if (i > 0) {
         builder.append(separator);
       }
@@ -156,29 +156,29 @@ public class DateUnitTest extends AbstractJavaScriptTestBase {
     return builder.toString();
   }
 
-  private Calendar evalParseDate(String input, String format, Locale locale) {
-    long time = evalLong(createSymbols("s", locale) + ";"
+  private Calendar evalParseDate(final String input, final String format, final Locale locale) {
+    final long time = evalLong(createSymbols("s", locale) + ";"
         + "new SimpleDateFormat(\"" + format + "\", s)"
         + ".parse(\"" + input + "\").getTime()");
-    Calendar calendar = Calendar.getInstance(locale);
+    final Calendar calendar = Calendar.getInstance(locale);
     calendar.setTime(new Date(time));
     return calendar;
   }
 
-  private void checkFormat(String format, Date date, int[] fields,
-      Locale locale) {
-    SimpleDateFormat simpleDateFormat = new SimpleDateFormat(format, locale);
+  private void checkFormat(final String format, final Date date, final int[] fields,
+      final Locale locale) {
+    final SimpleDateFormat simpleDateFormat = new SimpleDateFormat(format, locale);
     Assert.assertEquals(simpleDateFormat.format(date), evalFormatDate(date, format));
-    Calendar calendar1 = Calendar.getInstance(locale);
+    final Calendar calendar1 = Calendar.getInstance(locale);
     calendar1.setTime(date);
-    Calendar calendar2 = evalParseDate(
+    final Calendar calendar2 = evalParseDate(
         simpleDateFormat.format(date), format, locale);
-    for (int field : fields) {
+    for (final int field : fields) {
       checkField(calendar1, calendar2, field);
     }
   }
 
-  private void checkField(Calendar calendar1, Calendar calendar2, int field) {
+  private void checkField(final Calendar calendar1, final Calendar calendar2, final int field) {
     Assert.assertEquals(calendar1.get(field), calendar2.get(field));
   }
 

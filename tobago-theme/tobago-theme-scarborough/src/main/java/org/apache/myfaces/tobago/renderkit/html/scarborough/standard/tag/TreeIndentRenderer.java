@@ -42,7 +42,7 @@ import java.util.List;
 public class TreeIndentRenderer extends LayoutComponentRendererBase {
 
   @Override
-  public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
+  public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
 
     final UITreeIndent indent = (UITreeIndent) component;
     final AbstractUITreeNode node = ComponentUtils.findAncestor(indent, AbstractUITreeNode.class);
@@ -73,7 +73,7 @@ public class TreeIndentRenderer extends LayoutComponentRendererBase {
   }
 
   @Override
-  public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
+  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
     writer.endElement(HtmlElements.SPAN);
   }
@@ -89,7 +89,7 @@ public class TreeIndentRenderer extends LayoutComponentRendererBase {
     final String perpendicular = ResourceManagerUtils.getImageWithPath(facesContext, "image/I.gif");
 
     for (int i = dropFirst ? 1 : 0; i < junctions.size() - 1; i++) {
-      Boolean junction = junctions.get(i);
+      final Boolean junction = junctions.get(i);
       writer.startElement(HtmlElements.IMG, null);
       writer.writeClassAttribute(Classes.create(node, "junction"));
       writer.writeAttribute(HtmlAttributes.ALT, "", false);

@@ -29,7 +29,7 @@ public class InBean {
     return first;
   }
 
-  public void setFirst(String first) {
+  public void setFirst(final String first) {
     this.first = first;
   }
 
@@ -37,7 +37,7 @@ public class InBean {
     return second;
   }
 
-  public void setSecond(String second) {
+  public void setSecond(final String second) {
     this.second = second;
   }
 }

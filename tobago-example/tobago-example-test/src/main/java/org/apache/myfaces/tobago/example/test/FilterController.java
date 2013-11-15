@@ -54,7 +54,7 @@ public class FilterController {
     return filterType;
   }
 
-  public void setFilterType(String filterType) {
+  public void setFilterType(final String filterType) {
     this.filterType = filterType;
   }
 
@@ -62,7 +62,7 @@ public class FilterController {
     return filterValue;
   }
 
-  public void setFilterValue(String filterValue) {
+  public void setFilterValue(final String filterValue) {
     this.filterValue = filterValue;
   }
 }

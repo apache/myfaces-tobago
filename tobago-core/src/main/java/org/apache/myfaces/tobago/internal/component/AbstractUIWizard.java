@@ -44,7 +44,7 @@ public abstract class AbstractUIWizard extends AbstractUIPanel implements OnComp
   private Boolean allowJumpForward;
 
   @Override
-  public void processDecodes(FacesContext facesContext) {
+  public void processDecodes(final FacesContext facesContext) {
     if (var != null) {
       facesContext.getExternalContext().getRequestMap().put(var, getController());
     }
@@ -52,7 +52,7 @@ public abstract class AbstractUIWizard extends AbstractUIPanel implements OnComp
   }
 
   @Override
-  public void decode(FacesContext facesContext) {
+  public void decode(final FacesContext facesContext) {
     super.decode(facesContext);
     if (var != null) {
       facesContext.getExternalContext().getRequestMap().remove(var);
@@ -60,18 +60,18 @@ public abstract class AbstractUIWizard extends AbstractUIPanel implements OnComp
   }
 
   @Override
-  public void queueEvent(FacesEvent event) {
+  public void queueEvent(final FacesEvent event) {
     super.queueEvent(new FacesEventWrapper(event, this));
   }
 
   @Override
-  public void broadcast(FacesEvent event) throws AbortProcessingException {
+  public void broadcast(final FacesEvent event) throws AbortProcessingException {
     if (event instanceof FacesEventWrapper) {
-      FacesContext facesContext = FacesContext.getCurrentInstance();
+      final FacesContext facesContext = FacesContext.getCurrentInstance();
       if (var != null) {
         facesContext.getExternalContext().getRequestMap().put(var, getController());
       }
-      FacesEvent originalEvent = ((FacesEventWrapper) event).getWrappedFacesEvent();
+      final FacesEvent originalEvent = ((FacesEventWrapper) event).getWrappedFacesEvent();
       originalEvent.getComponent().broadcast(originalEvent);
       if (var != null) {
         facesContext.getExternalContext().getRequestMap().remove(var);
@@ -82,7 +82,7 @@ public abstract class AbstractUIWizard extends AbstractUIPanel implements OnComp
   }
 
   @Override
-  public void encodeBegin(FacesContext facesContext) throws IOException {
+  public void encodeBegin(final FacesContext facesContext) throws IOException {
     if (var != null) {
       facesContext.getExternalContext().getRequestMap().put(var, getController());
     }
@@ -90,15 +90,15 @@ public abstract class AbstractUIWizard extends AbstractUIPanel implements OnComp
   }
 
   @Override
-  public void encodeEnd(FacesContext facesContext) throws IOException {
+  public void encodeEnd(final FacesContext facesContext) throws IOException {
     super.encodeEnd(facesContext);
     if (var != null) {
       facesContext.getExternalContext().getRequestMap().remove(var);
     }
   }
 
-  public void onComponentCreated(FacesContext context, UIComponent parent) {
-    Wizard wizard = getController();
+  public void onComponentCreated(final FacesContext context, final UIComponent parent) {
+    final Wizard wizard = getController();
     wizard.register();
     if (getOutcome() != null) {
       getController().getCurrentStep().setOutcome(getOutcome());
@@ -109,8 +109,8 @@ public abstract class AbstractUIWizard extends AbstractUIPanel implements OnComp
   }
 
   @Override
-  public Object saveState(FacesContext facesContext) {
-    Object[] state = new Object[3];
+  public Object saveState(final FacesContext facesContext) {
+    final Object[] state = new Object[3];
     state[0] = super.saveState(facesContext);
     state[1] = var;
     state[2] = controller;
@@ -118,8 +118,8 @@ public abstract class AbstractUIWizard extends AbstractUIPanel implements OnComp
   }
 
   @Override
-  public void restoreState(FacesContext facesContext, Object state) {
-    Object[] values = (Object[]) state;
+  public void restoreState(final FacesContext facesContext, final Object state) {
+    final Object[] values = (Object[]) state;
     super.restoreState(facesContext, values[0]);
     var = (String) values[1];
     controller = (Wizard) values[2];
@@ -129,7 +129,7 @@ public abstract class AbstractUIWizard extends AbstractUIPanel implements OnComp
     if (controller != null) {
       return controller;
     }
-    ValueBinding vb = getValueBinding("controller"); // xxx const
+    final ValueBinding vb = getValueBinding("controller"); // xxx const
     if (vb != null) {
       return (Wizard) vb.getValue(getFacesContext());
     } else {
@@ -137,7 +137,7 @@ public abstract class AbstractUIWizard extends AbstractUIPanel implements OnComp
     }
   }
 
-  public void setController(Wizard controller) {
+  public void setController(final Wizard controller) {
     this.controller = controller;
   }
 
@@ -145,7 +145,7 @@ public abstract class AbstractUIWizard extends AbstractUIPanel implements OnComp
     return var;
   }
 
-  public void setVar(String var) {
+  public void setVar(final String var) {
     this.var = var;
   }
 
@@ -153,7 +153,7 @@ public abstract class AbstractUIWizard extends AbstractUIPanel implements OnComp
     if (outcome != null) {
       return outcome;
     }
-    javax.faces.el.ValueBinding vb = getValueBinding("outcome");
+    final javax.faces.el.ValueBinding vb = getValueBinding("outcome");
     if (vb != null) {
       return (java.lang.String) vb.getValue(getFacesContext());
     }
@@ -161,7 +161,7 @@ public abstract class AbstractUIWizard extends AbstractUIPanel implements OnComp
   }
 
 
-  public void setOutcome(String outcome) {
+  public void setOutcome(final String outcome) {
     this.outcome = outcome;
   }
 
@@ -169,7 +169,7 @@ public abstract class AbstractUIWizard extends AbstractUIPanel implements OnComp
     if (title != null) {
       return title;
     }
-    javax.faces.el.ValueBinding vb = getValueBinding("title");
+    final javax.faces.el.ValueBinding vb = getValueBinding("title");
     if (vb != null) {
       return (java.lang.String) vb.getValue(getFacesContext());
     }
@@ -177,7 +177,7 @@ public abstract class AbstractUIWizard extends AbstractUIPanel implements OnComp
   }
 
 
-  public void setTitle(String title) {
+  public void setTitle(final String title) {
     this.title = title;
   }
 
@@ -185,9 +185,9 @@ public abstract class AbstractUIWizard extends AbstractUIPanel implements OnComp
     if (allowJumpForward != null) {
       return allowJumpForward;
     }
-    javax.faces.el.ValueBinding vb = getValueBinding("allowJumpForward");
+    final javax.faces.el.ValueBinding vb = getValueBinding("allowJumpForward");
     if (vb != null) {
-      Boolean bool = (Boolean) vb.getValue(getFacesContext());
+      final Boolean bool = (Boolean) vb.getValue(getFacesContext());
       if (bool != null) {
         return bool;
       }
@@ -195,7 +195,7 @@ public abstract class AbstractUIWizard extends AbstractUIPanel implements OnComp
     return false;
   }
 
-  public void setAllowJumpForward(Boolean allowJumpForward) {
+  public void setAllowJumpForward(final Boolean allowJumpForward) {
     this.allowJumpForward = allowJumpForward;
 //    getController().removeForwardSteps();
   }

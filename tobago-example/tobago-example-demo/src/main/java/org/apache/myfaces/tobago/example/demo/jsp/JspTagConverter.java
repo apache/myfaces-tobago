@@ -41,7 +41,7 @@ public class JspTagConverter extends AbstractConverter {
     return getCompiler().compile("(?s)(<%--.*?--%>)|(<%.*?%>)");
   }
 
-  public String highlightJavaKeyword(String java) {
+  public String highlightJavaKeyword(final String java) {
     return getUtil().substitute("s/(\\bassert\\b|break\\b|\\bbyte\\b|\\bboolean\\b"
         + "|\\bcatch\\b|\\bcase\\b|\\bchar\\b|\\bcontinue\\b|\\bdouble\\b"
         + "|\\bdo\\b|\\belse\\b|\\bextends\\b|\\bfalse\\b|\\bfinal\\b"
@@ -54,8 +54,8 @@ public class JspTagConverter extends AbstractConverter {
         + "/<span class=\"keyword\">$1<\\/span>/g", java);
   }
 
-  public String convertMatch(String fragment) {
-    String key = "tag" + tags.size();;
+  public String convertMatch(final String fragment) {
+    final String key = "tag" + tags.size();;
     String tag = XmlUtils.escape(fragment, false);
     if (fragment.startsWith("<%--")) {
       tag = "<span class=\"jsp-comment\">" + tag + "</span>";
@@ -81,11 +81,11 @@ public class JspTagConverter extends AbstractConverter {
     return "${" + key + "}";
   }
 
-  public String convert(String input) {
+  public String convert(final String input) {
     String result; // = StringUtils.replace(input, "$", "$$");
     result = super.convert(input);
     result = tagConverter.convert(result);
-    StringExpression stringExpression = new StringExpression(result);
+    final StringExpression stringExpression = new StringExpression(result);
     return stringExpression.substitute(tags);
   }
 

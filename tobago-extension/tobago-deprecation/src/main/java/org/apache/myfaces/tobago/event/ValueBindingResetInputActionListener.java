@@ -48,13 +48,13 @@ public class ValueBindingResetInputActionListener extends AbstractResetInputActi
   public ValueBindingResetInputActionListener() {
   }
 
-  public ValueBindingResetInputActionListener(Object binding) {
+  public ValueBindingResetInputActionListener(final Object binding) {
     clientIdsBinding = (ValueBinding) binding;
   }
 
-  public void processAction(ActionEvent event) {
-    Object obj = clientIdsBinding.getValue(FacesContext.getCurrentInstance());
-    String [] clientIds;
+  public void processAction(final ActionEvent event) {
+    final Object obj = clientIdsBinding.getValue(FacesContext.getCurrentInstance());
+    final String [] clientIds;
     if (obj instanceof String[]) {
       clientIds = (String[]) obj;
     } else if (obj instanceof String) {
@@ -63,8 +63,8 @@ public class ValueBindingResetInputActionListener extends AbstractResetInputActi
       LOG.error("Ignore unknown value of " + obj + " for reset.");
       return;
     }
-    for (String clientId : clientIds) {
-      UIComponent component = FindComponentUtils.findComponent(event.getComponent(), clientId);
+    for (final String clientId : clientIds) {
+      final UIComponent component = FindComponentUtils.findComponent(event.getComponent(), clientId);
       if (component != null) {
         resetChildren(component);
       }
@@ -75,18 +75,18 @@ public class ValueBindingResetInputActionListener extends AbstractResetInputActi
     return false;
   }
 
-  public void restoreState(FacesContext context, Object state) {
-    Object[] values = (Object[]) state;
+  public void restoreState(final FacesContext context, final Object state) {
+    final Object[] values = (Object[]) state;
     clientIdsBinding = (ValueBinding) UIComponentBase.restoreAttachedState(context, values[0]);
   }
 
-  public Object saveState(FacesContext context) {
-    Object[] values = new Object[1];
+  public Object saveState(final FacesContext context) {
+    final Object[] values = new Object[1];
     values[0] = UIComponentBase.saveAttachedState(context, clientIdsBinding);
     return values;
   }
 
-  public void setTransient(boolean newTransientValue) {
+  public void setTransient(final boolean newTransientValue) {
     // ignore
   }
 

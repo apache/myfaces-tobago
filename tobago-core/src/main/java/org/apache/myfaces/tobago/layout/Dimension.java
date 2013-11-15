@@ -24,13 +24,13 @@ public class Dimension {
   private Measure width;
   private Measure height;
 
-  public Dimension(Measure width, Measure height) {
+  public Dimension(final Measure width, final Measure height) {
     this.width = width;
     this.height = height;
   }
 
-  public Dimension(String string) {
-    int comma = string.indexOf(',');
+  public Dimension(final String string) {
+    final int comma = string.indexOf(',');
     if (comma >= 0) { // found first comma
       width = Measure.parse(string.substring(0, comma));
       height = Measure.parse(string.substring(comma + 1));
@@ -43,7 +43,7 @@ public class Dimension {
     return width;
   }
 
-  public void setWidth(Measure width) {
+  public void setWidth(final Measure width) {
     this.width = width;
   }
 
@@ -51,7 +51,7 @@ public class Dimension {
     return height;
   }
 
-  public void setHeight(Measure height) {
+  public void setHeight(final Measure height) {
     this.height = height;
   }
 

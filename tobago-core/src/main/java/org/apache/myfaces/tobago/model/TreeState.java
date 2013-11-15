@@ -26,7 +26,7 @@ public class TreeState implements Serializable {
   private ExpandedState expandedState;
   private SelectedState selectedState;
 
-  public TreeState(ExpandedState expandedState, SelectedState selectedState) {
+  public TreeState(final ExpandedState expandedState, final SelectedState selectedState) {
     this.expandedState = expandedState;
     this.selectedState = selectedState;
   }

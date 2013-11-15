@@ -41,31 +41,31 @@ public class ClassUtils {
   private ClassUtils() {
   }
 
-  public static String getPackageName(String qualifiedName) {
-    int pos = qualifiedName.lastIndexOf('.');
+  public static String getPackageName(final String qualifiedName) {
+    final int pos = qualifiedName.lastIndexOf('.');
     if (pos != -1) {
       return qualifiedName.substring(0, pos);
     }
     return null;
   }
 
-  public static String getSimpleName(String qualifiedName) {
-    int pos = qualifiedName.lastIndexOf('.');
+  public static String getSimpleName(final String qualifiedName) {
+    final int pos = qualifiedName.lastIndexOf('.');
     if (pos != -1) {
       return qualifiedName.substring(pos + 1);
     }
     return null;
   }
 
-  public static boolean isSystemClass(String qualifiedClassName) {
+  public static boolean isSystemClass(final String qualifiedClassName) {
     return qualifiedClassName.startsWith("java.lang.");
   }
 
-  public static boolean isPrimitive(String name) {
+  public static boolean isPrimitive(final String name) {
     return PRIMITIVE_MAP.containsKey(name);
   }
 
-  public static Class getWrapper(String primitive) {
+  public static Class getWrapper(final String primitive) {
     return PRIMITIVE_MAP.get(primitive);
   }
 }

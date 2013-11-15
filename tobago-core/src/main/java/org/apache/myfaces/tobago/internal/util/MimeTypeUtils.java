@@ -26,7 +26,7 @@ public final class MimeTypeUtils {
   }
 
   // todo: maybe support more extensions (configurable?)  
-  public static String getMimeTypeForFile(String file) {
+  public static String getMimeTypeForFile(final String file) {
     if (file.endsWith(".gif")) {
       return "image/gif";
     } else if (file.endsWith(".png")) {

@@ -39,7 +39,7 @@ public class StringUtils {
    * @deprecated Use commons-lang StringUtils.capitalize() instead.
    */
   @Deprecated
-  public static String firstToUpperCase(String string) {
+  public static String firstToUpperCase(final String string) {
     if (Deprecation.LOG.isWarnEnabled()) {
       Deprecation.LOG.warn("use commons-lang please");
     }
@@ -56,13 +56,13 @@ public class StringUtils {
     }
   }
 
-  public static List<Integer> parseIntegerList(String integerList)
+  public static List<Integer> parseIntegerList(final String integerList)
       throws NumberFormatException {
-    List<Integer> list = new ArrayList<Integer>();
+    final List<Integer> list = new ArrayList<Integer>();
 
-    StringTokenizer tokenizer = new StringTokenizer(integerList, ", ");
+    final StringTokenizer tokenizer = new StringTokenizer(integerList, ", ");
     while (tokenizer.hasMoreElements()) {
-      String token = tokenizer.nextToken().trim();
+      final String token = tokenizer.nextToken().trim();
       if (token.length() > 0) {
         list.add(new Integer(token));
       }
@@ -71,9 +71,9 @@ public class StringUtils {
     return list;
   }
 
-  public static <T> String toString(List<T> list) {
-    StringBuilder buffer = new StringBuilder(",");
-    for (T t : list) {
+  public static <T> String toString(final List<T> list) {
+    final StringBuilder buffer = new StringBuilder(",");
+    for (final T t : list) {
       buffer.append(t);
       buffer.append(",");
     }
@@ -81,7 +81,7 @@ public class StringUtils {
   }
 
   @Deprecated
-  public static String escapeAccessKeyIndicator(String label) {
+  public static String escapeAccessKeyIndicator(final String label) {
     if (Deprecation.LOG.isWarnEnabled()) {
       Deprecation.LOG.warn(label);
     }

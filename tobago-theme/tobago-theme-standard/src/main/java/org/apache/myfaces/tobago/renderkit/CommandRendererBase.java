@@ -33,13 +33,13 @@ public abstract class CommandRendererBase extends LayoutComponentRendererBase {
 
   private static final Logger LOG = LoggerFactory.getLogger(CommandRendererBase.class);
 
-  public void decode(FacesContext facesContext, UIComponent component) {
+  public void decode(final FacesContext facesContext, final UIComponent component) {
 
     if (ComponentUtils.isOutputOnly(component)) {
       return;
     }
-    String actionId = FacesContextUtils.getActionId(facesContext);
-    String clientId = component.getClientId(facesContext);
+    final String actionId = FacesContextUtils.getActionId(facesContext);
+    final String clientId = component.getClientId(facesContext);
     if (LOG.isDebugEnabled()) {
       LOG.debug("actionId = '" + actionId + "'");
       LOG.debug("clientId = '" + clientId + "'");
@@ -53,11 +53,11 @@ public abstract class CommandRendererBase extends LayoutComponentRendererBase {
     }
   }
 
-  protected void commandActivated(UIComponent component) {
+  protected void commandActivated(final UIComponent component) {
     component.queueEvent(new ActionEvent(component));
   }
 
-  public String getImageWithPath(FacesContext facesContext, String image, boolean disabled) {
+  public String getImageWithPath(final FacesContext facesContext, final String image, final boolean disabled) {
     String imageWithPath = null;
     if (disabled) {
       imageWithPath = ResourceManagerUtils.getDisabledImageWithPath(facesContext, image);

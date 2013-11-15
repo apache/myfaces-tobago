@@ -24,14 +24,14 @@ public final class JspCacheKey {
   private final String name;
   private final int hashCode;
 
-  public JspCacheKey(ClientPropertiesKey cacheKey, String name) {
+  public JspCacheKey(final ClientPropertiesKey cacheKey, final String name) {
     this.cacheKey = cacheKey;
     this.name = name;
     hashCode = calcHashCode();
   }
 
   @Override
-  public boolean equals(Object o) {
+  public boolean equals(final Object o) {
     if (this == o) {
       return true;
     }
@@ -39,7 +39,7 @@ public final class JspCacheKey {
       return false;
     }
 
-    JspCacheKey that = (JspCacheKey) o;
+    final JspCacheKey that = (JspCacheKey) o;
 
     return cacheKey.equals(that.cacheKey) && name.equals(that.name);
 

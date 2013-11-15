@@ -32,12 +32,12 @@ public abstract class AbstractUISelectOneBase extends javax.faces.component.UISe
 
   public static final String MESSAGE_VALUE_REQUIRED = "tobago.SelectOne.MESSAGE_VALUE_REQUIRED";
 
-  public void validate(FacesContext facesContext) {
+  public void validate(final FacesContext facesContext) {
     if (isRequired()  && !isReadonly()) {
-      Object submittedValue = getSubmittedValue();
+      final Object submittedValue = getSubmittedValue();
       if (submittedValue == null || "".equals(submittedValue)) {
         if (getRequiredMessage() != null) {
-          String requiredMessage = getRequiredMessage();
+          final String requiredMessage = getRequiredMessage();
           facesContext.addMessage(getClientId(facesContext), new FacesMessage(FacesMessage.SEVERITY_ERROR,
               requiredMessage, requiredMessage));
         } else {

@@ -44,7 +44,7 @@ public final class TobagoConfigBuilder {
 
   private List<TobagoConfigFragment> list;
 
-  private TobagoConfigBuilder(ServletContext servletContext)
+  private TobagoConfigBuilder(final ServletContext servletContext)
       throws ServletException, IOException, SAXException, ParserConfigurationException, URISyntaxException {
     list = new ArrayList<TobagoConfigFragment>();
     configFromClasspath();
@@ -65,19 +65,19 @@ public final class TobagoConfigBuilder {
     servletContext.setAttribute(TobagoConfig.TOBAGO_CONFIG, tobagoConfig);
   }
 
-  public static void init(ServletContext servletContext) {
+  public static void init(final ServletContext servletContext) {
     try {
       final TobagoConfigBuilder builder = new TobagoConfigBuilder(servletContext);
-    } catch (Throwable e) {
+    } catch (final Throwable e) {
       if (LOG.isErrorEnabled()) {
-        String error = "Error while deploy process. Tobago can't be initialized! Application will not run!";
+        final String error = "Error while deploy process. Tobago can't be initialized! Application will not run!";
         LOG.error(error, e);
         throw new RuntimeException(error, e);
       }
     }
   }
 
-  private void configFromWebInf(ServletContext servletContext)
+  private void configFromWebInf(final ServletContext servletContext)
       throws IOException, SAXException, ParserConfigurationException, URISyntaxException {
 
     final URL url = servletContext.getResource("/" + WEB_INF_TOBAGO_CONFIG_XML);
@@ -109,11 +109,11 @@ public final class TobagoConfigBuilder {
           if (!"jar".equals(protocol) && !"zip".equals(protocol) && !"wsjar".equals(protocol)) {
             LOG.warn("Unknown protocol '" + themeUrl + "'");
           }
-        } catch (Exception e) {
+        } catch (final Exception e) {
           throw new Exception(e.getClass().getName() + " on themeUrl: " + themeUrl, e);
         }
       }
-    } catch (Exception e) {
+    } catch (final Exception e) {
       final String msg = "while loading ";
       LOG.error(msg, e);
       throw new ServletException(msg, e);

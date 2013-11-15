@@ -31,7 +31,7 @@ public class GridUnitTest {
   @Test
   public void test1x1() {
 
-    Grid grid = new Grid(LayoutTokens.parse("*"), LayoutTokens.parse("*"));
+    final Grid grid = new Grid(LayoutTokens.parse("*"), LayoutTokens.parse("*"));
     Assert.assertEquals(1, grid.getBankHeads(Orientation.HORIZONTAL).length);
     Assert.assertEquals(1, grid.getBankHeads(Orientation.VERTICAL).length);
     Assert.assertEquals(""
@@ -92,7 +92,7 @@ public class GridUnitTest {
   @Test
   public void test2x1() {
 
-    Grid grid = new Grid(LayoutTokens.parse("*;*"), LayoutTokens.parse("*"));
+    final Grid grid = new Grid(LayoutTokens.parse("*;*"), LayoutTokens.parse("*"));
     Assert.assertEquals(2, grid.getBankHeads(Orientation.HORIZONTAL).length);
     Assert.assertEquals(1, grid.getBankHeads(Orientation.VERTICAL).length);
     Assert.assertEquals(""
@@ -187,7 +187,7 @@ public class GridUnitTest {
   @Test
   public void test5x5() {
 
-    Grid grid = new Grid(LayoutTokens.parse("*;*;*;*;*"), LayoutTokens.parse("*;*;*;*;*"));
+    final Grid grid = new Grid(LayoutTokens.parse("*;*;*;*;*"), LayoutTokens.parse("*;*;*;*;*"));
     Assert.assertEquals(5, grid.getBankHeads(Orientation.HORIZONTAL).length);
     Assert.assertEquals(5, grid.getBankHeads(Orientation.VERTICAL).length);
     Assert.assertEquals(""

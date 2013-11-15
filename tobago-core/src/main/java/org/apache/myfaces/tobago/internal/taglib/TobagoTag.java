@@ -29,9 +29,9 @@ import javax.servlet.jsp.JspException;
 public abstract class TobagoTag extends UIComponentELTag {
 
   public int doStartTag() throws JspException {
-    int result = super.doStartTag();
+    final int result = super.doStartTag();
 
-    UIComponent component = getComponentInstance();
+    final UIComponent component = getComponentInstance();
     if (component instanceof OnComponentCreated
         && component.getAttributes().get(OnComponentCreated.MARKER) == null) {
       component.getAttributes().put(OnComponentCreated.MARKER, Boolean.TRUE);
@@ -40,7 +40,7 @@ public abstract class TobagoTag extends UIComponentELTag {
     return result;
   }
 
-  public String[] splitList(String renderers) {
+  public String[] splitList(final String renderers) {
     return StringUtils.split(renderers, ", ");
   }
 }

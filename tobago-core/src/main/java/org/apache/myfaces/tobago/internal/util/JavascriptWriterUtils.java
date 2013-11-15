@@ -62,7 +62,7 @@ public final class JavascriptWriterUtils extends WriterUtils {
 
     final int end = start + length;
     for (int i = start; i < end; i++) {
-      char ch = text[i];
+      final char ch = text[i];
       if (ch >= CHARS_TO_ESCAPE.length || CHARS_TO_ESCAPE[ch] != null) {
         localIndex = i;
         break;
@@ -100,7 +100,7 @@ public final class JavascriptWriterUtils extends WriterUtils {
           buffer.flushBuffer();
 
           out.write('&');
-          char[] chars = ISO8859_1_ENTITIES[ch - 0xA0];
+          final char[] chars = ISO8859_1_ENTITIES[ch - 0xA0];
           out.write(chars, 0, chars.length);
           out.write(';');
         } else {

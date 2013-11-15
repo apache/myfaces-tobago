@@ -54,7 +54,7 @@ public final class MathUtils {
     double max = 0.0;
     Integer indexOfMax = null;
     for (int i = 0; i < list.length; i++) {
-      double remainder = remainder(list[i]);
+      final double remainder = remainder(list[i]);
       if (remainder > max + EPSILON) {
         max = remainder;
         indexOfMax = i;

@@ -29,7 +29,7 @@ public class PageDeclarationLanguageBean {
     return language;
   }
 
-  public void setLanguage(PageDeclarationLanguage language) {
+  public void setLanguage(final PageDeclarationLanguage language) {
     this.language = language;
   }
 

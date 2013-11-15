@@ -61,7 +61,7 @@ public abstract class AbstractUITabGroup extends AbstractUIPanelBase
   public static final String SWITCH_TYPE_RELOAD_TAB = "reloadTab";
 
   @Override
-  public void encodeBegin(FacesContext facesContext) throws IOException {
+  public void encodeBegin(final FacesContext facesContext) throws IOException {
 
     super.encodeBegin(facesContext);
 
@@ -69,13 +69,13 @@ public abstract class AbstractUITabGroup extends AbstractUIPanelBase
   }
 
   @Override
-  public void encodeChildren(FacesContext facesContext) throws IOException {
+  public void encodeChildren(final FacesContext facesContext) throws IOException {
 
 //    ((AbstractUILayoutBase) getLayoutManager()).encodeChildren(facesContext);
   }
 
   @Override
-  public void encodeEnd(FacesContext facesContext) throws IOException {
+  public void encodeEnd(final FacesContext facesContext) throws IOException {
 
     ((AbstractUILayoutBase) getLayoutManager()).encodeEnd(facesContext);
 
@@ -90,7 +90,7 @@ public abstract class AbstractUITabGroup extends AbstractUIPanelBase
     return true;
   }
 
-  public void queueEvent(FacesEvent event) {
+  public void queueEvent(final FacesEvent event) {
     if (this == event.getSource()) {
       if (isImmediate() || isSwitchTypeClient()) {
         // if switch type client event is always immediate
@@ -103,15 +103,15 @@ public abstract class AbstractUITabGroup extends AbstractUIPanelBase
   }
 
   private void resetTabLayout() {
-    for (UIComponent component : getChildren()) {
+    for (final UIComponent component : getChildren()) {
       component.getAttributes().remove(Attributes.LAYOUT_WIDTH);
       component.getAttributes().remove(Attributes.LAYOUT_HEIGHT);
     }
   }
 
   public AbstractUIPanelBase[] getTabs() {
-    List<AbstractUIPanelBase> tabs = new ArrayList<AbstractUIPanelBase>();
-    for (UIComponent kid : getChildren()) {
+    final List<AbstractUIPanelBase> tabs = new ArrayList<AbstractUIPanelBase>();
+    for (final UIComponent kid : getChildren()) {
       if (kid instanceof AbstractUIPanelBase) {
         //if (kid.isRendered()) {
         tabs.add((AbstractUIPanelBase) kid);
@@ -129,7 +129,7 @@ public abstract class AbstractUITabGroup extends AbstractUIPanelBase
 
 
   @Override
-  public void processDecodes(FacesContext context) {
+  public void processDecodes(final FacesContext context) {
     if (!isSwitchTypeClient()) {
 
       if (context == null) {
@@ -138,14 +138,14 @@ public abstract class AbstractUITabGroup extends AbstractUIPanelBase
       if (!isRendered()) {
         return;
       }
-      AbstractUIPanelBase renderedTab = getRenderedTab();
+      final AbstractUIPanelBase renderedTab = getRenderedTab();
       renderedTab.processDecodes(context);
-      for (UIComponent facet : getFacets().values()) {
+      for (final UIComponent facet : getFacets().values()) {
         facet.processDecodes(context);
       }
       try {
         decode(context);
-      } catch (RuntimeException e) {
+      } catch (final RuntimeException e) {
         context.renderResponse();
         throw e;
       }
@@ -155,7 +155,7 @@ public abstract class AbstractUITabGroup extends AbstractUIPanelBase
   }
 
   @Override
-  public void processValidators(FacesContext context) {
+  public void processValidators(final FacesContext context) {
     if (!isSwitchTypeClient()) {
       if (context == null) {
         throw new NullPointerException("context");
@@ -163,9 +163,9 @@ public abstract class AbstractUITabGroup extends AbstractUIPanelBase
       if (!isRendered()) {
         return;
       }
-      AbstractUIPanelBase renderedTab = getRenderedTab();
+      final AbstractUIPanelBase renderedTab = getRenderedTab();
       renderedTab.processValidators(context);
-      for (UIComponent facet : getFacets().values()) {
+      for (final UIComponent facet : getFacets().values()) {
         facet.processValidators(context);
       }
     } else {
@@ -174,7 +174,7 @@ public abstract class AbstractUITabGroup extends AbstractUIPanelBase
   }
 
   @Override
-  public void processUpdates(FacesContext context) {
+  public void processUpdates(final FacesContext context) {
     if (!isSwitchTypeClient()) {
       if (context == null) {
         throw new NullPointerException("context");
@@ -182,9 +182,9 @@ public abstract class AbstractUITabGroup extends AbstractUIPanelBase
       if (!isRendered()) {
         return;
       }
-      AbstractUIPanelBase renderedTab = getRenderedTab();
+      final AbstractUIPanelBase renderedTab = getRenderedTab();
       renderedTab.processUpdates(context);
-      for (UIComponent facet : getFacets().values()) {
+      for (final UIComponent facet : getFacets().values()) {
         facet.processUpdates(context);
       }
 
@@ -193,7 +193,7 @@ public abstract class AbstractUITabGroup extends AbstractUIPanelBase
     }
   }
 
-  public void broadcast(FacesEvent facesEvent) throws AbortProcessingException {
+  public void broadcast(final FacesEvent facesEvent) throws AbortProcessingException {
     super.broadcast(facesEvent);
     if (facesEvent instanceof TabChangeEvent && facesEvent.getComponent() == this) {
       final TabChangeEvent event = (TabChangeEvent) facesEvent;
@@ -211,13 +211,13 @@ public abstract class AbstractUITabGroup extends AbstractUIPanelBase
 
       // XXX is this needed?
       if (!isSwitchTypeClient()) {
-        ActionListener defaultActionListener = getFacesContext().getApplication().getActionListener();
+        final ActionListener defaultActionListener = getFacesContext().getApplication().getActionListener();
         if (defaultActionListener != null) {
           defaultActionListener.processAction(event);
         }
       }
-      Integer index = event.getNewTabIndex();
-      ValueExpression expression = getValueExpression(Attributes.SELECTED_INDEX);
+      final Integer index = event.getNewTabIndex();
+      final ValueExpression expression = getValueExpression(Attributes.SELECTED_INDEX);
       if (expression != null) {
         expression.setValue(getFacesContext().getELContext(), index);
       } else {
@@ -226,7 +226,7 @@ public abstract class AbstractUITabGroup extends AbstractUIPanelBase
     }
   }
 
-  public void addTabChangeListener(TabChangeListener listener) {
+  public void addTabChangeListener(final TabChangeListener listener) {
     if (LOG.isWarnEnabled() && isSwitchTypeClient()) {
       LOG.warn("Adding TabChangeListener to client side TabGroup!");
     }
@@ -234,11 +234,11 @@ public abstract class AbstractUITabGroup extends AbstractUIPanelBase
   }
 
   public boolean isSwitchTypeClient() {
-    String switchType = getSwitchType();
+    final String switchType = getSwitchType();
     return (switchType == null || switchType.equals(SWITCH_TYPE_CLIENT));
   }
 
-  public void removeTabChangeListener(TabChangeListener listener) {
+  public void removeTabChangeListener(final TabChangeListener listener) {
     removeFacesListener(listener);
   }
 
@@ -256,9 +256,9 @@ public abstract class AbstractUITabGroup extends AbstractUIPanelBase
 
   public abstract String getSwitchType();
 
-  private AbstractUIPanelBase getTab(int index) {
+  private AbstractUIPanelBase getTab(final int index) {
     int i = 0;
-    for (UIComponent component : getChildren()) {
+    for (final UIComponent component : getChildren()) {
       if (component instanceof AbstractUIPanelBase) {
         if (i == index) {
           return (AbstractUIPanelBase) component;
@@ -280,7 +280,7 @@ public abstract class AbstractUITabGroup extends AbstractUIPanelBase
   /**
    * @since 1.5.0
    */
-  public void addActionListener(ActionListener listener) {
+  public void addActionListener(final ActionListener listener) {
     addFacesListener(listener);
   }
 
@@ -294,7 +294,7 @@ public abstract class AbstractUITabGroup extends AbstractUIPanelBase
   /**
    * @since 1.5.0
    */
-  public void removeActionListener(ActionListener listener) {
+  public void removeActionListener(final ActionListener listener) {
     removeFacesListener(listener);
   }
 
@@ -302,7 +302,7 @@ public abstract class AbstractUITabGroup extends AbstractUIPanelBase
     return LayoutUtils.findLayoutChildren(this);
   }
 
-  public void onComponentPopulated(FacesContext facesContext, UIComponent parent) {
+  public void onComponentPopulated(final FacesContext facesContext, final UIComponent parent) {
     if (getLayoutManager() == null) {
       setLayoutManager(CreateComponentUtils.createAndInitLayout(
           facesContext, ComponentTypes.TAB_GROUP_LAYOUT, RendererTypes.TAB_GROUP_LAYOUT, parent));
@@ -313,7 +313,7 @@ public abstract class AbstractUITabGroup extends AbstractUIPanelBase
     return (LayoutManager) getFacet(Facets.LAYOUT);
   }
 
-  public void setLayoutManager(LayoutManager layoutManager) {
+  public void setLayoutManager(final LayoutManager layoutManager) {
     getFacets().put(Facets.LAYOUT, (AbstractUILayoutBase) layoutManager);
   }
 

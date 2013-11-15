@@ -46,22 +46,22 @@ public class SelectManyListboxRenderer extends SelectManyRendererBase {
     return true;
   }
 
-  public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
+  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
     if (!(component instanceof UISelectManyListbox)) {
       LOG.error("Wrong type: Need " + UISelectManyListbox.class.getName() 
           + ", but was " + component.getClass().getName());
       return;
     }
 
-    UISelectManyListbox select = (UISelectManyListbox) component;
-    TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final UISelectManyListbox select = (UISelectManyListbox) component;
+    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
-    String id = select.getClientId(facesContext);
-    List<SelectItem> items = RenderUtils.getSelectItems(select);
-    boolean readonly = select.isReadonly();
-    boolean disabled = items.size() == 0 || select.isDisabled() || readonly;
+    final String id = select.getClientId(facesContext);
+    final List<SelectItem> items = RenderUtils.getSelectItems(select);
+    final boolean readonly = select.isReadonly();
+    final boolean disabled = items.size() == 0 || select.isDisabled() || readonly;
 
-    String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, select);
+    final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, select);
     writer.startElement(HtmlElements.SELECT, select);
     writer.writeNameAttribute(id);
     writer.writeIdAttribute(id);
@@ -70,11 +70,11 @@ public class SelectManyListboxRenderer extends SelectManyRendererBase {
     writer.writeAttribute(HtmlAttributes.READONLY, readonly);
     writer.writeAttribute(HtmlAttributes.REQUIRED, select.isRequired());
     HtmlRendererUtils.renderFocus(id, select.isFocus(), ComponentUtils.isError(select), facesContext, writer);
-    Integer tabIndex = select.getTabIndex();
+    final Integer tabIndex = select.getTabIndex();
     if (tabIndex != null) {
       writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
     }
-    Style style = new Style(facesContext, select);
+    final Style style = new Style(facesContext, select);
     writer.writeStyleAttribute(style);
     writer.writeClassAttribute(Classes.create(select));
     writer.writeAttribute(HtmlAttributes.MULTIPLE, HtmlAttributes.MULTIPLE, false);
@@ -82,7 +82,7 @@ public class SelectManyListboxRenderer extends SelectManyRendererBase {
       writer.writeAttribute(HtmlAttributes.TITLE, title, true);
     }
     HtmlRendererUtils.renderCommandFacet(select, facesContext, writer);
-    Object[] values = select.getSelectedValues();
+    final Object[] values = select.getSelectedValues();
     HtmlRendererUtils.renderSelectItems(select, items, values, writer, facesContext);
 
     writer.endElement(HtmlElements.SELECT);

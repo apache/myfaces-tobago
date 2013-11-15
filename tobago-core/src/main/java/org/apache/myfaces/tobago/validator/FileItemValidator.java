@@ -51,11 +51,12 @@ public class FileItemValidator implements Validator, StateHolder {
   public FileItemValidator() {
   }
 
-  public void validate(FacesContext facesContext, UIComponent component, Object value) throws ValidatorException {
+  public void validate(final FacesContext facesContext, final UIComponent component, final Object value)
+      throws ValidatorException {
     if (value != null && component instanceof AbstractUIFile) {
-      FileItem file = (FileItem) value;
+      final FileItem file = (FileItem) value;
       if (maxSize != null && file.getSize() > maxSize) {
-        FacesMessage facesMessage = MessageUtils.getMessage(
+        final FacesMessage facesMessage = MessageUtils.getMessage(
             facesContext, facesContext.getViewRoot().getLocale(), FacesMessage.SEVERITY_ERROR,
             SIZE_LIMIT_MESSAGE_ID, maxSize, component.getId());
         throw new ValidatorException(facesMessage);
@@ -63,20 +64,20 @@ public class FileItemValidator implements Validator, StateHolder {
       // Check only a valid file
       if (file.getSize() > 0 && contentType != null && contentType.length > 0) {
         boolean found = false;
-        for (String contentTypeStr : contentType) {
+        for (final String contentTypeStr : contentType) {
           if (ContentType.valueOf(contentTypeStr).match(ContentType.valueOf(file.getContentType()))) {
             found = true;
             break;
           }
         }
         if (!found) {
-          String message;
+          final String message;
           if (contentType.length == 1) {
             message = contentType[0];
           } else {
             message = Arrays.toString(contentType);
           }
-          FacesMessage facesMessage = MessageUtils.getMessage(
+          final FacesMessage facesMessage = MessageUtils.getMessage(
               facesContext, facesContext.getViewRoot().getLocale(), FacesMessage.SEVERITY_ERROR,
               CONTENT_TYPE_MESSAGE_ID, message, component.getId());
           throw new ValidatorException(facesMessage);
@@ -89,7 +90,7 @@ public class FileItemValidator implements Validator, StateHolder {
     return maxSize;
   }
 
-  public void setMaxSize(int maxSize) {
+  public void setMaxSize(final int maxSize) {
     if (maxSize > 0) {
       this.maxSize = maxSize;
     }
@@ -99,19 +100,19 @@ public class FileItemValidator implements Validator, StateHolder {
     return contentType;
   }
 
-  public void setContentType(String[] contentType) {
+  public void setContentType(final String[] contentType) {
     this.contentType = contentType;
   }
 
-  public Object saveState(FacesContext context) {
-    Object[] values = new Object[2];
+  public Object saveState(final FacesContext context) {
+    final Object[] values = new Object[2];
     values[0] = maxSize;
     values[1] = contentType;
     return values;
   }
 
-  public void restoreState(FacesContext context, Object state) {
-    Object[] values = (Object[]) state;
+  public void restoreState(final FacesContext context, final Object state) {
+    final Object[] values = (Object[]) state;
     maxSize = (Integer) values[0];
     contentType = (String[]) values[1];
   }
@@ -120,7 +121,7 @@ public class FileItemValidator implements Validator, StateHolder {
     return transientValue;
   }
 
-  public void setTransient(boolean newTransientValue) {
+  public void setTransient(final boolean newTransientValue) {
     this.transientValue = newTransientValue;
   }
 }

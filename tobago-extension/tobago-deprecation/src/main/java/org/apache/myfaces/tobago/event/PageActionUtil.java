@@ -36,13 +36,13 @@ public class PageActionUtil {
   static {
     MAPPING = new HashMap<String, PageAction>();
 
-    for (PageAction action : PageAction.values()) {
+    for (final PageAction action : PageAction.values()) {
       MAPPING.put(action.getToken(), action);
     }
   }
 
-  public static PageAction parse(String name) {
-    PageAction value = MAPPING.get(name);
+  public static PageAction parse(final String name) {
+    final PageAction value = MAPPING.get(name);
     if (value != null) {
       return value;
     } else {

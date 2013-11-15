@@ -38,26 +38,26 @@ public abstract class AbstractUIPanel extends AbstractUIPanelBase
     implements OnComponentPopulated, LayoutContainer, LayoutComponent {
 
   @Override
-  public void encodeBegin(FacesContext facesContext) throws IOException {
+  public void encodeBegin(final FacesContext facesContext) throws IOException {
 
     super.encodeBegin(facesContext);
     ((AbstractUILayoutBase) getLayoutManager()).encodeBegin(facesContext);
   }
 
   @Override
-  public void encodeChildren(FacesContext facesContext) throws IOException {
+  public void encodeChildren(final FacesContext facesContext) throws IOException {
 
     ((AbstractUILayoutBase) getLayoutManager()).encodeChildren(facesContext);
   }
 
   @Override
-  public void encodeEnd(FacesContext facesContext) throws IOException {
+  public void encodeEnd(final FacesContext facesContext) throws IOException {
 
     ((AbstractUILayoutBase) getLayoutManager()).encodeEnd(facesContext);
     super.encodeEnd(facesContext);
   }
 
-  public void onComponentPopulated(FacesContext facesContext, UIComponent parent) {
+  public void onComponentPopulated(final FacesContext facesContext, final UIComponent parent) {
     if (getLayoutManager() == null) {
       setLayoutManager(CreateComponentUtils.createAndInitLayout(
           facesContext, ComponentTypes.GRID_LAYOUT, RendererTypes.GRID_LAYOUT, parent));
@@ -72,7 +72,7 @@ public abstract class AbstractUIPanel extends AbstractUIPanelBase
     return (LayoutManager) getFacet(Facets.LAYOUT);
   }
 
-  public void setLayoutManager(LayoutManager layoutManager) {
+  public void setLayoutManager(final LayoutManager layoutManager) {
     getFacets().put(Facets.LAYOUT, (AbstractUILayoutBase) layoutManager);
   }
 

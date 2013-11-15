@@ -36,7 +36,7 @@ public class Layout extends PageStateImpl {
   private int maximumHeight;
 
   public int getWidth() {
-    int clientWidth = getClientWidth();
+    final int clientWidth = getClientWidth();
     if (clientWidth != 0) {
       if (clientWidth < minimumWidth) {
         return minimumWidth;
@@ -48,12 +48,12 @@ public class Layout extends PageStateImpl {
     return width;
   }
 
-  public void setWidth(int width) {
+  public void setWidth(final int width) {
     this.width = width;
   }
 
   public int getHeight() {
-    int clientHeight = getClientHeight();
+    final int clientHeight = getClientHeight();
     if (clientHeight != 0) {
       if (clientHeight < minimumHeight) {
         return minimumHeight;
@@ -65,7 +65,7 @@ public class Layout extends PageStateImpl {
     return height;
   }
 
-  public void setHeight(int height) {
+  public void setHeight(final int height) {
     this.height = height;
   }
 
@@ -73,7 +73,7 @@ public class Layout extends PageStateImpl {
     return minimumWidth;
   }
 
-  public void setMinimumWidth(int minimumWidth) {
+  public void setMinimumWidth(final int minimumWidth) {
     this.minimumWidth = minimumWidth;
   }
 
@@ -81,7 +81,7 @@ public class Layout extends PageStateImpl {
     return minimumHeight;
   }
 
-  public void setMinimumHeight(int minimumHeight) {
+  public void setMinimumHeight(final int minimumHeight) {
     this.minimumHeight = minimumHeight;
   }
 
@@ -89,7 +89,7 @@ public class Layout extends PageStateImpl {
     return maximumWidth;
   }
 
-  public void setMaximumWidth(int maximumWidth) {
+  public void setMaximumWidth(final int maximumWidth) {
     this.maximumWidth = maximumWidth;
   }
 
@@ -97,7 +97,7 @@ public class Layout extends PageStateImpl {
     return maximumHeight;
   }
 
-  public void setMaximumHeight(int maximumHeight) {
+  public void setMaximumHeight(final int maximumHeight) {
     this.maximumHeight = maximumHeight;
   }
 }

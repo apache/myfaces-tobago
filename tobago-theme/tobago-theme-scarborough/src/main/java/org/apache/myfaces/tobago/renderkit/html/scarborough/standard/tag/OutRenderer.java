@@ -36,35 +36,35 @@ import java.util.StringTokenizer;
 public class OutRenderer extends LayoutComponentRendererBase {
 
   @Override
-  public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
+  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
 
-    UIOut out = (UIOut) component;
+    final UIOut out = (UIOut) component;
 
     String text = RenderUtils.currentValue(out);
     if (text == null) {
       text = "";
     }
 
-    TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
-    boolean escape = out.isEscape();
-    boolean createSpan = out.isCreateSpan();
+    final boolean escape = out.isEscape();
+    final boolean createSpan = out.isCreateSpan();
 
     if (createSpan) {
-      String id = out.getClientId(facesContext);
+      final String id = out.getClientId(facesContext);
       writer.startElement(HtmlElements.SPAN, out);
       writer.writeIdAttribute(id);
       HtmlRendererUtils.writeDataAttributes(facesContext, writer, out);
-      Style style = new Style(facesContext, out);
+      final Style style = new Style(facesContext, out);
       writer.writeStyleAttribute(style);
       HtmlRendererUtils.renderDojoDndItem(out, writer, true);
       writer.writeClassAttribute(Classes.create(out));
       HtmlRendererUtils.renderTip(out, writer);
     }
     if (escape) {
-      StringTokenizer tokenizer = new StringTokenizer(text, "\r\n");
+      final StringTokenizer tokenizer = new StringTokenizer(text, "\r\n");
       while (tokenizer.hasMoreTokens()) {
-        String token = tokenizer.nextToken();
+        final String token = tokenizer.nextToken();
         writer.writeText(token);
         if (tokenizer.hasMoreTokens()) {
           writer.startElement(HtmlElements.BR, null);

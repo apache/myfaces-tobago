@@ -32,12 +32,12 @@ public class TobagoSelenium extends DefaultSelenium {
 
   private String browserUrl;
 
-  public TobagoSelenium(String browserUrl) {
+  public TobagoSelenium(final String browserUrl) {
     super(new HttpCommandProcessor("localhost", 4444, "*firefox", browserUrl));
     this.browserUrl = browserUrl;
   }
 
-  public String command(String command, String parameter1, String parameter2) {
+  public String command(final String command, final String parameter1, final String parameter2) {
     return commandProcessor.doCommand(command, new String[]{parameter1, parameter2});
   }
 
@@ -56,14 +56,14 @@ public class TobagoSelenium extends DefaultSelenium {
         if (isErrorOnPage()) {
           Assert.fail(format(HAS_ERROR_SEVERITY, location, html, getErrors()));
         }
-      } catch (SeleniumException e) {
+      } catch (final SeleniumException e) {
         Assert.fail(format(IS_BROKEN, location, html, "Not a Tobago page? Exception=" + e));
       }
     }
   }
 
-  public String format(String error, String location, String html, String options) {
-    StringBuilder b = new StringBuilder();
+  public String format(final String error, final String location, final String html, final String options) {
+    final StringBuilder b = new StringBuilder();
     b.append(error);
     b.append("\nPage URL: ");
     b.append(location);
@@ -90,7 +90,7 @@ public class TobagoSelenium extends DefaultSelenium {
    *          If the page is not a Tobago page, or any other problem with JavaScript or the page.
    */
   protected boolean isErrorOnPage() throws SeleniumException {
-    String errorSeverity = getEval("window.LOG.getMaximumSeverity() >= window.LOG.ERROR");
+    final String errorSeverity = getEval("window.LOG.getMaximumSeverity() >= window.LOG.ERROR");
     return Boolean.parseBoolean(errorSeverity);
   }
 

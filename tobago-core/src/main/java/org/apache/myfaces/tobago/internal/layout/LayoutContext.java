@@ -62,7 +62,7 @@ public class LayoutContext {
 
   private LayoutContainer container;
 
-  public LayoutContext(LayoutContainer container) {
+  public LayoutContext(final LayoutContainer container) {
     this.container = container;
   }
 
@@ -75,7 +75,7 @@ public class LayoutContext {
       begin = System.nanoTime();
     }
 
-    LayoutManager layoutManager = container.getLayoutManager();
+    final LayoutManager layoutManager = container.getLayoutManager();
     layoutManager.init();
     if (trace) {
       log("after init", true);
@@ -119,8 +119,8 @@ public class LayoutContext {
     }
   }
 
-  private void log(String message, boolean trace) {
-    StringBuffer buffer = new StringBuffer(message + "\n");
+  private void log(final String message, final boolean trace) {
+    final StringBuffer buffer = new StringBuffer(message + "\n");
     log(buffer, (UIComponent) container, 0);
     if (trace) {
       LOG.trace(buffer.toString());
@@ -129,8 +129,8 @@ public class LayoutContext {
     }
   }
 
-  private void log(StringBuffer buffer, UIComponent component, int depth) {
-    FacesContext facesContext = FacesContext.getCurrentInstance();
+  private void log(final StringBuffer buffer, final UIComponent component, final int depth) {
+    final FacesContext facesContext = FacesContext.getCurrentInstance();
     buffer.append(StringUtils.repeat("  ", depth));
     buffer.append(component.getClass().getSimpleName());
     buffer.append("#");
@@ -143,7 +143,7 @@ public class LayoutContext {
       buffer.append(")");
     }
     if (component instanceof LayoutContainer) {
-      LayoutManager layoutManager = ((LayoutContainer) component).getLayoutManager();
+      final LayoutManager layoutManager = ((LayoutContainer) component).getLayoutManager();
       if (layoutManager instanceof AbstractUIGridLayout) {
         buffer.append("\n");
         buffer.append(StringUtils.repeat("  ", depth + 4));
@@ -152,7 +152,7 @@ public class LayoutContext {
       }
     }
     buffer.append("\n");
-    for (UIComponent child : component.getChildren()) {
+    for (final UIComponent child : component.getChildren()) {
       log(buffer, child, depth + 2);
     }
   }

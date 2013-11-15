@@ -33,7 +33,7 @@ public class Tobago1134 {
    */
   public Measure getValue() {
 
-    Configurable c = new Configurable() {
+    final Configurable c = new Configurable() {
       public String getRendererType() {
         return "Test";
       }

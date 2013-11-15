@@ -19,13 +19,14 @@
 
 package org.apache.myfaces.tobago.facelets.extension;
 
-import javax.faces.view.facelets.ComponentConfig;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.UISelectManyListbox;
 
+import javax.faces.view.facelets.ComponentConfig;
+
 public class SelectManyListboxExtensionHandler extends TobagoLabelExtensionHandler {
 
-  public SelectManyListboxExtensionHandler(ComponentConfig config) {
+  public SelectManyListboxExtensionHandler(final ComponentConfig config) {
     super(config);
   }
 

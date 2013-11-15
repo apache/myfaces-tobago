@@ -36,7 +36,7 @@ import java.util.Iterator;
 public class FacesContextWrapper extends javax.faces.context.FacesContext {
   private FacesContext context;
 
-  public FacesContextWrapper(FacesContext context) {
+  public FacesContextWrapper(final FacesContext context) {
     this.context = context;
   }
 
@@ -64,7 +64,7 @@ public class FacesContextWrapper extends javax.faces.context.FacesContext {
     return context.getMessages();
   }
 
-  public Iterator getMessages(String clientId) {
+  public Iterator getMessages(final String clientId) {
     return context.getMessages(clientId);
   }
 
@@ -84,7 +84,7 @@ public class FacesContextWrapper extends javax.faces.context.FacesContext {
     return context.getResponseStream();
   }
 
-  public void setResponseStream(ResponseStream responseStream) {
+  public void setResponseStream(final ResponseStream responseStream) {
     context.setResponseStream(responseStream);
   }
 
@@ -92,7 +92,7 @@ public class FacesContextWrapper extends javax.faces.context.FacesContext {
     return context.getResponseWriter();
   }
 
-  public void setResponseWriter(ResponseWriter responseWriter) {
+  public void setResponseWriter(final ResponseWriter responseWriter) {
     context.setResponseWriter(responseWriter);
   }
 
@@ -100,11 +100,11 @@ public class FacesContextWrapper extends javax.faces.context.FacesContext {
     return context.getViewRoot();
   }
 
-  public void setViewRoot(UIViewRoot root) {
+  public void setViewRoot(final UIViewRoot root) {
     context.setViewRoot(root);
   }
 
-  public void addMessage(String clientId, FacesMessage message) {
+  public void addMessage(final String clientId, final FacesMessage message) {
     context.addMessage(clientId, message);
   }
 

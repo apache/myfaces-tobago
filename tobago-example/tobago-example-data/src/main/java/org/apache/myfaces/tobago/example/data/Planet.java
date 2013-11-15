@@ -39,7 +39,7 @@ public class Planet {
   private String timeOfCirculation;
   private List moons;
 
-  public Planet(Planet planet) {
+  public Planet(final Planet planet) {
     this.diameter = planet.diameter;
     this.mass = planet.mass;
     this.sunDistance = planet.sunDistance;
@@ -47,8 +47,8 @@ public class Planet {
     this.moons = planet.moons;
   }
 
-  public Planet(String diameter, String mass, String sunDistance,
-      String timeOfCirculation, List moons) {
+  public Planet(final String diameter, final String mass, final String sunDistance,
+      final String timeOfCirculation, final List moons) {
     this.diameter = diameter;
     this.mass = mass;
     this.sunDistance = sunDistance;
@@ -60,7 +60,7 @@ public class Planet {
     return diameter;
   }
 
-  public void setDiameter(String diameter) {
+  public void setDiameter(final String diameter) {
     this.diameter = diameter;
   }
 
@@ -68,7 +68,7 @@ public class Planet {
     return mass;
   }
 
-  public void setMass(String mass) {
+  public void setMass(final String mass) {
     this.mass = mass;
   }
 
@@ -76,7 +76,7 @@ public class Planet {
     return sunDistance;
   }
 
-  public void setSunDistance(String sunDistance) {
+  public void setSunDistance(final String sunDistance) {
     this.sunDistance = sunDistance;
   }
 
@@ -84,7 +84,7 @@ public class Planet {
     return timeOfCirculation;
   }
 
-  public void setTimeOfCirculation(String timeOfCirculation) {
+  public void setTimeOfCirculation(final String timeOfCirculation) {
     this.timeOfCirculation = timeOfCirculation;
   }
 
@@ -92,7 +92,7 @@ public class Planet {
     return moons;
   }
 
-  public void setMoons(List moons) {
+  public void setMoons(final List moons) {
     this.moons = moons;
   }
 }

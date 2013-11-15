@@ -35,7 +35,7 @@ public class SheetStateChangeSourceRule extends MetaRule {
 
   public static final SheetStateChangeSourceRule INSTANCE = new SheetStateChangeSourceRule();
 
-  public Metadata applyRule(String name, TagAttribute attribute, MetadataTarget metadataTarget) {
+  public Metadata applyRule(final String name, final TagAttribute attribute, final MetadataTarget metadataTarget) {
     if (metadataTarget.isTargetInstanceOf(SheetStateChangeSource.class)) {
       if ("stateChangeListener".equals(name)) {
         return new SheetStateChangeListenerMapper(attribute);
@@ -48,11 +48,11 @@ public class SheetStateChangeSourceRule extends MetaRule {
 
     private final TagAttribute attribute;
 
-    public SheetStateChangeListenerMapper(TagAttribute attribute) {
+    public SheetStateChangeListenerMapper(final TagAttribute attribute) {
       this.attribute = attribute;
     }
 
-    public void applyMetadata(FaceletContext ctx, Object instance) {
+    public void applyMetadata(final FaceletContext ctx, final Object instance) {
       ((SheetStateChangeSource2) instance).setStateChangeListenerExpression(
           attribute.getMethodExpression(ctx, null, SheetStateChangeSourceRule.ACTION_LISTENER));
     }

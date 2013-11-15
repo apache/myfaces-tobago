@@ -34,11 +34,11 @@ import java.util.Set;
 public class MockServletContext implements ServletContext {
   private Map attributes = new HashMap();
 
-  public Set getResourcePaths(String reference) {
+  public Set getResourcePaths(final String reference) {
     return null;
   }
 
-  public Object getAttribute(String s) {
+  public Object getAttribute(final String s) {
     return attributes.get(s);
   }
 
@@ -50,11 +50,11 @@ public class MockServletContext implements ServletContext {
     return "";
   }
 
-  public ServletContext getContext(String s) {
+  public ServletContext getContext(final String s) {
     return null;
   }
 
-  public String getInitParameter(String s) {
+  public String getInitParameter(final String s) {
     return null;
   }
 
@@ -66,7 +66,7 @@ public class MockServletContext implements ServletContext {
     return 0;
   }
 
-  public String getMimeType(String s) {
+  public String getMimeType(final String s) {
     return null;
   }
 
@@ -74,23 +74,23 @@ public class MockServletContext implements ServletContext {
     return 0;
   }
 
-  public RequestDispatcher getNamedDispatcher(String s) {
+  public RequestDispatcher getNamedDispatcher(final String s) {
     return null;
   }
 
-  public String getRealPath(String s) {
+  public String getRealPath(final String s) {
     return null;
   }
 
-  public RequestDispatcher getRequestDispatcher(String s) {
+  public RequestDispatcher getRequestDispatcher(final String s) {
     return null;
   }
 
-  public URL getResource(String s) throws MalformedURLException {
+  public URL getResource(final String s) throws MalformedURLException {
     return null;
   }
 
-  public InputStream getResourceAsStream(String s) {
+  public InputStream getResourceAsStream(final String s) {
     return null;
   }
 
@@ -102,7 +102,7 @@ public class MockServletContext implements ServletContext {
     return null;
   }
 
-  public Servlet getServlet(String s) throws ServletException {
+  public Servlet getServlet(final String s) throws ServletException {
     return null;
   }
 
@@ -118,19 +118,19 @@ public class MockServletContext implements ServletContext {
     return null;
   }
 
-  public void log(Exception e, String s) {
+  public void log(final Exception e, final String s) {
   }
 
-  public void log(String s) {
+  public void log(final String s) {
   }
 
-  public void log(String s, Throwable throwable) {
+  public void log(final String s, final Throwable throwable) {
   }
 
-  public void removeAttribute(String s) {
+  public void removeAttribute(final String s) {
   }
 
-  public void setAttribute(String s, Object o) {
+  public void setAttribute(final String s, final Object o) {
     attributes.put(s, o);
   }
 }

@@ -39,7 +39,7 @@ public class NavigationNode extends DefaultMutableTreeNode implements Comparable
   /** Cache the TreePath for optimization. */
   private TreePath treePath;
 
-  public NavigationNode(String path, NavigationTree tree) {
+  public NavigationNode(final String path, final NavigationTree tree) {
 
     this.tree = tree;
     outcome = path;
@@ -54,8 +54,8 @@ public class NavigationNode extends DefaultMutableTreeNode implements Comparable
     title = t != null ? t : name;
   }
 
-  public int compareTo(Object o) {
-    NavigationNode other = (NavigationNode) o;
+  public int compareTo(final Object o) {
+    final NavigationNode other = (NavigationNode) o;
     return branch.compareTo(other.getBranch());
   }
 

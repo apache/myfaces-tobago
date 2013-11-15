@@ -26,12 +26,12 @@ import javax.faces.component.UIComponent;
 public class TabGroupToolBarRenderer extends ToolBarRendererBase {
 
   @Override
-  protected String getLabelPosition(UIComponent component) {
+  protected String getLabelPosition(final UIComponent component) {
     return UIToolBar.LABEL_OFF;
   }
 
   @Override
-  protected String getIconSize(UIComponent component) {
+  protected String getIconSize(final UIComponent component) {
     return UIToolBar.ICON_SMALL;
   }
 }

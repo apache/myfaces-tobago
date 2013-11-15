@@ -66,10 +66,10 @@ public class Sorter {
     final FacesContext facesContext = FacesContext.getCurrentInstance();
     final SheetState sheetState = data.getSheetState(facesContext);
 
-    Comparator actualComparator;
+    final Comparator actualComparator;
 
     if (value instanceof List || value instanceof Object[]) {
-      String sortProperty;
+      final String sortProperty;
 
       try {
         final UIComponent child = getFirstSortableChild(column.getChildren());
@@ -153,7 +153,7 @@ public class Sorter {
       // restore selected rows
       if (selectedDataRows != null) {
         sheetState.getSelectedRows().clear();
-        for (Object dataRow : selectedDataRows) {
+        for (final Object dataRow : selectedDataRows) {
           int index = -1;
           if (value instanceof List) {
             for (int i = 0; i < ((List) value).size() && index < 0; i++) {

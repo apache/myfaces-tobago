@@ -38,7 +38,7 @@ public class ValueExpressionPopupActionListener extends AbstractPopupActionListe
 
   private ValueExpression popupIdExpression;
 
-  public ValueExpressionPopupActionListener(ValueExpression expression) {
+  public ValueExpressionPopupActionListener(final ValueExpression expression) {
     popupIdExpression = expression;
   }
 
@@ -46,7 +46,7 @@ public class ValueExpressionPopupActionListener extends AbstractPopupActionListe
    * @deprecated Since 2.0.0, please use the other constructor with explicit type
    */
   @Deprecated
-  public ValueExpressionPopupActionListener(Object expression) {
+  public ValueExpressionPopupActionListener(final Object expression) {
     popupIdExpression = (ValueExpression) expression;
   }
 
@@ -57,9 +57,9 @@ public class ValueExpressionPopupActionListener extends AbstractPopupActionListe
   }
 
   @Override
-  protected AbstractUIPopup getPopup(ActionEvent actionEvent) {
-    String id = (String) popupIdExpression.getValue(FacesContext.getCurrentInstance().getELContext());
-    UIComponent popup = FindComponentUtils.findComponent(actionEvent.getComponent(), id);
+  protected AbstractUIPopup getPopup(final ActionEvent actionEvent) {
+    final String id = (String) popupIdExpression.getValue(FacesContext.getCurrentInstance().getELContext());
+    final UIComponent popup = FindComponentUtils.findComponent(actionEvent.getComponent(), id);
     if (popup instanceof AbstractUIPopup) {
       return (AbstractUIPopup) popup;
     } else {
@@ -75,19 +75,19 @@ public class ValueExpressionPopupActionListener extends AbstractPopupActionListe
     return false;
   }
 
-  public void restoreState(FacesContext context, Object state) {
-    Object[] values = (Object[]) state;
+  public void restoreState(final FacesContext context, final Object state) {
+    final Object[] values = (Object[]) state;
     popupIdExpression = (ValueExpression) UIComponentBase.restoreAttachedState(context, values[0]);
   }
 
-  public Object saveState(FacesContext context) {
-    Object[] values = new Object[1];
+  public Object saveState(final FacesContext context) {
+    final Object[] values = new Object[1];
     values[0] = UIComponentBase.saveAttachedState(context, popupIdExpression);
     return values;
   }
 
 
-  public void setTransient(boolean newTransientValue) {
+  public void setTransient(final boolean newTransientValue) {
     // ignore
   }
 }

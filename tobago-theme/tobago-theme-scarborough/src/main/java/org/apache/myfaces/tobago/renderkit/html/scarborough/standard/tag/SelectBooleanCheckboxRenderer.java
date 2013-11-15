@@ -43,15 +43,15 @@ public class SelectBooleanCheckboxRenderer extends LayoutComponentRendererBase {
 
   private static final Logger LOG = LoggerFactory.getLogger(SelectBooleanCheckboxRenderer.class);
 
-  public void decode(FacesContext facesContext, UIComponent component) {
+  public void decode(final FacesContext facesContext, final UIComponent component) {
 
-    UIInput input = (UIInput) component;
+    final UIInput input = (UIInput) component;
 
     if (ComponentUtils.isOutputOnly(input)) {
       return;
     }
 
-    String newValue = (String) facesContext.getExternalContext()
+    final String newValue = (String) facesContext.getExternalContext()
         .getRequestParameterMap().get(input.getClientId(facesContext));
 
     if (LOG.isDebugEnabled()) {
@@ -69,15 +69,15 @@ public class SelectBooleanCheckboxRenderer extends LayoutComponentRendererBase {
 //  }
 
   //
-  public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
+  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
 
-    UISelectBooleanCheckbox select = (UISelectBooleanCheckbox) component;
-    TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final UISelectBooleanCheckbox select = (UISelectBooleanCheckbox) component;
+    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
-    String id = select.getClientId(facesContext);
-    String currentValue = getCurrentValue(facesContext, select);
-    boolean checked = "true".equals(currentValue);
-    String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, select);
+    final String id = select.getClientId(facesContext);
+    final String currentValue = getCurrentValue(facesContext, select);
+    final boolean checked = "true".equals(currentValue);
+    final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, select);
 
     writer.startElement(HtmlElements.DIV, select);
     writer.writeStyleAttribute(new Style(facesContext, select));
@@ -99,7 +99,7 @@ public class SelectBooleanCheckboxRenderer extends LayoutComponentRendererBase {
 
     HtmlRendererUtils.renderFocus(id, select.isFocus(), ComponentUtils.isError(select), facesContext, writer);
 
-    Integer tabIndex = select.getTabIndex();
+    final Integer tabIndex = select.getTabIndex();
     if (tabIndex != null) {
       writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
     }
@@ -111,7 +111,7 @@ public class SelectBooleanCheckboxRenderer extends LayoutComponentRendererBase {
       label = select.getLabel(); // compatibility since TOBAGO-1093
     }
     if (label != null) {
-      LabelWithAccessKey labelWithAccessKey = new LabelWithAccessKey(label);
+      final LabelWithAccessKey labelWithAccessKey = new LabelWithAccessKey(label);
       writer.startElement(HtmlElements.LABEL, select);
       writer.writeAttribute(HtmlAttributes.FOR, id, false);
       if (labelWithAccessKey.getAccessKey() != null) {

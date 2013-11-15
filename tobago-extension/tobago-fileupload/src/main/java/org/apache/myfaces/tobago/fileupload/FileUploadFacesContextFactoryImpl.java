@@ -67,7 +67,7 @@ public class FileUploadFacesContextFactoryImpl extends FacesContextFactory {
   private String repositoryPath = System.getProperty("java.io.tmpdir");
   private long maxSize = TobagoMultipartFormdataRequest.ONE_MB;
 
-  public FileUploadFacesContextFactoryImpl(FacesContextFactory facesContextFactory) {
+  public FileUploadFacesContextFactoryImpl(final FacesContextFactory facesContextFactory) {
     // TODO get Configuration from env entries in the web.xml or context-param
     this.facesContextFactory = facesContextFactory;
     if (LOG.isDebugEnabled()) {
@@ -78,9 +78,9 @@ public class FileUploadFacesContextFactoryImpl extends FacesContextFactory {
       ic = new InitialContext();
 
       try {
-        String repositoryPath = (String) JndiUtils.getJndiProperty(ic, "uploadRepositoryPath");
+        final String repositoryPath = (String) JndiUtils.getJndiProperty(ic, "uploadRepositoryPath");
         if (repositoryPath != null) {
-          File file = new File(repositoryPath);
+          final File file = new File(repositoryPath);
           if (!file.exists()) {
             LOG.error("Given repository Path for "
                 + getClass().getName() + " " + repositoryPath + " doesn't exists");
@@ -91,23 +91,23 @@ public class FileUploadFacesContextFactoryImpl extends FacesContextFactory {
             this.repositoryPath = repositoryPath;
           }
         }
-      } catch (NamingException ne) {
+      } catch (final NamingException ne) {
         // ignore
       }
 
       try {
-        String size = (String) JndiUtils.getJndiProperty(ic, "uploadMaxFileSize");
+        final String size = (String) JndiUtils.getJndiProperty(ic, "uploadMaxFileSize");
         maxSize = TobagoMultipartFormdataRequest.getMaxSize(size);
-      } catch (NamingException ne) {
+      } catch (final NamingException ne) {
         // ignore
       }
-    } catch (NamingException e) {
+    } catch (final NamingException e) {
       // ignore no naming available
     } finally {
       if (ic != null) {
         try {
           ic.close();
-        } catch (NamingException e) {
+        } catch (final NamingException e) {
           // ignore
         }
       }
@@ -118,21 +118,23 @@ public class FileUploadFacesContextFactoryImpl extends FacesContextFactory {
     }
   }
 
-  public FacesContext getFacesContext(Object context, Object request, Object response, Lifecycle lifecycle)
+  public FacesContext getFacesContext(
+      final Object context, Object request, final Object response, final Lifecycle lifecycle)
       throws FacesException {
     if (request instanceof HttpServletRequest && !(request instanceof TobagoMultipartFormdataRequest)) {
-      String contentType = ((HttpServletRequest) request).getContentType();
+      final String contentType = ((HttpServletRequest) request).getContentType();
       if (contentType != null && contentType.toLowerCase().startsWith("multipart/form-data")) {
         if (LOG.isDebugEnabled()) {
           LOG.debug("Wrap HttpServletRequest for file upload");
         }
         try {
           request = new TobagoMultipartFormdataRequest((HttpServletRequest) request, repositoryPath, maxSize);
-        } catch (FacesException e) {
+        } catch (final FacesException e) {
           LOG.error("", e);
-          FacesContext facesContext = facesContextFactory.getFacesContext(context, request, response, lifecycle);
+          final FacesContext facesContext = facesContextFactory.getFacesContext(context, request, response, lifecycle);
           // TODO  better Message i18n Message?
-          FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getCause().getMessage(), null);
+          final FacesMessage facesMessage
+              = new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getCause().getMessage(), null);
           facesContext.addMessage(null, facesMessage);
           facesContext.renderResponse();
           return facesContext;

@@ -31,7 +31,7 @@ public class ClassInfo {
   private Set<String> interfaces = new HashSet<String>();
   private String sourceClass;
 
-  public ClassInfo(String sourceClass, String qualifiedName) {
+  public ClassInfo(final String sourceClass, final String qualifiedName) {
     this.sourceClass = sourceClass;
     this.className = ClassUtils.getSimpleName(qualifiedName);
     this.packageName = ClassUtils.getPackageName(qualifiedName);
@@ -46,8 +46,8 @@ public class ClassInfo {
     return packageName;
   }
 
-  public void setSuperClass(String qualifiedName) {
-    String name = ClassUtils.getSimpleName(qualifiedName);
+  public void setSuperClass(final String qualifiedName) {
+    final String name = ClassUtils.getSimpleName(qualifiedName);
     if (!name.equals(className)) {
       imports.addImport(qualifiedName);
       this.superClassName = name;
@@ -64,7 +64,7 @@ public class ClassInfo {
     return superClassName != null && superClassName.length() > 0;
   }
 
-  public void addImport(String qualifiedName) {
+  public void addImport(final String qualifiedName) {
     imports.addImport(qualifiedName);
   }
 
@@ -72,8 +72,8 @@ public class ClassInfo {
     return imports.getImports();
   }
 
-  public void addInterface(String qualifiedName) {
-    String name = ClassUtils.getSimpleName(qualifiedName);
+  public void addInterface(final String qualifiedName) {
+    final String name = ClassUtils.getSimpleName(qualifiedName);
     if (!name.equals(className)) {
       imports.addImport(qualifiedName);
       this.interfaces.add(name);

@@ -33,7 +33,7 @@ public class PageStateImpl implements PageState {
     return clientWidth;
   }
 
-  public void setClientWidth(int clientWidth) {
+  public void setClientWidth(final int clientWidth) {
     this.clientWidth = clientWidth;
   }
 
@@ -41,7 +41,7 @@ public class PageStateImpl implements PageState {
     return clientHeight;
   }
 
-  public void setClientHeight(int clientHeight) {
+  public void setClientHeight(final int clientHeight) {
     this.clientHeight = clientHeight;
   }
 }

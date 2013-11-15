@@ -25,7 +25,7 @@ import org.apache.myfaces.tobago.component.UIOut;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.component.AbstractUIMenu;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
-import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
+import org.apache.myfaces.tobago.renderkit.util.EncodeUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.util.FacetUtils;
 
@@ -36,7 +36,7 @@ import java.io.IOException;
 public class ColumnRenderer extends LayoutComponentRendererBase {
 
   @Override
-  public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
+  public void prepareRender(final FacesContext facesContext, final UIComponent component) throws IOException {
     super.prepareRender(facesContext, component);
 
     final UIColumn column = (UIColumn) component;
@@ -53,8 +53,8 @@ public class ColumnRenderer extends LayoutComponentRendererBase {
    * Pure is needed for &lt;tc:panel>,  &lt;tc:in>, etc.<br/>
    * Pure is not needed for  &lt;tc:out> and &lt;tc:link>
    */
-  private boolean isPure(UIColumn column) {
-    for (UIComponent child : column.getChildren()) {
+  private boolean isPure(final UIColumn column) {
+    for (final UIComponent child : column.getChildren()) {
       if (!(child instanceof UIOut) && !(child instanceof UILink)) {
         return true;
       }
@@ -68,10 +68,10 @@ public class ColumnRenderer extends LayoutComponentRendererBase {
   }
 
   @Override
-  public void prepareRendersChildren(FacesContext facesContext, UIComponent component) throws IOException {
-    AbstractUIMenu dropDownMenu = FacetUtils.getDropDownMenu(component);
+  public void prepareRendersChildren(final FacesContext facesContext, final UIComponent component) throws IOException {
+    final AbstractUIMenu dropDownMenu = FacetUtils.getDropDownMenu(component);
     if (dropDownMenu != null) {
-      RenderUtils.prepareRendererAll(facesContext, dropDownMenu);
+      EncodeUtils.prepareRendererAll(facesContext, dropDownMenu);
     }
   }
 

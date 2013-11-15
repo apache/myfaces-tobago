@@ -43,7 +43,7 @@ import java.util.List;
 public class SuggestRenderer extends InputRendererBase {
 
   @Override
-  public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
+  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
 
     final UISuggest suggest = (UISuggest) component;
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
@@ -78,7 +78,7 @@ public class SuggestRenderer extends InputRendererBase {
     writer.endElement(HtmlElements.A);
 
     writer.startElement(HtmlElements.OL, null);
-    for (AutoSuggestItem item : items.getItems()) {
+    for (final AutoSuggestItem item : items.getItems()) {
       writer.startElement(HtmlElements.LI, null);
       writer.startElement(HtmlElements.A, null);
       writer.writeAttribute(HtmlAttributes.HREF, "#", false);
@@ -105,19 +105,19 @@ public class SuggestRenderer extends InputRendererBase {
     writer.endElement(HtmlElements.DIV);
   }
 
-  private AutoSuggestItems createAutoSuggestItems(Object object) {
+  private AutoSuggestItems createAutoSuggestItems(final Object object) {
     if (object instanceof AutoSuggestItems) {
       return (AutoSuggestItems) object;
     }
-    AutoSuggestItems autoSuggestItems = new AutoSuggestItems();
+    final AutoSuggestItems autoSuggestItems = new AutoSuggestItems();
     if (object instanceof List && !((List) object).isEmpty()) {
       if (((List) object).get(0) instanceof AutoSuggestItem) {
         //noinspection unchecked
         autoSuggestItems.setItems((List<AutoSuggestItem>) object);
       } else if (((List) object).get(0) instanceof String) {
-        List<AutoSuggestItem> items = new ArrayList<AutoSuggestItem>(((List) object).size());
+        final List<AutoSuggestItem> items = new ArrayList<AutoSuggestItem>(((List) object).size());
         for (int i = 0; i < ((List) object).size(); i++) {
-          AutoSuggestItem item = new AutoSuggestItem();
+          final AutoSuggestItem item = new AutoSuggestItem();
           item.setLabel((String) ((List) object).get(i));
           item.setValue((String) ((List) object).get(i));
           items.add(item);

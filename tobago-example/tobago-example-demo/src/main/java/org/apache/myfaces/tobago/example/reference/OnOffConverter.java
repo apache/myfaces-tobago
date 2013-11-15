@@ -31,13 +31,15 @@ public class OnOffConverter implements Converter {
 
   private static final Logger LOG = LoggerFactory.getLogger(OnOffConverter.class);
 
-  public Object getAsObject(FacesContext context, UIComponent component, String value) throws ConverterException {
+  public Object getAsObject(final FacesContext context, final UIComponent component, final String value)
+      throws ConverterException {
     final String result = Boolean.parseBoolean(value) ? "on" : "off";
     LOG.info("Got value = '" + value + "'. Result = '" + result + "'");
     return result;
   }
 
-  public String getAsString(FacesContext context, UIComponent component, Object value) throws ConverterException {
+  public String getAsString(final FacesContext context, final UIComponent component, final Object value)
+      throws ConverterException {
     final String result = "on".equals(value) ? Boolean.TRUE.toString() : Boolean.FALSE.toString();
     LOG.info("Got value = '" + value + "'. Result: '" + result + "'");
     return result;

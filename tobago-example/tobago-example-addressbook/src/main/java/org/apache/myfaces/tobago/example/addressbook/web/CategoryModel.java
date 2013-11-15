@@ -26,7 +26,7 @@ public class CategoryModel {
   private Logger logger;
   private String level;
 
-  public CategoryModel(Logger logger) {
+  public CategoryModel(final Logger logger) {
       this.logger = logger;
   }
 
@@ -60,7 +60,7 @@ public class CategoryModel {
               : logger.getLevel().toString();
   }
 
-  public void setLevel(String level) {
+  public void setLevel(final String level) {
       if (!getLevel().equals(level)) {
           this.level = level;
       }

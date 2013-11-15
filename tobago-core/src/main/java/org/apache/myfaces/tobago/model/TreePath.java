@@ -58,11 +58,11 @@ public class TreePath implements Serializable {
 
   private final int[] path;
 
-  public TreePath(int... path) {
+  public TreePath(final int... path) {
     this.path = path;
   }
 
-  public TreePath(List<Integer> pathList) {
+  public TreePath(final List<Integer> pathList) {
     path = new int[pathList.size()];
     for (int i = 0; i < path.length; i++) {
       path[i] = pathList.get(i);
@@ -73,7 +73,7 @@ public class TreePath implements Serializable {
    * @deprecated since 2.0.0
    */
   @Deprecated
-  public TreePath(TreePath position, int addendum) {
+  public TreePath(final TreePath position, final int addendum) {
     this.path = new int[position.path.length + 1];
     System.arraycopy(position.path, 0, path, 0, position.path.length);
     path[position.path.length] = addendum;
@@ -83,7 +83,7 @@ public class TreePath implements Serializable {
    * @deprecated since 2.0.0
    */
   @Deprecated
-  public TreePath(String string) throws NumberFormatException {
+  public TreePath(final String string) throws NumberFormatException {
     this(StringUtils.parseIntegerList(string, "_"));
   }
 
@@ -101,8 +101,8 @@ public class TreePath implements Serializable {
     }
     path = new int[n - 1];
     for (int i = n - 2; i >= 0; i--) {
-      TreeNode parent = list.get(i + 1);
-      TreeNode child = list.get(i);
+      final TreeNode parent = list.get(i + 1);
+      final TreeNode child = list.get(i);
       for (int j = 0; j < parent.getChildCount(); j++) {
         if (parent.getChildAt(j) == child) { // == is okay in this case
           path[n - 2 - i] = j;
@@ -124,8 +124,8 @@ public class TreePath implements Serializable {
    * @deprecated since 2.0.0
    */
   public String getPathString() {
-    StringBuilder builder = new StringBuilder();
-    for (int item : path) {
+    final StringBuilder builder = new StringBuilder();
+    for (final int item : path) {
       builder.append("_");
       builder.append(item);
     }
@@ -137,7 +137,7 @@ public class TreePath implements Serializable {
    */
   @Deprecated
   public String getParentPathString() {
-    StringBuilder builder = new StringBuilder();
+    final StringBuilder builder = new StringBuilder();
     for (int i = 0; i < path.length - 1; i++) {
       builder.append("_");
       builder.append(path[i]);
@@ -158,7 +158,7 @@ public class TreePath implements Serializable {
       return null;
     }
     for (int i = 1; i < path.length; i++) { // i = 1: first entry must be 0 and means the root
-      int pos = path[i];
+      final int pos = path[i];
       if (pos >= tree.getChildCount()) {
         return null;
       }
@@ -168,14 +168,14 @@ public class TreePath implements Serializable {
   }
 
   @Override
-  public boolean equals(Object o) {
+  public boolean equals(final Object o) {
     if (this == o) {
       return true;
     }
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    TreePath nodeIndex = (TreePath) o;
+    final TreePath nodeIndex = (TreePath) o;
     return Arrays.equals(path, nodeIndex.path);
 
   }

@@ -94,7 +94,7 @@ public class NavigationState implements Serializable {
     }
   }
 
-  public String gotoNode(NavigationNode node) {
+  public String gotoNode(final NavigationNode node) {
     if (node == null) {
       return gotoFirst();
     } else {

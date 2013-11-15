@@ -32,7 +32,7 @@ public final class PortletUtils {
     boolean result;
     try {
       result = PortletRequest.class != null;
-    } catch (NoClassDefFoundError e) {
+    } catch (final NoClassDefFoundError e) {
       result = false;
     }
     PORTLET_API_AVAILABLE = result;

@@ -35,8 +35,8 @@ public class SortActionSourceRule extends MetaRule {
 
   public static final SortActionSourceRule INSTANCE = new SortActionSourceRule();
 
-  public Metadata applyRule(String name, TagAttribute attribute,
-      MetadataTarget metadataTarget) {
+  public Metadata applyRule(final String name, final TagAttribute attribute,
+      final MetadataTarget metadataTarget) {
     if (metadataTarget.isTargetInstanceOf(SortActionSource.class)) {
       if ("sortActionListener".equals(name)) {
         return new SortActionListenerMapper(attribute);
@@ -49,11 +49,11 @@ public class SortActionSourceRule extends MetaRule {
 
     private final TagAttribute attribute;
 
-    public SortActionListenerMapper(TagAttribute attribute) {
+    public SortActionListenerMapper(final TagAttribute attribute) {
       this.attribute = attribute;
     }
 
-    public void applyMetadata(FaceletContext ctx, Object instance) {
+    public void applyMetadata(final FaceletContext ctx, final Object instance) {
       ((SortActionSource2) instance).setSortActionListenerExpression(
           attribute.getMethodExpression(ctx, null, SortActionSourceRule.ACTION_LISTENER));
     }

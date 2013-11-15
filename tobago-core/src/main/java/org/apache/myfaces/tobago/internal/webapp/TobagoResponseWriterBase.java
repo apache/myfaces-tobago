@@ -69,7 +69,7 @@ public abstract class TobagoResponseWriterBase extends TobagoResponseWriter {
 
   private final String characterEncoding;
 
-  protected TobagoResponseWriterBase(Writer writer, String contentType, String characterEncoding) {
+  protected TobagoResponseWriterBase(final Writer writer, final String contentType, final String characterEncoding) {
     this.writer = writer;
     this.contentType = contentType;
     this.characterEncoding = characterEncoding != null ? characterEncoding : "UTF-8";
@@ -83,7 +83,7 @@ public abstract class TobagoResponseWriterBase extends TobagoResponseWriter {
     return component;
   }
 
-  protected final void setComponent(UIComponent component) {
+  protected final void setComponent(final UIComponent component) {
     this.component = component;
   }
 
@@ -91,7 +91,7 @@ public abstract class TobagoResponseWriterBase extends TobagoResponseWriter {
     return startStillOpen;
   }
 
-  protected final void setStartStillOpen(boolean startStillOpen) {
+  protected final void setStartStillOpen(final boolean startStillOpen) {
     this.startStillOpen = startStillOpen;
   }
 
@@ -132,29 +132,29 @@ public abstract class TobagoResponseWriterBase extends TobagoResponseWriter {
   }
 
   @Override
-  public void write(String string) throws IOException {
+  public void write(final String string) throws IOException {
     writeInternal(writer, string);
   }
 
-  protected final void writeInternal(Writer writer, String string) throws IOException {
+  protected final void writeInternal(final Writer writer, final String string) throws IOException {
     closeOpenTag();
     writer.write(string);
   }
 
   @Override
-  public void write(int i) throws IOException {
+  public void write(final int i) throws IOException {
     closeOpenTag();
     writer.write(i);
   }
 
   @Override
-  public void write(char[] chars) throws IOException {
+  public void write(final char[] chars) throws IOException {
     closeOpenTag();
     writer.write(chars);
   }
 
   @Override
-  public void write(String string, int i, int i1) throws IOException {
+  public void write(final String string, final int i, final int i1) throws IOException {
     closeOpenTag();
     writer.write(string, i, i1);
   }
@@ -207,7 +207,7 @@ public abstract class TobagoResponseWriterBase extends TobagoResponseWriter {
     startElementInternal(writer, name, currentComponent);
   }
 
-  protected void startElementInternal(Writer writer, String name, UIComponent currentComponent)
+  protected void startElementInternal(final Writer writer, final String name, final UIComponent currentComponent)
       throws IOException {
     this.component = currentComponent;
 //    closeOpenTag();
@@ -225,7 +225,7 @@ public abstract class TobagoResponseWriterBase extends TobagoResponseWriter {
 
   public void writeComment(final Object obj) throws IOException {
     closeOpenTag();
-    String comment = obj.toString();
+    final String comment = obj.toString();
     write("<!--");
     write(comment);
     write("-->");
@@ -286,7 +286,7 @@ public abstract class TobagoResponseWriterBase extends TobagoResponseWriter {
   }
 
 
-  protected void endElementInternal(Writer writer, String name) throws IOException {
+  protected void endElementInternal(final Writer writer, final String name) throws IOException {
     if (EMPTY_TAG.contains(name)) {
       closeEmptyTag();
     } else {
@@ -302,11 +302,12 @@ public abstract class TobagoResponseWriterBase extends TobagoResponseWriter {
   }
   protected abstract void closeEmptyTag() throws IOException;
 
-  protected void writeAttributeInternal(Writer writer, String name, String value, boolean escape)
+  protected void writeAttributeInternal(
+      final Writer writer, final String name, final String value, final boolean escape)
       throws IOException {
     if (!startStillOpen) {
-      String trace = getCallingClassStackTraceElementString();
-      String error = "Cannot write attribute when start-tag not open. "
+      final String trace = getCallingClassStackTraceElementString();
+      final String error = "Cannot write attribute when start-tag not open. "
           + "name = '" + name + "' "
           + "value = '" + value + "' "
           + trace.substring(trace.indexOf('('));

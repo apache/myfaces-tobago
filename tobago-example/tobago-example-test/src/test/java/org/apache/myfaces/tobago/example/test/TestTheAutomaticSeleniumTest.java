@@ -49,12 +49,12 @@ public class TestTheAutomaticSeleniumTest {
   @Test
   public void areTheCorrectFilesTested() {
 
-    List<String> metaTestList = new ArrayList<String>();
+    final List<String> metaTestList = new ArrayList<String>();
 
-    Collection<Object[]> pages = AutomaticSeleniumTest.findPages();
-    for (Object[] page : pages) {
-      String url = (String) page[1];
-      String prefix = "/faces/meta-test/";
+    final Collection<Object[]> pages = AutomaticSeleniumTest.findPages();
+    for (final Object[] page : pages) {
+      final String url = (String) page[1];
+      final String prefix = "/faces/meta-test/";
       if (url.startsWith(prefix)) {
         metaTestList.add(url.substring(prefix.length()));
       }
@@ -62,7 +62,7 @@ public class TestTheAutomaticSeleniumTest {
 
     Collections.sort(metaTestList);
 
-    String[] expected = new String[]{
+    final String[] expected = new String[]{
         "meta-0-ok.jspx",
         "meta-0-ok.xhtml",
         "meta-2-ok.xhtml",
@@ -75,16 +75,16 @@ public class TestTheAutomaticSeleniumTest {
   @Test
   public void test404() throws Exception {
     try {
-      String url = AutomaticSeleniumTest.createUrl("/meta-test/meta-404-not-existing.xhtml");
+      final String url = AutomaticSeleniumTest.createUrl("/meta-test/meta-404-not-existing.xhtml");
       LOG.info("Testing page: '" + url + "'");
-      AutomaticSeleniumTest test = new AutomaticSeleniumTest(url, url);
+      final AutomaticSeleniumTest test = new AutomaticSeleniumTest(url, url);
 
       test.testPageConsistency();
 
       Assert.fail("The test should fail, but wasn't.");
-    } catch (AssertionError e) { // from IDE
+    } catch (final AssertionError e) { // from IDE
       Assert.assertTrue(e.getMessage().contains("404 - page not found"));
-    } catch (SeleniumException e) { // from mvn -Pintegration-test
+    } catch (final SeleniumException e) { // from mvn -Pintegration-test
       LOG.info("Exception: '" + e.getMessage() + "'");
       Assert.assertTrue(e.getMessage().contains("Response_Code = 404"));
     }
@@ -93,14 +93,14 @@ public class TestTheAutomaticSeleniumTest {
   @Test
   public void testErrorSeverity() throws Exception {
     try {
-      String url = AutomaticSeleniumTest.createUrl("/meta-test/meta-1-fail.xhtml");
+      final String url = AutomaticSeleniumTest.createUrl("/meta-test/meta-1-fail.xhtml");
       LOG.info("Testing page: '" + url + "'");
-      AutomaticSeleniumTest test = new AutomaticSeleniumTest(url, url);
+      final AutomaticSeleniumTest test = new AutomaticSeleniumTest(url, url);
 
       test.testPageConsistency();
 
       Assert.fail("The test should fail, but wasn't.");
-    } catch (AssertionError e) {
+    } catch (final AssertionError e) {
       if (e.getMessage().contains(TobagoSelenium.HAS_ERROR_SEVERITY)) {
         // okay, the error was detected.
       } else {
@@ -112,14 +112,14 @@ public class TestTheAutomaticSeleniumTest {
   @Test
   public void testNotTobago() throws Exception {
     try {
-      String url = AutomaticSeleniumTest.createUrl("/meta-test/meta-4-not-tobago.xhtml");
+      final String url = AutomaticSeleniumTest.createUrl("/meta-test/meta-4-not-tobago.xhtml");
       LOG.info("Testing page: '" + url + "'");
-      AutomaticSeleniumTest test = new AutomaticSeleniumTest(url, url);
+      final AutomaticSeleniumTest test = new AutomaticSeleniumTest(url, url);
 
       test.testPageConsistency();
 
       Assert.fail("The test should fail, but wasn't.");
-    } catch (AssertionError e) {
+    } catch (final AssertionError e) {
       if (e.getMessage().contains(TobagoSelenium.IS_BROKEN)) {
         // okay, the error was detected.
       } else {

@@ -50,31 +50,31 @@ public class TimeRenderer extends InputRendererBase {
 
   private static final Logger LOG = LoggerFactory.getLogger(TimeRenderer.class);
 
-  public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
+  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
 
-    UITime time = (UITime) component;
+    final UITime time = (UITime) component;
 
-    String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, time);
-    String currentValue = getCurrentValue(facesContext, time);
+    final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, time);
+    final String currentValue = getCurrentValue(facesContext, time);
     if (LOG.isDebugEnabled()) {
       LOG.debug("currentValue = '" + currentValue + "'");
     }
 
     String pattern = "HH:mm";
     if (time.getConverter() != null) {
-      Converter converter = time.getConverter();
+      final Converter converter = time.getConverter();
       if (converter instanceof DateTimeConverter) {
-        String string = DateFormatUtils.findPattern((DateTimeConverter) converter);
+        final String string = DateFormatUtils.findPattern((DateTimeConverter) converter);
         if (string != null && string.indexOf('s') > -1) {
           pattern += ":ss";
         }
       }
     }
 
-    boolean hasSeconds = pattern.indexOf('s') > -1;
+    final boolean hasSeconds = pattern.indexOf('s') > -1;
 
-    Object value = time.getValue();
-    Date date;
+    final Object value = time.getValue();
+    final Date date;
     if (value instanceof Date) {
       date = (Date) value;
     } else if (value instanceof Calendar) {
@@ -83,11 +83,11 @@ public class TimeRenderer extends InputRendererBase {
       date = new Date();
     }
 
-    String hour = new SimpleDateFormat("HH").format(date);
-    String minute = new SimpleDateFormat("mm").format(date);
-    String second = new SimpleDateFormat("ss").format(date);
+    final String hour = new SimpleDateFormat("HH").format(date);
+    final String minute = new SimpleDateFormat("mm").format(date);
+    final String second = new SimpleDateFormat("ss").format(date);
 
-    String id = time.getClientId(facesContext);
+    final String id = time.getClientId(facesContext);
     final String idPrefix = id + ComponentUtils.SUB_SEPARATOR;
 
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
@@ -96,9 +96,9 @@ public class TimeRenderer extends InputRendererBase {
     writer.writeIdAttribute(id);
     writer.writeClassAttribute(Classes.create(time));
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, time);
-    Style style = new Style(facesContext, time);
+    final Style style = new Style(facesContext, time);
     writer.writeStyleAttribute(style);
-    String dateInputId = (String) time.getAttributes().get(Attributes.DATE_INPUT_ID);
+    final String dateInputId = (String) time.getAttributes().get(Attributes.DATE_INPUT_ID);
     if (dateInputId != null) {
       writer.writeAttribute(DataAttributes.DATE_INPUT_ID, dateInputId, false);
     }
@@ -152,7 +152,8 @@ public class TimeRenderer extends InputRendererBase {
     writer.endElement(HtmlElements.DIV);
   }
 
-  private void writeInputSeparator(TobagoResponseWriter writer, UITime time, String sep) throws IOException {
+  private void writeInputSeparator(final TobagoResponseWriter writer, final UITime time, final String sep)
+      throws IOException {
     writer.startElement(HtmlElements.SPAN, null);
     writer.writeClassAttribute(Classes.create(time, "sep"));
     writer.writeText(sep);
@@ -160,9 +161,10 @@ public class TimeRenderer extends InputRendererBase {
   }
 
   private void writeInput(
-      TobagoResponseWriter writer, UITime input, String idPrefix, String unit, String value, String title, int max)
+      final TobagoResponseWriter writer, final UITime input, final String idPrefix, final String unit,
+      final String value, final String title, final int max)
       throws IOException {
-    Integer tabIndex = input.getTabIndex();
+    final Integer tabIndex = input.getTabIndex();
     writer.startElement(HtmlElements.INPUT, null);
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.TEXT, false);
     writer.writeIdAttribute(idPrefix + unit);

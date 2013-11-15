@@ -59,7 +59,7 @@ public class Style implements Serializable {
   public Style() {
   }
 
-  public Style(Style map) {
+  public Style(final Style map) {
     this.width = map.width;
     this.height = map.height;
     this.left = map.left;
@@ -83,9 +83,9 @@ public class Style implements Serializable {
     this.textAlign = map.textAlign;
   }
 
-  public Style(FacesContext facesContext, LayoutBase layout) {
+  public Style(final FacesContext facesContext, final LayoutBase layout) {
 
-    String rendererType = layout.getRendererType();
+    final String rendererType = layout.getRendererType();
     
     width = layout.getCurrentWidth();
     if (width != null) {
@@ -140,7 +140,7 @@ public class Style implements Serializable {
   }
 
   public String encode() {
-    StringBuilder buf = new StringBuilder();
+    final StringBuilder buf = new StringBuilder();
     if (width != null) {
       buf.append("width:");
       buf.append(width.serialize());
@@ -251,7 +251,7 @@ public class Style implements Serializable {
   }
 
   public String encodeJson() {
-    StringBuilder buf = new StringBuilder("{");
+    final StringBuilder buf = new StringBuilder("{");
     if (width != null) {
       buf.append("\"width\":\"");
       buf.append(width.serialize());
@@ -370,7 +370,7 @@ public class Style implements Serializable {
     return width;
   }
 
-  public void setWidth(Measure width) {
+  public void setWidth(final Measure width) {
     this.width = width;
   }
 
@@ -378,7 +378,7 @@ public class Style implements Serializable {
     return height;
   }
 
-  public void setHeight(Measure height) {
+  public void setHeight(final Measure height) {
     this.height = height;
   }
 
@@ -386,7 +386,7 @@ public class Style implements Serializable {
     return left;
   }
 
-  public void setLeft(Measure left) {
+  public void setLeft(final Measure left) {
     this.left = left;
   }
 
@@ -394,7 +394,7 @@ public class Style implements Serializable {
     return top;
   }
 
-  public void setTop(Measure top) {
+  public void setTop(final Measure top) {
     this.top = top;
   }
 
@@ -402,7 +402,7 @@ public class Style implements Serializable {
     return display;
   }
 
-  public void setDisplay(Display display) {
+  public void setDisplay(final Display display) {
     this.display = display;
   }
 
@@ -410,7 +410,7 @@ public class Style implements Serializable {
     return position;
   }
 
-  public void setPosition(Position position) {
+  public void setPosition(final Position position) {
     this.position = position;
   }
 
@@ -418,7 +418,7 @@ public class Style implements Serializable {
     return overflowX;
   }
 
-  public void setOverflowX(Overflow overflowX) {
+  public void setOverflowX(final Overflow overflowX) {
     this.overflowX = overflowX;
   }
 
@@ -426,7 +426,7 @@ public class Style implements Serializable {
     return overflowY;
   }
 
-  public void setOverflowY(Overflow overflowY) {
+  public void setOverflowY(final Overflow overflowY) {
     this.overflowY = overflowY;
   }
 
@@ -434,7 +434,7 @@ public class Style implements Serializable {
     return marginLeft;
   }
 
-  public void setMarginLeft(Measure marginLeft) {
+  public void setMarginLeft(final Measure marginLeft) {
     this.marginLeft = marginLeft;
   }
 
@@ -442,7 +442,7 @@ public class Style implements Serializable {
     return marginRight;
   }
 
-  public void setMarginRight(Measure marginRight) {
+  public void setMarginRight(final Measure marginRight) {
     this.marginRight = marginRight;
   }
 
@@ -450,7 +450,7 @@ public class Style implements Serializable {
     return marginTop;
   }
 
-  public void setMarginTop(Measure marginTop) {
+  public void setMarginTop(final Measure marginTop) {
     this.marginTop = marginTop;
   }
 
@@ -458,7 +458,7 @@ public class Style implements Serializable {
     return marginBottom;
   }
 
-  public void setMarginBottom(Measure marginBottom) {
+  public void setMarginBottom(final Measure marginBottom) {
     this.marginBottom = marginBottom;
   }
 
@@ -466,7 +466,7 @@ public class Style implements Serializable {
     return margin;
   }
 
-  public void setMargin(Measure margin) {
+  public void setMargin(final Measure margin) {
     this.margin = margin;
   }
 
@@ -474,7 +474,7 @@ public class Style implements Serializable {
     return paddingLeft;
   }
 
-  public void setPaddingLeft(Measure paddingLeft) {
+  public void setPaddingLeft(final Measure paddingLeft) {
     this.paddingLeft = paddingLeft;
   }
 
@@ -482,7 +482,7 @@ public class Style implements Serializable {
     return paddingRight;
   }
 
-  public void setPaddingRight(Measure paddingRight) {
+  public void setPaddingRight(final Measure paddingRight) {
     this.paddingRight = paddingRight;
   }
 
@@ -490,7 +490,7 @@ public class Style implements Serializable {
     return paddingTop;
   }
 
-  public void setPaddingTop(Measure paddingTop) {
+  public void setPaddingTop(final Measure paddingTop) {
     this.paddingTop = paddingTop;
   }
 
@@ -498,7 +498,7 @@ public class Style implements Serializable {
     return paddingBottom;
   }
 
-  public void setPaddingBottom(Measure paddingBottom) {
+  public void setPaddingBottom(final Measure paddingBottom) {
     this.paddingBottom = paddingBottom;
   }
 
@@ -506,7 +506,7 @@ public class Style implements Serializable {
     return padding;
   }
 
-  public void setPadding(Measure padding) {
+  public void setPadding(final Measure padding) {
     this.padding = padding;
   }
 
@@ -514,7 +514,7 @@ public class Style implements Serializable {
     return backgroundImage;
   }
 
-  public void setBackgroundImage(String backgroundImage) {
+  public void setBackgroundImage(final String backgroundImage) {
     this.backgroundImage = backgroundImage;
   }
 
@@ -522,7 +522,7 @@ public class Style implements Serializable {
     return zIndex;
   }
 
-  public void setZIndex(Integer zIndex) {
+  public void setZIndex(final Integer zIndex) {
     this.zIndex = zIndex;
   }
 
@@ -530,7 +530,7 @@ public class Style implements Serializable {
     return textAlign;
   }
 
-  public void setTextAlign(TextAlign textAlign) {
+  public void setTextAlign(final TextAlign textAlign) {
     this.textAlign = textAlign;
   }
 }

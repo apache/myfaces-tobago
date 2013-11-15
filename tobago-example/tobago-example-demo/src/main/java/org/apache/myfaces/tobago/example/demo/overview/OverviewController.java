@@ -117,7 +117,7 @@ public class OverviewController implements Serializable {
     multiValue = new Salutation[0];
     treeTabsState = 0;
     sheetConfig = new SheetConfig();
-    String[] toolbarIconKeys
+    final String[] toolbarIconKeys
         = {UIToolBar.ICON_OFF, UIToolBar.ICON_SMALL, UIToolBar.ICON_BIG};
     toolbarIconItems = new SelectItem[toolbarIconKeys.length];
     for (int i = 0; i < toolbarIconKeys.length; i++) {
@@ -125,7 +125,7 @@ public class OverviewController implements Serializable {
     }
     toolbarIconSize = UIToolBar.ICON_SMALL;
 
-    String[] toolbarTextKeys =
+    final String[] toolbarTextKeys =
         {UIToolBar.LABEL_OFF, UIToolBar.LABEL_BOTTOM, UIToolBar.LABEL_RIGHT};
     toolbarTextItems = new SelectItem[toolbarTextKeys.length];
     for (int i = 0; i < toolbarTextKeys.length; i++) {
@@ -134,9 +134,9 @@ public class OverviewController implements Serializable {
     toolbarTextPosition = UIToolBar.LABEL_BOTTOM;
   }
 
-  private static SelectItem[] getSalutationSelectItems(String bundle) {
-    Salutation[] salutations = Salutation.values();
-    SelectItem[] items = new SelectItem[salutations.length];
+  private static SelectItem[] getSalutationSelectItems(final String bundle) {
+    final Salutation[] salutations = Salutation.values();
+    final SelectItem[] items = new SelectItem[salutations.length];
     for (int i = 0; i < items.length; i++) {
       String label = ResourceManagerUtils.getProperty(
           FacesContext.getCurrentInstance(), bundle, salutations[i].getKey());
@@ -151,8 +151,8 @@ public class OverviewController implements Serializable {
     return items;
   }
 
-  private static SelectItem[] getSelectItems(String[] keys, String bundle) {
-    SelectItem[] items = new SelectItem[keys.length];
+  private static SelectItem[] getSelectItems(final String[] keys, final String bundle) {
+    final SelectItem[] items = new SelectItem[keys.length];
     for (int i = 0; i < items.length; i++) {
       String label = ResourceManagerUtils.getProperty(
           FacesContext.getCurrentInstance(), bundle, keys[i]);
@@ -167,12 +167,12 @@ public class OverviewController implements Serializable {
     return items;
   }
 
-  public void click(ActionEvent actionEvent) {
+  public void click(final ActionEvent actionEvent) {
     LOG.info("click the action listener");
     lastAction = actionEvent.getComponent().getId();
   }
 
-  public void resetColumnWidths(ActionEvent event) {
+  public void resetColumnWidths(final ActionEvent event) {
     final UISheet sheet = (UISheet) event.getComponent().findComponent("sheet");
     if (sheet != null) {
       sheet.resetColumnWidths();
@@ -181,43 +181,43 @@ public class OverviewController implements Serializable {
     }
   }
 
-  public void sheetSorter(ActionEvent event) {
+  public void sheetSorter(final ActionEvent event) {
     if (event instanceof SortActionEvent) {
-      SortActionEvent sortEvent = (SortActionEvent) event;
-      UISheet sheet = (UISheet) sortEvent.getComponent();
-      SheetState sheetState
+      final SortActionEvent sortEvent = (SortActionEvent) event;
+      final UISheet sheet = (UISheet) sortEvent.getComponent();
+      final SheetState sheetState
           = sheet.getSheetState(FacesContext.getCurrentInstance());
-      String columnId = sheetState.getSortedColumnId();
-      List<SolarObject> list = (List<SolarObject>) sheet.getValue();
-      SolarObject sun = list.remove(0);
+      final String columnId = sheetState.getSortedColumnId();
+      final List<SolarObject> list = (List<SolarObject>) sheet.getValue();
+      final SolarObject sun = list.remove(0);
 
       Comparator<SolarObject> comparator = null;
 
       if ("name".equals(columnId)) {
         comparator = new Comparator<SolarObject>() {
-          public int compare(SolarObject o1, SolarObject o2) {
+          public int compare(final SolarObject o1, final SolarObject o2) {
             return o1.getName().compareToIgnoreCase(o2.getName());
           }
         };
       } else if ("orbit".equals(columnId)) {
         comparator = new Comparator<SolarObject>() {
-          public int compare(SolarObject o1, SolarObject o2) {
+          public int compare(final SolarObject o1, final SolarObject o2) {
             return o1.getOrbit().compareToIgnoreCase(o2.getOrbit());
           }
         };
       } else if ("population".equals(columnId)) {
         comparator = new Comparator<SolarObject>() {
-          public int compare(SolarObject o1, SolarObject o2) {
+          public int compare(final SolarObject o1, final SolarObject o2) {
             Integer i1 = -1;
             try {
               i1 = new Integer(o1.getPopulation().replaceAll("\\D", "").trim());
-            } catch (NumberFormatException e) {
+            } catch (final NumberFormatException e) {
               // ignore
             }
             Integer i2 = -1;
             try {
               i2 = new Integer(o2.getPopulation().replaceAll("\\D", "").trim());
-            } catch (NumberFormatException e) {
+            } catch (final NumberFormatException e) {
               // ignore
             }
             return i1.compareTo(i2);
@@ -225,13 +225,13 @@ public class OverviewController implements Serializable {
         };
       } else if ("distance".equals(columnId)) {
         comparator = new Comparator<SolarObject>() {
-          public int compare(SolarObject o1, SolarObject o2) {
+          public int compare(final SolarObject o1, final SolarObject o2) {
             return o1.getDistance().compareTo(o2.getDistance());
           }
         };
       } else if ("period".equals(columnId)) {
         comparator = new Comparator<SolarObject>() {
-          public int compare(SolarObject o1, SolarObject o2) {
+          public int compare(final SolarObject o1, final SolarObject o2) {
             return o1.getPeriod().compareTo(o2.getPeriod());
           }
         };
@@ -251,7 +251,8 @@ public class OverviewController implements Serializable {
     return null;
   }
 
-  public void customValidator(FacesContext context, UIComponent component, Object value) throws ValidatorException {
+  public void customValidator(final FacesContext context, final UIComponent component, final Object value)
+      throws ValidatorException {
     if (value == null) {
       return;
     }
@@ -289,7 +290,7 @@ public class OverviewController implements Serializable {
     return radioValue;
   }
 
-  public void setRadioValue(Salutation radioValue) {
+  public void setRadioValue(final Salutation radioValue) {
     this.radioValue = radioValue;
   }
 
@@ -297,7 +298,7 @@ public class OverviewController implements Serializable {
     return singleValue;
   }
 
-  public void setSingleValue(Salutation singleValue) {
+  public void setSingleValue(final Salutation singleValue) {
     this.singleValue = singleValue;
   }
 
@@ -305,7 +306,7 @@ public class OverviewController implements Serializable {
     return multiValue;
   }
 
-  public void setMultiValue(Salutation[] multiValue) {
+  public void setMultiValue(final Salutation[] multiValue) {
     this.multiValue = multiValue;
   }
 
@@ -313,7 +314,7 @@ public class OverviewController implements Serializable {
     return basicDate;
   }
 
-  public void setBasicDate(Date basicDate) {
+  public void setBasicDate(final Date basicDate) {
     this.basicDate = basicDate;
   }
 
@@ -321,7 +322,7 @@ public class OverviewController implements Serializable {
     return basicTime;
   }
 
-  public void setBasicTime(Date basicTime) {
+  public void setBasicTime(final Date basicTime) {
     this.basicTime = basicTime;
   }
 
@@ -329,7 +330,7 @@ public class OverviewController implements Serializable {
     return treeSelectMode;
   }
 
-  public void setTreeSelectMode(String treeSelectMode) {
+  public void setTreeSelectMode(final String treeSelectMode) {
     this.treeSelectMode = treeSelectMode;
   }
 
@@ -337,7 +338,7 @@ public class OverviewController implements Serializable {
     return treeListboxSelectMode;
   }
 
-  public void setTreeListboxSelectMode(String treeListboxSelectMode) {
+  public void setTreeListboxSelectMode(final String treeListboxSelectMode) {
     this.treeListboxSelectMode = treeListboxSelectMode;
   }
 
@@ -345,7 +346,7 @@ public class OverviewController implements Serializable {
     return basicInput;
   }
 
-  public void setBasicInput(String basicInput) {
+  public void setBasicInput(final String basicInput) {
     this.basicInput = basicInput;
   }
 
@@ -353,7 +354,7 @@ public class OverviewController implements Serializable {
     return suggestInput;
   }
 
-  public void setSuggestInput(String suggestInput) {
+  public void setSuggestInput(final String suggestInput) {
     this.suggestInput = suggestInput;
   }
 
@@ -361,7 +362,7 @@ public class OverviewController implements Serializable {
     return placeholder;
   }
 
-  public void setPlaceholder(String placeholder) {
+  public void setPlaceholder(final String placeholder) {
     this.placeholder = placeholder;
   }
 
@@ -369,7 +370,7 @@ public class OverviewController implements Serializable {
     return basicArea;
   }
 
-  public void setBasicArea(String basicArea) {
+  public void setBasicArea(final String basicArea) {
     this.basicArea = basicArea;
   }
 
@@ -381,7 +382,7 @@ public class OverviewController implements Serializable {
     return treeTabsState;
   }
 
-  public void setTreeTabsState(Integer treeTabsState) {
+  public void setTreeTabsState(final Integer treeTabsState) {
     this.treeTabsState = treeTabsState;
   }
 
@@ -389,7 +390,7 @@ public class OverviewController implements Serializable {
     return sheetConfig;
   }
 
-  public void setSheetConfig(SheetConfig sheetConfig) {
+  public void setSheetConfig(final SheetConfig sheetConfig) {
     this.sheetConfig = sheetConfig;
   }
 
@@ -397,7 +398,7 @@ public class OverviewController implements Serializable {
         return toolbarIconSize;
     }
 
-    public void setToolbarIconSize(String toolbarIconSize) {
+    public void setToolbarIconSize(final String toolbarIconSize) {
         this.toolbarIconSize = toolbarIconSize;
     }
 
@@ -405,7 +406,7 @@ public class OverviewController implements Serializable {
         return toolbarIconItems;
     }
 
-    public void setToolbarIconItems(SelectItem[] toolbarIconItems) {
+    public void setToolbarIconItems(final SelectItem[] toolbarIconItems) {
         this.toolbarIconItems = toolbarIconItems;
     }
 
@@ -413,7 +414,7 @@ public class OverviewController implements Serializable {
         return toolbarTextPosition;
     }
 
-    public void setToolbarTextPosition(String toolbarTextPosition) {
+    public void setToolbarTextPosition(final String toolbarTextPosition) {
         this.toolbarTextPosition = toolbarTextPosition;
     }
 
@@ -421,15 +422,15 @@ public class OverviewController implements Serializable {
         return toolbarTextItems;
     }
 
-    public void setToolbarTextItems(SelectItem[] toolbarTextItems) {
+    public void setToolbarTextItems(final SelectItem[] toolbarTextItems) {
         this.toolbarTextItems = toolbarTextItems;
     }
 
-  public List<String> getInputSuggestItems(UIInput component) {
-    String prefix = (String) component.getSubmittedValue();
+  public List<String> getInputSuggestItems(final UIInput component) {
+    final String prefix = (String) component.getSubmittedValue();
     LOG.info("Creating items for prefix: '" + prefix + "'");
-    List<String> result = new ArrayList<String>();
-    for (String name : LocaleList.COUNTRY_LANGUAGE) {
+    final List<String> result = new ArrayList<String>();
+    for (final String name : LocaleList.COUNTRY_LANGUAGE) {
       if (StringUtils.startsWithIgnoreCase(name, prefix)) {
         result.add(name);
       }

@@ -26,10 +26,10 @@ import java.util.Iterator;
 
 public abstract class AbstractResetInputActionListener implements ActionListener {
 
-  protected void resetChildren(UIComponent component) {
-    Iterator it = component.getFacetsAndChildren();
+  protected void resetChildren(final UIComponent component) {
+    final Iterator it = component.getFacetsAndChildren();
     while (it.hasNext()) {
-      UIComponent child = (UIComponent) it.next();
+      final UIComponent child = (UIComponent) it.next();
       if (child instanceof EditableValueHolder) {
         reset((EditableValueHolder) child);
       }
@@ -37,7 +37,7 @@ public abstract class AbstractResetInputActionListener implements ActionListener
     }
   }
 
-  public static void reset(EditableValueHolder editableValueHolder) {
+  public static void reset(final EditableValueHolder editableValueHolder) {
     editableValueHolder.setValue(null);
     editableValueHolder.setSubmittedValue(null);
     editableValueHolder.setLocalValueSet(false);

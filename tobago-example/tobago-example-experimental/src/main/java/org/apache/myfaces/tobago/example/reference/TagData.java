@@ -26,7 +26,7 @@ public class TagData {
   private String tip;
 
 
-  public TagData(Class clazz) {
+  public TagData(final Class clazz) {
     this.clazz = clazz;
   }
 
@@ -38,7 +38,7 @@ public class TagData {
     return name;
   }
 
-  public void setName(String name) {
+  public void setName(final String name) {
     this.name = name;
   }
 
@@ -46,7 +46,7 @@ public class TagData {
     return tip;
   }
 
-  public void setTip(String tip) {
+  public void setTip(final String tip) {
     this.tip = tip;
   }
 }

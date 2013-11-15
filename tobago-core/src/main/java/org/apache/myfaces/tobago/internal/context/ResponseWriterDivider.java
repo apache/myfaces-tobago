@@ -47,7 +47,7 @@ public final class ResponseWriterDivider {
   
   private String nameInRequest;
 
-  public static ResponseWriterDivider getInstance(FacesContext facesContext, String nameInRequest) {
+  public static ResponseWriterDivider getInstance(final FacesContext facesContext, final String nameInRequest) {
     final Map<String, Object> map = facesContext.getExternalContext().getRequestMap();
     ResponseWriterDivider divider = (ResponseWriterDivider) map.get(nameInRequest);
     if (divider == null) {
@@ -59,7 +59,7 @@ public final class ResponseWriterDivider {
     return divider;
   }
 
-  private ResponseWriterDivider(FacesContext facesContext) {
+  private ResponseWriterDivider(final FacesContext facesContext) {
     writers = new ArrayList<ResponseWriter>();
     buffers = new ArrayList<FastStringWriter>();
     current = -1;
@@ -73,16 +73,16 @@ public final class ResponseWriterDivider {
    * It is usually needed to get the response writer again with HtmlRendererUtils.getTobagoResponseWriter();
    * @return true if the branch was not created new. So the branch was already existent.
    */
-  public boolean activateBranch(FacesContext facesContext) {
+  public boolean activateBranch(final FacesContext facesContext) {
 
     assert writers.size() == buffers.size();
 
     boolean created = true;
     current++;
     if (writers.size() == current) {
-      FastStringWriter buffer = new FastStringWriter();
+      final FastStringWriter buffer = new FastStringWriter();
       buffers.add(buffer);
-      ResponseWriter newWriter = facesContext.getResponseWriter().cloneWithWriter(buffer);
+      final ResponseWriter newWriter = facesContext.getResponseWriter().cloneWithWriter(buffer);
       writers.add(newWriter);
       created = false;
     }
@@ -100,7 +100,7 @@ public final class ResponseWriterDivider {
    * It is usually needed to get the response writer again with HtmlRendererUtils.getTobagoResponseWriter();
    * @return true, if the current writer is not the original writer. So the "stack" is at the bottom. 
    */
-  public boolean passivateBranch(FacesContext facesContext) {
+  public boolean passivateBranch(final FacesContext facesContext) {
 
     assert writers.size() == buffers.size();
     
@@ -124,9 +124,9 @@ public final class ResponseWriterDivider {
    * Write the collected stuff in the original writer.
    * This is always the last call on this object.
    */
-  public void writeOutAndCleanUp(FacesContext facesContext) throws IOException {
+  public void writeOutAndCleanUp(final FacesContext facesContext) throws IOException {
     facesContext.setResponseWriter(original);
-    for (FastStringWriter buffer : buffers) {
+    for (final FastStringWriter buffer : buffers) {
       original.write(buffer.toString());
     }
     // clean up.
@@ -136,14 +136,14 @@ public final class ResponseWriterDivider {
 
   @Override
   public String toString() {
-    StringBuilder builder = new StringBuilder();
+    final StringBuilder builder = new StringBuilder();
     builder.append("StringBuilder(");
     builder.append(System.identityHashCode(this));
     builder.append(") current=");
     builder.append(current);
     builder.append("\n");
     int i = 0;
-    for (FastStringWriter buffer : buffers) {
+    for (final FastStringWriter buffer : buffers) {
       builder.append("\n- buffer ");
       builder.append(i++);
       builder.append(" ------------------------------------------------------------\n");

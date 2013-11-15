@@ -40,7 +40,7 @@ public class ResourceManagerUtil {
    * @deprecated please use {@link ResourceManagerUtils}
    */
   @Deprecated
-  public static String getProperty(FacesContext facesContext, String bundle, String key) {
+  public static String getProperty(final FacesContext facesContext, final String bundle, final String key) {
     return ResourceManagerFactory.getResourceManager(facesContext).getProperty(facesContext, bundle, key);
   }
 
@@ -48,8 +48,9 @@ public class ResourceManagerUtil {
    * @deprecated please use {@link ResourceManagerUtils}
    */
   @Deprecated
-  public static String getPropertyNotNull(FacesContext facesContext, String bundle, String key) {
-    String result = ResourceManagerFactory.getResourceManager(facesContext).getProperty(facesContext, bundle, key);
+  public static String getPropertyNotNull(final FacesContext facesContext, final String bundle, final String key) {
+    final String result
+        = ResourceManagerFactory.getResourceManager(facesContext).getProperty(facesContext, bundle, key);
     if (result == null) {
       return "???" + key + "???";
     } else {
@@ -61,7 +62,7 @@ public class ResourceManagerUtil {
    * Searches for an image and return it with the context path
    * @deprecated please use {@link ResourceManagerUtils}
    */
-  public static String getImageWithPath(FacesContext facesContext, String name) {
+  public static String getImageWithPath(final FacesContext facesContext, final String name) {
     return facesContext.getExternalContext().getRequestContextPath()
         + ResourceManagerFactory.getResourceManager(facesContext).getImage(facesContext, name);
   }
@@ -70,8 +71,10 @@ public class ResourceManagerUtil {
    * Searches for an image and return it with the context path
    * @deprecated please use {@link ResourceManagerUtils}
    */
-  public static String getImageWithPath(FacesContext facesContext, String name, boolean ignoreMissing) {
-    String image = ResourceManagerFactory.getResourceManager(facesContext).getImage(facesContext, name, ignoreMissing);
+  public static String getImageWithPath(
+      final FacesContext facesContext, final String name, final boolean ignoreMissing) {
+    final String image
+        = ResourceManagerFactory.getResourceManager(facesContext).getImage(facesContext, name, ignoreMissing);
     if (image == null) {
       return null;
     } else {
@@ -83,9 +86,9 @@ public class ResourceManagerUtil {
    * @deprecated please use {@link ResourceManagerUtils}
    */
   @Deprecated
-  public static List<String> getStyles(FacesContext facesContext, String name) {
-    String contextPath = facesContext.getExternalContext().getRequestContextPath();
-    String[] styles = ResourceManagerFactory.getResourceManager(facesContext).getStyles(facesContext, name);
+  public static List<String> getStyles(final FacesContext facesContext, final String name) {
+    final String contextPath = facesContext.getExternalContext().getRequestContextPath();
+    final String[] styles = ResourceManagerFactory.getResourceManager(facesContext).getStyles(facesContext, name);
     return addContextPath(styles, contextPath);
   }
 
@@ -93,9 +96,9 @@ public class ResourceManagerUtil {
    * @deprecated please use {@link ResourceManagerUtils}
    */
   @Deprecated
-  private static List<String> addContextPath(String[] strings, String contextPath) {
-    List<String> withContext = new ArrayList<String>(strings.length);
-    for (String string : strings) {
+  private static List<String> addContextPath(final String[] strings, final String contextPath) {
+    final List<String> withContext = new ArrayList<String>(strings.length);
+    for (final String string : strings) {
       withContext.add(contextPath + string);
     }
     return withContext;
@@ -105,9 +108,9 @@ public class ResourceManagerUtil {
    * @deprecated please use {@link ResourceManagerUtils}
    */
   @Deprecated
-  public static List<String> getScripts(FacesContext facesContext, String name) {
-    String contextPath = facesContext.getExternalContext().getRequestContextPath();
-    String[] scripts = ResourceManagerFactory.getResourceManager(facesContext).getScripts(facesContext, name);
+  public static List<String> getScripts(final FacesContext facesContext, final String name) {
+    final String contextPath = facesContext.getExternalContext().getRequestContextPath();
+    final String[] scripts = ResourceManagerFactory.getResourceManager(facesContext).getScripts(facesContext, name);
     return addContextPath(scripts, contextPath);
   }
 
@@ -115,9 +118,9 @@ public class ResourceManagerUtil {
    * @deprecated please use {@link ResourceManagerUtils}
    */
   @Deprecated
-  public static String getScriptsAsJSArray(FacesContext facesContext, String[] names) {
-    List<String> fileNames = new ArrayList<String>();
-    for (String name : names) {
+  public static String getScriptsAsJSArray(final FacesContext facesContext, final String[] names) {
+    final List<String> fileNames = new ArrayList<String>();
+    for (final String name : names) {
       fileNames.addAll(getScripts(facesContext, name));
     }
     return toJSArray(fileNames);
@@ -127,9 +130,9 @@ public class ResourceManagerUtil {
    * @deprecated please use {@link ResourceManagerUtils}
    */
   @Deprecated
-  public static String getStylesAsJSArray(FacesContext facesContext, String[] names) {
-    List<String> fileNames = new ArrayList<String>();
-    for (String name : names) {
+  public static String getStylesAsJSArray(final FacesContext facesContext, final String[] names) {
+    final List<String> fileNames = new ArrayList<String>();
+    for (final String name : names) {
       fileNames.addAll(getStyles(facesContext, name));
     }
     return toJSArray(fileNames);
@@ -139,9 +142,9 @@ public class ResourceManagerUtil {
    * @deprecated please use {@link ResourceManagerUtils}
    */
   @Deprecated
-  public static String toJSArray(List<String> list) {
-    StringBuilder sb = new StringBuilder();
-    for (String name : list) {
+  public static String toJSArray(final List<String> list) {
+    final StringBuilder sb = new StringBuilder();
+    for (final String name : list) {
       if (sb.length() > 0) {
         sb.append(", ");
       }
@@ -156,8 +159,8 @@ public class ResourceManagerUtil {
    * @deprecated please use {@link ResourceManagerUtils}
    */
   @Deprecated
-  public static String getDisabledImageWithPath(FacesContext facesContext, String image) {
-    String filename = ResourceUtils.addPostfixToFilename(image, "Disabled");
+  public static String getDisabledImageWithPath(final FacesContext facesContext, final String image) {
+    final String filename = ResourceUtils.addPostfixToFilename(image, "Disabled");
     return getImageWithPath(facesContext, filename, true);
   }
 
@@ -165,7 +168,7 @@ public class ResourceManagerUtil {
    * @deprecated please use {@link ResourceManagerUtils}
    */
   @Deprecated
-  public static String getBlankPage(FacesContext facesContext) {
+  public static String getBlankPage(final FacesContext facesContext) {
     return ResourceManagerUtils.getBlankPage(facesContext);
   }
 
@@ -173,7 +176,7 @@ public class ResourceManagerUtil {
    * @deprecated please use {@link ResourceManagerUtils}
    */
   @Deprecated
-  public static String getPageWithoutContextPath(FacesContext facesContext, String name) {
+  public static String getPageWithoutContextPath(final FacesContext facesContext, final String name) {
     return ResourceManagerFactory.getResourceManager(facesContext).getImage(facesContext, name);
   }
 
@@ -181,7 +184,8 @@ public class ResourceManagerUtil {
    * @deprecated please use {@link ResourceManagerUtils}
    */
   @Deprecated
-  public static Measure getThemeMeasure(FacesContext facesContext, Configurable configurable, String name) {
+  public static Measure getThemeMeasure(
+      final FacesContext facesContext, final Configurable configurable, final String name) {
     return ResourceManagerUtils.getThemeMeasure(facesContext, configurable, name);
   }
 
@@ -189,7 +193,7 @@ public class ResourceManagerUtil {
    * @deprecated please use {@link ResourceManagerUtils}
    */
   @Deprecated
-  public static boolean isAbsoluteResource(String value) {
+  public static boolean isAbsoluteResource(final String value) {
     return ResourceManagerUtils.isAbsoluteResource(value);
   }
   

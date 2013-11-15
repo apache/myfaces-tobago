@@ -62,10 +62,10 @@ public class TobagoRenderKit extends RenderKit {
   }
 
   @Override
-  public Renderer getRenderer(String family, String rendererType) {
+  public Renderer getRenderer(final String family, final String rendererType) {
     Renderer renderer = renderers.get(new Key(family, rendererType));
     if (renderer == null) {
-      RenderKit renderKit = getHtmlBasicRenderKit();
+      final RenderKit renderKit = getHtmlBasicRenderKit();
       renderer = renderKit.getRenderer(family, rendererType);
       if (renderer != null) {
         renderer = new RendererBaseWrapper(renderer);
@@ -82,7 +82,7 @@ public class TobagoRenderKit extends RenderKit {
 
   private RenderKit getHtmlBasicRenderKit() {
     if (htmlBasicRenderKit == null) {
-      RenderKitFactory rkFactory = (RenderKitFactory) FactoryFinder.getFactory(FactoryFinder.RENDER_KIT_FACTORY);
+      final RenderKitFactory rkFactory = (RenderKitFactory) FactoryFinder.getFactory(FactoryFinder.RENDER_KIT_FACTORY);
       htmlBasicRenderKit =
           rkFactory.getRenderKit(FacesContext.getCurrentInstance(), RenderKitFactory.HTML_BASIC_RENDER_KIT);
     }
@@ -91,9 +91,9 @@ public class TobagoRenderKit extends RenderKit {
 
   @Override
   public ResponseWriter createResponseWriter(
-      Writer writer, String contentTypeList, String characterEncoding) {
+      final Writer writer, final String contentTypeList, final String characterEncoding) {
     String contentType;
-    FacesContext facesContext = FacesContext.getCurrentInstance();
+    final FacesContext facesContext = FacesContext.getCurrentInstance();
     if (AjaxUtils.isAjaxRequest(facesContext)) {
       return new JsonResponseWriter(writer, "application/json", characterEncoding);
     }
@@ -142,7 +142,7 @@ public class TobagoRenderKit extends RenderKit {
   }
 
   @Override
-  public void addRenderer(String family, String rendererType, Renderer renderer) {
+  public void addRenderer(final String family, final String rendererType, final Renderer renderer) {
     renderers.put(new Key(family, rendererType), renderer);
   }
 
@@ -152,7 +152,7 @@ public class TobagoRenderKit extends RenderKit {
   }
 
   @Override
-  public ResponseStream createResponseStream(OutputStream outputStream) {
+  public ResponseStream createResponseStream(final OutputStream outputStream) {
     return getHtmlBasicRenderKit().createResponseStream(outputStream);
   }
 
@@ -160,12 +160,12 @@ public class TobagoRenderKit extends RenderKit {
     private final String family;
     private final String rendererType;
 
-    private Key(String family, String rendererType) {
+    private Key(final String family, final String rendererType) {
       this.family = family;
       this.rendererType = rendererType;
     }
 
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
       if (this == o) {
         return true;
       }
@@ -173,7 +173,7 @@ public class TobagoRenderKit extends RenderKit {
         return false;
       }
 
-      Key key = (Key) o;
+      final Key key = (Key) o;
 
       if (!family.equals(key.family)) {
         return false;

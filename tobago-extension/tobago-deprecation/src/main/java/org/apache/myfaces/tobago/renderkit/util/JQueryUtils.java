@@ -33,7 +33,7 @@ public class JQueryUtils {
    * Puts two backslashes before : and . to escape them.
    * Two are needed, because of JavaScript string literals. 
    */
-  public static String escapeId(String id) {
+  public static String escapeId(final String id) {
     return id.replaceAll("([\\:\\.])", "\\\\\\\\$1");
   }
 
@@ -41,7 +41,7 @@ public class JQueryUtils {
    * Puts one backslashes before \ to escape it.
    * It is needed, because of JavaScript string literals. 
    */
-  public static String escapeValue(String value) {
+  public static String escapeValue(final String value) {
     return value.replaceAll("\\\\", "\\\\\\\\");
   }
 
@@ -50,9 +50,9 @@ public class JQueryUtils {
    * Two are needed, because of JavaScript string literals.
    * Puts three backslashes before a \ itself, to escape it. 
    */
-  public static String escapeSelector(String value) {
-    StringBuilder builder = new StringBuilder();
-    for (char c : value.toCharArray()) {
+  public static String escapeSelector(final String value) {
+    final StringBuilder builder = new StringBuilder();
+    for (final char c : value.toCharArray()) {
       switch (c) {
         case '\\':
           builder.append("\\\\\\\\");
@@ -92,8 +92,8 @@ public class JQueryUtils {
    * Creates a selector for an id like jQuery('#id').
    * The id will be escaped if necessary.
    */
-  public static String selectId(String id) {
-    StringBuilder builder = new StringBuilder();
+  public static String selectId(final String id) {
+    final StringBuilder builder = new StringBuilder();
     builder.append("jQuery('#");
     builder.append(escapeId(id));
     builder.append("')");

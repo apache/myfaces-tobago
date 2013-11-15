@@ -30,7 +30,7 @@ public class UploadItem {
   private int size;
   private String type;
 
-  public UploadItem(String name, int size, String type) {
+  public UploadItem(final String name, final int size, final String type) {
     this.name = name;
     this.size = size;
     this.type = type;
@@ -40,7 +40,7 @@ public class UploadItem {
     return name;
   }
 
-  public void setName(String name) {
+  public void setName(final String name) {
     this.name = name;
   }
 
@@ -48,7 +48,7 @@ public class UploadItem {
     return size;
   }
 
-  public void setSize(int size) {
+  public void setSize(final int size) {
     this.size = size;
   }
 
@@ -56,7 +56,7 @@ public class UploadItem {
     return type;
   }
 
-  public void setType(String type) {
+  public void setType(final String type) {
     this.type = type;
   }
 }

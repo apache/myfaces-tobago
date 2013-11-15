@@ -56,7 +56,8 @@ public class DatePickerRenderer extends LinkRenderer {
   private static final Logger LOG = LoggerFactory.getLogger(DatePickerRenderer.class);
 
   @Override
-  public void onComponentCreated(FacesContext facesContext, UIComponent component, UIComponent parent) {
+  public void onComponentCreated(
+      final FacesContext facesContext, final UIComponent component, final UIComponent parent) {
     final UIDatePicker picker = (UIDatePicker) component;
     if (picker.getFor() == null) {
       picker.setFor("@auto");
@@ -160,8 +161,8 @@ public class DatePickerRenderer extends LinkRenderer {
   }
 
   @Override
-  public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
-    UIDatePicker picker = (UIDatePicker) component;
+  public void prepareRender(final FacesContext facesContext, final UIComponent component) throws IOException {
+    final UIDatePicker picker = (UIDatePicker) component;
     // todo: use Measure instead of int
     // todo: call setWidth ???
     picker.getAttributes().put(
@@ -174,9 +175,9 @@ public class DatePickerRenderer extends LinkRenderer {
   }
 
   @Override
-  public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
-    UIDatePicker picker = (UIDatePicker) component;
-    UIDate dateInput = (UIDate) picker.getForComponent();
+  public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
+    final UIDatePicker picker = (UIDatePicker) component;
+    final UIDate dateInput = (UIDate) picker.getForComponent();
     if (dateInput == null) {
       LOG.error("The required UIDate component wasn't found for component id='" + component.getId());
       return;
@@ -193,9 +194,9 @@ public class DatePickerRenderer extends LinkRenderer {
         picker.setDisabled(dateInput.isReadonly() || dateInput.isDisabled());
       }
     }
-    UIPopup popup = (UIPopup) picker.getFacets().get(Facets.POPUP);
+    final UIPopup popup = (UIPopup) picker.getFacets().get(Facets.POPUP);
     picker.setRenderedPartially(new String[] {popup.getId()});
-    Converter converter = getConverter(facesContext, dateInput);
+    final Converter converter = getConverter(facesContext, dateInput);
     String converterPattern = "yyyy-MM-dd"; // from tobago-calendar.js  initCalendarParse
     if (converter instanceof DateTimeConverter) {
       converterPattern = DateFormatUtils.findPattern((DateTimeConverter) converter);
@@ -212,12 +213,13 @@ public class DatePickerRenderer extends LinkRenderer {
     super.encodeBegin(facesContext, component);
   }
 
-  private void applyConverterPattern(FacesContext facesContext, UIPopup popup, String converterPattern) {
-    UIComponent box = popup.getChildren().get(0);
-    UIComponent timePanel = box.findComponent("timePanel");
+  private void applyConverterPattern(
+      final FacesContext facesContext, final UIPopup popup, final String converterPattern) {
+    final UIComponent box = popup.getChildren().get(0);
+    final UIComponent timePanel = box.findComponent("timePanel");
     if (converterPattern != null && (converterPattern.indexOf('h') > -1 || converterPattern.indexOf('H') > -1)) {
-      UITime time = (UITime) timePanel.findComponent("time");
-      DateTimeConverter dateTimeConverter
+      final UITime time = (UITime) timePanel.findComponent("time");
+      final DateTimeConverter dateTimeConverter
           = (DateTimeConverter) facesContext.getApplication().createConverter(DateTimeConverter.CONVERTER_ID);
       if (converterPattern.indexOf('s') > -1) {
         dateTimeConverter.setPattern("HH:mm:ss");
@@ -232,9 +234,9 @@ public class DatePickerRenderer extends LinkRenderer {
   }
 
   @Override
-  public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
-    UIDatePicker link = (UIDatePicker) component;
-    UIDate dateInput = (UIDate) link.getForComponent();
+  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
+    final UIDatePicker link = (UIDatePicker) component;
+    final UIDate dateInput = (UIDate) link.getForComponent();
     if (dateInput != null) {
       super.encodeEnd(facesContext, component);
     } else {

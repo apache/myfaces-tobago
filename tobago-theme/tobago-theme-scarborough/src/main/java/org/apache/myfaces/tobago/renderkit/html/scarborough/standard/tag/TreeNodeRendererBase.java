@@ -33,7 +33,7 @@ import java.io.IOException;
 public class TreeNodeRendererBase extends LayoutComponentRendererBase {
 
   @Override
-  public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
+  public void prepareRender(final FacesContext facesContext, final UIComponent component) throws IOException {
     super.prepareRender(facesContext, component);
 
     final AbstractUITreeNode node = (AbstractUITreeNode) component;

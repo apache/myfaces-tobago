@@ -38,12 +38,12 @@ public abstract class RichTextEditorTag extends TobagoTag
 
   public int doEndTag() throws JspException {
     // TODO: own layout for editor?
-    int result = super.doEndTag();
+    final int result = super.doEndTag();
     getComponentInstance().getFacets().remove(Facets.LAYOUT);
     return result;
   }
 
-  protected void setProperties(UIComponent component) {
+  protected void setProperties(final UIComponent component) {
 
     super.setProperties(component);
 
@@ -65,7 +65,7 @@ public abstract class RichTextEditorTag extends TobagoTag
     return statePreview;
   }
 
-  public void setStatePreview(ValueExpression statePreview) {
+  public void setStatePreview(final ValueExpression statePreview) {
     this.statePreview = statePreview;
   }
 }

@@ -28,7 +28,7 @@ public class ZIndexController {
     return modal1;
   }
 
-  public void setModal1(Boolean modal1) {
+  public void setModal1(final Boolean modal1) {
     this.modal1 = modal1;
   }
 
@@ -36,7 +36,7 @@ public class ZIndexController {
     return modal2;
   }
 
-  public void setModal2(Boolean modal2) {
+  public void setModal2(final Boolean modal2) {
     this.modal2 = modal2;
   }
 }

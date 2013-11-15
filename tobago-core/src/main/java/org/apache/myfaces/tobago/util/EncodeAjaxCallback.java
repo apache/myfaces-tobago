@@ -25,36 +25,35 @@ import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.internal.layout.LayoutContext;
 import org.apache.myfaces.tobago.layout.LayoutContainer;
 import org.apache.myfaces.tobago.layout.Measure;
-import org.apache.myfaces.tobago.renderkit.RendererBase;
+import org.apache.myfaces.tobago.renderkit.util.EncodeUtils;
 
 import javax.faces.FacesException;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseId;
 import java.io.IOException;
-import java.util.Iterator;
 
 public class EncodeAjaxCallback implements TobagoCallback {
 
-  public void invokeContextCallback(FacesContext facesContext, UIComponent component) {
+  public void invokeContextCallback(final FacesContext facesContext, final UIComponent component) {
     try {
-       UIComponent reload = component.getFacet(Facets.RELOAD);
+       final UIComponent reload = component.getFacet(Facets.RELOAD);
        if (reload != null && reload.isRendered()) {
-         Boolean immediate = (Boolean) reload.getAttributes().get(Attributes.IMMEDIATE);
+         final Boolean immediate = (Boolean) reload.getAttributes().get(Attributes.IMMEDIATE);
          if (immediate != null && !immediate) {
-           Boolean update = (Boolean) reload.getAttributes().get(Attributes.UPDATE);
+           final Boolean update = (Boolean) reload.getAttributes().get(Attributes.UPDATE);
            if (update != null && !update) {
              return;
            }
          }
       }
-      prepareRendererAll(facesContext, component);
+      EncodeUtils.prepareRendererAll(facesContext, component);
       if (component instanceof LayoutContainer) {
-        LayoutContainer layoutContainer = (LayoutContainer) component;
-        Measure width = layoutContainer.getCurrentWidth();
-        Measure height = layoutContainer.getCurrentHeight();
-        Measure oldWidth = layoutContainer.getWidth();
-        Measure oldHeight = layoutContainer.getHeight();
+        final LayoutContainer layoutContainer = (LayoutContainer) component;
+        final Measure width = layoutContainer.getCurrentWidth();
+        final Measure height = layoutContainer.getCurrentHeight();
+        final Measure oldWidth = layoutContainer.getWidth();
+        final Measure oldHeight = layoutContainer.getHeight();
         layoutContainer.setWidth(width);
         layoutContainer.setHeight(height);
         new LayoutContext(layoutContainer).layout();
@@ -62,7 +61,7 @@ public class EncodeAjaxCallback implements TobagoCallback {
         layoutContainer.setHeight(oldHeight);
       }
       encodeAll(facesContext, component);
-    } catch (IOException e) {
+    } catch (final IOException e) {
       throw new FacesException(e);
     }
   }
@@ -73,13 +72,13 @@ public class EncodeAjaxCallback implements TobagoCallback {
   
 
   // TODO replace with component.encodeAll after removing jsf 1.1 support
-  public static void encodeAll(FacesContext facesContext, UIComponent component) throws IOException {
+  public static void encodeAll(final FacesContext facesContext, final UIComponent component) throws IOException {
      if (component.isRendered()) {
       component.encodeBegin(facesContext);
       if (component.getRendersChildren()) {
         component.encodeChildren(facesContext);
       } else {
-        for (UIComponent child : component.getChildren()) {
+        for (final UIComponent child : component.getChildren()) {
           encodeAll(facesContext, child);
         }
       }
@@ -87,25 +86,12 @@ public class EncodeAjaxCallback implements TobagoCallback {
     }
   }
 
-  // TODO merge with RenderUtils.prepareRendererAll
-  public static void prepareRendererAll(FacesContext facesContext, UIComponent component) throws IOException {
-    if (!component.isRendered()) {
-      return;
-    }
-    RendererBase renderer = ComponentUtils.getRenderer(facesContext,  component);
-    boolean prepareRendersChildren = false;
-    if (renderer != null) {
-      renderer.prepareRender(facesContext, component);
-      prepareRendersChildren = renderer.getPrepareRendersChildren();
-    }
-    if (prepareRendersChildren) {
-      renderer.prepareRendersChildren(facesContext, component);
-    } else {
-      Iterator it = component.getFacetsAndChildren();
-      while (it.hasNext()) {
-        UIComponent child = (UIComponent) it.next();
-        prepareRendererAll(facesContext, child);
-      }
-    }
+  /**
+   * @deprecated since 2.0.0, please use EncodeUtils.prepareRendererAll()
+   */
+  @Deprecated
+  public static void prepareRendererAll(final FacesContext facesContext, final UIComponent component)
+      throws IOException {
+    EncodeUtils.prepareRendererAll(facesContext, component);
   }
 }

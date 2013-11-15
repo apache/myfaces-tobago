@@ -37,19 +37,19 @@ import java.io.IOException;
 public class ToolBarRenderer extends ToolBarRendererBase {
 
   @Override
-  public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
+  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
 
-    UIToolBar toolBar = (UIToolBar) component;
+    final UIToolBar toolBar = (UIToolBar) component;
 
-    TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
     writer.startElement(HtmlElements.DIV, toolBar);
     writer.writeIdAttribute(toolBar.getClientId(facesContext));
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, toolBar);
     HtmlRendererUtils.renderDojoDndItem(toolBar, writer, true);
     writer.writeClassAttribute(Classes.create(toolBar));
-    Style style = new Style(facesContext, toolBar);
-    boolean right = UIToolBar.ORIENTATION_RIGHT.equals(toolBar.getOrientation());
+    final Style style = new Style(facesContext, toolBar);
+    final boolean right = UIToolBar.ORIENTATION_RIGHT.equals(toolBar.getOrientation());
     if (right) {
       style.setTextAlign(TextAlign.RIGHT);
     }
@@ -59,7 +59,7 @@ public class ToolBarRenderer extends ToolBarRendererBase {
   }
 
   @Override
-  public Measure getHeight(FacesContext facesContext, Configurable toolBar) {
+  public Measure getHeight(final FacesContext facesContext, final Configurable toolBar) {
 
     final ResourceManager resources = getResourceManager();
 

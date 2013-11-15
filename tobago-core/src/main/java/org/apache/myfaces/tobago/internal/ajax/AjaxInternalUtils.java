@@ -50,7 +50,8 @@ public final class AjaxInternalUtils {
   private AjaxInternalUtils() {
   }
 
-  public static void checkParamValidity(FacesContext facesContext, UIComponent uiComponent, Class compClass) {
+  public static void checkParamValidity(
+      final FacesContext facesContext, final UIComponent uiComponent, final Class compClass) {
     if (facesContext == null) {
       throw new NullPointerException("facesContext may not be null");
     }
@@ -66,30 +67,31 @@ public final class AjaxInternalUtils {
     }
   }
 
-  public static void encodeAjaxComponent(FacesContext facesContext, UIComponent component) throws IOException {
+  public static void encodeAjaxComponent(final FacesContext facesContext, final UIComponent component)
+      throws IOException {
     if (facesContext == null) {
       throw new NullPointerException("facesContext");
     }
     if (!component.isRendered()) {
       return;
     }
-    RendererBase renderer = ComponentUtils.getRenderer(facesContext, component);
+    final RendererBase renderer = ComponentUtils.getRenderer(facesContext, component);
     if (renderer != null && renderer instanceof AjaxRenderer) {
       ((AjaxRenderer) renderer).encodeAjax(facesContext, component);
     }
   }
 
-  public static void setRenderAllComponents(FacesContext facesContext) {
-    Map<String, UIComponent> ajaxComponents = new HashMap<String, UIComponent>();
+  public static void setRenderAllComponents(final FacesContext facesContext) {
+    final Map<String, UIComponent> ajaxComponents = new HashMap<String, UIComponent>();
     facesContext.getExternalContext().getRequestMap().put(AJAX_COMPONENTS, ajaxComponents);
-    javax.faces.component.UIViewRoot viewRoot = facesContext.getViewRoot();
-    UIComponent page = viewRoot.getChildren().get(0);
+    final javax.faces.component.UIViewRoot viewRoot = facesContext.getViewRoot();
+    final UIComponent page = viewRoot.getChildren().get(0);
     ajaxComponents.put(page.getClientId(facesContext), page);
   }
 
-  public static void storeMessagesClientIds(FacesContext facesContext, AbstractUIMessages messages) {
-    Map attributes = facesContext.getAttributes();
-    List<String> messageClientIds;
+  public static void storeMessagesClientIds(final FacesContext facesContext, final AbstractUIMessages messages) {
+    final Map attributes = facesContext.getAttributes();
+    final List<String> messageClientIds;
     if (attributes.containsKey(TOBAGO_MESSAGES_CLIENT_IDS)) {
       messageClientIds = (List<String>) attributes.get(TOBAGO_MESSAGES_CLIENT_IDS);
     } else {
@@ -99,20 +101,20 @@ public final class AjaxInternalUtils {
     messageClientIds.add(messages.getClientId(facesContext));
   }
 
-  public static List<String> getMessagesClientIds(FacesContext facesContext) {
+  public static List<String> getMessagesClientIds(final FacesContext facesContext) {
      return (List<String>) facesContext.getAttributes().get(TOBAGO_MESSAGES_CLIENT_IDS);
   }
 
-  public static List<String> getMessagesComponentIds(FacesContext facesContext) {
-    Map parameterMap = facesContext.getExternalContext().getRequestParameterMap();
-    UIComponent component = facesContext.getViewRoot().getChildren().get(0);
-    String clientId = component.getClientId(facesContext);
-    String ids = (String) parameterMap.get(clientId + ComponentUtils.SUB_SEPARATOR + "messagesClientIds");
-    List<String> list = new ArrayList<String>();
+  public static List<String> getMessagesComponentIds(final FacesContext facesContext) {
+    final Map parameterMap = facesContext.getExternalContext().getRequestParameterMap();
+    final UIComponent component = facesContext.getViewRoot().getChildren().get(0);
+    final String clientId = component.getClientId(facesContext);
+    final String ids = (String) parameterMap.get(clientId + ComponentUtils.SUB_SEPARATOR + "messagesClientIds");
+    final List<String> list = new ArrayList<String>();
     if (ids != null) {
-      StringTokenizer tokenizer = new StringTokenizer(ids, ",");
+      final StringTokenizer tokenizer = new StringTokenizer(ids, ",");
       while (tokenizer.hasMoreTokens()) {
-        String id = tokenizer.nextToken();
+        final String id = tokenizer.nextToken();
         list.add(id);
       }
     }
@@ -120,21 +122,21 @@ public final class AjaxInternalUtils {
 
   }
 
-  public static Map<String, UIComponent> parseAndStoreComponents(FacesContext facesContext) {
-    Map parameterMap = facesContext.getExternalContext().getRequestParameterMap();
-    String ajaxComponentIds = (String) parameterMap.get(TOBAGO_PARTIAL_IDS);
+  public static Map<String, UIComponent> parseAndStoreComponents(final FacesContext facesContext) {
+    final Map parameterMap = facesContext.getExternalContext().getRequestParameterMap();
+    final String ajaxComponentIds = (String) parameterMap.get(TOBAGO_PARTIAL_IDS);
     if (ajaxComponentIds != null) {
       if (LOG.isDebugEnabled()) {
         LOG.debug("ajaxComponentIds = \"" + ajaxComponentIds + "\"");
       }
-      StringTokenizer tokenizer = new StringTokenizer(ajaxComponentIds, ",");
-      Map<String, UIComponent> ajaxComponents = new HashMap<String, UIComponent>(tokenizer.countTokens());
+      final StringTokenizer tokenizer = new StringTokenizer(ajaxComponentIds, ",");
+      final Map<String, UIComponent> ajaxComponents = new HashMap<String, UIComponent>(tokenizer.countTokens());
       //noinspection unchecked
       facesContext.getExternalContext().getRequestMap().put(AJAX_COMPONENTS, ajaxComponents);
-      javax.faces.component.UIViewRoot viewRoot = facesContext.getViewRoot();
+      final javax.faces.component.UIViewRoot viewRoot = facesContext.getViewRoot();
       while (tokenizer.hasMoreTokens()) {
-        String ajaxId = tokenizer.nextToken();
-        UIComponent ajaxComponent = viewRoot.findComponent(ajaxId);
+        final String ajaxId = tokenizer.nextToken();
+        final UIComponent ajaxComponent = viewRoot.findComponent(ajaxId);
         if (ajaxComponent != null) {
           if (LOG.isDebugEnabled()) {
             LOG.debug("ajaxComponent for \"" + ajaxId + "\" = \"" + ajaxComponent + "\"");
@@ -147,14 +149,14 @@ public final class AjaxInternalUtils {
     return null;
   }
 
-  public static Map<String, UIComponent> getAjaxComponents(FacesContext facesContext) {
+  public static Map<String, UIComponent> getAjaxComponents(final FacesContext facesContext) {
     //noinspection unchecked
     return (Map<String, UIComponent>)
         facesContext.getExternalContext().getRequestMap().get(AJAX_COMPONENTS);
   }
 
-  public static void addAjaxComponent(FacesContext facesContext, UIComponent component) {
-    Map<String, UIComponent> ajaxComponents =
+  public static void addAjaxComponent(final FacesContext facesContext, final UIComponent component) {
+    final Map<String, UIComponent> ajaxComponents =
         (Map<String, UIComponent>) facesContext.getExternalContext().getRequestMap().get(AJAX_COMPONENTS);
     if (ajaxComponents != null) {
       if (!alreadyContained(component, ajaxComponents)) {
@@ -163,15 +165,15 @@ public final class AjaxInternalUtils {
     }
   }
 
-  public static String encodeJavaScriptString(String value) {
+  public static String encodeJavaScriptString(final String value) {
     String result = StringUtils.replace(value, "\\", "\\\\");
     result = StringUtils.replace(result, "\n", "\\n");
     result = StringUtils.replace(result, "\r", "\\r");
     return StringUtils.replace(result, "\"", "\\\"");
   }
 
-  public static boolean alreadyContained(UIComponent component, Map<String, UIComponent> ajaxComponents) {
-    for (UIComponent uiComponent : ajaxComponents.values()) {
+  public static boolean alreadyContained(final UIComponent component, final Map<String, UIComponent> ajaxComponents) {
+    for (final UIComponent uiComponent : ajaxComponents.values()) {
       // is component or a parent of it in the list?
       UIComponent parent = component;
       while (parent != null) {
@@ -185,7 +187,7 @@ public final class AjaxInternalUtils {
     return false;
   }
 
-  public static boolean addNextPossibleAjaxComponent(FacesContext context, String componentClientId) {
+  public static boolean addNextPossibleAjaxComponent(final FacesContext context, final String componentClientId) {
     UIComponent component = ComponentUtils.findComponent(context.getViewRoot(), componentClientId);
     component = component.getParent();
     if (component instanceof UIPanel) {
@@ -198,16 +200,16 @@ public final class AjaxInternalUtils {
     }
   }
 
-  public static void ensureDecoded(FacesContext facesContext, String clientId) {
+  public static void ensureDecoded(final FacesContext facesContext, final String clientId) {
     ensureDecoded(facesContext, facesContext.getViewRoot().findComponent(clientId));
   }
 
-  public static void ensureDecoded(FacesContext facesContext, UIComponent component) {
+  public static void ensureDecoded(final FacesContext facesContext, final UIComponent component) {
     if (component == null) {
       LOG.warn("Ignore AjaxComponent: null");
       return;
     }
-    Map<String, UIComponent> ajaxComponents = getAjaxComponents(facesContext);
+    final Map<String, UIComponent> ajaxComponents = getAjaxComponents(facesContext);
     if (ajaxComponents != null) {
       if (!alreadyContained(component, ajaxComponents)) {
         component.processDecodes(facesContext);

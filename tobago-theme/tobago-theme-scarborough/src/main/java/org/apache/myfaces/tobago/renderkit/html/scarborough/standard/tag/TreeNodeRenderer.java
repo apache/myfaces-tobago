@@ -50,7 +50,7 @@ public class TreeNodeRenderer extends TreeNodeRendererBase {
       = ResourceUtils.createString("image", "treeNode", "icon", "leaf", ResourceUtils.GIF);
 
   @Override
-  public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
+  public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
 
     final AbstractUITreeNode node = (AbstractUITreeNode) component;
     final AbstractUIData data = ComponentUtils.findAncestor(node, AbstractUIData.class);
@@ -76,14 +76,14 @@ public class TreeNodeRenderer extends TreeNodeRendererBase {
       writer.writeAttribute(DataAttributes.TREE_PARENT, parentId, false);
     }
 
-    Style style = new Style();
+    final Style style = new Style();
     // In the case of a sheet, we need not hiding the node, because the whole TR will be hidden.
     if (!dataRendersRowContainer && !visible) {
       style.setDisplay(Display.NONE);
     }
 
     // div style (width)
-    Style widthStyle = new Style(facesContext, (LayoutBase) data);
+    final Style widthStyle = new Style(facesContext, (LayoutBase) data);
     if (widthStyle.getWidth() != null) {
       style.setWidth(widthStyle.getWidth().subtract(22)); // fixme: 4 + 18 for scrollbar
     }
@@ -91,7 +91,7 @@ public class TreeNodeRenderer extends TreeNodeRendererBase {
   }
 
   @Override
-  public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
+  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
     writer.endElement(HtmlElements.DIV);
   }

@@ -41,15 +41,15 @@ public class DynamicController {
 
   public DynamicController() {
     tags = new ArrayList<TagData>();
-    TagData in = new TagData(InExtensionTag.class);
+    final TagData in = new TagData(InExtensionTag.class);
     in.setName("In");
     in.setTip("Ein In");
     tags.add(in);
-    TagData button = new TagData(ButtonTag.class);
+    final TagData button = new TagData(ButtonTag.class);
     button.setName("Button");
     button.setTip("Ein Knopf");
     tags.add(button);
-    TagData link = new TagData(LinkTag.class);
+    final TagData link = new TagData(LinkTag.class);
     link.setName("Link");
     link.setTip("Ein Link");
     tags.add(link);
@@ -58,20 +58,20 @@ public class DynamicController {
 
    public TagSupport createTag() {
     try {
-      Class clazz = tags.get(0).getTagClass();
-      InExtensionTag tag = (InExtensionTag) clazz.newInstance();
+      final Class clazz = tags.get(0).getTagClass();
+      final InExtensionTag tag = (InExtensionTag) clazz.newInstance();
       tag.setValue(createStringValueExpression("Hallo Tester"));
       tag.setLabel(createStringValueExpression("Label"));
       return tag;
-    } catch (Exception e) {
+    } catch (final Exception e) {
       LOG.error("", e); // fixme
       throw new RuntimeException(e);
     }
   }
 
-  protected ValueExpression createStringValueExpression(String expression) {
-    FacesContext facesContext = FacesContext.getCurrentInstance();
-    ValueExpression value = facesContext.getApplication().getExpressionFactory().
+  protected ValueExpression createStringValueExpression(final String expression) {
+    final FacesContext facesContext = FacesContext.getCurrentInstance();
+    final ValueExpression value = facesContext.getApplication().getExpressionFactory().
         createValueExpression(facesContext.getELContext(), expression, String.class);
     return value;
   }

@@ -26,7 +26,7 @@ public class SandboxGenericTagUnitTest extends GenericTestBase {
 
   @Before
   public void setUp() throws Exception {
-    String[] tldPaths = new String[1];
+    final String[] tldPaths = new String[1];
     tldPaths[0] = "META-INF/org/apache/myfaces/tobago/internal/taglib/sandbox/tobago-sandbox.tld";
     setTldPaths(tldPaths);
     super.setUp();

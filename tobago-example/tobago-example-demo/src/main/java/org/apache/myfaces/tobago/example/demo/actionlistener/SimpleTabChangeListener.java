@@ -32,7 +32,7 @@ public class SimpleTabChangeListener implements TabChangeListener {
     LOG.info("new SimpleTabChangeListener id='" + System.identityHashCode(this) + "'");
   }
 
-  public void processTabChange(TabChangeEvent tabChangeEvent) {
+  public void processTabChange(final TabChangeEvent tabChangeEvent) {
     LOG.info("TabState has changed: from tabIndex '" + tabChangeEvent.getOldTabIndex()
         + "' to tabIndex '" + tabChangeEvent.getNewTabIndex()
         + "' id='" + tabChangeEvent.getComponent().getClientId() + "'");

@@ -80,7 +80,7 @@ public final class ResourceManagerUtils {
 
   private static List<String> addContextPath(final String[] strings, final String contextPath) {
     final List<String> withContext = new ArrayList<String>(strings.length);
-    for (String string : strings) {
+    for (final String string : strings) {
       withContext.add(contextPath + string);
     }
     return withContext;
@@ -95,7 +95,7 @@ public final class ResourceManagerUtils {
 
   public static String getScriptsAsJSArray(final FacesContext facesContext, final String[] names) {
     final List<String> fileNames = new ArrayList<String>();
-    for (String name : names) {
+    for (final String name : names) {
       fileNames.addAll(getScripts(facesContext, name));
     }
     return toJSArray(fileNames);
@@ -103,7 +103,7 @@ public final class ResourceManagerUtils {
 
   public static String getStylesAsJSArray(final FacesContext facesContext, final String[] names) {
     final List<String> fileNames = new ArrayList<String>();
-    for (String name : names) {
+    for (final String name : names) {
       fileNames.addAll(getStyles(facesContext, name));
     }
     return toJSArray(fileNames);
@@ -111,7 +111,7 @@ public final class ResourceManagerUtils {
 
   public static String toJSArray(final List<String> list) {
     final StringBuilder sb = new StringBuilder();
-    for (String name : list) {
+    for (final String name : list) {
       if (sb.length() > 0) {
         sb.append(", ");
       }

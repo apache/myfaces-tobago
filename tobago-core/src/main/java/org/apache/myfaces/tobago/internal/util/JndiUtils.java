@@ -34,20 +34,21 @@ public final class JndiUtils {
   private JndiUtils() {
   }
 
-  public static Object getJndiProperty(Context ctx, String... path) throws NamingException {
+  public static Object getJndiProperty(final Context ctx, final String... path) throws NamingException {
     return getJndiProperty(ctx, null, path);
   }
 
-  public static Object getJndiProperty(Context ctx, Object defaultValue, String... path) throws NamingException {
+  public static Object getJndiProperty(final Context ctx, final Object defaultValue, final String... path)
+      throws NamingException {
     String name = "java:comp/env";
     // avoid error messages from websphere
     for (int i = 0; i < path.length; i++) {
-      Binding b = getBinding(ctx, name, path[i]);
+      final Binding b = getBinding(ctx, name, path[i]);
       if (b == null) {
         break;
       }
       if (i == path.length - 1) {
-        Object obj = b.getObject();
+        final Object obj = b.getObject();
         if (LOG.isDebugEnabled()) {
           LOG.debug("Value: " + obj);
         }
@@ -59,11 +60,11 @@ public final class JndiUtils {
     return defaultValue;
   }
 
-  private static Binding getBinding(Context ctx, String name, String path)
+  private static Binding getBinding(final Context ctx, final String name, final String path)
       throws NamingException {
-    NamingEnumeration<Binding> ne = ctx.listBindings(name);
+    final NamingEnumeration<Binding> ne = ctx.listBindings(name);
     while (ne.hasMore()) {
-      Binding b = ne.next();
+      final Binding b = ne.next();
       if (LOG.isDebugEnabled()) {
         LOG.debug("Property: " + b.getName());
       }

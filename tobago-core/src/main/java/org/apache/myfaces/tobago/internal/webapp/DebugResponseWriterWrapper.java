@@ -42,15 +42,15 @@ public class DebugResponseWriterWrapper extends TobagoResponseWriter {
 
   private final TobagoResponseWriter responseWriter;
 
-  public DebugResponseWriterWrapper(TobagoResponseWriter responseWriter) {
+  public DebugResponseWriterWrapper(final TobagoResponseWriter responseWriter) {
     this.responseWriter = responseWriter;
   }
 
-  public void write(String string) throws IOException {
+  public void write(final String string) throws IOException {
     responseWriter.write(string);
   }
 
-  public void writeComment(Object comment) throws IOException {
+  public void writeComment(final Object comment) throws IOException {
     String commentStr = comment.toString();
     if (commentStr.indexOf("--") > 0) {
       LOG.error("Comment must not contain the sequence '--', comment = '" + comment + "'.",
@@ -61,17 +61,17 @@ public class DebugResponseWriterWrapper extends TobagoResponseWriter {
     responseWriter.writeComment(commentStr);
   }
 
-  public ResponseWriter cloneWithWriter(Writer writer) {
+  public ResponseWriter cloneWithWriter(final Writer writer) {
     return new DebugResponseWriterWrapper((TobagoResponseWriter) responseWriter.cloneWithWriter(writer));
   }
 
   @Deprecated
-  public void writeAttribute(String name, Object value, String property) throws IOException {
+  public void writeAttribute(final String name, final Object value, final String property) throws IOException {
     responseWriter.writeAttribute(name, value, property);
   }
 
   @Deprecated
-  public void writeText(Object text, String property) throws IOException {
+  public void writeText(final Object text, final String property) throws IOException {
     responseWriter.writeText(text, property);
   }
 
@@ -79,7 +79,7 @@ public class DebugResponseWriterWrapper extends TobagoResponseWriter {
     responseWriter.flush();
   }
 
-  public void writeAttribute(String name, String value, boolean escape) throws IOException {
+  public void writeAttribute(final String name, final String value, final boolean escape) throws IOException {
     responseWriter.writeAttribute(name, value, escape);
   }
 
@@ -119,7 +119,7 @@ public class DebugResponseWriterWrapper extends TobagoResponseWriter {
    */
   @Deprecated
   @Override
-  public void writeJavascript(String script) throws IOException {
+  public void writeJavascript(final String script) throws IOException {
     responseWriter.writeJavascript(script);
   }
 
@@ -141,15 +141,15 @@ public class DebugResponseWriterWrapper extends TobagoResponseWriter {
     responseWriter.startJavascript();
   }
 
-  public void writeURIAttribute(String name, Object value, String property) throws IOException {
+  public void writeURIAttribute(final String name, final Object value, final String property) throws IOException {
     responseWriter.writeURIAttribute(name, value, property);
   }
 
-  public void writeText(char[] text, int off, int len) throws IOException {
+  public void writeText(final char[] text, final int off, final int len) throws IOException {
     responseWriter.writeText(text, off, len);
   }
 
-  public void write(char[] chars, int i, int i1) throws IOException {
+  public void write(final char[] chars, final int i, final int i1) throws IOException {
     responseWriter.write(chars, i, i1);
   }
 
@@ -158,7 +158,7 @@ public class DebugResponseWriterWrapper extends TobagoResponseWriter {
   }
 
   @Override
-  public void startElement(String name, UIComponent currentComponent)
+  public void startElement(final String name, final UIComponent currentComponent)
       throws IOException {
     if (LOG.isDebugEnabled()) {
       LOG.debug("start element: '" + name + "'");
@@ -168,14 +168,14 @@ public class DebugResponseWriterWrapper extends TobagoResponseWriter {
   }
 
   @Override
-  public void endElement(String name) throws IOException {
+  public void endElement(final String name) throws IOException {
     if (LOG.isDebugEnabled()) {
       LOG.debug("end element: '" + name + "'");
     }
     String top = "";
     try {
       top = stack.pop();
-    } catch (EmptyStackException e) {
+    } catch (final EmptyStackException e) {
       LOG.error("Failed to close element \"" + name + "\"!", e);
     }
 

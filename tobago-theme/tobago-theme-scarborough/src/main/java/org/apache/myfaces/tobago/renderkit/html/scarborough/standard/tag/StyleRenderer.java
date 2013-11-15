@@ -30,14 +30,14 @@ import java.io.IOException;
 
 public class StyleRenderer extends RendererBase {
 
-  public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
+  public void prepareRender(final FacesContext facesContext, final UIComponent component) throws IOException {
     super.prepareRender(facesContext, component);
-    UIStyle styleComponent = (UIStyle) component;
-    String file = styleComponent.getFile();
+    final UIStyle styleComponent = (UIStyle) component;
+    final String file = styleComponent.getFile();
     if (file != null) {
       FacesContextUtils.addStyleFile(facesContext, file);
     }
-    String style = styleComponent.getStyle();
+    final String style = styleComponent.getStyle();
     if (style != null) {
       FacesContextUtils.addStyleBlock(facesContext, style);
     }

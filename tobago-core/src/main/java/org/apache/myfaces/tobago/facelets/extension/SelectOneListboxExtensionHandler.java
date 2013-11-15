@@ -25,7 +25,7 @@ import org.apache.myfaces.tobago.component.UISelectOneListbox;
 
 public class SelectOneListboxExtensionHandler extends TobagoLabelExtensionHandler {
 
-  public SelectOneListboxExtensionHandler(ComponentConfig config) {
+  public SelectOneListboxExtensionHandler(final ComponentConfig config) {
     super(config);
   }
 

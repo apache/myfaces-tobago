@@ -31,12 +31,12 @@ public class TobagoExtensionBodyTagSupport extends BodyTagSupport implements Jsp
   private String jspId;
   private int idSuffix;
     
-  protected ValueExpression createStringValueExpression(String expression) {
+  protected ValueExpression createStringValueExpression(final String expression) {
     return JspFactory.getDefaultFactory().getJspApplicationContext(pageContext.getServletContext())
         .getExpressionFactory().createValueExpression(pageContext.getELContext(), expression, String.class);
   }
   
-  public void setJspId(String jspId) {
+  public void setJspId(final String jspId) {
     this.jspId = jspId;
   }
 

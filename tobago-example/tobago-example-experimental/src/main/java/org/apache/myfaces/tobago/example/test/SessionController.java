@@ -72,7 +72,7 @@ public class SessionController {
       return suppressProcessing;
     }
 
-    public void setSuppressProcessing(boolean suppressProcessing) {
+    public void setSuppressProcessing(final boolean suppressProcessing) {
       this.suppressProcessing = suppressProcessing;
     }
 
@@ -80,7 +80,7 @@ public class SessionController {
       return input;
     }
 
-    public void setInput(String input) {
+    public void setInput(final String input) {
       this.input = input;
     }
   }
@@ -89,28 +89,28 @@ public class SessionController {
     return date;
   }
 
-  public void setDate(Date date) {
+  public void setDate(final Date date) {
     this.date = date;
   }
 
   public SelectItem[] getDateItems() {
-    SelectItem[] items = new SelectItem[2];
-    DateFormat format = DateFormat.getDateInstance(SimpleDateFormat.SHORT, Locale.GERMANY);
+    final SelectItem[] items = new SelectItem[2];
+    final DateFormat format = DateFormat.getDateInstance(SimpleDateFormat.SHORT, Locale.GERMANY);
     format.setTimeZone(TimeZone.getTimeZone("GMT"));
     try {
       Date date = format.parse("12.10.2009");
       items[0] = new SelectItem(date);
       date = format.parse("13.10.2009");
       items[1] = new SelectItem(date);
-    } catch (ParseException e) {
+    } catch (final ParseException e) {
       LOG.error("", e);
     }
     return items;
   }
 
-  public void actionListener(ActionEvent e) {
+  public void actionListener(final ActionEvent e) {
     UIComponent component = e.getComponent();
-    for (UIComponent child : component.getChildren()) {
+    for (final UIComponent child : component.getChildren()) {
       if (child instanceof UIParameter) {
         LOG.error("{}", ((UIParameter) child).getValue());
       }
@@ -123,15 +123,15 @@ public class SessionController {
   }
 
   public SessionController() {
-    Calendar calendar = Calendar.getInstance();
+    final Calendar calendar = Calendar.getInstance();
     calendar.set(2002, 0, 1);
     validityStart = calendar.getTime();
   }
 
   public String checkDates() {
-    FacesContext facesContext = FacesContext.getCurrentInstance();
+    final FacesContext facesContext = FacesContext.getCurrentInstance();
     if (validityEnd.before(validityStart)) {
-      String message = "End date before start date.";
+      final String message = "End date before start date.";
       facesContext.addMessage("page:validityEnd",
           new FacesMessage(FacesMessage.SEVERITY_ERROR, message, message));
     }
@@ -142,7 +142,7 @@ public class SessionController {
     return value;
   }
 
-  public void setValue(String value) {
+  public void setValue(final String value) {
     this.value = value;
   }
 
@@ -151,7 +151,7 @@ public class SessionController {
     return tabChangeListener;
   }
 
-  public void setTabChangeListener(TabChangeListener tabChangeListener) {
+  public void setTabChangeListener(final TabChangeListener tabChangeListener) {
     LOG.info("Setting TabChangeListener {}",  tabChangeListener);
     this.tabChangeListener = tabChangeListener;
   }
@@ -160,7 +160,7 @@ public class SessionController {
     return selectedIndex0;
   }
 
-  public void setSelectedIndex0(Integer selectedIndex0) {
+  public void setSelectedIndex0(final Integer selectedIndex0) {
     this.selectedIndex0 = selectedIndex0;
   }
 
@@ -168,7 +168,7 @@ public class SessionController {
     return selectedIndex1;
   }
 
-  public void setSelectedIndex1(Integer selectedIndex1) {
+  public void setSelectedIndex1(final Integer selectedIndex1) {
     this.selectedIndex1 = selectedIndex1;
   }
 
@@ -176,7 +176,7 @@ public class SessionController {
     return selectedIndex2;
   }
 
-  public void setSelectedIndex2(Integer selectedIndex2) {
+  public void setSelectedIndex2(final Integer selectedIndex2) {
     this.selectedIndex2 = selectedIndex2;
   }
 
@@ -184,7 +184,7 @@ public class SessionController {
     return validityStart;
   }
 
-  public void setValidityStart(Date validityStart) {
+  public void setValidityStart(final Date validityStart) {
     this.validityStart = validityStart;
   }
 
@@ -192,7 +192,7 @@ public class SessionController {
     return validityEnd;
   }
 
-  public void setValidityEnd(Date validityEnd) {
+  public void setValidityEnd(final Date validityEnd) {
     this.validityEnd = validityEnd;
   }
 
@@ -200,7 +200,7 @@ public class SessionController {
     return suppressProcessing;
   }
 
-  public void setSuppressProcessing(boolean suppressProcessing) {
+  public void setSuppressProcessing(final boolean suppressProcessing) {
     this.suppressProcessing = suppressProcessing;
   }
 
@@ -208,7 +208,7 @@ public class SessionController {
     return suppressProcessingList;
   }
 
-  public void setSuppressProcessingList(List<Row> suppressProcessingList) {
+  public void setSuppressProcessingList(final List<Row> suppressProcessingList) {
     this.suppressProcessingList = suppressProcessingList;
   }
 }

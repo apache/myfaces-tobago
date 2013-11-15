@@ -40,28 +40,28 @@ public class LabelValueBindingFacesMessage extends FacesMessage {
   }
 
   public LabelValueBindingFacesMessage(
-      Severity severity, String summary, String detail,
-      Locale locale, Object... args) {
+      final Severity severity, final String summary, final String detail,
+      final Locale locale, final Object... args) {
     super(severity, summary, detail);
     this.locale = locale;
     this.args = args;
   }
 
-  public LabelValueBindingFacesMessage(String summary, String detail) {
+  public LabelValueBindingFacesMessage(final String summary, final String detail) {
     super(summary, detail);
   }
 
-  public LabelValueBindingFacesMessage(String summary) {
+  public LabelValueBindingFacesMessage(final String summary) {
     super(summary);
   }
 
   @Override
   public String getDetail() {
-    String detail = super.getDetail();
+    final String detail = super.getDetail();
     if (args != null && args.length > 0) {
       if (args.length == 1 && UIComponentTag.isValueReference(args[0].toString())) {
-        FacesContext facesContext = FacesContext.getCurrentInstance();
-        ValueBinding value = facesContext.getApplication().createValueBinding(detail);
+        final FacesContext facesContext = FacesContext.getCurrentInstance();
+        final ValueBinding value = facesContext.getApplication().createValueBinding(detail);
         return MessageUtils.getFormatedMessage(detail, locale, value.getValue(facesContext));
       }
       return MessageUtils.getFormatedMessage(detail, locale, args);
@@ -71,11 +71,11 @@ public class LabelValueBindingFacesMessage extends FacesMessage {
 
   @Override
   public String getSummary() {
-    String summary = super.getSummary();
+    final String summary = super.getSummary();
     if (args != null && args.length > 0) {
       if (args.length == 1 && UIComponentTag.isValueReference(args[0].toString())) {
-        FacesContext facesContext = FacesContext.getCurrentInstance();
-        ValueBinding value = facesContext.getApplication().createValueBinding(summary);
+        final FacesContext facesContext = FacesContext.getCurrentInstance();
+        final ValueBinding value = facesContext.getApplication().createValueBinding(summary);
         return MessageUtils.getFormatedMessage(summary, locale, value.getValue(facesContext));
       }
       return MessageUtils.getFormatedMessage(summary, locale, args);

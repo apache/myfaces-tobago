@@ -38,14 +38,14 @@ public abstract class AbstractUITabGroupLayout extends AbstractUILayoutBase impl
   private boolean verticalAuto;
 
   public void init() {
-    for (LayoutComponent component : getLayoutContainer().getComponents()) {
+    for (final LayoutComponent component : getLayoutContainer().getComponents()) {
       if (component instanceof LayoutContainer && component.isRendered()) {
         ((LayoutContainer) component).getLayoutManager().init();
       }
     }
   }
 
-  public void fixRelativeInsideAuto(Orientation orientation, boolean auto) {
+  public void fixRelativeInsideAuto(final Orientation orientation, final boolean auto) {
 
     if (orientation == Orientation.HORIZONTAL) {
       horizontalAuto = auto;
@@ -53,18 +53,18 @@ public abstract class AbstractUITabGroupLayout extends AbstractUILayoutBase impl
       verticalAuto = auto;
     }
 
-    for (LayoutComponent component : getLayoutContainer().getComponents()) {
+    for (final LayoutComponent component : getLayoutContainer().getComponents()) {
       if (component instanceof LayoutContainer && component.isRendered()) {
         ((LayoutContainer) component).getLayoutManager().fixRelativeInsideAuto(orientation, auto);
       }
     }
   }
 
-  public void preProcessing(Orientation orientation) {
+  public void preProcessing(final Orientation orientation) {
 
     // process auto tokens
-    IntervalList intervals = new IntervalList();
-    for (LayoutComponent component : getLayoutContainer().getComponents()) {
+    final IntervalList intervals = new IntervalList();
+    for (final LayoutComponent component : getLayoutContainer().getComponents()) {
 
       if (component instanceof LayoutContainer && component.isRendered()) {
         ((LayoutContainer) component).getLayoutManager().preProcessing(orientation);
@@ -78,7 +78,7 @@ public abstract class AbstractUITabGroupLayout extends AbstractUILayoutBase impl
 
     if (intervals.size() >= 1) {
       intervals.evaluate();
-      Measure size = intervals.getCurrent();
+      final Measure size = intervals.getCurrent();
 /*
       size = size.add(LayoutUtils.getBorderBegin(orientation, getLayoutContainer()));
       size = size.add(LayoutUtils.getBorderEnd(orientation, getLayoutContainer()));
@@ -87,16 +87,16 @@ public abstract class AbstractUITabGroupLayout extends AbstractUILayoutBase impl
     }
   }
 
-  public void mainProcessing(Orientation orientation) {
+  public void mainProcessing(final Orientation orientation) {
 
     // find *
     if (orientation == Orientation.HORIZONTAL && !horizontalAuto
         || orientation == Orientation.VERTICAL && !verticalAuto) {
       // find rest
-      LayoutContainer container = getLayoutContainer();
-      Measure available = LayoutUtils.getCurrentSize(orientation, container);
+      final LayoutContainer container = getLayoutContainer();
+      final Measure available = LayoutUtils.getCurrentSize(orientation, container);
       if (available != null) {
-        for (LayoutComponent component : getLayoutContainer().getComponents()) {
+        for (final LayoutComponent component : getLayoutContainer().getComponents()) {
           LayoutUtils.setCurrentSize(orientation, component, available);
         }
       } else {
@@ -105,17 +105,17 @@ public abstract class AbstractUITabGroupLayout extends AbstractUILayoutBase impl
     }
 
     // call sub layout manager
-    for (LayoutComponent component : getLayoutContainer().getComponents()) {
+    for (final LayoutComponent component : getLayoutContainer().getComponents()) {
       if (component instanceof LayoutContainer && component.isRendered()) {
         ((LayoutContainer) component).getLayoutManager().mainProcessing(orientation);
       }
     }
   }
 
-  public void postProcessing(Orientation orientation) {
+  public void postProcessing(final Orientation orientation) {
 
     // set positions to all sub-layout-managers
-    for (LayoutComponent component : getLayoutContainer().getComponents()) {
+    for (final LayoutComponent component : getLayoutContainer().getComponents()) {
       // call sub layout manager
       if (component instanceof LayoutContainer && component.isRendered()) {
         ((LayoutContainer) component).getLayoutManager().postProcessing(orientation);

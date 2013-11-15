@@ -34,16 +34,16 @@ public class LoadBundleHandler extends TagHandler {
 
   private final TagAttribute var;
 
-  public LoadBundleHandler(TagConfig config) {
+  public LoadBundleHandler(final TagConfig config) {
     super(config);
     this.basename = getRequiredAttribute("basename");
     this.var = getRequiredAttribute("var");
   }
 
-  public void apply(FaceletContext faceletContext, UIComponent parent) throws IOException {
-    String name = basename.getValue(faceletContext);
-    BundleMapWrapper map = new BundleMapWrapper(name);
-    FacesContext facesContext = faceletContext.getFacesContext();
+  public void apply(final FaceletContext faceletContext, final UIComponent parent) throws IOException {
+    final String name = basename.getValue(faceletContext);
+    final BundleMapWrapper map = new BundleMapWrapper(name);
+    final FacesContext facesContext = faceletContext.getFacesContext();
     // TODO find a better way
     facesContext.getExternalContext().
         getSessionMap().put(var.getValue(faceletContext), map);

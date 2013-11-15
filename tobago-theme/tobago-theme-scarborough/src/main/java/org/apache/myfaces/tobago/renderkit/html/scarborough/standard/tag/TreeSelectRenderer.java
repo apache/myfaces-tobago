@@ -45,7 +45,7 @@ public class TreeSelectRenderer extends RendererBase {
 
   private static final Log LOG = LogFactory.getLog(TreeSelectRenderer.class);
 
-  public void decode(FacesContext facesContext, UIComponent component) {
+  public void decode(final FacesContext facesContext, final UIComponent component) {
 
     final UITreeSelect select = (UITreeSelect) component;
     final AbstractUITreeNode node = ComponentUtils.findAncestor(select, AbstractUITreeNode.class);
@@ -76,13 +76,13 @@ public class TreeSelectRenderer extends RendererBase {
   }
 
   @Override
-  public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
+  public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
 
     final UITreeSelect select = (UITreeSelect) component;
     final AbstractUITreeNode node = ComponentUtils.findAncestor(select, AbstractUITreeNode.class);
     final AbstractUIData data = ComponentUtils.findAncestor(node, AbstractUIData.class);
 
-    TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
     if (data instanceof AbstractUITreeListbox) {
       writer.write(StringUtils.defaultString(select.getLabel()));
@@ -137,12 +137,12 @@ public class TreeSelectRenderer extends RendererBase {
     writer.endElement(HtmlElements.SPAN);
   }
 
-  private String getClientIdWithoutRowIndex(AbstractUIData data, String id) {
+  private String getClientIdWithoutRowIndex(final AbstractUIData data, final String id) {
     final char separatorChar = UINamingContainer.getSeparatorChar(FacesContext.getCurrentInstance());
     return id.replace("" + separatorChar + data.getRowIndex() + separatorChar, "" + separatorChar);
   }
 
   @Override
-  public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
+  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
   }
 }

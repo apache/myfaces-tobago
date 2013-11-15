@@ -61,7 +61,7 @@ public class TobagoFacesContext extends FacesContextWrapper {
 
   private boolean ajax;
 
-  public TobagoFacesContext(FacesContext wrapped) {
+  public TobagoFacesContext(final FacesContext wrapped) {
     this.wrapped = wrapped;
     scriptFiles = SetUniqueList.decorate(new ArrayList());
     scriptBlocks = new ListOrderedSet();
@@ -78,7 +78,7 @@ public class TobagoFacesContext extends FacesContextWrapper {
     return ajax;
   }
 
-  public void setAjax(boolean ajax) {
+  public void setAjax(final boolean ajax) {
     this.ajax = ajax;
   }
 
@@ -86,7 +86,7 @@ public class TobagoFacesContext extends FacesContextWrapper {
     return ajaxComponentId;
   }
 
-  public void setAjaxComponentId(String ajaxComponentId) {
+  public void setAjaxComponentId(final String ajaxComponentId) {
     this.ajaxComponentId = ajaxComponentId;
   }
 
@@ -94,7 +94,7 @@ public class TobagoFacesContext extends FacesContextWrapper {
     return enctype;
   }
 
-  public void setEnctype(String enctype) {
+  public void setEnctype(final String enctype) {
     this.enctype = enctype;
   }
 

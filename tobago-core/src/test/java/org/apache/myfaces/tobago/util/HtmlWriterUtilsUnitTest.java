@@ -31,8 +31,8 @@ public class HtmlWriterUtilsUnitTest {
   // some chars must escaped in attribute values other than in text
   // put them at beginning of raw texts and in both escaped texts
 
-            // HTML 4.0, section B.7.1: ampersands followed by
-            // an open brace don't get escaped
+  // HTML 4.0, section B.7.1: ampersands followed by
+  // an open brace don't get escaped
   public static final String[] RAW_TEXTS = {
       "oeffnende spitze klammern werden in attributen doch escaped <tagname >",
       "& followed by an { -> &{ don't get escaped in attributes",
@@ -70,8 +70,8 @@ public class HtmlWriterUtilsUnitTest {
 
   @Test
   public void test() {
-    CharArrayWriter writer = new CharArrayWriter();
-    HtmlWriterUtils helper = new HtmlWriterUtils(writer, "");
+    final CharArrayWriter writer = new CharArrayWriter();
+    final HtmlWriterUtils helper = new HtmlWriterUtils(writer, "");
 
     for (int i = 0; i < ESCAPED_TEXTS.length; i++) {
       testText(helper, writer, RAW_TEXTS[i], ESCAPED_TEXTS[i]);
@@ -81,26 +81,28 @@ public class HtmlWriterUtilsUnitTest {
     }
   }
 
-  private void testText(HtmlWriterUtils writerUtil, CharArrayWriter writer, String text, String escaped) {
+  private void testText(
+      final HtmlWriterUtils writerUtil, final CharArrayWriter writer, final String text, final String escaped) {
     try {
       writer.reset();
       writerUtil.writeText(text);
-      String result = String.valueOf(writer.toCharArray());
+      final String result = String.valueOf(writer.toCharArray());
       Assert.assertEquals(result, escaped);
 
-    } catch (IOException e) {
+    } catch (final IOException e) {
       // could not occur with CharArrayWriter
     }
   }
 
-  private void testAttributeValue(HtmlWriterUtils writerUtil, CharArrayWriter writer, String text, String escaped) {
+  private void testAttributeValue(
+      final HtmlWriterUtils writerUtil, final CharArrayWriter writer, final String text, final String escaped) {
     try {
       writer.reset();
       writerUtil.writeAttributeValue(text);
-      String result = String.valueOf(writer.toCharArray());
+      final String result = String.valueOf(writer.toCharArray());
       Assert.assertEquals(result, escaped);
 
-    } catch (IOException e) {
+    } catch (final IOException e) {
       // could not occur with CharArrayWriter
     }
   }

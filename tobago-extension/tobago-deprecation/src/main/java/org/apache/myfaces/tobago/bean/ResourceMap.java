@@ -41,22 +41,22 @@ public class ResourceMap extends Properties {
     }
   }
 
-  public void setFilename(String filename) {
+  public void setFilename(final String filename) {
     if (LOG.isDebugEnabled()) {
       LOG.debug("filename = '" + filename + "'");
     }
     try {
-      InputStream is = getClass().getClassLoader().getResourceAsStream(filename);
+      final InputStream is = getClass().getClassLoader().getResourceAsStream(filename);
       if (is == null) {
         LOG.error("Cannot load resource map from file: " + filename);
       }
       load(is);
-    } catch (IOException e) {
+    } catch (final IOException e) {
       LOG.error("Cannot load resource map from file: " + filename, e);
     }
     if (LOG.isDebugEnabled()) {
       LOG.debug("size() = \"" + size() + "\"");
-      for (Object x : keySet()) {
+      for (final Object x : keySet()) {
         LOG.debug("{}", x);
       }
     }
@@ -66,7 +66,7 @@ public class ResourceMap extends Properties {
   // because we implement Map. This hotfix enables filename setting via put().
 
   @Override
-  public Object put(Object key, Object value) {
+  public Object put(final Object key, final Object value) {
     if ("filename".equals(key)) {
       if (LOG.isDebugEnabled()) {
         LOG.debug("put(\"filename\", \"" + value + "\")");
@@ -77,8 +77,8 @@ public class ResourceMap extends Properties {
   }
 
   @Override
-  public Object get(Object key) {
-    Object value = super.get(key);
+  public Object get(final Object key) {
+    final Object value = super.get(key);
     if (LOG.isDebugEnabled()) {
       LOG.debug("Query value for key='" + key + "' -> '" + value + "'");
     }

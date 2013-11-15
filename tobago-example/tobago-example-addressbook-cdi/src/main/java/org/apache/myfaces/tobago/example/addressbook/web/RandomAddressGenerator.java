@@ -51,8 +51,8 @@ public class RandomAddressGenerator {
     return generateAddress(RandomUtils.nextBoolean(), RandomUtils.nextBoolean());
   }
 
-  public static Address generateAddress(boolean female, boolean german) {
-    Address address = new Address();
+  public static Address generateAddress(final boolean female, final boolean german) {
+    final Address address = new Address();
     address.setFirstName(female ? randomString(FEMALE_FIRST_NAMES) : randomString(MALE_FIRST_NAMES));
     if (german) {
       address.setLastName(randomString(GERMAN_LAST_NAMES));
@@ -61,14 +61,14 @@ public class RandomAddressGenerator {
       address.setLastName(randomString(ENGLISH_LAST_NAMES));
       address.setCountry(RandomUtils.nextBoolean() ? Locale.US : Locale.UK);
     }
-    Calendar calendar = Calendar.getInstance();
+    final Calendar calendar = Calendar.getInstance();
     calendar.set(1920, 0, 1);
     calendar.add(Calendar.DAY_OF_YEAR, RandomUtils.nextInt(70 * 365));
     address.setDayOfBirth(calendar.getTime());
     return address;
   }
 
-  static String randomString(String[] array) {
+  static String randomString(final String[] array) {
     return array[RandomUtils.nextInt(array.length)];
   }
 

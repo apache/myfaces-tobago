@@ -40,21 +40,21 @@ public class ResetInputActionListenerHandler extends TagHandler {
 
   private final TagAttribute execute;
 
-  public ResetInputActionListenerHandler(TagConfig config) {
+  public ResetInputActionListenerHandler(final TagConfig config) {
     super(config);
     execute = getAttribute(Attributes.EXECUTE);
   }
 
-  public void apply(FaceletContext faceletContext, UIComponent parent) throws IOException {
+  public void apply(final FaceletContext faceletContext, final UIComponent parent) throws IOException {
     if (parent instanceof ActionSource) {
       if (ComponentHandler.isNew(parent)) {
-        ActionSource actionSource = (ActionSource) parent;
+        final ActionSource actionSource = (ActionSource) parent;
         if (execute == null) {
           actionSource.addActionListener(new ResetFormActionListener());
         } else if (execute.isLiteral())  {
           actionSource.addActionListener(new ResetInputActionListener(ComponentUtils.splitList(execute.getValue())));
         } else {
-          ValueExpression forValueExpression = execute.getValueExpression(faceletContext, String.class);
+          final ValueExpression forValueExpression = execute.getValueExpression(faceletContext, String.class);
           actionSource.addActionListener(new ValueExpressionResetInputActionListener(forValueExpression));
         }
       }

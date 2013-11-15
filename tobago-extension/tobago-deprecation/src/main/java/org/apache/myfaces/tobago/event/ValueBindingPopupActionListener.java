@@ -47,14 +47,14 @@ public class ValueBindingPopupActionListener extends AbstractPopupActionListener
   public ValueBindingPopupActionListener() {
   }
 
-  public ValueBindingPopupActionListener(Object binding) {
+  public ValueBindingPopupActionListener(final Object binding) {
     popupIdBinding = (ValueBinding) binding;
   }
 
   @Override
-  protected AbstractUIPopup getPopup(ActionEvent actionEvent) {
-    String id = (String) popupIdBinding.getValue(FacesContext.getCurrentInstance());
-    UIComponent popup = FindComponentUtils.findComponent(actionEvent.getComponent(), id);
+  protected AbstractUIPopup getPopup(final ActionEvent actionEvent) {
+    final String id = (String) popupIdBinding.getValue(FacesContext.getCurrentInstance());
+    final UIComponent popup = FindComponentUtils.findComponent(actionEvent.getComponent(), id);
     if (popup instanceof AbstractUIPopup) {
       return (AbstractUIPopup) popup;
     } else {
@@ -70,19 +70,19 @@ public class ValueBindingPopupActionListener extends AbstractPopupActionListener
     return false;
   }
 
-  public void restoreState(FacesContext context, Object state) {
-    Object[] values = (Object[]) state;
+  public void restoreState(final FacesContext context, final Object state) {
+    final Object[] values = (Object[]) state;
     popupIdBinding = (ValueBinding) UIComponentBase.restoreAttachedState(context, values[0]);
   }
 
-  public Object saveState(FacesContext context) {
-    Object[] values = new Object[1];
+  public Object saveState(final FacesContext context) {
+    final Object[] values = new Object[1];
     values[0] = UIComponentBase.saveAttachedState(context, popupIdBinding);
     return values;
   }
 
 
-  public void setTransient(boolean newTransientValue) {
+  public void setTransient(final boolean newTransientValue) {
     // ignore
   }
 }

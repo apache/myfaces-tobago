@@ -26,7 +26,7 @@ import java.util.Arrays;
 
 public class MeasureUnitTest {
 
-  private static Measure px(int pixel) {
+  private static Measure px(final int pixel) {
     return Measure.valueOf(pixel);
   }
 

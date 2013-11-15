@@ -32,8 +32,8 @@ public class JavascriptWriterUtilsTest {
 
   @Test
   public void test() {
-    CharArrayWriter writer = new CharArrayWriter();
-    JavascriptWriterUtils helper = new JavascriptWriterUtils(writer, "");
+    final CharArrayWriter writer = new CharArrayWriter();
+    final JavascriptWriterUtils helper = new JavascriptWriterUtils(writer, "");
     String text = "\"";
     String result = "\\\"";
 
@@ -43,14 +43,15 @@ public class JavascriptWriterUtilsTest {
     testText(helper, writer, text, result);
   }
 
-  private void testText(WriterUtils writerUtil, CharArrayWriter writer, String text, String escaped) {
+  private void testText(
+      final WriterUtils writerUtil, final CharArrayWriter writer, final String text, final String escaped) {
     try {
       writer.reset();
       writerUtil.writeText(text);
-      String result = String.valueOf(writer.toCharArray());
+      final String result = String.valueOf(writer.toCharArray());
       Assert.assertEquals(escaped, result);
 
-    } catch (IOException e) {
+    } catch (final IOException e) {
       // could not occur with CharArrayWriter
     }
   }

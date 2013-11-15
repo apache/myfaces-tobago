@@ -33,16 +33,16 @@ public class TransientStateHolder implements StateHolder, Serializable {
   public TransientStateHolder() {
   }
 
-  public TransientStateHolder(Object object) {
+  public TransientStateHolder(final Object object) {
     this.object = object;
   }
 
-  public Object saveState(FacesContext context) {
+  public Object saveState(final FacesContext context) {
     // do nothing
     return null;
   }
 
-  public void put(Object object) {
+  public void put(final Object object) {
     this.object = object;
   }
 
@@ -54,7 +54,7 @@ public class TransientStateHolder implements StateHolder, Serializable {
     return object;
   }
 
-  public void restoreState(FacesContext context, Object state) {
+  public void restoreState(final FacesContext context, final Object state) {
     // do nothing
   }
 
@@ -62,7 +62,7 @@ public class TransientStateHolder implements StateHolder, Serializable {
     return true;
   }
 
-  public void setTransient(boolean newTransientValue) {
+  public void setTransient(final boolean newTransientValue) {
     // do nothing
   }
 

@@ -26,7 +26,7 @@ import javax.faces.view.facelets.ComponentConfig;
 
 public class SelectManyShuttleExtensionHandler extends TobagoLabelExtensionHandler {
 
-  public SelectManyShuttleExtensionHandler(ComponentConfig config) {
+  public SelectManyShuttleExtensionHandler(final ComponentConfig config) {
     super(config);
   }
 

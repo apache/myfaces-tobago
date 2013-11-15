@@ -40,17 +40,17 @@ public class ConverterHandler extends TagHandler {
 
   private final TagAttribute binding;
 
-  public ConverterHandler(TagConfig config) {
+  public ConverterHandler(final TagConfig config) {
     super(config);
     binding = getAttribute("binding");
     converterId = getAttribute("type");
   }
 
-  public void apply(FaceletContext faceletContext, UIComponent parent)
+  public void apply(final FaceletContext faceletContext, final UIComponent parent)
       throws IOException, ELException {
     if (parent instanceof ValueHolder) {
       if (ComponentHandler.isNew(parent)) {
-        ValueHolder valueHolder = (ValueHolder) parent;
+        final ValueHolder valueHolder = (ValueHolder) parent;
         Converter converter = null;
         ValueExpression valueExpression = null;
         if (binding != null) {
@@ -61,7 +61,7 @@ public class ConverterHandler extends TagHandler {
           try {
             converter = FacesContext.getCurrentInstance().getApplication().createConverter(
                 (String) converterId.getValueExpression(faceletContext, String.class).getValue(faceletContext));
-          } catch (Exception e) {
+          } catch (final Exception e) {
             throw new TagAttributeException(tag, converterId, e.getCause());
           }
           if (valueExpression != null) {

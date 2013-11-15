@@ -42,12 +42,12 @@ public class RenderUtil {
     // to prevent instantiation
   }
 
-  public static boolean contains(Object[] list, Object value) {
+  public static boolean contains(final Object[] list, final Object value) {
     Deprecation.LOG.warn("Using deprecated API");
     if (list == null) {
       return false;
     }
-    for (Object aList : list) {
+    for (final Object aList : list) {
       if (aList != null && aList.equals(value)) {
         return true;
       }
@@ -55,74 +55,79 @@ public class RenderUtil {
     return false;
   }
 
-  public static void encodeChildren(FacesContext facesContext, UIComponent panel) throws IOException {
+  public static void encodeChildren(final FacesContext facesContext, final UIComponent panel) throws IOException {
     Deprecation.LOG.warn("Using deprecated API");
     RenderUtils.encodeChildren(facesContext, panel);
   }
 
-  public static void encodeChildrenWithoutLayout(FacesContext facesContext, UIComponent container) throws IOException {
+  public static void encodeChildrenWithoutLayout(final FacesContext facesContext, final UIComponent container)
+      throws IOException {
     Deprecation.LOG.warn("Using deprecated API");
-    for (UIComponent child : container.getChildren()) {
+    for (final UIComponent child : container.getChildren()) {
       encode(facesContext, child);
     }
   }
 
-  public static void encode(FacesContext facesContext, UIComponent component) throws IOException {
+  public static void encode(final FacesContext facesContext, final UIComponent component) throws IOException {
     Deprecation.LOG.warn("Using deprecated API");
     RenderUtils.encode(facesContext, component);
   }
 
-  public static void prepareRendererAll(FacesContext facesContext, UIComponent component) throws IOException {
+  public static void prepareRendererAll(final FacesContext facesContext, final UIComponent component)
+      throws IOException {
     Deprecation.LOG.warn("Using deprecated API");
     RenderUtils.prepareRendererAll(facesContext, component);
   }
 
-  public static String addMenuCheckToggle(String clientId, String onClick) {
+  public static String addMenuCheckToggle(final String clientId, final String onClick) {
     Deprecation.LOG.error("No longer supported");
     return "alert('Using deprecated API. Please check log file.');";
   }
 
-  public static String getFormattedValue(FacesContext facesContext, UIComponent component) {
+  public static String getFormattedValue(final FacesContext facesContext, final UIComponent component) {
     Deprecation.LOG.warn("Using deprecated API");
     return RenderUtils.getFormattedValue(facesContext, component);
   }
 
   // Copy from RendererBase
-  public static String getFormattedValue(FacesContext context, UIComponent component, Object currentValue)
+  public static String getFormattedValue(
+      final FacesContext context, final UIComponent component, final Object currentValue)
       throws ConverterException {
     Deprecation.LOG.warn("Using deprecated API");
     return RenderUtils.getFormattedValue(context, component, currentValue);
   }
 
-  public static Measure calculateStringWidth(FacesContext facesContext, UIComponent component, String text) {
+  public static Measure calculateStringWidth(
+      final FacesContext facesContext, final UIComponent component, final String text) {
     Deprecation.LOG.warn("Using deprecated API");
     return RenderUtils.calculateStringWidth(facesContext, component, text);
   }
 
-  public static Measure calculateStringWidth2(FacesContext facesContext, UIComponent component, String text) {
+  public static Measure calculateStringWidth2(
+      final FacesContext facesContext, final UIComponent component, final String text) {
     Deprecation.LOG.warn("Using deprecated API");
     return RenderUtils.calculateStringWidth2(facesContext, component, text);
   }
 
-  public static List<SelectItem> getItemsToRender(javax.faces.component.UISelectOne component) {
+  public static List<SelectItem> getItemsToRender(final javax.faces.component.UISelectOne component) {
     return getItems(component);
   }
 
-  public static List<SelectItem> getItemsToRender(javax.faces.component.UISelectMany component) {
+  public static List<SelectItem> getItemsToRender(final javax.faces.component.UISelectMany component) {
     return getItems(component);
   }
 
-  public static List<SelectItem> getItems(javax.faces.component.UIInput component) {
+  public static List<SelectItem> getItems(final javax.faces.component.UIInput component) {
     Deprecation.LOG.warn("Using deprecated API");
     return RenderUtils.getItems(component);
   }
 
-  public static String currentValue(UIComponent component) {
+  public static String currentValue(final UIComponent component) {
     Deprecation.LOG.warn("Using deprecated API");
     return RenderUtils.currentValue(component);
   }
 
-  public static List<SelectItem> getSelectItems(UIComponent component) {
+  public static List<SelectItem> getSelectItems(final UIComponent component) {
     Deprecation.LOG.warn("Using deprecated API");
     return RenderUtils.getSelectItems(component);
   }

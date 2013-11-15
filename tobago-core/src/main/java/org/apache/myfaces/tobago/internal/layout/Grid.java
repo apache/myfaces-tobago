@@ -53,7 +53,7 @@ public class Grid {
 
   private List<Integer> errorIndexes;
 
-  public Grid(LayoutTokens columns, LayoutTokens rows) {
+  public Grid(final LayoutTokens columns, final LayoutTokens rows) {
     assert columns.getSize() > 0;
     assert rows.getSize() > 0;
 
@@ -68,14 +68,14 @@ public class Grid {
     for (int i = 0; i < rowCount; i++) {
       rowHeads[i] = new BankHead(rows.get(i));
     }
-    int size = columnCount * rowCount;
+    final int size = columnCount * rowCount;
     this.cells = new ArrayList<Cell>(size);
     for (int i = 0; i < size; i++) {
       this.cells.add(null);
     }
   }
 
-  public void add(OriginCell cell, int columnSpan, int rowSpan) {
+  public void add(final OriginCell cell, int columnSpan, final int rowSpan) {
 
     assert columnSpan > 0;
     assert rowSpan > 0;
@@ -103,7 +103,7 @@ public class Grid {
 
     for (int j = 0; j < rowSpan; j++) {
       for (int i = 0; i < columnSpan; i++) {
-        Cell actualCell;
+        final Cell actualCell;
         if (i == 0 && j == 0) {
           actualCell = cell;
         } else {
@@ -120,11 +120,11 @@ public class Grid {
     findNextFreeCell();
   }
 
-  public Cell getCell(int i, int j, Orientation orientation) {
+  public Cell getCell(final int i, final int j, final Orientation orientation) {
     return orientation == Orientation.HORIZONTAL ? getCell(i, j) : getCell(j, i);
   }
 
-  public Cell getCell(int column, int row) {
+  public Cell getCell(final int column, final int row) {
     assert column >= 0 && column < columnCount : "column=" + column + " columnCount=" + columnCount;
     assert row >= 0 : "row=" + row;
 
@@ -135,7 +135,7 @@ public class Grid {
     }
   }
 
-  public void setCell(int column, int row, Cell cell) {
+  public void setCell(final int column, final int row, final Cell cell) {
     if (row >= rowCount) {
       enlarge(row - rowCount + 1);
     }
@@ -153,11 +153,11 @@ public class Grid {
     }
   }
 
-  public BankHead[] getBankHeads(Orientation orientation) {
+  public BankHead[] getBankHeads(final Orientation orientation) {
     return orientation == Orientation.HORIZONTAL ? columnHeads : rowHeads;
   }
   
-  private void enlarge(int newRows) {
+  private void enlarge(final int newRows) {
     
     // process cells
     for (int i = 0; i < newRows; i++) {
@@ -167,7 +167,7 @@ public class Grid {
     }
 
     // process heads
-    BankHead[] newRowHeads = new BankHead[rowCount + newRows];
+    final BankHead[] newRowHeads = new BankHead[rowCount + newRows];
     System.arraycopy(rowHeads, 0, newRowHeads, 0, rowHeads.length);
     rowHeads = newRowHeads;
     // todo: shorter in jdk 1.6: rowHeads = Arrays.copyOf(rowHeads, rowHeads.length + newRows);
@@ -179,11 +179,11 @@ public class Grid {
     rowCount += newRows;
   }
 
-  public boolean isOverflow(Orientation orientation) {
+  public boolean isOverflow(final Orientation orientation) {
     return orientation == Orientation.HORIZONTAL ? columnOverflow : rowOverflow;
   }
 
-  public void setOverflow(boolean overflow, Orientation orientation) {
+  public void setOverflow(final boolean overflow, final Orientation orientation) {
     if (orientation == Orientation.HORIZONTAL) {
       this.columnOverflow = overflow;
     } else {
@@ -195,7 +195,7 @@ public class Grid {
     return columnOverflow;
   }
 
-  public void setColumnOverflow(boolean columnOverflow) {
+  public void setColumnOverflow(final boolean columnOverflow) {
     this.columnOverflow = columnOverflow;
   }
 
@@ -203,18 +203,18 @@ public class Grid {
     return rowOverflow;
   }
 
-  public void setRowOverflow(boolean rowOverflow) {
+  public void setRowOverflow(final boolean rowOverflow) {
     this.rowOverflow = rowOverflow;
   }
 
-  public void addError(int i, int j) {
+  public void addError(final int i, final int j) {
     if (errorIndexes == null) {
       errorIndexes = new ArrayList<Integer>();
     }
     errorIndexes.add(j * columnCount + i);
   }
 
-  public boolean hasError(int i, int j) {
+  public boolean hasError(final int i, final int j) {
     if (errorIndexes == null) {
       return false;
     }
@@ -245,7 +245,7 @@ public class Grid {
    */
   public String gridAsString() {
 
-    StringBuilder builder = new StringBuilder();
+    final StringBuilder builder = new StringBuilder();
 
     // top of grid
     for (int i = 0; i < columnCount; i++) {
@@ -256,8 +256,8 @@ public class Grid {
           builder.append("┌");
         }
       } else {
-        Cell c = getCell(i - 1, 0);
-        Cell d = getCell(i, 0);
+        final Cell c = getCell(i - 1, 0);
+        final Cell d = getCell(i, 0);
         if (c == null && d == null) {
           builder.append("┬");
         } else {
@@ -294,8 +294,8 @@ public class Grid {
       if (j != 0) {
         for (int i = 0; i < columnCount; i++) {
           if (i == 0) {
-            Cell b = getCell(0, j - 1);
-            Cell d = getCell(0, j);
+            final Cell b = getCell(0, j - 1);
+            final Cell d = getCell(0, j);
             if (b == null && d == null) {
               builder.append("├");
             } else {
@@ -312,10 +312,10 @@ public class Grid {
               }
             }
           } else {
-            Cell a = getCell(i - 1, j - 1);
-            Cell b = getCell(i, j - 1);
-            Cell c = getCell(i - 1, j);
-            Cell d = getCell(i, j);
+            final Cell a = getCell(i - 1, j - 1);
+            final Cell b = getCell(i, j - 1);
+            final Cell c = getCell(i - 1, j);
+            final Cell d = getCell(i, j);
 //            a│b
 //            ─┼─
 //            c│d
@@ -355,16 +355,16 @@ public class Grid {
               }
             }
           }
-          Cell a = getCell(i, j - 1);
-          Cell c = getCell(i, j);
+          final Cell a = getCell(i, j - 1);
+          final Cell c = getCell(i, j);
           if (connected(a, c)) {
             builder.append("─");
           } else {
             builder.append("━");
           }
         }
-        Cell a = getCell(columnCount - 1, j - 1);
-        Cell c = getCell(columnCount - 1, j);
+        final Cell a = getCell(columnCount - 1, j - 1);
+        final Cell c = getCell(columnCount - 1, j);
         if (a == null && c == null) {
           builder.append("┤");
         } else {
@@ -392,8 +392,8 @@ public class Grid {
             builder.append("│");
           }
         } else {
-          Cell c = getCell(i - 1, j);
-          Cell d = getCell(i, j);
+          final Cell c = getCell(i - 1, j);
+          final Cell d = getCell(i, j);
           if (connected(c, d)) {
             builder.append("│");
           } else {
@@ -409,8 +409,8 @@ public class Grid {
             if (j == 0) {
               builder.append("➞");
             } else {
-              Cell a = getCell(i, j - 1);
-              Cell c = getCell(i, j);
+              final Cell a = getCell(i, j - 1);
+              final Cell c = getCell(i, j);
               if (connected(a, c)) {
                 builder.append("⬇");
               } else {
@@ -439,8 +439,8 @@ public class Grid {
           builder.append("└");
         }
       } else {
-        Cell a = getCell(i - 1, rowCount - 1);
-        Cell b = getCell(i, rowCount - 1);
+        final Cell a = getCell(i - 1, rowCount - 1);
+        final Cell b = getCell(i, rowCount - 1);
         if (a == null && b == null) {
           builder.append("┴");
         } else {
@@ -475,7 +475,7 @@ public class Grid {
 
   @Override
   public String toString() {
-    StringBuilder builder = new StringBuilder();
+    final StringBuilder builder = new StringBuilder();
     builder.append(gridAsString());
     builder.append("columnHeads=");
     builder.append(Arrays.toString(columnHeads));
@@ -486,7 +486,7 @@ public class Grid {
     return builder.toString();
   }
 
-  private boolean connected(Cell a, Cell b) {
+  private boolean connected(final Cell a, final Cell b) {
     if (a == null && b == null) {
       return true;
     }

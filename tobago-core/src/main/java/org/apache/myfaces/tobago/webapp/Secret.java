@@ -49,7 +49,7 @@ public final class Secret implements Serializable {
     try {
       Base64.encodeBase64URLSafeString(new byte[0]);
       return true;
-    } catch (Error e) {
+    } catch (final Error e) {
       return false;
     }
   }
@@ -57,18 +57,18 @@ public final class Secret implements Serializable {
   private String secret;
 
   private Secret() {
-    byte[] bytes = new byte[SECRET_LENGTH];
+    final byte[] bytes = new byte[SECRET_LENGTH];
     RANDOM.nextBytes(bytes);
     secret = COMMONS_CODEC_AVAILABLE ? encodeBase64(bytes) : encodeHex(bytes);
   }
 
-  private String encodeBase64(byte[] bytes) {
+  private String encodeBase64(final byte[] bytes) {
     return Base64.encodeBase64URLSafeString(bytes);
   }
 
-  private String encodeHex(byte[] bytes) {
-    StringBuilder builder = new StringBuilder(SECRET_LENGTH * 2);
-    for (byte b : bytes) {
+  private String encodeHex(final byte[] bytes) {
+    final StringBuilder builder = new StringBuilder(SECRET_LENGTH * 2);
+    for (final byte b : bytes) {
       builder.append(String.format("%02x", b));
     }
     return builder.toString();
@@ -118,7 +118,7 @@ public final class Secret implements Serializable {
    * Create a secret attribute in the session.
    * Should usually be called in a {@link javax.servlet.http.HttpSessionListener}.
    */
-  public static void create(HttpSession session) {
+  public static void create(final HttpSession session) {
     session.setAttribute(Secret.KEY, new Secret());
   }
 }

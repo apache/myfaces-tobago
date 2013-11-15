@@ -24,14 +24,14 @@ public final class ImageCacheKey {
   private final String name;
   private final int hashCode;
 
-  public ImageCacheKey(ClientPropertiesKey clientPropertiesKey, String name) {
+  public ImageCacheKey(final ClientPropertiesKey clientPropertiesKey, final String name) {
     this.name = name;
     this.clientPropertiesKey = clientPropertiesKey;
     hashCode = calcHashCode();
   }
 
   @Override
-  public boolean equals(Object o) {
+  public boolean equals(final Object o) {
     if (this == o) {
       return true;
     }
@@ -39,7 +39,7 @@ public final class ImageCacheKey {
       return false;
     }
 
-    ImageCacheKey that = (ImageCacheKey) o;
+    final ImageCacheKey that = (ImageCacheKey) o;
 
     return clientPropertiesKey.equals(that.clientPropertiesKey) && name.equals(that.name);
   }

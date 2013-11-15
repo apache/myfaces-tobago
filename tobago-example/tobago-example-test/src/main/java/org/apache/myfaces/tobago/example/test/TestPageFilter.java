@@ -91,7 +91,7 @@ public class TestPageFilter {
       "/type/.*" // todo
   ));
 
-  public static boolean isValid(String name) {
+  public static boolean isValid(final String name) {
 
     // 1st all has to start with a '/' slash
 
@@ -102,7 +102,7 @@ public class TestPageFilter {
     // 2nd the positive check
 
     boolean matches = false;
-    for (String allowed : ALLOWED) {
+    for (final String allowed : ALLOWED) {
       if (name.matches(allowed)) {
         matches = true;
       }
@@ -113,7 +113,7 @@ public class TestPageFilter {
 
     // 3rd the negative check
 
-    for (String hidden : HIDDEN) {
+    for (final String hidden : HIDDEN) {
       if (name.matches(hidden)) {
         return false;
       }
@@ -122,8 +122,8 @@ public class TestPageFilter {
     return true;
   }
 
-  public static boolean isDisabled(String name) {
-    for (String disabled : DISABLED) {
+  public static boolean isDisabled(final String name) {
+    for (final String disabled : DISABLED) {
       if (name.matches(disabled)) {
         return true;
       }
@@ -132,8 +132,8 @@ public class TestPageFilter {
     return false;
   }
 
-  public static boolean isTodo(String name) {
-    for (String todo : TODO) {
+  public static boolean isTodo(final String name) {
+    for (final String todo : TODO) {
       if (name.matches(todo)) {
         return true;
       }

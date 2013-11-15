@@ -167,7 +167,7 @@ public abstract class AbstractCrud implements Crud {
    * @param defaultOutcome
    *          The outcome for all actions of the crud component
    */
-  public final void setDefaultOutcome(String defaultOutcome) {
+  public final void setDefaultOutcome(final String defaultOutcome) {
     this.defaultOutcome = defaultOutcome;
   }
 

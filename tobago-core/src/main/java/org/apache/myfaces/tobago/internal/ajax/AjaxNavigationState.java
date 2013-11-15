@@ -44,33 +44,33 @@ public final class AjaxNavigationState {
 
   private Map<String, List<FacesMessage>> messages;
 
-  private AjaxNavigationState(FacesContext facesContext) {
-    ExternalContext externalContext = facesContext.getExternalContext();
+  private AjaxNavigationState(final FacesContext facesContext) {
+    final ExternalContext externalContext = facesContext.getExternalContext();
     externalContext.getSessionMap().put(SESSION_KEY, this);
     viewRoot = facesContext.getViewRoot();
     messages = new HashMap<String, List<FacesMessage>>();
-    Iterator<String> iterator = facesContext.getClientIdsWithMessages();
+    final Iterator<String> iterator = facesContext.getClientIdsWithMessages();
     while (iterator.hasNext()) {
       addFacesMessages(facesContext, iterator.next());
     }
     if (LOG.isTraceEnabled()) {
       LOG.trace("Saved viewRoot.getViewId() = \"{}\"", viewRoot.getViewId());
-      for (Map.Entry<String, List<FacesMessage>> entry : messages.entrySet()) {
-        for (FacesMessage message : entry.getValue()) {
+      for (final Map.Entry<String, List<FacesMessage>> entry : messages.entrySet()) {
+        for (final FacesMessage message : entry.getValue()) {
           LOG.trace("Saved message \"{}\" : \"{}\"", entry.getKey(), message);
         }
       }
     }
   }
 
-  private void addFacesMessages(FacesContext facesContext, String clientId) {
-    Iterator<FacesMessage> facesMessages = facesContext.getMessages(clientId);
+  private void addFacesMessages(final FacesContext facesContext, final String clientId) {
+    final Iterator<FacesMessage> facesMessages = facesContext.getMessages(clientId);
     while (facesMessages.hasNext()) {
       addFacesMessage(clientId, facesMessages.next());
     }
   }
 
-  private void addFacesMessage(String clientId, FacesMessage facesMessage) {
+  private void addFacesMessage(final String clientId, final FacesMessage facesMessage) {
     List<FacesMessage> facesMessages = messages.get(clientId);
     if (facesMessages == null) {
       facesMessages = new ArrayList<FacesMessage>();
@@ -79,18 +79,18 @@ public final class AjaxNavigationState {
     facesMessages.add(facesMessage);
   }
 
-  private void restoreView(FacesContext facesContext) {
+  private void restoreView(final FacesContext facesContext) {
     facesContext.setViewRoot(viewRoot);
-    for (Map.Entry<String, List<FacesMessage>> entry : messages.entrySet()) {
-      for (FacesMessage facesMessage : entry.getValue()) {
+    for (final Map.Entry<String, List<FacesMessage>> entry : messages.entrySet()) {
+      for (final FacesMessage facesMessage : entry.getValue()) {
         facesContext.addMessage(entry.getKey(), facesMessage);
       }
     }
     facesContext.renderResponse();
     if (LOG.isTraceEnabled()) {
       LOG.trace("Restored viewRoot.getViewId() = \"{}\"", viewRoot.getViewId());
-      for (Map.Entry<String, List<FacesMessage>> entry : messages.entrySet()) {
-        for (FacesMessage message : entry.getValue()) {
+      for (final Map.Entry<String, List<FacesMessage>> entry : messages.entrySet()) {
+        for (final FacesMessage message : entry.getValue()) {
           LOG.trace("Restored message \"{}\" : \"{}\"", entry.getKey(), message);
         }
       }
@@ -98,7 +98,7 @@ public final class AjaxNavigationState {
 
   }
 
-  public static void storeIncomingView(FacesContext facesContext) {
+  public static void storeIncomingView(final FacesContext facesContext) {
     final UIViewRoot viewRoot = facesContext.getViewRoot();
     if (LOG.isTraceEnabled()) {
       if (viewRoot != null) {
@@ -110,7 +110,7 @@ public final class AjaxNavigationState {
     facesContext.getExternalContext().getRequestMap().put(AjaxNavigationState.VIEW_ROOT_KEY, viewRoot);
   }
 
-  public static boolean isNavigation(FacesContext facesContext) {
+  public static boolean isNavigation(final FacesContext facesContext) {
 
     final UIViewRoot viewRoot = facesContext.getViewRoot();
     if (viewRoot != null) {
@@ -136,9 +136,10 @@ public final class AjaxNavigationState {
     return false;
   }
 
-  public static void handleNavigation(FacesContext facesContext) {
-    Map<String, Object> sessionMap = facesContext.getExternalContext().getSessionMap();
-    AjaxNavigationState navigationState = (AjaxNavigationState) sessionMap.remove(AjaxNavigationState.SESSION_KEY);
+  public static void handleNavigation(final FacesContext facesContext) {
+    final Map<String, Object> sessionMap = facesContext.getExternalContext().getSessionMap();
+    final AjaxNavigationState navigationState
+        = (AjaxNavigationState) sessionMap.remove(AjaxNavigationState.SESSION_KEY);
     if (navigationState != null) {
       navigationState.restoreView(facesContext);
       LOG.trace("force render requested navigation view");

@@ -32,34 +32,34 @@ public class TobagoConfigSorterUnitTest {
 
     // config + names
 
-    TobagoConfigFragment a = new TobagoConfigFragment();
+    final TobagoConfigFragment a = new TobagoConfigFragment();
     a.setName("a");
 
-    TobagoConfigFragment b = new TobagoConfigFragment();
+    final TobagoConfigFragment b = new TobagoConfigFragment();
     b.setName("b");
 
-    TobagoConfigFragment c = new TobagoConfigFragment();
+    final TobagoConfigFragment c = new TobagoConfigFragment();
     c.setName("c");
 
-    TobagoConfigFragment d = new TobagoConfigFragment();
+    final TobagoConfigFragment d = new TobagoConfigFragment();
     d.setName("d");
 
-    TobagoConfigFragment e = new TobagoConfigFragment();
+    final TobagoConfigFragment e = new TobagoConfigFragment();
     e.setName("e");
 
-    TobagoConfigFragment f = new TobagoConfigFragment();
+    final TobagoConfigFragment f = new TobagoConfigFragment();
     f.setName("f");
 
-    TobagoConfigFragment m = new TobagoConfigFragment();
+    final TobagoConfigFragment m = new TobagoConfigFragment();
     m.setName("m");
 
-    TobagoConfigFragment n = new TobagoConfigFragment();
+    final TobagoConfigFragment n = new TobagoConfigFragment();
     n.setName("n");
 
     // unnamed
-    TobagoConfigFragment u1 = new TobagoConfigFragment();
-    TobagoConfigFragment u2 = new TobagoConfigFragment();
-    TobagoConfigFragment u3 = new TobagoConfigFragment();
+    final TobagoConfigFragment u1 = new TobagoConfigFragment();
+    final TobagoConfigFragment u2 = new TobagoConfigFragment();
+    final TobagoConfigFragment u3 = new TobagoConfigFragment();
 
     // before
     a.getBefore().add("b");
@@ -81,7 +81,7 @@ public class TobagoConfigSorterUnitTest {
 
     n.getAfter().add("m");
 
-    List<TobagoConfigFragment> list = new ArrayList<TobagoConfigFragment>();
+    final List<TobagoConfigFragment> list = new ArrayList<TobagoConfigFragment>();
     list.add(a);
     list.add(b);
     list.add(c);
@@ -94,7 +94,7 @@ public class TobagoConfigSorterUnitTest {
     list.add(m);
     list.add(n);
 
-    TobagoConfigSorter sorter = new TobagoConfigSorter(list);
+    final TobagoConfigSorter sorter = new TobagoConfigSorter(list);
     sorter.createRelevantPairs();
 
     Assert.assertEquals(9, sorter.getPairs().size()); // all but these with "z" and "y"
@@ -127,21 +127,21 @@ public class TobagoConfigSorterUnitTest {
 
     // config + names
 
-    TobagoConfigFragment a = new TobagoConfigFragment();
+    final TobagoConfigFragment a = new TobagoConfigFragment();
     a.setName("a");
 
-    TobagoConfigFragment b = new TobagoConfigFragment();
+    final TobagoConfigFragment b = new TobagoConfigFragment();
     b.setName("b");
 
     // before
     a.getBefore().add("b");
     b.getBefore().add("a");
 
-    List<TobagoConfigFragment> list = new ArrayList<TobagoConfigFragment>();
+    final List<TobagoConfigFragment> list = new ArrayList<TobagoConfigFragment>();
     list.add(a);
     list.add(b);
 
-    TobagoConfigSorter sorter = new TobagoConfigSorter(list);
+    final TobagoConfigSorter sorter = new TobagoConfigSorter(list);
     sorter.createRelevantPairs();
 
     Assert.assertEquals(2, sorter.getPairs().size()); // all but these with "z" and "y"
@@ -153,7 +153,7 @@ public class TobagoConfigSorterUnitTest {
       sorter.ensureAntiSymmetric();
 
       Assert.fail("Cycle was not found");
-    } catch (RuntimeException e) {
+    } catch (final RuntimeException e) {
       // must find the cycle
     }
   }
@@ -163,10 +163,10 @@ public class TobagoConfigSorterUnitTest {
 
     // config + names
 
-    TobagoConfigFragment a = new TobagoConfigFragment();
+    final TobagoConfigFragment a = new TobagoConfigFragment();
     a.setName("a");
 
-    TobagoConfigFragment b = new TobagoConfigFragment();
+    final TobagoConfigFragment b = new TobagoConfigFragment();
     b.setName("b");
 
     // before
@@ -174,11 +174,11 @@ public class TobagoConfigSorterUnitTest {
     // after
     a.getAfter().add("b");
 
-    List<TobagoConfigFragment> list = new ArrayList<TobagoConfigFragment>();
+    final List<TobagoConfigFragment> list = new ArrayList<TobagoConfigFragment>();
     list.add(a);
     list.add(b);
 
-    TobagoConfigSorter sorter = new TobagoConfigSorter(list);
+    final TobagoConfigSorter sorter = new TobagoConfigSorter(list);
     sorter.createRelevantPairs();
 
     Assert.assertEquals(2, sorter.getPairs().size()); // all but these with "z" and "y"
@@ -190,7 +190,7 @@ public class TobagoConfigSorterUnitTest {
       sorter.ensureAntiSymmetric();
 
       Assert.fail("Cycle was not found");
-    } catch (RuntimeException e) {
+    } catch (final RuntimeException e) {
       // must find the cycle
     }
   }

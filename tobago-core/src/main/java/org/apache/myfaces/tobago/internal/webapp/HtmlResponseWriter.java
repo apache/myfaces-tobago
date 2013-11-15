@@ -46,7 +46,7 @@ public class HtmlResponseWriter extends TobagoResponseWriterBase {
   private boolean javascriptMode;
 
   public HtmlResponseWriter(
-      Writer writer, String contentType, String characterEncoding) {
+      final Writer writer, final String contentType, final String characterEncoding) {
     super(writer, contentType, characterEncoding);
     if ("application/json".equals(contentType)) {
       this.helper = new JsonWriterUtils(writer, characterEncoding);
@@ -75,7 +75,7 @@ public class HtmlResponseWriter extends TobagoResponseWriterBase {
   }
 
   @Override
-  public void write(String string) throws IOException {
+  public void write(final String string) throws IOException {
     if (javascriptMode) {
       writeJavascript(string);
     } else {
@@ -88,7 +88,7 @@ public class HtmlResponseWriter extends TobagoResponseWriterBase {
    */
   @Deprecated
   @Override
-  public void writeJavascript(String script) throws IOException {
+  public void writeJavascript(final String script) throws IOException {
     writeInternal(javascriptWriter, script);
   }
 
@@ -129,7 +129,7 @@ public class HtmlResponseWriter extends TobagoResponseWriterBase {
   }
 
   @Override
-  protected void writerAttributeValue(String value, boolean escape) throws IOException {
+  protected void writerAttributeValue(final String value, final boolean escape) throws IOException {
     if (escape) {
       helper.writeAttributeValue(value);
     } else {
@@ -146,7 +146,7 @@ public class HtmlResponseWriter extends TobagoResponseWriterBase {
    * @deprecated
    */
   @Deprecated
-  public static Style ensureHtmlStyleMap(UIComponent component, Style styles) {
+  public static Style ensureHtmlStyleMap(final UIComponent component, Style styles) {
     if (styles == null) {
       styles = new Style();
       ((Map<String, Object>) component.getAttributes()).put(Attributes.STYLE, styles);
@@ -162,9 +162,9 @@ public class HtmlResponseWriter extends TobagoResponseWriterBase {
   }
 
   @Override
-  public void endElement(String name) throws IOException {
+  public void endElement(final String name) throws IOException {
     if (name == HtmlElements.BODY) {
-      String javascript = getJavascript();
+      final String javascript = getJavascript();
       if (StringUtils.isNotEmpty(javascript)) {
         startElement(HtmlElements.SCRIPT, null);
         writeAttribute(HtmlAttributes.TYPE, "text/javascript", false);

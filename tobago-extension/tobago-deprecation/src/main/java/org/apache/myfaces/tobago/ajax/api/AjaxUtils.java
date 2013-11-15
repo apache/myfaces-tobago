@@ -48,7 +48,8 @@ public class AjaxUtils {
    * @deprecated Please use AjaxInternalUtils.checkParamValidity() 
    */
   @Deprecated
-  public static void checkParamValidity(FacesContext facesContext, UIComponent uiComponent, Class compClass) {
+  public static void checkParamValidity(
+      final FacesContext facesContext, final UIComponent uiComponent, final Class compClass) {
     AjaxInternalUtils.checkParamValidity(facesContext, uiComponent, compClass);
   }
 
@@ -56,7 +57,8 @@ public class AjaxUtils {
    * @deprecated Please use AjaxInternalUtils.encodeAjaxComponent() 
    */
   @Deprecated
-  public static void encodeAjaxComponent(FacesContext facesContext, UIComponent component) throws IOException {
+  public static void encodeAjaxComponent(final FacesContext facesContext, final UIComponent component)
+      throws IOException {
     AjaxInternalUtils.encodeAjaxComponent(facesContext, component);
   }
 
@@ -64,7 +66,7 @@ public class AjaxUtils {
    * @deprecated Please use AjaxInternalUtils.parseAndStoreComponents() 
    */
   @Deprecated
-  public static Map<String, UIComponent> parseAndStoreComponents(FacesContext facesContext) {
+  public static Map<String, UIComponent> parseAndStoreComponents(final FacesContext facesContext) {
     return AjaxInternalUtils.parseAndStoreComponents(facesContext);
   }
 
@@ -72,7 +74,7 @@ public class AjaxUtils {
    * @deprecated Please use AjaxInternalUtils.getAjaxComponents() 
    */
   @Deprecated
-  public static Map<String, UIComponent> getAjaxComponents(FacesContext facesContext) {
+  public static Map<String, UIComponent> getAjaxComponents(final FacesContext facesContext) {
     return AjaxInternalUtils.getAjaxComponents(facesContext);
   }
 
@@ -80,7 +82,7 @@ public class AjaxUtils {
    * @deprecated Please use org.apache.myfaces.tobago.ajax.AjaxUtils.isAjaxRequest() 
    */
   @Deprecated
-  public static boolean isAjaxRequest(FacesContext facesContext) {
+  public static boolean isAjaxRequest(final FacesContext facesContext) {
     return org.apache.myfaces.tobago.ajax.AjaxUtils.isAjaxRequest(facesContext);
   }
 
@@ -88,7 +90,7 @@ public class AjaxUtils {
    * @deprecated Please use org.apache.myfaces.tobago.ajax.AjaxUtils.removeAjaxComponent() 
    */
   @Deprecated
-  public static void removeAjaxComponent(FacesContext facesContext, String clientId) {
+  public static void removeAjaxComponent(final FacesContext facesContext, final String clientId) {
     org.apache.myfaces.tobago.ajax.AjaxUtils.removeAjaxComponent(facesContext, clientId);
   }
 
@@ -96,7 +98,7 @@ public class AjaxUtils {
    * @deprecated Please use org.apache.myfaces.tobago.ajax.AjaxUtils.addAjaxComponent() 
    */
   @Deprecated
-  public static void addAjaxComponent(FacesContext facesContext, String clientId) {
+  public static void addAjaxComponent(final FacesContext facesContext, final String clientId) {
     org.apache.myfaces.tobago.ajax.AjaxUtils.addAjaxComponent(facesContext, clientId);
   }
 
@@ -104,7 +106,7 @@ public class AjaxUtils {
    * @deprecated Please use org.apache.myfaces.tobago.ajax.AjaxUtils.addAjaxComponent() 
    */
   @Deprecated
-  public static void addAjaxComponent(FacesContext facesContext, UIComponent component) {
+  public static void addAjaxComponent(final FacesContext facesContext, final UIComponent component) {
     org.apache.myfaces.tobago.ajax.AjaxUtils.addAjaxComponent(facesContext, component);
   }
 
@@ -112,7 +114,7 @@ public class AjaxUtils {
    * @deprecated Please use org.apache.myfaces.tobago.internal.ajax.AjaxInternalUtils.ensureDecoded()
    */
   @Deprecated
-  public static void ensureDecoded(FacesContext facesContext, String clientId) {
+  public static void ensureDecoded(final FacesContext facesContext, final String clientId) {
     AjaxInternalUtils.ensureDecoded(facesContext, clientId);
   }
 
@@ -120,7 +122,7 @@ public class AjaxUtils {
    * @deprecated Please use org.apache.myfaces.tobago.internal.ajax.AjaxInternalUtils.ensureDecoded()
    */
   @Deprecated
-  public static void ensureDecoded(FacesContext facesContext, UIComponent component) {
+  public static void ensureDecoded(final FacesContext facesContext, final UIComponent component) {
     AjaxInternalUtils.ensureDecoded(facesContext, component);
   }
 
@@ -128,7 +130,7 @@ public class AjaxUtils {
    * @deprecated Please use org.apache.myfaces.tobago.internal.ajax.AjaxInternalUtils.encodeJavaScriptString()
    */
   @Deprecated
-  public static String encodeJavascriptString(String value) {
+  public static String encodeJavascriptString(final String value) {
     return AjaxInternalUtils.encodeJavaScriptString(value);
   }
 
@@ -136,7 +138,7 @@ public class AjaxUtils {
    * @deprecated Please use org.apache.myfaces.tobago.ajax.AjaxUtils.redirect
    */
   @Deprecated
-  public static boolean redirect(FacesContext facesContext, String url) throws IOException {
+  public static boolean redirect(final FacesContext facesContext, final String url) throws IOException {
     return org.apache.myfaces.tobago.ajax.AjaxUtils.redirect(facesContext, url);
   }
 
@@ -144,7 +146,7 @@ public class AjaxUtils {
    * @deprecated Please use org.apache.myfaces.tobago.ajax.AjaxUtils.redirect
    */
   @Deprecated
-  public static void redirect(HttpServletResponse response, String url) throws IOException {
+  public static void redirect(final HttpServletResponse response, final String url) throws IOException {
     org.apache.myfaces.tobago.ajax.AjaxUtils.redirect(response, url);
   }
 
@@ -152,7 +154,7 @@ public class AjaxUtils {
    * @deprecated Please use org.apache.myfaces.tobago.ajax.AjaxUtils.getRequestPartialIds
    */
   @Deprecated
-  public static Set<String> getRequestPartialIds(FacesContext context) {
+  public static Set<String> getRequestPartialIds(final FacesContext context) {
     return org.apache.myfaces.tobago.ajax.AjaxUtils.getRequestPartialIds(context);
   }
 }

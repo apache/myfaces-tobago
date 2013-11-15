@@ -34,22 +34,22 @@ import java.io.IOException;
 public class MenuBarRenderer extends LayoutComponentRendererBase {
 
   @Override
-  public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
+  public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
 
-    UIMenuBar menuBar = (UIMenuBar) component;
-    TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final UIMenuBar menuBar = (UIMenuBar) component;
+    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
     writer.startElement(HtmlElements.OL, menuBar);
     writer.writeIdAttribute(menuBar.getClientId(facesContext));
     writer.writeClassAttribute(Classes.create(menuBar));
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, menuBar);
-    Style style = new Style(facesContext, menuBar);
+    final Style style = new Style(facesContext, menuBar);
     writer.writeStyleAttribute(style);
   }
 
   @Override
-  public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
-    TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
+    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
     writer.endElement(HtmlElements.OL);
   }
 }

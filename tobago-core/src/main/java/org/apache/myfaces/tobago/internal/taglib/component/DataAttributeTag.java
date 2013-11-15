@@ -67,7 +67,7 @@ public abstract class DataAttributeTag extends TagSupport {
   public int doStartTag() throws JspException {
 
     // Locate our parent UIComponentTag
-    UIComponentClassicTagBase tag =
+    final UIComponentClassicTagBase tag =
         UIComponentELTag.getParentUIComponentClassicTagBase(pageContext);
     if (tag == null) {
       // TODO Message resource i18n
@@ -100,7 +100,7 @@ public abstract class DataAttributeTag extends TagSupport {
    * The name of the attribute in the parent component.
    */
   @TagAttribute(required = true, name = "name", type = "java.lang.String")
-  public void setName(ValueExpression name) {
+  public void setName(final ValueExpression name) {
     this.name = name;
   }
 
@@ -110,7 +110,7 @@ public abstract class DataAttributeTag extends TagSupport {
    * The value of the attribute in the parent component.
    */
   @TagAttribute(required = true, name = "value", type = "java.lang.String")
-  public void setValue(ValueExpression value) {
+  public void setValue(final ValueExpression value) {
     this.value = value;
   }
 }

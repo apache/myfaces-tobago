@@ -56,7 +56,7 @@ public enum PageAction {
 
   private String token;
 
-  PageAction(String token) {
+  PageAction(final String token) {
     this.token = token;
   }
 
@@ -69,7 +69,7 @@ public enum PageAction {
   static {
     MAPPING = new HashMap<String, PageAction>();
 
-    for (PageAction action : PageAction.values()) {
+    for (final PageAction action : PageAction.values()) {
       MAPPING.put(action.getToken(), action);
     }
   }
@@ -80,8 +80,8 @@ public enum PageAction {
    * @return The matching page action (can't be null).
    * @throws IllegalArgumentException When the name doesn't match any PageAction.
    */
-  public static PageAction parse(String name) throws IllegalArgumentException {
-    PageAction value = MAPPING.get(name);
+  public static PageAction parse(final String name) throws IllegalArgumentException {
+    final PageAction value = MAPPING.get(name);
     if (value != null) {
       return value;
     } else {

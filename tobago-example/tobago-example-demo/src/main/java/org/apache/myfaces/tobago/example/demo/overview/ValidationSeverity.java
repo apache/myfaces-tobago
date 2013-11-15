@@ -25,26 +25,26 @@ import javax.faces.context.FacesContext;
 
 public class ValidationSeverity {
 
-  public void addFatal(FacesContext facesContext, UIComponent component, Object value) {
-    FacesMessage message = new FacesMessage(
+  public void addFatal(final FacesContext facesContext, final UIComponent component, final Object value) {
+    final FacesMessage message = new FacesMessage(
         FacesMessage.SEVERITY_FATAL, "Custom fatal", "This is a custom fatal error");
     facesContext.addMessage(component.getClientId(facesContext), message);
   }
 
-  public void addError(FacesContext facesContext, UIComponent component, Object value) {
-    FacesMessage message = new FacesMessage(
+  public void addError(final FacesContext facesContext, final UIComponent component, final Object value) {
+    final FacesMessage message = new FacesMessage(
         FacesMessage.SEVERITY_ERROR, "Custom error", "This is a custom error");
     facesContext.addMessage(component.getClientId(facesContext), message);
   }
 
-  public void addWarn(FacesContext facesContext, UIComponent component, Object value) {
-    FacesMessage message = new FacesMessage(
+  public void addWarn(final FacesContext facesContext, final UIComponent component, final Object value) {
+    final FacesMessage message = new FacesMessage(
         FacesMessage.SEVERITY_WARN, "Custom warning", "This is a custom warning");
     facesContext.addMessage(component.getClientId(facesContext), message);
   }
 
-  public void addInfo(FacesContext facesContext, UIComponent component, Object value) {
-    FacesMessage message = new FacesMessage(
+  public void addInfo(final FacesContext facesContext, final UIComponent component, final Object value) {
+    final FacesMessage message = new FacesMessage(
         FacesMessage.SEVERITY_INFO, "Custom info", "This is a custom information");
     facesContext.addMessage(component.getClientId(facesContext), message);
   }

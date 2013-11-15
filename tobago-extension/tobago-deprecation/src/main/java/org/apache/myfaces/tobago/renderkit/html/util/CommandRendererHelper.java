@@ -48,11 +48,11 @@ public class CommandRendererHelper {
   private String href;
   private String target;
 
-  public CommandRendererHelper(FacesContext facesContext, AbstractUICommandBase command) {
+  public CommandRendererHelper(final FacesContext facesContext, final AbstractUICommandBase command) {
     this(facesContext, command, null);
   }
 
-  public CommandRendererHelper(FacesContext facesContext, AbstractUICommandBase command, Tag tag) {
+  public CommandRendererHelper(final FacesContext facesContext, final AbstractUICommandBase command, final Tag tag) {
 
     disabled = ComponentUtils.getBooleanAttribute(command, Attributes.DISABLED);
 
@@ -61,17 +61,17 @@ public class CommandRendererHelper {
       href = "";
     } else {
       href = "#"; // this is to make the link "active", needed for focus, cursor, etc.
-      UIPopup popup = (UIPopup) command.getFacet(Facets.POPUP);
+      final UIPopup popup = (UIPopup) command.getFacet(Facets.POPUP);
       if (popup != null) {
         if (!ComponentUtils.containsPopupActionListener(command)) {
           command.addActionListener(new PopupFacetActionListener());
         }
       }
 
-      boolean transition = ComponentUtils.getBooleanAttribute(command, Attributes.TRANSITION);
+      final boolean transition = ComponentUtils.getBooleanAttribute(command, Attributes.TRANSITION);
 
       if (StringUtils.isNotEmpty(command.getLink()) || StringUtils.isNotEmpty(command.getResource())) {
-        String url = RenderUtils.generateUrl(facesContext, command);
+        final String url = RenderUtils.generateUrl(facesContext, command);
         if (tag == Tag.ANCHOR) {
           onclick = null;
           href = url;
@@ -83,11 +83,11 @@ public class CommandRendererHelper {
       } else if (StringUtils.isNotEmpty(command.getOnclick())) {
         onclick = prepareOnClick(facesContext, command);
       } else if (command.getRenderedPartially().length > 0) {
-        String clientId = command.getClientId(facesContext);
-        String[] componentIds = command.getRenderedPartially();
+        final String clientId = command.getClientId(facesContext);
+        final String[] componentIds = command.getRenderedPartially();
 
         // TODO find a better way
-        boolean popupAction = ComponentUtils.containsPopupActionListener(command);
+        final boolean popupAction = ComponentUtils.containsPopupActionListener(command);
         if (popupAction) {
           if (componentIds.length != 1) {
             LOG.warn("more than one partially rendered component is not supported for popup! using first one: "
@@ -101,14 +101,14 @@ public class CommandRendererHelper {
         }
 
       } else {
-        String clientId = command.getClientId(facesContext);
-        String target = ComponentUtils.getStringAttribute(command, Attributes.TARGET);
+        final String clientId = command.getClientId(facesContext);
+        final String target = ComponentUtils.getStringAttribute(command, Attributes.TARGET);
         onclick = HtmlRendererUtils.createSubmitAction(clientId, transition, target, null);
       }
 
       if (command.getAttributes().get(Attributes.POPUP_CLOSE) != null
           && ComponentUtils.isInPopup(command)) {
-        String value = (String) command.getAttributes().get(Attributes.POPUP_CLOSE);
+        final String value = (String) command.getAttributes().get(Attributes.POPUP_CLOSE);
         if (value.equals("immediate")) {
           onclick = "Tobago.Popup.close(this);";
         } else if (value.equals("afterSubmit")
@@ -122,7 +122,7 @@ public class CommandRendererHelper {
     }
   }
 
-  private String prepareOnClick(FacesContext facesContext, AbstractUICommandBase component) {
+  private String prepareOnClick(final FacesContext facesContext, final AbstractUICommandBase component) {
     String onclick = component.getOnclick();
     if (onclick.contains("@autoId")) {
       onclick = StringUtils.replace(onclick, "@autoId", component.getClientId(facesContext));
@@ -130,10 +130,10 @@ public class CommandRendererHelper {
     return onclick;
   }
 
-  private String appendConfirmationScript(String onclick, UIComponent component) {
-    ValueHolder confirmation = (ValueHolder) component.getFacet(Facets.CONFIRMATION);
+  private String appendConfirmationScript(String onclick, final UIComponent component) {
+    final ValueHolder confirmation = (ValueHolder) component.getFacet(Facets.CONFIRMATION);
     if (confirmation != null) {
-      StringBuilder script = new StringBuilder("return confirm('");
+      final StringBuilder script = new StringBuilder("return confirm('");
       script.append(confirmation.getValue());
       script.append("')");
       if (onclick != null) {

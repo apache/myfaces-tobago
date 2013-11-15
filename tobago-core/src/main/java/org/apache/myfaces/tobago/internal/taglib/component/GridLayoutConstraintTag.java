@@ -77,7 +77,7 @@ public abstract class GridLayoutConstraintTag extends TagSupport {
   public int doStartTag() throws JspException {
 
     // Locate our parent UIComponentTag
-    UIComponentClassicTagBase tag =
+    final UIComponentClassicTagBase tag =
         UIComponentELTag.getParentUIComponentClassicTagBase(pageContext);
     if (tag == null) {
       // TODO Message resource i18n
@@ -267,7 +267,7 @@ public abstract class GridLayoutConstraintTag extends TagSupport {
    * The number of horizontal cells this component should use.
    */
   @TagAttribute(name = "columnSpan", type = "java.lang.Integer")
-  public void setColumnSpan(ValueExpression columnSpan) {
+  public void setColumnSpan(final ValueExpression columnSpan) {
     this.columnSpan = columnSpan;
   }
 
@@ -275,7 +275,7 @@ public abstract class GridLayoutConstraintTag extends TagSupport {
    * The number of vertical cells this component should use.
    */
   @TagAttribute(name = "rowSpan", type = "java.lang.Integer")
-  public void setRowSpan(ValueExpression rowSpan) {
+  public void setRowSpan(final ValueExpression rowSpan) {
     this.rowSpan = rowSpan;
   }
 
@@ -284,7 +284,7 @@ public abstract class GridLayoutConstraintTag extends TagSupport {
    */
   @TagAttribute(name = "width", type = "org.apache.myfaces.tobago.layout.Measure")
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
-  public void setWidth(ValueExpression width) {
+  public void setWidth(final ValueExpression width) {
     this.width = width;
   }
 
@@ -293,7 +293,7 @@ public abstract class GridLayoutConstraintTag extends TagSupport {
    */
   @TagAttribute(name = "height", type = "org.apache.myfaces.tobago.layout.Measure")
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
-  public void setHeight(ValueExpression height) {
+  public void setHeight(final ValueExpression height) {
     this.height = height;
   }
 
@@ -302,7 +302,7 @@ public abstract class GridLayoutConstraintTag extends TagSupport {
    */
   @TagAttribute(name = "minimumWidth", type = "org.apache.myfaces.tobago.layout.Measure")
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
-  public void setMinimumWidth(ValueExpression minimumWidth) {
+  public void setMinimumWidth(final ValueExpression minimumWidth) {
     this.minimumWidth = minimumWidth;
   }
 
@@ -311,7 +311,7 @@ public abstract class GridLayoutConstraintTag extends TagSupport {
    */
   @TagAttribute(name = "minimumHeight", type = "org.apache.myfaces.tobago.layout.Measure")
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
-  public void setMinimumHeight(ValueExpression minimumHeight) {
+  public void setMinimumHeight(final ValueExpression minimumHeight) {
     this.minimumHeight = minimumHeight;
   }
 
@@ -320,7 +320,7 @@ public abstract class GridLayoutConstraintTag extends TagSupport {
    */
   @TagAttribute(name = "preferredWidth", type = "org.apache.myfaces.tobago.layout.Measure")
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
-  public void setPreferredWidth(ValueExpression preferredWidth) {
+  public void setPreferredWidth(final ValueExpression preferredWidth) {
     this.preferredWidth = preferredWidth;
   }
 
@@ -329,7 +329,7 @@ public abstract class GridLayoutConstraintTag extends TagSupport {
    */
   @TagAttribute(name = "preferredHeight", type = "org.apache.myfaces.tobago.layout.Measure")
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
-  public void setPreferredHeight(ValueExpression preferredHeight) {
+  public void setPreferredHeight(final ValueExpression preferredHeight) {
     this.preferredHeight = preferredHeight;
   }
 
@@ -338,7 +338,7 @@ public abstract class GridLayoutConstraintTag extends TagSupport {
    */
   @TagAttribute(name = "maximumWidth", type = "org.apache.myfaces.tobago.layout.Measure")
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
-  public void setMaximumWidth(ValueExpression maximumWidth) {
+  public void setMaximumWidth(final ValueExpression maximumWidth) {
     this.maximumWidth = maximumWidth;
   }
 
@@ -347,7 +347,7 @@ public abstract class GridLayoutConstraintTag extends TagSupport {
    */
   @TagAttribute(name = "maximumHeight", type = "org.apache.myfaces.tobago.layout.Measure")
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
-  public void setMaximumHeight(ValueExpression maximumHeight) {
+  public void setMaximumHeight(final ValueExpression maximumHeight) {
     this.maximumHeight = maximumHeight;
   }
 
@@ -356,7 +356,7 @@ public abstract class GridLayoutConstraintTag extends TagSupport {
    */
   @TagAttribute(name = "marginLeft", type = "org.apache.myfaces.tobago.layout.Measure")
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
-  public void setMarginLeft(ValueExpression marginLeft) {
+  public void setMarginLeft(final ValueExpression marginLeft) {
     this.marginLeft = marginLeft;
   }
 
@@ -365,7 +365,7 @@ public abstract class GridLayoutConstraintTag extends TagSupport {
    */
   @TagAttribute(name = "marginRight", type = "org.apache.myfaces.tobago.layout.Measure")
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
-  public void setMarginRight(ValueExpression marginRight) {
+  public void setMarginRight(final ValueExpression marginRight) {
     this.marginRight = marginRight;
   }
 
@@ -374,7 +374,7 @@ public abstract class GridLayoutConstraintTag extends TagSupport {
    */
   @TagAttribute(name = "marginTop", type = "org.apache.myfaces.tobago.layout.Measure")
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
-  public void setMarginTop(ValueExpression marginTop) {
+  public void setMarginTop(final ValueExpression marginTop) {
     this.marginTop = marginTop;
   }
 
@@ -383,7 +383,7 @@ public abstract class GridLayoutConstraintTag extends TagSupport {
    */
   @TagAttribute(name = "marginBottom", type = "org.apache.myfaces.tobago.layout.Measure")
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
-  public void setMarginBottom(ValueExpression marginBottom) {
+  public void setMarginBottom(final ValueExpression marginBottom) {
     this.marginBottom = marginBottom;
   }
 
@@ -392,7 +392,7 @@ public abstract class GridLayoutConstraintTag extends TagSupport {
    */
   @TagAttribute(name = "borderLeft", type = "org.apache.myfaces.tobago.layout.Measure")
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
-  public void setBorderLeft(ValueExpression borderLeft) {
+  public void setBorderLeft(final ValueExpression borderLeft) {
     this.borderLeft = borderLeft;
   }
 
@@ -401,7 +401,7 @@ public abstract class GridLayoutConstraintTag extends TagSupport {
    */
   @TagAttribute(name = "borderRight", type = "org.apache.myfaces.tobago.layout.Measure")
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
-  public void setBorderRight(ValueExpression borderRight) {
+  public void setBorderRight(final ValueExpression borderRight) {
     this.borderRight = borderRight;
   }
 
@@ -410,7 +410,7 @@ public abstract class GridLayoutConstraintTag extends TagSupport {
    */
   @TagAttribute(name = "borderTop", type = "org.apache.myfaces.tobago.layout.Measure")
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
-  public void setBorderTop(ValueExpression borderTop) {
+  public void setBorderTop(final ValueExpression borderTop) {
     this.borderTop = borderTop;
   }
 
@@ -419,7 +419,7 @@ public abstract class GridLayoutConstraintTag extends TagSupport {
    */
   @TagAttribute(name = "borderBottom", type = "org.apache.myfaces.tobago.layout.Measure")
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
-  public void setBorderBottom(ValueExpression borderBottom) {
+  public void setBorderBottom(final ValueExpression borderBottom) {
     this.borderBottom = borderBottom;
   }
 
@@ -428,7 +428,7 @@ public abstract class GridLayoutConstraintTag extends TagSupport {
    */
   @TagAttribute(name = "paddingLeft", type = "org.apache.myfaces.tobago.layout.Measure")
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
-  public void setPaddingLeft(ValueExpression paddingLeft) {
+  public void setPaddingLeft(final ValueExpression paddingLeft) {
     this.paddingLeft = paddingLeft;
   }
 
@@ -437,7 +437,7 @@ public abstract class GridLayoutConstraintTag extends TagSupport {
    */
   @TagAttribute(name = "paddingRight", type = "org.apache.myfaces.tobago.layout.Measure")
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
-  public void setPaddingRight(ValueExpression paddingRight) {
+  public void setPaddingRight(final ValueExpression paddingRight) {
     this.paddingRight = paddingRight;
   }
 
@@ -446,7 +446,7 @@ public abstract class GridLayoutConstraintTag extends TagSupport {
    */
   @TagAttribute(name = "paddingTop", type = "org.apache.myfaces.tobago.layout.Measure")
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
-  public void setPaddingTop(ValueExpression paddingTop) {
+  public void setPaddingTop(final ValueExpression paddingTop) {
     this.paddingTop = paddingTop;
   }
 
@@ -455,7 +455,7 @@ public abstract class GridLayoutConstraintTag extends TagSupport {
    */
   @TagAttribute(name = "paddingBottom", type = "org.apache.myfaces.tobago.layout.Measure")
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
-  public void setPaddingBottom(ValueExpression paddingBottom) {
+  public void setPaddingBottom(final ValueExpression paddingBottom) {
     this.paddingBottom = paddingBottom;
   }
 }

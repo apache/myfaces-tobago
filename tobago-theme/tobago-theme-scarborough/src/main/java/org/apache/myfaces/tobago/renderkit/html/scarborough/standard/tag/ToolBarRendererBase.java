@@ -66,31 +66,31 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
   private static final Logger LOG = LoggerFactory.getLogger(ToolBarRendererBase.class);
 
   @Override
-  public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
+  public void prepareRender(final FacesContext facesContext, final UIComponent component) throws IOException {
     super.prepareRender(facesContext, component);
     HtmlRendererUtils.renderDojoDndSource(facesContext, component);
   }
 
-  protected String getLabelPosition(UIComponent component) {
+  protected String getLabelPosition(final UIComponent component) {
     return (String) component.getAttributes().get(Attributes.LABEL_POSITION);
   }
 
-  protected String getIconSize(UIComponent component) {
+  protected String getIconSize(final UIComponent component) {
     return (String) component.getAttributes().get(Attributes.ICON_SIZE);
   }
 
-  protected boolean isRightAligned(UIToolBar toolBar) {
+  protected boolean isRightAligned(final UIToolBar toolBar) {
     return UIToolBar.ORIENTATION_RIGHT.equals(toolBar.getOrientation());
   }
 
   @Override
-  public void encodeEnd(FacesContext context, UIComponent component) throws IOException {
-    UIToolBar toolBar = (UIToolBar) component;
+  public void encodeEnd(final FacesContext context, final UIComponent component) throws IOException {
+    final UIToolBar toolBar = (UIToolBar) component;
 
-    TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(context);
+    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(context);
 
     Measure width = Measure.valueOf(-1);
-    for (UIComponent command : toolBar.getChildren()) {
+    for (final UIComponent command : toolBar.getChildren()) {
       if (command instanceof AbstractUICommandBase) {
         width = renderToolbarCommand(context, toolBar, (AbstractUICommandBase) command, writer, width);
       } else if (command instanceof UIToolBarSeparator) {
@@ -101,8 +101,9 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
     }
   }
 
-  private Measure renderToolbarCommand(FacesContext facesContext, UIToolBar toolBar, AbstractUICommandBase command,
-      TobagoResponseWriter writer, Measure width) throws IOException {
+  private Measure renderToolbarCommand(
+      final FacesContext facesContext, final UIToolBar toolBar, final AbstractUICommandBase command,
+      final TobagoResponseWriter writer, final Measure width) throws IOException {
     if (command instanceof SelectBooleanCommand) {
       return renderSelectBoolean(facesContext, toolBar, command, writer, width);
     } else if (command instanceof SelectOneCommand) {
@@ -122,8 +123,9 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
 
   // todo: remove component creation in renderer, for JSF 2.0
   // todo: One solution is to make <tx:toolBarSelectOne> instead of <tc:toolBarSelectOne>
-  private Measure renderSelectOne(FacesContext facesContext, UIToolBar toolBar, AbstractUICommandBase command,
-      TobagoResponseWriter writer, Measure width) throws IOException {
+  private Measure renderSelectOne(
+      final FacesContext facesContext, final UIToolBar toolBar, final AbstractUICommandBase command,
+      final TobagoResponseWriter writer, Measure width) throws IOException {
 
     final List<SelectItem> items;
 
@@ -139,12 +141,12 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
     if (radio != null) {
       writer.startElement(HtmlElements.SPAN, radio);
       writer.writeClassAttribute(Classes.createWorkaround("toolBar", "selectOne", null));
-      Object value = radio.getValue();
+      final Object value = radio.getValue();
 
       String currentValue = "";
       boolean markFirst = !ComponentUtils.hasSelectedValue(items, value);
-      String radioId = radio.getClientId(facesContext);
-      for (SelectItem item : items) {
+      final String radioId = radio.getClientId(facesContext);
+      for (final SelectItem item : items) {
         final String labelText = item.getLabel();
         if (labelText != null) {
           command.getAttributes().put(Attributes.LABEL, labelText);
@@ -167,7 +169,7 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
           command.getAttributes().put(Attributes.TIP, item.getDescription());
         }
 
-        String formattedValue = RenderUtils.getFormattedValue(facesContext, radio, item.getValue());
+        final String formattedValue = RenderUtils.getFormattedValue(facesContext, radio, item.getValue());
         final boolean checked;
         if (item.getValue().equals(value) || markFirst) {
           checked = true;
@@ -195,8 +197,9 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
   // todo: remove component creation in renderer, for JSF 2.0
   // todo: One solution is to make <tx:toolBarCheck> instead of <tc:toolBarCheck>
   // may be renamed to toolBarSelectBoolean?
-  private Measure renderSelectBoolean(FacesContext facesContext, UIToolBar toolBar, AbstractUICommandBase command,
-      TobagoResponseWriter writer, Measure width) throws IOException {
+  private Measure renderSelectBoolean(
+      final FacesContext facesContext, final UIToolBar toolBar, final AbstractUICommandBase command,
+      final TobagoResponseWriter writer, Measure width) throws IOException {
 
     UIComponent checkbox = command.getFacet(Facets.CHECKBOX);
     if (checkbox == null) {
@@ -221,10 +224,10 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
     return width;
   }
 
-
   private Measure renderToolbarButton(
-      FacesContext facesContext, UIToolBar toolBar, AbstractUICommandBase command, TobagoResponseWriter writer,
-      boolean selected, Measure width, CommandMap map, String value)
+      final FacesContext facesContext, final UIToolBar toolBar, final AbstractUICommandBase command,
+      final TobagoResponseWriter writer,
+      final boolean selected, final Measure width, final CommandMap map, final String value)
       throws IOException {
     if (!command.isRendered()) {
       return width;
@@ -405,7 +408,7 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
     if (showIcon && iconName != null) {
       writer.startElement(HtmlElements.IMG, command);
       writer.writeAttribute(HtmlAttributes.SRC, image, false);
-      String imageHover
+      final String imageHover
           = ResourceManagerUtils.getImageWithPath(facesContext, HtmlRendererUtils.createSrc(iconName, "Hover"), true);
       if (imageHover != null) {
         writer.writeAttribute(DataAttributes.SRC_DEFAULT, image, false);
@@ -439,8 +442,9 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
     // render sub menu popup button
     if (showDropDownMenu) {
       writer.startElement(HtmlElements.IMG, command);
-      boolean dropDownDisabled = ComponentUtils.getBooleanAttribute(dropDownMenu, Attributes.DISABLED) || disabled;
-      String menuImage = ResourceManagerUtils
+      final boolean dropDownDisabled
+          = ComponentUtils.getBooleanAttribute(dropDownMenu, Attributes.DISABLED) || disabled;
+      final String menuImage = ResourceManagerUtils
           .getImageOrDisabledImageWithPath(facesContext, "image/toolbarButtonMenu.gif", dropDownDisabled);
       writer.writeAttribute(HtmlAttributes.SRC, menuImage, false);
       writer.writeStyleAttribute(openerStyle);
@@ -455,8 +459,8 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
   }
 
   private Measure renderSeparator(
-      FacesContext facesContext, UIToolBar toolBar, UIToolBarSeparator separator, TobagoResponseWriter writer,
-      Measure width)
+      final FacesContext facesContext, final UIToolBar toolBar, final UIToolBarSeparator separator,
+      final TobagoResponseWriter writer, final Measure width)
       throws IOException {
     if (!separator.isRendered()) {
       return width;
@@ -464,7 +468,7 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
 
     writer.startElement(HtmlElements.SPAN, separator);
     writer.writeClassAttribute(Classes.create(toolBar, "item", Markup.DISABLED));
-    Style itemStyle = new Style();
+    final Style itemStyle = new Style();
     itemStyle.setHeight(getItemHeight(facesContext, toolBar));
     itemStyle.setWidth(Measure.valueOf(10));
     writer.writeStyleAttribute(itemStyle);
@@ -479,7 +483,7 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
     // computation of the width of the toolBar will not be used in the moment.
   }
 
-  protected Measure getItemHeight(FacesContext facesContext, Configurable toolBar) {
+  protected Measure getItemHeight(final FacesContext facesContext, final Configurable toolBar) {
     final String iconSize = getIconSize((UIComponent) toolBar);
     final String labelPosition = getLabelPosition((UIComponent) toolBar);
 
@@ -519,11 +523,11 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
     return result;
   }
 
-  private boolean hasAnyCommand(AbstractUICommandBase command) {
+  private boolean hasAnyCommand(final AbstractUICommandBase command) {
     return !hasNoCommand(command);
   }
 
-  private boolean hasNoCommand(AbstractUICommandBase command) {
+  private boolean hasNoCommand(final AbstractUICommandBase command) {
     return command.getAction() == null
         && command.getActionListener() == null
         && command.getActionListeners().length == 0
@@ -532,13 +536,14 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
   }
 
   private String getImage(
-      FacesContext facesContext, String name, String iconSize, boolean disabled, boolean selected) {
+      final FacesContext facesContext, final String name, final String iconSize, final boolean disabled,
+      final boolean selected) {
     int pos = name.lastIndexOf('.');
     if (pos == -1) {
       pos = name.length(); // avoid exception if no '.' in name
     }
-    String key = name.substring(0, pos);
-    String ext = name.substring(pos);
+    final String key = name.substring(0, pos);
+    final String ext = name.substring(pos);
 
     String size = "";
     if (UIToolBar.ICON_SMALL.equals(iconSize)) {
@@ -547,7 +552,7 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
       size = "32";
     }
     String image = null;
-    ResourceManager resourceManager = ResourceManagerFactory.getResourceManager(facesContext);
+    final ResourceManager resourceManager = ResourceManagerFactory.getResourceManager(facesContext);
     if (disabled && selected) {
       image = resourceManager.getImage(facesContext, key + "SelectedDisabled" + size + ext, true);
       if (image == null) {
@@ -577,7 +582,7 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
   }
 
   public static void renderDropDownMenu(
-      FacesContext facesContext, TobagoResponseWriter writer, AbstractUIMenu dropDownMenu)
+      final FacesContext facesContext, final TobagoResponseWriter writer, final AbstractUIMenu dropDownMenu)
       throws IOException {
     writer.startElement(HtmlElements.OL, dropDownMenu);
     // XXX fix naming conventions for CSS classes
@@ -587,7 +592,7 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
   }
 
   @Override
-  public void encodeChildren(FacesContext facesContext, UIComponent component)
+  public void encodeChildren(final FacesContext facesContext, final UIComponent component)
       throws IOException {
   }
 

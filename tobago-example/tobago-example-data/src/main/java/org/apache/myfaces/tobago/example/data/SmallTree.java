@@ -24,8 +24,8 @@ import javax.swing.tree.DefaultMutableTreeNode;
 public class SmallTree {
 
   public static DefaultMutableTreeNode createSample() {
-    DefaultMutableTreeNode tree = new DefaultMutableTreeNode(new Node("Root Node", "root"));
-    DefaultMutableTreeNode music = new DefaultMutableTreeNode(new Node("Music", "music"));
+    final DefaultMutableTreeNode tree = new DefaultMutableTreeNode(new Node("Root Node", "root"));
+    final DefaultMutableTreeNode music = new DefaultMutableTreeNode(new Node("Music", "music"));
     tree.add(music);
     music.add(new DefaultMutableTreeNode(new Node("Pop", "pop")));
     tree.add(new DefaultMutableTreeNode(new Node("Sports", "sports")));

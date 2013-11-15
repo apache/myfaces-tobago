@@ -39,16 +39,16 @@ public final class VariableResolverUtil {
   /**
    * Returns the requested object configured in the faces-config or from library.
    */
-  public static Object resolveVariable(FacesContext context, String variable) {
-    Application application = context.getApplication();
-    VariableResolver variableResolver = application.getVariableResolver();
+  public static Object resolveVariable(final FacesContext context, final String variable) {
+    final Application application = context.getApplication();
+    final VariableResolver variableResolver = application.getVariableResolver();
     return variableResolver.resolveVariable(context, variable);
   }
 
   /**
    * Returns the ClientProperties object configured in the faces-config.
    */
-  public static ClientProperties resolveClientProperties(FacesContext facesContext) {
+  public static ClientProperties resolveClientProperties(final FacesContext facesContext) {
     return (ClientProperties) resolveVariable(facesContext, ClientProperties.MANAGED_BEAN_NAME);
   }
   
@@ -58,9 +58,9 @@ public final class VariableResolverUtil {
    * to save memory without the knowledge of the scope.
    * Also useful to enforce a new creation of a managed-bean.
    */
-  public static void clearVariable(FacesContext context, String variable) {
-    Application application = context.getApplication();
-    ValueBinding valueBinding = application.createValueBinding("#{" + variable + "}");
+  public static void clearVariable(final FacesContext context, final String variable) {
+    final Application application = context.getApplication();
+    final ValueBinding valueBinding = application.createValueBinding("#{" + variable + "}");
     valueBinding.setValue(context, null);
   }
 }

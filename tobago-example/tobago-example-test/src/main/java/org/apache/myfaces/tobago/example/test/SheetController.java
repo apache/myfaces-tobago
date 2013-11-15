@@ -38,7 +38,7 @@ public class SheetController {
   }
 
   private SolarObject[] init3() {
-    SolarObject[] help = new SolarObject[3];
+    final SolarObject[] help = new SolarObject[3];
     for (int i = 0; i < 3; i++) {
       help[i] = solarArray[i];
     }

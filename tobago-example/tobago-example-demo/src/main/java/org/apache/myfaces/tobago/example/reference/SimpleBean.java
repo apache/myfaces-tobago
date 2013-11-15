@@ -27,7 +27,7 @@ public class SimpleBean {
   private String value;
   private Date date;
 
-  public SimpleBean(int number, String value) {
+  public SimpleBean(final int number, final String value) {
     this.number = number;
     this.value = value;
     this.date = new Date();
@@ -37,7 +37,7 @@ public class SimpleBean {
     return number;
   }
 
-  public void setNumber(int number) {
+  public void setNumber(final int number) {
     this.number = number;
   }
 
@@ -45,7 +45,7 @@ public class SimpleBean {
     return value;
   }
 
-  public void setValue(String value) {
+  public void setValue(final String value) {
     this.value = value;
   }
 
@@ -53,7 +53,7 @@ public class SimpleBean {
     return date;
   }
 
-  public void setDate(Date date) {
+  public void setDate(final Date date) {
     this.date = date;
   }
 }

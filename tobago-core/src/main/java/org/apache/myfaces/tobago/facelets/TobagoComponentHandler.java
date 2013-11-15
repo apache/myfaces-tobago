@@ -57,12 +57,12 @@ public class TobagoComponentHandler extends ComponentHandler {
     LOG.error("init");
   }
 
-  public TobagoComponentHandler(ComponentConfig componentConfig) {
+  public TobagoComponentHandler(final ComponentConfig componentConfig) {
     super(componentConfig);
   }
 
-  protected MetaRuleset createMetaRuleset(Class aClass) {
-    MetaRuleset metaRuleset = super.createMetaRuleset(aClass);
+  protected MetaRuleset createMetaRuleset(final Class aClass) {
+    final MetaRuleset metaRuleset = super.createMetaRuleset(aClass);
     if (SortActionSource.class.isAssignableFrom(aClass)) {
       metaRuleset.addRule(SortActionSourceRule.INSTANCE);
     }
@@ -96,7 +96,7 @@ public class TobagoComponentHandler extends ComponentHandler {
     return metaRuleset;
   }
 
-  public void onComponentCreated(FaceletContext context, UIComponent component, UIComponent parent) {
+  public void onComponentCreated(final FaceletContext context, final UIComponent component, final UIComponent parent) {
     if (component instanceof OnComponentCreated
         && component.getAttributes().get(OnComponentCreated.MARKER) == null) {
       component.getAttributes().put(OnComponentCreated.MARKER, Boolean.TRUE);
@@ -104,7 +104,8 @@ public class TobagoComponentHandler extends ComponentHandler {
     }
   }
 
-  public void onComponentPopulated(FaceletContext context, UIComponent component, UIComponent parent) {
+  public void onComponentPopulated(
+      final FaceletContext context, final UIComponent component, final UIComponent parent) {
     if (component instanceof OnComponentPopulated
         && component.getAttributes().get(OnComponentPopulated.MARKER) == null) {
       component.getAttributes().put(OnComponentPopulated.MARKER, Boolean.TRUE);
@@ -116,28 +117,28 @@ public class TobagoComponentHandler extends ComponentHandler {
     }
   }
 
-  public static void addDefaultValidators(FacesContext context, EditableValueHolder component) {
-    TobagoConfigImpl tobagoConfig = (TobagoConfigImpl) TobagoConfig.getInstance(context);
-    Map validatorInfoMap = tobagoConfig.getDefaultValidatorInfo();
+  public static void addDefaultValidators(final FacesContext context, final EditableValueHolder component) {
+    final TobagoConfigImpl tobagoConfig = (TobagoConfigImpl) TobagoConfig.getInstance(context);
+    final Map validatorInfoMap = tobagoConfig.getDefaultValidatorInfo();
     if (validatorInfoMap.isEmpty()) {
       return;
     }
-    Validator[] validators = component.getValidators();
+    final Validator[] validators = component.getValidators();
     if (validators.length > 0) {
-      Set classNames = new HashSet();
+      final Set classNames = new HashSet();
       // collect classNames of validators
       for (int i = 0; i < validators.length; i++) {
         classNames.add(validators[i].getClass().getName());
       }
-      Iterator it = validatorInfoMap.entrySet().iterator();
+      final Iterator it = validatorInfoMap.entrySet().iterator();
       while (it.hasNext()) {
-        Map.Entry entry = (Map.Entry) it.next();
+        final Map.Entry entry = (Map.Entry) it.next();
         if (!classNames.contains(entry.getValue())) {
           component.addValidator(context.getApplication().createValidator((String) entry.getKey()));
         }
       }
     } else {
-      Iterator it = validatorInfoMap.keySet().iterator();
+      final Iterator it = validatorInfoMap.keySet().iterator();
       while (it.hasNext()) {
         component.addValidator(context.getApplication().createValidator((String) it.next()));
       }

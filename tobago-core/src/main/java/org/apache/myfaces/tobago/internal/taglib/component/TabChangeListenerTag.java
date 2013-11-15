@@ -55,7 +55,7 @@ public abstract class TabChangeListenerTag extends TagSupport {
    * created and registered.
    */
   @TagAttribute(required = true, name = "type", type = "java.lang.String")
-  public void setType(ValueExpression type) {
+  public void setType(final ValueExpression type) {
     this.type = type;
   }
 
@@ -63,7 +63,7 @@ public abstract class TabChangeListenerTag extends TagSupport {
    * The value binding expression to a TabChangeListener.
    */
   @TagAttribute(name = "binding", type = "org.apache.myfaces.tobago.event.TabChangeListener")
-  public void setBinding(ValueExpression binding) {
+  public void setBinding(final ValueExpression binding) {
     this.binding = binding;
   }
 
@@ -79,7 +79,7 @@ public abstract class TabChangeListenerTag extends TagSupport {
   public int doStartTag() throws JspException {
 
     // Locate our parent UIComponentTag
-    UIComponentClassicTagBase tag =
+    final UIComponentClassicTagBase tag =
         UIComponentELTag.getParentUIComponentClassicTagBase(pageContext);
     if (tag == null) {
       // TODO Message resource i18n
@@ -90,7 +90,7 @@ public abstract class TabChangeListenerTag extends TagSupport {
       return (SKIP_BODY);
     }
 
-    UIComponent component = tag.getComponentInstance();
+    final UIComponent component = tag.getComponentInstance();
     if (component == null) {
       // TODO Message resource i18n
       throw new JspException("Component Instance is null");
@@ -99,13 +99,13 @@ public abstract class TabChangeListenerTag extends TagSupport {
       // TODO Message resource i18n
       throw new JspException("Component " + component.getClass().getName() + " is not instanceof TabChangeSource2");
     }
-    TabChangeSource2 changeSource = (TabChangeSource2) component;
+    final TabChangeSource2 changeSource = (TabChangeSource2) component;
     final ELContext elContext = FacesContext.getCurrentInstance().getELContext();
 
     TabChangeListener handler = null;
     if (binding != null && !binding.isLiteralText()) {
 
-      Object value = binding.getValue(elContext);
+      final Object value = binding.getValue(elContext);
       if (value instanceof TabChangeListener) {
         handler = (TabChangeListener) value;
       }
@@ -136,11 +136,11 @@ public abstract class TabChangeListenerTag extends TagSupport {
    *
    * @throws javax.servlet.jsp.JspException if a new instance cannot be created
    */
-  protected TabChangeListener createTabChangeListener(String className) throws JspException {
+  protected TabChangeListener createTabChangeListener(final String className) throws JspException {
     try {
-      Class clazz = getClass().getClassLoader().loadClass(className);
+      final Class clazz = getClass().getClassLoader().loadClass(className);
       return ((TabChangeListener) clazz.newInstance());
-    } catch (Exception e) {
+    } catch (final Exception e) {
       throw new JspException(e);
     }
   }

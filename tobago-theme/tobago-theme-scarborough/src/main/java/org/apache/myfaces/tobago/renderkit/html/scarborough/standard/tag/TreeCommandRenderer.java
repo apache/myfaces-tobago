@@ -49,7 +49,7 @@ public class TreeCommandRenderer extends CommandRendererBase {
   private static final Logger LOG = LoggerFactory.getLogger(TreeCommandRenderer.class);
 
   @Override
-  public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
+  public void prepareRender(final FacesContext facesContext, final UIComponent component) throws IOException {
     final UITreeCommand command = (UITreeCommand) component;
     final UITreeNode node = ComponentUtils.findAncestor(command, UITreeNode.class);
     // Todo: use an expression?
@@ -58,7 +58,7 @@ public class TreeCommandRenderer extends CommandRendererBase {
   }
 
   @Override
-  public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
+  public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
 
     final UITreeCommand command = (UITreeCommand) component;
     final String clientId = command.getClientId(facesContext);
@@ -98,12 +98,12 @@ public class TreeCommandRenderer extends CommandRendererBase {
     }
   }
 
-  protected Style createStyle(FacesContext facesContext, AbstractUICommand link) {
+  protected Style createStyle(final FacesContext facesContext, final AbstractUICommand link) {
     return new Style(facesContext, link);
   }
 
   @Override
-  public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
+  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
     final UITreeCommand command = (UITreeCommand) component;
     final ResponseWriter writer = facesContext.getResponseWriter();
     if (command.isDisabled()) {

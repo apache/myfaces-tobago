@@ -57,7 +57,7 @@ public abstract class AbstractUIPopup extends AbstractUIPanelBase
 
   private boolean activated;
 
-  public void onComponentCreated(FacesContext facesContext, UIComponent parent) {
+  public void onComponentCreated(final FacesContext facesContext, final UIComponent parent) {
     Integer zIndex = (Integer) facesContext.getExternalContext().getRequestMap().get(Z_INDEX);
     if (zIndex == null) {
       zIndex = 1;
@@ -68,7 +68,7 @@ public abstract class AbstractUIPopup extends AbstractUIPanelBase
     facesContext.getExternalContext().getRequestMap().put(Z_INDEX, zIndex);
   }
 
-  public void onComponentPopulated(FacesContext facesContext, UIComponent parent) {
+  public void onComponentPopulated(final FacesContext facesContext, final UIComponent parent) {
     if (getLayoutManager() == null) {
       final AbstractUIGridLayout layoutManager = (AbstractUIGridLayout) CreateComponentUtils.createAndInitLayout(
           facesContext, ComponentTypes.GRID_LAYOUT, RendererTypes.GRID_LAYOUT, parent);
@@ -80,20 +80,20 @@ public abstract class AbstractUIPopup extends AbstractUIPanelBase
     return LayoutUtils.findLayoutChildren(this);
   }
 
-  public void setActivated(boolean activated) {
+  public void setActivated(final boolean activated) {
     this.activated = activated;
   }
 
   @Override
-  public void processDecodes(FacesContext facesContext) {
+  public void processDecodes(final FacesContext facesContext) {
     if (isSubmitted()) {
-      for (Iterator it = getFacetsAndChildren(); it.hasNext();) {
-        UIComponent childOrFacet = (UIComponent) it.next();
+      for (final Iterator it = getFacetsAndChildren(); it.hasNext();) {
+        final UIComponent childOrFacet = (UIComponent) it.next();
         childOrFacet.processDecodes(facesContext);
       }
       try {
         decode(facesContext);
-      } catch (RuntimeException e) {
+      } catch (final RuntimeException e) {
         facesContext.renderResponse();
         throw e;
       }
@@ -107,7 +107,7 @@ public abstract class AbstractUIPopup extends AbstractUIPanelBase
   public boolean isRendered() {
     final ValueExpression expression = getValueExpression("rendered");
     if (expression != null) {
-      FacesContext context = FacesContext.getCurrentInstance();
+      final FacesContext context = FacesContext.getCurrentInstance();
       return (Boolean) expression.getValue(context.getELContext());
     } else {
       return isActivated() || isRedisplay();
@@ -123,7 +123,7 @@ public abstract class AbstractUIPopup extends AbstractUIPanelBase
 
   private boolean isRedisplay() {
     if (isSubmitted()) {
-      String action = FacesContextUtils.getActionId(getFacesContext());
+      final String action = FacesContextUtils.getActionId(getFacesContext());
       if (action != null) {
         final UIComponent command = getFacesContext().getViewRoot().findComponent(
             UINamingContainer.getSeparatorChar(getFacesContext()) + action);
@@ -141,10 +141,10 @@ public abstract class AbstractUIPopup extends AbstractUIPanelBase
 
 
   @Override
-  public void processValidators(FacesContext context) {
+  public void processValidators(final FacesContext context) {
     if (isSubmitted()) {
-      for (Iterator it = getFacetsAndChildren(); it.hasNext();) {
-        UIComponent childOrFacet = (UIComponent) it.next();
+      for (final Iterator it = getFacetsAndChildren(); it.hasNext();) {
+        final UIComponent childOrFacet = (UIComponent) it.next();
         childOrFacet.processValidators(context);
       }
       //TODO: check if validation has failed and reset rendered if needed
@@ -155,32 +155,32 @@ public abstract class AbstractUIPopup extends AbstractUIPanelBase
   }
 
   @Override
-  public void processUpdates(FacesContext context) {
+  public void processUpdates(final FacesContext context) {
     if (isSubmitted()) {
-      for (Iterator it = getFacetsAndChildren(); it.hasNext();) {
-        UIComponent childOrFacet = (UIComponent) it.next();
+      for (final Iterator it = getFacetsAndChildren(); it.hasNext();) {
+        final UIComponent childOrFacet = (UIComponent) it.next();
         childOrFacet.processUpdates(context);
       }
     }
   }
 
   @Override
-  public Object saveState(FacesContext context) {
-    Object[] saveState = new Object[2];
+  public Object saveState(final FacesContext context) {
+    final Object[] saveState = new Object[2];
     saveState[0] = super.saveState(context);
     saveState[1] = activated;
     return saveState;
   }
 
   @Override
-  public void restoreState(FacesContext context, Object savedState) {
-    Object[] values = (Object[]) savedState;
+  public void restoreState(final FacesContext context, final Object savedState) {
+    final Object[] values = (Object[]) savedState;
     super.restoreState(context, values[0]);
     activated = (Boolean) values[1];
   }
 
   @Override
-  public void encodeEnd(FacesContext context) throws IOException {
+  public void encodeEnd(final FacesContext context) throws IOException {
     super.encodeEnd(context);
     activated = false;
   }
@@ -189,7 +189,7 @@ public abstract class AbstractUIPopup extends AbstractUIPanelBase
     return (LayoutManager) getFacet(Facets.LAYOUT);
   }
 
-  public void setLayoutManager(LayoutManager layoutManager) {
+  public void setLayoutManager(final LayoutManager layoutManager) {
     getFacets().put(Facets.LAYOUT, (AbstractUILayoutBase) layoutManager);
   }
 

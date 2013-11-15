@@ -35,14 +35,14 @@ public abstract class AbstractUISplitLayout extends AbstractUIGridLayout {
 
   private String submittedLayout;
 
-  public void updateLayout(int position) {
-    LayoutContainer container = (LayoutContainer) getParent();
-    LayoutComponent firstComponent = container.getComponents().get(0);
-    LayoutComponent secondComponent = container.getComponents().get(1);
-    int oldPosition;
+  public void updateLayout(final int position) {
+    final LayoutContainer container = (LayoutContainer) getParent();
+    final LayoutComponent firstComponent = container.getComponents().get(0);
+    final LayoutComponent secondComponent = container.getComponents().get(1);
+    final int oldPosition;
 
-    int currentSize1;
-    int currentSize2;
+    final int currentSize1;
+    final int currentSize2;
     if (HORIZONTAL.equals(getOrientation())) {
       oldPosition = secondComponent.getLeft().getPixel() - 5;
       currentSize1 = firstComponent.getCurrentWidth().getPixel();
@@ -53,11 +53,11 @@ public abstract class AbstractUISplitLayout extends AbstractUIGridLayout {
       currentSize2 = secondComponent.getCurrentHeight().getPixel();
     }
 
-    int offset = position - oldPosition;
-    int newSize1 = currentSize1 + offset;
-    int newSize2 = currentSize2 - offset;
+    final int offset = position - oldPosition;
+    final int newSize1 = currentSize1 + offset;
+    final int newSize2 = currentSize2 - offset;
 
-    int ggt = gcd(newSize1, newSize2);
+    final int ggt = gcd(newSize1, newSize2);
     submittedLayout = new StringBuilder()
         .append(Integer.toString(newSize1 / ggt)).append("*;")
         .append(Integer.toString(newSize2 / ggt)).append("*")
@@ -82,12 +82,12 @@ public abstract class AbstractUISplitLayout extends AbstractUIGridLayout {
   }
 
   @Override
-  public void processUpdates(FacesContext facesContext) {
+  public void processUpdates(final FacesContext facesContext) {
     updateModel(facesContext);
     super.processUpdates(facesContext);
   }
 
-  private void updateModel(FacesContext facesContext) {
+  private void updateModel(final FacesContext facesContext) {
     if (submittedLayout != null) {
       final ValueExpression expression = getValueExpression("layout");
       if (expression != null) {
@@ -98,12 +98,12 @@ public abstract class AbstractUISplitLayout extends AbstractUIGridLayout {
     }
   }
 
-  public Measure getSpacing(Orientation orientation) {
+  public Measure getSpacing(final Orientation orientation) {
     return orientation == Orientation.HORIZONTAL ? getColumnSpacing() : getRowSpacing();
   }
 
 @Override
-  public void setColumns(String columns) {
+  public void setColumns(final String columns) {
   }
 
   @Override
@@ -116,7 +116,7 @@ public abstract class AbstractUISplitLayout extends AbstractUIGridLayout {
 //  }
 
   @Override
-  public void setRows(String rows) {
+  public void setRows(final String rows) {
   }
 
   @Override

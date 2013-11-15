@@ -34,7 +34,7 @@ public class MixedTreeModelUnitTest {
   @Test
   public void testLifecycleSmall() {
 
-    MixedTreeModel model = new MixedTreeModel();
+    final MixedTreeModel model = new MixedTreeModel();
 
     model.beginBuildNode();
     model.endBuildNode();
@@ -46,7 +46,7 @@ public class MixedTreeModelUnitTest {
   @Test
   public void testLifecycleStatic() {
 
-    MixedTreeModel model = new MixedTreeModel();
+    final MixedTreeModel model = new MixedTreeModel();
 
     model.beginBuildNode();
     model.beginBuildNode();
@@ -63,12 +63,12 @@ public class MixedTreeModelUnitTest {
   @Test
   public void testLifecycleFromModel() {
 
-    MixedTreeModel model = new MixedTreeModel();
-    DefaultMutableTreeNode tree = new DefaultMutableTreeNode("D_0");
+    final MixedTreeModel model = new MixedTreeModel();
+    final DefaultMutableTreeNode tree = new DefaultMutableTreeNode("D_0");
     tree.add(new DefaultMutableTreeNode("D_0_0"));
     tree.add(new DefaultMutableTreeNode("D_0_1"));
 
-    UITreeData data = new UITreeData();
+    final UITreeData data = new UITreeData();
     data.setValue(tree);
 
     model.beginBuildNode();
@@ -102,7 +102,7 @@ public class MixedTreeModelUnitTest {
   @Test
   public void testLifecycleMixed() {
 
-    MixedTreeModel model = new MixedTreeModel();
+    final MixedTreeModel model = new MixedTreeModel();
 
     model.beginBuildNode();
     model.beginBuildNode();

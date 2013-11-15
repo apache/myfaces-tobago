@@ -26,14 +26,14 @@ public class MathUtilsUnitTest {
 
   @Test
   public void testAdjust() {
-    double[] d = {6.3, 7.9, 8.7, 9.2, 10.3, 11.6};
+    final double[] d = {6.3, 7.9, 8.7, 9.2, 10.3, 11.6};
     MathUtils.adjustRemainders(d, 0.0);
     Assert.assertArrayEquals("mixed", new double[]{6, 8, 9, 9, 10, 12}, d, MathUtils.EPSILON);
   }
 
   @Test
   public void testAdjust999() {
-    double[] d = {9.9, 9.9, 9.9, 9.9, 9.9, 9.9, 9.9, 9.9, 9.9, 9.9};
+    final double[] d = {9.9, 9.9, 9.9, 9.9, 9.9, 9.9, 9.9, 9.9, 9.9, 9.9};
     MathUtils.adjustRemainders(d, 0.0);
     Assert.assertArrayEquals(
         "9.9, ...", new double[]{9, 10, 10, 10, 10, 10, 10, 10, 10, 10}, d, MathUtils.EPSILON);
@@ -41,7 +41,7 @@ public class MathUtilsUnitTest {
 
   @Test
   public void testAdjust111() {
-    double[] d = {1.1, 1.1, 1.1, 1.1, 1.1, 1.1, 1.1, 1.1, 1.1, 1.1};
+    final double[] d = {1.1, 1.1, 1.1, 1.1, 1.1, 1.1, 1.1, 1.1, 1.1, 1.1};
     MathUtils.adjustRemainders(d, 0.0);
     Assert.assertArrayEquals(
         "1.1, ...", new double[]{1, 2, 1, 1, 1, 1, 1, 1, 1, 1}, d, MathUtils.EPSILON);
@@ -49,7 +49,7 @@ public class MathUtilsUnitTest {
 
   @Test
   public void testAdjust133() {
-    double[] d = {1, 1, 1, 1.333333333, 1.333333333, 1.333333333, 1, 1, 1};
+    final double[] d = {1, 1, 1, 1.333333333, 1.333333333, 1.333333333, 1, 1, 1};
     MathUtils.adjustRemainders(d, 0.0);
     Assert.assertArrayEquals(
         "1, ..., 1.333...", new double[]{1, 1, 1, 1, 2, 1, 1, 1, 1}, d, MathUtils.EPSILON);
@@ -57,7 +57,7 @@ public class MathUtilsUnitTest {
 
   @Test
   public void testInitialBias() {
-    double[] d = {5.5};
+    final double[] d = {5.5};
     MathUtils.adjustRemainders(d, 0.5);
     Assert.assertArrayEquals("initial bias", new double[]{5}, d, MathUtils.EPSILON);
   }

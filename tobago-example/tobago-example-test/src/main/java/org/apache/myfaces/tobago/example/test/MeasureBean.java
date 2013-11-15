@@ -83,7 +83,7 @@ public class MeasureBean {
     
     private String value;
 
-    public Any(String value) {
+    public Any(final String value) {
       this.value = value;
     }
 

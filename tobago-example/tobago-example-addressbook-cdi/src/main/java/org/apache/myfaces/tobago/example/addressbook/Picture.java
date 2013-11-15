@@ -43,7 +43,7 @@ public class Picture implements Serializable {
   public Picture() {
   }
 
-  public Picture(String contentType, byte[] content) {
+  public Picture(final String contentType, final byte[] content) {
     this.contentType = contentType;
     this.content = content;
   }

@@ -39,7 +39,7 @@ public class ComponentPropertyInfo extends PropertyInfo {
     return index;
   }
 
-  public void setIndex(int index) {
+  public void setIndex(final int index) {
     this.index = index;
   }
 
@@ -51,7 +51,7 @@ public class ComponentPropertyInfo extends PropertyInfo {
     return nonTransientIndex + 1;
   }
 
-  public void setNonTransientIndex(int index) {
+  public void setNonTransientIndex(final int index) {
     this.nonTransientIndex = index;
   }
 

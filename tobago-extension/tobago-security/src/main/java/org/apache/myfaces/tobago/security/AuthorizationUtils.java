@@ -42,9 +42,9 @@ public class AuthorizationUtils {
   private AuthorizationUtils() {
   }
 
-  public static boolean isAuthorized(FacesContext facesContext, String expression) {
+  public static boolean isAuthorized(final FacesContext facesContext, final String expression) {
 
-    Annotation securityAnnotation = getSecurityAnnotation(facesContext, expression);
+    final Annotation securityAnnotation = getSecurityAnnotation(facesContext, expression);
     if (securityAnnotation == null) {
       return true;
     }
@@ -56,12 +56,12 @@ public class AuthorizationUtils {
       return false;
     }
     if (securityAnnotation instanceof RolesAllowed) {
-      String [] roles = ((RolesAllowed) securityAnnotation).value();
+      final String [] roles = ((RolesAllowed) securityAnnotation).value();
       if (LOG.isDebugEnabled()) {
         LOG.debug("RolesAllowed " + Arrays.asList(((RolesAllowed) securityAnnotation).value()));
       }
-      for (String role : roles) {
-        boolean authorised = facesContext.getExternalContext().isUserInRole(role);
+      for (final String role : roles) {
+        final boolean authorised = facesContext.getExternalContext().isUserInRole(role);
         if (authorised) {
           return true;
         }
@@ -77,7 +77,7 @@ public class AuthorizationUtils {
     return true;
   }
 
-  private static Annotation getSecurityAnnotations(AnnotatedElement annotatedElement) {
+  private static Annotation getSecurityAnnotations(final AnnotatedElement annotatedElement) {
     Annotation annotation = annotatedElement.getAnnotation(RolesAllowed.class);
     if (annotation != null) {
       return annotation;
@@ -93,9 +93,9 @@ public class AuthorizationUtils {
     return null;
   }
 
-  private static Annotation getSecurityAnnotation(FacesContext facesContext, String expression) {
+  private static Annotation getSecurityAnnotation(final FacesContext facesContext, String expression) {
     if (AUTHORISATION_CACHE.containsKey(expression)) {
-      Object obj = AUTHORISATION_CACHE.get(expression);
+      final Object obj = AUTHORISATION_CACHE.get(expression);
       if (obj instanceof Annotation) {
         return (Annotation) obj;
       }
@@ -104,21 +104,21 @@ public class AuthorizationUtils {
       Annotation securityAnnotation = null;
       if (expression.startsWith("#{") && expression.endsWith("}")) {
         expression = expression.substring(2, expression.length()-1);
-        int index = expression.lastIndexOf('.');
+        final int index = expression.lastIndexOf('.');
         if (index != -1) {
-          String methodExpression = expression.substring(index+1, expression.length());
-          String beanExpression = expression.substring(0, index);
+          final String methodExpression = expression.substring(index+1, expression.length());
+          final String beanExpression = expression.substring(0, index);
           // TODO find a better way
-          Object bean =
+          final Object bean =
               facesContext.getApplication().getVariableResolver().resolveVariable(facesContext, beanExpression);
           if (bean != null) {
             try {
-              Method method = bean.getClass().getMethod(methodExpression);
+              final Method method = bean.getClass().getMethod(methodExpression);
               securityAnnotation = getSecurityAnnotations(method);
               if (securityAnnotation == null) {
                 securityAnnotation = getSecurityAnnotations(bean.getClass());
               }
-            } catch (NoSuchMethodException e) {
+            } catch (final NoSuchMethodException e) {
               LOG.error("No Method " + methodExpression + " in class " + bean.getClass(), e);
             }
           }

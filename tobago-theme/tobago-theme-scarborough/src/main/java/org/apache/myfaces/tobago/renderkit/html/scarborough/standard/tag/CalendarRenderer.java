@@ -46,15 +46,15 @@ import java.util.Locale;
 public class CalendarRenderer extends LayoutComponentRendererBase {
 
   @Override
-  public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
+  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
 
-    UICalendar output = (UICalendar) component;
-    String id = output.getClientId(facesContext);
+    final UICalendar output = (UICalendar) component;
+    final String id = output.getClientId(facesContext);
 
-    Locale locale = facesContext.getViewRoot().getLocale();
+    final Locale locale = facesContext.getViewRoot().getLocale();
 
-    Object value = output.getValue();
-    Calendar calendar;
+    final Object value = output.getValue();
+    final Calendar calendar;
     if (value instanceof Calendar) {
       calendar = (Calendar) value;
     } else { 
@@ -63,18 +63,18 @@ public class CalendarRenderer extends LayoutComponentRendererBase {
         calendar.setTime((Date) value);
       }
     }
-    CalendarModel model = new CalendarModel(calendar);
+    final CalendarModel model = new CalendarModel(calendar);
 
     // rendering
-    TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
     writer.startElement(HtmlElements.DIV, component);
     writer.writeIdAttribute(id);
     writer.writeClassAttribute(Classes.create(output));
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, component);
-    Style style = new Style(facesContext, output);
+    final Style style = new Style(facesContext, output);
     writer.writeStyleAttribute(style);
-    String dateInputId = (String) output.getAttributes().get(Attributes.DATE_INPUT_ID);
+    final String dateInputId = (String) output.getAttributes().get(Attributes.DATE_INPUT_ID);
     if (dateInputId != null) {
       writer.writeAttribute(DataAttributes.DATE_INPUT_ID, dateInputId, false);
     }
@@ -145,9 +145,9 @@ public class CalendarRenderer extends LayoutComponentRendererBase {
     writer.startElement(HtmlElements.DIV, null);
     writer.writeClassAttribute(Classes.create(output, "row"));
 
-    SimpleDateFormat dayInWeekFormat = new SimpleDateFormat("E", locale);
+    final SimpleDateFormat dayInWeekFormat = new SimpleDateFormat("E", locale);
     for (int dayIt = 0; dayIt < 7; ++dayIt) {
-      DateModel date = model.getDate(0, dayIt);
+      final DateModel date = model.getDate(0, dayIt);
       String dayName = dayInWeekFormat.format(date.getCalendar().getTime());
       if (dayName != null) {
         dayName = dayName.substring(0, 2);
@@ -170,8 +170,8 @@ public class CalendarRenderer extends LayoutComponentRendererBase {
       writer.writeClassAttribute(Classes.create(output, "row"));
 
       for (int dayIt = 0; dayIt < 7; ++dayIt) {
-        DateModel date = model.getDate(week, dayIt);
-        String dayDescription = String.valueOf(date.getDay());
+        final DateModel date = model.getDate(week, dayIt);
+        final String dayDescription = String.valueOf(date.getDay());
 
         writer.startElement(HtmlElements.SPAN, null);
         writer.writeClassAttribute(
@@ -189,10 +189,10 @@ public class CalendarRenderer extends LayoutComponentRendererBase {
     writer.endElement(HtmlElements.DIV);
   }
   
-  private String getMonthNames(Locale locale) {
-    SimpleDateFormat dateFormat = new SimpleDateFormat("MMMMM", locale);
-    StringBuilder buffer = new StringBuilder(64);
-    Calendar calendar = Calendar.getInstance();
+  private String getMonthNames(final Locale locale) {
+    final SimpleDateFormat dateFormat = new SimpleDateFormat("MMMMM", locale);
+    final StringBuilder buffer = new StringBuilder(64);
+    final Calendar calendar = Calendar.getInstance();
     calendar.set(2000, Calendar.JANUARY, 1);
     for (int month = 0; month < 12; ++month) {
       if (month > 0) {

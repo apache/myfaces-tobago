@@ -34,7 +34,7 @@ public class KillSession extends HttpServlet {
   private static final Logger LOG = LoggerFactory.getLogger(KillSession.class);
 
   @Override
-  protected void doGet(HttpServletRequest request, HttpServletResponse response)
+  protected void doGet(final HttpServletRequest request, final HttpServletResponse response)
       throws ServletException, IOException {
     final HttpSession session = request.getSession(false);
     if (session != null) {

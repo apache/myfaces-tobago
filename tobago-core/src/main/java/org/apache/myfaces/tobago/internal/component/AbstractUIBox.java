@@ -24,7 +24,7 @@ import javax.faces.context.FacesContext;
 public abstract class AbstractUIBox extends AbstractUIPanel {
 
   @Override
-  public void processDecodes(FacesContext context) {
+  public void processDecodes(final FacesContext context) {
     if (isCollapsed()) {
       decode(context);
     } else {
@@ -33,14 +33,14 @@ public abstract class AbstractUIBox extends AbstractUIPanel {
   }
 
   @Override
-  public void processValidators(FacesContext context) {
+  public void processValidators(final FacesContext context) {
     if (!isCollapsed()) {
       super.processValidators(context);
     }
   }
 
   @Override
-  public void processUpdates(FacesContext context) {
+  public void processUpdates(final FacesContext context) {
     if (!isCollapsed()) {
       super.processUpdates(context);
     }

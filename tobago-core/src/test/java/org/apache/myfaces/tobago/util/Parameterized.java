@@ -48,25 +48,25 @@ public class Parameterized extends Suite {
   public static @interface Parameters {
   }
 
-  public Parameterized(Class<?> clazz) throws Exception {
+  public Parameterized(final Class<?> clazz) throws Exception {
     super(clazz, new ArrayList<Runner>());
 
-    FrameworkMethod method = findMethod(getTestClass());
+    final FrameworkMethod method = findMethod(getTestClass());
     List<Object[]> parametersList = null;
     try {
       parametersList = (List<Object[]>) method.invokeExplosively(null);
-    } catch (Throwable throwable) {
+    } catch (final Throwable throwable) {
       throw new Exception(throwable);
     }
-    for (Object[] aParametersList : parametersList) {
+    for (final Object[] aParametersList : parametersList) {
       getChildren().add(new ClassRunnerForParameters(getTestClass().getJavaClass(), aParametersList));
     }
   }
 
-  private FrameworkMethod findMethod(TestClass clazz) throws Exception {
-    List<FrameworkMethod> methods = clazz.getAnnotatedMethods(Parameters.class);
-    for (FrameworkMethod method : methods) {
-      int modifiers = method.getMethod().getModifiers();
+  private FrameworkMethod findMethod(final TestClass clazz) throws Exception {
+    final List<FrameworkMethod> methods = clazz.getAnnotatedMethods(Parameters.class);
+    for (final FrameworkMethod method : methods) {
+      final int modifiers = method.getMethod().getModifiers();
       if (Modifier.isStatic(modifiers) && Modifier.isPublic(modifiers)) {
         return method;
       }
@@ -79,7 +79,7 @@ public class Parameterized extends Suite {
 
     private Object[] parameters;
 
-    ClassRunnerForParameters(Class<?> clazz, Object[] parameters) throws InitializationError {
+    ClassRunnerForParameters(final Class<?> clazz, final Object[] parameters) throws InitializationError {
       super(clazz);
       this.parameters = parameters;
     }
@@ -95,17 +95,17 @@ public class Parameterized extends Suite {
     }
 
     @Override
-    protected String testName(FrameworkMethod method) {
+    protected String testName(final FrameworkMethod method) {
       return method.getName() + getName();
     }
 
     @Override
-    protected Statement classBlock(RunNotifier notifier) {
+    protected Statement classBlock(final RunNotifier notifier) {
       return childrenInvoker(notifier);
     }
 
     @Override
-    protected void validateZeroArgConstructor(List<Throwable> errors) {
+    protected void validateZeroArgConstructor(final List<Throwable> errors) {
       // In this case there should be a constructor with arguments.
     }
   }

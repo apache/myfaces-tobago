@@ -48,7 +48,7 @@ public class TreeIconRenderer extends LayoutComponentRendererBase {
       = ResourceUtils.createString("image", "treeNode", "icon", "leaf", ResourceUtils.GIF);
 
   @Override
-  public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
+  public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
 
     final UITreeIcon image = (UITreeIcon) component;
     final AbstractUIData data = ComponentUtils.findAncestor(image, AbstractUIData.class);
@@ -90,7 +90,7 @@ public class TreeIconRenderer extends LayoutComponentRendererBase {
       source = openSource;
     }
 
-    TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
     writer.startElement(HtmlElements.IMG, null);
     writer.writeClassAttribute(Classes.create(node, "toggle", Markup.NULL));

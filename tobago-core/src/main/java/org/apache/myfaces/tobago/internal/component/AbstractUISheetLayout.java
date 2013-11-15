@@ -62,14 +62,14 @@ public abstract class AbstractUISheetLayout extends AbstractUILayoutBase impleme
 
     layoutHeader();
 
-    for (LayoutComponent component : getLayoutContainer().getComponents()) {
+    for (final LayoutComponent component : getLayoutContainer().getComponents()) {
       if (component instanceof LayoutContainer && component.isRendered()) {
         ((LayoutContainer) component).getLayoutManager().init();
       }
     }
   }
 
-  public void fixRelativeInsideAuto(Orientation orientation, boolean auto) {
+  public void fixRelativeInsideAuto(final Orientation orientation, final boolean auto) {
 
     if (orientation == Orientation.HORIZONTAL) {
       horizontalAuto = auto;
@@ -77,18 +77,18 @@ public abstract class AbstractUISheetLayout extends AbstractUILayoutBase impleme
       verticalAuto = auto;
     }
 
-    for (LayoutComponent component : getLayoutContainer().getComponents()) {
+    for (final LayoutComponent component : getLayoutContainer().getComponents()) {
       if (component instanceof LayoutContainer && component.isRendered()) {
         ((LayoutContainer) component).getLayoutManager().fixRelativeInsideAuto(orientation, auto);
       }
     }
   }
 
-  public void preProcessing(Orientation orientation) {
+  public void preProcessing(final Orientation orientation) {
 
     // process auto tokens
-    IntervalList intervals = new IntervalList();
-    for (LayoutComponent component : getLayoutContainer().getComponents()) {
+    final IntervalList intervals = new IntervalList();
+    for (final LayoutComponent component : getLayoutContainer().getComponents()) {
 
       if (component != null) {
         if (component instanceof LayoutContainer && component.isRendered()) {
@@ -115,7 +115,7 @@ public abstract class AbstractUISheetLayout extends AbstractUILayoutBase impleme
 */
   }
 
-  public void mainProcessing(Orientation orientation) {
+  public void mainProcessing(final Orientation orientation) {
 
     // find *
     if (orientation == Orientation.HORIZONTAL && !horizontalAuto 
@@ -132,7 +132,7 @@ public abstract class AbstractUISheetLayout extends AbstractUILayoutBase impleme
         final List<Integer> widthList = sheet.getWidthList();
 
         int index = 0;
-        for (LayoutComponent component : sheet.getComponents()) {
+        for (final LayoutComponent component : sheet.getComponents()) {
           if (component == null) {
             LOG.error("fixme: UIColumnSelector must be a LayoutComponent!"); // fixme
             index++;
@@ -146,7 +146,7 @@ public abstract class AbstractUISheetLayout extends AbstractUILayoutBase impleme
             continue;
           }
           if (column instanceof LayoutBox) {
-            LayoutBox box = (LayoutBox) column;
+            final LayoutBox box = (LayoutBox) column;
             Measure width = Measure.valueOf(widthList.get(index));
             width = width.subtractNotNegative(LayoutUtils.getBorderBegin(orientation, box));
             width = width.subtractNotNegative(LayoutUtils.getPaddingBegin(orientation, box));
@@ -167,17 +167,17 @@ public abstract class AbstractUISheetLayout extends AbstractUILayoutBase impleme
     }
   }
 
-  public void postProcessing(Orientation orientation) {
+  public void postProcessing(final Orientation orientation) {
 
     final AbstractUISheet sheet = (AbstractUISheet) getLayoutContainer();
 
     // set positions to all sub-layout-managers
 
-    for (LayoutComponent component : sheet.getComponents()) {
+    for (final LayoutComponent component : sheet.getComponents()) {
 
       if (component != null) {
         // compute the position of the cell
-        Measure position = LayoutUtils.getBorderBegin(orientation, sheet);
+        final Measure position = LayoutUtils.getBorderBegin(orientation, sheet);
         if (orientation == Orientation.HORIZONTAL) {
           component.setLeft(position);
         } else {
@@ -204,14 +204,14 @@ public abstract class AbstractUISheetLayout extends AbstractUILayoutBase impleme
     return false;
   }
 
-  private void ensureColumnWidthList(FacesContext facesContext, AbstractUISheet data) {
+  private void ensureColumnWidthList(final FacesContext facesContext, final AbstractUISheet data) {
     List<Integer> currentWidthList = null;
     // TODO: Refactor: here be should use "getColumns()" instead of "getRenderedColumns()"
-    List<AbstractUIColumn> renderedColumns = data.getRenderedColumns();
+    final List<AbstractUIColumn> renderedColumns = data.getRenderedColumns();
 
     final Map attributes = data.getAttributes();
     String widthListString = null;
-    SheetState state = data.getSheetState(facesContext);
+    final SheetState state = data.getSheetState(facesContext);
     if (state != null) {
       widthListString = state.getColumnWidths();
     }
@@ -222,7 +222,7 @@ public abstract class AbstractUISheetLayout extends AbstractUILayoutBase impleme
     if (widthListString != null) {
       try {
         currentWidthList = StringUtils.parseIntegerList(widthListString);
-      } catch (NumberFormatException e) {
+      } catch (final NumberFormatException e) {
         LOG.warn("Unexpected value for column width list: '" + widthListString + "'");
       }
     }
@@ -231,11 +231,11 @@ public abstract class AbstractUISheetLayout extends AbstractUILayoutBase impleme
     }
 
     if (currentWidthList == null) {
-      LayoutTokens tokens = data.getColumnLayout();
-      List<AbstractUIColumn> allColumns = data.getAllColumns();
-      LayoutTokens newTokens = new LayoutTokens();
+      final LayoutTokens tokens = data.getColumnLayout();
+      final List<AbstractUIColumn> allColumns = data.getAllColumns();
+      final LayoutTokens newTokens = new LayoutTokens();
       for (int i = 0; i < allColumns.size(); i++) {
-        AbstractUIColumn column = allColumns.get(i);
+        final AbstractUIColumn column = allColumns.get(i);
         if (column.isRendered()) {
           if (tokens == null) {
             if (column instanceof AbstractUIColumn && column.getWidth() != null) {
@@ -264,7 +264,7 @@ public abstract class AbstractUISheetLayout extends AbstractUILayoutBase impleme
       // todo: not nice: 1 left + 1 right border
       space = space.subtract(renderedColumns.size() * 2);
 */
-      LayoutInfo layoutInfo =
+      final LayoutInfo layoutInfo =
           new LayoutInfo(newTokens.getSize(), space.getPixel(), newTokens, data.getClientId(facesContext), false);
       final Measure columnSelectorWidth
           = data.getLayoutComponentRenderer(facesContext).getCustomMeasure(facesContext, data, "columnSelectorWidth");
@@ -283,7 +283,7 @@ public abstract class AbstractUISheetLayout extends AbstractUILayoutBase impleme
     }
   }
 
-  public boolean needVerticalScrollbar(FacesContext facesContext, AbstractUISheet sheet) {
+  public boolean needVerticalScrollbar(final FacesContext facesContext, final AbstractUISheet sheet) {
     // estimate need of height-scrollbar on client, if yes we have to consider
     // this when calculating column width's
 
@@ -310,8 +310,8 @@ public abstract class AbstractUISheetLayout extends AbstractUILayoutBase impleme
 
     if (result == null) {
       if (sheet.getCurrentHeight() != null) {
-        int first = sheet.getFirst();
-        int rows = sheet.isRowsUnlimited()
+        final int first = sheet.getFirst();
+        final int rows = sheet.isRowsUnlimited()
             ? sheet.getRowCount()
             : Math.min(sheet.getRowCount(), first + sheet.getRows()) - first;
         Measure heightNeeded = getRowHeight(facesContext, sheet).multiply(rows);
@@ -331,19 +331,19 @@ public abstract class AbstractUISheetLayout extends AbstractUILayoutBase impleme
   }
 
   private void parseFixedWidth(
-      LayoutInfo layoutInfo, List<AbstractUIColumn> renderedColumns, Measure columnSelectorWidth) {
-    LayoutTokens tokens = layoutInfo.getLayoutTokens();
+      final LayoutInfo layoutInfo, final List<AbstractUIColumn> renderedColumns, final Measure columnSelectorWidth) {
+    final LayoutTokens tokens = layoutInfo.getLayoutTokens();
     for (int i = 0; i < tokens.getSize(); i++) {
-      LayoutToken token = tokens.get(i);
+      final LayoutToken token = tokens.get(i);
       if (token instanceof AutoLayoutToken) {
         int width = 0;
         if (!renderedColumns.isEmpty()) {
           if (i < renderedColumns.size()) {
-            AbstractUIColumn column = renderedColumns.get(i);
+            final AbstractUIColumn column = renderedColumns.get(i);
             if (column instanceof AbstractUIColumnSelector) {
               width = columnSelectorWidth.getPixel();
             } else {
-              for (UIComponent component : column.getChildren()) {
+              for (final UIComponent component : column.getChildren()) {
                 width += 100; // FIXME: make dynamic (was removed by changing the layout
                 LOG.error("100; // FIXME: make dynamic (was removed by changing the layout");
               }
@@ -363,17 +363,17 @@ public abstract class AbstractUISheetLayout extends AbstractUILayoutBase impleme
     }
   }
 
-  private Measure getHeaderHeight(FacesContext facesContext, AbstractUISheet sheet) {
+  private Measure getHeaderHeight(final FacesContext facesContext, final AbstractUISheet sheet) {
     return sheet.isShowHeader()
         ? sheet.getLayoutComponentRenderer(facesContext).getCustomMeasure(facesContext, sheet, "headerHeight")
         : Measure.ZERO;
   }
 
-  private Measure getRowHeight(FacesContext facesContext, AbstractUISheet sheet) {
+  private Measure getRowHeight(final FacesContext facesContext, final AbstractUISheet sheet) {
     return sheet.getLayoutComponentRenderer(facesContext).getCustomMeasure(facesContext, sheet, "rowHeight");
   }
 
-  private Measure getFooterHeight(FacesContext facesContext, AbstractUISheet sheet) {
+  private Measure getFooterHeight(final FacesContext facesContext, final AbstractUISheet sheet) {
     return sheet.isPagingVisible()
         ? sheet.getLayoutComponentRenderer(facesContext).getCustomMeasure(facesContext, sheet, "footerHeight")
         : Measure.ZERO;
@@ -384,14 +384,14 @@ public abstract class AbstractUISheetLayout extends AbstractUILayoutBase impleme
     final UIComponent header = sheet.getHeader();
     final LayoutTokens columns = new LayoutTokens();
     final List<AbstractUIColumn> renderedColumns = sheet.getRenderedColumns();
-    for (AbstractUIColumn ignored : renderedColumns) {
+    for (final AbstractUIColumn ignored : renderedColumns) {
       columns.addToken(RelativeLayoutToken.DEFAULT_INSTANCE);
     }
     final LayoutTokens rows = new LayoutTokens();
     rows.addToken(AutoLayoutToken.INSTANCE);
     final Grid grid = new Grid(columns, rows);
 
-    for(UIComponent child : header.getChildren()) {
+    for(final UIComponent child : header.getChildren()) {
       if (child instanceof LayoutComponent) {
         if (child.isRendered()) {
           final LayoutComponent c = (LayoutComponent) child;

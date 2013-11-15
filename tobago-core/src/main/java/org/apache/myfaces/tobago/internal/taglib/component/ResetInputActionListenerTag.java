@@ -55,7 +55,7 @@ public abstract class ResetInputActionListenerTag extends TagSupport {
   public int doStartTag() throws JspException {
 
     // Locate our parent UIComponentTag
-    UIComponentClassicTagBase tag =
+    final UIComponentClassicTagBase tag =
         UIComponentELTag.getParentUIComponentClassicTagBase(pageContext);
     if (tag == null) {
       // TODO Message resource i18n
@@ -66,7 +66,7 @@ public abstract class ResetInputActionListenerTag extends TagSupport {
       return (SKIP_BODY);
     }
 
-    UIComponent component = tag.getComponentInstance();
+    final UIComponent component = tag.getComponentInstance();
     if (component == null) {
       // TODO Message resource i18n
       throw new JspException("Component Instance is null");
@@ -78,7 +78,7 @@ public abstract class ResetInputActionListenerTag extends TagSupport {
 
     final ELContext elContext = FacesContext.getCurrentInstance().getELContext();
 
-    ActionSource actionSource = (ActionSource) component;
+    final ActionSource actionSource = (ActionSource) component;
     if (execute == null) {
       actionSource.addActionListener(new ResetFormActionListener());
     } else if (execute.isLiteralText()) {
@@ -101,7 +101,7 @@ public abstract class ResetInputActionListenerTag extends TagSupport {
    * them, all containing EditableValueHolder will be reset.
    */
   @TagAttribute(required = false, name = Attributes.EXECUTE, type = "java.lang.String")
-  public void setExecute(javax.el.ValueExpression execute) {
+  public void setExecute(final javax.el.ValueExpression execute) {
     this.execute = execute;
   }
 

@@ -30,7 +30,7 @@ public class DummyBean {
 
 // --------------------------------------------------------------- constructors
 
-  public DummyBean(boolean male, int size, String name) {
+  public DummyBean(final boolean male, final int size, final String name) {
     this.male = male;
     this.size = size;
     this.name = name;
@@ -42,7 +42,7 @@ public class DummyBean {
     return name;
   }
 
-  public void setName(String name) {
+  public void setName(final String name) {
     this.name = name;
   }
 
@@ -50,7 +50,7 @@ public class DummyBean {
     return size;
   }
 
-  public void setSize(int size) {
+  public void setSize(final int size) {
     this.size = size;
   }
 
@@ -58,7 +58,7 @@ public class DummyBean {
     return male;
   }
 
-  public void setMale(boolean male) {
+  public void setMale(final boolean male) {
     this.male = male;
   }
 }

@@ -34,7 +34,7 @@ public class FlowLayoutRule extends MetaRule {
 
   public static final FlowLayoutRule INSTANCE = new FlowLayoutRule();
 
-  public Metadata applyRule(String name, TagAttribute attribute, MetadataTarget metadataTarget) {
+  public Metadata applyRule(final String name, final TagAttribute attribute, final MetadataTarget metadataTarget) {
     if (metadataTarget.isTargetInstanceOf(UIFlowLayout.class)) {
       if (attribute.isLiteral()) {
         if (Attributes.TEXT_ALIGN.equals(name)) {
@@ -63,12 +63,12 @@ public class FlowLayoutRule extends MetaRule {
   static final class TextAlignMapper extends Metadata {
     private final TagAttribute attribute;
 
-    TextAlignMapper(TagAttribute attribute) {
+    TextAlignMapper(final TagAttribute attribute) {
       this.attribute = attribute;
     }
 
-    public void applyMetadata(FaceletContext ctx, Object instance) {
-      UIFlowLayout gridLayout = (UIFlowLayout) instance;
+    public void applyMetadata(final FaceletContext ctx, final Object instance) {
+      final UIFlowLayout gridLayout = (UIFlowLayout) instance;
       gridLayout.setTextAlign(TextAlign.parse(attribute.getValue()));
     }
   }
@@ -76,12 +76,12 @@ public class FlowLayoutRule extends MetaRule {
   static final class MarginLeftMapper extends Metadata {
     private final TagAttribute attribute;
 
-    MarginLeftMapper(TagAttribute attribute) {
+    MarginLeftMapper(final TagAttribute attribute) {
       this.attribute = attribute;
     }
 
-    public void applyMetadata(FaceletContext ctx, Object instance) {
-      UIFlowLayout gridLayout = (UIFlowLayout) instance;
+    public void applyMetadata(final FaceletContext ctx, final Object instance) {
+      final UIFlowLayout gridLayout = (UIFlowLayout) instance;
       gridLayout.setMarginLeft(Measure.valueOf(attribute.getValue()));
     }
   }
@@ -89,12 +89,12 @@ public class FlowLayoutRule extends MetaRule {
   static final class MarginTopMapper extends Metadata {
     private final TagAttribute attribute;
 
-    MarginTopMapper(TagAttribute attribute) {
+    MarginTopMapper(final TagAttribute attribute) {
       this.attribute = attribute;
     }
 
-    public void applyMetadata(FaceletContext ctx, Object instance) {
-      UIFlowLayout gridLayout = (UIFlowLayout) instance;
+    public void applyMetadata(final FaceletContext ctx, final Object instance) {
+      final UIFlowLayout gridLayout = (UIFlowLayout) instance;
       gridLayout.setMarginTop(Measure.valueOf(attribute.getValue()));
     }
   }
@@ -102,12 +102,12 @@ public class FlowLayoutRule extends MetaRule {
   static final class MarginRightMapper extends Metadata {
     private final TagAttribute attribute;
 
-    MarginRightMapper(TagAttribute attribute) {
+    MarginRightMapper(final TagAttribute attribute) {
       this.attribute = attribute;
     }
 
-    public void applyMetadata(FaceletContext ctx, Object instance) {
-      UIFlowLayout gridLayout = (UIFlowLayout) instance;
+    public void applyMetadata(final FaceletContext ctx, final Object instance) {
+      final UIFlowLayout gridLayout = (UIFlowLayout) instance;
       gridLayout.setMarginRight(Measure.valueOf(attribute.getValue()));
     }
   }
@@ -115,12 +115,12 @@ public class FlowLayoutRule extends MetaRule {
   static final class MarginBottomMapper extends Metadata {
     private final TagAttribute attribute;
 
-    MarginBottomMapper(TagAttribute attribute) {
+    MarginBottomMapper(final TagAttribute attribute) {
       this.attribute = attribute;
     }
 
-    public void applyMetadata(FaceletContext ctx, Object instance) {
-      UIFlowLayout gridLayout = (UIFlowLayout) instance;
+    public void applyMetadata(final FaceletContext ctx, final Object instance) {
+      final UIFlowLayout gridLayout = (UIFlowLayout) instance;
       gridLayout.setMarginBottom(Measure.valueOf(attribute.getValue()));
     }
   }
@@ -128,12 +128,12 @@ public class FlowLayoutRule extends MetaRule {
   static final class MarginMapper extends Metadata {
     private final TagAttribute attribute;
 
-    MarginMapper(TagAttribute attribute) {
+    MarginMapper(final TagAttribute attribute) {
       this.attribute = attribute;
     }
 
-    public void applyMetadata(FaceletContext ctx, Object instance) {
-      UIFlowLayout gridLayout = (UIFlowLayout) instance;
+    public void applyMetadata(final FaceletContext ctx, final Object instance) {
+      final UIFlowLayout gridLayout = (UIFlowLayout) instance;
       gridLayout.setMargin(Measure.valueOf(attribute.getValue()));
     }
   }

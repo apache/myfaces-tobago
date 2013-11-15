@@ -39,14 +39,14 @@ public class DirectoryBrowser implements Serializable {
 
   public DirectoryBrowser() {
     tree = new PageItem("/", false, false);
-    ServletContext servletContext
+    final ServletContext servletContext
         = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
 
     locateResourcesInWar(tree, servletContext);
     current = tree;
   }
 
-  private void locateResourcesInWar(PageItem node, ServletContext servletContext) {
+  private void locateResourcesInWar(final PageItem node, final ServletContext servletContext) {
 
     String path = node.getName();
 
@@ -54,7 +54,7 @@ public class DirectoryBrowser implements Serializable {
     if (path.endsWith("/") && path.length() > 1) {
       path = path.substring(0, path.length() - 1);
     }
-    Set<String> resourcePaths = servletContext.getResourcePaths(path);
+    final Set<String> resourcePaths = servletContext.getResourcePaths(path);
     if (resourcePaths == null || resourcePaths.isEmpty()) {
       if (LOG.isDebugEnabled()) {
         LOG.debug("Skipping empty resource path: path='" + path + "'");
@@ -62,9 +62,9 @@ public class DirectoryBrowser implements Serializable {
       return;
     }
 
-    List<PageItem> list = new ArrayList<PageItem>();
+    final List<PageItem> list = new ArrayList<PageItem>();
 
-    for (String childPath : resourcePaths) {
+    for (final String childPath : resourcePaths) {
       if (childPath.endsWith("/")) {
         // ignore, because weblogic puts the path directory itself in the Set
         if (!childPath.equals(path)) {
@@ -85,7 +85,7 @@ public class DirectoryBrowser implements Serializable {
 
     Collections.sort(list);
 
-    for (PageItem pageItem : list) {
+    for (final PageItem pageItem : list) {
       node.add(pageItem);
 
       if (pageItem.isFolder()) {
@@ -102,7 +102,7 @@ public class DirectoryBrowser implements Serializable {
     return current;
   }
 
-  public void setCurrent(PageItem current) {
+  public void setCurrent(final PageItem current) {
     this.current = current;
   }
 }

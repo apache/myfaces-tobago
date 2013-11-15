@@ -42,10 +42,10 @@ import java.io.IOException;
 
 public class SeparatorRenderer extends LayoutComponentRendererBase {
 
-  public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
+  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
 
-    UISeparator separator = (UISeparator) component;
-    TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final UISeparator separator = (UISeparator) component;
+    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
     String label = getLabel(separator);
 
@@ -58,7 +58,7 @@ public class SeparatorRenderer extends LayoutComponentRendererBase {
       writer.writeIdAttribute(separator.getClientId(facesContext));
       writer.writeClassAttribute(Classes.create(component));
       HtmlRendererUtils.writeDataAttributes(facesContext, writer, component);
-      Style style = new Style(facesContext, separator);
+      final Style style = new Style(facesContext, separator);
       writer.writeStyleAttribute(style);
 
       writer.writeAttribute(HtmlAttributes.CELLPADDING, "0", false);
@@ -88,14 +88,14 @@ public class SeparatorRenderer extends LayoutComponentRendererBase {
       writer.startElement(HtmlElements.HR , component);
       writer.writeIdAttribute(separator.getClientId(facesContext));
       writer.writeClassAttribute(Classes.create(component));
-      Style style = new Style(facesContext, separator);
+      final Style style = new Style(facesContext, separator);
       style.setHeight(Measure.ZERO); // not nice
       writer.writeStyleAttribute(style);
       writer.endElement(HtmlElements.HR);
     }
   }
 
-  private String getLabel(UISeparator separator) {
+  private String getLabel(final UISeparator separator) {
     String label = separator.getLabel();
     if (label == null && separator.getFacet(Facets.LABEL) != null) {
       // deprecated
@@ -106,8 +106,8 @@ public class SeparatorRenderer extends LayoutComponentRendererBase {
   }
 
   @Override
-  public Measure getHeight(FacesContext facesContext, Configurable component) {
-    String label = getLabel((UISeparator) component);
+  public Measure getHeight(final FacesContext facesContext, final Configurable component) {
+    final String label = getLabel((UISeparator) component);
     if (label == null) {
       return getResourceManager().getThemeMeasure(facesContext, component, "withoutLabelHeight");
     } else {

@@ -37,7 +37,7 @@ public class TobagoResponse extends HttpServletResponseWrapper {
   private StringWriter bufferedWriter = null;
 
 
-  public TobagoResponse(HttpServletResponse base) {
+  public TobagoResponse(final HttpServletResponse base) {
     super(base);
   }
 
@@ -74,7 +74,7 @@ public class TobagoResponse extends HttpServletResponseWrapper {
 
 
   @Override
-  public void setContentType(String s) {
+  public void setContentType(final String s) {
     LOG.debug("***** setContentType(" + s + ") from " + new Exception().getStackTrace()[1]);
     getResponse().setContentType(s);
   }

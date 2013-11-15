@@ -49,14 +49,14 @@ public class ClientConfigController {
 
     // theme
 
-    FacesContext facesContext = FacesContext.getCurrentInstance();
-    TobagoConfig tobagoConfig = TobagoConfig.getInstance(facesContext);
+    final FacesContext facesContext = FacesContext.getCurrentInstance();
+    final TobagoConfig tobagoConfig = TobagoConfig.getInstance(facesContext);
 
-    List<Theme> themes = new ArrayList<Theme>(tobagoConfig.getSupportedThemes());
+    final List<Theme> themes = new ArrayList<Theme>(tobagoConfig.getSupportedThemes());
     themes.add(0, tobagoConfig.getDefaultTheme());
     themeItems = new SelectItem[themes.size()];
     for (int i = 0; i < themeItems.length; i++) {
-      Theme themeItem = themes.get(i);
+      final Theme themeItem = themes.get(i);
       themeItems[i] = new SelectItem(themeItem, themeItem.getDisplayName());
     }
 
@@ -73,13 +73,13 @@ public class ClientConfigController {
     if (LOG.isDebugEnabled()) {
       LOG.debug("invoke!!!");
     }
-    FacesContext facesContext = FacesContext.getCurrentInstance();
+    final FacesContext facesContext = FacesContext.getCurrentInstance();
 
     storeInClientProperties();
 
     for (int i = 0; i < ClientConfigPhaseListener.BEAN_NAMES.length; i++) {
-      String beanName = ClientConfigPhaseListener.BEAN_NAMES[i];
-      ClientConfigController controller
+      final String beanName = ClientConfigPhaseListener.BEAN_NAMES[i];
+      final ClientConfigController controller
           = getCurrentInstance(facesContext, beanName);
       if (controller != null) {
         controller.setLocale(locale);
@@ -92,7 +92,7 @@ public class ClientConfigController {
 // ///////////////////////////////////////////// logic
 
   public void storeInClientProperties() {
-    ClientProperties client
+    final ClientProperties client
         = VariableResolverUtils.resolveClientProperties(FacesContext.getCurrentInstance());
 
     client.setDebugMode(debugMode);
@@ -100,7 +100,7 @@ public class ClientConfigController {
   }
 
   public void loadFromClientProperties() {
-    ClientProperties client
+    final ClientProperties client
         = VariableResolverUtils.resolveClientProperties(FacesContext.getCurrentInstance());
 
     debugMode = client.isDebugMode();
@@ -108,15 +108,15 @@ public class ClientConfigController {
   }
 
   public List<SelectItem> getLocaleItems() {
-    FacesContext facesContext = FacesContext.getCurrentInstance();
-    Application application = facesContext.getApplication();
-    Locale defaultLocale = application.getDefaultLocale();
-    Iterator supportedLocales = application.getSupportedLocales();
+    final FacesContext facesContext = FacesContext.getCurrentInstance();
+    final Application application = facesContext.getApplication();
+    final Locale defaultLocale = application.getDefaultLocale();
+    final Iterator supportedLocales = application.getSupportedLocales();
 
     boolean defaultInList = false;
-    List<SelectItem> localeItems = new ArrayList<SelectItem>();
+    final List<SelectItem> localeItems = new ArrayList<SelectItem>();
     while (supportedLocales.hasNext()) {
-      Locale locale = (Locale) supportedLocales.next();
+      final Locale locale = (Locale) supportedLocales.next();
       localeItems.add(createLocaleItem(locale));
       if (locale.equals(defaultLocale)) {
         defaultInList = true;
@@ -131,7 +131,7 @@ public class ClientConfigController {
     return localeItems;
   }
 
-  private SelectItem createLocaleItem(Locale localeItem) {
+  private SelectItem createLocaleItem(final Locale localeItem) {
     if (locale != null) {
       return new SelectItem(localeItem, localeItem.getDisplayName(locale));
     } else {
@@ -140,7 +140,7 @@ public class ClientConfigController {
   }
 
   public static ClientConfigController getCurrentInstance(
-      FacesContext facesContext, String beanName) {
+      final FacesContext facesContext, final String beanName) {
     return (ClientConfigController) facesContext.getApplication()
         .getVariableResolver().resolveVariable(facesContext, beanName);
   }
@@ -149,7 +149,7 @@ public class ClientConfigController {
     return debugMode;
   }
 
-  public void setDebugMode(boolean debugMode) {
+  public void setDebugMode(final boolean debugMode) {
     this.debugMode = debugMode;
   }
 
@@ -159,7 +159,7 @@ public class ClientConfigController {
 
   public String getLocalizedTheme() {
     for (int i = 0; i < themeItems.length; i++) {
-      SelectItem themeItem = themeItems[i];
+      final SelectItem themeItem = themeItems[i];
       if (themeItem.getValue().equals(theme)) {
         return themeItem.getLabel();
       }
@@ -167,7 +167,7 @@ public class ClientConfigController {
     return "???";
   }
 
-  public void setTheme(Theme theme) {
+  public void setTheme(final Theme theme) {
     this.theme = theme;
   }
 
@@ -175,7 +175,7 @@ public class ClientConfigController {
     return themeItems;
   }
 
-  public void setThemeItems(SelectItem[] themeItems) {
+  public void setThemeItems(final SelectItem[] themeItems) {
     this.themeItems = themeItems;
   }
 
@@ -191,7 +191,7 @@ public class ClientConfigController {
     }
   }
 
-  public void setLocale(Locale locale) {
+  public void setLocale(final Locale locale) {
     this.locale = locale;
   }
 

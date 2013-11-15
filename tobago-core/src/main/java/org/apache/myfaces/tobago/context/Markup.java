@@ -143,8 +143,8 @@ public final class Markup implements Serializable, Iterable<String> {
       return valueOf((String[]) value);
     }
     if (value instanceof Iterable) {
-      List<String> list = new ArrayList<String>();
-      for (Object object : (Iterable) value) {
+      final List<String> list = new ArrayList<String>();
+      for (final Object object : (Iterable) value) {
         list.add(object.toString());
       }
       return valueOf(list.toArray(new String[list.size()]));
@@ -207,7 +207,7 @@ public final class Markup implements Serializable, Iterable<String> {
       // this part is not optimized, but it will be used rarely, in the moment...
       Markup result = this;
       if (markup.values != null) {
-        for (String summand : markup.values) {
+        for (final String summand : markup.values) {
           result = result.add(summand);
         }
       }
@@ -247,7 +247,7 @@ public final class Markup implements Serializable, Iterable<String> {
     } else {
       // this part is not optimized, but it will be used rarely, in the moment...
       Markup result = this;
-      for (String summand : markup.values) {
+      for (final String summand : markup.values) {
         result = result.remove(summand);
       }
       return result;

@@ -45,7 +45,7 @@ public class UISecuredToolBarCommand extends UIToolBarCommand {
   }
 
   @Override
-  public void setActionExpression(MethodExpression actionExpression) {
+  public void setActionExpression(final MethodExpression actionExpression) {
     if (actionExpression != null) {
       super.setActionExpression(new CheckAuthorisationMethodExpression(actionExpression));
     } else {

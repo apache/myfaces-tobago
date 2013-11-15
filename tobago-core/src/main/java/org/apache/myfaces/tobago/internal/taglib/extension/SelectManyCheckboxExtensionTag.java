@@ -205,7 +205,7 @@ public class SelectManyCheckboxExtensionTag extends TobagoExtensionBodyTagSuppor
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
-  public void setRequired(javax.el.ValueExpression required) {
+  public void setRequired(final javax.el.ValueExpression required) {
     this.required = required;
   }
 
@@ -214,7 +214,7 @@ public class SelectManyCheckboxExtensionTag extends TobagoExtensionBodyTagSuppor
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "java.lang.Object")
-  public void setValue(javax.el.ValueExpression value) {
+  public void setValue(final javax.el.ValueExpression value) {
     this.value = value;
   }
 
@@ -229,7 +229,7 @@ public class SelectManyCheckboxExtensionTag extends TobagoExtensionBodyTagSuppor
           type = {},
           expression = DynamicExpression.METHOD_EXPRESSION_REQUIRED,
           methodSignature = "javax.faces.event.ValueChangeEvent")
-  public void setValueChangeListener(javax.el.MethodExpression valueChangeListener) {
+  public void setValueChangeListener(final javax.el.MethodExpression valueChangeListener) {
     this.valueChangeListener = valueChangeListener;
   }
 
@@ -238,7 +238,7 @@ public class SelectManyCheckboxExtensionTag extends TobagoExtensionBodyTagSuppor
    */
   @TagAttribute()
   @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
-  public void setDisabled(javax.el.ValueExpression disabled) {
+  public void setDisabled(final javax.el.ValueExpression disabled) {
     this.disabled = disabled;
   }
 
@@ -247,7 +247,7 @@ public class SelectManyCheckboxExtensionTag extends TobagoExtensionBodyTagSuppor
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
-  public void setReadonly(javax.el.ValueExpression readonly) {
+  public void setReadonly(final javax.el.ValueExpression readonly) {
     this.readonly = readonly;
   }
 
@@ -256,7 +256,7 @@ public class SelectManyCheckboxExtensionTag extends TobagoExtensionBodyTagSuppor
    */
   @TagAttribute
   @UIComponentTagAttribute()
-  public void setOnchange(javax.el.ValueExpression onchange) {
+  public void setOnchange(final javax.el.ValueExpression onchange) {
     this.onchange = onchange;
   }
 
@@ -265,7 +265,7 @@ public class SelectManyCheckboxExtensionTag extends TobagoExtensionBodyTagSuppor
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
-  public void setInline(javax.el.ValueExpression inline) {
+  public void setInline(final javax.el.ValueExpression inline) {
     this.inline = inline;
   }
 
@@ -275,7 +275,7 @@ public class SelectManyCheckboxExtensionTag extends TobagoExtensionBodyTagSuppor
    */
   @TagAttribute
   @UIComponentTagAttribute()
-  public void setLabel(javax.el.ValueExpression label) {
+  public void setLabel(final javax.el.ValueExpression label) {
     this.label = label;
   }
 
@@ -293,7 +293,7 @@ public class SelectManyCheckboxExtensionTag extends TobagoExtensionBodyTagSuppor
   @UIComponentTagAttribute(type = {},
       expression = DynamicExpression.METHOD_EXPRESSION,
       methodSignature = { "javax.faces.context.FacesContext", "javax.faces.component.UIComponent", "java.lang.Object" })
-  public void setValidator(javax.el.MethodExpression validator) {
+  public void setValidator(final javax.el.MethodExpression validator) {
     this.validator = validator;
   }
 
@@ -309,7 +309,7 @@ public class SelectManyCheckboxExtensionTag extends TobagoExtensionBodyTagSuppor
   @TagAttribute
   @UIComponentTagAttribute(type = "javax.faces.convert.Converter",
       expression = DynamicExpression.VALUE_EXPRESSION)
-  public void setConverter(javax.el.ValueExpression converter) {
+  public void setConverter(final javax.el.ValueExpression converter) {
     this.converter = converter;
   }
 
@@ -319,7 +319,7 @@ public class SelectManyCheckboxExtensionTag extends TobagoExtensionBodyTagSuppor
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "boolean", defaultValue = "true")
-  public void setRendered(javax.el.ValueExpression rendered) {
+  public void setRendered(final javax.el.ValueExpression rendered) {
     this.rendered = rendered;
   }
 
@@ -329,7 +329,7 @@ public class SelectManyCheckboxExtensionTag extends TobagoExtensionBodyTagSuppor
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "javax.faces.component.UIComponent")
-  public void setBinding(javax.el.ValueExpression binding) {
+  public void setBinding(final javax.el.ValueExpression binding) {
     this.binding = binding;
   }
 
@@ -338,7 +338,7 @@ public class SelectManyCheckboxExtensionTag extends TobagoExtensionBodyTagSuppor
    */
   @TagAttribute
   @UIComponentTagAttribute()
-  public void setTip(javax.el.ValueExpression tip) {
+  public void setTip(final javax.el.ValueExpression tip) {
     this.tip = tip;
   }
 
@@ -349,7 +349,7 @@ public class SelectManyCheckboxExtensionTag extends TobagoExtensionBodyTagSuppor
    */
   @TagAttribute
   @UIComponentTagAttribute()
-  public void setLabelWidth(javax.el.ValueExpression labelWidth) {
+  public void setLabelWidth(final javax.el.ValueExpression labelWidth) {
     this.labelWidth = labelWidth;
   }
 
@@ -359,13 +359,13 @@ public class SelectManyCheckboxExtensionTag extends TobagoExtensionBodyTagSuppor
    */
   @TagAttribute
   @UIComponentTagAttribute(defaultValue = "none", type = "java.lang.String[]")
-  public void setMarkup(javax.el.ValueExpression markup) {
+  public void setMarkup(final javax.el.ValueExpression markup) {
     this.markup = markup;
   }
 
   @TagAttribute
   @UIComponentTagAttribute(type = "java.lang.Integer")
-  public void setTabIndex(javax.el.ValueExpression tabIndex) {
+  public void setTabIndex(final javax.el.ValueExpression tabIndex) {
     this.tabIndex = tabIndex;
   }
 
@@ -374,7 +374,7 @@ public class SelectManyCheckboxExtensionTag extends TobagoExtensionBodyTagSuppor
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
-  public void setFocus(javax.el.ValueExpression focus) {
+  public void setFocus(final javax.el.ValueExpression focus) {
     this.focus = focus;
   }
 
@@ -383,7 +383,7 @@ public class SelectManyCheckboxExtensionTag extends TobagoExtensionBodyTagSuppor
    */
   @TagAttribute
   @UIComponentTagAttribute()
-  public void setRenderRange(javax.el.ValueExpression renderRange) {
+  public void setRenderRange(final javax.el.ValueExpression renderRange) {
     this.renderRange = renderRange;
   }
 
@@ -392,7 +392,7 @@ public class SelectManyCheckboxExtensionTag extends TobagoExtensionBodyTagSuppor
    */
   @TagAttribute
   @UIComponentTagAttribute()
-  public void setValidatorMessage(javax.el.ValueExpression validatorMessage) {
+  public void setValidatorMessage(final javax.el.ValueExpression validatorMessage) {
     this.validatorMessage = validatorMessage;
   }
 
@@ -401,7 +401,7 @@ public class SelectManyCheckboxExtensionTag extends TobagoExtensionBodyTagSuppor
    */
   @TagAttribute
   @UIComponentTagAttribute()
-  public void setConverterMessage(javax.el.ValueExpression converterMessage) {
+  public void setConverterMessage(final javax.el.ValueExpression converterMessage) {
     this.converterMessage = converterMessage;
   }
 
@@ -410,7 +410,7 @@ public class SelectManyCheckboxExtensionTag extends TobagoExtensionBodyTagSuppor
    */
   @TagAttribute
   @UIComponentTagAttribute()
-  public void setRequiredMessage(javax.el.ValueExpression requiredMessage) {
+  public void setRequiredMessage(final javax.el.ValueExpression requiredMessage) {
     this.requiredMessage = requiredMessage;
   }
   
@@ -420,7 +420,7 @@ public class SelectManyCheckboxExtensionTag extends TobagoExtensionBodyTagSuppor
    */
   @TagAttribute(rtexprvalue = true)
   @UIComponentTagAttribute
-  public void setFieldId(String fieldId) {
+  public void setFieldId(final String fieldId) {
     this.fieldId = fieldId;
   }
 
@@ -432,7 +432,7 @@ public class SelectManyCheckboxExtensionTag extends TobagoExtensionBodyTagSuppor
    */
   @TagAttribute(rtexprvalue = true)
   @UIComponentTagAttribute
-  public void setId(String id) {
+  public void setId(final String id) {
     super.setId(id);
   }
 }

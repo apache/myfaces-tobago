@@ -33,6 +33,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
+import org.apache.myfaces.tobago.renderkit.util.EncodeUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -45,13 +46,13 @@ import java.util.List;
 
 public class TreeListboxRenderer extends LayoutComponentRendererBase {
 
-  public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
+  public void prepareRender(final FacesContext facesContext, final UIComponent component) throws IOException {
     super.prepareRender(facesContext, component);
     setRendererTypeForCommandsAndNodes(component);
   }
 
-  protected void setRendererTypeForCommandsAndNodes(UIComponent component) {
-    for (UIComponent child : component.getChildren()) {
+  protected void setRendererTypeForCommandsAndNodes(final UIComponent component) {
+    for (final UIComponent child : component.getChildren()) {
       if (child instanceof UITreeNode) {
         child.setRendererType(RendererTypes.TREE_LISTBOX_NODE);
       }
@@ -60,12 +61,12 @@ public class TreeListboxRenderer extends LayoutComponentRendererBase {
   }
 
   @Override
-  public void encodeChildren(FacesContext context, UIComponent component) throws IOException {
+  public void encodeChildren(final FacesContext context, final UIComponent component) throws IOException {
     // will be rendered in encodeEnd()
   }
 
   @Override
-  public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
+  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
 
     final AbstractUITree tree = (AbstractUITree) component;
     final String clientId = tree.getClientId(facesContext);
@@ -112,17 +113,17 @@ public class TreeListboxRenderer extends LayoutComponentRendererBase {
     List<Integer> thisLevel = new ArrayList<Integer>();
     thisLevel.add(0);
     List<Integer> nextLevel = new ArrayList<Integer>();
-    int depth = tree.getTreeDataModel().getDepth() != -1
+    final int depth = tree.getTreeDataModel().getDepth() != -1
         ? tree.getTreeDataModel().getDepth()
         : 7;  // XXX not a fix value!!!
     // todo: use (TreeListbox ?)Layout
-    Measure currentWidth = tree.getCurrentWidth();
-    Measure width = currentWidth.divide(depth);
+    final Measure currentWidth = tree.getCurrentWidth();
+    final Measure width = currentWidth.divide(depth);
     for (int level = 0; level < depth; level++) {
 
       writer.startElement(HtmlElements.DIV, null);
       writer.writeClassAttribute(Classes.create(tree, "level"));
-      Style levelStyle = new Style();
+      final Style levelStyle = new Style();
       levelStyle.setLeft(width.multiply(level));
       levelStyle.setWidth(width);
       writer.writeStyleAttribute(levelStyle);
@@ -136,12 +137,12 @@ public class TreeListboxRenderer extends LayoutComponentRendererBase {
         writer.endElement(HtmlElements.SELECT);
       }
 
-      for(Integer rowIndex : thisLevel) {
+      for(final Integer rowIndex : thisLevel) {
         encodeSelectBox(facesContext, tree, writer, rowIndex, nextLevel);
       }
 
       thisLevel.clear();
-      List<Integer> swap = thisLevel;
+      final List<Integer> swap = thisLevel;
       thisLevel = nextLevel;
       nextLevel = swap;
 
@@ -155,8 +156,8 @@ public class TreeListboxRenderer extends LayoutComponentRendererBase {
   }
 
   private void encodeSelectBox(
-      FacesContext facesContext, AbstractUITree tree, TobagoResponseWriter writer,
-      int parentRowIndex, List<Integer> foldersRowIndices)
+      final FacesContext facesContext, final AbstractUITree tree, final TobagoResponseWriter writer,
+      final int parentRowIndex, final List<Integer> foldersRowIndices)
       throws IOException {
 
     tree.setRowIndex(parentRowIndex);
@@ -183,14 +184,14 @@ public class TreeListboxRenderer extends LayoutComponentRendererBase {
 
     final List<Integer> rowIndices = tree.getRowIndicesOfChildren();
 
-    for (Integer rowIndex : rowIndices) {
+    for (final Integer rowIndex : rowIndices) {
       tree.setRowIndex(rowIndex);
       if (!tree.isRowAvailable()) {
         break;
       }
 
-      for (UIComponent child : tree.getChildren()) {
-        RenderUtils.prepareRendererAll(facesContext, child);
+      for (final UIComponent child : tree.getChildren()) {
+        EncodeUtils.prepareRendererAll(facesContext, child);
         RenderUtils.encode(facesContext, child);
       }
 

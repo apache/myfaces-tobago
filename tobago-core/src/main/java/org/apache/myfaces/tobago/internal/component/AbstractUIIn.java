@@ -30,10 +30,10 @@ import javax.faces.context.FacesContext;
 
 public abstract class AbstractUIIn extends AbstractUIInput implements OnComponentPopulated, InputSuggest2 {
 
-  public void onComponentPopulated(FacesContext facesContext, UIComponent parent) {
+  public void onComponentPopulated(final FacesContext facesContext, final UIComponent parent) {
     if (getSuggestMethodExpression() != null) {
       if (getSuggest() == null) {
-        AbstractUISuggest suggest = (AbstractUISuggest) CreateComponentUtils.createComponent(
+        final AbstractUISuggest suggest = (AbstractUISuggest) CreateComponentUtils.createComponent(
             facesContext, AbstractUISuggest.COMPONENT_TYPE, RendererTypes.SUGGEST, null);
         getChildren().add(suggest);
         suggest.setSuggestMethodExpression(getSuggestMethodExpression());

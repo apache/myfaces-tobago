@@ -103,28 +103,28 @@ public class TreePathUnitTest {
 
   @Test
   public void testGetPath() {
-    TreePath treePath = new TreePath(0, 1, 2);
+    final TreePath treePath = new TreePath(0, 1, 2);
     Assert.assertTrue(Arrays.equals(new int[]{0, 1, 2}, treePath.getPath()));
-    TreePath treePath2 = new TreePath(treePath, 3);
+    final TreePath treePath2 = new TreePath(treePath, 3);
     Assert.assertTrue(Arrays.equals(new int[]{0, 1, 2, 3}, treePath2.getPath()));
   }
 
   @Test
   public void testGetPathString() {
-    TreePath treePath = new TreePath(0, 1, 2);
+    final TreePath treePath = new TreePath(0, 1, 2);
     Assert.assertEquals("_0_1_2", treePath.getPathString());
-    TreePath treePath2 = new TreePath(treePath, 3);
+    final TreePath treePath2 = new TreePath(treePath, 3);
     Assert.assertEquals("_0_1_2_3", treePath2.getPathString());
   }
 
   @Test
   public void testGetNode() {
 
-    DefaultMutableTreeNode root = new DefaultMutableTreeNode("root");
-    DefaultMutableTreeNode node1 = new DefaultMutableTreeNode("node1");
+    final DefaultMutableTreeNode root = new DefaultMutableTreeNode("root");
+    final DefaultMutableTreeNode node1 = new DefaultMutableTreeNode("node1");
     root.add(node1);
-    DefaultMutableTreeNode node2 = new DefaultMutableTreeNode("node2");
-    DefaultMutableTreeNode node3 = new DefaultMutableTreeNode("node3");
+    final DefaultMutableTreeNode node2 = new DefaultMutableTreeNode("node2");
+    final DefaultMutableTreeNode node3 = new DefaultMutableTreeNode("node3");
     node2.add(node3);
     root.add(node2);
 
@@ -137,14 +137,14 @@ public class TreePathUnitTest {
   @Test
   public void testGetNode2() {
 
-    DefaultMutableTreeNode tree = new DefaultMutableTreeNode("Category");
+    final DefaultMutableTreeNode tree = new DefaultMutableTreeNode("Category");
     tree.add(new DefaultMutableTreeNode("Sports"));
     tree.add(new DefaultMutableTreeNode("Movies"));
-    DefaultMutableTreeNode science = new DefaultMutableTreeNode("Science");
+    final DefaultMutableTreeNode science = new DefaultMutableTreeNode("Science");
     tree.add(science);
     science.add(new DefaultMutableTreeNode("Geography"));
     science.add(new DefaultMutableTreeNode("Mathematics"));
-    DefaultMutableTreeNode astronomy = new DefaultMutableTreeNode("Astronomy");
+    final DefaultMutableTreeNode astronomy = new DefaultMutableTreeNode("Astronomy");
     astronomy.add(new DefaultMutableTreeNode("Education"));
     astronomy.add(new DefaultMutableTreeNode("Pictures"));
     science.add(astronomy);

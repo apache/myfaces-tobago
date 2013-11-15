@@ -46,7 +46,7 @@ public class Upload {
     LOG.info("type=" + file.getContentType());
     LOG.info("size=" + file.get().length);
     String name = file.getName();
-    int pos = Math.max(name.lastIndexOf('/'), name.lastIndexOf('\\'));
+    final int pos = Math.max(name.lastIndexOf('/'), name.lastIndexOf('\\'));
     if (pos >= 0) {
       // some old browsers send the name with path.
       // modern browsers doesn't because of security reasons.
@@ -62,7 +62,7 @@ public class Upload {
     return file;
   }
 
-  public void setFile(FileItem file) {
+  public void setFile(final FileItem file) {
     this.file = file;
   }
 

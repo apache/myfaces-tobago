@@ -30,14 +30,14 @@ public class FishServlet extends NonFacesRequestServlet {
 
   private static final Logger LOG = LoggerFactory.getLogger(FishServlet.class);
 
-  public String invokeApplication(FacesContext facesContext) {
+  public String invokeApplication(final FacesContext facesContext) {
 
-    String id = (String) facesContext.getExternalContext().getRequestParameterMap().get("id");
+    final String id = (String) facesContext.getExternalContext().getRequestParameterMap().get("id");
     LOG.info("id='" + id + "'");
 
-    FishPond fishPond = (FishPond) VariableResolverUtils.resolveVariable(facesContext, "fishPond");
+    final FishPond fishPond = (FishPond) VariableResolverUtils.resolveVariable(facesContext, "fishPond");
 
-    String outcome = fishPond.select(id);
+    final String outcome = fishPond.select(id);
 
     return outcome;
   }

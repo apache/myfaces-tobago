@@ -88,8 +88,8 @@ public abstract class AbstractUIData extends javax.faces.component.UIData implem
 
   private void init() {
     if (!initialized) {
-      Object value = getValue();
-      boolean showRoot = isShowRoot();
+      final Object value = getValue();
+      final boolean showRoot = isShowRoot();
       createTreeDataModel(value, showRoot);
 
       initialized = true;
@@ -112,7 +112,7 @@ public abstract class AbstractUIData extends javax.faces.component.UIData implem
    *              (comes from the value attribute of the {@link javax.faces.component.UIData})
    * @param showRoot comes from the showRoot attribute.
    */
-  protected void createTreeDataModel(Object value, boolean showRoot) {
+  protected void createTreeDataModel(final Object value, final boolean showRoot) {
     // TODO: use a factory
     if (value instanceof TreeNode) {
       dataModel = new TreeNodeDataModel((TreeNode) value, showRoot, getExpandedState());
@@ -120,7 +120,7 @@ public abstract class AbstractUIData extends javax.faces.component.UIData implem
   }
 
   @Override
-  public void encodeBegin(FacesContext context) throws IOException {
+  public void encodeBegin(final FacesContext context) throws IOException {
     initialized = false;
     init();
     if (dataModel != null) {
@@ -184,13 +184,14 @@ public abstract class AbstractUIData extends javax.faces.component.UIData implem
     return false;
   }
 
-    // todo: after removing jsf 1.1: @Override
-  public boolean invokeOnComponent(FacesContext facesContext, String clientId, ContextCallback callback)
+  // todo: after removing jsf 1.1: @Override
+  public boolean invokeOnComponent(
+      final FacesContext facesContext, final String clientId, final ContextCallback callback)
       throws FacesException {
     // we may need setRowIndex on UISheet
-    int oldRowIndex = getRowIndex();
+    final int oldRowIndex = getRowIndex();
     try {
-      String sheetId = getClientId(facesContext);
+      final String sheetId = getClientId(facesContext);
       if (clientId.startsWith(sheetId)) {
         String idRemainder = clientId.substring(sheetId.length());
         if (LOG.isDebugEnabled()) {
@@ -198,14 +199,14 @@ public abstract class AbstractUIData extends javax.faces.component.UIData implem
         }
         if (idRemainder.matches("^:\\d+:.*")) {
           idRemainder = idRemainder.substring(1);
-          int idx = idRemainder.indexOf(":");
+          final int idx = idRemainder.indexOf(":");
           try {
-            int rowIndex = Integer.parseInt(idRemainder.substring(0, idx));
+            final int rowIndex = Integer.parseInt(idRemainder.substring(0, idx));
             if (LOG.isDebugEnabled()) {
               LOG.debug("set rowIndex = '" + rowIndex + "'");
             }
             setRowIndex(rowIndex);
-          } catch (NumberFormatException e) {
+          } catch (final NumberFormatException e) {
             LOG.warn("idRemainder = '" + idRemainder + "'", e);
           }
         } else {

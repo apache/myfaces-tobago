@@ -70,22 +70,23 @@ public class TobagoLifecycle extends Lifecycle {
     renderExecutor = new RenderResponseExecutor();
   }
 
-  public void execute(FacesContext context) throws FacesException {
+  public void execute(final FacesContext context) throws FacesException {
 
-    PhaseListenerManager phaseListenerMgr = new PhaseListenerManager(this, context, getPhaseListeners());
+    final PhaseListenerManager phaseListenerMgr = new PhaseListenerManager(this, context, getPhaseListeners());
 
     // At very first ensure the requestEncoding, this MUST done before
     // accessing request parameters, which can occur in custom phaseListeners.
     RequestUtils.ensureEncoding(context);
 
-    for (PhaseExecutor executor : lifecycleExecutors) {
+    for (final PhaseExecutor executor : lifecycleExecutors) {
       if (executePhase(context, executor, phaseListenerMgr)) {
         return;
       }
     }
   }
 
-  private boolean executePhase(FacesContext facesContext, PhaseExecutor executor, PhaseListenerManager phaseListenerMgr)
+  private boolean executePhase(
+      final FacesContext facesContext, final PhaseExecutor executor, final PhaseListenerManager phaseListenerMgr)
       throws FacesException {
 
     boolean skipFurtherProcessing = false;
@@ -125,7 +126,7 @@ public class TobagoLifecycle extends Lifecycle {
     return skipFurtherProcessing;
   }
 
-  public void render(FacesContext facesContext) throws FacesException {
+  public void render(final FacesContext facesContext) throws FacesException {
     // if the response is complete we should not be invoking the phase listeners
     if (isResponseComplete(facesContext, renderExecutor.getPhase(), true)) {
       return;
@@ -134,7 +135,7 @@ public class TobagoLifecycle extends Lifecycle {
       LOG.trace("entering " + renderExecutor.getPhase() + " in " + TobagoLifecycle.class.getName());
     }
 
-    PhaseListenerManager phaseListenerMgr = new PhaseListenerManager(this, facesContext, getPhaseListeners());
+    final PhaseListenerManager phaseListenerMgr = new PhaseListenerManager(this, facesContext, getPhaseListeners());
 
     try {
       phaseListenerMgr.informPhaseListenersBefore(renderExecutor.getPhase());
@@ -154,7 +155,7 @@ public class TobagoLifecycle extends Lifecycle {
 
   }
 
-  private boolean isResponseComplete(FacesContext facesContext, PhaseId phase, boolean before) {
+  private boolean isResponseComplete(final FacesContext facesContext, final PhaseId phase, final boolean before) {
     boolean flag = false;
     if (facesContext.getResponseComplete()) {
       if (LOG.isDebugEnabled()) {
@@ -167,7 +168,7 @@ public class TobagoLifecycle extends Lifecycle {
     return flag;
   }
 
-  private boolean shouldRenderResponse(FacesContext facesContext, PhaseId phase, boolean before) {
+  private boolean shouldRenderResponse(final FacesContext facesContext, final PhaseId phase, final boolean before) {
     boolean flag = false;
     if (facesContext.getRenderResponse()) {
       if (LOG.isDebugEnabled()) {
@@ -180,7 +181,7 @@ public class TobagoLifecycle extends Lifecycle {
     return flag;
   }
 
-  public void addPhaseListener(PhaseListener phaseListener) {
+  public void addPhaseListener(final PhaseListener phaseListener) {
     if (phaseListener == null) {
       throw new NullPointerException("PhaseListener must not be null.");
     }
@@ -190,7 +191,7 @@ public class TobagoLifecycle extends Lifecycle {
     }
   }
 
-  public void removePhaseListener(PhaseListener phaseListener) {
+  public void removePhaseListener(final PhaseListener phaseListener) {
     if (phaseListener == null) {
       throw new NullPointerException("PhaseListener must not be null.");
     }

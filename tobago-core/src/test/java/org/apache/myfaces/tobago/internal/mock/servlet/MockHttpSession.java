@@ -33,7 +33,7 @@ public class MockHttpSession implements HttpSession {
 
   private Map attributes = new HashMap();
 
-  public Object getAttribute(String s) {
+  public Object getAttribute(final String s) {
     return attributes.get(s);
   }
 
@@ -62,7 +62,7 @@ public class MockHttpSession implements HttpSession {
     return null;
   }
 
-  public Object getValue(String s) {
+  public Object getValue(final String s) {
     return null;
   }
 
@@ -77,21 +77,21 @@ public class MockHttpSession implements HttpSession {
     return false;
   }
 
-  public void putValue(String s, Object o) {
+  public void putValue(final String s, final Object o) {
   }
 
-  public void removeAttribute(String s) {
+  public void removeAttribute(final String s) {
     attributes.remove(s);
   }
 
-  public void removeValue(String s) {
+  public void removeValue(final String s) {
   }
 
-  public void setAttribute(String s, Object o) {
+  public void setAttribute(final String s, final Object o) {
     attributes.put(s, o);
   }
 
-  public void setMaxInactiveInterval(int i) {
+  public void setMaxInactiveInterval(final int i) {
   }
 
   public ServletContext getServletContext() {

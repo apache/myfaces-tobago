@@ -36,11 +36,11 @@ public class Countries {
 
   private static final Logger LOG = LoggerFactory.getLogger(Countries.class);
 
-  public List<String> prefixed(UIInput input) {
-    String prefix = (String) input.getSubmittedValue();
+  public List<String> prefixed(final UIInput input) {
+    final String prefix = (String) input.getSubmittedValue();
     LOG.info("Creating items for prefix: '" + prefix + "'");
-    List<String> result = new ArrayList<String>();
-    for (String name : LocaleList.COUNTRY) {
+    final List<String> result = new ArrayList<String>();
+    for (final String name : LocaleList.COUNTRY) {
       if (StringUtils.startsWithIgnoreCase(name, prefix)) {
         result.add(name);
       }
@@ -51,11 +51,11 @@ public class Countries {
     return result;
   }
 
-  public List<String> contains(UIInput input) {
-    String contain = (String) input.getSubmittedValue();
+  public List<String> contains(final UIInput input) {
+    final String contain = (String) input.getSubmittedValue();
     LOG.info("Creating items which contain: '" + contain + "'");
-    List<String> result = new ArrayList<String>();
-    for (String name : LocaleList.COUNTRY) {
+    final List<String> result = new ArrayList<String>();
+    for (final String name : LocaleList.COUNTRY) {
       if (StringUtils.containsIgnoreCase(name, contain)) {
         result.add(name);
       }
@@ -66,9 +66,9 @@ public class Countries {
     return result;
   }
 
-  public List<String> holiday(UIInput input) {
-    List<String> result = new ArrayList<String>();
-    for (String name : LocaleList.HOLIDAY) {
+  public List<String> holiday(final UIInput input) {
+    final List<String> result = new ArrayList<String>();
+    for (final String name : LocaleList.HOLIDAY) {
       result.add(name);
       if (result.size() > 100) { // this value should be greater than the value of the input control
         break;

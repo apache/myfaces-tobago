@@ -31,7 +31,7 @@ public class PageActionEvent extends ActionEvent {
   private PageAction action;
   private int value;
 
-  public PageActionEvent(UIComponent component, PageAction action) {
+  public PageActionEvent(final UIComponent component, final PageAction action) {
     super(component);
     this.action = action;
   }
@@ -43,7 +43,7 @@ public class PageActionEvent extends ActionEvent {
     return action;
   }
 
-  public void setValue(int value) {
+  public void setValue(final int value) {
     this.value = value;
   }
 

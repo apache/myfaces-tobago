@@ -28,35 +28,35 @@ import java.io.IOException;
 public class RendererBaseWrapper extends LayoutComponentRendererBase {
   private Renderer renderer;
 
-  public RendererBaseWrapper(Renderer renderer) {
+  public RendererBaseWrapper(final Renderer renderer) {
     this.renderer = renderer;
   }
 
-  public void prepareRender(FacesContext facesContext, UIComponent component) {
+  public void prepareRender(final FacesContext facesContext, final UIComponent component) {
   }
 
-  public Object getConvertedValue(FacesContext context, UIComponent component, Object submittedValue)
+  public Object getConvertedValue(final FacesContext context, final UIComponent component, final Object submittedValue)
       throws ConverterException {
     return renderer.getConvertedValue(context, component, submittedValue);
   }
 
-  public void decode(FacesContext facesContext, UIComponent component) {
+  public void decode(final FacesContext facesContext, final UIComponent component) {
     renderer.decode(facesContext, component);
   }
 
-  public void encodeBegin(FacesContext context, UIComponent component) throws IOException {
+  public void encodeBegin(final FacesContext context, final UIComponent component) throws IOException {
     renderer.encodeBegin(context, component);
   }
 
-  public void encodeChildren(FacesContext context, UIComponent component) throws IOException {
+  public void encodeChildren(final FacesContext context, final UIComponent component) throws IOException {
     renderer.encodeChildren(context, component);
   }
 
-  public void encodeEnd(FacesContext context, UIComponent component) throws IOException {
+  public void encodeEnd(final FacesContext context, final UIComponent component) throws IOException {
     renderer.encodeEnd(context, component);
   }
 
-  public String convertClientId(FacesContext context, String clientId) {
+  public String convertClientId(final FacesContext context, final String clientId) {
     return renderer.convertClientId(context, clientId);
   }
 

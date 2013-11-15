@@ -46,7 +46,7 @@ public class FileRenderer extends InputRendererBase {
 
   private static final Logger LOG = LoggerFactory.getLogger(FileRenderer.class);
 
-  public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
+  public void prepareRender(final FacesContext facesContext, final UIComponent component) throws IOException {
     super.prepareRender(facesContext, component);
     FacesContextUtils.setEnctype(facesContext, "multipart/form-data");
   }
@@ -55,19 +55,19 @@ public class FileRenderer extends InputRendererBase {
     return true;
   }
 
-  public void decode(FacesContext facesContext, UIComponent component) {
+  public void decode(final FacesContext facesContext, final UIComponent component) {
     if (ComponentUtils.isOutputOnly(component)) {
       return;
     }
 
-    AbstractUIFile input = (AbstractUIFile) component;
+    final AbstractUIFile input = (AbstractUIFile) component;
 
     TobagoMultipartFormdataRequest request = null;
-    Object requestObject = facesContext.getExternalContext().getRequest();
+    final Object requestObject = facesContext.getExternalContext().getRequest();
     if (requestObject instanceof TobagoMultipartFormdataRequest) {
       request = (TobagoMultipartFormdataRequest) requestObject;
     } else if (requestObject instanceof HttpServletRequestWrapper) {
-      ServletRequest wrappedRequest
+      final ServletRequest wrappedRequest
           = ((HttpServletRequestWrapper) requestObject).getRequest();
       if (wrappedRequest instanceof TobagoMultipartFormdataRequest) {
         request = (TobagoMultipartFormdataRequest) wrappedRequest;
@@ -81,7 +81,7 @@ public class FileRenderer extends InputRendererBase {
           + "See documentation for <tc:file>");
     } else {
 
-      FileItem item = request.getFileItem(input.getClientId(facesContext));
+      final FileItem item = request.getFileItem(input.getClientId(facesContext));
 
       if (LOG.isDebugEnabled()) {
         LOG.debug("Uploaded file name : \"" + item.getName()
@@ -93,7 +93,7 @@ public class FileRenderer extends InputRendererBase {
     }
   }
 
-  public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
+  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
 
     final AbstractUIFile file = (AbstractUIFile) component;
     final String clientId = file.getClientId(facesContext);

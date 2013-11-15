@@ -36,7 +36,7 @@ public class Shuttle {
     return value;
   }
 
-  public void setValue(List<String> value) {
+  public void setValue(final List<String> value) {
     this.value = value;
   }
 

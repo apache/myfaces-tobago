@@ -28,12 +28,12 @@ import javax.servlet.http.HttpServletResponseWrapper;
 public class DebugContentTypeResponse extends HttpServletResponseWrapper {
   private static final Logger LOG = LoggerFactory.getLogger(DebugContentTypeResponse.class);
 
-  public DebugContentTypeResponse(HttpServletResponse response) {
+  public DebugContentTypeResponse(final HttpServletResponse response) {
     super(response);
   }
 
   @Override
-  public void setContentType(String type) {
+  public void setContentType(final String type) {
     if (LOG.isDebugEnabled()) {
       LOG.debug("Setting Content-Type to '" + type + "'.", new Exception());
     }
@@ -42,7 +42,7 @@ public class DebugContentTypeResponse extends HttpServletResponseWrapper {
 
   @Override
   public String getContentType() {
-    String type = super.getContentType();
+    final String type = super.getContentType();
     if (LOG.isDebugEnabled()) {
       LOG.debug("Getting Content-Type '" + type + "'.", new Exception());
     }
@@ -50,7 +50,7 @@ public class DebugContentTypeResponse extends HttpServletResponseWrapper {
   }
 
   @Override
-  public void setHeader(String name, String value) {
+  public void setHeader(final String name, final String value) {
     if ("Content-Type".equals(name)) {
       if (LOG.isDebugEnabled()) {
         LOG.debug("Setting Content-Type to '" + value + "'.", new Exception());
@@ -60,7 +60,7 @@ public class DebugContentTypeResponse extends HttpServletResponseWrapper {
   }
 
   @Override
-  public void addHeader(String name, String value) {
+  public void addHeader(final String name, final String value) {
     if ("Content-Type".equals(name)) {
       if (LOG.isDebugEnabled()) {
         LOG.debug("Setting Content-Type to '" + value + "'.", new Exception());

@@ -84,7 +84,7 @@ public final class FacesUtilsEL {
 
   private static boolean invokeOnComponentFacetsAndChildren(
       final FacesContext context, final UIComponent component, final String clientId, final ContextCallback callback) {
-    for (java.util.Iterator<UIComponent> it = component.getFacetsAndChildren(); it.hasNext();) {
+    for (final java.util.Iterator<UIComponent> it = component.getFacetsAndChildren(); it.hasNext();) {
       final UIComponent child = it.next();
 
       if (child.invokeOnComponent(context, clientId, callback)) {
@@ -103,7 +103,7 @@ public final class FacesUtilsEL {
     if (methodBinding != null && event != null) {
       try {
         methodBinding.invoke(facesContext, new Object[]{event});
-      } catch (EvaluationException e) {
+      } catch (final EvaluationException e) {
         final Throwable cause = e.getCause();
         if (cause instanceof AbortProcessingException) {
           throw (AbortProcessingException) cause;
@@ -115,12 +115,12 @@ public final class FacesUtilsEL {
   }
 
   public static void invokeMethodExpression(
-      FacesContext facesContext, MethodExpression methodExpression, FacesEvent event) {
+      final FacesContext facesContext, final MethodExpression methodExpression, final FacesEvent event) {
 
     if (methodExpression != null && event != null) {
       try {
         methodExpression.invoke(facesContext.getELContext(), new Object[]{event});
-      } catch (Exception e) {
+      } catch (final Exception e) {
         throw new AbortProcessingException(e);
       }
     }
@@ -131,52 +131,52 @@ public final class FacesUtilsEL {
    */
   @Deprecated
   public static Object getValueFromValueBindingOrValueExpression(
-      FacesContext context, UIComponent component, String name) {
+      final FacesContext context, final UIComponent component, final String name) {
     return component.getValueExpression(name).getValue(context.getELContext());
   }
 
 
-  public static boolean hasValueBindingOrValueExpression(UIComponent component, String name) {
+  public static boolean hasValueBindingOrValueExpression(final UIComponent component, final String name) {
     return component.getValueExpression(name) != null;
   }
 
   public static boolean isReadonlyValueBindingOrValueExpression(
-      FacesContext context, UIComponent component, String name) {
+      final FacesContext context, final UIComponent component, final String name) {
     return component.getValueExpression(name).isReadOnly(context.getELContext());
   }
 
 
-  public static String getExpressionString(UIComponent component, String name) {
+  public static String getExpressionString(final UIComponent component, final String name) {
     return component.getValueExpression(name).getExpressionString();
   }
 
   public static void setValueOfBindingOrExpression(
-      FacesContext context, Object value, UIComponent component, String bindingName) {
-    ValueExpression ve = component.getValueExpression(bindingName);
+      final FacesContext context, final Object value, final UIComponent component, final String bindingName) {
+    final ValueExpression ve = component.getValueExpression(bindingName);
     if (ve != null) {
       ve.setValue(context.getELContext(), value);
     }
   }
 
   public static void setValueOfBindingOrExpression(
-      FacesContext context, Object value, Object bindingOrExpression) {
+      final FacesContext context, final Object value, final Object bindingOrExpression) {
     if (bindingOrExpression instanceof ValueExpression) {
-      ValueExpression ve = (ValueExpression) bindingOrExpression;
+      final ValueExpression ve = (ValueExpression) bindingOrExpression;
       ve.setValue(context.getELContext(), value);
     }
   }
 
   public static void copyValueBindingOrValueExpression(
-      UIComponent fromComponent, String fromName, UIComponent toComponent, String toName) {
-    ValueExpression ve = fromComponent.getValueExpression(fromName);
+      final UIComponent fromComponent, final String fromName, final UIComponent toComponent, final String toName) {
+    final ValueExpression ve = fromComponent.getValueExpression(fromName);
     if (ve != null) {
       toComponent.setValueExpression(toName, ve);
     }
   }
 
-  public static Object getValueFromBindingOrExpression(Object obj) {
+  public static Object getValueFromBindingOrExpression(final Object obj) {
     if (obj instanceof ValueExpression) {
-      ValueExpression expression = (ValueExpression) obj;
+      final ValueExpression expression = (ValueExpression) obj;
       return expression.getValue(FacesContext.getCurrentInstance().getELContext());
     }
     return null;
@@ -186,20 +186,20 @@ public final class FacesUtilsEL {
    * @deprecated Since 2.0.0, please use {@link FacesUtilsEL#createValueExpression(String string)}
    */
   @Deprecated
-  public static Object createExpressionOrBinding(String string) {
+  public static Object createExpressionOrBinding(final String string) {
     return createValueExpression(string);
   }
 
-  public static ValueExpression createValueExpression(String string) {
-    FacesContext facesContext = FacesContext.getCurrentInstance();
-    ExpressionFactory expressionFactory = facesContext.getApplication().getExpressionFactory();
+  public static ValueExpression createValueExpression(final String string) {
+    final FacesContext facesContext = FacesContext.getCurrentInstance();
+    final ExpressionFactory expressionFactory = facesContext.getApplication().getExpressionFactory();
     return expressionFactory.createValueExpression(facesContext.getELContext(), string, Object.class);
   }
 
   /**
    * @deprecated since 2.0.0
    */
-  public static void setValidator(EditableValueHolder editableValueHolder, Object validator) {
+  public static void setValidator(final EditableValueHolder editableValueHolder, final Object validator) {
     if (validator instanceof MethodExpression) {
       editableValueHolder.addValidator(new MethodExpressionValidator((MethodExpression) validator));
     } else {
@@ -210,9 +210,9 @@ public final class FacesUtilsEL {
   /**
    * @deprecated since 2.0.0
    */
-  public static void setConverter(ValueHolder valueHolder, Object converterExpression) {
+  public static void setConverter(final ValueHolder valueHolder, final Object converterExpression) {
     if (converterExpression instanceof ValueExpression) {
-      ValueExpression expression = (ValueExpression) converterExpression;
+      final ValueExpression expression = (ValueExpression) converterExpression;
       if (!expression.isLiteralText()) {
         ((UIComponent) valueHolder).setValueExpression("converter", expression);
       } else {
@@ -225,7 +225,8 @@ public final class FacesUtilsEL {
   /**
    * @deprecated since 2.0.0
    */
-  public static void setBindingOrExpression(UIComponent component, String name, Object valueBindingOrExpression) {
+  public static void setBindingOrExpression(
+      final UIComponent component, final String name, final Object valueBindingOrExpression) {
     component.setValueExpression(name, (ValueExpression) valueBindingOrExpression);
   }
 
@@ -233,7 +234,7 @@ public final class FacesUtilsEL {
    * @deprecated since 2.0.0
    */
   public static void addBindingOrExpressionTabChangeListener(
-      TabChangeSource source, String type, Object bindingOrExpression) {
+      final TabChangeSource source, final String type, final Object bindingOrExpression) {
     if (bindingOrExpression instanceof ValueExpression) {
       source.addTabChangeListener(new ValueExpressionTabChangeListener(type, (ValueExpression) bindingOrExpression));
     }
@@ -243,22 +244,25 @@ public final class FacesUtilsEL {
    * @deprecated since 2.0.0
    */
   public static Comparator getBindingOrExpressionComparator(
-      FacesContext facesContext, UIComponent child, String var, boolean descending, Comparator comparator) {
-    ValueExpression valueBinding = child.getValueExpression("value");
+      final FacesContext facesContext, final UIComponent child, final String var, final boolean descending,
+      final Comparator comparator) {
+    final ValueExpression valueBinding = child.getValueExpression("value");
     return new ValueExpressionComparator(facesContext, var, valueBinding, descending, comparator);
   }
 
   /**
    * @deprecated since 2.0.0
    */
-  public static void addBindingOrExpressionPopupActionListener(ActionSource actionSource, Object bindingOrExpression) {
+  public static void addBindingOrExpressionPopupActionListener(
+      final ActionSource actionSource, final Object bindingOrExpression) {
     actionSource.addActionListener(new ValueExpressionPopupActionListener((ValueExpression) bindingOrExpression));
   }
 
   /**
    * @deprecated since 2.0.0
    */
-  public static void addBindingOrExpressionResetActionListener(ActionSource actionSource, Object bindingOrExpression) {
+  public static void addBindingOrExpressionResetActionListener(
+      final ActionSource actionSource, final Object bindingOrExpression) {
     actionSource.addActionListener(new ValueExpressionResetInputActionListener((ValueExpression) bindingOrExpression));
   }
 }

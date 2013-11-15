@@ -30,7 +30,7 @@ public class FacesEventWrapper extends FacesEvent {
 
   private FacesEvent wrappedFacesEvent;
 
-  public FacesEventWrapper(FacesEvent facesEvent, UIComponent redirectComponent) {
+  public FacesEventWrapper(final FacesEvent facesEvent, final UIComponent redirectComponent) {
     super(redirectComponent);
     wrappedFacesEvent = facesEvent;
   }
@@ -41,7 +41,7 @@ public class FacesEventWrapper extends FacesEvent {
   }
 
   @Override
-  public void setPhaseId(PhaseId phaseId) {
+  public void setPhaseId(final PhaseId phaseId) {
     wrappedFacesEvent.setPhaseId(phaseId);
   }
 
@@ -57,12 +57,12 @@ public class FacesEventWrapper extends FacesEvent {
 
   @Override
   public boolean isAppropriateListener(
-      FacesListener faceslistener) {
+      final FacesListener faceslistener) {
     return wrappedFacesEvent.isAppropriateListener(faceslistener);
   }
 
   @Override
-  public void processListener(FacesListener faceslistener) {
+  public void processListener(final FacesListener faceslistener) {
     wrappedFacesEvent.processListener(faceslistener);
   }
 

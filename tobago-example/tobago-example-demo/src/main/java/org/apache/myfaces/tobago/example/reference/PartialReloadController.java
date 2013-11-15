@@ -59,11 +59,11 @@ public class PartialReloadController {
     return waitAndReload(7000);
   }
 
-  private String waitAndReload(long delay) {
+  private String waitAndReload(final long delay) {
     synchronized (this) {
       try {
         wait(delay);
-      } catch (InterruptedException e) {
+      } catch (final InterruptedException e) {
         //
       }
     }
@@ -71,7 +71,7 @@ public class PartialReloadController {
   }
 
   public String navigateAction() {
-    FacesContext facesContext = FacesContext.getCurrentInstance();
+    final FacesContext facesContext = FacesContext.getCurrentInstance();
 
     // in case of both the select control is not processed during lifecycle
     // we need to get the value from the request params
@@ -80,8 +80,8 @@ public class PartialReloadController {
     AjaxUtils.removeAjaxComponent(facesContext, "page:navTest");
 
     if (navigationState == null) {
-      ELContext elContext = facesContext.getELContext();
-      ValueExpression expression = facesContext.getApplication().getExpressionFactory()
+      final ELContext elContext = facesContext.getELContext();
+      final ValueExpression expression = facesContext.getApplication().getExpressionFactory()
           .createValueExpression(elContext, "#{navigationState}", NavigationState.class);
       navigationState = (NavigationState) expression.getValue(elContext);
     }
@@ -116,7 +116,7 @@ public class PartialReloadController {
     return logAndNavigate(null);
   }
 
-  private String logAndNavigate(String navValue) {
+  private String logAndNavigate(final String navValue) {
     LOG.info("Return navigate value: " + navValue + "");
     return navValue;
   }
@@ -126,7 +126,7 @@ public class PartialReloadController {
     return navigateAction;
   }
 
-  public void setNavigateAction(String navigateAction) {
+  public void setNavigateAction(final String navigateAction) {
     this.navigateAction = navigateAction;
   }
 }

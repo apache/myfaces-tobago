@@ -51,7 +51,7 @@ public class RangeParserUnitTest {
     checkEquals(ints, StringUtils.getIndices(s));
   }
 
-  private void checkEquals(int[] ints, int[] indices) {
+  private void checkEquals(final int[] ints, final int[] indices) {
     Assert.assertTrue(ints.length == indices.length);
     for (int i = 0; i < ints.length; i++) {
        Assert.assertTrue(ints[i] == indices[i]);

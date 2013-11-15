@@ -33,12 +33,12 @@ public class SelectReferenceRenderer extends LayoutComponentRendererBase {
 
   private static final Logger LOG = LoggerFactory.getLogger(SelectReferenceRenderer.class);
 
-  public void encodeEnd(FacesContext facesContext,
-      UIComponent component)
+  public void encodeEnd(final FacesContext facesContext,
+      final UIComponent component)
       throws IOException {
-    String referenceId = (String)
+    final String referenceId = (String)
         component.getAttributes().get(Attributes.FOR);
-    UIComponent reference = component.findComponent(referenceId);
+    final UIComponent reference = component.findComponent(referenceId);
 
     reference.getAttributes().put(Attributes.RENDER_RANGE_EXTERN,
         component.getAttributes().get(Attributes.RENDER_RANGE));

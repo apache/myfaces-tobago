@@ -58,14 +58,14 @@ public abstract class ValidateSubmittedValueLengthTag extends ValidatorELTag {
     if (minimum != null) {
       try {
         validator.setMinimum((Integer) minimum.getValue(elContext));
-      } catch (NumberFormatException e) {
+      } catch (final NumberFormatException e) {
         // ignore
       }
     }
     if (maximum != null) {
       try {
         validator.setMaximum((Integer) maximum.getValue(elContext));
-      } catch (NumberFormatException e) {
+      } catch (final NumberFormatException e) {
         // ignore
       }
     }
@@ -73,12 +73,12 @@ public abstract class ValidateSubmittedValueLengthTag extends ValidatorELTag {
   }
 
   @TagAttribute(name = "minimum", type = "java.lang.Integer")
-  public void setMinimum(ValueExpression minimum) {
+  public void setMinimum(final ValueExpression minimum) {
     this.minimum = minimum;
   }
 
   @TagAttribute(name = "maximum", type = "java.lang.Integer")
-  public void setMaximum(ValueExpression maximum) {
+  public void setMaximum(final ValueExpression maximum) {
     this.maximum = maximum;
 
   }

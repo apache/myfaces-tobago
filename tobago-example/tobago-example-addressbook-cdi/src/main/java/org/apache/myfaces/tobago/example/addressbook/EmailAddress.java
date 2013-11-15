@@ -24,7 +24,7 @@ public class EmailAddress {
 
   private String email;
 
-  public EmailAddress(String email) {
+  public EmailAddress(final String email) {
     this.email = email;
   }
 
@@ -32,21 +32,21 @@ public class EmailAddress {
     return email;
   }
 
-  public void setEmail(String email) {
+  public void setEmail(final String email) {
     this.email = email;
   }
 
   public String getLocalPart() {
-    String[] parts = email.split("@");
+    final String[] parts = email.split("@");
     return parts[0];
   }
 
   public String getDomain() {
-    String[] parts = email.split("@");
+    final String[] parts = email.split("@");
     return parts[1];
   }
 
-  public boolean equals(Object o) {
+  public boolean equals(final Object o) {
     if (this == o) {
       return true;
     }
@@ -54,7 +54,7 @@ public class EmailAddress {
       return false;
     }
 
-    EmailAddress that = (EmailAddress) o;
+    final EmailAddress that = (EmailAddress) o;
 
     if (email != null ? !email.equals(that.email) : that.email != null) {
       return false;

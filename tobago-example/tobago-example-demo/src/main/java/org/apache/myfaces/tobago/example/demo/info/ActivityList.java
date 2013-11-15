@@ -41,28 +41,28 @@ public class ActivityList implements Serializable {
   // XXX the session id while the login process.
   private Map<String, Activity> data = new ConcurrentHashMap<String, Activity>();
 
-  public void add(Activity activity) {
+  public void add(final Activity activity) {
     LOG.info("Adding session id: " + activity.getSessionId());
     data.put(activity.getSessionId(), activity);
   }
 
-  public void remove(String sessionId) {
+  public void remove(final String sessionId) {
     LOG.info("Removing session id: " + sessionId);
     data.remove(sessionId);
   }
 
   public List<Activity> getValues() {
     final Collection<Activity> values = data.values();
-    ArrayList<Activity> result = new ArrayList<Activity>();
+    final ArrayList<Activity> result = new ArrayList<Activity>();
     result.addAll(values);
     return result;
   }
 
-  public void executeJsfRequest(String sessionId) {
+  public void executeJsfRequest(final String sessionId) {
     data.get(sessionId).executeJsfRequest();
   }
 
-  public void executeAjaxRequest(String sessionId) {
+  public void executeAjaxRequest(final String sessionId) {
     data.get(sessionId).executeAjaxRequest();
   }
 }

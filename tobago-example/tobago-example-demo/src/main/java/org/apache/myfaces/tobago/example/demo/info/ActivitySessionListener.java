@@ -27,14 +27,14 @@ import javax.servlet.http.HttpSessionListener;
 
 public class ActivitySessionListener implements HttpSessionListener {
 
-  public void sessionCreated(HttpSessionEvent event) {
+  public void sessionCreated(final HttpSessionEvent event) {
     final HttpSession session = event.getSession();
     final ActivityList activityList = BeanManagerProvider.getInstance().getContextualReference(ActivityList.class);
 
     activityList.add(new Activity(session));
   }
 
-  public void sessionDestroyed(HttpSessionEvent event) {
+  public void sessionDestroyed(final HttpSessionEvent event) {
     final HttpSession session = event.getSession();
     final ActivityList activityList = BeanManagerProvider.getInstance().getContextualReference(ActivityList.class);
 

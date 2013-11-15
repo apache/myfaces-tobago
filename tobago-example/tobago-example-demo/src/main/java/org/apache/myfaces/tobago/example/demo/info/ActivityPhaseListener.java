@@ -40,9 +40,9 @@ public class ActivityPhaseListener implements PhaseListener {
   public ActivityPhaseListener() {
   }
 
-  public void beforePhase(PhaseEvent event) {
+  public void beforePhase(final PhaseEvent event) {
     final FacesContext facesContext = event.getFacesContext();
-    String sessionId = ((HttpSession) facesContext.getExternalContext().getSession(true)).getId();
+    final String sessionId = ((HttpSession) facesContext.getExternalContext().getSession(true)).getId();
 
     if (AjaxUtils.isAjaxRequest(facesContext)) {
       activityList.executeAjaxRequest(sessionId);
@@ -51,7 +51,7 @@ public class ActivityPhaseListener implements PhaseListener {
     }
   }
 
-  public void afterPhase(PhaseEvent event) {
+  public void afterPhase(final PhaseEvent event) {
   }
 
   public PhaseId getPhaseId() {

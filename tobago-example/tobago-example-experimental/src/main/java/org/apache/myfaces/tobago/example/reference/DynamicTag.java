@@ -32,7 +32,7 @@ public class DynamicTag extends TagSupport {
 
   public int doStartTag() throws JspException {
     // fixme: session?
-    DynamicController controller =
+    final DynamicController controller =
         (DynamicController) VariableResolverUtils.resolveVariable(FacesContext.getCurrentInstance(), controllerName);
     //DynamicController controller = (DynamicController) pageContext.getSession().getAttribute(controllerName);
     if (controller != null) {
@@ -55,7 +55,7 @@ public class DynamicTag extends TagSupport {
     return controllerName;
   }
 
-  public void setController(String controller) {
+  public void setController(final String controller) {
     this.controllerName = controller;
   }
 }

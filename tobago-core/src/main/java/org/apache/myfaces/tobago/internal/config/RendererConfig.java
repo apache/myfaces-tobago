@@ -35,11 +35,11 @@ public class RendererConfig implements Serializable {
     return name;
   }
 
-  public void setName(String name) {
+  public void setName(final String name) {
     this.name = StringUtils.uncapitalize(name);
   }
 
-  public boolean equals(Object o) {
+  public boolean equals(final Object o) {
     if (this == o) {
       return true;
     }
@@ -52,7 +52,7 @@ public class RendererConfig implements Serializable {
     return name.equals(that.name);
   }
 
-  public boolean contains(String markup) {
+  public boolean contains(final String markup) {
     return supportedMarkups.contains(markup);
   }
 
@@ -60,11 +60,11 @@ public class RendererConfig implements Serializable {
     return name.hashCode();
   }
 
-  public void addSupportedMarkup(String markup) {
+  public void addSupportedMarkup(final String markup) {
     supportedMarkups = supportedMarkups.add(Markup.valueOf(markup));
   }
 
-  public void merge(RendererConfig rendererConfig) {
+  public void merge(final RendererConfig rendererConfig) {
      supportedMarkups = supportedMarkups.add(rendererConfig.supportedMarkups);
   }
 

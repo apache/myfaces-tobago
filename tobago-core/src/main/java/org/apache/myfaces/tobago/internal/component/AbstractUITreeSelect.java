@@ -29,7 +29,7 @@ import javax.faces.context.FacesContext;
 public abstract class AbstractUITreeSelect extends UISelectBoolean implements Configurable {
 
   @Override
-  public void updateModel(FacesContext context) {
+  public void updateModel(final FacesContext context) {
     super.updateModel(context);
   }
 

@@ -28,17 +28,17 @@ public class DataAttributesUnitTest {
 
   @Test
   public void testAttributeNames() throws IllegalAccessException {
-    for (Field field : DataAttributes.class.getFields()) {
+    for (final Field field : DataAttributes.class.getFields()) {
 
       if (field.getAnnotation(Deprecated.class) != null) {
         // ignore the check for deprecated fields
         continue;
       }
-      String value = (String) field.get(null);
+      final String value = (String) field.get(null);
       Assert.assertTrue("Regexp check: value='" + value + "'", value.matches("data-tobago(-[a-z]+)*-[a-z]+"));
 
-      String extension = value.substring("data-tobago-".length());
-      String name = field.getName();
+      final String extension = value.substring("data-tobago-".length());
+      final String name = field.getName();
       Assert.assertEquals(name, extension.toUpperCase().replaceAll("-", "_"));
     }
   }

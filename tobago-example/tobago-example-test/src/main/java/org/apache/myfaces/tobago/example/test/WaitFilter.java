@@ -37,15 +37,15 @@ public class WaitFilter implements Filter {
 
   private static final Logger LOG = LoggerFactory.getLogger(WaitFilter.class);
 
-  public void init(FilterConfig filterConfig) throws ServletException {
+  public void init(final FilterConfig filterConfig) throws ServletException {
   }
 
-  public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+  public void doFilter(final ServletRequest request, final ServletResponse response, final FilterChain chain)
       throws IOException, ServletException {
 
     try {
       Thread.sleep(10000L);
-    } catch (InterruptedException e) {
+    } catch (final InterruptedException e) {
       LOG.error("can't sleep 10000", e);
     }
 

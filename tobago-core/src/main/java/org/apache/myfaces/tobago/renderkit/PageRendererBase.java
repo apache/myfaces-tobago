@@ -38,54 +38,55 @@ public class PageRendererBase extends LayoutComponentRendererBase {
 
   private static final Logger LOG = LoggerFactory.getLogger(PageRendererBase.class);
 
-  public void decode(FacesContext facesContext, UIComponent component) {
+  public void decode(final FacesContext facesContext, final UIComponent component) {
     if (component instanceof AbstractUIPage) {
-      AbstractUIPage page = (AbstractUIPage) component;
+      final AbstractUIPage page = (AbstractUIPage) component;
 
       decodeActionPosition(facesContext, page);
       decodePageState(facesContext, page);
     }
   }
 
-  private void decodeActionPosition(FacesContext facesContext, AbstractUIPage page) {
-    String actionIdName = page.getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + "form-action";
-    String newActionId = (String) facesContext.getExternalContext().getRequestParameterMap().get(actionIdName);
+  private void decodeActionPosition(final FacesContext facesContext, final AbstractUIPage page) {
+    final String actionIdName = page.getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + "form-action";
+    final String newActionId = (String) facesContext.getExternalContext().getRequestParameterMap().get(actionIdName);
     if (LOG.isDebugEnabled()) {
       LOG.debug("action = " + newActionId);
     }
     page.setActionId(newActionId);
     FacesContextUtils.setActionId(facesContext, newActionId);
     try {
-      String actionPositionName = page.getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + "action-position";
-      String actionPositionString = (String)
-          facesContext.getExternalContext().getRequestParameterMap().get(actionPositionName);
+      final String actionPositionName
+          = page.getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + "action-position";
+      final String actionPositionString
+          = facesContext.getExternalContext().getRequestParameterMap().get(actionPositionName);
       if (LOG.isDebugEnabled()) {
         LOG.debug("actionPosition='" + actionPositionString + "'");
       }
       if (StringUtils.isNotEmpty(actionPositionString)) {
-        Box actionPosition = new Box(actionPositionString);
+        final Box actionPosition = new Box(actionPositionString);
         page.setActionPosition(actionPosition);
       } else {
         page.setActionPosition(null);
       }
-    } catch (Exception e) {
+    } catch (final Exception e) {
       LOG.warn("Can't analyse parameter for action-position", e);
     }
   }
 
   @SuppressWarnings("unchecked")
-  private void decodePageState(FacesContext facesContext, AbstractUIPage page) {
-    String name;
+  private void decodePageState(final FacesContext facesContext, final AbstractUIPage page) {
+    final String name;
     String value = null;
     try {
       name = page.getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + "form-clientDimension";
       value = facesContext.getExternalContext().getRequestParameterMap().get(name);
       if (StringUtils.isNotBlank(value)) {
-        StringTokenizer tokenizer = new StringTokenizer(value, ";");
+        final StringTokenizer tokenizer = new StringTokenizer(value, ";");
         final Measure width = Measure.valueOf(tokenizer.nextToken());
         final Measure height = Measure.valueOf(tokenizer.nextToken());
         // XXX remove me later
-        PageState pageState = page.getPageState(facesContext);
+        final PageState pageState = page.getPageState(facesContext);
         if (pageState != null) {
           pageState.setClientWidth(width.getPixel());
           pageState.setClientHeight(height.getPixel());
@@ -94,7 +95,7 @@ public class PageRendererBase extends LayoutComponentRendererBase {
         clientProperties.setPageWidth(width);
         clientProperties.setPageHeight(height);
       }
-    } catch (Exception e) {
+    } catch (final Exception e) {
       LOG.error("Error in decoding state: value='" + value + "'", e);
     }
   }

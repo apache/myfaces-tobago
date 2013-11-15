@@ -30,7 +30,7 @@ public class LocaleEntry {
   private String country;
   private String language;
 
-  public LocaleEntry(Locale locale, Locale displayLocale) {
+  public LocaleEntry(final Locale locale, final Locale displayLocale) {
     this.locale = locale;
     this.displayLocale = displayLocale;
     country = locale.getDisplayCountry(displayLocale);
@@ -45,7 +45,7 @@ public class LocaleEntry {
     return locale;
   }
 
-  public void setLocale(Locale locale) {
+  public void setLocale(final Locale locale) {
     this.locale = locale;
   }
 
@@ -53,7 +53,7 @@ public class LocaleEntry {
     return displayLocale;
   }
 
-  public void setDisplayLocale(Locale displayLocale) {
+  public void setDisplayLocale(final Locale displayLocale) {
     this.displayLocale = displayLocale;
   }
 
@@ -61,7 +61,7 @@ public class LocaleEntry {
     return country;
   }
 
-  public void setCountry(String country) {
+  public void setCountry(final String country) {
     this.country = country;
   }
 
@@ -69,7 +69,7 @@ public class LocaleEntry {
     return language;
   }
 
-  public void setLanguage(String language) {
+  public void setLanguage(final String language) {
     this.language = language;
   }
 }

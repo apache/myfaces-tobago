@@ -42,21 +42,21 @@ public class Node {
 
   private boolean selected;
 
-  public Node(String name) {
+  public Node(final String name) {
     this.name = name;
   }
 
-  public Node(String name, String id) {
+  public Node(final String name, final String id) {
     this.name = name;
     this.id = id;
   }
 
-  public Node(String name, Markup markup) {
+  public Node(final String name, final Markup markup) {
     this.name = name;
     this.markup = markup;
   }
 
-  public Node(String name, boolean disabled) {
+  public Node(final String name, final boolean disabled) {
     this.name = name;
     this.disabled = disabled;
   }
@@ -66,7 +66,7 @@ public class Node {
     return null;
   }
 
-  public void expansionListener(TreeExpansionEvent event) {
+  public void expansionListener(final TreeExpansionEvent event) {
     LOG.info("event='" + event + "'");
     expanded = event.isNewExpanded();
   }
@@ -75,7 +75,7 @@ public class Node {
     return name;
   }
 
-  public void setName(String name) {
+  public void setName(final String name) {
     this.name = name;
   }
 
@@ -83,7 +83,7 @@ public class Node {
     return id;
   }
 
-  public void setId(String id) {
+  public void setId(final String id) {
     this.id = id;
   }
 
@@ -91,7 +91,7 @@ public class Node {
     return expanded;
   }
 
-  public void setExpanded(boolean expanded) {
+  public void setExpanded(final boolean expanded) {
     this.expanded = expanded;
   }
 
@@ -99,7 +99,7 @@ public class Node {
     return markup;
   }
 
-  public void setMarkup(Markup markup) {
+  public void setMarkup(final Markup markup) {
     this.markup = markup;
   }
 
@@ -107,7 +107,7 @@ public class Node {
     return tip;
   }
 
-  public void setTip(String tip) {
+  public void setTip(final String tip) {
     this.tip = tip;
   }
 
@@ -115,7 +115,7 @@ public class Node {
     return disabled;
   }
 
-  public void setDisabled(boolean disabled) {
+  public void setDisabled(final boolean disabled) {
     this.disabled = disabled;
   }
 
@@ -123,7 +123,7 @@ public class Node {
     return selected;
   }
 
-  public void setSelected(boolean selected) {
+  public void setSelected(final boolean selected) {
     this.selected = selected;
   }
 

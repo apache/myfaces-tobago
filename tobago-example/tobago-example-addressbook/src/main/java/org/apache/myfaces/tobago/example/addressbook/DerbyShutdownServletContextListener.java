@@ -30,14 +30,14 @@ public class DerbyShutdownServletContextListener implements ServletContextListen
 
   private static final Logger LOG = LoggerFactory.getLogger(DerbyShutdownServletContextListener.class);
 
-  public void contextInitialized(ServletContextEvent servletContextEvent) {
+  public void contextInitialized(final ServletContextEvent servletContextEvent) {
 
   }
 
-  public void contextDestroyed(ServletContextEvent servletContextEvent) {
+  public void contextDestroyed(final ServletContextEvent servletContextEvent) {
     try {
       DriverManager.getConnection("jdbc:derby:target/addressDB;shutdown=true");
-    } catch (Exception e) {
+    } catch (final Exception e) {
       LOG.error("", e); 
     }
   }

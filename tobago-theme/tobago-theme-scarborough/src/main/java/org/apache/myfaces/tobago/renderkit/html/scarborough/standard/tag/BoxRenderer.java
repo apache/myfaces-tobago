@@ -43,24 +43,24 @@ import java.io.IOException;
 public class BoxRenderer extends BoxRendererBase {
 
   @Override
-  public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
+  public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
 
-    UIBox box = (UIBox) component;
-    TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final UIBox box = (UIBox) component;
+    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
-    UIComponent label = box.getFacet(Facets.LABEL);
-    String labelString = box.getLabel();
-    UIPanel toolbar = (UIPanel) box.getFacet(Facets.TOOL_BAR);
-    Style style = new Style(facesContext, box);
+    final UIComponent label = box.getFacet(Facets.LABEL);
+    final String labelString = box.getLabel();
+    final UIPanel toolbar = (UIPanel) box.getFacet(Facets.TOOL_BAR);
+    final Style style = new Style(facesContext, box);
     if (toolbar != null) {
-      Measure padding = getResourceManager().getThemeMeasure(facesContext, box, "paddingTopWhenToolbar");
+      final Measure padding = getResourceManager().getThemeMeasure(facesContext, box, "paddingTopWhenToolbar");
       style.setPaddingTop(padding);
       style.setPaddingBottom(Measure.ZERO);
     }
 
     writer.startElement(HtmlElements.FIELDSET, box);
     writer.writeClassAttribute(Classes.create(box));
-    String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, box);
+    final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, box);
     if (title != null) {
       writer.writeAttribute(HtmlAttributes.TITLE, title, true);
     }
@@ -79,7 +79,7 @@ public class BoxRenderer extends BoxRendererBase {
       writer.endElement(HtmlElements.LEGEND);
     }
 
-    Style contentStyle = new Style(facesContext, box);
+    final Style contentStyle = new Style(facesContext, box);
     if (toolbar != null) {
       writer.startElement(HtmlElements.DIV, null);
       writer.writeClassAttribute(Classes.create(box, "toolbarOuter"));
@@ -114,8 +114,8 @@ public class BoxRenderer extends BoxRendererBase {
   }
 
   @Override
-  public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
-    ResponseWriter writer = facesContext.getResponseWriter();
+  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
+    final ResponseWriter writer = facesContext.getResponseWriter();
     writer.endElement(HtmlElements.DIV);
     writer.endElement(HtmlElements.FIELDSET);
   }

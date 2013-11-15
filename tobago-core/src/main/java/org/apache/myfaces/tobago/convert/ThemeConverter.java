@@ -37,21 +37,21 @@ public class ThemeConverter implements Converter {
   public static final String CONVERTER_ID = "org.apache.myfaces.tobago.Theme";
 
   public String getAsString(
-      FacesContext facesContext, UIComponent component, Object object)
+      final FacesContext facesContext, final UIComponent component, final Object object)
       throws ConverterException {
     try {
       return ((Theme) object).getName();
-    } catch (ClassCastException e) {
+    } catch (final ClassCastException e) {
       throw new ConverterException("object='" + object + "'", e);
     }
   }
 
   public Object getAsObject(
-      FacesContext facesContext, UIComponent component, String string)
+      final FacesContext facesContext, final UIComponent component, final String string)
       throws ConverterException {
     try {
       return TobagoConfig.getInstance(facesContext).getTheme(string);
-    } catch (Exception e) {
+    } catch (final Exception e) {
       LOG.error("string='" + string + "'", e);
       throw new ConverterException("string='" + string + "'", e);
     }

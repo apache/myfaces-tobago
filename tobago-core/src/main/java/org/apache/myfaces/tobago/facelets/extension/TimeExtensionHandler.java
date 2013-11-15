@@ -26,7 +26,7 @@ import javax.faces.view.facelets.ComponentConfig;
 
 public class TimeExtensionHandler extends TobagoLabelExtensionHandler {
 
-  public TimeExtensionHandler(ComponentConfig config) {
+  public TimeExtensionHandler(final ComponentConfig config) {
     super(config);
   }
 

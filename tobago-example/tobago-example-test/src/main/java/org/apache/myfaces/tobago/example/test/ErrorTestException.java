@@ -21,7 +21,7 @@ package org.apache.myfaces.tobago.example.test;
 
 public class ErrorTestException extends RuntimeException {
 
-  public ErrorTestException(String message) {
+  public ErrorTestException(final String message) {
     super(message);
   }
 }

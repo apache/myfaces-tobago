@@ -50,7 +50,7 @@ public class TreeNodeDataModel extends TreeDataModel {
    * @param showRoot      Is the root node visible.
    * @param expandedState Defines which nodes are expanded, (XXX should it be so?) a value of {@code null} means all.
    */
-  public TreeNodeDataModel(TreeNode data, boolean showRoot, ExpandedState expandedState) {
+  public TreeNodeDataModel(final TreeNode data, final boolean showRoot, final ExpandedState expandedState) {
     this.data = data;
     this.showRoot = showRoot;
     this.mapping = new HashMap<Integer, Data>();
@@ -79,7 +79,7 @@ public class TreeNodeDataModel extends TreeDataModel {
   }
 
   @Override
-  public void update(ExpandedState expandedState) {
+  public void update(final ExpandedState expandedState) {
     this.expandedState = expandedState;
     TreeNode current = data;
     int counter = back.size();
@@ -116,8 +116,8 @@ public class TreeNodeDataModel extends TreeDataModel {
     return next;
   }
 
-  private TreeNode nextSibling(TreeNode node) {
-    TreeNode parent = node.getParent();
+  private TreeNode nextSibling(final TreeNode node) {
+    final TreeNode parent = node.getParent();
     if (parent == null) {
       return null;
     }
@@ -181,12 +181,12 @@ public class TreeNodeDataModel extends TreeDataModel {
   }
 
   @Override
-  public void setRowIndex(int rowIndex) {
+  public void setRowIndex(final int rowIndex) {
     this.rowIndex = rowIndex;
   }
 
   @Override
-  public void setWrappedData(Object data) {
+  public void setWrappedData(final Object data) {
     this.data = (TreeNode) data;
   }
 
@@ -221,7 +221,7 @@ public class TreeNodeDataModel extends TreeDataModel {
     }
   }
 
-  public void setRowClientId(String clientId) {
+  public void setRowClientId(final String clientId) {
     if (isRowAvailable()) {
       mapping.get(rowIndex).setClientId(clientId);
     } else {
@@ -267,7 +267,7 @@ public class TreeNodeDataModel extends TreeDataModel {
     return junctions;
   }
 
-  private boolean hasNextSibling(TreeNode node) {
+  private boolean hasNextSibling(final TreeNode node) {
     final TreeNode parent = node.getParent();
     return parent != null && parent.getChildAt(parent.getChildCount() - 1) != node;
   }
@@ -281,7 +281,7 @@ public class TreeNodeDataModel extends TreeDataModel {
     private TreeNode node;
     private String clientId;
 
-    private Data(TreeNode node) {
+    private Data(final TreeNode node) {
       this.node = node;
     }
 
@@ -293,7 +293,7 @@ public class TreeNodeDataModel extends TreeDataModel {
       return clientId;
     }
 
-    public void setClientId(String clientId) {
+    public void setClientId(final String clientId) {
       this.clientId = clientId;
     }
   }

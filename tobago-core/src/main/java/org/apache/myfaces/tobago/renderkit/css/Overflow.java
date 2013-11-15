@@ -27,7 +27,7 @@ public enum Overflow {
 
   private String value;
 
-  Overflow(String value) {
+  Overflow(final String value) {
     this.value = value;
   }
 

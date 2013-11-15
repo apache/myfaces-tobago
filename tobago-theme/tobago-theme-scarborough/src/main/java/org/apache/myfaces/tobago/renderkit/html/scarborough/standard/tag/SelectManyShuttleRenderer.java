@@ -42,29 +42,29 @@ import java.util.List;
 public class SelectManyShuttleRenderer extends SelectManyRendererBase {
 
   @Override
-  public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
-    UISelectManyShuttle select = (UISelectManyShuttle) component;
-    TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
+    final UISelectManyShuttle select = (UISelectManyShuttle) component;
+    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
     writer.startElement(HtmlElements.DIV, select);
-    Style style = new Style(facesContext, select);
+    final Style style = new Style(facesContext, select);
     writer.writeStyleAttribute(style);
     writer.writeClassAttribute(Classes.create(select));
-    String clientId = select.getClientId(facesContext);
+    final String clientId = select.getClientId(facesContext);
     writer.writeIdAttribute(clientId);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, select);
-    String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, select);
+    final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, select);
     if (title != null) {
       writer.writeAttribute(HtmlAttributes.TITLE, title, true);
     }
-    boolean hasLabel = select.hasLabel();
+    final boolean hasLabel = select.hasLabel();
     // TODO get buttonWidth and label Height from theme
-    Measure buttonWidth = Measure.valueOf(50);
+    final Measure buttonWidth = Measure.valueOf(50);
 
-    Measure labelHeight = Measure.valueOf(18);
+    final Measure labelHeight = Measure.valueOf(18);
     style.setTop(Measure.valueOf(0));
     style.setLeft(Measure.valueOf(0));
-    Measure width = style.getWidth();
-    Measure selectWidth = width.subtract(buttonWidth).divide(2);
+    final Measure width = style.getWidth();
+    final Measure selectWidth = width.subtract(buttonWidth).divide(2);
     style.setWidth(selectWidth);
     Style labelStyle = null;
     if (hasLabel) {
@@ -73,10 +73,10 @@ public class SelectManyShuttleRenderer extends SelectManyRendererBase {
       style.setHeight(style.getHeight().subtract(labelHeight));
       style.setTop(style.getTop().add(labelHeight));
     }
-    List<SelectItem> items = RenderUtils.getSelectItems(select);
-    boolean disabled = items.size() == 0 || select.isDisabled() || select.isReadonly();
+    final List<SelectItem> items = RenderUtils.getSelectItems(select);
+    final boolean disabled = items.size() == 0 || select.isDisabled() || select.isReadonly();
 
-    String unselectedLabel = select.getUnselectedLabel();
+    final String unselectedLabel = select.getUnselectedLabel();
     if (unselectedLabel != null) {
       writer.startElement(HtmlElements.DIV, null);
       writer.writeStyleAttribute(labelStyle);
@@ -86,12 +86,12 @@ public class SelectManyShuttleRenderer extends SelectManyRendererBase {
       writer.endElement(HtmlElements.DIV);
     }
     writer.startElement(HtmlElements.SELECT, null);
-    String unselectedClientId = clientId + ComponentUtils.SUB_SEPARATOR + "unselected";
+    final String unselectedClientId = clientId + ComponentUtils.SUB_SEPARATOR + "unselected";
     writer.writeIdAttribute(unselectedClientId);
     writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
 
     // TODO tabIndex
-    Integer tabIndex = select.getTabIndex();
+    final Integer tabIndex = select.getTabIndex();
     if (tabIndex != null) {
       writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
     }
@@ -101,7 +101,7 @@ public class SelectManyShuttleRenderer extends SelectManyRendererBase {
 
     writer.writeAttribute(HtmlAttributes.MULTIPLE, HtmlAttributes.MULTIPLE, false);
 
-    Object[] values = select.getSelectedValues();
+    final Object[] values = select.getSelectedValues();
     HtmlRendererUtils.renderSelectItems(select, items, values, false, writer, facesContext);
 
     writer.endElement(HtmlElements.SELECT);
@@ -117,7 +117,7 @@ public class SelectManyShuttleRenderer extends SelectManyRendererBase {
     createButton(facesContext, component, writer, disabled, "image/selectManyShuttleRemoveAll.gif", "removeAll");
     writer.endElement(HtmlElements.DIV);
     writer.endElement(HtmlElements.DIV);
-    String selectedLabel = select.getSelectedLabel();
+    final String selectedLabel = select.getSelectedLabel();
     if (selectedLabel != null) {
       writer.startElement(HtmlElements.DIV, null);
       labelStyle.setLeft(labelStyle.getLeft().add(selectWidth).add(buttonWidth));
@@ -129,7 +129,7 @@ public class SelectManyShuttleRenderer extends SelectManyRendererBase {
     }
 
     writer.startElement(HtmlElements.SELECT, select);
-    String selectedClientId = clientId + ComponentUtils.SUB_SEPARATOR + "selected";
+    final String selectedClientId = clientId + ComponentUtils.SUB_SEPARATOR + "selected";
     writer.writeIdAttribute(selectedClientId);
 
     writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
@@ -146,7 +146,7 @@ public class SelectManyShuttleRenderer extends SelectManyRendererBase {
     writer.endElement(HtmlElements.SELECT);
     writer.startElement(HtmlElements.SELECT, select);
     writer.writeClassAttribute(Classes.create(component, "hidden"));
-    String hiddenClientId = clientId + ComponentUtils.SUB_SEPARATOR + "hidden";
+    final String hiddenClientId = clientId + ComponentUtils.SUB_SEPARATOR + "hidden";
     writer.writeIdAttribute(hiddenClientId);
     writer.writeNameAttribute(clientId);
     writer.writeAttribute(HtmlAttributes.MULTIPLE, HtmlAttributes.MULTIPLE, false);
@@ -159,14 +159,14 @@ public class SelectManyShuttleRenderer extends SelectManyRendererBase {
     writer.endElement(HtmlElements.DIV);
   }
 
-  private void createButton(FacesContext context, UIComponent component, TobagoResponseWriter writer,
-        boolean disabled, String image, String sub) throws IOException {
+  private void createButton(final FacesContext context, final UIComponent component, final TobagoResponseWriter writer,
+        final boolean disabled, final String image, final String sub) throws IOException {
     writer.startElement(HtmlElements.BUTTON, null);
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlButtonTypes.BUTTON, false);
     writer.writeClassAttribute(Classes.create(component, sub));
     writer.writeIdAttribute(component.getClientId(context) + ComponentUtils.SUB_SEPARATOR + sub);
     writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
-    String imagePath = ResourceManagerUtils.getImageOrDisabledImageWithPath(context, image, disabled);
+    final String imagePath = ResourceManagerUtils.getImageOrDisabledImageWithPath(context, image, disabled);
     writer.startElement(HtmlElements.IMG, null);
     writer.writeAttribute(HtmlAttributes.SRC, imagePath, true);
     writer.endElement(HtmlElements.IMG);

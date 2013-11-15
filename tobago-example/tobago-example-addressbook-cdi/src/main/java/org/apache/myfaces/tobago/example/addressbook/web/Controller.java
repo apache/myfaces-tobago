@@ -106,36 +106,36 @@ public class Controller implements Serializable {
 
   @PostConstruct
   public void init() {
-    FacesContext facesContext = FacesContext.getCurrentInstance();
-    Application application = facesContext.getApplication();
+    final FacesContext facesContext = FacesContext.getCurrentInstance();
+    final Application application = facesContext.getApplication();
     language = application.getDefaultLocale();
     countries.init(language);
     facesContext.getExternalContext().getSession(true);
     initLanguages();
 
-    TobagoConfig tobagoConfig = TobagoConfig.getInstance(facesContext);
-    List<Theme> themes = new ArrayList<Theme>(tobagoConfig.getSupportedThemes());
+    final TobagoConfig tobagoConfig = TobagoConfig.getInstance(facesContext);
+    final List<Theme> themes = new ArrayList<Theme>(tobagoConfig.getSupportedThemes());
     themes.add(0, tobagoConfig.getDefaultTheme());
     themeItems = new ArrayList<SelectItem>();
-    for (Theme theme : themes) {
+    for (final Theme theme : themes) {
       themeItems.add(new SelectItem(theme, theme.getDisplayName()));
     }
 
-    ClientProperties client = VariableResolverUtils.resolveClientProperties(facesContext);
+    final ClientProperties client = VariableResolverUtils.resolveClientProperties(facesContext);
     theme = client.getTheme();
     currentAddressList = addressDao.findAddresses(searchCriterion);
   }
 
-  public void setAddressDao(AddressDao addressDao) {
+  public void setAddressDao(final AddressDao addressDao) {
     this.addressDao = addressDao;
   }
 
-  public void sheetSorter(ActionEvent event) {
+  public void sheetSorter(final ActionEvent event) {
     if (event instanceof SortActionEvent) {
-      SortActionEvent sortEvent = (SortActionEvent) event;
-      UIColumn column = (UIColumn) sortEvent.getColumn();
+      final SortActionEvent sortEvent = (SortActionEvent) event;
+      final UIColumn column = (UIColumn) sortEvent.getColumn();
 
-      SheetState sheetState = ((UISheet) sortEvent.getSheet()).getSheetState(FacesContext.getCurrentInstance());
+      final SheetState sheetState = ((UISheet) sortEvent.getSheet()).getSheetState(FacesContext.getCurrentInstance());
       currentAddressList = addressDao.findAddresses(searchCriterion, column.getId(), sheetState.isAscending());
     }
   }
@@ -148,7 +148,7 @@ public class Controller implements Serializable {
   public String createAddress() {
     LOG.debug("action: createAddress");
     currentAddress = new Address();
-    FacesContext facesContext = FacesContext.getCurrentInstance();
+    final FacesContext facesContext = FacesContext.getCurrentInstance();
     Locale locale = facesContext.getViewRoot().getLocale();
     // XXX use better datatype for countries than Locale
     if (Locale.GERMAN.equals(locale)) {
@@ -168,9 +168,10 @@ public class Controller implements Serializable {
 
   public String editAddress() {
     LOG.debug("action: editAddress");
-    List<Integer> selection = selectedAddresses.getSelectedRows();
+    final List<Integer> selection = selectedAddresses.getSelectedRows();
     if (selection.size() != 1) {
-      FacesMessage error = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Please select exactly one address!", null);
+      final FacesMessage error
+          = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Please select exactly one address!", null);
       FacesContext.getCurrentInstance().addMessage(null, error);
       return null;
     }
@@ -179,15 +180,15 @@ public class Controller implements Serializable {
   }
 
   public String deleteAddresses() {
-    List<Integer> selection = selectedAddresses.getSelectedRows();
+    final List<Integer> selection = selectedAddresses.getSelectedRows();
     if (selection.size() < 1) {
-      FacesMessage error = new FacesMessage("Please select at least one address.");
+      final FacesMessage error = new FacesMessage("Please select at least one address.");
       FacesContext.getCurrentInstance().addMessage(null, error);
       return null;
     }
     Collections.sort(selection); // why?
     for (int i = selection.size() - 1; i >= 0; i--) {
-      Address address = currentAddressList.get(selection.get(i));
+      final Address address = currentAddressList.get(selection.get(i));
       addressDao.removeAddress(address);
     }
     selectedAddresses.resetSelected();
@@ -214,8 +215,8 @@ public class Controller implements Serializable {
   }
 
   public String themeChanged() {
-    FacesContext facesContext = FacesContext.getCurrentInstance();
-    ClientProperties client = VariableResolverUtils.resolveClientProperties(facesContext);
+    final FacesContext facesContext = FacesContext.getCurrentInstance();
+    final ClientProperties client = VariableResolverUtils.resolveClientProperties(facesContext);
     client.setTheme(theme);
     return null;
   }
@@ -228,8 +229,8 @@ public class Controller implements Serializable {
    }
   
   public void validatePhoneNumber(
-      FacesContext context, UIComponent component, Object value) {
-    String phoneNumber = (String) value;
+      final FacesContext context, final UIComponent component, final Object value) {
+    final String phoneNumber = (String) value;
     if (phoneNumber == null || phoneNumber.length() == 0) {
       return;
     }
@@ -251,7 +252,7 @@ public class Controller implements Serializable {
     return selectedAddresses;
   }
 
-  public void setSelectedAddresses(SheetState selectedAddresses) {
+  public void setSelectedAddresses(final SheetState selectedAddresses) {
     this.selectedAddresses = selectedAddresses;
   }
 
@@ -259,7 +260,7 @@ public class Controller implements Serializable {
     return renderFileUploadPopup;
   }
 
-  public void setRenderFileUploadPopup(boolean renderFileUploadPopup) {
+  public void setRenderFileUploadPopup(final boolean renderFileUploadPopup) {
     LOG.debug(">>> " + renderFileUploadPopup);
     this.renderFileUploadPopup = renderFileUploadPopup;
   }
@@ -269,7 +270,7 @@ public class Controller implements Serializable {
     return null;
   }
 
-  public void setRenderPopup(boolean renderPopup) {
+  public void setRenderPopup(final boolean renderPopup) {
     this.renderPopup = renderPopup;
   }
 
@@ -284,7 +285,7 @@ public class Controller implements Serializable {
 
   public String okFileUpload() {
     setRenderFileUploadPopup(false);
-    Picture picture = new Picture(uploadedFile.getContentType(), uploadedFile.get());
+    final Picture picture = new Picture(uploadedFile.getContentType(), uploadedFile.get());
     currentAddress.setPicture(picture);
     return null;
   }
@@ -300,8 +301,8 @@ public class Controller implements Serializable {
   }
 
   public String logout() {
-    FacesContext facesContext = FacesContext.getCurrentInstance();
-    HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
+    final FacesContext facesContext = FacesContext.getCurrentInstance();
+    final HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
     if (session != null) {
       session.invalidate();
     }
@@ -320,7 +321,7 @@ public class Controller implements Serializable {
     return language.getDisplayName(language);
   }
 
-  public void setLanguage(Locale language) {
+  public void setLanguage(final Locale language) {
     this.language = language;
   }
 
@@ -328,7 +329,7 @@ public class Controller implements Serializable {
     return languages;
   }
 
-  public void setLanguages(List<SelectItem> languages) {
+  public void setLanguages(final List<SelectItem> languages) {
     this.languages = languages;
   }
 
@@ -344,7 +345,7 @@ public class Controller implements Serializable {
     return theme;
   }
 
-  public void setTheme(Theme theme) {
+  public void setTheme(final Theme theme) {
     this.theme = theme;
   }
 
@@ -352,7 +353,7 @@ public class Controller implements Serializable {
     return simple;
   }
 
-  public void setSimple(boolean simple) {
+  public void setSimple(final boolean simple) {
     this.simple = simple;
   }
 
@@ -360,7 +361,7 @@ public class Controller implements Serializable {
     return renderFirstName;
   }
 
-  public void setRenderFirstName(boolean renderFirstName) {
+  public void setRenderFirstName(final boolean renderFirstName) {
     this.renderFirstName = renderFirstName;
   }
 
@@ -368,7 +369,7 @@ public class Controller implements Serializable {
     return renderLastName;
   }
 
-  public void setRenderLastName(boolean renderLastName) {
+  public void setRenderLastName(final boolean renderLastName) {
     this.renderLastName = renderLastName;
   }
 
@@ -376,7 +377,7 @@ public class Controller implements Serializable {
     return renderDayOfBirth;
   }
 
-  public void setRenderDayOfBirth(boolean renderDayOfBirth) {
+  public void setRenderDayOfBirth(final boolean renderDayOfBirth) {
     this.renderDayOfBirth = renderDayOfBirth;
   }
 
@@ -384,7 +385,7 @@ public class Controller implements Serializable {
     return uploadedFile;
   }
 
-  public void setUploadedFile(FileItem uploadedFile) {
+  public void setUploadedFile(final FileItem uploadedFile) {
     this.uploadedFile = uploadedFile;
   }
 
@@ -392,7 +393,7 @@ public class Controller implements Serializable {
     return searchCriterion;
   }
 
-  public void setSearchCriterion(String searchCriterion) {
+  public void setSearchCriterion(final String searchCriterion) {
     this.searchCriterion = searchCriterion;
   }
 
@@ -420,12 +421,12 @@ public class Controller implements Serializable {
 
   private void initLanguages() {
     languages.clear();
-    FacesContext facesContext = FacesContext.getCurrentInstance();
-    Application application = facesContext.getApplication();
-    Iterator supportedLocales = application.getSupportedLocales();
+    final FacesContext facesContext = FacesContext.getCurrentInstance();
+    final Application application = facesContext.getApplication();
+    final Iterator supportedLocales = application.getSupportedLocales();
     while (supportedLocales.hasNext()) {
-      Locale locale = (Locale) supportedLocales.next();
-      SelectItem item = new SelectItem(locale, locale.getDisplayName(language), null, FLAGS.get(locale));
+      final Locale locale = (Locale) supportedLocales.next();
+      final SelectItem item = new SelectItem(locale, locale.getDisplayName(language), null, FLAGS.get(locale));
       languages.add(item);
     }
     Collections.sort(languages, new SelectItemComparator());

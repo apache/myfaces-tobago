@@ -29,8 +29,8 @@ import javax.annotation.security.PermitAll;
 public class Controller {
 
   public String logout() {
-    FacesContext facesContext = FacesContext.getCurrentInstance();
-    HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
+    final FacesContext facesContext = FacesContext.getCurrentInstance();
+    final HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
     if (session != null) {
       session.invalidate();
     }

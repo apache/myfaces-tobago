@@ -28,7 +28,7 @@ public final class StringValue {
 
   private String value;
 
-  public StringValue(String value) {
+  public StringValue(final String value) {
     this.value = value;
   }
 
@@ -37,7 +37,7 @@ public final class StringValue {
   }
 
   @Override
-  public boolean equals(Object o) {
+  public boolean equals(final Object o) {
     if (this == o) {
       return true;
     }
@@ -45,7 +45,7 @@ public final class StringValue {
       return false;
     }
 
-    StringValue that = (StringValue) o;
+    final StringValue that = (StringValue) o;
 
     if (value != null ? !value.equals(that.value) : that.value != null) {
       return false;

@@ -42,7 +42,7 @@ public class DateExtensionHandler extends TobagoLabelExtensionHandler {
   private TagAttribute formIdAttribute;
   private TagAttribute markupAttribute;
 
-  public DateExtensionHandler(ComponentConfig config) {
+  public DateExtensionHandler(final ComponentConfig config) {
     super(config);
     pickerIdAttribute = getAttribute("pickerId");
     formIdAttribute = getAttribute("formId");
@@ -57,13 +57,14 @@ public class DateExtensionHandler extends TobagoLabelExtensionHandler {
     return RendererTypes.DATE;
   }
 
-  public void onComponentPopulated(FaceletContext faceletContext, UIComponent panel, UIComponent parent) {
+  public void onComponentPopulated(
+      final FaceletContext faceletContext, final UIComponent panel, final UIComponent parent) {
     super.onComponentPopulated(faceletContext, panel, parent);
     if (panel.getChildCount() == 2) {
-      Application application = faceletContext.getFacesContext().getApplication();
-      UIViewRoot root = ComponentUtils.findViewRoot(faceletContext, parent);
+      final Application application = faceletContext.getFacesContext().getApplication();
+      final UIViewRoot root = ComponentUtils.findViewRoot(faceletContext, parent);
 
-      UIForm form = (UIForm) application.createComponent(UIForm.COMPONENT_TYPE);
+      final UIForm form = (UIForm) application.createComponent(UIForm.COMPONENT_TYPE);
       form.setRendererType(RendererTypes.FORM);
       final String formId = formIdAttribute != null
           ? formIdAttribute.getValue(faceletContext)
@@ -71,7 +72,7 @@ public class DateExtensionHandler extends TobagoLabelExtensionHandler {
       form.setId(formId);
       panel.getChildren().add(form);
 
-      UIDatePicker picker = (UIDatePicker) application.createComponent(UIDatePicker.COMPONENT_TYPE);
+      final UIDatePicker picker = (UIDatePicker) application.createComponent(UIDatePicker.COMPONENT_TYPE);
       picker.setRendererType(RendererTypes.DATE_PICKER);
       picker.setFor("@auto");
       final String pickerId = pickerIdAttribute != null
@@ -86,7 +87,7 @@ public class DateExtensionHandler extends TobagoLabelExtensionHandler {
         if (markupAttribute.isLiteral()) {
           picker.setMarkup(Markup.valueOf(markupAttribute.getValue()));
         } else {
-          ValueExpression expression = markupAttribute.getValueExpression(faceletContext, Object.class);
+          final ValueExpression expression = markupAttribute.getValueExpression(faceletContext, Object.class);
           picker.setValueExpression(Attributes.MARKUP, expression);
         }
       }
@@ -94,7 +95,7 @@ public class DateExtensionHandler extends TobagoLabelExtensionHandler {
     }
   }
 
-  protected String getColumns(String first) {
+  protected String getColumns(final String first) {
     return first + ";*;auto";
   }
 }

@@ -42,7 +42,7 @@ public class TreeLabelRenderer extends LayoutComponentRendererBase {
 
   private static final Logger LOG = LoggerFactory.getLogger(TreeLabelRenderer.class);
 
-  public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
+  public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
 
     final AbstractUIData data = ComponentUtils.findAncestor(component, AbstractUIData.class);
     final boolean listbox = data instanceof AbstractUITreeListbox;
@@ -58,7 +58,7 @@ public class TreeLabelRenderer extends LayoutComponentRendererBase {
       writer.writeClassAttribute(Classes.create(label));
       HtmlRendererUtils.writeDataAttributes(facesContext, writer, label);
       writer.writeStyleAttribute(createStyle(facesContext, label));
-      String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, label);
+      final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, label);
       if (title != null) {
         writer.writeAttribute(HtmlAttributes.TITLE, title, true);
       }
@@ -69,7 +69,7 @@ public class TreeLabelRenderer extends LayoutComponentRendererBase {
     }
   }
 
-  protected Style createStyle(FacesContext facesContext, UITreeLabel link) {
+  protected Style createStyle(final FacesContext facesContext, final UITreeLabel link) {
     return new Style(facesContext, link);
   }
 }

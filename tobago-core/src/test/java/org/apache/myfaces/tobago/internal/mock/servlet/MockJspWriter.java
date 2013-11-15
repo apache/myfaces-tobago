@@ -27,7 +27,7 @@ public class MockJspWriter extends JspWriter {
 
   private PrintWriter out;
 
-  public MockJspWriter(PrintWriter out) {
+  public MockJspWriter(final PrintWriter out) {
     super(100, true);
     this.out = out;
   }
@@ -36,39 +36,39 @@ public class MockJspWriter extends JspWriter {
     return out.checkError();
   }
 
-  public void print(boolean b) {
+  public void print(final boolean b) {
     out.print(b);
   }
 
-  public void print(char c) {
+  public void print(final char c) {
     out.print(c);
   }
 
-  public void print(int i) {
+  public void print(final int i) {
     out.print(i);
   }
 
-  public void print(long l) {
+  public void print(final long l) {
     out.print(l);
   }
 
-  public void print(float f) {
+  public void print(final float f) {
     out.print(f);
   }
 
-  public void print(double d) {
+  public void print(final double d) {
     out.print(d);
   }
 
-  public void print(char[] s) {
+  public void print(final char[] s) {
     out.print(s);
   }
 
-  public void print(String s) {
+  public void print(final String s) {
     out.print(s);
   }
 
-  public void print(Object obj) {
+  public void print(final Object obj) {
     out.print(obj);
   }
 
@@ -76,59 +76,59 @@ public class MockJspWriter extends JspWriter {
     out.println();
   }
 
-  public void println(boolean x) {
+  public void println(final boolean x) {
     out.println(x);
   }
 
-  public void println(char x) {
+  public void println(final char x) {
     out.println(x);
   }
 
-  public void println(int x) {
+  public void println(final int x) {
     out.println(x);
   }
 
-  public void println(long x) {
+  public void println(final long x) {
     out.println(x);
   }
 
-  public void println(float x) {
+  public void println(final float x) {
     out.println(x);
   }
 
-  public void println(double x) {
+  public void println(final double x) {
     out.println(x);
   }
 
-  public void println(char[] x) {
+  public void println(final char[] x) {
     out.println(x);
   }
 
-  public void println(String x) {
+  public void println(final String x) {
     out.println(x);
   }
 
-  public void println(Object x) {
+  public void println(final Object x) {
     out.println(x);
   }
 
-  public void write(int c) throws IOException {
+  public void write(final int c) throws IOException {
     out.write(c);
   }
 
-  public void write(char[] cbuf) throws IOException {
+  public void write(final char[] cbuf) throws IOException {
     out.write(cbuf);
   }
 
-  public void write(String str) throws IOException {
+  public void write(final String str) throws IOException {
     out.write(str);
   }
 
-  public void write(char[] cbuf, int off, int len) throws IOException {
+  public void write(final char[] cbuf, final int off, final int len) throws IOException {
     out.write(cbuf, off, len);
   }
 
-  public void write(String str, int off, int len) throws IOException {
+  public void write(final String str, final int off, final int len) throws IOException {
     out.write(str, off, len);
   }
 

@@ -50,23 +50,23 @@ public class SplitLayoutRenderer extends GridLayoutRenderer {
   private static final String POSITION_ID_POSTFIX = "_spLP";
 
   @Override
-  public void decode(FacesContext facesContext, UIComponent component) {
-    String clientId = component.getClientId();
+  public void decode(final FacesContext facesContext, final UIComponent component) {
+    final String clientId = component.getClientId();
     if (clientId.equals(ComponentUtils.findPage(facesContext).getActionId())) {
       // only decode and update layout at resize request
-      Map<String, String> parameterMap = facesContext.getExternalContext().getRequestParameterMap();
-      String position = parameterMap.get(clientId + POSITION_ID_POSTFIX);
+      final Map<String, String> parameterMap = facesContext.getExternalContext().getRequestParameterMap();
+      final String position = parameterMap.get(clientId + POSITION_ID_POSTFIX);
       ((AbstractUISplitLayout) component).updateLayout(Integer.parseInt(position));
     }
   }
 
   @Override
-  public void encodeChildren(FacesContext facesContext, UIComponent component) throws IOException {
-    LayoutContainer container = (LayoutContainer) ((AbstractUISplitLayout) component).getParent();
+  public void encodeChildren(final FacesContext facesContext, final UIComponent component) throws IOException {
+    final LayoutContainer container = (LayoutContainer) ((AbstractUISplitLayout) component).getParent();
     if (!((LayoutContainer) container).isLayoutChildren()) {
       return;
     } else {
-      List<LayoutComponent> components = container.getComponents();
+      final List<LayoutComponent> components = container.getComponents();
       if (components.size() != 2) {
         LOG.warn("Illegal component count in splitLayout: {}", components.size());
       }
@@ -79,19 +79,19 @@ public class SplitLayoutRenderer extends GridLayoutRenderer {
     }
   }
 
-  protected void encodeHandle(FacesContext facesContext, AbstractUISplitLayout layout) throws IOException {
-    String id = layout.getClientId(facesContext);
+  protected void encodeHandle(final FacesContext facesContext, final AbstractUISplitLayout layout) throws IOException {
+    final String id = layout.getClientId(facesContext);
     
-    TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
     writer.startElement(HtmlElements.SPAN, layout);
     writer.writeIdAttribute(id);
     writer.writeAttribute("data-tobago-split-layout", layout.getOrientation().toLowerCase(), true);
     writer.writeAttribute("data-tobago-split-layout-containment", createDraggableContainment(layout), true);
-    Style style = calculateHandleStyle(layout);
+    final Style style = calculateHandleStyle(layout);
     writer.writeStyleAttribute(style);
     writer.writeClassAttribute(Classes.create(layout, layout.getOrientation().toLowerCase()));
 
-    int position;
+    final int position;
     if (AbstractUISplitLayout.HORIZONTAL.equals(layout.getOrientation())) {
       position = style.getLeft().getPixel();
     } else {
@@ -109,30 +109,30 @@ public class SplitLayoutRenderer extends GridLayoutRenderer {
 
   }
 
-  private String createDraggableContainment(AbstractUISplitLayout layout) {
-    LayoutContainer container = (LayoutContainer) ((AbstractUISplitLayout) layout).getParent();
-    LayoutComponent firstComponent = container.getComponents().get(0);
-    LayoutComponent secondComponent = container.getComponents().get(1);
+  private String createDraggableContainment(final AbstractUISplitLayout layout) {
+    final LayoutContainer container = (LayoutContainer) ((AbstractUISplitLayout) layout).getParent();
+    final LayoutComponent firstComponent = container.getComponents().get(0);
+    final LayoutComponent secondComponent = container.getComponents().get(1);
 
     if (AbstractUISplitLayout.HORIZONTAL.equals(layout.getOrientation())) {
-      int minimumSize1 = firstComponent.getMinimumWidth().getPixel();
-      int minimumSize2 = secondComponent.getMinimumWidth().getPixel();
-      int totalSize = container.getCurrentWidth().getPixel();
+      final int minimumSize1 = firstComponent.getMinimumWidth().getPixel();
+      final int minimumSize2 = secondComponent.getMinimumWidth().getPixel();
+      final int totalSize = container.getCurrentWidth().getPixel();
       return new StringBuilder("[").append(minimumSize1).append(", 0, ").append(totalSize-minimumSize2).append(", 0]")
           .toString();
     } else {
-      int minimumSize1 = firstComponent.getMinimumHeight().getPixel();
-      int minimumSize2 = secondComponent.getMinimumHeight().getPixel();
-      int totalSize = container.getCurrentHeight().getPixel();
+      final int minimumSize1 = firstComponent.getMinimumHeight().getPixel();
+      final int minimumSize2 = secondComponent.getMinimumHeight().getPixel();
+      final int totalSize = container.getCurrentHeight().getPixel();
       return new StringBuilder("[0, ").append(minimumSize1).append(", 0, ").append(totalSize-minimumSize2).append("]")
           .toString();
     }
   }
 
-  private Style calculateHandleStyle(AbstractUISplitLayout layout) {
-    LayoutContainer container = (LayoutContainer) ((AbstractUISplitLayout) layout).getParent();
-    LayoutComponent secondComponent = container.getComponents().get(1);
-    Style style = new Style();
+  private Style calculateHandleStyle(final AbstractUISplitLayout layout) {
+    final LayoutContainer container = (LayoutContainer) ((AbstractUISplitLayout) layout).getParent();
+    final LayoutComponent secondComponent = container.getComponents().get(1);
+    final Style style = new Style();
     if (AbstractUISplitLayout.HORIZONTAL.equals(layout.getOrientation())) {
       style.setWidth(Measure.valueOf(5));
       style.setHeight(container.getCurrentHeight());

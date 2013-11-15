@@ -40,7 +40,7 @@ public class PopupReferenceController {
   public PopupReferenceController() {
     sheet = new ArrayList<Entry>();
     for (int i = 0; i < 10; i++) {
-      Entry tmp = new Entry();
+      final Entry tmp = new Entry();
       tmp.setColumn1("cell__1__" + i);
       tmp.setColumn2("cell_2_" + i);
       tmp.setColumn3("cell_3_" + i);
@@ -48,18 +48,18 @@ public class PopupReferenceController {
     }
   }
 
-  public void selectEntry(ActionEvent event) {
+  public void selectEntry(final ActionEvent event) {
     UIComponent component = event.getComponent();
     while (!(component instanceof UISheet)) {
       component = component.getParent();
     }
 
-    UISheet sheet = (UISheet) component;
+    final UISheet sheet = (UISheet) component;
     entry = (Entry) sheet.getRowData();
     LOG.info("entry = \"" + entry.getColumn1() + "\"");
   }
 
-  public void saveChanges(ActionEvent event) {
+  public void saveChanges(final ActionEvent event) {
     LOG.info("saveChanges()");
     // nothing to do here
   }
@@ -73,7 +73,7 @@ public class PopupReferenceController {
     return entry;
   }
 
-  public void setEntry(Entry entry) {
+  public void setEntry(final Entry entry) {
     this.entry = entry;
   }
 
@@ -86,7 +86,7 @@ public class PopupReferenceController {
       return column1;
     }
 
-    public void setColumn1(String column1) {
+    public void setColumn1(final String column1) {
       this.column1 = column1;
     }
 
@@ -94,7 +94,7 @@ public class PopupReferenceController {
       return column2;
     }
 
-    public void setColumn2(String column2) {
+    public void setColumn2(final String column2) {
       this.column2 = column2;
     }
 
@@ -102,7 +102,7 @@ public class PopupReferenceController {
       return column3;
     }
 
-    public void setColumn3(String column3) {
+    public void setColumn3(final String column3) {
       this.column3 = column3;
     }
   }

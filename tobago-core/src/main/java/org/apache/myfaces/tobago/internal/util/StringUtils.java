@@ -345,7 +345,7 @@ public final class StringUtils {
   /**
    * Basically taken from commons-lang
    */
-  public static boolean isNotBlank(String str) {
+  public static boolean isNotBlank(final String str) {
     return !isBlank(str);
   }
 
@@ -382,9 +382,9 @@ public final class StringUtils {
   /**
    * Basically taken from commons-lang
    */
-  public static String repeat(String str, int repeat) {
-    int outputLength = str.length() * repeat;
-    StringBuilder buf = new StringBuilder(outputLength);
+  public static String repeat(final String str, final int repeat) {
+    final int outputLength = str.length() * repeat;
+    final StringBuilder buf = new StringBuilder(outputLength);
     for (int i = 0; i < repeat; i++) {
       buf.append(str);
     }
@@ -394,15 +394,15 @@ public final class StringUtils {
   /**
    * Basically taken from commons-lang
    */
-  public static String uncapitalize(String str) {
+  public static String uncapitalize(final String str) {
     return String.valueOf(Character.toLowerCase(str.charAt(0))) + str.substring(1);
   }
 
   /**
    * Basically taken from commons-lang
    */
-  public static boolean isAlphanumeric(String str) {
-    int sz = str.length();
+  public static boolean isAlphanumeric(final String str) {
+    final int sz = str.length();
     for (int i = 0; i < sz; i++) {
       if (!Character.isLetterOrDigit(str.charAt(i))) {
         return false;
@@ -414,14 +414,14 @@ public final class StringUtils {
   /**
    * Basically taken from commons-lang
    */
-  public static String join(List<String> list, char separator) {
+  public static String join(final List<String> list, final char separator) {
     final int size = list.size();
     if (size <= 0) {
       return "";
     }
 
-    int bufSize = size * list.get(0).length() + 1;
-    StringBuilder builder = new StringBuilder(bufSize);
+    final int bufSize = size * list.get(0).length() + 1;
+    final StringBuilder builder = new StringBuilder(bufSize);
 
     for (int i = 0; i < size; i++) {
       if (i > 0) {
@@ -438,7 +438,7 @@ public final class StringUtils {
   /**
    * Basically taken from commons-lang
    */
-  public static String defaultString(String string) {
+  public static String defaultString(final String string) {
     return string == null ? "" : string;
   }
 }

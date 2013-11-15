@@ -42,9 +42,9 @@ public class InMemoryAddressDao implements AddressDao, Serializable {
     addresses = new ArrayList<Address>();
   }
 
-  public synchronized Address updateAddress(Address address) {
+  public synchronized Address updateAddress(final Address address) {
     LOG.debug("Trying address: "+address);
-    Address storedAddress = getAddress(address.getId());
+    final Address storedAddress = getAddress(address.getId());
     if (storedAddress == null) {
       address.setId(addresses.size()+1);
       LOG.debug("Creating address: "+address);
@@ -57,17 +57,17 @@ public class InMemoryAddressDao implements AddressDao, Serializable {
     return address;
   }
 
-  public List<Address> findAddresses(String filter, String column, boolean order) {
+  public List<Address> findAddresses(final String filter, final String column, final boolean order) {
     return findAddresses(filter);
   }
 
-  public synchronized List<Address> findAddresses(String filter) {
+  public synchronized List<Address> findAddresses(final String filter) {
     LOG.debug("Find addresses: "+addresses);
     return Collections.unmodifiableList(addresses);
   }
 
-  public synchronized void removeAddress(Address address) {
-    Iterator<Address> it = addresses.iterator();
+  public synchronized void removeAddress(final Address address) {
+    final Iterator<Address> it = addresses.iterator();
     while (it.hasNext()) {
       if (it.next().getId().equals(address.getId())) {
         it.remove();
@@ -75,8 +75,8 @@ public class InMemoryAddressDao implements AddressDao, Serializable {
     }
   }
 
-  public Address getAddress(Integer id) {
-    for (Address address : addresses) {
+  public Address getAddress(final Integer id) {
+    for (final Address address : addresses) {
       if (address.getId().equals(id)) {
         return address;
       }

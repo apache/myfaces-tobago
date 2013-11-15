@@ -42,7 +42,7 @@ import java.io.IOException;
 public class BoxRenderer extends BoxRendererBase {
 
   @Override
-  public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
+  public void prepareRender(final FacesContext facesContext, final UIComponent component) throws IOException {
     super.prepareRender(facesContext, component);
     HtmlRendererUtils.renderDojoDndSource(facesContext, component);
   }
@@ -75,17 +75,17 @@ without shadow
 
    */
   @Override
-  public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
+  public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
 
-    TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
-    UIBox box = (UIBox) component;
+    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final UIBox box = (UIBox) component;
 
-    String clientId = box.getClientId(facesContext);
+    final String clientId = box.getClientId(facesContext);
     writer.startElement(HtmlElements.DIV, box);
     HtmlRendererUtils.renderDojoDndItem(box, writer, true);
     writer.writeClassAttribute(Classes.create(box));
     writer.writeIdAttribute(clientId);
-    String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, box);
+    final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, box);
     if (title != null) {
       writer.writeAttribute(HtmlAttributes.TITLE, title, true);
     }
@@ -94,19 +94,20 @@ without shadow
     encodeBox(facesContext, writer, box);
   }
 
-  private void encodeBox(FacesContext facesContext, TobagoResponseWriter writer, UIBox box) throws IOException {
+  private void encodeBox(final FacesContext facesContext, final TobagoResponseWriter writer, final UIBox box)
+      throws IOException {
 
     // todo: shadow = 0px means, that shadow is disabled, but it may be better, if we can set a boolean in the config.
     // todo: this is possible after fixing 
-    Measure measure = getResourceManager().getThemeMeasure(facesContext, box, "shadow");
-    boolean hasShadow = measure.greaterThan(Measure.ZERO);
+    final Measure measure = getResourceManager().getThemeMeasure(facesContext, box, "shadow");
+    final boolean hasShadow = measure.greaterThan(Measure.ZERO);
 
     if (hasShadow) {
       // shadow begin
       writer.startElement(HtmlElements.DIV, box);
       writer.writeClassAttribute(Classes.create(box, "shadow"));
 
-      Style shadow = new Style();
+      final Style shadow = new Style();
       shadow.setWidth(box.getCurrentWidth().subtract(1));
       shadow.setHeight(box.getCurrentHeight().subtract(1));
       writer.writeStyleAttribute(shadow);
@@ -115,16 +116,16 @@ without shadow
       writer.startElement(HtmlElements.DIV, box);
       writer.writeClassAttribute(Classes.create(box, "border"));
 
-      Style border = new Style();
+      final Style border = new Style();
       border.setWidth(box.getCurrentWidth().subtract(3));
       border.setHeight(box.getCurrentHeight().subtract(3));
       writer.writeStyleAttribute(border);
     }
 
-    UIComponent label = box.getFacet(Facets.LABEL);
+    final UIComponent label = box.getFacet(Facets.LABEL);
     writer.startElement(HtmlElements.DIV, null);
     writer.writeClassAttribute(Classes.create(box, "header"));
-    String labelString = (String) box.getAttributes().get(Attributes.LABEL);
+    final String labelString = (String) box.getAttributes().get(Attributes.LABEL);
     if (label != null) {
       RenderUtils.encode(facesContext, label);
     } else if (labelString != null) {
@@ -137,7 +138,7 @@ without shadow
       RenderUtils.encode(facesContext, menuBar);
     }
 
-    UIPanel toolbar = (UIPanel) box.getFacet(Facets.TOOL_BAR);
+    final UIPanel toolbar = (UIPanel) box.getFacet(Facets.TOOL_BAR);
     if (toolbar != null) {
       renderToolbar(facesContext, writer, box, toolbar);
     }
@@ -164,14 +165,15 @@ without shadow
   }
 
   @Override
-  public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
-    TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
+    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
     writer.endElement(HtmlElements.DIV);
     writer.endElement(HtmlElements.DIV);
   }
 
   protected void renderToolbar(
-      FacesContext facesContext, TobagoResponseWriter writer, UIBox box, UIPanel toolbar) throws IOException {
+      final FacesContext facesContext, final TobagoResponseWriter writer, final UIBox box, final UIPanel toolbar)
+      throws IOException {
     writer.startElement(HtmlElements.DIV, null);
     writer.writeClassAttribute(Classes.create(box, "headerToolBar"));
     toolbar.setRendererType(RendererTypes.BOX_TOOL_BAR);

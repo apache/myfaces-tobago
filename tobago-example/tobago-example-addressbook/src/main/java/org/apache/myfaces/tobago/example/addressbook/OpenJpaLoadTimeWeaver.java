@@ -60,7 +60,7 @@ public class OpenJpaLoadTimeWeaver extends SimpleLoadTimeWeaver {
             excludePackage("org.apache.openjpa");
     }
 
-    public OpenJpaLoadTimeWeaver(SimpleInstrumentableClassLoader loader) {
+    public OpenJpaLoadTimeWeaver(final SimpleInstrumentableClassLoader loader) {
         super(loader);
         ((SimpleInstrumentableClassLoader) getInstrumentableClassLoader()).
             excludePackage("org.apache.openjpa");

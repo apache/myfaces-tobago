@@ -25,7 +25,7 @@ public class GenericTagUnitTest extends GenericTestBase {
 
   @Before
   public void setUp() throws Exception {
-    String[] tldPaths = new String[]{
+    final String[] tldPaths = new String[]{
         "META-INF/org/apache/myfaces/tobago/internal/taglib/component/tobago.tld",
         "META-INF/org/apache/myfaces/tobago/internal/taglib/extension/tobago-extension.tld"
     };

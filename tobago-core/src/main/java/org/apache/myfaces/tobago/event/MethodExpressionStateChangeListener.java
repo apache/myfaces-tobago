@@ -35,23 +35,23 @@ public class MethodExpressionStateChangeListener implements SheetStateChangeList
   public MethodExpressionStateChangeListener() {
   }
 
-  public MethodExpressionStateChangeListener(MethodExpression methodExpression) {
+  public MethodExpressionStateChangeListener(final MethodExpression methodExpression) {
     this.methodExpression = methodExpression;
   }
 
-  public void processSheetStateChange(SheetStateChangeEvent actionEvent) throws AbortProcessingException {
+  public void processSheetStateChange(final SheetStateChangeEvent actionEvent) throws AbortProcessingException {
     FacesUtilsEL.invokeMethodExpression(FacesContext.getCurrentInstance(), methodExpression, actionEvent);
   }
 
-  public void restoreState(FacesContext context, Object state) {
+  public void restoreState(final FacesContext context, final Object state) {
     methodExpression = (MethodExpression) state;
   }
 
-  public Object saveState(FacesContext context) {
+  public Object saveState(final FacesContext context) {
     return methodExpression;
   }
 
-  public void setTransient(boolean newTransientValue) {
+  public void setTransient(final boolean newTransientValue) {
     isTransient = newTransientValue;
   }
 

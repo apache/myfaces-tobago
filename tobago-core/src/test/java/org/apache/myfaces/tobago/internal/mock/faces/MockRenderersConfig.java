@@ -29,7 +29,7 @@ public class MockRenderersConfig implements RenderersConfig {
   /**
    * To keep it simple, we allow every value shorter than 10 characters.
    */
-  public boolean isMarkupSupported(String rendererName, String markup) {
+  public boolean isMarkupSupported(final String rendererName, final String markup) {
     return markup.length() < 10;
   }
 

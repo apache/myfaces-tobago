@@ -31,10 +31,10 @@ public class InputSuggestController {
 
   private static final Logger LOG = LoggerFactory.getLogger(InputSuggestController.class);
 
-  public List<String> inputSuggestItems(UIInput component) {
-    String prefix = (String) component.getSubmittedValue();
+  public List<String> inputSuggestItems(final UIInput component) {
+    final String prefix = (String) component.getSubmittedValue();
     LOG.info("Creating items for prefix :\"" + prefix + "\"");
-    List<String> li = new ArrayList<String>();
+    final List<String> li = new ArrayList<String>();
     li.add(prefix + 1);
     li.add(prefix + 2);
     li.add(prefix + 3);

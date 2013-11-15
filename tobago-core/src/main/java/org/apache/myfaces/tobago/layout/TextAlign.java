@@ -38,7 +38,7 @@ public enum TextAlign {
 
   private final String value;
 
-  TextAlign(String value) {
+  TextAlign(final String value) {
     this.value = value;
   }
 
@@ -51,16 +51,16 @@ public enum TextAlign {
   static {
     MAPPING = new HashMap<String, TextAlign>();
 
-    for (TextAlign textAlign : TextAlign.values()) {
+    for (final TextAlign textAlign : TextAlign.values()) {
       MAPPING.put(textAlign.getValue(), textAlign);
     }
   }
 
-  public static TextAlign parse(String string) {
+  public static TextAlign parse(final String string) {
     if (string == null) {
       return null;
     }
-    TextAlign value = MAPPING.get(string);
+    final TextAlign value = MAPPING.get(string);
     if (value != null) {
       return value;
     } else {

@@ -27,7 +27,7 @@ import java.io.Serializable;
 
 public class ResetFormActionListener extends AbstractResetInputActionListener implements Serializable{
 
-  public void processAction(ActionEvent actionEvent) throws AbortProcessingException {
+  public void processAction(final ActionEvent actionEvent) throws AbortProcessingException {
     UIComponent component = actionEvent.getComponent();
     while ((component = component.getParent()) != null) {
       if (component instanceof UIForm) {

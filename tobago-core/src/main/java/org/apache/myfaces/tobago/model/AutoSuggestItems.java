@@ -34,7 +34,7 @@ public class AutoSuggestItems {
     return items;
   }
 
-  public void setItems(List<AutoSuggestItem> items) {
+  public void setItems(final List<AutoSuggestItem> items) {
     this.items = items;
   }
 
@@ -42,7 +42,7 @@ public class AutoSuggestItems {
     return nextFocusId;
   }
 
-  public void setNextFocusId(String nextFocusId) {
+  public void setNextFocusId(final String nextFocusId) {
     this.nextFocusId = nextFocusId;
   }
 
@@ -50,7 +50,7 @@ public class AutoSuggestItems {
     return maxSuggestedCount;
   }
 
-  public void setMaxSuggestedCount(int maxSuggestedCount) {
+  public void setMaxSuggestedCount(final int maxSuggestedCount) {
     this.maxSuggestedCount = maxSuggestedCount;
   }
 }

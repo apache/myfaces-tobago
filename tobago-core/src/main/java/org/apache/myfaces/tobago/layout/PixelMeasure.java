@@ -38,18 +38,18 @@ public final class PixelMeasure extends Measure {
   
   private final int pixel;
 
-  private PixelMeasure(int pixel) {
+  private PixelMeasure(final int pixel) {
     this.pixel = pixel;
   }
 
-  static PixelMeasure pixelValueOf(int value) {
+  static PixelMeasure pixelValueOf(final int value) {
     if (value >= 0 && value <= PixelMeasure.PIXEL_CACHE_MAX) {
       return PixelMeasure.PIXEL_CACHE[value];
     }
     return new PixelMeasure(value);
   }
   
-  public Measure add(Measure m) {
+  public Measure add(final Measure m) {
     if (m == null) {
       return this;
     } else {
@@ -57,19 +57,19 @@ public final class PixelMeasure extends Measure {
     }
   }
 
-  public Measure add(int m) {
+  public Measure add(final int m) {
     return pixelValueOf(pixel + m);
   }
 
-  public Measure multiply(int times) {
+  public Measure multiply(final int times) {
     return pixelValueOf(pixel * times);
   }
 
-  public Measure divide(int times) {
+  public Measure divide(final int times) {
     return pixelValueOf(pixel / times);
   }
 
-  public Measure subtractNotNegative(Measure m) {
+  public Measure subtractNotNegative(final Measure m) {
     if (m == null) {
       return this;
     } else if (m.getPixel() > pixel) {
@@ -80,7 +80,7 @@ public final class PixelMeasure extends Measure {
     }
   }
 
-  public Measure subtract(Measure m) {
+  public Measure subtract(final Measure m) {
     if (m == null) {
       return this;
     } else {
@@ -88,7 +88,7 @@ public final class PixelMeasure extends Measure {
     }
   }
 
-  public Measure subtract(int m) {
+  public Measure subtract(final int m) {
       return pixelValueOf(pixel - m);
   }
 
@@ -107,7 +107,7 @@ public final class PixelMeasure extends Measure {
   }
 
   @Override
-  public boolean equals(Object o) {
+  public boolean equals(final Object o) {
     if (this == o) {
       return true;
     }
@@ -115,7 +115,7 @@ public final class PixelMeasure extends Measure {
       return false;
     }
 
-    PixelMeasure that = (PixelMeasure) o;
+    final PixelMeasure that = (PixelMeasure) o;
 
     if (pixel != that.pixel) {
       return false;

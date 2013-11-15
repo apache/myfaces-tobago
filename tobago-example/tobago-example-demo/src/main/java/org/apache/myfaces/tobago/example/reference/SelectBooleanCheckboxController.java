@@ -28,7 +28,7 @@ public class SelectBooleanCheckboxController {
     return onOffString;
   }
 
-  public void setOnOffString(String onOffString) {
+  public void setOnOffString(final String onOffString) {
     this.onOffString = onOffString;
   }
 
@@ -36,7 +36,7 @@ public class SelectBooleanCheckboxController {
     return normalBoolean;
   }
 
-  public void setNormalBoolean(boolean normalBoolean) {
+  public void setNormalBoolean(final boolean normalBoolean) {
     this.normalBoolean = normalBoolean;
   }
 

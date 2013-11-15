@@ -40,12 +40,12 @@ public class SelectManyRendererBase extends LayoutComponentRendererBase {
 
   private static final Logger LOG = LoggerFactory.getLogger(SelectManyRendererBase.class);
 
-  public void decode(FacesContext facesContext, UIComponent component) {
+  public void decode(final FacesContext facesContext, final UIComponent component) {
     if (ComponentUtils.isOutputOnly(component)) {
       return;
     }
     if (component instanceof UISelectMany) {
-      UISelectMany uiSelectMany = (UISelectMany) component;
+      final UISelectMany uiSelectMany = (UISelectMany) component;
 
       String[] newValues = (String[])
           facesContext.getExternalContext().getRequestParameterValuesMap().get(uiSelectMany.getClientId(facesContext));
@@ -54,7 +54,7 @@ public class SelectManyRendererBase extends LayoutComponentRendererBase {
             + "' value='" + Arrays.toString(newValues) + "'");
         LOG.debug("size ... '" + (newValues != null ? newValues.length : -1) + "'");
         if (newValues != null) {
-          for (String newValue : newValues) {
+          for (final String newValue : newValues) {
             LOG.debug("newValues[i] = '" + newValue + "'");
           }
         }
@@ -68,7 +68,8 @@ public class SelectManyRendererBase extends LayoutComponentRendererBase {
   }
 
   // the following is copied from myfaces shared RendererUtils
-  public Object getConvertedValue(FacesContext facesContext, UIComponent component, Object submittedValue)
+  public Object getConvertedValue(
+      final FacesContext facesContext, final UIComponent component, final Object submittedValue)
       throws ConverterException {
 
     if (submittedValue == null) {
@@ -82,9 +83,9 @@ public class SelectManyRendererBase extends LayoutComponentRendererBase {
     return getConvertedUISelectManyValue(facesContext, (UISelectMany) component, (String[]) submittedValue);
   }
 
-  private Object getConvertedUISelectManyValue(FacesContext facesContext,
-      UISelectMany component,
-      String[] submittedValue)
+  private Object getConvertedUISelectManyValue(final FacesContext facesContext,
+      final UISelectMany component,
+      final String[] submittedValue)
       throws ConverterException {
     // Attention!
     // This code is duplicated in jsfapi component package.
@@ -94,7 +95,7 @@ public class SelectManyRendererBase extends LayoutComponentRendererBase {
       throw new NullPointerException("submittedValue");
     }
 
-    ValueBinding vb = component.getValueBinding("value");
+    final ValueBinding vb = component.getValueBinding("value");
     Class valueType = null;
     Class arrayComponentType = null;
     if (vb != null) {
@@ -132,7 +133,7 @@ public class SelectManyRendererBase extends LayoutComponentRendererBase {
 
       try {
         converter = facesContext.getApplication().createConverter(arrayComponentType);
-      } catch (FacesException e) {
+      } catch (final FacesException e) {
         LOG.error("No Converter for type " + arrayComponentType.getName() + " found", e);
         return submittedValue;
       }
@@ -150,8 +151,8 @@ public class SelectManyRendererBase extends LayoutComponentRendererBase {
     if (valueType == null) {
       // ...but have no idea of expected type
       // --> so let's convert it to an Object array
-      int len = submittedValue.length;
-      Object[] convertedValues = (Object[]) Array.newInstance(
+      final int len = submittedValue.length;
+      final Object[] convertedValues = (Object[]) Array.newInstance(
           arrayComponentType == null ? Object.class : arrayComponentType, len);
       for (int i = 0; i < len; i++) {
         convertedValues[i]
@@ -164,8 +165,8 @@ public class SelectManyRendererBase extends LayoutComponentRendererBase {
       // Curious case: According to specs we should assume, that the element type
       // of this List is java.lang.String. But there is a Converter set for this
       // component. Because the user must know what he is doing, we will convert the values.
-      int length = submittedValue.length;
-      List<Object> list = new ArrayList<Object>(length);
+      final int length = submittedValue.length;
+      final List<Object> list = new ArrayList<Object>(length);
       for (int i = 0; i < length; i++) {
         list.add(converter.getAsObject(facesContext, component, submittedValue[i]));
       }
@@ -178,8 +179,8 @@ public class SelectManyRendererBase extends LayoutComponentRendererBase {
 
     if (arrayComponentType.isPrimitive()) {
       // primitive array
-      int len = submittedValue.length;
-      Object convertedValues = Array.newInstance(arrayComponentType, len);
+      final int len = submittedValue.length;
+      final Object convertedValues = Array.newInstance(arrayComponentType, len);
       for (int i = 0; i < len; i++) {
         Array.set(convertedValues, i,
             converter.getAsObject(facesContext, component, submittedValue[i]));
@@ -187,8 +188,8 @@ public class SelectManyRendererBase extends LayoutComponentRendererBase {
       return convertedValues;
     } else {
       // Object array
-      int length = submittedValue.length;
-      List<Object> convertedValues = new ArrayList<Object>(length);
+      final int length = submittedValue.length;
+      final List<Object> convertedValues = new ArrayList<Object>(length);
       for (int i = 0; i < length; i++) {
         convertedValues.add(i, converter.getAsObject(facesContext, component, submittedValue[i]));
       }

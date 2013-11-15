@@ -59,7 +59,7 @@ public class TreeEditor {
   private DefaultMutableTreeNode findFirstSelected() {
     final Enumeration enumeration = categoryTree.depthFirstEnumeration();
     while (enumeration.hasMoreElements()) {
-      DefaultMutableTreeNode node = (DefaultMutableTreeNode) enumeration.nextElement();
+      final DefaultMutableTreeNode node = (DefaultMutableTreeNode) enumeration.nextElement();
       if (((Node) node.getUserObject()).isSelected()) {
         return node;
       }

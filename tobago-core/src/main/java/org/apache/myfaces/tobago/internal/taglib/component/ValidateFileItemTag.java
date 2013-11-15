@@ -62,7 +62,7 @@ public abstract class ValidateFileItemTag extends ValidatorELTag {
     if (maxSize != null) {
       try {
         validator.setMaxSize((Integer) maxSize.getValue(elContext));
-      } catch (NumberFormatException e) {
+      } catch (final NumberFormatException e) {
         LOG.warn(e.getMessage());
       }
     }
@@ -80,12 +80,12 @@ public abstract class ValidateFileItemTag extends ValidatorELTag {
   }
 
   @TagAttribute(name = "maxSize", type = "java.lang.Integer")
-  public void setMaxSize(ValueExpression maxSize) {
+  public void setMaxSize(final ValueExpression maxSize) {
     this.maxSize = maxSize;
   }
 
   @TagAttribute(name = "contentType", type = "java.lang.String")
-  public void setContentType(ValueExpression contentType) {
+  public void setContentType(final ValueExpression contentType) {
     this.contentType = contentType;
   }
 }

@@ -35,7 +35,7 @@ public class StringUtil {
   }
 
   @Deprecated
-  public static String firstToUpperCase(String string) {
+  public static String firstToUpperCase(final String string) {
     if (Deprecation.LOG.isWarnEnabled()) {
       Deprecation.LOG.warn("use commons-lang please");
     }
@@ -43,7 +43,7 @@ public class StringUtil {
   }
 
   @Deprecated
-  public static List<Integer> parseIntegerList(String integerList)
+  public static List<Integer> parseIntegerList(final String integerList)
       throws NumberFormatException {
     if (Deprecation.LOG.isWarnEnabled()) {
       Deprecation.LOG.warn("use StringUtils please");
@@ -52,7 +52,7 @@ public class StringUtil {
   }
 
   @Deprecated
-  public static <T> String toString(List<T> list) {
+  public static <T> String toString(final List<T> list) {
     if (Deprecation.LOG.isWarnEnabled()) {
       Deprecation.LOG.warn("use StringUtils please");
     }
@@ -60,7 +60,7 @@ public class StringUtil {
   }
 
   @Deprecated
-  public static String escapeAccessKeyIndicator(String label) {
+  public static String escapeAccessKeyIndicator(final String label) {
     if (Deprecation.LOG.isWarnEnabled()) {
       Deprecation.LOG.warn(label);
     }

@@ -34,7 +34,7 @@ import java.util.Map;
  * This class encapsulates the logic used to call PhaseListeners.  It was
  * needed because of issue 9 of the JSF 1.2 spec.  See section 11.3 for more
  * details.
- *
+ * <p/>
  * Not longer needed.
  *
  * @deprecated since Tobago 2.0.0
@@ -56,20 +56,21 @@ class PhaseListenerManager {
   /**
    * Creates a new instance of PhaseListenerManager
    */
-  PhaseListenerManager(Lifecycle lifecycle, FacesContext facesContext, PhaseListener[] phaseListeners) {
+  PhaseListenerManager(
+      final Lifecycle lifecycle, final FacesContext facesContext, final PhaseListener[] phaseListeners) {
     this.lifecycle = lifecycle;
     this.facesContext = facesContext;
     this.phaseListeners = phaseListeners;
   }
 
-  private boolean isListenerForThisPhase(PhaseListener phaseListener, PhaseId phaseId) {
-    int listenerPhaseId = phaseListener.getPhaseId().getOrdinal();
+  private boolean isListenerForThisPhase(final PhaseListener phaseListener, final PhaseId phaseId) {
+    final int listenerPhaseId = phaseListener.getPhaseId().getOrdinal();
     return (listenerPhaseId == PhaseId.ANY_PHASE.getOrdinal()
         || listenerPhaseId == phaseId.getOrdinal());
   }
 
-  void informPhaseListenersBefore(PhaseId phaseId) {
-    boolean[] beforePhaseSuccess = new boolean[phaseListeners.length];
+  void informPhaseListenersBefore(final PhaseId phaseId) {
+    final boolean[] beforePhaseSuccess = new boolean[phaseListeners.length];
     listenerSuccessMap.put(phaseId, beforePhaseSuccess);
 
     if (phaseListeners.length == 0) {
@@ -78,12 +79,12 @@ class PhaseListenerManager {
     final PhaseEvent event = new PhaseEvent(facesContext, phaseId, lifecycle);
 
     for (int i = 0; i < phaseListeners.length; i++) {
-      PhaseListener phaseListener = phaseListeners[i];
+      final PhaseListener phaseListener = phaseListeners[i];
       if (isListenerForThisPhase(phaseListener, phaseId)) {
         try {
           phaseListener.beforePhase(event);
           beforePhaseSuccess[i] = true;
-        } catch (Exception e) {
+        } catch (final Exception e) {
           beforePhaseSuccess[i] = false; // redundant - for clarity
           LOG.error("Exception in PhaseListener " + phaseId.toString() + " beforePhase.", e);
           return;
@@ -92,8 +93,8 @@ class PhaseListenerManager {
     }
   }
 
-  void informPhaseListenersAfter(PhaseId phaseId) {
-    boolean[] beforePhaseSuccess = listenerSuccessMap.get(phaseId);
+  void informPhaseListenersAfter(final PhaseId phaseId) {
+    final boolean[] beforePhaseSuccess = listenerSuccessMap.get(phaseId);
 
     if (phaseListeners.length == 0) {
       return;
@@ -101,12 +102,12 @@ class PhaseListenerManager {
     final PhaseEvent event = new PhaseEvent(facesContext, phaseId, lifecycle);
 
     for (int i = phaseListeners.length - 1; i >= 0; i--) {
-      PhaseListener phaseListener = phaseListeners[i];
+      final PhaseListener phaseListener = phaseListeners[i];
       if (isListenerForThisPhase(phaseListener, phaseId)
           && beforePhaseSuccess[i]) {
         try {
           phaseListener.afterPhase(event);
-        } catch (Exception e) {
+        } catch (final Exception e) {
           LOG.error("Exception in PhaseListener " + phaseId.toString() + " afterPhase", e);
         }
       }

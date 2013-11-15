@@ -34,16 +34,16 @@ public class AbstractUISelectItem extends UISelectItem implements OnComponentPop
 
   private boolean itemValueLiteral;
 
-  public void onComponentPopulated(FacesContext facesContext, UIComponent parent) {
+  public void onComponentPopulated(final FacesContext facesContext, final UIComponent parent) {
     if (itemValueLiteral) {
-      Object converted = ComponentUtils.getConvertedValue(
+      final Object converted = ComponentUtils.getConvertedValue(
           FacesContext.getCurrentInstance(), parent, (String) getItemValue());
       super.setItemValue(converted);
     }
   }
 
   @Override
-  public void setItemValue(Object itemValue) {
+  public void setItemValue(final Object itemValue) {
     if (itemValue instanceof String) {
       itemValueLiteral = true;
     } else if (itemValue == null) {

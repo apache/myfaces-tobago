@@ -63,187 +63,190 @@ public class ComponentUtil {
   private ComponentUtil() {
   }
 
-  public static boolean hasErrorMessages(FacesContext context) {
+  public static boolean hasErrorMessages(final FacesContext context) {
     return ComponentUtils.hasErrorMessages(context);
   }
 
-  public static boolean containsPopupActionListener(javax.faces.component.UICommand command) {
+  public static boolean containsPopupActionListener(final javax.faces.component.UICommand command) {
     return ComponentUtils.containsPopupActionListener(command);
   }
 
-  public static String getFacesMessageAsString(FacesContext facesContext, UIComponent component) {
+  public static String getFacesMessageAsString(final FacesContext facesContext, final UIComponent component) {
     return ComponentUtils.getFacesMessageAsString(facesContext, component);
   }
 
-  public static boolean isInPopup(UIComponent component) {
+  public static boolean isInPopup(final UIComponent component) {
     return ComponentUtils.isInPopup(component);
   }
 
-  public static void resetPage(FacesContext context) {
+  public static void resetPage(final FacesContext context) {
     ComponentUtils.resetPage(context);
   }
 
-  public static UIPage findPage(FacesContext context, UIComponent component) {
+  public static UIPage findPage(final FacesContext context, final UIComponent component) {
     return (UIPage) ComponentUtils.findPage(context, component);
   }
 
-  public static UIPage findPage(UIComponent component) {
+  public static UIPage findPage(final UIComponent component) {
     return (UIPage) ComponentUtils.findPage(component);
   }
 
-  public static void addStyles(UIComponent component, String[] styles) {
+  public static void addStyles(final UIComponent component, final String[] styles) {
     ((TobagoFacesContext) FacesContext.getCurrentInstance()).getStyleFiles().addAll(Arrays.asList(styles));
   }
 
-  public static void addScripts(UIComponent component, String[] scripts) {
+  public static void addScripts(final UIComponent component, final String[] scripts) {
     ((TobagoFacesContext) FacesContext.getCurrentInstance()).getScriptFiles().addAll(Arrays.asList(scripts));
   }
 
-  public static void addOnloadCommands(UIComponent component, String[] cmds) {
+  public static void addOnloadCommands(final UIComponent component, final String[] cmds) {
     ((TobagoFacesContext) FacesContext.getCurrentInstance()).getOnloadScripts().addAll(Arrays.asList(cmds));
   }
 
-  public static UIPage findPage(FacesContext facesContext) {
+  public static UIPage findPage(final FacesContext facesContext) {
     return (UIPage) ComponentUtils.findPage(facesContext);
   }
 
-  public static UIForm findForm(UIComponent component) {
+  public static UIForm findForm(final UIComponent component) {
     return (UIForm) ComponentUtils.findForm(component);
   }
 
-  public static List<UIForm> findSubForms(UIComponent component) {
+  public static List<UIForm> findSubForms(final UIComponent component) {
     return new ArrayList<UIForm>((List) ComponentUtils.findSubForms(component));
   }
 
-  public static <T extends UIComponent> T findDescendant(UIComponent component, Class<T> type) {
+  public static <T extends UIComponent> T findDescendant(final UIComponent component, final Class<T> type) {
     return ComponentUtils.findDescendant(component, type);
   }
 
-  public static String findClientIdFor(UIComponent component, FacesContext facesContext) {
+  public static String findClientIdFor(final UIComponent component, final FacesContext facesContext) {
     return ComponentUtils.findClientIdFor(component, facesContext);
   }
 
-  public static UIComponent findFor(UIComponent component) {
+  public static UIComponent findFor(final UIComponent component) {
     return ComponentUtils.findFor(component);
   }
 
-  public static boolean isInActiveForm(UIComponent component) {
+  public static boolean isInActiveForm(final UIComponent component) {
     return ComponentUtils.isInActiveForm(component);
   }
 
-  public static boolean isError(javax.faces.component.UIInput uiInput) {
+  public static boolean isError(final javax.faces.component.UIInput uiInput) {
     return ComponentUtils.isError(uiInput);
   }
 
-  public static boolean isError(UIComponent component) {
+  public static boolean isError(final UIComponent component) {
     return ComponentUtils.isError(component);
   }
 
-  public static boolean isOutputOnly(UIComponent component) {
+  public static boolean isOutputOnly(final UIComponent component) {
     return ComponentUtils.isOutputOnly(component);
   }
 
-  public static boolean mayValidate(UIComponent component) {
+  public static boolean mayValidate(final UIComponent component) {
     return ComponentUtils.mayValidate(component);
   }
 
-  public static boolean mayUpdateModel(UIComponent component) {
+  public static boolean mayUpdateModel(final UIComponent component) {
     return ComponentUtils.mayUpdateModel(component);
   }
 
-  public static boolean getBooleanAttribute(UIComponent component, String name) {
+  public static boolean getBooleanAttribute(final UIComponent component, final String name) {
     return ComponentUtils.getBooleanAttribute(component, name);
   }
 
-  public static void setRenderedPartially(org.apache.myfaces.tobago.component.UICommand command, String renderers) {
+  public static void setRenderedPartially(
+      final org.apache.myfaces.tobago.component.UICommand command, final String renderers) {
     ((SupportsRenderedPartially) command).setRenderedPartially(new String[]{renderers});
   }
 
-  public static void setStyleClasses(UIComponent component, String styleClasses) {
+  public static void setStyleClasses(final UIComponent component, final String styleClasses) {
     ComponentUtils.setStyleClasses(component, styleClasses);
   }
 
-  public static void setMarkup(UIComponent markupComponent, String markup) {
+  public static void setMarkup(final UIComponent markupComponent, final String markup) {
     ComponentUtils.setMarkup(markupComponent, markup);
   }
 
-  public static Object getAttribute(UIComponent component, String name) {
+  public static Object getAttribute(final UIComponent component, final String name) {
     return ComponentUtils.getAttribute(component, name);
   }
 
-  public static String getStringAttribute(UIComponent component, String name) {
+  public static String getStringAttribute(final UIComponent component, final String name) {
     return ComponentUtils.getStringAttribute(component, name);
   }
 
-  public static int getIntAttribute(UIComponent component, String name) {
+  public static int getIntAttribute(final UIComponent component, final String name) {
     return getIntAttribute(component, name, 0);
   }
 
-  public static int getIntAttribute(UIComponent component, String name, int defaultValue) {
+  public static int getIntAttribute(final UIComponent component, final String name, final int defaultValue) {
     return ComponentUtils.getIntAttribute(component, name, defaultValue);
   }
 
-  public static Character getCharacterAttribute(UIComponent component, String name) {
+  public static Character getCharacterAttribute(final UIComponent component, final String name) {
     return ComponentUtils.getCharacterAttribute(component, name);
   }
 
-  public static boolean isFacetOf(UIComponent component, UIComponent parent) {
+  public static boolean isFacetOf(final UIComponent component, final UIComponent parent) {
     return ComponentUtils.isFacetOf(component, parent);
   }
 
-  public static LayoutComponentRendererBase getRenderer(FacesContext facesContext, UIComponent component) {
+  public static LayoutComponentRendererBase getRenderer(final FacesContext facesContext, final UIComponent component) {
     return (LayoutComponentRendererBase) ComponentUtils.getRenderer(facesContext, component);
   }
 
-  public static LayoutComponentRendererBase getRenderer(FacesContext facesContext, String family, String rendererType) {
+  public static LayoutComponentRendererBase getRenderer(
+      final FacesContext facesContext, final String family, final String rendererType) {
     return (LayoutComponentRendererBase) ComponentUtils.getRenderer(facesContext, family, rendererType);
   }
 
-  public static String currentValue(UIComponent component) {
+  public static String currentValue(final UIComponent component) {
     return RenderUtils.currentValue(component);
   }
 
-  public static List<SelectItem> getSelectItems(UIComponent component) {
+  public static List<SelectItem> getSelectItems(final UIComponent component) {
     return RenderUtils.getSelectItems(component);
   }
 
-  public static Object findParameter(UIComponent component, String name) {
+  public static Object findParameter(final UIComponent component, final String name) {
     return ComponentUtils.findParameter(component, name);
   }
 
-  public static String toString(UIComponent component, int offset) {
+  public static String toString(final UIComponent component, final int offset) {
     return DebugUtils.toString(component, offset);
   }
 
-  public static ActionListener createActionListener(String type) throws JspException {
+  public static ActionListener createActionListener(final String type) throws JspException {
     return ComponentUtils.createActionListener(type);
   }
 
-  public static UIGraphic getFirstGraphicChild(UIComponent component) {
+  public static UIGraphic getFirstGraphicChild(final UIComponent component) {
     return ComponentUtils.getFirstGraphicChild(component);
   }
 
-/**
- * @deprecated
- */
-@Deprecated  public static boolean isHoverEnabled(UIComponent component) {
-  Deprecation.LOG.error("no longer supported");
-  return ComponentUtils.getBooleanAttribute(component, Attributes.HOVER);
+  /**
+   * @deprecated
+   */
+  @Deprecated
+  public static boolean isHoverEnabled(final UIComponent component) {
+    Deprecation.LOG.error("no longer supported");
+    return ComponentUtils.getBooleanAttribute(component, Attributes.HOVER);
   }
 
-  public static UIOutput getFirstNonGraphicChild(UIComponent component) {
+  public static UIOutput getFirstNonGraphicChild(final UIComponent component) {
     return ComponentUtils.getFirstNonGraphicChild(component);
   }
 
-  public static void setIntegerSizeProperty(UIComponent component, String name, String value) {
+  public static void setIntegerSizeProperty(final UIComponent component, final String name, final String value) {
     ComponentUtils.setIntegerSizeProperty(component, name, value);
   }
 
-  public static String removePx(String value) {
+  public static String removePx(final String value) {
     return ComponentUtils.removePx(value);
   }
 
-  public static void setIntegerProperty(UIComponent component, String name, String value) {
+  public static void setIntegerProperty(final UIComponent component, final String name, final String value) {
     if (value != null) {
       if (UIComponentTag.isValueReference(value)) {
         component.setValueBinding(name, createValueBinding(value));
@@ -253,7 +256,7 @@ public class ComponentUtil {
     }
   }
 
-  public static void setBooleanProperty(UIComponent component, String name, String value) {
+  public static void setBooleanProperty(final UIComponent component, final String name, final String value) {
     if (value != null) {
       if (UIComponentTag.isValueReference(value)) {
         component.setValueBinding(name, createValueBinding(value));
@@ -263,7 +266,7 @@ public class ComponentUtil {
     }
   }
 
-  public static void setStringProperty(UIComponent component, String name, String value) {
+  public static void setStringProperty(final UIComponent component, final String name, final String value) {
     if (value != null) {
       if (UIComponentTag.isValueReference(value)) {
         component.setValueBinding(name, createValueBinding(value));
@@ -273,102 +276,110 @@ public class ComponentUtil {
     }
   }
 
-  public static void setValueForValueBinding(String name, Object value) {
+  public static void setValueForValueBinding(final String name, final Object value) {
     ComponentUtils.setValueForValueBinding(name, value);
   }
 
-  public static ValueBinding createValueBinding(String value) {
+  public static ValueBinding createValueBinding(final String value) {
     return ComponentUtils.createValueBinding(value);
   }
 
   public static String getValueFromEl(String script) {
     if (UIComponentTag.isValueReference(script)) {
-      ValueBinding valueBinding = ComponentUtils.createValueBinding(script);
+      final ValueBinding valueBinding = ComponentUtils.createValueBinding(script);
       script = (String) valueBinding.getValue(FacesContext.getCurrentInstance());
     }
     return script;
   }
 
-  public static UIComponent createComponent(String componentType, String rendererType, String id) {
+  public static UIComponent createComponent(final String componentType, final String rendererType, final String id) {
     return CreateComponentUtils.createComponent(componentType, rendererType, id);
   }
 
-  public static UIComponent createComponent(FacesContext facesContext, String componentType,
-      String rendererType, String id) {
+  public static UIComponent createComponent(
+      final FacesContext facesContext, final String componentType,
+      final String rendererType, final String id) {
     return CreateComponentUtils.createComponent(facesContext, componentType, rendererType, id);
   }
-  
+
   /**
    * Please use createComponent(FacesContext facesContext, String componentType, String rendererType, String id)
    *
    * @deprecated
    */
   @Deprecated
-  public static UIComponent createComponent(FacesContext facesContext, String componentType, String rendererType) {
+  public static UIComponent createComponent(
+      final FacesContext facesContext, final String componentType, final String rendererType) {
     return createComponent(facesContext, componentType, rendererType, null);
   }
 
-  public static UIColumn createTextColumn(String label, String sortable, String align, String value, String id) {
+  public static UIColumn createTextColumn(
+      final String label, final String sortable, final String align, final String value, final String id) {
     return (UIColumn) CreateComponentUtils.createTextColumn(label, sortable, align, value, id);
   }
 
-  public static UIColumn createColumn(String label, String sortable, String align, UIComponent child) {
+  public static UIColumn createColumn(
+      final String label, final String sortable, final String align, final UIComponent child) {
     return (UIColumn) CreateComponentUtils.createColumn(label, sortable, align, child);
   }
 
-  public static UIColumn createColumn(String label, String sortable, String align, UIComponent child, String id) {
+  public static UIColumn createColumn(
+      final String label, final String sortable, final String align, final UIComponent child, final String id) {
     return (UIColumn) CreateComponentUtils.createColumn(label, sortable, align, child, id);
   }
 
-  public static UIMenuSelectOne createUIMenuSelectOneFacet(FacesContext facesContext, UICommand command, String id) {
+  public static UIMenuSelectOne createUIMenuSelectOneFacet(
+      final FacesContext facesContext, final UICommand command, final String id) {
     return CreateComponentUtils.createUIMenuSelectOneFacet(facesContext, command, id);
   }
 
-  public static boolean hasSelectedValue(List<SelectItem> items, Object value) {
+  public static boolean hasSelectedValue(final List<SelectItem> items, final Object value) {
     return ComponentUtils.hasSelectedValue(items, value);
   }
 
-  public static UIComponent createUISelectBooleanFacet(FacesContext facesContext, UICommand command, String id) {
+  public static UIComponent createUISelectBooleanFacet(
+      final FacesContext facesContext, final UICommand command, final String id) {
     return CreateComponentUtils.createUISelectBooleanFacet(facesContext, command, id);
   }
 
-  public static int getIntValue(ValueBinding valueBinding) {
+  public static int getIntValue(final ValueBinding valueBinding) {
     return ComponentUtils.getIntValue(valueBinding);
   }
 
-  public static String createPickerId(FacesContext facesContext, UIComponent component, String postfix) {
+  public static String createPickerId(
+      final FacesContext facesContext, final UIComponent component, final String postfix) {
     return ComponentUtils.createPickerId(facesContext, component, postfix);
   }
 
-  public static String getComponentId(FacesContext facesContext, UIComponent component) {
+  public static String getComponentId(final FacesContext facesContext, final UIComponent component) {
     return ComponentUtils.getComponentId(facesContext, component);
   }
 
-  public static UIComponent provideLabel(FacesContext facesContext, UIComponent component) {
+  public static UIComponent provideLabel(final FacesContext facesContext, final UIComponent component) {
     return ComponentUtils.provideLabel(facesContext, component);
   }
 
-  public static List<SelectItem> getItemsToRender(javax.faces.component.UISelectOne component) {
+  public static List<SelectItem> getItemsToRender(final javax.faces.component.UISelectOne component) {
     return RenderUtils.getItemsToRender(component);
   }
 
-  public static List<SelectItem> getItemsToRender(javax.faces.component.UISelectMany component) {
+  public static List<SelectItem> getItemsToRender(final javax.faces.component.UISelectMany component) {
     return RenderUtils.getItemsToRender(component);
   }
 
-  public static void setValidator(EditableValueHolder editableValueHolder, String validator) {
+  public static void setValidator(final EditableValueHolder editableValueHolder, final String validator) {
     ComponentUtils.setValidator(editableValueHolder, validator);
   }
 
-  public static void setConverter(ValueHolder valueHolder, String converterId) {
+  public static void setConverter(final ValueHolder valueHolder, final String converterId) {
     ComponentUtils.setConverter(valueHolder, converterId);
   }
 
-  public static void setAction(UICommand component, String type, String action) {
+  public static void setAction(final UICommand component, final String type, final String action) {
     ComponentUtils.setAction(component, action);
   }
 
-  public static void setSuggestMethodBinding(UIIn component, String suggestMethod) {
+  public static void setSuggestMethodBinding(final UIIn component, final String suggestMethod) {
     if (suggestMethod != null) {
       if (UIComponentTag.isValueReference(suggestMethod)) {
         final MethodBinding methodBinding = FacesContext.getCurrentInstance().getApplication()
@@ -381,26 +392,26 @@ public class ComponentUtil {
     }
   }
 
-  public static void setActionListener(ActionSource command, String actionListener) {
+  public static void setActionListener(final ActionSource command, final String actionListener) {
     ComponentUtils.setActionListener(command, actionListener);
   }
 
-  public static void setValueChangeListener(EditableValueHolder valueHolder, String valueChangeListener) {
+  public static void setValueChangeListener(final EditableValueHolder valueHolder, final String valueChangeListener) {
     ComponentUtils.setValueChangeListener(valueHolder, valueChangeListener);
   }
 
-  public static void setValueBinding(UIComponent component, String name, String state) {
+  public static void setValueBinding(final UIComponent component, final String name, final String state) {
     ComponentUtils.setValueBinding(component, name, state);
   }
 
-  public static void setStateChangeListener(UISheet data, String stateChangeListener) {
+  public static void setStateChangeListener(final UISheet data, final String stateChangeListener) {
     final FacesContext facesContext = FacesContext.getCurrentInstance();
     final Application application = facesContext.getApplication();
 
     if (stateChangeListener != null) {
       if (UIComponentTag.isValueReference(stateChangeListener)) {
-        Class[] arguments = {SheetStateChangeEvent.class};
-        MethodBinding binding
+        final Class[] arguments = {SheetStateChangeEvent.class};
+        final MethodBinding binding
             = application.createMethodBinding(stateChangeListener, arguments);
         data.setStateChangeListener(binding);
       } else {
@@ -411,11 +422,11 @@ public class ComponentUtil {
   }
 
   @Deprecated
-  public static String[] getMarkupBinding(FacesContext facesContext, SupportsMarkup component) {
+  public static String[] getMarkupBinding(final FacesContext facesContext, final SupportsMarkup component) {
     return ComponentUtils.getMarkupBinding(facesContext, component);
   }
 
-  public static UIComponent findComponent(UIComponent from, String relativeId) {
+  public static UIComponent findComponent(final UIComponent from, final String relativeId) {
     return ComponentUtils.findComponent(from, relativeId);
   }
 }

@@ -34,13 +34,13 @@ public class TobagoServletContextListener implements ServletContextListener {
 
   private static final Logger LOG = LoggerFactory.getLogger(TobagoServletContextListener.class);
 
-  public void contextInitialized(ServletContextEvent event) {
+  public void contextInitialized(final ServletContextEvent event) {
 
     if (LOG.isInfoEnabled()) {
       LOG.info("*** contextInitialized ***");
     }
 
-    ServletContext servletContext = event.getServletContext();
+    final ServletContext servletContext = event.getServletContext();
 
     if (servletContext.getAttribute(TobagoConfig.TOBAGO_CONFIG) != null) {
       LOG.warn("Tobago has been already initialized. Do nothing.");
@@ -52,7 +52,7 @@ public class TobagoServletContextListener implements ServletContextListener {
       final TobagoConfig tobagoConfig = TobagoConfig.getInstance(servletContext);
       LOG.info("TobagoConfig: " + tobagoConfig);
       final ContentSecurityPolicy.Mode mode = tobagoConfig.getContentSecurityPolicy().getMode();
-      StringBuilder builder = new StringBuilder();
+      final StringBuilder builder = new StringBuilder();
       builder.append("\n*************************************************************************************");
       builder.append("\nNote: CSP is ");
       builder.append(mode);
@@ -68,13 +68,13 @@ public class TobagoServletContextListener implements ServletContextListener {
     }
   }
 
-  public void contextDestroyed(ServletContextEvent event) {
+  public void contextDestroyed(final ServletContextEvent event) {
     if (LOG.isInfoEnabled()) {
       LOG.info("*** contextDestroyed ***\n--- snip ---------"
           + "--------------------------------------------------------------");
     }
 
-    ServletContext servletContext = event.getServletContext();
+    final ServletContext servletContext = event.getServletContext();
 
     servletContext.removeAttribute(TobagoConfig.TOBAGO_CONFIG);
 

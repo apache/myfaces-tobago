@@ -24,7 +24,7 @@ public class SeleniumScriptItem {
   private String command;
   private String[] parameters;
 
-  public SeleniumScriptItem(String command, String parameter1, String parameter2) {
+  public SeleniumScriptItem(final String command, final String parameter1, final String parameter2) {
     this.command = command;
     this.parameters = new String[]{parameter1, parameter2};
   }

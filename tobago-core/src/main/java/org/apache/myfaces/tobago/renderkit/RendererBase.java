@@ -51,11 +51,11 @@ public class RendererBase extends Renderer {
   /**
    * Hook to e. g. register resources, etc.
    */
-  public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
+  public void prepareRender(final FacesContext facesContext, final UIComponent component) throws IOException {
 
     if (component instanceof SupportsMarkup) {
       final SupportsMarkup supportsMarkup = (SupportsMarkup) component;
-      Markup markup = ComponentUtils.updateMarkup(component, supportsMarkup.getMarkup());
+      final Markup markup = ComponentUtils.updateMarkup(component, supportsMarkup.getMarkup());
       supportsMarkup.setCurrentMarkup(markup);
     }
   }
@@ -64,14 +64,14 @@ public class RendererBase extends Renderer {
     return false;
   }
 
-  public void prepareRendersChildren(FacesContext context, UIComponent component) throws IOException {
+  public void prepareRendersChildren(final FacesContext context, final UIComponent component) throws IOException {
   }
 
   /**
    * @deprecated todo: should be done in the StyleClasses class.
    */
   @Deprecated
-  protected String getRendererName(String rendererType) {
+  protected String getRendererName(final String rendererType) {
     return rendererType.substring(0, 1).toLowerCase(Locale.ENGLISH) + rendererType.substring(1);
   }
 
@@ -79,36 +79,36 @@ public class RendererBase extends Renderer {
    * @deprecated since 1.5.0, please use getResourceManager().getThemeMeasure()
    */
   @Deprecated
-  public int getConfiguredValue(FacesContext facesContext, UIComponent component, String key) {
+  public int getConfiguredValue(final FacesContext facesContext, final UIComponent component, final String key) {
     return getResourceManager().getThemeMeasure(facesContext, (Configurable) component, key).getPixel();
   }
 
-  protected Object getCurrentValueAsObject(UIInput input) {
-    Object submittedValue = input.getSubmittedValue();
+  protected Object getCurrentValueAsObject(final UIInput input) {
+    final Object submittedValue = input.getSubmittedValue();
     if (submittedValue != null) {
       return submittedValue;
     }
     return getValue(input);
   }
 
-  protected String getCurrentValue(FacesContext facesContext, UIComponent component) {
+  protected String getCurrentValue(final FacesContext facesContext, final UIComponent component) {
 
     if (component instanceof EditableValueHolder) {
-      EditableValueHolder editableValueHolder = (EditableValueHolder) component;
-      Object submittedValue = editableValueHolder.getSubmittedValue();
+      final EditableValueHolder editableValueHolder = (EditableValueHolder) component;
+      final Object submittedValue = editableValueHolder.getSubmittedValue();
       if (submittedValue != null || !editableValueHolder.isValid()) {
         return (String) submittedValue;
       }
     }
     String currentValue = null;
-    Object currentObj = getValue(component);
+    final Object currentObj = getValue(component);
     if (currentObj != null) {
       currentValue = getFormattedValue(facesContext, component, currentObj);
     }
     return currentValue;
   }
 
-  protected String getFormattedValue(FacesContext context, UIComponent component, Object currentValue)
+  protected String getFormattedValue(final FacesContext context, final UIComponent component, final Object currentValue)
       throws ConverterException {
 
     if (currentValue == null) {
@@ -128,7 +128,7 @@ public class RendererBase extends Renderer {
       if (currentValue instanceof Measure) {
         return ((Measure) currentValue).serialize();
       }
-      Class converterType = currentValue.getClass();
+      final Class converterType = currentValue.getClass();
       converter = context.getApplication().createConverter(converterType);
     }
 
@@ -139,7 +139,7 @@ public class RendererBase extends Renderer {
     }
   }
 
-  protected Object getValue(UIComponent component) {
+  protected Object getValue(final UIComponent component) {
     if (component instanceof ValueHolder) {
       return ((ValueHolder) component).getValue();
     } else {
@@ -147,22 +147,22 @@ public class RendererBase extends Renderer {
     }
   }
 
-  public Converter getConverter(FacesContext context, UIComponent component) {
+  public Converter getConverter(final FacesContext context, final UIComponent component) {
     Converter converter = null;
     if (component instanceof ValueHolder) {
       converter = ((ValueHolder) component).getConverter();
     }
     if (converter == null) {
-      ValueExpression valueExpression = component.getValueExpression("value");
+      final ValueExpression valueExpression = component.getValueExpression("value");
       if (valueExpression != null) {
-        Class converterType = valueExpression.getType(context.getELContext());
+        final Class converterType = valueExpression.getType(context.getELContext());
         if (converterType == null || converterType == String.class
             || converterType == Object.class) {
           return null;
         }
         try {
           converter = context.getApplication().createConverter(converterType);
-        } catch (FacesException e) {
+        } catch (final FacesException e) {
           LOG.error("No Converter found for type " + converterType);
         }
       }
@@ -171,12 +171,12 @@ public class RendererBase extends Renderer {
   }
 
   @Override
-  public Object getConvertedValue(FacesContext context, UIComponent component, Object submittedValue)
+  public Object getConvertedValue(final FacesContext context, final UIComponent component, final Object submittedValue)
       throws ConverterException {
     if (!(submittedValue instanceof String)) {
       return submittedValue;
     }
-    Converter converter = getConverter(context, component);
+    final Converter converter = getConverter(context, component);
     if (converter != null) {
       return converter.getAsObject(context, component, (String) submittedValue);
     } else {
@@ -184,7 +184,8 @@ public class RendererBase extends Renderer {
     }
   }
 
-  public void onComponentCreated(FacesContext facesContext, UIComponent component, UIComponent parent) {
+  public void onComponentCreated(
+      final FacesContext facesContext, final UIComponent component, final UIComponent parent) {
   }
   
   protected synchronized ResourceManager getResourceManager() {

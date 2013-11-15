@@ -49,12 +49,13 @@ public class LayoutInfo {
   private LayoutTokens layoutTokens;
   private String clientIdForLogging;
 
-  public LayoutInfo(int cellCount, int space, LayoutTokens layoutTokens, String clientIdForLogging) {
+  public LayoutInfo(
+      final int cellCount, final int space, final LayoutTokens layoutTokens, final String clientIdForLogging) {
     this(cellCount, space, layoutTokens, clientIdForLogging, false);
   }
 
-  public LayoutInfo(int cellCount, int space, LayoutTokens layoutTokens,
-      String clientIdForLogging, boolean ignoreMismatch) {
+  public LayoutInfo(final int cellCount, final int space, final LayoutTokens layoutTokens,
+      final String clientIdForLogging, final boolean ignoreMismatch) {
 
     this.cellsLeft = cellCount;
     this.spaceLeft = space;
@@ -93,18 +94,18 @@ public class LayoutInfo {
     createAndInitSpaces(cellCount, FREE);
   }
 
-  private void createAndInitSpaces(int columns, int initValue) {
+  private void createAndInitSpaces(final int columns, final int initValue) {
     spaces = new int[columns];
     for (int j = 0; j < spaces.length; j++) {
       spaces[j] = initValue;
     }
   }
 
-  public void update(int space, int index) {
+  public void update(final int space, final int index) {
     update(space, index, false);
   }
 
-  public void update(int space, int index, boolean force) {
+  public void update(int space, final int index, final boolean force) {
     if (space > spaceLeft) {
       if (LOG.isDebugEnabled()) {
         LOG.debug("More space (" + space + ") needed than available (" + spaceLeft + ")!"
@@ -159,25 +160,25 @@ public class LayoutInfo {
   }
 
 
-  public static String listToTokenString(List list) {
-    String[] tokens = new String[list.size()];
+  public static String listToTokenString(final List list) {
+    final String[] tokens = new String[list.size()];
     for (int i = 0; i < list.size(); i++) {
       tokens[i] = list.get(i).toString();
     }
     return tokensToString(tokens);
   }
 
-  public static String tokensToString(int[] tokens) {
-    String[] strings = new String[tokens.length];
+  public static String tokensToString(final int[] tokens) {
+    final String[] strings = new String[tokens.length];
     for (int i = 0; i < tokens.length; i++) {
       strings[i] = Integer.toString(tokens[i]);
     }
     return tokensToString(strings);
   }
 
-  public static String tokensToString(String[] tokens) {
-    StringBuilder sb = new StringBuilder();
-    for (String token : tokens) {
+  public static String tokensToString(final String[] tokens) {
+    final StringBuilder sb = new StringBuilder();
+    for (final String token : tokens) {
       if (sb.length() != 0) {
         sb.append(";");
       }
@@ -188,7 +189,7 @@ public class LayoutInfo {
     return sb.toString();
   }
 
-  public boolean isFree(int column) {
+  public boolean isFree(final int column) {
     return spaces[column] == FREE;
   }
 
@@ -205,8 +206,8 @@ public class LayoutInfo {
   }
 
   public List<Integer> getSpaceList() {
-    List<Integer> list = new ArrayList<Integer>(spaces.length);
-    for (int space : spaces) {
+    final List<Integer> list = new ArrayList<Integer>(spaces.length);
+    for (final int space : spaces) {
       list.add(space);
     }
     return list;
@@ -249,9 +250,9 @@ public class LayoutInfo {
   }
 
   //TODO replace with Arrays.asList ..
-  private String arrayAsString(int[] currentSpaces) {
-    StringBuilder sb = new StringBuilder("[");
-    for (int currentSpace : currentSpaces) {
+  private String arrayAsString(final int[] currentSpaces) {
+    final StringBuilder sb = new StringBuilder("[");
+    for (final int currentSpace : currentSpaces) {
       sb.append(currentSpace);
       sb.append(", ");
     }
@@ -259,7 +260,7 @@ public class LayoutInfo {
     return sb.toString();
   }
 
-  private void addSpace(int space, int i) {
+  private void addSpace(final int space, final int i) {
     if (spaces[i] > HIDE) {
       if (spaces[i] == FREE) {
         spaces[i] = space;
@@ -271,17 +272,17 @@ public class LayoutInfo {
   }
 
 
-  private void parsePortions(int portions) {
+  private void parsePortions(final int portions) {
     if (columnsLeft()) {
 
       //  2. calc and set portion
       if (portions > 0) {
-        int widthForPortions = getSpaceLeft();
+        final int widthForPortions = getSpaceLeft();
         for (int i = 0; i < layoutTokens.getSize(); i++) {
-          LayoutToken token = layoutTokens.get(i);
+          final LayoutToken token = layoutTokens.get(i);
           if (isFree(i) && token instanceof RelativeLayoutToken) {
-            int portion = ((RelativeLayoutToken) token).getFactor();
-            float w = (float) widthForPortions / portions * portion;
+            final int portion = ((RelativeLayoutToken) token).getFactor();
+            final float w = (float) widthForPortions / portions * portion;
             if (w < 0) {
               update(0, i);
               if (LOG.isDebugEnabled()) {
@@ -331,16 +332,16 @@ public class LayoutInfo {
   }
 */
 
-  public void parseColumnLayout(double space) {
+  public void parseColumnLayout(final double space) {
     parseColumnLayout(space, 0);
   }
 
-  public void parseColumnLayout(double space, int padding) {
+  public void parseColumnLayout(final double space, final int padding) {
 
     if (hasLayoutTokens()) {
       int portions = 0;
       for (int i = 0; i < layoutTokens.getSize(); i++) {
-        LayoutToken token = layoutTokens.get(i);
+        final LayoutToken token = layoutTokens.get(i);
         if (token instanceof HideLayoutToken) {
           update(0, i);
           spaces[i] = HIDE;
@@ -349,7 +350,7 @@ public class LayoutInfo {
                 + " to hide " + " clientId='" + clientIdForLogging + "'");
           }
         } else if (token instanceof PixelLayoutToken) {
-          int w = ((PixelLayoutToken) token).getPixel();
+          final int w = ((PixelLayoutToken) token).getPixel();
           update(w, i, true);
           if (LOG.isDebugEnabled()) {
             LOG.debug("set column " + i + " from " + token
@@ -358,8 +359,8 @@ public class LayoutInfo {
         } else if (token instanceof RelativeLayoutToken) {
           portions += ((RelativeLayoutToken) token).getFactor();
         } else if (token instanceof PercentLayoutToken) {
-          int percent = ((PercentLayoutToken) token).getPercent();
-          int w = (int) (space / 100 * percent);
+          final int percent = ((PercentLayoutToken) token).getPercent();
+          final int w = (int) (space / 100 * percent);
           update(w, i);
           if (LOG.isDebugEnabled()) {
             LOG.debug("set column " + i + " from " + token

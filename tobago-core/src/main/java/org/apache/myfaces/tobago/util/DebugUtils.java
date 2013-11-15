@@ -35,12 +35,12 @@ public final class DebugUtils {
     // to prevent instantiation
   }
 
-  public static String toString(UIComponent component, int offset) {
+  public static String toString(final UIComponent component, final int offset) {
     return toString(component, offset, false);
   }
 
-  public static String toString(UIComponent component, int offset, boolean asFacet) {
-    StringBuilder result = new StringBuilder();
+  public static String toString(final UIComponent component, final int offset, final boolean asFacet) {
+    final StringBuilder result = new StringBuilder();
     if (component == null) {
       result.append("null");
     } else {
@@ -49,10 +49,10 @@ public final class DebugUtils {
         result.append(spaces(offset));
         result.append(toString(component));
       }
-      Map facets = component.getFacets();
+      final Map facets = component.getFacets();
       if (facets.size() > 0) {
-        for (Map.Entry<String, UIComponent> entry : (Set<Map.Entry<String, UIComponent>>) facets.entrySet()) {
-          UIComponent facet = entry.getValue();
+        for (final Map.Entry<String, UIComponent> entry : (Set<Map.Entry<String, UIComponent>>) facets.entrySet()) {
+          final UIComponent facet = entry.getValue();
           result.append('\n');
           result.append(spaces(offset + 1));
           result.append('\"');
@@ -62,15 +62,15 @@ public final class DebugUtils {
           result.append(toString(facet, offset + 1, true));
         }
       }
-      for (UIComponent child : component.getChildren()) {
+      for (final UIComponent child : component.getChildren()) {
         result.append(toString(child, offset + 1, false));
       }
     }
     return result.toString();
   }
 
-  public static String toString(UIComponent component) {
-    StringBuilder buf = new StringBuilder(component.getClass().getName());
+  public static String toString(final UIComponent component) {
+    final StringBuilder buf = new StringBuilder(component.getClass().getName());
 //    buf.append('@');
 //    buf.append(Integer.toHexString(component.hashCode()));
     buf.append(" ");
@@ -86,15 +86,15 @@ public final class DebugUtils {
     return buf.toString();
   }
 
-  public static String spaces(int n) {
-    StringBuilder buffer = new StringBuilder();
+  public static String spaces(final int n) {
+    final StringBuilder buffer = new StringBuilder();
     for (int i = 0; i < n; i++) {
       buffer.append("  ");
     }
     return buffer.toString();
   }
 
-  public static void addDevelopmentMessage(FacesContext facesContext, String message) {
+  public static void addDevelopmentMessage(final FacesContext facesContext, final String message) {
     if (TobagoConfig.getInstance(FacesContext.getCurrentInstance()).getProjectStage() == ProjectStage.Development) {
       facesContext.addMessage(null, new FacesMessage(message));
     }

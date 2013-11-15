@@ -28,8 +28,8 @@ import java.util.Locale;
 public class LocaleConverter implements Converter {
 
   public Object getAsObject(
-      FacesContext facesContext, UIComponent component, String value) {
-    Locale locale = createLocale(value);
+      final FacesContext facesContext, final UIComponent component, final String value) {
+    final Locale locale = createLocale(value);
     if (locale == null) {
       throw new ConverterException(MessageUtils.getLocalizedString(
           facesContext, "converterLocaleParserError", value));
@@ -38,12 +38,12 @@ public class LocaleConverter implements Converter {
   }
 
   public String getAsString(
-      FacesContext facesContext, UIComponent component, Object value) {
+      final FacesContext facesContext, final UIComponent component, final Object value) {
     return value == null ? null : value.toString();
   }
 
-  public static Locale createLocale(String value) {
-    String[] strings = value.split("_");
+  public static Locale createLocale(final String value) {
+    final String[] strings = value.split("_");
     switch (strings.length) {
       case 1:
         return new Locale(strings[0]);

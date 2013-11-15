@@ -43,7 +43,7 @@ public class RenderersConfigImpl implements RenderersConfig, Serializable {
     return merged;
   }
 
-  public void setMerged(boolean merged) {
+  public void setMerged(final boolean merged) {
     this.merged = merged;
   }
 
@@ -53,7 +53,7 @@ public class RenderersConfigImpl implements RenderersConfig, Serializable {
     return result;
   }
 
-  public void addRenderer(RendererConfig rendererConfig) {
+  public void addRenderer(final RendererConfig rendererConfig) {
     final String name = rendererConfig.getName();
     if (rendererMap.containsKey(name)) {
       rendererMap.get(name).merge(rendererConfig);
@@ -62,11 +62,11 @@ public class RenderersConfigImpl implements RenderersConfig, Serializable {
     }
   }
 
-  public boolean isMarkupSupported(String rendererName, String markup) {
+  public boolean isMarkupSupported(final String rendererName, final String markup) {
     if (LOG.isDebugEnabled()) {
       LOG.debug("Calling isMarkupSupported('{}', '{}')", rendererName, markup);
     }
-    RendererConfig rendererConfig = rendererMap.get(rendererName);
+    final RendererConfig rendererConfig = rendererMap.get(rendererName);
     if (rendererConfig != null) {
       return rendererConfig.contains(markup);
     } else {
@@ -75,9 +75,9 @@ public class RenderersConfigImpl implements RenderersConfig, Serializable {
     }
   }
 
-  public void merge(RenderersConfig renderersConfig, boolean override) {
-    Collection<RendererConfig> renderers = renderersConfig.getRendererConfigs();
-    for (RendererConfig rendererConfig : renderers) {
+  public void merge(final RenderersConfig renderersConfig, final boolean override) {
+    final Collection<RendererConfig> renderers = renderersConfig.getRendererConfigs();
+    for (final RendererConfig rendererConfig : renderers) {
       addRenderer(rendererConfig);
     }
   }

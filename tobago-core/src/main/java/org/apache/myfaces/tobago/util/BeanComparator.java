@@ -34,21 +34,21 @@ public class BeanComparator extends ComparatorBase implements Serializable {
 
   private String property;
 
-  public BeanComparator(String property) {
+  public BeanComparator(final String property) {
     this.property = property;
   }
 
-  public BeanComparator(String property, boolean reverse) {
+  public BeanComparator(final String property, final boolean reverse) {
     super(reverse);
     this.property = property;
   }
 
-  public BeanComparator(String property, Comparator comparator) {
+  public BeanComparator(final String property, final Comparator comparator) {
     super(comparator);
     this.property = property;
   }
 
-  public BeanComparator(String property, Comparator comparator, boolean reverse) {
+  public BeanComparator(final String property, final Comparator comparator, final boolean reverse) {
     super(reverse, comparator);
     this.property = property;
   }
@@ -57,7 +57,7 @@ public class BeanComparator extends ComparatorBase implements Serializable {
    * @param param1 <description>
    * @return <description>
    */
-  public boolean equals(Object param1) {
+  public boolean equals(final Object param1) {
     if (this == param1) {
       return true;
     }
@@ -82,14 +82,14 @@ public class BeanComparator extends ComparatorBase implements Serializable {
    * @param param2 <description>
    * @return <description>
    */
-  public int compare(Object param1, Object param2) {
-    Object obj1;
-    Object obj2;
+  public int compare(final Object param1, final Object param2) {
+    final Object obj1;
+    final Object obj2;
     try {
       obj1 = PropertyUtils.getProperty(param1, property);
       obj2 = PropertyUtils.getProperty(param2, property);
 
-    } catch (Exception e) {
+    } catch (final Exception e) {
       LOG.error(e.getMessage(), e);
       return 0;
     }

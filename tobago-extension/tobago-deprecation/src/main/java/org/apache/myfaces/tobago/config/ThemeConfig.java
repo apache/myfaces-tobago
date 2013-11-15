@@ -35,7 +35,7 @@ public class ThemeConfig {
    * @deprecated since 1.5.0, please use ThemeConfig.getMeasure()
    */
   @Deprecated
-  public static int getValue(FacesContext facesContext, UIComponent component, String name) {
+  public static int getValue(final FacesContext facesContext, final UIComponent component, final String name) {
     Deprecation.LOG.warn("please use ThemeConfig.getMeasure()");
     return ResourceManagerFactory.getResourceManager(facesContext).getThemeMeasure(
         facesContext, component.getRendererType(), null, name).getPixel();
@@ -45,7 +45,7 @@ public class ThemeConfig {
    * @deprecated since 1.5.0, please use ThemeConfig.getMeasure()
    */
   @Deprecated
-  public static boolean hasValue(FacesContext facesContext, UIComponent component, String name) {
+  public static boolean hasValue(final FacesContext facesContext, final UIComponent component, final String name) {
     Deprecation.LOG.warn("please use ThemeConfig.getMeasure()");
     return ResourceManagerFactory.getResourceManager(facesContext).getThemeMeasure(
         facesContext, component.getRendererType(), null, name) != null;

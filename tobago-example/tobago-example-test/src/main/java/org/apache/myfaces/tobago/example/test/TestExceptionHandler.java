@@ -35,7 +35,7 @@ public class TestExceptionHandler extends ExceptionHandlerWrapper {
 
   private ExceptionHandler wrapped;
 
-  public TestExceptionHandler(ExceptionHandler wrapped) {
+  public TestExceptionHandler(final ExceptionHandler wrapped) {
     this.wrapped = wrapped;
   }
 
@@ -47,14 +47,14 @@ public class TestExceptionHandler extends ExceptionHandlerWrapper {
   @Override
   public void handle() throws FacesException {
 
-    Iterator<ExceptionQueuedEvent> iterator = getUnhandledExceptionQueuedEvents().iterator();
+    final Iterator<ExceptionQueuedEvent> iterator = getUnhandledExceptionQueuedEvents().iterator();
     while (iterator.hasNext()) {
-      ExceptionQueuedEvent event = iterator.next();
-      ExceptionQueuedEventContext context = (ExceptionQueuedEventContext) event.getSource();
-      Throwable cause = ExceptionUtils.getRootCause(context.getException());
+      final ExceptionQueuedEvent event = iterator.next();
+      final ExceptionQueuedEventContext context = (ExceptionQueuedEventContext) event.getSource();
+      final Throwable cause = ExceptionUtils.getRootCause(context.getException());
       if (cause instanceof ErrorTestException) {
-        FacesContext facesContext = FacesContext.getCurrentInstance();
-        NavigationHandler nav = facesContext.getApplication().getNavigationHandler();
+        final FacesContext facesContext = FacesContext.getCurrentInstance();
+        final NavigationHandler nav = facesContext.getApplication().getNavigationHandler();
         try {
           facesContext.addMessage(null, new FacesMessage("The expected exception was thrown!"));
           nav.handleNavigation(facesContext, null, "/test/error/display-exception.xhtml");

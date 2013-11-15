@@ -30,8 +30,8 @@ import javax.faces.render.Renderer;
 
 public abstract class AbstractUIMenuBar extends UIPanel implements LayoutComponent, OnComponentCreated {
 
-  public void onComponentCreated(FacesContext context, UIComponent parent) {
-    Renderer renderer = getRenderer(getFacesContext());
+  public void onComponentCreated(final FacesContext context, final UIComponent parent) {
+    final Renderer renderer = getRenderer(getFacesContext());
     if (renderer instanceof RendererBase) {
       ((RendererBase) renderer).onComponentCreated(context, this, parent);
     }

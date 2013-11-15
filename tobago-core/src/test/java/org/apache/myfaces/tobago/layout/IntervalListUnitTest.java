@@ -33,7 +33,7 @@ public class IntervalListUnitTest extends ArrayList<Interval> {
    */
   @Test
   public void test0() {
-    IntervalList list = new IntervalList();
+    final IntervalList list = new IntervalList();
     list.evaluate();
     Assert.assertEquals(Measure.ZERO, list.getCurrent());
     Assert.assertEquals(Measure.ZERO, list.getMinimum());
@@ -44,7 +44,7 @@ public class IntervalListUnitTest extends ArrayList<Interval> {
    */
   @Test
   public void test1Fixed() {
-    IntervalList list = new IntervalList();
+    final IntervalList list = new IntervalList();
     list.add(new Interval(null, null, null, px(100)));
     list.evaluate();
     Assert.assertEquals(px(100), list.getCurrent());
@@ -58,7 +58,7 @@ public class IntervalListUnitTest extends ArrayList<Interval> {
    */
   @Test
   public void test3Fixed() {
-    IntervalList list = new IntervalList();
+    final IntervalList list = new IntervalList();
     list.add(new Interval(null, null, null, px(100)));
     list.add(new Interval(null, null, null, px(200)));
     list.add(new Interval(null, null, null, px(300)));
@@ -72,7 +72,7 @@ public class IntervalListUnitTest extends ArrayList<Interval> {
    */
   @Test
   public void test1MinPrefMax() {
-    IntervalList list = new IntervalList();
+    final IntervalList list = new IntervalList();
     list.add(new Interval(px(10), px(100), px(1000), null));
     list.evaluate();
     Assert.assertEquals(px(100), list.getCurrent());
@@ -86,7 +86,7 @@ public class IntervalListUnitTest extends ArrayList<Interval> {
    */
   @Test
   public void test3MinPrefMax() {
-    IntervalList list = new IntervalList();
+    final IntervalList list = new IntervalList();
     list.add(new Interval(px(10), px(100), px(1000), null));
     list.add(new Interval(px(20), px(200), px(2000), null));
     list.add(new Interval(px(30), px(300), px(3000), null));
@@ -101,7 +101,7 @@ public class IntervalListUnitTest extends ArrayList<Interval> {
    */
   @Test
   public void test2MinPrefMax() {
-    IntervalList list = new IntervalList();
+    final IntervalList list = new IntervalList();
     list.add(new Interval(px(10), px(100), px(1000), null));
     list.add(new Interval(px(1000), px(10000), px(100000), null));
     list.evaluate();
@@ -115,7 +115,7 @@ public class IntervalListUnitTest extends ArrayList<Interval> {
    */
   @Test
   public void test4MinPrefMax() {
-    IntervalList list = new IntervalList();
+    final IntervalList list = new IntervalList();
     list.add(new Interval(px(10), px(100), px(1000), null));
     list.add(new Interval(px(2000), px(20000), px(200000), null));
     list.evaluate();
@@ -130,7 +130,7 @@ public class IntervalListUnitTest extends ArrayList<Interval> {
    */
   @Test
   public void test3MinPrefMaxWithGaps() {
-    IntervalList list = new IntervalList();
+    final IntervalList list = new IntervalList();
     list.add(new Interval(px(10), null, null, null));
     list.add(new Interval(null, px(200), null, null));
     list.add(new Interval(null, null, px(3000), null));
@@ -149,7 +149,7 @@ public class IntervalListUnitTest extends ArrayList<Interval> {
    */
   @Test
   public void test6Mixed() {
-    IntervalList list = new IntervalList();
+    final IntervalList list = new IntervalList();
     list.add(new Interval(null, null, null, px(100)));
     list.add(new Interval(null, null, null, px(200)));
     list.add(new Interval(null, null, null, px(300)));
@@ -171,7 +171,7 @@ public class IntervalListUnitTest extends ArrayList<Interval> {
    */
   @Test
   public void test6Squeeze() {
-    IntervalList list = new IntervalList();
+    final IntervalList list = new IntervalList();
     list.add(new Interval(null, null, null, px(100)));
     list.add(new Interval(null, null, null, px(200)));
     list.add(new Interval(null, null, null, px(300)));
@@ -192,7 +192,7 @@ public class IntervalListUnitTest extends ArrayList<Interval> {
    */
   @Test
   public void test5Squeeze() {
-    IntervalList list = new IntervalList();
+    final IntervalList list = new IntervalList();
     list.add(new Interval(null, null, null, px(100)));
     list.add(new Interval(null, null, null, px(300)));
     list.add(new Interval(px(10), px(111), px(210), null));
@@ -203,7 +203,7 @@ public class IntervalListUnitTest extends ArrayList<Interval> {
     Assert.assertEquals(px(300), list.getMinimum());
   }
 
-  private Measure px(int pixel) {
+  private Measure px(final int pixel) {
     return Measure.valueOf(pixel);
   }
 }

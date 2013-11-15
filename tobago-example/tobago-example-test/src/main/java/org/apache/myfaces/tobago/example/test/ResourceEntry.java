@@ -31,14 +31,14 @@ public class ResourceEntry {
   private boolean valid;
   private String comment;
 
-  public ResourceEntry(String name, ResourceType type, String comment) {
+  public ResourceEntry(final String name, final ResourceType type, final String comment) {
     this.name = name;
     this.type = type;
     this.comment = comment;
     assert type == ResourceType.IMAGE;
   }
 
-  public ResourceEntry(String name, String key, ResourceType type, String comment) {
+  public ResourceEntry(final String name, final String key, final ResourceType type, final String comment) {
     this.name = name;
     this.key = key;
     this.type = type;
@@ -46,7 +46,7 @@ public class ResourceEntry {
     assert type == ResourceType.PROPERTY;
   }
 
-  public boolean check(FacesContext facesContext, ResourceManager resourceManager) {
+  public boolean check(final FacesContext facesContext, final ResourceManager resourceManager) {
     switch (type) {
       case IMAGE:
         valid = resourceManager.getImage(facesContext, name) != null;
@@ -64,7 +64,7 @@ public class ResourceEntry {
     return name;
   }
 
-  public void setName(String name) {
+  public void setName(final String name) {
     this.name = name;
   }
 
@@ -72,7 +72,7 @@ public class ResourceEntry {
     return type;
   }
 
-  public void setType(ResourceType type) {
+  public void setType(final ResourceType type) {
     this.type = type;
   }
 
@@ -80,7 +80,7 @@ public class ResourceEntry {
     return valid;
   }
 
-  public void setValid(boolean valid) {
+  public void setValid(final boolean valid) {
     this.valid = valid;
   }
 
@@ -88,7 +88,7 @@ public class ResourceEntry {
     return comment;
   }
 
-  public void setComment(String comment) {
+  public void setComment(final String comment) {
     this.comment = comment;
   }
 }

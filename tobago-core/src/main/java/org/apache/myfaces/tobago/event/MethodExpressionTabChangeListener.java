@@ -35,23 +35,23 @@ public class MethodExpressionTabChangeListener implements TabChangeListener, Sta
   public MethodExpressionTabChangeListener() {
   }
 
-  public MethodExpressionTabChangeListener(MethodExpression methodExpression) {
+  public MethodExpressionTabChangeListener(final MethodExpression methodExpression) {
     this.methodExpression = methodExpression;
   }
 
-  public void processTabChange(TabChangeEvent actionEvent) throws AbortProcessingException {
+  public void processTabChange(final TabChangeEvent actionEvent) throws AbortProcessingException {
      FacesUtilsEL.invokeMethodExpression(FacesContext.getCurrentInstance(), methodExpression, actionEvent);
   }
 
-  public void restoreState(FacesContext context, Object state) {
+  public void restoreState(final FacesContext context, final Object state) {
     methodExpression = (MethodExpression) state;
   }
 
-  public Object saveState(FacesContext context) {
+  public Object saveState(final FacesContext context) {
     return methodExpression;
   }
 
-  public void setTransient(boolean newTransientValue) {
+  public void setTransient(final boolean newTransientValue) {
     isTransient = newTransientValue;
   }
 

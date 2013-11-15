@@ -31,7 +31,7 @@ public class NavigationUnitTest extends AbstractTobagoTestBase {
 
   @Test
   public void testFileNames() {
-    List<String> list = new ArrayList<String>(Arrays.asList(
+    final List<String> list = new ArrayList<String>(Arrays.asList(
         "/content/00/test-1.xhtml",
 // todo        "/content/00/x-bad.xhtml", // x- means excluded
         "/content/00/07/test-2.xhtml",

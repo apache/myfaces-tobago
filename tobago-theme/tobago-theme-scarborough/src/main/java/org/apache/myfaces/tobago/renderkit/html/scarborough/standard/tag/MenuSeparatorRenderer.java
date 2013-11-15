@@ -32,8 +32,8 @@ import java.io.IOException;
 public class MenuSeparatorRenderer extends LayoutComponentRendererBase {
 
   @Override
-  public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
-    TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+  public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
+    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
     writer.startElement(HtmlElements.LI, component);
     writer.writeClassAttribute(Classes.create(component));
     writer.startElement(HtmlElements.HR, component);

@@ -38,7 +38,7 @@ public class Interval {
 
   private final Measure current;
 
-  public Interval(LayoutComponent component, Orientation orientation) {
+  public Interval(final LayoutComponent component, final Orientation orientation) {
     this(
         orientation == Orientation.HORIZONTAL ? component.getMinimumWidth() : component.getMinimumHeight(),
         orientation == Orientation.HORIZONTAL ? component.getPreferredWidth() : component.getPreferredHeight(),
@@ -46,7 +46,7 @@ public class Interval {
         orientation == Orientation.HORIZONTAL ? component.getCurrentWidth() : component.getCurrentHeight());
   }
 
-  public Interval(Measure minimum, Measure preferred, Measure maximum, Measure current) {
+  public Interval(final Measure minimum, final Measure preferred, final Measure maximum, final Measure current) {
     if (LOG.isWarnEnabled()) {
       if (minimum != null && minimum.greaterThan(preferred)) {
         LOG.warn("Minimum '{}' is not smaller or equals preferred '{}'.", minimum, preferred);
@@ -62,7 +62,7 @@ public class Interval {
   }
 
   // XXX what about rounding??? may use multiply instead of divide
-  public Interval(Interval interval, int divider) {
+  public Interval(final Interval interval, final int divider) {
     this.minimum = interval.minimum != null
         ? interval.minimum.divide(divider) : null; // XXX may add one for rounding up.
     this.preferred = interval.preferred != null ? interval.preferred.divide(divider) : null;
@@ -88,7 +88,7 @@ public class Interval {
 
   @Override
   public String toString() {
-    StringBuilder builder = new StringBuilder();
+    final StringBuilder builder = new StringBuilder();
     builder.append("[");
     builder.append(minimum);
     builder.append("<=");

@@ -32,7 +32,7 @@ public class SelectBooleanCheckboxBean {
     return value00;
   }
 
-  public void setValue0(boolean value00) {
+  public void setValue0(final boolean value00) {
     this.value00 = value00;
   }
 
@@ -40,7 +40,7 @@ public class SelectBooleanCheckboxBean {
     return value01;
   }
 
-  public void setValue1(boolean value01) {
+  public void setValue1(final boolean value01) {
     this.value01 = value01;
   }
 
@@ -48,7 +48,7 @@ public class SelectBooleanCheckboxBean {
     return value02;
   }
 
-  public void setValue2(boolean value02) {
+  public void setValue2(final boolean value02) {
     this.value02 = value02;
   }
 
@@ -56,7 +56,7 @@ public class SelectBooleanCheckboxBean {
     return value10;
   }
 
-  public void setRequired0(boolean value10) {
+  public void setRequired0(final boolean value10) {
     this.value10 = value10;
   }
 
@@ -64,7 +64,7 @@ public class SelectBooleanCheckboxBean {
     return value11;
   }
 
-  public void setRequired1(boolean value11) {
+  public void setRequired1(final boolean value11) {
     this.value11 = value11;
   }
 
@@ -72,7 +72,7 @@ public class SelectBooleanCheckboxBean {
     return value12;
   }
 
-  public void setRequired2(boolean value12) {
+  public void setRequired2(final boolean value12) {
     this.value12 = value12;
   }
 }

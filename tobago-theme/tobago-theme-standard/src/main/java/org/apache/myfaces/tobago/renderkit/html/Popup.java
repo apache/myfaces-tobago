@@ -35,12 +35,12 @@ public class Popup {
    */
   private Boolean immediate;
 
-  private Popup(String command, Boolean immediate) {
+  private Popup(final String command, final Boolean immediate) {
     this.command = command;
     this.immediate = immediate;
   }
 
-  public static Popup createPopup(AbstractUICommandBase component) {
+  public static Popup createPopup(final AbstractUICommandBase component) {
     String command = null;
     Boolean immediate = null;
 
@@ -49,7 +49,7 @@ public class Popup {
       command = "close";
       immediate = popupClose.equals("immediate");
     } else {
-      boolean popupAction = ComponentUtils.containsPopupActionListener(component);
+      final boolean popupAction = ComponentUtils.containsPopupActionListener(component);
       if (popupAction) {
         command = "open";
       }

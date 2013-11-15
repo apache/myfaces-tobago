@@ -25,7 +25,7 @@ public class PercentLayoutToken extends LayoutToken {
 
   private int percent = 0;
 
-  public PercentLayoutToken(int percent) {
+  public PercentLayoutToken(final int percent) {
     this.percent = percent;
   }
 
@@ -37,7 +37,7 @@ public class PercentLayoutToken extends LayoutToken {
     return percent + SUFFIX;
   }
 
-  public boolean equals(Object o) {
+  public boolean equals(final Object o) {
     if (this == o) {
       return true;
     }
@@ -45,7 +45,7 @@ public class PercentLayoutToken extends LayoutToken {
       return false;
     }
 
-    PercentLayoutToken that = (PercentLayoutToken) o;
+    final PercentLayoutToken that = (PercentLayoutToken) o;
 
     if (percent != that.percent) {
       return false;

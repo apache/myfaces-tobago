@@ -34,7 +34,7 @@ public class Hidden {
     return value1;
   }
 
-  public void setValue1(String value1) {
+  public void setValue1(final String value1) {
     this.value1 = value1;
   }
 
@@ -42,7 +42,7 @@ public class Hidden {
     return value2;
   }
 
-  public void setValue2(String value2) {
+  public void setValue2(final String value2) {
     this.value2 = value2;
   }
 
@@ -50,7 +50,7 @@ public class Hidden {
     return value3;
   }
 
-  public void setValue3(String value3) {
+  public void setValue3(final String value3) {
     this.value3 = value3;
   }
 }

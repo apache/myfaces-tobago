@@ -41,11 +41,12 @@ import java.io.IOException;
 
 public class ExportUIDataToWorkbookUtils {
 
-  public static void writeWorkbook(UIData data, String attachmentName, FacesContext context) throws IOException {
-    HSSFWorkbook workbook = createWorkbook(data, context);
-    Object response = context.getExternalContext().getResponse();
+  public static void writeWorkbook(final UIData data, final String attachmentName, final FacesContext context)
+      throws IOException {
+    final HSSFWorkbook workbook = createWorkbook(data, context);
+    final Object response = context.getExternalContext().getResponse();
     if (response instanceof HttpServletResponse) {
-      HttpServletResponse servletResponse = (HttpServletResponse) response;
+      final HttpServletResponse servletResponse = (HttpServletResponse) response;
       servletResponse.setContentType("application/vnd.ms-excel");
       if (StringUtils.isNotEmpty(attachmentName)) {
         servletResponse.setHeader("Content-Disposition", "attachment; filename=" + attachmentName);
@@ -56,21 +57,21 @@ public class ExportUIDataToWorkbookUtils {
     }
   }
 
-  private static HSSFWorkbook createWorkbook(UIData table, FacesContext context) {
-    HSSFWorkbook workbook = new HSSFWorkbook();
-    HSSFSheet sheet = workbook.createSheet(table.getId());
-    List<UIColumn> columns = getColumns(table);
-    int currentRowIndex = table.getRowIndex();
+  private static HSSFWorkbook createWorkbook(final UIData table, final FacesContext context) {
+    final HSSFWorkbook workbook = new HSSFWorkbook();
+    final HSSFSheet sheet = workbook.createSheet(table.getId());
+    final List<UIColumn> columns = getColumns(table);
+    final int currentRowIndex = table.getRowIndex();
     addColumnHeaders(sheet, columns, context);
     addColumnValues(sheet, columns, table, context);
     table.setRowIndex(currentRowIndex);
     return workbook;
   }
 
-  private static List<UIColumn> getColumns(UIData table) {
-    List<UIColumn> columns = new ArrayList<UIColumn>();
+  private static List<UIColumn> getColumns(final UIData table) {
+    final List<UIColumn> columns = new ArrayList<UIColumn>();
     for (int i = 0; i < table.getChildCount(); i++) {
-      UIComponent child = table.getChildren().get(i);
+      final UIComponent child = table.getChildren().get(i);
       if (child instanceof UIColumn && !(child instanceof UIColumnSelector)) {
         columns.add((UIColumn) child);
       }
@@ -78,30 +79,33 @@ public class ExportUIDataToWorkbookUtils {
     return columns;
   }
 
-  private static void addColumnValue(HSSFRow rowHeader, UIComponent component, int index, FacesContext context) {
-    HSSFCell cell = rowHeader.createCell((short) index);
+  private static void addColumnValue(
+      final HSSFRow rowHeader, final UIComponent component, final int index, final FacesContext context) {
+    final HSSFCell cell = rowHeader.createCell((short) index);
     cell.setEncoding(HSSFCell.ENCODING_UTF_16);
     if (component instanceof ValueHolder) {
-      String stringValue = RenderUtils.getFormattedValue(context, component);
+      final String stringValue = RenderUtils.getFormattedValue(context, component);
       cell.setCellValue(stringValue);
     } else if (component instanceof org.apache.myfaces.tobago.component.UIColumn
         || component instanceof UICommand) {
-      String value = component.getAttributes().get("label") != null
+      final String value = component.getAttributes().get("label") != null
           ? component.getAttributes().get("label").toString() : "";
       cell.setCellValue(value);
     }
   }
 
-  private static void addColumnHeaders(HSSFSheet sheet, List<UIColumn> columns, FacesContext context) {
-    HSSFRow rowHeader = sheet.createRow(0);
+  private static void addColumnHeaders(
+      final HSSFSheet sheet, final List<UIColumn> columns, final FacesContext context) {
+    final HSSFRow rowHeader = sheet.createRow(0);
     for (int i = 0; i < columns.size(); i++) {
-      UIColumn column = columns.get(i);
+      final UIColumn column = columns.get(i);
       addColumnValue(rowHeader, column, i, context);
     }
   }
 
-  private static void addColumnValues(HSSFSheet sheet, List<UIColumn> columns, UIData table, FacesContext context) {
-    int rowCount = table.getRowCount();
+  private static void addColumnValues(
+      final HSSFSheet sheet, final List<UIColumn> columns, final UIData table, final FacesContext context) {
+    final int rowCount = table.getRowCount();
     if (rowCount == -1) {
       int index = 0;
       table.setRowIndex(index);
@@ -117,10 +121,11 @@ public class ExportUIDataToWorkbookUtils {
     }
   }
 
-  private static void addRow(HSSFSheet sheet, int index, List<UIColumn> columns, FacesContext context) {
-    HSSFRow row = sheet.createRow(1 + index);
+  private static void addRow(
+      final HSSFSheet sheet, final int index, final List<UIColumn> columns, final FacesContext context) {
+    final HSSFRow row = sheet.createRow(1 + index);
     for (int j = 0; j < columns.size(); j++) {
-      UIColumn column = columns.get(j);
+      final UIColumn column = columns.get(j);
       addColumnValue(row, column.getChildren().get(0), j, context);
     }
   }

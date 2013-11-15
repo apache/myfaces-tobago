@@ -40,23 +40,23 @@ import java.io.IOException;
 @Deprecated
 class RenderResponseExecutor implements PhaseExecutor {
 
-  public boolean execute(FacesContext facesContext) {
-    Application application = facesContext.getApplication();
-    ViewHandler viewHandler = application.getViewHandler();
+  public boolean execute(final FacesContext facesContext) {
+    final Application application = facesContext.getApplication();
+    final ViewHandler viewHandler = application.getViewHandler();
 
     try {
       final UIViewRoot viewRoot = facesContext.getViewRoot();
       if (viewRoot.getViewId() != null) {
         viewHandler.renderView(facesContext, viewRoot);
       } else {
-        Object respObj = facesContext.getExternalContext().getResponse();
+        final Object respObj = facesContext.getExternalContext().getResponse();
         if (respObj instanceof HttpServletResponse) {
-            HttpServletResponse respHttp = (HttpServletResponse) respObj;
+            final HttpServletResponse respHttp = (HttpServletResponse) respObj;
             respHttp.sendError(HttpServletResponse.SC_NOT_FOUND);
             facesContext.responseComplete();
         }
       }
-    } catch (IOException e) {
+    } catch (final IOException e) {
       throw new FacesException(e.getMessage(), e);
     }
     return false;

@@ -50,7 +50,7 @@ public class LinkRenderer extends CommandRendererBase {
 
   private static final Logger LOG = LoggerFactory.getLogger(LinkRenderer.class);
 
-  public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
+  public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
 
     final AbstractUILink link = (AbstractUILink) component;
     final String clientId = link.getClientId(facesContext);
@@ -60,7 +60,7 @@ public class LinkRenderer extends CommandRendererBase {
 
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
-    LabelWithAccessKey label = new LabelWithAccessKey(link);
+    final LabelWithAccessKey label = new LabelWithAccessKey(link);
 
     if (disabled) {
       writer.startElement(HtmlElements.SPAN, link);
@@ -83,7 +83,7 @@ public class LinkRenderer extends CommandRendererBase {
       }
     }
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, link);
-    Style style = new Style(facesContext, link);
+    final Style style = new Style(facesContext, link);
     writer.writeStyleAttribute(style);
     HtmlRendererUtils.renderDojoDndItem(component, writer, true);
     writer.writeClassAttribute(Classes.create(link));
@@ -104,7 +104,7 @@ public class LinkRenderer extends CommandRendererBase {
       writer.writeClassAttribute(Classes.create(link, "image"));
       writer.writeAttribute(HtmlAttributes.SRC, image, true);
       writer.writeAttribute(HtmlAttributes.BORDER, 0); // TODO: is border=0 setting via style possible?
-      String tip = link.getTip();
+      final String tip = link.getTip();
       writer.writeAttribute(HtmlAttributes.ALT, tip != null ? tip : "", true);
       if (tip != null) {
         writer.writeAttribute(HtmlAttributes.TITLE, tip, true);
@@ -130,9 +130,9 @@ public class LinkRenderer extends CommandRendererBase {
     }
   }
 
-  public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
-    AbstractUILink link = (AbstractUILink) component;
-    ResponseWriter writer = facesContext.getResponseWriter();
+  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
+    final AbstractUILink link = (AbstractUILink) component;
+    final ResponseWriter writer = facesContext.getResponseWriter();
     if (link.isDisabled()) {
       writer.endElement(HtmlElements.SPAN);
     } else {
@@ -141,7 +141,7 @@ public class LinkRenderer extends CommandRendererBase {
   }
 
   @Override
-  public Measure getPreferredWidth(FacesContext facesContext, Configurable component) {
+  public Measure getPreferredWidth(final FacesContext facesContext, final Configurable component) {
     final AbstractUILink link = (AbstractUILink) component;
     final LabelWithAccessKey label = new LabelWithAccessKey(link);
     final String text = label.getText();

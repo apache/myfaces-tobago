@@ -46,7 +46,7 @@ public abstract class TobagoResponseWriter extends ResponseWriter {
    * @deprecated Use {@link #startElement(String, UIComponent) startElement(name, null)} instead.
    */
   @Deprecated
-  public void startElement(String name) throws IOException {
+  public void startElement(final String name) throws IOException {
     startElement(name, null);
   }
 
@@ -87,7 +87,7 @@ public abstract class TobagoResponseWriter extends ResponseWriter {
   /**
    * Writes a boolean attribute. The value will not escaped.
    */
-  public void writeAttribute(String name, boolean on) throws IOException {
+  public void writeAttribute(final String name, final boolean on) throws IOException {
     if (on) {
       writeAttribute(name, name, false);
     }
@@ -96,28 +96,28 @@ public abstract class TobagoResponseWriter extends ResponseWriter {
   /**
    * Writes a integer attribute. The value will not escaped.
    */
-  public void writeAttribute(String name, int number) throws IOException {
+  public void writeAttribute(final String name, final int number) throws IOException {
     writeAttribute(name, Integer.toString(number), false);
   }
 
   /**
    * Writes a propery as attribute. The value will be escaped.
    */
-  public void writeAttributeFromComponent(String name, String property) throws IOException {
+  public void writeAttributeFromComponent(final String name, final String property) throws IOException {
     writeAttribute(name, null, property);
   }
 
   /**
    * Write the id attribute. The value will not escaped.
    */
-  public void writeIdAttribute(String id) throws IOException {
+  public void writeIdAttribute(final String id) throws IOException {
     writeAttribute(HtmlAttributes.ID, id, false);
   }
 
   /**
    * Write the name attribute. The value will not escaped.
    */
-  public void writeNameAttribute(String name) throws IOException {
+  public void writeNameAttribute(final String name) throws IOException {
     writeAttribute(HtmlAttributes.NAME, name, false);
   }
 
@@ -126,7 +126,7 @@ public abstract class TobagoResponseWriter extends ResponseWriter {
    * @deprecated since Tobago 1.5.0
    */
   @Deprecated
-  public void writeClassAttribute(String cssClass) throws IOException {
+  public void writeClassAttribute(final String cssClass) throws IOException {
     writeAttribute(HtmlAttributes.CLASS, cssClass, false);
   }
 
@@ -134,7 +134,7 @@ public abstract class TobagoResponseWriter extends ResponseWriter {
    * Write the class attribute. The value will not escaped.
    * @param classes The abstract representation of the css class string, normally created by the renderer.
    */
-  public void writeClassAttribute(Classes classes) throws IOException {
+  public void writeClassAttribute(final Classes classes) throws IOException {
     writeAttribute(HtmlAttributes.CLASS, classes.getStringValue(), false);
   }
 
@@ -151,7 +151,7 @@ public abstract class TobagoResponseWriter extends ResponseWriter {
   /**
    * Write the style attribute. The value will not escaped.
    */
-  public void writeStyleAttribute(Style style) throws IOException {
+  public void writeStyleAttribute(final Style style) throws IOException {
     if (style != null) {
       final String json = style.encodeJson();
       if (json.length() > 2) { // empty "{}" needs not to be written
@@ -166,7 +166,7 @@ public abstract class TobagoResponseWriter extends ResponseWriter {
    * @deprecated since 1.5.0, use writeStyleAttribute(Style) instead.
    */
   @Deprecated
-  public void writeStyleAttribute(String style) throws IOException {
+  public void writeStyleAttribute(final String style) throws IOException {
     writeAttribute(HtmlAttributes.STYLE, style, false);
   }
 
@@ -174,7 +174,7 @@ public abstract class TobagoResponseWriter extends ResponseWriter {
    * @deprecated Should not be used, because it conflicts with CSP.
    */
   @Deprecated
-  public void writeJavascript(String script) throws IOException {
+  public void writeJavascript(final String script) throws IOException {
     startJavascript();
     write(script);
     endJavascript();
@@ -203,14 +203,14 @@ public abstract class TobagoResponseWriter extends ResponseWriter {
   /**
    * Write text content. The text will be escaped.
    */
-  public void writeText(String text) throws IOException {
+  public void writeText(final String text) throws IOException {
     writeText(text, null);
   }
 
   /**
    * Writes a property as text. The text will be escaped.
    */
-  public void writeTextFromComponent(String property) throws IOException {
+  public void writeTextFromComponent(final String property) throws IOException {
     writeText(null, property);
   }
 
@@ -224,7 +224,7 @@ public abstract class TobagoResponseWriter extends ResponseWriter {
       characterEncoding = "UTF-8";
     }
 
-    StringBuilder builder = new StringBuilder(contentType);
+    final StringBuilder builder = new StringBuilder(contentType);
     builder.append("; charset=");
     builder.append(characterEncoding);
     return builder.toString();

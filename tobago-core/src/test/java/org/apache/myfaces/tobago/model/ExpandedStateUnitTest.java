@@ -90,7 +90,7 @@ public class ExpandedStateUnitTest {
   @Test
   public void test() {
 
-    ExpandedState state = new ExpandedState(2);
+    final ExpandedState state = new ExpandedState(2);
 
     final TreePath root = new TreePath(ROOT);
     final TreePath a = new TreePath(A);

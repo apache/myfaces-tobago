@@ -38,36 +38,36 @@ public class Log4jUtils {
   /**
    * @return all appenders currently in use
    */
-  public static Set<Appender> getAllAppenders(LoggerRepository repository) {
-      Enumeration loggers = repository.getCurrentLoggers();
-      Set<Appender> allAppenders = getAllAppenders(loggers);
+  public static Set<Appender> getAllAppenders(final LoggerRepository repository) {
+      final Enumeration loggers = repository.getCurrentLoggers();
+      final Set<Appender> allAppenders = getAllAppenders(loggers);
       addAppenders(repository.getRootLogger(), allAppenders);
       return allAppenders;
   }
 
-  public static Set<Appender> getAllAppenders(Enumeration loggers) {
-      Set<Appender> allAppenders = new HashSet<Appender>();
+  public static Set<Appender> getAllAppenders(final Enumeration loggers) {
+      final Set<Appender> allAppenders = new HashSet<Appender>();
       while (loggers.hasMoreElements()) {
-          Logger logger = (Logger) loggers.nextElement();
+          final Logger logger = (Logger) loggers.nextElement();
           addAppenders(logger, allAppenders);
       }
       return allAppenders;
   }
 
-  private static void addAppenders(Logger logger, Set<Appender> allAppenders) {
-      Enumeration appenders = logger.getAllAppenders();
+  private static void addAppenders(final Logger logger, final Set<Appender> allAppenders) {
+      final Enumeration appenders = logger.getAllAppenders();
       while (appenders.hasMoreElements()) {
-          Appender appender = (Appender) appenders.nextElement();
+          final Appender appender = (Appender) appenders.nextElement();
           allAppenders.add(appender);
       }
   }
 
-  public static FileAppender getFileAppender(String name, LoggerRepository repository) {
-      Set allAppenders = getAllAppenders(repository);
-    for (Object allAppender : allAppenders) {
-      Appender appender = (Appender) allAppender;
+  public static FileAppender getFileAppender(final String name, final LoggerRepository repository) {
+      final Set allAppenders = getAllAppenders(repository);
+    for (final Object allAppender : allAppenders) {
+      final Appender appender = (Appender) allAppender;
       if (appender instanceof FileAppender) {
-        FileAppender fileAppender = (FileAppender) appender;
+        final FileAppender fileAppender = (FileAppender) appender;
         if (fileAppender.getName() != null
             && fileAppender.getName().equals(name)) {
           return fileAppender;

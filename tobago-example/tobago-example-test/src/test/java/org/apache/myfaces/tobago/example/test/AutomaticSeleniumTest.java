@@ -45,24 +45,24 @@ public class AutomaticSeleniumTest extends SeleniumTest {
 
   private String url;
 
-  public AutomaticSeleniumTest(String title, String url) {
+  public AutomaticSeleniumTest(final String title, final String url) {
     this.url = url;
   }
 
   @Test
   public void testPageConsistency() throws Exception {
-    SeleniumScript script = getSeleniumScript(url);
+    final SeleniumScript script = getSeleniumScript(url);
 
     getSelenium().killSession();
 
-    for (SeleniumScriptItem item : script.getItems()) {
+    for (final SeleniumScriptItem item : script.getItems()) {
       LOG.info("Calling: " + item);
       getSelenium().command(item.getCommand(), item.getParameters()[0], item.getParameters()[1]);
       getSelenium().checkPage();
     }
   }
 
-  private SeleniumScript getSeleniumScript(String url)
+  private SeleniumScript getSeleniumScript(final String url)
       throws XPathExpressionException, SAXException, IOException, ParserConfigurationException {
     String seleniumUrl = url.substring("/faces/".length());
     seleniumUrl = seleniumUrl.substring(0, seleniumUrl.lastIndexOf("."));
@@ -72,7 +72,7 @@ public class AutomaticSeleniumTest extends SeleniumTest {
 
   @Parameterized.Parameters
   public static Collection<Object[]> findPages() {
-    List<String> paths = new ArrayList<String>();
+    final List<String> paths = new ArrayList<String>();
 
     String base = MAVEN_TARGET + '/';
 
@@ -85,10 +85,10 @@ public class AutomaticSeleniumTest extends SeleniumTest {
 
     Collections.sort(paths);
 
-    List<Object[]> result = new ArrayList<Object[]>();
+    final List<Object[]> result = new ArrayList<Object[]>();
 
-    for (String path : paths) {
-      Object[] objects = {
+    for (final String path : paths) {
+      final Object[] objects = {
           path.replace('.', '_'), // because dots will be displayed strange in the IDE
           createUrl(path)
       };
@@ -98,7 +98,7 @@ public class AutomaticSeleniumTest extends SeleniumTest {
     return result;
   }
 
-  private static void collect(List<String> result, String base, String directory) {
+  private static void collect(final List<String> result, final String base, final String directory) {
 
     final File file = new File(base + directory);
 
@@ -110,11 +110,11 @@ public class AutomaticSeleniumTest extends SeleniumTest {
       throw new RuntimeException("Input is not a directory: '" + file.getAbsolutePath() + "'");
     }
 
-    String[] filenames = file.list();
+    final String[] filenames = file.list();
 
-    for (String filename : filenames) {
+    for (final String filename : filenames) {
 
-      String path = directory + '/' + filename;
+      final String path = directory + '/' + filename;
 
       if (new File(base + path).isDirectory()) {
         collect(result, base, path);

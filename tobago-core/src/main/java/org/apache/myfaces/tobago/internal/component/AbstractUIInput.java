@@ -29,7 +29,7 @@ public abstract class AbstractUIInput extends javax.faces.component.UIInput
     implements SupportsMarkup, LayoutComponent {
 
   // TODO can this removed?
-  public void updateModel(FacesContext facesContext) {
+  public void updateModel(final FacesContext facesContext) {
     if (ComponentUtils.mayUpdateModel(this)) {
       super.updateModel(facesContext);
     }

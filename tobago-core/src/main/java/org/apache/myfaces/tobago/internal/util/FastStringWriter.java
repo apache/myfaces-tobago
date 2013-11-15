@@ -30,23 +30,23 @@ public class FastStringWriter extends Writer {
     this(1024);
   }
 
-  public FastStringWriter(int initialSize) {
+  public FastStringWriter(final int initialSize) {
     stringBuilder = new StringBuilder(initialSize);
   }
 
-  public void write(int c) {
+  public void write(final int c) {
     stringBuilder.append((char) c);
   }
 
-  public void write(char[] cbuf, int off, int len) {
+  public void write(final char[] cbuf, final int off, final int len) {
     stringBuilder.append(cbuf, off, len);
   }
 
-  public void write(String str) {
+  public void write(final String str) {
     stringBuilder.append(str);
   }
 
-  public void write(String str, int off, int len) {
+  public void write(final String str, final int off, final int len) {
     stringBuilder.append(str.substring(off, off + len));
   }
 

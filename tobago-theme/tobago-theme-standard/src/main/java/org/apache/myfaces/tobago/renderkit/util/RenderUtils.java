@@ -29,14 +29,12 @@ import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.model.ExpandedState;
 import org.apache.myfaces.tobago.model.SelectedState;
 import org.apache.myfaces.tobago.model.TreePath;
-import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.util.DebugUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -58,7 +56,6 @@ import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -78,11 +75,11 @@ public class RenderUtils {
     // to prevent instantiation
   }
 
-  public static boolean contains(Object[] list, Object value) {
+  public static boolean contains(final Object[] list, final Object value) {
     if (list == null) {
       return false;
     }
-    for (Object aList : list) {
+    for (final Object aList : list) {
       if (aList != null && aList.equals(value)) {
         return true;
       }
@@ -90,18 +87,19 @@ public class RenderUtils {
     return false;
   }
 
-  public static void encodeChildren(FacesContext facesContext, UIComponent panel) throws IOException {
-    for (UIComponent child : panel.getChildren()) {
+  public static void encodeChildren(final FacesContext facesContext, final UIComponent panel) throws IOException {
+    for (final UIComponent child : panel.getChildren()) {
       encode(facesContext, child);
     }
   }
 
-  public static void encode(FacesContext facesContext, UIComponent component) throws IOException {
+  public static void encode(final FacesContext facesContext, final UIComponent component) throws IOException {
     encode(facesContext, component, null);
   }
 
   public static void encode(
-      FacesContext facesContext, UIComponent component, List<? extends Class<? extends UIComponent>> only)
+      final FacesContext facesContext, final UIComponent component,
+      final List<? extends Class<? extends UIComponent>> only)
       throws IOException {
 
     if (only != null && !matchFilter(component, only)) {
@@ -116,7 +114,7 @@ public class RenderUtils {
       if (component.getRendersChildren()) {
         component.encodeChildren(facesContext);
       } else {
-        for (UIComponent child : component.getChildren()) {
+        for (final UIComponent child : component.getChildren()) {
           encode(facesContext, child, only);
         }
       }
@@ -124,8 +122,9 @@ public class RenderUtils {
     }
   }
 
-  private static boolean matchFilter(UIComponent component, List<? extends Class<? extends UIComponent>> only) {
-    for (Class<? extends UIComponent> clazz : only) {
+  private static boolean matchFilter(
+      final UIComponent component, final List<? extends Class<? extends UIComponent>> only) {
+    for (final Class<? extends UIComponent> clazz : only) {
       if (clazz.isAssignableFrom(component.getClass())) {
         return true;
       }
@@ -133,29 +132,16 @@ public class RenderUtils {
     return false;
   }
 
-  public static void prepareRendererAll(FacesContext facesContext, UIComponent component) throws IOException {
-    if (!component.isRendered()) {
-      return;
-    }
-    RendererBase renderer = ComponentUtils.getRenderer(facesContext, component);
-    boolean prepareRendersChildren = false;
-    if (renderer != null) {
-      renderer.prepareRender(facesContext, component);
-      prepareRendersChildren = renderer.getPrepareRendersChildren();
-    }
-    if (prepareRendersChildren) {
-      renderer.prepareRendersChildren(facesContext, component);
-    } else {
-      Iterator it = component.getFacetsAndChildren();
-      while (it.hasNext()) {
-        UIComponent child = (UIComponent) it.next();
-        prepareRendererAll(facesContext, child);
-      }
-    }
+  /**
+   * @deprecated since 2.0.0, please use EncodeUtils.prepareRendererAll()
+   */
+  @Deprecated
+  public static void prepareRendererAll(final FacesContext facesContext, final UIComponent component)
+      throws IOException {
+    EncodeUtils.prepareRendererAll(facesContext, component);
   }
 
-  public static String getFormattedValue(
-      FacesContext facesContext, UIComponent component) {
+  public static String getFormattedValue(final FacesContext facesContext, final UIComponent component) {
     Object value = null;
     if (component instanceof ValueHolder) {
       value = ((ValueHolder) component).getLocalValue();
@@ -168,7 +154,7 @@ public class RenderUtils {
 
   // Copy from RendererBase
   public static String getFormattedValue(
-      FacesContext context, UIComponent component, Object currentValue)
+      final FacesContext context, final UIComponent component, final Object currentValue)
       throws ConverterException {
 
     if (currentValue == null) {
@@ -185,7 +171,7 @@ public class RenderUtils {
       if (currentValue instanceof String) {
         return (String) currentValue;
       }
-      Class converterType = currentValue.getClass();
+      final Class converterType = currentValue.getClass();
       converter = context.getApplication().createConverter(converterType);
     }
 
@@ -196,16 +182,18 @@ public class RenderUtils {
     }
   }
 
-  public static Measure calculateStringWidth(FacesContext facesContext, UIComponent component, String text) {
+  public static Measure calculateStringWidth(
+      final FacesContext facesContext, final UIComponent component, final String text) {
     return calculateStringWidth(facesContext, (Configurable) component, text, "tobago.font.widths");
   }
 
-  public static Measure calculateStringWidth2(FacesContext facesContext, UIComponent component, String text) {
+  public static Measure calculateStringWidth2(
+      final FacesContext facesContext, final UIComponent component, final String text) {
     return calculateStringWidth(facesContext, (Configurable) component, text, "tobago.font2.widths");
   }
 
   private static Measure calculateStringWidth(
-      FacesContext facesContext, Configurable component, String text, String type) {
+      final FacesContext facesContext, final Configurable component, final String text, final String type) {
     if (text == null) {
       return Measure.ZERO;
     }
@@ -213,15 +201,15 @@ public class RenderUtils {
     int defaultCharWidth = 10;
     try {
       defaultCharWidth = ResourceManagerUtils.getThemeMeasure(facesContext, component, "fontWidth").getPixel();
-    } catch (NullPointerException e) {
+    } catch (final NullPointerException e) {
       LOG.warn("no value for 'fontWidth' for type '" + component.getRendererType() + "' found in theme-config");
     }
 
-    String fontWidths = ResourceManagerUtils.getProperty(facesContext, "tobago", type);
+    final String fontWidths = ResourceManagerUtils.getProperty(facesContext, "tobago", type);
 
-    for (char c : text.toCharArray()) {
+    for (final char c : text.toCharArray()) {
       if (c >= 32 && c < 128) { // "normal" char in precomputed range
-        int begin = (c - 32) * 2;
+        final int begin = (c - 32) * 2;
         width += Integer.parseInt(fontWidths.substring(begin, begin + 2), 16);
       } else {
         width += defaultCharWidth;
@@ -233,17 +221,17 @@ public class RenderUtils {
     return Measure.valueOf(width);
   }
 
-  public static List<SelectItem> getItemsToRender(javax.faces.component.UISelectOne component) {
+  public static List<SelectItem> getItemsToRender(final javax.faces.component.UISelectOne component) {
     return getItems(component);
   }
 
-  public static List<SelectItem> getItemsToRender(javax.faces.component.UISelectMany component) {
+  public static List<SelectItem> getItemsToRender(final javax.faces.component.UISelectMany component) {
     return getItems(component);
   }
 
-  public static List<SelectItem> getItems(javax.faces.component.UIInput component) {
+  public static List<SelectItem> getItems(final javax.faces.component.UIInput component) {
 
-    List<SelectItem> selectItems = getSelectItems(component);
+    final List<SelectItem> selectItems = getSelectItems(component);
 
     String renderRange = (String) component.getAttributes().get(Attributes.RENDER_RANGE_EXTERN);
     if (renderRange == null) {
@@ -253,11 +241,11 @@ public class RenderUtils {
       return selectItems;
     }
 
-    int[] indices = StringUtils.getIndices(renderRange);
-    List<SelectItem> items = new ArrayList<SelectItem>(indices.length);
+    final int[] indices = StringUtils.getIndices(renderRange);
+    final List<SelectItem> items = new ArrayList<SelectItem>(indices.length);
 
     if (selectItems.size() != 0) {
-      for (int indice : indices) {
+      for (final int indice : indices) {
         items.add(selectItems.get(indice));
       }
     } else {
@@ -269,7 +257,7 @@ public class RenderUtils {
     return items;
   }
 
-  public static String currentValue(UIComponent component) {
+  public static String currentValue(final UIComponent component) {
     String currentValue = null;
     if (component instanceof ValueHolder) {
       Object value;
@@ -284,7 +272,7 @@ public class RenderUtils {
       if (value != null) {
         Converter converter = ((ValueHolder) component).getConverter();
         if (converter == null) {
-          FacesContext context = FacesContext.getCurrentInstance();
+          final FacesContext context = FacesContext.getCurrentInstance();
           converter = context.getApplication().createConverter(value.getClass());
         }
         if (converter != null) {
@@ -299,19 +287,19 @@ public class RenderUtils {
     return currentValue;
   }
 
-  public static List<SelectItem> getSelectItems(UIComponent component) {
+  public static List<SelectItem> getSelectItems(final UIComponent component) {
 
-    ArrayList<SelectItem> list = new ArrayList<SelectItem>();
+    final ArrayList<SelectItem> list = new ArrayList<SelectItem>();
 
-    for (UIComponent child : component.getChildren()) {
+    for (final UIComponent child : component.getChildren()) {
       if (LOG.isDebugEnabled()) {
         LOG.debug("kid " + child);
         LOG.debug("kid " + child.getClass().getName());
       }
       if (child instanceof UISelectItem) {
-        Object value = ((UISelectItem) child).getValue();
+        final Object value = ((UISelectItem) child).getValue();
         if (value == null) {
-          UISelectItem item = (UISelectItem) child;
+          final UISelectItem item = (UISelectItem) child;
           if (child instanceof org.apache.myfaces.tobago.component.UISelectItem) {
             list.add(getSelectItem(
                 (org.apache.myfaces.tobago.component.UISelectItem) child));
@@ -330,7 +318,7 @@ public class RenderUtils {
           DebugUtils.addDevelopmentMessage(FacesContext.getCurrentInstance(), message);
         }
       } else if (child instanceof UISelectItems) {
-        Object value = ((UISelectItems) child).getValue();
+        final Object value = ((UISelectItems) child).getValue();
         if (LOG.isDebugEnabled()) {
           LOG.debug("value " + value);
           if (value != null) {
@@ -344,16 +332,16 @@ public class RenderUtils {
         } else if (value instanceof SelectItem) {
           list.add((SelectItem) value);
         } else if (value instanceof SelectItem[]) {
-          SelectItem[] items = (SelectItem[]) value;
+          final SelectItem[] items = (SelectItem[]) value;
           list.addAll(Arrays.asList(items));
         } else if (value instanceof Collection) {
-          for (Object o : ((Collection) value)) {
+          for (final Object o : ((Collection) value)) {
             list.add((SelectItem) o);
           }
         } else if (value instanceof Map) {
-          for (Object key : ((Map) value).keySet()) {
+          for (final Object key : ((Map) value).keySet()) {
             if (key != null) {
-              Object val = ((Map) value).get(key);
+              final Object val = ((Map) value).get(key);
               if (val != null) {
                 list.add(new SelectItem(val.toString(), key.toString(), null));
               }
@@ -372,7 +360,7 @@ public class RenderUtils {
     return list;
   }
 
-  private static SelectItem getSelectItem(org.apache.myfaces.tobago.component.UISelectItem component) {
+  private static SelectItem getSelectItem(final org.apache.myfaces.tobago.component.UISelectItem component) {
     return
         new org.apache.myfaces.tobago.model.SelectItem(component.getItemValue() == null ? "" : component.getItemValue(),
             component.getItemLabel(), component.getItemDescription(),
@@ -380,7 +368,7 @@ public class RenderUtils {
   }
 
 
-  public static void decodedStateOfTreeData(FacesContext facesContext, AbstractUIData data) {
+  public static void decodedStateOfTreeData(final FacesContext facesContext, final AbstractUIData data) {
 
     if (!data.isTreeModel()) {
       return;
@@ -402,16 +390,16 @@ public class RenderUtils {
       final TreePath path = data.getPath();
 
       // selected
-        final SelectedState selectedState = data.getSelectedState();
-        final boolean oldSelected = selectedState.isSelected(path);
-        final boolean newSelected = selectedIndices.contains(rowIndex);
-        if (newSelected != oldSelected) {
-          if (newSelected) {
-            selectedState.select(path);
-          } else {
-            selectedState.unselect(path);
-          }
+      final SelectedState selectedState = data.getSelectedState();
+      final boolean oldSelected = selectedState.isSelected(path);
+      final boolean newSelected = selectedIndices.contains(rowIndex);
+      if (newSelected != oldSelected) {
+        if (newSelected) {
+          selectedState.select(path);
+        } else {
+          selectedState.unselect(path);
         }
+      }
 
       // expanded
       if (expandedIndices != null) {
@@ -431,7 +419,8 @@ public class RenderUtils {
     data.setRowIndex(-1);
   }
 
-  private static List<Integer> decodeIndices(FacesContext facesContext, AbstractUIData data, String suffix) {
+  private static List<Integer> decodeIndices(
+      final FacesContext facesContext, final AbstractUIData data, final String suffix) {
     String string = null;
     final String key = data.getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + suffix;
     try {
@@ -439,25 +428,27 @@ public class RenderUtils {
       if (string != null) {
         return StringUtils.parseIntegerList(string);
       }
-    } catch (Exception e) {
+    } catch (final Exception e) {
       // should not happen
       LOG.warn("Can't parse " + suffix + ": '" + string + "' from parameter '" + key + "'", e);
     }
     return null;
   }
 
-  public static void writeScrollPosition(FacesContext facesContext, TobagoResponseWriter writer, UIComponent component)
+  public static void writeScrollPosition(
+      final FacesContext facesContext, final TobagoResponseWriter writer, final UIComponent component)
       throws IOException {
     Integer[] scrollPosition = (Integer[]) component.getAttributes().get(Attributes.SCROLL_POSITION);
     if (scrollPosition == null) {
       final String key = component.getClientId(facesContext) + SCROLL_POSTFIX;
       scrollPosition = parseScrollPosition(facesContext.getExternalContext().getRequestParameterMap().get(key));
     }
-    writeScrollPosition(facesContext,  writer, component, scrollPosition);
+    writeScrollPosition(facesContext, writer, component, scrollPosition);
   }
-  
+
   public static void writeScrollPosition(
-      FacesContext facesContext, TobagoResponseWriter writer, UIComponent component, Integer[] scrollPosition)
+      final FacesContext facesContext, final TobagoResponseWriter writer, final UIComponent component,
+      final Integer[] scrollPosition)
       throws IOException {
     final String clientId = component.getClientId(facesContext);
     writer.startElement(HtmlElements.INPUT, null);
@@ -465,7 +456,7 @@ public class RenderUtils {
     writer.writeNameAttribute(clientId + SCROLL_POSTFIX);
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN, false);
     if (scrollPosition != null) {
-      String scroll = scrollPosition[0] + ";" + scrollPosition[1];
+      final String scroll = scrollPosition[0] + ";" + scrollPosition[1];
       writer.writeAttribute(HtmlAttributes.VALUE, scroll, false);
     } else {
       writer.writeAttribute(HtmlAttributes.VALUE, "", false);
@@ -474,11 +465,11 @@ public class RenderUtils {
     writer.endElement(HtmlElements.INPUT);
   }
 
-  public static void decodeScrollPosition(FacesContext facesContext, UIComponent component) {
-    String key = component.getClientId(facesContext) + SCROLL_POSTFIX;
-    String value = facesContext.getExternalContext().getRequestParameterMap().get(key);
+  public static void decodeScrollPosition(final FacesContext facesContext, final UIComponent component) {
+    final String key = component.getClientId(facesContext) + SCROLL_POSTFIX;
+    final String value = facesContext.getExternalContext().getRequestParameterMap().get(key);
     if (value != null) {
-      Integer[] scrollPosition = parseScrollPosition(value);
+      final Integer[] scrollPosition = parseScrollPosition(value);
       if (scrollPosition != null) {
         //noinspection unchecked
         component.getAttributes().put(Attributes.SCROLL_POSITION, scrollPosition);
@@ -486,18 +477,18 @@ public class RenderUtils {
     }
   }
 
-  public static Integer[] parseScrollPosition(String value) {
+  public static Integer[] parseScrollPosition(final String value) {
     Integer[] position = null;
     if (!StringUtils.isBlank(value)) {
-      int sep = value.indexOf(";");
+      final int sep = value.indexOf(";");
       if (LOG.isInfoEnabled()) {
         LOG.info("value = \"" + value + "\"  sep = " + sep + "");
       }
       if (sep == -1) {
         throw new NumberFormatException(value);
       }
-      int left = Integer.parseInt(value.substring(0, sep));
-      int top = Integer.parseInt(value.substring(sep + 1));
+      final int left = Integer.parseInt(value.substring(0, sep));
+      final int top = Integer.parseInt(value.substring(sep + 1));
       position = new Integer[2];
       position[0] = left;
       position[1] = top;
@@ -505,7 +496,7 @@ public class RenderUtils {
     return position;
   }
 
-  public static String generateUrl(FacesContext facesContext, AbstractUICommandBase component) {
+  public static String generateUrl(final FacesContext facesContext, final AbstractUICommandBase component) {
 
     final Application application = facesContext.getApplication();
     final ViewHandler viewHandler = application.getViewHandler();
@@ -514,7 +505,7 @@ public class RenderUtils {
     String url = null;
 
     if (component.getResource() != null) {
-      boolean jsfResource = component.isJsfResource();
+      final boolean jsfResource = component.isJsfResource();
       url = ResourceManagerUtils.getPageWithoutContextPath(facesContext, component.getResource());
       if (url != null) {
         if (jsfResource) {
@@ -529,7 +520,7 @@ public class RenderUtils {
       }
     } else if (component.getLink() != null) {
 
-      String link = component.getLink();
+      final String link = component.getLink();
       if (link.startsWith("/")) { // internal absolute link
         url = viewHandler.getActionURL(facesContext, link);
         url = externalContext.encodeActionURL(url);
@@ -539,11 +530,11 @@ public class RenderUtils {
         url = externalContext.encodeResourceURL(link);
       }
 
-      StringBuilder builder = new StringBuilder(url);
+      final StringBuilder builder = new StringBuilder(url);
       boolean firstParameter = !url.contains("?");
-      for (UIComponent child : component.getChildren()) {
+      for (final UIComponent child : component.getChildren()) {
         if (child instanceof UIParameter) {
-          UIParameter parameter = (UIParameter) child;
+          final UIParameter parameter = (UIParameter) child;
           if (firstParameter) {
             builder.append("?");
             firstParameter = false;
@@ -552,7 +543,7 @@ public class RenderUtils {
           }
           builder.append(parameter.getName());
           builder.append("=");
-          Object value = parameter.getValue();
+          final Object value = parameter.getValue();
           // TODO encoding
           builder.append(value != null ? URLDecoder.decode(value.toString()) : null);
         }

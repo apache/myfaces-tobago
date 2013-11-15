@@ -46,7 +46,7 @@ public class TextareaRenderer extends InputRendererBase {
   private static final Logger LOG = LoggerFactory.getLogger(TextareaRenderer.class);
 
   @Override
-  public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
+  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
     if (!(component instanceof UITextarea)) {
       LOG.error("Wrong type: Need " + UITextarea.class.getName() + ", but was " + component.getClass().getName());
       return;
@@ -89,9 +89,9 @@ public class TextareaRenderer extends InputRendererBase {
     }
     int maxLength = -1;
     final String pattern = null;
-    for (Validator validator : input.getValidators()) {
+    for (final Validator validator : input.getValidators()) {
       if (validator instanceof LengthValidator) {
-        LengthValidator lengthValidator = (LengthValidator) validator;
+        final LengthValidator lengthValidator = (LengthValidator) validator;
         maxLength = lengthValidator.getMaximum();
       }
       /*if (validator instanceof RegexValidator) {

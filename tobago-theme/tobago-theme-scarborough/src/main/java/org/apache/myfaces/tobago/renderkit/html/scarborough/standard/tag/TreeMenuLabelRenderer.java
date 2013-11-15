@@ -32,13 +32,13 @@ public class TreeMenuLabelRenderer extends TreeLabelRenderer {
 
   private static final Logger LOG = LoggerFactory.getLogger(TreeMenuLabelRenderer.class);
 
-  protected Style createStyle(FacesContext facesContext, UITreeLabel node) {
+  protected Style createStyle(final FacesContext facesContext, final UITreeLabel node) {
 
     final AbstractUITreeNode parent = (AbstractUITreeNode) node.getParent();
     final int level = parent.getLevel();
 //    final boolean folder = parent.isFolder();
 
-    Style style = new Style();
+    final Style style = new Style();
     Measure paddingLeft = getResourceManager().getThemeMeasure(facesContext, node, "custom.padding-left");
     paddingLeft = paddingLeft.multiply(level);
     style.setPaddingLeft(paddingLeft);

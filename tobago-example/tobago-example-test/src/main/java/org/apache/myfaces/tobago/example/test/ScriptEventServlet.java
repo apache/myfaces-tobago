@@ -34,13 +34,13 @@ public class ScriptEventServlet extends HttpServlet {
   private static final Logger LOG = LoggerFactory.getLogger(ScriptEventServlet.class);
 
   @Override
-  protected void doGet(HttpServletRequest request, HttpServletResponse response)
+  protected void doGet(final HttpServletRequest request, final HttpServletResponse response)
       throws ServletException, IOException {
     final HttpSession session = request.getSession(false);
     if (session != null) {
       final ScriptEvent scriptEvent = (ScriptEvent) session.getAttribute("scriptEvent");
       if (scriptEvent != null) {
-        String event = request.getParameter("event");
+        final String event = request.getParameter("event");
         if (event.equals("onload")) {
           scriptEvent.onLoad();
         } else if (event.equals("onunload")) {

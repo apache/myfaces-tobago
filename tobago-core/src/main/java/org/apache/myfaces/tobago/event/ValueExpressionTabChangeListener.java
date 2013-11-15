@@ -37,13 +37,13 @@ public class ValueExpressionTabChangeListener implements TabChangeListener, Stat
   public ValueExpressionTabChangeListener() {
   }
 
-  public ValueExpressionTabChangeListener(String type, ValueExpression valueExpression) {
+  public ValueExpressionTabChangeListener(final String type, final ValueExpression valueExpression) {
     this.type = type;
     this.valueExpression = valueExpression;
   }
 
-  public void processTabChange(TabChangeEvent tabChangeEvent) {
-    TabChangeListener handler = getTabChangeListener();
+  public void processTabChange(final TabChangeEvent tabChangeEvent) {
+    final TabChangeListener handler = getTabChangeListener();
     if (handler != null) {
       handler.processTabChange(tabChangeEvent);
     } else {
@@ -51,15 +51,15 @@ public class ValueExpressionTabChangeListener implements TabChangeListener, Stat
     }
   }
 
-  public Object saveState(FacesContext context) {
-    Object[] state = new Object[2];
+  public Object saveState(final FacesContext context) {
+    final Object[] state = new Object[2];
     state[0] = UIComponentBase.saveAttachedState(context, valueExpression);
     state[1] = type;
     return state;
   }
 
-  public void restoreState(FacesContext context, Object state) {
-    Object[] values = (Object[]) state;
+  public void restoreState(final FacesContext context, final Object state) {
+    final Object[] values = (Object[]) state;
     valueExpression = (ValueExpression) UIComponentBase.restoreAttachedState(context, values[0]);
     type = (String) values[1];
 
@@ -69,14 +69,14 @@ public class ValueExpressionTabChangeListener implements TabChangeListener, Stat
     return false;
   }
 
-  public void setTransient(boolean newTransientValue) {
+  public void setTransient(final boolean newTransientValue) {
     // ignore
   }
 
   private TabChangeListener getTabChangeListener() {
     TabChangeListener handler = null;
     if (valueExpression != null) {
-      Object obj = valueExpression.getValue(FacesContext.getCurrentInstance().getELContext());
+      final Object obj = valueExpression.getValue(FacesContext.getCurrentInstance().getELContext());
       if (obj != null && obj instanceof TabChangeListener) {
         handler = (TabChangeListener) obj;
       }
@@ -90,11 +90,11 @@ public class ValueExpressionTabChangeListener implements TabChangeListener, Stat
     return handler;
   }
 
-  private TabChangeListener createTabChangeListener(String className) {
+  private TabChangeListener createTabChangeListener(final String className) {
     try {
-      Class clazz = getClass().getClassLoader().loadClass(className);
+      final Class clazz = getClass().getClassLoader().loadClass(className);
       return ((TabChangeListener) clazz.newInstance());
-    } catch (Exception e) {
+    } catch (final Exception e) {
       LOG.error("", e);
     }
     return null;

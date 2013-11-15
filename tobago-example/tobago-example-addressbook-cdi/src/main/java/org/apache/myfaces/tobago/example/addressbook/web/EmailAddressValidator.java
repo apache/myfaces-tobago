@@ -39,7 +39,7 @@ public class EmailAddressValidator implements Validator {
   private static final Pattern LOCAL_PART_PATTERN = Pattern.compile(LOCAL_PART_SPEC);
   private static final Pattern DOMAIN_PATTERN = Pattern.compile(DOMAIN_SPEC);
 
-  public void validate(FacesContext facesContext, UIComponent uiComponent, Object value)
+  public void validate(final FacesContext facesContext, final UIComponent uiComponent, final Object value)
       throws ValidatorException {
 
     if (value == null) {

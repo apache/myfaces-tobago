@@ -55,7 +55,7 @@ public class FacesUtils {
    */
   @Deprecated
   public static boolean invokeOnComponent(
-      FacesContext context, UIComponent component, String clientId, ContextCallback callback) {
+      final FacesContext context, final UIComponent component, final String clientId, final ContextCallback callback) {
     return FacesInvokeOnComponent12.invokeOnComponent(context, component, clientId, callback);
   }
 
@@ -63,12 +63,13 @@ public class FacesUtils {
    * @deprecated since 2.0.0
    */
   @Deprecated
-  public static void invokeMethodBinding(FacesContext facesContext, MethodBinding methodBinding, FacesEvent event) {
+  public static void invokeMethodBinding(
+      final FacesContext facesContext, final MethodBinding methodBinding, final FacesEvent event) {
     if (methodBinding != null && event != null) {
       try {
         methodBinding.invoke(facesContext, new Object[]{event});
-      } catch (EvaluationException e) {
-        Throwable cause = e.getCause();
+      } catch (final EvaluationException e) {
+        final Throwable cause = e.getCause();
         if (cause instanceof AbortProcessingException) {
           throw (AbortProcessingException) cause;
         } else {
@@ -83,7 +84,7 @@ public class FacesUtils {
    */
   @Deprecated
   public static Object getValueFromValueBindingOrValueExpression(
-      FacesContext context, UIComponent component, String name) {
+      final FacesContext context, final UIComponent component, final String name) {
       return FacesUtilsEL.getValueFromValueBindingOrValueExpression(context, component, name);
   }
 
@@ -91,7 +92,7 @@ public class FacesUtils {
    * @deprecated since 2.0.0
    */
   @Deprecated
-  public static boolean hasValueBindingOrValueExpression(UIComponent component, String name) {
+  public static boolean hasValueBindingOrValueExpression(final UIComponent component, final String name) {
       return FacesUtilsEL.hasValueBindingOrValueExpression(component, name);
   }
 
@@ -100,7 +101,7 @@ public class FacesUtils {
    */
   @Deprecated
   public static boolean isReadonlyValueBindingOrValueExpression(
-      FacesContext context, UIComponent component, String name) {
+      final FacesContext context, final UIComponent component, final String name) {
       return FacesUtilsEL.isReadonlyValueBindingOrValueExpression(context, component, name);
   }
 
@@ -108,7 +109,7 @@ public class FacesUtils {
    * @deprecated since 2.0.0
    */
   @Deprecated
-  public static String getExpressionString(UIComponent component, String name) {
+  public static String getExpressionString(final UIComponent component, final String name) {
       return FacesUtilsEL.getExpressionString(component, name);
   }
 
@@ -117,7 +118,7 @@ public class FacesUtils {
    */
   @Deprecated
   public static void setValueOfBindingOrExpression(
-      FacesContext context, Object value, UIComponent component, String bindingName) {
+      final FacesContext context, final Object value, final UIComponent component, final String bindingName) {
       FacesUtilsEL.setValueOfBindingOrExpression(context, value, component, bindingName);
   }
 
@@ -126,7 +127,7 @@ public class FacesUtils {
    */
   @Deprecated
   public static void setValueOfBindingOrExpression(
-      FacesContext context, Object value, Object bindingOrExpression) {
+      final FacesContext context, final Object value, final Object bindingOrExpression) {
       FacesUtilsEL.setValueOfBindingOrExpression(context, value, bindingOrExpression);
   }
 
@@ -135,7 +136,7 @@ public class FacesUtils {
    */
   @Deprecated
   public static void copyValueBindingOrValueExpression(
-      UIComponent fromComponent, String fromName, UIComponent toComponent, String toName) {
+      final UIComponent fromComponent, final String fromName, final UIComponent toComponent, final String toName) {
       FacesUtilsEL.copyValueBindingOrValueExpression(fromComponent, fromName, toComponent, toName);
   }
 
@@ -143,7 +144,7 @@ public class FacesUtils {
    * @deprecated since 2.0.0
    */
   @Deprecated
-  public static Object getValueFromBindingOrExpression(Object obj) {
+  public static Object getValueFromBindingOrExpression(final Object obj) {
       return FacesUtilsEL.getValueFromBindingOrExpression(obj);
   }
 
@@ -151,7 +152,7 @@ public class FacesUtils {
    * @deprecated since 2.0.0
    */
   @Deprecated
-  public static Object createExpressionOrBinding(String string) {
+  public static Object createExpressionOrBinding(final String string) {
       return FacesUtilsEL.createExpressionOrBinding(string);
   }
 
@@ -159,7 +160,7 @@ public class FacesUtils {
    * @deprecated since 2.0.0
    */
   @Deprecated
-  public static void setValidator(EditableValueHolder editableValueHolder, Object validator) {
+  public static void setValidator(final EditableValueHolder editableValueHolder, final Object validator) {
       FacesUtilsEL.setValidator(editableValueHolder, validator);
   }
 
@@ -167,7 +168,7 @@ public class FacesUtils {
    * @deprecated since 2.0.0
    */
   @Deprecated
-  public static void setConverter(ValueHolder valueHolder, Object converterExpression) {
+  public static void setConverter(final ValueHolder valueHolder, final Object converterExpression) {
       FacesUtilsEL.setConverter(valueHolder, converterExpression);
   }
 
@@ -175,15 +176,17 @@ public class FacesUtils {
    * @deprecated since 2.0.0
    */
   @Deprecated
-  public static void setBindingOrExpression(UIComponent component, String name, Object valueBindingOrExpression) {
-      FacesUtilsEL.setBindingOrExpression(component, name, valueBindingOrExpression);
+  public static void setBindingOrExpression(
+      final UIComponent component, final String name, final Object valueBindingOrExpression) {
+    FacesUtilsEL.setBindingOrExpression(component, name, valueBindingOrExpression);
   }
 
   /**
    * @deprecated since 2.0.0
    */
   @Deprecated
-  public static void setBindingOrExpression(UIComponent component, String name, String valueBindingOrExpression) {
+  public static void setBindingOrExpression(
+      final UIComponent component, final String name, final String valueBindingOrExpression) {
     setBindingOrExpression(component, name, createExpressionOrBinding(valueBindingOrExpression));
   }
 
@@ -191,8 +194,8 @@ public class FacesUtils {
    * @deprecated since 2.0.0
    */
   @Deprecated
-  public static void addBindingOrExpressionTabChangeListener(TabChangeSource source, String type,
-      Object bindingOrExpression) {
+  public static void addBindingOrExpressionTabChangeListener(final TabChangeSource source, final String type,
+      final Object bindingOrExpression) {
       FacesUtilsEL.addBindingOrExpressionTabChangeListener(source, type, bindingOrExpression);
   }
 
@@ -201,31 +204,34 @@ public class FacesUtils {
    */
   @Deprecated
   public static Comparator getBindingOrExpressionComparator(
-      FacesContext facesContext, UIComponent child, String var, boolean descending, Comparator comparator) {
-      return FacesUtilsEL.getBindingOrExpressionComparator(facesContext, child, var, descending, comparator);
+      final FacesContext facesContext, final UIComponent child, final String var, final boolean descending,
+      final Comparator comparator) {
+    return FacesUtilsEL.getBindingOrExpressionComparator(facesContext, child, var, descending, comparator);
   }
 
   /**
    * @deprecated since 2.0.0
    */
   @Deprecated
-  public static void addBindingOrExpressionPopupActionListener(ActionSource actionSource, Object bindingOrExpression) {
-      FacesUtilsEL.addBindingOrExpressionPopupActionListener(actionSource, bindingOrExpression);
+  public static void addBindingOrExpressionPopupActionListener(
+      final ActionSource actionSource, final Object bindingOrExpression) {
+    FacesUtilsEL.addBindingOrExpressionPopupActionListener(actionSource, bindingOrExpression);
   }
 
   /**
    * @deprecated since 2.0.0
    */
   @Deprecated
-  public static void addBindingOrExpressionResetActionListener(ActionSource actionSource, Object bindingOrExpression) {
-      FacesUtilsEL.addBindingOrExpressionResetActionListener(actionSource, bindingOrExpression);
+  public static void addBindingOrExpressionResetActionListener(
+      final ActionSource actionSource, final Object bindingOrExpression) {
+    FacesUtilsEL.addBindingOrExpressionResetActionListener(actionSource, bindingOrExpression);
   }
 
   /**
    * @deprecated since 2.0.0 Please call facesContext.getAttributes() directly.
    */
   @Deprecated
-  public static Map getFacesContextAttributes(FacesContext facesContext) {
+  public static Map getFacesContextAttributes(final FacesContext facesContext) {
     return facesContext.getAttributes();
   }
 

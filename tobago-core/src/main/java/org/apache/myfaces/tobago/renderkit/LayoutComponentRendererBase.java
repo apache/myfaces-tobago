@@ -29,91 +29,91 @@ import javax.faces.context.FacesContext;
 
 public abstract class LayoutComponentRendererBase extends RendererBase implements LayoutComponentRenderer {
 
-  public Measure getCustomMeasure(FacesContext facesContext, Configurable component, String name) {
+  public Measure getCustomMeasure(final FacesContext facesContext, final Configurable component, final String name) {
     return getResourceManager().getThemeMeasure(facesContext, component, name);
   }
 
-  public Measure getWidth(FacesContext facesContext, Configurable component) {
+  public Measure getWidth(final FacesContext facesContext, final Configurable component) {
     return getResourceManager().getThemeMeasure(facesContext, component, Attributes.WIDTH);
   }
 
-  public Measure getHeight(FacesContext facesContext, Configurable component) {
+  public Measure getHeight(final FacesContext facesContext, final Configurable component) {
     return getResourceManager().getThemeMeasure(facesContext, component, Attributes.HEIGHT);
   }
 
-  public Measure getMinimumWidth(FacesContext facesContext, Configurable component) {
+  public Measure getMinimumWidth(final FacesContext facesContext, final Configurable component) {
     return getResourceManager().getThemeMeasure(facesContext, component, Attributes.MINIMUM_WIDTH);
   }
 
-  public Measure getMinimumHeight(FacesContext facesContext, Configurable component) {
+  public Measure getMinimumHeight(final FacesContext facesContext, final Configurable component) {
     return getResourceManager().getThemeMeasure(facesContext, component, Attributes.MINIMUM_HEIGHT);
   }
 
-  public Measure getPreferredWidth(FacesContext facesContext, Configurable component) {
+  public Measure getPreferredWidth(final FacesContext facesContext, final Configurable component) {
     return getResourceManager().getThemeMeasure(facesContext, component, Attributes.PREFERRED_WIDTH);
   }
 
-  public Measure getPreferredHeight(FacesContext facesContext, Configurable component) {
+  public Measure getPreferredHeight(final FacesContext facesContext, final Configurable component) {
     return getResourceManager().getThemeMeasure(facesContext, component, Attributes.PREFERRED_HEIGHT);
   }
 
-  public Measure getMaximumWidth(FacesContext facesContext, Configurable component) {
+  public Measure getMaximumWidth(final FacesContext facesContext, final Configurable component) {
     return getResourceManager().getThemeMeasure(facesContext, component, Attributes.MAXIMUM_WIDTH);
   }
 
-  public Measure getMaximumHeight(FacesContext facesContext, Configurable component) {
+  public Measure getMaximumHeight(final FacesContext facesContext, final Configurable component) {
     return getResourceManager().getThemeMeasure(facesContext, component, Attributes.MAXIMUM_HEIGHT);
   }
 
-  public Measure getMarginLeft(FacesContext facesContext, Configurable component) {
+  public Measure getMarginLeft(final FacesContext facesContext, final Configurable component) {
     return getResourceManager().getThemeMeasure(facesContext, component, Attributes.MARGIN_LEFT);
   }
 
-  public Measure getMarginRight(FacesContext facesContext, Configurable component) {
+  public Measure getMarginRight(final FacesContext facesContext, final Configurable component) {
     return getResourceManager().getThemeMeasure(facesContext, component, Attributes.MARGIN_RIGHT);
   }
 
-  public Measure getMarginTop(FacesContext facesContext, Configurable component) {
+  public Measure getMarginTop(final FacesContext facesContext, final Configurable component) {
     return getResourceManager().getThemeMeasure(facesContext, component, Attributes.MARGIN_TOP);
   }
 
-  public Measure getMarginBottom(FacesContext facesContext, Configurable component) {
+  public Measure getMarginBottom(final FacesContext facesContext, final Configurable component) {
     return getResourceManager().getThemeMeasure(facesContext, component, Attributes.MARGIN_BOTTOM);
   }
 
-  public Measure getBorderLeft(FacesContext facesContext, Configurable component) {
+  public Measure getBorderLeft(final FacesContext facesContext, final Configurable component) {
     return getResourceManager().getThemeMeasure(facesContext, component, Attributes.BORDER_LEFT);
   }
 
-  public Measure getBorderRight(FacesContext facesContext, Configurable component) {
+  public Measure getBorderRight(final FacesContext facesContext, final Configurable component) {
     return getResourceManager().getThemeMeasure(facesContext, component, Attributes.BORDER_RIGHT);
   }
 
-  public Measure getBorderTop(FacesContext facesContext, Configurable component) {
+  public Measure getBorderTop(final FacesContext facesContext, final Configurable component) {
     return getResourceManager().getThemeMeasure(facesContext, component, Attributes.BORDER_TOP);
   }
 
-  public Measure getBorderBottom(FacesContext facesContext, Configurable component) {
+  public Measure getBorderBottom(final FacesContext facesContext, final Configurable component) {
     return getResourceManager().getThemeMeasure(facesContext, component, Attributes.BORDER_BOTTOM);
   }
 
-  public Measure getPaddingLeft(FacesContext facesContext, Configurable component) {
+  public Measure getPaddingLeft(final FacesContext facesContext, final Configurable component) {
     return getResourceManager().getThemeMeasure(facesContext, component, Attributes.PADDING_LEFT);
   }
 
-  public Measure getPaddingRight(FacesContext facesContext, Configurable component) {
+  public Measure getPaddingRight(final FacesContext facesContext, final Configurable component) {
     return getResourceManager().getThemeMeasure(facesContext, component, Attributes.PADDING_RIGHT);
   }
 
-  public Measure getPaddingTop(FacesContext facesContext, Configurable component) {
+  public Measure getPaddingTop(final FacesContext facesContext, final Configurable component) {
     return getResourceManager().getThemeMeasure(facesContext, component, Attributes.PADDING_TOP);
   }
 
-  public Measure getPaddingBottom(FacesContext facesContext, Configurable component) {
+  public Measure getPaddingBottom(final FacesContext facesContext, final Configurable component) {
     return getResourceManager().getThemeMeasure(facesContext, component, Attributes.PADDING_BOTTOM);
   }
 
-  public Measure getVerticalScrollbarWeight(FacesContext facesContext, Configurable component) {
+  public Measure getVerticalScrollbarWeight(final FacesContext facesContext, final Configurable component) {
     final ClientProperties clientProperties = VariableResolverUtils.resolveClientProperties(facesContext);
     final Measure weight = clientProperties.getVerticalScrollbarWeight();
     if (weight != null) {

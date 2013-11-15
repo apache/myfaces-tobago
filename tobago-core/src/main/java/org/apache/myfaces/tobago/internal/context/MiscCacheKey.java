@@ -24,14 +24,14 @@ public final class MiscCacheKey {
   private final String name;
   private final int hashCode;
 
-  public MiscCacheKey(ClientPropertiesKey cacheKey, String name) {
+  public MiscCacheKey(final ClientPropertiesKey cacheKey, final String name) {
     this.cacheKey = cacheKey;
     this.name = name;
     hashCode = calcHashCode();
   }
 
   @Override
-  public boolean equals(Object o) {
+  public boolean equals(final Object o) {
     if (this == o) {
       return true;
     }
@@ -39,7 +39,7 @@ public final class MiscCacheKey {
       return false;
     }
 
-    MiscCacheKey that = (MiscCacheKey) o;
+    final MiscCacheKey that = (MiscCacheKey) o;
 
     return cacheKey.equals(that.cacheKey) && name.equals(that.name);
 

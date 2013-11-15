@@ -34,6 +34,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
+import org.apache.myfaces.tobago.renderkit.util.EncodeUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -49,7 +50,7 @@ public class TreeRenderer extends LayoutComponentRendererBase {
   private static final Logger LOG = LoggerFactory.getLogger(TreeRenderer.class);
 
   @Override
-  public void decode(FacesContext facesContext, UIComponent component) {
+  public void decode(final FacesContext facesContext, final UIComponent component) {
     RenderUtils.decodeScrollPosition(facesContext, component);
     final AbstractUITree tree = (AbstractUITree) component;
     RenderUtils.decodedStateOfTreeData(facesContext, tree);
@@ -61,28 +62,28 @@ public class TreeRenderer extends LayoutComponentRendererBase {
   }
 
   @Override
-  public void encodeChildren(FacesContext context, UIComponent component) throws IOException {
+  public void encodeChildren(final FacesContext context, final UIComponent component) throws IOException {
     // will be rendered in encodeEnd()
   }
 
   @Override
-  public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
+  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
 
-    AbstractUITree tree = (AbstractUITree) component;
+    final AbstractUITree tree = (AbstractUITree) component;
 
-    String clientId = tree.getClientId(facesContext);
-    UIComponent root = ComponentUtils.findDescendant(tree, UITreeNode.class);
+    final String clientId = tree.getClientId(facesContext);
+    final UIComponent root = ComponentUtils.findDescendant(tree, UITreeNode.class);
     if (root == null) {
       LOG.error("Can't find the tree root. This may occur while updating a tree from Tobago 1.0 to 1.5. "
           + "Please refer the documentation to see how to use tree tags.");
       return;
     }
 
-    TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
     writer.startElement(HtmlElements.DIV, tree);
     writer.writeClassAttribute(Classes.create(tree));
-    Style style = new Style(facesContext, tree);
+    final Style style = new Style(facesContext, tree);
     writer.writeStyleAttribute(style);
     writer.writeIdAttribute(clientId);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, tree);
@@ -118,8 +119,8 @@ public class TreeRenderer extends LayoutComponentRendererBase {
         expandedValue.append(",");
       }
 
-      for (UIComponent child : tree.getChildren()) {
-        RenderUtils.prepareRendererAll(facesContext, child);
+      for (final UIComponent child : tree.getChildren()) {
+        EncodeUtils.prepareRendererAll(facesContext, child);
         RenderUtils.encode(facesContext, child);
       }
     }

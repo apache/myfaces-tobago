@@ -49,8 +49,8 @@ public abstract class AbstractThemeMojo extends AbstractMojo {
     return project;
   }
 
-  protected String[] getThemeFiles(File sourceDir) {
-    DirectoryScanner scanner = new DirectoryScanner();
+  protected String[] getThemeFiles(final File sourceDir) {
+    final DirectoryScanner scanner = new DirectoryScanner();
     scanner.setBasedir(sourceDir);
     scanner.setIncludes(INCLUDES);
     scanner.setExcludes(EXCLUDES);

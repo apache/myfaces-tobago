@@ -43,10 +43,10 @@ public abstract class AbstractUITreeData extends javax.faces.component.UIInput
   /**
    * Patch for backward compatibility.
    */
-  public void onComponentCreated(FacesContext facesContext, UIComponent parent) {
+  public void onComponentCreated(final FacesContext facesContext, final UIComponent parent) {
     Deprecation.LOG.warn("Please not use the <tc:treeData> tag.");
     if (parent instanceof AbstractUITree) {
-      ValueExpression ve = getValueExpression("var");
+      final ValueExpression ve = getValueExpression("var");
       if (ve != null) {
         parent.setValueExpression("var", ve);
       } else {
@@ -55,7 +55,7 @@ public abstract class AbstractUITreeData extends javax.faces.component.UIInput
     }
 
     if (parent instanceof AbstractUITree) {
-      ValueExpression ve = getValueExpression("value");
+      final ValueExpression ve = getValueExpression("value");
       if (ve != null) {
         parent.setValueExpression("value", ve);
       } else {
@@ -68,18 +68,18 @@ public abstract class AbstractUITreeData extends javax.faces.component.UIInput
     return var;
   }
 
-  public void setVar(String var) {
+  public void setVar(final String var) {
     this.var = var;
   }
 
-  public void restoreState(FacesContext context, Object componentState) {
-    Object[] values = (Object[]) componentState;
+  public void restoreState(final FacesContext context, final Object componentState) {
+    final Object[] values = (Object[]) componentState;
     super.restoreState(context, values[0]);
     var = (String) values[1];
   }
 
-  public Object saveState(FacesContext context) {
-    Object[] values = new Object[2];
+  public Object saveState(final FacesContext context) {
+    final Object[] values = new Object[2];
     values[0] = super.saveState(context);
     values[1] = var;
     return values;
@@ -89,7 +89,7 @@ public abstract class AbstractUITreeData extends javax.faces.component.UIInput
    * @deprecated since 2.0.0
    */
   @Deprecated
-  public void buildTreeModelBegin(FacesContext facesContext, MixedTreeModel model) {
+  public void buildTreeModelBegin(final FacesContext facesContext, final MixedTreeModel model) {
     Deprecation.LOG.error("Doesn't work anymore.");
   }
 
@@ -97,7 +97,7 @@ public abstract class AbstractUITreeData extends javax.faces.component.UIInput
    * @deprecated since 2.0.0
    */
   @Deprecated
-  public void buildTreeModelChildren(FacesContext facesContext, MixedTreeModel model) {
+  public void buildTreeModelChildren(final FacesContext facesContext, final MixedTreeModel model) {
     Deprecation.LOG.error("Doesn't work anymore.");
   }
 
@@ -105,7 +105,7 @@ public abstract class AbstractUITreeData extends javax.faces.component.UIInput
    * @deprecated since 2.0.0
    */
   @Deprecated
-  public void buildTreeModelEnd(FacesContext facesContext, MixedTreeModel model) {
+  public void buildTreeModelEnd(final FacesContext facesContext, final MixedTreeModel model) {
     Deprecation.LOG.error("Doesn't work anymore.");
   }
 }

@@ -49,7 +49,7 @@ public class MockHttpServletRequest implements HttpServletRequest {
   public MockHttpServletRequest() {
   }
 
-  public MockHttpServletRequest(byte[] body) {
+  public MockHttpServletRequest(final byte[] body) {
     this.body = body;
   }
 
@@ -66,18 +66,18 @@ public class MockHttpServletRequest implements HttpServletRequest {
     return new Cookie[0];
   }
 
-  public long getDateHeader(String s) {
+  public long getDateHeader(final String s) {
     return 0;
   }
 
-  public String getHeader(String reference) {
+  public String getHeader(final String reference) {
     if (reference.equals("Content-type")) {
       return "multipart/form-data; boundary=xxx";
     }
     return null;
   }
 
-  public Enumeration getHeaders(String s) {
+  public Enumeration getHeaders(final String s) {
     return null;
   }
 
@@ -85,7 +85,7 @@ public class MockHttpServletRequest implements HttpServletRequest {
     return null;
   }
 
-  public int getIntHeader(String s) {
+  public int getIntHeader(final String s) {
     return 0;
   }
 
@@ -93,7 +93,7 @@ public class MockHttpServletRequest implements HttpServletRequest {
     return method;
   }
 
-  public void setMethod(String method) {
+  public void setMethod(final String method) {
     this.method = method;
   }
 
@@ -117,7 +117,7 @@ public class MockHttpServletRequest implements HttpServletRequest {
     return null;
   }
 
-  public boolean isUserInRole(String s) {
+  public boolean isUserInRole(final String s) {
     return false;
   }
 
@@ -141,7 +141,7 @@ public class MockHttpServletRequest implements HttpServletRequest {
     return null;
   }
 
-  public HttpSession getSession(boolean flag) {
+  public HttpSession getSession(final boolean flag) {
     if (flag && httpSession == null) {
       httpSession = new MockHttpSession();
     }
@@ -170,7 +170,7 @@ public class MockHttpServletRequest implements HttpServletRequest {
 
 // ---------------------------- interface ServletRequest
 
-  public Object getAttribute(String name) {
+  public Object getAttribute(final String name) {
     return attributes.get(name);
   }
 
@@ -182,7 +182,7 @@ public class MockHttpServletRequest implements HttpServletRequest {
     return null;
   }
 
-  public void setCharacterEncoding(java.lang.String env) {
+  public void setCharacterEncoding(final java.lang.String env) {
   }
 
   public int getContentLength() {
@@ -197,8 +197,8 @@ public class MockHttpServletRequest implements HttpServletRequest {
     return new MockServletInputStream(body);
   }
 
-  public String getParameter(String name) {
-    String[] values = (String[]) parameters.get(name);
+  public String getParameter(final String name) {
+    final String[] values = (String[]) parameters.get(name);
     if (values != null) {
       return (values[0]);
     } else {
@@ -238,11 +238,11 @@ public class MockHttpServletRequest implements HttpServletRequest {
     return null;
   }
 
-  public void setAttribute(String name, Object o) {
+  public void setAttribute(final String name, final Object o) {
     attributes.put(name, o);
   }
 
-  public void removeAttribute(String name) {
+  public void removeAttribute(final String name) {
     attributes.remove(name);
   }
 
@@ -258,12 +258,12 @@ public class MockHttpServletRequest implements HttpServletRequest {
     return false;
   }
 
-  public RequestDispatcher getRequestDispatcher(String s) {
+  public RequestDispatcher getRequestDispatcher(final String s) {
     return null;
   }
 
   /** @deprecated */
-  public String getRealPath(String s) {
+  public String getRealPath(final String s) {
     return null;
   }
 
@@ -285,23 +285,23 @@ public class MockHttpServletRequest implements HttpServletRequest {
 
 // ----------------------------------------------------------- business methods
 
-  public void addParameter(String name, String[] values) {
+  public void addParameter(final String name, final String[] values) {
     parameters.put(name, values);
   }
 
 // ---------------------------------------------------------- canonical methods
 
   public String toString() {
-    StringBuilder buffer = new StringBuilder();
-    Enumeration enumeration = getParameterNames();
+    final StringBuilder buffer = new StringBuilder();
+    final Enumeration enumeration = getParameterNames();
     while (enumeration.hasMoreElements()) {
-      String key = (String) enumeration.nextElement();
-      String[] values = getParameterValues(key);
+      final String key = (String) enumeration.nextElement();
+      final String[] values = getParameterValues(key);
       buffer.append("parameter:");
       buffer.append(key);
       buffer.append("=[");
       for (int i = 0; i < values.length; i++) {
-        String value = values[i];
+        final String value = values[i];
         buffer.append(value);
         if (i < values.length - 1) {
           buffer.append(",");
@@ -316,7 +316,7 @@ public class MockHttpServletRequest implements HttpServletRequest {
     return (new IteratorEnumeration(parameters.keySet().iterator()));
   }
 
-  public String[] getParameterValues(String name) {
+  public String[] getParameterValues(final String name) {
     return (String[]) parameters.get(name);
   }
 }

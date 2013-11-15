@@ -29,7 +29,7 @@ public class AttributeData {
     return name;
   }
 
-  public void setName(String name) {
+  public void setName(final String name) {
     this.name = name;
   }
 
@@ -37,7 +37,7 @@ public class AttributeData {
     return value;
   }
 
-  public void setValue(String value) {
+  public void setValue(final String value) {
     this.value = value;
   }
 }

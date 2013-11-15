@@ -25,7 +25,7 @@ import javax.faces.model.ArrayDataModel;
 
 public class UndefinedRowCountDataModel extends ArrayDataModel {
 
-  public UndefinedRowCountDataModel(SolarObject[] array) {
+  public UndefinedRowCountDataModel(final SolarObject[] array) {
     super(array);
   }
 

@@ -28,91 +28,91 @@ import javax.faces.context.FacesContext;
 public abstract class AbstractLayoutableRendererBaseWrapper extends AbstractRendererBaseWrapper
     implements LayoutComponentRenderer {
 
-  public Measure getCustomMeasure(FacesContext facesContext, Configurable component, String name) {
+  public Measure getCustomMeasure(final FacesContext facesContext, final Configurable component, final String name) {
     return ((LayoutComponentRenderer) getRenderer(facesContext)).getCustomMeasure(facesContext, component, name);
   }
 
-  public Measure getWidth(FacesContext facesContext, Configurable component) {
+  public Measure getWidth(final FacesContext facesContext, final Configurable component) {
     return ((LayoutComponentRenderer) getRenderer(facesContext)).getWidth(facesContext, component);
   }
 
-  public Measure getHeight(FacesContext facesContext, Configurable component) {
+  public Measure getHeight(final FacesContext facesContext, final Configurable component) {
     return ((LayoutComponentRenderer) getRenderer(facesContext)).getHeight(facesContext, component);
   }
 
-  public Measure getMinimumWidth(FacesContext facesContext, Configurable component) {
+  public Measure getMinimumWidth(final FacesContext facesContext, final Configurable component) {
     return ((LayoutComponentRenderer) getRenderer(facesContext)).getMinimumWidth(facesContext, component);
   }
 
-  public Measure getMinimumHeight(FacesContext facesContext, Configurable component) {
+  public Measure getMinimumHeight(final FacesContext facesContext, final Configurable component) {
     return ((LayoutComponentRenderer) getRenderer(facesContext)).getMinimumHeight(facesContext, component);
   }
 
-  public Measure getPreferredWidth(FacesContext facesContext, Configurable component) {
+  public Measure getPreferredWidth(final FacesContext facesContext, final Configurable component) {
     return ((LayoutComponentRenderer) getRenderer(facesContext)).getPreferredWidth(facesContext, component);
   }
 
-  public Measure getPreferredHeight(FacesContext facesContext, Configurable component) {
+  public Measure getPreferredHeight(final FacesContext facesContext, final Configurable component) {
     return ((LayoutComponentRenderer) getRenderer(facesContext)).getPreferredHeight(facesContext, component);
   }
 
-  public Measure getMaximumWidth(FacesContext facesContext, Configurable component) {
+  public Measure getMaximumWidth(final FacesContext facesContext, final Configurable component) {
     return ((LayoutComponentRenderer) getRenderer(facesContext)).getMaximumWidth(facesContext, component);
   }
 
-  public Measure getMaximumHeight(FacesContext facesContext, Configurable component) {
+  public Measure getMaximumHeight(final FacesContext facesContext, final Configurable component) {
     return ((LayoutComponentRenderer) getRenderer(facesContext)).getMaximumHeight(facesContext, component);
   }
 
-  public Measure getMarginLeft(FacesContext facesContext, Configurable component) {
+  public Measure getMarginLeft(final FacesContext facesContext, final Configurable component) {
     return ((LayoutComponentRenderer) getRenderer(facesContext)).getMarginLeft(facesContext, component);
   }
 
-  public Measure getMarginRight(FacesContext facesContext, Configurable component) {
+  public Measure getMarginRight(final FacesContext facesContext, final Configurable component) {
     return ((LayoutComponentRenderer) getRenderer(facesContext)).getMarginRight(facesContext, component);
   }
 
-  public Measure getMarginTop(FacesContext facesContext, Configurable component) {
+  public Measure getMarginTop(final FacesContext facesContext, final Configurable component) {
     return ((LayoutComponentRenderer) getRenderer(facesContext)).getMarginTop(facesContext, component);
   }
 
-  public Measure getMarginBottom(FacesContext facesContext, Configurable component) {
+  public Measure getMarginBottom(final FacesContext facesContext, final Configurable component) {
     return ((LayoutComponentRenderer) getRenderer(facesContext)).getMarginBottom(facesContext, component);
   }
 
-  public Measure getBorderLeft(FacesContext facesContext, Configurable component) {
+  public Measure getBorderLeft(final FacesContext facesContext, final Configurable component) {
     return ((LayoutComponentRenderer) getRenderer(facesContext)).getBorderLeft(facesContext, component);
   }
 
-  public Measure getBorderRight(FacesContext facesContext, Configurable component) {
+  public Measure getBorderRight(final FacesContext facesContext, final Configurable component) {
     return ((LayoutComponentRenderer) getRenderer(facesContext)).getBorderRight(facesContext, component);
   }
 
-  public Measure getBorderTop(FacesContext facesContext, Configurable component) {
+  public Measure getBorderTop(final FacesContext facesContext, final Configurable component) {
     return ((LayoutComponentRenderer) getRenderer(facesContext)).getBorderTop(facesContext, component);
   }
 
-  public Measure getBorderBottom(FacesContext facesContext, Configurable component) {
+  public Measure getBorderBottom(final FacesContext facesContext, final Configurable component) {
     return ((LayoutComponentRenderer) getRenderer(facesContext)).getBorderBottom(facesContext, component);
   }
 
-  public Measure getPaddingLeft(FacesContext facesContext, Configurable component) {
+  public Measure getPaddingLeft(final FacesContext facesContext, final Configurable component) {
     return ((LayoutComponentRenderer) getRenderer(facesContext)).getPaddingLeft(facesContext, component);
   }
 
-  public Measure getPaddingRight(FacesContext facesContext, Configurable component) {
+  public Measure getPaddingRight(final FacesContext facesContext, final Configurable component) {
     return ((LayoutComponentRenderer) getRenderer(facesContext)).getPaddingRight(facesContext, component);
   }
 
-  public Measure getPaddingTop(FacesContext facesContext, Configurable component) {
+  public Measure getPaddingTop(final FacesContext facesContext, final Configurable component) {
     return ((LayoutComponentRenderer) getRenderer(facesContext)).getPaddingTop(facesContext, component);
   }
 
-  public Measure getPaddingBottom(FacesContext facesContext, Configurable component) {
+  public Measure getPaddingBottom(final FacesContext facesContext, final Configurable component) {
     return ((LayoutComponentRenderer) getRenderer(facesContext)).getPaddingBottom(facesContext, component);
   }
 
-  public Measure getVerticalScrollbarWeight(FacesContext facesContext, Configurable component) {
+  public Measure getVerticalScrollbarWeight(final FacesContext facesContext, final Configurable component) {
     return ((LayoutComponentRenderer) getRenderer(facesContext)).getVerticalScrollbarWeight(facesContext, component);
   }
 }

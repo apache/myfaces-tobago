@@ -40,19 +40,19 @@ public class MultiplePageDeclarationLanguageNavigationHandler extends Navigation
 
   private NavigationHandler navigationHandler;
 
-  public MultiplePageDeclarationLanguageNavigationHandler(NavigationHandler navigationHandler) {
+  public MultiplePageDeclarationLanguageNavigationHandler(final NavigationHandler navigationHandler) {
     this.navigationHandler = navigationHandler;
   }
 
-  public void handleNavigation(FacesContext facesContext, String fromAction, String outcome) {
+  public void handleNavigation(final FacesContext facesContext, final String fromAction, String outcome) {
 
-    String original = outcome;
+    final String original = outcome;
     
     if (outcome != null) {
-      PageDeclarationLanguageBean bean = (PageDeclarationLanguageBean)
+      final PageDeclarationLanguageBean bean = (PageDeclarationLanguageBean)
           VariableResolverUtils.resolveVariable(facesContext, "pageDeclarationLanguage");
 
-      for (PageDeclarationLanguage renderTechnology : PageDeclarationLanguage.values()) {
+      for (final PageDeclarationLanguage renderTechnology : PageDeclarationLanguage.values()) {
         if (outcome.endsWith(renderTechnology.getExtension())) {
           outcome = outcome.substring(0, outcome.lastIndexOf(renderTechnology.getExtension()));
         }
@@ -61,7 +61,7 @@ public class MultiplePageDeclarationLanguageNavigationHandler extends Navigation
       if (pageExists(facesContext, outcome, bean.getLanguage().getExtension())) {
         outcome = outcome + bean.getLanguage().getExtension();
       } else {
-        for (PageDeclarationLanguage renderTechnology : PageDeclarationLanguage.values()) {
+        for (final PageDeclarationLanguage renderTechnology : PageDeclarationLanguage.values()) {
           if (pageExists(facesContext, outcome, renderTechnology.getExtension())) {
             bean.setLanguage(renderTechnology);
             outcome = outcome + bean.getLanguage().getExtension();
@@ -74,14 +74,14 @@ public class MultiplePageDeclarationLanguageNavigationHandler extends Navigation
     LOG.info("Original outcome='"+  original + "', adjusted outcome = '"+ outcome +"'");
 
     if (StringUtils.startsWith(outcome, "/content/")) {
-      ViewHandler viewHandler = facesContext.getApplication().getViewHandler();
-      UIViewRoot viewRoot = viewHandler.createView(facesContext, outcome);
+      final ViewHandler viewHandler = facesContext.getApplication().getViewHandler();
+      final UIViewRoot viewRoot = viewHandler.createView(facesContext, outcome);
       facesContext.setViewRoot(viewRoot);
       final ExternalContext externalContext = facesContext.getExternalContext();
       try {
         externalContext.redirect(
             externalContext.encodeRedirectURL("/faces" + outcome, Collections.<String, List<String>>emptyMap()));
-      } catch (IOException e) {
+      } catch (final IOException e) {
         // not nice?
         facesContext.renderResponse();
       }
@@ -90,11 +90,11 @@ public class MultiplePageDeclarationLanguageNavigationHandler extends Navigation
     }
   }
 
-  private boolean pageExists(FacesContext facesContext, String outcome, String extension) {
+  private boolean pageExists(final FacesContext facesContext, final String outcome, final String extension) {
     if (StringUtils.isEmpty(outcome)) {
       return false;
     }
-    String path = ResourceManagerUtils.getImageWithPath(facesContext, outcome.substring(1) + extension, true);
+    final String path = ResourceManagerUtils.getImageWithPath(facesContext, outcome.substring(1) + extension, true);
     return path != null;
   }
 }

@@ -120,12 +120,12 @@ public class ClassesGenerator extends AbstractGenerator {
   }
 
   public void generate() throws Exception {
-    for (TypeElement element : getTypes()) {
+    for (final TypeElement element : getTypes()) {
       if (element.getAnnotation(UIComponentTag.class) != null) {
         try {
           createRenderer(element);
           createTagOrComponent(element);
-        } catch (Exception e) {
+        } catch (final Exception e) {
           throw new RuntimeException(
               "Error during processing of " + element.getAnnotation(UIComponentTag.class).uiComponent(), e);
         }
@@ -135,14 +135,14 @@ public class ClassesGenerator extends AbstractGenerator {
     }
   }
 
-  private void createTag(TypeElement declaration) throws IOException {
-    List<PropertyInfo> properties = new ArrayList<PropertyInfo>();
+  private void createTag(final TypeElement declaration) throws IOException {
+    final List<PropertyInfo> properties = new ArrayList<PropertyInfo>();
     addPropertiesForTagOnly(declaration, properties);
-    String className = AnnotationUtils.generatedTagName(declaration);
+    final String className = AnnotationUtils.generatedTagName(declaration);
 
-    TagInfo tagInfo = new TagInfo(declaration.getQualifiedName().toString(), className);
+    final TagInfo tagInfo = new TagInfo(declaration.getQualifiedName().toString(), className);
     tagInfo.setSuperClass(declaration.getQualifiedName().toString());
-    StringTemplate stringTemplate = tagAbstractStringTemplateGroup.getInstanceOf("tag");
+    final StringTemplate stringTemplate = tagAbstractStringTemplateGroup.getInstanceOf("tag");
     stringTemplate.setAttribute("tagInfo", tagInfo);
     tagInfo.getProperties().addAll(properties);
     tagInfo.addImport("org.slf4j.Logger");
@@ -150,15 +150,17 @@ public class ClassesGenerator extends AbstractGenerator {
     writeFile(tagInfo, stringTemplate);
   }
 
-  private void createTagOrComponent(TypeElement declaration) throws IOException, ClassNotFoundException {
-    UIComponentTag componentTag = declaration.getAnnotation(UIComponentTag.class);
-    Tag tag = declaration.getAnnotation(Tag.class);
-    Map<String, PropertyInfo> properties = new HashMap<String, PropertyInfo>();
+  private void createTagOrComponent(final TypeElement declaration) throws IOException, ClassNotFoundException {
+    final UIComponentTag componentTag = declaration.getAnnotation(UIComponentTag.class);
+    final Tag tag = declaration.getAnnotation(Tag.class);
+    final Map<String, PropertyInfo> properties = new HashMap<String, PropertyInfo>();
     addProperties(declaration, properties);
     if (tag != null) {
-      String className = "org.apache.myfaces.tobago.internal.taglib." + StringUtils.capitalize(tag.name()) + "Tag";
-      TagInfo tagInfo = new TagInfo(declaration.getQualifiedName().toString(), className, componentTag.rendererType());
-      for (PropertyInfo property : properties.values()) {
+      final String className
+          = "org.apache.myfaces.tobago.internal.taglib." + StringUtils.capitalize(tag.name()) + "Tag";
+      final TagInfo tagInfo
+          = new TagInfo(declaration.getQualifiedName().toString(), className, componentTag.rendererType());
+      for (final PropertyInfo property : properties.values()) {
         if (property.isTagAttribute()) {
           tagInfo.getProperties().add(property);
         }
@@ -172,27 +174,27 @@ public class ClassesGenerator extends AbstractGenerator {
       tagInfo.addImport("javax.faces.component.UIComponent");
       tagInfo.addImport("javax.faces.context.FacesContext");
 
-      StringTemplate stringTemplate = tagStringTemplateGroup.getInstanceOf("tag");
+      final StringTemplate stringTemplate = tagStringTemplateGroup.getInstanceOf("tag");
       stringTemplate.setAttribute("tagInfo", tagInfo);
       writeFile(tagInfo, stringTemplate);
     }
 
     if (componentTag.generate()) {
-      StringTemplate componentStringTemplate = componentStringTemplateGroup.getInstanceOf("component");
-      ComponentInfo componentInfo = new ComponentInfo(declaration, componentTag);
+      final StringTemplate componentStringTemplate = componentStringTemplateGroup.getInstanceOf("component");
+      final ComponentInfo componentInfo = new ComponentInfo(declaration, componentTag);
       componentInfo.setSuperClass(componentTag.uiComponentBaseClass());
       componentInfo.setDescription(getDescription(declaration));
       componentInfo.setDeprecated(declaration.getAnnotation(Deprecated.class) != null);
-      for (String interfaces : componentTag.interfaces()) {
+      for (final String interfaces : componentTag.interfaces()) {
         componentInfo.addInterface(interfaces);
       }
 
-      Class<? extends UIComponent> facesClass
+      final Class<? extends UIComponent> facesClass
           = Class.forName(componentTag.uiComponentFacesClass()).asSubclass(UIComponent.class);
 
-      for (PropertyInfo info : properties.values()) {
+      for (final PropertyInfo info : properties.values()) {
         final String infoType = info.getType();
-        String methodName
+        final String methodName
             = ((infoType.equals("java.lang.Boolean") || infoType.equals("boolean")) ? "is" : "get")
             + info.getUpperCamelCaseName();
 
@@ -202,7 +204,7 @@ public class ClassesGenerator extends AbstractGenerator {
           if (!Modifier.isAbstract(method.getModifiers())) {
             generate = false;
           }
-        } catch (NoSuchMethodException e) {
+        } catch (final NoSuchMethodException e) {
           // generate = true
         }
         if (generate) {
@@ -259,7 +261,7 @@ public class ClassesGenerator extends AbstractGenerator {
   }
 */
 
-  private ComponentPropertyInfo addPropertyToComponent(ComponentInfo componentInfo, PropertyInfo info) {
+  private ComponentPropertyInfo addPropertyToComponent(final ComponentInfo componentInfo, final PropertyInfo info) {
 
     final ComponentPropertyInfo componentPropertyInfo = (ComponentPropertyInfo) info.fill(new ComponentPropertyInfo());
     componentInfo.addImport(componentPropertyInfo.getUnmodifiedType());
@@ -274,7 +276,7 @@ public class ClassesGenerator extends AbstractGenerator {
     return componentPropertyInfo;
   }
 
-  private void createRenderer(TypeElement declaration) throws IOException {
+  private void createRenderer(final TypeElement declaration) throws IOException {
 
     final UIComponentTag componentTag = declaration.getAnnotation(UIComponentTag.class);
     final String rendererType = componentTag.rendererType();
@@ -286,7 +288,7 @@ public class ClassesGenerator extends AbstractGenerator {
         return;
       }
       renderer.add(className);
-      RendererInfo info = new RendererInfo(declaration.getQualifiedName().toString(), className, rendererType);
+      final RendererInfo info = new RendererInfo(declaration.getQualifiedName().toString(), className, rendererType);
       if (componentTag.isLayout()) {
         info.setSuperClass("org.apache.myfaces.tobago.renderkit.AbstractLayoutRendererWrapper");
       } else if (componentTag.isTransparentForLayout()) {
@@ -294,16 +296,16 @@ public class ClassesGenerator extends AbstractGenerator {
       } else {
         info.setSuperClass("org.apache.myfaces.tobago.renderkit.AbstractLayoutableRendererBaseWrapper");
       }
-      StringTemplate stringTemplate = rendererStringTemplateGroup.getInstanceOf("renderer");
+      final StringTemplate stringTemplate = rendererStringTemplateGroup.getInstanceOf("renderer");
       stringTemplate.setAttribute("renderInfo", info);
       writeFile(info, stringTemplate);
     }
   }
 
-  protected void addPropertiesForTagOnly(TypeElement type, List<PropertyInfo> properties) {
+  protected void addPropertiesForTagOnly(final TypeElement type, final List<PropertyInfo> properties) {
 
     final List<? extends Element> members = processingEnv.getElementUtils().getAllMembers(type);
-    for (Element member : members) {
+    for (final Element member : members) {
       if (member instanceof ExecutableElement) {
         final ExecutableElement executableElement = (ExecutableElement) member;
         addPropertyForTagOnly(executableElement, properties);
@@ -311,12 +313,12 @@ public class ClassesGenerator extends AbstractGenerator {
     }
   }
 
-  protected void addProperties(TypeElement type, Map<String, PropertyInfo> properties) {
+  protected void addProperties(final TypeElement type, final Map<String, PropertyInfo> properties) {
     addProperties(type.getInterfaces(), properties);
     addProperties(type.getSuperclass(), properties);
 
     final List<? extends Element> members = processingEnv.getElementUtils().getAllMembers(type);
-    for (Element member : members) {
+    for (final Element member : members) {
       if (member instanceof ExecutableElement) {
         final ExecutableElement executableElement = (ExecutableElement) member;
         addProperty(executableElement, properties);
@@ -324,29 +326,30 @@ public class ClassesGenerator extends AbstractGenerator {
     }
   }
 
-  protected void addProperties(List<? extends TypeMirror> interfaces, Map<String, PropertyInfo> properties) {
-    for (TypeMirror typeMirror : interfaces) {
+  protected void addProperties(
+      final List<? extends TypeMirror> interfaces, final Map<String, PropertyInfo> properties) {
+    for (final TypeMirror typeMirror : interfaces) {
       addProperties(typeMirror, properties);
     }
   }
 
-  protected void addProperties(TypeMirror typeMirror, Map<String, PropertyInfo> properties) {
+  protected void addProperties(final TypeMirror typeMirror, final Map<String, PropertyInfo> properties) {
     if (typeMirror.getKind() != TypeKind.NONE) {
       addProperties((TypeElement) (processingEnv.getTypeUtils().asElement(typeMirror)), properties);
     }
   }
 
-  protected void addProperty(ExecutableElement declaration, Map<String, PropertyInfo> properties) {
-    TagAttribute tagAttribute = declaration.getAnnotation(TagAttribute.class);
-    UIComponentTagAttribute uiComponentTagAttribute = declaration.getAnnotation(UIComponentTagAttribute.class);
+  protected void addProperty(final ExecutableElement declaration, final Map<String, PropertyInfo> properties) {
+    final TagAttribute tagAttribute = declaration.getAnnotation(TagAttribute.class);
+    final UIComponentTagAttribute uiComponentTagAttribute = declaration.getAnnotation(UIComponentTagAttribute.class);
     if (uiComponentTagAttribute != null) {
-      String simpleName = declaration.getSimpleName().toString();
+      final String simpleName = declaration.getSimpleName().toString();
       if (simpleName.startsWith("set") || simpleName.startsWith("get")) {
-        String name = simpleName.substring(3, 4).toLowerCase(Locale.ENGLISH) + simpleName.substring(4);
+        final String name = simpleName.substring(3, 4).toLowerCase(Locale.ENGLISH) + simpleName.substring(4);
         if (ignoredProperties.contains(name)) {
           return;
         }
-        PropertyInfo propertyInfo = new PropertyInfo(name);
+        final PropertyInfo propertyInfo = new PropertyInfo(name);
         propertyInfo.setAllowedValues(uiComponentTagAttribute.allowedValues());
         if (tagAttribute != null) {
           propertyInfo.setBodyContent(tagAttribute.bodyContent());
@@ -387,10 +390,10 @@ public class ClassesGenerator extends AbstractGenerator {
     }
   }
 
-  private String getDescription(Element element) {
+  private String getDescription(final Element element) {
     String comment = processingEnv.getElementUtils().getDocComment(element);
     if (comment != null) {
-      int index = comment.indexOf('@');
+      final int index = comment.indexOf('@');
       if (index != -1) {
         comment = comment.substring(0, index);
       }
@@ -402,23 +405,23 @@ public class ClassesGenerator extends AbstractGenerator {
     return null;
   }
 
-  protected void addPropertyForTagOnly(ExecutableElement declaration, List<PropertyInfo> properties) {
-    TagAttribute tagAttribute = declaration.getAnnotation(TagAttribute.class);
+  protected void addPropertyForTagOnly(final ExecutableElement declaration, final List<PropertyInfo> properties) {
+    final TagAttribute tagAttribute = declaration.getAnnotation(TagAttribute.class);
     if (tagAttribute != null) {
-      String simpleName = declaration.getSimpleName().toString();
+      final String simpleName = declaration.getSimpleName().toString();
       if (simpleName.startsWith("set") || simpleName.startsWith("get")) {
         String attributeStr = simpleName.substring(3, 4).toLowerCase(Locale.ENGLISH) + simpleName.substring(4);
         if (tagAttribute.name().length() > 0) {
           attributeStr = tagAttribute.name();
         }
-        PropertyInfo propertyInfo = new PropertyInfo(attributeStr);
+        final PropertyInfo propertyInfo = new PropertyInfo(attributeStr);
         propertyInfo.setType(tagAttribute.type());
         properties.add(propertyInfo);
       }
     }
   }
 
-  private void writeFile(ClassInfo info, StringTemplate stringTemplate) throws IOException {
+  private void writeFile(final ClassInfo info, final StringTemplate stringTemplate) throws IOException {
     Writer writer = null;
     try {
       final FileObject resource = processingEnv.getFiler().createSourceFile(

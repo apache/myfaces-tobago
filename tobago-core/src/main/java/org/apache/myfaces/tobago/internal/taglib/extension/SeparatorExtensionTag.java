@@ -113,7 +113,7 @@ public class SeparatorExtensionTag extends TobagoExtensionBodyTagSupport {
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "javax.faces.component.UIComponent")
-  public void setBinding(javax.el.ValueExpression binding) throws JspException {
+  public void setBinding(final javax.el.ValueExpression binding) throws JspException {
     this.binding = binding;
   }
   
@@ -123,7 +123,7 @@ public class SeparatorExtensionTag extends TobagoExtensionBodyTagSupport {
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "boolean", defaultValue = "true")
-  public void setRendered(javax.el.ValueExpression rendered) {
+  public void setRendered(final javax.el.ValueExpression rendered) {
     this.rendered = rendered;
   }
 
@@ -133,7 +133,7 @@ public class SeparatorExtensionTag extends TobagoExtensionBodyTagSupport {
    */
   @TagAttribute
   @UIComponentTagAttribute()
-  public void setLabel(javax.el.ValueExpression label) {
+  public void setLabel(final javax.el.ValueExpression label) {
     this.label = label;
   }
 }

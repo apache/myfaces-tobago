@@ -33,8 +33,8 @@ public class PopupFacetActionListener extends AbstractPopupActionListener {
   private static final Logger LOG = LoggerFactory.getLogger(PopupActionListener.class);
 
   @Override
-  protected AbstractUIPopup getPopup(ActionEvent actionEvent) {
-    UIComponent component = actionEvent.getComponent().getFacet(Facets.POPUP);
+  protected AbstractUIPopup getPopup(final ActionEvent actionEvent) {
+    final UIComponent component = actionEvent.getComponent().getFacet(Facets.POPUP);
     if (component instanceof AbstractUIPopup) {
       return (AbstractUIPopup) component;
     } else if (component != null) {

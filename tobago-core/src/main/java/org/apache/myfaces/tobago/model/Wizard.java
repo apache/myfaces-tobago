@@ -38,14 +38,14 @@ public class Wizard {
     reset();
   }
 
-  public void next(ActionEvent event) {
+  public void next(final ActionEvent event) {
     LOG.debug("next: " + event);
 
     index++;
   }
 
-  public void gotoStep(ActionEvent event) {
-    Object step = (event.getComponent().getAttributes().get("step"));
+  public void gotoStep(final ActionEvent event) {
+    final Object step = (event.getComponent().getAttributes().get("step"));
     if (step instanceof Integer) {
       index = (Integer) step;
     } else { // todo: The JSP Tag uses String in the moment
@@ -56,7 +56,7 @@ public class Wizard {
   }
 
   public String previous() {
-    String outcome = getPreviousStep().getOutcome();
+    final String outcome = getPreviousStep().getOutcome();
     if (index > 0) {
       index--;
     } else {
@@ -71,7 +71,7 @@ public class Wizard {
     return getIndex() > 0;
   }
 
-  public final void finish(ActionEvent event) {
+  public final void finish(final ActionEvent event) {
     if (LOG.isDebugEnabled()) {
       LOG.debug("finish");
     }
@@ -79,7 +79,7 @@ public class Wizard {
     reset();
   }
 
-  public final void cancel(ActionEvent event) {
+  public final void cancel(final ActionEvent event) {
     if (LOG.isDebugEnabled()) {
       LOG.debug("cancel");
     }

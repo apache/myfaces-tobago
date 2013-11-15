@@ -31,15 +31,15 @@ public abstract class SelectOneRendererBase extends InputRendererBase {
 
   private static final Logger LOG = LoggerFactory.getLogger(SelectOneRendererBase.class);
 
-  public void decode(FacesContext facesContext, UIComponent component) {
+  public void decode(final FacesContext facesContext, final UIComponent component) {
     if (ComponentUtils.isOutputOnly(component)) {
       return;
     }
     if (component instanceof UISelectOne) {
-      UISelectOne uiSelectOne = (UISelectOne) component;
+      final UISelectOne uiSelectOne = (UISelectOne) component;
 
-      String clientId = uiSelectOne.getClientId(facesContext);
-      Object newValue =
+      final String clientId = uiSelectOne.getClientId(facesContext);
+      final Object newValue =
           facesContext.getExternalContext().getRequestParameterMap().get(clientId);
       if (LOG.isDebugEnabled()) {
         LOG.debug("decode: key='" + clientId + "' value='" + newValue + "'");

@@ -28,7 +28,7 @@ public class MockServletInputStream extends ServletInputStream {
 
   private int next;
 
-  public MockServletInputStream(byte[] body) {
+  public MockServletInputStream(final byte[] body) {
     this.body = body;
   }
 

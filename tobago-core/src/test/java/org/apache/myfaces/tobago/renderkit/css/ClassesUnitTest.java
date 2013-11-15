@@ -116,8 +116,8 @@ public class ClassesUnitTest extends AbstractTobagoTestBase {
         Classes.create(in, "sub").getStringValue());
   }
 
-  private void updateCurrentMarkup(UIComponent component) {
-    SupportsMarkup m = (SupportsMarkup) component;
+  private void updateCurrentMarkup(final UIComponent component) {
+    final SupportsMarkup m = (SupportsMarkup) component;
     m.setCurrentMarkup(ComponentUtils.updateMarkup(component, m.getMarkup()));
   }
 

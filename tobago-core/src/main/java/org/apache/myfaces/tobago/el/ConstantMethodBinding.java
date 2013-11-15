@@ -30,7 +30,7 @@ public class ConstantMethodBinding
 
   private String outcome;
 
-  public ConstantMethodBinding(String outcome) {
+  public ConstantMethodBinding(final String outcome) {
     this.outcome = outcome;
   }
 
@@ -38,11 +38,11 @@ public class ConstantMethodBinding
   public ConstantMethodBinding() {
   }
 
-  public Object invoke(FacesContext facesContext, Object[] parameters) {
+  public Object invoke(final FacesContext facesContext, final Object[] parameters) {
     return outcome;
   }
 
-  public Class getType(FacesContext facesContext) {
+  public Class getType(final FacesContext facesContext) {
     return String.class;
   }
 

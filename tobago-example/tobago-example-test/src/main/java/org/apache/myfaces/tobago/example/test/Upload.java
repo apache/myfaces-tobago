@@ -48,7 +48,7 @@ public class Upload {
     return file;
   }
 
-  public void setFile(FileItem file) {
+  public void setFile(final FileItem file) {
     this.file = file;
   }
 }

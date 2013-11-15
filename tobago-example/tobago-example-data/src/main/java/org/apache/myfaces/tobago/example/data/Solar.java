@@ -35,7 +35,7 @@ public class Solar {
     return planets;
   }
 
-  public void setPlanets(List<Planet> planets) {
+  public void setPlanets(final List<Planet> planets) {
     this.planets = planets;
   }
 }

@@ -20,7 +20,7 @@
 package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
-import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
+import org.apache.myfaces.tobago.renderkit.util.EncodeUtils;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -29,16 +29,16 @@ import java.io.IOException;
 public class TreeDataRenderer extends LayoutComponentRendererBase {
 
   @Override
-  public void decode(FacesContext facesContext, UIComponent component) {
+  public void decode(final FacesContext facesContext, final UIComponent component) {
   }
 
   @Override
-  public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
-    RenderUtils.prepareRendererAll(facesContext, component);
+  public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
+    EncodeUtils.prepareRendererAll(facesContext, component);
   }
 
   @Override
-  public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
+  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
   }
 /*
 

@@ -31,9 +31,9 @@ public final class LocaleUtils {
   private LocaleUtils() {
   }
 
-  public static Locale createLocale(String value) {
+  public static Locale createLocale(final String value) {
     Locale locale = null;
-    String[] strings = StringUtils.split(value, "_");
+    final String[] strings = StringUtils.split(value, "_");
     switch (strings.length) {
       case 1:
         locale = new Locale(strings[0]);
@@ -54,10 +54,10 @@ public final class LocaleUtils {
    * @deprecated since 1.5
    */
   @Deprecated
-  public static List<Locale> getLocaleList(Locale locale) {
+  public static List<Locale> getLocaleList(final Locale locale) {
 
     String string = locale.toString();
-    List<Locale> locales = new ArrayList<Locale>(3);
+    final List<Locale> locales = new ArrayList<Locale>(3);
     locales.add(locale);
     int underscore;
     while ((underscore = string.lastIndexOf('_')) > 0) {
@@ -73,15 +73,15 @@ public final class LocaleUtils {
    * 
    * Sample: "de_DE" -> "_de_DE", "_de", "" 
    */
-  public static List<String> getLocaleSuffixList(Locale locale) {
+  public static List<String> getLocaleSuffixList(final Locale locale) {
 
     if (locale == null) {
       return Arrays.asList("");
     }
     
     String string = locale.toString();
-    String prefix = "_";
-    List<String> locales = new ArrayList<String>(4);
+    final String prefix = "_";
+    final List<String> locales = new ArrayList<String>(4);
     locales.add(prefix + string);
     int underscore;
     while ((underscore = string.lastIndexOf('_')) > 0) {

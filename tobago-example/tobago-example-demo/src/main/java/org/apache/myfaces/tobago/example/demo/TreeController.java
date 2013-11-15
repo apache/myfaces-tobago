@@ -56,7 +56,7 @@ public class TreeController {
     return null;
   }
 
-  public void actionListener(ActionEvent event) {
+  public void actionListener(final ActionEvent event) {
     LOG.info("actionListener");
   }
 
@@ -97,7 +97,7 @@ public class TreeController {
     return tree;
   }
 
-  public void setTree(DefaultMutableTreeNode tree) {
+  public void setTree(final DefaultMutableTreeNode tree) {
     this.tree = tree;
   }
 

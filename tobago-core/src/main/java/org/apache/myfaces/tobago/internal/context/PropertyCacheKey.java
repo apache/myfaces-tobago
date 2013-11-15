@@ -25,7 +25,7 @@ public final class PropertyCacheKey {
   private final String key;
   private final int hashCode;
 
-  public PropertyCacheKey(ClientPropertiesKey cacheKey, String name, String key) {
+  public PropertyCacheKey(final ClientPropertiesKey cacheKey, final String name, final String key) {
     this.cacheKey = cacheKey;
     this.name = name;
     this.key = key;
@@ -33,7 +33,7 @@ public final class PropertyCacheKey {
   }
 
   @Override
-  public boolean equals(Object o) {
+  public boolean equals(final Object o) {
     if (this == o) {
       return true;
     }
@@ -41,7 +41,7 @@ public final class PropertyCacheKey {
       return false;
     }
 
-    PropertyCacheKey that = (PropertyCacheKey) o;
+    final PropertyCacheKey that = (PropertyCacheKey) o;
 
     return cacheKey.equals(that.cacheKey) && key.equals(that.key) && name.equals(that.name);
 

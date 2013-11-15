@@ -29,9 +29,9 @@ public class LabelWithAccessKeyUnitTest {
 
   @Test
   public void testSimple() {
-    UIComponent component = new UIOutput();
+    final UIComponent component = new UIOutput();
     component.getAttributes().put("label", "Save");
-    LabelWithAccessKey label = new LabelWithAccessKey(component);
+    final LabelWithAccessKey label = new LabelWithAccessKey(component);
     Assert.assertEquals("Save", label.getText());
     Assert.assertEquals(-1, label.getPos());
     Assert.assertEquals(null, label.getAccessKey());
@@ -39,19 +39,19 @@ public class LabelWithAccessKeyUnitTest {
 
   @Test
   public void testWithKeyFirstLetter() {
-    UIComponent component = new UIOutput();
+    final UIComponent component = new UIOutput();
     component.getAttributes().put("label", "Save_");
-    LabelWithAccessKey label = new LabelWithAccessKey(component);
+    final LabelWithAccessKey label = new LabelWithAccessKey(component);
     Assert.assertEquals("Save", label.getText());
     Assert.assertNull(label.getAccessKey());
   }
 
   @Test
   public void testWithKeyLastLetter() {
-    String result = "A_n_aly_ze";
-    UIComponent component = new UIOutput();
+    final String result = "A_n_aly_ze";
+    final UIComponent component = new UIOutput();
     component.getAttributes().put("label", "A__n__a_ly__ze");
-    LabelWithAccessKey label = new LabelWithAccessKey(component);
+    final LabelWithAccessKey label = new LabelWithAccessKey(component);
     Assert.assertEquals(result, label.getText());
     Assert.assertEquals(5, label.getPos());
     Assert.assertEquals(new Character('l'), label.getAccessKey());
@@ -59,9 +59,9 @@ public class LabelWithAccessKeyUnitTest {
 
   @Test
   public void testAmpersand() {
-    UIComponent component = new UIOutput();
+    final UIComponent component = new UIOutput();
     component.getAttributes().put("label", "_Save");
-    LabelWithAccessKey label = new LabelWithAccessKey(component);
+    final LabelWithAccessKey label = new LabelWithAccessKey(component);
     Assert.assertEquals("Save", label.getText());
     Assert.assertEquals(0, label.getPos());
     Assert.assertEquals(new Character('S'), label.getAccessKey());
@@ -69,9 +69,9 @@ public class LabelWithAccessKeyUnitTest {
 
   @Test
   public void testAmpersandAtEnd() {
-    UIComponent component = new UIOutput();
+    final UIComponent component = new UIOutput();
     component.getAttributes().put("label", "Save_");
-    LabelWithAccessKey label = new LabelWithAccessKey(component);
+    final LabelWithAccessKey label = new LabelWithAccessKey(component);
     Assert.assertEquals("Save", label.getText());
     Assert.assertEquals(-1, label.getPos());
     Assert.assertEquals(null, label.getAccessKey());

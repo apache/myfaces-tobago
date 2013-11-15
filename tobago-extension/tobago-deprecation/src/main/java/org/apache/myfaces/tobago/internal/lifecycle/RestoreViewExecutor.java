@@ -58,18 +58,18 @@ class RestoreViewExecutor implements PhaseExecutor {
 
   private static final Logger LOG = LoggerFactory.getLogger(RestoreViewExecutor.class);
 
-  public boolean execute(FacesContext facesContext) {
-    ExternalContext externalContext = facesContext.getExternalContext();
+  public boolean execute(final FacesContext facesContext) {
+    final ExternalContext externalContext = facesContext.getExternalContext();
 
-    Map sessionMap = externalContext.getSessionMap();
+    final Map sessionMap = externalContext.getSessionMap();
     UIViewRoot viewRoot = (UIViewRoot) sessionMap.get(TobagoLifecycle.VIEW_ROOT_KEY);
     if (viewRoot != null) {
       facesContext.setViewRoot(viewRoot);
       sessionMap.remove(TobagoLifecycle.VIEW_ROOT_KEY);
       //noinspection unchecked
-      List<Object[]> messageHolders = (List<Object[]>) sessionMap.get(TobagoLifecycle.FACES_MESSAGES_KEY);
+      final List<Object[]> messageHolders = (List<Object[]>) sessionMap.get(TobagoLifecycle.FACES_MESSAGES_KEY);
       if (messageHolders != null) {
-        for (Object[] messageHolder : messageHolders) {
+        for (final Object[] messageHolder : messageHolders) {
           facesContext.addMessage((String) messageHolder[0], (FacesMessage) messageHolder[1]);
         }
       }
@@ -89,7 +89,7 @@ class RestoreViewExecutor implements PhaseExecutor {
     }
 
     // Derive view identifier
-    String viewId = deriveViewId(facesContext);
+    final String viewId = deriveViewId(facesContext);
 
     if (viewId == null) {
 
@@ -102,16 +102,16 @@ class RestoreViewExecutor implements PhaseExecutor {
           externalContext.redirect(externalContext.getRequestServletPath() + "/");
           facesContext.responseComplete();
           return true;
-        } catch (IOException e) {
+        } catch (final IOException e) {
           throw new FacesException("redirect failed", e);
         }
       }
     }
 
-    Application application = facesContext.getApplication();
-    ViewHandler viewHandler = application.getViewHandler();
+    final Application application = facesContext.getApplication();
+    final ViewHandler viewHandler = application.getViewHandler();
 
-    boolean postBack = isPostBack(facesContext);
+    final boolean postBack = isPostBack(facesContext);
     if (postBack) {
       viewRoot = viewHandler.restoreView(facesContext, viewId);
     }
@@ -142,12 +142,12 @@ class RestoreViewExecutor implements PhaseExecutor {
     return false;
   }
 
-  private boolean isPostBack(FacesContext facesContext) {
-    Map requestParameterMap = facesContext.getExternalContext().getRequestParameterMap();
+  private boolean isPostBack(final FacesContext facesContext) {
+    final Map requestParameterMap = facesContext.getExternalContext().getRequestParameterMap();
     return requestParameterMap.containsKey(ResponseStateManager.VIEW_STATE_PARAM);
   }
 
-  private boolean isSessionSecretValid(FacesContext facesContext) {
+  private boolean isSessionSecretValid(final FacesContext facesContext) {
     if (TobagoConfig.getInstance(FacesContext.getCurrentInstance()).isCheckSessionSecret()) {
       return Secret.check(facesContext);
     } else {
@@ -159,8 +159,8 @@ class RestoreViewExecutor implements PhaseExecutor {
     return PhaseId.RESTORE_VIEW;
   }
 
-  private static String deriveViewId(FacesContext facesContext) {
-    ExternalContext externalContext = facesContext.getExternalContext();
+  private static String deriveViewId(final FacesContext facesContext) {
+    final ExternalContext externalContext = facesContext.getExternalContext();
 
 /*
     if (PortletUtils.isPortletRequest(facesContext)) {
@@ -173,22 +173,22 @@ class RestoreViewExecutor implements PhaseExecutor {
       // No extra path info found, so it is probably extension mapping
       viewId = externalContext.getRequestServletPath(); // getServletPath
       if (viewId == null) {
-        String msg = "RequestServletPath is null, cannot determine viewId of current page.";
+        final String msg = "RequestServletPath is null, cannot determine viewId of current page.";
         LOG.error(msg);
         throw new FacesException(msg);
       }
 
       // TODO: JSF Spec 2.2.1 - what do they mean by "if the default
       // ViewHandler implementation is used..." ?
-      String defaultSuffix = externalContext.getInitParameter(ViewHandler.DEFAULT_SUFFIX_PARAM_NAME);
-      String suffix = defaultSuffix != null ? defaultSuffix : ViewHandler.DEFAULT_SUFFIX;
+      final String defaultSuffix = externalContext.getInitParameter(ViewHandler.DEFAULT_SUFFIX_PARAM_NAME);
+      final String suffix = defaultSuffix != null ? defaultSuffix : ViewHandler.DEFAULT_SUFFIX;
       if (suffix.charAt(0) != '.') {
-        String msg = "Default suffix must start with a dot!";
+        final String msg = "Default suffix must start with a dot!";
         LOG.error(msg);
         throw new FacesException(msg);
       }
 
-      int dot = viewId.lastIndexOf('.');
+      final int dot = viewId.lastIndexOf('.');
       if (dot == -1) {
         LOG.error("Assumed extension mapping, but there is no extension in " + viewId);
         viewId = null;
@@ -202,24 +202,24 @@ class RestoreViewExecutor implements PhaseExecutor {
 
   // next two methods are taken from 'org.apache.myfaces.shared.util.RestoreStateUtils'
 
-  public static void recursivelyHandleComponentReferencesAndSetValid(FacesContext facesContext,
-      UIComponent parent) {
-    boolean forceHandle = false;
+  public static void recursivelyHandleComponentReferencesAndSetValid(final FacesContext facesContext,
+      final UIComponent parent) {
+    final boolean forceHandle = false;
 
-    Method handleBindingsMethod = getBindingMethod(parent);
+    final Method handleBindingsMethod = getBindingMethod(parent);
 
     if (handleBindingsMethod != null && !forceHandle) {
       try {
         handleBindingsMethod.invoke(parent, new Object[]{});
-      } catch (Throwable th) {
+      } catch (final Throwable th) {
         LOG.error("Exception while invoking handleBindings on component with client-id:"
             + parent.getClientId(facesContext), th);
       }
     } else {
-      for (Iterator it = parent.getFacetsAndChildren(); it.hasNext();) {
-        UIComponent component = (UIComponent) it.next();
+      for (final Iterator it = parent.getFacetsAndChildren(); it.hasNext();) {
+        final UIComponent component = (UIComponent) it.next();
 
-        ValueBinding binding = component.getValueBinding("binding");    //TODO: constant
+        final ValueBinding binding = component.getValueBinding("binding");    //TODO: constant
         if (binding != null && !binding.isReadOnly(facesContext)) {
           binding.setValue(facesContext, component);
         }
@@ -238,14 +238,14 @@ class RestoreViewExecutor implements PhaseExecutor {
    *
    * @return true if this component is bindingAware (e.g. aliasBean)
    */
-  private static Method getBindingMethod(UIComponent parent) {
-    Class[] interfaces = parent.getClass().getInterfaces();
+  private static Method getBindingMethod(final UIComponent parent) {
+    final Class[] interfaces = parent.getClass().getInterfaces();
 
-    for (Class clazz : interfaces) {
+    for (final Class clazz : interfaces) {
       if (clazz.getName().contains("BindingAware")) {
         try {
           return parent.getClass().getMethod("handleBindings", new Class[]{});
-        } catch (NoSuchMethodException e) {
+        } catch (final NoSuchMethodException e) {
           // return
         }
       }

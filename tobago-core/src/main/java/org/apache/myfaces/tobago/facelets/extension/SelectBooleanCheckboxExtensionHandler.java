@@ -33,19 +33,19 @@ public class SelectBooleanCheckboxExtensionHandler extends TobagoLabelExtensionH
 
   private TagAttribute itemLabelAttribute;
 
-  public SelectBooleanCheckboxExtensionHandler(ComponentConfig config) {
+  public SelectBooleanCheckboxExtensionHandler(final ComponentConfig config) {
     super(config);
     itemLabelAttribute = getAttribute(Attributes.ITEM_LABEL);
   }
 
-  protected void enrichInput(FaceletContext faceletContext, UIComponent input) {
+  protected void enrichInput(final FaceletContext faceletContext, final UIComponent input) {
     super.enrichInput(faceletContext, input);
-    UISelectBooleanCheckbox checkbox = (UISelectBooleanCheckbox) input;
+    final UISelectBooleanCheckbox checkbox = (UISelectBooleanCheckbox) input;
     if (itemLabelAttribute != null) {
       if (itemLabelAttribute.isLiteral()) {
         checkbox.setItemLabel(itemLabelAttribute.getValue(faceletContext));
       } else {
-        ValueExpression expression = itemLabelAttribute.getValueExpression(faceletContext, String.class);
+        final ValueExpression expression = itemLabelAttribute.getValueExpression(faceletContext, String.class);
         checkbox.setValueExpression(Attributes.ITEM_LABEL, expression);
       }
     } else {

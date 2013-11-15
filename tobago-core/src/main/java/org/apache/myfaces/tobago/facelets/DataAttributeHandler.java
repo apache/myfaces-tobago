@@ -37,23 +37,23 @@ public final class DataAttributeHandler extends TagHandler {
 
   private final TagAttribute value;
 
-  public DataAttributeHandler(TagConfig config) {
+  public DataAttributeHandler(final TagConfig config) {
     super(config);
     this.name = getRequiredAttribute(Attributes.NAME);
     this.value = getRequiredAttribute(Attributes.VALUE);
   }
 
-  public void apply(FaceletContext faceletContext, UIComponent parent) throws ELException {
+  public void apply(final FaceletContext faceletContext, final UIComponent parent) throws ELException {
     if (parent == null) {
       throw new TagException(tag, "Parent UIComponent was null");
     }
 
     if (ComponentHandler.isNew(parent)) {
 
-      Object attributeName = name.isLiteral()
+      final Object attributeName = name.isLiteral()
           ? (Object) name.getValue(faceletContext)
           : name.getValueExpression(faceletContext, Object.class);
-      Object attributeValue = value.isLiteral()
+      final Object attributeValue = value.isLiteral()
           ? (Object) value.getValue(faceletContext)
           : value.getValueExpression(faceletContext, Object.class);
       ComponentUtils.putDataAttribute(parent, attributeName, attributeValue);

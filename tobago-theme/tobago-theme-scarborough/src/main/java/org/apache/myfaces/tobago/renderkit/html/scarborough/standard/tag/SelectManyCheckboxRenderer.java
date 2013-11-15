@@ -43,25 +43,25 @@ import java.util.List;
 
 public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
 
-  public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
-    UISelectManyCheckbox select = (UISelectManyCheckbox) component;
+  public void prepareRender(final FacesContext facesContext, final UIComponent component) throws IOException {
+    final UISelectManyCheckbox select = (UISelectManyCheckbox) component;
     super.prepareRender(facesContext, select);
     if (select.isInline()) {
       ComponentUtils.addCurrentMarkup(select, Markup.INLINE);
     }
   }
 
-  public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
-    UISelectManyCheckbox select = (UISelectManyCheckbox) component;
-    TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
+    final UISelectManyCheckbox select = (UISelectManyCheckbox) component;
+    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
-    String id = select.getClientId(facesContext);
-    List<SelectItem> items = RenderUtils.getItemsToRender(select);
-    String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, select);
-    boolean disabled = select.isDisabled();
-    boolean readonly = select.isReadonly();
-    boolean required = select.isRequired();
-    Style style = new Style(facesContext, select);
+    final String id = select.getClientId(facesContext);
+    final List<SelectItem> items = RenderUtils.getItemsToRender(select);
+    final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, select);
+    final boolean disabled = select.isDisabled();
+    final boolean readonly = select.isReadonly();
+    final Style style = new Style(facesContext, select);
+    final boolean required = select.isRequired();
     // fixme: use CSS, not the Style Attribute for "display"
     style.setDisplay(null);
 
@@ -74,17 +74,17 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
       writer.writeAttribute(HtmlAttributes.TITLE, title, true);
     }
     boolean first = true;
-    Object[] values = select.getSelectedValues();
-    for (SelectItem item : items) {
-      String itemId = id + ComponentUtils.SUB_SEPARATOR + item.getValue().toString();
+    final Object[] values = select.getSelectedValues();
+    for (final SelectItem item : items) {
+      final String itemId = id + ComponentUtils.SUB_SEPARATOR + item.getValue().toString();
       writer.startElement(HtmlElements.LI, select);
       writer.startElement(HtmlElements.INPUT, select);
       writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.CHECKBOX, false);
-      boolean checked = RenderUtils.contains(values, item.getValue());
+      final boolean checked = RenderUtils.contains(values, item.getValue());
       writer.writeAttribute(HtmlAttributes.CHECKED, checked);
       writer.writeNameAttribute(id);
       writer.writeIdAttribute(itemId);
-      String formattedValue = RenderUtils.getFormattedValue(facesContext, select, item.getValue());
+      final String formattedValue = RenderUtils.getFormattedValue(facesContext, select, item.getValue());
       writer.writeAttribute(HtmlAttributes.VALUE, formattedValue, true);
       writer.writeAttribute(HtmlAttributes.DISABLED, item.isDisabled() || disabled);
       writer.writeAttribute(HtmlAttributes.READONLY, readonly);
@@ -93,14 +93,14 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
         HtmlRendererUtils.renderFocus(id, select.isFocus(), ComponentUtils.isError(select), facesContext, writer);
         first = false;
       }
-      Integer tabIndex = select.getTabIndex();
+      final Integer tabIndex = select.getTabIndex();
       if (tabIndex != null) {
         writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
       }
       HtmlRendererUtils.renderCommandFacet(select, itemId, facesContext, writer);
       writer.endElement(HtmlElements.INPUT);
 
-      String label = item.getLabel();
+      final String label = item.getLabel();
       if (label != null) {
         writer.startElement(HtmlElements.LABEL, select);
         writer.writeAttribute(HtmlAttributes.FOR, itemId, false);
@@ -115,13 +115,13 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
   }
 
   @Override
-  public Measure getHeight(FacesContext facesContext, Configurable component) {
-    UISelectManyCheckbox select = (UISelectManyCheckbox) component;
-    Measure heightOfOne = super.getHeight(facesContext, component);
+  public Measure getHeight(final FacesContext facesContext, final Configurable component) {
+    final UISelectManyCheckbox select = (UISelectManyCheckbox) component;
+    final Measure heightOfOne = super.getHeight(facesContext, component);
     if (select.isInline()) {
       return heightOfOne;
     } else {
-      List<SelectItem> items = RenderUtils.getItemsToRender((UISelectMany) component);
+      final List<SelectItem> items = RenderUtils.getItemsToRender((UISelectMany) component);
       return heightOfOne.multiply(items.size());
     }
   }

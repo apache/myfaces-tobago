@@ -28,7 +28,7 @@ public class OriginCell implements Cell {
   private int columnSpan;
   private int rowSpan;
 
-  public OriginCell(LayoutComponent component) {
+  public OriginCell(final LayoutComponent component) {
     this.component = component;
   }
 
@@ -48,7 +48,7 @@ public class OriginCell implements Cell {
     return true;
   }
 
-  public int getSpan(Orientation orientation) {
+  public int getSpan(final Orientation orientation) {
     return orientation == Orientation.HORIZONTAL ? getColumnSpan() : getRowSpan();
   }
 
@@ -56,7 +56,7 @@ public class OriginCell implements Cell {
     return columnSpan;
   }
 
-  public void setColumnSpan(int columnSpan) {
+  public void setColumnSpan(final int columnSpan) {
     this.columnSpan = columnSpan;
   }
 
@@ -64,7 +64,7 @@ public class OriginCell implements Cell {
     return rowSpan;
   }
 
-  public void setRowSpan(int rowSpan) {
+  public void setRowSpan(final int rowSpan) {
     this.rowSpan = rowSpan;
   }
 }

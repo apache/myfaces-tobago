@@ -48,8 +48,8 @@ public final class XmlUtils {
     if (null == s) {
       return "";
     }
-    int len = s.length();
-    StringBuilder buffer = new StringBuilder(len);
+    final int len = s.length();
+    final StringBuilder buffer = new StringBuilder(len);
     for (int i = 0; i < len; i++) {
       appendEntityRef(buffer, s.charAt(i), isAttributeValue);
     }
@@ -60,7 +60,7 @@ public final class XmlUtils {
     if (null == chars) {
       return "";
     }
-    StringBuilder buffer = new StringBuilder(length);
+    final StringBuilder buffer = new StringBuilder(length);
     for (int i = offset; i < length; i++) {
       appendEntityRef(buffer, chars[i], isAttributeValue);
     }
@@ -104,46 +104,46 @@ public final class XmlUtils {
   @Deprecated
   public static void load(final Properties properties, final InputStream stream)
       throws IOException {
-    Document document;
+    final Document document;
     try {
       document = createDocument(stream);
-    } catch (SAXException e) {
+    } catch (final SAXException e) {
       throw new RuntimeException("Invalid properties format", e);
     }
-    Element propertiesElement = (Element) document.getChildNodes().item(
+    final Element propertiesElement = (Element) document.getChildNodes().item(
         document.getChildNodes().getLength() - 1);
     importProperties(properties, propertiesElement);
   }
 
   private static Document createDocument(final InputStream stream)
       throws SAXException, IOException {
-    DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+    final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
     factory.setIgnoringElementContentWhitespace(true);
     factory.setValidating(false);
     factory.setCoalescing(true);
     factory.setIgnoringComments(true);
     try {
-      DocumentBuilder builder = factory.newDocumentBuilder();
+      final DocumentBuilder builder = factory.newDocumentBuilder();
       builder.setEntityResolver(new Resolver());
-      InputSource source = new InputSource(stream);
+      final InputSource source = new InputSource(stream);
       return builder.parse(source);
-    } catch (ParserConfigurationException e) {
+    } catch (final ParserConfigurationException e) {
       throw new Error(e);
     }
   }
 
   static void importProperties(final Properties properties, final Element propertiesElement) {
-    NodeList entries = propertiesElement.getChildNodes();
-    int numEntries = entries.getLength();
-    int start = numEntries > 0
+    final NodeList entries = propertiesElement.getChildNodes();
+    final int numEntries = entries.getLength();
+    final int start = numEntries > 0
         && entries.item(0).getNodeName().equals("comment") ? 1 : 0;
     for (int i = start; i < numEntries; i++) {
-      Node child = entries.item(i);
+      final Node child = entries.item(i);
       if (child instanceof Element) {
-        Element entry = (Element) child;
+        final Element entry = (Element) child;
         if (entry.hasAttribute("key")) {
-          Node node = entry.getFirstChild();
-          String value = (node == null) ? "" : node.getNodeValue();
+          final Node node = entry.getFirstChild();
+          final String value = (node == null) ? "" : node.getNodeValue();
           properties.setProperty(entry.getAttribute("key"), value);
         }
       }
@@ -154,12 +154,12 @@ public final class XmlUtils {
 
     public InputSource resolveEntity(final String publicId, final String systemId)
         throws SAXException {
-      String dtd = "<!ELEMENT properties (comment?, entry*)>"
+      final String dtd = "<!ELEMENT properties (comment?, entry*)>"
           + "<!ATTLIST properties version CDATA #FIXED '1.0'>"
           + "<!ELEMENT comment (#PCDATA)>"
           + "<!ELEMENT entry (#PCDATA)>"
           + "<!ATTLIST entry key CDATA #REQUIRED>";
-      InputSource inputSource = new InputSource(new StringReader(dtd));
+      final InputSource inputSource = new InputSource(new StringReader(dtd));
       inputSource.setSystemId("http://java.sun.com/dtd/properties.dtd");
       return inputSource;
     }

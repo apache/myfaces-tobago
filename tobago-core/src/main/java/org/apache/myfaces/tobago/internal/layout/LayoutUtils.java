@@ -44,10 +44,10 @@ public final class LayoutUtils {
     // to prevent instantiation
   }
 
-  public static boolean checkTokens(String columns) {
-    StringTokenizer st = new StringTokenizer(columns, ";");
+  public static boolean checkTokens(final String columns) {
+    final StringTokenizer st = new StringTokenizer(columns, ";");
     while (st.hasMoreTokens()) {
-      String token = st.nextToken();
+      final String token = st.nextToken();
       if (!TOKEN_PATTERN.matcher(token).matches()) {
         return false;
       }
@@ -55,14 +55,14 @@ public final class LayoutUtils {
     return true;
   }
 
-  public static List<LayoutComponent> findLayoutChildren(LayoutContainer container) {
-    List<LayoutComponent> result = new ArrayList<LayoutComponent>();
+  public static List<LayoutComponent> findLayoutChildren(final LayoutContainer container) {
+    final List<LayoutComponent> result = new ArrayList<LayoutComponent>();
     addLayoutChildren((UIComponent) container, result);
     return result;
   }
 
-  private static void addLayoutChildren(UIComponent component, List<LayoutComponent> result) {
-    for (UIComponent child : component.getChildren()) {
+  private static void addLayoutChildren(final UIComponent component, final List<LayoutComponent> result) {
+    for (final UIComponent child : component.getChildren()) {
       if (child instanceof LayoutComponent) {
         result.add((LayoutComponent) child);
       } else {
@@ -73,27 +73,27 @@ public final class LayoutUtils {
     }
   }
 
-  public static Measure getBorderEnd(Orientation orientation, LayoutBox container) {
+  public static Measure getBorderEnd(final Orientation orientation, final LayoutBox container) {
     return orientation == Orientation.HORIZONTAL ? container.getBorderRight() : container.getBorderBottom();
   }
 
-  public static Measure getBorderBegin(Orientation orientation, LayoutBox container) {
+  public static Measure getBorderBegin(final Orientation orientation, final LayoutBox container) {
     return orientation == Orientation.HORIZONTAL ? container.getBorderLeft() : container.getBorderTop();
   }
 
-  public static Measure getPaddingEnd(Orientation orientation, LayoutBox container) {
+  public static Measure getPaddingEnd(final Orientation orientation, final LayoutBox container) {
     return orientation == Orientation.HORIZONTAL ? container.getPaddingRight() : container.getPaddingBottom();
   }
 
-  public static Measure getPaddingBegin(Orientation orientation, LayoutBox container) {
+  public static Measure getPaddingBegin(final Orientation orientation, final LayoutBox container) {
     return orientation == Orientation.HORIZONTAL ? container.getPaddingLeft() : container.getPaddingTop();
   }
 
-  public static Measure getCurrentSize(Orientation orientation, LayoutBase component) {
+  public static Measure getCurrentSize(final Orientation orientation, final LayoutBase component) {
     return orientation == Orientation.HORIZONTAL ? component.getCurrentWidth() : component.getCurrentHeight();
   }
 
-  public static void setCurrentSize(Orientation orientation, LayoutBase component, Measure size) {
+  public static void setCurrentSize(final Orientation orientation, final LayoutBase component, Measure size) {
     if (orientation == Orientation.HORIZONTAL) {
       final Measure width = component.getWidth();
       if (width != null) { // to not override set sizes

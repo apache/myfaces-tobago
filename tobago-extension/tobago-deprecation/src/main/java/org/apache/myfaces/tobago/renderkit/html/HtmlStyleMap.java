@@ -35,9 +35,9 @@ public class HtmlStyleMap extends HashMap<String, Object> {
   private static final Logger LOG = LoggerFactory.getLogger(HtmlStyleMap.class);
   private static final long serialVersionUID = 342607693971417143L;
 
-  public Object put(String s, Object o) {
+  public Object put(final String s, Object o) {
     if (o instanceof String && (s.equals("height") || s.equals("width"))) {
-      String str = (String) o;
+      final String str = (String) o;
       if (str.endsWith("px")) {
         LOG.error("", new Exception());
         o = Integer.parseInt(str.substring(0, str.length() - 2));
@@ -46,8 +46,8 @@ public class HtmlStyleMap extends HashMap<String, Object> {
     return super.put(s, o);
   }
 
-  public Integer getInt(Object o) {
-    Object obj = get(o);
+  public Integer getInt(final Object o) {
+    final Object obj = get(o);
     if (obj instanceof Integer) {
       return (Integer) obj;
     }
@@ -62,8 +62,8 @@ public class HtmlStyleMap extends HashMap<String, Object> {
     if (entrySet().isEmpty()) {
       return null;
     }
-    StringBuilder buf = new StringBuilder();
-    for (Map.Entry<String, Object> style : entrySet()) {
+    final StringBuilder buf = new StringBuilder();
+    for (final Map.Entry<String, Object> style : entrySet()) {
       buf.append(style.getKey());
       buf.append(":");
       buf.append(style.getValue());

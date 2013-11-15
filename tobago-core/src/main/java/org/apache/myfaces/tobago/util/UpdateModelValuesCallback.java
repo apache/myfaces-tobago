@@ -27,13 +27,13 @@ import javax.faces.context.FacesContext;
 
 public class UpdateModelValuesCallback implements javax.faces.component.ContextCallback {
 
-  public void invokeContextCallback(FacesContext facesContext, UIComponent component) {
+  public void invokeContextCallback(final FacesContext facesContext, final UIComponent component) {
     if (facesContext.getExternalContext().getRequestMap().get(AbstractUIForm.SUBMITTED_MARKER) == null
         || ((Boolean) facesContext.getExternalContext().getRequestMap().get(AbstractUIForm.SUBMITTED_MARKER))) {
       component.processUpdates(facesContext);
     } else {
       // if we're not the submitted form, only process sub forms.
-      for (AbstractUIForm subForm : ComponentUtils.findSubForms(component)) {
+      for (final AbstractUIForm subForm : ComponentUtils.findSubForms(component)) {
         subForm.processUpdates(facesContext);
       }
     }

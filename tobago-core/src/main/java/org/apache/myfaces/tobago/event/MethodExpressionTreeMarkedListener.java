@@ -39,11 +39,11 @@ public class MethodExpressionTreeMarkedListener implements TreeMarkedListener, S
   public MethodExpressionTreeMarkedListener() {
   }
 
-  public MethodExpressionTreeMarkedListener(MethodExpression methodExpression) {
+  public MethodExpressionTreeMarkedListener(final MethodExpression methodExpression) {
     this.methodExpression = methodExpression;
   }
 
-  public void treeMarked(TreeMarkedEvent event) {
+  public void treeMarked(final TreeMarkedEvent event) {
     FacesUtilsEL.invokeMethodExpression(FacesContext.getCurrentInstance(), methodExpression, event);
   }
 
@@ -51,15 +51,15 @@ public class MethodExpressionTreeMarkedListener implements TreeMarkedListener, S
     return FacesContext.getCurrentInstance().getELContext();
   }
 
-  public void restoreState(FacesContext context, Object state) {
+  public void restoreState(final FacesContext context, final Object state) {
     methodExpression = (MethodExpression) state;
   }
 
-  public Object saveState(FacesContext context) {
+  public Object saveState(final FacesContext context) {
     return methodExpression;
   }
 
-  public void setTransient(boolean newTransientValue) {
+  public void setTransient(final boolean newTransientValue) {
     isTransient = newTransientValue;
   }
 

@@ -63,32 +63,32 @@ public class MenuCommandRenderer extends CommandRendererBase {
   private static final Logger LOG = LoggerFactory.getLogger(MenuCommandRenderer.class);
 
   @Override
-  public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
-    UIMenuCommand menu = (UIMenuCommand) component;
-    TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+  public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
+    final UIMenuCommand menu = (UIMenuCommand) component;
+    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
-    boolean disabled = menu.isDisabled();
-    boolean firstLevel = RendererTypes.MENU_BAR.equals(menu.getParent().getRendererType());
-    LabelWithAccessKey label = new LabelWithAccessKey(menu);
+    final boolean disabled = menu.isDisabled();
+    final boolean firstLevel = RendererTypes.MENU_BAR.equals(menu.getParent().getRendererType());
+    final LabelWithAccessKey label = new LabelWithAccessKey(menu);
 
     if (menu.getFacet(Facets.CHECKBOX) != null) {
       // checkbox menu
-      UISelectBooleanCheckbox checkbox = (UISelectBooleanCheckbox) menu.getFacet(Facets.CHECKBOX);
-      boolean checked = ComponentUtils.getBooleanAttribute(checkbox, Attributes.VALUE);
-      String image = checked ? "image/MenuCheckmark.gif" : null;
-      String hiddenId = checkbox.getClientId(facesContext);
+      final UISelectBooleanCheckbox checkbox = (UISelectBooleanCheckbox) menu.getFacet(Facets.CHECKBOX);
+      final boolean checked = ComponentUtils.getBooleanAttribute(checkbox, Attributes.VALUE);
+      final String image = checked ? "image/MenuCheckmark.gif" : null;
+      final String hiddenId = checkbox.getClientId(facesContext);
       final CommandMap map = new CommandMap(new Command());
       encodeItem(facesContext, writer, menu, label, map, disabled, firstLevel, image, null, "selectBoolean");
       encodeHidden(writer, hiddenId, checked);
     } else if (menu.getFacet(Facets.RADIO) != null) {
       // radio menu
-      String clientId = menu.getClientId(facesContext);
-      UISelectOne radio = (UISelectOne) menu.getFacet(Facets.RADIO);
-      List<SelectItem> items = RenderUtils.getSelectItems(radio);
-      String hiddenId = radio.getClientId(facesContext);
-      for (SelectItem item : items) {
-        boolean checked = item.getValue().equals(radio.getValue());
-        String image = checked ? "image/MenuRadioChecked.gif" : null;
+      final String clientId = menu.getClientId(facesContext);
+      final UISelectOne radio = (UISelectOne) menu.getFacet(Facets.RADIO);
+      final List<SelectItem> items = RenderUtils.getSelectItems(radio);
+      final String hiddenId = radio.getClientId(facesContext);
+      for (final SelectItem item : items) {
+        final boolean checked = item.getValue().equals(radio.getValue());
+        final String image = checked ? "image/MenuRadioChecked.gif" : null;
         final String labelText = item.getLabel();
         label.reset();
 
@@ -109,13 +109,14 @@ public class MenuCommandRenderer extends CommandRendererBase {
       encodeHidden(writer, hiddenId, getCurrentValue(facesContext, radio));
     } else {
       // normal menu command
-      String image = menu.getImage();
-      CommandMap map = new CommandMap(new Command(facesContext, menu));
+      final String image = menu.getImage();
+      final CommandMap map = new CommandMap(new Command(facesContext, menu));
       encodeItem(facesContext, writer, menu, label, map, disabled, firstLevel, image, null, null);
     }
   }
 
-  private void encodeHidden(TobagoResponseWriter writer, String hiddenId, Object value) throws IOException {
+  private void encodeHidden(final TobagoResponseWriter writer, final String hiddenId, final Object value)
+      throws IOException {
     writer.startElement(HtmlElements.INPUT, null);
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN, false);
     writer.writeNameAttribute(hiddenId);
@@ -126,8 +127,10 @@ public class MenuCommandRenderer extends CommandRendererBase {
   }
 
   private void encodeItem(
-      FacesContext facesContext, TobagoResponseWriter writer, UIMenuCommand component, LabelWithAccessKey label,
-      CommandMap map, boolean disabled, boolean firstLevel, String image, String value, String sub)
+      final FacesContext facesContext, final TobagoResponseWriter writer, final UIMenuCommand component,
+      final LabelWithAccessKey label,
+      final CommandMap map, final boolean disabled, final boolean firstLevel, final String image, final String value,
+      final String sub)
       throws IOException {
 
     writer.startElement(HtmlElements.LI, null);
@@ -158,16 +161,17 @@ public class MenuCommandRenderer extends CommandRendererBase {
 
     if (image != null) {
       if (firstLevel) {
-        Style iconStyle = new Style();
+        final Style iconStyle = new Style();
         iconStyle.setLeft(Measure.valueOf(0));
         iconStyle.setTop(Measure.valueOf(0));
         iconStyle.setHeight(Measure.valueOf(16));
         iconStyle.setWidth(Measure.valueOf(16));
 
         writer.startElement(HtmlElements.IMG, null);
-        String imageWithPath = ResourceManagerUtils.getImageOrDisabledImageWithPath(facesContext, image, disabled);
+        final String imageWithPath
+            = ResourceManagerUtils.getImageOrDisabledImageWithPath(facesContext, image, disabled);
         writer.writeAttribute(HtmlAttributes.SRC, imageWithPath, false);
-        String imageHover = ResourceManagerUtils
+        final String imageHover = ResourceManagerUtils
             .getImageOrDisabledImageWithPath(facesContext, HtmlRendererUtils.createSrc(image, "Hover"), disabled);
         if (imageHover != null) {
           writer.writeAttribute(DataAttributes.SRC_DEFAULT, imageWithPath, false);
@@ -178,7 +182,7 @@ public class MenuCommandRenderer extends CommandRendererBase {
         writer.writeStyleAttribute(iconStyle);
         writer.endElement(HtmlElements.IMG);
       } else {
-        Style style = new Style();
+        final Style style = new Style();
         style.setBackgroundImage("url('"
             + ResourceManagerUtils.getImageOrDisabledImageWithPath(facesContext, image, disabled)
             + "')");
@@ -209,7 +213,7 @@ public class MenuCommandRenderer extends CommandRendererBase {
     writer.endElement(HtmlElements.LI);
   }
 
-  public void encodeChildren(FacesContext facesContext, UIComponent component)
+  public void encodeChildren(final FacesContext facesContext, final UIComponent component)
       throws IOException {
   }
 

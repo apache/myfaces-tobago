@@ -49,6 +49,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
+import org.apache.myfaces.tobago.renderkit.util.EncodeUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.util.VariableResolverUtils;
@@ -83,63 +84,63 @@ public class PageRenderer extends PageRendererBase {
   private static final String LAST_FOCUS_ID = "lastFocusId";
 
   @Override
-  public void decode(FacesContext facesContext, UIComponent component) {
+  public void decode(final FacesContext facesContext, final UIComponent component) {
     super.decode(facesContext, component);
-    String clientId = component.getClientId(facesContext);
-    ExternalContext externalContext = facesContext.getExternalContext();
+    final String clientId = component.getClientId(facesContext);
+    final ExternalContext externalContext = facesContext.getExternalContext();
 
     // severity
-    String severity
+    final String severity
         = externalContext.getRequestParameterMap().get(clientId + ComponentUtils.SUB_SEPARATOR + "clientSeverity");
     if (severity != null) {
       externalContext.getRequestMap().put(CLIENT_DEBUG_SEVERITY, severity);
     }
 
     // last focus
-    String lastFocusId =
+    final String lastFocusId =
         externalContext.getRequestParameterMap().get(clientId + ComponentUtils.SUB_SEPARATOR + LAST_FOCUS_ID);
     if (lastFocusId != null) {
       FacesContextUtils.setFocusId(facesContext, lastFocusId);
     }
 
     // scrollbar weight
-    String name = clientId + ComponentUtils.SUB_SEPARATOR + "scrollbarWeight";
+    final String name = clientId + ComponentUtils.SUB_SEPARATOR + "scrollbarWeight";
     String value = null;
     try {
       value = facesContext.getExternalContext().getRequestParameterMap().get(name);
       if (StringUtils.isNotBlank(value)) {
-        StringTokenizer tokenizer = new StringTokenizer(value, ";");
-        Measure vertical = Measure.valueOf(tokenizer.nextToken());
-        Measure horizontal = Measure.valueOf(tokenizer.nextToken());
+        final StringTokenizer tokenizer = new StringTokenizer(value, ";");
+        final Measure vertical = Measure.valueOf(tokenizer.nextToken());
+        final Measure horizontal = Measure.valueOf(tokenizer.nextToken());
         if (vertical.greaterThan(Measure.valueOf(30)) || vertical.lessThan(Measure.valueOf(3))
-           || horizontal.greaterThan(Measure.valueOf(30)) || horizontal.lessThan(Measure.valueOf(3))) {
+            || horizontal.greaterThan(Measure.valueOf(30)) || horizontal.lessThan(Measure.valueOf(3))) {
           LOG.error("Ignoring strange values: vertical=" + vertical + " horizontal=" + horizontal);
         } else {
-          ClientProperties client = VariableResolverUtils.resolveClientProperties(facesContext);
+          final ClientProperties client = VariableResolverUtils.resolveClientProperties(facesContext);
           client.setVerticalScrollbarWeight(vertical);
           client.setHorizontalScrollbarWeight(horizontal);
         }
       }
-    } catch (Exception e) {
+    } catch (final Exception e) {
       LOG.error("Error in decoding '" + name + "': value='" + value + "'", e);
     }
   }
 
   @Override
-  public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
+  public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
 
     final UIPage page = (UIPage) component;
     final TobagoConfig tobagoConfig = TobagoConfig.getInstance(facesContext);
 
     // invoke prepareRender
-    RenderUtils.prepareRendererAll(facesContext, page);
+    EncodeUtils.prepareRendererAll(facesContext, page);
 
-    LayoutContext layoutContext = new LayoutContext(page);
+    final LayoutContext layoutContext = new LayoutContext(page);
     layoutContext.layout();
     if (FacesContextUtils.getFocusId(facesContext) == null && !StringUtils.isBlank(page.getFocusId())) {
       FacesContextUtils.setFocusId(facesContext, page.getFocusId());
     }
-    TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
     // reset responseWriter and render page
     facesContext.setResponseWriter(writer);
@@ -149,8 +150,8 @@ public class PageRenderer extends PageRendererBase {
     ResponseUtils.ensureContentSecurityPolicyHeader(facesContext, tobagoConfig.getContentSecurityPolicy());
 
     if (LOG.isDebugEnabled()) {
-      for (Object o : page.getAttributes().entrySet()) {
-        Map.Entry entry = (Map.Entry) o;
+      for (final Object o : page.getAttributes().entrySet()) {
+        final Map.Entry entry = (Map.Entry) o;
         LOG.debug("*** '" + entry.getKey() + "' -> '" + entry.getValue() + "'");
       }
     }
@@ -175,12 +176,12 @@ public class PageRenderer extends PageRendererBase {
     final String clientId = page.getClientId(facesContext);
     final ClientProperties client = VariableResolverUtils.resolveClientProperties(facesContext);
     final ProjectStage projectStage = tobagoConfig.getProjectStage();
-    final boolean developmentMode =  projectStage == ProjectStage.Development;
+    final boolean developmentMode = projectStage == ProjectStage.Development;
     final boolean debugMode = client.isDebugMode() || developmentMode;
     final boolean productionMode = !debugMode && projectStage == ProjectStage.Production;
     int clientLogSeverity = 2;
     if (debugMode) {
-      String severity = (String) externalContext.getRequestMap().get(CLIENT_DEBUG_SEVERITY);
+      final String severity = (String) externalContext.getRequestMap().get(CLIENT_DEBUG_SEVERITY);
       if (LOG.isDebugEnabled()) {
         LOG.debug("get " + CLIENT_DEBUG_SEVERITY + " = " + severity);
       }
@@ -191,17 +192,17 @@ public class PageRenderer extends PageRendererBase {
             index = severity.length();
           }
           clientLogSeverity = Integer.parseInt(severity.substring(0, index));
-        } catch (NumberFormatException e) {
+        } catch (final NumberFormatException e) {
           // ignore; use default
         }
       }
     }
-    boolean preventFrameAttacks = tobagoConfig.isPreventFrameAttacks();
+    final boolean preventFrameAttacks = tobagoConfig.isPreventFrameAttacks();
 
     if (!FacesContextUtils.isAjax(facesContext)) {
       HtmlRendererUtils.renderDojoDndSource(facesContext, component);
 
-      String title = (String) page.getAttributes().get(Attributes.LABEL);
+      final String title = (String) page.getAttributes().get(Attributes.LABEL);
 
       writer.startElement(HtmlElements.HEAD, null);
 
@@ -220,11 +221,11 @@ public class PageRenderer extends PageRendererBase {
       final Theme theme = client.getTheme();
 
       // style files
-      for (String styleFile : theme.getStyleResources(productionMode)) {
+      for (final String styleFile : theme.getStyleResources(productionMode)) {
         writeStyle(facesContext, writer, styleFile);
       }
 
-      for (String styleFile : FacesContextUtils.getStyleFiles(facesContext)) {
+      for (final String styleFile : FacesContextUtils.getStyleFiles(facesContext)) {
         writeStyle(facesContext, writer, styleFile);
       }
 
@@ -255,22 +256,22 @@ public class PageRenderer extends PageRendererBase {
       }
 
       // style sniplets
-      Set<String> styleBlocks = FacesContextUtils.getStyleBlocks(facesContext);
+      final Set<String> styleBlocks = FacesContextUtils.getStyleBlocks(facesContext);
       if (styleBlocks.size() > 0) {
         writer.startElement(HtmlElements.STYLE, null);
         writer.flush(); // is needed in some cases, e. g. TOBAGO-1094
-        for (String cssBlock : styleBlocks) {
+        for (final String cssBlock : styleBlocks) {
           writer.write(cssBlock);
         }
         writer.endElement(HtmlElements.STYLE);
       }
 
       // render remaining script tags
-      for (String scriptFile: theme.getScriptResources(productionMode)) {
+      for (final String scriptFile : theme.getScriptResources(productionMode)) {
         encodeScript(facesContext, writer, scriptFile);
       }
 
-      for (String scriptFile : FacesContextUtils.getScriptFiles(facesContext)) {
+      for (final String scriptFile : FacesContextUtils.getScriptFiles(facesContext)) {
         encodeScript(facesContext, writer, scriptFile);
       }
 
@@ -291,7 +292,7 @@ public class PageRenderer extends PageRendererBase {
       writeEventFunction(writer, FacesContextUtils.getOnsubmitScripts(facesContext), "submit", true);
 
       int debugCounter = 0;
-      for (String scriptBlock : FacesContextUtils.getScriptBlocks(facesContext)) {
+      for (final String scriptBlock : FacesContextUtils.getScriptBlocks(facesContext)) {
 
         if (LOG.isDebugEnabled()) {
           LOG.debug("write scriptblock " + ++debugCounter + " :\n" + scriptBlock);
@@ -325,7 +326,7 @@ public class PageRenderer extends PageRendererBase {
     LOG.info("partial action = " + partialAction);
     writer.writeIdAttribute(page.getFormId(facesContext));
     writer.writeAttribute(HtmlAttributes.METHOD, getMethod(page), false);
-    String enctype = FacesContextUtils.getEnctype(facesContext);
+    final String enctype = FacesContextUtils.getEnctype(facesContext);
     if (enctype != null) {
       writer.writeAttribute(HtmlAttributes.ENCTYPE, enctype, false);
     }
@@ -358,7 +359,7 @@ public class PageRenderer extends PageRendererBase {
     writer.writeIdAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "form-clientDimension");
     writer.endElement(HtmlElements.INPUT);
 
-    boolean calculateScrollbarWeight =
+    final boolean calculateScrollbarWeight =
         client.getVerticalScrollbarWeight() == null || client.getHorizontalScrollbarWeight() == null;
 
     if (calculateScrollbarWeight) {
@@ -395,7 +396,7 @@ public class PageRenderer extends PageRendererBase {
     }
 
     if (component.getFacet("backButtonDetector") != null) {
-      UIComponent hidden = component.getFacet("backButtonDetector");
+      final UIComponent hidden = component.getFacet("backButtonDetector");
       RenderUtils.encode(facesContext, hidden);
     }
 
@@ -416,7 +417,7 @@ public class PageRenderer extends PageRendererBase {
     }
 */
 
-    UIMenuBar menuBar = (UIMenuBar) page.getFacet(Facets.MENUBAR);
+    final UIMenuBar menuBar = (UIMenuBar) page.getFacet(Facets.MENUBAR);
     if (menuBar != null) {
       menuBar.getAttributes().put(Attributes.PAGE_MENU, Boolean.TRUE);
       RenderUtils.encode(facesContext, menuBar);
@@ -425,22 +426,22 @@ public class PageRenderer extends PageRendererBase {
 //    AbstractUILayoutBase.getLayout(component).encodeChildrenOfComponent(facesContext, component);
 
 //    page.encodeLayoutBegin(facesContext);
-    
+
     writer.startElement(HtmlElements.DIV, page);
     writer.writeClassAttribute(Classes.create(page, "content", Markup.PORTLET));
     writer.writeIdAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "content");
-    Style style = new Style(facesContext, page);
+    final Style style = new Style(facesContext, page);
     // XXX position the div, so that the scrollable area is correct.
     // XXX better to take this fact into layout management.
     // XXX is also useful in boxes, etc.
-    Measure border = getBorderBottom(facesContext, page);
+    final Measure border = getBorderBottom(facesContext, page);
     style.setHeight(page.getCurrentHeight().subtract(border));
     style.setTop(border);
     writer.writeStyleAttribute(style);
   }
 
-  private void checkDuplicates(String[] resources, Collection<String> files) {
-    for (String resource : resources) {
+  private void checkDuplicates(final String[] resources, final Collection<String> files) {
+    for (final String resource : resources) {
       if (files.contains(resource)) {
         throw new RuntimeException("The resource '" + resource + "' will be included twice! "
             + "The resource is in the theme list, and explicit in the page. "
@@ -449,10 +450,10 @@ public class PageRenderer extends PageRendererBase {
     }
   }
 
-  private void writeStyle(FacesContext facesContext, TobagoResponseWriter writer, String styleFile)
+  private void writeStyle(final FacesContext facesContext, final TobagoResponseWriter writer, final String styleFile)
       throws IOException {
-    List<String> styles = ResourceManagerUtils.getStyles(facesContext, styleFile);
-    for (String styleString : styles) {
+    final List<String> styles = ResourceManagerUtils.getStyles(facesContext, styleFile);
+    for (final String styleString : styles) {
       if (styleString.length() > 0) {
         writer.startElement(HtmlElements.LINK, null);
         writer.writeAttribute(HtmlAttributes.REL, "stylesheet", false);
@@ -471,7 +472,7 @@ public class PageRenderer extends PageRendererBase {
 //  }
 
   @Override
-  public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
+  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
 
     final UIPage page = (UIPage) component;
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
@@ -484,7 +485,7 @@ public class PageRenderer extends PageRendererBase {
 
     final UIPopup[] popupArray = FacesContextUtils.getPopups(facesContext).toArray(
         new UIPopup[FacesContextUtils.getPopups(facesContext).size()]);
-    for (UIPopup popup : popupArray) {
+    for (final UIPopup popup : popupArray) {
       RenderUtils.encode(facesContext, popup);
     }
 
@@ -502,7 +503,7 @@ public class PageRenderer extends PageRendererBase {
       writer.endElement(HtmlElements.INPUT);
     }
 
-    List<String> messageClientIds = AjaxInternalUtils.getMessagesClientIds(facesContext);
+    final List<String> messageClientIds = AjaxInternalUtils.getMessagesClientIds(facesContext);
     if (messageClientIds != null) {
       writer.startElement(HtmlElements.INPUT, null);
       writer.writeAttribute(HtmlAttributes.VALUE, StringUtils.join(messageClientIds, ','), true);
@@ -517,14 +518,14 @@ public class PageRenderer extends PageRendererBase {
     writer.writeClassAttribute(Classes.create(page, "menuStore"));
     writer.endElement(HtmlElements.DIV);
 
-    Application application = facesContext.getApplication();
-    ViewHandler viewHandler = application.getViewHandler();
+    final Application application = facesContext.getApplication();
+    final ViewHandler viewHandler = application.getViewHandler();
 
     writer.startElement(HtmlElements.SPAN, null);
     writer.writeIdAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "jsf-state-container");
     writer.flush();
     if (!FacesContextUtils.isAjax(facesContext)) {
-        viewHandler.writeState(facesContext);
+      viewHandler.writeState(facesContext);
     }
     writer.endElement(HtmlElements.SPAN);
 
@@ -564,10 +565,9 @@ public class PageRenderer extends PageRendererBase {
     // debugging...
     if (debugMode) {
       final List<String> logMessages = new ArrayList<String>();
-      for (Iterator ids = facesContext.getClientIdsWithMessages(); ids.hasNext();) {
-        final String id = (String) ids.next();
-        for (Iterator messages = facesContext.getMessages(id); messages.hasNext();) {
-          final FacesMessage message = (FacesMessage) messages.next();
+      String id = null;
+      for (final Iterator<String> ids = facesContext.getClientIdsWithMessages(); ids.hasNext(); id = ids.next()) {
+        for (final FacesMessage message : facesContext.getMessageList(id)) {
           logMessages.add(errorMessageForDebugging(id, message));
         }
       }
@@ -603,7 +603,8 @@ public class PageRenderer extends PageRendererBase {
   }
 
   private void writeEventFunction(
-      TobagoResponseWriter writer, Collection<String> eventFunctions, String event, boolean returnBoolean)
+      final TobagoResponseWriter writer, final Collection<String> eventFunctions, final String event,
+      final boolean returnBoolean)
       throws IOException {
     if (!eventFunctions.isEmpty()) {
       writer.write("Tobago.applicationOn");
@@ -612,7 +613,7 @@ public class PageRenderer extends PageRendererBase {
       if (returnBoolean) {
         writer.write("  var result;\n");
       }
-      for (String function : eventFunctions) {
+      for (final String function : eventFunctions) {
         if (returnBoolean) {
           writer.write("  result = ");
         } else {
@@ -634,15 +635,16 @@ public class PageRenderer extends PageRendererBase {
     }
   }
 
-  private void encodeScript(FacesContext facesContext, TobagoResponseWriter writer, String script) throws IOException {
-    List<String> list;
+  private void encodeScript(final FacesContext facesContext, final TobagoResponseWriter writer, final String script)
+      throws IOException {
+    final List<String> list;
     if (ResourceManagerUtils.isAbsoluteResource(script)) {
       list = new ArrayList<String>();
       list.add(script);
     } else {
       list = ResourceManagerUtils.getScripts(facesContext, script);
     }
-    for (String src : list) {
+    for (final String src : list) {
       if (StringUtils.isNotBlank(src)) {
         writer.startElement(HtmlElements.SCRIPT, null);
         writer.writeAttribute(HtmlAttributes.SRC, src, true);
@@ -654,7 +656,8 @@ public class PageRenderer extends PageRendererBase {
     }
   }
 
-  private void errorMessageForDebugging(String id, FacesMessage message, ResponseWriter writer) throws IOException {
+  private void errorMessageForDebugging(final String id, final FacesMessage message, final ResponseWriter writer)
+      throws IOException {
     writer.startElement(HtmlElements.DIV, null);
     writer.writeAttribute(HtmlAttributes.STYLE, "color: red", null);
     writer.flush(); // is needed in some cases, e. g. TOBAGO-1094
@@ -671,8 +674,8 @@ public class PageRenderer extends PageRendererBase {
     writer.endElement(HtmlElements.BR);
   }
 
-  private String errorMessageForDebugging(String id, FacesMessage message) {
-    StringBuilder sb = new StringBuilder("LOG.info(\"FacesMessage: [");
+  private String errorMessageForDebugging(final String id, final FacesMessage message) {
+    final StringBuilder sb = new StringBuilder("LOG.info(\"FacesMessage: [");
     sb.append(id != null ? id : "null");
     sb.append("][");
     sb.append(message.getSummary() == null ? "null" : escape(message.getSummary()));
@@ -682,12 +685,12 @@ public class PageRenderer extends PageRendererBase {
     return sb.toString();
   }
 
-  private String escape(String s) {
+  private String escape(final String s) {
     return StringUtils.replace(StringUtils.replace(s, "\\", "\\\\"), "\"", "\\\"");
   }
 
-  private String getMethod(UIPage page) {
-    String method = (String) page.getAttributes().get(Attributes.METHOD);
+  private String getMethod(final UIPage page) {
+    final String method = (String) page.getAttributes().get(Attributes.METHOD);
     return method == null ? "post" : method;
   }
 
@@ -697,11 +700,11 @@ public class PageRenderer extends PageRendererBase {
   }
 
   @Override
-  public Measure getBorderBottom(FacesContext facesContext, Configurable component) {
+  public Measure getBorderBottom(final FacesContext facesContext, final Configurable component) {
     // XXX this is a hack. correct would be the top-border, but this would shift the content, because of the
     // XXX hack before the code: writer.writeStyleAttribute(style)
-    UIPage page = (UIPage) component;
-    UIMenuBar menuBar = (UIMenuBar) page.getFacet(Facets.MENUBAR);
+    final UIPage page = (UIPage) component;
+    final UIMenuBar menuBar = (UIMenuBar) page.getFacet(Facets.MENUBAR);
     if (menuBar != null) {
       return getResourceManager().getThemeMeasure(facesContext, page, "custom.menuBar-height");
     } else {
@@ -710,9 +713,9 @@ public class PageRenderer extends PageRendererBase {
   }
 
   @Override
-  public Measure getWidth(FacesContext facesContext, Configurable component) {
+  public Measure getWidth(final FacesContext facesContext, final Configurable component) {
     // width of the actual browser window
-    Measure width = ClientProperties.getInstance(facesContext).getPageWidth();
+    final Measure width = ClientProperties.getInstance(facesContext).getPageWidth();
     if (width != null) {
       return width;
     } else {
@@ -721,9 +724,9 @@ public class PageRenderer extends PageRendererBase {
   }
 
   @Override
-  public Measure getHeight(FacesContext facesContext, Configurable component) {
+  public Measure getHeight(final FacesContext facesContext, final Configurable component) {
     // height of the actual browser window
-    Measure height = ClientProperties.getInstance(facesContext).getPageHeight();
+    final Measure height = ClientProperties.getInstance(facesContext).getPageHeight();
     if (height != null) {
       return height;
     } else {

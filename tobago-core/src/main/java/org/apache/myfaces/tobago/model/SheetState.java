@@ -58,7 +58,7 @@ public class SheetState implements Serializable {
     return selectedRows;
   }
 
-  public void setSelectedRows(List<Integer> selectedRows) {
+  public void setSelectedRows(final List<Integer> selectedRows) {
     assert selectedRows != null;
     this.selectedRows = selectedRows;
   }
@@ -67,7 +67,7 @@ public class SheetState implements Serializable {
     return sortedColumnId;
   }
 
-  public void setSortedColumnId(String sortedColumnId) {
+  public void setSortedColumnId(final String sortedColumnId) {
     this.sortedColumnId = sortedColumnId;
   }
 
@@ -75,7 +75,7 @@ public class SheetState implements Serializable {
     return ascending;
   }
 
-  public void setAscending(boolean ascending) {
+  public void setAscending(final boolean ascending) {
     this.ascending = ascending;
   }
 
@@ -83,7 +83,7 @@ public class SheetState implements Serializable {
     return columnWidths;
   }
 
-  public void setColumnWidths(String columnWidths) {
+  public void setColumnWidths(final String columnWidths) {
     this.columnWidths = columnWidths;
   }
 
@@ -91,13 +91,13 @@ public class SheetState implements Serializable {
     return first;
   }
 
-  public void setFirst(int first) {
+  public void setFirst(final int first) {
     this.first = first;
   }
 
-  public void updateSortState(SortActionEvent sortEvent) {
+  public void updateSortState(final SortActionEvent sortEvent) {
 
-    UIColumn actualColumn = sortEvent.getColumn();
+    final UIColumn actualColumn = sortEvent.getColumn();
 
     if (actualColumn.getId().equals(sortedColumnId)) {
       ascending = !ascending;
@@ -111,7 +111,7 @@ public class SheetState implements Serializable {
     return scrollPosition;
   }
 
-  public void setScrollPosition(Integer[] scrollPosition) {
+  public void setScrollPosition(final Integer[] scrollPosition) {
     this.scrollPosition = scrollPosition;
   }
 
@@ -122,7 +122,7 @@ public class SheetState implements Serializable {
     return expandedState;
   }
 
-  public void setExpandedState(ExpandedState expandedState) {
+  public void setExpandedState(final ExpandedState expandedState) {
     this.expandedState = expandedState;
   }
 
@@ -133,22 +133,26 @@ public class SheetState implements Serializable {
     return selectedState;
   }
 
-  public void setSelectedState(SelectedState selectedState) {
+  public void setSelectedState(final SelectedState selectedState) {
     this.selectedState = selectedState;
   }
 
-  public static Integer[] parseScrollPosition(String value) {
+  /**
+   * @deprecated since 2.0.0
+   */
+  @Deprecated
+  public static Integer[] parseScrollPosition(final String value) {
     Integer[] position = null;
     if (!StringUtils.isBlank(value)) {
-      int sep = value.indexOf(";");
+      final int sep = value.indexOf(";");
       if (LOG.isInfoEnabled()) {
         LOG.info("value = \"" + value + "\"  sep = " + sep + "");
       }
       if (sep == -1) {
         throw new NumberFormatException(value);
       }
-      int left = Integer.parseInt(value.substring(0, sep));
-      int top = Integer.parseInt(value.substring(sep + 1));
+      final int left = Integer.parseInt(value.substring(0, sep));
+      final int top = Integer.parseInt(value.substring(sep + 1));
       position = new Integer[2];
       position[0] = left;
       position[1] = top;

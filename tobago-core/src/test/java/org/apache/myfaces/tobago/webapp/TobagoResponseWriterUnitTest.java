@@ -107,7 +107,7 @@ public class TobagoResponseWriterUnitTest {
   @Test
   public void testManyChars() throws IOException {
     writer.startElement(HtmlElements.SELECT, null);
-    StringBuffer buffer = new StringBuffer();
+    final StringBuffer buffer = new StringBuffer();
     for (char c = 0x20; c < 0x7F; c++) {
       buffer.append(c);
     }
@@ -129,7 +129,7 @@ public class TobagoResponseWriterUnitTest {
 
   @Test
   public void testNonUtf8() throws IOException {
-    TobagoResponseWriter writer1 = new HtmlResponseWriter(stringWriter, "", "ISO-8859-1");
+    final TobagoResponseWriter writer1 = new HtmlResponseWriter(stringWriter, "", "ISO-8859-1");
     writer1.startElement(HtmlElements.INPUT, null);
     writer1.writeAttribute(HtmlAttributes.VALUE, "Gutschein über 100 €.", null);
     writer1.writeAttribute(HtmlAttributes.READONLY, true);
@@ -141,7 +141,7 @@ public class TobagoResponseWriterUnitTest {
 
   @Test
   public void testCharArray() throws IOException {
-    TobagoResponseWriter writer = new XmlResponseWriter(stringWriter, "text/xml", "ISO-8859-1");
+    final TobagoResponseWriter writer = new XmlResponseWriter(stringWriter, "text/xml", "ISO-8859-1");
     writer.writeText("123".toCharArray(), 0, 3);
     Assert.assertEquals("123", stringWriter.toString());
   }

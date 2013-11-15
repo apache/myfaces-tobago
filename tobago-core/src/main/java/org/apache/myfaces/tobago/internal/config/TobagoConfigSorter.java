@@ -34,7 +34,7 @@ public class TobagoConfigSorter implements Comparator<TobagoConfigFragment> {
   private List<TobagoConfigFragment> list;
   private List<Pair> pairs;
 
-  public TobagoConfigSorter(List<TobagoConfigFragment> list) {
+  public TobagoConfigSorter(final List<TobagoConfigFragment> list) {
     this.list = list;
   }
 
@@ -52,7 +52,7 @@ public class TobagoConfigSorter implements Comparator<TobagoConfigFragment> {
 
     if (LOG.isInfoEnabled()) {
       LOG.info("Order of the Tobago config files:");
-      for (TobagoConfigFragment fragment : list) {
+      for (final TobagoConfigFragment fragment : list) {
         String name = fragment.getName();
         if (name == null) {
           name = "<unnamed>";
@@ -68,9 +68,9 @@ public class TobagoConfigSorter implements Comparator<TobagoConfigFragment> {
 // todo
     LOG.warn("Merge implementation in progress...)");
 
-    TobagoConfigImpl result = new TobagoConfigImpl();
+    final TobagoConfigImpl result = new TobagoConfigImpl();
 
-    for (TobagoConfigFragment fragment : list) {
+    for (final TobagoConfigFragment fragment : list) {
       // default theme
       final String defaultTheme = fragment.getDefaultThemeName();
       if (defaultTheme != null) {
@@ -78,12 +78,12 @@ public class TobagoConfigSorter implements Comparator<TobagoConfigFragment> {
       }
 
       // supported themes
-      for (String supported : fragment.getSupportedThemeNames()) {
+      for (final String supported : fragment.getSupportedThemeNames()) {
         result.addSupportedThemeName(supported);
       }
 
       // resource dirs
-      for (String dir : fragment.getResourceDirs()) {
+      for (final String dir : fragment.getResourceDirs()) {
         result.addResourceDir(dir);
       }
 
@@ -140,16 +140,16 @@ public class TobagoConfigSorter implements Comparator<TobagoConfigFragment> {
   }
 
   protected void ensureIrreflexive() {
-    for (Pair a : pairs) {
+    for (final Pair a : pairs) {
         if (a.getLower() == a.getHigher()) {
-          StringBuffer buffer = new StringBuffer();
+          final StringBuffer buffer = new StringBuffer();
           buffer.append("Ordering problem. There are conflicting order rules. Not irreflexive. " + "'");
           buffer.append(a.getLower());
           buffer.append("' < '");
           buffer.append(a.getHigher());
           buffer.append("'!\nThe reason may be a cycle.\n");
           buffer.append("Complete list of rules: \n");
-          for (Pair pair : pairs) {
+          for (final Pair pair : pairs) {
             buffer.append("'");
             buffer.append(pair.getLower());
             buffer.append("' < '");
@@ -163,10 +163,10 @@ public class TobagoConfigSorter implements Comparator<TobagoConfigFragment> {
   }
 
   protected void ensureAntiSymmetric() {
-    for (Pair a : pairs) {
-      for (Pair b : pairs) {
+    for (final Pair a : pairs) {
+      for (final Pair b : pairs) {
         if (a.getLower() == b.getHigher() && a.getHigher() == b.getLower()) {
-          StringBuffer buffer = new StringBuffer();
+          final StringBuffer buffer = new StringBuffer();
           buffer.append("Ordering problem. There are conflicting order rules. Not antisymmetric. " + "'");
           buffer.append(a.getLower());
           buffer.append("' < '");
@@ -177,7 +177,7 @@ public class TobagoConfigSorter implements Comparator<TobagoConfigFragment> {
           buffer.append(a.getHigher());
           buffer.append("'!\nThe reason may be a cycle.\n");
           buffer.append("Complete list of rules: \n");
-          for (Pair pair : pairs) {
+          for (final Pair pair : pairs) {
             buffer.append("'");
             buffer.append(pair.getLower());
             buffer.append("' < '");
@@ -191,7 +191,7 @@ public class TobagoConfigSorter implements Comparator<TobagoConfigFragment> {
     }
   }
 
-  public int compare(TobagoConfigFragment a, TobagoConfigFragment b) {
+  public int compare(final TobagoConfigFragment a, final TobagoConfigFragment b) {
     if (isInRelation(a, b)) {
       return -1;
     }
@@ -206,15 +206,15 @@ public class TobagoConfigSorter implements Comparator<TobagoConfigFragment> {
     pairs = new ArrayList<Pair>();
 
     // collecting all relations, which are relevant for us. We don't need "before" and "after" of unknown names.
-    for (TobagoConfigFragment tobagoConfig : list) {
-      for (String befores : tobagoConfig.getBefore()) {
-        TobagoConfigFragment before = findByName(befores);
+    for (final TobagoConfigFragment tobagoConfig : list) {
+      for (final String befores : tobagoConfig.getBefore()) {
+        final TobagoConfigFragment before = findByName(befores);
         if (before != null) {
           pairs.add(new Pair(tobagoConfig, before));
         }
       }
-      for (String afters : tobagoConfig.getAfter()) {
-        TobagoConfigFragment after = findByName(afters);
+      for (final String afters : tobagoConfig.getAfter()) {
+        final TobagoConfigFragment after = findByName(afters);
         if (after != null) {
           pairs.add(new Pair(after, tobagoConfig));
         }
@@ -226,8 +226,8 @@ public class TobagoConfigSorter implements Comparator<TobagoConfigFragment> {
     Collections.sort(list, this);
   }
 
-  private boolean isInRelation(TobagoConfigFragment lower, TobagoConfigFragment higher) {
-    for (Pair p : pairs) {
+  private boolean isInRelation(final TobagoConfigFragment lower, final TobagoConfigFragment higher) {
+    for (final Pair p : pairs) {
       if (p.getLower() == lower && p.getHigher() == higher) {
         return true;
       }
@@ -235,8 +235,8 @@ public class TobagoConfigSorter implements Comparator<TobagoConfigFragment> {
     return false;
   }
 
-  private TobagoConfigFragment findByName(String name) {
-    for (TobagoConfigFragment tobagoConfig : list) {
+  private TobagoConfigFragment findByName(final String name) {
+    for (final TobagoConfigFragment tobagoConfig : list) {
       if (name.equals(tobagoConfig.getName())) {
         return tobagoConfig;
       }
@@ -253,7 +253,7 @@ public class TobagoConfigSorter implements Comparator<TobagoConfigFragment> {
     private final TobagoConfigFragment lower;
     private final TobagoConfigFragment higher;
 
-    private Pair(TobagoConfigFragment lower, TobagoConfigFragment higher) {
+    private Pair(final TobagoConfigFragment lower, final TobagoConfigFragment higher) {
       this.lower = lower;
       this.higher = higher;
     }

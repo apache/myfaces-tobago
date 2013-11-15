@@ -60,7 +60,7 @@ public abstract class AttributeTag extends TagSupport {
   public int doStartTag() throws JspException {
 
     // Locate our parent UIComponentTag
-    UIComponentClassicTagBase tag =
+    final UIComponentClassicTagBase tag =
         UIComponentELTag.getParentUIComponentClassicTagBase(pageContext);
     if (tag == null) {
       // TODO Message resource i18n
@@ -71,7 +71,7 @@ public abstract class AttributeTag extends TagSupport {
       return (SKIP_BODY);
     }
 
-    UIComponent component = tag.getComponentInstance();
+    final UIComponent component = tag.getComponentInstance();
     if (component == null) {
       // TODO Message resource i18n
       throw new JspException("Component Instance is null");
@@ -87,7 +87,7 @@ public abstract class AttributeTag extends TagSupport {
       ComponentUtils.setStyleClasses(component, (String) value.getValue(elContext));
     } else if (Attributes.RENDERED_PARTIALLY.equals(attributeName)
         && component instanceof SupportsRenderedPartially) {
-      String[] components = ComponentUtils.splitList((String) value.getValue(elContext));
+      final String[] components = ComponentUtils.splitList((String) value.getValue(elContext));
       ((SupportsRenderedPartially) component).setRenderedPartially(components);
     } else {
       component.getAttributes().put(attributeName, value.getValue(elContext));
@@ -106,7 +106,7 @@ public abstract class AttributeTag extends TagSupport {
    * The name of the attribute in the parent component.
    */
   @TagAttribute(required = true, name = "name", type = "java.lang.String")
-  public void setName(ValueExpression name){
+  public void setName(final ValueExpression name){
     this.name = name;
   }
 
@@ -114,7 +114,7 @@ public abstract class AttributeTag extends TagSupport {
    * The value of the attribute in the parent component.
    */
   @TagAttribute(required = true, name = "value", type = "java.lang.String")
-  public  void setValue(ValueExpression value){
+  public  void setValue(final ValueExpression value){
     this.value = value;
   }
 
@@ -135,7 +135,7 @@ public abstract class AttributeTag extends TagSupport {
    * "valueIfSet" set the attribute only if the value is set.
    */
   @TagAttribute(name = "mode")
-  public void setMode(ValueExpression mode) {
+  public void setMode(final ValueExpression mode) {
     LOG.error("The mode is only available when using Facelets, not with JSP.");
   }
 

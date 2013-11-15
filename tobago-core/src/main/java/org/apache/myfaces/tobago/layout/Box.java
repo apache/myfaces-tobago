@@ -24,12 +24,12 @@ public class Box {
   private Position position;
   private Dimension dimension;
 
-  public Box(Position position, Dimension dimension) {
+  public Box(final Position position, final Dimension dimension) {
     this.position = position;
     this.dimension = dimension;
   }
 
-  public Box(String string) {
+  public Box(final String string) {
     int comma = string.indexOf(',');
     if (comma >= 0) { // found first comma
       comma = string.indexOf(',', comma + 1);
@@ -60,7 +60,7 @@ public class Box {
     return position.getLeft();
   }
 
-  public void setLeft(Measure left) {
+  public void setLeft(final Measure left) {
     position.setLeft(left);
   }
 
@@ -68,7 +68,7 @@ public class Box {
     return position.getTop();
   }
 
-  public void setTop(Measure top) {
+  public void setTop(final Measure top) {
     position.setTop(top);
   }
 
@@ -76,7 +76,7 @@ public class Box {
     return dimension.getWidth();
   }
 
-  public void setWidth(Measure width) {
+  public void setWidth(final Measure width) {
     dimension.setWidth(width);
   }
 
@@ -84,7 +84,7 @@ public class Box {
     return dimension.getHeight();
   }
 
-  public void setHeight(Measure height) {
+  public void setHeight(final Measure height) {
     dimension.setHeight(height);
   }
 

@@ -37,7 +37,7 @@ public class PopupActionListener extends AbstractPopupActionListener implements 
   public PopupActionListener() {
   }
 
-  public PopupActionListener(String popupId) {
+  public PopupActionListener(final String popupId) {
     this.popupId = popupId;
     if (LOG.isDebugEnabled()) {
       LOG.debug("Add ActionListener: {}", popupId);
@@ -45,9 +45,9 @@ public class PopupActionListener extends AbstractPopupActionListener implements 
   }
 
   @Override
-  protected AbstractUIPopup getPopup(ActionEvent actionEvent) {
-    FacesContext facesContext = FacesContext.getCurrentInstance();
-    AbstractUIPopup popup = (AbstractUIPopup) ComponentUtils.findComponent(actionEvent.getComponent(), popupId);
+  protected AbstractUIPopup getPopup(final ActionEvent actionEvent) {
+    final FacesContext facesContext = FacesContext.getCurrentInstance();
+    final AbstractUIPopup popup = (AbstractUIPopup) ComponentUtils.findComponent(actionEvent.getComponent(), popupId);
     if (popup == null) {
       LOG.error("Found no popup for \"{}\"! Search base componentId : {}"
           + popupId, actionEvent.getComponent().getClientId(facesContext));
@@ -59,18 +59,18 @@ public class PopupActionListener extends AbstractPopupActionListener implements 
     return false;
   }
 
-  public void restoreState(FacesContext context, Object state) {
-    Object[] values = (Object[]) state;
+  public void restoreState(final FacesContext context, final Object state) {
+    final Object[] values = (Object[]) state;
     popupId = (String) values[0];
   }
 
-  public Object saveState(FacesContext context) {
-    Object[] values = new Object[1];
+  public Object saveState(final FacesContext context) {
+    final Object[] values = new Object[1];
     values[0] = popupId;
     return values;
   }
 
-  public void setTransient(boolean newTransientValue) {
+  public void setTransient(final boolean newTransientValue) {
     // ignore
   }
 }

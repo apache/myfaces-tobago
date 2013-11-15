@@ -41,7 +41,7 @@ public class PropertyInfo {
   public PropertyInfo() {
   }
 
-  public PropertyInfo(String name) {
+  public PropertyInfo(final String name) {
     this.name = name;
   }
 
@@ -49,7 +49,7 @@ public class PropertyInfo {
     return bodyContent;
   }
 
-  public void setBodyContent(boolean bodyContent) {
+  public void setBodyContent(final boolean bodyContent) {
     this.bodyContent = bodyContent;
   }
 
@@ -57,7 +57,7 @@ public class PropertyInfo {
     return literalOnly;
   }
 
-  public void setLiteralOnly(boolean literalOnly) {
+  public void setLiteralOnly(final boolean literalOnly) {
     this.literalOnly = literalOnly;
   }
 
@@ -75,7 +75,7 @@ public class PropertyInfo {
     return name;
   }
 
-  public void setName(String name) {
+  public void setName(final String name) {
     this.name = name;
   }
 
@@ -95,7 +95,7 @@ public class PropertyInfo {
     return "width".equals(name) || "height".equals(name);
   }
 
-  public void setType(String type) {
+  public void setType(final String type) {
     this.type = type;
   }
 
@@ -104,13 +104,13 @@ public class PropertyInfo {
   }
 
   public String getShortType() {
-    String shortType = type.substring(type.lastIndexOf('.') + 1, type.length());
+    final String shortType = type.substring(type.lastIndexOf('.') + 1, type.length());
     return shortType.replace("[]", "Array").replace("$", ".");
   }
 
   public String getShortTypeProperty() {
-    String type = getShortType();
-    int index = type.lastIndexOf('.');
+    final String type = getShortType();
+    final int index = type.lastIndexOf('.');
     if (index != -1) {
       return type.substring(type.lastIndexOf('.') + 1, type.length());
     }
@@ -132,7 +132,7 @@ public class PropertyInfo {
     return allowedValues;
   }
 
-  public void setAllowedValues(String[] allowdValues) {
+  public void setAllowedValues(final String[] allowdValues) {
     this.allowedValues = allowdValues;
   }
 
@@ -140,7 +140,7 @@ public class PropertyInfo {
     return methodSignature;
   }
 
-  public void setMethodSignature(String[] methodSignature) {
+  public void setMethodSignature(final String[] methodSignature) {
     this.methodSignature = methodSignature;
   }
 
@@ -148,11 +148,11 @@ public class PropertyInfo {
     return defaultValue;
   }
 
-  public void setDefaultValue(String defaultValue) {
+  public void setDefaultValue(final String defaultValue) {
     this.defaultValue = defaultValue;
   }
 
-  public void setDeprecated(boolean deprecated) {
+  public void setDeprecated(final boolean deprecated) {
     this.deprecated = deprecated;
   }
 
@@ -173,7 +173,7 @@ public class PropertyInfo {
     return defaultCode;
   }
 
-  public void setDefaultCode(String defaultCode) {
+  public void setDefaultCode(final String defaultCode) {
     this.defaultCode = defaultCode;
   }
 
@@ -181,7 +181,7 @@ public class PropertyInfo {
     return valueExpressionRequired;
   }
 
-  public void setValueExpressionRequired(boolean valueExpressionRequired) {
+  public void setValueExpressionRequired(final boolean valueExpressionRequired) {
     this.valueExpressionRequired = valueExpressionRequired;
   }
 
@@ -189,7 +189,7 @@ public class PropertyInfo {
     return methodExpressionRequired;
   }
 
-  public void setMethodExpressionRequired(boolean methodExpressionRequired) {
+  public void setMethodExpressionRequired(final boolean methodExpressionRequired) {
     this.methodExpressionRequired = methodExpressionRequired;
   }
 
@@ -197,11 +197,11 @@ public class PropertyInfo {
     return tagAttribute;
   }
 
-  public void setTagAttribute(boolean tagAttribute) {
+  public void setTagAttribute(final boolean tagAttribute) {
     this.tagAttribute = tagAttribute;
   }
 
-  public PropertyInfo fill(PropertyInfo info) {
+  public PropertyInfo fill(final PropertyInfo info) {
     info.setName(name);
     info.setType(type);
     info.setAllowedValues(allowedValues);
@@ -218,7 +218,7 @@ public class PropertyInfo {
     return info;
   }
 
-  public boolean equals(Object o) {
+  public boolean equals(final Object o) {
     if (this == o) {
       return true;
     }
@@ -226,7 +226,7 @@ public class PropertyInfo {
       return false;
     }
 
-    PropertyInfo that = (PropertyInfo) o;
+    final PropertyInfo that = (PropertyInfo) o;
 
     return name.equals(that.name);
 
@@ -236,7 +236,7 @@ public class PropertyInfo {
     return name.hashCode();
   }
 
-  public void setDescription(String description) {
+  public void setDescription(final String description) {
     this.description = description;
   }
 
@@ -248,7 +248,7 @@ public class PropertyInfo {
     return transientValue;
   }
 
-  public void setTransient(boolean transientValue) {
+  public void setTransient(final boolean transientValue) {
     this.transientValue = transientValue;
   }
 
@@ -256,7 +256,7 @@ public class PropertyInfo {
     return generate;
   }
 
-  public void setGenerate(boolean generate) {
+  public void setGenerate(final boolean generate) {
     this.generate = generate;
   }
 }

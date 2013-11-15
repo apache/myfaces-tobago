@@ -34,7 +34,7 @@ import javax.faces.event.PhaseId;
 @Deprecated
 class ApplyRequestValuesExecutor implements PhaseExecutor {
 
-  public boolean execute(FacesContext facesContext) {
+  public boolean execute(final FacesContext facesContext) {
     facesContext.getViewRoot().processDecodes(facesContext);
     return false;
   }

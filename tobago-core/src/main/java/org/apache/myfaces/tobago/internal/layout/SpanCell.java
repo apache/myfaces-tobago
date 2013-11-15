@@ -27,7 +27,7 @@ public class SpanCell implements Cell {
   private boolean horizontalFirst;
   private boolean verticalFirst;
 
-  public SpanCell(OriginCell origin, boolean horizontalFirst, boolean verticalFirst) {
+  public SpanCell(final OriginCell origin, final boolean horizontalFirst, final boolean verticalFirst) {
     this.origin = origin;
     this.horizontalFirst = horizontalFirst;
     this.verticalFirst = verticalFirst;

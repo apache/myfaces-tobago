@@ -56,7 +56,7 @@ public final class Resource {
    * @return an url representing the URL and on which getInputStream() can be called to get the resource
    * @throws java.net.MalformedURLException
    */
-  public static URL getResourceUrl(FacesContext ctx, String path) throws MalformedURLException {
+  public static URL getResourceUrl(final FacesContext ctx, final String path) throws MalformedURLException {
     final ExternalContext externalContext = ctx.getExternalContext();
     URL url = externalContext.getResource(path);
     if (LOG.isTraceEnabled()) {
@@ -80,19 +80,19 @@ public final class Resource {
   // This method could be used above to provide a 'fail fast' if a
   // resource
   // doesnt exist. Otherwise, the URL will fail on the first access.
-  private static boolean resourceExist(ExternalContext externalContext, String path) {
+  private static boolean resourceExist(final ExternalContext externalContext, final String path) {
     if ("/".equals(path)) {
       // The root context exists always
       return true;
     }
-    Object ctx = externalContext.getContext();
+    final Object ctx = externalContext.getContext();
     if (ctx instanceof ServletContext) {
-      ServletContext servletContext = (ServletContext) ctx;
-      InputStream stream = servletContext.getResourceAsStream(path);
+      final ServletContext servletContext = (ServletContext) ctx;
+      final InputStream stream = servletContext.getResourceAsStream(path);
       if (stream != null) {
         try {
           stream.close();
-        } catch (IOException e) {
+        } catch (final IOException e) {
           // Ignore here, since we donnot wanted to read from this
           // resource anyway
         }
@@ -104,10 +104,10 @@ public final class Resource {
 
   // Construct URL with special URLStreamHandler for proxying
   // ServletContext.getResourceAsStream()
-  private static URL getUrlForResourceAsStream(final ExternalContext externalContext, String path)
+  private static URL getUrlForResourceAsStream(final ExternalContext externalContext, final String path)
       throws MalformedURLException {
-    URLStreamHandler handler = new URLStreamHandler() {
-      protected URLConnection openConnection(URL u) throws IOException {
+    final URLStreamHandler handler = new URLStreamHandler() {
+      protected URLConnection openConnection(final URL u) throws IOException {
         final String file = u.getFile();
         return new URLConnection(u) {
           public void connect() throws IOException {
@@ -117,14 +117,14 @@ public final class Resource {
             if (LOG.isTraceEnabled()) {
               LOG.trace("Opening internal url to " + file);
             }
-            Object ctx = externalContext.getContext();
+            final Object ctx = externalContext.getContext();
             // Or maybe fetch the external context afresh ?
             // Object ctx =
             // FacesContext.getCurrentInstance().getExternalContext().getContext();
 
             if (ctx instanceof ServletContext) {
-              ServletContext servletContext = (ServletContext) ctx;
-              InputStream stream = servletContext.getResourceAsStream(file);
+              final ServletContext servletContext = (ServletContext) ctx;
+              final InputStream stream = servletContext.getResourceAsStream(file);
               if (stream == null) {
                 throw new FileNotFoundException("Cannot open resource " + file);
               }

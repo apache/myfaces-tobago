@@ -28,7 +28,7 @@ public enum Position {
 
   private String value;
 
-  Position(String value) {
+  Position(final String value) {
     this.value = value;
   }
 

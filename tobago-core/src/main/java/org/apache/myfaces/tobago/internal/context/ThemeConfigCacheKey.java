@@ -30,7 +30,8 @@ public final class ThemeConfigCacheKey {
   private final int hashCode;
 
   public ThemeConfigCacheKey(
-      ClientPropertiesKey clientPropertiesKey, String rendererType, Markup markup, String name) {
+      final ClientPropertiesKey clientPropertiesKey, final String rendererType, final Markup markup,
+      final String name) {
     this.clientPropertiesKey = clientPropertiesKey;
     this.rendererType = rendererType;
     this.markup = markup;
@@ -39,7 +40,7 @@ public final class ThemeConfigCacheKey {
   }
 
   @Override
-  public boolean equals(Object o) {
+  public boolean equals(final Object o) {
     if (this == o) {
       return true;
     }
@@ -47,7 +48,7 @@ public final class ThemeConfigCacheKey {
       return false;
     }
 
-    ThemeConfigCacheKey cacheKey = (ThemeConfigCacheKey) o;
+    final ThemeConfigCacheKey cacheKey = (ThemeConfigCacheKey) o;
 
     if (!rendererType.equals(cacheKey.rendererType)) {
       return false;

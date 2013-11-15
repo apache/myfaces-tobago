@@ -34,7 +34,7 @@ public class InputRendererBase extends LayoutComponentRendererBase {
 
   private static final Logger LOG = LoggerFactory.getLogger(InputRendererBase.class);
 
-  public void decode(FacesContext context, UIComponent component) {
+  public void decode(final FacesContext context, final UIComponent component) {
     final UIInput uiInput;
     if (component instanceof UIInput) {
       uiInput = (UIInput) component;

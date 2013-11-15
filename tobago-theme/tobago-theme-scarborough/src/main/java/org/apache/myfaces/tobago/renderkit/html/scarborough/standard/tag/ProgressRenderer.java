@@ -43,9 +43,9 @@ public class ProgressRenderer extends LayoutComponentRendererBase {
 
   private static final Logger LOG = LoggerFactory.getLogger(ProgressRenderer.class);
 
-  public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
+  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
 
-    UIProgress progress = (UIProgress) component;
+    final UIProgress progress = (UIProgress) component;
 
     BoundedRangeModel model = (BoundedRangeModel) progress.getValue();
 
@@ -68,7 +68,7 @@ public class ProgressRenderer extends LayoutComponentRendererBase {
     valueStyle.setHeight(style.getHeight());
     valueStyle.setWidth(valueWidth);
 
-    TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
     writer.startElement(HtmlElements.DIV, progress);
     writer.writeClassAttribute(Classes.create(progress));
@@ -77,7 +77,7 @@ public class ProgressRenderer extends LayoutComponentRendererBase {
     if (title != null) {
       writer.writeAttribute(HtmlAttributes.TITLE, String.valueOf(title), true);
     }
-    UIComponent facet = progress.getFacet("complete");
+    final UIComponent facet = progress.getFacet("complete");
     if (model.getValue() == model.getMaximum() && facet instanceof UICommand) {
       HtmlRendererUtils.renderCommandFacet(progress, facesContext, writer);
     }

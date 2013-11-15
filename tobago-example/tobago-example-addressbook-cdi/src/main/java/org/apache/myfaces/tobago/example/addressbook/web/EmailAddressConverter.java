@@ -35,18 +35,18 @@ public class EmailAddressConverter implements Converter {
   private static final Logger LOG = LoggerFactory.getLogger(EmailAddressConverter.class);
 
   public Object getAsObject(
-      FacesContext facesContext, UIComponent component, String reference) {
+      final FacesContext facesContext, final UIComponent component, final String reference) {
     if (reference == null || reference.length() == 0) {
       return null;
     }
-    String[] parts = reference.split("@");
+    final String[] parts = reference.split("@");
     if (parts == null || parts.length != 2) {
       throw new ConverterException(MessageUtils.createErrorMessage("converterEmailParts", facesContext));
     }
     return new EmailAddress(reference);
   }
 
-  public String getAsString(FacesContext facesContext, UIComponent component, Object object) {
+  public String getAsString(final FacesContext facesContext, final UIComponent component, final Object object) {
     return object.toString();
   }
 

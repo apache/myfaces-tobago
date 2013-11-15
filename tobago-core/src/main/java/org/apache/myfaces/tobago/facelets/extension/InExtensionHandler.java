@@ -26,7 +26,7 @@ import javax.faces.view.facelets.ComponentConfig;
 
 public class InExtensionHandler extends TobagoLabelExtensionHandler {
 
-  public InExtensionHandler(ComponentConfig config) {
+  public InExtensionHandler(final ComponentConfig config) {
     super(config);
   }
 

@@ -32,8 +32,8 @@ public abstract class AbstractPopupActionListener implements ActionListener {
 
   private static final Logger LOG = LoggerFactory.getLogger(AbstractPopupActionListener.class);
 
-  public void processAction(ActionEvent actionEvent) throws AbortProcessingException {
-    AbstractUIPopup popup = getPopup(actionEvent);
+  public void processAction(final ActionEvent actionEvent) throws AbortProcessingException {
+    final AbstractUIPopup popup = getPopup(actionEvent);
     if (popup != null) {
       if (LOG.isDebugEnabled()) {
         LOG.debug("Setting activated for component: clientId='"

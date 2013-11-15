@@ -44,7 +44,7 @@ public class FishPond {
   }
 
   public String random() {
-    Random random = new Random(System.currentTimeMillis());
+    final Random random = new Random(System.currentTimeMillis());
 
     selectedFish = fishes.get("" + random.nextInt(fishes.size()));
 
@@ -53,7 +53,7 @@ public class FishPond {
     return "view";
   }
 
-  public String select(String id) {
+  public String select(final String id) {
     selectedFish = fishes.get(id);
 
     LOG.info("select via id: '" + selectedFish + "'");

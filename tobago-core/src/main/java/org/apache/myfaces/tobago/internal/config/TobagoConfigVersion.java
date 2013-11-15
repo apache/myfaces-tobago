@@ -37,14 +37,14 @@ public class TobagoConfigVersion extends TobagoConfigEntityResolver {
 
   private String version;
 
-  public TobagoConfigVersion(URL url) throws ParserConfigurationException, SAXException, IOException {
+  public TobagoConfigVersion(final URL url) throws ParserConfigurationException, SAXException, IOException {
 
     // simple reading with no validation, at this time
     InputStream inputStream = null;
     try {
       inputStream = url.openStream();
-      SAXParserFactory factory = SAXParserFactory.newInstance();
-      SAXParser saxParser = factory.newSAXParser();
+      final SAXParserFactory factory = SAXParserFactory.newInstance();
+      final SAXParser saxParser = factory.newSAXParser();
       saxParser.parse(inputStream, this);
     } finally {
       IoUtils.closeQuietly(inputStream);
@@ -52,7 +52,7 @@ public class TobagoConfigVersion extends TobagoConfigEntityResolver {
   }
 
   @Override
-  public void startElement(String uri, String localName, String qName, Attributes attributes) {
+  public void startElement(final String uri, final String localName, final String qName, final Attributes attributes) {
     if ("tobago-config".equals(qName)) {
       version = attributes.getValue("version");
       schema = version != null;

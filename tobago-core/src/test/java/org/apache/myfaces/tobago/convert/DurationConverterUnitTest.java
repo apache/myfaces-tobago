@@ -59,12 +59,12 @@ public class DurationConverterUnitTest {
     parse("year", 1L, "8765:45:36");
   }
 
-  private void format(String unit, Long aLong, String string) {
-    UIIn input = new UIIn();
-    String info = "Formatting numbers:"
+  private void format(final String unit, final Long aLong, final String string) {
+    final UIIn input = new UIIn();
+    final String info = "Formatting numbers:"
         + " unit='" + unit + "'"
         + " long='" + aLong + "'";
-    String result;
+    final String result;
     if (unit != null) {
       input.getAttributes().put(Attributes.UNIT, unit);
     }
@@ -72,12 +72,12 @@ public class DurationConverterUnitTest {
     Assert.assertEquals(info, string, result);
   }
 
-  private void parse(String unit, Long aLong, String string) {
-    UIIn input = new UIIn();
-    String info = "Parsing numbers:"
+  private void parse(final String unit, final Long aLong, final String string) {
+    final UIIn input = new UIIn();
+    final String info = "Parsing numbers:"
         + " unit='" + unit + "'"
         + " string='" + string + "'";
-    Long result;
+    final Long result;
     if (unit != null) {
       input.getAttributes().put(Attributes.UNIT, unit);
     }

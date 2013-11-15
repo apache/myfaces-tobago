@@ -43,29 +43,29 @@ public class ViewHandlerImpl extends ViewHandler {
 
   private ViewHandler base;
 
-  public ViewHandlerImpl(ViewHandler base) {
+  public ViewHandlerImpl(final ViewHandler base) {
     if (LOG.isInfoEnabled()) {
       LOG.info("Hiding RI base implementation: " + base);
     }
     this.base = base;
   }
 
-  public Locale calculateLocale(FacesContext facesContext) {
+  public Locale calculateLocale(final FacesContext facesContext) {
     return base.calculateLocale(facesContext);
   }
 
-  public String calculateRenderKitId(FacesContext facesContext) {
+  public String calculateRenderKitId(final FacesContext facesContext) {
     return base.calculateRenderKitId(facesContext);
   }
 
-  public UIViewRoot createView(FacesContext facesContext, String viewId) {
+  public UIViewRoot createView(final FacesContext facesContext, final String viewId) {
     if (LOG.isDebugEnabled()) {
       LOG.debug("creating new view with viewId:        '{}'", viewId);
     }
     return base.createView(facesContext, viewId);
   }
 
-  public String getActionURL(FacesContext facesContext, String viewId) {
+  public String getActionURL(final FacesContext facesContext, final String viewId) {
 
 /*
     if (PortletUtils.isRenderResponse(facesContext)) {
@@ -76,11 +76,11 @@ public class ViewHandlerImpl extends ViewHandler {
     return base.getActionURL(facesContext, viewId);
   }
 
-  public String getResourceURL(FacesContext facesContext, String path) {
+  public String getResourceURL(final FacesContext facesContext, final String path) {
     return base.getResourceURL(facesContext, path);
   }
 
-  public void renderView(FacesContext facesContext, UIViewRoot viewRoot)
+  public void renderView(final FacesContext facesContext, final UIViewRoot viewRoot)
       throws IOException, FacesException {
     // standard
     base.renderView(facesContext, viewRoot);
@@ -91,18 +91,18 @@ public class ViewHandlerImpl extends ViewHandler {
     }
   }
 
-  public UIViewRoot restoreView(FacesContext facesContext, String viewId) {
+  public UIViewRoot restoreView(final FacesContext facesContext, final String viewId) {
     if (LOG.isDebugEnabled()) {
       LOG.debug("restore view with viewId:             '{}'", viewId);
     }
     // this is only needed in the first request, the later will be handled by faces
     // TODO: maybe find a way to make this unneeded
     RequestUtils.ensureEncoding(facesContext);
-    UIViewRoot viewRoot = base.restoreView(facesContext, viewId);
+    final UIViewRoot viewRoot = base.restoreView(facesContext, viewId);
     return viewRoot;
   }
 
-  public void writeState(FacesContext facesContext) throws IOException {
+  public void writeState(final FacesContext facesContext) throws IOException {
     base.writeState(facesContext);
   }
 

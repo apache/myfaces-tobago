@@ -38,17 +38,17 @@ public class CheckAuthorisationMethodExpression extends MethodExpression impleme
   public CheckAuthorisationMethodExpression() {
   }
 
-  public CheckAuthorisationMethodExpression(MethodExpression methodExpression) {
+  public CheckAuthorisationMethodExpression(final MethodExpression methodExpression) {
     this.methodExpression = methodExpression;
   }
 
   @Override
-  public MethodInfo getMethodInfo(ELContext context) {
+  public MethodInfo getMethodInfo(final ELContext context) {
     return methodExpression.getMethodInfo(context);
   }
 
   @Override
-  public Object invoke(ELContext context, Object[] objects) {
+  public Object invoke(final ELContext context, final Object[] objects) {
     if (LOG.isDebugEnabled()) {
       LOG.debug("MethodBinding invoke " + getExpressionString());
     }
@@ -69,7 +69,7 @@ public class CheckAuthorisationMethodExpression extends MethodExpression impleme
   }
 
   @Override
-  public boolean equals(Object obj) {
+  public boolean equals(final Object obj) {
     return methodExpression.equals(obj);
   }
 
@@ -83,14 +83,14 @@ public class CheckAuthorisationMethodExpression extends MethodExpression impleme
     return methodExpression.isLiteralText();
   }
 
-  public Object saveState(FacesContext facesContext) {
-  Object[] saveState = new Object[1];
+  public Object saveState(final FacesContext facesContext) {
+  final Object[] saveState = new Object[1];
     saveState[0] = UIComponentBase.saveAttachedState(facesContext, methodExpression);
     return saveState;
   }
 
-  public void restoreState(FacesContext facesContext, Object savedState) {
-    Object[] values = (Object[]) savedState;
+  public void restoreState(final FacesContext facesContext, final Object savedState) {
+    final Object[] values = (Object[]) savedState;
     methodExpression = (MethodExpression) UIComponentBase.restoreAttachedState(facesContext, values[0]);
   }
 
@@ -98,13 +98,13 @@ public class CheckAuthorisationMethodExpression extends MethodExpression impleme
     return methodExpression instanceof StateHolder && ((StateHolder) methodExpression).isTransient();
   }
 
-  public void setTransient(boolean bool) {
+  public void setTransient(final boolean bool) {
     if (methodExpression instanceof StateHolder) {
       ((StateHolder) methodExpression).setTransient(bool);
     }
   }
 
-  public boolean isAuthorized(FacesContext facesContext) {
+  public boolean isAuthorized(final FacesContext facesContext) {
     return AuthorizationUtils.isAuthorized(facesContext, getExpressionString());
   }
 }

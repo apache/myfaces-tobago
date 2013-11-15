@@ -49,7 +49,7 @@ public class DurationConverter implements Converter {
   private static final String YEAR = "year";
 
   public String getAsString(
-      FacesContext facesContext, UIComponent component, Object object)
+      final FacesContext facesContext, final UIComponent component, final Object object)
       throws ConverterException {
     if (object == null || object instanceof String) {
       return (String) object;
@@ -60,16 +60,16 @@ public class DurationConverter implements Converter {
       negative = true;
       aDouble = -aDouble;
     }
-    double factor = getUnitFactor(component);
+    final double factor = getUnitFactor(component);
     aDouble = aDouble * factor;
 
-    NumberFormat format = new DecimalFormat("00");
+    final NumberFormat format = new DecimalFormat("00");
     long value = Double.valueOf(aDouble).longValue();
-    int seconds = (int) (value % 60);
+    final int seconds = (int) (value % 60);
     value = value / 60;
-    int minutes = (int) (value % 60);
+    final int minutes = (int) (value % 60);
     value = value / 60;
-    String string;
+    final String string;
     if (value > 0) {
       string = (negative ? "-" : "") + value + ":"
           + format.format(minutes) + ":"
@@ -85,17 +85,17 @@ public class DurationConverter implements Converter {
   }
 
   public Object getAsObject(
-      FacesContext facesContext, UIComponent component, String string)
+      final FacesContext facesContext, final UIComponent component, final String string)
       throws ConverterException {
-    boolean negative = string.indexOf('-') > -1;
-    StringTokenizer tokenizer = new StringTokenizer(string, " :-");
-    List elements = new ArrayList();
+    final boolean negative = string.indexOf('-') > -1;
+    final StringTokenizer tokenizer = new StringTokenizer(string, " :-");
+    final List elements = new ArrayList();
     while (tokenizer.hasMoreElements()) {
       elements.add(tokenizer.nextElement());
     }
     int hours = 0;
-    int minutes;
-    int seconds;
+    final int minutes;
+    final int seconds;
     switch (elements.size()) {
       case 3:
         hours = Integer.parseInt((String) elements.get(0));
@@ -109,8 +109,8 @@ public class DurationConverter implements Converter {
       default:
         throw new ConverterException("Cannot parse string='" + string + "'");
     }
-    double factor = getUnitFactor(component);
-    long value = (long) (((hours * 60L + minutes) * 60L + seconds) / factor);
+    final double factor = getUnitFactor(component);
+    final long value = (long) (((hours * 60L + minutes) * 60L + seconds) / factor);
     if (negative) {
       return Long.valueOf(-value);
     } else {
@@ -118,12 +118,12 @@ public class DurationConverter implements Converter {
     }
   }
 
-  private static double getUnitFactor(UIComponent component) {
+  private static double getUnitFactor(final UIComponent component) {
     String unit = null;
     if (component != null) {
       unit = (String) component.getAttributes().get(Attributes.UNIT);
     }
-    double factor;
+    final double factor;
     if (unit == null) {
       factor = 0.001;
     } else if (NANO.equals(unit)) {

@@ -55,7 +55,7 @@ public class TobagoConfigFragment {
     themeDefinitions = new ArrayList<ThemeImpl>();
   }
 
-  public void addSupportedThemeName(String name) {
+  public void addSupportedThemeName(final String name) {
     supportedThemeNames.add(name);
   }
 
@@ -67,11 +67,11 @@ public class TobagoConfigFragment {
     return defaultThemeName;
   }
 
-  public void setDefaultThemeName(String defaultThemeName) {
+  public void setDefaultThemeName(final String defaultThemeName) {
     this.defaultThemeName = defaultThemeName;
   }
 
-  public void addResourceDir(String resourceDir) {
+  public void addResourceDir(final String resourceDir) {
     if (!resourceDirs.contains(resourceDir)) {
       if (LOG.isInfoEnabled()) {
         LOG.info("adding resourceDir = '{}'", resourceDir);
@@ -86,7 +86,7 @@ public class TobagoConfigFragment {
 
   /** @deprecated since 1.5.0 */
   @Deprecated
-  public void setAjaxEnabled(String value) {
+  public void setAjaxEnabled(final String value) {
     Deprecation.LOG.error("Ajax is always enabled!");
   }
 
@@ -94,7 +94,7 @@ public class TobagoConfigFragment {
     return renderersConfig;
   }
 
-  public void setRenderersConfig(RenderersConfig renderersConfig) {
+  public void setRenderersConfig(final RenderersConfig renderersConfig) {
     this.renderersConfig = renderersConfig;
   }
 
@@ -102,7 +102,7 @@ public class TobagoConfigFragment {
     return name;
   }
 
-  public void setName(String name) {
+  public void setName(final String name) {
     this.name = name;
   }
 
@@ -110,7 +110,7 @@ public class TobagoConfigFragment {
     return before;
   }
 
-  public void addBefore(String name) {
+  public void addBefore(final String name) {
     before.add(name);
   }
 
@@ -118,11 +118,11 @@ public class TobagoConfigFragment {
     return after;
   }
 
-  public void addAfter(String name) {
+  public void addAfter(final String name) {
     after.add(name);
   }
 
-  public void addThemeDefinition(ThemeImpl theme) {
+  public void addThemeDefinition(final ThemeImpl theme) {
     themeDefinitions.add(theme);
   }
 
@@ -134,7 +134,7 @@ public class TobagoConfigFragment {
     return createSessionSecret;
   }
 
-  public void setCreateSessionSecret(String createSessionSecret) {
+  public void setCreateSessionSecret(final String createSessionSecret) {
     this.createSessionSecret = Boolean.valueOf(createSessionSecret);
   }
 
@@ -142,7 +142,7 @@ public class TobagoConfigFragment {
     return checkSessionSecret;
   }
 
-  public void setCheckSessionSecret(String checkSessionSecret) {
+  public void setCheckSessionSecret(final String checkSessionSecret) {
     this.checkSessionSecret = Boolean.valueOf(checkSessionSecret);
   }
 
@@ -150,7 +150,7 @@ public class TobagoConfigFragment {
     return preventFrameAttacks;
   }
 
-  public void setPreventFrameAttacks(Boolean preventFrameAttacks) {
+  public void setPreventFrameAttacks(final Boolean preventFrameAttacks) {
     this.preventFrameAttacks = preventFrameAttacks;
   }
 
@@ -158,19 +158,19 @@ public class TobagoConfigFragment {
     return contentSecurityPolicy;
   }
 
-  public void setContentSecurityPolicy(ContentSecurityPolicy contentSecurityPolicy) {
+  public void setContentSecurityPolicy(final ContentSecurityPolicy contentSecurityPolicy) {
     this.contentSecurityPolicy = contentSecurityPolicy;
   }
 
   /** @deprecated since 1.5.0 */
   @Deprecated
-  public void setFixResourceOrder(String value) {
+  public void setFixResourceOrder(final String value) {
     Deprecation.LOG.error("Config fix-resource-order not longer supported. (Is always activated).");
   }
 
   /** @deprecated since 1.5.0 */
   @Deprecated
-  public void setFixLayoutTransparency(String value) {
+  public void setFixLayoutTransparency(final String value) {
     Deprecation.LOG.error("Config fix-layout-transparency not longer supported. (Is always activated).");
   }
 
@@ -178,7 +178,7 @@ public class TobagoConfigFragment {
     return url;
   }
 
-  public void setUrl(URL url) {
+  public void setUrl(final URL url) {
     this.url = url;
   }
 

@@ -30,17 +30,17 @@ public class TreeSelectedEvent extends FacesEvent {
   private boolean oldSelected;
   private boolean newSelected;
 
-  public TreeSelectedEvent(UIComponent node, boolean oldSelected, boolean newSelected) {
+  public TreeSelectedEvent(final UIComponent node, final boolean oldSelected, final boolean newSelected) {
     super(node);
     this.oldSelected = oldSelected;
     this.newSelected = newSelected;
   }
 
-  public boolean isAppropriateListener(FacesListener facesListener) {
+  public boolean isAppropriateListener(final FacesListener facesListener) {
     return facesListener instanceof TreeSelectedListener;
   }
 
-  public void processListener(FacesListener facesListener) {
+  public void processListener(final FacesListener facesListener) {
     if (facesListener instanceof TreeSelectedListener) {
       if (oldSelected && !newSelected) {
         ((TreeSelectedListener) facesListener).treeSelected(this);

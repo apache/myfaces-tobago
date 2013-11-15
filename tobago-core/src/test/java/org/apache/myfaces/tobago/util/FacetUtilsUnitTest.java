@@ -28,18 +28,18 @@ public class FacetUtilsUnitTest {
 
   @Test
   public void testContextMenu() {
-    UIPanel panel = new UIPanel();
+    final UIPanel panel = new UIPanel();
     Assert.assertNull(FacetUtils.getContextMenu(panel));
-    UIMenu menu = new UIMenu();
+    final UIMenu menu = new UIMenu();
     FacetUtils.setContextMenu(panel, menu);
     Assert.assertEquals(menu, FacetUtils.getContextMenu(panel));
   }
 
   @Test
   public void testDropDownMenu() {
-    UIPanel panel = new UIPanel();
+    final UIPanel panel = new UIPanel();
     Assert.assertNull(FacetUtils.getContextMenu(panel));
-    UIMenu menu = new UIMenu();
+    final UIMenu menu = new UIMenu();
     FacetUtils.setDropDownMenu(panel, menu);
     Assert.assertEquals(menu, FacetUtils.getDropDownMenu(panel));
   }

@@ -33,8 +33,8 @@ public final class HtmlUtils {
   private HtmlUtils() {
   }
 
-  public static String generateAttribute(String name, Object value) {
-    String stringValue;
+  public static String generateAttribute(final String name, final Object value) {
+    final String stringValue;
     if (value == null) {
       stringValue = null;
     } else if (value instanceof String) {
@@ -47,15 +47,15 @@ public final class HtmlUtils {
         : "";
   }
 
-  public static String appendAttribute(UIComponent component, String name,
-      String appendValue) {
-    Object attribute = component.getAttributes().get(name);
+  public static String appendAttribute(final UIComponent component, final String name,
+      final String appendValue) {
+    final Object attribute = component.getAttributes().get(name);
     return attribute != null
         ? attribute.toString() + " " + appendValue : appendValue;
   }
 
-  public static String generateOnchange(UIInput component,
-      FacesContext facesContext) {
+  public static String generateOnchange(final UIInput component,
+      final FacesContext facesContext) {
 
     /*Validator[] validators = component.getValidators();
     for (int i = 0; i < validators.length; i++) {
@@ -74,7 +74,7 @@ public final class HtmlUtils {
       }
     } */
 
-    Object onchange = component.getAttributes().get(Attributes.ONCHANGE);
+    final Object onchange = component.getAttributes().get(Attributes.ONCHANGE);
     if (onchange != null) {
       return onchange.toString();
     }

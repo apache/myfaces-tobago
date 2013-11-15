@@ -83,7 +83,7 @@ public class SheetFilter {
 
   public String filter() {
     filtered.clear();
-    for (SolarObject solarObject : demo.getSolarArray()) {
+    for (final SolarObject solarObject : demo.getSolarArray()) {
       if (solarObject.getName().toLowerCase().contains(name.toLowerCase())
           && solarObject.getOrbit().toLowerCase().contains(orbit.toLowerCase())
           && distance.getMin() < solarObject.getDistance()
@@ -99,7 +99,7 @@ public class SheetFilter {
     return name;
   }
 
-  public void setName(String name) {
+  public void setName(final String name) {
     this.name = name;
   }
 
@@ -107,7 +107,7 @@ public class SheetFilter {
     return orbit;
   }
 
-  public void setOrbit(String orbit) {
+  public void setOrbit(final String orbit) {
     this.orbit = orbit;
   }
 
@@ -115,7 +115,7 @@ public class SheetFilter {
     return distance;
   }
 
-  public void setDistance(DistanceRange distance) {
+  public void setDistance(final DistanceRange distance) {
     this.distance = distance;
   }
 
@@ -123,7 +123,7 @@ public class SheetFilter {
     return discoverer;
   }
 
-  public void setDiscoverer(String discoverer) {
+  public void setDiscoverer(final String discoverer) {
     this.discoverer = discoverer;
   }
 
@@ -135,7 +135,7 @@ public class SheetFilter {
     return state;
   }
 
-  public void setState(SheetState state) {
+  public void setState(final SheetState state) {
     this.state = state;
   }
 
@@ -152,7 +152,7 @@ public class SheetFilter {
     private int min;
     private int max;
 
-    private DistanceRange(int min, int max) {
+    private DistanceRange(final int min, final int max) {
       this.min = min;
       this.max = max;
     }
@@ -166,14 +166,14 @@ public class SheetFilter {
     }
 
     @Override
-    public boolean equals(Object object) {
+    public boolean equals(final Object object) {
       if (this == object) {
         return true;
       }
       if (object == null || getClass() != object.getClass()) {
         return false;
       }
-      DistanceRange that = (DistanceRange) object;
+      final DistanceRange that = (DistanceRange) object;
 
       return max == that.max && min == that.min;
     }
@@ -185,7 +185,7 @@ public class SheetFilter {
   }
 
   public class DistanceRangeConverter implements Converter {
-    public Object getAsObject(FacesContext context, UIComponent component, String value)
+    public Object getAsObject(final FacesContext context, final UIComponent component, final String value)
         throws ConverterException {
       if (StringUtils.isBlank(value)) {
         return distanceRangeList.get(0);
@@ -195,7 +195,7 @@ public class SheetFilter {
     }
 
     public String getAsString(
-        FacesContext context, UIComponent component, Object value) throws ConverterException {
+        final FacesContext context, final UIComponent component, final Object value) throws ConverterException {
       if (value == null) {
         return Integer.toString(0);
       } else {

@@ -63,18 +63,18 @@ public class StyleClasses implements Serializable {
    * Creates a StyleClasses element and adds one entry for a sub-component with the name of the renderer.
    * E. g.: UITreeNode + "icon" -> tobago-treeNode-icon
    */
-  public StyleClasses(UIComponent component, String sub) {
+  public StyleClasses(final UIComponent component, final String sub) {
     this();
     addClass(StringUtils.uncapitalize(component.getRendererType()), sub);
   }
 
-  private StyleClasses(StyleClasses base) {
+  private StyleClasses(final StyleClasses base) {
     this();
     classes.addAll(base.classes);
   }
 
-  public static StyleClasses ensureStyleClasses(UIComponent component) {
-    Map attributes = component.getAttributes();
+  public static StyleClasses ensureStyleClasses(final UIComponent component) {
+    final Map attributes = component.getAttributes();
     StyleClasses classes = (StyleClasses) attributes.get(Attributes.STYLE_CLASS);
     if (classes == null) {
       classes = new StyleClasses();
@@ -83,7 +83,7 @@ public class StyleClasses implements Serializable {
     return classes;
   }
 
-  public static StyleClasses ensureStyleClassesCopy(UIComponent component) {
+  public static StyleClasses ensureStyleClassesCopy(final UIComponent component) {
     return new StyleClasses(ensureStyleClasses(component));
   }
 
@@ -91,22 +91,22 @@ public class StyleClasses implements Serializable {
    * @deprecated since Tobago 1.5.0. Please use {@link org.apache.myfaces.tobago.renderkit.css.Classes}.
    */
   @Deprecated
-  public void addFullQualifiedClass(String clazz) {
+  public void addFullQualifiedClass(final String clazz) {
     classes.add(clazz);
   }
   /**
    * @deprecated since Tobago 1.5.0. Please use {@link org.apache.myfaces.tobago.renderkit.css.Classes}.
    */
   @Deprecated
-  public void removeFullQualifiedClass(String clazz) {
+  public void removeFullQualifiedClass(final String clazz) {
     classes.remove(clazz);
   }
 
-  public void addClass(String renderer, String sub) {
+  public void addClass(final String renderer, final String sub) {
     classes.add(nameOfClass(renderer, sub));
   }
 
-  public void removeClass(String renderer, String sub) {
+  public void removeClass(final String renderer, final String sub) {
     classes.remove(nameOfClass(renderer, sub));
   }
 
@@ -114,32 +114,32 @@ public class StyleClasses implements Serializable {
     return classes.isEmpty();
   }
 
-  private String nameOfClass(String renderer, String sub) {
-    StringBuilder builder = new StringBuilder(PREFIX);
+  private String nameOfClass(final String renderer, final String sub) {
+    final StringBuilder builder = new StringBuilder(PREFIX);
     builder.append(renderer);
     builder.append(SEPARATOR);
     builder.append(sub);
     return builder.toString();
   }
 
-  public void addMarkupClass(String renderer, String markup) {
+  public void addMarkupClass(final String renderer, final String markup) {
     addMarkupClass(renderer, null, markup);
   }
 
-  public void removeMarkupClass(String renderer, String markup) {
+  public void removeMarkupClass(final String renderer, final String markup) {
     removeMarkupClass(renderer, null, markup);
   }
 
-  public void addMarkupClass(String renderer, String sub, String markup) {
+  public void addMarkupClass(final String renderer, final String sub, final String markup) {
     classes.add(nameOfMarkupClass(renderer, sub, markup));
   }
 
-  public void removeMarkupClass(String renderer, String sub, String markup) {
+  public void removeMarkupClass(final String renderer, final String sub, final String markup) {
     classes.remove(nameOfMarkupClass(renderer, sub, markup));
   }
 
-  private String nameOfMarkupClass(String renderer, String sub, String markup) {
-    StringBuilder builder = new StringBuilder(PREFIX);
+  private String nameOfMarkupClass(final String renderer, final String sub, final String markup) {
+    final StringBuilder builder = new StringBuilder(PREFIX);
     builder.append(renderer);
     if (sub != null) {
       builder.append(SEPARATOR);
@@ -150,17 +150,17 @@ public class StyleClasses implements Serializable {
     return builder.toString();
   }
 
-  public void addMarkupClass(UIComponent component, String rendererName) {
+  public void addMarkupClass(final UIComponent component, final String rendererName) {
     if (component instanceof SupportsMarkup) {
       addMarkupClass((SupportsMarkup) component, rendererName, null);
     }
   }
 
-  public void addMarkupClass(SupportsMarkup supportsMarkup, String rendererName, String sub) {
-    Markup m = supportsMarkup.getCurrentMarkup();
+  public void addMarkupClass(final SupportsMarkup supportsMarkup, final String rendererName, final String sub) {
+    final Markup m = supportsMarkup.getCurrentMarkup();
     if (m != null) {
-      for (String markup : m) {
-        Theme theme = VariableResolverUtils.resolveClientProperties(FacesContext.getCurrentInstance()).getTheme();
+      for (final String markup : m) {
+        final Theme theme = VariableResolverUtils.resolveClientProperties(FacesContext.getCurrentInstance()).getTheme();
         if (theme.getRenderersConfig().isMarkupSupported(rendererName, markup)) {
           addMarkupClass(rendererName, sub, markup);
         } else if ("none".equals(markup)) {
@@ -172,31 +172,31 @@ public class StyleClasses implements Serializable {
     }
   }
 
-  public void addAspectClass(String renderer, Aspect aspect) {
+  public void addAspectClass(final String renderer, final Aspect aspect) {
     classes.add(nameOfAspectClass(renderer, aspect));
   }
 
-  public void removeAspectClass(String renderer, Aspect aspect) {
+  public void removeAspectClass(final String renderer, final Aspect aspect) {
     classes.remove(nameOfAspectClass(renderer, aspect));
   }
 
-  private String nameOfAspectClass(String renderer, Aspect aspect) {
-    StringBuilder builder = new StringBuilder(PREFIX);
+  private String nameOfAspectClass(final String renderer, final Aspect aspect) {
+    final StringBuilder builder = new StringBuilder(PREFIX);
     builder.append(renderer);
     builder.append(aspect);
     return builder.toString();
   }
 
-  public void addAspectClass(String renderer, String sub, Aspect aspect) {
+  public void addAspectClass(final String renderer, final String sub, final Aspect aspect) {
     classes.add(nameOfAspectClass(renderer, sub, aspect));
   }
 
-  public void removeAspectClass(String renderer, String sub, Aspect aspect) {
+  public void removeAspectClass(final String renderer, final String sub, final Aspect aspect) {
     classes.remove(nameOfAspectClass(renderer, sub, aspect));
   }
 
-  private String nameOfAspectClass(String renderer, String sub, Aspect aspect) {
-    StringBuilder builder = new StringBuilder(PREFIX);
+  private String nameOfAspectClass(final String renderer, final String sub, final Aspect aspect) {
+    final StringBuilder builder = new StringBuilder(PREFIX);
     builder.append(renderer);
     builder.append(SEPARATOR);
     builder.append(sub);
@@ -204,31 +204,31 @@ public class StyleClasses implements Serializable {
     return builder.toString();
   }
 
-  public void addClasses(StyleClasses styleClasses) {
-    for (String clazz : (Iterable<String>) styleClasses.classes) {
+  public void addClasses(final StyleClasses styleClasses) {
+    for (final String clazz : (Iterable<String>) styleClasses.classes) {
       classes.add(clazz);
     }
   }
 
-  public void removeClass(String clazz) {
+  public void removeClass(final String clazz) {
     classes.remove(clazz);
   }
 
-  public void removeTobagoClasses(String rendererName) {
-    for (Iterator i = classes.iterator(); i.hasNext();) {
-      String clazz = (String) i.next();
+  public void removeTobagoClasses(final String rendererName) {
+    for (final Iterator i = classes.iterator(); i.hasNext();) {
+      final String clazz = (String) i.next();
       if (clazz.startsWith(PREFIX + rendererName)) {
         i.remove();
       }
     }
   }
 
-  public void updateClassAttributeAndMarkup(UIComponent component, String rendererName) {
+  public void updateClassAttributeAndMarkup(final UIComponent component, final String rendererName) {
     updateClassAttribute(component, rendererName);
     addMarkupClass(component, rendererName);
   }
 
-  public void updateClassAttribute(UIComponent component, String rendererName) {
+  public void updateClassAttribute(final UIComponent component, final String rendererName) {
     // first remove old tobago-<rendererName>-<type> classes from class-attribute
     removeTobagoClasses(rendererName);
 
@@ -243,7 +243,7 @@ public class StyleClasses implements Serializable {
       addAspectClass(rendererName, Aspect.INLINE);
     }
     if (component instanceof UIInput) {
-      UIInput input = (UIInput) component;
+      final UIInput input = (UIInput) component;
       if (ComponentUtils.isError(input)) {
         addAspectClass(rendererName, Aspect.ERROR);
       }
@@ -258,9 +258,9 @@ public class StyleClasses implements Serializable {
     if (classes.isEmpty()) {
       return null;
     }
-    StringBuilder buffer = new StringBuilder(16 * classes.size());
-    for (Iterator i = classes.iterator(); i.hasNext();) {
-      String clazz = (String) i.next();
+    final StringBuilder buffer = new StringBuilder(16 * classes.size());
+    for (final Iterator i = classes.iterator(); i.hasNext();) {
+      final String clazz = (String) i.next();
       buffer.append(clazz);
       if (i.hasNext()) {
         buffer.append(' ');

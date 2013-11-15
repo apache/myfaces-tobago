@@ -74,18 +74,18 @@ public class SheetSortController {
         final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.UK);
         simpleDateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
         this.fifth = simpleDateFormat.parse(dateString);
-      } catch (ParseException e) {
+      } catch (final ParseException e) {
         LOG.error("string=" + dateString, e);
       }
       i++;
       this.sixth = "" + upper(i) + lower(i) + lower(i) + lower(i) + lower(i);
     }
     
-    private char upper(int i) {
+    private char upper(final int i) {
       return (char) (i % 26 + 'A');
     }
 
-    private char lower(int i) {
+    private char lower(final int i) {
       return (char) (i % 26 + 'a');
     }
 
@@ -93,7 +93,7 @@ public class SheetSortController {
       return first;
     }
 
-    public void setFirst(String first) {
+    public void setFirst(final String first) {
       this.first = first;
     }
 
@@ -101,7 +101,7 @@ public class SheetSortController {
       return second;
     }
 
-    public void setSecond(String second) {
+    public void setSecond(final String second) {
       this.second = second;
     }
 
@@ -109,7 +109,7 @@ public class SheetSortController {
       return third;
     }
 
-    public void setThird(String third) {
+    public void setThird(final String third) {
       this.third = third;
     }
 
@@ -117,7 +117,7 @@ public class SheetSortController {
       return fourth;
     }
 
-    public void setFourth(String fourth) {
+    public void setFourth(final String fourth) {
       this.fourth = fourth;
     }
 
@@ -125,7 +125,7 @@ public class SheetSortController {
       return fifth;
     }
 
-    public void setFifth(Date fifth) {
+    public void setFifth(final Date fifth) {
       this.fifth = fifth;
     }
 
@@ -133,7 +133,7 @@ public class SheetSortController {
       return sixth;
     }
 
-    public void setSixth(String sixth) {
+    public void setSixth(final String sixth) {
       this.sixth = sixth;
     }
   }

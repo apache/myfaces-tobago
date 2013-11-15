@@ -29,12 +29,12 @@ public abstract class AbstractUITime extends AbstractUIInput {
 
   @Override
   public Converter getConverter() {
-    Converter converter = super.getConverter();
+    final Converter converter = super.getConverter();
     if (converter == null) {
       // setting required default converter
-      Application application
+      final Application application
           = FacesContext.getCurrentInstance().getApplication();
-      DateTimeConverter dateTimeConverter
+      final DateTimeConverter dateTimeConverter
           = (DateTimeConverter) application.createConverter(DateTimeConverter.CONVERTER_ID);
       dateTimeConverter.setPattern("HH:mm");
       dateTimeConverter.setTimeZone(TimeZone.getDefault());

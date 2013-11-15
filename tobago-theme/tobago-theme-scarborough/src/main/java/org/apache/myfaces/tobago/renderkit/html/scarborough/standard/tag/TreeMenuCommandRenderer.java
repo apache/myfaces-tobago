@@ -32,13 +32,13 @@ public class TreeMenuCommandRenderer extends TreeCommandRenderer {
 
   private static final Logger LOG = LoggerFactory.getLogger(TreeMenuCommandRenderer.class);
 
-  protected Style createStyle(FacesContext facesContext, AbstractUICommand node) {
+  protected Style createStyle(final FacesContext facesContext, final AbstractUICommand node) {
 
     final AbstractUITreeNode parent = (AbstractUITreeNode) node.getParent();
     final int level = parent.getLevel();
 //    final boolean folder = parent.isFolder();
 
-    Style style = new Style();
+    final Style style = new Style();
     Measure paddingLeft = getResourceManager().getThemeMeasure(facesContext, node, "custom.padding-left");
     paddingLeft = paddingLeft.multiply(level);
     style.setPaddingLeft(paddingLeft);

@@ -37,19 +37,19 @@ import java.io.IOException;
 public class PictureServlet extends NonFacesRequestServlet {
   private static final Logger LOG = LoggerFactory.getLogger(PictureServlet.class);
 
-  public String invokeApplication(FacesContext facesContext) {
-    Controller controller = (Controller) VariableResolverUtils.resolveVariable(facesContext, "controller");
-    Address address = controller.getCurrentAddress();
+  public String invokeApplication(final FacesContext facesContext) {
+    final Controller controller = (Controller) VariableResolverUtils.resolveVariable(facesContext, "controller");
+    final Address address = controller.getCurrentAddress();
     if (address.hasPicture()) {
-      Picture picture = address.getPicture();
-      byte[] content = picture.getContent();
-      HttpServletResponse response = (HttpServletResponse) facesContext.getExternalContext().getResponse();
+      final Picture picture = address.getPicture();
+      final byte[] content = picture.getContent();
+      final HttpServletResponse response = (HttpServletResponse) facesContext.getExternalContext().getResponse();
       if (content != null && content.length > 0) {
         response.setContentType(picture.getContentType());
-        ByteArrayInputStream inputStream = new ByteArrayInputStream(content);
+        final ByteArrayInputStream inputStream = new ByteArrayInputStream(content);
         try {
           IOUtils.copy(inputStream, response.getOutputStream());
-        } catch (IOException e) {
+        } catch (final IOException e) {
           LOG.error("", e);
         } finally{
           IOUtils.closeQuietly(inputStream);

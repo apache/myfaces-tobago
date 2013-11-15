@@ -50,7 +50,7 @@ public class ManifestReader {
 
     URL url = null;
     try {
-      Enumeration<URL> ul = getClass().getClassLoader().getResources("META-INF/MANIFEST.MF");
+      final Enumeration<URL> ul = getClass().getClassLoader().getResources("META-INF/MANIFEST.MF");
 
       while (ul.hasMoreElements()) {
         url = ul.nextElement();
@@ -62,11 +62,11 @@ public class ManifestReader {
 
         final Manifest manifest = new Manifest(url.openStream());
         final Attributes attributes = manifest.getMainAttributes();
-        for (Object key : attributes.keySet()) {
+        for (final Object key : attributes.keySet()) {
           jar.add(new ManifestEntry(key.toString(), attributes.get(key).toString()));
         }
       }
-    } catch (IOException e) {
+    } catch (final IOException e) {
       LOG.error("Problem while processing URL: " + url, e);
     }
   }

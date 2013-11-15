@@ -37,37 +37,41 @@ public class ValueExpressionComparator extends ComparatorBase {
 
   private ValueExpression valueExpression;
 
-  public ValueExpressionComparator(FacesContext facesContext, String var, ValueExpression valueExpression) {
+  public ValueExpressionComparator(
+      final FacesContext facesContext, final String var, final ValueExpression valueExpression) {
     this.facesContext = facesContext;
     this.var = var;
     this.valueExpression = valueExpression;
   }
 
-  public ValueExpressionComparator(FacesContext facesContext, String var, ValueExpression valueExpression,
-      boolean reverse) {
+  public ValueExpressionComparator(
+      final FacesContext facesContext, final String var, final ValueExpression valueExpression,
+      final boolean reverse) {
     super(reverse);
     this.facesContext = facesContext;
     this.var = var;
     this.valueExpression = valueExpression;
   }
 
-  public ValueExpressionComparator(FacesContext facesContext, String var,
-      ValueExpression valueExpression, Comparator comparator) {
+  public ValueExpressionComparator(
+      final FacesContext facesContext, final String var,
+      final ValueExpression valueExpression, final Comparator comparator) {
     super(comparator);
     this.facesContext = facesContext;
     this.var = var;
     this.valueExpression = valueExpression;
   }
 
-  public ValueExpressionComparator(FacesContext facesContext, String var,
-      ValueExpression valueExpression, boolean reverse, Comparator comparator) {
+  public ValueExpressionComparator(
+      final FacesContext facesContext, final String var,
+      final ValueExpression valueExpression, final boolean reverse, final Comparator comparator) {
     super(reverse, comparator);
     this.facesContext = facesContext;
     this.var = var;
     this.valueExpression = valueExpression;
   }
 
-  public boolean equals(Object o) {
+  public boolean equals(final Object o) {
     if (this == o) {
       return true;
     }
@@ -109,9 +113,9 @@ public class ValueExpressionComparator extends ComparatorBase {
    * @param param2 <description>
    * @return <description>
    */
-  public int compare(Object param1, Object param2) {
-    Object obj1;
-    Object obj2;
+  public int compare(final Object param1, final Object param2) {
+    final Object obj1;
+    final Object obj2;
     try {
       final Map requestMap = facesContext.getExternalContext().getRequestMap();
       requestMap.put(var, param1);
@@ -119,7 +123,7 @@ public class ValueExpressionComparator extends ComparatorBase {
       requestMap.put(var, param2);
       obj2 = valueExpression.getValue(facesContext.getELContext());
 
-    } catch (Exception e) {
+    } catch (final Exception e) {
       LOG.error(e.getMessage(), e);
       return 0;
     }

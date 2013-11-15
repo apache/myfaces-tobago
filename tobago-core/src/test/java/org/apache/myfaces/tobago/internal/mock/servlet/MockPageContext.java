@@ -49,22 +49,22 @@ public class MockPageContext extends PageContext {
     request = new MockHttpServletRequest();
   }
 
-  public MockPageContext(ServletRequest servletRequest) {
+  public MockPageContext(final ServletRequest servletRequest) {
     this.request = servletRequest;
   }
 
-  public Object findAttribute(String s) {
+  public Object findAttribute(final String s) {
     return null;
   }
 
-  public void forward(String s) throws ServletException, IOException {
+  public void forward(final String s) throws ServletException, IOException {
   }
 
-  public Object getAttribute(String s) {
+  public Object getAttribute(final String s) {
     return attributes.get(s);
   }
 
-  public Object getAttribute(String name, int scope) {
+  public Object getAttribute(final String name, final int scope) {
     switch (scope) {
       case PageContext.REQUEST_SCOPE:
         return getRequest().getAttribute(name);
@@ -74,11 +74,11 @@ public class MockPageContext extends PageContext {
     }
   }
 
-  public Enumeration getAttributeNamesInScope(int i) {
+  public Enumeration getAttributeNamesInScope(final int i) {
     return null;
   }
 
-  public int getAttributesScope(String s) {
+  public int getAttributesScope(final String s) {
     return 0;
   }
 
@@ -114,34 +114,36 @@ public class MockPageContext extends PageContext {
     return null;
   }
 
-  public void handlePageException(Exception e) throws ServletException, IOException {
+  public void handlePageException(final Exception e) throws ServletException, IOException {
   }
 
-  public void handlePageException(Throwable e) {
+  public void handlePageException(final Throwable e) {
   }
 
-  public void include(String s) throws ServletException, IOException {
+  public void include(final String s) throws ServletException, IOException {
   }
 
-  public void initialize(Servlet servlet, ServletRequest request, ServletResponse response, String s, boolean b, int i,
-      boolean b1) throws IOException, IllegalStateException, IllegalArgumentException {
+  public void initialize(
+      final Servlet servlet, final ServletRequest request, final ServletResponse response, final String s,
+      final boolean b, final int i,
+      final boolean b1) throws IOException, IllegalStateException, IllegalArgumentException {
   }
 
   public void release() {
   }
 
-  public void removeAttribute(String s) {
+  public void removeAttribute(final String s) {
     attributes.remove(s);
   }
 
-  public void removeAttribute(String s, int i) {
+  public void removeAttribute(final String s, final int i) {
   }
 
-  public void setAttribute(String s, Object o) {
+  public void setAttribute(final String s, final Object o) {
     attributes.put(s, o);
   }
 
-  public void setAttribute(String s, Object o, int i) {
+  public void setAttribute(final String s, final Object o, final int i) {
     switch (i) {
       case PageContext.REQUEST_SCOPE:
         getRequest().setAttribute(s, o);
@@ -151,7 +153,7 @@ public class MockPageContext extends PageContext {
     }
   }
 
-  public void include(String reference, boolean b) throws ServletException, IOException {
+  public void include(final String reference, final boolean b) throws ServletException, IOException {
   }
 
   public ExpressionEvaluator getExpressionEvaluator() {

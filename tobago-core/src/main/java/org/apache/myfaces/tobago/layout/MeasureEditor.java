@@ -27,7 +27,7 @@ import java.beans.PropertyEditorSupport;
 public class MeasureEditor extends PropertyEditorSupport {
 
     @Override
-    public void setAsText(String text) throws IllegalArgumentException {
+    public void setAsText(final String text) throws IllegalArgumentException {
         setValue(Measure.valueOf(text));
     }
 

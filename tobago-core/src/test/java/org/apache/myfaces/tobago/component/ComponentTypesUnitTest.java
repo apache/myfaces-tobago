@@ -30,8 +30,8 @@ public class ComponentTypesUnitTest {
   @Test
   public void testNames() throws IllegalAccessException {
 
-    for (Field field : ComponentTypes.class.getFields()) {
-      String value = (String) field.get(null);
+    for (final Field field : ComponentTypes.class.getFields()) {
+      final String value = (String) field.get(null);
       Assert.assertTrue("value='" + value + "'", value.matches("org\\.apache\\.myfaces\\.tobago\\.[A-Z][a-zA-Z]*"));
       Assert.assertEquals("org.apache.myfaces.tobago." + StringUtils.constantToCamelCase(field.getName()), value);
     }

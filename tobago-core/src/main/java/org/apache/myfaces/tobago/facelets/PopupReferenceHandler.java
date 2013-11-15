@@ -38,19 +38,19 @@ public class PopupReferenceHandler extends TagHandler {
 
   private final TagAttribute forComponent;
 
-  public PopupReferenceHandler(TagConfig config) {
+  public PopupReferenceHandler(final TagConfig config) {
     super(config);
     forComponent = getAttribute(Attributes.FOR);
   }
 
-  public void apply(FaceletContext faceletContext, UIComponent parent) throws IOException {
+  public void apply(final FaceletContext faceletContext, final UIComponent parent) throws IOException {
     if (parent instanceof ActionSource) {
       if (ComponentHandler.isNew(parent)) {
-        ActionSource actionSource = (ActionSource) parent;
+        final ActionSource actionSource = (ActionSource) parent;
         if (forComponent.isLiteral())  {
           actionSource.addActionListener(new PopupActionListener(forComponent.getValue()));
         } else {
-          ValueExpression forValueExpression = forComponent.getValueExpression(faceletContext, String.class);
+          final ValueExpression forValueExpression = forComponent.getValueExpression(faceletContext, String.class);
           actionSource.addActionListener(new ValueExpressionPopupActionListener(forValueExpression));
         }
       }

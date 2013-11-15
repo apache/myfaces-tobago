@@ -43,9 +43,9 @@ public class EmailAddressValidator implements Validator {
       = Pattern.compile(DOMAIN_SPEC);
 
   public void validate(
-      FacesContext facesContext, UIComponent uiComponent, Object value)
+      final FacesContext facesContext, final UIComponent uiComponent, final Object value)
       throws ValidatorException {
-    EmailAddress emailAddress = (EmailAddress) value;
+    final EmailAddress emailAddress = (EmailAddress) value;
 
     Matcher matcher = LOCAL_PART_PATTERN.matcher(emailAddress.getLocalPart());
     if (!matcher.matches()) {

@@ -31,13 +31,13 @@ import java.io.Reader;
 
 public class JspFormatter {
 
-  public static void main(String[] args) throws Exception {
+  public static void main(final String[] args) throws Exception {
     writeJsp(new FileReader(args[0]), new PrintWriter(System.out));
   }
 
-  public static void writeJsp(String filename, JspWriter out)
+  public static void writeJsp(final String filename, final JspWriter out)
       throws IOException {
-    InputStream in
+    final InputStream in
         = JspFormatter.class.getClassLoader().getResourceAsStream(filename);
     if (in == null) {
       throw new FileNotFoundException(
@@ -46,10 +46,10 @@ public class JspFormatter {
     writeJsp(new InputStreamReader(in), new PrintWriter(out));
   }
 
-  public static void writeJsp(Reader reader, PrintWriter out)
+  public static void writeJsp(final Reader reader, final PrintWriter out)
       throws IOException {
-    JspTagConverter formatter = new JspTagConverter();
-    String source = readJsp(reader);
+    final JspTagConverter formatter = new JspTagConverter();
+    final String source = readJsp(reader);
     out.println("<html><head>");
     // out.println("<link rel=\"stylesheet\" href=\"jsp.css\" type=\"text/css\">");
     out.println("<style>");
@@ -69,9 +69,9 @@ public class JspFormatter {
     out.flush();
   }
 
-  private static String readJsp(Reader reader) throws IOException {
-    LineNumberReader in = new LineNumberReader(reader);
-    StringBuilder buffer = new StringBuilder();
+  private static String readJsp(final Reader reader) throws IOException {
+    final LineNumberReader in = new LineNumberReader(reader);
+    final StringBuilder buffer = new StringBuilder();
     String line = null;
     while (null != (line = in.readLine())) {
       buffer.append(line);

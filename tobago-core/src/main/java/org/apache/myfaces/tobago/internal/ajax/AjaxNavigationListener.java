@@ -25,13 +25,13 @@ import javax.faces.event.PhaseListener;
 
 public class AjaxNavigationListener implements PhaseListener {
 
-  public void afterPhase(PhaseEvent phaseEvent) {
+  public void afterPhase(final PhaseEvent phaseEvent) {
     if (phaseEvent.getPhaseId() == PhaseId.RESTORE_VIEW) {
       AjaxNavigationState.storeIncomingView(phaseEvent.getFacesContext());
     }
   }
 
-  public void beforePhase(PhaseEvent phaseEvent) {
+  public void beforePhase(final PhaseEvent phaseEvent) {
     if (phaseEvent.getPhaseId() == PhaseId.RESTORE_VIEW) {
       AjaxNavigationState.handleNavigation(phaseEvent.getFacesContext());
     }

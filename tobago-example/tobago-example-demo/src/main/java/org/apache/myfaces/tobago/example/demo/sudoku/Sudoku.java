@@ -59,14 +59,14 @@ public class Sudoku {
         -1, -1, -1, -1, -1, -1, -1, -1, -1,
         -1, -1, -1, -1, -1, -1, -1, -1, -1,
     };
-    RandomList randomList = new RandomList((byte) 81);
+    final RandomList randomList = new RandomList((byte) 81);
     randomList.removeSmallest(9);
     depth = 9;
     undefined = randomList.asStack();
 
   }
 
-  public Sudoku(byte[] field) {
+  public Sudoku(final byte[] field) {
     this.field = field;
     //XXX  undefined = new RandomList((byte) 81).asStack();
   }
@@ -78,8 +78,8 @@ public class Sudoku {
       LOG.debug("--------------- result ");
       return Result.UNIQUE;
     }
-    byte position = undefined.pop();
-    RandomList list = new RandomList((byte) 9);
+    final byte position = undefined.pop();
+    final RandomList list = new RandomList((byte) 9);
     boolean foundOne = false;
     while (!list.isEmpty()) {
       field[position] = list.next();
@@ -87,7 +87,7 @@ public class Sudoku {
 //      LOG.debug(this);
       if (checkRules()) {
 //        LOG.debug("ok");
-        Result result = solve2();
+        final Result result = solve2();
         switch (result) {
           case ERROR:
             break;
@@ -117,7 +117,7 @@ public class Sudoku {
       maxDepth = depth;
       LOG.debug("new max depth: " + maxDepth);
     }
-    Result result = solve();
+    final Result result = solve();
     depth--;
     return result;
   }
@@ -129,9 +129,9 @@ public class Sudoku {
 
   protected boolean checkRowRules() {
     for (int i = 0; i < 9; i++) {
-      BitSet xxx = new BitSet();
+      final BitSet xxx = new BitSet();
       for (int j = 0; j < 9; j++) {
-        byte value = field[i * 9 + j];
+        final byte value = field[i * 9 + j];
         if (value != -1) {
           if (xxx.get(value)) {
 //            LOG.debug("fail h " + i);
@@ -146,9 +146,9 @@ public class Sudoku {
 
   protected boolean checkColumnRules() {
     for (int i = 0; i < 9; i++) {
-      BitSet xxx = new BitSet();
+      final BitSet xxx = new BitSet();
       for (int j = 0; j < 9; j++) {
-        byte value = field[j * 9 + i];
+        final byte value = field[j * 9 + i];
         if (value != -1) {
           if (xxx.get(value)) {
 //            LOG.debug("fail v " + i);
@@ -163,10 +163,10 @@ public class Sudoku {
 
   protected boolean checkSquareRules() {
     for (int i = 0; i < 9; i++) {
-      BitSet xxx = new BitSet();
+      final BitSet xxx = new BitSet();
       for (int j = 0; j < 9; j++) {
         final int i1 = (i % 3) * 3 + i / 3 * 27 + j % 3 + j / 3 * 9;
-        byte value = field[i1];
+        final byte value = field[i1];
         if (value != -1) {
           if (xxx.get(value)) {
 //            LOG.debug("fail 3 " + i);
@@ -179,9 +179,9 @@ public class Sudoku {
     return true;
   }
 
-  public static void main(String[] args) {
+  public static void main(final String[] args) {
     LOG.debug("" + new RandomList((byte) 9).list);
-    Sudoku sudoku = new Sudoku();
+    final Sudoku sudoku = new Sudoku();
     LOG.debug("---------------------------------------------------------------------------------------------");
     final Result result = sudoku.solve();
     LOG.debug("" + result);
@@ -191,7 +191,7 @@ public class Sudoku {
 
   @Override
   public String toString() {
-    StringBuilder builder = new StringBuilder();
+    final StringBuilder builder = new StringBuilder();
     for (int i = 0; i < field.length; i++) {
       if (field[i] == -1) {
         builder.append('-');
@@ -215,19 +215,19 @@ public class Sudoku {
     private byte n;
     private List<Byte> list;
 
-    private RandomList(byte n) {
+    private RandomList(final byte n) {
       this.n = n;
       list = new ArrayList<Byte>(n);
       shuffle();
     }
 
     public void shuffle() {
-      List<Byte> temp = new ArrayList<Byte>(n);
+      final List<Byte> temp = new ArrayList<Byte>(n);
       for (byte i = 0; i < n; i++) {
         temp.add(i, i);
       }
       for (byte i = n; i > 0; i--) {
-        byte index = (byte) RANDOM.nextInt(i);
+        final byte index = (byte) RANDOM.nextInt(i);
         list.add(temp.remove(index));
       }
     }
@@ -242,13 +242,13 @@ public class Sudoku {
 
     public Stack<Byte> asStack() {
       final Stack<Byte> stack = new Stack<Byte>();
-      for (Byte aByte : list) {
+      for (final Byte aByte : list) {
         stack.add(aByte);
       }
       return stack;
     }
 
-    public void removeSmallest(int n) {
+    public void removeSmallest(final int n) {
       for (byte i = 0; i < n; i++) {
         list.remove((Byte) i);
       }

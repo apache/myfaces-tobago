@@ -49,7 +49,7 @@ public class Jsr303Bean {
     return required;
   }
 
-  public void setRequired(String required) {
+  public void setRequired(final String required) {
     this.required = required;
   }
 
@@ -57,7 +57,7 @@ public class Jsr303Bean {
     return length;
   }
 
-  public void setLength(String length) {
+  public void setLength(final String length) {
     this.length = length;
   }
 }

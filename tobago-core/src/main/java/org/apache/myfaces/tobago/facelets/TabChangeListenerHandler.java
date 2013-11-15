@@ -42,7 +42,7 @@ public class TabChangeListenerHandler extends TagHandler {
   private final TagAttribute binding;
 
 
-  public TabChangeListenerHandler(TagConfig config) {
+  public TabChangeListenerHandler(final TagConfig config) {
     super(config);
     binding = getAttribute("binding");
     type = getAttribute("type");
@@ -52,17 +52,17 @@ public class TabChangeListenerHandler extends TagHandler {
       }
       try {
         this.listenerType = Class.forName(type.getValue());
-      } catch (Exception e) {
+      } catch (final Exception e) {
         throw new TagAttributeException(tag, type, e);
       }
     }
   }
 
-  public void apply(FaceletContext faceletContext, UIComponent parent) throws IOException {
+  public void apply(final FaceletContext faceletContext, final UIComponent parent) throws IOException {
     if (parent instanceof TabChangeSource2) {
       // only process if parent was just created
       if (parent.getParent() == null) {
-        TabChangeSource2 changeSource = (TabChangeSource2) parent;
+        final TabChangeSource2 changeSource = (TabChangeSource2) parent;
         TabChangeListener listener = null;
         ValueExpression valueExpression = null;
         if (binding != null) {
@@ -72,7 +72,7 @@ public class TabChangeListenerHandler extends TagHandler {
         if (listener == null) {
           try {
             listener = (TabChangeListener) listenerType.newInstance();
-          } catch (Exception e) {
+          } catch (final Exception e) {
             throw new TagAttributeException(tag, type, e.getCause());
           }
           if (valueExpression != null) {

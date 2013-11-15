@@ -31,11 +31,11 @@ import javax.faces.view.facelets.TextHandler;
 
 public class ScriptHandler extends ComponentHandler {
 
-  public ScriptHandler(ComponentConfig config) {
+  public ScriptHandler(final ComponentConfig config) {
     super(config);
   }
 
-  public void onComponentCreated(FaceletContext context, UIComponent component, UIComponent parent) {
+  public void onComponentCreated(final FaceletContext context, final UIComponent component, final UIComponent parent) {
     final FaceletHandler next = getComponentConfig().getNextHandler();
     if (next instanceof TextHandler) {
       final String script = ((TextHandler) next).getText(context);
@@ -45,6 +45,6 @@ public class ScriptHandler extends ComponentHandler {
     }
   }
 
-  public void applyNextHandler(FaceletContext ctx, UIComponent c) {
+  public void applyNextHandler(final FaceletContext ctx, final UIComponent c) {
   }
 }

@@ -30,7 +30,7 @@ public class SortActionEvent extends ActionEvent {
 
   private transient UIColumn column;
 
-  public SortActionEvent(UIData sheet, UIColumn column) {
+  public SortActionEvent(final UIData sheet, final UIColumn column) {
     super(sheet);
     this.column = column;
     setPhaseId(PhaseId.INVOKE_APPLICATION);

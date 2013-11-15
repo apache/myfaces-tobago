@@ -29,7 +29,7 @@ import java.io.IOException;
 public class KillSession extends HttpServlet {
 
   @Override
-  protected void doGet(HttpServletRequest request, HttpServletResponse response)
+  protected void doGet(final HttpServletRequest request, final HttpServletResponse response)
       throws ServletException, IOException {
     final HttpSession session = request.getSession(false);
     if (session != null) {

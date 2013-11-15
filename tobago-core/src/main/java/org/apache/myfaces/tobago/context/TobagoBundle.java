@@ -40,15 +40,15 @@ public class TobagoBundle extends ResourceBundle {
 
   private String bundleName;
 
-  public TobagoBundle(String bundleName) {
+  public TobagoBundle(final String bundleName) {
     this.bundleName = bundleName;
   }
 
-  protected Object handleGetObject(String key) {
+  protected Object handleGetObject(final String key) {
     if (LOG.isDebugEnabled()) {
       LOG.debug("Searching for '{}' in bundle '{}'", key, bundleName);
     }
-    FacesContext facesContext = FacesContext.getCurrentInstance();
+    final FacesContext facesContext = FacesContext.getCurrentInstance();
     return ResourceManagerUtils.getProperty(facesContext, bundleName, key);
   }
 

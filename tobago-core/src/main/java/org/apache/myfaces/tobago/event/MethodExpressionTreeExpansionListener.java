@@ -36,11 +36,11 @@ public class MethodExpressionTreeExpansionListener implements TreeExpansionListe
   public MethodExpressionTreeExpansionListener() {
   }
 
-  public MethodExpressionTreeExpansionListener(MethodExpression methodExpression) {
+  public MethodExpressionTreeExpansionListener(final MethodExpression methodExpression) {
     this.methodExpression = methodExpression;
   }
 
-  public void treeExpanded(TreeExpansionEvent event) {
+  public void treeExpanded(final TreeExpansionEvent event) {
     FacesUtilsEL.invokeMethodExpression(FacesContext.getCurrentInstance(), methodExpression, event);
   }
 
@@ -48,15 +48,15 @@ public class MethodExpressionTreeExpansionListener implements TreeExpansionListe
     return FacesContext.getCurrentInstance().getELContext();
   }
 
-  public void restoreState(FacesContext context, Object state) {
+  public void restoreState(final FacesContext context, final Object state) {
     methodExpression = (MethodExpression) state;
   }
 
-  public Object saveState(FacesContext context) {
+  public Object saveState(final FacesContext context) {
     return methodExpression;
   }
 
-  public void setTransient(boolean newTransientValue) {
+  public void setTransient(final boolean newTransientValue) {
     isTransient = newTransientValue;
   }
 

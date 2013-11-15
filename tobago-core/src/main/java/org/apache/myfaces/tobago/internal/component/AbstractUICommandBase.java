@@ -34,8 +34,8 @@ import java.util.Iterator;
 public abstract class AbstractUICommandBase extends javax.faces.component.UICommand
     implements SupportsRenderedPartially, OnComponentPopulated {
 
-  public void onComponentPopulated(FacesContext facesContext, UIComponent parent) {
-    AbstractUIPopup popup = (AbstractUIPopup) getFacet(Facets.POPUP);
+  public void onComponentPopulated(final FacesContext facesContext, final UIComponent parent) {
+    final AbstractUIPopup popup = (AbstractUIPopup) getFacet(Facets.POPUP);
     if (popup != null) {
       if (!ComponentUtils.containsPopupActionListener(this)) {
         addActionListener(new PopupFacetActionListener());
@@ -43,7 +43,7 @@ public abstract class AbstractUICommandBase extends javax.faces.component.UIComm
     }
   }
 
-  public void processDecodes(FacesContext context) {
+  public void processDecodes(final FacesContext context) {
     if (context == null) {
       throw new NullPointerException();
     }
@@ -56,19 +56,19 @@ public abstract class AbstractUICommandBase extends javax.faces.component.UIComm
     // Process this component itself
     try {
       decode(context);
-    } catch (RuntimeException e) {
+    } catch (final RuntimeException e) {
       context.renderResponse();
       throw e;
     }
 
-    Iterator kids = getFacetsAndChildren();
+    final Iterator kids = getFacetsAndChildren();
     while (kids.hasNext()) {
-      UIComponent kid = (UIComponent) kids.next();
+      final UIComponent kid = (UIComponent) kids.next();
       kid.processDecodes(context);
     }
   }
 
-  public void queueEvent(FacesEvent facesEvent) {
+  public void queueEvent(final FacesEvent facesEvent) {
     // fix for TOBAGO-262
     super.queueEvent(facesEvent);
     if (this == facesEvent.getSource()) {

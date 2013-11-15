@@ -43,18 +43,18 @@ public class TobagoResponseStateManager extends ResponseStateManager {
   public static final String VIEW_STATE_PARAM = "javax.faces.ViewState";
   private static final String VIEWID_PARAM = "jsf_viewid";
 
-  public Object getState(FacesContext context, String viewId) {
-    Object treeStructure = getTreeStructureToRestore(context, viewId);
-    Object componentStateToRestore = getComponentStateToRestore(context);
+  public Object getState(final FacesContext context, final String viewId) {
+    final Object treeStructure = getTreeStructureToRestore(context, viewId);
+    final Object componentStateToRestore = getComponentStateToRestore(context);
     if (treeStructure != null && componentStateToRestore != null) {
         return new Object[] {treeStructure, componentStateToRestore};
     }
     return null;
   }
 
-  public Object getTreeStructureToRestore(FacesContext facescontext, String viewId) {
-    Map requestMap = facescontext.getExternalContext().getRequestParameterMap();
-    Object requestViewId = requestMap.get(VIEWID_PARAM);
+  public Object getTreeStructureToRestore(final FacesContext facescontext, final String viewId) {
+    final Map requestMap = facescontext.getExternalContext().getRequestParameterMap();
+    final Object requestViewId = requestMap.get(VIEWID_PARAM);
     if (requestViewId == null || !requestViewId.equals(viewId)) {
       //no saved state or state of different viewId
       return null;
@@ -64,16 +64,16 @@ public class TobagoResponseStateManager extends ResponseStateManager {
 
   }
 
-  public Object getComponentStateToRestore(FacesContext facesContext) {
-    Map requestMap = facesContext.getExternalContext().getRequestParameterMap();
+  public Object getComponentStateToRestore(final FacesContext facesContext) {
+    final Map requestMap = facesContext.getExternalContext().getRequestParameterMap();
     return requestMap.get(VIEW_STATE_PARAM);
   }
 
-  public void writeState(FacesContext facesContext,
-      StateManager.SerializedView serializedview) throws IOException {
-    ResponseWriter responseWriter = facesContext.getResponseWriter();
-    Object treeStruct = serializedview.getStructure();
-    Object compStates = serializedview.getState();
+  public void writeState(final FacesContext facesContext,
+      final StateManager.SerializedView serializedview) throws IOException {
+    final ResponseWriter responseWriter = facesContext.getResponseWriter();
+    final Object treeStruct = serializedview.getStructure();
+    final Object compStates = serializedview.getState();
 
     if (treeStruct != null) {
       if (treeStruct instanceof String) {

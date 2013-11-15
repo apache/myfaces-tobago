@@ -25,15 +25,15 @@ public class Slf4jLogger implements Logger {
 
   private org.slf4j.Logger log;
 
-  public Slf4jLogger(org.slf4j.Logger log) {
+  public Slf4jLogger(final org.slf4j.Logger log) {
     this.log = log;
   }
 
-  public void debug(String reference) {
+  public void debug(final String reference) {
     log.debug(reference);
   }
 
-  public void debug(String reference, Throwable throwable) {
+  public void debug(final String reference, final Throwable throwable) {
     log.debug(reference, throwable);
   }
 
@@ -41,11 +41,11 @@ public class Slf4jLogger implements Logger {
     return log.isDebugEnabled();
   }
 
-  public void info(String reference) {
+  public void info(final String reference) {
     log.info(reference);
   }
 
-  public void info(String reference, Throwable throwable) {
+  public void info(final String reference, final Throwable throwable) {
     log.info(reference, throwable);
   }
 
@@ -53,11 +53,11 @@ public class Slf4jLogger implements Logger {
     return log.isInfoEnabled();
   }
 
-  public void warn(String reference) {
+  public void warn(final String reference) {
     log.warn(reference);
   }
 
-  public void warn(String reference, Throwable throwable) {
+  public void warn(final String reference, final Throwable throwable) {
     log.warn(reference, throwable);
   }
 
@@ -65,11 +65,11 @@ public class Slf4jLogger implements Logger {
     return log.isWarnEnabled();
   }
 
-  public void error(String reference) {
+  public void error(final String reference) {
     log.error(reference);
   }
 
-  public void error(String reference, Throwable throwable) {
+  public void error(final String reference, final Throwable throwable) {
     log.error(reference, throwable);
   }
 
@@ -77,11 +77,11 @@ public class Slf4jLogger implements Logger {
     return log.isErrorEnabled();
   }
 
-  public void fatalError(String reference) {
+  public void fatalError(final String reference) {
     log.error(reference);
   }
 
-  public void fatalError(String reference, Throwable throwable) {
+  public void fatalError(final String reference, final Throwable throwable) {
     log.error(reference, throwable);
   }
 
@@ -89,7 +89,7 @@ public class Slf4jLogger implements Logger {
     return log.isErrorEnabled();
   }
 
-  public Logger getChildLogger(String reference) {
+  public Logger getChildLogger(final String reference) {
     return null;
   }
 }

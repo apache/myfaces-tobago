@@ -31,7 +31,7 @@ public class ScriptEventItem {
   private String name;
   private Date time;
 
-  public ScriptEventItem(String name) {
+  public ScriptEventItem(final String name) {
     this.name = name;
     this.time = new Date();
     LOG.info(name);

@@ -28,10 +28,10 @@ import javax.faces.context.FacesContext;
 
 public class FormRenderer extends RendererBase {
 
-  public void decode(FacesContext facesContext, UIComponent component) {
-    UIForm form = (UIForm) component;
-    String actionId = FacesContextUtils.getActionId(facesContext);
-    String clientId = form.getClientId(facesContext);
+  public void decode(final FacesContext facesContext, final UIComponent component) {
+    final UIForm form = (UIForm) component;
+    final String actionId = FacesContextUtils.getActionId(facesContext);
+    final String clientId = form.getClientId(facesContext);
     if (actionId != null && actionId.startsWith(clientId)) {
       form.setSubmitted(true);
     }

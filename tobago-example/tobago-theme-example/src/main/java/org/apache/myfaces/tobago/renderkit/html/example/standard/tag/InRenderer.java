@@ -43,18 +43,18 @@ import java.io.IOException;
 public class InRenderer extends org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag.InRenderer{
 
   @Override
-  public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
+  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
     super.encodeEnd(facesContext, component);
 
-    UIIn in = (UIIn) component;
-    for (String markup : in.getMarkup()) {
+    final UIIn in = (UIIn) component;
+    for (final String markup : in.getMarkup()) {
       if (markup.equals("changeaware")) {
-        String id = in.getClientId(facesContext);
+        final String id = in.getClientId(facesContext);
         final String[] cmds = {"new Example.ChangeAware('" + id + "');"};
         HtmlRendererUtils.writeScriptLoader(facesContext, null, cmds);
       }
       if (markup.equals("blink")) {
-        String id = in.getClientId(facesContext);
+        final String id = in.getClientId(facesContext);
         final String[] cmds = {"new Example.Blinker('" + id + "');"};
         HtmlRendererUtils.writeScriptLoader(facesContext, null, cmds);
       }

@@ -32,7 +32,7 @@ public class TabChangeSourceRule extends MetaRule {
   static final Class[] ACTION_LISTENER = new Class[]{TabChangeEvent.class};
   public static final TabChangeSourceRule INSTANCE = new TabChangeSourceRule();
 
-  public Metadata applyRule(String name, TagAttribute attribute, MetadataTarget metadataTarget) {
+  public Metadata applyRule(final String name, final TagAttribute attribute, final MetadataTarget metadataTarget) {
     if (metadataTarget.isTargetInstanceOf(TabChangeSource2.class)) {
       if ("tabChangeListener".equals(name)) {
         return new TabChangeListenerMapper(attribute);
@@ -45,11 +45,11 @@ public class TabChangeSourceRule extends MetaRule {
 
     private final TagAttribute attribute;
 
-    public TabChangeListenerMapper(TagAttribute attribute) {
+    public TabChangeListenerMapper(final TagAttribute attribute) {
       this.attribute = attribute;
     }
 
-    public void applyMetadata(FaceletContext ctx, Object instance) {
+    public void applyMetadata(final FaceletContext ctx, final Object instance) {
       ((TabChangeSource2) instance).setTabChangeListenerExpression(
           attribute.getMethodExpression(ctx, null, TabChangeSourceRule.ACTION_LISTENER));
     }

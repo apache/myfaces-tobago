@@ -49,7 +49,7 @@ public class ActionListenerImpl implements ActionListener {
   public void processAction(final ActionEvent event) throws AbortProcessingException {
     try {
       base.processAction(event);
-    } catch (Throwable e) {
+    } catch (final Throwable e) {
       if (e instanceof FacesException) {
         Throwable fe = e;
         while (fe != null) {
@@ -62,7 +62,7 @@ public class ActionListenerImpl implements ActionListener {
       LOG.error("Processing failed. Forwarding to error page. errorOutcome=" + errorOutcome, e.getCause());
       final FacesContext facesContext = FacesContext.getCurrentInstance();
       if (e.getCause() != null) {
-         FacesMessage facesMessage = new FacesMessage(e.getCause().toString());
+         final FacesMessage facesMessage = new FacesMessage(e.getCause().toString());
          facesContext.addMessage(null, facesMessage);
       }
       final UIComponent source = event.getComponent();

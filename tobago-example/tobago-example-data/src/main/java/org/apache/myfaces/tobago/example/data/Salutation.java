@@ -29,7 +29,7 @@ public enum Salutation {
 
   private String key;
 
-  Salutation(String key) {
+  Salutation(final String key) {
     this.key = key;
   }
 
@@ -37,8 +37,8 @@ public enum Salutation {
     return key;
   }
 
-  public static Salutation getSalutation(String key) {
-    for (Salutation salutation : values()) {
+  public static Salutation getSalutation(final String key) {
+    for (final Salutation salutation : values()) {
       if (salutation.getKey().equals(key)) {
         return salutation;
       }

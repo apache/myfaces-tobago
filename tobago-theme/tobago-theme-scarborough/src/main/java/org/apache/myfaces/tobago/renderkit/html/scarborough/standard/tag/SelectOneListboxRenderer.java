@@ -46,19 +46,19 @@ public class SelectOneListboxRenderer extends SelectOneRendererBase {
     return true;
   }
 
-  public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
+  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
     if (!(component instanceof UISelectOneListbox)) {
       LOG.error("Wrong type: Need " + UISelectOneListbox.class.getName()
           + ", but was " + component.getClass().getName());
       return;
     }
 
-    UISelectOneListbox select = (UISelectOneListbox) component;
-    TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final UISelectOneListbox select = (UISelectOneListbox) component;
+    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
-    String id = select.getClientId(facesContext);
-    List<SelectItem> items = RenderUtils.getSelectItems(select);
-    boolean disabled = items.size() == 0 || select.isDisabled() || select.isReadonly();
+    final String id = select.getClientId(facesContext);
+    final List<SelectItem> items = RenderUtils.getSelectItems(select);
+    final boolean disabled = items.size() == 0 || select.isDisabled() || select.isReadonly();
 
     writer.startElement(HtmlElements.SELECT, select);
     writer.writeNameAttribute(id);
@@ -69,17 +69,17 @@ public class SelectOneListboxRenderer extends SelectOneRendererBase {
     writer.writeAttribute(HtmlAttributes.REQUIRED, select.isRequired());
     HtmlRendererUtils.renderFocus(id, select.isFocus(), ComponentUtils.isError(select), facesContext, writer);
 
-    Integer tabIndex = select.getTabIndex();
+    final Integer tabIndex = select.getTabIndex();
     if (tabIndex != null) {
       writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
     }
-    Style style = new Style(facesContext, select);
+    final Style style = new Style(facesContext, select);
     writer.writeStyleAttribute(style);
     writer.writeClassAttribute(Classes.create(select));
     HtmlRendererUtils.renderTip(select, writer);
     writer.writeAttribute(HtmlAttributes.SIZE, 9); // must be > 1, but the real size comes from the layout
     HtmlRendererUtils.renderCommandFacet(select, facesContext, writer);
-    Object[] values = {select.getValue()};
+    final Object[] values = {select.getValue()};
     HtmlRendererUtils.renderSelectItems(select, items, values, writer, facesContext);
 
     writer.endElement(HtmlElements.SELECT);

@@ -19,13 +19,14 @@
 
 package org.apache.myfaces.tobago.facelets.extension;
 
-import javax.faces.view.facelets.ComponentConfig;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.UISelectOneRadio;
 
+import javax.faces.view.facelets.ComponentConfig;
+
 public class SelectOneRadioExtensionHandler extends TobagoLabelExtensionHandler {
 
-  public SelectOneRadioExtensionHandler(ComponentConfig config) {
+  public SelectOneRadioExtensionHandler(final ComponentConfig config) {
     super(config);
   }
 

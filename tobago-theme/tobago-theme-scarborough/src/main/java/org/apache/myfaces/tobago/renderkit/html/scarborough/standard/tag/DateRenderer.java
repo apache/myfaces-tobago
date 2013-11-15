@@ -37,13 +37,14 @@ public class DateRenderer extends InRenderer {
 
   @Override
   protected void writeAdditionalAttributes(
-      FacesContext facesContext, TobagoResponseWriter writer, AbstractUIInput input) throws IOException {
+      final FacesContext facesContext, final TobagoResponseWriter writer, final AbstractUIInput input)
+      throws IOException {
     super.writeAdditionalAttributes(facesContext, writer, input);
 
     String pattern = null;
-    Converter help = getConverter(facesContext, input);
+    final Converter help = getConverter(facesContext, input);
     if (help instanceof DateTimeConverter) {
-      DateTimeConverter converter = (DateTimeConverter) help;
+      final DateTimeConverter converter = (DateTimeConverter) help;
       pattern = DateFormatUtils.findPattern(converter);
     }
     if (pattern == null) {

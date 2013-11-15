@@ -26,11 +26,13 @@ import javax.faces.convert.ConverterException;
 
 public class SalutationConverter implements Converter {
 
-  public Object getAsObject(FacesContext context, UIComponent component, String value) throws ConverterException {
+  public Object getAsObject(final FacesContext context, final UIComponent component, final String value)
+      throws ConverterException {
     return Salutation.getSalutation(value);
   }
 
-  public String getAsString(FacesContext context, UIComponent component, Object value) throws ConverterException {
+  public String getAsString(final FacesContext context, final UIComponent component, final Object value)
+      throws ConverterException {
     if (value instanceof Salutation) {
       return ((Salutation) value).getKey();
     }

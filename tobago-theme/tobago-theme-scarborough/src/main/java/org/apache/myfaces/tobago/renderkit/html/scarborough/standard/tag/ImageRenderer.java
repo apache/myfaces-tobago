@@ -41,16 +41,16 @@ public class ImageRenderer extends LayoutComponentRendererBase {
 
   private static final Logger LOG = LoggerFactory.getLogger(ImageRenderer.class);
 
-  public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
+  public void prepareRender(final FacesContext facesContext, final UIComponent component) throws IOException {
     super.prepareRender(facesContext, component);
     HtmlRendererUtils.renderDojoDndSource(facesContext, component);
   }
 
-  public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
+  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
 
-    TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
-    AbstractUIImage image = (AbstractUIImage) component;
+    final AbstractUIImage image = (AbstractUIImage) component;
     final String value = image.getUrl();
     String src = value;
     if (src != null) {
@@ -87,15 +87,15 @@ public class ImageRenderer extends LayoutComponentRendererBase {
     writer.writeAttribute(HtmlAttributes.ALT, alt, true);
     HtmlRendererUtils.renderTip(image, writer);
     writer.writeAttribute(HtmlAttributes.BORDER, border, false);
-    Style style = new Style(facesContext, image);
+    final Style style = new Style(facesContext, image);
     writer.writeStyleAttribute(style);
     HtmlRendererUtils.renderDojoDndItem(image, writer, true);
     writer.writeClassAttribute(Classes.create(image));
     writer.endElement(HtmlElements.IMG);
   }
 
-  private String createSrc(String src, String ext) {
-    int dot = src.lastIndexOf('.');
+  private String createSrc(final String src, final String ext) {
+    final int dot = src.lastIndexOf('.');
     if (dot == -1) {
       LOG.warn("Image src without extension: '" + src + "'");
       return src;
@@ -104,7 +104,7 @@ public class ImageRenderer extends LayoutComponentRendererBase {
     }
   }
 
-  private boolean isDisabled(AbstractUIImage graphic) {
+  private boolean isDisabled(final AbstractUIImage graphic) {
     return graphic.isDisabled() 
         || (graphic.getParent() instanceof UICommand && ((UICommand) graphic.getParent()).isDisabled());
   }

@@ -34,9 +34,9 @@ import javax.faces.context.FacesContext;
 import java.io.IOException;
 
 public class ObjectRenderer extends LayoutComponentRendererBase {
-  public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
-    UIObject object = (UIObject) component;
-    TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
+    final UIObject object = (UIObject) component;
+    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
     writer.startElement(HtmlElements.IFRAME, object);
     writer.writeAttribute(HtmlAttributes.FRAMEBORDER, "0", false);
@@ -50,7 +50,7 @@ public class ObjectRenderer extends LayoutComponentRendererBase {
       writer.writeAttribute(HtmlAttributes.SRC, ResourceManagerUtils.getBlankPage(facesContext), false);
     }
     writer.writeClassAttribute(Classes.create(object));
-    Style style = new Style(facesContext, object);
+    final Style style = new Style(facesContext, object);
     writer.writeStyleAttribute(style);
 
     String noframes = ResourceManagerUtils.getPropertyNotNull(

@@ -42,7 +42,7 @@ public abstract class AbstractUISelectBooleanCheckbox extends UISelectBoolean
     }
   }
 
-  protected void validateValue(FacesContext facesContext, Object convertedValue) {
+  protected void validateValue(final FacesContext facesContext, final Object convertedValue) {
     if (isRequired()) {
       if (convertedValue instanceof Boolean && !((Boolean) convertedValue)
           // String: e. g. if there is no ValueExpression

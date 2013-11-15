@@ -99,7 +99,7 @@ public class LabelExtensionTag extends TobagoExtensionBodyTagSupport {
     panelTag.setJspId(nextJspId());
     panelTag.doStartTag();
 
-    FacetTag facetTag = new FacetTag();
+    final FacetTag facetTag = new FacetTag();
     facetTag.setPageContext(pageContext);
     facetTag.setName(Facets.LAYOUT);
     facetTag.setParent(panelTag);
@@ -112,10 +112,10 @@ public class LabelExtensionTag extends TobagoExtensionBodyTagSupport {
         setColumns(createStringValueExpression(DEFAULT_COLUMNS));
       }
     }
-    GridLayoutTag gridLayoutTag = new GridLayoutTag();
+    final GridLayoutTag gridLayoutTag = new GridLayoutTag();
     gridLayoutTag.setPageContext(pageContext);
     gridLayoutTag.setColumns(columns);
-    javax.el.ValueExpression ve = createStringValueExpression(rows);
+    final javax.el.ValueExpression ve = createStringValueExpression(rows);
     gridLayoutTag.setRows(ve);
     gridLayoutTag.setParent(facetTag);
     gridLayoutTag.setJspId(nextJspId());
@@ -124,7 +124,7 @@ public class LabelExtensionTag extends TobagoExtensionBodyTagSupport {
 
     facetTag.doEndTag();
 
-    LabelTag labelTag = new LabelTag();
+    final LabelTag labelTag = new LabelTag();
     labelTag.setPageContext(pageContext);
     if (value != null) {
       labelTag.setValue(value);
@@ -165,7 +165,7 @@ public class LabelExtensionTag extends TobagoExtensionBodyTagSupport {
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "java.lang.Object")
-  public void setValue(javax.el.ValueExpression value) {
+  public void setValue(final javax.el.ValueExpression value) {
     this.value = value;
   }
 
@@ -174,7 +174,7 @@ public class LabelExtensionTag extends TobagoExtensionBodyTagSupport {
    */
   @TagAttribute
   @UIComponentTagAttribute()
-  public void setTip(javax.el.ValueExpression tip) {
+  public void setTip(final javax.el.ValueExpression tip) {
     this.tip = tip;
   }
 
@@ -184,11 +184,11 @@ public class LabelExtensionTag extends TobagoExtensionBodyTagSupport {
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "boolean", defaultValue = "true")
-  public void setRendered(javax.el.ValueExpression rendered) {
+  public void setRendered(final javax.el.ValueExpression rendered) {
     this.rendered = rendered;
   }
 
-  void setColumns(javax.el.ValueExpression columns) {
+  void setColumns(final javax.el.ValueExpression columns) {
     if (!(!columns.isLiteralText() || LayoutUtils.checkTokens(columns.getExpressionString()))) {
       LOG.warn("Illegal value for columns = \"" + columns.getExpressionString()
           + "\" replacing with default: \"" + DEFAULT_COLUMNS + "\"");
@@ -198,7 +198,7 @@ public class LabelExtensionTag extends TobagoExtensionBodyTagSupport {
     }
   }
 
-  void setRows(String rows) {
+  void setRows(final String rows) {
     this.rows = rows;
   }
 
@@ -209,7 +209,7 @@ public class LabelExtensionTag extends TobagoExtensionBodyTagSupport {
    */
   @TagAttribute
   @UIComponentTagAttribute()
-  public void setLabelWidth(ValueExpression labelWidth) {
+  public void setLabelWidth(final ValueExpression labelWidth) {
     this.labelWidth = labelWidth;
   }
 
@@ -219,7 +219,7 @@ public class LabelExtensionTag extends TobagoExtensionBodyTagSupport {
    */
   @TagAttribute
   @UIComponentTagAttribute(defaultValue = "none", type = "java.lang.String[]")
-  public void setMarkup(javax.el.ValueExpression markup) {
+  public void setMarkup(final javax.el.ValueExpression markup) {
     this.markup = markup;
   }
 }

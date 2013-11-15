@@ -48,22 +48,22 @@ public final class MessageUtils {
   }
 
   public static void addMessage(
-      FacesContext facesContext, UIComponent component, FacesMessage.Severity severity,
-      String messageId, Object[] args) {
+      final FacesContext facesContext, final UIComponent component, final FacesMessage.Severity severity,
+      final String messageId, final Object[] args) {
     facesContext.addMessage(component.getClientId(facesContext),
         getMessage(facesContext, facesContext.getViewRoot().getLocale(), severity, messageId, args));
   }
 
   public static FacesMessage getMessage(
-      FacesContext facesContext, Locale locale,
-      FacesMessage.Severity severity, String messageId, Object... args) {
+      final FacesContext facesContext, final Locale locale,
+      final FacesMessage.Severity severity, final String messageId, final Object... args) {
 
-    ResourceBundle appBundle = getApplicationBundle(facesContext, locale);
+    final ResourceBundle appBundle = getApplicationBundle(facesContext, locale);
     String summary = getBundleString(appBundle, messageId);
     String detail = getBundleString(appBundle, messageId + DETAIL_SUFFIX);
 
     if (summary == null || detail == null) {
-      ResourceBundle tobagoBundle = new TobagoResourceBundle();
+      final ResourceBundle tobagoBundle = new TobagoResourceBundle();
       if (summary == null) {
         summary = getBundleString(tobagoBundle, messageId);
       }
@@ -72,7 +72,7 @@ public final class MessageUtils {
       }
 
       if (summary == null || detail == null) {
-        ResourceBundle defBundle = getDefaultBundle(facesContext, locale);
+        final ResourceBundle defBundle = getDefaultBundle(facesContext, locale);
         if (summary == null) {
           summary = getBundleString(defBundle, messageId);
         }
@@ -103,38 +103,39 @@ public final class MessageUtils {
     return new LabelValueExpressionFacesMessage(severity, summary, detail);
   }
 
-  private static String getBundleString(ResourceBundle bundle, String key) {
+  private static String getBundleString(final ResourceBundle bundle, final String key) {
     try {
       return bundle == null ? null : bundle.getString(key);
-    } catch (MissingResourceException e) {
+    } catch (final MissingResourceException e) {
       return null;
     }
   }
 
-  private static ResourceBundle getApplicationBundle(FacesContext facesContext, Locale locale) {
-    String bundleName = facesContext.getApplication().getMessageBundle();
+  private static ResourceBundle getApplicationBundle(final FacesContext facesContext, final Locale locale) {
+    final String bundleName = facesContext.getApplication().getMessageBundle();
     return bundleName != null ? getBundle(facesContext, locale, bundleName) : null;
   }
 
-  private static ResourceBundle getDefaultBundle(FacesContext facesContext, Locale locale) {
+  private static ResourceBundle getDefaultBundle(final FacesContext facesContext, final Locale locale) {
     return getBundle(facesContext, locale, FacesMessage.FACES_MESSAGES);
   }
 
-  private static ResourceBundle getBundle(FacesContext facesContext, Locale locale, String bundleName) {
+  private static ResourceBundle getBundle(
+      final FacesContext facesContext, final Locale locale, final String bundleName) {
     try {
       return ResourceBundle.getBundle(bundleName, locale, MessageUtils.class.getClassLoader());
-    } catch (MissingResourceException ignore2) {
+    } catch (final MissingResourceException ignore2) {
       try {
         return ResourceBundle.getBundle(bundleName, locale, Thread.currentThread().getContextClassLoader());
-      } catch (MissingResourceException damned) {
+      } catch (final MissingResourceException damned) {
         facesContext.getExternalContext().log("resource bundle " + bundleName + " could not be found");
         return null;
       }
     }
   }
 
-  public static String getLabel(FacesContext facesContext, UIComponent component) {
-    Object label = component.getAttributes().get("label");
+  public static String getLabel(final FacesContext facesContext, final UIComponent component) {
+    final Object label = component.getAttributes().get("label");
     if (label != null) {
       return label.toString();
     }
@@ -149,9 +150,9 @@ public final class MessageUtils {
    * @deprecated Since Tobago 2.0.0
    */
   @Deprecated
-  public static String getFormatedMessage(String message, Locale locale, Object... args) {
+  public static String getFormatedMessage(final String message, final Locale locale, final Object... args) {
     if (args != null && args.length > 0 && message != null) {
-      MessageFormat format = new MessageFormat(message, locale);
+      final MessageFormat format = new MessageFormat(message, locale);
       return format.format(args);
     }
     return message;

@@ -62,7 +62,7 @@ public abstract class ConverterTag extends TagSupport {
   public int doStartTag() throws JspException {
 
     // Locate our parent UIComponentTag
-    UIComponentClassicTagBase tag =
+    final UIComponentClassicTagBase tag =
         UIComponentELTag.getParentUIComponentClassicTagBase(pageContext);
     if (tag == null) {
       // TODO Message resource i18n
@@ -73,7 +73,7 @@ public abstract class ConverterTag extends TagSupport {
       return (SKIP_BODY);
     }
 
-    UIComponent component = tag.getComponentInstance();
+    final UIComponent component = tag.getComponentInstance();
     if (component == null) {
       // TODO Message resource i18n
       throw new JspException("Component Instance is null");
@@ -82,7 +82,7 @@ public abstract class ConverterTag extends TagSupport {
       // TODO Message resource i18n
       throw new JspException("Component " + component.getClass().getName() + " is not instanceof ValueHolder");
     }
-    ValueHolder valueHolder = (ValueHolder) component;
+    final ValueHolder valueHolder = (ValueHolder) component;
 
     Converter converter = null;
 
@@ -94,14 +94,14 @@ public abstract class ConverterTag extends TagSupport {
     }
 
     if (converter == null && converterId != null) {
-      String localConverterId = (String) converterId.getValue(elContext);
+      final String localConverterId = (String) converterId.getValue(elContext);
       // evaluate any VB expression that we were passed
       converter = facesContext.getApplication().createConverter(localConverterId);
     }
 
     if (converter != null) {
       if (!binding.isLiteralText()) {
-        ValueExpression ve = component.getValueExpression(Attributes.CONVERTER);
+        final ValueExpression ve = component.getValueExpression(Attributes.CONVERTER);
         if (ve != null) {
           ve.setValue(elContext, converter);
         }
@@ -124,7 +124,7 @@ public abstract class ConverterTag extends TagSupport {
    * The converterId of a registered converter.
    */
   @TagAttribute(name = "converterId", type = "java.lang.String")
-  public void setConverterId(ValueExpression converterId) {
+  public void setConverterId(final ValueExpression converterId) {
     this.converterId = converterId;
   }
 
@@ -132,7 +132,7 @@ public abstract class ConverterTag extends TagSupport {
    * The value binding expression to a converter.
    */
   @TagAttribute(name = "binding", type = "javax.faces.convert.Converter")
-  public void setBinding(ValueExpression binding) {
+  public void setBinding(final ValueExpression binding) {
     this.binding = binding;
   }
 }

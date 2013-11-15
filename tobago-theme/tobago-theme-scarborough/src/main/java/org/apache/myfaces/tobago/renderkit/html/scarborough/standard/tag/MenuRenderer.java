@@ -45,7 +45,7 @@ public class MenuRenderer extends LayoutComponentRendererBase {
   private static final Logger LOG = LoggerFactory.getLogger(MenuRenderer.class);
 
   @Override
-  public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
+  public void prepareRender(final FacesContext facesContext, final UIComponent component) throws IOException {
     super.prepareRender(facesContext, component);
 
     final UIMenu menu = (UIMenu) component;
@@ -56,10 +56,10 @@ public class MenuRenderer extends LayoutComponentRendererBase {
   }
 
   @Override
-  public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
+  public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
 
     final UIMenu menu = (UIMenu) component;
-    TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
     final boolean disabled = menu.isDisabled();
     final boolean firstLevel = !RendererTypes.MENU.equals(menu.getParent().getRendererType());
@@ -68,7 +68,7 @@ public class MenuRenderer extends LayoutComponentRendererBase {
     writer.startElement(HtmlElements.LI, menu);
     writer.writeClassAttribute(Classes.create(menu));
     if (menu.getImage() != null) {
-      Style style = new Style();
+      final Style style = new Style();
       style.setBackgroundImage("url('"
           + ResourceManagerUtils.getImageOrDisabledImageWithPath(facesContext, menu.getImage(), menu.isDisabled())
           + "')");
@@ -83,7 +83,7 @@ public class MenuRenderer extends LayoutComponentRendererBase {
       writer.writeIdAttribute(component.getClientId(facesContext));
     }
 
-    LabelWithAccessKey label = new LabelWithAccessKey(menu);
+    final LabelWithAccessKey label = new LabelWithAccessKey(menu);
     if (label.getText() != null) {
       if (label.getAccessKey() != null) {
         if (LOG.isInfoEnabled()
@@ -100,7 +100,7 @@ public class MenuRenderer extends LayoutComponentRendererBase {
     if (isParentMenu) {
       if (!firstLevel) {
         writer.startElement(HtmlElements.IMG, menu);
-        String arrow = ResourceManagerUtils
+        final String arrow = ResourceManagerUtils
             .getImageOrDisabledImageWithPath(facesContext, "image/MenuArrow.gif", menu.isDisabled());
         writer.writeAttribute(HtmlAttributes.SRC, arrow, false);
         writer.writeClassAttribute(Classes.create(menu, "subitem-arrow"));
@@ -111,12 +111,12 @@ public class MenuRenderer extends LayoutComponentRendererBase {
   }
 
   @Override
-  public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
+  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
 
-    UIMenu menu = (UIMenu) component;
-    TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final UIMenu menu = (UIMenu) component;
+    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
-    boolean isParentMenu = menu.getChildCount() > 0; // todo: may be not correct
+    final boolean isParentMenu = menu.getChildCount() > 0; // todo: may be not correct
     if (isParentMenu) {
       writer.endElement(HtmlElements.OL);
     }

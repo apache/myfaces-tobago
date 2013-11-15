@@ -175,7 +175,7 @@ public class ClientProperties implements Serializable {
     return pageWidth;
   }
 
-  public void setPageWidth(Measure pageWidth) {
+  public void setPageWidth(final Measure pageWidth) {
     this.pageWidth = pageWidth;
   }
 
@@ -183,7 +183,7 @@ public class ClientProperties implements Serializable {
     return pageHeight;
   }
 
-  public void setPageHeight(Measure pageHeight) {
+  public void setPageHeight(final Measure pageHeight) {
     this.pageHeight = pageHeight;
   }
 

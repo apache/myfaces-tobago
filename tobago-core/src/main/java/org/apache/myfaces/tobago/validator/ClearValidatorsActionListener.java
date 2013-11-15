@@ -39,12 +39,12 @@ public class ClearValidatorsActionListener implements ActionListener {
     return PhaseId.APPLY_REQUEST_VALUES;
   }
 
-  public void processAction(ActionEvent actionEvent) throws AbortProcessingException {
+  public void processAction(final ActionEvent actionEvent) throws AbortProcessingException {
     if (LOG.isDebugEnabled()) {
       LOG.debug("actionEvent = '" + actionEvent + "'");
     }
-    UIComponent source = actionEvent.getComponent();
-    String clearValidatorsFieldIds
+    final UIComponent source = actionEvent.getComponent();
+    final String clearValidatorsFieldIds
         = (String) ComponentUtils.findParameter(source, "clearValidatorsFieldIds");
 
     if (LOG.isDebugEnabled()) {
@@ -53,10 +53,10 @@ public class ClearValidatorsActionListener implements ActionListener {
 
     // FIXME: finding mechanism??? JSF ???
 
-    for (StringTokenizer tokenizer
+    for (final StringTokenizer tokenizer
         = new StringTokenizer(clearValidatorsFieldIds, ",");
          tokenizer.hasMoreTokens();) {
-      String clearValidatorsFieldId = tokenizer.nextToken();
+      final String clearValidatorsFieldId = tokenizer.nextToken();
 
       UIComponent component = source.findComponent(clearValidatorsFieldId);
       if (LOG.isDebugEnabled()) {
@@ -67,7 +67,7 @@ public class ClearValidatorsActionListener implements ActionListener {
         if (LOG.isDebugEnabled()) {
           LOG.debug("Component not found locally, asking the tree.");
         }
-        FacesContext facesContext = FacesContext.getCurrentInstance();
+        final FacesContext facesContext = FacesContext.getCurrentInstance();
         component = facesContext.getViewRoot().findComponent(clearValidatorsFieldId);
       }
 

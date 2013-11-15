@@ -48,7 +48,7 @@ public class PanelRenderer extends LayoutComponentRendererBase {
   private static final Logger LOG = LoggerFactory.getLogger(PanelRenderer.class);
 
   @Override
-  public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
+  public void prepareRender(final FacesContext facesContext, final UIComponent component) throws IOException {
     super.prepareRender(facesContext, component);
     HtmlRendererUtils.renderDojoDndSource(facesContext, component);
   }
@@ -59,27 +59,27 @@ public class PanelRenderer extends LayoutComponentRendererBase {
   }
 
   @Override
-  public void encodeChildren(FacesContext facesContext, UIComponent uiComponent) throws IOException {
-    UIPanel component = (UIPanel) uiComponent;
-    for (UIComponent child : component.getChildren()) {
+  public void encodeChildren(final FacesContext facesContext, final UIComponent uiComponent) throws IOException {
+    final UIPanel component = (UIPanel) uiComponent;
+    for (final UIComponent child : component.getChildren()) {
       RenderUtils.encode(facesContext, child);
     }
   }
 
   @Override
-  public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
+  public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
     
     // UIPanel or UICell (deprecated)
-    AbstractUIPanel panel = (AbstractUIPanel) component;
-    TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final AbstractUIPanel panel = (AbstractUIPanel) component;
+    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
-    String clientId = panel.getClientId(facesContext);
+    final String clientId = panel.getClientId(facesContext);
     writer.startElement(HtmlElements.DIV, panel);
     HtmlRendererUtils.renderDojoDndItem(panel, writer, true);
     writer.writeIdAttribute(clientId);
     writer.writeClassAttribute(Classes.create(panel));
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, panel);
-    Style style = new Style(facesContext, panel);
+    final Style style = new Style(facesContext, panel);
     // XXX hotfix for panels in sheets
     if (style.getPosition() == null) {
       style.setPosition(Position.RELATIVE);
@@ -91,9 +91,9 @@ public class PanelRenderer extends LayoutComponentRendererBase {
 
     // TODO check ajax id?
     if (!FacesContextUtils.isAjax(facesContext)) {
-      UIComponent facetReload = panel.getFacet(Facets.RELOAD);
+      final UIComponent facetReload = panel.getFacet(Facets.RELOAD);
       if (facetReload != null && facetReload instanceof UIReload && facetReload.isRendered()) {
-        UIReload update = (UIReload) facetReload;
+        final UIReload update = (UIReload) facetReload;
         writer.writeAttribute(DataAttributes.RELOAD, Integer.toString(update.getFrequency()), false);
       }
     }
@@ -127,9 +127,9 @@ public class PanelRenderer extends LayoutComponentRendererBase {
   }
 
   @Override
-  public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
-    ResponseWriter writer = facesContext.getResponseWriter();
-    AbstractUIPanel panel = (AbstractUIPanel) component;
+  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
+    final ResponseWriter writer = facesContext.getResponseWriter();
+    final AbstractUIPanel panel = (AbstractUIPanel) component;
     
     final Measure borderLeft = panel.getBorderLeft();
     final Measure borderRight = panel.getBorderRight();

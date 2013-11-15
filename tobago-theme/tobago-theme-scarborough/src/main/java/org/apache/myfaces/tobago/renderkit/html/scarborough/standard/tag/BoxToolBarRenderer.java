@@ -28,7 +28,7 @@ import javax.faces.component.UIComponent;
 public class BoxToolBarRenderer extends ToolBarRendererBase {
 
   @Override
-  protected String getLabelPosition(UIComponent component) {
+  protected String getLabelPosition(final UIComponent component) {
     final String attribute = (String) component.getAttributes().get(Attributes.LABEL_POSITION);
     if (UIToolBar.LABEL_BOTTOM.equals(attribute)) {
       return UIToolBar.LABEL_RIGHT;
@@ -38,7 +38,7 @@ public class BoxToolBarRenderer extends ToolBarRendererBase {
   }
 
   @Override
-  protected String getIconSize(UIComponent component) {
+  protected String getIconSize(final UIComponent component) {
     final String attribute = (String) component.getAttributes().get(Attributes.ICON_SIZE);
     if (UIToolBar.ICON_BIG.equals(attribute)) {
       return UIToolBar.ICON_SMALL;
@@ -48,7 +48,7 @@ public class BoxToolBarRenderer extends ToolBarRendererBase {
   }
 
   @Override
-  protected boolean isRightAligned(UIToolBar toolBar) {
+  protected boolean isRightAligned(final UIToolBar toolBar) {
     return true;
   }
 }

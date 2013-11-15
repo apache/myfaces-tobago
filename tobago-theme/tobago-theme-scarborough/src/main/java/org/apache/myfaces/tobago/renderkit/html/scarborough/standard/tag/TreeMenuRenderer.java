@@ -31,14 +31,14 @@ import java.io.IOException;
 public class TreeMenuRenderer extends TreeRenderer {
 
   @Override
-  public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
+  public void prepareRender(final FacesContext facesContext, final UIComponent component) throws IOException {
     super.prepareRender(facesContext, component);
 
     setRendererTypeForCommandsAndNodes(component);
   }
 
-  protected void setRendererTypeForCommandsAndNodes(UIComponent component) {
-    for (UIComponent child : component.getChildren()) {
+  protected void setRendererTypeForCommandsAndNodes(final UIComponent component) {
+    for (final UIComponent child : component.getChildren()) {
       if (child instanceof UITreeNode) {
         child.setRendererType(RendererTypes.TREE_MENU_NODE);
       }

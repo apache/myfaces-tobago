@@ -37,10 +37,10 @@ public class LogoutActionListener implements ActionListener {
 
   private static final Logger LOG = LoggerFactory.getLogger(LogoutActionListener.class);
 
-  public void processAction(ActionEvent event) throws AbortProcessingException {
-    FacesContext facesContext = FacesContext.getCurrentInstance();
-    ExternalContext externalContext = facesContext.getExternalContext();
-    Object session = externalContext.getSession(false);
+  public void processAction(final ActionEvent event) throws AbortProcessingException {
+    final FacesContext facesContext = FacesContext.getCurrentInstance();
+    final ExternalContext externalContext = facesContext.getExternalContext();
+    final Object session = externalContext.getSession(false);
     if (session != null) {
       if (session instanceof HttpSession) {
         ((HttpSession) session).invalidate();
@@ -49,10 +49,10 @@ public class LogoutActionListener implements ActionListener {
         ((PortletSession) session).invalidate();
       }
     }
-    String forward = externalContext.getRequestContextPath() + "/";
+    final String forward = externalContext.getRequestContextPath() + "/";
     try {
       externalContext.redirect(forward);
-    } catch (IOException e) {
+    } catch (final IOException e) {
       LOG.error("", e);
       // TODO: may do error handling
       throw new FacesException("Can't redirect to '" + forward + "'");

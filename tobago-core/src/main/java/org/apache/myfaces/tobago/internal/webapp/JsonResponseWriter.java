@@ -40,7 +40,7 @@ public class JsonResponseWriter extends HtmlResponseWriter {
   private JavascriptWriterUtils encodeInJavascriptBlock;
   private JavascriptWriterUtils encodeOutsideJavascriptBlock;
 
-  public JsonResponseWriter(Writer writer, String contentType, String characterEncoding) {
+  public JsonResponseWriter(final Writer writer, final String contentType, final String characterEncoding) {
     super(writer, contentType, characterEncoding);
     this.javascriptWriter = new FastStringWriter();
     this.encodeOutsideJavascriptBlock = new JavascriptWriterUtils(writer, characterEncoding);
@@ -58,7 +58,7 @@ public class JsonResponseWriter extends HtmlResponseWriter {
   }
 
   @Override
-  public void write(String string) throws IOException {
+  public void write(final String string) throws IOException {
     closeOpenTag();
     if (FacesVersion.isMojarra() && FacesVersion.supports21() && XML_VERSION_1_0_ENCODING_UTF_8.equals(string)) {
       // ignore
@@ -72,13 +72,13 @@ public class JsonResponseWriter extends HtmlResponseWriter {
   }
 
   @Override
-  public void write(char[] chars) throws IOException {
+  public void write(final char[] chars) throws IOException {
     // XXX remove me later:
     // this is a temporary workaround, should be removed after fixing the bug in Mojarra.
     // http://java.net/jira/browse/JAVASERVERFACES-2411
     // https://issues.apache.org/jira/browse/TOBAGO-1124
     if (FacesVersion.isMojarra() && FacesVersion.supports20()) {
-      StackTraceElement[] stackTraceElements = Thread.currentThread().getStackTrace();
+      final StackTraceElement[] stackTraceElements = Thread.currentThread().getStackTrace();
       if (stackTraceElements[2].getClassName().equals("com.sun.faces.renderkit.ServerSideStateHelper")) {
         super.write(StringUtils.replace(new String(chars), "\"", "\\\""));
         return;
@@ -88,7 +88,7 @@ public class JsonResponseWriter extends HtmlResponseWriter {
   }
 
   @Override
-  public void writeJavascript(String script) throws IOException {
+  public void writeJavascript(final String script) throws IOException {
     closeOpenTag();
     encodeInJavascriptBlock.writeText(script);
   }
@@ -98,7 +98,7 @@ public class JsonResponseWriter extends HtmlResponseWriter {
   }
 
   @Override
-  protected void startElementInternal(Writer writer, String name, UIComponent currentComponent)
+  protected void startElementInternal(final Writer writer, final String name, final UIComponent currentComponent)
       throws IOException {
     setComponent(currentComponent);
     if (isStartStillOpen()) {
@@ -110,7 +110,7 @@ public class JsonResponseWriter extends HtmlResponseWriter {
   }
 
   @Override
-  protected void endElementInternal(Writer writer, String name) throws IOException {
+  protected void endElementInternal(final Writer writer, final String name) throws IOException {
     if (EMPTY_TAG.contains(name)) {
         writer.write(">");
     } else {
@@ -133,11 +133,12 @@ public class JsonResponseWriter extends HtmlResponseWriter {
   }
 
   @Override
-  protected void writeAttributeInternal(Writer writer, String name, String value, boolean escape)
+  protected void writeAttributeInternal(
+      final Writer writer, final String name, final String value, final boolean escape)
       throws IOException {
     if (!isStartStillOpen()) {
-      String trace = getCallingClassStackTraceElementString();
-      String error = "Cannot write attribute when start-tag not open. "
+      final String trace = getCallingClassStackTraceElementString();
+      final String error = "Cannot write attribute when start-tag not open. "
           + "name = '" + name + "' "
           + "value = '" + value + "' "
           + trace.substring(trace.indexOf('('));
@@ -162,7 +163,7 @@ public class JsonResponseWriter extends HtmlResponseWriter {
   public void writeText(final Object text, final String property)
       throws IOException {
     closeOpenTag();
-    String value = findValue(text, property);
+    final String value = findValue(text, property);
     getHelper().writeText(value);
   }
 

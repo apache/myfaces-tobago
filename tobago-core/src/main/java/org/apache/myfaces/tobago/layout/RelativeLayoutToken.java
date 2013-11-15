@@ -28,7 +28,7 @@ public class RelativeLayoutToken extends LayoutToken {
 
   private int factor = 1;
 
-  public RelativeLayoutToken(int factor) {
+  public RelativeLayoutToken(final int factor) {
     this.factor = factor;
   }
 
@@ -40,7 +40,7 @@ public class RelativeLayoutToken extends LayoutToken {
     return factor + SUFFIX;
   }
 
-  public boolean equals(Object o) {
+  public boolean equals(final Object o) {
     if (this == o) {
       return true;
     }
@@ -48,7 +48,7 @@ public class RelativeLayoutToken extends LayoutToken {
       return false;
     }
 
-    RelativeLayoutToken that = (RelativeLayoutToken) o;
+    final RelativeLayoutToken that = (RelativeLayoutToken) o;
 
     if (factor != that.factor) {
       return false;

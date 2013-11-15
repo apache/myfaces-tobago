@@ -44,7 +44,7 @@ public class MethodExpressionToMethodBinding extends MethodBinding implements St
   /**
    * Creates a new instance of MethodExpressionToMethodBinding
    */
-  public MethodExpressionToMethodBinding(MethodExpression methodExpression) {
+  public MethodExpressionToMethodBinding(final MethodExpression methodExpression) {
     this.methodExpression = methodExpression;
   }
 
@@ -53,45 +53,45 @@ public class MethodExpressionToMethodBinding extends MethodBinding implements St
     return methodExpression.getExpressionString();
   }
 
-  public Class getType(FacesContext facesContext)
+  public Class getType(final FacesContext facesContext)
       throws MethodNotFoundException {
 
     try {
       return methodExpression.getMethodInfo(facesContext.getELContext()).getReturnType();
-    } catch (javax.el.MethodNotFoundException e) {
+    } catch (final javax.el.MethodNotFoundException e) {
       throw new javax.faces.el.MethodNotFoundException(e);
-    } catch (ELException e) {
+    } catch (final ELException e) {
       throw new EvaluationException(e);
     }
   }
 
-  public Object invoke(FacesContext facesContext, Object[] params)
+  public Object invoke(final FacesContext facesContext, final Object[] params)
       throws EvaluationException {
 
     try {
       return methodExpression.invoke(facesContext.getELContext(), params);
-    } catch (javax.el.MethodNotFoundException e) {
+    } catch (final javax.el.MethodNotFoundException e) {
       throw new javax.faces.el.MethodNotFoundException(e);
-    } catch (ELException e) {
+    } catch (final ELException e) {
       throw new EvaluationException(e);
     }
   }
 
 
-  public void restoreState(FacesContext context, Object state) {
+  public void restoreState(final FacesContext context, final Object state) {
     if (state != null) {
       methodExpression = (MethodExpression) state;
     }
   }
 
-  public Object saveState(FacesContext context) {
+  public Object saveState(final FacesContext context) {
     if (!isTransient) {
       return methodExpression;
     }
     return null;
   }
 
-  public void setTransient(boolean newTransientValue) {
+  public void setTransient(final boolean newTransientValue) {
     isTransient = newTransientValue;
   }
 

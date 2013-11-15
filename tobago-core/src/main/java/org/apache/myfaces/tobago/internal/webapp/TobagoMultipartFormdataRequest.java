@@ -52,28 +52,29 @@ public class TobagoMultipartFormdataRequest extends HttpServletRequestWrapper {
 
   private Map<String, FileItem> fileItems;
 
-  public TobagoMultipartFormdataRequest(HttpServletRequest request) {
+  public TobagoMultipartFormdataRequest(final HttpServletRequest request) {
     this(request, System.getProperty("java.io.tmpdir"), ONE_MB);
   }
 
-  public TobagoMultipartFormdataRequest(HttpServletRequest request, String repositoryPath, long maxSize) {
+  public TobagoMultipartFormdataRequest(
+      final HttpServletRequest request, final String repositoryPath, final long maxSize) {
     super(request);
     init(request, repositoryPath, maxSize);
   }
 
-  private void init(HttpServletRequest request, String repositoryPath, long maxSize) {
+  private void init(final HttpServletRequest request, final String repositoryPath, final long maxSize) {
     if (!ServletFileUpload.isMultipartContent(request)) {
-      String errorText = "contentType is not multipart/form-data but '" + request.getContentType() + "'";
+      final String errorText = "contentType is not multipart/form-data but '" + request.getContentType() + "'";
       LOG.error(errorText);
       throw new FacesException(errorText);
     } else {
       parameters = new HashMap<String, String[]>();
       fileItems = new HashMap<String, FileItem>();
-      DiskFileItemFactory factory = new DiskFileItemFactory();
+      final DiskFileItemFactory factory = new DiskFileItemFactory();
 
       factory.setRepository(new File(repositoryPath));
 
-      ServletFileUpload upload = new ServletFileUpload(factory);
+      final ServletFileUpload upload = new ServletFileUpload(factory);
 
       upload.setSizeMax(maxSize);
 
@@ -81,18 +82,18 @@ public class TobagoMultipartFormdataRequest extends HttpServletRequestWrapper {
         // TODO: enable configuration of  'accept-charset'
         upload.setHeaderEncoding(AbstractUIPage.FORM_ACCEPT_CHARSET);
       }
-      List<FileItem> itemList;
+      final List<FileItem> itemList;
       try {
         itemList = (List<FileItem>) upload.parseRequest(request);
-      } catch (FileUploadException e) {
+      } catch (final FileUploadException e) {
         //LOG.error(e);
         throw new FacesException(e);
       }
       if (LOG.isDebugEnabled()) {
         LOG.debug("parametercount = " + itemList.size() + " + " + request.getParameterMap().size());
       }
-      for (FileItem item : itemList) {
-        String key = item.getFieldName();
+      for (final FileItem item : itemList) {
+        final String key = item.getFieldName();
         if (LOG.isDebugEnabled()) {
           String value = item.getString();
           if (value.length() > 100) {
@@ -106,7 +107,7 @@ public class TobagoMultipartFormdataRequest extends HttpServletRequestWrapper {
           try {
             // TODO: enable configuration of 'accept-charset'
             newValue = item.getString(AbstractUIPage.FORM_ACCEPT_CHARSET);
-          } catch (UnsupportedEncodingException e) {
+          } catch (final UnsupportedEncodingException e) {
             LOG.error("Caught: " + e.getMessage(), e);
             newValue = item.getString();
           }
@@ -118,21 +119,21 @@ public class TobagoMultipartFormdataRequest extends HttpServletRequestWrapper {
       }
 
       // merging the GET parameters:
-      Enumeration e = request.getParameterNames();
+      final Enumeration e = request.getParameterNames();
       while(e.hasMoreElements()) {
         final String name = (String) e.nextElement();
         final String[] newValues = request.getParameterValues(name);
         if (LOG.isDebugEnabled()) {
           LOG.debug("Parameter: '" + name + "'='" + Arrays.toString(newValues) + "' (GET)");
         }
-        for (String newValue : newValues) {
+        for (final String newValue : newValues) {
           addParameter(name, newValue);
         }
       }
     }
   }
 
-  private void addParameter(String key, String newValue) {
+  private void addParameter(final String key, final String newValue) {
     final String[] inStock = parameters.get(key);
     final String[] values;
     if (inStock == null) {
@@ -145,16 +146,16 @@ public class TobagoMultipartFormdataRequest extends HttpServletRequestWrapper {
     parameters.put(key, values);
   }
 
-  public FileItem getFileItem(String key) {
+  public FileItem getFileItem(final String key) {
     if (fileItems != null) {
       return fileItems.get(key);
     }
     return null;
   }
 
-  public String getParameter(String key) {
+  public String getParameter(final String key) {
     String parameter = null;
-    String[] values = (String[]) parameters.get(key);
+    final String[] values = (String[]) parameters.get(key);
     if (values != null) {
       parameter = values[0];
     }
@@ -165,7 +166,7 @@ public class TobagoMultipartFormdataRequest extends HttpServletRequestWrapper {
     return Collections.enumeration(parameters.keySet());
   }
 
-  public String[] getParameterValues(String key) {
+  public String[] getParameterValues(final String key) {
     return (String[]) parameters.get(key);
   }
 
@@ -173,7 +174,7 @@ public class TobagoMultipartFormdataRequest extends HttpServletRequestWrapper {
     return parameters;
   }
 
-  public static long getMaxSize(String param) {
+  public static long getMaxSize(final String param) {
     if (param != null) {
       String number = param.toLowerCase(Locale.ENGLISH);
       long factor = 1;
@@ -189,7 +190,7 @@ public class TobagoMultipartFormdataRequest extends HttpServletRequestWrapper {
       }
       try {
         return Long.parseLong(number.trim()) * factor;
-      } catch (NumberFormatException e) {
+      } catch (final NumberFormatException e) {
         LOG.error("Given max file size for "
             + TobagoMultipartFormdataRequest.class.getName() + " " + param + " couldn't parsed to a number");
       }

@@ -35,7 +35,7 @@ public class DeprecatedDimensionRule extends MetaRule {
   
   public static final DeprecatedDimensionRule INSTANCE = new DeprecatedDimensionRule();
 
-  public Metadata applyRule(String name, TagAttribute attribute, MetadataTarget metadataTarget) {
+  public Metadata applyRule(final String name, final TagAttribute attribute, final MetadataTarget metadataTarget) {
     if (Attributes.WIDTH.equals(name)) {
       return new WidthMapper(attribute);
     }
@@ -48,15 +48,15 @@ public class DeprecatedDimensionRule extends MetaRule {
   static final class WidthMapper extends Metadata {
     private final TagAttribute attribute;
 
-    WidthMapper(TagAttribute attribute) {
+    WidthMapper(final TagAttribute attribute) {
       this.attribute = attribute;
     }
 
-    public void applyMetadata(FaceletContext ctx, Object instance) {
+    public void applyMetadata(final FaceletContext ctx, final Object instance) {
       if (attribute.isLiteral()) {
         ((DeprecatedDimension) instance).setWidth(Measure.parse(attribute.getValue()));
       } else {
-        ValueExpression expression = attribute.getValueExpression(ctx, Object.class);
+        final ValueExpression expression = attribute.getValueExpression(ctx, Object.class);
         ((UIComponent) instance).setValueExpression(Attributes.WIDTH, expression);
       }
     }
@@ -65,15 +65,15 @@ public class DeprecatedDimensionRule extends MetaRule {
   static final class HeightMapper extends Metadata {
     private final TagAttribute attribute;
 
-    HeightMapper(TagAttribute attribute) {
+    HeightMapper(final TagAttribute attribute) {
       this.attribute = attribute;
     }
 
-    public void applyMetadata(FaceletContext ctx, Object instance) {
+    public void applyMetadata(final FaceletContext ctx, final Object instance) {
       if (attribute.isLiteral()) {
          ((DeprecatedDimension) instance).setHeight(Measure.parse(attribute.getValue()));
       } else {
-        ValueExpression expression = attribute.getValueExpression(ctx, Object.class);
+        final ValueExpression expression = attribute.getValueExpression(ctx, Object.class);
         ((UIComponent) instance).setValueExpression(Attributes.HEIGHT, expression);
       }
     }

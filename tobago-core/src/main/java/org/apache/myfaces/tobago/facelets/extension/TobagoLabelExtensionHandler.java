@@ -64,7 +64,7 @@ public abstract class TobagoLabelExtensionHandler extends ComponentHandler {
   private Class subComponentLastType = Object.class;
   private Metadata subComponentMapper;
 
-  public TobagoLabelExtensionHandler(ComponentConfig config) {
+  public TobagoLabelExtensionHandler(final ComponentConfig config) {
     super(config);
     labelWidthAttribute = getAttribute("labelWidth");
     tipAttribute = getAttribute(Attributes.TIP);
@@ -81,15 +81,15 @@ public abstract class TobagoLabelExtensionHandler extends ComponentHandler {
     return "auto";
   }
 
-  protected String getColumns(String first) {
+  protected String getColumns(final String first) {
     return first + ";*";
   }
 
-  public void applyNextHandler(FaceletContext ctx, UIComponent panel)
+  public void applyNextHandler(final FaceletContext ctx, final UIComponent panel)
       throws IOException, ELException {
     if (ComponentHandler.isNew(panel)) {
       // ensure that input has no parent (isNew)
-      UIComponent input = panel.getChildren().remove(1);
+      final UIComponent input = panel.getChildren().remove(1);
       try {
         input.getAttributes().put("tobago.panel", panel);
         nextHandler.apply(ctx, input);
@@ -105,19 +105,20 @@ public abstract class TobagoLabelExtensionHandler extends ComponentHandler {
         panel.getChildren().add(date);
       }
     } else {
-      UIComponent input = panel.getChildren().get(1);
+      final UIComponent input = panel.getChildren().get(1);
       nextHandler.apply(ctx, input);
     }
   }
 
-  public void onComponentCreated(FaceletContext faceletContext, UIComponent panel, UIComponent parent) {
+  public void onComponentCreated(
+      final FaceletContext faceletContext, final UIComponent panel, final UIComponent parent) {
 
     final Application application = faceletContext.getFacesContext().getApplication();
 
     addGridLayout(faceletContext, panel, application);
     addLabel(faceletContext, (UIPanel) panel, application);
 
-    String uid;
+    final String uid;
     if (fieldIdAttribute != null) {
       uid = fieldIdAttribute.getValue(faceletContext);
     } else {
@@ -127,7 +128,7 @@ public abstract class TobagoLabelExtensionHandler extends ComponentHandler {
       return;
     }
 
-    UIComponent input = application.createComponent(getSubComponentType());
+    final UIComponent input = application.createComponent(getSubComponentType());
     input.setRendererType(getSubRendererType());
     input.setId(uid);
 
@@ -137,10 +138,10 @@ public abstract class TobagoLabelExtensionHandler extends ComponentHandler {
     panel.getChildren().add(input);
   }
 
-  protected void enrichInput(FaceletContext faceletContext, UIComponent input) {
+  protected void enrichInput(final FaceletContext faceletContext, final UIComponent input) {
   }
 
-  private void addLabel(FaceletContext faceletContext, UIPanel panel, final Application application) {
+  private void addLabel(final FaceletContext faceletContext, final UIPanel panel, final Application application) {
     final String uid = "_tx_" + faceletContext.generateUniqueId("label");
     if (checkForAlreadyCreated(panel, uid)) {
       return;
@@ -176,9 +177,9 @@ public abstract class TobagoLabelExtensionHandler extends ComponentHandler {
     panel.getChildren().add(label);
   }
 
-  private boolean checkForAlreadyCreated(UIComponent panel, String uid) {
+  private boolean checkForAlreadyCreated(final UIComponent panel, final String uid) {
     if (panel.getChildCount() > 0) {
-      for (UIComponent child : panel.getChildren()) {
+      for (final UIComponent child : panel.getChildren()) {
         if (uid.equals(child.getId())) {
           return true;
         }
@@ -187,11 +188,12 @@ public abstract class TobagoLabelExtensionHandler extends ComponentHandler {
     return false;
   }
 
-  public void onComponentPopulated(FaceletContext faceletContext, UIComponent component, UIComponent parent) {
+  public void onComponentPopulated(
+      final FaceletContext faceletContext, final UIComponent component, final UIComponent parent) {
     super.onComponentPopulated(faceletContext, component, parent);
 
     if (component.getChildren().size() > 1) {
-      UIComponent input = component.getChildren().get(1);
+      final UIComponent input = component.getChildren().get(1);
       if (input instanceof EditableValueHolder) {
         TobagoComponentHandler.addDefaultValidators(faceletContext.getFacesContext(), (EditableValueHolder) input);
       }
@@ -201,7 +203,8 @@ public abstract class TobagoLabelExtensionHandler extends ComponentHandler {
     }
   }
 
-  private void addGridLayout(FaceletContext faceletContext, UIComponent panel, final Application application) {
+  private void addGridLayout(
+      final FaceletContext faceletContext, final UIComponent panel, final Application application) {
     final UIGridLayout gridLayout = (UIGridLayout) application.createComponent(UIGridLayout.COMPONENT_TYPE);
     gridLayout.setRendererType(RendererTypes.GRID_LAYOUT);
     if (labelWidthAttribute != null) {
@@ -225,9 +228,9 @@ public abstract class TobagoLabelExtensionHandler extends ComponentHandler {
     }
   }
 
-  private void setSubComponentAttributes(FaceletContext ctx, Object instance) {
+  private void setSubComponentAttributes(final FaceletContext ctx, final Object instance) {
     if (instance != null) {
-      Class type = instance.getClass();
+      final Class type = instance.getClass();
       if (subComponentMapper == null || !subComponentLastType.equals(type)) {
         subComponentLastType = type;
         subComponentMapper = createSubComponentMetaRuleset(type).finish();
@@ -236,8 +239,8 @@ public abstract class TobagoLabelExtensionHandler extends ComponentHandler {
     }
   }
 
-  protected MetaRuleset createSubComponentMetaRuleset(Class aClass) {
-    MetaRuleset metaRuleset = super.createMetaRuleset(aClass);
+  protected MetaRuleset createSubComponentMetaRuleset(final Class aClass) {
+    final MetaRuleset metaRuleset = super.createMetaRuleset(aClass);
     //metaRuleset.ignore(Attributes.LABEL);
     metaRuleset.ignore(Attributes.TIP);
     metaRuleset.ignore("labelWidth");
@@ -250,11 +253,11 @@ public abstract class TobagoLabelExtensionHandler extends ComponentHandler {
     return metaRuleset;
   }
 
-  protected MetaRuleset createMetaRuleset(Class aClass) {
-    MetaRuleset metaRuleset = super.createMetaRuleset(aClass);
-    TagAttribute[] attrs = tag.getAttributes().getAll();
+  protected MetaRuleset createMetaRuleset(final Class aClass) {
+    final MetaRuleset metaRuleset = super.createMetaRuleset(aClass);
+    final TagAttribute[] attrs = tag.getAttributes().getAll();
     for (int i = 0; i < attrs.length; i++) {
-      TagAttribute attr = attrs[i];
+      final TagAttribute attr = attrs[i];
       if (!attr.getLocalName().equals("rendered")) {
         metaRuleset.ignore(attr.getLocalName());
       }

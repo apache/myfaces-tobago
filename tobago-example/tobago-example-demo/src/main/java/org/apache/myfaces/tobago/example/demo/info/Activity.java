@@ -33,7 +33,7 @@ public class Activity implements Serializable {
 
   private int ajaxRequest;
 
-  public Activity(HttpSession session) {
+  public Activity(final HttpSession session) {
     this.sessionId = session.getId();
     this.creationDate = new Date(session.getCreationTime());
   }
@@ -50,7 +50,7 @@ public class Activity implements Serializable {
     return sessionId;
   }
 
-  public void setSessionId(String sessionId) {
+  public void setSessionId(final String sessionId) {
     this.sessionId = sessionId;
   }
 
@@ -58,7 +58,7 @@ public class Activity implements Serializable {
     return creationDate;
   }
 
-  public void setCreationDate(Date creationDate) {
+  public void setCreationDate(final Date creationDate) {
     this.creationDate = creationDate;
   }
 
@@ -66,7 +66,7 @@ public class Activity implements Serializable {
     return jsfRequest;
   }
 
-  public void setJsfRequest(int jsfRequest) {
+  public void setJsfRequest(final int jsfRequest) {
     this.jsfRequest = jsfRequest;
   }
 
@@ -74,7 +74,7 @@ public class Activity implements Serializable {
     return ajaxRequest;
   }
 
-  public void setAjaxRequest(int ajaxRequest) {
+  public void setAjaxRequest(final int ajaxRequest) {
     this.ajaxRequest = ajaxRequest;
   }
 }

@@ -33,43 +33,54 @@ public class SelectItem extends javax.faces.model.SelectItem implements Supports
   public SelectItem() {
     super();
   }
-  
-  public SelectItem(Object value) {
+
+  public SelectItem(final Object value) {
     super(value);
   }
 
-  public SelectItem(Object value, String label) {
+  public SelectItem(final Object value, final String label) {
     super(value, label);
   }
 
-  public SelectItem(Object value, String label, String description) {
+  public SelectItem(final Object value, final String label, final String description) {
     super(value, label, description);
   }
 
-  public SelectItem(Object value, String label, String description, String image) {
+  public SelectItem(final Object value, final String label, final String description, final String image) {
     this(value, label, description, false, image);
   }
 
-  /** @deprecated since 1.5.0 */
+  /**
+   * @deprecated since 1.5.0
+   */
   @Deprecated
-  public SelectItem(Object value, String label, String description, String image, String[] markup) {
+  public SelectItem(
+      final Object value, final String label, final String description, final String image, final String[] markup) {
     this(value, label, description, false, image, markup);
   }
 
-  public SelectItem(Object value, String label, String description, String image, Markup markup) {
+  public SelectItem(
+      final Object value, final String label, final String description, final String image, final Markup markup) {
     this(value, label, description, false, image, markup);
   }
 
-  public SelectItem(Object value, String label, String description, boolean disabled, String image) {
+  public SelectItem(
+      final Object value, final String label, final String description, final boolean disabled, final String image) {
     this(value, label, description, disabled, image, Markup.NULL);
   }
 
-  /** @deprecated since 1.5.0 */
-  public SelectItem(Object value, String label, String description, boolean disabled, String image, String[] markup) {
+  /**
+   * @deprecated since 1.5.0
+   */
+  public SelectItem(
+      final Object value, final String label, final String description, final boolean disabled, final String image,
+      final String[] markup) {
     this(value, label, description, disabled, image, Markup.valueOf(markup));
   }
 
-  public SelectItem(Object value, String label, String description, boolean disabled, String image, Markup markup) {
+  public SelectItem(
+      final Object value, final String label, final String description, final boolean disabled, final String image,
+      final Markup markup) {
     super(value, label, description, disabled);
     this.image = image;
     this.markup = markup;
@@ -79,7 +90,7 @@ public class SelectItem extends javax.faces.model.SelectItem implements Supports
     return image;
   }
 
-  public void setImage(String image) {
+  public void setImage(final String image) {
     this.image = image;
   }
 
@@ -87,7 +98,7 @@ public class SelectItem extends javax.faces.model.SelectItem implements Supports
     return markup;
   }
 
-  public void setMarkup(Markup markup) {
+  public void setMarkup(final Markup markup) {
     this.markup = markup;
   }
 
@@ -95,7 +106,7 @@ public class SelectItem extends javax.faces.model.SelectItem implements Supports
     return currentMarkup;
   }
 
-  public void setCurrentMarkup(Markup currentMarkup) {
+  public void setCurrentMarkup(final Markup currentMarkup) {
     this.currentMarkup = currentMarkup;
   }
 }

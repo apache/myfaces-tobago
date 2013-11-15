@@ -28,7 +28,7 @@ public enum PageDeclarationLanguage {
   private String extension;
   private String display;
 
-  PageDeclarationLanguage(String extension, String display) {
+  PageDeclarationLanguage(final String extension, final String display) {
     this.extension = extension;
     this.display = display;
   }

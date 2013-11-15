@@ -27,12 +27,12 @@ import javax.faces.view.facelets.ValidatorHandler;
 
 public class TobagoValidateHandler extends ValidatorHandler {
 
-  public TobagoValidateHandler(ValidatorConfig config) {
+  public TobagoValidateHandler(final ValidatorConfig config) {
     super(config);
   }
 
-  protected MetaRuleset createMetaRuleset(Class aClass) {
-    MetaRuleset metaRuleset = super.createMetaRuleset(aClass);
+  protected MetaRuleset createMetaRuleset(final Class aClass) {
+    final MetaRuleset metaRuleset = super.createMetaRuleset(aClass);
     if (FileItemValidator.class.isAssignableFrom(aClass)) {
       metaRuleset.addRule(ContentTypeRule.INSTANCE);
     }

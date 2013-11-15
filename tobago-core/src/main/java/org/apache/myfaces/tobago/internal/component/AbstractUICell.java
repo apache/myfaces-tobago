@@ -37,7 +37,7 @@ public abstract class AbstractUICell extends AbstractUIPanel {
     return getColumnSpan();
   }
 
-  public void setSpanX(Integer spanX) {
+  public void setSpanX(final Integer spanX) {
     setColumnSpan(spanX);
   }
 
@@ -45,7 +45,7 @@ public abstract class AbstractUICell extends AbstractUIPanel {
     return getRowSpan();
   }
 
-  public void setSpanY(Integer spanY) {
+  public void setSpanY(final Integer spanY) {
     setRowSpan(spanY);
   }
 }

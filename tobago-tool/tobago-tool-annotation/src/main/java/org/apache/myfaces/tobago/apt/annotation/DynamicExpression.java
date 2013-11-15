@@ -43,7 +43,7 @@ public enum DynamicExpression {
   private boolean valueExpression;
   private boolean methodExpression;
 
-  DynamicExpression(boolean required, boolean valueExpression, boolean methodExpression) {
+  DynamicExpression(final boolean required, final boolean valueExpression, final boolean methodExpression) {
     this.required = required;
     this.valueExpression = valueExpression;
     this.methodExpression = methodExpression;

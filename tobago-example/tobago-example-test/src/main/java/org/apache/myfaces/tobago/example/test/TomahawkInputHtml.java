@@ -25,7 +25,7 @@ public class TomahawkInputHtml {
       "<html><body>Hallo <b>Tomahawk</b><br/>not working yet: "
           + "javascript errors, submit will not be sent.</body></html>";
 
-  public void setInputHtml(String inputHtml) {
+  public void setInputHtml(final String inputHtml) {
     this.inputHtml = inputHtml;
   }
 

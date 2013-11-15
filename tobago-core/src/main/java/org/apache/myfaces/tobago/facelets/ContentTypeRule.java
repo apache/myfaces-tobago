@@ -32,7 +32,7 @@ public class ContentTypeRule extends MetaRule {
 
   public static final ContentTypeRule INSTANCE = new ContentTypeRule();
 
-  public Metadata applyRule(String name, TagAttribute attribute, MetadataTarget metadataTarget) {
+  public Metadata applyRule(final String name, final TagAttribute attribute, final MetadataTarget metadataTarget) {
     if ("contentType".equals(name)) {
       return new ContentTypeRuleMapper(attribute);
     }
@@ -43,12 +43,12 @@ public class ContentTypeRule extends MetaRule {
 
     private final TagAttribute attribute;
 
-    public ContentTypeRuleMapper(TagAttribute attribute) {
+    public ContentTypeRuleMapper(final TagAttribute attribute) {
       this.attribute = attribute;
     }
 
-    public void applyMetadata(FaceletContext ctx, Object instance) {
-      String[] components = ComponentUtils.splitList(attribute.getValue(ctx));
+    public void applyMetadata(final FaceletContext ctx, final Object instance) {
+      final String[] components = ComponentUtils.splitList(attribute.getValue(ctx));
       ((FileItemValidator) instance).setContentType(components);
     }
   }

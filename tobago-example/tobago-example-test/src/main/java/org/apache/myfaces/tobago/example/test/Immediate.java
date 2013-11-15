@@ -42,7 +42,7 @@ public class Immediate {
   private static final Logger LOG = LoggerFactory.getLogger(Immediate.class);
 
   public String test() {
-    FacesContext facesContext = FacesContext.getCurrentInstance();
+    final FacesContext facesContext = FacesContext.getCurrentInstance();
 //    LOG.warn("user: " + facesContext.getExternalContext().getRemoteUser().hashCode());
     LOG.warn("requ: " + facesContext.getExternalContext().getRequest().hashCode());
     LOG.warn("sess: " + facesContext.getExternalContext().getSessionMap().hashCode());
@@ -53,7 +53,7 @@ public class Immediate {
     return in;
   }
 
-  public void setIn(String in) {
+  public void setIn(final String in) {
     this.in = in;
   }
 
@@ -61,7 +61,7 @@ public class Immediate {
     return selectOne;
   }
 
-  public void setSelectOne(int selectOne) {
+  public void setSelectOne(final int selectOne) {
     this.selectOne = selectOne;
   }
 
@@ -69,7 +69,7 @@ public class Immediate {
     return selectItems;
   }
 
-  public void setSelectMany(Integer[] selectMany) {
+  public void setSelectMany(final Integer[] selectMany) {
     this.selectMany = selectMany;
   }
 

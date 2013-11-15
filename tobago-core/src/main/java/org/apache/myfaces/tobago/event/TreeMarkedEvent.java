@@ -34,17 +34,17 @@ public class TreeMarkedEvent extends FacesEvent {
   private boolean oldMarked;
   private boolean newMarked;
 
-  public TreeMarkedEvent(UIComponent node, boolean oldMarked, boolean newMarked) {
+  public TreeMarkedEvent(final UIComponent node, final boolean oldMarked, final boolean newMarked) {
     super(node);
     this.oldMarked = oldMarked;
     this.newMarked = newMarked;
   }
 
-  public boolean isAppropriateListener(FacesListener facesListener) {
+  public boolean isAppropriateListener(final FacesListener facesListener) {
     return facesListener instanceof TreeMarkedListener;
   }
 
-  public void processListener(FacesListener facesListener) {
+  public void processListener(final FacesListener facesListener) {
     if (facesListener instanceof TreeMarkedListener) {
       if (oldMarked && !newMarked) {
         ((TreeMarkedListener) facesListener).treeMarked(this);

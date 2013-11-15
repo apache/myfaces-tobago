@@ -46,7 +46,7 @@ public class TobagoConfigParserUnitTest {
     generalTest("tobago-config-untidy-2.0.xml");
   }
 
-  private void generalTest(String name)
+  private void generalTest(final String name)
       throws IOException, SAXException, ParserConfigurationException, URISyntaxException {
     final URL url = getClass().getClassLoader().getResource(name);
     final TobagoConfigParser parser = new TobagoConfigParser();
@@ -117,7 +117,7 @@ public class TobagoConfigParserUnitTest {
     try {
       parser.parse(url);
       Assert.fail("No SAXParseException thrown!");
-    } catch (SAXException e) {
+    } catch (final SAXException e) {
       // okay
     }
   }
@@ -137,7 +137,7 @@ public class TobagoConfigParserUnitTest {
     try {
       parser.parse(url);
       Assert.fail("No SAXParseException thrown!");
-    } catch (SAXException e) {
+    } catch (final SAXException e) {
       // okay
     }
   }
@@ -149,7 +149,7 @@ public class TobagoConfigParserUnitTest {
     try {
       parser.parse(url);
       Assert.fail("No SAXParseException thrown!");
-    } catch (SAXException e) {
+    } catch (final SAXException e) {
       // okay
     }
   }
@@ -161,7 +161,7 @@ public class TobagoConfigParserUnitTest {
     try {
       parser.parse(url);
       Assert.fail("No SAXParseException thrown!");
-    } catch (SAXException e) {
+    } catch (final SAXException e) {
       // okay
     }
   }
@@ -170,23 +170,23 @@ public class TobagoConfigParserUnitTest {
   public void testUniqueness() throws IllegalAccessException {
     final Field[] all = TobagoConfigParser.class.getFields();
     final List<Field> fields = new ArrayList<Field>();
-    for (Field field : all) {
+    for (final Field field : all) {
       if (field.getType().equals(Integer.TYPE)) {
         fields.add(field);
       }
     }
     // uniqueness
-    TobagoConfigParser dummy = new TobagoConfigParser();
-    Set<Integer> hashCodes = new HashSet<Integer>();
-    for (Field field : fields) {
+    final TobagoConfigParser dummy = new TobagoConfigParser();
+    final Set<Integer> hashCodes = new HashSet<Integer>();
+    for (final Field field : fields) {
       hashCodes.add(field.getInt(dummy));
     }
     Assert.assertEquals("All used hash codes must be unique", fields.size(), hashCodes.size());
 
     // check hash code values
-    for (Field field : fields) {
-      int hash = field.getInt(dummy);
-      String name = field.getName().toLowerCase().replace('_', '-');
+    for (final Field field : fields) {
+      final int hash = field.getInt(dummy);
+      final String name = field.getName().toLowerCase().replace('_', '-');
       Assert.assertEquals("Are the constants correct?", name.hashCode(), hash);
     }
   }

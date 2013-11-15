@@ -42,7 +42,7 @@ public class DebugPhaseListener implements PhaseListener {
 
   private static final String KEY = DebugPhaseListener.class.getName() + "_ID_";
 
-  public void afterPhase(PhaseEvent phaseEvent) {
+  public void afterPhase(final PhaseEvent phaseEvent) {
     final FacesContext facesContext = FacesContext.getCurrentInstance();
     final boolean productionMode = TobagoConfig.getInstance(facesContext).getProjectStage() == ProjectStage.Production;
     if (productionMode) {
@@ -76,10 +76,10 @@ public class DebugPhaseListener implements PhaseListener {
           LOG.info("Total response time : " + (end - start + " milliseconds"));
         }
       }
-      for (Iterator iterator = facesContext.getClientIdsWithMessages(); iterator.hasNext();) {
+      for (final Iterator iterator = facesContext.getClientIdsWithMessages(); iterator.hasNext();) {
         final String clientId = (String) iterator.next();
 
-        for (Iterator messageIterator = facesContext.getMessages(clientId); messageIterator.hasNext();) {
+        for (final Iterator messageIterator = facesContext.getMessages(clientId); messageIterator.hasNext();) {
           final FacesMessage msg = (FacesMessage) messageIterator.next();
           LOG.info(MessageFormat.format("Faces message found."
               + "\n  Component: {0} \n  Severity : {1}"
@@ -90,7 +90,7 @@ public class DebugPhaseListener implements PhaseListener {
     }
   }
 
-  public void beforePhase(PhaseEvent phaseEvent) {
+  public void beforePhase(final PhaseEvent phaseEvent) {
     final FacesContext facesContext = FacesContext.getCurrentInstance();
     final boolean productionMode = TobagoConfig.getInstance(facesContext).getProjectStage() == ProjectStage.Production;
     if (productionMode) {
@@ -109,15 +109,15 @@ public class DebugPhaseListener implements PhaseListener {
 
           final Object request = externalContext.getRequest();
           if (request instanceof HttpServletRequest) {
-            HttpServletRequest servletRequest = (HttpServletRequest) request;
+            final HttpServletRequest servletRequest = (HttpServletRequest) request;
             LOG.trace("RequestURI = " + servletRequest.getRequestURI());
           }
           final Map headerMap = externalContext.getRequestHeaderMap();
-          for (Object key : headerMap.keySet()) {
+          for (final Object key : headerMap.keySet()) {
             LOG.trace("Header : '" + key + "' = '" + headerMap.get(key) + "'");
           }
           final Map parameterMap = externalContext.getRequestParameterMap();
-          for (Object key : parameterMap.keySet()) {
+          for (final Object key : parameterMap.keySet()) {
             LOG.trace("Param  : '" + key + "' = '" + parameterMap.get(key) + "'");
           }
         }

@@ -26,12 +26,12 @@ public class JsonUtils {
   private JsonUtils() {
   }
 
-  private static void encode(StringBuilder builder, String name, String[] value) {
+  private static void encode(final StringBuilder builder, final String name, final String[] value) {
     builder.append("\"");
     builder.append(name);
     builder.append("\":\"");
     boolean colon = false;
-    for (String item : value) {
+    for (final String item : value) {
       if (colon) {
         builder.append(",");
       }
@@ -41,7 +41,7 @@ public class JsonUtils {
     builder.append("\",");
   }
 
-  static void encode(StringBuilder builder, String name, Boolean value) {
+  static void encode(final StringBuilder builder, final String name, final Boolean value) {
     builder.append("\"");
     builder.append(name);
     builder.append("\":");
@@ -49,7 +49,7 @@ public class JsonUtils {
     builder.append(",");
   }
 
-  static void encode(StringBuilder builder, String name, Integer value) {
+  static void encode(final StringBuilder builder, final String name, final Integer value) {
     builder.append("\"");
     builder.append(name);
     builder.append("\":");
@@ -57,7 +57,7 @@ public class JsonUtils {
     builder.append(",");
   }
 
-  static void encode(StringBuilder builder, String name, String value) {
+  static void encode(final StringBuilder builder, final String name, String value) {
     value = value.replaceAll("\\\"", "\\\\\\\"");
     builder.append("\"");
     builder.append(name);
@@ -66,19 +66,19 @@ public class JsonUtils {
     builder.append("\",");
   }
 
-  public static String encode(CommandMap commandMap) {
-    StringBuilder builder = new StringBuilder();
+  public static String encode(final CommandMap commandMap) {
+    final StringBuilder builder = new StringBuilder();
     builder.append("{");
-    int initialLength = builder.length();
+    final int initialLength = builder.length();
 
-    Command click = commandMap.getClick();
+    final Command click = commandMap.getClick();
     if (click != null) {
       encode(builder, "click", click);
     }
 
     final Map<String, Command> other = commandMap.getOther();
     if (other != null) {
-      for(Map.Entry<String, Command> entry : other.entrySet()) {
+      for(final Map.Entry<String, Command> entry : other.entrySet()) {
         encode(builder, entry.getKey(), entry.getValue());
       }
     }
@@ -92,53 +92,53 @@ public class JsonUtils {
     return builder.toString();
   }
 
-  static void encode(StringBuilder builder, String name, Command command) {
+  static void encode(final StringBuilder builder, final String name, final Command command) {
     builder.append("\"");
     builder.append(name);
     builder.append("\":{");
-    int initialLength = builder.length();
+    final int initialLength = builder.length();
 
-    String action = command.getAction();
+    final String action = command.getAction();
     if (action != null) {
       encode(builder, "action", action);
     }
-    Boolean transition = command.getTransition();
+    final Boolean transition = command.getTransition();
     if (transition != null && !transition) { // true is the default, so encoding is needed.
       encode(builder, "transition", transition);
     }
-    String target = command.getTarget();
+    final String target = command.getTarget();
     if (target != null) {
       encode(builder, "target", target);
     }
-    String url = command.getUrl();
+    final String url = command.getUrl();
     if (url != null) {
       encode(builder, "url", url);
     }
-    String[] partially = command.getPartially();
+    final String[] partially = command.getPartially();
     if (partially != null && partially.length > 0) {
       encode(builder, "partially", partially);
     }
-    String focus = command.getFocus();
+    final String focus = command.getFocus();
     if (focus != null) {
       encode(builder, "focus", focus);
     }
-    String confirmation = command.getConfirmation();
+    final String confirmation = command.getConfirmation();
     if (confirmation != null) {
       encode(builder, "confirmation", confirmation);
     }
-    Integer delay  = command.getDelay();
+    final Integer delay  = command.getDelay();
     if (delay != null) {
       encode(builder, "delay", delay);
     }
-    Popup popup = command.getPopup();
+    final Popup popup = command.getPopup();
     if (popup != null) {
       encode(builder, "popup", popup);
     }
-    String script = command.getScript();
+    final String script = command.getScript();
     if (script != null) {
       encode(builder, "script", script);
     }
-    Boolean omit = command.getOmit();
+    final Boolean omit = command.getOmit();
     if (omit != null && omit) { // false is the default, so encoding is needed.
       encode(builder, "omit", omit);
     }
@@ -151,17 +151,17 @@ public class JsonUtils {
     builder.append("},");
   }
 
-  static void encode(StringBuilder builder, String name, Popup popup) {
+  static void encode(final StringBuilder builder, final String name, final Popup popup) {
     builder.append("\"");
     builder.append(name);
     builder.append("\":{");
-    int initialLength = builder.length();
+    final int initialLength = builder.length();
 
-    String command = popup.getCommand();
+    final String command = popup.getCommand();
     if (command != null) {
       encode(builder, "command", command);
     }
-    Boolean immediate = popup.isImmediate();
+    final Boolean immediate = popup.isImmediate();
     if (immediate != null) {
       encode(builder, "immediate", immediate);
     }

@@ -27,7 +27,7 @@ public class AppenderModel {
 
   private Appender appender;
 
-  public AppenderModel(Appender appender) {
+  public AppenderModel(final Appender appender) {
     this.appender = appender;
   }
 
@@ -45,9 +45,9 @@ public class AppenderModel {
   }
 
   public String getLayout() {
-    org.apache.log4j.Layout layout = appender.getLayout();
+    final org.apache.log4j.Layout layout = appender.getLayout();
     if (layout instanceof PatternLayout) {
-      PatternLayout patternLayout = (PatternLayout) layout;
+      final PatternLayout patternLayout = (PatternLayout) layout;
       return patternLayout.getConversionPattern();
     }
     return String.valueOf(layout);

@@ -49,7 +49,7 @@ public class PopupRenderer extends LayoutComponentRendererBase {
   }
 
   @Override
-  public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
+  public void prepareRender(final FacesContext facesContext, final UIComponent component) throws IOException {
 
     final UIPopup popup = (UIPopup) component;
     FacesContextUtils.addPopup(facesContext, popup);
@@ -62,7 +62,7 @@ public class PopupRenderer extends LayoutComponentRendererBase {
   }
 
   @Override
-  public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
+  public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
 
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
     final UIPopup popup = (UIPopup) component;
@@ -83,7 +83,7 @@ public class PopupRenderer extends LayoutComponentRendererBase {
     final String clientId = popup.getClientId(facesContext);
 
     // XXX May be computed in the "Layout Manager Phase"
-    AbstractUIPage page = ComponentUtils.findPage(facesContext);
+    final AbstractUIPage page = ComponentUtils.findPage(facesContext);
     if (popup.getLeft() == null) {
       popup.setLeft(page.getCurrentWidth().subtract(popup.getCurrentWidth()).divide(2));
     }
@@ -94,7 +94,7 @@ public class PopupRenderer extends LayoutComponentRendererBase {
     writer.startElement(HtmlElements.DIV, popup);
     writer.writeIdAttribute(clientId);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, popup);
-    Style style = new Style(facesContext, popup);
+    final Style style = new Style(facesContext, popup);
     Integer zIndex = popup.getZIndex();
     if (zIndex == null) {
       zIndex = 100;
@@ -106,8 +106,8 @@ public class PopupRenderer extends LayoutComponentRendererBase {
   }
 
   @Override
-  public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
-    TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
+    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
     writer.endElement(HtmlElements.DIV);
   }
 }

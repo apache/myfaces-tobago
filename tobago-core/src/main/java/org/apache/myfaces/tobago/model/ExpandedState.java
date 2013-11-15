@@ -42,7 +42,7 @@ public class ExpandedState implements Serializable {
    *
    * @param defaultExpandedLevels All nodes up to this level are expanded by default.
    */
-  public ExpandedState(int defaultExpandedLevels) {
+  public ExpandedState(final int defaultExpandedLevels) {
     this.defaultExpandedLevels = defaultExpandedLevels;
     this.expandedSet = new HashSet<TreePath>();
     this.collapsedSet = new HashSet<TreePath>();
@@ -54,7 +54,7 @@ public class ExpandedState implements Serializable {
    * @param node The node to check.
    * @return Is the node expanded?
    */
-  public boolean isExpanded(TreeNode node) {
+  public boolean isExpanded(final TreeNode node) {
     final TreePath path = new TreePath(node);
     return isExpanded(path);
   }
@@ -65,7 +65,7 @@ public class ExpandedState implements Serializable {
    * @param path The path of the node to check.
    * @return Is the node behind this path is expanded?
    */
-  public boolean isExpanded(TreePath path) {
+  public boolean isExpanded(final TreePath path) {
     if (expandedSet.contains(path)) {
       return true;
     }
@@ -80,7 +80,7 @@ public class ExpandedState implements Serializable {
    *
    * @param node The node to expand.
    */
-  public void expand(TreeNode node) {
+  public void expand(final TreeNode node) {
     final TreePath path = new TreePath(node);
     expand(path);
   }
@@ -90,7 +90,7 @@ public class ExpandedState implements Serializable {
    *
    * @param path The path of the node to expand.
    */
-  public void expand(TreePath path) {
+  public void expand(final TreePath path) {
     if (path.getLength() >= defaultExpandedLevels) {
       expandedSet.add(path);
     } else {
@@ -103,11 +103,11 @@ public class ExpandedState implements Serializable {
    *
    * @param level The level to expand.
    */
-  public void expand(int level) {
-    ArrayList<TreePath> toRemove = new ArrayList<TreePath>();
+  public void expand(final int level) {
+    final ArrayList<TreePath> toRemove = new ArrayList<TreePath>();
     if (level > defaultExpandedLevels) {
       defaultExpandedLevels = level;
-      for (TreePath treePath : expandedSet) {
+      for (final TreePath treePath : expandedSet) {
         if (treePath.getLength() < defaultExpandedLevels) {
           toRemove.add(treePath);
         }
@@ -115,7 +115,7 @@ public class ExpandedState implements Serializable {
       expandedSet.removeAll(toRemove);
       collapsedSet.clear();
     } else {
-      for (TreePath treePath : collapsedSet) {
+      for (final TreePath treePath : collapsedSet) {
         if (treePath.getLength() < level) {
           toRemove.add(treePath);
         }
@@ -138,7 +138,7 @@ public class ExpandedState implements Serializable {
    *
    * @param node The node to collapse.
    */
-  public void collapse(TreeNode node) {
+  public void collapse(final TreeNode node) {
     final TreePath path = new TreePath(node);
     collapse(path);
   }
@@ -148,7 +148,7 @@ public class ExpandedState implements Serializable {
    *
    * @param path The path of the node to collapse.
    */
-  public void collapse(TreePath path) {
+  public void collapse(final TreePath path) {
     if (path.getLength() < defaultExpandedLevels) {
       collapsedSet.add(path);
     } else {
@@ -165,10 +165,10 @@ public class ExpandedState implements Serializable {
     // to use a symmetric algorithm like in expand
     level--;
 
-    ArrayList<TreePath> toRemove = new ArrayList<TreePath>();
+    final ArrayList<TreePath> toRemove = new ArrayList<TreePath>();
     if (level < defaultExpandedLevels) {
       defaultExpandedLevels = level;
-      for (TreePath treePath : collapsedSet) {
+      for (final TreePath treePath : collapsedSet) {
         if (treePath.getLength() >= defaultExpandedLevels) {
           toRemove.add(treePath);
         }
@@ -176,7 +176,7 @@ public class ExpandedState implements Serializable {
       collapsedSet.removeAll(toRemove);
       expandedSet.clear();
     } else {
-      for (TreePath treePath : expandedSet) {
+      for (final TreePath treePath : expandedSet) {
         if (treePath.getLength() >= level) {
           toRemove.add(treePath);
         }

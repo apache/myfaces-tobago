@@ -72,7 +72,7 @@ public class TobagoConfigImpl extends TobagoConfig {
     contentSecurityPolicy = new ContentSecurityPolicy(ContentSecurityPolicy.Mode.OFF.getValue());
   }
 
-  public void addSupportedThemeName(String name) {
+  public void addSupportedThemeName(final String name) {
     supportedThemeNames.add(name);
   }
   // TODO one init method
@@ -86,15 +86,15 @@ public class TobagoConfigImpl extends TobagoConfig {
       }
     } else {
       int deep = 0;
-      for (Map.Entry<String, Theme> entry : availableThemes.entrySet()) {
-        Theme theme = entry.getValue();
+      for (final Map.Entry<String, Theme> entry : availableThemes.entrySet()) {
+        final Theme theme = entry.getValue();
         if (theme.getFallbackList().size() > deep) {
           defaultTheme = theme;
           deep = theme.getFallbackList().size();
         }
       }
       if (defaultTheme == null) {
-        String error = "Did not found any theme! "
+        final String error = "Did not found any theme! "
             + "Please ensure you have a tobago-config.xml with a theme-definition in your "
             + "theme JAR. Please add a theme JAR to your WEB-INF/lib";
         LOG.error(error);
@@ -106,8 +106,8 @@ public class TobagoConfigImpl extends TobagoConfig {
       }
     }
     if (!supportedThemeNames.isEmpty()) {
-      for (String name : supportedThemeNames) {
-        Theme theme = availableThemes.get(name);
+      for (final String name : supportedThemeNames) {
+        final Theme theme = availableThemes.get(name);
         checkThemeIsAvailable(name, theme);
         supportedThemes.add(theme);
         if (LOG.isDebugEnabled()) {
@@ -118,9 +118,9 @@ public class TobagoConfigImpl extends TobagoConfig {
     }
   }
 
-  private void checkThemeIsAvailable(String name, Theme theme) {
+  private void checkThemeIsAvailable(final String name, final Theme theme) {
     if (theme == null) {
-      String error = "Theme not found! name: '" + name + "'. "
+      final String error = "Theme not found! name: '" + name + "'. "
           + "Please ensure you have a tobago-config.xml with a theme-definition in your "
           + "theme JAR. Found the following themes: " + availableThemes.keySet();
       LOG.error(error);
@@ -128,7 +128,7 @@ public class TobagoConfigImpl extends TobagoConfig {
     }
   }
 
-  public Theme getTheme(String name) {
+  public Theme getTheme(final String name) {
     if (name == null) {
       LOG.debug("searching theme: null");
       return defaultTheme;
@@ -136,7 +136,7 @@ public class TobagoConfigImpl extends TobagoConfig {
     if (defaultTheme.getName().equals(name)) {
       return defaultTheme;
     }
-    for (Theme theme : supportedThemes) {
+    for (final Theme theme : supportedThemes) {
       if (theme.getName().equals(name)) {
         return theme;
       }
@@ -145,7 +145,7 @@ public class TobagoConfigImpl extends TobagoConfig {
     return defaultTheme;
   }
 
-  public void setDefaultThemeName(String defaultThemeName) {
+  public void setDefaultThemeName(final String defaultThemeName) {
     this.defaultThemeName = defaultThemeName;
   }
 
@@ -153,7 +153,7 @@ public class TobagoConfigImpl extends TobagoConfig {
     return Collections.unmodifiableList(supportedThemes);
   }
 
-  public void addResourceDir(String resourceDir) {
+  public void addResourceDir(final String resourceDir) {
     if (!resourceDirs.contains(resourceDir)) {
       if (LOG.isInfoEnabled()) {
         LOG.info("adding resourceDir = '{}'", resourceDir);
@@ -177,9 +177,9 @@ public class TobagoConfigImpl extends TobagoConfig {
     return defaultTheme;
   }
 
-  public void setAvailableThemes(Map<String, Theme> availableThemes) {
+  public void setAvailableThemes(final Map<String, Theme> availableThemes) {
     this.availableThemes = availableThemes;
-    for (Theme theme : this.availableThemes.values()) {
+    for (final Theme theme : this.availableThemes.values()) {
       addResourceDir(theme.getResourcePath());
     }
   }
@@ -188,7 +188,7 @@ public class TobagoConfigImpl extends TobagoConfig {
     return renderersConfig;
   }
 
-  public void setRenderersConfig(RenderersConfig renderersConfig) {
+  public void setRenderersConfig(final RenderersConfig renderersConfig) {
     this.renderersConfig = renderersConfig;
   }
 
@@ -196,11 +196,11 @@ public class TobagoConfigImpl extends TobagoConfig {
     return projectStage;
   }
   // TODO one init method
-  public void initProjectState(ServletContext servletContext) {
+  public void initProjectState(final ServletContext servletContext) {
     String stageName = null;
     try {
-      Context ctx = new InitialContext();
-      Object obj = JndiUtils.getJndiProperty(ctx, "jsf", "ProjectStage");
+      final Context ctx = new InitialContext();
+      final Object obj = JndiUtils.getJndiProperty(ctx, "jsf", "ProjectStage");
       if (obj != null) {
         if (obj instanceof String) {
           stageName = (String) obj;
@@ -209,7 +209,7 @@ public class TobagoConfigImpl extends TobagoConfig {
               ProjectStage.PROJECT_STAGE_JNDI_NAME);
         }
       }
-    } catch (NamingException e) {
+    } catch (final NamingException e) {
       // ignore
     }
 
@@ -224,7 +224,7 @@ public class TobagoConfigImpl extends TobagoConfig {
     if (stageName != null) {
       try {
         projectStage = ProjectStage.valueOf(stageName);
-      } catch (IllegalArgumentException e) {
+      } catch (final IllegalArgumentException e) {
         LOG.error("Couldn't discover the current project stage", e);
       }
     }
@@ -247,7 +247,7 @@ public class TobagoConfigImpl extends TobagoConfig {
         } else {
           defaultValidatorInfo = Collections.emptyMap();
         }
-      } catch (Exception e) {
+      } catch (final Exception e) {
         LOG.error("Can't initialize default validators (this happens with JBoss GateIn 3.6.0).", e);
         defaultValidatorInfo = Collections.emptyMap();
       }
@@ -258,7 +258,7 @@ public class TobagoConfigImpl extends TobagoConfig {
     return createSessionSecret;
   }
 
-  public void setCreateSessionSecret(boolean createSessionSecret) {
+  public void setCreateSessionSecret(final boolean createSessionSecret) {
     this.createSessionSecret = createSessionSecret;
   }
 
@@ -266,7 +266,7 @@ public class TobagoConfigImpl extends TobagoConfig {
     return checkSessionSecret;
   }
 
-  public void setCheckSessionSecret(boolean checkSessionSecret) {
+  public void setCheckSessionSecret(final boolean checkSessionSecret) {
     this.checkSessionSecret = checkSessionSecret;
   }
 
@@ -275,7 +275,7 @@ public class TobagoConfigImpl extends TobagoConfig {
     return preventFrameAttacks;
   }
 
-  public void setPreventFrameAttacks(boolean preventFrameAttacks) {
+  public void setPreventFrameAttacks(final boolean preventFrameAttacks) {
     this.preventFrameAttacks = preventFrameAttacks;
   }
 
@@ -297,7 +297,7 @@ public class TobagoConfigImpl extends TobagoConfig {
     final StringBuilder builder = new StringBuilder();
     builder.append("TobagoConfigImpl{");
     builder.append("\nsupportedThemes=[");
-    for (Theme supportedTheme : supportedThemes) {
+    for (final Theme supportedTheme : supportedThemes) {
       builder.append(supportedTheme.getName());
       builder.append(", ");
     }
@@ -317,7 +317,7 @@ public class TobagoConfigImpl extends TobagoConfig {
     builder.append(url);
     // to see only different (ignore alternative names for the same theme)
     builder.append(", \nthemes=");
-    Set<Theme> all = new HashSet<Theme>(availableThemes.values());
+    final Set<Theme> all = new HashSet<Theme>(availableThemes.values());
     builder.append(all);
     builder.append('}');
     return builder.toString();

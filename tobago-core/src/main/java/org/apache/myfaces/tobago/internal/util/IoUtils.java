@@ -32,7 +32,7 @@ public final class IoUtils {
       if (closeable != null) {
         closeable.close();
       }
-    } catch (IOException exception) {
+    } catch (final IOException exception) {
       // ignore
     }
   }

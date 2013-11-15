@@ -99,13 +99,13 @@ public abstract class AbstractUISheet extends AbstractUIData
 
   private transient Grid headerGrid;
 
-  public LayoutComponentRenderer getLayoutComponentRenderer(FacesContext context) {
+  public LayoutComponentRenderer getLayoutComponentRenderer(final FacesContext context) {
     return (LayoutComponentRenderer) getRenderer(context);
   }
 
   @Override
-  public void encodeBegin(FacesContext facesContext) throws IOException {
-    SheetState state = getSheetState(facesContext);
+  public void encodeBegin(final FacesContext facesContext) throws IOException {
+    final SheetState state = getSheetState(facesContext);
     final int first = state.getFirst();
     if (first > -1 && (!hasRowCount() || first < getRowCount())) {
       final ValueExpression expression = getValueExpression(Attributes.FIRST);
@@ -118,7 +118,7 @@ public abstract class AbstractUISheet extends AbstractUIData
     super.encodeBegin(facesContext);
   }
 
-  public void setState(SheetState state) {
+  public void setState(final SheetState state) {
     this.state = state;
   }
 
@@ -126,7 +126,7 @@ public abstract class AbstractUISheet extends AbstractUIData
     return getSheetState(FacesContext.getCurrentInstance());
   }
 
-  public SheetState getSheetState(FacesContext facesContext) {
+  public SheetState getSheetState(final FacesContext facesContext) {
     if (state != null) {
       return state;
     }
@@ -150,7 +150,7 @@ public abstract class AbstractUISheet extends AbstractUIData
 
   public LayoutTokens getColumnLayout() {
     if (columnLayout == null) {
-      String columns = getColumns();
+      final String columns = getColumns();
       if (columns != null) {
         columnLayout = LayoutTokens.parse(columns);
       }
@@ -163,7 +163,7 @@ public abstract class AbstractUISheet extends AbstractUIData
    * Since 1.0.26.
    */
   public void resetColumnWidths() {
-    SheetState state = getState();
+    final SheetState state = getState();
     if (state != null) {
       state.setColumnWidths(null);
     }
@@ -175,7 +175,7 @@ public abstract class AbstractUISheet extends AbstractUIData
    * You may use {@link #getLastRowIndexOfCurrentPage()}. Deprecated since 1.5.5.
    */
   public int getLast() {
-    int last = getFirst() + getRows();
+    final int last = getFirst() + getRows();
     return last < getRowCount() ? last : getRowCount();
   }
 
@@ -192,7 +192,7 @@ public abstract class AbstractUISheet extends AbstractUIData
     if (isRowsUnlimited()) {
       return getRowCount();
     }
-    int last = getFirst() + getRows();
+    final int last = getFirst() + getRows();
     return last < getRowCount() ? last : getRowCount();
   }
 
@@ -200,12 +200,12 @@ public abstract class AbstractUISheet extends AbstractUIData
    * @return returns the current page (based by 0).
    */
   public int getCurrentPage() {
-    int rows = getRows();
+    final int rows = getRows();
     if (rows == 0) {
       // if the rows are unlimited, there is only one page
       return 0;
     }
-    int first = getFirst();
+    final int first = getFirst();
     if (hasRowCount() && first >= getRowCount()) {
       return getPages() - 1; // last page
     } else {
@@ -238,9 +238,9 @@ public abstract class AbstractUISheet extends AbstractUIData
     return (getRowCount() - 1) / getRows() + 1;
   }
 
-  public List<UIComponent> getRenderedChildrenOf(UIColumn column) {
-    List<UIComponent> children = new ArrayList<UIComponent>();
-    for (UIComponent kid : column.getChildren()) {
+  public List<UIComponent> getRenderedChildrenOf(final UIColumn column) {
+    final List<UIComponent> children = new ArrayList<UIComponent>();
+    for (final UIComponent kid : column.getChildren()) {
       if (kid.isRendered()) {
         children.add(kid);
       }
@@ -324,27 +324,27 @@ public abstract class AbstractUISheet extends AbstractUIData
       throw new IllegalArgumentException(
           "Can't determine the last page, because the row count of the model is unknown.");
     } else {
-      int rows = getRows();
-      int rowCount = getRowCount();
-      int tail = rowCount % rows;
+      final int rows = getRows();
+      final int rowCount = getRowCount();
+      final int tail = rowCount % rows;
       return rowCount - (tail != 0 ? tail : rows);
     }
   }
 
   @Override
-  public void processUpdates(FacesContext context) {
+  public void processUpdates(final FacesContext context) {
     super.processUpdates(context);
     updateSheetState(context);
   }
 
-  private void updateSheetState(FacesContext facesContext) {
-    SheetState state = getSheetState(facesContext);
+  private void updateSheetState(final FacesContext facesContext) {
+    final SheetState state = getSheetState(facesContext);
     if (state != null) {
       // ensure sortActionListener
 //      getSortActionListener();
 //      state.setSortedColumn(sortActionListener != null ? sortActionListener.getColumn() : -1);
 //      state.setAscending(sortActionListener != null && sortActionListener.isAscending());
-      Map attributes = getAttributes();
+      final Map attributes = getAttributes();
       //noinspection unchecked
       final List<Integer> list = (List<Integer>) attributes.get(Attributes.SELECTED_LIST_STRING);
       state.setSelectedRows(list != null ? list : Collections.<Integer>emptyList());
@@ -357,31 +357,31 @@ public abstract class AbstractUISheet extends AbstractUIData
 
 
   @Override
-  public Object saveState(FacesContext context) {
-    Object[] saveState = new Object[2];
+  public Object saveState(final FacesContext context) {
+    final Object[] saveState = new Object[2];
     saveState[0] = super.saveState(context);
     saveState[1] = state;
     return saveState;
   }
 
   @Override
-  public void restoreState(FacesContext context, Object savedState) {
-    Object[] values = (Object[]) savedState;
+  public void restoreState(final FacesContext context, final Object savedState) {
+    final Object[] values = (Object[]) savedState;
     super.restoreState(context, values[0]);
     state = (SheetState) values[1];
   }
 
   public List<AbstractUIColumn> getAllColumns() {
-    List<AbstractUIColumn> columns = new ArrayList<AbstractUIColumn>();
-    for (AbstractUIColumn kid : ComponentUtils.findDescendantList(this, AbstractUIColumn.class)) {
+    final List<AbstractUIColumn> columns = new ArrayList<AbstractUIColumn>();
+    for (final AbstractUIColumn kid : ComponentUtils.findDescendantList(this, AbstractUIColumn.class)) {
       columns.add(kid);
     }
     return columns;
   }
 
   public List<AbstractUIColumn> getRenderedColumns() {
-    List<AbstractUIColumn> columns = new ArrayList<AbstractUIColumn>();
-    for (AbstractUIColumn kid : ComponentUtils.findDescendantList(this, AbstractUIColumn.class)) {
+    final List<AbstractUIColumn> columns = new ArrayList<AbstractUIColumn>();
+    for (final AbstractUIColumn kid : ComponentUtils.findDescendantList(this, AbstractUIColumn.class)) {
       if (kid.isRendered()) {
         columns.add(kid);
       }
@@ -398,8 +398,8 @@ public abstract class AbstractUISheet extends AbstractUIData
   }*/
 
   @Override
-  public void queueEvent(FacesEvent facesEvent) {
-    UIComponent parent = getParent();
+  public void queueEvent(final FacesEvent facesEvent) {
+    final UIComponent parent = getParent();
     if (parent == null) {
       throw new IllegalStateException("Component is not a descendant of a UIViewRoot");
     }
@@ -410,8 +410,8 @@ public abstract class AbstractUISheet extends AbstractUIData
       facesEvent.setPhaseId(PhaseId.INVOKE_APPLICATION);
       parent.queueEvent(facesEvent);
     } else {
-      UIComponent source = facesEvent.getComponent();
-      UIComponent sourceParent = source.getParent();
+      final UIComponent source = facesEvent.getComponent();
+      final UIComponent sourceParent = source.getParent();
       if (sourceParent.getParent() == this
           && source.getId() != null && source.getId().endsWith(SORTER_ID)) {
         facesEvent.setPhaseId(PhaseId.INVOKE_APPLICATION);
@@ -423,7 +423,7 @@ public abstract class AbstractUISheet extends AbstractUIData
   }
 
   @Override
-  public void broadcast(FacesEvent facesEvent) throws AbortProcessingException {
+  public void broadcast(final FacesEvent facesEvent) throws AbortProcessingException {
     super.broadcast(facesEvent);
     if (facesEvent instanceof SheetStateChangeEvent) {
       final MethodExpression listener = getStateChangeListenerExpression();
@@ -437,7 +437,7 @@ public abstract class AbstractUISheet extends AbstractUIData
         performPaging((PageActionEvent) facesEvent);
       }
     } else if (facesEvent instanceof SortActionEvent) {
-      MethodExpression expression = getSortActionListenerExpression();
+      final MethodExpression expression = getSortActionListenerExpression();
       if (expression!= null) {
         // TODO should be first invokeMethodBinding and the update state
         getSheetState(getFacesContext()).updateSortState((SortActionEvent) facesEvent);
@@ -449,7 +449,7 @@ public abstract class AbstractUISheet extends AbstractUIData
     }
   }
 
-  public void addStateChangeListener(SheetStateChangeListener listener) {
+  public void addStateChangeListener(final SheetStateChangeListener listener) {
     addFacesListener(listener);
   }
 
@@ -457,7 +457,7 @@ public abstract class AbstractUISheet extends AbstractUIData
     return (SheetStateChangeListener[]) getFacesListeners(SheetStateChangeListener.class);
   }
 
-  public void removeStateChangeListener(SheetStateChangeListener listener) {
+  public void removeStateChangeListener(final SheetStateChangeListener listener) {
     removeFacesListener(listener);
   }
 
@@ -465,7 +465,7 @@ public abstract class AbstractUISheet extends AbstractUIData
     return widthList;
   }
 
-  public void setWidthList(List<Integer> widthList) {
+  public void setWidthList(final List<Integer> widthList) {
     this.widthList = widthList;
   }
 
@@ -481,14 +481,14 @@ public abstract class AbstractUISheet extends AbstractUIData
 
 
   @Override
-  public UIComponent findComponent(String searchId) {
+  public UIComponent findComponent(final String searchId) {
     return super.findComponent(stripRowIndex(searchId));
   }
 
   public String stripRowIndex(String searchId) {
     if (searchId.length() > 0 && Character.isDigit(searchId.charAt(0))) {
       for (int i = 1; i < searchId.length(); ++i) {
-        char c = searchId.charAt(i);
+        final char c = searchId.charAt(i);
         if (c == UINamingContainer.getSeparatorChar(getFacesContext())) {
           searchId = searchId.substring(i + 1);
           break;
@@ -501,7 +501,7 @@ public abstract class AbstractUISheet extends AbstractUIData
     return searchId;
   }
 
-  public void performPaging(PageActionEvent pageEvent) {
+  public void performPaging(final PageActionEvent pageEvent) {
 
     int first;
 
@@ -541,7 +541,7 @@ public abstract class AbstractUISheet extends AbstractUIData
         }
         break;
       case TO_PAGE:
-        int pageIndex = pageEvent.getValue() - 1;
+        final int pageIndex = pageEvent.getValue() - 1;
         first = pageIndex * getRows();
         if (hasRowCount() && first > getFirstRowIndexOfLastPage()) {
           first = getFirstRowIndexOfLastPage();
@@ -570,7 +570,7 @@ public abstract class AbstractUISheet extends AbstractUIData
       return layoutComponents;
     }
     layoutComponents = new ArrayList<LayoutComponent>();
-    for (UIComponent column : getChildren()) {
+    for (final UIComponent column : getChildren()) {
       if (column instanceof AbstractUIColumnSelector) {
         layoutComponents.add(null); // XXX UIColumnSelector is currently not an instance of LayoutComponent
       } else if (column instanceof ColumnEvent) {
@@ -579,7 +579,7 @@ public abstract class AbstractUISheet extends AbstractUIData
         layoutComponents.add((AbstractUIColumnNode) column);
       } else if (column instanceof UIColumn) {
         LayoutComponent layoutComponent = null;
-        for (UIComponent component : column.getChildren()) {
+        for (final UIComponent component : column.getChildren()) {
           if (component instanceof LayoutComponent) {
             if (layoutComponent == null) {
               layoutComponent = (LayoutComponent) component;
@@ -609,7 +609,7 @@ public abstract class AbstractUISheet extends AbstractUIData
     return layoutComponents;
   }
 
-  public void onComponentPopulated(FacesContext facesContext, UIComponent parent) {
+  public void onComponentPopulated(final FacesContext facesContext, final UIComponent parent) {
     if (getLayoutManager() == null) {
       setLayoutManager(CreateComponentUtils.createAndInitLayout(
           facesContext, ComponentTypes.SHEET_LAYOUT, RendererTypes.SHEET_LAYOUT, parent));
@@ -620,7 +620,7 @@ public abstract class AbstractUISheet extends AbstractUIData
     return (LayoutManager) getFacet(Facets.LAYOUT);
   }
 
-  public void setLayoutManager(LayoutManager layoutManager) {
+  public void setLayoutManager(final LayoutManager layoutManager) {
     getFacets().put(Facets.LAYOUT, (AbstractUILayoutBase) layoutManager);
   }
 
@@ -638,7 +638,7 @@ public abstract class AbstractUISheet extends AbstractUIData
     return needVerticalScrollbar;
   }
 
-  public void setNeedVerticalScrollbar(Boolean needVerticalScrollbar) {
+  public void setNeedVerticalScrollbar(final Boolean needVerticalScrollbar) {
     this.needVerticalScrollbar = needVerticalScrollbar;
   }
 
@@ -656,7 +656,7 @@ public abstract class AbstractUISheet extends AbstractUIData
     return headerGrid;
   }
 
-  public void setHeaderGrid(Grid headerGrid) {
+  public void setHeaderGrid(final Grid headerGrid) {
     this.headerGrid = headerGrid;
   }
 }

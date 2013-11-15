@@ -19,13 +19,14 @@
 
 package org.apache.myfaces.tobago.facelets.extension;
 
-import javax.faces.view.facelets.ComponentConfig;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.UISelectOneChoice;
 
+import javax.faces.view.facelets.ComponentConfig;
+
 public class SelectOneChoiceExtensionHandler extends TobagoLabelExtensionHandler {
 
-  public SelectOneChoiceExtensionHandler(ComponentConfig config) {
+  public SelectOneChoiceExtensionHandler(final ComponentConfig config) {
     super(config);
   }
 

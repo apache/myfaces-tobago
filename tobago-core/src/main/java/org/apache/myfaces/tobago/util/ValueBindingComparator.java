@@ -41,36 +41,39 @@ public class ValueBindingComparator extends ComparatorBase {
 
   private ValueBinding valueBinding;
 
-  public ValueBindingComparator(FacesContext facesContext, String var, ValueBinding valueBinding) {
+  public ValueBindingComparator(final FacesContext facesContext, final String var, final ValueBinding valueBinding) {
     this.facesContext = facesContext;
     this.var = var;
     this.valueBinding = valueBinding;
   }
 
-  public ValueBindingComparator(FacesContext facesContext, String var, ValueBinding valueBinding, boolean reverse) {
+  public ValueBindingComparator(
+      final FacesContext facesContext, final String var, final ValueBinding valueBinding, final boolean reverse) {
     super(reverse);
     this.facesContext = facesContext;
     this.var = var;
     this.valueBinding = valueBinding;
   }
 
-  public ValueBindingComparator(FacesContext facesContext, String var,
-      ValueBinding valueBinding, Comparator comparator) {
+  public ValueBindingComparator(
+      final FacesContext facesContext, final String var,
+      final ValueBinding valueBinding, final Comparator comparator) {
     super(comparator);
     this.facesContext = facesContext;
     this.var = var;
     this.valueBinding = valueBinding;
   }
 
-  public ValueBindingComparator(FacesContext facesContext, String var,
-      ValueBinding valueBinding, boolean reverse, Comparator comparator) {
+  public ValueBindingComparator(
+      final FacesContext facesContext, final String var,
+      final ValueBinding valueBinding, final boolean reverse, final Comparator comparator) {
     super(reverse, comparator);
     this.facesContext = facesContext;
     this.var = var;
     this.valueBinding = valueBinding;
   }
 
-  public boolean equals(Object o) {
+  public boolean equals(final Object o) {
     if (this == o) {
       return true;
     }
@@ -107,22 +110,17 @@ public class ValueBindingComparator extends ComparatorBase {
 
   // implementation of java.util.Comparator interface
 
-  /**
-   * @param param1 <description>
-   * @param param2 <description>
-   * @return <description>
-   */
-  public int compare(Object param1, Object param2) {
-    Object obj1;
-    Object obj2;
+  public int compare(final Object param1, final Object param2) {
+    final Object obj1;
+    final Object obj2;
     try {
-      final Map requestMap = facesContext.getExternalContext().getRequestMap();
+      final Map<String, Object> requestMap = facesContext.getExternalContext().getRequestMap();
       requestMap.put(var, param1);
       obj1 = valueBinding.getValue(facesContext);
       requestMap.put(var, param2);
       obj2 = valueBinding.getValue(facesContext);
 
-    } catch (Exception e) {
+    } catch (final Exception e) {
       LOG.error(e.getMessage(), e);
       return 0;
     }

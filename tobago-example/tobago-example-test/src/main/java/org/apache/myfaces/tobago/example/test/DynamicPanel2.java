@@ -28,7 +28,7 @@ public class DynamicPanel2 extends DynamicPanel {
     return firstName;
   }
 
-  public void setFirstName(String firstName) {
+  public void setFirstName(final String firstName) {
     this.firstName = firstName;
   }
 
@@ -36,7 +36,7 @@ public class DynamicPanel2 extends DynamicPanel {
     return secondName;
   }
 
-  public void setSecondName(String secondName) {
+  public void setSecondName(final String secondName) {
     this.secondName = secondName;
   }
 }

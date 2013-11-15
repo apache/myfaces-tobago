@@ -43,11 +43,11 @@ public class CommandMap {
   /**
    * Creates a command map, which hold the given command triggered by "click".
    */
-  public CommandMap(Command click) {
+  public CommandMap(final Command click) {
     this.click = click;
   }
 
-  public void setClick(Command click) {
+  public void setClick(final Command click) {
     this.click = click;
   }
 
@@ -55,7 +55,7 @@ public class CommandMap {
     return click;
   }
 
-  public void addCommand(String name, Command command) {
+  public void addCommand(final String name, final Command command) {
     if (name.equals("click")) {
       setClick(command);
     } else {

@@ -31,7 +31,7 @@ public class SubviewRenderer extends LayoutComponentRendererBase {
 
     private static final Logger LOG = LoggerFactory.getLogger(SubviewRenderer.class);
 
-  public void encodeBegin(FacesContext facesContext, UIComponent component)
+  public void encodeBegin(final FacesContext facesContext, final UIComponent component)
       throws IOException {
     if (LOG.isInfoEnabled()) {
       LOG.info("SSSSSSSSSSSSSSSSSSS Subview component = " + component.getClass().getName());
@@ -39,8 +39,8 @@ public class SubviewRenderer extends LayoutComponentRendererBase {
     super.encodeBegin(facesContext, component);
   }
 
-  public void encodeEnd(FacesContext facesContext,
-      UIComponent component) throws IOException {
+  public void encodeEnd(final FacesContext facesContext,
+      final UIComponent component) throws IOException {
 
   }
 

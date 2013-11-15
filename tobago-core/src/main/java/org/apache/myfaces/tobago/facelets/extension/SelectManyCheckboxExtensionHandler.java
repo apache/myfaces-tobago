@@ -26,7 +26,7 @@ import javax.faces.view.facelets.ComponentConfig;
 
 public class SelectManyCheckboxExtensionHandler extends TobagoLabelExtensionHandler {
 
-  public SelectManyCheckboxExtensionHandler(ComponentConfig config) {
+  public SelectManyCheckboxExtensionHandler(final ComponentConfig config) {
     super(config);
   }
 

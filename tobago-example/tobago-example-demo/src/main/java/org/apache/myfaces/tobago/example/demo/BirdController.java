@@ -52,7 +52,7 @@ public class BirdController implements Serializable {
     return status;
   }
 
-  public void setStatus(String status) {
+  public void setStatus(final String status) {
     this.status = status;
   }
 
@@ -60,7 +60,7 @@ public class BirdController implements Serializable {
     return newBirdName;
   }
 
-  public void setNewBirdName(String newBirdName) {
+  public void setNewBirdName(final String newBirdName) {
     this.newBirdName = newBirdName;
   }
 
@@ -68,7 +68,7 @@ public class BirdController implements Serializable {
     return newBirdSize;
   }
 
-  public void setNewBirdSize(int newBirdSize) {
+  public void setNewBirdSize(final int newBirdSize) {
     this.newBirdSize = newBirdSize;
   }
 

@@ -52,7 +52,7 @@ public class ButtonRenderer extends CommandRendererBase {
 
   private static final Logger LOG = LoggerFactory.getLogger(ButtonRenderer.class);
 
-  public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
+  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
 
     final UIButton button = (UIButton) component;
     final String clientId = button.getClientId(facesContext);
@@ -85,7 +85,7 @@ public class ButtonRenderer extends CommandRendererBase {
       }
     }
 
-    Style style = new Style(facesContext, button);
+    final Style style = new Style(facesContext, button);
     writer.writeStyleAttribute(style);
     HtmlRendererUtils.renderDojoDndItem(component, writer, true);
     writer.writeClassAttribute(Classes.create(button));
@@ -104,7 +104,7 @@ public class ButtonRenderer extends CommandRendererBase {
       }
       writer.startElement(HtmlElements.IMG, null);
       writer.writeAttribute(HtmlAttributes.SRC, image, true);
-      String tip = button.getTip();
+      final String tip = button.getTip();
       writer.writeAttribute(HtmlAttributes.ALT, tip != null ? tip : "", true);
       writer.endElement(HtmlElements.IMG);
     }
@@ -127,18 +127,18 @@ public class ButtonRenderer extends CommandRendererBase {
   }
 
   @Override
-  public Measure getPreferredWidth(FacesContext facesContext, Configurable component) {
+  public Measure getPreferredWidth(final FacesContext facesContext, final Configurable component) {
 
-    UIButton button = (UIButton) component;
+    final UIButton button = (UIButton) component;
     Measure width = Measure.ZERO;
-    boolean image = button.getImage() != null;
+    final boolean image = button.getImage() != null;
     if (image) {
       width = getResourceManager().getThemeMeasure(facesContext, button, "imageWidth");
     }
-    LabelWithAccessKey label = new LabelWithAccessKey(button);
+    final LabelWithAccessKey label = new LabelWithAccessKey(button);
 
     width = width.add(RenderUtils.calculateStringWidth(facesContext, button, label.getText()));
-    Measure padding = getResourceManager().getThemeMeasure(facesContext, button, "paddingWidth");
+    final Measure padding = getResourceManager().getThemeMeasure(facesContext, button, "paddingWidth");
     // left padding, right padding and when an image and an text then a middle padding.
     width = width.add(padding.multiply(image && label.getText() != null ? 3 : 2));
 

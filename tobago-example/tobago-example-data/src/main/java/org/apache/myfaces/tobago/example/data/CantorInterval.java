@@ -39,7 +39,7 @@ public class CantorInterval extends DefaultMutableTreeNode {
     end = Fraction.ONE;
   }
 
-  private CantorInterval(Fraction begin, Fraction end) {
+  private CantorInterval(final Fraction begin, final Fraction end) {
     this.begin = begin;
     this.end = end;
   }
@@ -53,7 +53,7 @@ public class CantorInterval extends DefaultMutableTreeNode {
       final Fraction oneThird = multiply.add(begin);
       add(new CantorInterval(begin, oneThird));
 
-      Fraction twoThird = end.subtract(begin).multiply(Fraction.TWO_THIRDS).add(begin);
+      final Fraction twoThird = end.subtract(begin).multiply(Fraction.TWO_THIRDS).add(begin);
       add(new CantorInterval(twoThird, end));
     }
   }
@@ -65,7 +65,7 @@ public class CantorInterval extends DefaultMutableTreeNode {
   }
 
   @Override
-  public TreeNode getChildAt(int i) {
+  public TreeNode getChildAt(final int i) {
     init();
     return super.getChildAt(i);
   }
@@ -77,7 +77,7 @@ public class CantorInterval extends DefaultMutableTreeNode {
   }
 
   public String getLabel() {
-    StringBuilder builder = new StringBuilder();
+    final StringBuilder builder = new StringBuilder();
     builder.append("[");
     builder.append(begin);
     builder.append(", ");
@@ -101,7 +101,7 @@ public class CantorInterval extends DefaultMutableTreeNode {
     public static final Fraction ONE_THIRD = new Fraction(BigInteger.ONE, THREE);
     public static final Fraction TWO_THIRDS = new Fraction(BigInteger.valueOf(2), THREE);
 
-    private Fraction(long i) {
+    private Fraction(final long i) {
       numerator = BigInteger.valueOf(i);
       denominator = BigInteger.ONE;
     }
@@ -116,19 +116,19 @@ public class CantorInterval extends DefaultMutableTreeNode {
       this.denominator = denominator;
     }
 
-    public Fraction add(Fraction value) {
+    public Fraction add(final Fraction value) {
       return new Fraction(
           numerator.multiply(value.denominator).add(denominator.multiply(value.numerator)),
           denominator.multiply(value.denominator));
     }
 
-    public Fraction subtract(Fraction value) {
+    public Fraction subtract(final Fraction value) {
       return new Fraction(
           numerator.multiply(value.denominator).subtract(denominator.multiply(value.numerator)),
           denominator.multiply(value.denominator));
     }
 
-    public Fraction multiply(Fraction value) {
+    public Fraction multiply(final Fraction value) {
       return new Fraction(
           numerator.multiply(value.numerator),
           denominator.multiply(value.denominator));
@@ -136,7 +136,7 @@ public class CantorInterval extends DefaultMutableTreeNode {
 
     @Override
     public String toString() {
-      StringBuilder builder = new StringBuilder();
+      final StringBuilder builder = new StringBuilder();
       if (denominator.equals(BigInteger.ONE)) {
         builder.append(numerator);
       } else {

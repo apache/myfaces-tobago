@@ -34,17 +34,17 @@ public class ResetInputActionListener extends AbstractResetInputActionListener i
   public ResetInputActionListener() {
   }
 
-  public ResetInputActionListener(String[] clientIds) {
+  public ResetInputActionListener(final String[] clientIds) {
     this.clientIds = clientIds;
   }
 
-  public ResetInputActionListener(Collection<String> clientIds) {
+  public ResetInputActionListener(final Collection<String> clientIds) {
      this.clientIds = clientIds.toArray(new String[clientIds.size()]);
   }
 
-  public void processAction(ActionEvent event) {
-    for (String clientId : clientIds) {
-      UIComponent component = FindComponentUtils.findComponent(event.getComponent(), clientId);
+  public void processAction(final ActionEvent event) {
+    for (final String clientId : clientIds) {
+      final UIComponent component = FindComponentUtils.findComponent(event.getComponent(), clientId);
       if (component != null) {
         resetChildren(component);
       }
@@ -55,17 +55,17 @@ public class ResetInputActionListener extends AbstractResetInputActionListener i
     return false;
   }
 
-  public void setTransient(boolean newTransientValue) {
+  public void setTransient(final boolean newTransientValue) {
     // ignore
   }
 
-  public void restoreState(FacesContext context, Object state) {
-    Object[] values = (Object[]) state;
+  public void restoreState(final FacesContext context, final Object state) {
+    final Object[] values = (Object[]) state;
     clientIds = (String[]) values[0];
   }
 
-  public Object saveState(FacesContext context) {
-    Object[] values = new Object[1];
+  public Object saveState(final FacesContext context) {
+    final Object[] values = new Object[1];
     values[0] = clientIds;
     return values;
   }

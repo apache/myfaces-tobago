@@ -28,27 +28,27 @@ import javax.faces.context.FacesContext;
 public abstract class AbstractLayoutRendererWrapper
     extends AbstractLayoutableRendererBaseWrapper implements LayoutRenderer, SpacingValues, MarginValues {
 
-  public Measure getColumnSpacing(FacesContext facesContext, Configurable component) {
+  public Measure getColumnSpacing(final FacesContext facesContext, final Configurable component) {
     return ((SpacingValues) getRenderer(facesContext)).getColumnSpacing(facesContext, component);
   }
 
-  public Measure getRowSpacing(FacesContext facesContext, Configurable component) {
+  public Measure getRowSpacing(final FacesContext facesContext, final Configurable component) {
     return ((SpacingValues) getRenderer(facesContext)).getRowSpacing(facesContext, component);
   }
 
-  public Measure getMarginLeft(FacesContext facesContext, Configurable component) {
+  public Measure getMarginLeft(final FacesContext facesContext, final Configurable component) {
     return ((MarginValues) getRenderer(facesContext)).getMarginLeft(facesContext, component);
   }
 
-  public Measure getMarginRight(FacesContext facesContext, Configurable component) {
+  public Measure getMarginRight(final FacesContext facesContext, final Configurable component) {
     return ((MarginValues) getRenderer(facesContext)).getMarginRight(facesContext, component);
   }
 
-  public Measure getMarginTop(FacesContext facesContext, Configurable component) {
+  public Measure getMarginTop(final FacesContext facesContext, final Configurable component) {
     return ((MarginValues) getRenderer(facesContext)).getMarginTop(facesContext, component);
   }
 
-  public Measure getMarginBottom(FacesContext facesContext, Configurable component) {
+  public Measure getMarginBottom(final FacesContext facesContext, final Configurable component) {
     return ((MarginValues) getRenderer(facesContext)).getMarginBottom(facesContext, component);
   }
 }

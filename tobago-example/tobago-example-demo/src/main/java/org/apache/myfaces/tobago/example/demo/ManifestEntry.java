@@ -26,7 +26,7 @@ public class ManifestEntry extends DefaultMutableTreeNode {
   private final String name;
   private final String value;
 
-  public ManifestEntry(String name, String value) {
+  public ManifestEntry(final String name, final String value) {
     this.name = name;
     this.value = value;
   }

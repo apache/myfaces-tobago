@@ -176,7 +176,7 @@ public class UISheetUnitTest extends AbstractTobagoTestBase {
     try {
       data.getRowData();
       Assert.fail();
-    } catch (IllegalArgumentException e) {
+    } catch (final IllegalArgumentException e) {
       // okay: row is unavailable
     }
   }
@@ -266,7 +266,7 @@ public class UISheetUnitTest extends AbstractTobagoTestBase {
     try {
       unknown.getFirstRowIndexOfLastPage();
       Assert.fail("first row index of last page");
-    } catch (IllegalArgumentException e) {
+    } catch (final IllegalArgumentException e) {
       // okay: last page can't determined
     }
 
@@ -275,7 +275,7 @@ public class UISheetUnitTest extends AbstractTobagoTestBase {
     try {
       unknown.getFirstRowIndexOfLastPage();
       Assert.fail("first row index of last page");
-    } catch (IllegalArgumentException e) {
+    } catch (final IllegalArgumentException e) {
       // okay: last page can't determined
     }
   }
@@ -305,7 +305,7 @@ public class UISheetUnitTest extends AbstractTobagoTestBase {
     try {
       unknown.getLastRowIndexOfCurrentPage();
       Assert.fail("last row index of current page");
-    } catch (IllegalArgumentException e) {
+    } catch (final IllegalArgumentException e) {
       // okay: last row index of current page can't determined
     }
 
@@ -315,7 +315,7 @@ public class UISheetUnitTest extends AbstractTobagoTestBase {
     try {
       unknown.getLastRowIndexOfCurrentPage();
       Assert.fail("last row index of current page");
-    } catch (IllegalArgumentException e) {
+    } catch (final IllegalArgumentException e) {
       // okay: last row index of current page can't determined
     }
 
@@ -324,7 +324,7 @@ public class UISheetUnitTest extends AbstractTobagoTestBase {
     try {
       unknown.getLastRowIndexOfCurrentPage();
       Assert.fail("last row index of current page");
-    } catch (IllegalArgumentException e) {
+    } catch (final IllegalArgumentException e) {
       // okay: last row index of current page can't determined
     }
   }
@@ -364,7 +364,7 @@ public class UISheetUnitTest extends AbstractTobagoTestBase {
     try {
       unknown.getPages();
       Assert.fail("pages");
-    } catch (IllegalArgumentException e) {
+    } catch (final IllegalArgumentException e) {
       // okay: pages can't determined
     }
   }
@@ -390,7 +390,7 @@ public class UISheetUnitTest extends AbstractTobagoTestBase {
 
   private static class DataModelWithUnknownRows extends ListDataModel {
 
-    public DataModelWithUnknownRows(List list) {
+    public DataModelWithUnknownRows(final List list) {
       super(list);
     }
 

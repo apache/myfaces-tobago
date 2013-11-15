@@ -37,7 +37,7 @@ public class SelectManyListboxBean {
     return list;
   }
 
-  public void setList(List<String> list) {
+  public void setList(final List<String> list) {
     this.list = list;
   }
 
@@ -45,7 +45,7 @@ public class SelectManyListboxBean {
     return array;
   }
 
-  public void setArray(String[] array) {
+  public void setArray(final String[] array) {
     this.array = array;
   }
 
@@ -53,7 +53,7 @@ public class SelectManyListboxBean {
     return set;
   }
 
-  public void setSet(Set<String> set) {
+  public void setSet(final Set<String> set) {
     this.set = set;
   }
 
@@ -61,7 +61,7 @@ public class SelectManyListboxBean {
     return collection;
   }
 
-  public void setCollection(Collection<String> collection) {
+  public void setCollection(final Collection<String> collection) {
     this.collection = collection;
   }
 }

@@ -76,7 +76,7 @@ public class ThemeImpl implements Theme, Serializable {
     return name;
   }
 
-  public void setName(String name) {
+  public void setName(final String name) {
     this.name = name;
   }
 
@@ -84,7 +84,7 @@ public class ThemeImpl implements Theme, Serializable {
     return displayName;
   }
 
-  public void setDisplayName(String displayName) {
+  public void setDisplayName(final String displayName) {
     this.displayName = displayName;
   }
 
@@ -92,7 +92,7 @@ public class ThemeImpl implements Theme, Serializable {
     return resourcePath;
   }
 
-  public void setResourcePath(String resourcePath) {
+  public void setResourcePath(final String resourcePath) {
     this.resourcePath = resourcePath;
   }
 
@@ -100,7 +100,7 @@ public class ThemeImpl implements Theme, Serializable {
     return fallback;
   }
 
-  public void setFallback(ThemeImpl fallback) {
+  public void setFallback(final ThemeImpl fallback) {
     this.fallback = fallback;
   }
 
@@ -108,7 +108,7 @@ public class ThemeImpl implements Theme, Serializable {
     return fallbackName;
   }
 
-  public void setFallbackName(String fallbackName) {
+  public void setFallbackName(final String fallbackName) {
     this.fallbackName = fallbackName;
   }
 
@@ -125,21 +125,21 @@ public class ThemeImpl implements Theme, Serializable {
     }
     fallbackList = Collections.unmodifiableList(fallbackList);
     if (LOG.isDebugEnabled()) {
-      for (Theme theme : fallbackList) {
+      for (final Theme theme : fallbackList) {
         LOG.debug("fallbackList: {}", theme.getName());
       }
     }
   }
 
-  public void resolveRendererConfig(RenderersConfig rendererConfigFromTobagoConfig) {
+  public void resolveRendererConfig(final RenderersConfig rendererConfigFromTobagoConfig) {
     if (renderersConfig == null) {
       renderersConfig = new RenderersConfigImpl();
     }
     if (!renderersConfig.isMerged()) {
-      ThemeImpl fallback = getFallback();
+      final ThemeImpl fallback = getFallback();
       if (fallback != null) {
         fallback.resolveRendererConfig(rendererConfigFromTobagoConfig);
-        RenderersConfigImpl fallbackRenderersConfig = fallback.getRenderersConfigImpl();
+        final RenderersConfigImpl fallbackRenderersConfig = fallback.getRenderersConfigImpl();
         if (fallbackRenderersConfig != null) {
           renderersConfig.merge(fallbackRenderersConfig, false);
           if (LOG.isDebugEnabled()) {
@@ -158,7 +158,7 @@ public class ThemeImpl implements Theme, Serializable {
   }
 
   public void resolveResources() {
-    ThemeImpl fallback = getFallback();
+    final ThemeImpl fallback = getFallback();
     if (fallback != null) {
       fallback.resolveResources();
       addResources(fallback.getProductionResources());
@@ -167,12 +167,12 @@ public class ThemeImpl implements Theme, Serializable {
   }
 
   public String toString() {
-    StringBuilder builder = new StringBuilder();
+    final StringBuilder builder = new StringBuilder();
     builder.append("Theme: ");
     builder.append(name);
     if (renderersConfig != null) {
       builder.append("\n");
-      for (RendererConfig config : renderersConfig.getRendererConfigs()) {
+      for (final RendererConfig config : renderersConfig.getRendererConfigs()) {
         builder.append(config);
         builder.append("\n");
       }
@@ -180,7 +180,7 @@ public class ThemeImpl implements Theme, Serializable {
     return builder.toString();
   }
 
-  public void setRenderersConfig(RenderersConfigImpl renderersConfig) {
+  public void setRenderersConfig(final RenderersConfigImpl renderersConfig) {
     this.renderersConfig = renderersConfig;
   }
 
@@ -200,7 +200,7 @@ public class ThemeImpl implements Theme, Serializable {
     return productionResources;
   }
 
-  public void addResources(ThemeResources themeResources) {
+  public void addResources(final ThemeResources themeResources) {
     if (themeResources.isProduction()) {
       productionResources.merge(themeResources);
     } else {
@@ -229,14 +229,14 @@ public class ThemeImpl implements Theme, Serializable {
 
   }
 
-  public String[] getScriptResources(boolean production) {
+  public String[] getScriptResources(final boolean production) {
     if (production) {
       return productionScripts;
     }
     return scripts;
   }
 
-  public String[] getStyleResources(boolean production) {
+  public String[] getStyleResources(final boolean production) {
     if (production) {
       return productionStyles;
     }
@@ -247,7 +247,7 @@ public class ThemeImpl implements Theme, Serializable {
     return versioned;
   }
 
-  public void setVersioned(boolean versioned) {
+  public void setVersioned(final boolean versioned) {
     this.versioned = versioned;
   }
 
@@ -255,7 +255,7 @@ public class ThemeImpl implements Theme, Serializable {
     return version;
   }
 
-  public void setVersion(String version) {
+  public void setVersion(final String version) {
     this.version = version;
   }
 }

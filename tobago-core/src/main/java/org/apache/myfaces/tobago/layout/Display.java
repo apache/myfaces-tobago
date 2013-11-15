@@ -27,7 +27,7 @@ public enum Display {
 
   private String value;
 
-  Display(String value) {
+  Display(final String value) {
     this.value = value;
   }
 

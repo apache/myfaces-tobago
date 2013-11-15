@@ -197,16 +197,17 @@ public final class UserAgent implements Serializable {
 
   private final CsproHeader csproHeader;
 
-  private UserAgent(String name, String version) {
+  private UserAgent(final String name, final String version) {
     this(name, version, EnumSet.of(Capability.CONTENT_TYPE_XHTML));
   }
 
-  private UserAgent(String name, String version, EnumSet<Capability> capabilities) {
+  private UserAgent(final String name, final String version, final EnumSet<Capability> capabilities) {
     this(name, version, capabilities, CspHeader.STANDARD, CsproHeader.STANDARD);
   }
 
   private UserAgent(
-      String name, String version, EnumSet<Capability> capabilities, CspHeader cspHeader, CsproHeader csproHeader) {
+      final String name, final String version, final EnumSet<Capability> capabilities, final CspHeader cspHeader,
+      final CsproHeader csproHeader) {
     this.name = name;
     this.version = version;
     this.capabilities = capabilities;
@@ -214,7 +215,7 @@ public final class UserAgent implements Serializable {
     this.csproHeader = csproHeader;
   }
 
-  public boolean hasCapability(Capability capability) {
+  public boolean hasCapability(final Capability capability) {
     return capabilities.contains(capability);
   }
 
@@ -238,8 +239,8 @@ public final class UserAgent implements Serializable {
     return getFallbackList(false);
   }
 
-  private List<String> getFallbackList(boolean reverseOrder) {
-    List<String> list = new ArrayList<String>(3);
+  private List<String> getFallbackList(final boolean reverseOrder) {
+    final List<String> list = new ArrayList<String>(3);
     if (version != null) {
       list.add(name + '_' + version);
     }
@@ -267,7 +268,7 @@ public final class UserAgent implements Serializable {
     return csproHeader.getNames();
   }
 
-  public static UserAgent getInstance(String header) {
+  public static UserAgent getInstance(final String header) {
     if (header == null) {
       return DEFAULT;
     }
@@ -302,13 +303,13 @@ public final class UserAgent implements Serializable {
         final StringTokenizer tokenizer = new StringTokenizer(header.substring(index + 3), " .");
         final String versionString = tokenizer.nextToken();
         try {
-          int version = Integer.parseInt(versionString);
+          final int version = Integer.parseInt(versionString);
           if (version >= 23) {
             return GECKO_23_0;
           } else if (version >= 2) {
             return GECKO_2_0;
           }
-        } catch (NumberFormatException e) {
+        } catch (final NumberFormatException e) {
           if (LOG.isDebugEnabled()) {
             LOG.debug(header, e);
           }
@@ -326,7 +327,7 @@ public final class UserAgent implements Serializable {
    * @deprecated no longer supported, since Tobago 1.5
    */
   @Deprecated
-  public static UserAgent getInstanceForId(String id) {
+  public static UserAgent getInstanceForId(final String id) {
     Deprecation.LOG.error("Getting the user agent from its id is no longer supported! id='" + id + "'");
     return DEFAULT;
   }
@@ -350,7 +351,7 @@ public final class UserAgent implements Serializable {
 
     private String[] names;
 
-    private CspHeader(String[] names) {
+    private CspHeader(final String[] names) {
       this.names = names;
     }
 
@@ -368,7 +369,7 @@ public final class UserAgent implements Serializable {
 
     private String[] names;
 
-    private CsproHeader(String[] names) {
+    private CsproHeader(final String[] names) {
       this.names = names;
     }
 

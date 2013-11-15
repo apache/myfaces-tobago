@@ -26,7 +26,7 @@ public class TestExceptionHandlerFactory extends ExceptionHandlerFactory {
 
   private ExceptionHandlerFactory parent;
 
-  public TestExceptionHandlerFactory(ExceptionHandlerFactory parent) {
+  public TestExceptionHandlerFactory(final ExceptionHandlerFactory parent) {
     this.parent = parent;
   }
 

@@ -35,32 +35,32 @@ public class SheetPageCommandRenderer extends LinkRenderer {
   private static final Logger LOG = LoggerFactory.getLogger(SheetPageCommandRenderer.class);
 
   @Override
-  public void decode(FacesContext facesContext, UIComponent component) {
-    String actionId = FacesContextUtils.getActionId(facesContext);
-    String clientId = component.getClientId(facesContext);
+  public void decode(final FacesContext facesContext, final UIComponent component) {
+    final String actionId = FacesContextUtils.getActionId(facesContext);
+    final String clientId = component.getClientId(facesContext);
     if (LOG.isDebugEnabled()) {
       LOG.debug("actionId = '" + actionId + "'");
       LOG.debug("clientId = '" + clientId + "'");
     }
     if (actionId != null && actionId.equals(clientId)) {
 
-      PageAction action;
+      final PageAction action;
       try {
         action = PageAction.parse(component.getId());
-      } catch (Exception e) {
+      } catch (final Exception e) {
         LOG.error("Illegal value for PageAction :" + component.getId());
         return;
       }
-      PageActionEvent event = new PageActionEvent(component.getParent(), action);
+      final PageActionEvent event = new PageActionEvent(component.getParent(), action);
 
       switch (action) {
         case TO_PAGE:
         case TO_ROW:
-          Map map = facesContext.getExternalContext().getRequestParameterMap();
-          Object value = map.get(clientId + ComponentUtils.SUB_SEPARATOR + "value");
+          final Map map = facesContext.getExternalContext().getRequestParameterMap();
+          final Object value = map.get(clientId + ComponentUtils.SUB_SEPARATOR + "value");
           try {
             event.setValue(Integer.parseInt((String) value));
-          } catch (NumberFormatException e) {
+          } catch (final NumberFormatException e) {
             LOG.error("Can't parse integer value for action " + action.name() + ": " + value);
           }
           break;

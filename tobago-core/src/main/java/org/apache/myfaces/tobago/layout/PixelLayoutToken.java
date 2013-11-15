@@ -26,12 +26,12 @@ public class PixelLayoutToken extends LayoutToken {
 
   private final PixelMeasure pixel;
 
-  public PixelLayoutToken(int pixel) {
+  public PixelLayoutToken(final int pixel) {
     // here we cannot use this(PixelMeasure.pixelValueOf(pixel)), because of class initialization problems
     this((PixelMeasure) Measure.valueOf(pixel));
   }
 
-  public PixelLayoutToken(PixelMeasure pixel) {
+  public PixelLayoutToken(final PixelMeasure pixel) {
     this.pixel = pixel;
   }
 
@@ -47,7 +47,7 @@ public class PixelLayoutToken extends LayoutToken {
     return pixel.toString();
   }
 
-  public boolean equals(Object o) {
+  public boolean equals(final Object o) {
     if (this == o) {
       return true;
     }
@@ -55,7 +55,7 @@ public class PixelLayoutToken extends LayoutToken {
       return false;
     }
 
-    PixelLayoutToken that = (PixelLayoutToken) o;
+    final PixelLayoutToken that = (PixelLayoutToken) o;
 
     if (pixel != that.pixel) {
       return false;

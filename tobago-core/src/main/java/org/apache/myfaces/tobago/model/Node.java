@@ -33,7 +33,7 @@ public class Node {
 
   private Node parent;
 
-  public void add(Node node) {
+  public void add(final Node node) {
     initChildren();
     children.add(node);
     node.setParent(this);
@@ -50,7 +50,7 @@ public class Node {
     }
   }
 
-  public Node getChildAt(int index) {
+  public Node getChildAt(final int index) {
     initChildren();
     return children.get(index);
   }
@@ -59,9 +59,9 @@ public class Node {
     return parent == null;
   }
 
-  public int getIndex(Node node) {
+  public int getIndex(final Node node) {
     for (int i = 0; i < children.size(); i++) {
-      Node child = children.get(i);
+      final Node child = children.get(i);
       if (child.equals(node)) {
         return i;
       }
@@ -86,11 +86,11 @@ public class Node {
   }
 
   public TreePath getPath() {
-    List<Integer> result = new ArrayList<Integer>();
+    final List<Integer> result = new ArrayList<Integer>();
     Node node = this;
     Node parent = this.parent;
     while (parent != null) {
-      int index = parent.getIndex(node);
+      final int index = parent.getIndex(node);
       result.add(index);
       node = parent;
       parent = node.getParent();
@@ -104,7 +104,7 @@ public class Node {
     return parent;
   }
 
-  public void setParent(Node parent) {
+  public void setParent(final Node parent) {
     this.parent = parent;
   }
 }

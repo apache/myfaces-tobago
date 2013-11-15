@@ -27,7 +27,7 @@ public class TransitionController {
   private static final Logger LOG = LoggerFactory.getLogger(TransitionController.class);
 
   public String sleep5s() throws InterruptedException {
-    int sleep = 5000;
+    final int sleep = 5000;
     LOG.info("Waiting " + sleep + " millis.");
     Thread.sleep(sleep);
 

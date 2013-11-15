@@ -40,8 +40,8 @@ public class FacesInvokeOnComponent12 {
    */
   @Deprecated
   public static boolean invokeOnComponent(
-      FacesContext context, UIComponent component, String clientId, ContextCallback callback) {
-    String thisClientId = component.getClientId(context);
+      final FacesContext context, final UIComponent component, final String clientId, final ContextCallback callback) {
+    final String thisClientId = component.getClientId(context);
 
     if (clientId.equals(thisClientId)) {
       callback.invokeContextCallback(context, component);
@@ -71,9 +71,9 @@ public class FacesInvokeOnComponent12 {
    */
   @Deprecated
   private static boolean invokeOnComponentFacetsAndChildren(
-      FacesContext context, UIComponent component, String clientId, ContextCallback callback) {
-    for (java.util.Iterator<UIComponent> it = component.getFacetsAndChildren(); it.hasNext();) {
-      UIComponent child = it.next();
+      final FacesContext context, final UIComponent component, final String clientId, final ContextCallback callback) {
+    for (final java.util.Iterator<UIComponent> it = component.getFacetsAndChildren(); it.hasNext();) {
+      final UIComponent child = it.next();
       if (child.invokeOnComponent(context, clientId, callback)) {
         return true;
       }

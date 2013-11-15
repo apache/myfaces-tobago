@@ -28,7 +28,7 @@ public class DynamicPanel3 extends DynamicPanel {
     return street;
   }
 
-  public void setStreet(String street) {
+  public void setStreet(final String street) {
     this.street = street;
   }
 
@@ -36,7 +36,7 @@ public class DynamicPanel3 extends DynamicPanel {
     return city;
   }
 
-  public void setCity(String city) {
+  public void setCity(final String city) {
     this.city = city;
   }
 }

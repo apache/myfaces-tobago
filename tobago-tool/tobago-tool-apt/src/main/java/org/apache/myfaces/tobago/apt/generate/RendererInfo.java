@@ -22,11 +22,11 @@ package org.apache.myfaces.tobago.apt.generate;
 public class RendererInfo extends ClassInfo {
   private String rendererType;
 
-  public RendererInfo(String sourceClass, String qualifiedName) {
+  public RendererInfo(final String sourceClass, final String qualifiedName) {
     super(sourceClass, qualifiedName);
   }
 
-  public RendererInfo(String sourceClass, String qualifiedName, String rendererType) {
+  public RendererInfo(final String sourceClass, final String qualifiedName, final String rendererType) {
     super(sourceClass, qualifiedName);
     this.rendererType = rendererType;
   }

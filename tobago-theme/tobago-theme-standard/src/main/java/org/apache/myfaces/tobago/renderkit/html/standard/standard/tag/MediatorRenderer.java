@@ -37,19 +37,19 @@ public class MediatorRenderer extends LayoutComponentRendererBase {
   private static final Logger LOG = LoggerFactory.getLogger(MediatorRenderer.class);
 
   @Override
-  public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
+  public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
 
-    UIMediator mediator = (UIMediator) component;
-    TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final UIMediator mediator = (UIMediator) component;
+    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
     writer.startElement(HtmlElements.DIV, mediator);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, mediator);
     writer.writeStyleAttribute(new Style(facesContext, mediator));
   }
 
   @Override
-  public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
+  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
 
-    TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
     writer.endElement(HtmlElements.DIV);
   }
 }

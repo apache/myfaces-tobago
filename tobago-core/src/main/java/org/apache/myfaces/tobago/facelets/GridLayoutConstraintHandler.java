@@ -69,7 +69,7 @@ public class GridLayoutConstraintHandler extends TagHandler {
   private final TagAttribute paddingTop;
   private final TagAttribute paddingBottom;
 
-  public GridLayoutConstraintHandler(TagConfig config) {
+  public GridLayoutConstraintHandler(final TagConfig config) {
     super(config);
     columnSpan = getAttribute(Attributes.COLUMN_SPAN);
     rowSpan = getAttribute(Attributes.ROW_SPAN);
@@ -95,7 +95,7 @@ public class GridLayoutConstraintHandler extends TagHandler {
     paddingBottom = getAttribute(Attributes.PADDING_BOTTOM);
   }
 
-  public void apply(FaceletContext faceletContext, UIComponent parent) throws IOException {
+  public void apply(final FaceletContext faceletContext, UIComponent parent) throws IOException {
     if (parent.getParent() != null && parent.getParent() instanceof UIExtensionPanel) {
        parent = parent.getParent();
     } else if (parent.getAttributes().get("tobago.panel") != null
@@ -103,7 +103,7 @@ public class GridLayoutConstraintHandler extends TagHandler {
        parent = (UIComponent) parent.getAttributes().get("tobago.panel");
     }
     if (parent instanceof LayoutBase) {
-      LayoutBase component = (LayoutBase) parent;
+      final LayoutBase component = (LayoutBase) parent;
 
       if (parent instanceof LayoutComponent && columnSpan != null) {
         if (columnSpan.isLiteral()) {
@@ -236,7 +236,7 @@ public class GridLayoutConstraintHandler extends TagHandler {
     }
 
     if (parent instanceof LayoutContainer) {
-      LayoutContainer container = (LayoutContainer) parent;
+      final LayoutContainer container = (LayoutContainer) parent;
 
       if (borderLeft != null) {
         if (borderLeft.isLiteral()) {

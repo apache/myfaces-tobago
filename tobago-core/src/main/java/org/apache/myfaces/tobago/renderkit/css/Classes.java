@@ -100,7 +100,7 @@ public final class Classes {
     return value;
   }
 
-  private Classes(final String rendererName, final Markup markup, final String sub, boolean ignoreMarkupCheck) {
+  private Classes(final String rendererName, final Markup markup, final String sub, final boolean ignoreMarkupCheck) {
 
     assert sub == null || StringUtils.isAlphanumeric(sub) : "Invalid sub element name: '" + sub + "'";
 

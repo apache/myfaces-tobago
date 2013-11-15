@@ -43,17 +43,18 @@ public abstract class NonFacesRequestServlet extends HttpServlet {
   private static final Logger LOG = LoggerFactory.getLogger(NonFacesRequestServlet.class);
 
   @Override
-  protected void service(HttpServletRequest request, HttpServletResponse response)
+  protected void service(final HttpServletRequest request, final HttpServletResponse response)
       throws ServletException, IOException {
 
-    LifecycleFactory lFactory = (LifecycleFactory) FactoryFinder.getFactory(FactoryFinder.LIFECYCLE_FACTORY);
-    Lifecycle lifecycle = lFactory.getLifecycle(LifecycleFactory.DEFAULT_LIFECYCLE);
-    FacesContextFactory fcFactory = (FacesContextFactory) FactoryFinder.getFactory(FactoryFinder.FACES_CONTEXT_FACTORY);
-    FacesContext facesContext = fcFactory.getFacesContext(getServletContext(), request, response, lifecycle);
+    final LifecycleFactory lFactory = (LifecycleFactory) FactoryFinder.getFactory(FactoryFinder.LIFECYCLE_FACTORY);
+    final Lifecycle lifecycle = lFactory.getLifecycle(LifecycleFactory.DEFAULT_LIFECYCLE);
+    final FacesContextFactory fcFactory
+        = (FacesContextFactory) FactoryFinder.getFactory(FactoryFinder.FACES_CONTEXT_FACTORY);
+    final FacesContext facesContext = fcFactory.getFacesContext(getServletContext(), request, response, lifecycle);
     try {
 
       // invoke application
-      String outcome = invokeApplication(facesContext);
+      final String outcome = invokeApplication(facesContext);
 
       if (facesContext.getResponseComplete()) {
         return;
@@ -62,12 +63,12 @@ public abstract class NonFacesRequestServlet extends HttpServlet {
         LOG.debug("outcome = '" + outcome + "'");
       }
 
-      Application application = facesContext.getApplication();
+      final Application application = facesContext.getApplication();
       if (facesContext.getViewRoot() == null) {
         facesContext.setViewRoot(createViewRoot(facesContext));
       }
 
-      NavigationHandler navigationHandler = application.getNavigationHandler();
+      final NavigationHandler navigationHandler = application.getNavigationHandler();
       navigationHandler.handleNavigation(facesContext, null, outcome);
 
 
@@ -77,7 +78,7 @@ public abstract class NonFacesRequestServlet extends HttpServlet {
     }
   }
 
-  protected UIViewRoot createViewRoot(FacesContext facesContext) {
+  protected UIViewRoot createViewRoot(final FacesContext facesContext) {
     return facesContext.getApplication().getViewHandler().createView(facesContext, getFromViewId());
   }
 

@@ -36,7 +36,7 @@ public abstract class AbstractUIMediator extends AbstractUIPanelBase implements 
   private String var;
 
   @Override
-  public void encodeBegin(FacesContext facesContext) throws IOException {
+  public void encodeBegin(final FacesContext facesContext) throws IOException {
     super.encodeBegin(facesContext);
     if (var != null) {
       facesContext.getExternalContext().getRequestMap().put(var, this);
@@ -44,7 +44,7 @@ public abstract class AbstractUIMediator extends AbstractUIPanelBase implements 
   }
 
   @Override
-  public void encodeEnd(FacesContext facesContext) throws IOException {
+  public void encodeEnd(final FacesContext facesContext) throws IOException {
     if (var != null) {
       facesContext.getExternalContext().getRequestMap().remove(var);
     }
@@ -52,8 +52,8 @@ public abstract class AbstractUIMediator extends AbstractUIPanelBase implements 
   }
 
   @Override
-  public void broadcast(FacesEvent event) throws AbortProcessingException {
-    Map requestMap = FacesContext.getCurrentInstance().getExternalContext().getRequestMap();
+  public void broadcast(final FacesEvent event) throws AbortProcessingException {
+    final Map requestMap = FacesContext.getCurrentInstance().getExternalContext().getRequestMap();
     requestMap.put(var, this);
     try {
       super.broadcast(event);
@@ -63,16 +63,16 @@ public abstract class AbstractUIMediator extends AbstractUIPanelBase implements 
   }
 
   @Override
-  public Object saveState(FacesContext context) {
-    Object[] state = new Object[2];
+  public Object saveState(final FacesContext context) {
+    final Object[] state = new Object[2];
     state[0] = super.saveState(context);
     state[1] = var;
     return state;
   }
 
   @Override
-  public void restoreState(FacesContext context, Object state) {
-    Object[] values = (Object[]) state;
+  public void restoreState(final FacesContext context, final Object state) {
+    final Object[] values = (Object[]) state;
     super.restoreState(context, values[0]);
     var = (String) values[1];
   }
@@ -81,7 +81,7 @@ public abstract class AbstractUIMediator extends AbstractUIPanelBase implements 
     return var;
   }
 
-  public void setVar(String var) {
+  public void setVar(final String var) {
     this.var = var;
   }
 }

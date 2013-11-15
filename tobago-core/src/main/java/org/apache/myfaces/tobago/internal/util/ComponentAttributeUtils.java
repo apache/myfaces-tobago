@@ -30,7 +30,7 @@ public final class ComponentAttributeUtils {
   private ComponentAttributeUtils() {
   }
 
-  public static void setBooleanProperty(UIComponent component, String name, String value) {
+  public static void setBooleanProperty(final UIComponent component, final String name, final String value) {
     if (value != null) {
       if (isValueReference(value)) {
         component.setValueExpression(name, FacesUtilsEL.createValueExpression(value));
@@ -40,7 +40,7 @@ public final class ComponentAttributeUtils {
     }
   }
 
-  public static void setStringProperty(UIComponent component, String name, String value) {
+  public static void setStringProperty(final UIComponent component, final String name, final String value) {
     if (value != null) {
       if (isValueReference(value)) {
         component.setValueExpression(name, FacesUtilsEL.createValueExpression(value));
@@ -50,13 +50,13 @@ public final class ComponentAttributeUtils {
     }
   }
 
-  public static boolean isValueReference(String value) {
+  public static boolean isValueReference(final String value) {
 
-      int start = value.indexOf("#{");
+      final int start = value.indexOf("#{");
       if (start < 0) {
         return false;
       }
-      int end = value.lastIndexOf('}');
+      final int end = value.lastIndexOf('}');
       return (end >=0 && start < end);
   }
 
@@ -64,7 +64,7 @@ public final class ComponentAttributeUtils {
    * @deprecated Since 2.0.0, please use {@link FacesUtilsEL#createValueExpression(String string)}
    */
   @Deprecated
-  public static ValueBinding createValueBinding(String value) {
+  public static ValueBinding createValueBinding(final String value) {
     return FacesContext.getCurrentInstance().getApplication().createValueBinding(value);
   }
 

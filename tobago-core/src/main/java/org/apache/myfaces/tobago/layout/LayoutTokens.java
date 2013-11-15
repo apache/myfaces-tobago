@@ -41,7 +41,7 @@ public final class LayoutTokens implements Iterable<LayoutToken> {
     return tokens.size();
   }
 
-  public void set(int index, LayoutToken token) {
+  public void set(final int index, final LayoutToken token) {
     tokens.set(index, token);
   }
 
@@ -49,23 +49,23 @@ public final class LayoutTokens implements Iterable<LayoutToken> {
     return getSize() == 0;
   }
 
-  public LayoutToken get(int index) {
+  public LayoutToken get(final int index) {
     return tokens.get(index);
   }
 
-  public void shrinkSizeTo(int size) {
+  public void shrinkSizeTo(final int size) {
     for (int i = getSize() - 1; i >= size; i--) {
       tokens.remove(i);
     }
   }
 
-  public void ensureSize(int size, LayoutToken token) {
+  public void ensureSize(final int size, final LayoutToken token) {
     for (int index = getSize(); index < size; index++) {
       addToken(token);
     }
   }
 
-  public void addToken(LayoutToken token) {
+  public void addToken(final LayoutToken token) {
     tokens.add(token);
   }
 
@@ -77,41 +77,41 @@ public final class LayoutTokens implements Iterable<LayoutToken> {
     return tokens.iterator();
   }
 
-  public static LayoutTokens parse(String[] tokens) {
-    LayoutTokens layoutTokens = new LayoutTokens();
-    for (String token : tokens) {
+  public static LayoutTokens parse(final String[] tokens) {
+    final LayoutTokens layoutTokens = new LayoutTokens();
+    for (final String token : tokens) {
       parseToken(token, layoutTokens);
     }
     return layoutTokens;
   }
 
-  public static LayoutTokens parse(String tokens) {
+  public static LayoutTokens parse(final String tokens) {
     return parse(tokens, null);
   }
 
-  public static LayoutTokens parse(String tokens, LayoutToken defaultToken) {
-    LayoutTokens layoutTokens = new LayoutTokens();
+  public static LayoutTokens parse(final String tokens, final LayoutToken defaultToken) {
+    final LayoutTokens layoutTokens = new LayoutTokens();
     if (tokens == null) {
       layoutTokens.addToken(defaultToken);
       return layoutTokens;
     }
-    StringTokenizer tokenizer = new StringTokenizer(tokens, ";");
+    final StringTokenizer tokenizer = new StringTokenizer(tokens, ";");
 
     while (tokenizer.hasMoreTokens()) {
-      String token = tokenizer.nextToken().trim();
+      final String token = tokenizer.nextToken().trim();
       parseToken(token, layoutTokens);
     }
     return layoutTokens;
   }
 
-  private static void parseToken(String token, LayoutTokens layoutTokens) {
-    LayoutToken layoutToken = parseToken(token);
+  private static void parseToken(final String token, final LayoutTokens layoutTokens) {
+    final LayoutToken layoutToken = parseToken(token);
     if (layoutToken != null) {
       layoutTokens.addToken(layoutToken);
     }
   }
 
-  public static LayoutToken parseToken(String token) {
+  public static LayoutToken parseToken(final String token) {
     try {
       if ("*".equals(token)) {
         return RelativeLayoutToken.DEFAULT_INSTANCE;
@@ -132,35 +132,35 @@ public final class LayoutTokens implements Iterable<LayoutToken> {
         LOG.error("Unknown layout token '" + token + "'! Using 'auto' instead.");
         return AutoLayoutToken.INSTANCE;
       }
-    } catch (NumberFormatException e) {
+    } catch (final NumberFormatException e) {
       LOG.error("Error parsing layout token '" + token + "'! Using 'auto' instead.");
       return AutoLayoutToken.INSTANCE;
     }
   }
 
-  static boolean isPixelToken(String token) {
+  static boolean isPixelToken(final String token) {
     return isNumberAndSuffix(token, PixelLayoutToken.SUFFIX);
   }
 
-  static boolean isPercentToken(String token) {
+  static boolean isPercentToken(final String token) {
     return isNumberAndSuffix(token, PercentLayoutToken.SUFFIX);
   }
 
-  static boolean isRelativeToken(String token) {
+  static boolean isRelativeToken(final String token) {
     return isNumberAndSuffix(token, RelativeLayoutToken.SUFFIX);
   }
 
-  static boolean isNumberAndSuffix(String token, String suffix) {
+  static boolean isNumberAndSuffix(final String token, final String suffix) {
     return token.endsWith(suffix) && NumberUtils.isDigits(removeSuffix(token, suffix));
   }
 
-  private static String removeSuffix(String token, String suffix) {
+  private static String removeSuffix(final String token, final String suffix) {
     return token.substring(0, token.length() - suffix.length());
   }
 
   public String toString() {
-    StringBuilder str = new StringBuilder();
-    for (LayoutToken token : tokens) {
+    final StringBuilder str = new StringBuilder();
+    for (final LayoutToken token : tokens) {
       str.append(token);
       str.append(";");
     }

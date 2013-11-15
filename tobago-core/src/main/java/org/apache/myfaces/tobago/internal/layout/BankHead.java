@@ -36,7 +36,7 @@ public class BankHead {
 
   private boolean rendered;
 
-  public BankHead(LayoutToken token) {
+  public BankHead(final LayoutToken token) {
     this.token = token;
     this.rendered = true;
   }
@@ -45,7 +45,7 @@ public class BankHead {
     return token;
   }
 
-  public void setToken(LayoutToken token) {
+  public void setToken(final LayoutToken token) {
     this.token = token;
   }
 
@@ -53,7 +53,7 @@ public class BankHead {
     return intervalList;
   }
 
-  public void setIntervalList(IntervalList intervalList) {
+  public void setIntervalList(final IntervalList intervalList) {
     this.intervalList = intervalList;
   }
 
@@ -61,7 +61,7 @@ public class BankHead {
     return current;
   }
 
-  public void setCurrent(Measure current) {
+  public void setCurrent(final Measure current) {
     this.current = current;
   }
 
@@ -69,7 +69,7 @@ public class BankHead {
     return rendered;
   }
 
-  public void setRendered(boolean rendered) {
+  public void setRendered(final boolean rendered) {
     this.rendered = rendered;
   }
 

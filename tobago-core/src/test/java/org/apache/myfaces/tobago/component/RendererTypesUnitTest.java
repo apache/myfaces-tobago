@@ -30,8 +30,8 @@ public class RendererTypesUnitTest {
   @Test
   public void testNames() throws IllegalAccessException {
 
-    for (Field field : RendererTypes.class.getFields()) {
-      String value = (String) field.get(null);
+    for (final Field field : RendererTypes.class.getFields()) {
+      final String value = (String) field.get(null);
       Assert.assertTrue("value='" + value + "'", value.matches("[A-Z][a-zA-Z]*"));
       Assert.assertEquals(StringUtils.constantToCamelCase(field.getName()), value);
     }

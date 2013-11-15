@@ -39,7 +39,7 @@ public class MixedTreeModel {
   private Stack<Boolean> junctions = new Stack<Boolean>();
 
   public void beginBuildNode() {
-    Node newNode = new Node();
+    final Node newNode = new Node();
     if (root == null) {
       root = newNode;
       current = root;
@@ -68,7 +68,7 @@ public class MixedTreeModel {
         Node searchParent = current;
         do {
           junctions.pop();
-          Node nextSibling = searchParent.nextSibling();
+          final Node nextSibling = searchParent.nextSibling();
           if (nextSibling != null) {
             current = nextSibling;
             junctions.push(hasCurrentNodeNextSibling());
@@ -86,8 +86,8 @@ public class MixedTreeModel {
   }
 
   public List<Boolean> getJunctions() {
-    Boolean top = junctions.pop();
-    List<Boolean> result = new ArrayList<Boolean>(junctions);
+    final Boolean top = junctions.pop();
+    final List<Boolean> result = new ArrayList<Boolean>(junctions);
     junctions.push(top);
     return result;
   }

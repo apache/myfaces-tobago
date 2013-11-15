@@ -30,13 +30,13 @@ import javax.faces.event.PhaseListener;
 //todo @JsfPhaseListener
 public class SynchronizeNavigationPhaseListener implements PhaseListener {
 
-  public void beforePhase(PhaseEvent event) {
+  public void beforePhase(final PhaseEvent event) {
     if (PhaseId.RENDER_RESPONSE.equals(event.getPhaseId())) {
       synchronizeState();
     }
   }
 
-  public void afterPhase(PhaseEvent event) {
+  public void afterPhase(final PhaseEvent event) {
     if (PhaseId.RESTORE_VIEW.equals(event.getPhaseId())) {
       synchronizeState();
     }
@@ -48,12 +48,12 @@ public class SynchronizeNavigationPhaseListener implements PhaseListener {
 
   private void synchronizeState() {
     // synchronizing current site with
-    FacesContext facesContext = FacesContext.getCurrentInstance();
-    UIViewRoot viewRoot = facesContext.getViewRoot();
+    final FacesContext facesContext = FacesContext.getCurrentInstance();
+    final UIViewRoot viewRoot = facesContext.getViewRoot();
     // in case of direct links the ViewRoot is empty after "restore view".
     if (viewRoot != null && viewRoot.getChildCount() == 0) {
-      String viewId = viewRoot.getViewId();
-      NavigationTree navigation
+      final String viewId = viewRoot.getViewId();
+      final NavigationTree navigation
           = (NavigationTree) VariableResolverUtils.resolveVariable(facesContext, "navigationTree");
       navigation.gotoNode(navigation.findByViewId(viewId));
     }

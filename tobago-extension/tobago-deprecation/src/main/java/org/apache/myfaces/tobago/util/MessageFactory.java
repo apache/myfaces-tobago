@@ -44,30 +44,31 @@ public final class MessageFactory {
 
   @Deprecated
   public static FacesMessage createFacesMessage(
-      FacesContext facesContext, String key, FacesMessage.Severity severity, Object[] args) {
+      final FacesContext facesContext, final String key, final FacesMessage.Severity severity, final Object[] args) {
     return createFacesMessage(facesContext, "tobago", key, severity, args);
   }
 
   @Deprecated
   public static FacesMessage createFacesMessage(
-      FacesContext facesContext, String key, FacesMessage.Severity severity) {
+      final FacesContext facesContext, final String key, final FacesMessage.Severity severity) {
     return createFacesMessage(facesContext, key, severity, new Object[0]);
   }
 
   @Deprecated
   public static FacesMessage createFacesMessage(
-      FacesContext facesContext, String bundle, String key, FacesMessage.Severity severity, Object[] args) {
+      final FacesContext facesContext, final String bundle, final String key, final FacesMessage.Severity severity,
+      final Object[] args) {
     String summary = getMessageText(facesContext, bundle, key);
     String detail = getMessageText(facesContext, bundle, key + "_detail");
     if (args != null && args.length > 0) {
-      Locale locale = getLocale(facesContext);
+      final Locale locale = getLocale(facesContext);
       if (summary != null) {
-        MessageFormat format = new MessageFormat(summary, locale);
+        final MessageFormat format = new MessageFormat(summary, locale);
         summary = format.format(args);
       }
 
       if (detail != null) {
-        MessageFormat format = new MessageFormat(detail, locale);
+        final MessageFormat format = new MessageFormat(detail, locale);
         detail = format.format(args);
       }
     }
@@ -75,9 +76,9 @@ public final class MessageFactory {
   }
 
   @Deprecated
-  public static Locale getLocale(FacesContext facesContext) {
-    UIViewRoot root = facesContext.getViewRoot();
-    Locale locale;
+  public static Locale getLocale(final FacesContext facesContext) {
+    final UIViewRoot root = facesContext.getViewRoot();
+    final Locale locale;
     if (root != null) {
       locale = root.getLocale();
     } else {
@@ -88,19 +89,19 @@ public final class MessageFactory {
 
   @Deprecated
   public static FacesMessage createFacesMessage(
-      FacesContext facesContext, String bundle, String key, FacesMessage.Severity severity) {
+      final FacesContext facesContext, final String bundle, final String key, final FacesMessage.Severity severity) {
     return createFacesMessage(facesContext, bundle, key, severity, new Object[0]);
   }
 
   @Deprecated
   public static String getMessageText(
-      FacesContext facesContext, String bundle, String key) {
+      final FacesContext facesContext, final String bundle, final String key) {
     String message = ResourceManagerUtils.getProperty(facesContext, bundle, key);
     if (message == null || message.length() < 1) {
       try {
-        Locale locale = getLocale(facesContext);
+        final Locale locale = getLocale(facesContext);
         message = getFacesMessages(locale).getString(key);
-      } catch (Exception e) {
+      } catch (final Exception e) {
         /* ignore at this point */
       }
     }
@@ -108,7 +109,7 @@ public final class MessageFactory {
   }
 
   @Deprecated
-  public static ResourceBundle getFacesMessages(Locale locale) {
+  public static ResourceBundle getFacesMessages(final Locale locale) {
     ResourceBundle facesMessages = FACES_MESSAGES_MAP.get(locale);
     if (facesMessages == null) {
       facesMessages

@@ -73,10 +73,10 @@ public class TobagoMultipartFormdataFilter implements Filter {
   private String repositoryPath = System.getProperty("java.io.tmpdir");
   private long maxSize = TobagoMultipartFormdataRequest.ONE_MB;
 
-  public void init(FilterConfig filterConfig) throws ServletException {
-    String repositoryPath = filterConfig.getInitParameter("uploadRepositoryPath");
+  public void init(final FilterConfig filterConfig) throws ServletException {
+    final String repositoryPath = filterConfig.getInitParameter("uploadRepositoryPath");
     if (repositoryPath != null) {
-      File file = new File(repositoryPath);
+      final File file = new File(repositoryPath);
       if (!file.exists()) {
         LOG.error("Given repository Path for " + getClass().getName() + " " + repositoryPath + " doesn't exists");
       } else if (!file.isDirectory()) {
@@ -95,14 +95,14 @@ public class TobagoMultipartFormdataFilter implements Filter {
 
   }
 
-  public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+  public void doFilter(final ServletRequest request, final ServletResponse response, final FilterChain chain)
       throws IOException, ServletException {
-    ServletRequest wrapper;
+    final ServletRequest wrapper;
     if (request instanceof HttpServletRequest) {
       if (request instanceof TobagoMultipartFormdataRequest) {
         wrapper = request;
       } else {
-        String contentType = request.getContentType();
+        final String contentType = request.getContentType();
         if (contentType != null
             && contentType.toLowerCase(Locale.ENGLISH).startsWith("multipart/form-data")) {
           if (LOG.isDebugEnabled()) {

@@ -32,12 +32,12 @@ public class ThemeResource implements Serializable {
     return name;
   }
 
-  public void setName(String name) {
+  public void setName(final String name) {
     this.name = name;
   }
 
   @Override
-  public boolean equals(Object o) {
+  public boolean equals(final Object o) {
     if (this == o) {
       return true;
     }
@@ -45,7 +45,7 @@ public class ThemeResource implements Serializable {
       return false;
     }
 
-    ThemeResource that = (ThemeResource) o;
+    final ThemeResource that = (ThemeResource) o;
 
     return !(name != null ? !name.equals(that.name) : that.name != null);
 

@@ -48,9 +48,9 @@ public class TreeListboxNodeRenderer extends CommandRendererBase {
   // TODO cleanup: there might be some stuff to remove after tree refactoring
 
   @Override
-  public void decode(FacesContext facesContext, UIComponent component) {
+  public void decode(final FacesContext facesContext, final UIComponent component) {
 
-    UITreeNode node = (UITreeNode) component;
+    final UITreeNode node = (UITreeNode) component;
 
     super.decode(facesContext, node);
 
@@ -67,7 +67,7 @@ public class TreeListboxNodeRenderer extends CommandRendererBase {
 
     // expand state
     if (folder) {
-      boolean expanded = Boolean.parseBoolean(requestParameterMap.get(id + "-expanded"));
+      final boolean expanded = Boolean.parseBoolean(requestParameterMap.get(id + "-expanded"));
       if (node.isExpanded() != expanded) {
         new TreeExpansionEvent(node, node.isExpanded(), expanded).queue();
       }
@@ -75,19 +75,19 @@ public class TreeListboxNodeRenderer extends CommandRendererBase {
 
     // select
     if (tree.getSelectableAsEnum() != Selectable.NONE) { // selection
-      String selected = requestParameterMap.get(treeId + AbstractUITree.SELECT_STATE);
-      String searchString = ";" + node.getClientId(facesContext) + ";";
-      UITreeSelect treeSelect = ComponentUtils.findDescendant(node, UITreeSelect.class);
+      final String selected = requestParameterMap.get(treeId + AbstractUITree.SELECT_STATE);
+      final String searchString = ";" + node.getClientId(facesContext) + ";";
+      final UITreeSelect treeSelect = ComponentUtils.findDescendant(node, UITreeSelect.class);
       if (treeSelect != null) {
         treeSelect.setSubmittedValue(selected.contains(searchString));
       }
     }
 
     // marked
-    String marked = requestParameterMap.get(treeId + ComponentUtils.SUB_SEPARATOR + AbstractUITree.SUFFIX_MARKED);
+    final String marked = requestParameterMap.get(treeId + ComponentUtils.SUB_SEPARATOR + AbstractUITree.SUFFIX_MARKED);
     if (marked != null) {
-      String searchString = treeId + UINamingContainer.getSeparatorChar(facesContext) + nodeStateId;
-      boolean markedValue = marked.equals(searchString);
+      final String searchString = treeId + UINamingContainer.getSeparatorChar(facesContext) + nodeStateId;
+      final boolean markedValue = marked.equals(searchString);
       if (node.isMarked() != markedValue) {
         new TreeMarkedEvent(node, node.isMarked(), markedValue).queue();
       }
@@ -97,7 +97,7 @@ public class TreeListboxNodeRenderer extends CommandRendererBase {
   }
 
   @Override
-  public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
+  public void prepareRender(final FacesContext facesContext, final UIComponent component) throws IOException {
     super.prepareRender(facesContext, component);
 
     final UITreeNode node = (UITreeNode) component;
@@ -107,7 +107,7 @@ public class TreeListboxNodeRenderer extends CommandRendererBase {
   }
 
   @Override
-  public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
+  public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
     final UITreeNode node = (UITreeNode) component;
     final boolean folder = node.isFolder();
     final String id = node.getClientId(facesContext);
@@ -124,7 +124,7 @@ public class TreeListboxNodeRenderer extends CommandRendererBase {
   }
 
   @Override
-  public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
+  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
     final UITreeNode node = (UITreeNode) component;
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
     final boolean folder = node.isFolder();

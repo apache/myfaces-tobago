@@ -40,15 +40,15 @@ public abstract class TobagoBodyTag extends TobagoTag implements BodyTag {
   }
 
   protected String getBodyContentStr() {
-    String content = bodyContent.getString();
+    final String content = bodyContent.getString();
     bodyContent.clearBody();
     return content;
   }
 
   protected boolean isBodyContentEmpty() {
     if (bodyContent != null) {
-      String content = bodyContent.getString();
-      String tmp = content.replace('\n', ' ');
+      final String content = bodyContent.getString();
+      final String tmp = content.replace('\n', ' ');
       if (tmp.trim().length() > 0) { // if there are only whitespaces: drop bodyContent
         return false;
       }
@@ -69,7 +69,7 @@ public abstract class TobagoBodyTag extends TobagoTag implements BodyTag {
     bodyContent = null;
   }
 
-  public void setBodyContent(BodyContent bodyContent) {
+  public void setBodyContent(final BodyContent bodyContent) {
     this.bodyContent = bodyContent;
   }
 }

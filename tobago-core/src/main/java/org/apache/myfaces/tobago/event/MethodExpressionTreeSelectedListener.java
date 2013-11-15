@@ -35,11 +35,11 @@ public class MethodExpressionTreeSelectedListener implements TreeSelectedListene
   public MethodExpressionTreeSelectedListener() {
   }
 
-  public MethodExpressionTreeSelectedListener(MethodExpression methodExpression) {
+  public MethodExpressionTreeSelectedListener(final MethodExpression methodExpression) {
     this.methodExpression = methodExpression;
   }
 
-  public void treeSelected(TreeSelectedEvent event) {
+  public void treeSelected(final TreeSelectedEvent event) {
     FacesUtilsEL.invokeMethodExpression(FacesContext.getCurrentInstance(), methodExpression, event);
   }
 
@@ -47,15 +47,15 @@ public class MethodExpressionTreeSelectedListener implements TreeSelectedListene
     return FacesContext.getCurrentInstance().getELContext();
   }
 
-  public void restoreState(FacesContext context, Object state) {
+  public void restoreState(final FacesContext context, final Object state) {
     methodExpression = (MethodExpression) state;
   }
 
-  public Object saveState(FacesContext context) {
+  public Object saveState(final FacesContext context) {
     return methodExpression;
   }
 
-  public void setTransient(boolean newTransientValue) {
+  public void setTransient(final boolean newTransientValue) {
     isTransient = newTransientValue;
   }
 

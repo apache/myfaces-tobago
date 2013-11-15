@@ -34,7 +34,7 @@ public final class XmlResponseWriter extends TobagoResponseWriterBase {
           + "     \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">";
 
   public XmlResponseWriter(
-      Writer writer, String contentType, String characterEncoding) {
+      final Writer writer, final String contentType, final String characterEncoding) {
     super(writer, contentType, characterEncoding);
   }
 
@@ -72,7 +72,7 @@ public final class XmlResponseWriter extends TobagoResponseWriterBase {
   }
 
   @Override
-  protected void writerAttributeValue(String value, boolean escape) throws IOException {
+  protected void writerAttributeValue(final String value, final boolean escape) throws IOException {
     getWriter().write(XmlUtils.escape(value));
   }
 

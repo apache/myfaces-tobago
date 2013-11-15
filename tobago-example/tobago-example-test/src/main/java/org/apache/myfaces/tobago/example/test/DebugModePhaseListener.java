@@ -31,11 +31,11 @@ import javax.faces.event.PhaseListener;
  */
 public class DebugModePhaseListener implements PhaseListener {
 
-  public void afterPhase(PhaseEvent event) {
+  public void afterPhase(final PhaseEvent event) {
   }
 
-  public void beforePhase(PhaseEvent event) {
-    ClientProperties client = VariableResolverUtils.resolveClientProperties(event.getFacesContext());
+  public void beforePhase(final PhaseEvent event) {
+    final ClientProperties client = VariableResolverUtils.resolveClientProperties(event.getFacesContext());
     client.setDebugMode(true);
   }
 

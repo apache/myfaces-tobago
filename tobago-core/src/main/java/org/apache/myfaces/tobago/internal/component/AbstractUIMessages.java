@@ -33,9 +33,9 @@ import java.util.List;
 public abstract class AbstractUIMessages extends javax.faces.component.UIMessages
     implements LayoutComponent {
 
-  public List<Item> createMessageList(FacesContext facesContext) {
+  public List<Item> createMessageList(final FacesContext facesContext) {
 
-    Iterator clientIds;
+    final Iterator clientIds;
     if (isGlobalOnly()) {
       clientIds = new SingletonIterator(null);
     } else if (getFor() != null) {
@@ -44,7 +44,7 @@ public abstract class AbstractUIMessages extends javax.faces.component.UIMessage
       clientIds = facesContext.getClientIdsWithMessages();
     }
 
-    List<Item> messages = collectMessageList(facesContext, clientIds);
+    final List<Item> messages = collectMessageList(facesContext, clientIds);
 
     // todo
     if (OrderBy.SEVERITY.equals(getOrderBy())) {
@@ -54,13 +54,13 @@ public abstract class AbstractUIMessages extends javax.faces.component.UIMessage
     return messages;
   }
 
-  private List<Item> collectMessageList(FacesContext facesContext, Iterator clientIds) {
-    List<Item> messages = new ArrayList<Item>();
+  private List<Item> collectMessageList(final FacesContext facesContext, final Iterator clientIds) {
+    final List<Item> messages = new ArrayList<Item>();
     while(clientIds.hasNext()) {
-      String clientId = (String) clientIds.next();
-      Iterator<FacesMessage> i = facesContext.getMessages(clientId);
+      final String clientId = (String) clientIds.next();
+      final Iterator<FacesMessage> i = facesContext.getMessages(clientId);
       while (i.hasNext()) {
-        FacesMessage facesMessage = i.next();
+        final FacesMessage facesMessage = i.next();
         if (getMaxNumber() != null && messages.size() >= getMaxNumber()) {
           return messages;
         }
@@ -81,7 +81,7 @@ public abstract class AbstractUIMessages extends javax.faces.component.UIMessage
     private String clientId;
     private FacesMessage facesMessage;
 
-    public Item(String clientId, FacesMessage facesMessage) {
+    public Item(final String clientId, final FacesMessage facesMessage) {
       this.clientId = clientId;
       this.facesMessage = facesMessage;
     }
@@ -90,7 +90,7 @@ public abstract class AbstractUIMessages extends javax.faces.component.UIMessage
       return clientId;
     }
 
-    public void setClientId(String clientId) {
+    public void setClientId(final String clientId) {
       this.clientId = clientId;
     }
 
@@ -98,13 +98,13 @@ public abstract class AbstractUIMessages extends javax.faces.component.UIMessage
       return facesMessage;
     }
 
-    public void setFacesMessage(FacesMessage facesMessage) {
+    public void setFacesMessage(final FacesMessage facesMessage) {
       this.facesMessage = facesMessage;
     }
   }
 
   public static class ItemComparator implements Comparator<Item> {
-    public int compare(Item item1, Item item2) {
+    public int compare(final Item item1, final Item item2) {
       return item2.getFacesMessage().getSeverity().getOrdinal() - item1.getFacesMessage().getSeverity().getOrdinal();
     }
   }
@@ -129,7 +129,7 @@ public abstract class AbstractUIMessages extends javax.faces.component.UIMessage
     public static final String OCCURRENCE_STRING = "occurrence";
     public static final String SEVERITY_STRING = "severity";
 
-    public static OrderBy parse(String key) {
+    public static OrderBy parse(final String key) {
       return valueOf(key.toUpperCase());
     }
   }

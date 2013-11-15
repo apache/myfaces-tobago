@@ -28,13 +28,13 @@ public class DateModel {
   private int month;
   private int day;
 
-  public DateModel(int year, int month, int day) {
+  public DateModel(final int year, final int month, final int day) {
     this.year = year;
     this.month = month;
     this.day = day;
   }
 
-  public DateModel(Calendar calendar) {
+  public DateModel(final Calendar calendar) {
     this.year = calendar.get(Calendar.YEAR);
     this.month = calendar.get(Calendar.MONTH) + 1;
     this.day = calendar.get(Calendar.DAY_OF_MONTH);
@@ -44,7 +44,7 @@ public class DateModel {
     return year;
   }
 
-  public void setYear(int year) {
+  public void setYear(final int year) {
     this.year = year;
   }
 
@@ -52,7 +52,7 @@ public class DateModel {
     return month;
   }
 
-  public void setMonth(int month) {
+  public void setMonth(final int month) {
     this.month = month;
   }
 
@@ -60,7 +60,7 @@ public class DateModel {
     return day;
   }
 
-  public void setDay(int day) {
+  public void setDay(final int day) {
     this.day = day;
   }
 
@@ -68,8 +68,8 @@ public class DateModel {
     return getCalendar(null);
   }
 
-  public Calendar getCalendar(Locale locale) {
-    Calendar calendar = locale != null
+  public Calendar getCalendar(final Locale locale) {
+    final Calendar calendar = locale != null
         ? Calendar.getInstance(locale) : Calendar.getInstance();
     calendar.set(year, month - 1, day);
     return calendar;

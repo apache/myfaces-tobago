@@ -38,7 +38,7 @@ public class MockTheme implements Theme {
 
   private String version;
 
-  public MockTheme(String name, String displayName, List<Theme> fallbackThemeList) {
+  public MockTheme(final String name, final String displayName, final List<Theme> fallbackThemeList) {
     this.name = name;
     this.displayName = displayName;
     this.fallbackThemeList = fallbackThemeList;
@@ -64,11 +64,11 @@ public class MockTheme implements Theme {
     return config;
   }
 
-  public String[] getScriptResources(boolean production) {
+  public String[] getScriptResources(final boolean production) {
     return new String[0];
   }
 
-  public String[] getStyleResources(boolean production) {
+  public String[] getStyleResources(final boolean production) {
     return new String[0];
   }
 
@@ -76,7 +76,7 @@ public class MockTheme implements Theme {
     return versioned;
   }
 
-  public void setVersioned(boolean versioned) {
+  public void setVersioned(final boolean versioned) {
     this.versioned = versioned;
   }
 
@@ -84,7 +84,7 @@ public class MockTheme implements Theme {
     return version;
   }
 
-  public void setVersion(String version) {
+  public void setVersion(final String version) {
     this.version = version;
   }
 }

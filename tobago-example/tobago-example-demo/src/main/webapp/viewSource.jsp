@@ -18,7 +18,7 @@
                  java.io.InputStreamReader,
                  java.io.PrintWriter"
 %><%
-  String jsp = request.getParameter("jsp");
+  final String jsp = request.getParameter("jsp");
 
   if (jsp == null || jsp.length() == 0) {
     throw new RuntimeException("There is no 'jsp' parameter in the request!");

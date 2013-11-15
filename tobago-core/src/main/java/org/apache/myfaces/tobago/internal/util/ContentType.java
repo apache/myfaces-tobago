@@ -23,13 +23,13 @@ public class ContentType {
   private String primaryType;
   private String subType;
 
-  public ContentType(String contentType) {
+  public ContentType(final String contentType) {
     parse(contentType);
   }
 
-  private void parse(String contentType) {
+  private void parse(final String contentType) {
     // TODO parse Parameter
-    String[] values = StringUtils.split(contentType, "/");
+    final String[] values = StringUtils.split(contentType, "/");
     if (values.length == 2) {
       primaryType = values[0];
       subType = values[1];
@@ -46,7 +46,7 @@ public class ContentType {
     return subType;
   }
 
-  public boolean match(ContentType contentType) {
+  public boolean match(final ContentType contentType) {
     return primaryType.equalsIgnoreCase(contentType.getPrimaryType())
         && ("*".equals(subType) || subType.equalsIgnoreCase(contentType.getSubType()));
   }
@@ -55,7 +55,7 @@ public class ContentType {
     return primaryType + "/" + subType;
   }
 
-  public static ContentType valueOf(String s) {
+  public static ContentType valueOf(final String s) {
     return new ContentType(s);
   }
 }

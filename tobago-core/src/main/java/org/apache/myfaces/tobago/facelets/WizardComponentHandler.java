@@ -29,18 +29,19 @@ public class WizardComponentHandler extends TobagoComponentHandler {
 
   private TagAttribute outcomeAttribute;
 
-  public WizardComponentHandler(ComponentConfig componentConfig) {
+  public WizardComponentHandler(final ComponentConfig componentConfig) {
     super(componentConfig);
     outcomeAttribute = getAttribute("outcome");
   }
 
-  public void onComponentCreated(FaceletContext faceletContext, UIComponent wizard, UIComponent parent) {
+  public void onComponentCreated(
+      final FaceletContext faceletContext, final UIComponent wizard, final UIComponent parent) {
 
     if (outcomeAttribute != null) {
       if (outcomeAttribute.isLiteral()) {
         wizard.getAttributes().put("outcome", outcomeAttribute.getValue(faceletContext));
       } else {
-        ValueExpression expression = outcomeAttribute.getValueExpression(faceletContext, String.class);
+        final ValueExpression expression = outcomeAttribute.getValueExpression(faceletContext, String.class);
         wizard.setValueExpression("outcome", expression);
       }
     }

@@ -31,7 +31,7 @@ public class BundleMapWrapper implements Map, Serializable {
 
   private String basename;
 
-  public BundleMapWrapper(String basename) {
+  public BundleMapWrapper(final String basename) {
     this.basename = basename;
   }
 
@@ -39,16 +39,16 @@ public class BundleMapWrapper implements Map, Serializable {
     throw new UnsupportedOperationException();
   }
 
-  public boolean containsKey(Object key) {
+  public boolean containsKey(final Object key) {
     if (null == key) {
       return false;
     }
-    String value = ResourceManagerUtils.getPropertyNotNull(
+    final String value = ResourceManagerUtils.getPropertyNotNull(
         FacesContext.getCurrentInstance(), basename, key.toString());
     return value != null;
   }
 
-  public boolean containsValue(Object value) {
+  public boolean containsValue(final Object value) {
     throw new UnsupportedOperationException();
   }
 
@@ -56,7 +56,7 @@ public class BundleMapWrapper implements Map, Serializable {
     throw new UnsupportedOperationException();
   }
 
-  public Object get(Object key) {
+  public Object get(final Object key) {
     if (null == key) {
       return null;
     }
@@ -68,14 +68,14 @@ public class BundleMapWrapper implements Map, Serializable {
     return basename.hashCode();
   }
 
-  public boolean equals(Object o) {
+  public boolean equals(final Object o) {
     if (this == o) {
       return true;
     }
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    BundleMapWrapper that = (BundleMapWrapper) o;
+    final BundleMapWrapper that = (BundleMapWrapper) o;
     return basename.equals(that.basename);
   }
 
@@ -87,15 +87,15 @@ public class BundleMapWrapper implements Map, Serializable {
     throw new UnsupportedOperationException();
   }
 
-  public Object put(Object k, Object v) {
+  public Object put(final Object k, final Object v) {
     throw new UnsupportedOperationException();
   }
 
-  public void putAll(Map t) {
+  public void putAll(final Map t) {
     throw new UnsupportedOperationException();
   }
 
-  public Object remove(Object k) {
+  public Object remove(final Object k) {
     throw new UnsupportedOperationException();
   }
 

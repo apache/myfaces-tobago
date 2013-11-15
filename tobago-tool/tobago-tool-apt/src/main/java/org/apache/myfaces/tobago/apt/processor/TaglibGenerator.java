@@ -98,27 +98,27 @@ public class TaglibGenerator extends AbstractGenerator {
 
   public void generate()
       throws IOException, TransformerException, ParserConfigurationException, ClassNotFoundException {
-    for (PackageElement packageElement : getPackages()) {
-      Taglib taglibAnnotation = packageElement.getAnnotation(Taglib.class);
+    for (final PackageElement packageElement : getPackages()) {
+      final Taglib taglibAnnotation = packageElement.getAnnotation(Taglib.class);
 
       createTaglib(taglibAnnotation, packageElement, Type.JSP);
       createTaglib(taglibAnnotation, packageElement, Type.FACELETS);
     }
   }
 
-  protected void createTaglib(Taglib taglibAnnotation, PackageElement packageElement, Type type)
+  protected void createTaglib(final Taglib taglibAnnotation, final PackageElement packageElement, final Type type)
       throws ParserConfigurationException, ClassNotFoundException, IOException, TransformerException {
     resetDuplicateList();
-    DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+    final DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
     dbf.setValidating(false);
 
     // building the XML document
 
-    DocumentBuilder parser = dbf.newDocumentBuilder();
-    Document document = parser.newDocument();
+    final DocumentBuilder parser = dbf.newDocumentBuilder();
+    final Document document = parser.newDocument();
 
-    Element taglib = type.createTaglib(document);
-    String description = processingEnv.getElementUtils().getDocComment(packageElement);
+    final Element taglib = type.createTaglib(document);
+    final String description = processingEnv.getElementUtils().getDocComment(packageElement);
 
     addComment("The next tags are commented because of MYFACES-3537. "
         + "The application will not run with MyFaces before 2.0.14/2.1.8. "
@@ -137,7 +137,7 @@ public class TaglibGenerator extends AbstractGenerator {
 
     type.addListeners(taglib, document, taglibAnnotation);
 
-    for (TypeElement typeElement : getTypes()) {
+    for (final TypeElement typeElement : getTypes()) {
       if (processingEnv.getElementUtils().getPackageOf(typeElement).equals(packageElement)) {
         appendTag(typeElement, taglib, document, type);
       }
@@ -148,14 +148,15 @@ public class TaglibGenerator extends AbstractGenerator {
 
     Writer writer = null;
     try {
-      String name = type.filename(targetTaglib, packageElement.getQualifiedName().toString(), taglibAnnotation.name());
-      FileObject resource = processingEnv.getFiler().createResource(StandardLocation.SOURCE_OUTPUT, "", name);
+      final String name
+          = type.filename(targetTaglib, packageElement.getQualifiedName().toString(), taglibAnnotation.name());
+      final FileObject resource = processingEnv.getFiler().createResource(StandardLocation.SOURCE_OUTPUT, "", name);
       info("Writing to file: " + resource.toUri());
       writer = resource.openWriter();
 
-      TransformerFactory transFactory = TransformerFactory.newInstance();
+      final TransformerFactory transFactory = TransformerFactory.newInstance();
       transFactory.setAttribute("indent-number", 2);
-      Transformer transformer = transFactory.newTransformer();
+      final Transformer transformer = transFactory.newTransformer();
       transformer.setOutputProperty(OutputKeys.INDENT, "yes");
       transformer.transform(new DOMSource(document), new StreamResult(writer));
     } finally {
@@ -163,9 +164,10 @@ public class TaglibGenerator extends AbstractGenerator {
     }
   }
 
-  protected void appendTag(TypeElement typeElement, Element parent, Document document, Type type)
+  protected void appendTag(
+      final TypeElement typeElement, final Element parent, final Document document, final Type type)
       throws ClassNotFoundException {
-    Tag annotationTag = typeElement.getAnnotation(Tag.class);
+    final Tag annotationTag = typeElement.getAnnotation(Tag.class);
     if (annotationTag != null) {
       checkDuplicates(annotationTag.name());
       resetAttributeDuplicateList();
@@ -182,11 +184,11 @@ public class TaglibGenerator extends AbstractGenerator {
         throw new RuntimeException("Not supported: " + typeElement.getQualifiedName());
       }
       info("Replacing: " + typeElement.getQualifiedName() + " -> " + className);
-      Element tag = createTag(typeElement, annotationTag, className, document, false, type);
+      final Element tag = createTag(typeElement, annotationTag, className, document, false, type);
       addAttributes(typeElement, tag, document, type);
       parent.appendChild(tag);
       if (annotationTag.deprecatedName() != null && annotationTag.deprecatedName().length() > 0) {
-        Element deprecatedTag = createTag(typeElement, annotationTag, className, document, true, type);
+        final Element deprecatedTag = createTag(typeElement, annotationTag, className, document, true, type);
         addAttributes(typeElement, deprecatedTag, document, type);
         parent.appendChild(deprecatedTag);
       }
@@ -194,14 +196,15 @@ public class TaglibGenerator extends AbstractGenerator {
   }
 
   protected Element createTag(
-      TypeElement typeElement, Tag annotationTag, String className, Document document, boolean deprecated, Type type) {
-    Element tagElement = document.createElement("tag");
+      final TypeElement typeElement, final Tag annotationTag, final String className, final Document document,
+      final boolean deprecated, final Type type) {
+    final Element tagElement = document.createElement("tag");
     addDescription(typeElement, tagElement, document, deprecated);
     type.addTagContent(typeElement, tagElement, document, deprecated, annotationTag, className);
     return tagElement;
   }
 
-  private void checkAttributeDuplicates(String attributeName) {
+  private void checkAttributeDuplicates(final String attributeName) {
     if (attributeSet.contains(attributeName)) {
       throw new IllegalArgumentException("Attribute " + attributeName + " in tag " + currentTag + " already defined!");
     } else {
@@ -209,7 +212,7 @@ public class TaglibGenerator extends AbstractGenerator {
     }
   }
 
-  private void checkDuplicates(String tagName) {
+  private void checkDuplicates(final String tagName) {
     currentTag = tagName;
     if (tagSet.contains(tagName)) {
       throw new IllegalArgumentException("tag with name " + tagName + " already defined!");
@@ -218,12 +221,14 @@ public class TaglibGenerator extends AbstractGenerator {
     }
   }
 
-  protected void addDescription(javax.lang.model.element.Element typeElement, Element element, Document document) {
+  protected void addDescription(
+      final javax.lang.model.element.Element typeElement, final Element element, final Document document) {
     addDescription(typeElement, element, document, false);
   }
 
   protected void addDescription(
-      javax.lang.model.element.Element typeElement, Element element, Document document, boolean deprecated) {
+      final javax.lang.model.element.Element typeElement, final Element element, final Document document,
+      final boolean deprecated) {
     final StringBuilder description = new StringBuilder();
     final Deprecated deprecatedAnnotation = typeElement.getAnnotation(Deprecated.class);
     String comment = processingEnv.getElementUtils().getDocComment(typeElement);
@@ -233,7 +238,7 @@ public class TaglibGenerator extends AbstractGenerator {
       description.append("<p>**** @deprecated. Will be removed in a future version **** </p>");
     }
     if (deprecated) {
-      Tag annotationTag = typeElement.getAnnotation(Tag.class);
+      final Tag annotationTag = typeElement.getAnnotation(Tag.class);
       description.append("<p>**** @deprecated. Will be removed in a future version. Use ");
       description.append(annotationTag.name());
       description.append(" instead. **** </p>");
@@ -242,7 +247,7 @@ public class TaglibGenerator extends AbstractGenerator {
       description.append("<p>").append(deprecationComment).append("</p>");
     }
 
-    Preliminary preliminary = typeElement.getAnnotation(Preliminary.class);
+    final Preliminary preliminary = typeElement.getAnnotation(Preliminary.class);
     if (preliminary != null) {
       description.append("<p>**** Preliminary. Maybe subject to changed in a future version");
       if (preliminary.value().length() > 0) {
@@ -253,7 +258,7 @@ public class TaglibGenerator extends AbstractGenerator {
     }
     if (comment != null) {
       // remove @param section
-      int index = comment.indexOf(" @");
+      final int index = comment.indexOf(" @");
       if (index != -1) {
         comment = comment.substring(0, index);
       }
@@ -264,11 +269,11 @@ public class TaglibGenerator extends AbstractGenerator {
         //description.append("</p>");
       }
     }
-    UIComponentTag componentTag = typeElement.getAnnotation(UIComponentTag.class);
+    final UIComponentTag componentTag = typeElement.getAnnotation(UIComponentTag.class);
     if (componentTag != null) {
       description.append(createDescription(componentTag));
     }
-    UIComponentTagAttribute attributeTag = typeElement.getAnnotation(UIComponentTagAttribute.class);
+    final UIComponentTagAttribute attributeTag = typeElement.getAnnotation(UIComponentTagAttribute.class);
     if (attributeTag != null) {
       if (null != attributeTag.type() && attributeTag.type().length > 0) {
         description.append("<br />Type: <code>")
@@ -286,16 +291,16 @@ public class TaglibGenerator extends AbstractGenerator {
             .append("</code>");
       }
     }
-    ExtensionTag extensionTag = typeElement.getAnnotation(ExtensionTag.class);
+    final ExtensionTag extensionTag = typeElement.getAnnotation(ExtensionTag.class);
     if (extensionTag != null) {
-      String baseName = extensionTag.baseClassName();
+      final String baseName = extensionTag.baseClassName();
       description.append("<p><b>Extended tag: </b>");
       description.append(baseName);
       description.append("</p>");
 
-      TypeElement declaration = getInterfaceDeclaration(baseName + "Declaration");
+      final TypeElement declaration = getInterfaceDeclaration(baseName + "Declaration");
       if (declaration != null) {
-        UIComponentTag baseComponentTag = declaration.getAnnotation(UIComponentTag.class);
+        final UIComponentTag baseComponentTag = declaration.getAnnotation(UIComponentTag.class);
         if (baseComponentTag != null) {
           description.append(createDescription(baseComponentTag));
         }
@@ -324,8 +329,8 @@ public class TaglibGenerator extends AbstractGenerator {
     }
   }
 
-  private TypeElement getInterfaceDeclaration(String name) {
-    for (TypeElement type : getTypes()) {
+  private TypeElement getInterfaceDeclaration(final String name) {
+    for (final TypeElement type : getTypes()) {
       if (name.equals(type.getQualifiedName().toString())) {
         return type;
       }
@@ -333,19 +338,19 @@ public class TaglibGenerator extends AbstractGenerator {
     return null;
   }
 
-  private String createDescription(UIComponentTag componentTag) {
-    StringBuilder description = new StringBuilder();
+  private String createDescription(final UIComponentTag componentTag) {
+    final StringBuilder description = new StringBuilder();
     description.append("<p><b>UIComponentClass: </b>");
     description.append(componentTag.uiComponent());
     description.append("</p>");
     description.append("<p><b>RendererType: </b>");
     description.append(componentTag.rendererType());
     description.append("</p>");
-    Facet[] facets = componentTag.facets();
+    final Facet[] facets = componentTag.facets();
     if (facets.length > 0) {
       description.append("<p><b>Supported facets:</b></p>");
       description.append("<dl>");
-      for (Facet facet : facets) {
+      for (final Facet facet : facets) {
         description.append("<dt><b>");
         description.append(facet.name());
         description.append("</b></dt>");
@@ -358,12 +363,13 @@ public class TaglibGenerator extends AbstractGenerator {
     return description.toString();
   }
 
-  protected void addAttributes(TypeElement typeElement, Element tagElement, Document document, Type type)
+  protected void addAttributes(
+      final TypeElement typeElement, final Element tagElement, final Document document, final Type type)
       throws ClassNotFoundException {
 
-    for (javax.lang.model.element.Element element : getAllMembers(typeElement)) {
+    for (final javax.lang.model.element.Element element : getAllMembers(typeElement)) {
       if (element instanceof ExecutableElement) {
-        ExecutableElement executableElement = (ExecutableElement) element;
+        final ExecutableElement executableElement = (ExecutableElement) element;
         if (executableElement.getAnnotation(TagAttribute.class) == null
             && executableElement.getAnnotation(UIComponentTagAttribute.class) == null) {
           continue;
@@ -373,11 +379,11 @@ public class TaglibGenerator extends AbstractGenerator {
     }
   }
 
-  private List<? extends javax.lang.model.element.Element> getAllMembers(TypeElement type) {
+  private List<? extends javax.lang.model.element.Element> getAllMembers(final TypeElement type) {
     final List<? extends javax.lang.model.element.Element> members
         = new ArrayList<javax.lang.model.element.Element>(processingEnv.getElementUtils().getAllMembers(type));
     Collections.sort(members, new Comparator<javax.lang.model.element.Element>() {
-      public int compare(javax.lang.model.element.Element d1, javax.lang.model.element.Element d2) {
+      public int compare(final javax.lang.model.element.Element d1, final javax.lang.model.element.Element d2) {
         return d1.getSimpleName().toString().compareTo(d2.getSimpleName().toString());
       }
     });
@@ -392,13 +398,14 @@ public class TaglibGenerator extends AbstractGenerator {
     attributeSet = new HashSet<String>();
   }
 
-  protected void addAttribute(ExecutableElement element, Element tagElement, Document document, Type type)
+  protected void addAttribute(
+      final ExecutableElement element, final Element tagElement, final Document document, final Type type)
       throws ClassNotFoundException {
-    TagAttribute tagAttribute = element.getAnnotation(TagAttribute.class);
+    final TagAttribute tagAttribute = element.getAnnotation(TagAttribute.class);
     if (tagAttribute != null) {
-      String simpleName = element.getSimpleName().toString();
+      final String simpleName = element.getSimpleName().toString();
       if (simpleName.startsWith("set") || simpleName.startsWith("get")) {
-        Element attribute = document.createElement("attribute");
+        final Element attribute = document.createElement("attribute");
         String attributeName = simpleName.substring(3, 4).toLowerCase(Locale.ENGLISH) + simpleName.substring(4);
         if (tagAttribute.name().length() > 0) {
           attributeName = tagAttribute.name();
@@ -408,7 +415,7 @@ public class TaglibGenerator extends AbstractGenerator {
         addLeafTextElement(attributeName, "name", attribute, document);
 
         addLeafTextElement(Boolean.toString(tagAttribute.required()), "required", attribute, document);
-        UIComponentTagAttribute componentTagAttribute = element.getAnnotation(UIComponentTagAttribute.class);
+        final UIComponentTagAttribute componentTagAttribute = element.getAnnotation(UIComponentTagAttribute.class);
         type.addAttributeType(attribute, tagAttribute, componentTagAttribute, document, attributeName);
         tagElement.appendChild(attribute);
       } else {
@@ -417,19 +424,21 @@ public class TaglibGenerator extends AbstractGenerator {
     }
   }
 
-  protected static void addComment(String text, org.w3c.dom.Element parent, Document document) {
-    Comment comment = document.createComment(text);
+  protected static void addComment(final String text, final org.w3c.dom.Element parent, final Document document) {
+    final Comment comment = document.createComment(text);
     parent.appendChild(comment);
   }
 
-  protected static void addLeafTextElement(String text, String node, org.w3c.dom.Element parent, Document document) {
-    org.w3c.dom.Element element = document.createElement(node);
+  protected static void addLeafTextElement(
+      final String text, final String node, final org.w3c.dom.Element parent, final Document document) {
+    final org.w3c.dom.Element element = document.createElement(node);
     element.appendChild(document.createTextNode(text));
     parent.appendChild(element);
   }
 
-  protected static void addLeafCDATAElement(String text, String node, org.w3c.dom.Element parent, Document document) {
-    org.w3c.dom.Element element = document.createElement(node);
+  protected static void addLeafCDATAElement(
+      final String text, final String node, final org.w3c.dom.Element parent, final Document document) {
+    final org.w3c.dom.Element element = document.createElement(node);
     element.appendChild(document.createCDATASection(text));
     parent.appendChild(element);
   }
@@ -438,7 +447,7 @@ public class TaglibGenerator extends AbstractGenerator {
     JSP,
     FACELETS;
 
-    public String filename(String target, String path, String name) {
+    public String filename(String target, final String path, final String name) {
       target = StringUtils.isNotBlank(target) ? target + '/' : "";
       switch (this) {
         case JSP:
@@ -450,8 +459,8 @@ public class TaglibGenerator extends AbstractGenerator {
       }
     }
 
-    public Element createTaglib(Document document) {
-      Element taglib;
+    public Element createTaglib(final Document document) {
+      final Element taglib;
       switch (this) {
         case JSP:
           taglib = document.createElement("taglib");
@@ -475,7 +484,7 @@ public class TaglibGenerator extends AbstractGenerator {
       return taglib;
     }
 
-    public void addMisc(Element taglib, Document document, Taglib taglibAnnotation) {
+    public void addMisc(final Element taglib, final Document document, final Taglib taglibAnnotation) {
       switch (this) {
         case JSP:
           addLeafTextElement("1.2", "tlib-version", taglib, document);
@@ -490,11 +499,11 @@ public class TaglibGenerator extends AbstractGenerator {
       }
     }
 
-    public void addListeners(Element taglib, Document document, Taglib taglibAnnotation) {
+    public void addListeners(final Element taglib, final Document document, final Taglib taglibAnnotation) {
       switch (this) {
         case JSP:
-          for (String listenerClass : taglibAnnotation.listener()) {
-            Element listener = document.createElement("listener");
+          for (final String listenerClass : taglibAnnotation.listener()) {
+            final Element listener = document.createElement("listener");
             addLeafTextElement(listenerClass, "listener-class", listener, document);
             taglib.appendChild(listener);
           }
@@ -507,8 +516,8 @@ public class TaglibGenerator extends AbstractGenerator {
     }
 
     public void addTagContent(
-        TypeElement typeElement, Element tagElement, Document document, boolean deprecated,
-        Tag annotationTag, String className) {
+        final TypeElement typeElement, final Element tagElement, final Document document, final boolean deprecated,
+        final Tag annotationTag, final String className) {
       switch (this) {
         case JSP:
           if (deprecated) {
@@ -517,13 +526,13 @@ public class TaglibGenerator extends AbstractGenerator {
             addLeafTextElement(annotationTag.name(), "name", tagElement, document);
           }
           addLeafTextElement(className, "tag-class", tagElement, document);
-          String tagExtraInfo = annotationTag.tagExtraInfoClassName();
+          final String tagExtraInfo = annotationTag.tagExtraInfoClassName();
           if (tagExtraInfo != null && tagExtraInfo.length() > 0) {
             // TODO check tagExtraInfo extends TagExtraInfo
             addLeafTextElement(tagExtraInfo, "tei-class", tagElement, document);
           }
-          BodyContent bodyContent = annotationTag.bodyContent();
-          BodyContentDescription contentDescription = typeElement.getAnnotation(BodyContentDescription.class);
+          final BodyContent bodyContent = annotationTag.bodyContent();
+          final BodyContentDescription contentDescription = typeElement.getAnnotation(BodyContentDescription.class);
           // TODO more error checking
           if (contentDescription != null) {
             if (bodyContent.equals(BodyContent.JSP) && contentDescription.contentType().length() > 0) {
@@ -542,9 +551,9 @@ public class TaglibGenerator extends AbstractGenerator {
             addLeafTextElement(annotationTag.name(), "tag-name", tagElement, document);
           }
 
-          UIComponentTag componentTag = typeElement.getAnnotation(UIComponentTag.class);
+          final UIComponentTag componentTag = typeElement.getAnnotation(UIComponentTag.class);
           if (componentTag != null) {
-            Element componentElement = document.createElement("component");
+            final Element componentElement = document.createElement("component");
             tagElement.appendChild(componentElement);
             addLeafTextElement(
                 AnnotationUtils.componentType(componentTag), "component-type", componentElement, document);
@@ -554,23 +563,23 @@ public class TaglibGenerator extends AbstractGenerator {
             addLeafTextElement(componentTag.faceletHandler(), "handler-class", componentElement, document);
           }
 
-          ExtensionTag extensionTag = typeElement.getAnnotation(ExtensionTag.class);
+          final ExtensionTag extensionTag = typeElement.getAnnotation(ExtensionTag.class);
           if (extensionTag != null) {
-            Element componentElement = document.createElement("component");
+            final Element componentElement = document.createElement("component");
             tagElement.appendChild(componentElement);
             addLeafTextElement(extensionTag.componentType(), "component-type", componentElement, document);
             addLeafTextElement(extensionTag.rendererType(), "renderer-type", componentElement, document);
             addLeafTextElement(extensionTag.faceletHandler(), "handler-class", componentElement, document);
           }
 
-          SimpleTag simpleTag = typeElement.getAnnotation(SimpleTag.class);
+          final SimpleTag simpleTag = typeElement.getAnnotation(SimpleTag.class);
           if (simpleTag != null) {
             addLeafTextElement(simpleTag.faceletHandler(), "handler-class", tagElement, document);
           }
 
-          ValidatorTag validatorTag = typeElement.getAnnotation(ValidatorTag.class);
+          final ValidatorTag validatorTag = typeElement.getAnnotation(ValidatorTag.class);
           if (validatorTag != null) {
-            Element validatorElement = document.createElement("validator");
+            final Element validatorElement = document.createElement("validator");
             tagElement.appendChild(validatorElement);
             addLeafTextElement(validatorTag.validatorId(), "validator-id", validatorElement, document);
             if (StringUtils.isNotBlank(validatorTag.faceletHandler())) {
@@ -584,32 +593,28 @@ public class TaglibGenerator extends AbstractGenerator {
     }
 
     public void addAttributeType(
-        Element attribute, TagAttribute tagAttribute, UIComponentTagAttribute componentTagAttribute, Document document,
-        String attributeName) {
+        final Element attribute, final TagAttribute tagAttribute, final UIComponentTagAttribute componentTagAttribute,
+        final Document document, final String attributeName) {
       switch (this) {
         case JSP:
           if (!tagAttribute.rtexprvalue()) {
             if (componentTagAttribute != null) {
               if (componentTagAttribute.expression().isMethodExpression()) {
-                Element deferredMethod = document.createElement("deferred-method");
-                StringBuilder signature = new StringBuilder();
-                signature.append(componentTagAttribute.methodReturnType());
-                signature.append(" ");
-                signature.append(attributeName);
-                signature.append("(");
-                signature.append(StringUtils.join(componentTagAttribute.methodSignature(), ", "));
-                signature.append(")");
-                addLeafTextElement(signature.toString(), "method-signature", deferredMethod, document);
+                final Element deferredMethod = document.createElement("deferred-method");
+                addLeafTextElement(
+                    componentTagAttribute.methodReturnType() + " " + attributeName + "("
+                        + StringUtils.join(componentTagAttribute.methodSignature(), ", ")
+                        + ")", "method-signature", deferredMethod, document);
                 attribute.appendChild(deferredMethod);
               } else if (componentTagAttribute.expression().isValueExpression()) {
-                Element deferredValue = document.createElement("deferred-value");
+                final Element deferredValue = document.createElement("deferred-value");
                 String clazz;
                 if (componentTagAttribute.type().length == 1
                     // XXX This is because an enum will not be converted in JSP with the PropertyEditor
                     && !"org.apache.myfaces.tobago.layout.TextAlign".equals(componentTagAttribute.type()[0])
                     && !"org.apache.myfaces.tobago.model.SuggestFilter".equals(componentTagAttribute.type()[0])) {
                   clazz = componentTagAttribute.type()[0];
-                  Class wrapper = ClassUtils.getWrapper(clazz);
+                  final Class wrapper = ClassUtils.getWrapper(clazz);
                   if (wrapper != null) {
                     clazz = wrapper.getName(); // primitive types aren't allowed here
       /*                } else {
@@ -628,7 +633,7 @@ public class TaglibGenerator extends AbstractGenerator {
                 attribute.appendChild(deferredValue);
               }
             } else {
-              Element deferredValue = document.createElement("deferred-value");
+              final Element deferredValue = document.createElement("deferred-value");
               addLeafTextElement(tagAttribute.type(), "type", deferredValue, document);
               attribute.appendChild(deferredValue);
             }
@@ -646,7 +651,7 @@ public class TaglibGenerator extends AbstractGenerator {
                 String clazz;
                 if (componentTagAttribute.type().length == 1) {
                   clazz = componentTagAttribute.type()[0];
-                  Class wrapper = ClassUtils.getWrapper(clazz);
+                  final Class wrapper = ClassUtils.getWrapper(clazz);
                   if (wrapper != null) {
                     clazz = wrapper.getName(); // primitive types aren't allowed here
       /*                } else {

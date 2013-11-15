@@ -38,7 +38,7 @@ public class Progress {
     return update;
   }
 
-  public void setUpdate(boolean update) {
+  public void setUpdate(final boolean update) {
     this.update = update;
   }
 

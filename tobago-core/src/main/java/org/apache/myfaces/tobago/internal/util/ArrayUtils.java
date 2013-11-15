@@ -23,7 +23,7 @@ public class ArrayUtils {
 
   public static final String[] EMPTY_STRING_ARRAY = new String[0];
 
-  public static boolean contains(String[] array, String markup) {
+  public static boolean contains(final String[] array, final String markup) {
     for (final String anArray : array) {
       if (markup.equals(anArray)) {
         return true;

@@ -30,17 +30,17 @@ public class TreeExpansionEvent extends FacesEvent {
   private boolean oldExpanded;
   private boolean newExpanded;
 
-  public TreeExpansionEvent(UIComponent node, boolean oldExpanded, boolean newExpanded) {
+  public TreeExpansionEvent(final UIComponent node, final boolean oldExpanded, final boolean newExpanded) {
     super(node);
     this.oldExpanded = oldExpanded;
     this.newExpanded = newExpanded;
   }
 
-  public boolean isAppropriateListener(FacesListener facesListener) {
+  public boolean isAppropriateListener(final FacesListener facesListener) {
     return facesListener instanceof TreeExpansionListener;
   }
 
-  public void processListener(FacesListener facesListener) {
+  public void processListener(final FacesListener facesListener) {
     if (facesListener instanceof TreeExpansionListener) {
       if (oldExpanded && !newExpanded) {
    //todo     ((TreeExpansionListener) facesListener).treeCollapsed(this);

@@ -86,15 +86,15 @@ public class CheckstyleConfigGenerator extends AbstractGenerator {
 
   public void generate() throws ParserConfigurationException, IOException, TransformerException,
       ClassNotFoundException {
-    DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+    final DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
     dbf.setValidating(false);
-    DocumentBuilder parser = dbf.newDocumentBuilder();
-    Document document = parser.newDocument();
-    Element module = document.createElement("module");
+    final DocumentBuilder parser = dbf.newDocumentBuilder();
+    final Document document = parser.newDocument();
+    final Element module = document.createElement("module");
     module.setAttribute("name", "Checker");
 
-    for (PackageElement packageElement : getPackages()) {
-      Taglib taglibAnnotation = packageElement.getAnnotation(Taglib.class);
+    for (final PackageElement packageElement : getPackages()) {
+      final Taglib taglibAnnotation = packageElement.getAnnotation(Taglib.class);
       createCheckstyleConfig(taglibAnnotation, packageElement, module, document);
     }
 
@@ -104,13 +104,13 @@ public class CheckstyleConfigGenerator extends AbstractGenerator {
   }
 
   private Document createCheckstyleConfig(
-      Taglib taglibAnnotation, PackageElement packageElement, Element module, Document document)
+      final Taglib taglibAnnotation, final PackageElement packageElement, final Element module, final Document document)
       throws ParserConfigurationException, ClassNotFoundException {
     resetDuplicateList();
 
     addLib(taglibAnnotation, module, document);
 
-    for (TypeElement typeElement : getTypes()) {
+    for (final TypeElement typeElement : getTypes()) {
       if (processingEnv.getElementUtils().getPackageOf(typeElement).equals(packageElement)) {
         appendTag(typeElement, taglibAnnotation.shortName(), module, document);
       }
@@ -118,8 +118,7 @@ public class CheckstyleConfigGenerator extends AbstractGenerator {
     return document;
   }
 
-  protected void writeCheckstyleConfig(Document document) throws
-      IOException, TransformerException {
+  protected void writeCheckstyleConfig(final Document document) throws IOException, TransformerException {
     Writer writer = null;
     try {
       final String path = "checkstyle-tobago.xml";
@@ -128,9 +127,9 @@ public class CheckstyleConfigGenerator extends AbstractGenerator {
       info("Writing to file: " + resource.toUri());
       writer = resource.openWriter();
 
-      TransformerFactory transFactory = TransformerFactory.newInstance();
+      final TransformerFactory transFactory = TransformerFactory.newInstance();
       transFactory.setAttribute("indent-number", 2);
-      Transformer transformer = transFactory.newTransformer();
+      final Transformer transformer = transFactory.newTransformer();
       transformer.setOutputProperty(OutputKeys.DOCTYPE_PUBLIC, "-//Puppy Crawl//DTD Check Configuration 1.2//EN");
       transformer.setOutputProperty(OutputKeys.DOCTYPE_SYSTEM, "http://www.puppycrawl.com/dtds/configuration_1_2.dtd");
       transformer.setOutputProperty(OutputKeys.INDENT, "yes");
@@ -140,9 +139,10 @@ public class CheckstyleConfigGenerator extends AbstractGenerator {
     }
   }
 
-  protected void appendTag(TypeElement typeElement, String taglib, Element parent, Document document)
+  protected void appendTag(
+      final TypeElement typeElement, final String taglib, final Element parent, final Document document)
       throws ClassNotFoundException {
-    Tag annotationTag = typeElement.getAnnotation(Tag.class);
+    final Tag annotationTag = typeElement.getAnnotation(Tag.class);
     if (annotationTag != null) {
       checkDuplicates(annotationTag.name());
       // TODO configure replacement
@@ -169,17 +169,17 @@ public class CheckstyleConfigGenerator extends AbstractGenerator {
     }
   }
 
-  protected void addTag(String taglib, Element parent, String tagName, Document document) {
+  protected void addTag(final String taglib, final Element parent, final String tagName, final Document document) {
 
     final String format = "<" + taglib + ":" + tagName + "\\b";
     final String message = "The tag '" + tagName + "' is deprecated.";
 
-    Element tag = createRegexpModule(format, message, document);
+    final Element tag = createRegexpModule(format, message, document);
 
     parent.appendChild(tag);
   }
 
-  private void checkDuplicates(String tagName) {
+  private void checkDuplicates(final String tagName) {
     if (tagSet.contains(tagName)) {
       throw new IllegalArgumentException("tag with name " + tagName + " already defined!");
     } else {
@@ -191,12 +191,14 @@ public class CheckstyleConfigGenerator extends AbstractGenerator {
     tagSet = new HashSet<String>();
   }
 
-  protected void addAttributes(TypeElement type, String taglib, Element tagElement, String tagName, Document document)
+  protected void addAttributes(
+      final TypeElement type, final String taglib, final Element tagElement, final String tagName,
+      final Document document)
       throws ClassNotFoundException {
 
-    for (javax.lang.model.element.Element element : getAllMembers(type)) {
+    for (final javax.lang.model.element.Element element : getAllMembers(type)) {
       if (element instanceof ExecutableElement) {
-        ExecutableElement executableElement = (ExecutableElement) element;
+        final ExecutableElement executableElement = (ExecutableElement) element;
         if (executableElement.getAnnotation(TagAttribute.class) == null
             && executableElement.getAnnotation(UIComponentTagAttribute.class) == null) {
           continue;
@@ -207,11 +209,12 @@ public class CheckstyleConfigGenerator extends AbstractGenerator {
   }
 
   protected void addAttribute(
-      ExecutableElement declaration, String taglib, Element parent, String tagName, Document document) {
-    TagAttribute tagAttribute = declaration.getAnnotation(TagAttribute.class);
-    Deprecated deprecatedAnnotation = declaration.getAnnotation(Deprecated.class);
+      final ExecutableElement declaration, final String taglib, final Element parent, final String tagName,
+      final Document document) {
+    final TagAttribute tagAttribute = declaration.getAnnotation(TagAttribute.class);
+    final Deprecated deprecatedAnnotation = declaration.getAnnotation(Deprecated.class);
     if (tagAttribute != null && deprecatedAnnotation != null) {
-      String simpleName = declaration.getSimpleName().toString();
+      final String simpleName = declaration.getSimpleName().toString();
       if (simpleName.startsWith("set") || simpleName.startsWith("get")) {
 
         String attributeStr = simpleName.substring(3, 4).toLowerCase(Locale.ENGLISH) + simpleName.substring(4);
@@ -222,7 +225,7 @@ public class CheckstyleConfigGenerator extends AbstractGenerator {
         final String format = "<" + taglib + ":" + tagName + "\\b[^<]*\\b" + attributeStr + "=";
         final String message = "The attribute '" + attributeStr + "' is deprecated for tag '" + tagName + "'";
 
-        Element module = createRegexpModule(format, message, document);
+        final Element module = createRegexpModule(format, message, document);
 
         parent.appendChild(module);
       } else {
@@ -231,18 +234,18 @@ public class CheckstyleConfigGenerator extends AbstractGenerator {
     }
   }
 
-  private List<? extends javax.lang.model.element.Element> getAllMembers(TypeElement type) {
+  private List<? extends javax.lang.model.element.Element> getAllMembers(final TypeElement type) {
     final List<? extends javax.lang.model.element.Element> members
         = new ArrayList<javax.lang.model.element.Element>(processingEnv.getElementUtils().getAllMembers(type));
     Collections.sort(members, new Comparator<javax.lang.model.element.Element>() {
-      public int compare(javax.lang.model.element.Element d1, javax.lang.model.element.Element d2) {
+      public int compare(final javax.lang.model.element.Element d1, final javax.lang.model.element.Element d2) {
         return d1.getSimpleName().toString().compareTo(d2.getSimpleName().toString());
       }
     });
     return members;
   }
 
-  private void addLib(Taglib taglibAnnotation, Element parent, Document document) {
+  private void addLib(final Taglib taglibAnnotation, final Element parent, final Document document) {
 
     final String shortName = taglibAnnotation.shortName();
     if (shortName.length() != 2) {
@@ -258,21 +261,21 @@ public class CheckstyleConfigGenerator extends AbstractGenerator {
     parent.appendChild(module);
   }
 
-  protected Element createRegexpModule(String formatValue, String messageValue, Document document) {
-    Element module = document.createElement("module");
+  protected Element createRegexpModule(final String formatValue, final String messageValue, final Document document) {
+    final Element module = document.createElement("module");
     module.setAttribute("name", "RegexpMultiline");
 
-    Element format = document.createElement("property");
+    final Element format = document.createElement("property");
     format.setAttribute("name", "format");
     format.setAttribute("value", formatValue);
     module.appendChild(format);
 
-    Element message = document.createElement("property");
+    final Element message = document.createElement("property");
     message.setAttribute("name", "message");
     message.setAttribute("value", messageValue);
     module.appendChild(message);
 
-    Element severity = document.createElement("property");
+    final Element severity = document.createElement("property");
     severity.setAttribute("name", "severity");
     severity.setAttribute("value", "warning");
     module.appendChild(severity);

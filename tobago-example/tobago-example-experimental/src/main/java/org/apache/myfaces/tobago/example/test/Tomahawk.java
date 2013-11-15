@@ -29,7 +29,7 @@ public class Tomahawk {
     return schedule;
   }
 
-  public void setSchedule(SimpleScheduleModel schedule) {
+  public void setSchedule(final SimpleScheduleModel schedule) {
     this.schedule = schedule;
   }
 }

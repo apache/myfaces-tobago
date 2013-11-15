@@ -35,11 +35,11 @@ public abstract class AbstractUINumberSlider extends javax.faces.component.UIInp
   
   public abstract boolean isDisabled();
 
-  public void validate(FacesContext context) {
+  public void validate(final FacesContext context) {
     super.validate(context);
     try {
       new LongRangeValidator(getMax(), getMin()).validate(context, this, getValue());
-    } catch (ValidatorException e) {
+    } catch (final ValidatorException e) {
       context.addMessage(getClientId(context), e.getFacesMessage());
     }
   }

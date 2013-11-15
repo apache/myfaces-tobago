@@ -42,7 +42,7 @@ import javax.faces.view.facelets.ComponentConfig;
  */
 public class MenuRadioExtensionHandler extends TobagoMenuExtensionHandler {
 
-  public MenuRadioExtensionHandler(ComponentConfig config) {
+  public MenuRadioExtensionHandler(final ComponentConfig config) {
     super(config);
   }
 

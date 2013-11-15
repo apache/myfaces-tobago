@@ -26,24 +26,24 @@ import java.util.List;
 
 public class FactorList extends ArrayList<Integer> {
 
-  public List<Measure> partition(Measure size) {
+  public List<Measure> partition(final Measure size) {
 
-    List<Measure> result = new ArrayList<Measure>(size());
+    final List<Measure> result = new ArrayList<Measure>(size());
 
     int sum = 0;
-    for (Integer integer : this) {
+    for (final Integer integer : this) {
       sum += integer;
     }
 
-    double[] doubles = new double[size()];
+    final double[] doubles = new double[size()];
     int i = 0;
-    for (Integer integer : this) {
+    for (final Integer integer : this) {
       doubles[i++] = integer * size.getPixel() / (double) sum;
     }
 
     MathUtils.adjustRemainders(doubles, 0.0);
 
-    for (double value : doubles) {
+    for (final double value : doubles) {
       result.add(Measure.valueOf((int) value));
     }
 

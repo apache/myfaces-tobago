@@ -26,7 +26,7 @@ public class LayoutInfoUnitTest {
 
   @Test
   public void test() {
-    LayoutInfo info = new LayoutInfo(5, 83, LayoutTokens.parse("284px;1*;180px;1*;75px"), "unittest");
+    final LayoutInfo info = new LayoutInfo(5, 83, LayoutTokens.parse("284px;1*;180px;1*;75px"), "unittest");
     info.getLayoutTokens();
     info.parseColumnLayout(83);
   }

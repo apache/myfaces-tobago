@@ -64,7 +64,7 @@ public class Controller {
     return manufacturer;
   }
 
-  public void setManufacturer(int manufacturer) {
+  public void setManufacturer(final int manufacturer) {
     this.manufacturer = manufacturer;
   }
 
@@ -81,7 +81,7 @@ public class Controller {
     return null;
   }
 
-  public void setVehicle(int vehicle) {
+  public void setVehicle(final int vehicle) {
     this.vehicle = vehicle;
   }
 
@@ -93,7 +93,7 @@ public class Controller {
     }
   }
 
-  public void valueChanged(ValueChangeEvent event) {
+  public void valueChanged(final ValueChangeEvent event) {
     LOG.info("Value change event in component with id: '"
         + event.getComponent().getClientId(FacesContext.getCurrentInstance())
         + "'. Value changed from '" + event.getOldValue() + "' to '" + event.getNewValue() + "'");
@@ -103,7 +103,7 @@ public class Controller {
     return text;
   }
 
-  public void setText(String text) {
+  public void setText(final String text) {
     this.text = text;
   }
 
@@ -112,7 +112,7 @@ public class Controller {
     return bool;
   }
 
-  public void setBool(boolean bool) {
+  public void setBool(final boolean bool) {
     this.bool = bool;
   }
 }

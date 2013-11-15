@@ -63,8 +63,8 @@ public class Command {
   }
 
   public Command(
-      String action, Boolean transition, String target, String url, String[] partially, String focus,
-      String confirmation, Integer delay, Popup popup, Boolean omit) {
+      final String action, final Boolean transition, final String target, final String url, final String[] partially,
+      final String focus, final String confirmation, final Integer delay, final Popup popup, final Boolean omit) {
     this.action = action;
     this.transition = transition;
     this.target = target;
@@ -77,7 +77,7 @@ public class Command {
     this.omit = omit;
   }
 
-  public Command(FacesContext facesContext, AbstractUICommandBase command) {
+  public Command(final FacesContext facesContext, final AbstractUICommandBase command) {
     this(
         null,
         command.isTransition(),
@@ -94,7 +94,7 @@ public class Command {
     }
   }
 
-  public Command(FacesContext facesContext, UIComponent facetComponent, String focusId) {
+  public Command(final FacesContext facesContext, UIComponent facetComponent, final String focusId) {
     if (facetComponent instanceof UIForm && facetComponent.getChildCount() == 1) {
       Deprecation.LOG.warn("Please don't use a form, but a command with immediate=true instead.");
       facetComponent = facetComponent.getChildren().get(0);
@@ -104,7 +104,7 @@ public class Command {
     if (!ComponentUtils.getBooleanAttribute(facetComponent, Attributes.TRANSITION)) {
       this.transition = Boolean.FALSE;
     }
-    String target = ComponentUtils.getStringAttribute(facetComponent, Attributes.TARGET);
+    final String target = ComponentUtils.getStringAttribute(facetComponent, Attributes.TARGET);
     if (target != null) {
       this.target = target;
     }
@@ -126,7 +126,7 @@ public class Command {
       }
     }
 
-    int delay = ComponentUtils.getIntAttribute(facetComponent, Attributes.DELAY);
+    final int delay = ComponentUtils.getIntAttribute(facetComponent, Attributes.DELAY);
     if (delay > 0) {
       this.delay = delay;
     }
@@ -136,7 +136,7 @@ public class Command {
     }
   }
 
-  private static String getConfirmation(AbstractUICommandBase command) {
+  private static String getConfirmation(final AbstractUICommandBase command) {
     final ValueHolder facet = (ValueHolder) command.getFacet(Facets.CONFIRMATION);
     return facet != null ? "" + facet.getValue() : null;
   }
@@ -145,7 +145,7 @@ public class Command {
     return action;
   }
 
-  public void setAction(String action) {
+  public void setAction(final String action) {
     this.action = action;
   }
 
@@ -153,7 +153,7 @@ public class Command {
     return transition;
   }
 
-  public void setTransition(Boolean transition) {
+  public void setTransition(final Boolean transition) {
     this.transition = transition;
   }
 
@@ -161,7 +161,7 @@ public class Command {
     return target;
   }
 
-  public void setTarget(String target) {
+  public void setTarget(final String target) {
     this.target = target;
   }
 
@@ -169,7 +169,7 @@ public class Command {
     return url;
   }
 
-  public void setUrl(String url) {
+  public void setUrl(final String url) {
     this.url = url;
   }
 
@@ -177,7 +177,7 @@ public class Command {
     return partially;
   }
 
-  public void setPartially(String[] partially) {
+  public void setPartially(final String[] partially) {
     this.partially = partially;
   }
 
@@ -185,7 +185,7 @@ public class Command {
     return focus;
   }
 
-  public void setFocus(String focus) {
+  public void setFocus(final String focus) {
     this.focus = focus;
   }
 
@@ -193,7 +193,7 @@ public class Command {
     return confirmation;
   }
 
-  public void setConfirmation(String confirmation) {
+  public void setConfirmation(final String confirmation) {
     this.confirmation = confirmation;
   }
 
@@ -201,7 +201,7 @@ public class Command {
     return delay;
   }
 
-  public void setDelay(Integer delay) {
+  public void setDelay(final Integer delay) {
     this.delay = delay;
   }
 
@@ -209,7 +209,7 @@ public class Command {
     return popup;
   }
 
-  public void setPopup(Popup popup) {
+  public void setPopup(final Popup popup) {
     this.popup = popup;
   }
 
@@ -217,7 +217,7 @@ public class Command {
     return omit;
   }
 
-  public void setOmit(Boolean omit) {
+  public void setOmit(final Boolean omit) {
     this.omit = omit;
   }
 
@@ -232,7 +232,7 @@ public class Command {
    * @deprecated Script will not work when CSP is activated
    */
   @Deprecated
-  public void setScript(String script) {
+  public void setScript(final String script) {
     this.script = script;
   }
 

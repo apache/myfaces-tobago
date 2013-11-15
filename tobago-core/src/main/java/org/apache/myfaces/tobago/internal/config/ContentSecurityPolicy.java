@@ -27,12 +27,12 @@ public class ContentSecurityPolicy {
   private Mode mode;
   private List<String> directiveList;
 
-  public ContentSecurityPolicy(String mode) {
+  public ContentSecurityPolicy(final String mode) {
     this.mode = Mode.parse(mode);
     this.directiveList = new ArrayList<String>();
   }
 
-  public void merge(ContentSecurityPolicy other) {
+  public void merge(final ContentSecurityPolicy other) {
     directiveList.addAll(other.directiveList);
     mode = other.mode;
   }
@@ -52,7 +52,7 @@ public class ContentSecurityPolicy {
 
     private final String value;
 
-    private Mode(String value) {
+    private Mode(final String value) {
       this.value = value;
     }
 
@@ -60,7 +60,7 @@ public class ContentSecurityPolicy {
       return value;
     }
 
-    public static Mode parse(String string) {
+    public static Mode parse(final String string) {
       if (ON.value.equals(string)) {
         return ON;
       } else if (OFF.value.equals(string)) {

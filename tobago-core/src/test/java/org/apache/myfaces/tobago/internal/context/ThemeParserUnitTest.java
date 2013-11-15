@@ -37,21 +37,21 @@ public class ThemeParserUnitTest {
 
   @Test
   public void test() throws IOException, SAXException, ParserConfigurationException, URISyntaxException {
-    TobagoConfigImpl config = new TobagoConfigImpl();
-    ThemeBuilder themeBuilder = new ThemeBuilder(config);
-    ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+    final TobagoConfigImpl config = new TobagoConfigImpl();
+    final ThemeBuilder themeBuilder = new ThemeBuilder(config);
+    final ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
     Enumeration<URL> urls = classLoader.getResources("theme-config.xml");
 
-    TobagoConfigParser parser = new TobagoConfigParser();
+    final TobagoConfigParser parser = new TobagoConfigParser();
     ThemeImpl theme = null;
     if  (urls.hasMoreElements()) {
-      URL themeUrl = urls.nextElement();
+      final URL themeUrl = urls.nextElement();
       theme = parser.parse(themeUrl).getThemeDefinitions().get(0);
       Assert.assertEquals("test", theme.getName());
       Assert.assertNotNull(theme.getResources());
       Assert.assertNotNull(theme.getProductionResources());
-      ThemeResources resources = theme.getResources();
-      ThemeResources productionResources = theme.getProductionResources();
+      final ThemeResources resources = theme.getResources();
+      final ThemeResources productionResources = theme.getProductionResources();
 
       Assert.assertEquals(2, resources.getScriptList().size());
       Assert.assertEquals("script/tobago.js", resources.getScriptList().get(0).getName());
@@ -67,7 +67,7 @@ public class ThemeParserUnitTest {
 
     ThemeImpl theme2 = null;
     if (urls.hasMoreElements()) {
-      URL themeUrl = urls.nextElement();
+      final URL themeUrl = urls.nextElement();
       theme2 = parser.parse(themeUrl).getThemeDefinitions().get(0);
       Assert.assertEquals("test2", theme2.getName());
       Assert.assertNotNull(theme2.getResources());
@@ -82,7 +82,7 @@ public class ThemeParserUnitTest {
 
     ThemeImpl theme3 = null;
     if (urls.hasMoreElements()) {
-      URL themeUrl = urls.nextElement();
+      final URL themeUrl = urls.nextElement();
       theme3 = parser.parse(themeUrl).getThemeDefinitions().get(0);
       Assert.assertEquals("test3", theme3.getName());
       Assert.assertEquals(0, theme3.getResources().getScriptList().size());
@@ -96,7 +96,7 @@ public class ThemeParserUnitTest {
 
     ThemeImpl theme4 = null;
     if (urls.hasMoreElements()) {
-      URL themeUrl = urls.nextElement();
+      final URL themeUrl = urls.nextElement();
       theme4 = parser.parse(themeUrl).getThemeDefinitions().get(0);
       Assert.assertEquals("test4", theme4.getName());
       Assert.assertEquals(0, theme4.getResources().getScriptList().size());

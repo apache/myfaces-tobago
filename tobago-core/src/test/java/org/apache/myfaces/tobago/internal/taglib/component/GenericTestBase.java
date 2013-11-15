@@ -56,7 +56,7 @@ public abstract class GenericTestBase extends AbstractTobagoTestBase {
     super.setUp();
     tlds = new Tld[tldPaths.length];
     for (int i = 0; i < tldPaths.length; i++) {
-      InputStream stream = getClass().getClassLoader().getResourceAsStream(tldPaths[i]);
+      final InputStream stream = getClass().getClassLoader().getResourceAsStream(tldPaths[i]);
       tlds[i] = getTld(tldPaths[i], stream);
       stream.close();
     }
@@ -66,9 +66,9 @@ public abstract class GenericTestBase extends AbstractTobagoTestBase {
   public void testRelease() throws IllegalAccessException,
       NoSuchMethodException, InvocationTargetException, IOException,
       SAXException, ClassNotFoundException, InstantiationException {
-    for (Tld tld : tlds) {
-      for (net.sf.maventaglib.checker.Tag tag : tld.getTags()) {
-        Tag tagInstance = getTagInstance(tag);
+    for (final Tld tld : tlds) {
+      for (final net.sf.maventaglib.checker.Tag tag : tld.getTags()) {
+        final Tag tagInstance = getTagInstance(tag);
         checkRelease(tagInstance);
       }
     }
@@ -79,65 +79,65 @@ public abstract class GenericTestBase extends AbstractTobagoTestBase {
       IllegalAccessException, InvocationTargetException, IOException,
       SAXException, ClassNotFoundException, InstantiationException {
 
-    for (Tld tld : tlds) {
-      for (net.sf.maventaglib.checker.Tag tag : tld.getTags()) {
-        Tag tagInstance = getTagInstance(tag);
-        TagAttribute[] attributes = tag.getAttributes();
-        for (TagAttribute attribute : attributes) {
-          String name = attribute.getAttributeName();
+    for (final Tld tld : tlds) {
+      for (final net.sf.maventaglib.checker.Tag tag : tld.getTags()) {
+        final Tag tagInstance = getTagInstance(tag);
+        final TagAttribute[] attributes = tag.getAttributes();
+        for (final TagAttribute attribute : attributes) {
+          final String name = attribute.getAttributeName();
           checkSetter(tagInstance, name);
         }
       }
     }
   }
 
-  protected Tag getTagInstance(net.sf.maventaglib.checker.Tag tag)
+  protected Tag getTagInstance(final net.sf.maventaglib.checker.Tag tag)
       throws ClassNotFoundException, InstantiationException, IllegalAccessException {
-    String className = tag.getTagClass();
-    Class tagClass = Class.forName(className);
+    final String className = tag.getTagClass();
+    final Class tagClass = Class.forName(className);
     return (Tag) tagClass.newInstance();
   }
 
-  private void checkSetter(javax.servlet.jsp.tagext.Tag tagObject, String name)
+  private void checkSetter(final javax.servlet.jsp.tagext.Tag tagObject, final String name)
       throws IllegalAccessException, InstantiationException,
       NoSuchMethodException, InvocationTargetException, ClassNotFoundException {
-    PropertyDescriptor propertyDescriptor
+    final PropertyDescriptor propertyDescriptor
         = PropertyUtils.getPropertyDescriptor(tagObject, name);
     Assert.assertNotNull("setter '" + name + "' of class " + tagObject.getClass().getName() + " has "
         + "property descriptor.", propertyDescriptor);
   }
 
-  public void setTlds(Tld[] tlds) {
+  public void setTlds(final Tld[] tlds) {
     this.tlds = tlds;
   }
 
-  public void setTldPaths(String[] tldPaths) {
+  public void setTldPaths(final String[] tldPaths) {
     this.tldPaths = tldPaths;
   }
 
-  private void checkRelease(javax.servlet.jsp.tagext.Tag tag) throws NoSuchMethodException,
+  private void checkRelease(final javax.servlet.jsp.tagext.Tag tag) throws NoSuchMethodException,
       IllegalAccessException, InvocationTargetException, IOException,
       SAXException {
     tag.setPageContext(new MockPageContext());
 
-    HashMap<String, Object> initialValues = new HashMap<String, Object>();
-    PropertyDescriptor[] descriptors =
+    final HashMap<String, Object> initialValues = new HashMap<String, Object>();
+    final PropertyDescriptor[] descriptors =
         PropertyUtils.getPropertyDescriptors(tag);
 
     // store initial values
-    for (PropertyDescriptor descriptor : descriptors) {
+    for (final PropertyDescriptor descriptor : descriptors) {
       if (isTagProperty(descriptor)) {
-        String name = descriptor.getName();
-        Object value = PropertyUtils.getSimpleProperty(tag, name);
+        final String name = descriptor.getName();
+        final Object value = PropertyUtils.getSimpleProperty(tag, name);
         initialValues.put(name, value);
       }
     }
 
     // set new values
-    for (PropertyDescriptor descriptor : descriptors) {
+    for (final PropertyDescriptor descriptor : descriptors) {
       if (isTagProperty(descriptor)) {
-        String name = descriptor.getName();
-        Class propertyType = descriptor.getPropertyType();
+        final String name = descriptor.getName();
+        final Class propertyType = descriptor.getPropertyType();
         Object value = null;
         if (propertyType == String.class) {
           value = new String("bla");
@@ -156,29 +156,29 @@ public abstract class GenericTestBase extends AbstractTobagoTestBase {
     tag.release();
 
     // check released values
-    for (PropertyDescriptor descriptor : descriptors) {
+    for (final PropertyDescriptor descriptor : descriptors) {
       if (isTagProperty(descriptor)) {
-        String name = descriptor.getName();
+        final String name = descriptor.getName();
         // XXX: who releases id?
         if (name.equals("id")) {
           continue;
         }
         try {
-          Object newValue = PropertyUtils.getSimpleProperty(tag, name);
-          Object oldValue = initialValues.get(name);
-          String msg = "release of property '" + name + "' for tag '"
+          final Object newValue = PropertyUtils.getSimpleProperty(tag, name);
+          final Object oldValue = initialValues.get(name);
+          final String msg = "release of property '" + name + "' for tag '"
               + tag.getClass().getName() + "' failed.";
           Assert.assertEquals(msg, oldValue, newValue);
           // XXX: first error stops loop
           // if (newValue != null && !newValue.equals(oldValue)) {
-        } catch (NoSuchMethodException e1) {
+        } catch (final NoSuchMethodException e1) {
           LOG.error("", e1);
         }
       }
     }
   }
 
-  private boolean isTagProperty(PropertyDescriptor descriptor) {
+  private boolean isTagProperty(final PropertyDescriptor descriptor) {
     if ("parent".equals(descriptor.getName())) {
       return false;
     } else {
@@ -187,17 +187,17 @@ public abstract class GenericTestBase extends AbstractTobagoTestBase {
     }
   }
 
-  private Tld getTld(String name, InputStream stream) throws Exception {
-    DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-    DocumentBuilder db = dbf.newDocumentBuilder();
+  private Tld getTld(final String name, final InputStream stream) throws Exception {
+    final DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+    final DocumentBuilder db = dbf.newDocumentBuilder();
     db.setEntityResolver(new Resolver());
-    Document doc = db.parse(stream);
+    final Document doc = db.parse(stream);
     return TldParser.parse(doc, name);
   }
 
   private static class Resolver implements EntityResolver {
-    public InputSource resolveEntity(String publicId, String systemId) throws SAXException, IOException {
-      InputSource inputSource =
+    public InputSource resolveEntity(final String publicId, final String systemId) throws SAXException, IOException {
+      final InputSource inputSource =
           new InputSource(GenericTestBase.class.getResourceAsStream("/web-jsptaglibrary_1_2.dtd"));
       inputSource.setSystemId(systemId);
       return inputSource;

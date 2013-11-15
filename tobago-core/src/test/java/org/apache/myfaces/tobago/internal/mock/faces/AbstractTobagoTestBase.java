@@ -70,10 +70,10 @@ public abstract class AbstractTobagoTestBase extends AbstractJsfTestCase {
 
     // Tobago specific extensions
 
-    TobagoConfigImpl tobagoConfig = new TobagoConfigImpl();
-    Theme theme = new MockTheme("default", "Default Mock Theme", Collections.<Theme>emptyList());
-    Theme one = new MockTheme("one", "Mock Theme One", Arrays.asList(theme));
-    Map<String, Theme> availableThemes = new HashMap<String, Theme>();
+    final TobagoConfigImpl tobagoConfig = new TobagoConfigImpl();
+    final Theme theme = new MockTheme("default", "Default Mock Theme", Collections.<Theme>emptyList());
+    final Theme one = new MockTheme("one", "Mock Theme One", Arrays.asList(theme));
+    final Map<String, Theme> availableThemes = new HashMap<String, Theme>();
     availableThemes.put(theme.getName(), theme);
     availableThemes.put(one.getName(), one);
     tobagoConfig.setAvailableThemes(availableThemes);
@@ -99,7 +99,7 @@ public abstract class AbstractTobagoTestBase extends AbstractJsfTestCase {
 
     try {
       ResourceManagerFactory.init(servletContext, tobagoConfig);
-    } catch (AssertionError e) {
+    } catch (final AssertionError e) {
       // ignored in the moment. TODO
       LOG.error("Todo: remove this hack", e);
     }
@@ -109,7 +109,7 @@ public abstract class AbstractTobagoTestBase extends AbstractJsfTestCase {
   public void tearDown() throws Exception {
     try {
       ResourceManagerFactory.release(servletContext);
-    } catch (AssertionError e) {
+    } catch (final AssertionError e) {
       // ignored in the moment. TODO
       LOG.error("Todo: remove this hack", e);
     }

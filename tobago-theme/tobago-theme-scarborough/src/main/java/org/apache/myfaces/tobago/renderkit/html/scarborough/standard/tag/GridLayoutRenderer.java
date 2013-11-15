@@ -39,7 +39,7 @@ public class GridLayoutRenderer extends RendererBase implements SpacingValues, M
   private static final Logger LOG = LoggerFactory.getLogger(GridLayoutRenderer.class);
 
   @Override
-  public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
+  public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
 //    TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 //    UIGridLayout gridLayout = (UIGridLayout) component;
 //    writer.startElement(HtmlElements.DIV, gridLayout);
@@ -47,8 +47,8 @@ public class GridLayoutRenderer extends RendererBase implements SpacingValues, M
   }
 
   @Override
-  public void encodeChildren(FacesContext facesContext, UIComponent component) throws IOException {
-    UIComponent container = component.getParent();
+  public void encodeChildren(final FacesContext facesContext, final UIComponent component) throws IOException {
+    final UIComponent container = component.getParent();
     if (container instanceof LayoutContainer && !((LayoutContainer) container).isLayoutChildren()) {
       return;
     }
@@ -57,33 +57,33 @@ public class GridLayoutRenderer extends RendererBase implements SpacingValues, M
 
   @Override
   public void encodeEnd(
-      FacesContext facesContext,
-      UIComponent component) throws IOException {
+      final FacesContext facesContext,
+      final UIComponent component) throws IOException {
 //    TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 //    writer.endElement(HtmlElements.DIV);
   }
 
-  public Measure getColumnSpacing(FacesContext facesContext, Configurable component) {
+  public Measure getColumnSpacing(final FacesContext facesContext, final Configurable component) {
     return getResourceManager().getThemeMeasure(facesContext, component, Attributes.COLUMN_SPACING);
   }
 
-  public Measure getRowSpacing(FacesContext facesContext, Configurable component) {
+  public Measure getRowSpacing(final FacesContext facesContext, final Configurable component) {
     return getResourceManager().getThemeMeasure(facesContext, component, Attributes.ROW_SPACING);
   }
 
-  public Measure getMarginLeft(FacesContext facesContext, Configurable component) {
+  public Measure getMarginLeft(final FacesContext facesContext, final Configurable component) {
     return getResourceManager().getThemeMeasure(facesContext, component, Attributes.MARGIN_LEFT);
   }
 
-  public Measure getMarginRight(FacesContext facesContext, Configurable component) {
+  public Measure getMarginRight(final FacesContext facesContext, final Configurable component) {
     return getResourceManager().getThemeMeasure(facesContext, component, Attributes.MARGIN_RIGHT);
   }
 
-  public Measure getMarginTop(FacesContext facesContext, Configurable component) {
+  public Measure getMarginTop(final FacesContext facesContext, final Configurable component) {
     return getResourceManager().getThemeMeasure(facesContext, component, Attributes.MARGIN_TOP);
   }
 
-  public Measure getMarginBottom(FacesContext facesContext, Configurable component) {
+  public Measure getMarginBottom(final FacesContext facesContext, final Configurable component) {
     return getResourceManager().getThemeMeasure(facesContext, component, Attributes.MARGIN_BOTTOM);
   }
 }

@@ -41,38 +41,38 @@ public class StartupPhaseListener implements PhaseListener {
     return PhaseId.RESTORE_VIEW;
   }
 
-  public void beforePhase(PhaseEvent event) {
+  public void beforePhase(final PhaseEvent event) {
 
-    FacesContext facesContext = event.getFacesContext();
-    ExternalContext externalContext = facesContext.getExternalContext();
-    String pathInfo = externalContext.getRequestPathInfo();
+    final FacesContext facesContext = event.getFacesContext();
+    final ExternalContext externalContext = facesContext.getExternalContext();
+    final String pathInfo = externalContext.getRequestPathInfo();
     if (LOG.isDebugEnabled()) {
       LOG.debug("externalContext.getRequestPathInfo() = '" + pathInfo + "'");
     }
 
     if (pathInfo.equals("/error.xhtml") || // todo: not nice, find a declarative way.
         pathInfo.startsWith("/auth/")) {
-      Object session = externalContext.getSession(false);
+      final Object session = externalContext.getSession(false);
       if (session != null) {
         externalContext.getSessionMap().put(LOGGED_IN, Boolean.FALSE);
       }
       return; // nothing to do.
     }
 
-    Boolean loggedIn = (Boolean) // todo: not nice to get this object directly from the session
+    final Boolean loggedIn = (Boolean) // todo: not nice to get this object directly from the session
         externalContext.getSessionMap().get(LOGGED_IN);
 
     if (!BooleanUtils.toBoolean(loggedIn)) {
       try {
         externalContext.getSessionMap().put(LOGGED_IN, Boolean.TRUE);
-        String forward = externalContext.getRequestContextPath() + "/faces/addressbook/start.xhtml";
+        final String forward = externalContext.getRequestContextPath() + "/faces/addressbook/start.xhtml";
         externalContext.redirect(externalContext.encodeResourceURL(forward));
-      } catch (Exception e) {
+      } catch (final Exception e) {
         LOG.error("", e);
-        String forward = externalContext.getRequestContextPath() + "/error.xhtml";
+        final String forward = externalContext.getRequestContextPath() + "/error.xhtml";
         try {
           externalContext.redirect(externalContext.encodeResourceURL(forward));
-        } catch (IOException e2) {
+        } catch (final IOException e2) {
           LOG.error("", e2);
           throw new FacesException("Can't redirect to errorpage '" + forward + "'");
         }
@@ -80,6 +80,6 @@ public class StartupPhaseListener implements PhaseListener {
     }
   }
 
-  public void afterPhase(PhaseEvent event) {
+  public void afterPhase(final PhaseEvent event) {
   }
 }

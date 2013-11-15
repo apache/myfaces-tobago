@@ -29,30 +29,30 @@ import java.io.IOException;
 
 public class ScriptRenderer extends RendererBase {
 
-  public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
+  public void prepareRender(final FacesContext facesContext, final UIComponent component) throws IOException {
     super.prepareRender(facesContext, component);
-    UIScript scriptComponent = (UIScript) component;
-    String exit = scriptComponent.getOnexit();
+    final UIScript scriptComponent = (UIScript) component;
+    final String exit = scriptComponent.getOnexit();
     if (exit != null) {
       FacesContextUtils.addOnexitScript(facesContext, exit);
     }
-    String submit = scriptComponent.getOnsubmit();
+    final String submit = scriptComponent.getOnsubmit();
     if (submit != null) {
       FacesContextUtils.addOnsubmitScript(facesContext, submit);
     }
-    String load = scriptComponent.getOnload();
+    final String load = scriptComponent.getOnload();
     if (load != null) {
       FacesContextUtils.addOnloadScript(facesContext, load);
     }
-    String unload = scriptComponent.getOnunload();
+    final String unload = scriptComponent.getOnunload();
     if (unload != null) {
       FacesContextUtils.addOnunloadScript(facesContext, unload);
     }
-    String script = scriptComponent.getScript();
+    final String script = scriptComponent.getScript();
     if (script != null) {
       FacesContextUtils.addScriptBlock(facesContext, script);
     }
-    String file = scriptComponent.getFile();
+    final String file = scriptComponent.getFile();
     if (file != null) {
       FacesContextUtils.addScriptFile(facesContext, file);
     }

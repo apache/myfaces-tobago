@@ -84,7 +84,7 @@ public class CodeSnipletExtractTask extends Task {
     return outputFileNamePattern;
   }
 
-  public void setOutputFileNamePattern(String outputFileNamePattern) {
+  public void setOutputFileNamePattern(final String outputFileNamePattern) {
     this.outputFileNamePattern = outputFileNamePattern;
   }
 
@@ -92,11 +92,11 @@ public class CodeSnipletExtractTask extends Task {
     return outputDir;
   }
 
-  public void setOutputDir(File outputDir) {
+  public void setOutputDir(final File outputDir) {
     this.outputDir = outputDir;
   }
 
-  public void addConfiguredFileSet(FileSet fileSet) {
+  public void addConfiguredFileSet(final FileSet fileSet) {
     this.fileSets.add(fileSet);
   }
 
@@ -104,29 +104,29 @@ public class CodeSnipletExtractTask extends Task {
     return stripLeadingSpaces;
   }
 
-  public void setStripLeadingSpaces(boolean stripLeadingSpaces) {
+  public void setStripLeadingSpaces(final boolean stripLeadingSpaces) {
     this.stripLeadingSpaces = stripLeadingSpaces;
   }
 
   public void execute() throws BuildException {
     for (int k = 0; k < fileSets.size(); k++) {
-      FileSet fileSet = fileSets.get(k);
-      DirectoryScanner dirScanner = fileSet.getDirectoryScanner(getProject());
+      final FileSet fileSet = fileSets.get(k);
+      final DirectoryScanner dirScanner = fileSet.getDirectoryScanner(getProject());
       dirScanner.scan();
-      String[] includedFiles = dirScanner.getIncludedFiles();
+      final String[] includedFiles = dirScanner.getIncludedFiles();
       for (int i = 0; i < includedFiles.length; i++) {
-        String fileS = includedFiles[i];
+        final String fileS = includedFiles[i];
         LineNumberReader in = null;
         try {
           in = new LineNumberReader(new FileReader(fileSet.getDir(getProject())
               + File.separator + fileS));
           String line = in.readLine();
           while (line != null) {
-            Matcher startMatcher = startPattern.matcher(line);
+            final Matcher startMatcher = startPattern.matcher(line);
             if (startMatcher.matches()) {
               startSniplet(startMatcher.group(1), fileS, in.getLineNumber());
             } else {
-              Matcher endMatcher = endPattern.matcher(line);
+              final Matcher endMatcher = endPattern.matcher(line);
               if (endMatcher.matches()) {
                 endSniplet(endMatcher.group(1), fileS, in.getLineNumber());
               } else {
@@ -136,7 +136,7 @@ public class CodeSnipletExtractTask extends Task {
             line = in.readLine();
           }
           for (int j = 0; j < sniplets.size(); j++) {
-            CodeSniplet codeSniplet = (CodeSniplet) sniplets.get(j);
+            final CodeSniplet codeSniplet = (CodeSniplet) sniplets.get(j);
             if (codeSniplet.getLineEnd() == 0) {
               codeSniplet.setLineEnd(in.getLineNumber());
               log("Unclosed sniplet '" + codeSniplet.getId() + "' in file '" + codeSniplet.getFileName() + "' at line '"
@@ -145,13 +145,13 @@ public class CodeSnipletExtractTask extends Task {
           }
           createOutput();
           sniplets = new ArrayList<CodeSniplet>();
-        } catch (IOException e) {
+        } catch (final IOException e) {
           throw new BuildException(e);
         } finally {
           if (in != null) {
             try {
               in.close();
-            } catch (IOException e) {
+            } catch (final IOException e) {
               throw new BuildException(e);
             }
           }
@@ -162,33 +162,33 @@ public class CodeSnipletExtractTask extends Task {
 
   private void createOutput() throws FileNotFoundException {
     for (int i = 0; i < sniplets.size(); i++) {
-      CodeSniplet codeSniplet = (CodeSniplet) sniplets.get(i);
-      String fileName = codeSniplet.getId() + ".snip";
-      File file = new File(outputDir, fileName);
-      PrintWriter out = new PrintWriter(new FileOutputStream(file));
-      StringBuffer code = codeSniplet.getCode(stripLeadingSpaces);
+      final CodeSniplet codeSniplet = (CodeSniplet) sniplets.get(i);
+      final String fileName = codeSniplet.getId() + ".snip";
+      final File file = new File(outputDir, fileName);
+      final PrintWriter out = new PrintWriter(new FileOutputStream(file));
+      final StringBuffer code = codeSniplet.getCode(stripLeadingSpaces);
       out.print(code);
       out.close();
       log("Wrote: " + file.getName(), Project.MSG_INFO);
     }
   }
 
-  private void startSniplet(String id, String fileName, int lineNumber) {
+  private void startSniplet(final String id, final String fileName, final int lineNumber) {
     for (int i = 0; i < sniplets.size(); i++) {
-      CodeSniplet codeSniplet = (CodeSniplet) sniplets.get(i);
+      final CodeSniplet codeSniplet = (CodeSniplet) sniplets.get(i);
       if (codeSniplet.getId().equals(id)) {
         throw new BuildException("Duplicate sniplet declaration '" + id + "' in file '" + fileName + "' at line '"
             + lineNumber + "'. First declaration was in file '" + codeSniplet.getFileName() + "' at line '"
             + codeSniplet.getLineStart() + "'.");
       }
     }
-    CodeSniplet codeSniplet = new CodeSniplet(id, fileName, lineNumber);
+    final CodeSniplet codeSniplet = new CodeSniplet(id, fileName, lineNumber);
     sniplets.add(codeSniplet);
   }
 
-  private void endSniplet(String id, String fileName, int lineNumber) {
+  private void endSniplet(final String id, final String fileName, final int lineNumber) {
     for (int i = 0; i < sniplets.size(); i++) {
-      CodeSniplet codeSniplet = (CodeSniplet) sniplets.get(i);
+      final CodeSniplet codeSniplet = (CodeSniplet) sniplets.get(i);
       if (codeSniplet.getId().equals(id)) {
         codeSniplet.setLineEnd(lineNumber);
         return;
@@ -198,9 +198,9 @@ public class CodeSnipletExtractTask extends Task {
         + "' found.");
   }
 
-  private void addLine(String line) {
+  private void addLine(final String line) {
     for (int i = 0; i < sniplets.size(); i++) {
-      CodeSniplet codeSniplet = (CodeSniplet) sniplets.get(i);
+      final CodeSniplet codeSniplet = (CodeSniplet) sniplets.get(i);
       if (codeSniplet.getLineEnd() == 0) {
         codeSniplet.addLine(line);
         log("Adding: " + line + " -> " + codeSniplet.getFileName() + ":" + codeSniplet.getId(), Project.MSG_DEBUG);

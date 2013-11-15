@@ -53,39 +53,39 @@ public abstract class AbstractConverter implements Converter {
     if (pattern == null) {
       try {
         pattern = initPattern();
-      } catch (MalformedPatternException e) {
+      } catch (final MalformedPatternException e) {
         LOG.error("", e);
       }
     }
     return pattern;
   }
 
-  private String getFragment(String data, int start, int end) {
+  private String getFragment(final String data, final int start, final int end) {
     return data.substring(start, end);
   }
 
-  protected String convertMisc(String data, int start, int end) {
+  protected String convertMisc(final String data, final int start, final int end) {
     return convertMisc(getFragment(data, start, end));
   }
 
-  protected String convertMatch(String data, int start, int end) {
+  protected String convertMatch(final String data, final int start, final int end) {
     return convertMatch(getFragment(data, start, end));
   }
 
-  public String convertMisc(String fragment) {
+  public String convertMisc(final String fragment) {
     return fragment;
   }
 
-  public String convert(String input) {
-    StringBuilder buffer = new StringBuilder();
+  public String convert(final String input) {
+    final StringBuilder buffer = new StringBuilder();
     int lastStart = 0;
-    PatternMatcherInput patternMatcherInput = new PatternMatcherInput(input);
-    Pattern pattern = getPattern();
+    final PatternMatcherInput patternMatcherInput = new PatternMatcherInput(input);
+    final Pattern pattern = getPattern();
     if (matcher.contains(patternMatcherInput, pattern)) {
       do {
-        MatchResult result = matcher.getMatch();
-        int start = result.beginOffset(0);
-        int end = result.endOffset(0);
+        final MatchResult result = matcher.getMatch();
+        final int start = result.beginOffset(0);
+        final int end = result.endOffset(0);
         buffer.append(convertMisc(input, lastStart, start));
         buffer.append(convertMatch(input, start, end));
         lastStart = end;
@@ -95,7 +95,7 @@ public abstract class AbstractConverter implements Converter {
     return buffer.toString();
   }
 
-  public String highlightStrings(String input) {
+  public String highlightStrings(final String input) {
     return util.substitute("s/(\".*?\")/<span class=\"string\">$1<\\/span>/g", input);
   }
 

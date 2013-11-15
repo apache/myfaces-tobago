@@ -42,7 +42,7 @@ import java.io.IOException;
 public class TreeMenuNodeRenderer extends TreeNodeRendererBase {
 
   @Override
-  public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
+  public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
 
     final UITreeNode node = (UITreeNode) component;
     final AbstractUIData data = ComponentUtils.findAncestor(node, AbstractUIData.class);
@@ -67,7 +67,7 @@ public class TreeMenuNodeRenderer extends TreeNodeRendererBase {
 
     // In the case of a sheet, we need not hiding the node, because the whole TR will be hidden.
     if (!dataRendersRowContainer && !visible) {
-      Style style = new Style();
+      final Style style = new Style();
       style.setDisplay(Display.NONE);
       writer.writeStyleAttribute(style);
     }
@@ -79,7 +79,7 @@ public class TreeMenuNodeRenderer extends TreeNodeRendererBase {
       writer.writeClassAttribute(Classes.create(node, "icon"));
       writer.writeAttribute(HtmlAttributes.SRC, src, false);
       writer.writeAttribute(HtmlAttributes.ALT, "", false);
-      Style style = new Style();
+      final Style style = new Style();
       style.setWidth(Measure.ZERO);
       writer.writeStyleAttribute(style);
       writer.endElement(HtmlElements.IMG);
@@ -87,7 +87,7 @@ public class TreeMenuNodeRenderer extends TreeNodeRendererBase {
   }
 
   @Override
-  public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
+  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
     final UITreeNode node = (UITreeNode) component;
     final AbstractUIData data = ComponentUtils.findAncestor(node, AbstractUIData.class);
     final int level = node.getLevel();
@@ -102,7 +102,8 @@ public class TreeMenuNodeRenderer extends TreeNodeRendererBase {
     writer.endElement(HtmlElements.DIV);
   }
 
-  private void encodeIcon(FacesContext facesContext, TobagoResponseWriter writer, boolean expanded, UITreeNode node)
+  private void encodeIcon(
+      final FacesContext facesContext, final TobagoResponseWriter writer, final boolean expanded, final UITreeNode node)
       throws IOException {
     final String srcOpen = ResourceManagerUtils.getImageWithPath(facesContext, "image/treeMenuOpen.gif");
     final String srcClose = ResourceManagerUtils.getImageWithPath(facesContext, "image/treeMenuClose.gif");

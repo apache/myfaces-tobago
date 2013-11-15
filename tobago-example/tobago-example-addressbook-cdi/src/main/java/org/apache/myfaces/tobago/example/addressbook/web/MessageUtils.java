@@ -29,28 +29,28 @@ public class MessageUtils {
   private MessageUtils() {
   }
 
-  public static String getLocalizedString(FacesContext facesContext, String key) {
-    ResourceBundle bundle = ResourceBundle.getBundle(
+  public static String getLocalizedString(final FacesContext facesContext, final String key) {
+    final ResourceBundle bundle = ResourceBundle.getBundle(
         facesContext.getApplication().getMessageBundle(),
         facesContext.getViewRoot().getLocale());
     return bundle.getString(key);
   }
 
-  public static String getLocalizedString(FacesContext facesContext,
-      String key, String value) {
+  public static String getLocalizedString(final FacesContext facesContext,
+      final String key, final String value) {
     return MessageFormat.format(
         getLocalizedString(facesContext, key), value);
   }
 
-  public static String getLocalizedString(FacesContext facesContext,
-      String key, int value) {
+  public static String getLocalizedString(final FacesContext facesContext,
+      final String key, final int value) {
     return MessageFormat.format(
         getLocalizedString(facesContext, key), value);
   }
 
   public static FacesMessage createErrorMessage(
-      String key, FacesContext facesContext) {
-    FacesMessage message = new FacesMessage();
+      final String key, final FacesContext facesContext) {
+    final FacesMessage message = new FacesMessage();
     // TODO _detail
     message.setDetail(getLocalizedString(facesContext, key));
     message.setSummary(getLocalizedString(facesContext, key));

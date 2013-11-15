@@ -32,8 +32,8 @@ public abstract class TobagoELTag extends UIComponentELTag {
 
   @Override
   public int doStartTag() throws JspException {
-    int result = super.doStartTag();
-    UIComponent component = getComponentInstance();
+    final int result = super.doStartTag();
+    final UIComponent component = getComponentInstance();
     if (component instanceof OnComponentCreated
         && component.getAttributes().get(OnComponentCreated.MARKER) == null) {
       component.getAttributes().put(OnComponentCreated.MARKER, Boolean.TRUE);
@@ -44,8 +44,8 @@ public abstract class TobagoELTag extends UIComponentELTag {
 
   @Override
   public int doEndTag() throws JspException {
-    UIComponent component = getComponentInstance();
-    int result = super.doEndTag();
+    final UIComponent component = getComponentInstance();
+    final int result = super.doEndTag();
     if (component instanceof OnComponentPopulated
         && component.getAttributes().get(OnComponentPopulated.MARKER) == null) {
       component.getAttributes().put(OnComponentPopulated.MARKER, Boolean.TRUE);
@@ -54,7 +54,7 @@ public abstract class TobagoELTag extends UIComponentELTag {
     return result;
   }
 
-  public String[] splitList(String renderers) {
+  public String[] splitList(final String renderers) {
     return StringUtils.split(renderers, ", ");
   }
 
@@ -64,7 +64,7 @@ public abstract class TobagoELTag extends UIComponentELTag {
    */
   @Deprecated
   protected String getBodyContentStr() {
-    String content = bodyContent.getString();
+    final String content = bodyContent.getString();
     bodyContent.clearBody();
     return content;
   }
@@ -76,8 +76,8 @@ public abstract class TobagoELTag extends UIComponentELTag {
   @Deprecated
   protected boolean isBodyContentEmpty() {
     if (bodyContent != null) {
-      String content = bodyContent.getString();
-      String tmp = content.replace('\n', ' ');
+      final String content = bodyContent.getString();
+      final String tmp = content.replace('\n', ' ');
       if (tmp.trim().length() > 0) { // if there are only whitespaces: drop bodyContent
         return false;
       }

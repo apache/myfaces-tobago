@@ -34,8 +34,8 @@ public class TabGroupLayoutRenderer extends RendererBase {
   private static final Logger LOG = LoggerFactory.getLogger(TabGroupLayoutRenderer.class);
 
   @Override
-  public void encodeChildren(FacesContext facesContext, UIComponent component) throws IOException {
-    UIComponent container = component.getParent();
+  public void encodeChildren(final FacesContext facesContext, final UIComponent component) throws IOException {
+    final UIComponent container = component.getParent();
     LOG.info("TAB GROUP LAYOUT RENDERER");
     if (container instanceof LayoutContainer && !((LayoutContainer) container).isLayoutChildren()) {
       return;

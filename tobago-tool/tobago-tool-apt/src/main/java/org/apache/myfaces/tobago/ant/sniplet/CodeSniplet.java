@@ -30,14 +30,14 @@ public class CodeSniplet {
   private int lineStart;
   private int lineEnd;
 
-  public CodeSniplet(String id, String fileName, int lineStart) {
+  public CodeSniplet(final String id, final String fileName, final int lineStart) {
     this.id = id;
     this.fileName = fileName;
     this.code = new ArrayList<String>();
     this.lineStart = lineStart;
   }
 
-  public void addLine(String line) {
+  public void addLine(final String line) {
     code.add(line);
   }
 
@@ -45,16 +45,16 @@ public class CodeSniplet {
     return id;
   }
 
-  public void setId(String id) {
+  public void setId(final String id) {
     this.id = id;
   }
 
-  public StringBuffer getCode(boolean stripLeadingSpaces) {
+  public StringBuffer getCode(final boolean stripLeadingSpaces) {
     int minSpaces = -1;
     for (int i = 0; i < code.size(); i++) {
-      String s = code.get(i);
+      final String s = code.get(i);
       for (int j = 0; j < s.length(); j++) {
-        char c = s.charAt(j);
+        final char c = s.charAt(j);
         if (!Character.isWhitespace(c)) {
           if (minSpaces == -1 || j < minSpaces) {
             minSpaces = j;
@@ -63,9 +63,9 @@ public class CodeSniplet {
         }
       }
     }
-    StringBuffer sb = new StringBuffer();
+    final StringBuffer sb = new StringBuffer();
     for (int i = 0; i < code.size(); i++) {
-      String s = code.get(i);
+      final String s = code.get(i);
       if (stripLeadingSpaces && s.length() > minSpaces && minSpaces != -1) {
         sb.append(s.substring(minSpaces));
       } else {
@@ -82,7 +82,7 @@ public class CodeSniplet {
     return fileName;
   }
 
-  public void setFileName(String fileName) {
+  public void setFileName(final String fileName) {
     this.fileName = fileName;
   }
 
@@ -90,7 +90,7 @@ public class CodeSniplet {
     return lineStart;
   }
 
-  public void setLineStart(int lineStart) {
+  public void setLineStart(final int lineStart) {
     this.lineStart = lineStart;
   }
 
@@ -98,7 +98,7 @@ public class CodeSniplet {
     return lineEnd;
   }
 
-  public void setLineEnd(int lineEnd) {
+  public void setLineEnd(final int lineEnd) {
     this.lineEnd = lineEnd;
   }
 

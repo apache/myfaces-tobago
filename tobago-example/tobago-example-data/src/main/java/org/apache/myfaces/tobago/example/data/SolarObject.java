@@ -48,8 +48,8 @@ public class SolarObject {
   private String population;
 
   public SolarObject(
-      String name, String number, String orbit, Integer distance, Double period,
-      Double incl, Double eccen, String discoverer, Integer discoverYear) {
+      final String name, final String number, final String orbit, final Integer distance, final Double period,
+      final Double incl, final Double eccen, final String discoverer, final Integer discoverYear) {
     this.name = name;
     this.number = number;
     this.orbit = orbit;
@@ -66,7 +66,7 @@ public class SolarObject {
     return name;
   }
 
-  public void setName(String name) {
+  public void setName(final String name) {
     this.name = name;
   }
 
@@ -86,7 +86,7 @@ public class SolarObject {
     return number;
   }
 
-  public void setNumber(String number) {
+  public void setNumber(final String number) {
     this.number = number;
   }
 
@@ -94,7 +94,7 @@ public class SolarObject {
     return orbit;
   }
 
-  public void setOrbit(String orbit) {
+  public void setOrbit(final String orbit) {
     this.orbit = orbit;
   }
 
@@ -102,7 +102,7 @@ public class SolarObject {
     return distance;
   }
 
-  public void setDistance(Integer distance) {
+  public void setDistance(final Integer distance) {
     this.distance = distance;
   }
 
@@ -110,7 +110,7 @@ public class SolarObject {
     return period;
   }
 
-  public void setPeriod(Double period) {
+  public void setPeriod(final Double period) {
     this.period = period;
   }
 
@@ -118,7 +118,7 @@ public class SolarObject {
     return incl;
   }
 
-  public void setIncl(Double incl) {
+  public void setIncl(final Double incl) {
     this.incl = incl;
   }
 
@@ -126,7 +126,7 @@ public class SolarObject {
     return eccen;
   }
 
-  public void setEccen(Double eccen) {
+  public void setEccen(final Double eccen) {
     this.eccen = eccen;
   }
 
@@ -134,7 +134,7 @@ public class SolarObject {
     return discoverer;
   }
 
-  public void setDiscoverer(String discoverer) {
+  public void setDiscoverer(final String discoverer) {
     this.discoverer = discoverer;
   }
 
@@ -142,7 +142,7 @@ public class SolarObject {
     return discoverYear;
   }
 
-  public void setDiscoverYear(Integer discoverYear) {
+  public void setDiscoverYear(final Integer discoverYear) {
     this.discoverYear = discoverYear;
   }
 
@@ -150,7 +150,7 @@ public class SolarObject {
     return population;
   }
 
-  public void setPopulation(String population) {
+  public void setPopulation(final String population) {
     this.population = population;
   }
 
@@ -163,9 +163,9 @@ public class SolarObject {
   }
 
   public static List<SolarObject> getList() {
-    SolarObject[] array = getArray();
-    List<SolarObject> list = new ArrayList<SolarObject>(array.length);
-    for (SolarObject object : array) {
+    final SolarObject[] array = getArray();
+    final List<SolarObject> list = new ArrayList<SolarObject>(array.length);
+    for (final SolarObject object : array) {
       list.add(object);
     }
     return list;
@@ -174,7 +174,7 @@ public class SolarObject {
   public static DefaultMutableTreeNode getTree() {
     final SolarObject[] array = getArray();
     final Map<String, DefaultMutableTreeNode> cache = new HashMap<String, DefaultMutableTreeNode>();
-    for (SolarObject solar : array) {
+    for (final SolarObject solar : array) {
       final DefaultMutableTreeNode node = new DefaultMutableTreeNode(solar);
       cache.put(solar.getName(), node);
       final String orbitName = solar.getOrbit();
@@ -187,10 +187,10 @@ public class SolarObject {
     return cache.get("Sun");
   }
 
-  public static List<SolarObject> getSatellites(String center) {
-    List<SolarObject> collect = new ArrayList<SolarObject>();
-    SolarObject[] all = getArray();
-    for (SolarObject anAll : all) {
+  public static List<SolarObject> getSatellites(final String center) {
+    final List<SolarObject> collect = new ArrayList<SolarObject>();
+    final SolarObject[] all = getArray();
+    for (final SolarObject anAll : all) {
       if (anAll.getOrbit().equals(center)) {
         collect.add(anAll);
       }

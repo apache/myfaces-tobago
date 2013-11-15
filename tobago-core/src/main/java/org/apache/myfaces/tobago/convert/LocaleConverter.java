@@ -32,8 +32,8 @@ public class LocaleConverter implements Converter {
 
 
   public Object getAsObject(
-      FacesContext facesContext, UIComponent component, String value) {
-    Locale locale = LocaleUtils.createLocale(value);
+      final FacesContext facesContext, final UIComponent component, final String value) {
+    final Locale locale = LocaleUtils.createLocale(value);
     if (locale == null) {
       throw new ConverterException("Can't parse " + value + " to a locale.");
     }
@@ -41,7 +41,7 @@ public class LocaleConverter implements Converter {
   }
 
   public String getAsString(
-      FacesContext facesContext, UIComponent component, Object value) {
+      final FacesContext facesContext, final UIComponent component, final Object value) {
     return value.toString();
   }
 

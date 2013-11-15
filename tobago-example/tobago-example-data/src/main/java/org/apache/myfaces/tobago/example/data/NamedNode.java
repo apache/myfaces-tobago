@@ -34,11 +34,11 @@ public class NamedNode extends DefaultMutableTreeNode {
   private String script;
   private String url;
 
-  public NamedNode(String name) {
+  public NamedNode(final String name) {
     this.name = name;
   }
 
-  public NamedNode(String name, String action, String script, String url) {
+  public NamedNode(final String name, final String action, final String script, final String url) {
     this.name = name;
     this.action = action;
     this.script = script;
@@ -54,7 +54,7 @@ public class NamedNode extends DefaultMutableTreeNode {
     return null;
   }
 
-  public void actionListener(ActionEvent event) {
+  public void actionListener(final ActionEvent event) {
     LOG.info("The actionListener() of node '" + name + "' was called.");
   }
 

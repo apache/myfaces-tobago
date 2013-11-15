@@ -26,10 +26,10 @@ import javax.servlet.jsp.tagext.ValidationMessage;
 public class CommandTagExtraInfo extends TagExtraInfo {
   private static final ValidationMessage[] EMPTY_MESSAGE = new ValidationMessage[0];
 
-  public ValidationMessage[] validate(TagData data) {
-    Object action = data.getAttribute("action");
-    Object onclick = data.getAttribute("onclick");
-    Object link = data.getAttribute("link");
+  public ValidationMessage[] validate(final TagData data) {
+    final Object action = data.getAttribute("action");
+    final Object onclick = data.getAttribute("onclick");
+    final Object link = data.getAttribute("link");
 
     if (link != null && !(action == null && onclick == null)) {
       return generateValidationMessages(data);
@@ -37,8 +37,8 @@ public class CommandTagExtraInfo extends TagExtraInfo {
     return EMPTY_MESSAGE;
   }
 
-  private ValidationMessage[] generateValidationMessages(TagData data) {
-    ValidationMessage[] messages = new ValidationMessage[1];
+  private ValidationMessage[] generateValidationMessages(final TagData data) {
+    final ValidationMessage[] messages = new ValidationMessage[1];
     messages[0] = new ValidationMessage(data.getId(),
         "Only one Attribute of action, onclick and link is allowed");
     return messages;

@@ -44,12 +44,12 @@ public abstract class AbstractGenerator extends AbstractProcessor {
   private List<TypeElement> types;
   private List<PackageElement> packages;
 
-  public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
+  public boolean process(final Set<? extends TypeElement> annotations, final RoundEnvironment roundEnv) {
 
     info("**********************************************************************************");
     info("* Starting generator: " + getClass().getName());
     info("* Number of annotations:   " + annotations.size());
-    for (TypeElement typeElement : annotations) {
+    for (final TypeElement typeElement : annotations) {
       info("* Type element: " + typeElement.getQualifiedName());
     }
 
@@ -60,10 +60,10 @@ public abstract class AbstractGenerator extends AbstractProcessor {
 
     types = new ArrayList<TypeElement>();
     packages = new ArrayList<PackageElement>();
-    for (TypeElement element : annotations) {
+    for (final TypeElement element : annotations) {
       final Collection<? extends Element> elementsAnnotatedWith = roundEnv
           .getElementsAnnotatedWith(element);
-      for (Element e : elementsAnnotatedWith) {
+      for (final Element e : elementsAnnotatedWith) {
         if (e instanceof TypeElement) {
           if (!types.contains(e)) { // todo: optimize, O(n^2)?
             types.add((TypeElement) e);
@@ -78,7 +78,7 @@ public abstract class AbstractGenerator extends AbstractProcessor {
     }
 
     Collections.sort(types, new Comparator<TypeElement>() {
-      public int compare(TypeElement d1, TypeElement d2) {
+      public int compare(final TypeElement d1, final TypeElement d2) {
         return d1.getSimpleName().toString().compareTo(d2.getSimpleName().toString());
       }
     });
@@ -87,7 +87,7 @@ public abstract class AbstractGenerator extends AbstractProcessor {
 
     try {
       generate();
-    } catch (Exception e) {
+    } catch (final Exception e) {
       error(e);
     }
 
@@ -98,17 +98,17 @@ public abstract class AbstractGenerator extends AbstractProcessor {
 
   protected abstract void generate() throws Exception;
 
-  protected void info(String message) {
+  protected void info(final String message) {
     processingEnv.getMessager().printMessage(Diagnostic.Kind.NOTE,
         "<" + getClass().getSimpleName() + "> " + message);
   }
 
-  protected void warn(String message) {
+  protected void warn(final String message) {
     processingEnv.getMessager().printMessage(Diagnostic.Kind.WARNING,
         "<" + getClass().getSimpleName() + "> " + message);
   }
 
-  protected void error(Exception e) {
+  protected void error(final Exception e) {
     final StringWriter out = new StringWriter();
     e.printStackTrace(new PrintWriter(out));
     processingEnv.getMessager().printMessage(Diagnostic.Kind.ERROR,

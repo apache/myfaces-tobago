@@ -40,18 +40,18 @@ public class TobagoLifecycleFactory extends LifecycleFactory {
   private LifecycleFactory factory;
   private TobagoLifecycle defaultLifecycle;
 
-  public TobagoLifecycleFactory(LifecycleFactory factory) {
+  public TobagoLifecycleFactory(final LifecycleFactory factory) {
     this.factory = factory;
     defaultLifecycle = new TobagoLifecycle();
     Deprecation.LOG.warn("new TobagoLifecycleFactory");
   }
 
-  public void addLifecycle(String lifecycleId, Lifecycle lifecycle) {
+  public void addLifecycle(final String lifecycleId, final Lifecycle lifecycle) {
     factory.addLifecycle(lifecycleId, lifecycle);
     Deprecation.LOG.warn("Lifecycle added : " + lifecycleId + " = " + lifecycle.getClass().getName() + "");
   }
 
-  public Lifecycle getLifecycle(String lifecycleId) {
+  public Lifecycle getLifecycle(final String lifecycleId) {
     if (LifecycleFactory.DEFAULT_LIFECYCLE.equals(lifecycleId)) {
       Deprecation.LOG.warn("getLifecycle(\"" + lifecycleId + "\")  -> TobagoLifecycle");
       return defaultLifecycle;

@@ -30,10 +30,10 @@ import javax.faces.context.FacesContext;
 
 public abstract class AbstractUIFile extends UIInput implements LayoutComponent, UIFileInput {
 
-  public void validate(FacesContext facesContext) {
+  public void validate(final FacesContext facesContext) {
     if (isRequired()) {
       if (getSubmittedValue() instanceof FileItem) {
-        FileItem file = (FileItem) getSubmittedValue();
+        final FileItem file = (FileItem) getSubmittedValue();
         if (file == null || file.getName().length() == 0) {
           addErrorMessage(facesContext);
           setValid(false);
@@ -46,7 +46,7 @@ public abstract class AbstractUIFile extends UIInput implements LayoutComponent,
     super.validate(facesContext);
   }
 
-  private void addErrorMessage(FacesContext facesContext) {
+  private void addErrorMessage(final FacesContext facesContext) {
     MessageUtils.addMessage(
         facesContext, this, FacesMessage.SEVERITY_ERROR, REQUIRED_MESSAGE_ID, new Object[]{getId()});
   }

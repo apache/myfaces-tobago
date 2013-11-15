@@ -28,10 +28,10 @@ public class TagConverter extends AbstractConverter {
     return getCompiler().compile("(?s)<.*?>");
   }
 
-  public String convertMatch(String fragment) {
+  public String convertMatch(final String fragment) {
     // String escaped = XmlUtils.escape(fragment);
 
-    String withLinks = getUtil().substitute("s/^<jsp:include page=\\\"([\\-\\.\\/\\w]+)"
+    final String withLinks = getUtil().substitute("s/^<jsp:include page=\\\"([\\-\\.\\/\\w]+)"
             + "/<jsp:include page=\\\"<a href='viewSource.jsp?jsp=$1'>$1<\\/a>/", fragment);
 
     String escaped = getUtil().substitute("s/^(<\\/?)(\\w+):/$1<b>$2<\\/b>:/", withLinks);

@@ -45,7 +45,7 @@ public class ResourceManagerFactory {
    * @deprecated has been moved to internal package
    */
   @Deprecated
-  public static ResourceManager getResourceManager(FacesContext facesContext) {
+  public static ResourceManager getResourceManager(final FacesContext facesContext) {
     return org.apache.myfaces.tobago.internal.context.ResourceManagerFactory.getResourceManager(facesContext);
   }
 
@@ -53,7 +53,7 @@ public class ResourceManagerFactory {
    * @deprecated has been moved to internal package
    */
   @Deprecated
-  public static ResourceManager getResourceManager(ServletContext servletContext) {
+  public static ResourceManager getResourceManager(final ServletContext servletContext) {
     return org.apache.myfaces.tobago.internal.context.ResourceManagerFactory.getResourceManager(servletContext);
   }
 
@@ -61,7 +61,8 @@ public class ResourceManagerFactory {
    * @deprecated has been moved to internal package
    */
   @Deprecated
-  public static void init(ServletContext servletContext, TobagoConfigImpl tobagoConfig) throws ServletException {
+  public static void init(final ServletContext servletContext, final TobagoConfigImpl tobagoConfig)
+      throws ServletException {
     org.apache.myfaces.tobago.internal.context.ResourceManagerFactory.init(servletContext, tobagoConfig);
   }
 
@@ -69,7 +70,7 @@ public class ResourceManagerFactory {
    * @deprecated has been moved to internal package
    */
   @Deprecated
-  public static void release(ServletContext servletContext) {
+  public static void release(final ServletContext servletContext) {
     org.apache.myfaces.tobago.internal.context.ResourceManagerFactory.release(servletContext);
   }
 }

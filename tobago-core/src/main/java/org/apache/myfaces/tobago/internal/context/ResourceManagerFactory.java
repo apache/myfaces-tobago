@@ -36,25 +36,25 @@ public final class ResourceManagerFactory {
 
   private static boolean initialized;
 
-  public static ResourceManager getResourceManager(FacesContext facesContext) {
+  public static ResourceManager getResourceManager(final FacesContext facesContext) {
     assert initialized;
     return (ResourceManager) facesContext.getExternalContext()
         .getApplicationMap().get(RESOURCE_MANAGER);
   }
 
-  public static ResourceManager getResourceManager(ServletContext servletContext) {
+  public static ResourceManager getResourceManager(final ServletContext servletContext) {
     assert initialized;
     return (ResourceManager) servletContext.getAttribute(RESOURCE_MANAGER);
   }
 
   public static void init(
-      ServletContext servletContext, TobagoConfigImpl tobagoConfig)
+      final ServletContext servletContext, final TobagoConfigImpl tobagoConfig)
       throws ServletException {
     assert !initialized;
-    ResourceManagerImpl resourceManager= new ResourceManagerImpl(tobagoConfig);
+    final ResourceManagerImpl resourceManager= new ResourceManagerImpl(tobagoConfig);
 
-    ThemeBuilder themeBuilder = new ThemeBuilder(tobagoConfig);
-    ResourceLocator resourceLocator = new ResourceLocator(servletContext, resourceManager, themeBuilder);
+    final ThemeBuilder themeBuilder = new ThemeBuilder(tobagoConfig);
+    final ResourceLocator resourceLocator = new ResourceLocator(servletContext, resourceManager, themeBuilder);
     resourceLocator.locate();
     themeBuilder.resolveThemes();
 
@@ -63,7 +63,7 @@ public final class ResourceManagerFactory {
     initialized = true;
   }
 
-  public static void release(ServletContext servletContext) {
+  public static void release(final ServletContext servletContext) {
     assert initialized;
     initialized = false;
     servletContext.removeAttribute(RESOURCE_MANAGER);

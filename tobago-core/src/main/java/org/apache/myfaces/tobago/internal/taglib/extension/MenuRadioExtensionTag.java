@@ -154,13 +154,13 @@ public class MenuRadioExtensionTag extends TobagoExtensionBodyTagSupport {
 
     if (renderedPartially == null) {
       // Move attribute renderedPartially from selectOne to menuCommand component
-      UIComponent inComponent = inTag.getComponentInstance();
-      AbstractUICommandBase command = (AbstractUICommandBase) menuCommandTag.getComponentInstance();
-      javax.el.ValueExpression expression = inComponent.getValueExpression(Attributes.RENDERED_PARTIALLY);
+      final UIComponent inComponent = inTag.getComponentInstance();
+      final AbstractUICommandBase command = (AbstractUICommandBase) menuCommandTag.getComponentInstance();
+      final javax.el.ValueExpression expression = inComponent.getValueExpression(Attributes.RENDERED_PARTIALLY);
       if (expression != null) {
         command.setValueExpression(Attributes.RENDERED_PARTIALLY, expression);
       } else {
-        Object renderedPartially = inComponent.getAttributes().get(Attributes.RENDERED_PARTIALLY);
+        final Object renderedPartially = inComponent.getAttributes().get(Attributes.RENDERED_PARTIALLY);
         command.setRenderedPartially(StringUtils.split((String) renderedPartially, ", "));
       }
     }
@@ -205,7 +205,7 @@ public class MenuRadioExtensionTag extends TobagoExtensionBodyTagSupport {
   @TagAttribute
   @UIComponentTagAttribute(type = {}, expression = DynamicExpression.METHOD_EXPRESSION,
       methodReturnType = "java.lang.Object")
-  public void setAction(javax.el.MethodExpression action) {
+  public void setAction(final javax.el.MethodExpression action) {
     this.action = action;
   }
 
@@ -218,7 +218,7 @@ public class MenuRadioExtensionTag extends TobagoExtensionBodyTagSupport {
   @TagAttribute
   @UIComponentTagAttribute(type = {}, expression = DynamicExpression.METHOD_EXPRESSION_REQUIRED,
       methodSignature = "javax.faces.event.ActionEvent")
-  public void setActionListener(javax.el.MethodExpression actionListener) {
+  public void setActionListener(final javax.el.MethodExpression actionListener) {
     this.actionListener = actionListener;
   }
 
@@ -227,7 +227,7 @@ public class MenuRadioExtensionTag extends TobagoExtensionBodyTagSupport {
    */
   @TagAttribute
   @UIComponentTagAttribute()
-  public void setOnclick(javax.el.ValueExpression onclick) {
+  public void setOnclick(final javax.el.ValueExpression onclick) {
     this.onclick = onclick;
   }
 
@@ -236,7 +236,7 @@ public class MenuRadioExtensionTag extends TobagoExtensionBodyTagSupport {
    */
   @TagAttribute
   @UIComponentTagAttribute()
-  public void setLink(javax.el.ValueExpression link) {
+  public void setLink(final javax.el.ValueExpression link) {
     this.link = link;
   }
 
@@ -246,7 +246,7 @@ public class MenuRadioExtensionTag extends TobagoExtensionBodyTagSupport {
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "javax.faces.component.UIComponent")
-  public void setBinding(javax.el.ValueExpression binding) throws JspException {
+  public void setBinding(final javax.el.ValueExpression binding) throws JspException {
     this.binding = binding;
   }
 
@@ -256,7 +256,7 @@ public class MenuRadioExtensionTag extends TobagoExtensionBodyTagSupport {
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "boolean", defaultValue = "true")
-  public void setRendered(javax.el.ValueExpression rendered) {
+  public void setRendered(final javax.el.ValueExpression rendered) {
     this.rendered = rendered;
   }
 
@@ -265,7 +265,7 @@ public class MenuRadioExtensionTag extends TobagoExtensionBodyTagSupport {
    */
   @TagAttribute()
   @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
-  public void setDisabled(javax.el.ValueExpression disabled) {
+  public void setDisabled(final javax.el.ValueExpression disabled) {
     this.disabled = disabled;
   }
 
@@ -274,7 +274,7 @@ public class MenuRadioExtensionTag extends TobagoExtensionBodyTagSupport {
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "java.lang.Object")
-  public void setValue(javax.el.ValueExpression value) {
+  public void setValue(final javax.el.ValueExpression value) {
     this.value = value;
   }
 
@@ -284,7 +284,7 @@ public class MenuRadioExtensionTag extends TobagoExtensionBodyTagSupport {
    */
   @TagAttribute
   @UIComponentTagAttribute()
-  public void setLabel(javax.el.ValueExpression label) {
+  public void setLabel(final javax.el.ValueExpression label) {
     this.label = label;
   }
 
@@ -296,7 +296,7 @@ public class MenuRadioExtensionTag extends TobagoExtensionBodyTagSupport {
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
-  public void setImmediate(javax.el.ValueExpression immediate) {
+  public void setImmediate(final javax.el.ValueExpression immediate) {
     this.immediate = immediate;
   }
 
@@ -308,7 +308,7 @@ public class MenuRadioExtensionTag extends TobagoExtensionBodyTagSupport {
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "boolean", defaultValue = "true")
-  public void setTransition(javax.el.ValueExpression transition) {
+  public void setTransition(final javax.el.ValueExpression transition) {
     this.transition = transition;
   }
 
@@ -324,7 +324,7 @@ public class MenuRadioExtensionTag extends TobagoExtensionBodyTagSupport {
   @TagAttribute
   @UIComponentTagAttribute(type = "javax.faces.convert.Converter",
       expression = DynamicExpression.VALUE_EXPRESSION)
-  public void setConverter(javax.el.ValueExpression converter) {
+  public void setConverter(final javax.el.ValueExpression converter) {
     this.converter = converter;
   }
 
@@ -333,7 +333,7 @@ public class MenuRadioExtensionTag extends TobagoExtensionBodyTagSupport {
    */
    @TagAttribute
    @UIComponentTagAttribute(type = "java.lang.String[]")
-  public void setRenderedPartially(javax.el.ValueExpression renderedPartially) {
+  public void setRenderedPartially(final javax.el.ValueExpression renderedPartially) {
     this.renderedPartially = renderedPartially;
   }
 
@@ -343,7 +343,7 @@ public class MenuRadioExtensionTag extends TobagoExtensionBodyTagSupport {
    */
   @TagAttribute(rtexprvalue = true)
   @UIComponentTagAttribute
-  public void setFieldId(String fieldId) {
+  public void setFieldId(final String fieldId) {
     this.fieldId = fieldId;
   }
 
@@ -355,7 +355,7 @@ public class MenuRadioExtensionTag extends TobagoExtensionBodyTagSupport {
    */
   @TagAttribute(rtexprvalue = true)
   @UIComponentTagAttribute
-  public void setId(String id) {
+  public void setId(final String id) {
     super.setId(id);
   }
 }

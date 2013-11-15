@@ -34,7 +34,7 @@ public class UserAgentUnitTest {
   private UserAgent agent;
   private String headerString;
 
-  public UserAgentUnitTest(String title, UserAgent agent, String headerString) {
+  public UserAgentUnitTest(final String title, final UserAgent agent, final String headerString) {
     this.agent = agent;
     this.headerString = headerString;
   }

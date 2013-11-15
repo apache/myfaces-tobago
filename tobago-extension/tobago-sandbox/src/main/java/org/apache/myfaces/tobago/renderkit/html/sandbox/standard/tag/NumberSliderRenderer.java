@@ -42,7 +42,7 @@ public class NumberSliderRenderer extends LayoutComponentRendererBase {
 
   private static final String SLIDER_WIDTH_PERCENT = "sliderWidthPercent";
 
-  public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
+  public void prepareRender(final FacesContext facesContext, final UIComponent component) throws IOException {
     super.prepareRender(facesContext, component);
 /* todo: use e. g. jQuery
     if (facesContext instanceof TobagoFacesContext) {
@@ -52,20 +52,20 @@ public class NumberSliderRenderer extends LayoutComponentRendererBase {
 */
   }
 
-  public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
+  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
 
-    AbstractUINumberSlider slider = (AbstractUINumberSlider) component;
+    final AbstractUINumberSlider slider = (AbstractUINumberSlider) component;
     
-    String id = slider.getClientId(facesContext);
-    String currentValue = getCurrentValue(facesContext, slider);
-    boolean readonly = slider.isReadonly();
-    boolean disabled = slider.isDisabled();
-    Integer min = ComponentUtils.getIntAttribute(slider, "min");
-    Integer max = ComponentUtils.getIntAttribute(slider, "max");
-    TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final String id = slider.getClientId(facesContext);
+    final String currentValue = getCurrentValue(facesContext, slider);
+    final boolean readonly = slider.isReadonly();
+    final boolean disabled = slider.isDisabled();
+    final Integer min = ComponentUtils.getIntAttribute(slider, "min");
+    final Integer max = ComponentUtils.getIntAttribute(slider, "max");
+    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
-    Style style = new Style(facesContext, slider);
-    int width = -1;
+    final Style style = new Style(facesContext, slider);
+    final int width = -1;
     int sliderWidthPerc 
         = getResourceManager().getThemeMeasure(facesContext, slider, SLIDER_WIDTH_PERCENT).getPixel();
       if (sliderWidthPerc <= 25) {
@@ -92,7 +92,7 @@ public class NumberSliderRenderer extends LayoutComponentRendererBase {
     writer.startElement(HtmlElements.TD, null);
     writer.writeClassAttribute(Classes.create(slider, "min"));
 
-    Style widthStyle = new Style();
+    final Style widthStyle = new Style();
     widthStyle.setWidth(Measure.valueOf(sliderWidth / 2));
     writer.writeStyleAttribute(widthStyle);
     writer.startElement(HtmlElements.SPAN, null);
@@ -119,7 +119,7 @@ public class NumberSliderRenderer extends LayoutComponentRendererBase {
     writer.writeClassAttribute(Classes.create(slider, "input"));
     widthStyle.setWidth(Measure.valueOf(inputWidth));
     writer.writeStyleAttribute(widthStyle);
-    String inputIdAndName = getIdForInputField(facesContext, slider);
+    final String inputIdAndName = getIdForInputField(facesContext, slider);
     writer.writeNameAttribute(inputIdAndName);
     writer.writeIdAttribute(inputIdAndName);
     if (currentValue != null) {
@@ -144,7 +144,7 @@ public class NumberSliderRenderer extends LayoutComponentRendererBase {
     // handle
     writer.startElement(HtmlElements.DIV, null);
     writer.writeIdAttribute(getIdForSliderHandle(facesContext, slider));
-    Style handleStyle = new Style();
+    final Style handleStyle = new Style();
     handleStyle.setPosition(Position.RELATIVE);
     handleStyle.setTop(Measure.valueOf(-6));
     handleStyle.setWidth(Measure.valueOf(12));
@@ -163,50 +163,51 @@ public class NumberSliderRenderer extends LayoutComponentRendererBase {
     //HtmlRendererUtils.renderFocusId(facesContext, slider);
   }
 
-  public void decode(FacesContext context, UIComponent component) {
-    UIInput uiInput;
+  public void decode(final FacesContext context, final UIComponent component) {
+    final UIInput uiInput;
     if (component instanceof UIInput && !ComponentUtils.isOutputOnly(component)) {
       uiInput = (UIInput) component;
     } else {
       return;
     }
-    String inputId = getIdForInputField(context, component);
-    Map requestParameterMap = context.getExternalContext().getRequestParameterMap();
+    final String inputId = getIdForInputField(context, component);
+    final Map requestParameterMap = context.getExternalContext().getRequestParameterMap();
     if (requestParameterMap.containsKey(inputId)) {
-      String newValue = (String) requestParameterMap.get(inputId);
+      final String newValue = (String) requestParameterMap.get(inputId);
       uiInput.setSubmittedValue(newValue);
     }
   }
 
-  private String getAbsoluteImagePath(FacesContext facesContext, String relativeImagePath) {
+  private String getAbsoluteImagePath(final FacesContext facesContext, final String relativeImagePath) {
     return facesContext.getExternalContext().getRequestContextPath()
         + ResourceManagerUtils.getImageWithPath(facesContext, relativeImagePath);
   }
 
-  private String getIdForInputField(FacesContext context, UIComponent component) {
-    String id = component.getClientId(context);
+  private String getIdForInputField(final FacesContext context, final UIComponent component) {
+    final String id = component.getClientId(context);
     return id + ComponentUtils.SUB_SEPARATOR + "input";
   }
 
-  private String getIdForSliderTrack(FacesContext context, UIComponent component) {
-    String id = component.getClientId(context);
+  private String getIdForSliderTrack(final FacesContext context, final UIComponent component) {
+    final String id = component.getClientId(context);
     return id + ComponentUtils.SUB_SEPARATOR + "track";
   }
 
-  private String getIdForSliderHandle(FacesContext context, UIComponent component) {
-    String id = component.getClientId(context);
+  private String getIdForSliderHandle(final FacesContext context, final UIComponent component) {
+    final String id = component.getClientId(context);
     return id + ComponentUtils.SUB_SEPARATOR + "handle";
   }
 
-  private void writeSliderJavaScript(FacesContext context, UIComponent component, TobagoResponseWriter writer)
+  private void writeSliderJavaScript(
+      final FacesContext context, final UIComponent component, final TobagoResponseWriter writer)
       throws IOException {
-    String trackId = getIdForSliderTrack(context, component);
-    String handleId = getIdForSliderHandle(context, component);
-    String inputId = getIdForInputField(context, component);
-    String jsId = component.getClientId(context).replace(":", "_");
-    Integer min = ComponentUtils.getIntAttribute(component, "min");
-    Integer max = ComponentUtils.getIntAttribute(component, "max");
-    String script = "    var slider_" + jsId + " = new Control.Slider('" + handleId + "', '" + trackId + "', {\n"
+    final String trackId = getIdForSliderTrack(context, component);
+    final String handleId = getIdForSliderHandle(context, component);
+    final String inputId = getIdForInputField(context, component);
+    final String jsId = component.getClientId(context).replace(":", "_");
+    final Integer min = ComponentUtils.getIntAttribute(component, "min");
+    final Integer max = ComponentUtils.getIntAttribute(component, "max");
+    final String script = "    var slider_" + jsId + " = new Control.Slider('" + handleId + "', '" + trackId + "', {\n"
         + "        sliderValue:$('" + inputId + "').value,\n"
         + "        range : $R(" + min + ", " + max + "),\n"
         + "        values: $R(" + min + ", " + max + ").toArray(),\n"

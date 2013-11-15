@@ -64,14 +64,16 @@ public class AjaxResponseRenderer {
     callback = new EncodeAjaxCallback();
   }
 
-  public void renderResponse(FacesContext facesContext) throws IOException {
+  public void renderResponse(final FacesContext facesContext) throws IOException {
     final UIViewRoot viewRoot = facesContext.getViewRoot();
-    RenderKitFactory renderFactory = (RenderKitFactory) FactoryFinder.getFactory(FactoryFinder.RENDER_KIT_FACTORY);
-    RenderKit renderKit = renderFactory.getRenderKit(facesContext, viewRoot.getRenderKitId());
+    final RenderKitFactory renderFactory
+        = (RenderKitFactory) FactoryFinder.getFactory(FactoryFinder.RENDER_KIT_FACTORY);
+    final RenderKit renderKit = renderFactory.getRenderKit(facesContext, viewRoot.getRenderKitId());
     writeResponse(facesContext, renderKit, AjaxNavigationState.isNavigation(facesContext));
   }
 
-  private void renderComponent(FacesContext facesContext, RenderKit renderKit, String clientId, UIComponent component)
+  private void renderComponent(
+      final FacesContext facesContext, final RenderKit renderKit, final String clientId, final UIComponent component)
       throws IOException {
     final PrintWriter writer = getPrintWriter(facesContext);
     final JsonResponseWriter jsonWriter = getJsonResponseWriter(renderKit, writer);
@@ -102,7 +104,7 @@ public class AjaxResponseRenderer {
     writer.write("\n  }");
   }
 
-  private void saveState(FacesContext facesContext, RenderKit renderKit) throws IOException {
+  private void saveState(final FacesContext facesContext, final RenderKit renderKit) throws IOException {
 
     final ResponseWriter stateWriter = renderKit.createResponseWriter(getPrintWriter(facesContext), CONTENT_TYPE, null);
     facesContext.setResponseWriter(stateWriter);
@@ -112,8 +114,9 @@ public class AjaxResponseRenderer {
     stateManager.writeState(facesContext, serializedView);
   }
 
-  private static void ensureContentTypeHeader(FacesContext facesContext, String charset, String contentType) {
-    StringBuilder sb = new StringBuilder(contentType);
+  private static void ensureContentTypeHeader(
+      final FacesContext facesContext, String charset, final String contentType) {
+    final StringBuilder sb = new StringBuilder(contentType);
     if (charset == null) {
       charset = "UTF-8";
     }
@@ -122,13 +125,13 @@ public class AjaxResponseRenderer {
     ResponseUtils.ensureContentTypeHeader(facesContext, sb.toString());
   }
 
-  private void writeResponse(FacesContext facesContext, RenderKit renderKit, boolean reloadRequired)
+  private void writeResponse(final FacesContext facesContext, final RenderKit renderKit, final boolean reloadRequired)
       throws IOException {
 
     RequestUtils.ensureEncoding(facesContext);
     ResponseUtils.ensureNoCacheHeader(facesContext);
-    UIComponent page = ComponentUtils.findPage(facesContext);
-    String charset;
+    final UIComponent page = ComponentUtils.findPage(facesContext);
+    final String charset;
     if (page != null) {  // in case of CODE_RELOAD_REQUIRED page is null
       charset = (String) page.getAttributes().get(Attributes.CHARSET);
     } else {
@@ -136,21 +139,21 @@ public class AjaxResponseRenderer {
     }
     ensureContentTypeHeader(facesContext, charset, CONTENT_TYPE);
 
-    PrintWriter writer = getPrintWriter(facesContext);
+    final PrintWriter writer = getPrintWriter(facesContext);
     writer.write("{\n  \"tobagoAjaxResponse\": true,\n");
     writer.write("  \"responseCode\": ");
     writer.write(reloadRequired ? Integer.toString(CODE_RELOAD_REQUIRED) : Integer.toString(CODE_SUCCESS));
 
-    Map<String, UIComponent> ajaxComponents = AjaxInternalUtils.getAjaxComponents(facesContext);
+    final Map<String, UIComponent> ajaxComponents = AjaxInternalUtils.getAjaxComponents(facesContext);
     if (!reloadRequired && ajaxComponents != null) {
       int i = 0;
-      for (Map.Entry<String, UIComponent> entry : ajaxComponents.entrySet()) {
+      for (final Map.Entry<String, UIComponent> entry : ajaxComponents.entrySet()) {
         writer.write(",\n");
         writer.write("  \"ajaxPart_");
         writer.write(Integer.toString(i++));
         writer.write("\": ");
 
-        UIComponent component = entry.getValue();
+        final UIComponent component = entry.getValue();
         FacesContextUtils.setAjaxComponentId(facesContext, entry.getKey());
         renderComponent(facesContext, renderKit, entry.getKey(), component);
       }
@@ -168,7 +171,7 @@ public class AjaxResponseRenderer {
     writer.close();
   }
 
-  private PrintWriter getPrintWriter(FacesContext facesContext) throws IOException {
+  private PrintWriter getPrintWriter(final FacesContext facesContext) throws IOException {
     final Object response = facesContext.getExternalContext().getResponse();
     if (response instanceof HttpServletResponse) {
       return ((HttpServletResponse) response).getWriter();
@@ -178,9 +181,9 @@ public class AjaxResponseRenderer {
     throw new IOException("No ResponseWriter found for response " + response);
   }
 
-  private JsonResponseWriter getJsonResponseWriter(RenderKit renderKit, PrintWriter writer) {
+  private JsonResponseWriter getJsonResponseWriter(final RenderKit renderKit, final PrintWriter writer) {
 
-    ResponseWriter newWriter = renderKit.createResponseWriter(writer, CONTENT_TYPE, null);
+    final ResponseWriter newWriter = renderKit.createResponseWriter(writer, CONTENT_TYPE, null);
     if (newWriter instanceof JsonResponseWriter) {
       return (JsonResponseWriter) newWriter;
     } else {

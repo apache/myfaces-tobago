@@ -71,8 +71,8 @@ public class SheetConfig {
     return null;
   }
 
-  private SelectItem[] createSheetItems(Object[] values) {
-    SelectItem[] items = new SelectItem[values.length];
+  private SelectItem[] createSheetItems(final Object[] values) {
+    final SelectItem[] items = new SelectItem[values.length];
 
     for (int i = 0; i < values.length; i++) {
       items[i] = new SelectItem(values[i], values[i].toString());
@@ -85,7 +85,7 @@ public class SheetConfig {
     return sheetShowHeader;
   }
 
-  public void setSheetShowHeader(boolean sheetShowHeader) {
+  public void setSheetShowHeader(final boolean sheetShowHeader) {
     this.sheetShowHeader = sheetShowHeader;
   }
 
@@ -93,7 +93,7 @@ public class SheetConfig {
     return showPagingAlways;
   }
 
-  public void setShowPagingAlways(boolean showPagingAlways) {
+  public void setShowPagingAlways(final boolean showPagingAlways) {
     this.showPagingAlways = showPagingAlways;
   }
 
@@ -105,16 +105,16 @@ public class SheetConfig {
     return sheetRows;
   }
 
-  public void setSheetRows(int sheetRows) {
+  public void setSheetRows(final int sheetRows) {
     this.sheetRows = sheetRows;
   }
 
   public int getSheetFirstValue() {
-    int value = getSheetFirst();
+    final int value = getSheetFirst();
     return (value - 1) < 0 ? 0 : value - 1;
   }
 
-  public void setSheetFirst(int sheetFirst) {
+  public void setSheetFirst(final int sheetFirst) {
     this.sheetFirst = sheetFirst;
   }
 
@@ -122,7 +122,7 @@ public class SheetConfig {
     return sheetConfigPopup;
   }
 
-  public void setSheetConfigPopup(boolean sheetConfigPopup) {
+  public void setSheetConfigPopup(final boolean sheetConfigPopup) {
     this.sheetConfigPopup = sheetConfigPopup;
   }
 
@@ -130,7 +130,7 @@ public class SheetConfig {
     return sheetDirectLinkCount;
   }
 
-  public void setSheetDirectLinkCount(int sheetDirectLinkCount) {
+  public void setSheetDirectLinkCount(final int sheetDirectLinkCount) {
     this.sheetDirectLinkCount = sheetDirectLinkCount;
   }
 
@@ -142,7 +142,7 @@ public class SheetConfig {
     return sheetRowPagingPosition;
   }
 
-  public void setSheetRowPagingPosition(String sheetRowPagingPosition) {
+  public void setSheetRowPagingPosition(final String sheetRowPagingPosition) {
     this.sheetRowPagingPosition = sheetRowPagingPosition;
   }
 
@@ -150,7 +150,7 @@ public class SheetConfig {
     return sheetDirectPagingPosition;
   }
 
-  public void setSheetDirectPagingPosition(String sheetDirectPagingPosition) {
+  public void setSheetDirectPagingPosition(final String sheetDirectPagingPosition) {
     this.sheetDirectPagingPosition = sheetDirectPagingPosition;
   }
 
@@ -158,7 +158,7 @@ public class SheetConfig {
     return sheetPagePagingPosition;
   }
 
-  public void setSheetPagePagingPosition(String sheetPagePagingPosition) {
+  public void setSheetPagePagingPosition(final String sheetPagePagingPosition) {
     this.sheetPagePagingPosition = sheetPagePagingPosition;
   }
 
@@ -170,7 +170,7 @@ public class SheetConfig {
     return sheetSelectableItems;
   }
 
-  public void setSheetSelectableItems(SelectItem[] sheetSelectableItems) {
+  public void setSheetSelectableItems(final SelectItem[] sheetSelectableItems) {
     this.sheetSelectableItems = sheetSelectableItems;
   }
 
@@ -178,7 +178,7 @@ public class SheetConfig {
     return selectable;
   }
 
-  public void setSelectable(String selectable) {
+  public void setSelectable(final String selectable) {
     this.selectable = selectable;
   }
 }

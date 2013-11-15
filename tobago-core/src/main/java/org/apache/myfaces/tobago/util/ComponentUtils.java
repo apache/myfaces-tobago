@@ -42,6 +42,7 @@ import javax.faces.FactoryFinder;
 import javax.faces.application.Application;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.ActionSource;
+import javax.faces.component.ContextCallback;
 import javax.faces.component.EditableValueHolder;
 import javax.faces.component.NamingContainer;
 import javax.faces.component.UICommand;
@@ -98,9 +99,9 @@ public final class ComponentUtils {
   private ComponentUtils() {
   }
 
-  public static boolean hasErrorMessages(FacesContext context) {
-    for (Iterator iter = context.getMessages(); iter.hasNext();) {
-      FacesMessage message = (FacesMessage) iter.next();
+  public static boolean hasErrorMessages(final FacesContext context) {
+    for (final Iterator iter = context.getMessages(); iter.hasNext();) {
+      final FacesMessage message = (FacesMessage) iter.next();
       if (FacesMessage.SEVERITY_ERROR.compareTo(message.getSeverity()) <= 0) {
         return true;
       }
@@ -108,9 +109,9 @@ public final class ComponentUtils {
     return false;
   }
 
-  public static boolean containsPopupActionListener(UICommand command) {
-    ActionListener[] actionListeners = command.getActionListeners();
-    for (ActionListener actionListener : actionListeners) {
+  public static boolean containsPopupActionListener(final UICommand command) {
+    final ActionListener[] actionListeners = command.getActionListeners();
+    for (final ActionListener actionListener : actionListeners) {
       if (actionListener instanceof AbstractPopupActionListener) {
         return true;
       }
@@ -118,12 +119,12 @@ public final class ComponentUtils {
     return false;
   }
 
-  public static String getFacesMessageAsString(FacesContext facesContext, UIComponent component) {
-    Iterator messages = facesContext.getMessages(
+  public static String getFacesMessageAsString(final FacesContext facesContext, final UIComponent component) {
+    final Iterator messages = facesContext.getMessages(
         component.getClientId(facesContext));
-    StringBuilder stringBuffer = new StringBuilder();
+    final StringBuilder stringBuffer = new StringBuilder();
     while (messages.hasNext()) {
-      FacesMessage message = (FacesMessage) messages.next();
+      final FacesMessage message = (FacesMessage) messages.next();
       stringBuffer.append(message.getDetail());
     }
     if (stringBuffer.length() > 0) {
@@ -143,8 +144,8 @@ public final class ComponentUtils {
     return false;
   }
 
-  public static void resetPage(FacesContext context) {
-    UIViewRoot view = context.getViewRoot();
+  public static void resetPage(final FacesContext context) {
+    final UIViewRoot view = context.getViewRoot();
     if (view != null) {
       view.getAttributes().remove(PAGE_KEY);
     }
@@ -154,8 +155,8 @@ public final class ComponentUtils {
    * Tries to walk up the parents to find the UIViewRoot, if not found, then go to FaceletContext's FacesContext for
    * the view root.
    */
-  public static UIViewRoot findViewRoot(FaceletContext faceletContext, UIComponent component) {
-    UIViewRoot viewRoot = findAncestor(component, UIViewRoot.class);
+  public static UIViewRoot findViewRoot(final FaceletContext faceletContext, final UIComponent component) {
+    final UIViewRoot viewRoot = findAncestor(component, UIViewRoot.class);
     if (viewRoot != null) {
       return viewRoot;
     } else {
@@ -163,12 +164,12 @@ public final class ComponentUtils {
     }
   }
 
-  public static AbstractUIPage findPage(FacesContext context, UIComponent component) {
-    UIViewRoot view = context.getViewRoot();
+  public static AbstractUIPage findPage(final FacesContext context, final UIComponent component) {
+    final UIViewRoot view = context.getViewRoot();
     if (view != null) {
       TransientStateHolder stateHolder = (TransientStateHolder) view.getAttributes().get(PAGE_KEY);
       if (stateHolder == null || stateHolder.isEmpty()) {
-        AbstractUIPage page = findPage(component);
+        final AbstractUIPage page = findPage(component);
         stateHolder = new TransientStateHolder(page);
         context.getViewRoot().getAttributes().put(PAGE_KEY, stateHolder);
       }
@@ -192,18 +193,18 @@ public final class ComponentUtils {
     }
   }
 
-  public static AbstractUIPage findPage(FacesContext facesContext) {
+  public static AbstractUIPage findPage(final FacesContext facesContext) {
     return findPageBreadthFirst(facesContext.getViewRoot());
   }
 
-  private static AbstractUIPage findPageBreadthFirst(UIComponent component) {
-    for (UIComponent child : component.getChildren()) {
+  private static AbstractUIPage findPageBreadthFirst(final UIComponent component) {
+    for (final UIComponent child : component.getChildren()) {
       if (child instanceof AbstractUIPage) {
         return (AbstractUIPage) child;
       }
     }
-    for (UIComponent child : component.getChildren()) {
-      AbstractUIPage result = findPageBreadthFirst(child);
+    for (final UIComponent child : component.getChildren()) {
+      final AbstractUIPage result = findPageBreadthFirst(child);
       if (result != null) {
         return result;
       }
@@ -222,7 +223,7 @@ public final class ComponentUtils {
     return null;
   }
 
-  public static <T> T findAncestor(UIComponent component, Class<T> type) {
+  public static <T> T findAncestor(UIComponent component, final Class<T> type) {
 
     while (component != null) {
       if (type.isAssignableFrom(component.getClass())) {
@@ -237,17 +238,17 @@ public final class ComponentUtils {
    * Find all sub forms of a component, and collects it.
    * It does not find sub forms of sub forms.
    */
-  public static List<AbstractUIForm> findSubForms(UIComponent component) {
-    List<AbstractUIForm> collect = new ArrayList<AbstractUIForm>();
+  public static List<AbstractUIForm> findSubForms(final UIComponent component) {
+    final List<AbstractUIForm> collect = new ArrayList<AbstractUIForm>();
     findSubForms(collect, component);
     return collect;
   }
 
   @SuppressWarnings("unchecked")
-  private static void findSubForms(List<AbstractUIForm> collect, UIComponent component) {
-    Iterator<UIComponent> kids = component.getFacetsAndChildren();
+  private static void findSubForms(final List<AbstractUIForm> collect, final UIComponent component) {
+    final Iterator<UIComponent> kids = component.getFacetsAndChildren();
     while (kids.hasNext()) {
-      UIComponent child = kids.next();
+      final UIComponent child = kids.next();
       if (child instanceof AbstractUIForm) {
         collect.add((AbstractUIForm) child);
       } else {
@@ -259,9 +260,9 @@ public final class ComponentUtils {
   /**
    * Searches the component tree beneath the component and return the first component matching the type.
    */
-  public static <T extends UIComponent> T findDescendant(UIComponent component, Class<T> type) {
+  public static <T extends UIComponent> T findDescendant(final UIComponent component, final Class<T> type) {
 
-    for (UIComponent child : component.getChildren()) {
+    for (final UIComponent child : component.getChildren()) {
       if (type.isAssignableFrom(child.getClass())) {
         return (T) child;
       }
@@ -276,11 +277,11 @@ public final class ComponentUtils {
   /**
    * Searches the component tree beneath the component and return all component matching the type.
    */
-  public static <T extends UIComponent> List<T> findDescendantList(UIComponent component, Class<T> type) {
+  public static <T extends UIComponent> List<T> findDescendantList(final UIComponent component, final Class<T> type) {
 
-    List<T> result = new ArrayList<T>();
+    final List<T> result = new ArrayList<T>();
     
-    for (UIComponent child : component.getChildren()) {
+    for (final UIComponent child : component.getChildren()) {
       if (type.isAssignableFrom(child.getClass())) {
         result.add((T) child);
       }
@@ -296,10 +297,10 @@ public final class ComponentUtils {
    * If there is no "for" attribute, return the "clientId" of the parent
    * (if it has a parent). This is useful for labels.
    */
-  public static String findClientIdFor(UIComponent component, FacesContext facesContext) {
-    UIComponent forComponent = findFor(component);
+  public static String findClientIdFor(final UIComponent component, final FacesContext facesContext) {
+    final UIComponent forComponent = findFor(component);
     if (forComponent != null) {
-      String clientId = forComponent.getClientId(facesContext);
+      final String clientId = forComponent.getClientId(facesContext);
       if (LOG.isDebugEnabled()) {
         LOG.debug("found clientId: '" + clientId + "'");
       }
@@ -311,8 +312,8 @@ public final class ComponentUtils {
     return null;
   }
 
-  public static UIComponent findFor(UIComponent component) {
-    String forValue = (String) component.getAttributes().get(Attributes.FOR);
+  public static UIComponent findFor(final UIComponent component) {
+    final String forValue = (String) component.getAttributes().get(Attributes.FOR);
     if (forValue == null) {
       return component.getParent();
     }
@@ -327,13 +328,13 @@ public final class ComponentUtils {
    * @deprecated
    */
   @Deprecated
-  public static void evaluateAutoFor(UIComponent component) {
-    String forComponent = (String) component.getAttributes().get(Attributes.FOR);
+  public static void evaluateAutoFor(final UIComponent component) {
+    final String forComponent = (String) component.getAttributes().get(Attributes.FOR);
     if (LOG.isDebugEnabled()) {
       LOG.debug("for = '" + forComponent + "'");
     }
     if ("@auto".equals(forComponent)) {
-      for (UIComponent child : component.getParent().getChildren()) {
+      for (final UIComponent child : component.getParent().getChildren()) {
         if (setForToInput(component, child, AbstractUIInput.class, false)) {
           break;
         }
@@ -347,20 +348,20 @@ public final class ComponentUtils {
    * checked if they are of the type of the parameter clazz. The "id" of the first one will be used to reset the "for"
    * attribute of the component.
    */
-  public static void evaluateAutoFor(UIComponent component, Class<? extends UIComponent> clazz) {
-    String forComponent = (String) component.getAttributes().get(Attributes.FOR);
+  public static void evaluateAutoFor(final UIComponent component, final Class<? extends UIComponent> clazz) {
+    final String forComponent = (String) component.getAttributes().get(Attributes.FOR);
     if (LOG.isDebugEnabled()) {
       LOG.debug("for = '" + forComponent + "'");
     }
     if ("@auto".equals(forComponent)) {
       // parent
-      for (UIComponent child : component.getParent().getChildren()) {
+      for (final UIComponent child : component.getParent().getChildren()) {
         if (setForToInput(component, child, clazz, component instanceof NamingContainer)) {
           return;
         }
       }
       // grand parent
-      for (UIComponent child : component.getParent().getParent().getChildren()) {
+      for (final UIComponent child : component.getParent().getParent().getChildren()) {
         if (setForToInput(component, child, clazz, component.getParent() instanceof NamingContainer)) {
           return;
         }
@@ -369,7 +370,8 @@ public final class ComponentUtils {
   }
 
   private static boolean setForToInput(
-      UIComponent component, UIComponent child, Class<? extends UIComponent> clazz, boolean namingContainer) {
+      final UIComponent component, final UIComponent child, final Class<? extends UIComponent> clazz,
+      final boolean namingContainer) {
     if (clazz.isAssignableFrom(child.getClass())) { // find the matching component
       final String forComponent;
       if (namingContainer) {
@@ -386,7 +388,7 @@ public final class ComponentUtils {
   public static boolean isInActiveForm(UIComponent component) {
     while (component != null) {
       if (component instanceof AbstractUIForm) {
-        AbstractUIForm form = (AbstractUIForm) component;
+        final AbstractUIForm form = (AbstractUIForm) component;
         if (form.isSubmitted()) {
           return true;
         }
@@ -396,13 +398,13 @@ public final class ComponentUtils {
     return false;
   }
 
-  public static FacesMessage.Severity getMaximumSeverity(UIComponent component) {
+  public static FacesMessage.Severity getMaximumSeverity(final UIComponent component) {
     final boolean invalid = component instanceof UIInput && !((UIInput) component).isValid();
     FacesMessage.Severity max = invalid ? FacesMessage.SEVERITY_ERROR : null;
-    FacesContext facesContext = FacesContext.getCurrentInstance();
+    final FacesContext facesContext = FacesContext.getCurrentInstance();
     final Iterator messages = facesContext.getMessages(component.getClientId(facesContext));
     while (messages.hasNext()) {
-      FacesMessage message = (FacesMessage) messages.next();
+      final FacesMessage message = (FacesMessage) messages.next();
       if (max == null || message.getSeverity().getOrdinal() > max.getOrdinal()) {
         max = message.getSeverity();
       }
@@ -410,34 +412,34 @@ public final class ComponentUtils {
     return max;
   }
 
-  public static boolean isError(UIInput uiInput) {
-    FacesContext facesContext = FacesContext.getCurrentInstance();
+  public static boolean isError(final UIInput uiInput) {
+    final FacesContext facesContext = FacesContext.getCurrentInstance();
     return !uiInput.isValid()
         || facesContext.getMessages(uiInput.getClientId(facesContext)).hasNext();
   }
 
-  public static boolean isError(UIComponent component) {
+  public static boolean isError(final UIComponent component) {
     if (component instanceof AbstractUIInput) {
       return isError((AbstractUIInput) component);
     }
     return false;
   }
 
-  public static boolean isOutputOnly(UIComponent component) {
+  public static boolean isOutputOnly(final UIComponent component) {
     return getBooleanAttribute(component, Attributes.DISABLED)
         || getBooleanAttribute(component, Attributes.READONLY);
   }
 
-  public static boolean mayValidate(UIComponent component) {
+  public static boolean mayValidate(final UIComponent component) {
     return !isOutputOnly(component)
         && ComponentUtils.isInActiveForm(component);
   }
 
-  public static boolean mayUpdateModel(UIComponent component) {
+  public static boolean mayUpdateModel(final UIComponent component) {
     return mayValidate(component);
   }
 
-  public static boolean getBooleanAttribute(UIComponent component, String name) {
+  public static boolean getBooleanAttribute(final UIComponent component, final String name) {
 
     Object bool = component.getAttributes().get(name);
     if (bool == null) {
@@ -463,7 +465,7 @@ public final class ComponentUtils {
 
 
 
-  public static ValueBinding createValueBinding(String value) {
+  public static ValueBinding createValueBinding(final String value) {
     return FacesContext.getCurrentInstance().getApplication().createValueBinding(value);
   }
 
@@ -473,7 +475,7 @@ public final class ComponentUtils {
    * {@link SupportsMarkup#setMarkup(Markup markup)} before the rendering phase.
    */
   @Deprecated
-  public static void setStyleClasses(UIComponent component, String styleClasses) {
+  public static void setStyleClasses(final UIComponent component, final String styleClasses) {
     Deprecation.LOG.warn("style class " + styleClasses);
   }
 
@@ -481,11 +483,11 @@ public final class ComponentUtils {
    * @deprecated since 1.5.0
    */
   @Deprecated
-  public static void setMarkup(UIComponent markupComponent, String markup) {
+  public static void setMarkup(final UIComponent markupComponent, final String markup) {
     Deprecation.LOG.error("markup=" + markup);
   }
 
-  public static Object getAttribute(UIComponent component, String name) {
+  public static Object getAttribute(final UIComponent component, final String name) {
     Object value = component.getAttributes().get(name);
     if (value instanceof ValueBinding) {
       value = ((ValueBinding) value).getValue(FacesContext.getCurrentInstance());
@@ -493,27 +495,27 @@ public final class ComponentUtils {
     return value;
   }
 
-  public static Object getObjectAttribute(UIComponent component, String name) {
+  public static Object getObjectAttribute(final UIComponent component, final String name) {
     return getAttribute(component, name);
   }
 
-  public static String getStringAttribute(UIComponent component, String name) {
+  public static String getStringAttribute(final UIComponent component, final String name) {
     return (String) getAttribute(component, name);
   }
 
-  public static int getIntAttribute(UIComponent component, String name) {
+  public static int getIntAttribute(final UIComponent component, final String name) {
     return getIntAttribute(component, name, 0);
   }
 
-  public static int getIntAttribute(UIComponent component, String name,
-      int defaultValue) {
-    Object integer = component.getAttributes().get(name);
+  public static int getIntAttribute(final UIComponent component, final String name,
+      final int defaultValue) {
+    final Object integer = component.getAttributes().get(name);
     if (integer instanceof Number) {
       return ((Number) integer).intValue();
     } else if (integer instanceof String) {
       try {
         return Integer.parseInt((String) integer);
-      } catch (NumberFormatException e) {
+      } catch (final NumberFormatException e) {
         LOG.warn("Can't parse number from string : \"" + integer + "\"!");
         return defaultValue;
       }
@@ -526,14 +528,14 @@ public final class ComponentUtils {
     }
   }
 
-  public static Character getCharacterAttribute(UIComponent component, String name) {
-    Object character = component.getAttributes().get(name);
+  public static Character getCharacterAttribute(final UIComponent component, final String name) {
+    final Object character = component.getAttributes().get(name);
     if (character == null) {
       return null;
     } else if (character instanceof Character) {
       return ((Character) character);
     } else if (character instanceof String) {
-      String asString = ((String) character);
+      final String asString = ((String) character);
       return asString.length() > 0 ? asString.charAt(0) : null;
     } else {
       LOG.warn("Unknown type '" + character.getClass().getName()
@@ -542,9 +544,9 @@ public final class ComponentUtils {
     }
   }
 
-  public static boolean isFacetOf(UIComponent component, UIComponent parent) {
-    for (Object o : parent.getFacets().keySet()) {
-      UIComponent facet = parent.getFacet((String) o);
+  public static boolean isFacetOf(final UIComponent component, final UIComponent parent) {
+    for (final Object o : parent.getFacets().keySet()) {
+      final UIComponent facet = parent.getFacet((String) o);
       if (component.equals(facet)) {
         return true;
       }
@@ -552,22 +554,23 @@ public final class ComponentUtils {
     return false;
   }
 
-  public static RendererBase getRenderer(FacesContext facesContext, UIComponent component) {
+  public static RendererBase getRenderer(final FacesContext facesContext, final UIComponent component) {
     return getRenderer(facesContext, component.getFamily(), component.getRendererType());
   }
 
-  public static RendererBase getRenderer(FacesContext facesContext, String family, String rendererType) {
+  public static RendererBase getRenderer(final FacesContext facesContext, final String family,
+                                         final String rendererType) {
     if (rendererType == null) {
       return null;
     }
 
-    Map<String, Object> requestMap = (Map<String, Object>) facesContext.getExternalContext().getRequestMap();
-    StringBuilder key = new StringBuilder(RENDER_KEY_PREFIX);
+    final Map<String, Object> requestMap = (Map<String, Object>) facesContext.getExternalContext().getRequestMap();
+    final StringBuilder key = new StringBuilder(RENDER_KEY_PREFIX);
     key.append(rendererType);
     RendererBase renderer = (RendererBase) requestMap.get(key.toString());
 
     if (renderer == null) {
-      Renderer myRenderer = getRendererInternal(facesContext, family, rendererType);
+      final Renderer myRenderer = getRendererInternal(facesContext, family, rendererType);
       if (myRenderer instanceof RendererBase) {
         requestMap.put(key.toString(), myRenderer);
         renderer = (RendererBase) myRenderer;
@@ -579,17 +582,18 @@ public final class ComponentUtils {
   }
 
 
-  private static Renderer getRendererInternal(FacesContext facesContext, String family, String rendererType) {
-    RenderKitFactory rkFactory = (RenderKitFactory) FactoryFinder.getFactory(FactoryFinder.RENDER_KIT_FACTORY);
-    RenderKit renderKit = rkFactory.getRenderKit(facesContext, facesContext.getViewRoot().getRenderKitId());
-    Renderer myRenderer = renderKit.getRenderer(family, rendererType);
+  private static Renderer getRendererInternal(
+      final FacesContext facesContext, final String family, final String rendererType) {
+    final RenderKitFactory rkFactory = (RenderKitFactory) FactoryFinder.getFactory(FactoryFinder.RENDER_KIT_FACTORY);
+    final RenderKit renderKit = rkFactory.getRenderKit(facesContext, facesContext.getViewRoot().getRenderKitId());
+    final Renderer myRenderer = renderKit.getRenderer(family, rendererType);
     return myRenderer;
   }
 
-  public static Object findParameter(UIComponent component, String name) {
-    for (UIComponent child : component.getChildren()) {
+  public static Object findParameter(final UIComponent component, final String name) {
+    for (final UIComponent child : component.getChildren()) {
       if (child instanceof UIParameter) {
-        UIParameter parameter = (UIParameter) child;
+        final UIParameter parameter = (UIParameter) child;
         if (LOG.isDebugEnabled()) {
           LOG.debug("Select name='" + parameter.getName() + "'");
           LOG.debug("Select value='" + parameter.getValue() + "'");
@@ -602,16 +606,16 @@ public final class ComponentUtils {
     return null;
   }
 
-  public static ActionListener createActionListener(String type)
+  public static ActionListener createActionListener(final String type)
       throws JspException {
     try {
       ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
       if (classLoader == null) {
         classLoader = type.getClass().getClassLoader();
       }
-      Class clazz = classLoader.loadClass(type);
+      final Class clazz = classLoader.loadClass(type);
       return (ActionListener) clazz.newInstance();
-    } catch (Exception e) {
+    } catch (final Exception e) {
       if (LOG.isDebugEnabled()) {
         LOG.debug("type=" + type, e);
       }
@@ -619,9 +623,9 @@ public final class ComponentUtils {
     }
   }
 
-  public static UIGraphic getFirstGraphicChild(UIComponent component) {
+  public static UIGraphic getFirstGraphicChild(final UIComponent component) {
     UIGraphic graphic = null;
-    for (UIComponent child : component.getChildren()) {
+    for (final UIComponent child : component.getChildren()) {
       if (child instanceof UIGraphic) {
         graphic = (UIGraphic) child;
         break;
@@ -630,12 +634,12 @@ public final class ComponentUtils {
     return graphic;
   }
 
-  public static boolean isHoverEnabled(UIComponent component) {
+  public static boolean isHoverEnabled(final UIComponent component) {
     return ComponentUtils.getBooleanAttribute(component, Attributes.HOVER);
   }
 
-  public static UIOutput getFirstNonGraphicChild(UIComponent component) {
-    for (UIComponent child : component.getChildren()) {
+  public static UIOutput getFirstNonGraphicChild(final UIComponent component) {
+    for (final UIComponent child : component.getChildren()) {
       if (child instanceof UIOutput) {
         return (UIOutput) child;
       }
@@ -647,7 +651,7 @@ public final class ComponentUtils {
    * @deprecated since 1.5.0
    */
   @Deprecated
-  public static void setIntegerSizeProperty(UIComponent component, String name, String value) {
+  public static void setIntegerSizeProperty(final UIComponent component, final String name, final String value) {
     Deprecation.LOG.error("name=" + name + " value=" + value);
   }
 
@@ -658,15 +662,15 @@ public final class ComponentUtils {
     return value;
   }
 
-  public static void setValueForValueBinding(String name, Object value) {
-    FacesContext context = FacesContext.getCurrentInstance();
-    ValueBinding valueBinding = context.getApplication().createValueBinding(name);
+  public static void setValueForValueBinding(final String name, final Object value) {
+    final FacesContext context = FacesContext.getCurrentInstance();
+    final ValueBinding valueBinding = context.getApplication().createValueBinding(name);
     valueBinding.setValue(context, value);
   }
 
 
-  public static boolean hasSelectedValue(List<SelectItem> items, Object value) {
-    for (SelectItem item : items) {
+  public static boolean hasSelectedValue(final List<SelectItem> items, final Object value) {
+    for (final SelectItem item : items) {
       if (item.getValue().equals(value)) {
         return true;
       }
@@ -674,12 +678,12 @@ public final class ComponentUtils {
     return false;
   }
 
-  public static int getIntValue(ValueBinding valueBinding) {
+  public static int getIntValue(final ValueBinding valueBinding) {
     return getAsInt(valueBinding.getValue(FacesContext.getCurrentInstance()));
   }
 
-  private static int getAsInt(Object value) {
-    int result;
+  private static int getAsInt(final Object value) {
+    final int result;
     if (value instanceof Number) {
       result = ((Number) value).intValue();
     } else if (value instanceof String) {
@@ -691,14 +695,15 @@ public final class ComponentUtils {
   }
 
 
-  public static String createPickerId(FacesContext facesContext, UIComponent component, String postfix) {
+  public static String createPickerId(
+      final FacesContext facesContext, final UIComponent component, final String postfix) {
     //String id = component.getId();
-    String id = getComponentId(facesContext, component);
+    final String id = getComponentId(facesContext, component);
     return id + "_picker" + postfix;
   }
 
-  public static String getComponentId(FacesContext facesContext, UIComponent component) {
-    String id = component.getId();
+  public static String getComponentId(final FacesContext facesContext, final UIComponent component) {
+    final String id = component.getId();
     //if (id == null) {
     // XXX What is this?
     //  id = component.getClientId(facesContext).substring(id.lastIndexOf('_'));
@@ -711,7 +716,7 @@ public final class ComponentUtils {
    *
    * Todo: check if this method should be set to deprecated. 
    */
-  public static UIComponent provideLabel(FacesContext facesContext, UIComponent component) {
+  public static UIComponent provideLabel(final FacesContext facesContext, final UIComponent component) {
     UIComponent label = component.getFacet(Facets.LABEL);
 
 
@@ -723,10 +728,10 @@ public final class ComponentUtils {
       }
 
       if (labelText != null) {
-        Application application = FacesContext.getCurrentInstance().getApplication();
+        final Application application = FacesContext.getCurrentInstance().getApplication();
         label = application.createComponent(UIOutput.COMPONENT_TYPE);
         label.setRendererType(RendererTypes.LABEL);
-        String idprefix = ComponentUtils.getComponentId(facesContext, component);
+        final String idprefix = ComponentUtils.getComponentId(facesContext, component);
         label.setId(idprefix + "_" + Facets.LABEL);
         label.setRendered(true);
 
@@ -746,7 +751,7 @@ public final class ComponentUtils {
    * @deprecated since 1.5.0
    */
   @Deprecated
-  public static void setValidator(EditableValueHolder editableValueHolder, String validator) {
+  public static void setValidator(final EditableValueHolder editableValueHolder, final String validator) {
     Deprecation.LOG.error("validator=" + validator);
   }
 
@@ -754,7 +759,7 @@ public final class ComponentUtils {
    * @deprecated since 1.5.0
    */
   @Deprecated
-  public static void setConverter(ValueHolder valueHolder, String converterId) {
+  public static void setConverter(final ValueHolder valueHolder, final String converterId) {
     Deprecation.LOG.error("converterId=" + converterId);
   }
 
@@ -762,7 +767,7 @@ public final class ComponentUtils {
    * @deprecated since 1.5.0
    */
   @Deprecated
-  public static void setAction(ActionSource component, String action) {
+  public static void setAction(final ActionSource component, final String action) {
     Deprecation.LOG.error("action=" + action);
   }
 
@@ -770,7 +775,7 @@ public final class ComponentUtils {
    * @deprecated since 1.5.0
    */
   @Deprecated
-  public static void setActionListener(ActionSource command, String actionListener) {
+  public static void setActionListener(final ActionSource command, final String actionListener) {
     Deprecation.LOG.error("actionListener=" + actionListener);
   }
 
@@ -778,7 +783,7 @@ public final class ComponentUtils {
    * @deprecated since 1.5.0
    */
   @Deprecated
-  public static void setValueChangeListener(EditableValueHolder valueHolder, String valueChangeListener) {
+  public static void setValueChangeListener(final EditableValueHolder valueHolder, final String valueChangeListener) {
     Deprecation.LOG.error("valueChangeListener=" + valueChangeListener);
   }
 
@@ -786,7 +791,7 @@ public final class ComponentUtils {
    * @deprecated since 1.5.0
    */
   @Deprecated
-  public static void setValueBinding(UIComponent component, String name, String state) {
+  public static void setValueBinding(final UIComponent component, final String name, final String state) {
     Deprecation.LOG.error("name=" + name + " state=" + state);
   }
 
@@ -794,16 +799,16 @@ public final class ComponentUtils {
    * @deprecated since 1.5
    */
   @Deprecated
-  public static String[] getMarkupBinding(FacesContext facesContext, SupportsMarkup component) {
-    ValueBinding vb = ((UIComponent) component).getValueBinding(Attributes.MARKUP);
+  public static String[] getMarkupBinding(final FacesContext facesContext, final SupportsMarkup component) {
+    final ValueBinding vb = ((UIComponent) component).getValueBinding(Attributes.MARKUP);
     if (vb != null) {
-      Object markups = vb.getValue(facesContext);
+      final Object markups = vb.getValue(facesContext);
       if (markups instanceof String[]) {
         return (String[]) markups;
       } else if (markups instanceof String) {
-        String[] strings = StringUtils.split((String) markups, ", ");
-        List<String> result = new ArrayList<String>(strings.length);
-        for (String string : strings) {
+        final String[] strings = StringUtils.split((String) markups, ", ");
+        final List<String> result = new ArrayList<String>(strings.length);
+        for (final String string : strings) {
           if (string.trim().length() != 0) {
             result.add(string.trim());
           }
@@ -831,18 +836,18 @@ public final class ComponentUtils {
    * </dl>
    * (to the view root, if naming containers run out)
    */
-  public static UIComponent findComponent(UIComponent from, String relativeId) {
+  public static UIComponent findComponent(final UIComponent from, final String relativeId) {
     return FindComponentUtils.findComponent(from, relativeId);
   }
 
-  public static String[] splitList(String renderers) {
+  public static String[] splitList(final String renderers) {
     return StringUtils.split(renderers, LIST_SEPARATOR_CHARS);
   }
 
   public static Object getConvertedValue(
-      FacesContext facesContext, UIComponent component, String stringValue) {
+      final FacesContext facesContext, final UIComponent component, final String stringValue) {
     try {
-      Renderer renderer = getRenderer(facesContext, component);
+      final Renderer renderer = getRenderer(facesContext, component);
       if (renderer != null) {
         if (component instanceof UISelectMany) {
           final Object converted = renderer.getConvertedValue(facesContext, component, new String[]{stringValue});
@@ -854,9 +859,9 @@ public final class ComponentUtils {
         Converter converter = ((ValueHolder) component).getConverter();
         if (converter == null) {
           //Try to find out by value binding
-          ValueBinding vb = component.getValueBinding("value");
+          final ValueBinding vb = component.getValueBinding("value");
           if (vb != null) {
-            Class valueType = vb.getType(facesContext);
+            final Class valueType = vb.getType(facesContext);
             if (valueType != null) {
               converter = facesContext.getApplication().createConverter(valueType);
             }
@@ -866,13 +871,13 @@ public final class ComponentUtils {
           converter.getAsObject(facesContext, component, stringValue);
         }
       }
-    } catch (Exception e) {
+    } catch (final Exception e) {
       LOG.warn("Can't convert string value '" + stringValue + "'", e);
     }
     return stringValue;
   }
 
-  public static Markup updateMarkup(UIComponent component, Markup markup) {
+  public static Markup updateMarkup(final UIComponent component, Markup markup) {
     if (markup == null) {
       markup = Markup.NULL;
     }
@@ -883,7 +888,7 @@ public final class ComponentUtils {
       markup = markup.add(Markup.READONLY);
     }
     if (component instanceof UIInput) {
-      UIInput input = (UIInput) component;
+      final UIInput input = (UIInput) component;
 
       final FacesMessage.Severity maximumSeverity = ComponentUtils.getMaximumSeverity(input);
       markup = markup.add(markupOfSeverity(maximumSeverity));
@@ -895,7 +900,7 @@ public final class ComponentUtils {
     return markup;
   }
 
-  public static Markup markupOfSeverity(FacesMessage.Severity maximumSeverity) {
+  public static Markup markupOfSeverity(final FacesMessage.Severity maximumSeverity) {
     if (FacesMessage.SEVERITY_FATAL.equals(maximumSeverity)) {
       return Markup.FATAL;
     } else if (FacesMessage.SEVERITY_ERROR.equals(maximumSeverity)) {
@@ -908,15 +913,15 @@ public final class ComponentUtils {
     return null;
   }
 
-  public static void addCurrentMarkup(SupportsMarkup component, Markup markup) {
+  public static void addCurrentMarkup(final SupportsMarkup component, final Markup markup) {
     component.setCurrentMarkup(markup.add(component.getCurrentMarkup()));
   }
 
-  public static boolean hasChildrenWithMessages(FacesContext facesContext, NamingContainer  container) {
+  public static boolean hasChildrenWithMessages(final FacesContext facesContext, final NamingContainer  container) {
     if (container instanceof UIComponent) {
-      String clientId = ((UIComponent) container).getClientId(facesContext);
-      for (Iterator ids = facesContext.getClientIdsWithMessages(); ids.hasNext();) {
-        String id = (String) ids.next();
+      final String clientId = ((UIComponent) container).getClientId(facesContext);
+      for (final Iterator ids = facesContext.getClientIdsWithMessages(); ids.hasNext();) {
+        final String id = (String) ids.next();
         if (id.startsWith(clientId)) {
           return true;
         }
@@ -926,16 +931,16 @@ public final class ComponentUtils {
   }
 
   public static FacesMessage.Severity getMaximumSeverityOfChildrenMessages(
-      FacesContext facesContext, NamingContainer container) {
+      final FacesContext facesContext, final NamingContainer container) {
     if (container instanceof UIComponent) {
-      String clientId = ((UIComponent) container).getClientId(facesContext);
+      final String clientId = ((UIComponent) container).getClientId(facesContext);
       FacesMessage.Severity max = null;
-      for (Iterator ids = facesContext.getClientIdsWithMessages(); ids.hasNext();) {
-        String id = (String) ids.next();
+      for (final Iterator ids = facesContext.getClientIdsWithMessages(); ids.hasNext();) {
+        final String id = (String) ids.next();
         if (id != null && id.startsWith(clientId)) {
           final Iterator messages = facesContext.getMessages(id);
           while (messages.hasNext()) {
-            FacesMessage message = (FacesMessage) messages.next();
+            final FacesMessage message = (FacesMessage) messages.next();
             if (max == null || message.getSeverity().getOrdinal() > max.getOrdinal()) {
               max = message.getSeverity();
             }
@@ -947,12 +952,12 @@ public final class ComponentUtils {
     return null;
   }
 
-  public static String[] getChildrenWithMessages(FacesContext facesContext, NamingContainer container) {
+  public static String[] getChildrenWithMessages(final FacesContext facesContext, final NamingContainer container) {
     if (container instanceof UIComponent) {
-      List<String> clientIds = new ArrayList<String>();
-      String clientId = ((UIComponent) container).getClientId(facesContext);
-      for (Iterator ids = facesContext.getClientIdsWithMessages(); ids.hasNext();) {
-        String id = (String) ids.next();
+      final List<String> clientIds = new ArrayList<String>();
+      final String clientId = ((UIComponent) container).getClientId(facesContext);
+      for (final Iterator ids = facesContext.getClientIdsWithMessages(); ids.hasNext();) {
+        final String id = (String) ids.next();
         if (id.startsWith(clientId)) {
           clientIds.add(id);
         }
@@ -966,7 +971,7 @@ public final class ComponentUtils {
    * Adding a data attribute to the component. 
    * The name must start with "data-", e. g. "data-tobago-foo" or "data-bar"
    */
-  public static void putDataAttributeWithPrefix(UIComponent component, String name, Object value) {
+  public static void putDataAttributeWithPrefix(final UIComponent component, final String name, final Object value) {
     if (name.startsWith("data-")) {
       putDataAttribute(component, name.substring(5), value);
     } else {
@@ -978,7 +983,7 @@ public final class ComponentUtils {
    * Adding a data attribute to the component.
    * The name should not start with "data-", e. g. "tobago-foo" or "bar"
    */
-  public static void putDataAttribute(UIComponent component, Object name, Object value) {
+  public static void putDataAttribute(final UIComponent component, final Object name, final Object value) {
     Map<Object, Object> map = getDataAttributes(component);
     if (map == null) {
       map = new HashMap<Object, Object>();
@@ -988,13 +993,13 @@ public final class ComponentUtils {
   }
 
   @SuppressWarnings("unchecked")
-  public static Map<Object, Object> getDataAttributes(UIComponent component) {
+  public static Map<Object, Object> getDataAttributes(final UIComponent component) {
     return (Map<Object, Object>) component.getAttributes().get(DATA_ATTRIBUTES_KEY);
   }
 
   public static boolean invokeOnComponent(
-      FacesContext context, UIComponent component, String clientId, javax.faces.component.ContextCallback callback) {
-    String thisClientId = component.getClientId(context);
+      final FacesContext context, final UIComponent component, final String clientId, final ContextCallback callback) {
+    final String thisClientId = component.getClientId(context);
 
     if (clientId.equals(thisClientId)) {
       callback.invokeContextCallback(context, component);
@@ -1020,9 +1025,9 @@ public final class ComponentUtils {
   }
 
   private static boolean invokeOnComponentFacetsAndChildren(
-      FacesContext context, UIComponent component, String clientId, javax.faces.component.ContextCallback callback) {
-    for (java.util.Iterator<UIComponent> it = component.getFacetsAndChildren(); it.hasNext();) {
-      UIComponent child = it.next();
+      final FacesContext context, final UIComponent component, final String clientId, final ContextCallback callback) {
+    for (final java.util.Iterator<UIComponent> it = component.getFacetsAndChildren(); it.hasNext();) {
+      final UIComponent child = it.next();
       if (child.invokeOnComponent(context, clientId, callback)) {
         return true;
       }

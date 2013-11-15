@@ -32,14 +32,14 @@ public class Imports {
   public Imports() {
   }
 
-  public Imports(String packageName) {
+  public Imports(final String packageName) {
     this.packageName = packageName;
   }
 
   public void addImport(String qualifiedName) {
     if (!ClassUtils.isSystemClass(qualifiedName) && !ClassUtils.isPrimitive(qualifiedName)) {
       if (!(packageName != null && packageName.equals(ClassUtils.getPackageName(qualifiedName)))) {
-        int index = qualifiedName.lastIndexOf('$');
+        final int index = qualifiedName.lastIndexOf('$');
         if (index != -1) {
           qualifiedName = qualifiedName.substring(0, index);
         }
@@ -50,13 +50,13 @@ public class Imports {
     }
   }
 
-  public void addImports(Imports newImports) {
-    for (String qualifiedName : newImports.imports) {
+  public void addImports(final Imports newImports) {
+    for (final String qualifiedName : newImports.imports) {
       addImport(qualifiedName);
     }
   }
 
-  public boolean contains(String qualifiedClassName) {
+  public boolean contains(final String qualifiedClassName) {
     return imports.contains(qualifiedClassName);
   }
 

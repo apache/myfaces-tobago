@@ -76,43 +76,43 @@ public class ResourceServlet extends HttpServlet {
   private Set<String> resourceDirs = new HashSet<String>();
 
   @Override
-  public void init(ServletConfig servletConfig) throws ServletException {
+  public void init(final ServletConfig servletConfig) throws ServletException {
     super.init(servletConfig);
-    TobagoConfig tobagoConfig = TobagoConfig.getInstance(servletConfig.getServletContext());
+    final TobagoConfig tobagoConfig = TobagoConfig.getInstance(servletConfig.getServletContext());
     if (tobagoConfig != null && tobagoConfig.getProjectStage() == ProjectStage.Production) {
        expires = 24 * 60 * 60 * 1000L;
     }
-    Theme defaultTheme = tobagoConfig.getDefaultTheme();
+    final Theme defaultTheme = tobagoConfig.getDefaultTheme();
     addResourceDir(defaultTheme.getFallbackList());
     addResourceDir(tobagoConfig.getSupportedThemes());
 
-    String expiresString = servletConfig.getInitParameter("expires");
+    final String expiresString = servletConfig.getInitParameter("expires");
     if (expiresString != null) {
       try {
         expires = new Long(expiresString) * 1000;
-      } catch (NumberFormatException e) {
+      } catch (final NumberFormatException e) {
         LOG.error("Caught: " + e.getMessage(), e);
       }
     }
-    String bufferSizeString = servletConfig.getInitParameter("bufferSize");
+    final String bufferSizeString = servletConfig.getInitParameter("bufferSize");
     bufferSize = 1024 * 4;
     if (bufferSizeString != null) {
       try {
         bufferSize = Integer.parseInt(bufferSizeString);
-      } catch (NumberFormatException e) {
+      } catch (final NumberFormatException e) {
         LOG.error("Caught: " + e.getMessage(), e);
       }
     }
   }
 
-  private void addResourceDir(List<Theme> themes) {
-    for (Theme theme : themes) {
+  private void addResourceDir(final List<Theme> themes) {
+    for (final Theme theme : themes) {
         addResourceDir(theme);
     }
   }
 
-  private void addResourceDir(Theme theme) {
-    String dir = theme.getResourcePath();
+  private void addResourceDir(final Theme theme) {
+    final String dir = theme.getResourcePath();
     if (dir.startsWith("/")) {
       resourceDirs.add(dir.substring(1));
     } else {
@@ -122,12 +122,12 @@ public class ResourceServlet extends HttpServlet {
 
     @Override
   protected void doGet(
-      HttpServletRequest request, HttpServletResponse response)
+      final HttpServletRequest request, final HttpServletResponse response)
       throws ServletException, IOException {
 
-    String requestURI = request.getRequestURI();
+    final String requestURI = request.getRequestURI();
     String resource = requestURI.substring(request.getContextPath().length() + 1);
-    for (String resourceDir : resourceDirs) {
+    for (final String resourceDir : resourceDirs) {
       if (resource.startsWith(resourceDir)) {
         if (Character.isDigit(resource.charAt(resourceDir.length()+1))) {
           resource = resourceDir + resource.substring(resource.indexOf('/', resourceDir.length() + 1));
@@ -140,11 +140,11 @@ public class ResourceServlet extends HttpServlet {
       response.setHeader("Cache-Control", "Public, max-age=" + expires);
       response.setDateHeader("Expires", System.currentTimeMillis() + expires);
     }
-    String contentType = MimeTypeUtils.getMimeTypeForFile(requestURI);
+    final String contentType = MimeTypeUtils.getMimeTypeForFile(requestURI);
     if (contentType != null) {
       response.setContentType(contentType);
     } else {
-      String message = "Unsupported mime type of resource='" + resource + "'";
+      final String message = "Unsupported mime type of resource='" + resource + "'";
       LOG.warn(message + " (because of security reasons)");
       response.sendError(HttpServletResponse.SC_FORBIDDEN, message);
       return;
@@ -152,7 +152,7 @@ public class ResourceServlet extends HttpServlet {
 
     InputStream inputStream = null;
     try {
-      ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+      final ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
 
       // meta inf (like in servlet 3.0)
       inputStream = classLoader.getResourceAsStream("META-INF/resources/" + resource);
@@ -165,7 +165,7 @@ public class ResourceServlet extends HttpServlet {
       if (inputStream != null) {
         copy(inputStream, response.getOutputStream());
       } else {
-        String message = "Resource '" + resource + "' not found!";
+        final String message = "Resource '" + resource + "' not found!";
         LOG.warn(message);
         response.sendError(HttpServletResponse.SC_NOT_FOUND, message);
       }
@@ -175,7 +175,7 @@ public class ResourceServlet extends HttpServlet {
   }
 
   @Override
-  protected long getLastModified(HttpServletRequest request) {
+  protected long getLastModified(final HttpServletRequest request) {
     if (expires != null) {
       return 0;
     } else {
@@ -183,8 +183,8 @@ public class ResourceServlet extends HttpServlet {
     }
   }
 
-  private void copy(InputStream inputStream, OutputStream outputStream) throws IOException {
-    byte[] buffer = new byte[bufferSize];
+  private void copy(final InputStream inputStream, final OutputStream outputStream) throws IOException {
+    final byte[] buffer = new byte[bufferSize];
     int count;
     while (-1 != (count = inputStream.read(buffer))) {
       outputStream.write(buffer, 0, count);

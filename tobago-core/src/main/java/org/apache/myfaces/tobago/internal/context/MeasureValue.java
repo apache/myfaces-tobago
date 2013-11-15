@@ -30,7 +30,7 @@ public final class MeasureValue {
 
   private Measure value;
 
-  public MeasureValue(Measure value) {
+  public MeasureValue(final Measure value) {
     this.value = value;
   }
 
@@ -39,7 +39,7 @@ public final class MeasureValue {
   }
 
   @Override
-  public boolean equals(Object o) {
+  public boolean equals(final Object o) {
     if (this == o) {
       return true;
     }
@@ -47,7 +47,7 @@ public final class MeasureValue {
       return false;
     }
 
-    MeasureValue that = (MeasureValue) o;
+    final MeasureValue that = (MeasureValue) o;
 
     if (value != null ? !value.equals(that.value) : that.value != null) {
       return false;

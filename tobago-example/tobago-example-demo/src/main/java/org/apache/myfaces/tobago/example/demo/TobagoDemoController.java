@@ -133,7 +133,7 @@ public class TobagoDemoController implements Serializable {
 
   public TobagoDemoController() {
 
-    String[] salutationKeys = {
+    final String[] salutationKeys = {
         "salutation_unknown",
         "salutation_mr",
         "salutation_mrs",
@@ -169,7 +169,7 @@ public class TobagoDemoController implements Serializable {
     solarArrayColumnLayout = "3*; 3*; 3*";
 
     tree = CategoryTree.createSample();
-    String[] values = {"none", "single", "singleLeafOnly", "multi", "multiLeafOnly"};
+    final String[] values = {"none", "single", "singleLeafOnly", "multi", "multiLeafOnly"};
     selectionItems = getSelectItems(values, "demo");
     selectionType = (String) selectionItems[0].getValue();
 
@@ -180,12 +180,12 @@ public class TobagoDemoController implements Serializable {
 
     solar = new Solar();
 
-    String[] toolbarIconKeys
+    final String[] toolbarIconKeys
         = {UIToolBar.ICON_OFF, UIToolBar.ICON_SMALL, UIToolBar.ICON_BIG};
     toolbarIconItems = getSelectItems(toolbarIconKeys, "demo");
     toolbarIconSize = UIToolBar.ICON_SMALL;
 
-    String[] toolbarTextKeys =
+    final String[] toolbarTextKeys =
         {UIToolBar.LABEL_OFF, UIToolBar.LABEL_BOTTOM, UIToolBar.LABEL_RIGHT};
     toolbarTextItems = getSelectItems(toolbarTextKeys, "demo");
     toolbarTextPosition = UIToolBar.LABEL_BOTTOM;
@@ -198,21 +198,21 @@ public class TobagoDemoController implements Serializable {
   }
 
   public boolean isJsp() {
-    String viewId = FacesContext.getCurrentInstance().getViewRoot().getViewId();
-    int end = viewId.lastIndexOf(".xhtml");
+    final String viewId = FacesContext.getCurrentInstance().getViewRoot().getViewId();
+    final int end = viewId.lastIndexOf(".xhtml");
     return end < 0;
   }
 
   public boolean isDoubleDefined() {
-    String viewId = FacesContext.getCurrentInstance().getViewRoot().getViewId();
-    String name = viewId.substring(1, viewId.lastIndexOf("."));
-    String path = ResourceManagerUtils.getImageWithPath(FacesContext.getCurrentInstance(), name + ".xhtml", true);
+    final String viewId = FacesContext.getCurrentInstance().getViewRoot().getViewId();
+    final String name = viewId.substring(1, viewId.lastIndexOf("."));
+    final String path = ResourceManagerUtils.getImageWithPath(FacesContext.getCurrentInstance(), name + ".xhtml", true);
     return path != null;
   }
 
   public String asJsp() {
-    String viewId = FacesContext.getCurrentInstance().getViewRoot().getViewId();
-    int end = viewId.lastIndexOf(".xhtml");
+    final String viewId = FacesContext.getCurrentInstance().getViewRoot().getViewId();
+    final int end = viewId.lastIndexOf(".xhtml");
     if (end >= 0) {
       return viewId.substring(1, end) + ".jspx";
     }
@@ -221,8 +221,8 @@ public class TobagoDemoController implements Serializable {
   }
 
   public String asFacelet() {
-    String viewId = FacesContext.getCurrentInstance().getViewRoot().getViewId();
-    int end = viewId.lastIndexOf(".jspx");
+    final String viewId = FacesContext.getCurrentInstance().getViewRoot().getViewId();
+    final int end = viewId.lastIndexOf(".jspx");
     if (end >= 0) {
       return viewId.substring(1, end) + ".xhtml";
     }
@@ -232,12 +232,12 @@ public class TobagoDemoController implements Serializable {
 
   public String resetSession() throws IOException {
     LOG.info("Resetting the session.");
-    FacesContext facesContext = FacesContext.getCurrentInstance();
-    HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
+    final FacesContext facesContext = FacesContext.getCurrentInstance();
+    final HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
     if (session != null) {
       session.invalidate();
     }
-    ExternalContext externalContext = facesContext.getExternalContext();
+    final ExternalContext externalContext = facesContext.getExternalContext();
     externalContext.redirect("/" + externalContext.getRequestContextPath());
     facesContext.responseComplete();
     return null;
@@ -248,17 +248,17 @@ public class TobagoDemoController implements Serializable {
     return tabChangeListener;
   }
 
-  public void setTabChangeListener(TabChangeListener tabChangeListener) {
+  public void setTabChangeListener(final TabChangeListener tabChangeListener) {
     LOG.debug("Setting TabChangeListener " + tabChangeListener);
     this.tabChangeListener = tabChangeListener;
   }
 
   private List<UIColumn> createSolarArrayColumns() {
 
-    List<UIColumn> columns = new ArrayList<UIColumn>(3);
+    final List<UIColumn> columns = new ArrayList<UIColumn>(3);
 
-    FacesContext facesContext = FacesContext.getCurrentInstance();
-    UIIn in = (UIIn)
+    final FacesContext facesContext = FacesContext.getCurrentInstance();
+    final UIIn in = (UIIn)
         CreateComponentUtils.createComponent(facesContext, UIIn.COMPONENT_TYPE, RendererTypes.IN, "sac1i");
     in.setValueBinding(
         Attributes.VALUE, facesContext.getApplication().createValueBinding("#{luminary.population}"));
@@ -275,11 +275,11 @@ public class TobagoDemoController implements Serializable {
     return columns;
   }
 
-  public static SelectItem[] getSelectItems(String[] keys, String bundle) {
-    FacesContext facesContext = FacesContext.getCurrentInstance();
-    SelectItem[] items = new SelectItem[keys.length];
+  public static SelectItem[] getSelectItems(final String[] keys, final String bundle) {
+    final FacesContext facesContext = FacesContext.getCurrentInstance();
+    final SelectItem[] items = new SelectItem[keys.length];
     for (int i = 0; i < items.length; i++) {
-      String label = ResourceManagerUtils.getPropertyNotNull(facesContext, bundle, keys[i]);
+      final String label = ResourceManagerUtils.getPropertyNotNull(facesContext, bundle, keys[i]);
       items[i] = new SelectItem(keys[i], label);
     }
     return items;
@@ -302,7 +302,7 @@ public class TobagoDemoController implements Serializable {
     return salutation;
   }
 
-  public void setSalutation(String[] salutation) {
+  public void setSalutation(final String[] salutation) {
     this.salutation = salutation;
   }
 
@@ -310,7 +310,7 @@ public class TobagoDemoController implements Serializable {
     return salutationItems;
   }
 
-  public void setSalutationItems(SelectItem[] salutationItems) {
+  public void setSalutationItems(final SelectItem[] salutationItems) {
     this.salutationItems = salutationItems;
   }
 
@@ -322,7 +322,7 @@ public class TobagoDemoController implements Serializable {
     return boolTest;
   }
 
-  public void setBoolTest(Boolean boolTest) {
+  public void setBoolTest(final Boolean boolTest) {
     this.boolTest = boolTest;
   }
 
@@ -330,7 +330,7 @@ public class TobagoDemoController implements Serializable {
     return text;
   }
 
-  public void setText(String[] text) {
+  public void setText(final String[] text) {
     this.text = text;
   }
 
@@ -338,7 +338,7 @@ public class TobagoDemoController implements Serializable {
     return solarArray;
   }
 
-  public void setSolarArray(SolarObject[] solarArray) {
+  public void setSolarArray(final SolarObject[] solarArray) {
     this.solarArray = solarArray;
   }
 
@@ -350,10 +350,10 @@ public class TobagoDemoController implements Serializable {
     return solarTree;
   }
 
-  public void selectOrbit(ActionEvent event) {
-    SolarObject clicked = (SolarObject) ComponentUtils.findParameter(event.getComponent(), "luminary");
+  public void selectOrbit(final ActionEvent event) {
+    final SolarObject clicked = (SolarObject) ComponentUtils.findParameter(event.getComponent(), "luminary");
     boolean add = false;
-    List<Integer> selectedRows = sheetState.getSelectedRows();
+    final List<Integer> selectedRows = sheetState.getSelectedRows();
     for (int i = 0; i < solarList.size(); i++) {
       if (clicked.getOrbit().equals(solarList.get(i).getOrbit())) {
         add = !selectedRows.contains(i);
@@ -375,7 +375,7 @@ public class TobagoDemoController implements Serializable {
   }
 
 
-  public void selectLuminary(ActionEvent actionEvent) {
+  public void selectLuminary(final ActionEvent actionEvent) {
     LOG.info("actionEvent=" + actionEvent);
 //    final List<Integer> selectedRows = sheetState.getSelectedRows();
     final UIData data = ComponentUtils.findAncestor(actionEvent.getComponent(), UIData.class);
@@ -388,7 +388,7 @@ public class TobagoDemoController implements Serializable {
     }
   }
 
-  public void setSolarList(List<SolarObject> solarList) {
+  public void setSolarList(final List<SolarObject> solarList) {
     this.solarList = solarList;
   }
 
@@ -396,7 +396,7 @@ public class TobagoDemoController implements Serializable {
     return solarArrayColumns;
   }
 
-  public void setSolarArrayColumns(List<UIColumn> solarArrayColumns) {
+  public void setSolarArrayColumns(final List<UIColumn> solarArrayColumns) {
     this.solarArrayColumns = solarArrayColumns;
   }
 
@@ -404,7 +404,7 @@ public class TobagoDemoController implements Serializable {
     return solarArrayColumnLayout;
   }
 
-  public void setSolarArrayColumnLayout(String solarArrayColumnLayout) {
+  public void setSolarArrayColumnLayout(final String solarArrayColumnLayout) {
     this.solarArrayColumnLayout = solarArrayColumnLayout;
   }
 
@@ -412,7 +412,7 @@ public class TobagoDemoController implements Serializable {
     return tree;
   }
 
-  public void setTree(DefaultMutableTreeNode tree) {
+  public void setTree(final DefaultMutableTreeNode tree) {
     this.tree = tree;
   }
 
@@ -420,7 +420,7 @@ public class TobagoDemoController implements Serializable {
     return showJunctions;
   }
 
-  public void setShowJunctions(boolean showJunctions) {
+  public void setShowJunctions(final boolean showJunctions) {
     this.showJunctions = showJunctions;
   }
 
@@ -428,7 +428,7 @@ public class TobagoDemoController implements Serializable {
     return showIcons;
   }
 
-  public void setShowIcons(boolean showIcons) {
+  public void setShowIcons(final boolean showIcons) {
     this.showIcons = showIcons;
   }
 
@@ -436,7 +436,7 @@ public class TobagoDemoController implements Serializable {
     return showRoot;
   }
 
-  public void setShowRoot(boolean showRoot) {
+  public void setShowRoot(final boolean showRoot) {
     this.showRoot = showRoot;
   }
 
@@ -444,7 +444,7 @@ public class TobagoDemoController implements Serializable {
     return showRootJunction;
   }
 
-  public void setShowRootJunction(boolean showRootJunction) {
+  public void setShowRootJunction(final boolean showRootJunction) {
     this.showRootJunction = showRootJunction;
   }
 
@@ -452,7 +452,7 @@ public class TobagoDemoController implements Serializable {
     return multiselect;
   }
 
-  public void setMultiselect(boolean multiselect) {
+  public void setMultiselect(final boolean multiselect) {
     this.multiselect = multiselect;
   }
 
@@ -460,7 +460,7 @@ public class TobagoDemoController implements Serializable {
     return selectionType;
   }
 
-  public void setSelectionType(String selectionType) {
+  public void setSelectionType(final String selectionType) {
     this.selectionType = selectionType;
   }
 
@@ -468,7 +468,7 @@ public class TobagoDemoController implements Serializable {
     return selectionItems;
   }
 
-  public void setSelectionItems(SelectItem[] selectionItems) {
+  public void setSelectionItems(final SelectItem[] selectionItems) {
     this.selectionItems = selectionItems;
   }
 
@@ -476,7 +476,7 @@ public class TobagoDemoController implements Serializable {
     return mutable;
   }
 
-  public void setMutable(boolean mutable) {
+  public void setMutable(final boolean mutable) {
     this.mutable = mutable;
   }
 
@@ -484,7 +484,7 @@ public class TobagoDemoController implements Serializable {
     return required;
   }
 
-  public void setRequired(boolean required) {
+  public void setRequired(final boolean required) {
     this.required = required;
   }
 
@@ -492,7 +492,7 @@ public class TobagoDemoController implements Serializable {
     return solar;
   }
 
-  public void setSolar(Solar solar) {
+  public void setSolar(final Solar solar) {
     this.solar = solar;
   }
 
@@ -500,7 +500,7 @@ public class TobagoDemoController implements Serializable {
     return date;
   }
 
-  public void setDate(Date date) {
+  public void setDate(final Date date) {
     this.date = date;
   }
 
@@ -508,7 +508,7 @@ public class TobagoDemoController implements Serializable {
     return tabState0;
   }
 
-  public void setTabState0(Object tabState0) {
+  public void setTabState0(final Object tabState0) {
     this.tabState0 = tabState0;
   }
 
@@ -516,7 +516,7 @@ public class TobagoDemoController implements Serializable {
     return tabState1;
   }
 
-  public void setTabState1(Object tabState1) {
+  public void setTabState1(final Object tabState1) {
     this.tabState1 = tabState1;
   }
 
@@ -524,7 +524,7 @@ public class TobagoDemoController implements Serializable {
     return tabState2;
   }
 
-  public void setTabState2(Object tabState2) {
+  public void setTabState2(final Object tabState2) {
     this.tabState2 = tabState2;
   }
 
@@ -532,7 +532,7 @@ public class TobagoDemoController implements Serializable {
     return tabState3;
   }
 
-  public void setTabState3(Object tabState3) {
+  public void setTabState3(final Object tabState3) {
     this.tabState3 = tabState3;
   }
 
@@ -540,7 +540,7 @@ public class TobagoDemoController implements Serializable {
     return sheetState;
   }
 
-  public void setSheetState(SheetState sheetState) {
+  public void setSheetState(final SheetState sheetState) {
     this.sheetState = sheetState;
   }
 
@@ -548,12 +548,13 @@ public class TobagoDemoController implements Serializable {
     return sheetTreeState;
   }
 
-  public void stateChangeListener(ActionEvent e) {
+  public void stateChangeListener(final ActionEvent e) {
     LOG.info("SheetState has Changed: " + e);
 
   }
 
-  public void customValidator(FacesContext context, UIComponent component, Object value) throws ValidatorException {
+  public void customValidator(final FacesContext context, final UIComponent component, final Object value)
+      throws ValidatorException {
     if (value == null) {
       return;
     }
@@ -571,7 +572,7 @@ public class TobagoDemoController implements Serializable {
     return toolbarIconSize;
   }
 
-  public void setToolbarIconSize(String toolbarIconSize) {
+  public void setToolbarIconSize(final String toolbarIconSize) {
     this.toolbarIconSize = toolbarIconSize;
   }
 
@@ -583,7 +584,7 @@ public class TobagoDemoController implements Serializable {
     return toolbarTextPosition;
   }
 
-  public void setToolbarTextPosition(String toolbarTextPosition) {
+  public void setToolbarTextPosition(final String toolbarTextPosition) {
     this.toolbarTextPosition = toolbarTextPosition;
   }
 
@@ -591,7 +592,7 @@ public class TobagoDemoController implements Serializable {
     return null;
   }
 
-  public void setNull(Object o) {
+  public void setNull(final Object o) {
 
   }
 

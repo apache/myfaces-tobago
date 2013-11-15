@@ -41,12 +41,12 @@ public final class ClientPropertiesKey implements Serializable {
 
   private final int hashCode;
 
-  public static ClientPropertiesKey get(FacesContext facesContext) {
+  public static ClientPropertiesKey get(final FacesContext facesContext) {
     // todo later: refactor when having JSF 2.0: using attributes of facesContext
-    Map<String, Object> requestMap = facesContext.getExternalContext().getRequestMap();
+    final Map<String, Object> requestMap = facesContext.getExternalContext().getRequestMap();
     ClientPropertiesKey key = (ClientPropertiesKey) requestMap.get(KEY_IN_REQUEST);
     if (key == null) {
-      ClientProperties clientProperties = VariableResolverUtils.resolveClientProperties(facesContext);
+      final ClientProperties clientProperties = VariableResolverUtils.resolveClientProperties(facesContext);
       key = new ClientPropertiesKey(clientProperties, facesContext.getViewRoot());
       requestMap.put(KEY_IN_REQUEST, key);
     }
@@ -54,8 +54,8 @@ public final class ClientPropertiesKey implements Serializable {
     return key;
   }
 
-  public static void reset(FacesContext facesContext) {
-    Map<String, Object> requestMap = facesContext.getExternalContext().getRequestMap();
+  public static void reset(final FacesContext facesContext) {
+    final Map<String, Object> requestMap = facesContext.getExternalContext().getRequestMap();
     requestMap.remove(KEY_IN_REQUEST);
   }
   
@@ -68,7 +68,7 @@ public final class ClientPropertiesKey implements Serializable {
   }
 
   @Override
-  public boolean equals(Object o) {
+  public boolean equals(final Object o) {
     if (this == o) {
       return true;
     }
@@ -76,7 +76,7 @@ public final class ClientPropertiesKey implements Serializable {
       return false;
     }
 
-    ClientPropertiesKey that = (ClientPropertiesKey) o;
+    final ClientPropertiesKey that = (ClientPropertiesKey) o;
 
     if (!contentType.equals(that.contentType)) {
       return false;

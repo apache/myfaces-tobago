@@ -44,7 +44,7 @@ public class TobagoMultipartFormdataRequestUnitTest {
   private TobagoMultipartFormdataRequest request;
 
   public TobagoMultipartFormdataRequestUnitTest() throws UnsupportedEncodingException {
-    String body
+    final String body
         = SNIP + BOUNDARY + NEWLINE
         + parameter("color", "red")
         + parameter("city", "Amsterdam")
@@ -57,21 +57,21 @@ public class TobagoMultipartFormdataRequestUnitTest {
         + parameter("country", "Trinidad & Tobago")
         + SNIP + BOUNDARY + SNIP + NEWLINE;
 
-    MockHttpServletRequest mockRequest
+    final MockHttpServletRequest mockRequest
         = new MockHttpServletRequest(body.getBytes("UTF-8"));
     mockRequest.setMethod("post");
 
     request = new TobagoMultipartFormdataRequest(mockRequest, System.getProperty("java.io.tmpdir"), 1024 * 1024);
   }
 
-  private String parameter(String key, String value) {
+  private String parameter(final String key, final String value) {
     return SNIP + BOUNDARY + NEWLINE
         + "Content-Disposition: form-data; name=\"" + key + "\"" + NEWLINE
         + NEWLINE
         + value + NEWLINE;
   }
 
-  private String fileItem(String key, String filename, String value) {
+  private String fileItem(final String key, final String filename, final String value) {
     return SNIP + BOUNDARY + NEWLINE
         + "Content-Disposition: form-data; name=\""
         + key + "\"; filename=\"" + filename + "\"" + NEWLINE
@@ -83,7 +83,7 @@ public class TobagoMultipartFormdataRequestUnitTest {
   @Test
   public void testGetFileItem() {
 
-    FileItem item = request.getFileItem("file");
+    final FileItem item = request.getFileItem("file");
     Assert.assertNotNull(item);
     Assert.assertEquals("filename", "hello.txt", item.getName());
     Assert.assertEquals("content", "Hello World!", item.getString());
@@ -127,13 +127,13 @@ public class TobagoMultipartFormdataRequestUnitTest {
   @Test
   public void testGetParameterNames() {
 
-    Set<Object> actual = new HashSet<Object>();
-    Enumeration e = request.getParameterNames();
+    final Set<Object> actual = new HashSet<Object>();
+    final Enumeration e = request.getParameterNames();
     while (e.hasMoreElements()) {
       actual.add(e.nextElement());
     }
 
-    Set<String> expected = new HashSet<String>(
+    final Set<String> expected = new HashSet<String>(
         Arrays.asList("color", "city", "country"));
 
     Assert.assertEquals(expected, actual);
@@ -142,23 +142,23 @@ public class TobagoMultipartFormdataRequestUnitTest {
   @Test
   public void testGetParameterMap() {
 
-    Map actual = request.getParameterMap();
+    final Map actual = request.getParameterMap();
 
-    Map<String, String[]> expected = new HashMap<String, String[]>();
+    final Map<String, String[]> expected = new HashMap<String, String[]>();
     expected.put("color", new String[]{"red", "green", "blue", "yellow"});
     expected.put("city", new String[]{"Amsterdam", "Bonn", "Pisa"});
     expected.put("country", new String[]{"Trinidad & Tobago"});
 
     Assert.assertEquals(expected.keySet(), actual.keySet());
 
-    Set keys = actual.keySet();
-    for (Object key1 : keys) {
-      String key = (String) key1;
-      String[] expectedStrings = expected.get(key);
-      String[] actualStrings = (String[]) actual.get(key);
+    final Set keys = actual.keySet();
+    for (final Object key1 : keys) {
+      final String key = (String) key1;
+      final String[] expectedStrings = expected.get(key);
+      final String[] actualStrings = (String[]) actual.get(key);
       Assert.assertEquals(expectedStrings.length, actualStrings.length);
-      Set<String> expectedSet = new HashSet<String>(Arrays.asList(expectedStrings));
-      Set<String> actualSet = new HashSet<String>(Arrays.asList(actualStrings));
+      final Set<String> expectedSet = new HashSet<String>(Arrays.asList(expectedStrings));
+      final Set<String> actualSet = new HashSet<String>(Arrays.asList(actualStrings));
       Assert.assertEquals(expectedSet, actualSet);
     }
   }

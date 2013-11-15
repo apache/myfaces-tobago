@@ -62,9 +62,9 @@ public class MethodOverwritingOfGeneratedUIComponentsUnitTest {
   @Test
   public void test() {
 
-    for (Class<? extends UIComponent> uiComponent : uiComponents) {
+    for (final Class<? extends UIComponent> uiComponent : uiComponents) {
       final Method[] methods = uiComponent.getMethods();
-      for (Method method : methods) {
+      for (final Method method : methods) {
 
         if (!method.getDeclaringClass().equals(uiComponent)) {
           // check only the method, that have an implementation in the generated class
@@ -82,10 +82,10 @@ public class MethodOverwritingOfGeneratedUIComponentsUnitTest {
         for (Class<?> superClass = uiComponent.getSuperclass();
              superClass != null;
              superClass = superClass.getSuperclass()) {
-          Method superMethod;
+          final Method superMethod;
           try {
             superMethod = superClass.getMethod(method.getName(), method.getParameterTypes());
-          } catch (NoSuchMethodException e) {
+          } catch (final NoSuchMethodException e) {
             // only looking for super methods
             continue;
           }
@@ -114,11 +114,11 @@ public class MethodOverwritingOfGeneratedUIComponentsUnitTest {
       directories.add(new File(resource.getFile()));
     }
     final ArrayList<Class<? extends UIComponent>> result = new ArrayList<Class<? extends UIComponent>>();
-    for (File directory : directories) {
+    for (final File directory : directories) {
       final File[] files = directory.listFiles();
       if (files != null) {
-        for (File file : files) {
-          String name = file.getName();
+        for (final File file : files) {
+          final String name = file.getName();
           if (!StringUtils.endsWith(name, ".class")) {
             continue;
           }
@@ -141,15 +141,15 @@ public class MethodOverwritingOfGeneratedUIComponentsUnitTest {
 
     private List<String> list = new ArrayList<String>();
 
-    public void add(String method, Class<? extends UIComponent> component) {
+    public void add(final String method, final Class<? extends UIComponent> component) {
       list.add(concatenate(method, component));
     }
 
-    public boolean contains(String method, Class<? extends UIComponent> component) {
+    public boolean contains(final String method, final Class<? extends UIComponent> component) {
       return list.contains(concatenate(method, component));
     }
 
-    private String concatenate(String method, Class<? extends UIComponent> component) {
+    private String concatenate(final String method, final Class<? extends UIComponent> component) {
       return method + '@' + component.getName();
     }
 

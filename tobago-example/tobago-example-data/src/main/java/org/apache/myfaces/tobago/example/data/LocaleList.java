@@ -40,9 +40,9 @@ public class LocaleList {
   public static final List<String> HOLIDAY;
 
   static {
-    List<LocaleEntry> init = new ArrayList<LocaleEntry>();
-    for (Locale displayLocale : Locale.getAvailableLocales()) {
-      for (Locale locale : Locale.getAvailableLocales()) {
+    final List<LocaleEntry> init = new ArrayList<LocaleEntry>();
+    for (final Locale displayLocale : Locale.getAvailableLocales()) {
+      for (final Locale locale : Locale.getAvailableLocales()) {
         init.add(new LocaleEntry(locale, displayLocale));
       }
     }
@@ -50,8 +50,8 @@ public class LocaleList {
   }
 
   static {
-    Set<String> init = new HashSet<String>();
-    for (LocaleEntry localeEntry : DATA) {
+    final Set<String> init = new HashSet<String>();
+    for (final LocaleEntry localeEntry : DATA) {
       if (StringUtils.isNotBlank(localeEntry.getCountry())
           && StringUtils.isNotBlank(localeEntry.getLanguage())) {
         final String name = localeEntry.getCountry() + " (" + localeEntry.getLanguage() + ")";
@@ -64,8 +64,8 @@ public class LocaleList {
   }
 
   static {
-    Set<String> init = new HashSet<String>();
-    for (LocaleEntry localeEntry : DATA) {
+    final Set<String> init = new HashSet<String>();
+    for (final LocaleEntry localeEntry : DATA) {
       if (StringUtils.isNotBlank(localeEntry.getCountry())) {
         init.add(localeEntry.getCountry());
       }

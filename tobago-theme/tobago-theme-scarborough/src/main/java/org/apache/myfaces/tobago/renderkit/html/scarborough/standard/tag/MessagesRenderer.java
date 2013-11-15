@@ -65,21 +65,21 @@ public class MessagesRenderer extends LayoutComponentRendererBase {
   public static final String CLOSE_POPUP = "closePopup";
 
   @Override
-  public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
+  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
 
-    UIMessages messages = (UIMessages) component;
+    final UIMessages messages = (UIMessages) component;
 
     if (messages.isConfirmation()) {
       createPopup(facesContext, messages);
       return;
     }
 
-    TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
     if (LOG.isDebugEnabled()) {
       LOG.debug("facesContext is " + facesContext.getClass().getName());
     }
-    List<UIMessages.Item> messageList = messages.createMessageList(facesContext);
+    final List<UIMessages.Item> messageList = messages.createMessageList(facesContext);
 
     if (messageList.size() > 0) { // in ie empty span gets a height
       writer.startElement(HtmlElements.SPAN, messages);
@@ -98,7 +98,7 @@ public class MessagesRenderer extends LayoutComponentRendererBase {
         clientIds = facesContext.getClientIdsWithMessages();
       }*/
 
-      for (UIMessages.Item item : messageList) {
+      for (final UIMessages.Item item : messageList) {
         encodeMessage(writer, messages, item.getFacesMessage(), item.getClientId());
       }
 /*
@@ -116,7 +116,7 @@ public class MessagesRenderer extends LayoutComponentRendererBase {
 */
       writer.endElement(HtmlElements.SPAN);
       if (messages.getFor() == null) {
-        String clientId = messages.getClientId(facesContext);
+        final String clientId = messages.getClientId(facesContext);
         writer.startElement(HtmlElements.INPUT, null);
         writer.writeAttribute(HtmlAttributes.VALUE, Boolean.TRUE.toString(), false);
         writer.writeAttribute(HtmlAttributes.ID,
@@ -133,16 +133,17 @@ public class MessagesRenderer extends LayoutComponentRendererBase {
     }
   }
 
-  private void createPopup(FacesContext facesContext, UIMessages messages) {
+  private void createPopup(final FacesContext facesContext, final UIMessages messages) {
     if (LOG.isDebugEnabled()) {
       LOG.debug("POPUP");
     }
-    String id = messages.getId() != null ? messages.getId() + "popup" : facesContext.getViewRoot().createUniqueId();
+    final String id
+        = messages.getId() != null ? messages.getId() + "popup" : facesContext.getViewRoot().createUniqueId();
     final UIPopup popup = (UIPopup)
         CreateComponentUtils.createComponent(facesContext, UIPopup.COMPONENT_TYPE, RendererTypes.POPUP, id);
     popup.getAttributes().put(Attributes.Z_INDEX, 10);
 
-    AbstractUIPage page = ComponentUtils.findPage(facesContext, messages);
+    final AbstractUIPage page = ComponentUtils.findPage(facesContext, messages);
 
     popup.setWidth(page.getCurrentWidth().subtract(200));
     popup.setHeight(page.getCurrentHeight().subtract(200));
@@ -179,7 +180,7 @@ public class MessagesRenderer extends LayoutComponentRendererBase {
     scrollPanel.setScrollbars("auto");
     scrollPanel.getChildren().add(messages);
 
-    UIComponent buttonPanel = CreateComponentUtils.createComponent(
+    final UIComponent buttonPanel = CreateComponentUtils.createComponent(
         facesContext, UIPanel.COMPONENT_TYPE, RendererTypes.PANEL, "buttonPanel");
     layout = CreateComponentUtils.createComponent(
         facesContext, UIGridLayout.COMPONENT_TYPE, RendererTypes.GRID_LAYOUT, "buttonPanelLayout");
@@ -216,11 +217,12 @@ public class MessagesRenderer extends LayoutComponentRendererBase {
       }
     }
   */
-  private void encodeMessage(TobagoResponseWriter writer, UIMessages messages, FacesMessage message, String clientId)
+  private void encodeMessage(
+      final TobagoResponseWriter writer, final UIMessages messages, final FacesMessage message, final String clientId)
       throws IOException {
 
-    String summary = message.getSummary();
-    String detail = message.getDetail();
+    final String summary = message.getSummary();
+    final String detail = message.getDetail();
     writer.startElement(HtmlElements.LABEL, null);
     if (clientId != null) {
       writer.writeAttribute(HtmlAttributes.FOR, clientId, false);
@@ -251,10 +253,10 @@ public class MessagesRenderer extends LayoutComponentRendererBase {
   }
 
   @Override
-  public Measure getPreferredHeight(FacesContext facesContext, Configurable component) {
-    Measure measure = super.getPreferredHeight(facesContext, component);
-    UIMessages messages = (UIMessages) component;
-    int count = messages.createMessageList(facesContext).size();
+  public Measure getPreferredHeight(final FacesContext facesContext, final Configurable component) {
+    final Measure measure = super.getPreferredHeight(facesContext, component);
+    final UIMessages messages = (UIMessages) component;
+    final int count = messages.createMessageList(facesContext).size();
     return measure.multiply(count);
   }
 }

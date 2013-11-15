@@ -75,17 +75,17 @@ public class MarkupUnitTest {
   public void testMarkup() {
     Assert.assertNull(Markup.valueOf((Markup) null));
     
-    Markup accent = Markup.valueOf("accent");
+    final Markup accent = Markup.valueOf("accent");
     Assert.assertSame(accent, Markup.valueOf(accent));
   }
 
   @Test
   public void testAdd() {
-    Markup a = Markup.valueOf("a");
-    Markup b = Markup.valueOf("b");
-    Markup c = Markup.valueOf("c");
-    Markup ab = Markup.valueOf("a,b");
-    Markup abc = Markup.valueOf("a,b,c");
+    final Markup a = Markup.valueOf("a");
+    final Markup b = Markup.valueOf("b");
+    final Markup c = Markup.valueOf("c");
+    final Markup ab = Markup.valueOf("a,b");
+    final Markup abc = Markup.valueOf("a,b,c");
     Assert.assertEquals(a, Markup.NULL.add(a));
     Assert.assertEquals(ab, a.add(b));
     Assert.assertEquals(abc, ab.add(c));
@@ -97,12 +97,12 @@ public class MarkupUnitTest {
 
   @Test
   public void testRemove() {
-    Markup a = Markup.valueOf("a");
-    Markup b = Markup.valueOf("b");
-    Markup c = Markup.valueOf("c");
-    Markup ab = Markup.valueOf("a,b");
-    Markup bc = Markup.valueOf("b,c");
-    Markup abc = Markup.valueOf("a,b,c");
+    final Markup a = Markup.valueOf("a");
+    final Markup b = Markup.valueOf("b");
+    final Markup c = Markup.valueOf("c");
+    final Markup ab = Markup.valueOf("a,b");
+    final Markup bc = Markup.valueOf("b,c");
+    final Markup abc = Markup.valueOf("a,b,c");
     Assert.assertEquals(Markup.NULL, Markup.NULL.remove(a));
     Assert.assertEquals(a, a.remove(b));
     Assert.assertEquals(Markup.NULL, a.remove(a));
@@ -117,8 +117,8 @@ public class MarkupUnitTest {
 
   @Test
   public void testContains() {
-    Markup a = Markup.valueOf("a");
-    Markup ab = Markup.valueOf("a,b");
+    final Markup a = Markup.valueOf("a");
+    final Markup ab = Markup.valueOf("a,b");
     Assert.assertFalse(Markup.NULL.contains("a"));
     Assert.assertTrue(a.contains("a"));
     Assert.assertFalse(a.contains("b"));

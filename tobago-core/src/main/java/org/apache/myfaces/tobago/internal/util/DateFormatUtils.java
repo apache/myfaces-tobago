@@ -51,15 +51,15 @@ public final class DateFormatUtils {
    *
    * @return the patter or null, if DateFormat.getDateInstance() returns no SimpleDateFormat.
    */
-  public static String findPattern(DateTimeConverter converter) {
+  public static String findPattern(final DateTimeConverter converter) {
     String pattern = converter.getPattern();
 
     if (pattern == null) {
-      DateFormat dateFormat = getDateFormat(
+      final DateFormat dateFormat = getDateFormat(
           converter.getType(), converter.getDateStyle(),
           converter.getTimeStyle(), converter.getLocale());
       if (dateFormat instanceof SimpleDateFormat) {
-        SimpleDateFormat format = (SimpleDateFormat) dateFormat;
+        final SimpleDateFormat format = (SimpleDateFormat) dateFormat;
         pattern = format.toPattern();
       }
     }
@@ -67,8 +67,9 @@ public final class DateFormatUtils {
     return pattern;
   }
 
-  public static DateFormat getDateFormat(String type, String dateStyle, String timeStyle, Locale locale) {
-    DateFormat format;
+  public static DateFormat getDateFormat(
+      final String type, final String dateStyle, final String timeStyle, final Locale locale) {
+    final DateFormat format;
     if (type.equals(TYPE_DATE)) {
       format = DateFormat.getDateInstance(calcStyle(dateStyle), locale);
     } else if (type.equals(TYPE_TIME)) {
@@ -86,7 +87,7 @@ public final class DateFormatUtils {
     return format;
   }
 
-  private static int calcStyle(String name) {
+  private static int calcStyle(final String name) {
     if (name.equals(STYLE_DEFAULT)) {
       return DateFormat.DEFAULT;
     }

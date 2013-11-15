@@ -35,22 +35,22 @@ public final class FacetUtils {
   /**
    * A type save utility to get the facet <code>contextMenu</code> from a component.
    */
-  public static AbstractUIMenu getContextMenu(UIComponent component) {
+  public static AbstractUIMenu getContextMenu(final UIComponent component) {
     return (AbstractUIMenu) component.getFacet(Facets.CONTEXT_MENU);
   }
 
-  public static void setContextMenu(UIComponent component, AbstractUIMenu menu) {
+  public static void setContextMenu(final UIComponent component, final AbstractUIMenu menu) {
     component.getFacets().put(Facets.CONTEXT_MENU, menu);
   }
 
   /**
    * A type save utility to get the facet <code>dropDownMenu</code> from a component.
    */
-  public static AbstractUIMenu getDropDownMenu(UIComponent component) {
+  public static AbstractUIMenu getDropDownMenu(final UIComponent component) {
     return (AbstractUIMenu) component.getFacet(Facets.DROP_DOWN_MENU);
   }
 
-  public static void setDropDownMenu(UIComponent component, AbstractUIMenu menu) {
+  public static void setDropDownMenu(final UIComponent component, final AbstractUIMenu menu) {
     component.getFacets().put(Facets.DROP_DOWN_MENU, menu);
   }
 }

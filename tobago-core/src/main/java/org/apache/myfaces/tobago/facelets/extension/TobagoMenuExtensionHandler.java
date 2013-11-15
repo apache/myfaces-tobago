@@ -41,7 +41,7 @@ public abstract class TobagoMenuExtensionHandler extends ComponentHandler {
   private Metadata subComponentMapper;
   private TagAttribute fieldIdAttribute;
 
-  public TobagoMenuExtensionHandler(ComponentConfig config) {
+  public TobagoMenuExtensionHandler(final ComponentConfig config) {
     super(config);
     fieldIdAttribute = getAttribute("fieldId");
   }
@@ -52,9 +52,9 @@ public abstract class TobagoMenuExtensionHandler extends ComponentHandler {
 
   protected abstract String getFacetName();
 
-  public void applyNextHandler(FaceletContext faceletContext, UIComponent menuCommand) throws IOException {
+  public void applyNextHandler(final FaceletContext faceletContext, final UIComponent menuCommand) throws IOException {
     if (ComponentHandler.isNew(menuCommand)) {
-      UIComponent component = (UIComponent) menuCommand.getFacets().remove(getFacetName());
+      final UIComponent component = (UIComponent) menuCommand.getFacets().remove(getFacetName());
       nextHandler.apply(faceletContext, component);
       menuCommand.getFacets().put(getFacetName(), component);
     } else {
@@ -62,7 +62,8 @@ public abstract class TobagoMenuExtensionHandler extends ComponentHandler {
     }
   }
 
-  public void onComponentCreated(FaceletContext faceletContext, UIComponent menuCommand, UIComponent parent) {
+  public void onComponentCreated(
+      final FaceletContext faceletContext, final UIComponent menuCommand, final UIComponent parent) {
 
     final Application application = faceletContext.getFacesContext().getApplication();
     final UIComponent component = application.createComponent(getSubComponentType());
@@ -75,9 +76,9 @@ public abstract class TobagoMenuExtensionHandler extends ComponentHandler {
     menuCommand.getFacets().put(getFacetName(), component);
   }
 
-  private void setSubComponentAttributes(FaceletContext ctx, Object instance) {
+  private void setSubComponentAttributes(final FaceletContext ctx, final Object instance) {
     if (instance != null) {
-      Class type = instance.getClass();
+      final Class type = instance.getClass();
       if (subComponentMapper == null || !subComponentLastType.equals(type)) {
         subComponentLastType = type;
         subComponentMapper = createSubComponentMetaRuleset(type).finish();
@@ -86,11 +87,11 @@ public abstract class TobagoMenuExtensionHandler extends ComponentHandler {
     }
   }
 
-  protected MetaRuleset createSubComponentMetaRuleset(Class aClass) {
-    MetaRuleset metaRuleset = super.createMetaRuleset(aClass);
-    TagAttribute [] attrs = tag.getAttributes().getAll();
+  protected MetaRuleset createSubComponentMetaRuleset(final Class aClass) {
+    final MetaRuleset metaRuleset = super.createMetaRuleset(aClass);
+    final TagAttribute [] attrs = tag.getAttributes().getAll();
     for (int i = 0; i < attrs.length; i++) {
-      TagAttribute attr = attrs[i];
+      final TagAttribute attr = attrs[i];
       if (!(attr.getLocalName().equals(Attributes.CONVERTER)
           || attr.getLocalName().equals(Attributes.VALUE))) {
         metaRuleset.ignore(attr.getLocalName());
@@ -99,8 +100,8 @@ public abstract class TobagoMenuExtensionHandler extends ComponentHandler {
     return metaRuleset;
   }
 
-  protected MetaRuleset createMetaRuleset(Class aClass) {
-    MetaRuleset metaRuleset = super.createMetaRuleset(aClass);
+  protected MetaRuleset createMetaRuleset(final Class aClass) {
+    final MetaRuleset metaRuleset = super.createMetaRuleset(aClass);
     metaRuleset.ignore(Attributes.CONVERTER);
     metaRuleset.ignore(Attributes.VALUE);
     return metaRuleset;

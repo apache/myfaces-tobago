@@ -28,25 +28,25 @@ import java.text.SimpleDateFormat;
 
 public class DateTestUtils {
 
-  public static List<String> createMonthNames(boolean longFormat, Locale locale) {
+  public static List<String> createMonthNames(final boolean longFormat, final Locale locale) {
     return createLocalizationNames(
         longFormat ? "MMMM" : "MMM", 0, 11, Calendar.MONTH, locale);
   }
 
-  public static List<String> createDayNames(boolean longFormat, Locale locale) {
+  public static List<String> createDayNames(final boolean longFormat, final Locale locale) {
     return createLocalizationNames(
         longFormat ? "EEEE" : "E", 1, 7, Calendar.DAY_OF_WEEK, locale);
   }
 
-  private static List<String> createLocalizationNames(String format, int min, int max,
-      int field, Locale locale) {
-    List<String> names = new ArrayList<String>();
-    SimpleDateFormat dateFormat = new SimpleDateFormat(format, locale);
+  private static List<String> createLocalizationNames(final String format, final int min, final int max,
+      final int field, final Locale locale) {
+    final List<String> names = new ArrayList<String>();
+    final SimpleDateFormat dateFormat = new SimpleDateFormat(format, locale);
     for (int day = min; day <= max; ++day) {
-      Calendar calendar = Calendar.getInstance();
+      final Calendar calendar = Calendar.getInstance();
       calendar.clear();
       calendar.set(field, day);
-      Date date = calendar.getTime();
+      final Date date = calendar.getTime();
       names.add(dateFormat.format(date));
     }
     return names;

@@ -83,21 +83,21 @@ public class UnPackThemeMojo extends AbstractThemeMojo {
   private boolean ignoreVersioned;
 
 
-  private String getThemeDescriptor(File jarFile) throws MojoExecutionException {
+  private String getThemeDescriptor(final File jarFile) throws MojoExecutionException {
     ZipFile zip = null;
     try {
       zip = new ZipFile(jarFile);
-      Enumeration files = zip.getEntries();
+      final Enumeration files = zip.getEntries();
       while (files.hasMoreElements()) {
-        ZipEntry nextEntry = (ZipEntry) files.nextElement();
+        final ZipEntry nextEntry = (ZipEntry) files.nextElement();
         if (nextEntry == null || nextEntry.isDirectory()) {
           continue;
         }
-        String name = nextEntry.getName();
+        final String name = nextEntry.getName();
         if (name.equals("META-INF/tobago-theme.xml") || name.equals("META-INF/tobago-config.xml")) {
           XmlStreamReader xsr = null;
           try {
-            StringWriter stringWriter = new StringWriter();
+            final StringWriter stringWriter = new StringWriter();
             xsr = ReaderFactory.newXmlReader(zip.getInputStream(nextEntry));
             IOUtil.copy(xsr, stringWriter);
             return stringWriter.toString();
@@ -106,13 +106,13 @@ public class UnPackThemeMojo extends AbstractThemeMojo {
           }
         }
       }
-    } catch (IOException e) {
+    } catch (final IOException e) {
       throw new MojoExecutionException("Error find ThemeDescriptor in " + jarFile, e);
     } finally {
       if (zip != null) {
         try {
           zip.close();
-        } catch (IOException e) {
+        } catch (final IOException e) {
           // ignore
         }
       }
@@ -122,24 +122,24 @@ public class UnPackThemeMojo extends AbstractThemeMojo {
 
   public void execute() throws MojoExecutionException {
     try {
-      Iterator artifacts =  getProject().getRuntimeClasspathElements().iterator();
+      final Iterator artifacts =  getProject().getRuntimeClasspathElements().iterator();
       if (!workDirectory.exists()) {
         workDirectory.mkdirs();
       }
       while (artifacts.hasNext()) {
 
-        String artifact = (String) artifacts.next();
+        final String artifact = (String) artifacts.next();
         if (getLog().isDebugEnabled()) {
           getLog().debug("Testing jar "+ artifact);
         }
 
-        File file = new File(artifact);
+        final File file = new File(artifact);
         if (file.isFile() && artifact.endsWith(".jar")) {
-          String descriptor = getThemeDescriptor(file);
+          final String descriptor = getThemeDescriptor(file);
           if (descriptor != null) {
 
-            String name = file.getName();
-            File tempLocation = new File(workDirectory, name.substring(0, name.length() - 4));
+            final String name = file.getName();
+            final File tempLocation = new File(workDirectory, name.substring(0, name.length() - 4));
             boolean process = false;
             if (!tempLocation.exists()) {
               tempLocation.mkdirs();
@@ -153,18 +153,18 @@ public class UnPackThemeMojo extends AbstractThemeMojo {
                 String version = null;
                 String resourcePath = null;
                 try {
-                  Xpp3Dom xpp3Dom = Xpp3DomBuilder.build(new StringReader(descriptor));
-                  Xpp3Dom themeDefinitions = xpp3Dom.getChild("theme-definitions");
+                  final Xpp3Dom xpp3Dom = Xpp3DomBuilder.build(new StringReader(descriptor));
+                  final Xpp3Dom themeDefinitions = xpp3Dom.getChild("theme-definitions");
                   if (themeDefinitions != null && !ignoreVersioned) {
-                    for (Xpp3Dom themeDefinition : themeDefinitions.getChildren()) {
-                      Xpp3Dom versionedDom = themeDefinition.getChild("versioned");
+                    for (final Xpp3Dom themeDefinition : themeDefinitions.getChildren()) {
+                      final Xpp3Dom versionedDom = themeDefinition.getChild("versioned");
                       if (versionedDom != null) {
-                        boolean versioned = Boolean.parseBoolean(versionedDom.getValue());
+                        final boolean versioned = Boolean.parseBoolean(versionedDom.getValue());
                         if (versioned) {
-                          Xpp3Dom resourcePathDom = themeDefinition.getChild("resource-path");
+                          final Xpp3Dom resourcePathDom = themeDefinition.getChild("resource-path");
                           resourcePath = resourcePathDom.getValue();
-                          Properties properties = new Properties();
-                          String metaInf = tempLocation + "/META-INF/MANIFEST.MF";
+                          final Properties properties = new Properties();
+                          final String metaInf = tempLocation + "/META-INF/MANIFEST.MF";
                           properties.load(new ByteArrayInputStream(FileUtils.fileRead(metaInf).getBytes()));
                           version = properties.getProperty("Implementation-Version");
                           if (version == null) {
@@ -175,9 +175,9 @@ public class UnPackThemeMojo extends AbstractThemeMojo {
                       }
                     }
                   }
-                } catch (IOException e) {
+                } catch (final IOException e) {
                   getLog().error(e);
-                } catch (XmlPullParserException e) {
+                } catch (final XmlPullParserException e) {
                   getLog().error(e);
                 }
                 if (getLog().isDebugEnabled()) {
@@ -185,46 +185,45 @@ public class UnPackThemeMojo extends AbstractThemeMojo {
                   getLog().debug("Version: " + version);
                   getLog().debug("ResourcePath: " + resourcePath);
                 }
-                String[] fileNames = getThemeFiles(tempLocation);
-                for (int i = 0, fileNamesLength = fileNames.length; i < fileNamesLength; i++) {
-                  String fileName = fileNames[i];
-                  File fromFile = new File(tempLocation, fileName);
+                final String[] fileNames = getThemeFiles(tempLocation);
+                for (final String fileName : fileNames) {
+                  final File fromFile = new File(tempLocation, fileName);
                   String toFileName = fileName;
                   if (resourcePath != null && version != null && toFileName.startsWith(resourcePath)
-                          && !fileName.endsWith("blank.html")) {
-                    toFileName = resourcePath + "/" + version + "/" +toFileName.substring(resourcePath.length()+1);
+                      && !fileName.endsWith("blank.html")) {
+                    toFileName = resourcePath + "/" + version + "/" + toFileName.substring(resourcePath.length() + 1);
                   }
                   if (getLog().isDebugEnabled()) {
                     getLog().debug("Copy file " + fromFile + " to: " + toFileName);
                   }
-                  File toFile = new File(webappDirectory, toFileName);
+                  final File toFile = new File(webappDirectory, toFileName);
                   try {
                     FileUtils.copyFile(fromFile, toFile);
-                  } catch (IOException e) {
+                  } catch (final IOException e) {
                     throw new MojoExecutionException("Error copy file: " + fromFile + " to: " + toFile, e);
                   }
                 }
-              } catch (NoSuchArchiverException e) {
+              } catch (final NoSuchArchiverException e) {
                 getLog().info("Skip unpacking dependency file with unknown extension: " + file.getPath());
               }
             }
           }
         }
       }
-    } catch (DependencyResolutionRequiredException drre) {
+    } catch (final DependencyResolutionRequiredException drre) {
       throw new MojoExecutionException(drre.getMessage(), drre);
     }
   }
 
-  private void unpack(File file, File location)
+  private void unpack(final File file, final File location)
       throws MojoExecutionException, NoSuchArchiverException {
-    String archiveExt = FileUtils.getExtension(file.getAbsolutePath()).toLowerCase(Locale.ENGLISH);
+    final String archiveExt = FileUtils.getExtension(file.getAbsolutePath()).toLowerCase(Locale.ENGLISH);
     try {
-      UnArchiver unArchiver = archiverManager.getUnArchiver(archiveExt);
+      final UnArchiver unArchiver = archiverManager.getUnArchiver(archiveExt);
       unArchiver.setSourceFile(file);
       unArchiver.setDestDirectory(location);
       unArchiver.extract();
-    } catch (ArchiverException e) {
+    } catch (final ArchiverException e) {
       throw new MojoExecutionException("Error unpacking file: " + file + "to: " + location, e);
     }
   }

@@ -122,7 +122,7 @@ public class ThemeConfigViewController {
   }
 
   private void init() {
-    String[] themes;
+    final String[] themes;
     if (themeNames != null) {
       themes = themeNames;
     } else {
@@ -131,15 +131,15 @@ public class ThemeConfigViewController {
 
     final Set<String> names = new HashSet<String>();
     for (int j = 0; j < DEFAULT_THEMES.length; j++) {
-      Properties properties = new Properties();
-      String file = PROPERTY_FILE_PREFIX + themes[j] + PROPERTY_FILE_POSTFIX;
+      final Properties properties = new Properties();
+      final String file = PROPERTY_FILE_PREFIX + themes[j] + PROPERTY_FILE_POSTFIX;
       InputStream inputStream = null;
       try {
         final ExternalContext externalContext
             = FacesContext.getCurrentInstance().getExternalContext();
         inputStream = externalContext.getResourceAsStream(file);
         properties.load(inputStream);
-      } catch (Exception e) {
+      } catch (final Exception e) {
         if (LOG.isDebugEnabled()) {
           LOG.debug("Exception when loading file \"" + file + "\"");
         }
@@ -147,8 +147,8 @@ public class ThemeConfigViewController {
         IOUtils.closeQuietly(inputStream);
       }
 
-      for (Iterator i = properties.keySet().iterator(); i.hasNext();) {
-        String name = (String) i.next();
+      for (final Iterator i = properties.keySet().iterator(); i.hasNext();) {
+        final String name = (String) i.next();
         if (name.indexOf('.') != -1) {
           names.add(name.substring(name.indexOf('.') + 1));
           if (LOG.isDebugEnabled()) {
@@ -166,12 +166,13 @@ public class ThemeConfigViewController {
     final FacesContext facesContext = FacesContext.getCurrentInstance();
     component.setRendererType(rendererType);
 
-    ArrayList<KeyValue> found  = new ArrayList<KeyValue>();
-    for (String propertyName : propertyNames) {
+    final ArrayList<KeyValue> found  = new ArrayList<KeyValue>();
+    for (final String propertyName : propertyNames) {
       try {
-        Measure measure = ResourceManagerUtils.getThemeMeasure(facesContext, (LayoutBase) component, propertyName);
+        final Measure measure
+            = ResourceManagerUtils.getThemeMeasure(facesContext, (LayoutBase) component, propertyName);
         found.add(new DefaultKeyValue(propertyName, measure.toString()));
-      } catch (Exception e) {
+      } catch (final Exception e) {
         if (LOG.isDebugEnabled()) {
           LOG.debug("No value found for \"" + propertyName
               + "\" in \"" + rendererType + "\"");
@@ -185,7 +186,7 @@ public class ThemeConfigViewController {
 
   public String changeTheme() {
     final FacesContext facesContext = FacesContext.getCurrentInstance();
-    ClientConfigController controller = (ClientConfigController)
+    final ClientConfigController controller = (ClientConfigController)
         facesContext.getExternalContext().getSessionMap().get("clientConfigController");
     controller.submit();
 
@@ -200,7 +201,7 @@ public class ThemeConfigViewController {
     } else {
       renderer = DEFAULT_RENDERER_TYPES;
     }
-    SelectItem[] items = new SelectItem[renderer.length];
+    final SelectItem[] items = new SelectItem[renderer.length];
     for (int i = 0; i < items.length; i++) {
       items[i] = new SelectItem(renderer[i]);
     }
@@ -213,7 +214,7 @@ public class ThemeConfigViewController {
     return themeNames;
   }
 
-  public void setThemeNames(String[] themeNames) {
+  public void setThemeNames(final String[] themeNames) {
     this.themeNames = themeNames;
     init();
   }
@@ -233,7 +234,7 @@ public class ThemeConfigViewController {
     return rendererTypes;
   }
 
-  public void setRendererTypes(String[] rendererTypes) {
+  public void setRendererTypes(final String[] rendererTypes) {
     this.rendererTypes = rendererTypes;
     selectItems = null;
   }
@@ -242,7 +243,7 @@ public class ThemeConfigViewController {
     return rendererType;
   }
 
-  public void setRendererType(String rendererType) {
+  public void setRendererType(final String rendererType) {
     this.rendererType = rendererType;
   }
 }

@@ -72,7 +72,7 @@ public class TestBean {
 
   public UIPanel getFileMenu() {
     if (fileMenu == null) {
-      FacesContext context = FacesContext.getCurrentInstance();
+      final FacesContext context = FacesContext.getCurrentInstance();
 
       fileMenu = (UIMenu) context.getApplication().createComponent(UIMenu.COMPONENT_TYPE);
 
@@ -88,8 +88,8 @@ public class TestBean {
 
   }
 
-  private void addMenuCommand(UIMenu fileMenu) {
-    UIMenuCommand command = (UIMenuCommand)
+  private void addMenuCommand(final UIMenu fileMenu) {
+    final UIMenuCommand command = (UIMenuCommand)
         FacesContext.getCurrentInstance().getApplication().createComponent(UIMenuCommand.COMPONENT_TYPE);
     command.getAttributes().put("label", "test"+fileMenu.getChildCount());
     // TODO setAction
@@ -102,7 +102,7 @@ public class TestBean {
   }
 
   public String export() throws IOException {
-    FacesContext context =  FacesContext.getCurrentInstance();
+    final FacesContext context =  FacesContext.getCurrentInstance();
     ExportUIDataToWorkbookUtils.writeWorkbook(table, "workbook.xls", context);
     context.responseComplete();
     return null;
@@ -112,7 +112,7 @@ public class TestBean {
     return date;
   }
 
-  public void setDate(Date date) {
+  public void setDate(final Date date) {
     this.date = date;
   }
 
@@ -120,7 +120,7 @@ public class TestBean {
     return date1;
   }
 
-  public void setDate1(Date date1) {
+  public void setDate1(final Date date1) {
     this.date1 = date1;
   }
 
@@ -128,7 +128,7 @@ public class TestBean {
     return value;
   }
 
-  public void setValue(String value) {
+  public void setValue(final String value) {
     this.value = value;
   }
 
@@ -160,15 +160,15 @@ public class TestBean {
 
       connection.setAutoCommit(false);
 
-      Statement statement = connection.createStatement();
+      final Statement statement = connection.createStatement();
       try {
         statement.execute("create table solarObject(name varchar(10), number varchar(5), "
             + "orbit varchar(10), distance INTEGER, period FLOAT, "
             + "incl FLOAT, eccen FLOAT, discoverer varchar(20), "
             + "discoverYear INTEGER)");
-        PreparedStatement ps =
+        final PreparedStatement ps =
             connection.prepareStatement("insert into solarObject values (?,?,?,?,?,?,?,?,?)");
-        for (SolarObject solarObject : SolarObject.DATA) {
+        for (final SolarObject solarObject : SolarObject.DATA) {
           ps.setString(1, solarObject.getName());
           ps.setString(2, solarObject.getNumber());
           ps.setString(3, solarObject.getOrbit());
@@ -178,21 +178,21 @@ public class TestBean {
           ps.setString(7, solarObject.getPopulation());
           ps.setString(8, solarObject.getDiscoverer());
           
-          int inserted = ps.executeUpdate();
+          final int inserted = ps.executeUpdate();
           if (LOG.isDebugEnabled()) {
             LOG.debug(inserted + " Row(s) inserted");
           }
         }
         connection.commit();
-      } catch (SQLException e) {
+      } catch (final SQLException e) {
         LOG.error("", e);
       }
 
-      Statement query = connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+      final Statement query = connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
       resultSet = query.executeQuery("select * from solarObject");
 
 
-    } catch (Exception e) {
+    } catch (final Exception e) {
       LOG.error("", e);
     }
   }
@@ -202,21 +202,21 @@ public class TestBean {
     return table;
   }
 
-  public void setTable(UISheet table) {
+  public void setTable(final UISheet table) {
     this.table = table;
     if (table.getChildCount() == 0) {
       if (table.getVar() == null) {
         table.setVar("solarObject");
       }
-      Application application = FacesContext.getCurrentInstance().getApplication();
+      final Application application = FacesContext.getCurrentInstance().getApplication();
       try {
-        ResultSetMetaData metaData = resultSet.getMetaData();
+        final ResultSetMetaData metaData = resultSet.getMetaData();
         String columns = "";
         for (int i = 1; i <= metaData.getColumnCount(); i++) {
 
-          UIColumn column = (UIColumn) application.createComponent(UIColumn.COMPONENT_TYPE);
-          String name = metaData.getColumnName(i);
-          int displaySize = metaData.getColumnDisplaySize(i);
+          final UIColumn column = (UIColumn) application.createComponent(UIColumn.COMPONENT_TYPE);
+          final String name = metaData.getColumnName(i);
+          final int displaySize = metaData.getColumnDisplaySize(i);
 
           if (i > 1) {
             columns += ";";
@@ -232,17 +232,17 @@ public class TestBean {
             column.setAlign("right");
           }
           column.setLabel(name);
-          String ref = "#{" + table.getVar() + "." + name + "}";
-          ValueBinding binding = application.createValueBinding(ref);
+          final String ref = "#{" + table.getVar() + "." + name + "}";
+          final ValueBinding binding = application.createValueBinding(ref);
           if (name.equals("NAME")) {
-            UICommand command = (UICommand) application.createComponent(UICommand.COMPONENT_TYPE);
+            final UICommand command = (UICommand) application.createComponent(UICommand.COMPONENT_TYPE);
             command.setRendererType("Link");
             command.setValueBinding("label", binding);
-            MethodBinding action = application.createMethodBinding("#{test.select}", new Class[0]);
+            final MethodBinding action = application.createMethodBinding("#{test.select}", new Class[0]);
             command.setAction(action);
             column.getChildren().add(command);
           } else {
-            UIOutput output = (UIOutput) application.createComponent(UIOutput.COMPONENT_TYPE);
+            final UIOutput output = (UIOutput) application.createComponent(UIOutput.COMPONENT_TYPE);
             output.setValueBinding("value", binding);
             column.getChildren().add(output);
           }
@@ -250,7 +250,7 @@ public class TestBean {
         }
 
         table.setColumns(columns);
-      } catch (SQLException e) {
+      } catch (final SQLException e) {
         LOG.error("", e);
       }
 
@@ -295,7 +295,7 @@ public class TestBean {
 
   public String select() {
     try {
-      Map rowData = (Map) table.getRowData();
+      final Map rowData = (Map) table.getRowData();
 
       name = (String) rowData.get("NAME");
       number = (String) rowData.get("NUMBER");
@@ -306,13 +306,13 @@ public class TestBean {
       eccen = (String) rowData.get("ECCEN");
       discoverer = (String) rowData.get("DISCOVERER");
       discoverYear = (String) rowData.get("DISCOVERYEAR");
-    } catch (Exception e) {
+    } catch (final Exception e) {
       LOG.error("", e);
     }
     return "solarDetail";
   }
 
-  public String select(String id) {
+  public String select(final String id) {
     PreparedStatement ps = null;
     ResultSet rs = null;
     try {
@@ -341,20 +341,20 @@ public class TestBean {
         discoverer = null;
         discoverYear = null;
       }
-    } catch (SQLException e) {
+    } catch (final SQLException e) {
       LOG.error("", e);
     } finally {
       if (rs != null) {
         try {
           rs.close();
-        } catch (SQLException e) {
+        } catch (final SQLException e) {
           // ignore
         }
       }
       if (ps != null) {
         try {
           ps.close();
-        } catch (SQLException e) {
+        } catch (final SQLException e) {
           // ignore
         }
       }
@@ -368,7 +368,7 @@ public class TestBean {
     return file;
   }
 
-  public void setFile(FileItem file) {
+  public void setFile(final FileItem file) {
     LOG.error("Setting fileItem " + file);
     this.file = file;
   }

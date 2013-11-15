@@ -31,18 +31,18 @@ public class TagInfo extends RendererInfo {
   private PropertyInfo bodyContent;
   private boolean checkBodyContent;
 
-  public TagInfo(String sourceClass, String qualifiedName, String rendererType) {
+  public TagInfo(final String sourceClass, final String qualifiedName, final String rendererType) {
     super(sourceClass, qualifiedName, rendererType);
   }
 
-  public TagInfo(String sourceClass, String qualifiedName) {
+  public TagInfo(final String sourceClass, final String qualifiedName) {
     super(sourceClass, qualifiedName);
   }
 
   public PropertyInfo getBodyContent() {
     if (!checkBodyContent) {
       checkBodyContent = true;
-      for (PropertyInfo info : properties) {
+      for (final PropertyInfo info : properties) {
         if (info.isBodyContent()) {
           bodyContent = info;
           break;
@@ -52,7 +52,7 @@ public class TagInfo extends RendererInfo {
     return bodyContent;
   }
 
-  public void setBodyContent(PropertyInfo bodyContent) {
+  public void setBodyContent(final PropertyInfo bodyContent) {
     this.bodyContent = bodyContent;
   }
 
@@ -68,7 +68,7 @@ public class TagInfo extends RendererInfo {
     return properties.size() + 1;
   }
 
-  public void setComponentClassName(String componentClass) {
+  public void setComponentClassName(final String componentClass) {
     addImport(componentClass);
     this.componentClassName = ClassUtils.getSimpleName(componentClass);
   }
@@ -81,7 +81,7 @@ public class TagInfo extends RendererInfo {
     return componentType;
   }
 
-  public void setComponentType(String componentType) {
+  public void setComponentType(final String componentType) {
     this.componentType = componentType;
   }
 
@@ -89,7 +89,7 @@ public class TagInfo extends RendererInfo {
     return componentFamily;
   }
 
-  public void setComponentFamily(String componentFamily) {
+  public void setComponentFamily(final String componentFamily) {
     this.componentFamily = componentFamily;
   }
 }

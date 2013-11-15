@@ -32,11 +32,11 @@ public class DebugNavigationHandler extends NavigationHandler {
 
   private NavigationHandler navigationHandler;
 
-  public DebugNavigationHandler(NavigationHandler navigationHandler) {
+  public DebugNavigationHandler(final NavigationHandler navigationHandler) {
     this.navigationHandler = navigationHandler;
   }
 
-  public void handleNavigation(FacesContext facesContext, String fromAction, String outcome) {
+  public void handleNavigation(final FacesContext facesContext, final String fromAction, final String outcome) {
     if (LOG.isDebugEnabled()) {
       LOG.debug("Handle Navigation context: " + facesContext + " fromAction: '"
           + fromAction + "' outcome: '" + outcome + "'");

@@ -24,13 +24,13 @@ public class Position {
   private Measure left;
   private Measure top;
 
-  public Position(Measure left, Measure top) {
+  public Position(final Measure left, final Measure top) {
     this.left = left;
     this.top = top;
   }
 
-  public Position(String string) {
-    int comma = string.indexOf(',');
+  public Position(final String string) {
+    final int comma = string.indexOf(',');
     if (comma >= 0) { // found first comma
       left = Measure.parse(string.substring(0, comma));
       top = Measure.parse(string.substring(comma + 1));
@@ -43,7 +43,7 @@ public class Position {
     return left;
   }
 
-  public void setLeft(Measure left) {
+  public void setLeft(final Measure left) {
     this.left = left;
   }
 
@@ -51,7 +51,7 @@ public class Position {
     return top;
   }
 
-  public void setTop(Measure top) {
+  public void setTop(final Measure top) {
     this.top = top;
   }
 

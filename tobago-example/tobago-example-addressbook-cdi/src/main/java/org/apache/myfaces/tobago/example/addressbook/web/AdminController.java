@@ -46,11 +46,11 @@ public class AdminController implements Serializable {
 
   @PostConstruct
   public void update() {
-    MemoryMXBean memoryBean = ManagementFactory.getMemoryMXBean();
-    MemoryUsage memory = memoryBean.getHeapMemoryUsage();
+    final MemoryMXBean memoryBean = ManagementFactory.getMemoryMXBean();
+    final MemoryUsage memory = memoryBean.getHeapMemoryUsage();
     memoryUsage = new DefaultBoundedRangeModel(Long.valueOf(memory.getUsed() / 1024).intValue(),
         0, 0, Long.valueOf(memory.getMax() / 1024).intValue());
-    int percentValue = memoryUsage.getValue() / (memoryUsage.getMaximum() * 100);
+    final int percentValue = memoryUsage.getValue() / (memoryUsage.getMaximum() * 100);
     if (percentValue <= 80) {
       state = "ok";
     } else if (percentValue > 95) {

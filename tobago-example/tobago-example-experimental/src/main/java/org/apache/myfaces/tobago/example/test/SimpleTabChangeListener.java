@@ -34,8 +34,8 @@ public class SimpleTabChangeListener implements TabChangeListener {
     LOG.info("new SimpleTabChangeListener {}",  this);
   }
 
-  public void processTabChange(TabChangeEvent tabChangeEvent) {
-    FacesContext context = FacesContext.getCurrentInstance();
+  public void processTabChange(final TabChangeEvent tabChangeEvent) {
+    final FacesContext context = FacesContext.getCurrentInstance();
 
     LOG.info("TabState has Changed: from tabIndex "
         + tabChangeEvent.getOldTabIndex() + " to tabIndex "

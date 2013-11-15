@@ -40,32 +40,32 @@ public abstract class Measure implements Serializable {
 
   // todo: refactor and consolidate with LayoutToken
   
-  public static Measure valueOf(Measure value) {
+  public static Measure valueOf(final Measure value) {
     if (value == null) {
       return ZERO;
     }
     return value;
   }
 
-  public static Measure valueOf(int value) {
+  public static Measure valueOf(final int value) {
     return PixelMeasure.pixelValueOf(value);
   }
 
-  public static Measure valueOf(Integer value) {
+  public static Measure valueOf(final Integer value) {
     if (value == null) {
       return ZERO;
     }
     return valueOf(value.intValue());
   }
 
-  public static Measure valueOf(Number value) {
+  public static Measure valueOf(final Number value) {
     if (value == null) {
       return ZERO;
     }
     return valueOf(value.intValue());
   }
 
-  public static Measure valueOf(String value) {
+  public static Measure valueOf(final String value) {
     if (StringUtils.isEmpty(value)) {
       return ZERO;
     }
@@ -75,12 +75,12 @@ public abstract class Measure implements Serializable {
       }
       return Measure.valueOf(Integer.parseInt(value));
 
-    } catch (NumberFormatException e) {
+    } catch (final NumberFormatException e) {
       throw new IllegalArgumentException("Can't parse to any measure: '" + value + "'", e);
     }
   }
 
-  public static Measure valueOf(Object object) {
+  public static Measure valueOf(final Object object) {
     if (object instanceof Measure) {
       return valueOf((Measure) object);
     }
@@ -100,7 +100,7 @@ public abstract class Measure implements Serializable {
    * @deprecated since 1.5.0, please use valueOf()
    */
   @Deprecated
-  public static Measure parse(String value) {
+  public static Measure parse(final String value) {
     return valueOf(value);
   }
 
@@ -116,7 +116,7 @@ public abstract class Measure implements Serializable {
    * @deprecated since 1.5.0, please use subtractNotNegative
    */
   @Deprecated
-  public Measure substractNotNegative(Measure m) {
+  public Measure substractNotNegative(final Measure m) {
     return subtractNotNegative(m);
   }
 
@@ -126,19 +126,19 @@ public abstract class Measure implements Serializable {
 
   public abstract Measure subtract(int m);
 
-  public boolean greaterThan(Measure measure) {
+  public boolean greaterThan(final Measure measure) {
     return measure != null && getPixel() > measure.getPixel();
   }
 
-  public boolean greaterOrEqualThan(Measure measure) {
+  public boolean greaterOrEqualThan(final Measure measure) {
     return measure != null && getPixel() >= measure.getPixel();
   }
 
-  public boolean lessThan(Measure measure) {
+  public boolean lessThan(final Measure measure) {
     return measure != null && getPixel() < measure.getPixel();
   }
 
-  public boolean lessOrEqualThan(Measure measure) {
+  public boolean lessOrEqualThan(final Measure measure) {
     return measure != null && getPixel() <= measure.getPixel();
   }
 
@@ -149,9 +149,9 @@ public abstract class Measure implements Serializable {
   /**
    * Returns the maximum. If all parameters are null, than the result is {@value #ZERO}.
    */
-  public static Measure max(List<Measure> list) {
+  public static Measure max(final List<Measure> list) {
     Measure max = ZERO;
-    for (Measure measure : list) {
+    for (final Measure measure : list) {
       if (max.lessThan(measure)) {
         max = measure;
       }
@@ -162,9 +162,9 @@ public abstract class Measure implements Serializable {
   /**
    * Returns the minimum. If all parameters are null, than the result is {@value #MAX}.
    */
-  public static Measure min(List<Measure> list) {
+  public static Measure min(final List<Measure> list) {
     Measure min = MAX;
-    for (Measure measure : list) {
+    for (final Measure measure : list) {
       if (min.greaterThan(measure)) {
         min = measure;
       }
@@ -175,7 +175,7 @@ public abstract class Measure implements Serializable {
   /**
    * Returns the maximum. If all parameters are null, than the result is {@value #ZERO}.
    */
-  public static Measure max(Measure m1, Measure m2) {
+  public static Measure max(final Measure m1, final Measure m2) {
     if (m1 != null) {
       return m1.lessThan(m2) ? m2 : m1;
     } else {
@@ -186,7 +186,7 @@ public abstract class Measure implements Serializable {
   /**
    * Returns the minimum. If all parameters are null, than the result is {@value #MAX}.
    */
-  public static Measure min(Measure m1, Measure m2) {
+  public static Measure min(final Measure m1, final Measure m2) {
     if (m1 != null) {
       return m1.greaterThan(m2) ? m2 : m1;
     } else {

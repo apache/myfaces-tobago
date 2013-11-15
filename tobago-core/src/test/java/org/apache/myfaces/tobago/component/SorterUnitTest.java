@@ -31,19 +31,19 @@ public class SorterUnitTest extends AbstractTobagoTestBase {
 
     @Test
     public void testSorter() {
-        UISheet sheet = new UISheet();
-        UIColumn column = new UIColumn();
+        final UISheet sheet = new UISheet();
+        final UIColumn column = new UIColumn();
         sheet.getChildren().add(column);
         
-        Sorter sorter = new Sorter();
-        SortActionEvent sortActionEvent = new SortActionEvent(sheet, column);
+        final Sorter sorter = new Sorter();
+        final SortActionEvent sortActionEvent = new SortActionEvent(sheet, column);
         sorter.perform(sortActionEvent);
 
-        List list = new ArrayList();
+        final List list = new ArrayList();
         sheet.setValue(list);
         sorter.perform(sortActionEvent);
 
-        UILink link = new UILink();
+        final UILink link = new UILink();
         column.getChildren().add(link);
 
         sorter.perform(sortActionEvent);

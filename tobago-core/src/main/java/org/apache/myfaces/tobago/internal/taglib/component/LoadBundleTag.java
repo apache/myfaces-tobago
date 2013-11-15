@@ -57,10 +57,10 @@ public abstract class LoadBundleTag extends TagSupport {
 
   public int doStartTag() throws JspException {
 
-    FacesContext facesContext = FacesContext.getCurrentInstance();
+    final FacesContext facesContext = FacesContext.getCurrentInstance();
     final ELContext elContext = facesContext.getELContext();
 
-    Map toStore = new BundleMapWrapper((String) basename.getValue(elContext));
+    final Map toStore = new BundleMapWrapper((String) basename.getValue(elContext));
     // (session scope is needed to support ajax requests)
     facesContext.getExternalContext().getSessionMap().put(var, toStore);
 
@@ -78,7 +78,7 @@ public abstract class LoadBundleTag extends TagSupport {
    * Base name of the resource bundle to be loaded.
    */
   @TagAttribute(required = true, name = "basename", type = "java.lang.String")
-  public void setBasename(ValueExpression basename) {
+  public void setBasename(final ValueExpression basename) {
     this.basename = basename;
   }
 
@@ -88,7 +88,7 @@ public abstract class LoadBundleTag extends TagSupport {
    */
   @TagAttribute(required = true, name = "var")
   @UIComponentTagAttribute(expression = DynamicExpression.PROHIBITED)
-  public  void setVar(String var){
+  public  void setVar(final String var){
     this.var = var;
   }
 

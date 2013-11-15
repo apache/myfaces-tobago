@@ -89,7 +89,7 @@ public abstract class AbstractUIPage extends AbstractUIForm
     return true;
   }
 
-  public String getFormId(FacesContext facesContext) {
+  public String getFormId(final FacesContext facesContext) {
     if (formId == null) {
       formId = getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + "form";
     }
@@ -97,7 +97,7 @@ public abstract class AbstractUIPage extends AbstractUIForm
   }
 
   @Override
-  public void encodeBegin(FacesContext facesContext) throws IOException {
+  public void encodeBegin(final FacesContext facesContext) throws IOException {
     if (!AjaxUtils.isAjaxRequest(facesContext)) {
       super.encodeBegin(facesContext);
       ((AbstractUILayoutBase) getLayoutManager()).encodeBegin(facesContext);
@@ -105,7 +105,7 @@ public abstract class AbstractUIPage extends AbstractUIForm
   }
 
   @Override
-  public void encodeChildren(FacesContext facesContext) throws IOException {
+  public void encodeChildren(final FacesContext facesContext) throws IOException {
     if (AjaxUtils.isAjaxRequest(facesContext)) {
       new AjaxResponseRenderer().renderResponse(facesContext);
     } else {
@@ -114,14 +114,14 @@ public abstract class AbstractUIPage extends AbstractUIForm
   }
 
   @Override
-  public void encodeEnd(FacesContext facesContext) throws IOException {
+  public void encodeEnd(final FacesContext facesContext) throws IOException {
     if (!AjaxUtils.isAjaxRequest(facesContext)) {
       ((AbstractUILayoutBase) getLayoutManager()).encodeEnd(facesContext);
       super.encodeEnd(facesContext);
     }
   }
 
-  private void processDecodes0(FacesContext facesContext) {
+  private void processDecodes0(final FacesContext facesContext) {
 
     checkTobagoRequest(facesContext);
 
@@ -137,14 +137,14 @@ public abstract class AbstractUIPage extends AbstractUIForm
   }
 
   @Override
-  public void processDecodes(FacesContext context) {
+  public void processDecodes(final FacesContext context) {
     if (context == null) {
       throw new NullPointerException("context");
     }
-    Map<String, UIComponent> ajaxComponents = AjaxInternalUtils.parseAndStoreComponents(context);
+    final Map<String, UIComponent> ajaxComponents = AjaxInternalUtils.parseAndStoreComponents(context);
     if (ajaxComponents != null) {
       // first decode the page
-      AbstractUIPage page = ComponentUtils.findPage(context);
+      final AbstractUIPage page = ComponentUtils.findPage(context);
       page.decode(context);
       page.markSubmittedForm(context);
       FacesContextUtils.setAjax(context, true);
@@ -154,7 +154,7 @@ public abstract class AbstractUIPage extends AbstractUIForm
       decodeActionComponent(context, page, ajaxComponents);
 
       // and all ajax components
-      for (Map.Entry<String, UIComponent> entry : ajaxComponents.entrySet()) {
+      for (final Map.Entry<String, UIComponent> entry : ajaxComponents.entrySet()) {
         FacesContextUtils.setAjaxComponentId(context, entry.getKey());
         invokeOnComponent(context, entry.getKey(), APPLY_REQUEST_VALUES_CALLBACK);
       }
@@ -164,18 +164,18 @@ public abstract class AbstractUIPage extends AbstractUIForm
   }
 
   private void decodeActionComponent(
-      FacesContext facesContext, AbstractUIPage page, Map<String,
+      final FacesContext facesContext, final AbstractUIPage page, final Map<String,
       UIComponent> ajaxComponents) {
-    String actionId = page.getActionId();
+    final String actionId = page.getActionId();
     UIComponent actionComponent = null;
     if (actionId != null) {
       actionComponent = findComponent(actionId);
       if (actionComponent == null && FacesVersion.supports20() && FacesVersion.isMyfaces()) {
-        String bugActionId = actionId.replaceAll(":\\d+:", ":");
+        final String bugActionId = actionId.replaceAll(":\\d+:", ":");
         try {
           actionComponent = findComponent(bugActionId);
           //LOG.info("command = \"" + actionComponent + "\"", new Exception());
-        } catch (Exception e) {
+        } catch (final Exception e) {
           // ignore
         }
       }
@@ -183,7 +183,7 @@ public abstract class AbstractUIPage extends AbstractUIForm
     if (actionComponent == null) {
       return;
     }
-    for (UIComponent ajaxComponent : ajaxComponents.values()) {
+    for (final UIComponent ajaxComponent : ajaxComponents.values()) {
       UIComponent component = actionComponent;
       while (component != null) {
         if (component == ajaxComponent) {
@@ -197,14 +197,14 @@ public abstract class AbstractUIPage extends AbstractUIForm
 
 
   @Override
-  public void processValidators(FacesContext context) {
+  public void processValidators(final FacesContext context) {
     if (context == null) {
       throw new NullPointerException("context");
     }
 
-    Map<String, UIComponent> ajaxComponents = AjaxInternalUtils.getAjaxComponents(context);
+    final Map<String, UIComponent> ajaxComponents = AjaxInternalUtils.getAjaxComponents(context);
     if (ajaxComponents != null) {
-      for (Map.Entry<String, UIComponent> entry : ajaxComponents.entrySet()) {
+      for (final Map.Entry<String, UIComponent> entry : ajaxComponents.entrySet()) {
         FacesContextUtils.setAjaxComponentId(context, entry.getKey());
         invokeOnComponent(context, entry.getKey(), PROCESS_VALIDATION_CALLBACK);
       }
@@ -214,13 +214,13 @@ public abstract class AbstractUIPage extends AbstractUIForm
   }
 
   @Override
-  public void processUpdates(FacesContext context) {
+  public void processUpdates(final FacesContext context) {
     if (context == null) {
       throw new NullPointerException("context");
     }
-    Map<String, UIComponent> ajaxComponents = AjaxInternalUtils.getAjaxComponents(context);
+    final Map<String, UIComponent> ajaxComponents = AjaxInternalUtils.getAjaxComponents(context);
     if (ajaxComponents != null) {
-      for (Map.Entry<String, UIComponent> entry : ajaxComponents.entrySet()) {
+      for (final Map.Entry<String, UIComponent> entry : ajaxComponents.entrySet()) {
         invokeOnComponent(context, entry.getKey(), UPDATE_MODEL_VALUES_CALLBACK);
       }
     } else {
@@ -230,13 +230,13 @@ public abstract class AbstractUIPage extends AbstractUIForm
 
 
   @Override
-  public boolean invokeOnComponent(FacesContext context, String clientId, ContextCallback callback)
+  public boolean invokeOnComponent(final FacesContext context, final String clientId, final ContextCallback callback)
       throws FacesException {
     return ComponentUtils.invokeOnComponent(context, this, clientId, callback);
   }
 
 
-  public void markSubmittedForm(FacesContext facesContext) {
+  public void markSubmittedForm(final FacesContext facesContext) {
     // find the form of the action command and set submitted to it and all
     // children
 
@@ -262,7 +262,7 @@ public abstract class AbstractUIPage extends AbstractUIForm
       try {
         command = viewRoot.findComponent(currentActionId);
         //LOG.info("command = \"" + command + "\"", new Exception());
-      } catch (Exception e) {
+      } catch (final Exception e) {
         // ignore
       }
     }
@@ -274,7 +274,7 @@ public abstract class AbstractUIPage extends AbstractUIForm
     }
 
     if (command != null) {
-      AbstractUIForm form = ComponentUtils.findForm(command);
+      final AbstractUIForm form = ComponentUtils.findForm(command);
       form.setSubmitted(true);
 
       if (LOG.isTraceEnabled()) {
@@ -289,16 +289,16 @@ public abstract class AbstractUIPage extends AbstractUIForm
     }
   }
 
-  private void checkTobagoRequest(FacesContext facesContext) {
+  private void checkTobagoRequest(final FacesContext facesContext) {
     // multipart/form-data must use TobagoMultipartFormdataRequest
-    String contentType = facesContext.getExternalContext().getRequestHeaderMap().get("content-type");
+    final String contentType = facesContext.getExternalContext().getRequestHeaderMap().get("content-type");
     if (contentType != null && contentType.startsWith("multipart/form-data")) {
-      Object request = facesContext.getExternalContext().getRequest();
+      final Object request = facesContext.getExternalContext().getRequest();
       boolean okay = false;
       if (request instanceof TobagoMultipartFormdataRequest) {
         okay = true;
       } else if (request instanceof HttpServletRequestWrapper) {
-        ServletRequest wrappedRequest = ((HttpServletRequestWrapper) request).getRequest();
+        final ServletRequest wrappedRequest = ((HttpServletRequestWrapper) request).getRequest();
         if (wrappedRequest instanceof TobagoMultipartFormdataRequest) {
           okay = true;
         }
@@ -317,14 +317,14 @@ public abstract class AbstractUIPage extends AbstractUIForm
    * @deprecated PageState is deprecated since 1.5.0
    */
   @Deprecated
-  public void updatePageState(FacesContext facesContext) {
+  public void updatePageState(final FacesContext facesContext) {
   }
 
   /**
    * @deprecated PageState is deprecated since 1.5.0
    */
   @Deprecated
-  public PageState getPageState(FacesContext facesContext) {
+  public PageState getPageState(final FacesContext facesContext) {
     final ValueExpression expression = getValueExpression(Attributes.STATE);
     if (expression != null) {
       final ELContext elContext = facesContext.getELContext();
@@ -343,7 +343,7 @@ public abstract class AbstractUIPage extends AbstractUIForm
     return actionId;
   }
 
-  public void setActionId(String actionId) {
+  public void setActionId(final String actionId) {
     this.actionId = actionId;
   }
 
@@ -351,7 +351,7 @@ public abstract class AbstractUIPage extends AbstractUIForm
     return actionPosition;
   }
 
-  public void setActionPosition(Box actionPosition) {
+  public void setActionPosition(final Box actionPosition) {
     this.actionPosition = actionPosition;
   }
 
@@ -366,11 +366,11 @@ public abstract class AbstractUIPage extends AbstractUIForm
   /**
    * @deprecated since 1.5.7 and 2.0.0
    */
-  public void setDefaultActionId(String defaultActionId) {
+  public void setDefaultActionId(final String defaultActionId) {
     Deprecation.LOG.error("The default action handling has been changed!");
   }
 
-  public void onComponentPopulated(FacesContext facesContext, UIComponent parent) {
+  public void onComponentPopulated(final FacesContext facesContext, final UIComponent parent) {
     if (getLayoutManager() == null) {
       setLayoutManager(CreateComponentUtils.createAndInitLayout(
           facesContext, ComponentTypes.GRID_LAYOUT, RendererTypes.GRID_LAYOUT, parent));
@@ -385,7 +385,7 @@ public abstract class AbstractUIPage extends AbstractUIForm
     return (LayoutManager) getFacet(Facets.LAYOUT);
   }
 
-  public void setLayoutManager(LayoutManager layoutManager) {
+  public void setLayoutManager(final LayoutManager layoutManager) {
     getFacets().put(Facets.LAYOUT, (AbstractUILayoutBase) layoutManager);
   }
 

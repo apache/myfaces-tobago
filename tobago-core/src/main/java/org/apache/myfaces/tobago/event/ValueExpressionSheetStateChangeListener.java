@@ -37,13 +37,13 @@ public class ValueExpressionSheetStateChangeListener implements SheetStateChange
   public ValueExpressionSheetStateChangeListener() {
   }
 
-  public ValueExpressionSheetStateChangeListener(String type, ValueExpression valueExpression) {
+  public ValueExpressionSheetStateChangeListener(final String type, final ValueExpression valueExpression) {
     this.type = type;
     this.valueExpression = valueExpression;
   }
 
-  public void processSheetStateChange(SheetStateChangeEvent sheetStateChangeEvent) {
-    SheetStateChangeListener handler = getSheetStateChangeListener();
+  public void processSheetStateChange(final SheetStateChangeEvent sheetStateChangeEvent) {
+    final SheetStateChangeListener handler = getSheetStateChangeListener();
     if (handler != null) {
       handler.processSheetStateChange(sheetStateChangeEvent);
     } else {
@@ -51,15 +51,15 @@ public class ValueExpressionSheetStateChangeListener implements SheetStateChange
     }
   }
 
-  public Object saveState(FacesContext context) {
-    Object[] state = new Object[2];
+  public Object saveState(final FacesContext context) {
+    final Object[] state = new Object[2];
     state[0] = UIComponentBase.saveAttachedState(context, valueExpression);
     state[1] = type;
     return state;
   }
 
-  public void restoreState(FacesContext context, Object state) {
-    Object[] values = (Object[]) state;
+  public void restoreState(final FacesContext context, final Object state) {
+    final Object[] values = (Object[]) state;
     valueExpression = (ValueExpression) UIComponentBase.restoreAttachedState(context, values[0]);
     type = (String) values[1];
 
@@ -69,14 +69,14 @@ public class ValueExpressionSheetStateChangeListener implements SheetStateChange
     return false;
   }
 
-  public void setTransient(boolean newTransientValue) {
+  public void setTransient(final boolean newTransientValue) {
     // ignore
   }
 
   private SheetStateChangeListener getSheetStateChangeListener() {
     SheetStateChangeListener handler = null;
     if (valueExpression != null) {
-      Object obj = valueExpression.getValue(FacesContext.getCurrentInstance().getELContext());
+      final Object obj = valueExpression.getValue(FacesContext.getCurrentInstance().getELContext());
       if (obj != null && obj instanceof SheetStateChangeListener) {
         handler = (SheetStateChangeListener) obj;
       }
@@ -90,11 +90,11 @@ public class ValueExpressionSheetStateChangeListener implements SheetStateChange
     return handler;
   }
 
-  private SheetStateChangeListener createSheetStateChangeListener(String className) {
+  private SheetStateChangeListener createSheetStateChangeListener(final String className) {
     try {
-      Class clazz = getClass().getClassLoader().loadClass(className);
+      final Class clazz = getClass().getClassLoader().loadClass(className);
       return ((SheetStateChangeListener) clazz.newInstance());
-    } catch (Exception e) {
+    } catch (final Exception e) {
       LOG.error("", e);
     }
     return null;

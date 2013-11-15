@@ -39,8 +39,8 @@ public class UserWrapper {
   }
 
   public Principal getPrincipal() {
-    FacesContext facesContext = FacesContext.getCurrentInstance();
-    Principal principal = facesContext.getExternalContext().getUserPrincipal();
+    final FacesContext facesContext = FacesContext.getCurrentInstance();
+    final Principal principal = facesContext.getExternalContext().getUserPrincipal();
     if (LOG.isDebugEnabled()) {
       LOG.debug("getPrincipal(): {}", principal);
     }
@@ -53,10 +53,10 @@ public class UserWrapper {
 
   private static class RolesMap implements Map {
 
-    public Object get(Object key) {
-      String role = (String) key;
-      FacesContext facesContext = FacesContext.getCurrentInstance();
-      boolean inRole = facesContext.getExternalContext().isUserInRole(role);
+    public Object get(final Object key) {
+      final String role = (String) key;
+      final FacesContext facesContext = FacesContext.getCurrentInstance();
+      final boolean inRole = facesContext.getExternalContext().isUserInRole(role);
       if (LOG.isDebugEnabled()) {
         LOG.debug("is in role '{}': {}", key, inRole);
       }
@@ -75,11 +75,11 @@ public class UserWrapper {
       throw new UnsupportedOperationException();
     }
 
-    public boolean containsKey(Object key) {
+    public boolean containsKey(final Object key) {
       throw new UnsupportedOperationException();
     }
 
-    public boolean containsValue(Object value) {
+    public boolean containsValue(final Object value) {
       throw new UnsupportedOperationException();
     }
 
@@ -87,7 +87,7 @@ public class UserWrapper {
       throw new UnsupportedOperationException();
     }
 
-    public void putAll(Map t) {
+    public void putAll(final Map t) {
       throw new UnsupportedOperationException();
     }
 
@@ -99,11 +99,11 @@ public class UserWrapper {
       throw new UnsupportedOperationException();
     }
 
-    public Object remove(Object key) {
+    public Object remove(final Object key) {
       throw new UnsupportedOperationException();
     }
 
-    public Object put(Object key, Object value) {
+    public Object put(final Object key, final Object value) {
       throw new UnsupportedOperationException();
     }
   }

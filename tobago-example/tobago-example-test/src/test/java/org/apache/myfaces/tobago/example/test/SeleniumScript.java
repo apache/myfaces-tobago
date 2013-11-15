@@ -56,33 +56,33 @@ public class SeleniumScript {
       XPATH_EXPRESSION = XPATH_FACTORY.newXPath().compile("//table/tbody");
       TR_XPATH = XPATH_FACTORY.newXPath().compile("tr");
       TD_XPATH = XPATH_FACTORY.newXPath().compile("td");
-    } catch (XPathExpressionException e) {
+    } catch (final XPathExpressionException e) {
       throw new RuntimeException(e);
     }
   }
 
-  public SeleniumScript(URL scriptUrl, String url)
+  public SeleniumScript(final URL scriptUrl, final String url)
       throws IOException, XPathExpressionException, SAXException, ParserConfigurationException {
     try {
-      DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-      DocumentBuilder parser = factory.newDocumentBuilder();
+      final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+      final DocumentBuilder parser = factory.newDocumentBuilder();
       parser.setEntityResolver(new EntityResolver() {
-        public InputSource resolveEntity(String publicId, String systemId)
+        public InputSource resolveEntity(final String publicId, final String systemId)
             throws SAXException, IOException {
           // do not any resource resolving
           return new InputSource(new StringReader(""));
         }
       });
 
-      Document document = parser.parse(scriptUrl.openStream());
+      final Document document = parser.parse(scriptUrl.openStream());
       addSeleniumItems(document, url);
-    } catch (FileNotFoundException e) {
+    } catch (final FileNotFoundException e) {
       // using default
       items.add(new SeleniumScriptItem("open", url, ""));
     }
   }
 
-  private void addSeleniumItems(Document document, String url) throws XPathExpressionException {
+  private void addSeleniumItems(final Document document, final String url) throws XPathExpressionException {
 
     final Object table = XPATH_EXPRESSION.evaluate(document, XPathConstants.NODE);
     final NodeList trList = (NodeList) TR_XPATH.evaluate(table, XPathConstants.NODESET);
@@ -93,9 +93,9 @@ public class SeleniumScript {
 
       Assert.assertEquals(3, tdList.getLength());
 
-      String command = tdList.item(0).getTextContent();
+      final String command = tdList.item(0).getTextContent();
       String parameter1 = tdList.item(1).getTextContent();
-      String parameter2 = tdList.item(2).getTextContent();
+      final String parameter2 = tdList.item(2).getTextContent();
       if (command.equals("open")) {
         // for open commands, use the filename, not the name in the script,
         // because we need the script for *.jspx and *.xhtml

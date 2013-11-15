@@ -66,7 +66,7 @@ public class ResourceBean {
               "should fail")
       );
 
-      for (ResourceEntry resource : resources) {
+      for (final ResourceEntry resource : resources) {
         if (!resource.check(facesContext, resourceManager)) {
           fails++;
         }

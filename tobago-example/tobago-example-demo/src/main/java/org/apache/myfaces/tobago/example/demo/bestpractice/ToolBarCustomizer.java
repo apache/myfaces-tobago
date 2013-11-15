@@ -47,18 +47,18 @@ public class ToolBarCustomizer {
     return null;
   }
 
-  public void itemUp(ActionEvent event) {
-    Item item = (Item) ((UIParameter) event.getComponent().getChildren().get(0)).getValue();
-    int oldIndex = list.indexOf(item);
+  public void itemUp(final ActionEvent event) {
+    final Item item = (Item) ((UIParameter) event.getComponent().getChildren().get(0)).getValue();
+    final int oldIndex = list.indexOf(item);
     if (oldIndex > 0) {
       list.remove(item);
       list.add(oldIndex - 1, item);
     }
   }
 
-  public void itemDown(ActionEvent event) {
-    Item item = (Item) ((UIParameter) event.getComponent().getChildren().get(0)).getValue();
-    int oldIndex = list.indexOf(item);
+  public void itemDown(final ActionEvent event) {
+    final Item item = (Item) ((UIParameter) event.getComponent().getChildren().get(0)).getValue();
+    final int oldIndex = list.indexOf(item);
     if (oldIndex < list.size()) {
       list.remove(item);
       list.add(oldIndex + 1, item);
@@ -76,7 +76,7 @@ public class ToolBarCustomizer {
 
     private boolean visible = true;
 
-    private Item(String label) {
+    private Item(final String label) {
       this.label = label;
       this.name = "tool-bar-item-" + label.toLowerCase(Locale.ENGLISH) + ".xhtml";
     }
@@ -93,7 +93,7 @@ public class ToolBarCustomizer {
       return visible;
     }
 
-    public void setVisible(boolean visible) {
+    public void setVisible(final boolean visible) {
       this.visible = visible;
     }
   }

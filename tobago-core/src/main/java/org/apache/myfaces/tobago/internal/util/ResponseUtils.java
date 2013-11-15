@@ -38,8 +38,8 @@ public final class ResponseUtils {
     // utils class
   }
 
-  public static void ensureNoCacheHeader(FacesContext facesContext) {
-    Object response = facesContext.getExternalContext().getResponse();
+  public static void ensureNoCacheHeader(final FacesContext facesContext) {
+    final Object response = facesContext.getExternalContext().getResponse();
     if (response instanceof HttpServletResponse) {
       ensureNoCacheHeader((HttpServletResponse) response);
     } else if (PortletUtils.isPortletApiAvailable() && response instanceof MimeResponse) {
@@ -47,19 +47,19 @@ public final class ResponseUtils {
     }
   }
 
-  public static void ensureNoCacheHeader(HttpServletResponse response) {
+  public static void ensureNoCacheHeader(final HttpServletResponse response) {
     response.setHeader("Cache-Control", "no-cache,no-store,max-age=0,must-revalidate");
     response.setHeader("Pragma", "no-cache");
     response.setDateHeader("Expires", 0);
     response.setDateHeader("max-age", 0);
   }
 
-  public static void ensureNoCacheHeader(MimeResponse response) {
+  public static void ensureNoCacheHeader(final MimeResponse response) {
     // TODO validate this
     response.getCacheControl().setExpirationTime(0);
   }
 
-  public static void ensureContentTypeHeader(FacesContext facesContext, String contentType) {
+  public static void ensureContentTypeHeader(final FacesContext facesContext, final String contentType) {
     final Object response = facesContext.getExternalContext().getResponse();
     if (response instanceof HttpServletResponse) {
       ensureContentTypeHeader((HttpServletResponse) response, contentType);
@@ -68,7 +68,7 @@ public final class ResponseUtils {
     }
   }
 
-  public static void ensureContentTypeHeader(HttpServletResponse response, String contentType) {
+  public static void ensureContentTypeHeader(final HttpServletResponse response, final String contentType) {
     if (!response.containsHeader("Content-Type")) {
       response.setContentType(contentType);
     } else {
@@ -83,7 +83,7 @@ public final class ResponseUtils {
     }
   }
 
-  public static void ensureContentTypeHeader(MimeResponse response, String contentType) {
+  public static void ensureContentTypeHeader(final MimeResponse response, final String contentType) {
     final String responseContentType = response.getContentType();
     if (!StringUtils.equalsIgnoreCaseAndWhitespace(responseContentType, contentType)) {
       response.setContentType(contentType);
@@ -95,7 +95,7 @@ public final class ResponseUtils {
   }
 
   public static void ensureContentSecurityPolicyHeader(
-      FacesContext facesContext, ContentSecurityPolicy contentSecurityPolicy) {
+      final FacesContext facesContext, final ContentSecurityPolicy contentSecurityPolicy) {
     final Object response = facesContext.getExternalContext().getResponse();
     if (response instanceof HttpServletResponse) {
       final HttpServletResponse servletResponse = (HttpServletResponse) response;
@@ -115,12 +115,12 @@ public final class ResponseUtils {
           throw new IllegalArgumentException("Undefined mode: " + contentSecurityPolicy.getMode());
       }
       final StringBuilder builder = new StringBuilder();
-      for (String directive : contentSecurityPolicy.getDirectiveList()) {
+      for (final String directive : contentSecurityPolicy.getDirectiveList()) {
         builder.append(directive);
         builder.append(";");
       }
-      String value = builder.toString();
-      for (String cspHeader : cspHeaders) {
+      final String value = builder.toString();
+      for (final String cspHeader : cspHeaders) {
         servletResponse.setHeader(cspHeader, value);
       }
     } else if (PortletUtils.isPortletApiAvailable() && response instanceof MimeResponse) {

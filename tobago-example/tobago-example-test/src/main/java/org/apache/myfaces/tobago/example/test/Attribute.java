@@ -36,7 +36,7 @@ public class Attribute {
     return counter;
   }
 
-  public void setCounter(int counter) {
+  public void setCounter(final int counter) {
     this.counter = counter;
   }
 
@@ -44,7 +44,7 @@ public class Attribute {
     return condition;
   }
 
-  public void setCondition(boolean condition) {
+  public void setCondition(final boolean condition) {
     this.condition = condition;
   }
   

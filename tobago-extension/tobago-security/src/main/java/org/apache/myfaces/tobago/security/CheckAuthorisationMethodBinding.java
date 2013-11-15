@@ -38,7 +38,7 @@ public class CheckAuthorisationMethodBinding extends MethodBinding implements St
   public CheckAuthorisationMethodBinding() {
   }
 
-  public CheckAuthorisationMethodBinding(MethodBinding methodBinding) {
+  public CheckAuthorisationMethodBinding(final MethodBinding methodBinding) {
     this.methodBinding = methodBinding;
   }
 
@@ -46,11 +46,11 @@ public class CheckAuthorisationMethodBinding extends MethodBinding implements St
     return methodBinding.getExpressionString();
   }
 
-  public Class getType(FacesContext facesContext) throws MethodNotFoundException {
+  public Class getType(final FacesContext facesContext) throws MethodNotFoundException {
     return methodBinding.getType(facesContext);
   }
 
-  public Object invoke(FacesContext facesContext, Object[] objects)
+  public Object invoke(final FacesContext facesContext, final Object[] objects)
       throws EvaluationException {
     if (LOG.isDebugEnabled()) {
       LOG.debug("MethodBinding invoke " + getExpressionString());
@@ -65,14 +65,14 @@ public class CheckAuthorisationMethodBinding extends MethodBinding implements St
     }
   }
 
-  public Object saveState(FacesContext facesContext) {
-    Object[] saveState = new Object[1];
+  public Object saveState(final FacesContext facesContext) {
+    final Object[] saveState = new Object[1];
     saveState[0] = UIComponentBase.saveAttachedState(facesContext, methodBinding);
     return saveState;
   }
 
-  public void restoreState(FacesContext facesContext, Object savedState) {
-    Object[] values = (Object[]) savedState;
+  public void restoreState(final FacesContext facesContext, final Object savedState) {
+    final Object[] values = (Object[]) savedState;
     methodBinding = (MethodBinding) UIComponentBase.restoreAttachedState(facesContext, values[0]);
   }
 
@@ -80,13 +80,13 @@ public class CheckAuthorisationMethodBinding extends MethodBinding implements St
     return methodBinding instanceof StateHolder && ((StateHolder) methodBinding).isTransient();
   }
 
-  public void setTransient(boolean bool) {
+  public void setTransient(final boolean bool) {
     if (methodBinding instanceof StateHolder) {
       ((StateHolder) methodBinding).setTransient(bool);
     }
   }
 
-  public boolean isAuthorized(FacesContext facesContext) {
+  public boolean isAuthorized(final FacesContext facesContext) {
     return AuthorizationUtils.isAuthorized(facesContext, getExpressionString());
   }
 }

@@ -144,11 +144,11 @@ public class FacesConfigGenerator extends AbstractGenerator {
 
   @Override
   protected void generate() throws Exception {
-    Document document;
+    final Document document;
     Writer writer = null;
     try {
-      String content = FileUtils.fileRead(sourceFacesConfigFile);
-      SAXBuilder builder = new SAXBuilder();
+      final String content = FileUtils.fileRead(sourceFacesConfigFile);
+      final SAXBuilder builder = new SAXBuilder();
       document = builder.build(new StringReader(content));
 
       // Normalise line endings. For some reason, JDOM replaces \r\n inside a comment with \n.
@@ -156,25 +156,25 @@ public class FacesConfigGenerator extends AbstractGenerator {
 
       // rewrite DOM as a string to find differences, since text outside the root element is not tracked
 
-      org.jdom.Element rootElement = document.getRootElement();
+      final org.jdom.Element rootElement = document.getRootElement();
 
       rootElement.setNamespace(Namespace.getNamespace("http://java.sun.com/xml/ns/javaee"));
-      Namespace xsi = Namespace.getNamespace("xsi", "http://www.w3.org/2001/XMLSchema-instance");
+      final Namespace xsi = Namespace.getNamespace("xsi", "http://www.w3.org/2001/XMLSchema-instance");
       rootElement.addNamespaceDeclaration(Namespace.getNamespace("xi", "http://www.w3.org/2001/XInclude"));
       rootElement.setAttribute(new Attribute("schemaLocation",
           "http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd", xsi));
       rootElement.setAttribute("version", "2.0");
 
-      Namespace namespace = rootElement.getNamespace();
+      final Namespace namespace = rootElement.getNamespace();
       applyNamespace(rootElement, namespace);
-      List<org.jdom.Element> components = rootElement.getChildren(COMPONENT, namespace);
+      final List<org.jdom.Element> components = rootElement.getChildren(COMPONENT, namespace);
 
-      List<org.jdom.Element> newComponents = new ArrayList<org.jdom.Element>();
-      List<org.jdom.Element> newRenderer = new ArrayList<org.jdom.Element>();
-      List<org.jdom.Element> newConverters = new ArrayList<org.jdom.Element>();
-      List<org.jdom.Element> newValidators = new ArrayList<org.jdom.Element>();
+      final List<org.jdom.Element> newComponents = new ArrayList<org.jdom.Element>();
+      final List<org.jdom.Element> newRenderer = new ArrayList<org.jdom.Element>();
+      final List<org.jdom.Element> newConverters = new ArrayList<org.jdom.Element>();
+      final List<org.jdom.Element> newValidators = new ArrayList<org.jdom.Element>();
 
-      for (TypeElement element : getTypes()) {
+      for (final TypeElement element : getTypes()) {
         if (element.getAnnotation(UIComponentTag.class) != null) {
           addElement(element, newComponents, newRenderer, namespace);
         } else if (element.getAnnotation(Converter.class) != null) {
@@ -184,33 +184,33 @@ public class FacesConfigGenerator extends AbstractGenerator {
         }
       }
 
-      List<org.jdom.Element> elementsToAdd = new ArrayList<org.jdom.Element>();
+      final List<org.jdom.Element> elementsToAdd = new ArrayList<org.jdom.Element>();
       // sort out duplicates
-      for (org.jdom.Element newElement : newComponents) {
-        boolean found = containsElement(components, newElement);
+      for (final org.jdom.Element newElement : newComponents) {
+        final boolean found = containsElement(components, newElement);
         if (!found) {
           elementsToAdd.add(newElement);
         }
       }
       if (!elementsToAdd.isEmpty()) {
         // if faces-config contains no component section add the components after factory or application
-        int lastIndex = getIndexAfter(rootElement, COMPONENT, FACTORY, APPLICATION);
+        final int lastIndex = getIndexAfter(rootElement, COMPONENT, FACTORY, APPLICATION);
         rootElement.addContent(lastIndex, elementsToAdd);
       }
       if (!newRenderer.isEmpty()) {
-        org.jdom.Element renderKit = new org.jdom.Element(RENDER_KIT, namespace);
-        org.jdom.Element renderKitId = new org.jdom.Element(RENDER_KIT_ID, namespace);
+        final org.jdom.Element renderKit = new org.jdom.Element(RENDER_KIT, namespace);
+        final org.jdom.Element renderKitId = new org.jdom.Element(RENDER_KIT_ID, namespace);
         renderKitId.setText("tobago");
         renderKit.addContent(renderKitId);
-        org.jdom.Element renderKitClass = new org.jdom.Element(RENDER_KIT_CLASS, namespace);
+        final org.jdom.Element renderKitClass = new org.jdom.Element(RENDER_KIT_CLASS, namespace);
         renderKitClass.setText("org.apache.myfaces.tobago.renderkit.TobagoRenderKit");
         renderKit.addContent(renderKitClass);
         renderKit.addContent(newRenderer);
-        int lastIndex = getIndexAfter(rootElement, CONVERTER, COMPONENT, FACTORY, APPLICATION);
+        final int lastIndex = getIndexAfter(rootElement, CONVERTER, COMPONENT, FACTORY, APPLICATION);
         rootElement.addContent(lastIndex, renderKit);
       }
       if (!newConverters.isEmpty()) {
-        int lastIndex = getIndexAfter(rootElement, RENDER_KIT, CONVERTER, COMPONENT, FACTORY, APPLICATION);
+        final int lastIndex = getIndexAfter(rootElement, RENDER_KIT, CONVERTER, COMPONENT, FACTORY, APPLICATION);
         rootElement.addContent(lastIndex, newConverters);
       }
       if (!newValidators.isEmpty()) {
@@ -221,10 +221,10 @@ public class FacesConfigGenerator extends AbstractGenerator {
       info("Writing to file: " + resource.toUri());
       writer = resource.openWriter();
 
-      StringWriter facesConfig = new StringWriter(1024);
-      Format format = Format.getPrettyFormat();
+      final StringWriter facesConfig = new StringWriter(1024);
+      final Format format = Format.getPrettyFormat();
       format.setLineSeparator(SEPARATOR);
-      XMLOutputter out = new XMLOutputter(format);
+      final XMLOutputter out = new XMLOutputter(format);
       out.output(document, facesConfig);
       writer.append(facesConfig.toString());
 
@@ -233,57 +233,59 @@ public class FacesConfigGenerator extends AbstractGenerator {
     }
   }
 
-  private void applyNamespace(org.jdom.Element parent, Namespace namespace) {
-    for (org.jdom.Element element : (List<org.jdom.Element>) parent.getChildren()) {
+  private void applyNamespace(final org.jdom.Element parent, final Namespace namespace) {
+    for (final org.jdom.Element element : (List<org.jdom.Element>) parent.getChildren()) {
       element.setNamespace(namespace);
       applyNamespace(element, namespace);
     }
   }
 
-  private void addConverter(TypeElement typeElement, List<org.jdom.Element> newConverters, Namespace namespace) {
-    Converter converterAnn = typeElement.getAnnotation(Converter.class);
-    org.jdom.Element converter = new org.jdom.Element(CONVERTER, namespace);
+  private void addConverter(
+      final TypeElement typeElement, final List<org.jdom.Element> newConverters, final Namespace namespace) {
+    final Converter converterAnn = typeElement.getAnnotation(Converter.class);
+    final org.jdom.Element converter = new org.jdom.Element(CONVERTER, namespace);
     if (converterAnn.id().length() > 0) {
-      org.jdom.Element converterId = new org.jdom.Element(CONVERTER_ID, namespace);
+      final org.jdom.Element converterId = new org.jdom.Element(CONVERTER_ID, namespace);
       converterId.setText(converterAnn.id());
       converter.addContent(converterId);
     } else if (converterAnn.forClass().length() > 0) {
-      org.jdom.Element converterForClass = new org.jdom.Element(CONVERTER_FOR_CLASS, namespace);
+      final org.jdom.Element converterForClass = new org.jdom.Element(CONVERTER_FOR_CLASS, namespace);
       converterForClass.setText(converterAnn.forClass());
       converter.addContent(converterForClass);
     }
 
-    org.jdom.Element converterClass = new org.jdom.Element(CONVERTER_CLASS, namespace);
+    final org.jdom.Element converterClass = new org.jdom.Element(CONVERTER_CLASS, namespace);
     converterClass.setText(typeElement.getQualifiedName().toString());
     converter.addContent(converterClass);
     newConverters.add(converter);
   }
 
-  private void addValidator(TypeElement typeElement, List<org.jdom.Element> newValidators, Namespace namespace) {
-    Validator validatorAnn = typeElement.getAnnotation(Validator.class);
-    org.jdom.Element validator = new org.jdom.Element(VALIDATOR, namespace);
+  private void addValidator(
+      final TypeElement typeElement, final List<org.jdom.Element> newValidators, final Namespace namespace) {
+    final Validator validatorAnn = typeElement.getAnnotation(Validator.class);
+    final org.jdom.Element validator = new org.jdom.Element(VALIDATOR, namespace);
     if (validatorAnn.id().length() > 0) {
-      org.jdom.Element validatorId = new org.jdom.Element(VALIDATOR_ID, namespace);
+      final org.jdom.Element validatorId = new org.jdom.Element(VALIDATOR_ID, namespace);
       validatorId.setText(validatorAnn.id());
       validator.addContent(validatorId);
     } else if (validatorAnn.forClass().length() > 0) {
-      org.jdom.Element validatorForClass = new org.jdom.Element(VALIDATOR_FOR_CLASS, namespace);
+      final org.jdom.Element validatorForClass = new org.jdom.Element(VALIDATOR_FOR_CLASS, namespace);
       validatorForClass.setText(validatorAnn.forClass());
       validator.addContent(validatorForClass);
     }
 
-    org.jdom.Element validatorClass = new org.jdom.Element(VALIDATOR_CLASS, namespace);
+    final org.jdom.Element validatorClass = new org.jdom.Element(VALIDATOR_CLASS, namespace);
     validatorClass.setText(typeElement.getQualifiedName().toString());
     validator.addContent(validatorClass);
     newValidators.add(validator);
   }
 
-  private boolean containsElement(List<org.jdom.Element> components, org.jdom.Element newElement) {
+  private boolean containsElement(final List<org.jdom.Element> components, final org.jdom.Element newElement) {
     return getEqualElement(components, newElement) != null;
   }
 
-  private org.jdom.Element getEqualElement(List<org.jdom.Element> components, org.jdom.Element newElement) {
-    for (org.jdom.Element element : components) {
+  private org.jdom.Element getEqualElement(final List<org.jdom.Element> components, final org.jdom.Element newElement) {
+    for (final org.jdom.Element element : components) {
       if (equals(element, newElement)) {
         return element;
       }
@@ -291,9 +293,9 @@ public class FacesConfigGenerator extends AbstractGenerator {
     return null;
   }
 
-  private int getIndexAfter(org.jdom.Element rootElement, String... tagNames) {
-    for (String tagName : tagNames) {
-      int index = getIndexAfter(rootElement, tagName);
+  private int getIndexAfter(final org.jdom.Element rootElement, final String... tagNames) {
+    for (final String tagName : tagNames) {
+      final int index = getIndexAfter(rootElement, tagName);
       if (index != 0) {
         return index;
       }
@@ -301,16 +303,16 @@ public class FacesConfigGenerator extends AbstractGenerator {
     return 0;
   }
 
-  private int getIndexAfter(org.jdom.Element rootElement, String tagName) {
-    List<org.jdom.Element> components = rootElement.getChildren(tagName, rootElement.getNamespace());
+  private int getIndexAfter(final org.jdom.Element rootElement, final String tagName) {
+    final List<org.jdom.Element> components = rootElement.getChildren(tagName, rootElement.getNamespace());
     if (!components.isEmpty()) {
       return rootElement.indexOf(components.get(components.size() - 1)) + 1;
     }
     return 0;
   }
 
-  public boolean equals(org.jdom.Element element1, org.jdom.Element element2) {
-    Namespace namespace = element1.getNamespace();
+  public boolean equals(final org.jdom.Element element1, final org.jdom.Element element2) {
+    final Namespace namespace = element1.getNamespace();
     if (element1.getName().equals(element2.getName()) && element1.getNamespace().equals(element2.getNamespace())) {
       if (element1.getChildText(COMPONENT_CLASS, namespace).equals(element2.getChildText(COMPONENT_CLASS, namespace))) {
         if (element1.getChildText(COMPONENT_TYPE, namespace).equals(element2.getChildText(COMPONENT_TYPE, namespace))) {
@@ -322,16 +324,16 @@ public class FacesConfigGenerator extends AbstractGenerator {
   }
 
   protected org.jdom.Element createComponentElement(
-      ComponentInfo componentInfo, UIComponentTag componentTag, Namespace namespace)
+      final ComponentInfo componentInfo, final UIComponentTag componentTag, final Namespace namespace)
       throws IOException, NoSuchFieldException, IllegalAccessException {
-    org.jdom.Element element = new org.jdom.Element(COMPONENT, namespace);
-    org.jdom.Element elementDisplayName = new org.jdom.Element(DISPLAY_NAME, namespace);
+    final org.jdom.Element element = new org.jdom.Element(COMPONENT, namespace);
+    final org.jdom.Element elementDisplayName = new org.jdom.Element(DISPLAY_NAME, namespace);
     elementDisplayName.setText(componentInfo.getComponentClassName());
     element.addContent(elementDisplayName);
-    org.jdom.Element elementType = new org.jdom.Element(COMPONENT_TYPE, namespace);
+    final org.jdom.Element elementType = new org.jdom.Element(COMPONENT_TYPE, namespace);
     elementType.setText(componentInfo.getComponentType());
     element.addContent(elementType);
-    org.jdom.Element elementClass = new org.jdom.Element(COMPONENT_CLASS, namespace);
+    final org.jdom.Element elementClass = new org.jdom.Element(COMPONENT_CLASS, namespace);
     elementClass.setText(componentTag.uiComponent());
     element.addContent(elementClass);
 
@@ -339,26 +341,27 @@ public class FacesConfigGenerator extends AbstractGenerator {
   }
 
   protected void addRendererElement(
-      ComponentInfo componentInfo, UIComponentTag componentTag, List<org.jdom.Element> renderer, Namespace namespace)
+      final ComponentInfo componentInfo, final UIComponentTag componentTag, final List<org.jdom.Element> renderer,
+      final Namespace namespace)
       throws IOException, NoSuchFieldException, IllegalAccessException {
-    String rendererType = componentTag.rendererType();
+    final String rendererType = componentTag.rendererType();
     if (rendererType != null && rendererType.length() > 0) {
-      org.jdom.Element element = new org.jdom.Element(RENDERER, namespace);
+      final org.jdom.Element element = new org.jdom.Element(RENDERER, namespace);
       String displayName = componentTag.displayName();
       if (displayName.equals("")) {
         displayName = componentInfo.getComponentClassName();
       }
-      org.jdom.Element elementDisplayName = new org.jdom.Element(DISPLAY_NAME, namespace);
+      final org.jdom.Element elementDisplayName = new org.jdom.Element(DISPLAY_NAME, namespace);
       elementDisplayName.setText(displayName);
       element.addContent(elementDisplayName);
-      org.jdom.Element elementComponentFamily = new org.jdom.Element(COMPONENT_FAMILY, namespace);
+      final org.jdom.Element elementComponentFamily = new org.jdom.Element(COMPONENT_FAMILY, namespace);
       elementComponentFamily.addContent(componentInfo.getComponentFamily());
       element.addContent(elementComponentFamily);
-      org.jdom.Element elementType = new org.jdom.Element(RENDERER_TYPE, namespace);
+      final org.jdom.Element elementType = new org.jdom.Element(RENDERER_TYPE, namespace);
       elementType.setText(rendererType);
       element.addContent(elementType);
-      org.jdom.Element elementClass = new org.jdom.Element(RENDERER_CLASS, namespace);
-      String className = "org.apache.myfaces.tobago.renderkit." + rendererType + "Renderer";
+      final org.jdom.Element elementClass = new org.jdom.Element(RENDERER_CLASS, namespace);
+      final String className = "org.apache.myfaces.tobago.renderkit." + rendererType + "Renderer";
       elementClass.setText(className);
       element.addContent(elementClass);
       renderer.add(element);
@@ -367,27 +370,27 @@ public class FacesConfigGenerator extends AbstractGenerator {
 
 
   private org.jdom.Element createElementExtension(
-      TypeElement typeElement, UIComponentTag uiComponentTag,
-      Namespace namespace) {
-    org.jdom.Element elementExtension = new org.jdom.Element(COMPONENT_EXTENSION, namespace);
-    org.jdom.Element elementAllowedChildComponents = new org.jdom.Element(ALLOWED_CHILD_COMPONENTS, namespace);
-    String[] allowedChildComponents = uiComponentTag.allowedChildComponenents();
+      final TypeElement typeElement, final UIComponentTag uiComponentTag,
+      final Namespace namespace) {
+    final org.jdom.Element elementExtension = new org.jdom.Element(COMPONENT_EXTENSION, namespace);
+    final org.jdom.Element elementAllowedChildComponents = new org.jdom.Element(ALLOWED_CHILD_COMPONENTS, namespace);
+    final String[] allowedChildComponents = uiComponentTag.allowedChildComponenents();
     String allowedComponentTypes = "";
-    for (String componentType : allowedChildComponents) {
+    for (final String componentType : allowedChildComponents) {
       allowedComponentTypes += componentType + " ";
     }
     elementAllowedChildComponents.setText(allowedComponentTypes);
     elementExtension.addContent(elementAllowedChildComponents);
-    org.jdom.Element elementCategory = new org.jdom.Element(CATEGORY, namespace);
+    final org.jdom.Element elementCategory = new org.jdom.Element(CATEGORY, namespace);
     elementCategory.setText(uiComponentTag.category().toString());
     elementExtension.addContent(elementCategory);
-    Deprecated deprecated = typeElement.getAnnotation(Deprecated.class);
+    final Deprecated deprecated = typeElement.getAnnotation(Deprecated.class);
     if (deprecated != null) {
-      org.jdom.Element elementDeprecated = new org.jdom.Element(DEPRECATED, namespace);
+      final org.jdom.Element elementDeprecated = new org.jdom.Element(DEPRECATED, namespace);
       elementDeprecated.setText("Warning: This component is deprecated!");
       elementExtension.addContent(elementDeprecated);
     }
-    org.jdom.Element elementHidden = new org.jdom.Element(HIDDEN, namespace);
+    final org.jdom.Element elementHidden = new org.jdom.Element(HIDDEN, namespace);
     elementHidden.setText(Boolean.toString(uiComponentTag.isHidden()));
     elementExtension.addContent(elementHidden);
 
@@ -395,17 +398,18 @@ public class FacesConfigGenerator extends AbstractGenerator {
   }
 
   protected void addAttribute(
-      ExecutableElement executableElement, List<org.jdom.Element> attributes, List<org.jdom.Element> properties,
-      Namespace namespace) {
-    UIComponentTagAttribute componentAttribute = executableElement.getAnnotation(UIComponentTagAttribute.class);
+      final ExecutableElement executableElement, final List<org.jdom.Element> attributes,
+      final List<org.jdom.Element> properties,
+      final Namespace namespace) {
+    final UIComponentTagAttribute componentAttribute = executableElement.getAnnotation(UIComponentTagAttribute.class);
     if (componentAttribute != null) {
-      String simpleName = executableElement.getSimpleName().toString();
+      final String simpleName = executableElement.getSimpleName().toString();
       if (simpleName.startsWith("set")) {
-        String name = simpleName.substring(3, 4).toLowerCase(Locale.ENGLISH) + simpleName.substring(4);
+        final String name = simpleName.substring(3, 4).toLowerCase(Locale.ENGLISH) + simpleName.substring(4);
         if (IGNORED_PROPERTIES.contains(name)) {
-          org.jdom.Element attribute = new org.jdom.Element(ATTRIBUTE, namespace);
-          org.jdom.Element attributeName = new org.jdom.Element(ATTRIBUTE_NAME, namespace);
-          org.jdom.Element attributeClass = new org.jdom.Element(ATTRIBUTE_CLASS, namespace);
+          final org.jdom.Element attribute = new org.jdom.Element(ATTRIBUTE, namespace);
+          final org.jdom.Element attributeName = new org.jdom.Element(ATTRIBUTE_NAME, namespace);
+          final org.jdom.Element attributeClass = new org.jdom.Element(ATTRIBUTE_CLASS, namespace);
 
           attributeName.setText(name);
           addClass(componentAttribute, attributeClass);
@@ -415,7 +419,7 @@ public class FacesConfigGenerator extends AbstractGenerator {
           attribute.addContent(attributeName);
           attribute.addContent(attributeClass);
           if (componentAttribute.defaultValue().length() > 0) {
-            org.jdom.Element defaultValue = new org.jdom.Element(DEFAULT_VALUE, namespace);
+            final org.jdom.Element defaultValue = new org.jdom.Element(DEFAULT_VALUE, namespace);
             defaultValue.setText(componentAttribute.defaultValue());
             attribute.addContent(defaultValue);
           }
@@ -425,9 +429,9 @@ public class FacesConfigGenerator extends AbstractGenerator {
 
           attributes.add(attribute);
         } else {
-          org.jdom.Element property = new org.jdom.Element(PROPERTY, namespace);
-          org.jdom.Element propertyName = new org.jdom.Element(PROPERTY_NAME, namespace);
-          org.jdom.Element propertyClass = new org.jdom.Element(PROPERTY_CLASS, namespace);
+          final org.jdom.Element property = new org.jdom.Element(PROPERTY, namespace);
+          final org.jdom.Element propertyName = new org.jdom.Element(PROPERTY_NAME, namespace);
+          final org.jdom.Element propertyClass = new org.jdom.Element(PROPERTY_CLASS, namespace);
 
           propertyName.setText(name);
           addClass(componentAttribute, propertyClass);
@@ -437,7 +441,7 @@ public class FacesConfigGenerator extends AbstractGenerator {
           property.addContent(propertyName);
           property.addContent(propertyClass);
           if (componentAttribute.defaultValue().length() > 0) {
-            org.jdom.Element defaultValue = new org.jdom.Element(DEFAULT_VALUE, namespace);
+            final org.jdom.Element defaultValue = new org.jdom.Element(DEFAULT_VALUE, namespace);
             defaultValue.setText(componentAttribute.defaultValue());
             property.addContent(defaultValue);
           }
@@ -452,7 +456,7 @@ public class FacesConfigGenerator extends AbstractGenerator {
     }
   }
 
-  private void addClass(UIComponentTagAttribute componentAttribute, org.jdom.Element attributeClass) {
+  private void addClass(final UIComponentTagAttribute componentAttribute, final org.jdom.Element attributeClass) {
     if (componentAttribute.type().length > 1) {
       attributeClass.setText(Object.class.getName());
     } else if (componentAttribute.type().length == 1) {
@@ -468,16 +472,17 @@ public class FacesConfigGenerator extends AbstractGenerator {
     }
   }
 
-  private void addDescription(ExecutableElement element, org.jdom.Element attribute, Namespace namespace) {
+  private void addDescription(
+      final ExecutableElement element, final org.jdom.Element attribute, final Namespace namespace) {
     String comment = processingEnv.getElementUtils().getDocComment(element);
     if (comment != null) {
-      int index = comment.indexOf('@');
+      final int index = comment.indexOf('@');
       if (index != -1) {
         comment = comment.substring(0, index);
       }
       comment = comment.trim();
       if (comment.length() > 0) {
-        org.jdom.Element description = new org.jdom.Element(DESCRIPTION, namespace);
+        final org.jdom.Element description = new org.jdom.Element(DESCRIPTION, namespace);
         description.setText(comment);
         attribute.addContent(description);
       }
@@ -485,38 +490,39 @@ public class FacesConfigGenerator extends AbstractGenerator {
   }
 
   private org.jdom.Element createPropertyOrAttributeExtension(
-      String extensionType, ExecutableElement executableElement, UIComponentTagAttribute uiComponentTagAttribute,
-      Namespace namespace)
+      final String extensionType, final ExecutableElement executableElement,
+      final UIComponentTagAttribute uiComponentTagAttribute,
+      final Namespace namespace)
       throws IllegalArgumentException {
-    org.jdom.Element extensionElement = new org.jdom.Element(extensionType, namespace);
-    org.jdom.Element valueExpression = new org.jdom.Element(VALUE_EXPRESSION, namespace);
+    final org.jdom.Element extensionElement = new org.jdom.Element(extensionType, namespace);
+    final org.jdom.Element valueExpression = new org.jdom.Element(VALUE_EXPRESSION, namespace);
     valueExpression.setText(uiComponentTagAttribute.expression().toMetaDataString());
     extensionElement.addContent(valueExpression);
-    String[] allowedValues = uiComponentTagAttribute.allowedValues();
+    final String[] allowedValues = uiComponentTagAttribute.allowedValues();
     if (allowedValues.length > 0) {
-      org.jdom.Element propertyValues = new org.jdom.Element(PROPERTY_VALUES, namespace);
+      final org.jdom.Element propertyValues = new org.jdom.Element(PROPERTY_VALUES, namespace);
       String values = "";
-      for (String value : allowedValues) {
+      for (final String value : allowedValues) {
         values += value + " ";
       }
       propertyValues.setText(values);
       extensionElement.addContent(propertyValues);
     }
-    Deprecated deprecated = executableElement.getAnnotation(Deprecated.class);
+    final Deprecated deprecated = executableElement.getAnnotation(Deprecated.class);
     if (deprecated != null) {
-      org.jdom.Element elementDeprecated = new org.jdom.Element(DEPRECATED, namespace);
+      final org.jdom.Element elementDeprecated = new org.jdom.Element(DEPRECATED, namespace);
       elementDeprecated.setText("Warning: This property is deprecated!");
       extensionElement.addContent(elementDeprecated);
     }
-    org.jdom.Element hidden = new org.jdom.Element(HIDDEN, namespace);
+    final org.jdom.Element hidden = new org.jdom.Element(HIDDEN, namespace);
     hidden.setText(Boolean.toString(uiComponentTagAttribute.isHidden()));
     extensionElement.addContent(hidden);
-    org.jdom.Element readOnly = new org.jdom.Element(READONLY, namespace);
+    final org.jdom.Element readOnly = new org.jdom.Element(READONLY, namespace);
     readOnly.setText(Boolean.toString(uiComponentTagAttribute.isReadOnly()));
     extensionElement.addContent(readOnly);
-    TagAttribute tagAttribute = executableElement.getAnnotation(TagAttribute.class);
+    final TagAttribute tagAttribute = executableElement.getAnnotation(TagAttribute.class);
     if (tagAttribute != null) {
-      org.jdom.Element required = new org.jdom.Element(REQUIRED, namespace);
+      final org.jdom.Element required = new org.jdom.Element(REQUIRED, namespace);
       required.setText(Boolean.toString(tagAttribute.required()));
       extensionElement.addContent(required);
     }
@@ -525,11 +531,11 @@ public class FacesConfigGenerator extends AbstractGenerator {
   }
 
   protected void addAttributes(
-      TypeElement typeElement, List<org.jdom.Element> attributes, List<org.jdom.Element> properties,
-      Namespace namespace) {
+      final TypeElement typeElement, final List<org.jdom.Element> attributes, final List<org.jdom.Element> properties,
+      final Namespace namespace) {
 
-    for (javax.lang.model.element.Element element : processingEnv.getElementUtils().getAllMembers(typeElement)) {
-      ExecutableElement executableElement = (ExecutableElement) element;
+    for (final javax.lang.model.element.Element element : processingEnv.getElementUtils().getAllMembers(typeElement)) {
+      final ExecutableElement executableElement = (ExecutableElement) element;
       if (executableElement.getAnnotation(TagAttribute.class) == null
           && executableElement.getAnnotation(UIComponentTagAttribute.class) == null) {
         continue;
@@ -539,24 +545,24 @@ public class FacesConfigGenerator extends AbstractGenerator {
     }
   }
 
-  private void addFacets(UIComponentTag componentTag, Namespace namespace, org.jdom.Element element) {
-    Facet[] facets = componentTag.facets();
-    for (Facet facet : facets) {
-      org.jdom.Element facetElement = new org.jdom.Element(FACET, namespace);
-      String description = facet.description();
+  private void addFacets(final UIComponentTag componentTag, final Namespace namespace, final org.jdom.Element element) {
+    final Facet[] facets = componentTag.facets();
+    for (final Facet facet : facets) {
+      final org.jdom.Element facetElement = new org.jdom.Element(FACET, namespace);
+      final String description = facet.description();
       if (description != null && description.length() > 0) {
-        org.jdom.Element facetDescription = new org.jdom.Element(DESCRIPTION, namespace);
+        final org.jdom.Element facetDescription = new org.jdom.Element(DESCRIPTION, namespace);
         facetDescription.setText(description);
         facetElement.addContent(facetDescription);
       }
-      org.jdom.Element facetName = new org.jdom.Element(FACET_NAME, namespace);
+      final org.jdom.Element facetName = new org.jdom.Element(FACET_NAME, namespace);
       facetName.setText(facet.name());
       facetElement.addContent(facetName);
-      org.jdom.Element facetExtension = new org.jdom.Element(FACET_EXTENSION, namespace);
-      org.jdom.Element elementAllowedChildComponents = new org.jdom.Element(ALLOWED_CHILD_COMPONENTS, namespace);
-      String[] allowedChildComponents = facet.allowedChildComponenents();
+      final org.jdom.Element facetExtension = new org.jdom.Element(FACET_EXTENSION, namespace);
+      final org.jdom.Element elementAllowedChildComponents = new org.jdom.Element(ALLOWED_CHILD_COMPONENTS, namespace);
+      final String[] allowedChildComponents = facet.allowedChildComponenents();
       String allowedComponentTypes = "";
-      for (String componentType : allowedChildComponents) {
+      for (final String componentType : allowedChildComponents) {
         allowedComponentTypes += componentType + " ";
       }
       elementAllowedChildComponents.setText(allowedComponentTypes);
@@ -567,22 +573,22 @@ public class FacesConfigGenerator extends AbstractGenerator {
   }
 
   protected void addElement(
-      TypeElement typeElement, List<org.jdom.Element> components, List<org.jdom.Element> renderer,
+      final TypeElement typeElement, final List<org.jdom.Element> components, final List<org.jdom.Element> renderer,
       final Namespace namespace) throws Exception {
-    UIComponentTag componentTag = typeElement.getAnnotation(UIComponentTag.class);
+    final UIComponentTag componentTag = typeElement.getAnnotation(UIComponentTag.class);
     if (componentTag != null) {
-      ComponentInfo componentInfo = new ComponentInfo(typeElement, componentTag);
+      final ComponentInfo componentInfo = new ComponentInfo(typeElement, componentTag);
       if (!componentTag.isComponentAlreadyDefined()) {
-        org.jdom.Element element = createComponentElement(componentInfo, componentTag, namespace);
+        final org.jdom.Element element = createComponentElement(componentInfo, componentTag, namespace);
         if (element != null) {
           if (!containsElement(components, element)) {
             addFacets(componentTag, namespace, element);
-            List<org.jdom.Element> attributes = new ArrayList<org.jdom.Element>();
-            List<org.jdom.Element> properties = new ArrayList<org.jdom.Element>();
+            final List<org.jdom.Element> attributes = new ArrayList<org.jdom.Element>();
+            final List<org.jdom.Element> properties = new ArrayList<org.jdom.Element>();
             addAttributes(typeElement, attributes, properties, namespace);
             if (!attributes.isEmpty()) {
               Collections.sort(attributes, new Comparator<org.jdom.Element>() {
-                public int compare(org.jdom.Element d1, org.jdom.Element d2) {
+                public int compare(final org.jdom.Element d1, final org.jdom.Element d2) {
                   return d1.getChildText(ATTRIBUTE_NAME, namespace).compareTo(
                       d2.getChildText(ATTRIBUTE_NAME, namespace));
                 }
@@ -591,7 +597,7 @@ public class FacesConfigGenerator extends AbstractGenerator {
             }
             if (!properties.isEmpty()) {
               Collections.sort(properties, new Comparator<org.jdom.Element>() {
-                public int compare(org.jdom.Element d1, org.jdom.Element d2) {
+                public int compare(final org.jdom.Element d1, final org.jdom.Element d2) {
                   return d1.getChildText(PROPERTY_NAME, namespace).compareTo(
                       d2.getChildText(PROPERTY_NAME, namespace));
                 }
@@ -609,10 +615,10 @@ public class FacesConfigGenerator extends AbstractGenerator {
     }
   }
 
-  private void normaliseLineEndings(Document document) {
-    Iterator i = document.getDescendants(new ContentFilter(ContentFilter.COMMENT));
+  private void normaliseLineEndings(final Document document) {
+    final Iterator i = document.getDescendants(new ContentFilter(ContentFilter.COMMENT));
     while (i.hasNext()) {
-      Comment c = (Comment) i.next();
+      final Comment c = (Comment) i.next();
       c.setText(c.getText().replaceAll("\n", SEPARATOR));
     }
   }

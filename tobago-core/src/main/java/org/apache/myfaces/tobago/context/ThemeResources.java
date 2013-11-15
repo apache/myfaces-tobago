@@ -34,17 +34,17 @@ public final class ThemeResources implements Serializable {
   private List<ThemeScript> scriptList = new ArrayList<ThemeScript>();
   private List<ThemeStyle> styleList = new ArrayList<ThemeStyle>();
 
-  public void merge(ThemeResources toAddResources) {
+  public void merge(final ThemeResources toAddResources) {
     if (this == toAddResources) {
       return;
     }
     for (int i = toAddResources.getScriptList().size()-1; i >= 0; i--) {
-      ThemeScript script = toAddResources.getScriptList().get(i);
+      final ThemeScript script = toAddResources.getScriptList().get(i);
       this.getScriptList().remove(script);
       this.getScriptList().add(0, script);
     }
     for (int i = toAddResources.getStyleList().size()-1; i >= 0; i--) {
-      ThemeStyle style = toAddResources.getStyleList().get(i);
+      final ThemeStyle style = toAddResources.getStyleList().get(i);
       this.getStyleList().remove(style);
       this.getStyleList().add(0, style);
     }
@@ -54,15 +54,15 @@ public final class ThemeResources implements Serializable {
     return production;
   }
 
-  public void setProduction(boolean production) {
+  public void setProduction(final boolean production) {
     this.production = production;
   }
 
-  public boolean addScript(ThemeScript script) {
+  public boolean addScript(final ThemeScript script) {
     return scriptList.add(script);
   }
 
-  public boolean addStyle(ThemeStyle style) {
+  public boolean addStyle(final ThemeStyle style) {
     return styleList.add(style);
   }
 

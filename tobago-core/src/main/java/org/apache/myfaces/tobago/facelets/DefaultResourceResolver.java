@@ -34,10 +34,10 @@ public class DefaultResourceResolver extends ResourceResolver {
     super();
   }
 
-  public URL resolveUrl(String path) {
+  public URL resolveUrl(final String path) {
     try {
       return Resource.getResourceUrl(FacesContext.getCurrentInstance(), path);
-    } catch (IOException e) {
+    } catch (final IOException e) {
       throw new FacesException(e);
     }
   }

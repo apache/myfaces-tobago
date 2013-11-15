@@ -29,7 +29,7 @@ public class DefaultMutableTreeNodeAnalyser implements TreeAnalyser {
 
   private DefaultMutableTreeNode node;
 
-  public DefaultMutableTreeNodeAnalyser(DefaultMutableTreeNode node) {
+  public DefaultMutableTreeNodeAnalyser(final DefaultMutableTreeNode node) {
     this.node = node;
   }
 

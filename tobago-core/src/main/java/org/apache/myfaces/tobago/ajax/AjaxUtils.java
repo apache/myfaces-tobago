@@ -102,11 +102,11 @@ public final class AjaxUtils {
     boolean added = false;
 
     if (clientIds.hasNext()) { // messages in the partial part
-      for (String componentClientId: list) {
+      for (final String componentClientId: list) {
         added = AjaxInternalUtils.addNextPossibleAjaxComponent(context, componentClientId);
       }
     } else {  // checking for an existing shown error on page
-      for (String componentClientId: list) {
+      for (final String componentClientId: list) {
         if (context.getExternalContext().getRequestParameterMap().containsKey(
             componentClientId + ComponentUtils.SUB_SEPARATOR + "messagesExists")) {
           added = AjaxInternalUtils.addNextPossibleAjaxComponent(context, componentClientId);
@@ -152,8 +152,8 @@ public final class AjaxUtils {
    * @deprecated since 2.0.0. Is no longer needed
    */
   public static void redirect(final HttpServletResponse response, final String url) throws IOException {
-    PrintWriter writer = response.getWriter();
-    String contentType = "application/json; charset=UTF-8";
+    final PrintWriter writer = response.getWriter();
+    final String contentType = "application/json; charset=UTF-8";
     ResponseUtils.ensureContentTypeHeader(response, contentType);
     ResponseUtils.ensureNoCacheHeader(response);
     redirectInternal(writer, url);

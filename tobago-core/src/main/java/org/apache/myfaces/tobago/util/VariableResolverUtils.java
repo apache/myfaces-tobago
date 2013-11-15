@@ -33,7 +33,7 @@ public final class VariableResolverUtils {
   /**
    * Returns the requested object configured in the faces-config or from library.
    */
-  public static Object resolveVariable(FacesContext context, String variable) {
+  public static Object resolveVariable(final FacesContext context, final String variable) {
     final ELContext elContext = context.getELContext();
     return elContext.getELResolver().getValue(elContext, null, variable);
   }
@@ -41,7 +41,7 @@ public final class VariableResolverUtils {
   /**
    * Returns the ClientProperties object configured in the faces-config.
    */
-  public static ClientProperties resolveClientProperties(FacesContext facesContext) {
+  public static ClientProperties resolveClientProperties(final FacesContext facesContext) {
     return (ClientProperties) resolveVariable(facesContext, ClientProperties.MANAGED_BEAN_NAME);
   }
   
@@ -51,7 +51,7 @@ public final class VariableResolverUtils {
    * to save memory without the knowledge of the scope.
    * Also useful to enforce a new creation of a managed-bean.
    */
-  public static void clearVariable(FacesContext context, String variable) {
+  public static void clearVariable(final FacesContext context, final String variable) {
     final ELContext elContext = context.getELContext();
     elContext.getELResolver().setValue(elContext, null, variable, null);
   }

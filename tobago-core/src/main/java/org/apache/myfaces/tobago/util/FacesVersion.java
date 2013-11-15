@@ -45,7 +45,7 @@ public enum FacesVersion {
       currentVersion = VERSION_21;
       Application.class.getMethod("getFlowHandler");
       currentVersion = VERSION_22;
-    } catch (NoSuchMethodException e) {
+    } catch (final NoSuchMethodException e) {
       // ignore
     }
 
@@ -54,21 +54,21 @@ public enum FacesVersion {
 
   }
 
-  private static boolean isAvailable(String className) {
+  private static boolean isAvailable(final String className) {
     try {
       try {
         Class.forName(className, false, Thread.currentThread().getContextClassLoader());
         return true;
-      } catch (ClassNotFoundException e) {
+      } catch (final ClassNotFoundException e) {
         // ignore
         try {
           Class.forName(className, false, FacesVersion.class.getClassLoader());
           return true;
-        } catch (ClassNotFoundException e1) {
+        } catch (final ClassNotFoundException e1) {
           // ignore
         }
       }
-    } catch (Exception e) {
+    } catch (final Exception e) {
       // ignore
     }
     return false;

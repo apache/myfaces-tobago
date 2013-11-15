@@ -61,7 +61,7 @@ public class InputSuggestController {
     return simpleValue;
   }
 
-  public void setSimpleValue(String simpleValue) {
+  public void setSimpleValue(final String simpleValue) {
     this.simpleValue = simpleValue;
   }
 
@@ -69,7 +69,7 @@ public class InputSuggestController {
     return zipValue;
   }
 
-  public void setZipValue(String zipValue) {
+  public void setZipValue(final String zipValue) {
     this.zipValue = zipValue;
   }
 
@@ -77,7 +77,7 @@ public class InputSuggestController {
     return cityValue;
   }
 
-  public void setCityValue(String cityValue) {
+  public void setCityValue(final String cityValue) {
     this.cityValue = cityValue;
   }
 
@@ -109,27 +109,27 @@ public class InputSuggestController {
     return region;
   }
 
-  public void setRegion(String region) {
+  public void setRegion(final String region) {
     this.region = region;
   }
 
-  public List<String> getSimpleSuggestItems(UIInput component) {
+  public List<String> getSimpleSuggestItems(final UIInput component) {
     String prefix = (String) component.getSubmittedValue();
     LOG.info("Creating items for prefix '" + prefix + "'");
     if (prefix == null) {
       prefix = "";
     }
-    List<String> list = new ArrayList<String>();
-    int n = RandomUtils.nextInt(10);
+    final List<String> list = new ArrayList<String>();
+    final int n = RandomUtils.nextInt(10);
     for (int i = 0; i < n; i++) {
       list.add(prefix + i);
     }
     return list;
   }
 
-  public AutoSuggestItems getZipSuggestItems(UIInput component) {
-    String prefix = (String) component.getSubmittedValue();
-    AutoSuggestItems item = new AutoSuggestItems();
+  public AutoSuggestItems getZipSuggestItems(final UIInput component) {
+    final String prefix = (String) component.getSubmittedValue();
+    final AutoSuggestItems item = new AutoSuggestItems();
     item.setItems(getSuggestItems(prefix, true));
     item.setNextFocusId("page:txarea");
     return item;
@@ -137,23 +137,23 @@ public class InputSuggestController {
 
 
 
-  public AutoSuggestItems getCitySuggestItems(UIInput component) {
-    String prefix = (String) component.getSubmittedValue();
-    AutoSuggestItems item = new AutoSuggestItems();
+  public AutoSuggestItems getCitySuggestItems(final UIInput component) {
+    final String prefix = (String) component.getSubmittedValue();
+    final AutoSuggestItems item = new AutoSuggestItems();
     item.setItems(getSuggestItems(prefix, false));
     item.setNextFocusId("page:txarea");
     return item;
   }
 
-  private List<AutoSuggestItem> getSuggestItems(String prefix, boolean zip) {
-    List<AutoSuggestItem> items = new ArrayList<AutoSuggestItem>();
-    for (String[] dataRow : suggestData) {
+  private List<AutoSuggestItem> getSuggestItems(final String prefix, final boolean zip) {
+    final List<AutoSuggestItem> items = new ArrayList<AutoSuggestItem>();
+    for (final String[] dataRow : suggestData) {
       if (zip) {
         if (dataRow[1].startsWith(prefix)) {
-          AutoSuggestItem item = new AutoSuggestItem();
+          final AutoSuggestItem item = new AutoSuggestItem();
           item.setLabel(dataRow[0]);
           item.setValue(dataRow[1]);
-          List<AutoSuggestExtensionItem> extensionItems = new ArrayList<AutoSuggestExtensionItem>(2);
+          final List<AutoSuggestExtensionItem> extensionItems = new ArrayList<AutoSuggestExtensionItem>(2);
           extensionItems.add(createExtensionItem("page:isCity", dataRow[2]));
           if (dataRow[3] != null) {
             extensionItems.add(createExtensionItem("page:isState", dataRow[3]));
@@ -163,10 +163,10 @@ public class InputSuggestController {
         }
       } else {
         if (dataRow[2].toLowerCase().startsWith(prefix.toLowerCase())) {
-          AutoSuggestItem item = new AutoSuggestItem();
+          final AutoSuggestItem item = new AutoSuggestItem();
           item.setLabel(dataRow[0]);
           item.setValue(dataRow[2]);
-          List<AutoSuggestExtensionItem> extensionItems = new ArrayList<AutoSuggestExtensionItem>(2);
+          final List<AutoSuggestExtensionItem> extensionItems = new ArrayList<AutoSuggestExtensionItem>(2);
           extensionItems.add(createExtensionItem("page:isZip", dataRow[1]));
           if (dataRow[3] != null) {
             extensionItems.add(createExtensionItem("page:isState", dataRow[3]));
@@ -180,8 +180,8 @@ public class InputSuggestController {
     return items;
   }
 
-  private AutoSuggestExtensionItem createExtensionItem(String id, String value) {
-    AutoSuggestExtensionItem extItem = new AutoSuggestExtensionItem();
+  private AutoSuggestExtensionItem createExtensionItem(final String id, final String value) {
+    final AutoSuggestExtensionItem extItem = new AutoSuggestExtensionItem();
     extItem.setId(id);
     extItem.setValue(value);
     return extItem;

@@ -23,7 +23,7 @@ public class NavigationEvent {
 
   private final NavigationNode current;
 
-  public NavigationEvent(NavigationNode current) {
+  public NavigationEvent(final NavigationNode current) {
     this.current = current;
   }
 

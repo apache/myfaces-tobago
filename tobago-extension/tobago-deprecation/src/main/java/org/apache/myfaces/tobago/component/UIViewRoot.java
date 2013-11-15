@@ -68,9 +68,9 @@ public class UIViewRoot extends javax.faces.component.UIViewRoot implements Invo
 //  private int nextUniqueId;
 
   @Override
-  public void setLocale(Locale locale) {
+  public void setLocale(final Locale locale) {
     super.setLocale(locale);
-    ClientProperties clientProperties = VariableResolverUtils.resolveClientProperties(getFacesContext());
+    final ClientProperties clientProperties = VariableResolverUtils.resolveClientProperties(getFacesContext());
     clientProperties.setLocale(locale);
     clientProperties.updateUserAgent(getFacesContext());
   }
@@ -114,7 +114,7 @@ public class UIViewRoot extends javax.faces.component.UIViewRoot implements Invo
 
   // XXX begin of JSF 2.0 like code
 
-  public void broadcastEventsForPhase(FacesContext context, PhaseId phaseId) {
+  public void broadcastEventsForPhase(final FacesContext context, final PhaseId phaseId) {
     broadcastForPhase(phaseId);
     if (context.getRenderResponse() || context.getResponseComplete()) {
       clearEvents();
@@ -133,7 +133,7 @@ public class UIViewRoot extends javax.faces.component.UIViewRoot implements Invo
 //
   // TODO: remove if fixed in stable release! In 1.1_02 this seems to be fixed.
 
-  public void queueEvent(FacesEvent event) {
+  public void queueEvent(final FacesEvent event) {
     if (event == null) {
       throw new NullPointerException("event");
     }
@@ -144,22 +144,22 @@ public class UIViewRoot extends javax.faces.component.UIViewRoot implements Invo
   }
 
 
-  private void broadcastForPhase(PhaseId phaseId) {
+  private void broadcastForPhase(final PhaseId phaseId) {
     if (events == null) {
       return;
     }
 
     boolean abort = false;
 
-    int phaseIdOrdinal = phaseId.getOrdinal();
-    for (ListIterator<FacesEvent> listiterator = events.listIterator(); listiterator.hasNext();) {
-      FacesEvent event = listiterator.next();
-      int ordinal = event.getPhaseId().getOrdinal();
+    final int phaseIdOrdinal = phaseId.getOrdinal();
+    for (final ListIterator<FacesEvent> listiterator = events.listIterator(); listiterator.hasNext();) {
+      final FacesEvent event = listiterator.next();
+      final int ordinal = event.getPhaseId().getOrdinal();
       if (ordinal == PhaseId.ANY_PHASE.getOrdinal() || ordinal == phaseIdOrdinal) {
-        UIComponent source = event.getComponent();
+        final UIComponent source = event.getComponent();
         try {
           source.broadcast(event);
-        } catch (FacesException e) {
+        } catch (final FacesException e) {
           Throwable fe = e;
           while (fe != null) {
             if (fe instanceof AbortProcessingException) {
@@ -183,8 +183,8 @@ public class UIViewRoot extends javax.faces.component.UIViewRoot implements Invo
 
           try {
             listiterator.remove();
-          } catch (ConcurrentModificationException cme) {
-            int eventIndex = listiterator.previousIndex();
+          } catch (final ConcurrentModificationException cme) {
+            final int eventIndex = listiterator.previousIndex();
             events.remove(eventIndex);
             //listiterator = events.listIterator();
           }
@@ -205,14 +205,14 @@ public class UIViewRoot extends javax.faces.component.UIViewRoot implements Invo
 
 
   @Override
-  public void processDecodes(FacesContext context) {
+  public void processDecodes(final FacesContext context) {
     if (context == null) {
       throw new NullPointerException("context");
     }
-    Map<String, UIComponent> ajaxComponents = AjaxInternalUtils.parseAndStoreComponents(context);
+    final Map<String, UIComponent> ajaxComponents = AjaxInternalUtils.parseAndStoreComponents(context);
     if (ajaxComponents != null) {
       // first decode the page
-      AbstractUIPage page = ComponentUtils.findPage(context);
+      final AbstractUIPage page = ComponentUtils.findPage(context);
       page.decode(context);
       page.markSubmittedForm(context);
       FacesContextUtils.setAjax(context, true);
@@ -222,7 +222,7 @@ public class UIViewRoot extends javax.faces.component.UIViewRoot implements Invo
       decodeActionComponent(context, page, ajaxComponents);
 
       // and all ajax components
-      for (Map.Entry<String, UIComponent> entry : ajaxComponents.entrySet()) {
+      for (final Map.Entry<String, UIComponent> entry : ajaxComponents.entrySet()) {
         FacesContextUtils.setAjaxComponentId(context, entry.getKey());
         invokeOnComponent(context, entry.getKey(), APPLY_REQUEST_VALUES_CALLBACK);
       }
@@ -235,18 +235,18 @@ public class UIViewRoot extends javax.faces.component.UIViewRoot implements Invo
     }
   }
 
-  private void decodeActionComponent(FacesContext facesContext, AbstractUIPage page, Map<String,
+  private void decodeActionComponent(final FacesContext facesContext, final AbstractUIPage page, final Map<String,
       UIComponent> ajaxComponents) {
-    String actionId = page.getActionId();
+    final String actionId = page.getActionId();
     UIComponent actionComponent = null;
     if (actionId != null) {
       actionComponent = findComponent(actionId);
       if (actionComponent == null && FacesVersion.supports20() && FacesVersion.isMyfaces()) {
-        String bugActionId = actionId.replaceAll(":\\d+:", ":");
+        final String bugActionId = actionId.replaceAll(":\\d+:", ":");
         try {
           actionComponent = findComponent(bugActionId);
           //LOG.info("command = \"" + actionComponent + "\"", new Exception());
-        } catch (Exception e) {
+        } catch (final Exception e) {
           // ignore
         }
       }
@@ -254,7 +254,7 @@ public class UIViewRoot extends javax.faces.component.UIViewRoot implements Invo
     if (actionComponent == null) {
       return;
     }
-    for (UIComponent ajaxComponent : ajaxComponents.values()) {
+    for (final UIComponent ajaxComponent : ajaxComponents.values()) {
       UIComponent component = actionComponent;
       while (component != null) {
         if (component == ajaxComponent) {
@@ -268,14 +268,14 @@ public class UIViewRoot extends javax.faces.component.UIViewRoot implements Invo
 
 
   @Override
-  public void processValidators(FacesContext context) {
+  public void processValidators(final FacesContext context) {
     if (context == null) {
       throw new NullPointerException("context");
     }
 
-    Map<String, UIComponent> ajaxComponents = AjaxInternalUtils.getAjaxComponents(context);
+    final Map<String, UIComponent> ajaxComponents = AjaxInternalUtils.getAjaxComponents(context);
     if (ajaxComponents != null) {
-      for (Map.Entry<String, UIComponent> entry : ajaxComponents.entrySet()) {
+      for (final Map.Entry<String, UIComponent> entry : ajaxComponents.entrySet()) {
         FacesContextUtils.setAjaxComponentId(context, entry.getKey());
         invokeOnComponent(context, entry.getKey(), PROCESS_VALIDATION_CALLBACK);
       }
@@ -289,13 +289,13 @@ public class UIViewRoot extends javax.faces.component.UIViewRoot implements Invo
   }
 
   @Override
-  public void processUpdates(FacesContext context) {
+  public void processUpdates(final FacesContext context) {
     if (context == null) {
       throw new NullPointerException("context");
     }
-    Map<String, UIComponent> ajaxComponents = AjaxInternalUtils.getAjaxComponents(context);
+    final Map<String, UIComponent> ajaxComponents = AjaxInternalUtils.getAjaxComponents(context);
     if (ajaxComponents != null) {
-      for (Map.Entry<String, UIComponent> entry : ajaxComponents.entrySet()) {
+      for (final Map.Entry<String, UIComponent> entry : ajaxComponents.entrySet()) {
         invokeOnComponent(context, entry.getKey(), UPDATE_MODEL_VALUES_CALLBACK);
       }
     } else {
@@ -308,7 +308,7 @@ public class UIViewRoot extends javax.faces.component.UIViewRoot implements Invo
   }
 
   @Override
-  public void processApplication(FacesContext context) {
+  public void processApplication(final FacesContext context) {
     if (context == null) {
       throw new NullPointerException("context");
     }
@@ -330,7 +330,7 @@ public class UIViewRoot extends javax.faces.component.UIViewRoot implements Invo
   }
 
   @Override
-  public void encodeChildren(FacesContext context) throws IOException {
+  public void encodeChildren(final FacesContext context) throws IOException {
     if (AjaxUtils.isAjaxRequest(context)) {
       new AjaxResponseRenderer().renderResponse(context);
 
@@ -340,7 +340,7 @@ public class UIViewRoot extends javax.faces.component.UIViewRoot implements Invo
   }
 
   @Override
-  public boolean invokeOnComponent(FacesContext context, String clientId, ContextCallback callback)
+  public boolean invokeOnComponent(final FacesContext context, final String clientId, final ContextCallback callback)
       throws FacesException {
     return ComponentUtils.invokeOnComponent(context, this, clientId, callback);
   }

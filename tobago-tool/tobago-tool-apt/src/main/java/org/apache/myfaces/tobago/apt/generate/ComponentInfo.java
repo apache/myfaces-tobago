@@ -36,7 +36,7 @@ public class ComponentInfo extends TagInfo {
   private int index = 0;
   private int nonTransientIndex = 0;
 
-  public ComponentInfo(TypeElement declaration, UIComponentTag componentTag) {
+  public ComponentInfo(final TypeElement declaration, final UIComponentTag componentTag) {
     super(declaration.getQualifiedName().toString(), componentTag.uiComponent(), componentTag.rendererType());
 
     setComponentType(AnnotationUtils.componentType(componentTag));
@@ -45,7 +45,7 @@ public class ComponentInfo extends TagInfo {
   }
 
   @Deprecated
-  public ComponentInfo(String sourceClass, String qualifiedName, String rendererType) {
+  public ComponentInfo(final String sourceClass, final String qualifiedName, final String rendererType) {
     super(sourceClass, qualifiedName, rendererType);
   }
 
@@ -53,11 +53,11 @@ public class ComponentInfo extends TagInfo {
     return invokeOnComponent;
   }
 
-  public void setInvokeOnComponent(boolean invokeOnComponent) {
+  public void setInvokeOnComponent(final boolean invokeOnComponent) {
     this.invokeOnComponent = invokeOnComponent;
   }
 
-  public void addPropertyInfo(ComponentPropertyInfo propertyInfo) {
+  public void addPropertyInfo(final ComponentPropertyInfo propertyInfo) {
     getProperties().add(propertyInfo);
     propertyInfo.setIndex(index);
     index++;
@@ -98,11 +98,11 @@ public class ComponentInfo extends TagInfo {
     return messages;
   }
 
-  public void setMessages(boolean messages) {
+  public void setMessages(final boolean messages) {
     this.messages = messages;
   }
 
-  public void setDescription(String description) {
+  public void setDescription(final String description) {
     this.description = description;
   }
 
@@ -110,7 +110,7 @@ public class ComponentInfo extends TagInfo {
     return description;
   }
 
-  public void setDeprecated(boolean deprecated) {
+  public void setDeprecated(final boolean deprecated) {
     this.deprecated = deprecated;
   }
 

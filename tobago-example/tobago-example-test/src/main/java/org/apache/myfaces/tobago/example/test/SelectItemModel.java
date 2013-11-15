@@ -51,11 +51,11 @@ public class SelectItemModel {
     return number;
   }
 
-  public void setNumber(int number) {
+  public void setNumber(final int number) {
     this.number = number;
   }
 
-  public void setCurrency(Currency currency) {
+  public void setCurrency(final Currency currency) {
     this.currency = currency;
   }
 
@@ -83,7 +83,7 @@ public class SelectItemModel {
     return switch1;
   }
 
-  public void setSwitch1(boolean switch1) {
+  public void setSwitch1(final boolean switch1) {
     this.switch1 = switch1;
   }
 
@@ -91,7 +91,7 @@ public class SelectItemModel {
     return switch2;
   }
 
-  public void setSwitch2(boolean switch2) {
+  public void setSwitch2(final boolean switch2) {
     this.switch2 = switch2;
   }
 }

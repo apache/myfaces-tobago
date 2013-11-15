@@ -71,7 +71,7 @@ class ResourceLocator {
   private ThemeBuilder themeBuilder;
 
   public ResourceLocator(
-      ServletContext servletContext, ResourceManagerImpl resourceManager, ThemeBuilder themeBuilder) {
+      final ServletContext servletContext, final ResourceManagerImpl resourceManager, final ThemeBuilder themeBuilder) {
     this.servletContext = servletContext;
     this.resourceManager = resourceManager;
     this.themeBuilder = themeBuilder;
@@ -86,7 +86,7 @@ class ResourceLocator {
   }
 
   private void locateResourcesInWar(
-      ServletContext servletContext, ResourceManagerImpl resources, String path)
+      final ServletContext servletContext, final ResourceManagerImpl resources, String path)
       throws ServletException {
 
     if (path.startsWith("/WEB-INF/")) {
@@ -96,14 +96,14 @@ class ResourceLocator {
     if (path.endsWith("/") && path.length() > 1) {
       path = path.substring(0, path.length() - 1);
     }
-    Set<String> resourcePaths = servletContext.getResourcePaths(path);
+    final Set<String> resourcePaths = servletContext.getResourcePaths(path);
     if (resourcePaths == null || resourcePaths.isEmpty()) {
       if (LOG.isDebugEnabled()) {
         LOG.debug("Skipping empty resource path: path='{}'", path);
       }
       return;
     }
-    for (String childPath : resourcePaths) {
+    for (final String childPath : resourcePaths) {
       if (childPath.endsWith("/")) {
         // ignore, because weblogic puts the path directory itself in the Set
         if (!childPath.equals(path)) {
@@ -115,17 +115,17 @@ class ResourceLocator {
       } else {
         //Log.debug("add resc " + childPath);
         if (childPath.endsWith(".properties")) {
-          InputStream inputStream = servletContext.getResourceAsStream(childPath);
+          final InputStream inputStream = servletContext.getResourceAsStream(childPath);
           try {
             addProperties(inputStream, resources, childPath, false, 0);
           } finally {
             IoUtils.closeQuietly(inputStream);
           }
         } else if (childPath.endsWith(".properties.xml")) {
-          InputStream inputStream = servletContext.getResourceAsStream(childPath);
+          final InputStream inputStream = servletContext.getResourceAsStream(childPath);
           try {
             addProperties(inputStream, resources, childPath, true, 0);
-          } catch (RuntimeException e) {
+          } catch (final RuntimeException e) {
             LOG.error("childPath = \"" + childPath + "\" ", e);
             throw e;
           } finally {
@@ -138,7 +138,7 @@ class ResourceLocator {
     }
   }
 
-  private void locateResourcesFromClasspath(ResourceManagerImpl resources)
+  private void locateResourcesFromClasspath(final ResourceManagerImpl resources)
       throws ServletException {
 
     try {
@@ -149,9 +149,9 @@ class ResourceLocator {
       final Enumeration<URL> urls = classLoader.getResources(META_INF_TOBAGO_CONFIG_XML);
 
       while (urls.hasMoreElements()) {
-        URL tobagoConfigUrl = urls.nextElement();
-        TobagoConfigFragment tobagoConfig = new TobagoConfigParser().parse(tobagoConfigUrl);
-        for (ThemeImpl theme : tobagoConfig.getThemeDefinitions()) {
+        final URL tobagoConfigUrl = urls.nextElement();
+        final TobagoConfigFragment tobagoConfig = new TobagoConfigParser().parse(tobagoConfigUrl);
+        for (final ThemeImpl theme : tobagoConfig.getThemeDefinitions()) {
           detectThemeVersion(tobagoConfigUrl, theme);
           themeBuilder.addTheme(theme);
           final String prefix = ensureSlash(theme.getResourcePath());
@@ -163,7 +163,7 @@ class ResourceLocator {
           addResources(resources, tobagoConfigUrl, prefix, 0);
         }
       }
-    } catch (Exception e) {
+    } catch (final Exception e) {
       if (e instanceof ServletException) {
         throw (ServletException) e;
       } else {
@@ -179,17 +179,17 @@ class ResourceLocator {
    * @param resources Resource Manager which collects all the resources.
    * @throws ServletException An error while accessing the resource.
    */
-  private void locateResourcesServlet30Alike(ResourceManagerImpl resources) throws ServletException {
+  private void locateResourcesServlet30Alike(final ResourceManagerImpl resources) throws ServletException {
 
     try {
       if (LOG.isInfoEnabled()) {
         LOG.info("Searching for '" + META_INF_RESOURCES + "'");
       }
-      ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-      Enumeration<URL> urls = classLoader.getResources(META_INF_RESOURCES);
+      final ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+      final Enumeration<URL> urls = classLoader.getResources(META_INF_RESOURCES);
 
       while (urls.hasMoreElements()) {
-        URL resourcesUrl = urls.nextElement();
+        final URL resourcesUrl = urls.nextElement();
 
         LOG.info("resourcesUrl='" + resourcesUrl + "'");
         if (!resourcesUrl.toString().matches(".*/WEB-INF/lib/.*\\.jar\\!.*")) {
@@ -199,7 +199,7 @@ class ResourceLocator {
         }
         LOG.info("going on ...");
 
-        String protocol = resourcesUrl.getProtocol();
+        final String protocol = resourcesUrl.getProtocol();
         // tomcat uses jar
         // weblogic uses zip
         // IBM WebSphere uses wsjar
@@ -213,8 +213,8 @@ class ResourceLocator {
             "/" + META_INF_RESOURCES,
             META_INF_RESOURCES.length() + 1);
       }
-    } catch (IOException e) {
-      String msg = "while loading ";
+    } catch (final IOException e) {
+      final String msg = "while loading ";
       LOG.error(msg, e);
       throw new ServletException(msg, e);
     }
@@ -267,7 +267,7 @@ class ResourceLocator {
   }
 
   private void addResourcesFromIndexFile(
-      ResourceManagerImpl resources, final InputStream indexStream, final int skipPrefix)
+      final ResourceManagerImpl resources, final InputStream indexStream, final int skipPrefix)
       throws IOException, ServletException {
     final LineNumberReader reader = new LineNumberReader(new InputStreamReader(indexStream));
     String name;
@@ -309,7 +309,7 @@ class ResourceLocator {
         }
       }
       jarFile = new URL(fileName);
-    } catch (MalformedURLException e) {
+    } catch (final MalformedURLException e) {
       // workaround for weblogic on windows
       jarFile = new URL("file:" + fileName);
     }
@@ -322,7 +322,7 @@ class ResourceLocator {
         if (nextEntry.isDirectory()) {
           continue;
         }
-        String name = "/" + nextEntry.getName();
+        final String name = "/" + nextEntry.getName();
         if (name.startsWith(prefix)) {
           addResource(resources, name, skipPrefix);
         }
@@ -333,7 +333,7 @@ class ResourceLocator {
     }
   }
 
-  private void addResource(ResourceManagerImpl resources, String name, int skipPrefix)
+  private void addResource(final ResourceManagerImpl resources, final String name, final int skipPrefix)
       throws ServletException {
 
     if (name.endsWith(".class")) {
@@ -342,7 +342,8 @@ class ResourceLocator {
       if (LOG.isInfoEnabled()) {
         LOG.info("Adding properties from: '" + name.substring(1) + "'");
       }
-      InputStream inputStream = Thread.currentThread().getContextClassLoader().getResourceAsStream(name.substring(1));
+      final InputStream inputStream
+          = Thread.currentThread().getContextClassLoader().getResourceAsStream(name.substring(1));
       try {
         addProperties(inputStream, resources, name, false, skipPrefix);
       } finally {
@@ -352,7 +353,8 @@ class ResourceLocator {
       if (LOG.isInfoEnabled()) {
         LOG.info("Adding properties from: '" + name.substring(1) + "'");
       }
-      InputStream inputStream = Thread.currentThread().getContextClassLoader().getResourceAsStream(name.substring(1));
+      final InputStream inputStream
+          = Thread.currentThread().getContextClassLoader().getResourceAsStream(name.substring(1));
       try {
         addProperties(inputStream, resources, name, true, skipPrefix);
       } finally {
@@ -374,7 +376,8 @@ class ResourceLocator {
   }
 
   private void addProperties(
-      InputStream stream, ResourceManagerImpl resources, String childPath, boolean xml, int skipPrefix)
+      final InputStream stream, final ResourceManagerImpl resources, final String childPath, final boolean xml,
+      final int skipPrefix)
       throws ServletException {
 
     final String directory = childPath.substring(skipPrefix, childPath.lastIndexOf('/'));
@@ -401,7 +404,7 @@ class ResourceLocator {
           LOG.debug("    properties: {}", temp.size());
         }
       }
-    } catch (IOException e) {
+    } catch (final IOException e) {
       final String msg = "while loading " + childPath;
       LOG.error(msg, e);
       throw new ServletException(msg, e);
@@ -432,7 +435,7 @@ class ResourceLocator {
         inputStream = url.openStream();
         properties.load(inputStream);
         version = properties.getProperty("Implementation-Version");
-      } catch (FileNotFoundException e) {
+      } catch (final FileNotFoundException e) {
         // may happen (e. g. in tests)
         LOG.error("No Manifest-File found.");
       } finally {

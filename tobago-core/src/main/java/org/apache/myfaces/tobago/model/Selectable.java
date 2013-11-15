@@ -95,7 +95,7 @@ public enum Selectable {
 
   private String value;
 
-  Selectable(String value) {
+  Selectable(final String value) {
     this.value = value;
   }
 
@@ -106,7 +106,7 @@ public enum Selectable {
   static {
     MAPPING = new HashMap<String, Selectable>();
 
-    for (Selectable action : Selectable.values()) {
+    for (final Selectable action : Selectable.values()) {
       MAPPING.put(action.getValue(), action);
     }
   }
@@ -116,14 +116,14 @@ public enum Selectable {
    * @return The matching tree selection (can't be null).
    * @throws IllegalArgumentException When the name doesn't match any TreeSelectable.
    */
-  public static Selectable parse(Object name) throws IllegalArgumentException {
+  public static Selectable parse(final Object name) throws IllegalArgumentException {
     if (name == null) {
       return null;
     }
     if (name instanceof Selectable) {
       return (Selectable) name;
     }
-    Selectable value = MAPPING.get(name.toString());
+    final Selectable value = MAPPING.get(name.toString());
     if (value != null) {
       return value;
     } else {

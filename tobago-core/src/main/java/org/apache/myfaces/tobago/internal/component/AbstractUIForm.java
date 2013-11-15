@@ -42,72 +42,72 @@ public abstract class AbstractUIForm extends UIForm implements InvokeOnComponent
   public static final String SUBMITTED_MARKER = COMPONENT_TYPE + ".InSubmitted";
 
   @Override
-  public void processDecodes(FacesContext facesContext) {
+  public void processDecodes(final FacesContext facesContext) {
 
     // Process this component first
     // to know the active actionId
     // for the following childrend
     decode(facesContext);
 
-    Iterator kids = getFacetsAndChildren();
+    final Iterator kids = getFacetsAndChildren();
     while (kids.hasNext()) {
-      UIComponent kid = (UIComponent) kids.next();
+      final UIComponent kid = (UIComponent) kids.next();
       kid.processDecodes(facesContext);
     }
   }
 
   @Override
-  public void setSubmitted(boolean b) {
+  public void setSubmitted(final boolean b) {
     super.setSubmitted(b);
 
     // set submitted for all subforms
-    for (AbstractUIForm subForm : ComponentUtils.findSubForms(this)) {
+    for (final AbstractUIForm subForm : ComponentUtils.findSubForms(this)) {
       subForm.setSubmitted(b);
     }
   }
 
   @Override
-  public void processValidators(FacesContext facesContext) {
+  public void processValidators(final FacesContext facesContext) {
     // if we're not the submitted form, only process subforms.
     if (LOG.isDebugEnabled()) {
       LOG.debug("processValidators for form: {}", getClientId(facesContext));
     }
     if (!isSubmitted()) {
-      for (AbstractUIForm subForm : ComponentUtils.findSubForms(this)) {
+      for (final AbstractUIForm subForm : ComponentUtils.findSubForms(this)) {
         subForm.processValidators(facesContext);
       }
     } else {
       // Process all facets and children of this component
-      Iterator kids = getFacetsAndChildren();
+      final Iterator kids = getFacetsAndChildren();
       while (kids.hasNext()) {
-        UIComponent kid = (UIComponent) kids.next();
+        final UIComponent kid = (UIComponent) kids.next();
         kid.processValidators(facesContext);
       }
     }
   }
 
   @Override
-  public void processUpdates(FacesContext facesContext) {
+  public void processUpdates(final FacesContext facesContext) {
     // if we're not the submitted form, only process subforms.
     if (LOG.isDebugEnabled()) {
       LOG.debug("processUpdates for form: {}", getClientId(facesContext));
     }
     if (!isSubmitted()) {
-      for (AbstractUIForm subForm : ComponentUtils.findSubForms(this)) {
+      for (final AbstractUIForm subForm : ComponentUtils.findSubForms(this)) {
         subForm.processUpdates(facesContext);
       }
     } else {
       // Process all facets and children of this component
-      Iterator kids = getFacetsAndChildren();
+      final Iterator kids = getFacetsAndChildren();
       while (kids.hasNext()) {
-        UIComponent kid = (UIComponent) kids.next();
+        final UIComponent kid = (UIComponent) kids.next();
         kid.processUpdates(facesContext);
       }
     }
   }
 
   @Override
-  public boolean invokeOnComponent(FacesContext context, String clientId, ContextCallback callback)
+  public boolean invokeOnComponent(final FacesContext context, final String clientId, final ContextCallback callback)
       throws FacesException {
     // TODO is this needed?
     if (callback instanceof TobagoCallback) {

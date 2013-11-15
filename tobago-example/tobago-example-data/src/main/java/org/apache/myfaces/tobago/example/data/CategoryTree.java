@@ -26,19 +26,19 @@ import javax.swing.tree.DefaultMutableTreeNode;
 public class CategoryTree {
 
   public static DefaultMutableTreeNode createSample() {
-    DefaultMutableTreeNode tree = createNode("Root Node", "root");
+    final DefaultMutableTreeNode tree = createNode("Root Node", "root");
     tree.insert(createNode("Sports", "sports"), 0);
     tree.insert(createNode("Movies", "movies"), 1);
-    DefaultMutableTreeNode music = createNode("Music", "music");
+    final DefaultMutableTreeNode music = createNode("Music", "music");
     tree.insert(music, 2);
     music.insert(createNode("Classic", "classic"), 0);
     music.insert(createNode("Pop", "pop"), 1);
     music.insert(createNode("World", "world"), 2);
     tree.insert(createNode("Games", "games"), 3);
-    DefaultMutableTreeNode science = createNode("Science", "science");
+    final DefaultMutableTreeNode science = createNode("Science", "science");
     science.insert(createNode("Geography", "geography"), 0);
     science.insert(createNode("Mathematics", "math"), 0);
-    DefaultMutableTreeNode astro = createNode("Astronomy", "astro");
+    final DefaultMutableTreeNode astro = createNode("Astronomy", "astro");
     astro.insert(createNode("Education", "edu"), 0);
     astro.insert(createNode("Pictures", "pic"), 0);
     science.insert(astro, 2);
@@ -46,22 +46,22 @@ public class CategoryTree {
     return tree;
   }
 
-  public static DefaultMutableTreeNode createNode(String name, String id) {
+  public static DefaultMutableTreeNode createNode(final String name, final String id) {
     return new DefaultMutableTreeNode(new Node(name, id));
   }
 
   public static DefaultMutableTreeNode createSample2() {
-    DefaultMutableTreeNode tree = new DefaultMutableTreeNode(new Node("1 Category"));
+    final DefaultMutableTreeNode tree = new DefaultMutableTreeNode(new Node("1 Category"));
     tree.add(new DefaultMutableTreeNode(new Node("1.1 Sports")));
     tree.add(new DefaultMutableTreeNode(new Node("1.2 Movies")));
-    DefaultMutableTreeNode temp = new DefaultMutableTreeNode(new Node("1.3 Science"));
+    final DefaultMutableTreeNode temp = new DefaultMutableTreeNode(new Node("1.3 Science"));
     tree.add(temp);
-    DefaultMutableTreeNode music = new DefaultMutableTreeNode(new Node("1.4 Music"));
+    final DefaultMutableTreeNode music = new DefaultMutableTreeNode(new Node("1.4 Music"));
     tree.add(music);
     tree.add(new DefaultMutableTreeNode(new Node("1.5 Games")));
     temp.add(new DefaultMutableTreeNode(new Node("1.3.1 Geography (strong markup)", Markup.STRONG)));
     temp.add(new DefaultMutableTreeNode(new Node("1.3.2 Mathematics (strong markup)", Markup.STRONG)));
-    DefaultMutableTreeNode temp2 = new DefaultMutableTreeNode(new Node("1.3.3 Pictures"));
+    final DefaultMutableTreeNode temp2 = new DefaultMutableTreeNode(new Node("1.3.3 Pictures"));
     temp2.add(new DefaultMutableTreeNode(new Node("1.3.3.1 Education")));
     temp2.add(new DefaultMutableTreeNode(new Node("1.3.3.2 Family")));
     temp2.add(new DefaultMutableTreeNode(new Node("1.3.3.3 Comercial")));
@@ -76,7 +76,7 @@ public class CategoryTree {
     temp2.add(new DefaultMutableTreeNode(new Node("1.3.3.12 Animal")));
     temp2.add(new DefaultMutableTreeNode(new Node("1.3.3.13 Personal")));
     temp.add(temp2);
-    DefaultMutableTreeNode bulk = new DefaultMutableTreeNode(new Node("1.6 Bulk"));
+    final DefaultMutableTreeNode bulk = new DefaultMutableTreeNode(new Node("1.6 Bulk"));
     for (int i = 0; i < 5; i++) {
       bulk.add(new DefaultMutableTreeNode(new Node("1.6." + (i + 1) + " Some Node")));
     }

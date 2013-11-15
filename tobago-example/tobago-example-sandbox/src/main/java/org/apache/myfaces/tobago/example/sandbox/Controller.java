@@ -58,7 +58,7 @@ public class Controller {
     return sliderValue;
   }
 
-  public void setSliderValue(int sliderValue) {
+  public void setSliderValue(final int sliderValue) {
     this.sliderValue = sliderValue;
   }
 
@@ -71,7 +71,7 @@ public class Controller {
     return shuffleValue;
   }
 
-  public void setShuffleValue(String[] shuffleValue) {
+  public void setShuffleValue(final String[] shuffleValue) {
     this.shuffleValue = shuffleValue;
   }
 
@@ -83,7 +83,7 @@ public class Controller {
     return splitLayout1;
   }
 
-  public void setSplitLayout1(String splitLayout1) {
+  public void setSplitLayout1(final String splitLayout1) {
     this.splitLayout1 = splitLayout1;
   }
 
@@ -91,7 +91,7 @@ public class Controller {
     return splitLayout2;
   }
 
-  public void setSplitLayout2(String splitLayout2) {
+  public void setSplitLayout2(final String splitLayout2) {
     this.splitLayout2 = splitLayout2;
   }
 }

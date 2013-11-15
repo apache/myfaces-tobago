@@ -33,20 +33,20 @@ public abstract class ComparatorBase implements Comparator {
   protected ComparatorBase() {
   }
 
-  protected ComparatorBase(boolean reverse, Comparator comparator) {
+  protected ComparatorBase(final boolean reverse, final Comparator comparator) {
     this.comparator = comparator;
     this.reverse = reverse;
   }
 
-  protected ComparatorBase(boolean reverse) {
+  protected ComparatorBase(final boolean reverse) {
     this.reverse = reverse;
   }
 
-  protected ComparatorBase(Comparator comparator) {
+  protected ComparatorBase(final Comparator comparator) {
     this.comparator = comparator;
   }
 
-  protected int internalCompare(Object obj1, Object obj2) {
+  protected int internalCompare(final Object obj1, final Object obj2) {
 
     if (obj1 == null || obj2 == null) {
       if (obj1 == null && obj2 == null) {
@@ -64,13 +64,13 @@ public abstract class ComparatorBase implements Comparator {
           + obj2.getClass().getName());
     }
 
-    int result;
+    final int result;
 
 
     if (comparator instanceof Collator) {
-      CollationKey collationKey1
+      final CollationKey collationKey1
           = ((Collator) comparator).getCollationKey(obj1.toString());
-      CollationKey collationKey2
+      final CollationKey collationKey2
           = ((Collator) comparator).getCollationKey(obj2.toString());
       result = collationKey1.compareTo(collationKey2);
 
@@ -109,7 +109,7 @@ public abstract class ComparatorBase implements Comparator {
     return (comparator != null ? comparator.hashCode() : 0);
   } */
 
-  public boolean equals(Object o) {
+  public boolean equals(final Object o) {
     if (o == null) {
       return false;
     }

@@ -28,7 +28,7 @@ public class AutoSuggestExtensionItem {
     return id;
   }
 
-  public void setId(String id) {
+  public void setId(final String id) {
     this.id = id;
   }
 
@@ -36,7 +36,7 @@ public class AutoSuggestExtensionItem {
     return value;
   }
 
-  public void setValue(String value) {
+  public void setValue(final String value) {
     this.value = value;
   }
 }

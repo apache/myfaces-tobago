@@ -29,14 +29,14 @@ public class ClientConfigPhaseListener implements PhaseListener {
   public static final String[] BEAN_NAMES
       = {"clientConfigController", "clientConfigController2"};
 
-  public void afterPhase(PhaseEvent event) {
+  public void afterPhase(final PhaseEvent event) {
   }
 
-  public void beforePhase(PhaseEvent event) {
-    FacesContext facesContext = FacesContext.getCurrentInstance();
+  public void beforePhase(final PhaseEvent event) {
+    final FacesContext facesContext = FacesContext.getCurrentInstance();
     for (int i = 0; i < BEAN_NAMES.length; i++) {
-      String beanName = BEAN_NAMES[i];
-      ClientConfigController controller = ClientConfigController
+      final String beanName = BEAN_NAMES[i];
+      final ClientConfigController controller = ClientConfigController
           .getCurrentInstance(facesContext, beanName);
 
       if (controller != null) {

@@ -23,14 +23,12 @@ import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.UILabel;
 import org.apache.myfaces.tobago.component.UISeparator;
-import org.apache.myfaces.tobago.util.ComponentUtils;
 
 import javax.el.ELException;
 import javax.el.ValueExpression;
 import javax.faces.application.Application;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIOutput;
-import javax.faces.component.UIViewRoot;
 import javax.faces.view.facelets.ComponentConfig;
 import javax.faces.view.facelets.ComponentHandler;
 import javax.faces.view.facelets.FaceletContext;
@@ -41,15 +39,15 @@ import java.io.IOException;
 public class SeparatorExtensionHandler extends ComponentHandler {
   private TagAttribute labelAttribute;
 
-  public SeparatorExtensionHandler(ComponentConfig config) {
+  public SeparatorExtensionHandler(final ComponentConfig config) {
     super(config);
     labelAttribute = getAttribute(Attributes.LABEL);
   }
 
-  public void applyNextHandler(FaceletContext faceletContext, UIComponent separator)
+  public void applyNextHandler(final FaceletContext faceletContext, final UIComponent separator)
       throws IOException, ELException {
     if (ComponentHandler.isNew(separator)) {
-      UIComponent component = (UIComponent) separator.getFacets().remove(Facets.LABEL);
+      final UIComponent component = (UIComponent) separator.getFacets().remove(Facets.LABEL);
       nextHandler.apply(faceletContext, component);
       separator.getFacets().put(Facets.LABEL, component);
     } else {
@@ -57,10 +55,10 @@ public class SeparatorExtensionHandler extends ComponentHandler {
     }
   }
 
-  public void onComponentCreated(FaceletContext faceletContext, UIComponent separator, UIComponent parent) {
-    Application application = faceletContext.getFacesContext().getApplication();
-    UIViewRoot root = ComponentUtils.findViewRoot(faceletContext, parent);
-    UIOutput label = (UIOutput) application.createComponent(UILabel.COMPONENT_TYPE);
+  public void onComponentCreated(
+      final FaceletContext faceletContext, final UIComponent separator, final UIComponent parent) {
+    final Application application = faceletContext.getFacesContext().getApplication();
+    final UIOutput label = (UIOutput) application.createComponent(UILabel.COMPONENT_TYPE);
     label.setId("_tx_" + faceletContext.generateUniqueId("label"));
     label.setRendererType("Label");
     setAttributes(faceletContext, label);
@@ -69,21 +67,21 @@ public class SeparatorExtensionHandler extends ComponentHandler {
       if (labelAttribute.isLiteral()) {
         label.setValue(labelAttribute.getValue(faceletContext));
       } else {
-        ValueExpression expression = labelAttribute.getValueExpression(faceletContext, String.class);
+        final ValueExpression expression = labelAttribute.getValueExpression(faceletContext, String.class);
         label.setValueExpression(Attributes.VALUE, expression);
       }
     }
   }
 
-  protected MetaRuleset createMetaRuleset(Class aClass) {
-    MetaRuleset metaRuleset = super.createMetaRuleset(aClass);
+  protected MetaRuleset createMetaRuleset(final Class aClass) {
+    final MetaRuleset metaRuleset = super.createMetaRuleset(aClass);
     if (UISeparator.class.isAssignableFrom(aClass)) {
       metaRuleset.ignore(Attributes.LABEL);
       return metaRuleset;
     } else {
-      TagAttribute[] attrs = tag.getAttributes().getAll();
+      final TagAttribute[] attrs = tag.getAttributes().getAll();
       for (int i = 0; i < attrs.length; i++) {
-        TagAttribute attr = attrs[i];
+        final TagAttribute attr = attrs[i];
         metaRuleset.ignore(attr.getLocalName());
       }
       return metaRuleset;

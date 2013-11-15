@@ -77,17 +77,17 @@ public class LoggingController {
 
   private void initCategories() {
       categories.clear();
-      Enumeration enumeration = LogManager.getCurrentLoggers();
+      final Enumeration enumeration = LogManager.getCurrentLoggers();
       while (enumeration.hasMoreElements()) {
-          org.apache.log4j.Logger logger = (org.apache.log4j.Logger) enumeration.nextElement();
+          final org.apache.log4j.Logger logger = (org.apache.log4j.Logger) enumeration.nextElement();
           categories.add(new CategoryModel(logger));
       }
       categories.add(new CategoryModel(LogManager.getRootLogger()));
 
       Collections.sort(categories, new Comparator<CategoryModel>() {
-          public int compare(CategoryModel c1, CategoryModel c2) {
-              org.apache.log4j.Logger l1 = c1.getLogger();
-              org.apache.log4j.Logger l2 = c2.getLogger();
+          public int compare(final CategoryModel c1, final CategoryModel c2) {
+              final org.apache.log4j.Logger l1 = c1.getLogger();
+              final org.apache.log4j.Logger l2 = c2.getLogger();
               return l1.getName().compareTo(l2.getName());
           }
       });
@@ -95,18 +95,18 @@ public class LoggingController {
 
   private void initAppenders() {
       appenders.clear();
-      Set<Appender> allAppenders = Log4jUtils.getAllAppenders();
-      for (Appender appender : allAppenders) {
+      final Set<Appender> allAppenders = Log4jUtils.getAllAppenders();
+      for (final Appender appender : allAppenders) {
           appenders.add(new AppenderModel(appender));
       }
   }
 
   public String downloadLogFile() throws IOException {
-      AppenderModel appender = (AppenderModel) currentAppender.getValue();
-      String fileName = appender.getFile();
-      FileInputStream stream = new FileInputStream(fileName);
-      FacesContext facesContext = FacesContext.getCurrentInstance();
-      ServletResponse response = (ServletResponse) facesContext.getExternalContext().getResponse();
+      final AppenderModel appender = (AppenderModel) currentAppender.getValue();
+      final String fileName = appender.getFile();
+      final FileInputStream stream = new FileInputStream(fileName);
+      final FacesContext facesContext = FacesContext.getCurrentInstance();
+      final ServletResponse response = (ServletResponse) facesContext.getExternalContext().getResponse();
       response.setContentType("text/plain");
       IOUtils.copy(stream, response.getOutputStream());
       facesContext.responseComplete();
@@ -115,9 +115,9 @@ public class LoggingController {
 
   public String updateCategories() {
       boolean update = false;
-      for (CategoryModel category : categories) {
+      for (final CategoryModel category : categories) {
           if (category.isLevelUpdated()) {
-              org.apache.log4j.Logger logger = getLogger(category.getName());
+              final org.apache.log4j.Logger logger = getLogger(category.getName());
               logger.setLevel(Level.toLevel(category.getLevel()));
               update = true;
           }
@@ -131,7 +131,7 @@ public class LoggingController {
   public String addCategory() {
       LOG.debug("debug");
       LOG.trace("trace");
-      org.apache.log4j.Logger logger = getLogger(category);
+      final org.apache.log4j.Logger logger = getLogger(category);
       logger.setLevel(Level.toLevel(level));
       initCategories();
       return null;
@@ -143,7 +143,7 @@ public class LoggingController {
       return null;
   }
 
-  private org.apache.log4j.Logger getLogger(String category) {
+  private org.apache.log4j.Logger getLogger(final String category) {
       return ("root".equals(category))
               ? LogManager.getRootLogger()
               : LogManager.getLogger(category);
@@ -165,7 +165,7 @@ public class LoggingController {
       return category;
   }
 
-  public void setCategory(String category) {
+  public void setCategory(final String category) {
       this.category = category;
   }
 
@@ -173,7 +173,7 @@ public class LoggingController {
       return categoryControl;
   }
 
-  public void setCategoryControl(UIIn categoryControl) {
+  public void setCategoryControl(final UIIn categoryControl) {
       this.categoryControl = categoryControl;
   }
 
@@ -181,7 +181,7 @@ public class LoggingController {
       return level;
   }
 
-  public void setLevel(String level) {
+  public void setLevel(final String level) {
       this.level = level;
   }
 
@@ -189,7 +189,7 @@ public class LoggingController {
       return currentCategory;
   }
 
-  public void setCurrentCategory(UIParameter currentCategory) {
+  public void setCurrentCategory(final UIParameter currentCategory) {
       this.currentCategory = currentCategory;
   }
 
@@ -197,7 +197,7 @@ public class LoggingController {
       return catergoriesFirst;
   }
 
-  public void setCatergoriesFirst(int catergoriesFirst) {
+  public void setCatergoriesFirst(final int catergoriesFirst) {
       this.catergoriesFirst = catergoriesFirst;
   }
 
@@ -205,7 +205,7 @@ public class LoggingController {
       return catergoriesRows;
   }
 
-  public void setCatergoriesRows(int catergoriesRows) {
+  public void setCatergoriesRows(final int catergoriesRows) {
       this.catergoriesRows = catergoriesRows;
   }
 
@@ -213,7 +213,7 @@ public class LoggingController {
       return currentAppender;
   }
 
-  public void setCurrentAppender(UIParameter currentAppender) {
+  public void setCurrentAppender(final UIParameter currentAppender) {
       this.currentAppender = currentAppender;
   }
 

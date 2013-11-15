@@ -38,13 +38,13 @@ public final class LabelWithAccessKey {
   public static final char INDICATOR = '_';
   public static final String ESCAPED_INDICATOR = "__";
 
-  public LabelWithAccessKey(String label) {
+  public LabelWithAccessKey(final String label) {
     text = label;
     setup(text);
   }
 
-  public LabelWithAccessKey(UIComponent component) {
-    Object value;
+  public LabelWithAccessKey(final UIComponent component) {
+    final Object value;
     if (RendererTypes.LABEL.equals(component.getRendererType())) {
       value = component.getAttributes().get(Attributes.VALUE);
     } else {
@@ -54,7 +54,7 @@ public final class LabelWithAccessKey {
     setup(text);
   }
 
-  private void findIndicator(String label, int index, int escapedIndicatorCount) {
+  private void findIndicator(final String label, int index, int escapedIndicatorCount) {
     index = label.indexOf(INDICATOR, index);
     if (index == -1) {
       text = label;
@@ -74,7 +74,7 @@ public final class LabelWithAccessKey {
     }
   }
 
-  public void setup(String label) {
+  public void setup(final String label) {
     if (label != null) {
       findIndicator(label, 0, 0);
       text = StringUtils.replace(text, ESCAPED_INDICATOR, String.valueOf(INDICATOR));
@@ -104,11 +104,11 @@ public final class LabelWithAccessKey {
     return pos;
   }
 
-  public void setText(String text) {
+  public void setText(final String text) {
     this.text = text;
   }
 
-  public void setAccessKey(Character accessKey) {
+  public void setAccessKey(final Character accessKey) {
     if (!isPermitted(accessKey)) {
       LOG.warn("Ignoring illegal access key: " + accessKey);
     }
@@ -119,7 +119,7 @@ public final class LabelWithAccessKey {
    * Ensures, that no illegal character will be write out.
    * (If this is changed from only allowing letters, the renderers may change the escaping)
    */
-  private boolean isPermitted(Character accessKey) {
+  private boolean isPermitted(final Character accessKey) {
     return accessKey >= 'a' && accessKey <= 'z' || accessKey >= 'A' && accessKey <= 'Z';
   }
 }

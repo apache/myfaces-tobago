@@ -37,15 +37,15 @@ public class ApplyRequestValuesCallback implements TobagoCallback {
   @SuppressWarnings("UnusedDeclaration")
   private static final Logger LOG = LoggerFactory.getLogger(ApplyRequestValuesCallback.class);
 
-  public void invokeContextCallback(FacesContext context, UIComponent component) {
+  public void invokeContextCallback(final FacesContext context, final UIComponent component) {
     if (FacesContextUtils.isAjax(context)) {
       final String ajaxId = FacesContextUtils.getAjaxComponentId(context);
-      UIComponent reload = component.getFacet(Facets.RELOAD);
+      final UIComponent reload = component.getFacet(Facets.RELOAD);
       if (ajaxId != null && ajaxId.equals(component.getClientId(context)) && reload != null && reload.isRendered()
           && ajaxId.equals(FacesContextUtils.getActionId(context))) {
-        Boolean immediate = (Boolean) reload.getAttributes().get(Attributes.IMMEDIATE);
+        final Boolean immediate = (Boolean) reload.getAttributes().get(Attributes.IMMEDIATE);
         if (immediate != null && immediate) {
-          Boolean update = (Boolean) reload.getAttributes().get(Attributes.UPDATE);
+          final Boolean update = (Boolean) reload.getAttributes().get(Attributes.UPDATE);
           if (update != null && !update) {
             final Object response = context.getExternalContext().getResponse();
             if (response instanceof HttpServletResponse) {

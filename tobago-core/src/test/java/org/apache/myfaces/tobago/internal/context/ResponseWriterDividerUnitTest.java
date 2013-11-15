@@ -35,14 +35,14 @@ public class ResponseWriterDividerUnitTest extends AbstractTobagoTestBase {
   @Test
   public void test() throws IOException {
 
-    StringWriter stringWriter = new StringWriter();
+    final StringWriter stringWriter = new StringWriter();
     getFacesContext().setResponseWriter(new XmlResponseWriter(stringWriter, "text/xml", "ISO-8859-1"));
 
-    DefaultMutableTreeNode root = new DefaultMutableTreeNode("Root");
-    DefaultMutableTreeNode colors = new DefaultMutableTreeNode("Colors");
-    DefaultMutableTreeNode numbers = new DefaultMutableTreeNode("Numbers");
-    DefaultMutableTreeNode integers = new DefaultMutableTreeNode("Integers");
-    DefaultMutableTreeNode doubles = new DefaultMutableTreeNode("Doubles");
+    final DefaultMutableTreeNode root = new DefaultMutableTreeNode("Root");
+    final DefaultMutableTreeNode colors = new DefaultMutableTreeNode("Colors");
+    final DefaultMutableTreeNode numbers = new DefaultMutableTreeNode("Numbers");
+    final DefaultMutableTreeNode integers = new DefaultMutableTreeNode("Integers");
+    final DefaultMutableTreeNode doubles = new DefaultMutableTreeNode("Doubles");
     root.add(colors);
     root.add(numbers);
     numbers.add(integers);
@@ -54,10 +54,10 @@ public class ResponseWriterDividerUnitTest extends AbstractTobagoTestBase {
 
     render(getFacesContext(), root);
 
-    ResponseWriterDivider divider = ResponseWriterDivider.getInstance(getFacesContext(), "unit test");
+    final ResponseWriterDivider divider = ResponseWriterDivider.getInstance(getFacesContext(), "unit test");
     divider.writeOutAndCleanUp(getFacesContext());
 
-    String expected 
+    final String expected
         = "(Root)\n"
         + "Colors\n"
         + "Numbers\n"
@@ -78,10 +78,10 @@ public class ResponseWriterDividerUnitTest extends AbstractTobagoTestBase {
     Assert.assertEquals(expected, stringWriter.toString());
   }
 
-  private void render(FacesContext facesContext, DefaultMutableTreeNode node) throws IOException {
-    ResponseWriterDivider divider = ResponseWriterDivider.getInstance(facesContext, "unit test");
+  private void render(final FacesContext facesContext, final DefaultMutableTreeNode node) throws IOException {
+    final ResponseWriterDivider divider = ResponseWriterDivider.getInstance(facesContext, "unit test");
 
-    String label = (String) node.getUserObject();
+    final String label = (String) node.getUserObject();
 
     // label
     if (!node.isRoot()) {
@@ -93,7 +93,7 @@ public class ResponseWriterDividerUnitTest extends AbstractTobagoTestBase {
       divider.activateBranch(facesContext);
       facesContext.getResponseWriter().write("(" + label + ")\n");
       for (int i = 0; i < node.getChildCount(); i++) {
-        TreeNode sub = node.getChildAt(i);
+        final TreeNode sub = node.getChildAt(i);
         render(facesContext, (DefaultMutableTreeNode) sub);
       }
       facesContext.getResponseWriter().write("(/" + label + ")\n");

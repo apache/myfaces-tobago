@@ -45,22 +45,22 @@ public abstract class AbstractUIDatePicker extends AbstractUILink implements OnC
     return ComponentUtils.findFor(this);
   }
 
-  public void broadcast(FacesEvent facesEvent) {
-    FacesContext facesContext = FacesContext.getCurrentInstance();
-    UIComponent popup = (UIComponent) getFacets().get(Facets.POPUP);
-    String clientId = getForComponent().getClientId(facesContext);
-    UIComponent box = popup.findComponent("box");
-    UIComponent calendar = box.findComponent("calendar");
+  public void broadcast(final FacesEvent facesEvent) {
+    final FacesContext facesContext = FacesContext.getCurrentInstance();
+    final UIComponent popup = (UIComponent) getFacets().get(Facets.POPUP);
+    final String clientId = getForComponent().getClientId(facesContext);
+    final UIComponent box = popup.findComponent("box");
+    final UIComponent calendar = box.findComponent("calendar");
     calendar.getAttributes().put(Attributes.DATE_INPUT_ID, clientId);
-    UIComponent time = box.findComponent("time");
+    final UIComponent time = box.findComponent("time");
     if (time != null) {
       time.getAttributes().put(Attributes.DATE_INPUT_ID, clientId);
     }
     super.broadcast(facesEvent);
   }
 
-  public void onComponentCreated(FacesContext context, UIComponent parent) {
-    Renderer renderer = getRenderer(getFacesContext());
+  public void onComponentCreated(final FacesContext context, final UIComponent parent) {
+    final Renderer renderer = getRenderer(getFacesContext());
     if (renderer instanceof RendererBase) {
       ((RendererBase) renderer).onComponentCreated(context, this, parent);
     }

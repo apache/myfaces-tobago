@@ -51,31 +51,31 @@ public final class TagMethodExpression extends MethodExpression
     super();
   }
 
-  public TagMethodExpression(TagAttribute attr, MethodExpression orig) {
+  public TagMethodExpression(final TagAttribute attr, final MethodExpression orig) {
     this.attr = attr.toString();
     this.orig = orig;
   }
 
-  public MethodInfo getMethodInfo(ELContext context) {
+  public MethodInfo getMethodInfo(final ELContext context) {
     try {
       return this.orig.getMethodInfo(context);
-    } catch (PropertyNotFoundException pnfe) {
+    } catch (final PropertyNotFoundException pnfe) {
       throw new PropertyNotFoundException(this.attr + ": " + pnfe.getMessage(), pnfe.getCause());
-    } catch (MethodNotFoundException mnfe) {
+    } catch (final MethodNotFoundException mnfe) {
       throw new MethodNotFoundException(this.attr + ": " + mnfe.getMessage(), mnfe.getCause());
-    } catch (ELException e) {
+    } catch (final ELException e) {
       throw new ELException(this.attr + ": " + e.getMessage(), e.getCause());
     }
   }
 
-  public Object invoke(ELContext context, Object[] params) {
+  public Object invoke(final ELContext context, final Object[] params) {
     try {
       return this.orig.invoke(context, params);
-    } catch (PropertyNotFoundException pnfe) {
+    } catch (final PropertyNotFoundException pnfe) {
       throw new PropertyNotFoundException(this.attr + ": " + pnfe.getMessage(), pnfe.getCause());
-    } catch (MethodNotFoundException mnfe) {
+    } catch (final MethodNotFoundException mnfe) {
       throw new MethodNotFoundException(this.attr + ": " + mnfe.getMessage(), mnfe.getCause());
-    } catch (ELException e) {
+    } catch (final ELException e) {
       throw new ELException(this.attr + ": " + e.getMessage(), e.getCause());
     }
   }
@@ -84,7 +84,7 @@ public final class TagMethodExpression extends MethodExpression
     return this.orig.getExpressionString();
   }
 
-  public boolean equals(Object obj) {
+  public boolean equals(final Object obj) {
     return this.orig.equals(obj);
   }
 
@@ -96,12 +96,12 @@ public final class TagMethodExpression extends MethodExpression
     return this.orig.isLiteralText();
   }
 
-  public void writeExternal(ObjectOutput out) throws IOException {
+  public void writeExternal(final ObjectOutput out) throws IOException {
     out.writeObject(this.orig);
     out.writeUTF(this.attr);
   }
 
-  public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
+  public void readExternal(final ObjectInput in) throws IOException, ClassNotFoundException {
     this.orig = (MethodExpression) in.readObject();
     this.attr = in.readUTF();
   }

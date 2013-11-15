@@ -29,7 +29,7 @@ public class Tobago1041 {
 
   public String getHackFacesMessages() {
 
-    FacesContext facesContext = FacesContext.getCurrentInstance();
+    final FacesContext facesContext = FacesContext.getCurrentInstance();
 
     createMessage(facesContext, "page:literal-tc-both");
     createMessage(facesContext, "page:literal-tc-item");
@@ -54,7 +54,7 @@ public class Tobago1041 {
     return "hack";
   }
 
-  private void createMessage(FacesContext facesContext, String id) {
+  private void createMessage(final FacesContext facesContext, final String id) {
     String label = ((UISelectBooleanCheckbox) facesContext.getViewRoot().findComponent(id)).getLabel();
     if (StringUtils.isBlank(label)) {
       label = "-";

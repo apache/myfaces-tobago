@@ -44,7 +44,7 @@ public class LabelRenderer extends LayoutComponentRendererBase {
   private static final Logger LOG = LoggerFactory.getLogger(LabelRenderer.class);
 
   @Override
-  public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
+  public void prepareRender(final FacesContext facesContext, final UIComponent component) throws IOException {
     super.prepareRender(facesContext, component);
 
     ComponentUtils.evaluateAutoFor(component, UIInput.class);
@@ -59,14 +59,14 @@ public class LabelRenderer extends LayoutComponentRendererBase {
     }
   }
 
-  public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
+  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
 
-    UILabel label = (UILabel) component;
-    TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final UILabel label = (UILabel) component;
+    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
-    String forValue = ComponentUtils.findClientIdFor(label, facesContext);
+    final String forValue = ComponentUtils.findClientIdFor(label, facesContext);
 
-    String clientId = label.getClientId(facesContext);
+    final String clientId = label.getClientId(facesContext);
     writer.startElement(HtmlElements.LABEL, label);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, label);
     HtmlRendererUtils.renderDojoDndItem(label, writer, true);
@@ -87,10 +87,11 @@ public class LabelRenderer extends LayoutComponentRendererBase {
   /** Encodes the text inside of the label. 
    * Can be overwritten in other themes.
    */
-  protected void encodeTextContent(FacesContext facesContext, TobagoResponseWriter writer, UILabel label) 
+  protected void encodeTextContent(
+      final FacesContext facesContext, final TobagoResponseWriter writer, final UILabel label)
       throws IOException {
-    String clientId = label.getClientId(facesContext);
-    LabelWithAccessKey key = new LabelWithAccessKey(label);
+    final String clientId = label.getClientId(facesContext);
+    final LabelWithAccessKey key = new LabelWithAccessKey(label);
     if (key.getAccessKey() != null) {
       writer.writeAttribute(HtmlAttributes.ACCESSKEY, Character.toString(key.getAccessKey()), false);
     }

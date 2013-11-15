@@ -51,7 +51,7 @@ public abstract class PopupReferenceTag extends TagSupport {
   public int doStartTag() throws JspException {
 
     // Locate our parent UIComponentTag
-    UIComponentClassicTagBase tag =
+    final UIComponentClassicTagBase tag =
         UIComponentELTag.getParentUIComponentClassicTagBase(pageContext);
     if (tag == null) {
       // TODO Message resource i18n
@@ -62,7 +62,7 @@ public abstract class PopupReferenceTag extends TagSupport {
       return (SKIP_BODY);
     }
 
-    UIComponent component = tag.getComponentInstance();
+    final UIComponent component = tag.getComponentInstance();
     if (component == null) {
       // TODO Message resource i18n
       throw new JspException("Component Instance is null");
@@ -71,7 +71,7 @@ public abstract class PopupReferenceTag extends TagSupport {
       // TODO Message resource i18n
       throw new JspException("Component " + component.getClass().getName() + " is not instanceof ActionSource");
     }
-    ActionSource actionSource = (ActionSource) component;
+    final ActionSource actionSource = (ActionSource) component;
 
     component.setValueExpression(Attributes.FOR, forValue);
 
@@ -88,7 +88,7 @@ public abstract class PopupReferenceTag extends TagSupport {
    * The id of a Popup.
    */
   @TagAttribute(required = true, name = "for", type = "java.lang.String")
-  public void setFor(ValueExpression forValue) {
+  public void setFor(final ValueExpression forValue) {
     this.forValue = forValue;
   }
 

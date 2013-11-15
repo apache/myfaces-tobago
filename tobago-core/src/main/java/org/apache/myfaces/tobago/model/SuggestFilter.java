@@ -33,7 +33,7 @@ public enum SuggestFilter {
     return name().toLowerCase();
   }
 
-  public static SuggestFilter parse(String string) {
+  public static SuggestFilter parse(final String string) {
     if (string == null) {
       return null;
     }

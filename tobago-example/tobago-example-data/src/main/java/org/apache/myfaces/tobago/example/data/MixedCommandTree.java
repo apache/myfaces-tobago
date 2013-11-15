@@ -23,20 +23,20 @@ public class MixedCommandTree {
 
   public static NamedNode createSample() {
 
-    NamedNode tree = new NamedNode("Commands");
+    final NamedNode tree = new NamedNode("Commands");
 
-    NamedNode actions = new NamedNode("Actions");
+    final NamedNode actions = new NamedNode("Actions");
     tree.add(actions);
     actions.add(new NamedNode("Action 1", "Action 1", null, null));
     actions.add(new NamedNode("Action 2", "Action 2", null, null));
     actions.add(new NamedNode("Action 3", "Action 3", null, null));
 
-    NamedNode links = new NamedNode("Links");
+    final NamedNode links = new NamedNode("Links");
     tree.add(links);
     links.add(new NamedNode("MyFaces", null, null, "http://myfaces.apache.org/"));
     links.add(new NamedNode("Apache", null, null, "http://www.apache.org/"));
 
-    NamedNode scripts = new NamedNode("Scripts");
+    final NamedNode scripts = new NamedNode("Scripts");
     tree.add(scripts);
     scripts.add(new NamedNode("1", null, "alert(1);", null));
     scripts.add(new NamedNode("2", null, "alert(2);", null));

@@ -84,7 +84,7 @@ public class Address implements Serializable {
     LOG.debug("Creating new Address");
   }
 
-  public void fill(Address fromAddress) {
+  public void fill(final Address fromAddress) {
     id = fromAddress.getId();
     firstName = fromAddress.getFirstName();
     lastName = fromAddress.getLastName();
@@ -139,7 +139,7 @@ public class Address implements Serializable {
     return id;
   }
 
-  public void setId(Integer id) {
+  public void setId(final Integer id) {
     this.id = id;
   }
 
@@ -147,7 +147,7 @@ public class Address implements Serializable {
     return firstName;
   }
 
-  public void setFirstName(String firstName) {
+  public void setFirstName(final String firstName) {
     this.firstName = firstName;
   }
 
@@ -155,7 +155,7 @@ public class Address implements Serializable {
     return lastName;
   }
 
-  public void setLastName(String lastName) {
+  public void setLastName(final String lastName) {
     this.lastName = lastName;
   }
 
@@ -163,7 +163,7 @@ public class Address implements Serializable {
     return street;
   }
 
-  public void setStreet(String street) {
+  public void setStreet(final String street) {
     this.street = street;
   }
 
@@ -171,7 +171,7 @@ public class Address implements Serializable {
     return houseNumber;
   }
 
-  public void setHouseNumber(String houseNumber) {
+  public void setHouseNumber(final String houseNumber) {
     this.houseNumber = houseNumber;
   }
 
@@ -179,7 +179,7 @@ public class Address implements Serializable {
     return city;
   }
 
-  public void setCity(String city) {
+  public void setCity(final String city) {
     this.city = city;
   }
 
@@ -187,7 +187,7 @@ public class Address implements Serializable {
     return zipCode;
   }
 
-  public void setZipCode(String zipCode) {
+  public void setZipCode(final String zipCode) {
     this.zipCode = zipCode;
   }
 
@@ -195,7 +195,7 @@ public class Address implements Serializable {
     return country;
   }
 
-  public void setCountry(Locale country) {
+  public void setCountry(final Locale country) {
     this.country = country;
   }
 
@@ -203,7 +203,7 @@ public class Address implements Serializable {
     return phone;
   }
 
-  public void setPhone(String phone) {
+  public void setPhone(final String phone) {
     this.phone = phone;
   }
 
@@ -211,7 +211,7 @@ public class Address implements Serializable {
     return mobile;
   }
 
-  public void setMobile(String mobile) {
+  public void setMobile(final String mobile) {
     this.mobile = mobile;
   }
 
@@ -219,7 +219,7 @@ public class Address implements Serializable {
     return fax;
   }
 
-  public void setFax(String fax) {
+  public void setFax(final String fax) {
     this.fax = fax;
   }
 
@@ -227,7 +227,7 @@ public class Address implements Serializable {
     return email;
   }
 
-  public void setEmail(EmailAddress email) {
+  public void setEmail(final EmailAddress email) {
     if (email != null) {
       emailStr = email.getEmail();
     }
@@ -238,7 +238,7 @@ public class Address implements Serializable {
     return icq;
   }
 
-  public void setIcq(String icq) {
+  public void setIcq(final String icq) {
     this.icq = icq;
   }
 
@@ -246,7 +246,7 @@ public class Address implements Serializable {
     return homePage;
   }
 
-  public void setHomePage(String homePage) {
+  public void setHomePage(final String homePage) {
     this.homePage = homePage;
   }
 
@@ -254,7 +254,7 @@ public class Address implements Serializable {
     return dayOfBirth;
   }
 
-  public void setDayOfBirth(Date dayOfBirth) {
+  public void setDayOfBirth(final Date dayOfBirth) {
     this.dayOfBirth = dayOfBirth;
   }
 
@@ -262,7 +262,7 @@ public class Address implements Serializable {
     return note;
   }
 
-  public void setNote(String note) {
+  public void setNote(final String note) {
     this.note = note;
   }
 
@@ -270,7 +270,7 @@ public class Address implements Serializable {
     return company;
   }
 
-  public void setCompany(String company) {
+  public void setCompany(final String company) {
     this.company = company;
   }
 
@@ -278,7 +278,7 @@ public class Address implements Serializable {
     return jobTitle;
   }
 
-  public void setJobTitle(String jobTitle) {
+  public void setJobTitle(final String jobTitle) {
     this.jobTitle = jobTitle;
   }
 
@@ -286,7 +286,7 @@ public class Address implements Serializable {
     return jobPhone;
   }
 
-  public void setJobPhone(String jobPhone) {
+  public void setJobPhone(final String jobPhone) {
     this.jobPhone = jobPhone;
   }
 
@@ -294,7 +294,7 @@ public class Address implements Serializable {
     return jobEmail;
   }
 
-  public void setJobEmail(EmailAddress jobEmail) {
+  public void setJobEmail(final EmailAddress jobEmail) {
     if (jobEmail != null) {
       jobEmailStr = jobEmail.getEmail();
     }
@@ -305,7 +305,7 @@ public class Address implements Serializable {
     return jobHomePage;
   }
 
-  public void setJobHomePage(String jobHomePage) {
+  public void setJobHomePage(final String jobHomePage) {
     this.jobHomePage = jobHomePage;
   }
 
@@ -317,7 +317,7 @@ public class Address implements Serializable {
     return picture;
   }
 
-  public void setPicture(Picture picture) {
+  public void setPicture(final Picture picture) {
     this.picture = picture;
   }
 

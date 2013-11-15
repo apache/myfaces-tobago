@@ -26,7 +26,7 @@ public class Partially {
   private String characters;
 
   public Partially() {
-    StringBuilder builder = new StringBuilder();
+    final StringBuilder builder = new StringBuilder();
     builder.append("test_characters = [ ");
     for (char c = 0; c < 0x24F; c++) {
 
@@ -56,7 +56,7 @@ public class Partially {
     return counter;
   }
 
-  public void setCounter(int counter) {
+  public void setCounter(final int counter) {
     this.counter = counter;
   }
 
@@ -64,7 +64,7 @@ public class Partially {
     return characters;
   }
 
-  public void setCharacters(String characters) {
+  public void setCharacters(final String characters) {
     this.characters = characters;
   }
 }

@@ -61,10 +61,10 @@ public class ServerInfo {
         file = CONFIG_FILE_DEFAULT;
       }
       LOG.info("Loading config from file '" + file + "'");
-      Properties config = new Properties();
+      final Properties config = new Properties();
       config.load(new FileInputStream(file));
       enabled = Boolean.parseBoolean(config.getProperty(ENABLED_KEY));
-    } catch (IOException e) {
+    } catch (final IOException e) {
       LOG.warn("Can't load config: " + e.getMessage());
     }
     // the tobago version should be set in any case

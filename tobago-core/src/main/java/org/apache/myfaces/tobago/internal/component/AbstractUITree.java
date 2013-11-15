@@ -64,14 +64,14 @@ public abstract class AbstractUITree extends AbstractUIData
   private TreeState state;
 
   @Override
-  public void processValidators(FacesContext facesContext) {
+  public void processValidators(final FacesContext facesContext) {
     final int last = hasRows() ? getFirst() + getRows() : Integer.MAX_VALUE;
     for (int rowIndex = getFirst(); rowIndex < last; rowIndex++) {
       setRowIndex(rowIndex);
       if (!isRowAvailable()) {
         break;
       }
-      for (UIComponent child : getChildren()) {
+      for (final UIComponent child : getChildren()) {
         child.processValidators(facesContext);
       }
     }
@@ -79,14 +79,14 @@ public abstract class AbstractUITree extends AbstractUIData
   }
 
   @Override
-  public void processUpdates(FacesContext facesContext) {
+  public void processUpdates(final FacesContext facesContext) {
     final int last = hasRows() ? getFirst() + getRows() : Integer.MAX_VALUE;
     for (int rowIndex = getFirst(); rowIndex < last; rowIndex++) {
       setRowIndex(rowIndex);
       if (!isRowAvailable()) {
         break;
       }
-      for (UIComponent child : getChildren()) {
+      for (final UIComponent child : getChildren()) {
         child.processUpdates(facesContext);
       }
     }
@@ -99,7 +99,7 @@ public abstract class AbstractUITree extends AbstractUIData
   @Deprecated
   public UIComponent getRoot() {
     // find the UITreeNode in the children.
-    for (UIComponent child : getChildren()) {
+    for (final UIComponent child : getChildren()) {
       if (child instanceof AbstractUITreeNode) {
         return child;
       }
@@ -125,7 +125,7 @@ public abstract class AbstractUITree extends AbstractUIData
   }
 
   @Override
-  public void processDecodes(FacesContext facesContext) {
+  public void processDecodes(final FacesContext facesContext) {
 
     if (!isRendered()) {
       return;
@@ -137,7 +137,7 @@ public abstract class AbstractUITree extends AbstractUIData
       if (!isRowAvailable()) {
         break;
       }
-      for (UIComponent child : getChildren()) {
+      for (final UIComponent child : getChildren()) {
         child.processDecodes(facesContext);
       }
     }
@@ -201,7 +201,7 @@ public abstract class AbstractUITree extends AbstractUIData
     // TODO: updating the model here and *NOT* in the decode phase
   }
 */
-  public void setState(TreeState state) {
+  public void setState(final TreeState state) {
     this.state = state;
   }
 
@@ -237,15 +237,15 @@ public abstract class AbstractUITree extends AbstractUIData
   }
 
   @Override
-  public void restoreState(FacesContext context, Object componentState) {
-    Object[] values = (Object[]) componentState;
+  public void restoreState(final FacesContext context, final Object componentState) {
+    final Object[] values = (Object[]) componentState;
     super.restoreState(context, values[0]);
     state = (TreeState) values[1];
   }
 
   @Override
-  public Object saveState(FacesContext context) {
-    Object[] values = new Object[2];
+  public Object saveState(final FacesContext context) {
+    final Object[] values = new Object[2];
     values[0] = super.saveState(context);
     values[1] = state;
     return values;

@@ -31,7 +31,7 @@ public final class FindComponentUtils {
   }
 
   public static UIComponent findComponent(UIComponent from, String relativeId) {
-    int idLength = relativeId.length();
+    final int idLength = relativeId.length();
     if (idLength > 0 && relativeId.charAt(0) == '@') {
       if (relativeId.equals("@this")) {
         return from;

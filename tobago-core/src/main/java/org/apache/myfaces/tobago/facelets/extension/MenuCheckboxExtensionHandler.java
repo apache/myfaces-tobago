@@ -38,7 +38,7 @@ import javax.faces.view.facelets.ComponentConfig;
  */
 public class MenuCheckboxExtensionHandler extends TobagoMenuExtensionHandler {
 
-  public MenuCheckboxExtensionHandler(ComponentConfig config) {
+  public MenuCheckboxExtensionHandler(final ComponentConfig config) {
     super(config);
   }
 

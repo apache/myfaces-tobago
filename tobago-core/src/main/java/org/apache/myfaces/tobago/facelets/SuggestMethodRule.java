@@ -35,7 +35,7 @@ public class SuggestMethodRule extends MetaRule {
 
   public static final SuggestMethodRule INSTANCE = new SuggestMethodRule();
 
-  public Metadata applyRule(String name, TagAttribute attribute, MetadataTarget metadataTarget) {
+  public Metadata applyRule(final String name, final TagAttribute attribute, final MetadataTarget metadataTarget) {
 
     if (metadataTarget.isTargetInstanceOf(InputSuggest2.class)) {
       if ("suggestMethod".equals(name)) {
@@ -55,11 +55,11 @@ public class SuggestMethodRule extends MetaRule {
   static final class SuggestMethodMapper extends Metadata {
     private final TagAttribute attribute;
 
-    public SuggestMethodMapper(TagAttribute attribute) {
+    public SuggestMethodMapper(final TagAttribute attribute) {
       this.attribute = attribute;
     }
 
-    public void applyMetadata(FaceletContext ctx, Object instance) {
+    public void applyMetadata(final FaceletContext ctx, final Object instance) {
       ((InputSuggest2) instance).setSuggestMethodExpression(
           attribute.getMethodExpression(ctx, null, SuggestMethodRule.SUGGEST_METHOD));
     }
@@ -68,11 +68,11 @@ public class SuggestMethodRule extends MetaRule {
   static final class SuggestFilterMapper extends Metadata {
     private final TagAttribute attribute;
 
-    SuggestFilterMapper(TagAttribute attribute) {
+    SuggestFilterMapper(final TagAttribute attribute) {
       this.attribute = attribute;
     }
 
-    public void applyMetadata(FaceletContext ctx, Object instance) {
+    public void applyMetadata(final FaceletContext ctx, final Object instance) {
       ((AbstractUISuggest) instance).setFilter(SuggestFilter.parse(attribute.getValue()));
     }
   }

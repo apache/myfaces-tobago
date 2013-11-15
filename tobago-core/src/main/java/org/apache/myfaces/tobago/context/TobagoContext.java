@@ -32,8 +32,8 @@ public class TobagoContext {
   private static final TobagoMessageBundle MESSAGE_BUNDLE = new TobagoMessageBundle();
 
   public Box getActionPosition() {
-    FacesContext facesContext = FacesContext.getCurrentInstance();
-    AbstractUIPage page = ComponentUtils.findPage(facesContext);
+    final FacesContext facesContext = FacesContext.getCurrentInstance();
+    final AbstractUIPage page = ComponentUtils.findPage(facesContext);
     return page.getActionPosition();
   }
 
@@ -42,8 +42,8 @@ public class TobagoContext {
    * E. g. <code>width="#{tobagoContext.pageDimension.width.pixel - 100}"</code>
    */
   public Dimension getPageDimension() {
-    FacesContext facesContext = FacesContext.getCurrentInstance();
-    AbstractUIPage page = ComponentUtils.findPage(facesContext);
+    final FacesContext facesContext = FacesContext.getCurrentInstance();
+    final AbstractUIPage page = ComponentUtils.findPage(facesContext);
     return new Dimension(page.getWidth(), page.getHeight());
   }
 

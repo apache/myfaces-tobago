@@ -40,7 +40,7 @@ public abstract class BoxRendererBase extends LayoutComponentRendererBase {
   }
 
   @Override
-  public Measure getBorderTop(FacesContext facesContext, Configurable component) {
+  public Measure getBorderTop(final FacesContext facesContext, final Configurable component) {
 
     Measure borderTop = super.getBorderTop(facesContext, component);
     if (getMenuBarFacet((UIComponent) component) != null) {
@@ -50,7 +50,7 @@ public abstract class BoxRendererBase extends LayoutComponentRendererBase {
   }
 
   @Override
-  public Measure getMinimumHeight(FacesContext facesContext, Configurable component) {
+  public Measure getMinimumHeight(final FacesContext facesContext, final Configurable component) {
     if (component instanceof UIBox && ((UIBox) component).isCollapsed()) {
       return getBorderTop(facesContext, component);
     }
@@ -58,19 +58,19 @@ public abstract class BoxRendererBase extends LayoutComponentRendererBase {
   }
 
   @Override
-  public Measure getMaximumHeight(FacesContext facesContext, Configurable component) {
+  public Measure getMaximumHeight(final FacesContext facesContext, final Configurable component) {
     if (component instanceof UIBox && ((UIBox) component).isCollapsed()) {
       return getBorderTop(facesContext, component);
     }
     return super.getMaximumHeight(facesContext, component);
   }
 
-  protected UIMenuBar getMenuBarFacet(UIComponent component) {
+  protected UIMenuBar getMenuBarFacet(final UIComponent component) {
     return (UIMenuBar) component.getFacet(Facets.MENUBAR);
   }
 
   @Override
-  public void encodeChildren(FacesContext facesContext, UIComponent component) throws IOException {
+  public void encodeChildren(final FacesContext facesContext, final UIComponent component) throws IOException {
     if (component instanceof UIBox && ((UIBox) component).isCollapsed()) {
       return;
     }
