@@ -52,23 +52,23 @@ MyFaces Tobago 2.0.0-alpha-2 Distribution
 | MyFaces Tobago Example  | zip    | {{{http://www.apache.org/dyn/closer.cgi/myfaces/binaries/myfaces-tobago-2.0.0-alpha-2-example.zip} myfaces-tobago-2.0.0-alpha-2-example.zip}} | {{{http://www.apache.org/dist/myfaces/binaries/myfaces-tobago-2.0.0-alpha-2-example.zip.md5} myfaces-tobago-2.0.0-alpha-2-example.zip.md5}} | {{{http://www.apache.org/dist/myfaces/binaries/myfaces-tobago-2.0.0-alpha-2-example.zip.asc} myfaces-tobago-2.0.0-alpha-2-example.zip.asc}} |
 *-------------------------+--------+---------+----------+-----------+
 
-MyFaces Tobago 1.5.10 Distribution
+MyFaces Tobago 1.5.11 Distribution
 
     Release notes can be found in
-    {{{https://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&version=12324008}Jira}}.
+    {{{https://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&version=12324453}Jira}}.
 
 *-------------------------+--------+---------+----------+-----------+
 |                         | Typ    | Mirrors | Checksum | Signature |
 *-------------------------+--------+---------+----------+-----------+
-| MyFaces Tobago          | tar.gz | {{{http://www.apache.org/dyn/closer.cgi/myfaces/binaries/myfaces-tobago-1.5.10-dist.tar.gz} myfaces-tobago-1.5.10-dist.tar.gz}} | {{{http://www.apache.org/dist/myfaces/binaries/myfaces-tobago-1.5.10-dist.tar.gz.md5} myfaces-tobago-1.5.10-dist.tar.gz.md5}} | {{{http://www.apache.org/dist/myfaces/binaries/myfaces-tobago-1.5.10-dist.tar.gz.asc} myfaces-tobago-1.5.10-dist.tar.gz.asc}} |
+| MyFaces Tobago          | tar.gz | {{{http://www.apache.org/dyn/closer.cgi/myfaces/binaries/myfaces-tobago-1.5.11-dist.tar.gz} myfaces-tobago-1.5.11-dist.tar.gz}} | {{{http://www.apache.org/dist/myfaces/binaries/myfaces-tobago-1.5.11-dist.tar.gz.md5} myfaces-tobago-1.5.11-dist.tar.gz.md5}} | {{{http://www.apache.org/dist/myfaces/binaries/myfaces-tobago-1.5.11-dist.tar.gz.asc} myfaces-tobago-1.5.11-dist.tar.gz.asc}} |
 *-------------------------+--------+---------+----------+-----------+
-| MyFaces Tobago          | zip    | {{{http://www.apache.org/dyn/closer.cgi/myfaces/binaries/myfaces-tobago-1.5.10-dist.zip} myfaces-tobago-1.5.10-dist.zip}} | {{{http://www.apache.org/dist/myfaces/binaries/myfaces-tobago-1.5.10-dist.zip.md5} myfaces-tobago-1.5.10-dist.zip.md5}} | {{{http://www.apache.org/dist/myfaces/binaries/myfaces-tobago-1.5.10-dist.zip.asc} myfaces-tobago-1.5.10-dist.zip.asc}} |
+| MyFaces Tobago          | zip    | {{{http://www.apache.org/dyn/closer.cgi/myfaces/binaries/myfaces-tobago-1.5.11-dist.zip} myfaces-tobago-1.5.11-dist.zip}} | {{{http://www.apache.org/dist/myfaces/binaries/myfaces-tobago-1.5.11-dist.zip.md5} myfaces-tobago-1.5.11-dist.zip.md5}} | {{{http://www.apache.org/dist/myfaces/binaries/myfaces-tobago-1.5.11-dist.zip.asc} myfaces-tobago-1.5.11-dist.zip.asc}} |
 *-------------------------+--------+---------+----------+-----------+
-| MyFaces Tobago Source   | zip    | {{{http://www.apache.org/dyn/closer.cgi/myfaces/source/myfaces-tobago-1.5.10-source-release.zip} myfaces-tobago-1.5.10-source-release.zip}} | {{{http://www.apache.org/dist/myfaces/source/myfaces-tobago-1.5.10-source-release.zip.md5} myfaces-tobago-1.5.10-source-release.zip.md5}} | {{{http://www.apache.org/dist/myfaces/source/myfaces-tobago-1.5.10-source-release.zip.asc} myfaces-tobago-1.5.10-source-release.zip.asc}} |
+| MyFaces Tobago Source   | zip    | {{{http://www.apache.org/dyn/closer.cgi/myfaces/source/myfaces-tobago-1.5.11-source-release.zip} myfaces-tobago-1.5.11-source-release.zip}} | {{{http://www.apache.org/dist/myfaces/source/myfaces-tobago-1.5.11-source-release.zip.md5} myfaces-tobago-1.5.11-source-release.zip.md5}} | {{{http://www.apache.org/dist/myfaces/source/myfaces-tobago-1.5.11-source-release.zip.asc} myfaces-tobago-1.5.11-source-release.zip.asc}} |
 *-------------------------+--------+---------+----------+-----------+
-| MyFaces Tobago Example  | tar.gz | {{{http://www.apache.org/dyn/closer.cgi/myfaces/binaries/myfaces-tobago-1.5.10-example.tar.gz} myfaces-tobago-1.5.10-example.tar.gz}} | {{{http://www.apache.org/dist/myfaces/binaries/myfaces-tobago-1.5.10-example.tar.gz.md5} myfaces-tobago-1.5.10-example.tar.gz.md5}} | {{{http://www.apache.org/dist/myfaces/binaries/myfaces-tobago-1.5.10-example.tar.gz.asc} myfaces-tobago-1.5.10-example.tar.gz.asc}} |
+| MyFaces Tobago Example  | tar.gz | {{{http://www.apache.org/dyn/closer.cgi/myfaces/binaries/myfaces-tobago-1.5.11-example.tar.gz} myfaces-tobago-1.5.11-example.tar.gz}} | {{{http://www.apache.org/dist/myfaces/binaries/myfaces-tobago-1.5.11-example.tar.gz.md5} myfaces-tobago-1.5.11-example.tar.gz.md5}} | {{{http://www.apache.org/dist/myfaces/binaries/myfaces-tobago-1.5.11-example.tar.gz.asc} myfaces-tobago-1.5.11-example.tar.gz.asc}} |
 *-------------------------+--------+---------+----------+-----------+
-| MyFaces Tobago Example  | zip    | {{{http://www.apache.org/dyn/closer.cgi/myfaces/binaries/myfaces-tobago-1.5.10-example.zip} myfaces-tobago-1.5.10-example.zip}} | {{{http://www.apache.org/dist/myfaces/binaries/myfaces-tobago-1.5.10-example.zip.md5} myfaces-tobago-1.5.10-example.zip.md5}} | {{{http://www.apache.org/dist/myfaces/binaries/myfaces-tobago-1.5.10-example.zip.asc} myfaces-tobago-1.5.10-example.zip.asc}} |
+| MyFaces Tobago Example  | zip    | {{{http://www.apache.org/dyn/closer.cgi/myfaces/binaries/myfaces-tobago-1.5.11-example.zip} myfaces-tobago-1.5.11-example.zip}} | {{{http://www.apache.org/dist/myfaces/binaries/myfaces-tobago-1.5.11-example.zip.md5} myfaces-tobago-1.5.11-example.zip.md5}} | {{{http://www.apache.org/dist/myfaces/binaries/myfaces-tobago-1.5.11-example.zip.asc} myfaces-tobago-1.5.11-example.zip.asc}} |
 *-------------------------+--------+---------+----------+-----------+
 
 MyFaces Tobago 1.0.40 Distribution
