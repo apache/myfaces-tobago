@@ -60,7 +60,7 @@ public class EncodeAjaxCallback implements TobagoCallback {
         layoutContainer.setWidth(oldWidth);
         layoutContainer.setHeight(oldHeight);
       }
-      encodeAll(facesContext, component);
+      component.encodeAll(facesContext);
     } catch (final IOException e) {
       throw new FacesException(e);
     }
@@ -70,20 +70,12 @@ public class EncodeAjaxCallback implements TobagoCallback {
       return PhaseId.RENDER_RESPONSE;
   }
   
-
-  // TODO replace with component.encodeAll after removing jsf 1.1 support
+  /**
+   * @deprecated since 2.0.0, please use component.encodeAll()
+   */
+  @Deprecated
   public static void encodeAll(final FacesContext facesContext, final UIComponent component) throws IOException {
-     if (component.isRendered()) {
-      component.encodeBegin(facesContext);
-      if (component.getRendersChildren()) {
-        component.encodeChildren(facesContext);
-      } else {
-        for (final UIComponent child : component.getChildren()) {
-          encodeAll(facesContext, child);
-        }
-      }
-      component.encodeEnd(facesContext);
-    }
+    component.encodeAll(facesContext);
   }
 
   /**
