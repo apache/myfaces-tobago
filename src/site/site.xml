@@ -64,8 +64,10 @@
       <item name="Release Checklist" href="http://myfaces.apache.org/tobago/release-checklist.html" />
     </menu>
 
+<!--
     ${parentProject}
     ${modules}
+-->
     ${reports}
 
     <menu name="Foundation">
