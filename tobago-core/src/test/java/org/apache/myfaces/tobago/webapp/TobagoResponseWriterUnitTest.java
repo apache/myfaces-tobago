@@ -70,7 +70,7 @@ public class TobagoResponseWriterUnitTest {
     writer.startElement(HtmlElements.SELECT, null);
     writer.writeAttribute(HtmlAttributes.VALUE, "0", null);
     writer.endElement(HtmlElements.SELECT);
-    Assert.assertEquals("attr tag", "<select value=\"0\"\n></select>", stringWriter.toString());
+    Assert.assertEquals("attr tag", "<select value='0'\n></select>", stringWriter.toString());
   }
   
   @Test
@@ -78,7 +78,7 @@ public class TobagoResponseWriterUnitTest {
     writer.startElement(HtmlElements.A, null);
     writer.writeURIAttribute(HtmlAttributes.HREF, "http://example.org/web?text=äöüß", null);
     writer.endElement(HtmlElements.A);
-    Assert.assertEquals("uri attr tag", "<a href=\"http://example.org/web?text=%C3%A4%C3%B6%C3%BC%C3%9F\"\n></a>",
+    Assert.assertEquals("uri attr tag", "<a href='http://example.org/web?text=%C3%A4%C3%B6%C3%BC%C3%9F'\n></a>",
             stringWriter.toString());
   }
 
@@ -87,7 +87,7 @@ public class TobagoResponseWriterUnitTest {
     writer.startElement(HtmlElements.SELECT, null);
     writer.writeAttribute(HtmlAttributes.VALUE, "-<->-ü-€-", null);
     writer.endElement(HtmlElements.SELECT);
-    Assert.assertEquals("attr tag", "<select value=\"-&lt;-&gt;-ü-€-\"\n></select>", stringWriter.toString());
+    Assert.assertEquals("attr tag", "<select value='-&lt;-&gt;-ü-€-'\n></select>", stringWriter.toString());
   }
 
   @Test
@@ -120,10 +120,10 @@ public class TobagoResponseWriterUnitTest {
 
     String result = buffer.toString(); // all the same but this 4 items
     result = result.replace("&", "&amp;");
-    result = result.replace("\"", "&quot;");
+    result = result.replace("'", "&#39;");
     result = result.replace("<", "&lt;");
     result = result.replace(">", "&gt;");
-    Assert.assertEquals("all chars", "<select value=\"" + result + "\"\n>" + result + "</select>",
+    Assert.assertEquals("all chars", "<select value='" + result + "'\n>" + result + "</select>",
         stringWriter.toString());
   }
 
@@ -135,7 +135,7 @@ public class TobagoResponseWriterUnitTest {
     writer1.writeAttribute(HtmlAttributes.READONLY, true);
     writer1.endElement(HtmlElements.INPUT);
     writer1.close();
-    Assert.assertEquals("<input value=\"Gutschein &uuml;ber 100 &euro;.\" readonly=\"readonly\"\n>",
+    Assert.assertEquals("<input value='Gutschein &uuml;ber 100 &euro;.' readonly='readonly'\n>",
         stringWriter.toString());
   }
 

@@ -47,7 +47,7 @@ public class HtmlWriterUtilsUnitTest {
   };
   public static final String[] ESCAPED_TEXTS = {
       "oeffnende spitze klammern werden in attributen doch escaped &lt;tagname &gt;",
-      "&amp; followed by an { -&gt; &amp;{ don't get escaped in attributes",
+      "&amp; followed by an { -&gt; &amp;{ don&#39;t get escaped in attributes",
       RAW_TEXTS[2], // no escape needed
       "&nbsp;&iexcl;&cent;&pound;&curren;&yen;&brvbar;&sect;&uml;&copy;&ordf;&laquo;&not;&shy;&reg;&macr;",
       "&deg;&plusmn;&sup2;&sup3;&acute;&micro;&para;&middot;&cedil;&sup1;&ordm;&raquo;&frac14;&frac12;"
@@ -63,21 +63,34 @@ public class HtmlWriterUtilsUnitTest {
   };
 
   public static final String[] ESCAPED_ATTRIBUTES = {
-      "oeffnende spitze klammern werden in attributen doch escaped &lt;tagname &gt;",
-      "&amp; followed by an { -&gt; &{ don't get escaped in attributes",
-      RAW_TEXTS[2] // no escape needed
+      ESCAPED_TEXTS[0], // same as in texts
+      "&amp; followed by an { -&gt; &{ don&#39;t get escaped in attributes",
+      ESCAPED_TEXTS[2], // same as in texts
+      ESCAPED_TEXTS[3], // same as in texts
+      ESCAPED_TEXTS[4], // same as in texts
+      ESCAPED_TEXTS[5], // same as in texts
+      ESCAPED_TEXTS[6], // same as in texts
+      ESCAPED_TEXTS[7], // same as in texts
+      ESCAPED_TEXTS[8] // same as in texts
   };
 
   @Test
-  public void test() {
+  public void testTexts() {
     final CharArrayWriter writer = new CharArrayWriter();
     final HtmlWriterUtils helper = new HtmlWriterUtils(writer, "");
 
     for (int i = 0; i < ESCAPED_TEXTS.length; i++) {
       testText(helper, writer, RAW_TEXTS[i], ESCAPED_TEXTS[i]);
-      if (i < ESCAPED_ATTRIBUTES.length) {
-        testAttributeValue(helper, writer, RAW_TEXTS[i], ESCAPED_ATTRIBUTES[i]);
-      }
+    }
+  }
+
+  @Test
+  public void testAttributes() {
+    final CharArrayWriter writer = new CharArrayWriter();
+    final HtmlWriterUtils helper = new HtmlWriterUtils(writer, "");
+
+    for (int i = 0; i < ESCAPED_ATTRIBUTES.length; i++) {
+      testAttributeValue(helper, writer, RAW_TEXTS[i], ESCAPED_ATTRIBUTES[i]);
     }
   }
 
@@ -87,7 +100,7 @@ public class HtmlWriterUtilsUnitTest {
       writer.reset();
       writerUtil.writeText(text);
       final String result = String.valueOf(writer.toCharArray());
-      Assert.assertEquals(result, escaped);
+      Assert.assertEquals(escaped, result);
 
     } catch (final IOException e) {
       // could not occur with CharArrayWriter
@@ -100,7 +113,7 @@ public class HtmlWriterUtilsUnitTest {
       writer.reset();
       writerUtil.writeAttributeValue(text);
       final String result = String.valueOf(writer.toCharArray());
-      Assert.assertEquals(result, escaped);
+      Assert.assertEquals(escaped, result);
 
     } catch (final IOException e) {
       // could not occur with CharArrayWriter
