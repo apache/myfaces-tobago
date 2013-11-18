@@ -39,7 +39,8 @@ public final class JsonWriterUtils extends WriterUtils {
     CHARS_TO_ESCAPE['\n'] = "&#10;".toCharArray(); // Line feed
     CHARS_TO_ESCAPE['\r'] = "&#13;".toCharArray(); // Carriage return
 
-    CHARS_TO_ESCAPE['"'] = "&quot;".toCharArray();
+    CHARS_TO_ESCAPE['\''] = "&#39;".toCharArray();
+    CHARS_TO_ESCAPE['"'] = "\\\"".toCharArray();
     CHARS_TO_ESCAPE['&'] = "&amp;".toCharArray();
     CHARS_TO_ESCAPE['<'] = "&lt;".toCharArray();
     CHARS_TO_ESCAPE['>'] = "&gt;".toCharArray();

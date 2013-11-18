@@ -149,14 +149,14 @@ public class JsonResponseWriter extends HtmlResponseWriter {
     if (value != null) {
       writer.write(' ');
       writer.write(name);
-      writer.write("=\\\"");
+      writer.write("='");
 
       if (escape) {
         getHelper().writeAttributeValue(value);
       } else {
         writer.write(value);
       }
-      writer.write("\\\"");
+      writer.write("'");
     }
   }
 
