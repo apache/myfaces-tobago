@@ -149,14 +149,13 @@ public abstract class TobagoResponseWriter extends ResponseWriter {
   public abstract void writeClassAttribute() throws IOException;
 
   /**
-   * Write the style attribute. The value will not escaped.
+   * Write the style attribute. The value may be escaped (depending of the content).
    */
   public void writeStyleAttribute(final Style style) throws IOException {
     if (style != null) {
       final String json = style.encodeJson();
       if (json.length() > 2) { // empty "{}" needs not to be written
-        writeAttribute(DataAttributes.STYLE, json, true);
-        // todo: check not escaping, when it's not needed, use: style.needsToBeEscaped()
+        writeAttribute(DataAttributes.STYLE, json, style.needsToBeEscaped());
       }
     }
   }

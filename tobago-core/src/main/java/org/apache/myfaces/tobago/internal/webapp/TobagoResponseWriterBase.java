@@ -318,9 +318,9 @@ public abstract class TobagoResponseWriterBase extends TobagoResponseWriter {
     if (value != null) {
       writer.write(' ');
       writer.write(name);
-      writer.write("=\"");
+      writer.write("='");
       writerAttributeValue(value, escape);
-      writer.write('\"');
+      writer.write('\'');
     }
   }
   protected abstract void writerAttributeValue(String value, boolean escape) throws IOException;
