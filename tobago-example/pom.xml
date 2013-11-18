@@ -397,7 +397,19 @@
           </releases>
         </pluginRepository>
       </pluginRepositories>
+    </profile>
 
+    <profile>
+      <id>jboss</id>
+      <build>
+      <plugins>
+        <plugin>
+          <groupId>org.jboss.as.plugins</groupId>
+          <artifactId>jboss-as-maven-plugin</artifactId>
+          <version>7.3.Final</version>
+        </plugin>
+      </plugins>
+      </build>
     </profile>
   </profiles>
 </project>
