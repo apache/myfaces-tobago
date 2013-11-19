@@ -20,6 +20,8 @@
 package org.apache.myfaces.tobago.internal.lifecycle;
 
 import org.apache.myfaces.tobago.util.DebugUtils;
+import org.apache.myfaces.tobago.util.FacesVersion;
+import org.apache.myfaces.tobago.util.MessageUtils;
 import org.apache.myfaces.tobago.util.RequestUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -102,10 +104,19 @@ public class TobagoLifecycle extends Lifecycle {
       if (executor.execute(facesContext)) {
         return true;
       }
+    } catch (RuntimeException e) {
+      if (FacesVersion.supports20()) {
+        MessageUtils.publishException(e, executor.getPhase(), facesContext);
+      } else {
+        throw e;
+      }
     } finally {
       phaseListenerMgr.informPhaseListenersAfter(executor.getPhase());
     }
 
+    if (FacesVersion.supports20()) {
+      MessageUtils.handleExceptions(facesContext);
+    }
 
     if (isResponseComplete(facesContext, executor.getPhase(), false)
         || shouldRenderResponse(facesContext, executor.getPhase(), false)) {
@@ -138,8 +149,18 @@ public class TobagoLifecycle extends Lifecycle {
         return;
       }
       renderExecutor.execute(facesContext);
+    } catch (RuntimeException e) {
+      if (FacesVersion.supports20()) {
+        MessageUtils.publishException(e, renderExecutor.getPhase(), facesContext);
+      } else {
+        throw e;
+      }
     } finally {
       phaseListenerMgr.informPhaseListenersAfter(renderExecutor.getPhase());
+    }
+
+    if (FacesVersion.supports20()) {
+      MessageUtils.handleExceptions(facesContext);
     }
 
     if (LOG.isTraceEnabled()) {

@@ -29,6 +29,9 @@ import org.slf4j.LoggerFactory;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ExceptionQueuedEvent;
+import javax.faces.event.ExceptionQueuedEventContext;
+import javax.faces.event.PhaseId;
 import java.text.MessageFormat;
 import java.util.Locale;
 import java.util.MissingResourceException;
@@ -168,5 +171,14 @@ public class MessageUtils {
       return format.format(args);
     }
     return message;
+  }
+
+  public static void handleExceptions(FacesContext facesContext) {
+    facesContext.getExceptionHandler().handle();
+  }
+
+  public static void publishException(Throwable e, PhaseId phaseId, FacesContext facesContext) {
+    ExceptionQueuedEventContext context = new ExceptionQueuedEventContext(facesContext, e, null, phaseId);
+    facesContext.getApplication().publishEvent(facesContext, ExceptionQueuedEvent.class, context);
   }
 }
