@@ -36,7 +36,6 @@ public interface HasSuggestMethod {
    * and returns a List&lt;String>(deprecated), a List&lt;org.apache.myfaces.tobago.model.AutoSuggestItem>
    * or a org.apache.myfaces.tobago.model.AutoSuggestItems.
    *
-   * @since 1.5.9
    * @deprecated since 2.0.0, please use tc:suggest
    */
   @Deprecated
