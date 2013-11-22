@@ -334,7 +334,10 @@ public class InExtensionTag extends TobagoExtensionBodyTagSupport {
    * The expression has to evaluate to a public method which has a javax.faces.component.UIInput parameter
    * and returns a List&lt;String>(deprecated), a List&lt;org.apache.myfaces.tobago.model.AutoSuggestItem>
    * or a org.apache.myfaces.tobago.model.AutoSuggestItems.
+   *
+   * @deprecated since 2.0.0, please use tc:suggest
    */
+  @Deprecated
   @TagAttribute
   @UIComponentTagAttribute(type = {},
       expression = DynamicExpression.METHOD_EXPRESSION_REQUIRED,
@@ -346,8 +349,10 @@ public class InExtensionTag extends TobagoExtensionBodyTagSupport {
   /**
    * Minimum number of chars to type before the list will be requested.
    *
-   * @since 1.5.9 and 2.0.0
+   * @since 1.5.9
+   * @deprecated since 2.0.0
    */
+  @Deprecated
   @TagAttribute
   @UIComponentTagAttribute(type = "java.lang.Integer", defaultValue = "1")
   public void setSuggestMinChars(final ValueExpression suggestMinChars) {
@@ -357,8 +362,10 @@ public class InExtensionTag extends TobagoExtensionBodyTagSupport {
   /**
    * Time in milli seconds before the list will be requested.
    *
-   * @since 1.5.9 and 2.0.0
+   * @since 1.5.9
+   * @deprecated since 2.0.0
    */
+  @Deprecated
   @TagAttribute
   @UIComponentTagAttribute(type = "java.lang.Integer", defaultValue = "300")
   public void setSuggestDelay(final ValueExpression suggestDelay) {
