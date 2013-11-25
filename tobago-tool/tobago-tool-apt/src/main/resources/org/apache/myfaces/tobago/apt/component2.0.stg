@@ -104,6 +104,10 @@ public class <componentInfo.className>
 }
 >>
 
+import() ::= <<
+import <it>;
+>>
+
 createDescription(property) ::= <<
 <if(property.description)>
 /**
