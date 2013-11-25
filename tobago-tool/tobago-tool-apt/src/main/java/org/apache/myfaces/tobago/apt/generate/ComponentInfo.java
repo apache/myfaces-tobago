@@ -29,7 +29,6 @@ import java.util.List;
 public class ComponentInfo extends TagInfo {
   private List<PropertyInfo> nonTransientProperties = new ArrayList<PropertyInfo>();
   private List<PropertyInfo> transientProperties = new ArrayList<PropertyInfo>();
-  private boolean invokeOnComponent;
   private boolean messages;
   private String description;
   private boolean deprecated;
@@ -47,14 +46,6 @@ public class ComponentInfo extends TagInfo {
   @Deprecated
   public ComponentInfo(final String sourceClass, final String qualifiedName, final String rendererType) {
     super(sourceClass, qualifiedName, rendererType);
-  }
-
-  public boolean isInvokeOnComponent() {
-    return invokeOnComponent;
-  }
-
-  public void setInvokeOnComponent(final boolean invokeOnComponent) {
-    this.invokeOnComponent = invokeOnComponent;
   }
 
   public void addPropertyInfo(final ComponentPropertyInfo propertyInfo) {

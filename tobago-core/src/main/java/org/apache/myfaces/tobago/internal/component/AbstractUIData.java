@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
-import org.apache.myfaces.tobago.compat.InvokeOnComponent;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.model.ExpandedState;
 import org.apache.myfaces.tobago.model.Selectable;
@@ -39,7 +38,7 @@ import javax.swing.tree.TreeNode;
 import java.io.IOException;
 import java.util.List;
 
-public abstract class AbstractUIData extends javax.faces.component.UIData implements InvokeOnComponent {
+public abstract class AbstractUIData extends javax.faces.component.UIData {
 
   private static final Logger LOG = LoggerFactory.getLogger(AbstractUIData.class);
 
@@ -184,7 +183,7 @@ public abstract class AbstractUIData extends javax.faces.component.UIData implem
     return false;
   }
 
-  // todo: after removing jsf 1.1: @Override
+  @Override
   public boolean invokeOnComponent(
       final FacesContext facesContext, final String clientId, final ContextCallback callback)
       throws FacesException {
@@ -216,7 +215,7 @@ public abstract class AbstractUIData extends javax.faces.component.UIData implem
         }
       }
 
-      return ComponentUtils.invokeOnComponent(facesContext, this, clientId, callback);
+      return super.invokeOnComponent(facesContext, clientId, callback);
 
     } finally {
       // we should reset rowIndex on UISheet

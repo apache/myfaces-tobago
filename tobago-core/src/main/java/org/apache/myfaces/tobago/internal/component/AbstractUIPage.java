@@ -52,7 +52,6 @@ import org.slf4j.LoggerFactory;
 
 import javax.el.ELContext;
 import javax.el.ValueExpression;
-import javax.faces.FacesException;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.ContextCallback;
 import javax.faces.component.UIComponent;
@@ -227,14 +226,6 @@ public abstract class AbstractUIPage extends AbstractUIForm
       super.processUpdates(context);
     }
   }
-
-
-  @Override
-  public boolean invokeOnComponent(final FacesContext context, final String clientId, final ContextCallback callback)
-      throws FacesException {
-    return ComponentUtils.invokeOnComponent(context, this, clientId, callback);
-  }
-
 
   public void markSubmittedForm(final FacesContext facesContext) {
     // find the form of the action command and set submitted to it and all

@@ -19,13 +19,23 @@
 
 package org.apache.myfaces.tobago.compat;
 
-import javax.faces.component.ContextCallback;
-
 import javax.faces.FacesException;
+import javax.faces.component.ContextCallback;
 import javax.faces.context.FacesContext;
 
+/**
+ * @deprecated since 2.0.0, please use
+ * {@link javax.faces.component.UIComponent#invokeOnComponent(javax.faces.context.FacesContext, java.lang.String,
+   javax.faces.component.ContextCallback) }
+ */
+@Deprecated
 public interface InvokeOnComponent {
 
-  boolean invokeOnComponent(FacesContext context, String clientId, ContextCallback callback)
-    throws FacesException;
+  /**
+   * @deprecated since 2.0.0, please use
+   * {@link javax.faces.component.UIComponent#invokeOnComponent(javax.faces.context.FacesContext, java.lang.String,
+      javax.faces.component.ContextCallback) }
+   */
+  @Deprecated
+  boolean invokeOnComponent(FacesContext context, String clientId, ContextCallback callback) throws FacesException;
 }

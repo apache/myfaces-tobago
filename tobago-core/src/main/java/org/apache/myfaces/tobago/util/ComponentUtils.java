@@ -49,7 +49,6 @@ import javax.faces.component.UICommand;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIGraphic;
 import javax.faces.component.UIInput;
-import javax.faces.component.UINamingContainer;
 import javax.faces.component.UIOutput;
 import javax.faces.component.UIParameter;
 import javax.faces.component.UISelectMany;
@@ -997,42 +996,13 @@ public final class ComponentUtils {
     return (Map<Object, Object>) component.getAttributes().get(DATA_ATTRIBUTES_KEY);
   }
 
+  /**
+   * @deprecated since 2.0.0, please use
+   * {@link javax.faces.component.UIComponent#invokeOnComponent(javax.faces.context.FacesContext, java.lang.String,
+      javax.faces.component.ContextCallback) }
+   */
   public static boolean invokeOnComponent(
       final FacesContext context, final UIComponent component, final String clientId, final ContextCallback callback) {
-    final String thisClientId = component.getClientId(context);
-
-    if (clientId.equals(thisClientId)) {
-      callback.invokeContextCallback(context, component);
-      return true;
-    } else if (component instanceof NamingContainer) {
-      // This component is a naming container. If the client id shows it's inside this naming container,
-      // then process further.
-      // Otherwise we know the client id we're looking for is not in this naming container,
-      // so for improved performance short circuit and return false.
-      if (clientId.startsWith(thisClientId)
-          && (clientId.charAt(thisClientId.length()) == UINamingContainer.getSeparatorChar(context))) {
-        if (invokeOnComponentFacetsAndChildren(context, component, clientId, callback)) {
-          return true;
-        }
-      }
-    } else {
-      if (invokeOnComponentFacetsAndChildren(context, component, clientId, callback)) {
-        return true;
-      }
-    }
-
-    return false;
+    return component.invokeOnComponent(context, clientId, callback);
   }
-
-  private static boolean invokeOnComponentFacetsAndChildren(
-      final FacesContext context, final UIComponent component, final String clientId, final ContextCallback callback) {
-    for (final java.util.Iterator<UIComponent> it = component.getFacetsAndChildren(); it.hasNext();) {
-      final UIComponent child = it.next();
-      if (child.invokeOnComponent(context, clientId, callback)) {
-        return true;
-      }
-    }
-    return false;
-  }
-
 }

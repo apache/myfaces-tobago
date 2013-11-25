@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
-import org.apache.myfaces.tobago.compat.InvokeOnComponent;
 import org.apache.myfaces.tobago.component.Form;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.util.TobagoCallback;
@@ -34,7 +33,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseId;
 import java.util.Iterator;
 
-public abstract class AbstractUIForm extends UIForm implements InvokeOnComponent, Form {
+public abstract class AbstractUIForm extends UIForm implements Form {
 
   private static final Logger LOG = LoggerFactory.getLogger(AbstractUIForm.class);
 
@@ -116,6 +115,7 @@ public abstract class AbstractUIForm extends UIForm implements InvokeOnComponent
       }
     }
     context.getExternalContext().getRequestMap().put(AbstractUIForm.SUBMITTED_MARKER, isSubmitted());
-    return ComponentUtils.invokeOnComponent(context, this, clientId, callback);
+
+    return invokeOnComponent(context, clientId, callback);
   }
 }

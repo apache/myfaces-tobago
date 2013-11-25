@@ -101,20 +101,6 @@ public class <componentInfo.className>
   }
   <endif>
 
-  <if(componentInfo.invokeOnComponent)>
-  <invokeOnComponent()>
-  <endif>
-
-}
->>
-
-import() ::= <<
-import <it>;
->>
-invokeOnComponent() ::= <<
-public boolean invokeOnComponent(FacesContext context, String clientId, ContextCallback callback)
-    throws FacesException {
-  return FacesUtils.invokeOnComponent(context, this, clientId, callback);
 }
 >>
 

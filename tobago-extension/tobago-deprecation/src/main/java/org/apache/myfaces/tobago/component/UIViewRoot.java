@@ -20,7 +20,6 @@
 package org.apache.myfaces.tobago.component;
 
 import org.apache.myfaces.tobago.ajax.AjaxUtils;
-import org.apache.myfaces.tobago.compat.InvokeOnComponent;
 import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.internal.ajax.AjaxInternalUtils;
 import org.apache.myfaces.tobago.internal.ajax.AjaxResponseRenderer;
@@ -54,7 +53,8 @@ import java.util.Map;
 /**
  * @deprecated since 2.0.0
  */
-public class UIViewRoot extends javax.faces.component.UIViewRoot implements InvokeOnComponent {
+@Deprecated
+public class UIViewRoot extends javax.faces.component.UIViewRoot {
 
   private static final Logger LOG = LoggerFactory.getLogger(UIViewRoot.class);
 
@@ -337,11 +337,5 @@ public class UIViewRoot extends javax.faces.component.UIViewRoot implements Invo
     } else {
       super.encodeChildren(context);
     }
-  }
-
-  @Override
-  public boolean invokeOnComponent(final FacesContext context, final String clientId, final ContextCallback callback)
-      throws FacesException {
-    return ComponentUtils.invokeOnComponent(context, this, clientId, callback);
   }
 }

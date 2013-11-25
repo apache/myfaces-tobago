@@ -212,31 +212,6 @@ public class ClassesGenerator extends AbstractGenerator {
         }
 
       }
-/*        boolean found = false;
-        for (Method method : componentBaseClass.getMethods()) {
-          if ("invokeOnComponent".equals(method.getName())) {
-            found = true;
-          }
-        }
-        if (!found) {
-          componentInfo.setInvokeOnComponent(true);
-          componentInfo.addImport("javax.faces.context.FacesContext");
-          componentInfo.addImport("javax.faces.FacesException");
-          componentInfo.addImport("javax.faces.component.ContextCallback");
-          componentInfo.addImport("org.apache.myfaces.tobago.compat.FacesUtils");
-          componentInfo.addInterface("org.apache.myfaces.tobago.compat.InvokeOnComponent");
-        }
-
-      } catch (ClassNotFoundException e) {
-      */
-/*
-        Map<String, PropertyInfo> baseClassProperties = getBaseClassProperties(componentTag.uiComponentBaseClass());
-        for (PropertyInfo info : properties.values()) {
-          if (!baseClassProperties.containsValue(info)) {
-            addPropertyToComponent(componentInfo, info, elMethods, false);
-          }
-        }
-*/
 
       componentStringTemplate.setAttribute("componentInfo", componentInfo);
       writeFile(componentInfo, componentStringTemplate);

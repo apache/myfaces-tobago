@@ -87,7 +87,7 @@ public class AjaxResponseRenderer {
     writer.write("\",\n");
 
     writer.write("    \"html\": \"");
-    ComponentUtils.invokeOnComponent(facesContext, facesContext.getViewRoot(), clientId, callback);
+    facesContext.getViewRoot().invokeOnComponent(facesContext, clientId, callback);
     writer.write("\",\n");
 
     writer.write("    \"responseCode\": ");
