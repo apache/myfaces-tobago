@@ -71,8 +71,11 @@ public class InExtensionTag extends TobagoExtensionBodyTagSupport {
   private ValueExpression value;
   private MethodExpression valueChangeListener;
   private ValueExpression onchange;
+  @Deprecated
   private MethodExpression suggestMethod;
+  @Deprecated
   private ValueExpression suggestMinChars;
+  @Deprecated
   private ValueExpression suggestDelay;
   private ValueExpression markup;
   private ValueExpression labelWidth;
