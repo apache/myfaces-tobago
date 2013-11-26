@@ -25,6 +25,7 @@ import org.apache.myfaces.tobago.config.TobagoConfig;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -36,34 +37,39 @@ public final class DebugUtils {
   }
 
   public static String toString(final UIComponent component, final int offset) {
-    return toString(component, offset, false);
+    return toString(component, offset, false, null);
   }
 
-  public static String toString(final UIComponent component, final int offset, final boolean asFacet) {
+  public static String toString(
+      final UIComponent component, final int offset, final boolean asFacet, final Integer childIndex) {
     final StringBuilder result = new StringBuilder();
     if (component == null) {
       result.append("null");
     } else {
-      result.append('\n');
       if (!asFacet) {
         result.append(spaces(offset));
+        if (childIndex != null) {
+          result.append('[');
+          result.append(childIndex);
+          result.append("] ");
+        }
         result.append(toString(component));
       }
       final Map facets = component.getFacets();
       if (facets.size() > 0) {
         for (final Map.Entry<String, UIComponent> entry : (Set<Map.Entry<String, UIComponent>>) facets.entrySet()) {
           final UIComponent facet = entry.getValue();
-          result.append('\n');
           result.append(spaces(offset + 1));
-          result.append('\"');
+          result.append('[');
           result.append(entry.getKey());
-          result.append("\" = ");
+          result.append("] ");
           result.append(toString(facet));
-          result.append(toString(facet, offset + 1, true));
+          result.append(toString(facet, offset + 1, true, null));
         }
       }
-      for (final UIComponent child : component.getChildren()) {
-        result.append(toString(child, offset + 1, false));
+      final List<UIComponent> children = component.getChildren();
+      for (int i = 0; i < children.size(); i++) {
+        result.append(toString(children.get(i), offset + 1, false, i));
       }
     }
     return result.toString();
@@ -83,6 +89,7 @@ public final class DebugUtils {
       buf.append(" viewId=");
       buf.append(((javax.faces.component.UIViewRoot) component).getViewId());
     }
+    buf.append('\n');
     return buf.toString();
   }
 
