@@ -116,6 +116,6 @@ public abstract class AbstractUIForm extends UIForm implements Form {
     }
     context.getExternalContext().getRequestMap().put(AbstractUIForm.SUBMITTED_MARKER, isSubmitted());
 
-    return invokeOnComponent(context, clientId, callback);
+    return super.invokeOnComponent(context, clientId, callback);
   }
 }
