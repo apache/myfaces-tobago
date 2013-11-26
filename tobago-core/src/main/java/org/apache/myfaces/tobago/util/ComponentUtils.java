@@ -462,8 +462,10 @@ public final class ComponentUtils {
     }
   }
 
-
-
+  /**
+   * @deprecated since 2.0.0
+   */
+  @Deprecated
   public static ValueBinding createValueBinding(final String value) {
     return FacesContext.getCurrentInstance().getApplication().createValueBinding(value);
   }

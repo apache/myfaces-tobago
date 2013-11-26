@@ -19,9 +19,6 @@
 
 package org.apache.myfaces.tobago.example.demo;
 
-import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.component.RendererTypes;
-import org.apache.myfaces.tobago.component.UIIn;
 import org.apache.myfaces.tobago.component.UIToolBar;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.event.TabChangeListener;
@@ -31,13 +28,11 @@ import org.apache.myfaces.tobago.example.data.SolarObject;
 import org.apache.myfaces.tobago.model.ExpandedState;
 import org.apache.myfaces.tobago.model.SheetState;
 import org.apache.myfaces.tobago.util.ComponentUtils;
-import org.apache.myfaces.tobago.util.CreateComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
-import javax.faces.component.UIColumn;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIData;
 import javax.faces.context.ExternalContext;
@@ -50,7 +45,6 @@ import javax.servlet.http.HttpSession;
 import javax.swing.tree.DefaultMutableTreeNode;
 import java.io.IOException;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -76,10 +70,6 @@ public class TobagoDemoController implements Serializable {
   private SolarObject[] solarArray;
 
   private List<SolarObject> solarList;
-
-  private List<UIColumn> solarArrayColumns;
-
-  private String solarArrayColumnLayout;
 
   private SolarObject currentSolarObject;
 
@@ -165,8 +155,6 @@ public class TobagoDemoController implements Serializable {
     solarTree = SolarObject.getTree();
     sheetTreeState = new SheetState();
     sheetTreeState.setExpandedState(new ExpandedState(1));
-    solarArrayColumns = createSolarArrayColumns();
-    solarArrayColumnLayout = "3*; 3*; 3*";
 
     tree = CategoryTree.createSample();
     final String[] values = {"none", "single", "singleLeafOnly", "multi", "multiLeafOnly"};
@@ -251,28 +239,6 @@ public class TobagoDemoController implements Serializable {
   public void setTabChangeListener(final TabChangeListener tabChangeListener) {
     LOG.debug("Setting TabChangeListener " + tabChangeListener);
     this.tabChangeListener = tabChangeListener;
-  }
-
-  private List<UIColumn> createSolarArrayColumns() {
-
-    final List<UIColumn> columns = new ArrayList<UIColumn>(3);
-
-    final FacesContext facesContext = FacesContext.getCurrentInstance();
-    final UIIn in = (UIIn)
-        CreateComponentUtils.createComponent(facesContext, UIIn.COMPONENT_TYPE, RendererTypes.IN, "sac1i");
-    in.setValueBinding(
-        Attributes.VALUE, facesContext.getApplication().createValueBinding("#{luminary.population}"));
-
-    columns.add(CreateComponentUtils.createColumn(
-        "#{overviewBundle.solarArrayPopulation}", "true", null, in, "sac1"));
-
-    columns.add(CreateComponentUtils.createTextColumn(
-        "#{overviewBundle.solarArrayDistance}", "true", "right", "#{luminary.distance}", "sac1"));
-
-    columns.add(CreateComponentUtils.createTextColumn(
-        "#{overviewBundle.solarArrayPeriod}", "true", "right", "#{luminary.period}", "sac1"));
-
-    return columns;
   }
 
   public static SelectItem[] getSelectItems(final String[] keys, final String bundle) {
@@ -390,22 +356,6 @@ public class TobagoDemoController implements Serializable {
 
   public void setSolarList(final List<SolarObject> solarList) {
     this.solarList = solarList;
-  }
-
-  public List<UIColumn> getSolarArrayColumns() {
-    return solarArrayColumns;
-  }
-
-  public void setSolarArrayColumns(final List<UIColumn> solarArrayColumns) {
-    this.solarArrayColumns = solarArrayColumns;
-  }
-
-  public String getSolarArrayColumnLayout() {
-    return solarArrayColumnLayout;
-  }
-
-  public void setSolarArrayColumnLayout(final String solarArrayColumnLayout) {
-    this.solarArrayColumnLayout = solarArrayColumnLayout;
   }
 
   public DefaultMutableTreeNode getTree() {
