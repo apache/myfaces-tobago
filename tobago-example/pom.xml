@@ -216,6 +216,11 @@
           <artifactId>jstl</artifactId>
           <scope>runtime</scope>
         </dependency>
+        <dependency>
+          <groupId>commons-logging</groupId>
+          <artifactId>commons-logging</artifactId>
+          <scope>runtime</scope>
+        </dependency>
       </dependencies>
     </profile>
 
@@ -245,6 +250,11 @@
           <artifactId>jstl</artifactId>
           <scope>runtime</scope>
         </dependency>
+        <dependency>
+          <groupId>commons-logging</groupId>
+          <artifactId>commons-logging</artifactId>
+          <scope>runtime</scope>
+        </dependency>
       </dependencies>
     </profile>
 
@@ -272,6 +282,11 @@
         <dependency>
           <groupId>javax.servlet</groupId>
           <artifactId>jstl</artifactId>
+          <scope>runtime</scope>
+        </dependency>
+        <dependency>
+          <groupId>commons-logging</groupId>
+          <artifactId>commons-logging</artifactId>
           <scope>runtime</scope>
         </dependency>
       </dependencies>
