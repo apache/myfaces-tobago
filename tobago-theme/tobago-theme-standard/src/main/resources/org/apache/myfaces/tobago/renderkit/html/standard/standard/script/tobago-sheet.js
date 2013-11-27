@@ -647,17 +647,23 @@ Tobago.Sheet.toggleSelection = function(sheet, row, checkbox) {
 
 Tobago.Sheet.selectAll = function(sheet) {
   var rows = Tobago.Sheet.getRows(sheet);
-  Tobago.Sheet.selectRange(sheet, rows, 0, rows.size(), true, false);
+  if (rows.size() > 0) {
+    Tobago.Sheet.selectRange(sheet, rows, 0, rows.size() - 1, true, false);
+  }
 };
 
 Tobago.Sheet.deselectAll = function(sheet) {
   var rows = Tobago.Sheet.getRows(sheet);
-  Tobago.Sheet.selectRange(sheet, rows, 0, rows.size(), false, true);
+  if (rows.size() > 0) {
+    Tobago.Sheet.selectRange(sheet, rows, 0, rows.size() - 1, false, true);
+  }
 };
 
 Tobago.Sheet.toggleAll = function(sheet) {
   var rows = Tobago.Sheet.getRows(sheet);
-  Tobago.Sheet.selectRange(sheet, rows, 0, rows.size(), true, true);
+  if (rows.size() > 0) {
+    Tobago.Sheet.selectRange(sheet, rows, 0, rows.size() - 1, true, true);
+  }
 };
 
 Tobago.Sheet.selectRange = function(sheet, rows, first, last, selectDeselected, deselectSelected) {
