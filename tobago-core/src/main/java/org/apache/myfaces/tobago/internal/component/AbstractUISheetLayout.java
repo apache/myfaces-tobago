@@ -382,6 +382,10 @@ public abstract class AbstractUISheetLayout extends AbstractUILayoutBase impleme
   private void layoutHeader() {
     final AbstractUISheet sheet = (AbstractUISheet) getLayoutContainer();
     final UIComponent header = sheet.getHeader();
+    if (header == null) {
+      LOG.warn("This should not happen. Please file a bug in the issue tracker to reproduce this case.");
+      return;
+    }
     final LayoutTokens columns = new LayoutTokens();
     final List<AbstractUIColumn> renderedColumns = sheet.getRenderedColumns();
     for (final AbstractUIColumn ignored : renderedColumns) {
