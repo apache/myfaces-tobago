@@ -51,9 +51,11 @@ public final class StringUtils {
 
   public static <T> String joinWithSurroundingSeparator(final List<T> list) {
     final StringBuilder buffer = new StringBuilder(",");
-    for (final T t : list) {
-      buffer.append(t);
-      buffer.append(",");
+    if (list != null) {
+      for (final T t : list) {
+        buffer.append(t);
+        buffer.append(",");
+      }
     }
     return buffer.toString();
   }
