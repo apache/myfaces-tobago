@@ -136,13 +136,24 @@ public final class AjaxNavigationState {
     return false;
   }
 
-  public static void handleNavigation(final FacesContext facesContext) {
+  public static void afterRestoreView(final FacesContext facesContext) {
     final Map<String, Object> sessionMap = facesContext.getExternalContext().getSessionMap();
     final AjaxNavigationState navigationState
         = (AjaxNavigationState) sessionMap.remove(AjaxNavigationState.SESSION_KEY);
-    if (navigationState != null) {
+    if (navigationState == null) {
+      storeIncomingView(facesContext);
+    } else {
       navigationState.restoreView(facesContext);
       LOG.trace("force render requested navigation view");
     }
+  }
+
+  public static void beforeRestoreView(FacesContext facesContext) {
+    final Map<String, Object> sessionMap = facesContext.getExternalContext().getSessionMap();
+    if (sessionMap.get(AjaxNavigationState.SESSION_KEY) != null) {
+      // set empty UIViewRoot to prevent executing restore state logic
+      facesContext.setViewRoot(new UIViewRoot());
+    }
+
   }
 }

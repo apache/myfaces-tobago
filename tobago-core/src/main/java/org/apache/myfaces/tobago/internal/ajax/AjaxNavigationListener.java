@@ -27,18 +27,16 @@ public class AjaxNavigationListener implements PhaseListener {
 
   public void afterPhase(final PhaseEvent phaseEvent) {
     if (phaseEvent.getPhaseId() == PhaseId.RESTORE_VIEW) {
-      AjaxNavigationState.storeIncomingView(phaseEvent.getFacesContext());
+      AjaxNavigationState.afterRestoreView(phaseEvent.getFacesContext());
     }
   }
 
   public void beforePhase(final PhaseEvent phaseEvent) {
-    if (phaseEvent.getPhaseId() == PhaseId.RESTORE_VIEW) {
-      AjaxNavigationState.handleNavigation(phaseEvent.getFacesContext());
-    }
+    AjaxNavigationState.beforeRestoreView(phaseEvent.getFacesContext());
   }
 
   public PhaseId getPhaseId() {
-    return PhaseId.ANY_PHASE;
+    return PhaseId.RESTORE_VIEW;
   }
   
 }
