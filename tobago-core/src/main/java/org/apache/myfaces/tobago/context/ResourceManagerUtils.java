@@ -52,8 +52,7 @@ public final class ResourceManagerUtils {
    * Searches for an image and return it with the context path
    */
   public static String getImageWithPath(final FacesContext facesContext, final String name) {
-    return facesContext.getExternalContext().getRequestContextPath()
-        + ResourceManagerFactory.getResourceManager(facesContext).getImage(facesContext, name);
+    return getImageWithPath(facesContext, name, false);
   }
 
   /**
