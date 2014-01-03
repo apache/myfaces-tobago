@@ -59,7 +59,7 @@ public class SeparatorExtensionHandler extends ComponentHandler {
       final FaceletContext faceletContext, final UIComponent separator, final UIComponent parent) {
     final Application application = faceletContext.getFacesContext().getApplication();
     final UIOutput label = (UIOutput) application.createComponent(UILabel.COMPONENT_TYPE);
-    label.setId("_tx_" + faceletContext.generateUniqueId("label"));
+    label.setId(separator.getId() + "_tx_label");
     label.setRendererType("Label");
     setAttributes(faceletContext, label);
     separator.getFacets().put(Facets.LABEL, label);

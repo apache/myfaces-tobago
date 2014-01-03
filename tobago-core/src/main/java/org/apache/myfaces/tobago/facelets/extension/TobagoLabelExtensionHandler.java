@@ -122,7 +122,7 @@ public abstract class TobagoLabelExtensionHandler extends ComponentHandler {
     if (fieldIdAttribute != null) {
       uid = fieldIdAttribute.getValue(faceletContext);
     } else {
-      uid = "_tx_" + faceletContext.generateUniqueId("field");
+      uid = panel.getId() + "_tx_field";
     }
     if (checkForAlreadyCreated(panel, uid)) {
       return;
@@ -142,7 +142,7 @@ public abstract class TobagoLabelExtensionHandler extends ComponentHandler {
   }
 
   private void addLabel(final FaceletContext faceletContext, final UIPanel panel, final Application application) {
-    final String uid = "_tx_" + faceletContext.generateUniqueId("label");
+    final String uid = panel.getId() + "_tx_label";
     if (checkForAlreadyCreated(panel, uid)) {
       return;
     }
@@ -218,7 +218,7 @@ public abstract class TobagoLabelExtensionHandler extends ComponentHandler {
       gridLayout.setColumns(getColumns("auto"));
     }
     gridLayout.setRows(getRows());
-    gridLayout.setId("_tx_" + faceletContext.generateUniqueId("layout"));
+    gridLayout.setId(panel.getId() + "_tx_layout");
     if (gridLayout instanceof OnComponentCreated) {
       ((OnComponentCreated) gridLayout).onComponentCreated(faceletContext.getFacesContext(), panel);
     }

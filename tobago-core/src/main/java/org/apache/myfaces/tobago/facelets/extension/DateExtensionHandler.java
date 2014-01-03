@@ -68,7 +68,7 @@ public class DateExtensionHandler extends TobagoLabelExtensionHandler {
       form.setRendererType(RendererTypes.FORM);
       final String formId = formIdAttribute != null
           ? formIdAttribute.getValue(faceletContext)
-          : "_tx_" + faceletContext.generateUniqueId("form");
+          : panel.getId() + "_tx_form";
       form.setId(formId);
       panel.getChildren().add(form);
 
@@ -77,7 +77,7 @@ public class DateExtensionHandler extends TobagoLabelExtensionHandler {
       picker.setFor("@auto");
       final String pickerId = pickerIdAttribute != null
           ? pickerIdAttribute.getValue(faceletContext)
-          : "_tx_" + faceletContext.generateUniqueId("picker");
+          : panel.getId() + "_tx_picker";
       picker.setId(pickerId);
       if (picker.getAttributes().get(OnComponentCreated.MARKER) == null) {
         picker.getAttributes().put(OnComponentCreated.MARKER, Boolean.TRUE);

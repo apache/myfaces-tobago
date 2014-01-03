@@ -54,7 +54,7 @@ public abstract class TobagoMenuExtensionHandler extends ComponentHandler {
 
   public void applyNextHandler(final FaceletContext faceletContext, final UIComponent menuCommand) throws IOException {
     if (ComponentHandler.isNew(menuCommand)) {
-      final UIComponent component = (UIComponent) menuCommand.getFacets().remove(getFacetName());
+      final UIComponent component = menuCommand.getFacets().remove(getFacetName());
       nextHandler.apply(faceletContext, component);
       menuCommand.getFacets().put(getFacetName(), component);
     } else {
@@ -69,7 +69,7 @@ public abstract class TobagoMenuExtensionHandler extends ComponentHandler {
     final UIComponent component = application.createComponent(getSubComponentType());
     final String uid = fieldIdAttribute != null
         ? fieldIdAttribute.getValue(faceletContext)
-        : "_tx_" + faceletContext.generateUniqueId("sub");
+        : menuCommand.getId() + "_tx_" + getFacetName();
     component.setId(uid);
     component.setRendererType(getSubRendererType());
     setSubComponentAttributes(faceletContext, component);
