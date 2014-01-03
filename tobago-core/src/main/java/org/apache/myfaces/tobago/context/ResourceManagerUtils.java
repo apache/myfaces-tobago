@@ -20,6 +20,7 @@
 package org.apache.myfaces.tobago.context;
 
 import org.apache.myfaces.tobago.config.Configurable;
+import org.apache.myfaces.tobago.internal.context.ResourceManagerFactory;
 import org.apache.myfaces.tobago.layout.Measure;
 
 import javax.faces.context.FacesContext;
@@ -34,13 +35,12 @@ public final class ResourceManagerUtils {
   }
 
   public static String getProperty(final FacesContext facesContext, final String bundle, final String key) {
-    return     org.apache.myfaces.tobago.internal.context.ResourceManagerFactory
-        .getResourceManager(facesContext).getProperty(facesContext, bundle, key);
+    return ResourceManagerFactory.getResourceManager(facesContext).getProperty(facesContext, bundle, key);
   }
 
   public static String getPropertyNotNull(final FacesContext facesContext, final String bundle, final String key) {
-    final String result = org.apache.myfaces.tobago.internal.context.ResourceManagerFactory
-        .getResourceManager(facesContext).getProperty(facesContext, bundle, key);
+    final String result
+        = ResourceManagerFactory.getResourceManager(facesContext).getProperty(facesContext, bundle, key);
     if (result == null) {
       return "???" + key + "???";
     } else {
@@ -53,8 +53,7 @@ public final class ResourceManagerUtils {
    */
   public static String getImageWithPath(final FacesContext facesContext, final String name) {
     return facesContext.getExternalContext().getRequestContextPath()
-        + org.apache.myfaces.tobago.internal.context.ResourceManagerFactory
-        .getResourceManager(facesContext).getImage(facesContext, name);
+        + ResourceManagerFactory.getResourceManager(facesContext).getImage(facesContext, name);
   }
 
   /**
@@ -62,8 +61,8 @@ public final class ResourceManagerUtils {
    */
   public static String getImageWithPath(
       final FacesContext facesContext, final String name, final boolean ignoreMissing) {
-    final String image = org.apache.myfaces.tobago.internal.context.ResourceManagerFactory
-        .getResourceManager(facesContext).getImage(facesContext, name, ignoreMissing);
+    final String image
+        = ResourceManagerFactory.getResourceManager(facesContext).getImage(facesContext, name, ignoreMissing);
     if (image == null) {
       return null;
     } else {
@@ -73,8 +72,7 @@ public final class ResourceManagerUtils {
 
   public static List<String> getStyles(final FacesContext facesContext, final String name) {
     final String contextPath = facesContext.getExternalContext().getRequestContextPath();
-    final String[] styles = org.apache.myfaces.tobago.internal.context.ResourceManagerFactory
-        .getResourceManager(facesContext).getStyles(facesContext, name);
+    final String[] styles = ResourceManagerFactory.getResourceManager(facesContext).getStyles(facesContext, name);
     return addContextPath(styles, contextPath);
   }
 
@@ -88,8 +86,7 @@ public final class ResourceManagerUtils {
 
   public static List<String> getScripts(final FacesContext facesContext, final String name) {
     final String contextPath = facesContext.getExternalContext().getRequestContextPath();
-    final String[] scripts = org.apache.myfaces.tobago.internal.context.ResourceManagerFactory
-        .getResourceManager(facesContext).getScripts(facesContext, name);
+    final String[] scripts = ResourceManagerFactory.getResourceManager(facesContext).getScripts(facesContext, name);
     return addContextPath(scripts, contextPath);
   }
 
@@ -136,21 +133,19 @@ public final class ResourceManagerUtils {
   }
 
   public static String getPageWithoutContextPath(final FacesContext facesContext, final String name) {
-    return org.apache.myfaces.tobago.internal.context.ResourceManagerFactory
-        .getResourceManager(facesContext).getImage(facesContext, name);
+    return ResourceManagerFactory.getResourceManager(facesContext).getImage(facesContext, name);
   }
-  
+
   public static Measure getThemeMeasure(
       final FacesContext facesContext, final Configurable configurable, final String name) {
-    return org.apache.myfaces.tobago.internal.context.ResourceManagerFactory
-        .getResourceManager(facesContext).getThemeMeasure(
+    return ResourceManagerFactory.getResourceManager(facesContext).getThemeMeasure(
         facesContext, configurable.getRendererType(), configurable.getCurrentMarkup(), name);
   }
 
   /**
-   * Detects if the value is an absolute resource or if the value has to be processed by the
-   * theme mechanism. A resource will be treated as absolute, if the value starts with HTTP:, HTTPS:, FTP: or a slash.
-   * The case will be ignored by this check. Null values will return true.
+   * Detects if the value is an absolute resource or if the value has to be processed by the theme mechanism. A resource
+   * will be treated as absolute, if the value starts with HTTP:, HTTPS:, FTP: or a slash. The case will be ignored by
+   * this check. Null values will return true.
    *
    * @param value the given resource link.
    * @return true if it is an external or absolute resource.
