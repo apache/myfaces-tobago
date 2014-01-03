@@ -76,7 +76,7 @@ Facelets
 
    * Remove or replace the <<<facelets.*>>> entries from the <<<web.xml>>> file.
 
-   * Rename all JSTL deklarations from <<<xmlns:c="http://java.sun.com/jstl/core">>> to <<<xmlns:c="http://java.sun.com/jsp/jstl/core">>> in the Facelets.
+   * Rename all JSTL declarations from <<<xmlns:c="http://java.sun.com/jstl/core">>> to <<<xmlns:c="http://java.sun.com/jsp/jstl/core">>> in the Facelets.
 
    * Ensure the version of the faces-config tag in the faces-config.xml is at least 2.0.
 
@@ -87,6 +87,10 @@ Deprecated
    There are also <<<@Deprecated>>> annotations in the code and some
    logging warning when using deprecated code via the <<<Deprecation>>> logging category.
    Before and after migrating you should check your application about that.
+
+   For the migration phase you may add the tobago-deprecation.jar as dependency to your project. It contains classes
+   that has been moved (e. g. to the new internal package) or removed. So you can resolve any migration steps step by
+   step. It is not recommended to use the tobago-deprecation.jar for production.
 
 Internal
 
