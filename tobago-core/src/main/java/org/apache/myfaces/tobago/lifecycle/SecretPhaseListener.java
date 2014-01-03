@@ -35,7 +35,8 @@ public class SecretPhaseListener implements PhaseListener {
 
   public void afterPhase(final PhaseEvent event) {
     final FacesContext facesContext = event.getFacesContext();
-    if (facesContext.isPostback()
+    if (!facesContext.getResponseComplete()
+        && facesContext.isPostback()
         && TobagoConfig.getInstance(facesContext).isCheckSessionSecret()
         && !Secret.check(facesContext)) {
       if (LOG.isDebugEnabled()) {

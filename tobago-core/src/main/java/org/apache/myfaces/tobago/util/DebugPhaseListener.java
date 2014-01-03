@@ -43,9 +43,9 @@ public class DebugPhaseListener implements PhaseListener {
   private static final String KEY = DebugPhaseListener.class.getName() + "_ID_";
 
   public void afterPhase(final PhaseEvent phaseEvent) {
-    final FacesContext facesContext = FacesContext.getCurrentInstance();
+    final FacesContext facesContext = phaseEvent.getFacesContext();
     final boolean productionMode = TobagoConfig.getInstance(facesContext).getProjectStage() == ProjectStage.Production;
-    if (productionMode) {
+    if (facesContext.getResponseComplete() || productionMode) {
       return;
     }
 
@@ -91,8 +91,12 @@ public class DebugPhaseListener implements PhaseListener {
   }
 
   public void beforePhase(final PhaseEvent phaseEvent) {
-    final FacesContext facesContext = FacesContext.getCurrentInstance();
+    final FacesContext facesContext = phaseEvent.getFacesContext();
     final boolean productionMode = TobagoConfig.getInstance(facesContext).getProjectStage() == ProjectStage.Production;
+    if (facesContext.getResponseComplete()) {
+      LOG.info("Response is completed.");
+      return;
+    }
     if (productionMode) {
       LOG.warn("DebugPhaseListener disabled, because the project stage is 'production'.");
       return;
