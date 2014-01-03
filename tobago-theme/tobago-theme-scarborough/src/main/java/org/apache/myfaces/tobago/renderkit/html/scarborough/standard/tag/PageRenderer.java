@@ -163,7 +163,8 @@ public class PageRenderer extends PageRendererBase {
     final String viewId = facesContext.getViewRoot().getViewId();
     final String formAction = externalContext.encodeActionURL(viewHandler.getActionURL(facesContext, viewId));
     final String partialAction;
-    if (PortletUtils.isPortletApiAvailable() && response instanceof MimeResponse) {
+    final boolean portlet = PortletUtils.isPortletApiAvailable() && response instanceof MimeResponse;
+    if (portlet) {
       final MimeResponse mimeResponse = (MimeResponse) response;
       final ResourceURL resourceURL = mimeResponse.createResourceURL();
       partialAction = externalContext.encodeResourceURL(resourceURL.toString());
@@ -304,7 +305,7 @@ public class PageRenderer extends PageRendererBase {
       writer.endElement(HtmlElements.HEAD);
     }
 
-    if (PortletUtils.isPortletApiAvailable() && response instanceof MimeResponse) {
+    if (portlet) {
       writer.startElement(HtmlElements.DIV, page);
       writer.writeClassAttribute(Classes.create(page, Markup.PORTLET));
     } else {
@@ -428,7 +429,11 @@ public class PageRenderer extends PageRendererBase {
 //    page.encodeLayoutBegin(facesContext);
 
     writer.startElement(HtmlElements.DIV, page);
-    writer.writeClassAttribute(Classes.create(page, "content", Markup.PORTLET));
+    if (portlet) {
+      writer.writeClassAttribute(Classes.create(page, "content", Markup.PORTLET));
+    } else {
+      writer.writeClassAttribute(Classes.create(page, "content"));
+    }
     writer.writeIdAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "content");
     final Style style = new Style(facesContext, page);
     // XXX position the div, so that the scrollable area is correct.
