@@ -26,7 +26,6 @@
     <tc:gridLayoutConstraint />
 
     <tc:box label="NOT IMPLEMENTED (TODO)">
-      <!-- fixme -->
 
       <f:facet name="layout">
         <tc:gridLayout columns="auto" rows="auto"/>
@@ -40,9 +39,15 @@
         <tc:column label="Orbit Of" id="orbit">
           <tc:out value="#{luminary.orbit}"/>
         </tc:column>
+
+        <!-- fixme: implement it and set the value 500 to the correct value -->
+        <tc:dataAttribute name="assert-width" value="500"/>
+
       </tc:sheet>
 
     </tc:box>
+
+    <tc:script file="script/tobago-assert.js"/>
 
   </tc:page>
 </f:view>
