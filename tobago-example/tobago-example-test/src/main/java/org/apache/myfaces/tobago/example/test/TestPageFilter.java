@@ -60,6 +60,7 @@ public class TestPageFilter {
       "/navigation.*", // intern
 
       "/404.*", // meta test
+      "/500.*", // meta test
 
       "/meta-test/meta-1.*", // meta test
       "/meta-test/meta-2.*\\.jspx", // meta test
@@ -71,6 +72,7 @@ public class TestPageFilter {
       "/test/attribute/mode-valueIfSet.jspx", // set id="${id}" not possible with JSP.
       "/test/attribute/popup-modal.jspx", // not possible with JSP.
       "/test/tree/tree-simple-with-data.jspx", // not possible in JSP
+      "/test/forEach/*.jspx", // not possible in JSP
       "/test/button/plain.html", // intern
       "/test/button/plain_de.html", // intern
 
@@ -81,14 +83,14 @@ public class TestPageFilter {
    * Switched off temporary.
    */
   public static final Set<String> TODO = new HashSet<String>(Arrays.asList(
-      "/test/gridLayout/rendered-combinations.jspx", // uses facelets templating
+      "/test/gridLayout/rendered-combinations.jspx", // uses facelets templates
       "/test/gridLayout/scrolling-2-levels.*", // todo: ?
       "/test/gridLayout/scrolling-tab.*", // todo: measurement problem with firefox?
-      "/test/gridLayout/transparent-for-layout.jspx", // uses facelets templating
+      "/test/gridLayout/transparent-for-layout.jspx", // uses facelets templates
       "/test/mediator/tomahawk-inputHtml.*", // todo
       "/test/treeListbox/*", // todo
       "/test/label/label-tx.xhtml", // todo see TOBAGO-993
-      "/type/.*" // todo
+      "/test/type/measure-image-without-constraints.jspx" // todo
   ));
 
   public static boolean isValid(final String name) {
