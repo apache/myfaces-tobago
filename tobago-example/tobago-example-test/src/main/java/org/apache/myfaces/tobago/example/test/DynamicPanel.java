@@ -22,9 +22,9 @@ package org.apache.myfaces.tobago.example.test;
 public abstract class DynamicPanel {
 
   private static final String[] PANEL_FILES = new String[]{
-      "panel-one.xhtml",
-      "panel-two.xhtml",
-      "panel-three.xhtml"};
+      "panel-one-fragment.xhtml",
+      "panel-two-fragment.xhtml",
+      "panel-three-fragment.xhtml"};
 
   private final String name;
 
