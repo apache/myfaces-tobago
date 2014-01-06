@@ -128,7 +128,7 @@ public class GridLayoutConstraintHandler extends TagHandler {
           component.setWidth(Measure.valueOf(width.getValue()));
         } else {
           parent.setValueExpression(Attributes.WIDTH,
-              width.getValueExpression(faceletContext, Measure.class));
+              width.getValueExpression(faceletContext, Object.class));
         }
       }
 
@@ -137,7 +137,7 @@ public class GridLayoutConstraintHandler extends TagHandler {
           component.setHeight(Measure.valueOf(height.getValue()));
         } else {
           parent.setValueExpression(Attributes.HEIGHT,
-              height.getValueExpression(faceletContext, Measure.class));
+              height.getValueExpression(faceletContext, Object.class));
         }
       }
 
@@ -146,7 +146,7 @@ public class GridLayoutConstraintHandler extends TagHandler {
           component.setMinimumWidth(Measure.valueOf(minimumWidth.getValue()));
         } else {
           parent.setValueExpression(Attributes.MINIMUM_WIDTH,
-              minimumWidth.getValueExpression(faceletContext, Measure.class));
+              minimumWidth.getValueExpression(faceletContext, Object.class));
         }
       }
 
@@ -155,7 +155,7 @@ public class GridLayoutConstraintHandler extends TagHandler {
           component.setMinimumHeight(Measure.valueOf(minimumHeight.getValue()));
         } else {
           parent.setValueExpression(Attributes.MINIMUM_HEIGHT,
-              minimumHeight.getValueExpression(faceletContext, Measure.class));
+              minimumHeight.getValueExpression(faceletContext, Object.class));
         }
       }
 
@@ -164,7 +164,7 @@ public class GridLayoutConstraintHandler extends TagHandler {
           component.setPreferredWidth(Measure.valueOf(preferredWidth.getValue()));
         } else {
           parent.setValueExpression(Attributes.PREFERRED_WIDTH,
-              preferredWidth.getValueExpression(faceletContext, Measure.class));
+              preferredWidth.getValueExpression(faceletContext, Object.class));
         }
       }
 
@@ -173,7 +173,7 @@ public class GridLayoutConstraintHandler extends TagHandler {
           component.setPreferredHeight(Measure.valueOf(preferredHeight.getValue()));
         } else {
           parent.setValueExpression(Attributes.PREFERRED_HEIGHT,
-              preferredHeight.getValueExpression(faceletContext, Measure.class));
+              preferredHeight.getValueExpression(faceletContext, Object.class));
         }
       }
 
@@ -182,7 +182,7 @@ public class GridLayoutConstraintHandler extends TagHandler {
           component.setMaximumWidth(Measure.valueOf(maximumWidth.getValue()));
         } else {
           parent.setValueExpression(Attributes.MAXIMUM_WIDTH,
-              maximumWidth.getValueExpression(faceletContext, Measure.class));
+              maximumWidth.getValueExpression(faceletContext, Object.class));
         }
       }
 
@@ -191,7 +191,7 @@ public class GridLayoutConstraintHandler extends TagHandler {
           component.setMaximumHeight(Measure.valueOf(maximumHeight.getValue()));
         } else {
           parent.setValueExpression(Attributes.MAXIMUM_HEIGHT,
-              maximumHeight.getValueExpression(faceletContext, Measure.class));
+              maximumHeight.getValueExpression(faceletContext, Object.class));
         }
       }
 
@@ -200,7 +200,7 @@ public class GridLayoutConstraintHandler extends TagHandler {
           component.setMarginLeft(Measure.valueOf(marginLeft.getValue()));
         } else {
           parent.setValueExpression(Attributes.MARGIN_LEFT,
-              marginLeft.getValueExpression(faceletContext, Measure.class));
+              marginLeft.getValueExpression(faceletContext, Object.class));
         }
       }
 
@@ -209,7 +209,7 @@ public class GridLayoutConstraintHandler extends TagHandler {
           component.setMarginRight(Measure.valueOf(marginRight.getValue()));
         } else {
           parent.setValueExpression(Attributes.MARGIN_RIGHT,
-              marginRight.getValueExpression(faceletContext, Measure.class));
+              marginRight.getValueExpression(faceletContext, Object.class));
         }
       }
 
@@ -218,7 +218,7 @@ public class GridLayoutConstraintHandler extends TagHandler {
           component.setMarginTop(Measure.valueOf(marginTop.getValue()));
         } else {
           parent.setValueExpression(Attributes.MARGIN_TOP,
-              marginTop.getValueExpression(faceletContext, Measure.class));
+              marginTop.getValueExpression(faceletContext, Object.class));
         }
       }
 
@@ -227,7 +227,7 @@ public class GridLayoutConstraintHandler extends TagHandler {
           component.setMarginBottom(Measure.valueOf(marginBottom.getValue()));
         } else {
           parent.setValueExpression(Attributes.MARGIN_BOTTOM,
-              marginBottom.getValueExpression(faceletContext, Measure.class));
+              marginBottom.getValueExpression(faceletContext, Object.class));
         }
       }
 
@@ -243,7 +243,7 @@ public class GridLayoutConstraintHandler extends TagHandler {
           container.setBorderLeft(Measure.valueOf(borderLeft.getValue()));
         } else {
           parent.setValueExpression(Attributes.BORDER_LEFT,
-              borderLeft.getValueExpression(faceletContext, Measure.class));
+              borderLeft.getValueExpression(faceletContext, Object.class));
         }
       }
 
@@ -252,7 +252,7 @@ public class GridLayoutConstraintHandler extends TagHandler {
           container.setBorderRight(Measure.valueOf(borderRight.getValue()));
         } else {
           parent.setValueExpression(Attributes.BORDER_RIGHT,
-              borderRight.getValueExpression(faceletContext, Measure.class));
+              borderRight.getValueExpression(faceletContext, Object.class));
         }
       }
 
@@ -261,7 +261,7 @@ public class GridLayoutConstraintHandler extends TagHandler {
           container.setBorderTop(Measure.valueOf(borderTop.getValue()));
         } else {
           parent.setValueExpression(Attributes.BORDER_TOP,
-              borderTop.getValueExpression(faceletContext, Measure.class));
+              borderTop.getValueExpression(faceletContext, Object.class));
         }
       }
 
@@ -270,7 +270,7 @@ public class GridLayoutConstraintHandler extends TagHandler {
           container.setBorderBottom(Measure.valueOf(borderBottom.getValue()));
         } else {
           parent.setValueExpression(Attributes.BORDER_BOTTOM,
-              borderBottom.getValueExpression(faceletContext, Measure.class));
+              borderBottom.getValueExpression(faceletContext, Object.class));
         }
       }
 
@@ -279,7 +279,7 @@ public class GridLayoutConstraintHandler extends TagHandler {
           container.setPaddingLeft(Measure.valueOf(paddingLeft.getValue()));
         } else {
           parent.setValueExpression(Attributes.PADDING_LEFT,
-              paddingLeft.getValueExpression(faceletContext, Measure.class));
+              paddingLeft.getValueExpression(faceletContext, Object.class));
         }
       }
 
@@ -288,7 +288,7 @@ public class GridLayoutConstraintHandler extends TagHandler {
           container.setPaddingRight(Measure.valueOf(paddingRight.getValue()));
         } else {
           parent.setValueExpression(Attributes.PADDING_RIGHT,
-              paddingRight.getValueExpression(faceletContext, Measure.class));
+              paddingRight.getValueExpression(faceletContext, Object.class));
         }
       }
 
@@ -297,7 +297,7 @@ public class GridLayoutConstraintHandler extends TagHandler {
           container.setPaddingTop(Measure.valueOf(paddingTop.getValue()));
         } else {
           parent.setValueExpression(Attributes.PADDING_TOP,
-              paddingTop.getValueExpression(faceletContext, Measure.class));
+              paddingTop.getValueExpression(faceletContext, Object.class));
         }
       }
 
@@ -306,7 +306,7 @@ public class GridLayoutConstraintHandler extends TagHandler {
           container.setPaddingBottom(Measure.valueOf(paddingBottom.getValue()));
         } else {
           parent.setValueExpression(Attributes.PADDING_BOTTOM,
-              paddingBottom.getValueExpression(faceletContext, Measure.class));
+              paddingBottom.getValueExpression(faceletContext, Object.class));
         }
       }
 

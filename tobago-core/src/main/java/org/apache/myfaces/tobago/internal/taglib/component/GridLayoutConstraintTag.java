@@ -28,11 +28,14 @@ import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.layout.LayoutBase;
 import org.apache.myfaces.tobago.layout.LayoutComponent;
 import org.apache.myfaces.tobago.layout.LayoutContainer;
+import org.apache.myfaces.tobago.layout.Measure;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.el.ELContext;
 import javax.el.ValueExpression;
 import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
 import javax.faces.webapp.UIComponentClassicTagBase;
 import javax.faces.webapp.UIComponentELTag;
 import javax.servlet.jsp.JspException;
@@ -99,13 +102,11 @@ public abstract class GridLayoutConstraintTag extends TagSupport {
       component = component.getParent();
     }
 
-    if (!(component instanceof LayoutBase)) {
-      // TODO Message resource i18n
-      throw new JspException("Component Instance is not a LayoutBase");
-    }
-
+    final LayoutBase layoutBase = (LayoutBase) component;
     final boolean isLayoutContainer = component instanceof LayoutContainer;
     final boolean isLayoutComponent = component instanceof LayoutComponent;
+    final LayoutContainer layoutContainer = isLayoutContainer ? (LayoutContainer) component : null;
+    final ELContext elContext = FacesContext.getCurrentInstance().getELContext();
 
     if (columnSpan != null) {
       if (isLayoutComponent) {
@@ -124,56 +125,108 @@ public abstract class GridLayoutConstraintTag extends TagSupport {
     }
 
     if (width != null) {
-      component.setValueExpression(Attributes.WIDTH, width);
+      if (width.isLiteralText()) {
+        layoutBase.setWidth(Measure.valueOf(width.getValue(elContext)));
+      } else {
+        component.setValueExpression(Attributes.WIDTH, width);
+      }
     }
 
     if (height != null) {
-      component.setValueExpression(Attributes.HEIGHT, height);
+      if (height.isLiteralText()) {
+        layoutBase.setHeight(Measure.valueOf(height.getValue(elContext)));
+      } else {
+        component.setValueExpression(Attributes.HEIGHT, height);
+      }
     }
 
     if (minimumWidth != null) {
-      component.setValueExpression(Attributes.MINIMUM_WIDTH, minimumWidth);
+      if (minimumWidth.isLiteralText()) {
+        layoutBase.setMinimumWidth(Measure.valueOf(minimumWidth.getValue(elContext)));
+      } else {
+        component.setValueExpression(Attributes.MINIMUM_WIDTH, minimumWidth);
+      }
     }
 
     if (minimumHeight != null) {
-      component.setValueExpression(Attributes.MINIMUM_HEIGHT, minimumHeight);
+      if (minimumHeight.isLiteralText()) {
+        layoutBase.setMinimumHeight(Measure.valueOf(minimumHeight.getValue(elContext)));
+      } else {
+        component.setValueExpression(Attributes.MINIMUM_HEIGHT, minimumHeight);
+      }
     }
 
     if (preferredWidth != null) {
-      component.setValueExpression(Attributes.PREFERRED_WIDTH, preferredWidth);
+      if (preferredWidth.isLiteralText()) {
+        layoutBase.setPreferredWidth(Measure.valueOf(preferredWidth.getValue(elContext)));
+      } else {
+        component.setValueExpression(Attributes.PREFERRED_WIDTH, preferredWidth);
+      }
     }
 
     if (preferredHeight != null) {
-      component.setValueExpression(Attributes.PREFERRED_HEIGHT, preferredHeight);
+      if (preferredHeight.isLiteralText()) {
+        layoutBase.setPreferredHeight(Measure.valueOf(preferredHeight.getValue(elContext)));
+      } else {
+        component.setValueExpression(Attributes.PREFERRED_HEIGHT, preferredHeight);
+      }
     }
 
     if (maximumWidth != null) {
-      component.setValueExpression(Attributes.MAXIMUM_WIDTH, maximumWidth);
+      if (maximumWidth.isLiteralText()) {
+        layoutBase.setMaximumWidth(Measure.valueOf(maximumWidth.getValue(elContext)));
+      } else {
+        component.setValueExpression(Attributes.MAXIMUM_WIDTH, maximumWidth);
+      }
     }
 
     if (maximumHeight != null) {
-      component.setValueExpression(Attributes.MAXIMUM_HEIGHT, maximumHeight);
+      if (maximumHeight.isLiteralText()) {
+        layoutBase.setMaximumHeight(Measure.valueOf(maximumHeight.getValue(elContext)));
+      } else {
+        component.setValueExpression(Attributes.MAXIMUM_HEIGHT, maximumHeight);
+      }
     }
 
     if (marginLeft != null) {
-      component.setValueExpression(Attributes.MARGIN_LEFT, marginLeft);
+      if (marginLeft.isLiteralText()) {
+        layoutBase.setMarginLeft(Measure.valueOf(marginLeft.getValue(elContext)));
+      } else {
+        component.setValueExpression(Attributes.MARGIN_LEFT, marginLeft);
+      }
     }
 
     if (marginRight != null) {
-      component.setValueExpression(Attributes.MARGIN_RIGHT, marginRight);
+      if (marginRight.isLiteralText()) {
+        layoutBase.setMarginRight(Measure.valueOf(marginRight.getValue(elContext)));
+      } else {
+        component.setValueExpression(Attributes.MARGIN_RIGHT, marginRight);
+      }
     }
 
     if (marginTop != null) {
-      component.setValueExpression(Attributes.MARGIN_TOP, marginTop);
+      if (marginTop.isLiteralText()) {
+        layoutBase.setMarginTop(Measure.valueOf(marginTop.getValue(elContext)));
+      } else {
+        component.setValueExpression(Attributes.MARGIN_TOP, marginTop);
+      }
     }
 
     if (marginBottom != null) {
-      component.setValueExpression(Attributes.MARGIN_BOTTOM, marginBottom);
+      if (marginBottom.isLiteralText()) {
+        layoutBase.setMarginBottom(Measure.valueOf(marginBottom.getValue(elContext)));
+      } else {
+        component.setValueExpression(Attributes.MARGIN_BOTTOM, marginBottom);
+      }
     }
 
     if (borderLeft != null) {
       if (isLayoutContainer) {
-        component.setValueExpression(Attributes.BORDER_LEFT, borderLeft);
+        if (borderLeft.isLiteralText()) {
+          layoutContainer.setBorderLeft(Measure.valueOf(borderLeft.getValue(elContext)));
+        } else {
+          component.setValueExpression(Attributes.BORDER_LEFT, borderLeft);
+        }
       } else {
         LOG.warn("Ignoring '" + Attributes.BORDER_LEFT + "', because the parent is not a LayoutContainer!");
       }
@@ -181,14 +234,23 @@ public abstract class GridLayoutConstraintTag extends TagSupport {
 
     if (borderRight != null) {
       if (isLayoutContainer) {
-        component.setValueExpression(Attributes.BORDER_RIGHT, borderRight);
+        if (borderRight.isLiteralText()) {
+          layoutContainer.setBorderRight(Measure.valueOf(borderRight.getValue(elContext)));
+        } else {
+          component.setValueExpression(Attributes.BORDER_RIGHT, borderRight);
+        }
       } else {
         LOG.warn("Ignoring '" + Attributes.BORDER_RIGHT + "', because the parent is not a LayoutContainer!");
       }
     }
+
     if (borderTop != null) {
       if (isLayoutContainer) {
-        component.setValueExpression(Attributes.BORDER_TOP, borderTop);
+        if (borderTop.isLiteralText()) {
+          layoutContainer.setBorderTop(Measure.valueOf(borderTop.getValue(elContext)));
+        } else {
+          component.setValueExpression(Attributes.BORDER_TOP, borderTop);
+        }
       } else {
         LOG.warn("Ignoring '" + Attributes.BORDER_TOP + "', because the parent is not a LayoutContainer!");
       }
@@ -196,7 +258,11 @@ public abstract class GridLayoutConstraintTag extends TagSupport {
 
     if (borderBottom != null) {
       if (isLayoutContainer) {
-        component.setValueExpression(Attributes.BORDER_BOTTOM, borderBottom);
+        if (borderBottom.isLiteralText()) {
+          layoutContainer.setBorderBottom(Measure.valueOf(borderBottom.getValue(elContext)));
+        } else {
+          component.setValueExpression(Attributes.BORDER_BOTTOM, borderBottom);
+        }
       } else {
         LOG.warn("Ignoring '" + Attributes.BORDER_BOTTOM + "', because the parent is not a LayoutContainer!");
       }
@@ -204,7 +270,11 @@ public abstract class GridLayoutConstraintTag extends TagSupport {
 
     if (paddingLeft != null) {
       if (isLayoutContainer) {
-        component.setValueExpression(Attributes.PADDING_LEFT, paddingLeft);
+        if (paddingLeft.isLiteralText()) {
+          layoutContainer.setPaddingLeft(Measure.valueOf(paddingLeft.getValue(elContext)));
+        } else {
+          component.setValueExpression(Attributes.PADDING_LEFT, paddingLeft);
+        }
       } else {
         LOG.warn("Ignoring '" + Attributes.PADDING_LEFT + "', because the parent is not a LayoutContainer!");
       }
@@ -212,14 +282,22 @@ public abstract class GridLayoutConstraintTag extends TagSupport {
 
     if (paddingRight != null) {
       if (isLayoutContainer) {
-        component.setValueExpression(Attributes.PADDING_RIGHT, paddingRight);
+        if (paddingRight.isLiteralText()) {
+          layoutContainer.setPaddingRight(Measure.valueOf(paddingRight.getValue(elContext)));
+        } else {
+          component.setValueExpression(Attributes.PADDING_RIGHT, paddingRight);
+        }
       } else {
         LOG.warn("Ignoring '" + Attributes.PADDING_RIGHT + "', because the parent is not a LayoutContainer!");
       }
     }
     if (paddingTop != null) {
       if (isLayoutContainer) {
-        component.setValueExpression(Attributes.PADDING_TOP, paddingTop);
+        if (paddingTop.isLiteralText()) {
+          layoutContainer.setPaddingTop(Measure.valueOf(paddingTop.getValue(elContext)));
+        } else {
+          component.setValueExpression(Attributes.PADDING_TOP, paddingTop);
+        }
       } else {
         LOG.warn("Ignoring '" + Attributes.PADDING_TOP + "', because the parent is not a LayoutContainer!");
       }
@@ -227,7 +305,11 @@ public abstract class GridLayoutConstraintTag extends TagSupport {
 
     if (paddingBottom != null) {
       if (isLayoutContainer) {
-        component.setValueExpression(Attributes.PADDING_BOTTOM, paddingBottom);
+        if (paddingBottom.isLiteralText()) {
+          layoutContainer.setPaddingBottom(Measure.valueOf(paddingBottom.getValue(elContext)));
+        } else {
+          component.setValueExpression(Attributes.PADDING_BOTTOM, paddingBottom);
+        }
       } else {
         LOG.warn("Ignoring '" + Attributes.PADDING_BOTTOM + "', because the parent is not a LayoutContainer!");
       }
@@ -282,8 +364,8 @@ public abstract class GridLayoutConstraintTag extends TagSupport {
   /**
    * The width for this component.
    */
-  @TagAttribute(name = "width", type = "org.apache.myfaces.tobago.layout.Measure")
-  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
+  @TagAttribute(name = "width", type = "java.lang.Object")
+  @UIComponentTagAttribute(type = "java.lang.Object")
   public void setWidth(final ValueExpression width) {
     this.width = width;
   }
@@ -291,8 +373,8 @@ public abstract class GridLayoutConstraintTag extends TagSupport {
   /**
    * The height for this component.
    */
-  @TagAttribute(name = "height", type = "org.apache.myfaces.tobago.layout.Measure")
-  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
+  @TagAttribute(name = "height", type = "java.lang.Object")
+  @UIComponentTagAttribute(type = "java.lang.Object")
   public void setHeight(final ValueExpression height) {
     this.height = height;
   }
@@ -300,8 +382,8 @@ public abstract class GridLayoutConstraintTag extends TagSupport {
   /**
    * The minimum width for this component.
    */
-  @TagAttribute(name = "minimumWidth", type = "org.apache.myfaces.tobago.layout.Measure")
-  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
+  @TagAttribute(name = "minimumWidth", type = "java.lang.Object")
+  @UIComponentTagAttribute(type = "java.lang.Object")
   public void setMinimumWidth(final ValueExpression minimumWidth) {
     this.minimumWidth = minimumWidth;
   }
@@ -309,8 +391,8 @@ public abstract class GridLayoutConstraintTag extends TagSupport {
   /**
    * The minimum height for this component.
    */
-  @TagAttribute(name = "minimumHeight", type = "org.apache.myfaces.tobago.layout.Measure")
-  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
+  @TagAttribute(name = "minimumHeight", type = "java.lang.Object")
+  @UIComponentTagAttribute(type = "java.lang.Object")
   public void setMinimumHeight(final ValueExpression minimumHeight) {
     this.minimumHeight = minimumHeight;
   }
@@ -318,8 +400,8 @@ public abstract class GridLayoutConstraintTag extends TagSupport {
   /**
    * The preferred width for this component.
    */
-  @TagAttribute(name = "preferredWidth", type = "org.apache.myfaces.tobago.layout.Measure")
-  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
+  @TagAttribute(name = "preferredWidth", type = "java.lang.Object")
+  @UIComponentTagAttribute(type = "java.lang.Object")
   public void setPreferredWidth(final ValueExpression preferredWidth) {
     this.preferredWidth = preferredWidth;
   }
@@ -327,8 +409,8 @@ public abstract class GridLayoutConstraintTag extends TagSupport {
   /**
    * The preferred height for this component.
    */
-  @TagAttribute(name = "preferredHeight", type = "org.apache.myfaces.tobago.layout.Measure")
-  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
+  @TagAttribute(name = "preferredHeight", type = "java.lang.Object")
+  @UIComponentTagAttribute(type = "java.lang.Object")
   public void setPreferredHeight(final ValueExpression preferredHeight) {
     this.preferredHeight = preferredHeight;
   }
@@ -336,8 +418,8 @@ public abstract class GridLayoutConstraintTag extends TagSupport {
   /**
    * The maximum width for this component.
    */
-  @TagAttribute(name = "maximumWidth", type = "org.apache.myfaces.tobago.layout.Measure")
-  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
+  @TagAttribute(name = "maximumWidth", type = "java.lang.Object")
+  @UIComponentTagAttribute(type = "java.lang.Object")
   public void setMaximumWidth(final ValueExpression maximumWidth) {
     this.maximumWidth = maximumWidth;
   }
@@ -345,8 +427,8 @@ public abstract class GridLayoutConstraintTag extends TagSupport {
   /**
    * The maximum height for this component.
    */
-  @TagAttribute(name = "maximumHeight", type = "org.apache.myfaces.tobago.layout.Measure")
-  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
+  @TagAttribute(name = "maximumHeight", type = "java.lang.Object")
+  @UIComponentTagAttribute(type = "java.lang.Object")
   public void setMaximumHeight(final ValueExpression maximumHeight) {
     this.maximumHeight = maximumHeight;
   }
@@ -354,8 +436,8 @@ public abstract class GridLayoutConstraintTag extends TagSupport {
   /**
    * The left margin for this component.
    */
-  @TagAttribute(name = "marginLeft", type = "org.apache.myfaces.tobago.layout.Measure")
-  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
+  @TagAttribute(name = "marginLeft", type = "java.lang.Object")
+  @UIComponentTagAttribute(type = "java.lang.Object")
   public void setMarginLeft(final ValueExpression marginLeft) {
     this.marginLeft = marginLeft;
   }
@@ -363,8 +445,8 @@ public abstract class GridLayoutConstraintTag extends TagSupport {
   /**
    * The right margin for this component.
    */
-  @TagAttribute(name = "marginRight", type = "org.apache.myfaces.tobago.layout.Measure")
-  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
+  @TagAttribute(name = "marginRight", type = "java.lang.Object")
+  @UIComponentTagAttribute(type = "java.lang.Object")
   public void setMarginRight(final ValueExpression marginRight) {
     this.marginRight = marginRight;
   }
@@ -372,8 +454,8 @@ public abstract class GridLayoutConstraintTag extends TagSupport {
   /**
    * The top margin for this component.
    */
-  @TagAttribute(name = "marginTop", type = "org.apache.myfaces.tobago.layout.Measure")
-  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
+  @TagAttribute(name = "marginTop", type = "java.lang.Object")
+  @UIComponentTagAttribute(type = "java.lang.Object")
   public void setMarginTop(final ValueExpression marginTop) {
     this.marginTop = marginTop;
   }
@@ -381,8 +463,8 @@ public abstract class GridLayoutConstraintTag extends TagSupport {
   /**
    * The bottom margin for this component.
    */
-  @TagAttribute(name = "marginBottom", type = "org.apache.myfaces.tobago.layout.Measure")
-  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
+  @TagAttribute(name = "marginBottom", type = "java.lang.Object")
+  @UIComponentTagAttribute(type = "java.lang.Object")
   public void setMarginBottom(final ValueExpression marginBottom) {
     this.marginBottom = marginBottom;
   }
@@ -390,8 +472,8 @@ public abstract class GridLayoutConstraintTag extends TagSupport {
   /**
    * The left border area for this component. Its only applicably for containers.
    */
-  @TagAttribute(name = "borderLeft", type = "org.apache.myfaces.tobago.layout.Measure")
-  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
+  @TagAttribute(name = "borderLeft", type = "java.lang.Object")
+  @UIComponentTagAttribute(type = "java.lang.Object")
   public void setBorderLeft(final ValueExpression borderLeft) {
     this.borderLeft = borderLeft;
   }
@@ -399,8 +481,8 @@ public abstract class GridLayoutConstraintTag extends TagSupport {
   /**
    * The right border area for this component. Its only applicably for containers.
    */
-  @TagAttribute(name = "borderRight", type = "org.apache.myfaces.tobago.layout.Measure")
-  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
+  @TagAttribute(name = "borderRight", type = "java.lang.Object")
+  @UIComponentTagAttribute(type = "java.lang.Object")
   public void setBorderRight(final ValueExpression borderRight) {
     this.borderRight = borderRight;
   }
@@ -408,8 +490,8 @@ public abstract class GridLayoutConstraintTag extends TagSupport {
   /**
    * The top border area for this component. Its only applicably for containers.
    */
-  @TagAttribute(name = "borderTop", type = "org.apache.myfaces.tobago.layout.Measure")
-  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
+  @TagAttribute(name = "borderTop", type = "java.lang.Object")
+  @UIComponentTagAttribute(type = "java.lang.Object")
   public void setBorderTop(final ValueExpression borderTop) {
     this.borderTop = borderTop;
   }
@@ -417,8 +499,8 @@ public abstract class GridLayoutConstraintTag extends TagSupport {
   /**
    * The bottom border area for this component. Its only applicably for containers.
    */
-  @TagAttribute(name = "borderBottom", type = "org.apache.myfaces.tobago.layout.Measure")
-  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
+  @TagAttribute(name = "borderBottom", type = "java.lang.Object")
+  @UIComponentTagAttribute(type = "java.lang.Object")
   public void setBorderBottom(final ValueExpression borderBottom) {
     this.borderBottom = borderBottom;
   }
@@ -426,8 +508,8 @@ public abstract class GridLayoutConstraintTag extends TagSupport {
   /**
    * The left padding for this component. Its only applicably for containers.
    */
-  @TagAttribute(name = "paddingLeft", type = "org.apache.myfaces.tobago.layout.Measure")
-  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
+  @TagAttribute(name = "paddingLeft", type = "java.lang.Object")
+  @UIComponentTagAttribute(type = "java.lang.Object")
   public void setPaddingLeft(final ValueExpression paddingLeft) {
     this.paddingLeft = paddingLeft;
   }
@@ -435,8 +517,8 @@ public abstract class GridLayoutConstraintTag extends TagSupport {
   /**
    * The right padding for this component. Its only applicably for containers.
    */
-  @TagAttribute(name = "paddingRight", type = "org.apache.myfaces.tobago.layout.Measure")
-  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
+  @TagAttribute(name = "paddingRight", type = "java.lang.Object")
+  @UIComponentTagAttribute(type = "java.lang.Object")
   public void setPaddingRight(final ValueExpression paddingRight) {
     this.paddingRight = paddingRight;
   }
@@ -444,8 +526,8 @@ public abstract class GridLayoutConstraintTag extends TagSupport {
   /**
    * The top padding for this component. Its only applicably for containers.
    */
-  @TagAttribute(name = "paddingTop", type = "org.apache.myfaces.tobago.layout.Measure")
-  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
+  @TagAttribute(name = "paddingTop", type = "java.lang.Object")
+  @UIComponentTagAttribute(type = "java.lang.Object")
   public void setPaddingTop(final ValueExpression paddingTop) {
     this.paddingTop = paddingTop;
   }
@@ -453,8 +535,8 @@ public abstract class GridLayoutConstraintTag extends TagSupport {
   /**
    * The bottom padding for this component. Its only applicably for containers.
    */
-  @TagAttribute(name = "paddingBottom", type = "org.apache.myfaces.tobago.layout.Measure")
-  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
+  @TagAttribute(name = "paddingBottom", type = "java.lang.Object")
+  @UIComponentTagAttribute(type = "java.lang.Object")
   public void setPaddingBottom(final ValueExpression paddingBottom) {
     this.paddingBottom = paddingBottom;
   }
