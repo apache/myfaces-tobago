@@ -25,11 +25,11 @@
     <c:set var="rendered" value="true"/>
   </c:if>
   <c:if test="${empty labelWidth}">
-    <c:set var="labelWidth" value="fixed"/>
+    <c:set var="labelWidth" value="auto"/>
   </c:if>
   <tc:panel rendered="${rendered}">
     <f:facet name="layout">
-      <tc:gridLayout columns="${labelWidth};*;fixed"/>
+      <tc:gridLayout columns="${labelWidth};*;auto"/>
     </f:facet>
     <tc:label value="${label}" for="@auto" tip="${tip}"/>
     <c:choose>

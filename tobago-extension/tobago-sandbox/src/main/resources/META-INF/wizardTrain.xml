@@ -24,14 +24,14 @@
 
   <c:set var="columns" value=""/>
   <c:forEach var="i" begin="0" end="${wizard.size}" step="1">
-    <c:set var="columns" value="fixed;${columns}"/>
+    <c:set var="columns" value="auto;${columns}"/>
   </c:forEach>
   <c:set var="columns" value="${columns}*;50px"/>
 
   <tc:panel>
 
     <f:facet name="layout">
-      <tc:gridLayout rows="fixed" columns="${columns}"/>
+      <tc:gridLayout rows="auto" columns="${columns}"/>
     </f:facet>
 
     <c:forEach items="${wizard.course}" var="step">

@@ -40,7 +40,7 @@
 		<c:otherwise>
 			<tc:panel>
 				<f:facet name="layout">
-					<tc:gridLayout columns="*;fixed;fixed;fixed;fixed" />
+					<tc:gridLayout columns="*;auto;auto;auto;auto" />
 				</f:facet>
 				
 				<c:if test="${!controller.previousAvailable or (controller.backwardNavigationStrategy == 'notallowed')}" >

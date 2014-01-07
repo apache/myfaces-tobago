@@ -25,7 +25,7 @@
     <c:set var="rendered" value="true"/>
   </c:if>
   <c:if test="${empty labelWidth}">
-    <c:set var="labelWidth" value="fixed"/>
+    <c:set var="labelWidth" value="auto"/>
   </c:if>
   <tc:panel rendered="${rendered}">
     <f:facet name="layout">

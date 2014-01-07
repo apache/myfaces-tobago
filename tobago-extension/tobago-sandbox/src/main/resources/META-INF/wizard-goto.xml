@@ -35,10 +35,10 @@
 		<c:otherwise>
 		
 			<!-- layout information -->
-			<c:set var="columns" value="fixed" />
+			<c:set var="columns" value="auto" />
 			<c:forEach var="i" begin="0" end="${controller.size}" step="1">
 				<c:if test="${i > 0}">
-					<c:set var="columns" value="${columns};fixed;fixed" />
+					<c:set var="columns" value="${columns};auto;auto" />
 				</c:if>
 			</c:forEach>
 			<c:set var="columns" value="${columns};*" />
@@ -46,7 +46,7 @@
 			<!-- navigation -->
 			<tc:panel>
 				<f:facet name="layout">
-					<tc:gridLayout rows="fixed" columns="${columns}" />
+					<tc:gridLayout rows="auto" columns="${columns}" />
 				</f:facet>
 			
 				<c:forEach var="index" begin="0" end="${controller.size}" step="1">

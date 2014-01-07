@@ -25,7 +25,7 @@
 	<!-- detail navigation area -->
 	<tc:panel>
 		<f:facet name="layout">
-			<tc:gridLayout columns="*;fixed;fixed" />
+			<tc:gridLayout columns="*;auto;auto" />
 		</f:facet>
 		<tc:cell />
 		<tc:button action="${controller.saveItem}"

@@ -34,7 +34,7 @@
 	<!-- master navigation area -->
 	<tc:panel>
 		<f:facet name="layout">
-			<tc:gridLayout columns="fixed;*;fixed;fixed;fixed" />
+			<tc:gridLayout columns="auto;*;auto;auto;auto" />
 		</f:facet>
 		<tc:button action="${controller.createItem}"
 			label="Neues Element" />
