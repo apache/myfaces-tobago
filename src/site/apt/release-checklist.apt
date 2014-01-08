@@ -205,7 +205,7 @@ Copy the download artifacts from the repository to the site (release-tobago.sh)
 #!/bin/sh
 set -e
 
-VERSION=2.0.0-alpha-2
+VERSION=2.0.0-alpha-3
 REPOSITORY=https://repository.apache.org/content/repositories/releases
 
 # download file and hashes/signatures
