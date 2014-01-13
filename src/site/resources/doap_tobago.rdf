@@ -47,10 +47,10 @@
     <release>
       <Version>
         <name>Latest stable release of 1.5.x</name>
-        <created>2013-05-27</created>
-        <revision>1.5.10</revision>
-        <file-release>http://www.apache.org/dyn/closer.cgi/myfaces/binaries/myfaces-tobago-1.5.10-dist.tar.gz</file-release>
-        <file-release>http://www.apache.org/dyn/closer.cgi/myfaces/binaries/myfaces-tobago-1.5.10-dist.zip</file-release>
+        <created>2014-01-11</created>
+        <revision>1.5.12</revision>
+        <file-release>http://www.apache.org/dyn/closer.cgi/myfaces/binaries/myfaces-tobago-1.5.12-dist.tar.gz</file-release>
+        <file-release>http://www.apache.org/dyn/closer.cgi/myfaces/binaries/myfaces-tobago-1.5.12-dist.zip</file-release>
       </Version>
     </release>
     <release>
