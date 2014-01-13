@@ -41,11 +41,6 @@ public class ImageRenderer extends LayoutComponentRendererBase {
 
   private static final Logger LOG = LoggerFactory.getLogger(ImageRenderer.class);
 
-  public void prepareRender(final FacesContext facesContext, final UIComponent component) throws IOException {
-    super.prepareRender(facesContext, component);
-    HtmlRendererUtils.renderDojoDndSource(facesContext, component);
-  }
-
   public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
 
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
@@ -89,7 +84,6 @@ public class ImageRenderer extends LayoutComponentRendererBase {
     writer.writeAttribute(HtmlAttributes.BORDER, border, false);
     final Style style = new Style(facesContext, image);
     writer.writeStyleAttribute(style);
-    HtmlRendererUtils.renderDojoDndItem(image, writer, true);
     writer.writeClassAttribute(Classes.create(image));
     writer.endElement(HtmlElements.IMG);
   }

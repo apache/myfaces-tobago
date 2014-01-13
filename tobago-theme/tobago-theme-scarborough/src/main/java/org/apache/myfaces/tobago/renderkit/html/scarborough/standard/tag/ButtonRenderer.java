@@ -87,7 +87,6 @@ public class ButtonRenderer extends CommandRendererBase {
 
     final Style style = new Style(facesContext, button);
     writer.writeStyleAttribute(style);
-    HtmlRendererUtils.renderDojoDndItem(component, writer, true);
     writer.writeClassAttribute(Classes.create(button));
     if (((UIButton) component).isDefaultCommand()) {
       final AbstractUIForm form = ComponentUtils.findAncestor(component, AbstractUIForm.class);

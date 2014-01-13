@@ -46,7 +46,6 @@ public class ToolBarRenderer extends ToolBarRendererBase {
     writer.startElement(HtmlElements.DIV, toolBar);
     writer.writeIdAttribute(toolBar.getClientId(facesContext));
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, toolBar);
-    HtmlRendererUtils.renderDojoDndItem(toolBar, writer, true);
     writer.writeClassAttribute(Classes.create(toolBar));
     final Style style = new Style(facesContext, toolBar);
     final boolean right = UIToolBar.ORIENTATION_RIGHT.equals(toolBar.getOrientation());

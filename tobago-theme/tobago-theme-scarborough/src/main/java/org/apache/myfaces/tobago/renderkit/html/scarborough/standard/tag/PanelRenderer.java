@@ -48,12 +48,6 @@ public class PanelRenderer extends LayoutComponentRendererBase {
   private static final Logger LOG = LoggerFactory.getLogger(PanelRenderer.class);
 
   @Override
-  public void prepareRender(final FacesContext facesContext, final UIComponent component) throws IOException {
-    super.prepareRender(facesContext, component);
-    HtmlRendererUtils.renderDojoDndSource(facesContext, component);
-  }
-
-  @Override
   public boolean getRendersChildren() {
     return true;
   }
@@ -75,7 +69,6 @@ public class PanelRenderer extends LayoutComponentRendererBase {
 
     final String clientId = panel.getClientId(facesContext);
     writer.startElement(HtmlElements.DIV, panel);
-    HtmlRendererUtils.renderDojoDndItem(panel, writer, true);
     writer.writeIdAttribute(clientId);
     writer.writeClassAttribute(Classes.create(panel));
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, panel);

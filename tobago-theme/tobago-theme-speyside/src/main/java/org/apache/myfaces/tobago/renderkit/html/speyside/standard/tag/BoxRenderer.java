@@ -41,12 +41,6 @@ import java.io.IOException;
 
 public class BoxRenderer extends BoxRendererBase {
 
-  @Override
-  public void prepareRender(final FacesContext facesContext, final UIComponent component) throws IOException {
-    super.prepareRender(facesContext, component);
-    HtmlRendererUtils.renderDojoDndSource(facesContext, component);
-  }
-
   /*
   
 with shadow
@@ -82,7 +76,6 @@ without shadow
 
     final String clientId = box.getClientId(facesContext);
     writer.startElement(HtmlElements.DIV, box);
-    HtmlRendererUtils.renderDojoDndItem(box, writer, true);
     writer.writeClassAttribute(Classes.create(box));
     writer.writeIdAttribute(clientId);
     final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, box);

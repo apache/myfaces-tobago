@@ -75,7 +75,6 @@ public class TextareaRenderer extends InputRendererBase {
     if (tabIndex != null) {
       writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
     }
-    HtmlRendererUtils.renderDojoDndItem(component, writer, true);
 
     writer.writeClassAttribute(Classes.create(input));
     final Style style = new Style(facesContext, input);

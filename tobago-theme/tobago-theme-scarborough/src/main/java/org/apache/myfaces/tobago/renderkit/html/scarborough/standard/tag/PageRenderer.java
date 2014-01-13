@@ -201,8 +201,6 @@ public class PageRenderer extends PageRendererBase {
     final boolean preventFrameAttacks = tobagoConfig.isPreventFrameAttacks();
 
     if (!FacesContextUtils.isAjax(facesContext)) {
-      HtmlRendererUtils.renderDojoDndSource(facesContext, component);
-
       final String title = (String) page.getAttributes().get(Attributes.LABEL);
 
       writer.startElement(HtmlElements.HEAD, null);

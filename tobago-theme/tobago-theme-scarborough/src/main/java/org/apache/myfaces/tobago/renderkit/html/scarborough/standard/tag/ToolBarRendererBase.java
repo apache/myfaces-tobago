@@ -65,12 +65,6 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
 
   private static final Logger LOG = LoggerFactory.getLogger(ToolBarRendererBase.class);
 
-  @Override
-  public void prepareRender(final FacesContext facesContext, final UIComponent component) throws IOException {
-    super.prepareRender(facesContext, component);
-    HtmlRendererUtils.renderDojoDndSource(facesContext, component);
-  }
-
   protected String getLabelPosition(final UIComponent component) {
     return (String) component.getAttributes().get(Attributes.LABEL_POSITION);
   }

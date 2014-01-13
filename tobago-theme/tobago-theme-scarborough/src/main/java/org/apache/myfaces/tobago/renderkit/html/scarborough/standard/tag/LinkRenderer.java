@@ -85,7 +85,6 @@ public class LinkRenderer extends CommandRendererBase {
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, link);
     final Style style = new Style(facesContext, link);
     writer.writeStyleAttribute(style);
-    HtmlRendererUtils.renderDojoDndItem(component, writer, true);
     writer.writeClassAttribute(Classes.create(link));
     writer.writeIdAttribute(clientId);
     writer.writeNameAttribute(clientId);

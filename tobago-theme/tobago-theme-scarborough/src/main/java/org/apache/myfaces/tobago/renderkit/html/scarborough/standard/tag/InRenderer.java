@@ -120,7 +120,6 @@ public class InRenderer extends InputRendererBase {
       writer.writeAttribute(HtmlAttributes.AUTOCOMPLETE, "off", false);
     }
 
-    HtmlRendererUtils.renderDojoDndItem(component, writer, true);
     writer.writeClassAttribute(Classes.create(input));
       /*if (component instanceof AbstractUIInput) {
        String onchange = HtmlUtils.generateOnchange((AbstractUIInput) component, facesContext);
