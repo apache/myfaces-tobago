@@ -21,7 +21,7 @@ package org.apache.myfaces.tobago.renderkit.html.speyside.standard.tag;
 
 /*
 public class TabGroupRenderer
-    extends org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag.TabGroupRenderer {
+    extends org.apache.myfaces.tobago.renderkit.html.standard.standard.tag.TabGroupRenderer {
 
  TODO: not implemented in Tobago 1.5: the shadow may be set by jQuery in Tobago 1.5?
   @Override

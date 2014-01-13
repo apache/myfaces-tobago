@@ -17,8 +17,17 @@
  * under the License.
  */
 
-package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
+package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
-public class PageRenderer extends org.apache.myfaces.tobago.renderkit.html.standard.standard.tag.PageRenderer {
+import org.junit.Assert;
+import org.junit.Test;
 
+public class TreeNodeRendererUnitTest {
+
+  @Test
+  public void testConstants() {
+     Assert.assertEquals("image/treeNode-icon-open.gif", TreeNodeRenderer.OPEN_FOLDER);
+     Assert.assertEquals("image/treeNode-icon.gif", TreeNodeRenderer.CLOSED_FOLDER);
+     Assert.assertEquals("image/treeNode-icon-leaf.gif", TreeNodeRenderer.LEAF);
+  }
 }

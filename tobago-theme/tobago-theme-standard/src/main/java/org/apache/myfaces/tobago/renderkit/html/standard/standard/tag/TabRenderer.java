@@ -17,8 +17,14 @@
  * under the License.
  */
 
-package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
+package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
-public class PageRenderer extends org.apache.myfaces.tobago.renderkit.html.standard.standard.tag.PageRenderer {
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
+
+public class TabRenderer extends LayoutComponentRendererBase {
+
+  private static final Logger LOG = LoggerFactory.getLogger(TabRenderer.class);
 
 }

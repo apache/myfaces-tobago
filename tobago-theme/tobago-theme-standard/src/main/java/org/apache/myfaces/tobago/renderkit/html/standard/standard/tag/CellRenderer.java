@@ -17,8 +17,12 @@
  * under the License.
  */
 
-package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
+package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
-public class PageRenderer extends org.apache.myfaces.tobago.renderkit.html.standard.standard.tag.PageRenderer {
+/**
+ * @deprecated The Cell is deprecated since Tobago 1.5.0
+ */
+@Deprecated
+public class CellRenderer extends PanelRenderer {
 
 }

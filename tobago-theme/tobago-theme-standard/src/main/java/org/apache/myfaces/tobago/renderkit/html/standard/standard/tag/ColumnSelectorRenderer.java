@@ -17,8 +17,9 @@
  * under the License.
  */
 
-package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
+package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
-public class PageRenderer extends org.apache.myfaces.tobago.renderkit.html.standard.standard.tag.PageRenderer {
+import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 
+public class ColumnSelectorRenderer extends LayoutComponentRendererBase {
 }

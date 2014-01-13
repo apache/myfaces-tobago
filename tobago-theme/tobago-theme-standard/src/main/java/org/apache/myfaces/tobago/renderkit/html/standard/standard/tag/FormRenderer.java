@@ -17,8 +17,25 @@
  * under the License.
  */
 
-package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
+package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
-public class PageRenderer extends org.apache.myfaces.tobago.renderkit.html.standard.standard.tag.PageRenderer {
+import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
+import org.apache.myfaces.tobago.renderkit.RendererBase;
 
+import javax.faces.component.UIComponent;
+import javax.faces.component.UIForm;
+import javax.faces.context.FacesContext;
+
+public class FormRenderer extends RendererBase {
+
+  public void decode(final FacesContext facesContext, final UIComponent component) {
+    final UIForm form = (UIForm) component;
+    final String actionId = FacesContextUtils.getActionId(facesContext);
+    final String clientId = form.getClientId(facesContext);
+    if (actionId != null && actionId.startsWith(clientId)) {
+      form.setSubmitted(true);
+    }
+    super.decode(facesContext, form);
+  }
 }
+
