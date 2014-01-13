@@ -49,7 +49,7 @@ public class PageRendererBase extends LayoutComponentRendererBase {
 
   private void decodeActionPosition(final FacesContext facesContext, final AbstractUIPage page) {
     final String actionIdName = page.getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + "form-action";
-    final String newActionId = (String) facesContext.getExternalContext().getRequestParameterMap().get(actionIdName);
+    final String newActionId = facesContext.getExternalContext().getRequestParameterMap().get(actionIdName);
     if (LOG.isDebugEnabled()) {
       LOG.debug("action = " + newActionId);
     }
