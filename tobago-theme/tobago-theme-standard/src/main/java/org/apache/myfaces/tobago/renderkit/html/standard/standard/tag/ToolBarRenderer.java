@@ -21,7 +21,6 @@ package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
 import org.apache.myfaces.tobago.component.UIToolBar;
 import org.apache.myfaces.tobago.config.Configurable;
-import org.apache.myfaces.tobago.context.ResourceManager;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.layout.TextAlign;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
@@ -59,14 +58,6 @@ public class ToolBarRenderer extends ToolBarRendererBase {
 
   @Override
   public Measure getHeight(final FacesContext facesContext, final Configurable toolBar) {
-
-    final ResourceManager resources = getResourceManager();
-
-    Measure result = getItemHeight(facesContext, toolBar);
-
-    result = result.add(resources.getThemeMeasure(facesContext, toolBar, "css.border-top-width"));
-    result = result.add(resources.getThemeMeasure(facesContext, toolBar, "css.border-bottom-width"));
-
-    return result;
+    return getItemHeight(facesContext, toolBar);
   }
 }

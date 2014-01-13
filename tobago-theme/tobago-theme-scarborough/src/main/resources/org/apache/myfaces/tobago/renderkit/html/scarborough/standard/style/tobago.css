@@ -38,6 +38,12 @@ html {
   margin: 0;
 }
 
+*, *:before, *:after {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
 /* box ---------------------------------------------------------------- */
 
 fieldset.tobago-box {
@@ -148,10 +154,6 @@ fieldset.tobago-box {
   font-weight: normal;
   cursor: pointer;
   height: 19px;
-  box-sizing: content-box;
-  -moz-box-sizing: content-box;
-  -webkit-box-sizing: content-box;
-  -ms-box-sizing: content-box;
 }
 
 .tobago-button-markup-default {

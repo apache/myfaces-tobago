@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.renderkit.css;
 
-import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.layout.Display;
 import org.apache.myfaces.tobago.layout.LayoutBase;
 import org.apache.myfaces.tobago.layout.LayoutComponent;
@@ -88,31 +87,9 @@ public class Style implements Serializable {
     final String rendererType = layout.getRendererType();
     
     width = layout.getCurrentWidth();
-    if (width != null) {
-      // TODO: Make configurable: this is needed if the box-sizing is border-box, not content-box (see CSS3)
-      width = width.subtractNotNegative(
-          ResourceManagerUtils.getThemeMeasure(facesContext, layout, "css.border-left-width"));
-      width = width.subtractNotNegative(
-          ResourceManagerUtils.getThemeMeasure(facesContext, layout, "css.padding-left"));
-      width = width.subtractNotNegative(
-          ResourceManagerUtils.getThemeMeasure(facesContext, layout, "css.padding-right"));
-      width = width.subtractNotNegative(
-          ResourceManagerUtils.getThemeMeasure(facesContext, layout, "css.border-right-width"));
-    }
     height = layout.getCurrentHeight();
-    if (height != null) {
-      // TODO: Make configurable: this is needed if the box-sizing is border-box, not content-box (see CSS3)
-      height = height.subtractNotNegative(
-          ResourceManagerUtils.getThemeMeasure(facesContext, layout, "css.border-top-width"));
-      height = height.subtractNotNegative(
-          ResourceManagerUtils.getThemeMeasure(facesContext, layout, "css.padding-top"));
-      height = height.subtractNotNegative(
-          ResourceManagerUtils.getThemeMeasure(facesContext, layout, "css.padding-bottom"));
-      height = height.subtractNotNegative(
-          ResourceManagerUtils.getThemeMeasure(facesContext, layout, "css.border-bottom-width"));
-    }
-    this.left = layout.getLeft();
-    this.top = layout.getTop();
+    left = layout.getLeft();
+    top = layout.getTop();
 
     // if there are a position coordinates, activate absolute positioning
     // XXX String "Page" is not nice here
