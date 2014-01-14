@@ -44,12 +44,10 @@ public class BoxRenderer extends BoxRendererBase {
   /*
   
 with shadow
-  
+
 <div class="tobago-box" style="width: 100px; height: 100px">
-  <div class="tobago-box-shadow" style="width: 99px; height: 99px">
-    <div class="tobago-box-border" style="width: 97px; height: 97px">
-      <div class="tobago-box-header">Label</div>
-    </div>
+  <div class="tobago-box-border" style="width: 97px; height: 97px">
+    <div class="tobago-box-header">Label</div>
   </div>
 
   <div style="position: absolute; top: 26px; left: 6px; width: 87px; height: 67px; background-color: blue;">
@@ -91,27 +89,29 @@ without shadow
       throws IOException {
 
     // todo: shadow = 0px means, that shadow is disabled, but it may be better, if we can set a boolean in the config.
-    // todo: this is possible after fixing 
+    // todo: this is possible after fixing
     final Measure measure = getResourceManager().getThemeMeasure(facesContext, box, "shadow");
     final boolean hasShadow = measure.greaterThan(Measure.ZERO);
 
     if (hasShadow) {
       // shadow begin
-      writer.startElement(HtmlElements.DIV, box);
-      writer.writeClassAttribute(Classes.create(box, "shadow"));
+//      writer.startElement(HtmlElements.DIV, box);
+//      writer.writeClassAttribute(Classes.create(box, "shadow"));
 
-      final Style shadow = new Style();
-      shadow.setWidth(box.getCurrentWidth().subtract(1));
-      shadow.setHeight(box.getCurrentHeight().subtract(1));
-      writer.writeStyleAttribute(shadow);
+//      final Style shadow = new Style();
+//      shadow.setWidth(box.getCurrentWidth().subtract(1));
+//      shadow.setHeight(box.getCurrentHeight().subtract(1));
+//      writer.writeStyleAttribute(shadow);
 
       // border begin
       writer.startElement(HtmlElements.DIV, box);
       writer.writeClassAttribute(Classes.create(box, "border"));
 
       final Style border = new Style();
-      border.setWidth(box.getCurrentWidth().subtract(3));
-      border.setHeight(box.getCurrentHeight().subtract(3));
+      border.setWidth(box.getCurrentWidth());
+      border.setHeight(box.getCurrentHeight());
+//      border.setWidth(box.getCurrentWidth().subtract(3));
+//      border.setHeight(box.getCurrentHeight().subtract(3));
       writer.writeStyleAttribute(border);
     }
 
@@ -140,7 +140,7 @@ without shadow
       // border end
       writer.endElement(HtmlElements.DIV);
       // shadow end
-      writer.endElement(HtmlElements.DIV);
+//      writer.endElement(HtmlElements.DIV);
     }
 
     writer.startElement(HtmlElements.DIV, null);
