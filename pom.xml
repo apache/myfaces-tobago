@@ -1529,9 +1529,9 @@
 
   <properties>
     <myfaces-test20.version>1.0.4</myfaces-test20.version>
-    <myfaces20.version>2.0.19</myfaces20.version>
-    <myfaces21.version>2.1.13</myfaces21.version>
-    <myfaces22.version>2.2.0-beta</myfaces22.version>
+    <myfaces20.version>2.0.20</myfaces20.version>
+    <myfaces21.version>2.1.14</myfaces21.version>
+    <myfaces22.version>2.2.0</myfaces22.version>
     <mojarra20.version>2.0.11</mojarra20.version>
     <mojarra21.version>2.1.7</mojarra21.version>
     <mojarra22.version>2.2.2</mojarra22.version>
