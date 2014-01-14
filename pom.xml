@@ -1854,8 +1854,8 @@
     <myfaces11.version>1.1.10</myfaces11.version>
     <myfaces12.version>1.2.12</myfaces12.version>
     <myfaces-test12.version>1.0.4</myfaces-test12.version>
-    <myfaces20.version>2.0.19</myfaces20.version>
-    <myfaces21.version>2.1.13</myfaces21.version>
+    <myfaces20.version>2.0.20</myfaces20.version>
+    <myfaces21.version>2.1.14</myfaces21.version>
     <mojarra11.version>1.1_02</mojarra11.version>
     <mojarra12.version>1.2_15</mojarra12.version>
     <mojarra20.version>2.0.11</mojarra20.version>
