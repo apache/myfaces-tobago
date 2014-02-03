@@ -19,14 +19,12 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.internal.util.Deprecation;
 import org.apache.myfaces.tobago.layout.LayoutComponent;
 import org.apache.myfaces.tobago.model.ExpandedState;
-import org.apache.myfaces.tobago.model.SelectedState;
 import org.apache.myfaces.tobago.model.MixedTreeModel;
+import org.apache.myfaces.tobago.model.SelectedState;
 import org.apache.myfaces.tobago.model.TreeState;
 
 import javax.el.ELContext;
@@ -38,8 +36,6 @@ import javax.faces.context.FacesContext;
 public abstract class AbstractUITree extends AbstractUIData
 // extends javax.faces.component.UIInput
     implements NamingContainer, LayoutComponent {
-
-  private static final Log LOG = LogFactory.getLog(AbstractUITree.class);
 
   public static final String MESSAGE_NOT_LEAF = "tobago.tree.MESSAGE_NOT_LEAF";
 
