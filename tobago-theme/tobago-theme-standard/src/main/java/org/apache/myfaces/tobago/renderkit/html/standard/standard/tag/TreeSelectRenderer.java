@@ -19,8 +19,8 @@
 
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.component.UITreeSelect;
 import org.apache.myfaces.tobago.internal.component.AbstractUIData;
 import org.apache.myfaces.tobago.internal.component.AbstractUITreeListbox;
@@ -43,7 +43,7 @@ import java.io.IOException;
 
 public class TreeSelectRenderer extends RendererBase {
 
-  private static final Log LOG = LogFactory.getLog(TreeSelectRenderer.class);
+  private static final Logger LOG = LoggerFactory.getLogger(TreeSelectRenderer.class);
 
   public void decode(final FacesContext facesContext, final UIComponent component) {
 
