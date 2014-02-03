@@ -33,7 +33,7 @@ Compatibility
 *--+--+--+--+
 | JSF                  | <<1.1>>, 1.2               | 1.2, 2.0\[disable vh\], 2.1\[disable vh\]    | 2.0, 2.1, 2.2                          | 2.0, 2.1, 2.2
 *--+--+--+--+
-| Facelets             | <<1.1>>\[ext\]             | <<1.1>>\[ext\]                               | yes                                    | yes
+| Facelets             | <<1.1>>\[ext\]             | <<1.1>>\[ext\]                               | \[int\]                                | \[int\]
 *--+--+--+--+
 | Servlet              | 2.3, <<2.4>>, 2.5          | 2.4\[facelets only\], <<2.5>>, 3.0           | 2.4\[facelets only\], <<2.5>>, <<3.0>> | 3.0
 *--+--+--+--+
@@ -95,6 +95,8 @@ Compatibility
   \[retro\]: use the JDK 1.4 retro version
 
   \[ext\]: add the tobago-facelets extension
+
+  \[int\]: since Tobago 2.0 and JSF 2.0 Facelets are integrated in JSF
 
   \[tbd\]: to be defined
 
