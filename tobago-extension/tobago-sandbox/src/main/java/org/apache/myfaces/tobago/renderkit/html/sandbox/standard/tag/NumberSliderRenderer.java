@@ -28,6 +28,7 @@ import org.apache.myfaces.tobago.renderkit.css.Position;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
+import org.apache.myfaces.tobago.renderkit.html.HtmlRoleValues;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -82,6 +83,7 @@ public class NumberSliderRenderer extends LayoutComponentRendererBase {
     }
 
     writer.startElement(HtmlElements.TABLE, slider);
+    writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.PRESENTATION.toString(), false);
     writer.writeIdAttribute(id);
     writer.writeClassAttribute(Classes.create(slider));
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, slider);

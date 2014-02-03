@@ -92,6 +92,7 @@ public final class HtmlAttributes {
   public static final String READONLY = "readonly";
   public static final String REL = "rel";
   public static final String REQUIRED = "required";
+  public static final String ROLE = "role";
   public static final String ROWS = "rows";
   public static final String ROWSPAN = "rowspan";
   public static final String SCROLL = "scroll";
