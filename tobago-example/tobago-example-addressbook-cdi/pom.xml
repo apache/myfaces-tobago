@@ -678,13 +678,6 @@
           <value>mojarra-2.2</value>
         </property>
       </activation>
-      <repositories>
-        <repository>
-          <id>jvnet-nexus-snapshots</id>
-          <name>jvnet-nexus-snapshots</name>
-          <url>https://maven.java.net/content/repositories/snapshots/</url>
-        </repository>
-      </repositories>
       <dependencies>
         <dependency>
           <groupId>org.apache.openwebbeans</groupId>
