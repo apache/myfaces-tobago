@@ -62,9 +62,6 @@
                 <concat destfile="${project.build.directory}/javascript-min/standard/script/tobago.min.js" force="no">
                   <filelist dir="${basedir}/src/main/resources/org/apache/myfaces/tobago/renderkit/html/standard/standard/script" files="tobago.js,tobago-calendar.js,tobago-converter.js,tobago-in.js,tobago-menu.js,tobago-overlay.js,tobago-popup.js,tobago-sheet.js,tobago-suggest.js,tobago-tree.js,tobago-utils.js" />
                 </concat>
-                <concat destfile="${project.build.directory}/javascript-min/msie_6_0/script/tobago.min.js" force="no">
-                  <filelist dir="${basedir}/src/main/resources/org/apache/myfaces/tobago/renderkit/html/standard/msie_6_0/script" files="tobago.js" />
-                </concat>
                 <replaceregexp match="^.*//.*@DEV_ONLY.*$" replace="" byline="true">
                   <fileset dir="${project.build.directory}/javascript-min">
                     <include name="**/tobago.min.js" />
@@ -103,26 +100,6 @@
                 <argument>--js_output_file</argument>
                 <argument>
                   target/classes/org/apache/myfaces/tobago/renderkit/html/standard/standard/script/tobago.min.js
-                </argument>
-              </arguments>
-            </configuration>
-          </execution>
-          <execution>
-            <id>compress-msie_6_0</id>
-            <goals>
-              <goal>exec</goal>
-            </goals>
-            <phase>compile</phase>
-            <configuration>
-              <executable>java</executable>
-              <arguments>
-                <argument>-jar</argument>
-                <argument>lib/compiler-20120430.jar</argument>
-                <argument>--js</argument>
-                <argument>${project.build.directory}/javascript-min/msie_6_0/script/tobago.min.js</argument>
-                <argument>--js_output_file</argument>
-                <argument>
-                  target/classes/org/apache/myfaces/tobago/renderkit/html/standard/msie_6_0/script/tobago.min.js
                 </argument>
               </arguments>
             </configuration>
