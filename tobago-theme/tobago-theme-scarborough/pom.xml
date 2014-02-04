@@ -137,10 +137,6 @@
       </exclusions>
     </dependency>
     <dependency>
-      <groupId>javax.el</groupId>
-      <artifactId>el-api</artifactId>
-    </dependency>
-    <dependency>
       <groupId>rhino</groupId>
       <artifactId>js</artifactId>
       <version>1.6R2</version>

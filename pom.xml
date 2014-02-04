@@ -407,17 +407,21 @@
         <optional>true</optional>
       </dependency>
       <dependency>
-        <groupId>javax.servlet.jsp</groupId>
-        <artifactId>jsp-api</artifactId>
-        <version>2.1</version>
-        <optional>true</optional>
+        <groupId>org.apache.geronimo.specs</groupId>
+        <artifactId>geronimo-servlet_3.0_spec</artifactId>
+        <version>1.0</version>
         <scope>provided</scope>
       </dependency>
       <dependency>
-        <groupId>javax.servlet</groupId>
-        <artifactId>servlet-api</artifactId>
-        <version>2.5</version>
-        <optional>true</optional>
+        <groupId>org.apache.geronimo.specs</groupId>
+        <artifactId>geronimo-jsp_2.2_spec</artifactId>
+        <version>1.2</version>
+        <scope>provided</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.geronimo.specs</groupId>
+        <artifactId>geronimo-el_2.2_spec</artifactId>
+        <version>1.0.4</version>
         <scope>provided</scope>
       </dependency>
       <dependency>
@@ -499,28 +503,6 @@
         <scope>test</scope>
       </dependency>
       <dependency>
-        <groupId>javax.servlet</groupId>
-        <artifactId>jstl</artifactId>
-        <version>1.1.0</version>
-        <exclusions>
-          <exclusion>
-            <groupId>javax.servlet</groupId>
-            <artifactId>jsp-api</artifactId>
-          </exclusion>
-        </exclusions>
-      </dependency>
-      <dependency>
-        <groupId>taglibs</groupId>
-        <artifactId>standard</artifactId>
-        <version>1.1.2</version>
-      </dependency>
-      <dependency>
-        <groupId>javax.el</groupId>
-        <artifactId>el-api</artifactId>
-        <version>1.0</version>
-        <scope>provided</scope>
-      </dependency>
-      <dependency>
         <groupId>javax.portlet</groupId>
         <artifactId>portlet-api</artifactId>
         <version>2.0</version>
@@ -567,13 +549,16 @@
     </dependency>
 
     <dependency>
-      <groupId>javax.servlet.jsp</groupId>
-      <artifactId>jsp-api</artifactId>
+      <groupId>org.apache.geronimo.specs</groupId>
+      <artifactId>geronimo-servlet_3.0_spec</artifactId>
     </dependency>
-
     <dependency>
-      <groupId>javax.servlet</groupId>
-      <artifactId>servlet-api</artifactId>
+      <groupId>org.apache.geronimo.specs</groupId>
+      <artifactId>geronimo-jsp_2.2_spec</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.geronimo.specs</groupId>
+      <artifactId>geronimo-el_2.2_spec</artifactId>
     </dependency>
 
     <dependency>
@@ -881,11 +866,6 @@
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-dependency-plugin</artifactId>
           <version>2.3</version>
-        </plugin>
-        <plugin>
-          <groupId>org.codehaus.mojo</groupId>
-          <artifactId>tomcat-maven-plugin</artifactId>
-          <version>1.1</version>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
@@ -1309,51 +1289,6 @@
 
 -->
 
-<!--
-    <profile>
-      <id>jsf-2.0</id>
-      <activation>
-        <property>
-          <name>jsf</name>
-          <value>myfaces-2.0</value>
-        </property>
-      </activation>
-      <properties>
-        <jsf.target>2.0</jsf.target>
-      </properties>
-      <dependencyManagement>
-        <dependencies>
-          <dependency>
-            <groupId>org.apache.myfaces.core</groupId>
-            <artifactId>myfaces-api</artifactId>
-            <version>${myfaces20.version}</version>
-            <optional>true</optional>
-          </dependency>
-          <dependency>
-            <groupId>org.apache.myfaces.core</groupId>
-            <artifactId>myfaces-impl</artifactId>
-            <version>${myfaces20.version}</version>
-            <optional>true</optional>
-          </dependency>
-          <dependency>
-            <groupId>javax.servlet.jsp</groupId>
-            <artifactId>jsp-api</artifactId>
-            <version>2.1</version>
-            <scope>provided</scope>
-            <optional>true</optional>
-          </dependency>
-          <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
-            <version>2.5</version>
-            <optional>true</optional>
-            <scope>provided</scope>
-          </dependency>
-        </dependencies>
-      </dependencyManagement>
-    </profile>
--->
-
     <profile>
       <id>jsf-2.1</id>
       <activation>
@@ -1391,9 +1326,6 @@
           <value>myfaces-2.2</value>
         </property>
       </activation>
-      <properties>
-        <jsf.target>2.0</jsf.target>
-      </properties>
       <dependencyManagement>
         <dependencies>
           <dependency>
@@ -1420,9 +1352,6 @@
           <value>mojarra-2.0</value>
         </property>
       </activation>
-      <properties>
-        <jsf.target>2.0</jsf.target>
-      </properties>
       <dependencyManagement>
         <dependencies>
           <dependency>
@@ -1449,9 +1378,6 @@
           <value>mojarra-2.1</value>
         </property>
       </activation>
-      <properties>
-        <jsf.target>2.0</jsf.target>
-      </properties>
       <dependencyManagement>
         <dependencies>
           <dependency>
@@ -1478,9 +1404,6 @@
           <value>mojarra-2.2</value>
         </property>
       </activation>
-      <properties>
-        <jsf.target>2.0</jsf.target>
-      </properties>
       <dependencyManagement>
         <dependencies>
           <dependency>
@@ -1528,7 +1451,7 @@
   </contributors>
 
   <properties>
-    <myfaces-test20.version>1.0.4</myfaces-test20.version>
+    <myfaces-test20.version>1.0.5</myfaces-test20.version>
     <myfaces20.version>2.0.20</myfaces20.version>
     <myfaces21.version>2.1.14</myfaces21.version>
     <myfaces22.version>2.2.0</myfaces22.version>
@@ -1542,10 +1465,9 @@
     <commons-lang.version>2.6</commons-lang.version>
     <commons-logging.version>1.1.1</commons-logging.version>
     <commons-collection.version>3.2.1</commons-collection.version>
-    <maven.compile.source>1.5</maven.compile.source>
-    <maven.compile.target>1.5</maven.compile.target>
+    <maven.compile.source>1.6</maven.compile.source>
+    <maven.compile.target>1.6</maven.compile.target>
     <maven.compile.encoding>UTF-8</maven.compile.encoding>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <jsf.target>2.0</jsf.target>
   </properties>
 </project>

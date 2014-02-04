@@ -96,7 +96,7 @@
                 <sourceFacesConfig>${basedir}/src/main/faces-config/faces-config.xml</sourceFacesConfig>
                 <targetFacesConfig>META-INF/faces-config.xml</targetFacesConfig>
                 <targetTaglib>META-INF</targetTaglib>
-                <jsfVersion>${jsf.target}</jsfVersion>
+                <jsfVersion>2.0</jsfVersion>
               </optionMap>
             </configuration>
           </execution>
@@ -230,26 +230,6 @@
       <version>${project.version}</version>
       <classifier>tests</classifier>
       <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>javax.el</groupId>
-      <artifactId>el-api</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>fop</groupId>
-      <artifactId>fop</artifactId>
-      <version>0.20.5</version>
-      <scope>provided</scope>
-      <optional>true</optional>
-    </dependency>
-    <!-- XXX not transitive from fop -->
-    <dependency>
-      <groupId>avalon-framework</groupId>
-      <artifactId>avalon-framework</artifactId>
-      <version>20020627</version>
-      <!-- XXX wrong date -->
-      <scope>provided</scope>
-      <optional>true</optional>
     </dependency>
     <dependency>
       <groupId>maven-taglib</groupId>

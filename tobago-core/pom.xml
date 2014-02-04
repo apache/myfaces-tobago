@@ -71,7 +71,7 @@
                 <targetFacesConfig>META-INF/faces-config.xml</targetFacesConfig>
                 <targetTaglib>META-INF</targetTaglib>
                 <targetCheckstyle>META-INF</targetCheckstyle>
-                <jsfVersion>${jsf.target}</jsfVersion>
+                <jsfVersion>2.0</jsfVersion>
               </optionMap>
             </configuration>
           </execution>
@@ -190,11 +190,6 @@
       <artifactId>myfaces-api</artifactId>
       <optional>true</optional>
     </dependency>
-    <dependency>
-      <groupId>javax.el</groupId>
-      <artifactId>el-api</artifactId>
-    </dependency>
-
     <dependency>
       <groupId>maven-taglib</groupId>
       <artifactId>maven-taglib-plugin</artifactId>

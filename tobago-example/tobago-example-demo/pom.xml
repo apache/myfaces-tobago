@@ -15,7 +15,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>org.apache.myfaces.tobago</groupId>
@@ -218,9 +219,9 @@
     </dependency>
 
     <dependency>
-        <groupId>org.hibernate</groupId>
-        <artifactId>hibernate-validator</artifactId>
-        <version>4.2.0.Final</version>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-validator</artifactId>
+      <version>4.2.0.Final</version>
     </dependency>
 
   </dependencies>
@@ -313,27 +314,6 @@
           <version>${openwebbeans.version}</version>
         </dependency>
 
-        <!-- Codi for JavaEE5 -->
-        <dependency>
-          <groupId>org.apache.myfaces.extensions.cdi.modules.jee5-support</groupId>
-          <artifactId>myfaces-extcdi-jee5-openwebbeans-support</artifactId>
-          <version>${myfaces-extcdi.version}</version>
-          <scope>runtime</scope>
-        </dependency>
-
-        <!-- for JSF 2.0 and Bean Validation (JSR-303)  -->
-        <dependency>
-          <groupId>javax.el</groupId>
-          <artifactId>el-api</artifactId>
-          <version>2.2</version>
-          <scope>compile</scope>
-        </dependency>
-        <dependency>
-          <groupId>org.glassfish.web</groupId>
-          <artifactId>el-impl</artifactId>
-          <version>2.2</version>
-        </dependency>
-
       </dependencies>
     </profile>
 
@@ -384,28 +364,6 @@
           <groupId>org.apache.openwebbeans</groupId>
           <artifactId>openwebbeans-resource</artifactId>
           <version>${openwebbeans.version}</version>
-        </dependency>
-
-        <!-- Codi for JavaEE5 -->
-        <dependency>
-          <groupId>org.apache.myfaces.extensions.cdi.modules.jee5-support</groupId>
-          <artifactId>myfaces-extcdi-jee5-openwebbeans-support</artifactId>
-          <version>${myfaces-extcdi.version}</version>
-          <scope>runtime</scope>
-        </dependency>
-
-        <!-- for JSF 2.0 and Bean Validation (JSR-303)  -->
-        <dependency>
-          <groupId>javax.el</groupId>
-          <artifactId>el-api</artifactId>
-          <version>2.2</version>
-          <scope>compile</scope>
-        </dependency>
-
-        <dependency>
-          <groupId>org.glassfish.web</groupId>
-          <artifactId>el-impl</artifactId>
-          <version>2.2</version>
         </dependency>
 
       </dependencies>
@@ -460,28 +418,6 @@
           <version>${openwebbeans.version}</version>
         </dependency>
 
-        <!-- Codi for JavaEE5 -->
-        <dependency>
-          <groupId>org.apache.myfaces.extensions.cdi.modules.jee5-support</groupId>
-          <artifactId>myfaces-extcdi-jee5-openwebbeans-support</artifactId>
-          <version>${myfaces-extcdi.version}</version>
-          <scope>runtime</scope>
-        </dependency>
-
-        <!-- for JSF 2.0 and Bean Validation (JSR-303)  -->
-        <dependency>
-          <groupId>javax.el</groupId>
-          <artifactId>el-api</artifactId>
-          <version>2.2</version>
-          <scope>compile</scope>
-        </dependency>
-
-        <dependency>
-          <groupId>org.glassfish.web</groupId>
-          <artifactId>el-impl</artifactId>
-          <version>2.2</version>
-        </dependency>
-
       </dependencies>
     </profile>
 
@@ -534,28 +470,6 @@
           <version>${openwebbeans.version}</version>
         </dependency>
 
-        <!-- Codi for JavaEE5 -->
-        <dependency>
-          <groupId>org.apache.myfaces.extensions.cdi.modules.jee5-support</groupId>
-          <artifactId>myfaces-extcdi-jee5-openwebbeans-support</artifactId>
-          <version>${myfaces-extcdi.version}</version>
-          <scope>runtime</scope>
-        </dependency>
-
-        <!-- for JSF 2.0 and Bean Validation (JSR-303)  -->
-        <dependency>
-          <groupId>javax.el</groupId>
-          <artifactId>el-api</artifactId>
-          <version>2.2</version>
-          <scope>compile</scope>
-        </dependency>
-
-        <dependency>
-          <groupId>org.glassfish.web</groupId>
-          <artifactId>el-impl</artifactId>
-          <version>2.2</version>
-        </dependency>
-
       </dependencies>
     </profile>
 
@@ -606,28 +520,6 @@
           <groupId>org.apache.openwebbeans</groupId>
           <artifactId>openwebbeans-resource</artifactId>
           <version>${openwebbeans.version}</version>
-        </dependency>
-
-        <!-- Codi for JavaEE5 -->
-        <dependency>
-          <groupId>org.apache.myfaces.extensions.cdi.modules.jee5-support</groupId>
-          <artifactId>myfaces-extcdi-jee5-openwebbeans-support</artifactId>
-          <version>${myfaces-extcdi.version}</version>
-          <scope>runtime</scope>
-        </dependency>
-
-        <!-- for JSF 2.0 and Bean Validation (JSR-303)  -->
-        <dependency>
-          <groupId>javax.el</groupId>
-          <artifactId>el-api</artifactId>
-          <version>2.2</version>
-          <scope>compile</scope>
-        </dependency>
-
-        <dependency>
-          <groupId>org.glassfish.web</groupId>
-          <artifactId>el-impl</artifactId>
-          <version>2.2</version>
         </dependency>
 
       </dependencies>
@@ -689,52 +581,33 @@
           <version>${openwebbeans.version}</version>
         </dependency>
 
-        <!-- Codi for JavaEE5 -->
-        <dependency>
-          <groupId>org.apache.myfaces.extensions.cdi.modules.jee5-support</groupId>
-          <artifactId>myfaces-extcdi-jee5-openwebbeans-support</artifactId>
-          <version>${myfaces-extcdi.version}</version>
-          <scope>runtime</scope>
-        </dependency>
-
-        <!-- for JSF 2.0 and Bean Validation (JSR-303)  -->
-        <dependency>
-          <groupId>javax.el</groupId>
-          <artifactId>el-api</artifactId>
-          <version>2.2</version>
-          <scope>compile</scope>
-        </dependency>
-
-        <dependency>
-          <groupId>org.glassfish.web</groupId>
-          <artifactId>el-impl</artifactId>
-          <version>2.2</version>
-        </dependency>
-
       </dependencies>
     </profile>
 
     <profile>
       <!--
-       mvn package cargo:start -Ptomcat6x
+       mvn package cargo:start -Ptomcat7x
+       XXX not working yet
       -->
-      <id>tomcat6x</id>
+      <id>tomcat7x</id>
       <build>
         <plugins>
           <plugin>
             <groupId>org.codehaus.cargo</groupId>
             <artifactId>cargo-maven2-plugin</artifactId>
-            <version>1.0</version>
+            <version>1.4.6</version>
             <configuration>
               <container>
-                <containerId>tomcat6x</containerId>
+                <containerId>tomcat7x</containerId>
                 <zipUrlInstaller>
-                  <url>http://archive.apache.org/dist/tomcat/tomcat-6/v6.0.33/bin/apache-tomcat-6.0.33.zip</url>
-                  <installDir>${project.build.directory}/tomcat6</installDir>
+                  <url>http://archive.apache.org/dist/tomcat/tomcat-7/v7.0.50/bin/apache-tomcat-7.0.50.zip</url>
                 </zipUrlInstaller>
+                <output>${project.build.directory}/tomcat7/container.log</output>
+                <append>false</append>
+                <log>${project.build.directory}/tomcat7/cargo.log</log>
               </container>
               <configuration>
-                <home>${project.build.directory}/tomcat6/container</home>
+                <home>${project.build.directory}/tomcat7/container</home>
               </configuration>
             </configuration>
           </plugin>
@@ -743,25 +616,28 @@
     </profile>
     <profile>
       <!--
-       mvn package cargo:start -Ptomcat5x
+       mvn package cargo:start -Ptomcat8x
+       XXX not working yet
       -->
-      <id>tomcat5x</id>
+      <id>tomcat8x</id>
       <build>
         <plugins>
           <plugin>
             <groupId>org.codehaus.cargo</groupId>
             <artifactId>cargo-maven2-plugin</artifactId>
-            <version>1.0</version>
+            <version>1.4.6</version>
             <configuration>
               <container>
-                <containerId>tomcat5x</containerId>
+                <containerId>tomcat8x</containerId>
                 <zipUrlInstaller>
-                  <url>http://archive.apache.org/dist/tomcat/tomcat-5/v5.5.33/bin/apache-tomcat-5.5.33.zip</url>
-                  <installDir>${project.build.directory}/tomcat5</installDir>
+                  <url>http://archive.apache.org/dist/tomcat/tomcat-8/v8.0.1/bin/apache-tomcat-8.0.1.zip</url>
                 </zipUrlInstaller>
+                <output>${project.build.directory}/tomcat8/container.log</output>
+                <append>false</append>
+                <log>${project.build.directory}/tomcat8/cargo.log</log>
               </container>
               <configuration>
-                <home>${project.build.directory}/tomcat5/container</home>
+                <home>${project.build.directory}/tomcat8/container</home>
               </configuration>
             </configuration>
           </plugin>
