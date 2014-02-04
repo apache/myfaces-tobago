@@ -47,104 +47,592 @@ Apache Tobago
 
 News
 
-  []
+* January 13, 2014 - New Branch for Tobago 3.0 Created
 
-    * <<11-01-2014>> - Apache MyFaces Tobago 1.5.12 released!
+      There was a new branch in the Subversion to start development on the next major version:
+      {{{https://svn.apache.org/repos/asf/myfaces/tobago/branches/tobago-3.0.x}Tobago 3.0}}.
 
-    * <<07-01-2014>> - Apache MyFaces Tobago 2.0.0-alpha-3 released!
+      \ {}
+      ~~ hack for a bit space
 
-    * <<11-11-2013>> - Apache MyFaces Tobago 1.5.11 released!
+* January 11, 2014 - MyFaces Tobago 1.5.12 Released
 
-    * <<14-10-2013>> - Apache MyFaces Tobago 2.0.0-alpha-2 released!
+      The MyFaces Tobago component library in version 1.5.12 has been released.
 
-    * <<07-08-2013>> - Apache MyFaces Tobago 2.0.0-alpha-1 released!
+      Release notes can be found
+      {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12324453}here}}.
 
-    * <<27-05-2013>> - Apache MyFaces Tobago 1.5.10 released!
+      \ {}
+      ~~ hack for a bit space
 
-    * <<09-04-2013>> - Next version renamed from 1.6.x to 2.0.x.
+* January 7, 2014 - MyFaces Tobago 2.0.0-alpha-3 Released
 
-    * <<04-03-2013>> - Apache MyFaces Tobago 1.5.9 released!
+      The MyFaces Tobago component library in version 2.0.0-alpha-3 has been released.
 
-    * <<04-03-2013>> - Apache MyFaces Tobago 1.0.40 released!
+      Release notes can be found
+      {{{https://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&version=12325247}here}}.
 
-    * <<25-10-2012>> - Apache MyFaces Tobago 1.5.8 released!
+      \ {}
+      ~~ hack for a bit space
 
-    * <<11-07-2012>> - Apache MyFaces Tobago 1.5.7 released!
+* November 11, 2013 - MyFaces Tobago 1.5.11 Released
 
-    * <<27-06-2012>> - Apache MyFaces Tobago 1.6.0-beta-2 released!
+      The MyFaces Tobago component library in version 1.5.11 has been released.
 
-    * <<06-06-2012>> - Apache MyFaces Tobago 1.6.0-beta-1 released!
+      Release notes can be found
+      {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12324453}here}}.
 
-    * <<22-05-2012>> - 1.5.x branch has been created. The trunk is now 1.6.x.
+      \ {}
+      ~~ hack for a bit space
 
-    * <<21-05-2012>> - Apache MyFaces Tobago 1.5.6 released!
+* October 14, 2013 - MyFaces Tobago 2.0.0-alpha-2 Released
 
-    * <<11-05-2012>> - Apache MyFaces Tobago 1.5.5 released!
+      The MyFaces Tobago component library in version 2.0.0-alpha-2 has been released.
 
-    * <<05-03-2012>> - Apache MyFaces Tobago 1.5.4 released!
+      Release notes can be found
+      {{{https://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&version=12324818}here}}.
 
-    * <<19-02-2012>> - Apache MyFaces Tobago 1.0.39 released!
+  \ {}
+  ~~ hack for a bit space
 
-    * <<15-02-2012>> - Apache MyFaces Tobago 1.5.3 released!
+* August 7, 2013 - MyFaces Tobago 2.0.0-alpha-1 Released
 
-    * <<24-01-2012>> - Apache MyFaces Tobago 1.5.2 released!
+      The MyFaces Tobago component library in version 2.0.0-alpha-1 has been released.
 
-    * <<12-12-2011>> - Apache MyFaces Tobago 1.5.1 released!
+      Release notes can be found
+      {{{https://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&version=12321874}here}}.
 
-    * <<30-11-2011>> - Apache MyFaces Tobago 1.5.0 released!
+  \ {}
+  ~~ hack for a bit space
 
-    * <<09-11-2011>> - Apache MyFaces Tobago 1.5.0-beta-2 released!
+* Mai 27, 2013 - MyFaces Tobago 1.5.10 Released
 
-    * <<23-10-2011>> - Apache MyFaces Tobago 1.0.38 released!
+      The MyFaces Tobago component library in version 1.5.10 has been released.
 
-    * <<14-07-2011>> - Apache MyFaces Tobago 1.0.37 and 1.5.0-beta-1 released!
+      Release notes can be found
+      {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12324008}here}}.
 
-    * <<13-05-2011>> - Apache MyFaces Tobago 1.0.36 released!
+  \ {}
+  ~~ hack for a bit space
 
-    * <<13-03-2011>> - Apache MyFaces Tobago 1.0.35 released!
+* April 9, 2013 - MyFaces Tobago trunk version is now 2.0.x
 
-    * <<23-02-2011>> - Apache MyFaces Tobago 1.0.34 and 1.5.0-alpha-2 released!
+      Because of the extensive upgrade of this version, the major version number was increased.
 
-    * <<08-02-2011>> - Apache MyFaces Tobago 1.0.33 released!
+      Version 1.6.x will be replaced with 2.0.x.
 
-    * <<30-11-2010>> - Apache MyFaces Tobago 1.0.32 released!
+  \ {}
+  ~~ hack for a bit space
 
-    * <<04-11-2010>> - Apache MyFaces Tobago 1.0.31 released!
+* March 4, 2013 - MyFaces Tobago 1.5.9 Released
 
-    * <<06-10-2010>> - Apache MyFaces Tobago 1.0.30 released!
+      The MyFaces Tobago component library in version 1.5.9 has been released.
 
-    * <<23-09-2010>> - Apache MyFaces Tobago 1.0.29 released!
+      Release notes can be found
+      {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12323506}here}}.
 
-    * <<18-08-2010>> - Apache MyFaces Tobago 1.0.28 released!
+  \ {}
+  ~~ hack for a bit space
 
-    * <<07-06-2010>> - Apache MyFaces Tobago 1.0.27 released!
+* March 4, 2013 - MyFaces Tobago 1.0.40 Released
 
-    * <<04-06-2010>> - Apache MyFaces Tobago 1.0.26 released!
+     The MyFaces Tobago component library in version 1.0.40 has been released.
 
-    * <<01-05-2010>> - Apache MyFaces Tobago 1.0.25 released!
+     Release notes can be found
+     {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12319866}here}}.
 
-    * <<22-01-2010>> - Apache MyFaces Tobago 1.0.24 released!
 
-    * <<06-09-2009>> - Apache MyFaces Tobago 1.0.23 released!
+  \ {}
+  ~~ hack for a bit space
 
-    * <<16-08-2009>> - Apache MyFaces Tobago 1.0.22 released!
+* October 25, 2012 - MyFaces Tobago 1.5.8 Released
 
-    * <<12-06-2009>> - Apache MyFaces Tobago 1.0.21 released!
+      The MyFaces Tobago component library in version 1.5.8 has been released.
 
-    * <<26-10-2008>> - Apache MyFaces Tobago 1.0.20 released!
+      Release notes can be found
+      {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12322450}here}}.
 
-    * <<06-10-2008>> - Apache MyFaces Tobago 1.0.19 released!
 
-    * <<26-08-2008>> - Apache MyFaces Tobago 1.0.18 released!
+  \ {}
+  ~~ hack for a bit space
 
-    * <<20-05-2008>> - Apache MyFaces Tobago 1.0.17 released!
+* July 11, 2012 - MyFaces Tobago 1.5.7 Released
 
-    * <<16-04-2008>> - Apache MyFaces Tobago 1.0.16 released!
+      The MyFaces Tobago component library in version 1.5.7 has been released.
 
-    * <<11-04-2008>> - The new tree was moved from the sandbox to core (only in 1.5.x which is still alpha).
-                     The old one will be available for a few days as tc:treeOld, for migration.
+      Release notes can be found
+      {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12321444}here}}.
 
-    * <<07-04-2008>> - The 1.5.x trunk supports JSF 1.1 and JSF 1.2. The JSF 1.2 version is the default.
+  \ {}
+  ~~ hack for a bit space
 
-    * <<11-01-2008>> - 1.0.x branch has been created.
+* June 27, 2012 - MyFaces Tobago 1.6.0-beta-2 Released
 
+      The MyFaces Tobago component library in version 1.6.0-beta-2 has been released.
+
+      Release notes can be found
+      {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12321701}here}}.
+
+  \ {}
+  ~~ hack for a bit space
+
+* June 6, 2012 - MyFaces Tobago 1.6.0-beta-1 Released
+
+      The MyFaces Tobago component library in version 1.6.0-beta-1 has been released.
+
+      Release notes can be found
+      {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12321691}here}}.
+
+
+  \ {}
+  ~~ hack for a bit space
+
+* Mai 22, 2012 - New branch created
+
+      The 1.5.x branch has been created. The trunk is now 1.6.x.
+
+      The new trunk contains API changes with respect to the tree.
+
+  \ {}
+  ~~ hack for a bit space
+
+* Mai 21, 2012 - MyFaces Tobago 1.5.6 Released
+
+      The MyFaces Tobago component library in version 1.5.6 has been released.
+
+      Release notes can be found
+      {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12321251}here}}.
+
+
+  \ {}
+  ~~ hack for a bit space
+
+* Mai 11, 2012 - MyFaces Tobago 1.5.5 Released
+
+      The MyFaces Tobago component library in version 1.5.5 has been released.
+
+      Release notes can be found
+      {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12319865}here}}.
+
+
+
+  \ {}
+  ~~ hack for a bit space
+
+* March 5, 2012 - MyFaces Tobago 1.5.4 Released
+
+     The MyFaces Tobago component library in version 1.5.4 has been released.
+
+     Release notes can be found
+     {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12319864}here}}.
+
+  \ {}
+  ~~ hack for a bit space
+
+* February 19, 2012 - MyFaces Tobago 1.0.39 Released
+
+     The MyFaces Tobago component library in version 1.0.39 has been released.
+
+     Release notes can be found
+     {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12319455}here}}.
+
+
+  \ {}
+  ~~ hack for a bit space
+
+* February 15, 2012 - MyFaces Tobago 1.5.3 Released
+
+     The MyFaces Tobago component library in version 1.5.3 has been released.
+
+     Release notes can be found
+     {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12319499}here}}.
+
+
+  \ {}
+  ~~ hack for a bit space
+
+* January 24, 2012 - MyFaces Tobago 1.5.2 Released
+
+    The MyFaces Tobago component library in version 1.5.2 has been released.
+
+    Release notes can be found
+    {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12319248}here}}.
+
+
+  \ {}
+  ~~ hack for a bit space
+
+* December 12, 2011 - MyFaces Tobago 1.5.1 Released
+
+    The MyFaces Tobago component library in version 1.5.1 has been released.
+
+    Release notes can be found
+    {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12319154}here}}.
+
+
+  \ {}
+  ~~ hack for a bit space
+
+* November 30, 2011 - MyFaces Tobago 1.5.0 Released
+
+    The MyFaces Tobago component library in version 1.5.0 has been released.
+
+    Release notes can be found
+    {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12312205}here}}.
+
+
+  \ {}
+  ~~ hack for a bit space
+
+* November 9, 2011 - MyFaces Tobago 1.5.0-beta-2 Released
+
+    The MyFaces Tobago component library in version 1.5.0-beta-2 has been released.
+
+    Release notes can be found
+    {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12317052}here}}.
+
+
+  \ {}
+  ~~ hack for a bit space
+
+* October 23, 2011 - MyFaces Tobago 1.0.38 Released
+
+    The MyFaces Tobago component library in version 1.0.38 has been released.
+
+    Release notes can be found
+    {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12317350}here}}.
+
+
+  \ {}
+  ~~ hack for a bit space
+
+* July 14, 2011 - MyFaces Tobago 1.5.0-beta-1 Released
+
+    The MyFaces Tobago component library in version 1.5.0-beta-1 has been released.
+
+    Release notes can be found
+    {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12316222}here}}.
+
+
+  \ {}
+  ~~ hack for a bit space
+
+* July 14, 2011 - MyFaces Tobago 1.0.37 Released
+
+    The MyFaces Tobago component library in version 1.0.37 has been released.
+
+    Release notes can be found
+    {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12316458}here}}.
+
+  \ {}
+  ~~ hack for a bit space
+
+* Mai 13, 2011 - MyFaces Tobago 1.0.36 Released
+
+    The MyFaces Tobago component library in version 1.0.36 has been released.
+
+    Release notes can be found
+    {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12316297}here}}.
+
+  \ {}
+  ~~ hack for a bit space
+
+* March 13, 2011 - MyFaces Tobago 1.0.35 Released
+
+    The MyFaces Tobago component library in version 1.0.35 has been released.
+
+    Release notes can be found
+    {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12316183}here}}.
+
+  \ {}
+  ~~ hack for a bit space
+
+* February 23, 2011 - MyFaces Tobago 1.5.0-alpha-2 Released
+
+    The MyFaces Tobago component library in version 1.5.0-alpha-2 has been released.
+
+    Release notes can be found
+    {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12314340}here}}.
+
+
+  \ {}
+  ~~ hack for a bit space
+
+* February 23, 2011 - MyFaces Tobago 1.0.34 Released
+
+    The MyFaces Tobago component library in version 1.0.34 has been released.
+
+    Release notes can be found
+    {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12316162}here}}.
+
+
+  \ {}
+  ~~ hack for a bit space
+
+* February 8, 2011 - MyFaces Tobago 1.0.33 Released
+
+    The MyFaces Tobago component library in version 1.0.33 has been released.
+
+    Release notes can be found
+    {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12315586}here}}.
+
+  \ {}
+  ~~ hack for a bit space
+
+* November 30, 2010 - MyFaces Tobago 1.0.32 Released
+
+    The MyFaces Tobago component library in version 1.0.32 has been released.
+
+    Release notes can be found
+    {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12315489}here}}.
+
+  \ {}
+  ~~ hack for a bit space
+
+* November 4, 2010 - MyFaces Tobago 1.0.31 Released
+
+    The MyFaces Tobago component library in version 1.0.31 has been released.
+
+    Release notes can be found
+    {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12315383}here}}.
+
+  \ {}
+  ~~ hack for a bit space
+
+* October 6, 2010 - MyFaces Tobago 1.0.30 Released
+
+    The MyFaces Tobago component library in version 1.0.30 has been released.
+
+    Release notes can be found
+    {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12315336}here}}.
+
+  \ {}
+  ~~ hack for a bit space
+
+* September 23, 2010 - MyFaces Tobago 1.0.29 Released
+
+   The MyFaces Tobago component library in version 1.0.29 has been released.
+
+   Release notes can be found
+   {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12315262}here}}.
+
+  \ {}
+  ~~ hack for a bit space
+
+* August 18, 2010 - MyFaces Tobago 1.0.28 Released
+
+   The MyFaces Tobago component library in version 1.0.28 has been released.
+
+   Release notes can be found
+   {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12315109}here}}.
+
+  \ {}
+  ~~ hack for a bit space
+
+* June 7, 2010 - MyFaces Tobago 1.0.27 Released
+
+   The MyFaces Tobago component library in version 1.0.27 has been released.
+
+   Release notes can be found
+   {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12315099}here}}.
+
+  \ {}
+  ~~ hack for a bit space
+
+* June 4, 2010 - MyFaces Tobago 1.0.26 Released
+
+   The MyFaces Tobago component library in version 1.0.26 has been released.
+
+   Release notes can be found
+   {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12314961}here}}.
+
+  \ {}
+  ~~ hack for a bit space
+
+* May 1, 2010 - MyFaces Tobago 1.0.25 Released
+
+   The MyFaces Tobago component library in version 1.0.25 has been released.
+
+   Release notes can be found
+   {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12314527}here}}.
+
+  \ {}
+  ~~ hack for a bit space
+
+* January 22, 2010 - MyFaces Tobago 1.0.24 Released
+
+   The MyFaces Tobago component library in version 1.0.24 has been released.
+
+   Release notes can be found
+   {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12314193}here}}.
+
+  \ {}
+  ~~ hack for a bit space
+
+* September 6, 2009 - MyFaces Tobago 1.0.23 Released
+
+   The MyFaces Tobago component library in version 1.0.23 has been released.
+
+   Release notes can be found
+   {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12314159}here}}.
+
+  \ {}
+  ~~ hack for a bit space
+
+* August 16, 2009 - MyFaces Tobago 1.0.22 Released
+
+   The MyFaces Tobago component library in version 1.0.22 has been released.
+
+   Release notes can be found
+   {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12314027}here}}.
+
+  \ {}
+  ~~ hack for a bit space
+
+* June 12, 2009 - MyFaces Tobago 1.0.21 Released
+
+   The MyFaces Tobago component library in version 1.0.21 has been released.
+
+   Release notes can be found
+   {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12313470}here}}.
+
+  \ {}
+  ~~ hack for a bit space
+
+* October 26, 2008 - MyFaces Tobago 1.0.20 Released
+
+   The MyFaces Tobago component library in version 1.0.20 has been released.
+
+   Release notes can be found
+   {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12313447}here}}.
+
+  \ {}
+  ~~ hack for a bit space
+
+* October 6, 2008 - MyFaces Tobago 1.0.19 Released
+
+   The MyFaces Tobago component library in version 1.0.19 has been released.
+
+   Release notes can be found
+   {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12313372}here}}.
+
+  \ {}
+  ~~ hack for a bit space
+
+* August 26, 2008 - MyFaces Tobago 1.0.18 Released
+
+   The MyFaces Tobago component library in version 1.0.18 has been released.
+
+   Release notes can be found
+   {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12313150}here}}.
+
+  \ {}
+  ~~ hack for a bit space
+
+* May 20, 2008 - MyFaces Tobago 1.0.17 Released
+
+   The MyFaces Tobago component library in version 1.0.17 has been released.
+
+   Release notes can be found
+   {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12313084}here}}.
+
+  \ {}
+  ~~ hack for a bit space
+
+* April 16, 2008 - MyFaces Tobago 1.0.16 Released
+
+   The MyFaces Tobago component library in version 1.0.16 has been released.
+
+   Release notes can be found
+   {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12312966}here}}.
+
+  \ {}
+  ~~ hack for a bit space
+
+* February 18, 2008 - MyFaces Tobago 1.0.15 Released
+
+   The MyFaces Tobago component library in version 1.0.15 has been released.
+
+   Release notes can be found
+   {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12312929}here}}.
+
+  \ {}
+  ~~ hack for a bit space
+
+* January 26, 2008 - MyFaces Tobago 1.0.14 Released
+
+   The MyFaces Tobago component library in version 1.0.14 has been released.
+
+   Release notes can be found
+   {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12312878}here}}.
+
+  \ {}
+  ~~ hack for a bit space
+
+* January 11, 2008 -  1.0.x branch has been created
+
+   Trunk is now 1.1.0-SNAPSHOT
+
+  \ {}
+  ~~ hack for a bit space
+
+* December 18, 2007 - MyFaces Tobago 1.0.13 Released
+
+   The MyFaces Tobago component library in version 1.0.13 has been released.
+
+   Release notes can be found
+   {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12312766}here}}.
+
+  \ {}
+  ~~ hack for a bit space
+
+* October 19, 2007 - MyFaces Tobago 1.0.12 Released
+
+   The MyFaces Tobago component library in version 1.0.12 has been released.
+
+   Release notes can be found
+   {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12312498}here}}.
+
+  \ {}
+  ~~ hack for a bit space
+
+* June 3, 2007 - MyFaces Tobago 1.0.11 Released
+
+   MyFaces Tobago 1.0.11 has been released. It is available from the
+   {{{./download.html}download}} page, and in the central Maven repository under
+   Group ID "org.apache.myfaces.tobago".
+
+   More information on this release, including a list of resolved issues, can be
+   found on the
+   {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12312376}release notes}}.
+
+  \ {}
+  ~~ hack for a bit space
+
+* March 12, 2007 - MyFaces Tobago 1.0.10 Released
+
+   MyFaces Tobago 1.0.10 has been released.
+
+  \ {}
+  ~~ hack for a bit space
+
+* December 23, 2006 - MyFaces Tobago 1.0.9 Released
+
+   MyFaces Tobago 1.0.9 has been released.
+
+  \ {}
+  ~~ hack for a bit space
+
+* September 20, 2006 - MyFaces Tobago 1.0.8 Released
+
+   MyFaces Tobago 1.0.8 has been released.
+
+  \ {}
+  ~~ hack for a bit space
+
+* March 23, 2006 - Tobago Has Left Incubation
+
+  The goal of Tobago is to provide the community with a well designed set of user
+  interface components based on JSF and run on MyFaces.  Tobago is more than just a tag library,
+  it contains some powerful tools for layouts and themes.  For more information, please visit
+  the Tobago {{{http://myfaces.apache.org/tobago}site}}.

@@ -17,6 +17,9 @@
  Getting Started
  ------
 
+  This section describes how to build Tobago and run the
+  example applications from the sources.
+
 Checking Out
 
   Check out the 2.0.x sources by running the following:
@@ -30,7 +33,6 @@ Checking Out
 +----------------------------------------
   svn checkout http://svn.apache.org/repos/asf/myfaces/tobago/branches/tobago-1.5.x tobago-1.5.x
 +----------------------------------------
-
 
   Check out the 1.0.x sources by running the following:
 

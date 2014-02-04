@@ -46,21 +46,19 @@
       <item name="Introduction"  href="http://myfaces.apache.org/tobago/index.html"/>
       <item name="Download"      href="http://myfaces.apache.org/tobago/download.html"/>
       <item name="Demo"          href="http://myfaces.apache.org/tobago/demo.html"/>
-      <item name="News"          href="http://myfaces.apache.org/tobago/news.html"/>
       <item name="Mailing Lists" href="mail-lists.html" />
     </menu>
 
     <menu name="Documentation">
-      <item name="Overview" href="http://myfaces.apache.org/tobago/documentation.html" />
       <item name="Getting Started" href="http://myfaces.apache.org/tobago/getting-started.html"/>
-      <item name="Migration to 1.5" href="http://myfaces.apache.org/tobago/migration-1.5.html"/>
-      <item name="Migration to 2.0 (alpha)" href="http://myfaces.apache.org/tobago/migration-2.0.html"/>
-      <item name="Guide to Tobago" href="http://myfaces.apache.org/tobago/guide.html"/>
-      <item name="Roadmap" href="http://myfaces.apache.org/tobago/roadmap.html" />
       <item name="Compatibility" href="http://myfaces.apache.org/tobago/compatibility.html"/>
+      <item name="Guide to Tobago" href="http://myfaces.apache.org/tobago/guide.html"/>
+      <item name="Migration to 1.5" href="http://myfaces.apache.org/tobago/migration-1.5.html"/>
+      <item name="Migration to 2.0 (beta)" href="http://myfaces.apache.org/tobago/migration-2.0.html"/>
+      <item name="Roadmap" href="http://myfaces.apache.org/tobago/roadmap.html" />
       <item name="Theme Handling" href="http://myfaces.apache.org/tobago/themes.html" />
       <item name="FAQ" href="http://myfaces.apache.org/tobago/faq.html" />
-      <item name="API Documentation" href="http://myfaces.apache.org/tobago/api-documentation.html" />
+      <item name="API Documentation" href="http://myfaces.apache.org/tobago/api.html" />
       <item name="Release Checklist" href="http://myfaces.apache.org/tobago/release-checklist.html" />
     </menu>
 

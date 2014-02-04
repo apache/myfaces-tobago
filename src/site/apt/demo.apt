@@ -17,9 +17,62 @@
  Demo
  ------
 
-Demo
+Live Demo
 
-  A live demo can be found at {{http://www.irian.biz/tobago-example-demo/}}
-  for version 1.5.x and at {{http://www.irian.biz/tobago-example-demo-1.0.x//}} for 1.0.x.
+  A live demo can be found for different versions here:
 
-  The current snapshot of the demo war can be downloaded at: {{https://repository.apache.org/content/repositories/snapshots/org/apache/myfaces/tobago/tobago-example-demo/}}
+  * {{{http://www.irian.biz/tobago-example-demo-2.0.x/}2.0.x}}
+
+  * {{{http://www.irian.biz/tobago-example-demo-1.5.x/}1.5.x}}
+
+  * {{{http://www.irian.biz/tobago-example-demo-1.0.x/}1.0.x}}
+
+  []
+
+  This demo and more examples you can find in the Subversion (see {{{./getting-started.html}Getting Started}} section).
+
+  The current snapshot of the demo war can be downloaded at:
+  {{https://repository.apache.org/content/repositories/snapshots/org/apache/myfaces/tobago/tobago-example-demo/}}
+
+Examples
+
+  Tobago contains various example applications including a general demo, an address book application, a blank WAR,
+  and an example theme.
+
+* Tobago Demo
+
+  The Tobago demo presents the important features of Tobago including layout and themes. It contains
+  an overview of the provided controls and best practices how to use Tobago.\
+  \ {}
+  ~~ hack for a bit space
+
+[images/demo.png] Tobago Demo
+
+  A live version of the demo can be found at: {{http://www.irian.biz/tobago-example-demo/}}
+
+  Sources: {{http://svn.apache.org/repos/asf/myfaces/tobago/trunk/tobago-example/tobago-example-demo/}}
+
+* Address Book Example
+
+  The address book is a small example application demonstrating how to use
+  {{{http://springframework.org/}Spring}} and {{{http://openjpa.apache.org/}OpenJPA}} to manage addresses
+  with a Tobago frontend.\
+  \ {}
+  ~~ hack for a bit space
+
+[images/addressbook.png] Address Book Example
+
+  Sources: {{http://svn.apache.org/repos/asf/myfaces/tobago/trunk/tobago-example/tobago-example-addressbook/}}
+
+* Blank WAR
+
+  The Blank WAR is a minimal WAR to display a simple page with Tobago -- useful to get started with your own Tobago
+  application.
+
+  Sources: {{http://svn.apache.org/repos/asf/myfaces/tobago/trunk/tobago-example/tobago-example-blank/}}
+
+* Example Theme
+
+  This theme shows how to extend an existing theme and add new markups.
+
+  Sources: {{http://svn.apache.org/repos/asf/myfaces/tobago/trunk/tobago-example/tobago-theme-example/}}
