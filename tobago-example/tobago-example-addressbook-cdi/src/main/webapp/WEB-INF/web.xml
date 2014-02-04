@@ -87,6 +87,11 @@
     <url-pattern>/org/tango-project/*</url-pattern>
   </servlet-mapping>
 
+  <!-- XXX websphere-provided -->
+  <listener>
+    <listener-class>org.apache.webbeans.servlet.WebBeansConfigurationListener</listener-class>
+  </listener>
+
   <!-- Welcome File List -->
 
   <welcome-file-list>

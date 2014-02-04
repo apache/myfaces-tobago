@@ -26,29 +26,11 @@
   <packaging>war</packaging>
   <name>Tobago Example for Portlets</name>
 
-  <!--
-  XXX This is only a test! It's not a functional example. 
-  XXX It was successfully deployed on a Liferay 5.1.2, but the submit doesn't work.
-  XXX JavaScript and CSS is not working
-  -->
-
   <dependencies>
     <dependency>
       <groupId>org.apache.myfaces.tobago</groupId>
       <artifactId>tobago-theme-speyside</artifactId>
       <version>${project.version}</version>
-    </dependency>
-
-    <!-- for JSF 2.0 and Bean Validation (JSR-303)  -->
-    <dependency>
-      <groupId>org.apache.geronimo.specs</groupId>
-      <artifactId>geronimo-el_2.2_spec</artifactId>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.glassfish.web</groupId>
-      <artifactId>el-impl</artifactId>
-      <version>2.2</version>
     </dependency>
 
   </dependencies>
