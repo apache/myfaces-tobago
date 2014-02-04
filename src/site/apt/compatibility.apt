@@ -25,7 +25,7 @@ Compatibility
   \ 
 
 *--+--+--+--+--+
-|| <<Tobago Version>>  || <<1.0.x>>                 || <<1.5.x>>                                   || <<2.0.x>>                             || <<3.0.x>> \[unsettled\]
+|| <<Tobago Version>>  || <<1.0.x>>                 || <<1.5.x>>                                   || <<2.0.x>>                             || <<3.0.x>> \[tbd\]
 *--+--+--+--+--+
 || <<Specifications>>  ||                           ||                                             ||                                       ||
 *--+--+--+--+--+
@@ -98,9 +98,7 @@ Compatibility
 
   \[int\]: since Tobago 2.0 and JSF 2.0 Facelets are integrated in JSF
 
-  \[tbd\]: to be defined
-
-  \[unsettled\]: this information is unsettled and may change
+  \[tbd\]: to be defined (this information is unsettled and may change)
   
   \[facelets only\]: it works with facelets, but not with JSP, because JSF 1.2 requires JSP 2.1
 
