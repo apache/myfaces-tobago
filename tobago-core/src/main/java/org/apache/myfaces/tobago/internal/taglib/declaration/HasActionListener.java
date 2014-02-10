@@ -25,7 +25,7 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 
 public interface HasActionListener {
   /**
-   * MethodBinding representing an action listener method that will be
+   * MethodExpression representing an action listener method that will be
    * notified when this component is activated by the user.
    * The expression must evaluate to a public method that takes an ActionEvent
    * parameter, with a return type of void.

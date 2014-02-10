@@ -185,9 +185,9 @@ public class MenuCheckboxExtensionTag extends TobagoExtensionBodyTagSupport {
 
   /**
    * Action to invoke when clicked.
-   * This must be a MethodBinding or a String representing the application action to invoke when
+   * This must be a MethodExpression or a String representing the application action to invoke when
    * this component is activated by the user.
-   * The MethodBinding must evaluate to a public method that takes no parameters,
+   * The MethodExpression must evaluate to a public method that takes no parameters,
    * and returns a String (the logical outcome) which is passed to the
    * NavigationHandler for this application.
    * The String is directly passed to the Navigationhandler.
@@ -200,7 +200,7 @@ public class MenuCheckboxExtensionTag extends TobagoExtensionBodyTagSupport {
   }
 
   /**
-   * MethodBinding representing an action listener method that will be
+   * MethodExpression representing an action listener method that will be
    * notified when this component is activated by the user.
    * The expression must evaluate to a public method that takes an ActionEvent
    * parameter, with a return type of void.
