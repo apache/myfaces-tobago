@@ -17,10 +17,8 @@
  * under the License.
  */
 
-package org.apache.myfaces.tobago.layout.grid;
+package org.apache.myfaces.tobago.internal.layout;
 
-import org.apache.myfaces.tobago.internal.layout.Grid;
-import org.apache.myfaces.tobago.internal.layout.OriginCell;
 import org.apache.myfaces.tobago.layout.LayoutTokens;
 import org.apache.myfaces.tobago.layout.Orientation;
 import org.junit.Assert;
