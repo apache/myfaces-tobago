@@ -246,23 +246,6 @@
   </dependencies>
 
   <profiles>
-    <!-- Apples JDK (until 1.6) has not a tools.jar -->
-    <profile>
-      <id>tools.jar</id>
-      <activation>
-        <os><family>!mac</family></os>
-        <jdk>1.7</jdk>
-      </activation>
-      <dependencies>
-        <dependency>
-          <groupId>sun.jdk</groupId>
-          <artifactId>tools</artifactId>
-          <version>1.5.0</version>
-          <scope>system</scope>
-          <systemPath>${java.home}/../lib/tools.jar</systemPath>
-        </dependency>
-      </dependencies>
-    </profile>
     <profile>
       <id>apache-release</id>
       <build>

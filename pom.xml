@@ -634,8 +634,8 @@
                   </unCheckedPlugins>
                 </requirePluginVersions>
                 <requireJavaVersion>
-                  <message>Tobago must be compiled with Java 6 or higher</message>
-                  <version>[1.6,)</version>
+                  <message>Tobago must be compiled with Java 7 or higher</message>
+                  <version>[1.7,)</version>
                 </requireJavaVersion>
               </rules>
             </configuration>
@@ -1153,29 +1153,6 @@
       </modules>
     </profile>
 
-    <!--name of the runtime classes file-->
-    <profile>
-      <id>rt.jar</id>
-      <activation>
-        <os>
-          <family>!mac</family>
-        </os>
-      </activation>
-      <properties>
-        <java.classes.jar>lib/rt.jar</java.classes.jar>
-      </properties>
-    </profile>
-    <profile>
-      <id>classes.jar</id>
-      <activation>
-        <os>
-          <family>mac</family>
-        </os>
-      </activation>
-      <properties>
-        <java.classes.jar>../Classes/classes.jar</java.classes.jar>
-      </properties>
-    </profile>
     <profile>
       <id>generate-assembly</id>
       <modules>
