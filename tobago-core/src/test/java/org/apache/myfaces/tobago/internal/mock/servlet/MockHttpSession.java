@@ -20,7 +20,6 @@
 package org.apache.myfaces.tobago.internal.mock.servlet;
 
 import org.apache.commons.collections.iterators.IteratorEnumeration;
-import org.apache.commons.lang.ArrayUtils;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
@@ -67,7 +66,7 @@ public class MockHttpSession implements HttpSession {
   }
 
   public String[] getValueNames() {
-    return ArrayUtils.EMPTY_STRING_ARRAY;
+    return new String[0];
   }
 
   public void invalidate() {

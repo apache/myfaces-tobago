@@ -141,9 +141,6 @@
         <para>commons-lang</para>
       </listitem>
 
-      <listitem>
-        <para>commons-logging</para>
-      </listitem>
     </itemizedlist>
 
     <para>Additionally a JSF implementation has to be selected. For MyFaces

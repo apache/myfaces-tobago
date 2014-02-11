@@ -222,11 +222,6 @@
           <version>${myfaces20.version}</version>
           <scope>runtime</scope>
         </dependency>
-        <dependency>
-          <groupId>commons-logging</groupId>
-          <artifactId>commons-logging</artifactId>
-          <scope>runtime</scope>
-        </dependency>
       </dependencies>
     </profile>
 
@@ -254,11 +249,6 @@
           <version>${myfaces21.version}</version>
           <scope>runtime</scope>
         </dependency>
-        <dependency>
-          <groupId>commons-logging</groupId>
-          <artifactId>commons-logging</artifactId>
-          <scope>runtime</scope>
-        </dependency>
       </dependencies>
     </profile>
 
@@ -284,11 +274,6 @@
           <groupId>org.apache.myfaces.core</groupId>
           <artifactId>myfaces-impl</artifactId>
           <version>${myfaces22.version}</version>
-          <scope>runtime</scope>
-        </dependency>
-        <dependency>
-          <groupId>commons-logging</groupId>
-          <artifactId>commons-logging</artifactId>
           <scope>runtime</scope>
         </dependency>
       </dependencies>

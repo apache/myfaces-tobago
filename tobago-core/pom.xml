@@ -195,7 +195,6 @@
       <artifactId>maven-taglib-plugin</artifactId>
       <scope>test</scope>
     </dependency>
-
     <dependency>
       <groupId>commons-beanutils</groupId>
       <artifactId>commons-beanutils</artifactId>

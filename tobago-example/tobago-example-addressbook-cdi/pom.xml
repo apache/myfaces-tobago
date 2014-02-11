@@ -65,30 +65,6 @@
           <stopPort>9999</stopPort>
         </configuration>
         <dependencies>
-         <!-- <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>jcl-over-slf4j</artifactId>
-            <version>1.6.1</version>
-            <type>jar</type>
-          </dependency>
-          <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>1.6.1</version>
-            <type>jar</type>
-          </dependency>-->
-        <!--dependency>
-          <groupId>org.slf4j</groupId>
-          <artifactId>slf4j-jcl</artifactId>
-          <version>1.0.1</version>
-          <type>jar</type>
-        </dependency>
-        <dependency>
-          <groupId>log4j</groupId>
-          <artifactId>log4j</artifactId>
-          <version>1.2.14</version>
-          <type>jar</type>
-        </dependency-->
        </dependencies>
       </plugin>
       <plugin>
@@ -337,20 +313,6 @@
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-simple</artifactId>
     </dependency>
-<!--
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-log4j12</artifactId>
-      &lt;!&ndash; XXX websphere-provided &ndash;&gt;
-        <scope>provided</scope>
-    </dependency>
-      <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>jcl-over-slf4j</artifactId>
-        &lt;!&ndash; XXX websphere-provided &ndash;&gt;
-          <scope>provided</scope>
-    </dependency>
--->
     <dependency>
       <groupId>org.apache.derby</groupId>
       <artifactId>derby</artifactId>
