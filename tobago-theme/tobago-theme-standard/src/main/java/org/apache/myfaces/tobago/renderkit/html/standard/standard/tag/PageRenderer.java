@@ -232,26 +232,30 @@ public class PageRenderer extends PageRendererBase {
         checkDuplicates(theme.getStyleResources(productionMode), FacesContextUtils.getStyleFiles(facesContext));
       }
 
-      String icon = page.getApplicationIcon();
+      final String icon = page.getApplicationIcon();
       if (icon != null) {
-        // XXX unify with image renderer
+        final String href;
         if (ResourceManagerUtils.isAbsoluteResource(icon)) {
-          // absolute Path to image : nothing to do
+          href = icon;
         } else {
-          icon = ResourceManagerUtils.getImageWithPath(facesContext, icon);
+          href = ResourceManagerUtils.getImageWithPath(facesContext, icon);
         }
 
-        writer.startElement(HtmlElements.LINK, null);
-        if (icon.endsWith(".ico")) {
-          writer.writeAttribute(HtmlAttributes.REL, "shortcut icon", false);
-          writer.writeAttribute(HtmlAttributes.HREF, icon, false);
+        if (href != null) {
+          writer.startElement(HtmlElements.LINK, null);
+          if (href.endsWith(".ico")) {
+            writer.writeAttribute(HtmlAttributes.REL, "shortcut icon", false);
+            writer.writeAttribute(HtmlAttributes.HREF, href, false);
+          } else {
+            // XXX IE only supports ICO files for favicons
+            writer.writeAttribute(HtmlAttributes.REL, "icon", false);
+            writer.writeAttribute(HtmlAttributes.TYPE, MimeTypeUtils.getMimeTypeForFile(href), false);
+            writer.writeAttribute(HtmlAttributes.HREF, href, false);
+          }
+          writer.endElement(HtmlElements.LINK);
         } else {
-          // XXX IE only supports ICO files for favicons
-          writer.writeAttribute(HtmlAttributes.REL, "icon", false);
-          writer.writeAttribute(HtmlAttributes.TYPE, MimeTypeUtils.getMimeTypeForFile(icon), false);
-          writer.writeAttribute(HtmlAttributes.HREF, icon, false);
+          LOG.warn("Application icon '" + icon + "' not found!");
         }
-        writer.endElement(HtmlElements.LINK);
       }
 
       // style sniplets
