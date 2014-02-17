@@ -58,14 +58,7 @@ public abstract class CommandRendererBase extends LayoutComponentRendererBase {
   }
 
   public String getImageWithPath(final FacesContext facesContext, final String image, final boolean disabled) {
-    String imageWithPath = null;
-    if (disabled) {
-      imageWithPath = ResourceManagerUtils.getDisabledImageWithPath(facesContext, image);
-    }
-    if (imageWithPath == null) {
-      imageWithPath = ResourceManagerUtils.getImageWithPath(facesContext, image);
-    }
-    return imageWithPath;
+    return ResourceManagerUtils.getImageOrDisabledImageWithPath(facesContext, image, disabled);
   }
 
 }
