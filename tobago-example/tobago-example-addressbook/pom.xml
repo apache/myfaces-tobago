@@ -22,7 +22,7 @@
     <artifactId>tobago-example</artifactId>
     <version>3.0.0-alpha-1-SNAPSHOT</version>
   </parent>
-  <artifactId>tobago-example-addressbook-cdi</artifactId>
+  <artifactId>tobago-example-addressbook</artifactId>
   <packaging>war</packaging>
   <name>Tobago Example Addressbook (Java EE 6)</name>
   <description>A simple, but full functional application with persistence.</description>
@@ -33,7 +33,7 @@
     <myfaces-extcdi.version>1.0.5</myfaces-extcdi.version>
   </properties>
   <build>
-    <finalName>tobago-example-addressbook-cdi</finalName>
+    <finalName>tobago-example-addressbook</finalName>
     <plugins>
       <plugin>
         <artifactId>maven-antrun-plugin</artifactId>
