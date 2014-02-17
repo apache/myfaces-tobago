@@ -53,6 +53,7 @@ import org.apache.myfaces.tobago.internal.layout.OriginCell;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.layout.Display;
 import org.apache.myfaces.tobago.layout.LayoutBase;
+import org.apache.myfaces.tobago.layout.LayoutManager;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.layout.TextAlign;
 import org.apache.myfaces.tobago.model.ExpandedState;
@@ -907,7 +908,13 @@ public class SheetRenderer extends LayoutComponentRendererBase {
   }
 
   private boolean needVerticalScrollbar(final FacesContext facesContext, final UISheet sheet) {
-    return ((AbstractUISheetLayout) sheet.getLayoutManager()).needVerticalScrollbar(facesContext, sheet);
+    final LayoutManager layoutManager = sheet.getLayoutManager();
+    if (layoutManager instanceof AbstractUISheetLayout) {
+      return ((AbstractUISheetLayout) layoutManager).needVerticalScrollbar(facesContext, sheet);
+    } else {
+      LOG.error("Sheet must use a sheet layout, but found: " + layoutManager.getClass().getName());
+      return true;
+    }
   }
 
   private void encodeResizing(final TobagoResponseWriter writer, final AbstractUISheet sheet, final int columnIndex)
