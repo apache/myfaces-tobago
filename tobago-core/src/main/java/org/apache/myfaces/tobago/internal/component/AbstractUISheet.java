@@ -91,8 +91,6 @@ public abstract class AbstractUISheet extends AbstractUIData
   private List<Integer> widthList;
   private transient LayoutTokens columnLayout;
 
-  private transient int ajaxResponseCode;
-
   private transient List<LayoutComponent> layoutComponents;
 
   private transient Boolean needVerticalScrollbar;
