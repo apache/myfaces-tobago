@@ -54,7 +54,7 @@ public class TobagoComponentHandler extends ComponentHandler {
   private static final Logger LOG = LoggerFactory.getLogger(TobagoComponentHandler.class);
 
   static {
-    LOG.error("init");
+    LOG.info("init");
   }
 
   public TobagoComponentHandler(final ComponentConfig componentConfig) {

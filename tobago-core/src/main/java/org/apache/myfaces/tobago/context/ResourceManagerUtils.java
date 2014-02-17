@@ -118,9 +118,10 @@ public final class ResourceManagerUtils {
     return "[" + sb.toString() + "]";
   }
 
-  public static String getDisabledImageWithPath(final FacesContext facesContext, final String image) {
+  public static String getDisabledImageWithPath(final FacesContext facesContext, final String image,
+                                                final boolean ignoreMissing) {
     final String filename = ResourceUtils.addPostfixToFilename(image, "Disabled");
-    return getImageWithPath(facesContext, filename, true);
+    return getImageWithPath(facesContext, filename, ignoreMissing);
   }
 
   /**
@@ -162,12 +163,17 @@ public final class ResourceManagerUtils {
 
   public static String getImageOrDisabledImageWithPath(
       final FacesContext facesContext, final String image, final boolean disabled) {
+    return getImageOrDisabledImageWithPath(facesContext, image, disabled, false);
+  }
+
+  public static String getImageOrDisabledImageWithPath(
+          final FacesContext facesContext, final String image, final boolean disabled, final boolean ignoreMissing) {
     String imageWithPath = null;
     if (disabled) {
-      imageWithPath = ResourceManagerUtils.getDisabledImageWithPath(facesContext, image);
+      imageWithPath = ResourceManagerUtils.getDisabledImageWithPath(facesContext, image, ignoreMissing);
     }
     if (imageWithPath == null) {
-      imageWithPath = ResourceManagerUtils.getImageWithPath(facesContext, image);
+      imageWithPath = ResourceManagerUtils.getImageWithPath(facesContext, image, ignoreMissing);
     }
     return imageWithPath;
   }

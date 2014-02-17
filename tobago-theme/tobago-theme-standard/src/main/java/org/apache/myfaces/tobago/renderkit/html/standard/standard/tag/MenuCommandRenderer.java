@@ -172,7 +172,7 @@ public class MenuCommandRenderer extends CommandRendererBase {
             = ResourceManagerUtils.getImageOrDisabledImageWithPath(facesContext, image, disabled);
         writer.writeAttribute(HtmlAttributes.SRC, imageWithPath, false);
         final String imageHover = ResourceManagerUtils
-            .getImageOrDisabledImageWithPath(facesContext, HtmlRendererUtils.createSrc(image, "Hover"), disabled);
+            .getImageOrDisabledImageWithPath(facesContext, HtmlRendererUtils.createSrc(image, "Hover"), disabled, true);
         if (imageHover != null) {
           writer.writeAttribute(DataAttributes.SRC_DEFAULT, imageWithPath, false);
           writer.writeAttribute(DataAttributes.SRC_HOVER, imageHover, false);
