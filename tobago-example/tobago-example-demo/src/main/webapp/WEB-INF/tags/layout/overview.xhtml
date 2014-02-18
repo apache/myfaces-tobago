@@ -24,6 +24,8 @@
   <f:view locale="#{clientConfigController.locale}">
     <tc:page applicationIcon="icon/favicon.ico" label="#{overviewBundle.pageTitle} - #{title}" id="page">
 
+      <tc:dataAttribute name="tobago-log-level" value="DEBUG"/>
+
       <tc:script file="demo.js"/>
 
       <f:facet name="resize">
