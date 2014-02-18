@@ -24,9 +24,14 @@
     <%-- fixme: #{title} will not evaluated correctly, because it will be evaluated "late", but too late
          fixme: and ${title} is not allowed, because it can't be provided with JSF 1.2 
          fixme: With facelets this works. --%>
+    <%--
+        <tc:dataAttribute name="tobago-log-level" value="DEBUG"/>
+    --%>
+<%--
     <f:facet name="resize">
       <tc:command immediate="true"/>
     </f:facet>
+--%>
 
     <f:facet name="menuBar">
       <tc:menuBar>
