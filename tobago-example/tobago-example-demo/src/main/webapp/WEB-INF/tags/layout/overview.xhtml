@@ -24,13 +24,17 @@
   <f:view locale="#{clientConfigController.locale}">
     <tc:page applicationIcon="icon/favicon.ico" label="#{overviewBundle.pageTitle} - #{title}" id="page">
 
+<!--
       <tc:dataAttribute name="tobago-log-level" value="DEBUG"/>
+-->
 
       <tc:script file="demo.js"/>
 
+<!-- it seems this no longer needed with Tobago 3.0
       <f:facet name="resize">
         <tc:command immediate="true"/>
       </f:facet>
+-->
 
       <f:facet name="menuBar">
         <tc:menuBar>
