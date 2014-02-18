@@ -333,6 +333,10 @@ CharacterProperty(property) ::= <<
 <NormalProperty(property)>
 >>
 
+BootstrapPartitionProperty(property) ::= <<
+<NormalProperty(property)>
+>>
+
 MethodExpressionProperty(property) ::= <<
 
 /**
@@ -451,6 +455,34 @@ public <property.type> get<property.upperCamelCaseName>() {
   Object object = getStateHelper().eval(PropertyKeys.<property.propertyName>);
   if (object != null) {
     return Markup.valueOf(object);
+  }
+  <endif>
+  return null;
+}
+
+<checkDeprecated(property)>
+public void set<property.upperCamelCaseName>(<property.type> <property.propertyName>) {
+  <logDeprecated(property)>
+  <if(property.transient)>
+  this.<property.propertyName> = <property.propertyName>;
+  <else>
+  getStateHelper().put(PropertyKeys.<property.propertyName>, <property.propertyName>);
+  <endif>
+}
+>>
+
+CssProperty(property) ::= <<
+
+<checkDeprecated(property)>
+public <property.type> get<property.upperCamelCaseName>() {
+  <if(property.transient)>
+  if (<property.propertyName> != null) {
+    return <property.propertyName>;
+  }
+  <else>
+  Object object = getStateHelper().eval(PropertyKeys.<property.propertyName>);
+  if (object != null) {
+    return Css.valueOf(object);
   }
   <endif>
   return null;

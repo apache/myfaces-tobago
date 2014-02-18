@@ -244,6 +244,9 @@ public class ClassesGenerator extends AbstractGenerator {
     if ("markup".equals(info.getName())) {
       componentInfo.addInterface("org.apache.myfaces.tobago.component.SupportsMarkup");
     }
+    if ("css".equals(info.getName())) {
+      componentInfo.addInterface("org.apache.myfaces.tobago.component.SupportsCss");
+    }
     if ("requiredMessage".equals(info.getName())) {
       componentInfo.setMessages(true);
     }

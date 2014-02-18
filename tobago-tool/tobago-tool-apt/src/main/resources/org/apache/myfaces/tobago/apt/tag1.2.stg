@@ -273,6 +273,26 @@ if (<it.propertyName> != null) {
 }
 >>
 
+BootstrapPartition() ::= <<
+if (<it.propertyName> != null) {
+  if (!<it.propertyName>.isLiteralText()) {
+    <createValueBinding(it)>
+  } else {
+    component.set<it.upperCamelCaseName>(org.apache.myfaces.tobago.layout.BootstrapPartition.valueOf(<it.propertyName>.getExpressionString()));
+  }
+}
+>>
+
+Css() ::= <<
+if (<it.propertyName> != null) {
+  if (!<it.propertyName>.isLiteralText()) {
+    <createValueBinding(it)>
+  } else {
+    component.set<it.upperCamelCaseName>(org.apache.myfaces.tobago.renderkit.css.Css.valueOf(<it.propertyName>.getExpressionString()));
+  }
+}
+>>
+
 OrderBy() ::= <<
 if (<it.propertyName> != null) {
   if (!<it.propertyName>.isLiteralText()) {

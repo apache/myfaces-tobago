@@ -1,0 +1,12 @@
+Planned features and changes for Tobago 3.0
+
+- Bootstrap
+- Simplify layout through using CSS3:
+  - Use box-sizing: border-box (requires IE 8) (required for Bootstrap)
+  - Use min/max-width/height (requires IE 9 (IE 8 have bugs (see caniuse.com)))
+  - Use n-th child (requires IE 9 and FF 3.5)
+  - Maybe: Using 75%,25% in HTML where columns="3*;*" in layout? What is with constant values?
+  - Better: Using Flexible Box Layout Module (requires IE 10, might be emulated with JavaScript)
+  - It seems to be required: Remove absolute Positioning (required for Bootstrap)
+
+  - Renderervererbung: addClass() von Parent oder so? z.B. muss man be Bootstrap einem input wohl eine Klasse form-control hinzufügen
