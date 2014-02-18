@@ -28,6 +28,7 @@
     <supported-theme>scarborough</supported-theme>
     <supported-theme>richmond</supported-theme>
     <supported-theme>charlotteville</supported-theme>
+    <supported-theme>bootstrap</supported-theme>
   </theme-config>
 
   <resource-dir>addressbook-resource</resource-dir>
