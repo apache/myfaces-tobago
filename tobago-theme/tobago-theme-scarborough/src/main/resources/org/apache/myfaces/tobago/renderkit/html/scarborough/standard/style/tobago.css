@@ -83,7 +83,6 @@ fieldset.tobago-box {
 /* toolBar ----------------------------------------------------------------- */
 
 /* FIXME this is the same code for "toolBar", "boxToolBar" and "tabGroupToolBar"
-   FIXME may be fixed after TOBAGO-900
 */
 
 .tobago-boxToolBar {
@@ -1342,7 +1341,6 @@ div.tobago-richTextEditor-body {
 /* tabGroupToolBar ----------------------------------------------------------------- */
 
 /* FIXME this is the same code for "toolBar", "boxToolBar" and "tabGroupToolBar"
-   FIXME may be fixed after TOBAGO-900
 */
 
 .tobago-tabGroup-toolBar {

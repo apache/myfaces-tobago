@@ -36,7 +36,6 @@
 /* toolBar ----------------------------------------------------------------- */
 
 /* FIXME this is the same code for "toolBar", "boxToolBar" and "tabGroupToolBar"
-   FIXME may be fixed after TOBAGO-900
 */
 
 .tobago-boxToolBar {
@@ -299,7 +298,6 @@ li.tobago-menu-markup-selected {
 /* toolBar ----------------------------------------------------------------- */
 
 /* FIXME this is the same code for "toolBar", "boxToolBar" and "tabGroupToolBar"
-   FIXME may be fixed after TOBAGO-900
 */
 
 .tobago-tabGroupToolBar {
