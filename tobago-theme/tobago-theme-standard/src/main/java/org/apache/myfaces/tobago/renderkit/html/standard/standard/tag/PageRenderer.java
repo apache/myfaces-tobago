@@ -59,18 +59,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.faces.application.Application;
-import javax.faces.application.FacesMessage;
 import javax.faces.application.ViewHandler;
 import javax.faces.component.UIComponent;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
 import javax.portlet.MimeResponse;
 import javax.portlet.ResourceURL;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -80,7 +77,6 @@ public class PageRenderer extends PageRendererBase {
 
   private static final Logger LOG = LoggerFactory.getLogger(PageRenderer.class);
 
-  private static final String CLIENT_DEBUG_SEVERITY = "clientDebugSeverity";
   private static final String LAST_FOCUS_ID = "lastFocusId";
 
   @Override
@@ -88,13 +84,6 @@ public class PageRenderer extends PageRendererBase {
     super.decode(facesContext, component);
     final String clientId = component.getClientId(facesContext);
     final ExternalContext externalContext = facesContext.getExternalContext();
-
-    // severity
-    final String severity
-        = externalContext.getRequestParameterMap().get(clientId + ComponentUtils.SUB_SEPARATOR + "clientSeverity");
-    if (severity != null) {
-      externalContext.getRequestMap().put(CLIENT_DEBUG_SEVERITY, severity);
-    }
 
     // last focus
     final String lastFocusId =
@@ -176,28 +165,7 @@ public class PageRenderer extends PageRendererBase {
     ResponseUtils.ensureContentTypeHeader(facesContext, contentType);
     final String clientId = page.getClientId(facesContext);
     final ClientProperties client = VariableResolverUtils.resolveClientProperties(facesContext);
-    final ProjectStage projectStage = tobagoConfig.getProjectStage();
-    final boolean developmentMode = projectStage == ProjectStage.Development;
-    final boolean debugMode = client.isDebugMode() || developmentMode;
-    final boolean productionMode = !debugMode && projectStage == ProjectStage.Production;
-    int clientLogSeverity = 2;
-    if (debugMode) {
-      final String severity = (String) externalContext.getRequestMap().get(CLIENT_DEBUG_SEVERITY);
-      if (LOG.isDebugEnabled()) {
-        LOG.debug("get " + CLIENT_DEBUG_SEVERITY + " = " + severity);
-      }
-      if (severity != null) {
-        try {
-          int index = severity.indexOf(';');
-          if (index == -1) {
-            index = severity.length();
-          }
-          clientLogSeverity = Integer.parseInt(severity.substring(0, index));
-        } catch (final NumberFormatException e) {
-          // ignore; use default
-        }
-      }
-    }
+    final boolean productionMode = tobagoConfig.getProjectStage() == ProjectStage.Production;
     final boolean preventFrameAttacks = tobagoConfig.isPreventFrameAttacks();
 
     if (!FacesContextUtils.isAjax(facesContext)) {
@@ -298,7 +266,7 @@ public class PageRenderer extends PageRendererBase {
       for (final String scriptBlock : FacesContextUtils.getScriptBlocks(facesContext)) {
 
         if (LOG.isDebugEnabled()) {
-          LOG.debug("write scriptblock " + ++debugCounter + " :\n" + scriptBlock);
+          LOG.debug("write script block " + ++debugCounter + " :\n" + scriptBlock);
         }
         writer.write(scriptBlock);
         writer.write('\n');
@@ -387,15 +355,6 @@ public class PageRenderer extends PageRendererBase {
 
     if (TobagoConfig.getInstance(FacesContext.getCurrentInstance()).isCheckSessionSecret()) {
       Secret.encode(facesContext, writer);
-    }
-
-    if (debugMode) {
-      writer.startElement(HtmlElements.INPUT, null);
-      writer.writeAttribute(HtmlAttributes.VALUE, clientLogSeverity);
-      writer.writeAttribute(HtmlAttributes.ID, clientId + ComponentUtils.SUB_SEPARATOR + "clientSeverity", false);
-      writer.writeAttribute(HtmlAttributes.NAME, clientId + ComponentUtils.SUB_SEPARATOR + "clientSeverity", false);
-      writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN, false);
-      writer.endElement(HtmlElements.INPUT);
     }
 
     if (component.getFacet("backButtonDetector") != null) {
@@ -497,8 +456,6 @@ public class PageRenderer extends PageRendererBase {
     }
 
     final String clientId = page.getClientId(facesContext);
-    final boolean debugMode = VariableResolverUtils.resolveClientProperties(facesContext).isDebugMode();
-
 
     // avoid submit page in ie if the form contains only one input and you press the enter key in the input
     if (VariableResolverUtils.resolveClientProperties(facesContext).getUserAgent().isMsie()) {
@@ -568,22 +525,6 @@ public class PageRenderer extends PageRendererBase {
         "image/tobago-overlay-background.png");
     writer.writeAttribute(HtmlAttributes.SRC, overlayBackgroundImage, false);
     writer.endElement(HtmlElements.IMG);
-
-    // debugging...
-    if (debugMode) {
-      final List<String> logMessages = new ArrayList<String>();
-      String id = null;
-      for (final Iterator<String> ids = facesContext.getClientIdsWithMessages(); ids.hasNext(); id = ids.next()) {
-        for (final FacesMessage message : facesContext.getMessageList(id)) {
-          logMessages.add(errorMessageForDebugging(id, message));
-        }
-      }
-      if (!logMessages.isEmpty()) {
-        logMessages.add(0, "LOG.show();");
-      }
-
-      HtmlRendererUtils.writeScriptLoader(facesContext, null, logMessages.toArray(new String[logMessages.size()]));
-    }
 
     writer.startElement(HtmlElements.NOSCRIPT, null);
     writer.startElement(HtmlElements.DIV, null);
@@ -663,6 +604,7 @@ public class PageRenderer extends PageRendererBase {
     }
   }
 
+  /* TODO: this may be written in to a HTML5 data-attribute and be logged to the console
   private void errorMessageForDebugging(final String id, final FacesMessage message, final ResponseWriter writer)
       throws IOException {
     writer.startElement(HtmlElements.DIV, null);
@@ -695,6 +637,7 @@ public class PageRenderer extends PageRendererBase {
   private String escape(final String s) {
     return StringUtils.replace(StringUtils.replace(s, "\\", "\\\\"), "\"", "\\\"");
   }
+*/
 
   private String getMethod(final UIPage page) {
     final String method = (String) page.getAttributes().get(Attributes.METHOD);
