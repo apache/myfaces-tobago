@@ -23,12 +23,14 @@ import org.apache.myfaces.tobago.component.DeprecatedDimension;
 import org.apache.myfaces.tobago.component.InputSuggest;
 import org.apache.myfaces.tobago.component.OnComponentCreated;
 import org.apache.myfaces.tobago.component.OnComponentPopulated;
+import org.apache.myfaces.tobago.component.SupportsCss;
 import org.apache.myfaces.tobago.component.SupportsMarkup;
 import org.apache.myfaces.tobago.component.SupportsRenderedPartially;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.event.SheetStateChangeSource;
 import org.apache.myfaces.tobago.event.SortActionSource;
 import org.apache.myfaces.tobago.event.TabChangeSource;
+import org.apache.myfaces.tobago.internal.component.AbstractUIBootstrapLayout;
 import org.apache.myfaces.tobago.internal.component.AbstractUIFlowLayout;
 import org.apache.myfaces.tobago.internal.component.AbstractUIGridLayout;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPopup;
@@ -78,6 +80,9 @@ public class TobagoComponentHandler extends ComponentHandler {
     if (AbstractUIFlowLayout.class.isAssignableFrom(aClass)) {
       metaRuleset.addRule(FlowLayoutRule.INSTANCE);
     }
+    if (AbstractUIBootstrapLayout.class.isAssignableFrom(aClass)) {
+      metaRuleset.addRule(BootstrapLayoutRule.INSTANCE);
+    }
     if (TabChangeSource.class.isAssignableFrom(aClass)) {
       metaRuleset.addRule(TabChangeSourceRule.INSTANCE);
     }
@@ -93,6 +98,10 @@ public class TobagoComponentHandler extends ComponentHandler {
     if (SupportsRenderedPartially.class.isAssignableFrom(aClass)) {
       metaRuleset.addRule(SupportsRenderedPartiallyRule.INSTANCE);
     }
+    if (SupportsCss.class.isAssignableFrom(aClass)) {
+      metaRuleset.addRule(SupportsCssRule.INSTANCE);
+    }
+
     return metaRuleset;
   }
 

@@ -49,22 +49,22 @@ public class ResourceManagerImpl implements ResourceManager {
   private static final String MINIMIZE_SUFFIX = ".min";
   private boolean production;
 
-  private final Map<String, String> resourceList 
+  private final Map<String, String> resourceList
       = new ConcurrentHashMap<String, String>(100, 0.75f, 1);
 
-  private final Map<RendererCacheKey, Renderer> rendererCache 
+  private final Map<RendererCacheKey, Renderer> rendererCache
       = new ConcurrentHashMap<RendererCacheKey, Renderer>(100, 0.75f, 1);
-  private final Map<ImageCacheKey, StringValue> imageCache 
+  private final Map<ImageCacheKey, StringValue> imageCache
       = new ConcurrentHashMap<ImageCacheKey, StringValue>(100, 0.75f, 1);
-  private final Map<JspCacheKey, String> jspCache 
+  private final Map<JspCacheKey, String> jspCache
       = new ConcurrentHashMap<JspCacheKey, String>(100, 0.75f, 1);
-  private final Map<MiscCacheKey, String[]> miscCache 
+  private final Map<MiscCacheKey, String[]> miscCache
       = new ConcurrentHashMap<MiscCacheKey, String[]>(100, 0.75f, 1);
-  private final Map<PropertyCacheKey, StringValue> propertyCache 
+  private final Map<PropertyCacheKey, StringValue> propertyCache
       = new ConcurrentHashMap<PropertyCacheKey, StringValue>(100, 0.75f, 1);
-  private final Map<ThemeConfigCacheKey, MeasureValue> themeCache 
+  private final Map<ThemeConfigCacheKey, MeasureValue> themeCache
       = new ConcurrentHashMap<ThemeConfigCacheKey, MeasureValue>(100, 0.75f, 1);
-  
+
   private TobagoConfigImpl tobagoConfig;
 
   public ResourceManagerImpl(final TobagoConfigImpl tobagoConfig) {
@@ -119,7 +119,7 @@ public class ResourceManagerImpl implements ResourceManager {
     if (bundle != null && propertyKey != null) {
       final ClientPropertiesKey clientKey = ClientPropertiesKey.get(facesContext);
       final PropertyCacheKey cacheKey = new PropertyCacheKey(clientKey, bundle, propertyKey);
-      
+
       StringValue result = propertyCache.get(cacheKey);
       if (result == null) {
         final List properties
@@ -172,12 +172,12 @@ public class ResourceManagerImpl implements ResourceManager {
     }
     return renderer;
   }
-  
+
   @Deprecated
   public String[] getScripts(final UIViewRoot viewRoot, final String name) {
     return getScripts(FacesContext.getCurrentInstance(), name);
   }
-  
+
   public String[] getScripts(final FacesContext facesContext, final String name) {
     return getStrings(facesContext, name, null);
   }
@@ -216,6 +216,20 @@ public class ResourceManagerImpl implements ResourceManager {
 
   public Measure getThemeMeasure(final FacesContext facesContext, final Configurable configurable, final String name) {
     return getThemeMeasure(facesContext, configurable.getRendererType(), configurable.getCurrentMarkup(), name);
+  }
+
+  /**
+   * The default should not be needed, use defaulting from the theme mechanism.
+   */
+  public Measure getThemeMeasure(
+      final FacesContext facesContext, final Configurable configurable, final String name, final Measure defaultValue) {
+    final Measure measure = getThemeMeasure(facesContext, configurable, name);
+    if (measure != null) {
+      return measure;
+    } else {
+//      LOG.warn("Using default-value for configurable='" + configurable + "' name='" + name + "'");
+      return defaultValue;
+    }
   }
 
   public Measure getThemeMeasure(
@@ -260,7 +274,7 @@ public class ResourceManagerImpl implements ResourceManager {
   public String getImage(final UIViewRoot viewRoot, final String name) {
     return getImage(FacesContext.getCurrentInstance(), name);
   }
-  
+
   public String getImage(final FacesContext facesContext, final String name) {
     return getImage(facesContext, name, false);
   }

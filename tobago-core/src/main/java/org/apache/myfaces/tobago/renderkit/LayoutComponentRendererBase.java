@@ -66,51 +66,51 @@ public abstract class LayoutComponentRendererBase extends RendererBase implement
   }
 
   public Measure getMarginLeft(final FacesContext facesContext, final Configurable component) {
-    return getResourceManager().getThemeMeasure(facesContext, component, Attributes.MARGIN_LEFT);
+    return getResourceManager().getThemeMeasure(facesContext, component, Attributes.MARGIN_LEFT, Measure.ZERO);
   }
 
   public Measure getMarginRight(final FacesContext facesContext, final Configurable component) {
-    return getResourceManager().getThemeMeasure(facesContext, component, Attributes.MARGIN_RIGHT);
+    return getResourceManager().getThemeMeasure(facesContext, component, Attributes.MARGIN_RIGHT, Measure.ZERO);
   }
 
   public Measure getMarginTop(final FacesContext facesContext, final Configurable component) {
-    return getResourceManager().getThemeMeasure(facesContext, component, Attributes.MARGIN_TOP);
+    return getResourceManager().getThemeMeasure(facesContext, component, Attributes.MARGIN_TOP, Measure.ZERO);
   }
 
   public Measure getMarginBottom(final FacesContext facesContext, final Configurable component) {
-    return getResourceManager().getThemeMeasure(facesContext, component, Attributes.MARGIN_BOTTOM);
+    return getResourceManager().getThemeMeasure(facesContext, component, Attributes.MARGIN_BOTTOM, Measure.ZERO);
   }
 
   public Measure getBorderLeft(final FacesContext facesContext, final Configurable component) {
-    return getResourceManager().getThemeMeasure(facesContext, component, Attributes.BORDER_LEFT);
+    return getResourceManager().getThemeMeasure(facesContext, component, Attributes.BORDER_LEFT, Measure.ZERO);
   }
 
   public Measure getBorderRight(final FacesContext facesContext, final Configurable component) {
-    return getResourceManager().getThemeMeasure(facesContext, component, Attributes.BORDER_RIGHT);
+    return getResourceManager().getThemeMeasure(facesContext, component, Attributes.BORDER_RIGHT, Measure.ZERO);
   }
 
   public Measure getBorderTop(final FacesContext facesContext, final Configurable component) {
-    return getResourceManager().getThemeMeasure(facesContext, component, Attributes.BORDER_TOP);
+    return getResourceManager().getThemeMeasure(facesContext, component, Attributes.BORDER_TOP, Measure.ZERO);
   }
 
   public Measure getBorderBottom(final FacesContext facesContext, final Configurable component) {
-    return getResourceManager().getThemeMeasure(facesContext, component, Attributes.BORDER_BOTTOM);
+    return getResourceManager().getThemeMeasure(facesContext, component, Attributes.BORDER_BOTTOM, Measure.ZERO);
   }
 
   public Measure getPaddingLeft(final FacesContext facesContext, final Configurable component) {
-    return getResourceManager().getThemeMeasure(facesContext, component, Attributes.PADDING_LEFT);
+    return getResourceManager().getThemeMeasure(facesContext, component, Attributes.PADDING_LEFT, Measure.ZERO);
   }
 
   public Measure getPaddingRight(final FacesContext facesContext, final Configurable component) {
-    return getResourceManager().getThemeMeasure(facesContext, component, Attributes.PADDING_RIGHT);
+    return getResourceManager().getThemeMeasure(facesContext, component, Attributes.PADDING_RIGHT, Measure.ZERO);
   }
 
   public Measure getPaddingTop(final FacesContext facesContext, final Configurable component) {
-    return getResourceManager().getThemeMeasure(facesContext, component, Attributes.PADDING_TOP);
+    return getResourceManager().getThemeMeasure(facesContext, component, Attributes.PADDING_TOP, Measure.ZERO);
   }
 
   public Measure getPaddingBottom(final FacesContext facesContext, final Configurable component) {
-    return getResourceManager().getThemeMeasure(facesContext, component, Attributes.PADDING_BOTTOM);
+    return getResourceManager().getThemeMeasure(facesContext, component, Attributes.PADDING_BOTTOM, Measure.ZERO);
   }
 
   public Measure getVerticalScrollbarWeight(final FacesContext facesContext, final Configurable component) {
@@ -119,7 +119,7 @@ public abstract class LayoutComponentRendererBase extends RendererBase implement
     if (weight != null) {
       return weight;
     } else { // default
-      return getResourceManager().getThemeMeasure(facesContext, component, "verticalScrollbarWeight");
+      return getResourceManager().getThemeMeasure(facesContext, component, "verticalScrollbarWeight", Measure.ZERO);
     }
   }
 }

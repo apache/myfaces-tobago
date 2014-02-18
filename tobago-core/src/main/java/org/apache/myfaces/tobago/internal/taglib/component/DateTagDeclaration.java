@@ -25,6 +25,8 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasConverter;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasCss;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentCss;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabelAndAccessKey;
@@ -58,6 +60,6 @@ import javax.faces.component.UIInput;
 public interface DateTagDeclaration
     extends InputTagDeclaration, HasIdBindingAndRendered, IsReadonly,
     IsDisabled, HasConverter, IsDeprecatedInline, HasLabelAndAccessKey,
-    HasTip, IsRequired, HasMarkup, HasCurrentMarkup, HasPlaceholder {
+    HasTip, IsRequired, HasMarkup, HasCurrentMarkup, HasPlaceholder, HasCss, HasCurrentCss {
 
 }

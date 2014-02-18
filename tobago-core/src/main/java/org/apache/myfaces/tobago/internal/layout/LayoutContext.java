@@ -19,12 +19,11 @@
 
 package org.apache.myfaces.tobago.internal.layout;
 
-import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.internal.component.AbstractUIGridLayout;
+import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.layout.LayoutBase;
 import org.apache.myfaces.tobago.layout.LayoutContainer;
 import org.apache.myfaces.tobago.layout.LayoutManager;
-import org.apache.myfaces.tobago.layout.Orientation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -80,6 +79,7 @@ public class LayoutContext {
     if (trace) {
       log("after init", true);
     }
+/*
     layoutManager.fixRelativeInsideAuto(Orientation.VERTICAL, false);
     if (trace) {
       log("after fixRelativeInsideAuto vertical", true);
@@ -113,6 +113,7 @@ public class LayoutContext {
       log("after postProcessing horizontal", true);
     }
 
+*/
     if (debug) {
       LOG.debug("Laying out takes: {} ns", new DecimalFormat("#,##0").format(System.nanoTime() - begin));
       log("after layout", false);

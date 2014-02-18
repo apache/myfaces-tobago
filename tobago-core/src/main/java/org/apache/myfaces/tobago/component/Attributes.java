@@ -50,6 +50,7 @@ public final class Attributes {
   public static final String COLUMNS = "columns";
   public static final String CONVERTER = "converter";
   public static final String CREATE_SPAN = "createSpan";
+  public static final String CSS = "css";
   public static final String CSS_CLASSES_BLOCKS = "cssClassesBlocks";
   public static final String DATE_INPUT_ID = "dateInputId";
   public static final String DATE_STYLE = "dateStyle";
@@ -62,6 +63,7 @@ public final class Attributes {
   public static final String EXPANDED = "expanded";
   public static final String EXECUTE = "execute";
   public static final String EVENT = "event";
+  public static final String EXTRA_SMALL = "extraSmall";
   public static final String FIRST = "first";
   public static final String FREQUENCY = "frequency";
   public static final String FOCUS = "focus";
@@ -93,6 +95,7 @@ public final class Attributes {
   public static final String JSF_RESOURCE = "jsfResource";
   public static final String LABEL = "label";
   public static final String LABEL_POSITION = "labelPosition";
+  public static final String LARGE = "large";
   public static final String LAYOUT_HEIGHT = "layoutHeight";
   public static final String LAYOUT_ORDER = "layoutOrder";
   public static final String LAYOUT_WIDTH = "layoutWidth";
@@ -121,6 +124,7 @@ public final class Attributes {
   public static final String MIN_SEVERITY = "minSeverity";
   public static final String MINIMUM_HEIGHT = "minimumHeight";
   public static final String MINIMUM_WIDTH = "minimumWidth";
+  public static final String MEDIUM = "medium";
   public static final String MODAL = "modal";
   public static final String MODE = "mode";
   public static final String MUTABLE = "mutable";
@@ -189,6 +193,7 @@ public final class Attributes {
   public static final String SHOW_ROW_RANGE = "showRowRange";
   public static final String SHOW_SUMMARY = "showSummary";
   public static final String SHOW_DETAIL = "showDetail";
+  public static final String SMALL = "small";
   public static final String SPAN_X = "spanX";
   public static final String SPAN_Y = "spanY";
   public static final String SRC = "src";

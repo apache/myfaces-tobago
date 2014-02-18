@@ -364,19 +364,41 @@ public abstract class AbstractUISheetLayout extends AbstractUILayoutBase impleme
   }
 
   private Measure getHeaderHeight(final FacesContext facesContext, final AbstractUISheet sheet) {
-    return sheet.isShowHeader()
-        ? sheet.getLayoutComponentRenderer(facesContext).getCustomMeasure(facesContext, sheet, "headerHeight")
-        : Measure.ZERO;
+    if (sheet.isShowHeader()) {
+      final Measure headerHeight = sheet.getLayoutComponentRenderer(facesContext)
+          .getCustomMeasure(facesContext, sheet, "headerHeight");
+      if (headerHeight != null) {
+        return headerHeight;
+      } else {
+        return Measure.valueOf(20);
+      }
+    } else {
+      return Measure.ZERO;
+    }
   }
 
   private Measure getRowHeight(final FacesContext facesContext, final AbstractUISheet sheet) {
-    return sheet.getLayoutComponentRenderer(facesContext).getCustomMeasure(facesContext, sheet, "rowHeight");
+    final Measure rowHeight = sheet.getLayoutComponentRenderer(facesContext)
+        .getCustomMeasure(facesContext, sheet, "rowHeight");
+    if (rowHeight != null) {
+      return rowHeight;
+    } else {
+      return Measure.valueOf(20);
+    }
   }
 
   private Measure getFooterHeight(final FacesContext facesContext, final AbstractUISheet sheet) {
-    return sheet.isPagingVisible()
-        ? sheet.getLayoutComponentRenderer(facesContext).getCustomMeasure(facesContext, sheet, "footerHeight")
-        : Measure.ZERO;
+    if (sheet.isPagingVisible()) {
+      final Measure footerHeight = sheet.getLayoutComponentRenderer(facesContext)
+          .getCustomMeasure(facesContext, sheet, "footerHeight");
+      if (footerHeight != null) {
+        return footerHeight;
+      } else {
+        return Measure.valueOf(20);
+      }
+    } else {
+      return Measure.ZERO;
+    }
   }
 
   private void layoutHeader() {

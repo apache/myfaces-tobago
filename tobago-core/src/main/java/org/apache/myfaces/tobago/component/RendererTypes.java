@@ -24,6 +24,7 @@ package org.apache.myfaces.tobago.component;
  */
 public final class RendererTypes {
 
+  public static final String BOOTSTRAP_LAYOUT = "BootstrapLayout";
   public static final String BOX = "Box";
   public static final String BOX_TOOL_BAR = "BoxToolBar";
   public static final String BUTTON = "Button";
@@ -35,6 +36,7 @@ public final class RendererTypes {
   public static final String DATE = "Date";
   public static final String DATE_PICKER = "DatePicker";
   public static final String FILE = "File";
+  public static final String FLEX_LAYOUT = "FlexLayout";
   public static final String FLOW_LAYOUT = "FlowLayout";
   public static final String FORM = "Form";
   public static final String GRID_LAYOUT = "GridLayout";
@@ -59,7 +61,7 @@ public final class RendererTypes {
   public static final String SELECT_BOOLEAN_CHECKBOX = "SelectBooleanCheckbox";
   public static final String SELECT_MANY_CHECKBOX = "SelectManyCheckbox";
   public static final String SELECT_MANY_LISTBOX = "SelectManyListbox";
-  public static final String SELECT_MANY_SHUTTLE = "SelectManyShuttle";;
+  public static final String SELECT_MANY_SHUTTLE = "SelectManyShuttle";
   public static final String SELECT_ONE_CHOICE = "SelectOneChoice";
   public static final String SELECT_ONE_RADIO = "SelectOneRadio";
   public static final String SELECT_ONE_LISTBOX = "SelectOneListbox";

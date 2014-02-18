@@ -223,6 +223,10 @@ public final class UserAgent implements Serializable {
     return MSIE.name.equals(name);
   }
 
+  /**
+   * @deprecated no longer supported, since Tobago 3.0
+   */
+  @Deprecated
   public boolean isMsie6() {
     return MSIE_6_0.name.equals(name) && MSIE_6_0.version.equals(version);
   }

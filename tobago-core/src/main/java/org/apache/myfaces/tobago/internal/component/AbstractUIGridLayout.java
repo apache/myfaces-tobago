@@ -460,6 +460,10 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase implemen
 
   public abstract boolean isRigid();
 
+  public Grid getGrid() {
+    return grid;
+  }
+
   @Override
   public boolean getRendersChildren() {
     return false;

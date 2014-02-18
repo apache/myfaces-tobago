@@ -1,0 +1,97 @@
+package org.apache.myfaces.tobago.layout;
+
+import org.apache.myfaces.tobago.internal.util.StringUtils;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+/**
+ * A list of positive integers with sum 12. Is used for the bootstrap column partitioning.
+ */
+public final class BootstrapPartition {
+
+  private static final Integer[] PART_12 = new Integer[] {12};
+
+  private final Integer[] parts;
+
+  public BootstrapPartition(Integer... parts) {
+    if (checkSum(parts)) {
+      this.parts = parts;
+    } else {
+      this.parts = createParts(parts);
+    }
+  }
+
+  public static BootstrapPartition valueOf(String string) {
+    final List<Integer> integers = StringUtils.parseIntegerList(string, ";");
+    return new BootstrapPartition(integers.toArray(new Integer[integers.size()]));
+  }
+
+  public static BootstrapPartition valueOf(Object object) {
+    if (object instanceof String) {
+      return valueOf((String) object);
+    } else if (object instanceof Integer[]) {
+      return new BootstrapPartition(( Integer[]) object);
+    } else if (object != null) {
+      return valueOf(object.toString());
+    } else {
+      return new BootstrapPartition(PART_12);
+    }
+  }
+
+  private boolean checkSum(final Integer[] summands) {
+    if (summands == null || summands.length == 0) {
+      return false;
+    }
+    int sum = 0;
+    for (int summand : summands) {
+      if (summand < 1) {
+        return false;
+      }
+      sum += summand;
+      if (sum > 12) {
+        return false;
+      }
+    }
+    return sum == 12;
+  }
+
+  private Integer[] createParts(Integer[] summands) {
+    return createParts(Arrays.asList(summands));
+  }
+
+  private Integer[] createParts(List<Integer> summands) {
+    List<Integer> list = new ArrayList<Integer>();
+    if (summands == null || summands.size() == 0) {
+      return PART_12;
+    }
+    int sum = 0;
+    for (int summand : summands) {
+      if (summand < 1) {
+        summand = 1;
+      }
+      if (sum + summand > 12) {
+        break;
+      }
+      sum += summand;
+      list.add(summand);
+    }
+    if (sum < 12) {
+      list.add(12 - sum);
+    }
+    return list.toArray(new Integer[list.size()]);
+  }
+
+  public Integer[] getParts() {
+    return parts;
+  }
+
+  public int getSize() {
+    return parts.length;
+  }
+
+  public int getPart(final int column) {
+    return parts[column];
+  }
+}

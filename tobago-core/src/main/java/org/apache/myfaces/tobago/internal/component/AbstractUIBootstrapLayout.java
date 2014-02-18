@@ -19,31 +19,29 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
-import org.apache.myfaces.tobago.component.SupportsCss;
 import org.apache.myfaces.tobago.component.SupportsMarkup;
-import org.apache.myfaces.tobago.layout.LayoutComponent;
-import org.apache.myfaces.tobago.util.ComponentUtils;
+import org.apache.myfaces.tobago.layout.LayoutManager;
+import org.apache.myfaces.tobago.layout.Orientation;
 
-import javax.faces.context.FacesContext;
+/**
+ * TODO
+ */
+public abstract class AbstractUIBootstrapLayout extends AbstractUILayoutBase implements LayoutManager, SupportsMarkup {
 
-public abstract class AbstractUIInput extends javax.faces.component.UIInput
-    implements SupportsMarkup, LayoutComponent, SupportsCss {
+  public static final String COMPONENT_FAMILY = "org.apache.myfaces.tobago.BootstrapLayout";
 
-  // TODO can this removed?
-  public void updateModel(final FacesContext facesContext) {
-    if (ComponentUtils.mayUpdateModel(this)) {
-      super.updateModel(facesContext);
-    }
+  public void init() {
   }
 
-  public abstract Integer getTabIndex();
+  public void fixRelativeInsideAuto(final Orientation orientation, final boolean auto) {
+  }
 
-  public abstract boolean isFocus();
+  public void preProcessing(final Orientation orientation) {
+  }
 
-  public abstract boolean isDisabled();
+  public void mainProcessing(final Orientation orientation) {
+  }
 
-  public abstract boolean isReadonly();
-
-  public abstract String getPlaceholder();
-
+  public void postProcessing(final Orientation orientation) {
+  }
 }

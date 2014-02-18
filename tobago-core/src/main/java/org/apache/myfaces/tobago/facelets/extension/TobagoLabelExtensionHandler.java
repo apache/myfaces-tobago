@@ -26,7 +26,7 @@ import org.apache.myfaces.tobago.component.OnComponentCreated;
 import org.apache.myfaces.tobago.component.OnComponentPopulated;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.SupportsMarkup;
-import org.apache.myfaces.tobago.component.UIGridLayout;
+import org.apache.myfaces.tobago.component.UIFlexLayout;
 import org.apache.myfaces.tobago.component.UILabel;
 import org.apache.myfaces.tobago.component.UIPanel;
 import org.apache.myfaces.tobago.context.Markup;
@@ -115,7 +115,7 @@ public abstract class TobagoLabelExtensionHandler extends ComponentHandler {
 
     final Application application = faceletContext.getFacesContext().getApplication();
 
-    addGridLayout(faceletContext, panel, application);
+    addFlexLayout(faceletContext, panel, application);
     addLabel(faceletContext, (UIPanel) panel, application);
 
     final String uid;
@@ -203,28 +203,28 @@ public abstract class TobagoLabelExtensionHandler extends ComponentHandler {
     }
   }
 
-  private void addGridLayout(
+  private void addFlexLayout(
       final FaceletContext faceletContext, final UIComponent panel, final Application application) {
-    final UIGridLayout gridLayout = (UIGridLayout) application.createComponent(UIGridLayout.COMPONENT_TYPE);
-    gridLayout.setRendererType(RendererTypes.GRID_LAYOUT);
+    final UIFlexLayout flexLayout = (UIFlexLayout) application.createComponent(UIFlexLayout.COMPONENT_TYPE);
+    flexLayout.setRendererType(RendererTypes.FLEX_LAYOUT);
     if (labelWidthAttribute != null) {
       String columns = getColumns(labelWidthAttribute.getValue(faceletContext));
       if (!LayoutUtils.checkTokens(columns)) {
         LOG.warn("Illegal value for columns = \"" + columns + "\" replacing with default: \"" + DEFAULT_COLUMNS + "\"");
         columns = DEFAULT_COLUMNS;
       }
-      gridLayout.setColumns(columns);
+      flexLayout.setColumns(columns);
     } else {
-      gridLayout.setColumns(getColumns("auto"));
+      flexLayout.setColumns(getColumns("auto"));
     }
-    gridLayout.setRows(getRows());
-    gridLayout.setId(panel.getId() + "_tx_layout");
-    if (gridLayout instanceof OnComponentCreated) {
-      ((OnComponentCreated) gridLayout).onComponentCreated(faceletContext.getFacesContext(), panel);
+    flexLayout.setRows(getRows());
+    flexLayout.setId(panel.getId() + "_tx_layout");
+    if (flexLayout instanceof OnComponentCreated) {
+      ((OnComponentCreated) flexLayout).onComponentCreated(faceletContext.getFacesContext(), panel);
     }
-    panel.getFacets().put(Facets.LAYOUT, gridLayout);
-    if (gridLayout instanceof OnComponentPopulated) {
-      ((OnComponentPopulated) gridLayout).onComponentPopulated(faceletContext.getFacesContext(), panel);
+    panel.getFacets().put(Facets.LAYOUT, flexLayout);
+    if (flexLayout instanceof OnComponentPopulated) {
+      ((OnComponentPopulated) flexLayout).onComponentPopulated(faceletContext.getFacesContext(), panel);
     }
   }
 
