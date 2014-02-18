@@ -103,7 +103,8 @@ public class DatePickerRenderer extends LinkRenderer {
     box.getChildren().add(calendar);
 
      // fixme: should work automatically from the layout manager
-    final Measure width = getResourceManager().getThemeMeasure(facesContext, calendar, "minimumWidth");
+    final Measure width
+        = getResourceManager().getThemeMeasure(facesContext, calendar, "minimumWidth", Measure.valueOf(20));
     layoutOfBox.setColumns(width.serialize());
 
     // add time input
@@ -167,7 +168,7 @@ public class DatePickerRenderer extends LinkRenderer {
     // todo: call setWidth ???
     picker.getAttributes().put(
         Attributes.LAYOUT_WIDTH,
-        getResourceManager().getThemeMeasure(facesContext, picker, "pickerWidth").getPixel());
+        getResourceManager().getThemeMeasure(facesContext, picker, "pickerWidth", Measure.valueOf(20)).getPixel());
 
     FacesContextUtils.addPopup(facesContext, (UIPopup) picker.getFacets().get(Facets.POPUP));
 

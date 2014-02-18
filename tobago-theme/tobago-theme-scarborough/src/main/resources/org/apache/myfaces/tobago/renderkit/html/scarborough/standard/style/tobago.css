@@ -57,8 +57,11 @@ fieldset.tobago-box {
 }
 
 .tobago-box-content {
+  padding: 5px;
+  /* XXX TOBAGO3
   position: absolute;
   overflow: hidden;
+  */
 }
 
 .tobago-box-toolbarOuter {
@@ -319,6 +322,7 @@ span.tobago-calendar-header {
 
 /* gridLayout -------------------------------------------------------------- */
 
+/* XXX TOBAGO3
 .tobago-gridLayout {
   border-spacing: 0;
   padding: 0;
@@ -343,6 +347,7 @@ div.tobago-gridLayout-first-row {
 div.tobago-gridLayout-first-column {
   padding-left: 0;
 }
+*/
 
 /* in ---------------------------------------------------------------------- */
 
@@ -420,11 +425,13 @@ div.tobago-gridLayout-first-column {
 
 .tobago-label {
   height: 19px;
+  width: 144px;
   padding: 3px 2px 3px 2px;
   margin: 0;
   border: 0 solid transparent;
   white-space: nowrap;
   vertical-align: top;
+  display: inline-block;
 }
 
 .tobago-label-markup-disabled {
@@ -523,7 +530,8 @@ li.tobago-menu-markup-selected {
   display: none;
 }
 
-.tobago-menu {
+.tobago-menu,
+.tobago-menu-selectOne {
   white-space: nowrap;
   padding: 2px 3px 2px 25px;
   background-repeat: no-repeat; /* prepare for images via element style */
@@ -632,9 +640,10 @@ li.tobago-menu-markup-selected {
 }
 
 .tobago-page-content {
-  position: absolute;
+  /*position: absolute; XXX TOBAGO3*/
   z-index: 0;
-  overflow: hidden;
+  overflow: auto;
+  padding: 10px;
 }
 
 .tobago-page-content-markup-portlet {
@@ -734,13 +743,17 @@ li.tobago-menu-markup-selected {
 /* progress -------------------------------------------------------------- */
 
 .tobago-progress-value {
+  height: 20px;
   background: #aabbcc;
+/* XXX TOBAGO3
   position: absolute;
   left: 0;
   top: 0;
+*/
 }
 
 .tobago-progress {
+  height: 20px;
   background: #ddeeff;
   border: 2px inset #bbccdd;
 }
@@ -915,7 +928,7 @@ li.tobago-menu-markup-selected {
 /* separator ------------------------------------------------------------------- */
 
 .tobago-separator {
-  position: absolute;
+  /*position: absolute; XXX TOBAGO3*/
 }
 
 /* without label */
@@ -924,7 +937,7 @@ hr.tobago-separator {
   border: 1px inset #ddeeff;
   height: 0;
   margin: 0;
-  position: absolute;
+  /*position: absolute; XXX TOBAGO3*/
 }
 
 /* with label */
@@ -1049,6 +1062,7 @@ hr.tobago-separator {
 
 .tobago-sheet-bodyTable {
   table-layout: fixed;
+  width: 100%;
 }
 
 .tobago-sheet-cell {
@@ -1167,9 +1181,11 @@ a:active.tobago-sheet-pagingLink {
 
 /* suggest ---------------------------------------------------------------------- */
 
+/* XXX TOBAGO3
 .tobago-suggest {
   position: absolute;
 }
+*/
 
 /* richTextEditor ---------------------------------------------------------- */
 
@@ -1243,11 +1259,6 @@ div.tobago-richTextEditor-body {
   height: 12px;
 }
 
-.tobago-tab {
-  /* needed for ie */
-  height: 14px;
-}
-
 .tobago-tab a:link,
 .tobago-tab a:visited,
 .tobago-tab a:active {
@@ -1284,39 +1295,44 @@ div.tobago-richTextEditor-body {
 }
 
 .tobago-tabGroup {
-  position: absolute;
+  /*position: absolute;XXX TOBAGO3*/
 }
 
 .tobago-tabGroup-header {
-  position: relative;
+  /*position: relative;XXX TOBAGO3*/
   font: 12px arial, helvetica, sans-serif;
-  overflow: hidden;
+  overflow: auto;
+  /*overflow: hidden;XXX TOBAGO3*/
 }
 
 .tobago-tabGroup-headerInner {
   border-bottom: 1px solid #ddeeff;
   height: 20px;
-  width: 10000px;
+  /*width: 10000px;XXX TOBAGO3*/
   font: 12px arial, helvetica, sans-serif;
-  overflow: visible;
+  /*overflow: visible;XXX TOBAGO3*/
 }
 
 .tobago-tabGroup-toolBar {
-  position: absolute;
+  /*position: absolute;XXX TOBAGO3
   right: 0;
   top: 4px;
   height: 16px;
   width: 49px;
+*/
+  float: right;
+  position: relative;
+  bottom: 17px; /* TODO: not nice */
   border-bottom: 1px solid #ddeeff;
 }
 
 .tobago-tab-content {
-  position: relative;
+  /*position: relative;XXX TOBAGO3*/
   border-color: #ddeeff #778899 #778899 #ddeeff;
   border-width: 0 1px 1px 1px;
   border-style: solid;
   display: none;
-  overflow: hidden;
+  /*overflow: hidden;XXX TOBAGO3*/
 }
 
 .tobago-tab-content-markup-selected {
@@ -1412,9 +1428,11 @@ div.tobago-richTextEditor-body {
   background-color: white;
   height: 21px;
   width: 58px;
+/*XXX TOBAGO3
   position: absolute;
   top: 0;
   left: 0;
+*/
 }
 
 .tobago-time-borderDiv-markup-seconds {
@@ -1449,7 +1467,9 @@ div.tobago-richTextEditor-body {
 }
 
 .tobago-time-incImage, .tobago-time-decImage {
+/*XXX TOBAGO3
   position: absolute;
+*/
   left: 63px;
   cursor: pointer;
 }
@@ -1468,9 +1488,7 @@ div.tobago-richTextEditor-body {
 
 /* toolBar ----------------------------------------------------------------- */
 
-/* FIXME this is the same code for "toolBar", "boxToolBar" and "tabGroupToolBar"
-   FIXME may be fixed after TOBAGO-900
-*/
+/* FIXME this is the same code for "toolBar", "boxToolBar" and "tabGroupToolBar"*/
 
 .tobago-toolBar {
   border: 2px groove #F6FAFF;

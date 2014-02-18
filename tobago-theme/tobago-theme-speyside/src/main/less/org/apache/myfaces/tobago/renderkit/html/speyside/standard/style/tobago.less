@@ -39,13 +39,13 @@
 }
 
 .field-focus-shadow(@color: @focusColor) {
-  -webkit-box-shadow: inset 0px 0px 3px lighten(@color, 20%);
-  -moz-box-shadow: inset 0px 0px 3px lighten(@color, 20%);
-  -o-box-shadow: inset 0px 0px 3px lighten(@color, 20%);
-  box-shadow: inset 0px 0px 3px lighten(@color, 20%);
+  -webkit-box-shadow: inset 0px 0px 2px lighten(@color, 20%), 0px 0px 3px lighten(@color, 20%);
+  -moz-box-shadow: inset 0px 0px 2px lighten(@color, 20%), 0px 0px 3px lighten(@color, 20%);
+  -o-box-shadow: inset 0px 0px 2px lighten(@color, 20%), 0px 0px 3px lighten(@color, 20%);
+  box-shadow: inset 0px 0px 2px lighten(@color, 20%), 0px 0px 3px lighten(@color, 20%);
 }
 
-.transitionBorder(@transition: .5s linear) {
+.transitionBorder(@transition: .1s linear) {
   -webkit-transition: border @transition, -webkit-box-shadow @transition;
   -moz-transition: border @transition, -moz-box-shadow @transition;
   -o-transition: border @transition, -o-box-shadow @transition;
@@ -61,12 +61,22 @@
 /* box ----------------------------------------------------------------- */
 
 .tobago-box {
-  position: absolute;
+//  position: absolute;XXX TOBAGO3
+  border: 1px solid darken(@borderColor, 10%);
+  overflow: hidden;
+/*XXX TOBAGO3
+  top: -1px;
+  left: -1px;
+*/
+  background-color: #FAFAFA;
+  .border-radius;
+  .box-shadow;
 }
 
+/*XXX TOBAGO3
 .tobago-box-border {
   border: 1px solid darken(@borderColor, 10%);
-  position: absolute;
+//  position: absolute;
   overflow: hidden;
   top: -1px;
   left: -1px;
@@ -74,18 +84,19 @@
   .border-radius;
   .box-shadow;
 }
+*/
 
 .tobago-box-header {
   background: #E8E8E8 url(../image/box-header-bg.gif) repeat-x top;
   height: 21px;
-  border: 1px solid transparent;
+  border: 0 solid transparent;
   border-bottom: 1px dotted black;
-  .border-radius(3px 3px 0 0);
+//  .border-radius(3px 3px 0 0);XXX TOBAGO3
   font: @boldFont;
   color: @textColor2;
   padding: 3px 0 0 5px;
   overflow: hidden;
-  position: relative;
+//  position: relative;XXX TOBAGO3
   white-space: nowrap;
 }
 
@@ -294,6 +305,7 @@
 .tobago-label {
   background-color: #E8E8E8;
   height: 20px;
+  width: 120px;
   .border-radius;
   font: @boldFont;
 }

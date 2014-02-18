@@ -1015,10 +1015,12 @@ var Tobago = {
 
   initCss: function(elements) {
     // element styles
+/*
     Tobago.Utils.selectWidthJQuery(elements, "[data-tobago-style]").each(function () {
       var element = jQuery(this);
       element.css(element.data("tobago-style"));
     });
+*/
   },
 
   preventFrameAttacks: function() {

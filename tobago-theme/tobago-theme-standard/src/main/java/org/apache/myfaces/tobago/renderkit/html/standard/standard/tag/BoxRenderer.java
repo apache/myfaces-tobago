@@ -31,7 +31,6 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
-import org.apache.myfaces.tobago.util.VariableResolverUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
@@ -67,7 +66,7 @@ public class BoxRenderer extends BoxRendererBase {
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, box);
     writer.writeStyleAttribute(style);
 
-    if (label != null || labelString != null) {
+    if (label != null || labelString != null || toolbar != null) {
       writer.startElement(HtmlElements.LEGEND, box);
       writer.writeClassAttribute(Classes.create(box, "legend"));
 
@@ -76,23 +75,19 @@ public class BoxRenderer extends BoxRendererBase {
       } else {
         writer.writeText(labelString);
       }
-      writer.endElement(HtmlElements.LEGEND);
-    }
 
-    final Style contentStyle = new Style(facesContext, box);
-    if (toolbar != null) {
-      writer.startElement(HtmlElements.DIV, null);
-      writer.writeClassAttribute(Classes.create(box, "toolbarOuter"));
-      writer.startElement(HtmlElements.DIV, null);
-      writer.writeClassAttribute(Classes.create(box, "toolbarInner"));
-      toolbar.setRendererType(RendererTypes.BOX_TOOL_BAR);
-      RenderUtils.encode(facesContext, toolbar);
-      writer.endElement(HtmlElements.DIV);
-      writer.endElement(HtmlElements.DIV);
-      if (VariableResolverUtils.resolveClientProperties(facesContext).getUserAgent().isMsie()) {
-// XXX check for what is this, and delete or comment it
-        contentStyle.setTop(Measure.valueOf(-10));
+      if (toolbar != null) {
+        writer.startElement(HtmlElements.DIV, null);
+        writer.writeClassAttribute(Classes.create(box, "toolbarOuter"));
+        writer.startElement(HtmlElements.DIV, null);
+        writer.writeClassAttribute(Classes.create(box, "toolbarInner"));
+        toolbar.setRendererType(RendererTypes.BOX_TOOL_BAR);
+        RenderUtils.encode(facesContext, toolbar);
+        writer.endElement(HtmlElements.DIV);
+        writer.endElement(HtmlElements.DIV);
       }
+
+      writer.endElement(HtmlElements.LEGEND);
     }
 
     final UIMenuBar menuBar = getMenuBarFacet(box);
@@ -102,15 +97,6 @@ public class BoxRenderer extends BoxRendererBase {
     
     writer.startElement(HtmlElements.DIV, box);
     writer.writeClassAttribute(Classes.create(box, "content")); // needed to be scrollable inside of the box
-    final Measure borderLeft = getBorderLeft(facesContext, box);
-    final Measure borderRight = getBorderRight(facesContext, box);
-    final Measure borderTop = getBorderTop(facesContext, box);
-    final Measure borderBottom = getBorderBottom(facesContext, box);
-    contentStyle.setWidth(contentStyle.getWidth().subtract(borderLeft).subtract(borderRight));
-    contentStyle.setHeight(contentStyle.getHeight().subtract(borderTop).subtract(borderBottom));
-    contentStyle.setLeft(borderLeft);
-    contentStyle.setTop(borderTop);
-    writer.writeStyleAttribute(contentStyle);
   }
 
   @Override

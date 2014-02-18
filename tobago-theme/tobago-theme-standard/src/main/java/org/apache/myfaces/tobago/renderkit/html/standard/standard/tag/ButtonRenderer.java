@@ -132,14 +132,19 @@ public class ButtonRenderer extends CommandRendererBase {
     Measure width = Measure.ZERO;
     final boolean image = button.getImage() != null;
     if (image) {
-      width = getResourceManager().getThemeMeasure(facesContext, button, "imageWidth");
+      final Measure imageWidth = getResourceManager().getThemeMeasure(facesContext, button, "imageWidth");
+      if (imageWidth != null) {
+        width = imageWidth;
+      }
     }
     final LabelWithAccessKey label = new LabelWithAccessKey(button);
 
     width = width.add(RenderUtils.calculateStringWidth(facesContext, button, label.getText()));
     final Measure padding = getResourceManager().getThemeMeasure(facesContext, button, "paddingWidth");
-    // left padding, right padding and when an image and an text then a middle padding.
-    width = width.add(padding.multiply(image && label.getText() != null ? 3 : 2));
+    if (padding != null) {
+      // left padding, right padding and when an image and an text then a middle padding.
+      width = width.add(padding.multiply(image && label.getText() != null ? 3 : 2));
+    }
 
     return width;
   }

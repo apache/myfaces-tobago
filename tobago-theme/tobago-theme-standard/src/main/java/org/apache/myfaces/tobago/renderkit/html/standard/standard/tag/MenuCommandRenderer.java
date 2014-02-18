@@ -22,6 +22,7 @@ package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
+import org.apache.myfaces.tobago.component.UIMenu;
 import org.apache.myfaces.tobago.component.UIMenuCommand;
 import org.apache.myfaces.tobago.component.UISelectBooleanCheckbox;
 import org.apache.myfaces.tobago.context.Markup;
@@ -64,26 +65,27 @@ public class MenuCommandRenderer extends CommandRendererBase {
 
   @Override
   public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
-    final UIMenuCommand menu = (UIMenuCommand) component;
+    final UIMenuCommand command = (UIMenuCommand) component;
+    final UIMenu menu = ComponentUtils.findAncestor(component, UIMenu.class);
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
-    final boolean disabled = menu.isDisabled();
-    final boolean firstLevel = RendererTypes.MENU_BAR.equals(menu.getParent().getRendererType());
-    final LabelWithAccessKey label = new LabelWithAccessKey(menu);
+    final boolean disabled = command.isDisabled();
+    final boolean firstLevel = RendererTypes.MENU_BAR.equals(command.getParent().getRendererType());
+    final LabelWithAccessKey label = new LabelWithAccessKey(command);
 
-    if (menu.getFacet(Facets.CHECKBOX) != null) {
+    if (command.getFacet(Facets.CHECKBOX) != null) {
       // checkbox menu
-      final UISelectBooleanCheckbox checkbox = (UISelectBooleanCheckbox) menu.getFacet(Facets.CHECKBOX);
+      final UISelectBooleanCheckbox checkbox = (UISelectBooleanCheckbox) command.getFacet(Facets.CHECKBOX);
       final boolean checked = ComponentUtils.getBooleanAttribute(checkbox, Attributes.VALUE);
       final String image = checked ? "image/MenuCheckmark.gif" : null;
       final String hiddenId = checkbox.getClientId(facesContext);
       final CommandMap map = new CommandMap(new Command());
-      encodeItem(facesContext, writer, menu, label, map, disabled, firstLevel, image, null, "selectBoolean");
+      encodeItem(facesContext, writer, command, menu, label, map, disabled, firstLevel, image, null, "selectBoolean");
       encodeHidden(writer, hiddenId, checked);
-    } else if (menu.getFacet(Facets.RADIO) != null) {
+    } else if (command.getFacet(Facets.RADIO) != null) {
       // radio menu
-      final String clientId = menu.getClientId(facesContext);
-      final UISelectOne radio = (UISelectOne) menu.getFacet(Facets.RADIO);
+      final String clientId = command.getClientId(facesContext);
+      final UISelectOne radio = (UISelectOne) command.getFacet(Facets.RADIO);
       final List<SelectItem> items = RenderUtils.getSelectItems(radio);
       final String hiddenId = radio.getClientId(facesContext);
       for (final SelectItem item : items) {
@@ -101,17 +103,17 @@ public class MenuCommandRenderer extends CommandRendererBase {
         } else {
           LOG.warn("Menu item has label=null where clientId=" + clientId);
         }
-        final String formattedValue = RenderUtils.getFormattedValue(facesContext, radio, item.getValue());
+        final String formatted = RenderUtils.getFormattedValue(facesContext, radio, item.getValue());
         final CommandMap map = new CommandMap(
             new Command(clientId, null, null, null, null, null, null, null, null, null));
-        encodeItem(facesContext, writer, null, label, map, disabled, firstLevel, image, formattedValue, "selectOne");
+        encodeItem(facesContext, writer, null, menu, label, map, disabled, firstLevel, image, formatted, "selectOne");
       }
       encodeHidden(writer, hiddenId, getCurrentValue(facesContext, radio));
     } else {
       // normal menu command
-      final String image = menu.getImage();
-      final CommandMap map = new CommandMap(new Command(facesContext, menu));
-      encodeItem(facesContext, writer, menu, label, map, disabled, firstLevel, image, null, null);
+      final String image = command.getImage();
+      final CommandMap map = new CommandMap(new Command(facesContext, command));
+      encodeItem(facesContext, writer, command, menu, label, map, disabled, firstLevel, image, null, null);
     }
   }
 
@@ -127,8 +129,8 @@ public class MenuCommandRenderer extends CommandRendererBase {
   }
 
   private void encodeItem(
-      final FacesContext facesContext, final TobagoResponseWriter writer, final UIMenuCommand component,
-      final LabelWithAccessKey label,
+      final FacesContext facesContext, final TobagoResponseWriter writer,
+      final UIMenuCommand component, final UIMenu menu, final LabelWithAccessKey label,
       final CommandMap map, final boolean disabled, final boolean firstLevel, final String image, final String value,
       final String sub)
       throws IOException {
@@ -144,10 +146,11 @@ public class MenuCommandRenderer extends CommandRendererBase {
         markup = Markup.TOP.add(markup);
       }
     }
-     // todo: solve workaround
-    String css = Classes.createWorkaround("menu", markup).getStringValue();
+    final Classes css;
     if (sub != null) {
-      css += " tobago-menu-" + sub;
+      css = Classes.create(menu, sub, markup);
+    } else {
+      css = Classes.create(menu, markup);
     }
     writer.writeClassAttribute(css);
     if (!disabled) {

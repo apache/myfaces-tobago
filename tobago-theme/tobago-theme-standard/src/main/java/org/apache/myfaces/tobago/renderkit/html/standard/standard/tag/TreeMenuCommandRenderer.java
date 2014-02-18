@@ -39,7 +39,7 @@ public class TreeMenuCommandRenderer extends TreeCommandRenderer {
 //    final boolean folder = parent.isFolder();
 
     final Style style = new Style();
-    Measure paddingLeft = getResourceManager().getThemeMeasure(facesContext, node, "custom.padding-left");
+    Measure paddingLeft = getResourceManager().getThemeMeasure(facesContext, node, "custom.padding-left", Measure.ZERO);
     paddingLeft = paddingLeft.multiply(level);
     style.setPaddingLeft(paddingLeft);
 /*

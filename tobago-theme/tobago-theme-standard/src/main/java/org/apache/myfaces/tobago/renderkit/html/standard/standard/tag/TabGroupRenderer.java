@@ -32,11 +32,9 @@ import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.event.TabChangeEvent;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPanelBase;
 import org.apache.myfaces.tobago.internal.util.AccessKeyMap;
-import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
-import org.apache.myfaces.tobago.renderkit.css.Position;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
@@ -170,16 +168,8 @@ public class TabGroupRenderer extends LayoutComponentRendererBase {
       final int activeIndex)
       throws IOException {
 
-    final Measure width = tabGroup.getCurrentWidth();
-    final Measure headerHeight = getResourceManager().getThemeMeasure(facesContext, tabGroup, "headerHeight");
-    final Measure toolBarWidth = getResourceManager().getThemeMeasure(facesContext, tabGroup, "toolBarWidth");
-    final Style header = new Style();
-    header.setPosition(Position.RELATIVE);
-    header.setWidth(width.subtractNotNegative(toolBarWidth));
-    header.setHeight(headerHeight);
     writer.startElement(HtmlElements.DIV, tabGroup);
     writer.writeClassAttribute(Classes.create(tabGroup, "header"));
-    writer.writeStyleAttribute(header);
 
     writer.startElement(HtmlElements.DIV, tabGroup);
     writer.writeClassAttribute(Classes.create(tabGroup, "headerInner"));
@@ -235,9 +225,6 @@ public class TabGroupRenderer extends LayoutComponentRendererBase {
       index++;
     }
     writer.endElement(HtmlElements.DIV);
-    final Style body = new Style();
-    body.setWidth(width);
-    body.setHeight(tabGroup.getCurrentHeight().subtract(headerHeight));
     writer.endElement(HtmlElements.DIV);
     if (tabGroup.isShowNavigationBar()) {
       final UIToolBar toolBar = createToolBar(facesContext, tabGroup);
@@ -327,14 +314,6 @@ public class TabGroupRenderer extends LayoutComponentRendererBase {
     writer.writeClassAttribute(Classes.create(tab, "content"));
     writer.writeIdAttribute(tab.getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + "content");
 
-    final Style style = new Style(facesContext, tab);
-    final Measure borderLeft = tab.getBorderLeft();
-    final Measure borderRight = tab.getBorderRight();
-    final Measure borderTop = tab.getBorderTop();
-    final Measure borderBottom = tab.getBorderBottom();
-    style.setWidth(style.getWidth().subtract(borderLeft).subtract(borderRight));
-    style.setHeight(style.getHeight().subtract(borderTop).subtract(borderBottom));
-    writer.writeStyleAttribute(style);
     writer.writeAttribute(HtmlAttributes.TABGROUPINDEX, index);
 
     RenderUtils.encodeChildren(facesContext, tab);

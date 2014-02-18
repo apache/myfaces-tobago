@@ -134,7 +134,7 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
 
     if (radio != null) {
       writer.startElement(HtmlElements.SPAN, radio);
-      writer.writeClassAttribute(Classes.createWorkaround("toolBar", "selectOne", null));
+      writer.writeClassAttribute(Classes.create(toolBar, "selectOne"));
       final Object value = radio.getValue();
 
       String currentValue = "";
@@ -204,7 +204,7 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
     final String clientId = checkbox.getClientId(facesContext);
 
     writer.startElement(HtmlElements.SPAN, checkbox);
-    writer.writeClassAttribute(Classes.createWorkaround("toolBar", "selectBoolean", null));
+    writer.writeClassAttribute(Classes.create(toolBar, "selectBoolean"));
     final CommandMap map = new CommandMap(new Command());
     width = renderToolbarButton(facesContext, toolBar, command, writer, checked, width, map, null);
 
@@ -249,16 +249,26 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
     // two separate buttons for the command and the sub menu
     final boolean separateButtons = hasAnyCommand(command) && showDropDownMenu;
 
-    final Measure paddingTop = resources.getThemeMeasure(facesContext, toolBar, "custom.padding-top");
-    final Measure paddingMiddle = resources.getThemeMeasure(facesContext, toolBar, "custom.padding-middle");
-    final Measure paddingBottom = resources.getThemeMeasure(facesContext, toolBar, "custom.padding-bottom");
-    final Measure paddingLeft = resources.getThemeMeasure(facesContext, toolBar, "custom.padding-left");
-    final Measure paddingCenter = resources.getThemeMeasure(facesContext, toolBar, "custom.padding-center");
-    final Measure paddingRight = resources.getThemeMeasure(facesContext, toolBar, "custom.padding-right");
-    final Measure iconBigHeight = resources.getThemeMeasure(facesContext, toolBar, "custom.icon-big-height");
-    final Measure iconSmallHeight = resources.getThemeMeasure(facesContext, toolBar, "custom.icon-small-height");
-    final Measure iconBigWidth = resources.getThemeMeasure(facesContext, toolBar, "custom.icon-big-width");
-    final Measure iconSmallWidth = resources.getThemeMeasure(facesContext, toolBar, "custom.icon-small-width");
+    final Measure paddingTop
+        = resources.getThemeMeasure(facesContext, toolBar, "custom.padding-top", Measure.ZERO);
+    final Measure paddingMiddle
+        = resources.getThemeMeasure(facesContext, toolBar, "custom.padding-middle", Measure.ZERO);
+    final Measure paddingBottom
+        = resources.getThemeMeasure(facesContext, toolBar, "custom.padding-bottom", Measure.ZERO);
+    final Measure paddingLeft
+        = resources.getThemeMeasure(facesContext, toolBar, "custom.padding-left", Measure.ZERO);
+    final Measure paddingCenter
+        = resources.getThemeMeasure(facesContext, toolBar, "custom.padding-center", Measure.ZERO);
+    final Measure paddingRight
+        = resources.getThemeMeasure(facesContext, toolBar, "custom.padding-right", Measure.ZERO);
+    final Measure iconBigHeight
+        = resources.getThemeMeasure(facesContext, toolBar, "custom.icon-big-height", Measure.valueOf(20));
+    final Measure iconSmallHeight
+        = resources.getThemeMeasure(facesContext, toolBar, "custom.icon-small-height", Measure.valueOf(20));
+    final Measure iconBigWidth
+        = resources.getThemeMeasure(facesContext, toolBar, "custom.icon-big-width", Measure.valueOf(20));
+    final Measure iconSmallWidth
+        = resources.getThemeMeasure(facesContext, toolBar, "custom.icon-small-width", Measure.valueOf(20));
 
     // label style
     final Style labelStyle;
@@ -487,13 +497,17 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
 
     final ResourceManager resources = getResourceManager();
 
-    final Measure paddingTop = resources.getThemeMeasure(facesContext, toolBar, "custom.padding-top");
-    final Measure paddingMiddle = resources.getThemeMeasure(facesContext, toolBar, "custom.padding-middle");
-    final Measure paddingBottom = resources.getThemeMeasure(facesContext, toolBar, "custom.padding-bottom");
+    final Measure paddingTop
+        = resources.getThemeMeasure(facesContext, toolBar, "custom.padding-top", Measure.ZERO);
+    final Measure paddingMiddle
+        = resources.getThemeMeasure(facesContext, toolBar, "custom.padding-middle", Measure.ZERO);
+    final Measure paddingBottom
+        = resources.getThemeMeasure(facesContext, toolBar, "custom.padding-bottom", Measure.ZERO);
     final Measure iconHeight = iconBig
-        ? resources.getThemeMeasure(facesContext, toolBar, "custom.icon-big-height")
-        : resources.getThemeMeasure(facesContext, toolBar, "custom.icon-small-height");
-    final Measure labelHeight = resources.getThemeMeasure(facesContext, toolBar, "custom.label-height");
+        ? resources.getThemeMeasure(facesContext, toolBar, "custom.icon-big-height", Measure.valueOf(20))
+        : resources.getThemeMeasure(facesContext, toolBar, "custom.icon-small-height", Measure.valueOf(20));
+    final Measure labelHeight
+        = resources.getThemeMeasure(facesContext, toolBar, "custom.label-height", Measure.valueOf(20));
 
     Measure result = paddingTop;
     if (showIcon) {

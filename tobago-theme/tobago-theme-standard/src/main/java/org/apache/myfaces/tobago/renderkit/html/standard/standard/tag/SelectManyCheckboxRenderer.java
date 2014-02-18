@@ -117,7 +117,10 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
   @Override
   public Measure getHeight(final FacesContext facesContext, final Configurable component) {
     final UISelectManyCheckbox select = (UISelectManyCheckbox) component;
-    final Measure heightOfOne = super.getHeight(facesContext, component);
+    Measure heightOfOne = super.getHeight(facesContext, component);
+    if (heightOfOne == null) {
+      heightOfOne = Measure.valueOf(20);
+    }
     if (select.isInline()) {
       return heightOfOne;
     } else {

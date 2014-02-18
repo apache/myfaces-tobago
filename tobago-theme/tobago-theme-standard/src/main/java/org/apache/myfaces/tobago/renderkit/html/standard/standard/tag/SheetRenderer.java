@@ -34,7 +34,6 @@ import org.apache.myfaces.tobago.component.UIReload;
 import org.apache.myfaces.tobago.component.UISheet;
 import org.apache.myfaces.tobago.component.UIToolBar;
 import org.apache.myfaces.tobago.config.Configurable;
-import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.ResourceManager;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
@@ -53,6 +52,7 @@ import org.apache.myfaces.tobago.internal.layout.OriginCell;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.layout.Display;
 import org.apache.myfaces.tobago.layout.LayoutBase;
+import org.apache.myfaces.tobago.layout.LayoutManager;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.layout.TextAlign;
 import org.apache.myfaces.tobago.model.ExpandedState;
@@ -82,7 +82,6 @@ import javax.el.ValueExpression;
 import javax.faces.application.Application;
 import javax.faces.component.UIColumn;
 import javax.faces.component.UIComponent;
-import javax.faces.component.UISelectOne;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.text.MessageFormat;
@@ -227,57 +226,23 @@ public class SheetRenderer extends LayoutComponentRendererBase {
     }
 
     final boolean showHeader = sheet.isShowHeader();
-    final boolean ie6SelectOneFix = showHeader
-        && ClientProperties.getInstance(facesContext).getUserAgent().isMsie6()
-            && ComponentUtils.findDescendant(sheet, UISelectOne.class) != null;
 
 // BEGIN RENDER BODY CONTENT
-    final Style bodyStyle = new Style();
-/*
-    bodyStyle.setPosition(Position.RELATIVE);
-*/
-    Measure tableBodyWidth = sheet.getCurrentWidth().subtractNotNegative(getContentBorder(facesContext, sheet));
-    bodyStyle.setWidth(tableBodyWidth);
-    if (sheet.isPagingVisible()) {
-      sheetHeight = sheetHeight.subtract(footerHeight);
-    }
-    if (ie6SelectOneFix) {
-      bodyStyle.setTop(headerHeight);
-    }
-    if (showHeader) {
-      sheetHeight = sheetHeight.subtract(headerHeight);
-    }
-    bodyStyle.setHeight(sheetHeight);
 
     if (showHeader) {
       renderColumnHeaders(
-          facesContext, sheet, writer, resourceManager, contextPath, sheetId, renderedColumnList, tableBodyWidth);
+          facesContext, sheet, writer, resourceManager, contextPath, sheetId, renderedColumnList/*, tableBodyWidth*/);
     }
 
     writer.startElement(HtmlElements.DIV, null);
     writer.writeIdAttribute(sheetId + ComponentUtils.SUB_SEPARATOR + "data_div");
     writer.writeClassAttribute(Classes.create(sheet, "body"));
 
-/*
-    bodyStyle.setPaddingTop(ie6SelectOneFix ? Measure.ZERO : headerHeight);
-*/
-
-    writer.writeStyleAttribute(bodyStyle);
-    bodyStyle.setHeight(null);
-    bodyStyle.setTop(null);
-    final Style sheetBodyStyle = new Style(bodyStyle);
-    // is null, in AJAX case.
-    if (sheet.getNeedVerticalScrollbar() == Boolean.TRUE) {
-      tableBodyWidth = tableBodyWidth.subtractNotNegative(getVerticalScrollbarWeight(facesContext, sheet));
-    }
-    sheetBodyStyle.setWidth(tableBodyWidth);
-
     writer.startElement(HtmlElements.TABLE, null);
     writer.writeAttribute(HtmlAttributes.CELLSPACING, "0", false);
     writer.writeAttribute(HtmlAttributes.CELLPADDING, "0", false);
     writer.writeAttribute(HtmlAttributes.SUMMARY, "", false);
     writer.writeClassAttribute(Classes.create(sheet, "bodyTable"));
-    writer.writeStyleAttribute(sheetBodyStyle);
 
     if (columnWidths != null) {
       writer.startElement(HtmlElements.COLGROUP, null);
@@ -434,10 +399,12 @@ public class SheetRenderer extends LayoutComponentRendererBase {
         columnIndex++;
         writer.startElement(HtmlElements.TD, null);
         writer.startElement(HtmlElements.DIV, null);
-        final Integer divWidth = sheet.getWidthList().get(columnIndex);
-        final Style divStyle = new Style();
-        divStyle.setWidth(Measure.valueOf(divWidth));
-        writer.writeStyleAttribute(divStyle);
+        if (columnWidths != null) {
+          final Integer divWidth = columnWidths.get(columnIndex);
+          final Style divStyle = new Style();
+          divStyle.setWidth(Measure.valueOf(divWidth));
+          writer.writeStyleAttribute(divStyle);
+        }
         writer.endElement(HtmlElements.DIV);
         writer.endElement(HtmlElements.TD);
       }
@@ -458,9 +425,6 @@ public class SheetRenderer extends LayoutComponentRendererBase {
     if (sheet.isPagingVisible()) {
       final Style footerStyle = new Style();
       footerStyle.setWidth(sheet.getCurrentWidth());
-      if (ie6SelectOneFix) {
-        footerStyle.setTop(headerHeight);
-      }
       writer.startElement(HtmlElements.DIV, sheet);
       writer.writeClassAttribute(Classes.create(sheet, "footer"));
       writer.writeStyleAttribute(footerStyle);
@@ -629,17 +593,17 @@ public class SheetRenderer extends LayoutComponentRendererBase {
   private Measure getHeaderHeight(final FacesContext facesContext, final UISheet sheet) {
     final int rows = sheet.getHeaderGrid() != null ? sheet.getHeaderGrid().getRowCount() : 0;
     return sheet.isShowHeader()
-        ? getResourceManager().getThemeMeasure(facesContext, sheet, "headerHeight").multiply(rows)
+        ? getResourceManager().getThemeMeasure(facesContext, sheet, "headerHeight", Measure.valueOf(20)).multiply(rows)
         : Measure.ZERO;
   }
 
   private Measure getRowHeight(final FacesContext facesContext, final UISheet sheet) {
-    return getResourceManager().getThemeMeasure(facesContext, sheet, "rowHeight");
+    return getResourceManager().getThemeMeasure(facesContext, sheet, "rowHeight", Measure.valueOf(20));
   }
 
   private Measure getFooterHeight(final FacesContext facesContext, final UISheet sheet) {
     return sheet.isPagingVisible()
-        ? getResourceManager().getThemeMeasure(facesContext, sheet, "footerHeight")
+        ? getResourceManager().getThemeMeasure(facesContext, sheet, "footerHeight", Measure.valueOf(20))
         : Measure.ZERO;
   }
 
@@ -721,8 +685,8 @@ public class SheetRenderer extends LayoutComponentRendererBase {
   private void renderColumnHeaders(
       final FacesContext facesContext, final UISheet sheet, final TobagoResponseWriter writer,
       final ResourceManager resourceManager,
-      final String contextPath, final String sheetId, final List<AbstractUIColumn> renderedColumnList,
-      final Measure headerWidth)
+      final String contextPath, final String sheetId, final List<AbstractUIColumn> renderedColumnList/*,
+      final Measure headerWidth*/)
       throws IOException {
 
     final Grid grid = sheet.getHeaderGrid();
@@ -907,7 +871,13 @@ public class SheetRenderer extends LayoutComponentRendererBase {
   }
 
   private boolean needVerticalScrollbar(final FacesContext facesContext, final UISheet sheet) {
-    return ((AbstractUISheetLayout) sheet.getLayoutManager()).needVerticalScrollbar(facesContext, sheet);
+    final LayoutManager layoutManager = sheet.getLayoutManager();
+    if (layoutManager instanceof AbstractUISheetLayout) {
+      return ((AbstractUISheetLayout) layoutManager).needVerticalScrollbar(facesContext, sheet);
+    } else {
+      LOG.error("Sheet must use a sheet layout, but found: " + layoutManager.getClass().getName());
+      return true;
+    }
   }
 
   private void encodeResizing(final TobagoResponseWriter writer, final AbstractUISheet sheet, final int columnIndex)

@@ -208,7 +208,7 @@ public class RenderUtils {
     final String fontWidths = ResourceManagerUtils.getProperty(facesContext, "tobago", type);
 
     for (final char c : text.toCharArray()) {
-      if (c >= 32 && c < 128) { // "normal" char in precomputed range
+      if (fontWidths != null && c >= 32 && c < 128) { // "normal" char in precomputed range
         final int begin = (c - 32) * 2;
         width += Integer.parseInt(fontWidths.substring(begin, begin + 2), 16);
       } else {

@@ -117,7 +117,10 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
   @Override
   public Measure getHeight(final FacesContext facesContext, final Configurable component) {
     final UISelectOneRadio select = (UISelectOneRadio) component;
-    final Measure heightOfOne = super.getHeight(facesContext, component);
+    Measure heightOfOne = super.getHeight(facesContext, component);
+    if (heightOfOne == null) {
+      heightOfOne = Measure.valueOf(20);
+    }
     if (select.isInline()) {
       return heightOfOne;
     } else {
