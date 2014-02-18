@@ -26,20 +26,10 @@
       });
     }
   });
-  $.widget("demo.show", {
-    _create: function () {
-      this._on({
-        click: function (event) {
-          LOG.show();
-        }
-      });
-    }
-  });
 }(jQuery));
 
 var initAlert = function () {
   jQuery("[data-alert-text]").alert();
-  jQuery("[data-show-log]").show();
 };
 
 Tobago.registerListener(initAlert, Tobago.Phase.DOCUMENT_READY);

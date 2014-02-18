@@ -32,9 +32,7 @@
   <entry key="menu_help">_Help</entry>
   <entry key="menu_themes">_Themes</entry>
   <entry key="menu_locale">_Locale</entry>
-  <entry key="menu_debug">Debug Mode</entry>
   <entry key="menu_about">About</entry>
-  <entry key="menu_showLog">Show log Panel</entry>
 
 <!-- navigate -->
   <entry key="overview">Overview</entry>

@@ -74,16 +74,11 @@ public class ClientConfigController {
 
   public void storeInClientProperties() {
     final ClientProperties client = VariableResolverUtils.resolveClientProperties(FacesContext.getCurrentInstance());
-
-    client.setDebugMode(debugMode);
     client.setTheme(theme);
   }
 
   public void loadFromClientProperties() {
-    final ClientProperties client
-        = VariableResolverUtils.resolveClientProperties(FacesContext.getCurrentInstance());
-
-    debugMode = client.isDebugMode();
+    final ClientProperties client = VariableResolverUtils.resolveClientProperties(FacesContext.getCurrentInstance());
     theme = client.getTheme();
   }
 

@@ -28,9 +28,7 @@
   <entry key="menu_help">_Hilfe</entry>
   <entry key="menu_themes">_Themes</entry>
   <entry key="menu_locale">_Sprachen</entry>
-  <entry key="menu_debug">Debug Modus</entry>
   <entry key="menu_about">Über</entry>
-  <entry key="menu_showLog">Zeige Log Panel</entry>
 
 <!--  navigate -->
   <entry key="overview">Übersicht</entry>

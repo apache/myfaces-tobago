@@ -56,6 +56,9 @@ public class ClientProperties implements Serializable {
   private String contentType = "html";
   private Theme theme;
   private UserAgent userAgent = UserAgent.DEFAULT;
+
+  /** @deprecated since Tobago 3.0 */
+  @Deprecated
   private boolean debugMode;
 
   private Measure verticalScrollbarWeight;
@@ -129,10 +132,14 @@ public class ClientProperties implements Serializable {
     reset();
   }
 
+  /** @deprecated since Tobago 3.0 */
+  @Deprecated
   public boolean isDebugMode() {
     return debugMode;
   }
 
+  /** @deprecated since Tobago 3.0 */
+  @Deprecated
   public void setDebugMode(final boolean debugMode) {
     this.debugMode = debugMode;
   }

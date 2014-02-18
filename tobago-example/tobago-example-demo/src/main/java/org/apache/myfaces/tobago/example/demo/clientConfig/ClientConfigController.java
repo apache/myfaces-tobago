@@ -92,18 +92,12 @@ public class ClientConfigController {
 // ///////////////////////////////////////////// logic
 
   public void storeInClientProperties() {
-    final ClientProperties client
-        = VariableResolverUtils.resolveClientProperties(FacesContext.getCurrentInstance());
-
-    client.setDebugMode(debugMode);
+    final ClientProperties client = VariableResolverUtils.resolveClientProperties(FacesContext.getCurrentInstance());
     client.setTheme(theme);
   }
 
   public void loadFromClientProperties() {
-    final ClientProperties client
-        = VariableResolverUtils.resolveClientProperties(FacesContext.getCurrentInstance());
-
-    debugMode = client.isDebugMode();
+    final ClientProperties client = VariableResolverUtils.resolveClientProperties(FacesContext.getCurrentInstance());
     theme = client.getTheme();
   }
 
@@ -143,14 +137,6 @@ public class ClientConfigController {
       final FacesContext facesContext, final String beanName) {
     return (ClientConfigController) facesContext.getApplication()
         .getVariableResolver().resolveVariable(facesContext, beanName);
-  }
-
-  public boolean isDebugMode() {
-    return debugMode;
-  }
-
-  public void setDebugMode(final boolean debugMode) {
-    this.debugMode = debugMode;
   }
 
   public Theme getTheme() {
