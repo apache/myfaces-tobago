@@ -32,8 +32,8 @@ import java.util.Map;
 
 public final class ClientPropertiesKey implements Serializable {
 
-  private static final String KEY_IN_REQUEST = ClientPropertiesKey.class.getName();
-  
+  private static final String KEY_IN_FACES_CONTEXT = ClientPropertiesKey.class.getName();
+
   private final String contentType;
   private final Theme theme;
   private final UserAgent userAgent;
@@ -42,23 +42,21 @@ public final class ClientPropertiesKey implements Serializable {
   private final int hashCode;
 
   public static ClientPropertiesKey get(final FacesContext facesContext) {
-    // todo later: refactor when having JSF 2.0: using attributes of facesContext
-    final Map<String, Object> requestMap = facesContext.getExternalContext().getRequestMap();
-    ClientPropertiesKey key = (ClientPropertiesKey) requestMap.get(KEY_IN_REQUEST);
+    final Map<Object, Object> attributes = facesContext.getAttributes();
+    ClientPropertiesKey key = (ClientPropertiesKey) attributes.get(KEY_IN_FACES_CONTEXT);
     if (key == null) {
       final ClientProperties clientProperties = VariableResolverUtils.resolveClientProperties(facesContext);
       key = new ClientPropertiesKey(clientProperties, facesContext.getViewRoot());
-      requestMap.put(KEY_IN_REQUEST, key);
+      attributes.put(KEY_IN_FACES_CONTEXT, key);
     }
-
     return key;
   }
 
   public static void reset(final FacesContext facesContext) {
-    final Map<String, Object> requestMap = facesContext.getExternalContext().getRequestMap();
-    requestMap.remove(KEY_IN_REQUEST);
+    final Map<Object, Object> attributes = facesContext.getAttributes();
+    attributes.remove(KEY_IN_FACES_CONTEXT);
   }
-  
+
   private ClientPropertiesKey(final ClientProperties clientProperties, final UIViewRoot viewRoot) {
     contentType = clientProperties.getContentType();
     theme = clientProperties.getTheme();
