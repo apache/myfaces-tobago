@@ -286,6 +286,9 @@ var Tobago = {
     }
     this.initMarker = true;
 
+    if (LOG.init) { // @DEV_ONLY
+      LOG.init(); // @DEV_ONLY
+    } // @DEV_ONLY
 
     TbgTimer.startOnload = new Date(); // @DEV_ONLY
     var page = jQuery(".tobago-page");

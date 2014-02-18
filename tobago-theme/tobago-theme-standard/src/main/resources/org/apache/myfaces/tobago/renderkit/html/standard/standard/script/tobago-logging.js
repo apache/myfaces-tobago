@@ -29,7 +29,7 @@ var LOG = {
   WARN:  3,
   ERROR: 4,
 
-  hasConsole: typeof console == "undefined",
+  hasConsole: typeof console != "undefined",
   level: this.INFO,
   maximumSeverity: 0,
 
@@ -135,5 +135,3 @@ var LOG = {
     this.warn("Menthod LOG.debugAjaxComponents() is deprecated!");
   }
 };
-
-jQuery(document).ready(Tobago.LOG.init);
