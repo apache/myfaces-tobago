@@ -71,7 +71,9 @@
           <version>7.6.12.v20130726</version>
           <!--
           <version>8.1.14.v20131031</version>
-          http://jsflive.wordpress.com/2012/08/19/jsf-2-on-jetty-8/
+          This only works with modifications,
+          see http://jsflive.wordpress.com/2012/08/19/jsf-2-on-jetty-8/
+          or Tobago 3.0.x
           -->
           <configuration>
             <scanIntervalSeconds>5</scanIntervalSeconds>
