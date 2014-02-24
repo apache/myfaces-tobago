@@ -245,8 +245,8 @@ public class RenderUtils {
     final List<SelectItem> items = new ArrayList<SelectItem>(indices.length);
 
     if (selectItems.size() != 0) {
-      for (final int indice : indices) {
-        items.add(selectItems.get(indice));
+      for (final int index : indices) {
+        items.add(selectItems.get(index));
       }
     } else {
       LOG.warn("No items found! rendering dummies instead!");
@@ -287,6 +287,9 @@ public class RenderUtils {
     return currentValue;
   }
 
+  /**
+   * @deprecated Please use this method with facesContext parameter
+   */
   public static List<SelectItem> getSelectItems(final UIComponent component) {
 
     final ArrayList<SelectItem> list = new ArrayList<SelectItem>();

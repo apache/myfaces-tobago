@@ -29,7 +29,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlButtonTypes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
-import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
+import org.apache.myfaces.tobago.renderkit.util.SelectItemUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
@@ -37,7 +37,6 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import java.io.IOException;
-import java.util.List;
 
 public class SelectManyShuttleRenderer extends SelectManyRendererBase {
 
@@ -73,8 +72,8 @@ public class SelectManyShuttleRenderer extends SelectManyRendererBase {
       style.setHeight(style.getHeight().subtract(labelHeight));
       style.setTop(style.getTop().add(labelHeight));
     }
-    final List<SelectItem> items = RenderUtils.getSelectItems(select);
-    final boolean disabled = items.size() == 0 || select.isDisabled() || select.isReadonly();
+    final Iterable<SelectItem> items = SelectItemUtils.iterator(facesContext, select);
+    final boolean disabled = !items.iterator().hasNext() || select.isDisabled() || select.isReadonly();
 
     final String unselectedLabel = select.getUnselectedLabel();
     if (unselectedLabel != null) {

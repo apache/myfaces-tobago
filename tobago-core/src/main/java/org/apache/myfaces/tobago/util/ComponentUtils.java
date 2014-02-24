@@ -669,7 +669,10 @@ public final class ComponentUtils {
     valueBinding.setValue(context, value);
   }
 
-
+  /**
+   * @deprecated Since Tobago 2.0
+   */
+  @Deprecated
   public static boolean hasSelectedValue(final List<SelectItem> items, final Object value) {
     for (final SelectItem item : items) {
       if (item.getValue().equals(value)) {

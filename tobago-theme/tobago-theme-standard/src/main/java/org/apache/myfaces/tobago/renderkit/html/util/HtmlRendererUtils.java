@@ -348,14 +348,13 @@ public final class HtmlRendererUtils {
     return title;
   }
 
-  public static void renderSelectItems(final UIInput component, final List<SelectItem> items, final Object[] values,
+  public static void renderSelectItems(final UIInput component, final Iterable<SelectItem> items, final Object[] values,
       final TobagoResponseWriter writer, final FacesContext facesContext) throws IOException {
     renderSelectItems(component, items, values, null, writer, facesContext);
-
   }
 
   public static void renderSelectItems(
-      final UIInput component, final List<SelectItem> items, final Object[] values, final Boolean onlySelected,
+      final UIInput component, final Iterable<SelectItem> items, final Object[] values, final Boolean onlySelected,
       final TobagoResponseWriter writer, final FacesContext facesContext) throws IOException {
 
     if (LOG.isDebugEnabled()) {
