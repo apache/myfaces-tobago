@@ -60,6 +60,8 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
 
@@ -132,15 +134,20 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
       items = SelectItemUtils.getItems(facesContext, radio);
     }
 
+    List<SelectItem> list = new ArrayList<SelectItem>();
+    for (final SelectItem item : items) {
+      list.add(item);
+    }
+
     if (radio != null) {
       writer.startElement(HtmlElements.SPAN, radio);
       writer.writeClassAttribute(Classes.createWorkaround("toolBar", "selectOne", null));
       final Object value = radio.getValue();
 
       String currentValue = "";
-      boolean markFirst = !hasSelectedValue(items, value);
+      boolean markFirst = !hasSelectedValue(list, value);
       final String radioId = radio.getClientId(facesContext);
-      for (final SelectItem item : items) {
+      for (final SelectItem item : list) {
         final String labelText = item.getLabel();
         if (labelText != null) {
           command.getAttributes().put(Attributes.LABEL, labelText);
@@ -151,8 +158,6 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
         String image = null;
         if (item instanceof org.apache.myfaces.tobago.model.SelectItem) {
           image = ((org.apache.myfaces.tobago.model.SelectItem) item).getImage();
-        } else if (LOG.isDebugEnabled()) {
-          LOG.debug("select item is not " + org.apache.myfaces.tobago.model.SelectItem.class.getName());
         }
         if (image == null) {
           image = "image/1x1.gif";
