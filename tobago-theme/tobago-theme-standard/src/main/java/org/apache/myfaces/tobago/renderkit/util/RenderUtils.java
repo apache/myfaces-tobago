@@ -221,14 +221,26 @@ public class RenderUtils {
     return Measure.valueOf(width);
   }
 
+  /**
+   * @deprecated Since Tobago 2.0.0. Please use SelectItemUtils
+   */
+  @Deprecated
   public static List<SelectItem> getItemsToRender(final javax.faces.component.UISelectOne component) {
     return getItems(component);
   }
 
+  /**
+   * @deprecated Since Tobago 2.0.0. Please use SelectItemUtils
+   */
+  @Deprecated
   public static List<SelectItem> getItemsToRender(final javax.faces.component.UISelectMany component) {
     return getItems(component);
   }
 
+  /**
+   * @deprecated Since Tobago 2.0.0. Please use SelectItemUtils
+   */
+  @Deprecated
   public static List<SelectItem> getItems(final javax.faces.component.UIInput component) {
 
     final List<SelectItem> selectItems = getSelectItems(component);
@@ -288,8 +300,9 @@ public class RenderUtils {
   }
 
   /**
-   * @deprecated Please use this method with facesContext parameter
+   * @deprecated Since Tobago 2.0.0. Please use SelectItemUtils
    */
+  @Deprecated
   public static List<SelectItem> getSelectItems(final UIComponent component) {
 
     final ArrayList<SelectItem> list = new ArrayList<SelectItem>();
@@ -363,6 +376,10 @@ public class RenderUtils {
     return list;
   }
 
+  /**
+   * @deprecated Since Tobago 2.0.0. Please use SelectItemUtils
+   */
+  @Deprecated
   private static SelectItem getSelectItem(final org.apache.myfaces.tobago.component.UISelectItem component) {
     return
         new org.apache.myfaces.tobago.model.SelectItem(component.getItemValue() == null ? "" : component.getItemValue(),

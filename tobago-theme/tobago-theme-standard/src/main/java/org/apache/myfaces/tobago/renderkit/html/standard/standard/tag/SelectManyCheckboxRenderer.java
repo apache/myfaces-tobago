@@ -31,6 +31,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
+import org.apache.myfaces.tobago.renderkit.util.SelectItemUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
@@ -39,7 +40,6 @@ import javax.faces.component.UISelectMany;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import java.io.IOException;
-import java.util.List;
 
 public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
 
@@ -56,7 +56,6 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
     final String id = select.getClientId(facesContext);
-    final List<SelectItem> items = RenderUtils.getItemsToRender(select);
     final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, select);
     final boolean disabled = select.isDisabled();
     final boolean readonly = select.isReadonly();
@@ -75,7 +74,7 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
     }
     boolean first = true;
     final Object[] values = select.getSelectedValues();
-    for (final SelectItem item : items) {
+    for (final SelectItem item : SelectItemUtils.getItems(facesContext, select)) {
       final String itemId = id + ComponentUtils.SUB_SEPARATOR + item.getValue().toString();
       writer.startElement(HtmlElements.LI, select);
       writer.startElement(HtmlElements.INPUT, select);
@@ -121,8 +120,11 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
     if (select.isInline()) {
       return heightOfOne;
     } else {
-      final List<SelectItem> items = RenderUtils.getItemsToRender((UISelectMany) component);
-      return heightOfOne.multiply(items.size());
+      int count = 0;
+      for(SelectItem ignored : SelectItemUtils.getItems(facesContext, (UISelectMany) component)) {
+        count++;
+      }
+      return heightOfOne.multiply(count);
     }
   }
 }

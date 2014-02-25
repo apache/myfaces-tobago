@@ -41,7 +41,7 @@ import java.util.NoSuchElementException;
  */
 public class SelectItemUtils {
 
-  public static Iterable<SelectItem> iterator(final FacesContext facesContext, final UIComponent selector) {
+  public static Iterable<SelectItem> getItems(final FacesContext facesContext, final UIComponent selector) {
     if (selector.getChildCount() == 0) {
       return Collections.emptyList();
     } else {
