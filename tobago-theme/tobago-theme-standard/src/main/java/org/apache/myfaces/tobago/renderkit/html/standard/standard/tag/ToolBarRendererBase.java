@@ -125,11 +125,11 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
 
     UIMenuSelectOne radio = (UIMenuSelectOne) command.getFacet(Facets.RADIO);
     if (radio == null) {
-      items = SelectItemUtils.iterator(facesContext, command);
+      items = SelectItemUtils.getItems(facesContext, command);
       radio = CreateComponentUtils.createUIMenuSelectOneFacet(facesContext, command);
       radio.setId(facesContext.getViewRoot().createUniqueId());
     } else {
-      items = SelectItemUtils.iterator(facesContext, radio);
+      items = SelectItemUtils.getItems(facesContext, radio);
     }
 
     if (radio != null) {

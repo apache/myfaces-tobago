@@ -72,7 +72,7 @@ public class SelectManyShuttleRenderer extends SelectManyRendererBase {
       style.setHeight(style.getHeight().subtract(labelHeight));
       style.setTop(style.getTop().add(labelHeight));
     }
-    final Iterable<SelectItem> items = SelectItemUtils.iterator(facesContext, select);
+    final Iterable<SelectItem> items = SelectItemUtils.getItems(facesContext, select);
     final boolean disabled = !items.iterator().hasNext() || select.isDisabled() || select.isReadonly();
 
     final String unselectedLabel = select.getUnselectedLabel();

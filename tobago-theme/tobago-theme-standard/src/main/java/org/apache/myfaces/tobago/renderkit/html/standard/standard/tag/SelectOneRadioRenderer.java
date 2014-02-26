@@ -56,7 +56,7 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
     final String id = select.getClientId(facesContext);
-    final Iterable<SelectItem> items = SelectItemUtils.iterator(facesContext, select);
+    final Iterable<SelectItem> items = SelectItemUtils.getItems(facesContext, select);
     final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, select);
     final boolean disabled = select.isDisabled();
     final boolean readonly = select.isReadonly();
@@ -124,9 +124,8 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
     if (select.isInline()) {
       return heightOfOne;
     } else {
-      final Iterable<SelectItem> items = SelectItemUtils.iterator(facesContext, (UISelectOne) component);
       int count = 0;
-      for(SelectItem ignored : items) {
+      for(SelectItem ignored : SelectItemUtils.getItems(facesContext, (UISelectOne) component)) {
         count++;
       }
       return heightOfOne.multiply(count);

@@ -87,7 +87,7 @@ public class MenuCommandRenderer extends CommandRendererBase {
       final String clientId = command.getClientId(facesContext);
       final UISelectOne radio = (UISelectOne) command.getFacet(Facets.RADIO);
       final String hiddenId = radio.getClientId(facesContext);
-      for (final SelectItem item : SelectItemUtils.iterator(facesContext, radio)) {
+      for (final SelectItem item : SelectItemUtils.getItems(facesContext, radio)) {
         final boolean checked = item.getValue().equals(radio.getValue());
         final String image = checked ? "image/MenuRadioChecked.gif" : null;
         final String labelText = item.getLabel();
