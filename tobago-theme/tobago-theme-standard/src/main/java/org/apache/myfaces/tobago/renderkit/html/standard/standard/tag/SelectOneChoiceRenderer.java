@@ -27,7 +27,7 @@ import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
-import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
+import org.apache.myfaces.tobago.renderkit.util.SelectItemUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
@@ -37,7 +37,6 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import java.io.IOException;
-import java.util.List;
 
 public class SelectOneChoiceRenderer extends SelectOneRendererBase {
 
@@ -58,9 +57,9 @@ public class SelectOneChoiceRenderer extends SelectOneRendererBase {
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
     final String id = select.getClientId(facesContext);
-    final List<SelectItem> items = RenderUtils.getSelectItems(select);
+    final Iterable<SelectItem> items = SelectItemUtils.iterator(facesContext, select);
     final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, select);
-    final boolean disabled = items.size() == 0 || select.isDisabled() || select.isReadonly();
+    final boolean disabled = !items.iterator().hasNext() || select.isDisabled() || select.isReadonly();
 
     writer.startElement(HtmlElements.SELECT, select);
     writer.writeNameAttribute(id);

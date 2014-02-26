@@ -32,19 +32,29 @@ public class SelectItemModel {
   private boolean switch1;
   private boolean switch2 = true;
 
-  private SelectItem[] availableCurrencies;
+  private final SelectItem[] availableCurrencies;
+
+  private final Currency[] availableCurrenciesAsObject;
 
   public SelectItemModel() {
-    availableCurrencies = new SelectItem[]{
-        new SelectItem(Currency.getInstance("JPY")),
-        new SelectItem(Currency.getInstance("TTD")),
-        new SelectItem(Currency.getInstance("USD")),
-        new SelectItem(Currency.getInstance("EUR")),
+    availableCurrenciesAsObject = new Currency[]{
+        Currency.getInstance("JPY"),
+        Currency.getInstance("TTD"),
+        Currency.getInstance("USD"),
+        Currency.getInstance("EUR")
     };
+    availableCurrencies = new SelectItem[availableCurrenciesAsObject.length];
+    for (int i = 0; i < availableCurrenciesAsObject.length; i++) {
+      availableCurrencies[i] = new SelectItem(availableCurrenciesAsObject[i]);
+    }
   }
 
   public SelectItem[] getAvailableCurrencies() {
     return availableCurrencies;
+  }
+
+  public Currency[] getAvailableCurrenciesAsObject() {
+    return availableCurrenciesAsObject;
   }
 
   public int getNumber() {

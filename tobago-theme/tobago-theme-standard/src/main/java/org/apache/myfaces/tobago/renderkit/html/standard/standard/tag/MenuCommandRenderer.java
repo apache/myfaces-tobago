@@ -42,6 +42,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
 import org.apache.myfaces.tobago.renderkit.html.JsonUtils;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
+import org.apache.myfaces.tobago.renderkit.util.SelectItemUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
@@ -52,7 +53,6 @@ import javax.faces.component.UISelectOne;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import java.io.IOException;
-import java.util.List;
 
 /**
  * Does the decoding with parent class CommandRendererBase.
@@ -86,9 +86,8 @@ public class MenuCommandRenderer extends CommandRendererBase {
       // radio menu
       final String clientId = command.getClientId(facesContext);
       final UISelectOne radio = (UISelectOne) command.getFacet(Facets.RADIO);
-      final List<SelectItem> items = RenderUtils.getSelectItems(radio);
       final String hiddenId = radio.getClientId(facesContext);
-      for (final SelectItem item : items) {
+      for (final SelectItem item : SelectItemUtils.iterator(facesContext, radio)) {
         final boolean checked = item.getValue().equals(radio.getValue());
         final String image = checked ? "image/MenuRadioChecked.gif" : null;
         final String labelText = item.getLabel();

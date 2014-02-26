@@ -48,6 +48,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
 import org.apache.myfaces.tobago.renderkit.html.JsonUtils;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
+import org.apache.myfaces.tobago.renderkit.util.SelectItemUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.util.CreateComponentUtils;
 import org.apache.myfaces.tobago.util.FacetUtils;
@@ -59,7 +60,6 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import java.io.IOException;
-import java.util.List;
 
 public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
 
@@ -121,15 +121,15 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
       final FacesContext facesContext, final UIToolBar toolBar, final AbstractUICommandBase command,
       final TobagoResponseWriter writer, Measure width) throws IOException {
 
-    final List<SelectItem> items;
+    final Iterable<SelectItem> items;
 
     UIMenuSelectOne radio = (UIMenuSelectOne) command.getFacet(Facets.RADIO);
     if (radio == null) {
-      items = RenderUtils.getSelectItems(command);
+      items = SelectItemUtils.iterator(facesContext, command);
       radio = CreateComponentUtils.createUIMenuSelectOneFacet(facesContext, command);
       radio.setId(facesContext.getViewRoot().createUniqueId());
     } else {
-      items = RenderUtils.getSelectItems(radio);
+      items = SelectItemUtils.iterator(facesContext, radio);
     }
 
     if (radio != null) {
@@ -138,7 +138,7 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
       final Object value = radio.getValue();
 
       String currentValue = "";
-      boolean markFirst = !ComponentUtils.hasSelectedValue(items, value);
+      boolean markFirst = !hasSelectedValue(items, value);
       final String radioId = radio.getClientId(facesContext);
       for (final SelectItem item : items) {
         final String labelText = item.getLabel();
@@ -605,4 +605,14 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
   public boolean getRendersChildren() {
     return true;
   }
+
+  private boolean hasSelectedValue(final Iterable<SelectItem> items, final Object value) {
+    for (final SelectItem item : items) {
+      if (item.getValue().equals(value)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
 }

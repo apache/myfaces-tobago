@@ -31,6 +31,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
+import org.apache.myfaces.tobago.renderkit.util.SelectItemUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
@@ -39,7 +40,6 @@ import javax.faces.component.UISelectOne;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import java.io.IOException;
-import java.util.List;
 
 public class SelectOneRadioRenderer extends SelectOneRendererBase {
 
@@ -56,7 +56,7 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
     final String id = select.getClientId(facesContext);
-    final List<SelectItem> items = RenderUtils.getItemsToRender(select);
+    final Iterable<SelectItem> items = SelectItemUtils.iterator(facesContext, select);
     final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, select);
     final boolean disabled = select.isDisabled();
     final boolean readonly = select.isReadonly();
@@ -124,8 +124,12 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
     if (select.isInline()) {
       return heightOfOne;
     } else {
-      final List<SelectItem> items = RenderUtils.getItemsToRender((UISelectOne) component);
-      return heightOfOne.multiply(items.size());
+      final Iterable<SelectItem> items = SelectItemUtils.iterator(facesContext, (UISelectOne) component);
+      int count = 0;
+      for(SelectItem ignored : items) {
+        count++;
+      }
+      return heightOfOne.multiply(count);
     }
   }
 }
