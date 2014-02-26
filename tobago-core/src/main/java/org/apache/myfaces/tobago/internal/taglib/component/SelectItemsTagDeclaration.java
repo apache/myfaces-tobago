@@ -57,7 +57,7 @@ public interface SelectItemsTagDeclaration extends HasId, HasBinding, HasItemLab
    * Name of a variable under which the iterated data will be exposed.
    * It may be referred to in EL of other attributes.
    */
-  @TagAttribute(required = true, name = "var")
+  @TagAttribute
   @UIComponentTagAttribute(expression = DynamicExpression.PROHIBITED)
   void setVar(final String var);
 
