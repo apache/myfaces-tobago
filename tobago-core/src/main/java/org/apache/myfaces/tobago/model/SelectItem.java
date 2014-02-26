@@ -42,12 +42,12 @@ public class SelectItem extends javax.faces.model.SelectItem implements Supports
     super(value, label);
   }
 
-  public SelectItem(final Object value, final String label, final String description) {
-    super(value, label, description);
+  public SelectItem(final Object value, final String label, final String tip) {
+    super(value, label, tip);
   }
 
-  public SelectItem(final Object value, final String label, final String description, final String image) {
-    this(value, label, description, false, image);
+  public SelectItem(final Object value, final String label, final String tip, final String image) {
+    this(value, label, tip, false, image);
   }
 
   /**
@@ -55,35 +55,49 @@ public class SelectItem extends javax.faces.model.SelectItem implements Supports
    */
   @Deprecated
   public SelectItem(
-      final Object value, final String label, final String description, final String image, final String[] markup) {
-    this(value, label, description, false, image, markup);
+      final Object value, final String label, final String tip, final String image, final String[] markup) {
+    this(value, label, tip, false, image, markup);
   }
 
   public SelectItem(
-      final Object value, final String label, final String description, final String image, final Markup markup) {
-    this(value, label, description, false, image, markup);
+      final Object value, final String label, final String tip, final String image, final Markup markup) {
+    this(value, label, tip, false, image, markup);
   }
 
   public SelectItem(
-      final Object value, final String label, final String description, final boolean disabled, final String image) {
-    this(value, label, description, disabled, image, Markup.NULL);
+      final Object value, final String label, final String tip, final boolean disabled, final String image) {
+    this(value, label, tip, disabled, image, Markup.NULL);
   }
 
   /**
    * @deprecated since 1.5.0
    */
   public SelectItem(
-      final Object value, final String label, final String description, final boolean disabled, final String image,
+      final Object value, final String label, final String tip, final boolean disabled, final String image,
       final String[] markup) {
-    this(value, label, description, disabled, image, Markup.valueOf(markup));
+    this(value, label, tip, disabled, image, Markup.valueOf(markup));
   }
 
   public SelectItem(
-      final Object value, final String label, final String description, final boolean disabled, final String image,
+      final Object value, final String label, final String tip, final boolean disabled, final String image,
       final Markup markup) {
-    super(value, label, description, disabled);
+    super(value, label, tip, disabled);
     this.image = image;
     this.markup = markup;
+  }
+
+  /**
+   * Alias name for description.
+   */
+  public String getTip() {
+    return getDescription();
+  }
+
+  /**
+   * Alias name for description.
+   */
+  public void setTip(String tip) {
+    setDescription(tip);
   }
 
   public String getImage() {

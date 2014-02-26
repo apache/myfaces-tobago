@@ -74,7 +74,7 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
     }
     boolean first = true;
     final Object[] values = select.getSelectedValues();
-    for (final SelectItem item : SelectItemUtils.getItems(facesContext, select)) {
+    for (final SelectItem item : SelectItemUtils.getItemIterator(facesContext, select)) {
       final String itemId = id + ComponentUtils.SUB_SEPARATOR + item.getValue().toString();
       writer.startElement(HtmlElements.LI, select);
       writer.startElement(HtmlElements.INPUT, select);
@@ -121,7 +121,7 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
       return heightOfOne;
     } else {
       int count = 0;
-      for(SelectItem ignored : SelectItemUtils.getItems(facesContext, (UISelectMany) component)) {
+      for(SelectItem ignored : SelectItemUtils.getItemIterator(facesContext, (UISelectMany) component)) {
         count++;
       }
       return heightOfOne.multiply(count);

@@ -60,7 +60,6 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
@@ -123,20 +122,15 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
       final FacesContext facesContext, final UIToolBar toolBar, final AbstractUICommandBase command,
       final TobagoResponseWriter writer, Measure width) throws IOException {
 
-    final Iterable<SelectItem> items;
+    final List<SelectItem> items;
 
     UIMenuSelectOne radio = (UIMenuSelectOne) command.getFacet(Facets.RADIO);
     if (radio == null) {
-      items = SelectItemUtils.getItems(facesContext, command);
+      items = SelectItemUtils.getItemList(facesContext, command);
       radio = CreateComponentUtils.createUIMenuSelectOneFacet(facesContext, command);
       radio.setId(facesContext.getViewRoot().createUniqueId());
     } else {
-      items = SelectItemUtils.getItems(facesContext, radio);
-    }
-
-    List<SelectItem> list = new ArrayList<SelectItem>();
-    for (final SelectItem item : items) {
-      list.add(item);
+      items = SelectItemUtils.getItemList(facesContext, radio);
     }
 
     if (radio != null) {
@@ -145,9 +139,9 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
       final Object value = radio.getValue();
 
       String currentValue = "";
-      boolean markFirst = !hasSelectedValue(list, value);
+      boolean markFirst = !hasSelectedValue(items, value);
       final String radioId = radio.getClientId(facesContext);
-      for (final SelectItem item : list) {
+      for (final SelectItem item : items) {
         final String labelText = item.getLabel();
         if (labelText != null) {
           command.getAttributes().put(Attributes.LABEL, labelText);
