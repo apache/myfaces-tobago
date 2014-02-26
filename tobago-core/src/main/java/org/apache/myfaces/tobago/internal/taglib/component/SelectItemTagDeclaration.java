@@ -43,9 +43,12 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
     uiComponentFacesClass = "javax.faces.component.UISelectItem",
     allowedChildComponenents = "NONE")
 public interface SelectItemTagDeclaration extends HasBinding, HasId, HasMarkup, HasCurrentMarkup, HasItemLabel {
+
   /**
-   * Description of an item for use in tools.
+   * Description of an item, might be rendered as a tool tip.
+   * @deprecated since 2.0.0, please use itemTip.
    */
+  @Deprecated
   @TagAttribute
   @UIComponentTagAttribute(type = {"java.lang.String"})
   void setItemDescription(String itemDescription);
@@ -81,4 +84,11 @@ public interface SelectItemTagDeclaration extends HasBinding, HasId, HasMarkup, 
   @TagAttribute
   @UIComponentTagAttribute()
   void setItemImage(String itemImage);
+
+  /**
+   * Text value to display as tooltip.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute()
+  void setTip(String tip);
 }

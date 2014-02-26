@@ -25,14 +25,26 @@
   <tc:page>
     <tc:gridLayoutConstraint width="600px" height="600px"/>
     <f:facet name="layout">
-      <tc:gridLayout rows="auto;*" />
+      <tc:gridLayout rows="auto;auto;auto;auto;auto;auto"/>
     </f:facet>
 
     <tc:messages/>
 
+    <tc:out value="&lt;f:selectItems>"/>
+
     <tc:selectOneRadio required="true">
       <f:selectItems value="#{selectItemModel.availableCurrenciesAsObject}" var="currency"
-                     itemValue="#{currency.currencyCode}" itemLabel="#{currency.displayName}" />
+                     itemValue="#{currency.currencyCode}" itemLabel="#{currency.displayName}"/>
+    </tc:selectOneRadio>
+
+    <tc:out value="&lt;tc:selectItems>"/>
+
+    <tc:selectOneRadio required="true">
+      <tc:selectItems
+          value="#{selectItemModel.availableCurrenciesAsObject}" var="currency"
+          itemValue="#{currency.currencyCode}" itemLabel="#{currency.displayName}"
+          itemImage="data/#{currency.currencyCode}-14.png"/>
+      <!-- images come from tobago-example-data -->
     </tc:selectOneRadio>
 
     <tc:button label="Submit"/>

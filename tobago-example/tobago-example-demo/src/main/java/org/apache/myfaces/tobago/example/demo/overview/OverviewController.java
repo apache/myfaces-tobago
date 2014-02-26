@@ -45,6 +45,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Currency;
 import java.util.Date;
 import java.util.List;
 
@@ -69,7 +70,8 @@ public class OverviewController implements Serializable {
       Selectable.SIBLING_LEAF_ONLY.getValue()
   };
 
-  private Salutation radioValue;
+  private String radioValue;
+  private Currency[] currencyItems;
 
   private Salutation singleValue;
 
@@ -110,7 +112,13 @@ public class OverviewController implements Serializable {
 
 
   public OverviewController() {
-    radioValue = Salutation.UNKNOWN;
+    radioValue = "JPY";
+    currencyItems = new Currency[]{
+        Currency.getInstance("JPY"),
+        Currency.getInstance("TTD"),
+        Currency.getInstance("USD"),
+        Currency.getInstance("EUR")
+    };
     singleValue = Salutation.UNKNOWN;
     treeSelectMode = TREE_SELECT_MODE_KEYS[3];
     treeListboxSelectMode = TREELISTBOX_SELECT_MODE_KEYS[0];
@@ -266,6 +274,10 @@ public class OverviewController implements Serializable {
     return "popupButton".equals(lastAction) || "popupButton2".equals(lastAction);
   }
 
+  public Currency[] getCurrencyItems() {
+    return currencyItems;
+  }
+
   public SelectItem[] getItems() {
     return getSalutationSelectItems("overview");
   }
@@ -286,11 +298,11 @@ public class OverviewController implements Serializable {
 
   }
 
-  public Salutation getRadioValue() {
+  public String getRadioValue() {
     return radioValue;
   }
 
-  public void setRadioValue(final Salutation radioValue) {
+  public void setRadioValue(final String radioValue) {
     this.radioValue = radioValue;
   }
 

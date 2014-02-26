@@ -20,6 +20,7 @@ package org.apache.myfaces.tobago.renderkit.util;
  */
 
 import org.apache.myfaces.tobago.component.Attributes;
+import org.apache.myfaces.tobago.component.SupportsMarkup;
 import org.apache.myfaces.tobago.context.Markup;
 
 import javax.el.ValueExpression;
@@ -33,6 +34,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
@@ -41,7 +43,10 @@ import java.util.NoSuchElementException;
  */
 public class SelectItemUtils {
 
-  public static Iterable<SelectItem> getItems(final FacesContext facesContext, final UIComponent selector) {
+  /**
+   * Creates a list of SelectItems to use for rendering.
+   */
+  public static Iterable<SelectItem> getItemIterator(final FacesContext facesContext, final UIComponent selector) {
     if (selector.getChildCount() == 0) {
       return Collections.emptyList();
     } else {
@@ -59,7 +64,25 @@ public class SelectItemUtils {
     }
   }
 
-  public static class SelectItemsIterator implements Iterator<SelectItem> {
+  /**
+   * Creates a list of SelectItems to use for rendering.
+   * You should only use this method (which returns a list), when you need a list.
+   * Otherwise please use {@link #getItemIterator(javax.faces.context.FacesContext, javax.faces.component.UIComponent)}
+   */
+  public static List<SelectItem> getItemList(final FacesContext facesContext, final UIComponent selector) {
+    if (selector.getChildCount() == 0) {
+      return Collections.emptyList();
+    } else {
+      final Iterable<SelectItem> iterator = getItemIterator(facesContext, selector);
+      final List<SelectItem> result = new ArrayList<SelectItem>();
+      for (SelectItem selectItem : iterator) {
+        result.add(selectItem);
+      }
+      return result;
+    }
+  }
+
+  private static class SelectItemsIterator implements Iterator<SelectItem> {
 
     private final FacesContext facesContext;
     private final Iterator<UIComponent> children;
@@ -216,12 +239,19 @@ public class SelectItemUtils {
             itemDescription = itemDescription.toString();
           }
           final Boolean itemDisabled = getBooleanAttribute(currentUISelectItems, Attributes.ITEM_DISABLED, false);
+          final String itemImage = (String) attributeMap.get(Attributes.ITEM_IMAGE);
+          final Markup markup;
+          if (currentUISelectItems instanceof SupportsMarkup) {
+            markup = ((SupportsMarkup) currentUISelectItems).getCurrentMarkup();
+          } else {
+            markup = Markup.NULL;
+          }
 // TBD: should this be possible?
 //        Boolean itemLabelEscaped = getBooleanAttribute(currentUISelectItems, ITEM_LABEL_ESCAPED_PROP, true);
 // TBD ?
 //        Object noSelectionValue = attributeMap.get(NO_SELECTION_VALUE_PROP);
           item = new org.apache.myfaces.tobago.model.SelectItem(
-              itemValue, (String) itemLabel, (String) itemDescription, itemDisabled, null);
+              itemValue, (String) itemLabel, (String) itemDescription, itemDisabled, itemImage, markup);
 
           // remove the value with the key from var from the request map, if previously written
           if (wroteRequestMapVarValue) {

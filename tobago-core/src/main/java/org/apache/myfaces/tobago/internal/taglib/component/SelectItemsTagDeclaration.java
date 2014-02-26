@@ -27,6 +27,7 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasBinding;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasId;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasItemLabel;
 
 /**
  * Add a child UISelectItems component to the UIComponent
@@ -40,7 +41,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasId;
     uiComponentFacesClass = "javax.faces.component.UISelectItems",
     isComponentAlreadyDefined = false,
     allowedChildComponenents = "NONE")
-public interface SelectItemsTagDeclaration extends HasId, HasBinding {
+public interface SelectItemsTagDeclaration extends HasId, HasBinding, HasItemLabel {
 
   /**
    * Value binding expression pointing at a List or array of SelectItem instances containing
@@ -48,8 +49,45 @@ public interface SelectItemsTagDeclaration extends HasId, HasBinding {
    */
   @TagAttribute
   @UIComponentTagAttribute(
-      type = "javax.faces.model.SelectItem[]",
+      type = {"javax.faces.model.SelectItem[]", "java.lang.Object[]", "java.util.Collection"},
       expression = DynamicExpression.VALUE_EXPRESSION_REQUIRED)
   void setValue(String value);
+
+  /**
+   * Name of a variable under which the iterated data will be exposed.
+   * It may be referred to in EL of other attributes.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(expression = DynamicExpression.PROHIBITED)
+  void setVar(final String var);
+
+  /**
+   * Flag indicating whether the option created
+   * by this component is disabled.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type = {"boolean"}, defaultValue = "false")
+  void setItemDisabled(String itemDisabled);
+
+  /**
+   * Value to be returned to the server if this option is selected by the user.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute()
+  void setItemValue(String itemValue);
+
+  /**
+   * Image to be displayed to the user for this option.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute()
+  void setItemImage(String itemImage);
+
+  /**
+   * Text value to display as tooltip.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute()
+  void setTip(String tip);
 
 }

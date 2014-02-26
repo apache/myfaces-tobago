@@ -911,6 +911,11 @@ li.tobago-menu-markup-selected {
   margin: 0;
 }
 
+.tobago-selectOneRadio img {
+  margin-right: 5px;
+  margin-left: 5px;
+}
+
 .tobago-selectOneRadio-markup-disabled {
   color: #778899;
 }

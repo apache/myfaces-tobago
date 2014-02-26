@@ -200,8 +200,10 @@
 
             <tc:menu label="#{overviewBundle.toolbar_selectSingleselect}">
 
-              <tx:menuRadio value="#{overviewController.radioValue}" converter="salutationId">
-                <f:selectItems value="#{overviewController.items}"/>
+              <tx:menuRadio value="#{overviewController.radioValue}">
+                <tc:selectItems value="#{overviewController.currencyItems}"
+                                var="currency" itemValue="#{currency.currencyCode}" itemLabel="#{currency.displayName}"
+                                itemImage="data/#{currency.currencyCode}-14.png" />
               </tx:menuRadio>
 
             </tc:menu>
