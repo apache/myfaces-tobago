@@ -22,6 +22,7 @@ package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 import org.apache.myfaces.tobago.component.UISelectOneRadio;
 import org.apache.myfaces.tobago.config.Configurable;
 import org.apache.myfaces.tobago.context.Markup;
+import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.SelectOneRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
@@ -56,7 +57,7 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
     final String id = select.getClientId(facesContext);
-    final Iterable<SelectItem> items = SelectItemUtils.getItems(facesContext, select);
+    final Iterable<SelectItem> items = SelectItemUtils.getItemIterator(facesContext, select);
     final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, select);
     final boolean disabled = select.isDisabled();
     final boolean readonly = select.isReadonly();
@@ -100,6 +101,19 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
       HtmlRendererUtils.renderCommandFacet(select, itemId, facesContext, writer);
       writer.endElement(HtmlElements.INPUT);
 
+      if (item instanceof org.apache.myfaces.tobago.model.SelectItem) {
+        org.apache.myfaces.tobago.model.SelectItem tobagoItem = (org.apache.myfaces.tobago.model.SelectItem) item;
+        final String image = tobagoItem.getImage();
+        if (image != null) {
+          final String imageToRender
+              = ResourceManagerUtils.getImageOrDisabledImageWithPath(facesContext, image, item.isDisabled());
+          writer.startElement(HtmlElements.IMG, select);
+          writer.writeAttribute(HtmlAttributes.SRC, imageToRender, true);
+          writer.writeAttribute(HtmlAttributes.ALT, "", false);
+          writer.endElement(HtmlElements.IMG);
+        }
+      }
+
       final String label = item.getLabel();
       if (label != null) {
         writer.startElement(HtmlElements.LABEL, select);
@@ -122,7 +136,7 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
       return heightOfOne;
     } else {
       int count = 0;
-      for(SelectItem ignored : SelectItemUtils.getItems(facesContext, (UISelectOne) component)) {
+      for(SelectItem ignored : SelectItemUtils.getItemIterator(facesContext, (UISelectOne) component)) {
         count++;
       }
       return heightOfOne.multiply(count);
