@@ -30,8 +30,8 @@ var LOG = {
   ERROR: 4,
 
   hasConsole: typeof console != "undefined",
-  level: this.INFO,
-  maximumSeverity: 0,
+  level: 2, // INFO
+  maximumSeverity: 0, // lower than DEBUG
 
   init: function(elements) {
     var page = Tobago.Utils.selectWidthJQuery(elements, "[data-tobago-log-level]");
