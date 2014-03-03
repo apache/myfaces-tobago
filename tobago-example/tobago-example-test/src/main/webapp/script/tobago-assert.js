@@ -100,10 +100,9 @@ var TobagoAssert = {
 
   assertValue:function (elementOrId, expected) {
     var element = TobagoAssert.jQueryElement(elementOrId);
-    if (element.val() != expected) {
-      console.error("The value of element with id=" + element.attr('id')
-          + " is '" + element.val() + "', but expected was '" + expected + "'.");
-    }
+    console.assert(element.val() == expected,
+        "The value of element with id=" + element.attr('id')
+        + " is '" + element.val() + "', but expected was '" + expected + "'.");
   },
 
   assertContent:function (elementOrId, expected) {
