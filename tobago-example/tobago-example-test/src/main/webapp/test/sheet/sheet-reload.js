@@ -22,14 +22,14 @@ TestSheetReload.init = function() {
   setTimeout(function() {
     var value = jQuery(".tobago-sheet-body td").eq(1).find("span").html();
     if (value != "0") {
-      LOG.error("expect '0' not '" + value + "'");
+      console.error("expect '0' not '" + value + "'");
     }
   }, 3000);
 
   setTimeout(function() {
     var value = jQuery(".tobago-sheet-body td").eq(1).find("span").html();
     if (value != "2") {
-      LOG.error("expect '2' not '" + value + "'");
+      console.error("expect '2' not '" + value + "'");
     }
   }, 5000);
 

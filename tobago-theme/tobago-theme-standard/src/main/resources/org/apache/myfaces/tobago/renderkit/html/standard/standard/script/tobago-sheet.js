@@ -52,10 +52,10 @@ Tobago.Sheet = function(sheetId, unused1, unused2, unused3, unused4,
 
   this.setup();
 
-  LOG.debug("New Sheet with id " + this.id); // @DEV_ONLY
+  console.debug("New Sheet with id " + this.id); // @DEV_ONLY
   this.endTime = new Date(); // @DEV_ONLY
-  LOG.debug("Sheet-setup time = " + (this.setupEnd.getTime() - this.setupStart.getTime())); // @DEV_ONLY
-  LOG.debug("Sheet-total time = " + (this.endTime.getTime() - this.startTime.getTime())); // @DEV_ONLY
+  console.debug("Sheet-setup time = " + (this.setupEnd.getTime() - this.setupStart.getTime())); // @DEV_ONLY
+  console.debug("Sheet-total time = " + (this.endTime.getTime() - this.startTime.getTime())); // @DEV_ONLY
 };
 
 Tobago.Sheet.init = function(elements) {
@@ -184,7 +184,7 @@ Tobago.Sheet.prototype.doPaging = function(event) {
   };
 
 Tobago.Sheet.prototype.reloadWithAction = function(source, action, options) {
-    LOG.debug("reload sheet with action \"" + action + "\""); // @DEV_ONLY
+    console.debug("reload sheet with action \"" + action + "\""); // @DEV_ONLY
     Tobago.Updater.update(source, action, this.renderedPartially ? this.renderedPartially : this.id, options);
   };
 
@@ -201,7 +201,7 @@ Tobago.Sheet.prototype.afterDoUpdateError = function() {
 };
 
 Tobago.Sheet.prototype.insertTarget = function(event, actionId) {
-//    LOG.debug("insertTarget('" + actionId + "')")
+//    console.debug("insertTarget('" + actionId + "')")
     var textId = actionId + Tobago.SUB_COMPONENT_SEP + "text";
     var text = Tobago.element(textId);
     if (text) {
@@ -228,7 +228,7 @@ Tobago.Sheet.prototype.insertTarget = function(event, actionId) {
       input.select();
     }
     else {
-      LOG.error("Can't find text field with id = \"" + textId + "\"!"); // @DEV_ONLY
+      console.error("Can't find text field with id = \"" + textId + "\"!"); // @DEV_ONLY
     }
   };
 
@@ -667,7 +667,7 @@ Tobago.Sheet.toggleAll = function(sheet) {
 };
 
 Tobago.Sheet.selectRange = function(sheet, rows, first, last, selectDeselected, deselectSelected) {
-//  LOG.info("select any 15");
+//  console.info("select any 15");
 //  var start = new Date().getTime();
 
   var selected = Tobago.Sheet.hidden(sheet, "selected");
@@ -685,7 +685,7 @@ Tobago.Sheet.selectRange = function(sheet, rows, first, last, selectDeselected, 
     }
   }
 
-//  LOG.info("select any 15 +++++++++++++ " + (new Date().getTime() - start));
+//  console.info("select any 15 +++++++++++++ " + (new Date().getTime() - start));
 };
 
 Tobago.Sheet.getDataIndex = function(sheet, row) {

@@ -105,7 +105,7 @@ Tobago.registerListener({
           if (code == 0) {
             code = event.keyCode;
           }
-          LOG.info(code);
+          console.info(code);
           var oldItem;
           var newItem;
 
@@ -156,7 +156,7 @@ Tobago.registerListener({
               // nothing special to do
               break;
             default:
-              LOG.info("input.val() = " + input.val());
+              console.info("input.val() = " + input.val());
               widget._scheduleUpdate();
               break;
           }

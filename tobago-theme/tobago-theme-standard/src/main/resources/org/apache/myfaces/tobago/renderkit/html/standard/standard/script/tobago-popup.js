@@ -193,7 +193,7 @@ Tobago.Popup.lockBehind = function (popup) {
           firstPopupElement.focus();
         }
       } catch (e) {/* ignore */
-        LOG.warn("tried to setting the focus on'" + this + "'." + e); // @DEV_ONLY
+        console.warn("tried to setting the focus on'" + this + "'." + e); // @DEV_ONLY
       }
     }
   }
@@ -204,7 +204,7 @@ Tobago.Popup.lockBehind = function (popup) {
  */
 Tobago.Popup.blink = function (element) {
   var id = jQuery(element).attr('id');
-  LOG.debug("Blink: Popup id is '" + id + "'"); // @DEV_ONLY
+  console.debug("Blink: Popup id is '" + id + "'"); // @DEV_ONLY
   Tobago.addCssClass(id, 'tobago-popup-blink');
   setTimeout("Tobago.removeCssClass('" + id + "', 'tobago-popup-blink')", 20);
 };
@@ -230,7 +230,7 @@ Tobago.Popup.close = function (closeButton) {
  */
 Tobago.Popup.unlockBehind = function (popups) {
   if (popups == null) {
-    LOG.warn("Since Tobago 1.5.5 Tobago.Popup.unlockBehind() has the popup as parameter"); // @DEV_ONLY
+    console.warn("Since Tobago 1.5.5 Tobago.Popup.unlockBehind() has the popup as parameter"); // @DEV_ONLY
     popups = jQuery('.tobago-popup-shield').filter(":last").parent();
   }
   popups.each(function() {
@@ -257,7 +257,7 @@ Tobago.Popup.mousemove = function (event) {
     var popup = dnd.popup;
     Tobago.Popup.move(event, page, popup, dnd);
   } else {
-    LOG.warn("Should not happen!"); // @DEV_ONLY
+    console.warn("Should not happen!"); // @DEV_ONLY
   }
   return false;
 };
@@ -297,32 +297,32 @@ Tobago.Popup.move = function (event, page, popup, dnd) {
 
 /** @deprecated Since 1.5.1 Use Tobago.Popup  */
 Tobago.setupPopup = function () {
-  LOG.warn("Deprecated method was called. Please use Tobago.Popup"); // @DEV_ONLY
+  console.warn("Deprecated method was called. Please use Tobago.Popup"); // @DEV_ONLY
   Tobago.Popup.setup();
 };
 /** @deprecated Since 1.5.1 Use Tobago.Popup  */
 Tobago.lockBehindPopup = function (popup) {
-  LOG.warn("Deprecated method was called. Please use Tobago.Popup"); // @DEV_ONLY
+  console.warn("Deprecated method was called. Please use Tobago.Popup"); // @DEV_ONLY
   Tobago.Popup.lockBehind(popup);
 };
 /** @deprecated Since 1.5.1 Use Tobago.Popup  */
 Tobago.popupBlink = function (element) {
-  LOG.warn("Deprecated method was called. Please use Tobago.Popup"); // @DEV_ONLY
+  console.warn("Deprecated method was called. Please use Tobago.Popup"); // @DEV_ONLY
   Tobago.Popup.blink(element);
 };
 /** @deprecated Since 1.5.1 Use Tobago.Popup  */
 Tobago.closePopup = function (closeButton) {
-  LOG.warn("Deprecated method was called. Please use Tobago.Popup"); // @DEV_ONLY
+  console.warn("Deprecated method was called. Please use Tobago.Popup"); // @DEV_ONLY
   Tobago.Popup.close(closeButton);
 };
 /** @deprecated Since 1.5.1 Use Tobago.Popup  */
 Tobago.unlockBehindPopup = function () {
-  LOG.warn("Deprecated method was called. Please use Tobago.Popup"); // @DEV_ONLY
+  console.warn("Deprecated method was called. Please use Tobago.Popup"); // @DEV_ONLY
   Tobago.Popup.unlockBehind();
 };
 /** @deprecated Since 1.5.1 Use Tobago.Popup  */
 Tobago.openPopupWithAction = function (source, popupId, actionId, options) {
-  LOG.warn("Deprecated method was called. Please use Tobago.Popup"); // @DEV_ONLY
+  console.warn("Deprecated method was called. Please use Tobago.Popup"); // @DEV_ONLY
   Tobago.Popup.openWithAction(source, popupId, actionId, options);
 };
 
@@ -331,7 +331,7 @@ Tobago.openPopupWithAction = function (source, popupId, actionId, options) {
  * @deprecated since Tobago 2.0.0
  */
 Tobago.Popup.setup = function () {
-  LOG.warn("Deprecated method was called. Please use Tobago.Popup.init()"); // @DEV_ONLY
+  console.warn("Deprecated method was called. Please use Tobago.Popup.init()"); // @DEV_ONLY
   Tobago.Popup.init();
 };
 

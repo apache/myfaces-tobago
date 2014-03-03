@@ -388,6 +388,7 @@
         <script name="script/jquery-ui-1.10.3.custom.js"/>
         <script name="script/tobago.js"/>
         <script name="script/tobago-calendar.js"/>
+        <script name="script/tobago-console.js"/>
         <script name="script/tobago-converter.js"/>
         <script name="script/tobago-in.js"/>
         <script name="script/tobago-layout.js"/>
@@ -398,7 +399,6 @@
         <script name="script/tobago-suggest.js"/>
         <script name="script/tobago-tree.js"/>
         <script name="script/tobago-utils.js"/>
-        <script name="script/tobago-logging.js"/>
         <style name="style/tobago.css"/>
         <!-- backward compatibility -->
         <style name="style/style.css"/>

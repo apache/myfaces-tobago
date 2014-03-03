@@ -84,7 +84,7 @@ function layout(table, horizontal) {
             // nothing to do
             sumUsed += horizontal ? cell.outerWidth() : cell.outerHeight();
           } else {
-            LOG.warn("currently only 'auto' is supported, but found: '" + tokens[i] + "'");  // @DEV_ONLY
+            console.warn("currently only 'auto' is supported, but found: '" + tokens[i] + "'");  // @DEV_ONLY
           }
           break;
         case "object":
@@ -92,11 +92,11 @@ function layout(table, horizontal) {
             setLength(table, banks, i, css, tokens[i].pixel + "px");
             sumUsed += tokens[i].pixel;
           } else {
-            LOG.warn("can't find pixel in object: '" + tokens[i] + "'");  // @DEV_ONLY
+            console.warn("can't find pixel in object: '" + tokens[i] + "'");  // @DEV_ONLY
           }
           break;
         default:
-          LOG.warn("unsupported type of: '" + tokens[i] + "'");  // @DEV_ONLY
+          console.warn("unsupported type of: '" + tokens[i] + "'");  // @DEV_ONLY
           break;
       }
     }
@@ -162,11 +162,11 @@ function layoutFlex(container, horizontal) {
           if (tokens[i].pixel) {
             setLength(table, banks, i, css, tokens[i].pixel + "px");
           } else {
-            LOG.warn("can't find pixel in object: '" + tokens[i] + "'");  // @DEV_ONLY
+            console.warn("can't find pixel in object: '" + tokens[i] + "'");  // @DEV_ONLY
           }
           break;
         default:
-          LOG.warn("unsupported type of: '" + tokens[i] + "'");  // @DEV_ONLY
+          console.warn("unsupported type of: '" + tokens[i] + "'");  // @DEV_ONLY
           break;
       }
     }

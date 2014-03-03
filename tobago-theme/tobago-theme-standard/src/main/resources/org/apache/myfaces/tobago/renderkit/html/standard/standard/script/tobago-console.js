@@ -1,6 +1,19 @@
-LOG = {};
-
-LOG.WRAPPER_ACTIVE = false;
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
 /**
  * This a fill-in, if a browser doesn't support "console", or some of its methods.
@@ -42,62 +55,63 @@ LOG.WRAPPER_ACTIVE = false;
  *
  * Restriction: multi args: printf is not implemented for console.log()
  */
+
 if (!window.console) {
   console = {};
 }
 
-//XXX if (!console.log) {
-console.log = function (message, other) {
-  var console = jQuery(".tobago-console");
-  console.show();
-  var parameters = Array.prototype.slice.call(arguments).join(", ");
-  parameters.substr(0, parameters.length - 2);
+if (!console.log) {
+  console.log = function (message, other) {
+    var console = jQuery(".tobago-console");
+    console.show();
+    var parameters = Array.prototype.slice.call(arguments).join(", ");
+    parameters.substr(0, parameters.length - 2);
 
-  // todo: make encoding for all array elements...
-  parameters = parameters.replace(/&/g, "&amp;");
-  parameters = parameters.replace(/</g, "&lt;");
-  parameters = parameters.replace(/>/g, "&gt;");
-  parameters = parameters.replace(/"/g, "&quot;");
-  jQuery("<p>").appendTo(console).html("<pre>" + parameters + "</pre>");
-};
+    // todo: make encoding for all array elements...
+    parameters = parameters.replace(/&/g, "&amp;");
+    parameters = parameters.replace(/</g, "&lt;");
+    parameters = parameters.replace(/>/g, "&gt;");
+    parameters = parameters.replace(/"/g, "&quot;");
+    jQuery("<p>").appendTo(console).html("<pre>" + parameters + "</pre>");
+  };
 
-jQuery(document).ready(function () {
-  var console = jQuery("<div>").appendTo("body");
-  console.addClass("tobago-console");
-  console.css({
-    border: "5px solid red",
-    padding: "10px",
-    position: "absolute",
-    right: "0",
-    bottom: "0",
-    backgroundColor: "#ffffff",
-    filter: "alpha(opacity=70)",
-    opacity: 0.7
-  });
-  console.hide();
-  var header = jQuery("<div>").appendTo(console);
-  header.css({
-    border: "1px solid red",
-    marginBottom: "5px"
-  });
-  header.css("background-color", "red");
-  var title = jQuery("<span>simple console replacement</span>").appendTo(header);
-  var close = jQuery("<button>").appendTo(header);
-  close.attr("type", "button");
-  close.append("Hide");
-  close.click(function () {
+  jQuery(document).ready(function () {
+    var console = jQuery("<div>").appendTo("body");
+    console.addClass("tobago-console");
+    console.css({
+      border: "5px solid red",
+      padding: "10px",
+      position: "absolute",
+      right: "0",
+      bottom: "0",
+      backgroundColor: "#ffffff",
+      filter: "alpha(opacity=70)",
+      opacity: 0.7
+    });
     console.hide();
+    var header = jQuery("<div>").appendTo(console);
+    header.css({
+      border: "1px solid red",
+      marginBottom: "5px"
+    });
+    header.css("background-color", "red");
+    var title = jQuery("<span>simple console replacement</span>").appendTo(header);
+    var close = jQuery("<button>").appendTo(header);
+    close.attr("type", "button");
+    close.append("Hide");
+    close.click(function () {
+      console.hide();
+    });
+    var clear = jQuery("<button>").appendTo(header);
+    clear.attr("type", "button");
+    clear.append("Clear");
+    clear.click(function () {
+      console.children("p").detach();
+    });
   });
-  var clear = jQuery("<button>").appendTo(header);
-  clear.attr("type", "button");
-  clear.append("Clear");
-  clear.click(function () {
-    console.children("p").detach();
-  });
-});
-//}
+}
 
-console.util_array_slice = function(args, drop) {
+console.util_array_slice = function (args, drop) {
   var result = [];
   for (var i = drop; i < args.length; i++) {
     result[i - drop] = args[i];
@@ -108,16 +122,13 @@ console.util_array_slice = function(args, drop) {
 console.util_stack_trace = function () {
   var result;
   var e = new Error();
-  var skipped;
   var textarea = jQuery("textarea");
   textarea.val("Start Logging...");
   if (e.stack) { // Firefox && WebKit
-
     textarea.val(textarea.val() + "\n\n" + e.stack);
-
     result = e.stack.split('\n');
-
   } else {
+    // poor implementation, but might not better possible
     var currentFunction = arguments.callee.caller;
     result = [];
     var i = 0;
@@ -156,13 +167,13 @@ if (!console.error) {
   };
 }
 
-//XXX if (!console.assert) {
-console.assert = function (test, message, other) { // multiargs?
-  if (test == false) {
-    console.log("ASSERTION FAILED: " + message, console.util_array_slice(arguments, 2));
-  }
-};
-//}  [0]
+if (!console.assert) {
+  console.assert = function (test, message, other) { // multiargs?
+    if (test == false) {
+      console.log("ASSERTION FAILED: " + message, console.util_array_slice(arguments, 2));
+    }
+  };
+}
 
 if (!console.time) {
   console.time = function (name) {
@@ -224,14 +235,12 @@ if (!console.groupEnd) {
 
 if (!console.profile) {
   console.profile = function (other) {
-    // todo
     console.warn("(profile() not implemented)");
   };
 }
 
 if (!console.profileEnd) {
   console.profileEnd = function (other) {
-    // todo
     console.warn("(profileEnd() not implemented)");
   };
 }
@@ -241,16 +250,3 @@ if (!console.trace) {
     console.log("STACK TRACE: " + console.util_stack_trace());
   };
 }
-
-if (LOG.WRAPPER_ACTIVE) {
-  (function () {
-    if (console && console.log) {
-      var old = console.log;
-      console.log = function () {
-        Array.prototype.unshift.call(arguments, LOG.now() + " " + LOG.getStackTrace() + "\n");
-        old.apply(this, arguments)
-      }
-    }
-  })();
-}
-

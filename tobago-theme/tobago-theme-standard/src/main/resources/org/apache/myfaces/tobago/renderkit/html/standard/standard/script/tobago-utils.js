@@ -113,6 +113,3 @@ Tobago.Utils.acceleratorKeyEvent = function() {
   return Tobago.browser.isWebkit || Tobago.browser.isGecko ? 'keydown' : 'keypress';
 };
 
-// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-TbgTimer.endTbgJs = new Date(); // @DEV_ONLY
