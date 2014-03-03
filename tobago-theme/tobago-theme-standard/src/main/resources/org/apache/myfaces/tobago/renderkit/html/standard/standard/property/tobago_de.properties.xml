@@ -52,11 +52,15 @@
   <entry key="sheetPagingInfoUndefinedSingleRow">Zeile &lt;span id="{3}">{0}&lt;/span></entry>
   <entry key="sheetPagingInfoEmptyRow">Keine Zeilen verf&amp;uuml;gbar</entry>
   <entry key="sheetPagingInfoRowPagingTip">Hier klicken, zum Eingeben der ersten anzuzeigenden Zeile.</entry>
-  <entry key="sheetPagingInfoPages">Seite &lt;span id="{3}">{0}&lt;/span&gt; von {1}</entry>
-  <entry key="sheetPagingInfoSinglePage">Seite &lt;span id="{3}"&gt;{0}&lt;/span&gt; von {1}</entry>
-  <entry key="sheetPagingInfoUndefinedPages">Seite &lt;span id="{3}">{0}&lt;/span&gt;</entry>
-  <entry key="sheetPagingInfoUndefinedSinglePage">Seite &lt;span id="{3}"&gt;{0}&lt;/span&gt;</entry>
-  <entry key="sheetPagingInfoEmptyPage"></entry>
+  <entry key="sheetPagingInfoPages1">Seite </entry>
+  <entry key="sheetPagingInfoPages2"> von {1}</entry>
+  <entry key="sheetPagingInfoSinglePage1">Seite </entry>
+  <entry key="sheetPagingInfoSinglePage2"> von {1}</entry>
+  <entry key="sheetPagingInfoUndefinedPages1">Seite </entry>
+  <entry key="sheetPagingInfoUndefinedPages2"/>
+  <entry key="sheetPagingInfoUndefinedSinglePage1">Seite </entry>
+  <entry key="sheetPagingInfoUndefinedSinglePage2"/>
+  <entry key="sheetPagingInfoEmptyPage"/>
   <entry key="sheetPagingInfoPagePagingTip">Hier klicken, zum Eingeben der anzuzeigenden Seite.</entry>
   <entry key="sheetMenuToggleselect">Markierung umkehren</entry>
   <entry key="sheetMenuUnselect">Markierungen löschen</entry>

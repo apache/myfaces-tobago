@@ -112,21 +112,9 @@ Tobago.Sheet.prototype.setupSortHeaders = function() {
   });
 };
 
-Tobago.Sheet.prototype.setupPagingLinks = function() {
-    idPrefix = this.id + Tobago.SUB_COMPONENT_SEP;
-    var linkBox = Tobago.element(idPrefix + "pagingLinks");
-    if (linkBox) {
-      for (i = 0 ; i < linkBox.childNodes.length ; i++) {
-        var child = linkBox.childNodes[i];
-        if (child.nodeType == 1 && child.tagName.toUpperCase() == "A") {
-          Tobago.addBindEventListener(child, "click", this, "doPagingDirect");
-        }
-      }
-    }
-  };
-
 Tobago.Sheet.prototype.setupPagePaging = function() {
-    linkBox = Tobago.element(idPrefix + "pagingPages");
+    var idPrefix = this.id + Tobago.SUB_COMPONENT_SEP;
+    var linkBox = Tobago.element(idPrefix + "pagingPages");
     if (linkBox) {
       for (var i = 0 ; i < linkBox.childNodes.length ; i++) {
         var child = linkBox.childNodes[i];
@@ -135,9 +123,6 @@ Tobago.Sheet.prototype.setupPagePaging = function() {
           if (undefined == jQuery(child).attr("data-tobago-disabled")) {
             Tobago.addBindEventListener(child, "click", this, "doPaging");
           }
-        } else if (child.nodeType == 1 && child.tagName.toUpperCase() == "SPAN") {
-          var toPageId = this.id + Tobago.COMPONENT_SEP + "ToPage";
-          Tobago.addEventListener(child, "click", Tobago.bind(this, "insertTarget", toPageId));
         }
       }
     }
@@ -150,22 +135,6 @@ Tobago.Sheet.prototype.setupRowPaging = function() {
       var parent = rowText.parentNode;
       Tobago.addEventListener(parent, "click", Tobago.bind(this, "insertTarget", toRowId));
     }
-  };
-
-
-Tobago.Sheet.prototype.doPagingDirect = function(event) {
-    var element = Tobago.element(event);
-    var action = this.id + Tobago.COMPONENT_SEP + "ToPage";
-
-    var page = element.id.lastIndexOf('_');
-    page = element.id.substring(page + 1);
-    var hidden = document.createElement('input');
-    hidden.type = 'hidden';
-    hidden.value = page;
-    hidden.name = action + Tobago.SUB_COMPONENT_SEP +  "value";
-    Tobago.element(this.id).appendChild(hidden);
-
-    this.reloadWithAction(event.srcElement, action);
   };
 
 Tobago.Sheet.prototype.doPaging = function(event) {
@@ -201,7 +170,7 @@ Tobago.Sheet.prototype.afterDoUpdateError = function() {
 };
 
 Tobago.Sheet.prototype.insertTarget = function(event, actionId) {
-//    console.debug("insertTarget('" + actionId + "')")
+    console.debug("insertTarget('{1}')", actionId);
     var textId = actionId + Tobago.SUB_COMPONENT_SEP + "text";
     var text = Tobago.element(textId);
     if (text) {
@@ -222,7 +191,7 @@ Tobago.Sheet.prototype.insertTarget = function(event, actionId) {
         span.insertBefore(input, text);
       }
       input.value=text.innerHTML;
-      input.style.display = '';
+      input.style.display = 'inline';
       text.style.display = 'none';
       input.focus();
       input.select();
@@ -447,6 +416,63 @@ Tobago.Sheet.setup2 = function (sheets) {
     Tobago.Sheets.get(sheet.attr("id")).initReload();
   });
 
+  // init pagingLinks
+  jQuery(sheets).find(".tobago-sheet-pagingLinks").find("a").click(function() {
+    var anchor = jQuery(this);
+    var sheet = anchor.parents(".tobago-sheet:first");
+    var sheetId = sheet.attr("id");
+    var hiddenId = sheetId + ":ToPage::value";
+    var hidden = jQuery(Tobago.Utils.escapeClientId(hiddenId));
+    var toPage = anchor.data("tobago-to-page");
+    hidden.val(toPage);
+    console.info("adding direct link " + anchor.html());
+    console.info("action=" + sheetId + Tobago.COMPONENT_SEP + "ToPage");
+    console.info("page=" + toPage);
+    Tobago.Sheets.get(sheetId).reloadWithAction(anchor.get(0), sheetId + Tobago.COMPONENT_SEP + "ToPage");
+  });
+
+  // init paging by pages
+  jQuery(sheets).find(".tobago-sheet-pagingPages").each(function() {
+    var pagingPages = jQuery(this);
+    pagingPages.find(".tobago-sheet-pagingOutput").parent().click(function () {
+      console.info("click on text");
+      var parent = jQuery(this);
+      parent.children(".tobago-sheet-pagingOutput").hide();
+      parent.children(".tobago-sheet-pagingInput").show().focus().select();
+    });
+    pagingPages.find(".tobago-sheet-pagingInput")
+        .blur(function () {
+          console.info("blur");
+          Tobago.Sheet.hideInputOrSubmit(jQuery(this));
+        }).keydown(function (event) {
+          console.info("keydown");
+          console.dir(event);
+          if (event.keyCode == 13) {
+            event.stopPropagation();
+            event.preventDefault();
+            jQuery(this).blur();
+          }
+        });
+  });
+};
+
+Tobago.Sheet.hideInputOrSubmit = function(input) {
+  var output = input.siblings(".tobago-sheet-pagingOutput");
+  var changed = output.html() != input.val();
+  var sheet = input.parents(".tobago-sheet:first");
+  var sheetId = sheet.attr("id");
+  output.html(input.val());
+  var hiddenId = sheetId + ":ToPage::value";
+  var hidden = jQuery(Tobago.Utils.escapeClientId(hiddenId));
+  hidden.val(input.val());
+  if (changed) {
+    console.error("not implemented");
+    Tobago.Sheets.get(sheetId).reloadWithAction(input.get(0), sheetId + Tobago.COMPONENT_SEP + "ToPage");
+  } else {
+    console.info("no update needed");
+    input.hide();
+    output.show();
+  }
 };
 
 /** Returns the specific hidden field of a sheet
@@ -475,7 +501,6 @@ Tobago.Sheet.prototype.setup = function() {
   }
 
   this.setupSortHeaders();
-  this.setupPagingLinks();
   this.setupPagePaging();
   this.setupRowPaging();
 

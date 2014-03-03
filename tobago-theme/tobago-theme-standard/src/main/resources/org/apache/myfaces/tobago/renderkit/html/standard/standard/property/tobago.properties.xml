@@ -50,11 +50,15 @@
   <entry key="sheetPagingInfoUndefinedSingleRow">Row &lt;span id="{3}"&gt;{0}&lt;/span&gt;</entry>
   <entry key="sheetPagingInfoEmptyRow">No rows available</entry>
   <entry key="sheetPagingInfoRowPagingTip">Click here, to change the first displayed row</entry>
-  <entry key="sheetPagingInfoPages">Page &lt;span id="{3}"&gt;{0}&lt;/span&gt; of {1}</entry>
-  <entry key="sheetPagingInfoSinglePage">Page &lt;span id="{3}"&gt;{0}&lt;/span&gt; of {1}</entry>
-  <entry key="sheetPagingInfoUndefinedPages">Page &lt;span id="{3}"&gt;{0}&lt;/span&gt;</entry>
-  <entry key="sheetPagingInfoUndefinedSinglePage">Page &lt;span id="{3}"&gt;{0}&lt;/span&gt;</entry>
-  <entry key="sheetPagingInfoEmptyPage"></entry>
+  <entry key="sheetPagingInfoPages1">Page </entry>
+  <entry key="sheetPagingInfoPages2"> of {1}</entry>
+  <entry key="sheetPagingInfoSinglePage1">Page </entry>
+  <entry key="sheetPagingInfoSinglePage2"> of {1}</entry>
+  <entry key="sheetPagingInfoUndefinedPages1">Page </entry>
+  <entry key="sheetPagingInfoUndefinedPages2"/>
+  <entry key="sheetPagingInfoUndefinedSinglePage1">Page </entry>
+  <entry key="sheetPagingInfoUndefinedSinglePage2"/>
+  <entry key="sheetPagingInfoEmptyPage"/>
   <entry key="sheetPagingInfoPagePagingTip">Click here, to change the displayed page</entry>
   <entry key="sheetMenuToggleselect">Invert selections</entry>
   <entry key="sheetMenuUnselect">Unselect all</entry>

@@ -69,3 +69,9 @@ table.tobago-gridLayout > tbody > tr > td:first-child {
 table.tobago-gridLayout > tbody > tr:first-child > td {
     border-top: 0;
 }
+
+/* sheet -------------------------------------------------------------- */
+
+.tobago-sheet-pagingInput {
+  display: none;
+}

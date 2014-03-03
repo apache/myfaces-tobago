@@ -82,6 +82,7 @@ import javax.el.ValueExpression;
 import javax.faces.application.Application;
 import javax.faces.component.UIColumn;
 import javax.faces.component.UIComponent;
+import javax.faces.component.UINamingContainer;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.text.MessageFormat;
@@ -217,6 +218,14 @@ public class SheetRenderer extends LayoutComponentRendererBase {
           HtmlAttributes.VALUE, StringUtils.joinWithSurroundingSeparator(selectedRows), true);
       writer.endElement(HtmlElements.INPUT);
     }
+
+    writer.startElement(HtmlElements.INPUT, null);
+    writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN, false);
+    final String hiddenId = sheetId + UINamingContainer.getSeparatorChar(facesContext)
+        + PageAction.TO_PAGE.getToken() + ComponentUtils.SUB_SEPARATOR + "value";
+    writer.writeAttribute(HtmlAttributes.NAME, hiddenId, false);
+    writer.writeIdAttribute(hiddenId);
+    writer.endElement(HtmlElements.INPUT);
 
     ExpandedState expandedState = null;
     StringBuilder expandedValue = null;
@@ -444,7 +453,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
         writer.writeAttribute(HtmlAttributes.TITLE,
             ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", "sheetPagingInfoRowPagingTip"), true);
         writer.flush(); // is needed in some cases, e. g. TOBAGO-1094
-        writer.write(createSheetPagingInfo(sheet, facesContext, pagerCommandId, true));
+        writer.write(createSheetPagingInfoRow(sheet, facesContext, pagerCommandId));
         writer.endElement(HtmlElements.SPAN);
       }
 
@@ -452,8 +461,8 @@ public class SheetRenderer extends LayoutComponentRendererBase {
       final Markup showDirectLinks = markupForLeftCenterRight(sheet.getShowDirectLinks());
       if (showDirectLinks != Markup.NULL) {
         writer.startElement(HtmlElements.SPAN, null);
-        writer.writeClassAttribute(Classes.create(sheet, "pagingOuter", showDirectLinks));
-        writer.writeIdAttribute(sheetId + ComponentUtils.SUB_SEPARATOR + "pagingLinks");
+        final String pagingOuter = Classes.create(sheet, "pagingOuter", showDirectLinks).getStringValue();
+        writer.writeClassAttribute(pagingOuter + " tobago-sheet-pagingLinks");
         writeDirectPagingLinks(writer, facesContext, application, sheet);
         writer.endElement(HtmlElements.SPAN);
       }
@@ -469,7 +478,8 @@ public class SheetRenderer extends LayoutComponentRendererBase {
         final String pagerCommandId = pagerCommand.getClientId(facesContext);
 
         writer.startElement(HtmlElements.SPAN, null);
-        writer.writeClassAttribute(Classes.create(sheet, "pagingOuter", showPageRange));
+        final Classes pagingOuter = Classes.create(sheet, "pagingOuter", showPageRange);
+        writer.writeClassAttribute(pagingOuter.getStringValue() + " tobago-sheet-pagingPages");
         writer.writeIdAttribute(sheetId + ComponentUtils.SUB_SEPARATOR + "pagingPages");
         writer.writeText("");
 
@@ -481,7 +491,51 @@ public class SheetRenderer extends LayoutComponentRendererBase {
         writer.writeAttribute(HtmlAttributes.TITLE,
             ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", "sheetPagingInfoPagePagingTip"), true);
         writer.flush(); // is needed in some cases, e. g. TOBAGO-1094
-        writer.write(createSheetPagingInfo(sheet, facesContext, pagerCommandId, false));
+        if (sheet.getRowCount() != 0) {
+          final Locale locale = facesContext.getViewRoot().getLocale();
+          final int first = sheet.getCurrentPage() + 1;
+          final boolean unknown = !sheet.hasRowCount();
+          final int pages = unknown ? -1 : sheet.getPages();
+          final String key;
+          if (unknown) {
+            if (first == pages) {
+              key = "sheetPagingInfoUndefinedSinglePage";
+            } else {
+              key = "sheetPagingInfoUndefinedPages";
+            }
+          } else {
+            if (first == pages) {
+              key = "sheetPagingInfoSinglePage";
+            } else {
+              key = "sheetPagingInfoPages";
+            }
+          }
+          final Object[] args = {
+              first,
+              pages == -1 ? "?" : pages,
+              unknown ? "" : sheet.getRowCount()
+          };
+          final MessageFormat detail1 = new MessageFormat(
+              ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", key + "1"), locale);
+          final MessageFormat detail2 = new MessageFormat(
+              ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", key + "2"), locale);
+          writer.write(detail1.format(args));
+          writer.startElement(HtmlElements.SPAN, null);
+          writer.writeClassAttribute("tobago-sheet-pagingOutput"); // todo
+          writer.writeText(Integer.toString(first));
+          writer.endElement(HtmlElements.SPAN);
+          writer.startElement(HtmlElements.INPUT, null);
+          writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.TEXT, false);
+          writer.writeClassAttribute("tobago-sheet-pagingInput"); // todo
+          writer.writeAttribute(HtmlAttributes.VALUE, first);
+          if (!unknown) {
+            writer.writeAttribute(HtmlAttributes.MAXLENGTH, Integer.toString(pages).length());
+          }
+          writer.endElement(HtmlElements.INPUT);
+          writer.write(detail2.format(args));
+        } else {
+          writer.write(ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", "sheetPagingInfoEmptyPage"));
+        }
         writer.endElement(HtmlElements.SPAN);
         final boolean atEnd = sheet.isAtEnd();
         link(facesContext, application, atEnd, PageAction.NEXT, sheet);
@@ -521,21 +575,30 @@ public class SheetRenderer extends LayoutComponentRendererBase {
     return false;
   }
 
-  private String createSheetPagingInfo(
-      final UISheet sheet, final FacesContext facesContext, final String pagerCommandId, final boolean row) {
+  private String createSheetPagingInfoRow(
+      final UISheet sheet, final FacesContext facesContext, final String pagerCommandId) {
     final String sheetPagingInfo;
     if (sheet.getRowCount() != 0) {
       final Locale locale = facesContext.getViewRoot().getLocale();
-      final int first = row ? sheet.getFirst() + 1 : sheet.getCurrentPage() + 1;
+      final int first = sheet.getFirst() + 1;
       final int last = sheet.hasRowCount()
-          ? row ? sheet.getLastRowIndexOfCurrentPage() : sheet.getPages()
+          ? sheet.getLastRowIndexOfCurrentPage()
           : -1;
       final boolean unknown = !sheet.hasRowCount();
-      final String key = "sheetPagingInfo"
-          + (unknown ? "Undefined" : "")
-          + (first == last ? "Single" : "")
-          + (row ? "Row" : "Page")
-          + (first == last ? "" : "s"); // plural
+      final String key; // plural
+      if (unknown) {
+        if (first == last) {
+          key = "sheetPagingInfoUndefinedSingleRow";
+        } else {
+          key = "sheetPagingInfoUndefinedRows";
+        }
+      } else {
+        if (first == last) {
+          key = "sheetPagingInfoSingleRow";
+        } else {
+          key = "sheetPagingInfoRows";
+        }
+      }
       final String message = ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", key);
       final MessageFormat detail = new MessageFormat(message, locale);
       final Object[] args = {
@@ -546,9 +609,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
       };
       sheetPagingInfo = detail.format(args);
     } else {
-      sheetPagingInfo =
-          ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago",
-              "sheetPagingInfoEmpty" + (row ? "Row" : "Page"));
+      sheetPagingInfo = ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", "sheetPagingInfoEmptyRow");
     }
     return sheetPagingInfo;
   }
@@ -1001,18 +1062,18 @@ public class SheetRenderer extends LayoutComponentRendererBase {
           name = "1";
         }
       }
-      writeLinkElement(writer, sheet, name, Integer.toString(skip), pagerCommandId, true);
+      writeLinkElement(writer, sheet, name, skip, true);
     }
     for (final Integer prev : prevs) {
       name = prev.toString();
-      writeLinkElement(writer, sheet, name, name, pagerCommandId, true);
+      writeLinkElement(writer, sheet, name, prev, true);
     }
     name = Integer.toString(sheet.getCurrentPage() + 1);
-    writeLinkElement(writer, sheet, name, name, pagerCommandId, false);
+    writeLinkElement(writer, sheet, name, sheet.getCurrentPage() + 1, false);
 
     for (final Integer next : nexts) {
       name = next.toString();
-      writeLinkElement(writer, sheet, name, name, pagerCommandId, true);
+      writeLinkElement(writer, sheet, name, next, true);
     }
 
     skip = nexts.size() > 0 ? nexts.get(nexts.size() - 1) : pages;
@@ -1026,7 +1087,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
           name = Integer.toString(skip);
         }
       }
-      writeLinkElement(writer, sheet, name, Integer.toString(skip), pagerCommandId, true);
+      writeLinkElement(writer, sheet, name, skip, true);
     }
   }
 
@@ -1043,18 +1104,17 @@ public class SheetRenderer extends LayoutComponentRendererBase {
   }
 
   private void writeLinkElement(
-      final TobagoResponseWriter writer, final UISheet sheet, final String str, final String skip, final String id,
-      final boolean makeLink)
+      final TobagoResponseWriter writer, final UISheet sheet, final String text, final int page, final boolean makeLink)
       throws IOException {
     final String type = makeLink ? HtmlElements.A : HtmlElements.SPAN;
     writer.startElement(type, null);
     writer.writeClassAttribute(Classes.create(sheet, "pagingLink"));
     if (makeLink) {
-      writer.writeIdAttribute(id + ComponentUtils.SUB_SEPARATOR + "link_" + skip);
+      writer.writeAttribute(DataAttributes.TO_PAGE, page);
       writer.writeAttribute(HtmlAttributes.HREF, "#", true);
     }
     writer.flush();
-    writer.write(str);
+    writer.write(text);
     writer.endElement(type);
   }
 
