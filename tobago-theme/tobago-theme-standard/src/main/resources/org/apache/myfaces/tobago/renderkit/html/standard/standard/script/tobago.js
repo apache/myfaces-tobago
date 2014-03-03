@@ -2031,20 +2031,23 @@ var LOG = {
   }
 };
 
-// ajax response besteht aus einem javascript object:
+// The AJAX response is a JavaScript object:
 
-//var response = {
-//  tobagoAjaxResponse: true,
-//  responseCode: CODE_SUCCESS | CODE_RELOAD_REQUIRED | CODE_ERROR,
-//  jsfState: "html content of jsf state container"
-//  ajaxPart_1: {
-//    ajaxId:       "ajaxId",
-//    responseCode: CODE_SUCCESS | CODE_NOT_MODIFIED,
-//    html:         "html source der componente",
-//    script:       "javascript code"
-//  },
-//  ajaxPart_2: {...},...
-//};
+/*
+var response = {
+  tobagoAjaxResponse: true,
+  responseCode: CODE_SUCCESS | CODE_RELOAD_REQUIRED | CODE_ERROR,
+  jsfState: "html content of jsf state container"
+  ajaxPart_1: {
+    ajaxId: "ajaxId",
+    responseCode: CODE_SUCCESS | CODE_NOT_MODIFIED,
+    html: "html source of the component",
+    script: "javascript code"
+  },
+  ajaxPart_2: {...}, .
+..
+}
+*/
 
 Tobago.Updater = {
   CODE_SUCCESS: 200,
