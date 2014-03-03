@@ -21,17 +21,12 @@ package org.apache.myfaces.tobago.ajax;
 
 
 import org.apache.myfaces.tobago.internal.ajax.AjaxInternalUtils;
-import org.apache.myfaces.tobago.internal.util.ResponseUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.Writer;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -114,48 +109,5 @@ public final class AjaxUtils {
       }
     }
     return added;
-  }
-
-  /**
-   * @deprecated since 2.0.0. Is no longer needed
-   */
-  public static boolean redirect(final FacesContext facesContext, final String url) throws IOException {
-    if (!isAjaxRequest(facesContext)) {
-      return false;
-    }
-    final HttpServletResponse httpServletResponse
-          = (HttpServletResponse) facesContext.getExternalContext().getResponse();
-    final Writer writer = httpServletResponse.getWriter();
-    final String contentType = "application/json; charset=UTF-8";
-    ResponseUtils.ensureContentTypeHeader(facesContext, contentType);
-    ResponseUtils.ensureNoCacheHeader(facesContext);
-    redirectInternal(writer, url);
-    writer.close();
-    facesContext.responseComplete();
-    return true;
-  }
-
-  /**
-   * @deprecated since 2.0.0. Is no longer needed
-   */
-  private static void redirectInternal(final Writer writer, final String url) throws IOException {
-    writer.flush(); // is needed in some cases, e. g. TOBAGO-1094
-    writer.write("{\n  \"tobagoAjaxResponse\": true,\n");
-    writer.write("  \"responseCode\": 302,\n");
-    writer.write("  \"location\": \"");
-    writer.write(url);
-    writer.write("\"\n}\n");
-    writer.flush();
-  }
-
-  /**
-   * @deprecated since 2.0.0. Is no longer needed
-   */
-  public static void redirect(final HttpServletResponse response, final String url) throws IOException {
-    final PrintWriter writer = response.getWriter();
-    final String contentType = "application/json; charset=UTF-8";
-    ResponseUtils.ensureContentTypeHeader(response, contentType);
-    ResponseUtils.ensureNoCacheHeader(response);
-    redirectInternal(writer, url);
   }
 }
