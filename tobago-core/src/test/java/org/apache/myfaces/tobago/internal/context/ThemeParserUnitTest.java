@@ -55,7 +55,7 @@ public class ThemeParserUnitTest {
 
       Assert.assertEquals(2, resources.getScriptList().size());
       Assert.assertEquals("script/tobago.js", resources.getScriptList().get(0).getName());
-      Assert.assertEquals("script/tobago-logging.js", resources.getScriptList().get(1).getName());
+      Assert.assertEquals("script/tobago-console.js", resources.getScriptList().get(1).getName());
 
       Assert.assertEquals(1, productionResources.getScriptList().size());
       themeBuilder.addTheme(theme);
@@ -109,23 +109,23 @@ public class ThemeParserUnitTest {
     themeBuilder.resolveThemes();
     Assert.assertEquals(2, theme.getResources().getScriptList().size());
     Assert.assertEquals("script/tobago.js", theme.getResources().getScriptList().get(0).getName());
-    Assert.assertEquals("script/tobago-logging.js", theme.getResources().getScriptList().get(1).getName());
+    Assert.assertEquals("script/tobago-console.js", theme.getResources().getScriptList().get(1).getName());
 
     Assert.assertNotNull(theme2.getResources());
     Assert.assertEquals(3, theme2.getResources().getScriptList().size());
     Assert.assertEquals(1, theme2.getResources().getStyleList().size());
     Assert.assertEquals("script/tobago.js", theme2.getResources().getScriptList().get(0).getName());
-    Assert.assertEquals("script/tobago-logging.js", theme2.getResources().getScriptList().get(1).getName());
+    Assert.assertEquals("script/tobago-console.js", theme2.getResources().getScriptList().get(1).getName());
     Assert.assertEquals("script/test.js", theme2.getResources().getScriptList().get(2).getName());
 
     Assert.assertEquals(3, theme3.getResources().getScriptList().size());
     Assert.assertEquals("script/tobago.js", theme3.getResources().getScriptList().get(0).getName());
-    Assert.assertEquals("script/tobago-logging.js", theme3.getResources().getScriptList().get(1).getName());
+    Assert.assertEquals("script/tobago-console.js", theme3.getResources().getScriptList().get(1).getName());
     Assert.assertEquals("script/test.js", theme3.getResources().getScriptList().get(2).getName());
 
     Assert.assertEquals(3, theme4.getResources().getScriptList().size());
     Assert.assertEquals("script/tobago.js", theme4.getResources().getScriptList().get(0).getName());
-    Assert.assertEquals("script/tobago-logging.js", theme4.getResources().getScriptList().get(1).getName());
+    Assert.assertEquals("script/tobago-console.js", theme4.getResources().getScriptList().get(1).getName());
     Assert.assertEquals("script/test.js", theme4.getResources().getScriptList().get(2).getName());
 
 
