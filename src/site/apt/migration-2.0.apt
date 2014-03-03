@@ -63,6 +63,15 @@ Java-API
    Class <<<org.apache.myfaces.tobago.component.UIFileInput>>> has been renamed to
    <<<org.apache.myfaces.tobago.component.UIFile>>>.
 
+Renderer classes
+
+   The set of existing renderers has been repacked from
+   <<<org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag>>> to
+   <<<org.apache.myfaces.tobago.renderkit.html.standard.standard.tag>>>.
+
+   If you have an own theme with own renderer classes implemented, which are extending the Tobago renderer classes,
+   you will need to adapt the package name of the base classes.
+
 Facelets
 
    Tobago 2.0.x is using Facelets 2.0. When still using Facelets 1.1 in the current application,
