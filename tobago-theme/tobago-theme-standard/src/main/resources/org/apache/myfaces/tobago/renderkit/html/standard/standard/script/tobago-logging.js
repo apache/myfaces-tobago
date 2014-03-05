@@ -15,6 +15,9 @@
  * limitations under the License.
  */
 
+/**
+ * for development only
+ * @deprecated since 2.0.0, please use tobago-console.js and e. g. console.log() instead. */
 var LOG = {
   IdBase: "TbgLog",
   messages: new Array(),
