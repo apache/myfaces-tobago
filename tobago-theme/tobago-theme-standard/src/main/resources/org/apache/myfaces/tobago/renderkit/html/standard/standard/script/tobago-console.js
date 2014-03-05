@@ -16,7 +16,9 @@
  */
 
 /**
- * This a fill-in, if a browser doesn't support "console", or some of its methods.
+ * This is a "fill-in".
+ * If a browser doesn't support "console", or some of its methods, it will be defined.
+ * So you don't have to worry about browser support of the calls.
  * This is NOT a wrapper, so stacktraces, and line numbers remain valid.
  *
  * You can use, surely the following methods:
@@ -37,6 +39,8 @@
  *
  * console.timeEnd()
  *
+ * console.count()
+ *
  * console.dir()
  *
  * console.exception()
@@ -52,6 +56,8 @@
  * console.profileEnd() // not implemented
  *
  * console.trace()
+ *
+ * Hint: Should be used for development only!
  *
  * Restriction: multi args: printf is not implemented for console.log()
  */
@@ -203,6 +209,20 @@ if (!console.dir) {
   console.dir = function (name) {
     // todo
     console.debug("(dir() not implemented) " + name);
+  };
+}
+
+if (!console.count) {
+  console.count = function (name) {
+    if (!console.counterMap) {
+      console.counterMap = {};
+    }
+    if (typeof console.counterMap[name] == "number") {
+      console.counterMap[name] = console.counterMap[name] + 1;
+    } else {
+      console.counterMap[name] = 1;
+    }
+    console.info(name  + ": " + console.counterMap[name]);
   };
 }
 
