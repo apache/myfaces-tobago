@@ -65,11 +65,10 @@ var TobagoAssert = {
           + "' has wrong " + name + ": expected=" + expected + " actual=" + actual;
       var overlay = element.data("tobago-overlay").overlay;
       overlay.attr("title", (overlay.attr("title") === undefined ? "" : overlay.attr("title") + "\n" ) + text);
-      LOG.error(text);
     } else {
       text = name + ": expected=" + expected + " actual=" + actual;
-      LOG.error(text);
     }
+    console.assert(false, text);
   },
 
   assertLayout:function (elementOrId, left, top, width, height) {
@@ -82,36 +81,30 @@ var TobagoAssert = {
 
   assertAbsence:function (id) {
     var element = document.getElementById(id);
-    if (element != null) {
-      LOG.error("The element with id=" + id + " was found, but should not!");
-    }
+    console.assert(element == null, "The element with id=" + id + " was found, but should not!");
   },
 
   assertAttribute:function (elementOrId, attribute, expected) {
-    if ("value" == attribute) {
-      LOG.error("The assertAttribute() is not allowed for the value attribute, please use assertValue() instead.");
-    }
+    console.assert("value" != attribute,
+      "The assertAttribute() is not allowed for the value attribute, please use assertValue() instead.");
     var element = TobagoAssert.jQueryElement(elementOrId);
-    if (element.attr(attribute) != expected) {
-      LOG.error("The attribute '" + attribute + "' of element with id=" + element.attr('id')
+    console.assert(element.attr(attribute) == expected,
+      "The attribute '" + attribute + "' of element with id=" + element.attr('id')
           + " is '" + element.attr(attribute) + "', but expected was '" + expected + "'.");
-    }
   },
 
   assertValue:function (elementOrId, expected) {
     var element = TobagoAssert.jQueryElement(elementOrId);
-    if (element.val() != expected) {
-      LOG.error("The value of element with id=" + element.attr('id')
-          + " is '" + element.val() + "', but expected was '" + expected + "'.");
-    }
+    console.assert(element.val() == expected,
+        "The value of element with id=" + element.attr('id')
+        + " is '" + element.val() + "', but expected was '" + expected + "'.");
   },
 
   assertContent:function (elementOrId, expected) {
     var element = TobagoAssert.jQueryElement(elementOrId);
-    if (element.html() != expected) {
-      LOG.error("The content of element with id=" + element.attr('id')
+    console.assert(element.html() == expected,
+        "The content of element with id=" + element.attr('id')
           + " is '" + element.html() + "', but expected was '" + expected + "'.");
-    }
   },
 
   /**

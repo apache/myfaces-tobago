@@ -57,10 +57,6 @@
                                   value="#{overviewBundle.pageTitle} - #{info.version} - #{overviewBundle.tobago_url}"/>
               </tc:menuCommand>
               <tc:menuCommand link="http://myfaces.apache.org/tobago" label="Tobago in the Web"/>
-              <tc:menuCommand label="#{overviewBundle.menu_showLog}" omit="true"
-                              rendered="#{clientConfigController.debugMode}">
-                <tc:dataAttribute name="show-log" value="true"/>
-              </tc:menuCommand>
               <tc:menuCommand action="server-info" immediate="true"
                               label="Server Info"
                               disabled="#{! info.enabled}"/>

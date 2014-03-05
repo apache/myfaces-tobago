@@ -34,6 +34,7 @@
       <resources production="false">
         <script name="script/tobago.js"/>
         <script name="script/tobago-logging.js"/>
+        <script name="script/tobago-console.js"/>
         <style name="tobago.css"/>
       </resources>
     </theme-definition>

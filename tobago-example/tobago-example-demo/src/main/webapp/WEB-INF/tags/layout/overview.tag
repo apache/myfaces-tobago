@@ -54,8 +54,6 @@
                 onclick="alert('#{overviewBundle.pageTitle}' + String.fromCharCode(10) + '#{info.version}' + String.fromCharCode(10) + '#{overviewBundle.tobago_url}' + String.fromCharCode(10))"
                 label="#{overviewBundle.menu_about}"/>
             <tc:menuCommand link="http://myfaces.apache.org/tobago" label="Tobago in the Web"/>
-            <tc:menuCommand onclick="LOG.show();" label="#{overviewBundle.menu_showLog}"
-                            rendered="#{clientConfigController.debugMode}"/>
             <tc:menuCommand action="server-info" immediate="true"
                             label="Server Info" disabled="#{! info.enabled}"/>
           </tc:menu>
