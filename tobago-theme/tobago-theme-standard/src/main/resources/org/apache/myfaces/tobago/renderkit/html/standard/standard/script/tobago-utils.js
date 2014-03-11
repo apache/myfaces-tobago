@@ -109,6 +109,7 @@ Tobago.Utils.keepElementInVisibleArea = function(elements) {
   });
 };
 
+/** @deprecated */
 Tobago.Utils.acceleratorKeyEvent = function() {
   return Tobago.browser.isWebkit || Tobago.browser.isGecko ? 'keydown' : 'keypress';
 };
