@@ -957,7 +957,7 @@ var Tobago = {
     accesskeys.each(function () {
       // setupAccessKey
       var el = jQuery(this);
-      new Tobago.AcceleratorKey(function clickAccelKey() {
+      new Tobago.AcceleratorKey(function () {
         Tobago.clickOnElement(el.attr("id"))}, el.attr("accesskey"));
     });
 
