@@ -435,7 +435,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
         columnIndex++;
         writer.startElement(HtmlElements.TD, null);
         writer.startElement(HtmlElements.DIV, null);
-        final Integer divWidth = sheet.getWidthList().get(columnIndex);
+        final Integer divWidth = sheet.getWidthList() != null ? sheet.getWidthList().get(columnIndex) : 100;
         final Style divStyle = new Style();
         divStyle.setWidth(Measure.valueOf(divWidth));
         writer.writeStyleAttribute(divStyle);
