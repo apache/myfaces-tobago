@@ -113,6 +113,7 @@ var Tobago = {
     isMsie6: false,
     isMsie67: false,
     isMsie678: false,
+    isMsie6789: false,
     isGecko: false,
     isWebkit: false
   },
@@ -1582,11 +1583,16 @@ var Tobago = {
         Tobago.browser.isMsie6 = true;
         Tobago.browser.isMsie67 = true;
         Tobago.browser.isMsie678 = true;
+        Tobago.browser.isMsie6789 = true;
       } else if (ua.indexOf("MSIE 7") > -1) {
         Tobago.browser.isMsie67 = true;
         Tobago.browser.isMsie678 = true;
+        Tobago.browser.isMsie6789 = true;
       } else if (ua.indexOf("MSIE 8") > -1) {
         Tobago.browser.isMsie678 = true;
+        Tobago.browser.isMsie6789 = true;
+      } else if (ua.indexOf("MSIE 9") > -1) {
+        Tobago.browser.isMsie6789 = true;
       }
     } else if (ua.indexOf("AppleWebKit") > -1) {
       Tobago.browser.isWebkit = true;
