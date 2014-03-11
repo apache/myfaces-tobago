@@ -167,11 +167,13 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase implemen
           }
 
           if (token instanceof AutoLayoutToken || token instanceof RelativeLayoutToken) {
-            if (origin.getSpan(orientation) == 1 && (component.isRendered() || isRigid())) {
-              intervalList.add(new Interval(component, orientation));
-            } else {
-              if (LOG.isDebugEnabled()) {
-                LOG.debug("Components with span > 1 will be ignored in 'auto' layout rows/columns.");
+            if ((component.isRendered() || isRigid())) {
+              if (origin.getSpan(orientation) == 1) {
+                intervalList.add(new Interval(component, orientation));
+              } else {
+                if (LOG.isDebugEnabled()) {
+                  LOG.debug("Components with span > 1 will be ignored in 'auto' layout rows/columns.");
+                }
               }
             }
           }
@@ -183,14 +185,16 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase implemen
         heads[i].setIntervalList(intervalList);
       }
       if (token instanceof AutoLayoutToken) {
-        if (intervalList.size() > 0) {
-          heads[i].setCurrent(intervalList.getCurrent());
-        } else {
-          heads[i].setCurrent(Measure.valueOf(100));
-          LOG.warn("Found an 'auto' token in {} definition, but there is no component inside with span = 1! " +
-              "So the value for 'auto' can't be evaluated (clientId={}). Using 100px.",
-              orientation == Orientation.HORIZONTAL ? "columns" : "rows",
-              getClientId(getFacesContext()));
+        if (heads[i].isRendered()) {
+          if (intervalList.size() > 0) {
+            heads[i].setCurrent(intervalList.getCurrent());
+          } else {
+            heads[i].setCurrent(Measure.valueOf(100));
+            LOG.warn("Found an 'auto' token in {} definition, but there is no component inside with span = 1! " +
+                "So the value for 'auto' can't be evaluated (clientId={}). Using 100px.",
+                orientation == Orientation.HORIZONTAL ? "columns" : "rows",
+                getClientId(getFacesContext()));
+          }
         }
       }
       i++;
