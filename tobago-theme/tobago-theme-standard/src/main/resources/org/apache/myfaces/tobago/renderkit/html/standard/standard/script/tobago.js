@@ -123,18 +123,18 @@ var Tobago = {
       if (this[key]) {
         console.warn('Ignoring duplicate key: ' + keyAccelerator.modifier + '-' + keyAccelerator.key + ' with function: ' + keyAccelerator.func.valueOf()); // @DEV_ONLY
       } else {
-//        console.debug("add accelerator for " + keyAccelerator.modifier + "-" + keyAccelerator.key);
+//        console.debug("add accelerator for " + keyAccelerator.modifier + "-" + keyAccelerator.key); // @DEV_ONLY
         this[key] = keyAccelerator;
       }
     },
 
     get: function(event) {
-      if (!event.type == Tobago.Utils.acceleratorKeyEvent()) {
-        return;
+      if (!(event.type == 'keypress')) {
+        return null;
       }
       var keyCode = event.which ? event.which : event.keyCode;
       if (keyCode == 0) {
-        return;
+        return null;
       }
       var key = String.fromCharCode(keyCode).toLowerCase();
       var mod = '';
@@ -150,7 +150,7 @@ var Tobago = {
       if (mod.length == 0) {
         mod = 'none';
       }
-//      console.debug("event for " + mod + "-" + key);
+//      console.debug("event for " + mod + "-" + key); // @DEV_ONLY
       return this[mod + key];
     },
 
@@ -163,7 +163,7 @@ var Tobago = {
       }
       var key = keyAccelerator.modifier + keyAccelerator.key;
       if (this[key]) {
-//        console.debug("delete accelerator for " + keyAccelerator.modifier + "-" + keyAccelerator.key);
+//        console.debug("delete accelerator for " + keyAccelerator.modifier + "-" + keyAccelerator.key); // @DEV_ONLY
         delete this[key];
       }
     },
@@ -172,10 +172,10 @@ var Tobago = {
       if (! event) {
         event = window.event;
       }
-//      console.debug("keypress: keycode " + (event.which ? event.which : event.keyCode));
+//      console.debug("keypress: keycode " + (event.which ? event.which : event.keyCode)); // @DEV_ONLY
       var keyAccelerator = this.get(event);
       if (keyAccelerator) {
-//        console.debug("accelerator found!");
+//        console.debug("accelerator found!"); // @DEV_ONLY
         event.cancelBubble = true;
         if (event.stopPropagation) {
           event.stopPropagation(); // this is DOM2
@@ -294,7 +294,7 @@ var Tobago = {
     }
     console.timeEnd("[tobago] applicationOnload"); // @DEV_ONLY
 
-    this.addBindEventListener(document, Tobago.Utils.acceleratorKeyEvent(), this.acceleratorKeys, 'observe');
+    this.addBindEventListener(document, 'keypress', this.acceleratorKeys, 'observe');
 
     if (Tobago.resizeAction) {
       // firefox submits an onresize event
