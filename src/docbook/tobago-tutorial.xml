@@ -169,7 +169,7 @@
     </itemizedlist>
 
     <para>Finally, a logging mechanism has to be selected. All Tobago examples
-    use log4j as a default.</para>
+    use logback as a default.</para>
 
     <sect2>
       <title>Basic Tobago Page</title>

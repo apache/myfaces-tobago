@@ -28,7 +28,9 @@
     </encoder>
   </appender>
 
-  <logger name="org.apache.myfaces.tobago.example.security" level="debug"/>
+  <!--
+    <logger name="org.apache.myfaces.tobago" level="debug"/>
+  -->
 
   <root level="info">
     <appender-ref ref="console"/>

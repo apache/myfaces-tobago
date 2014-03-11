@@ -58,10 +58,5 @@
       <!-- compile or provided depends on the used server -->
       <scope>compile</scope>
     </dependency>
-    <dependency>
-      <groupId>log4j</groupId>
-      <artifactId>log4j</artifactId>
-      <scope>runtime</scope>
-    </dependency>
   </dependencies>
 </project>

@@ -17,26 +17,22 @@
  * limitations under the License.
 -->
 
-<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<!-- Schema is NOT official from logback -->
+<configuration
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="https://raw.github.com/enricopulatzo/logback-XSD/master/src/main/xsd/logback.xsd">
 
-<log4j:configuration>
-
-  <appender name="console" class="org.apache.log4j.ConsoleAppender">
-    <param name="Encoding" value="UTF-8"/>
-    <layout class="org.apache.log4j.PatternLayout">
-      <param name="ConversionPattern"
-             value="%d{HH:mm:ss} %-5p %-50.50c:%-20.20M:%-4.4L %m%n"/>
-      <!-- See http://logging.apache.org/log4j/docs/api/org/apache/log4j/PatternLayout.html -->
-    </layout>
+  <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+      <pattern>%date{ISO8601} [%-16.16thread] %-5level %-50.50logger{50}:%-20.20method:%-4.4line - %msg%n</pattern>
+    </encoder>
   </appender>
 
-  <category name="org.apache.myfaces.tobago.example.addressbook">
-    <priority value="debug" />
-  </category>
+  <!--
+    <logger name="org.apache.myfaces.tobago" level="debug"/>
+  -->
 
-  <root>
-    <priority value="info" />
-    <appender-ref ref="console" />
+  <root level="info">
+    <appender-ref ref="console"/>
   </root>
-
-</log4j:configuration>
+</configuration>

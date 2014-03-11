@@ -28,10 +28,11 @@
   <description>A simple, but full functional application with persistence.</description>
 
   <properties>
-    <openjpa.version>1.0.4</openjpa.version>
+    <openjpa.version>2.3.0</openjpa.version>
     <openwebbeans.version>1.1.7</openwebbeans.version>
     <myfaces-extcdi.version>1.0.5</myfaces-extcdi.version>
   </properties>
+
   <build>
     <finalName>tobago-example-addressbook</finalName>
     <plugins>
@@ -243,20 +244,6 @@
       <groupId>org.apache.openjpa</groupId>
       <artifactId>openjpa-persistence-jdbc</artifactId>
       <version>${openjpa.version}</version>
-      <exclusions>
-        <exclusion>
-          <groupId>hsqldb</groupId>
-          <artifactId>hsqldb</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>ant</groupId>
-          <artifactId>ant</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>log4j</groupId>
-          <artifactId>log4j</artifactId>
-        </exclusion>
-      </exclusions>
     </dependency>
     <!--dependency>
       <groupId>org.apache.openjpa</groupId>
@@ -308,15 +295,6 @@
     <dependency>
       <groupId>commons-io</groupId>
       <artifactId>commons-io</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-api</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-simple</artifactId>
     </dependency>
     <dependency>
       <groupId>org.apache.derby</groupId>
