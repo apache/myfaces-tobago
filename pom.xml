@@ -35,7 +35,7 @@
   <inceptionYear>2002</inceptionYear>
   <issueManagement>
     <system>jira</system>
-    <url>http://issues.apache.org/jira/secure/BrowseProject.jspa?id=12310273</url>
+    <url>https://issues.apache.org/jira/browse/TOBAGO</url>
   </issueManagement>
   <ciManagement>
     <system>jenkins</system>
