@@ -112,7 +112,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
     if (header == null) {
       header = CreateComponentUtils.createComponent(facesContext, ComponentTypes.PANEL, null, "_header");
       header.setTransient(true);
-      final List<AbstractUIColumn> columns = ComponentUtils.findDescendantList(sheet, AbstractUIColumn.class);
+      final List<AbstractUIColumn> columns = sheet.getAllColumns();
       int i = 0;
       for (final AbstractUIColumn column : columns) {
         final AbstractUIOut out = (AbstractUIOut) CreateComponentUtils.createComponent(
@@ -739,7 +739,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
     writer.endElement(HtmlElements.IMG);
   }
 
-  // TODO sheet.getColumnLayout() liefert ggf. eine falsche Anzahl von Spalten
+  // TODO sheet.getColumnLayout() may return the wrong number of column...
   // TODO
   // TODO
 
@@ -751,6 +751,12 @@ public class SheetRenderer extends LayoutComponentRendererBase {
       throws IOException {
 
     final Grid grid = sheet.getHeaderGrid();
+    if (grid == null) {
+      LOG.warn("Can't render column headers, because grid == null. One reason can be, the you use nested sheets. " +
+          "The inner sheet ensureHeader() will be called outside the iterating over the rows. " +
+          "Nesting sheet is currently not supported.");
+      return;
+    }
     final List<Integer> columnWidths = sheet.getWidthList();
 
     if (LOG.isDebugEnabled()) {

@@ -21,6 +21,8 @@ package org.apache.myfaces.tobago.example.data;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -46,6 +48,8 @@ public class SolarObject {
   private Integer discoverYear;
 
   private String population;
+
+  private List<Element> chemicalComposition;
 
   public SolarObject(
       final String name, final String number, final String orbit, final Integer distance, final Double period,
@@ -154,6 +158,14 @@ public class SolarObject {
     this.population = population;
   }
 
+  public List<Element> getChemicalComposition() {
+    return chemicalComposition != null ? chemicalComposition : Collections.<Element>emptyList();
+  }
+
+  public void setChemicalComposition(final List<Element> chemicalComposition) {
+    this.chemicalComposition = chemicalComposition;
+  }
+
   public boolean isSelectionDisabled() {
     return number.equals("II");
   }
@@ -165,9 +177,7 @@ public class SolarObject {
   public static List<SolarObject> getList() {
     final SolarObject[] array = getArray();
     final List<SolarObject> list = new ArrayList<SolarObject>(array.length);
-    for (final SolarObject object : array) {
-      list.add(object);
-    }
+    Collections.addAll(list, array);
     return list;
   }
 
@@ -198,18 +208,22 @@ public class SolarObject {
     return collect;
   }
 
+  public static final SolarObject SUN = new SolarObject("Sun", "-", "-", 0, 0.0, 0.0, 0.0, "-", null);
+  public static final SolarObject EARTH =new SolarObject("Earth", "III", "Sun", 149600, 365.26, 0.00, 0.02, "-", null);
+  public static final SolarObject MOON = new SolarObject("Moon", "I", "Earth", 384, 27.32, 5.14, 0.05, "-", null);
+
   public static final SolarObject[] DATA = {
-      new SolarObject("Sun", "-", "-", 0, 0.0, 0.0, 0.0, "-", null),
+      SUN,
       new SolarObject("Mercury", "I", "Sun", 57910, 87.97, 7.00, 0.21, "-", null),
       new SolarObject("Venus", "II", "Sun", 108200, 224.70, 3.39, 0.01, "-", null),
-      new SolarObject("Earth", "III", "Sun", 149600, 365.26, 0.00, 0.02, "-", null),
+      EARTH,
       new SolarObject("Mars", "IV", "Sun", 227940, 686.98, 1.85, 0.09, "-", null),
       new SolarObject("Jupiter", "V", "Sun", 778330, 4332.71, 1.31, 0.05, "-", null),
       new SolarObject("Saturn", "VI", "Sun", 1429400, 10759.50, 2.49, 0.06, "-", null),
       new SolarObject("Uranus", "VII", "Sun", 2870990, 30685.0, 0.77, 0.05, "Herschel", 1781),
       new SolarObject("Neptune", "VIII", "Sun", 4504300, 60190.0, 1.77, 0.01, "Adams", 1846),
       new SolarObject("Pluto", "IX", "Sun", 5913520, 90800.0, 17.15, 0.25, "Tombaugh", 1930),
-      new SolarObject("Moon", "I", "Earth", 384, 27.32, 5.14, 0.05, "-", null),
+      MOON,
       new SolarObject("Phobos", "I", "Mars", 9, 0.32, 1.00, 0.02, "Hall", 1877),
       new SolarObject("Deimos", "II", "Mars", 23, 1.26, 1.80, 0.00, "Hall", 1877),
       new SolarObject("Metis", "XVI", "Jupiter", 128, 0.29, 0.00, 0.00, "Synnott", 1979),
@@ -288,5 +302,26 @@ public class SolarObject {
       new SolarObject("Nereid", "II", "Neptune", 5513, 360.13, 29.00, 0.75, "Kuiper", 1949),
       new SolarObject("Charon", "I", "Pluto", 20, 6.39, 98.80, 0.00, "Christy", 1978)
   };
+
+  static {
+    List<Element> sun = Arrays.asList(
+        new Element("Hydrogen", 0.74),
+        new Element("Helium", 0.25)
+    );
+    SUN.setChemicalComposition(sun);
+    List<Element> earth = Arrays.asList(
+        new Element("Silica", 0.60),
+        new Element("Alimina", 0.15),
+        new Element("Lime", 0.05)
+    );
+    EARTH.setChemicalComposition(earth);
+    List<Element> moon = Arrays.asList(
+        new Element("Silica", 0.45),
+        new Element("Alimina", 0.24),
+        new Element("Lime", 0.16)
+    );
+    MOON.setChemicalComposition(moon);
+  }
+
 
 }

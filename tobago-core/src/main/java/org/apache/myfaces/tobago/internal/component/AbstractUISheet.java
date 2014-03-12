@@ -370,21 +370,29 @@ public abstract class AbstractUISheet extends AbstractUIData
   }
 
   public List<AbstractUIColumn> getAllColumns() {
-    final List<AbstractUIColumn> columns = new ArrayList<AbstractUIColumn>();
-    for (final AbstractUIColumn kid : ComponentUtils.findDescendantList(this, AbstractUIColumn.class)) {
-      columns.add(kid);
-    }
-    return columns;
+    ArrayList<AbstractUIColumn> result = new ArrayList<AbstractUIColumn>();
+    findColumns(this, result, true);
+    return result;
   }
 
   public List<AbstractUIColumn> getRenderedColumns() {
-    final List<AbstractUIColumn> columns = new ArrayList<AbstractUIColumn>();
-    for (final AbstractUIColumn kid : ComponentUtils.findDescendantList(this, AbstractUIColumn.class)) {
-      if (kid.isRendered()) {
-        columns.add(kid);
+    ArrayList<AbstractUIColumn> result = new ArrayList<AbstractUIColumn>();
+    findColumns(this, result, false);
+    return result;
+  }
+
+  private void findColumns(final UIComponent component, final List<AbstractUIColumn> result, final boolean all) {
+    for (final UIComponent child : component.getChildren()) {
+      if (all || child.isRendered()) {
+        if (child instanceof AbstractUIColumn) {
+          result.add((AbstractUIColumn) child);
+        } else if (child instanceof AbstractUIData){
+          // ignore nested sheets
+        } else {
+          findColumns(child, result, all);
+        }
       }
     }
-    return columns;
   }
 
 /*  public MethodBinding getSortActionListener() {
