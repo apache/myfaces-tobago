@@ -329,6 +329,7 @@ Tobago.Menu.init = function(elements) {
     var menu = jQuery(this);
     var hidden = menu.nextAll("input[type=hidden]").first();
     hidden.val(menu.data("tobago-value"));
+    Tobago.Menu.closeAll();
   });
 
   // selectBoolean
@@ -337,6 +338,7 @@ Tobago.Menu.init = function(elements) {
     var menu = jQuery(this);
     var hidden = menu.nextAll("input[type=hidden]").first();
     hidden.val(hidden.val() == "true" ? "false" : "true");
+    Tobago.Menu.closeAll();
   });
 
   // IE6 select-tag fix
@@ -385,6 +387,18 @@ Tobago.Menu.init = function(elements) {
     return false;
   });
 
+  // prevent default
+  var menu = Tobago.Utils.selectWidthJQuery(elements, ".tobago-menu");
+  menu.each(function() {
+    var menuItem = jQuery(this);
+    if (menuItem.children("ol").size() > 0) {
+      menuItem.click(function(event) {
+        console.info("prevent default");
+        event.preventDefault();
+        return false;
+      });
+    }
+  });
 };
 
 jQuery.tobagoMenuParent = function(element) {
