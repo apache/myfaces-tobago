@@ -19,7 +19,7 @@ Tobago.Utils = {};
 
 /**
  *
- * @param id A JSF client id, type=string
+ * @param id A JSF client id, type=string. Example: escapeClientId("page:input") -> "#page\\:input"
  * @return A string which can be used as a jQuery selector.
  */
 Tobago.Utils.escapeClientId = function(id) {
@@ -113,7 +113,3 @@ Tobago.Utils.keepElementInVisibleArea = function(elements) {
 Tobago.Utils.acceleratorKeyEvent = function() {
   return Tobago.browser.isWebkit || Tobago.browser.isGecko ? 'keydown' : 'keypress';
 };
-
-// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-TbgTimer.endTbgJs = new Date(); // @DEV_ONLY
