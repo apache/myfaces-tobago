@@ -542,9 +542,8 @@ public class RenderUtils {
 
       final String link = component.getLink();
       if (link.startsWith("/")) { // internal absolute link
-        url = viewHandler.getActionURL(facesContext, link);
-        url = externalContext.encodeActionURL(url);
-      } else if (link.contains(":")) { // external link
+        url = externalContext.encodeResourceURL(externalContext.getRequestContextPath() + link);
+      } else if (StringUtils.isUrl(link)) { // external link
         url = link;
       } else { // internal relative link
         url = externalContext.encodeResourceURL(link);
