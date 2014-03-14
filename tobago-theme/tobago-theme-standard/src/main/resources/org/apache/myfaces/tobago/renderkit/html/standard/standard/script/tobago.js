@@ -997,9 +997,52 @@ var Tobago = {
 /*
     Tobago.Utils.selectWidthJQuery(elements, "[data-tobago-style]").each(function () {
       var element = jQuery(this);
+      if (Tobago.browser.isMsie678) { // IE before 9 doen't support multiple backgrounds, so we use only the first.
+        Tobago.fixMultiBackgroundIE8(element);
+      }
       element.css(element.data("tobago-style"));
     });
 */
+  },
+
+  /* supports only two background images in the moment */
+  fixMultiBackgroundIE8: function (element) {
+    var style = element.data("tobago-style");
+    var index;
+    var backgroundImage = style.backgroundImage;
+    var backgroundImage2;
+    if (backgroundImage) {
+      index = backgroundImage.indexOf(",");
+      if (index > -1) {
+        style.backgroundImage = backgroundImage.substring(0, index);
+        backgroundImage2 = backgroundImage.substring(index + 1);
+      }
+    }
+    var backgroundPosition = style.backgroundPosition;
+    var backgroundPosition2;
+    if (backgroundPosition) {
+      index = backgroundPosition.indexOf(",");
+      if (index > -1) {
+        style.backgroundPosition = backgroundPosition.substring(0, index);
+        backgroundPosition2 = backgroundPosition.substring(index + 1);
+      }
+    }
+    if (backgroundImage2) {
+      var extra = jQuery("<span>").appendTo(element);
+      extra.css({
+        backgroundImage: backgroundImage2,
+        backgroundPosition: backgroundPosition2,
+        backgroundRepeat: "no-repeat",
+        position: "absolute",
+        left: "0",
+        right: "0",
+        top: "0",
+        bottom: "0"
+      });
+      element.css({
+        position: "relative"
+      });
+    }
   },
 
   preventFrameAttacks: function() {

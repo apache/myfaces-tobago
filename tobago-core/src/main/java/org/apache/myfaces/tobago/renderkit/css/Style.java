@@ -52,6 +52,7 @@ public class Style implements Serializable {
   private Measure paddingBottom;
   private Measure padding;
   private String backgroundImage;
+  private String backgroundPosition;
   private Integer zIndex;
   private TextAlign textAlign;
 
@@ -78,6 +79,7 @@ public class Style implements Serializable {
     this.paddingBottom = map.paddingBottom;
     this.padding = map.padding;
     this.backgroundImage = map.backgroundImage;
+    this.backgroundPosition = map.backgroundPosition;
     this.zIndex = map.zIndex;
     this.textAlign = map.textAlign;
   }
@@ -213,6 +215,11 @@ public class Style implements Serializable {
       buf.append(backgroundImage);
       buf.append(';');
     }
+    if (backgroundPosition != null) {
+      buf.append("background-position:");
+      buf.append(backgroundPosition);
+      buf.append(';');
+    }
     if (zIndex != null) {
       buf.append("z-index:");
       buf.append(zIndex);
@@ -322,6 +329,11 @@ public class Style implements Serializable {
     if (backgroundImage != null) {
       buf.append("\"backgroundImage\":\"");
       buf.append(backgroundImage);
+      buf.append("\",");
+    }
+    if (backgroundPosition != null) {
+      buf.append("\"backgroundPosition\":\"");
+      buf.append(backgroundPosition);
       buf.append("\",");
     }
     if (zIndex != null) {
@@ -493,6 +505,14 @@ public class Style implements Serializable {
 
   public void setBackgroundImage(final String backgroundImage) {
     this.backgroundImage = backgroundImage;
+  }
+
+  public String getBackgroundPosition() {
+    return backgroundPosition;
+  }
+
+  public void setBackgroundPosition(String backgroundPosition) {
+    this.backgroundPosition = backgroundPosition;
   }
 
   public Integer getZIndex() {

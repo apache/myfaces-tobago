@@ -557,15 +557,6 @@ li.tobago-menu-markup-selected {
   border-style: solid;
 }
 
-.tobago-menu-subitem-ancor {
-  margin-right: 20px;
-}
-
-.tobago-menu-subitem-arrow {
-  float: right;
-  margin-top: -17px;
-}
-
 .tobago-menu-contextMenu, .tobago-menu-dropDownMenu {
   display: inline;
   width: 0;
