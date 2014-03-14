@@ -174,11 +174,10 @@ public class CommandRendererHelper {
       }
     } else if (component.getLink() != null) {
 
-      String link = component.getLink();
+      final String link = component.getLink();
       if (link.startsWith("/")) { // internal absolute link
-        url = viewHandler.getActionURL(facesContext, link);
-        url = externalContext.encodeActionURL(url);
-      } else if (link.contains(":")) { // external link
+        url = externalContext.encodeResourceURL(externalContext.getRequestContextPath() + link);
+      } else if (org.apache.myfaces.tobago.internal.util.StringUtils.isUrl(link)) { // external link
         url = link;
       } else { // internal relative link
         url = externalContext.encodeResourceURL(link);
