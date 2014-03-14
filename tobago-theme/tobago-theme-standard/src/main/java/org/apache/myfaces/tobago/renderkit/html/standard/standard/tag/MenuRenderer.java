@@ -67,18 +67,41 @@ public class MenuRenderer extends LayoutComponentRendererBase {
 
     writer.startElement(HtmlElements.LI, menu);
     writer.writeClassAttribute(Classes.create(menu));
+    StringBuilder backgroundImage = null;
+    StringBuilder backgroundPosition = null;
     if (menu.getImage() != null) {
+      backgroundImage = new StringBuilder();
+      backgroundPosition = new StringBuilder();
+
+      backgroundImage.append("url('");
+      backgroundImage.append(
+          ResourceManagerUtils.getImageOrDisabledImageWithPath(facesContext, menu.getImage(), menu.isDisabled()));
+      backgroundImage.append( "')");
+      backgroundPosition.append("left center");
+    }
+    if (isParentMenu && !firstLevel) {
+      if (backgroundImage == null) {
+        backgroundImage = new StringBuilder();
+        backgroundPosition = new StringBuilder();
+      } else {
+        backgroundImage.append(",");
+        backgroundPosition.append(",");
+      }
+
+      backgroundImage.append("url('");
+      backgroundImage.append(
+          ResourceManagerUtils.getImageOrDisabledImageWithPath(facesContext, "image/MenuArrow.gif", menu.isDisabled()));
+      backgroundImage.append( "')");
+      backgroundPosition.append("right center");
+    }
+    if (backgroundImage != null) {
       final Style style = new Style();
-      style.setBackgroundImage("url('"
-          + ResourceManagerUtils.getImageOrDisabledImageWithPath(facesContext, menu.getImage(), menu.isDisabled())
-          + "')");
+      style.setBackgroundImage(backgroundImage.toString());
+      style.setBackgroundPosition(backgroundPosition.toString());
       writer.writeStyleAttribute(style);
     }
     writer.startElement(HtmlElements.A, menu);
     writer.writeAttribute(HtmlAttributes.HREF, "#", false);
-    if (isParentMenu && !firstLevel) {
-      writer.writeClassAttribute(Classes.create(menu, "subitem-ancor"));
-    }
     if (component != null && !component.isTransient()) {
       writer.writeIdAttribute(component.getClientId(facesContext));
     }
@@ -98,14 +121,6 @@ public class MenuRenderer extends LayoutComponentRendererBase {
     }
     writer.endElement(HtmlElements.A);
     if (isParentMenu) {
-      if (!firstLevel) {
-        writer.startElement(HtmlElements.IMG, menu);
-        final String arrow = ResourceManagerUtils
-            .getImageOrDisabledImageWithPath(facesContext, "image/MenuArrow.gif", menu.isDisabled());
-        writer.writeAttribute(HtmlAttributes.SRC, arrow, false);
-        writer.writeClassAttribute(Classes.create(menu, "subitem-arrow"));
-        writer.endElement(HtmlElements.IMG);
-      }
       writer.startElement(HtmlElements.OL, menu);
     }
   }
