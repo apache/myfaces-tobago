@@ -36,6 +36,9 @@ import java.io.StringWriter;
  */
 public class IndexThemeMojo extends AbstractThemeMojo {
 
+  private static final char FILE_SEPARATOR = System.getProperty("file.separator").charAt(0);
+  private static final boolean FILE_SEPARATOR_IS_SLASH = (FILE_SEPARATOR == '/');
+
   private static final String[] EXCLUDES = new String[]{
       "META-INF/**/*",
       "**/*.class"
@@ -78,7 +81,7 @@ public class IndexThemeMojo extends AbstractThemeMojo {
     scanner.scan();
 
     final String[] fileNames = scanner.getIncludedFiles();
-    if (fileNames != null && fileNames.length == 0) {
+    if (fileNames == null || fileNames.length == 0) {
       getLog().info("Skipping create resource file " + tobagoResourcesFile.getName() + ". No resources found");
       return;
     }
@@ -94,9 +97,13 @@ public class IndexThemeMojo extends AbstractThemeMojo {
       try {
         final StringWriter stringWriter = new StringWriter();
         bufferedWriter = new BufferedWriter(stringWriter);
-        for (final String file : scanner.getIncludedFiles()) {
+        for (final String file : fileNames) {
           bufferedWriter.append('/');
-          bufferedWriter.append(file);
+          if (FILE_SEPARATOR_IS_SLASH) {
+            bufferedWriter.append(file);
+          } else {
+            bufferedWriter.append(convertFileSeparatorToSlash(file));
+          }
           bufferedWriter.newLine();
         }
         bufferedWriter.flush();
@@ -109,6 +116,10 @@ public class IndexThemeMojo extends AbstractThemeMojo {
     } else {
       getLog().info("Skipping create resource file " + tobagoResourcesFile.getName());
     }
+  }
+
+  private String convertFileSeparatorToSlash(String file) {
+    return file.replace(FILE_SEPARATOR, '/');
   }
 
   public String[] getExcludes() {
