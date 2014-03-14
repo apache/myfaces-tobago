@@ -443,4 +443,23 @@ public final class StringUtils {
   public static String defaultString(final String string) {
     return string == null ? "" : string;
   }
+
+  /**
+   * Checks if the String starts like a url, e.g. http: or xyz:
+   */
+  public static boolean isUrl(final String link) {
+    if (link == null) {
+      return false;
+    }
+    int colon = link.indexOf(':');
+    if (colon < 0) {
+      return false;
+    }
+    for (int i = 0; i < colon; i++) {
+      if (!Character.isLetter(link.charAt(i))) {
+        return false;
+      }
+    }
+    return true;
+  }
 }
