@@ -908,8 +908,9 @@
                 <configuration>
                   <rules>
                     <requireJavaVersion>
-                      <message>A Tobago release must be compiled with Java 5</message>
-                      <version>[1.5.0,1.5.0-21]</version>
+                      <!-- must runable with Java JDK 1.5 -->
+                      <message>A Tobago release must be compiled with Java 5 or Java 6.</message>
+                      <version>[1.5.0,1.6.0]</version>
                     </requireJavaVersion>
                   </rules>
                 </configuration>
