@@ -171,7 +171,7 @@ public final class StringUtils {
       return false;
     }
     int colon = link.indexOf(':');
-    if (colon < 0) {
+    if (colon < 1) {
       return false;
     }
     for (int i = 0; i < colon; i++) {
