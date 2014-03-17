@@ -42,7 +42,6 @@ import org.apache.myfaces.tobago.model.ExpandedState;
 import org.apache.myfaces.tobago.model.SelectedState;
 import org.apache.myfaces.tobago.model.SheetState;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRenderer;
-import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.util.CreateComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -618,8 +617,8 @@ public abstract class AbstractUISheet extends AbstractUIData
   public void onComponentPopulated(final FacesContext facesContext, final UIComponent parent) {
     if (getLayoutManager() instanceof AbstractUIGridLayout) {
       // ugly, but it seems that some old pages have this problem
-      LOG.warn("Found a GridLayout as layout facet in sheet. Will be ignored! Please remove it." +
-          " The id of the sheet is: '" + getClientId(facesContext) + "'");
+      LOG.warn("Found a GridLayout as layout facet in sheet. Will be ignored! Please remove it."
+          + " The id of the sheet is: '" + getClientId(facesContext) + "'");
       getFacets().remove(Facets.LAYOUT);
     }
     if (getLayoutManager() == null) {
