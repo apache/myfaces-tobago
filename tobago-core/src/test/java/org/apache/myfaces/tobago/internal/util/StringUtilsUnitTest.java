@@ -37,4 +37,18 @@ public class StringUtilsUnitTest {
     Assert.assertFalse(StringUtils.equalsIgnoreCaseAndWhitespace(";", ";;"));
     Assert.assertFalse(StringUtils.equalsIgnoreCaseAndWhitespace(" a ", " ä "));
   }
+
+  @Test
+  public void testIsUrl() {
+    Assert.assertTrue(StringUtils.isUrl("http://www.apache.org/"));
+    Assert.assertTrue(StringUtils.isUrl("http:"));
+    Assert.assertTrue(StringUtils.isUrl("ftp:"));
+    Assert.assertTrue(StringUtils.isUrl("abc:fjdskal:fdsa"));
+
+    Assert.assertFalse(StringUtils.isUrl(null));
+    Assert.assertFalse(StringUtils.isUrl("null"));
+    Assert.assertFalse(StringUtils.isUrl("/test"));
+    Assert.assertFalse(StringUtils.isUrl("test.xhtml?id=#page:input"));
+    Assert.assertFalse(StringUtils.isUrl(":test"));
+  }
 }
