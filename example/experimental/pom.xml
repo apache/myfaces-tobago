@@ -20,7 +20,7 @@
   <parent>
     <groupId>org.apache.myfaces.tobago</groupId>
     <artifactId>tobago-example</artifactId>
-    <version>1.0.41-SNAPSHOT</version>
+    <version>1.0.41</version>
   </parent>
   <artifactId>tobago-example-experimental</artifactId>
   <packaging>war</packaging>  
@@ -42,9 +42,9 @@
   </build>
 
   <scm>
-    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/tobago/branches/tobago-1.0.x/example/experimental</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/tobago/branches/tobago-1.0.x/example/experimental</developerConnection>
-    <url>http://svn.apache.org/viewvc/myfaces/tobago/branches/tobago-1.0.x/example/experimental</url>
+    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/tobago/tags/tobago-1.0.41/example/experimental</connection>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/tobago/tags/tobago-1.0.41/example/experimental</developerConnection>
+    <url>http://svn.apache.org/viewvc/myfaces/tobago/tags/tobago-1.0.41/example/experimental</url>
   </scm>
 
   <dependencies>
