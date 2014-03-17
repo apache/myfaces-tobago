@@ -894,6 +894,7 @@
               </execution>
             </executions>
           </plugin>
+<!--
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-enforcer-plugin</artifactId>
@@ -908,7 +909,7 @@
                 <configuration>
                   <rules>
                     <requireJavaVersion>
-                      <!-- must runable with Java JDK 1.5 -->
+                      &lt;!&ndash; must runable with Java JDK 1.5 &ndash;&gt;
                       <message>A Tobago release must be compiled with Java 5 or Java 6.</message>
                       <version>[1.5.0,1.6.0]</version>
                     </requireJavaVersion>
@@ -917,7 +918,8 @@
               </execution>
             </executions>
           </plugin>
-          
+-->
+
           <plugin>
             <artifactId>maven-source-plugin</artifactId>
             <version>2.0.2</version>
