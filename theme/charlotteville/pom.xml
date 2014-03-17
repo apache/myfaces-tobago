@@ -20,15 +20,15 @@
   <parent>
     <groupId>org.apache.myfaces.tobago</groupId>
     <artifactId>tobago-theme</artifactId>
-    <version>1.0.41</version>
+    <version>1.0.42-SNAPSHOT</version>
   </parent>
   <artifactId>tobago-theme-charlotteville</artifactId>
   <name>Theme Charlotteville</name>
 
   <scm>
-    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/tobago/tags/tobago-1.0.41/theme/charlotteville</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/tobago/tags/tobago-1.0.41/theme/charlotteville</developerConnection>
-    <url>http://svn.apache.org/viewvc/myfaces/tobago/tags/tobago-1.0.41/theme/charlotteville</url>
+    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/tobago/branches/tobago-1.0.x/theme/charlotteville</connection>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/tobago/branches/tobago-1.0.x/theme/charlotteville</developerConnection>
+    <url>http://svn.apache.org/viewvc/myfaces/tobago/branches/tobago-1.0.x/theme/charlotteville</url>
   </scm>
 
   <dependencies>
