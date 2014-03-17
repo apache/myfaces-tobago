@@ -1,6 +1,6 @@
 /**
- * <b>Tobago Framework Sandbox Tag Library -
- * (C) Copyright 2002-2008 The Apache Software Foundation</b>
+ * <b>Tobago Framework Sandbox Tag Library 1.0.x -
+ * (C) Copyright 2005-2014 The Apache Software Foundation</b>
  *
  * <b>Warning: The sandbox tag library contains unstable components.
  * Everything is subject to change without prior notice.</b>
