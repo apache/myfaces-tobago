@@ -20,7 +20,7 @@
   <parent>
     <groupId>org.apache.myfaces.tobago</groupId>
     <artifactId>tobago</artifactId>
-    <version>1.5.13</version>
+    <version>1.5.14-SNAPSHOT</version>
   </parent>
   <packaging>pom</packaging>
   <name>Tobago Themes</name>
