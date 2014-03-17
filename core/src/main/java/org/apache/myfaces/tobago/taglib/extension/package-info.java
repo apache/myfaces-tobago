@@ -5,7 +5,8 @@
 @org.apache.myfaces.tobago.apt.annotation.Taglib(
     shortName = "tx",
     uri = "http://myfaces.apache.org/tobago/extension",
-    fileName = "tobago-extension.tld", displayName = "Tobago Extensions") /*
+    fileName = "tobago-extension.tld",
+    displayName = "Tobago Extensions 1.0.x") /*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information

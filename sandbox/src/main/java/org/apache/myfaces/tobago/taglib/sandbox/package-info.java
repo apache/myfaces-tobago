@@ -8,7 +8,8 @@
 @org.apache.myfaces.tobago.apt.annotation.Taglib(
     shortName = "tcs",
     uri = "http://myfaces.apache.org/tobago/sandbox",
-    fileName = "tobago-sandbox.tld", displayName = "Tobago Sandbox") /*
+    fileName = "tobago-sandbox.tld",
+    displayName = "Tobago Sandbox 1.0.x") /*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information

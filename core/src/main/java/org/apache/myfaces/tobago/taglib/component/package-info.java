@@ -8,7 +8,8 @@
     listener = {
         "org.apache.myfaces.tobago.webapp.TobagoServletContextListener",
         "org.apache.myfaces.tobago.webapp.SecretSessionListener"},
-    fileName = "tobago.tld", displayName = "Tobago Components")
+    fileName = "tobago.tld",
+    displayName = "Tobago Components 1.0.x")
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
