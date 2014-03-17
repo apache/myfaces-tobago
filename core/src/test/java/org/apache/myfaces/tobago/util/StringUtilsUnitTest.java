@@ -33,4 +33,17 @@ public class StringUtilsUnitTest extends TestCase {
     assertEquals("Xxx", StringUtils.firstToUpperCase("Xxx"));
     assertEquals(" x ", StringUtils.firstToUpperCase(" x "));
   }
+
+  public void testIsUrl() {
+    assertTrue(StringUtils.isUrl("http://www.apache.org/"));
+    assertTrue(StringUtils.isUrl("http:"));
+    assertTrue(StringUtils.isUrl("ftp:"));
+    assertTrue(StringUtils.isUrl("abc:fjdskal:fdsa"));
+
+    assertFalse(StringUtils.isUrl(null));
+    assertFalse(StringUtils.isUrl("null"));
+    assertFalse(StringUtils.isUrl("/test"));
+    assertFalse(StringUtils.isUrl("test.xhtml?id=#page:input"));
+    assertFalse(StringUtils.isUrl(":test"));
+  }
 }

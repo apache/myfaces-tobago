@@ -31,7 +31,7 @@ public interface HasLink {
    *   <dd>Starts with a slash '/' character. The context path will be added.
    *       A session id will be added, if needed.</dd>
    *   <dt>external link</dt>
-   *   <dd>Contains a colon ':' character.
+   *   <dd>Starts with protocol followed by ':' character.
    *       The link will not be modified.</dd>
    *   <dt>internal relative link</dt>
    *   <dd>Any other strings. A session id will be added, if needed.</dd>
