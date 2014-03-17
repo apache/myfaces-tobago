@@ -1,5 +1,3 @@
-package org.apache.myfaces.tobago.renderkit.util;
-
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -18,6 +16,8 @@ package org.apache.myfaces.tobago.renderkit.util;
  * specific language governing permissions and limitations
  * under the License.
  */
+
+package org.apache.myfaces.tobago.renderkit.util;
 
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.SupportsMarkup;

@@ -728,9 +728,9 @@ public class SheetRenderer extends LayoutComponentRendererBase {
 
     final Grid grid = sheet.getHeaderGrid();
     if (grid == null) {
-      LOG.warn("Can't render column headers, because grid == null. One reason can be, the you use nested sheets. " +
-          "The inner sheet ensureHeader() will be called outside the iterating over the rows. " +
-          "Nesting sheet is currently not supported.");
+      LOG.warn("Can't render column headers, because grid == null. One reason can be, the you use nested sheets. "
+          + "The inner sheet ensureHeader() will be called outside the iterating over the rows. "
+          + "Nesting sheet is currently not supported.");
       return;
     }
     final List<Integer> columnWidths = sheet.getWidthList();
