@@ -523,7 +523,7 @@ li.tobago-menu-markup-selected {
 
 .tobago-menu {
   white-space: nowrap;
-  padding: 2px 3px 2px 25px;
+  padding: 2px 18px 2px 25px;
   background-repeat: no-repeat; /* prepare for images via element style */
   background-position: 5px center;
 }
