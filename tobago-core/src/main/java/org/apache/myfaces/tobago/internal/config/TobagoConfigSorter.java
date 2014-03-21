@@ -65,8 +65,6 @@ public class TobagoConfigSorter implements Comparator<TobagoConfigFragment> {
   }
 
   public TobagoConfigImpl merge() {
-// todo
-    LOG.warn("Merge implementation in progress...)");
 
     final TobagoConfigImpl result = new TobagoConfigImpl();
 
@@ -88,8 +86,13 @@ public class TobagoConfigSorter implements Comparator<TobagoConfigFragment> {
       }
 
       // renderers config
-      // TODO: merging not implemented yet!!!
-      result.setRenderersConfig(fragment.getRenderersConfig());
+      if (fragment.getRenderersConfig() != null) {
+        if (result.getRenderersConfig() instanceof RenderersConfigImpl) {
+          ((RenderersConfigImpl) result.getRenderersConfig()).merge(fragment.getRenderersConfig(), false);
+        } else if (result.getRenderersConfig() == null) {
+          result.setRenderersConfig(fragment.getRenderersConfig());
+        }
+      }
 
       // session secret
       if (fragment.getCreateSessionSecret() != null) {
