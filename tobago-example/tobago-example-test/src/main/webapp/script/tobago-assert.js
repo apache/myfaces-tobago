@@ -21,6 +21,8 @@
 
 var TobagoAssert = {
 
+  failed: false,
+
   assertLeft:function (elementOrId, left, epsilon) {
     var element = TobagoAssert.jQueryElement(elementOrId);
     epsilon = epsilon != null ? epsilon : 0;
@@ -68,7 +70,14 @@ var TobagoAssert = {
     } else {
       text = name + ": expected=" + expected + " actual=" + actual;
     }
-    console.assert(false, text);
+    TobagoAssert.assert(false, text);
+  },
+
+  assert: function (test, text) {
+    console.assert(test, text);
+    if (!test) {
+      TobagoAssert.failed = true;
+    }
   },
 
   assertLayout:function (elementOrId, left, top, width, height) {
@@ -81,28 +90,29 @@ var TobagoAssert = {
 
   assertAbsence:function (id) {
     var element = document.getElementById(id);
-    console.assert(element == null, "The element with id=" + id + " was found, but should not!");
+    var result = element == null;
+    TobagoAssert.assert(result, "The element with id=" + id + " was found, but should not!");
   },
 
   assertAttribute:function (elementOrId, attribute, expected) {
-    console.assert("value" != attribute,
+    TobagoAssert.assert("value" != attribute,
       "The assertAttribute() is not allowed for the value attribute, please use assertValue() instead.");
     var element = TobagoAssert.jQueryElement(elementOrId);
-    console.assert(element.attr(attribute) == expected,
+    TobagoAssert.assert(element.attr(attribute) == expected,
       "The attribute '" + attribute + "' of element with id=" + element.attr('id')
           + " is '" + element.attr(attribute) + "', but expected was '" + expected + "'.");
   },
 
   assertValue:function (elementOrId, expected) {
     var element = TobagoAssert.jQueryElement(elementOrId);
-    console.assert(element.val() == expected,
+    TobagoAssert.assert(element.val() == expected,
         "The value of element with id=" + element.attr('id')
         + " is '" + element.val() + "', but expected was '" + expected + "'.");
   },
 
   assertContent:function (elementOrId, expected) {
     var element = TobagoAssert.jQueryElement(elementOrId);
-    console.assert(element.html() == expected,
+    TobagoAssert.assert(element.html() == expected,
         "The content of element with id=" + element.attr('id')
           + " is '" + element.html() + "', but expected was '" + expected + "'.");
   },

@@ -54,7 +54,7 @@ public class TobagoSelenium extends DefaultSelenium {
     if (location.endsWith(".xhtml") || location.endsWith(".jspx")) {
       try {
         if (isErrorOnPage()) {
-          Assert.fail(format(HAS_ERROR_SEVERITY, location, html, getErrors()));
+          Assert.fail(format(HAS_ERROR_SEVERITY, location, html, "TobagoAssert.failed"));
         }
       } catch (final SeleniumException e) {
         Assert.fail(format(IS_BROKEN, location, html, "Not a Tobago page? Exception=" + e));
@@ -90,11 +90,7 @@ public class TobagoSelenium extends DefaultSelenium {
    *          If the page is not a Tobago page, or any other problem with JavaScript or the page.
    */
   protected boolean isErrorOnPage() throws SeleniumException {
-    final String errorSeverity = getEval("window.LOG.getMaximumSeverity() >= window.LOG.ERROR");
+    final String errorSeverity = getEval("window.TobagoAssert && window.TobagoAssert.failed");
     return Boolean.parseBoolean(errorSeverity);
-  }
-
-  protected String getErrors() throws SeleniumException {
-    return getEval("window.LOG.getMessages(window.LOG.INFO)");
   }
 }
