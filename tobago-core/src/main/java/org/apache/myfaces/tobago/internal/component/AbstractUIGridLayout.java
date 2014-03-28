@@ -195,6 +195,8 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase implemen
                 orientation == Orientation.HORIZONTAL ? "columns" : "rows",
                 getClientId(getFacesContext()));
           }
+        } else {
+          heads[i].setCurrent(Measure.ZERO);
         }
       }
       i++;
