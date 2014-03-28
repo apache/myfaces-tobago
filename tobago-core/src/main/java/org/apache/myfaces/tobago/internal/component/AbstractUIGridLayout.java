@@ -190,11 +190,13 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase implemen
             heads[i].setCurrent(intervalList.getCurrent());
           } else {
             heads[i].setCurrent(Measure.valueOf(100));
-            LOG.warn("Found an 'auto' token in {} definition, but there is no component inside with span = 1! " +
-                "So the value for 'auto' can't be evaluated (clientId={}). Using 100px.",
+            LOG.warn("Found an 'auto' token in {} definition, but there is no component inside with span = 1! "
+                + "So the value for 'auto' can't be evaluated (clientId={}). Using 100px.",
                 orientation == Orientation.HORIZONTAL ? "columns" : "rows",
                 getClientId(getFacesContext()));
           }
+        } else {
+          heads[i].setCurrent(Measure.ZERO);
         }
       }
       i++;
