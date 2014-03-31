@@ -32,6 +32,10 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutCompone
 
 import javax.faces.component.UIOutput;
 
+/**
+ * Show external content inside of an application.
+ * This will typically renders an iframe tag.
+ */
 @Tag(name = "object", bodyContent = BodyContent.EMPTY)
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIObject",
@@ -42,10 +46,20 @@ import javax.faces.component.UIOutput;
     allowedChildComponenents = "NONE")
 public interface ObjectTagDeclaration extends HasIdBindingAndRendered, IsGridLayoutComponent, HasMarkup,
     HasCurrentMarkup {
+
   /**
    * URI to object source
    */
-  @TagAttribute()
-  @UIComponentTagAttribute()
+  @TagAttribute
+  @UIComponentTagAttribute
   void setSrc(String src);
+
+  /**
+   * Name of the element.
+   * If not set the id will be used as name. The id in JSF normally contains colons.
+   * This doesn't work in Internet Explorer 9 and lower when using window.open(src, target).
+   */
+  @TagAttribute
+  @UIComponentTagAttribute
+  void setName(String name);
 }
