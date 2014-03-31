@@ -24,17 +24,10 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
   * $Id$
   */
 
+import org.apache.commons.lang.ObjectUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.commons.lang.StringUtils;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_IMAGE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_MENU_POPUP;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_MENU_POPUP_TYPE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_PAGE_MENU;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_VALUE;
-import static org.apache.myfaces.tobago.TobagoConstants.FACET_ITEMS;
-import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIMenu;
 import org.apache.myfaces.tobago.component.UIMenuCommand;
@@ -69,6 +62,15 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
+
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_IMAGE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_MENU_POPUP;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_MENU_POPUP_TYPE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_PAGE_MENU;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_VALUE;
+import static org.apache.myfaces.tobago.TobagoConstants.FACET_ITEMS;
+import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
 
 public class MenuBarRenderer extends LayoutableRendererBase {
 
@@ -428,7 +430,7 @@ public class MenuBarRenderer extends LayoutableRendererBase {
           = RenderUtil.getFormattedValue(facesContext, radio, item.getValue());
       onclick = onClickPrefix + formattedValue + onClickPostfix;
       String image;
-      if (item.getValue().equals(value) || markFirst) {
+      if (ObjectUtils.equals(item.getValue(), value) || markFirst) {
         image = "image/MenuRadioChecked.gif";
         markFirst = false;
         sb.append("    ").append(onClickPrefix).append(formattedValue).append("');");

@@ -24,12 +24,9 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * $Id$
  */
 
+import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_INLINE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_READONLY;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_REQUIRED;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UISelectOne;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
@@ -48,6 +45,11 @@ import javax.faces.model.SelectItem;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_INLINE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_READONLY;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_REQUIRED;
 
 public class SelectOneRadioRenderer extends SelectOneRendererBase {
 
@@ -102,6 +104,7 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
     boolean readonly = ComponentUtil.getBooleanAttribute(selectOne, ATTR_READONLY);
     Object value = selectOne.getValue();
     List<String> clientIds = new ArrayList<String>();
+    int i = 0;
     for (SelectItem item : items) {
 
       if (!inline) {
@@ -109,13 +112,12 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
         writer.startElement(HtmlConstants.TD, null);
       }
 
-      String id = clientId + NamingContainer.SEPARATOR_CHAR
-          + NamingContainer.SEPARATOR_CHAR + item.getValue().toString();
+      String id = clientId + NamingContainer.SEPARATOR_CHAR + NamingContainer.SEPARATOR_CHAR + i++;
       clientIds.add(id);
       writer.startElement(HtmlConstants.INPUT, selectOne);
       writer.writeAttribute(HtmlAttributes.TYPE, "radio", false);
       writer.writeClassAttribute();
-      boolean checked = item.getValue().equals(value);
+      boolean checked = ObjectUtils.equals(item.getValue(), value);
       if (checked) {
         writer.writeAttribute(HtmlAttributes.CHECKED, "checked", false);
       }

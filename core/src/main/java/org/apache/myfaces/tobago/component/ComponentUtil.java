@@ -19,6 +19,7 @@
 
 package org.apache.myfaces.tobago.component;
 
+import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.math.NumberUtils;
 import org.apache.commons.logging.Log;
@@ -938,7 +939,7 @@ public class ComponentUtil {
 
   public static boolean hasSelectedValue(List<SelectItem> items, Object value) {
     for (SelectItem item : items) {
-      if (item.getValue().equals(value)) {
+      if (ObjectUtils.equals(item.getValue(), value)) {
         return true;
       }
     }

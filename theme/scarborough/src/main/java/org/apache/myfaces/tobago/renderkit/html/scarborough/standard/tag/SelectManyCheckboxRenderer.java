@@ -26,7 +26,6 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_INLINE;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UISelectMany;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
@@ -45,6 +44,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_INLINE;
 
 public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
 
@@ -83,15 +84,14 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
       }
     }
     List<String> clientIds = new ArrayList<String>();
+    int i = 0;
     for (SelectItem item : items) {
 
       if (!inline) {
         writer.startElement(HtmlConstants.TR, null);
         writer.startElement(HtmlConstants.TD, null);
       }
-      String itemId = id
-          + NamingContainer.SEPARATOR_CHAR + NamingContainer.SEPARATOR_CHAR
-          + item.getValue().toString();
+      String itemId = id + NamingContainer.SEPARATOR_CHAR + NamingContainer.SEPARATOR_CHAR + i++;
       clientIds.add(itemId);
       writer.startElement(HtmlConstants.INPUT, selectMany);
       writer.writeAttribute(HtmlAttributes.TYPE, "checkbox", false);

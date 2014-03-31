@@ -19,19 +19,7 @@
 
 package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ICON_SIZE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_IMAGE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL_POSITION;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_MENU_POPUP;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_MENU_POPUP_TYPE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_VALUE;
-import static org.apache.myfaces.tobago.TobagoConstants.FACET_ITEMS;
-import static org.apache.myfaces.tobago.TobagoConstants.FACET_MENUPOPUP;
-import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_MENUBAR;
-import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
+import org.apache.commons.lang.ObjectUtils;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIMenuSelectOne;
 import org.apache.myfaces.tobago.component.UISelectBooleanCommand;
@@ -62,6 +50,20 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ICON_SIZE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_IMAGE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL_POSITION;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_MENU_POPUP;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_MENU_POPUP_TYPE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_VALUE;
+import static org.apache.myfaces.tobago.TobagoConstants.FACET_ITEMS;
+import static org.apache.myfaces.tobago.TobagoConstants.FACET_MENUPOPUP;
+import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_MENUBAR;
+import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
 
 public abstract class ToolBarRendererBase extends LayoutableRendererBase {
 
@@ -168,7 +170,7 @@ public abstract class ToolBarRendererBase extends LayoutableRendererBase {
             = RenderUtil.getFormattedValue(facesContext, radio, item.getValue());
         onclick = onClickPrefix + formattedValue + onClickPostfix;
         final boolean checked;
-        if (item.getValue().equals(value) || markFirst) {
+        if (ObjectUtils.equals(item.getValue(), value) || markFirst) {
           checked = true;
           markFirst = false;
           writer.writeJavascript("    " + onClickPrefix + formattedValue + "');");
