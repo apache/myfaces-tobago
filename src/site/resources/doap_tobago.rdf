@@ -38,28 +38,28 @@
     <release>
       <Version>
         <name>Latest stable release of 1.0.x</name>
-        <created>2013-03-04</created>
-        <revision>1.0.40</revision>
-        <file-release>http://www.apache.org/dyn/closer.cgi/myfaces/binaries/myfaces-tobago-1.0.40-dist.tar.gz</file-release>
-        <file-release>http://www.apache.org/dyn/closer.cgi/myfaces/binaries/myfaces-tobago-1.0.40-dist.zip</file-release>
+        <created>2014-03-25</created>
+        <revision>1.0.41</revision>
+        <file-release>http://www.apache.org/dyn/closer.cgi/myfaces/binaries/myfaces-tobago-1.0.41-dist.tar.gz</file-release>
+        <file-release>http://www.apache.org/dyn/closer.cgi/myfaces/binaries/myfaces-tobago-1.0.41-dist.zip</file-release>
       </Version>
     </release>
     <release>
       <Version>
         <name>Latest stable release of 1.5.x</name>
-        <created>2014-01-11</created>
-        <revision>1.5.12</revision>
-        <file-release>http://www.apache.org/dyn/closer.cgi/myfaces/binaries/myfaces-tobago-1.5.12-dist.tar.gz</file-release>
-        <file-release>http://www.apache.org/dyn/closer.cgi/myfaces/binaries/myfaces-tobago-1.5.12-dist.zip</file-release>
+        <created>2014-03-25</created>
+        <revision>1.5.13</revision>
+        <file-release>http://www.apache.org/dyn/closer.cgi/myfaces/binaries/myfaces-tobago-1.5.13-dist.tar.gz</file-release>
+        <file-release>http://www.apache.org/dyn/closer.cgi/myfaces/binaries/myfaces-tobago-1.5.13-dist.zip</file-release>
       </Version>
     </release>
     <release>
       <Version>
         <name>Latest stable release of 2.0.x</name>
-        <created>2014-01-07</created>
-        <revision>2.0.0-alpha-3</revision>
-        <file-release>http://www.apache.org/dyn/closer.cgi/myfaces/binaries/myfaces-tobago-2.0.0-alpha-3-dist.tar.gz</file-release>
-        <file-release>http://www.apache.org/dyn/closer.cgi/myfaces/binaries/myfaces-tobago-2.0.0-alpha-3-dist.zip</file-release>
+        <created>2014-03-31</created>
+        <revision>2.0.0-beta-2</revision>
+        <file-release>http://www.apache.org/dyn/closer.cgi/myfaces/binaries/myfaces-tobago-2.0.0-beta-2-dist.tar.gz</file-release>
+        <file-release>http://www.apache.org/dyn/closer.cgi/myfaces/binaries/myfaces-tobago-2.0.0-beta-2-dist.zip</file-release>
       </Version>
     </release>
     <repository>
