@@ -70,6 +70,7 @@ if (!console.log) {
   console.log = function (message, other) {
     var console = jQuery(".tobago-console");
     console.show();
+    var body = console.children(":last");
     var parameters = Array.prototype.slice.call(arguments).join(", ");
     parameters.substr(0, parameters.length - 2);
 
@@ -78,7 +79,7 @@ if (!console.log) {
     parameters = parameters.replace(/</g, "&lt;");
     parameters = parameters.replace(/>/g, "&gt;");
     parameters = parameters.replace(/"/g, "&quot;");
-    jQuery("<p>").appendTo(console).html("<pre>" + parameters + "</pre>");
+    jQuery("<p>").appendTo(body).html("<pre>" + parameters + "</pre>");
   };
 
   jQuery(document).ready(function () {
@@ -88,8 +89,8 @@ if (!console.log) {
       border: "5px solid red",
       padding: "10px",
       position: "absolute",
-      right: "0",
-      bottom: "0",
+      left: "200px",
+      top: "200px",
       backgroundColor: "#ffffff",
       filter: "alpha(opacity=70)",
       opacity: 0.7
@@ -99,6 +100,10 @@ if (!console.log) {
     header.css({
       border: "1px solid red",
       marginBottom: "5px"
+    });
+    var body = jQuery("<div>").appendTo(console);
+    body.css({
+      overflow: "auto"
     });
     header.css("background-color", "red");
     var title = jQuery("<span>simple console replacement</span>").appendTo(header);
@@ -112,7 +117,7 @@ if (!console.log) {
     clear.attr("type", "button");
     clear.append("Clear");
     clear.click(function () {
-      console.children("p").detach();
+      body.children("p").detach();
     });
   });
 }
