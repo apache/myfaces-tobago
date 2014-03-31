@@ -61,7 +61,11 @@ public class ClientProperties implements Serializable {
   @Deprecated
   private boolean debugMode;
 
+  /** @deprecated since Tobago 3.0 */
+  @Deprecated
   private Measure verticalScrollbarWeight;
+  /** @deprecated since Tobago 3.0 */
+  @Deprecated
   private Measure horizontalScrollbarWeight;
 
   private Measure pageWidth;
@@ -162,18 +166,26 @@ public class ClientProperties implements Serializable {
     FacesContext.getCurrentInstance().getViewRoot().setLocale(locale);
   }
 
+  /** @deprecated since Tobago 3.0 */
+  @Deprecated
   public Measure getVerticalScrollbarWeight() {
     return verticalScrollbarWeight;
   }
 
+  /** @deprecated since Tobago 3.0 */
+  @Deprecated
   public void setVerticalScrollbarWeight(final Measure verticalScrollbarWeight) {
     this.verticalScrollbarWeight = verticalScrollbarWeight;
   }
 
+  /** @deprecated since Tobago 3.0 */
+  @Deprecated
   public Measure getHorizontalScrollbarWeight() {
     return horizontalScrollbarWeight;
   }
 
+  /** @deprecated since Tobago 3.0 */
+  @Deprecated
   public void setHorizontalScrollbarWeight(final Measure horizontalScrollbarWeight) {
     this.horizontalScrollbarWeight = horizontalScrollbarWeight;
   }

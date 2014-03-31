@@ -71,7 +71,6 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.StringTokenizer;
 
 public class PageRenderer extends PageRendererBase {
 
@@ -90,28 +89,6 @@ public class PageRenderer extends PageRendererBase {
         externalContext.getRequestParameterMap().get(clientId + ComponentUtils.SUB_SEPARATOR + LAST_FOCUS_ID);
     if (lastFocusId != null) {
       FacesContextUtils.setFocusId(facesContext, lastFocusId);
-    }
-
-    // scrollbar weight
-    final String name = clientId + ComponentUtils.SUB_SEPARATOR + "scrollbarWeight";
-    String value = null;
-    try {
-      value = facesContext.getExternalContext().getRequestParameterMap().get(name);
-      if (StringUtils.isNotBlank(value)) {
-        final StringTokenizer tokenizer = new StringTokenizer(value, ";");
-        final Measure vertical = Measure.valueOf(tokenizer.nextToken());
-        final Measure horizontal = Measure.valueOf(tokenizer.nextToken());
-        if (vertical.greaterThan(Measure.valueOf(30)) || vertical.lessThan(Measure.valueOf(3))
-            || horizontal.greaterThan(Measure.valueOf(30)) || horizontal.lessThan(Measure.valueOf(3))) {
-          LOG.error("Ignoring strange values: vertical=" + vertical + " horizontal=" + horizontal);
-        } else {
-          final ClientProperties client = VariableResolverUtils.resolveClientProperties(facesContext);
-          client.setVerticalScrollbarWeight(vertical);
-          client.setHorizontalScrollbarWeight(horizontal);
-        }
-      }
-    } catch (final Exception e) {
-      LOG.error("Error in decoding '" + name + "': value='" + value + "'", e);
     }
   }
 
@@ -330,29 +307,6 @@ public class PageRenderer extends PageRendererBase {
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN, false);
     writer.writeNameAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "form-clientDimension");
     writer.writeIdAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "form-clientDimension");
-    writer.endElement(HtmlElements.INPUT);
-
-    final boolean calculateScrollbarWeight =
-        client.getVerticalScrollbarWeight() == null || client.getHorizontalScrollbarWeight() == null;
-
-    if (calculateScrollbarWeight) {
-      writer.startElement(HtmlElements.DIV, null);
-      writer.writeClassAttribute(Classes.create(page, "scrollbarWeight", Markup.NULL));
-      writer.startElement(HtmlElements.DIV, null);
-      writer.endElement(HtmlElements.DIV);
-      writer.endElement(HtmlElements.DIV);
-    }
-
-    writer.startElement(HtmlElements.INPUT, null);
-    writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN, false);
-    writer.writeNameAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "scrollbarWeight");
-    writer.writeIdAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "scrollbarWeight");
-    if (client.getVerticalScrollbarWeight() != null && client.getHorizontalScrollbarWeight() != null) {
-      writer.writeAttribute(
-          HtmlAttributes.VALUE,
-          client.getVerticalScrollbarWeight().getPixel() + ";" + client.getHorizontalScrollbarWeight().getPixel(),
-          false);
-    }
     writer.endElement(HtmlElements.INPUT);
 
     if (TobagoConfig.getInstance(FacesContext.getCurrentInstance()).isCheckSessionSecret()) {

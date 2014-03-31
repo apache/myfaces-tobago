@@ -937,6 +937,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
     writer.endElement(HtmlElements.DIV);
   }
 
+  // todo: remove
   private boolean needVerticalScrollbar(final FacesContext facesContext, final UISheet sheet) {
     final LayoutManager layoutManager = sheet.getLayoutManager();
     if (layoutManager instanceof AbstractUISheetLayout) {

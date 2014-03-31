@@ -258,6 +258,7 @@ Tobago.Sheet.setup2 = function (sheets) {
   });
 
 
+  // todo: remove this for Tobago 3.0
   // adjust body row filler cells if no scrollbar present but was calculated
   jQuery(sheets).find("[data-tobago-sheet-verticalscrollbarwidth]").each(function() {
     var table = jQuery(this);

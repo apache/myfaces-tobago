@@ -68,5 +68,7 @@ public interface LayoutComponentRenderer {
 
   Measure getPaddingBottom(FacesContext facesContext, Configurable component);
 
+  /** @deprecated since Tobago 3.0 */
+  @Deprecated
   Measure getVerticalScrollbarWeight(FacesContext facesContext, Configurable component);
 }

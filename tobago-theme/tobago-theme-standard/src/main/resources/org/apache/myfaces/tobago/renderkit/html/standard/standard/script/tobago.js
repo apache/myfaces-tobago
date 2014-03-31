@@ -302,7 +302,6 @@ var Tobago = {
       window.setTimeout(Tobago.registerResizeAction, 1000);
     }
 
-    Tobago.ensureScrollbarWeights();
     window.setTimeout(Tobago.finishPageLoading, 1);
     console.timeEnd("[tobago] init (main thread)"); // @DEV_ONLY
   },
@@ -1067,23 +1066,6 @@ var Tobago = {
   selectWidthJQuery: function(elements, selector) {
     console.warn("Deprecated method was called. Please use Tobago.Utils.selectWidthJQuery()"); // @DEV_ONLY
     return Tobago.Utils.selectWidthJQuery(elements, selector);
-  },
-
-  ensureScrollbarWeights: function() {
-    var id = Tobago.page.id + Tobago.SUB_COMPONENT_SEP + 'scrollbarWeight';
-    var hidden = jQuery(Tobago.Utils.escapeClientId(id));
-    if (hidden.val().length == 0) {
-      var outer = hidden.prev();
-      hidden.val(''
-          + (100 - outer.prop('clientWidth')) + ';'
-          + (100 - outer.prop('clientHeight')));
-    } else {
-      var scrollbarWeights = hidden.val().split(",");
-      if (scrollbarWeights.length == 2) {
-        Tobago.Config.set('Tobago', 'verticalScrollbarWeight', scrollbarWeights[0]);
-        Tobago.Config.set('Tobago', 'horizontalScrollbarWeight', scrollbarWeights[1]);
-      }
-    }
   },
 
   clickOnElement: function(id) {

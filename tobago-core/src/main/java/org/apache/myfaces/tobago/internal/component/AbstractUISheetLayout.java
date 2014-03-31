@@ -283,6 +283,9 @@ public abstract class AbstractUISheetLayout extends AbstractUILayoutBase impleme
     }
   }
 
+  // todo: remove
+  /** @deprecated since Tobago 3.0 */
+  @Deprecated
   public boolean needVerticalScrollbar(final FacesContext facesContext, final AbstractUISheet sheet) {
     // estimate need of height-scrollbar on client, if yes we have to consider
     // this when calculating column width's

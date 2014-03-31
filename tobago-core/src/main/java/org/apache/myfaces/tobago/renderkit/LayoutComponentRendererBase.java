@@ -113,6 +113,8 @@ public abstract class LayoutComponentRendererBase extends RendererBase implement
     return getResourceManager().getThemeMeasure(facesContext, component, Attributes.PADDING_BOTTOM, Measure.ZERO);
   }
 
+  /** @deprecated since Tobago 3.0 */
+  @Deprecated
   public Measure getVerticalScrollbarWeight(final FacesContext facesContext, final Configurable component) {
     final ClientProperties clientProperties = VariableResolverUtils.resolveClientProperties(facesContext);
     final Measure weight = clientProperties.getVerticalScrollbarWeight();
