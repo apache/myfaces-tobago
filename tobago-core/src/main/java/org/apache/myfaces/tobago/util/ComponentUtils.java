@@ -33,6 +33,7 @@ import org.apache.myfaces.tobago.internal.component.AbstractUIPopup;
 import org.apache.myfaces.tobago.internal.util.ArrayUtils;
 import org.apache.myfaces.tobago.internal.util.Deprecation;
 import org.apache.myfaces.tobago.internal.util.FindComponentUtils;
+import org.apache.myfaces.tobago.internal.util.ObjectUtils;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.slf4j.Logger;
@@ -675,7 +676,7 @@ public final class ComponentUtils {
   @Deprecated
   public static boolean hasSelectedValue(final List<SelectItem> items, final Object value) {
     for (final SelectItem item : items) {
-      if (item.getValue().equals(value)) {
+      if (ObjectUtils.equals(item.getValue(), value)) {
         return true;
       }
     }

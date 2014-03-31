@@ -33,6 +33,7 @@ import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.internal.component.AbstractUICommandBase;
 import org.apache.myfaces.tobago.internal.component.AbstractUIMenu;
 import org.apache.myfaces.tobago.internal.context.ResourceManagerFactory;
+import org.apache.myfaces.tobago.internal.util.ObjectUtils;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
@@ -164,7 +165,7 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
 
         final String formattedValue = RenderUtils.getFormattedValue(facesContext, radio, item.getValue());
         final boolean checked;
-        if (item.getValue().equals(value) || markFirst) {
+        if (ObjectUtils.equals(item.getValue(), value) || markFirst) {
           checked = true;
           markFirst = false;
           currentValue = formattedValue;
@@ -607,7 +608,7 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
 
   private boolean hasSelectedValue(final Iterable<SelectItem> items, final Object value) {
     for (final SelectItem item : items) {
-      if (item.getValue().equals(value)) {
+      if (ObjectUtils.equals(item.getValue(), value)) {
         return true;
       }
     }

@@ -74,8 +74,9 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
     }
     boolean first = true;
     final Object[] values = select.getSelectedValues();
+    int i = 0;
     for (final SelectItem item : SelectItemUtils.getItemIterator(facesContext, select)) {
-      final String itemId = id + ComponentUtils.SUB_SEPARATOR + item.getValue().toString();
+      final String itemId = id + ComponentUtils.SUB_SEPARATOR + i++;
       writer.startElement(HtmlElements.LI, select);
       writer.startElement(HtmlElements.INPUT, select);
       writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.CHECKBOX, false);
