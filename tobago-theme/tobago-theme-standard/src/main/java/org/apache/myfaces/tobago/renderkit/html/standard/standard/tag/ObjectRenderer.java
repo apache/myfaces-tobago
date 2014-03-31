@@ -40,8 +40,13 @@ public class ObjectRenderer extends LayoutComponentRendererBase {
 
     writer.startElement(HtmlElements.IFRAME, object);
     writer.writeAttribute(HtmlAttributes.FRAMEBORDER, "0", false);
-    writer.writeIdAttribute(object.getClientId(facesContext));
-    writer.writeNameAttribute(object.getClientId(facesContext));
+    final String clientId = object.getClientId(facesContext);
+    writer.writeIdAttribute(clientId);
+    String name = object.getName();
+    if (name == null) {
+      name = clientId;
+    }
+    writer.writeNameAttribute(name);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, object);
     final String src = object.getSrc();
     if (src != null) {

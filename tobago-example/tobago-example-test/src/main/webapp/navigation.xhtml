@@ -49,7 +49,7 @@
         <tc:treeNode disabled="#{node.disabled}">
           <tc:treeIndent/>
           <tc:treeIcon/>
-          <tc:treeCommand link="#{node.resource}" label="#{node.label}" target="page:content"
+          <tc:treeCommand link="#{node.resource}" label="#{node.label}" target="content"
                           rendered="#{node.childCount == 0}" markup="#{node.markup}"/>
           <tc:treeLabel value="#{node.label}" rendered="#{node.childCount > 0}"/>
         </tc:treeNode>
@@ -57,7 +57,7 @@
     </tc:panel>
 
     <!-- src will be set via <tc:treeNode target="page:content"> -->
-    <tc:object id="content"/>
+    <tc:object name="content"/>
 
     <!--<tc:script file="http://getfirebug.com/releases/lite/1.2/firebug-lite-compressed.js"/>-->
 
