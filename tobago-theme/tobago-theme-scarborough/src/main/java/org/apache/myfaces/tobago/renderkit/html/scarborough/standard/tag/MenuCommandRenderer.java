@@ -19,6 +19,7 @@
 
 package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
+import org.apache.commons.lang.ObjectUtils;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
@@ -89,7 +90,7 @@ public class MenuCommandRenderer extends CommandRendererBase {
       List<SelectItem> items = RenderUtils.getSelectItems(radio);
       String hiddenId = radio.getClientId(facesContext);
       for (SelectItem item : items) {
-        boolean checked = item.getValue().equals(radio.getValue());
+        boolean checked = ObjectUtils.equals(item.getValue(), radio.getValue());
         String image = checked ? "image/MenuRadioChecked.gif" : null;
         final String labelText = item.getLabel();
         label.reset();

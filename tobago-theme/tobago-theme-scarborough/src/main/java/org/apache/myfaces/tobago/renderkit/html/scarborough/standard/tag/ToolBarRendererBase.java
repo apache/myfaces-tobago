@@ -19,6 +19,7 @@
 
 package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
+import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
@@ -171,7 +172,7 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
 
         String formattedValue = RenderUtils.getFormattedValue(facesContext, radio, item.getValue());
         final boolean checked;
-        if (item.getValue().equals(value) || markFirst) {
+        if (ObjectUtils.equals(item.getValue(), value) || markFirst) {
           checked = true;
           markFirst = false;
           currentValue = formattedValue;

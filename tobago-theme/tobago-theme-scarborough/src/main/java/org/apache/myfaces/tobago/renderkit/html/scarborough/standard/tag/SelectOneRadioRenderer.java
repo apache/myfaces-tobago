@@ -19,6 +19,7 @@
 
 package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
+import org.apache.commons.lang.ObjectUtils;
 import org.apache.myfaces.tobago.component.UISelectOneRadio;
 import org.apache.myfaces.tobago.config.Configurable;
 import org.apache.myfaces.tobago.context.Markup;
@@ -81,13 +82,14 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
 
     Object value = select.getValue();
     List<String> clientIds = new ArrayList<String>();
+    int i = 0;
     for (SelectItem item : items) {
-      String itemId = id + NamingContainer.SEPARATOR_CHAR + NamingContainer.SEPARATOR_CHAR + item.getValue().toString();
+      String itemId = id + NamingContainer.SEPARATOR_CHAR + NamingContainer.SEPARATOR_CHAR + i++;
       clientIds.add(itemId);
       writer.startElement(HtmlElements.LI, select);
       writer.startElement(HtmlElements.INPUT, select);
       writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.RADIO, false);
-      boolean checked = item.getValue().equals(value);
+      boolean checked = ObjectUtils.equals(item.getValue(), value);
       writer.writeAttribute(HtmlAttributes.CHECKED, checked);
       writer.writeNameAttribute(id);
       writer.writeIdAttribute(itemId);

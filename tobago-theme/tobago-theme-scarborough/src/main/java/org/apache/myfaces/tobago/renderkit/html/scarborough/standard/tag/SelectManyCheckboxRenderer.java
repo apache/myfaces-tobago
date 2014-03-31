@@ -77,8 +77,9 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
 
     Object[] values = select.getSelectedValues();
     List<String> clientIds = new ArrayList<String>();
+    int i = 0;
     for (SelectItem item : items) {
-      String itemId = id + NamingContainer.SEPARATOR_CHAR + NamingContainer.SEPARATOR_CHAR + item.getValue().toString();
+      String itemId = id + NamingContainer.SEPARATOR_CHAR + NamingContainer.SEPARATOR_CHAR + i++;
       clientIds.add(itemId);
       writer.startElement(HtmlElements.LI, select);
       writer.startElement(HtmlElements.INPUT, select);

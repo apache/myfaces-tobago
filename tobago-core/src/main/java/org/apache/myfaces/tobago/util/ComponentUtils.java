@@ -20,6 +20,7 @@
 package org.apache.myfaces.tobago.util;
 
 import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
@@ -670,7 +671,7 @@ public class ComponentUtils {
 
   public static boolean hasSelectedValue(List<SelectItem> items, Object value) {
     for (SelectItem item : items) {
-      if (item.getValue().equals(value)) {
+      if (ObjectUtils.equals(item.getValue(), value)) {
         return true;
       }
     }
