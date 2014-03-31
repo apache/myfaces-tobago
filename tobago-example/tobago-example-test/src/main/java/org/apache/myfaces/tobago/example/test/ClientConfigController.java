@@ -22,6 +22,7 @@ package org.apache.myfaces.tobago.example.test;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.context.Theme;
+import org.apache.myfaces.tobago.internal.util.ObjectUtils;
 import org.apache.myfaces.tobago.util.VariableResolverUtils;
 
 import javax.faces.application.Application;
@@ -125,7 +126,7 @@ public class ClientConfigController {
   public String getLocalizedTheme() {
     for (int i = 0; i < themeItems.length; i++) {
       final SelectItem themeItem = themeItems[i];
-      if (themeItem.getValue().equals(theme)) {
+      if (ObjectUtils.equals(themeItem.getValue(), theme)) {
         return themeItem.getLabel();
       }
     }

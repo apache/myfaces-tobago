@@ -27,6 +27,7 @@ import org.apache.myfaces.tobago.component.UISelectBooleanCheckbox;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.internal.util.AccessKeyMap;
+import org.apache.myfaces.tobago.internal.util.ObjectUtils;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.CommandRendererBase;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
@@ -86,7 +87,7 @@ public class MenuCommandRenderer extends CommandRendererBase {
       final UISelectOne radio = (UISelectOne) menu.getFacet(Facets.RADIO);
       final String hiddenId = radio.getClientId(facesContext);
       for (final SelectItem item : SelectItemUtils.getItemIterator(facesContext, radio)) {
-        final boolean checked = item.getValue().equals(radio.getValue());
+        final boolean checked = ObjectUtils.equals(item.getValue(), radio.getValue());
         final String image = checked ? "image/MenuRadioChecked.gif" : null;
         final String labelText = item.getLabel();
         label.reset();
