@@ -34,14 +34,19 @@ import javax.faces.context.FacesContext;
 import java.io.IOException;
 
 public class ObjectRenderer extends LayoutComponentRendererBase {
-  public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
-    UIObject object = (UIObject) component;
-    TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
+    final UIObject object = (UIObject) component;
+    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
     writer.startElement(HtmlElements.IFRAME, object);
     writer.writeAttribute(HtmlAttributes.FRAMEBORDER, "0", false);
-    writer.writeIdAttribute(object.getClientId(facesContext));
-    writer.writeNameAttribute(object.getClientId(facesContext));
+    final String clientId = object.getClientId(facesContext);
+    writer.writeIdAttribute(clientId);
+    String name = object.getName();
+    if (name == null) {
+      name = clientId;
+    }
+    writer.writeNameAttribute(name);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, object);
     final String src = object.getSrc();
     if (src != null) {
@@ -50,7 +55,7 @@ public class ObjectRenderer extends LayoutComponentRendererBase {
       writer.writeAttribute(HtmlAttributes.SRC, ResourceManagerUtils.getBlankPage(facesContext), false);
     }
     writer.writeClassAttribute(Classes.create(object));
-    Style style = new Style(facesContext, object);
+    final Style style = new Style(facesContext, object);
     writer.writeStyleAttribute(style);
 
     String noframes = ResourceManagerUtils.getPropertyNotNull(
