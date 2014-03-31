@@ -117,7 +117,9 @@ public class PageRenderer extends PageRendererBase {
         Measure horizontal = Measure.valueOf(tokenizer.nextToken());
         if (vertical.greaterThan(Measure.valueOf(30)) || vertical.lessThan(Measure.valueOf(3))
            || horizontal.greaterThan(Measure.valueOf(30)) || horizontal.lessThan(Measure.valueOf(3))) {
-          LOG.error("Ignoring strange values: vertical=" + vertical + " horizontal=" + horizontal);
+          if (LOG.isDebugEnabled()) {
+            LOG.debug("Ignoring strange scrollbarWeight: vertical=" + vertical + " horizontal=" + horizontal);
+          }
         } else {
           ClientProperties client = VariableResolverUtils.resolveClientProperties(facesContext);
           client.setVerticalScrollbarWeight(vertical);
