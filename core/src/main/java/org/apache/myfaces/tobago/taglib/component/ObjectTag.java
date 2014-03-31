@@ -19,16 +19,18 @@
 
 package org.apache.myfaces.tobago.taglib.component;
 
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SRC;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIOutput;
 
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_NAME;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SRC;
 
 public class ObjectTag extends TobagoTag implements ObjectTagDeclaration {
 
   private String src;
+  private String name;
 
   public String getComponentType() {
     return UIOutput.COMPONENT_TYPE;
@@ -37,6 +39,7 @@ public class ObjectTag extends TobagoTag implements ObjectTagDeclaration {
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
     ComponentUtil.setStringProperty(component, ATTR_SRC, src);
+    ComponentUtil.setStringProperty(component, ATTR_NAME, name);
   }
 
 
@@ -44,6 +47,7 @@ public class ObjectTag extends TobagoTag implements ObjectTagDeclaration {
   public void release() {
     super.release();
     src = null;
+    name = null;
   }
 
   public String getSrc() {
@@ -52,5 +56,13 @@ public class ObjectTag extends TobagoTag implements ObjectTagDeclaration {
 
   public void setSrc(String src) {
     this.src = src;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
   }
 }

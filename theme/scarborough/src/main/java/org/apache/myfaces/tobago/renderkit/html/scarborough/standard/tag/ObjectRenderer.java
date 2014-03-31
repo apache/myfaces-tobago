@@ -31,6 +31,7 @@ import javax.faces.context.FacesContext;
 import java.io.IOException;
 
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SRC;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_NAME;
 
 public class ObjectRenderer extends LayoutableRendererBase {
   public void encodeEnd(FacesContext facesContext, UIComponent component)
@@ -38,8 +39,13 @@ public class ObjectRenderer extends LayoutableRendererBase {
     TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
     writer.startElement(HtmlConstants.IFRAME, component);
     writer.writeAttribute(HtmlAttributes.FRAMEBORDER, "0", false);
-    writer.writeIdAttribute(component.getClientId(facesContext));
-    writer.writeNameAttribute(component.getClientId(facesContext));
+    final String clientId = component.getClientId(facesContext);
+    writer.writeIdAttribute(clientId);
+    String name = (String) component.getAttributes().get(ATTR_NAME);
+    if (name == null) {
+      name = clientId;
+    }
+    writer.writeNameAttribute(name);
     Object src = component.getAttributes().get(ATTR_SRC);
     if (src != null) {
       writer.writeAttribute(HtmlAttributes.SRC, String.valueOf(src), true);

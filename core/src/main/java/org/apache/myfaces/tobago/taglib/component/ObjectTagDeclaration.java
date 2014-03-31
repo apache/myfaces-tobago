@@ -26,19 +26,25 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 
-/*
- * Date: 02.04.2006
- * Time: 15:58:16
- */
 @Tag(name = "object", bodyContent = BodyContent.EMPTY)
 @UIComponentTag(
     uiComponent = "javax.faces.component.UIOutput",
     rendererType = "Object", isComponentAlreadyDefined = true)
 public interface ObjectTagDeclaration extends TobagoTagDeclaration, HasIdBindingAndRendered {
+
   /**
    * URI to object source
    */
-  @TagAttribute()
-  @UIComponentTagAttribute()
+  @TagAttribute
+  @UIComponentTagAttribute
   void setSrc(String src);
+
+  /**
+   * Name of the element.
+   * If not set the id will be used as name. The id in JSF normally contains colons.
+   * This doesn't work in Internet Explorer 9 and lower when using window.open(src, target).
+   */
+  @TagAttribute
+  @UIComponentTagAttribute
+  void setName(String name);
 }
