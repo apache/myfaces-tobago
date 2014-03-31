@@ -326,7 +326,9 @@ public class PageRenderer extends PageRendererBase {
     if (partialAction != null) {
       writer.writeAttribute(DataAttributes.PARTIAL_ACTION, partialAction, true);
     }
-    LOG.info("partial action = " + partialAction);
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("partial action = " + partialAction);
+    }
     writer.writeIdAttribute(page.getFormId(facesContext));
     writer.writeAttribute(HtmlAttributes.METHOD, getMethod(page), false);
     final String enctype = FacesContextUtils.getEnctype(facesContext);
