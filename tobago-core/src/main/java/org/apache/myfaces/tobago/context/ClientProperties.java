@@ -38,7 +38,7 @@ import java.util.Locale;
  * <p/>
  * The managed bean name which is Tobago using for the instance is {@link #MANAGED_BEAN_NAME}.
  * <p/>
- * Please use {@link org.apache.myfaces.tobago.util.VariableResolverUtils#resolveClientProperties(FacesContext)}
+ * Please use {@link ClientProperties#getInstance(javax.faces.context.FacesContext)}
  * to access to the users client properties.
  */
 
@@ -101,6 +101,9 @@ public class ClientProperties implements Serializable {
     reset();
   }
 
+  /**
+   * Static method to access to the ClientProperties managed bean.
+   */
   public static ClientProperties getInstance(final FacesContext facesContext) {
     return (ClientProperties) VariableResolverUtils.resolveVariable(facesContext, MANAGED_BEAN_NAME);
   }

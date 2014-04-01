@@ -22,7 +22,6 @@ package org.apache.myfaces.tobago.internal.context;
 import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.context.Theme;
 import org.apache.myfaces.tobago.context.UserAgent;
-import org.apache.myfaces.tobago.util.VariableResolverUtils;
 
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
@@ -45,7 +44,7 @@ public final class ClientPropertiesKey implements Serializable {
     final Map<Object, Object> attributes = facesContext.getAttributes();
     ClientPropertiesKey key = (ClientPropertiesKey) attributes.get(KEY_IN_FACES_CONTEXT);
     if (key == null) {
-      final ClientProperties clientProperties = VariableResolverUtils.resolveClientProperties(facesContext);
+      final ClientProperties clientProperties = ClientProperties.getInstance(facesContext);
       key = new ClientPropertiesKey(clientProperties, facesContext.getViewRoot());
       attributes.put(KEY_IN_FACES_CONTEXT, key);
     }

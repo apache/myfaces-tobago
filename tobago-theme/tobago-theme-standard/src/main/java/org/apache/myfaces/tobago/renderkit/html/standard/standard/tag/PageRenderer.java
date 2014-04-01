@@ -52,7 +52,6 @@ import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.EncodeUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
-import org.apache.myfaces.tobago.util.VariableResolverUtils;
 import org.apache.myfaces.tobago.webapp.Secret;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
@@ -141,7 +140,7 @@ public class PageRenderer extends PageRendererBase {
     final String contentType = writer.getContentTypeWithCharSet();
     ResponseUtils.ensureContentTypeHeader(facesContext, contentType);
     final String clientId = page.getClientId(facesContext);
-    final ClientProperties client = VariableResolverUtils.resolveClientProperties(facesContext);
+    final ClientProperties client = ClientProperties.getInstance(facesContext);
     final boolean productionMode = tobagoConfig.getProjectStage() == ProjectStage.Production;
     final boolean preventFrameAttacks = tobagoConfig.isPreventFrameAttacks();
 
@@ -412,9 +411,10 @@ public class PageRenderer extends PageRendererBase {
     }
 
     final String clientId = page.getClientId(facesContext);
+    final ClientProperties clientProperties = ClientProperties.getInstance(facesContext);
 
     // avoid submit page in ie if the form contains only one input and you press the enter key in the input
-    if (VariableResolverUtils.resolveClientProperties(facesContext).getUserAgent().isMsie()) {
+    if (clientProperties.getUserAgent().isMsie()) {
       writer.startElement(HtmlElements.INPUT, null);
       writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.TEXT, false);
       writer.writeAttribute(HtmlAttributes.NAME, "tobago.dummy", false);

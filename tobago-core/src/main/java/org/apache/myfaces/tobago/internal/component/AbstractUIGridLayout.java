@@ -41,7 +41,6 @@ import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.layout.Orientation;
 import org.apache.myfaces.tobago.layout.PixelLayoutToken;
 import org.apache.myfaces.tobago.layout.RelativeLayoutToken;
-import org.apache.myfaces.tobago.util.VariableResolverUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -280,8 +279,7 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase implemen
         available = available.subtractNotNegative(LayoutUtils.getBorderEnd(orientation, container));
 
         if (grid.isOverflow(orientation.other())) {
-          final ClientProperties client
-              = VariableResolverUtils.resolveClientProperties(FacesContext.getCurrentInstance());
+          final ClientProperties client = ClientProperties.getInstance(FacesContext.getCurrentInstance());
           final Measure scrollbar = orientation
               == Orientation.HORIZONTAL ? client.getVerticalScrollbarWeight() : client.getHorizontalScrollbarWeight();
           available = available.subtractNotNegative(scrollbar);
