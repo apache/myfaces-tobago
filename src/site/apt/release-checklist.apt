@@ -107,6 +107,8 @@ mvn deploy -Papache-release,generate-assembly --no-plugin-updates -Dnon-default-
       Disk Utility.
 
 +------------------------+
+VERSION=2.0.0-beta-2
+
 cd /Volumes/tobago-site
 svn co https://svn.apache.org/repos/asf/myfaces/tobago/trunk tobago
 svn co https://svn.apache.org/repos/asf/myfaces/site/publish/tobago tobago-publish
@@ -115,6 +117,28 @@ export MAVEN_OPTS="-Xmx1500m -XX:MaxPermSize=512m ${MAVEN_OPTS}"
 mvn package
 mvn site:site
 mvn site:stage -DstagingDirectory=/Volumes/tobago-site/tobago-publish
+
+cd /Volumes/tobago-site/tobago-publish/doc
+mkdir ${VERSION}
+cd ${VERSION}
+
+mkdir api
+tar xvzf /Volumes/tobago-site/tobago-release-artefacts/myfaces-tobago-${VERSION}-dist.tar.gz myfaces-tobago-${VERSION}/javadoc/tobago-core-${VERSION}-javadoc.jar
+cd api
+jar xvf ../myfaces-tobago-${VERSION}/javadoc/tobago-core-${VERSION}-javadoc.jar
+cd ..
+
+mkdir tld
+tar xvzf /Volumes/tobago-site/tobago-release-artefacts/myfaces-tobago-${VERSION}-dist.tar.gz myfaces-tobago-${VERSION}/tlddoc/tobago-core-${VERSION}-tlddoc.jar
+cd tld
+jar xvf ../myfaces-tobago-${VERSION}/tlddoc/tobago-core-${VERSION}-tlddoc.jar
+cd ..
+
+rm -r myfaces-tobago-${VERSION}
+cd ..
+
+svn add ${VERSION}
+
 +------------------------+
 
 
