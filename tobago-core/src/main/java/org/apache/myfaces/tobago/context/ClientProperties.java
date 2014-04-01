@@ -136,7 +136,6 @@ public class ClientProperties implements Serializable {
     return getInstance(FacesContext.getCurrentInstance());
   }
 
-  @Deprecated
   public static ClientProperties getInstance(FacesContext facesContext) {
     return (ClientProperties) VariableResolverUtils.resolveClientProperties(facesContext);
   }
