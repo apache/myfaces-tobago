@@ -20,6 +20,7 @@
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
 import org.apache.myfaces.tobago.component.UITreeNode;
+import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.context.UserAgent;
 import org.apache.myfaces.tobago.internal.component.AbstractUIData;
@@ -32,7 +33,6 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
-import org.apache.myfaces.tobago.util.VariableResolverUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
@@ -50,8 +50,7 @@ public class TreeMenuNodeRenderer extends TreeNodeRendererBase {
     final boolean dataRendersRowContainer = data.isRendersRowContainer();
     final boolean folder = node.isFolder();
     final String clientId = node.getClientId(facesContext);
-    final boolean ie6
-        = VariableResolverUtils.resolveClientProperties(facesContext).getUserAgent().equals(UserAgent.MSIE_6_0);
+    final boolean ie6 = ClientProperties.getInstance(facesContext).getUserAgent().equals(UserAgent.MSIE_6_0);
     final String parentId = data.getRowParentClientId();
     final boolean visible = data.isRowVisible();
 

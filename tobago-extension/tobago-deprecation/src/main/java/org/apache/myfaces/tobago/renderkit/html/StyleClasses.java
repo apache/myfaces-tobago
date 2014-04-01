@@ -23,11 +23,11 @@ import org.apache.commons.collections.set.ListOrderedSet;
 import org.apache.commons.lang.StringUtils;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.SupportsMarkup;
+import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.Theme;
 import org.apache.myfaces.tobago.internal.util.Deprecation;
 import org.apache.myfaces.tobago.util.ComponentUtils;
-import org.apache.myfaces.tobago.util.VariableResolverUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -160,7 +160,7 @@ public class StyleClasses implements Serializable {
     final Markup m = supportsMarkup.getCurrentMarkup();
     if (m != null) {
       for (final String markup : m) {
-        final Theme theme = VariableResolverUtils.resolveClientProperties(FacesContext.getCurrentInstance()).getTheme();
+        final Theme theme = ClientProperties.getInstance(FacesContext.getCurrentInstance()).getTheme();
         if (theme.getRenderersConfig().isMarkupSupported(rendererName, markup)) {
           addMarkupClass(rendererName, sub, markup);
         } else if ("none".equals(markup)) {

@@ -32,7 +32,6 @@ import org.apache.myfaces.tobago.example.addressbook.AddressDao;
 import org.apache.myfaces.tobago.example.addressbook.Picture;
 import org.apache.myfaces.tobago.model.SelectItem;
 import org.apache.myfaces.tobago.model.SheetState;
-import org.apache.myfaces.tobago.util.VariableResolverUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -121,7 +120,7 @@ public class Controller implements Serializable {
       themeItems.add(new SelectItem(theme, theme.getDisplayName()));
     }
 
-    final ClientProperties client = VariableResolverUtils.resolveClientProperties(facesContext);
+    final ClientProperties client = ClientProperties.getInstance(facesContext);
     theme = client.getTheme();
     currentAddressList = addressDao.findAddresses(searchCriterion);
   }
@@ -216,7 +215,7 @@ public class Controller implements Serializable {
 
   public String themeChanged() {
     final FacesContext facesContext = FacesContext.getCurrentInstance();
-    final ClientProperties client = VariableResolverUtils.resolveClientProperties(facesContext);
+    final ClientProperties client = ClientProperties.getInstance(facesContext);
     client.setTheme(theme);
     return null;
   }

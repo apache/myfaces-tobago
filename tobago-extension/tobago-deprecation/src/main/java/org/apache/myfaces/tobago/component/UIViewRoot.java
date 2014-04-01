@@ -31,7 +31,6 @@ import org.apache.myfaces.tobago.util.FacesVersion;
 import org.apache.myfaces.tobago.util.ProcessValidationsCallback;
 import org.apache.myfaces.tobago.util.TobagoCallback;
 import org.apache.myfaces.tobago.util.UpdateModelValuesCallback;
-import org.apache.myfaces.tobago.util.VariableResolverUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -70,7 +69,7 @@ public class UIViewRoot extends javax.faces.component.UIViewRoot {
   @Override
   public void setLocale(final Locale locale) {
     super.setLocale(locale);
-    final ClientProperties clientProperties = VariableResolverUtils.resolveClientProperties(getFacesContext());
+    final ClientProperties clientProperties = ClientProperties.getInstance(getFacesContext());
     clientProperties.setLocale(locale);
     clientProperties.updateUserAgent(getFacesContext());
   }

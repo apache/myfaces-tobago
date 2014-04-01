@@ -23,11 +23,11 @@ import org.apache.myfaces.tobago.ajax.AjaxUtils;
 import org.apache.myfaces.tobago.application.ProjectStage;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.context.Capability;
+import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.internal.webapp.DebugResponseWriterWrapper;
 import org.apache.myfaces.tobago.internal.webapp.HtmlResponseWriter;
 import org.apache.myfaces.tobago.internal.webapp.JsonResponseWriter;
 import org.apache.myfaces.tobago.internal.webapp.XmlResponseWriter;
-import org.apache.myfaces.tobago.util.VariableResolverUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -124,7 +124,7 @@ public class TobagoRenderKit extends RenderKit {
     }
 
     // content type xhtml is not supported in every browser... e. g. IE 6, 7, 8
-    if (!VariableResolverUtils.resolveClientProperties(FacesContext.getCurrentInstance())
+    if (!ClientProperties.getInstance(FacesContext.getCurrentInstance())
         .getUserAgent().hasCapability(Capability.CONTENT_TYPE_XHTML)) {
       contentType = "text/html";
     }

@@ -23,6 +23,7 @@ import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.UILabel;
 import org.apache.myfaces.tobago.component.UISeparator;
 import org.apache.myfaces.tobago.config.Configurable;
+import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.internal.util.Deprecation;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.layout.Measure;
@@ -34,7 +35,6 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRoleValues;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
-import org.apache.myfaces.tobago.util.VariableResolverUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
@@ -51,7 +51,7 @@ public class SeparatorRenderer extends LayoutComponentRendererBase {
     String label = getLabel(separator);
 
     if (label != null) {
-      if (VariableResolverUtils.resolveClientProperties(facesContext).getUserAgent().isMsie()) {
+      if (ClientProperties.getInstance(facesContext).getUserAgent().isMsie()) {
         label = StringUtils.replace(label, " ", HtmlUtils.CHAR_NON_BEAKING_SPACE);
       }
 

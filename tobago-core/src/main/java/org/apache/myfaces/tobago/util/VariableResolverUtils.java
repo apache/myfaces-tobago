@@ -40,9 +40,13 @@ public final class VariableResolverUtils {
 
   /**
    * Returns the ClientProperties object configured in the faces-config.
+   *
+   * @deprecated Since 2.0.0. Please use
+   * {@link org.apache.myfaces.tobago.context.ClientProperties#getInstance(javax.faces.context.FacesContext)}
    */
+  @Deprecated
   public static ClientProperties resolveClientProperties(final FacesContext facesContext) {
-    return (ClientProperties) resolveVariable(facesContext, ClientProperties.MANAGED_BEAN_NAME);
+    return ClientProperties.getInstance(facesContext);
   }
   
   /**

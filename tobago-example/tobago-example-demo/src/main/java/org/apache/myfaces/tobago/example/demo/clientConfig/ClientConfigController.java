@@ -23,7 +23,6 @@ import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.context.Theme;
 import org.apache.myfaces.tobago.internal.util.ObjectUtils;
-import org.apache.myfaces.tobago.util.VariableResolverUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -93,16 +92,14 @@ public class ClientConfigController {
 // ///////////////////////////////////////////// logic
 
   public void storeInClientProperties() {
-    final ClientProperties client
-        = VariableResolverUtils.resolveClientProperties(FacesContext.getCurrentInstance());
+    final ClientProperties client = ClientProperties.getInstance(FacesContext.getCurrentInstance());
 
     client.setDebugMode(debugMode);
     client.setTheme(theme);
   }
 
   public void loadFromClientProperties() {
-    final ClientProperties client
-        = VariableResolverUtils.resolveClientProperties(FacesContext.getCurrentInstance());
+    final ClientProperties client = ClientProperties.getInstance(FacesContext.getCurrentInstance());
 
     debugMode = client.isDebugMode();
     theme = client.getTheme();

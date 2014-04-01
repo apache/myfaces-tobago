@@ -52,7 +52,6 @@ import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.EncodeUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
-import org.apache.myfaces.tobago.util.VariableResolverUtils;
 import org.apache.myfaces.tobago.webapp.Secret;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
@@ -118,7 +117,7 @@ public class PageRenderer extends PageRendererBase {
             LOG.debug("Ignoring strange scrollbarWeight: vertical=" + vertical + " horizontal=" + horizontal);
           }
         } else {
-          final ClientProperties client = VariableResolverUtils.resolveClientProperties(facesContext);
+          final ClientProperties client = ClientProperties.getInstance(facesContext);
           client.setVerticalScrollbarWeight(vertical);
           client.setHorizontalScrollbarWeight(horizontal);
         }
@@ -177,7 +176,7 @@ public class PageRenderer extends PageRendererBase {
     final String contentType = writer.getContentTypeWithCharSet();
     ResponseUtils.ensureContentTypeHeader(facesContext, contentType);
     final String clientId = page.getClientId(facesContext);
-    final ClientProperties client = VariableResolverUtils.resolveClientProperties(facesContext);
+    final ClientProperties client = ClientProperties.getInstance(facesContext);
     final ProjectStage projectStage = tobagoConfig.getProjectStage();
     final boolean developmentMode = projectStage == ProjectStage.Development;
     final boolean debugMode = client.isDebugMode() || developmentMode;
@@ -501,11 +500,11 @@ public class PageRenderer extends PageRendererBase {
     }
 
     final String clientId = page.getClientId(facesContext);
-    final boolean debugMode = VariableResolverUtils.resolveClientProperties(facesContext).isDebugMode();
-
+    final ClientProperties clientProperties = ClientProperties.getInstance(facesContext);
+    final boolean debugMode = clientProperties.isDebugMode();
 
     // avoid submit page in ie if the form contains only one input and you press the enter key in the input
-    if (VariableResolverUtils.resolveClientProperties(facesContext).getUserAgent().isMsie()) {
+    if (clientProperties.getUserAgent().isMsie()) {
       writer.startElement(HtmlElements.INPUT, null);
       writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.TEXT, false);
       writer.writeAttribute(HtmlAttributes.NAME, "tobago.dummy", false);
@@ -554,7 +553,7 @@ public class PageRenderer extends PageRendererBase {
 
     writer.startElement(HtmlElements.IMG, null);
     writer.writeClassAttribute(Classes.create(page, "overlayErrorPreloadedImage"));
-    final String error = ClientProperties.getInstance(facesContext).getUserAgent().isMsie6()
+    final String error = clientProperties.getUserAgent().isMsie6()
         ? ResourceManagerUtils.getImageWithPath(facesContext, "image/remove.gif") // XXX why png doesn't work in ie6?
         : ResourceManagerUtils.getImageWithPath(facesContext, "image/dialog-error.png");
     writer.writeAttribute(HtmlAttributes.SRC, error, false);

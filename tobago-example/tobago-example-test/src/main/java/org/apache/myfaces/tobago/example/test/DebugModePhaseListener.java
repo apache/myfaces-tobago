@@ -35,7 +35,7 @@ public class DebugModePhaseListener implements PhaseListener {
   }
 
   public void beforePhase(final PhaseEvent event) {
-    final ClientProperties client = VariableResolverUtils.resolveClientProperties(event.getFacesContext());
+    final ClientProperties client = ClientProperties.getInstance(event.getFacesContext());
     client.setDebugMode(true);
   }
 

@@ -23,7 +23,6 @@ import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.config.Configurable;
 import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.layout.Measure;
-import org.apache.myfaces.tobago.util.VariableResolverUtils;
 
 import javax.faces.context.FacesContext;
 
@@ -114,7 +113,7 @@ public abstract class LayoutComponentRendererBase extends RendererBase implement
   }
 
   public Measure getVerticalScrollbarWeight(final FacesContext facesContext, final Configurable component) {
-    final ClientProperties clientProperties = VariableResolverUtils.resolveClientProperties(facesContext);
+    final ClientProperties clientProperties = ClientProperties.getInstance(facesContext);
     final Measure weight = clientProperties.getVerticalScrollbarWeight();
     if (weight != null) {
       return weight;

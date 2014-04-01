@@ -21,11 +21,11 @@ package org.apache.myfaces.tobago.renderkit.css;
 
 import org.apache.commons.collections.map.MultiKeyMap;
 import org.apache.myfaces.tobago.component.SupportsMarkup;
+import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.Theme;
 import org.apache.myfaces.tobago.internal.util.Deprecation;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
-import org.apache.myfaces.tobago.util.VariableResolverUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -113,7 +113,7 @@ public final class Classes {
       builder.append(sub);
     }
     if (markup != null) {
-      final Theme theme = VariableResolverUtils.resolveClientProperties(FacesContext.getCurrentInstance()).getTheme();
+      final Theme theme = ClientProperties.getInstance(FacesContext.getCurrentInstance()).getTheme();
       for (final String markupString : markup) {
         if (ignoreMarkupCheck || theme.getRenderersConfig().isMarkupSupported(rendererName, markupString)) {
           builder.append(' ');

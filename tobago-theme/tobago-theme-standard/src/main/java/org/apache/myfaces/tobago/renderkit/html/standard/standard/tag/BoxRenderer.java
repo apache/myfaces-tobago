@@ -23,6 +23,7 @@ import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.UIBox;
 import org.apache.myfaces.tobago.component.UIMenuBar;
+import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.BoxRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
@@ -31,7 +32,6 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
-import org.apache.myfaces.tobago.util.VariableResolverUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
@@ -89,7 +89,7 @@ public class BoxRenderer extends BoxRendererBase {
       RenderUtils.encode(facesContext, toolbar);
       writer.endElement(HtmlElements.DIV);
       writer.endElement(HtmlElements.DIV);
-      if (VariableResolverUtils.resolveClientProperties(facesContext).getUserAgent().isMsie()) {
+      if (ClientProperties.getInstance(facesContext).getUserAgent().isMsie()) {
 // XXX check for what is this, and delete or comment it
         contentStyle.setTop(Measure.valueOf(-10));
       }
