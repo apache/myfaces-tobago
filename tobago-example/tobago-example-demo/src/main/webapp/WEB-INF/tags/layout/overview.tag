@@ -42,10 +42,6 @@
                 <f:selectItems value="#{clientConfigController.localeItems}"/>
               </tx:menuRadio>
             </tc:menu>
-            <%-- todo: may have something like immediate="true", but in this case, the value will not switched --%>
-            <tx:menuCheckbox action="#{clientConfigController.submit}"
-                             label="#{overviewBundle.menu_debug}"
-                             value="#{clientConfigController.debugMode}"/>
             <tc:menuCommand action="#{demo.resetSession}" label="Reset"/>
           </tc:menu>
 

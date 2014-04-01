@@ -27,7 +27,6 @@
   <entry key="configTheme">Theme</entry>
   <entry key="configThemeWithAccessKey">_Theme</entry>
   <entry key="configThemeText">Which theme should be used?</entry>
-  <entry key="configDebugMode">Use _debug mode</entry>
   <entry key="configLocale">Locale</entry>
   <entry key="configLocaleText">Which locale should be used?</entry>
   <entry key="configContentType">Content type</entry>

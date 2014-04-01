@@ -179,10 +179,9 @@ public class PageRenderer extends PageRendererBase {
     final ClientProperties client = ClientProperties.getInstance(facesContext);
     final ProjectStage projectStage = tobagoConfig.getProjectStage();
     final boolean developmentMode = projectStage == ProjectStage.Development;
-    final boolean debugMode = client.isDebugMode() || developmentMode;
-    final boolean productionMode = !debugMode && projectStage == ProjectStage.Production;
+    final boolean productionMode = projectStage == ProjectStage.Production;
     int clientLogSeverity = 2;
-    if (debugMode) {
+    if (developmentMode) {
       final String severity = (String) externalContext.getRequestMap().get(CLIENT_DEBUG_SEVERITY);
       if (LOG.isDebugEnabled()) {
         LOG.debug("get " + CLIENT_DEBUG_SEVERITY + " = " + severity);
@@ -392,7 +391,7 @@ public class PageRenderer extends PageRendererBase {
       Secret.encode(facesContext, writer);
     }
 
-    if (debugMode) {
+    if (developmentMode) {
       writer.startElement(HtmlElements.INPUT, null);
       writer.writeAttribute(HtmlAttributes.VALUE, clientLogSeverity);
       writer.writeAttribute(HtmlAttributes.ID, clientId + ComponentUtils.SUB_SEPARATOR + "clientSeverity", false);
@@ -501,7 +500,8 @@ public class PageRenderer extends PageRendererBase {
 
     final String clientId = page.getClientId(facesContext);
     final ClientProperties clientProperties = ClientProperties.getInstance(facesContext);
-    final boolean debugMode = clientProperties.isDebugMode();
+    final ProjectStage projectStage = TobagoConfig.getInstance(facesContext).getProjectStage();
+    final boolean developmentMode = projectStage == ProjectStage.Development;
 
     // avoid submit page in ie if the form contains only one input and you press the enter key in the input
     if (clientProperties.getUserAgent().isMsie()) {
@@ -573,7 +573,7 @@ public class PageRenderer extends PageRendererBase {
     writer.endElement(HtmlElements.IMG);
 
     // debugging...
-    if (debugMode) {
+    if (developmentMode) {
       final List<String> logMessages = new ArrayList<String>();
       String id = null;
       for (final Iterator<String> ids = facesContext.getClientIdsWithMessages(); ids.hasNext(); id = ids.next()) {
