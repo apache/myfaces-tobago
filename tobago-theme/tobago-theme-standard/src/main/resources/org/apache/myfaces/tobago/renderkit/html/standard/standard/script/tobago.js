@@ -996,7 +996,7 @@ var Tobago = {
     // element styles
     Tobago.Utils.selectWidthJQuery(elements, "[data-tobago-style]").each(function () {
       var element = jQuery(this);
-      if (Tobago.browser.isMsie678) { // IE before 9 doen't support multiple backgrounds, so we use only the first.
+      if (Tobago.browser.isMsie678) { // IE before 9 doesn't support multiple backgrounds, so we use only the first.
         Tobago.fixMultiBackgroundIE8(element);
       }
       element.css(element.data("tobago-style"));
