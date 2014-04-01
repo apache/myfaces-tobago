@@ -59,10 +59,6 @@ public class ClientProperties implements Serializable {
 
   /** @deprecated since Tobago 3.0 */
   @Deprecated
-  private boolean debugMode;
-
-  /** @deprecated since Tobago 3.0 */
-  @Deprecated
   private Measure verticalScrollbarWeight;
   /** @deprecated since Tobago 3.0 */
   @Deprecated
@@ -137,18 +133,6 @@ public class ClientProperties implements Serializable {
   public void setUserAgent(final UserAgent userAgent) {
     this.userAgent = userAgent;
     reset();
-  }
-
-  /** @deprecated since Tobago 3.0 */
-  @Deprecated
-  public boolean isDebugMode() {
-    return debugMode;
-  }
-
-  /** @deprecated since Tobago 3.0 */
-  @Deprecated
-  public void setDebugMode(final boolean debugMode) {
-    this.debugMode = debugMode;
   }
 
   /**

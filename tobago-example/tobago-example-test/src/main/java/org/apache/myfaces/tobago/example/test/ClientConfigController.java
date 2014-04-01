@@ -34,8 +34,6 @@ import java.util.Locale;
 
 public class ClientConfigController {
 
-  private boolean debugMode;
-
   private Theme theme;
   private SelectItem[] themeItems;
 
@@ -103,14 +101,6 @@ public class ClientConfigController {
     } else {
       return new SelectItem(localeItem, localeItem.getDisplayName(localeItem));
     }
-  }
-
-  public boolean isDebugMode() {
-    return debugMode;
-  }
-
-  public void setDebugMode(final boolean debugMode) {
-    this.debugMode = debugMode;
   }
 
   public Theme getTheme() {

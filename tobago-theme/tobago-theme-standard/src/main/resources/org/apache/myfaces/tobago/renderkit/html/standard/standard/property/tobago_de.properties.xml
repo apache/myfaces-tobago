@@ -29,7 +29,6 @@
   <entry key="configTitle">Konfiguration des Clients des Tobago-Frameworks</entry>
   <entry key="configTheme">Design</entry>
   <entry key="configThemeText">Welches Design soll verwendet werden?</entry>
-  <entry key="configDebugMode">Soll der _Debugmodus aktiviert werden?</entry>
   <entry key="configLocale">Sprache</entry>
   <entry key="configLocaleText">Welche Sprache/Region soll verwendet werden?</entry>
   <entry key="configContentType">Inhaltstyp</entry>

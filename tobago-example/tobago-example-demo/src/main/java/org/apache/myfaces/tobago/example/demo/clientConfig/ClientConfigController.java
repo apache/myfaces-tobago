@@ -19,13 +19,12 @@
 
 package org.apache.myfaces.tobago.example.demo.clientConfig;
 
-import org.apache.myfaces.tobago.internal.util.ObjectUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.context.Theme;
-import org.apache.myfaces.tobago.util.VariableResolverUtils;
+import org.apache.myfaces.tobago.internal.util.ObjectUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.application.Application;
 import javax.faces.context.FacesContext;
@@ -38,8 +37,6 @@ import java.util.Locale;
 public class ClientConfigController {
 
   private static final Logger LOG = LoggerFactory.getLogger(ClientConfigController.class);
-
-  private boolean debugMode;
 
   private Theme theme;
   private SelectItem[] themeItems;
