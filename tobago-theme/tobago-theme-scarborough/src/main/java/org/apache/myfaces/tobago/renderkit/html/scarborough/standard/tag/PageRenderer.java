@@ -167,11 +167,10 @@ public class PageRenderer extends PageRendererBase {
     final ClientProperties client = VariableResolverUtils.resolveClientProperties(facesContext);
     final ProjectStage projectStage = TobagoConfig.getInstance(facesContext).getProjectStage();
     final boolean developmentMode =  projectStage == ProjectStage.Development;
-    final boolean debugMode = client.isDebugMode() || developmentMode;
-    final boolean productionMode = !debugMode && projectStage == ProjectStage.Production;
+    final boolean productionMode = projectStage == ProjectStage.Production;
     boolean calculateScrollbarWeight = false;
     int clientLogSeverity = 2;
-    if (debugMode) {
+    if (developmentMode) {
       String severity = (String) facesContext.getExternalContext().getRequestMap().get(CLIENT_DEBUG_SEVERITY);
       if (LOG.isDebugEnabled()) {
         LOG.debug("get " + CLIENT_DEBUG_SEVERITY + " = " + severity);
@@ -208,7 +207,7 @@ public class PageRenderer extends PageRendererBase {
       writer.endElement(HtmlElements.TITLE);
       final Theme theme = client.getTheme();
 
-      if (debugMode) {
+      if (developmentMode) {
         // This tag must not be earlier, because the
         // IE doesn't accept some META tags, when they are not the first ones.
         writer.writeJavascript("var TbgHeadStart = new Date();");
@@ -260,7 +259,7 @@ public class PageRenderer extends PageRendererBase {
         writer.endElement(HtmlElements.STYLE);
       }
 
-      if (debugMode) {
+      if (developmentMode) {
         boolean hideClientLogging = true;
         String severity = (String) facesContext.getExternalContext().getRequestMap().get(CLIENT_DEBUG_SEVERITY);
         if (LOG.isDebugEnabled()) {
@@ -399,17 +398,8 @@ public class PageRenderer extends PageRendererBase {
     writer.write(ResourceManagerUtils.getImageWithPath(facesContext, "image/tobago-overlay-background.png"));
     writer.write("';\n");
     writer.endJavascript();
-/*
-    if (debugMode) {
-      final String[] jsFiles = new String[]{
-          "script/logging.js"
-      };
-      final String[] jsCommand = new String[]{"new LOG.LogArea({hide: " + hideClientLogging + "});"};
-      HtmlRendererUtils.writeScriptLoader(facesContext, jsFiles, jsCommand);
-      writer.writeJavascript("TbgTimer.startBody = new Date();");
-    }
-*/
-    if (debugMode) {
+
+    if (developmentMode) {
       writer.writeJavascript("TbgTimer.startBody = new Date();");
     }
 
@@ -463,7 +453,7 @@ public class PageRenderer extends PageRendererBase {
       Secret.encode(facesContext, writer);
     }
 
-    if (debugMode) {
+    if (developmentMode) {
       writer.startElement(HtmlElements.INPUT, null);
       writer.writeAttribute(HtmlAttributes.VALUE, clientLogSeverity);
       writer.writeAttribute(HtmlAttributes.ID, clientId + ComponentUtils.SUB_SEPARATOR + "clientSeverity", false);
@@ -574,8 +564,6 @@ public class PageRenderer extends PageRendererBase {
     }
 
     String clientId = page.getClientId(facesContext);
-    final boolean debugMode = VariableResolverUtils.resolveClientProperties(facesContext).isDebugMode();
-
 
     // avoid submit page in ie if the form contains only one input and you press the enter key in the input
     if (VariableResolverUtils.resolveClientProperties(facesContext).getUserAgent().isMsie()) {
@@ -660,7 +648,9 @@ public class PageRenderer extends PageRendererBase {
     writer.endElement(HtmlElements.IMG);
 
     // debugging...
-    if (debugMode) {
+    final ProjectStage projectStage = TobagoConfig.getInstance(facesContext).getProjectStage();
+    final boolean developmentMode = projectStage == ProjectStage.Development;
+    if (developmentMode) {
       List<String> logMessages = new ArrayList<String>();
       for (Iterator ids = facesContext.getClientIdsWithMessages();
            ids.hasNext();) {
@@ -678,9 +668,7 @@ public class PageRenderer extends PageRendererBase {
 
       HtmlRendererUtils.writeScriptLoader(facesContext, null,
           logMessages.toArray(new String[logMessages.size()]));
-    }
 
-    if (debugMode) {
       writer.writeJavascript("TbgTimer.endBody = new Date();");
     }
 

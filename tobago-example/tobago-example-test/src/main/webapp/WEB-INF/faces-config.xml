@@ -202,12 +202,6 @@
     </navigation-case>
   </navigation-rule>
 
-  <lifecycle>
-    <phase-listener>
-      org.apache.myfaces.tobago.example.test.DebugModePhaseListener
-    </phase-listener>
-  </lifecycle>
-
   <!-- Wizard -->
 
   <managed-bean>

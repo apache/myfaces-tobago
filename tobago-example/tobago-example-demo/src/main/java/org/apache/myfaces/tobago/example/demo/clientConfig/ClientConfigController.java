@@ -25,6 +25,7 @@ package org.apache.myfaces.tobago.example.demo.clientConfig;
  */
 
 import org.apache.commons.lang.ObjectUtils;
+import org.apache.myfaces.tobago.application.ProjectStage;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.context.Theme;
@@ -43,8 +44,6 @@ import java.util.Locale;
 public class ClientConfigController {
 
   private static final Logger LOG = LoggerFactory.getLogger(ClientConfigController.class);
-
-  private boolean debugMode;
 
   private Theme theme;
   private SelectItem[] themeItems;
@@ -112,7 +111,6 @@ public class ClientConfigController {
     ClientProperties client
         = VariableResolverUtils.resolveClientProperties(FacesContext.getCurrentInstance());
 
-    client.setDebugMode(debugMode);
     client.setTheme(theme);
     client.setContentType(contentType);
   }
@@ -120,8 +118,6 @@ public class ClientConfigController {
   public void loadFromClientProperties() {
     ClientProperties client
         = VariableResolverUtils.resolveClientProperties(FacesContext.getCurrentInstance());
-
-    debugMode = client.isDebugMode();
     theme = client.getTheme();
     contentType = client.getContentType();
   }
@@ -164,12 +160,8 @@ public class ClientConfigController {
         .getVariableResolver().resolveVariable(facesContext, beanName);
   }
 
-  public boolean isDebugMode() {
-    return debugMode;
-  }
-
-  public void setDebugMode(boolean debugMode) {
-    this.debugMode = debugMode;
+  public boolean isDevelopment() {
+    return TobagoConfig.getInstance(FacesContext.getCurrentInstance()).getProjectStage() == ProjectStage.Development;
   }
 
   public Theme getTheme() {

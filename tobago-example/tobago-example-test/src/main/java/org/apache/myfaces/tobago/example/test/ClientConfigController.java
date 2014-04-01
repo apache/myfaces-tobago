@@ -35,8 +35,6 @@ import java.util.Locale;
 
 public class ClientConfigController {
 
-  private boolean debugMode;
-
   private Theme theme;
   private SelectItem[] themeItems;
 
@@ -87,7 +85,6 @@ public class ClientConfigController {
   public void storeInClientProperties() {
     ClientProperties client = VariableResolverUtils.resolveClientProperties(FacesContext.getCurrentInstance());
 
-    client.setDebugMode(debugMode);
     client.setTheme(theme);
     client.setContentType(contentType);
   }
@@ -96,7 +93,6 @@ public class ClientConfigController {
     ClientProperties client
         = VariableResolverUtils.resolveClientProperties(FacesContext.getCurrentInstance());
 
-    debugMode = client.isDebugMode();
     theme = client.getTheme();
     contentType = client.getContentType();
   }
@@ -128,14 +124,6 @@ public class ClientConfigController {
       FacesContext facesContext, String beanName) {
     return (ClientConfigController) facesContext.getApplication()
         .getVariableResolver().resolveVariable(facesContext, beanName);
-  }
-
-  public boolean isDebugMode() {
-    return debugMode;
-  }
-
-  public void setDebugMode(boolean debugMode) {
-    this.debugMode = debugMode;
   }
 
   public Theme getTheme() {
