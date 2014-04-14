@@ -285,7 +285,9 @@ var Tobago = {
     for (var order = 0; order < Tobago.listeners.documentReady.length; order++) {
       var list = Tobago.listeners.documentReady[order];
       for (var i = 0; i < list.length; i++) {
+        console.time("[tobago] init " + order + " " + i); // @DEV_ONLY
         list[i]();
+        console.timeEnd("[tobago] init " + order + " " + i); // @DEV_ONLY
       }
     }
 
@@ -994,13 +996,15 @@ var Tobago = {
   initCss: function(elements) {
     // element styles
 /*
+    console.time("[tobago] initCss"); // @DEV_ONLY
     Tobago.Utils.selectWidthJQuery(elements, "[data-tobago-style]").each(function () {
       var element = jQuery(this);
-      if (Tobago.browser.isMsie678) { // IE before 9 doen't support multiple backgrounds, so we use only the first.
+      if (Tobago.browser.isMsie678) { // IE before 9 doesn't support multiple backgrounds, so we use only the first.
         Tobago.fixMultiBackgroundIE8(element);
       }
       element.css(element.data("tobago-style"));
     });
+    console.timeEnd("[tobago] initCss"); // @DEV_ONLY
 */
   },
 
@@ -1396,7 +1400,11 @@ var Tobago = {
     event.cancelBubble = true;  // this is IE, no matter if not supported by actual browser
     if (event.stopPropagation) {
       event.stopPropagation(); // this is DOM2
+    }
+    if (event.preventDefault) {
       event.preventDefault();
+    } else {
+      event.returnValue = false;
     }
   },
 
