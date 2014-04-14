@@ -608,8 +608,11 @@ public final class ComponentUtils {
     return null;
   }
 
-  public static ActionListener createActionListener(final String type)
-      throws JspException {
+  /**
+   * @deprecated since 2.0.0
+   */
+  @Deprecated
+  public static ActionListener createActionListener(final String type) throws JspException {
     try {
       ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
       if (classLoader == null) {
@@ -621,10 +624,14 @@ public final class ComponentUtils {
       if (LOG.isDebugEnabled()) {
         LOG.debug("type=" + type, e);
       }
-      throw new JspException(e);
+      throw new RuntimeException(e);
     }
   }
 
+  /**
+   * @deprecated since 2.0.0
+   */
+  @Deprecated
   public static UIGraphic getFirstGraphicChild(final UIComponent component) {
     UIGraphic graphic = null;
     for (final UIComponent child : component.getChildren()) {
@@ -636,10 +643,18 @@ public final class ComponentUtils {
     return graphic;
   }
 
+  /**
+   * @deprecated since 2.0.0
+   */
+  @Deprecated
   public static boolean isHoverEnabled(final UIComponent component) {
     return ComponentUtils.getBooleanAttribute(component, Attributes.HOVER);
   }
 
+  /**
+   * @deprecated since 2.0.0
+   */
+  @Deprecated
   public static UIOutput getFirstNonGraphicChild(final UIComponent component) {
     for (final UIComponent child : component.getChildren()) {
       if (child instanceof UIOutput) {
@@ -657,6 +672,10 @@ public final class ComponentUtils {
     Deprecation.LOG.error("name=" + name + " value=" + value);
   }
 
+  /**
+   * @deprecated since 2.0.0
+   */
+  @Deprecated
   public static String removePx(String value) {
     if (value != null && value.endsWith("px")) {
       value = value.substring(0, value.length() - 2);
@@ -664,6 +683,10 @@ public final class ComponentUtils {
     return value;
   }
 
+  /**
+   * @deprecated since 2.0.0
+   */
+  @Deprecated
   public static void setValueForValueBinding(final String name, final Object value) {
     final FacesContext context = FacesContext.getCurrentInstance();
     final ValueBinding valueBinding = context.getApplication().createValueBinding(name);
@@ -683,10 +706,18 @@ public final class ComponentUtils {
     return false;
   }
 
+  /**
+   * @deprecated since 2.0.0
+   */
+  @Deprecated
   public static int getIntValue(final ValueBinding valueBinding) {
     return getAsInt(valueBinding.getValue(FacesContext.getCurrentInstance()));
   }
 
+  /**
+   * @deprecated since 2.0.0
+   */
+  @Deprecated
   private static int getAsInt(final Object value) {
     final int result;
     if (value instanceof Number) {
@@ -699,7 +730,10 @@ public final class ComponentUtils {
     return result;
   }
 
-
+  /**
+   * @deprecated since 2.0.0
+   */
+  @Deprecated
   public static String createPickerId(
       final FacesContext facesContext, final UIComponent component, final String postfix) {
     //String id = component.getId();
@@ -707,6 +741,10 @@ public final class ComponentUtils {
     return id + "_picker" + postfix;
   }
 
+  /**
+   * @deprecated since 2.0.0
+   */
+  @Deprecated
   public static String getComponentId(final FacesContext facesContext, final UIComponent component) {
     final String id = component.getId();
     //if (id == null) {
@@ -718,12 +756,11 @@ public final class ComponentUtils {
 
   /**
    * Checks if the Component has a label facet and if not creates one with the label attribute.
-   *
-   * Todo: check if this method should be set to deprecated. 
+   * @deprecated since 2.0.0
    */
+  @Deprecated
   public static UIComponent provideLabel(final FacesContext facesContext, final UIComponent component) {
     UIComponent label = component.getFacet(Facets.LABEL);
-
 
     if (label == null) {
       final Map attributes = component.getAttributes();
@@ -922,6 +959,10 @@ public final class ComponentUtils {
     component.setCurrentMarkup(markup.add(component.getCurrentMarkup()));
   }
 
+  /**
+   * @deprecated since 2.0.0
+   */
+  @Deprecated
   public static boolean hasChildrenWithMessages(final FacesContext facesContext, final NamingContainer  container) {
     if (container instanceof UIComponent) {
       final String clientId = ((UIComponent) container).getClientId(facesContext);
@@ -957,6 +998,10 @@ public final class ComponentUtils {
     return null;
   }
 
+  /**
+   * @deprecated since 2.0.0
+   */
+  @Deprecated
   public static String[] getChildrenWithMessages(final FacesContext facesContext, final NamingContainer container) {
     if (container instanceof UIComponent) {
       final List<String> clientIds = new ArrayList<String>();
