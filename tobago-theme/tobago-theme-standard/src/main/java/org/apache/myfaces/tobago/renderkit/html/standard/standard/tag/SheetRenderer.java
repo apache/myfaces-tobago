@@ -1003,7 +1003,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
         facesContext, UIMenuCommand.COMPONENT_TYPE, RendererTypes.MENU_COMMAND, id);
     menuItem.setLabel(ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", label));
     menuItem.setMarkup(markup);
-    menuItem.setOnclick("/**/"); // XXX avoid submit
+    menuItem.setOmit(true);
     ComponentUtils.putDataAttributeWithPrefix(menuItem, DataAttributes.SHEET_ID, sheetId);
     menu.getChildren().add(menuItem);
   }
