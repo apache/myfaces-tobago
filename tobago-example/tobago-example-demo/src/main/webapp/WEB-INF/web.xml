@@ -129,30 +129,45 @@
   </listener>
 -->
 
-  <!-- servlet -->
+  <!-- FacesServlet -->
+
   <servlet>
     <servlet-name>FacesServlet</servlet-name>
     <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
     <load-on-startup>3</load-on-startup>
   </servlet>
 
+  <servlet-mapping>
+    <servlet-name>FacesServlet</servlet-name>
+    <url-pattern>/faces/*</url-pattern>
+  </servlet-mapping>
+
+  <!-- ResourceServlet -->
 
   <servlet>
     <servlet-name>ResourceServlet</servlet-name>
     <servlet-class>org.apache.myfaces.tobago.servlet.ResourceServlet</servlet-class>
   </servlet>
 
-  <!-- servlet-mapping -->
-
-  <servlet-mapping>
-    <servlet-name>FacesServlet</servlet-name>
-    <url-pattern>/faces/*</url-pattern>
-  </servlet-mapping>
-
   <servlet-mapping>
     <servlet-name>ResourceServlet</servlet-name>
     <url-pattern>/org/apache/myfaces/tobago/renderkit/*</url-pattern>
   </servlet-mapping>
+
+  <!-- Non-Faces-Request Demo -->
+
+  <servlet>
+    <servlet-name>FishServlet</servlet-name>
+    <servlet-class>org.apache.myfaces.tobago.example.demo.nonfacesrequest.FishServlet</servlet-class>
+    <load-on-startup>3</load-on-startup>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>FishServlet</servlet-name>
+    <url-pattern>/FishServlet</url-pattern>
+  </servlet-mapping>
+
+  <!-- Error Page -->
 
   <error-page>
     <error-code>404</error-code>

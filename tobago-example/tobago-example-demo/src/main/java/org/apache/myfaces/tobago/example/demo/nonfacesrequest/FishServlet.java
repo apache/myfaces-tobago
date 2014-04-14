@@ -17,7 +17,7 @@
  * under the License.
  */
 
-package org.apache.myfaces.tobago.example.nonfacesrequest;
+package org.apache.myfaces.tobago.example.demo.nonfacesrequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
