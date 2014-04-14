@@ -17,7 +17,7 @@
  * under the License.
  */
 
-package org.apache.myfaces.tobago.example.nonfacesrequest;
+package org.apache.myfaces.tobago.example.demo.nonfacesrequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -50,7 +50,7 @@ public class FishPond {
 
     LOG.info("select via random: '" + selectedFish + "'");
 
-    return "view";
+    return "/content/90-non-faces-request/x-fish-pond.xhtml";
   }
 
   public String select(final String id) {
@@ -58,7 +58,7 @@ public class FishPond {
 
     LOG.info("select via id: '" + selectedFish + "'");
 
-    return "view";
+    return "/content/90-non-faces-request/x-fish-pond.xhtml";
   }
 
   public String getSelectedFish() {

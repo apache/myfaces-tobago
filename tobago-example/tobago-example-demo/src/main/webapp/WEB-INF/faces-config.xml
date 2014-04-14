@@ -249,6 +249,12 @@
     <managed-bean-scope>session</managed-bean-scope>
   </managed-bean>
 
+  <managed-bean>
+    <managed-bean-name>fishPond</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.tobago.example.demo.nonfacesrequest.FishPond</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+  </managed-bean>
+
   <navigation-rule>
     <navigation-case>
       <from-outcome>reference/intro</from-outcome>

@@ -121,7 +121,6 @@
         <module>tobago-example-blank</module>
         <module>tobago-example-data</module>
         <module>tobago-example-demo</module>
-        <module>tobago-example-nonfacesrequest</module>
         <module>tobago-example-experimental</module>
         <module>tobago-example-test</module>
       </modules>
@@ -133,7 +132,6 @@
         <module>tobago-example-blank</module>
         <module>tobago-example-data</module>
         <module>tobago-example-demo</module>
-        <module>tobago-example-nonfacesrequest</module>
         <module>tobago-example-portlet</module>
         <module>tobago-example-sandbox</module>
         <module>tobago-example-security</module>
