@@ -29,7 +29,8 @@ Tobago.Sheets = {
 
 Tobago.Sheet = function(sheetId, unused1, unused2, unused3, unused4,
                         clickActionId, clickReloadComponentId, dblClickActionId, dblClickReloadComponentId, renderedPartially) {
-  this.startTime = new Date(); // @DEV_ONLY
+  console.debug("New Sheet with id " + sheetId); // @DEV_ONLY
+  console.time("[tobago-sheet] constructor"); // @DEV_ONLY
   this.id = sheetId;
   Tobago.Sheets.put(this);
   this.clickActionId = clickActionId;
@@ -52,13 +53,11 @@ Tobago.Sheet = function(sheetId, unused1, unused2, unused3, unused4,
 
   this.setup();
 
-  console.debug("New Sheet with id " + this.id); // @DEV_ONLY
-  this.endTime = new Date(); // @DEV_ONLY
-  console.debug("Sheet-setup time = " + (this.setupEnd.getTime() - this.setupStart.getTime())); // @DEV_ONLY
-  console.debug("Sheet-total time = " + (this.endTime.getTime() - this.startTime.getTime())); // @DEV_ONLY
+  console.timeEnd("[tobago-sheet] constructor"); // @DEV_ONLY
 };
 
 Tobago.Sheet.init = function(elements) {
+  console.time("[tobago-sheet] init"); // @DEV_ONLY
   var sheets = Tobago.Utils.selectWidthJQuery(elements, ".tobago-sheet");
   sheets.each(function initSheets() {
     var sheet = jQuery(this);
@@ -94,6 +93,7 @@ Tobago.Sheet.init = function(elements) {
     Tobago.Sheet.toggleAll(sheet);
   });
 
+  console.timeEnd("[tobago-sheet] init"); // @DEV_ONLY
 };
 
 Tobago.registerListener(Tobago.Sheet.init, Tobago.Phase.DOCUMENT_READY);
@@ -261,7 +261,6 @@ Tobago.Sheet.prototype.doKeyEvent = function(event) {
       if (keyCode == 13) {
         if (input.value != input.nextSibling.innerHTML) {
           Tobago.stopEventPropagation(event);
-          event.returnValue = false;
           this.reloadWithAction(event.srcElement, input.actionId);
         } else {
           this.textInput = input;
@@ -460,7 +459,7 @@ Tobago.Sheet.hidden = function(sheet, idSuffix) {
 };
 
 Tobago.Sheet.prototype.setup = function() {
-  this.setupStart = new Date(); // @DEV_ONLY
+  console.time("[tobago-sheet] setup"); // @DEV_ONLY
 
   // IE 6+7
   if (Tobago.browser.isMsie67) {
@@ -480,7 +479,7 @@ Tobago.Sheet.prototype.setup = function() {
   this.setupRowPaging();
 
   this.initReload();
-  this.setupEnd = new Date(); // @DEV_ONLY
+  console.timeEnd("[tobago-sheet] setup"); // @DEV_ONLY
 };
 
 Tobago.Sheet.prototype.initReload = function() {
