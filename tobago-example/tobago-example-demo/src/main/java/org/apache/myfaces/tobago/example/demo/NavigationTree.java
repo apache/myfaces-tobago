@@ -19,7 +19,7 @@
 
 package org.apache.myfaces.tobago.example.demo;
 
-import org.apache.myfaces.tobago.example.demo.jsp.JspFormatter;
+import org.apache.myfaces.tobago.example.demo.formatter.SourceFormatter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -130,9 +130,6 @@ public class NavigationTree implements Serializable {
   }
 
   public NavigationNode findByViewId(String viewId) {
-    if (viewId.endsWith(".jspx")) {
-      viewId = viewId.substring(0, viewId.lastIndexOf(".jspx")) + ".xhtml";
-    }
     final Enumeration enumeration = tree.depthFirstEnumeration();
     while (enumeration.hasMoreElements()) {
       final NavigationNode node = ((NavigationNode) enumeration.nextElement());
@@ -161,7 +158,7 @@ public class NavigationTree implements Serializable {
     try {
       final InputStream resourceAsStream = externalContext.getResourceAsStream(viewId);
       final InputStreamReader reader = new InputStreamReader(resourceAsStream);
-      JspFormatter.writeJsp(reader, new PrintWriter(response.getOutputStream()));
+      SourceFormatter.writeJsp(reader, new PrintWriter(response.getOutputStream()));
     } catch (final IOException e) {
       LOG.error("", e);
       return "error";

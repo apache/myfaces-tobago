@@ -55,38 +55,6 @@
         </configuration>
       </plugin>
       <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>xml-maven-plugin</artifactId>
-        <version>1.0-beta-3</version>
-        <executions>
-          <execution>
-            <phase>generate-resources</phase>
-            <goals>
-              <goal>transform</goal>
-            </goals>
-          </execution>
-        </executions>
-        <configuration>
-          <transformationSets>
-            <transformationSet>
-              <dir>src/main/webapp</dir>
-              <outputDir>${project.build.directory}/tobago-example-test</outputDir>
-              <!-- not nice, but works... -->
-              <stylesheet>../tobago-example-demo/src/main/xslt/facelet2jsp.xsl</stylesheet>
-              <includes>
-                <include>**/*.xhtml</include>
-              </includes>
-              <fileMappers>
-                <fileMapper implementation="org.codehaus.plexus.components.io.filemappers.RegExpFileMapper">
-                  <pattern>(.*).xhtml</pattern>
-                  <replacement>$1.jspx</replacement>
-                </fileMapper>
-              </fileMappers>
-            </transformationSet>
-          </transformationSets>
-        </configuration>
-      </plugin>
-      <plugin>
         <artifactId>maven-surefire-plugin</artifactId>
         <configuration>
           <skip>false</skip>

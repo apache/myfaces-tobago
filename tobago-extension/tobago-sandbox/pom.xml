@@ -96,7 +96,6 @@
                 <sourceFacesConfig>${basedir}/src/main/faces-config/faces-config.xml</sourceFacesConfig>
                 <targetFacesConfig>META-INF/faces-config.xml</targetFacesConfig>
                 <targetTaglib>META-INF</targetTaglib>
-                <jsfVersion>2.0</jsfVersion>
               </optionMap>
             </configuration>
           </execution>

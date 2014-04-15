@@ -71,7 +71,6 @@
                 <targetFacesConfig>META-INF/faces-config.xml</targetFacesConfig>
                 <targetTaglib>META-INF</targetTaglib>
                 <targetCheckstyle>META-INF</targetCheckstyle>
-                <jsfVersion>2.0</jsfVersion>
               </optionMap>
             </configuration>
           </execution>

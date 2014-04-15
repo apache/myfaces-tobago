@@ -42,9 +42,7 @@ import javax.faces.component.UICommand;
 /**
  * Renders a command inside of a tree.
  */
-@Tag(
-    name = "treeCommand",
-    tagExtraInfoClassName = "org.apache.myfaces.tobago.internal.taglib.component.CommandTagExtraInfo")
+@Tag(name = "treeCommand")
 @BodyContentDescription(anyTagOf = "facestag")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UITreeCommand",

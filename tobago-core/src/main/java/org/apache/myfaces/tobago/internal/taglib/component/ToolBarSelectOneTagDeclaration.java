@@ -32,9 +32,7 @@ import javax.faces.component.UICommand;
 /**
  * Renders a set of radio command button's within a toolbar.
  */
-@Tag(
-    name = "toolBarSelectOne",
-    tagExtraInfoClassName = "org.apache.myfaces.tobago.internal.taglib.component.CommandTagExtraInfo")
+@Tag(name = "toolBarSelectOne")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIToolBarSelectOne",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUICommandBase",

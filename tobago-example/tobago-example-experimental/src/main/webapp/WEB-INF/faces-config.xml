@@ -53,12 +53,6 @@
     <managed-bean-scope>session</managed-bean-scope>
   </managed-bean>
 
-  <managed-bean>
-    <managed-bean-name>reference</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.tobago.example.reference.DynamicController</managed-bean-class>
-    <managed-bean-scope>session</managed-bean-scope>
-  </managed-bean>
-
   <lifecycle>
     <phase-listener>org.apache.myfaces.tobago.util.DebugPhaseListener</phase-listener>
   </lifecycle>

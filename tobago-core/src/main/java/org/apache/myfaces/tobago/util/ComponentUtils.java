@@ -66,7 +66,6 @@ import javax.faces.render.RenderKit;
 import javax.faces.render.RenderKitFactory;
 import javax.faces.render.Renderer;
 import javax.faces.view.facelets.FaceletContext;
-import javax.servlet.jsp.JspException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -612,7 +611,7 @@ public final class ComponentUtils {
    * @deprecated since 2.0.0
    */
   @Deprecated
-  public static ActionListener createActionListener(final String type) throws JspException {
+  public static ActionListener createActionListener(final String type) {
     try {
       ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
       if (classLoader == null) {

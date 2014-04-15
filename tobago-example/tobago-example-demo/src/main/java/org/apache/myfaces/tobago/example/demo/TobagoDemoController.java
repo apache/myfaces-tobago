@@ -61,8 +61,6 @@ public class TobagoDemoController implements Serializable {
   // XXX jetty 6.1.22 has problems with boolean[] (primitive), see: http://jira.codehaus.org/browse/JETTY-1181
   private Boolean[] bool;
 
-  private boolean update;
-
   private Boolean boolTest;
 
   private String[] text;
@@ -177,45 +175,6 @@ public class TobagoDemoController implements Serializable {
         {UIToolBar.LABEL_OFF, UIToolBar.LABEL_BOTTOM, UIToolBar.LABEL_RIGHT};
     toolbarTextItems = getSelectItems(toolbarTextKeys, "demo");
     toolbarTextPosition = UIToolBar.LABEL_BOTTOM;
-  }
-
-
-  public boolean isUpdate() {
-    update = !update;
-    return update;
-  }
-
-  public boolean isJsp() {
-    final String viewId = FacesContext.getCurrentInstance().getViewRoot().getViewId();
-    final int end = viewId.lastIndexOf(".xhtml");
-    return end < 0;
-  }
-
-  public boolean isDoubleDefined() {
-    final String viewId = FacesContext.getCurrentInstance().getViewRoot().getViewId();
-    final String name = viewId.substring(1, viewId.lastIndexOf("."));
-    final String path = ResourceManagerUtils.getImageWithPath(FacesContext.getCurrentInstance(), name + ".xhtml", true);
-    return path != null;
-  }
-
-  public String asJsp() {
-    final String viewId = FacesContext.getCurrentInstance().getViewRoot().getViewId();
-    final int end = viewId.lastIndexOf(".xhtml");
-    if (end >= 0) {
-      return viewId.substring(1, end) + ".jspx";
-    }
-    LOG.warn("Can't create the outcome");
-    return null;
-  }
-
-  public String asFacelet() {
-    final String viewId = FacesContext.getCurrentInstance().getViewRoot().getViewId();
-    final int end = viewId.lastIndexOf(".jspx");
-    if (end >= 0) {
-      return viewId.substring(1, end) + ".xhtml";
-    }
-    LOG.warn("Can't create the outcome");
-    return null;
   }
 
   public String resetSession() throws IOException {

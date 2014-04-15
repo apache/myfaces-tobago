@@ -32,6 +32,10 @@ public @interface Tag {
 
   BodyContent bodyContent() default BodyContent.JSP;
 
+  /**
+   * Currently not used.
+   * TBD: is there a way to use this with Facelets? In the handler...
+   */
   String tagExtraInfoClassName() default "";
 
   String deprecatedName() default "";
@@ -39,3 +43,4 @@ public @interface Tag {
   boolean isBodyTag() default false; 
 
 }
+

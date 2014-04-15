@@ -19,47 +19,15 @@
 
 package org.apache.myfaces.tobago.internal.taglib.sandbox;
 
-import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.component.Facets;
-import org.apache.myfaces.tobago.internal.taglib.TobagoTag;
-
 import javax.el.ValueExpression;
-import javax.faces.component.UIComponent;
-import javax.servlet.jsp.JspException;
 
 /**
  * TODO: under construction
  */
-public abstract class RichTextEditorTag extends TobagoTag
+public abstract class RichTextEditorTag
     implements RichTextEditorTagDeclaration {
 
   private ValueExpression statePreview;
-
-
-  public int doEndTag() throws JspException {
-    // TODO: own layout for editor?
-    final int result = super.doEndTag();
-    getComponentInstance().getFacets().remove(Facets.LAYOUT);
-    return result;
-  }
-
-  protected void setProperties(final UIComponent component) {
-
-    super.setProperties(component);
-
-    if (statePreview != null) {
-      if (!statePreview.isLiteralText()) {
-        component.setValueExpression(Attributes.STATE_PREVIEW, statePreview);
-      } else {
-        component.getAttributes().put(Attributes.STATE_PREVIEW, statePreview.getExpressionString());
-      }
-    }
-  }
-
-  public void release() {
-    super.release();
-    statePreview = null;
-  }
 
   public ValueExpression getStatePreview() {
     return statePreview;

@@ -70,8 +70,7 @@ import java.util.Set;
     "org.apache.myfaces.tobago.apt.annotation.Validator"})
 @SupportedOptions({
     FacesConfigGenerator.SOURCE_FACES_CONFIG,
-    FacesConfigGenerator.TARGET_FACES_CONFIG,
-    FacesConfigGenerator.JSF_VERSION})
+    FacesConfigGenerator.TARGET_FACES_CONFIG})
 public class FacesConfigGenerator extends AbstractGenerator {
 
   static final String SOURCE_FACES_CONFIG = "sourceFacesConfig";
@@ -124,14 +123,12 @@ public class FacesConfigGenerator extends AbstractGenerator {
 
   private static final Set<String> IGNORED_PROPERTIES = new HashSet<String>(Arrays.asList("binding"));
 
-  private String jsfVersion;
   private String sourceFacesConfigFile;
   private String targetFacesConfigFile;
 
   @Override
   public void configure() {
     final Map<String, String> options = processingEnv.getOptions();
-    jsfVersion = options.get(JSF_VERSION);
     sourceFacesConfigFile = options.get(SOURCE_FACES_CONFIG);
     targetFacesConfigFile = options.get(TARGET_FACES_CONFIG);
 
@@ -139,7 +136,6 @@ public class FacesConfigGenerator extends AbstractGenerator {
     info("Options:");
     info(SOURCE_FACES_CONFIG + ": " + sourceFacesConfigFile);
     info(TARGET_FACES_CONFIG + ": " + targetFacesConfigFile);
-    info(JSF_VERSION + ": " + jsfVersion);
   }
 
   @Override
@@ -621,9 +617,5 @@ public class FacesConfigGenerator extends AbstractGenerator {
       final Comment c = (Comment) i.next();
       c.setText(c.getText().replaceAll("\n", SEPARATOR));
     }
-  }
-
-  private boolean is20() {
-    return "2.0".equals(jsfVersion);
   }
 }

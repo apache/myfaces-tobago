@@ -35,9 +35,7 @@ import javax.faces.component.UICommand;
 /**
  * Renders a selectable command button within a toolbar.
  */
-@Tag(
-    name = "toolBarCheck",
-    tagExtraInfoClassName = "org.apache.myfaces.tobago.internal.taglib.component.CommandTagExtraInfo")
+@Tag(name = "toolBarCheck")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIToolBarCheck",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUICommandBase",

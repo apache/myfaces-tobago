@@ -36,9 +36,7 @@ import javax.faces.component.UICommand;
  * Use this tag only as a facet for click, change in selectOneRadio,
  * selectBooleanCheckbox, selectManyCheckbox and selectOneChoice
  */
-@Tag(
-    name = "command", 
-    tagExtraInfoClassName = "org.apache.myfaces.tobago.internal.taglib.component.CommandTagExtraInfo")
+@Tag(name = "command")
 @UIComponentTag(uiComponent = "org.apache.myfaces.tobago.component.UICommand",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUICommand",
     uiComponentFacesClass = "javax.faces.component.UICommand",

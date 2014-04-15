@@ -49,11 +49,5 @@
         </tc:column>
       </tc:sheet>
     </tc:box>
-    <tc:box label="View">
-      <f:facet name="layout">
-        <tc:gridLayout rows="*" columns="*"/>
-      </f:facet>
-      <demo:dynamic controller="reference" />
-    </tc:box>
   </tc:page>
 </f:view>

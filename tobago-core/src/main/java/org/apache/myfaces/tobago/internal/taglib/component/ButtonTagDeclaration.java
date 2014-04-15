@@ -46,7 +46,7 @@ import javax.faces.component.UICommand;
 /**
  * Renders a button element.
  */
-@Tag(name = "button", tagExtraInfoClassName = "org.apache.myfaces.tobago.internal.taglib.component.CommandTagExtraInfo")
+@Tag(name = "button")
 @BodyContentDescription(anyTagOf = "facestag")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIButton",

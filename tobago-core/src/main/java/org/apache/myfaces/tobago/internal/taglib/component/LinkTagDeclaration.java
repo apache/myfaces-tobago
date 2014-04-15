@@ -43,7 +43,7 @@ import javax.faces.component.UICommand;
 /**
  * Renders a link element.
  */
-@Tag(name = "link", tagExtraInfoClassName = "org.apache.myfaces.tobago.internal.taglib.component.CommandTagExtraInfo")
+@Tag(name = "link")
 @BodyContentDescription(anyTagOf = "facestag")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UILink",

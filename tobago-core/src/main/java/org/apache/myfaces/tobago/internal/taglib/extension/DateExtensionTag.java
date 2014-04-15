@@ -24,13 +24,9 @@ import org.apache.myfaces.tobago.apt.annotation.ExtensionTag;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
-import org.apache.myfaces.tobago.internal.taglib.DatePickerTag;
-import org.apache.myfaces.tobago.internal.taglib.DateTag;
-import org.apache.myfaces.tobago.internal.taglib.FormTag;
 
 import javax.el.MethodExpression;
 import javax.el.ValueExpression;
-import javax.servlet.jsp.JspException;
 
 /**
  * Renders a date input field with a date picker and a label.
@@ -53,207 +49,14 @@ import javax.servlet.jsp.JspException;
 @ExtensionTag(
     baseClassName = "org.apache.myfaces.tobago.internal.taglib.DateTag",
     faceletHandler = "org.apache.myfaces.tobago.facelets.extension.DateExtensionHandler")
-public class DateExtensionTag extends TobagoExtensionBodyTagSupport {
-
-  private static final long serialVersionUID = 1L;
-
-  private ValueExpression binding;
-  private ValueExpression converter;
-  private MethodExpression validator;
-  private ValueExpression disabled;
-  private ValueExpression focus;
-  private ValueExpression label;
-  private ValueExpression readonly;
-  private ValueExpression rendered;
-  private ValueExpression required;
-  private ValueExpression tip;
-  private ValueExpression placeholder;
-  private ValueExpression value;
-  private MethodExpression valueChangeListener;
-  private ValueExpression inline;
-  private ValueExpression onchange;
-  private ValueExpression tabIndex;
-  private ValueExpression markup;
-  private ValueExpression validatorMessage;
-  private ValueExpression converterMessage;
-  private ValueExpression requiredMessage;
-  private String fieldId;
-  private String pickerId;
-  private String formId;
-
-  private ValueExpression labelWidth;
-  private LabelExtensionTag labelTag;
-  private DateTag dateTag;
-
-  @Override
-  public int doStartTag() throws JspException {
-
-    labelTag = new LabelExtensionTag();
-    labelTag.setPageContext(pageContext);
-    if (id != null) {
-      labelTag.setId(id);
-    }
-    if (label != null) {
-      labelTag.setValue(label);
-    }
-    if (labelWidth != null) {
-      labelTag.setColumns(createStringValueExpression(labelWidth.getExpressionString() + ";*;auto"));
-    } else {
-      labelTag.setColumns(createStringValueExpression("auto;*;auto"));
-    }
-    if (tip != null) {
-      labelTag.setTip(tip);
-    }
-    if (rendered != null) {
-      labelTag.setRendered(rendered);
-    }
-    if (markup != null) {
-      labelTag.setMarkup(markup);
-    }
-    labelTag.setParent(getParent());
-    labelTag.setJspId(nextJspId());
-    labelTag.doStartTag();
-
-    dateTag = new DateTag();
-    dateTag.setPageContext(pageContext);
-    if (value != null) {
-      dateTag.setValue(value);
-    }
-    if (valueChangeListener != null) {
-      dateTag.setValueChangeListener(valueChangeListener);
-    }
-    if (placeholder != null) {
-      dateTag.setPlaceholder(placeholder);
-    }
-    if (binding != null) {
-      dateTag.setBinding(binding);
-    }
-    if (converter != null) {
-      dateTag.setConverter(converter);
-    }
-    if (validator != null) {
-      dateTag.setValidator(validator);
-    }
-    if (disabled != null) {
-      dateTag.setDisabled(disabled);
-    }
-    if (onchange != null) {
-      dateTag.setOnchange(onchange);
-    }
-    if (focus != null) {
-      dateTag.setFocus(focus);
-    }
-    if (fieldId != null) {
-      dateTag.setId(fieldId);
-    }
-    if (label != null) {
-      dateTag.setLabel(label);
-    }
-    if (inline != null) {
-      dateTag.setInline(inline);
-    }
-    if (readonly != null) {
-      dateTag.setReadonly(readonly);
-    }
-    if (required != null) {
-      dateTag.setRequired(required);
-    }
-    if (markup != null) {
-      dateTag.setMarkup(markup);
-    }
-    if (tabIndex != null) {
-      dateTag.setTabIndex(tabIndex);
-    }
-    if (validatorMessage != null) {
-      dateTag.setValidatorMessage(validatorMessage);
-    }
-    if (converterMessage != null) {
-      dateTag.setConverterMessage(converterMessage);
-    }
-    if (requiredMessage != null) {
-      dateTag.setRequiredMessage(requiredMessage);
-    }
-
-    dateTag.setParent(labelTag);
-    dateTag.setJspId(nextJspId());
-    dateTag.doStartTag();
-
-    return super.doStartTag();
-  }
-
-  @Override
-  public int doEndTag() throws JspException {
-    dateTag.doEndTag();
-    final FormTag formTag = new FormTag();
-    formTag.setPageContext(pageContext);
-    formTag.setParent(labelTag);
-    if (formId != null) {
-      formTag.setId(formId);
-    }
-    formTag.setJspId(nextJspId());
-    formTag.doStartTag();
-
-    final DatePickerTag datePicker = new DatePickerTag();
-    datePicker.setPageContext(pageContext);
-    datePicker.setFor("@auto");
-    if (tabIndex != null) {
-      datePicker.setTabIndex(tabIndex);
-    }
-    if (markup != null) {
-      datePicker.setMarkup(markup);
-    }
-    datePicker.setParent(formTag);
-    if (pickerId != null) {
-      datePicker.setId(pickerId);
-    }
-    datePicker.setJspId(nextJspId());
-    datePicker.doStartTag();
-    datePicker.doEndTag();
-    formTag.doEndTag();
-
-    labelTag.doEndTag();
-    return super.doEndTag();
-  }
-
-  @Override
-  public void release() {
-    super.release();
-    binding = null;
-    converter = null;
-    validator = null;
-    disabled = null;
-    labelWidth = null;
-    focus = null;
-    label = null;
-    inline = null;
-    readonly = null;
-    rendered = null;
-    required = null;
-    tip = null;
-    placeholder = null;
-    value = null;
-    valueChangeListener = null;
-    onchange = null;
-    markup = null;
-    tabIndex = null;
-    labelTag = null;
-    dateTag = null;
-    validatorMessage = null;
-    converterMessage = null;
-    requiredMessage = null;
-    fieldId = null;
-    pickerId = null;
-    formId = null;
-  }
+public interface DateExtensionTag {
 
   /**
    * The current value of this component.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "java.lang.Object")
-  public void setValue(final ValueExpression value) {
-    this.value = value;
-  }
+  public void setValue(final ValueExpression value) ;
 
   /**
    * MethodBinding representing a value change listener method
@@ -266,9 +69,7 @@ public class DateExtensionTag extends TobagoExtensionBodyTagSupport {
           type = {},
           expression = DynamicExpression.METHOD_EXPRESSION_REQUIRED,
           methodSignature = "javax.faces.event.ValueChangeEvent")
-  public void setValueChangeListener(final MethodExpression valueChangeListener) {
-    this.valueChangeListener = valueChangeListener;
-  }
+  public void setValueChangeListener(final MethodExpression valueChangeListener) ;
 
   /**
    * Text value to display as label.
@@ -276,27 +77,21 @@ public class DateExtensionTag extends TobagoExtensionBodyTagSupport {
    */
   @TagAttribute
   @UIComponentTagAttribute()
-  public void setLabel(final ValueExpression label) {
-    this.label = label;
-  }
+  public void setLabel(final ValueExpression label) ;
 
   /**
    * Client side script function to add to this component's onchange handler.
    */
   @TagAttribute
   @UIComponentTagAttribute()
-  public void setOnchange(final ValueExpression onchange) {
-    this.onchange = onchange;
-  }
+  public void setOnchange(final ValueExpression onchange) ;
 
   /**
    * Flag indicating this component should receive the focus.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
-  public void setFocus(final ValueExpression focus) {
-    this.focus = focus;
-  }
+  public void setFocus(final ValueExpression focus) ;
 
   /**
    * The value binding expression linking this
@@ -304,9 +99,7 @@ public class DateExtensionTag extends TobagoExtensionBodyTagSupport {
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "javax.faces.component.UIComponent")
-  public void setBinding(final ValueExpression binding) {
-    this.binding = binding;
-  }
+  public void setBinding(final ValueExpression binding) ;
 
   /**
    * Flag indicating whether or not this component should be rendered
@@ -314,9 +107,7 @@ public class DateExtensionTag extends TobagoExtensionBodyTagSupport {
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "boolean", defaultValue = "true")
-  public void setRendered(final ValueExpression rendered) {
-    this.rendered = rendered;
-  }
+  public void setRendered(final ValueExpression rendered) ;
 
   /**
    * An expression that specifies the Converter for this component.
@@ -330,9 +121,7 @@ public class DateExtensionTag extends TobagoExtensionBodyTagSupport {
   @TagAttribute
   @UIComponentTagAttribute(type = "javax.faces.convert.Converter",
       expression = DynamicExpression.VALUE_EXPRESSION)
-  public void setConverter(final ValueExpression converter) {
-    this.converter = converter;
-  }
+  public void setConverter(final ValueExpression converter) ;
 
   /**
    * A method binding EL expression,
@@ -344,9 +133,7 @@ public class DateExtensionTag extends TobagoExtensionBodyTagSupport {
   @UIComponentTagAttribute(type = {},
       expression = DynamicExpression.METHOD_EXPRESSION,
       methodSignature = { "javax.faces.context.FacesContext", "javax.faces.component.UIComponent", "java.lang.Object" })
-  public void setValidator(final MethodExpression validator) {
-    this.validator = validator;
-  }
+  public void setValidator(final MethodExpression validator) ;
 
   /**
    * Flag indicating this component should rendered as an inline element.
@@ -355,27 +142,21 @@ public class DateExtensionTag extends TobagoExtensionBodyTagSupport {
   @TagAttribute
   @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
   @Deprecated
-  public void setInline(final ValueExpression inline) {
-    this.inline = inline;
-  }
+  public void setInline(final ValueExpression inline) ;
 
   /**
    * Flag indicating that this component will prohibit changes by the user.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
-  public void setReadonly(final ValueExpression readonly) {
-    this.readonly = readonly;
-  }
+  public void setReadonly(final ValueExpression readonly) ;
 
   /**
    * Flag indicating that this element is disabled.
    */
   @TagAttribute()
   @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
-  public void setDisabled(final ValueExpression disabled) {
-    this.disabled = disabled;
-  }
+  public void setDisabled(final ValueExpression disabled) ;
 
   /**
    * Flag indicating that a value is required.
@@ -384,18 +165,14 @@ public class DateExtensionTag extends TobagoExtensionBodyTagSupport {
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
-  public void setRequired(final ValueExpression required) {
-    this.required = required;
-  }
+  public void setRequired(final ValueExpression required) ;
 
   /**
    * Text value to display as tooltip.
    */
   @TagAttribute
   @UIComponentTagAttribute()
-  public void setTip(final ValueExpression tip) {
-    this.tip = tip;
-  }
+  public void setTip(final ValueExpression tip) ;
 
   /**
    * Displays a short text in the input field, that describes the meaning of this field.
@@ -403,9 +180,7 @@ public class DateExtensionTag extends TobagoExtensionBodyTagSupport {
    */
   @TagAttribute
   @UIComponentTagAttribute()
-  public void setPlaceholder(final ValueExpression placeholder) {
-    this.placeholder = placeholder;
-  }
+  public void setPlaceholder(final ValueExpression placeholder) ;
 
    /**
    * The width for the label component. Default: 'auto'.
@@ -414,9 +189,7 @@ public class DateExtensionTag extends TobagoExtensionBodyTagSupport {
    */
   @TagAttribute
   @UIComponentTagAttribute()
-  public void setLabelWidth(final ValueExpression labelWidth) {
-    this.labelWidth = labelWidth;
-  }
+  public void setLabelWidth(final ValueExpression labelWidth) ;
 
   /**
    * Indicate markup of this component.
@@ -424,42 +197,32 @@ public class DateExtensionTag extends TobagoExtensionBodyTagSupport {
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "java.lang.String[]", defaultValue = "none")
-  public void setMarkup(final ValueExpression markup) {
-    this.markup = markup;
-  }
+  public void setMarkup(final ValueExpression markup) ;
 
   @TagAttribute
   @UIComponentTagAttribute(type = "java.lang.Integer")
-  public void setTabIndex(final ValueExpression tabIndex) {
-    this.tabIndex = tabIndex;
-  }
+  public void setTabIndex(final ValueExpression tabIndex) ;
 
   /**
    * An expression that specifies the validator message
    */
   @TagAttribute
   @UIComponentTagAttribute()
-  public void setValidatorMessage(final ValueExpression validatorMessage) {
-    this.validatorMessage = validatorMessage;
-  }
+  public void setValidatorMessage(final ValueExpression validatorMessage) ;
 
   /**
    * An expression that specifies the converter message
    */
   @TagAttribute
   @UIComponentTagAttribute()
-  public void setConverterMessage(final ValueExpression converterMessage) {
-    this.converterMessage = converterMessage;
-  }
+  public void setConverterMessage(final ValueExpression converterMessage) ;
 
   /**
    * An expression that specifies the required message
    */
   @TagAttribute
   @UIComponentTagAttribute()
-  public void setRequiredMessage(final ValueExpression requiredMessage) {
-    this.requiredMessage = requiredMessage;
-  }
+  public void setRequiredMessage(final ValueExpression requiredMessage) ;
 
   /**
    * The component identifier for the input field component inside of the container.
@@ -467,9 +230,7 @@ public class DateExtensionTag extends TobagoExtensionBodyTagSupport {
    */
   @TagAttribute(rtexprvalue = true)
   @UIComponentTagAttribute
-  public void setFieldId(final String fieldId) {
-    this.fieldId = fieldId;
-  }
+  public void setFieldId(final String fieldId) ;
 
   /**
    * The component identifier for the automatically created picker component inside of the container.
@@ -477,9 +238,7 @@ public class DateExtensionTag extends TobagoExtensionBodyTagSupport {
    */
   @TagAttribute(rtexprvalue = true)
   @UIComponentTagAttribute
-  public void setPickerId(final String pickerId) {
-    this.pickerId = pickerId;
-  }
+  public void setPickerId(final String pickerId) ;
 
   /**
    * The component identifier for the automatically created form component inside of the container.
@@ -487,9 +246,7 @@ public class DateExtensionTag extends TobagoExtensionBodyTagSupport {
    */
   @TagAttribute(rtexprvalue = true)
   @UIComponentTagAttribute
-  public void setFormId(final String formId) {
-    this.formId = formId;
-  }
+  public void setFormId(final String formId) ;
 
   /**
    * The component identifier for this component.
@@ -499,7 +256,5 @@ public class DateExtensionTag extends TobagoExtensionBodyTagSupport {
    */
   @TagAttribute(rtexprvalue = true)
   @UIComponentTagAttribute
-  public void setId(final String id) {
-    super.setId(id);
-  }
+  public void setId(final String id) ;
 }

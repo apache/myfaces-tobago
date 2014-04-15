@@ -36,9 +36,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasRowLayout;
  */
 @Tag(
     name = "flexLayout",
-    bodyContent = BodyContent.EMPTY,
-    // todo: write this class: FlexLayoutTagExtraInfo
-    tagExtraInfoClassName = "org.apache.myfaces.tobago.internal.taglib.component.FlexLayoutTagExtraInfo")
+    bodyContent = BodyContent.EMPTY)
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIFlexLayout",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIFlexLayout",
