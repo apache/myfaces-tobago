@@ -24,9 +24,15 @@
 
   <tc:page id="page">
     <f:facet name="layout">
-      <tc:gridLayout columns="3*;*;*;*"/>
+      <tc:gridLayout
+          columns="3*;*;*;*"
+          rows="auto;auto;auto;auto;auto;auto;auto;auto;auto;auto;auto;auto;auto;auto;auto;auto;auto;auto;auto;auto;auto"/>
     </f:facet>
-    <tc:gridLayoutConstraint width="900px" height="600px"/>
+    <tc:gridLayoutConstraint width="900px" height="700px"/>
+
+    <tc:messages>
+      <tc:gridLayoutConstraint columnSpan="4"/>
+    </tc:messages>
 
     <tc:label value="Test Tag"/>
     <tc:label value="Panel Id"/>
