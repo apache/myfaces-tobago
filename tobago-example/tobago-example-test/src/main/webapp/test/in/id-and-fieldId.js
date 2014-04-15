@@ -69,6 +69,10 @@ function fillIdDisplay(i, fieldClass) {
   var label = panel.children(".tobago-label");
   var field = panel.children(fieldClass);
 
+  if (fieldClass == ".tobago-selectBooleanCheckbox") { // special
+    field = field.find("input:first");
+  }
+
   panelIn.val(panel.attr("id"));
   labelIn.val(label.attr("id"));
   fieldIn.val(field.attr("id"));
