@@ -23,5 +23,5 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * @deprecated Class has moved to package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag
  */
 @Deprecated
-public abstract class DateRenderer extends org.apache.myfaces.tobago.renderkit.html.standard.standard.tag.DateRenderer {
+public class DateRenderer extends org.apache.myfaces.tobago.renderkit.html.standard.standard.tag.DateRenderer {
 }

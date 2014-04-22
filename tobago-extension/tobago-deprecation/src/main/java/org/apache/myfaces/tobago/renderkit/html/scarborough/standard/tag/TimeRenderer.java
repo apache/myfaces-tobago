@@ -23,5 +23,5 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * @deprecated Class has moved to package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag
  */
 @Deprecated
-public abstract class TimeRenderer extends org.apache.myfaces.tobago.renderkit.html.standard.standard.tag.TimeRenderer {
+public class TimeRenderer extends org.apache.myfaces.tobago.renderkit.html.standard.standard.tag.TimeRenderer {
 }
