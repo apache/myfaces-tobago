@@ -55,8 +55,6 @@ public class LinkRenderer extends CommandRendererBase {
     final AbstractUILink link = (AbstractUILink) component;
     final String clientId = link.getClientId(facesContext);
     final boolean disabled = link.isDisabled();
-// final CommandRendererHelper helper = new CommandRendererHelper(facesContext, link, CommandRendererHelper.Tag.ANCHOR);
-// final String href = helper.getHref();
 
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
@@ -66,7 +64,6 @@ public class LinkRenderer extends CommandRendererBase {
       writer.startElement(HtmlElements.SPAN, link);
     } else {
       writer.startElement(HtmlElements.A, link);
-//      writer.writeAttribute(HtmlAttributes.HREF, href, true); XXX
 
       final CommandMap map = new CommandMap(new Command(facesContext, link));
       writer.writeAttribute(DataAttributes.COMMANDS, JsonUtils.encode(map), true);
