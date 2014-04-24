@@ -99,8 +99,8 @@ Tobago.Utils.keepElementInVisibleArea = function(elements) {
   elements.each(function() {
     var element = jQuery(this);
     var page = jQuery(".tobago-page-content:first");
-    var left = element.offset().left;
-    var top = element.offset().top;
+    var left = element.position().left;
+    var top = element.position().top;
     // fix menu position, when it is outside of the current page
     left = Math.max(0, Math.min(left, page.outerWidth() - element.outerWidth()));
     top = Math.max(0, Math.min(top, page.outerHeight() - element.outerHeight()));
