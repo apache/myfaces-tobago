@@ -361,7 +361,7 @@ var Tobago = {
     var page = jQuery(".tobago-page");
     page.children("form").first()
         .children(Tobago.Utils.escapeClientId(this.page.id + this.SUB_COMPONENT_SEP + 'form-clientDimension'))
-        .val(page.width() + ';' + page.height());
+        .val(Math.floor(page.width()) + ';' + Math.floor(page.height()));
   },
 
   onBeforeUnload: function() {

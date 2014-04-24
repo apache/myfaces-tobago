@@ -61,4 +61,13 @@ public class MeasureUnitTest {
     Assert.assertEquals(px(5), Measure.max(px(5), null));
     Assert.assertEquals(Measure.ZERO, Measure.max(null, null));
   }
+
+  @Test
+  public void testDecimal() {
+    Assert.assertEquals(Measure.valueOf("13.3px"), px(13));
+    Assert.assertEquals(Measure.valueOf("13.7px"), px(13));
+    Assert.assertEquals(Measure.valueOf("13.3"), px(13));
+    Assert.assertEquals(Measure.valueOf("13.7"), px(13));
+    Assert.assertEquals(Measure.valueOf(".7"), px(0));
+  }
 }
