@@ -70,6 +70,13 @@ public abstract class Measure implements Serializable {
       return ZERO;
     }
     try {
+      final int dot = value.indexOf('.');
+      if (dot == 0) {
+        return Measure.ZERO;
+      }
+      if (dot > 0) {
+        return Measure.valueOf(Integer.parseInt(value.substring(0, dot)));
+      }
       if (value.endsWith("px")) {
         return Measure.valueOf(Integer.parseInt(value.substring(0, value.length() - 2)));
       }
