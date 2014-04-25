@@ -41,6 +41,8 @@ public final class MimeTypeUtils {
       return "image/vnd.microsoft.icon";
     } else if (file.endsWith(".html") || file.endsWith(".htm")) {
       return "text/html";
+    } else if (file.endsWith(".map")) {
+      return "application/json";
     }
     return null;
   }
