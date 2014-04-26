@@ -508,4 +508,8 @@ public class TobagoDemoController implements Serializable {
   public SolarObject getCurrentSolarObject() {
     return currentSolarObject;
   }
+
+  public void hideTab2(ActionEvent actionEvent) {
+    FacesContext.getCurrentInstance().getExternalContext().getRequestMap().put("hideTab2", Boolean.TRUE);
+  }
 }

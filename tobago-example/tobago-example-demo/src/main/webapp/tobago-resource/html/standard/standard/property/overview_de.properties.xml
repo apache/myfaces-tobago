@@ -124,6 +124,7 @@
   <entry key="tabSwitchTypeReloadPage">Vollständig neu laden</entry>
   <entry key="tabPlanet">_Planetendaten</entry>
   <entry key="tabInsolar">im _Sonnensystem</entry>
+  <entry key="closeButtonTip">Diesen Reiter für einen Request schließen</entry>
   <entry key="tabMoons">Monde</entry>
 
 <!--  solar -->
