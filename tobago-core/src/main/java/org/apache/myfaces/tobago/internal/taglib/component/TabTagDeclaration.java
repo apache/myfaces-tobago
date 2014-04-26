@@ -19,8 +19,10 @@
 
 package org.apache.myfaces.tobago.internal.taglib.component;
 
+import org.apache.myfaces.tobago.apt.annotation.Facet;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
+import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
@@ -44,7 +46,10 @@ import javax.faces.component.UIPanel;
     uiComponentFacesClass = "javax.faces.component.UIPanel",
     interfaces = "javax.faces.component.NamingContainer",
     componentFamily = UIPanel.COMPONENT_FAMILY,
-    rendererType = RendererTypes.TAB)
+    rendererType = RendererTypes.TAB,
+    facets = {
+        @Facet(name = Facets.TOOL_BAR, description = "Contains an instance of UIToolBar",
+            allowedChildComponenents = "org.apache.myfaces.tobago.ToolBar")})
 public interface TabTagDeclaration
     extends HasIdBindingAndRendered, IsGridLayoutContainer, IsGridLayoutComponent,
     HasLabelAndAccessKey, HasTip, HasMarkup, HasCurrentMarkup, IsDisabled, HasImage {
