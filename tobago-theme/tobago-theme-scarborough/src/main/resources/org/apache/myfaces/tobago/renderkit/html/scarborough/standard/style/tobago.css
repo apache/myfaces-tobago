@@ -1290,6 +1290,17 @@ div.tobago-richTextEditor-body {
   right: -6px;
 }
 
+.tobago-tab-image {
+  position: relative;
+  top: 1px;
+}
+
+.tobago-tab-image-right-margin {
+  margin-right: 5px;
+  position: relative;
+  top: 1px;
+}
+
 .tobago-tabGroup {
   /*position: absolute;XXX TOBAGO3*/
 }
