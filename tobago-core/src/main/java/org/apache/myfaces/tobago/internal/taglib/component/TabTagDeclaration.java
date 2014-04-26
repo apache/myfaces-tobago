@@ -24,6 +24,7 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasImage;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabelAndAccessKey;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
@@ -46,5 +47,5 @@ import javax.faces.component.UIPanel;
     rendererType = RendererTypes.TAB)
 public interface TabTagDeclaration
     extends HasIdBindingAndRendered, IsGridLayoutContainer, IsGridLayoutComponent,
-    HasLabelAndAccessKey, HasTip, HasMarkup, HasCurrentMarkup, IsDisabled {
+    HasLabelAndAccessKey, HasTip, HasMarkup, HasCurrentMarkup, IsDisabled, HasImage {
 }

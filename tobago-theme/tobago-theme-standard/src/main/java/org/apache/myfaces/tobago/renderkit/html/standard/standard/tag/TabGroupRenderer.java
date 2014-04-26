@@ -29,6 +29,7 @@ import org.apache.myfaces.tobago.component.UITab;
 import org.apache.myfaces.tobago.component.UITabGroup;
 import org.apache.myfaces.tobago.component.UIToolBar;
 import org.apache.myfaces.tobago.context.Markup;
+import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.event.TabChangeEvent;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPanelBase;
 import org.apache.myfaces.tobago.internal.util.AccessKeyMap;
@@ -191,6 +192,7 @@ public class TabGroupRenderer extends LayoutComponentRendererBase {
         final UITab tab = (UITab) child;
         if (tab.isRendered()) {
           final LabelWithAccessKey label = new LabelWithAccessKey(tab);
+          final boolean disabled = tab.isDisabled();
           if (activeIndex == index) {
             ComponentUtils.addCurrentMarkup(tab, Markup.SELECTED);
           }
@@ -208,7 +210,7 @@ public class TabGroupRenderer extends LayoutComponentRendererBase {
           }
 
           writer.startElement(HtmlElements.A, tab);
-          if (!tab.isDisabled()) {
+          if (!disabled) {
             writer.writeAttribute(HtmlAttributes.HREF, "#", false);
           }
           final String tabId = tab.getClientId(facesContext);
@@ -216,9 +218,21 @@ public class TabGroupRenderer extends LayoutComponentRendererBase {
           if (label.getAccessKey() != null) {
             writer.writeAttribute(HtmlAttributes.ACCESSKEY, Character.toString(label.getAccessKey()), false);
           }
+          String image = tab.getImage();
+          if (image != null) {
+            if (ResourceManagerUtils.isAbsoluteResource(image)) {
+              // absolute Path to image : nothing to do
+            } else {
+              image = ResourceManagerUtils.getImageOrDisabledImageWithPath(facesContext, image, disabled);
+            }
+            writer.startElement(HtmlElements.IMG, null);
+            writer.writeAttribute(HtmlAttributes.SRC, image, true);
+            writer.writeClassAttribute(Classes.create(tab, (label.getText() != null? "image-right-margin" : "image")));
+            writer.endElement(HtmlElements.IMG);
+          }
           if (label.getText() != null) {
             HtmlRendererUtils.writeLabelWithAccessKey(writer, label);
-          } else {
+          } else if (image == null) {
             writer.writeText(Integer.toString(index + 1));
           }
           writer.endElement(HtmlElements.A);
