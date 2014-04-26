@@ -188,6 +188,7 @@
 <entry key="tabSwitchTypeReloadPage">Server side tabbing (Full Reload)</entry>
 <entry key="tabPlanet">Data of the _Planets</entry>
 <entry key="tabInsolar">In the _Solarsystem</entry>
+<entry key="closeButtonTip">Hide this tab for one request cycle</entry>
 <entry key="tabMoons">_Moons</entry>
 
 
