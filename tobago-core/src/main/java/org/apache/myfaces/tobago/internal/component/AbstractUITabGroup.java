@@ -25,6 +25,7 @@ import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.OnComponentPopulated;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.SupportsRenderedPartially;
+import org.apache.myfaces.tobago.component.UITab;
 import org.apache.myfaces.tobago.event.TabChangeEvent;
 import org.apache.myfaces.tobago.event.TabChangeListener;
 import org.apache.myfaces.tobago.event.TabChangeSource2;
@@ -138,8 +139,25 @@ public abstract class AbstractUITabGroup extends AbstractUIPanelBase
       if (!isRendered()) {
         return;
       }
-      final AbstractUIPanelBase renderedTab = getRenderedTab();
-      renderedTab.processDecodes(context);
+      int index = 0;
+      for (final UIComponent child : getChildren()) {
+        if (child instanceof UITab) {
+          final UITab tab = (UITab) child;
+          if (tab.isRendered()) {
+            if (getRenderedIndex() == index) {
+              tab.processDecodes(context);
+            } else {
+              UIComponent facet = tab.getFacet(Facets.TOOL_BAR);
+              if (facet != null) {
+                facet.processDecodes(context);
+              }
+            }
+          }
+          index++;
+        }
+      }
+//      final AbstractUIPanelBase renderedTab = getRenderedTab();
+//      renderedTab.processDecodes(context);
       for (final UIComponent facet : getFacets().values()) {
         facet.processDecodes(context);
       }

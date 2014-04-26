@@ -890,6 +890,8 @@ var Tobago = {
                 } else {
                   Tobago.reloadComponent(this, commands.click.partially, action, commands.click);
                 }
+                event.preventDefault();
+                return false;
               } else if (commands.click.url) {
                 if (commands.click.target) {
                   window.open(commands.click.url, commands.click.target)
@@ -2627,8 +2629,7 @@ Tobago.TabGroup.init = function(elements) {
   });
 
   // initialize previous button
-  // XXX ":first" and eq(1) are dangerous, please define e.g. a unique class for "previous" and "next"
-  tabGroups.find(".tobago-tabGroupToolBar-button:first").click(function() {
+  tabGroups.find("[data-tobago-tabgroup-toolbar-prev]").click(function() {
     var tabGroup = jQuery(this).parents(".tobago-tabGroup:first");
     var selected = tabGroup.find(".tobago-tab-markup-selected");
     // the nearest of the previous siblings, which are not disabled
@@ -2636,8 +2637,7 @@ Tobago.TabGroup.init = function(elements) {
   });
 
   // initialize next button
-  // XXX ":first" and eq(1) are dangerous, please define e.g. a unique class for "previous" and "next"
-  tabGroups.find(".tobago-tabGroupToolBar-button:eq(1)").click(function() {
+  tabGroups.find("[data-tobago-tabgroup-toolbar-next]").click(function() {
     var tabGroup = jQuery(this).parents(".tobago-tabGroup:first");
     var selected = tabGroup.find(".tobago-tab-markup-selected");
     // the nearest of the next siblings, which are not disabled

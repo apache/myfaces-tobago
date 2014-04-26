@@ -54,6 +54,7 @@ import javax.el.ValueExpression;
 import javax.faces.application.Application;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
+import javax.faces.component.UIPanel;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
@@ -222,6 +223,11 @@ public class TabGroupRenderer extends LayoutComponentRendererBase {
           }
           writer.endElement(HtmlElements.A);
 
+          final UIPanel toolbar = (UIPanel) tab.getFacet(Facets.TOOL_BAR);
+          if (toolbar != null) {
+            renderTabToolbar(facesContext, writer, tab, toolbar);
+          }
+
           if (label.getAccessKey() != null) {
             if (LOG.isWarnEnabled()
                 && !AccessKeyMap.addAccessKey(facesContext, label.getAccessKey())) {
@@ -245,6 +251,16 @@ public class TabGroupRenderer extends LayoutComponentRendererBase {
     }
   }
 
+  protected void renderTabToolbar(
+      final FacesContext facesContext, final TobagoResponseWriter writer, final UITab tab, final UIPanel toolbar)
+      throws IOException {
+    writer.startElement(HtmlElements.SPAN, null);
+    writer.writeClassAttribute(Classes.create(tab, "toolBar"));
+    toolbar.setRendererType("TabGroupToolBar");
+    RenderUtils.encode(facesContext, toolbar);
+    writer.endElement(HtmlElements.SPAN);
+  }
+
   private UIToolBar createToolBar(final FacesContext facesContext, final UITabGroup tabGroup) {
     final String clientId = tabGroup.getClientId(facesContext);
     final Application application = facesContext.getApplication();
@@ -256,12 +272,15 @@ public class TabGroupRenderer extends LayoutComponentRendererBase {
     previous.setRendererType(null);
     previous.getAttributes().put(Attributes.IMAGE, "image/tabPrev.gif");
     previous.setOmit(true); // avoid submit
+    ComponentUtils.putDataAttribute(previous, "tobago-tabgroup-toolbar-prev", "p");
+
     // next
     final UICommand next = (UICommand) application.createComponent(UICommand.COMPONENT_TYPE);
     next.setId(viewRoot.createUniqueId());
     next.setRendererType(null);
     next.getAttributes().put(Attributes.IMAGE, "image/tabNext.gif");
     next.setOmit(true); // avoid submit
+    ComponentUtils.putDataAttribute(next, "tobago-tabgroup-toolbar-next", "n");
 
     // all: sub menu to select any tab directly
     final UICommand all = (UICommand) CreateComponentUtils.createComponent(
