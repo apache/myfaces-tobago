@@ -1278,6 +1278,18 @@ div.tobago-richTextEditor-body {
   padding-left: 13px;
 }
 
+.tobago-tab-toolBar {
+  position: relative;
+  float: right;
+  top: -2px;
+  right: -7px;
+}
+
+.tobago-tab-toolBar-markup-selected {
+  top: -1px;
+  right: -6px;
+}
+
 .tobago-tabGroup {
   /*position: absolute;XXX TOBAGO3*/
 }
