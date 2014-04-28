@@ -891,13 +891,14 @@ var Tobago = {
                   Tobago.reloadComponent(this, commands.click.partially, action, commands.click);
                 }
                 event.preventDefault();
-                return false;
+                event.stopPropagation();
               } else if (commands.click.url) {
                 if (commands.click.target) {
                   window.open(commands.click.url, commands.click.target)
                 } else {
                   Tobago.navigateToUrl(commands.click.url);
                   event.preventDefault();
+                  event.stopPropagation();
                   return false;
                 }
               } else if (commands.click.script) { // XXX this case is deprecated.
