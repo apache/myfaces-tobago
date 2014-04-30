@@ -257,7 +257,7 @@
     </dependency>
     <dependency>
       <groupId>org.apache.myfaces.test</groupId>
-      <artifactId>myfaces-test22</artifactId>
+      <artifactId>myfaces-test20</artifactId>
     </dependency>
   </dependencies>
 
