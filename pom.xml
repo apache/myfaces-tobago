@@ -897,6 +897,7 @@
             <excludes>
               <!-- jQuery -->
               <exclude>**/jquery*.js</exclude>
+              <exclude>**/jquery*.map</exclude>
 
               <!-- log files -->
               <exclude>**/*.log</exclude>
