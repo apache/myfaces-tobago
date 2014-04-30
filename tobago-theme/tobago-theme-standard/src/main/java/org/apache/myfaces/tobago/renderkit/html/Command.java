@@ -131,7 +131,7 @@ public class Command {
       this.delay = delay;
     }
     // omit == false is the default
-    if (!ComponentUtils.getBooleanAttribute(facetComponent, Attributes.OMIT)) {
+    if (ComponentUtils.getBooleanAttribute(facetComponent, Attributes.OMIT)) {
       this.omit = Boolean.TRUE;
     }
   }
