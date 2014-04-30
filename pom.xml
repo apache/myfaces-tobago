@@ -35,13 +35,12 @@
   <inceptionYear>2002</inceptionYear>
 
   <properties>
-    <myfaces-test20.version>1.0.5</myfaces-test20.version>
     <myfaces20.version>2.0.21</myfaces20.version>
     <myfaces21.version>2.1.15</myfaces21.version>
-    <myfaces22.version>2.2.2</myfaces22.version>
+    <myfaces22.version>2.2.3</myfaces22.version>
     <mojarra20.version>2.0.11</mojarra20.version>
-    <mojarra21.version>2.1.7</mojarra21.version>
-    <mojarra22.version>2.2.2</mojarra22.version>
+    <mojarra21.version>2.1.28</mojarra21.version>
+    <mojarra22.version>2.2.6</mojarra22.version>
     <slf4j.version>1.7.6</slf4j.version>
     <logback.version>1.1.1</logback.version>
     <commons-collection.version>3.2.1</commons-collection.version>
@@ -501,9 +500,7 @@
       </dependency>
       <dependency>
         <groupId>org.apache.myfaces.test</groupId>
-        <artifactId>myfaces-test20</artifactId>
-        <version>${myfaces-test20.version}</version>
-        <scope>test</scope>
+        <artifactId>myfaces-test22</artifactId>
       </dependency>
     </dependencies>
   </dependencyManagement>

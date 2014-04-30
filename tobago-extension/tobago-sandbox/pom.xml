@@ -236,8 +236,7 @@
     </dependency>
     <dependency>
       <groupId>org.apache.myfaces.test</groupId>
-      <artifactId>myfaces-test20</artifactId>
-      <scope>test</scope>
+      <artifactId>myfaces-test22</artifactId>
     </dependency>
   </dependencies>
 

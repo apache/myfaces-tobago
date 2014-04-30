@@ -158,9 +158,7 @@
     </dependency>
     <dependency>
       <groupId>org.apache.myfaces.test</groupId>
-      <artifactId>myfaces-test20</artifactId>
-      <version>${myfaces-test20.version}</version>
-      <scope>test</scope>
+      <artifactId>myfaces-test22</artifactId>
     </dependency>
     <dependency>
       <groupId>org.apache.myfaces.tobago</groupId>
