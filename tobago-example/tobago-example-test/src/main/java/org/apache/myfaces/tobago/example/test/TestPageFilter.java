@@ -72,7 +72,7 @@ public class TestPageFilter {
       "/test/attribute/mode-valueIfSet.jspx", // set id="${id}" not possible with JSP.
       "/test/attribute/popup-modal.jspx", // not possible with JSP.
       "/test/tree/tree-simple-with-data.jspx", // not possible in JSP
-      "/test/forEach/*.jspx", // not possible in JSP
+      "/test/forEach/.*\\.jspx", // not possible in JSP
       "/test/button/plain.html", // intern
       "/test/button/plain_de.html", // intern
 
