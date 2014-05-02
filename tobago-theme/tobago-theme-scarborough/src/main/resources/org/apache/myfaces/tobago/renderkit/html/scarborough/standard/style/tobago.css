@@ -1127,6 +1127,7 @@ hr.tobago-separator {
 .tobago-sheet-footerPagerButton {
   cursor: pointer;
   vertical-align: top;
+  margin: 0 1px;
 }
 
 .tobago-sheet-footerPagerButton-markup-disabled {

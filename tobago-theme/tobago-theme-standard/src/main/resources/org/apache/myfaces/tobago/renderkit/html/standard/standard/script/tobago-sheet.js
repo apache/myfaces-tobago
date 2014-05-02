@@ -39,7 +39,7 @@ Tobago.Sheet = function(sheetId, unused1, unused2, unused3, unused4,
   this.dblClickReloadComponentId = dblClickReloadComponentId;
   this.renderedPartially = renderedPartially;
 
-  this.ppPrefix = Tobago.SUB_COMPONENT_SEP + "pagingPages" + Tobago.SUB_COMPONENT_SEP;
+  this.ppPrefix = Tobago.SUB_COMPONENT_SEP + "pagingArrows" + Tobago.SUB_COMPONENT_SEP;
 
   this.firstRegExp = new RegExp(this.ppPrefix + "First$");
 
@@ -118,7 +118,12 @@ Tobago.Sheet.prototype.setupPagingLinks = function() {
     if (linkBox) {
       for (i = 0 ; i < linkBox.childNodes.length ; i++) {
         var child = linkBox.childNodes[i];
-        if (child.nodeType == 1 && child.tagName.toUpperCase() == "A") {
+        if (child.nodeType == 1 && child.tagName.toUpperCase() == "IMG") {
+          // first, prev, next and last commands
+          if (undefined == jQuery(child).attr("data-tobago-disabled")) {
+              Tobago.addBindEventListener(child, "click", this, "doPaging");
+          }
+        } else if (child.nodeType == 1 && child.tagName.toUpperCase() == "A") {
           Tobago.addBindEventListener(child, "click", this, "doPagingDirect");
         }
       }
