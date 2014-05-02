@@ -100,6 +100,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
   public static final String SELECTED_POSTFIX = ComponentUtils.SUB_SEPARATOR + "selected";
 
   private static final Integer HEIGHT_0 = 0;
+  private static final String DOTS = "...";
 
   @Override
   public void prepareRender(final FacesContext facesContext, final UIComponent component) throws IOException {
@@ -463,7 +464,19 @@ public class SheetRenderer extends LayoutComponentRendererBase {
         writer.startElement(HtmlElements.SPAN, null);
         final String pagingOuter = Classes.create(sheet, "pagingOuter", showDirectLinks).getStringValue();
         writer.writeClassAttribute(pagingOuter + " tobago-sheet-pagingLinks");
+        String areaId = "pagingLinks";
+        writer.writeIdAttribute(sheetId + ComponentUtils.SUB_SEPARATOR + areaId);
+        if (sheet.isShowDirectLinksArrows()) {
+          final boolean atBeginning = sheet.isAtBeginning();
+          link(facesContext, application, areaId, atBeginning, PageAction.FIRST, sheet);
+          link(facesContext, application, areaId, atBeginning, PageAction.PREV, sheet);
+        }
         writeDirectPagingLinks(writer, facesContext, application, sheet);
+        if (sheet.isShowDirectLinksArrows()) {
+          final boolean atEnd = sheet.isAtEnd();
+          link(facesContext, application, areaId, atEnd, PageAction.NEXT, sheet);
+          link(facesContext, application, areaId, atEnd || !sheet.hasRowCount(), PageAction.LAST, sheet);
+        }
         writer.endElement(HtmlElements.SPAN);
       }
 
@@ -480,12 +493,15 @@ public class SheetRenderer extends LayoutComponentRendererBase {
         writer.startElement(HtmlElements.SPAN, null);
         final Classes pagingOuter = Classes.create(sheet, "pagingOuter", showPageRange);
         writer.writeClassAttribute(pagingOuter.getStringValue() + " tobago-sheet-pagingPages");
+        String areaId = "pagingPages";
         writer.writeIdAttribute(sheetId + ComponentUtils.SUB_SEPARATOR + "pagingPages");
         writer.writeText("");
 
-        final boolean atBeginning = sheet.isAtBeginning();
-        link(facesContext, application, atBeginning, PageAction.FIRST, sheet);
-        link(facesContext, application, atBeginning, PageAction.PREV, sheet);
+        if (sheet.isShowPageRangeArrows()) {
+          final boolean atBeginning = sheet.isAtBeginning();
+          link(facesContext, application, areaId, atBeginning, PageAction.FIRST, sheet);
+          link(facesContext, application, areaId, atBeginning, PageAction.PREV, sheet);
+        }
         writer.startElement(HtmlElements.SPAN, null);
         writer.writeClassAttribute(Classes.create(sheet, "pagingText"));
         writer.writeAttribute(HtmlAttributes.TITLE,
@@ -537,9 +553,11 @@ public class SheetRenderer extends LayoutComponentRendererBase {
           writer.write(ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", "sheetPagingInfoEmptyPage"));
         }
         writer.endElement(HtmlElements.SPAN);
-        final boolean atEnd = sheet.isAtEnd();
-        link(facesContext, application, atEnd, PageAction.NEXT, sheet);
-        link(facesContext, application, atEnd || !sheet.hasRowCount(), PageAction.LAST, sheet);
+        if (sheet.isShowPageRangeArrows()) {
+            final boolean atEnd = sheet.isAtEnd();
+            link(facesContext, application, areaId, atEnd, PageAction.NEXT, sheet);
+            link(facesContext, application, areaId, atEnd || !sheet.hasRowCount(), PageAction.LAST, sheet);
+        }
         writer.endElement(HtmlElements.SPAN);
       }
 
@@ -713,7 +731,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
     return selected;
   }
 
-  private void link(final FacesContext facesContext, final Application application,
+  private void link(final FacesContext facesContext, final Application application, String areaId,
                     final boolean disabled, final PageAction command, final UISheet data)
       throws IOException {
     final UICommand link = createPagingCommand(application, command, disabled);
@@ -729,7 +747,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
     writer.startElement(HtmlElements.IMG, null);
     writer.writeIdAttribute(data.getClientId(facesContext)
-        + ComponentUtils.SUB_SEPARATOR + "pagingPages" + ComponentUtils.SUB_SEPARATOR + command.getToken());
+        + ComponentUtils.SUB_SEPARATOR + areaId + ComponentUtils.SUB_SEPARATOR + "pagingArrows" + ComponentUtils.SUB_SEPARATOR + command.getToken());
     final Classes pagerClasses = Classes.create(data, "footerPagerButton", disabled ? Markup.DISABLED : null);
     writer.writeClassAttribute(pagerClasses);
     writer.writeAttribute(HtmlAttributes.SRC, image, false);
@@ -1059,10 +1077,10 @@ public class SheetRenderer extends LayoutComponentRendererBase {
 
     String name;
     int skip = prevs.size() > 0 ? prevs.get(0) : 1;
-    if (skip > 1) {
+    if (!sheet.isShowDirectLinksArrows() && skip > 1) {
       skip -= (linkCount - (linkCount / 2));
       skip--;
-      name = "...";
+      name = DOTS;
       if (skip < 1) {
         skip = 1;
         if (prevs.get(0) == 2) {
@@ -1084,10 +1102,10 @@ public class SheetRenderer extends LayoutComponentRendererBase {
     }
 
     skip = nexts.size() > 0 ? nexts.get(nexts.size() - 1) : pages;
-    if (skip < pages) {
+    if (!sheet.isShowDirectLinksArrows() && skip < pages) {
       skip += linkCount / 2;
       skip++;
-      name = "...";
+      name = DOTS;
       if (skip > pages) {
         skip = pages;
         if ((nexts.get(nexts.size() - 1)) == skip - 1) {

@@ -222,4 +222,19 @@ public interface SheetTagDeclaration
       methodSignature = "javax.faces.event.ActionEvent")
   void setSortActionListener(String sortActionListener);
 
+
+    /**
+     * Flag indicating if paging arrows are shown near direct links
+     */
+    @TagAttribute
+    @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
+    void setShowDirectLinksArrows(String showDirectLinksArrows);
+
+    /**
+     * Flag indicating if paging arrows are shown near page range
+     */
+    @TagAttribute
+    @UIComponentTagAttribute(type = "boolean", defaultValue = "true")
+    void setShowPageRangeArrows(String showPageRangeArrows);
+
 }

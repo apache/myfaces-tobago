@@ -39,7 +39,7 @@ Tobago.Sheet = function(sheetId, unused1, unused2, unused3, unused4,
   this.dblClickReloadComponentId = dblClickReloadComponentId;
   this.renderedPartially = renderedPartially;
 
-  this.ppPrefix = Tobago.SUB_COMPONENT_SEP + "pagingPages" + Tobago.SUB_COMPONENT_SEP;
+  this.ppPrefix = Tobago.SUB_COMPONENT_SEP + "pagingArrows" + Tobago.SUB_COMPONENT_SEP;
 
   this.firstRegExp = new RegExp(this.ppPrefix + "First$");
 
@@ -112,19 +112,28 @@ Tobago.Sheet.prototype.setupSortHeaders = function() {
   });
 };
 
-Tobago.Sheet.prototype.setupPagePaging = function() {
-    var idPrefix = this.id + Tobago.SUB_COMPONENT_SEP;
-    var linkBox = Tobago.element(idPrefix + "pagingPages");
-    if (linkBox) {
-      for (var i = 0 ; i < linkBox.childNodes.length ; i++) {
+Tobago.Sheet.prototype.setupArrowPaging = function(linkBox) {
+    for (var i = 0; i < linkBox.childNodes.length; i++) {
         var child = linkBox.childNodes[i];
         if (child.nodeType == 1 && child.tagName.toUpperCase() == "IMG") {
-          // first, prev, next and last commands
-          if (undefined == jQuery(child).attr("data-tobago-disabled")) {
-            Tobago.addBindEventListener(child, "click", this, "doPaging");
-          }
+            // first, prev, next and last commands
+            if (undefined == jQuery(child).attr("data-tobago-disabled")) {
+                Tobago.addBindEventListener(child, "click", this, "doPaging");
+            }
         }
-      }
+    }
+}
+
+Tobago.Sheet.prototype.setupPagePaging = function() {
+    var idPrefix = this.id + Tobago.SUB_COMPONENT_SEP;
+
+    var linkBoxPages = Tobago.element(idPrefix + "pagingPages");
+    if (linkBoxPages) {
+        this.setupArrowPaging(linkBoxPages);
+    }
+    var linkBoxLinks = Tobago.element(idPrefix + "pagingLinks");
+    if (linkBoxLinks) {
+        this.setupArrowPaging(linkBoxLinks);
     }
   };
 
