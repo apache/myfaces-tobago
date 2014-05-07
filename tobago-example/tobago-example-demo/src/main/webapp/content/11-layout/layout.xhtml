@@ -33,8 +33,10 @@
     <!-- code-sniplet-start id="layoutManagementExample" -->
     <tc:box label="#{overviewBundle.layout_exampleTitle}">
       <f:facet name="layout">
-        <tc:gridLayout columns="1*;1*" rows="auto;auto;auto;auto;auto;*"/>
+        <tc:gridLayout columns="*;*" rows="auto;auto;auto;auto;auto;*"/>
       </f:facet>
+
+      <!-- 1 -->
       <tx:selectOneChoice value="#{overviewController.singleValue}"
                           label="#{overviewBundle.layout_salutation}"
                           converter="salutationId">
@@ -42,19 +44,24 @@
       </tx:selectOneChoice>
       <tc:panel/>
 
+      <!-- 2 -->
       <tx:in value="" label="#{overviewBundle.layout_firstName}"/>
       <tx:in value="" label="#{overviewBundle.layout_lastName}"/>
 
+      <!-- 3 -->
       <tx:in value="" label="#{overviewBundle.layout_co}">
         <tc:gridLayoutConstraint columnSpan="2"/>
       </tx:in>
 
+      <!-- 4 -->
       <tx:in value="" label="#{overviewBundle.layout_street}"/>
       <tx:in value="" label="#{overviewBundle.layout_streetNumber}"/>
 
+      <!-- 5 -->
       <tx:in value="" label="#{overviewBundle.layout_zipCode}"/>
       <tx:in value="" label="#{overviewBundle.layout_city}"/>
 
+      <!-- 6 -->
       <tx:textarea value="" label="#{overviewBundle.layout_note}">
         <tc:gridLayoutConstraint columnSpan="2"/>
       </tx:textarea>
