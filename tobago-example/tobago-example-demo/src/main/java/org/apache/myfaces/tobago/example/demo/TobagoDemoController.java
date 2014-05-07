@@ -185,7 +185,7 @@ public class TobagoDemoController implements Serializable {
       session.invalidate();
     }
     final ExternalContext externalContext = facesContext.getExternalContext();
-    externalContext.redirect("/" + externalContext.getRequestContextPath());
+    externalContext.redirect(externalContext.getRequestContextPath() + "/");
     facesContext.responseComplete();
     return null;
   }
