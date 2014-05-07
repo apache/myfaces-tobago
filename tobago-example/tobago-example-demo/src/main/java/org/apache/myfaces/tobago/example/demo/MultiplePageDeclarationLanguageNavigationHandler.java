@@ -80,7 +80,8 @@ public class MultiplePageDeclarationLanguageNavigationHandler extends Navigation
       final ExternalContext externalContext = facesContext.getExternalContext();
       try {
         externalContext.redirect(
-            externalContext.encodeRedirectURL("/faces" + outcome, Collections.<String, List<String>>emptyMap()));
+            externalContext.encodeRedirectURL(externalContext.getRequestContextPath() + "/faces" + outcome,
+            Collections.<String, List<String>>emptyMap()));
       } catch (final IOException e) {
         // not nice?
         facesContext.renderResponse();
