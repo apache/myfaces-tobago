@@ -149,7 +149,7 @@ svn add ${VERSION}
 
   * Delete old snapshots in /www/people.apache.org/builds/myfaces/nightly/ on people.apache.org.
 
-  * Create and send Announcement.
+  * Create and send announcement.
 
 
 Vote template
