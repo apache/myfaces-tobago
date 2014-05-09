@@ -107,7 +107,7 @@ mvn deploy -Papache-release,generate-assembly --no-plugin-updates -Dnon-default-
       Disk Utility.
 
 +------------------------+
-VERSION=2.0.0-beta-2
+VERSION=2.0.0-beta-3
 
 cd /Volumes/tobago-site
 svn co https://svn.apache.org/repos/asf/myfaces/tobago/trunk tobago
