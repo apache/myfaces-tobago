@@ -68,9 +68,9 @@
               value="#{overviewController.basicTime}" />
         </tc:panel>
 
-        <tx:textarea value="#{overviewController.basicArea}" tabIndex="2"
+        <tx:textarea value="#{overviewController.basicArea}" tabIndex="2" tip="max length = 1000"
             label="#{overviewBundle.basic_textareaLabel}" >
-          <f:validateLength maximum="10" />
+          <f:validateLength maximum="1000" />
         </tx:textarea>
       </tc:panel>
 
