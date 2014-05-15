@@ -80,7 +80,6 @@ public class ThemeConfigViewController {
     "Page",
     "Panel",
     "Progress",
-    "RichTextEditor",
     "SelectBooleanCheckbox",
     "SelectItems",
     "SelectManyCheckbox",

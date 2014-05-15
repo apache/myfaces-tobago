@@ -1171,61 +1171,6 @@ a:active.tobago-sheet-pagingLink {
 }
 */
 
-/* richTextEditor ---------------------------------------------------------- */
-
-.tobago-richTextEditor-container {
-}
-
-.tobago-richTextEditor-header-div {
-  height: 28px;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-left: 1px;
-  padding-right: 0; /*  font: 12px arial, helvetica, sans-serif;*/
-}
-
-.tobago-richTextEditor-toolbar-button-span-enabled, .tobago-richTextEditor-toolbar-button-span-disabled {
-  padding-top: 2px;
-  padding-left: 5px;
-  padding-bottom: 2px;
-  padding-right: 5px; /*  font: 12px arial, helvetica, sans-serif; */
-}
-
-.tobago-richTextEditor-toolbar-button-span-enabled {
-  cursor: pointer;
-}
-
-.tobago-richTextEditor-toolbar-button-span-disabled {
-  color: #778899;
-}
-
-.tobago-richTextEditor-toolbar-button-hover {
-  border: 1px solid black;
-  background: #c5c5c5;
-  margin: -1px;
-}
-
-.tobago-richTextEditor-toolbar-button-label {
-  padding-left: 5px;
-}
-
-.tobago-richTextEditor-body {
-  border-left: 2px solid #7b7d7b;
-  border-right: 2px solid #f6f2f6;
-  border-top: 2px solid #7b7d7b;
-  border-bottom: 2px solid #f6f2f6;
-  margin: 0;
-  background: #ffffff;
-  height: 75px;
-}
-
-textarea.tobago-richTextEditor-body {
-}
-
-div.tobago-richTextEditor-body {
-  overflow: auto;
-}
-
 /* tab ------------------------------------------------------------------ */
 
 .tobago-tab {
