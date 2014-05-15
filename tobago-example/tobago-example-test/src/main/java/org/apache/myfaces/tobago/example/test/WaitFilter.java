@@ -43,11 +43,15 @@ public class WaitFilter implements Filter {
   public void doFilter(final ServletRequest request, final ServletResponse response, final FilterChain chain)
       throws IOException, ServletException {
 
+    LOG.info("Start waiting 10000 ms");
+
     try {
       Thread.sleep(10000L);
     } catch (final InterruptedException e) {
-      LOG.error("can't sleep 10000", e);
+      LOG.error("Can't sleep 10000 ms", e);
     }
+
+    LOG.info("Continuing...");
 
     chain.doFilter(request, response);
   }
