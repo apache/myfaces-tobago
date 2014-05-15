@@ -82,12 +82,6 @@
   <entry key="tobago.message.confirmation.title">Messages</entry>
   <entry key="tobago.message.confirmation.okay">OK</entry>
 
-  <!-- richtexteditor -->
-  <entry key="tobago.richtexteditor.edit.label">Edit</entry>
-  <entry key="tobago.richtexteditor.edit.title">Switch to editor mode.</entry>
-  <entry key="tobago.richtexteditor.preview.label">Preview</entry>
-  <entry key="tobago.richtexteditor.preview.title">Switch to preview mode.</entry>
-
   <entry key="tobago.font3.widths">04050508080d0a030505060904050404080808080808080808080404090909080f090a0b0b0a090b0a03070a080b0a0c0a0c0b0a090a090f0909080404040508050808080808040808030307030d0808080805080408070b070708050305090b</entry>
   <entry key="tobago.font2.widths">04050508080c09030505050804050404080808080808080808080404080808080e09090a0a09090b09030609080b090b090b0a090909090d0809080404040508050808070808040808030307030b08080808050704080709060706050305080b</entry>
   <!-- Font metric for ArialMT plain 14 -->
