@@ -130,11 +130,7 @@ public class ResourceServlet extends HttpServlet {
     for (final String resourceDir : resourceDirs) {
       if (resource.startsWith(resourceDir)) {
         final int dirLength = resourceDir.length();
-        i        final int dirLength = resourceDir.length();
         if (dirLength < resource.length() && Character.isDigit(resource.charAt(dirLength + 1))) {
-          // cut off the version number
-          resource = resourceDir + resource.substring(resource.indexOf('/', dirLength + 1));
-          f (dirLength < resource.length() && Character.isDigit(resource.charAt(dirLength + 1))) {
           // cut off the version number
           resource = resourceDir + resource.substring(resource.indexOf('/', dirLength + 1));
         }
