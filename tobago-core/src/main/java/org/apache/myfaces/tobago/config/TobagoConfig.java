@@ -75,4 +75,6 @@ public abstract class TobagoConfig {
 
   public abstract ContentSecurityPolicy getContentSecurityPolicy();
 
+  public abstract boolean isSetNosniffHeader();
+
 }

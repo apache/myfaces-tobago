@@ -20,7 +20,9 @@
 package org.apache.myfaces.tobago.ajax;
 
 
+import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.internal.ajax.AjaxInternalUtils;
+import org.apache.myfaces.tobago.internal.util.Deprecation;
 import org.apache.myfaces.tobago.internal.util.ResponseUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
@@ -120,6 +122,7 @@ public final class AjaxUtils {
    * @deprecated since 2.0.0. Is no longer needed
    */
   public static boolean redirect(final FacesContext facesContext, final String url) throws IOException {
+    Deprecation.LOG.warn("should not be called...");
     if (!isAjaxRequest(facesContext)) {
       return false;
     }
@@ -128,6 +131,9 @@ public final class AjaxUtils {
     final Writer writer = httpServletResponse.getWriter();
     final String contentType = "application/json; charset=UTF-8";
     ResponseUtils.ensureContentTypeHeader(facesContext, contentType);
+    if (TobagoConfig.getInstance(facesContext).isSetNosniffHeader()) {
+      ResponseUtils.ensureNosniffHeader(httpServletResponse);
+    }
     ResponseUtils.ensureNoCacheHeader(facesContext);
     redirectInternal(writer, url);
     writer.close();
@@ -139,6 +145,7 @@ public final class AjaxUtils {
    * @deprecated since 2.0.0. Is no longer needed
    */
   private static void redirectInternal(final Writer writer, final String url) throws IOException {
+    Deprecation.LOG.warn("should not be called...");
     writer.flush(); // is needed in some cases, e. g. TOBAGO-1094
     writer.write("{\n  \"tobagoAjaxResponse\": true,\n");
     writer.write("  \"responseCode\": 302,\n");
@@ -152,6 +159,7 @@ public final class AjaxUtils {
    * @deprecated since 2.0.0. Is no longer needed
    */
   public static void redirect(final HttpServletResponse response, final String url) throws IOException {
+    Deprecation.LOG.warn("should not be called...");
     final PrintWriter writer = response.getWriter();
     final String contentType = "application/json; charset=UTF-8";
     ResponseUtils.ensureContentTypeHeader(response, contentType);

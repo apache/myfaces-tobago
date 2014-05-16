@@ -130,4 +130,16 @@ public final class ResponseUtils {
       }
     }
   }
+
+  public static void ensureNosniffHeader(final FacesContext facesContext) {
+    final Object response = facesContext.getExternalContext().getResponse();
+    if (response instanceof HttpServletResponse) {
+      final HttpServletResponse servletResponse = (HttpServletResponse) response;
+      ensureNosniffHeader(servletResponse);
+    }
+  }
+
+  public static void ensureNosniffHeader(final HttpServletResponse servletResponse) {
+    servletResponse.setHeader("X-Content-Type-Options", "nosniff");
+  }
 }

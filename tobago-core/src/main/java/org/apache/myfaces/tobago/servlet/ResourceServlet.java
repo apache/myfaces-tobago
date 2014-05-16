@@ -24,6 +24,7 @@ import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.context.Theme;
 import org.apache.myfaces.tobago.internal.util.IoUtils;
 import org.apache.myfaces.tobago.internal.util.MimeTypeUtils;
+import org.apache.myfaces.tobago.internal.util.ResponseUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -74,6 +75,7 @@ public class ResourceServlet extends HttpServlet {
   private Long expires;
   private int bufferSize;
   private Set<String> resourceDirs = new HashSet<String>();
+  private boolean nosniffHeader;
 
   @Override
   public void init(final ServletConfig servletConfig) throws ServletException {
@@ -103,6 +105,7 @@ public class ResourceServlet extends HttpServlet {
         LOG.error("Caught: " + e.getMessage(), e);
       }
     }
+    nosniffHeader = tobagoConfig.isSetNosniffHeader();
   }
 
   private void addResourceDir(final List<Theme> themes) {
@@ -145,6 +148,9 @@ public class ResourceServlet extends HttpServlet {
     final String contentType = MimeTypeUtils.getMimeTypeForFile(requestURI);
     if (contentType != null) {
       response.setContentType(contentType);
+      if (nosniffHeader) {
+        ResponseUtils.ensureNosniffHeader(response);
+      }
     } else {
       final String message = "Unsupported mime type of resource='" + resource + "'";
       LOG.warn(message + " (because of security reasons)");

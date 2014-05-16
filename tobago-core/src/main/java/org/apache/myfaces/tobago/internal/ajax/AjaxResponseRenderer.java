@@ -20,6 +20,7 @@
 package org.apache.myfaces.tobago.internal.ajax;
 
 import org.apache.myfaces.tobago.component.Attributes;
+import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
 import org.apache.myfaces.tobago.internal.util.ResponseUtils;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
@@ -123,6 +124,9 @@ public class AjaxResponseRenderer {
     sb.append("; charset=");
     sb.append(charset);
     ResponseUtils.ensureContentTypeHeader(facesContext, sb.toString());
+    if (TobagoConfig.getInstance(facesContext).isSetNosniffHeader()) {
+      ResponseUtils.ensureNosniffHeader(facesContext);
+    }
   }
 
   private void writeResponse(final FacesContext facesContext, final RenderKit renderKit, final boolean reloadRequired)

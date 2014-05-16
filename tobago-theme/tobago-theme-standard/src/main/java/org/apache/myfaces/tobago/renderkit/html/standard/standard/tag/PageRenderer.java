@@ -175,6 +175,9 @@ public class PageRenderer extends PageRendererBase {
 
     final String contentType = writer.getContentTypeWithCharSet();
     ResponseUtils.ensureContentTypeHeader(facesContext, contentType);
+    if (tobagoConfig.isSetNosniffHeader()) {
+      ResponseUtils.ensureNosniffHeader(facesContext);
+    }
     final String clientId = page.getClientId(facesContext);
     final ClientProperties client = ClientProperties.getInstance(facesContext);
     final ProjectStage projectStage = tobagoConfig.getProjectStage();

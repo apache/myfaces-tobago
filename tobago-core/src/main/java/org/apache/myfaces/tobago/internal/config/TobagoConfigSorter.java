@@ -110,6 +110,10 @@ public class TobagoConfigSorter implements Comparator<TobagoConfigFragment> {
         result.getContentSecurityPolicy().merge(fragment.getContentSecurityPolicy());
       }
 
+      if (fragment.getSetNosniffHeader() != null) {
+        result.setSetNosniffHeader(fragment.getSetNosniffHeader());
+      }
+
       // theme definition
       // todo
 /*

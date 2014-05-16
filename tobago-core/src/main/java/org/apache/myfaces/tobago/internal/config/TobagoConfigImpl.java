@@ -33,7 +33,6 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.servlet.ServletContext;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -59,7 +58,7 @@ public class TobagoConfigImpl extends TobagoConfig {
   private boolean checkSessionSecret;
   private boolean preventFrameAttacks;
   private ContentSecurityPolicy contentSecurityPolicy;
-  private URL url;
+  private boolean setNosniffHeader;
   private Map<String, String> defaultValidatorInfo;
 
   public TobagoConfigImpl() {
@@ -69,6 +68,7 @@ public class TobagoConfigImpl extends TobagoConfig {
     createSessionSecret = true;
     checkSessionSecret = true;
     preventFrameAttacks = true;
+    setNosniffHeader = true;
     contentSecurityPolicy = new ContentSecurityPolicy(ContentSecurityPolicy.Mode.OFF.getValue());
   }
 
@@ -283,6 +283,14 @@ public class TobagoConfigImpl extends TobagoConfig {
     return contentSecurityPolicy;
   }
 
+  public boolean isSetNosniffHeader() {
+    return setNosniffHeader;
+  }
+
+  public void setSetNosniffHeader(final boolean setNosniffHeader) {
+    this.setNosniffHeader = setNosniffHeader;
+  }
+
   public Map<String, String> getDefaultValidatorInfo() {
 
     // TODO: if the startup hasn't found a FacesContext and Application, this may depend on the order of the listeners.
@@ -313,8 +321,6 @@ public class TobagoConfigImpl extends TobagoConfig {
     builder.append(createSessionSecret);
     builder.append(", \ncheckSessionSecret=");
     builder.append(checkSessionSecret);
-    builder.append(", \nurl=");
-    builder.append(url);
     // to see only different (ignore alternative names for the same theme)
     builder.append(", \nthemes=");
     final Set<Theme> all = new HashSet<Theme>(availableThemes.values());

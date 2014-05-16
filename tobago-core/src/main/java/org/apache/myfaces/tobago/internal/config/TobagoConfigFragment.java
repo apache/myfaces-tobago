@@ -20,7 +20,6 @@
 package org.apache.myfaces.tobago.internal.config;
 
 import org.apache.myfaces.tobago.context.ThemeImpl;
-import org.apache.myfaces.tobago.internal.util.Deprecation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -44,6 +43,7 @@ public class TobagoConfigFragment {
   private Boolean checkSessionSecret;
   private Boolean preventFrameAttacks;
   private ContentSecurityPolicy contentSecurityPolicy;
+  private Boolean setNosniffHeader;
   private List<ThemeImpl> themeDefinitions;
   private URL url;
 
@@ -82,12 +82,6 @@ public class TobagoConfigFragment {
 
   public List<String> getResourceDirs() {
     return resourceDirs;
-  }
-
-  /** @deprecated since 1.5.0 */
-  @Deprecated
-  public void setAjaxEnabled(final String value) {
-    Deprecation.LOG.error("Ajax is always enabled!");
   }
 
   public RenderersConfig getRenderersConfig() {
@@ -162,16 +156,12 @@ public class TobagoConfigFragment {
     this.contentSecurityPolicy = contentSecurityPolicy;
   }
 
-  /** @deprecated since 1.5.0 */
-  @Deprecated
-  public void setFixResourceOrder(final String value) {
-    Deprecation.LOG.error("Config fix-resource-order not longer supported. (Is always activated).");
+  public Boolean getSetNosniffHeader() {
+    return setNosniffHeader;
   }
 
-  /** @deprecated since 1.5.0 */
-  @Deprecated
-  public void setFixLayoutTransparency(final String value) {
-    Deprecation.LOG.error("Config fix-layout-transparency not longer supported. (Is always activated).");
+  public void setSetNosniffHeader(final Boolean setNosniffHeader) {
+    this.setNosniffHeader = setNosniffHeader;
   }
 
   public URL getUrl() {
