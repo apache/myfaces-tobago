@@ -84,6 +84,8 @@
   <prevent-frame-attacks>
     false
   </prevent-frame-attacks>
+  <set-nosniff-header>
+    false  </set-nosniff-header>
 
   <content-security-policy mode="on">
     <directive>

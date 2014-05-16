@@ -100,6 +100,8 @@ public class TobagoConfigParserUnitTest {
     Assert.assertEquals(0, theme2.getResources().getStyleList().size());
     Assert.assertEquals(0, theme2.getProductionResources().getScriptList().size());
     Assert.assertEquals(0, theme2.getProductionResources().getStyleList().size());
+
+    Assert.assertFalse("set-nosniff-header", fragment.getSetNosniffHeader());
   }
 
   @Test
