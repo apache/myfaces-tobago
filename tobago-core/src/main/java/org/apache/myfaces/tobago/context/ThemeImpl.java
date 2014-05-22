@@ -37,34 +37,22 @@ public class ThemeImpl implements Theme, Serializable {
   private static final Logger LOG = LoggerFactory.getLogger(ThemeImpl.class);
 
   private String name;
-
   private String displayName;
-
   private String resourcePath;
-
   private ThemeImpl fallback;
-
   private String fallbackName;
-
   private List<Theme> fallbackList;
-
   private RenderersConfigImpl renderersConfig;
-
   private ThemeResources productionResources;
-
   private ThemeResources resources;
-
   private String[] productionScripts;
-
   private String[] productionStyles;
-
   private String[] scripts;
-
   private String[] styles;
-
   private boolean versioned;
-
   private String version;
+
+  private boolean unmodifiable = false;
 
   public ThemeImpl() {
     resources = new ThemeResources();
@@ -72,11 +60,25 @@ public class ThemeImpl implements Theme, Serializable {
     productionResources.setProduction(true);
   }
 
+  private void checkLocked() throws IllegalStateException {
+    if (unmodifiable) {
+      throw new RuntimeException("The configuration must not be changed after initialization!");
+    }
+  }
+
+  /**
+   * Lock the configuration, so it cannot be modified any more.
+   */
+  public void lock() {
+    unmodifiable = true;
+  }
+
   public String getName() {
     return name;
   }
 
   public void setName(final String name) {
+    checkLocked();
     this.name = name;
   }
 
@@ -85,6 +87,7 @@ public class ThemeImpl implements Theme, Serializable {
   }
 
   public void setDisplayName(final String displayName) {
+    checkLocked();
     this.displayName = displayName;
   }
 
@@ -93,6 +96,7 @@ public class ThemeImpl implements Theme, Serializable {
   }
 
   public void setResourcePath(final String resourcePath) {
+    checkLocked();
     this.resourcePath = resourcePath;
   }
 
@@ -101,6 +105,7 @@ public class ThemeImpl implements Theme, Serializable {
   }
 
   public void setFallback(final ThemeImpl fallback) {
+    checkLocked();
     this.fallback = fallback;
   }
 
@@ -109,6 +114,7 @@ public class ThemeImpl implements Theme, Serializable {
   }
 
   public void setFallbackName(final String fallbackName) {
+    checkLocked();
     this.fallbackName = fallbackName;
   }
 
@@ -117,6 +123,7 @@ public class ThemeImpl implements Theme, Serializable {
   }
 
   public void resolveFallbacks() {
+    checkLocked();
     fallbackList = new ArrayList<Theme>();
     ThemeImpl actual = this;
     while (actual != null) {
@@ -132,6 +139,7 @@ public class ThemeImpl implements Theme, Serializable {
   }
 
   public void resolveRendererConfig(final RenderersConfig rendererConfigFromTobagoConfig) {
+    checkLocked();
     if (renderersConfig == null) {
       renderersConfig = new RenderersConfigImpl();
     }
@@ -158,6 +166,7 @@ public class ThemeImpl implements Theme, Serializable {
   }
 
   public void resolveResources() {
+    checkLocked();
     final ThemeImpl fallback = getFallback();
     if (fallback != null) {
       fallback.resolveResources();
@@ -181,6 +190,7 @@ public class ThemeImpl implements Theme, Serializable {
   }
 
   public void setRenderersConfig(final RenderersConfigImpl renderersConfig) {
+    checkLocked();
     this.renderersConfig = renderersConfig;
   }
 
@@ -201,6 +211,7 @@ public class ThemeImpl implements Theme, Serializable {
   }
 
   public void addResources(final ThemeResources themeResources) {
+    checkLocked();
     if (themeResources.isProduction()) {
       productionResources.merge(themeResources);
     } else {
@@ -209,6 +220,7 @@ public class ThemeImpl implements Theme, Serializable {
   }
 
   public void init() {
+    checkLocked();
     productionScripts = new String[productionResources.getScriptList().size()];
     for (int i = 0; i < productionResources.getScriptList().size(); i++) {
       productionScripts[i] = productionResources.getScriptList().get(i).getName();
@@ -244,10 +256,12 @@ public class ThemeImpl implements Theme, Serializable {
   }
 
   public boolean isVersioned() {
+    checkLocked();
     return versioned;
   }
 
   public void setVersioned(final boolean versioned) {
+    checkLocked();
     this.versioned = versioned;
   }
 
@@ -256,6 +270,7 @@ public class ThemeImpl implements Theme, Serializable {
   }
 
   public void setVersion(final String version) {
+    checkLocked();
     this.version = version;
   }
 }

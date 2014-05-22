@@ -22,7 +22,7 @@ package org.apache.myfaces.tobago.internal.config;
 import org.apache.myfaces.tobago.application.ProjectStage;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.context.Theme;
-import org.apache.myfaces.tobago.internal.util.Deprecation;
+import org.apache.myfaces.tobago.context.ThemeImpl;
 import org.apache.myfaces.tobago.internal.util.JndiUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,11 +40,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * Implementation of the Tobago configuration.
+ *
+ * All setters must are protected, so EL can't modify this config.
+ */
 public class TobagoConfigImpl extends TobagoConfig {
 
   private static final Logger LOG = LoggerFactory.getLogger(TobagoConfigImpl.class);
-
-  public static final String TOBAGO_CONFIG = "org.apache.myfaces.tobago.config.TobagoConfig";
 
   private List<Theme> supportedThemes;
   private List<String> supportedThemeNames;
@@ -61,7 +64,9 @@ public class TobagoConfigImpl extends TobagoConfig {
   private boolean setNosniffHeader;
   private Map<String, String> defaultValidatorInfo;
 
-  public TobagoConfigImpl() {
+  private boolean unmodifiable = false;
+
+  protected TobagoConfigImpl() {
     supportedThemeNames = new ArrayList<String>();
     supportedThemes = new ArrayList<Theme>();
     resourceDirs = new ArrayList<String>();
@@ -72,11 +77,39 @@ public class TobagoConfigImpl extends TobagoConfig {
     contentSecurityPolicy = new ContentSecurityPolicy(ContentSecurityPolicy.Mode.OFF.getValue());
   }
 
-  public void addSupportedThemeName(final String name) {
+  /**
+   * Lock the configuration, so it cannot be modified any more.
+   */
+  protected void lock() {
+    unmodifiable = true;
+    supportedThemes = Collections.unmodifiableList(supportedThemes);
+    for (Theme theme : supportedThemes) {
+      ((ThemeImpl) theme).lock();
+    }
+    supportedThemeNames = Collections.unmodifiableList(supportedThemeNames);
+    resourceDirs = Collections.unmodifiableList(resourceDirs);
+    availableThemes = Collections.unmodifiableMap(availableThemes);
+
+    if (renderersConfig instanceof RenderersConfigImpl) {
+      ((RenderersConfigImpl)renderersConfig).lock();
+    }
+    contentSecurityPolicy.lock();
+  }
+
+  private void checkLocked() throws IllegalStateException {
+    if (unmodifiable) {
+      throw new RuntimeException("The configuration must not be changed after initialization!");
+    }
+  }
+
+  protected void addSupportedThemeName(final String name) {
+    checkLocked();
     supportedThemeNames.add(name);
   }
+
   // TODO one init method
-  public void resolveThemes() {
+  protected void resolveThemes() {
+    checkLocked();
     if (defaultThemeName != null) {
       defaultTheme = availableThemes.get(defaultThemeName);
       checkThemeIsAvailable(defaultThemeName, defaultTheme);
@@ -145,15 +178,17 @@ public class TobagoConfigImpl extends TobagoConfig {
     return defaultTheme;
   }
 
-  public void setDefaultThemeName(final String defaultThemeName) {
+  protected void setDefaultThemeName(final String defaultThemeName) {
+    checkLocked();
     this.defaultThemeName = defaultThemeName;
   }
 
   public List<Theme> getSupportedThemes() {
-    return Collections.unmodifiableList(supportedThemes);
+    return supportedThemes;
   }
 
-  public void addResourceDir(final String resourceDir) {
+  protected void addResourceDir(final String resourceDir) {
+    checkLocked();
     if (!resourceDirs.contains(resourceDir)) {
       if (LOG.isInfoEnabled()) {
         LOG.info("adding resourceDir = '{}'", resourceDir);
@@ -166,37 +201,34 @@ public class TobagoConfigImpl extends TobagoConfig {
     return resourceDirs;
   }
 
-  /** @deprecated since 1.5.0 */
-  @Deprecated
-  public boolean isAjaxEnabled() {
-    Deprecation.LOG.warn("Ajax is always enabled!");
-    return true;
-  }
-
   public Theme getDefaultTheme() {
     return defaultTheme;
   }
 
-  public void setAvailableThemes(final Map<String, Theme> availableThemes) {
+  protected void setAvailableThemes(final Map<String, Theme> availableThemes) {
+    checkLocked();
     this.availableThemes = availableThemes;
     for (final Theme theme : this.availableThemes.values()) {
       addResourceDir(theme.getResourcePath());
     }
   }
 
-  public RenderersConfig getRenderersConfig() {
+  protected RenderersConfig getRenderersConfig() {
     return renderersConfig;
   }
 
-  public void setRenderersConfig(final RenderersConfig renderersConfig) {
+  protected void setRenderersConfig(final RenderersConfig renderersConfig) {
+    checkLocked();
     this.renderersConfig = renderersConfig;
   }
 
   public ProjectStage getProjectStage() {
     return projectStage;
   }
+
   // TODO one init method
-  public void initProjectState(final ServletContext servletContext) {
+  protected void initProjectState(final ServletContext servletContext) {
+    checkLocked();
     String stageName = null;
     try {
       final Context ctx = new InitialContext();
@@ -236,7 +268,10 @@ public class TobagoConfigImpl extends TobagoConfig {
     }
   }
 
-  public synchronized void initDefaultValidatorInfo() {
+  protected synchronized void initDefaultValidatorInfo() {
+    if (defaultValidatorInfo != null) {
+      checkLocked();
+    }
     final FacesContext facesContext = FacesContext.getCurrentInstance();
     if (facesContext != null) {
       try {
@@ -258,7 +293,8 @@ public class TobagoConfigImpl extends TobagoConfig {
     return createSessionSecret;
   }
 
-  public void setCreateSessionSecret(final boolean createSessionSecret) {
+  protected void setCreateSessionSecret(final boolean createSessionSecret) {
+    checkLocked();
     this.createSessionSecret = createSessionSecret;
   }
 
@@ -266,7 +302,8 @@ public class TobagoConfigImpl extends TobagoConfig {
     return checkSessionSecret;
   }
 
-  public void setCheckSessionSecret(final boolean checkSessionSecret) {
+  protected void setCheckSessionSecret(final boolean checkSessionSecret) {
+    checkLocked();
     this.checkSessionSecret = checkSessionSecret;
   }
 
@@ -275,7 +312,8 @@ public class TobagoConfigImpl extends TobagoConfig {
     return preventFrameAttacks;
   }
 
-  public void setPreventFrameAttacks(final boolean preventFrameAttacks) {
+  protected void setPreventFrameAttacks(final boolean preventFrameAttacks) {
+    checkLocked();
     this.preventFrameAttacks = preventFrameAttacks;
   }
 
@@ -287,12 +325,13 @@ public class TobagoConfigImpl extends TobagoConfig {
     return setNosniffHeader;
   }
 
-  public void setSetNosniffHeader(final boolean setNosniffHeader) {
+  protected void setSetNosniffHeader(final boolean setNosniffHeader) {
+    checkLocked();
     this.setNosniffHeader = setNosniffHeader;
   }
 
   public Map<String, String> getDefaultValidatorInfo() {
-
+LOG.error("unmodifiable=" + unmodifiable);
     // TODO: if the startup hasn't found a FacesContext and Application, this may depend on the order of the listeners.
     if (defaultValidatorInfo == null) {
       initDefaultValidatorInfo();

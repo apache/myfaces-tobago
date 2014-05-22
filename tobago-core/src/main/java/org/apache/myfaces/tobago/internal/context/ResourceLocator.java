@@ -20,6 +20,7 @@
 package org.apache.myfaces.tobago.internal.context;
 
 import org.apache.myfaces.tobago.context.ThemeImpl;
+import org.apache.myfaces.tobago.internal.config.ThemeBuilder;
 import org.apache.myfaces.tobago.internal.config.TobagoConfigFragment;
 import org.apache.myfaces.tobago.internal.config.TobagoConfigParser;
 import org.apache.myfaces.tobago.internal.util.IoUtils;

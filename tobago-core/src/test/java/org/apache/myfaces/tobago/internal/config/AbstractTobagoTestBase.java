@@ -17,7 +17,7 @@
  * under the License.
  */
 
-package org.apache.myfaces.tobago.internal.mock.faces;
+package org.apache.myfaces.tobago.internal.config;
 
 import org.apache.myfaces.test.base.junit4.AbstractJsfTestCase;
 import org.apache.myfaces.test.mock.MockFacesContext;
@@ -33,8 +33,8 @@ import org.apache.myfaces.tobago.component.UIPopup;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.context.Theme;
-import org.apache.myfaces.tobago.internal.config.TobagoConfigImpl;
 import org.apache.myfaces.tobago.internal.context.ResourceManagerFactory;
+import org.apache.myfaces.tobago.internal.mock.faces.MockTheme;
 import org.junit.After;
 import org.junit.Before;
 import org.slf4j.Logger;
@@ -103,6 +103,7 @@ public abstract class AbstractTobagoTestBase extends AbstractJsfTestCase {
       // ignored in the moment. TODO
       LOG.error("Todo: remove this hack", e);
     }
+    tobagoConfig.lock();
   }
 
   @After

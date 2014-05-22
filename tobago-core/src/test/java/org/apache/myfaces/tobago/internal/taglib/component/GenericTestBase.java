@@ -23,7 +23,7 @@ import net.sf.maventaglib.checker.TagAttribute;
 import net.sf.maventaglib.checker.Tld;
 import net.sf.maventaglib.checker.TldParser;
 import org.apache.commons.beanutils.PropertyUtils;
-import org.apache.myfaces.tobago.internal.mock.faces.AbstractTobagoTestBase;
+import org.apache.myfaces.tobago.internal.config.AbstractTobagoTestBase;
 import org.apache.myfaces.tobago.internal.mock.servlet.MockPageContext;
 import org.junit.Assert;
 import org.junit.Before;

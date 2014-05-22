@@ -62,6 +62,8 @@ public final class TobagoConfigBuilder {
 
     tobagoConfig.initDefaultValidatorInfo();
 
+    tobagoConfig.lock();
+
     servletContext.setAttribute(TobagoConfig.TOBAGO_CONFIG, tobagoConfig);
   }
 

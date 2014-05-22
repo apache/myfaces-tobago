@@ -25,6 +25,7 @@ import org.slf4j.LoggerFactory;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,14 +37,30 @@ public class RenderersConfigImpl implements RenderersConfig, Serializable {
   private static final Logger LOG = LoggerFactory.getLogger(RenderersConfigImpl.class);
 
   private Map<String, RendererConfig> rendererMap = new HashMap<String, RendererConfig>();
-
   private boolean merged = false;
+
+  private boolean unmodifiable = false;
+
+  private void checkLocked() throws IllegalStateException {
+    if (unmodifiable) {
+      throw new RuntimeException("The configuration must not be changed after initialization!");
+    }
+  }
+
+  /**
+   * Lock the configuration, so it cannot be modified any more.
+   */
+  public void lock() {
+    unmodifiable = true;
+    rendererMap = Collections.unmodifiableMap(rendererMap);
+  }
 
   public boolean isMerged() {
     return merged;
   }
 
   public void setMerged(final boolean merged) {
+    checkLocked();
     this.merged = merged;
   }
 
@@ -54,6 +71,7 @@ public class RenderersConfigImpl implements RenderersConfig, Serializable {
   }
 
   public void addRenderer(final RendererConfig rendererConfig) {
+    checkLocked();
     final String name = rendererConfig.getName();
     if (rendererMap.containsKey(name)) {
       rendererMap.get(name).merge(rendererConfig);
@@ -63,9 +81,6 @@ public class RenderersConfigImpl implements RenderersConfig, Serializable {
   }
 
   public boolean isMarkupSupported(final String rendererName, final String markup) {
-    if (LOG.isDebugEnabled()) {
-      LOG.debug("Calling isMarkupSupported('{}', '{}')", rendererName, markup);
-    }
     final RendererConfig rendererConfig = rendererMap.get(rendererName);
     if (rendererConfig != null) {
       return rendererConfig.contains(markup);
@@ -76,6 +91,7 @@ public class RenderersConfigImpl implements RenderersConfig, Serializable {
   }
 
   public void merge(final RenderersConfig renderersConfig, final boolean override) {
+    checkLocked();
     final Collection<RendererConfig> renderers = renderersConfig.getRendererConfigs();
     for (final RendererConfig rendererConfig : renderers) {
       addRenderer(rendererConfig);

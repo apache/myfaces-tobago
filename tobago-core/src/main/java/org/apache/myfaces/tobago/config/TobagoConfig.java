@@ -43,29 +43,9 @@ public abstract class TobagoConfig {
 
   public abstract List<Theme> getSupportedThemes();
 
-/*
-  // TBD: should this be part of the public api?
-  public abstract void addResourceDir(String resourceDir);
-*/
-
-/*
-  // TBD: should this be part of the public api?
-  public abstract List<String> getResourceDirs();
-*/
-
   public abstract Theme getDefaultTheme();
 
-/*
-  // TBD: should this be part of the public api?
-  public abstract RenderersConfig getRenderersConfig();
-*/
-
   public abstract ProjectStage getProjectStage();
-
-/*
-  // TBD: should this be part of the public api?
-  public abstract List<Theme> getThemeDefinitions();
-*/
 
   public abstract boolean isCreateSessionSecret();
 
