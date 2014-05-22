@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<ui:composition template="/layout/overview.xhtml"
+                xmlns:tc="http://myfaces.apache.org/tobago/component"
+                xmlns:tx="http://myfaces.apache.org/tobago/extension"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core">
+  <ui:param name="title" value="CKEditor integration"/>
+
+  <tc:script file="content/35-wysiwyg/01-ckeditor/ckeditor/ckeditor.js"/>
+  <tc:script file="content/35-wysiwyg/01-ckeditor/demo-ckeditor.js"/>
+
+  <tc:panel>
+    <f:facet name="layout">
+      <tc:gridLayout rows="20px;20px;110px;*;auto"/>
+    </f:facet>
+
+  <tc:out markup="strong" rendered="#{not htmlEditor.ckeditorAvailable}"
+      value="The CKEditor is not installed! Using the fallback textarea."/>
+
+  <tc:out markup="strong" rendered="#{tobagoContext.tobagoConfig.contentSecurityPolicy.mode == 'ON'}"
+      value="CSP is ON! CKEditor is not compatible with CSP!"/>
+
+  <tc:panel>
+    <f:facet name="layout">
+      <tc:flowLayout/>
+    </f:facet>
+
+    <h3>
+      Installation:
+    </h3>
+    <p>
+      Download <tc:link link="http://ckeditor.com/" target="_blank" label="CKEditor"/> und unpack the ZIP file
+      directly beside this XHTML-file.
+      Then restart this application (this is needed, because the resource manager needs to scan the content).
+    </p>
+    <p>
+      This Facelet contains 2 tc:script tags, 1 for the CKEditor and 1 for the integration in this application.
+      The tc:textarea has a tc:dataAttribute with name="html-editor" set, to mark this textarea to be used as
+      ritch text editor. The rest does the script: demo-ckeditor.js
+    </p>
+    </tc:panel>
+
+    <tc:textarea value="#{htmlEditor.text}">
+      <tc:dataAttribute name="html-editor" value=""/>
+    </tc:textarea>
+
+    <tc:panel>
+      <f:facet name="layout">
+        <tc:gridLayout columns="*;auto"/>
+      </f:facet>
+      <tc:panel/>
+      <tc:button label="Submit"/>
+    </tc:panel>
+
+  </tc:panel>
+</ui:composition>
