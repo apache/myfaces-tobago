@@ -189,7 +189,6 @@
       <plugin>
         <groupId>net.sourceforge.maven-taglib</groupId>
         <artifactId>maven-taglib-plugin</artifactId>
-        <version>2.3.1</version>
         <configuration>
           <taglib.src.dir>${project.build.directory}/generated</taglib.src.dir>
           <tldDocDir>${project.build.directory}/site/tlddoc</tldDocDir>
@@ -229,10 +228,6 @@
       <version>${project.version}</version>
       <classifier>tests</classifier>
       <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>maven-taglib</groupId>
-      <artifactId>maven-taglib-plugin</artifactId>
     </dependency>
     <dependency>
       <groupId>org.apache.myfaces.test</groupId>
