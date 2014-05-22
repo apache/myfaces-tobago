@@ -24,6 +24,9 @@
     version="2.0">
 
   <application>
+    <navigation-handler>
+      org.apache.myfaces.tobago.example.demo.PrettyUrlForMenuNavigationHandler
+    </navigation-handler>
     <locale-config>
       <default-locale>en</default-locale>
       <supported-locale>en_US</supported-locale>
