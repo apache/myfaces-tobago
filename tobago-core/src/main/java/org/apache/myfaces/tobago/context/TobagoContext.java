@@ -19,6 +19,7 @@
 
 package org.apache.myfaces.tobago.context;
 
+import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPage;
 import org.apache.myfaces.tobago.layout.Box;
 import org.apache.myfaces.tobago.layout.Dimension;
@@ -53,5 +54,9 @@ public class TobagoContext {
 
   public TobagoMessageBundle getMessageBundle() {
     return MESSAGE_BUNDLE;
+  }
+
+  public TobagoConfig getTobagoConfig () {
+    return TobagoConfig.getInstance(FacesContext.getCurrentInstance());
   }
 }
