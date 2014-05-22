@@ -19,7 +19,7 @@
 
 package org.apache.myfaces.tobago.component;
 
-import org.apache.myfaces.tobago.internal.mock.faces.AbstractTobagoTestBase;
+import org.apache.myfaces.tobago.internal.config.AbstractTobagoTestBase;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

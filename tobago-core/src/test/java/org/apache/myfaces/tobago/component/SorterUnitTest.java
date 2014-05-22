@@ -21,7 +21,7 @@ package org.apache.myfaces.tobago.component;
 
 import org.apache.myfaces.test.mock.MockValueBinding;
 import org.apache.myfaces.tobago.event.SortActionEvent;
-import org.apache.myfaces.tobago.internal.mock.faces.AbstractTobagoTestBase;
+import org.apache.myfaces.tobago.internal.config.AbstractTobagoTestBase;
 import org.junit.Test;
 
 import java.util.ArrayList;

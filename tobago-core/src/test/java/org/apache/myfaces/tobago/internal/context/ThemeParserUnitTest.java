@@ -21,8 +21,9 @@ package org.apache.myfaces.tobago.internal.context;
 
 import org.apache.myfaces.tobago.context.ThemeImpl;
 import org.apache.myfaces.tobago.context.ThemeResources;
-import org.apache.myfaces.tobago.internal.config.TobagoConfigImpl;
+import org.apache.myfaces.tobago.internal.config.ThemeBuilder;
 import org.apache.myfaces.tobago.internal.config.TobagoConfigParser;
+import org.apache.myfaces.tobago.internal.config.TobagoConfigTestUtils;
 import org.junit.Assert;
 import org.junit.Test;
 import org.xml.sax.SAXException;
@@ -37,8 +38,7 @@ public class ThemeParserUnitTest {
 
   @Test
   public void test() throws IOException, SAXException, ParserConfigurationException, URISyntaxException {
-    final TobagoConfigImpl config = new TobagoConfigImpl();
-    final ThemeBuilder themeBuilder = new ThemeBuilder(config);
+    final ThemeBuilder themeBuilder = TobagoConfigTestUtils.createThemeBuilder();
     final ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
     Enumeration<URL> urls = classLoader.getResources("theme-config.xml");
 

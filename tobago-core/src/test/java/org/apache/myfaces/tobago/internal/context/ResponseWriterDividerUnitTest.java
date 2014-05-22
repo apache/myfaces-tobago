@@ -19,7 +19,7 @@
 
 package org.apache.myfaces.tobago.internal.context;
 
-import org.apache.myfaces.tobago.internal.mock.faces.AbstractTobagoTestBase;
+import org.apache.myfaces.tobago.internal.config.AbstractTobagoTestBase;
 import org.apache.myfaces.tobago.internal.webapp.XmlResponseWriter;
 import org.junit.Assert;
 import org.junit.Test;

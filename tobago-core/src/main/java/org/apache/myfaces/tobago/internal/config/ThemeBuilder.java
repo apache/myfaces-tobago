@@ -17,11 +17,10 @@
  * under the License.
  */
 
-package org.apache.myfaces.tobago.internal.context;
+package org.apache.myfaces.tobago.internal.config;
 
 import org.apache.myfaces.tobago.context.Theme;
 import org.apache.myfaces.tobago.context.ThemeImpl;
-import org.apache.myfaces.tobago.internal.config.TobagoConfigImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -31,14 +30,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-class ThemeBuilder {
+public class ThemeBuilder {
 
   private static final Logger LOG = LoggerFactory.getLogger(ThemeBuilder.class);
 
   private List<ThemeImpl> availableThemes = new ArrayList<ThemeImpl>();
   private TobagoConfigImpl tobagoConfig;
 
-  ThemeBuilder(final TobagoConfigImpl tobagoConfig) {
+  public ThemeBuilder(final TobagoConfigImpl tobagoConfig) {
     this.tobagoConfig = tobagoConfig;
   }
 

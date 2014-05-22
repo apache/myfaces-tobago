@@ -23,7 +23,7 @@ import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.ComponentTypes;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.component.AbstractUICommandBase;
-import org.apache.myfaces.tobago.internal.mock.faces.AbstractTobagoTestBase;
+import org.apache.myfaces.tobago.internal.config.AbstractTobagoTestBase;
 import org.apache.myfaces.tobago.util.CreateComponentUtils;
 import org.junit.Assert;
 import org.junit.Test;

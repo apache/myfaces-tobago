@@ -20,6 +20,7 @@
 package org.apache.myfaces.tobago.internal.config;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class ContentSecurityPolicy {
@@ -27,12 +28,29 @@ public class ContentSecurityPolicy {
   private Mode mode;
   private List<String> directiveList;
 
+  private boolean unmodifiable = false;
+
+  private void checkLocked() throws IllegalStateException {
+    if (unmodifiable) {
+      throw new RuntimeException("The configuration must not be changed after initialization!");
+    }
+  }
+
+  /**
+   * Lock the configuration, so it cannot be modified any more.
+   */
+  public void lock() {
+    unmodifiable = true;
+    directiveList = Collections.unmodifiableList(directiveList);
+  }
+
   public ContentSecurityPolicy(final String mode) {
     this.mode = Mode.parse(mode);
     this.directiveList = new ArrayList<String>();
   }
 
   public void merge(final ContentSecurityPolicy other) {
+    checkLocked();
     directiveList.addAll(other.directiveList);
     mode = other.mode;
   }

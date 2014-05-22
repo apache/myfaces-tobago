@@ -20,6 +20,7 @@
 package org.apache.myfaces.tobago.internal.context;
 
 import org.apache.myfaces.tobago.context.ResourceManager;
+import org.apache.myfaces.tobago.internal.config.ThemeBuilder;
 import org.apache.myfaces.tobago.internal.config.TobagoConfigImpl;
 
 import javax.faces.context.FacesContext;
@@ -51,7 +52,7 @@ public final class ResourceManagerFactory {
       final ServletContext servletContext, final TobagoConfigImpl tobagoConfig)
       throws ServletException {
     assert !initialized;
-    final ResourceManagerImpl resourceManager= new ResourceManagerImpl(tobagoConfig);
+    final ResourceManagerImpl resourceManager = new ResourceManagerImpl(tobagoConfig);
 
     final ThemeBuilder themeBuilder = new ThemeBuilder(tobagoConfig);
     final ResourceLocator resourceLocator = new ResourceLocator(servletContext, resourceManager, themeBuilder);

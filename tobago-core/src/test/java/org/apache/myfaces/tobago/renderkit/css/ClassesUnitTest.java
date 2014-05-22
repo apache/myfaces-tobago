@@ -25,7 +25,7 @@ import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.SupportsMarkup;
 import org.apache.myfaces.tobago.component.UIIn;
 import org.apache.myfaces.tobago.context.Markup;
-import org.apache.myfaces.tobago.internal.mock.faces.AbstractTobagoTestBase;
+import org.apache.myfaces.tobago.internal.config.AbstractTobagoTestBase;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.junit.Assert;
 import org.junit.Test;
