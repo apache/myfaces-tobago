@@ -36,12 +36,13 @@
 
     <tc:panel>
       <f:facet name="layout">
-        <tc:gridLayout rows="auto;auto;auto"/>
+        <tc:gridLayout rows="15px;15px;15px;15px;15px"/>
       </f:facet>
       <tc:out value="Theme: #{clientConfigController.localizedTheme}"/>
       <tc:out value="Locale: #{clientConfigController.localizedLocale}"/>
       <tc:out value="VDL: Facelets" tip="View Description Language"/>
       <tc:out value="Project Stage: #{tobagoContext.tobagoConfig.projectStage}"/>
+      <tc:out value="CSP mode: #{tobagoContext.tobagoConfig.contentSecurityPolicy.mode}"/>
     </tc:panel>
   </tc:panel>
 </f:subview>
