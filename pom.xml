@@ -533,9 +533,9 @@
         <scope>provided</scope>
       </dependency>
       <dependency>
-        <groupId>maven-taglib</groupId>
+        <groupId>net.sourceforge.maven-taglib</groupId>
         <artifactId>maven-taglib-plugin</artifactId>
-        <version>1.4.2</version>
+        <version>2.4</version>
         <scope>test</scope>
       </dependency>
       <dependency>
@@ -957,7 +957,7 @@
         <plugin>
           <groupId>net.sourceforge.maven-taglib</groupId>
           <artifactId>maven-taglib-plugin</artifactId>
-          <version>2.3.1</version>
+          <version>2.4</version>
         </plugin>
 
         <plugin>

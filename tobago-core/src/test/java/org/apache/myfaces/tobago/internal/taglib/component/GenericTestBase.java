@@ -84,7 +84,7 @@ public abstract class GenericTestBase extends AbstractTobagoTestBase {
         final Tag tagInstance = getTagInstance(tag);
         final TagAttribute[] attributes = tag.getAttributes();
         for (final TagAttribute attribute : attributes) {
-          final String name = attribute.getAttributeName();
+          final String name = attribute.getName();
           checkSetter(tagInstance, name);
         }
       }
