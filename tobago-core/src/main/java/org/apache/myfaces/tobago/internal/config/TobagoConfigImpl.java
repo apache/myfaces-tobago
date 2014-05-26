@@ -42,7 +42,7 @@ import java.util.Set;
 
 /**
  * Implementation of the Tobago configuration.
- *
+ * <p/>
  * All setters must are protected, so EL can't modify this config.
  */
 public class TobagoConfigImpl extends TobagoConfig {
@@ -91,7 +91,7 @@ public class TobagoConfigImpl extends TobagoConfig {
     availableThemes = Collections.unmodifiableMap(availableThemes);
 
     if (renderersConfig instanceof RenderersConfigImpl) {
-      ((RenderersConfigImpl)renderersConfig).lock();
+      ((RenderersConfigImpl) renderersConfig).lock();
     }
     contentSecurityPolicy.lock();
   }
@@ -144,7 +144,7 @@ public class TobagoConfigImpl extends TobagoConfig {
         checkThemeIsAvailable(name, theme);
         supportedThemes.add(theme);
         if (LOG.isDebugEnabled()) {
-          LOG.debug("name = '{}'",  name);
+          LOG.debug("name = '{}'", name);
           LOG.debug("supportedThemes.last() = '{}'", supportedThemes.get(supportedThemes.size() - 1));
         }
       }
@@ -331,7 +331,6 @@ public class TobagoConfigImpl extends TobagoConfig {
   }
 
   public Map<String, String> getDefaultValidatorInfo() {
-LOG.error("unmodifiable=" + unmodifiable);
     // TODO: if the startup hasn't found a FacesContext and Application, this may depend on the order of the listeners.
     if (defaultValidatorInfo == null) {
       initDefaultValidatorInfo();

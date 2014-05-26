@@ -56,7 +56,7 @@ public class TobagoContext {
     return MESSAGE_BUNDLE;
   }
 
-  public TobagoConfig getTobagoConfig () {
+  public TobagoConfig getTobagoConfig() {
     return TobagoConfig.getInstance(FacesContext.getCurrentInstance());
   }
 }
