@@ -21,6 +21,8 @@ package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UITextarea;
+import org.apache.myfaces.tobago.sanitizer.Sanitizer;
+import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.renderkit.InputRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
@@ -113,6 +115,11 @@ public class TextareaRenderer extends InputRendererBase {
     }*/
     String currentValue = RenderUtils.currentValue(input);
     if (currentValue != null) {
+      if (ComponentUtils.getDataAttribute(input, "html-editor") != null
+          && "auto".equals(input.getSanitize())) {
+        final Sanitizer sanitizer = TobagoConfig.getInstance(facesContext).getSanitizer();
+        currentValue = sanitizer.sanitize(currentValue);
+      }
       // this is because browsers eat the first CR+LF of <textarea>
       if (currentValue.startsWith("\r\n")) {
         currentValue = "\r\n" + currentValue;

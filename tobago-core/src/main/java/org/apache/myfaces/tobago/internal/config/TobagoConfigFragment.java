@@ -26,6 +26,7 @@ import org.slf4j.LoggerFactory;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 public class TobagoConfigFragment {
 
@@ -46,6 +47,8 @@ public class TobagoConfigFragment {
   private Boolean setNosniffHeader;
   private List<ThemeImpl> themeDefinitions;
   private URL url;
+  private String sanitizerClass;
+  private Properties sanitizerProperties;
 
   public TobagoConfigFragment() {
     before = new ArrayList<String>();
@@ -170,6 +173,22 @@ public class TobagoConfigFragment {
 
   public void setUrl(final URL url) {
     this.url = url;
+  }
+
+  public String getSanitizerClass() {
+    return sanitizerClass;
+  }
+
+  public void setSanitizerClass(String sanitizerClass) {
+    this.sanitizerClass = sanitizerClass;
+  }
+
+  public Properties getSanitizerProperties() {
+    return sanitizerProperties;
+  }
+
+  public void setSanitizerProperties(Properties sanitizerProperties) {
+    this.sanitizerProperties = sanitizerProperties;
   }
 
   @Override

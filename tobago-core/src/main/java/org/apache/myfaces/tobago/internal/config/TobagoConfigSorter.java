@@ -19,6 +19,9 @@
 
 package org.apache.myfaces.tobago.internal.config;
 
+import org.apache.myfaces.tobago.sanitizer.IgnoringSanitizer;
+import org.apache.myfaces.tobago.sanitizer.JsoupSanitizer;
+import org.apache.myfaces.tobago.sanitizer.Sanitizer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,6 +29,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Properties;
 
 public class TobagoConfigSorter implements Comparator<TobagoConfigFragment> {
 
@@ -67,6 +71,11 @@ public class TobagoConfigSorter implements Comparator<TobagoConfigFragment> {
   public TobagoConfigImpl merge() {
 
     final TobagoConfigImpl result = new TobagoConfigImpl();
+
+    // default sanitizer
+    String sanitizerClass = JsoupSanitizer.class.getName();
+    Properties sanitizerProperties = new Properties();
+    sanitizerProperties.setProperty("whitelist", "relaxed");
 
     for (final TobagoConfigFragment fragment : list) {
       // default theme
@@ -114,6 +123,11 @@ public class TobagoConfigSorter implements Comparator<TobagoConfigFragment> {
         result.setSetNosniffHeader(fragment.getSetNosniffHeader());
       }
 
+      if (fragment.getSanitizerClass() != null) {
+        sanitizerClass = fragment.getSanitizerClass();
+        sanitizerProperties = fragment.getSanitizerProperties();
+      }
+
       // theme definition
       // todo
 /*
@@ -126,6 +140,19 @@ public class TobagoConfigSorter implements Comparator<TobagoConfigFragment> {
       // todo???
 
     }
+
+    if (sanitizerClass != null) {
+      try {
+        final Class<? extends Sanitizer> aClass = Class.forName(sanitizerClass).asSubclass(Sanitizer.class);
+        final Sanitizer sanitizer = aClass.newInstance();
+        sanitizer.setProperties(sanitizerProperties);
+        result.setSanitizer(sanitizer);
+      } catch (Throwable e) {
+        LOG.error("Can't create sanitizer: '" + sanitizerClass + "'", e);
+        result.setSanitizer(new IgnoringSanitizer());
+      }
+    }
+
     return result;
   }
 

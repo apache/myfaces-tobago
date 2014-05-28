@@ -20,6 +20,8 @@
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
 import org.apache.myfaces.tobago.component.UIOut;
+import org.apache.myfaces.tobago.sanitizer.Sanitizer;
+import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
@@ -70,8 +72,12 @@ public class OutRenderer extends LayoutComponentRendererBase {
           writer.endElement(HtmlElements.BR);
         }
       }
-    } else {
-      writer.writeText("", null);
+    } else { // escape="false"
+      writer.writeText("", null); // to ensure the closing > of the <span> start tag.
+      if ("auto".equals(out.getSanitize())) {
+        final Sanitizer sanitizer = TobagoConfig.getInstance(facesContext).getSanitizer();
+        text = sanitizer.sanitize(text);
+      }
       writer.write(text);
     }
     if (createSpan) {
