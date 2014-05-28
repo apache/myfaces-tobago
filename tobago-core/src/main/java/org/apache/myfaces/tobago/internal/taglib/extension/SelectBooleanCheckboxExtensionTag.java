@@ -41,7 +41,7 @@ public interface SelectBooleanCheckboxExtensionTag {
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "java.lang.Boolean")
-  public void setValue(final javax.el.ValueExpression value) ;
+  void setValue(final javax.el.ValueExpression value);
 
   /**
    * MethodExpression representing a value change listener method
@@ -51,31 +51,31 @@ public interface SelectBooleanCheckboxExtensionTag {
    */
   @TagAttribute
   @UIComponentTagAttribute(
-          type = {},
-          expression = DynamicExpression.METHOD_EXPRESSION_REQUIRED,
-          methodSignature = "javax.faces.event.ValueChangeEvent")
-  public void setValueChangeListener(final javax.el.MethodExpression valueChangeListener) ;
+      type = {},
+      expression = DynamicExpression.METHOD_EXPRESSION_REQUIRED,
+      methodSignature = "javax.faces.event.ValueChangeEvent")
+  void setValueChangeListener(final javax.el.MethodExpression valueChangeListener);
 
   /**
    * Flag indicating that this element is disabled.
    */
   @TagAttribute()
   @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
-  public void setDisabled(final javax.el.ValueExpression disabled) ;
+  void setDisabled(final javax.el.ValueExpression disabled);
 
   /**
    * Flag indicating that this component will prohibit changes by the user.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
-  public void setReadonly(final javax.el.ValueExpression readonly) ;
+  void setReadonly(final javax.el.ValueExpression readonly);
 
   /**
    * Clientside script function to add to this component's onchange handler.
    */
   @TagAttribute
   @UIComponentTagAttribute()
-  public void setOnchange(final javax.el.ValueExpression onchange) ;
+  void setOnchange(final javax.el.ValueExpression onchange);
 
   /**
    * Text value to display as label.
@@ -83,15 +83,15 @@ public interface SelectBooleanCheckboxExtensionTag {
    */
   @TagAttribute
   @UIComponentTagAttribute()
-  public void setLabel(final javax.el.ValueExpression label) ;
+  void setLabel(final javax.el.ValueExpression label);
 
   /**
-   * Label to be displayed to the user for this option. This label will displayed beneath the component like 
+   * Label to be displayed to the user for this option. This label will displayed beneath the component like
    * the label of other check box components.
    */
   @TagAttribute
   @UIComponentTagAttribute()
-  public void setItemLabel(final ValueExpression itemLabel) ;
+  void setItemLabel(final ValueExpression itemLabel);
 
   /**
    * A method binding EL expression,
@@ -102,8 +102,8 @@ public interface SelectBooleanCheckboxExtensionTag {
   @TagAttribute
   @UIComponentTagAttribute(type = {},
       expression = DynamicExpression.METHOD_EXPRESSION,
-      methodSignature = { "javax.faces.context.FacesContext", "javax.faces.component.UIComponent", "java.lang.Object" })
-  public void setValidator(final javax.el.MethodExpression validator) ;
+      methodSignature = {"javax.faces.context.FacesContext", "javax.faces.component.UIComponent", "java.lang.Object"})
+  void setValidator(final javax.el.MethodExpression validator);
 
   /**
    * An expression that specifies the Converter for this component.
@@ -117,7 +117,7 @@ public interface SelectBooleanCheckboxExtensionTag {
   @TagAttribute
   @UIComponentTagAttribute(type = "javax.faces.convert.Converter",
       expression = DynamicExpression.VALUE_EXPRESSION)
-  public void setConverter(final javax.el.ValueExpression converter) ;
+  void setConverter(final javax.el.ValueExpression converter);
 
   /**
    * Flag indicating whether or not this component should be rendered
@@ -125,7 +125,7 @@ public interface SelectBooleanCheckboxExtensionTag {
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "boolean", defaultValue = "true")
-  public void setRendered(final javax.el.ValueExpression rendered) ;
+  void setRendered(final javax.el.ValueExpression rendered);
 
   /**
    * The value binding expression linking this
@@ -133,14 +133,14 @@ public interface SelectBooleanCheckboxExtensionTag {
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "javax.faces.component.UIComponent")
-  public void setBinding(final javax.el.ValueExpression binding) ;
+  void setBinding(final javax.el.ValueExpression binding);
 
   /**
    * Text value to display as tooltip.
    */
   @TagAttribute
   @UIComponentTagAttribute()
-  public void setTip(final javax.el.ValueExpression tip) ;
+  void setTip(final javax.el.ValueExpression tip);
 
   /**
    * The width for the label component. Default: 'auto'.
@@ -149,7 +149,7 @@ public interface SelectBooleanCheckboxExtensionTag {
    */
   @TagAttribute
   @UIComponentTagAttribute()
-  public void setLabelWidth(final javax.el.ValueExpression labelWidth) ;
+  void setLabelWidth(final javax.el.ValueExpression labelWidth);
 
   /**
    * Indicate markup of this component.
@@ -157,18 +157,18 @@ public interface SelectBooleanCheckboxExtensionTag {
    */
   @TagAttribute
   @UIComponentTagAttribute(defaultValue = "none", type = "java.lang.String[]")
-  public void setMarkup(final javax.el.ValueExpression markup) ;
+  void setMarkup(final javax.el.ValueExpression markup);
 
   @TagAttribute
   @UIComponentTagAttribute(type = "java.lang.Integer")
-  public void setTabIndex(final javax.el.ValueExpression tabIndex) ;
+  void setTabIndex(final javax.el.ValueExpression tabIndex);
 
   /**
    * Flag indicating this component should receive the focus.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
-  public void setFocus(final javax.el.ValueExpression focus) ;
+  void setFocus(final javax.el.ValueExpression focus);
 
   /**
    * Flag indicating that a value is required.
@@ -177,28 +177,28 @@ public interface SelectBooleanCheckboxExtensionTag {
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
-  public void setRequired(final javax.el.ValueExpression required) ;
+  void setRequired(final javax.el.ValueExpression required);
 
   /**
    * An expression that specifies the validator message
    */
   @TagAttribute
   @UIComponentTagAttribute()
-  public void setValidatorMessage(final javax.el.ValueExpression validatorMessage) ;
+  void setValidatorMessage(final javax.el.ValueExpression validatorMessage);
 
   /**
    * An expression that specifies the converter message
    */
   @TagAttribute
   @UIComponentTagAttribute()
-  public void setConverterMessage(final javax.el.ValueExpression converterMessage) ;
+  void setConverterMessage(final javax.el.ValueExpression converterMessage);
 
   /**
    * An expression that specifies the required message
    */
   @TagAttribute
   @UIComponentTagAttribute()
-  public void setRequiredMessage(final javax.el.ValueExpression requiredMessage) ;
+  void setRequiredMessage(final javax.el.ValueExpression requiredMessage);
 
   /**
    * The component identifier for the input field component inside of the container.
@@ -206,7 +206,7 @@ public interface SelectBooleanCheckboxExtensionTag {
    */
   @TagAttribute(rtexprvalue = true)
   @UIComponentTagAttribute
-  public void setFieldId(final String fieldId) ;
+  void setFieldId(final String fieldId);
 
   /**
    * The component identifier for this component.
@@ -216,5 +216,5 @@ public interface SelectBooleanCheckboxExtensionTag {
    */
   @TagAttribute(rtexprvalue = true)
   @UIComponentTagAttribute
-  public void setId(final String id) ;
+  void setId(final String id);
 }

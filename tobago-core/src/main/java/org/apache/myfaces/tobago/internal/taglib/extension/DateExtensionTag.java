@@ -56,7 +56,7 @@ public interface DateExtensionTag {
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "java.lang.Object")
-  public void setValue(final ValueExpression value) ;
+  void setValue(final ValueExpression value);
 
   /**
    * MethodBinding representing a value change listener method
@@ -66,10 +66,10 @@ public interface DateExtensionTag {
    */
   @TagAttribute
   @UIComponentTagAttribute(
-          type = {},
-          expression = DynamicExpression.METHOD_EXPRESSION_REQUIRED,
-          methodSignature = "javax.faces.event.ValueChangeEvent")
-  public void setValueChangeListener(final MethodExpression valueChangeListener) ;
+      type = {},
+      expression = DynamicExpression.METHOD_EXPRESSION_REQUIRED,
+      methodSignature = "javax.faces.event.ValueChangeEvent")
+  void setValueChangeListener(final MethodExpression valueChangeListener);
 
   /**
    * Text value to display as label.
@@ -77,21 +77,21 @@ public interface DateExtensionTag {
    */
   @TagAttribute
   @UIComponentTagAttribute()
-  public void setLabel(final ValueExpression label) ;
+  void setLabel(final ValueExpression label);
 
   /**
    * Client side script function to add to this component's onchange handler.
    */
   @TagAttribute
   @UIComponentTagAttribute()
-  public void setOnchange(final ValueExpression onchange) ;
+  void setOnchange(final ValueExpression onchange);
 
   /**
    * Flag indicating this component should receive the focus.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
-  public void setFocus(final ValueExpression focus) ;
+  void setFocus(final ValueExpression focus);
 
   /**
    * The value binding expression linking this
@@ -99,7 +99,7 @@ public interface DateExtensionTag {
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "javax.faces.component.UIComponent")
-  public void setBinding(final ValueExpression binding) ;
+  void setBinding(final ValueExpression binding);
 
   /**
    * Flag indicating whether or not this component should be rendered
@@ -107,7 +107,7 @@ public interface DateExtensionTag {
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "boolean", defaultValue = "true")
-  public void setRendered(final ValueExpression rendered) ;
+  void setRendered(final ValueExpression rendered);
 
   /**
    * An expression that specifies the Converter for this component.
@@ -121,7 +121,7 @@ public interface DateExtensionTag {
   @TagAttribute
   @UIComponentTagAttribute(type = "javax.faces.convert.Converter",
       expression = DynamicExpression.VALUE_EXPRESSION)
-  public void setConverter(final ValueExpression converter) ;
+  void setConverter(final ValueExpression converter);
 
   /**
    * A method binding EL expression,
@@ -132,31 +132,32 @@ public interface DateExtensionTag {
   @TagAttribute
   @UIComponentTagAttribute(type = {},
       expression = DynamicExpression.METHOD_EXPRESSION,
-      methodSignature = { "javax.faces.context.FacesContext", "javax.faces.component.UIComponent", "java.lang.Object" })
-  public void setValidator(final MethodExpression validator) ;
+      methodSignature = {"javax.faces.context.FacesContext", "javax.faces.component.UIComponent", "java.lang.Object"})
+  void setValidator(final MethodExpression validator);
 
   /**
    * Flag indicating this component should rendered as an inline element.
+   *
    * @deprecated This should be handled by e.g. a flow layout manager (since 1.5.0)
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
   @Deprecated
-  public void setInline(final ValueExpression inline) ;
+  void setInline(final ValueExpression inline);
 
   /**
    * Flag indicating that this component will prohibit changes by the user.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
-  public void setReadonly(final ValueExpression readonly) ;
+  void setReadonly(final ValueExpression readonly);
 
   /**
    * Flag indicating that this element is disabled.
    */
   @TagAttribute()
   @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
-  public void setDisabled(final ValueExpression disabled) ;
+  void setDisabled(final ValueExpression disabled);
 
   /**
    * Flag indicating that a value is required.
@@ -165,14 +166,14 @@ public interface DateExtensionTag {
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
-  public void setRequired(final ValueExpression required) ;
+  void setRequired(final ValueExpression required);
 
   /**
    * Text value to display as tooltip.
    */
   @TagAttribute
   @UIComponentTagAttribute()
-  public void setTip(final ValueExpression tip) ;
+  void setTip(final ValueExpression tip);
 
   /**
    * Displays a short text in the input field, that describes the meaning of this field.
@@ -180,16 +181,16 @@ public interface DateExtensionTag {
    */
   @TagAttribute
   @UIComponentTagAttribute()
-  public void setPlaceholder(final ValueExpression placeholder) ;
+  void setPlaceholder(final ValueExpression placeholder);
 
-   /**
+  /**
    * The width for the label component. Default: 'auto'.
    * This value is used in the gridLayouts columns attribute.
    * See gridLayout tag for valid values.
    */
   @TagAttribute
   @UIComponentTagAttribute()
-  public void setLabelWidth(final ValueExpression labelWidth) ;
+  void setLabelWidth(final ValueExpression labelWidth);
 
   /**
    * Indicate markup of this component.
@@ -197,32 +198,32 @@ public interface DateExtensionTag {
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "java.lang.String[]", defaultValue = "none")
-  public void setMarkup(final ValueExpression markup) ;
+  void setMarkup(final ValueExpression markup);
 
   @TagAttribute
   @UIComponentTagAttribute(type = "java.lang.Integer")
-  public void setTabIndex(final ValueExpression tabIndex) ;
+  void setTabIndex(final ValueExpression tabIndex);
 
   /**
    * An expression that specifies the validator message
    */
   @TagAttribute
   @UIComponentTagAttribute()
-  public void setValidatorMessage(final ValueExpression validatorMessage) ;
+  void setValidatorMessage(final ValueExpression validatorMessage);
 
   /**
    * An expression that specifies the converter message
    */
   @TagAttribute
   @UIComponentTagAttribute()
-  public void setConverterMessage(final ValueExpression converterMessage) ;
+  void setConverterMessage(final ValueExpression converterMessage);
 
   /**
    * An expression that specifies the required message
    */
   @TagAttribute
   @UIComponentTagAttribute()
-  public void setRequiredMessage(final ValueExpression requiredMessage) ;
+  void setRequiredMessage(final ValueExpression requiredMessage);
 
   /**
    * The component identifier for the input field component inside of the container.
@@ -230,7 +231,7 @@ public interface DateExtensionTag {
    */
   @TagAttribute(rtexprvalue = true)
   @UIComponentTagAttribute
-  public void setFieldId(final String fieldId) ;
+  void setFieldId(final String fieldId);
 
   /**
    * The component identifier for the automatically created picker component inside of the container.
@@ -238,7 +239,7 @@ public interface DateExtensionTag {
    */
   @TagAttribute(rtexprvalue = true)
   @UIComponentTagAttribute
-  public void setPickerId(final String pickerId) ;
+  void setPickerId(final String pickerId);
 
   /**
    * The component identifier for the automatically created form component inside of the container.
@@ -246,7 +247,7 @@ public interface DateExtensionTag {
    */
   @TagAttribute(rtexprvalue = true)
   @UIComponentTagAttribute
-  public void setFormId(final String formId) ;
+  void setFormId(final String formId);
 
   /**
    * The component identifier for this component.
@@ -256,5 +257,5 @@ public interface DateExtensionTag {
    */
   @TagAttribute(rtexprvalue = true)
   @UIComponentTagAttribute
-  public void setId(final String id) ;
+  void setId(final String id);
 }

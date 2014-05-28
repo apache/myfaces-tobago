@@ -76,7 +76,7 @@ public class MenuRenderer extends LayoutComponentRendererBase {
       backgroundImage.append("url('");
       backgroundImage.append(
           ResourceManagerUtils.getImageOrDisabledImageWithPath(facesContext, menu.getImage(), menu.isDisabled()));
-      backgroundImage.append( "')");
+      backgroundImage.append("')");
       backgroundPosition.append("left center");
     }
     if (isParentMenu && !firstLevel) {
@@ -91,7 +91,7 @@ public class MenuRenderer extends LayoutComponentRendererBase {
       backgroundImage.append("url('");
       backgroundImage.append(
           ResourceManagerUtils.getImageOrDisabledImageWithPath(facesContext, "image/MenuArrow.gif", menu.isDisabled()));
-      backgroundImage.append( "')");
+      backgroundImage.append("')");
       backgroundPosition.append("right center");
     }
     if (backgroundImage != null) {

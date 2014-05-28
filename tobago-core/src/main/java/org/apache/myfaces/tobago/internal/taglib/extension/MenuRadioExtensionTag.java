@@ -61,7 +61,7 @@ public interface MenuRadioExtensionTag {
   @TagAttribute
   @UIComponentTagAttribute(type = {}, expression = DynamicExpression.METHOD_EXPRESSION,
       methodReturnType = "java.lang.Object")
-  public void setAction(final javax.el.MethodExpression action) ;
+  void setAction(final javax.el.MethodExpression action);
 
   /**
    * MethodExpression representing an action listener method that will be
@@ -72,21 +72,21 @@ public interface MenuRadioExtensionTag {
   @TagAttribute
   @UIComponentTagAttribute(type = {}, expression = DynamicExpression.METHOD_EXPRESSION_REQUIRED,
       methodSignature = "javax.faces.event.ActionEvent")
-  public void setActionListener(final javax.el.MethodExpression actionListener) ;
+  void setActionListener(final javax.el.MethodExpression actionListener);
 
   /**
    * Script to be invoked when clicked
    */
   @TagAttribute
   @UIComponentTagAttribute()
-  public void setOnclick(final javax.el.ValueExpression onclick) ;
+  void setOnclick(final javax.el.ValueExpression onclick);
 
   /**
    * Link to an arbitrary URL
    */
   @TagAttribute
   @UIComponentTagAttribute()
-  public void setLink(final javax.el.ValueExpression link) ;
+  void setLink(final javax.el.ValueExpression link);
 
   /**
    * The value binding expression linking this
@@ -94,7 +94,7 @@ public interface MenuRadioExtensionTag {
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "javax.faces.component.UIComponent")
-  public void setBinding(final javax.el.ValueExpression binding);
+  void setBinding(final javax.el.ValueExpression binding);
 
   /**
    * Flag indicating whether or not this component should be rendered
@@ -102,21 +102,21 @@ public interface MenuRadioExtensionTag {
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "boolean", defaultValue = "true")
-  public void setRendered(final javax.el.ValueExpression rendered) ;
+  void setRendered(final javax.el.ValueExpression rendered);
 
   /**
    * Flag indicating that this element is disabled.
    */
   @TagAttribute()
   @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
-  public void setDisabled(final javax.el.ValueExpression disabled) ;
+  void setDisabled(final javax.el.ValueExpression disabled);
 
   /**
    * The current value of this component.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "java.lang.Object")
-  public void setValue(final javax.el.ValueExpression value) ;
+  void setValue(final javax.el.ValueExpression value);
 
   /**
    * Text value to display as label.
@@ -124,7 +124,7 @@ public interface MenuRadioExtensionTag {
    */
   @TagAttribute
   @UIComponentTagAttribute()
-  public void setLabel(final javax.el.ValueExpression label) ;
+  void setLabel(final javax.el.ValueExpression label);
 
   /**
    * Flag indicating that, if this component is activated by the user,
@@ -134,7 +134,7 @@ public interface MenuRadioExtensionTag {
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
-  public void setImmediate(final javax.el.ValueExpression immediate) ;
+  void setImmediate(final javax.el.ValueExpression immediate);
 
   /**
    * Specify, if the command calls an JSF-Action.
@@ -144,7 +144,7 @@ public interface MenuRadioExtensionTag {
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "boolean", defaultValue = "true")
-  public void setTransition(final javax.el.ValueExpression transition) ;
+  void setTransition(final javax.el.ValueExpression transition);
 
   /**
    * An expression that specifies the Converter for this component.
@@ -158,14 +158,14 @@ public interface MenuRadioExtensionTag {
   @TagAttribute
   @UIComponentTagAttribute(type = "javax.faces.convert.Converter",
       expression = DynamicExpression.VALUE_EXPRESSION)
-  public void setConverter(final javax.el.ValueExpression converter) ;
+  void setConverter(final javax.el.ValueExpression converter);
 
   /**
    * Indicate the partially rendered Components in a case of a submit.
    */
-   @TagAttribute
-   @UIComponentTagAttribute(type = "java.lang.String[]")
-  public void setRenderedPartially(final javax.el.ValueExpression renderedPartially) ;
+  @TagAttribute
+  @UIComponentTagAttribute(type = "java.lang.String[]")
+  void setRenderedPartially(final javax.el.ValueExpression renderedPartially);
 
   /**
    * The component identifier for the input field component inside of the container.
@@ -173,7 +173,7 @@ public interface MenuRadioExtensionTag {
    */
   @TagAttribute(rtexprvalue = true)
   @UIComponentTagAttribute
-  public void setFieldId(final String fieldId) ;
+  void setFieldId(final String fieldId);
 
   /**
    * The component identifier for this component.
@@ -183,5 +183,5 @@ public interface MenuRadioExtensionTag {
    */
   @TagAttribute(rtexprvalue = true)
   @UIComponentTagAttribute
-  public void setId(final String id) ;
+  void setId(final String id);
 }

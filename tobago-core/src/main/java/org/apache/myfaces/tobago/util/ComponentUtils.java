@@ -31,7 +31,6 @@ import org.apache.myfaces.tobago.internal.component.AbstractUIInput;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPage;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPopup;
 import org.apache.myfaces.tobago.internal.util.ArrayUtils;
-import org.apache.myfaces.tobago.internal.util.Deprecation;
 import org.apache.myfaces.tobago.internal.util.FindComponentUtils;
 import org.apache.myfaces.tobago.internal.util.ObjectUtils;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
@@ -42,9 +41,7 @@ import org.slf4j.LoggerFactory;
 import javax.faces.FactoryFinder;
 import javax.faces.application.Application;
 import javax.faces.application.FacesMessage;
-import javax.faces.component.ActionSource;
 import javax.faces.component.ContextCallback;
-import javax.faces.component.EditableValueHolder;
 import javax.faces.component.NamingContainer;
 import javax.faces.component.UICommand;
 import javax.faces.component.UIComponent;
@@ -470,24 +467,6 @@ public final class ComponentUtils {
     return FacesContext.getCurrentInstance().getApplication().createValueBinding(value);
   }
 
-  /**
-   * @deprecated since 1.5.0
-   * Please define a {@link Markup} and set it to the component with
-   * {@link SupportsMarkup#setMarkup(Markup markup)} before the rendering phase.
-   */
-  @Deprecated
-  public static void setStyleClasses(final UIComponent component, final String styleClasses) {
-    Deprecation.LOG.warn("style class " + styleClasses);
-  }
-
-  /**
-   * @deprecated since 1.5.0
-   */
-  @Deprecated
-  public static void setMarkup(final UIComponent markupComponent, final String markup) {
-    Deprecation.LOG.error("markup=" + markup);
-  }
-
   public static Object getAttribute(final UIComponent component, final String name) {
     Object value = component.getAttributes().get(name);
     if (value instanceof ValueBinding) {
@@ -664,14 +643,6 @@ public final class ComponentUtils {
   }
 
   /**
-   * @deprecated since 1.5.0
-   */
-  @Deprecated
-  public static void setIntegerSizeProperty(final UIComponent component, final String name, final String value) {
-    Deprecation.LOG.error("name=" + name + " value=" + value);
-  }
-
-  /**
    * @deprecated since 2.0.0
    */
   @Deprecated
@@ -786,83 +757,6 @@ public final class ComponentUtils {
       }
     }
     return label;
-  }
-
-  /**
-   * @deprecated since 1.5.0
-   */
-  @Deprecated
-  public static void setValidator(final EditableValueHolder editableValueHolder, final String validator) {
-    Deprecation.LOG.error("validator=" + validator);
-  }
-
-  /**
-   * @deprecated since 1.5.0
-   */
-  @Deprecated
-  public static void setConverter(final ValueHolder valueHolder, final String converterId) {
-    Deprecation.LOG.error("converterId=" + converterId);
-  }
-
-  /**
-   * @deprecated since 1.5.0
-   */
-  @Deprecated
-  public static void setAction(final ActionSource component, final String action) {
-    Deprecation.LOG.error("action=" + action);
-  }
-
-  /**
-   * @deprecated since 1.5.0
-   */
-  @Deprecated
-  public static void setActionListener(final ActionSource command, final String actionListener) {
-    Deprecation.LOG.error("actionListener=" + actionListener);
-  }
-
-  /**
-   * @deprecated since 1.5.0
-   */
-  @Deprecated
-  public static void setValueChangeListener(final EditableValueHolder valueHolder, final String valueChangeListener) {
-    Deprecation.LOG.error("valueChangeListener=" + valueChangeListener);
-  }
-
-  /**
-   * @deprecated since 1.5.0
-   */
-  @Deprecated
-  public static void setValueBinding(final UIComponent component, final String name, final String state) {
-    Deprecation.LOG.error("name=" + name + " state=" + state);
-  }
-
-  /**
-   * @deprecated since 1.5
-   */
-  @Deprecated
-  public static String[] getMarkupBinding(final FacesContext facesContext, final SupportsMarkup component) {
-    final ValueBinding vb = ((UIComponent) component).getValueBinding(Attributes.MARKUP);
-    if (vb != null) {
-      final Object markups = vb.getValue(facesContext);
-      if (markups instanceof String[]) {
-        return (String[]) markups;
-      } else if (markups instanceof String) {
-        final String[] strings = StringUtils.split((String) markups, ", ");
-        final List<String> result = new ArrayList<String>(strings.length);
-        for (final String string : strings) {
-          if (string.trim().length() != 0) {
-            result.add(string.trim());
-          }
-        }
-        return result.toArray(new String[result.size()]);
-      } else if (markups == null) {
-        return ArrayUtils.EMPTY_STRING_ARRAY;
-      } else {
-        return new String[]{markups.toString()};
-      }
-    }
-
-    return ArrayUtils.EMPTY_STRING_ARRAY;
   }
 
   /**

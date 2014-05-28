@@ -32,7 +32,6 @@ public class Css {
 
   private static final Logger LOG = LoggerFactory.getLogger(Css.class);
 
-
   private final Set<String> list = new HashSet<String>();
 
   public Css() {
@@ -61,7 +60,7 @@ public class Css {
     if (object == null) {
       return new Css();
     } else if (object instanceof String) {
-      return valueOf((String)object);
+      return valueOf((String) object);
     } else {
       return valueOf(object.toString());
     }

@@ -283,7 +283,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
       }
 
       final Object rowRendered = sheet.getAttributes().get("rowRendered");
-      if (rowRendered instanceof  Boolean && !((Boolean) rowRendered)) {
+      if (rowRendered instanceof Boolean && !((Boolean) rowRendered)) {
         continue;
       }
 
@@ -304,7 +304,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
       }
 
       writer.startElement(HtmlElements.TR, null);
-      if (rowRendered instanceof  Boolean) {
+      if (rowRendered instanceof Boolean) {
         // if rowRendered attribute is set we need the rowIndex on the client
         writer.writeAttribute(DataAttributes.ROW_INDEX, rowIndex);
       }
@@ -554,9 +554,9 @@ public class SheetRenderer extends LayoutComponentRendererBase {
         }
         writer.endElement(HtmlElements.SPAN);
         if (sheet.isShowPageRangeArrows()) {
-            final boolean atEnd = sheet.isAtEnd();
-            link(facesContext, application, areaId, atEnd, PageAction.NEXT, sheet);
-            link(facesContext, application, areaId, atEnd || !sheet.hasRowCount(), PageAction.LAST, sheet);
+          final boolean atEnd = sheet.isAtEnd();
+          link(facesContext, application, areaId, atEnd, PageAction.NEXT, sheet);
+          link(facesContext, application, areaId, atEnd || !sheet.hasRowCount(), PageAction.LAST, sheet);
         }
         writer.endElement(HtmlElements.SPAN);
       }
@@ -747,7 +747,8 @@ public class SheetRenderer extends LayoutComponentRendererBase {
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
     writer.startElement(HtmlElements.IMG, null);
     writer.writeIdAttribute(data.getClientId(facesContext)
-        + ComponentUtils.SUB_SEPARATOR + areaId + ComponentUtils.SUB_SEPARATOR + "pagingArrows" + ComponentUtils.SUB_SEPARATOR + command.getToken());
+        + ComponentUtils.SUB_SEPARATOR + areaId + ComponentUtils.SUB_SEPARATOR + "pagingArrows"
+        + ComponentUtils.SUB_SEPARATOR + command.getToken());
     final Classes pagerClasses = Classes.create(data, "footerPagerButton", disabled ? Markup.DISABLED : null);
     writer.writeClassAttribute(pagerClasses);
     writer.writeAttribute(HtmlAttributes.SRC, image, false);
@@ -770,9 +771,9 @@ public class SheetRenderer extends LayoutComponentRendererBase {
 
     final Grid grid = sheet.getHeaderGrid();
     if (grid == null) {
-      LOG.warn("Can't render column headers, because grid == null. One reason can be, the you use nested sheets. " +
-          "The inner sheet ensureHeader() will be called outside the iterating over the rows. " +
-          "Nesting sheet is currently not supported.");
+      LOG.warn("Can't render column headers, because grid == null. One reason can be, the you use nested sheets. "
+          + "The inner sheet ensureHeader() will be called outside the iterating over the rows. "
+          + "Nesting sheet is currently not supported.");
       return;
     }
     final List<Integer> columnWidths = sheet.getWidthList();
@@ -894,7 +895,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
             markup = markup.add(Markup.FIRST);
           }
           if (pure) {
-             markup = markup.add(Markup.PURE);
+            markup = markup.add(Markup.PURE);
           }
           writer.writeClassAttribute(Classes.create(sheet, "header", markup));
           writer.writeAttribute(HtmlAttributes.TITLE, tip, true);

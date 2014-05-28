@@ -25,6 +25,7 @@ import org.apache.myfaces.tobago.component.SupportsMarkup;
 import org.apache.myfaces.tobago.component.SupportsRenderedPartially;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.el.ConstantMethodBinding;
+import org.apache.myfaces.tobago.internal.util.Deprecation;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
@@ -231,8 +232,7 @@ public final class AttributeHandler extends TagHandler {
             parent.setValueExpression(nameValue, value.getValueExpression(faceletContext, Object.class));
           }
         } else if (Attributes.STYLE_CLASS.equals(nameValue)) {
-          // TODO expression
-          ComponentUtils.setStyleClasses(parent, value.getValue());
+          Deprecation.LOG.error("Attribute " + Attributes.STYLE_CLASS + " no longer supported.");
         } else if (Attributes.MARKUP.equals(nameValue)) {
           if (parent instanceof SupportsMarkup) {
             if (value.isLiteral()) {

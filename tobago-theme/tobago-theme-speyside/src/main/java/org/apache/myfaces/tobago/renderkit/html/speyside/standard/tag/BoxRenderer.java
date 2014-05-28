@@ -48,7 +48,8 @@ with shadow
 <div class="tobago-box" style="width: 100px; height: 100px">
   <div class="tobago-box-header">Label</div>
 
-  <div class="tobago-box-content" style="position: absolute; top: 26px; left: 6px; width: 87px; height: 67px; background-color: blue;">
+  <div class="tobago-box-content"
+      style="position: absolute; top: 26px; left: 6px; width: 87px; height: 67px; background-color: blue;">
     Content
   </div>
 </div>

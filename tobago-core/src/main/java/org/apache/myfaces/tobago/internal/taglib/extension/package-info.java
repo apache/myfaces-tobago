@@ -25,6 +25,4 @@
     shortName = "tx",
     uri = "http://myfaces.apache.org/tobago/extension",
     name = "tobago-extension",
-    displayName = "Tobago Extensions 3.0.x")
-
-package org.apache.myfaces.tobago.internal.taglib.extension;
+    displayName = "Tobago Extensions 3.0.x") package org.apache.myfaces.tobago.internal.taglib.extension;

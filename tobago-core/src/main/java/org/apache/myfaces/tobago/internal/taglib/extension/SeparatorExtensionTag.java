@@ -45,22 +45,22 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
     rendererType = "Separator",
     faceletHandler = "org.apache.myfaces.tobago.facelets.extension.SeparatorExtensionHandler")
 public interface SeparatorExtensionTag {
-  
+
   /**
    * The value binding expression linking this
    * component to a property in a backing bean.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "javax.faces.component.UIComponent")
-  public void setBinding(final javax.el.ValueExpression binding);
-  
+  void setBinding(final javax.el.ValueExpression binding);
+
   /**
    * Flag indicating whether or not this component should be rendered
    * (during Render Response Phase), or processed on any subsequent form submit.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "boolean", defaultValue = "true")
-  public void setRendered(final javax.el.ValueExpression rendered) ;
+  void setRendered(final javax.el.ValueExpression rendered);
 
   /**
    * Text value to display as label.
@@ -68,5 +68,5 @@ public interface SeparatorExtensionTag {
    */
   @TagAttribute
   @UIComponentTagAttribute()
-  public void setLabel(final javax.el.ValueExpression label) ;
+  void setLabel(final javax.el.ValueExpression label);
 }

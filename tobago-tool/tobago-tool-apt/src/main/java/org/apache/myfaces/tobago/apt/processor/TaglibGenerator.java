@@ -165,7 +165,8 @@ public class TaglibGenerator extends AbstractGenerator {
       resetAttributeDuplicateList();
       // TODO configure replacement
 //      final String className;
-//      if (typeElement.getAnnotation(SimpleTag.class) != null || typeElement.getAnnotation(ValidatorTag.class) != null) {
+//      if (typeElement.getAnnotation(SimpleTag.class) != null
+// || typeElement.getAnnotation(ValidatorTag.class) != null) {
 //        className = AnnotationUtils.generatedTagName(typeElement);
 //      } else if (typeElement.getAnnotation(ExtensionTag.class) != null) {
 //        className = typeElement.getQualifiedName().toString();

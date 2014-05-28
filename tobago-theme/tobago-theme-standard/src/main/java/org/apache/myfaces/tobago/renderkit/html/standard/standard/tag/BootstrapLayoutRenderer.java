@@ -83,7 +83,7 @@ public class BootstrapLayoutRenderer extends RendererBase {
       final FacesContext facesContext, final TobagoResponseWriter writer,
       final BootstrapCssGenerator generator, final UIComponent child) throws IOException {
     if (child instanceof UILabel) {
-      generator.generate(((UILabel)child).getCurrentCss());
+      generator.generate(((UILabel) child).getCurrentCss());
       RenderUtils.encode(facesContext, child);
     } else {
       writer.startElement(HtmlElements.DIV, null);

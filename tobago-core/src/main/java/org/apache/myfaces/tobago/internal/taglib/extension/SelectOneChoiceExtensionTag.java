@@ -42,14 +42,14 @@ public interface SelectOneChoiceExtensionTag {
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
-  public void setRequired(final javax.el.ValueExpression required) ;
+  void setRequired(final javax.el.ValueExpression required);
 
   /**
    * The current value of this component.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "java.lang.Object")
-  public void setValue(final javax.el.ValueExpression value) ;
+  void setValue(final javax.el.ValueExpression value);
 
   /**
    * MethodExpression representing a value change listener method
@@ -59,10 +59,10 @@ public interface SelectOneChoiceExtensionTag {
    */
   @TagAttribute
   @UIComponentTagAttribute(
-          type = {},
-          expression = DynamicExpression.METHOD_EXPRESSION_REQUIRED,
-          methodSignature = "javax.faces.event.ValueChangeEvent")
-  public void setValueChangeListener(final javax.el.MethodExpression valueChangeListener) ;
+      type = {},
+      expression = DynamicExpression.METHOD_EXPRESSION_REQUIRED,
+      methodSignature = "javax.faces.event.ValueChangeEvent")
+  void setValueChangeListener(final javax.el.MethodExpression valueChangeListener);
 
   /**
    * A method binding EL expression,
@@ -73,29 +73,29 @@ public interface SelectOneChoiceExtensionTag {
   @TagAttribute
   @UIComponentTagAttribute(type = {},
       expression = DynamicExpression.METHOD_EXPRESSION,
-      methodSignature = { "javax.faces.context.FacesContext", "javax.faces.component.UIComponent", "java.lang.Object" })
-  public void setValidator(final javax.el.MethodExpression validator) ;
+      methodSignature = {"javax.faces.context.FacesContext", "javax.faces.component.UIComponent", "java.lang.Object"})
+  void setValidator(final javax.el.MethodExpression validator);
 
   /**
    * Flag indicating that this element is disabled.
    */
   @TagAttribute()
   @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
-  public void setDisabled(final javax.el.ValueExpression disabled) ;
+  void setDisabled(final javax.el.ValueExpression disabled);
 
   /**
    * Flag indicating that this component will prohibit changes by the user.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
-  public void setReadonly(final javax.el.ValueExpression readonly) ;
+  void setReadonly(final javax.el.ValueExpression readonly);
 
   /**
    * Clientside script function to add to this component's onchange handler.
    */
   @TagAttribute
   @UIComponentTagAttribute()
-  public void setOnchange(final javax.el.ValueExpression onchange) ;
+  void setOnchange(final javax.el.ValueExpression onchange);
 
   /**
    * An expression that specifies the Converter for this component.
@@ -109,16 +109,17 @@ public interface SelectOneChoiceExtensionTag {
   @TagAttribute
   @UIComponentTagAttribute(type = "javax.faces.convert.Converter",
       expression = DynamicExpression.VALUE_EXPRESSION)
-  public void setConverter(final javax.el.ValueExpression converter) ;
+  void setConverter(final javax.el.ValueExpression converter);
 
   /**
    * Flag indicating this component should rendered as an inline element.
+   *
    * @deprecated This should be handled by e.g. a flow layout manager (since 1.5.0)
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
   @Deprecated
-  public void setInline(final javax.el.ValueExpression inline) ;
+  void setInline(final javax.el.ValueExpression inline);
 
   /**
    * Text value to display as label.
@@ -126,7 +127,7 @@ public interface SelectOneChoiceExtensionTag {
    */
   @TagAttribute
   @UIComponentTagAttribute()
-  public void setLabel(final javax.el.ValueExpression label) ;
+  void setLabel(final javax.el.ValueExpression label);
 
   /**
    * Flag indicating whether or not this component should be rendered
@@ -134,7 +135,7 @@ public interface SelectOneChoiceExtensionTag {
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "boolean", defaultValue = "true")
-  public void setRendered(final javax.el.ValueExpression rendered) ;
+  void setRendered(final javax.el.ValueExpression rendered);
 
   /**
    * The value binding expression linking this
@@ -142,14 +143,14 @@ public interface SelectOneChoiceExtensionTag {
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "javax.faces.component.UIComponent")
-  public void setBinding(final javax.el.ValueExpression binding) ;
+  void setBinding(final javax.el.ValueExpression binding);
 
   /**
    * Text value to display as tooltip.
    */
   @TagAttribute
   @UIComponentTagAttribute()
-  public void setTip(final javax.el.ValueExpression tip) ;
+  void setTip(final javax.el.ValueExpression tip);
 
   /**
    * The width for the label component. Default: 'auto'.
@@ -158,18 +159,18 @@ public interface SelectOneChoiceExtensionTag {
    */
   @TagAttribute
   @UIComponentTagAttribute()
-  public void setLabelWidth(final javax.el.ValueExpression labelWidth) ;
+  void setLabelWidth(final javax.el.ValueExpression labelWidth);
 
   @TagAttribute
   @UIComponentTagAttribute(type = "java.lang.Integer")
-  public void setTabIndex(final javax.el.ValueExpression tabIndex) ;
+  void setTabIndex(final javax.el.ValueExpression tabIndex);
 
   /**
    * Flag indicating this component should receive the focus.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
-  public void setFocus(final javax.el.ValueExpression focus) ;
+  void setFocus(final javax.el.ValueExpression focus);
 
   /**
    * Indicate markup of this component.
@@ -177,28 +178,28 @@ public interface SelectOneChoiceExtensionTag {
    */
   @TagAttribute
   @UIComponentTagAttribute(defaultValue = "none", type = "java.lang.String[]")
-  public void setMarkup(final javax.el.ValueExpression markup) ;
+  void setMarkup(final javax.el.ValueExpression markup);
 
   /**
    * An expression that specifies the validator message
    */
   @TagAttribute
   @UIComponentTagAttribute()
-  public void setValidatorMessage(final javax.el.ValueExpression validatorMessage) ;
+  void setValidatorMessage(final javax.el.ValueExpression validatorMessage);
 
   /**
    * An expression that specifies the converter message
    */
   @TagAttribute
   @UIComponentTagAttribute()
-  public void setConverterMessage(final javax.el.ValueExpression converterMessage) ;
+  void setConverterMessage(final javax.el.ValueExpression converterMessage);
 
   /**
    * An expression that specifies the required message
    */
   @TagAttribute
   @UIComponentTagAttribute()
-  public void setRequiredMessage(final javax.el.ValueExpression requiredMessage) ;
+  void setRequiredMessage(final javax.el.ValueExpression requiredMessage);
 
   /**
    * The component identifier for the input field component inside of the container.
@@ -206,7 +207,7 @@ public interface SelectOneChoiceExtensionTag {
    */
   @TagAttribute(rtexprvalue = true)
   @UIComponentTagAttribute
-  public void setFieldId(final String fieldId) ;
+  void setFieldId(final String fieldId);
 
   /**
    * The component identifier for this component.
@@ -216,5 +217,5 @@ public interface SelectOneChoiceExtensionTag {
    */
   @TagAttribute(rtexprvalue = true)
   @UIComponentTagAttribute
-  public void setId(final String id) ;
+  void setId(final String id);
 }
