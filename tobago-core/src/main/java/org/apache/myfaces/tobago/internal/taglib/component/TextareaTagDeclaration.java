@@ -31,6 +31,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabelAndAccessKey;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasSanitize;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 import org.apache.myfaces.tobago.internal.taglib.declaration.InputTagDeclaration;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
@@ -52,7 +53,7 @@ import javax.faces.component.UIInput;
     allowedChildComponenents = "NONE")
 public interface TextareaTagDeclaration
     extends HasIdBindingAndRendered, HasConverter, IsReadonly, IsDisabled, IsRequired, HasLabelAndAccessKey, HasTip,
-    HasMarkup, HasCurrentMarkup, InputTagDeclaration, HasCss, HasCurrentCss {
+    HasMarkup, HasCurrentMarkup, InputTagDeclaration, HasCss, HasCurrentCss, HasSanitize {
 
   /**
    * The row count for this component.
