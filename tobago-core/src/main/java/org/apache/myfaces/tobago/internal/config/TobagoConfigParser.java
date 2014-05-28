@@ -42,6 +42,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.Properties;
 import java.util.Stack;
 
 public class TobagoConfigParser extends TobagoConfigEntityResolver {
@@ -74,14 +75,20 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
   private static final int FALLBACK = 761243362;
   private static final int VERSIONED = -1407102089;
   private static final int RESOURCES = -1983070683;
+  private static final int SANITIZER = 1807639849;
+  private static final int SANITIZER_CLASS = -974266412;
   private static final int SCRIPT = -907685685;
   private static final int STYLE = 109780401;
+  private static final int PROPERTIES = -926053069;
+  private static final int ENTRY = 96667762;
 
   private TobagoConfigFragment tobagoConfig;
   private RendererConfig currentRenderer;
   private ThemeImpl currentTheme;
   private Boolean production;
   private StringBuilder buffer;
+  private Properties properties;
+  private String entryKey;
 
   private Stack<String> stack;
 
@@ -198,6 +205,14 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
         }
         break;
 
+      case PROPERTIES:
+        properties = new Properties();
+        break;
+
+      case ENTRY:
+        entryKey = attributes.getValue("key");
+        break;
+
       case NAME:
       case ORDERING:
       case BEFORE:
@@ -218,6 +233,8 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
       case RESOURCE_PATH:
       case VERSIONED:
       case FALLBACK:
+      case SANITIZER:
+      case SANITIZER_CLASS:
         break;
 
       default:
@@ -333,6 +350,22 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
         production = null;
         break;
 
+      case SANITIZER_CLASS:
+        tobagoConfig.setSanitizerClass(text);
+        break;
+
+      case SANITIZER:
+        if (properties != null) {
+          tobagoConfig.setSanitizerProperties(properties);
+        }
+        properties = null;
+        break;
+
+      case ENTRY:
+        properties.setProperty(entryKey, text);
+        entryKey = null;
+        break;
+
       case TOBAGO_CONFIG:
       case THEME_CONFIG:
       case ORDERING:
@@ -345,6 +378,7 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
       case RENDERER:
       case SCRIPT:
       case STYLE:
+      case PROPERTIES:
         break;
 
       default:

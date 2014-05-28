@@ -29,6 +29,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasConverter;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasSanitize;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasValue;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsDeprecatedInline;
@@ -51,7 +52,7 @@ import javax.faces.component.UIOutput;
 
 public interface OutTagDeclaration
     extends HasIdBindingAndRendered, HasConverter, IsDeprecatedInline, HasTip, HasValue, IsGridLayoutComponent,
-    HasMarkup, HasCurrentMarkup {
+    HasMarkup, HasCurrentMarkup, HasSanitize {
 
   /**
    * Flag indicating that characters that are

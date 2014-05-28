@@ -24,6 +24,7 @@ import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.context.Theme;
 import org.apache.myfaces.tobago.context.ThemeImpl;
 import org.apache.myfaces.tobago.internal.util.JndiUtils;
+import org.apache.myfaces.tobago.sanitizer.Sanitizer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -63,6 +64,7 @@ public class TobagoConfigImpl extends TobagoConfig {
   private ContentSecurityPolicy contentSecurityPolicy;
   private boolean setNosniffHeader;
   private Map<String, String> defaultValidatorInfo;
+  private Sanitizer sanitizer;
 
   private boolean unmodifiable = false;
 
@@ -338,6 +340,15 @@ public class TobagoConfigImpl extends TobagoConfig {
     return defaultValidatorInfo;
   }
 
+  public Sanitizer getSanitizer() {
+    return sanitizer;
+  }
+
+  protected void setSanitizer(Sanitizer sanitizer) {
+    checkLocked();
+    this.sanitizer = sanitizer;
+  }
+
   @Override
   public String toString() {
     final StringBuilder builder = new StringBuilder();
@@ -359,6 +370,8 @@ public class TobagoConfigImpl extends TobagoConfig {
     builder.append(createSessionSecret);
     builder.append(", \ncheckSessionSecret=");
     builder.append(checkSessionSecret);
+    builder.append(", \nsanitizer=");
+    builder.append(sanitizer);
     // to see only different (ignore alternative names for the same theme)
     builder.append(", \nthemes=");
     final Set<Theme> all = new HashSet<Theme>(availableThemes.values());

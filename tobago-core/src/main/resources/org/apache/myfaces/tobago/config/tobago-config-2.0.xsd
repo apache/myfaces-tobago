@@ -68,6 +68,7 @@
       <xs:element name="prevent-frame-attacks" type="xs:boolean" minOccurs="0" default="true"/>
       <xs:element name="set-nosniff-header" type="xs:boolean" minOccurs="0" default="true"/>
       <xs:element name="content-security-policy" type="tobago:content-security-policy-type" minOccurs="0"/>
+      <xs:element name="sanitizer" type="tobago:sanitizer-type" minOccurs="0"/>
       <xs:element name="renderers" type="tobago:renderers-type" minOccurs="0"/>
       <xs:element name="theme-definitions" type="tobago:theme-definitions-type" minOccurs="0"/>
     </xs:sequence>
@@ -107,6 +108,13 @@
       <xs:element name="directive" type="xs:string" maxOccurs="unbounded" minOccurs="0"/>
     </xs:sequence>
     <xs:attribute name="mode" type="tobago:scp-mode-type" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="sanitizer-type">
+    <xs:sequence>
+      <xs:element name="sanitizer-class" type="xs:string" maxOccurs="1" minOccurs="1"/>
+      <xs:element name="properties" type="tobago:properties-type" maxOccurs="1" minOccurs="0"/>
+    </xs:sequence>
   </xs:complexType>
 
   <xs:simpleType name="scp-mode-type">
@@ -173,5 +181,19 @@
   <xs:simpleType name="name-type">
     <xs:restriction base="xs:string"/>
   </xs:simpleType>
+
+  <xs:complexType name="properties-type">
+    <xs:sequence>
+      <xs:element name="entry" type="tobago:entry-type" maxOccurs="unbounded" minOccurs="1"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="entry-type">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute name="key" type="xs:string" use="required"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
 
 </xs:schema>

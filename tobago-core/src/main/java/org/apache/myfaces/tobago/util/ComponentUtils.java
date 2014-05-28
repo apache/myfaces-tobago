@@ -1048,6 +1048,11 @@ public final class ComponentUtils {
     return (Map<Object, Object>) component.getAttributes().get(DATA_ATTRIBUTES_KEY);
   }
 
+  public static Object getDataAttribute(final UIComponent component, final String name) {
+    Map<Object, Object> map = getDataAttributes(component);
+    return map != null ? map.get(name) : null;
+  }
+
   /**
    * @deprecated since 2.0.0, please use
    * {@link javax.faces.component.UIComponent#invokeOnComponent(javax.faces.context.FacesContext, java.lang.String,

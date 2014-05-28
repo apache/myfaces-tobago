@@ -20,7 +20,10 @@
 package org.apache.myfaces.tobago.renderkit;
 
 import org.apache.myfaces.tobago.component.Attributes;
+import org.apache.myfaces.tobago.component.UITextarea;
+import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
+import org.apache.myfaces.tobago.sanitizer.Sanitizer;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,10 +37,10 @@ public class InputRendererBase extends LayoutComponentRendererBase {
 
   private static final Logger LOG = LoggerFactory.getLogger(InputRendererBase.class);
 
-  public void decode(final FacesContext context, final UIComponent component) {
-    final UIInput uiInput;
+  public void decode(final FacesContext facesContext, final UIComponent component) {
+    final UIInput input;
     if (component instanceof UIInput) {
-      uiInput = (UIInput) component;
+      input = (UIInput) component;
     } else {
       return; // no decoding required
     }
@@ -46,18 +49,27 @@ public class InputRendererBase extends LayoutComponentRendererBase {
       return;
     }
 
-    final String clientId = component.getClientId(context);
+    final String clientId = component.getClientId(facesContext);
 
-    final Map<String, String> requestParameterMap = context.getExternalContext().getRequestParameterMap();
+    final Map<String, String> requestParameterMap = facesContext.getExternalContext().getRequestParameterMap();
     if (requestParameterMap.containsKey(clientId)) {
-      final String newValue = requestParameterMap.get(clientId);
+      String newValue = requestParameterMap.get(clientId);
       if (LOG.isDebugEnabled()) {
         final boolean password = ComponentUtils.getBooleanAttribute(component, Attributes.PASSWORD);
         LOG.debug("clientId = '" + clientId + "'");
         LOG.debug("requestParameterMap.get(clientId) = '"
             + (password ? StringUtils.repeat("*", newValue.length()) : newValue) + "'");
       }
-      uiInput.setSubmittedValue(newValue);
+      if (input instanceof UITextarea) {
+        UITextarea textarea = (UITextarea) input;
+        if (ComponentUtils.getDataAttribute(input, "html-editor") != null
+            && "auto".equals(textarea.getSanitize())) {
+          final Sanitizer sanitizer = TobagoConfig.getInstance(facesContext).getSanitizer();
+          newValue = sanitizer.sanitize(newValue);
+        }
+      }
+
+      input.setSubmittedValue(newValue);
     }
   }
 }

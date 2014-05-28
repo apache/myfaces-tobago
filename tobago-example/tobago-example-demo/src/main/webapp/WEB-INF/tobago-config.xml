@@ -44,6 +44,18 @@
     <directive>frame-src https://maps.google.com</directive>
   </content-security-policy>
 
+<!-- this is the default...
+  <sanitizer>
+    <sanitizer-class>org.apache.myfaces.tobago.sanitizer.JsoupSanitizer</sanitizer-class>
+    <properties>
+      &lt;!&ndash;
+       Use one of: basic, basicWithImages, relaxed, simpleText or none
+       &ndash;&gt;
+      <entry key="whitelist">relaxed</entry>
+    </properties>
+  </sanitizer>
+-->
+
   <renderers>
 
     <renderer>
