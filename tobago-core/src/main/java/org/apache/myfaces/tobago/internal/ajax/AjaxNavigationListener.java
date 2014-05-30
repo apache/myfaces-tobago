@@ -20,8 +20,9 @@
 package org.apache.myfaces.tobago.internal.ajax;
 
 import org.apache.myfaces.tobago.ajax.AjaxUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import javax.faces.FacesException;
 import javax.faces.application.ViewExpiredException;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
@@ -29,14 +30,12 @@ import javax.faces.event.ExceptionQueuedEvent;
 import javax.faces.event.PhaseEvent;
 import javax.faces.event.PhaseId;
 import javax.faces.event.PhaseListener;
-
 import java.io.IOException;
 import java.util.Iterator;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 public class AjaxNavigationListener implements PhaseListener {
+
+  private static final Logger LOG = LoggerFactory.getLogger(AjaxNavigationListener.class);
 
   public void afterPhase(final PhaseEvent phaseEvent) {
     FacesContext facesContext = phaseEvent.getFacesContext();
@@ -83,16 +82,17 @@ public class AjaxNavigationListener implements PhaseListener {
     debug(phaseEvent.getFacesContext());
   }
 
-  private static final Logger LOG = LoggerFactory.getLogger(AjaxNavigationListener.class);
   private void debug(FacesContext facesContext) {
-    LOG.trace("### debug getRenderResponse = {}", facesContext.getRenderResponse());
-    if (facesContext.getViewRoot() != null) {
-      LOG.trace("### debug getViewId = {}", facesContext.getViewRoot().getViewId());
+    if (LOG.isTraceEnabled()) {
+      LOG.trace("### debug getRenderResponse = {}", facesContext.getRenderResponse());
+      if (facesContext.getViewRoot() != null) {
+        LOG.trace("### debug getViewId = {}", facesContext.getViewRoot().getViewId());
+      }
     }
   }
 
   public PhaseId getPhaseId() {
     return PhaseId.RESTORE_VIEW;
   }
-  
+
 }
