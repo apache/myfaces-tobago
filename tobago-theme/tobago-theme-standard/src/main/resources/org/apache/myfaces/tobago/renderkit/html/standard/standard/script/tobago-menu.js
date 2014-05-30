@@ -393,7 +393,7 @@ Tobago.Menu.init = function(elements) {
     var menuItem = jQuery(this);
     if (menuItem.children("ol").size() > 0) {
       menuItem.click(function(event) {
-        console.info("prevent default");
+        console.info("prevent default"); // @DEV_ONLY
         event.preventDefault();
         return false;
       });
