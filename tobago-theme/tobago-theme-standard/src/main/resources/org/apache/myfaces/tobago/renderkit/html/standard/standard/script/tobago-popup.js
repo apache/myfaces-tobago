@@ -111,6 +111,15 @@ Tobago.Popup.init = function (elements) {
           doc.bind("mouseup", Tobago.Popup.mouseup);
         });
   }
+
+  // Fix for TOBAGO-1401 popup is overlayed by PDF in IE
+  jQuery('.tobago-popup').each(function () {
+    if (Tobago.browser.isMsie) {
+      // IE needs an iframe to protect embedded PDF against shining through.
+      jQuery(this).prepend("<iframe class='tobago-popup-iebugfix' src='" + Tobago.blankPage + "' />");
+    }
+  });
+
 };
 
 Tobago.Popup.getDisabledElements = function(popupId) {

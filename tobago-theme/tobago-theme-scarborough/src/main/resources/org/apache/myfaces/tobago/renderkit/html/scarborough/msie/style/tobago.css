@@ -72,3 +72,12 @@ fieldset.tobago-box {
   left: 0;
   filter: progid:DXImageTransform.Microsoft.Alpha(style=0,opacity=0);
 }
+
+.tobago-popup-iebugfix {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: -2px;
+  left: -2px;
+  filter: progid:DXImageTransform.Microsoft.Alpha(style=0,opacity=0);
+}
