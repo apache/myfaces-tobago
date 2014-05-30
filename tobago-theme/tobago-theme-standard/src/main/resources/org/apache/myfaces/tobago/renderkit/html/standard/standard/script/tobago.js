@@ -2229,7 +2229,9 @@ Tobago.Updater = {
       if (Tobago.Updater.WAIT_ON_RELOAD) {
         alert('wait: full reload requeste: responseCode = ' + requestOptions.resultData.responseCode);
       }
-      Tobago.submitAction(null, Tobago.page.id);
+      Tobago.navigateToUrl(document.location.href);
+      return;
+//      Tobago.submitAction(null, Tobago.page.id);
     } else if (requestOptions.resultData.responseCode == Tobago.Updater.CODE_REDIRECT) {
       window.location = requestOptions.resultData.location;
       return;
@@ -2295,6 +2297,15 @@ Tobago.Updater = {
   onError: function(requestObject) {
 
     console.warn('Request failed : ' + requestObject.textStatus); // @DEV_ONLY
+
+    try {
+      var data = jQuery.parseJSON(requestObject.xhr.responseText);
+      if (data.tobagoAjaxResponse && data.responseCode == 302) {
+        window.location = data.location;
+        return;
+      }
+    } catch (e) {
+    }
 
     if (requestObject.textStatus === 'timeout') {
       if (Tobago.Config.get("Ajax", "timeoutAction") == "fullReload") {

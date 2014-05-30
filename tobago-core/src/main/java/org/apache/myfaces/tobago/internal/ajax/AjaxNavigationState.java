@@ -23,9 +23,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.faces.application.FacesMessage;
+import javax.faces.application.ViewExpiredException;
 import javax.faces.component.UIViewRoot;
+import javax.faces.context.ExceptionHandler;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ExceptionQueuedEvent;
+import javax.faces.event.ExceptionQueuedEventContext;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -136,24 +140,25 @@ public final class AjaxNavigationState {
     return false;
   }
 
+  public static void beforeRestoreView(final FacesContext facesContext) {
+    if (facesContext.getExternalContext().getSessionMap().get(AjaxNavigationState.SESSION_KEY) != null) {
+      // restoreView phase and afterPhaseListener are executed even if renderResponse is set
+      // so we can't call navigationState.restoreView(...) here in before Phase
+      // set empty UIViewRoot to prevent executing restore state logic
+      facesContext.setViewRoot(new UIViewRoot());
+    }
+  }
+
   public static void afterRestoreView(final FacesContext facesContext) {
-    final Map<String, Object> sessionMap = facesContext.getExternalContext().getSessionMap();
-    final AjaxNavigationState navigationState
-        = (AjaxNavigationState) sessionMap.remove(AjaxNavigationState.SESSION_KEY);
-    if (navigationState == null) {
+    final ExternalContext externalContext = facesContext.getExternalContext();
+    if (externalContext.getSessionMap().get(AjaxNavigationState.SESSION_KEY) == null) {
       storeIncomingView(facesContext);
     } else {
+      final AjaxNavigationState navigationState
+          = (AjaxNavigationState) externalContext.getSessionMap().remove(AjaxNavigationState.SESSION_KEY);
       navigationState.restoreView(facesContext);
       LOG.trace("force render requested navigation view");
     }
   }
 
-  public static void beforeRestoreView(FacesContext facesContext) {
-    final Map<String, Object> sessionMap = facesContext.getExternalContext().getSessionMap();
-    if (sessionMap.get(AjaxNavigationState.SESSION_KEY) != null) {
-      // set empty UIViewRoot to prevent executing restore state logic
-      facesContext.setViewRoot(new UIViewRoot());
-    }
-
-  }
 }
