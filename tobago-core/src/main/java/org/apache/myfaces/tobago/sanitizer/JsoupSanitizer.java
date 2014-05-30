@@ -24,6 +24,7 @@ import org.jsoup.safety.Whitelist;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Enumeration;
 import java.util.Properties;
 
 /**
@@ -52,7 +53,9 @@ public class JsoupSanitizer implements Sanitizer {
 
     unmodifiable = true;
 
-    for (final String key : configuration.stringPropertyNames()) {
+    final Enumeration<String> enumeration = (Enumeration<String>) configuration.propertyNames();
+    while (enumeration.hasMoreElements()) {
+      String key =  enumeration.nextElement();
       if ("whitelist".equals(key)) {
         whitelistName = configuration.getProperty(key);
         if ("basic".equals(whitelistName)) {
