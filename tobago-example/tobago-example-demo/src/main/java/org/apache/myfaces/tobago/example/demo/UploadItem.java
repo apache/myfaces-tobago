@@ -17,27 +17,46 @@
  * under the License.
  */
 
-package org.apache.myfaces.tobago.example.reference;
+package org.apache.myfaces.tobago.example.demo;
 
-public class SelectBooleanCheckboxController {
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-  private String onOffString = "on";
-  private boolean normalBoolean = true;
+public class UploadItem {
 
-  public String getOnOffString() {
-    return onOffString;
+  private static final Logger LOG = LoggerFactory.getLogger(UploadItem.class);
+
+  private String name;
+  private int size;
+  private String type;
+
+  public UploadItem(final String name, final int size, final String type) {
+    this.name = name;
+    this.size = size;
+    this.type = type;
   }
 
-  public void setOnOffString(final String onOffString) {
-    this.onOffString = onOffString;
+  public String getName() {
+    return name;
   }
 
-  public boolean isNormalBoolean() {
-    return normalBoolean;
+  public void setName(final String name) {
+    this.name = name;
   }
 
-  public void setNormalBoolean(final boolean normalBoolean) {
-    this.normalBoolean = normalBoolean;
+  public int getSize() {
+    return size;
   }
 
+  public void setSize(final int size) {
+    this.size = size;
+  }
+
+  public String getType() {
+    return type;
+  }
+
+  public void setType(final String type) {
+    this.type = type;
+  }
 }

@@ -20,7 +20,6 @@
 package org.apache.myfaces.tobago.example.demo;
 
 import org.apache.commons.fileupload.FileItem;
-import org.apache.myfaces.tobago.example.reference.UploadItem;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

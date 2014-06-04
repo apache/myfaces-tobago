@@ -17,12 +17,18 @@
  * under the License.
  */
 
-package org.apache.myfaces.tobago.example.reference;
+package org.apache.myfaces.tobago.example.demo;
 
+import javax.enterprise.context.SessionScoped;
+import javax.inject.Named;
 import javax.swing.DefaultBoundedRangeModel;
 import javax.swing.BoundedRangeModel;
+import java.io.Serializable;
 
-public class Progress {
+@SessionScoped
+@Named
+public class Progress implements Serializable {
+
   private DefaultBoundedRangeModel progress = new DefaultBoundedRangeModel(0, 0, 0, 100);
   private boolean update;
 
