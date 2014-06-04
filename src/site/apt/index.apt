@@ -60,6 +60,8 @@ News
 
         * Examples to integrate {{{http://ckeditor.com/}CKEditor™}} and {{{http://www.tinymce.com/}TinyMCE}}.
 
+        * Bugfixes
+
       \ {}
       ~~ hack for a bit space
 
@@ -73,6 +75,8 @@ News
       Highlights:
 
         * Icons and toolbar buttons in tabs.
+
+        * Bugfixes
 
       \ {}
       ~~ hack for a bit space
