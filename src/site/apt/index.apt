@@ -47,12 +47,32 @@ Apache Tobago
 
 News
 
+* June 2, 2014 - MyFaces Tobago 2.0.0-beta-4 Released
+
+      The MyFaces Tobago component library in version 2.0.0-beta-4 has been released.
+
+      Release notes can be found in
+      {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12326809}Jira}}.
+
+      Highlights:
+
+        * Sanitize content against XSS.
+
+        * Examples to integrate {{{http://ckeditor.com/}CKEditor™}} and {{{http://www.tinymce.com/}TinyMCE}}.
+
+      \ {}
+      ~~ hack for a bit space
+
 * May 5, 2014 - MyFaces Tobago 2.0.0-beta-3 Released
 
       The MyFaces Tobago component library in version 2.0.0-beta-3 has been released.
 
-      Release notes can be found
-      {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12326693}here}}.
+      Release notes can be found in
+      {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12326693}Jira}}.
+
+      Highlights:
+
+        * Icons and toolbar buttons in tabs.
 
       \ {}
       ~~ hack for a bit space
@@ -61,8 +81,8 @@ News
 
       The MyFaces Tobago component library in version 2.0.0-beta-2 has been released.
 
-      Release notes can be found
-      {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12326662}here}}.
+      Release notes can be found in
+      {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12326662}Jira}}.
 
       \ {}
       ~~ hack for a bit space
@@ -71,8 +91,8 @@ News
 
       The MyFaces Tobago component library in version 2.0.0-beta-1 has been released.
 
-      Release notes can be found
-      {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12325856}here}}.
+      Release notes can be found in
+      {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12325856}Jira}}.
 
       \ {}
       ~~ hack for a bit space
@@ -81,8 +101,8 @@ News
 
       The MyFaces Tobago component library in version 1.5.13 has been released.
 
-      Release notes can be found
-      {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12325858}here}}.
+      Release notes can be found in
+      {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12325858}Jira}}.
 
       \ {}
       ~~ hack for a bit space
@@ -91,8 +111,8 @@ News
 
       The MyFaces Tobago component library in version 1.0.41 has been released.
 
-      Release notes can be found
-      {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12324116}here}}.
+      Release notes can be found in
+      {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12324116}Jira}}.
 
       \ {}
       ~~ hack for a bit space
@@ -109,8 +129,8 @@ News
 
       The MyFaces Tobago component library in version 1.5.12 has been released.
 
-      Release notes can be found
-      {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12325597}here}}.
+      Release notes can be found in
+      {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12325597}Jira}}.
 
       \ {}
       ~~ hack for a bit space
@@ -119,8 +139,8 @@ News
 
       The MyFaces Tobago component library in version 2.0.0-alpha-3 has been released.
 
-      Release notes can be found
-      {{{https://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&version=12325247}here}}.
+      Release notes can be found in
+      {{{https://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&version=12325247}Jira}}.
 
       \ {}
       ~~ hack for a bit space
@@ -129,8 +149,8 @@ News
 
       The MyFaces Tobago component library in version 1.5.11 has been released.
 
-      Release notes can be found
-      {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12324453}here}}.
+      Release notes can be found in
+      {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12324453}Jira}}.
 
       \ {}
       ~~ hack for a bit space
@@ -139,8 +159,8 @@ News
 
       The MyFaces Tobago component library in version 2.0.0-alpha-2 has been released.
 
-      Release notes can be found
-      {{{https://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&version=12324818}here}}.
+      Release notes can be found in
+      {{{https://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&version=12324818}Jira}}.
 
   \ {}
   ~~ hack for a bit space
@@ -149,8 +169,8 @@ News
 
       The MyFaces Tobago component library in version 2.0.0-alpha-1 has been released.
 
-      Release notes can be found
-      {{{https://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&version=12321874}here}}.
+      Release notes can be found in
+      {{{https://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&version=12321874}Jira}}.
 
   \ {}
   ~~ hack for a bit space
@@ -159,8 +179,8 @@ News
 
       The MyFaces Tobago component library in version 1.5.10 has been released.
 
-      Release notes can be found
-      {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12324008}here}}.
+      Release notes can be found in
+      {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12324008}Jira}}.
 
   \ {}
   ~~ hack for a bit space
@@ -178,8 +198,8 @@ News
 
       The MyFaces Tobago component library in version 1.5.9 has been released.
 
-      Release notes can be found
-      {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12323506}here}}.
+      Release notes can be found in
+      {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12323506}Jira}}.
 
   \ {}
   ~~ hack for a bit space
@@ -188,8 +208,8 @@ News
 
      The MyFaces Tobago component library in version 1.0.40 has been released.
 
-     Release notes can be found
-     {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12319866}here}}.
+     Release notes can be found in
+     {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12319866}Jira}}.
 
 
   \ {}
@@ -199,8 +219,8 @@ News
 
       The MyFaces Tobago component library in version 1.5.8 has been released.
 
-      Release notes can be found
-      {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12322450}here}}.
+      Release notes can be found in
+      {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12322450}Jira}}.
 
 
   \ {}
@@ -210,8 +230,8 @@ News
 
       The MyFaces Tobago component library in version 1.5.7 has been released.
 
-      Release notes can be found
-      {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12321444}here}}.
+      Release notes can be found in
+      {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12321444}Jira}}.
 
   \ {}
   ~~ hack for a bit space
@@ -220,8 +240,8 @@ News
 
       The MyFaces Tobago component library in version 1.6.0-beta-2 has been released.
 
-      Release notes can be found
-      {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12321701}here}}.
+      Release notes can be found in
+      {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12321701}Jira}}.
 
   \ {}
   ~~ hack for a bit space
@@ -230,8 +250,8 @@ News
 
       The MyFaces Tobago component library in version 1.6.0-beta-1 has been released.
 
-      Release notes can be found
-      {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12321691}here}}.
+      Release notes can be found in
+      {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12321691}Jira}}.
 
 
   \ {}
@@ -250,8 +270,8 @@ News
 
       The MyFaces Tobago component library in version 1.5.6 has been released.
 
-      Release notes can be found
-      {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12321251}here}}.
+      Release notes can be found in
+      {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12321251}Jira}}.
 
 
   \ {}
@@ -261,8 +281,8 @@ News
 
       The MyFaces Tobago component library in version 1.5.5 has been released.
 
-      Release notes can be found
-      {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12319865}here}}.
+      Release notes can be found in
+      {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12319865}Jira}}.
 
 
 
@@ -273,8 +293,8 @@ News
 
      The MyFaces Tobago component library in version 1.5.4 has been released.
 
-     Release notes can be found
-     {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12319864}here}}.
+     Release notes can be found in
+     {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12319864}Jira}}.
 
   \ {}
   ~~ hack for a bit space
@@ -283,8 +303,8 @@ News
 
      The MyFaces Tobago component library in version 1.0.39 has been released.
 
-     Release notes can be found
-     {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12319455}here}}.
+     Release notes can be found in
+     {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12319455}Jira}}.
 
 
   \ {}
@@ -294,8 +314,8 @@ News
 
      The MyFaces Tobago component library in version 1.5.3 has been released.
 
-     Release notes can be found
-     {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12319499}here}}.
+     Release notes can be found in
+     {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12319499}Jira}}.
 
 
   \ {}
@@ -305,8 +325,8 @@ News
 
     The MyFaces Tobago component library in version 1.5.2 has been released.
 
-    Release notes can be found
-    {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12319248}here}}.
+    Release notes can be found in
+    {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12319248}Jira}}.
 
 
   \ {}
@@ -316,8 +336,8 @@ News
 
     The MyFaces Tobago component library in version 1.5.1 has been released.
 
-    Release notes can be found
-    {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12319154}here}}.
+    Release notes can be found in
+    {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12319154}Jira}}.
 
 
   \ {}
@@ -327,8 +347,8 @@ News
 
     The MyFaces Tobago component library in version 1.5.0 has been released.
 
-    Release notes can be found
-    {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12312205}here}}.
+    Release notes can be found in
+    {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12312205}Jira}}.
 
 
   \ {}
@@ -338,8 +358,8 @@ News
 
     The MyFaces Tobago component library in version 1.5.0-beta-2 has been released.
 
-    Release notes can be found
-    {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12317052}here}}.
+    Release notes can be found in
+    {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12317052}Jira}}.
 
 
   \ {}
@@ -349,8 +369,8 @@ News
 
     The MyFaces Tobago component library in version 1.0.38 has been released.
 
-    Release notes can be found
-    {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12317350}here}}.
+    Release notes can be found in
+    {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12317350}Jira}}.
 
 
   \ {}
@@ -360,8 +380,8 @@ News
 
     The MyFaces Tobago component library in version 1.5.0-beta-1 has been released.
 
-    Release notes can be found
-    {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12316222}here}}.
+    Release notes can be found in
+    {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12316222}Jira}}.
 
 
   \ {}
@@ -371,8 +391,8 @@ News
 
     The MyFaces Tobago component library in version 1.0.37 has been released.
 
-    Release notes can be found
-    {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12316458}here}}.
+    Release notes can be found in
+    {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12316458}Jira}}.
 
   \ {}
   ~~ hack for a bit space
@@ -381,8 +401,8 @@ News
 
     The MyFaces Tobago component library in version 1.0.36 has been released.
 
-    Release notes can be found
-    {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12316297}here}}.
+    Release notes can be found in
+    {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12316297}Jira}}.
 
   \ {}
   ~~ hack for a bit space
@@ -391,8 +411,8 @@ News
 
     The MyFaces Tobago component library in version 1.0.35 has been released.
 
-    Release notes can be found
-    {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12316183}here}}.
+    Release notes can be found in
+    {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12316183}Jira}}.
 
   \ {}
   ~~ hack for a bit space
@@ -401,8 +421,8 @@ News
 
     The MyFaces Tobago component library in version 1.5.0-alpha-2 has been released.
 
-    Release notes can be found
-    {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12314340}here}}.
+    Release notes can be found in
+    {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12314340}Jira}}.
 
 
   \ {}
@@ -412,8 +432,8 @@ News
 
     The MyFaces Tobago component library in version 1.0.34 has been released.
 
-    Release notes can be found
-    {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12316162}here}}.
+    Release notes can be found in
+    {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12316162}Jira}}.
 
 
   \ {}
@@ -423,8 +443,8 @@ News
 
     The MyFaces Tobago component library in version 1.0.33 has been released.
 
-    Release notes can be found
-    {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12315586}here}}.
+    Release notes can be found in
+    {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12315586}Jira}}.
 
   \ {}
   ~~ hack for a bit space
@@ -433,8 +453,8 @@ News
 
     The MyFaces Tobago component library in version 1.0.32 has been released.
 
-    Release notes can be found
-    {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12315489}here}}.
+    Release notes can be found in
+    {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12315489}Jira}}.
 
   \ {}
   ~~ hack for a bit space
@@ -443,8 +463,8 @@ News
 
     The MyFaces Tobago component library in version 1.0.31 has been released.
 
-    Release notes can be found
-    {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12315383}here}}.
+    Release notes can be found in
+    {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12315383}Jira}}.
 
   \ {}
   ~~ hack for a bit space
@@ -453,8 +473,8 @@ News
 
     The MyFaces Tobago component library in version 1.0.30 has been released.
 
-    Release notes can be found
-    {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12315336}here}}.
+    Release notes can be found in
+    {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12315336}Jira}}.
 
   \ {}
   ~~ hack for a bit space
@@ -463,8 +483,8 @@ News
 
    The MyFaces Tobago component library in version 1.0.29 has been released.
 
-   Release notes can be found
-   {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12315262}here}}.
+   Release notes can be found in
+   {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12315262}Jira}}.
 
   \ {}
   ~~ hack for a bit space
@@ -473,8 +493,8 @@ News
 
    The MyFaces Tobago component library in version 1.0.28 has been released.
 
-   Release notes can be found
-   {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12315109}here}}.
+   Release notes can be found in
+   {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12315109}Jira}}.
 
   \ {}
   ~~ hack for a bit space
@@ -483,8 +503,8 @@ News
 
    The MyFaces Tobago component library in version 1.0.27 has been released.
 
-   Release notes can be found
-   {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12315099}here}}.
+   Release notes can be found in
+   {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12315099}Jira}}.
 
   \ {}
   ~~ hack for a bit space
@@ -493,8 +513,8 @@ News
 
    The MyFaces Tobago component library in version 1.0.26 has been released.
 
-   Release notes can be found
-   {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12314961}here}}.
+   Release notes can be found in
+   {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12314961}Jira}}.
 
   \ {}
   ~~ hack for a bit space
@@ -503,8 +523,8 @@ News
 
    The MyFaces Tobago component library in version 1.0.25 has been released.
 
-   Release notes can be found
-   {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12314527}here}}.
+   Release notes can be found in
+   {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12314527}Jira}}.
 
   \ {}
   ~~ hack for a bit space
@@ -513,8 +533,8 @@ News
 
    The MyFaces Tobago component library in version 1.0.24 has been released.
 
-   Release notes can be found
-   {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12314193}here}}.
+   Release notes can be found in
+   {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12314193}Jira}}.
 
   \ {}
   ~~ hack for a bit space
@@ -523,8 +543,8 @@ News
 
    The MyFaces Tobago component library in version 1.0.23 has been released.
 
-   Release notes can be found
-   {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12314159}here}}.
+   Release notes can be found in
+   {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12314159}Jira}}.
 
   \ {}
   ~~ hack for a bit space
@@ -533,8 +553,8 @@ News
 
    The MyFaces Tobago component library in version 1.0.22 has been released.
 
-   Release notes can be found
-   {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12314027}here}}.
+   Release notes can be found in
+   {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12314027}Jira}}.
 
   \ {}
   ~~ hack for a bit space
@@ -543,8 +563,8 @@ News
 
    The MyFaces Tobago component library in version 1.0.21 has been released.
 
-   Release notes can be found
-   {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12313470}here}}.
+   Release notes can be found in
+   {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12313470}Jira}}.
 
   \ {}
   ~~ hack for a bit space
@@ -553,8 +573,8 @@ News
 
    The MyFaces Tobago component library in version 1.0.20 has been released.
 
-   Release notes can be found
-   {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12313447}here}}.
+   Release notes can be found in
+   {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12313447}Jira}}.
 
   \ {}
   ~~ hack for a bit space
@@ -563,8 +583,8 @@ News
 
    The MyFaces Tobago component library in version 1.0.19 has been released.
 
-   Release notes can be found
-   {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12313372}here}}.
+   Release notes can be found in
+   {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12313372}Jira}}.
 
   \ {}
   ~~ hack for a bit space
@@ -573,8 +593,8 @@ News
 
    The MyFaces Tobago component library in version 1.0.18 has been released.
 
-   Release notes can be found
-   {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12313150}here}}.
+   Release notes can be found in
+   {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12313150}Jira}}.
 
   \ {}
   ~~ hack for a bit space
@@ -583,8 +603,8 @@ News
 
    The MyFaces Tobago component library in version 1.0.17 has been released.
 
-   Release notes can be found
-   {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12313084}here}}.
+   Release notes can be found in
+   {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12313084}Jira}}.
 
   \ {}
   ~~ hack for a bit space
@@ -593,8 +613,8 @@ News
 
    The MyFaces Tobago component library in version 1.0.16 has been released.
 
-   Release notes can be found
-   {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12312966}here}}.
+   Release notes can be found in
+   {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12312966}Jira}}.
 
   \ {}
   ~~ hack for a bit space
@@ -603,8 +623,8 @@ News
 
    The MyFaces Tobago component library in version 1.0.15 has been released.
 
-   Release notes can be found
-   {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12312929}here}}.
+   Release notes can be found in
+   {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12312929}Jira}}.
 
   \ {}
   ~~ hack for a bit space
@@ -613,8 +633,8 @@ News
 
    The MyFaces Tobago component library in version 1.0.14 has been released.
 
-   Release notes can be found
-   {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12312878}here}}.
+   Release notes can be found in
+   {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12312878}Jira}}.
 
   \ {}
   ~~ hack for a bit space
@@ -630,8 +650,8 @@ News
 
    The MyFaces Tobago component library in version 1.0.13 has been released.
 
-   Release notes can be found
-   {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12312766}here}}.
+   Release notes can be found in
+   {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12312766}Jira}}.
 
   \ {}
   ~~ hack for a bit space
@@ -640,8 +660,8 @@ News
 
    The MyFaces Tobago component library in version 1.0.12 has been released.
 
-   Release notes can be found
-   {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12312498}here}}.
+   Release notes can be found in
+   {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12312498}Jira}}.
 
   \ {}
   ~~ hack for a bit space
@@ -653,8 +673,8 @@ News
    Group ID "org.apache.myfaces.tobago".
 
    More information on this release, including a list of resolved issues, can be
-   found on the
-   {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12312376}release notes}}.
+   found in
+   {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12312376}Jira}}.
 
   \ {}
   ~~ hack for a bit space
