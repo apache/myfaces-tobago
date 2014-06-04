@@ -169,11 +169,9 @@
   </navigation-rule>
 
   <converter>
-    <converter-id>org.apache.myfaces.tobago.example.reference.OnOffConverter</converter-id>
-    <converter-class>org.apache.myfaces.tobago.example.reference.OnOffConverter</converter-class>
+    <converter-id>org.apache.myfaces.tobago.example.demo.OnOffConverter</converter-id>
+    <converter-class>org.apache.myfaces.tobago.example.demo.OnOffConverter</converter-class>
   </converter>
-
-  <!-- reference -->
 
   <managed-bean>
     <managed-bean-name>reference</managed-bean-name>
@@ -209,12 +207,6 @@
     <managed-bean-name>upload</managed-bean-name>
     <managed-bean-class>org.apache.myfaces.tobago.example.demo.Upload</managed-bean-class>
     <managed-bean-scope>session</managed-bean-scope>
-  </managed-bean>
-
-  <managed-bean>
-    <managed-bean-name>simpleList</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.tobago.example.reference.SimpleBeanList</managed-bean-class>
-    <managed-bean-scope>request</managed-bean-scope>
   </managed-bean>
 
   <managed-bean>

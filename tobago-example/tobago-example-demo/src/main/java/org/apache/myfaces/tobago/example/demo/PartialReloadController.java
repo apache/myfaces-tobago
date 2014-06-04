@@ -17,19 +17,22 @@
  * under the License.
  */
 
-package org.apache.myfaces.tobago.example.reference;
+package org.apache.myfaces.tobago.example.demo;
 
 import org.apache.myfaces.tobago.ajax.AjaxUtils;
-import org.apache.myfaces.tobago.example.demo.NavigationState;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.el.ELContext;
 import javax.el.ValueExpression;
+import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
+import javax.inject.Named;
 import java.util.Date;
 
+@RequestScoped
+@Named
 public class PartialReloadController {
 
   private static final Logger LOG = LoggerFactory.getLogger(PartialReloadController.class);

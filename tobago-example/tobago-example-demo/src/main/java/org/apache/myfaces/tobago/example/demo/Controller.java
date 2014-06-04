@@ -17,16 +17,21 @@
  * under the License.
  */
 
-package org.apache.myfaces.tobago.example.reference;
+package org.apache.myfaces.tobago.example.demo;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
+import javax.inject.Named;
+import java.io.Serializable;
 
-public class Controller {
+@SessionScoped
+@Named("reference")
+public class Controller implements Serializable {
 
   private static final Logger LOG = LoggerFactory.getLogger(Controller.class);
 

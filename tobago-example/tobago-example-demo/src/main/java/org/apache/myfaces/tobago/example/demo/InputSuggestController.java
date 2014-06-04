@@ -17,7 +17,7 @@
  * under the License.
  */
 
-package org.apache.myfaces.tobago.example.reference;
+package org.apache.myfaces.tobago.example.demo;
 
 import org.apache.commons.lang.math.RandomUtils;
 import org.apache.myfaces.tobago.model.AutoSuggestExtensionItem;
@@ -26,12 +26,17 @@ import org.apache.myfaces.tobago.model.AutoSuggestItems;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.enterprise.context.SessionScoped;
 import javax.faces.component.UIInput;
 import javax.faces.model.SelectItem;
+import javax.inject.Named;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class InputSuggestController {
+@SessionScoped
+@Named
+public class InputSuggestController implements Serializable {
 
   private static final Logger LOG = LoggerFactory.getLogger(InputSuggestController.class);
 

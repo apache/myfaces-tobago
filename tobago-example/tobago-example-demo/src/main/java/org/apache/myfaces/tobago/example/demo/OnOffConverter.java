@@ -17,7 +17,7 @@
  * under the License.
  */
 
-package org.apache.myfaces.tobago.example.reference;
+package org.apache.myfaces.tobago.example.demo;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
