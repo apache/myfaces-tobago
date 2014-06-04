@@ -1,4 +1,6 @@
-<%--
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
  * this work for additional information regarding copyright ownership.
@@ -13,13 +15,23 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
---%>
-<%@ taglib uri="http://myfaces.apache.org/tobago/component" prefix="tc" %>
-<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
-<%@ taglib tagdir="/WEB-INF/tags/layout" prefix="layout" %>
+-->
 
-<layout:overview>
-  <jsp:body>
-    <tc:out escape="false" value="Reference of the Tobago Controls" />
-  </jsp:body>
-</layout:overview>
+<ui:composition template="/layout/overview.xhtml"
+                xmlns:tc="http://myfaces.apache.org/tobago/component"
+                xmlns:tx="http://myfaces.apache.org/tobago/extension"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core">
+<tc:panel>
+      <f:facet name="layout">
+        <tc:gridLayout columns="400px;*" rows="200px;*"/>
+      </f:facet>
+      <!-- code-sniplet-start id="box" -->
+      <tc:box label="Box Headline">
+      </tc:box>
+      <!-- code-sniplet-end id="box" -->
+      <tc:cell/>
+      <tc:cell spanX="2"/>
+    </tc:panel>
+</ui:composition>

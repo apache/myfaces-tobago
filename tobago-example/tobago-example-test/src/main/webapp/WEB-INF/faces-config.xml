@@ -239,6 +239,18 @@
     <managed-bean-scope>session</managed-bean-scope>
   </managed-bean>
 
+  <managed-bean>
+    <managed-bean-name>popupReference</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.tobago.example.test.PopupReferenceController</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+  </managed-bean>
+
+  <managed-bean>
+    <managed-bean-name>messages</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.tobago.example.test.Messages</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+  </managed-bean>
+
   <navigation-rule>
     <navigation-case>
       <from-outcome>navigation</from-outcome>

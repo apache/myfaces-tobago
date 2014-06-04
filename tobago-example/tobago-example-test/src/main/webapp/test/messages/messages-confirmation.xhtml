@@ -1,4 +1,6 @@
-<%--
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
  * this work for additional information regarding copyright ownership.
@@ -13,28 +15,23 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
---%>
-<%@ taglib uri="http://myfaces.apache.org/tobago/component" prefix="tc" %>
-<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
-<%@ taglib tagdir="/WEB-INF/tags/layout" prefix="layout" %>
-<%@ taglib uri="http://myfaces.apache.org/tobago/extension" prefix="tx" %>
+-->
 
-<layout:overview>
-  <jsp:body>
-    <tc:box label="Tool Bar">
+<f:view
+    xmlns:tc="http://myfaces.apache.org/tobago/component"
+    xmlns:f="http://java.sun.com/jsf/core">
+
+  <tc:page>
+    <tc:gridLayoutConstraint width="600px" height="600px"/>
+
+    <tc:box label="Messages must be confirmed here">
       <f:facet name="layout">
-        <tc:gridLayout rows="auto;*"/>
+        <tc:gridLayout rows="*;*"/>
       </f:facet>
 
-      <tc:toolBar id="toolbar0" iconSize="big">
-        <tc:toolBarCommand id="button0" label="Button"/>
-        <tc:toolBarCommand id="button1" label="Accesskey _Button"/>
-        <tc:toolBarCommand id="button2" label="Image Button"
-                           image="image/toolbar_example_button.gif"/>
-        <tc:toolBarCommand id="button3" disabled="true" label="Disabled Button"/>
-      </tc:toolBar>
+      <tc:messages id="mymessages" confirmation="true"/>
 
-      <tc:cell/>
+      <tc:button label="Please click to show the messages" action="#{messages.createMessages}"/>
     </tc:box>
-  </jsp:body>
-</layout:overview>
+  </tc:page>
+</f:view>

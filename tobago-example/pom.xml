@@ -81,7 +81,7 @@
           <artifactId>jetty-maven-plugin</artifactId>
           <!--<version>9.1.1.v20140108</version>-->
           <!--<version>9.1.0.v20131115</version>-->
-          <version>8.1.14.v20131031</version>
+          <version>8.1.15.v20140411</version>
           <configuration>
             <scanIntervalSeconds>5</scanIntervalSeconds>
             <webAppConfig>
