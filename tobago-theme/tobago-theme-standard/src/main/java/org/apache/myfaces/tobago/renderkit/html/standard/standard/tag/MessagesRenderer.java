@@ -26,7 +26,6 @@ import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.UIBox;
 import org.apache.myfaces.tobago.component.UIButton;
 import org.apache.myfaces.tobago.component.UICell;
-import org.apache.myfaces.tobago.component.UICommand;
 import org.apache.myfaces.tobago.component.UIGridLayout;
 import org.apache.myfaces.tobago.component.UIMessages;
 import org.apache.myfaces.tobago.component.UIPanel;
@@ -195,7 +194,7 @@ public class MessagesRenderer extends LayoutComponentRendererBase {
     buttonPanel.getChildren().add(space);
     space.onComponentPopulated(facesContext, messages);
 
-    final UICommand okButton = (UICommand) CreateComponentUtils.createComponent(
+    final UIButton okButton = (UIButton) CreateComponentUtils.createComponent(
         facesContext, UIButton.COMPONENT_TYPE, RendererTypes.BUTTON, CLOSE_POPUP);
     buttonPanel.getChildren().add(okButton);
     okButtonAttributes = okButton.getAttributes();
