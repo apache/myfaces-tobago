@@ -463,7 +463,9 @@ public class RenderUtils {
       final String key = component.getClientId(facesContext) + SCROLL_POSTFIX;
       scrollPosition = parseScrollPosition(facesContext.getExternalContext().getRequestParameterMap().get(key));
     }
-    writeScrollPosition(facesContext, writer, component, scrollPosition);
+    if (scrollPosition != null) {
+      writeScrollPosition(facesContext, writer, component, scrollPosition);
+    }
   }
 
   public static void writeScrollPosition(
@@ -501,11 +503,9 @@ public class RenderUtils {
     Integer[] position = null;
     if (!StringUtils.isBlank(value)) {
       final int sep = value.indexOf(";");
-      if (LOG.isInfoEnabled()) {
-        LOG.info("value = \"" + value + "\"  sep = " + sep + "");
-      }
       if (sep == -1) {
-        throw new NumberFormatException(value);
+        LOG.warn("Can't parse: '{}'", value);
+        return null;
       }
       final int left = Integer.parseInt(value.substring(0, sep));
       final int top = Integer.parseInt(value.substring(sep + 1));
