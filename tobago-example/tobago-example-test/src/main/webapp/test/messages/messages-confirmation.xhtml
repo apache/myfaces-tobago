@@ -1,4 +1,6 @@
-<%--
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
  * this work for additional information regarding copyright ownership.
@@ -13,13 +15,23 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
---%>
-<%@ taglib uri="http://myfaces.apache.org/tobago/component" prefix="tc" %>
-<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
-<%@ taglib tagdir="/WEB-INF/tags/layout" prefix="layout" %>
+-->
 
-<layout:overview>
-  <jsp:body>
-    <tc:out escape="false" value="Reference of the Tobago Controls" />
-  </jsp:body>
-</layout:overview>
+<f:view
+    xmlns:tc="http://myfaces.apache.org/tobago/component"
+    xmlns:f="http://java.sun.com/jsf/core">
+
+  <tc:page>
+    <tc:gridLayoutConstraint width="600px" height="600px"/>
+
+    <tc:box label="Messages must be confirmed here">
+      <f:facet name="layout">
+        <tc:gridLayout rows="*;*"/>
+      </f:facet>
+
+      <tc:messages id="mymessages" confirmation="true"/>
+
+      <tc:button label="Please click to show the messages" action="#{messages.createMessages}"/>
+    </tc:box>
+  </tc:page>
+</f:view>

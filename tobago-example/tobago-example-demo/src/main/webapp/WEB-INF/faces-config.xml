@@ -196,12 +196,6 @@
   <!-- reference -->
 
   <managed-bean>
-    <managed-bean-name>popupReference</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.tobago.example.reference.PopupReferenceController</managed-bean-class>
-    <managed-bean-scope>session</managed-bean-scope>
-  </managed-bean>
-
-  <managed-bean>
     <managed-bean-name>reference</managed-bean-name>
     <managed-bean-class>org.apache.myfaces.tobago.example.reference.Controller</managed-bean-class>
     <managed-bean-scope>session</managed-bean-scope>
@@ -254,65 +248,5 @@
     <managed-bean-class>org.apache.myfaces.tobago.example.demo.nonfacesrequest.FishPond</managed-bean-class>
     <managed-bean-scope>session</managed-bean-scope>
   </managed-bean>
-
-  <navigation-rule>
-    <navigation-case>
-      <from-outcome>reference/intro</from-outcome>
-      <to-view-id>/reference/intro.jsp</to-view-id>
-    </navigation-case>
-    <navigation-case>
-      <from-outcome>reference/command</from-outcome>
-      <to-view-id>/reference/command.jsp</to-view-id>
-    </navigation-case>
-    <navigation-case>
-      <from-outcome>reference/container</from-outcome>
-      <to-view-id>/reference/container.jsp</to-view-id>
-    </navigation-case>
-    <navigation-case>
-      <from-outcome>reference/input</from-outcome>
-      <to-view-id>/reference/input.jsp</to-view-id>
-    </navigation-case>
-    <navigation-case>
-      <from-outcome>reference/inputSuggest</from-outcome>
-      <to-view-id>/reference/inputSuggest.jsp</to-view-id>
-    </navigation-case>
-    <navigation-case>
-      <from-outcome>reference/menu</from-outcome>
-      <to-view-id>/reference/menu.jsp</to-view-id>
-    </navigation-case>
-    <navigation-case>
-      <from-outcome>reference/output</from-outcome>
-      <to-view-id>/reference/output.jsp</to-view-id>
-    </navigation-case>
-    <navigation-case>
-      <from-outcome>reference/sheet</from-outcome>
-      <to-view-id>/reference/sheet.jsp</to-view-id>
-    </navigation-case>
-    <navigation-case>
-      <from-outcome>reference/tab</from-outcome>
-      <to-view-id>/reference/tab.jsp</to-view-id>
-    </navigation-case>
-    <navigation-case>
-      <from-outcome>reference/time</from-outcome>
-      <to-view-id>/reference/time.jsp</to-view-id>
-    </navigation-case>
-    <navigation-case>
-      <from-outcome>reference/tool</from-outcome>
-      <to-view-id>/reference/tool.jsp</to-view-id>
-    </navigation-case>
-    <navigation-case>
-      <from-outcome>/reference/tree/tree-normal.jspx</from-outcome>
-      <to-view-id>/reference/tree/tree-normal.jspx</to-view-id>
-    </navigation-case>
-    <navigation-case>
-      <from-outcome>/reference/tree/tree-normal.xhtml</from-outcome>
-      <to-view-id>/reference/tree/tree-normal.xhtml</to-view-id>
-    </navigation-case>
-<!--
-tree-menu.xhtml
-tree-normal.xhtml
-tree-select.xhtml
--->
-  </navigation-rule>
 
 </faces-config>

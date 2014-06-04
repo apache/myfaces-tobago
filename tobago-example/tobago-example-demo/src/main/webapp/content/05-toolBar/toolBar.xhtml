@@ -26,7 +26,7 @@
 <ui:param name="title" value="#{overviewBundle.toolbar}"/>
 <tc:panel id="pageToolbar">
   <f:facet name="layout">
-    <tc:gridLayout rows="65px;auto;1px;70px;auto;50px" id="pageToolbarLayout"/>
+    <tc:gridLayout rows="65px;auto;80px;*;*" id="pageToolbarLayout"/>
   </f:facet>
 
   <tc:out escape="false" value="#{overviewBundle.toolbar_text1}"/>
@@ -152,14 +152,9 @@
 
   </tc:box>
 
-  <tc:panel/>
-
   <tc:out escape="false" value="#{overviewBundle.toolbar_text2}"/>
 
   <tc:box label="#{overviewBundle.toolbar_sampleTitle2}" id="boxMenu">
-    <f:facet name="layout">
-      <tc:gridLayout rows="auto;100px"/>
-    </f:facet>
 
     <f:facet name="menuBar">
       <tc:menuBar>
@@ -226,5 +221,53 @@
     </f:facet>
 
   </tc:box>
+
+  <tc:box label="#{overviewBundle.toolbar_sampleTitle2} 2">
+    <f:facet name="layout">
+      <tc:gridLayout rows="auto;*"/>
+    </f:facet>
+    <!-- code-sniplet-start id="menuBar" -->
+    <f:facet name="menuBar">
+      <tc:menuBar>
+        <tc:menu label="_File">
+          <tc:menuCommand label="New File"/>
+          <tc:menuCommand label="Open File"/>
+          <tc:menuCommand label="Save"/>
+          <tc:menuCommand label="Print"/>
+          <tc:menuSeparator/>
+          <tc:menuCommand label="Exit">
+            <f:facet name="confirmation">
+              <tc:out value="Are you sure?"/>
+            </f:facet>
+          </tc:menuCommand>
+          <!--<tx:menuCheckbox action="none" label="Administration Mode"/>-->
+        </tc:menu>
+
+        <!-- code-sniplet-start id="menu" -->
+        <tc:menu label="_Edit">
+          <tc:menuCommand label="Copy"/>
+          <tc:menuCommand label="Cut"/>
+          <tc:menuCommand label="Paste"/>
+          <!-- code-sniplet-start id="menuCommand" -->
+          <tc:menuCommand label="Delete"/>
+          <!-- code-sniplet-end id="menuCommand" -->
+          <tc:menuSeparator/>
+          <tc:menu label="_Delete">
+            <tc:menuCommand label="As Spam"/>
+            <tc:menuCommand label="As Newsletter"/>
+            <tc:menuCommand label="As Uninteresting"/>
+          </tc:menu>
+        </tc:menu>
+        <!-- code-sniplet-end id="menu" -->
+
+        <tc:menu label="_View">
+          <tc:menuCommand label="Snap to Grid"/>
+          <tc:menuCommand label="Show Rulers"/>
+        </tc:menu>
+      </tc:menuBar>
+    </f:facet>
+    <!-- code-sniplet-end id="menuBar" -->
+  </tc:box>
+
 </tc:panel>
 </ui:composition>
