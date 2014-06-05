@@ -376,6 +376,8 @@
     &lt;context-param>
       &lt;param-name>javax.faces.FACELETS_RESOURCE_RESOLVER&lt;/param-name>
       &lt;param-value>org.apache.myfaces.tobago.facelets.MetaInfResourcesClasspathResourceResolver&lt;/param-value>
-    &lt;/context-param></entry>
-  
+    &lt;/context-param>
+
+    The content has to reside in the /META-INF/resources directory.</entry>
+
 </properties>

@@ -148,11 +148,11 @@
     </navigation-case>
     <navigation-case>
       <from-outcome>best-practice/tool-bar-customizer</from-outcome>
-      <to-view-id>/best-practice/tool-bar-customizer.xhtml</to-view-id>
+      <to-view-id>/content/05-toolBar/00/tool-bar-customizer.xhtml</to-view-id>
     </navigation-case>
     <navigation-case>
       <from-outcome>best-practice/facelets-as-resources</from-outcome>
-      <to-view-id>/best-practice/facelets-as-resources.xhtml</to-view-id>
+      <to-view-id>/content/12-best-practice/04/facelets-as-resources.xhtml</to-view-id>
     </navigation-case>
   </navigation-rule>
 
