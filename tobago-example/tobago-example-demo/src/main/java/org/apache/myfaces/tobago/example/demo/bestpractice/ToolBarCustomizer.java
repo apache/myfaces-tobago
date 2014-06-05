@@ -78,7 +78,7 @@ public class ToolBarCustomizer {
 
     private Item(final String label) {
       this.label = label;
-      this.name = "tool-bar-item-" + label.toLowerCase(Locale.ENGLISH) + ".xhtml";
+      this.name = "x-tool-bar-item-" + label.toLowerCase(Locale.ENGLISH) + ".xhtml";
     }
 
     public String getLabel() {

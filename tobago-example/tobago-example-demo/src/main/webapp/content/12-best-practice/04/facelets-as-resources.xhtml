@@ -19,18 +19,19 @@
 
 <ui:composition template="/WEB-INF/tags/layout/overview.xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
-                xmlns:tx="http://myfaces.apache.org/tobago/extension"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core">
-  <ui:param name="title" value="#{overviewBundle.layout}"/>
+  <ui:param name="title" value="Loading Facelets from JARs"/>
   <tc:panel>
     <f:facet name="layout">
-      <tc:gridLayout rows="2*;7*"/>
+      <tc:gridLayout rows="2*;25px;7*"/>
     </f:facet>
 
     <tc:out value="#{overviewBundle.faceletsAsResources_text}"/>
-    <tc:box label="todo">
+
+    <tc:out value="Facelets only!" />
+
+    <tc:box label="This content is included from a JAR.">
 
       <ui:include src="/data/edit-solar.xhtml" />
 
