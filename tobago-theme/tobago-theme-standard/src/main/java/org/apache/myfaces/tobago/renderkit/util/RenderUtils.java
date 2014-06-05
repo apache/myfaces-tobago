@@ -463,9 +463,7 @@ public class RenderUtils {
       final String key = component.getClientId(facesContext) + SCROLL_POSTFIX;
       scrollPosition = parseScrollPosition(facesContext.getExternalContext().getRequestParameterMap().get(key));
     }
-    if (scrollPosition != null) {
-      writeScrollPosition(facesContext, writer, component, scrollPosition);
-    }
+    writeScrollPosition(facesContext, writer, component, scrollPosition);
   }
 
   public static void writeScrollPosition(
@@ -477,12 +475,8 @@ public class RenderUtils {
     writer.writeIdAttribute(clientId + SCROLL_POSTFIX);
     writer.writeNameAttribute(clientId + SCROLL_POSTFIX);
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN, false);
-    if (scrollPosition != null) {
-      final String scroll = scrollPosition[0] + ";" + scrollPosition[1];
-      writer.writeAttribute(HtmlAttributes.VALUE, scroll, false);
-    } else {
-      writer.writeAttribute(HtmlAttributes.VALUE, "", false);
-    }
+    final String scrollPositionString = scrollPosition != null ? scrollPosition[0] + ";" + scrollPosition[1] : "";
+    writer.writeAttribute(HtmlAttributes.VALUE, scrollPositionString, false);
     writer.writeAttribute("data-tobago-scroll-position", "true", true);
     writer.endElement(HtmlElements.INPUT);
   }
