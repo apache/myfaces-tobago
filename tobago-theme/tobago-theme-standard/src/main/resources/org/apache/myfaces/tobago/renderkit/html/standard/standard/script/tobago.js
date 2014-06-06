@@ -119,75 +119,6 @@ var Tobago = {
     isWebkit: false
   },
 
-  acceleratorKeys: {
-    set: function(keyAccelerator) {
-      var key = keyAccelerator.modifier + keyAccelerator.key;
-      if (this[key]) {
-        console.warn('Ignoring duplicate key: ' + keyAccelerator.modifier + '-' + keyAccelerator.key + ' with function: ' + keyAccelerator.func.valueOf()); // @DEV_ONLY
-      } else {
-//        console.debug("add accelerator for " + keyAccelerator.modifier + "-" + keyAccelerator.key); // @DEV_ONLY
-        this[key] = keyAccelerator;
-      }
-    },
-
-    get: function(event) {
-      if (!(event.type == 'keypress')) {
-        return null;
-      }
-      var keyCode = event.which ? event.which : event.keyCode;
-      if (keyCode == 0) {
-        return null;
-      }
-      var key = String.fromCharCode(keyCode).toLowerCase();
-      var mod = '';
-      if (event.altKey) {
-        mod += 'alt';
-      }
-      if (event.ctrlKey || event.metaKey) {
-        mod += 'ctrl';
-      }
-      if (event.shiftKey) {
-        mod += 'shift';
-      }
-      if (mod.length == 0) {
-        mod = 'none';
-      }
-//      console.debug("event for " + mod + "-" + key); // @DEV_ONLY
-      return this[mod + key];
-    },
-
-    remove: function(keyAccelerator) {
-      if (keyAccelerator.ieHelperElementId != null) {
-        var ieHelperElement = document.getElementById(keyAccelerator.ieHelperElementId);
-        if (ieHelperElement != null) {
-          ieHelperElement.parentNode.removeChild(ieHelperElement);
-        }
-      }
-      var key = keyAccelerator.modifier + keyAccelerator.key;
-      if (this[key]) {
-//        console.debug("delete accelerator for " + keyAccelerator.modifier + "-" + keyAccelerator.key); // @DEV_ONLY
-        delete this[key];
-      }
-    },
-
-    observe: function(event) {
-      if (! event) {
-        event = window.event;
-      }
-//      console.debug("keypress: keycode " + (event.which ? event.which : event.keyCode)); // @DEV_ONLY
-      var keyAccelerator = this.get(event);
-      if (keyAccelerator) {
-//        console.debug("accelerator found!"); // @DEV_ONLY
-        event.cancelBubble = true;
-        if (event.stopPropagation) {
-          event.stopPropagation(); // this is DOM2
-          event.preventDefault();
-        }
-        return keyAccelerator.func(event);
-      }
-    }
-  },
-
   /**
    * Object to store already loaded script files
    * to prevent multiple loading via Ajax requests.
@@ -297,8 +228,6 @@ var Tobago = {
       this.applicationOnload();
     }
     console.timeEnd("[tobago] applicationOnload"); // @DEV_ONLY
-
-    this.addBindEventListener(document, 'keypress', this.acceleratorKeys, 'observe');
 
     if (Tobago.resizeAction) {
       // firefox submits an onresize event
@@ -959,6 +888,7 @@ var Tobago = {
     Tobago.Utils.selectWidthJQuery(elements, '[data-tobago-commands]')
         .each(function () {Tobago.initCommand(jQuery(this));});
 
+/*
     // access keys
     var accesskeys = Tobago.Utils.selectWidthJQuery(elements, '[accesskey]');
     accesskeys.each(function () {
@@ -967,6 +897,7 @@ var Tobago = {
       new Tobago.AcceleratorKey(function () {
         Tobago.clickOnElement(el.attr("id"))}, el.attr("accesskey"));
     });
+*/
 
     Tobago.initScrollPosition(elements ? elements : jQuery(".tobago-page"));
   },
@@ -1779,39 +1710,6 @@ Tobago.EventListener = function(element, event, func) {
   this.event = event;
   this.func = func;
   Tobago.eventListeners[Tobago.eventListeners.length] = this;
-};
-
-Tobago.AcceleratorKey = function(func, key, modifier) {
-  this.func = func;
-  this.key = key.toLowerCase();
-  if (! modifier) {
-    modifier = 'alt';
-  }
-  this.modifier = modifier;
-  if (Tobago.browser.isMsie && (modifier == 'alt' || modifier == 'ctrl')) {
-    // keys with modifier 'alt' and 'ctrl' are not caught in IE
-    // so special code is needed
-    if (modifier == 'alt') {
-      // can't make document.createElement("span").accesskey = key working
-      // so need to create an element via innerHTML
-      this.ieHelperElementId = 'ieHelperElement_' + modifier + key;
-      var span = document.createElement('span');
-      document.body.appendChild(span);
-      var aPrefix = '<a id=\"' + this.ieHelperElementId + '\" href=\"javascript:;\" tabindex=\"-1\" accesskey=\"';
-      var aPostfix = '\" onclick=\"return false;\" ></a>';
-      span.innerHTML = aPrefix + key.toLowerCase() + aPostfix;
-      if (span.firstChild.addEventListener) { // this is DOM2
-        span.firstChild.addEventListener('focus', func, false);
-      } else { // old IE
-        span.firstChild.attachEvent('onfocus', func);
-      }
-      Tobago.acceleratorKeys.set(this);
-    } else {
-      console.warn('Cannot observe key event for ' + modifier + '-' + key); // @DEV_ONLY
-    }
-  } else {
-    Tobago.acceleratorKeys.set(this);
-  }
 };
 
 Tobago.ScriptLoader = function(names, doAfter) {
