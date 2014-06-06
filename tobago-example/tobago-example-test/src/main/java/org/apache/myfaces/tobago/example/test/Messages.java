@@ -27,11 +27,16 @@ public class Messages {
   public String createMessages() {
 
     final FacesContext facesContext = FacesContext.getCurrentInstance();
-    facesContext.addMessage("message1", new FacesMessage(FacesMessage.SEVERITY_INFO, "Info message.", "Example of an info message."));
-    facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warn message.", "Example of a warn message."));
-    facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error message.", "Example of an error message."));
-    facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Fatal message.", "Example of a fatal message."));
-    facesContext.addMessage(null, new FacesMessage("Message without a severity.", "Example of a message without a severity."));
+    facesContext.addMessage("message1",
+        new FacesMessage(FacesMessage.SEVERITY_INFO, "Info message.", "Example of an info message."));
+    facesContext.addMessage(null,
+        new FacesMessage(FacesMessage.SEVERITY_WARN, "Warn message.", "Example of a warn message."));
+    facesContext.addMessage(null,
+        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error message.", "Example of an error message."));
+    facesContext.addMessage(null,
+        new FacesMessage(FacesMessage.SEVERITY_FATAL, "Fatal message.", "Example of a fatal message."));
+    facesContext.addMessage(null,
+        new FacesMessage("Message without a severity.", "Example of a message without a severity."));
 
     return null;
   }
