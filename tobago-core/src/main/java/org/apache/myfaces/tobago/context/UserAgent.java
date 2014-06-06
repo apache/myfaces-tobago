@@ -79,6 +79,10 @@ public final class UserAgent implements Serializable {
   public static final UserAgent MSIE_10_0 = new UserAgent(
       "msie", "10_0", EnumSet.of(Capability.CONTENT_TYPE_XHTML), CspHeader.X, CsproHeader.X);
 
+  // CSP is not fully supported, only sandboxing
+  public static final UserAgent MSIE_11_0 = new UserAgent(
+      "msie", "11_0", EnumSet.of(Capability.CONTENT_TYPE_XHTML), CspHeader.X, CsproHeader.X);
+
   /**
    * @deprecated no longer supported, since Tobago 1.5
    */
@@ -277,7 +281,7 @@ public final class UserAgent implements Serializable {
       return DEFAULT;
     }
 
-    if (header.contains("MSIE")) {
+    if (header.contains("MSIE") || header.contains("Trident")) {
       if (header.contains("MSIE 6.0")) {
         return MSIE_6_0;
       } else if (header.contains("MSIE 7.0")) {
@@ -292,6 +296,8 @@ public final class UserAgent implements Serializable {
         return MSIE_9_0;
       } else if (header.contains("MSIE 10.0")) {
         return MSIE_10_0;
+      } else if (header.contains("rv:11")) {
+        return MSIE_11_0;
       } else {
         return MSIE;
       }

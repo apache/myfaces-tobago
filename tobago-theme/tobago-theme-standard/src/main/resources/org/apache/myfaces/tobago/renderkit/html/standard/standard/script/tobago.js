@@ -114,6 +114,7 @@ var Tobago = {
     isMsie67: false,
     isMsie678: false,
     isMsie6789: false,
+    isMsie678910: false,
     isGecko: false,
     isWebkit: false
   },
@@ -522,7 +523,7 @@ var Tobago = {
             // console.debug("submit form with action: " + Tobago.action.value);
             Tobago.form.submit();
             if (Tobago.browser.isMsie) {
-              // without this "redundant" code the animation will not be animated in IE
+              // without this "redundant" code the animation will not be animated in IE (tested with 6,7,8,9,10,11)
               var image = jQuery(".tobago-page-overlayCenter img");
               image.appendTo(image.parent());
             }
@@ -1453,57 +1454,36 @@ var Tobago = {
 
   /**
    * Returns the absolute left, related to the body element, value for an HTML element.
+   * @deprecated since Tobago 2.0.0
    */
   getAbsoluteLeft: function(element) {
-    var left = 0;
-    var parent = false;
-    while (element && element.offsetParent) {
-      left += element.offsetLeft;
-      left -= element.scrollLeft;
-      if (parent && element.currentStyle) {  // IE only
-        left += element.currentStyle.borderLeftWidth.replace(/\D/g, '') - 0;
-      }
-      element = element.offsetParent;
-      parent = true;
-    }
-    return left;
+    console.error("getAbsoluteLeft() is no long functional!"); // @DEV_ONLY
+    return 0;
   },
 
   /**
    * Returns the scroll-x value of the body element.
+   * @deprecated since Tobago 2.0.0
    */
   getBrowserInnerLeft: function() {
-    var innerLeft;
-    if (Tobago.browser.isMsie) {
-      innerLeft = document.body.scrollLeft;
-    } else {
-      innerLeft = window.scrollX;
-    }
-    return innerLeft;
+    console.error("getBrowserInnerLeft() is no long functional!"); // @DEV_ONLY
+    return 0;
   },
 
   /**
    * Returns the scroll-y value of the body element.
+   * @deprecated since Tobago 2.0.0
    */
   getBrowserInnerTop: function() {
-    var innerTop;
-    if (Tobago.browser.isMsie) {
-      innerTop = document.body.scrollTop;
-    } else {
-      innerTop = window.scrollY;
-    }
-    return innerTop;
+    console.error("getBrowserInnerTop() is no long functional!"); // @DEV_ONLY
+    return 0;
   },
 
-  // TODO check if this is still ok
+  /**
+   *  @deprecated since Tobago 2.0.0
+   */
   doEditorCommand: function(element, id) {
-    console.debug('doEditorCommand()'); // @DEV_ONLY
-    var ta = this.element(id);
-    var selection = ta.value.substring(ta.selectionStart, ta.selectionEnd); // @DEV_ONLY
-    console.debug('text = ' + selection); // @DEV_ONLY
-    console.debug('start = ' + ta.selectionStart + ' end =' + ta.selectionEnd); // @DEV_ONLY
-    ta.selectionStart--;
-    ta.focus();
+    console.error("doEditorCommand() is no long functional!"); // @DEV_ONLY
   },
 
   /**
@@ -1559,16 +1539,9 @@ var Tobago = {
     // we need only an implementation in the IE6 file.
   },
 
+  /** @deprecated since Tobago 2.0.0 */
   replaceElement: function(item, newTag) {
-    if (typeof window.Range != 'undefined' && typeof Range.prototype.createContextualFragment == 'function') {
-      var range = document.createRange();
-      range.setStartBefore(item);
-      var fragment = range.createContextualFragment(newTag);
-      item.parentNode.replaceChild(fragment, item);
-    } else {
-      item.insertAdjacentHTML('beforeBegin', newTag);
-      item.parentNode.removeChild(item);
-    }
+    console.error("replaceElement() is no long functional!"); // @DEV_ONLY
   },
 
   parsePartialIds: function(ajaxComponentIds) {
@@ -1580,7 +1553,7 @@ var Tobago = {
 
   /** @deprecated since Tobago 1.5.7 and 2.0.0 */
   setDefaultAction: function(defaultActionId) {
-    console.warn("setDefaultAction is deprecated");
+    console.error("setDefaultAction() is no long functional!"); // @DEV_ONLY
   },
 
   isFunction: function(func) {
@@ -1588,14 +1561,15 @@ var Tobago = {
   },
 
   raiseEvent: function(eventType, element) {
+    var event;
     if (document.createEvent) {
-      var evt = document.createEvent('Events');
-      evt.initEvent(eventType, true, true);
-      element.dispatchEvent(evt);
+      event = document.createEvent('Events');
+      event.initEvent(eventType, true, true);
+      element.dispatchEvent(event);
     }
     else if (document.createEventObject) {
-      var evt = document.createEventObject();
-      element.fireEvent('on' + eventType, evt);
+      event = document.createEventObject();
+      element.fireEvent('on' + eventType, event);
     }
   },
 
@@ -1614,22 +1588,28 @@ var Tobago = {
 
   initBrowser: function() {
     var ua = navigator.userAgent;
-    if (ua.indexOf("MSIE") > -1) {
+    if (ua.indexOf("MSIE") > -1 || ua.indexOf("Trident") > -1) {
       Tobago.browser.isMsie = true;
       if (ua.indexOf("MSIE 6") > -1) {
         Tobago.browser.isMsie6 = true;
         Tobago.browser.isMsie67 = true;
         Tobago.browser.isMsie678 = true;
         Tobago.browser.isMsie6789 = true;
+        Tobago.browser.isMsie678910 = true;
       } else if (ua.indexOf("MSIE 7") > -1) {
         Tobago.browser.isMsie67 = true;
         Tobago.browser.isMsie678 = true;
         Tobago.browser.isMsie6789 = true;
+        Tobago.browser.isMsie678910 = true;
       } else if (ua.indexOf("MSIE 8") > -1) {
         Tobago.browser.isMsie678 = true;
         Tobago.browser.isMsie6789 = true;
+        Tobago.browser.isMsie678910 = true;
       } else if (ua.indexOf("MSIE 9") > -1) {
         Tobago.browser.isMsie6789 = true;
+        Tobago.browser.isMsie678910 = true;
+      } else if (ua.indexOf("MSIE 10") > -1) {
+        Tobago.browser.isMsie678910 = true;
       }
     } else if (ua.indexOf("AppleWebKit") > -1) {
       Tobago.browser.isWebkit = true;
@@ -1803,9 +1783,11 @@ Tobago.AcceleratorKey = function(func, key, modifier) {
       var aPrefix = '<a id=\"' + this.ieHelperElementId + '\" href=\"javascript:;\" tabindex=\"-1\" accesskey=\"';
       var aPostfix = '\" onclick=\"return false;\" ></a>';
       span.innerHTML = aPrefix + key.toLowerCase() + aPostfix;
-      span.firstChild.attachEvent('onfocus', function(event) {
-        func(event);
-      });
+      if (span.firstChild.addEventListener) { // this is DOM2
+        span.firstChild.addEventListener('focus', func, false);
+      } else { // old IE
+        span.firstChild.attachEvent('onfocus', func);
+      }
       Tobago.acceleratorKeys.set(this);
     } else {
       console.warn('Cannot observe key event for ' + modifier + '-' + key); // @DEV_ONLY
