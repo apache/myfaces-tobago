@@ -40,7 +40,7 @@
 
   <resource-dir>tobago-resource</resource-dir>
 
-  <content-security-policy mode="on">
+  <content-security-policy mode="report-only">
     <directive>frame-src https://maps.google.com</directive>
   </content-security-policy>
 

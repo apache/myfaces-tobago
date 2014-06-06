@@ -58,24 +58,6 @@ Tobago.In.prototype.setup = function() {
     ctrl = Tobago.element(this.id);
     Tobago.addBindEventListener(ctrl, 'change', this, 'checkMaxLength');
     Tobago.addBindEventListener(ctrl, 'keypress', this, 'checkMaxLength');
-    if (Tobago.browser.isMsie) {
-      Tobago.addBindEventListener(ctrl, 'paste', this, 'checkMaxLengthOnPaste');
-    }
-  }
-};
-
-// XXX IE only
-Tobago.In.prototype.checkMaxLengthOnPaste = function(event) {
-  if (!event) {
-    event = window.event;
-  }
-  var input = Tobago.element(event);
-  var pasteText = window.clipboardData.getData('Text');
-  var range = document.selection.createRange();
-  if (input.value.length - range.text.length + pasteText.length > this.maxLength) {
-    pasteText = pasteText.substring(0, this.maxLength - input.value.length + range.text.length);
-    range.text = pasteText;
-    event.returnValue = false;
   }
 };
 

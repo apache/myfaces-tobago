@@ -116,7 +116,13 @@ Tobago.Popup.init = function (elements) {
   jQuery('.tobago-popup').each(function () {
     if (Tobago.browser.isMsie) {
       // IE needs an iframe to protect embedded PDF against shining through.
-      jQuery(this).prepend("<iframe class='tobago-popup-iebugfix' src='" + Tobago.blankPage + "' />");
+      var popup = jQuery(this);
+      popup.prepend("<iframe/>");
+      var iframe = popup.children().eq(0);
+      iframe.addClass("tobago-popup-iebugfix");
+      iframe.attr("src", Tobago.blankPage);
+//      iframe.width(popup.outerWidth(true));
+//      iframe.height(popup.outerHeight(true));
     }
   });
 

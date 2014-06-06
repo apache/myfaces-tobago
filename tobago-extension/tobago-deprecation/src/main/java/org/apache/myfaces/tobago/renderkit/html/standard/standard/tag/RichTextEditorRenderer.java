@@ -200,7 +200,6 @@ public class RichTextEditorRenderer extends InputRendererBase {
         facesContext, UICommand.COMPONENT_TYPE, RendererTypes.MENU_COMMAND);
     toolbar.getChildren().add(command);
     command.getAttributes().put(Attributes.IMAGE, "image/config.gif");
-    command.getAttributes().put(Attributes.ONCLICK, "Tobago.doEditorCommand(this);");
 
     return toolbar;
   }
