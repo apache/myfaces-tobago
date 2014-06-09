@@ -27,6 +27,8 @@ import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -43,9 +45,7 @@ public final class AjaxUtils {
   }
 
   public static boolean isAjaxRequest(final FacesContext facesContext) {
-    final Map parameterMap = facesContext.getExternalContext().getRequestParameterMap();
-    final String ajaxComponentIds = (String) parameterMap.get(AjaxInternalUtils.TOBAGO_PARTIAL_IDS);
-    return ajaxComponentIds != null;
+    return AjaxInternalUtils.isAjaxRequest(facesContext);
   }
 
   public static void removeAjaxComponent(final FacesContext facesContext, final String clientId) {
@@ -109,5 +109,13 @@ public final class AjaxUtils {
       }
     }
     return added;
+  }
+
+  public static boolean redirect(final FacesContext facesContext, final String url) throws IOException {
+    return AjaxInternalUtils.redirect(facesContext, url);
+  }
+
+  public static void redirect(final HttpServletResponse response, final String url) throws IOException {
+    AjaxInternalUtils.redirect(response, url);
   }
 }

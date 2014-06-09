@@ -19,13 +19,18 @@
 
 package org.apache.myfaces.tobago.internal.ajax;
 
+import org.apache.myfaces.tobago.ajax.AjaxUtils;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.faces.application.FacesMessage;
+import javax.faces.application.ViewExpiredException;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ExceptionQueuedEvent;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -122,38 +127,76 @@ public final class AjaxNavigationState {
       return false;
     }
 
-    final ExternalContext externalContext = facesContext.getExternalContext();
-    final Map<String, Object> requestMap = externalContext.getRequestMap();
+    final Map<String, Object> requestMap = facesContext.getExternalContext().getRequestMap();
     final UIViewRoot incomingViewRoot = (UIViewRoot) requestMap.get(VIEW_ROOT_KEY);
     if (viewRoot != incomingViewRoot) {
       if (LOG.isDebugEnabled()) {
         LOG.debug("requesting full page reload because of navigation to {} from {}",
             viewRoot.getViewId(), incomingViewRoot.getViewId());
       }
-      externalContext.getSessionMap().put(SESSION_KEY, new AjaxNavigationState(facesContext));
       return true;
     }
     return false;
   }
 
+  public static void beforeRestoreView(final FacesContext facesContext) {
+    if (facesContext.getExternalContext().getSessionMap().get(AjaxNavigationState.SESSION_KEY) != null) {
+      // restoreView phase and afterPhaseListener are executed even if renderResponse is set
+      // so we can't call navigationState.restoreView(...) here in before Phase
+      // set empty UIViewRoot to prevent executing restore state logic
+      facesContext.setViewRoot(new UIViewRoot());
+    }
+  }
+
   public static void afterRestoreView(final FacesContext facesContext) {
-    final Map<String, Object> sessionMap = facesContext.getExternalContext().getSessionMap();
-    final AjaxNavigationState navigationState
-        = (AjaxNavigationState) sessionMap.remove(AjaxNavigationState.SESSION_KEY);
-    if (navigationState == null) {
+    if (isViewExpiredExceptionThrown(facesContext)) {
+      try {
+        facesContext.getExceptionHandler().handle();
+      } catch (ViewExpiredException e) {
+        LOG.error("Caught: " + e.getMessage(), e);
+        try {
+          final ExternalContext externalContext = facesContext.getExternalContext();
+          final String url = externalContext.getRequestContextPath()
+                       + externalContext.getRequestServletPath() + externalContext.getRequestPathInfo();
+          AjaxUtils.redirect(facesContext, url);
+          facesContext.responseComplete();
+        } catch (IOException e1) {
+          LOG.error("Caught: " + e1.getMessage(), e);
+        }
+      }
+    }
+
+    final ExternalContext externalContext = facesContext.getExternalContext();
+    if (externalContext.getSessionMap().get(AjaxNavigationState.SESSION_KEY) == null) {
       storeIncomingView(facesContext);
     } else {
+      final AjaxNavigationState navigationState
+          = (AjaxNavigationState) externalContext.getSessionMap().remove(AjaxNavigationState.SESSION_KEY);
       navigationState.restoreView(facesContext);
       LOG.trace("force render requested navigation view");
     }
   }
 
-  public static void beforeRestoreView(FacesContext facesContext) {
-    final Map<String, Object> sessionMap = facesContext.getExternalContext().getSessionMap();
-    if (sessionMap.get(AjaxNavigationState.SESSION_KEY) != null) {
-      // set empty UIViewRoot to prevent executing restore state logic
-      facesContext.setViewRoot(new UIViewRoot());
+  private static boolean isViewExpiredExceptionThrown(FacesContext facesContext) {
+    final Iterator<ExceptionQueuedEvent> eventIterator
+        = facesContext.getExceptionHandler().getUnhandledExceptionQueuedEvents().iterator();
+    if (eventIterator.hasNext()) {
+      Throwable throwable = eventIterator.next().getContext().getException();
+      if (throwable instanceof ViewExpiredException) {
+        return true;
+      }
     }
+    return false;
+  }
 
+  public static void afterInvokeApplication(FacesContext facesContext) {
+    if (AjaxUtils.isAjaxRequest(facesContext) && isNavigation(facesContext)) {
+      try {
+        facesContext.getExternalContext().getSessionMap().put(SESSION_KEY, new AjaxNavigationState(facesContext));
+        AjaxInternalUtils.requestNavigationReload(facesContext);
+      } catch (IOException e) {
+        LOG.error("Caught: " + e.getMessage(), e);
+      }
+    }
   }
 }
