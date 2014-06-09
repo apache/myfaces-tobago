@@ -19,67 +19,38 @@
 
 package org.apache.myfaces.tobago.internal.ajax;
 
-import org.apache.myfaces.tobago.ajax.AjaxUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.faces.application.ViewExpiredException;
-import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ExceptionQueuedEvent;
 import javax.faces.event.PhaseEvent;
 import javax.faces.event.PhaseId;
 import javax.faces.event.PhaseListener;
-import java.io.IOException;
-import java.util.Iterator;
 
 public class AjaxNavigationListener implements PhaseListener {
 
   private static final Logger LOG = LoggerFactory.getLogger(AjaxNavigationListener.class);
 
   public void afterPhase(final PhaseEvent phaseEvent) {
-    FacesContext facesContext = phaseEvent.getFacesContext();
+    final FacesContext facesContext = phaseEvent.getFacesContext();
     debug(facesContext);
-    if (isViewExpiredExceptionThrown(facesContext)) {
-      try {
-        facesContext.getExceptionHandler().handle();
-      } catch (ViewExpiredException e) {
-        LOG.error("Caught: " + e.getMessage(), e);
-        try {
-          ExternalContext externalContext = facesContext.getExternalContext();
-          String url = externalContext.getRequestContextPath()
-              + externalContext.getRequestServletPath() + externalContext.getRequestPathInfo();
-          AjaxUtils.redirect(facesContext, url);
-        } catch (IOException e1) {
-          LOG.error("Caught: " + e1.getMessage(), e);
-        }
-        facesContext.responseComplete();
+    if (!facesContext.getResponseComplete()) {
+      if (phaseEvent.getPhaseId() == PhaseId.RESTORE_VIEW) {
+        AjaxNavigationState.afterRestoreView(facesContext);
+      } else if (phaseEvent.getPhaseId() == PhaseId.INVOKE_APPLICATION) {
+        AjaxNavigationState.afterInvokeApplication(facesContext);
       }
     }
-    if (!facesContext.getResponseComplete() && phaseEvent.getPhaseId() == PhaseId.RESTORE_VIEW) {
-      AjaxNavigationState.afterRestoreView(facesContext);
-    }
     debug(facesContext);
-  }
-
-  private boolean isViewExpiredExceptionThrown(FacesContext facesContext) {
-    Iterator<ExceptionQueuedEvent> eventIterator
-        = facesContext.getExceptionHandler().getUnhandledExceptionQueuedEvents().iterator();
-    if (eventIterator.hasNext()) {
-      Throwable throwable = eventIterator.next().getContext().getException();
-      if (throwable instanceof ViewExpiredException) {
-        return true;
-      }
-    }
-    return false;
   }
 
   public void beforePhase(final PhaseEvent phaseEvent) {
-    debug(phaseEvent.getFacesContext());
-    if (!phaseEvent.getFacesContext().getResponseComplete()) {
-      AjaxNavigationState.beforeRestoreView(phaseEvent.getFacesContext());
+    final FacesContext facesContext = phaseEvent.getFacesContext();
+    debug(facesContext);
+    if (!facesContext.getResponseComplete() && phaseEvent.getPhaseId() == PhaseId.RESTORE_VIEW) {
+      AjaxNavigationState.beforeRestoreView(facesContext);
     }
-    debug(phaseEvent.getFacesContext());
+    debug(facesContext);
   }
 
   private void debug(FacesContext facesContext) {
@@ -92,7 +63,7 @@ public class AjaxNavigationListener implements PhaseListener {
   }
 
   public PhaseId getPhaseId() {
-    return PhaseId.RESTORE_VIEW;
+    return PhaseId.ANY_PHASE;
   }
 
 }

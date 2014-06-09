@@ -70,7 +70,7 @@ public class AjaxResponseRenderer {
     final RenderKitFactory renderFactory
         = (RenderKitFactory) FactoryFinder.getFactory(FactoryFinder.RENDER_KIT_FACTORY);
     final RenderKit renderKit = renderFactory.getRenderKit(facesContext, viewRoot.getRenderKitId());
-    writeResponse(facesContext, renderKit, AjaxNavigationState.isNavigation(facesContext));
+    writeResponse(facesContext, renderKit);
   }
 
   private void renderComponent(
@@ -129,7 +129,7 @@ public class AjaxResponseRenderer {
     }
   }
 
-  private void writeResponse(final FacesContext facesContext, final RenderKit renderKit, final boolean reloadRequired)
+  private void writeResponse(final FacesContext facesContext, final RenderKit renderKit)
       throws IOException {
 
     RequestUtils.ensureEncoding(facesContext);
@@ -146,10 +146,10 @@ public class AjaxResponseRenderer {
     final PrintWriter writer = getPrintWriter(facesContext);
     writer.write("{\n  \"tobagoAjaxResponse\": true,\n");
     writer.write("  \"responseCode\": ");
-    writer.write(reloadRequired ? Integer.toString(CODE_RELOAD_REQUIRED) : Integer.toString(CODE_SUCCESS));
+    writer.write(Integer.toString(CODE_SUCCESS));
 
     final Map<String, UIComponent> ajaxComponents = AjaxInternalUtils.getAjaxComponents(facesContext);
-    if (!reloadRequired && ajaxComponents != null) {
+    if (ajaxComponents != null) {
       int i = 0;
       for (final Map.Entry<String, UIComponent> entry : ajaxComponents.entrySet()) {
         writer.write(",\n");
@@ -163,12 +163,10 @@ public class AjaxResponseRenderer {
       }
     }
 
-    if (!reloadRequired) {
-      writer.write(",\n");
-      writer.write("  \"jsfState\": \"");
-      saveState(facesContext, renderKit);
-      writer.write("\"");
-    }
+    writer.write(",\n");
+    writer.write("  \"jsfState\": \"");
+    saveState(facesContext, renderKit);
+    writer.write("\"");
 
     writer.write("\n}\n");
     writer.flush();

@@ -22,6 +22,7 @@ package org.apache.myfaces.tobago.internal.ajax;
 
 import org.apache.myfaces.tobago.ajax.AjaxUtils;
 import org.apache.myfaces.tobago.internal.component.AbstractUIMessages;
+import org.apache.myfaces.tobago.internal.util.ResponseUtils;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -30,8 +31,11 @@ import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIPanel;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -215,5 +219,57 @@ public final class AjaxInternalUtils {
         component.processDecodes(facesContext);
       }
     }
+  }
+
+  public static boolean isAjaxRequest(final FacesContext facesContext) {
+    final Map parameterMap = facesContext.getExternalContext().getRequestParameterMap();
+    final String ajaxComponentIds = (String) parameterMap.get(AjaxInternalUtils.TOBAGO_PARTIAL_IDS);
+    return ajaxComponentIds != null;
+  }
+
+
+  public static boolean redirect(final FacesContext facesContext, final String url) throws IOException {
+    if (!isAjaxRequest(facesContext)) {
+      return false;
+    }
+    redirect((HttpServletResponse) facesContext.getExternalContext().getResponse(), url);
+    facesContext.responseComplete();
+    return true;
+  }
+
+  public static void redirect(final HttpServletResponse response, final String url) throws IOException {
+    final Writer writer = response.getWriter();
+    final String contentType = "application/json; charset=UTF-8";
+    ResponseUtils.ensureContentTypeHeader(response, contentType);
+    ResponseUtils.ensureNoCacheHeader(response);
+    redirectInternal(writer, url);
+  }
+
+  private static void redirectInternal(final Writer writer, final String url) throws IOException {
+    writer.flush(); // is needed in some cases, e. g. TOBAGO-1094
+    writer.write("{\n  \"tobagoAjaxResponse\": true,\n");
+    writer.write("  \"responseCode\": 302,\n");
+    writer.write("  \"location\": \"");
+    writer.write(url);
+    writer.write("\"\n}\n");
+    writer.flush();
+  }
+
+  public static void requestNavigationReload(FacesContext facesContext) throws IOException {
+    final ExternalContext externalContext = facesContext.getExternalContext();
+    final String pathPrefix = externalContext.getRequestContextPath() + externalContext.getRequestServletPath();
+    final HttpServletResponse response = (HttpServletResponse) externalContext.getResponse();
+    final String contentType = "application/json; charset=UTF-8";
+    ResponseUtils.ensureContentTypeHeader(response, contentType);
+    ResponseUtils.ensureNoCacheHeader(response);
+    final Writer writer = response.getWriter();
+    writer.flush(); // is needed in some cases, e. g. TOBAGO-1094
+    writer.write("{\n  \"tobagoAjaxResponse\": true,\n");
+    writer.write("  \"responseCode\": 309,\n");
+    writer.write("  \"location\": \"");
+    writer.write(pathPrefix + facesContext.getViewRoot().getViewId());
+    writer.write("\"\n}\n");
+    writer.flush();
+    facesContext.responseComplete();
   }
 }

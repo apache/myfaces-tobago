@@ -2109,9 +2109,8 @@ Tobago.Updater = {
       if (Tobago.Updater.WAIT_ON_RELOAD) {
         alert('wait: full reload requeste: responseCode = ' + requestOptions.resultData.responseCode);
       }
-      Tobago.navigateToUrl(document.location.href);
+      Tobago.navigateToUrl(requestOptions.resultData.location);
       return;
-//      Tobago.submitAction(null, Tobago.page.id);
     } else if (requestOptions.resultData.responseCode == Tobago.Updater.CODE_REDIRECT) {
       window.location = requestOptions.resultData.location;
       return;
