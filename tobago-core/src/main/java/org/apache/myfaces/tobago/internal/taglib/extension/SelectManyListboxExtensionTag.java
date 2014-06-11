@@ -43,7 +43,6 @@ public class SelectManyListboxExtensionTag extends TobagoExtensionBodyTagSupport
   private javax.el.ValueExpression disabled;
   private javax.el.ValueExpression readonly;
   private javax.el.ValueExpression onchange;
-  private javax.el.ValueExpression inline;
   private javax.el.ValueExpression label;
   private javax.el.ValueExpression rendered;
   private javax.el.ValueExpression binding;
@@ -113,9 +112,6 @@ public class SelectManyListboxExtensionTag extends TobagoExtensionBodyTagSupport
     if (disabled != null) {
       selectManyListboxTag.setDisabled(disabled);
     }
-    if (inline != null) {
-      selectManyListboxTag.setInline(inline);
-    }
     if (focus != null) {
       selectManyListboxTag.setFocus(focus);
     }
@@ -166,7 +162,6 @@ public class SelectManyListboxExtensionTag extends TobagoExtensionBodyTagSupport
     binding = null;
     onchange = null;
     disabled = null;
-    inline = null;
     label = null;
     labelWidth = null;
     readonly = null;
@@ -250,17 +245,6 @@ public class SelectManyListboxExtensionTag extends TobagoExtensionBodyTagSupport
   @UIComponentTagAttribute()
   public void setOnchange(final javax.el.ValueExpression onchange) {
     this.onchange = onchange;
-  }
-
-  /**
-   * Flag indicating this component should rendered as an inline element.
-   * @deprecated This should be handled by e.g. a flow layout manager (since 1.5.0)
-   */
-  @TagAttribute
-  @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
-  @Deprecated
-  public void setInline(final javax.el.ValueExpression inline) {
-    this.inline = inline;
   }
 
   /**

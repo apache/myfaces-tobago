@@ -35,7 +35,6 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasTabIndex;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutComponent;
-import org.apache.myfaces.tobago.internal.taglib.declaration.IsDeprecatedInline;
 
 import javax.faces.component.UICommand;
 
@@ -63,6 +62,6 @@ import javax.faces.component.UICommand;
             allowedChildComponenents = "org.apache.myfaces.tobago.Popup")},
     rendererType = RendererTypes.TREE_COMMAND)
 public interface TreeCommandTagDeclaration
-    extends AbstractCommandTagDeclaration, HasIdBindingAndRendered, IsDisabled, IsDeprecatedInline,
+    extends AbstractCommandTagDeclaration, HasIdBindingAndRendered, IsDisabled,
     HasLabel, HasTip, HasMarkup, HasCurrentMarkup, HasTabIndex, IsGridLayoutComponent {
 }

@@ -36,7 +36,6 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasTabIndex;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutComponent;
-import org.apache.myfaces.tobago.internal.taglib.declaration.IsDeprecatedInline;
 
 import javax.faces.component.UICommand;
 
@@ -62,6 +61,6 @@ import javax.faces.component.UICommand;
             description = "Contains a UIPopup instance.",
             allowedChildComponenents = "org.apache.myfaces.tobago.Popup")})
 public interface LinkTagDeclaration extends AbstractCommandTagDeclaration,
-    HasIdBindingAndRendered, HasLabelAndAccessKey, IsDisabled, IsDeprecatedInline,
+    HasIdBindingAndRendered, HasLabelAndAccessKey, IsDisabled,
     HasTip, HasImage, HasMarkup, HasCurrentMarkup, HasTabIndex, IsGridLayoutComponent {
 }

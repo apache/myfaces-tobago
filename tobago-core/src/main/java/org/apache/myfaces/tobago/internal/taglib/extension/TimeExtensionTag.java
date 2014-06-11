@@ -63,7 +63,6 @@ public class TimeExtensionTag extends TobagoExtensionBodyTagSupport {
   private javax.el.ValueExpression tip;
   private javax.el.ValueExpression value;
   private javax.el.MethodExpression valueChangeListener;
-  private javax.el.ValueExpression inline;
   private javax.el.ValueExpression onchange;
   private javax.el.ValueExpression markup;
   private javax.el.ValueExpression labelWidth;
@@ -135,9 +134,6 @@ public class TimeExtensionTag extends TobagoExtensionBodyTagSupport {
     if (label != null) {
       timeTag.setLabel(label);
     }
-    if (inline != null) {
-      timeTag.setInline(inline);
-    }
     if (readonly != null) {
       timeTag.setReadonly(readonly);
     }
@@ -183,7 +179,6 @@ public class TimeExtensionTag extends TobagoExtensionBodyTagSupport {
     labelWidth = null;
     focus = null;
     label = null;
-    inline = null;
     readonly = null;
     rendered = null;
     required = null;
@@ -313,17 +308,6 @@ public class TimeExtensionTag extends TobagoExtensionBodyTagSupport {
   @UIComponentTagAttribute()
   public void setOnchange(final javax.el.ValueExpression onchange) {
     this.onchange = onchange;
-  }
-
-  /**
-   * Flag indicating this component should rendered as an inline element.
-   * @deprecated This should be handled by e.g. a flow layout manager (since 1.5.0)
-   */
-  @TagAttribute
-  @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
-  @Deprecated
-  public void setInline(final javax.el.ValueExpression inline) {
-    this.inline = inline;
   }
 
   /**

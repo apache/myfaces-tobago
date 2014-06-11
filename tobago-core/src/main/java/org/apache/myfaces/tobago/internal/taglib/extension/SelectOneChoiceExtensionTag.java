@@ -44,7 +44,6 @@ public class SelectOneChoiceExtensionTag extends TobagoExtensionBodyTagSupport {
   private javax.el.ValueExpression disabled;
   private javax.el.ValueExpression readonly;
   private javax.el.ValueExpression onchange;
-  private javax.el.ValueExpression inline;
   private javax.el.ValueExpression label;
   private javax.el.ValueExpression rendered;
   private javax.el.ValueExpression binding;
@@ -116,9 +115,6 @@ public class SelectOneChoiceExtensionTag extends TobagoExtensionBodyTagSupport {
     if (markup != null) {
       selectOneChoiceTag.setMarkup(markup);
     }
-    if (inline != null) {
-      selectOneChoiceTag.setInline(inline);
-    }
     if (focus != null) {
       selectOneChoiceTag.setFocus(focus);
     }
@@ -166,7 +162,6 @@ public class SelectOneChoiceExtensionTag extends TobagoExtensionBodyTagSupport {
     binding = null;
     onchange = null;
     disabled = null;
-    inline = null;
     label = null;
     labelWidth = null;
     converter = null;
@@ -280,17 +275,6 @@ public class SelectOneChoiceExtensionTag extends TobagoExtensionBodyTagSupport {
       expression = DynamicExpression.VALUE_EXPRESSION)
   public void setConverter(final javax.el.ValueExpression converter) {
     this.converter = converter;
-  }
-
-  /**
-   * Flag indicating this component should rendered as an inline element.
-   * @deprecated This should be handled by e.g. a flow layout manager (since 1.5.0)
-   */
-  @TagAttribute
-  @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
-  @Deprecated
-  public void setInline(final javax.el.ValueExpression inline) {
-    this.inline = inline;
   }
 
   /**

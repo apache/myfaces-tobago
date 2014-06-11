@@ -70,7 +70,6 @@ public class DateExtensionTag extends TobagoExtensionBodyTagSupport {
   private ValueExpression placeholder;
   private ValueExpression value;
   private MethodExpression valueChangeListener;
-  private ValueExpression inline;
   private ValueExpression onchange;
   private ValueExpression tabIndex;
   private ValueExpression markup;
@@ -149,9 +148,6 @@ public class DateExtensionTag extends TobagoExtensionBodyTagSupport {
     if (label != null) {
       dateTag.setLabel(label);
     }
-    if (inline != null) {
-      dateTag.setInline(inline);
-    }
     if (readonly != null) {
       dateTag.setReadonly(readonly);
     }
@@ -225,7 +221,6 @@ public class DateExtensionTag extends TobagoExtensionBodyTagSupport {
     labelWidth = null;
     focus = null;
     label = null;
-    inline = null;
     readonly = null;
     rendered = null;
     required = null;
@@ -346,17 +341,6 @@ public class DateExtensionTag extends TobagoExtensionBodyTagSupport {
       methodSignature = { "javax.faces.context.FacesContext", "javax.faces.component.UIComponent", "java.lang.Object" })
   public void setValidator(final MethodExpression validator) {
     this.validator = validator;
-  }
-
-  /**
-   * Flag indicating this component should rendered as an inline element.
-   * @deprecated This should be handled by e.g. a flow layout manager (since 1.5.0)
-   */
-  @TagAttribute
-  @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
-  @Deprecated
-  public void setInline(final ValueExpression inline) {
-    this.inline = inline;
   }
 
   /**

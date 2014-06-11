@@ -40,7 +40,6 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasValidator;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasValidatorMessage;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasValue;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasValueChangeListener;
-import org.apache.myfaces.tobago.internal.taglib.declaration.IsDeprecatedInline;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsFocus;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutComponent;
@@ -74,7 +73,7 @@ import javax.faces.component.UISelectBoolean;
 
 public interface SelectBooleanCheckboxTagDeclaration extends HasValidator,
     HasOnchange, HasValueChangeListener, HasIdBindingAndRendered, HasLabelAndAccessKey, HasValue, IsDisabled,
-    IsDeprecatedInline, HasTip, IsReadonly, HasMarkup, HasCurrentMarkup, HasTabIndex,
+    HasTip, IsReadonly, HasMarkup, HasCurrentMarkup, HasTabIndex,
     IsRequiredForSelect, HasConverter, IsFocus,
     HasValidatorMessage, HasRequiredMessageForSelect, HasConverterMessage, IsGridLayoutComponent, HasItemLabel {
     // IsImmediateComponent
