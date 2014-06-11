@@ -21,11 +21,15 @@ Live Demo
 
   A live demo can be found for different versions here:
 
-  * {{{http://www.irian.biz/tobago-example-demo-2.0.x/}2.0.x}}
+ ~~ * {{http://example.irian.at/tobago-example-demo-3.0.x/}} (experimental)
+ ~~
+ ~~ * {{http://example.irian.at/tobago-example-demo-2.0.x/}} (beta - next release)
 
-  * {{{http://example.irian.at/tobago-example-demo-1.5.x/}1.5.x (nightly)}}
+  * {{{http://www.irian.biz/tobago-example-demo-2.0.x/}2.0.x (next release, currently beta)}}
 
-  * {{{http://example.irian.at/tobago-example-demo-1.0.x/}1.0.x (nightly)}}
+  * {{{http://example.irian.at/tobago-example-demo-1.5.x/}1.5.x (current release - nightly)}}
+
+  * {{{http://example.irian.at/tobago-example-demo-1.0.x/}1.0.x (old release - nightly)}}
 
   []
 
