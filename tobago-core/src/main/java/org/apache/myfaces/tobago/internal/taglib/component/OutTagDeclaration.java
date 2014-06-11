@@ -32,7 +32,6 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasSanitize;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasValue;
-import org.apache.myfaces.tobago.internal.taglib.declaration.IsDeprecatedInline;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutComponent;
 
 import javax.faces.component.UIOutput;
@@ -51,7 +50,7 @@ import javax.faces.component.UIOutput;
     allowedChildComponenents = "NONE")
 
 public interface OutTagDeclaration
-    extends HasIdBindingAndRendered, HasConverter, IsDeprecatedInline, HasTip, HasValue, IsGridLayoutComponent,
+    extends HasIdBindingAndRendered, HasConverter, HasTip, HasValue, IsGridLayoutComponent,
     HasMarkup, HasCurrentMarkup, HasSanitize {
 
   /**

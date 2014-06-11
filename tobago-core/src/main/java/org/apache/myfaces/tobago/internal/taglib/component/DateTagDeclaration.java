@@ -34,7 +34,6 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasPlaceholder;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 import org.apache.myfaces.tobago.internal.taglib.declaration.InputTagDeclaration;
-import org.apache.myfaces.tobago.internal.taglib.declaration.IsDeprecatedInline;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsReadonly;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsRequired;
@@ -59,7 +58,7 @@ import javax.faces.component.UIInput;
         })
 public interface DateTagDeclaration
     extends InputTagDeclaration, HasIdBindingAndRendered, IsReadonly,
-    IsDisabled, HasConverter, IsDeprecatedInline, HasLabelAndAccessKey,
+    IsDisabled, HasConverter, HasLabelAndAccessKey,
     HasTip, IsRequired, HasMarkup, HasCurrentMarkup, HasPlaceholder, HasCss, HasCurrentCss {
 
 }
