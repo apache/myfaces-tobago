@@ -637,7 +637,7 @@ Tobago.Sheet.resetSelected = function(sheet) {
 };
 
 Tobago.Sheet.toggleSelection = function(sheet, row, checkbox) {
-  sheet.data("tobago-last-clicked-row-index", Tobago.Sheet.getDataIndex(sheet, row));
+  sheet.data("tobago-last-clicked-row-index", row.index());
   if (!checkbox.is(":disabled")) {
     var selected = Tobago.Sheet.hidden(sheet, "selected");
     var rowIndex = Tobago.Sheet.getDataIndex(sheet, row);
