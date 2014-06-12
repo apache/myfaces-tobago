@@ -128,6 +128,10 @@ public class TobagoConfigSorter implements Comparator<TobagoConfigFragment> {
         sanitizerProperties = fragment.getSanitizerProperties();
       }
 
+      if (fragment.getAutoAccessKeyFromLabel() != null) {
+        result.setAutoAccessKeyFromLabel(fragment.getAutoAccessKeyFromLabel());
+      }
+
       // theme definition
       // todo
 /*

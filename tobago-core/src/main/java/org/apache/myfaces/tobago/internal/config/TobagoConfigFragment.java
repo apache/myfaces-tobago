@@ -49,6 +49,7 @@ public class TobagoConfigFragment {
   private URL url;
   private String sanitizerClass;
   private Properties sanitizerProperties;
+  private Boolean autoAccessKeyFromLabel;
 
   public TobagoConfigFragment() {
     before = new ArrayList<String>();
@@ -189,6 +190,14 @@ public class TobagoConfigFragment {
 
   public void setSanitizerProperties(Properties sanitizerProperties) {
     this.sanitizerProperties = sanitizerProperties;
+  }
+
+  public Boolean getAutoAccessKeyFromLabel() {
+    return autoAccessKeyFromLabel;
+  }
+
+  public void setAutoAccessKeyFromLabel(Boolean autoAccessKeyFromLabel) {
+    this.autoAccessKeyFromLabel = autoAccessKeyFromLabel;
   }
 
   @Override

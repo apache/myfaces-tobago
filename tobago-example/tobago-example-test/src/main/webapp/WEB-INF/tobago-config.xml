@@ -32,6 +32,8 @@
   <!-- because this application uses frames -->
   <prevent-frame-attacks>false</prevent-frame-attacks>
 
+  <auto-access-key-from-label>false</auto-access-key-from-label>
+
   <!-- this disables CSP -->
   <content-security-policy mode="report-only"/>
 

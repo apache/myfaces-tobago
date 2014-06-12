@@ -59,4 +59,6 @@ public abstract class TobagoConfig {
   public abstract boolean isSetNosniffHeader();
 
   public abstract Sanitizer getSanitizer();
+
+  public abstract boolean isAutoAccessKeyFromLabel();
 }
