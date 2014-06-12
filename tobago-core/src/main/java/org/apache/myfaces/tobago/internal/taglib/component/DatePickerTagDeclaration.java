@@ -43,6 +43,7 @@ import javax.faces.component.UICommand;
     uiComponent = "org.apache.myfaces.tobago.component.UIDatePicker",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIDatePicker",
     uiComponentFacesClass = "javax.faces.component.UICommand",
+    interfaces = "org.apache.myfaces.tobago.config.Configurable",
     componentFamily = UICommand.COMPONENT_FAMILY,
     rendererType = RendererTypes.DATE_PICKER,
     allowedChildComponenents = "NONE")

@@ -26,6 +26,7 @@ import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.internal.taglib.SelectManyShuttleTag;
 
+import javax.el.ValueExpression;
 import javax.servlet.jsp.JspException;
 
 /**
@@ -44,6 +45,7 @@ public class SelectManyShuttleExtensionTag extends TobagoExtensionBodyTagSupport
   private javax.el.ValueExpression readonly;
   private javax.el.ValueExpression onchange;
   private javax.el.ValueExpression label;
+  private ValueExpression accessKey;
   private javax.el.ValueExpression unselectedLabel;
   private javax.el.ValueExpression selectedLabel;
   private javax.el.ValueExpression rendered;
@@ -74,6 +76,9 @@ public class SelectManyShuttleExtensionTag extends TobagoExtensionBodyTagSupport
     }
     if (label != null) {
       labelTag.setValue(label);
+    }
+    if (accessKey != null) {
+      labelTag.setAccessKey(accessKey);
     }
     if (tip != null) {
       labelTag.setTip(tip);
@@ -172,6 +177,7 @@ public class SelectManyShuttleExtensionTag extends TobagoExtensionBodyTagSupport
     disabled = null;
     onchange = null;
     label = null;
+    accessKey = null;
     unselectedLabel = null;
     selectedLabel = null;
     labelWidth = null;
@@ -266,6 +272,15 @@ public class SelectManyShuttleExtensionTag extends TobagoExtensionBodyTagSupport
   @UIComponentTagAttribute()
   public void setLabel(final javax.el.ValueExpression label) {
     this.label = label;
+  }
+
+  /**
+   * The accessKey of this component.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type = "java.lang.Character")
+  public void setAccessKey(final javax.el.ValueExpression accessKey) {
+    this.accessKey = accessKey;
   }
 
   /**

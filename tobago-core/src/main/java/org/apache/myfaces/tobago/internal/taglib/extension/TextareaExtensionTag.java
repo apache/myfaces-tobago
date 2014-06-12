@@ -26,6 +26,8 @@ import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.internal.taglib.TextareaTag;
 
+import javax.el.MethodExpression;
+import javax.el.ValueExpression;
 import javax.servlet.jsp.JspException;
 
 /**
@@ -52,25 +54,26 @@ import javax.servlet.jsp.JspException;
     faceletHandler = "org.apache.myfaces.tobago.facelets.extension.TextareaExtensionHandler")
 public class TextareaExtensionTag extends TobagoExtensionBodyTagSupport {
 
-  private javax.el.ValueExpression binding;
-  private javax.el.ValueExpression converter;
-  private javax.el.ValueExpression disabled;
-  private javax.el.ValueExpression focus;
-  private javax.el.ValueExpression label;
-  private javax.el.ValueExpression readonly;
-  private javax.el.ValueExpression rendered;
-  private javax.el.ValueExpression required;
-  private javax.el.ValueExpression tip;
-  private javax.el.ValueExpression value;
-  private javax.el.MethodExpression valueChangeListener;
-  private javax.el.MethodExpression validator;
-  private javax.el.ValueExpression onchange;
-  private javax.el.ValueExpression markup;
-  private javax.el.ValueExpression labelWidth;
-  private javax.el.ValueExpression tabIndex;
-  private javax.el.ValueExpression validatorMessage;
-  private javax.el.ValueExpression converterMessage;
-  private javax.el.ValueExpression requiredMessage;
+  private ValueExpression binding;
+  private ValueExpression converter;
+  private ValueExpression disabled;
+  private ValueExpression focus;
+  private ValueExpression label;
+  private ValueExpression accessKey;
+  private ValueExpression readonly;
+  private ValueExpression rendered;
+  private ValueExpression required;
+  private ValueExpression tip;
+  private ValueExpression value;
+  private MethodExpression valueChangeListener;
+  private MethodExpression validator;
+  private ValueExpression onchange;
+  private ValueExpression markup;
+  private ValueExpression labelWidth;
+  private ValueExpression tabIndex;
+  private ValueExpression validatorMessage;
+  private ValueExpression converterMessage;
+  private ValueExpression requiredMessage;
   private String fieldId;
 
   private LabelExtensionTag labelTag;
@@ -87,6 +90,9 @@ public class TextareaExtensionTag extends TobagoExtensionBodyTagSupport {
     }
     if (label != null) {
       labelTag.setValue(label);
+    }
+    if (accessKey != null) {
+      labelTag.setAccessKey(accessKey);
     }
     if (tip != null) {
       labelTag.setTip(tip);
@@ -181,6 +187,7 @@ public class TextareaExtensionTag extends TobagoExtensionBodyTagSupport {
     labelWidth = null;
     focus = null;
     label = null;
+    accessKey = null;
     readonly = null;
     rendered = null;
     required = null;
@@ -203,7 +210,7 @@ public class TextareaExtensionTag extends TobagoExtensionBodyTagSupport {
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "java.lang.Object")
-  public void setValue(final javax.el.ValueExpression value) {
+  public void setValue(final ValueExpression value) {
     this.value = value;
   }
 
@@ -220,7 +227,7 @@ public class TextareaExtensionTag extends TobagoExtensionBodyTagSupport {
           type = {},
           expression = DynamicExpression.METHOD_EXPRESSION_REQUIRED,
           methodSignature = "javax.faces.event.ValueChangeEvent")
-  public void setValueChangeListener(final javax.el.MethodExpression valueChangeListener) {
+  public void setValueChangeListener(final MethodExpression valueChangeListener) {
     this.valueChangeListener = valueChangeListener;
   }
 
@@ -230,8 +237,17 @@ public class TextareaExtensionTag extends TobagoExtensionBodyTagSupport {
    */
   @TagAttribute
   @UIComponentTagAttribute()
-  public void setLabel(final javax.el.ValueExpression label) {
+  public void setLabel(final ValueExpression label) {
     this.label = label;
+  }
+
+  /**
+   * The accessKey of this component.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type = "java.lang.Character")
+  public void setAccessKey(final javax.el.ValueExpression accessKey) {
+    this.accessKey = accessKey;
   }
 
   /**
@@ -239,7 +255,7 @@ public class TextareaExtensionTag extends TobagoExtensionBodyTagSupport {
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
-  public void setFocus(final javax.el.ValueExpression focus) {
+  public void setFocus(final ValueExpression focus) {
     this.focus = focus;
   }
 
@@ -249,7 +265,7 @@ public class TextareaExtensionTag extends TobagoExtensionBodyTagSupport {
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "javax.faces.component.UIComponent")
-  public void setBinding(final javax.el.ValueExpression binding) {
+  public void setBinding(final ValueExpression binding) {
     this.binding = binding;
   }
 
@@ -259,7 +275,7 @@ public class TextareaExtensionTag extends TobagoExtensionBodyTagSupport {
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "boolean", defaultValue = "true")
-  public void setRendered(final javax.el.ValueExpression rendered) {
+  public void setRendered(final ValueExpression rendered) {
     this.rendered = rendered;
   }
 
@@ -275,7 +291,7 @@ public class TextareaExtensionTag extends TobagoExtensionBodyTagSupport {
   @TagAttribute
   @UIComponentTagAttribute(type = "javax.faces.convert.Converter",
       expression = DynamicExpression.VALUE_EXPRESSION)
-  public void setConverter(final javax.el.ValueExpression converter) {
+  public void setConverter(final ValueExpression converter) {
     this.converter = converter;
   }
 
@@ -289,7 +305,7 @@ public class TextareaExtensionTag extends TobagoExtensionBodyTagSupport {
   @UIComponentTagAttribute(type = {},
       expression = DynamicExpression.METHOD_EXPRESSION,
       methodSignature = { "javax.faces.context.FacesContext", "javax.faces.component.UIComponent", "java.lang.Object" })
-  public void setValidator(final javax.el.MethodExpression validator) {
+  public void setValidator(final MethodExpression validator) {
     this.validator = validator;
   }
 
@@ -298,7 +314,7 @@ public class TextareaExtensionTag extends TobagoExtensionBodyTagSupport {
    */
   @TagAttribute
   @UIComponentTagAttribute()
-  public void setOnchange(final javax.el.ValueExpression onchange) {
+  public void setOnchange(final ValueExpression onchange) {
     this.onchange = onchange;
   }
 
@@ -308,7 +324,7 @@ public class TextareaExtensionTag extends TobagoExtensionBodyTagSupport {
    */
   @TagAttribute
   @UIComponentTagAttribute(defaultValue = "none", type = "java.lang.String[]")
-  public void setMarkup(final javax.el.ValueExpression markup) {
+  public void setMarkup(final ValueExpression markup) {
     this.markup = markup;
   }
 
@@ -317,7 +333,7 @@ public class TextareaExtensionTag extends TobagoExtensionBodyTagSupport {
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
-  public void setReadonly(final javax.el.ValueExpression readonly) {
+  public void setReadonly(final ValueExpression readonly) {
     this.readonly = readonly;
   }
 
@@ -326,7 +342,7 @@ public class TextareaExtensionTag extends TobagoExtensionBodyTagSupport {
    */
   @TagAttribute()
   @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
-  public void setDisabled(final javax.el.ValueExpression disabled) {
+  public void setDisabled(final ValueExpression disabled) {
     this.disabled = disabled;
   }
 
@@ -337,7 +353,7 @@ public class TextareaExtensionTag extends TobagoExtensionBodyTagSupport {
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
-  public void setRequired(final javax.el.ValueExpression required) {
+  public void setRequired(final ValueExpression required) {
     this.required = required;
   }
 
@@ -346,7 +362,7 @@ public class TextareaExtensionTag extends TobagoExtensionBodyTagSupport {
    */
   @TagAttribute
   @UIComponentTagAttribute()
-  public void setTip(final javax.el.ValueExpression tip) {
+  public void setTip(final ValueExpression tip) {
     this.tip = tip;
   }
 
@@ -357,13 +373,13 @@ public class TextareaExtensionTag extends TobagoExtensionBodyTagSupport {
    */
   @TagAttribute
   @UIComponentTagAttribute()
-  public void setLabelWidth(final javax.el.ValueExpression labelWidth) {
+  public void setLabelWidth(final ValueExpression labelWidth) {
     this.labelWidth = labelWidth;
   }
 
   @TagAttribute
   @UIComponentTagAttribute(type = "java.lang.Integer")
-  public void setTabIndex(final javax.el.ValueExpression tabIndex) {
+  public void setTabIndex(final ValueExpression tabIndex) {
     this.tabIndex = tabIndex;
   }
 
@@ -372,7 +388,7 @@ public class TextareaExtensionTag extends TobagoExtensionBodyTagSupport {
    */
   @TagAttribute
   @UIComponentTagAttribute()
-  public void setValidatorMessage(final javax.el.ValueExpression validatorMessage) {
+  public void setValidatorMessage(final ValueExpression validatorMessage) {
     this.validatorMessage = validatorMessage;
   }
 
@@ -381,7 +397,7 @@ public class TextareaExtensionTag extends TobagoExtensionBodyTagSupport {
    */
   @TagAttribute
   @UIComponentTagAttribute()
-  public void setConverterMessage(final javax.el.ValueExpression converterMessage) {
+  public void setConverterMessage(final ValueExpression converterMessage) {
     this.converterMessage = converterMessage;
   }
 
@@ -390,7 +406,7 @@ public class TextareaExtensionTag extends TobagoExtensionBodyTagSupport {
    */
   @TagAttribute
   @UIComponentTagAttribute()
-  public void setRequiredMessage(final javax.el.ValueExpression requiredMessage) {
+  public void setRequiredMessage(final ValueExpression requiredMessage) {
     this.requiredMessage = requiredMessage;
   }
 

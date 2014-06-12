@@ -20,7 +20,6 @@
 package org.apache.myfaces.tobago.util;
 
 import org.apache.myfaces.tobago.internal.util.Deprecation;
-import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -79,14 +78,4 @@ public class StringUtils {
     }
     return buffer.toString();
   }
-
-  @Deprecated
-  public static String escapeAccessKeyIndicator(final String label) {
-    if (Deprecation.LOG.isWarnEnabled()) {
-      Deprecation.LOG.warn(label);
-    }
-    return org.apache.commons.lang.StringUtils.replace(label,
-        String.valueOf(LabelWithAccessKey.INDICATOR), LabelWithAccessKey.ESCAPED_INDICATOR);
-  }
-
 }

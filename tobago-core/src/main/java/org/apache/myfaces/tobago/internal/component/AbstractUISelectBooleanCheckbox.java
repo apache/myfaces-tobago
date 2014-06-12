@@ -55,4 +55,6 @@ public abstract class AbstractUISelectBooleanCheckbox extends UISelectBoolean
     }
     super.validateValue(facesContext, convertedValue);
   }
+
+  public abstract String getLabel();
 }

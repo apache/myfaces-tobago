@@ -29,6 +29,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasImage;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabelAndAccessKey;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutComponent;
 
 import javax.faces.component.UICommand;
 
@@ -39,11 +40,13 @@ import javax.faces.component.UICommand;
     tagExtraInfoClassName = "org.apache.myfaces.tobago.internal.taglib.component.CommandTagExtraInfo")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIMenuCommand",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUICommandBase",
+    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUICommand",
     uiComponentFacesClass = "javax.faces.component.UICommand",
+    interfaces = "org.apache.myfaces.tobago.component.SupportsAccessKey",
     componentFamily = UICommand.COMPONENT_FAMILY,
     rendererType = RendererTypes.MENU_COMMAND,
     allowedChildComponenents = "NONE")
-public interface MenuCommandTagDeclaration extends AbstractCommandTagDeclaration,
+public interface MenuCommandTagDeclaration
+    extends AbstractCommandTagDeclaration, IsGridLayoutComponent,
     HasIdBindingAndRendered, HasLabelAndAccessKey, IsDisabled, HasImage, HasMarkup, HasCurrentMarkup {
 }

@@ -19,20 +19,16 @@
 
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
-import org.apache.myfaces.tobago.internal.component.AbstractUICommand;
+import org.apache.myfaces.tobago.component.UITreeCommand;
 import org.apache.myfaces.tobago.internal.component.AbstractUITreeNode;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.css.Style;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.faces.context.FacesContext;
 
 public class TreeMenuCommandRenderer extends TreeCommandRenderer {
 
-  private static final Logger LOG = LoggerFactory.getLogger(TreeMenuCommandRenderer.class);
-
-  protected Style createStyle(final FacesContext facesContext, final AbstractUICommand node) {
+  protected Style createStyle(final FacesContext facesContext, final UITreeCommand node) {
 
     final AbstractUITreeNode parent = (AbstractUITreeNode) node.getParent();
     final int level = parent.getLevel();

@@ -55,10 +55,9 @@ public class LinkRenderer extends CommandRendererBase {
     final AbstractUILink link = (AbstractUILink) component;
     final String clientId = link.getClientId(facesContext);
     final boolean disabled = link.isDisabled();
+    final LabelWithAccessKey label = new LabelWithAccessKey(link);
 
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
-
-    final LabelWithAccessKey label = new LabelWithAccessKey(link);
 
     if (disabled) {
       writer.startElement(HtmlElements.SPAN, link);
@@ -72,6 +71,10 @@ public class LinkRenderer extends CommandRendererBase {
 
       if (label.getAccessKey() != null) {
         writer.writeAttribute(HtmlAttributes.ACCESSKEY, Character.toString(label.getAccessKey()), false);
+        if (LOG.isWarnEnabled()
+            && !AccessKeyMap.addAccessKey(facesContext, label.getAccessKey())) {
+          LOG.warn("duplicated accessKey : " + label.getAccessKey());
+        }
       }
 
       final Integer tabIndex = link.getTabIndex();
@@ -109,20 +112,11 @@ public class LinkRenderer extends CommandRendererBase {
     }
 
 //  label
-    if (label.getText() != null) {
+    if (label.getLabel() != null) {
       if (image != null) {
         writer.write(" "); // separator: e.g. &nbsp;
       }
       HtmlRendererUtils.writeLabelWithAccessKey(writer, label);
-    }
-
-    if (label.getAccessKey() != null && !disabled) {
-      if (LOG.isInfoEnabled()
-          && !AccessKeyMap.addAccessKey(facesContext, label.getAccessKey())) {
-        LOG.info("duplicated accessKey : " + label.getAccessKey());
-      }
-
-      //HtmlRendererUtils.addClickAcceleratorKey(facesContext, clientId, label.getAccessKey());
     }
   }
 
@@ -140,7 +134,7 @@ public class LinkRenderer extends CommandRendererBase {
   public Measure getPreferredWidth(final FacesContext facesContext, final Configurable component) {
     final AbstractUILink link = (AbstractUILink) component;
     final LabelWithAccessKey label = new LabelWithAccessKey(link);
-    final String text = label.getText();
+    final String text = label.getLabel();
     final String image = link.getImage();
 
     Measure width = PixelMeasure.ZERO;

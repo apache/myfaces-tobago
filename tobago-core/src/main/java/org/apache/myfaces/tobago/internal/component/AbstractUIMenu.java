@@ -21,5 +21,7 @@ package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.myfaces.tobago.layout.LayoutComponent;
 
-public abstract class AbstractUIMenu extends AbstractUIPanelBase implements LayoutComponent {
+public abstract class AbstractUIMenu extends javax.faces.component.UIPanel implements LayoutComponent {
+
+  public abstract String getLabel();
 }

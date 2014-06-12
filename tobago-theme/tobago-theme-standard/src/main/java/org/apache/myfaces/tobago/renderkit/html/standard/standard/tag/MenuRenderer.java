@@ -61,6 +61,7 @@ public class MenuRenderer extends LayoutComponentRendererBase {
     final UIMenu menu = (UIMenu) component;
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
+    final LabelWithAccessKey label = new LabelWithAccessKey(menu);
     final boolean disabled = menu.isDisabled();
     final boolean firstLevel = !RendererTypes.MENU.equals(menu.getParent().getRendererType());
     final boolean isParentMenu = menu.getChildCount() > 0; // todo: may be not correct
@@ -102,23 +103,20 @@ public class MenuRenderer extends LayoutComponentRendererBase {
     }
     writer.startElement(HtmlElements.A, menu);
     writer.writeAttribute(HtmlAttributes.HREF, "#", false);
-    if (component != null && !component.isTransient()) {
+    if (!component.isTransient()) {
       writer.writeIdAttribute(component.getClientId(facesContext));
     }
 
-    final LabelWithAccessKey label = new LabelWithAccessKey(menu);
-    if (label.getText() != null) {
-      if (label.getAccessKey() != null) {
-        if (LOG.isInfoEnabled()
-            && !AccessKeyMap.addAccessKey(facesContext, label.getAccessKey())) {
-          LOG.info("duplicated accessKey : " + label.getAccessKey());
-        }
-        if (!disabled && label.getAccessKey() != null) {
-          writer.writeAttribute(HtmlAttributes.ACCESSKEY, Character.toString(label.getAccessKey()), false);
-        }
+    if (!disabled && label.getAccessKey() != null) {
+      writer.writeAttribute(HtmlAttributes.ACCESSKEY, Character.toString(label.getAccessKey()), false);
+      if (LOG.isWarnEnabled()
+          && !AccessKeyMap.addAccessKey(facesContext, label.getAccessKey())) {
+        LOG.warn("duplicated accessKey : " + label.getAccessKey());
       }
-      HtmlRendererUtils.writeLabelWithAccessKey(writer, label);
     }
+
+    HtmlRendererUtils.writeLabelWithAccessKey(writer, label);
+
     writer.endElement(HtmlElements.A);
     if (isParentMenu) {
       writer.startElement(HtmlElements.OL, menu);

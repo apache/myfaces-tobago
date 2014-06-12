@@ -42,9 +42,12 @@ import javax.faces.component.UIPanel;
 @Tag(name = "tab")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UITab",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIPanel",
+    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUITab",
     uiComponentFacesClass = "javax.faces.component.UIPanel",
-    interfaces = "javax.faces.component.NamingContainer",
+    interfaces = {
+        "javax.faces.component.NamingContainer",
+        "org.apache.myfaces.tobago.component.SupportsAccessKey"
+    },
     componentFamily = UIPanel.COMPONENT_FAMILY,
     rendererType = RendererTypes.TAB,
     facets = {

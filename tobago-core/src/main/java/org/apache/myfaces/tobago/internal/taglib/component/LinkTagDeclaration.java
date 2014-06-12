@@ -48,6 +48,7 @@ import javax.faces.component.UICommand;
     uiComponent = "org.apache.myfaces.tobago.component.UILink",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUILink",
     uiComponentFacesClass = "javax.faces.component.UICommand",
+    interfaces = "org.apache.myfaces.tobago.component.SupportsAccessKey",
     componentFamily = UICommand.COMPONENT_FAMILY,
     rendererType = RendererTypes.LINK,
     allowedChildComponenents = "NONE",

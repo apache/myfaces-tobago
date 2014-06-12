@@ -17,35 +17,11 @@
  * under the License.
  */
 
-package org.apache.myfaces.tobago.internal.taglib.declaration;
+package org.apache.myfaces.tobago.component;
 
-import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
-import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
+public interface SupportsAccessKey {
 
-@Deprecated
-public interface HasLabelWithAccessKey {
+  Character getAccessKey();
 
-  /**
-   * Deprecated! Use 'label' instead.
-   * Text value to display as label.
-   * If text contains an underscore the next character overwrites 'accesskey'.
-   *
-   * @deprecated
-   */
-  @TagAttribute
-  @UIComponentTagAttribute()
-  @Deprecated
-  void setLabelWithAccessKey(String key);
-
-
-  /**
-   * Deprecated! Has not longer any function.
-   *
-   * @deprecated
-   */
-//  @TagAttribute @UIComponentTagAttribute(type = String.class)
-  @TagAttribute
-  @UIComponentTagAttribute(type = {"java.lang.Character"})
-  @Deprecated
-  void setAccessKey(String key);
+  String getLabel();
 }

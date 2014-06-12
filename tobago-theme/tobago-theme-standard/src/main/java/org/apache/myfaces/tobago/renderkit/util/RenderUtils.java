@@ -22,7 +22,7 @@ package org.apache.myfaces.tobago.renderkit.util;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.config.Configurable;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
-import org.apache.myfaces.tobago.internal.component.AbstractUICommandBase;
+import org.apache.myfaces.tobago.internal.component.AbstractUICommand;
 import org.apache.myfaces.tobago.internal.component.AbstractUIData;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.layout.Measure;
@@ -510,7 +510,7 @@ public class RenderUtils {
     return position;
   }
 
-  public static String generateUrl(final FacesContext facesContext, final AbstractUICommandBase component) {
+  public static String generateUrl(final FacesContext facesContext, final AbstractUICommand component) {
 
     final Application application = facesContext.getApplication();
     final ViewHandler viewHandler = application.getViewHandler();

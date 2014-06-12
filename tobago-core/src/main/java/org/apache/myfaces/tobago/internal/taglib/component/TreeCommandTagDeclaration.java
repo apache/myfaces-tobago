@@ -29,7 +29,7 @@ import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.AbstractCommandTagDeclaration;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabel;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabelAndAccessKey;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTabIndex;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
@@ -47,8 +47,12 @@ import javax.faces.component.UICommand;
 @BodyContentDescription(anyTagOf = "facestag")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UITreeCommand",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUICommand",
+    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUITreeCommand",
     uiComponentFacesClass = "javax.faces.component.UICommand",
+    interfaces = {
+        "org.apache.myfaces.tobago.layout.LayoutBase",
+        "org.apache.myfaces.tobago.component.SupportsAccessKey"
+    },
     componentFamily = UICommand.COMPONENT_FAMILY,
     allowedChildComponenents = "NONE",
     facets = {
@@ -63,5 +67,5 @@ import javax.faces.component.UICommand;
     rendererType = RendererTypes.TREE_COMMAND)
 public interface TreeCommandTagDeclaration
     extends AbstractCommandTagDeclaration, HasIdBindingAndRendered, IsDisabled,
-    HasLabel, HasTip, HasMarkup, HasCurrentMarkup, HasTabIndex, IsGridLayoutComponent {
+    HasLabelAndAccessKey, HasTip, HasMarkup, HasCurrentMarkup, HasTabIndex, IsGridLayoutComponent {
 }

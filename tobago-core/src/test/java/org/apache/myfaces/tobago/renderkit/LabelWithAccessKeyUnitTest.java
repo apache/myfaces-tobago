@@ -19,60 +19,196 @@
 
 package org.apache.myfaces.tobago.renderkit;
 
+import org.apache.myfaces.tobago.component.UILabel;
+import org.apache.myfaces.tobago.internal.config.AbstractTobagoTestBase;
 import org.junit.Assert;
 import org.junit.Test;
 
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIOutput;
-
-public class LabelWithAccessKeyUnitTest {
+public class LabelWithAccessKeyUnitTest extends AbstractTobagoTestBase {
 
   @Test
   public void testSimple() {
-    final UIComponent component = new UIOutput();
-    component.getAttributes().put("label", "Save");
+    final UILabel component = new UILabel();
+    component.setValue("Save");
     final LabelWithAccessKey label = new LabelWithAccessKey(component);
-    Assert.assertEquals("Save", label.getText());
+    Assert.assertEquals("Save", label.getLabel());
     Assert.assertEquals(-1, label.getPos());
     Assert.assertEquals(null, label.getAccessKey());
   }
 
   @Test
   public void testWithKeyFirstLetter() {
-    final UIComponent component = new UIOutput();
-    component.getAttributes().put("label", "Save_");
+    final UILabel component = new UILabel();
+    component.setValue("Save_");
     final LabelWithAccessKey label = new LabelWithAccessKey(component);
-    Assert.assertEquals("Save", label.getText());
+    Assert.assertEquals("Save", label.getLabel());
+    Assert.assertEquals(-1, label.getPos());
     Assert.assertNull(label.getAccessKey());
   }
 
   @Test
   public void testWithKeyLastLetter() {
-    final String result = "A_n_aly_ze";
-    final UIComponent component = new UIOutput();
-    component.getAttributes().put("label", "A__n__a_ly__ze");
+    final UILabel component = new UILabel();
+    component.setValue("A__n__a_ly__ze");
     final LabelWithAccessKey label = new LabelWithAccessKey(component);
-    Assert.assertEquals(result, label.getText());
+    Assert.assertEquals("A_n_aly_ze", label.getLabel());
     Assert.assertEquals(5, label.getPos());
-    Assert.assertEquals(new Character('l'), label.getAccessKey());
+    Assert.assertEquals(Character.valueOf('l'), label.getAccessKey());
   }
 
   @Test
   public void testAmpersand() {
-    final UIComponent component = new UIOutput();
-    component.getAttributes().put("label", "_Save");
+    final UILabel component = new UILabel();
+    component.setValue("_Save");
     final LabelWithAccessKey label = new LabelWithAccessKey(component);
-    Assert.assertEquals("Save", label.getText());
+    Assert.assertEquals("Save", label.getLabel());
     Assert.assertEquals(0, label.getPos());
-    Assert.assertEquals(new Character('S'), label.getAccessKey());
+    Assert.assertEquals(Character.valueOf('s'), label.getAccessKey());
   }
 
   @Test
   public void testAmpersandAtEnd() {
-    final UIComponent component = new UIOutput();
-    component.getAttributes().put("label", "Save_");
+    final UILabel component = new UILabel();
+    component.setValue("Save_");
     final LabelWithAccessKey label = new LabelWithAccessKey(component);
-    Assert.assertEquals("Save", label.getText());
+    Assert.assertEquals("Save", label.getLabel());
+    Assert.assertEquals(-1, label.getPos());
+    Assert.assertEquals(null, label.getAccessKey());
+  }
+
+  @Test
+  public void testUmlauts() {
+    // Umlauts are not supported as accessKey
+    final UILabel component = new UILabel();
+    component.setValue("Löschen");
+    final LabelWithAccessKey label = new LabelWithAccessKey(component);
+    Assert.assertEquals("Löschen", label.getLabel());
+    Assert.assertEquals(-1, label.getPos());
+    Assert.assertEquals(null, label.getAccessKey());
+  }
+
+  @Test
+  public void testUmlauts2() {
+    // Umlauts are not supported as accessKey
+    final UILabel component = new UILabel();
+    component.setValue("L_öschen");
+    final LabelWithAccessKey label = new LabelWithAccessKey(component);
+    Assert.assertEquals("Löschen", label.getLabel());
+    Assert.assertEquals(-1, label.getPos());
+    Assert.assertEquals(null, label.getAccessKey());
+  }
+
+  @Test
+  public void testKey() {
+    final UILabel component = new UILabel();
+    component.setValue("Save");
+    component.setAccessKey('a');
+    final LabelWithAccessKey label = new LabelWithAccessKey(component);
+    Assert.assertEquals("Save", label.getLabel());
+    Assert.assertEquals(1, label.getPos());
+    Assert.assertEquals((Character) 'a', label.getAccessKey());
+  }
+
+  @Test
+  public void testKeyWithWongCase() {
+    final UILabel component = new UILabel();
+    component.setValue("Save");
+    component.setAccessKey('A');
+    final LabelWithAccessKey label = new LabelWithAccessKey(component);
+    Assert.assertEquals("Save", label.getLabel());
+    Assert.assertEquals(1, label.getPos());
+    Assert.assertEquals((Character) 'a', label.getAccessKey());
+  }
+
+  @Test
+  public void testNumberKey() {
+    final UILabel component = new UILabel();
+    component.setValue("Save");
+    component.setAccessKey('5');
+    final LabelWithAccessKey label = new LabelWithAccessKey(component);
+    Assert.assertEquals("Save", label.getLabel());
+    Assert.assertEquals(-1, label.getPos());
+    Assert.assertEquals((Character) '5', label.getAccessKey());
+  }
+
+  @Test
+  public void testForbiddenKey() {
+    final UILabel component = new UILabel();
+    component.setValue("Save");
+    component.setAccessKey('#');
+    final LabelWithAccessKey label = new LabelWithAccessKey(component);
+    Assert.assertEquals("Save", label.getLabel());
+    Assert.assertEquals(-1, label.getPos());
+    Assert.assertEquals(null, label.getAccessKey());
+  }
+
+  @Test
+  public void testForbiddenKey2() {
+    final UILabel component = new UILabel();
+    component.setValue("Save");
+    component.setAccessKey('á');
+    final LabelWithAccessKey label = new LabelWithAccessKey(component);
+    Assert.assertEquals("Save", label.getLabel());
+    Assert.assertEquals(-1, label.getPos());
+    Assert.assertEquals(null, label.getAccessKey());
+  }
+
+  @Test
+  public void testForbiddenKey3() {
+    final UILabel component = new UILabel();
+    component.setValue("Save");
+    component.setAccessKey('ä');
+    final LabelWithAccessKey label = new LabelWithAccessKey(component);
+    Assert.assertEquals("Save", label.getLabel());
+    Assert.assertEquals(-1, label.getPos());
+    Assert.assertEquals(null, label.getAccessKey());
+  }
+
+  @Test
+  public void testUnderscores1() {
+    final UILabel component = new UILabel();
+    component.setValue("_");
+    final LabelWithAccessKey label = new LabelWithAccessKey(component);
+    Assert.assertEquals("", label.getLabel());
+    Assert.assertEquals(-1, label.getPos());
+    Assert.assertEquals(null, label.getAccessKey());
+  }
+
+  @Test
+  public void testUnderscores2() {
+    final UILabel component = new UILabel();
+    component.setValue("__");
+    final LabelWithAccessKey label = new LabelWithAccessKey(component);
+    Assert.assertEquals("_", label.getLabel());
+    Assert.assertEquals(-1, label.getPos());
+    Assert.assertEquals(null, label.getAccessKey());
+  }
+
+  @Test
+  public void testUnderscores3() {
+    final UILabel component = new UILabel();
+    component.setValue("___");
+    final LabelWithAccessKey label = new LabelWithAccessKey(component);
+    Assert.assertEquals("_", label.getLabel());
+    Assert.assertEquals(-1, label.getPos());
+    Assert.assertEquals(null, label.getAccessKey());
+  }
+
+  @Test
+  public void testUnderscores4() {
+    final UILabel component = new UILabel();
+    component.setValue("____");
+    final LabelWithAccessKey label = new LabelWithAccessKey(component);
+    Assert.assertEquals("__", label.getLabel());
+    Assert.assertEquals(-1, label.getPos());
+    Assert.assertEquals(null, label.getAccessKey());
+  }
+
+  @Test
+  public void testNull() {
+    final UILabel component = new UILabel();
+    final LabelWithAccessKey label = new LabelWithAccessKey(component);
+    Assert.assertEquals(null, label.getLabel());
     Assert.assertEquals(-1, label.getPos());
     Assert.assertEquals(null, label.getAccessKey());
   }

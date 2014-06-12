@@ -21,6 +21,21 @@ package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.myfaces.tobago.layout.LayoutComponent;
 
+import javax.faces.context.FacesContext;
+import javax.faces.convert.Converter;
+
 public abstract class AbstractUILabel extends javax.faces.component.UIOutput implements LayoutComponent {
+
+  public String getLabel() {
+    final Converter converter = getConverter();
+    final Object value = getValue();
+    if (converter != null) {
+      return converter.getAsString(FacesContext.getCurrentInstance(), this, value);
+    } else if (value != null) {
+      return String.valueOf(value);
+    } else {
+      return null;
+    }
+  }
 
 }

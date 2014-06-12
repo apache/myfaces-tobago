@@ -47,6 +47,7 @@ import javax.faces.component.UIPanel;
     uiComponent = "org.apache.myfaces.tobago.component.UIMenu",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIMenu",
     uiComponentFacesClass = "javax.faces.component.UIPanel",
+    interfaces = "org.apache.myfaces.tobago.component.SupportsAccessKey",
     componentFamily = UIPanel.COMPONENT_FAMILY,
     rendererType = RendererTypes.MENU,
     allowedChildComponenents = {

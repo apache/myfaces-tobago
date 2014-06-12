@@ -102,6 +102,7 @@ public final class HtmlRendererUtils {
     }
   }
 
+  /** @deprecated since 2.0.0, because of CSP */
   public static void renderFocusId(final FacesContext facesContext, final UIComponent component)
       throws IOException {
     if (component instanceof UIInput) {
@@ -109,6 +110,7 @@ public final class HtmlRendererUtils {
     }
   }
 
+  /** @deprecated since 2.0.0, because of CSP */
   public static void renderFocusId(final FacesContext facesContext, final UIInput component)
       throws IOException {
     if (renderErrorFocusId(facesContext, component)) {
@@ -144,15 +146,18 @@ public final class HtmlRendererUtils {
   public static void writeLabelWithAccessKey(final TobagoResponseWriter writer, final LabelWithAccessKey label)
       throws IOException {
     final int pos = label.getPos();
-    final String text = label.getText();
-    if (pos == -1) {
-      writer.writeText(text);
-    } else {
-      writer.writeText(text.substring(0, pos));
-      writer.startElement(HtmlElements.U, null);
-      writer.writeText(Character.toString(text.charAt(pos)));
-      writer.endElement(HtmlElements.U);
-      writer.writeText(text.substring(pos + 1));
+    final String text = label.getLabel();
+    if (text != null) {
+      if (pos == -1) {
+        writer.writeText(text);
+      } else {
+        writer.writeText(text.substring(0, pos));
+        writer.startElement(HtmlElements.SPAN, null);
+        writer.writeClassAttribute("tobago-x-accessKey");
+        writer.writeText(Character.toString(text.charAt(pos)));
+        writer.endElement(HtmlElements.SPAN);
+        writer.writeText(text.substring(pos + 1));
+      }
     }
   }
 
@@ -163,12 +168,16 @@ public final class HtmlRendererUtils {
     writeScriptLoader(facesContext, null, new String[]{"Tobago.transition = " + transition + ";"});
   }
 
+  /** @deprecated since 2.0.0 */
+  @Deprecated
   public static void addClickAcceleratorKey(
       final FacesContext facesContext, final String clientId, final char key)
       throws IOException {
     //addClickAcceleratorKey(facesContext, clientId, key, null);
   }
 
+  /** @deprecated since 2.0.0 */
+  @Deprecated
   public static void addClickAcceleratorKey(
       final FacesContext facesContext, final String clientId, final char key, final String modifier)
       throws IOException {
@@ -177,11 +186,15 @@ public final class HtmlRendererUtils {
     //writeScriptLoader(facesContext, null, new String[]{str});
   }
 
+  /** @deprecated since 2.0.0 */
+  @Deprecated
   public static void addAcceleratorKey(
       final FacesContext facesContext, final String func, final char key) throws IOException {
     //addAcceleratorKey(facesContext, func, key, null);
   }
 
+  /** @deprecated since 2.0.0 */
+  @Deprecated
   public static void addAcceleratorKey(
       final FacesContext facesContext, final String func, final char key, final String modifier)
       throws IOException {
@@ -189,12 +202,16 @@ public final class HtmlRendererUtils {
     writeScriptLoader(facesContext, null, new String[]{str});
   }
 
+  /** @deprecated since 2.0.0 */
+  @Deprecated
   public static String createOnclickAcceleratorKeyJsStatement(
       final String clientId, final char key, final String modifier) {
     final String func = "Tobago.clickOnElement('" + clientId + "');";
     return createAcceleratorKeyJsStatement(func, key, modifier);
   }
 
+  /** @deprecated since 2.0.0 */
+  @Deprecated
   public static String createAcceleratorKeyJsStatement(
       final String func, final char key, final String modifier) {
     final StringBuilder buffer = new StringBuilder("new Tobago.AcceleratorKey(function() {");
@@ -213,18 +230,20 @@ public final class HtmlRendererUtils {
   }
 
   /**
-   * @deprecated Please use setter;
+   * @deprecated since 2.0.0. Please use setter.
    */
   @Deprecated
   public static void removeStyleAttribute(final UIComponent component, final String name) {
     Deprecation.LOG.error("HtmlRendererUtils.removeStyleAttribute() no longer supported. Use setter.");
   }
 
+  /** @deprecated since 2.0.0 */
   @Deprecated
   public static void createHeaderAndBodyStyles(final FacesContext facesContext, final UIComponent component) {
     Deprecation.LOG.error("HtmlRendererUtils.createHeaderAndBodyStyles() no longer supported");
   }
 
+  /** @deprecated since 2.0.0 */
   @Deprecated
   public static void createHeaderAndBodyStyles(
       final FacesContext facesContext, final UIComponent component, final boolean width) {

@@ -59,12 +59,4 @@ public class StringUtil {
     return StringUtils.toString(list);
   }
 
-  @Deprecated
-  public static String escapeAccessKeyIndicator(final String label) {
-    if (Deprecation.LOG.isWarnEnabled()) {
-      Deprecation.LOG.warn(label);
-    }
-    return StringUtils.escapeAccessKeyIndicator(label);
-  }
-
 }

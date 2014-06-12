@@ -72,6 +72,7 @@ public class LabelExtensionTag extends TobagoExtensionBodyTagSupport {
   public static final String DEFAULT_COLUMNS = "auto;*";
 
   private javax.el.ValueExpression value;
+  private javax.el.ValueExpression accessKey;
   private javax.el.ValueExpression tip;
   private javax.el.ValueExpression rendered;
   private javax.el.ValueExpression columns;
@@ -129,6 +130,9 @@ public class LabelExtensionTag extends TobagoExtensionBodyTagSupport {
     if (value != null) {
       labelTag.setValue(value);
     }
+    if (accessKey != null) {
+      labelTag.setAccessKey(accessKey);
+    }
     if (markup != null) {
       labelTag.setMarkup(markup);
     }
@@ -151,6 +155,7 @@ public class LabelExtensionTag extends TobagoExtensionBodyTagSupport {
   public void release() {
     super.release();
     value = null;
+    accessKey = null;
     tip = null;
     rendered = null;
     columns = null;
@@ -167,6 +172,15 @@ public class LabelExtensionTag extends TobagoExtensionBodyTagSupport {
   @UIComponentTagAttribute(type = "java.lang.Object")
   public void setValue(final javax.el.ValueExpression value) {
     this.value = value;
+  }
+
+   /**
+   * The accessKey of this component.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type = "java.lang.Character")
+  public void setAccessKey(final javax.el.ValueExpression accessKey) {
+    this.accessKey = accessKey;
   }
 
   /**

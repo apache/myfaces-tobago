@@ -62,6 +62,7 @@ public class InExtensionTag extends TobagoExtensionBodyTagSupport {
   private ValueExpression disabled;
   private ValueExpression focus;
   private ValueExpression label;
+  private ValueExpression accessKey;
   private ValueExpression password;
   private ValueExpression readonly;
   private ValueExpression rendered;
@@ -98,6 +99,9 @@ public class InExtensionTag extends TobagoExtensionBodyTagSupport {
     }
     if (label != null) {
       labelTag.setValue(label);
+    }
+    if (accessKey != null) {
+      labelTag.setAccessKey(accessKey);
     }
     if (tip != null) {
       labelTag.setTip(tip);
@@ -209,6 +213,7 @@ public class InExtensionTag extends TobagoExtensionBodyTagSupport {
     labelWidth = null;
     focus = null;
     label = null;
+    accessKey = null;
     password = null;
     readonly = null;
     rendered = null;
@@ -275,6 +280,15 @@ public class InExtensionTag extends TobagoExtensionBodyTagSupport {
   @UIComponentTagAttribute()
   public void setLabel(final ValueExpression label) {
     this.label = label;
+  }
+
+  /**
+   * The accessKey of this component.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type = "java.lang.Character")
+  public void setAccessKey(final javax.el.ValueExpression accessKey) {
+    this.accessKey = accessKey;
   }
 
   /**

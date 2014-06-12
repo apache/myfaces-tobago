@@ -23,6 +23,7 @@ import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.SelectBooleanCommand;
 import org.apache.myfaces.tobago.component.SelectOneCommand;
+import org.apache.myfaces.tobago.component.SupportsAccessKey;
 import org.apache.myfaces.tobago.component.UIMenuSelectOne;
 import org.apache.myfaces.tobago.component.UIToolBar;
 import org.apache.myfaces.tobago.component.UIToolBarSeparator;
@@ -30,7 +31,7 @@ import org.apache.myfaces.tobago.config.Configurable;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.ResourceManager;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
-import org.apache.myfaces.tobago.internal.component.AbstractUICommandBase;
+import org.apache.myfaces.tobago.internal.component.AbstractUICommand;
 import org.apache.myfaces.tobago.internal.component.AbstractUIMenu;
 import org.apache.myfaces.tobago.internal.context.ResourceManagerFactory;
 import org.apache.myfaces.tobago.internal.util.ObjectUtils;
@@ -87,18 +88,18 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
 
     Measure width = Measure.valueOf(-1);
     for (final UIComponent command : toolBar.getChildren()) {
-      if (command instanceof AbstractUICommandBase) {
-        width = renderToolbarCommand(context, toolBar, (AbstractUICommandBase) command, writer, width);
+      if (command instanceof AbstractUICommand) {
+        width = renderToolbarCommand(context, toolBar, (AbstractUICommand) command, writer, width);
       } else if (command instanceof UIToolBarSeparator) {
         width = renderSeparator(context, toolBar, (UIToolBarSeparator) command, writer, width);
       } else {
-        LOG.error("Illegal UIComponent class in toolbar (not a AbstractUICommandBase):" + command.getClass().getName());
+        LOG.error("Illegal UIComponent class in toolbar (not a AbstractUICommand):" + command.getClass().getName());
       }
     }
   }
 
   private Measure renderToolbarCommand(
-      final FacesContext facesContext, final UIToolBar toolBar, final AbstractUICommandBase command,
+      final FacesContext facesContext, final UIToolBar toolBar, final AbstractUICommand command,
       final TobagoResponseWriter writer, final Measure width) throws IOException {
     if (command instanceof SelectBooleanCommand) {
       return renderSelectBoolean(facesContext, toolBar, command, writer, width);
@@ -120,7 +121,7 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
   // todo: remove component creation in renderer, for JSF 2.0
   // todo: One solution is to make <tx:toolBarSelectOne> instead of <tc:toolBarSelectOne>
   private Measure renderSelectOne(
-      final FacesContext facesContext, final UIToolBar toolBar, final AbstractUICommandBase command,
+      final FacesContext facesContext, final UIToolBar toolBar, final AbstractUICommand command,
       final TobagoResponseWriter writer, Measure width) throws IOException {
 
     final List<SelectItem> items;
@@ -192,7 +193,7 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
   // todo: One solution is to make <tx:toolBarCheck> instead of <tc:toolBarCheck>
   // may be renamed to toolBarSelectBoolean?
   private Measure renderSelectBoolean(
-      final FacesContext facesContext, final UIToolBar toolBar, final AbstractUICommandBase command,
+      final FacesContext facesContext, final UIToolBar toolBar, final AbstractUICommand command,
       final TobagoResponseWriter writer, Measure width) throws IOException {
 
     UIComponent checkbox = command.getFacet(Facets.CHECKBOX);
@@ -219,7 +220,7 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
   }
 
   private Measure renderToolbarButton(
-      final FacesContext facesContext, final UIToolBar toolBar, final AbstractUICommandBase command,
+      final FacesContext facesContext, final UIToolBar toolBar, final AbstractUICommand command,
       final TobagoResponseWriter writer,
       final boolean selected, final Measure width, final CommandMap map, final String value)
       throws IOException {
@@ -227,9 +228,10 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
       return width;
     }
 
-    //final String clientId = command.getClientId(facesContext);
     final boolean disabled = ComponentUtils.getBooleanAttribute(command, Attributes.DISABLED);
-    final LabelWithAccessKey label = new LabelWithAccessKey(command);
+    final LabelWithAccessKey label = command instanceof SupportsAccessKey
+        ? new LabelWithAccessKey((SupportsAccessKey) command)
+        : new LabelWithAccessKey(command.getLabel());
     final AbstractUIMenu dropDownMenu = FacetUtils.getDropDownMenu(command);
     final ResourceManager resources = getResourceManager();
 
@@ -266,7 +268,7 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
       labelStyle = new Style();
       labelStyle.setLeft(paddingLeft);
       labelStyle.setTop(paddingTop);
-      labelStyle.setWidth(RenderUtils.calculateStringWidth(facesContext, toolBar, label.getText()));
+      labelStyle.setWidth(RenderUtils.calculateStringWidth(facesContext, toolBar, label.getLabel()));
       labelStyle.setHeight(resources.getThemeMeasure(facesContext, toolBar, "custom.label-height"));
     } else {
       labelStyle = null;
@@ -287,7 +289,7 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
       iconStyle.setLeft(paddingLeft);
       iconStyle.setTop(paddingTop);
       iconStyle.setHeight(iconBig ? iconBigHeight : iconSmallHeight);
-      if (lackImage && showLabelRight && StringUtils.isNotBlank(label.getText())) {
+      if (lackImage && showLabelRight && StringUtils.isNotBlank(label.getLabel())) {
         iconStyle.setWidth(Measure.valueOf(1));
       } else {
         iconStyle.setWidth(iconBig ? iconBigWidth : iconSmallWidth);
@@ -320,7 +322,7 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
       if (showLabel) {
         // only label
         buttonStyle.setWidth(buttonStyle.getWidth().add(labelStyle.getWidth()));
-        if (StringUtils.isBlank(label.getText())) {
+        if (StringUtils.isBlank(label.getLabel())) {
           buttonStyle.setWidth(buttonStyle.getWidth().add(iconSmallWidth));
         }
         buttonStyle.setHeight(buttonStyle.getHeight().add(labelStyle.getHeight()));
@@ -362,7 +364,7 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
     }
 
     // change values when only have one button
-    if (showDropDownMenu && !separateButtons && (!lackImage || StringUtils.isNotBlank(label.getText()))) {
+    if (showDropDownMenu && !separateButtons && (!lackImage || StringUtils.isNotBlank(label.getLabel()))) {
       openerStyle.setLeft(openerStyle.getLeft().add(buttonStyle.getWidth()));
       buttonStyle.setWidth(buttonStyle.getWidth().add(menuStyle.getWidth()));
     }
@@ -408,7 +410,7 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
         writer.writeAttribute(DataAttributes.SRC_DEFAULT, image, false);
         writer.writeAttribute(DataAttributes.SRC_HOVER, imageHover, false);
       }
-      writer.writeAttribute(HtmlAttributes.ALT, label.getText(), true);
+      writer.writeAttribute(HtmlAttributes.ALT, label.getLabel(), true);
       writer.writeStyleAttribute(iconStyle);
       writer.endElement(HtmlElements.IMG);
     }
@@ -417,7 +419,7 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
       writer.startElement(HtmlElements.SPAN, command);
       writer.writeClassAttribute(Classes.create(toolBar, "label"));
       writer.writeStyleAttribute(labelStyle);
-      if (label.getText() != null) {
+      if (label.getLabel() != null) {
         HtmlRendererUtils.writeLabelWithAccessKey(writer, label);
       }
       writer.endElement(HtmlElements.SPAN);
@@ -517,11 +519,11 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
     return result;
   }
 
-  private boolean hasAnyCommand(final AbstractUICommandBase command) {
+  private boolean hasAnyCommand(final AbstractUICommand command) {
     return !hasNoCommand(command);
   }
 
-  private boolean hasNoCommand(final AbstractUICommandBase command) {
+  private boolean hasNoCommand(final AbstractUICommand command) {
     return command.getAction() == null
         && command.getActionListener() == null
         && command.getActionListeners().length == 0

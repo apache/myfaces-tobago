@@ -63,6 +63,7 @@ public class DateExtensionTag extends TobagoExtensionBodyTagSupport {
   private ValueExpression disabled;
   private ValueExpression focus;
   private ValueExpression label;
+  private ValueExpression accessKey;
   private ValueExpression readonly;
   private ValueExpression rendered;
   private ValueExpression required;
@@ -94,6 +95,9 @@ public class DateExtensionTag extends TobagoExtensionBodyTagSupport {
     }
     if (label != null) {
       labelTag.setValue(label);
+    }
+    if (accessKey != null) {
+      labelTag.setAccessKey(accessKey);
     }
     if (labelWidth != null) {
       labelTag.setColumns(createStringValueExpression(labelWidth.getExpressionString() + ";*;auto"));
@@ -221,6 +225,7 @@ public class DateExtensionTag extends TobagoExtensionBodyTagSupport {
     labelWidth = null;
     focus = null;
     label = null;
+    accessKey = null;
     readonly = null;
     rendered = null;
     required = null;
@@ -273,6 +278,15 @@ public class DateExtensionTag extends TobagoExtensionBodyTagSupport {
   @UIComponentTagAttribute()
   public void setLabel(final ValueExpression label) {
     this.label = label;
+  }
+
+  /**
+   * The accessKey of this component.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type = "java.lang.Character")
+  public void setAccessKey(final javax.el.ValueExpression accessKey) {
+    this.accessKey = accessKey;
   }
 
   /**

@@ -24,6 +24,7 @@ import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.UIPopup;
 import org.apache.myfaces.tobago.event.PopupFacetActionListener;
+import org.apache.myfaces.tobago.internal.component.AbstractUICommand;
 import org.apache.myfaces.tobago.internal.component.AbstractUICommandBase;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -52,8 +53,12 @@ public class CommandRendererHelper {
     this(facesContext, command, null);
   }
 
-  public CommandRendererHelper(final FacesContext facesContext, final AbstractUICommandBase command, final Tag tag) {
+  public CommandRendererHelper(final FacesContext facesContext, final AbstractUICommandBase base, final Tag tag) {
 
+    if (!(base instanceof AbstractUICommand)) {
+      return;
+    }
+    final AbstractUICommand command = (AbstractUICommand) base;
     disabled = ComponentUtils.getBooleanAttribute(command, Attributes.DISABLED);
 
     if (disabled) {
@@ -122,10 +127,14 @@ public class CommandRendererHelper {
     }
   }
 
-  private String prepareOnClick(final FacesContext facesContext, final AbstractUICommandBase component) {
-    String onclick = component.getOnclick();
+  private String prepareOnClick(final FacesContext facesContext, final AbstractUICommandBase base) {
+    if (!(base instanceof AbstractUICommand)) {
+      return null;
+    }
+    final AbstractUICommand command = (AbstractUICommand) base;
+    String onclick = command.getOnclick();
     if (onclick.contains("@autoId")) {
-      onclick = StringUtils.replace(onclick, "@autoId", component.getClientId(facesContext));
+      onclick = StringUtils.replace(onclick, "@autoId", command.getClientId(facesContext));
     }
     return onclick;
   }

@@ -24,7 +24,6 @@ import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.UICommand;
 import org.apache.myfaces.tobago.component.UIForm;
 import org.apache.myfaces.tobago.internal.component.AbstractUICommand;
-import org.apache.myfaces.tobago.internal.component.AbstractUICommandBase;
 import org.apache.myfaces.tobago.internal.util.Deprecation;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
@@ -77,7 +76,7 @@ public class Command {
     this.omit = omit;
   }
 
-  public Command(final FacesContext facesContext, final AbstractUICommandBase command) {
+  public Command(final FacesContext facesContext, final AbstractUICommand command) {
     this(
         null,
         command.isTransition(),
@@ -136,7 +135,7 @@ public class Command {
     }
   }
 
-  private static String getConfirmation(final AbstractUICommandBase command) {
+  private static String getConfirmation(final AbstractUICommand command) {
     final ValueHolder facet = (ValueHolder) command.getFacet(Facets.CONFIRMATION);
     return facet != null ? "" + facet.getValue() : null;
   }

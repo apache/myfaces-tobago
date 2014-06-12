@@ -83,26 +83,22 @@ public class LabelRenderer extends LayoutComponentRendererBase {
     writer.endElement(HtmlElements.LABEL);
   }
 
-  /** Encodes the text inside of the label. 
+  /** Encodes the text inside of the label.
    * Can be overwritten in other themes.
    */
   protected void encodeTextContent(
-      final FacesContext facesContext, final TobagoResponseWriter writer, final UILabel label)
+      final FacesContext facesContext, final TobagoResponseWriter writer, final UILabel component)
       throws IOException {
-    final String clientId = label.getClientId(facesContext);
-    final LabelWithAccessKey key = new LabelWithAccessKey(label);
-    if (key.getAccessKey() != null) {
-      writer.writeAttribute(HtmlAttributes.ACCESSKEY, Character.toString(key.getAccessKey()), false);
-    }
-    if (key.getText() != null) {
-      HtmlRendererUtils.writeLabelWithAccessKey(writer, key);
-    }
-    if (key.getAccessKey() != null) {
-      if (LOG.isInfoEnabled()
-          && !AccessKeyMap.addAccessKey(facesContext, key.getAccessKey())) {
-        LOG.info("Duplicated accessKey : " + key.getAccessKey());
+
+    final LabelWithAccessKey label = new LabelWithAccessKey(component);
+
+    if (label.getAccessKey() != null) {
+      writer.writeAttribute(HtmlAttributes.ACCESSKEY, Character.toString(label.getAccessKey()), false);
+      if (LOG.isWarnEnabled()
+          && !AccessKeyMap.addAccessKey(facesContext, label.getAccessKey())) {
+        LOG.warn("duplicated accessKey : " + label.getAccessKey());
       }
-      HtmlRendererUtils.addClickAcceleratorKey(facesContext, clientId, key.getAccessKey());
     }
+    HtmlRendererUtils.writeLabelWithAccessKey(writer, label);
   }
 }

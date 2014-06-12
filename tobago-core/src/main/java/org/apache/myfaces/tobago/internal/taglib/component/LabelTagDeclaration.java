@@ -24,10 +24,10 @@ import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.RendererTypes;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasAccessKey;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasFor;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabelWithAccessKey;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutComponent;
@@ -42,11 +42,12 @@ import javax.faces.component.UIOutput;
     uiComponent = "org.apache.myfaces.tobago.component.UILabel",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUILabel",
     uiComponentFacesClass = "javax.faces.component.UIOutput",
+    interfaces = "org.apache.myfaces.tobago.component.SupportsAccessKey",
     componentFamily = UIOutput.COMPONENT_FAMILY,
     rendererType = RendererTypes.LABEL,
     allowedChildComponenents = "NONE")
 public interface LabelTagDeclaration extends HasIdBindingAndRendered,
-    HasLabelWithAccessKey, HasFor, HasTip, HasMarkup, HasCurrentMarkup, IsGridLayoutComponent {
+    HasAccessKey, HasFor, HasTip, HasMarkup, HasCurrentMarkup, IsGridLayoutComponent {
 
   /**
    * Text value to display as label. Overwritten by 'labelWithAccessKey'

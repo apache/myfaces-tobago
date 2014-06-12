@@ -19,10 +19,12 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
-/**
- * @deprecated since 2.0.0. Please use {@link AbstractUICommand}.
- */
-@Deprecated
-public abstract class AbstractUICommandBase extends javax.faces.component.UICommand {
+import org.apache.myfaces.tobago.component.SelectOneCommand;
 
+public abstract class AbstractUIToolBarSelectOne extends AbstractUICommand implements SelectOneCommand {
+
+  @Override
+  public String getLabel() {
+    return null;
+  }
 }

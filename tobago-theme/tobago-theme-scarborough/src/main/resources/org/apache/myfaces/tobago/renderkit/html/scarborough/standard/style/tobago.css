@@ -38,6 +38,12 @@ html {
   margin: 0;
 }
 
+/* accesskey ---------------------------------------------------------------- */
+
+.tobago-x-accessKey {
+  text-decoration: underline;
+}
+
 /* box ---------------------------------------------------------------- */
 
 fieldset.tobago-box {
