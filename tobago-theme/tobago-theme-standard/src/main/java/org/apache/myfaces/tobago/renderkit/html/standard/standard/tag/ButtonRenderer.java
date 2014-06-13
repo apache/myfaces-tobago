@@ -24,7 +24,7 @@ import org.apache.myfaces.tobago.component.UIButton;
 import org.apache.myfaces.tobago.config.Configurable;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.internal.component.AbstractUIForm;
-import org.apache.myfaces.tobago.internal.util.AccessKeyMap;
+import org.apache.myfaces.tobago.internal.util.AccessKeyLogger;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.CommandRendererBase;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
@@ -77,6 +77,7 @@ public class ButtonRenderer extends CommandRendererBase {
 
       if (label.getAccessKey() != null) {
         writer.writeAttribute(HtmlAttributes.ACCESSKEY, Character.toString(label.getAccessKey()), false);
+        AccessKeyLogger.addAccessKey(facesContext, label.getAccessKey(), clientId);
       }
 
       final Integer tabIndex = button.getTabIndex();
@@ -108,21 +109,13 @@ public class ButtonRenderer extends CommandRendererBase {
       writer.endElement(HtmlElements.IMG);
     }
 
-    if (label.getText() != null) {
+    if (label.getLabel() != null) {
       writer.startElement(HtmlElements.SPAN, null);
       HtmlRendererUtils.writeLabelWithAccessKey(writer, label);
       writer.endElement(HtmlElements.SPAN);
     }
 
     writer.endElement(HtmlElements.BUTTON);
-    if (label.getAccessKey() != null) {
-      if (LOG.isInfoEnabled()
-          && !AccessKeyMap.addAccessKey(facesContext, label.getAccessKey())) {
-        LOG.info("duplicated accessKey : " + label.getAccessKey());
-      }
-      HtmlRendererUtils.addClickAcceleratorKey(
-          facesContext, button.getClientId(facesContext), label.getAccessKey());
-    }
   }
 
   @Override
@@ -139,11 +132,11 @@ public class ButtonRenderer extends CommandRendererBase {
     }
     final LabelWithAccessKey label = new LabelWithAccessKey(button);
 
-    width = width.add(RenderUtils.calculateStringWidth(facesContext, button, label.getText()));
+    width = width.add(RenderUtils.calculateStringWidth(facesContext, button, label.getLabel()));
     final Measure padding = getResourceManager().getThemeMeasure(facesContext, button, "paddingWidth");
     if (padding != null) {
       // left padding, right padding and when an image and an text then a middle padding.
-      width = width.add(padding.multiply(image && label.getText() != null ? 3 : 2));
+      width = width.add(padding.multiply(image && label.getLabel() != null ? 3 : 2));
     }
 
     return width;

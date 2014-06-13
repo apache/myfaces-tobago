@@ -32,7 +32,7 @@ import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.event.TabChangeEvent;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPanelBase;
-import org.apache.myfaces.tobago.internal.util.AccessKeyMap;
+import org.apache.myfaces.tobago.internal.util.AccessKeyLogger;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
@@ -183,6 +183,7 @@ public class TabGroupRenderer extends LayoutComponentRendererBase {
         if (tab.isRendered()) {
           final LabelWithAccessKey label = new LabelWithAccessKey(tab);
           final boolean disabled = tab.isDisabled();
+
           if (activeIndex == index) {
             ComponentUtils.addCurrentMarkup(tab, Markup.SELECTED);
           }
@@ -205,9 +206,12 @@ public class TabGroupRenderer extends LayoutComponentRendererBase {
           }
           final String tabId = tab.getClientId(facesContext);
           writer.writeIdAttribute(tabId);
-          if (label.getAccessKey() != null) {
+
+          if (!disabled && label.getAccessKey() != null) {
             writer.writeAttribute(HtmlAttributes.ACCESSKEY, Character.toString(label.getAccessKey()), false);
+            AccessKeyLogger.addAccessKey(facesContext, label.getAccessKey(), tabId);
           }
+
           String image = tab.getImage();
           if (image != null) {
             if (ResourceManagerUtils.isAbsoluteResource(image)) {
@@ -217,10 +221,10 @@ public class TabGroupRenderer extends LayoutComponentRendererBase {
             }
             writer.startElement(HtmlElements.IMG, null);
             writer.writeAttribute(HtmlAttributes.SRC, image, true);
-            writer.writeClassAttribute(Classes.create(tab, (label.getText() != null? "image-right-margin" : "image")));
+            writer.writeClassAttribute(Classes.create(tab, (label.getLabel() != null? "image-right-margin" : "image")));
             writer.endElement(HtmlElements.IMG);
           }
-          if (label.getText() != null) {
+          if (label.getLabel() != null) {
             HtmlRendererUtils.writeLabelWithAccessKey(writer, label);
           } else if (image == null) {
             writer.writeText(Integer.toString(index + 1));
@@ -232,13 +236,6 @@ public class TabGroupRenderer extends LayoutComponentRendererBase {
             renderTabToolbar(facesContext, writer, tab, toolbar);
           }
 
-          if (label.getAccessKey() != null) {
-            if (LOG.isWarnEnabled()
-                && !AccessKeyMap.addAccessKey(facesContext, label.getAccessKey())) {
-              LOG.warn("duplicated accessKey : " + label.getAccessKey());
-            }
-            HtmlRendererUtils.addClickAcceleratorKey(facesContext, tabId, label.getAccessKey());
-          }
           writer.endElement(HtmlElements.DIV);
         }
       }
@@ -303,7 +300,11 @@ public class TabGroupRenderer extends LayoutComponentRendererBase {
           entry.setTransient(true);
           entry.setOmit(true); // avoid submit
           final LabelWithAccessKey label = new LabelWithAccessKey(tab);
-          entry.setLabel(label.getText());
+          if (label.getLabel() != null) {
+            entry.setLabel(label.getLabel());
+          } else {
+            entry.setLabel(Integer.toString(index + 1));
+          }
           if (tab.isDisabled()) {
             entry.setDisabled(true);
           } else {

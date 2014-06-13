@@ -19,9 +19,85 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
+import org.apache.myfaces.tobago.component.Facets;
+import org.apache.myfaces.tobago.component.OnComponentPopulated;
+import org.apache.myfaces.tobago.component.SupportsRenderedPartially;
+import org.apache.myfaces.tobago.event.PopupFacetActionListener;
 import org.apache.myfaces.tobago.layout.LayoutComponent;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 
-public abstract class AbstractUICommand 
-    extends AbstractUICommandBase implements LayoutComponent {
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.event.FacesEvent;
+import javax.faces.event.PhaseId;
+import java.util.Iterator;
+
+public abstract class AbstractUICommand
+    extends AbstractUICommandBase
+    implements SupportsRenderedPartially, OnComponentPopulated, LayoutComponent {
+
+  public void onComponentPopulated(final FacesContext facesContext, final UIComponent parent) {
+    final AbstractUIPopup popup = (AbstractUIPopup) getFacet(Facets.POPUP);
+    if (popup != null) {
+      if (!ComponentUtils.containsPopupActionListener(this)) {
+        addActionListener(new PopupFacetActionListener());
+      }
+    }
+  }
+
+  public void processDecodes(final FacesContext context) {
+    if (context == null) {
+      throw new NullPointerException();
+    }
+
+    // Skip processing if our rendered flag is false
+    if (!isRendered()) {
+      return;
+    }
+
+    // Process this component itself
+    try {
+      decode(context);
+    } catch (final RuntimeException e) {
+      context.renderResponse();
+      throw e;
+    }
+
+    final Iterator kids = getFacetsAndChildren();
+    while (kids.hasNext()) {
+      final UIComponent kid = (UIComponent) kids.next();
+      kid.processDecodes(context);
+    }
+  }
+
+  public void queueEvent(final FacesEvent facesEvent) {
+    // fix for TOBAGO-262
+    super.queueEvent(facesEvent);
+    if (this == facesEvent.getSource()) {
+      if (isImmediate()) {
+        facesEvent.setPhaseId(PhaseId.APPLY_REQUEST_VALUES);
+      } else {
+        facesEvent.setPhaseId(PhaseId.INVOKE_APPLICATION);
+      }
+    }
+  }
+
+  public abstract String getLabel();
+
+  public abstract boolean isJsfResource();
+
+  public abstract String getResource();
+
+  public abstract String getLink();
+
+  public abstract String getOnclick();
+
+  public abstract String getTarget();
+
+  public abstract boolean isTransition();
+
+  public abstract String[] getRenderedPartially();
+
+  public abstract boolean isOmit();
 
 }

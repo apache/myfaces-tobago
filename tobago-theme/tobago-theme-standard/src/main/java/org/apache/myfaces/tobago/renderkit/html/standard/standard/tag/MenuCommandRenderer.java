@@ -27,7 +27,7 @@ import org.apache.myfaces.tobago.component.UIMenuCommand;
 import org.apache.myfaces.tobago.component.UISelectBooleanCheckbox;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
-import org.apache.myfaces.tobago.internal.util.AccessKeyMap;
+import org.apache.myfaces.tobago.internal.util.AccessKeyLogger;
 import org.apache.myfaces.tobago.internal.util.ObjectUtils;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.CommandRendererBase;
@@ -72,7 +72,6 @@ public class MenuCommandRenderer extends CommandRendererBase {
 
     final boolean disabled = command.isDisabled();
     final boolean firstLevel = RendererTypes.MENU_BAR.equals(command.getParent().getRendererType());
-    final LabelWithAccessKey label = new LabelWithAccessKey(command);
 
     if (command.getFacet(Facets.CHECKBOX) != null) {
       // checkbox menu
@@ -81,7 +80,9 @@ public class MenuCommandRenderer extends CommandRendererBase {
       final String image = checked ? "image/MenuCheckmark.gif" : null;
       final String hiddenId = checkbox.getClientId(facesContext);
       final CommandMap map = new CommandMap(new Command());
-      encodeItem(facesContext, writer, command, menu, label, map, disabled, firstLevel, image, null, "selectBoolean");
+      final LabelWithAccessKey label = new LabelWithAccessKey(command);
+      encodeItem(facesContext, writer,
+          command, menu, label, map, disabled, firstLevel, image, null, "selectBoolean", command.getClientId());
       encodeHidden(writer, hiddenId, checked);
     } else if (command.getFacet(Facets.RADIO) != null) {
       // radio menu
@@ -92,28 +93,21 @@ public class MenuCommandRenderer extends CommandRendererBase {
         final boolean checked = ObjectUtils.equals(item.getValue(), radio.getValue());
         final String image = checked ? "image/MenuRadioChecked.gif" : null;
         final String labelText = item.getLabel();
-        label.reset();
-
-        if (labelText != null) {
-          if (labelText.indexOf(LabelWithAccessKey.INDICATOR) > -1) {
-            label.setup(labelText);
-          } else {
-            label.setText(labelText);
-          }
-        } else {
-          LOG.warn("Menu item has label=null where clientId=" + clientId);
-        }
+        final LabelWithAccessKey label = new LabelWithAccessKey(labelText);
         final String formatted = RenderUtils.getFormattedValue(facesContext, radio, item.getValue());
         final CommandMap map = new CommandMap(
             new Command(clientId, null, null, null, null, null, null, null, null, null));
-        encodeItem(facesContext, writer, null, menu, label, map, disabled, firstLevel, image, formatted, "selectOne");
+        encodeItem(facesContext, writer,
+            null, menu, label, map, disabled, firstLevel, image, formatted, "selectOne", clientId);
       }
       encodeHidden(writer, hiddenId, getCurrentValue(facesContext, radio));
     } else {
       // normal menu command
       final String image = command.getImage();
       final CommandMap map = new CommandMap(new Command(facesContext, command));
-      encodeItem(facesContext, writer, command, menu, label, map, disabled, firstLevel, image, null, null);
+      final LabelWithAccessKey label = new LabelWithAccessKey(command);
+      encodeItem(
+          facesContext, writer, command, menu, label, map, disabled, firstLevel, image, null, null, menu.getClientId());
     }
   }
 
@@ -130,18 +124,18 @@ public class MenuCommandRenderer extends CommandRendererBase {
 
   private void encodeItem(
       final FacesContext facesContext, final TobagoResponseWriter writer,
-      final UIMenuCommand component, final UIMenu menu, final LabelWithAccessKey label,
+      final UIMenuCommand command, final UIMenu menu, final LabelWithAccessKey label,
       final CommandMap map, final boolean disabled, final boolean firstLevel, final String image, final String value,
-      final String sub)
+      final String sub, final String clientId)
       throws IOException {
 
     writer.startElement(HtmlElements.LI, null);
-    if (component != null && !component.isTransient()) {
-      writer.writeIdAttribute(component.getClientId(facesContext));
+    if (command != null && !command.isTransient()) {
+      writer.writeIdAttribute(command.getClientId(facesContext));
     }
     Markup markup = null;
-    if (component != null) {
-      markup = component.getCurrentMarkup();
+    if (command != null) {
+      markup = command.getCurrentMarkup();
       if (firstLevel) {
         markup = Markup.TOP.add(markup);
       }
@@ -158,8 +152,8 @@ public class MenuCommandRenderer extends CommandRendererBase {
     }
     writer.writeAttribute(DataAttributes.VALUE, value, true);
 
-    if (component != null) {
-      HtmlRendererUtils.writeDataAttributes(facesContext, writer, component);
+    if (command != null) {
+      HtmlRendererUtils.writeDataAttributes(facesContext, writer, command);
     }
 
     if (image != null) {
@@ -181,7 +175,7 @@ public class MenuCommandRenderer extends CommandRendererBase {
           writer.writeAttribute(DataAttributes.SRC_HOVER, imageHover, false);
         }
 
-        writer.writeAttribute(HtmlAttributes.ALT, label.getText(), true);
+        writer.writeAttribute(HtmlAttributes.ALT, "", true);
         writer.writeStyleAttribute(iconStyle);
         writer.endElement(HtmlElements.IMG);
       } else {
@@ -198,20 +192,14 @@ public class MenuCommandRenderer extends CommandRendererBase {
     if (image != null && firstLevel) {
       writer.writeStyleAttribute("vertical-align:top");
     }
-//    writer.writeIdAttribute(clientId);
 
-    if (label.getText() != null) {
-      if (label.getAccessKey() != null) {
-        if (LOG.isInfoEnabled()
-            && !AccessKeyMap.addAccessKey(facesContext, label.getAccessKey())) {
-          LOG.info("duplicated accessKey : " + label.getAccessKey());
-        }
-        if (!disabled && component != null && label.getAccessKey() != null) {
-          writer.writeAttribute(HtmlAttributes.ACCESSKEY, Character.toString(label.getAccessKey()), false);
-        }
-      }
-      HtmlRendererUtils.writeLabelWithAccessKey(writer, label);
+    if (!disabled && label.getAccessKey() != null) {
+      writer.writeAttribute(HtmlAttributes.ACCESSKEY, Character.toString(label.getAccessKey()), false);
+      AccessKeyLogger.addAccessKey(facesContext, label.getAccessKey(), clientId);
     }
+
+    HtmlRendererUtils.writeLabelWithAccessKey(writer, label);
+
     writer.endElement(HtmlElements.A);
     writer.endElement(HtmlElements.LI);
   }

@@ -24,6 +24,7 @@ package org.apache.myfaces.tobago.component;
  */
 public final class Attributes {
 
+  public static final String ACCESS_KEY = "accessKey";
   public static final String ACTION = "action";
   public static final String ACTION_LISTENER = "actionListener";
   public static final String ALIGN = "align";
@@ -64,6 +65,7 @@ public final class Attributes {
   public static final String EXECUTE = "execute";
   public static final String EVENT = "event";
   public static final String EXTRA_SMALL = "extraSmall";
+  public static final String FIELD_ID = "fieldId";
   public static final String FIRST = "first";
   public static final String FREQUENCY = "frequency";
   public static final String FOCUS = "focus";
@@ -95,6 +97,7 @@ public final class Attributes {
   public static final String JSF_RESOURCE = "jsfResource";
   public static final String LABEL = "label";
   public static final String LABEL_POSITION = "labelPosition";
+  public static final String LABEL_WIDTH = "labelWidth";
   public static final String LARGE = "large";
   public static final String LAYOUT_HEIGHT = "layoutHeight";
   public static final String LAYOUT_ORDER = "layoutOrder";

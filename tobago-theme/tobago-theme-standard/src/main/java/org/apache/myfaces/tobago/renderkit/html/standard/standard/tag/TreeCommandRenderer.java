@@ -21,8 +21,7 @@ package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
 import org.apache.myfaces.tobago.component.UITreeCommand;
 import org.apache.myfaces.tobago.component.UITreeNode;
-import org.apache.myfaces.tobago.internal.component.AbstractUICommand;
-import org.apache.myfaces.tobago.internal.util.AccessKeyMap;
+import org.apache.myfaces.tobago.internal.util.AccessKeyLogger;
 import org.apache.myfaces.tobago.renderkit.CommandRendererBase;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
@@ -64,8 +63,9 @@ public class TreeCommandRenderer extends CommandRendererBase {
     final String clientId = command.getClientId(facesContext);
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
     final LabelWithAccessKey label = new LabelWithAccessKey(command);
+    final boolean disabled = command.isDisabled();
 
-    if (command.isDisabled()) {
+    if (disabled) {
       writer.startElement(HtmlElements.SPAN, command);
     } else {
       writer.startElement(HtmlElements.A, command);
@@ -77,28 +77,17 @@ public class TreeCommandRenderer extends CommandRendererBase {
     writer.writeClassAttribute(Classes.create(command));
     writer.writeIdAttribute(clientId);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, command);
-    if (label.getAccessKey() != null) {
+    if (!disabled && label.getAccessKey() != null) {
       writer.writeAttribute(HtmlAttributes.ACCESSKEY, Character.toString(label.getAccessKey()), false);
+      AccessKeyLogger.addAccessKey(facesContext, label.getAccessKey(), clientId);
     }
     HtmlRendererUtils.renderTip(command, writer);
     writer.flush();
 
-//  label
-    if (label.getText() != null) {
-      HtmlRendererUtils.writeLabelWithAccessKey(writer, label);
-    }
-
-    if (label.getAccessKey() != null) {
-      if (LOG.isInfoEnabled()
-          && !AccessKeyMap.addAccessKey(facesContext, label.getAccessKey())) {
-        LOG.info("duplicated accessKey : " + label.getAccessKey());
-      }
-
-      HtmlRendererUtils.addClickAcceleratorKey(facesContext, clientId, label.getAccessKey());
-    }
+    HtmlRendererUtils.writeLabelWithAccessKey(writer, label);
   }
 
-  protected Style createStyle(final FacesContext facesContext, final AbstractUICommand link) {
+  protected Style createStyle(final FacesContext facesContext, final UITreeCommand link) {
     return new Style(facesContext, link);
   }
 

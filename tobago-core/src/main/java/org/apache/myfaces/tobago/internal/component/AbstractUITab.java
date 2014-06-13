@@ -19,10 +19,8 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
-/**
- * @deprecated since 2.0.0. Please use {@link AbstractUICommand}.
- */
-@Deprecated
-public abstract class AbstractUICommandBase extends javax.faces.component.UICommand {
+public abstract class AbstractUITab extends AbstractUIPanel {
+
+  public abstract String getLabel();
 
 }

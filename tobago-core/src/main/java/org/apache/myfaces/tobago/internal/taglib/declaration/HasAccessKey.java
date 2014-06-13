@@ -17,12 +17,17 @@
  * under the License.
  */
 
-package org.apache.myfaces.tobago.internal.component;
+package org.apache.myfaces.tobago.internal.taglib.declaration;
 
-/**
- * @deprecated since 2.0.0. Please use {@link AbstractUICommand}.
- */
-@Deprecated
-public abstract class AbstractUICommandBase extends javax.faces.component.UICommand {
+import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
+import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 
+public interface HasAccessKey {
+
+  /**
+   * The access key of this control.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type = {"java.lang.Character"})
+  void setAccessKey(String key);
 }

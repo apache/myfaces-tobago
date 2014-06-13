@@ -30,7 +30,7 @@ import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasBinding;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasConverter;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasId;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabelAndAccessKey;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabel;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsReadonly;
@@ -65,8 +65,7 @@ import javax.faces.component.UISelectOne;
         })
 public interface SelectOneChoiceTagDeclaration
     extends SelectOneTagDeclaration, HasId, IsDisabled,
-    IsReadonly, HasLabelAndAccessKey,
-    IsRendered, HasConverter, HasBinding, HasTip {
+    IsReadonly, HasLabel, IsRendered, HasConverter, HasBinding, HasTip {
 
   /**
    * Flag indicating that selecting an Item representing a value is required.

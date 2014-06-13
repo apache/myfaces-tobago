@@ -20,7 +20,7 @@
 package org.apache.myfaces.tobago.renderkit.html;
 
 import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.internal.component.AbstractUICommandBase;
+import org.apache.myfaces.tobago.internal.component.AbstractUICommand;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 
 public class Popup {
@@ -40,7 +40,7 @@ public class Popup {
     this.immediate = immediate;
   }
 
-  public static Popup createPopup(final AbstractUICommandBase component) {
+  public static Popup createPopup(final AbstractUICommand component) {
     String command = null;
     Boolean immediate = null;
 

@@ -81,6 +81,7 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
   private static final int STYLE = 109780401;
   private static final int PROPERTIES = -926053069;
   private static final int ENTRY = 96667762;
+  private static final int AUTO_ACCESS_KEY_FROM_LABEL = 2070339882;
 
   private TobagoConfigFragment tobagoConfig;
   private RendererConfig currentRenderer;
@@ -235,6 +236,7 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
       case FALLBACK:
       case SANITIZER:
       case SANITIZER_CLASS:
+      case AUTO_ACCESS_KEY_FROM_LABEL:
         break;
 
       default:
@@ -364,6 +366,10 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
       case ENTRY:
         properties.setProperty(entryKey, text);
         entryKey = null;
+        break;
+
+      case AUTO_ACCESS_KEY_FROM_LABEL:
+        tobagoConfig.setAutoAccessKeyFromLabel(Boolean.parseBoolean(text));
         break;
 
       case TOBAGO_CONFIG:

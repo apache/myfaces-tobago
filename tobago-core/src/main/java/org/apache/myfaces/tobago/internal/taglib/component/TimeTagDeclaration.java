@@ -26,7 +26,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasCss;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentCss;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabelAndAccessKey;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabel;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 import org.apache.myfaces.tobago.internal.taglib.declaration.InputTagDeclaration;
@@ -49,7 +49,6 @@ import javax.faces.component.UIInput;
     allowedChildComponenents = "NONE")
 public interface TimeTagDeclaration
     extends InputTagDeclaration, HasIdBindingAndRendered,
-    IsReadonly, IsDisabled, HasLabelAndAccessKey, HasTip, IsRequired, HasMarkup, HasCurrentMarkup,
-    HasCss, HasCurrentCss {
+    IsReadonly, IsDisabled, HasLabel, HasTip, IsRequired, HasMarkup, HasCurrentMarkup, HasCss, HasCurrentCss {
 
 }

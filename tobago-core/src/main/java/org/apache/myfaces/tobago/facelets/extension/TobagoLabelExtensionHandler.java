@@ -59,6 +59,7 @@ public abstract class TobagoLabelExtensionHandler extends ComponentHandler {
   private TagAttribute labelWidthAttribute;
   private TagAttribute tipAttribute;
   private TagAttribute labelAttribute;
+  private TagAttribute accessKeyAttribute;
   private TagAttribute markupAttribute;
   private TagAttribute fieldIdAttribute;
   private Class subComponentLastType = Object.class;
@@ -66,11 +67,12 @@ public abstract class TobagoLabelExtensionHandler extends ComponentHandler {
 
   public TobagoLabelExtensionHandler(final ComponentConfig config) {
     super(config);
-    labelWidthAttribute = getAttribute("labelWidth");
+    labelWidthAttribute = getAttribute(Attributes.LABEL_WIDTH);
     tipAttribute = getAttribute(Attributes.TIP);
     labelAttribute = getAttribute(Attributes.LABEL);
+    accessKeyAttribute = getAttribute(Attributes.ACCESS_KEY);
     markupAttribute = getAttribute(Attributes.MARKUP);
-    fieldIdAttribute = getAttribute("fieldId");
+    fieldIdAttribute = getAttribute(Attributes.FIELD_ID);
   }
 
   protected abstract String getSubComponentType();
@@ -164,6 +166,14 @@ public abstract class TobagoLabelExtensionHandler extends ComponentHandler {
       } else {
         final ValueExpression expression = labelAttribute.getValueExpression(faceletContext, String.class);
         label.setValueExpression(Attributes.VALUE, expression);
+      }
+    }
+    if (accessKeyAttribute != null) {
+      if (accessKeyAttribute.isLiteral()) {
+        label.setAccessKey(accessKeyAttribute.getValue(faceletContext).charAt(0));
+      } else {
+        final ValueExpression expression = accessKeyAttribute.getValueExpression(faceletContext, String.class);
+        label.setValueExpression(Attributes.ACCESS_KEY, expression);
       }
     }
     if (markupAttribute != null) {

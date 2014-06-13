@@ -65,6 +65,7 @@ public class TobagoConfigImpl extends TobagoConfig {
   private boolean setNosniffHeader;
   private Map<String, String> defaultValidatorInfo;
   private Sanitizer sanitizer;
+  private boolean autoAccessKeyFromLabel;
 
   private boolean unmodifiable = false;
 
@@ -77,6 +78,7 @@ public class TobagoConfigImpl extends TobagoConfig {
     preventFrameAttacks = true;
     setNosniffHeader = true;
     contentSecurityPolicy = new ContentSecurityPolicy(ContentSecurityPolicy.Mode.OFF.getValue());
+    autoAccessKeyFromLabel = true;
   }
 
   /**
@@ -347,6 +349,15 @@ public class TobagoConfigImpl extends TobagoConfig {
   protected void setSanitizer(Sanitizer sanitizer) {
     checkLocked();
     this.sanitizer = sanitizer;
+  }
+
+  public boolean isAutoAccessKeyFromLabel() {
+    return autoAccessKeyFromLabel;
+  }
+
+  public void setAutoAccessKeyFromLabel(boolean autoAccessKeyFromLabel) {
+    checkLocked();
+    this.autoAccessKeyFromLabel = autoAccessKeyFromLabel;
   }
 
   @Override

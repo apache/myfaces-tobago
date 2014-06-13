@@ -23,9 +23,12 @@ import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.AbstractCommandTagDeclaration;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasValue;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutComponent;
 
 import javax.faces.component.UICommand;
 
@@ -35,12 +38,11 @@ import javax.faces.component.UICommand;
 @Tag(name = "toolBarSelectOne")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIToolBarSelectOne",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUICommandBase",
+    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIToolBarSelectOne",
     uiComponentFacesClass = "javax.faces.component.UICommand",
-    interfaces = "org.apache.myfaces.tobago.component.SelectOneCommand",
     componentFamily = UICommand.COMPONENT_FAMILY,
     rendererType = RendererTypes.MENU_COMMAND,
     allowedChildComponenents = "NONE")
 public interface ToolBarSelectOneTagDeclaration extends AbstractCommandTagDeclaration,
-    HasIdBindingAndRendered, IsDisabled, HasValue {
+    HasIdBindingAndRendered, IsDisabled, HasValue, IsGridLayoutComponent, HasMarkup, HasCurrentMarkup {
 }

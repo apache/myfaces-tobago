@@ -24,8 +24,6 @@ import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.OnComponentCreated;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.util.ComponentUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -33,8 +31,6 @@ import javax.faces.event.FacesEvent;
 import javax.faces.render.Renderer;
 
 public abstract class AbstractUIDatePicker extends AbstractUILink implements OnComponentCreated {
-
-  private static final Logger LOG = LoggerFactory.getLogger(AbstractUIDatePicker.class);
 
   public abstract String getFor();
 
@@ -64,6 +60,14 @@ public abstract class AbstractUIDatePicker extends AbstractUILink implements OnC
     if (renderer instanceof RendererBase) {
       ((RendererBase) renderer).onComponentCreated(context, this, parent);
     }
+  }
+
+  public String getLabel() {
+    return null;
+  }
+
+  public Character getAccessKey() {
+    return null;
   }
 
   public String getTarget() {

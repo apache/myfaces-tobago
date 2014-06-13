@@ -21,7 +21,7 @@ package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
 import org.apache.myfaces.tobago.component.UILabel;
 import org.apache.myfaces.tobago.context.Markup;
-import org.apache.myfaces.tobago.internal.util.AccessKeyMap;
+import org.apache.myfaces.tobago.internal.util.AccessKeyLogger;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
@@ -87,22 +87,15 @@ public class LabelRenderer extends LayoutComponentRendererBase {
    * Can be overwritten in other themes.
    */
   protected void encodeTextContent(
-      final FacesContext facesContext, final TobagoResponseWriter writer, final UILabel label)
+      final FacesContext facesContext, final TobagoResponseWriter writer, final UILabel component)
       throws IOException {
-    final String clientId = label.getClientId(facesContext);
-    final LabelWithAccessKey key = new LabelWithAccessKey(label);
-    if (key.getAccessKey() != null) {
-      writer.writeAttribute(HtmlAttributes.ACCESSKEY, Character.toString(key.getAccessKey()), false);
+
+    final LabelWithAccessKey label = new LabelWithAccessKey(component);
+
+    if (label.getAccessKey() != null) {
+      writer.writeAttribute(HtmlAttributes.ACCESSKEY, Character.toString(label.getAccessKey()), false);
+      AccessKeyLogger.addAccessKey(facesContext, label.getAccessKey(), component.getClientId());
     }
-    if (key.getText() != null) {
-      HtmlRendererUtils.writeLabelWithAccessKey(writer, key);
-    }
-    if (key.getAccessKey() != null) {
-      if (LOG.isInfoEnabled()
-          && !AccessKeyMap.addAccessKey(facesContext, key.getAccessKey())) {
-        LOG.info("Duplicated accessKey : " + key.getAccessKey());
-      }
-      HtmlRendererUtils.addClickAcceleratorKey(facesContext, clientId, key.getAccessKey());
-    }
+    HtmlRendererUtils.writeLabelWithAccessKey(writer, label);
   }
 }

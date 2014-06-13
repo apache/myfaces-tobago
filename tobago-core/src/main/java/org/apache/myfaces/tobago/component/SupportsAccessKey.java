@@ -17,12 +17,11 @@
  * under the License.
  */
 
-package org.apache.myfaces.tobago.internal.component;
+package org.apache.myfaces.tobago.component;
 
-/**
- * @deprecated since 2.0.0. Please use {@link AbstractUICommand}.
- */
-@Deprecated
-public abstract class AbstractUICommandBase extends javax.faces.component.UICommand {
+public interface SupportsAccessKey {
 
+  Character getAccessKey();
+
+  String getLabel();
 }

@@ -19,7 +19,9 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
-public abstract class AbstractUILink extends AbstractUICommand {
+import org.apache.myfaces.tobago.component.SupportsAccessKey;
+
+public abstract class AbstractUILink extends AbstractUICommand implements SupportsAccessKey {
 
   public abstract java.lang.String getImage();
 
@@ -28,4 +30,6 @@ public abstract class AbstractUILink extends AbstractUICommand {
   public abstract String getTip();
 
   public abstract boolean isDisabled();
+
+  public abstract Character getAccessKey();
 }

@@ -22,7 +22,7 @@ package org.apache.myfaces.tobago.renderkit.html;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.ComponentTypes;
 import org.apache.myfaces.tobago.component.RendererTypes;
-import org.apache.myfaces.tobago.internal.component.AbstractUICommandBase;
+import org.apache.myfaces.tobago.internal.component.AbstractUICommand;
 import org.apache.myfaces.tobago.internal.config.AbstractTobagoTestBase;
 import org.apache.myfaces.tobago.util.CreateComponentUtils;
 import org.junit.Assert;
@@ -74,7 +74,7 @@ public class JsonUtilsUnitTest extends AbstractTobagoTestBase {
   @Test
   public void more() {
     final CommandMap map = new CommandMap();
-    final AbstractUICommandBase command = (AbstractUICommandBase)
+    final AbstractUICommand command = (AbstractUICommand)
         CreateComponentUtils.createComponent(facesContext, ComponentTypes.BUTTON, RendererTypes.BUTTON, "command");
     command.getAttributes().put(Attributes.POPUP_CLOSE, "immediate");
     command.setRenderedPartially(new String[] {"popup"});

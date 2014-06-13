@@ -51,6 +51,10 @@ import javax.faces.component.UICommand;
     uiComponent = "org.apache.myfaces.tobago.component.UIButton",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUICommand",
     uiComponentFacesClass = "javax.faces.component.UICommand",
+    interfaces = {
+        "org.apache.myfaces.tobago.layout.LayoutComponent",
+        "org.apache.myfaces.tobago.component.SupportsAccessKey"
+    },
     componentFamily = UICommand.COMPONENT_FAMILY,
     rendererType = RendererTypes.BUTTON,
     allowedChildComponenents = "NONE",
