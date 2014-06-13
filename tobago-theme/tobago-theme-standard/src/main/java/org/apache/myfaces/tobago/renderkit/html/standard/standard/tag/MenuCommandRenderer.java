@@ -26,7 +26,7 @@ import org.apache.myfaces.tobago.component.UIMenuCommand;
 import org.apache.myfaces.tobago.component.UISelectBooleanCheckbox;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
-import org.apache.myfaces.tobago.internal.util.AccessKeyMap;
+import org.apache.myfaces.tobago.internal.util.AccessKeyLogger;
 import org.apache.myfaces.tobago.internal.util.ObjectUtils;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.CommandRendererBase;
@@ -79,7 +79,8 @@ public class MenuCommandRenderer extends CommandRendererBase {
       final String hiddenId = checkbox.getClientId(facesContext);
       final CommandMap map = new CommandMap(new Command());
       final LabelWithAccessKey label = new LabelWithAccessKey(menu);
-      encodeItem(facesContext, writer, menu, label, map, disabled, firstLevel, image, null, "selectBoolean");
+      encodeItem(facesContext, writer,
+          menu, label, map, disabled, firstLevel, image, null, "selectBoolean", menu.getClientId());
       encodeHidden(writer, hiddenId, checked);
     } else if (menu.getFacet(Facets.RADIO) != null) {
       // radio menu
@@ -94,7 +95,8 @@ public class MenuCommandRenderer extends CommandRendererBase {
         final String formattedValue = RenderUtils.getFormattedValue(facesContext, radio, item.getValue());
         final CommandMap map = new CommandMap(
             new Command(clientId, null, null, null, null, null, null, null, null, null));
-        encodeItem(facesContext, writer, null, label, map, disabled, firstLevel, image, formattedValue, "selectOne");
+        encodeItem(
+            facesContext, writer, null, label, map, disabled, firstLevel, image, formattedValue, "selectOne", clientId);
       }
       encodeHidden(writer, hiddenId, getCurrentValue(facesContext, radio));
     } else {
@@ -102,7 +104,7 @@ public class MenuCommandRenderer extends CommandRendererBase {
       final String image = menu.getImage();
       final CommandMap map = new CommandMap(new Command(facesContext, menu));
       final LabelWithAccessKey label = new LabelWithAccessKey(menu);
-      encodeItem(facesContext, writer, menu, label, map, disabled, firstLevel, image, null, null);
+      encodeItem(facesContext, writer, menu, label, map, disabled, firstLevel, image, null, null, menu.getClientId());
     }
   }
 
@@ -121,12 +123,12 @@ public class MenuCommandRenderer extends CommandRendererBase {
       final FacesContext facesContext, final TobagoResponseWriter writer, final UIMenuCommand command,
       final LabelWithAccessKey label,
       final CommandMap map, final boolean disabled, final boolean firstLevel, final String image, final String value,
-      final String sub)
+      final String sub, final String clientId)
       throws IOException {
 
     writer.startElement(HtmlElements.LI, null);
     if (command != null && !command.isTransient()) {
-      writer.writeIdAttribute(command.getClientId(facesContext));
+      writer.writeIdAttribute(clientId);
     }
     Markup markup = null;
     if (command != null) {
@@ -189,10 +191,7 @@ public class MenuCommandRenderer extends CommandRendererBase {
 
     if (!disabled && label.getAccessKey() != null) {
       writer.writeAttribute(HtmlAttributes.ACCESSKEY, Character.toString(label.getAccessKey()), false);
-      if (LOG.isWarnEnabled()
-          && !AccessKeyMap.addAccessKey(facesContext, label.getAccessKey())) {
-        LOG.warn("duplicated accessKey : " + label.getAccessKey());
-      }
+      AccessKeyLogger.addAccessKey(facesContext, label.getAccessKey(), clientId);
     }
 
     HtmlRendererUtils.writeLabelWithAccessKey(writer, label);

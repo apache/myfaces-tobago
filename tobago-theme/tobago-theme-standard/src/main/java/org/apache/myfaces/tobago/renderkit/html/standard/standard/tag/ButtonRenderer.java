@@ -24,7 +24,7 @@ import org.apache.myfaces.tobago.component.UIButton;
 import org.apache.myfaces.tobago.config.Configurable;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.internal.component.AbstractUIForm;
-import org.apache.myfaces.tobago.internal.util.AccessKeyMap;
+import org.apache.myfaces.tobago.internal.util.AccessKeyLogger;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.CommandRendererBase;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
@@ -77,10 +77,7 @@ public class ButtonRenderer extends CommandRendererBase {
 
       if (label.getAccessKey() != null) {
         writer.writeAttribute(HtmlAttributes.ACCESSKEY, Character.toString(label.getAccessKey()), false);
-        if (LOG.isWarnEnabled()
-            && !AccessKeyMap.addAccessKey(facesContext, label.getAccessKey())) {
-          LOG.warn("duplicated accessKey : " + label.getAccessKey());
-        }
+        AccessKeyLogger.addAccessKey(facesContext, label.getAccessKey(), clientId);
       }
 
       final Integer tabIndex = button.getTabIndex();

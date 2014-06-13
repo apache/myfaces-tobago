@@ -20,7 +20,7 @@
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
 import org.apache.myfaces.tobago.component.UISelectBooleanCheckbox;
-import org.apache.myfaces.tobago.internal.util.AccessKeyMap;
+import org.apache.myfaces.tobago.internal.util.AccessKeyLogger;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
@@ -74,7 +74,7 @@ public class SelectBooleanCheckboxRenderer extends LayoutComponentRendererBase {
     final UISelectBooleanCheckbox select = (UISelectBooleanCheckbox) component;
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
-    final String id = select.getClientId(facesContext);
+    final String clientId = select.getClientId(facesContext);
     final String currentValue = getCurrentValue(facesContext, select);
     final boolean checked = "true".equals(currentValue);
     final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, select);
@@ -92,14 +92,14 @@ public class SelectBooleanCheckboxRenderer extends LayoutComponentRendererBase {
     writer.startElement(HtmlElements.INPUT, select);
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.CHECKBOX, false);
     writer.writeAttribute(HtmlAttributes.VALUE, "true", false);
-    writer.writeNameAttribute(id);
-    writer.writeIdAttribute(id);
+    writer.writeNameAttribute(clientId);
+    writer.writeIdAttribute(clientId);
     writer.writeAttribute(HtmlAttributes.CHECKED, checked);
     writer.writeAttribute(HtmlAttributes.READONLY, select.isReadonly());
     writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
     writer.writeAttribute(HtmlAttributes.REQUIRED, select.isRequired());
 
-    HtmlRendererUtils.renderFocus(id, select.isFocus(), ComponentUtils.isError(select), facesContext, writer);
+    HtmlRendererUtils.renderFocus(clientId, select.isFocus(), ComponentUtils.isError(select), facesContext, writer);
 
     final Integer tabIndex = select.getTabIndex();
     if (tabIndex != null) {
@@ -110,14 +110,11 @@ public class SelectBooleanCheckboxRenderer extends LayoutComponentRendererBase {
 
     if (label.getLabel() != null) {
       writer.startElement(HtmlElements.LABEL, select);
-      writer.writeAttribute(HtmlAttributes.FOR, id, false);
+      writer.writeAttribute(HtmlAttributes.FOR, clientId, false);
 
       if (!disabled && label.getAccessKey() != null) {
         writer.writeAttribute(HtmlAttributes.ACCESSKEY, Character.toString(label.getAccessKey()), false);
-        if (LOG.isWarnEnabled()
-            && !AccessKeyMap.addAccessKey(facesContext, label.getAccessKey())) {
-          LOG.warn("duplicated accessKey : " + label.getAccessKey());
-        }
+        AccessKeyLogger.addAccessKey(facesContext, label.getAccessKey(), clientId);
       }
 
       HtmlRendererUtils.writeLabelWithAccessKey(writer, label);

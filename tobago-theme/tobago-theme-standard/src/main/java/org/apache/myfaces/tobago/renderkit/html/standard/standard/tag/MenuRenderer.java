@@ -23,7 +23,7 @@ import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.UIMenu;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
-import org.apache.myfaces.tobago.internal.util.AccessKeyMap;
+import org.apache.myfaces.tobago.internal.util.AccessKeyLogger;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
@@ -109,10 +109,8 @@ public class MenuRenderer extends LayoutComponentRendererBase {
 
     if (!disabled && label.getAccessKey() != null) {
       writer.writeAttribute(HtmlAttributes.ACCESSKEY, Character.toString(label.getAccessKey()), false);
-      if (LOG.isWarnEnabled()
-          && !AccessKeyMap.addAccessKey(facesContext, label.getAccessKey())) {
-        LOG.warn("duplicated accessKey : " + label.getAccessKey());
-      }
+      AccessKeyLogger.addAccessKey(facesContext, label.getAccessKey(),
+          component.isTransient() ? null : component.getClientId(facesContext));
     }
 
     HtmlRendererUtils.writeLabelWithAccessKey(writer, label);

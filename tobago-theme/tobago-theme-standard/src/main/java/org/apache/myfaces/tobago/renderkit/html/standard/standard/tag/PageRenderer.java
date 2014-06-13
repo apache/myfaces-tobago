@@ -34,7 +34,7 @@ import org.apache.myfaces.tobago.context.Theme;
 import org.apache.myfaces.tobago.internal.ajax.AjaxInternalUtils;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPage;
 import org.apache.myfaces.tobago.internal.layout.LayoutContext;
-import org.apache.myfaces.tobago.internal.util.AccessKeyMap;
+import org.apache.myfaces.tobago.internal.util.AccessKeyLogger;
 import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
 import org.apache.myfaces.tobago.internal.util.MimeTypeUtils;
 import org.apache.myfaces.tobago.internal.util.ResponseUtils;
@@ -605,10 +605,7 @@ public class PageRenderer extends PageRendererBase {
       writer.endElement(HtmlElements.BODY);
     }
 
-    if (LOG.isDebugEnabled()) {
-      LOG.debug("unused AccessKeys    : " + AccessKeyMap.getUnusedKeys(facesContext));
-      LOG.debug("duplicated AccessKeys: " + AccessKeyMap.getDublicatedKeys(facesContext));
-    }
+    AccessKeyLogger.logStatus(facesContext);
 
     if (facesContext.getExternalContext().getRequestParameterMap().get("X") != null) {
       throw new RuntimeException("Debugging activated via X parameter");

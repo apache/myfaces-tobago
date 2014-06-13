@@ -32,7 +32,7 @@ import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.event.TabChangeEvent;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPanelBase;
-import org.apache.myfaces.tobago.internal.util.AccessKeyMap;
+import org.apache.myfaces.tobago.internal.util.AccessKeyLogger;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
@@ -219,10 +219,7 @@ public class TabGroupRenderer extends LayoutComponentRendererBase {
 
           if (!disabled && label.getAccessKey() != null) {
             writer.writeAttribute(HtmlAttributes.ACCESSKEY, Character.toString(label.getAccessKey()), false);
-            if (LOG.isWarnEnabled()
-                && !AccessKeyMap.addAccessKey(facesContext, label.getAccessKey())) {
-              LOG.warn("duplicated accessKey : " + label.getAccessKey());
-            }
+            AccessKeyLogger.addAccessKey(facesContext, label.getAccessKey(), tabId);
           }
 
           String image = tab.getImage();
