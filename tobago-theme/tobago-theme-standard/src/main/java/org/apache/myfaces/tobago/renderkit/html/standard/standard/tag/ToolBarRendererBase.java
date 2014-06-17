@@ -392,7 +392,7 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
     if (!toolBar.isTransient()) {
       writer.writeIdAttribute(command.getClientId(facesContext));
     }
-    if (map != null) {
+    if (!disabled && map != null) {
       writer.writeAttribute(DataAttributes.COMMANDS, JsonUtils.encode(map), true);
     }
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, command);
