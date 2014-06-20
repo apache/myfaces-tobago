@@ -49,7 +49,7 @@ public abstract class AbstractUIDatePicker extends AbstractUILink implements OnC
 
   public void broadcast(final FacesEvent facesEvent) {
 
-    if (! TobagoConfig.getInstance(FacesContext.getCurrentInstance()).isClassicDateTimePicker()) {
+    if (!TobagoConfig.getInstance(FacesContext.getCurrentInstance()).isClassicDateTimePicker()) {
       return;
     }
 
@@ -68,7 +68,7 @@ public abstract class AbstractUIDatePicker extends AbstractUILink implements OnC
 
   public void onComponentCreated(final FacesContext facesContext, final UIComponent parent) {
 
-    if (! TobagoConfig.getInstance(facesContext).isClassicDateTimePicker()) {
+    if (!TobagoConfig.getInstance(facesContext).isClassicDateTimePicker()) {
       return;
     }
 

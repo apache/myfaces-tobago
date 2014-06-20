@@ -65,7 +65,7 @@ public class DatePickerRenderer extends LinkRenderer {
   public void onComponentCreated(
       final FacesContext facesContext, final UIComponent component, final UIComponent parent) {
 
-    if (! TobagoConfig.getInstance(facesContext).isClassicDateTimePicker()) {
+    if (!TobagoConfig.getInstance(facesContext).isClassicDateTimePicker()) {
       return;
     }
 
@@ -113,7 +113,7 @@ public class DatePickerRenderer extends LinkRenderer {
         facesContext, UICalendar.COMPONENT_TYPE, RendererTypes.CALENDAR, "calendar");
     box.getChildren().add(calendar);
 
-     // fixme: should work automatically from the layout manager
+    // fixme: should work automatically from the layout manager
     final Measure width = getResourceManager().getThemeMeasure(facesContext, calendar, "minimumWidth");
     layoutOfBox.setColumns(width.serialize());
 
@@ -174,7 +174,7 @@ public class DatePickerRenderer extends LinkRenderer {
   @Override
   public void prepareRender(final FacesContext facesContext, final UIComponent component) throws IOException {
 
-    if (! TobagoConfig.getInstance(facesContext).isClassicDateTimePicker()) {
+    if (!TobagoConfig.getInstance(facesContext).isClassicDateTimePicker()) {
       return;
     }
 
@@ -193,7 +193,7 @@ public class DatePickerRenderer extends LinkRenderer {
   @Override
   public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
 
-    if (! TobagoConfig.getInstance(facesContext).isClassicDateTimePicker()) {
+    if (!TobagoConfig.getInstance(facesContext).isClassicDateTimePicker()) {
       return;
     }
 
@@ -216,7 +216,7 @@ public class DatePickerRenderer extends LinkRenderer {
       }
     }
     final UIPopup popup = (UIPopup) picker.getFacets().get(Facets.POPUP);
-    picker.setRenderedPartially(new String[] {popup.getId()});
+    picker.setRenderedPartially(new String[]{popup.getId()});
     final Converter converter = getConverter(facesContext, dateInput);
     String converterPattern = "yyyy-MM-dd"; // from tobago-calendar.js  initCalendarParse
     if (converter instanceof DateTimeConverter) {
@@ -258,7 +258,7 @@ public class DatePickerRenderer extends LinkRenderer {
   @Override
   public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
 
-    if (! TobagoConfig.getInstance(facesContext).isClassicDateTimePicker()) {
+    if (!TobagoConfig.getInstance(facesContext).isClassicDateTimePicker()) {
       return;
     }
 

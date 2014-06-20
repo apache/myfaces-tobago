@@ -61,7 +61,7 @@ public class DateExtensionHandler extends TobagoLabelExtensionHandler {
       final FaceletContext faceletContext, final UIComponent panel, final UIComponent parent) {
     super.onComponentPopulated(faceletContext, panel, parent);
 
-    if (! TobagoConfig.getInstance(faceletContext.getFacesContext()).isClassicDateTimePicker()) {
+    if (!TobagoConfig.getInstance(faceletContext.getFacesContext()).isClassicDateTimePicker()) {
       return;
     }
 
