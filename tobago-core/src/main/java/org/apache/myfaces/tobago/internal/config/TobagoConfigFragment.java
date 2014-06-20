@@ -50,6 +50,7 @@ public class TobagoConfigFragment {
   private String sanitizerClass;
   private Properties sanitizerProperties;
   private Boolean autoAccessKeyFromLabel;
+  private Boolean classicDateTimePicker;
 
   public TobagoConfigFragment() {
     before = new ArrayList<String>();
@@ -198,6 +199,14 @@ public class TobagoConfigFragment {
 
   public void setAutoAccessKeyFromLabel(Boolean autoAccessKeyFromLabel) {
     this.autoAccessKeyFromLabel = autoAccessKeyFromLabel;
+  }
+
+  public Boolean getClassicDateTimePicker() {
+    return classicDateTimePicker;
+  }
+
+  public void setClassicDateTimePicker(String classicDateTimePicker) {
+    this.classicDateTimePicker = Boolean.valueOf(classicDateTimePicker);
   }
 
   @Override

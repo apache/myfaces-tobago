@@ -31,6 +31,7 @@ import org.apache.myfaces.tobago.component.UIGridLayout;
 import org.apache.myfaces.tobago.component.UIPanel;
 import org.apache.myfaces.tobago.component.UIPopup;
 import org.apache.myfaces.tobago.component.UITime;
+import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.event.PopupActionListener;
 import org.apache.myfaces.tobago.internal.util.DateFormatUtils;
 import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
@@ -51,6 +52,11 @@ import javax.faces.convert.DateTimeConverter;
 import java.io.IOException;
 import java.util.TimeZone;
 
+/**
+ * @deprecated Since 2.0.0. It's no longer needed, because this is resolved by JavaScript now.
+ * Set backward compatibility mode via classic-date-time-picker.
+ */
+@Deprecated
 public class DatePickerRenderer extends LinkRenderer {
 
   private static final Logger LOG = LoggerFactory.getLogger(DatePickerRenderer.class);
@@ -58,6 +64,11 @@ public class DatePickerRenderer extends LinkRenderer {
   @Override
   public void onComponentCreated(
       final FacesContext facesContext, final UIComponent component, final UIComponent parent) {
+
+    if (! TobagoConfig.getInstance(facesContext).isClassicDateTimePicker()) {
+      return;
+    }
+
     final UIDatePicker picker = (UIDatePicker) component;
     if (picker.getFor() == null) {
       picker.setFor("@auto");
@@ -162,6 +173,11 @@ public class DatePickerRenderer extends LinkRenderer {
 
   @Override
   public void prepareRender(final FacesContext facesContext, final UIComponent component) throws IOException {
+
+    if (! TobagoConfig.getInstance(facesContext).isClassicDateTimePicker()) {
+      return;
+    }
+
     final UIDatePicker picker = (UIDatePicker) component;
     // todo: use Measure instead of int
     // todo: call setWidth ???
@@ -176,10 +192,15 @@ public class DatePickerRenderer extends LinkRenderer {
 
   @Override
   public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
+
+    if (! TobagoConfig.getInstance(facesContext).isClassicDateTimePicker()) {
+      return;
+    }
+
     final UIDatePicker picker = (UIDatePicker) component;
     final UIDate dateInput = (UIDate) picker.getForComponent();
     if (dateInput == null) {
-      LOG.error("The required UIDate component wasn't found for component id='" + component.getId());
+      LOG.error("The required UIDate component wasn't found for component id='" + picker.getId());
       return;
     }
     // this can't be done in "onComponentPopulated()" of the picker, it seems to be to early
@@ -210,7 +231,8 @@ public class DatePickerRenderer extends LinkRenderer {
     if (!ComponentUtils.containsPopupActionListener(picker)) {
       picker.addActionListener(new PopupActionListener(popup.getId()));
     }
-    super.encodeBegin(facesContext, component);
+
+    super.encodeBegin(facesContext, picker);
   }
 
   private void applyConverterPattern(
@@ -235,6 +257,11 @@ public class DatePickerRenderer extends LinkRenderer {
 
   @Override
   public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
+
+    if (! TobagoConfig.getInstance(facesContext).isClassicDateTimePicker()) {
+      return;
+    }
+
     final UIDatePicker link = (UIDatePicker) component;
     final UIDate dateInput = (UIDate) link.getForComponent();
     if (dateInput != null) {

@@ -82,6 +82,7 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
   private static final int PROPERTIES = -926053069;
   private static final int ENTRY = 96667762;
   private static final int AUTO_ACCESS_KEY_FROM_LABEL = 2070339882;
+  private static final int CLASSIC_DATE_TIME_PICKER = -879394870; // "classic-date-time-picker".hashCode()
 
   private TobagoConfigFragment tobagoConfig;
   private RendererConfig currentRenderer;
@@ -237,6 +238,7 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
       case SANITIZER:
       case SANITIZER_CLASS:
       case AUTO_ACCESS_KEY_FROM_LABEL:
+      case CLASSIC_DATE_TIME_PICKER:
         break;
 
       default:
@@ -370,6 +372,10 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
 
       case AUTO_ACCESS_KEY_FROM_LABEL:
         tobagoConfig.setAutoAccessKeyFromLabel(Boolean.parseBoolean(text));
+        break;
+
+      case CLASSIC_DATE_TIME_PICKER:
+        tobagoConfig.setClassicDateTimePicker(text);
         break;
 
       case TOBAGO_CONFIG:

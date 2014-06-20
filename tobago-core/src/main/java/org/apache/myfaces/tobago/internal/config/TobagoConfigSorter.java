@@ -132,6 +132,10 @@ public class TobagoConfigSorter implements Comparator<TobagoConfigFragment> {
         result.setAutoAccessKeyFromLabel(fragment.getAutoAccessKeyFromLabel());
       }
 
+      if (fragment.getClassicDateTimePicker() != null) {
+        result.setClassicDateTimePicker(fragment.getClassicDateTimePicker());
+      }
+
       // theme definition
       // todo
 /*

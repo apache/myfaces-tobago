@@ -66,6 +66,7 @@ public class TobagoConfigImpl extends TobagoConfig {
   private Map<String, String> defaultValidatorInfo;
   private Sanitizer sanitizer;
   private boolean autoAccessKeyFromLabel;
+  private boolean classicDateTimePicker;
 
   private boolean unmodifiable = false;
 
@@ -79,6 +80,7 @@ public class TobagoConfigImpl extends TobagoConfig {
     setNosniffHeader = true;
     contentSecurityPolicy = new ContentSecurityPolicy(ContentSecurityPolicy.Mode.OFF.getValue());
     autoAccessKeyFromLabel = true;
+    classicDateTimePicker = false;
   }
 
   /**
@@ -358,6 +360,14 @@ public class TobagoConfigImpl extends TobagoConfig {
   public void setAutoAccessKeyFromLabel(boolean autoAccessKeyFromLabel) {
     checkLocked();
     this.autoAccessKeyFromLabel = autoAccessKeyFromLabel;
+  }
+
+  public boolean isClassicDateTimePicker() {
+    return classicDateTimePicker;
+  }
+
+  public void setClassicDateTimePicker(boolean classicDateTimePicker) {
+    this.classicDateTimePicker = classicDateTimePicker;
   }
 
   @Override

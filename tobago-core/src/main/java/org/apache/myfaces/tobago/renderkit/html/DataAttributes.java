@@ -50,7 +50,10 @@ public final class DataAttributes {
 
   /**
    * Reference to the corresponding date input field. Used for date picker popups.
+   *
+   * @deprecated Since 2.0.0. It's no longer needed, because this is resolved by JavaScript now.
    */
+  @Deprecated
   public static final String DATE_INPUT_ID = "data-tobago-date-input-id";
 
   /** @deprecated Since 1.5.11 */
@@ -58,8 +61,16 @@ public final class DataAttributes {
   public static final String DATEINPUTID = DATE_INPUT_ID;
 
   /**
-   * Marker for the OK-button of the date picker popup.
+   * Marker for the compatibility mode.
    */
+  public static final String CLASSIC_DATE_TIME_PICKER = "data-tobago-classic-date-time-picker";
+
+  /**
+   * Marker for the OK-button of the date picker popup.
+   *
+   * @deprecated Since 2.0.0. It's no longer needed, because this is resolved by JavaScript now.
+   */
+  @Deprecated
   public static final String DATE_PICKER_OK = "data-tobago-date-picker-ok";
 
   /** @deprecated Since 1.5.11 */

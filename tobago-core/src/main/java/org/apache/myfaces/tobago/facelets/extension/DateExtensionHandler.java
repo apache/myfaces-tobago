@@ -25,13 +25,13 @@ import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.UIDate;
 import org.apache.myfaces.tobago.component.UIDatePicker;
 import org.apache.myfaces.tobago.component.UIForm;
+import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.context.Markup;
-import org.apache.myfaces.tobago.util.ComponentUtils;
 
 import javax.el.ValueExpression;
 import javax.faces.application.Application;
 import javax.faces.component.UIComponent;
-import javax.faces.component.UIViewRoot;
+import javax.faces.context.FacesContext;
 import javax.faces.view.facelets.ComponentConfig;
 import javax.faces.view.facelets.FaceletContext;
 import javax.faces.view.facelets.TagAttribute;
@@ -60,10 +60,13 @@ public class DateExtensionHandler extends TobagoLabelExtensionHandler {
   public void onComponentPopulated(
       final FaceletContext faceletContext, final UIComponent panel, final UIComponent parent) {
     super.onComponentPopulated(faceletContext, panel, parent);
+
+    if (! TobagoConfig.getInstance(faceletContext.getFacesContext()).isClassicDateTimePicker()) {
+      return;
+    }
+
     if (panel.getChildCount() == 2) {
       final Application application = faceletContext.getFacesContext().getApplication();
-      final UIViewRoot root = ComponentUtils.findViewRoot(faceletContext, parent);
-
       final UIForm form = (UIForm) application.createComponent(UIForm.COMPONENT_TYPE);
       form.setRendererType(RendererTypes.FORM);
       final String formId = formIdAttribute != null
@@ -96,6 +99,11 @@ public class DateExtensionHandler extends TobagoLabelExtensionHandler {
   }
 
   protected String getColumns(final String first) {
-    return first + ";*;auto";
+
+    if (TobagoConfig.getInstance(FacesContext.getCurrentInstance()).isClassicDateTimePicker()) {
+      return first + ";*;auto";
+    } else {
+      return super.getColumns(first);
+    }
   }
 }

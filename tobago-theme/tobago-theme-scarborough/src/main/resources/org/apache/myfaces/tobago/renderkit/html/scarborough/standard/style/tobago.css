@@ -1435,6 +1435,37 @@ a:active.tobago-sheet-pagingLink {
   left: 92px;
 }
 
+input.tobago-time {
+  font-family: arial, helvetica, sans-serif;
+  font-size: 16px;
+  background: #ffffff;
+  height: 17px;
+  color: #000000;
+  border: 2px inset #bbccdd;
+  margin: 0;
+  padding: 2px;
+}
+
+input.tobago-time-markup-required {
+  background-image: url( "../image/required.gif" );
+  background-position: 3px 50%;
+  background-repeat: no-repeat;
+}
+
+input.tobago-time-markup-readonly {
+  background: #bbccdd;
+}
+
+input.tobago-time-markup-disabled {
+  color: #778899;
+  background: #bbccdd;
+}
+
+input.tobago-time-markup-error, input.tobago-time-markup-fatal {
+  border-style: solid;
+  border-color: #ff0000;
+}
+
 /* toolBar ----------------------------------------------------------------- */
 
 /* FIXME this is the same code for "toolBar", "boxToolBar" and "tabGroupToolBar"

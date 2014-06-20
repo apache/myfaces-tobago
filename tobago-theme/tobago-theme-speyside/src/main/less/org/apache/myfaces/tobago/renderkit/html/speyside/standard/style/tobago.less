@@ -870,6 +870,35 @@ div.tobago-tabGroup-toolBar {
   left: 88px;
 }
 
+input.tobago-time {
+  border: 1px solid darken(@borderColor, 10%);
+  height: 14px;
+  font: @font;
+  padding-left: 2px;
+  padding-right: 2px;
+  .border-radius;
+  .transitionBorder;
+  &:focus {
+    outline: none;
+    border-color: @focusColor;
+    .field-focus-shadow;
+  }
+}
+
+input.tobago-time-markup-readonly {
+  background-color: @readonlyBackgroundColor;
+}
+
+input.tobago-time-markup-disabled {
+  color: @disabledTextColor;
+  background-color: @disabledBackgroundColor;
+}
+
+input.tobago-time-markup-error, input.tobago-time-markup-fatal {
+  border: 1px solid @errorColor;
+}
+
+
 /* toolBar ----------------------------------------------------------------- */
 
 /* FIXME this is the same code for "toolBar", "boxToolBar" and "tabGroupToolBar"

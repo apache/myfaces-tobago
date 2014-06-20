@@ -378,7 +378,11 @@
       <resources production="true">
         <script name="script/jquery-1.11.1.js"/>
         <script name="script/jquery-ui-1.10.4.custom.js"/>
+        <!--<script name="script/jquery-ui-i18n.js"/>-->
+        <script name="script/jquery-ui-timepicker-addon-1.4.5.js"/>
         <script name="script/tobago.js"/>
+        <style name="style/ui-lightness/jquery-ui-1.10.4.custom.css"/>
+        <style name="style/jquery-ui-timepicker-addon-1.4.5.css"/>
         <style name="style/tobago.css"/>
         <!-- backward compatibility -->
         <style name="style/style.css"/>
@@ -386,6 +390,8 @@
       <resources production="false">
         <script name="script/jquery-1.11.1.js"/>
         <script name="script/jquery-ui-1.10.4.custom.js"/>
+        <!--<script name="script/jquery-ui-i18n.js"/>-->
+        <script name="script/jquery-ui-timepicker-addon-1.4.5.js"/>
         <script name="script/tobago.js"/>
         <script name="script/tobago-calendar.js"/>
         <script name="script/tobago-console.js"/>
@@ -399,6 +405,8 @@
         <script name="script/tobago-tree.js"/>
         <script name="script/tobago-utils.js"/>
         <script name="script/tobago-logging.js"/>
+        <style name="style/ui-lightness/jquery-ui-1.10.4.custom.css"/>
+        <style name="style/jquery-ui-timepicker-addon-1.4.5.css"/>
         <style name="style/tobago.css"/>
         <!-- backward compatibility -->
         <style name="style/style.css"/>

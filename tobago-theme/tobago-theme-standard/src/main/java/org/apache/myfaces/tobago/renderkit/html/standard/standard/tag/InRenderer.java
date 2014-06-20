@@ -70,6 +70,7 @@ public class InRenderer extends InputRendererBase {
     final String id = input.getClientId(facesContext);
     final boolean readonly = input.isReadonly();
     final boolean disabled = input.isDisabled();
+    final boolean required = ComponentUtils.getBooleanAttribute(input, Attributes.REQUIRED);
 
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
@@ -128,7 +129,6 @@ public class InRenderer extends InputRendererBase {
      //      writer.writeAttribute(HtmlAttributes.ONCHANGE, onchange, null);
        }
      } */
-    final boolean required = ComponentUtils.getBooleanAttribute(input, Attributes.REQUIRED);
     writer.writeAttribute(HtmlAttributes.REQUIRED, required);
     HtmlRendererUtils.renderFocus(id, input.isFocus(), ComponentUtils.isError(input), facesContext, writer);
     writeAdditionalAttributes(facesContext, writer, input);

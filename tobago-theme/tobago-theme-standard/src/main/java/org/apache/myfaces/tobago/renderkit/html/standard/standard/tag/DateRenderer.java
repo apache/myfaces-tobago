@@ -19,6 +19,7 @@
 
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
+import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.internal.component.AbstractUIInput;
 import org.apache.myfaces.tobago.internal.util.DateFormatUtils;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
@@ -54,6 +55,10 @@ public class DateRenderer extends InRenderer {
     }
 
     writer.writeAttribute(DataAttributes.PATTERN, pattern, true);
+
+    if (TobagoConfig.getInstance(facesContext).isClassicDateTimePicker()) {
+      // to make the compatibility mode
+      writer.writeAttribute(DataAttributes.CLASSIC_DATE_TIME_PICKER, "", false);
+    }
   }
 }
-

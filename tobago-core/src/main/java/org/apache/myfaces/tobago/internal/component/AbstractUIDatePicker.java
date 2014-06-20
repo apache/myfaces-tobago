@@ -22,6 +22,7 @@ package org.apache.myfaces.tobago.internal.component;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.OnComponentCreated;
+import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 
@@ -30,6 +31,11 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.FacesEvent;
 import javax.faces.render.Renderer;
 
+/**
+ * @deprecated Since 2.0.0. It's no longer needed, because this is resolved by JavaScript now.
+ * Set backward compatibility mode via classic-date-time-picker.
+ */
+@Deprecated
 public abstract class AbstractUIDatePicker extends AbstractUILink implements OnComponentCreated {
 
   public abstract String getFor();
@@ -42,6 +48,11 @@ public abstract class AbstractUIDatePicker extends AbstractUILink implements OnC
   }
 
   public void broadcast(final FacesEvent facesEvent) {
+
+    if (! TobagoConfig.getInstance(FacesContext.getCurrentInstance()).isClassicDateTimePicker()) {
+      return;
+    }
+
     final FacesContext facesContext = FacesContext.getCurrentInstance();
     final UIComponent popup = (UIComponent) getFacets().get(Facets.POPUP);
     final String clientId = getForComponent().getClientId(facesContext);
@@ -55,10 +66,15 @@ public abstract class AbstractUIDatePicker extends AbstractUILink implements OnC
     super.broadcast(facesEvent);
   }
 
-  public void onComponentCreated(final FacesContext context, final UIComponent parent) {
+  public void onComponentCreated(final FacesContext facesContext, final UIComponent parent) {
+
+    if (! TobagoConfig.getInstance(facesContext).isClassicDateTimePicker()) {
+      return;
+    }
+
     final Renderer renderer = getRenderer(getFacesContext());
     if (renderer instanceof RendererBase) {
-      ((RendererBase) renderer).onComponentCreated(context, this, parent);
+      ((RendererBase) renderer).onComponentCreated(facesContext, this, parent);
     }
   }
 

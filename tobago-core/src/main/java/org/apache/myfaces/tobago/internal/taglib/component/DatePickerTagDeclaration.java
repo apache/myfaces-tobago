@@ -37,7 +37,11 @@ import javax.faces.component.UICommand;
  * The component needs a DateFormat Pattern from a converter. The converter
  * should be an instance of DateTimeConverter and return a valid pattern from
  * the method getPattern()
+ *
+ * @deprecated Since 2.0.0. It's no longer needed, because this is resolved by JavaScript now.
+ * Set backward compatibility mode via classic-date-time-picker.
  */
+@Deprecated
 @Tag(name = "datePicker")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIDatePicker",
