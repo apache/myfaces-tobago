@@ -58,7 +58,9 @@
           <tc:validateSubmittedValueLength maximum="10"/>
         </tx:date>
         <tx:time label="#{overviewBundle.basic_timeLabel}" tabIndex="5"
-                 value="#{overviewController.basicTime}"/>
+                 value="#{overviewController.basicTime}">
+          <f:convertDateTime type="time" timeStyle="medium"/>
+        </tx:time>
         <tx:in value="#{overviewController.placeholder}" tabIndex="6"
                label="Placeholder" placeholder="Search..."/>
       </tc:panel>
