@@ -686,7 +686,13 @@ var Tobago = {
     }
   },
 
+/**
+ *
+ * @param id is a string or an array
+ */
   reloadComponent: function(source, id, actionId, options) {
+
+  // TODO: it seems if there is a container and is is an array, this will not work.
 
     var container = this.ajaxComponents[id];
     if (typeof container == 'string') {
@@ -1774,7 +1780,7 @@ Tobago.ScriptLoader = function(names, doAfter) {
 };
 
 Tobago.Transport = {
-  requests: new Array(),
+  requests: [],
   currentActionId: null,
   pageSubmitted: false,
   ajaxTransport: undefined,
