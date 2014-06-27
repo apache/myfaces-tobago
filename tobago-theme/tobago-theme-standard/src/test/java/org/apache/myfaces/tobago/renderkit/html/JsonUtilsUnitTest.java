@@ -89,7 +89,7 @@ public class JsonUtilsUnitTest extends AbstractTobagoTestBase {
             + "'transition':false,"
             + "'target':'_blank',"
             + "'url':'http://www.apache.org/',"
-            + "'partially':'id1,id2',"
+            + "'partially':['id1','id2'],"
             + "'focus':'id_focus',"
             + "'confirmation':'Really?',"
             + "'delay':1000,"

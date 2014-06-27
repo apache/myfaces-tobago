@@ -29,16 +29,18 @@ public class JsonUtils {
   private static void encode(final StringBuilder builder, final String name, final String[] value) {
     builder.append("\"");
     builder.append(name);
-    builder.append("\":\"");
+    builder.append("\":[");
     boolean colon = false;
     for (final String item : value) {
       if (colon) {
         builder.append(",");
       }
+      builder.append("\"");
       builder.append(item);
+      builder.append("\"");
       colon = true;
     }
-    builder.append("\",");
+    builder.append("],");
   }
 
   static void encode(final StringBuilder builder, final String name, final Boolean value) {
@@ -116,7 +118,11 @@ public class JsonUtils {
     }
     final String[] partially = command.getPartially();
     if (partially != null && partially.length > 0) {
-      encode(builder, "partially", partially);
+      if (partially.length == 1) {
+        encode(builder, "partially", partially[0]);
+      } else {
+        encode(builder, "partially", partially);
+      }
     }
     final String focus = command.getFocus();
     if (focus != null) {
