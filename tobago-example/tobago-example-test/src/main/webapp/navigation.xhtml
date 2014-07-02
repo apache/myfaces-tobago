@@ -31,18 +31,23 @@
     <tc:panel>
       <f:facet name="layout">
         <!--todo replace 20px with "auto" -->
-        <tc:gridLayout rows="20px;*"/>
+        <tc:gridLayout rows="auto;*"/>
       </f:facet>
 
       <tc:panel>
         <f:facet name="layout">
-          <tc:gridLayout columns="*;30px"/>
+          <tc:gridLayout columns="*;30px" rows="auto;auto"/>
         </f:facet>
 
         <tx:selectOneChoice value="#{clientConfig.theme}" label="Theme">
           <f:selectItems value="#{clientConfig.themeItems}"/>
         </tx:selectOneChoice>
-        <tc:button action="#{clientConfig.submit}" label="OK"/>
+        <tc:button action="#{clientConfig.submit}" label="OK">
+          <tc:gridLayoutConstraint rowSpan="2"/>
+        </tc:button>
+        <tx:selectOneChoice value="#{clientConfig.locale}" label="Locale">
+          <f:selectItems value="#{clientConfig.localeItems}"/>
+        </tx:selectOneChoice>
       </tc:panel>
 
       <tc:tree value="#{browser.tree}" var="node">
