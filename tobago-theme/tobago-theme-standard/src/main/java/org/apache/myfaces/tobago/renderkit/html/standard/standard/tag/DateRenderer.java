@@ -20,9 +20,12 @@
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
 import org.apache.myfaces.tobago.config.TobagoConfig;
+import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.internal.component.AbstractUIInput;
+import org.apache.myfaces.tobago.internal.context.DateTimeI18n;
 import org.apache.myfaces.tobago.internal.util.DateFormatUtils;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
+import org.apache.myfaces.tobago.renderkit.html.JsonUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -56,8 +59,26 @@ public class DateRenderer extends InRenderer {
 
     writer.writeAttribute(DataAttributes.PATTERN, pattern, true);
 
+    final DateTimeI18n dateTimeI18n = DateTimeI18n.valueOf(facesContext.getViewRoot().getLocale());
+    writer.writeAttribute(DataAttributes.DATE_TIME_I18N, JsonUtils.encode(dateTimeI18n), true);
+
+    final String imageName;
+    if (pattern.contains("m")) { // simple guessing
+      if (pattern.contains("d")) {
+        imageName = "image/date-time.png";
+      } else {
+        imageName = "image/time.png";
+      }
+    } else {
+      imageName = "image/date.gif";
+    }
+    final String icon = ResourceManagerUtils.getImageWithPath(facesContext, imageName);
+    if (icon != null) {
+      writer.writeAttribute(DataAttributes.DATE_TIME_ICON, icon, true);
+    }
+
     if (TobagoConfig.getInstance(facesContext).isClassicDateTimePicker()) {
-      // to make the compatibility mode
+      // to mark the compatibility mode
       writer.writeAttribute(DataAttributes.CLASSIC_DATE_TIME_PICKER, "", false);
     }
   }

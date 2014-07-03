@@ -495,22 +495,21 @@ Tobago.DateTime.init = function (elements) {
       .not("[readonly]")
       .not("[data-tobago-classic-date-time-picker]")
       .each(function () {
-        var datePattern;
-        var timePattern;
         var date = jQuery(this);
         date.width(date.width() - 5 - 16); // reserve space for the picker.
+
         var analyzed = Tobago.DateTime.analyzePattern(date.data("tobago-pattern"));
-//        date.datepicker($.datepicker.regional[ "de" ] );
-//        date.datepicker('option', {
-//        date.datetimepicker($.datepicker.regional[ "de" ] );
         var options = {
           showOn: "both",
-          buttonImage: "/org/apache/myfaces/tobago/renderkit/2.0.0-beta-5-SNAPSHOT/html/speyside/standard/image/date.gif", // XXX
           buttonImageOnly: true,
 // tbd          changeMonth: true,
 // tbd          changeYear: true,
           showAnim: "" // just show it directly
         };
+        var icon = date.data("tobago-date-time-icon");
+        if (icon) {
+          options.buttonImage = icon;
+        }
         if (analyzed.dateFormat) {
           options.dateFormat = analyzed.dateFormat;
         }
@@ -519,6 +518,33 @@ Tobago.DateTime.init = function (elements) {
         }
         if (analyzed.separator) {
           options.separator = analyzed.separator;
+        }
+        var i18n = date.data("tobago-date-time-i18n");
+        if (i18n) {
+          var monthNames = i18n.monthNames;
+          if (monthNames) {
+            options.monthNames = monthNames;
+          }
+          var monthNamesShort = i18n.monthNamesShort;
+          if (monthNamesShort) {
+            options.monthNamesShort = monthNamesShort;
+          }
+          var dayNames = i18n.dayNames;
+          if (dayNames) {
+            options.dayNames = dayNames;
+          }
+          var dayNamesShort = i18n.dayNamesShort;
+          if (dayNamesShort) {
+            options.dayNamesShort = dayNamesShort;
+          }
+          var dayNamesMin = i18n.dayNamesMin;
+          if (dayNamesMin) {
+            options.dayNamesMin = dayNamesMin;
+          }
+          var firstDay = i18n.firstDay;
+          if (firstDay) {
+            options.firstDay = firstDay;
+          }
         }
 
         switch (analyzed.type) {
@@ -658,6 +684,8 @@ Tobago.DateTime.analyzePattern = function (pattern) {
   }
 
   timeFormat = timeFormat.replace(/S{1,}/g, "l");
+
+  timeFormat = timeFormat.replace(/a{1,}/g, "TT");
 
   timeFormat = timeFormat.replace(/z/g, "Z"); // XXX is this correct?
 

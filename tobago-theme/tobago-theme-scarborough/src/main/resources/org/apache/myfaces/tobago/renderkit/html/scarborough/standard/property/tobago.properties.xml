@@ -70,7 +70,7 @@
   <entry key="treeMoveDown">Move Down</entry>
   <entry key="treeNodeNew">New Node</entry>
 
-  <!-- datePicker -->
+  <!-- datePicker (old) -->
   <entry key="datePickerTitle">Date Picker</entry>
   <entry key="datePickerOk">OK</entry>
   <entry key="datePickerCancel">Cancel</entry>

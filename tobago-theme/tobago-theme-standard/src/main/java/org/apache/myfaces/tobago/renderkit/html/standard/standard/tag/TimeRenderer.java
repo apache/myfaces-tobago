@@ -243,6 +243,12 @@ public class TimeRenderer extends InputRendererBase {
       writer.writeAttribute(HtmlAttributes.REQUIRED, required);
       HtmlRendererUtils.renderFocus(id, time.isFocus(), ComponentUtils.isError(time), facesContext, writer);
       HtmlRendererUtils.renderCommandFacet(time, facesContext, writer);
+
+      final String icon = ResourceManagerUtils.getImageWithPath(facesContext, "image/time.png");
+      if (icon != null) {
+        writer.writeAttribute(DataAttributes.DATE_TIME_ICON, icon, true);
+      }
+
       writer.endElement(HtmlElements.INPUT);
 
 

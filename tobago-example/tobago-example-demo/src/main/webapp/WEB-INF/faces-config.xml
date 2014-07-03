@@ -36,8 +36,11 @@
       <supported-locale>de_AT</supported-locale>
       <supported-locale>de_CH</supported-locale>
       <supported-locale>es</supported-locale>
+      <supported-locale>ja</supported-locale>
       <supported-locale>ja_JP</supported-locale>
+      <supported-locale>ru</supported-locale>
       <supported-locale>ru_RU</supported-locale>
+      <supported-locale>zh</supported-locale>
       <supported-locale>zh_TW</supported-locale>
     </locale-config>
     <resource-bundle>

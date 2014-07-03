@@ -26,10 +26,16 @@ TestDateTime.init = function () {
       var date = null; // type: JS date
       var time = null; // type: jQuery UI time object
       var jQueryValue = null;
+      var i18n = javaFormatted.data("tobago-date-time-i18n");
       switch (analyzed.type) {
         case "datetime":
-
-          date = jQuery.datepicker.parseDateTime(analyzed.dateFormat, analyzed.timeFormat, javaValue);
+          date = jQuery.datepicker.parseDateTime(
+              analyzed.dateFormat, analyzed.timeFormat, javaValue, i18n, {
+                separator: analyzed.separator,
+                // workaround for bug: https://github.com/trentrichardson/jQuery-Timepicker-Addon/issues/736
+                timeFormat: analyzed.timeFormat
+              }
+          );
           time = {
             hour: date.getHours(),
             minute: date.getMinutes(),
@@ -38,17 +44,17 @@ TestDateTime.init = function () {
             microsec: date.getMicroseconds()
           };
           jQueryValue
-              = jQuery.datepicker.formatDate(analyzed.dateFormat, date)
+              = jQuery.datepicker.formatDate(analyzed.dateFormat, date, i18n)
               + analyzed.separator
-              + jQuery.datepicker.formatTime(analyzed.timeFormat, time);
+              + jQuery.datepicker.formatTime(analyzed.timeFormat, time, i18n);
           break;
         case "date":
-          date = jQuery.datepicker.parseDate(analyzed.dateFormat, javaValue);
-          jQueryValue = jQuery.datepicker.formatDate(analyzed.dateFormat, date);
+          date = jQuery.datepicker.parseDate(analyzed.dateFormat, javaValue, i18n);
+          jQueryValue = jQuery.datepicker.formatDate(analyzed.dateFormat, date, i18n);
           break;
         case "time":
-          time = jQuery.datepicker.parseTime(analyzed.timeFormat, javaValue);
-          jQueryValue = jQuery.datepicker.formatTime(analyzed.timeFormat, time);
+          time = jQuery.datepicker.parseTime(analyzed.timeFormat, javaValue, i18n);
+          jQueryValue = jQuery.datepicker.formatTime(analyzed.timeFormat, time, i18n);
           break;
         default:
           console.error("invalid: not date-pattern nor time-pattern");  // @DEV_ONLY

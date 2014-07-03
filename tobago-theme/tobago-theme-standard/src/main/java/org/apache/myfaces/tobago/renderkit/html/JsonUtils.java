@@ -19,6 +19,8 @@
 
 package org.apache.myfaces.tobago.renderkit.html;
 
+import org.apache.myfaces.tobago.internal.context.DateTimeI18n;
+
 import java.util.Map;
 
 public class JsonUtils {
@@ -179,4 +181,23 @@ public class JsonUtils {
     builder.append("},");
   }
 
+  public static String encode(final DateTimeI18n dateTimeI18n) {
+    final StringBuilder builder = new StringBuilder();
+    builder.append("{");
+    final int initialLength = builder.length();
+
+    encode(builder, "monthNames", dateTimeI18n.getMonthNames());
+    encode(builder, "monthNamesShort", dateTimeI18n.getMonthNamesShort());
+    encode(builder, "dayNames", dateTimeI18n.getDayNames());
+    encode(builder, "dayNamesShort", dateTimeI18n.getDayNamesShort());
+    encode(builder, "dayNamesMin", dateTimeI18n.getDayNamesMin());
+    encode(builder, "firstDay", dateTimeI18n.getFirstDay());
+
+    if (builder.length() - initialLength > 0) {
+      assert builder.charAt(builder.length() - 1) == ',';
+      builder.deleteCharAt(builder.length() - 1);
+    }
+    builder.append("}");
+    return builder.toString();
+  }
 }

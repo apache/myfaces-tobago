@@ -24,9 +24,12 @@ import org.apache.myfaces.tobago.component.ComponentTypes;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.component.AbstractUICommand;
 import org.apache.myfaces.tobago.internal.config.AbstractTobagoTestBase;
+import org.apache.myfaces.tobago.internal.context.DateTimeI18n;
 import org.apache.myfaces.tobago.util.CreateComponentUtils;
 import org.junit.Assert;
 import org.junit.Test;
+
+import java.util.Locale;
 
 // using ' instead of " to make it better readable.
 
@@ -77,7 +80,7 @@ public class JsonUtilsUnitTest extends AbstractTobagoTestBase {
     final AbstractUICommand command = (AbstractUICommand)
         CreateComponentUtils.createComponent(facesContext, ComponentTypes.BUTTON, RendererTypes.BUTTON, "command");
     command.getAttributes().put(Attributes.POPUP_CLOSE, "immediate");
-    command.setRenderedPartially(new String[] {"popup"});
+    command.setRenderedPartially(new String[]{"popup"});
 
     map.setClick(new Command(
         "ns:actionId", false, "_blank", "http://www.apache.org/", new String[]{"id1", "id2"}, "id_focus",
@@ -101,6 +104,21 @@ public class JsonUtilsUnitTest extends AbstractTobagoTestBase {
             + "}"
             + "}").replaceAll("'", "\"");
     Assert.assertEquals(expected, JsonUtils.encode(map));
+  }
+
+  @Test
+  public void monthNames() {
+    final DateTimeI18n dateTimeI18n = DateTimeI18n.valueOf(Locale.GERMANY);
+    final String expected
+        = ("{'monthNames':['Januar','Februar','März','April','Mai','Juni',"
+        + "'Juli','August','September','Oktober','November','Dezember'],"
+        + "'monthNamesShort':['Jan','Feb','Mrz','Apr','Mai','Jun','Jul','Aug','Sep','Okt','Nov','Dez'],"
+        + "'dayNames':['Sonntag','Montag','Dienstag','Mittwoch','Donnerstag','Freitag','Samstag'],"
+        + "'dayNamesShort':['So','Mo','Di','Mi','Do','Fr','Sa'],"
+        + "'dayNamesMin':['So','Mo','Di','Mi','Do','Fr','Sa'],"
+        + "'firstDay':1}").replaceAll("'", "\"");
+
+    Assert.assertEquals(expected, JsonUtils.encode(dateTimeI18n));
   }
 
 }
