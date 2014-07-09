@@ -52,6 +52,8 @@ public final class Attributes {
   public static final String CONVERTER = "converter";
   public static final String CREATE_SPAN = "createSpan";
   public static final String CSS_CLASSES_BLOCKS = "cssClassesBlocks";
+  /** @deprecated since 2.0.0 */
+  @Deprecated
   public static final String DATE_INPUT_ID = "dateInputId";
   public static final String DATE_STYLE = "dateStyle";
   public static final String DEFAULT_COMMAND = "defaultCommand";
