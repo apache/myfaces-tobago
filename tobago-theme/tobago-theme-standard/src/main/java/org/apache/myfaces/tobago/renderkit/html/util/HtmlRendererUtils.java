@@ -481,8 +481,8 @@ public final class HtmlRendererUtils {
       }
       return clientId;
     }
-    LOG.error("No component found for id='" + componentId + "', " +
-        "search base component is '" + component.getClientId(context) + "'");
+    LOG.error("No component found for id='" + componentId + "', "
+        + "search base component is '" + component.getClientId(context) + "'");
     return null;
   }
 
