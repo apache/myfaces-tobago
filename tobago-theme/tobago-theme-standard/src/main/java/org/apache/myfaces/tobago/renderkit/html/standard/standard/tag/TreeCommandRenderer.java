@@ -81,7 +81,10 @@ public class TreeCommandRenderer extends CommandRendererBase {
       writer.writeAttribute(HtmlAttributes.ACCESSKEY, Character.toString(label.getAccessKey()), false);
       AccessKeyLogger.addAccessKey(facesContext, label.getAccessKey(), clientId);
     }
-    HtmlRendererUtils.renderTip(command, writer);
+    final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, command);
+    if (title != null) {
+      writer.writeAttribute(HtmlAttributes.TITLE, title, true);
+    }
     writer.flush();
 
     HtmlRendererUtils.writeLabelWithAccessKey(writer, label);

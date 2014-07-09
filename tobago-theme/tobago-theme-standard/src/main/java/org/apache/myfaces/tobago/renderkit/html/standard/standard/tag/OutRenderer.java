@@ -20,6 +20,7 @@
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
 import org.apache.myfaces.tobago.component.UIOut;
+import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.sanitizer.Sanitizer;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
@@ -60,7 +61,10 @@ public class OutRenderer extends LayoutComponentRendererBase {
       final Style style = new Style(facesContext, out);
       writer.writeStyleAttribute(style);
       writer.writeClassAttribute(Classes.create(out));
-      HtmlRendererUtils.renderTip(out, writer);
+      final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, out);
+      if (title != null) {
+        writer.writeAttribute(HtmlAttributes.TITLE, title, true);
+      }
     }
     if (escape) {
       final StringTokenizer tokenizer = new StringTokenizer(text, "\r\n");
