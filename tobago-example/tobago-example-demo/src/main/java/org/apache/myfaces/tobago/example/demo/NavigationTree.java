@@ -61,7 +61,6 @@ public class NavigationTree implements Serializable {
    */
 //  @Inject
 //  private ServletContext servletContext;
-
   public NavigationTree() {
     LOG.info("<init> " + this);
   }
@@ -77,7 +76,7 @@ public class NavigationTree implements Serializable {
     final List<NavigationNode> nodes = new ArrayList<NavigationNode>();
     for (final String path : list) {
 
-      if (path.contains("/x-") || ! path.contains(".xhtml")) {
+      if (path.contains("/x-") || !path.contains(".xhtml")) {
         // ignoring excluded files
         continue;
       }
