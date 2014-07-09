@@ -120,11 +120,10 @@ public final class HtmlRendererUtils {
       final UIPage page = (UIPage) ComponentUtils.findPage(facesContext, component);
       final String id = component.getClientId(facesContext);
       if (!StringUtils.isBlank(page.getFocusId()) && !page.getFocusId().equals(id)) {
-        LOG.warn("page focusId = \"" + page.getFocusId() + "\" ignoring new value \""
-            + id + "\"");
+        LOG.warn("page focusId='" + page.getFocusId() + "' ignoring new value '" + id + "'");
       } else {
         final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
-        writer.writeJavascript("Tobago.focusId = '" + id + "';");
+        writer.writeJavascript("Tobago.focusId='" + id + "';");
       }
     }
   }
@@ -482,7 +481,8 @@ public final class HtmlRendererUtils {
       }
       return clientId;
     }
-    LOG.error("No Component found for id " + componentId + " search base component " + component.getClientId(context));
+    LOG.error("No component found for id='" + componentId + "', " +
+        "search base component is '" + component.getClientId(context) + "'");
     return null;
   }
 
