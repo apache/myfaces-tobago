@@ -67,11 +67,12 @@ public class NavigationTree implements Serializable {
   }
 
   @PostConstruct
-  private void postConstruct() {
+  protected void postConstruct() {
     // todo: refactor with Java EE 7
     final ServletContext servletContext;
     servletContext = ((ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext());
     final List<String> list = locateResourcesInWar(servletContext, "/content", new ArrayList<String>());
+
     list.add("/content/root-dummy.xhtml"); // helps to build the tree, this is not an existing file
     final List<NavigationNode> nodes = new ArrayList<NavigationNode>();
     for (final String path : list) {
@@ -100,7 +101,7 @@ public class NavigationTree implements Serializable {
     }
   }
 
-  private static List<String> locateResourcesInWar(
+  protected List<String> locateResourcesInWar(
       final ServletContext servletContext, final String directory, final List<String> result) {
 
     final Set<String> resourcePaths = servletContext.getResourcePaths(directory);

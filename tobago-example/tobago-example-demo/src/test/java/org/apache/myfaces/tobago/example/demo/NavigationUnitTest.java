@@ -23,25 +23,32 @@ import org.apache.myfaces.tobago.internal.config.AbstractTobagoTestBase;
 import org.junit.Assert;
 import org.junit.Test;
 
+import javax.servlet.ServletContext;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class NavigationUnitTest extends AbstractTobagoTestBase {
 
+  private static final List<String> LIST = new ArrayList<String>(Arrays.asList(
+      "/content/00/test-1.xhtml",
+      "/content/00/07/test-2.xhtml",
+      "/content/01/test.xhtml",
+      "/content/00/00/test-4.xhtml",
+      "/content/bad.jsp",
+      "/content/00_00_bad.gif"
+  ));
+
   @Test
   public void testFileNames() {
-    final List<String> list = new ArrayList<String>(Arrays.asList(
-        "/content/00/test-1.xhtml",
-// todo        "/content/00/x-bad.xhtml", // x- means excluded
-        "/content/00/07/test-2.xhtml",
-        "/content/00/07/x-bad.xhtml", // x- means excluded
-        "/content/01/test.xhtml",
-        "/content/00/00/test-4.xhtml",
-        "/content/bad.jsp",
-        "/content/00_00_bad.gif"
-    ));
-    final NavigationTree navigation = new NavigationTree(list);
+    final NavigationTree navigation = new NavigationTree() {
+      @Override
+      protected List<String> locateResourcesInWar(
+          ServletContext servletContext, String directory, List<String> result) {
+        return LIST;
+      }
+    };
+    navigation.postConstruct();
     final NavigationNode root = navigation.getTree();
     Assert.assertEquals(2, root.getChildCount());
     final NavigationNode n00 = (NavigationNode) root.getChildAt(0);
