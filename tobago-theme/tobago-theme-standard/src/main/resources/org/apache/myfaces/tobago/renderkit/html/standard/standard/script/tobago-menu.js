@@ -388,7 +388,7 @@ Tobago.Menu.init = function(elements) {
   });
 
   // prevent default
-  var menu = Tobago.Utils.selectWidthJQuery(elements, ".tobago-menu");
+  var menu = Tobago.Utils.selectWidthJQuery(elements, ".tobago-menu").not(".tobago-menu-markup-top");
   menu.each(function() {
     var menuItem = jQuery(this);
     if (menuItem.children("ol").size() > 0) {
@@ -396,6 +396,10 @@ Tobago.Menu.init = function(elements) {
         console.info("prevent default"); // @DEV_ONLY
         event.preventDefault();
         return false;
+      });
+    } else {
+      menuItem.click(function(event) {
+        Tobago.Menu.closeAll();
       });
     }
   });

@@ -120,11 +120,10 @@ public final class HtmlRendererUtils {
       final UIPage page = (UIPage) ComponentUtils.findPage(facesContext, component);
       final String id = component.getClientId(facesContext);
       if (!StringUtils.isBlank(page.getFocusId()) && !page.getFocusId().equals(id)) {
-        LOG.warn("page focusId = \"" + page.getFocusId() + "\" ignoring new value \""
-            + id + "\"");
+        LOG.warn("page focusId='" + page.getFocusId() + "' ignoring new value '" + id + "'");
       } else {
         final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
-        writer.writeJavascript("Tobago.focusId = '" + id + "';");
+        writer.writeJavascript("Tobago.focusId='" + id + "';");
       }
     }
   }
@@ -482,59 +481,9 @@ public final class HtmlRendererUtils {
       }
       return clientId;
     }
-    LOG.error("No Component found for id " + componentId + " search base component " + component.getClientId(context));
+    LOG.error("No component found for id='" + componentId + "', " +
+        "search base component is '" + component.getClientId(context) + "'");
     return null;
-  }
-
-  /**
-   * @deprecated since Tobago 1.5.0.
-   */
-  @Deprecated
-  public static String toStyleString(final String key, final Integer value) {
-    final StringBuilder buf = new StringBuilder();
-    buf.append(key);
-    buf.append(":");
-    buf.append(value);
-    buf.append("px; ");
-    return buf.toString();
-  }
-
-  /**
-   * @deprecated since Tobago 1.5.0.
-   */
-  @Deprecated
-  public static String toStyleString(final String key, final String value) {
-    final StringBuilder buf = new StringBuilder();
-    buf.append(key);
-    buf.append(":");
-    buf.append(value);
-    buf.append("; ");
-    return buf.toString();
-  }
-
-  /**
-   * @deprecated since Tobago 1.5.0. Please use getTitleFromTipAndMessages and write it out.
-   */
-  @Deprecated
-  public static void renderTip(final UIComponent component, final TobagoResponseWriter writer) throws IOException {
-    final Object objTip = component.getAttributes().get(Attributes.TIP);
-    if (objTip != null) {
-      final String tip = String.valueOf(objTip);
-      writer.writeAttribute(HtmlAttributes.TITLE, tip, true);
-    }
-  }
-
-  /**
-   * @deprecated since Tobago 1.5.0. Please use getTitleFromTipAndMessages and write it out.
-   */
-  public static void renderImageTip(final UIComponent component, final TobagoResponseWriter writer) throws IOException {
-    final Object objTip = component.getAttributes().get(Attributes.TIP);
-    if (objTip != null) {
-      final String tip = String.valueOf(objTip);
-      writer.writeAttribute(HtmlAttributes.ALT, tip, true);
-    } else {
-      writer.writeAttribute(HtmlAttributes.ALT, "", false);
-    }
   }
 
   public static String getJavascriptString(final String str) {
@@ -846,14 +795,6 @@ public final class HtmlRendererUtils {
     }
     builder.append("});");
     return builder.toString();
-  }
-
-  /**
-   * @deprecated since Tobago 1.5.0. Please use {@link org.apache.myfaces.tobago.renderkit.css.Classes}.
-   */
-  @Deprecated
-  public static void removeStyleClasses(final UIComponent cell) {
-    Deprecation.LOG.warn("cell = '" + cell + "'");
   }
 
   public static void encodeContextMenu(
