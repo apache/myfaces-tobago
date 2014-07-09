@@ -85,7 +85,10 @@ public class LinkRenderer extends CommandRendererBase {
     writer.writeClassAttribute(Classes.create(link));
     writer.writeIdAttribute(clientId);
     writer.writeNameAttribute(clientId);
-    HtmlRendererUtils.renderTip(link, writer);
+    final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, link);
+    if (title != null) {
+      writer.writeAttribute(HtmlAttributes.TITLE, title, true);
+    }
     writer.flush();
 
 //  image

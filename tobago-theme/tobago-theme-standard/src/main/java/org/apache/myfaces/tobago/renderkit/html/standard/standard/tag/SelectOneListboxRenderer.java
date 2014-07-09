@@ -75,7 +75,10 @@ public class SelectOneListboxRenderer extends SelectOneRendererBase {
     final Style style = new Style(facesContext, select);
     writer.writeStyleAttribute(style);
     writer.writeClassAttribute(Classes.create(select));
-    HtmlRendererUtils.renderTip(select, writer);
+    final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, select);
+    if (title != null) {
+      writer.writeAttribute(HtmlAttributes.TITLE, title, true);
+    }
     writer.writeAttribute(HtmlAttributes.SIZE, 9); // must be > 1, but the real size comes from the layout
     HtmlRendererUtils.renderCommandFacet(select, facesContext, writer);
     final Object[] values = {select.getValue()};

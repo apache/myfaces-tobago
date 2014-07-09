@@ -379,7 +379,10 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
       itemMarkup = itemMarkup.add(Markup.DISABLED);
     }
     writer.writeClassAttribute(Classes.create(toolBar, "item", itemMarkup));
-    HtmlRendererUtils.renderTip(command, writer);
+    final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, command);
+    if (title != null) {
+      writer.writeAttribute(HtmlAttributes.TITLE, title, true);
+    }
     writer.writeStyleAttribute(itemStyle);
 
     writer.startElement(HtmlElements.SPAN, command);

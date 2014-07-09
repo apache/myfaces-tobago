@@ -80,7 +80,10 @@ public class ImageRenderer extends LayoutComponentRendererBase {
       writer.writeAttribute(HtmlAttributes.SRC, src, true);
     }
     writer.writeAttribute(HtmlAttributes.ALT, alt, true);
-    HtmlRendererUtils.renderTip(image, writer);
+    final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, image);
+    if (title != null) {
+      writer.writeAttribute(HtmlAttributes.TITLE, title, true);
+    }
     writer.writeAttribute(HtmlAttributes.BORDER, border, false);
     final Style style = new Style(facesContext, image);
     writer.writeStyleAttribute(style);

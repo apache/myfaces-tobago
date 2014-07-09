@@ -76,7 +76,10 @@ public class LabelRenderer extends LayoutComponentRendererBase {
     if (forValue != null) {
       writer.writeAttribute(HtmlAttributes.FOR, forValue, false);
     }
-    HtmlRendererUtils.renderTip(label, writer);
+    final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, label);
+    if (title != null) {
+      writer.writeAttribute(HtmlAttributes.TITLE, title, true);
+    }
 
     encodeTextContent(facesContext, writer, label);
 

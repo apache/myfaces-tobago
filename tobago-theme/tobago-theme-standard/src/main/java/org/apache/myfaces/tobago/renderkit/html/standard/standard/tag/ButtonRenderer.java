@@ -66,7 +66,10 @@ public class ButtonRenderer extends CommandRendererBase {
     writer.writeNameAttribute(clientId);
     writer.writeIdAttribute(clientId);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, button);
-    HtmlRendererUtils.renderTip(button, writer);
+    final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, button);
+    if (title != null) {
+      writer.writeAttribute(HtmlAttributes.TITLE, title, true);
+    }
     writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
 
     if (!disabled) {

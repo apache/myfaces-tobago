@@ -128,7 +128,10 @@ public class TreeSelectRenderer extends RendererBase {
     if (StringUtils.isNotEmpty(label)) {
       writer.startElement(HtmlElements.LABEL, null);
       writer.writeClassAttribute(Classes.create(select, "label"));
-      HtmlRendererUtils.renderTip(select, writer);
+      final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, select);
+      if (title != null) {
+        writer.writeAttribute(HtmlAttributes.TITLE, title, true);
+      }
       writer.writeAttribute(HtmlAttributes.FOR, id, false);
       writer.writeText(label);
       writer.endElement(HtmlElements.LABEL);
