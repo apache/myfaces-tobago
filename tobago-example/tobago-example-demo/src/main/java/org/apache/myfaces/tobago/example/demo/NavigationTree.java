@@ -63,7 +63,7 @@ public class NavigationTree implements Serializable {
 //  private ServletContext servletContext;
 
   public NavigationTree() {
-    LOG.info("<init>");
+    LOG.info("<init> " + this);
   }
 
   @PostConstruct
@@ -76,6 +76,11 @@ public class NavigationTree implements Serializable {
     list.add("/content/root-dummy.xhtml"); // helps to build the tree, this is not an existing file
     final List<NavigationNode> nodes = new ArrayList<NavigationNode>();
     for (final String path : list) {
+
+      if (path.contains("/x-") || ! path.contains(".xhtml")) {
+        // ignoring excluded files
+        continue;
+      }
       try {
         nodes.add(new NavigationNode(path, this));
       } catch (final IllegalStateException e) {
@@ -119,11 +124,6 @@ public class NavigationTree implements Serializable {
           continue;
         }
 
-        if (path.contains("/x-")) {
-          // ignoring excluded files
-          continue;
-        }
-
         result.add(path);
 
       }
@@ -151,7 +151,11 @@ public class NavigationTree implements Serializable {
   }
 
   public void gotoNode(final NavigationNode node) {
-    events.fire(node);
+    if (node != null) {
+      events.fire(node);
+    } else {
+      events.fire(root);
+    }
   }
 
   public String viewSource() {
