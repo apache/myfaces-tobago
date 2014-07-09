@@ -61,4 +61,11 @@ public abstract class TobagoConfig {
   public abstract Sanitizer getSanitizer();
 
   public abstract boolean isAutoAccessKeyFromLabel();
+
+  /**
+   * @return false
+   * @deprecated
+   */
+  @Deprecated
+  public abstract boolean isClassicDateTimePicker();
 }

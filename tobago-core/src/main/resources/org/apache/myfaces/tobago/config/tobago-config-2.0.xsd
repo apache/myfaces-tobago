@@ -68,6 +68,7 @@
       <xs:element name="prevent-frame-attacks" type="xs:boolean" minOccurs="0" default="true"/>
       <xs:element name="set-nosniff-header" type="xs:boolean" minOccurs="0" default="true"/>
       <xs:element name="auto-access-key-from-label" type="xs:boolean" minOccurs="0" default="true"/>
+      <xs:element name="classic-date-time-picker" type="xs:boolean" minOccurs="0" default="false"/>
       <xs:element name="content-security-policy" type="tobago:content-security-policy-type" minOccurs="0"/>
       <xs:element name="sanitizer" type="tobago:sanitizer-type" minOccurs="0"/>
       <xs:element name="renderers" type="tobago:renderers-type" minOccurs="0"/>

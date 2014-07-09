@@ -290,7 +290,7 @@ var Tobago = {
     var page = jQuery(".tobago-page");
     page.children("form").first()
         .children(Tobago.Utils.escapeClientId(this.page.id + this.SUB_COMPONENT_SEP + 'form-clientDimension'))
-        .val(page.width() + ';' + page.height());
+        .val(Math.floor(page.width()) + ';' + Math.floor(page.height()));
   },
 
   onBeforeUnload: function() {
@@ -826,13 +826,14 @@ var Tobago = {
                   Tobago.reloadComponent(this, commands.click.partially, action, commands.click);
                 }
                 event.preventDefault();
-                return false;
+                event.stopPropagation();
               } else if (commands.click.url) {
                 if (commands.click.target) {
                   window.open(commands.click.url, commands.click.target)
                 } else {
                   Tobago.navigateToUrl(commands.click.url);
                   event.preventDefault();
+                  event.stopPropagation();
                   return false;
                 }
               } else if (commands.click.script) { // XXX this case is deprecated.

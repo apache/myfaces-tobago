@@ -25,8 +25,16 @@
   <tc:box label="Time Specific Controls">
     <f:facet name="layout">
       <tc:gridLayout columns="400px;*"
-                     rows="auto;auto;auto;auto;auto;auto;auto;auto;auto;auto;auto;auto;auto;auto;auto;250px;*"/>
+                     rows="auto;auto;auto;auto;auto;auto;auto;auto;auto;auto;auto;auto;auto;auto;auto;auto;250px;*"/>
     </f:facet>
+
+    <!-- code-sniplet-start id="date" -->
+    <tx:in label="Date as Text" value="#{dateController.once}">
+      <f:convertDateTime pattern="dd.MM.yyyy"/>
+    </tx:in>
+    <!-- code-sniplet-end id="date" -->
+    <tc:cell/>
+
     <!-- code-sniplet-start id="date" -->
     <tx:date label="Date" value="#{dateController.once}">
       <f:convertDateTime pattern="dd.MM.yyyy"/>
@@ -34,14 +42,28 @@
     <!-- code-sniplet-end id="date" -->
     <tc:cell/>
 
+    <!-- code-sniplet-start id="date" -->
+    <tc:date value="#{dateController.once}">
+      <f:convertDateTime pattern="dd.MM.yyyy"/>
+    </tc:date>
+    <!-- code-sniplet-end id="date" -->
+    <tc:cell/>
+
     <!-- code-sniplet-start id="dateTime" -->
+<!--
     <tx:date label="Date/Time" value="#{dateController.once}">
       <f:convertDateTime pattern="dd.MM.yyyy HH:mm"/>
     </tx:date>
+-->
     <!-- code-sniplet-end id="dateTime" -->
+<!--
     <tc:cell/>
+-->
 
+<!--
     <tx:date label="Date (focus)" focus="true">
+-->
+    <tx:date label="Date (focus)">
       <f:convertDateTime pattern="dd.MM.yyyy"/>
     </tx:date>
     <tc:cell/>

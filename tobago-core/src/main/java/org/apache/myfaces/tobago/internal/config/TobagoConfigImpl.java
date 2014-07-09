@@ -360,6 +360,10 @@ public class TobagoConfigImpl extends TobagoConfig {
     this.autoAccessKeyFromLabel = autoAccessKeyFromLabel;
   }
 
+  public boolean isClassicDateTimePicker() {
+    return false;
+  }
+
   @Override
   public String toString() {
     final StringBuilder builder = new StringBuilder();

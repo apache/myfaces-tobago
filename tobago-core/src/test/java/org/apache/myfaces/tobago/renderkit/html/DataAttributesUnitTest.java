@@ -35,7 +35,7 @@ public class DataAttributesUnitTest {
         continue;
       }
       final String value = (String) field.get(null);
-      Assert.assertTrue("Regexp check: value='" + value + "'", value.matches("data-tobago(-[a-z]+)*-[a-z]+"));
+      Assert.assertTrue("Regexp check: value='" + value + "'", value.matches("data-tobago(-[a-z0-9]+)*-[a-z0-9]+"));
 
       final String extension = value.substring("data-tobago-".length());
       final String name = field.getName();

@@ -39,7 +39,7 @@ public class DateController implements Serializable {
 
   public DateController() {
     try {
-      once = new SimpleDateFormat("yyyy-MM-dd").parse("1980-03-22");
+      once = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss SSS").parse("1980-03-07 21:05:09 012");
     } catch (ParseException e) {
       LOG.error("should not happen. ", e
       );

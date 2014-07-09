@@ -19,34 +19,15 @@
 
 package org.apache.myfaces.tobago.facelets.extension;
 
-import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.component.OnComponentCreated;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.UIDate;
-import org.apache.myfaces.tobago.component.UIDatePicker;
-import org.apache.myfaces.tobago.component.UIForm;
-import org.apache.myfaces.tobago.context.Markup;
-import org.apache.myfaces.tobago.util.ComponentUtils;
 
-import javax.el.ValueExpression;
-import javax.faces.application.Application;
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIViewRoot;
 import javax.faces.view.facelets.ComponentConfig;
-import javax.faces.view.facelets.FaceletContext;
-import javax.faces.view.facelets.TagAttribute;
 
 public class DateExtensionHandler extends TobagoLabelExtensionHandler {
 
-  private TagAttribute pickerIdAttribute;
-  private TagAttribute formIdAttribute;
-  private TagAttribute markupAttribute;
-
   public DateExtensionHandler(final ComponentConfig config) {
     super(config);
-    pickerIdAttribute = getAttribute("pickerId");
-    formIdAttribute = getAttribute("formId");
-    markupAttribute = getAttribute(Attributes.MARKUP);
   }
 
   protected String getSubComponentType() {
@@ -55,47 +36,5 @@ public class DateExtensionHandler extends TobagoLabelExtensionHandler {
 
   protected String getSubRendererType() {
     return RendererTypes.DATE;
-  }
-
-  public void onComponentPopulated(
-      final FaceletContext faceletContext, final UIComponent panel, final UIComponent parent) {
-    super.onComponentPopulated(faceletContext, panel, parent);
-    if (panel.getChildCount() == 2) {
-      final Application application = faceletContext.getFacesContext().getApplication();
-      final UIViewRoot root = ComponentUtils.findViewRoot(faceletContext, parent);
-
-      final UIForm form = (UIForm) application.createComponent(UIForm.COMPONENT_TYPE);
-      form.setRendererType(RendererTypes.FORM);
-      final String formId = formIdAttribute != null
-          ? formIdAttribute.getValue(faceletContext)
-          : panel.getId() + "_tx_form";
-      form.setId(formId);
-      panel.getChildren().add(form);
-
-      final UIDatePicker picker = (UIDatePicker) application.createComponent(UIDatePicker.COMPONENT_TYPE);
-      picker.setRendererType(RendererTypes.DATE_PICKER);
-      picker.setFor("@auto");
-      final String pickerId = pickerIdAttribute != null
-          ? pickerIdAttribute.getValue(faceletContext)
-          : panel.getId() + "_tx_picker";
-      picker.setId(pickerId);
-      if (picker.getAttributes().get(OnComponentCreated.MARKER) == null) {
-        picker.getAttributes().put(OnComponentCreated.MARKER, Boolean.TRUE);
-        picker.onComponentCreated(faceletContext.getFacesContext(), panel);
-      }
-      if (markupAttribute != null) {
-        if (markupAttribute.isLiteral()) {
-          picker.setMarkup(Markup.valueOf(markupAttribute.getValue()));
-        } else {
-          final ValueExpression expression = markupAttribute.getValueExpression(faceletContext, Object.class);
-          picker.setValueExpression(Attributes.MARKUP, expression);
-        }
-      }
-      form.getChildren().add(picker);
-    }
-  }
-
-  protected String getColumns(final String first) {
-    return first + ";*;auto";
   }
 }

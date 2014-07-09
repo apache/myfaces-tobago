@@ -377,15 +377,23 @@
       </renderers>
       <resources production="true">
         <script name="script/contrib/jquery-1.11.1.js"/>
-        <script name="script/contrib/jquery-ui-1.10.3.custom.js"/>
+        <script name="script/contrib/jquery-ui-1.10.4.custom.js"/>
+        <script name="script/contrib/jquery-ui-datepicker-i18n-1.10.4.js"/>
+        <script name="script/contrib/jquery-ui-timepicker-addon-1.4.5.js"/>
+        <script name="script/contrib/jquery-ui-timepicker-i18n-1.4.5.js"/>
         <script name="script/tobago.js"/>
+        <style name="style/contrib/ui-lightness/jquery-ui-1.10.4.custom.css"/>
+        <style name="style/contrib/jquery-ui-timepicker-addon-1.4.5.css"/>
         <style name="style/tobago.css"/>
         <!-- backward compatibility -->
         <style name="style/style.css"/>
       </resources>
       <resources production="false">
         <script name="script/contrib/jquery-1.11.1.js"/>
-        <script name="script/contrib/jquery-ui-1.10.3.custom.js"/>
+        <script name="script/contrib/jquery-ui-1.10.4.custom.js"/>
+        <script name="script/contrib/jquery-ui-datepicker-i18n-1.10.4.js"/>
+        <script name="script/contrib/jquery-ui-timepicker-addon-1.4.5.js"/>
+        <script name="script/contrib/jquery-ui-timepicker-i18n-1.4.5.js"/>
         <script name="script/tobago.js"/>
         <script name="script/tobago-calendar.js"/>
         <script name="script/tobago-console.js"/>
@@ -399,6 +407,8 @@
         <script name="script/tobago-suggest.js"/>
         <script name="script/tobago-tree.js"/>
         <script name="script/tobago-utils.js"/>
+        <style name="style/contrib/ui-lightness/jquery-ui-1.10.4.custom.css"/>
+        <style name="style/contrib/jquery-ui-timepicker-addon-1.4.5.css"/>
         <style name="style/tobago.css"/>
         <!-- backward compatibility -->
         <style name="style/style.css"/>
