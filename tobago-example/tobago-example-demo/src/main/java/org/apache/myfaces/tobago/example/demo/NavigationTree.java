@@ -23,6 +23,7 @@ import org.apache.myfaces.tobago.example.demo.jsp.JspFormatter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Event;
 import javax.faces.context.ExternalContext;
@@ -50,23 +51,27 @@ public class NavigationTree implements Serializable {
 
   private static final Logger LOG = LoggerFactory.getLogger(NavigationTree.class);
 
-  private NavigationNode tree;
+  private NavigationNode root;
 
   @Inject
-  private Event<NavigationEvent> events;
+  private Event<NavigationNode> events;
+
+  /**
+   * todo: Seems not working with Java EE 6, needs Java EE 7?
+   */
+//  @Inject
+//  private ServletContext servletContext;
 
   public NavigationTree() {
-      final ServletContext servletContext
-          = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
-      final List<String> list = locateResourcesInWar(servletContext, "/content", new ArrayList<String>());
-      init(list);
+    LOG.info("<init>");
   }
 
-  protected NavigationTree(final List<String> list) {
-    init(list);
-  }
-
-  protected void init(final List<String> list) {
+  @PostConstruct
+  private void postConstruct() {
+    // todo: refactor with Java EE 7
+    final ServletContext servletContext;
+    servletContext = ((ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext());
+    final List<String> list = locateResourcesInWar(servletContext, "/content", new ArrayList<String>());
     list.add("/content/root-dummy.xhtml"); // helps to build the tree, this is not an existing file
     final List<NavigationNode> nodes = new ArrayList<NavigationNode>();
     for (final String path : list) {
@@ -80,7 +85,7 @@ public class NavigationTree implements Serializable {
     Collections.sort(nodes);
 
     // after sorting the first node is the root node.
-    tree = nodes.get(0);
+    root = nodes.get(0);
 
     final Map<String, NavigationNode> map = new HashMap<String, NavigationNode>();
 //    map.put(tree.getBranch(), tree);
@@ -133,7 +138,7 @@ public class NavigationTree implements Serializable {
     if (viewId.endsWith(".jspx")) {
       viewId = viewId.substring(0, viewId.lastIndexOf(".jspx")) + ".xhtml";
     }
-    final Enumeration enumeration = tree.depthFirstEnumeration();
+    final Enumeration enumeration = root.depthFirstEnumeration();
     while (enumeration.hasMoreElements()) {
       final NavigationNode node = ((NavigationNode) enumeration.nextElement());
       if (node.getOutcome() != null && viewId.contains(node.getOutcome())) {
@@ -144,11 +149,11 @@ public class NavigationTree implements Serializable {
   }
 
   public NavigationNode getTree() {
-    return tree;
+    return root;
   }
 
   public void gotoNode(final NavigationNode node) {
-    events.fire(new NavigationEvent(node));
+    events.fire(node);
   }
 
   public String viewSource() {

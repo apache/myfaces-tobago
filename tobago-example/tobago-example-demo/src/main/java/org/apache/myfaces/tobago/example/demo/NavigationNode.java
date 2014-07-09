@@ -64,12 +64,6 @@ public class NavigationNode extends DefaultMutableTreeNode implements Comparable
     return outcome;
   }
 
-/* TODO
- XXX  public String getMarkup() {
-    return currentNode == this ? "marked" : null;
-  }
-*/
-
   public void evaluateTreePath() {
     treePath = new TreePath(this);
   }

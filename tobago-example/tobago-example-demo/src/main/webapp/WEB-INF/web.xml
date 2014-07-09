@@ -134,7 +134,6 @@
   <servlet>
     <servlet-name>FacesServlet</servlet-name>
     <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
-    <load-on-startup>3</load-on-startup>
   </servlet>
 
   <servlet-mapping>
