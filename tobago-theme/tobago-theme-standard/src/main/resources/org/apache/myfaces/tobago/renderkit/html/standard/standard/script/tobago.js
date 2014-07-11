@@ -2829,7 +2829,7 @@ Tobago.SelectBooleanCheckbox.init = function(elements) {
     // Save the initial state to restore it, when the user tries to manipulate it.
     var initial = jQuery(this).is(":checked");
     jQuery(this).click(function() {
-      jQuery(this).attr("checked", initial);
+      jQuery(this).prop("checked", initial);
     });
   });
 };
@@ -2847,7 +2847,7 @@ Tobago.SelectManyCheckbox.init = function(elements) {
     // Save the initial state to restore it, when the user tries to manipulate it.
     var initial = jQuery(this).is(":checked");
     jQuery(this).click(function() {
-      jQuery(this).attr("checked", initial);
+      jQuery(this).prop("checked", initial);
     });
   });
 };
