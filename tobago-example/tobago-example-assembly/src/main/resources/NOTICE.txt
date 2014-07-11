@@ -9,7 +9,7 @@ Atanion GmbH (http://www.atanion.com/)
 Copyright 2002-2005 Atanion GmbH.
 
 This product includes software developed by
-The jQuery Project (http://jquery.org/)
+The jQuery Foundation (http://jquery.org/ and http://jqueryui.com/)
 
 This product includes software developed by
 QOS.ch (slf4j) (http://QOS.ch/)
