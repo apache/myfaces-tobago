@@ -332,7 +332,12 @@ Tobago.Sheet.setup2 = function (sheets) {
         var headerList = headerTable.find("col");
         var bodyList = bodyTable.find("col");
         var widths = ",";
-        for (var i = 0; i < headerList.length; i++) {
+        var oldWidthList = [];
+        var i;
+        for (i = 0; i < bodyList.length; i++) {
+          oldWidthList[i] = bodyList.eq(i).width();
+        }
+        for (i = 0; i < headerList.length; i++) {
           var newWidth = headerList.eq(i).width();
           // for the hidden field
           widths = widths + newWidth + ",";
@@ -344,7 +349,7 @@ Tobago.Sheet.setup2 = function (sheets) {
             // reset the width inside of the cells (TD) if the value was changed.
             var tds = jQuery("td:nth-child(" + (i + 1) + ")", bodyTable);
             if (tds.size() > 0) {
-              var innerWidth = tds.children().eq(0).width() - oldWidth + newWidth;
+              var innerWidth = tds.children().eq(0).width() - oldWidthList[i] + newWidth;
               // setting all sizes of the inner cells to the same value
               tds.children().width(innerWidth);
               // XXX later, if we have box-sizing: border-box we can set the width to 100%
