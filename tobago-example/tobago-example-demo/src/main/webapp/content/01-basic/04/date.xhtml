@@ -22,7 +22,9 @@
                 xmlns:tx="http://myfaces.apache.org/tobago/extension"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core">
-  <tc:box label="Time Specific Controls">
+  <ui:param name="title" value="Time Specific Controls"/>
+
+  <tc:panel>
     <f:facet name="layout">
       <tc:gridLayout columns="400px;*"
                      rows="auto;auto;auto;auto;auto;auto;auto;auto;auto;auto;auto;auto;auto;auto;auto;auto;250px;*"/>
@@ -135,5 +137,5 @@
 
     <tc:cell spanX="2"/>
 
-  </tc:box>
+  </tc:panel>
 </ui:composition>
