@@ -93,7 +93,7 @@ public class CalendarRenderer extends LayoutComponentRendererBase {
     writer.writeClassAttribute(Classes.create(output, "header"));
     writer.writeAttribute(HtmlAttributes.ALT, "", false);
     writer.writeAttribute(HtmlAttributes.SRC,
-        ResourceManagerUtils.getImageWithPath(facesContext, "image/calendarFastPrev.gif"), false);
+        ResourceManagerUtils.getImageWithPath(facesContext, "image/calendarFastPrev.png"), false);
     writer.writeAttribute(DataAttributes.COMMAND, "fastPrev", false);
     writer.endElement(HtmlElements.IMG);
 
@@ -101,7 +101,7 @@ public class CalendarRenderer extends LayoutComponentRendererBase {
     writer.writeClassAttribute(Classes.create(output, "header"));
     writer.writeAttribute(HtmlAttributes.ALT, "", false);
     writer.writeAttribute(HtmlAttributes.SRC,
-        ResourceManagerUtils.getImageWithPath(facesContext, "image/calendarPrev.gif"), false);
+        ResourceManagerUtils.getImageWithPath(facesContext, "image/calendarPrev.png"), false);
     writer.writeAttribute(DataAttributes.COMMAND, "prev", false);
     writer.endElement(HtmlElements.IMG);
 
@@ -126,7 +126,7 @@ public class CalendarRenderer extends LayoutComponentRendererBase {
     writer.writeClassAttribute(Classes.create(output, "header"));
     writer.writeAttribute(HtmlAttributes.ALT, "", false);
     writer.writeAttribute(HtmlAttributes.SRC,
-        ResourceManagerUtils.getImageWithPath(facesContext, "image/calendarNext.gif"), false);
+        ResourceManagerUtils.getImageWithPath(facesContext, "image/calendarNext.png"), false);
     writer.writeAttribute(DataAttributes.COMMAND, "next", false);
     writer.endElement(HtmlElements.IMG);
 
@@ -134,7 +134,7 @@ public class CalendarRenderer extends LayoutComponentRendererBase {
     writer.writeClassAttribute(Classes.create(output, "header"));
     writer.writeAttribute(HtmlAttributes.ALT, "", false);
     writer.writeAttribute(HtmlAttributes.SRC,
-        ResourceManagerUtils.getImageWithPath(facesContext, "image/calendarFastNext.gif"), false);
+        ResourceManagerUtils.getImageWithPath(facesContext, "image/calendarFastNext.png"), false);
     writer.writeAttribute(DataAttributes.COMMAND, "fastNext", false);
     writer.endElement(HtmlElements.IMG);
 

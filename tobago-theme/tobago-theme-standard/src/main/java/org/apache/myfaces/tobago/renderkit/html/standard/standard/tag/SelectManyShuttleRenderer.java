@@ -110,10 +110,10 @@ public class SelectManyShuttleRenderer extends SelectManyRendererBase {
     writer.writeStyleAttribute(style);
     writer.startElement(HtmlElements.DIV, null);
     writer.writeClassAttribute(Classes.create(select, "toolBar"));
-    createButton(facesContext, component, writer, disabled, "image/selectManyShuttleAddAll.gif", "addAll");
-    createButton(facesContext, component, writer, disabled, "image/selectManyShuttleAdd.gif", "add");
-    createButton(facesContext, component, writer, disabled, "image/selectManyShuttleRemove.gif", "remove");
-    createButton(facesContext, component, writer, disabled, "image/selectManyShuttleRemoveAll.gif", "removeAll");
+    createButton(facesContext, component, writer, disabled, "image/selectManyShuttleAddAll.png", "addAll");
+    createButton(facesContext, component, writer, disabled, "image/selectManyShuttleAdd.png", "add");
+    createButton(facesContext, component, writer, disabled, "image/selectManyShuttleRemove.png", "remove");
+    createButton(facesContext, component, writer, disabled, "image/selectManyShuttleRemoveAll.png", "removeAll");
     writer.endElement(HtmlElements.DIV);
     writer.endElement(HtmlElements.DIV);
     final String selectedLabel = select.getSelectedLabel();

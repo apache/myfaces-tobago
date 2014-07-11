@@ -242,7 +242,7 @@ span.tobago-calendar-header {
 }
 
 .tobago-date-markup-required {
-  background-image: url( "../image/required.gif" );
+  background-image: url( "../image/required.png" );
   background-position: 3px 50%;
   background-repeat: no-repeat;
 }
@@ -270,7 +270,7 @@ span.tobago-calendar-header {
 /* file -------------------------------------------------------------------- */
 
 .tobago-file {
-  background: url("../image/file-upload.gif") no-repeat right center transparent;
+  background: url("../image/file-upload.png") no-repeat right center transparent;
 }
 
 .tobago-file-pretty {
@@ -287,7 +287,7 @@ span.tobago-calendar-header {
 }
 
 .tobago-file-pretty-markup-required {
-  background: url("../image/required.gif") no-repeat 3px 50% #FFFFFF;
+  background: url("../image/required.png") no-repeat 3px 50% #FFFFFF;
 }
 
 .tobago-file-pretty-markup-readonly {
@@ -373,7 +373,7 @@ div.tobago-gridLayout-first-column {
 }
 
 .tobago-in-markup-required {
-  background: url("../image/required.gif") no-repeat 3px 50%;
+  background: url("../image/required.png") no-repeat 3px 50%;
 }
 
 .tobago-in-markup-readonly {
@@ -1368,7 +1368,7 @@ a:active.tobago-sheet-pagingLink {
 }
 
 /*.tobago-textarea-markup-required {
-   background-image: url( "../image/required.gif" );
+   background-image: url( "../image/required.png" );
    background-position: 3px 3px;
    background-repeat: no-repeat;
 } */
@@ -1455,7 +1455,7 @@ input.tobago-time {
 }
 
 input.tobago-time-markup-required {
-  background-image: url( "../image/required.gif" );
+  background-image: url( "../image/required.png" );
   background-position: 3px 50%;
   background-repeat: no-repeat;
 }

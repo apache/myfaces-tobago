@@ -85,8 +85,8 @@ public class TreeIndentRenderer extends LayoutComponentRendererBase {
       throws IOException {
 
     final boolean dropFirst = !showRoot || !showRootJunction && (showLines || showIcons);
-    final String blank = ResourceManagerUtils.getImageWithPath(facesContext, "image/blank.gif");
-    final String perpendicular = ResourceManagerUtils.getImageWithPath(facesContext, "image/I.gif");
+    final String blank = ResourceManagerUtils.getImageWithPath(facesContext, "image/blank.png");
+    final String perpendicular = ResourceManagerUtils.getImageWithPath(facesContext, "image/I.png");
 
     for (int i = dropFirst ? 1 : 0; i < junctions.size() - 1; i++) {
       final Boolean junction = junctions.get(i);
@@ -118,34 +118,34 @@ public class TreeIndentRenderer extends LayoutComponentRendererBase {
     final String close;
     if (showLines) {
       if (root) {
-        open = "Rminus.gif";
-        close = "Rplus.gif";
+        open = "Rminus.png";
+        close = "Rplus.png";
       } else {
         if (hasNextSibling) {
           if (folder) {
-            open = "Tminus.gif";
-            close = "Tplus.gif";
+            open = "Tminus.png";
+            close = "Tplus.png";
           } else {
-            open = "T.gif";
-            close = "T.gif";
+            open = "T.png";
+            close = "T.png";
           }
         } else {
           if (folder) {
-            open = "Lminus.gif";
-            close = "Lplus.gif";
+            open = "Lminus.png";
+            close = "Lplus.png";
           } else {
-            open = "L.gif";
-            close = "L.gif";
+            open = "L.png";
+            close = "L.png";
           }
         }
       }
     } else {
       if (folder) {
-        open = "minus.gif";
-        close = "plus.gif";
+        open = "minus.png";
+        close = "plus.png";
       } else {
-        open = "blank.gif";
-        close = "blank.gif";
+        open = "blank.png";
+        close = "blank.png";
       }
     }
 

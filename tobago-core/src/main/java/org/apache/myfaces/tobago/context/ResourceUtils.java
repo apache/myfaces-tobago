@@ -26,6 +26,7 @@ public final class ResourceUtils {
   public static final char DOT = '.';
 
   public static final String GIF = "gif";
+  public static final String PNG = "png";
 
   private ResourceUtils() {
     assert false;

@@ -73,7 +73,7 @@ public class TreeMenuNodeRenderer extends TreeNodeRendererBase {
 
 
     if (!folder && ie6) { // XXX IE6: without this hack, we can't click beside the label text. Why?
-      final String src = ResourceManagerUtils.getImageWithPath(facesContext, "image/1x1.gif");
+      final String src = ResourceManagerUtils.getImageWithPath(facesContext, "image/1x1.png");
       writer.startElement(HtmlElements.IMG, null);
       writer.writeClassAttribute(Classes.create(node, "icon"));
       writer.writeAttribute(HtmlAttributes.SRC, src, false);
@@ -104,8 +104,8 @@ public class TreeMenuNodeRenderer extends TreeNodeRendererBase {
   private void encodeIcon(
       final FacesContext facesContext, final TobagoResponseWriter writer, final boolean expanded, final UITreeNode node)
       throws IOException {
-    final String srcOpen = ResourceManagerUtils.getImageWithPath(facesContext, "image/treeMenuOpen.gif");
-    final String srcClose = ResourceManagerUtils.getImageWithPath(facesContext, "image/treeMenuClose.gif");
+    final String srcOpen = ResourceManagerUtils.getImageWithPath(facesContext, "image/treeMenuOpen.png");
+    final String srcClose = ResourceManagerUtils.getImageWithPath(facesContext, "image/treeMenuClose.png");
     final String src = expanded ? srcOpen : srcClose;
     writer.startElement(HtmlElements.IMG, null);
     writer.writeClassAttribute(Classes.create(node, "toggle"));

@@ -19,8 +19,8 @@
 
 package org.apache.myfaces.tobago.renderkit.html.sandbox.standard.tag;
 
-import org.apache.myfaces.tobago.internal.component.AbstractUINumberSlider;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
+import org.apache.myfaces.tobago.internal.component.AbstractUINumberSlider;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
@@ -153,7 +153,7 @@ public class NumberSliderRenderer extends LayoutComponentRendererBase {
     handleStyle.setHeight(Measure.valueOf(6));
     writer.writeStyleAttribute(handleStyle); // todo: why not do that via the class?
     writer.startElement(HtmlElements.IMG, null);
-    writer.writeAttribute(HtmlAttributes.SRC, getAbsoluteImagePath(facesContext, "image/sliderTriangle.gif"), true);
+    writer.writeAttribute(HtmlAttributes.SRC, getAbsoluteImagePath(facesContext, "image/sliderTriangle.png"), true);
     writer.endElement(HtmlElements.IMG);
     writer.endElement(HtmlElements.DIV);
     writer.endElement(HtmlElements.DIV);

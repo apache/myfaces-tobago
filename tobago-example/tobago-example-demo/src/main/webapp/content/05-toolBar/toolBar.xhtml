@@ -21,7 +21,6 @@
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:tx="http://myfaces.apache.org/tobago/extension"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core">
 <ui:param name="title" value="#{overviewBundle.toolbar}"/>
 <tc:panel id="pageToolbar">
@@ -46,7 +45,7 @@
         <tc:toolBarCommand id="imageButton" action="#{overviewController.ping}"
                            actionListener="#{overviewController.click}"
                            label="#{overviewBundle.toolbar_imageButtonAction}"
-                           image="image/toolbar_example_button.gif"/>
+                           image="image/toolbar_example_button.png"/>
 
         <tc:toolBarCommand id="popupButton"
                            actionListener="#{overviewController.click}"
@@ -108,7 +107,7 @@
       <tc:toolBarCommand id="imageButton2" action="overview/toolbar"
                          actionListener="#{overviewController.click}"
                          label="#{overviewBundle.toolbar_imageButtonAction}"
-                         image="image/toolbar_example_button.gif"/>
+                         image="image/toolbar_example_button.png"/>
 
 
       <tc:toolBarCommand id="popupButton2"
@@ -165,7 +164,7 @@
             <tc:dataAttribute name="alert-text" value="Alert in Menu 1"/>
           </tc:menuCommand>
 
-          <tc:menuCommand label="#{overviewBundle.toolbar_linkClickme}" image="image/config.gif">
+          <tc:menuCommand label="#{overviewBundle.toolbar_linkClickme}" image="image/config.png">
             <f:facet name="confirmation"><tc:out value="Do you really want to click this button?"/></f:facet>
           </tc:menuCommand>
 
@@ -182,16 +181,16 @@
 
           <tc:menu label="Menu 3">
 
-            <tc:menuCommand label="Alert" image="image/date.gif" omit="true">
+            <tc:menuCommand label="Alert" image="image/date.png" omit="true">
               <tc:dataAttribute name="alert-text" value="Alert in Menu 3"/>
             </tc:menuCommand>
 
-            <tc:menuCommand link="/" label="#{overviewBundle.toolbar_linkClickme}" image="image/config.gif">
+            <tc:menuCommand link="/" label="#{overviewBundle.toolbar_linkClickme}" image="image/config.png">
               <f:facet name="confirmation"><tc:out value="Do you really want leave this demo?"/></f:facet>
             </tc:menuCommand>
 
             <tc:menuCommand link="http://www.atanion.com" disabled="true" label="#{overviewBundle.toolbar_linkClickme}"
-                            image="image/remove.gif"/>
+                            image="image/remove.png"/>
 
             <tc:menu label="#{overviewBundle.toolbar_selectSingleselect}">
 

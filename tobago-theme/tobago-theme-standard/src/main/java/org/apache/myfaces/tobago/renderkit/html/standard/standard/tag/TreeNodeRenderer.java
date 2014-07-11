@@ -43,11 +43,11 @@ public class TreeNodeRenderer extends TreeNodeRendererBase {
   private static final Logger LOG = LoggerFactory.getLogger(TreeNodeRenderer.class);
 
   protected static final String OPEN_FOLDER
-      = ResourceUtils.createString("image", "treeNode", "icon", "open", ResourceUtils.GIF);
+      = ResourceUtils.createString("image", "treeNode", "icon", "open", ResourceUtils.PNG);
   protected static final String CLOSED_FOLDER
-      = ResourceUtils.createString("image", "treeNode", "icon", ResourceUtils.GIF);
+      = ResourceUtils.createString("image", "treeNode", "icon", ResourceUtils.PNG);
   protected static final String LEAF
-      = ResourceUtils.createString("image", "treeNode", "icon", "leaf", ResourceUtils.GIF);
+      = ResourceUtils.createString("image", "treeNode", "icon", "leaf", ResourceUtils.PNG);
 
   @Override
   public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {

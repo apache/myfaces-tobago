@@ -47,7 +47,7 @@ public class ResourceBean {
               ResourceType.IMAGE,
               "should fail"),
           new ResourceEntry(
-              "image/date.gif",
+              "image/date.png",
               ResourceType.IMAGE,
               "comes from JAR (tobago-theme-speyside)"),
           new ResourceEntry(

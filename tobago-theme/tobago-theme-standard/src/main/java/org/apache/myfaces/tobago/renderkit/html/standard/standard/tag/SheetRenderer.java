@@ -742,7 +742,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
     final String tip = ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago",
         "sheet" + command.getToken());
     final String image = ResourceManagerUtils.getImageWithPath(facesContext,
-        "image/sheet" + command.getToken() + (disabled ? "Disabled" : "") + ".gif");
+        "image/sheet" + command.getToken() + (disabled ? "Disabled" : "") + ".png");
 
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
     writer.startElement(HtmlElements.IMG, null);
@@ -876,11 +876,11 @@ public class SheetRenderer extends LayoutComponentRendererBase {
               if (column.getId().equals(sheetState.getSortedColumnId())) {
                 final String sortTitle;
                 if (sheetState.isAscending()) {
-                  sorterImage = contextPath + resourceManager.getImage(facesContext, "image/ascending.gif");
+                  sorterImage = contextPath + resourceManager.getImage(facesContext, "image/ascending.png");
                   sortTitle = ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", "sheetAscending");
                   markup = markup.add(Markup.ASCENDING);
                 } else {
-                  sorterImage = contextPath + resourceManager.getImage(facesContext, "image/descending.gif");
+                  sorterImage = contextPath + resourceManager.getImage(facesContext, "image/descending.png");
                   sortTitle = ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", "sheetDescending");
                   markup = markup.add(Markup.DESCENDING);
                 }
@@ -914,7 +914,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
 
               writer.startElement(HtmlElements.IMG, column);
               final String menuImage
-                  = ResourceManagerUtils.getImageWithPath(facesContext, "image/sheetSelectorMenu.gif");
+                  = ResourceManagerUtils.getImageWithPath(facesContext, "image/sheetSelectorMenu.png");
               writer.writeAttribute(HtmlAttributes.TITLE, "", false);
               writer.writeAttribute(HtmlAttributes.SRC, menuImage, false);
               writer.endElement(HtmlElements.IMG);

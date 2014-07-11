@@ -156,7 +156,7 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
           image = ((org.apache.myfaces.tobago.model.SelectItem) item).getImage();
         }
         if (image == null) {
-          image = "image/1x1.gif";
+          image = "image/1x1.png";
         }
         command.getAttributes().put(Attributes.IMAGE, image);
 
@@ -451,7 +451,7 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
       final boolean dropDownDisabled
           = ComponentUtils.getBooleanAttribute(dropDownMenu, Attributes.DISABLED) || disabled;
       final String menuImage = ResourceManagerUtils
-          .getImageOrDisabledImageWithPath(facesContext, "image/toolbarButtonMenu.gif", dropDownDisabled);
+          .getImageOrDisabledImageWithPath(facesContext, "image/toolbarButtonMenu.png", dropDownDisabled);
       writer.writeAttribute(HtmlAttributes.SRC, menuImage, false);
       writer.writeStyleAttribute(openerStyle);
       writer.endElement(HtmlElements.IMG);

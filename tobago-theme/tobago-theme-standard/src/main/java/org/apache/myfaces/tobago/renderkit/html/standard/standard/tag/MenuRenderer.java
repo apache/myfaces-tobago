@@ -91,7 +91,7 @@ public class MenuRenderer extends LayoutComponentRendererBase {
 
       backgroundImage.append("url('");
       backgroundImage.append(
-          ResourceManagerUtils.getImageOrDisabledImageWithPath(facesContext, "image/MenuArrow.gif", menu.isDisabled()));
+          ResourceManagerUtils.getImageOrDisabledImageWithPath(facesContext, "image/MenuArrow.png", menu.isDisabled()));
       backgroundImage.append("')");
       backgroundPosition.append("right center");
     }

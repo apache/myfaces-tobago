@@ -472,7 +472,7 @@ public class PageRenderer extends PageRendererBase {
 
     writer.startElement(HtmlElements.IMG, null);
     writer.writeClassAttribute(Classes.create(page, "pngFixBlankImage"));
-    final String pngFixBlankImage = ResourceManagerUtils.getImageWithPath(facesContext, "image/blank.gif");
+    final String pngFixBlankImage = ResourceManagerUtils.getImageWithPath(facesContext, "image/blank.png");
     writer.writeAttribute(HtmlAttributes.SRC, pngFixBlankImage, false);
     writer.endElement(HtmlElements.IMG);
 

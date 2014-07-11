@@ -26,8 +26,8 @@ public class TreeNodeRendererUnitTest {
 
   @Test
   public void testConstants() {
-     Assert.assertEquals("image/treeNode-icon-open.gif", TreeNodeRenderer.OPEN_FOLDER);
-     Assert.assertEquals("image/treeNode-icon.gif", TreeNodeRenderer.CLOSED_FOLDER);
-     Assert.assertEquals("image/treeNode-icon-leaf.gif", TreeNodeRenderer.LEAF);
+     Assert.assertEquals("image/treeNode-icon-open.png", TreeNodeRenderer.OPEN_FOLDER);
+     Assert.assertEquals("image/treeNode-icon.png", TreeNodeRenderer.CLOSED_FOLDER);
+     Assert.assertEquals("image/treeNode-icon-leaf.png", TreeNodeRenderer.LEAF);
   }
 }

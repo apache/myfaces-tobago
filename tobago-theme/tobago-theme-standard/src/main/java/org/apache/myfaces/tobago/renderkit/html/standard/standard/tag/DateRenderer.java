@@ -69,7 +69,7 @@ public class DateRenderer extends InRenderer {
         imageName = "image/time.png";
       }
     } else {
-      imageName = "image/date.gif";
+      imageName = "image/date.png";
     }
     final String icon = ResourceManagerUtils.getImageWithPath(facesContext, imageName);
     if (icon != null) {
