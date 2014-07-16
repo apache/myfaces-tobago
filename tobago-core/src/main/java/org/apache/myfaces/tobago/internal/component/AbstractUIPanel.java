@@ -27,6 +27,7 @@ import org.apache.myfaces.tobago.internal.layout.LayoutUtils;
 import org.apache.myfaces.tobago.layout.LayoutComponent;
 import org.apache.myfaces.tobago.layout.LayoutContainer;
 import org.apache.myfaces.tobago.layout.LayoutManager;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.util.CreateComponentUtils;
 
 import javax.faces.component.UIComponent;
@@ -58,10 +59,6 @@ public abstract class AbstractUIPanel extends AbstractUIPanelBase
   }
 
   public void onComponentPopulated(final FacesContext facesContext, final UIComponent parent) {
-    if (getLayoutManager() == null) {
-      setLayoutManager(CreateComponentUtils.createAndInitLayout(
-          facesContext, ComponentTypes.GRID_LAYOUT, RendererTypes.GRID_LAYOUT, parent));
-    }
   }
 
   public List<LayoutComponent> getComponents() {
@@ -69,7 +66,29 @@ public abstract class AbstractUIPanel extends AbstractUIPanelBase
   }
 
   public LayoutManager getLayoutManager() {
-    return (LayoutManager) getFacet(Facets.LAYOUT);
+
+    final UIComponent base;
+
+    final UIComponent compositeFacet = getFacet(COMPOSITE_FACET_NAME);
+    if (compositeFacet != null) {
+      base = compositeFacet.getChildren().get(0);
+    } else {
+      base = this;
+    }
+
+    final UIComponent layoutFacet = base.getFacet(Facets.LAYOUT);
+    if (layoutFacet != null) {
+      if (layoutFacet instanceof LayoutManager) {
+        return (LayoutManager) layoutFacet;
+      } else {
+        return (LayoutManager) ComponentUtils.findChild(layoutFacet, AbstractUILayoutBase.class);
+      }
+    } else {
+      final LayoutManager layoutManager = CreateComponentUtils.createAndInitLayout(
+          FacesContext.getCurrentInstance(), ComponentTypes.GRID_LAYOUT, RendererTypes.GRID_LAYOUT, base.getParent());
+      base.getFacets().put(Facets.LAYOUT, (AbstractUILayoutBase) layoutManager);
+      return layoutManager;
+    }
   }
 
   public void setLayoutManager(final LayoutManager layoutManager) {

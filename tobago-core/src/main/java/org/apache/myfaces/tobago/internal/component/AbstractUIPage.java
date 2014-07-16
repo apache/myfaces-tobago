@@ -118,6 +118,9 @@ public abstract class AbstractUIPage extends AbstractUIForm
       ((AbstractUILayoutBase) getLayoutManager()).encodeEnd(facesContext);
       super.encodeEnd(facesContext);
     }
+    if (LOG.isTraceEnabled()) {
+      LOG.trace(DebugUtils.toString(this.getParent(), 0));
+    }
   }
 
   private void processDecodes0(final FacesContext facesContext) {
@@ -274,7 +277,7 @@ public abstract class AbstractUIPage extends AbstractUIForm
       }
     } else {
       if (LOG.isDebugEnabled()) {
-        LOG.debug("Illegal actionId! Rerender the view.");
+        LOG.debug("Illegal actionId! Render response...");
       }
       facesContext.renderResponse();
     }
@@ -373,7 +376,14 @@ public abstract class AbstractUIPage extends AbstractUIForm
   }
 
   public LayoutManager getLayoutManager() {
-    return (LayoutManager) getFacet(Facets.LAYOUT);
+    final UIComponent facet = getFacet(Facets.LAYOUT);
+    if (facet == null) {
+      return null;
+    } else if (facet instanceof LayoutManager) {
+      return (LayoutManager) facet;
+    } else {
+      return (LayoutManager) ComponentUtils.findChild(facet, AbstractUILayoutBase.class);
+    }
   }
 
   public void setLayoutManager(final LayoutManager layoutManager) {

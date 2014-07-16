@@ -71,6 +71,15 @@ public final class LayoutUtils {
         addLayoutChildren(child, result);
       }
     }
+
+    final UIComponent child = component.getFacet(UIComponent.COMPOSITE_FACET_NAME);
+    if (child instanceof LayoutComponent) {
+      result.add((LayoutComponent) child);
+    } else if (child != null) {
+      // Child seems to be transparent for layout, like UIForm.
+      // So we try to add the inner components.
+      addLayoutChildren(child, result);
+    }
   }
 
   public static Measure getBorderEnd(final Orientation orientation, final LayoutBox container) {
