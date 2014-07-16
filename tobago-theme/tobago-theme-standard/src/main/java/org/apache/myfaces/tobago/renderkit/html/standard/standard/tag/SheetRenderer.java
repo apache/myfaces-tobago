@@ -103,7 +103,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
   private static final Integer HEIGHT_0 = 0;
   private static final String DOTS = "...";
 
-    @Override
+  @Override
   public void prepareRender(final FacesContext facesContext, final UIComponent component) throws IOException {
     super.prepareRender(facesContext, component);
     ensureHeader(facesContext, (UISheet) component);
@@ -820,7 +820,8 @@ public class SheetRenderer extends LayoutComponentRendererBase {
           String sorterImage = null;
           Markup markup = Markup.NULL;
           String tip = (String) column.getAttributes().get(Attributes.TIP);
-          if (cell.getColumnSpan() == 1) {
+          // sorter icons should only displayed when there is only 1 column and not input
+          if (cell.getColumnSpan() == 1 && cellComponent instanceof UIOut) {
             final boolean sortable = ComponentUtils.getBooleanAttribute(column, Attributes.SORTABLE);
             if (sortable) {
               UICommand sortCommand = (UICommand) column.getFacet(Facets.SORTER);

@@ -17,7 +17,7 @@
  * limitations under the License.
 -->
 
-<ui:composition template="/WEB-INF/tags/layout/overview.xhtml"
+<ui:composition template="/WEB-INF/tags/layout/plain.xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core">
@@ -39,25 +39,30 @@
 
       <f:facet name="header">
         <tc:form>
+
           <tc:out value="Name"/>
-          <tc:out value="of"/>
+          <tc:out value="Orbit of"/>
           <tc:out value="#{overviewBundle.solarArrayDistance} [1000 km]"/>
           <tc:out value="Discoverer"/>
 
           <tc:in value="#{sheetFilter.name}">
-            <!-- a change facet works, but is not nice to use in most cases
+            <!-- a change facet works, but is not nice to use in most cases -->
+<!--
                         <f:facet name="change">
                           <tc:command action="#{sheetFilter.filter}" renderedPartially="sheet"/>
                         </f:facet>
-            -->
+-->
           </tc:in>
           <tc:in value="#{sheetFilter.orbit}"/>
           <tc:selectOneChoice value="#{sheetFilter.distance}" converter="#{sheetFilter.converter}">
             <tc:selectItems value="#{sheetFilter.distanceItems}"/>
           </tc:selectOneChoice>
-          <tc:in value="#{sheetFilter.discoverer}"/>
 
-          <tc:button action="#{sheetFilter.filter}" renderedPartially="sheet" defaultCommand="true"/>
+          <!-- XXX workaround -->
+          <tc:panel>
+            <tc:in value="#{sheetFilter.discoverer}"/>
+            <tc:button action="#{sheetFilter.filter}" label="Filter" renderedPartially="sheet" defaultCommand="true"/>
+          </tc:panel>
 
         </tc:form>
       </f:facet>
