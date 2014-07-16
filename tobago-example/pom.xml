@@ -83,9 +83,6 @@
           -->
           <configuration>
             <scanIntervalSeconds>5</scanIntervalSeconds>
-            <webApp>
-              <overrideDescriptor>../src/test/jetty/jetty-override-web.xml</overrideDescriptor>
-            </webApp>
           </configuration>
         </plugin>
       </plugins>
