@@ -63,9 +63,9 @@ Compatibility
 *--+--+--+--+--+
 || <<Browser>>         ||                           ||                                             ||                                       ||
 *--+--+--+--+--+
-| Internet Explorer    | 6, 7, 8, 9, 10, 11         | 6, 7, 8, 9, 10, 11, ...                      | 6, 7, 8, 9, 10, 11, ...                | 8\[tbd\], 9\[tbd\], 10, 11, ...
+| Internet Explorer    | 6, 7, 8, 9, 10, 11         | 6, 7, 8, 9, 10, 11, ...                      | 6\[lim\], 7\[lim\], 8\[lim\], 9, 10, 11, ... | 8\[tbd\], 9\[tbd\], 10, 11, ...
 *--+--+--+--+--+
-| Firefox              | 2, 3, 4, ...               | 2, 3, 4, ...                                 | 2, 3, 4, ...                           | 3\[tbd\], 4, ...
+| Firefox              | 2, 3, 4, ...               | 2, 3, 4, ...                                 | 2\[lim\], 3, 4, ...                    | 3\[tbd\], 4, ...
 *--+--+--+--+--+
 | Safari               |                            | 4, 5, 6, ...                                 | 4, 5, 6, ...                           | 4\[tbd\], 5, 6
 *--+--+--+--+--+
@@ -100,6 +100,8 @@ Compatibility
 
   \[tbd\]: to be defined (this information is unsettled and may change)
   
+  \[lim\]: these old browsers are generally supported, but may have weak appearance
+
   \[facelets only\]: it works with facelets, but not with JSP, because JSF 1.2 requires JSP 2.1
 
   \[other servers\]: other servers should work, when they are compliant to the named specifications
