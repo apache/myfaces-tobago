@@ -31,21 +31,14 @@
     <tc:label value="tc"/>
     <tc:label value="tx"/>
 
-    <tc:panel>
-      <f:facet name="layout">
-        <tc:gridLayout columns="*;auto"/>
-      </f:facet>
-
-      <tc:date id="s1"/>
-      <tc:datePicker for="s1"/>
-    </tc:panel>
+    <tc:date id="s1"/>
 
     <tx:date label="normal" fieldId="s2"/>
 
     <tc:script file="script/tobago-assert.js"/>
 
-    <tc:script onload="TobagoAssert.assertLayout('page:s1', 0, 25, 179, 20);"/>
-    <tc:script onload="TobagoAssert.assertLayout('page:s2', 330, 25, 179, 20);"/>
+    <tc:script onload="TobagoAssert.assertLayout('page:s1', 0, 25, 158, 20);"/>
+    <tc:script onload="TobagoAssert.assertLayout('page:s2', 309, 25, 158, 20);"/>
 
   </tc:page>
 </f:view>
