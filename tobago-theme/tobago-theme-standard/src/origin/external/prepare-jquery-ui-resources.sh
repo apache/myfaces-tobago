@@ -28,13 +28,10 @@ patchLocale () {
 # TODO: you will need to fix the locale inside the 3 files manually
 
     if [ "${OLD_LOCALE}" = "cy_GB" ]; then
-       echo "*1"
        NEW_LOCALE="_cy"
 #    elif [ "${OLD_LOCALE}" = "en_GB" ]; then
-#       echo "*2"
 #       NEW_LOCALE="_en"
     elif [ "${OLD_LOCALE}" = "zh_CN" ]; then
-       echo "*3"
        NEW_LOCALE="_zh"
     else
        NEW_LOCALE="_${OLD_LOCALE}"
@@ -52,18 +49,19 @@ for FILE in $(find ${SOURCE}/development-bundle/ui/i18n -type file -name "jquery
   # e.g. jquery.ui.datepicker-zh-TW.js -> jquery-ui-datepicker-$VERSION_zh_TW.js
   OLD_LOCALE=`basename ${FILE} | sed "s|jquery.ui.datepicker-||g" | sed "s|.js||g"| sed "s|-|_|g"`
   patchLocale
-  NAME=jquery-ui-datepicker-i18n-${VERSION}${NEW_LOCALE}.js
+  NAME=jquery-ui-${VERSION}.custom${NEW_LOCALE}.js
   cp ${FILE} ${TARGET}/script/contrib/${NAME}
 done
 
-for FILE in $(find ${SOURCE}/development-bundle/ui/minified/i18n -type file -name "jquery.ui.datepicker-*.min.js") ; do
-  # echo ${FILE};
-  # e.g. jquery.ui.datepicker-zh-TW.js -> jquery-ui-datepicker-$VERSION_zh_TW.js
-  OLD_LOCALE=`basename ${FILE} | sed "s|jquery.ui.datepicker-||g" | sed "s|.min.js||g"| sed "s|-|_|g"`
-  patchLocale
-  NAME=jquery-ui-datepicker-i18n-${VERSION}${NEW_LOCALE}.min.js
-  cp ${FILE} ${TARGET}/script/contrib/${NAME}
-done
+# TBD: so small files... do we need a minified version? If yes, fix the i18n with "min"
+#for FILE in $(find ${SOURCE}/development-bundle/ui/minified/i18n -type file -name "jquery.ui.datepicker-*.min.js") ; do
+#  # echo ${FILE};
+#  # e.g. jquery.ui.datepicker-zh-TW.js -> jquery-ui-datepicker-$VERSION_zh_TW.js
+#  OLD_LOCALE=`basename ${FILE} | sed "s|jquery.ui.datepicker-||g" | sed "s|.min.js||g"| sed "s|-|_|g"`
+#  patchLocale
+#  NAME=jquery-ui-${VERSION}.custom${NEW_LOCALE}.min.js
+#  cp ${FILE} ${TARGET}/script/contrib/${NAME}
+#done
 
 # Styles
 
