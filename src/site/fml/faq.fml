@@ -169,10 +169,10 @@
          <source>
 /META-INF/tobago-config.xml
 (resource-path/html/theme-name)
-/org/apache/myfaces/tobago/renderkit/html/xxxxx/standard/style/style.css (standard styles)
+/org/apache/myfaces/tobago/renderkit/html/xxxxx/standard/style/tobago.css (standard styles)
 /org/apache/myfaces/tobago/renderkit/html/xxxxx/standard/style/tobago-menu.css (menu styles)
 /org/apache/myfaces/tobago/renderkit/html/xxxxx/standard/style/tobago-sheet.css (sheet styles)
-/org/apache/myfaces/tobago/renderkit/html/xxxxx/msie/style/style.css (different styles for msie)</source>
+/org/apache/myfaces/tobago/renderkit/html/xxxxx/msie/style/tobago.css (different styles for msie)</source>
 
            Property and resource loading and renderer loading is done in the following order
            <source>
@@ -212,7 +212,7 @@ resource-path/content-type/theme/client/[tag(for renderer)|property|style|script
           The standard markup is defined in tobago-config.xml of the tobago-theme-standard.
           This can be extended in your own theme.
           The markup attribute is rendered as a CSS class tobago-[renderer-name.toLowerCase]-markup-[markup].
-          For an example please look at the markup number and the CSS class tobago-in-markup-number for UIInput in theme/scarborough/src/main/resources/org/apache/myfaces/tobago/renderkit/html/scarborough/standard/style/style.css
+          For an example please look at the markup number and the CSS class tobago-in-markup-number for UIIn in theme/scarborough/src/main/resources/org/apache/myfaces/tobago/renderkit/html/scarborough/standard/style/tobago.css
           </p>
       </answer>
     </faq>
