@@ -33,8 +33,6 @@ import org.apache.myfaces.tobago.internal.component.AbstractUIFlowLayout;
 import org.apache.myfaces.tobago.internal.component.AbstractUIGridLayout;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPopup;
 import org.apache.myfaces.tobago.internal.config.TobagoConfigImpl;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.faces.component.EditableValueHolder;
 import javax.faces.component.UIComponent;
@@ -50,12 +48,6 @@ import java.util.Map;
 import java.util.Set;
 
 public class TobagoComponentHandler extends ComponentHandler {
-
-  private static final Logger LOG = LoggerFactory.getLogger(TobagoComponentHandler.class);
-
-  static {
-    LOG.info("init");
-  }
 
   public TobagoComponentHandler(final ComponentConfig componentConfig) {
     super(componentConfig);
