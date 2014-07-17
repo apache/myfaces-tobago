@@ -23,6 +23,25 @@ SOURCE=~/Downloads/jquery-ui-1.10.4.custom
 TARGET=../../main/resources/org/apache/myfaces/tobago/renderkit/html/standard/standard
 VERSION=1.10.4
 
+patchLocale () {
+
+# TODO: you will need to fix the locale inside the 3 files manually
+
+    if [ "${OLD_LOCALE}" = "cy_GB" ]; then
+       echo "*1"
+       NEW_LOCALE="_cy"
+#    elif [ "${OLD_LOCALE}" = "en_GB" ]; then
+#       echo "*2"
+#       NEW_LOCALE="_en"
+    elif [ "${OLD_LOCALE}" = "zh_CN" ]; then
+       echo "*3"
+       NEW_LOCALE="_zh"
+    else
+       NEW_LOCALE="_${OLD_LOCALE}"
+    fi
+    echo "${NEW_LOCALE}"
+}
+
 # Scripts
 
 cp ${SOURCE}/js/jquery-ui-${VERSION}.custom.js ${TARGET}/script/contrib
@@ -31,16 +50,18 @@ cp ${SOURCE}/js/jquery-ui-${VERSION}.custom.min.js ${TARGET}/script/contrib
 for FILE in $(find ${SOURCE}/development-bundle/ui/i18n -type file -name "jquery.ui.datepicker-*.js") ; do
   # echo ${FILE};
   # e.g. jquery.ui.datepicker-zh-TW.js -> jquery-ui-datepicker-$VERSION_zh_TW.js
-  LOCALE=`basename ${FILE} | sed "s|jquery.ui.datepicker-||g" | sed "s|.js||g"| sed "s|-|_|g"`
-  NAME=jquery-ui-datepicker-i18n-${VERSION}_${LOCALE}.js
+  OLD_LOCALE=`basename ${FILE} | sed "s|jquery.ui.datepicker-||g" | sed "s|.js||g"| sed "s|-|_|g"`
+  patchLocale
+  NAME=jquery-ui-datepicker-i18n-${VERSION}${NEW_LOCALE}.js
   cp ${FILE} ${TARGET}/script/contrib/${NAME}
 done
 
 for FILE in $(find ${SOURCE}/development-bundle/ui/minified/i18n -type file -name "jquery.ui.datepicker-*.min.js") ; do
   # echo ${FILE};
   # e.g. jquery.ui.datepicker-zh-TW.js -> jquery-ui-datepicker-$VERSION_zh_TW.js
-  LOCALE=`basename ${FILE} | sed "s|jquery.ui.datepicker-||g" | sed "s|.min.js||g"| sed "s|-|_|g"`
-  NAME=jquery-ui-datepicker-i18n-${VERSION}_${LOCALE}.min.js
+  OLD_LOCALE=`basename ${FILE} | sed "s|jquery.ui.datepicker-||g" | sed "s|.min.js||g"| sed "s|-|_|g"`
+  patchLocale
+  NAME=jquery-ui-datepicker-i18n-${VERSION}${NEW_LOCALE}.min.js
   cp ${FILE} ${TARGET}/script/contrib/${NAME}
 done
 
