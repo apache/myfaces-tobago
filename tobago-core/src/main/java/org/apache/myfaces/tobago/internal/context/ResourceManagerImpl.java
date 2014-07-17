@@ -306,7 +306,7 @@ public class ResourceManagerImpl implements ResourceManager {
   private List getPaths(
       final ClientPropertiesKey clientkey, final String prefix, final String subDir, final String name,
       final String suffix, final boolean reverseOrder, final boolean single, final boolean returnKey, final String key,
-      final boolean returnStrings, final boolean ignoreMissing) {
+      final boolean returnStrings, boolean ignoreMissing) {
     final List matches = new ArrayList();
     final String contentType = clientkey.getContentType();
     final Theme theme = clientkey.getTheme();
@@ -372,6 +372,13 @@ public class ResourceManagerImpl implements ResourceManager {
     }
 
     if (matches.isEmpty()) {
+
+      // XXX hack for Tobago 2.0.x backward compatibility: renaming of style.css to tobago.css
+      // XXX style.css should be collected, but missing should be ignored
+      if ("style/style".equals(name) && ".css".equals(suffix)) {
+        ignoreMissing = true;
+      }
+
       if (!ignoreMissing) {
         LOG.error("Path not found, and no fallback. Using empty string.\n"
             + "resourceDirs = '" + tobagoConfig.getResourceDirs()
@@ -382,7 +389,7 @@ public class ResourceManagerImpl implements ResourceManager {
             + "' name = '" + name
             + "' suffix = '" + suffix
             + "' key = '" + key
-            + "'"/*, new Exception()*/);
+            + "'");
       }
       return null;
     } else {
