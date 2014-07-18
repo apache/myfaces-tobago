@@ -28,14 +28,19 @@
       <tc:gridLayout rows="1*;5*"/>
     </f:facet>
 
-    <tc:out value="Filter demo"/>
+    <tc:panel>
+      Filter demo.
+      <br/>
+      <b>Warning:</b> paging currently doesn't work with filters
+    </tc:panel>
 
     <tc:sheet value="#{sheetFilter.filtered}" id="sheet" rows="20"
               columns="3*;2*;2*;2*" var="luminary"
               state="#{sheetFilter.state}"
-              showRowRange="left"
-              showPageRange="right"
-              showDirectLinks="center">
+              showRowRange="none"
+              showPageRange="none"
+              showDirectLinks="none">
+<!-- XXX paging currently doesn't work with filters -->
 
       <f:facet name="header">
         <tc:form>
