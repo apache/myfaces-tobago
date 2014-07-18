@@ -54,10 +54,20 @@ public class ActivityList {
   }
 
   public void jsfRequest(String sessionId) {
-    data.get(sessionId).jsfRequest();
+    final Activity activity = data.get(sessionId);
+    if (activity != null) {
+      activity.jsfRequest();
+    } else {
+      LOG.error("Ignoring sessionId='{}'", sessionId);
+    }
   }
 
   public void ajaxRequest(String sessionId) {
-    data.get(sessionId).ajaxRequest();
+    final Activity activity = data.get(sessionId);
+    if (activity != null) {
+      activity.ajaxRequest();
+    } else {
+      LOG.error("Ignoring sessionId='{}'", sessionId);
+    }
   }
 }
