@@ -22,9 +22,4 @@ package org.apache.myfaces.tobago.internal.component;
 import org.apache.myfaces.tobago.component.SelectOneCommand;
 
 public abstract class AbstractUIToolBarSelectOne extends AbstractUICommand implements SelectOneCommand {
-
-  @Override
-  public String getLabel() {
-    return null;
-  }
 }

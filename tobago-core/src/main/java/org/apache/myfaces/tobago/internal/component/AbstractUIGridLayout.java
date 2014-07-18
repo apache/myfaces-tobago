@@ -41,6 +41,7 @@ import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.layout.Orientation;
 import org.apache.myfaces.tobago.layout.PixelLayoutToken;
 import org.apache.myfaces.tobago.layout.RelativeLayoutToken;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -404,8 +405,7 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase implemen
   }
 
   private LayoutContainer getLayoutContainer() {
-    // todo: check with instanceof and do something in the error case
-    return ((LayoutContainer) getParent());
+    return ComponentUtils.findAncestor(getParent(), LayoutContainer.class);
   }
 
   public Measure getSpacing(final Orientation orientation) {

@@ -89,6 +89,8 @@ public final class DebugUtils {
       buf.append(" viewId=");
       buf.append(((javax.faces.component.UIViewRoot) component).getViewId());
     }
+    buf.append(" rendered=");
+    buf.append(component.isRendered());
     buf.append('\n');
     return buf.toString();
   }

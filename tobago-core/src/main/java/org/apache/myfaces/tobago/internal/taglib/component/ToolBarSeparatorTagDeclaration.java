@@ -22,6 +22,7 @@ package org.apache.myfaces.tobago.internal.taglib.component;
 import org.apache.myfaces.tobago.apt.annotation.BodyContent;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
+import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasBinding;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsRendered;
 
@@ -33,6 +34,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsRendered;
     uiComponent = "org.apache.myfaces.tobago.component.UIToolBarSeparator",
     uiComponentBaseClass = "javax.faces.component.UIOutput",
     uiComponentFacesClass = "javax.faces.component.UIOutput",
+    rendererType = RendererTypes.MENU_SEPARATOR,
     allowedChildComponenents = "NONE")
 
 public interface ToolBarSeparatorTagDeclaration extends IsRendered, HasBinding {

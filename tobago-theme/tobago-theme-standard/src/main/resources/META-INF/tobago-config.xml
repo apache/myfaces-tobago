@@ -331,6 +331,7 @@
             <markup>info</markup>
             <!-- internal: for the seconds field -->
             <markup>seconds</markup>
+            <markup>timepicker</markup>
           </supported-markup>
         </renderer>
         <renderer>

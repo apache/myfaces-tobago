@@ -271,6 +271,19 @@ public final class ComponentUtils {
   }
 
   /**
+   * Searches the children beneath the component and return the first component matching the type.
+   */
+  public static <T extends UIComponent> T findChild(final UIComponent component, final Class<T> type) {
+
+    for (final UIComponent child : component.getChildren()) {
+      if (type.isAssignableFrom(child.getClass())) {
+        return (T) child;
+      }
+    }
+    return null;
+  }
+
+  /**
    * Searches the component tree beneath the component and return all component matching the type.
    */
   public static <T extends UIComponent> List<T> findDescendantList(final UIComponent component, final Class<T> type) {

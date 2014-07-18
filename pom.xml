@@ -900,6 +900,7 @@
               <!-- jQuery -->
               <exclude>**/jquery*.js</exclude>
               <exclude>**/jquery*.map</exclude>
+              <exclude>**/jquery*.css</exclude>
 
               <!-- log files -->
               <exclude>**/*.log</exclude>
