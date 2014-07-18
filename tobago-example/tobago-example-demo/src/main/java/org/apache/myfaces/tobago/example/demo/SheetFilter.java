@@ -58,8 +58,8 @@ public class SheetFilter {
 
   public SheetFilter() {
     distanceRangeList = Arrays.asList(
-        new DistanceRange(0, Integer.MAX_VALUE),
-        new DistanceRange(0, 10),
+        new DistanceRange(-1, Integer.MAX_VALUE),
+        new DistanceRange(-1, 10),
         new DistanceRange(10, 100),
         new DistanceRange(100, 1000),
         new DistanceRange(1000, 10000),
@@ -83,12 +83,20 @@ public class SheetFilter {
 
   public String filter() {
     filtered.clear();
+    if (name == null) {
+        name = "";
+    }
+    if (orbit == null) {
+        orbit = "";
+    }
+    if (discoverer == null) {
+        discoverer = "";
+    }
     for (final SolarObject solarObject : demo.getSolarArray()) {
-      if (solarObject.getName().toLowerCase().contains(name.toLowerCase())
-          && solarObject.getOrbit().toLowerCase().contains(orbit.toLowerCase())
-          && distance.getMin() < solarObject.getDistance()
-          && solarObject.getDistance() <= distance.getMax()
-          && solarObject.getDiscoverer().toLowerCase().contains(discoverer.toLowerCase())) {
+      if (StringUtils.containsIgnoreCase(solarObject.getName(), name)
+          && StringUtils.containsIgnoreCase(solarObject.getOrbit(), orbit)
+          && distance.getMin() < solarObject.getDistance() && solarObject.getDistance() <= distance.getMax()
+          && StringUtils.containsIgnoreCase(solarObject.getDiscoverer(), discoverer)) {
         filtered.add(solarObject);
       }
     }
