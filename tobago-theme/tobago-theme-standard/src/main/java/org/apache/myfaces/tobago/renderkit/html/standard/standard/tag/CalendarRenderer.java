@@ -149,7 +149,7 @@ public class CalendarRenderer extends LayoutComponentRendererBase {
     for (int dayIt = 0; dayIt < 7; ++dayIt) {
       final DateModel date = model.getDate(0, dayIt);
       String dayName = dayInWeekFormat.format(date.getCalendar().getTime());
-      if (dayName != null) {
+      if (dayName != null && dayName.length() > 2) {
         dayName = dayName.substring(0, 2);
       }
 
