@@ -14,10 +14,10 @@
  ~~ limitations under the License.
 
  ------
- Migration from Tobago 1.5 to 2.0 (work in progress)
+ Migration from Tobago 1.5 to 2.0
  ------
 
-Migration from Tobago 1.5 to 2.0 (work in progress)
+Migration from Tobago 1.5 to 2.0
 
    Tobago 2.0 has some API changes compared to Tobago 1.5.
 
@@ -109,23 +109,28 @@ Internal
 
 Tag Library
 
-  The main changes in the tag library are
+  The main changes in the tag library are that
+  the deprecated facets "resizeAction" and "menupopup" has been removed.
 
-  TODO: What has changed with the tree?
-  The Tree now extends a UIData.
-  The tc:treeData tag should longer used.
-  The tc:treeNode has no longer the attributes: "selected", "expanded", "marked", "treeMarkedListener", "treeExpansionListener"
+Tree
 
+  * The Tree now extends a UIData.
+  * The <<<tc:treeData>>> tag should longer used.
+  * The <<<tc:treeNode>>> has no longer the attributes: "selected", "expanded", "marked", "treeMarkedListener", "treeExpansionListener"
+  * The class <<<org.apache.myfaces.tobago.model.TreeState>>> is no longer deprecated, but has bit changed functionality.
 
-  Deprecated facets "resizeAction" and "menupopup" was removed.
+Date/Time
+
+  The date and time input controls have been refactored. The old (deprecated) functionality can be activated
+  via <<<tobago-config.xml>>>.
 
 Configuration
 
-  To define an own theme, please use now a file tobago-config.xml instead of tobago-theme.xml.
-  The content of tobago-theme.xml is a subset of the tobago-config.xml, you have only to
+  To define an own theme, please use now a file <<<tobago-config.xml>>> instead of <<<tobago-theme.xml>>>.
+  The content of <<<tobago-theme.xml>>> is a subset of the <<<tobago-config.xml>>>, you have only to
   change the root node.
 
-  Please use the tobago-config-2.0.xsd to validate the configuration.
+  Please use the {{{http://myfaces.apache.org/tobago/tobago-config-2.0.xsd}<<<tobago-config-2.0.xsd>>>}} to validate the configuration.
 
 JavaScript
 

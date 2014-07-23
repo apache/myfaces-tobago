@@ -1,0 +1,200 @@
+ ~~ Licensed to the Apache Software Foundation (ASF) under one or more
+ ~~ contributor license agreements.  See the NOTICE file distributed with
+ ~~ this work for additional information regarding copyright ownership.
+ ~~ The ASF licenses this file to You under the Apache License, Version 2.0
+ ~~ (the "License"); you may not use this file except in compliance with
+ ~~ the License.  You may obtain a copy of the License at
+ ~~
+ ~~      http://www.apache.org/licenses/LICENSE-2.0
+ ~~
+ ~~ Unless required by applicable law or agreed to in writing, software
+ ~~ distributed under the License is distributed on an "AS IS" BASIS,
+ ~~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ ~~ See the License for the specific language governing permissions and
+ ~~ limitations under the License.
+
+ ------
+ What's new in Tobago 2.0?
+ ------
+
+{What's new in Tobago 2.0?}
+
+    At July 21, 2014 the version 2.0.0 has been released.
+    Here was a quick overview over the features and changes made in the last time
+    to release this major revision.
+
+    Tobago 2.0.0 contains 184 entries in {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12321253}Jira}}
+    and most of them are exclusive in this version.
+
+    Please take also a look at the {{{./migration-2.0.html}Migration from Tobago 1.5 to 2.0}} guide.
+
+Enhancements
+
+* Date- and Time-Picker
+
+    * Using jQuery UI Datepicker and TimePicker Addon
+
+    * Faster — no server request
+
+    * Better interactivity
+
+    * Old Date-/TimePicker via <<<tobago-config.xml>>>
+
+* Draggable Popups
+
+* Input Suggest
+
+    * New implementation
+
+    * Sub-Tag <<<tc:suggest>>>
+
+    * More configuration options
+
+* Tabs
+
+    * Icons
+
+    * Toolbar buttons
+
+* File upload
+
+    * Looks pretty now in every browser
+
+* Radio Buttons
+
+    * Icons
+
+New Features
+
+* HTML WYSIWYG Editor
+
+      * Integration example in the demo of {{{http://ckeditor.com/}CKEditor™}} and {{{http://www.tinymce.com/}TinyMCE}}
+
+      * Not included, because of incompatible licences or breaks CSP
+
+      * Other possible, but many have disadvantages
+
+* Default Command for Sub-Forms
+
+      * Dependent from the focused input, the default command will be selected
+
+      * Markup to show the command to the user
+    
+* Tree and Tree-Table
+
+      * Big internal refactoring
+
+      * Work internally now with the JSF <<<UIData>>>
+
+      * Free model: <<<DefaultMutableTreeNode>>> is not required any longer, but you can implement <<<javax.faces.model.DataModel>>>
+
+      * TreeTable
+
+      * Infinite Trees possible
+
+      * Selectors: sub-tree selection
+
+* More
+
+      * Dynamic lists in <<<f:selectItems>>> need not glue code (JSF 2.0)
+
+      * Redirect in navigation rules doesn't break layout size
+
+      * Additional possibility to show paging arrows in sheet
+
+      * Automatically create accesskey from underscore is know configurable
+    
+Security
+
+* Content Security Policy
+
+      * To prevent XSS
+
+      * {{{http://www.w3.org/TR/CSP/}W3C Standard}}
+
+      * Idea:
+        
+          * Don't execute any code inside the HTML file
+            
+              * No content in script tags
+
+              * no onclick, nor on* etc.
+            
+          
+          * Don't execute <<<eval(script)>>>
+
+          * Don't apply CSS inside the HTML file
+
+          * Define the sources of any resources
+
+          * Strict separation of code and data
+            
+              * Keep the code in JavaScript Files
+
+              * Put additional data in HTML5 <<<data-*>>> attributes
+            
+          
+        
+      
+      * Browser support: all current, but IE 10 and 11 only "sandbox"
+
+      * Activated by default, can be configured via <<<tobago-config.xml>>>
+
+      * There is also a "report-only" mode for development
+
+
+* Content Security Policy and Tobago</h2>
+
+    
+      * All renderers and scripts are refactored to be compliant with CSP
+
+      * Using application specific JavaScript in Tobago
+        
+          * script attribute in command tags is deprecated
+
+          * Problem: when setting non of these attributes: <<<action>>>, <<<script>>>,
+          <<<link>>>, Tobago will create a default
+          action. This can't be changed without breaking compatibility.
+
+          * Solution: <<<omit="true">>>
+
+* Sanitize potentially malicious content <br/> (to prevent XSS)
+
+    
+      * <<<tc:textarea>>>, when it contains a <<<tc:dataAttribute>>> with <<<name="html-editor">>>
+
+      * <<<tc:out>>>, when <<<escape="false">>>
+
+      * Default implementation: {{{http://jsoup.org/cookbook/cleaning-html/whitelist-sanitizer}JSoup}}
+        whitelist scanning
+      
+      * Configurable via <<<tobago-context.xml>>>
+
+      * Why? See {{{https://www.owasp.org/index.php/XSS_%28Cross_Site_Scripting%29_Prevention_Cheat_Sheet#RULE_.236_-_Sanitize_HTML_Markup_with_a_Library_Designed_for_the_Job}OSWAP}}
+
+* More
+
+      * Setting nosniff HTTP header (to prevent XSS)
+
+      * Don't allow to be in a frame (to prevent Frame-Attacks)
+
+      * Both are configurable via <<<tobago-config.xml>>>, default is secure
+    
+
+Internal Refactoring
+
+      * Tree uses subclass of <<<javax.faces.model.DataModel>>>
+
+      * Using Java APT generator
+
+      * Using ' instead of " for HTML attributes (JSON friendly)
+
+      * JavaScript logging via console (plus workaround for old browsers)
+
+      * The <<<theme-config.xml>>> was merged with <<<tobago-config.xml>>>
+
+      * Access the Tobago configuration via the <<<TobagoContext>>>
+
+      * The <<<TobagoConfig>>> is immutable after initialization
+
+      * Add the version of Tobago into the resource URLs to avoid caching problem after updates

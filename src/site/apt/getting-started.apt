@@ -28,6 +28,12 @@ Checking Out
   svn checkout http://svn.apache.org/repos/asf/myfaces/tobago/trunk tobago
 +----------------------------------------
 
+  Check out the 3.0.x sources (alpha) by running the following:
+
++----------------------------------------
+  svn checkout http://svn.apache.org/repos/asf/myfaces/tobago/branches/tobago-3.0.x tobago-3.0.x
++----------------------------------------
+
   Check out the 1.5.x sources by running the following:
 
 +----------------------------------------
