@@ -222,11 +222,13 @@ public final class AjaxInternalUtils {
   }
 
   public static boolean isAjaxRequest(final FacesContext facesContext) {
-    final Map parameterMap = facesContext.getExternalContext().getRequestParameterMap();
-    final String ajaxComponentIds = (String) parameterMap.get(AjaxInternalUtils.TOBAGO_PARTIAL_IDS);
-    return ajaxComponentIds != null;
+    return isAjaxRequest(facesContext.getExternalContext().getRequestParameterMap());
   }
 
+  public static boolean isAjaxRequest(final Map<String, String> parameterMap) {
+    final String ajaxComponentIds = parameterMap.get(AjaxInternalUtils.TOBAGO_PARTIAL_IDS);
+    return ajaxComponentIds != null;
+  }
 
   public static boolean redirect(final FacesContext facesContext, final String url) throws IOException {
     if (!isAjaxRequest(facesContext)) {
@@ -265,7 +267,7 @@ public final class AjaxInternalUtils {
     final Writer writer = response.getWriter();
     writer.flush(); // is needed in some cases, e. g. TOBAGO-1094
     writer.write("{\n  \"tobagoAjaxResponse\": true,\n");
-    writer.write("  \"responseCode\": 309,\n");
+    writer.write("  \"responseCode\": " + AjaxResponseRenderer.CODE_RELOAD_REQUIRED + ",\n");
     writer.write("  \"location\": \"");
     writer.write(pathPrefix + facesContext.getViewRoot().getViewId());
     writer.write("\"\n}\n");

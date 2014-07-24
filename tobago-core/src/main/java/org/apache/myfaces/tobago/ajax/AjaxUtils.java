@@ -27,6 +27,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Collections;
@@ -46,6 +47,10 @@ public final class AjaxUtils {
 
   public static boolean isAjaxRequest(final FacesContext facesContext) {
     return AjaxInternalUtils.isAjaxRequest(facesContext);
+  }
+
+  public static boolean isAjaxRequest(final ServletRequest request) {
+    return AjaxInternalUtils.isAjaxRequest((Map<String, String>) request.getParameterMap());
   }
 
   public static void removeAjaxComponent(final FacesContext facesContext, final String clientId) {
