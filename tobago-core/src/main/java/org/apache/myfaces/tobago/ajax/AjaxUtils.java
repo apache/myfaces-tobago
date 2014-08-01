@@ -46,11 +46,13 @@ public final class AjaxUtils {
   }
 
   public static boolean isAjaxRequest(final FacesContext facesContext) {
-    return AjaxInternalUtils.isAjaxRequest(facesContext);
+    return facesContext.getExternalContext().getRequestParameterMap().get(AjaxInternalUtils.TOBAGO_PARTIAL_IDS) != null;
   }
 
   public static boolean isAjaxRequest(final ServletRequest request) {
-    return AjaxInternalUtils.isAjaxRequest((Map<String, String>) request.getParameterMap());
+    final String[] ajaxComponentIds
+        = ((Map<String, String[]>) request.getParameterMap()).get(AjaxInternalUtils.TOBAGO_PARTIAL_IDS);
+    return ajaxComponentIds != null && ajaxComponentIds.length > 0;
   }
 
   public static void removeAjaxComponent(final FacesContext facesContext, final String clientId) {

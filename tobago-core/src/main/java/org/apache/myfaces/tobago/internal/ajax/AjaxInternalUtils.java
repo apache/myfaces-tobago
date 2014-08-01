@@ -221,17 +221,8 @@ public final class AjaxInternalUtils {
     }
   }
 
-  public static boolean isAjaxRequest(final FacesContext facesContext) {
-    return isAjaxRequest(facesContext.getExternalContext().getRequestParameterMap());
-  }
-
-  public static boolean isAjaxRequest(final Map<String, String> parameterMap) {
-    final String ajaxComponentIds = parameterMap.get(AjaxInternalUtils.TOBAGO_PARTIAL_IDS);
-    return ajaxComponentIds != null;
-  }
-
   public static boolean redirect(final FacesContext facesContext, final String url) throws IOException {
-    if (!isAjaxRequest(facesContext)) {
+    if (!AjaxUtils.isAjaxRequest(facesContext)) {
       return false;
     }
     redirect((HttpServletResponse) facesContext.getExternalContext().getResponse(), url);
