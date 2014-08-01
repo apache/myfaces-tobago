@@ -500,11 +500,13 @@ Tobago.DateTime.init = function (elements) {
 
         var analyzed = Tobago.DateTime.analyzePattern(date.data("tobago-pattern"));
         var options = {
-          showOn: "both",
+          showOn: "button",
           buttonImageOnly: true,
 // tbd          changeMonth: true,
 // tbd          changeYear: true,
-          showAnim: "" // just show it directly
+          showAnim: "", // just show it directly
+          showOtherMonths: true,
+          selectOtherMonths: true
         };
         var icon = date.data("tobago-date-time-icon");
         if (icon) {

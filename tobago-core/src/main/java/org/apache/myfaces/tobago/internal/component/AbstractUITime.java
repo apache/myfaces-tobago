@@ -36,11 +36,14 @@ public abstract class AbstractUITime extends AbstractUIInput {
           = FacesContext.getCurrentInstance().getApplication();
       final DateTimeConverter dateTimeConverter
           = (DateTimeConverter) application.createConverter(DateTimeConverter.CONVERTER_ID);
-      dateTimeConverter.setPattern("HH:mm");
-      dateTimeConverter.setTimeZone(TimeZone.getDefault());
+      dateTimeConverter.setTimeStyle("short");
+      dateTimeConverter.setType("time");
+      dateTimeConverter.setTimeZone(TimeZone.getDefault()); // TBD
       setConverter(dateTimeConverter);
+      return dateTimeConverter;
+    } else {
+      return converter;
     }
-    return converter;
   }
 
   @Override
