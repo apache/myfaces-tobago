@@ -50,8 +50,7 @@ public final class AjaxUtils {
   }
 
   public static boolean isAjaxRequest(final ServletRequest request) {
-    final String[] ajaxComponentIds
-        = ((Map<String, String[]>) request.getParameterMap()).get(AjaxInternalUtils.TOBAGO_PARTIAL_IDS);
+    final String[] ajaxComponentIds = request.getParameterMap().get(AjaxInternalUtils.TOBAGO_PARTIAL_IDS);
     return ajaxComponentIds != null && ajaxComponentIds.length > 0;
   }
 
