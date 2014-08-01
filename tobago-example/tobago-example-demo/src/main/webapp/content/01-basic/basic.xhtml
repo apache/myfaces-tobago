@@ -59,7 +59,8 @@
         </tx:date>
         <tx:time label="#{overviewBundle.basic_timeLabel}" tabIndex="5"
                  value="#{overviewController.basicTime}">
-          <f:convertDateTime type="time" timeStyle="medium" timeZone="GMT+04:00"/>
+          <f:convertDateTime type="time" timeStyle="medium"/>
+          <!--<f:convertDateTime type="time" timeStyle="medium" timeZone="GMT+04:00" TBD/>-->
         </tx:time>
         <tx:in value="#{overviewController.placeholder}" tabIndex="6"
                label="Placeholder" placeholder="Search..."/>
