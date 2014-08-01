@@ -50,7 +50,7 @@ public final class AjaxUtils {
   }
 
   public static boolean isAjaxRequest(final ServletRequest request) {
-    return AjaxInternalUtils.isAjaxRequest((Map<String, String>) request.getParameterMap());
+    return AjaxInternalUtils.isAjaxRequest((Map<String, String[]>) request.getParameterMap());
   }
 
   public static void removeAjaxComponent(final FacesContext facesContext, final String clientId) {

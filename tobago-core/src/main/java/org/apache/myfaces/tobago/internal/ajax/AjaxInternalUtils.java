@@ -222,12 +222,12 @@ public final class AjaxInternalUtils {
   }
 
   public static boolean isAjaxRequest(final FacesContext facesContext) {
-    return isAjaxRequest(facesContext.getExternalContext().getRequestParameterMap());
+    return facesContext.getExternalContext().getRequestParameterMap().get(AjaxInternalUtils.TOBAGO_PARTIAL_IDS) != null;
   }
 
-  public static boolean isAjaxRequest(final Map<String, String> parameterMap) {
-    final String ajaxComponentIds = parameterMap.get(AjaxInternalUtils.TOBAGO_PARTIAL_IDS);
-    return ajaxComponentIds != null;
+  public static boolean isAjaxRequest(final Map<String, String[]> parameterMap) {
+    final String[] ajaxComponentIds = parameterMap.get(AjaxInternalUtils.TOBAGO_PARTIAL_IDS);
+    return ajaxComponentIds != null && ajaxComponentIds.length > 0;
   }
 
   public static boolean redirect(final FacesContext facesContext, final String url) throws IOException {
