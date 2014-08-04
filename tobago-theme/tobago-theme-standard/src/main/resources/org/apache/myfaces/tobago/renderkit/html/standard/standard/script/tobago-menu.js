@@ -388,7 +388,14 @@ Tobago.Menu.init = function(elements) {
   });
 
   // prevent default
-  var menu = Tobago.Utils.selectWidthJQuery(elements, ".tobago-menu").not(".tobago-menu-markup-top");
+  var menu;
+  if (elements) {
+    // this is ajax case: the commands are just removed from elements, so get them from the data store
+    menu = Tobago.Utils.selectWidthJQuery(elements, ".tobago-menu-markup-top")
+        .tobagoMenu_findSubMenu().find('.tobago-menu').andSelf();
+  } else {
+    menu = jQuery(".tobago-menu").not(".tobago-menu-markup-top");
+  }
   menu.each(function() {
     var menuItem = jQuery(this);
     if (menuItem.children("ol").size() > 0) {
