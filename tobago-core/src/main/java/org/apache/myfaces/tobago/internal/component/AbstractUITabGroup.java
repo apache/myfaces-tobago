@@ -19,6 +19,7 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
+import org.apache.myfaces.tobago.compat.FacesUtilsEL;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.ComponentTypes;
 import org.apache.myfaces.tobago.component.Facets;
@@ -37,6 +38,7 @@ import org.apache.myfaces.tobago.util.CreateComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.el.MethodExpression;
 import javax.el.ValueExpression;
 import javax.faces.component.ActionSource2;
 import javax.faces.component.UIComponent;
@@ -216,12 +218,12 @@ public abstract class AbstractUITabGroup extends AbstractUIPanelBase
     if (facesEvent instanceof TabChangeEvent && facesEvent.getComponent() == this) {
       final TabChangeEvent event = (TabChangeEvent) facesEvent;
 
+      final MethodExpression methodExpression = getTabChangeListenerExpression();
+      if (methodExpression != null) {
+        FacesUtilsEL.invokeMethodExpression(FacesContext.getCurrentInstance(), methodExpression, facesEvent);
+      }
+
 // switched off, because this is already called in super.broadcast()
-//      final TabChangeListener[] tabChangeListeners = getTabChangeListeners();
-//      for (TabChangeListener listener : tabChangeListeners) {
-//        listener.processTabChange(event);
-//      }
-//
 //      final ActionListener[] actionListeners = getActionListeners();
 //      for (ActionListener listener : actionListeners) {
 //        listener.processAction(event);
