@@ -93,7 +93,7 @@
                    action="#{partialReloadController.reload}" renderedPartially="right"/>
 
         <tc:button label="Reload both" tip="Reload both boxes"
-                   action="#{partialReloadController.reload}" renderedPartially="left,right">
+                   action="#{partialReloadController.reload}" renderedPartially="left right">
           <tc:gridLayoutConstraint columnSpan="2"/>
         </tc:button>
 
@@ -105,13 +105,13 @@
 
         <tc:button label="Reload both (wait 3 s)"
                    tip="Reload both boxes, but the server has a delay of 3 seconds"
-                   action="#{partialReloadController.waitAndReload3}" renderedPartially="left,right">
+                   action="#{partialReloadController.waitAndReload3}" renderedPartially="left right">
           <tc:gridLayoutConstraint columnSpan="2"/>
         </tc:button>
 
         <tc:button label="Reload both (wait 7 s)"
                    tip="Reload both boxes, but the server has a delay of 7 seconds, this is more than the default timeout for AJAX"
-                   action="#{partialReloadController.waitAndReload7}" renderedPartially="left,right">
+                   action="#{partialReloadController.waitAndReload7}" renderedPartially="left right">
           <tc:gridLayoutConstraint columnSpan="2"/>
         </tc:button>
 
