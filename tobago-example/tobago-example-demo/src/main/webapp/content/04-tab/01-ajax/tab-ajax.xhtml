@@ -53,9 +53,8 @@
           <tc:toolBar>
             <tc:toolBarCommand actionListener="#{demo.hideTab2}"
                                tip="#{overviewBundle.closeButtonTip}"
-                               image="image/remove.gif">
-              <tc:attribute name="renderedPartially" value=":page:tabMarsOuterForm2"/>
-            </tc:toolBarCommand>
+                               image="image/remove.gif"
+                               renderedPartially=":page:tabMarsOuterForm2"/>
           </tc:toolBar>
         </f:facet>
         <f:facet name="layout"><tc:gridLayout rows="1*;auto;auto;1*"/></f:facet>
