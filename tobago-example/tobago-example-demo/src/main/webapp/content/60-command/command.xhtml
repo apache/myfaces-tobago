@@ -94,7 +94,7 @@
           <tc:out value="Are you sure?"/>
         </f:facet>
       </tc:link>
-      <tc:link label="On Click xxx" omit="true">
+      <tc:link label="On Click" omit="true">
         <f:facet name="confirmation">
           <tc:out value="Are you sure?"/>
         </f:facet>
@@ -118,10 +118,10 @@
         <tc:gridLayoutConstraint rowSpan="2"/>
       </tc:label>
 
-      <tc:button label="Action" action="#{command.action}" target="_blank"/>
+      <tc:button label="Action" action="#{command.action}" target="Command Target"/>
       <tc:button label="N/A" disabled="true"/>
-      <tc:button label="N/A yet" disabled="true"/>
-      <tc:button label="N/A yet" disabled="true"/>
+      <tc:button label="Link" link="http://www.apache.org/" target="Command Target"/>
+      <tc:button label="Resource" resource="content/60-command/sample.html" target="Command Target"/>
       <tc:panel/>
 
       <tc:link label="Action" action="#{command.action}" target="Command Target"/>
