@@ -171,6 +171,10 @@ public final class ResourceManagerUtils {
     return toJSArray(fileNames);
   }
 
+  /**
+   * @deprecated Since Tobago 2.0.0. Because of CSP.
+   */
+  @Deprecated
   public static String toJSArray(final List<String> list) {
     final StringBuilder sb = new StringBuilder();
     for (final String name : list) {
