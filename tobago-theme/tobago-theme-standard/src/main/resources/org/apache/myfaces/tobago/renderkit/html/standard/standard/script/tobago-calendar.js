@@ -493,7 +493,6 @@ Tobago.DateTime.init = function (elements) {
   Tobago.Utils.selectWidthJQuery(elements, ".tobago-date, .tobago-time")
       .not("[disabled]")
       .not("[readonly]")
-      .not("[data-tobago-classic-date-time-picker]")
       .each(function () {
         var date = jQuery(this);
         date.width(date.width() - 5 - 16); // reserve space for the picker.

@@ -64,7 +64,7 @@ public abstract class TobagoConfig {
 
   /**
    * @return false
-   * @deprecated
+   * @deprecated since Tobago 3.0.0
    */
   @Deprecated
   public abstract boolean isClassicDateTimePicker();

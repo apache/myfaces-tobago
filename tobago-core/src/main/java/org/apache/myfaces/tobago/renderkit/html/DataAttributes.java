@@ -61,11 +61,6 @@ public final class DataAttributes {
   public static final String DATEINPUTID = DATE_INPUT_ID;
 
   /**
-   * Marker for the compatibility mode.
-   */
-  public static final String CLASSIC_DATE_TIME_PICKER = "data-tobago-classic-date-time-picker";
-
-  /**
    * Marker for the OK-button of the date picker popup.
    *
    * @deprecated Since 2.0.0. It's no longer needed, because this is resolved by JavaScript now.
