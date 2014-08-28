@@ -148,7 +148,7 @@ public class TimeRenderer extends InputRendererBase {
       writer.writeIdAttribute(idPrefix + "inc");
       writer.writeClassAttribute(Classes.create(time, "incImage", markup));
       writer.writeAttribute(HtmlAttributes.SRC,
-          ResourceManagerUtils.getImageWithPath(facesContext, "image/timeIncrement.gif"), true);
+          ResourceManagerUtils.getImage(facesContext, "image/timeIncrement"), true);
       writer.writeAttribute(HtmlAttributes.ALT, "", false); // TODO: tip
       writer.writeAttribute(HtmlAttributes.READONLY, time.isReadonly());
       writer.writeAttribute(HtmlAttributes.DISABLED, time.isDisabled());
@@ -158,7 +158,7 @@ public class TimeRenderer extends InputRendererBase {
       writer.writeIdAttribute(idPrefix + "dec");
       writer.writeClassAttribute(Classes.create(time, "decImage", markup));
       writer.writeAttribute(HtmlAttributes.SRC,
-          ResourceManagerUtils.getImageWithPath(facesContext, "image/timeDecrement.gif"), true);
+          ResourceManagerUtils.getImage(facesContext, "image/timeDecrement"), true);
       writer.writeAttribute(HtmlAttributes.ALT, "", false); // TODO: tip
       writer.writeAttribute(HtmlAttributes.READONLY, time.isReadonly());
       writer.writeAttribute(HtmlAttributes.DISABLED, time.isDisabled());
@@ -244,7 +244,7 @@ public class TimeRenderer extends InputRendererBase {
       HtmlRendererUtils.renderFocus(id, time.isFocus(), ComponentUtils.isError(time), facesContext, writer);
       HtmlRendererUtils.renderCommandFacet(time, facesContext, writer);
 
-      final String icon = ResourceManagerUtils.getImageWithPath(facesContext, "image/time.png");
+      final String icon = ResourceManagerUtils.getImage(facesContext, "image/time");
       if (icon != null) {
         writer.writeAttribute(DataAttributes.DATE_TIME_ICON, icon, true);
       }

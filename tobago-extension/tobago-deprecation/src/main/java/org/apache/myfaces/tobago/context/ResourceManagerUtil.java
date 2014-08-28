@@ -63,8 +63,7 @@ public class ResourceManagerUtil {
    * @deprecated please use {@link ResourceManagerUtils}
    */
   public static String getImageWithPath(final FacesContext facesContext, final String name) {
-    return facesContext.getExternalContext().getRequestContextPath()
-        + ResourceManagerFactory.getResourceManager(facesContext).getImage(facesContext, name);
+    return ResourceManagerUtils.getImageWithPath(facesContext, name);
   }
 
   /**
@@ -73,13 +72,7 @@ public class ResourceManagerUtil {
    */
   public static String getImageWithPath(
       final FacesContext facesContext, final String name, final boolean ignoreMissing) {
-    final String image
-        = ResourceManagerFactory.getResourceManager(facesContext).getImage(facesContext, name, ignoreMissing);
-    if (image == null) {
-      return null;
-    } else {
-      return facesContext.getExternalContext().getRequestContextPath() + image;
-    }
+    return ResourceManagerUtils.getImageWithPath(facesContext, name, ignoreMissing);
   }
 
   /**
@@ -87,9 +80,7 @@ public class ResourceManagerUtil {
    */
   @Deprecated
   public static List<String> getStyles(final FacesContext facesContext, final String name) {
-    final String contextPath = facesContext.getExternalContext().getRequestContextPath();
-    final String[] styles = ResourceManagerFactory.getResourceManager(facesContext).getStyles(facesContext, name);
-    return addContextPath(styles, contextPath);
+    return ResourceManagerUtils.getStyles(facesContext, name);
   }
 
   /**
@@ -177,7 +168,7 @@ public class ResourceManagerUtil {
    */
   @Deprecated
   public static String getPageWithoutContextPath(final FacesContext facesContext, final String name) {
-    return ResourceManagerFactory.getResourceManager(facesContext).getImage(facesContext, name);
+    return ResourceManagerUtils.getPageWithoutContextPath(facesContext, name);
   }
 
   /**

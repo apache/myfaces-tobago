@@ -191,13 +191,6 @@ public class TobagoDemoController implements Serializable {
     return end < 0;
   }
 
-  public boolean isDoubleDefined() {
-    final String viewId = FacesContext.getCurrentInstance().getViewRoot().getViewId();
-    final String name = viewId.substring(1, viewId.lastIndexOf("."));
-    final String path = ResourceManagerUtils.getImageWithPath(FacesContext.getCurrentInstance(), name + ".xhtml", true);
-    return path != null;
-  }
-
   public String asJsp() {
     final String viewId = FacesContext.getCurrentInstance().getViewRoot().getViewId();
     final int end = viewId.lastIndexOf(".xhtml");

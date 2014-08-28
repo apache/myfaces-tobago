@@ -550,28 +550,28 @@ public class PageRenderer extends PageRendererBase {
     // browsers. This is the reason, why this code has moved from JavaScript to the renderer here.
     writer.startElement(HtmlElements.IMG, null);
     writer.writeClassAttribute(Classes.create(page, "overlayWaitPreloadedImage"));
-    final String wait = ResourceManagerUtils.getImageWithPath(facesContext, "image/tobago-overlay-wait.gif");
+    final String wait = ResourceManagerUtils.getImage(facesContext, "image/tobago-overlay-wait");
     writer.writeAttribute(HtmlAttributes.SRC, wait, false);
     writer.endElement(HtmlElements.IMG);
 
     writer.startElement(HtmlElements.IMG, null);
     writer.writeClassAttribute(Classes.create(page, "overlayErrorPreloadedImage"));
     final String error = clientProperties.getUserAgent().isMsie6()
-        ? ResourceManagerUtils.getImageWithPath(facesContext, "image/remove.gif") // XXX why png doesn't work in ie6?
-        : ResourceManagerUtils.getImageWithPath(facesContext, "image/dialog-error.png");
+        ? ResourceManagerUtils.getImage(facesContext, "image/remove") // XXX why png doesn't work in ie6?
+        : ResourceManagerUtils.getImage(facesContext, "image/dialog-error");
     writer.writeAttribute(HtmlAttributes.SRC, error, false);
     writer.endElement(HtmlElements.IMG);
 
     writer.startElement(HtmlElements.IMG, null);
     writer.writeClassAttribute(Classes.create(page, "pngFixBlankImage"));
-    final String pngFixBlankImage = ResourceManagerUtils.getImageWithPath(facesContext, "image/blank.gif");
+    final String pngFixBlankImage = ResourceManagerUtils.getImage(facesContext, "image/blank");
     writer.writeAttribute(HtmlAttributes.SRC, pngFixBlankImage, false);
     writer.endElement(HtmlElements.IMG);
 
     writer.startElement(HtmlElements.IMG, null);
     writer.writeClassAttribute(Classes.create(page, "overlayBackgroundImage"));
-    final String overlayBackgroundImage = ResourceManagerUtils.getImageWithPath(facesContext,
-        "image/tobago-overlay-background.png");
+    final String overlayBackgroundImage = ResourceManagerUtils.getImage(facesContext,
+        "image/tobago-overlay-background");
     writer.writeAttribute(HtmlAttributes.SRC, overlayBackgroundImage, false);
     writer.endElement(HtmlElements.IMG);
 

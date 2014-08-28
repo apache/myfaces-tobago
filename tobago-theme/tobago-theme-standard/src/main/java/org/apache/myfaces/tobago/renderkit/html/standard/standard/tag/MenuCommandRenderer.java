@@ -75,7 +75,7 @@ public class MenuCommandRenderer extends CommandRendererBase {
       // checkbox menu
       final UISelectBooleanCheckbox checkbox = (UISelectBooleanCheckbox) menu.getFacet(Facets.CHECKBOX);
       final boolean checked = ComponentUtils.getBooleanAttribute(checkbox, Attributes.VALUE);
-      final String image = checked ? "image/MenuCheckmark.gif" : null;
+      final String image = checked ? "image/MenuCheckmark" : null;
       final String hiddenId = checkbox.getClientId(facesContext);
       final CommandMap map = new CommandMap(new Command());
       final LabelWithAccessKey label = new LabelWithAccessKey(menu);
@@ -162,10 +162,10 @@ public class MenuCommandRenderer extends CommandRendererBase {
 
         writer.startElement(HtmlElements.IMG, null);
         final String imageWithPath
-            = ResourceManagerUtils.getImageOrDisabledImageWithPath(facesContext, image, disabled);
+            = ResourceManagerUtils.getImageOrDisabledImage(facesContext, image, disabled);
         writer.writeAttribute(HtmlAttributes.SRC, imageWithPath, false);
         final String imageHover = ResourceManagerUtils
-            .getImageOrDisabledImageWithPath(facesContext, HtmlRendererUtils.createSrc(image, "Hover"), disabled, true);
+            .getImageOrDisabledImage(facesContext, image + "Hover", disabled, true);
         if (imageHover != null) {
           writer.writeAttribute(DataAttributes.SRC_DEFAULT, imageWithPath, false);
           writer.writeAttribute(DataAttributes.SRC_HOVER, imageHover, false);

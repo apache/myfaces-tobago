@@ -65,14 +65,14 @@ public class DateRenderer extends InRenderer {
     final String imageName;
     if (pattern.contains("m")) { // simple guessing
       if (pattern.contains("d")) {
-        imageName = "image/date-time.png";
+        imageName = "image/date-time";
       } else {
-        imageName = "image/time.png";
+        imageName = "image/time";
       }
     } else {
-      imageName = "image/date.gif";
+      imageName = "image/date";
     }
-    final String icon = ResourceManagerUtils.getImageWithPath(facesContext, imageName);
+    final String icon = ResourceManagerUtils.getImage(facesContext, imageName);
     if (icon != null) {
       writer.writeAttribute(DataAttributes.DATE_TIME_ICON, icon, true);
     }

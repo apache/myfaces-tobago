@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
-import org.apache.myfaces.tobago.context.ResourceUtils;
 import org.apache.myfaces.tobago.internal.component.AbstractUIData;
 import org.apache.myfaces.tobago.internal.component.AbstractUITreeNode;
 import org.apache.myfaces.tobago.layout.Display;
@@ -31,23 +30,12 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
 public class TreeNodeRenderer extends TreeNodeRendererBase {
-
-  private static final Logger LOG = LoggerFactory.getLogger(TreeNodeRenderer.class);
-
-  protected static final String OPEN_FOLDER
-      = ResourceUtils.createString("image", "treeNode", "icon", "open", ResourceUtils.GIF);
-  protected static final String CLOSED_FOLDER
-      = ResourceUtils.createString("image", "treeNode", "icon", ResourceUtils.GIF);
-  protected static final String LEAF
-      = ResourceUtils.createString("image", "treeNode", "icon", "leaf", ResourceUtils.GIF);
 
   @Override
   public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
@@ -56,7 +44,6 @@ public class TreeNodeRenderer extends TreeNodeRendererBase {
     final AbstractUIData data = ComponentUtils.findAncestor(node, AbstractUIData.class);
 
     final boolean dataRendersRowContainer = data.isRendersRowContainer();
-    final boolean folder = node.isFolder();
     final String clientId = node.getClientId(facesContext);
     final String parentId = data.getRowParentClientId();
     final boolean visible = data.isRowVisible();

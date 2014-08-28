@@ -75,7 +75,7 @@ public class DatePickerRenderer extends LinkRenderer {
     }
     picker.setImmediate(true);
     final String linkId = picker.getId();
-    picker.setImage("image/date.gif");
+    picker.setImage("image/date");
 
     // create popup
     final String popupId = linkId != null ? linkId + "popup" : facesContext.getViewRoot().createUniqueId();

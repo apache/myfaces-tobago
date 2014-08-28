@@ -23,7 +23,6 @@ import org.apache.myfaces.tobago.component.UITreeIcon;
 import org.apache.myfaces.tobago.component.UITreeNode;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
-import org.apache.myfaces.tobago.context.ResourceUtils;
 import org.apache.myfaces.tobago.internal.component.AbstractUIData;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
@@ -40,12 +39,9 @@ import java.io.IOException;
 
 public class TreeIconRenderer extends LayoutComponentRendererBase {
 
-  protected static final String OPEN_FOLDER
-      = ResourceUtils.createString("image", "treeNode", "icon", "open", ResourceUtils.GIF);
-  protected static final String CLOSED_FOLDER
-      = ResourceUtils.createString("image", "treeNode", "icon", ResourceUtils.GIF);
-  protected static final String LEAF
-      = ResourceUtils.createString("image", "treeNode", "icon", "leaf", ResourceUtils.GIF);
+  protected static final String OPEN_FOLDER = "image/treeNode-icon-open";
+  protected static final String CLOSED_FOLDER = "image/treeNode-icon";
+  protected static final String LEAF = "image/treeNode-icon-leaf";
 
   @Override
   public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
@@ -60,27 +56,45 @@ public class TreeIconRenderer extends LayoutComponentRendererBase {
     final String openSource;
     final String closedSource;
 
-    final String imageUrl = (String) image.getValue();
+    String imageUrl = (String) image.getValue();
+    String imageExtension = null;
+    if (imageUrl != null) {
+      final int dot = imageUrl.lastIndexOf('.');
+      if (dot > -1) {
+        imageExtension = imageUrl.substring(dot);
+        imageUrl = imageUrl.substring(0, dot);
+      }
+    }
     if (imageUrl != null) { // application image
-      closedSource = ResourceManagerUtils.getImageWithPath(facesContext, imageUrl);
+      if (imageExtension != null) {
+        closedSource = ResourceManagerUtils.getImageWithPath(facesContext, imageUrl + imageExtension);
+      } else {
+        closedSource = ResourceManagerUtils.getImage(facesContext, imageUrl);
+      }
     } else { // theme image
-      closedSource = ResourceManagerUtils.getImageWithPath(facesContext, CLOSED_FOLDER);
+      closedSource = ResourceManagerUtils.getImage(facesContext, CLOSED_FOLDER);
     }
     if (folder) {
       if (imageUrl != null) { // application image
-        openSource = ResourceManagerUtils.getImageWithPath(facesContext,
-            ResourceUtils.addPostfixToFilename(imageUrl, "-open"), true);
+        if (imageExtension != null) {
+          openSource = ResourceManagerUtils.getImageWithPath(facesContext, imageUrl + "-open" + imageExtension, true);
+        } else {
+          openSource = ResourceManagerUtils.getImage(facesContext, imageUrl + "-open", true);
+        }
       } else { // theme image
-        openSource = ResourceManagerUtils.getImageWithPath(facesContext, OPEN_FOLDER);
+        openSource = ResourceManagerUtils.getImage(facesContext, OPEN_FOLDER);
       }
       source = expanded ? openSource : closedSource;
     } else {
       openSource = null;
       if (imageUrl != null) { // application image
-        source = ResourceManagerUtils.getImageWithPath(facesContext,
-            ResourceUtils.addPostfixToFilename(imageUrl, "-leaf"), true);
+        if (imageExtension != null) {
+          source = ResourceManagerUtils.getImageWithPath(facesContext, imageUrl + "-leaf" + imageExtension, true);
+        } else {
+          source = ResourceManagerUtils.getImage(facesContext, imageUrl + "-leaf", true);
+        }
       } else { // theme image
-        source = ResourceManagerUtils.getImageWithPath(facesContext, LEAF);
+        source = ResourceManagerUtils.getImage(facesContext, LEAF);
       }
     }
     if (source == null) {

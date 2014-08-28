@@ -52,7 +52,9 @@ public interface ImageTagDeclaration
     IsGridLayoutComponentWithDimension, IsGridLayoutContainer {
 
   /**
-   * Absolute url to an image or image name to lookup in tobago resource path
+   * Absolute url to an image or image name to lookup in tobago resource path.
+   * In the second case, there is no need to set the extension (like .gif or .png).
+   * If you leave it out, you can use different extension in different themes.
    */
   @TagAttribute(required = true)
   @UIComponentTagAttribute()

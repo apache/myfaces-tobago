@@ -95,7 +95,7 @@ public class MultiplePageDeclarationLanguageNavigationHandler extends Navigation
     if (StringUtils.isEmpty(outcome)) {
       return false;
     }
-    final String path = ResourceManagerUtils.getImageWithPath(facesContext, outcome.substring(1) + extension, true);
+    final String path = ResourceManagerUtils.getFile(facesContext, outcome.substring(1), extension, true);
     return path != null;
   }
 }

@@ -61,10 +61,34 @@ public interface ResourceManager {
   @Deprecated
   String getImage(UIViewRoot viewRoot, String name);
 
+  /**
+   * @deprecated Please use {@link org.apache.myfaces.tobago.context.ResourceManagerUtils}
+   */
+  @Deprecated
   String getImage(FacesContext facesContext, String name);
 
   @Deprecated
   String getImage(UIViewRoot viewRoot, String name, boolean ignoreMissing);
 
-  String getImage(FacesContext facesContext, String name, boolean ignoreMissing);
-}
+  /**
+   * @param facesContext the current FacesContext
+   * @param nameWithExtension The name with extension
+   * @param ignoreMissing if set to false, an error message will be logged, when image is missing
+   * @return the full file path
+   *
+   * @deprecated
+   */
+  @Deprecated
+  String getImage(FacesContext facesContext, String nameWithExtension, boolean ignoreMissing);
+
+  /**
+   * @param facesContext the current FacesContext
+   * @param name The name without extension
+   * @param extension The file extension inclusive dot, like ".png"
+   * @param ignoreMissing if set to false, an error message will be logged, when image is missing
+   * @return the full file path
+   */
+  String getImage(
+      FacesContext facesContext, String name, String extension, boolean ignoreMissing);
+
+  }

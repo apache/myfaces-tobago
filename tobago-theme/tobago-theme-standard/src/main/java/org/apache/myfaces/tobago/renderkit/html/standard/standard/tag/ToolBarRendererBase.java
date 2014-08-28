@@ -33,7 +33,6 @@ import org.apache.myfaces.tobago.context.ResourceManager;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.internal.component.AbstractUICommand;
 import org.apache.myfaces.tobago.internal.component.AbstractUIMenu;
-import org.apache.myfaces.tobago.internal.context.ResourceManagerFactory;
 import org.apache.myfaces.tobago.internal.util.ObjectUtils;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.layout.Measure;
@@ -156,7 +155,7 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
           image = ((org.apache.myfaces.tobago.model.SelectItem) item).getImage();
         }
         if (image == null) {
-          image = "image/1x1.gif";
+          image = "image/1x1";
         }
         command.getAttributes().put(Attributes.IMAGE, image);
 
@@ -407,8 +406,15 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
     if (showIcon && iconName != null) {
       writer.startElement(HtmlElements.IMG, command);
       writer.writeAttribute(HtmlAttributes.SRC, image, false);
-      final String imageHover
-          = ResourceManagerUtils.getImageWithPath(facesContext, HtmlRendererUtils.createSrc(iconName, "Hover"), true);
+      // todo in Tobago 3.0: remove "Hover" and replace with CSS filter
+      final int dot = ResourceManagerUtils.indexOfExtension(iconName);
+      final String imageHover;
+      if (dot != -1) {
+        imageHover = ResourceManagerUtils.getImageOrDisabledImageWithPath(
+            facesContext, iconName.substring(0, dot) + "Hover" + iconName.substring(dot), disabled, true);
+      } else {
+        imageHover = ResourceManagerUtils.getImageOrDisabledImage(facesContext, iconName + "Hover", disabled, true);
+      }
       if (imageHover != null) {
         writer.writeAttribute(DataAttributes.SRC_DEFAULT, image, false);
         writer.writeAttribute(DataAttributes.SRC_HOVER, imageHover, false);
@@ -443,8 +449,8 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
       writer.startElement(HtmlElements.IMG, command);
       final boolean dropDownDisabled
           = ComponentUtils.getBooleanAttribute(dropDownMenu, Attributes.DISABLED) || disabled;
-      final String menuImage = ResourceManagerUtils
-          .getImageOrDisabledImageWithPath(facesContext, "image/toolbarButtonMenu.gif", dropDownDisabled);
+      final String menuImage
+          = ResourceManagerUtils.getImageOrDisabledImage(facesContext, "image/toolbarButtonMenu", dropDownDisabled);
       writer.writeAttribute(HtmlAttributes.SRC, menuImage, false);
       writer.writeStyleAttribute(openerStyle);
       writer.endElement(HtmlElements.IMG);
@@ -537,10 +543,8 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
   private String getImage(
       final FacesContext facesContext, final String name, final String iconSize, final boolean disabled,
       final boolean selected) {
-    int pos = name.lastIndexOf('.');
-    if (pos == -1) {
-      pos = name.length(); // avoid exception if no '.' in name
-    }
+    final int dot = ResourceManagerUtils.indexOfExtension(name);
+    final int pos = dot == -1 ? name.length() : dot; // avoid exception if no '.' in name
     final String key = name.substring(0, pos);
     final String ext = name.substring(pos);
 
@@ -551,29 +555,61 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
       size = "32";
     }
     String image = null;
-    final ResourceManager resourceManager = ResourceManagerFactory.getResourceManager(facesContext);
+
     if (disabled && selected) {
-      image = resourceManager.getImage(facesContext, key + "SelectedDisabled" + size + ext, true);
+      if (dot != -1) {
+        image = ResourceManagerUtils.getImageWithPath(facesContext, key + "SelectedDisabled" + size + ext, true);
+      } else {
+        image = ResourceManagerUtils.getImage(facesContext, key + "SelectedDisabled" + size, true);
+      }
       if (image == null) {
-        image = resourceManager.getImage(facesContext, key + "SelectedDisabled" + ext, true);
+        if (dot != -1) {
+          image = ResourceManagerUtils.getImageWithPath(facesContext, key + "SelectedDisabled" + ext, true);
+        } else {
+          image = ResourceManagerUtils.getImage(facesContext, key + "SelectedDisabled", true);
+        }
       }
     }
     if (image == null && disabled) {
-      image = resourceManager.getImage(facesContext, key + "Disabled" + size + ext, true);
+      if (dot != -1) {
+        image = ResourceManagerUtils.getImageWithPath(facesContext, key + "Disabled" + size + ext, true);
+      } else {
+        image = ResourceManagerUtils.getImage(facesContext, key + "Disabled" + size, true);
+      }
       if (image == null) {
-        image = resourceManager.getImage(facesContext, key + "Disabled" + ext, true);
+        if (dot != -1) {
+          image = ResourceManagerUtils.getImageWithPath(facesContext, key + "Disabled" + ext, true);
+        } else {
+          image = ResourceManagerUtils.getImage(facesContext, key + "Disabled", true);
+        }
       }
     }
     if (image == null && selected) {
-      image = resourceManager.getImage(facesContext, key + "Selected" + size + ext, true);
+      if (dot != -1) {
+        image = ResourceManagerUtils.getImageWithPath(facesContext, key + "Selected" + size + ext, true);
+      } else {
+        image = ResourceManagerUtils.getImage(facesContext, key + "Selected" + size, true);
+      }
       if (image == null) {
-        image = resourceManager.getImage(facesContext, key + "Selected" + ext, true);
+        if (dot != -1) {
+          image = ResourceManagerUtils.getImageWithPath(facesContext, key + "Selected" + ext, true);
+        } else {
+          image = ResourceManagerUtils.getImage(facesContext, key + "Selected", true);
+        }
       }
     }
     if (image == null) {
-      image = resourceManager.getImage(facesContext, key + size + ext, true);
+      if (dot != -1) {
+        image = ResourceManagerUtils.getImageWithPath(facesContext, key + size + ext, true);
+      } else {
+        image = ResourceManagerUtils.getImage(facesContext, key + size, true);
+      }
       if (image == null) {
-        image = resourceManager.getImage(facesContext, key + ext, true);
+        if (dot != -1) {
+          image = ResourceManagerUtils.getImageWithPath(facesContext, key + ext, true);
+        } else {
+          image = ResourceManagerUtils.getImage(facesContext, key, true);
+        }
       }
     }
 

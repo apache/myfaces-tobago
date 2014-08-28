@@ -76,6 +76,7 @@ public final class HtmlRendererUtils {
     // to prevent instantiation
   }
 
+  /** @deprecated since 2.0.0, because of CSP */
   private static boolean renderErrorFocusId(final FacesContext facesContext, final UIInput input) throws IOException {
     if (ComponentUtils.isError(input)) {
       if (!FacesContext.getCurrentInstance().getExternalContext().getRequestMap().containsKey(ERROR_FOCUS_KEY)) {
@@ -249,6 +250,8 @@ public final class HtmlRendererUtils {
     Deprecation.LOG.error("HtmlRendererUtils.createHeaderAndBodyStyles() no longer supported");
   }
 
+  /** @deprecated since 2.0.3 */
+  @Deprecated
   public static String createSrc(final String src, final String ext) {
     final int dot = src.lastIndexOf('.');
     if (dot == -1) {

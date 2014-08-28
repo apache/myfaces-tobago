@@ -281,7 +281,7 @@ public class TabGroupRenderer extends LayoutComponentRendererBase {
     final UICommand previous = (UICommand) application.createComponent(UICommand.COMPONENT_TYPE);
     previous.setId(viewRoot.createUniqueId());
     previous.setRendererType(null);
-    previous.getAttributes().put(Attributes.IMAGE, "image/tabPrev.gif");
+    previous.getAttributes().put(Attributes.IMAGE, "image/tabPrev");
     previous.setOmit(true); // avoid submit
     ComponentUtils.putDataAttribute(previous, "tobago-tabgroup-toolbar-prev", "p");
 
@@ -289,7 +289,7 @@ public class TabGroupRenderer extends LayoutComponentRendererBase {
     final UICommand next = (UICommand) application.createComponent(UICommand.COMPONENT_TYPE);
     next.setId(viewRoot.createUniqueId());
     next.setRendererType(null);
-    next.getAttributes().put(Attributes.IMAGE, "image/tabNext.gif");
+    next.getAttributes().put(Attributes.IMAGE, "image/tabNext");
     next.setOmit(true); // avoid submit
     ComponentUtils.putDataAttribute(next, "tobago-tabgroup-toolbar-next", "n");
 

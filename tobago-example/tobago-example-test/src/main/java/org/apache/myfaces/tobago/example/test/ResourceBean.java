@@ -19,9 +19,6 @@
 
 package org.apache.myfaces.tobago.example.test;
 
-import org.apache.myfaces.tobago.context.ResourceManager;
-import org.apache.myfaces.tobago.internal.context.ResourceManagerFactory;
-
 import javax.faces.context.FacesContext;
 import java.util.Arrays;
 import java.util.List;
@@ -34,8 +31,6 @@ public class ResourceBean {
   public ResourceBean() {
     if (resources == null) {
       final FacesContext facesContext = FacesContext.getCurrentInstance();
-      final ResourceManager resourceManager
-          = ResourceManagerFactory.getResourceManager(facesContext);
 
       resources = Arrays.asList(
           new ResourceEntry(
@@ -67,7 +62,7 @@ public class ResourceBean {
       );
 
       for (final ResourceEntry resource : resources) {
-        if (!resource.check(facesContext, resourceManager)) {
+        if (!resource.check(facesContext)) {
           fails++;
         }
       }

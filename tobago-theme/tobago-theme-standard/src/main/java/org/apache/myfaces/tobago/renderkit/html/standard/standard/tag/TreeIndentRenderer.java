@@ -85,8 +85,8 @@ public class TreeIndentRenderer extends LayoutComponentRendererBase {
       throws IOException {
 
     final boolean dropFirst = !showRoot || !showRootJunction && (showLines || showIcons);
-    final String blank = ResourceManagerUtils.getImageWithPath(facesContext, "image/blank.gif");
-    final String perpendicular = ResourceManagerUtils.getImageWithPath(facesContext, "image/I.gif");
+    final String blank = ResourceManagerUtils.getImage(facesContext, "image/blank");
+    final String perpendicular = ResourceManagerUtils.getImage(facesContext, "image/I");
 
     for (int i = dropFirst ? 1 : 0; i < junctions.size() - 1; i++) {
       final Boolean junction = junctions.get(i);
@@ -118,39 +118,39 @@ public class TreeIndentRenderer extends LayoutComponentRendererBase {
     final String close;
     if (showLines) {
       if (root) {
-        open = "Rminus.gif";
-        close = "Rplus.gif";
+        open = "Rminus";
+        close = "Rplus";
       } else {
         if (hasNextSibling) {
           if (folder) {
-            open = "Tminus.gif";
-            close = "Tplus.gif";
+            open = "Tminus";
+            close = "Tplus";
           } else {
-            open = "T.gif";
-            close = "T.gif";
+            open = "T";
+            close = "T";
           }
         } else {
           if (folder) {
-            open = "Lminus.gif";
-            close = "Lplus.gif";
+            open = "Lminus";
+            close = "Lplus";
           } else {
-            open = "L.gif";
-            close = "L.gif";
+            open = "L";
+            close = "L";
           }
         }
       }
     } else {
       if (folder) {
-        open = "minus.gif";
-        close = "plus.gif";
+        open = "minus";
+        close = "plus";
       } else {
-        open = "blank.gif";
-        close = "blank.gif";
+        open = "blank";
+        close = "blank";
       }
     }
 
-    final String srcOpen = ResourceManagerUtils.getImageWithPath(facesContext, "image/" + open);
-    final String srcClose = ResourceManagerUtils.getImageWithPath(facesContext, "image/" + close);
+    final String srcOpen = ResourceManagerUtils.getImage(facesContext, "image/" + open);
+    final String srcClose = ResourceManagerUtils.getImage(facesContext, "image/" + close);
     final String src = expanded ? srcOpen : srcClose;
     writer.writeAttribute(HtmlAttributes.SRC, src, true);
     if (folder) {
