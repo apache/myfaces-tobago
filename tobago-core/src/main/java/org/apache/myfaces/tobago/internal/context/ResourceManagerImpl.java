@@ -36,6 +36,7 @@ import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 import javax.faces.render.Renderer;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -47,6 +48,19 @@ public class ResourceManagerImpl implements ResourceManager {
   private static final String JSP = "jsp";
   private static final String TAG = "tag";
   private static final String MINIMIZE_SUFFIX = ".min";
+
+  public static final String[] EXT_NONE = new String[]{""};
+  public static final String[] EXT_JS = new String[]{".js"};
+  public static final String[] EXT_CSS = new String[]{".css"};
+  public static final String[] EXT_GIF = new String[]{".gif"};
+  public static final String[] EXT_PNG = new String[]{".png"};
+  public static final String[] EXT_JPG = new String[]{".jpg"};
+  public static final String[] EXT_ICO = new String[]{".ico"};
+  public static final String[] EXT_IMAGES = new String[]{".png", ".gif", ".jpg"};
+  public static final String[] EXT_JSP= new String[]{".jsp"};
+  public static final String[] EXT_JSPX= new String[]{".jspx"};
+  public static final String[] EXT_XHTML= new String[]{".xhtml"};
+
   private boolean production;
 
   private final Map<String, String> resourceList
@@ -64,12 +78,25 @@ public class ResourceManagerImpl implements ResourceManager {
       = new ConcurrentHashMap<PropertyCacheKey, StringValue>(100, 0.75f, 1);
   private final Map<ThemeConfigCacheKey, MeasureValue> themeCache
       = new ConcurrentHashMap<ThemeConfigCacheKey, MeasureValue>(100, 0.75f, 1);
+  private final Map<String, String[]> extensionCache
+      = new ConcurrentHashMap<String, String[]>(10, 0.75f, 1);
 
   private TobagoConfigImpl tobagoConfig;
 
   public ResourceManagerImpl(final TobagoConfigImpl tobagoConfig) {
     this.tobagoConfig = tobagoConfig;
     this.production = tobagoConfig.getProjectStage() == ProjectStage.Production;
+
+    extensionCache.put("", EXT_NONE);
+    extensionCache.put(".js", EXT_JS);
+    extensionCache.put(".css", EXT_CSS);
+    extensionCache.put(".gif", EXT_GIF);
+    extensionCache.put(".png", EXT_PNG);
+    extensionCache.put(".jpg", EXT_JPG);
+    extensionCache.put(".ico", EXT_ICO);
+    extensionCache.put(".jsp", EXT_JSP);
+    extensionCache.put(".jspx", EXT_JSPX);
+    extensionCache.put(".xhtml", EXT_XHTML);
   }
 
   public void add(final String resourceKey) {
@@ -100,7 +127,7 @@ public class ResourceManagerImpl implements ResourceManager {
       }
       try {
         result = (String) getPaths(clientKey, "",
-            JSP, name, "", false, true, true, null, true, false).get(0);
+            JSP, name, EXT_NONE, false, true, true, null, true, false).get(0);
         jspCache.put(cacheKey, result);
       } catch (final Exception e) {
         LOG.error("name = '" + name + "' clientProperties = '" + clientKey.toString() + "'", e);
@@ -123,7 +150,7 @@ public class ResourceManagerImpl implements ResourceManager {
       StringValue result = propertyCache.get(cacheKey);
       if (result == null) {
         final List properties
-            = getPaths(clientKey, "", PROPERTY, bundle, "", false, true, false, propertyKey, true, false);
+            = getPaths(clientKey, "", PROPERTY, bundle, EXT_NONE, false, true, false, propertyKey, true, false);
         if (properties != null) {
           result = new StringValue((String) properties.get(0));
         } else {
@@ -156,7 +183,7 @@ public class ResourceManagerImpl implements ResourceManager {
       try {
         simpleClassName = getRendererClassName(rendererType);
         final List<Class> classes
-            = getPaths(clientKey, "", TAG, simpleClassName, "", false, true, true, null, false, false);
+            = getPaths(clientKey, "", TAG, simpleClassName, EXT_NONE, false, true, true, null, false, false);
         if (classes != null && !classes.isEmpty()) {
           final Class clazz = classes.get(0);
           renderer = (Renderer) clazz.newInstance();
@@ -201,7 +228,7 @@ public class ResourceManagerImpl implements ResourceManager {
       StringValue result = propertyCache.get(cacheKey);
       if (result == null) {
         final List properties
-            = getPaths(clientKey, "", PROPERTY, bundle, "", false, true, false, propertyKey, true, true);
+            = getPaths(clientKey, "", PROPERTY, bundle, EXT_NONE, false, true, false, propertyKey, true, true);
         if (properties != null) {
           result = new StringValue((String) properties.get(0));
         } else {
@@ -241,7 +268,7 @@ public class ResourceManagerImpl implements ResourceManager {
     MeasureValue result = themeCache.get(cacheKey);
 
     if (result == null) {
-      final List properties = getPaths(clientKey, "", PROPERTY, "tobago-theme-config", "",
+      final List properties = getPaths(clientKey, "", PROPERTY, "tobago-theme-config", EXT_NONE,
           false, true, false, rendererType + "." + name, true, true);
 
       Measure measure = null;
@@ -251,7 +278,7 @@ public class ResourceManagerImpl implements ResourceManager {
 
       if (markup != null) {
         for (final String m : markup) {
-          final List mProperties = getPaths(clientKey, "", PROPERTY, "tobago-theme-config", "",
+          final List mProperties = getPaths(clientKey, "", PROPERTY, "tobago-theme-config", EXT_NONE,
               false, true, false, rendererType + "[" + m + "]" + "." + name, true, true);
           if (mProperties != null) {
             final Measure summand = Measure.valueOf(mProperties.get(0));
@@ -275,6 +302,7 @@ public class ResourceManagerImpl implements ResourceManager {
     return getImage(FacesContext.getCurrentInstance(), name);
   }
 
+  @Deprecated
   public String getImage(final FacesContext facesContext, final String name) {
     return getImage(facesContext, name, false);
   }
@@ -284,20 +312,43 @@ public class ResourceManagerImpl implements ResourceManager {
     return getImage(FacesContext.getCurrentInstance(), name, ignoreMissing);
   }
 
-  public String getImage(final FacesContext facesContext, final String name, final boolean ignoreMissing) {
-    if (name != null) {
-      int dot = name.lastIndexOf('.');
+  /**
+   * {@inheritDoc}
+   */
+  @Deprecated
+  public String getImage(
+      final FacesContext facesContext, final String nameWithExtension, final boolean ignoreMissing) {
+    if (nameWithExtension != null) {
+      int dot = nameWithExtension.lastIndexOf('.');
       if (dot == -1) {
-        dot = name.length();
+        dot = nameWithExtension.length();
+      }
+      return
+          getImage(facesContext, nameWithExtension.substring(0, dot), nameWithExtension.substring(dot), ignoreMissing);
+    }
+    return null;
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  public String getImage(
+      final FacesContext facesContext, final String name, final String extension, final boolean ignoreMissing) {
+    if (name != null) {
+      final String[] extensions;
+      if (extension == null) {
+        extensions = EXT_IMAGES;
+      } else {
+        extensions = getExtensions(extension);
       }
 
       final ClientPropertiesKey clientKey = ClientPropertiesKey.get(facesContext);
-      final ImageCacheKey cacheKey = new ImageCacheKey(clientKey, name);
+      final ImageCacheKey cacheKey = new ImageCacheKey(clientKey, name, extension);
 
       StringValue result = imageCache.get(cacheKey);
       if (result == null) {
-        final List paths = getPaths(clientKey, "", null, name.substring(0, dot),
-            name.substring(dot), false, true, true, null, true, ignoreMissing);
+        final List paths
+            = getPaths(clientKey, "", null, name, extensions, false, true, true, null, true, ignoreMissing);
         if (paths != null) {
           result = new StringValue((String) paths.get(0));
         } else {
@@ -307,7 +358,7 @@ public class ResourceManagerImpl implements ResourceManager {
       }
       if (LOG.isDebugEnabled()) {
         if (result.getValue() == null) {
-          LOG.debug("Can't find image for \"{}\"", name);
+          LOG.debug("Can't find image for '{}'", name);
         }
       }
 
@@ -318,35 +369,37 @@ public class ResourceManagerImpl implements ResourceManager {
   }
 
   private List getPaths(
-      final ClientPropertiesKey clientkey, final String prefix, final String subDir, final String name,
-      final String suffix, final boolean reverseOrder, final boolean single, final boolean returnKey, final String key,
-      final boolean returnStrings, final boolean ignoreMissing) {
+      final ClientPropertiesKey clientKey, final String prefix, final String subDir, final String name,
+      final String[] extensions, final boolean reverseOrder, final boolean single, final boolean returnKey,
+      final String key, final boolean returnStrings, boolean ignoreMissing) {
     final List matches = new ArrayList();
-    final String contentType = clientkey.getContentType();
-    final Theme theme = clientkey.getTheme();
-    final UserAgent browser = clientkey.getUserAgent();
-    final List<String> locales = LocaleUtils.getLocaleSuffixList(clientkey.getLocale());
+    final String contentType = clientKey.getContentType();
+    final Theme theme = clientKey.getTheme();
+    final UserAgent browser = clientKey.getUserAgent();
+    final List<String> locales = LocaleUtils.getLocaleSuffixList(clientKey.getLocale());
 
     // check first the local web application directory
     for (final String localeSuffix : locales) {
-      if (production) {
-        boolean found = checkPath(prefix, reverseOrder, returnKey, returnStrings, matches,
-            name, MINIMIZE_SUFFIX, localeSuffix, suffix, key);
-        if (found && (single || !returnStrings)) {
-          return matches;
-        }
-        if (!found) {
-          found = checkPath(prefix, reverseOrder, returnKey, returnStrings, matches,
-              name, null, localeSuffix, suffix, key);
+      for (final String extension : extensions) {
+        if (production) {
+          boolean found = checkPath(prefix, reverseOrder, returnKey, returnStrings, matches,
+              name, MINIMIZE_SUFFIX, localeSuffix, extension, key);
           if (found && (single || !returnStrings)) {
             return matches;
           }
-        }
-      } else {
-        final boolean found = checkPath(prefix, reverseOrder, returnKey, returnStrings, matches,
-            name, null, localeSuffix, suffix, key);
-        if (found && (single || !returnStrings)) {
-          return matches;
+          if (!found) {
+            found = checkPath(prefix, reverseOrder, returnKey, returnStrings, matches,
+                name, null, localeSuffix, extension, key);
+            if (found && (single || !returnStrings)) {
+              return matches;
+            }
+          }
+        } else {
+          final boolean found = checkPath(prefix, reverseOrder, returnKey, returnStrings, matches,
+              name, null, localeSuffix, extension, key);
+          if (found && (single || !returnStrings)) {
+            return matches;
+          }
         }
       }
     }
@@ -357,27 +410,29 @@ public class ResourceManagerImpl implements ResourceManager {
       for (final String resourceDirectory : tobagoConfig.getResourceDirs()) {
         for (final String browserType : browser.getFallbackList()) { // browser loop
           for (final String localeSuffix : locales) { // locale loop
-            if (production) {
-              boolean found = checkPath(prefix, reverseOrder, returnKey, returnStrings, matches,
-                  resourceDirectory, contentType, currentTheme, browserType, subDir, name, MINIMIZE_SUFFIX,
-                  localeSuffix, suffix, key);
-              if (found && (single || !returnStrings)) {
-                return matches;
-              }
-              if (!found) {
-                found = checkPath(prefix, reverseOrder, returnKey, returnStrings, matches,
-                    resourceDirectory, contentType, currentTheme, browserType, subDir, name, null,
-                    localeSuffix, suffix, key);
+            for (final String extension : extensions) { // extensions loop
+              if (production) {
+                boolean found = checkPath(prefix, reverseOrder, returnKey, returnStrings, matches,
+                    resourceDirectory, contentType, currentTheme, browserType, subDir, name, MINIMIZE_SUFFIX,
+                    localeSuffix, extension, key);
                 if (found && (single || !returnStrings)) {
                   return matches;
                 }
-              }
-            } else {
-              final boolean found = checkPath(prefix, reverseOrder, returnKey, returnStrings, matches,
-                  resourceDirectory, contentType, currentTheme, browserType, subDir, name, null,
-                  localeSuffix, suffix, key);
-              if (found && (single || !returnStrings)) {
-                return matches;
+                if (!found) {
+                  found = checkPath(prefix, reverseOrder, returnKey, returnStrings, matches,
+                      resourceDirectory, contentType, currentTheme, browserType, subDir, name, null,
+                      localeSuffix, extension, key);
+                  if (found && (single || !returnStrings)) {
+                    return matches;
+                  }
+                }
+              } else {
+                final boolean found = checkPath(prefix, reverseOrder, returnKey, returnStrings, matches,
+                    resourceDirectory, contentType, currentTheme, browserType, subDir, name, null,
+                    localeSuffix, extension, key);
+                if (found && (single || !returnStrings)) {
+                  return matches;
+                }
               }
             }
           }
@@ -386,6 +441,13 @@ public class ResourceManagerImpl implements ResourceManager {
     }
 
     if (matches.isEmpty()) {
+
+      // XXX hack for Tobago 2.0.x backward compatibility: renaming of style.css to tobago.css
+      // XXX style.css should be collected, but missing should be ignored
+      if ("style/style".equals(name) && EXT_CSS == extensions) {
+        ignoreMissing = true;
+      }
+
       if (!ignoreMissing) {
         LOG.error("Path not found, and no fallback. Using empty string.\n"
             + "resourceDirs = '" + tobagoConfig.getResourceDirs()
@@ -394,7 +456,7 @@ public class ResourceManagerImpl implements ResourceManager {
             + "' browser = '" + browser
             + "' subDir = '" + subDir
             + "' name = '" + name
-            + "' suffix = '" + suffix
+            + "' extension = '" + Arrays.toString(extensions)
             + "' key = '" + key
             + "'"/*, new Exception()*/);
       }
@@ -452,14 +514,14 @@ public class ResourceManagerImpl implements ResourceManager {
       final String prefix, final boolean reverseOrder, final boolean returnKey, final boolean returnStrings,
       final List matches, final String resourceDirectory, final String contentType, final Theme currentTheme,
       final String browserType, final String subDir, final String name, final String minimizeSuffix,
-      final String localeSuffix, final String suffix, final String key) {
+      final String localeSuffix, final String extension, final String key) {
     String path = makePath(resourceDirectory, contentType, currentTheme, browserType, subDir, name, minimizeSuffix,
-        localeSuffix, suffix, key, null);
+        localeSuffix, extension, key, null);
     if (returnStrings && resourceList.containsKey(path)) {
       final String result;
       if (prefix.length() == 0 && returnKey && resourceDirectory.equals(currentTheme.getResourcePath())) {
         result = makePath(resourceDirectory, contentType, currentTheme, browserType, subDir, name, minimizeSuffix,
-            localeSuffix, suffix, key, currentTheme.getVersion());
+            localeSuffix, extension, key, currentTheme.getVersion());
       } else {
         result = returnKey
             ? prefix + path : prefix + resourceList.get(path);
@@ -576,9 +638,16 @@ public class ResourceManagerImpl implements ResourceManager {
   private String[] getStrings(final FacesContext facesContext, final String name, final String type) {
     String[] result = new String[0];
     if (name != null) {
-      int dot = name.lastIndexOf('.');
+      final int dot = name.lastIndexOf('.');
+      final String nameWithoutExtension;
+      final String[] extensions;
       if (dot == -1) {
-        dot = name.length();
+        nameWithoutExtension = name;
+        extensions = EXT_NONE;
+      } else {
+        nameWithoutExtension = name.substring(0, dot);
+        final String extension = name.substring(dot);
+        extensions = getExtensions(extension);
       }
 
       final ClientPropertiesKey key = ClientPropertiesKey.get(facesContext);
@@ -589,7 +658,7 @@ public class ResourceManagerImpl implements ResourceManager {
       }
       try {
         final List matches = getPaths(key, "", type,
-            name.substring(0, dot), name.substring(dot), true, false, true, null, true, false);
+            nameWithoutExtension, extensions, true, false, true, null, true, false);
         if (matches != null) {
           result = (String[]) matches.toArray(new String[matches.size()]);
         }
@@ -599,6 +668,21 @@ public class ResourceManagerImpl implements ResourceManager {
       }
     }
     return result;
+  }
+
+  private String[] getExtensions(final String extension) {
+    final String[] extensions;
+    final String[] cached = extensionCache.get(extension);
+    if (cached != null) {
+      extensions = cached;
+    } else {
+      extensions = new String[] {extension};
+      extensionCache.put(extension, extensions);
+      if (LOG.isInfoEnabled()) {
+        LOG.info("Adding extension '{}' to cache.", extension);
+      }
+    }
+    return extensions;
   }
 
   @Override
@@ -612,6 +696,7 @@ public class ResourceManagerImpl implements ResourceManager {
         + ", miscCache=" + miscCache.size()
         + ", propertyCache=" + propertyCache.size()
         + ", themeCache=" + themeCache.size()
+        + ", extensionCache=" + extensionCache.size()
         + '}';
   }
 }

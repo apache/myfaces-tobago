@@ -153,7 +153,7 @@ public class NumberSliderRenderer extends LayoutComponentRendererBase {
     handleStyle.setHeight(Measure.valueOf(6));
     writer.writeStyleAttribute(handleStyle); // todo: why not do that via the class?
     writer.startElement(HtmlElements.IMG, null);
-    writer.writeAttribute(HtmlAttributes.SRC, getAbsoluteImagePath(facesContext, "image/sliderTriangle.png"), true);
+    writer.writeAttribute(HtmlAttributes.SRC, getAbsoluteImagePath(facesContext, "image/sliderTriangle"), true);
     writer.endElement(HtmlElements.IMG);
     writer.endElement(HtmlElements.DIV);
     writer.endElement(HtmlElements.DIV);
@@ -182,7 +182,7 @@ public class NumberSliderRenderer extends LayoutComponentRendererBase {
 
   private String getAbsoluteImagePath(final FacesContext facesContext, final String relativeImagePath) {
     return facesContext.getExternalContext().getRequestContextPath()
-        + ResourceManagerUtils.getImageWithPath(facesContext, relativeImagePath);
+        + ResourceManagerUtils.getImage(facesContext, relativeImagePath);
   }
 
   private String getIdForInputField(final FacesContext context, final UIComponent component) {

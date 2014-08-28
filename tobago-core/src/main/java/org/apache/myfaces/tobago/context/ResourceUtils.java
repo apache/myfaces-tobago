@@ -21,10 +21,28 @@ package org.apache.myfaces.tobago.context;
 
 public final class ResourceUtils {
 
+  /**
+   * @deprecated since Tobago 2.0.3
+   */
+  @Deprecated
   public static final char FOLDER_SEPARATOR = '/';
+
+  /**
+   * @deprecated since Tobago 2.0.3
+   */
+  @Deprecated
   public static final char SEPARATOR = '-';
+
+  /**
+   * @deprecated since Tobago 2.0.3
+   */
+  @Deprecated
   public static final char DOT = '.';
 
+  /**
+   * @deprecated since Tobago 2.0.3
+   */
+  @Deprecated
   public static final String GIF = "gif";
   public static final String PNG = "png";
 
@@ -32,11 +50,19 @@ public final class ResourceUtils {
     assert false;
   }
 
+  /**
+   * @deprecated since Tobago 2.0.3
+   */
+  @Deprecated
   public static String createString(
       final String folder, final String component, final String name, final String postfix, final String extension) {
     return folder + FOLDER_SEPARATOR + component + SEPARATOR + name + SEPARATOR + postfix + DOT + extension;
   }
 
+  /**
+   * @deprecated since Tobago 2.0.3
+   */
+  @Deprecated
   public static String createString(
       final String folder, final String component, final String name, final String extension) {
     return folder + FOLDER_SEPARATOR + component + SEPARATOR + name + DOT + extension;
@@ -44,8 +70,10 @@ public final class ResourceUtils {
 
   public static String addPostfixToFilename(final String filename, final String postfix) {
     final int dotIndex = filename.lastIndexOf('.');
-    final String name = filename.substring(0, dotIndex);
-    final String extension = filename.substring(dotIndex);
-    return name + postfix + extension;
+    if (dotIndex == -1) {
+      return filename + postfix;
+    } else {
+      return filename.substring(0, dotIndex) + postfix + filename.substring(dotIndex);
+    }
   }
 }

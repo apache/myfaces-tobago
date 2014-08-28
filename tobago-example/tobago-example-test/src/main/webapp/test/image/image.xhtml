@@ -23,12 +23,18 @@
     xmlns:f="http://java.sun.com/jsf/core">
 
   <tc:page>
-    <tc:gridLayoutConstraint width="600px" height="300px"/>
+    <tc:gridLayoutConstraint width="300px" height="600px"/>
     <f:facet name="layout">
-      <tc:gridLayout columns="*" rows="*" />
+      <tc:gridLayout rows="auto;*;auto;*" />
     </f:facet>
 
+    <tc:out value="requested with extension: pidgeon-point.jpg"/>
+
     <tc:image value="pidgeon-point.jpg"/>
+
+    <tc:out value="requested without extension: pidgeon-point"/>
+
+    <tc:image value="pidgeon-point"/>
 
   </tc:page>
 </f:view>

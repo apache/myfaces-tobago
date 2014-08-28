@@ -22,16 +22,18 @@ package org.apache.myfaces.tobago.internal.context;
 public final class ImageCacheKey {
   private final ClientPropertiesKey clientPropertiesKey;
   private final String name;
+  private final String extension;
   private final int hashCode;
 
-  public ImageCacheKey(final ClientPropertiesKey clientPropertiesKey, final String name) {
+  public ImageCacheKey(final ClientPropertiesKey clientPropertiesKey, final String name, final String extension) {
     this.name = name;
+    this.extension = extension;
     this.clientPropertiesKey = clientPropertiesKey;
     hashCode = calcHashCode();
   }
 
   @Override
-  public boolean equals(final Object o) {
+  public boolean equals(Object o) {
     if (this == o) {
       return true;
     }
@@ -39,15 +41,28 @@ public final class ImageCacheKey {
       return false;
     }
 
-    final ImageCacheKey that = (ImageCacheKey) o;
+    ImageCacheKey that = (ImageCacheKey) o;
 
-    return clientPropertiesKey.equals(that.clientPropertiesKey) && name.equals(that.name);
+    if (!clientPropertiesKey.equals(that.clientPropertiesKey)) {
+      return false;
+    }
+    if (extension != null ? !extension.equals(that.extension) : that.extension != null) {
+      return false;
+    }
+    if (!name.equals(that.name)) {
+      return false;
+    }
+
+    return true;
   }
 
   private int calcHashCode() {
     int result;
     result = clientPropertiesKey.hashCode();
     result = 31 * result + name.hashCode();
+    if (extension != null) {
+      result = 31 * result + extension.hashCode();
+    }
     return result;
   }
 

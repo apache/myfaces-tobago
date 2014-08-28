@@ -29,25 +29,25 @@
       <tc:gridLayout rows="auto;*"/>
     </f:facet>
 
-    <tc:toolBar iconSize="off">
-      <tc:toolBarCommand label="New" action="#{treeEditor.create}"/>
-      <tc:toolBarCommand label="Delete" action="#{treeEditor.delete}"/>
-      <tc:toolBarCommand label="Edit" omit="true">
+    <tc:toolBar>
+      <tc:toolBarCommand label="New" action="#{treeEditor.create}" image="image/treeNew"/>
+      <tc:toolBarCommand label="Delete" action="#{treeEditor.delete}" image="image/treeDelete"/>
+      <tc:toolBarCommand label="Edit" omit="true" image="image/treeEdit">
         <tc:dataAttribute name="alert-text" value="Not implemented yet"/>
       </tc:toolBarCommand>
-      <tc:toolBarCommand label="Cut" omit="true">
+      <tc:toolBarCommand label="Cut" omit="true" image="image/treeCut">
         <tc:dataAttribute name="alert-text" value="Not implemented yet"/>
       </tc:toolBarCommand>
-      <tc:toolBarCommand label="Copy" omit="true">
+      <tc:toolBarCommand label="Copy" omit="true" image="image/treeCopy">
         <tc:dataAttribute name="alert-text" value="Not implemented yet"/>
       </tc:toolBarCommand>
-      <tc:toolBarCommand label="Paste" omit="true">
+      <tc:toolBarCommand label="Paste" omit="true" image="image/treePaste">
         <tc:dataAttribute name="alert-text" value="Not implemented yet"/>
       </tc:toolBarCommand>
-      <tc:toolBarCommand label="Up" omit="true">
+      <tc:toolBarCommand label="Up" omit="true" image="image/treeMoveUp">
         <tc:dataAttribute name="alert-text" value="Not implemented yet"/>
       </tc:toolBarCommand>
-      <tc:toolBarCommand label="Down" omit="true">
+      <tc:toolBarCommand label="Down" omit="true" image="image/treeMoveDown">
         <tc:dataAttribute name="alert-text" value="Not implemented yet"/>
       </tc:toolBarCommand>
     </tc:toolBar>

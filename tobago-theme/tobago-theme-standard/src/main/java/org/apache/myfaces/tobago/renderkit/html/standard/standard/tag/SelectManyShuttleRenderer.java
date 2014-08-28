@@ -110,10 +110,10 @@ public class SelectManyShuttleRenderer extends SelectManyRendererBase {
     writer.writeStyleAttribute(style);
     writer.startElement(HtmlElements.DIV, null);
     writer.writeClassAttribute(Classes.create(select, "toolBar"));
-    createButton(facesContext, component, writer, disabled, "image/selectManyShuttleAddAll.png", "addAll");
-    createButton(facesContext, component, writer, disabled, "image/selectManyShuttleAdd.png", "add");
-    createButton(facesContext, component, writer, disabled, "image/selectManyShuttleRemove.png", "remove");
-    createButton(facesContext, component, writer, disabled, "image/selectManyShuttleRemoveAll.png", "removeAll");
+    createButton(facesContext, component, writer, disabled, "image/selectManyShuttleAddAll", "addAll");
+    createButton(facesContext, component, writer, disabled, "image/selectManyShuttleAdd", "add");
+    createButton(facesContext, component, writer, disabled, "image/selectManyShuttleRemove", "remove");
+    createButton(facesContext, component, writer, disabled, "image/selectManyShuttleRemoveAll", "removeAll");
     writer.endElement(HtmlElements.DIV);
     writer.endElement(HtmlElements.DIV);
     final String selectedLabel = select.getSelectedLabel();
@@ -165,7 +165,7 @@ public class SelectManyShuttleRenderer extends SelectManyRendererBase {
     writer.writeClassAttribute(Classes.create(component, sub));
     writer.writeIdAttribute(component.getClientId(context) + ComponentUtils.SUB_SEPARATOR + sub);
     writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
-    final String imagePath = ResourceManagerUtils.getImageOrDisabledImageWithPath(context, image, disabled);
+    final String imagePath = ResourceManagerUtils.getImageOrDisabledImage(context, image, disabled);
     writer.startElement(HtmlElements.IMG, null);
     writer.writeAttribute(HtmlAttributes.SRC, imagePath, true);
     writer.endElement(HtmlElements.IMG);

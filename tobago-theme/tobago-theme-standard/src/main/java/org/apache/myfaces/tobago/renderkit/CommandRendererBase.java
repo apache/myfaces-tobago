@@ -58,7 +58,12 @@ public abstract class CommandRendererBase extends LayoutComponentRendererBase {
   }
 
   public String getImageWithPath(final FacesContext facesContext, final String image, final boolean disabled) {
-    return ResourceManagerUtils.getImageOrDisabledImageWithPath(facesContext, image, disabled);
+    final int indexOfExtension = ResourceManagerUtils.indexOfExtension(image);
+    if (indexOfExtension == -1) {
+      return ResourceManagerUtils.getImageOrDisabledImage(facesContext, image, disabled);
+    } else {
+      return ResourceManagerUtils.getImageOrDisabledImageWithPath(facesContext, image, disabled);
+    }
   }
 
 }

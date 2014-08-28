@@ -77,7 +77,7 @@ public class MenuCommandRenderer extends CommandRendererBase {
       // checkbox menu
       final UISelectBooleanCheckbox checkbox = (UISelectBooleanCheckbox) command.getFacet(Facets.CHECKBOX);
       final boolean checked = ComponentUtils.getBooleanAttribute(checkbox, Attributes.VALUE);
-      final String image = checked ? "image/MenuCheckmark.png" : null;
+      final String image = checked ? "image/MenuCheckmark" : null;
       final String hiddenId = checkbox.getClientId(facesContext);
       final CommandMap map = new CommandMap(new Command());
       final LabelWithAccessKey label = new LabelWithAccessKey(command);
@@ -91,7 +91,7 @@ public class MenuCommandRenderer extends CommandRendererBase {
       final String hiddenId = radio.getClientId(facesContext);
       for (final SelectItem item : SelectItemUtils.getItemIterator(facesContext, radio)) {
         final boolean checked = ObjectUtils.equals(item.getValue(), radio.getValue());
-        final String image = checked ? "image/MenuRadioChecked.png" : null;
+        final String image = checked ? "image/MenuRadioChecked" : null;
         final String labelText = item.getLabel();
         final LabelWithAccessKey label = new LabelWithAccessKey(labelText);
         final String formatted = RenderUtils.getFormattedValue(facesContext, radio, item.getValue());
@@ -166,10 +166,10 @@ public class MenuCommandRenderer extends CommandRendererBase {
 
         writer.startElement(HtmlElements.IMG, null);
         final String imageWithPath
-            = ResourceManagerUtils.getImageOrDisabledImageWithPath(facesContext, image, disabled);
+            = ResourceManagerUtils.getImageOrDisabledImage(facesContext, image, disabled);
         writer.writeAttribute(HtmlAttributes.SRC, imageWithPath, false);
         final String imageHover = ResourceManagerUtils
-            .getImageOrDisabledImageWithPath(facesContext, HtmlRendererUtils.createSrc(image, "Hover"), disabled, true);
+            .getImageOrDisabledImage(facesContext, image + "Hover", disabled, true);
         if (imageHover != null) {
           writer.writeAttribute(DataAttributes.SRC_DEFAULT, imageWithPath, false);
           writer.writeAttribute(DataAttributes.SRC_HOVER, imageHover, false);

@@ -35,7 +35,6 @@ import org.apache.myfaces.tobago.component.UISheet;
 import org.apache.myfaces.tobago.component.UIToolBar;
 import org.apache.myfaces.tobago.config.Configurable;
 import org.apache.myfaces.tobago.context.Markup;
-import org.apache.myfaces.tobago.context.ResourceManager;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.event.PageAction;
 import org.apache.myfaces.tobago.internal.component.AbstractUIColumn;
@@ -45,7 +44,6 @@ import org.apache.myfaces.tobago.internal.component.AbstractUIMenu;
 import org.apache.myfaces.tobago.internal.component.AbstractUIOut;
 import org.apache.myfaces.tobago.internal.component.AbstractUISheet;
 import org.apache.myfaces.tobago.internal.component.AbstractUISheetLayout;
-import org.apache.myfaces.tobago.internal.context.ResourceManagerFactory;
 import org.apache.myfaces.tobago.internal.layout.Cell;
 import org.apache.myfaces.tobago.internal.layout.Grid;
 import org.apache.myfaces.tobago.internal.layout.OriginCell;
@@ -178,8 +176,6 @@ public class SheetRenderer extends LayoutComponentRendererBase {
       final FacesContext facesContext, final UISheet sheet, final boolean hasClickAction, final Style style)
       throws IOException {
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
-    final ResourceManager resourceManager = ResourceManagerFactory.getResourceManager(facesContext);
-    final String contextPath = facesContext.getExternalContext().getRequestContextPath();
     final String sheetId = sheet.getClientId(facesContext);
 
     Measure sheetHeight;
@@ -240,8 +236,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
 // BEGIN RENDER BODY CONTENT
 
     if (showHeader) {
-      renderColumnHeaders(
-          facesContext, sheet, writer, resourceManager, contextPath, sheetId, renderedColumnList/*, tableBodyWidth*/);
+      renderColumnHeaders(facesContext, sheet, writer, renderedColumnList);
     }
 
     writer.startElement(HtmlElements.DIV, null);
@@ -741,8 +736,8 @@ public class SheetRenderer extends LayoutComponentRendererBase {
 
     final String tip = ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago",
         "sheet" + command.getToken());
-    final String image = ResourceManagerUtils.getImageWithPath(facesContext,
-        "image/sheet" + command.getToken() + (disabled ? "Disabled" : "") + ".png");
+    final String image = ResourceManagerUtils.getImage(facesContext,
+        "image/sheet" + command.getToken() + (disabled ? "Disabled" : ""));
 
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
     writer.startElement(HtmlElements.IMG, null);
@@ -764,9 +759,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
 
   private void renderColumnHeaders(
       final FacesContext facesContext, final UISheet sheet, final TobagoResponseWriter writer,
-      final ResourceManager resourceManager,
-      final String contextPath, final String sheetId, final List<AbstractUIColumn> renderedColumnList/*,
-      final Measure headerWidth*/)
+      final List<AbstractUIColumn> renderedColumnList)
       throws IOException {
 
     final Grid grid = sheet.getHeaderGrid();
@@ -877,11 +870,11 @@ public class SheetRenderer extends LayoutComponentRendererBase {
               if (column.getId().equals(sheetState.getSortedColumnId())) {
                 final String sortTitle;
                 if (sheetState.isAscending()) {
-                  sorterImage = contextPath + resourceManager.getImage(facesContext, "image/ascending.png");
+                  sorterImage = ResourceManagerUtils.getImage(facesContext, "image/ascending");
                   sortTitle = ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", "sheetAscending");
                   markup = markup.add(Markup.ASCENDING);
                 } else {
-                  sorterImage = contextPath + resourceManager.getImage(facesContext, "image/descending.png");
+                  sorterImage = ResourceManagerUtils.getImage(facesContext, "image/descending");
                   sortTitle = ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", "sheetDescending");
                   markup = markup.add(Markup.DESCENDING);
                 }
@@ -915,7 +908,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
 
               writer.startElement(HtmlElements.IMG, column);
               final String menuImage
-                  = ResourceManagerUtils.getImageWithPath(facesContext, "image/sheetSelectorMenu.png");
+                  = ResourceManagerUtils.getImage(facesContext, "image/sheetSelectorMenu");
               writer.writeAttribute(HtmlAttributes.TITLE, "", false);
               writer.writeAttribute(HtmlAttributes.SRC, menuImage, false);
               writer.endElement(HtmlElements.IMG);

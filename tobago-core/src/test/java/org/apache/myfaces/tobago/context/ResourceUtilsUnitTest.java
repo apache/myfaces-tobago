@@ -25,20 +25,14 @@ import org.junit.Test;
 public class ResourceUtilsUnitTest {
 
   @Test
-  public void testCreateString() {
-    Assert.assertEquals("folder/treeNode-icon-open.png",
-        ResourceUtils.createString("folder", "treeNode", "icon", "open", ResourceUtils.PNG));
-  }
-
-  @Test
-  public void testCreateString2() {
-    Assert.assertEquals("folder/treeNode-icon.png",
-        ResourceUtils.createString("folder", "treeNode", "icon", ResourceUtils.PNG));
-  }
-
-  @Test
   public void testAddPostfixToFilename() {
-    Assert.assertEquals("folder/treeNode-iconDisabled.png",
-        ResourceUtils.addPostfixToFilename("folder/treeNode-icon.png", "Disabled"));
+    Assert.assertEquals("folder/treeNode-iconDisabled.gif",
+        ResourceUtils.addPostfixToFilename("folder/treeNode-icon.gif", "Disabled"));
+  }
+
+  @Test
+  public void testAddPostfixToFilenameWithoutExtension() {
+    Assert.assertEquals("folder/treeNode-iconDisabled",
+        ResourceUtils.addPostfixToFilename("folder/treeNode-icon", "Disabled"));
   }
 }

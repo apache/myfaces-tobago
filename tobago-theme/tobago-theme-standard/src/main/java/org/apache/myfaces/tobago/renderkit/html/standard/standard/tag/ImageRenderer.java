@@ -47,20 +47,22 @@ public class ImageRenderer extends LayoutComponentRendererBase {
 
     final AbstractUIImage image = (AbstractUIImage) component;
     final String value = image.getUrl();
-    String src = value;
-    if (src != null) {
-      if (ResourceManagerUtils.isAbsoluteResource(src)) {
+    final String src;
+    if (value != null) {
+      if (ResourceManagerUtils.isAbsoluteResource(value)) {
         // absolute Path to image : nothing to do
+        src = value;
       } else {
-        src = null;
-        if (isDisabled(image)) {
-          src = ResourceManagerUtils.getImageWithPath(facesContext,
-              HtmlRendererUtils.createSrc(value, "Disabled"), true);
-        }
-        if (src == null) {
-          src = ResourceManagerUtils.getImageWithPath(facesContext, value);
+        final int dot = ResourceManagerUtils.indexOfExtension(value);
+        final boolean disabled = isDisabled(image);
+        if (dot != -1) {
+          src = ResourceManagerUtils.getImageOrDisabledImageWithPath(facesContext, value, disabled);
+        } else {
+          src = ResourceManagerUtils.getImageOrDisabledImage(facesContext, value, disabled);
         }
       }
+    } else {
+      src = null;
     }
 
     String border = (String) image.getAttributes().get(Attributes.BORDER);

@@ -19,7 +19,7 @@
 
 package org.apache.myfaces.tobago.example.test;
 
-import org.apache.myfaces.tobago.context.ResourceManager;
+import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 
 import javax.faces.context.FacesContext;
 
@@ -46,13 +46,13 @@ public class ResourceEntry {
     assert type == ResourceType.PROPERTY;
   }
 
-  public boolean check(final FacesContext facesContext, final ResourceManager resourceManager) {
+  public boolean check(final FacesContext facesContext) {
     switch (type) {
       case IMAGE:
-        valid = resourceManager.getImage(facesContext, name) != null;
+        valid = ResourceManagerUtils.getImageWithPath(facesContext, name) != null;
         break;
       case PROPERTY:
-        valid = resourceManager.getProperty(facesContext, name, key) != null;
+        valid = ResourceManagerUtils.getProperty(facesContext, name, key) != null;
         break;
       default:
         throw new IllegalArgumentException("Unknown type " + type);
