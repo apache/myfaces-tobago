@@ -613,7 +613,7 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
       }
     }
 
-    return facesContext.getExternalContext().getRequestContextPath() + image;
+    return image;
   }
 
   public static void renderDropDownMenu(
