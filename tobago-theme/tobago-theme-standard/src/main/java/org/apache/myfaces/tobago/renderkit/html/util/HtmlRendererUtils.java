@@ -54,13 +54,11 @@ import javax.el.ELContext;
 import javax.el.ValueExpression;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
-import javax.faces.component.UINamingContainer;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.model.SelectItem;
 import javax.faces.model.SelectItemGroup;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
@@ -440,6 +438,10 @@ public final class HtmlRendererUtils {
     }
   }
 
+  /**
+   * @deprecated Since Tobago 2.0.3.
+   */
+  @Deprecated
   public static String getComponentIds(
       final FacesContext context, final UIComponent component, final String[] componentId) {
     final StringBuilder sb = new StringBuilder();
@@ -448,7 +450,7 @@ public final class HtmlRendererUtils {
         if (sb.length() > 0) {
           sb.append(",");
         }
-        final String clientId = getComponentId(context, component, id);
+        final String clientId = ComponentUtils.evaluateClientId(context, component, id);
         if (clientId != null) {
           sb.append(clientId);
         }
@@ -457,36 +459,22 @@ public final class HtmlRendererUtils {
     return sb.toString();
   }
 
+  /**
+   * @deprecated Since 2.0.3, please use {@link org.apache.myfaces.tobago.util.ComponentUtils#evaluateClientIds(
+   * javax.faces.context.FacesContext, javax.faces.component.UIComponent, String[])}
+   */
   public static String[] getComponentIdsAsList(
-      final FacesContext context, final UIComponent component, final String[] componentId) {
-    final List<String> result = new ArrayList<String>(componentId.length);
-    for (final String id : componentId) {
-      if (!StringUtils.isBlank(id)) {
-        final String clientId = getComponentId(context, component, id);
-        if (clientId != null) {
-          result.add(clientId);
-        }
-      }
-    }
-    return (String[]) result.toArray(new String[result.size()]);
+      final FacesContext context, final UIComponent component, final String[] componentIds) {
+    return ComponentUtils.evaluateClientIds(context, component, componentIds);
   }
 
+  /**
+   * @deprecated Since 2.0.3, please use {@link org.apache.myfaces.tobago.util.ComponentUtils#evaluateClientId(
+   * javax.faces.context.FacesContext, javax.faces.component.UIComponent, String)}
+   */
   public static String getComponentId(
       final FacesContext context, final UIComponent component, final String componentId) {
-    final UIComponent partiallyComponent = ComponentUtils.findComponent(component, componentId);
-    if (partiallyComponent != null) {
-      final String clientId = partiallyComponent.getClientId(context);
-      if (partiallyComponent instanceof UISheet) {
-        final int rowIndex = ((UISheet) partiallyComponent).getRowIndex();
-        if (rowIndex >= 0 && clientId.endsWith(Integer.toString(rowIndex))) {
-          return clientId.substring(0, clientId.lastIndexOf(UINamingContainer.getSeparatorChar(context)));
-        }
-      }
-      return clientId;
-    }
-    LOG.error("No component found for id='" + componentId + "', "
-        + "search base component is '" + component.getClientId(context) + "'");
-    return null;
+    return ComponentUtils.evaluateClientId(context, component, componentId);
   }
 
   /**
@@ -540,6 +528,10 @@ public final class HtmlRendererUtils {
     }
   }
 
+  /**
+   * @deprecated Since Tobago 2.0.3, because of CSP.
+   */
+  @Deprecated
   public static String getJavascriptString(final String str) {
     if (str != null) {
       return "\"" + str + "\"";
@@ -547,6 +539,10 @@ public final class HtmlRendererUtils {
     return null;
   }
 
+  /**
+   * @deprecated Since Tobago 2.0.3, because of CSP.
+   */
+  @Deprecated
   public static String getRenderedPartiallyJavascriptArray(final FacesContext facesContext, final UICommand command) {
     if (command == null) {
       return null;
@@ -554,6 +550,10 @@ public final class HtmlRendererUtils {
     return getRenderedPartiallyJavascriptArray(facesContext, command, command);
   }
 
+  /**
+   * @deprecated Since Tobago 2.0.3, because of CSP.
+   */
+  @Deprecated
   public static String getRenderedPartiallyJavascriptArray(
       final FacesContext facesContext, final UIComponent searchBase,
       final SupportsRenderedPartially supportsRenderedPartially) {
@@ -568,13 +568,17 @@ public final class HtmlRendererUtils {
         strBuilder.append(",");
       }
       strBuilder.append("\"");
-      strBuilder.append(HtmlRendererUtils.getComponentId(facesContext, searchBase, list[i]));
+      strBuilder.append(ComponentUtils.evaluateClientId(facesContext, searchBase, list[i]));
       strBuilder.append("\"");
     }
     strBuilder.append("]");
     return strBuilder.toString();
   }
 
+  /**
+   * @deprecated Since Tobago 2.0.3, because of CSP.
+   */
+  @Deprecated
   public static String getJavascriptArray(final String[] list) {
     final StringBuilder strBuilder = new StringBuilder();
     strBuilder.append("[");
@@ -736,13 +740,20 @@ public final class HtmlRendererUtils {
     return false;
   }
 
-
+  /**
+   * @deprecated Since Tobago 2.0.0. Because of CSP.
+   */
+  @Deprecated
   public static void checkForCommandFacet(
       final UIComponent component, final FacesContext facesContext, final TobagoResponseWriter writer)
       throws IOException {
     checkForCommandFacet(component, Arrays.asList(component.getClientId(facesContext)), facesContext, writer);
   }
 
+  /**
+   * @deprecated Since Tobago 2.0.0. Because of CSP.
+   */
+  @Deprecated
   public static void checkForCommandFacet(
       final UIComponent component, final List<String> clientIds, final FacesContext facesContext,
       final TobagoResponseWriter writer) throws IOException {
@@ -758,6 +769,10 @@ public final class HtmlRendererUtils {
     }
   }
 
+  /**
+   * @deprecated Since Tobago 2.0.0. Because of CSP.
+   */
+  @Deprecated
   private static void addCommandFacet(
       final List<String> clientIds, final Map.Entry<String, UIComponent> facetEntry,
       final FacesContext facesContext, final TobagoResponseWriter writer)
@@ -787,7 +802,7 @@ public final class HtmlRendererUtils {
       writer.write(HtmlRendererUtils.getComponentIds(facesContext, facetEntry.getValue(),
               ((UICommand) facetEntry.getValue()).getRenderedPartially()));
       writer.write("','");
-      writer.write(facetEntry.getValue().getClientId(facesContext)); 
+      writer.write(facetEntry.getValue().getClientId(facesContext));
       writer.write("', {})});\n");
       writer.write("};");
       writer.endJavascript();
@@ -871,6 +886,10 @@ public final class HtmlRendererUtils {
     }
   }
 
+  /**
+   * @deprecated Since Tobago 2.0.3. Because of CSP.
+   */
+  @Deprecated
   public static void addAcceleratorKey(
       final FacesContext facesContext, final UIComponent component, final Character accessKey) {
     final String clientId = component.getClientId(facesContext);

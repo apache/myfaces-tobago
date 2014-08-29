@@ -26,7 +26,7 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 public interface HasRenderedPartially {
   /**
    * <p>
-   * Indicate the partially rendered Components in a case of a submit.
+   * Indicate the partially rendered components in a case of a submit.
    * </p>
    * <p>
    * The search depends on the number of prefixed colons in the relativeId:
@@ -45,6 +45,11 @@ public interface HasRenderedPartially {
    * </p>
    * <p>
    * If a literal is specified: to use more than one identifier the identifiers must be space delimited.
+   * </p>
+   * <p>
+   * Using this in a UISheet component this list indicates components to update when calling
+   * internal AJAX requests like sort or paging commands.
+   * Don't forget to add the sheets id in that case, if needed.
    * </p>
    */
    @TagAttribute

@@ -99,7 +99,7 @@ public class CommandRendererHelper {
                 + Arrays.toString(componentIds));
           }
           onclick = "Tobago.Popup.openWithAction(this, '"
-              + HtmlRendererUtils.getComponentId(facesContext, command, componentIds[0]) + "', '" + clientId + "');";
+              + ComponentUtils.evaluateClientId(facesContext, command, componentIds[0]) + "', '" + clientId + "');";
         } else {
           onclick = "Tobago.reloadComponent(this, '"
               + HtmlRendererUtils.getComponentIds(facesContext, command, componentIds) + "','" + clientId + "', {});";

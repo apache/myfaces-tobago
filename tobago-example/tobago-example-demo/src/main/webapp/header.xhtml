@@ -22,7 +22,7 @@
            xmlns:tc="http://myfaces.apache.org/tobago/component">
   <tc:panel>
     <f:facet name="layout">
-      <tc:gridLayout columns="150px;*;200px"/>
+      <tc:gridLayout columns="150px;*;400px"/>
     </f:facet>
 
     <tc:link action="#{navigationState.gotoFirst}" immediate="true" image="image/tobago_head.gif"/>
@@ -34,15 +34,16 @@
       <tc:out value="The demo is in progress." markup="strong"/>
     </tc:panel>
 
-    <tc:panel>
+    <tc:panel id="headerInfo">
       <f:facet name="layout">
-        <tc:gridLayout rows="15px;15px;15px;15px;15px"/>
+        <tc:gridLayout rows="15px;15px;15px" columns="*;*"/>
       </f:facet>
       <tc:out value="Theme: #{clientConfigController.localizedTheme}"/>
       <tc:out value="Locale: #{clientConfigController.localizedLocale}"/>
       <tc:out value="VDL: Facelets" tip="View Description Language"/>
       <tc:out value="Project Stage: #{tobagoContext.tobagoConfig.projectStage}"/>
       <tc:out value="CSP mode: #{tobagoContext.tobagoConfig.contentSecurityPolicy.mode}"/>
+      <tc:out value="Requests: #{activityList.values[0].jsfRequest} / AJAX: #{activityList.values[0].ajaxRequest}"/>
     </tc:panel>
   </tc:panel>
 </f:subview>

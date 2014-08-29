@@ -160,9 +160,10 @@ public class SheetRenderer extends LayoutComponentRendererBase {
       final UIReload update = (UIReload) facetReload;
       writer.writeAttribute(DataAttributes.RELOAD, update.getFrequency());
     }
-
-    writer.writeAttribute(DataAttributes.PARTIALLY,
-        HtmlRendererUtils.getRenderedPartiallyJavascriptArray(facesContext, sheet, sheet), false);
+    final String[] clientIds = ComponentUtils.evaluateClientIds(facesContext, sheet, sheet.getRenderedPartially());
+    if (clientIds.length > 0) {
+      writer.writeAttribute(DataAttributes.PARTIALLY, JsonUtils.encode(clientIds), true);
+    }
     writer.writeAttribute(DataAttributes.SELECTION_MODE, sheet.getSelectable(), false);
     writer.writeAttribute(DataAttributes.FIRST, Integer.toString(sheet.getFirst()), false);
 

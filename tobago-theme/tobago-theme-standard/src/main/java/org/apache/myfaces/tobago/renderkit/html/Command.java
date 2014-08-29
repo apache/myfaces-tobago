@@ -26,7 +26,6 @@ import org.apache.myfaces.tobago.component.UIForm;
 import org.apache.myfaces.tobago.internal.component.AbstractUICommand;
 import org.apache.myfaces.tobago.internal.util.Deprecation;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
-import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 
@@ -82,7 +81,7 @@ public class Command {
         command.isTransition(),
         command.getTarget(),
         RenderUtils.generateUrl(facesContext, command),
-        HtmlRendererUtils.getComponentIdsAsList(facesContext, command, command.getRenderedPartially()),
+        ComponentUtils.evaluateClientIds(facesContext, command, command.getRenderedPartially()),
         null,
         getConfirmation(command),
         null,
@@ -109,7 +108,7 @@ public class Command {
     }
     if (facetComponent instanceof AbstractUICommand
         && ((AbstractUICommand) facetComponent).getRenderedPartially().length > 0) {
-      this.partially = HtmlRendererUtils.getComponentIdsAsList(
+      this.partially = ComponentUtils.evaluateClientIds(
           facesContext, facetComponent, ((UICommand) facetComponent).getRenderedPartially());
     } else {
       String facetAction = (String) facetComponent.getAttributes().get(Attributes.ONCLICK);

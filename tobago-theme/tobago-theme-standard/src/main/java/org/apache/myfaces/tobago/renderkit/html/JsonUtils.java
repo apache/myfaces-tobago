@@ -31,7 +31,13 @@ public class JsonUtils {
   private static void encode(final StringBuilder builder, final String name, final String[] value) {
     builder.append("\"");
     builder.append(name);
-    builder.append("\":[");
+    builder.append("\":");
+    encode(builder, value);
+    builder.append(",");
+  }
+
+  public static void encode(StringBuilder builder, String[] value) {
+    builder.append("[");
     boolean colon = false;
     for (final String item : value) {
       if (colon) {
@@ -42,7 +48,7 @@ public class JsonUtils {
       builder.append("\"");
       colon = true;
     }
-    builder.append("],");
+    builder.append("]");
   }
 
   static void encode(final StringBuilder builder, final String name, final Boolean value) {
@@ -62,7 +68,7 @@ public class JsonUtils {
   }
 
   static void encode(final StringBuilder builder, final String name, String value) {
-    value = value.replaceAll("\\\"", "\\\\\\\"");
+    value = value.replaceAll("\\\"", "\\\\\\\""); // todo: optimize
     builder.append("\"");
     builder.append(name);
     builder.append("\":\"");
@@ -198,6 +204,15 @@ public class JsonUtils {
       builder.deleteCharAt(builder.length() - 1);
     }
     builder.append("}");
+    return builder.toString();
+  }
+
+  public static String encode(final String[] strings) {
+    if (strings == null) {
+      return null;
+    }
+    final StringBuilder builder = new StringBuilder();
+    encode(builder, strings);
     return builder.toString();
   }
 }

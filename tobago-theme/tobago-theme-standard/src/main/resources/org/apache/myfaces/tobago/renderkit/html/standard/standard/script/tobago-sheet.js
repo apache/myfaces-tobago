@@ -27,8 +27,9 @@ Tobago.Sheets = {
   }
 };
 
-Tobago.Sheet = function(sheetId, unused1, unused2, unused3, unused4,
-                        clickActionId, clickReloadComponentId, dblClickActionId, dblClickReloadComponentId, renderedPartially) {
+Tobago.Sheet = function(
+    sheetId, unused1, unused2, unused3, unused4,
+    clickActionId, clickReloadComponentId, dblClickActionId, dblClickReloadComponentId, renderedPartially) {
   console.debug("New Sheet with id " + sheetId); // @DEV_ONLY
   console.time("[tobago-sheet] constructor"); // @DEV_ONLY
   this.id = sheetId;
@@ -70,8 +71,7 @@ Tobago.Sheet.init = function(elements) {
         click != undefined ? click.partially : undefined,
         dblclick != undefined ? dblclick.action : undefined,
         dblclick != undefined ? dblclick.partially: undefined,
-        // todo: use sheet.data("data-tobago-partially"). What is the type? Array? Test it.
-        sheet.attr("data-tobago-partially"));
+        sheet.data("tobago-partially")); // type array
   });
 
   Tobago.Sheet.setup2(sheets);
