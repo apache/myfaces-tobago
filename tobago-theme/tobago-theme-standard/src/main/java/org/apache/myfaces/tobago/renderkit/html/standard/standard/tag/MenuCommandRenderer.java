@@ -89,7 +89,7 @@ public class MenuCommandRenderer extends CommandRendererBase {
       final String hiddenId = radio.getClientId(facesContext);
       for (final SelectItem item : SelectItemUtils.getItemIterator(facesContext, radio)) {
         final boolean checked = ObjectUtils.equals(item.getValue(), radio.getValue());
-        final String image = checked ? "image/MenuRadioChecked.gif" : null;
+        final String image = checked ? "image/MenuRadioChecked" : null;
         final String labelText = item.getLabel();
         final LabelWithAccessKey label = new LabelWithAccessKey(labelText);
         final String formattedValue = RenderUtils.getFormattedValue(facesContext, radio, item.getValue());
@@ -101,7 +101,16 @@ public class MenuCommandRenderer extends CommandRendererBase {
       encodeHidden(writer, hiddenId, getCurrentValue(facesContext, radio));
     } else {
       // normal menu command
-      final String image = menu.getImage();
+      final String customImage = menu.getImage();
+      final String image;
+      if (customImage != null) {
+        final int dot = ResourceManagerUtils.indexOfExtension(customImage);
+        final int pos = dot == -1 ? customImage.length() : dot; // avoid exception if no '.' in name
+        image = customImage.substring(0, pos);
+        // XXX here we lost the name of the extension
+      } else {
+        image = null;
+      }
       final CommandMap map = new CommandMap(new Command(facesContext, menu));
       final LabelWithAccessKey label = new LabelWithAccessKey(menu);
       encodeItem(facesContext, writer, menu, label, map, disabled, firstLevel, image, null, null, menu.getClientId());
@@ -177,7 +186,7 @@ public class MenuCommandRenderer extends CommandRendererBase {
       } else {
         final Style style = new Style();
         style.setBackgroundImage("url('"
-            + ResourceManagerUtils.getImageOrDisabledImageWithPath(facesContext, image, disabled)
+            + ResourceManagerUtils.getImageOrDisabledImage(facesContext, image, disabled)
             + "')");
         writer.writeStyleAttribute(style);
       }
