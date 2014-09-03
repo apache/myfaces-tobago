@@ -20,7 +20,7 @@
 package org.apache.myfaces.tobago.event;
 
 import org.apache.myfaces.tobago.internal.component.AbstractUIPopup;
-import org.apache.myfaces.tobago.internal.util.FindComponentUtils;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -54,7 +54,7 @@ public class ValueBindingPopupActionListener extends AbstractPopupActionListener
   @Override
   protected AbstractUIPopup getPopup(final ActionEvent actionEvent) {
     final String id = (String) popupIdBinding.getValue(FacesContext.getCurrentInstance());
-    final UIComponent popup = FindComponentUtils.findComponent(actionEvent.getComponent(), id);
+    final UIComponent popup = ComponentUtils.findComponent(actionEvent.getComponent(), id);
     if (popup instanceof AbstractUIPopup) {
       return (AbstractUIPopup) popup;
     } else {

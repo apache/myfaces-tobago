@@ -20,8 +20,8 @@
 package org.apache.myfaces.tobago.event;
 
 
-import org.apache.myfaces.tobago.internal.util.FindComponentUtils;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -60,7 +60,7 @@ public class ValueExpressionResetInputActionListener extends AbstractResetInputA
       return;
     }
     for (final String clientId : clientIds) {
-      final UIComponent component = FindComponentUtils.findComponent(event.getComponent(), clientId);
+      final UIComponent component = ComponentUtils.findComponent(event.getComponent(), clientId);
       if (component != null) {
         resetChildren(component);
       }
