@@ -1,6 +1,6 @@
 Building
 --------
-You need Maven 2 or 3 (at least 2.2.1) and Java 6, 7 or 8 to build Tobago.
+You need Maven 3 (at least 3.0.4) and Java 6, 7 or 8 to build Tobago.
 
 In the main directory you can use
 
@@ -18,6 +18,6 @@ mvn install -Pall-modules
 Demo
 ----
 
-In the directory tobago-demo/tobago-example-demo
+In the directory tobago-example/tobago-example-demo
 
 mvn jetty:run
