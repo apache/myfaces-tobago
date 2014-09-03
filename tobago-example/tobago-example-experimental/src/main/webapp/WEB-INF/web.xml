@@ -47,11 +47,6 @@
     <url-pattern>/faces/myFacesExtensionResource/*</url-pattern>
 </filter-mapping>
 
-<!--  workaround (e.g. for Oracle AS 10.1.2.0.0)-->
-  <listener>
-    <listener-class>org.apache.myfaces.tobago.webapp.TobagoServletContextListener</listener-class>
-  </listener>
-
   <!-- servlet -->
   <servlet>
     <servlet-name>SolarServlet</servlet-name>

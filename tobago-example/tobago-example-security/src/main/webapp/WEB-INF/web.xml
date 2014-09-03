@@ -25,11 +25,6 @@
 
   <display-name>A simple security demo with Tobago</display-name>
 
-  <!--  workaround for a bug in Oracle AS (e.g. 10.1.2.0.0)-->
-  <listener>
-    <listener-class>org.apache.myfaces.tobago.webapp.TobagoServletContextListener</listener-class>
-  </listener>
-
   <!-- servlet -->
 
   <servlet>
