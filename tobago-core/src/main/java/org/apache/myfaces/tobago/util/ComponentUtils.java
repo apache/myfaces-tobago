@@ -23,6 +23,7 @@ import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.SupportsMarkup;
+import org.apache.myfaces.tobago.component.UISheet;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.TransientStateHolder;
 import org.apache.myfaces.tobago.event.AbstractPopupActionListener;
@@ -31,7 +32,6 @@ import org.apache.myfaces.tobago.internal.component.AbstractUIInput;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPage;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPopup;
 import org.apache.myfaces.tobago.internal.util.ArrayUtils;
-import org.apache.myfaces.tobago.internal.util.FindComponentUtils;
 import org.apache.myfaces.tobago.internal.util.ObjectUtils;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
@@ -47,6 +47,7 @@ import javax.faces.component.UICommand;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIGraphic;
 import javax.faces.component.UIInput;
+import javax.faces.component.UINamingContainer;
 import javax.faces.component.UIOutput;
 import javax.faces.component.UIParameter;
 import javax.faces.component.UISelectMany;
@@ -773,19 +774,98 @@ public final class ComponentUtils {
   }
 
   /**
-   * The search depends on the number of colons in the relativeId:
+   * <p>
+   * The search depends on the number of prefixed colons in the relativeId:
    * <dl>
-   *   <dd>colonCount == 0</dd>
+   *   <dd>number of prefixed colons == 0</dd>
    *   <dt>fully relative</dt>
-   *   <dd>colonCount == 1</dd>
+   *   <dd>number of prefixed colons == 1</dd>
    *   <dt>absolute (still normal findComponent syntax)</dt>
-   *   <dd>colonCount > 1</dd>
-   *   <dt>for each extra colon after 1, go up a naming container</dt>
+   *   <dd>number of prefixed colons == 2</dd>
+   *   <dt>search in the current naming container (same as 0 colons)</dt>
+   *   <dd>number of prefixed colons == 3</dd>
+   *   <dt>search in the parent naming container of the current naming container</dt>
+   *   <dd>number of prefixed colons > 3</dd>
+   *   <dt>go to the next parent naming container for each additional colon</dt>
    * </dl>
-   * (to the view root, if naming containers run out)
+   * </p>
+   * <p>
+   * If a literal is specified: to use more than one identifier the identifiers must be space delimited.
+   * </p>
    */
   public static UIComponent findComponent(final UIComponent from, final String relativeId) {
-    return FindComponentUtils.findComponent(from, relativeId);
+    UIComponent from1 = from;
+    String relativeId1 = relativeId;
+    final int idLength = relativeId1.length();
+    if (idLength > 0 && relativeId1.charAt(0) == '@') {
+      if (relativeId1.equals("@this")) {
+        return from1;
+      }
+    }
+
+    // Figure out how many colons
+    int colonCount = 0;
+    while (colonCount < idLength) {
+      if (relativeId1.charAt(colonCount) != UINamingContainer.getSeparatorChar(FacesContext.getCurrentInstance())) {
+        break;
+      }
+      colonCount++;
+    }
+
+    // colonCount == 0: fully relative
+    // colonCount == 1: absolute (still normal findComponent syntax)
+    // colonCount > 1: for each extra colon after 1, go up a naming container
+    // (to the view root, if naming containers run out)
+    if (colonCount > 1) {
+      relativeId1 = relativeId1.substring(colonCount);
+      for (int j = 1; j < colonCount; j++) {
+        while (from1.getParent() != null) {
+          from1 = from1.getParent();
+          if (from1 instanceof NamingContainer) {
+            break;
+          }
+        }
+      }
+    }
+    return from1.findComponent(relativeId1);
+  }
+
+  /**
+   * Resolves the real clientIds.
+   */
+  public static String[] evaluateClientIds(
+      final FacesContext context, final UIComponent component, final String[] componentId) {
+    final List<String> result = new ArrayList<String>(componentId.length);
+    for (final String id : componentId) {
+      if (!StringUtils.isBlank(id)) {
+        final String clientId = evaluateClientId(context, component, id);
+        if (clientId != null) {
+          result.add(clientId);
+        }
+      }
+    }
+    return (String[]) result.toArray(new String[result.size()]);
+  }
+
+  /**
+   * Resolves the real clientId.
+   */
+  public static String evaluateClientId(
+      final FacesContext context, final UIComponent component, final String componentId) {
+    final UIComponent partiallyComponent = ComponentUtils.findComponent(component, componentId);
+    if (partiallyComponent != null) {
+      final String clientId = partiallyComponent.getClientId(context);
+      if (partiallyComponent instanceof UISheet) {
+        final int rowIndex = ((UISheet) partiallyComponent).getRowIndex();
+        if (rowIndex >= 0 && clientId.endsWith(Integer.toString(rowIndex))) {
+          return clientId.substring(0, clientId.lastIndexOf(UINamingContainer.getSeparatorChar(context)));
+        }
+      }
+      return clientId;
+    }
+    LOG.error("No component found for id='" + componentId + "', "
+        + "search base component is '" + component.getClientId(context) + "'");
+    return null;
   }
 
   public static String[] splitList(final String renderers) {

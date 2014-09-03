@@ -19,7 +19,7 @@
 
 package org.apache.myfaces.tobago.event;
 
-import org.apache.myfaces.tobago.internal.util.FindComponentUtils;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 
 import javax.faces.component.StateHolder;
 import javax.faces.component.UIComponent;
@@ -44,7 +44,7 @@ public class ResetInputActionListener extends AbstractResetInputActionListener i
 
   public void processAction(final ActionEvent event) {
     for (final String clientId : clientIds) {
-      final UIComponent component = FindComponentUtils.findComponent(event.getComponent(), clientId);
+      final UIComponent component = ComponentUtils.findComponent(event.getComponent(), clientId);
       if (component != null) {
         resetChildren(component);
       }

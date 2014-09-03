@@ -20,7 +20,6 @@
 package org.apache.myfaces.tobago.renderkit.html.example.standard.tag;
 
 import org.apache.myfaces.tobago.component.UIIn;
-import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -51,12 +50,14 @@ public class InRenderer extends org.apache.myfaces.tobago.renderkit.html.standar
       if (markup.equals("changeaware")) {
         final String id = in.getClientId(facesContext);
         final String[] cmds = {"new Example.ChangeAware('" + id + "');"};
-        HtmlRendererUtils.writeScriptLoader(facesContext, null, cmds);
+        // FIXME: this needed to be refactored, because of CSP
+//        HtmlRendererUtils.writeScriptLoader(facesContext, null, cmds);
       }
       if (markup.equals("blink")) {
         final String id = in.getClientId(facesContext);
         final String[] cmds = {"new Example.Blinker('" + id + "');"};
-        HtmlRendererUtils.writeScriptLoader(facesContext, null, cmds);
+        // FIXME: this needed to be refactored, because of CSP
+//        HtmlRendererUtils.writeScriptLoader(facesContext, null, cmds);
       }
     }
   }
