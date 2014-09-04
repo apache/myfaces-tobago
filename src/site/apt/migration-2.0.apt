@@ -124,6 +124,9 @@ Date/Time
   The date and time input controls have been refactored. The old (deprecated) functionality can be activated
   via <<<tobago-config.xml>>>.
 
+  If using the new: <<<tc:date>>> can do the job of <<<tc:time>>>.
+  You only need to set the <<<f:convertDateTime type="time">>> inside the <<<tc:date>>>.
+
 Configuration
 
   To define an own theme, please use now a file <<<tobago-config.xml>>> instead of <<<tobago-theme.xml>>>.
