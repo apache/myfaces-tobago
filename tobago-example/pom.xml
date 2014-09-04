@@ -47,13 +47,11 @@
             </webApp>
 -->
             <!-- use this to change the port-->
-<!--
             <connectors>
               <connector implementation="org.eclipse.jetty.server.nio.SelectChannelConnector">
                 <port>7080</port>
               </connector>
             </connectors>
--->
           </configuration>
       </plugin>
       <plugin>

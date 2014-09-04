@@ -71,7 +71,7 @@ Tobago.Sheet.init = function(elements) {
         click != undefined ? click.partially : undefined,
         dblclick != undefined ? dblclick.action : undefined,
         dblclick != undefined ? dblclick.partially: undefined,
-        sheet.data("tobago-partially")); // type array
+        sheet.data("tobago-partial-ids")); // type array
   });
 
   Tobago.Sheet.setup2(sheets);

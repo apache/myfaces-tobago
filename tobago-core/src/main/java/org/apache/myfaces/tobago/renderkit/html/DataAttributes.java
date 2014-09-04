@@ -138,7 +138,7 @@ public final class DataAttributes {
   @Deprecated
   public static final String MONTHNAMES = MONTH_NAMES;
 
-  public static final String PARTIALLY = "data-tobago-partially";
+  public static final String PARTIAL_IDS = "data-tobago-partial-ids";
 
   public static final String PARTIAL_ACTION = "data-tobago-partial-action";
 

@@ -140,7 +140,7 @@
               stateChangeListener="#{demo.stateChangeListener}"
               sortActionListener="#{overviewController.sheetSorter}"
               selectable="#{overviewController.sheetConfig.selectable}"
-              renderedPartially=":page:header:headerInfo sheet">
+              renderedPartially="@this :page:header:headerInfo">
 <!--
       <f:facet name="reload">
         <tc:reload frequency="2000" />
