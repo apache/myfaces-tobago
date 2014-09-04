@@ -19,15 +19,19 @@
 
 package org.apache.myfaces.tobago.internal.taglib.component;
 
+import org.apache.myfaces.tobago.apt.annotation.Facet;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
+import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasConverter;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasCss;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentCss;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabel;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasPlaceholder;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 import org.apache.myfaces.tobago.internal.taglib.declaration.InputTagDeclaration;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
@@ -38,17 +42,26 @@ import javax.faces.component.UIInput;
 
 /**
  * Renders a time input field.
+ *
+ * @deprecated Please use tc:date with &lt;f:convertDateTime type="time">
  */
+@Deprecated
 @Tag(name = "time")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UITime",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUITime",
     uiComponentFacesClass = "javax.faces.component.UIInput",
     componentFamily = UIInput.COMPONENT_FAMILY,
-    rendererType = RendererTypes.TIME,
-    allowedChildComponenents = "NONE")
+    rendererType = RendererTypes.DATE,
+    allowedChildComponenents = "NONE",
+    facets = {
+        @Facet(name = Facets.CHANGE,
+            description =
+                "This facet can contain a UICommand that is invoked in a case of a change event from the component")
+    })
 public interface TimeTagDeclaration
-    extends InputTagDeclaration, HasIdBindingAndRendered,
-    IsReadonly, IsDisabled, HasLabel, HasTip, IsRequired, HasMarkup, HasCurrentMarkup, HasCss, HasCurrentCss {
+    extends InputTagDeclaration, HasIdBindingAndRendered, IsReadonly,
+    IsDisabled, HasConverter, HasLabel,
+    HasTip, IsRequired, HasMarkup, HasCurrentMarkup, HasPlaceholder, HasCss, HasCurrentCss {
 
 }

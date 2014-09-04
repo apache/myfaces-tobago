@@ -35,6 +35,6 @@ public class TimeExtensionHandler extends TobagoLabelExtensionHandler {
   }
 
   protected String getSubRendererType() {
-    return RendererTypes.TIME;
+    return RendererTypes.DATE;
   }
 }

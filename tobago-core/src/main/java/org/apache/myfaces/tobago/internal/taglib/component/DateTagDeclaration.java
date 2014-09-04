@@ -42,6 +42,8 @@ import javax.faces.component.UIInput;
 
 /**
  * Renders a date input field.
+ *
+ * For a time input field set you'll need to set the &lt;f:convertDateTime type="time"> inside the &lt;tc:date>.
  */
 @Tag(name = "date")
 @UIComponentTag(

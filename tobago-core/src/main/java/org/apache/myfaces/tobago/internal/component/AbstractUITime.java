@@ -25,7 +25,11 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.DateTimeConverter;
 import java.util.TimeZone;
 
-public abstract class AbstractUITime extends AbstractUIInput {
+/**
+ * @deprecated please use &lt;tc:date> with {@link AbstractUIDate}
+ */
+@Deprecated
+public abstract class AbstractUITime extends AbstractUIDate {
 
   @Override
   public Converter getConverter() {
@@ -44,10 +48,5 @@ public abstract class AbstractUITime extends AbstractUIInput {
     } else {
       return converter;
     }
-  }
-
-  @Override
-  public String getPlaceholder() {
-    return null;
   }
 }
