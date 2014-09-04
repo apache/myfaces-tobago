@@ -24,6 +24,10 @@ import org.apache.myfaces.tobago.component.UITime;
 
 import javax.faces.view.facelets.ComponentConfig;
 
+/**
+ * @deprecated Use {@link org.apache.myfaces.tobago.facelets.extension.DateExtensionHandler}
+ */
+@Deprecated
 public class TimeExtensionHandler extends TobagoLabelExtensionHandler {
 
   public TimeExtensionHandler(final ComponentConfig config) {

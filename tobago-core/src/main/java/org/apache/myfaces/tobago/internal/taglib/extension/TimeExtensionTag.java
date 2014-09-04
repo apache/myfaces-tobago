@@ -41,7 +41,10 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
  *   &lt;/tc:in>
  * &lt;/tc:panel>
  * </pre>
+ *
+ * @deprecated use &lt;tc:date> instead
  */
+@Deprecated
 @Tag(name = "time")
 @ExtensionTag(
     baseClassName = "org.apache.myfaces.tobago.internal.taglib.TimeTag",
