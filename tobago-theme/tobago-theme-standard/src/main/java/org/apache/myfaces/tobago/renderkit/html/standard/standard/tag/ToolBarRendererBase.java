@@ -27,19 +27,14 @@ import org.apache.myfaces.tobago.component.SupportsAccessKey;
 import org.apache.myfaces.tobago.component.UIMenuSelectOne;
 import org.apache.myfaces.tobago.component.UIToolBar;
 import org.apache.myfaces.tobago.component.UIToolBarSeparator;
-import org.apache.myfaces.tobago.config.Configurable;
 import org.apache.myfaces.tobago.context.Markup;
-import org.apache.myfaces.tobago.context.ResourceManager;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.internal.component.AbstractUICommand;
 import org.apache.myfaces.tobago.internal.component.AbstractUIMenu;
 import org.apache.myfaces.tobago.internal.util.ObjectUtils;
-import org.apache.myfaces.tobago.internal.util.StringUtils;
-import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
-import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.Command;
 import org.apache.myfaces.tobago.renderkit.html.CommandMap;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
@@ -85,43 +80,42 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
 
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(context);
 
-    Measure width = Measure.valueOf(-1);
     for (final UIComponent command : toolBar.getChildren()) {
       if (command instanceof AbstractUICommand) {
-        width = renderToolbarCommand(context, toolBar, (AbstractUICommand) command, writer, width);
+        renderToolbarCommand(context, toolBar, (AbstractUICommand) command, writer);
       } else if (command instanceof UIToolBarSeparator) {
-        width = renderSeparator(context, toolBar, (UIToolBarSeparator) command, writer, width);
+        renderSeparator(context, toolBar, (UIToolBarSeparator) command, writer);
       } else {
         LOG.error("Illegal UIComponent class in toolbar (not a AbstractUICommand):" + command.getClass().getName());
       }
     }
   }
 
-  private Measure renderToolbarCommand(
+  private void renderToolbarCommand(
       final FacesContext facesContext, final UIToolBar toolBar, final AbstractUICommand command,
-      final TobagoResponseWriter writer, final Measure width) throws IOException {
+      final TobagoResponseWriter writer) throws IOException {
     if (command instanceof SelectBooleanCommand) {
-      return renderSelectBoolean(facesContext, toolBar, command, writer, width);
+      renderSelectBoolean(facesContext, toolBar, command, writer);
     } else if (command instanceof SelectOneCommand) {
-      return renderSelectOne(facesContext, toolBar, command, writer, width);
+      renderSelectOne(facesContext, toolBar, command, writer);
     } else {
       if (command.getFacet(Facets.RADIO) != null) {
-        return renderSelectOne(facesContext, toolBar, command, writer, width);
+        renderSelectOne(facesContext, toolBar, command, writer);
       } else if (command.getFacet(Facets.CHECKBOX) != null) {
-        return renderSelectBoolean(facesContext, toolBar, command, writer, width);
+        renderSelectBoolean(facesContext, toolBar, command, writer);
       } else {
         final CommandMap map = new CommandMap(new Command(facesContext, command));
-        return renderToolbarButton(
-            facesContext, toolBar, command, writer, false, width, map, null);
+        renderToolbarButton(
+            facesContext, toolBar, command, writer, false, map, null);
       }
     }
   }
 
   // todo: remove component creation in renderer, for JSF 2.0
   // todo: One solution is to make <tx:toolBarSelectOne> instead of <tc:toolBarSelectOne>
-  private Measure renderSelectOne(
+  private void renderSelectOne(
       final FacesContext facesContext, final UIToolBar toolBar, final AbstractUICommand command,
-      final TobagoResponseWriter writer, Measure width) throws IOException {
+      final TobagoResponseWriter writer) throws IOException {
 
     final List<SelectItem> items;
 
@@ -174,8 +168,8 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
         }
 
         final CommandMap map = new CommandMap(new Command());
-        width = renderToolbarButton(
-            facesContext, toolBar, command, writer, checked, width, map, formattedValue);
+        renderToolbarButton(
+            facesContext, toolBar, command, writer, checked, map, formattedValue);
       }
 
       writer.startElement(HtmlElements.INPUT, null);
@@ -185,15 +179,14 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
       writer.endElement(HtmlElements.INPUT);
       writer.endElement(HtmlElements.SPAN);
     }
-    return width;
   }
 
   // todo: remove component creation in renderer, for JSF 2.0
   // todo: One solution is to make <tx:toolBarCheck> instead of <tc:toolBarCheck>
   // may be renamed to toolBarSelectBoolean?
-  private Measure renderSelectBoolean(
+  private void renderSelectBoolean(
       final FacesContext facesContext, final UIToolBar toolBar, final AbstractUICommand command,
-      final TobagoResponseWriter writer, Measure width) throws IOException {
+      final TobagoResponseWriter writer) throws IOException {
 
     UIComponent checkbox = command.getFacet(Facets.CHECKBOX);
     if (checkbox == null) {
@@ -206,7 +199,7 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
     writer.startElement(HtmlElements.SPAN, checkbox);
     writer.writeClassAttribute(Classes.create(toolBar, "selectBoolean"));
     final CommandMap map = new CommandMap(new Command());
-    width = renderToolbarButton(facesContext, toolBar, command, writer, checked, width, map, null);
+    renderToolbarButton(facesContext, toolBar, command, writer, checked, map, null);
 
     writer.startElement(HtmlElements.INPUT, null);
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN, false);
@@ -214,17 +207,15 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
     writer.writeAttribute(HtmlAttributes.VALUE, Boolean.toString(checked), false);
     writer.endElement(HtmlElements.INPUT);
     writer.endElement(HtmlElements.SPAN);
-
-    return width;
   }
 
-  private Measure renderToolbarButton(
+  private void renderToolbarButton(
       final FacesContext facesContext, final UIToolBar toolBar, final AbstractUICommand command,
       final TobagoResponseWriter writer,
-      final boolean selected, final Measure width, final CommandMap map, final String value)
+      final boolean selected, final CommandMap map, final String value)
       throws IOException {
     if (!command.isRendered()) {
-      return width;
+      return;
     }
 
     final boolean disabled = ComponentUtils.getBooleanAttribute(command, Attributes.DISABLED);
@@ -232,13 +223,15 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
         ? new LabelWithAccessKey((SupportsAccessKey) command)
         : new LabelWithAccessKey(command.getLabel());
     final AbstractUIMenu dropDownMenu = FacetUtils.getDropDownMenu(command);
-    final ResourceManager resources = getResourceManager();
+//    final ResourceManager resources = getResourceManager();
 
     final String labelPosition = getLabelPosition(command.getParent());
     final String iconSize = getIconSize(command.getParent());
-    final String iconName = (String) command.getAttributes().get(Attributes.IMAGE);
-    final boolean lackImage = iconName == null;
-    final String image = lackImage ? null : getImage(facesContext, iconName, iconSize, disabled, selected);
+    String iconName = (String) command.getAttributes().get(Attributes.IMAGE);
+    if (iconName == null) {
+      iconName = "image/blank";
+    }
+    final String image = getImage(facesContext, iconName, iconSize, disabled, selected);
 
     final boolean showIcon = !UIToolBar.ICON_OFF.equals(iconSize);
     final boolean iconBig = UIToolBar.ICON_BIG.equals(iconSize);
@@ -250,131 +243,6 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
     // two separate buttons for the command and the sub menu
     final boolean separateButtons = hasAnyCommand(command) && showDropDownMenu;
 
-    final Measure paddingTop
-        = resources.getThemeMeasure(facesContext, toolBar, "custom.padding-top", Measure.ZERO);
-    final Measure paddingMiddle
-        = resources.getThemeMeasure(facesContext, toolBar, "custom.padding-middle", Measure.ZERO);
-    final Measure paddingBottom
-        = resources.getThemeMeasure(facesContext, toolBar, "custom.padding-bottom", Measure.ZERO);
-    final Measure paddingLeft
-        = resources.getThemeMeasure(facesContext, toolBar, "custom.padding-left", Measure.ZERO);
-    final Measure paddingCenter
-        = resources.getThemeMeasure(facesContext, toolBar, "custom.padding-center", Measure.ZERO);
-    final Measure paddingRight
-        = resources.getThemeMeasure(facesContext, toolBar, "custom.padding-right", Measure.ZERO);
-    final Measure iconBigHeight
-        = resources.getThemeMeasure(facesContext, toolBar, "custom.icon-big-height", Measure.valueOf(20));
-    final Measure iconSmallHeight
-        = resources.getThemeMeasure(facesContext, toolBar, "custom.icon-small-height", Measure.valueOf(20));
-    final Measure iconBigWidth
-        = resources.getThemeMeasure(facesContext, toolBar, "custom.icon-big-width", Measure.valueOf(20));
-    final Measure iconSmallWidth
-        = resources.getThemeMeasure(facesContext, toolBar, "custom.icon-small-width", Measure.valueOf(20));
-
-    // label style
-    final Style labelStyle;
-    if (showLabel) {
-      labelStyle = new Style();
-      labelStyle.setLeft(paddingLeft);
-      labelStyle.setTop(paddingTop);
-      labelStyle.setWidth(RenderUtils.calculateStringWidth(facesContext, toolBar, label.getLabel()));
-      labelStyle.setHeight(resources.getThemeMeasure(facesContext, toolBar, "custom.label-height"));
-    } else {
-      labelStyle = null;
-    }
-
-    // button style
-    final Style buttonStyle = new Style();
-    buttonStyle.setLeft(Measure.ZERO);
-    buttonStyle.setTop(Measure.ZERO);
-    buttonStyle.setWidth(paddingLeft.add(paddingRight));
-    buttonStyle.setHeight(paddingBottom.add(paddingTop));
-
-    // icon style
-    final Style iconStyle;
-
-    if (showIcon) {
-      iconStyle = new Style();
-      iconStyle.setLeft(paddingLeft);
-      iconStyle.setTop(paddingTop);
-      iconStyle.setHeight(iconBig ? iconBigHeight : iconSmallHeight);
-      if (lackImage && showLabelRight && StringUtils.isNotBlank(label.getLabel())) {
-        iconStyle.setWidth(Measure.valueOf(1));
-      } else {
-        iconStyle.setWidth(iconBig ? iconBigWidth : iconSmallWidth);
-      }
-      if (showLabelBottom) {
-        labelStyle.setTop(labelStyle.getTop().add(iconStyle.getHeight()).add(paddingMiddle));
-        if (labelStyle.getWidth().lessThan(iconStyle.getWidth())) {
-          // label smaller than icon
-          labelStyle.setLeft(labelStyle.getLeft().add(iconStyle.getWidth().subtract(labelStyle.getWidth()).divide(2)));
-          buttonStyle.setWidth(buttonStyle.getWidth().add(iconStyle.getWidth()));
-        } else {
-          // label bigger than icon
-          iconStyle.setLeft(iconStyle.getLeft().add(labelStyle.getWidth().subtract(iconStyle.getWidth()).divide(2)));
-          buttonStyle.setWidth(buttonStyle.getWidth().add(labelStyle.getWidth()));
-        }
-        buttonStyle.setHeight(
-            buttonStyle.getHeight().add(iconStyle.getHeight()).add(paddingMiddle).add(labelStyle.getHeight()));
-      } else if (showLabelRight) {
-        labelStyle.setTop(labelStyle.getTop().add(iconStyle.getHeight().subtract(labelStyle.getHeight()).divide(2)));
-        labelStyle.setLeft(labelStyle.getLeft().add(iconStyle.getWidth()).add(paddingCenter));
-        buttonStyle.setWidth(
-            buttonStyle.getWidth().add(iconStyle.getWidth()).add(paddingCenter).add(labelStyle.getWidth()));
-        buttonStyle.setHeight(buttonStyle.getHeight().add(iconStyle.getHeight()));
-      } else {
-        buttonStyle.setWidth(buttonStyle.getWidth().add(iconStyle.getWidth()));
-        buttonStyle.setHeight(buttonStyle.getHeight().add(iconStyle.getHeight()));
-      }
-    } else {
-      iconStyle = null;
-      if (showLabel) {
-        // only label
-        buttonStyle.setWidth(buttonStyle.getWidth().add(labelStyle.getWidth()));
-        if (StringUtils.isBlank(label.getLabel())) {
-          buttonStyle.setWidth(buttonStyle.getWidth().add(iconSmallWidth));
-        }
-        buttonStyle.setHeight(buttonStyle.getHeight().add(labelStyle.getHeight()));
-      } else {
-        // both off: use some reasonable defaults
-        buttonStyle.setWidth(buttonStyle.getWidth().add(iconSmallWidth));
-        buttonStyle.setHeight(buttonStyle.getHeight().add(iconSmallWidth));
-      }
-    }
-
-    // opener style (for menu popup)
-    final Style openerStyle = new Style();
-    openerStyle.setWidth(resources.getThemeMeasure(facesContext, toolBar, "custom.opener-width"));
-    openerStyle.setHeight(resources.getThemeMeasure(facesContext, toolBar, "custom.opener-height"));
-
-    final Style menuStyle = new Style();
-    menuStyle.setLeft(buttonStyle.getWidth());
-    menuStyle.setTop(Measure.ZERO);
-    menuStyle.setWidth(paddingLeft.add(openerStyle.getWidth()).add(paddingRight));
-    menuStyle.setHeight(buttonStyle.getHeight());
-
-    // opener style (for menu popup)
-    openerStyle.setLeft(menuStyle.getWidth().subtract(openerStyle.getWidth()).divide(2));
-    openerStyle.setTop(menuStyle.getHeight().subtract(openerStyle.getHeight()).divide(2));
-
-    // item style
-    final Style itemStyle = new Style();
-    itemStyle.setWidth(
-        showDropDownMenu ? buttonStyle.getWidth().add(menuStyle.getWidth()) : buttonStyle.getWidth());
-    itemStyle.setHeight(buttonStyle.getHeight());
-
-    // XXX hack
-    if (showDropDownMenu && lackImage && !showLabel) {
-      itemStyle.setWidth(openerStyle.getWidth());
-      buttonStyle.setWidth(openerStyle.getWidth());
-    }
-
-    // change values when only have one button
-    if (showDropDownMenu && !separateButtons && (!lackImage || StringUtils.isNotBlank(label.getLabel()))) {
-      openerStyle.setLeft(openerStyle.getLeft().add(buttonStyle.getWidth()));
-      buttonStyle.setWidth(buttonStyle.getWidth().add(menuStyle.getWidth()));
-    }
-    
     // start rendering
     writer.startElement(HtmlElements.SPAN, command);
     Markup itemMarkup = Markup.NULL;
@@ -389,7 +257,6 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
     if (title != null) {
       writer.writeAttribute(HtmlAttributes.TITLE, title, true);
     }
-    writer.writeStyleAttribute(itemStyle);
 
     writer.startElement(HtmlElements.SPAN, command);
     if (separateButtons || !showDropDownMenu) {
@@ -397,7 +264,6 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
     } else {
       writer.writeClassAttribute(Classes.create(toolBar, "menu"));
     }
-    writer.writeStyleAttribute(buttonStyle);
     if (!toolBar.isTransient()) {
       writer.writeIdAttribute(command.getClientId(facesContext));
     }
@@ -410,33 +276,29 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
     }
 
     // render icon
-    if (showIcon && iconName != null) {
+    if (showIcon) {
       writer.startElement(HtmlElements.IMG, command);
-      writer.writeAttribute(HtmlAttributes.SRC, image, false);
-      // todo in Tobago 3.0: remove "Hover" and replace with CSS filter
-      final int dot = ResourceManagerUtils.indexOfExtension(iconName);
-      final String imageHover;
-      if (dot != -1) {
-        imageHover = ResourceManagerUtils.getImageOrDisabledImageWithPath(
-            facesContext, iconName.substring(0, dot) + "Hover" + iconName.substring(dot), disabled, true);
+      if (iconBig) {
+        writer.writeClassAttribute(Classes.create(toolBar, "image32"));
       } else {
-        imageHover = ResourceManagerUtils.getImageOrDisabledImage(facesContext, iconName + "Hover", disabled, true);
+        writer.writeClassAttribute(Classes.create(toolBar, "image16"));
       }
-      if (imageHover != null) {
-        writer.writeAttribute(DataAttributes.SRC_DEFAULT, image, false);
-        writer.writeAttribute(DataAttributes.SRC_HOVER, imageHover, false);
-      }
+      writer.writeAttribute(HtmlAttributes.SRC, image, false);
       writer.writeAttribute(HtmlAttributes.ALT, label.getLabel(), true);
-      writer.writeStyleAttribute(iconStyle);
       writer.endElement(HtmlElements.IMG);
     }
     // render label
     if (showLabel) {
       writer.startElement(HtmlElements.SPAN, command);
-      writer.writeClassAttribute(Classes.create(toolBar, "label"));
-      writer.writeStyleAttribute(labelStyle);
+      if (showLabelRight) {
+        writer.writeClassAttribute(Classes.create(toolBar, "labelHorizontal"));
+      } else {
+        writer.writeClassAttribute(Classes.create(toolBar, "labelVertical"));
+      }
       if (label.getLabel() != null) {
         HtmlRendererUtils.writeLabelWithAccessKey(writer, label);
+      } else {
+        writer.writeText(" "); // this is a non-breaking-space
       }
       writer.endElement(HtmlElements.SPAN);
     }
@@ -446,7 +308,6 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
 
       writer.startElement(HtmlElements.SPAN, command);
       writer.writeClassAttribute(Classes.create(toolBar, "menu"));
-      writer.writeStyleAttribute(menuStyle);
       // todo: span has not type: use data-tobago-type here (TOBAGO-1004)
       writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.BUTTON, false);
     }
@@ -459,84 +320,29 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
       final String menuImage
           = ResourceManagerUtils.getImageOrDisabledImage(facesContext, "image/toolbarButtonMenu", dropDownDisabled);
       writer.writeAttribute(HtmlAttributes.SRC, menuImage, false);
-      writer.writeStyleAttribute(openerStyle);
       writer.endElement(HtmlElements.IMG);
       renderDropDownMenu(facesContext, writer, dropDownMenu);
     }
     writer.endElement(HtmlElements.SPAN);
     writer.endElement(HtmlElements.SPAN);
-
-    return width.add(itemStyle.getWidth()).add(2); // XXX
-    // computation of the width of the toolBar will not be used in the moment.
   }
 
-  private Measure renderSeparator(
+  private void renderSeparator(
       final FacesContext facesContext, final UIToolBar toolBar, final UIToolBarSeparator separator,
-      final TobagoResponseWriter writer, final Measure width)
+      final TobagoResponseWriter writer)
       throws IOException {
     if (!separator.isRendered()) {
-      return width;
+      return;
     }
 
     writer.startElement(HtmlElements.SPAN, separator);
     writer.writeClassAttribute(Classes.create(toolBar, "item", Markup.DISABLED));
-    final Style itemStyle = new Style();
-    itemStyle.setHeight(getItemHeight(facesContext, toolBar));
-    itemStyle.setWidth(Measure.valueOf(10));
-    writer.writeStyleAttribute(itemStyle);
 
     writer.startElement(HtmlElements.SPAN, separator);
     writer.writeClassAttribute(Classes.create(toolBar, "separator"));
     writer.endElement(HtmlElements.SPAN);
 
     writer.endElement(HtmlElements.SPAN);
-
-    return width.add(itemStyle.getWidth()).add(2); // XXX
-    // computation of the width of the toolBar will not be used in the moment.
-  }
-
-  protected Measure getItemHeight(final FacesContext facesContext, final Configurable toolBar) {
-    final String iconSize = getIconSize((UIComponent) toolBar);
-    final String labelPosition = getLabelPosition((UIComponent) toolBar);
-
-    final boolean showIcon = !UIToolBar.ICON_OFF.equals(iconSize);
-    final boolean iconBig = UIToolBar.ICON_BIG.equals(iconSize);
-    final boolean iconSmall = UIToolBar.ICON_SMALL.equals(iconSize);
-    final boolean showLabelBottom = UIToolBar.LABEL_BOTTOM.equals(labelPosition);
-    final boolean showLabelRight = UIToolBar.LABEL_RIGHT.equals(labelPosition);
-    final boolean showLabel = showLabelBottom || showLabelRight;
-
-    final ResourceManager resources = getResourceManager();
-
-    final Measure paddingTop
-        = resources.getThemeMeasure(facesContext, toolBar, "custom.padding-top", Measure.ZERO);
-    final Measure paddingMiddle
-        = resources.getThemeMeasure(facesContext, toolBar, "custom.padding-middle", Measure.ZERO);
-    final Measure paddingBottom
-        = resources.getThemeMeasure(facesContext, toolBar, "custom.padding-bottom", Measure.ZERO);
-    final Measure iconHeight = iconBig
-        ? resources.getThemeMeasure(facesContext, toolBar, "custom.icon-big-height", Measure.valueOf(20))
-        : resources.getThemeMeasure(facesContext, toolBar, "custom.icon-small-height", Measure.valueOf(20));
-    final Measure labelHeight
-        = resources.getThemeMeasure(facesContext, toolBar, "custom.label-height", Measure.valueOf(20));
-
-    Measure result = paddingTop;
-    if (showIcon) {
-      result = result.add(iconHeight);
-      if (showLabel && showLabelBottom) {
-        result = result.add(paddingMiddle);
-        result = result.add(labelHeight);
-      }
-    } else {
-      if (showLabel) {
-        result = result.add(labelHeight);
-      } else {
-        // both off: use some reasonable defaults
-        result = result.add(16);
-      }
-    }
-    result = result.add(paddingBottom);
-    return result;
   }
 
   private boolean hasAnyCommand(final AbstractUICommand command) {

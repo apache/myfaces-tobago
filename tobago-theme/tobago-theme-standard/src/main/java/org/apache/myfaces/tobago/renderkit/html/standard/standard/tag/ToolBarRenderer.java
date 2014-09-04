@@ -20,8 +20,6 @@
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
 import org.apache.myfaces.tobago.component.UIToolBar;
-import org.apache.myfaces.tobago.config.Configurable;
-import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.layout.TextAlign;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
@@ -54,10 +52,5 @@ public class ToolBarRenderer extends ToolBarRendererBase {
     writer.writeStyleAttribute(style);
     super.encodeEnd(facesContext, toolBar);
     writer.endElement(HtmlElements.DIV);
-  }
-
-  @Override
-  public Measure getHeight(final FacesContext facesContext, final Configurable toolBar) {
-    return getItemHeight(facesContext, toolBar);
   }
 }

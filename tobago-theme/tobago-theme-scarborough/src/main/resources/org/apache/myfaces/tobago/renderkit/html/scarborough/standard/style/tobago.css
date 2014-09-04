@@ -136,7 +136,7 @@ fieldset.tobago-box {
   background-color: #CCDDEE;
 }
 
-.tobago-boxToolBar-button-markup-hover {
+.tobago-boxToolBar-button:hover {
   background-color: #CCDDEE;
 }
 
@@ -1336,7 +1336,7 @@ a:active.tobago-sheet-pagingLink {
   background-color: #EEEEEE;
 }
 
-.tobago-tabGroupToolBar-button-markup-hover {
+.tobago-tabGroupToolBar-button:hover {
   background-color: #DDDDDD;
 }
 
@@ -1480,13 +1480,11 @@ input.tobago-time-markup-error, input.tobago-time-markup-fatal {
 
 .tobago-toolBar {
   border: 2px groove #F6FAFF;
-  position: relative;
   overflow: hidden;
   white-space: nowrap;
 }
 
 .tobago-toolBar-item {
-  position: relative;
   display: inline-block;
   border-width: 0;
   border-style: solid;
@@ -1494,6 +1492,8 @@ input.tobago-time-markup-error, input.tobago-time-markup-fatal {
   left: 0;
   top: 0;
   cursor: pointer;
+  text-align: center;
+  vertical-align: middle;
 }
 
 .tobago-toolBar-item-markup-disabled {
@@ -1501,28 +1501,44 @@ input.tobago-time-markup-error, input.tobago-time-markup-fatal {
 }
 
 .tobago-toolBar-button, .tobago-toolBar-menu {
-  position: absolute;
   border-width: 0;
   padding: 0;
   margin: 0;
   background-color: transparent;
+  display: inline-block;
 }
 
-.tobago-toolBar-item img {
-  position: absolute;
+.tobago-toolBar-image16 {
+  width: 16px;
+  height: 16px;
+  vertical-align: middle;
 }
 
-.tobago-toolBar-label {
-  position: absolute;
+.tobago-toolBar-image32 {
+  width: 32px;
+  height: 32px;
+  vertical-align: middle;
+}
+
+.tobago-toolBar-labelVertical {
   font: bold 12px arial,helvetica,sans-serif;
   white-space: nowrap;
+  display: block;
+  vertical-align: middle;
+}
+
+.tobago-toolBar-labelHorizontal {
+  font: bold 12px arial,helvetica,sans-serif;
+  white-space: nowrap;
+  display: inline;
+  vertical-align: middle;
 }
 
 .tobago-toolBar-button-markup-selected {
   background-color: #CCDDEE;
 }
 
-.tobago-toolBar-button-markup-hover {
+.tobago-toolBar-button:hover {
   background-color: #CCDDEE;
 }
 
@@ -1532,7 +1548,6 @@ input.tobago-time-markup-error, input.tobago-time-markup-fatal {
   width: 0;
   top: 3px;
   bottom: 3px;
-  position: absolute;
 }
 
 /* tree ------------------------------------------------------------------- */

@@ -2284,69 +2284,6 @@ Tobago.ToolBar = {};
  */
 Tobago.ToolBar.init = function(elements) {
 
-  // doing the same for 3 renderer names
-  // XXX put this in a loop (the first try doesn't work, because we can't use local variables in a anonymous function)
-
-    Tobago.Utils.selectWidthJQuery(elements, ".tobago-toolBar").find('.tobago-toolBar-item')
-        .not('.tobago-toolBar-item-markup-disabled')
-        .hover(function() {
-      jQuery(this).toggleClass('tobago-toolBar-item-markup-hover');
-    })
-        .children('.tobago-toolBar-button, .tobago-toolBar-menu')
-        .mouseenter(function() {
-      jQuery(this)
-          .addClass('tobago-toolBar-button-markup-hover').children('img')
-          .each(function() {
-        // set the src to the hover src url.
-        var hover = jQuery(this).data('tobago-src-hover');
-        if (hover) {
-          jQuery(this).attr('src', hover);
-        }
-      });
-    })
-        .mouseleave(function() {
-      jQuery(this)
-          .removeClass('tobago-toolBar-button-markup-hover')
-          .children('img')
-          .each(function() {
-        // restore the original/normal src url.
-        var normal = jQuery(this).data('tobago-src-default');
-        if (normal) {
-          jQuery(this).attr('src', normal);
-        }
-      });
-    });
-
-    Tobago.Utils.selectWidthJQuery(elements, ".tobago-box-headerToolBar").find('.tobago-boxToolBar-item')
-        .not('.tobago-boxToolBar-item-markup-disabled')
-        .hover(function() {
-      jQuery(this).toggleClass('tobago-boxToolBar-item-markup-hover');
-    })
-        .children('.tobago-boxToolBar-button, .tobago-boxToolBar-menu')
-        .mouseenter(function() {
-      jQuery(this)
-          .addClass('tobago-boxToolBar-button-markup-hover').children('img')
-          .each(function() {
-        // set the src to the hover src url.
-        var hover = jQuery(this).data('tobago-src-hover');
-        if (hover) {
-          jQuery(this).attr('src', hover);
-        }
-      });
-    })
-        .mouseleave(function() {
-      jQuery(this)
-          .removeClass('tobago-boxToolBar-button-markup-hover')
-          .children('img')
-          .each(function() {
-        // restore the original/normal src url.
-        var normal = jQuery(this).data('tobago-src-default');
-        if (normal) {
-          jQuery(this).attr('src', normal);
-        }
-      });
-    });
-
   Tobago.Utils.selectWidthJQuery(elements, ".tobago-tabGroup-toolBar")
       .find(".tobago-menu[data-tobago-index]").each(function () {
         var menu = jQuery(this);
@@ -2359,36 +2296,6 @@ Tobago.ToolBar.init = function(elements) {
           event.stopPropagation();
         })
       });
-
-    Tobago.Utils.selectWidthJQuery(elements, ".tobago-tabGroup-toolBar").find('.tobago-tabGroupToolBar-item')
-        .not('.tobago-tabGroupToolBar-item-markup-disabled')
-        .hover(function() {
-      jQuery(this).toggleClass('tobago-tabGroupToolBar-item-markup-hover');
-    })
-        .children('.tobago-tabGroupToolBar-button, .tobago-tabGroupToolBar-menu')
-        .mouseenter(function() {
-      jQuery(this)
-          .addClass('tobago-tabGroupToolBar-button-markup-hover').children('img')
-          .each(function() {
-        // set the src to the hover src url.
-        var hover = jQuery(this).data('tobago-src-hover');
-        if (hover) {
-          jQuery(this).attr('src', hover);
-        }
-      });
-    })
-        .mouseleave(function() {
-      jQuery(this)
-          .removeClass('tobago-tabGroupToolBar-button-markup-hover')
-          .children('img')
-          .each(function() {
-        // restore the original/normal src url.
-        var normal = jQuery(this).data('tobago-src-default');
-        if (normal) {
-          jQuery(this).attr('src', normal);
-        }
-      });
-    });
 
   Tobago.Utils.selectWidthJQuery(elements, ".tobago-toolBar-selectOne").find(".tobago-toolBar-button")
       .click(function () {
@@ -2403,22 +2310,6 @@ Tobago.ToolBar.init = function(elements) {
         var hidden = button.closest(".tobago-toolBar-selectBoolean").children("input[type=hidden]");
         hidden.val(hidden.val() == "true" ? "false" : "true");
       });
-};
-
-/**
- * @deprecated since 2.0.0, use class tobago-toolBar-selectBoolean
- */
-Tobago.ToolBar.checkToggle = function(id) {
-  var element = document.getElementById(id);
-  element.value = 'true' == element.value ? 'false' : 'true';
-};
-
-/**
- * @deprecated since 2.0.0, use class tobago-toolBar-selectOne
- */
-Tobago.ToolBar.setRadioValue = function(id, value) {
-  var element = document.getElementById(id);
-  element.value = value;
 };
 
 Tobago.registerListener(Tobago.ToolBar.init, Tobago.Phase.DOCUMENT_READY);

@@ -46,7 +46,7 @@
   border-color: #FECB66;
 }
 
-.tobago-boxToolBar-item-markup-hover {
+.tobago-boxToolBar-item:hover {
   border-color: #FECB66;
 }
 
@@ -54,7 +54,7 @@
   background-color: #FFEECF;
 }
 
-.tobago-boxToolBar-button-markup-hover {
+.tobago-boxToolBar-button:hover {
   background-color: #FADC9F;
 }
 
@@ -180,7 +180,7 @@ li.tobago-menu-markup-selected {
   border-color: #FECB66;
 }
 
-.tobago-tabGroupToolBar-item-markup-hover {
+.tobago-tabGroupToolBar-item:hover {
   border-color: #FECB66;
 }
 
@@ -188,7 +188,7 @@ li.tobago-menu-markup-selected {
   background-color: #FFEECF;
 }
 
-.tobago-tabGroupToolBar-button-markup-hover {
+.tobago-tabGroupToolBar-button:hover {
   background-color: #FADC9F;
 }
 
@@ -202,7 +202,7 @@ li.tobago-menu-markup-selected {
   border-color: #FECB66;
 }
 
-.tobago-toolBar-item-markup-hover {
+.tobago-toolBar-item:hover {
   border-color: #FECB66;
 }
 
@@ -210,6 +210,6 @@ li.tobago-menu-markup-selected {
   background-color: #FFEECF;
 }
 
-.tobago-toolBar-button-markup-hover {
+.tobago-toolBar-button:hover {
   background-color: #FADC9F;
 }
