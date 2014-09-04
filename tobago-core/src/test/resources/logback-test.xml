@@ -24,7 +24,7 @@
 
   <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
     <encoder>
-      <pattern>%date{ISO8601} [%-16.16thread] %-5level %-50.50logger{50}:%-20.20method:%-4.4line - %msg%n</pattern>
+      <pattern>%date{ISO8601} [%-16.16thread] %-5level %-50.50logger{50}:%-20.20method:%-4.4line [%mdc] %msg%n</pattern>
     </encoder>
   </appender>
 
