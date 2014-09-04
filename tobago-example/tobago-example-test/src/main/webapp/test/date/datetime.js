@@ -20,7 +20,7 @@ TestDateTime = {};
 TestDateTime.init = function () {
 
   var panel = jQuery("#page\\:jquery_date_time_pattern");
-  var inputs = panel.children(".tobago-in, .tobago-date, .tobago-time");
+  var inputs = panel.children(".tobago-in, .tobago-date");
 
   for (var i = 0; i < inputs.length; i += 5) {
     var javaPattern = inputs.eq(i);

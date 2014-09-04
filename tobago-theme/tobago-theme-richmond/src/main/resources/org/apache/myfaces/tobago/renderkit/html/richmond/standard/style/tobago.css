@@ -320,40 +320,6 @@ li.tobago-menu-markup-selected {
   background-color: #FAB54D;
 }
 
-/* time -------------------------------------------------------------------- */
-
-.tobago-time-borderDiv {
-  border-color: #3366CC;
-}
-
-.tobago-time-input {
-  color: #3366CC;
-}
-
-.tobago-time-input:focus {
-  background: #D6EBFF;
-}
-
-input.tobago-time {
-  border: 1px #3366CC solid;
-  font: 12px arial, helvetica, sans-serif;
-  color: #3366CC;
-}
-
-input.tobago-time-markup-readonly {
-  background-color: #e6e6e6;
-  color: #3366cc;
-}
-
-input.tobago-time-markup-disabled {
-  color: #3366cc;
-  background-color: #e6e6e6;
-}
-
-input.tobago-time-markup-error, .tobago-time-markup-error {
-  border: 1px solid #ff0000;
-}
-
 /* textarea -------------------------------------------------------------- */
 
 .tobago-textarea {

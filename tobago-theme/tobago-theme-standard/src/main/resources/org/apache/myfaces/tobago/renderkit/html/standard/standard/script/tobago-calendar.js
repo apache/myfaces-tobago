@@ -69,8 +69,7 @@ Tobago.Calendar.init = function (elements) {
   okButton.click(function () {
     var button = jQuery(this);
     var calendar = button.parent().parent().find(".tobago-calendar");
-    var time = button.parent().parent().find(".tobago-time");
-    Tobago.Calendar.writeIntoField(calendar, time);
+    Tobago.Calendar.writeIntoField(calendar);
     Tobago.Popup.close(button);
   });
 
@@ -266,21 +265,13 @@ Tobago.Calendar.initFromDateField = function (calendar) {
   Tobago.Calendar.initCalendar(calendar);
 };
 
-Tobago.Calendar.writeIntoField = function (calendar, time) {
+Tobago.Calendar.writeIntoField = function (calendar) {
 
   var day = calendar.data("tobago-day");
   var month = calendar.data("tobago-month");
   var year = calendar.data("tobago-year");
 
-  var date;
-  if (time.length > 0) {
-    var hour = Tobago.Time.getValueField(time, "hour");
-    var minute = Tobago.Time.getValueField(time, "minute");
-    var second = Tobago.Time.getValueField(time, "second");
-    date = new Date(year, month - 1, day, hour, minute, second);
-  } else {
-    date = new Date(year, month - 1, day);
-  }
+  var date = new Date(year, month - 1, day);
   var dateField = Tobago.Calendar.getDateField(calendar);
   var newValue = formatDate(date, dateField.data("tobago-pattern"));
   if (dateField.val() != newValue) {
@@ -296,193 +287,6 @@ Tobago.registerListener(Tobago.Calendar.init, Tobago.Phase.AFTER_UPDATE);
 
 // --------------------------------------------------------------------------------------------------------------------
 
-Tobago.Time = {};
-
-Tobago.Time.init = function (elements) {
-
-  // time input fields
-  Tobago.Utils.selectWidthJQuery(elements, ".tobago-time-input")
-      .not("[disabled]").not("[readonly]")
-      .focus(function () {
-        Tobago.Time.focus(jQuery(this));
-      })
-      .blur(function () {
-        Tobago.Time.blur(jQuery(this));
-      })
-      .bind("keyup", function (event) {
-        Tobago.Time.keyUp(jQuery(this), event);
-      });
-
-  // increment button
-  Tobago.Utils.selectWidthJQuery(elements, ".tobago-time-incImage")
-      .not("[disabled]").not("[readonly]")
-      .click(function () {
-        Tobago.Time.increment(jQuery(this));
-      });
-
-  // decrement button
-  Tobago.Utils.selectWidthJQuery(elements, ".tobago-time-decImage")
-      .not("[disabled]").not("[readonly]")
-      .click(function () {
-        Tobago.Time.decrement(jQuery(this));
-      });
-
-  // init from data field, if there is any (e. g. we are in date picker popup)
-  Tobago.Utils.selectWidthJQuery(elements, ".tobago-time[data-tobago-date-input-id]")
-      .each(function () {
-        Tobago.Time.initFromDateField(jQuery(this));
-      });
-};
-
-Tobago.Time.getValueField = function (time, name) {
-  var input = Tobago.Time.findElement(time, name);
-  return Tobago.Time.getValue(input);
-};
-
-Tobago.Time.getValue = function (input) {
-  var number = parseInt(input.val(), 10); // use 10 to avoid parsing octal numbers, if the string begins with 0
-  return isNaN(number) ? 0 : number;
-};
-
-Tobago.Time.setValueField = function (time, name, value) {
-  var input = Tobago.Time.findElement(time, name);
-  Tobago.Time.setValue(input, value);
-};
-
-Tobago.Time.setValue = function (input, value) {
-  var max = input.data("tobago-max");
-  value = parseInt(value);
-  while (value >= max) {
-    value -= max;
-  }
-  while (value < 0) {
-    value += max;
-  }
-  if (value < 10) { // formatting 0#
-    value = "0" + value;
-  }
-  input.val(value);
-
-  Tobago.Time.updateHidden(input);
-};
-/**
- * Looks for a specific element inside of the time component.
- *
- * @param any jQuery element inside the "time" component.
- * @param suffix id suffix or null for search for the base time element
- */
-Tobago.Time.findElement = function (any, suffix) {
-  var id = any.attr("id");
-  var pos = id.lastIndexOf(Tobago.SUB_COMPONENT_SEP);
-  if (pos > -1) {
-    id = id.substring(0, pos);
-  }
-  if (suffix != null) {
-    id += Tobago.SUB_COMPONENT_SEP + suffix;
-  }
-  return jQuery(Tobago.Utils.escapeClientId(id));
-};
-
-Tobago.Time.updateHidden = function (anyInput) {
-  var time = Tobago.Time.findElement(anyInput, null);
-
-  var hour = Tobago.Time.getValueField(time, "hour");
-  var minute = Tobago.Time.getValueField(time, "minute");
-
-  var second = 0;
-  if (Tobago.Time.findElement(time, "second").length > 0) {
-    second = Tobago.Time.getValueField(time, "second");
-  }
-
-  var pattern = time.data("tobago-pattern");
-  var value = formatDate(new Date(1970, 1, 1, hour, minute, second), pattern);
-  var hidden = Tobago.Time.findElement(time, "field");
-  hidden.val(value);
-};
-
-Tobago.Time.increment = function (imageButton) {
-  var input = Tobago.Time.findCurrent(imageButton);
-  Tobago.Time.setValue(input, Tobago.Time.getValue(input) + 1);
-  input.focus();
-};
-
-Tobago.Time.decrement = function (imageButton) {
-  var input = Tobago.Time.findCurrent(imageButton);
-  Tobago.Time.setValue(input, Tobago.Time.getValue(input) - 1);
-  input.focus();
-};
-
-Tobago.Time.findCurrent = function (imageButton) {
-  var time = Tobago.Time.findElement(imageButton, null);
-  var unit = time.data("tobago-lastactive");
-  var input;
-  if (unit != null) {
-    input = Tobago.Time.findElement(imageButton, unit);
-  }
-  if (input == null) { // if there is no "last active" then use "hour"
-    input = Tobago.Time.findElement(imageButton, "hour");
-  }
-  return input;
-};
-
-Tobago.Time.focus = function (input) {
-  // save the last active
-  var time = Tobago.Time.findElement(input, null);
-  time.data("tobago-lastactive", input.data("tobago-unit"));
-
-  // save the old value
-  input.data("tobago-oldvalue", input.val());
-
-  // set a class for glow effects
-  time.children(".tobago-time-borderDiv").addClass("tobago-time-borderDiv-markup-focus");
-};
-
-Tobago.Time.blur = function (input) {
-  var value = parseInt(input.val(), 10); // use 10 to avoid parsing octal numbers, if the string begins with 0
-  if (isNaN(value)) {
-    value = input.data("tobago-oldvalue");
-  }
-  Tobago.Time.setValue(input, value);
-
-  var time = Tobago.Time.findElement(input, null);
-  time.children(".tobago-time-borderDiv").removeClass("tobago-time-borderDiv-markup-focus");
-};
-
-Tobago.Time.initFromDateField = function (time) {
-  var dateField = Tobago.Calendar.getDateField(time);
-
-  var pattern = dateField.data("tobago-pattern");
-  if (!pattern) { // todo: test it
-    pattern = "HH:mm";
-  }
-
-  var date = new Date(getDateFromFormat(dateField.val(), pattern));
-  if (date.getTime() == 0) {
-    date = new Date();
-  }
-
-  Tobago.Time.setValueField(time, "hour", date.getHours());
-  Tobago.Time.setValueField(time, "minute", date.getMinutes());
-  if (pattern.indexOf("s") > -1) {
-    Tobago.Time.setValueField(time, "second", date.getSeconds());
-  }
-};
-
-Tobago.Time.keyUp = function (input, event) {
-  switch (event.keyCode) {
-    case 38:
-      Tobago.Time.setValue(input, Tobago.Time.getValue(input) + 1);
-      break;
-    case 40:
-      Tobago.Time.setValue(input, Tobago.Time.getValue(input) - 1);
-      break;
-  }
-};
-
-Tobago.registerListener(Tobago.Time.init, Tobago.Phase.DOCUMENT_READY);
-Tobago.registerListener(Tobago.Time.init, Tobago.Phase.AFTER_UPDATE);
-
-
 Tobago.DateTime = {};
 
 Tobago.DateTime.init = function (elements) {
@@ -490,7 +294,7 @@ Tobago.DateTime.init = function (elements) {
   // time input fields
 //  jQuery.datepicker.setDefaults(jQuery.datepicker.regional['de']);
 
-  Tobago.Utils.selectWidthJQuery(elements, ".tobago-date, .tobago-time")
+  Tobago.Utils.selectWidthJQuery(elements, ".tobago-date")
       .not("[disabled]")
       .not("[readonly]")
       .each(function () {

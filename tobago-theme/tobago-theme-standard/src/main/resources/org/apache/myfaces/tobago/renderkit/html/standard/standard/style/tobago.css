@@ -29,16 +29,14 @@
 .tobago-flexLayout > .tobago-date,
 .tobago-flexLayout > .tobago-in,
 .tobago-flexLayout > .tobago-label,
-.tobago-flexLayout > .tobago-textarea,
-.tobago-flexLayout > .tobago-time {
+.tobago-flexLayout > .tobago-textarea {
     margin-left: 5px;
 }
 
 .tobago-flexLayout > .tobago-date:first-child,
 .tobago-flexLayout > .tobago-in:first-child,
 .tobago-flexLayout > .tobago-label:first-child,
-.tobago-flexLayout > .tobago-textarea:first-child,
-.tobago-flexLayout > .tobago-time:first-child {
+.tobago-flexLayout > .tobago-textarea:first-child {
     margin-left: 0;
 }
 

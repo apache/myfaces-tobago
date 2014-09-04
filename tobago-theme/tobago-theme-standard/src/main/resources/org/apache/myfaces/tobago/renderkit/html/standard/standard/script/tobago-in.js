@@ -36,12 +36,6 @@ Tobago.In.init = function(elements) {
     var required = jQuery(this).attr("required") != undefined;
       new Tobago.In(id, required, 'tobago-date-markup-required');
   });
-  ins = Tobago.Utils.selectWidthJQuery(elements, "input.tobago-time");
-  ins.each(function(){
-    var id = jQuery(this).attr("id");
-    var required = jQuery(this).attr("required") != undefined;
-      new Tobago.In(id, required, 'tobago-time-markup-required');
-  });
   ins = Tobago.Utils.selectWidthJQuery(elements, ".tobago-textarea");
   ins.each(function(){
     var id = jQuery(this).attr("id");
