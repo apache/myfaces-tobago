@@ -31,7 +31,7 @@ import org.apache.myfaces.tobago.component.UIToolBar;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.event.TabChangeEvent;
-import org.apache.myfaces.tobago.internal.component.AbstractUIPanelBase;
+import org.apache.myfaces.tobago.internal.component.AbstractUIPanel;
 import org.apache.myfaces.tobago.internal.util.AccessKeyLogger;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
@@ -59,7 +59,6 @@ import javax.faces.component.UIPanel;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
-import java.util.List;
 import java.util.Map;
 
 public class TabGroupRenderer extends LayoutComponentRendererBase {
@@ -141,9 +140,9 @@ public class TabGroupRenderer extends LayoutComponentRendererBase {
     // ensure to select a rendered tab
     int index = -1;
     int closestRenderedTabIndex = -1;
-    for (final UIComponent tab : (List<UIComponent>) tabGroup.getChildren()) {
+    for (final UIComponent tab : tabGroup.getChildren()) {
       index++;
-      if (tab instanceof AbstractUIPanelBase) {
+      if (tab instanceof AbstractUIPanel) {
         if (index == activeIndex) {
           if (tab.isRendered()) {
             return index;

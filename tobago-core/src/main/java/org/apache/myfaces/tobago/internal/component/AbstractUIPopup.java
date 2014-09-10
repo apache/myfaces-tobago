@@ -47,7 +47,7 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
 
-public abstract class AbstractUIPopup extends AbstractUIPanelBase
+public abstract class AbstractUIPopup extends AbstractUIPanel
     implements OnComponentCreated, OnComponentPopulated, NamingContainer,
     DeprecatedDimension, Position, LayoutContainer {
 

@@ -35,7 +35,7 @@ import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.util.List;
 
-public abstract class AbstractUIPanel extends AbstractUIPanelBase
+public abstract class AbstractUIPanel extends javax.faces.component.UIPanel
     implements OnComponentPopulated, LayoutContainer, LayoutComponent {
 
   @Override

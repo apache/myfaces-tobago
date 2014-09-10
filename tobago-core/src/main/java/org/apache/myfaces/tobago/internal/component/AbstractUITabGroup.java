@@ -51,7 +51,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class AbstractUITabGroup extends AbstractUIPanelBase
+public abstract class AbstractUITabGroup extends AbstractUIPanel
     implements TabChangeSource2, ActionSource2, LayoutContainer, LayoutComponent, OnComponentPopulated,
     SupportsRenderedPartially {
 
@@ -112,21 +112,21 @@ public abstract class AbstractUITabGroup extends AbstractUIPanelBase
     }
   }
 
-  public AbstractUIPanelBase[] getTabs() {
-    final List<AbstractUIPanelBase> tabs = new ArrayList<AbstractUIPanelBase>();
+  public AbstractUIPanel[] getTabs() {
+    final List<AbstractUIPanel> tabs = new ArrayList<AbstractUIPanel>();
     for (final UIComponent kid : getChildren()) {
-      if (kid instanceof AbstractUIPanelBase) {
+      if (kid instanceof AbstractUIPanel) {
         //if (kid.isRendered()) {
-        tabs.add((AbstractUIPanelBase) kid);
+        tabs.add((AbstractUIPanel) kid);
         //}
       } else {
         LOG.error("Invalid component in UITabGroup: " + kid);
       }
     }
-    return tabs.toArray(new AbstractUIPanelBase[tabs.size()]);
+    return tabs.toArray(new AbstractUIPanel[tabs.size()]);
   }
 
-  public AbstractUIPanelBase getActiveTab() {
+  public AbstractUIPanel getActiveTab() {
     return getTab(getSelectedIndex());
   }
 
@@ -183,7 +183,7 @@ public abstract class AbstractUITabGroup extends AbstractUIPanelBase
       if (!isRendered()) {
         return;
       }
-      final AbstractUIPanelBase renderedTab = getRenderedTab();
+      final AbstractUIPanel renderedTab = getRenderedTab();
       renderedTab.processValidators(context);
       for (final UIComponent facet : getFacets().values()) {
         facet.processValidators(context);
@@ -202,7 +202,7 @@ public abstract class AbstractUITabGroup extends AbstractUIPanelBase
       if (!isRendered()) {
         return;
       }
-      final AbstractUIPanelBase renderedTab = getRenderedTab();
+      final AbstractUIPanel renderedTab = getRenderedTab();
       renderedTab.processUpdates(context);
       for (final UIComponent facet : getFacets().values()) {
         facet.processUpdates(context);
@@ -276,12 +276,12 @@ public abstract class AbstractUITabGroup extends AbstractUIPanelBase
 
   public abstract String getSwitchType();
 
-  private AbstractUIPanelBase getTab(final int index) {
+  private AbstractUIPanel getTab(final int index) {
     int i = 0;
     for (final UIComponent component : getChildren()) {
-      if (component instanceof AbstractUIPanelBase) {
+      if (component instanceof AbstractUIPanel) {
         if (i == index) {
-          return (AbstractUIPanelBase) component;
+          return (AbstractUIPanel) component;
         }
         i++;
       } else {
@@ -292,7 +292,7 @@ public abstract class AbstractUITabGroup extends AbstractUIPanelBase
     return null;
   }
 
-  private AbstractUIPanelBase getRenderedTab() {
+  private AbstractUIPanel getRenderedTab() {
     return getTab(getRenderedIndex());
   }
 
