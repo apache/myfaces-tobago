@@ -394,6 +394,19 @@ public final class StringUtils {
   }
 
   /**
+   * Returns a string of the same length to hide confidential passwords from log files etc.
+   */
+  public static String toConfidentialString(final String string, final boolean confidential) {
+    if (string == null) {
+      return "<null>";
+    } else if (confidential) {
+      return repeat("*", string.length()) + " (confidential)";
+    } else {
+      return string;
+    }
+  }
+
+  /**
    * Basically taken from commons-lang
    */
   public static String uncapitalize(final String str) {

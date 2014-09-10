@@ -834,9 +834,9 @@ public final class ComponentUtils {
    * Resolves the real clientIds.
    */
   public static String[] evaluateClientIds(
-      final FacesContext context, final UIComponent component, final String[] componentId) {
-    final List<String> result = new ArrayList<String>(componentId.length);
-    for (final String id : componentId) {
+      final FacesContext context, final UIComponent component, final String[] componentIds) {
+    final List<String> result = new ArrayList<String>(componentIds.length);
+    for (final String id : componentIds) {
       if (!StringUtils.isBlank(id)) {
         final String clientId = evaluateClientId(context, component, id);
         if (clientId != null) {
