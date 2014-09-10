@@ -237,7 +237,7 @@ span.tobago-calendar-header {
   height: 17px;
   color: #000000;
   border: 2px inset #bbccdd;
-  margin: 0;
+  margin: 0 5px 0 0;
   padding: 2px;
 }
 

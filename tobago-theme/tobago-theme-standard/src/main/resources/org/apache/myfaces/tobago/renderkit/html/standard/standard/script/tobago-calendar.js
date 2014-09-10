@@ -299,7 +299,6 @@ Tobago.DateTime.init = function (elements) {
       .not("[readonly]")
       .each(function () {
         var date = jQuery(this);
-        date.width(date.width() - 5 - 16); // reserve space for the picker.
 
         var analyzed = Tobago.DateTime.analyzePattern(date.data("tobago-pattern"));
         var options = {
@@ -365,13 +364,6 @@ Tobago.DateTime.init = function (elements) {
           default:
             console.error("invalid: not date-pattern nor time-pattern");  // @DEV_ONLY
         }
-
-        var buttonImage = date.next("img");
-        buttonImage.css({
-          position: "absolute",
-          left: parseInt(date.css("left")) + date.outerWidth(true) + 5 + "px",
-          top: date.css("top")
-        });
       });
 };
 
