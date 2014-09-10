@@ -56,9 +56,8 @@ public class InputRendererBase extends LayoutComponentRendererBase {
       String newValue = requestParameterMap.get(clientId);
       if (LOG.isDebugEnabled()) {
         final boolean password = ComponentUtils.getBooleanAttribute(component, Attributes.PASSWORD);
-        LOG.debug("clientId = '" + clientId + "'");
-        LOG.debug("requestParameterMap.get(clientId) = '"
-            + (password ? StringUtils.repeat("*", newValue.length()) : newValue) + "'");
+        LOG.debug("clientId='{}'", clientId);
+        LOG.debug("requestParameterMap.get(clientId)='{}'", StringUtils.toConfidentialString(newValue, password));
       }
       if (input instanceof UITextarea) {
         UITextarea textarea = (UITextarea) input;

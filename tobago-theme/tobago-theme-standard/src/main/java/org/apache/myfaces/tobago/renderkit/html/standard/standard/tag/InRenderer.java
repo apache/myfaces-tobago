@@ -64,7 +64,7 @@ public class InRenderer extends InputRendererBase {
     final String currentValue = getCurrentValue(facesContext, input);
     final boolean password = ComponentUtils.getBooleanAttribute(input, Attributes.PASSWORD);
     if (LOG.isDebugEnabled()) {
-      LOG.debug("currentValue = '" + (password ? StringUtils.repeat("*", currentValue.length()) : currentValue) +  "'");
+      LOG.debug("currentValue = '{}'", StringUtils.toConfidentialString(currentValue, password));
     }
     final String type = password ? HtmlInputTypes.PASSWORD : HtmlInputTypes.TEXT;
     final String id = input.getClientId(facesContext);
