@@ -29,7 +29,8 @@
       <tc:gridLayout rows="*;auto"/>
     </f:facet>
 
-    <tc:tabGroup id="tabMarsOuterForm2" switchType="reloadTab" selectedIndex="#{demo.tabState2}" immediate="true">
+    <tc:tabGroup id="tabMarsOuterForm2" switchType="reloadTab" selectedIndex="#{demo.tabState2}" immediate="true"
+        renderedPartially="@this :page:header:headerInfo">
 
       <tc:tabChangeListener type="org.apache.myfaces.tobago.example.demo.actionlistener.SimpleTabChangeListener"
                             binding="#{demo.tabChangeListener}"/>

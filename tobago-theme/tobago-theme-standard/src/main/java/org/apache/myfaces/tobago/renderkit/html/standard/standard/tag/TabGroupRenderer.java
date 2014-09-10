@@ -37,9 +37,11 @@ import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
+import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
+import org.apache.myfaces.tobago.renderkit.html.JsonUtils;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -106,6 +108,11 @@ public class TabGroupRenderer extends LayoutComponentRendererBase {
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, tabGroup);
     writer.writeStyleAttribute(new Style(facesContext, tabGroup));
     writer.writeAttribute(HtmlAttributes.SWITCHTYPE, switchType, false);
+    final String[] clientIds
+        = ComponentUtils.evaluateClientIds(facesContext, tabGroup, tabGroup.getRenderedPartially());
+    if (clientIds.length > 0) {
+      writer.writeAttribute(DataAttributes.PARTIAL_IDS, JsonUtils.encode(clientIds), true);
+    }
 
     writer.startElement(HtmlElements.INPUT, null);
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN, false);

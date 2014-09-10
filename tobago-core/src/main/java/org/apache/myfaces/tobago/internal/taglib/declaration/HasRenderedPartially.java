@@ -47,9 +47,12 @@ public interface HasRenderedPartially {
    * If a literal is specified: to use more than one identifier the identifiers must be space delimited.
    * </p>
    * <p>
-   * Using this in a UISheet component this list indicates components to update when calling
+   * Using this in a UISheet or UITabGroup component this list indicates components to update when calling
    * internal AJAX requests like sort or paging commands.
-   * Don't forget to add the sheets id in that case, if needed.
+   * Don't forget to add the sheet-id or tagGroup-id in that case, if needed.
+   * </p>
+   * <p>
+   * You can also use @this for the component itself.
    * </p>
    */
    @TagAttribute
