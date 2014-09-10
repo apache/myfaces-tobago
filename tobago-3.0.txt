@@ -10,3 +10,5 @@ Planned features and changes for Tobago 3.0
   - It seems to be required: Remove absolute Positioning (required for Bootstrap)
 
   - Renderervererbung: addClass() von Parent oder so? z.B. muss man be Bootstrap einem input wohl eine Klasse form-control hinzufügen
+
+  - how to use: for best performance and responsive use tc:flexLayout instead of tc:gridLayout
