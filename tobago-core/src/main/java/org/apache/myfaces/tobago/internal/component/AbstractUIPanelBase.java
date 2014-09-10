@@ -20,7 +20,7 @@
 package org.apache.myfaces.tobago.internal.component;
 
 /**
- * @deprecated since 2.0.0
+ * @deprecated since 2.0.0, please use {@link AbstractUIPanel}
  */
 @Deprecated
 public abstract class AbstractUIPanelBase extends javax.faces.component.UIPanel {
