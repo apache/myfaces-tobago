@@ -22,3 +22,7 @@ Migration from Tobago 2.0 to 3.0 (work in progress)
   JSP: JavaServer Pages are no longer supported. You need to migrate to Facelets as VDL.
 
   CSS: box-sizing: changed from content-box to border-box
+
+  tc:time -> tc:date
+  You need to set the <<<f:convertDateTime type="time">>> inside the <<<tc:date>>>.
+
