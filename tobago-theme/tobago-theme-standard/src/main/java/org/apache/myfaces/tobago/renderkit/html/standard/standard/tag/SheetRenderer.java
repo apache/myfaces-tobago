@@ -852,9 +852,13 @@ public class SheetRenderer extends LayoutComponentRendererBase {
                     facesContext, UICommand.COMPONENT_TYPE, RendererTypes.LINK, sorterId);
                 column.getFacets().put(Facets.SORTER, sortCommand);
               }
+              String[] clientIds = ComponentUtils.evaluateClientIds(facesContext, sheet, sheet.getRenderedPartially());
+              if (clientIds.length == 0) {
+                clientIds = new String[]{sheet.getClientId(facesContext)};
+              }
               final CommandMap map = new CommandMap();
-              final Command click = new Command(sortCommand.getClientId(facesContext),
-                  null, null, null, new String[]{sheet.getClientId(facesContext)}, null, null, null, null, null);
+              final Command click = new Command(
+                  sortCommand.getClientId(facesContext), null, null, null, clientIds, null, null, null, null, null);
               map.setClick(click);
               writer.writeAttribute(DataAttributes.COMMANDS, JsonUtils.encode(map), true);
 

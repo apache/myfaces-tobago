@@ -99,19 +99,6 @@ Tobago.Sheet.init = function(elements) {
 Tobago.registerListener(Tobago.Sheet.init, Tobago.Phase.DOCUMENT_READY);
 Tobago.registerListener(Tobago.Sheet.init, Tobago.Phase.AFTER_UPDATE);
 
-
-Tobago.Sheet.prototype.setupSortHeaders = function() {
-  var sheet = this;
-  jQuery(Tobago.Utils.escapeClientId(sheet.id)).find(".tobago-sheet-header[data-tobago-sorterId]").each(function() {
-
-    jQuery(this).click({sheet: sheet, sorterId: jQuery(this).data("tobago-sorterId")}, function(event) {
-
-      event.data.sheet.reloadWithAction(jQuery(this), event.data.sorterId);
-      event.stopPropagation();
-    });
-  });
-};
-
 Tobago.Sheet.prototype.setupArrowPaging = function(linkBox) {
     for (var i = 0; i < linkBox.childNodes.length; i++) {
         var child = linkBox.childNodes[i];
@@ -514,7 +501,6 @@ Tobago.Sheet.prototype.setup = function() {
     });
   }
 
-  this.setupSortHeaders();
   this.setupPagePaging();
   this.setupRowPaging();
 
