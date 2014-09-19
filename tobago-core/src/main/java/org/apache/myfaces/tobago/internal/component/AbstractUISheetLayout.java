@@ -134,7 +134,9 @@ public abstract class AbstractUISheetLayout extends AbstractUILayoutBase impleme
         int index = 0;
         for (final LayoutComponent component : sheet.getComponents()) {
           if (component == null) {
-            LOG.error("fixme: UIColumnSelector must be a LayoutComponent!"); // fixme
+            if (LOG.isDebugEnabled()) {
+              LOG.debug("todo: UIColumnSelector must be a LayoutComponent!"); // fixme
+            }
             index++;
             continue;
           }
