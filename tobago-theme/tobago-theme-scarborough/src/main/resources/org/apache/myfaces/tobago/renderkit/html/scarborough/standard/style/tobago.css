@@ -1244,12 +1244,14 @@ a:active.tobago-sheet-pagingLink {
 .tobago-tab-image {
   position: relative;
   top: 1px;
+  border: none;
 }
 
 .tobago-tab-image-right-margin {
   margin-right: 5px;
   position: relative;
   top: 1px;
+  border: none;
 }
 
 .tobago-tabGroup {

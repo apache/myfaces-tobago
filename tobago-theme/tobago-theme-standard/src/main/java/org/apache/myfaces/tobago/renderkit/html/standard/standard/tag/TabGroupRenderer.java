@@ -230,7 +230,8 @@ public class TabGroupRenderer extends LayoutComponentRendererBase {
           }
 
           String image = tab.getImage();
-          if (image != null) {
+          // tab.getImage() resolves to empty string if el-expression resolves to null
+          if (image != null && !image.isEmpty()) {
             if (ResourceManagerUtils.isAbsoluteResource(image)) {
               // absolute Path to image : nothing to do
             } else {
