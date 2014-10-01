@@ -276,7 +276,9 @@ Tobago.TreeListbox.onChange = function() {
   listbox.children("option:not(:selected)").each(function() {
     jQuery(this).data("tobago-select").hide();
   });
-  listbox.children("option:selected").data("tobago-select").show();
+  listbox.children("option:selected").each(function() {
+    jQuery(this).data("tobago-select").show();
+  });
   Tobago.TreeListbox.setSelected(listbox);
 
   // Deeper level (2nd and later) should only show the empty select tag.
