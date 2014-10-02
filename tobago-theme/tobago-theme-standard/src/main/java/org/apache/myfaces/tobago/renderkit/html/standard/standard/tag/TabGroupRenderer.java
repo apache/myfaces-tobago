@@ -33,6 +33,7 @@ import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.event.TabChangeEvent;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPanelBase;
 import org.apache.myfaces.tobago.internal.util.AccessKeyLogger;
+import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
@@ -231,7 +232,7 @@ public class TabGroupRenderer extends LayoutComponentRendererBase {
 
           String image = tab.getImage();
           // tab.getImage() resolves to empty string if el-expression resolves to null
-          if (image != null && !image.isEmpty()) {
+          if (StringUtils.isNotEmpty(image)) {
             if (ResourceManagerUtils.isAbsoluteResource(image)) {
               // absolute Path to image : nothing to do
             } else {
