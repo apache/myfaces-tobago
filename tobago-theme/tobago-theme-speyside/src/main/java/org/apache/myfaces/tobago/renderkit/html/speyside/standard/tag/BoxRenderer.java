@@ -32,6 +32,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
@@ -126,7 +127,7 @@ without shadow
     }
     writer.endElement(HtmlElements.DIV);
 
-    final UIMenuBar menuBar = getMenuBarFacet(box);
+    final UIMenuBar menuBar = ComponentUtils.findFacetDescendant(box, Facets.MENUBAR, UIMenuBar.class);
     if (menuBar != null) {
       RenderUtils.encode(facesContext, menuBar);
     }

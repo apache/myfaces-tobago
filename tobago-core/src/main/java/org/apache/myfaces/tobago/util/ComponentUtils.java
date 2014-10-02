@@ -276,6 +276,24 @@ public final class ComponentUtils {
   }
 
   /**
+   * Searches the component tree beneath the component and return the first component matching the type.
+   */
+  public static <T extends UIComponent> T findFacetDescendant(
+      final UIComponent component, final String facet, final Class<T> type) {
+
+    final UIComponent facetComponent = component.getFacet(facet);
+    if (facetComponent != null) {
+      if (type.isAssignableFrom(facetComponent.getClass())) {
+        return (T) facetComponent;
+      } else {
+        return findDescendant(facetComponent, type);
+      }
+    } else {
+      return null;
+    }
+  }
+
+  /**
    * Searches the children beneath the component and return the first component matching the type.
    */
   public static <T extends UIComponent> T findChild(final UIComponent component, final Class<T> type) {
