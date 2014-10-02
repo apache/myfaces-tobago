@@ -396,7 +396,7 @@
             <artifactId>liberty-maven-plugin</artifactId>
             <version>1.1</version>
             <configuration>
-              <serverHome>${wlp.directory}/wlp</serverHome>
+              <serverHome>${wlp.directory}</serverHome>
               <appArchive>${project.build.directory}/${project.build.finalName}.war</appArchive>
               <serverName>tobago</serverName>
               <!-- default debugging port is 7777 -->
