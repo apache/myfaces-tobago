@@ -44,6 +44,7 @@
       </plugin>
       <plugin>
         <groupId>org.mortbay.jetty</groupId>
+        <!--<groupId>org.eclipse.jetty</groupId>-->
         <artifactId>jetty-maven-plugin</artifactId>
         <configuration>
           <!--
@@ -78,7 +79,9 @@
       <plugins>
         <plugin>
           <groupId>org.mortbay.jetty</groupId>
+          <!--<groupId>org.eclipse.jetty</groupId>-->
           <artifactId>jetty-maven-plugin</artifactId>
+          <!--<version>9.2.2.v20140723</version>-->
           <!--<version>9.1.1.v20140108</version>-->
           <!--<version>9.1.0.v20131115</version>-->
           <version>8.1.15.v20140411</version>
@@ -87,7 +90,34 @@
             <webAppConfig>
               <overrideDescriptor>${override-web-xml}</overrideDescriptor>
             </webAppConfig>
+<!--
+            <systemProperties>
+              <systemProperty>
+                <name>logback.configurationFile</name>
+                <value>/Users/lofwyr/t/logback.xml</value>
+              </systemProperty>
+              <systemProperty>
+                <name>java.util.logging.config.file</name>
+                <value>logging.properties</value>
+              </systemProperty>
+            </systemProperties>
+-->
           </configuration>
+<!--
+          <dependencies>
+            <dependency>
+              <groupId>org.slf4j</groupId>
+              <artifactId>jul-to-slf4j</artifactId>
+              <version>${slf4j.version}</version>
+            </dependency>
+            <dependency>
+              <groupId>ch.qos.logback</groupId>
+              <artifactId>logback-classic</artifactId>
+              <version>${logback.version}</version>
+              <scope>runtime</scope>
+            </dependency>
+          </dependencies>
+-->
         </plugin>
       </plugins>
     </pluginManagement>
@@ -173,6 +203,7 @@
         <plugins>
           <plugin>
             <groupId>org.mortbay.jetty</groupId>
+            <!--<groupId>org.eclipse.jetty</groupId>-->
             <artifactId>jetty-maven-plugin</artifactId>
             <configuration>
               <connectors>
@@ -379,6 +410,11 @@
 
     <profile>
       <id>liberty</id>
+<!--
+      <properties>
+        <jsf>provided</jsf>
+      </properties>
+-->
       <build>
         <plugins>
           <plugin>
