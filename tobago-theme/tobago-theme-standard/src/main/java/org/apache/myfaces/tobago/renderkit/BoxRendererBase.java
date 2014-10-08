@@ -24,6 +24,7 @@ import org.apache.myfaces.tobago.component.UIBox;
 import org.apache.myfaces.tobago.component.UIMenuBar;
 import org.apache.myfaces.tobago.config.Configurable;
 import org.apache.myfaces.tobago.layout.Measure;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -43,7 +44,7 @@ public abstract class BoxRendererBase extends LayoutComponentRendererBase {
   public Measure getBorderTop(final FacesContext facesContext, final Configurable component) {
 
     Measure borderTop = super.getBorderTop(facesContext, component);
-    if (getMenuBarFacet((UIComponent) component) != null) {
+    if (ComponentUtils.findFacetDescendant((UIComponent) component, Facets.MENUBAR, UIMenuBar.class) != null) {
       borderTop = borderTop.add(19); // todo: get via theme config
     }
     return borderTop;
@@ -63,10 +64,6 @@ public abstract class BoxRendererBase extends LayoutComponentRendererBase {
       return getBorderTop(facesContext, component);
     }
     return super.getMaximumHeight(facesContext, component);
-  }
-
-  protected UIMenuBar getMenuBarFacet(final UIComponent component) {
-    return (UIMenuBar) component.getFacet(Facets.MENUBAR);
   }
 
   @Override

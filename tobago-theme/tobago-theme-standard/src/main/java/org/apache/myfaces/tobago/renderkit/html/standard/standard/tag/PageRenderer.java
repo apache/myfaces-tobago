@@ -337,7 +337,7 @@ public class PageRenderer extends PageRendererBase {
     }
 */
 
-    final UIMenuBar menuBar = (UIMenuBar) page.getFacet(Facets.MENUBAR);
+    final UIMenuBar menuBar = ComponentUtils.findFacetDescendant(page, Facets.MENUBAR, UIMenuBar.class);
     if (menuBar != null) {
       menuBar.getAttributes().put(Attributes.PAGE_MENU, Boolean.TRUE);
       RenderUtils.encode(facesContext, menuBar);
@@ -610,7 +610,7 @@ public class PageRenderer extends PageRendererBase {
     // XXX this is a hack. correct would be the top-border, but this would shift the content, because of the
     // XXX hack before the code: writer.writeStyleAttribute(style)
     final UIPage page = (UIPage) component;
-    final UIMenuBar menuBar = (UIMenuBar) page.getFacet(Facets.MENUBAR);
+    final UIMenuBar menuBar = ComponentUtils.findFacetDescendant(page, Facets.MENUBAR, UIMenuBar.class);
     if (menuBar != null) {
       return getResourceManager().getThemeMeasure(facesContext, page, "custom.menuBar-height");
     } else {
