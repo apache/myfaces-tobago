@@ -37,35 +37,7 @@
 -->
 
       <f:facet name="menuBar">
-        <tc:menuBar>
-          <tc:form>
-            <tc:menu label="#{overviewBundle.menu_config}">
-              <tc:menu label="Hier sind die themes">
-                <tx:menuRadio action="#{clientConfigController.submit}" value="#{clientConfigController.theme}">
-                  <f:selectItems value="#{clientConfigController.themeItems}"/>
-                </tx:menuRadio>
-              </tc:menu>
-              <tc:menu label="#{overviewBundle.menu_locale}">
-                <tx:menuRadio action="#{clientConfigController.submit}" value="#{clientConfigController.locale}">
-                  <f:selectItems value="#{clientConfigController.localeItems}"/>
-                </tx:menuRadio>
-              </tc:menu>
-              <tc:menuCommand action="#{demo.resetSession}" label="Reset"/>
-            </tc:menu>
-
-            <tc:menu label="#{overviewBundle.menu_help}">
-              <tc:menuCommand label="#{overviewBundle.menu_about}" omit="true">
-                <tc:dataAttribute name="alert-text"
-                                  value="#{overviewBundle.pageTitle} - #{info.version} - #{overviewBundle.tobago_url}"/>
-              </tc:menuCommand>
-              <tc:menuCommand link="http://myfaces.apache.org/tobago" label="Tobago in the Web"/>
-              <tc:menuCommand action="server-info" immediate="true"
-                              label="Server Info"
-                              disabled="#{! info.enabled}"/>
-            </tc:menu>
-          </tc:form>
-        </tc:menuBar>
-
+        <ui:include src="/menu.xhtml"/>
       </f:facet>
 
       <f:facet name="layout">
