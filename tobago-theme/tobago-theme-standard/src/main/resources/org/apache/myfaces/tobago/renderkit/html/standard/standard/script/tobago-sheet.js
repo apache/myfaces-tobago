@@ -288,11 +288,23 @@ Tobago.Sheet.setup2 = function (sheets) {
       var bodyDiv = table.parent().next();
       var bodyHeight = bodyDiv.css("height").replace("px", "");
       var scrollHeight = bodyDiv.prop("scrollHeight");
+      console.log("bodyHeight : " + bodyHeight); // @DEV_ONLY
+      console.log("scrollHeight : " + scrollHeight); // @DEV_ONLY
       if (bodyHeight >= scrollHeight) {
         table = bodyDiv.find("table");
-        table.find("col").last().attr("width", verticalScrollbarWidth);
+        var bodyDivWidth = bodyDiv.css("width").replace("px", "") * 1;
+        console.log("bodyDivWidth : " + bodyDivWidth); // @DEV_ONLY
         var tableWidth = table.css("width").replace("px", "") * 1;
-        table.css("width", tableWidth + verticalScrollbarWidth);
+        console.log("tableWidth : " + tableWidth); // @DEV_ONLY
+        if (tableWidth < bodyDivWidth) {
+
+          var fillerWidth = bodyDiv.prev().find("col").last().attr("width").replace("px", "") * 1;
+          console.log("set filler col width : " + fillerWidth); // @DEV_ONLY
+          table.find("col").last().attr("width", fillerWidth);
+
+          console.log("set table width : " + bodyDivWidth); // @DEV_ONLY
+          table.css("width", bodyDivWidth);
+        }
       }
     }
   });
@@ -350,10 +362,13 @@ Tobago.Sheet.setup2 = function (sheets) {
         for (i = 0; i < bodyList.length; i++) {
           oldWidthList[i] = bodyList.eq(i).width();
         }
-        for (i = 0; i < headerList.length; i++) {
+        var usedWidth = 0;
+        for (i = 0; i < headerList.length -1; i++) {
+          // last column is the filler column
           var newWidth = headerList.eq(i).width();
           // for the hidden field
           widths = widths + newWidth + ",";
+          usedWidth += newWidth;
 
           var oldWidth = bodyList.eq(i).width();
           if (oldWidth != newWidth) {
@@ -368,6 +383,24 @@ Tobago.Sheet.setup2 = function (sheets) {
               // XXX later, if we have box-sizing: border-box we can set the width to 100%
             }
           }
+        }
+        // adjust filler space
+        var sheetHeaderWidth = headerTable.parent().width();
+        console.log("usedWidth : " + usedWidth); // @DEV_ONLY
+        console.log("sheetHeaderWidth : " + sheetHeaderWidth); // @DEV_ONLY
+
+        if (usedWidth <= sheetHeaderWidth) {
+          var fillerWidth = sheetHeaderWidth - usedWidth;
+          console.log("SET fillerWidth : " + fillerWidth); // @DEV_ONLY
+          widths = widths + fillerWidth + ",";
+          headerList.last().attr("width", fillerWidth);
+          bodyList.last().attr("width", fillerWidth); // TODO ? verticalScrollbarWidth
+          bodyTable.css("width", sheetHeaderWidth); // TODO ? verticalScrollbarWidth
+        } else {
+          console.log("SET fillerWidth : 0"); // @DEV_ONLY
+          widths = widths + "0,";
+          headerList.last().attr("width", 0);
+          bodyList.last().attr("width", 0); // TODO ? verticalScrollbarWidth
         }
         // store the width values in a hidden field
         Tobago.Sheet.hidden(sheet, "widths").val(widths);

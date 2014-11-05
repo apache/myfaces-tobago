@@ -259,16 +259,25 @@ public class SheetRenderer extends LayoutComponentRendererBase {
 /*
     bodyStyle.setPaddingTop(ie6SelectOneFix ? Measure.ZERO : headerHeight);
 */
+    final boolean needVerticalScrollbar = needVerticalScrollbar(facesContext, sheet);
 
     writer.writeStyleAttribute(bodyStyle);
     bodyStyle.setHeight(null);
     bodyStyle.setTop(null);
     final Style sheetBodyStyle = new Style(bodyStyle);
-    // is null, in AJAX case.
-    if (sheet.getNeedVerticalScrollbar() == Boolean.TRUE) {
-      tableBodyWidth = tableBodyWidth.subtractNotNegative(getVerticalScrollbarWeight(facesContext, sheet));
+    if (columnWidths != null) {
+      int tmp = 0;
+      for (Integer columnWidth : columnWidths) {
+        tmp += columnWidth;
+      }
+      sheetBodyStyle.setWidth(Measure.valueOf(tmp));
+    } else {
+      // is null, in AJAX case.
+      if (needVerticalScrollbar) {
+        tableBodyWidth = tableBodyWidth.subtractNotNegative(getVerticalScrollbarWeight(facesContext, sheet));
+      }
+      sheetBodyStyle.setWidth(tableBodyWidth);
     }
-    sheetBodyStyle.setWidth(tableBodyWidth);
 
     writer.startElement(HtmlElements.TABLE, null);
     writer.writeAttribute(HtmlAttributes.CELLSPACING, "0", false);
@@ -771,13 +780,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
       writer.startElement(HtmlElements.COLGROUP, null);
       for (int i = 0; i < columnWidths.size(); i++) {
         writer.startElement(HtmlElements.COL, null);
-        if (i == columnWidths.size() - 2 && needVerticalScrollbar) {
-          // if scrollbar is needed the coll for column in header must have own width + scrollbarWidth
-          writer.writeAttribute(
-              HtmlAttributes.WIDTH, columnWidths.get(i) + verticalScrollbarWidth);
-        } else {
-          writer.writeAttribute(HtmlAttributes.WIDTH, columnWidths.get(i));
-        }
+        writer.writeAttribute(HtmlAttributes.WIDTH, columnWidths.get(i));
         writer.endElement(HtmlElements.COL);
       }
       writer.endElement(HtmlElements.COLGROUP);
@@ -919,6 +922,12 @@ public class SheetRenderer extends LayoutComponentRendererBase {
       writer.startElement(HtmlElements.DIV, null);
       // todo: is the filler class needed here?
       writer.writeClassAttribute(Classes.create(sheet, "headerCell", Markup.FILLER));
+      writer.startElement(HtmlElements.SPAN, null);
+      writer.writeClassAttribute(Classes.create(sheet, "header"));
+      final Style headerStyle = new Style();
+      headerStyle.setHeight(Measure.valueOf(14)); // XXX todo
+      writer.writeStyleAttribute(headerStyle);
+      writer.endElement(HtmlElements.SPAN);
       writer.endElement(HtmlElements.DIV);
       writer.endElement(HtmlElements.TD);
 
