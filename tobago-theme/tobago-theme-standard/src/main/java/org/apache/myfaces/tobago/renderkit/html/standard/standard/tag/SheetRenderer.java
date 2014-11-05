@@ -259,23 +259,32 @@ public class SheetRenderer extends LayoutComponentRendererBase {
 /*
     bodyStyle.setPaddingTop(ie6SelectOneFix ? Measure.ZERO : headerHeight);
 */
-    final boolean needVerticalScrollbar = needVerticalScrollbar(facesContext, sheet);
-
     writer.writeStyleAttribute(bodyStyle);
-    bodyStyle.setHeight(null);
-    bodyStyle.setTop(null);
+
     final Style sheetBodyStyle = new Style(bodyStyle);
+    sheetBodyStyle.setHeight(null);
+    sheetBodyStyle.setTop(null);
+    final boolean needVerticalScrollbar = needVerticalScrollbar(facesContext, sheet);
+    if (needVerticalScrollbar) {
+      tableBodyWidth = tableBodyWidth.subtractNotNegative(getVerticalScrollbarWeight(facesContext, sheet));
+    }
+    List<Integer> dataWidths = null;
     if (columnWidths != null) {
-      int tmp = 0;
-      for (Integer columnWidth : columnWidths) {
-        tmp += columnWidth;
+      dataWidths = new ArrayList<Integer>(columnWidths);
+      int usedWidth = 0;
+      for (int i = 0, dataWidthsSize = dataWidths.size(); i < dataWidthsSize - 1; i++) {
+        usedWidth += dataWidths.get(i);
       }
-      sheetBodyStyle.setWidth(Measure.valueOf(tmp));
+      if (usedWidth < tableBodyWidth.getPixel()) {
+        dataWidths.set(dataWidths.size() - 1, tableBodyWidth.getPixel() - usedWidth);
+        sheetBodyStyle.setWidth(tableBodyWidth);
+      } else {
+        dataWidths.set(dataWidths.size() - 1, 0);
+        sheetBodyStyle.setWidth(Measure.valueOf(usedWidth));
+      }
+
     } else {
-      // is null, in AJAX case.
-      if (needVerticalScrollbar) {
-        tableBodyWidth = tableBodyWidth.subtractNotNegative(getVerticalScrollbarWeight(facesContext, sheet));
-      }
+      // is null, in AJAX case. // XXX ? how to reproduce ?
       sheetBodyStyle.setWidth(tableBodyWidth);
     }
 
@@ -286,9 +295,9 @@ public class SheetRenderer extends LayoutComponentRendererBase {
     writer.writeClassAttribute(Classes.create(sheet, "bodyTable"));
     writer.writeStyleAttribute(sheetBodyStyle);
 
-    if (columnWidths != null) {
+    if (dataWidths != null) {
       writer.startElement(HtmlElements.COLGROUP, null);
-      for (final Integer columnWidth : columnWidths) {
+      for (final Integer columnWidth : dataWidths) {
         writer.startElement(HtmlElements.COL, null);
         writer.writeAttribute(HtmlAttributes.WIDTH, columnWidth);
         writer.endElement(HtmlElements.COL);
