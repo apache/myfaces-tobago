@@ -210,8 +210,9 @@ Copy the download artifacts from the repository to the site (release-tobago.sh)
 #!/bin/sh
 set -e
 
-VERSION=2.0.2
-REPOSITORY=https://repository.apache.org/content/repositories/releases
+VERSION=2.0.3
+MAVEN_REPOSITORY=https://repository.apache.org/content/repositories/releases
+DIST_REPOSITORY=https://dist.apache.org/repos/dist/release/myfaces
 
 # download file and hashes/signatures
 function download() {
@@ -219,10 +220,10 @@ function download() {
   FILE_ON_REPO="$2"
   FILE="$3"
 
-  curl --fail "${REPOSITORY}/${DIR}/${VERSION}/${FILE_ON_REPO}"      -o ${FILE}
-  curl --fail "${REPOSITORY}/${DIR}/${VERSION}/${FILE_ON_REPO}.asc"  -o ${FILE}.asc
-  curl --fail "${REPOSITORY}/${DIR}/${VERSION}/${FILE_ON_REPO}.md5"  -o ${FILE}.md5
-  curl --fail "${REPOSITORY}/${DIR}/${VERSION}/${FILE_ON_REPO}.sha1" -o ${FILE}.sha1
+  curl --fail "${MAVEN_REPOSITORY}/${DIR}/${VERSION}/${FILE_ON_REPO}"      -o ${FILE}
+  curl --fail "${MAVEN_REPOSITORY}/${DIR}/${VERSION}/${FILE_ON_REPO}.asc"  -o ${FILE}.asc
+  curl --fail "${MAVEN_REPOSITORY}/${DIR}/${VERSION}/${FILE_ON_REPO}.md5"  -o ${FILE}.md5
+  curl --fail "${MAVEN_REPOSITORY}/${DIR}/${VERSION}/${FILE_ON_REPO}.sha1" -o ${FILE}.sha1
 }
 
 # this performs check of the hashes (if this fails, something might went wrong absolutely)
@@ -252,6 +253,17 @@ function check() {
   echo "  GPG signature okay"
 }
 
+# this uploads the files into the svn dist repo
+function upload() {
+  PATTERN="$1"
+  FOLDER="$2"
+
+  for file in $(find . -type file -name "${PATTERN}" -exec basename \{\} \; ) ; do
+    # echo $file;
+    svn import -m "Tobago ${VERSON}" $file ${DIST_REPOSITORY}/${FOLDER}/$file;
+  done
+}
+
 # commands
 
 download "org/apache/myfaces/tobago/tobago-assembly"         "tobago-assembly-${VERSION}-dist.tar.gz"            "myfaces-tobago-${VERSION}-dist.tar.gz"
@@ -266,11 +278,11 @@ check "myfaces-tobago-${VERSION}-example.tar.gz"
 check "myfaces-tobago-${VERSION}-example.zip"
 check "myfaces-tobago-${VERSION}-source-release.zip"
 
-rm *.temp
+rm -f *.temp
 
-scp myfaces-tobago-${VERSION}-dist.*           people.apache.org:/www/www.apache.org/dist/myfaces/binaries
-scp myfaces-tobago-${VERSION}-example.*        people.apache.org:/www/www.apache.org/dist/myfaces/binaries
-scp myfaces-tobago-${VERSION}-source-release.* people.apache.org:/www/www.apache.org/dist/myfaces/source
+upload "myfaces-tobago-${VERSION}-dist.*"           "binaries"
+upload "myfaces-tobago-${VERSION}-example.*"        "binaries"
+upload "myfaces-tobago-${VERSION}-source-release.*" "source"
 +------------------------+
 
 
