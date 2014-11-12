@@ -243,7 +243,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
     writer.startElement(HtmlElements.DIV, null);
     writer.writeIdAttribute(sheetId + ComponentUtils.SUB_SEPARATOR + "data_div");
     writer.writeClassAttribute(Classes.create(sheet, "body"));
-
+      
     writer.startElement(HtmlElements.TABLE, null);
     writer.writeAttribute(HtmlAttributes.CELLSPACING, "0", false);
     writer.writeAttribute(HtmlAttributes.CELLPADDING, "0", false);
@@ -501,7 +501,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
         writer.startElement(HtmlElements.SPAN, null);
         writer.writeClassAttribute(Classes.create(sheet, "pagingText"));
         writer.writeAttribute(HtmlAttributes.TITLE,
-            ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", "sheetPagingInfoPagePagingTip"), true);
+                ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", "sheetPagingInfoPagePagingTip"), true);
         writer.flush(); // is needed in some cases, e. g. TOBAGO-1094
         if (sheet.getRowCount() != 0) {
           final Locale locale = facesContext.getViewRoot().getLocale();
@@ -797,13 +797,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
       writer.startElement(HtmlElements.COLGROUP, null);
       for (int i = 0; i < columnWidths.size(); i++) {
         writer.startElement(HtmlElements.COL, null);
-        if (i == columnWidths.size() - 2 && needVerticalScrollbar) {
-          // if scrollbar is needed the coll for column in header must have own width + scrollbarWidth
-          writer.writeAttribute(
-              HtmlAttributes.WIDTH, columnWidths.get(i) + verticalScrollbarWidth);
-        } else {
-          writer.writeAttribute(HtmlAttributes.WIDTH, columnWidths.get(i));
-        }
+        writer.writeAttribute(HtmlAttributes.WIDTH, columnWidths.get(i));
         writer.endElement(HtmlElements.COL);
       }
       writer.endElement(HtmlElements.COLGROUP);
@@ -945,6 +939,12 @@ public class SheetRenderer extends LayoutComponentRendererBase {
       writer.startElement(HtmlElements.DIV, null);
       // todo: is the filler class needed here?
       writer.writeClassAttribute(Classes.create(sheet, "headerCell", Markup.FILLER));
+      writer.startElement(HtmlElements.SPAN, null);
+      writer.writeClassAttribute(Classes.create(sheet, "header"));
+      final Style headerStyle = new Style();
+      headerStyle.setHeight(Measure.valueOf(14)); // XXX todo
+      writer.writeStyleAttribute(headerStyle);
+      writer.endElement(HtmlElements.SPAN);
       writer.endElement(HtmlElements.DIV);
       writer.endElement(HtmlElements.TD);
 

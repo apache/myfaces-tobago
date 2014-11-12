@@ -232,6 +232,16 @@ public abstract class AbstractUISheetLayout extends AbstractUILayoutBase impleme
       currentWidthList = null;
     }
 
+    Measure space = data.getCurrentWidth();
+    final LayoutComponentRenderer renderer = data.getLayoutComponentRenderer(facesContext);
+    space = space.subtractNotNegative(renderer.getBorderLeft(facesContext, data));
+    space = space.subtractNotNegative(renderer.getBorderRight(facesContext, data));
+    Measure verticalScrollbarWeight = renderer.getVerticalScrollbarWeight(facesContext, data);
+    boolean needVerticalScrollbar = needVerticalScrollbar(facesContext, data);
+    if (needVerticalScrollbar) {
+      space = space.subtractNotNegative(verticalScrollbarWeight);
+    }
+
     if (currentWidthList == null) {
       final LayoutTokens tokens = data.getColumnLayout();
       final List<AbstractUIColumn> allColumns = data.getAllColumns();
@@ -255,13 +265,6 @@ public abstract class AbstractUISheetLayout extends AbstractUILayoutBase impleme
         }
       }
 
-      Measure space = data.getCurrentWidth();
-      final LayoutComponentRenderer renderer = data.getLayoutComponentRenderer(facesContext);
-      space = space.subtractNotNegative(renderer.getBorderLeft(facesContext, data));
-      space = space.subtractNotNegative(renderer.getBorderRight(facesContext, data));
-      if (needVerticalScrollbar(facesContext, data)) {
-        space = space.subtractNotNegative(renderer.getVerticalScrollbarWeight(facesContext, data));
-      }
 /*
       // todo: not nice: 1 left + 1 right border
       space = space.subtract(renderedColumns.size() * 2);
@@ -273,8 +276,25 @@ public abstract class AbstractUISheetLayout extends AbstractUILayoutBase impleme
       parseFixedWidth(layoutInfo, renderedColumns, columnSelectorWidth);
       layoutInfo.parseColumnLayout(space.getPixel());
       currentWidthList = layoutInfo.getSpaceList();
-      currentWidthList.add(0); // empty filler column
+      if (needVerticalScrollbar) {
+        currentWidthList.add(verticalScrollbarWeight.getPixel()); // filler column
+      } else {
+        currentWidthList.add(0); // empty filler column
+      }
     }
+
+    int usedWidth = 0;
+    for (int i = 0, currentWidthListSize = currentWidthList.size(); i < currentWidthListSize - 1; i++) {
+      usedWidth += currentWidthList.get(i);
+    }
+
+    if (needVerticalScrollbar) {
+      space = space.add(verticalScrollbarWeight);
+    }
+    if (usedWidth < space.getPixel()) {
+      currentWidthList.set(currentWidthList.size() - 1, space.getPixel() - usedWidth);
+    }
+
 
     if (renderedColumns.size() + 1 != currentWidthList.size()) {
       LOG.warn("widthList.size() = " + currentWidthList.size()
