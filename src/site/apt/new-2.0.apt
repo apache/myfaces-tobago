@@ -143,7 +143,7 @@ Security
       * There is also a "report-only" mode for development
 
 
-* Content Security Policy and Tobago</h2>
+* Content Security Policy and Tobago
 
     
       * All renderers and scripts are refactored to be compliant with CSP
@@ -158,7 +158,7 @@ Security
 
           * Solution: <<<omit="true">>>
 
-* Sanitize potentially malicious content <br/> (to prevent XSS)
+* Sanitize potentially malicious content (to prevent XSS)
 
     
       * <<<tc:textarea>>>, when it contains a <<<tc:dataAttribute>>> with <<<name="html-editor">>>
@@ -168,7 +168,7 @@ Security
       * Default implementation: {{{http://jsoup.org/cookbook/cleaning-html/whitelist-sanitizer}JSoup}}
         whitelist scanning
       
-      * Configurable via <<<tobago-context.xml>>>
+      * Configurable via <<<tobago-config.xml>>>
 
       * Why? See {{{https://www.owasp.org/index.php/XSS_%28Cross_Site_Scripting%29_Prevention_Cheat_Sheet#RULE_.236_-_Sanitize_HTML_Markup_with_a_Library_Designed_for_the_Job}OSWAP}}
 
