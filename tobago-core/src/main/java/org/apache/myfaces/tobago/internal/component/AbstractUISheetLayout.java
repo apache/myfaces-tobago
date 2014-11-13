@@ -283,19 +283,6 @@ public abstract class AbstractUISheetLayout extends AbstractUILayoutBase impleme
       }
     }
 
-    int usedWidth = 0;
-    for (int i = 0, currentWidthListSize = currentWidthList.size(); i < currentWidthListSize - 1; i++) {
-      usedWidth += currentWidthList.get(i);
-    }
-
-    if (needVerticalScrollbar) {
-      space = space.add(verticalScrollbarWeight);
-    }
-    if (usedWidth < space.getPixel()) {
-      currentWidthList.set(currentWidthList.size() - 1, space.getPixel() - usedWidth);
-    }
-
-
     if (renderedColumns.size() + 1 != currentWidthList.size()) {
       LOG.warn("widthList.size() = " + currentWidthList.size()
           + " != columns.size() = " + renderedColumns.size() + " + 1. The widthList: "

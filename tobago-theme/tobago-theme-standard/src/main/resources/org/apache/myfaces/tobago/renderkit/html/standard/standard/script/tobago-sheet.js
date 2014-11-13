@@ -367,12 +367,12 @@ Tobago.Sheet.setup2 = function (sheets) {
           console.log("SET fillerWidth : 0"); // @DEV_ONLY
           bodyCols.last().attr("width", 0);
           bodyTable.css("width", usedWidth);
-          var headerFiller = 0;
-          if (usedWidth <= (bodyDivWidth + verticalScrollbarWidth)) {
-            headerFiller = (bodyDivWidth + verticalScrollbarWidth) - usedWidth;
+          var headerFillerWidth = 0;
+          if (usedWidth >= (bodyDivWidth - verticalScrollbarWidth)) {
+            headerFillerWidth = verticalScrollbarWidth;
           }
-          widths = widths + headerFiller + ",";
-          headerCols.last().attr("width", headerFiller);
+          widths = widths + headerFillerWidth + ",";
+          headerCols.last().attr("width", headerFillerWidth);
         }
         // store the width values in a hidden field
         Tobago.Sheet.hidden(sheet, "widths").val(widths);
