@@ -120,6 +120,7 @@ public class TreeSelectRenderer extends RendererBase {
       writer.writeAttribute(HtmlAttributes.VALUE, id, false);
       writer.writeIdAttribute(id);
       writer.writeAttribute(HtmlAttributes.CHECKED, checked);
+      HtmlRendererUtils.renderCommandFacet(select, facesContext, writer);
       writer.endElement(HtmlElements.INPUT);
     }
 
