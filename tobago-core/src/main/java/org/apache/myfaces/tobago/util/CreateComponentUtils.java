@@ -74,6 +74,7 @@ public final class CreateComponentUtils {
     return createTextColumn(label, sortable, align, value, null);
   }
 
+  @Deprecated
   public static AbstractUIColumn createTextColumn(
       final String label, final String sortable, final String align, final String value, final String clientId) {
     final AbstractUIOut text = (AbstractUIOut) createComponent(ComponentTypes.OUT, RendererTypes.OUT, clientId + "_t");
@@ -90,6 +91,7 @@ public final class CreateComponentUtils {
     return createColumn(label, sortable, align, child, null);
   }
 
+  @Deprecated
   public static AbstractUIColumn createColumn(
       final String label, final String sortable, final String align, final UIComponent child, final String clientId) {
     final AbstractUIColumn column = createColumn(label, sortable, align, clientId);

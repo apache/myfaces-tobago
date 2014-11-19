@@ -566,7 +566,7 @@ Tobago.DateTime.init = function (elements) {
         var buttonImage = date.next("img");
         buttonImage.css({
           position: "absolute",
-          left: parseInt(date.css("left")) + date.outerWidth(true) + 5 + "px",
+          left: parseInt(date.css("left")) + date.outerWidth(true),
           top: date.css("top")
         });
       });
