@@ -20,6 +20,7 @@
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
 import org.apache.myfaces.tobago.component.RendererTypes;
+import org.apache.myfaces.tobago.component.UITreeLabel;
 import org.apache.myfaces.tobago.component.UITreeNode;
 import org.apache.myfaces.tobago.component.UITreeSelect;
 import org.apache.myfaces.tobago.internal.component.AbstractUITree;
@@ -174,11 +175,21 @@ public class TreeListboxRenderer extends LayoutComponentRendererBase {
     writer.writeAttribute(HtmlAttributes.SIZE, 9); // must be > 1, but the real size comes from the layout
 //    writer.writeAttribute(HtmlAttributes.MULTIPLE, siblingMode);
 
-    final UITreeSelect label = ComponentUtils.findDescendant(tree, UITreeSelect.class);
-    final Object labelValue = label.getLabel();
+    final UITreeSelect select = ComponentUtils.findDescendant(tree, UITreeSelect.class);
+    final String labelValue;
+    if (select != null) {
+      labelValue = select.getLabel();
+    } else {
+      final UITreeLabel label = ComponentUtils.findDescendant(tree, UITreeLabel.class);
+      if (label != null) {
+        labelValue = label.getLabel();
+      } else {
+        labelValue = null;
+      }
+    }
     if (labelValue != null) {
       writer.startElement(HtmlElements.OPTGROUP, tree);
-      writer.writeAttribute(HtmlAttributes.LABEL, labelValue.toString(), true);
+      writer.writeAttribute(HtmlAttributes.LABEL, labelValue, true);
       writer.endElement(HtmlElements.OPTGROUP);
     }
 
