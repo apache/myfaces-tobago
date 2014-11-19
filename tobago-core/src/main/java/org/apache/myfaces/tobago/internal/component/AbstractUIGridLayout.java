@@ -31,7 +31,6 @@ import org.apache.myfaces.tobago.internal.layout.LayoutUtils;
 import org.apache.myfaces.tobago.internal.layout.OriginCell;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.layout.AutoLayoutToken;
-import org.apache.myfaces.tobago.layout.Display;
 import org.apache.myfaces.tobago.layout.LayoutComponent;
 import org.apache.myfaces.tobago.layout.LayoutContainer;
 import org.apache.myfaces.tobago.layout.LayoutManager;
@@ -311,8 +310,6 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase implemen
         if (cell instanceof OriginCell) {
           final LayoutComponent component = cell.getComponent();
 
-          component.setDisplay(Display.BLOCK); // TODO: use CSS via classes and tobago.css
-
           final Integer span = ((OriginCell) cell).getSpan(orientation);
 
           // compute the size of the cell
@@ -363,8 +360,6 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase implemen
         final Cell cell = grid.getCell(i, j, orientation);
         if (cell instanceof OriginCell) {
           final LayoutComponent component = cell.getComponent();
-
-          component.setDisplay(Display.BLOCK);
 
           // compute the position of the cell
           Measure position = Measure.ZERO;

@@ -267,6 +267,10 @@ span.tobago-calendar-header {
   vertical-align: bottom;
 }
 
+.ui-datepicker-trigger {
+  margin-left: 5px;
+}
+
 /* file -------------------------------------------------------------------- */
 
 .tobago-file {
