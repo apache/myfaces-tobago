@@ -33,7 +33,9 @@ public class TobagoSelenium extends DefaultSelenium {
   private String browserUrl;
 
   public TobagoSelenium(final String browserUrl) {
-    super(new HttpCommandProcessor("localhost", 4444, "*firefox", browserUrl)); //XXX should be replaced http://www.seleniumhq.org/docs/appendix_migrating_from_rc_to_webdriver.jsp#migrating-to-webdriver-reference
+    //XXX should be replaced
+    //XXX http://www.seleniumhq.org/docs/appendix_migrating_from_rc_to_webdriver.jsp#migrating-to-webdriver-reference
+    super(new HttpCommandProcessor("localhost", 4444, "*firefox", browserUrl));
     this.browserUrl = browserUrl;
   }
 
