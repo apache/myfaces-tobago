@@ -391,8 +391,20 @@ public class TobagoConfigImpl extends TobagoConfig {
     builder.append(createSessionSecret);
     builder.append(", \ncheckSessionSecret=");
     builder.append(checkSessionSecret);
+    builder.append(", \npreventFrameAttacks=");
+    builder.append(preventFrameAttacks);
+    builder.append(", \ncontentSecurityPolicy=");
+    builder.append(contentSecurityPolicy);
+    builder.append(", \nsetNosniffHeader=");
+    builder.append(setNosniffHeader);
+    builder.append(", \ndefaultValidatorInfo=");
+    builder.append(defaultValidatorInfo);
     builder.append(", \nsanitizer=");
     builder.append(sanitizer);
+    builder.append(", \nautoAccessKeyFromLabel=");
+    builder.append(autoAccessKeyFromLabel);
+    builder.append(", \n=classicDateTimePicker");
+    builder.append(classicDateTimePicker);
     // to see only different (ignore alternative names for the same theme)
     builder.append(", \nthemes=");
     final Set<Theme> all = new HashSet<Theme>(availableThemes.values());
