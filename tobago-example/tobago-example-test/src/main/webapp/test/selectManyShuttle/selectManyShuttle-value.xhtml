@@ -22,7 +22,7 @@
     xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:f="http://java.sun.com/jsf/core">
 
-  <tc:page>
+  <tc:page id="page">
     <tc:gridLayoutConstraint width="700px" height="400px"/>
     <f:facet name="layout">
       <tc:gridLayout rows="auto;*;auto;auto"/>
@@ -30,7 +30,7 @@
 
     <tc:messages/>
 
-    <tc:selectManyShuttle value="#{shuttle.value}">
+    <tc:selectManyShuttle value="#{shuttle.value}" id="shuttle">
       <tc:selectItem itemValue="a" itemLabel="A (disabled)" itemDisabled="true"/>
       <tc:selectItem itemValue="b" itemLabel="B"/>
       <tc:selectItem itemValue="c" itemLabel="C"/>
@@ -59,9 +59,9 @@
       <tc:selectItem itemValue="z" itemLabel="Z"/>
     </tc:selectManyShuttle>
 
-    <tc:button label="submit"/>
+    <tc:button label="submit" id="submit"/>
 
-    <tx:in label="on server" value="#{shuttle.result}" readonly="true"/>
+    <tx:in label="on server" value="#{shuttle.result}" readonly="true" fieldId="valueOnServer"/>
 
   </tc:page>
 </f:view>
