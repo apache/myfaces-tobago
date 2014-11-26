@@ -925,8 +925,15 @@ var Tobago = {
 
   initCss: function(elements) {
     // element styles
-/*
     console.time("[tobago] initCss"); // @DEV_ONLY
+    Tobago.Utils.selectWidthJQuery(elements, ".tobago-popup[data-tobago-style]").each(function () {
+      var element = jQuery(this);
+      element.css("left", element.data("tobago-style").left);
+      element.css("top", element.data("tobago-style").top);
+      element.css("width", element.data("tobago-style").width);
+      element.css("height", element.data("tobago-style").height);
+    });
+/* XXX this is the old Tobago 2.0 behaviour, should be deleded und removing these information from the tags
     Tobago.Utils.selectWidthJQuery(elements, "[data-tobago-style]").each(function () {
       var element = jQuery(this);
       if (Tobago.browser.isMsie678) { // IE before 9 doesn't support multiple backgrounds, so we use only the first.
@@ -934,8 +941,8 @@ var Tobago = {
       }
       element.css(element.data("tobago-style"));
     });
-    console.timeEnd("[tobago] initCss"); // @DEV_ONLY
 */
+    console.timeEnd("[tobago] initCss"); // @DEV_ONLY
   },
 
   /* supports only two background images in the moment */

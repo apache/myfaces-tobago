@@ -713,6 +713,10 @@ li.tobago-menu-markup-selected {
 
 /* popup -------------------------------------------------------------- */
 
+.tobago-popup {
+  position: absolute;
+}
+
 .tobago-popup-shield {
   cursor: wait;
   width: 100%;
