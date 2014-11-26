@@ -121,6 +121,8 @@ public class TobagoDemoController implements Serializable {
 
   private TabChangeListener tabChangeListener;
 
+  private String[] selectManyShuttle;
+
   public TobagoDemoController() {
 
     final String[] salutationKeys = {
@@ -545,5 +547,13 @@ public class TobagoDemoController implements Serializable {
 
   public void hideTab2(ActionEvent actionEvent) {
     FacesContext.getCurrentInstance().getExternalContext().getRequestMap().put("hideTab2", Boolean.TRUE);
+  }
+
+  public String[] getSelectManyShuttle() {
+    return selectManyShuttle;
+  }
+
+  public void setSelectManyShuttle(String[] selectManyShuttle) {
+    this.selectManyShuttle = selectManyShuttle;
   }
 }
