@@ -36,12 +36,14 @@
       <fallback>standard</fallback>
       <versioned>true</versioned>
       <resources production="true">
-        <script name="script/bootstrap-3.1.1.js"/>
-        <style name="style/bootstrap-3.1.1.css"/>
+        <script name="script/bootstrap-3.3.1.js"/>
+        <style name="style/bootstrap-3.3.1.css"/>
+        <style name="style/bootstrap-theme-3.3.1.css"/>
       </resources>
       <resources production="false">
-        <script name="script/bootstrap-3.1.1.js"/>
-        <style name="style/bootstrap-3.1.1.css"/>
+        <script name="script/bootstrap-3.3.1.js"/>
+        <style name="style/bootstrap-3.3.1.css"/>
+        <style name="style/bootstrap-theme-3.3.1.css"/>
       </resources>
     </theme-definition>
   </theme-definitions>
