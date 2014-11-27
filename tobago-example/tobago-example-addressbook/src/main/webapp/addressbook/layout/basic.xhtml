@@ -26,8 +26,13 @@
 
     <tc:page applicationIcon="icon/favicon.ico" label="${title}" id="page">
 
+      <f:facet name="layout">
+        <tc:flowLayout/>
+      </f:facet>
+
       <tc:script file="auth/logout.js"/>
 
+<!--
       <f:facet name="menuBar">
         <tc:menuBar>
           <tc:form>
@@ -68,9 +73,52 @@
           </tc:form>
         </tc:menuBar>
       </f:facet>
+-->
 
       <tc:panel>
+        <f:facet name="layout">
+          <tc:flowLayout/>
+        </f:facet>
+
         <ui:insert/>
+      </tc:panel>
+
+      <tc:separator/>
+
+      <tc:panel>
+        <f:facet name="layout">
+          <tc:bootstrapLayout medium="2;3;1;2;3;1"/>
+        </f:facet>
+        <!--
+              <tc:form>
+        -->
+        <tx:selectOneChoice label="#{bundle.footerLanguage}"
+                            value="#{controller.language}">
+          <f:selectItems value="#{controller.languages}"/>
+          <f:facet name="change">
+            <tc:command action="#{controller.languageChangedList}"/>
+          </f:facet>
+        </tx:selectOneChoice>
+        <!--
+              </tc:form>
+        -->
+        <tc:image alt="#{bundle.footerFlag}" width="16" height="11"
+                  value="#{bundle.footerFlagIcon}"/>
+        <!--
+              <tc:form>
+        -->
+        <tx:selectOneChoice label="#{bundle.footerTheme}" value="#{controller.theme}">
+          <f:selectItems value="#{controller.themeItems}"/>
+          <f:facet name="change">
+            <tc:command action="#{controller.themeChanged}"/>
+          </f:facet>
+        </tx:selectOneChoice>
+        <!--
+              </tc:form>
+        -->
+        <tc:button label="Dummy" action="#{controller.addDummyAddresses}" immediate="true"
+                   image="image/org/tango-project/tango-icon-theme/16x16/actions/contact-new.png"/>
+
       </tc:panel>
 
       <f:facet name="popup">

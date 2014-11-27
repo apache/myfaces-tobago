@@ -26,51 +26,61 @@
 
   <tc:page id="page" label="Login">
     <f:facet name="layout">
-      <tc:gridLayout rows="*;auto;*" columns="*;400px;*"/>
+      <tc:flexLayout rows="*;auto;*"/>
     </f:facet>
 
-    <tc:script file="auth/login.js"/>
+    <tc:out/>
 
-    <tc:cell spanX="3"/>
-
-    <tc:cell/>
-    <tc:box label="#{test.test}">
+    <tc:panel>
       <f:facet name="layout">
-        <tc:gridLayout rows="auto;auto;auto;auto"/>
+        <tc:flexLayout columns="*;auto;*"/>
       </f:facet>
 
-      <tc:panel>
+      <tc:out/>
+
+      <tc:box label="Login">
         <f:facet name="layout">
-          <tc:gridLayout rows="20px;20px" columns="2*;*"/>
-        </f:facet>
-        <tc:out value="#{bundle.loginIntro}"/>
-        <tc:link label="guest/guest" image="image/org/tango-project/tango-icon-theme/16x16/apps/system-users.png"
-                 omit="true">
-          <tc:dataAttribute name="login" value='{"username": "guest", "password": "guest"}'/>
-        </tc:link>
-
-        <tc:cell/>
-        <tc:link label="admin/admin" image="image/org/tango-project/tango-icon-theme/16x16/apps/system-users.png"
-                 omit="true">
-          <tc:dataAttribute name="login" value='{"username": "admin", "password": "admin"}'/>
-        </tc:link>
-      </tc:panel>
-
-      <tx:in fieldId="j_username" label="#{bundle.loginUser}"/>
-      <tx:in fieldId="j_password" password="true" label="#{bundle.loginPassword}"/>
-
-      <tc:panel>
-        <f:facet name="layout">
-          <tc:gridLayout columns="*;auto"/>
+          <tc:gridLayout rows="auto;auto;auto;auto"/>
         </f:facet>
 
-        <tc:cell/>
-        <tc:button label="#{bundle.loginLogin}" defaultCommand="true"/>
-      </tc:panel>
-    </tc:box>
+        <tc:panel>
+          <f:facet name="layout">
+            <tc:flowLayout/>
+          </f:facet>
+          <tc:out value="#{bundle.loginIntro}"/>
+          (
+          <tc:link label="guest/guest" image="image/org/tango-project/tango-icon-theme/16x16/apps/system-users.png"
+                   omit="true">
+            <tc:dataAttribute name="login" value='{"username": "guest", "password": "guest"}'/>
+          </tc:link>
+          or
+          <tc:link label="admin/admin" image="image/org/tango-project/tango-icon-theme/16x16/apps/system-users.png"
+                   omit="true">
+            <tc:dataAttribute name="login" value='{"username": "admin", "password": "admin"}'/>
+          </tc:link>
+          )
+        </tc:panel>
 
-    <tc:cell/>
-    <tc:cell spanX="3"/>
+        <tx:in fieldId="j_username" label="#{bundle.loginUser}"/>
+        <tx:in fieldId="j_password" password="true" label="#{bundle.loginPassword}"/>
+
+        <tc:panel>
+          <f:facet name="layout">
+            <tc:gridLayout columns="*;auto"/>
+          </f:facet>
+
+          <tc:cell/>
+          <tc:button label="#{bundle.loginLogin}" defaultCommand="true"/>
+        </tc:panel>
+      </tc:box>
+
+      <tc:out/>
+
+    </tc:panel>
+
+    <tc:out/>
+
+    <tc:script file="auth/login.js"/>
 
   </tc:page>
 </f:view>
