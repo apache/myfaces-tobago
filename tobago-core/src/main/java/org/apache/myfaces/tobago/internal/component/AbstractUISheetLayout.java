@@ -194,11 +194,6 @@ public abstract class AbstractUISheetLayout extends AbstractUILayoutBase impleme
     }
   }
 
-  private LayoutContainer getLayoutContainer() {
-    // todo: check with instanceof and do something in the error case
-    return ((LayoutContainer) getParent());
-  }
-
   @Override
   public boolean getRendersChildren() {
     return false;

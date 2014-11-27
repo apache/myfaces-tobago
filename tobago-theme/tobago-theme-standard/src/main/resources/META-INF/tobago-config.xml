@@ -91,6 +91,12 @@
           </supported-markup>
         </renderer>
         <renderer>
+          <name>FlexLayout</name>
+          <supported-markup>
+            <markup>vertically</markup>
+          </supported-markup>
+        </renderer>
+        <renderer>
           <name>Image</name>
           <supported-markup>
             <markup>disabled</markup>
@@ -346,6 +352,8 @@
           <supported-markup>
             <markup>disabled</markup>
             <markup>selected</markup>
+            <markup>big</markup>
+            <markup>right</markup>
           </supported-markup>
         </renderer>
         <renderer>

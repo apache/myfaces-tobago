@@ -26,6 +26,10 @@
     display: flex;
 }
 
+.tobago-flexLayout-markup-vertically {
+    flex-direction: column;
+}
+
 .tobago-flexLayout > .tobago-date,
 .tobago-flexLayout > .tobago-in,
 .tobago-flexLayout > .tobago-label,
@@ -66,6 +70,49 @@ table.tobago-gridLayout > tbody > tr > td:first-child {
 
 table.tobago-gridLayout > tbody > tr:first-child > td {
     border-top: 0;
+}
+
+/* sheet -------------------------------------------------------------- */
+
+.tobago-sheet-footer {
+  text-align: center;
+}
+
+.tobago-sheet-pagingOuter-markup-left {
+  float: left;
+}
+.tobago-sheet-pagingOuter-markup-center {
+}
+
+.tobago-sheet-pagingOuter-markup-right {
+  float:right;
+}
+
+.tobago-sheet-pagingInput {
+  text-align: center;
+}
+
+.tobago-sheet-pagingOuter {
+  vertical-align: top;
+  cursor: pointer;
+}
+
+.tobago-sheet-pagingText {
+  cursor: pointer;
+  vertical-align: top;
+}
+
+.tobago-sheet-footerPagerButton {
+  cursor: pointer;
+  vertical-align: top;
+}
+
+.tobago-sheet-footerPagerButton-markup-disabled {
+  cursor: auto;
+}
+
+.tobago-sheet-pagingLink {
+  vertical-align: top;
 }
 
 /* sheet -------------------------------------------------------------- */

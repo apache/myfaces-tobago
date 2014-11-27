@@ -25,6 +25,14 @@
 
   <name>TobagoCore</name>
 
+<!--
+  <ordering>
+    <after>
+      <others/>
+    </after>
+  </ordering>
+-->
+
   <listener>
     <listener-class>org.apache.myfaces.tobago.webapp.TobagoServletContextListener</listener-class>
   </listener>

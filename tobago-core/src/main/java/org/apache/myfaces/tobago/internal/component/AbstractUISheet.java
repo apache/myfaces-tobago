@@ -26,6 +26,7 @@ import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.OnComponentPopulated;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.Sorter;
+import org.apache.myfaces.tobago.component.SupportsCss;
 import org.apache.myfaces.tobago.component.SupportsRenderedPartially;
 import org.apache.myfaces.tobago.event.PageActionEvent;
 import org.apache.myfaces.tobago.event.SheetStateChangeEvent;
@@ -64,7 +65,7 @@ import java.util.Map;
 
 public abstract class AbstractUISheet extends AbstractUIData
     implements SheetStateChangeSource2, SortActionSource2, OnComponentPopulated,
-    LayoutContainer, LayoutComponent, SupportsRenderedPartially {
+    LayoutContainer, LayoutComponent, SupportsCss, SupportsRenderedPartially {
 
   private static final Logger LOG = LoggerFactory.getLogger(AbstractUISheet.class);
 

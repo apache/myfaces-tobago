@@ -1101,23 +1101,22 @@ hr.tobago-separator {
   left: 0;
   top: 0;
   height: 20px;
-  text-align: center;
   overflow: hidden;
 }
 
 .tobago-sheet-pagingOuter-markup-left {
-  position : absolute;
-  top: 0;
-  left: 0;
+  /*position : absolute;*/
+  /*top: 0;*/
+  /*left: 0;*/
 }
 .tobago-sheet-pagingOuter-markup-center {
 
 }
 
 .tobago-sheet-pagingOuter-markup-right {
-  position : absolute;
-  top: 0;
-  right: 0;
+  /*position : absolute;*/
+  /*top: 0;*/
+  /*right: 0;*/
 }
 
 .tobago-sheet-pagingInput {
@@ -1128,33 +1127,24 @@ hr.tobago-separator {
   padding-bottom: 0;
   margin-top: 0;
   margin-bottom: 0;
-  text-align: center;
 }
 
 .tobago-sheet-pagingOuter {
-  vertical-align: top;
-  cursor: pointer;
 }
 
 .tobago-sheet-pagingText {
-  cursor: pointer;
   padding-right: 5px;
-  vertical-align: top;
 }
 
 .tobago-sheet-footerPagerButton {
-  cursor: pointer;
-  vertical-align: top;
 }
 
 .tobago-sheet-footerPagerButton-markup-disabled {
-  cursor: auto;
 }
 
 .tobago-sheet-pagingLink {
   padding-left: 2px;
   padding-right: 2px;
-  vertical-align: top;
 }
 
 a:link.tobago-sheet-pagingLink, a:visited.tobago-sheet-pagingLink,

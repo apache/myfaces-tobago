@@ -52,6 +52,7 @@ public final class Markup implements Serializable, Iterable<String> {
   public static final Markup NULL = new Markup((String) null);
 
   public static final Markup ASCENDING = valueOf("ascending");
+  public static final Markup BIG = valueOf("big");
   public static final Markup CENTER = valueOf("center");
   public static final Markup CLICKABLE = valueOf("clickable");
   public static final Markup DEFAULT = valueOf("default");
@@ -86,6 +87,7 @@ public final class Markup implements Serializable, Iterable<String> {
   public static final Markup SORTABLE = valueOf("sortable");
   public static final Markup STRONG = valueOf("strong");
   public static final Markup TOP = valueOf("top");
+  public static final Markup VERTICALLY = valueOf("vertically");
   public static final Markup WARN = valueOf("warn");
 
   /* Just one of "values" and "value" must be null */

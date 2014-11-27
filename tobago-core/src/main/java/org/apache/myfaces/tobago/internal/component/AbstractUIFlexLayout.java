@@ -20,6 +20,8 @@
 package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.myfaces.tobago.component.SupportsMarkup;
+import org.apache.myfaces.tobago.layout.LayoutComponent;
+import org.apache.myfaces.tobago.layout.LayoutContainer;
 import org.apache.myfaces.tobago.layout.LayoutManager;
 import org.apache.myfaces.tobago.layout.Orientation;
 
@@ -31,6 +33,11 @@ public abstract class AbstractUIFlexLayout extends AbstractUILayoutBase implemen
   public static final String COMPONENT_FAMILY = "org.apache.myfaces.tobago.FlexLayout";
 
   public void init() {
+    for (final LayoutComponent component : getLayoutContainer().getComponents()) {
+      if (component instanceof LayoutContainer && component.isRendered()) {
+        ((LayoutContainer) component).getLayoutManager().init();
+      }
+    }
   }
 
   public void fixRelativeInsideAuto(final Orientation orientation, final boolean auto) {

@@ -19,7 +19,8 @@
 
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
-import org.apache.myfaces.tobago.internal.component.AbstractUIFlexLayout;
+import org.apache.myfaces.tobago.component.UIFlexLayout;
+import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.layout.LayoutContainer;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
@@ -40,13 +41,52 @@ public class FlexLayoutRenderer extends RendererBase {
 
   @Override
   public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
-    final AbstractUIFlexLayout flexLayout = (AbstractUIFlexLayout) component;
+    final UIFlexLayout flexLayout = (UIFlexLayout) component;
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
     writer.startElement(HtmlElements.DIV, flexLayout);
-    writer.writeClassAttribute(Classes.create(flexLayout));
+    final String columns = flexLayout.getColumns();
+    StringBuilder b = new StringBuilder(); // TODO: implement better: own class, parser, validation, etc.
+    if (columns.contains(";")) {
+      b.append("{\"columns\":[");
+      b.append(columns
+          .replace("auto", "\"auto\"")
+          .replace(";", ",")
+          .replace("1*", "1")
+          .replace("2*", "2")
+          .replace("3*", "3")
+          .replace("4*", "4")
+          .replace("5*", "5")
+          .replace("6*", "6")
+          .replace("7*", "7")
+          .replace("8*", "8")
+          .replace("9*", "9")
+          .replace("*", "1"));
+      b.append("]}");
+    }
+    final String rows = flexLayout.getRows();
+    if (rows.contains(";")) {
+      b.append("{\"rows\":[");
+      b.append(rows
+          .replace("auto", "\"auto\"")
+          .replace(";", ",")
+          .replace("1*", "1")
+          .replace("2*", "2")
+          .replace("3*", "3")
+          .replace("4*", "4")
+          .replace("5*", "5")
+          .replace("6*", "6")
+          .replace("7*", "7")
+          .replace("8*", "8")
+          .replace("9*", "9")
+          .replace("*", "1"));
+      b.append("]}");
+    }
+    boolean vertically = rows.contains(";");
+    writer.writeClassAttribute(Classes.create(flexLayout, vertically ? Markup.VERTICALLY : Markup.NULL));
     // todo: const, utils, etc.
-    writer.writeAttribute("data-tobago-layout", "{\"columns\":[\"auto\",1]}", true);
+    writer.writeAttribute("data-tobago-layout", b.toString(), true);
+//    writer.writeAttribute("data-tobago-layout", "{\"columns\":[\"auto\",1]}", true);
   }
 
   @Override

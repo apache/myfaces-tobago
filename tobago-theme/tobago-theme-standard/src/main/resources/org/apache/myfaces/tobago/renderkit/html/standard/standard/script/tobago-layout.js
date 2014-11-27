@@ -196,6 +196,7 @@ jQuery(document).ready(function () {
   flexLayouts.each(function () {
     var container = jQuery(this);
     layoutFlex(container, true);
+    layoutFlex(container, false);
   });
 
 });

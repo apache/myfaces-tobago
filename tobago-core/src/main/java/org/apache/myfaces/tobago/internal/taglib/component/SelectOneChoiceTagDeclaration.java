@@ -29,9 +29,14 @@ import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasBinding;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasConverter;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasCss;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentCss;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasId;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabel;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
+import org.apache.myfaces.tobago.internal.taglib.declaration.InputTagDeclaration;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsReadonly;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsRendered;
@@ -64,8 +69,8 @@ import javax.faces.component.UISelectOne;
         allowedChildComponenents = "org.apache.myfaces.tobago.Command")
         })
 public interface SelectOneChoiceTagDeclaration
-    extends SelectOneTagDeclaration, HasId, IsDisabled,
-    IsReadonly, HasLabel, IsRendered, HasConverter, HasBinding, HasTip {
+    extends InputTagDeclaration, HasId, IsDisabled, IsReadonly, HasLabel,
+    IsRendered, HasConverter, HasBinding, HasTip, HasMarkup, HasCurrentMarkup, HasCss, HasCurrentCss {
 
   /**
    * Flag indicating that selecting an Item representing a value is required.

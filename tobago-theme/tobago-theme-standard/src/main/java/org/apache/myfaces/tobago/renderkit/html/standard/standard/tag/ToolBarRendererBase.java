@@ -62,10 +62,26 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
 
   private static final Logger LOG = LoggerFactory.getLogger(ToolBarRendererBase.class);
 
+  @Override
+  public void prepareRender(
+      final FacesContext facesContext, final UIComponent component) throws IOException {
+    super.prepareRender(facesContext, component);
+
+    final UIToolBar toolBar = (UIToolBar) component;
+
+    if ("big".equals(getIconSize(toolBar))) {
+      ComponentUtils.addCurrentMarkup(toolBar, Markup.BIG);
+    }
+    if ("right".equals(getLabelPosition(toolBar))) {
+      ComponentUtils.addCurrentMarkup(toolBar, Markup.RIGHT);
+    }
+  }
+
   protected String getLabelPosition(final UIComponent component) {
     return (String) component.getAttributes().get(Attributes.LABEL_POSITION);
   }
 
+  // XXX remove it, after removing subclasses
   protected String getIconSize(final UIComponent component) {
     return (String) component.getAttributes().get(Attributes.ICON_SIZE);
   }

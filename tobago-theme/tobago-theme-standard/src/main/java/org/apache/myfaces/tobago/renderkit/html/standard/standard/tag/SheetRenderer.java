@@ -34,6 +34,7 @@ import org.apache.myfaces.tobago.component.UIReload;
 import org.apache.myfaces.tobago.component.UISheet;
 import org.apache.myfaces.tobago.component.UIToolBar;
 import org.apache.myfaces.tobago.config.Configurable;
+import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.event.PageAction;
@@ -248,7 +249,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
     writer.writeAttribute(HtmlAttributes.CELLSPACING, "0", false);
     writer.writeAttribute(HtmlAttributes.CELLPADDING, "0", false);
     writer.writeAttribute(HtmlAttributes.SUMMARY, "", false);
-    writer.writeClassAttribute(Classes.create(sheet, "bodyTable"));
+    writer.writeClassAttribute(Classes.create(sheet, "bodyTable table table-hover")); // XXX table comes from bootstrap
 
     if (columnWidths != null) {
       writer.startElement(HtmlElements.COLGROUP, null);
@@ -474,6 +475,16 @@ public class SheetRenderer extends LayoutComponentRendererBase {
           link(facesContext, application, areaId, atEnd || !sheet.hasRowCount(), PageAction.LAST, sheet);
         }
         writer.endElement(HtmlElements.SPAN);
+/*
+        writer.startElement(HtmlElements.UL, null);
+        final Classes pagingOuter = Classes.create(sheet, "pagingOuter", showDirectLinks);
+        // XXX hack for bootstrap
+        final String css = pagingOuter.getStringValue() + " pagination tobago-sheet-pagingLinks";
+        writer.writeClassAttribute(css);
+//        writer.writeIdAttribute(sheetId + ComponentUtils.SUB_SEPARATOR + "pagingLinks");
+        writeDirectPagingLinks(writer, facesContext, application, sheet);
+        writer.endElement(HtmlElements.UL);
+*/
       }
 
       // show page range
@@ -787,7 +798,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
     writer.writeAttribute(HtmlAttributes.CELLSPACING, "0", false);
     writer.writeAttribute(HtmlAttributes.CELLPADDING, "0", false);
     writer.writeAttribute(HtmlAttributes.SUMMARY, "", false);
-    writer.writeClassAttribute(Classes.create(sheet, "headerTable"));
+    writer.writeClassAttribute(Classes.create(sheet, "headerTable table")); // XXX table comes from bootstrap
     if (needVerticalScrollbar) {
       verticalScrollbarWidth = getVerticalScrollbarWeight(facesContext, sheet).getPixel();
       writer.writeAttribute("data-tobago-sheet-verticalscrollbarwidth", String.valueOf(verticalScrollbarWidth), false);
@@ -809,7 +820,8 @@ public class SheetRenderer extends LayoutComponentRendererBase {
       for (int j = 0; j < grid.getColumnCount(); j++) {
         final Cell cell = grid.getCell(j, i);
         if (cell instanceof OriginCell) {
-          writer.startElement(HtmlElements.TD, null);
+//          writer.startElement(HtmlElements.TD, null);
+          writer.startElement(HtmlElements.TH, null);
           if (cell.getColumnSpan() > 1) {
             writer.writeAttribute(HtmlAttributes.COLSPAN, cell.getColumnSpan());
           }
@@ -931,11 +943,13 @@ public class SheetRenderer extends LayoutComponentRendererBase {
           }
           writer.endElement(HtmlElements.DIV);
 
-          writer.endElement(HtmlElements.TD);
+//          writer.endElement(HtmlElements.TD);
+          writer.endElement(HtmlElements.TH);
         }
       }
       // add a filler column
-      writer.startElement(HtmlElements.TD, null);
+//      writer.startElement(HtmlElements.TD, null);
+      writer.startElement(HtmlElements.TH, null);
       writer.startElement(HtmlElements.DIV, null);
       // todo: is the filler class needed here?
       writer.writeClassAttribute(Classes.create(sheet, "headerCell", Markup.FILLER));
@@ -946,7 +960,8 @@ public class SheetRenderer extends LayoutComponentRendererBase {
       writer.writeStyleAttribute(headerStyle);
       writer.endElement(HtmlElements.SPAN);
       writer.endElement(HtmlElements.DIV);
-      writer.endElement(HtmlElements.TD);
+//      writer.endElement(HtmlElements.TD);
+      writer.endElement(HtmlElements.TH);
 
       writer.endElement(HtmlElements.TR);
     }
@@ -1075,45 +1090,57 @@ public class SheetRenderer extends LayoutComponentRendererBase {
       }
     }
 
+    final boolean bootstrap = ClientProperties.getInstance(facesContext).getTheme().getName().equals("bootstrap");
     String name;
+    name = bootstrap ? "«" : "...";
     int skip = prevs.size() > 0 ? prevs.get(0) : 1;
     if (!sheet.isShowDirectLinksArrows() && skip > 1) {
       skip -= (linkCount - (linkCount / 2));
       skip--;
-      name = DOTS;
+      name = "...";
       if (skip < 1) {
         skip = 1;
         if (prevs.get(0) == 2) {
           name = "1";
         }
       }
-      writeLinkElement(writer, sheet, name, skip, true);
+      writeLinkElement(writer, sheet, name, skip, PagingLinkType.NORMAL);
+    } else {
+      writeLinkElement(writer, sheet, name, null, PagingLinkType.DISABLED);
     }
     for (final Integer prev : prevs) {
       name = prev.toString();
-      writeLinkElement(writer, sheet, name, prev, true);
+      writeLinkElement(writer, sheet, name, prev, PagingLinkType.NORMAL);
     }
     name = Integer.toString(sheet.getCurrentPage() + 1);
-    writeLinkElement(writer, sheet, name, sheet.getCurrentPage() + 1, false);
+    writeLinkElement(writer, sheet, name, sheet.getCurrentPage() + 1, PagingLinkType.CURRENT);
 
     for (final Integer next : nexts) {
       name = next.toString();
-      writeLinkElement(writer, sheet, name, next, true);
+      writeLinkElement(writer, sheet, name, next, PagingLinkType.NORMAL);
     }
 
+    // XXX hack bootstrap
+    name = bootstrap ? "»" : "...";
     skip = nexts.size() > 0 ? nexts.get(nexts.size() - 1) : pages;
     if (!sheet.isShowDirectLinksArrows() && skip < pages) {
       skip += linkCount / 2;
       skip++;
-      name = DOTS;
+      name = "...";
       if (skip > pages) {
         skip = pages;
         if ((nexts.get(nexts.size() - 1)) == skip - 1) {
           name = Integer.toString(skip);
         }
       }
-      writeLinkElement(writer, sheet, name, skip, true);
+      writeLinkElement(writer, sheet, name, skip, PagingLinkType.NORMAL);
+    } else {
+      writeLinkElement(writer, sheet, name, null, PagingLinkType.DISABLED);
     }
+  }
+
+  private enum PagingLinkType {
+    NORMAL, CURRENT, DISABLED
   }
 
   private UICommand createPagingCommand(
@@ -1129,18 +1156,30 @@ public class SheetRenderer extends LayoutComponentRendererBase {
   }
 
   private void writeLinkElement(
-      final TobagoResponseWriter writer, final UISheet sheet, final String text, final int page, final boolean makeLink)
+      final TobagoResponseWriter writer, final UISheet sheet, final String name, final Integer toPage,
+      final PagingLinkType pagingLinkType)
       throws IOException {
-    final String type = makeLink ? HtmlElements.A : HtmlElements.SPAN;
-    writer.startElement(type, null);
+    String innerElement = pagingLinkType == PagingLinkType.NORMAL ? HtmlElements.A : HtmlElements.SPAN;
+
+    writer.startElement(HtmlElements.LI, null);
+    if (pagingLinkType == PagingLinkType.CURRENT) {
+      // XXX hack for Bootstrap
+      writer.writeClassAttribute("active");
+    }
+    if (pagingLinkType == PagingLinkType.DISABLED) {
+      // XXX hack for Bootstrap
+      writer.writeClassAttribute("disabled");
+    }
+    writer.startElement(innerElement, null);
     writer.writeClassAttribute(Classes.create(sheet, "pagingLink"));
-    if (makeLink) {
-      writer.writeAttribute(DataAttributes.TO_PAGE, page);
+    if (pagingLinkType == PagingLinkType.NORMAL) {
+      writer.writeAttribute(DataAttributes.TO_PAGE, toPage);
       writer.writeAttribute(HtmlAttributes.HREF, "#", true);
     }
     writer.flush();
-    writer.write(text);
-    writer.endElement(type);
+    writer.write(name);
+    writer.endElement(innerElement);
+    writer.endElement(HtmlElements.LI);
   }
 
   private Measure getContentBorder(final FacesContext facesContext, final UISheet data) {

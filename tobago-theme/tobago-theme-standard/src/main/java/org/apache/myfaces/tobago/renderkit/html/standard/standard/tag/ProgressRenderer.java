@@ -22,7 +22,6 @@ package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UICommand;
 import org.apache.myfaces.tobago.component.UIProgress;
-import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
@@ -56,18 +55,12 @@ public class ProgressRenderer extends LayoutComponentRendererBase {
 
     final int diff = model.getMaximum() - model.getMinimum();
     Object title = progress.getAttributes().get(Attributes.TIP);
+    final double percent = 100.0 * model.getValue() / diff;
     if (title == null && diff > 0) {
-      title = Integer.toString(100 * model.getValue() / diff) + " %";
+      title = Integer.toString((int)percent) + " %";
     }
 
     final Style style = new Style(facesContext, progress);
-    final Measure width = style.getWidth();
-    final Measure valueWidth = diff > 0 ? width.multiply(model.getValue()).divide(diff) : width;
-
-    final Style valueStyle = new Style();
-    valueStyle.setHeight(style.getHeight());
-    valueStyle.setWidth(valueWidth);
-
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
     writer.startElement(HtmlElements.DIV, progress);
@@ -83,7 +76,7 @@ public class ProgressRenderer extends LayoutComponentRendererBase {
     }
     writer.startElement(HtmlElements.DIV, null);
     writer.writeClassAttribute(Classes.create(progress, "value"));
-    writer.writeStyleAttribute(valueStyle);
+    writer.writeStyleAttribute("width: " + percent + "%");
     writer.endElement(HtmlElements.DIV);
 
     writer.endElement(HtmlElements.DIV);

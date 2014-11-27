@@ -19,6 +19,7 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
+import org.apache.myfaces.tobago.component.SupportsCss;
 import org.apache.myfaces.tobago.component.SupportsMarkup;
 import org.apache.myfaces.tobago.layout.LayoutComponent;
 import org.apache.myfaces.tobago.util.MessageUtils;
@@ -28,7 +29,7 @@ import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 
 public abstract class AbstractUISelectOneBase extends javax.faces.component.UISelectOne
-    implements SupportsMarkup, LayoutComponent {
+    implements SupportsMarkup, SupportsCss, LayoutComponent {
 
   public static final String MESSAGE_VALUE_REQUIRED = "tobago.SelectOne.MESSAGE_VALUE_REQUIRED";
 

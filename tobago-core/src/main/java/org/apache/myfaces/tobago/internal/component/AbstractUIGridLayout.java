@@ -399,7 +399,7 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase implemen
     }
   }
 
-  private LayoutContainer getLayoutContainer() {
+  public LayoutContainer getLayoutContainer() {
     return ComponentUtils.findAncestor(getParent(), LayoutContainer.class);
   }
 
@@ -467,6 +467,9 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase implemen
   public abstract boolean isRigid();
 
   public Grid getGrid() {
+    if (grid == null) {
+      init();
+    }
     return grid;
   }
 

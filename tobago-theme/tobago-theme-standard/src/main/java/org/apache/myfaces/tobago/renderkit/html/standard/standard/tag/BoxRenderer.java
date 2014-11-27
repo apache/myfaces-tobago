@@ -78,14 +78,14 @@ public class BoxRenderer extends BoxRendererBase {
       }
 
       if (toolbar != null) {
-        writer.startElement(HtmlElements.DIV, null);
+        writer.startElement(HtmlElements.SPAN, null);
         writer.writeClassAttribute(Classes.create(box, "toolbarOuter"));
-        writer.startElement(HtmlElements.DIV, null);
+        writer.startElement(HtmlElements.SPAN, null);
         writer.writeClassAttribute(Classes.create(box, "toolbarInner"));
         toolbar.setRendererType(RendererTypes.BOX_TOOL_BAR);
         RenderUtils.encode(facesContext, toolbar);
-        writer.endElement(HtmlElements.DIV);
-        writer.endElement(HtmlElements.DIV);
+        writer.endElement(HtmlElements.SPAN);
+        writer.endElement(HtmlElements.SPAN);
       }
 
       writer.endElement(HtmlElements.LEGEND);
