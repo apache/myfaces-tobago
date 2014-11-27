@@ -19,35 +19,19 @@
 
 package org.apache.myfaces.tobago.renderkit.html.bootstrap.standard.tag;
 
-import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.component.SupportsCss;
-import org.apache.myfaces.tobago.internal.component.AbstractUIToolBar;
-import org.apache.myfaces.tobago.util.ComponentUtils;
+public class SheetRenderer extends org.apache.myfaces.tobago.renderkit.html.standard.standard.tag.SheetRenderer {
 
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import java.io.IOException;
-
-public class ButtonRenderer extends org.apache.myfaces.tobago.renderkit.html.standard.standard.tag.ButtonRenderer {
-
+/*
   @Override
   public void prepareRender(
       final FacesContext facesContext, final UIComponent component) throws IOException {
     super.prepareRender(facesContext, component);
 
-    if (component instanceof SupportsCss) {
-      SupportsCss css = (SupportsCss) component;
-      css.getCurrentCss().add("btn");
-      if (ComponentUtils.getBooleanAttribute(component, Attributes.DEFAULT_COMMAND)) {
-        css.getCurrentCss().add("btn-primary");
-      } else {
-        css.getCurrentCss().add("btn-default");
-      }
-
-      // TODO this might be too expensive: please put a flag in the ToolBar-handler and Button-handler (facelets-handler)
-      if (ComponentUtils.findAncestor(component, AbstractUIToolBar.class) != null) {
-        css.getCurrentCss().add("navbar-btn");
-      }
-    }
+    SupportsCss css = (SupportsCss) component;
+    css.getCurrentCss().add("table");
   }
+*/
+
+// todo: css class "table" for the element "table"... (is hacked in the base renderer in the moment...)
+
 }
