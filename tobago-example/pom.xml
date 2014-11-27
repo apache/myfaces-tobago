@@ -452,14 +452,29 @@
     <profile>
       <id>jboss</id>
       <build>
-      <plugins>
-        <plugin>
-          <groupId>org.jboss.as.plugins</groupId>
-          <artifactId>jboss-as-maven-plugin</artifactId>
-          <version>7.3.Final</version>
-        </plugin>
-      </plugins>
+        <plugins>
+          <plugin>
+            <!--
+              Running examples with JBoss AS, try:
+              mvn -Pjboss clean jboss-as:run -Djsf=provided
+             -->
+            <groupId>org.jboss.as.plugins</groupId>
+            <artifactId>jboss-as-maven-plugin</artifactId>
+            <version>7.6.Final</version>
+          </plugin>
+          <plugin>
+            <!--
+              Running examples with Wildfly, try:
+              try: mvn -Pjboss clean wildfly:run -Djsf=provided
+             -->
+            <groupId>org.wildfly.plugins</groupId>
+            <artifactId>wildfly-maven-plugin</artifactId>
+            <version>1.0.2.Final</version>
+          </plugin>
+        </plugins>
       </build>
     </profile>
+
   </profiles>
+
 </project>
