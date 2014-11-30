@@ -808,7 +808,11 @@ public class SheetRenderer extends LayoutComponentRendererBase {
       writer.startElement(HtmlElements.COLGROUP, null);
       for (int i = 0; i < columnWidths.size(); i++) {
         writer.startElement(HtmlElements.COL, null);
-        writer.writeAttribute(HtmlAttributes.WIDTH, columnWidths.get(i));
+        if (needVerticalScrollbar && i == columnWidths.size() - 1) {
+          writer.writeAttribute(HtmlAttributes.WIDTH, columnWidths.get(i) + verticalScrollbarWidth);
+        } else {
+          writer.writeAttribute(HtmlAttributes.WIDTH, columnWidths.get(i));
+        }
         writer.endElement(HtmlElements.COL);
       }
       writer.endElement(HtmlElements.COLGROUP);
