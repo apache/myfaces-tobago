@@ -274,10 +274,16 @@ public abstract class AbstractUISheetLayout extends AbstractUILayoutBase impleme
       parseFixedWidth(layoutInfo, renderedColumns, columnSelectorWidth);
       layoutInfo.parseColumnLayout(space.getPixel());
       currentWidthList = layoutInfo.getSpaceList();
+
+      int freeWidth = space.getPixel();
+      for (Integer width : currentWidthList) {
+        freeWidth -= width;
+      }
+
       if (needVerticalScrollbar) {
-        currentWidthList.add(verticalScrollbarWeight.getPixel()); // filler column
+        currentWidthList.add(Math.max(freeWidth, verticalScrollbarWeight.getPixel())); // filler column
       } else {
-        currentWidthList.add(0); // empty filler column
+        currentWidthList.add(Math.max(freeWidth, 0)); // empty filler column
       }
     }
 
