@@ -418,7 +418,7 @@ Tobago.Sheet.setup2 = function (sheets) {
 
     // store the position in a hidden field
     var hidden = Tobago.Sheet.hidden(sheetBody.parent(), "scrollPosition");
-    hidden.val(scrollLeft + ";" + scrollTop);
+    hidden.val(Math.round(scrollLeft) + ";" + Math.round(scrollTop));
   });
 
   // init last click
