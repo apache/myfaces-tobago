@@ -24,5 +24,11 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core">
   <ui:param name="title" value="#{overviewBundle.intro}"/>
-  <tc:out escape="false" value="#{overviewBundle.intro_text}"/>
+  <tc:panel>
+    <f:facet name="layout">
+      <tc:gridLayout rowOverflow="true"/>
+    </f:facet>
+
+    <tc:out escape="false" value="#{overviewBundle.intro_text}"/>
+  </tc:panel>
 </ui:composition>
