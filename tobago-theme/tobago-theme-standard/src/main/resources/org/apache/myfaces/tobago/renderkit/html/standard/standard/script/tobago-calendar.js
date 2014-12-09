@@ -19,7 +19,7 @@ Tobago.Calendar = {};
 
 Tobago.Calendar.init = function (elements) {
   // init next/prev buttons
-  var buttons = Tobago.Utils.selectWidthJQuery(elements, ".tobago-calendar-header[data-tobago-command]");
+  var buttons = Tobago.Utils.selectWithJQuery(elements, ".tobago-calendar-header[data-tobago-command]");
   buttons.each(function () {
     var button = jQuery(this);
     var step;
@@ -46,7 +46,7 @@ Tobago.Calendar.init = function (elements) {
   });
 
   // click directly on a day
-  var days = Tobago.Utils.selectWidthJQuery(elements, ".tobago-calendar-day");
+  var days = Tobago.Utils.selectWithJQuery(elements, ".tobago-calendar-day");
   days.each(function () {
     var day = jQuery(this);
     day.click(function () {
@@ -58,14 +58,14 @@ Tobago.Calendar.init = function (elements) {
   });
 
   // init from data field, if there is any (e. g. we are in date picker popup)
-  var calendarWithDateField = Tobago.Utils.selectWidthJQuery(elements, ".tobago-calendar[data-tobago-date-input-id]");
+  var calendarWithDateField = Tobago.Utils.selectWithJQuery(elements, ".tobago-calendar[data-tobago-date-input-id]");
   calendarWithDateField.each(function () {
     var calendar = jQuery(this);
     Tobago.Calendar.initFromDateField(calendar);
   });
 
   var okButton
-      = Tobago.Utils.selectWidthJQuery(elements, ".tobago-calendar").parent().find("button[data-tobago-date-picker-ok]");
+      = Tobago.Utils.selectWithJQuery(elements, ".tobago-calendar").parent().find("button[data-tobago-date-picker-ok]");
   okButton.click(function () {
     var button = jQuery(this);
     var calendar = button.parent().parent().find(".tobago-calendar");
@@ -301,7 +301,7 @@ Tobago.Time = {};
 Tobago.Time.init = function (elements) {
 
   // time input fields
-  Tobago.Utils.selectWidthJQuery(elements, ".tobago-time-input")
+  Tobago.Utils.selectWithJQuery(elements, ".tobago-time-input")
       .not("[disabled]").not("[readonly]")
       .focus(function () {
         Tobago.Time.focus(jQuery(this));
@@ -314,21 +314,21 @@ Tobago.Time.init = function (elements) {
       });
 
   // increment button
-  Tobago.Utils.selectWidthJQuery(elements, ".tobago-time-incImage")
+  Tobago.Utils.selectWithJQuery(elements, ".tobago-time-incImage")
       .not("[disabled]").not("[readonly]")
       .click(function () {
         Tobago.Time.increment(jQuery(this));
       });
 
   // decrement button
-  Tobago.Utils.selectWidthJQuery(elements, ".tobago-time-decImage")
+  Tobago.Utils.selectWithJQuery(elements, ".tobago-time-decImage")
       .not("[disabled]").not("[readonly]")
       .click(function () {
         Tobago.Time.decrement(jQuery(this));
       });
 
   // init from data field, if there is any (e. g. we are in date picker popup)
-  Tobago.Utils.selectWidthJQuery(elements, ".tobago-time[data-tobago-date-input-id]")
+  Tobago.Utils.selectWithJQuery(elements, ".tobago-time[data-tobago-date-input-id]")
       .each(function () {
         Tobago.Time.initFromDateField(jQuery(this));
       });
@@ -490,7 +490,7 @@ Tobago.DateTime.init = function (elements) {
   // time input fields
 //  jQuery.datepicker.setDefaults(jQuery.datepicker.regional['de']);
 
-  Tobago.Utils.selectWidthJQuery(elements, ".tobago-date, .tobago-time")
+  Tobago.Utils.selectWithJQuery(elements, ".tobago-date, .tobago-time")
       .not("[disabled]")
       .not("[readonly]")
       .not("[data-tobago-classic-date-time-picker]")

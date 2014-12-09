@@ -27,7 +27,7 @@ Tobago.Utils.escapeClientId = function(id) {
 };
 
 /**
- * @deprecated since Tobago 2.0.5 because of spelling
+ * @deprecated since Tobago 2.0.5 because of misspelling
  */
 Tobago.Utils.selectWidthJQuery = function(elements, selector) {
   return Tobago.Utils.selectWithJQuery(elements, selector);
@@ -47,10 +47,10 @@ Tobago.Utils.selectWithJQuery = function(elements, selector) {
 
   if (Tobago.browser.isMsie678) {
     if (selector.match(/^\[[-_a-zA-Z0-9]+\]$/)) {
-      return Tobago.Utils.ieSelectWidthJQueryAttr(elements, selector);
+      return Tobago.Utils.ieSelectWithJQueryAttr(elements, selector);
     }
     if (selector == Tobago.Command.INPUTS_FOR_DEFAULT) {
-      return Tobago.Utils.ieSelectWidthJQueryInputs(elements);
+      return Tobago.Utils.ieSelectWithJQueryInputs(elements);
     }
   }
 
@@ -58,7 +58,7 @@ Tobago.Utils.selectWithJQuery = function(elements, selector) {
 };
 
 /** internal function for IE <= 8 performance */
-Tobago.Utils.ieSelectWidthJQueryAttr = function (elements, selector) {
+Tobago.Utils.ieSelectWithJQueryAttr = function (elements, selector) {
   var founds = [];
   for (var i = 0; i < elements.length; i++) {
     Tobago.Utils.ieFilterAttributes(elements.get(i), selector.substr(1, selector.length - 2), founds);
@@ -67,7 +67,7 @@ Tobago.Utils.ieSelectWidthJQueryAttr = function (elements, selector) {
 };
 
 /** internal function for IE <= 8 performance */
-Tobago.Utils.ieSelectWidthJQueryInputs = function(elements) {
+Tobago.Utils.ieSelectWithJQueryInputs = function(elements) {
   var founds = [];
   for (var i = 0; i < elements.length; i++) {
     var element = elements.get(i);

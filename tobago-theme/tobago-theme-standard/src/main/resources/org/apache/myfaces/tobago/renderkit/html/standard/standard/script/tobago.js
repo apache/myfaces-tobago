@@ -883,7 +883,7 @@ var Tobago = {
   initDom: function(elements) {
 
     // focus
-    var autofocus = Tobago.Utils.selectWidthJQuery(elements, '[autofocus]');
+    var autofocus = Tobago.Utils.selectWithJQuery(elements, '[autofocus]');
     autofocus.each(function () {
       // setupFocus
       Tobago.focusId = jQuery(this).attr("id");
@@ -891,12 +891,12 @@ var Tobago = {
     });
 
     // commands
-    Tobago.Utils.selectWidthJQuery(elements, '[data-tobago-commands]')
+    Tobago.Utils.selectWithJQuery(elements, '[data-tobago-commands]')
         .each(function () {Tobago.initCommand(jQuery(this));});
 
 /*
     // access keys
-    var accesskeys = Tobago.Utils.selectWidthJQuery(elements, '[accesskey]');
+    var accesskeys = Tobago.Utils.selectWithJQuery(elements, '[accesskey]');
     accesskeys.each(function () {
       // setupAccessKey
       var el = jQuery(this);
@@ -938,7 +938,7 @@ var Tobago = {
   initCss: function(elements) {
     // element styles
     console.time("[tobago] initCss"); // @DEV_ONLY
-    Tobago.Utils.selectWidthJQuery(elements, "[data-tobago-style]").each(function () {
+    Tobago.Utils.selectWithJQuery(elements, "[data-tobago-style]").each(function () {
       var element = jQuery(this);
       if (Tobago.browser.isMsie678) { // IE before 9 doesn't support multiple backgrounds, so we use only the first.
         Tobago.fixMultiBackgroundIE8(element);
@@ -1005,11 +1005,11 @@ var Tobago = {
   },
 
   /**
-   * @deprecated Please use Tobago.Utils.selectWidthJQuery()
+   * @deprecated Please use Tobago.Utils.selectWithJQuery()
    */
-  selectWidthJQuery: function(elements, selector) {
-    console.warn("Deprecated method was called. Please use Tobago.Utils.selectWidthJQuery()"); // @DEV_ONLY
-    return Tobago.Utils.selectWidthJQuery(elements, selector);
+  selectWithJQuery: function(elements, selector) {
+    console.warn("Deprecated method was called. Please use Tobago.Utils.selectWithJQuery()"); // @DEV_ONLY
+    return Tobago.Utils.selectWithJQuery(elements, selector);
   },
 
   ensureScrollbarWeights: function() {
@@ -1668,7 +1668,7 @@ Tobago.Panel = function(panelId, enableAjax, autoReload) {
 };
 
 Tobago.Panel.init = function(elements) {
-  var reloads = Tobago.Utils.selectWidthJQuery(elements, ".tobago-panel[data-tobago-reload]");
+  var reloads = Tobago.Utils.selectWithJQuery(elements, ".tobago-panel[data-tobago-reload]");
   reloads.each(function(){
     var id = jQuery(this).attr("id");
     var period = jQuery(this).data("tobago-reload");
@@ -2333,7 +2333,7 @@ Tobago.ToolBar.init = function(elements) {
   // doing the same for 3 renderer names
   // XXX put this in a loop (the first try doesn't work, because we can't use local variables in a anonymous function)
 
-    Tobago.Utils.selectWidthJQuery(elements, ".tobago-toolBar").find('.tobago-toolBar-item')
+    Tobago.Utils.selectWithJQuery(elements, ".tobago-toolBar").find('.tobago-toolBar-item')
         .not('.tobago-toolBar-item-markup-disabled')
         .hover(function() {
       jQuery(this).toggleClass('tobago-toolBar-item-markup-hover');
@@ -2363,7 +2363,7 @@ Tobago.ToolBar.init = function(elements) {
       });
     });
 
-    Tobago.Utils.selectWidthJQuery(elements, ".tobago-box-headerToolBar").find('.tobago-boxToolBar-item')
+    Tobago.Utils.selectWithJQuery(elements, ".tobago-box-headerToolBar").find('.tobago-boxToolBar-item')
         .not('.tobago-boxToolBar-item-markup-disabled')
         .hover(function() {
       jQuery(this).toggleClass('tobago-boxToolBar-item-markup-hover');
@@ -2393,7 +2393,7 @@ Tobago.ToolBar.init = function(elements) {
       });
     });
 
-  Tobago.Utils.selectWidthJQuery(elements, ".tobago-tabGroup-toolBar")
+  Tobago.Utils.selectWithJQuery(elements, ".tobago-tabGroup-toolBar")
       .find(".tobago-menu[data-tobago-index]").each(function () {
         var menu = jQuery(this);
         menu.data("tobago-tabGroup", menu.closest(".tobago-tabGroup"));
@@ -2406,7 +2406,7 @@ Tobago.ToolBar.init = function(elements) {
         })
       });
 
-    Tobago.Utils.selectWidthJQuery(elements, ".tobago-tabGroup-toolBar").find('.tobago-tabGroupToolBar-item')
+    Tobago.Utils.selectWithJQuery(elements, ".tobago-tabGroup-toolBar").find('.tobago-tabGroupToolBar-item')
         .not('.tobago-tabGroupToolBar-item-markup-disabled')
         .hover(function() {
       jQuery(this).toggleClass('tobago-tabGroupToolBar-item-markup-hover');
@@ -2436,14 +2436,14 @@ Tobago.ToolBar.init = function(elements) {
       });
     });
 
-  Tobago.Utils.selectWidthJQuery(elements, ".tobago-toolBar-selectOne").find(".tobago-toolBar-button")
+  Tobago.Utils.selectWithJQuery(elements, ".tobago-toolBar-selectOne").find(".tobago-toolBar-button")
       .click(function () {
         var button = jQuery(this);
         var hidden = button.closest(".tobago-toolBar-selectOne").children("input[type=hidden]");
         hidden.val(button.data("tobago-value"));
       });
 
-  Tobago.Utils.selectWidthJQuery(elements, ".tobago-toolBar-selectBoolean").find(".tobago-toolBar-button")
+  Tobago.Utils.selectWithJQuery(elements, ".tobago-toolBar-selectBoolean").find(".tobago-toolBar-button")
       .click(function () {
         var button = jQuery(this);
         var hidden = button.closest(".tobago-toolBar-selectBoolean").children("input[type=hidden]");
@@ -2476,7 +2476,7 @@ Tobago.registerListener(Tobago.ToolBar.init, Tobago.Phase.AFTER_UPDATE);
 Tobago.Command = {};
 
 Tobago.Command.initEnter = function(elements) {
-  var page = Tobago.Utils.selectWidthJQuery(elements, ".tobago-page");
+  var page = Tobago.Utils.selectWithJQuery(elements, ".tobago-page");
   page.keypress(function (event) {
     var code = event.which;
     if (code == 0) {
@@ -2508,7 +2508,7 @@ Tobago.Command.initEnter = function(elements) {
 Tobago.Command.INPUTS_FOR_DEFAULT = "input, select, textarea, a, button";
 
 Tobago.Command.initInputElements = function(elements) {
-  var inputElements = Tobago.Utils.selectWidthJQuery(elements, Tobago.Command.INPUTS_FOR_DEFAULT);
+  var inputElements = Tobago.Utils.selectWithJQuery(elements, Tobago.Command.INPUTS_FOR_DEFAULT);
   inputElements.focus(function (event) {
     var target = event.target;
     var id = target.id;
@@ -2566,7 +2566,7 @@ Tobago.SelectManyShuttle = {};
 
 Tobago.SelectManyShuttle.init = function(elements) {
 
-  var shuttles = Tobago.Utils.selectWidthJQuery(elements, ".tobago-selectManyShuttle:not(.tobago-selectManyShuttle-disabled)");
+  var shuttles = Tobago.Utils.selectWithJQuery(elements, ".tobago-selectManyShuttle:not(.tobago-selectManyShuttle-disabled)");
 
   shuttles.find(".tobago-selectManyShuttle-unselected").dblclick(function() {
     Tobago.SelectManyShuttle.moveSelectedItems(jQuery(this).parents(".tobago-selectManyShuttle"), true, false);
@@ -2625,7 +2625,7 @@ Tobago.registerListener(Tobago.SelectManyShuttle.init, Tobago.Phase.AFTER_UPDATE
 Tobago.SelectOneRadio = {};
 
 Tobago.SelectOneRadio.init = function(elements) {
-  var selectOneRadios = Tobago.Utils.selectWidthJQuery(elements, ".tobago-selectOneRadio");
+  var selectOneRadios = Tobago.Utils.selectWithJQuery(elements, ".tobago-selectOneRadio");
   selectOneRadios.each(function() {
     var ul = jQuery(this);
     var radios = jQuery('input[name="' + ul.attr('id').replace(/:/g, '\\:') + '"]');
@@ -2670,7 +2670,7 @@ Tobago.registerListener(Tobago.SelectOneRadio.init, Tobago.Phase.AFTER_UPDATE);
 Tobago.SelectOneListbox = {};
 
 Tobago.SelectOneListbox.init = function (elements) {
-  var selects = Tobago.Utils.selectWidthJQuery(elements, ".tobago-selectOneListbox");
+  var selects = Tobago.Utils.selectWithJQuery(elements, ".tobago-selectOneListbox");
   var notRequired = selects.not(".tobago-selectOneListbox-markup-required");
   notRequired
       .change(function () {
@@ -2696,7 +2696,7 @@ Tobago.registerListener(Tobago.SelectOneListbox.init, Tobago.Phase.AFTER_UPDATE)
 Tobago.SelectBooleanCheckbox = {};
 
 Tobago.SelectBooleanCheckbox.init = function(elements) {
-  var checkboxes = Tobago.Utils.selectWidthJQuery(elements, ".tobago-selectBooleanCheckbox-markup-readonly input");
+  var checkboxes = Tobago.Utils.selectWithJQuery(elements, ".tobago-selectBooleanCheckbox-markup-readonly input");
   checkboxes.each(function() {
     // Save the initial state to restore it, when the user tries to manipulate it.
     var initial = jQuery(this).is(":checked");
@@ -2714,7 +2714,7 @@ Tobago.registerListener(Tobago.SelectBooleanCheckbox.init, Tobago.Phase.AFTER_UP
 Tobago.SelectManyCheckbox = {};
 
 Tobago.SelectManyCheckbox.init = function(elements) {
-  var checkboxes = Tobago.Utils.selectWidthJQuery(elements, ".tobago-selectManyCheckbox-markup-readonly input");
+  var checkboxes = Tobago.Utils.selectWithJQuery(elements, ".tobago-selectManyCheckbox-markup-readonly input");
   checkboxes.each(function() {
     // Save the initial state to restore it, when the user tries to manipulate it.
     var initial = jQuery(this).is(":checked");
@@ -2732,7 +2732,7 @@ Tobago.registerListener(Tobago.SelectManyCheckbox.init, Tobago.Phase.AFTER_UPDAT
 Tobago.File = {};
 
 Tobago.File.init = function(elements) {
-  var files = Tobago.Utils.selectWidthJQuery(elements, ".tobago-file-real");
+  var files = Tobago.Utils.selectWithJQuery(elements, ".tobago-file-real");
   files.change(function () {
     var file = jQuery(this);
     var pretty = file.prev();

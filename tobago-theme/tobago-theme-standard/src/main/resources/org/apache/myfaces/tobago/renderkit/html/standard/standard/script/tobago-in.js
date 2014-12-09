@@ -24,25 +24,25 @@ Tobago.In = function(inId, required, requiredClass, maxLength) {
 };
 
 Tobago.In.init = function(elements) {
-  var ins = Tobago.Utils.selectWidthJQuery(elements, ".tobago-in");
+  var ins = Tobago.Utils.selectWithJQuery(elements, ".tobago-in");
   ins.each(function(){
     var id = jQuery(this).attr("id");
     var required = jQuery(this).attr("required") != undefined;
     new Tobago.In(id, required, 'tobago-in-markup-required');
   });
-  ins = Tobago.Utils.selectWidthJQuery(elements, ".tobago-date");
+  ins = Tobago.Utils.selectWithJQuery(elements, ".tobago-date");
   ins.each(function(){
     var id = jQuery(this).attr("id");
     var required = jQuery(this).attr("required") != undefined;
       new Tobago.In(id, required, 'tobago-date-markup-required');
   });
-  ins = Tobago.Utils.selectWidthJQuery(elements, "input.tobago-time");
+  ins = Tobago.Utils.selectWithJQuery(elements, "input.tobago-time");
   ins.each(function(){
     var id = jQuery(this).attr("id");
     var required = jQuery(this).attr("required") != undefined;
       new Tobago.In(id, required, 'tobago-time-markup-required');
   });
-  ins = Tobago.Utils.selectWidthJQuery(elements, ".tobago-textarea");
+  ins = Tobago.Utils.selectWithJQuery(elements, ".tobago-textarea");
   ins.each(function(){
     var id = jQuery(this).attr("id");
     var required = jQuery(this).attr("required") != undefined;
@@ -139,7 +139,7 @@ jQuery.support.placeholder = (function(){
 
 Tobago.In.initPlaceholder = function(elements) {
   if (!jQuery.support.placeholder) {
-    var fields = Tobago.Utils.selectWidthJQuery(elements, "[placeholder]");
+    var fields = Tobago.Utils.selectWithJQuery(elements, "[placeholder]");
     fields.each(function () {
       jQuery(this)
           .on("focus", function () {

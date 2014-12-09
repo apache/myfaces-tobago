@@ -23,7 +23,7 @@ Tobago.TabGroup = {};
  */
 Tobago.TabGroup.init = function(elements) {
 
-  var tabGroups = Tobago.Utils.selectWidthJQuery(elements, ".tobago-tabGroup");
+  var tabGroups = Tobago.Utils.selectWithJQuery(elements, ".tobago-tabGroup");
 
   // initialize the tab header elements
   // client case

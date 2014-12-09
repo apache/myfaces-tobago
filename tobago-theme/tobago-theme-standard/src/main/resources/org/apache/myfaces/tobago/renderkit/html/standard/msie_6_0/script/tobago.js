@@ -23,13 +23,13 @@
 Tobago.fixPngAlphaAll = function(elements) {
   if (Tobago.browser.isMsie6) {
     // fix png images
-    var images = Tobago.Utils.selectWidthJQuery(elements, "img[src$='.png']");
+    var images = Tobago.Utils.selectWithJQuery(elements, "img[src$='.png']");
     images.each(function() {
       Tobago.fixPngAlpha(this);
     });
 
     // fix png backgrounds of the labels
-    Tobago.Utils.selectWidthJQuery(elements,
+    Tobago.Utils.selectWithJQuery(elements,
         "label.tobago-label-markup-fatal, label.tobago-label-markup-error, " +
         "label.tobago-label-markup-warn, label.tobago-label-markup-info").each(function() {
       Tobago.fixBackgroundPngAlpha(this);
@@ -103,7 +103,7 @@ Tobago.registerListener(Tobago.fixPngAlphaAll, Tobago.Phase.AFTER_UPDATE);
  * tc:upload hangs when entering invalid filename in IE 6
  */
 Tobago.File.initIe6 = function(elements) {
-  var files = Tobago.Utils.selectWidthJQuery(elements, ".tobago-file-real");
+  var files = Tobago.Utils.selectWithJQuery(elements, ".tobago-file-real");
   files.keydown(function () {
     jQuery(this).blur();
     return false;
@@ -122,7 +122,7 @@ Tobago.registerListener(Tobago.File.initIe6, Tobago.Phase.AFTER_UPDATE);
  * Solves issue: TOBAGO-789
  */
 Tobago.initIe6 = function(elements) {
-  var selects = Tobago.Utils.selectWidthJQuery(elements, ".tobago-selectOneChoice");
+  var selects = Tobago.Utils.selectWithJQuery(elements, ".tobago-selectOneChoice");
   selects.focusin(function () {
     Tobago.fixSelectionOnFocusIn();
   });
