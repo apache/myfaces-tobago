@@ -52,9 +52,9 @@ Tobago.Sheet = function(
 
   this.firstRowRegExp = new RegExp("^" + this.id + "_data_tr_\\d+$");
 
-  this.setup();
-
   console.timeEnd("[tobago-sheet] constructor"); // @DEV_ONLY
+
+  this.setup();
 };
 
 Tobago.Sheet.init = function(elements) {

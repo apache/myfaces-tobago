@@ -27,15 +27,76 @@ Tobago.Utils.escapeClientId = function(id) {
 };
 
 /**
+ * @deprecated since Tobago 2.0.5 because of spelling
+ */
+Tobago.Utils.selectWidthJQuery = function(elements, selector) {
+  return Tobago.Utils.selectWithJQuery(elements, selector);
+};
+
+/**
  * Helps to select either elements from the whole DOM or only find in sub trees
  * (in the case of AJAX partial rendering)
  * @param elements a jQuery object to initialize (ajax) or null for initializing the whole document (full load).
  * @param selector a jQuery selector.
  */
-Tobago.Utils.selectWidthJQuery = function(elements, selector) {
-  return elements == null
-      ? jQuery(selector)
-      : elements.find(selector).add(elements.filter(selector));
+Tobago.Utils.selectWithJQuery = function(elements, selector) {
+
+  if (elements == null) {
+    return jQuery(selector);
+  }
+
+  if (Tobago.browser.isMsie678) {
+    if (selector.match(/^\[[-_a-zA-Z0-9]+\]$/)) {
+      return Tobago.Utils.ieSelectWidthJQueryAttr(elements, selector);
+    }
+    if (selector == Tobago.Command.INPUTS_FOR_DEFAULT) {
+      return Tobago.Utils.ieSelectWidthJQueryInputs(elements);
+    }
+  }
+
+  return elements.find(selector).add(elements.filter(selector));
+};
+
+/** internal function for IE <= 8 performance */
+Tobago.Utils.ieSelectWidthJQueryAttr = function (elements, selector) {
+  var founds = [];
+  for (var i = 0; i < elements.length; i++) {
+    Tobago.Utils.ieFilterAttributes(elements.get(i), selector.substr(1, selector.length - 2), founds);
+  }
+  return jQuery(founds);
+};
+
+/** internal function for IE <= 8 performance */
+Tobago.Utils.ieSelectWidthJQueryInputs = function(elements) {
+  var founds = [];
+  for (var i = 0; i < elements.length; i++) {
+    var element = elements.get(i);
+    Tobago.Utils.ieFilterTags(element, ["INPUT", "SELECT", "TEXTAREA", "A", "BUTTON"], founds);
+  }
+  return jQuery(founds);
+};
+
+/** internal function for IE <= 8 performance */
+Tobago.Utils.ieFilterTags = function (element, tagNames, result) {
+  for (var i = 0; i < tagNames.length; i++) {
+    if (element.tagName == tagName[i]) {
+      result.push(element);
+      break;
+    }
+  }
+  for (i = 0; i < element.childNodes.length; i++) {
+    Tobago.Utils.ieFilterTags(element.childNodes[i], tagName, result);
+  }
+};
+
+/** internal function for IE <= 8 performance */
+Tobago.Utils.ieFilterAttributes = function (element, filter, result) {
+  if (element[filter] !== undefined) {
+    result.push(element);
+  }
+  for (var i = 0; i < element.childNodes.length; i++) {
+    Tobago.Utils.ieFilterAttributes(element.childNodes[i], filter, result);
+  }
 };
 
 Tobago.Utils.findSubComponent = function(element, subId) {

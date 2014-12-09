@@ -2505,8 +2505,10 @@ Tobago.Command.initEnter = function(elements) {
     }
   })};
 
+Tobago.Command.INPUTS_FOR_DEFAULT = "input, select, textarea, a, button";
+
 Tobago.Command.initInputElements = function(elements) {
-  var inputElements = Tobago.Utils.selectWidthJQuery(elements, "input, select, textarea, a, button");
+  var inputElements = Tobago.Utils.selectWidthJQuery(elements, Tobago.Command.INPUTS_FOR_DEFAULT);
   inputElements.focus(function (event) {
     var target = event.target;
     var id = target.id;
