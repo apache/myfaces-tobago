@@ -85,7 +85,7 @@ Tobago.Utils.ieFilterTags = function (element, tagNames, result) {
     }
   }
   for (i = 0; i < element.childNodes.length; i++) {
-    Tobago.Utils.ieFilterTags(element.childNodes[i], tagName, result);
+    Tobago.Utils.ieFilterTags(element.childNodes[i], tagNames, result);
   }
 };
 
