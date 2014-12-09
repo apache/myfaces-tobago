@@ -79,7 +79,7 @@ Tobago.Utils.ieSelectWithJQueryInputs = function(elements) {
 /** internal function for IE <= 8 performance */
 Tobago.Utils.ieFilterTags = function (element, tagNames, result) {
   for (var i = 0; i < tagNames.length; i++) {
-    if (element.tagName == tagName[i]) {
+    if (element.tagName == tagNames[i]) {
       result.push(element);
       break;
     }
