@@ -60,6 +60,10 @@ fixes missing space, I thinks normal Websites have a " " Space char in the sourc
     margin-left: 0;
 }
 
+.tobago-label {
+  width: 155px;
+}
+
 .tobago-sheet-pagingOuter {
   margin: 20px 0;
 }

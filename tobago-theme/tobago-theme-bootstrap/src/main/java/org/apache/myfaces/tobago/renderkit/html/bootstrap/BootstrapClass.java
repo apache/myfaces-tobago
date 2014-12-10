@@ -16,23 +16,25 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.apache.myfaces.tobago.renderkit.html.bootstrap.standard.tag;
 
-import org.apache.myfaces.tobago.component.SupportsCss;
-import org.apache.myfaces.tobago.renderkit.html.bootstrap.BootstrapClass;
+package org.apache.myfaces.tobago.renderkit.html.bootstrap;
 
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import java.io.IOException;
+/**
+ * @since 3.0.0
+ */
+public enum BootstrapClass {
 
-public class PageRenderer extends org.apache.myfaces.tobago.renderkit.html.standard.standard.tag.PageRenderer {
+    CONTAINER("container"),
+    CONTAINER_FLUID("container-fluid");
 
-  @Override
-  public void prepareRender(
-      final FacesContext facesContext, final UIComponent component) throws IOException {
-    super.prepareRender(facesContext, component);
+    private final String name;
 
-    SupportsCss css = (SupportsCss) component;
-    css.getCurrentCss().add(BootstrapClass.CONTAINER_FLUID.getName());
-  }
+    private BootstrapClass(final String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
 }

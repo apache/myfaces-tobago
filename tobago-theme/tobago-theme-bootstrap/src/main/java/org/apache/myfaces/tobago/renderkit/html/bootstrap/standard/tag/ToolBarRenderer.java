@@ -25,6 +25,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlButtonTypes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRoleValues;
+import org.apache.myfaces.tobago.renderkit.html.bootstrap.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
@@ -48,7 +49,7 @@ public class ToolBarRenderer extends LayoutComponentRendererBase {
     writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.NAVIGATION.toString(), false);
 
     writer.startElement(HtmlElements.DIV, toolBar);
-    writer.writeClassAttribute("container-fluid");
+    writer.writeClassAttribute(BootstrapClass.CONTAINER_FLUID.getName());
 
 //    Brand and toggle get grouped for better mobile display
     writer.startElement(HtmlElements.DIV);
