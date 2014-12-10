@@ -58,6 +58,7 @@ public final class RendererTypes {
   public static final String POPUP = "Popup";
   public static final String PROGRESS = "Progress";
   public static final String SCRIPT = "Script";
+  public static final String SECTION = "Section";
   public static final String SELECT_BOOLEAN_CHECKBOX = "SelectBooleanCheckbox";
   public static final String SELECT_MANY_CHECKBOX = "SelectManyCheckbox";
   public static final String SELECT_MANY_LISTBOX = "SelectManyListbox";
