@@ -77,7 +77,7 @@ public class ToolBarRenderer extends LayoutComponentRendererBase {
     writer.startElement(HtmlElements.A);
     writer.writeClassAttribute("navbar-brand");
     writer.writeAttribute(HtmlAttributes.HREF, "#", false);
-    writer.writeText("Address Book"); // fixme
+    writer.writeText("[FIXME]"); // fixme
     writer.endElement(HtmlElements.A);
 
     writer.endElement(HtmlElements.DIV);

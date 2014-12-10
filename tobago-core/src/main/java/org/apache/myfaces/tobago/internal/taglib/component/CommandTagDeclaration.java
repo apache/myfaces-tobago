@@ -25,8 +25,9 @@ import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.AbstractCommandTagDeclaration;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasId;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabel;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabelAndAccessKey;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasValue;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutComponent;
@@ -46,7 +47,7 @@ import javax.faces.component.UICommand;
     allowedChildComponenents = "NONE")
 public interface CommandTagDeclaration
     extends AbstractCommandTagDeclaration, HasId, HasValue, IsDisabled, IsGridLayoutComponent, HasMarkup,
-    HasCurrentMarkup, HasLabel {
+    HasCurrentMarkup, HasLabelAndAccessKey, HasTip {
 
 
 

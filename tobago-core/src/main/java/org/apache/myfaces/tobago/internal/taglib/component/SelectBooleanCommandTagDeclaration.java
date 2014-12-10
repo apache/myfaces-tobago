@@ -23,8 +23,9 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.internal.taglib.declaration.AbstractCommandTagDeclaration;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabel;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabelAndAccessKey;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasValue;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutComponent;
 
@@ -33,6 +34,6 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutCompone
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUICommand",
     uiComponentFacesClass = "javax.faces.component.UICommand")
 public interface SelectBooleanCommandTagDeclaration
-    extends AbstractCommandTagDeclaration, HasIdBindingAndRendered, HasValue, HasLabel,
+    extends AbstractCommandTagDeclaration, HasIdBindingAndRendered, HasValue, HasLabelAndAccessKey, HasTip,
     IsGridLayoutComponent, HasMarkup, HasCurrentMarkup {
 }

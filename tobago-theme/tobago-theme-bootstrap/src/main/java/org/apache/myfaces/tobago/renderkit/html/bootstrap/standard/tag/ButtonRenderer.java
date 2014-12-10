@@ -21,7 +21,9 @@ package org.apache.myfaces.tobago.renderkit.html.bootstrap.standard.tag;
 
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.SupportsCss;
+import org.apache.myfaces.tobago.config.Configurable;
 import org.apache.myfaces.tobago.internal.component.AbstractUIToolBar;
+import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 
 import javax.faces.component.UIComponent;
@@ -49,5 +51,10 @@ public class ButtonRenderer extends org.apache.myfaces.tobago.renderkit.html.sta
         css.getCurrentCss().add("navbar-btn");
       }
     }
+  }
+
+  @Override
+  public Measure getPreferredWidth(FacesContext facesContext, Configurable component) {
+    return null;
   }
 }

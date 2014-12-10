@@ -23,6 +23,7 @@ import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UIButton;
 import org.apache.myfaces.tobago.config.Configurable;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
+import org.apache.myfaces.tobago.internal.component.AbstractUICommand;
 import org.apache.myfaces.tobago.internal.component.AbstractUIForm;
 import org.apache.myfaces.tobago.internal.util.AccessKeyLogger;
 import org.apache.myfaces.tobago.layout.Measure;
@@ -54,7 +55,7 @@ public class ButtonRenderer extends CommandRendererBase {
 
   public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
 
-    final UIButton button = (UIButton) component;
+    final AbstractUICommand button = (AbstractUICommand) component;
     final String clientId = button.getClientId(facesContext);
     final boolean disabled = button.isDisabled();
     final LabelWithAccessKey label = new LabelWithAccessKey(button);
@@ -83,16 +84,18 @@ public class ButtonRenderer extends CommandRendererBase {
         AccessKeyLogger.addAccessKey(facesContext, label.getAccessKey(), clientId);
       }
 
-      final Integer tabIndex = button.getTabIndex();
-      if (tabIndex != null) {
-        writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
+      if (button instanceof UIButton) {
+        final Integer tabIndex = ((UIButton)button).getTabIndex();
+        if (tabIndex != null) {
+          writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
+        }
       }
     }
 
     final Style style = new Style(facesContext, button);
     writer.writeStyleAttribute(style);
     writer.writeClassAttribute(Classes.create(button));
-    if (((UIButton) component).isDefaultCommand()) {
+    if (button instanceof UIButton && ((UIButton) component).isDefaultCommand()) {
       final AbstractUIForm form = ComponentUtils.findAncestor(component, AbstractUIForm.class);
       writer.writeAttribute(DataAttributes.DEFAULT, form.getClientId(facesContext), false);
     }

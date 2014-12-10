@@ -21,6 +21,7 @@ package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.OnComponentPopulated;
+import org.apache.myfaces.tobago.component.SupportsAccessKey;
 import org.apache.myfaces.tobago.component.SupportsRenderedPartially;
 import org.apache.myfaces.tobago.event.PopupFacetActionListener;
 import org.apache.myfaces.tobago.layout.LayoutComponent;
@@ -34,7 +35,7 @@ import java.util.Iterator;
 
 public abstract class AbstractUICommand
     extends AbstractUICommandBase
-    implements SupportsRenderedPartially, OnComponentPopulated, LayoutComponent {
+    implements SupportsRenderedPartially, SupportsAccessKey, OnComponentPopulated, LayoutComponent {
 
   public void onComponentPopulated(final FacesContext facesContext, final UIComponent parent) {
     final AbstractUIPopup popup = (AbstractUIPopup) getFacet(Facets.POPUP);
@@ -100,4 +101,9 @@ public abstract class AbstractUICommand
 
   public abstract boolean isOmit();
 
+  public abstract boolean isDisabled();
+
+  public abstract String getTip();
+
+//  public abstract Integer getTabIndex();
 }
