@@ -46,12 +46,15 @@ Tobago.Utils.selectWithJQuery = function(elements, selector) {
   }
 
   if (Tobago.browser.isMsie678) {
-    if (selector.match(/^\[[-_a-zA-Z0-9]+\]$/)) {
+    if (selector.match(/^\[[-_a-zA-Z0-9]+\]$/)) { // single attribute set
       return Tobago.Utils.ieSelectWithJQueryAttr(elements, selector);
     }
-    if (selector == Tobago.Command.INPUTS_FOR_DEFAULT) {
+    if (selector == Tobago.Command.INPUTS_FOR_DEFAULT) { // specific list of input elements
       return Tobago.Utils.ieSelectWithJQueryInputs(elements);
     }
+    //if (selector.match(/^\.[-_a-zA-Z0-9]+$/)) { // single class
+    //  return Tobago.Utils.ieSelectWithJQueryClass(elements, selector);
+    //}
   }
 
   return elements.find(selector).add(elements.filter(selector));
@@ -64,6 +67,16 @@ Tobago.Utils.ieSelectWithJQueryAttr = function (elements, selector) {
     Tobago.Utils.ieFilterAttributes(elements.get(i), selector.substr(1, selector.length - 2), founds);
   }
   return jQuery(founds);
+};
+
+/** internal function for IE <= 8 performance */
+Tobago.Utils.ieFilterAttributes = function (element, filter, result) {
+  if (element[filter] !== undefined) {
+    result.push(element);
+  }
+  for (var i = 0; i < element.childNodes.length; i++) {
+    Tobago.Utils.ieFilterAttributes(element.childNodes[i], filter, result);
+  }
 };
 
 /** internal function for IE <= 8 performance */
@@ -86,16 +99,6 @@ Tobago.Utils.ieFilterTags = function (element, tagNames, result) {
   }
   for (i = 0; i < element.childNodes.length; i++) {
     Tobago.Utils.ieFilterTags(element.childNodes[i], tagNames, result);
-  }
-};
-
-/** internal function for IE <= 8 performance */
-Tobago.Utils.ieFilterAttributes = function (element, filter, result) {
-  if (element[filter] !== undefined) {
-    result.push(element);
-  }
-  for (var i = 0; i < element.childNodes.length; i++) {
-    Tobago.Utils.ieFilterAttributes(element.childNodes[i], filter, result);
   }
 };
 
