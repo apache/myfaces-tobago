@@ -83,6 +83,7 @@ public class TestTheAutomaticSeleniumTest {
 
       Assert.fail("The test should fail, but wasn't.");
     } catch (final AssertionError e) { // from IDE
+      LOG.debug("test404", e);
       Assert.assertTrue(e.getMessage().contains("404 - page not found"));
     } catch (final SeleniumException e) { // from mvn -Pintegration-test
       LOG.info("Exception: '" + e.getMessage() + "'");

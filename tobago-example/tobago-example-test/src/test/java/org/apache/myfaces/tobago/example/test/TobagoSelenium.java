@@ -22,8 +22,10 @@ package org.apache.myfaces.tobago.example.test;
 import com.thoughtworks.selenium.DefaultSelenium;
 import com.thoughtworks.selenium.HttpCommandProcessor;
 import com.thoughtworks.selenium.SeleniumException;
+import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.junit.Assert;
 
+//public class TobagoSelenium extends WebDriverBackedSelenium {
 public class TobagoSelenium extends DefaultSelenium {
 
   public static final String ERROR_ON_SERVER = "error on server";
@@ -36,11 +38,26 @@ public class TobagoSelenium extends DefaultSelenium {
     //XXX should be replaced
     //XXX http://www.seleniumhq.org/docs/appendix_migrating_from_rc_to_webdriver.jsp#migrating-to-webdriver-reference
     super(new HttpCommandProcessor("localhost", 4444, "*firefox", browserUrl));
+
+//    super(new FirefoxDriver(), browserUrl);
+//    super(new SafariDriver(), browserUrl);
+//    super(new ChromeDriver(), browserUrl);
+
     this.browserUrl = browserUrl;
+//System.out.println("n 12 ********----------------**********************");
+//    final WebDriverBackedSelenium selenium =
+//        new WebDriverBackedSelenium(new FirefoxDriver(), browserUrl);
+//    selenium.clickAndWait();
+
+
   }
 
   public String command(final String command, final String parameter1, final String parameter2) {
-    return commandProcessor.doCommand(command, new String[]{parameter1, parameter2});
+    if (StringUtils.isNotBlank(parameter2)) {
+      return commandProcessor.doCommand(command, new String[]{parameter1, parameter2});
+    } else  {
+      return commandProcessor.doCommand(command, new String[]{parameter1});
+    }
   }
 
   public void killSession() {

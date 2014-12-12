@@ -57,8 +57,15 @@ public class AutomaticSeleniumTest extends SeleniumTest {
 
     for (final SeleniumScriptItem item : script.getItems()) {
       LOG.info("Calling: " + item);
-      getSelenium().command(item.getCommand(), item.getParameters()[0], item.getParameters()[1]);
-      getSelenium().checkPage();
+      try {
+        getSelenium().command(item.getCommand(), item.getParameters()[0], item.getParameters()[1]);
+        LOG.debug("command done");
+        getSelenium().checkPage();
+        LOG.debug("check done");
+      } catch (Exception e) {
+        LOG.error("error with item:" + item, e);
+        throw e;
+      }
     }
   }
 
@@ -87,12 +94,18 @@ public class AutomaticSeleniumTest extends SeleniumTest {
 
     final List<Object[]> result = new ArrayList<Object[]>();
 
+    String quickFilter = null;
+    // for quick quick filter, you may set here a temporary string
+//    quickFilter = "popup-modal.xhtml";
+
     for (final String path : paths) {
-      final Object[] objects = {
-          path.replace('.', '_'), // because dots will be displayed strange in the IDE
-          createUrl(path)
-      };
-      result.add(objects);
+      if (quickFilter == null || path.contains(quickFilter)) {
+        final Object[] objects = {
+                path.replace('.', '_'), // because dots will be displayed strange in the IDE
+                createUrl(path)
+        };
+        result.add(objects);
+      }
     }
 
     return result;
