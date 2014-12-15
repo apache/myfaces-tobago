@@ -44,7 +44,6 @@ public class TobagoSelenium extends DefaultSelenium {
 //    super(new ChromeDriver(), browserUrl);
 
     this.browserUrl = browserUrl;
-//System.out.println("n 12 ********----------------**********************");
 //    final WebDriverBackedSelenium selenium =
 //        new WebDriverBackedSelenium(new FirefoxDriver(), browserUrl);
 //    selenium.clickAndWait();
