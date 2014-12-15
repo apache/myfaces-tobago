@@ -259,27 +259,31 @@ public class RenderUtils {
       final TreePath path = data.getPath();
 
       // selected
-      final SelectedState selectedState = data.getSelectedState();
-      final boolean oldSelected = selectedState.isSelected(path);
-      final boolean newSelected = selectedIndices.contains(rowIndex);
-      if (newSelected != oldSelected) {
-        if (newSelected) {
-          selectedState.select(path);
-        } else {
-          selectedState.unselect(path);
+      if (selectedIndices != null) {
+        final SelectedState selectedState = data.getSelectedState();
+        final boolean oldSelected = selectedState.isSelected(path);
+        final boolean newSelected = selectedIndices.contains(rowIndex);
+        if (newSelected != oldSelected) {
+          if (newSelected) {
+            selectedState.select(path);
+          } else {
+            selectedState.unselect(path);
+          }
         }
       }
 
       // expanded
       if (expandedIndices != null) {
-        final ExpandedState expandedState = data.getExpandedState();
-        final boolean oldExpanded = expandedState.isExpanded(path);
-        final boolean newExpanded = expandedIndices.contains(rowIndex);
-        if (newExpanded != oldExpanded) {
-          if (newExpanded) {
-            expandedState.expand(path);
-          } else {
-            expandedState.collapse(path);
+        if (expandedIndices != null) {
+          final ExpandedState expandedState = data.getExpandedState();
+          final boolean oldExpanded = expandedState.isExpanded(path);
+          final boolean newExpanded = expandedIndices.contains(rowIndex);
+          if (newExpanded != oldExpanded) {
+            if (newExpanded) {
+              expandedState.expand(path);
+            } else {
+              expandedState.collapse(path);
+            }
           }
         }
       }
