@@ -382,24 +382,24 @@ Tobago.Sheet.setup2 = function (sheets) {
           }
         }
 
+        var headerFillerWidth = 0;
+        var bodyFillerWidth = 0;
         if (usedWidth <= bodyDivWidth) {
-          var fillerWidth = bodyDivWidth - usedWidth;
-          console.log("SET fillerWidth : " + fillerWidth); // @DEV_ONLY
-          widths = widths + fillerWidth + ",";
-          headerCols.last().attr("width", fillerWidth + verticalScrollbarWidth);
-          bodyCols.last().attr("width", fillerWidth);
+          bodyFillerWidth = bodyDivWidth - usedWidth;
+          headerFillerWidth = bodyFillerWidth + verticalScrollbarWidth;
           bodyTable.css("width", bodyDivWidth);
         } else {
-          console.log("SET fillerWidth : 0"); // @DEV_ONLY
-          bodyCols.last().attr("width", 0);
-          bodyTable.css("width", usedWidth);
-          var headerFillerWidth = 0;
           if (usedWidth >= (bodyDivWidth - verticalScrollbarWidth)) {
             headerFillerWidth = verticalScrollbarWidth;
           }
-          widths = widths + headerFillerWidth + ",";
-          headerCols.last().attr("width", headerFillerWidth);
+          bodyTable.css("width", usedWidth);
         }
+
+        console.log("SET fillerWidth : " + headerFillerWidth); // @DEV_ONLY
+        widths = widths + headerFillerWidth + ",";
+        bodyCols.last().attr("width", bodyFillerWidth);
+        headerCols.last().attr("width", headerFillerWidth);
+
         // store the width values in a hidden field
         Tobago.Sheet.hidden(sheet, "widths").val(widths);
         return false;
