@@ -25,25 +25,47 @@ public final class MimeTypeUtils {
     // utils class
   }
 
-  // todo: maybe support more extensions (configurable?)  
+  // todo: maybe support more extensions
   public static String getMimeTypeForFile(final String file) {
-    if (file.endsWith(".gif")) {
-      return "image/gif";
-    } else if (file.endsWith(".png")) {
-      return "image/png";
-    } else if (file.endsWith(".jpg")) {
-      return "image/jpeg";
-    } else if (file.endsWith(".js")) {
-      return "text/javascript";
-    } else if (file.endsWith(".css")) {
-      return "text/css";
-    } else if (file.endsWith(".ico")) {
-      return "image/vnd.microsoft.icon";
-    } else if (file.endsWith(".html") || file.endsWith(".htm")) {
-      return "text/html";
-    } else if (file.endsWith(".map")) {
-      return "application/json";
+    int length = file.length();
+    if (file.charAt(length - 4) == '.') {
+      if (file.charAt(length - 1) == 'g') {
+        if (file.regionMatches(length - 3, "png", 0, 2)) {
+          return "image/png";
+        }
+        if (file.regionMatches(length - 3, "jpg", 0, 2)) {
+          return "image/jpeg";
+        }
+      } else {
+        if (file.endsWith("css")) {
+          return "text/css";
+        }
+        if (file.endsWith("gif")) {
+          return "image/gif";
+        }
+        if (file.endsWith("htm")) {
+          return "text/html";
+        }
+        if (file.endsWith("ico")) {
+          return "image/vnd.microsoft.icon";
+        }
+        if (file.endsWith("map")) {
+          return "application/json";
+        }
+      }
+    } else if (file.charAt(length - 3) == '.') {
+      if (file.endsWith("js")) {
+        return "text/javascript";
+      }
+    } else if (file.charAt(length - 5) == '.') {
+      if (file.endsWith("woff")) {
+        return "application/font-woff";
+      }
+      if (file.endsWith("html")) {
+        return "text/html";
+      }
     }
+
     return null;
   }
 }
