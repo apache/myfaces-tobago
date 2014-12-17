@@ -20,8 +20,6 @@
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
 import org.apache.myfaces.tobago.component.UISection;
-import org.apache.myfaces.tobago.context.ClientProperties;
-import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.renderkit.HtmlUtils;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
@@ -46,38 +44,51 @@ public class SectionRenderer extends LayoutComponentRendererBase {
         HtmlRendererUtils.writeDataAttributes(facesContext, writer, component);
 
         String label = section.getLabelToRender();
-        if (label != null) {
-            if (ClientProperties.getInstance(facesContext).getUserAgent().isMsie()) {
-                label = StringUtils.replace(label, " ", HtmlUtils.CHAR_NON_BEAKING_SPACE);
-            }
-
-            // todo: implement a level
-
-            final String tag;
-            switch (section.getLevel()) {
-                case 1:
-                    tag = HtmlElements.H1;
-                    break;
-                case 2:
-                    tag = HtmlElements.H2;
-                    break;
-                case 3:
-                    tag = HtmlElements.H3;
-                    break;
-                case 4:
-                    tag = HtmlElements.H4;
-                    break;
-                case 5:
-                    tag = HtmlElements.H5;
-                    break;
-                default:
-                    tag = HtmlElements.H6;
-            }
-
-            writer.startElement(tag, component);
-            writer.writeText(label);
-            writer.endElement(tag);
+        String clazz = null;
+        final String tag;
+        switch (section.getLevel()) {
+            case 1:
+                tag = HtmlElements.H1;
+//                    clazz = BootstrapClass.PAGE_HEADER.getName(); TBD
+                clazz = "page-header";
+                break;
+            case 2:
+                tag = HtmlElements.H2;
+                break;
+            case 3:
+                tag = HtmlElements.H3;
+                break;
+            case 4:
+                tag = HtmlElements.H4;
+                break;
+            case 5:
+                tag = HtmlElements.H5;
+                break;
+            default:
+                tag = HtmlElements.H6;
         }
+
+        writer.startElement(tag, component);
+        if (clazz != null) {
+            writer.writeClassAttribute(clazz);
+        }
+        final String image = section.getImage();
+        if (image != null && image.startsWith("glyphicon-")) { // XXX hack: should be integrated in the resource manager
+            writer.startElement(HtmlElements.SPAN);
+            writer.writeClassAttribute("glyphicon " + image);
+            writer.endElement(HtmlElements.SPAN);
+
+        }
+        if (image != null && label != null) {
+            writer.writeText(" ");
+        }
+        if (image == null && label == null) { // needed, otherwise the look is broken (bootstrap 3.3.1)
+            writer.writeText(HtmlUtils.CHAR_NON_BEAKING_SPACE);
+        }
+        if (label != null) {
+            writer.writeText(label);
+        }
+        writer.endElement(tag);
     }
 
     public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
