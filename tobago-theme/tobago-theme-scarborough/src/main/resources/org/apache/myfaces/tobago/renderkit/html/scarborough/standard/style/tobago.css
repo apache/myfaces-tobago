@@ -275,6 +275,7 @@ span.tobago-calendar-header {
 
 .tobago-file {
   background: url("../image/file-upload.png") no-repeat right center transparent;
+  position: relative;
 }
 
 .tobago-file-pretty {
@@ -319,8 +320,8 @@ span.tobago-calendar-header {
   position: absolute;
   right: 0;
   top: 0;
-  opacity: 0;
-  filter: alpha(opacity: 0);
+  opacity: 0.5;
+  filter: alpha(opacity: 0.5);
 }
 
 /* formatted --------------------------------------------------------------- */
