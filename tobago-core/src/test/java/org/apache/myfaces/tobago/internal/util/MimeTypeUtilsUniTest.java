@@ -48,7 +48,7 @@ public class MimeTypeUtilsUniTest {
   }
 
 //  @Test
-  public void testPerformace() {
+  public void testPerformance() {
     final long start = System.currentTimeMillis();
     for (int i = 0; i < INT; i++) {
       MimeTypeUtils.getMimeTypeForFile(GIF);
