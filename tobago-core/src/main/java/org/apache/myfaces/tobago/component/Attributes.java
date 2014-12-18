@@ -149,6 +149,8 @@ public final class Attributes {
   public static final String PADDING_RIGHT = "paddingRight";
   /** Used by a layout manager */
   public static final String PADDING_TOP = "paddingTop";
+  /** @deprecated Since 2.0.6. No longer needed. */
+  @Deprecated
   public static final String PAGE_MENU = "pageMenu";
   public static final String PASSWORD = "password";
   public static final String POPUP_CLOSE = "popupClose";
