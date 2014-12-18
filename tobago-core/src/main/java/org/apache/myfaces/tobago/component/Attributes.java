@@ -153,7 +153,6 @@ public final class Attributes {
   public static final String PADDING_RIGHT = "paddingRight";
   /** Used by a layout manager */
   public static final String PADDING_TOP = "paddingTop";
-  public static final String PAGE_MENU = "pageMenu";
   public static final String PASSWORD = "password";
   public static final String POPUP_CLOSE = "popupClose";
   public static final String POPUP_LIST = "popupList";
