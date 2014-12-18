@@ -2585,14 +2585,14 @@ Tobago.File.init = function(elements) {
   var files = Tobago.Utils.selectWidthJQuery(elements, ".tobago-file-real");
   files.change(function () {
     var file = jQuery(this);
-    var pretty = file.prev();
+    var pretty = file.siblings(".tobago-file-pretty");
     var filename = file.val();
     // remove path, if any. Some old browsers set the path, others like webkit uses the prefix "C:\facepath\".
     var pos = Math.max(filename.lastIndexOf('/'), filename.lastIndexOf('\\'));
     if (pos >= 0) {
       filename = filename.substr(pos + 1);
     }
-    pretty.val(filename);
+    pretty.text(filename);
   });
   if (files.length > 0) {
     jQuery("form").attr('enctype', 'multipart/form-data')

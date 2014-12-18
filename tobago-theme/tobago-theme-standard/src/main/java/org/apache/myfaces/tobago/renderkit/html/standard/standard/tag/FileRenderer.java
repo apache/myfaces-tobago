@@ -107,19 +107,13 @@ public class FileRenderer extends InputRendererBase {
     writer.writeStyleAttribute(style);
 
     // visible fake input for a pretty look
-    // XXX fixme!!!
-//    final Style inputStyle = new Style();
-//    final Measure prettyWidthSub = getResourceManager().getThemeMeasure(facesContext, file, "prettyWidthSub");
-//    inputStyle.setWidth(style.getWidth().subtract(prettyWidthSub));
-    writer.startElement(HtmlElements.INPUT, file);
+    writer.startElement(HtmlElements.DIV, file);
     writer.writeIdAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "pretty");
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.TEXT, false);
     writer.writeClassAttribute(Classes.create(file, "pretty"));
-//    writer.writeStyleAttribute(inputStyle);
-    writer.writeAttribute(HtmlAttributes.DISABLED, true);
     // TODO Focus
     //HtmlRendererUtils.renderFocus(clientId, file.isFocus(), ComponentUtils.isError(file), facesContext, writer);
-    writer.endElement(HtmlElements.INPUT);
+    writer.endElement(HtmlElements.DIV);
 
     // invisible file input
     writer.startElement(HtmlElements.INPUT, file);

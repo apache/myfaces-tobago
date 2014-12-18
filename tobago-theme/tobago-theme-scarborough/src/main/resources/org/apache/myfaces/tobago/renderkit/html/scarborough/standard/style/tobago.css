@@ -320,8 +320,9 @@ span.tobago-calendar-header {
   position: absolute;
   right: 0;
   top: 0;
-  opacity: 0.5;
-  filter: alpha(opacity: 0.5);
+  width: 100%;
+  opacity: 0;
+  filter: alpha(opacity: 0);
 }
 
 /* formatted --------------------------------------------------------------- */
