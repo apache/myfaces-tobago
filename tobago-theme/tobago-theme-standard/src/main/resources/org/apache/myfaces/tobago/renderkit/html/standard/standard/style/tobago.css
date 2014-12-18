@@ -23,6 +23,7 @@
 /* flexLayout -------------------------------------------------------------- */
 
 .tobago-flexLayout {
+    display: -webkit-flex; /* needed e.g. for 8.0.2 */
     display: flex;
 }
 
