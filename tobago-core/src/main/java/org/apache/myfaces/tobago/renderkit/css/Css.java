@@ -28,6 +28,9 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.StringTokenizer;
 
+/**
+ * @since 3.0.0
+ */
 public class Css {
 
   private static final Logger LOG = LoggerFactory.getLogger(Css.class);
@@ -37,13 +40,27 @@ public class Css {
   public Css() {
   }
 
-  public void add(String css) {
-    // todo: check for forbidden letters: regexp
-    if (css.contains(" ")) {
-      LOG.warn("Not a valid css class name: " + css);
+  public void add(String... cssList) {
+    for (String css : cssList) {
+      // todo: check for forbidden letters: regexp
+      if (css.contains(" ")) {
+        LOG.warn("Not a valid css class name: " + css);
+      }
+      list.add(css);
     }
-    list.add(css);
   }
+
+/* todo
+  public void add(BootstrapClass... cssList) {
+    for (String css : cssList) {
+      // todo: check for forbidden letters: regexp
+      if (css.contains(" ")) {
+        LOG.warn("Not a valid css class name: " + css);
+      }
+      list.add(css);
+    }
+  }
+*/
 
   public static Css valueOf(final String string) {
 

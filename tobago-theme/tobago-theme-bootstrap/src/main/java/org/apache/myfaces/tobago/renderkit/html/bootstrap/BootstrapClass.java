@@ -24,17 +24,21 @@ package org.apache.myfaces.tobago.renderkit.html.bootstrap;
  */
 public enum BootstrapClass {
 
-    CONTAINER("container"),
-    CONTAINER_FLUID("container-fluid");
+  CONTAINER("container"),
+  CONTAINER_FLUID("container-fluid"),
+  DROPDOWN("dropdown"),
+  DROPDOWN_MENU("dropdown-menu"),
+  NAV("nav"),
+  NAVBAR_NAV("navbar-nav");
 
-    private final String name;
+  private final String name;
 
-    private BootstrapClass(final String name) {
-        this.name = name;
-    }
+  private BootstrapClass(final String name) {
+    this.name = name;
+  }
 
-    public String getName() {
-        return name;
-    }
+  public String getName() {
+    return name;
+  }
 
 }

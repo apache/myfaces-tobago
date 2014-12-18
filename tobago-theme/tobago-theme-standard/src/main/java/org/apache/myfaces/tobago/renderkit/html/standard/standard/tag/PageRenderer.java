@@ -337,11 +337,7 @@ public class PageRenderer extends PageRendererBase {
     }
 */
 
-    final UIMenuBar menuBar = ComponentUtils.findFacetDescendant(page, Facets.MENUBAR, UIMenuBar.class);
-    if (menuBar != null) {
-      menuBar.getAttributes().put(Attributes.PAGE_MENU, Boolean.TRUE);
-      RenderUtils.encode(facesContext, menuBar);
-    }
+    encodePageMenu(facesContext, page);
     // write the previously rendered page content
 //    AbstractUILayoutBase.getLayout(component).encodeChildrenOfComponent(facesContext, component);
 
@@ -362,6 +358,13 @@ public class PageRenderer extends PageRendererBase {
     style.setHeight(page.getCurrentHeight().subtract(border));
     style.setTop(border);
     writer.writeStyleAttribute(style);
+  }
+
+  protected void encodePageMenu(FacesContext facesContext, UIPage page) throws IOException {
+    final UIMenuBar menuBar = ComponentUtils.findFacetDescendant(page, Facets.MENUBAR, UIMenuBar.class);
+    if (menuBar != null) {
+      RenderUtils.encode(facesContext, menuBar);
+    }
   }
 
   private void checkDuplicates(final String[] resources, final Collection<String> files) {

@@ -20,6 +20,7 @@
 package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.myfaces.tobago.component.OnComponentCreated;
+import org.apache.myfaces.tobago.component.SupportsCss;
 import org.apache.myfaces.tobago.layout.LayoutComponent;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 
@@ -28,7 +29,7 @@ import javax.faces.component.UIPanel;
 import javax.faces.context.FacesContext;
 import javax.faces.render.Renderer;
 
-public abstract class AbstractUIMenuBar extends UIPanel implements LayoutComponent, OnComponentCreated {
+public abstract class AbstractUIMenuBar extends UIPanel implements LayoutComponent, OnComponentCreated, SupportsCss {
 
   public void onComponentCreated(final FacesContext context, final UIComponent parent) {
     final Renderer renderer = getRenderer(getFacesContext());
