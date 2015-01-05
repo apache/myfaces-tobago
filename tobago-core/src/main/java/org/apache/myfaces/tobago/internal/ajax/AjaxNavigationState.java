@@ -36,12 +36,13 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 public final class AjaxNavigationState {
 
   private static final Logger LOG = LoggerFactory.getLogger(AjaxNavigationState.class);
 
-  private static final String SESSION_KEY = "tobago-AjaxNavigationState";
+  private static final String SESSION_KEY_PREFIX = "tobago-AjaxNavigationState-";
 
   private static final String VIEW_ROOT_KEY = "tobago-AjaxNavigationState-VIEW_ROOT_KEY";
 
@@ -49,9 +50,11 @@ public final class AjaxNavigationState {
 
   private Map<String, List<FacesMessage>> messages;
 
+  private String sessionKey;
+
   private AjaxNavigationState(final FacesContext facesContext) {
-    final ExternalContext externalContext = facesContext.getExternalContext();
-    externalContext.getSessionMap().put(SESSION_KEY, this);
+    sessionKey = SESSION_KEY_PREFIX + UUID.randomUUID().toString();
+    facesContext.getExternalContext().getSessionMap().put(sessionKey, this);
     viewRoot = facesContext.getViewRoot();
     messages = new HashMap<String, List<FacesMessage>>();
     final Iterator<String> iterator = facesContext.getClientIdsWithMessages();
@@ -103,6 +106,10 @@ public final class AjaxNavigationState {
 
   }
 
+  public String getSessionKey() {
+    return sessionKey;
+  }
+
   public static void storeIncomingView(final FacesContext facesContext) {
     final UIViewRoot viewRoot = facesContext.getViewRoot();
     if (LOG.isTraceEnabled()) {
@@ -140,7 +147,8 @@ public final class AjaxNavigationState {
   }
 
   public static void beforeRestoreView(final FacesContext facesContext) {
-    if (facesContext.getExternalContext().getSessionMap().get(AjaxNavigationState.SESSION_KEY) != null) {
+    String token = facesContext.getExternalContext().getRequestParameterMap().get("navigationViewIdToken");
+    if (token != null && facesContext.getExternalContext().getSessionMap().containsKey(token)) {
       // restoreView phase and afterPhaseListener are executed even if renderResponse is set
       // so we can't call navigationState.restoreView(...) here in before Phase
       // set empty UIViewRoot to prevent executing restore state logic
@@ -167,12 +175,11 @@ public final class AjaxNavigationState {
     }
 
     final ExternalContext externalContext = facesContext.getExternalContext();
-    if (externalContext.getSessionMap().get(AjaxNavigationState.SESSION_KEY) == null) {
+    String token = externalContext.getRequestParameterMap().get("navigationViewIdToken");
+    if (token == null || !externalContext.getSessionMap().containsKey(token)) {
       storeIncomingView(facesContext);
     } else {
-      final AjaxNavigationState navigationState
-          = (AjaxNavigationState) externalContext.getSessionMap().remove(AjaxNavigationState.SESSION_KEY);
-      navigationState.restoreView(facesContext);
+      ((AjaxNavigationState) externalContext.getSessionMap().remove(token)).restoreView(facesContext);
       LOG.trace("force render requested navigation view");
     }
   }
@@ -192,8 +199,7 @@ public final class AjaxNavigationState {
   public static void afterInvokeApplication(FacesContext facesContext) {
     if (AjaxUtils.isAjaxRequest(facesContext) && isNavigation(facesContext)) {
       try {
-        facesContext.getExternalContext().getSessionMap().put(SESSION_KEY, new AjaxNavigationState(facesContext));
-        AjaxInternalUtils.requestNavigationReload(facesContext);
+        AjaxInternalUtils.requestNavigationReload(facesContext, new AjaxNavigationState(facesContext));
       } catch (IOException e) {
         LOG.error("Caught: " + e.getMessage(), e);
       }
