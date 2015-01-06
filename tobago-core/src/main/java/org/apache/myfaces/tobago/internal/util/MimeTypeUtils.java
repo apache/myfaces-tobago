@@ -19,30 +19,41 @@
 
 package org.apache.myfaces.tobago.internal.util;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public final class MimeTypeUtils {
+
+  private static final Map<String, String> extensionTypeMap = new HashMap<String, String>();
+
+  public static final String DEFAULT_MAPPING = ".gif:image/gif,.png:image/png,.jpg:image/jpeg,.js:text/javascript,"
+      + ".css:text/css,.ico:image/vnd.microsoft.icon,.html:text/html,.htm:text/html,.map:application/json";
 
   private MimeTypeUtils() {
     // utils class
   }
 
-  // todo: maybe support more extensions (configurable?)  
+  // init() is invoked by ResourceServlet.init(), this is at application startup.
+  public static void init(String mimeTypeMapping) {
+    if (mimeTypeMapping == null) {
+      mimeTypeMapping = DEFAULT_MAPPING;
+    }
+    try {
+      extensionTypeMap.clear();
+      for (String typeMapping : mimeTypeMapping.split(",")) {
+        int idx = typeMapping.indexOf(':');
+        extensionTypeMap.put(typeMapping.substring(0, idx).trim(), typeMapping.substring(idx + 1).trim());
+      }
+    } catch (Exception e) {
+      throw new IllegalArgumentException("Invalid parameter 'mimeTypeMapping': \"" + mimeTypeMapping + "\"", e);
+    }
+  }
+
   public static String getMimeTypeForFile(final String file) {
-    if (file.endsWith(".gif")) {
-      return "image/gif";
-    } else if (file.endsWith(".png")) {
-      return "image/png";
-    } else if (file.endsWith(".jpg")) {
-      return "image/jpeg";
-    } else if (file.endsWith(".js")) {
-      return "text/javascript";
-    } else if (file.endsWith(".css")) {
-      return "text/css";
-    } else if (file.endsWith(".ico")) {
-      return "image/vnd.microsoft.icon";
-    } else if (file.endsWith(".html") || file.endsWith(".htm")) {
-      return "text/html";
-    } else if (file.endsWith(".map")) {
-      return "application/json";
+    for (Map.Entry<String, String> entry : extensionTypeMap.entrySet()) {
+      if (file.endsWith(entry.getKey())) {
+        return entry.getValue();
+      }
     }
     return null;
   }

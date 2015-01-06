@@ -57,6 +57,14 @@ import java.util.Set;
  *     &lt;param-name&gt;bufferSize&lt;/param-name&gt;
  *     &lt;param-value&gt;4096&lt;/param-value&gt;
  *   &lt;/init-param&gt;
+ *   &lt;init-param&gt;
+ *     &lt;description&gt; File extension to mimeType mapping.
+ *       Comma separated list of <extension>:<mime-type>
+ *       Default is ".gif:image/gif,.png:image/png,.jpg:image/jpeg,.js:text/javascript,.css:text/css,.ico:image/vnd.microsoft.icon,.html:text/html,.htm:text/html,.map:application/json"
+ *    .&lt;/description&gt;
+ *     &lt;param-name&gt;mimeTypeMapping&lt;/param-name&gt;
+ *     &lt;param-value&gt;.gif:image/gif,.htm:text/html&lt;/param-value&gt;
+ *   &lt;/init-param&gt;
  * &lt;/servlet&gt;
  * &lt;servlet-mapping&gt;
  *   &lt;servlet-name&gt;ResourceServlet&lt;/servlet-name&gt;
@@ -106,6 +114,8 @@ public class ResourceServlet extends HttpServlet {
       }
     }
     nosniffHeader = tobagoConfig.isSetNosniffHeader();
+
+    MimeTypeUtils.init(servletConfig.getInitParameter("mimeTypeMapping"));
   }
 
   private void addResourceDir(final List<Theme> themes) {
