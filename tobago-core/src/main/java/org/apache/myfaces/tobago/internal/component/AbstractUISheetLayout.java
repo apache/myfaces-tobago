@@ -276,7 +276,11 @@ public abstract class AbstractUISheetLayout extends AbstractUILayoutBase impleme
       }
 
       if (needVerticalScrollbar) {
-        currentWidthList.add(Math.max(freeWidth, verticalScrollbarWeight.getPixel())); // filler column
+        if (freeWidth > 0) {
+          currentWidthList.add(freeWidth + verticalScrollbarWeight.getPixel()); // filler column
+        } else {
+          currentWidthList.add(verticalScrollbarWeight.getPixel()); // filler column
+        }
       } else {
         currentWidthList.add(Math.max(freeWidth, 0)); // empty filler column
       }
