@@ -20,26 +20,16 @@
 package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.myfaces.tobago.component.SupportsMarkup;
-import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.internal.layout.BankHead;
-import org.apache.myfaces.tobago.internal.layout.Cell;
-import org.apache.myfaces.tobago.internal.layout.FactorList;
 import org.apache.myfaces.tobago.internal.layout.Grid;
-import org.apache.myfaces.tobago.internal.layout.Interval;
-import org.apache.myfaces.tobago.internal.layout.IntervalList;
-import org.apache.myfaces.tobago.internal.layout.LayoutUtils;
 import org.apache.myfaces.tobago.internal.layout.OriginCell;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
-import org.apache.myfaces.tobago.layout.AutoLayoutToken;
 import org.apache.myfaces.tobago.layout.LayoutComponent;
 import org.apache.myfaces.tobago.layout.LayoutContainer;
 import org.apache.myfaces.tobago.layout.LayoutManager;
-import org.apache.myfaces.tobago.layout.LayoutToken;
 import org.apache.myfaces.tobago.layout.LayoutTokens;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.layout.Orientation;
-import org.apache.myfaces.tobago.layout.PixelLayoutToken;
-import org.apache.myfaces.tobago.layout.RelativeLayoutToken;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -83,6 +73,7 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase implemen
     grid.setRowOverflow(isRowOverflow());
   }
 
+/*
   public void fixRelativeInsideAuto(final Orientation orientation, final boolean auto) {
 
     if (!getLayoutContainer().isLayoutChildren()) {
@@ -130,7 +121,9 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase implemen
       }
     }
   }
+*/
 
+/*
   public void preProcessing(final Orientation orientation) {
 
     if (!getLayoutContainer().isLayoutChildren()) {
@@ -201,6 +194,7 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase implemen
       i++;
     }
 
+*/
 /*
     IntervalList relatives = new IntervalList();
     for (BankHead head : heads) {
@@ -213,7 +207,8 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase implemen
       }
     }
     relatives.evaluate();
-*/
+*//*
+
 
     // set the size if all sizes of the grid are set
     Measure sum = Measure.ZERO;
@@ -245,7 +240,9 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase implemen
       LayoutUtils.setCurrentSize(orientation, getLayoutContainer(), sum);
     }
   }
+*/
 
+/*
   public void mainProcessing(final Orientation orientation) {
 
     if (!getLayoutContainer().isLayoutChildren()) {
@@ -344,7 +341,9 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase implemen
       grid.setOverflow(true, orientation);
     }
   }
+*/
 
+/*
   public void postProcessing(final Orientation orientation) {
 
     if (!getLayoutContainer().isLayoutChildren()) {
@@ -398,6 +397,7 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase implemen
       }
     }
   }
+*/
 
   public LayoutContainer getLayoutContainer() {
     return ComponentUtils.findAncestor(getParent(), LayoutContainer.class);
@@ -407,6 +407,7 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase implemen
     return orientation == Orientation.HORIZONTAL ? getColumnSpacing() : getRowSpacing();
   }
 
+/*
   public Measure getMarginBegin(final Orientation orientation) {
     return orientation == Orientation.HORIZONTAL ? getMarginLeft() : getMarginTop();
   }
@@ -414,11 +415,13 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase implemen
   public Measure getMarginEnd(final Orientation orientation) {
     return orientation == Orientation.HORIZONTAL ? getMarginRight() : getMarginBottom();
   }
+*/
 
   /**
    * Compute the sum of the space between the cells.
    * There is one "space" less than cells that are not void.
    */
+/*
   private Measure computeSpacing(final Orientation orientation, final int startIndex, final int length) {
 
     final BankHead[] heads = grid.getBankHeads(orientation);
@@ -436,6 +439,7 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase implemen
       return Measure.ZERO;
     }
   }
+*/
 
   public abstract String getRows();
 

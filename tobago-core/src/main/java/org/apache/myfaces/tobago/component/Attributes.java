@@ -72,6 +72,8 @@ public final class Attributes {
   public static final String FREQUENCY = "frequency";
   public static final String FOCUS = "focus";
   public static final String FOCUS_ID = "focusId";
+  /** @deprecated since Tobago 3.0.0 */
+  @Deprecated
   public static final String FORCE_VERTICAL_SCROLLBAR = "forceVerticalScrollbar";
   public static final String FORMAT_PATTERN = "formatPattern";
   public static final String FOR = "for";

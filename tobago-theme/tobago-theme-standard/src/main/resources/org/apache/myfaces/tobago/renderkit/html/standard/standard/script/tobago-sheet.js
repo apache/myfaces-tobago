@@ -252,18 +252,6 @@ Tobago.Sheet.setup2 = function (sheets) {
     Tobago.Sheet.resetInputFieldSize(jQuery(this));
   });
 
-
-  // todo: remove this for Tobago 3.0
-  // adjust body row filler cells if no scrollbar present but was calculated
-  jQuery(sheets).find("[data-tobago-sheet-verticalscrollbarwidth]").each(function() {
-    var table = jQuery(this);
-    var verticalScrollbarWidth = table.data("tobago-sheet-verticalscrollbarwidth");
-    if (verticalScrollbarWidth !== undefined) {
-      var bodyDiv = table.parent().next();
-      Tobago.Sheet.adjustTableWidth(bodyDiv);
-    }
-  });
-
   // resize: mouse events
   jQuery(sheets).find(".tobago-sheet-headerResize").each(function () {
     jQuery(this).click(function () {
@@ -350,24 +338,14 @@ Tobago.Sheet.setup2 = function (sheets) {
         var scrollHeight = bodyDiv.prop("scrollHeight");
         console.log("bodyHeight : " + bodyHeight); // @DEV_ONLY
         console.log("scrollHeight : " + scrollHeight); // @DEV_ONLY
-        var verticalScrollbarWidth = 0;
-        if (bodyHeight < scrollHeight) {
-          verticalScrollbarWidth = headerTable.data("tobago-sheet-verticalscrollbarwidth");
-          if (verticalScrollbarWidth) {
-            bodyDivWidth -= verticalScrollbarWidth;
-          }
-        }
 
         var headerFillerWidth = 0;
         var bodyFillerWidth = 0;
         if (usedWidth <= bodyDivWidth) {
           bodyFillerWidth = bodyDivWidth - usedWidth;
-          headerFillerWidth = bodyFillerWidth + verticalScrollbarWidth;
+          headerFillerWidth = bodyFillerWidth;
           bodyTable.css("width", bodyDivWidth);
         } else {
-          if (usedWidth >= (bodyDivWidth - verticalScrollbarWidth)) {
-            headerFillerWidth = verticalScrollbarWidth;
-          }
           bodyTable.css("width", usedWidth);
         }
 

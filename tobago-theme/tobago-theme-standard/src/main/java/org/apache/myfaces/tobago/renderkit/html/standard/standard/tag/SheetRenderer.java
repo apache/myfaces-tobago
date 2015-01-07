@@ -44,14 +44,12 @@ import org.apache.myfaces.tobago.internal.component.AbstractUIData;
 import org.apache.myfaces.tobago.internal.component.AbstractUIMenu;
 import org.apache.myfaces.tobago.internal.component.AbstractUIOut;
 import org.apache.myfaces.tobago.internal.component.AbstractUISheet;
-import org.apache.myfaces.tobago.internal.component.AbstractUISheetLayout;
 import org.apache.myfaces.tobago.internal.layout.Cell;
 import org.apache.myfaces.tobago.internal.layout.Grid;
 import org.apache.myfaces.tobago.internal.layout.OriginCell;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.layout.Display;
 import org.apache.myfaces.tobago.layout.LayoutBase;
-import org.apache.myfaces.tobago.layout.LayoutManager;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.layout.TextAlign;
 import org.apache.myfaces.tobago.model.ExpandedState;
@@ -789,9 +787,6 @@ public class SheetRenderer extends LayoutComponentRendererBase {
       LOG.debug("*****************************************************");
     }
 
-    final boolean needVerticalScrollbar = needVerticalScrollbar(facesContext, sheet);
-    int verticalScrollbarWidth = 0;
-
     writer.startElement(HtmlElements.DIV, sheet);
     writer.writeClassAttribute(Classes.create(sheet, "headerDiv"));
     writer.startElement(HtmlElements.TABLE, sheet);
@@ -799,10 +794,6 @@ public class SheetRenderer extends LayoutComponentRendererBase {
     writer.writeAttribute(HtmlAttributes.CELLPADDING, "0", false);
     writer.writeAttribute(HtmlAttributes.SUMMARY, "", false);
     writer.writeClassAttribute(Classes.create(sheet, "headerTable table")); // XXX table comes from bootstrap
-    if (needVerticalScrollbar) {
-      verticalScrollbarWidth = getVerticalScrollbarWeight(facesContext, sheet).getPixel();
-      writer.writeAttribute("data-tobago-sheet-verticalscrollbarwidth", String.valueOf(verticalScrollbarWidth), false);
-    }
 
     if (columnWidths != null) {
       writer.startElement(HtmlElements.COLGROUP, null);
@@ -968,17 +959,6 @@ public class SheetRenderer extends LayoutComponentRendererBase {
     writer.endElement(HtmlElements.TBODY);
     writer.endElement(HtmlElements.TABLE);
     writer.endElement(HtmlElements.DIV);
-  }
-
-  // todo: remove
-  private boolean needVerticalScrollbar(final FacesContext facesContext, final UISheet sheet) {
-    final LayoutManager layoutManager = sheet.getLayoutManager();
-    if (layoutManager instanceof AbstractUISheetLayout) {
-      return ((AbstractUISheetLayout) layoutManager).needVerticalScrollbar(facesContext, sheet);
-    } else {
-      LOG.error("Sheet must use a sheet layout, but found: " + layoutManager.getClass().getName());
-      return true;
-    }
   }
 
   private void encodeResizing(final TobagoResponseWriter writer, final AbstractUISheet sheet, final int columnIndex)

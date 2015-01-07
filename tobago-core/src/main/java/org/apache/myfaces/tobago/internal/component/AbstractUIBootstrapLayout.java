@@ -23,7 +23,6 @@ import org.apache.myfaces.tobago.component.SupportsMarkup;
 import org.apache.myfaces.tobago.layout.LayoutComponent;
 import org.apache.myfaces.tobago.layout.LayoutContainer;
 import org.apache.myfaces.tobago.layout.LayoutManager;
-import org.apache.myfaces.tobago.layout.Orientation;
 
 /**
  * TODO
@@ -40,6 +39,7 @@ public abstract class AbstractUIBootstrapLayout extends AbstractUILayoutBase imp
     }
   }
 
+/*
   public void fixRelativeInsideAuto(final Orientation orientation, final boolean auto) {
   }
 
@@ -51,4 +51,5 @@ public abstract class AbstractUIBootstrapLayout extends AbstractUILayoutBase imp
 
   public void postProcessing(final Orientation orientation) {
   }
+*/
 }

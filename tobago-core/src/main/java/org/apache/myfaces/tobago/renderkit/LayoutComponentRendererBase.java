@@ -21,7 +21,6 @@ package org.apache.myfaces.tobago.renderkit;
 
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.config.Configurable;
-import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.layout.Measure;
 
 import javax.faces.context.FacesContext;
@@ -110,17 +109,5 @@ public abstract class LayoutComponentRendererBase extends RendererBase implement
 
   public Measure getPaddingBottom(final FacesContext facesContext, final Configurable component) {
     return getResourceManager().getThemeMeasure(facesContext, component, Attributes.PADDING_BOTTOM, Measure.ZERO);
-  }
-
-  /** @deprecated since Tobago 3.0 */
-  @Deprecated
-  public Measure getVerticalScrollbarWeight(final FacesContext facesContext, final Configurable component) {
-    final ClientProperties clientProperties = ClientProperties.getInstance(facesContext);
-    final Measure weight = clientProperties.getVerticalScrollbarWeight();
-    if (weight != null) {
-      return weight;
-    } else { // default
-      return getResourceManager().getThemeMeasure(facesContext, component, "verticalScrollbarWeight", Measure.ZERO);
-    }
   }
 }

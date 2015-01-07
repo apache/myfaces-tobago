@@ -19,14 +19,9 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
-import org.apache.myfaces.tobago.internal.layout.Interval;
-import org.apache.myfaces.tobago.internal.layout.IntervalList;
-import org.apache.myfaces.tobago.internal.layout.LayoutUtils;
 import org.apache.myfaces.tobago.layout.LayoutComponent;
 import org.apache.myfaces.tobago.layout.LayoutContainer;
 import org.apache.myfaces.tobago.layout.LayoutManager;
-import org.apache.myfaces.tobago.layout.Measure;
-import org.apache.myfaces.tobago.layout.Orientation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -45,6 +40,7 @@ public abstract class AbstractUITabGroupLayout extends AbstractUILayoutBase impl
     }
   }
 
+/*
   public void fixRelativeInsideAuto(final Orientation orientation, final boolean auto) {
 
     if (orientation == Orientation.HORIZONTAL) {
@@ -79,10 +75,12 @@ public abstract class AbstractUITabGroupLayout extends AbstractUILayoutBase impl
     if (intervals.size() >= 1) {
       intervals.evaluate();
       final Measure size = intervals.getCurrent();
+*/
 /*
       size = size.add(LayoutUtils.getBorderBegin(orientation, getLayoutContainer()));
       size = size.add(LayoutUtils.getBorderEnd(orientation, getLayoutContainer()));
-*/
+*//*
+
       LayoutUtils.setCurrentSize(orientation, getLayoutContainer(), size);
     }
   }
@@ -124,6 +122,7 @@ public abstract class AbstractUITabGroupLayout extends AbstractUILayoutBase impl
       // todo: optimize: the AutoLayoutTokens with columnSpan=1 are already called
     }
   }
+*/
 
   @Override
   public boolean getRendersChildren() {

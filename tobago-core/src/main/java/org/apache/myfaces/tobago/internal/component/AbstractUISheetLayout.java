@@ -21,19 +21,15 @@ package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.internal.layout.Grid;
-import org.apache.myfaces.tobago.internal.layout.IntervalList;
-import org.apache.myfaces.tobago.internal.layout.LayoutUtils;
 import org.apache.myfaces.tobago.internal.layout.OriginCell;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.layout.AutoLayoutToken;
-import org.apache.myfaces.tobago.layout.LayoutBox;
 import org.apache.myfaces.tobago.layout.LayoutComponent;
 import org.apache.myfaces.tobago.layout.LayoutContainer;
 import org.apache.myfaces.tobago.layout.LayoutManager;
 import org.apache.myfaces.tobago.layout.LayoutToken;
 import org.apache.myfaces.tobago.layout.LayoutTokens;
 import org.apache.myfaces.tobago.layout.Measure;
-import org.apache.myfaces.tobago.layout.Orientation;
 import org.apache.myfaces.tobago.layout.RelativeLayoutToken;
 import org.apache.myfaces.tobago.model.SheetState;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRenderer;
@@ -41,7 +37,6 @@ import org.apache.myfaces.tobago.util.LayoutInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.faces.component.UIColumn;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.util.List;
@@ -54,8 +49,10 @@ public abstract class AbstractUISheetLayout extends AbstractUILayoutBase impleme
 
   private static final Logger LOG = LoggerFactory.getLogger(AbstractUISheetLayout.class);
 
+/*
   private boolean horizontalAuto;
   private boolean verticalAuto;
+*/
 
   public void init() {
 
@@ -68,6 +65,7 @@ public abstract class AbstractUISheetLayout extends AbstractUILayoutBase impleme
     }
   }
 
+/*
   public void fixRelativeInsideAuto(final Orientation orientation, final boolean auto) {
 
     if (orientation == Orientation.HORIZONTAL) {
@@ -94,15 +92,18 @@ public abstract class AbstractUISheetLayout extends AbstractUILayoutBase impleme
           ((LayoutContainer) component).getLayoutManager().preProcessing(orientation);
         }
 
+*/
 /*
         if (orientation == Orientation.HORIZONTAL && horizontalAuto
             || orientation == Orientation.VERTICAL && verticalAuto) {
           intervals.add(new Interval(component, orientation));
         }
-*/
+*//*
+
       }
     }
 
+*/
 /*
     if (intervals.size() >= 1) {
       intervals.evaluate();
@@ -111,7 +112,8 @@ public abstract class AbstractUISheetLayout extends AbstractUILayoutBase impleme
       size = size.add(LayoutUtils.getBorderEnd(orientation, getLayoutContainer()));
       LayoutUtils.setCurrentSize(orientation, getLayoutContainer(), size);
     }
-*/
+*//*
+
   }
 
   public void mainProcessing(final Orientation orientation) {
@@ -193,6 +195,7 @@ public abstract class AbstractUISheetLayout extends AbstractUILayoutBase impleme
       }
     }
   }
+*/
 
   @Override
   public boolean getRendersChildren() {
@@ -229,11 +232,6 @@ public abstract class AbstractUISheetLayout extends AbstractUILayoutBase impleme
     final LayoutComponentRenderer renderer = data.getLayoutComponentRenderer(facesContext);
     space = space.subtractNotNegative(renderer.getBorderLeft(facesContext, data));
     space = space.subtractNotNegative(renderer.getBorderRight(facesContext, data));
-    Measure verticalScrollbarWeight = renderer.getVerticalScrollbarWeight(facesContext, data);
-    boolean needVerticalScrollbar = needVerticalScrollbar(facesContext, data);
-    if (needVerticalScrollbar) {
-      space = space.subtractNotNegative(verticalScrollbarWeight);
-    }
 
     if (currentWidthList == null) {
       final LayoutTokens tokens = data.getColumnLayout();
@@ -258,10 +256,6 @@ public abstract class AbstractUISheetLayout extends AbstractUILayoutBase impleme
         }
       }
 
-/*
-      // todo: not nice: 1 left + 1 right border
-      space = space.subtract(renderedColumns.size() * 2);
-*/
       final LayoutInfo layoutInfo =
           new LayoutInfo(newTokens.getSize(), space.getPixel(), newTokens, data.getClientId(facesContext), false);
       final Measure columnSelectorWidth
@@ -275,15 +269,7 @@ public abstract class AbstractUISheetLayout extends AbstractUILayoutBase impleme
         freeWidth -= width;
       }
 
-      if (needVerticalScrollbar) {
-        if (freeWidth > 0) {
-          currentWidthList.add(freeWidth + verticalScrollbarWeight.getPixel()); // filler column
-        } else {
-          currentWidthList.add(verticalScrollbarWeight.getPixel()); // filler column
-        }
-      } else {
-        currentWidthList.add(Math.max(freeWidth, 0)); // empty filler column
-      }
+      currentWidthList.add(Math.max(freeWidth, 0)); // empty filler column
     }
 
     if (renderedColumns.size() + 1 != currentWidthList.size()) {
@@ -293,56 +279,6 @@ public abstract class AbstractUISheetLayout extends AbstractUILayoutBase impleme
     } else {
       data.setWidthList(currentWidthList);
     }
-  }
-
-  // todo: remove
-  /** @deprecated since Tobago 3.0 */
-  @Deprecated
-  public boolean needVerticalScrollbar(final FacesContext facesContext, final AbstractUISheet sheet) {
-    // estimate need of height-scrollbar on client, if yes we have to consider
-    // this when calculating column width's
-
-    if (sheet.getNeedVerticalScrollbar() != null) {
-      return sheet.getNeedVerticalScrollbar();
-    }
-
-    Boolean result = null;
-
-    final Object forceScrollbar = sheet.getAttributes().get(Attributes.FORCE_VERTICAL_SCROLLBAR);
-    if (forceScrollbar != null) {
-      if ("true".equals(forceScrollbar)) {
-        result = true;
-      } else if ("false".equals(forceScrollbar)) {
-        result = false;
-      } else if (!"auto".equals(forceScrollbar)) {
-        LOG.warn("Illegal value for attribute 'forceVerticalScrollbar': '" + forceScrollbar + "'");
-      }
-    }
-
-    if (result == null && !sheet.hasRowCount()) {
-      result = true;
-    }
-
-    if (result == null) {
-      if (sheet.getCurrentHeight() != null) {
-        final int first = sheet.getFirst();
-        final int rows = sheet.isRowsUnlimited()
-            ? sheet.getRowCount()
-            : Math.min(sheet.getRowCount(), first + sheet.getRows()) - first;
-        Measure heightNeeded = getRowHeight(facesContext, sheet).multiply(rows);
-        if (sheet.isShowHeader()) {
-          heightNeeded = heightNeeded.add(getHeaderHeight(facesContext, sheet));
-        }
-        if (sheet.isPagingVisible()) {
-          heightNeeded = heightNeeded.add(getFooterHeight(facesContext, sheet));
-        }
-        result = heightNeeded.greaterThan(sheet.getCurrentHeight());
-      } else {
-        result = false;
-      }
-    }
-    sheet.setNeedVerticalScrollbar(result);
-    return result;
   }
 
   private void parseFixedWidth(

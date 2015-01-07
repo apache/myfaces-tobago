@@ -57,13 +57,6 @@ public class ClientProperties implements Serializable {
   private Theme theme;
   private UserAgent userAgent = UserAgent.DEFAULT;
 
-  /** @deprecated since Tobago 3.0 */
-  @Deprecated
-  private Measure verticalScrollbarWeight;
-  /** @deprecated since Tobago 3.0 */
-  @Deprecated
-  private Measure horizontalScrollbarWeight;
-
   private Measure pageWidth;
   private Measure pageHeight;
 
@@ -156,25 +149,27 @@ public class ClientProperties implements Serializable {
   /** @deprecated since Tobago 3.0 */
   @Deprecated
   public Measure getVerticalScrollbarWeight() {
-    return verticalScrollbarWeight;
+    Deprecation.LOG.error("verticalScrollbarWeight");
+    return Measure.ZERO;
   }
 
   /** @deprecated since Tobago 3.0 */
   @Deprecated
   public void setVerticalScrollbarWeight(final Measure verticalScrollbarWeight) {
-    this.verticalScrollbarWeight = verticalScrollbarWeight;
+    Deprecation.LOG.error("verticalScrollbarWeight");
   }
 
   /** @deprecated since Tobago 3.0 */
   @Deprecated
   public Measure getHorizontalScrollbarWeight() {
-    return horizontalScrollbarWeight;
+    Deprecation.LOG.error("horizontalScrollbarWeight");
+    return Measure.ZERO;
   }
 
   /** @deprecated since Tobago 3.0 */
   @Deprecated
   public void setHorizontalScrollbarWeight(final Measure horizontalScrollbarWeight) {
-    this.horizontalScrollbarWeight = horizontalScrollbarWeight;
+    Deprecation.LOG.error("horizontalScrollbarWeight");
   }
 
   public Measure getPageWidth() {

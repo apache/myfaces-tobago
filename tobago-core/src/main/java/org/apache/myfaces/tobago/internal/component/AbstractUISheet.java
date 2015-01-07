@@ -93,8 +93,6 @@ public abstract class AbstractUISheet extends AbstractUIData
 
   private transient List<LayoutComponent> layoutComponents;
 
-  private transient Boolean needVerticalScrollbar;
-
   private transient Grid headerGrid;
 
   public LayoutComponentRenderer getLayoutComponentRenderer(final FacesContext context) {
@@ -645,14 +643,6 @@ public abstract class AbstractUISheet extends AbstractUIData
   }
 
   public abstract boolean isShowHeader();
-
-  public Boolean getNeedVerticalScrollbar() {
-    return needVerticalScrollbar;
-  }
-
-  public void setNeedVerticalScrollbar(final Boolean needVerticalScrollbar) {
-    this.needVerticalScrollbar = needVerticalScrollbar;
-  }
 
   @Override
   public ExpandedState getExpandedState() {

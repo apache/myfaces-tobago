@@ -37,6 +37,7 @@ public abstract class AbstractUIFlowLayout extends AbstractUILayoutBase implemen
     }
   }
 
+/*
   public void fixRelativeInsideAuto(final Orientation orientation, final boolean auto) {
   }
 
@@ -49,4 +50,5 @@ public abstract class AbstractUIFlowLayout extends AbstractUILayoutBase implemen
 
   public void postProcessing(final Orientation orientation) {
   }
+*/
 }

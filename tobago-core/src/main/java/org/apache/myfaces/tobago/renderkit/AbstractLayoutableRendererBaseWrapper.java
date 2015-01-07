@@ -111,10 +111,4 @@ public abstract class AbstractLayoutableRendererBaseWrapper extends AbstractRend
   public Measure getPaddingBottom(final FacesContext facesContext, final Configurable component) {
     return ((LayoutComponentRenderer) getRenderer(facesContext)).getPaddingBottom(facesContext, component);
   }
-
-  /** @deprecated since Tobago 3.0 */
-  @Deprecated
-  public Measure getVerticalScrollbarWeight(final FacesContext facesContext, final Configurable component) {
-    return ((LayoutComponentRenderer) getRenderer(facesContext)).getVerticalScrollbarWeight(facesContext, component);
-  }
 }
