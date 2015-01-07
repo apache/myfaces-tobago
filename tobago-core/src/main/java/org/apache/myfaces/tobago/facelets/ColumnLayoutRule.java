@@ -20,8 +20,8 @@
 package org.apache.myfaces.tobago.facelets;
 
 import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.component.UIBootstrapLayout;
-import org.apache.myfaces.tobago.layout.BootstrapPartition;
+import org.apache.myfaces.tobago.component.UIColumnLayout;
+import org.apache.myfaces.tobago.layout.ColumnPartition;
 
 import javax.faces.view.facelets.FaceletContext;
 import javax.faces.view.facelets.MetaRule;
@@ -29,12 +29,12 @@ import javax.faces.view.facelets.Metadata;
 import javax.faces.view.facelets.MetadataTarget;
 import javax.faces.view.facelets.TagAttribute;
 
-public class BootstrapLayoutRule extends MetaRule {
+public class ColumnLayoutRule extends MetaRule {
 
-  public static final BootstrapLayoutRule INSTANCE = new BootstrapLayoutRule();
+  public static final ColumnLayoutRule INSTANCE = new ColumnLayoutRule();
 
   public Metadata applyRule(final String name, final TagAttribute attribute, final MetadataTarget metadataTarget) {
-    if (metadataTarget.isTargetInstanceOf(UIBootstrapLayout.class)) {
+    if (metadataTarget.isTargetInstanceOf(UIColumnLayout.class)) {
       if (attribute.isLiteral()) {
         if (Attributes.EXTRA_SMALL.equals(name)) {
           return new ExtraSmallMapper(attribute);
@@ -61,8 +61,8 @@ public class BootstrapLayoutRule extends MetaRule {
     }
 
     public void applyMetadata(final FaceletContext ctx, final Object instance) {
-      final UIBootstrapLayout gridLayout = (UIBootstrapLayout) instance;
-      gridLayout.setExtraSmall(BootstrapPartition.valueOf(attribute.getValue()));
+      final UIColumnLayout gridLayout = (UIColumnLayout) instance;
+      gridLayout.setExtraSmall(ColumnPartition.valueOf(attribute.getValue()));
     }
   }
 
@@ -74,8 +74,8 @@ public class BootstrapLayoutRule extends MetaRule {
     }
 
     public void applyMetadata(final FaceletContext ctx, final Object instance) {
-      final UIBootstrapLayout gridLayout = (UIBootstrapLayout) instance;
-      gridLayout.setSmall(BootstrapPartition.valueOf(attribute.getValue()));
+      final UIColumnLayout gridLayout = (UIColumnLayout) instance;
+      gridLayout.setSmall(ColumnPartition.valueOf(attribute.getValue()));
     }
   }
 
@@ -87,8 +87,8 @@ public class BootstrapLayoutRule extends MetaRule {
     }
 
     public void applyMetadata(final FaceletContext ctx, final Object instance) {
-      final UIBootstrapLayout gridLayout = (UIBootstrapLayout) instance;
-      gridLayout.setMedium(BootstrapPartition.valueOf(attribute.getValue()));
+      final UIColumnLayout gridLayout = (UIColumnLayout) instance;
+      gridLayout.setMedium(ColumnPartition.valueOf(attribute.getValue()));
     }
   }
 
@@ -100,8 +100,8 @@ public class BootstrapLayoutRule extends MetaRule {
     }
 
     public void applyMetadata(final FaceletContext ctx, final Object instance) {
-      final UIBootstrapLayout gridLayout = (UIBootstrapLayout) instance;
-      gridLayout.setLarge(BootstrapPartition.valueOf(attribute.getValue()));
+      final UIColumnLayout gridLayout = (UIColumnLayout) instance;
+      gridLayout.setLarge(ColumnPartition.valueOf(attribute.getValue()));
     }
   }
 

@@ -19,10 +19,10 @@
 
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
-import org.apache.myfaces.tobago.component.UIBootstrapLayout;
+import org.apache.myfaces.tobago.component.UIColumnLayout;
 import org.apache.myfaces.tobago.component.UIExtensionPanel;
 import org.apache.myfaces.tobago.component.UILabel;
-import org.apache.myfaces.tobago.internal.component.AbstractUIBootstrapLayout;
+import org.apache.myfaces.tobago.internal.component.AbstractUIColumnLayout;
 import org.apache.myfaces.tobago.layout.LayoutContainer;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Css;
@@ -39,16 +39,16 @@ import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.util.List;
 
-public class BootstrapLayoutRenderer extends RendererBase {
+public class ColumnLayoutRenderer extends RendererBase {
 
-  private static final Logger LOG = LoggerFactory.getLogger(BootstrapLayoutRenderer.class);
+  private static final Logger LOG = LoggerFactory.getLogger(ColumnLayoutRenderer.class);
 
   @Override
   public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
-    final AbstractUIBootstrapLayout bootstrapLayout = (AbstractUIBootstrapLayout) component;
+    final AbstractUIColumnLayout columnLayout = (AbstractUIColumnLayout) component;
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
-    writer.startElement(HtmlElements.DIV, bootstrapLayout);
+    writer.startElement(HtmlElements.DIV, columnLayout);
 //    writer.writeClassAttribute("row");
     writer.writeClassAttribute("form-horizontal");
   }
@@ -56,18 +56,18 @@ public class BootstrapLayoutRenderer extends RendererBase {
   @Override
   public void encodeChildren(final FacesContext facesContext, final UIComponent component) throws IOException {
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
-    final UIBootstrapLayout bootstrapLayout = (UIBootstrapLayout) component;
-    final UIComponent container = bootstrapLayout.getParent();
+    final UIColumnLayout columnLayout = (UIColumnLayout) component;
+    final UIComponent container = columnLayout.getParent();
     if (container instanceof LayoutContainer && !((LayoutContainer) container).isLayoutChildren()) {
       return;
     }
 
     final List<UIComponent> children = container.getChildren();
     final BootstrapCssGenerator generator = new BootstrapCssGenerator(
-        bootstrapLayout.getExtraSmall(),
-        bootstrapLayout.getSmall(),
-        bootstrapLayout.getMedium(),
-        bootstrapLayout.getLarge());
+        columnLayout.getExtraSmall(),
+        columnLayout.getSmall(),
+        columnLayout.getMedium(),
+        columnLayout.getLarge());
     for (UIComponent child : children) {
       if (child instanceof UIExtensionPanel) {
         for (UIComponent subChild : child.getChildren()) {

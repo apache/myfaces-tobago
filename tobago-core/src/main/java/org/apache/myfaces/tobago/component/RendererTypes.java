@@ -24,13 +24,13 @@ package org.apache.myfaces.tobago.component;
  */
 public final class RendererTypes {
 
-  public static final String BOOTSTRAP_LAYOUT = "BootstrapLayout";
   public static final String BOX = "Box";
   public static final String BOX_TOOL_BAR = "BoxToolBar";
   public static final String BUTTON = "Button";
   public static final String CALENDAR = "Calendar";
   public static final String CELL = "Cell";
   public static final String COLUMN = "Column";
+  public static final String COLUMN_LAYOUT = "ColumnLayout";
   public static final String COLUMN_SELECTOR = "ColumnSelector";
   public static final String COMMAND = "Command";
   public static final String DATE = "Date";

@@ -24,7 +24,7 @@ import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
-import org.apache.myfaces.tobago.internal.component.AbstractUIBootstrapLayout;
+import org.apache.myfaces.tobago.internal.component.AbstractUIColumnLayout;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasBinding;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
@@ -32,44 +32,44 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasId;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
 
 /**
- * Renders a layout using the bootstrap 12 column grid.
+ * Renders a layout using a 12 columns grid.
  */
-@Tag(name = "bootstrapLayout", bodyContent = BodyContent.EMPTY)
+@Tag(name = "columnLayout", bodyContent = BodyContent.EMPTY)
 @UIComponentTag(
-    uiComponent = "org.apache.myfaces.tobago.component.UIBootstrapLayout",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIBootstrapLayout",
+    uiComponent = "org.apache.myfaces.tobago.component.UIColumnLayout",
+    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIColumnLayout",
     uiComponentFacesClass = "javax.faces.component.UIComponentBase",
-    componentFamily = AbstractUIBootstrapLayout.COMPONENT_FAMILY,
-    rendererType = RendererTypes.BOOTSTRAP_LAYOUT,
+    componentFamily = AbstractUIColumnLayout.COMPONENT_FAMILY,
+    rendererType = RendererTypes.COLUMN_LAYOUT,
     allowedChildComponenents = "NONE", isLayout = true)
-public interface BootstrapLayoutTagDeclaration extends HasId, HasBinding, HasMarkup, HasCurrentMarkup {
+public interface ColumnLayoutTagDeclaration extends HasId, HasBinding, HasMarkup, HasCurrentMarkup {
 
   /**
    * TODO
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.BootstrapPartition")
+  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.ColumnPartition")
   void setExtraSmall(String extraSmall);
 
   /**
    * TODO
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.BootstrapPartition")
+  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.ColumnPartition")
   void setSmall(String small);
 
   /**
    * TODO
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.BootstrapPartition")
+  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.ColumnPartition")
   void setMedium(String medium);
 
   /**
    * TODO
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.BootstrapPartition")
+  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.ColumnPartition")
   void setLarge(String large);
 
 }

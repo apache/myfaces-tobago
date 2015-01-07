@@ -19,21 +19,21 @@
 
 package org.apache.myfaces.tobago.renderkit.util;
 
-import org.apache.myfaces.tobago.layout.BootstrapPartition;
+import org.apache.myfaces.tobago.layout.ColumnPartition;
 import org.apache.myfaces.tobago.renderkit.css.Css;
 
 public class BootstrapCssGenerator {
 
-  private BootstrapPartition extraSmall;
-  private BootstrapPartition small;
-  private BootstrapPartition medium;
-  private BootstrapPartition large;
+  private ColumnPartition extraSmall;
+  private ColumnPartition small;
+  private ColumnPartition medium;
+  private ColumnPartition large;
 
   private int index = 0;
 
   public BootstrapCssGenerator(
-      final BootstrapPartition extraSmall, final BootstrapPartition small, final BootstrapPartition medium,
-      final BootstrapPartition large) {
+      final ColumnPartition extraSmall, final ColumnPartition small, final ColumnPartition medium,
+      final ColumnPartition large) {
     this.extraSmall = extraSmall;
     this.small = small;
     this.medium = medium;
@@ -55,7 +55,7 @@ public class BootstrapCssGenerator {
     generate(css, large, "col-lg-");
   }
 
-  private void generate(final Css css, final BootstrapPartition partition, final String prefix) {
+  private void generate(final Css css, final ColumnPartition partition, final String prefix) {
     if (partition != null) {
       css.add(prefix + partition.getPart(index % partition.getSize()));
     }

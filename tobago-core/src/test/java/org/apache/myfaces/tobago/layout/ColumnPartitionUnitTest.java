@@ -22,38 +22,38 @@ package org.apache.myfaces.tobago.layout;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class BootstrapPartitionUnitTest {
+public class ColumnPartitionUnitTest {
 
   @Test
   public void testArray() {
     Assert.assertArrayEquals(
-        new Integer[]{12}, new BootstrapPartition().getParts()); // will be fixed
+        new Integer[]{12}, new ColumnPartition().getParts()); // will be fixed
     Assert.assertArrayEquals(
-        new Integer[]{12}, new BootstrapPartition(12).getParts());
+        new Integer[]{12}, new ColumnPartition(12).getParts());
     Assert.assertArrayEquals(
-        new Integer[]{1, 11}, new BootstrapPartition(1, 11).getParts());
+        new Integer[]{1, 11}, new ColumnPartition(1, 11).getParts());
     Assert.assertArrayEquals(
-        new Integer[]{1, 11}, new BootstrapPartition(1, 12).getParts()); // will be fixed
+        new Integer[]{1, 11}, new ColumnPartition(1, 12).getParts()); // will be fixed
     Assert.assertArrayEquals(
-        new Integer[]{1, 2, 3, 4, 2}, new BootstrapPartition(1, 2, 3, 4, 5).getParts()); // will be fixed
+        new Integer[]{1, 2, 3, 4, 2}, new ColumnPartition(1, 2, 3, 4, 5).getParts()); // will be fixed
     Assert.assertArrayEquals(
-        new Integer[]{1, 1, 1, 1, 1, 7}, new BootstrapPartition(-1, -2, -3, -4, -5).getParts()); // will be fixed
+        new Integer[]{1, 1, 1, 1, 1, 7}, new ColumnPartition(-1, -2, -3, -4, -5).getParts()); // will be fixed
   }
 
   @Test
   public void testString() {
     Assert.assertArrayEquals(
-        new Integer[]{12}, BootstrapPartition.valueOf("").getParts()); // will be fixed
+        new Integer[]{12}, ColumnPartition.valueOf("").getParts()); // will be fixed
     Assert.assertArrayEquals(
-        new Integer[]{12}, BootstrapPartition.valueOf("12").getParts());
+        new Integer[]{12}, ColumnPartition.valueOf("12").getParts());
     Assert.assertArrayEquals(
-        new Integer[]{1, 11}, BootstrapPartition.valueOf("1;11").getParts());
+        new Integer[]{1, 11}, ColumnPartition.valueOf("1;11").getParts());
     Assert.assertArrayEquals(
-        new Integer[]{1, 11}, BootstrapPartition.valueOf("1;12").getParts()); // will be fixed
+        new Integer[]{1, 11}, ColumnPartition.valueOf("1;12").getParts()); // will be fixed
     Assert.assertArrayEquals(
-        new Integer[]{1, 2, 3, 4, 2}, BootstrapPartition.valueOf("1;2;3;4;5").getParts()); // will be fixed
+        new Integer[]{1, 2, 3, 4, 2}, ColumnPartition.valueOf("1;2;3;4;5").getParts()); // will be fixed
     Assert.assertArrayEquals(
-        new Integer[]{1, 1, 1, 1, 1, 7}, BootstrapPartition.valueOf("-1;-2;-3;-4;-5").getParts()); // will be fixed
+        new Integer[]{1, 1, 1, 1, 1, 7}, ColumnPartition.valueOf("-1;-2;-3;-4;-5").getParts()); // will be fixed
   }
 
 }

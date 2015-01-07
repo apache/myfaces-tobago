@@ -27,7 +27,7 @@ import org.apache.myfaces.tobago.layout.LayoutManager;
 /**
  * TODO
  */
-public abstract class AbstractUIBootstrapLayout extends AbstractUILayoutBase implements LayoutManager, SupportsMarkup {
+public abstract class AbstractUIColumnLayout extends AbstractUILayoutBase implements LayoutManager, SupportsMarkup {
 
   public static final String COMPONENT_FAMILY = "org.apache.myfaces.tobago.BootstrapLayout";
 

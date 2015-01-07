@@ -26,15 +26,15 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * A list of positive integers with sum 12. Is used for the bootstrap column partitioning.
+ * A list of positive integers with sum 12. Is used for the 12 columns partitioning.
  */
-public final class BootstrapPartition {
+public final class ColumnPartition {
 
   private static final Integer[] PART_12 = new Integer[]{12};
 
   private final Integer[] parts;
 
-  public BootstrapPartition(Integer... parts) {
+  public ColumnPartition(Integer... parts) {
     if (checkSum(parts)) {
       this.parts = parts;
     } else {
@@ -42,20 +42,20 @@ public final class BootstrapPartition {
     }
   }
 
-  public static BootstrapPartition valueOf(String string) {
+  public static ColumnPartition valueOf(String string) {
     final List<Integer> integers = StringUtils.parseIntegerList(string, ";");
-    return new BootstrapPartition(integers.toArray(new Integer[integers.size()]));
+    return new ColumnPartition(integers.toArray(new Integer[integers.size()]));
   }
 
-  public static BootstrapPartition valueOf(Object object) {
+  public static ColumnPartition valueOf(Object object) {
     if (object instanceof String) {
       return valueOf((String) object);
     } else if (object instanceof Integer[]) {
-      return new BootstrapPartition((Integer[]) object);
+      return new ColumnPartition((Integer[]) object);
     } else if (object != null) {
       return valueOf(object.toString());
     } else {
-      return new BootstrapPartition(PART_12);
+      return new ColumnPartition(PART_12);
     }
   }
 

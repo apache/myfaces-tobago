@@ -333,7 +333,7 @@ CharacterProperty(property) ::= <<
 <NormalProperty(property)>
 >>
 
-BootstrapPartitionProperty(property) ::= <<
+ColumnPartitionProperty(property) ::= <<
 <NormalProperty(property)>
 >>
 

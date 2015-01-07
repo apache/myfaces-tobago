@@ -29,7 +29,7 @@
     </f:facet>
     <tc:panel>
         <f:facet name="layout">
-          <tc:bootstrapLayout medium="2;10"/>
+          <tc:columnLayout medium="2;10"/>
         </f:facet>
 
         <tx:in value="#{controller.currentAddress.firstName}"
@@ -43,7 +43,7 @@
 
         <tc:panel>
           <f:facet name="layout">
-            <tc:bootstrapLayout medium="2;8;2"/>
+            <tc:columnLayout medium="2;8;2"/>
           </f:facet>
           <tx:in value="#{controller.currentAddress.street}"
                  label="#{bundle.editorStreet}"/>
@@ -52,7 +52,7 @@
 
         <tc:panel>
           <f:facet name="layout">
-            <tc:bootstrapLayout medium="2;3;7"/>
+            <tc:columnLayout medium="2;3;7"/>
           </f:facet>
           <tx:in value="#{controller.currentAddress.zipCode}"
                  label="#{bundle.editorCity}"/>
@@ -61,7 +61,7 @@
 
     <tc:panel>
       <f:facet name="layout">
-        <tc:bootstrapLayout medium="2;10"/>
+        <tc:columnLayout medium="2;10"/>
       </f:facet>
 
         <tx:selectOneChoice
