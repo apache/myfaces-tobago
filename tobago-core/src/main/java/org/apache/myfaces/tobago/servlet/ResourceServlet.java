@@ -154,7 +154,7 @@ public class ResourceServlet extends HttpServlet {
     } else {
       final String message = "Unsupported mime type of resource='" + resource + "'";
       LOG.warn(message + " (because of security reasons)");
-      response.sendError(HttpServletResponse.SC_FORBIDDEN, message);
+      response.setStatus(HttpServletResponse.SC_FORBIDDEN);
       return;
     }
 
@@ -175,7 +175,7 @@ public class ResourceServlet extends HttpServlet {
       } else {
         final String message = "Resource '" + resource + "' not found!";
         LOG.warn(message);
-        response.sendError(HttpServletResponse.SC_NOT_FOUND, message);
+        response.setStatus(HttpServletResponse.SC_NOT_FOUND);
       }
     } finally {
       IoUtils.closeQuietly(inputStream);
