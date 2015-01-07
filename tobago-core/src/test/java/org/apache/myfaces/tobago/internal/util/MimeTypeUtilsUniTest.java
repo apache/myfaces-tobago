@@ -17,6 +17,8 @@ public class MimeTypeUtilsUniTest {
   public static final String HTM = "http:///localhost:8080/demo/demo.htm";
   public static final String MAP = "http:///localhost:8080/demo/demo.map";
   public static final String WOFF = "http:///localhost:8080/demo/demo.woff";
+  public static final String TTF = "http:///localhost:8080/demo/demo.ttf";
+  public static final String SVG = "http:///localhost:8080/demo/demo.svg";
 
   public static final String UNKNOWN0 = "http:///localhost:8080/demo/demo.PNG";
   public static final String UNKNOWN1 = "http:///localhost:8080/demo/demos._png";
@@ -36,6 +38,8 @@ public class MimeTypeUtilsUniTest {
     Assert.assertEquals("text/html", MimeTypeUtils.getMimeTypeForFile(HTM));
     Assert.assertEquals("application/json", MimeTypeUtils.getMimeTypeForFile(MAP));
     Assert.assertEquals("application/font-woff", MimeTypeUtils.getMimeTypeForFile(WOFF));
+    Assert.assertEquals("application/x-font-ttf", MimeTypeUtils.getMimeTypeForFile(TTF));
+    Assert.assertEquals("image/svg+xml", MimeTypeUtils.getMimeTypeForFile(SVG));
   }
 
   @Test
