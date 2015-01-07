@@ -36,6 +36,9 @@ public final class MimeTypeUtils {
         if (file.regionMatches(length - 3, "jpg", 0, 2)) {
           return "image/jpeg";
         }
+        if (file.endsWith("svg")) {
+          return "image/svg+xml";
+        }
       } else {
         if (file.endsWith("css")) {
           return "text/css";
@@ -51,6 +54,9 @@ public final class MimeTypeUtils {
         }
         if (file.endsWith("map")) {
           return "application/json";
+        }
+        if (file.endsWith("ttf")) {
+          return "application/x-font-ttf";
         }
       }
     } else if (file.charAt(length - 3) == '.') {
