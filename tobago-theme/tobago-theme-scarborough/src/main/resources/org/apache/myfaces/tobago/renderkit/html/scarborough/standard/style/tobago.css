@@ -162,6 +162,7 @@ fieldset.tobago-box {
   font-weight: normal;
   cursor: pointer;
   height: 19px;
+  white-space: nowrap;
 }
 
 .tobago-button-markup-default {
