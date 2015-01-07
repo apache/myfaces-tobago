@@ -27,8 +27,6 @@ import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
-import org.apache.myfaces.tobago.renderkit.css.Position;
-import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
@@ -72,12 +70,6 @@ public class PanelRenderer extends LayoutComponentRendererBase {
     writer.writeIdAttribute(clientId);
     writer.writeClassAttribute(Classes.create(panel));
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, panel);
-    final Style style = new Style(facesContext, panel);
-    // XXX hotfix for panels in sheets
-    if (style.getPosition() == null) {
-      style.setPosition(Position.RELATIVE);
-    }
-    writer.writeStyleAttribute(style);
     if (panel instanceof UIPanel && ((UIPanel) panel).getTip() != null) {
       writer.writeAttribute(HtmlAttributes.TITLE, ((UIPanel) panel).getTip(), true);
     }
@@ -104,18 +96,6 @@ public class PanelRenderer extends LayoutComponentRendererBase {
         || borderTop.greaterThan(Measure.ZERO) || borderBottom.greaterThan(Measure.ZERO)) {
       writer.startElement(HtmlElements.DIV, panel);
       writer.writeClassAttribute(Classes.create(panel, "content")); // needed to be scrollable inside of the panel
-      final Style inner = new Style(facesContext, panel);
-      // Todo: FIXME (be null may occur in sheets)
-      if (inner.getWidth() != null) {
-        inner.setWidth(inner.getWidth().subtract(borderLeft).subtract(borderRight));
-      }
-      // Todo: FIXME (be null may occur in sheets)
-      if (inner.getHeight() != null) {
-        inner.setHeight(inner.getHeight().subtract(borderTop).subtract(borderBottom));
-      }
-      inner.setLeft(borderLeft);
-      inner.setTop(borderTop);
-      writer.writeStyleAttribute(inner);
     }
   }
 
