@@ -1189,6 +1189,7 @@ a:active.tobago-sheet-pagingLink {
   vertical-align: top;
   float: left;
   cursor: pointer;
+  list-style: none;
 }
 
 .tobago-tab img {
@@ -1292,7 +1293,6 @@ a:active.tobago-sheet-pagingLink {
   border-color: #ddeeff #778899 #778899 #ddeeff;
   border-width: 0 1px 1px 1px;
   border-style: solid;
-  display: none;
   /*overflow: hidden;XXX TOBAGO3*/
 }
 

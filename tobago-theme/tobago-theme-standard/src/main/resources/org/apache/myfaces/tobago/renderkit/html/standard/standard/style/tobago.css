@@ -91,6 +91,7 @@ table.tobago-gridLayout > tbody > tr:first-child > td {
 
 .tobago-sheet-pagingInput {
   text-align: center;
+  display: none;
 }
 
 .tobago-sheet-pagingOuter {
@@ -116,8 +117,12 @@ table.tobago-gridLayout > tbody > tr:first-child > td {
   vertical-align: top;
 }
 
-/* sheet -------------------------------------------------------------- */
+/* tab -------------------------------------------------------------- */
 
-.tobago-sheet-pagingInput {
+.tobago-tab-content {
   display: none;
+}
+
+.tobago-tab-content-markup-selected {
+  display: block;
 }

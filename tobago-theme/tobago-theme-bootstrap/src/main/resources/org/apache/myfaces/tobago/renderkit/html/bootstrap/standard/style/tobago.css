@@ -77,3 +77,7 @@ fixes missing space, I thinks normal Websites have a " " Space char in the sourc
   margin-top: 10px;
   margin-bottom: 5px;
 }
+ /* FIXME: This is to hide the toolbar, until it is implemented */
+.tobago-tabGroup-toolBar {
+  display: none;
+}

@@ -21,8 +21,9 @@ package org.apache.myfaces.tobago.renderkit.html;
 
 public enum HtmlRoleValues {
 
+  NAVIGATION("navigation"),
   PRESENTATION("presentation"),
-  NAVIGATION("navigation");
+  TABLIST("tablist");
 
   private String value;
 

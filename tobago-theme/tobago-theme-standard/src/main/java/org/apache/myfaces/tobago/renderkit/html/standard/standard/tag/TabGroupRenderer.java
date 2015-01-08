@@ -41,6 +41,7 @@ import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
+import org.apache.myfaces.tobago.renderkit.html.HtmlRoleValues;
 import org.apache.myfaces.tobago.renderkit.html.JsonUtils;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
@@ -179,8 +180,9 @@ public class TabGroupRenderer extends LayoutComponentRendererBase {
     writer.startElement(HtmlElements.DIV, tabGroup);
     writer.writeClassAttribute(Classes.create(tabGroup, "header"));
 
-    writer.startElement(HtmlElements.DIV, tabGroup);
-    writer.writeClassAttribute(Classes.create(tabGroup, "headerInner"));
+    writer.startElement(HtmlElements.UL, tabGroup);
+    writer.writeClassAttribute(Classes.create(tabGroup, "headerInner").getStringValue() + " nav nav-tabs");
+    writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.TABLIST.toString(), false);
 
     int index = 0;
     for (final UIComponent child : tabGroup.getChildren()) {
@@ -198,8 +200,9 @@ public class TabGroupRenderer extends LayoutComponentRendererBase {
           if (maxSeverity != null) {
             ComponentUtils.addCurrentMarkup(tab, ComponentUtils.markupOfSeverity(maxSeverity));
           }
-          writer.startElement(HtmlElements.DIV, tab);
+          writer.startElement(HtmlElements.LI, tab);
           writer.writeClassAttribute(Classes.create(tab));
+          writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.PRESENTATION.toString(), false);
           writer.writeAttribute(HtmlAttributes.TABGROUPINDEX, index);
           final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, tab);
           if (title != null) {
@@ -243,12 +246,12 @@ public class TabGroupRenderer extends LayoutComponentRendererBase {
             renderTabToolbar(facesContext, writer, tab, toolbar);
           }
 
-          writer.endElement(HtmlElements.DIV);
+          writer.endElement(HtmlElements.LI);
         }
       }
       index++;
     }
-    writer.endElement(HtmlElements.DIV);
+    writer.endElement(HtmlElements.UL);
     writer.endElement(HtmlElements.DIV);
     if (tabGroup.isShowNavigationBar()) {
       final UIToolBar toolBar = createToolBar(facesContext, tabGroup);
