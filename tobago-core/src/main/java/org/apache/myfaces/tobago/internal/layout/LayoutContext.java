@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.internal.layout;
 
-import org.apache.myfaces.tobago.internal.component.AbstractUIGridLayout;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.layout.LayoutBase;
 import org.apache.myfaces.tobago.layout.LayoutContainer;
@@ -145,12 +144,10 @@ public class LayoutContext {
     }
     if (component instanceof LayoutContainer) {
       final LayoutManager layoutManager = ((LayoutContainer) component).getLayoutManager();
-      if (layoutManager instanceof AbstractUIGridLayout) {
-        buffer.append("\n");
-        buffer.append(StringUtils.repeat("  ", depth + 4));
-        buffer.append("layout: ");
-        buffer.append(((AbstractUIGridLayout) layoutManager).toString(depth));
-      }
+      buffer.append("\n");
+      buffer.append(StringUtils.repeat("  ", depth + 4));
+      buffer.append("layout: ");
+      buffer.append(layoutManager.toString().replace("\n", "\n" + StringUtils.repeat("  ", depth)));
     }
     buffer.append("\n");
     for (final UIComponent child : component.getChildren()) {

@@ -113,4 +113,9 @@ public final class ColumnPartition {
   public int getPart(final int column) {
     return parts[column];
   }
+
+  @Override
+  public String toString() {
+    return Arrays.toString(parts);
+  }
 }

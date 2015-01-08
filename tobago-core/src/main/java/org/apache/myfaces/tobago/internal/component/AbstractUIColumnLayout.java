@@ -20,6 +20,7 @@
 package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.myfaces.tobago.component.SupportsMarkup;
+import org.apache.myfaces.tobago.layout.ColumnPartition;
 import org.apache.myfaces.tobago.layout.LayoutComponent;
 import org.apache.myfaces.tobago.layout.LayoutContainer;
 import org.apache.myfaces.tobago.layout.LayoutManager;
@@ -52,4 +53,35 @@ public abstract class AbstractUIColumnLayout extends AbstractUILayoutBase implem
   public void postProcessing(final Orientation orientation) {
   }
 */
-}
+
+  @Override
+  public String toString() {
+    StringBuilder builder  =new StringBuilder(getClass().getSimpleName());
+    if (getExtraSmall() != null) {
+      builder.append("\n        extraSmall=");
+      builder.append(getExtraSmall());
+    }
+    if (getSmall() != null) {
+      builder.append("\n        small=");
+      builder.append(getSmall());
+    }
+    if (getMedium() != null) {
+      builder.append("\n        medium=");
+      builder.append(getMedium());
+    }
+    if (getLarge() != null) {
+      builder.append("\n        large=");
+      builder.append(getLarge());
+    }
+    return builder.toString();
+  }
+
+  public abstract ColumnPartition getExtraSmall();
+
+  public abstract ColumnPartition getSmall();
+
+  public abstract ColumnPartition getMedium();
+
+  public abstract ColumnPartition getLarge();
+
+  }

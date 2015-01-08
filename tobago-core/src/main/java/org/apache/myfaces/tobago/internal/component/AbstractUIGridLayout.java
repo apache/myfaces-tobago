@@ -482,28 +482,28 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase implemen
     return false;
   }
 
-  public String toString(final int depth) {
+  public String toString() {
     final StringBuilder builder = new StringBuilder();
     builder.append(getClass().getSimpleName()).append("#");
     builder.append(getClientId(FacesContext.getCurrentInstance()));
     builder.append("\n");
     if (grid != null) {
-      builder.append(StringUtils.repeat("  ", depth + 4));
+      builder.append(StringUtils.repeat("  ", 4));
       builder.append("horiz.: ");
       BankHead[] heads = grid.getBankHeads(Orientation.HORIZONTAL);
       for (int i = 0; i < heads.length; i++) {
         if (i != 0) {
-          builder.append(StringUtils.repeat("  ", depth + 4 + 4));
+          builder.append(StringUtils.repeat("  ", 4 + 4));
         }
         builder.append(heads[i]);
         builder.append("\n");
       }
-      builder.append(StringUtils.repeat("  ", depth + 4));
+      builder.append(StringUtils.repeat("  ", 4));
       builder.append("verti.: ");
       heads = grid.getBankHeads(Orientation.VERTICAL);
       for (int i = 0; i < heads.length; i++) {
         if (i != 0) {
-          builder.append(StringUtils.repeat("  ", depth + 4 + 4));
+          builder.append(StringUtils.repeat("  ", 4 + 4));
         }
         builder.append(heads[i]);
         builder.append("\n");
@@ -513,8 +513,4 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase implemen
     return builder.toString();
   }
 
-  @Override
-  public String toString() {
-    return toString(0);
-  }
 }

@@ -39,6 +39,9 @@ import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * Renders the 12 columns layout.
+ */
 public class ColumnLayoutRenderer extends RendererBase {
 
   private static final Logger LOG = LoggerFactory.getLogger(ColumnLayoutRenderer.class);
