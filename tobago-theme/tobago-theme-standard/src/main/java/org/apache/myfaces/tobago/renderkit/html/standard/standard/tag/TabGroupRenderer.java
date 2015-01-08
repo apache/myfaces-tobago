@@ -360,7 +360,7 @@ public class TabGroupRenderer extends LayoutComponentRendererBase {
 
     writer.writeAttribute(HtmlAttributes.TABGROUPINDEX, index);
 
-    RenderUtils.encodeChildren(facesContext, tab);
+    RenderUtils.encode(facesContext, tab);
 
     writer.endElement(HtmlElements.DIV);
   }

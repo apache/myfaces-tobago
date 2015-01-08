@@ -68,7 +68,7 @@ public abstract class AbstractUITabGroup extends AbstractUIPanel
 
     super.encodeBegin(facesContext);
 
-    ((AbstractUILayoutBase) getLayoutManager()).encodeBegin(facesContext);
+//    ((AbstractUILayoutBase) getLayoutManager()).encodeBegin(facesContext);
   }
 
   @Override
@@ -80,7 +80,7 @@ public abstract class AbstractUITabGroup extends AbstractUIPanel
   @Override
   public void encodeEnd(final FacesContext facesContext) throws IOException {
 
-    ((AbstractUILayoutBase) getLayoutManager()).encodeEnd(facesContext);
+//    ((AbstractUILayoutBase) getLayoutManager()).encodeEnd(facesContext);
 
     resetTabLayout();
     super.encodeEnd(facesContext);

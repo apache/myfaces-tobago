@@ -27,4 +27,8 @@ public class TabRenderer extends LayoutComponentRendererBase {
 
   private static final Logger LOG = LoggerFactory.getLogger(TabRenderer.class);
 
+  @Override
+  public boolean getRendersChildren() {
+    return true;
+  }
 }
