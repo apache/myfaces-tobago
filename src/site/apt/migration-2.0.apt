@@ -132,7 +132,7 @@ Date/Time
 
 ToolBar with dropDownMenu facet
 
-  Usually you need to set <<<omit="true">>> in the <<<tc:toolBarCommand>>>
+  Usually you need to set <<<omit="true">>> in the <<<tc:toolBarCommand>>>, to avoid a submit.
 
 Configuration
 
