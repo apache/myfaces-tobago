@@ -112,6 +112,18 @@ Tag Library
   The main changes in the tag library are that
   the deprecated facets "resizeAction" and "menupopup" has been removed.
 
+Suggest
+
+  Please use the new <<<\<tc:suggest\>>>> tag instead of using the inline attribute inside of <<<\<tc:in\>>>>
+
+*--+--+
+| <<deprecated>> | <<replacement>> |
+*--+--+
+| <<<\<tc:in suggestMethod="#\{bean.method\}"/\>>>> | <<<\<tc:in\>\<tc:suggest suggestMethod="#\{bean.method\}"/\>\</tc:in\>>>> |
+*--+--+
+| <<<\<tx:in suggestMethod="#\{bean.method\}"/\>>>> | <<<\<tx:in\>\<tc:suggest suggestMethod="#\{bean.method\}"/\>\</tx:in\>>>> |
+*--+--+
+
 Tree
 
   * The Tree now extends a UIData.
