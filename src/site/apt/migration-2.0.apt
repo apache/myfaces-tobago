@@ -130,6 +130,10 @@ Date/Time
   If using the new: <<<tc:date>>> can do the job of <<<tc:time>>>.
   You only need to set the <<<f:convertDateTime type="time">>> inside the <<<tc:date>>>.
 
+ToolBar with dropDownMenu facet
+
+  Usually you need to set <<<omit="true">>> in the <<<tc:toolBarCommand>>>
+
 Configuration
 
   To define an own theme, please use now a file <<<tobago-config.xml>>> instead of <<<tobago-theme.xml>>>.
