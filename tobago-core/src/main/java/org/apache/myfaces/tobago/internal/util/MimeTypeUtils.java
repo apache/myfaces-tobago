@@ -24,7 +24,7 @@ import java.util.Map;
 
 public final class MimeTypeUtils {
 
-  private static final Map<String, String> extensionTypeMap = new HashMap<String, String>();
+  private static final Map<String, String> EXTENSION_TYPE_MAP = new HashMap<String, String>();
 
   public static final String DEFAULT_MAPPING = ".gif:image/gif,.png:image/png,.jpg:image/jpeg,.js:text/javascript,"
       + ".css:text/css,.ico:image/vnd.microsoft.icon,.html:text/html,.htm:text/html,.map:application/json";
@@ -39,10 +39,10 @@ public final class MimeTypeUtils {
       mimeTypeMapping = DEFAULT_MAPPING;
     }
     try {
-      extensionTypeMap.clear();
+      EXTENSION_TYPE_MAP.clear();
       for (String typeMapping : mimeTypeMapping.split(",")) {
         int idx = typeMapping.indexOf(':');
-        extensionTypeMap.put(typeMapping.substring(0, idx).trim(), typeMapping.substring(idx + 1).trim());
+        EXTENSION_TYPE_MAP.put(typeMapping.substring(0, idx).trim(), typeMapping.substring(idx + 1).trim());
       }
     } catch (Exception e) {
       throw new IllegalArgumentException("Invalid parameter 'mimeTypeMapping': \"" + mimeTypeMapping + "\"", e);
@@ -50,7 +50,7 @@ public final class MimeTypeUtils {
   }
 
   public static String getMimeTypeForFile(final String file) {
-    for (Map.Entry<String, String> entry : extensionTypeMap.entrySet()) {
+    for (Map.Entry<String, String> entry : EXTENSION_TYPE_MAP.entrySet()) {
       if (file.endsWith(entry.getKey())) {
         return entry.getValue();
       }

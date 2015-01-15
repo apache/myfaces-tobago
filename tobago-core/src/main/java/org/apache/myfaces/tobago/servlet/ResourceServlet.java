@@ -60,7 +60,8 @@ import java.util.Set;
  *   &lt;init-param&gt;
  *     &lt;description&gt; File extension to mimeType mapping.
  *       Comma separated list of <extension>:<mime-type>
- *       Default is ".gif:image/gif,.png:image/png,.jpg:image/jpeg,.js:text/javascript,.css:text/css,.ico:image/vnd.microsoft.icon,.html:text/html,.htm:text/html,.map:application/json"
+ *       Default is ".gif:image/gif,.png:image/png,.jpg:image/jpeg,.js:text/javascript,.css:text/css,
+ *       .ico:image/vnd.microsoft.icon,.html:text/html,.htm:text/html,.map:application/json"
  *    .&lt;/description&gt;
  *     &lt;param-name&gt;mimeTypeMapping&lt;/param-name&gt;
  *     &lt;param-value&gt;.gif:image/gif,.htm:text/html&lt;/param-value&gt;
