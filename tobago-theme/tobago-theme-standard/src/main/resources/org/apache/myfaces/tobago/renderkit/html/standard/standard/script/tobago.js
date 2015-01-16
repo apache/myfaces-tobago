@@ -2296,7 +2296,9 @@ Tobago.Updater = {
         if (typeof this.afterDoUpdateNotModified == 'function') {
           this.afterDoUpdateNotModified();
         }
-        overlay.overlay("destroy");
+        if (overlay.data("tobagoOverlay") != null) {
+          overlay.overlay("destroy");
+        }
         break;
       case Tobago.Updater.CODE_ERROR:
         if (typeof this.afterDoUpdateError == 'function') {
@@ -2313,7 +2315,9 @@ Tobago.Updater = {
         break;
       default:
         console.error('Unknown response code: ' + data.responseCode + " for component id = '" + data.ajaxId + "'"); // @DEV_ONLY
-        overlay.overlay("destroy");
+        if (overlay.data("tobagoOverlay") != null) {
+          overlay.overlay("destroy");
+        }
         break;
     }
   }
