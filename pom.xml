@@ -800,6 +800,7 @@
           <version>2.3.2</version>
           <configuration>
             <archive>
+
               <manifest>
                 <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
               </manifest>
