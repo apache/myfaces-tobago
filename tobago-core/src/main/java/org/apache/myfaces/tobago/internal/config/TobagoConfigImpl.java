@@ -289,7 +289,7 @@ public class TobagoConfigImpl extends TobagoConfig {
           defaultValidatorInfo = Collections.emptyMap();
         }
       } catch (final Exception e) {
-        LOG.error("Can't initialize default validators (this happens with JBoss GateIn 3.6.0).", e);
+        LOG.error("Can't initialize default validators (this happens with some JBoss servers).");
         defaultValidatorInfo = Collections.emptyMap();
       }
     }
