@@ -71,7 +71,9 @@ public class MultiplePageDeclarationLanguageNavigationHandler extends Navigation
       }
     }
 
-    LOG.info("Original outcome='"+  original + "', adjusted outcome = '"+ outcome +"'");
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("Original outcome='" + original + "', adjusted outcome = '" + outcome + "'");
+    }
 
     if (StringUtils.startsWith(outcome, "/content/")) {
       final ViewHandler viewHandler = facesContext.getApplication().getViewHandler();
