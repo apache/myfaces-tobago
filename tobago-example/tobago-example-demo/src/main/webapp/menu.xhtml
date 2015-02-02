@@ -42,9 +42,8 @@
                           value="#{overviewBundle.pageTitle} - #{info.version} - #{overviewBundle.tobago_url}"/>
       </tc:menuCommand>
       <tc:menuCommand link="http://myfaces.apache.org/tobago" label="Tobago in the Web"/>
-      <tc:menuCommand action="server-info" immediate="true"
-                      label="Server Info"
-                      disabled="#{! info.enabled}"/>
+      <tc:menuCommand action="/server-info.xhtml" immediate="true" label="Server Info" disabled="#{! info.enabled}"/>
+      <tc:menuCommand action="/logging-info.xhtml" immediate="true" label="Logging Info" disabled="#{! info.enabled}"/>
     </tc:menu>
   </tc:form>
 </tc:menuBar>

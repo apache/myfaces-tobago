@@ -50,8 +50,10 @@
                 onclick="alert('#{overviewBundle.pageTitle}' + String.fromCharCode(10) + '#{info.version}' + String.fromCharCode(10) + '#{overviewBundle.tobago_url}' + String.fromCharCode(10))"
                 label="#{overviewBundle.menu_about}"/>
             <tc:menuCommand link="http://myfaces.apache.org/tobago" label="Tobago in the Web"/>
-            <tc:menuCommand action="server-info" immediate="true"
+            <tc:menuCommand action="/server-info.xhtml" immediate="true"
                             label="Server Info" disabled="#{! info.enabled}"/>
+            <tc:menuCommand action="/logging-info.xhtml" immediate="true"
+                            label="Logging Info" disabled="#{! info.enabled}"/>
           </tc:menu>
         </tc:form>
       </tc:menuBar>
