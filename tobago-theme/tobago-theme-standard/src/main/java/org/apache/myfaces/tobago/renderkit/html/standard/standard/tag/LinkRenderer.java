@@ -132,6 +132,11 @@ public class LinkRenderer extends CommandRendererBase {
 
   @Override
   public Measure getPreferredWidth(final FacesContext facesContext, final Configurable component) {
+
+    if (!(component instanceof AbstractUILink)) {
+      return Measure.valueOf(100);
+    }
+
     final AbstractUILink link = (AbstractUILink) component;
     final LabelWithAccessKey label = new LabelWithAccessKey(link);
     final String text = label.getLabel();
