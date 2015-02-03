@@ -79,7 +79,11 @@ Compatibility
 *--+--+--+--+--+
 || <<Frameworks>>      ||                           ||                                             ||                                       ||
 *--+--+--+--+--+
-| CDI / Codi           |                            | yes                                          | yes                                    | yes
+| CDI                  |                            | yes                                          | yes                                    | yes
+*--+--+--+--+--+
+| Codi                 |                            | yes                                          | yes                                    | yes
+*--+--+--+--+--+
+| DeltaSpike           |                            | yes                                          | yes                                    | yes
 *--+--+--+--+--+
 | JSR-303 / BV         |                            | yes                                          | yes                                    | yes
 *--+--+--+--+--+
