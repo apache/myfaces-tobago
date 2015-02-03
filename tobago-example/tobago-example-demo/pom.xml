@@ -30,7 +30,7 @@
 
   <properties>
     <openwebbeans.version>1.1.7</openwebbeans.version>
-    <myfaces-extcdi.version>1.0.5</myfaces-extcdi.version>
+    <deltaspike.version>1.2.1</deltaspike.version>
   </properties>
   <build>
     <finalName>tobago-example-demo</finalName>
@@ -148,11 +148,11 @@
       <artifactId>commons-io</artifactId>
     </dependency>
 
-    <!-- Codi -->
+    <!-- DeltaSpike -->
     <dependency>
       <groupId>org.apache.deltaspike.modules</groupId>
       <artifactId>deltaspike-jsf-module-impl</artifactId>
-      <version>1.2.1</version>
+      <version>${deltaspike.version}</version>
     </dependency>
 
     <dependency>

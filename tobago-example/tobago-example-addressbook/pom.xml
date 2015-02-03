@@ -30,7 +30,7 @@
   <properties>
     <openjpa.version>2.3.0</openjpa.version>
     <openwebbeans.version>1.1.7</openwebbeans.version>
-    <myfaces-extcdi.version>1.0.5</myfaces-extcdi.version>
+    <deltaspike.version>1.2.1</deltaspike.version>
   </properties>
 
   <build>
@@ -193,29 +193,14 @@
 -->
     </dependency>
 
+    <!-- DeltaSpike -->
     <dependency>
-      <groupId>org.apache.myfaces.extensions.cdi.core</groupId>
-      <artifactId>myfaces-extcdi-core-api</artifactId>
-      <version>${myfaces-extcdi.version}</version>
-      <scope>compile</scope>
+      <groupId>org.apache.deltaspike.modules</groupId>
+      <artifactId>deltaspike-jsf-module-impl</artifactId>
+      <version>${deltaspike.version}</version>
     </dependency>
 
-    <dependency>
-      <groupId>org.apache.myfaces.extensions.cdi.core</groupId>
-      <artifactId>myfaces-extcdi-core-impl</artifactId>
-      <version>${myfaces-extcdi.version}</version>
-      <scope>runtime</scope>
-    </dependency>
-
-<!-- which repository-->
-<!--
-    <dependency>
-      <groupId>org.apacheExtras.myfaces.codi.addon</groupId>
-      <artifactId>controlled-owb-bootstrapping-addon</artifactId>
-      <version>1.0.0</version>
-      <scope>compile</scope>
-    </dependency>
--->
+    <!-- which repository-->
     <dependency>
         <groupId>org.tango-project</groupId>
         <artifactId>tango-icon-theme</artifactId>
@@ -326,20 +311,6 @@
           <value>provided</value>
         </property>
       </activation>
-      <dependencies>
-        <dependency>
-          <groupId>org.apache.myfaces.extensions.cdi.modules</groupId>
-          <artifactId>myfaces-extcdi-jsf20-module-api</artifactId>
-          <version>${myfaces-extcdi.version}</version>
-          <scope>compile</scope>
-        </dependency>
-        <dependency>
-          <groupId>org.apache.myfaces.extensions.cdi.modules</groupId>
-          <artifactId>myfaces-extcdi-jsf20-module-impl</artifactId>
-          <version>${myfaces-extcdi.version}</version>
-          <scope>runtime</scope>
-        </dependency>
-      </dependencies>
     </profile>
 
     <profile>
@@ -388,21 +359,6 @@
           <groupId>org.apache.openwebbeans</groupId>
           <artifactId>openwebbeans-resource</artifactId>
           <version>${openwebbeans.version}</version>
-        </dependency>
-
-
-        <dependency>
-          <groupId>org.apache.myfaces.extensions.cdi.modules</groupId>
-          <artifactId>myfaces-extcdi-jsf20-module-api</artifactId>
-          <version>${myfaces-extcdi.version}</version>
-          <scope>compile</scope>
-        </dependency>
-
-        <dependency>
-          <groupId>org.apache.myfaces.extensions.cdi.modules</groupId>
-          <artifactId>myfaces-extcdi-jsf20-module-impl</artifactId>
-          <version>${myfaces-extcdi.version}</version>
-          <scope>runtime</scope>
         </dependency>
 
       </dependencies>
