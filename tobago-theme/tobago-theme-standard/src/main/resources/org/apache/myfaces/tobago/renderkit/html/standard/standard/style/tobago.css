@@ -126,3 +126,7 @@ table.tobago-gridLayout > tbody > tr:first-child > td {
 .tobago-tab-content-markup-selected {
   display: block;
 }
+
+.tobago-out {
+  display: inline-block;
+}
