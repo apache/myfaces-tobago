@@ -21,10 +21,8 @@ package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
 import org.apache.myfaces.tobago.component.UISelectManyShuttle;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
-import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.SelectManyRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
-import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlButtonTypes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
@@ -45,8 +43,6 @@ public class SelectManyShuttleRenderer extends SelectManyRendererBase {
     final UISelectManyShuttle select = (UISelectManyShuttle) component;
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
     writer.startElement(HtmlElements.DIV, select);
-    final Style style = new Style(facesContext, select);
-    writer.writeStyleAttribute(style);
     writer.writeClassAttribute(Classes.create(select));
     final String clientId = select.getClientId(facesContext);
     writer.writeIdAttribute(clientId);
@@ -56,29 +52,12 @@ public class SelectManyShuttleRenderer extends SelectManyRendererBase {
       writer.writeAttribute(HtmlAttributes.TITLE, title, true);
     }
     final boolean hasLabel = select.hasLabel();
-    // TODO get buttonWidth and label Height from theme
-    final Measure buttonWidth = Measure.valueOf(50);
-
-    final Measure labelHeight = Measure.valueOf(18);
-    style.setTop(Measure.valueOf(0));
-    style.setLeft(Measure.valueOf(0));
-    final Measure width = style.getWidth();
-    final Measure selectWidth = width.subtract(buttonWidth).divide(2);
-    style.setWidth(selectWidth);
-    Style labelStyle = null;
-    if (hasLabel) {
-      labelStyle = new Style(style);
-      labelStyle.setHeight(labelHeight);
-      style.setHeight(style.getHeight().subtract(labelHeight));
-      style.setTop(style.getTop().add(labelHeight));
-    }
     Iterable<SelectItem> items = SelectItemUtils.getItemIterator(facesContext, select);
     final boolean disabled = !items.iterator().hasNext() || select.isDisabled() || select.isReadonly();
 
     final String unselectedLabel = select.getUnselectedLabel();
     if (unselectedLabel != null) {
       writer.startElement(HtmlElements.DIV, null);
-      writer.writeStyleAttribute(labelStyle);
       writer.writeClassAttribute(Classes.create(select, "unselectedLabel"));
       writer.flush(); // is needed in some cases, e. g. TOBAGO-1094
       writer.write(unselectedLabel);
@@ -95,7 +74,6 @@ public class SelectManyShuttleRenderer extends SelectManyRendererBase {
       writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
     }
 
-    writer.writeStyleAttribute(style);
     writer.writeClassAttribute(Classes.create(select, "unselected"));
 
     writer.writeAttribute(HtmlAttributes.MULTIPLE, HtmlAttributes.MULTIPLE, false);
@@ -105,22 +83,15 @@ public class SelectManyShuttleRenderer extends SelectManyRendererBase {
 
     writer.endElement(HtmlElements.SELECT);
     writer.startElement(HtmlElements.DIV, null);
-    style.setLeft(style.getLeft().add(selectWidth));
-    style.setWidth(buttonWidth);
-    writer.writeStyleAttribute(style);
-    writer.startElement(HtmlElements.DIV, null);
     writer.writeClassAttribute(Classes.create(select, "toolBar"));
     createButton(facesContext, component, writer, disabled, "image/selectManyShuttleAddAll", "addAll");
     createButton(facesContext, component, writer, disabled, "image/selectManyShuttleAdd", "add");
     createButton(facesContext, component, writer, disabled, "image/selectManyShuttleRemove", "remove");
     createButton(facesContext, component, writer, disabled, "image/selectManyShuttleRemoveAll", "removeAll");
     writer.endElement(HtmlElements.DIV);
-    writer.endElement(HtmlElements.DIV);
     final String selectedLabel = select.getSelectedLabel();
     if (selectedLabel != null) {
       writer.startElement(HtmlElements.DIV, null);
-      labelStyle.setLeft(labelStyle.getLeft().add(selectWidth).add(buttonWidth));
-      writer.writeStyleAttribute(labelStyle);
       writer.writeClassAttribute(Classes.create(select, "selectedLabel"));
       writer.flush(); // is needed in some cases, e. g. TOBAGO-1094
       writer.write(selectedLabel);
@@ -135,9 +106,6 @@ public class SelectManyShuttleRenderer extends SelectManyRendererBase {
     if (tabIndex != null) {
       writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
     }
-    style.setWidth(selectWidth);
-    style.setLeft(style.getLeft().add(buttonWidth));
-    writer.writeStyleAttribute(style);
     writer.writeClassAttribute(Classes.create(select, "selected"));
     writer.writeAttribute(HtmlAttributes.MULTIPLE, HtmlAttributes.MULTIPLE, false);
     items = SelectItemUtils.getItemIterator(facesContext, select);
