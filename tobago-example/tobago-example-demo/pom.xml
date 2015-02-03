@@ -73,32 +73,8 @@
   </build>
 
   <dependencies>
-    <!-- Codi -->
-    <dependency>
-      <groupId>org.apache.myfaces.extensions.cdi.core</groupId>
-      <artifactId>myfaces-extcdi-core-api</artifactId>
-      <version>${myfaces-extcdi.version}</version>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.myfaces.extensions.cdi.core</groupId>
-      <artifactId>myfaces-extcdi-core-impl</artifactId>
-      <version>${myfaces-extcdi.version}</version>
-      <scope>runtime</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.myfaces.extensions.cdi.modules</groupId>
-      <artifactId>myfaces-extcdi-jsf20-module-api</artifactId>
-      <version>${myfaces-extcdi.version}</version>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.myfaces.extensions.cdi.modules</groupId>
-      <artifactId>myfaces-extcdi-jsf20-module-impl</artifactId>
-      <version>${myfaces-extcdi.version}</version>
-      <scope>runtime</scope>
-    </dependency>
 
+    <!-- Tobago -->
     <dependency>
       <groupId>org.apache.myfaces.tobago</groupId>
       <artifactId>tobago-example-data</artifactId>
@@ -170,6 +146,13 @@
     <dependency>
       <groupId>commons-io</groupId>
       <artifactId>commons-io</artifactId>
+    </dependency>
+
+    <!-- Codi -->
+    <dependency>
+      <groupId>org.apache.deltaspike.modules</groupId>
+      <artifactId>deltaspike-jsf-module-impl</artifactId>
+      <version>1.2.1</version>
     </dependency>
 
     <dependency>

@@ -19,8 +19,7 @@
 
 package org.apache.myfaces.tobago.example.demo.info;
 
-import org.apache.myfaces.extensions.cdi.core.api.Advanced;
-import org.apache.myfaces.extensions.cdi.jsf.api.listener.phase.JsfPhaseListener;
+import org.apache.deltaspike.jsf.api.listener.phase.JsfPhaseListener;
 import org.apache.myfaces.tobago.ajax.AjaxUtils;
 
 import javax.faces.context.FacesContext;
@@ -30,7 +29,6 @@ import javax.faces.event.PhaseListener;
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
-@Advanced
 @JsfPhaseListener
 public class ActivityPhaseListener implements PhaseListener {
 

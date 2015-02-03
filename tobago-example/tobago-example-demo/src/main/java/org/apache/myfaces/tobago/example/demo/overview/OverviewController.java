@@ -20,7 +20,7 @@
 package org.apache.myfaces.tobago.example.demo.overview;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.myfaces.extensions.cdi.core.api.scope.conversation.WindowScoped;
+import org.apache.deltaspike.core.api.scope.WindowScoped;
 import org.apache.myfaces.tobago.component.UISheet;
 import org.apache.myfaces.tobago.component.UIToolBar;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
