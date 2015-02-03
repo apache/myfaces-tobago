@@ -79,6 +79,8 @@ public interface PopupTagDeclaration
   void setTop(String top);
 
   /**
+   * TBD: Remove this attribute?
+   *
    * Represents the visibility order of the popup. The renderer may implemented this visibility by the CSS z-index.
    *
    * @param zIndex The visibility order.

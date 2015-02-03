@@ -928,10 +928,14 @@ var Tobago = {
     console.time("[tobago] initCss"); // @DEV_ONLY
     Tobago.Utils.selectWidthJQuery(elements, ".tobago-popup[data-tobago-style]").each(function () {
       var element = jQuery(this);
-      element.css("left", element.data("tobago-style").left);
-      element.css("top", element.data("tobago-style").top);
-      element.css("width", element.data("tobago-style").width);
-      element.css("height", element.data("tobago-style").height);
+      var data = element.data("tobago-style");
+      element.css({
+        left: data.left,
+        top: data.top,
+        width: data.width,
+        height: data.height,
+        zIndex: data.zIndex
+      });
     });
 /* XXX this is the old Tobago 2.0 behaviour, should be deleded und removing these information from the tags
     Tobago.Utils.selectWidthJQuery(elements, "[data-tobago-style]").each(function () {
