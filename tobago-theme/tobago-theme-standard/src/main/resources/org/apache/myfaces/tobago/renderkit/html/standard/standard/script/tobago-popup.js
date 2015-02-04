@@ -313,127 +313,21 @@ Tobago.Popup.move = function (event, page, popup, dnd) {
   popup.css("top", top);
 };
 
-// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// deprecated functions...
-
-/** @deprecated Since 1.5.1 Use Tobago.Popup  */
-Tobago.setupPopup = function () {
-  console.warn("Deprecated method was called. Please use Tobago.Popup"); // @DEV_ONLY
-  Tobago.Popup.setup();
-};
-/** @deprecated Since 1.5.1 Use Tobago.Popup  */
-Tobago.lockBehindPopup = function (popup) {
-  console.warn("Deprecated method was called. Please use Tobago.Popup"); // @DEV_ONLY
-  Tobago.Popup.lockBehind(popup);
-};
-/** @deprecated Since 1.5.1 Use Tobago.Popup  */
-Tobago.popupBlink = function (element) {
-  console.warn("Deprecated method was called. Please use Tobago.Popup"); // @DEV_ONLY
-  Tobago.Popup.blink(element);
-};
-/** @deprecated Since 1.5.1 Use Tobago.Popup  */
-Tobago.closePopup = function (closeButton) {
-  console.warn("Deprecated method was called. Please use Tobago.Popup"); // @DEV_ONLY
-  Tobago.Popup.close(closeButton);
-};
-/** @deprecated Since 1.5.1 Use Tobago.Popup  */
-Tobago.unlockBehindPopup = function () {
-  console.warn("Deprecated method was called. Please use Tobago.Popup"); // @DEV_ONLY
-  Tobago.Popup.unlockBehind();
-};
-/** @deprecated Since 1.5.1 Use Tobago.Popup  */
-Tobago.openPopupWithAction = function (source, popupId, actionId, options) {
-  console.warn("Deprecated method was called. Please use Tobago.Popup"); // @DEV_ONLY
-  Tobago.Popup.openWithAction(source, popupId, actionId, options);
-};
-
-/**
- * Setup popup size
- * @deprecated since Tobago 2.0.0
- */
-Tobago.Popup.setup = function () {
-  console.warn("Deprecated method was called. Please use Tobago.Popup.init()"); // @DEV_ONLY
-  Tobago.Popup.init();
-};
-
-// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// old functions...
-
-/** @deprecated */
-function openPopup(url, name, width, height, options, x, y) {
-  para = "";
-  if (!name) {
-    name = 'name';
-  }
-  if (!width) {
-    width = 800;
-  }
-  if (!height) {
-    height = 600;
-  }
-  if (!x) {
-    x = parseInt((window.screen.availWidth - width) / 2, 10);
-  }
-  if (!y) {
-    y = parseInt((window.screen.availHeight - height) / 2, 10);
-  }
-  if (!url) {
-    url = '';
-  }
-  if (!options) {
-    para = '';
-  }
-
-  var para = setPopupPara(width, height, options);
-
-  var newwin = window.open(url, name, para);
-
-  if (window.focus) {
-    newwin.focus();
-  }
-}
-
-/** @deprecated */
-function setPopupPara(width, height, options) {
-
-  var parent = '';
-  var dirbar = '';
-  var locationbar = '';
-  var menubar = '';
-  var resizable = '';
-  var scrollbars = '';
-  var statusbar = '';
-  var toolbar = '';
-  if (options) {
-    if (options.indexOf('p') > -1) {
-      parent = ',dependent';
-    }
-    if (options.indexOf('d') > -1) {
-      dirbar = ',directories';
-    }
-    if (options.indexOf('l') > -1) {
-      locationbar = ',location';
-    }
-    if (options.indexOf('m') > -1) {
-      menubar = ',menubar';
-    }
-    if (options.indexOf('r') > -1) {
-      resizable = ',resizable';
-    }
-    if (options.indexOf('s') > -1) {
-      scrollbars = ',scrollbars';
-    }
-    if (options.indexOf('u') > -1) {
-      statusbar = ',status';
-    }
-    if (options.indexOf('t') > -1) {
-      toolbar = ',toolbar';
-    }
-  }
-  width = ',width = ' + width;
-  height = ',height = ' + height;
-  return width + height + parent + dirbar + locationbar + menubar + resizable + scrollbars + statusbar + toolbar;
-}
-
 Tobago.registerListener(Tobago.Popup.init, Tobago.Phase.DOCUMENT_READY);
 Tobago.registerListener(Tobago.Popup.init, Tobago.Phase.AFTER_UPDATE);
+
+
+/**
+ * Init popup for bootstrap
+ */
+Tobago.Popup.initBootstrap = function (elements) {
+
+  var popups = Tobago.Utils.selectWidthJQuery(elements, ".modal");
+  popups.each(function() {
+    jQuery(this).modal(); // opens the popup
+  });
+
+};
+
+Tobago.registerListener(Tobago.Popup.initBootstrap, Tobago.Phase.DOCUMENT_READY);
+Tobago.registerListener(Tobago.Popup.initBootstrap, Tobago.Phase.AFTER_UPDATE);
