@@ -26,7 +26,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * A list of positive integers with sum 12. Is used for the 12 columns partitioning.
+ * A list of positive integers with sum 12 (separated by a semicolon ";"). Is used for the 12 columns partitioning.
  */
 public final class ColumnPartition {
 
