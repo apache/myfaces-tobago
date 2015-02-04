@@ -2263,7 +2263,8 @@ Tobago.Updater = {
         if (data.html.length > 0) {
           var newElement = jQuery(data.html);
           if (element.size() == 0 && newElement.hasClass("tobago-popup")) {
-            element = jQuery("<div id='" + data.ajaxId + "' />");
+            element = jQuery("<div>");
+            element.attr("id", data.ajaxId);
             jQuery('form').append(element);
           }
           element.replaceWith(newElement);
