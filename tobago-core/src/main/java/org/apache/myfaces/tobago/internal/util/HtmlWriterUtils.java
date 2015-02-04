@@ -34,14 +34,16 @@ public final class HtmlWriterUtils extends WriterUtils {
       CHARS_TO_ESCAPE[i] = EMPTY; // Control characters
     }
 
-    CHARS_TO_ESCAPE['\t'] = "&#09;".toCharArray(); // Horizontal tabulator
-    CHARS_TO_ESCAPE['\n'] = "&#10;".toCharArray(); // Line feed
-    CHARS_TO_ESCAPE['\r'] = "&#13;".toCharArray(); // Carriage return
+    CHARS_TO_ESCAPE['\t'] = "&#x09;".toCharArray(); // Horizontal tabulator
+    CHARS_TO_ESCAPE['\n'] = "&#x0a;".toCharArray(); // Line feed
+    CHARS_TO_ESCAPE['\r'] = "&#x0d;".toCharArray(); // Carriage return
 
-    CHARS_TO_ESCAPE['\''] = "&#39;".toCharArray();
+    CHARS_TO_ESCAPE['\''] = "&#x27;".toCharArray();
+    CHARS_TO_ESCAPE['\"'] = "&quot;".toCharArray();
     CHARS_TO_ESCAPE['&'] = "&amp;".toCharArray();
     CHARS_TO_ESCAPE['<'] = "&lt;".toCharArray();
     CHARS_TO_ESCAPE['>'] = "&gt;".toCharArray();
+    CHARS_TO_ESCAPE['/'] = "&#x2F;".toCharArray();
 
     CHARS_TO_ESCAPE[0x7F] = EMPTY; // Delete
 

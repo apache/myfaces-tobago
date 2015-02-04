@@ -120,7 +120,8 @@ public class TobagoResponseWriterUnitTest {
 
     String result = buffer.toString(); // all the same but this 4 items
     result = result.replace("&", "&amp;");
-    result = result.replace("'", "&#39;");
+    result = result.replace("'", "&#x27;");
+    result = result.replace("\"", "&quot;");
     result = result.replace("<", "&lt;");
     result = result.replace(">", "&gt;");
     Assert.assertEquals("all chars", "<select value='" + result + "'\n>" + result + "</select>",
