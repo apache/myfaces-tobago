@@ -47,7 +47,7 @@ public class HtmlWriterUtilsUnitTest {
   };
   public static final String[] ESCAPED_TEXTS = {
       "oeffnende spitze klammern werden in attributen doch escaped &lt;tagname &gt;",
-      "&amp; followed by an { -&gt; &amp;{ don&#39;t get escaped in attributes",
+      "&amp; followed by an { -&gt; &amp;{ don&#x27;t get escaped in attributes",
       RAW_TEXTS[2], // no escape needed
       "&nbsp;&iexcl;&cent;&pound;&curren;&yen;&brvbar;&sect;&uml;&copy;&ordf;&laquo;&not;&shy;&reg;&macr;",
       "&deg;&plusmn;&sup2;&sup3;&acute;&micro;&para;&middot;&cedil;&sup1;&ordm;&raquo;&frac14;&frac12;"
@@ -64,7 +64,7 @@ public class HtmlWriterUtilsUnitTest {
 
   public static final String[] ESCAPED_ATTRIBUTES = {
       ESCAPED_TEXTS[0], // same as in texts
-      "&amp; followed by an { -&gt; &{ don&#39;t get escaped in attributes",
+      "&amp; followed by an { -&gt; &{ don&#x27;t get escaped in attributes",
       ESCAPED_TEXTS[2], // same as in texts
       ESCAPED_TEXTS[3], // same as in texts
       ESCAPED_TEXTS[4], // same as in texts

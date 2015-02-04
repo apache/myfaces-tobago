@@ -78,7 +78,7 @@ public class TobagoResponseWriterUnitTest {
     writer.startElement(HtmlElements.A, null);
     writer.writeURIAttribute(HtmlAttributes.HREF, "http://example.org/web?text=äöüß", null);
     writer.endElement(HtmlElements.A);
-    Assert.assertEquals("uri attr tag", "<a href='http://example.org/web?text=%C3%A4%C3%B6%C3%BC%C3%9F'\n></a>",
+    Assert.assertEquals("uri attr tag", "<a href='http:&#x2F;&#x2F;example.org&#x2F;web?text=%C3%A4%C3%B6%C3%BC%C3%9F'\n></a>",
             stringWriter.toString());
   }
 
@@ -120,7 +120,9 @@ public class TobagoResponseWriterUnitTest {
 
     String result = buffer.toString(); // all the same but this 4 items
     result = result.replace("&", "&amp;");
-    result = result.replace("'", "&#39;");
+    result = result.replace("'", "&#x27;");
+    result = result.replace("\"", "&quot;");
+    result = result.replace("/", "&#x2F;");
     result = result.replace("<", "&lt;");
     result = result.replace(">", "&gt;");
     Assert.assertEquals("all chars", "<select value='" + result + "'\n>" + result + "</select>",

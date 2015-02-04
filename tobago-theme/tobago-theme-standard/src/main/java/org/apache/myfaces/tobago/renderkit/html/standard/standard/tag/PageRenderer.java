@@ -64,6 +64,7 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.portlet.MimeResponse;
 import javax.portlet.ResourceURL;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -192,12 +193,12 @@ public class PageRenderer extends PageRendererBase {
           writer.startElement(HtmlElements.LINK, null);
           if (href.endsWith(".ico")) {
             writer.writeAttribute(HtmlAttributes.REL, "shortcut icon", false);
-            writer.writeAttribute(HtmlAttributes.HREF, href, false);
+            writer.writeAttribute(HtmlAttributes.HREF, href, true);
           } else {
             // XXX IE only supports ICO files for favicons
             writer.writeAttribute(HtmlAttributes.REL, "icon", false);
-            writer.writeAttribute(HtmlAttributes.TYPE, MimeTypeUtils.getMimeTypeForFile(href), false);
-            writer.writeAttribute(HtmlAttributes.HREF, href, false);
+            writer.writeAttribute(HtmlAttributes.TYPE, MimeTypeUtils.getMimeTypeForFile(href), true);
+            writer.writeAttribute(HtmlAttributes.HREF, href, true);
           }
           writer.endElement(HtmlElements.LINK);
         } else {
@@ -384,7 +385,7 @@ public class PageRenderer extends PageRendererBase {
       if (styleString.length() > 0) {
         writer.startElement(HtmlElements.LINK, null);
         writer.writeAttribute(HtmlAttributes.REL, "stylesheet", false);
-        writer.writeAttribute(HtmlAttributes.HREF, styleString, false);
+        writer.writeAttribute(HtmlAttributes.HREF, styleString, true);
 //          writer.writeAttribute(HtmlAttributes.MEDIA, "screen", false);
         writer.writeAttribute(HtmlAttributes.TYPE, "text/css", false);
         writer.endElement(HtmlElements.LINK);
@@ -464,7 +465,7 @@ public class PageRenderer extends PageRendererBase {
     writer.startElement(HtmlElements.IMG, null);
     writer.writeClassAttribute(Classes.create(page, "overlayWaitPreloadedImage"));
     final String wait = ResourceManagerUtils.getImage(facesContext, "image/tobago-overlay-wait");
-    writer.writeAttribute(HtmlAttributes.SRC, wait, false);
+    writer.writeAttribute(HtmlAttributes.SRC, wait, true);
     writer.endElement(HtmlElements.IMG);
 
     writer.startElement(HtmlElements.IMG, null);
@@ -472,20 +473,20 @@ public class PageRenderer extends PageRendererBase {
     final String error = clientProperties.getUserAgent().isMsie6()
         ? ResourceManagerUtils.getImage(facesContext, "image/remove") // XXX why png doesn't work in ie6?
         : ResourceManagerUtils.getImage(facesContext, "image/dialog-error");
-    writer.writeAttribute(HtmlAttributes.SRC, error, false);
+    writer.writeAttribute(HtmlAttributes.SRC, error, true);
     writer.endElement(HtmlElements.IMG);
 
     writer.startElement(HtmlElements.IMG, null);
     writer.writeClassAttribute(Classes.create(page, "pngFixBlankImage"));
     final String pngFixBlankImage = ResourceManagerUtils.getImage(facesContext, "image/blank");
-    writer.writeAttribute(HtmlAttributes.SRC, pngFixBlankImage, false);
+    writer.writeAttribute(HtmlAttributes.SRC, pngFixBlankImage, true);
     writer.endElement(HtmlElements.IMG);
 
     writer.startElement(HtmlElements.IMG, null);
     writer.writeClassAttribute(Classes.create(page, "overlayBackgroundImage"));
     final String overlayBackgroundImage = ResourceManagerUtils.getImage(facesContext,
         "image/tobago-overlay-background");
-    writer.writeAttribute(HtmlAttributes.SRC, overlayBackgroundImage, false);
+    writer.writeAttribute(HtmlAttributes.SRC, overlayBackgroundImage, true);
     writer.endElement(HtmlElements.IMG);
 
     writer.startElement(HtmlElements.NOSCRIPT, null);

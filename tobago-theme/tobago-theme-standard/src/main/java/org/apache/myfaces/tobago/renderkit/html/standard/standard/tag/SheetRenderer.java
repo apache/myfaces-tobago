@@ -1154,7 +1154,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
     writer.writeClassAttribute(Classes.create(sheet, "pagingLink"));
     if (pagingLinkType == PagingLinkType.NORMAL) {
       writer.writeAttribute(DataAttributes.TO_PAGE, toPage);
-      writer.writeAttribute(HtmlAttributes.HREF, "#", true);
+      writer.writeAttribute(HtmlAttributes.HREF, "#", false);
     }
     writer.flush();
     writer.write(name);
