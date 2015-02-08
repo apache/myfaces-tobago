@@ -72,12 +72,14 @@ public class ColumnLayoutRenderer extends RendererBase {
         columnLayout.getMedium(),
         columnLayout.getLarge());
     for (UIComponent child : children) {
-      if (child instanceof UIExtensionPanel) {
-        for (UIComponent subChild : child.getChildren()) {
-          encodeChild(facesContext, writer, generator, subChild);
+      if (child.isRendered()) {
+        if (child instanceof UIExtensionPanel) {
+          for (UIComponent subChild : child.getChildren()) {
+            encodeChild(facesContext, writer, generator, subChild);
+          }
+        } else {
+          encodeChild(facesContext, writer, generator, child);
         }
-      } else {
-        encodeChild(facesContext, writer, generator, child);
       }
     }
   }
@@ -86,7 +88,13 @@ public class ColumnLayoutRenderer extends RendererBase {
       final FacesContext facesContext, final TobagoResponseWriter writer,
       final BootstrapCssGenerator generator, final UIComponent child) throws IOException {
     if (child instanceof UILabel) {
-      generator.generate(((UILabel) child).getCurrentCss());
+      final UILabel label = (UILabel) child;
+      Css currentCss = label.getCurrentCss();
+      if (currentCss == null) {
+        currentCss = new Css();
+        label.setCurrentCss(currentCss);
+      }
+      generator.generate(currentCss);
       RenderUtils.encode(facesContext, child);
     } else {
       writer.startElement(HtmlElements.DIV, null);
