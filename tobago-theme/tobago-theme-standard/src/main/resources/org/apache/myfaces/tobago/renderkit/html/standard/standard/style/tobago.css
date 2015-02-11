@@ -130,3 +130,65 @@ table.tobago-gridLayout > tbody > tr:first-child > td {
 .tobago-out {
   display: inline-block;
 }
+
+/* Bootstrap workarounds ------------------------------------------------------------------ */
+
+/* fixes the problem, that input controls have 100% in the toolbar if they are not in a form,
+ but in Tobago we have a global form.
+ */
+/*
+.navbar .form-control {
+    width: auto;
+}
+*/
+
+/*
+fixes missing space, I thinks normal Websites have a " " Space char in the source code, Tobago not.
+*/
+.navbar button,
+.navbar input {
+  margin-left: 5px;
+}
+
+.navbar button:first-child,
+.navbar input:first-child {
+  margin-left: 0;
+}
+
+.btn {
+  margin-left: 5px;
+}
+
+.btn:first-child {
+  margin-left: 0;
+}
+
+.tobago-button > * {
+  margin-left: 5px;
+}
+
+.tobago-button > *:first-child {
+  margin-left: 0;
+}
+
+.tobago-label {
+  width: 155px;
+}
+
+.tobago-sheet-pagingOuter {
+  margin: 20px 0;
+}
+
+/* fixes vertical space, todo: why is is needed? is there a better way? */
+.form-horizontal > * {
+  margin-top: 10px;
+  margin-bottom: 5px;
+  /* XXX MUST BE REMOVED */
+}.form-horizontal .control-label {
+   margin-top: 10px;
+   margin-bottom: 5px;
+ }
+/* FIXME: This is to hide the toolbar, until it is implemented */
+.tobago-tabGroup-toolBar {
+  display: none;
+}

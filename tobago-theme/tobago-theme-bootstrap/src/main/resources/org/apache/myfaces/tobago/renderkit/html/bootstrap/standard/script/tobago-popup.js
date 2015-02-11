@@ -15,11 +15,3 @@
  * limitations under the License.
  */
 
-// XXX rename me + namespace
-bs_info = function(message) {
-  console.info("info: " + message);
-  var menuStore = jQuery(".tobago-page-menuStore");
-  var confirmation = menuStore.find(".tobago-page-confirmation");
-
-  return false;
-};

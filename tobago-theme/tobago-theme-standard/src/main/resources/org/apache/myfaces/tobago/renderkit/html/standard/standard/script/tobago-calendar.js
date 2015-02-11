@@ -504,3 +504,15 @@ Tobago.DateTime.analyzePattern = function (pattern) {
 
 Tobago.registerListener(Tobago.DateTime.init, Tobago.Phase.DOCUMENT_READY);
 Tobago.registerListener(Tobago.DateTime.init, Tobago.Phase.AFTER_UPDATE);
+
+// XXX Check this
+jQuery(document).ready(function () {
+  jQuery(".tobago-date").each(function() {
+    var date = jQuery(this);
+    var format = date.data("tobago-pattern");
+    format = format.replace(/M/g, "m");
+    date.datepicker({
+      format: format
+    });
+  });
+});

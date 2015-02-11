@@ -22,6 +22,7 @@ package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 import org.apache.myfaces.tobago.application.ProjectStage;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
+import org.apache.myfaces.tobago.component.SupportsCss;
 import org.apache.myfaces.tobago.component.UIMenuBar;
 import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.component.UIPopup;
@@ -44,10 +45,12 @@ import org.apache.myfaces.tobago.portlet.PortletUtils;
 import org.apache.myfaces.tobago.renderkit.PageRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
+import org.apache.myfaces.tobago.renderkit.html.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
+import org.apache.myfaces.tobago.renderkit.html.HtmlRoleValues;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.EncodeUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
@@ -64,7 +67,6 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.portlet.MimeResponse;
 import javax.portlet.ResourceURL;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -77,6 +79,15 @@ public class PageRenderer extends PageRendererBase {
   private static final Logger LOG = LoggerFactory.getLogger(PageRenderer.class);
 
   private static final String LAST_FOCUS_ID = "lastFocusId";
+
+  @Override
+  public void prepareRender(
+      final FacesContext facesContext, final UIComponent component) throws IOException {
+    super.prepareRender(facesContext, component);
+
+    SupportsCss css = (SupportsCss) component;
+    css.getCurrentCss().add(BootstrapClass.CONTAINER_FLUID.getName());
+  }
 
   @Override
   public void decode(final FacesContext facesContext, final UIComponent component) {
@@ -362,11 +373,31 @@ public class PageRenderer extends PageRendererBase {
   }
 
   protected void encodePageMenu(FacesContext facesContext, UIPage page) throws IOException {
+
+    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+
+    writer.startElement(HtmlElements.NAV);
+    writer.writeClassAttribute("navbar navbar-inverse navbar-fixed-top");
+    writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.NAVIGATION.toString(), false);
+
+    writer.startElement(HtmlElements.DIV);
+    writer.writeClassAttribute("container-fluid");
+
+    writer.startElement(HtmlElements.DIV);
+    writer.writeClassAttribute("collapse navbar-collapse");
+
     final UIMenuBar menuBar = ComponentUtils.findFacetDescendant(page, Facets.MENUBAR, UIMenuBar.class);
     if (menuBar != null) {
       RenderUtils.encode(facesContext, menuBar);
     }
+
+    writer.endElement(HtmlElements.DIV);
+
+    writer.endElement(HtmlElements.DIV);
+
+    writer.endElement(HtmlElements.NAV);
   }
+
 
   private void checkDuplicates(final String[] resources, final Collection<String> files) {
     for (final String resource : resources) {

@@ -19,6 +19,7 @@
 
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
+import org.apache.myfaces.tobago.component.SupportsCss;
 import org.apache.myfaces.tobago.component.UILabel;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.util.AccessKeyLogger;
@@ -57,6 +58,9 @@ public class LabelRenderer extends LayoutComponentRendererBase {
       markup = ComponentUtils.updateMarkup(corresponding, markup);
       label.setCurrentMarkup(markup);
     }
+
+    SupportsCss css = (SupportsCss) component;
+    css.getCurrentCss().add("control-label");
   }
 
   public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {

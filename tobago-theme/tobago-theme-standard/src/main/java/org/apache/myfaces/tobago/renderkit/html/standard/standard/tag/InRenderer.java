@@ -20,6 +20,7 @@
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
 import org.apache.myfaces.tobago.component.Attributes;
+import org.apache.myfaces.tobago.component.SupportsCss;
 import org.apache.myfaces.tobago.internal.component.AbstractUIIn;
 import org.apache.myfaces.tobago.internal.component.AbstractUIInput;
 import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
@@ -45,6 +46,15 @@ import java.io.IOException;
 public class InRenderer extends InputRendererBase {
 
   private static final Logger LOG = LoggerFactory.getLogger(InRenderer.class);
+
+  @Override
+  public void prepareRender(
+      final FacesContext facesContext, final UIComponent component) throws IOException {
+    super.prepareRender(facesContext, component);
+
+    SupportsCss css = (SupportsCss) component;
+    css.getCurrentCss().add("form-control");
+  }
 
   @Override
   public void decode(final FacesContext facesContext, final UIComponent component) {

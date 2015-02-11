@@ -19,12 +19,10 @@
 
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
-import org.apache.myfaces.tobago.component.SupportsCss;
-import org.apache.myfaces.tobago.component.UIMenuBar;
-import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
+import org.apache.myfaces.tobago.component.UIToolBar;
+import org.apache.myfaces.tobago.layout.TextAlign;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
-import org.apache.myfaces.tobago.renderkit.html.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -33,34 +31,27 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
-public class MenuBarRenderer extends LayoutComponentRendererBase {
-
-  @Override
-  public void prepareRender(
-      final FacesContext facesContext, final UIComponent component) throws IOException {
-    super.prepareRender(facesContext, component);
-
-    SupportsCss css = (SupportsCss) component;
-    css.getCurrentCss().add(BootstrapClass.NAV.getName(), BootstrapClass.NAVBAR_NAV.getName());
-  }
-
-  @Override
-  public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
-
-    final UIMenuBar menuBar = (UIMenuBar) component;
-    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
-
-    writer.startElement(HtmlElements.OL, menuBar);
-    writer.writeIdAttribute(menuBar.getClientId(facesContext));
-    writer.writeClassAttribute(Classes.create(menuBar));
-    HtmlRendererUtils.writeDataAttributes(facesContext, writer, menuBar);
-    final Style style = new Style(facesContext, menuBar);
-    writer.writeStyleAttribute(style);
-  }
+@Deprecated
+public class ToolBarRendererOld extends ToolBarRendererBase {
 
   @Override
   public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
+
+    final UIToolBar toolBar = (UIToolBar) component;
+
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
-    writer.endElement(HtmlElements.OL);
+
+    writer.startElement(HtmlElements.DIV, toolBar);
+    writer.writeIdAttribute(toolBar.getClientId(facesContext));
+    HtmlRendererUtils.writeDataAttributes(facesContext, writer, toolBar);
+    writer.writeClassAttribute(Classes.create(toolBar));
+    final Style style = new Style(facesContext, toolBar);
+    final boolean right = UIToolBar.ORIENTATION_RIGHT.equals(toolBar.getOrientation());
+    if (right) {
+      style.setTextAlign(TextAlign.RIGHT);
+    }
+    writer.writeStyleAttribute(style);
+    super.encodeEnd(facesContext, toolBar);
+    writer.endElement(HtmlElements.DIV);
   }
 }

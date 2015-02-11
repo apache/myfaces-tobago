@@ -15,13 +15,3 @@
  * limitations under the License.
  */
 
-jQuery(document).ready(function () {
-  jQuery(".tobago-date").each(function() {
-    var date = jQuery(this);
-    var format = date.data("tobago-pattern");
-    format = format.replace(/M/g, "m");
-    date.datepicker({
-      format: format
-    });
-  });
-});

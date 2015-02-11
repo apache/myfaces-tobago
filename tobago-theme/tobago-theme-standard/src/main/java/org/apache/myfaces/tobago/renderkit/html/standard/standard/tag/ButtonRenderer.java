@@ -20,13 +20,13 @@
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
 import org.apache.myfaces.tobago.component.Attributes;
+import org.apache.myfaces.tobago.component.SupportsCss;
 import org.apache.myfaces.tobago.component.UIButton;
-import org.apache.myfaces.tobago.config.Configurable;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.internal.component.AbstractUICommand;
 import org.apache.myfaces.tobago.internal.component.AbstractUIForm;
+import org.apache.myfaces.tobago.internal.component.AbstractUIToolBar;
 import org.apache.myfaces.tobago.internal.util.AccessKeyLogger;
-import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.CommandRendererBase;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
@@ -39,7 +39,6 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlButtonTypes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.JsonUtils;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
-import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
@@ -52,6 +51,27 @@ import java.io.IOException;
 public class ButtonRenderer extends CommandRendererBase {
 
   private static final Logger LOG = LoggerFactory.getLogger(ButtonRenderer.class);
+
+  @Override
+  public void prepareRender(
+      final FacesContext facesContext, final UIComponent component) throws IOException {
+    super.prepareRender(facesContext, component);
+
+    if (component instanceof SupportsCss) {
+      SupportsCss css = (SupportsCss) component;
+      css.getCurrentCss().add("btn");
+      if (ComponentUtils.getBooleanAttribute(component, Attributes.DEFAULT_COMMAND)) {
+        css.getCurrentCss().add("btn-primary");
+      } else {
+        css.getCurrentCss().add("btn-default");
+      }
+
+      // TODO this might be too expensive: please put a flag in the ToolBar-handler and Button-handler (facelets-handler)
+      if (ComponentUtils.findAncestor(component, AbstractUIToolBar.class) != null) {
+        css.getCurrentCss().add("navbar-btn");
+      }
+    }
+  }
 
   public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
 
@@ -122,29 +142,5 @@ public class ButtonRenderer extends CommandRendererBase {
     }
 
     writer.endElement(HtmlElements.BUTTON);
-  }
-
-  @Override
-  public Measure getPreferredWidth(final FacesContext facesContext, final Configurable component) {
-
-    final UIButton button = (UIButton) component;
-    Measure width = Measure.ZERO;
-    final boolean image = button.getImage() != null;
-    if (image) {
-      final Measure imageWidth = getResourceManager().getThemeMeasure(facesContext, button, "imageWidth");
-      if (imageWidth != null) {
-        width = imageWidth;
-      }
-    }
-    final LabelWithAccessKey label = new LabelWithAccessKey(button);
-
-    width = width.add(RenderUtils.calculateStringWidth(facesContext, button, label.getLabel()));
-    final Measure padding = getResourceManager().getThemeMeasure(facesContext, button, "paddingWidth");
-    if (padding != null) {
-      // left padding, right padding and when an image and an text then a middle padding.
-      width = width.add(padding.multiply(image && label.getLabel() != null ? 3 : 2));
-    }
-
-    return width;
   }
 }

@@ -17,22 +17,28 @@
  * under the License.
  */
 
-package org.apache.myfaces.tobago.renderkit.html.bootstrap.standard.tag;
+package org.apache.myfaces.tobago.renderkit.html;
 
-import org.apache.myfaces.tobago.component.SupportsCss;
+/**
+ * @since 3.0.0
+ */
+public enum BootstrapClass {
 
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import java.io.IOException;
+  CONTAINER("container"),
+  CONTAINER_FLUID("container-fluid"),
+  DROPDOWN("dropdown"),
+  DROPDOWN_MENU("dropdown-menu"),
+  NAV("nav"),
+  NAVBAR_NAV("navbar-nav");
 
-public class LabelRenderer  extends org.apache.myfaces.tobago.renderkit.html.standard.standard.tag.LabelRenderer {
+  private final String name;
 
-  @Override
-  public void prepareRender(
-      final FacesContext facesContext, final UIComponent component) throws IOException {
-    super.prepareRender(facesContext, component);
-
-    SupportsCss css = (SupportsCss) component;
-    css.getCurrentCss().add("control-label");
+  private BootstrapClass(final String name) {
+    this.name = name;
   }
+
+  public String getName() {
+    return name;
+  }
+
 }

@@ -53,7 +53,7 @@ public class ColumnLayoutRenderer extends RendererBase {
 
     writer.startElement(HtmlElements.DIV, columnLayout);
 //    writer.writeClassAttribute("row");
-    writer.writeClassAttribute("form-horizontal");
+    writer.writeClassAttribute("form-horizontal container-fluid");
   }
 
   @Override
