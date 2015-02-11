@@ -992,13 +992,15 @@ var Tobago = {
     if (self == top) {
       jQuery(".tobago-page-preventFrameAttacks").removeClass("tobago-page-preventFrameAttacks");
     } else {
-      var page = jQuery(".tobago-page");
-      page.attr("title", "This application can't be used embedded inside an other site " +
-      "(configuration: prevent-frame-attacks=true)!");
-      var image = jQuery("body>.tobago-page-overlayErrorPreloadedImage").clone();
-      image.appendTo(page);
-      image.removeClass("tobago-page-overlayErrorPreloadedImage");
-      image.css({margin: "20px"});
+      if (jQuery(".tobago-page-preventFrameAttacks").size() > 0) { // preventFrameAttacks is true
+        var page = jQuery(".tobago-page");
+        page.attr("title", "This application can't be used embedded inside an other site " +
+        "(configuration: prevent-frame-attacks=true)!");
+        var image = jQuery("body>.tobago-page-overlayErrorPreloadedImage").clone();
+        image.appendTo(page);
+        image.removeClass("tobago-page-overlayErrorPreloadedImage");
+        image.css({margin: "20px"});
+      }
     }
   },
 
