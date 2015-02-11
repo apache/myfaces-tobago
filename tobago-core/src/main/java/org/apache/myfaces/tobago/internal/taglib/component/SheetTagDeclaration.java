@@ -227,6 +227,7 @@ public interface SheetTagDeclaration
 
     /**
      * Flag indicating if paging arrows are shown near direct links
+     * @since 2.0.0
      */
     @TagAttribute
     @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
