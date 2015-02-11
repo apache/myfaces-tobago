@@ -47,12 +47,12 @@ public class PopupRenderer extends LayoutComponentRendererBase {
   public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
     final UIPopup popup = (UIPopup) component;
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
-    writer.startElement(HtmlElements.DIV);
+    writer.startElement(HtmlElements.DIV, null);
     writer.writeClassAttribute(TobagoClass.POPUP, BootstrapClass.MODAL, BootstrapClass.FADE);
     writer.writeIdAttribute(popup.getClientId(facesContext));
-    writer.startElement(HtmlElements.DIV);
+    writer.startElement(HtmlElements.DIV, null);
     writer.writeClassAttribute(BootstrapClass.MODAL_DIALOG);
-    writer.startElement(HtmlElements.DIV);
+    writer.startElement(HtmlElements.DIV, null);
     writer.writeClassAttribute(BootstrapClass.MODAL_CONTENT);
   }
 

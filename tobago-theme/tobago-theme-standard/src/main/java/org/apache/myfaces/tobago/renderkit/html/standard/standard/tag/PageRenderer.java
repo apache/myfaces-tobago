@@ -376,14 +376,14 @@ public class PageRenderer extends PageRendererBase {
 
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
-    writer.startElement(HtmlElements.NAV);
+    writer.startElement(HtmlElements.NAV, null);
     writer.writeClassAttribute(BootstrapClass.NAVBAR, BootstrapClass.NAVBAR_INVERSE, BootstrapClass.NAVBAR_FIXED_TOP);
     writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.NAVIGATION.toString(), false);
 
-    writer.startElement(HtmlElements.DIV);
+    writer.startElement(HtmlElements.DIV, null);
     writer.writeClassAttribute(BootstrapClass.CONTAINER_FLUID);
 
-    writer.startElement(HtmlElements.DIV);
+    writer.startElement(HtmlElements.DIV, null);
     writer.writeClassAttribute(BootstrapClass.COLLAPSE, BootstrapClass.NAVBAR_COLLAPSE);
 
     final UIMenuBar menuBar = ComponentUtils.findFacetDescendant(page, Facets.MENUBAR, UIMenuBar.class);

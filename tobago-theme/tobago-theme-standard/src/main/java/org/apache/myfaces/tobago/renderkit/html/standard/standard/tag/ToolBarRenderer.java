@@ -52,29 +52,29 @@ public class ToolBarRenderer extends LayoutComponentRendererBase {
     writer.writeClassAttribute(BootstrapClass.CONTAINER_FLUID);
 
 //    Brand and toggle get grouped for better mobile display
-    writer.startElement(HtmlElements.DIV);
+    writer.startElement(HtmlElements.DIV, null);
     writer.writeClassAttribute(BootstrapClass.NAVBAR_HEADER);
 
-    writer.startElement(HtmlElements.BUTTON);
+    writer.startElement(HtmlElements.BUTTON, null);
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlButtonTypes.BUTTON, false);
     writer.writeClassAttribute(BootstrapClass.NAVBAR_TOGGLE);
     writer.writeAttribute("data-toggle", "collapse", false);
     writer.writeAttribute("data-target", "#" + toolBar.getClientId(facesContext).replace(":", "\\:"), true);
 
-    writer.startElement(HtmlElements.SPAN);
+    writer.startElement(HtmlElements.SPAN, null);
     writer.writeClassAttribute(BootstrapClass.SR_ONLY);
     writer.writeText("Toggle navigation");
     writer.endElement(HtmlElements.SPAN);
 
     for (int i = 0; i < 3; i++) {
-      writer.startElement(HtmlElements.SPAN);
+      writer.startElement(HtmlElements.SPAN, null);
       writer.writeClassAttribute(BootstrapClass.ICON_BAR);
       writer.endElement(HtmlElements.SPAN);
     }
 
     writer.endElement(HtmlElements.BUTTON);
 
-    writer.startElement(HtmlElements.A);
+    writer.startElement(HtmlElements.A, null);
     writer.writeClassAttribute(BootstrapClass.NAVBAR_BRAND);
     writer.writeAttribute(HtmlAttributes.HREF, "#", false);
 //    writer.writeText("[LOGO]"); // fixme
@@ -82,7 +82,7 @@ public class ToolBarRenderer extends LayoutComponentRendererBase {
 
     writer.endElement(HtmlElements.DIV);
 
-    writer.startElement(HtmlElements.DIV);
+    writer.startElement(HtmlElements.DIV, null);
     writer.writeClassAttribute(BootstrapClass.COLLAPSE, BootstrapClass.NAVBAR_COLLAPSE);
     writer.writeIdAttribute(toolBar.getClientId(facesContext));
   }
