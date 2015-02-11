@@ -49,6 +49,8 @@ public class SheetConfig {
   private SelectItem[] sheetPagingPositionItems;
   private SelectItem[] sheetSelectableItems;
   private String selectable;
+  private boolean showDirectLinksArrows;
+  private boolean showPageRangeArrows;
   private boolean sheetConfigPopup;
 
   public SheetConfig() {
@@ -64,6 +66,8 @@ public class SheetConfig {
     sheetPagingPositionItems = createSheetItems(SHEET_PAGER_POSITION_KEYS);
     sheetSelectableItems = createSheetItems(SHEET_SELECTABLE_KEYS);
     selectable = SHEET_SELECTABLE_KEYS[2];
+    showDirectLinksArrows = false;
+    showPageRangeArrows = true;
   }
 
   public String configSheet() {
@@ -180,5 +184,21 @@ public class SheetConfig {
 
   public void setSelectable(final String selectable) {
     this.selectable = selectable;
+  }
+
+  public boolean isShowDirectLinksArrows() {
+    return showDirectLinksArrows;
+  }
+
+  public void setShowDirectLinksArrows(boolean showDirectLinksArrows) {
+    this.showDirectLinksArrows = showDirectLinksArrows;
+  }
+
+  public boolean isShowPageRangeArrows() {
+    return showPageRangeArrows;
+  }
+
+  public void setShowPageRangeArrows(boolean showPageRangeArrows) {
+    this.showPageRangeArrows = showPageRangeArrows;
   }
 }

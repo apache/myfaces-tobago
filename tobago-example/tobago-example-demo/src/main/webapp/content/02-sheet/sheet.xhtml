@@ -32,10 +32,10 @@
           actionListener="#{overviewController.resetColumnWidths}" />
       <tc:toolBarCommand label="#" tip="#{overviewBundle.sheet_configTip}" renderedPartially="sheetConfigPopup" >
         <f:facet name="popup">
-          <tc:popup width="300px" height="275px" id="sheetConfigPopup">
+          <tc:popup width="300px" height="325px" id="sheetConfigPopup">
             <tc:box label="#{overviewBundle.sheet_configTitle}">
               <f:facet name="layout">
-                <tc:gridLayout rows="auto;auto;auto;auto;auto;auto;auto;auto;auto;1*;auto"/>
+                <tc:gridLayout rows="auto;auto;auto;auto;auto;auto;auto;auto;auto;auto;auto;1*;auto"/>
               </f:facet>
               <tx:selectOneChoice label="showHeader"
                                   value="#{overviewController.sheetConfig.sheetShowHeader}"
@@ -67,12 +67,18 @@
                                   tip="TODO: paging DirectLinkCount Text">
                 <f:selectItems value="#{overviewController.sheetConfig.sheetPagingPositionItems}"/>
               </tx:selectOneChoice>
+              <tx:selectBooleanCheckbox label="with arrows"
+                                        value="#{overviewController.sheetConfig.showPageRangeArrows}"
+                                        tip="TODO: showPageRangeArrows Text"/>
 
               <tx:selectOneChoice label="showDirectLinks"
                                   value="#{overviewController.sheetConfig.sheetDirectPagingPosition}"
                                   tip="TODO: paging DirectLinkCount Text">
                 <f:selectItems value="#{overviewController.sheetConfig.sheetPagingPositionItems}"/>
               </tx:selectOneChoice>
+              <tx:selectBooleanCheckbox label="with arrows"
+                                        value="#{overviewController.sheetConfig.showDirectLinksArrows}"
+                                        tip="TODO: showDirectLinksArrows Text"/>
 
               <tx:selectOneChoice label="directLinkCount"
                                   value="#{overviewController.sheetConfig.sheetDirectLinkCount}"
@@ -140,6 +146,8 @@
               stateChangeListener="#{demo.stateChangeListener}"
               sortActionListener="#{overviewController.sheetSorter}"
               selectable="#{overviewController.sheetConfig.selectable}"
+              showDirectLinksArrows="#{overviewController.sheetConfig.showDirectLinksArrows}"
+              showPageRangeArrows="#{overviewController.sheetConfig.showPageRangeArrows}"
               renderedPartially="@this :page:header:headerInfo">
 <!--
       <f:facet name="reload">
