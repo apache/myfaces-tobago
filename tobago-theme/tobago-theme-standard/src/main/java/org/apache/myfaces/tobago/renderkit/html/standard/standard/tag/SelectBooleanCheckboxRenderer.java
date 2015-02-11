@@ -25,6 +25,7 @@ import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
+import org.apache.myfaces.tobago.renderkit.html.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
@@ -83,10 +84,21 @@ public class SelectBooleanCheckboxRenderer extends LayoutComponentRendererBase {
 
     writer.startElement(HtmlElements.DIV, select);
     writer.writeStyleAttribute(new Style(facesContext, select));
-    writer.writeClassAttribute(Classes.create(select));
+    // todo: simplify css class management
+    String classes = Classes.create(select).getStringValue() + " " + BootstrapClass.CHECKBOX.getName();
+    if (disabled) {
+      classes += " " + BootstrapClass.DISABLED.getName();
+    }
+    writer.writeClassAttribute(classes);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, select);
     if (title != null) {
       writer.writeAttribute(HtmlAttributes.TITLE, title, true);
+    }
+
+    writer.startElement(HtmlElements.LABEL, select);
+    if (!disabled && label.getAccessKey() != null) {
+      writer.writeAttribute(HtmlAttributes.ACCESSKEY, Character.toString(label.getAccessKey()), false);
+      AccessKeyLogger.addAccessKey(facesContext, label.getAccessKey(), clientId);
     }
 
     writer.startElement(HtmlElements.INPUT, select);
@@ -109,19 +121,12 @@ public class SelectBooleanCheckboxRenderer extends LayoutComponentRendererBase {
     writer.endElement(HtmlElements.INPUT);
 
     if (label.getLabel() != null) {
-      writer.startElement(HtmlElements.LABEL, select);
-      writer.writeAttribute(HtmlAttributes.FOR, clientId, false);
-
-      if (!disabled && label.getAccessKey() != null) {
-        writer.writeAttribute(HtmlAttributes.ACCESSKEY, Character.toString(label.getAccessKey()), false);
-        AccessKeyLogger.addAccessKey(facesContext, label.getAccessKey(), clientId);
-      }
 
       HtmlRendererUtils.writeLabelWithAccessKey(writer, label);
 
-      writer.endElement(HtmlElements.LABEL);
     }
 
+    writer.endElement(HtmlElements.LABEL);
     writer.endElement(HtmlElements.DIV);
 
   }

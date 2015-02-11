@@ -774,7 +774,6 @@ li.tobago-menu-markup-selected {
 
 .tobago-selectManyCheckbox {
   background: transparent;
-  list-style: none;
   padding: 0;
   margin: 0;
 }
@@ -903,7 +902,6 @@ li.tobago-menu-markup-selected {
 
 .tobago-selectOneRadio {
   background: transparent;
-  list-style: none;
   padding: 0;
   margin: 0;
 }

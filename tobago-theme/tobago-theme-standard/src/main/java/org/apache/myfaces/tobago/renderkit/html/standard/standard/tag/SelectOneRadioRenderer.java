@@ -28,6 +28,7 @@ import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.SelectOneRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
+import org.apache.myfaces.tobago.renderkit.html.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
@@ -79,8 +80,15 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
     final Object value = select.getValue();
     int i = 0;
     for (final SelectItem item : items) {
+      final boolean itemDisabled = item.isDisabled() || disabled;
       final String itemId = id + ComponentUtils.SUB_SEPARATOR + i++;
       writer.startElement(HtmlElements.LI, select);
+      if (itemDisabled) {
+        writer.writeClassAttribute(BootstrapClass.RADIO, BootstrapClass.DISABLED);
+      } else {
+        writer.writeClassAttribute(BootstrapClass.RADIO);
+      }
+      writer.startElement(HtmlElements.LABEL, null);
       writer.startElement(HtmlElements.INPUT, select);
       writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.RADIO, false);
       final boolean checked = ObjectUtils.equals(item.getValue(), value);
@@ -89,7 +97,7 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
       writer.writeIdAttribute(itemId);
       final String formattedValue = RenderUtils.getFormattedValue(facesContext, select, item.getValue());
       writer.writeAttribute(HtmlAttributes.VALUE, formattedValue, true);
-      writer.writeAttribute(HtmlAttributes.DISABLED, item.isDisabled() || disabled);
+      writer.writeAttribute(HtmlAttributes.DISABLED, itemDisabled);
       writer.writeAttribute(HtmlAttributes.READONLY, readonly);
       writer.writeAttribute(HtmlAttributes.REQUIRED, required);
       if (first) {
@@ -118,12 +126,10 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
 
       final String label = item.getLabel();
       if (label != null) {
-        writer.startElement(HtmlElements.LABEL, select);
-        writer.writeAttribute(HtmlAttributes.FOR, itemId, false);
         writer.writeText(label);
-        writer.endElement(HtmlElements.LABEL);
       }
 
+      writer.endElement(HtmlElements.LABEL);
       writer.endElement(HtmlElements.LI);
     }
     writer.endElement(HtmlElements.OL);

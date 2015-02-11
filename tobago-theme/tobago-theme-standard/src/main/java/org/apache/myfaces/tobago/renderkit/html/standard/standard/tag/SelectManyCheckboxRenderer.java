@@ -26,6 +26,7 @@ import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.SelectManyRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
+import org.apache.myfaces.tobago.renderkit.html.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
@@ -76,8 +77,15 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
     final Object[] values = select.getSelectedValues();
     int i = 0;
     for (final SelectItem item : SelectItemUtils.getItemIterator(facesContext, select)) {
+      final boolean itemDisabled = item.isDisabled() || disabled;
       final String itemId = id + ComponentUtils.SUB_SEPARATOR + i++;
       writer.startElement(HtmlElements.LI, select);
+      if (itemDisabled) {
+        writer.writeClassAttribute(BootstrapClass.CHECKBOX, BootstrapClass.DISABLED);
+      } else {
+        writer.writeClassAttribute(BootstrapClass.CHECKBOX);
+      }
+      writer.startElement(HtmlElements.LABEL, select);
       writer.startElement(HtmlElements.INPUT, select);
       writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.CHECKBOX, false);
       final boolean checked = RenderUtils.contains(values, item.getValue());
@@ -86,7 +94,7 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
       writer.writeIdAttribute(itemId);
       final String formattedValue = RenderUtils.getFormattedValue(facesContext, select, item.getValue());
       writer.writeAttribute(HtmlAttributes.VALUE, formattedValue, true);
-      writer.writeAttribute(HtmlAttributes.DISABLED, item.isDisabled() || disabled);
+      writer.writeAttribute(HtmlAttributes.DISABLED, itemDisabled);
       writer.writeAttribute(HtmlAttributes.READONLY, readonly);
       writer.writeAttribute(HtmlAttributes.REQUIRED, required);
       if (first) {
@@ -102,12 +110,10 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
 
       final String label = item.getLabel();
       if (label != null) {
-        writer.startElement(HtmlElements.LABEL, select);
-        writer.writeAttribute(HtmlAttributes.FOR, itemId, false);
         writer.writeText(label);
-        writer.endElement(HtmlElements.LABEL);
       }
 
+      writer.endElement(HtmlElements.LABEL);
       writer.endElement(HtmlElements.LI);
     }
     writer.endElement(HtmlElements.OL);

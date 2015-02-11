@@ -73,6 +73,18 @@ table.tobago-gridLayout > tbody > tr:first-child > td {
     border-top: 0;
 }
 
+/* selectManyCheckbox ----------------------------------------------------------- */
+
+.tobago-selectManyCheckbox {
+  list-style: none;
+}
+
+/* selectOneRadio ---------------------------------------------------------- */
+
+.tobago-selectOneRadio {
+  list-style: none;
+}
+
 /* sheet -------------------------------------------------------------- */
 
 .tobago-sheet-footer {

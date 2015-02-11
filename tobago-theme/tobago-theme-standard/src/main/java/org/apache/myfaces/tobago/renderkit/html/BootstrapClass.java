@@ -33,6 +33,7 @@ public enum BootstrapClass implements CssItem {
   ALERT_DANGER("alert-danger"),
   ALERT_WARNING("alert-warning"),
   ALERT_INFO("alert-info"),
+  CHECKBOX("checkbox"),
   COLLAPSE("collapse"),
   CONTAINER("container"),
   CONTAINER_FLUID("container-fluid"),
@@ -62,6 +63,7 @@ public enum BootstrapClass implements CssItem {
   PAGINATION("pagination"),
   PANEL_HEADING("panel-heading"),
   PANEL_BODY("panel-body"),
+  RADIO("radio"),
   SR_ONLY("sr-only");
 
   private final String name;
