@@ -36,7 +36,7 @@ CSP
 
   Tobago supports Content Security Policy (CSP) to prevent cross-site
   scripting (XSS) and related attacks.
-  Specification link http://www.w3.org/TR/CSP/
+  It is specified by {{{http://www.w3.org/TR/CSP/}W3C}}.
   In short: The HTML page doesn't contain any JavaScript or CSS information.
   All allowed sources for JavaScript, CSS and other resources have to be declared in special header.
   If you have own renderers or own JavaScript in your application, this code also needs to support CSP, to use this feature.
@@ -54,6 +54,13 @@ CSP
 
   To turn off CSP, add an empty <<<\<content-security-policy mode="off"\>>>> tag in the configuration.
   For development, you may also use mode="report-only", which sets the appropriate header.
+
+Clickjacking
+
+  By default, it no longer possible to use a Tobago application in an HTML frame or iframe.
+  This is to protect against {{{https://www.owasp.org/index.php/Clickjacking}Clickjacking}}
+  To disable this feature consult the <<<tobago-config.xml>>> and set
+  <<<\<prevent-frame-attacks\>false\</prevent-frame-attacks\>>>>.
 
 Java-API
 
