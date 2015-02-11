@@ -21,12 +21,18 @@ package org.apache.myfaces.tobago.renderkit.html;
 
 import org.apache.myfaces.tobago.renderkit.css.CssItem;
 
+import javax.faces.application.FacesMessage;
+
 /**
  * @since 3.0.0
  */
 public enum BootstrapClass implements CssItem {
 
   ACTIVE("active"),
+  ALERT("alert"),
+  ALERT_DANGER("alert-danger"),
+  ALERT_WARNING("alert-warning"),
+  ALERT_INFO("alert-info"),
   COLLAPSE("collapse"),
   CONTAINER("container"),
   CONTAINER_FLUID("container-fluid"),
@@ -77,6 +83,20 @@ public enum BootstrapClass implements CssItem {
         return "glyphicon-" + name;
       }
     };
+  }
+
+  public static CssItem alert(final FacesMessage.Severity severity) {
+
+    switch (severity.getOrdinal()) {
+      case 1:
+        return ALERT_INFO;
+      case 2:
+        return ALERT_WARNING;
+      case 3:
+      case 4:
+      default:
+        return ALERT_DANGER;
+    }
   }
 
 }

@@ -40,9 +40,11 @@ import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
+import org.apache.myfaces.tobago.renderkit.html.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
+import org.apache.myfaces.tobago.renderkit.html.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.util.CreateComponentUtils;
@@ -81,8 +83,9 @@ public class MessagesRenderer extends LayoutComponentRendererBase {
     final List<UIMessages.Item> messageList = messages.createMessageList(facesContext);
 
     if (messageList.size() > 0) { // in ie empty span gets a height
-      writer.startElement(HtmlElements.SPAN, messages);
-      writer.writeClassAttribute(Classes.create(messages));
+      writer.startElement(HtmlElements.DIV, messages);
+      final FacesMessage.Severity maximumSeverity = FacesContext.getCurrentInstance().getMaximumSeverity();
+      writer.writeClassAttribute(TobagoClass.MESSAGES, BootstrapClass.ALERT, BootstrapClass.alert(maximumSeverity));
       HtmlRendererUtils.writeDataAttributes(facesContext, writer, messages);
       writer.writeStyleAttribute(new Style(facesContext, messages));
 
@@ -113,7 +116,7 @@ public class MessagesRenderer extends LayoutComponentRendererBase {
         ComponentUtils.findPage(facesContext, messages).setFocusId(focusId);
       }
 */
-      writer.endElement(HtmlElements.SPAN);
+      writer.endElement(HtmlElements.DIV);
       if (messages.getFor() == null) {
         final String clientId = messages.getClientId(facesContext);
         writer.startElement(HtmlElements.INPUT, null);

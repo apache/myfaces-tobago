@@ -28,7 +28,8 @@ import org.apache.myfaces.tobago.renderkit.css.CssItem;
  */
 public enum TobagoClass implements CssItem {
 
-  POPUP("tobago-popup");
+  POPUP("tobago-popup"),
+  MESSAGES("tobago-messages");
 
   private final String name;
 
