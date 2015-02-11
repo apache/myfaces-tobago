@@ -83,12 +83,6 @@ public class DebugResponseWriterWrapper extends TobagoResponseWriter {
     responseWriter.writeAttribute(name, value, escape);
   }
 
-  @Override
-  @Deprecated
-  public String getStyleClasses() {
-    return responseWriter.getStyleClasses();
-  }
-
   /**
    * @deprecated since Tobago 1.5.0
    */

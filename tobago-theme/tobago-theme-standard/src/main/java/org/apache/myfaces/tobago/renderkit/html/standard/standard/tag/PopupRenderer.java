@@ -22,7 +22,9 @@ package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 import org.apache.myfaces.tobago.component.UIPopup;
 import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
+import org.apache.myfaces.tobago.renderkit.html.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
+import org.apache.myfaces.tobago.renderkit.html.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
@@ -46,13 +48,12 @@ public class PopupRenderer extends LayoutComponentRendererBase {
     final UIPopup popup = (UIPopup) component;
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
     writer.startElement(HtmlElements.DIV);
-    //writer.writeClassAttribute(BootstrapClass.MODAL); // XXX
-    writer.writeClassAttribute("tobago-popup modal fade"); // XXX
+    writer.writeClassAttribute(TobagoClass.POPUP, BootstrapClass.MODAL, BootstrapClass.FADE);
     writer.writeIdAttribute(popup.getClientId(facesContext));
     writer.startElement(HtmlElements.DIV);
-    writer.writeClassAttribute("modal-dialog"); // XXX
+    writer.writeClassAttribute(BootstrapClass.MODAL_DIALOG);
     writer.startElement(HtmlElements.DIV);
-    writer.writeClassAttribute("modal-content"); // XXX
+    writer.writeClassAttribute(BootstrapClass.MODAL_CONTENT);
   }
 
   @Override

@@ -76,12 +76,6 @@ public class TobagoResponseWriterWrapper extends TobagoResponseWriter {
     responseWriter.writeAttribute(name, value, null);
   }
 
-  @Override
-  @Deprecated
-  public String getStyleClasses() {
-    return null;
-  }
-
   /**
    * @deprecated since Tobago 1.5.0
    */

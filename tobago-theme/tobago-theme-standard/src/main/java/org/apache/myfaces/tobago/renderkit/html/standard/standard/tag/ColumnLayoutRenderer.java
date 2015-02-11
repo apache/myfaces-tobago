@@ -26,6 +26,7 @@ import org.apache.myfaces.tobago.internal.component.AbstractUIColumnLayout;
 import org.apache.myfaces.tobago.layout.LayoutContainer;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Css;
+import org.apache.myfaces.tobago.renderkit.html.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.BootstrapCssGenerator;
@@ -53,7 +54,7 @@ public class ColumnLayoutRenderer extends RendererBase {
 
     writer.startElement(HtmlElements.DIV, columnLayout);
 //    writer.writeClassAttribute("row");
-    writer.writeClassAttribute("form-horizontal container-fluid");
+    writer.writeClassAttribute(BootstrapClass.FORM_HORIZONTAL, BootstrapClass.CONTAINER_FLUID);
   }
 
   @Override

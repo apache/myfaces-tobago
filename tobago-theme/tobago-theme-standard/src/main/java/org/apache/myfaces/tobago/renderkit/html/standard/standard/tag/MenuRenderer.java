@@ -124,7 +124,7 @@ public class MenuRenderer extends LayoutComponentRendererBase {
     if (isParentMenu) {
       writer.startElement(HtmlElements.OL, menu);
 
-      writer.writeClassAttribute("dropdown-menu");// fixme: this comes from BootstrapClass, but isn't accessible
+      writer.writeClassAttribute(BootstrapClass.DROPDOWN_MENU);
     }
   }
 

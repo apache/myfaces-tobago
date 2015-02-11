@@ -37,6 +37,7 @@ import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
+import org.apache.myfaces.tobago.renderkit.html.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
@@ -181,7 +182,8 @@ public class TabGroupRenderer extends LayoutComponentRendererBase {
     writer.writeClassAttribute(Classes.create(tabGroup, "header"));
 
     writer.startElement(HtmlElements.UL, tabGroup);
-    writer.writeClassAttribute(Classes.create(tabGroup, "headerInner").getStringValue() + " nav nav-tabs");
+    writer.writeClassAttribute(Classes.create(tabGroup, "headerInner").getStringValue()
+        + BootstrapClass.NAV + ' ' + BootstrapClass.NAV_TABS); // XXX clean up css management
     writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.TABLIST.toString(), false);
 
     int index = 0;

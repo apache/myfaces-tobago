@@ -377,14 +377,14 @@ public class PageRenderer extends PageRendererBase {
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
     writer.startElement(HtmlElements.NAV);
-    writer.writeClassAttribute("navbar navbar-inverse navbar-fixed-top");
+    writer.writeClassAttribute(BootstrapClass.NAVBAR, BootstrapClass.NAVBAR_INVERSE, BootstrapClass.NAVBAR_FIXED_TOP);
     writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.NAVIGATION.toString(), false);
 
     writer.startElement(HtmlElements.DIV);
-    writer.writeClassAttribute("container-fluid");
+    writer.writeClassAttribute(BootstrapClass.CONTAINER_FLUID);
 
     writer.startElement(HtmlElements.DIV);
-    writer.writeClassAttribute("collapse navbar-collapse");
+    writer.writeClassAttribute(BootstrapClass.COLLAPSE, BootstrapClass.NAVBAR_COLLAPSE);
 
     final UIMenuBar menuBar = ComponentUtils.findFacetDescendant(page, Facets.MENUBAR, UIMenuBar.class);
     if (menuBar != null) {

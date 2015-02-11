@@ -19,17 +19,43 @@
 
 package org.apache.myfaces.tobago.renderkit.html;
 
+import org.apache.myfaces.tobago.renderkit.css.CssItem;
+
 /**
  * @since 3.0.0
  */
-public enum BootstrapClass {
+public enum BootstrapClass implements CssItem {
 
+  ACTIVE("active"),
+  COLLAPSE("collapse"),
   CONTAINER("container"),
   CONTAINER_FLUID("container-fluid"),
+  DISABLED("disabled"),
   DROPDOWN("dropdown"),
   DROPDOWN_MENU("dropdown-menu"),
+  FADE("fade"),
+  FORM_HORIZONTAL("form-horizontal"),
+  GLYPHICON("glyphicon"),
+  ICON_BAR("icon-bar"),
+  MODAL("modal"),
+  MODAL_DIALOG("modal-dialog"),
+  MODAL_CONTENT("modal-content"),
   NAV("nav"),
-  NAVBAR_NAV("navbar-nav");
+  NAV_TABS("nav-tabs"),
+  NAVBAR("navbar"),
+  NAVBAR_BRAND("navbar-brand"),
+  NAVBAR_COLLAPSE("navbar-collapse"),
+  NAVBAR_DEFAULT("navbar-default"),
+  NAVBAR_FIXED_TOP("navbar-fixed-top"),
+  NAVBAR_FORM("navbar-form"),
+  NAVBAR_HEADER("navbar-header"),
+  NAVBAR_INVERSE("navbar-inverse"),
+  NAVBAR_NAV("navbar-nav"),
+  NAVBAR_TOGGLE("navbar-toggle"),
+  PAGE_HEADER("page-header"),
+  PANEL_HEADING("panel-heading"),
+  PANEL_BODY("panel-body"),
+  SR_ONLY("sr-only");
 
   private final String name;
 
@@ -39,6 +65,17 @@ public enum BootstrapClass {
 
   public String getName() {
     return name;
+  }
+
+  public static CssItem glyphicon(final String name) {
+
+    return new CssItem() {
+
+      @Override
+      public String getName() {
+        return "glyphicon-" + name;
+      }
+    };
   }
 
 }

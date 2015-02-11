@@ -45,37 +45,37 @@ public class ToolBarRenderer extends LayoutComponentRendererBase {
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
     writer.startElement(HtmlElements.NAV, toolBar);
-    writer.writeClassAttribute("navbar navbar-form navbar-default");
+    writer.writeClassAttribute(BootstrapClass.NAVBAR, BootstrapClass.NAVBAR_FORM, BootstrapClass.NAVBAR_DEFAULT);
     writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.NAVIGATION.toString(), false);
 
     writer.startElement(HtmlElements.DIV, toolBar);
-    writer.writeClassAttribute(BootstrapClass.CONTAINER_FLUID.getName());
+    writer.writeClassAttribute(BootstrapClass.CONTAINER_FLUID);
 
 //    Brand and toggle get grouped for better mobile display
     writer.startElement(HtmlElements.DIV);
-    writer.writeClassAttribute("navbar-header");
+    writer.writeClassAttribute(BootstrapClass.NAVBAR_HEADER);
 
     writer.startElement(HtmlElements.BUTTON);
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlButtonTypes.BUTTON, false);
-    writer.writeClassAttribute("navbar-toggle");
+    writer.writeClassAttribute(BootstrapClass.NAVBAR_TOGGLE);
     writer.writeAttribute("data-toggle", "collapse", false);
     writer.writeAttribute("data-target", "#" + toolBar.getClientId(facesContext).replace(":", "\\:"), true);
 
     writer.startElement(HtmlElements.SPAN);
-    writer.writeClassAttribute("sr-only");
+    writer.writeClassAttribute(BootstrapClass.SR_ONLY);
     writer.writeText("Toggle navigation");
     writer.endElement(HtmlElements.SPAN);
 
     for (int i = 0; i < 3; i++) {
       writer.startElement(HtmlElements.SPAN);
-      writer.writeClassAttribute("icon-bar");
+      writer.writeClassAttribute(BootstrapClass.ICON_BAR);
       writer.endElement(HtmlElements.SPAN);
     }
 
     writer.endElement(HtmlElements.BUTTON);
 
     writer.startElement(HtmlElements.A);
-    writer.writeClassAttribute("navbar-brand");
+    writer.writeClassAttribute(BootstrapClass.NAVBAR_BRAND);
     writer.writeAttribute(HtmlAttributes.HREF, "#", false);
     writer.writeText("[FIXME]"); // fixme
     writer.endElement(HtmlElements.A);
@@ -83,7 +83,7 @@ public class ToolBarRenderer extends LayoutComponentRendererBase {
     writer.endElement(HtmlElements.DIV);
 
     writer.startElement(HtmlElements.DIV);
-    writer.writeClassAttribute("collapse navbar-collapse");
+    writer.writeClassAttribute(BootstrapClass.COLLAPSE, BootstrapClass.NAVBAR_COLLAPSE);
     writer.writeIdAttribute(toolBar.getClientId(facesContext));
   }
 /*

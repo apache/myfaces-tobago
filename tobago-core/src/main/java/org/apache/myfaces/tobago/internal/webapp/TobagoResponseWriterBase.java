@@ -264,19 +264,6 @@ public abstract class TobagoResponseWriterBase extends TobagoResponseWriter {
     writeAttributeInternal(writer, name, value, escape);
   }
 
-  @Override
-  /**
-   * @deprecated Since Tobago 2.0.0
-   */
-  @Deprecated
-  public String getStyleClasses() {
-    if (component == null) {
-      return null;
-    }
-    Deprecation.LOG.error("Can't get style classes.");
-    return null;
-  }
-
   /**
    * @deprecated since Tobago 1.5.0
    */

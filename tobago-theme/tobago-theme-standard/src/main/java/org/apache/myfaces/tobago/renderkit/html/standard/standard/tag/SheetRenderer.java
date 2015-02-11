@@ -58,6 +58,7 @@ import org.apache.myfaces.tobago.model.TreePath;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
+import org.apache.myfaces.tobago.renderkit.html.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.html.Command;
 import org.apache.myfaces.tobago.renderkit.html.CommandMap;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
@@ -1143,12 +1144,10 @@ public class SheetRenderer extends LayoutComponentRendererBase {
 
     writer.startElement(HtmlElements.LI, null);
     if (pagingLinkType == PagingLinkType.CURRENT) {
-      // XXX hack for Bootstrap
-      writer.writeClassAttribute("active");
+      writer.writeClassAttribute(BootstrapClass.ACTIVE);
     }
     if (pagingLinkType == PagingLinkType.DISABLED) {
-      // XXX hack for Bootstrap
-      writer.writeClassAttribute("disabled");
+      writer.writeClassAttribute(BootstrapClass.DISABLED);
     }
     writer.startElement(innerElement, null);
     writer.writeClassAttribute(Classes.create(sheet, "pagingLink"));

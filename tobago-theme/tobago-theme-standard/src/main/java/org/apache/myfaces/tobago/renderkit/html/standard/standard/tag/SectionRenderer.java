@@ -23,6 +23,8 @@ import org.apache.myfaces.tobago.component.UISection;
 import org.apache.myfaces.tobago.renderkit.HtmlUtils;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
+import org.apache.myfaces.tobago.renderkit.css.CssItem;
+import org.apache.myfaces.tobago.renderkit.html.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -44,13 +46,12 @@ public class SectionRenderer extends LayoutComponentRendererBase {
         HtmlRendererUtils.writeDataAttributes(facesContext, writer, component);
 
         String label = section.getLabelToRender();
-        String clazz = null;
+        CssItem clazz = null;
         final String tag;
         switch (section.getLevel()) {
             case 1:
                 tag = HtmlElements.H1;
-//                    clazz = BootstrapClass.PAGE_HEADER.getName(); TBD
-                clazz = "page-header";
+                clazz = BootstrapClass.PAGE_HEADER;
                 break;
             case 2:
                 tag = HtmlElements.H2;
@@ -75,7 +76,7 @@ public class SectionRenderer extends LayoutComponentRendererBase {
         final String image = section.getImage();
         if (image != null && image.startsWith("glyphicon-")) { // XXX hack: should be integrated in the resource manager
             writer.startElement(HtmlElements.SPAN);
-            writer.writeClassAttribute("glyphicon " + image);
+            writer.writeClassAttribute(BootstrapClass.GLYPHICON, BootstrapClass.glyphicon(image));
             writer.endElement(HtmlElements.SPAN);
 
         }

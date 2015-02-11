@@ -25,6 +25,7 @@ import org.apache.myfaces.tobago.component.UIMenuBar;
 import org.apache.myfaces.tobago.renderkit.BoxRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Css;
+import org.apache.myfaces.tobago.renderkit.html.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
@@ -79,7 +80,7 @@ public class BoxRenderer extends BoxRendererBase {
 
         if (label != null || labelString != null || toolbar != null) {
             writer.startElement(HtmlElements.DIV, box);
-            writer.writeClassAttribute("panel-heading");
+            writer.writeClassAttribute(BootstrapClass.PANEL_HEADING);
 
             if (label != null) {
                 RenderUtils.encode(facesContext, label);
@@ -98,7 +99,7 @@ public class BoxRenderer extends BoxRendererBase {
         }
 
         writer.startElement(HtmlElements.DIV, box);
-        writer.writeClassAttribute("panel-body");
+        writer.writeClassAttribute(BootstrapClass.PANEL_BODY);
     }
 
     @Override

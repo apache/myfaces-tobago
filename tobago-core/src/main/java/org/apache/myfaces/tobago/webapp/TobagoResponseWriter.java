@@ -21,6 +21,7 @@ package org.apache.myfaces.tobago.webapp;
 
 import org.apache.myfaces.tobago.ajax.AjaxUtils;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
+import org.apache.myfaces.tobago.renderkit.css.CssItem;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
@@ -140,15 +141,17 @@ public abstract class TobagoResponseWriter extends ResponseWriter {
     writeAttribute(HtmlAttributes.CLASS, classes.getStringValue(), false);
   }
 
-  @Deprecated
-  public abstract String getStyleClasses();
-
   /**
-   * Write the class attribute. The value will not escaped.
-   * @deprecated since Tobago 1.5.0
+   * TBD: preliminary
    */
-  @Deprecated
-  public abstract void writeClassAttribute() throws IOException;
+  public void writeClassAttribute(final CssItem first, final CssItem... others) throws IOException {
+    StringBuilder builder = new StringBuilder(first.getName());
+    for (CssItem other : others) {
+      builder.append(' ');
+      builder.append(other.getName());
+    }
+    writeAttribute(HtmlAttributes.CLASS, builder.toString(), false);
+  }
 
   /**
    * Write the style attribute. The value may be escaped (depending of the content).
