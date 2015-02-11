@@ -77,7 +77,7 @@ public class ToolBarRenderer extends LayoutComponentRendererBase {
     writer.startElement(HtmlElements.A);
     writer.writeClassAttribute(BootstrapClass.NAVBAR_BRAND);
     writer.writeAttribute(HtmlAttributes.HREF, "#", false);
-    writer.writeText("[FIXME]"); // fixme
+//    writer.writeText("[LOGO]"); // fixme
     writer.endElement(HtmlElements.A);
 
     writer.endElement(HtmlElements.DIV);

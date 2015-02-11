@@ -48,7 +48,7 @@
     <module>tobago-theme-speyside</module>
     <module>tobago-theme-richmond</module>
     <module>tobago-theme-charlotteville</module>
-    <!--<module>tobago-theme-bootstrap</module>-->
+    <module>tobago-theme-bootstrap</module> <!-- temporary, todo: remove -->
     <!--    <module>tobago-theme-boccoo</module>-->
   </modules>
 
