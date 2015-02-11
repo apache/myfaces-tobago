@@ -53,6 +53,7 @@ public enum BootstrapClass implements CssItem {
   NAVBAR_NAV("navbar-nav"),
   NAVBAR_TOGGLE("navbar-toggle"),
   PAGE_HEADER("page-header"),
+  PAGINATION("pagination"),
   PANEL_HEADING("panel-heading"),
   PANEL_BODY("panel-body"),
   SR_ONLY("sr-only");

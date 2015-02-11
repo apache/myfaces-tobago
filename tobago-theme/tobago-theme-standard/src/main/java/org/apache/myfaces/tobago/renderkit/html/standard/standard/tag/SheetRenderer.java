@@ -457,9 +457,10 @@ public class SheetRenderer extends LayoutComponentRendererBase {
       // show direct links
       final Markup showDirectLinks = markupForLeftCenterRight(sheet.getShowDirectLinks());
       if (showDirectLinks != Markup.NULL) {
-        writer.startElement(HtmlElements.SPAN, null);
+        writer.startElement(HtmlElements.UL, null);
         final String pagingOuter = Classes.create(sheet, "pagingOuter", showDirectLinks).getStringValue();
-        writer.writeClassAttribute(pagingOuter + " tobago-sheet-pagingLinks");
+        writer.writeClassAttribute(pagingOuter  + " "
+            + BootstrapClass.PAGINATION.getName() + " tobago-sheet-pagingLinks");
         String areaId = "pagingLinks";
         writer.writeIdAttribute(sheetId + ComponentUtils.SUB_SEPARATOR + areaId);
         if (sheet.isShowDirectLinksArrows()) {
@@ -473,17 +474,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
           link(facesContext, application, areaId, atEnd, PageAction.NEXT, sheet);
           link(facesContext, application, areaId, atEnd || !sheet.hasRowCount(), PageAction.LAST, sheet);
         }
-        writer.endElement(HtmlElements.SPAN);
-/*
-        writer.startElement(HtmlElements.UL, null);
-        final Classes pagingOuter = Classes.create(sheet, "pagingOuter", showDirectLinks);
-        // XXX hack for bootstrap
-        final String css = pagingOuter.getStringValue() + " pagination tobago-sheet-pagingLinks";
-        writer.writeClassAttribute(css);
-//        writer.writeIdAttribute(sheetId + ComponentUtils.SUB_SEPARATOR + "pagingLinks");
-        writeDirectPagingLinks(writer, facesContext, application, sheet);
         writer.endElement(HtmlElements.UL);
-*/
       }
 
       // show page range
