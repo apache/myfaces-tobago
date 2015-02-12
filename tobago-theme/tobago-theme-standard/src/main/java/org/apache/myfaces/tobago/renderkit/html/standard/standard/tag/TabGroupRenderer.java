@@ -183,7 +183,7 @@ public class TabGroupRenderer extends LayoutComponentRendererBase {
 
     writer.startElement(HtmlElements.UL, tabGroup);
     writer.writeClassAttribute(Classes.create(tabGroup, "headerInner").getStringValue()
-        + BootstrapClass.NAV + ' ' + BootstrapClass.NAV_TABS); // XXX clean up css management
+      +" "  + BootstrapClass.NAV.getName() + ' ' + BootstrapClass.NAV_TABS.getName()); // XXX clean up css management
     writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.TABLIST.toString(), false);
 
     int index = 0;
