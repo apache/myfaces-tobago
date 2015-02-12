@@ -31,8 +31,9 @@ Tobago.TabGroup.init = function(elements) {
     jQuery(this).find(".tobago-tabGroup-headerInner").first()
       .children(".tobago-tab").not(".tobago-tab-markup-disabled").click(function() {
           var activeIndex = Tobago.TabGroup.updateHidden(jQuery(this));
-          jQuery(this).siblings(".tobago-tab-markup-selected").removeClass("tobago-tab-markup-selected");
-          jQuery(this).addClass("tobago-tab-markup-selected");
+          jQuery(this).siblings(".tobago-tab-markup-selected").removeClass("tobago-tab-markup-selected")
+              .removeClass("active"); // "active" is bootstrap
+          jQuery(this).addClass("tobago-tab-markup-selected").addClass("active"); // "active" is bootstrap
           var tabGroup = jQuery(this).parents(".tobago-tabGroup:first");
           tabGroup.children(".tobago-tab-content-markup-selected").removeClass("tobago-tab-content-markup-selected");
           tabGroup.children(".tobago-tab-content[tabgroupindex=" + activeIndex + "]")

@@ -203,7 +203,12 @@ public class TabGroupRenderer extends LayoutComponentRendererBase {
             ComponentUtils.addCurrentMarkup(tab, ComponentUtils.markupOfSeverity(maxSeverity));
           }
           writer.startElement(HtmlElements.LI, tab);
-          writer.writeClassAttribute(Classes.create(tab));
+          // todo: fix Css management
+          if (activeIndex == index) {
+            writer.writeClassAttribute(Classes.create(tab).getStringValue() + " " + BootstrapClass.ACTIVE.getName());
+          } else {
+            writer.writeClassAttribute(Classes.create(tab));
+          }
           writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.PRESENTATION.toString(), false);
           writer.writeAttribute(HtmlAttributes.TABGROUPINDEX, index);
           final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, tab);
