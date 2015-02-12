@@ -65,6 +65,7 @@ public enum BootstrapClass implements CssItem {
   PAGINATION("pagination"),
   PANEL_HEADING("panel-heading"),
   PANEL_BODY("panel-body"),
+  PANEL_TITLE("panel-title"),
   RADIO("radio"),
   ROW("row"),
   SR_ONLY("sr-only");

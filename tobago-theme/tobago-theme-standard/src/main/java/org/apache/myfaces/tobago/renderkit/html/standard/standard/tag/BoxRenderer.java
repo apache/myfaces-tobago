@@ -82,11 +82,14 @@ public class BoxRenderer extends BoxRendererBase {
             writer.startElement(HtmlElements.DIV, box);
             writer.writeClassAttribute(BootstrapClass.PANEL_HEADING);
 
+            writer.startElement(HtmlElements.H3, null);
+            writer.writeClassAttribute(BootstrapClass.PANEL_TITLE);
             if (label != null) {
                 RenderUtils.encode(facesContext, label);
             } else {
                 writer.writeText(labelString);
             }
+            writer.endElement(HtmlElements.H3);
 
             writer.endElement(HtmlElements.DIV);
         }
