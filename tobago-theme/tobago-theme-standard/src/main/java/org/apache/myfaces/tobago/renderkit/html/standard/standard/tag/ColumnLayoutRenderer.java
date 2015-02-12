@@ -75,9 +75,13 @@ public class ColumnLayoutRenderer extends RendererBase {
     for (UIComponent child : children) {
       if (child.isRendered()) {
         if (child instanceof UIExtensionPanel) {
+//          writer.startElement(HtmlElements.DIV, null);
+//          writer.writeClassAttribute(BootstrapClass.FORM_GROUP); or
+//          writer.writeClassAttribute(BootstrapClass.ROW);
           for (UIComponent subChild : child.getChildren()) {
             encodeChild(facesContext, writer, generator, subChild);
           }
+//          writer.endElement(HtmlElements.DIV);
         } else {
           encodeChild(facesContext, writer, generator, child);
         }

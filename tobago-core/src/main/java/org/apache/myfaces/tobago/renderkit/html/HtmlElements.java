@@ -55,6 +55,7 @@ public final class HtmlElements {
   public static final String OL = "ol";
   public static final String OPTGROUP = "optgroup";
   public static final String OPTION = "option";
+  public static final String P = "p";
   public static final String PARAM = "param";
   public static final String SCRIPT = "script";
   public static final String SELECT = "select";

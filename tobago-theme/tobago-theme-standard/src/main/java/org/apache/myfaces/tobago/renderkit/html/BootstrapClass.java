@@ -41,6 +41,8 @@ public enum BootstrapClass implements CssItem {
   DROPDOWN("dropdown"),
   DROPDOWN_MENU("dropdown-menu"),
   FADE("fade"),
+  FORM_CONTROL_STATIC("form-control-static"),
+  FORM_GROUP("form-group"),
   FORM_HORIZONTAL("form-horizontal"),
   GLYPHICON("glyphicon"),
   ICON_BAR("icon-bar"),
@@ -64,6 +66,7 @@ public enum BootstrapClass implements CssItem {
   PANEL_HEADING("panel-heading"),
   PANEL_BODY("panel-body"),
   RADIO("radio"),
+  ROW("row"),
   SR_ONLY("sr-only");
 
   private final String name;
