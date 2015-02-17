@@ -116,16 +116,7 @@ without shadow
       writer.writeStyleAttribute(border);
     }
 
-    final UIComponent label = box.getFacet(Facets.LABEL);
-    writer.startElement(HtmlElements.DIV, null);
-    writer.writeClassAttribute(Classes.create(box, "header"));
-    final String labelString = (String) box.getAttributes().get(Attributes.LABEL);
-    if (label != null) {
-      RenderUtils.encode(facesContext, label);
-    } else if (labelString != null) {
-      writer.writeText(labelString);
-    }
-    writer.endElement(HtmlElements.DIV);
+    renderBoxHeader(facesContext, writer, box);
 
     final UIMenuBar menuBar = ComponentUtils.findFacetDescendant(box, Facets.MENUBAR, UIMenuBar.class);
     if (menuBar != null) {
@@ -156,6 +147,20 @@ without shadow
     style.setLeft(borderLeft);
     style.setTop(borderTop);
     writer.writeStyleAttribute(style);
+  }
+
+  protected void renderBoxHeader(FacesContext facesContext, TobagoResponseWriter writer, UIComponent box)
+      throws IOException {
+    final UIComponent label = box.getFacet(Facets.LABEL);
+    writer.startElement(HtmlElements.DIV, null);
+    writer.writeClassAttribute(Classes.create(box, "header"));
+    final String labelString = (String) box.getAttributes().get(Attributes.LABEL);
+    if (label != null) {
+      RenderUtils.encode(facesContext, label);
+    } else if (labelString != null) {
+      writer.writeText(labelString);
+    }
+    writer.endElement(HtmlElements.DIV);
   }
 
   @Override
