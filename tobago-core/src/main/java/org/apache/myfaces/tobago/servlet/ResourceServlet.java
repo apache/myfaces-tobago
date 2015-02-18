@@ -81,7 +81,7 @@ public class ResourceServlet extends HttpServlet {
   public void init(final ServletConfig servletConfig) throws ServletException {
     super.init(servletConfig);
     final TobagoConfig tobagoConfig = TobagoConfig.getInstance(servletConfig.getServletContext());
-    if (tobagoConfig != null && tobagoConfig.getProjectStage() == ProjectStage.Production) {
+    if (tobagoConfig.getProjectStage() == ProjectStage.Production) {
        expires = 24 * 60 * 60 * 1000L;
     }
     final Theme defaultTheme = tobagoConfig.getDefaultTheme();
