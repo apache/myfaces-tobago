@@ -20,12 +20,14 @@ public class MimeTypeUtilsUnitTest extends AbstractTobagoTestBase {
   public static final String WOFF = "http:///localhost:8080/demo/demo.woff";
   public static final String TTF = "http:///localhost:8080/demo/demo.ttf";
   public static final String SVG = "http:///localhost:8080/demo/demo.svg";
+  public static final String ODT = "http:///localhost:8080/demo/demo.odt";
 
   public static final String UNKNOWN0 = "http:///localhost:8080/demo/demo.PNG";
   public static final String UNKNOWN1 = "http:///localhost:8080/demo/demos._png";
   public static final String UNKNOWN2 = "http:///localhost:8080/demo/demo.ggif";
   public static final String UNKNOWN3 = "http:///localhost:8080/demo/demos.ppg";
   public static final String UNKNOWN4 = "http:///localhost:8080/demo/demos.pngx";
+  public static final String UNKNOWN5 = "http:///localhost:8080/demo/demos.png.";
 
   @Test
   public void testMimeTypes() {
@@ -52,6 +54,13 @@ public class MimeTypeUtilsUnitTest extends AbstractTobagoTestBase {
     Assert.assertEquals(null, MimeTypeUtils.getMimeTypeForFile(UNKNOWN2));
     Assert.assertEquals(null, MimeTypeUtils.getMimeTypeForFile(UNKNOWN3));
     Assert.assertEquals(null, MimeTypeUtils.getMimeTypeForFile(UNKNOWN4));
+    Assert.assertEquals(null, MimeTypeUtils.getMimeTypeForFile(UNKNOWN5));
+  }
+
+  @Test
+  public void testMimeTypesConfigured() {
+    // comes from tobago-config-for-unit-tests.xml
+    Assert.assertEquals("application/vnd.oasis.opendocument.text", MimeTypeUtils.getMimeTypeForFile(ODT));
   }
 
 //  @Test

@@ -117,13 +117,13 @@ public class TobagoConfigMergingUnitTest {
     Assert.assertEquals("test/three", mimeTypes.get("test-3"));
   }
 
-  private TobagoConfigImpl loadAndMerge(final String... names)
+  public static TobagoConfigImpl loadAndMerge(final String... names)
       throws IOException, SAXException, ParserConfigurationException, URISyntaxException {
 
     final List<TobagoConfigFragment> list = new ArrayList<TobagoConfigFragment>();
 
     for (final String name : names) {
-      final URL url = getClass().getClassLoader().getResource(name);
+      final URL url = TobagoConfigMergingUnitTest.class.getClassLoader().getResource(name);
       final TobagoConfigParser parser = new TobagoConfigParser();
       list.add(parser.parse(url));
     }
