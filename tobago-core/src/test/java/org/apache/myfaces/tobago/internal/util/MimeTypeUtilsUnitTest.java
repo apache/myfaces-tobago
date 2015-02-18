@@ -4,7 +4,7 @@ import org.apache.myfaces.tobago.internal.config.AbstractTobagoTestBase;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class MimeTypeUtilsUniTest extends AbstractTobagoTestBase {
+public class MimeTypeUtilsUnitTest extends AbstractTobagoTestBase {
 
   public static final int INT = 100000000;
 
