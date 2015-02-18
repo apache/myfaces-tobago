@@ -35,6 +35,7 @@ import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.context.Theme;
 import org.apache.myfaces.tobago.internal.context.ResourceManagerFactory;
 import org.apache.myfaces.tobago.internal.mock.faces.MockTheme;
+import org.apache.myfaces.tobago.internal.util.MimeTypeUtils;
 import org.junit.After;
 import org.junit.Before;
 import org.slf4j.Logger;
@@ -81,6 +82,11 @@ public abstract class AbstractTobagoTestBase extends AbstractJsfTestCase {
     tobagoConfig.initProjectState(servletContext);
     tobagoConfig.initDefaultValidatorInfo();
     servletContext.setAttribute(TobagoConfig.TOBAGO_CONFIG, tobagoConfig);
+    try {
+      MimeTypeUtils.init(servletContext);
+    } catch (IllegalStateException e) {
+      // ignoring double call
+    }
 
     final ClientProperties clientProperties = new ClientProperties();
     clientProperties.setTheme(one);
