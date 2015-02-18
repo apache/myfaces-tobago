@@ -25,7 +25,9 @@ import org.slf4j.LoggerFactory;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 public class TobagoConfigFragment {
@@ -50,6 +52,7 @@ public class TobagoConfigFragment {
   private String sanitizerClass;
   private Properties sanitizerProperties;
   private Boolean autoAccessKeyFromLabel;
+  private Map<String, String> mimeTypes;
 
   public TobagoConfigFragment() {
     before = new ArrayList<String>();
@@ -57,6 +60,7 @@ public class TobagoConfigFragment {
     supportedThemeNames = new ArrayList<String>();
     resourceDirs = new ArrayList<String>();
     themeDefinitions = new ArrayList<ThemeImpl>();
+    mimeTypes = new HashMap<String, String>();
   }
 
   public void addSupportedThemeName(final String name) {
@@ -198,6 +202,14 @@ public class TobagoConfigFragment {
 
   public void setAutoAccessKeyFromLabel(Boolean autoAccessKeyFromLabel) {
     this.autoAccessKeyFromLabel = autoAccessKeyFromLabel;
+  }
+
+  public void addMimeType(String extension, String type) {
+    this.mimeTypes.put(extension, type);
+  }
+
+  public Map<String, String> getMimeTypes() {
+    return mimeTypes;
   }
 
   @Override

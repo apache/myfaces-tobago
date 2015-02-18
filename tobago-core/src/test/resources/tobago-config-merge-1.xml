@@ -20,8 +20,8 @@
 <tobago-config
     xmlns="http://myfaces.apache.org/tobago/tobago-config"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://myfaces.apache.org/tobago/tobago-config http://myfaces.apache.org/tobago/tobago-config-2.0.xsd"
-    version="2.0">
+    xsi:schemaLocation="http://myfaces.apache.org/tobago/tobago-config http://myfaces.apache.org/tobago/tobago-config-2.0.6.xsd"
+    version="2.0.6">
 
   <name>name-1</name>
 
@@ -35,4 +35,19 @@
     <directive>image-src http://apache.org</directive>
   </content-security-policy>
 
+  <mime-types>
+    <mime-type>
+      <extension>test-1</extension>
+      <type>test/one</type>
+    </mime-type>
+    <mime-type>
+      <extension>test-2</extension>
+      <type>test/two</type>
+    </mime-type>
+    <mime-type>
+      <extension>test-3</extension>
+      <type>test/three</type>
+    </mime-type>
+  </mime-types>
+  
 </tobago-config>

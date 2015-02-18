@@ -27,6 +27,7 @@ import org.apache.myfaces.tobago.sanitizer.Sanitizer;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
 import java.util.List;
+import java.util.Map;
 
 public abstract class TobagoConfig {
 
@@ -61,6 +62,8 @@ public abstract class TobagoConfig {
   public abstract Sanitizer getSanitizer();
 
   public abstract boolean isAutoAccessKeyFromLabel();
+
+  public abstract Map<String, String> getMimeTypes();
 
   /**
    * @return false

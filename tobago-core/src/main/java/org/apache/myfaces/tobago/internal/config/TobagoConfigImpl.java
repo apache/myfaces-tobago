@@ -36,6 +36,7 @@ import javax.naming.NamingException;
 import javax.servlet.ServletContext;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -66,6 +67,7 @@ public class TobagoConfigImpl extends TobagoConfig {
   private Map<String, String> defaultValidatorInfo;
   private Sanitizer sanitizer;
   private boolean autoAccessKeyFromLabel;
+  private Map<String, String> mimeTypes;
 
   private boolean unmodifiable = false;
 
@@ -79,6 +81,7 @@ public class TobagoConfigImpl extends TobagoConfig {
     setNosniffHeader = true;
     contentSecurityPolicy = new ContentSecurityPolicy(ContentSecurityPolicy.Mode.OFF.getValue());
     autoAccessKeyFromLabel = true;
+    mimeTypes = new HashMap<String, String>();
   }
 
   /**
@@ -98,6 +101,8 @@ public class TobagoConfigImpl extends TobagoConfig {
       ((RenderersConfigImpl) renderersConfig).lock();
     }
     contentSecurityPolicy.lock();
+
+    mimeTypes = Collections.unmodifiableMap(mimeTypes);
   }
 
   private void checkLocked() throws IllegalStateException {
@@ -360,6 +365,11 @@ public class TobagoConfigImpl extends TobagoConfig {
     this.autoAccessKeyFromLabel = autoAccessKeyFromLabel;
   }
 
+  @Override
+  public Map<String, String> getMimeTypes() {
+    return mimeTypes;
+  }
+
   /**
    * {@inheritDoc}
    */
@@ -405,6 +415,8 @@ public class TobagoConfigImpl extends TobagoConfig {
     builder.append(", \nthemes=");
     final Set<Theme> all = new HashSet<Theme>(availableThemes.values());
     builder.append(all);
+    builder.append(", \nmimeTypes=");
+    builder.append(mimeTypes);
     builder.append('}');
     return builder.toString();
   }

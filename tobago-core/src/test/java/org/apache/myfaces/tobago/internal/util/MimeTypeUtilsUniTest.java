@@ -1,9 +1,10 @@
 package org.apache.myfaces.tobago.internal.util;
 
+import org.apache.myfaces.tobago.internal.config.AbstractTobagoTestBase;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class MimeTypeUtilsUniTest {
+public class MimeTypeUtilsUniTest extends AbstractTobagoTestBase {
 
   public static final int INT = 100000000;
 
@@ -24,6 +25,7 @@ public class MimeTypeUtilsUniTest {
   public static final String UNKNOWN1 = "http:///localhost:8080/demo/demos._png";
   public static final String UNKNOWN2 = "http:///localhost:8080/demo/demo.ggif";
   public static final String UNKNOWN3 = "http:///localhost:8080/demo/demos.ppg";
+  public static final String UNKNOWN4 = "http:///localhost:8080/demo/demos.pngx";
 
   @Test
   public void testMimeTypes() {
@@ -49,6 +51,7 @@ public class MimeTypeUtilsUniTest {
     Assert.assertEquals(null, MimeTypeUtils.getMimeTypeForFile(UNKNOWN1));
     Assert.assertEquals(null, MimeTypeUtils.getMimeTypeForFile(UNKNOWN2));
     Assert.assertEquals(null, MimeTypeUtils.getMimeTypeForFile(UNKNOWN3));
+    Assert.assertEquals(null, MimeTypeUtils.getMimeTypeForFile(UNKNOWN4));
   }
 
 //  @Test

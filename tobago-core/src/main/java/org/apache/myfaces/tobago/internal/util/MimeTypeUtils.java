@@ -19,7 +19,14 @@
 
 package org.apache.myfaces.tobago.internal.util;
 
+import org.apache.myfaces.tobago.config.TobagoConfig;
+
+import javax.faces.context.FacesContext;
+import java.util.Map;
+
 public final class MimeTypeUtils {
+
+  private static Map<String, String> ADDITIONAL_MIME_TYPES = null;
 
   private MimeTypeUtils() {
     // utils class
@@ -70,6 +77,11 @@ public final class MimeTypeUtils {
       if (file.endsWith("html")) {
         return "text/html";
       }
+    }
+
+    if(ADDITIONAL_MIME_TYPES == null) {
+      final TobagoConfig tobagoConfig = TobagoConfig.getInstance(FacesContext.getCurrentInstance());
+      ADDITIONAL_MIME_TYPES = tobagoConfig.getMimeTypes();
     }
 
     return null;
