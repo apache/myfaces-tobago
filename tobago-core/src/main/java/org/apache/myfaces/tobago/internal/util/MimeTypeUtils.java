@@ -26,7 +26,7 @@ import java.util.Map;
 
 public final class MimeTypeUtils {
 
-  private static Map<String, String> ADDITIONAL_MIME_TYPES = null;
+  private static Map<String, String> additionalMimeTypes = null;
 
   private MimeTypeUtils() {
     // utils class
@@ -82,16 +82,16 @@ public final class MimeTypeUtils {
     final int index = file.lastIndexOf('.');
     if (index > -1) {
       String extension = file.substring(index + 1);
-      return ADDITIONAL_MIME_TYPES.get(extension);
+      return additionalMimeTypes.get(extension);
     }
 
     return null;
   }
 
   public static void init(ServletContext servletContext) {
-    if (ADDITIONAL_MIME_TYPES == null) {
+    if (additionalMimeTypes == null) {
       final TobagoConfig tobagoConfig = TobagoConfig.getInstance(servletContext);
-      ADDITIONAL_MIME_TYPES = tobagoConfig.getMimeTypes();
+      additionalMimeTypes = tobagoConfig.getMimeTypes();
     } else {
       throw new IllegalStateException(MimeTypeUtils.class.getSimpleName() + " is already initialized!");
     }

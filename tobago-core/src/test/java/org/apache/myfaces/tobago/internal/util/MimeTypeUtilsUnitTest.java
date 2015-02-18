@@ -22,8 +22,12 @@ package org.apache.myfaces.tobago.internal.util;
 import org.apache.myfaces.tobago.internal.config.AbstractTobagoTestBase;
 import org.junit.Assert;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class MimeTypeUtilsUnitTest extends AbstractTobagoTestBase {
+
+  private static final Logger LOG = LoggerFactory.getLogger(MimeTypeUtilsUnitTest.class);
 
   public static final int INT = 100000000;
 
@@ -82,6 +86,7 @@ public class MimeTypeUtilsUnitTest extends AbstractTobagoTestBase {
     Assert.assertEquals("application/vnd.oasis.opendocument.text", MimeTypeUtils.getMimeTypeForFile(ODT));
   }
 
+  @SuppressWarnings("unused")
 //  @Test
   public void testPerformance() {
     final long start = System.currentTimeMillis();
@@ -98,7 +103,7 @@ public class MimeTypeUtilsUnitTest extends AbstractTobagoTestBase {
       MimeTypeUtils.getMimeTypeForFile(WOFF);
       MimeTypeUtils.getMimeTypeForFile(UNKNOWN0);
     }
-    System.out.println("-----------------------> " + (System.currentTimeMillis() - start) + " ms");
+    LOG.info("-----------------------> " + (System.currentTimeMillis() - start) + " ms");
   }
 
 }

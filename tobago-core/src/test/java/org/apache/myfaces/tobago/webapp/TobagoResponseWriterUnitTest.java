@@ -78,8 +78,9 @@ public class TobagoResponseWriterUnitTest {
     writer.startElement(HtmlElements.A, null);
     writer.writeURIAttribute(HtmlAttributes.HREF, "http://example.org/web?text=äöüß", null);
     writer.endElement(HtmlElements.A);
-    Assert.assertEquals("uri attr tag", "<a href='http:&#x2F;&#x2F;example.org&#x2F;web?text=%C3%A4%C3%B6%C3%BC%C3%9F'\n></a>",
-            stringWriter.toString());
+    Assert.assertEquals("uri attr tag",
+        "<a href='http:&#x2F;&#x2F;example.org&#x2F;web?text=%C3%A4%C3%B6%C3%BC%C3%9F'\n></a>",
+        stringWriter.toString());
   }
 
   @Test
