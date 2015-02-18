@@ -79,9 +79,15 @@ public final class MimeTypeUtils {
       }
     }
 
-    if(ADDITIONAL_MIME_TYPES == null) {
+    if (ADDITIONAL_MIME_TYPES == null) {
       final TobagoConfig tobagoConfig = TobagoConfig.getInstance(FacesContext.getCurrentInstance());
       ADDITIONAL_MIME_TYPES = tobagoConfig.getMimeTypes();
+    }
+
+    final int index = file.lastIndexOf('.');
+    if (index > -1) {
+      String extension = file.substring(index + 1);
+      return ADDITIONAL_MIME_TYPES.get(extension);
     }
 
     return null;

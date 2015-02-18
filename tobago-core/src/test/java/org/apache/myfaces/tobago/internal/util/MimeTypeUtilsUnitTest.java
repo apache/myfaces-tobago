@@ -46,6 +46,7 @@ public class MimeTypeUtilsUnitTest extends AbstractTobagoTestBase {
   public static final String UNKNOWN2 = "http:///localhost:8080/demo/demo.ggif";
   public static final String UNKNOWN3 = "http:///localhost:8080/demo/demos.ppg";
   public static final String UNKNOWN4 = "http:///localhost:8080/demo/demos.pngx";
+  public static final String UNKNOWN5 = "http:///localhost:8080/demo/demos.png.";
 
   @Test
   public void testMimeTypes() {
@@ -72,15 +73,14 @@ public class MimeTypeUtilsUnitTest extends AbstractTobagoTestBase {
     Assert.assertEquals(null, MimeTypeUtils.getMimeTypeForFile(UNKNOWN2));
     Assert.assertEquals(null, MimeTypeUtils.getMimeTypeForFile(UNKNOWN3));
     Assert.assertEquals(null, MimeTypeUtils.getMimeTypeForFile(UNKNOWN4));
+    Assert.assertEquals(null, MimeTypeUtils.getMimeTypeForFile(UNKNOWN5));
   }
 
-/*
   @Test
   public void testMimeTypesConfigured() {
 
     Assert.assertEquals("application/vnd.oasis.opendocument.text", MimeTypeUtils.getMimeTypeForFile(ODT));
   }
-*/
 
 //  @Test
   public void testPerformance() {
