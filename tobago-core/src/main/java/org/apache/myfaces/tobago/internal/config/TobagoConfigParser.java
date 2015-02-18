@@ -83,6 +83,10 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
   private static final int ENTRY = 96667762;
   private static final int AUTO_ACCESS_KEY_FROM_LABEL = 2070339882;
   private static final int CLASSIC_DATE_TIME_PICKER = -879394870; // "classic-date-time-picker".hashCode()
+  private static final int MIME_TYPES = 1081186720;
+  private static final int MIME_TYPE = -242217677;
+  private static final int EXTENSION = -612557761;
+  private static final int TYPE = 3575610;
 
   private TobagoConfigFragment tobagoConfig;
   private RendererConfig currentRenderer;
@@ -91,6 +95,8 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
   private StringBuilder buffer;
   private Properties properties;
   private String entryKey;
+  private String extension;
+  private String type;
 
   private Stack<String> stack;
 
@@ -239,6 +245,10 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
       case SANITIZER_CLASS:
       case AUTO_ACCESS_KEY_FROM_LABEL:
       case CLASSIC_DATE_TIME_PICKER:
+      case MIME_TYPES:
+      case MIME_TYPE:
+      case EXTENSION:
+      case TYPE:
         break;
 
       default:
@@ -378,6 +388,18 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
         tobagoConfig.setClassicDateTimePicker(text);
         break;
 
+      case EXTENSION:
+        extension = text;
+        break;
+
+      case TYPE:
+        type = text;
+        break;
+
+      case MIME_TYPE:
+        tobagoConfig.addMimeType(extension, type);
+        break;
+
       case TOBAGO_CONFIG:
       case THEME_CONFIG:
       case ORDERING:
@@ -391,6 +413,7 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
       case SCRIPT:
       case STYLE:
       case PROPERTIES:
+      case MIME_TYPES:
         break;
 
       default:
@@ -420,7 +443,9 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
 
     final SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
     final Schema schema;
-    if ("2.0".equals(version.getVersion())) {
+    if ("2.0.6".equals(version.getVersion())) {
+      schema = schemaFactory.newSchema(getClass().getResource(TOBAGO_CONFIG_XSD_2_0_6));
+    } else if ("2.0".equals(version.getVersion())) {
       schema = schemaFactory.newSchema(getClass().getResource(TOBAGO_CONFIG_XSD_2_0));
     } else if ("1.6".equals(version.getVersion())) {
       LOG.warn("Using deprecated schema with version attribute 1.6 in file: '" + url + "'");

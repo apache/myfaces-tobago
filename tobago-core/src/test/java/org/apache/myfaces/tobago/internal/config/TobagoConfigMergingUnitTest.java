@@ -29,6 +29,7 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class TobagoConfigMergingUnitTest {
 
@@ -98,6 +99,22 @@ public class TobagoConfigMergingUnitTest {
 
     Assert.assertTrue(config.getContentSecurityPolicy().getMode() == ContentSecurityPolicy.Mode.OFF);
     Assert.assertEquals(2, config.getContentSecurityPolicy().getDirectiveList().size());
+  }
+
+  @Test
+  public void testMimeTypes()
+      throws IOException, SAXException, ParserConfigurationException, URISyntaxException {
+
+    final TobagoConfigImpl config = loadAndMerge(
+        "tobago-config-merge-0.xml",
+        "tobago-config-merge-1.xml",
+        "tobago-config-merge-2.xml");
+
+    final Map<String, String> mimeTypes = config.getMimeTypes();
+    Assert.assertTrue(mimeTypes.size() == 3);
+    Assert.assertEquals("test/one", mimeTypes.get("test-1"));
+    Assert.assertEquals("test/zwei", mimeTypes.get("test-2"));
+    Assert.assertEquals("test/three", mimeTypes.get("test-3"));
   }
 
   private TobagoConfigImpl loadAndMerge(final String... names)

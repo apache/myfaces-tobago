@@ -29,6 +29,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 public class TobagoConfigSorter implements Comparator<TobagoConfigFragment> {
@@ -146,6 +147,11 @@ public class TobagoConfigSorter implements Comparator<TobagoConfigFragment> {
 
       // url
       // todo???
+
+      final Map<String, String> mimeTypes = result.getMimeTypes();
+      for (final Map.Entry<String, String> entry : fragment.getMimeTypes().entrySet()) {
+        mimeTypes.put(entry.getKey(), entry.getValue());
+      }
 
     }
 

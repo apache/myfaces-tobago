@@ -36,6 +36,7 @@ import javax.naming.NamingException;
 import javax.servlet.ServletContext;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -67,6 +68,7 @@ public class TobagoConfigImpl extends TobagoConfig {
   private Sanitizer sanitizer;
   private boolean autoAccessKeyFromLabel;
   private boolean classicDateTimePicker;
+  private Map<String, String> mimeTypes;
 
   private boolean unmodifiable = false;
 
@@ -81,6 +83,7 @@ public class TobagoConfigImpl extends TobagoConfig {
     contentSecurityPolicy = new ContentSecurityPolicy(ContentSecurityPolicy.Mode.OFF.getValue());
     autoAccessKeyFromLabel = true;
     classicDateTimePicker = false;
+    mimeTypes = new HashMap<String, String>();
   }
 
   /**
@@ -100,6 +103,8 @@ public class TobagoConfigImpl extends TobagoConfig {
       ((RenderersConfigImpl) renderersConfig).lock();
     }
     contentSecurityPolicy.lock();
+
+    mimeTypes = Collections.unmodifiableMap(mimeTypes);
   }
 
   private void checkLocked() throws IllegalStateException {
@@ -362,6 +367,12 @@ public class TobagoConfigImpl extends TobagoConfig {
     this.autoAccessKeyFromLabel = autoAccessKeyFromLabel;
   }
 
+  @Override
+  public Map<String, String> getMimeTypes() {
+    return mimeTypes;
+  }
+
+  @Override
   public boolean isClassicDateTimePicker() {
     return classicDateTimePicker;
   }
@@ -409,6 +420,8 @@ public class TobagoConfigImpl extends TobagoConfig {
     builder.append(", \nthemes=");
     final Set<Theme> all = new HashSet<Theme>(availableThemes.values());
     builder.append(all);
+    builder.append(", \nmimeTypes=");
+    builder.append(mimeTypes);
     builder.append('}');
     return builder.toString();
   }
