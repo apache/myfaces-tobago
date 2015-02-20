@@ -90,7 +90,11 @@ public class TestPageFilter {
       "/test/mediator/tomahawk-inputHtml.*", // todo
       "/test/treeListbox/*", // todo
       "/test/label/label-tx.xhtml", // todo see TOBAGO-993
-      "/test/type/measure-image-without-constraints.jspx" // todo
+      "/tf/.*", // TBD
+      "/test/tree/tree-marked-with-model.*", // todo
+      "/test/tree/tree-marked-without-model.*", // todo
+      "/test/sheet/sheet-auto-width.*", // todo
+      "/test/type/measure-image-without-constraints.jspx" // todo: to be analysed
   ));
 
   public static boolean isValid(final String name) {
