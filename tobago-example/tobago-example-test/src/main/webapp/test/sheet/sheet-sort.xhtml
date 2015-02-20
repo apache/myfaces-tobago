@@ -23,7 +23,7 @@
     xmlns:f="http://java.sun.com/jsf/core">
 
   <tc:page id="page">
-    <tc:gridLayoutConstraint width="600px" height="600px"/>
+    <tc:gridLayoutConstraint width="1000px" height="600px"/>
 
     <tc:sheet value="#{sort.list}" id="sheet" columns="*;*;*;*;*;*" var="entry">
       <tc:column label="tc:out" id="first" sortable="true">
@@ -43,12 +43,18 @@
           <f:convertDateTime timeZone="UTC" pattern="dd. MMM yyyy"/>
         </tc:date>
       </tc:column>
-      <tc:column label="tc:link -> tc:out" id="sixth" sortable="true">
+      <tc:column label="tc:link -> tc:out" id="sixth" sortable="true"
+                 tip="This doesn't work until https://issues.apache.org/jira/browse/TOBAGO-1429"
+          >
         <tc:link id="link2">
-          <tc:out value="#{entry.sixth}" id="out2"/>
+          <f:facet name="label">
+            <tc:label value="#{entry.sixth}" id="label"/>
+          </f:facet>
         </tc:link>
       </tc:column>
     </tc:sheet>
+
+    <tc:label value="The 6th column doesn't work until https://issues.apache.org/jira/browse/TOBAGO-1429" markup="error"/>
 
     <tc:script file="script/tobago-assert.js"/>
 
