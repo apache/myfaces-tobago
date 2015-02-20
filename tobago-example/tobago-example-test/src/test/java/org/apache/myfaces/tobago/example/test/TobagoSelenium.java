@@ -74,6 +74,9 @@ public class TobagoSelenium extends DefaultSelenium {
         if (isErrorOnPage()) {
           Assert.fail(format(HAS_ERROR_SEVERITY, location, html, "TobagoAssert.failed"));
         }
+        if (!getHtmlSource().contains("class=\"tobago-page\"")) {
+          Assert.fail(format(HAS_ERROR_SEVERITY, location, html, TobagoSelenium.IS_BROKEN));
+        }
       } catch (final SeleniumException e) {
         Assert.fail(format(IS_BROKEN, location, html, "Not a Tobago page? Exception=" + e));
       }
@@ -81,16 +84,10 @@ public class TobagoSelenium extends DefaultSelenium {
   }
 
   public String format(final String error, final String location, final String html, final String options) {
-    final StringBuilder b = new StringBuilder();
-    b.append(error);
-    b.append("\nPage URL: ");
-    b.append(location);
-    b.append("\n");
-    b.append(options);
-    b.append("\n---------------------------------------------------------------------------------------------------\n");
-    b.append(html);
-    b.append("\n---------------------------------------------------------------------------------------------------\n");
-    return b.toString();
+    return error + "\nPage URL: " + location + "\n" + options
+        + "\n---------------------------------------------------------------------------------------------------\n"
+        + html
+        + "\n---------------------------------------------------------------------------------------------------\n";
   }
 
   /**
