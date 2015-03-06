@@ -19,8 +19,6 @@
 
 package org.apache.myfaces.tobago.example.test;
 
-import org.apache.commons.lang.exception.ExceptionUtils;
-
 import javax.faces.FacesException;
 import javax.faces.application.FacesMessage;
 import javax.faces.application.NavigationHandler;
@@ -51,7 +49,8 @@ public class TestExceptionHandler extends ExceptionHandlerWrapper {
     while (iterator.hasNext()) {
       final ExceptionQueuedEvent event = iterator.next();
       final ExceptionQueuedEventContext context = (ExceptionQueuedEventContext) event.getSource();
-      final Throwable cause = ExceptionUtils.getRootCause(context.getException());
+      final Throwable cause = getWrapped().getRootCause(context.getException());
+//      final Throwable cause = ExceptionUtils.getRootCause(context.getException());
       if (cause instanceof ErrorTestException) {
         final FacesContext facesContext = FacesContext.getCurrentInstance();
         final NavigationHandler nav = facesContext.getApplication().getNavigationHandler();
