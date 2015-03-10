@@ -453,7 +453,7 @@ public final class HtmlRendererUtil {
   public static void renderSelectItems(
       final UIInput component, final List<SelectItem> items, final Object[] values,
       final TobagoResponseWriter writer, final FacesContext facesContext) throws IOException {
-    HtmlRendererUtils.renderSelectItems(component, items, values, writer, facesContext);
+    HtmlRendererUtils.renderSelectItems(component, items, values, (String[]) null, writer, facesContext);
   }
 
   /**

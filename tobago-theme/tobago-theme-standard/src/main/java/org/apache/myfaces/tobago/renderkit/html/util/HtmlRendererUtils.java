@@ -367,17 +367,42 @@ public final class HtmlRendererUtils {
     return title;
   }
 
+  /**
+   * @deprecated Since Tobago 2.0.7
+   */
+  @Deprecated
   public static void renderSelectItems(final UIInput component, final Iterable<SelectItem> items, final Object[] values,
       final TobagoResponseWriter writer, final FacesContext facesContext) throws IOException {
-    renderSelectItems(component, items, values, null, writer, facesContext);
+    renderSelectItems(component, items, values, null, null, writer, facesContext);
   }
 
+  public static void renderSelectItems(final UIInput component, final Iterable<SelectItem> items, final Object[] values,
+      final String[] submittedValues, final TobagoResponseWriter writer, final FacesContext facesContext) throws IOException {
+    renderSelectItems(component, items, values, submittedValues, null, writer, facesContext);
+  }
+
+  public static void renderSelectItems(final UIInput component, final Iterable<SelectItem> items, final Object value,
+      final String submittedValue, final TobagoResponseWriter writer, final FacesContext facesContext) throws IOException {
+    renderSelectItems(component, items, value != null ? new Object[] {value}: null, submittedValue != null ?  new String[] {submittedValue}: null, null, writer, facesContext);
+  }
+
+  /**
+   * @deprecated Since Tobago 2.0.7
+   */
+  @Deprecated
   public static void renderSelectItems(
-      final UIInput component, final Iterable<SelectItem> items, final Object[] values, final Boolean onlySelected,
-      final TobagoResponseWriter writer, final FacesContext facesContext) throws IOException {
+      final UIInput component, final Iterable<SelectItem> items, final Object[] values,
+      final Boolean onlySelected, final TobagoResponseWriter writer, final FacesContext facesContext) throws IOException {
+    renderSelectItems(component, items, values, null, onlySelected, writer, facesContext);
+  }
+  public static void renderSelectItems(
+      final UIInput component, final Iterable<SelectItem> items, final Object[] values, final String[] submittedValues,
+      final Boolean onlySelected, final TobagoResponseWriter writer, final FacesContext facesContext) throws IOException {
 
     if (LOG.isDebugEnabled()) {
-      LOG.debug("value = '" + Arrays.toString(values) + "'");
+      LOG.debug("component id = '{}'", component.getId());
+      LOG.debug("values = '{}'", Arrays.toString(values));
+      LOG.debug("submittedValues = '{}'", Arrays.toString(submittedValues));
     }
     for (final SelectItem item : items) {
       if (item instanceof SelectItemGroup) {
@@ -387,7 +412,7 @@ public final class HtmlRendererUtils {
           writer.writeAttribute(HtmlAttributes.DISABLED, true);
         }
         final SelectItem[] selectItems = ((SelectItemGroup) item).getSelectItems();
-        renderSelectItems(component, Arrays.asList(selectItems), values, onlySelected, writer, facesContext);
+        renderSelectItems(component, Arrays.asList(selectItems), values, submittedValues, onlySelected, writer, facesContext);
         writer.endElement(HtmlElements.OPTGROUP);
       } else {
 
@@ -396,7 +421,13 @@ public final class HtmlRendererUtils {
         if (itemValue instanceof String && values != null && values.length > 0 && !(values[0] instanceof String)) {
           itemValue = ComponentUtils.getConvertedValue(facesContext, component, (String) itemValue);
         }
-        final boolean contains = RenderUtils.contains(values, itemValue);
+        final String formattedValue = RenderUtils.getFormattedValue(facesContext, component, itemValue);
+        boolean contains;
+        if (submittedValues == null) {
+          contains = RenderUtils.contains(values, itemValue);
+        } else {
+          contains = RenderUtils.contains(submittedValues, formattedValue);
+        }
         if (onlySelected != null) {
           if (onlySelected) {
             if (!contains) {
@@ -409,7 +440,6 @@ public final class HtmlRendererUtils {
           }
         }
         writer.startElement(HtmlElements.OPTION, null);
-        final String formattedValue = RenderUtils.getFormattedValue(facesContext, component, itemValue);
         writer.writeAttribute(HtmlAttributes.VALUE, formattedValue, true);
         if (item instanceof org.apache.myfaces.tobago.model.SelectItem) {
           final String image = ((org.apache.myfaces.tobago.model.SelectItem) item).getImage();

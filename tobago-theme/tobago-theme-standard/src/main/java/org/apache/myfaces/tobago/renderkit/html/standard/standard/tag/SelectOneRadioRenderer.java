@@ -77,17 +77,23 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
     }
     boolean first = true;
     final Object value = select.getValue();
+    final String submittedValue = (String) select.getSubmittedValue();
     int i = 0;
     for (final SelectItem item : items) {
       final String itemId = id + ComponentUtils.SUB_SEPARATOR + i++;
       writer.startElement(HtmlElements.LI, select);
       writer.startElement(HtmlElements.INPUT, select);
       writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.RADIO, false);
-      final boolean checked = ObjectUtils.equals(item.getValue(), value);
+      final String formattedValue = RenderUtils.getFormattedValue(facesContext, select, item.getValue());
+      boolean checked;
+      if (submittedValue == null) {
+        checked = ObjectUtils.equals(item.getValue(), value);
+      } else {
+        checked = ObjectUtils.equals(formattedValue, submittedValue);
+      }
       writer.writeAttribute(HtmlAttributes.CHECKED, checked);
       writer.writeNameAttribute(id);
       writer.writeIdAttribute(itemId);
-      final String formattedValue = RenderUtils.getFormattedValue(facesContext, select, item.getValue());
       writer.writeAttribute(HtmlAttributes.VALUE, formattedValue, true);
       writer.writeAttribute(HtmlAttributes.DISABLED, item.isDisabled() || disabled);
       writer.writeAttribute(HtmlAttributes.READONLY, readonly);

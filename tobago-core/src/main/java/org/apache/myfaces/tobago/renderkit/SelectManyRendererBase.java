@@ -26,6 +26,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.faces.FacesException;
 import javax.faces.component.UIComponent;
+import javax.faces.component.UIInput;
 import javax.faces.component.UISelectMany;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
@@ -65,6 +66,10 @@ public class SelectManyRendererBase extends LayoutComponentRendererBase {
       }
       uiSelectMany.setSubmittedValue(newValues);
     }
+  }
+
+  public String[] getSubmittedValues(UIInput input) {
+    return (String[]) input.getSubmittedValue();
   }
 
   // the following is copied from myfaces shared RendererUtils

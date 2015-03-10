@@ -82,7 +82,8 @@ public class SelectManyListboxRenderer extends SelectManyRendererBase {
     }
     HtmlRendererUtils.renderCommandFacet(select, facesContext, writer);
     final Object[] values = select.getSelectedValues();
-    HtmlRendererUtils.renderSelectItems(select, items, values, writer, facesContext);
+    final String[] submittedValues = getSubmittedValues(select);
+    HtmlRendererUtils.renderSelectItems(select, items, values, submittedValues, writer, facesContext);
 
     writer.endElement(HtmlElements.SELECT);
   }
