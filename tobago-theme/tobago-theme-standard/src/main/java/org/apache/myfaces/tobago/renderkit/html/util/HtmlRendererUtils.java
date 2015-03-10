@@ -377,27 +377,30 @@ public final class HtmlRendererUtils {
   }
 
   public static void renderSelectItems(final UIInput component, final Iterable<SelectItem> items, final Object[] values,
-      final String[] submittedValues, final TobagoResponseWriter writer, final FacesContext facesContext) throws IOException {
+      final String[] submittedValues, final TobagoResponseWriter writer, final FacesContext facesContext)
+      throws IOException {
     renderSelectItems(component, items, values, submittedValues, null, writer, facesContext);
   }
 
   public static void renderSelectItems(final UIInput component, final Iterable<SelectItem> items, final Object value,
-      final String submittedValue, final TobagoResponseWriter writer, final FacesContext facesContext) throws IOException {
-    renderSelectItems(component, items, value != null ? new Object[] {value}: null, submittedValue != null ?  new String[] {submittedValue}: null, null, writer, facesContext);
+      final String submittedValue, final TobagoResponseWriter writer, final FacesContext facesContext)
+      throws IOException {
+    renderSelectItems(component, items, value != null ? new Object[] {value}: null,
+        submittedValue != null ?  new String[] {submittedValue}: null, null, writer, facesContext);
   }
 
   /**
    * @deprecated Since Tobago 2.0.7
    */
   @Deprecated
-  public static void renderSelectItems(
-      final UIInput component, final Iterable<SelectItem> items, final Object[] values,
-      final Boolean onlySelected, final TobagoResponseWriter writer, final FacesContext facesContext) throws IOException {
+  public static void renderSelectItems(final UIInput component, final Iterable<SelectItem> items, final Object[] values,
+      final Boolean onlySelected, final TobagoResponseWriter writer, final FacesContext facesContext)
+      throws IOException {
     renderSelectItems(component, items, values, null, onlySelected, writer, facesContext);
   }
-  public static void renderSelectItems(
-      final UIInput component, final Iterable<SelectItem> items, final Object[] values, final String[] submittedValues,
-      final Boolean onlySelected, final TobagoResponseWriter writer, final FacesContext facesContext) throws IOException {
+  public static void renderSelectItems(final UIInput component, final Iterable<SelectItem> items, final Object[] values,
+      final String[] submittedValues, final Boolean onlySelected, final TobagoResponseWriter writer,
+      final FacesContext facesContext) throws IOException {
 
     if (LOG.isDebugEnabled()) {
       LOG.debug("component id = '{}'", component.getId());
@@ -412,7 +415,8 @@ public final class HtmlRendererUtils {
           writer.writeAttribute(HtmlAttributes.DISABLED, true);
         }
         final SelectItem[] selectItems = ((SelectItemGroup) item).getSelectItems();
-        renderSelectItems(component, Arrays.asList(selectItems), values, submittedValues, onlySelected, writer, facesContext);
+        renderSelectItems(component, Arrays.asList(selectItems), values, submittedValues,
+            onlySelected, writer, facesContext);
         writer.endElement(HtmlElements.OPTGROUP);
       } else {
 
