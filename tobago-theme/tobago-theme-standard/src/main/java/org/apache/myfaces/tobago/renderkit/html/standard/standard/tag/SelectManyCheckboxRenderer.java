@@ -22,6 +22,7 @@ package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 import org.apache.myfaces.tobago.component.UISelectManyCheckbox;
 import org.apache.myfaces.tobago.config.Configurable;
 import org.apache.myfaces.tobago.context.Markup;
+import org.apache.myfaces.tobago.internal.util.ObjectUtils;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.SelectManyRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
@@ -74,17 +75,23 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
     }
     boolean first = true;
     final Object[] values = select.getSelectedValues();
+    final String[] submittedValues = getSubmittedValues(select);
     int i = 0;
     for (final SelectItem item : SelectItemUtils.getItemIterator(facesContext, select)) {
       final String itemId = id + ComponentUtils.SUB_SEPARATOR + i++;
       writer.startElement(HtmlElements.LI, select);
       writer.startElement(HtmlElements.INPUT, select);
       writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.CHECKBOX, false);
-      final boolean checked = RenderUtils.contains(values, item.getValue());
+      final String formattedValue = RenderUtils.getFormattedValue(facesContext, select, item.getValue());
+      boolean checked;
+      if (submittedValues == null) {
+        checked = RenderUtils.contains(values, item.getValue());
+      } else {
+        checked = RenderUtils.contains(submittedValues, formattedValue);
+      }
       writer.writeAttribute(HtmlAttributes.CHECKED, checked);
       writer.writeNameAttribute(id);
       writer.writeIdAttribute(itemId);
-      final String formattedValue = RenderUtils.getFormattedValue(facesContext, select, item.getValue());
       writer.writeAttribute(HtmlAttributes.VALUE, formattedValue, true);
       writer.writeAttribute(HtmlAttributes.DISABLED, item.isDisabled() || disabled);
       writer.writeAttribute(HtmlAttributes.READONLY, readonly);
