@@ -86,7 +86,8 @@ public enum BootstrapClass implements CssItem {
 
       @Override
       public String getName() {
-        return "glyphicon-" + name;
+        // XXX cleanup, should be resolved with the ResourceManager...
+        return name.startsWith("glyphicon-") ? name : "glyphicon-" + name;
       }
     };
   }
