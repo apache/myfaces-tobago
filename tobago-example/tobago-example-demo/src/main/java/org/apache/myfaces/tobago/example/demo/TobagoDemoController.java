@@ -19,8 +19,10 @@
 
 package org.apache.myfaces.tobago.example.demo;
 
+import org.apache.myfaces.tobago.component.UISheet;
 import org.apache.myfaces.tobago.component.UIToolBar;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
+import org.apache.myfaces.tobago.event.SortActionEvent;
 import org.apache.myfaces.tobago.event.TabChangeListener;
 import org.apache.myfaces.tobago.example.data.CategoryTree;
 import org.apache.myfaces.tobago.example.data.Solar;
@@ -45,6 +47,8 @@ import javax.servlet.http.HttpSession;
 import javax.swing.tree.DefaultMutableTreeNode;
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -494,6 +498,78 @@ public class TobagoDemoController implements Serializable {
 
   public void setSheetState(final SheetState sheetState) {
     this.sheetState = sheetState;
+    if (this.sheetState.getSortedColumnId() == null) {
+      this.sheetState.setSortedColumnId("distance");
+//      sheetSorter(this.sheetState, solarList);
+    }
+  }
+
+  public void sheetSorter(final ActionEvent event) {
+    if (event instanceof SortActionEvent) {
+      final SortActionEvent sortEvent = (SortActionEvent) event;
+      final UISheet sheet = (UISheet) sortEvent.getComponent();
+      final SheetState sheetState = sheet.getSheetState(FacesContext.getCurrentInstance());
+      final List<SolarObject> list = (List<SolarObject>) sheet.getValue();
+      sheetSorter(sheetState, list);
+    }
+  }
+
+  private void sheetSorter(final SheetState sheetState, final List<SolarObject> list) {
+    final SolarObject sun = list.remove(0);
+    final String columnId = sheetState.getSortedColumnId();
+
+    Comparator<SolarObject> comparator = null;
+
+    if ("name".equals(columnId)) {
+      comparator = new Comparator<SolarObject>() {
+        public int compare(final SolarObject o1, final SolarObject o2) {
+          return o1.getName().compareToIgnoreCase(o2.getName());
+        }
+      };
+    } else if ("orbit".equals(columnId)) {
+      comparator = new Comparator<SolarObject>() {
+        public int compare(final SolarObject o1, final SolarObject o2) {
+          return o1.getOrbit().compareToIgnoreCase(o2.getOrbit());
+        }
+      };
+    } else if ("population".equals(columnId)) {
+      comparator = new Comparator<SolarObject>() {
+        public int compare(final SolarObject o1, final SolarObject o2) {
+          Integer i1 = -1;
+          try {
+            i1 = new Integer(o1.getPopulation().replaceAll("\\D", "").trim());
+          } catch (final NumberFormatException e) {
+            // ignore
+          }
+          Integer i2 = -1;
+          try {
+            i2 = new Integer(o2.getPopulation().replaceAll("\\D", "").trim());
+          } catch (final NumberFormatException e) {
+            // ignore
+          }
+          return i1.compareTo(i2);
+        }
+      };
+    } else if ("distance".equals(columnId)) {
+      comparator = new Comparator<SolarObject>() {
+        public int compare(final SolarObject o1, final SolarObject o2) {
+          return o1.getDistance().compareTo(o2.getDistance());
+        }
+      };
+    } else if ("period".equals(columnId)) {
+      comparator = new Comparator<SolarObject>() {
+        public int compare(final SolarObject o1, final SolarObject o2) {
+          return o1.getPeriod().compareTo(o2.getPeriod());
+        }
+      };
+    }
+
+    Collections.sort(list, comparator);
+    if (!sheetState.isAscending()) {
+      Collections.reverse(list);
+    }
+
+    list.add(0, sun);
   }
 
   public SheetState getSheetTreeState() {
