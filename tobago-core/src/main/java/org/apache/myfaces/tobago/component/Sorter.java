@@ -52,12 +52,16 @@ public class Sorter {
 
   private Comparator comparator;
 
+  /**
+   * @deprecated Please use {@link #perform(org.apache.myfaces.tobago.internal.component.AbstractUISheet)}
+   */
+  @Deprecated
   public void perform(final SortActionEvent sortEvent) {
-    if (LOG.isDebugEnabled()) {
-      LOG.debug("sorterId = {}", sortEvent.getComponent().getId());
-    }
-    final UIColumn column = sortEvent.getColumn();
     final AbstractUISheet data = (AbstractUISheet) sortEvent.getComponent();
+    perform(data);
+  }
+
+  public void perform(final AbstractUISheet data) {
 
     Object value = data.getValue();
     if (value instanceof DataModel) {
@@ -65,6 +69,22 @@ public class Sorter {
     }
     final FacesContext facesContext = FacesContext.getCurrentInstance();
     final SheetState sheetState = data.getSheetState(facesContext);
+
+    final String sortedColumnId = sheetState.getSortedColumnId();
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("sorterId = '{}'", sortedColumnId);
+    }
+
+    if (sortedColumnId == null) {
+      // not to be sorted
+      return;
+    }
+
+    final UIColumn column = (UIColumn) data.findComponent(sortedColumnId);
+    if (column == null) {
+      LOG.warn("No column to sort found, sorterId = '{}'", sortedColumnId);
+      return;
+    }
 
     final Comparator actualComparator;
 

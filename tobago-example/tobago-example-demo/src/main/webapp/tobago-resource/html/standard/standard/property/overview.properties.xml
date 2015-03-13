@@ -141,6 +141,7 @@
     &lt;li style="line-height: 130%;"&gt;The column width can be resized by simply
     drag and drop the column border.
     &lt;/ul&gt;
+    This example shows an application specific sorter, which sorts the sun to the top every time.
 </entry>
 <entry key="sheet_resetLabel">Reset</entry>
 <entry key="sheet_resetTip">Reset the modified widths of the columns in the sheet.</entry>

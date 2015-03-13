@@ -144,7 +144,7 @@
               rows="#{overviewController.sheetConfig.sheetRows}"
               directLinkCount="#{overviewController.sheetConfig.sheetDirectLinkCount}"
               stateChangeListener="#{demo.stateChangeListener}"
-              sortActionListener="#{overviewController.sheetSorter}"
+              sortActionListener="#{demo.sheetSorter}"
               selectable="#{overviewController.sheetConfig.selectable}"
               showDirectLinksArrows="#{overviewController.sheetConfig.showDirectLinksArrows}"
               showPageRangeArrows="#{overviewController.sheetConfig.showPageRangeArrows}"
@@ -175,6 +175,9 @@
             <tc:command actionListener="#{demo.selectOrbit}" renderedPartially="sheet">
               <f:param value="#{luminary}" name="luminary"/>
             </tc:command>
+          </f:facet>
+          <f:facet name="layout">
+            <tc:gridLayout rows="20px"/>
           </f:facet>
           <tc:out value="#{luminary.orbit}" id="t_orbit"/>
         </tc:panel>

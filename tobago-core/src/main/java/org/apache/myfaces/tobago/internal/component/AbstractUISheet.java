@@ -112,6 +112,19 @@ public abstract class AbstractUISheet extends AbstractUIData
         setFirst(first);
       }
     }
+
+    final MethodExpression expression = getSortActionListenerExpression();
+    if (expression != null) {
+      try {
+        FacesEvent facesEvent = new SortActionEvent(this, null);
+        expression.invoke(facesContext.getELContext(), new Object[]{facesEvent});
+      } catch (Exception e) {
+        LOG.warn("Initial sorting not possible!", e);
+      }
+    } else {
+      new Sorter().perform(this);
+    }
+
     super.encodeBegin(facesContext);
   }
 
@@ -442,13 +455,11 @@ public abstract class AbstractUISheet extends AbstractUIData
         performPaging((PageActionEvent) facesEvent);
       }
     } else if (facesEvent instanceof SortActionEvent) {
+      getSheetState(getFacesContext()).updateSortState((SortActionEvent) facesEvent);
       final MethodExpression expression = getSortActionListenerExpression();
-      if (expression!= null) {
-        // TODO should be first invokeMethodBinding and the update state
-        getSheetState(getFacesContext()).updateSortState((SortActionEvent) facesEvent);
+      if (expression != null) {
         expression.invoke(getFacesContext().getELContext(), new Object[]{facesEvent});
       } else {
-        getSheetState(getFacesContext()).updateSortState((SortActionEvent) facesEvent);
         new Sorter().perform((SortActionEvent) facesEvent);
       }
     }
