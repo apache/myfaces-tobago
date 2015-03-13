@@ -37,7 +37,7 @@ public class SheetState implements Serializable {
 
   public static final String SEPARATOR = ",";
 
-  private int first = -1;
+  private int first;
   private String sortedColumnId;
   private boolean ascending;
   private String columnWidths;
@@ -47,7 +47,22 @@ public class SheetState implements Serializable {
   private SelectedState selectedState;
 
   public SheetState() {
+    reset();
+  }
+
+  public void reset() {
+    first = -1;
+    sortedColumnId = null;
+    ascending = true;
+    columnWidths = null;
     resetSelected();
+    if (expandedState != null) {
+      expandedState.reset();
+    }
+    if (selectedState != null) {
+      selectedState.clear();
+    }
+    scrollPosition = null;
   }
 
   public void resetSelected() {
