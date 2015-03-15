@@ -73,6 +73,12 @@ table.tobago-gridLayout > tbody > tr:first-child > td {
     border-top: 0;
 }
 
+/* page ----------------------------------------------------------- */
+
+.navbar-fixed-top + .tobago-page-content {
+  margin-top: 70px;
+}
+
 /* selectManyCheckbox ----------------------------------------------------------- */
 
 .tobago-selectManyCheckbox {
