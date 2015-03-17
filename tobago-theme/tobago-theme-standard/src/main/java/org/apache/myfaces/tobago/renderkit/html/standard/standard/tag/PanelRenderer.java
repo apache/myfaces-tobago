@@ -27,6 +27,7 @@ import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
+import org.apache.myfaces.tobago.renderkit.html.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
@@ -68,7 +69,7 @@ public class PanelRenderer extends LayoutComponentRendererBase {
     final String clientId = panel.getClientId(facesContext);
     writer.startElement(HtmlElements.DIV, panel);
     writer.writeIdAttribute(clientId);
-    writer.writeClassAttribute(Classes.create(panel));
+    writer.writeClassAttribute(Classes.create(panel).getStringValue() + " " + BootstrapClass.ROW.getName());
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, panel);
     if (panel instanceof UIPanel && ((UIPanel) panel).getTip() != null) {
       writer.writeAttribute(HtmlAttributes.TITLE, ((UIPanel) panel).getTip(), true);

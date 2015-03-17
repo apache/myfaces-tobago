@@ -54,7 +54,9 @@ public class ColumnLayoutRenderer extends RendererBase {
 
     writer.startElement(HtmlElements.DIV, columnLayout);
 //    writer.writeClassAttribute("row");
-    writer.writeClassAttribute(BootstrapClass.FORM_HORIZONTAL, BootstrapClass.CONTAINER_FLUID);
+//    writer.writeClassAttribute(BootstrapClass.FORM_HORIZONTAL, BootstrapClass.CONTAINER_FLUID);
+    writer.writeClassAttribute(BootstrapClass.FORM_GROUP);
+//    writer.writeClassAttribute(BootstrapClass.ROW);
   }
 
   @Override
