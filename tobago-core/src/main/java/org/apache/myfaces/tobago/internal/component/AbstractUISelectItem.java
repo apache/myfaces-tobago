@@ -28,19 +28,11 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.UISelectItem;
 import javax.faces.context.FacesContext;
 
-public class AbstractUISelectItem extends UISelectItem implements OnComponentPopulated {
+public class AbstractUISelectItem extends UISelectItem {
 
   private static final Logger LOG = LoggerFactory.getLogger(AbstractUISelectItem.class);
 
   private boolean itemValueLiteral;
-
-  public void onComponentPopulated(final FacesContext facesContext, final UIComponent parent) {
-    if (itemValueLiteral) {
-      final Object converted = ComponentUtils.getConvertedValue(
-          FacesContext.getCurrentInstance(), parent, (String) getItemValue());
-      super.setItemValue(converted);
-    }
-  }
 
   @Override
   public void setItemValue(final Object itemValue) {
@@ -53,5 +45,16 @@ public class AbstractUISelectItem extends UISelectItem implements OnComponentPop
           + "type=" + itemValue.getClass().getName() + " value='" + itemValue + "'.");
     }
     super.setItemValue(itemValue);
+  }
+
+  @Override
+  public Object getItemValue() {
+    if (itemValueLiteral) {
+      final Object converted = ComponentUtils.getConvertedValue(
+          FacesContext.getCurrentInstance(), getParent(), (String) super.getItemValue());
+      return converted;
+    } else {
+      return super.getItemValue();
+    }
   }
 }
