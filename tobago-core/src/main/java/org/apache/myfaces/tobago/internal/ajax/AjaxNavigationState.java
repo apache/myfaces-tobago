@@ -161,7 +161,7 @@ public final class AjaxNavigationState {
       try {
         facesContext.getExceptionHandler().handle();
       } catch (ViewExpiredException e) {
-        LOG.error("Caught: " + e.getMessage(), e);
+        LOG.debug("Caught: " + e.getMessage(), e);
         try {
           final ExternalContext externalContext = facesContext.getExternalContext();
           final String url = externalContext.getRequestContextPath()
