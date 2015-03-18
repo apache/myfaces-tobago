@@ -237,7 +237,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
 // BEGIN RENDER BODY CONTENT
 
     if (showHeader) {
-      renderColumnHeaders(facesContext, sheet, writer, renderedColumnList);
+// XXX currently using renderHeaderWorkaround()      renderColumnHeaders(facesContext, sheet, writer, renderedColumnList);
     }
 
     writer.startElement(HtmlElements.DIV, null);
@@ -258,6 +258,10 @@ public class SheetRenderer extends LayoutComponentRendererBase {
         writer.endElement(HtmlElements.COL);
       }
       writer.endElement(HtmlElements.COLGROUP);
+    }
+
+    if (showHeader) {
+      renderHeaderWorkaround(sheet, hasClickAction, writer, renderedColumnList);
     }
 
     // Print the Content
@@ -571,6 +575,58 @@ public class SheetRenderer extends LayoutComponentRendererBase {
       writer.writeAttribute(HtmlAttributes.VALUE, expandedValue.toString(), false);
       writer.endElement(HtmlElements.INPUT);
     }
+  }
+
+/** XXX Simple workaround for bootstrap -->
+  private void renderHeaderWorkaround(UISheet sheet, boolean hasClickAction, TobagoResponseWriter writer,
+                                      List<AbstractUIColumn> renderedColumnList) throws IOException {
+    writer.startElement(HtmlElements.TR, null);
+
+    int columnIndex = -1;
+    for (final UIColumn column : renderedColumnList) {
+      columnIndex++;
+
+      writer.startElement(HtmlElements.TH, column);
+
+      Markup markup = column instanceof SupportsMarkup ? ((SupportsMarkup) column).getMarkup() : Markup.NULL;
+      if (markup == null) {
+        markup = Markup.NULL;
+      }
+      if (columnIndex == 0) {
+        markup = markup.add(Markup.FIRST);
+      }
+      if (hasClickAction) {
+        markup = markup.add(Markup.CLICKABLE);
+      }
+      if (isPure(column)) {
+        markup = markup.add(Markup.PURE);
+      }
+      writer.writeClassAttribute(Classes.create(sheet, "cell", markup));
+      final TextAlign align = TextAlign.parse((String) column.getAttributes().get(Attributes.ALIGN));
+      if (align != null) {
+        final Style alignStyle = new Style();
+        alignStyle.setTextAlign(align);
+        writer.writeStyleAttribute(alignStyle);
+      }
+
+      if (column instanceof org.apache.myfaces.tobago.component.UIColumn) {
+        org.apache.myfaces.tobago.component.UIColumn c = (org.apache.myfaces.tobago.component.UIColumn) column;
+        writer.writeText(c.getLabel());
+      } else  {
+        // todo
+      }
+
+      writer.endElement(HtmlElements.TH);
+    }
+
+    writer.startElement(HtmlElements.TH, null);
+    writer.writeClassAttribute(Classes.create(sheet, "cell", Markup.FILLER));
+//      writer.write("&nbsp;");
+    writer.startElement(HtmlElements.DIV, null);
+    writer.endElement(HtmlElements.DIV);
+    writer.endElement(HtmlElements.TH);
+
+    writer.endElement(HtmlElements.TR);
   }
 
   /**
