@@ -577,7 +577,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
     }
   }
 
-/** XXX Simple workaround for bootstrap -->
+/** XXX Simple workaround for bootstrap */
   private void renderHeaderWorkaround(UISheet sheet, boolean hasClickAction, TobagoResponseWriter writer,
                                       List<AbstractUIColumn> renderedColumnList) throws IOException {
     writer.startElement(HtmlElements.TR, null);
