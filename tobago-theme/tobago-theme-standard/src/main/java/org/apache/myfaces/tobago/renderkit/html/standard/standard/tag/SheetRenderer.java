@@ -237,7 +237,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
 // BEGIN RENDER BODY CONTENT
 
     if (showHeader) {
-// XXX currently using renderHeaderWorkaround()      renderColumnHeaders(facesContext, sheet, writer, renderedColumnList);
+      renderColumnHeaders(facesContext, sheet, writer, renderedColumnList);
     }
 
     writer.startElement(HtmlElements.DIV, null);
@@ -260,9 +260,12 @@ public class SheetRenderer extends LayoutComponentRendererBase {
       writer.endElement(HtmlElements.COLGROUP);
     }
 
+/* XXX this workaround doen't work correctly, because the table has one row more, and the JavaScript code doesn't
+respect that.
     if (showHeader) {
       renderHeaderWorkaround(sheet, hasClickAction, writer, renderedColumnList);
     }
+*/
 
     // Print the Content
 
