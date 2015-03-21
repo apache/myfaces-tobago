@@ -32,11 +32,11 @@
   </ordering>
 
   <theme-config>
-    <default-theme>speyside</default-theme>
+    <default-theme>bootstrap</default-theme>
     <supported-theme>scarborough</supported-theme>
     <supported-theme>richmond</supported-theme>
     <supported-theme>charlotteville</supported-theme>
-    <supported-theme>bootstrap</supported-theme>
+    <supported-theme>speyside</supported-theme>
     <!-- for development -->
     <supported-theme>standard</supported-theme>
   </theme-config>
