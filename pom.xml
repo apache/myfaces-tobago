@@ -662,7 +662,8 @@
             <configuration>
               <rules>
                 <requireMavenVersion>
-                  <version>2.2.1</version>
+                  <!-- 3.3.1 is only required for a release, for a normal build 2.2.1 should be okay -->
+                  <version>3.3.1</version>
                 </requireMavenVersion>
                 <requirePluginVersions>
                   <message>Best Practice is to always define plugin versions!</message>
