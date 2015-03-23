@@ -57,9 +57,9 @@
       <Version>
         <name>Latest stable release of 2.0.x</name>
         <created>2015-02-24</created>
-        <revision>2.0.6</revision>
-        <file-release>http://www.apache.org/dyn/closer.cgi/myfaces/binaries/myfaces-tobago-2.0.6-dist.tar.gz</file-release>
-        <file-release>http://www.apache.org/dyn/closer.cgi/myfaces/binaries/myfaces-tobago-2.0.6-dist.zip</file-release>
+        <revision>2.0.7</revision>
+        <file-release>http://www.apache.org/dyn/closer.cgi/myfaces/binaries/myfaces-tobago-2.0.7-dist.tar.gz</file-release>
+        <file-release>http://www.apache.org/dyn/closer.cgi/myfaces/binaries/myfaces-tobago-2.0.7-dist.zip</file-release>
       </Version>
     </release>
     <repository>
