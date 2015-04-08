@@ -30,6 +30,6 @@
 
     <tc:link link="selectManyShuttle.jsp" label="selectManyShuttle.jsp" target="View"/>
 
-    <tc:cell/>
+    <tc:panel/>
   </tc:page>
 </f:view>

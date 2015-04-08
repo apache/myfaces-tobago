@@ -601,7 +601,7 @@
           &lt;f:facet name="layout"&gt;
             &lt;tc:gridLayout columns="*;fixed;fixed"/&gt;
           &lt;/f:facet&gt;
-          &lt;tc:cell/&gt;
+          &lt;tc:panel/&gt;
           &lt;tc:button label="OK"&gt;
             <emphasis role="bold">&lt;tc:attribute name="popupClose" value="afterSubmit"/&gt;</emphasis>
           &lt;/tc:button&gt;

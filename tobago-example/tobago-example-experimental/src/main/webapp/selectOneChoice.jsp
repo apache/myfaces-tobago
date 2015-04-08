@@ -29,13 +29,13 @@
         <f:selectItems value="#{controller.dateItems}"/>
       </tc:selectOneChoice>
       <tc:in value="#{controller.date}" readonly="true" />
-      <tc:cell/>
+      <tc:panel/>
       <tc:button label="Submit"/>
-      <tc:cell/>
-      <tc:cell/>
+      <tc:panel/>
+      <tc:panel/>
       <tc:messages/>
-      <tc:cell/>
-      <tc:cell/>
+      <tc:panel/>
+      <tc:panel/>
     </tc:panel>
   </tc:page>
 </f:view>

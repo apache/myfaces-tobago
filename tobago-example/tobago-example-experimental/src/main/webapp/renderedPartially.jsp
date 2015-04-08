@@ -33,9 +33,9 @@
         </f:facet>
       </tc:selectOneChoice>
       <tc:in value="#{controller.value}" readonly="true"/>
-      <tc:cell/>
+      <tc:panel/>
       <tc:messages/>
-      <tc:cell/>
+      <tc:panel/>
     </tc:panel>
   </tc:page>
 </f:view>

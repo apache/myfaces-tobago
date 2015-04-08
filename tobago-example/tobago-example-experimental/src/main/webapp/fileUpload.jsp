@@ -34,17 +34,20 @@
         <tc:validateFileItem maxSize="299" />
       </tc:file>
       <%--tc:messages/--%>
-      <tc:cell spanX="2"/>
-      <tc:cell spanX="2">
+      <tc:panel>
+        <tc:gridLayoutConstraint columnSpan="2"/>
+      </tc:panel>
+      <tc:panel>
+        <tc:gridLayoutConstraint columnSpan="2"/>
         <tc:panel>
           <f:facet name="layout">
             <tc:gridLayout columns="*;auto;*" rows="20px"/>
           </f:facet>
-          <tc:cell />
+          <tc:panel/>
           <tc:button label="Submit" defaultCommand="true" />
-          <tc:cell />
+          <tc:panel/>
         </tc:panel>
-      </tc:cell>
+      </tc:panel>
     </tc:box>
     <%--/tc:panel--%>
   </tc:page>

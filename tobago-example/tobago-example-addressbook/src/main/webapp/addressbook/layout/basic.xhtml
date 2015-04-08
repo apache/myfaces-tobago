@@ -88,24 +88,27 @@
               </f:facet>
 
               <tc:out markup="strong" value="Addressbook Demo"/>
-              <tc:cell/>
+              <tc:panel/>
               <tc:out value="Version #{controller.version}"/>
-              <tc:cell/>
+              <tc:panel/>
             </tc:panel>
 
-            <tc:cell spanX="2"/>
+            <tc:panel>
+              <tc:gridLayoutConstraint columnSpan="2"/>
+            </tc:panel>
 
-            <tc:cell spanX="2">
+            <tc:panel>
+              <tc:gridLayoutConstraint columnSpan="2"/>
               <tc:panel>
                 <f:facet name="layout">
                   <tc:gridLayout columns="*;auto"/>
                 </f:facet>
-                <tc:cell/>
+                <tc:panel/>
                 <tc:button label="OK">
                   <tc:attribute name="popupClose" value="immediate"/>
                 </tc:button>
               </tc:panel>
-            </tc:cell>
+            </tc:panel>
           </tc:box>
         </tc:popup>
       </f:facet>

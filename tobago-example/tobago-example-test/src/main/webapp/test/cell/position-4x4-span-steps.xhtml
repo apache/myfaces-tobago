@@ -22,34 +22,40 @@
     xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:f="http://java.sun.com/jsf/core">
 
-  <tc:page id="page" label="Note: the &lt;tc:cell&gt; is deprecated">
+  <tc:page id="page">
     <f:facet name="layout">
       <tc:gridLayout columns="6*;9*;13*;2*" rows="4*;11*;10*;5*"/>
     </f:facet>
     <tc:gridLayoutConstraint width="315px" height="315px"/>
 
     <tc:image id="i-0" value="pidgeon-point.jpg"/>
-    <tc:cell spanY="2">
+    <tc:panel>
+      <tc:gridLayoutConstraint rowSpan="2"/>
       <tc:image id="i-1" value="pidgeon-point.jpg"/>
-    </tc:cell>
-    <tc:cell spanX="2">
+    </tc:panel>
+    <tc:panel>
+      <tc:gridLayoutConstraint columnSpan="2"/>
       <tc:image id="i-2" value="pidgeon-point.jpg"/>
-    </tc:cell>
+    </tc:panel>
     <tc:image id="i-3" value="pidgeon-point.jpg"/>
-    <tc:cell spanY="2">
+    <tc:panel>
+      <tc:gridLayoutConstraint rowSpan="2"/>
       <tc:image id="i-4" value="pidgeon-point.jpg"/>
-    </tc:cell>
+    </tc:panel>
     <tc:image id="i-5" value="pidgeon-point.jpg"/>
-    <tc:cell spanX="2">
+    <tc:panel>
+      <tc:gridLayoutConstraint columnSpan="2"/>
       <tc:image  id="i-6" value="pidgeon-point.jpg"/>
-    </tc:cell>
-    <tc:cell spanY="2">
+    </tc:panel>
+    <tc:panel>
+      <tc:gridLayoutConstraint rowSpan="2"/>
       <tc:image id="i-7" value="pidgeon-point.jpg"/>
-    </tc:cell>
+    </tc:panel>
     <tc:image id="i-8" value="pidgeon-point.jpg"/>
-    <tc:cell spanX="2">
+    <tc:panel>
+      <tc:gridLayoutConstraint columnSpan="2"/>
       <tc:image id="i-9" value="pidgeon-point.jpg"/>
-    </tc:cell>
+    </tc:panel>
 
     <tc:script file="script/tobago-assert.js"/>
 

@@ -129,7 +129,9 @@
                      suggestMethod="#{inputSuggestController.getCitySuggestItems}"/>
             </tc:panel>
 
-            <tc:cell spanY="3"/>
+            <tc:panel>
+              <tc:gridLayoutConstraint rowSpan="3"/>
+            </tc:panel>
 
             <tx:selectOneChoice label="State:"
                                 id="isState"
@@ -146,7 +148,7 @@
           <tc:separator/>
     -->
 
-    <tc:cell/>
+    <tc:panel/>
 
   </tc:panel>
 </ui:composition>

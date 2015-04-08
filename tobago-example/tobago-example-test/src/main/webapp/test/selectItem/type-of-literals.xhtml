@@ -27,9 +27,10 @@
       <tc:gridLayout rows="auto;80px;80px;auto;*" columns="4*;*"/>
     </f:facet>
 
-    <tc:cell spanX="2">
+    <tc:panel>
+      <tc:gridLayoutConstraint columnSpan="2"/>
       <tc:messages/>
-    </tc:cell>
+    </tc:panel>
 
     <tx:selectOneListbox value="#{selectItemModel.number}" label="Model: int" labelWidth="160px">
       <f:selectItem itemValue="1" itemLabel="f:selectItem 1 (literal), works not with JSF 1.1"/>
@@ -49,10 +50,12 @@
 
     <tc:in readonly="true" value="#{selectItemModel.currency}"/>
 
-    <tc:cell/>
+    <tc:panel/>
     <tc:button label="submit"/>
 
-    <tc:cell spanX="2"/>
+    <tc:panel>
+      <tc:gridLayoutConstraint columnSpan="2"/>
+    </tc:panel>
 
   </tc:page>
 </f:view>

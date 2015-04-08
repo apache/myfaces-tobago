@@ -25,21 +25,26 @@
         <tc:gridLayout columns="*;100px;*" rows="auto;*;auto;*"/>
       </f:facet>
 
-      <tc:cell spanX="3">
+      <tc:panel>
+        <tc:gridLayoutConstraint columnSpan="3"/>
         <tc:out value="Hello Admin" />
-      </tc:cell>
+      </tc:panel>
 
-      <tc:cell spanX="3" />
+      <tc:panel>
+        <tc:gridLayoutConstraint columnSpan="3"/>
+      </tc:panel>
 
-      <tc:cell/>
+      <tc:panel/>
       <tc:button label="logout" action="#{controller.logout}"/>
-      <tc:cell/>
+      <tc:panel/>
 
-      <tc:cell/>
+      <tc:panel/>
       <tc:button label="start" action="start"/>
-      <tc:cell/>
+      <tc:panel/>
 
-      <tc:cell spanX="3" />
+      <tc:panel>
+        <tc:gridLayoutConstraint columnSpan="3"/>
+      </tc:panel>
     </tc:panel>
   </jsp:body>
 </layout:page>

@@ -31,7 +31,7 @@
           <tc:menu label="File" binding="#{test.fileMenu}"/>
         </tc:menuBar>
       </f:facet>
-      <tc:cell/>
+      <tc:panel/>
     </tc:box>
   </tc:page>
 </f:view>

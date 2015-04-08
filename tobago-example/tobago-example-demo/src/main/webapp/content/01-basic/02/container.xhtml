@@ -23,15 +23,17 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core">
-<tc:panel>
-      <f:facet name="layout">
-        <tc:gridLayout columns="400px;*" rows="200px;*"/>
-      </f:facet>
-      <!-- code-sniplet-start id="box" -->
-      <tc:box label="Box Headline">
-      </tc:box>
-      <!-- code-sniplet-end id="box" -->
-      <tc:cell/>
-      <tc:cell spanX="2"/>
+  <tc:panel>
+    <f:facet name="layout">
+      <tc:gridLayout columns="400px;*" rows="200px;*"/>
+    </f:facet>
+    <!-- code-sniplet-start id="box" -->
+    <tc:box label="Box Headline">
+    </tc:box>
+    <!-- code-sniplet-end id="box" -->
+    <tc:panel/>
+    <tc:panel>
+      <tc:gridLayoutConstraint columnSpan="2"/>
     </tc:panel>
+  </tc:panel>
 </ui:composition>

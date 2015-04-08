@@ -31,9 +31,11 @@
 
     <tc:script file="auth/login.js"/>
 
-    <tc:cell spanX="3"/>
+    <tc:panel>
+      <tc:gridLayoutConstraint columnSpan="3"/>
+    </tc:panel>
 
-    <tc:cell/>
+    <tc:panel/>
     <tc:box label="#{test.test}">
       <f:facet name="layout">
         <tc:gridLayout rows="auto;auto;auto;auto"/>
@@ -49,7 +51,7 @@
           <tc:dataAttribute name="login" value='{"username": "guest", "password": "guest"}'/>
         </tc:link>
 
-        <tc:cell/>
+        <tc:panel/>
         <tc:link label="admin/admin" image="image/org/tango-project/tango-icon-theme/16x16/apps/system-users.png"
                  omit="true">
           <tc:dataAttribute name="login" value='{"username": "admin", "password": "admin"}'/>
@@ -64,13 +66,16 @@
           <tc:gridLayout columns="*;auto"/>
         </f:facet>
 
-        <tc:cell/>
+        <tc:panel/>
         <tc:button label="#{bundle.loginLogin}" defaultCommand="true"/>
       </tc:panel>
     </tc:box>
 
-    <tc:cell/>
-    <tc:cell spanX="3"/>
+    <tc:panel/>
+
+    <tc:panel>
+      <tc:gridLayoutConstraint columnSpan="3"/>
+    </tc:panel>
 
   </tc:page>
 </f:view>

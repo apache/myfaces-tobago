@@ -38,13 +38,15 @@
         <tc:gridLayout border="0" columns="*;4*" margin="10px" rows="100px;auto;*;auto"/>
       </f:facet>
 
-      <tc:cell spanX="2">
+      <tc:panel>
+        <tc:gridLayoutConstraint columnSpan="2"/>
         <ui:include src="/header.xhtml"/>
-      </tc:cell>
+      </tc:panel>
 
-      <tc:cell spanY="3">
+      <tc:panel>
+        <tc:gridLayoutConstraint rowSpan="3"/>
         <ui:include src="/navigation.xhtml"/>
-      </tc:cell>
+      </tc:panel>
 
       <tc:messages/>
 
@@ -52,9 +54,9 @@
         <ui:insert/>
       </tc:box>
 
-      <tc:cell>
+      <tc:panel>
         <ui:include src="/footer.xhtml"/>
-      </tc:cell>
+      </tc:panel>
 
     </tc:page>
   </f:view>

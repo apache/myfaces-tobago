@@ -63,13 +63,15 @@
       <tc:gridLayout border="0" columns="*;4*" margin="10px" rows="100px;auto;*;auto"/>
     </f:facet>
 
-    <tc:cell spanX="2">
+    <tc:panel>
+      <tc:gridLayoutConstraint columnSpan="2"/>
       <jsp:include page="/header.jsp"/>
-    </tc:cell>
+    </tc:panel>
 
-    <tc:cell spanY="3">
+    <tc:panel>
+      <tc:gridLayoutConstraint rowSpan="3"/>
       <jsp:include page="/navigation.jsp"/>
-    </tc:cell>
+    </tc:panel>
 
     <tc:messages/>
 
@@ -77,9 +79,9 @@
       <jsp:doBody/>
     </tc:box>
 
-    <tc:cell>
+    <tc:panel>
       <jsp:include page="/footer.jsp"/>
-    </tc:cell>
+    </tc:panel>
 
   </tc:page>
 </f:view>
