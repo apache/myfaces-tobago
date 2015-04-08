@@ -1,5 +1,7 @@
 Planned features and changes for Tobago 3.0
 
+Todo:
+
 - Bootstrap
 - Simplify layout through using CSS3:
   - Use box-sizing: border-box (requires IE 8) (required for Bootstrap)
@@ -12,3 +14,7 @@ Planned features and changes for Tobago 3.0
   - Renderervererbung: addClass() von Parent oder so? z.B. muss man be Bootstrap einem input wohl eine Klasse form-control hinzufügen
 
   - how to use: for best performance and responsive use tc:flexLayout instead of tc:gridLayout
+
+Done:
+
+  - Removing tc:cell tag, please use tc:panel instead.

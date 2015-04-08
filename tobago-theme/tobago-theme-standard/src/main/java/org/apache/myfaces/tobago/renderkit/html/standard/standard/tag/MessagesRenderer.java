@@ -25,7 +25,6 @@ import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.UIBox;
 import org.apache.myfaces.tobago.component.UIButton;
-import org.apache.myfaces.tobago.component.UICell;
 import org.apache.myfaces.tobago.component.UIGridLayout;
 import org.apache.myfaces.tobago.component.UIMessages;
 import org.apache.myfaces.tobago.component.UIPanel;
@@ -172,14 +171,13 @@ public class MessagesRenderer extends LayoutComponentRendererBase {
     layout.getAttributes().put(Attributes.ROWS, "*;auto");
     layout.getAttributes().put(Attributes.MARGIN, Measure.valueOf(10));
 
-    final UICell scrollPanel = (UICell)
-        CreateComponentUtils.createComponent(facesContext, UICell.COMPONENT_TYPE, "Cell", "messagePanel");
+    final UIPanel scrollPanel = (UIPanel)
+        CreateComponentUtils.createComponent(facesContext, UIPanel.COMPONENT_TYPE, "Panel", "messagePanel");
     box.getChildren().add(scrollPanel);
 
     messages.getParent().getChildren().remove(messages);
     messages.setConfirmation(false);
     scrollPanel.onComponentPopulated(facesContext, messages);
-    scrollPanel.setScrollbars("auto");
     scrollPanel.getChildren().add(messages);
 
     final UIComponent buttonPanel = CreateComponentUtils.createComponent(
@@ -192,8 +190,8 @@ public class MessagesRenderer extends LayoutComponentRendererBase {
 
     box.getChildren().add(buttonPanel);
 
-    final UICell space = (UICell)
-        CreateComponentUtils.createComponent(facesContext, UICell.COMPONENT_TYPE, "Cell", "space");
+    final UIPanel space = (UIPanel)
+        CreateComponentUtils.createComponent(facesContext, UIPanel.COMPONENT_TYPE, "Panel", "space");
     buttonPanel.getChildren().add(space);
     space.onComponentPopulated(facesContext, messages);
 

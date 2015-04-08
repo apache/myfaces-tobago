@@ -28,12 +28,14 @@ public final class RendererTypes {
   public static final String BOX_TOOL_BAR = "BoxToolBar";
   public static final String BUTTON = "Button";
   public static final String CALENDAR = "Calendar";
+  @Deprecated
   public static final String CELL = "Cell";
   public static final String COLUMN = "Column";
   public static final String COLUMN_LAYOUT = "ColumnLayout";
   public static final String COLUMN_SELECTOR = "ColumnSelector";
   public static final String COMMAND = "Command";
   public static final String DATE = "Date";
+  @Deprecated
   public static final String DATE_PICKER = "DatePicker";
   public static final String FILE = "File";
   public static final String FLEX_LAYOUT = "FlexLayout";

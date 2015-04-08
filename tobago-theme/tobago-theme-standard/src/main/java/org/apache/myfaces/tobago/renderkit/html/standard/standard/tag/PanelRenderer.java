@@ -62,7 +62,6 @@ public class PanelRenderer extends LayoutComponentRendererBase {
   @Override
   public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
     
-    // UIPanel or UICell (deprecated)
     final AbstractUIPanel panel = (AbstractUIPanel) component;
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
