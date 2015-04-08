@@ -30,17 +30,17 @@
       <f:facet name="layout">
         <tc:gridLayout columns="*" rows="*;25px"/>
       </f:facet>
-      <tcs:selectManyShuttle value="#{controller.shuffleValue}"
+      <tc:selectManyShuttle value="#{controller.shuffleValue}"
           unselectedLabel="Available Soups" selectedLabel="Selected Soups">
         <f:selectItem itemValue="suppe" itemLabel="suppe" />
         <f:selectItem itemValue="soup" itemLabel="soup" />
         <f:selectItem itemValue="soupe" itemLabel="soupe" />
-      </tcs:selectManyShuttle>
+      </tc:selectManyShuttle>
       <tc:panel>
         <f:facet name="layout">
           <tc:gridLayout columns="*;100px" rows="*"/>
         </f:facet>
-        <tc:cell/>
+        <tc:panel/>
         <tc:button action="#{controller.submit}" label="Submit" />
       </tc:panel>
     </tc:box>

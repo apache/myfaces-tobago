@@ -32,7 +32,7 @@
           <tc:gridLayout columns="1*;100px"/>
         </f:facet>
 
-        <tc:cell/>
+        <tc:panel/>
 
         <tc:button link="/index.jsp" label="Home"/>
       </tc:panel>

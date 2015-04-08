@@ -34,9 +34,11 @@
         <tc:gridLayout margin="10px" rows="*;auto;*" columns="*;400px;*"/>
       </f:facet>
 
-      <tc:cell spanX="3"/>
+      <tc:panel>
+        <tc:gridLayoutConstraint columnSpan="3"/>
+      </tc:panel>
 
-      <tc:cell/>
+      <tc:panel/>
       <tc:panel>
         <f:facet name="layout">
           <tc:gridLayout rows="150px" columns="150px;250px"/>
@@ -50,16 +52,18 @@
           </f:facet>
 
           <tc:out value="Addressbook Demo"/>
-          <tc:cell/>
+          <tc:panel/>
           <tc:out value="Initializing ..."/>
-          <tc:cell/>
+          <tc:panel/>
 
         </tc:panel>
 
       </tc:panel>
-      <tc:cell/>
+      <tc:panel/>
 
-      <tc:cell spanX="3"/>
+      <tc:panel>
+        <tc:gridLayoutConstraint columnSpan="3"/>
+      </tc:panel>
 
     </tc:panel>
   </tc:page>

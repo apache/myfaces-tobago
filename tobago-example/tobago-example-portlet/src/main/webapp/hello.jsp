@@ -26,7 +26,7 @@
     </f:facet>
     <tc:out value="Hello #{user.name}!"/>
     <tc:button action="helloWorld" label="Return"/>
-    <tc:cell/>
-    <tc:cell/>
+    <tc:panel/>
+    <tc:panel/>
   </tc:page>
 </f:view>

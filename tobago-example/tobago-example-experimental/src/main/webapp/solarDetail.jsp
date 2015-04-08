@@ -35,12 +35,12 @@
        <tx:in value="#{test.eccen}" label="Eccen" readonly="true" />
        <tx:in value="#{test.discoverer}" label="Discoverer" readonly="true" />
        <tx:in value="#{test.discoverYear}" label="DiscoverYear" readonly="true" />  
-       <tc:cell/>
+       <tc:panel/>
         <tc:panel>
           <f:facet name="layout">
             <tc:gridLayout columns="4*;1*"  />
           </f:facet>
-          <tc:cell />
+          <tc:panel />
           <tc:button action="solarList" label="Return To List" defaultCommand="true" />
         </tc:panel>
     </tc:box>

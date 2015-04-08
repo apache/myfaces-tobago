@@ -40,7 +40,7 @@
               <tc:out id="text2" rendered="true"
                 value="Text 2"/>
 
-              <tc:cell id="cell"/>
+              <tc:panel id="cell"/>
 
               <tc:panel id="buttonPanel">
                 <f:facet name="layout">

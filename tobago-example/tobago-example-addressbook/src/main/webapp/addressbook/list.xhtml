@@ -88,12 +88,12 @@
                   <tc:selectBooleanCheckbox label="First Name" value="#{controller.renderFirstName}"/>
                   <tc:selectBooleanCheckbox label="Last Name" value="#{controller.renderLastName}"/>
                   <tc:selectBooleanCheckbox label="Birthday" value="#{controller.renderDayOfBirth}"/>
-                  <tc:cell/>
+                  <tc:panel/>
                   <tc:panel>
                     <f:facet name="layout">
                       <tc:gridLayout columns="1*;100px;100px"/>
                     </f:facet>
-                    <tc:cell/>
+                    <tc:panel/>
                     <tc:button action="#{controller.cancelPopup}" label="OK" defaultCommand="true"/>
                     <tc:button action="#{controller.cancelPopup}" label="Cancel" immediate="true"/>
                   </tc:panel>

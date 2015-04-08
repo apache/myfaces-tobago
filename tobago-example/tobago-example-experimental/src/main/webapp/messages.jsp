@@ -39,7 +39,7 @@
       </tx:date>
       <tc:messages for="validityEnd"/>
       <tc:button label="Check dates" action="#{controller.checkDates}"/>
-      <tc:cell/>
+      <tc:panel/>
     </tc:panel>
   </tc:page>
 </f:view>

@@ -35,21 +35,21 @@
       <f:convertDateTime pattern="dd.MM.yyyy"/>
     </tx:in>
     <!-- code-sniplet-end id="date" -->
-    <tc:cell/>
+    <tc:panel/>
 
     <!-- code-sniplet-start id="date" -->
     <tx:date label="Date" value="#{dateController.once}">
       <f:convertDateTime pattern="dd.MM.yyyy"/>
     </tx:date>
     <!-- code-sniplet-end id="date" -->
-    <tc:cell/>
+    <tc:panel/>
 
     <!-- code-sniplet-start id="date" -->
     <tc:date value="#{dateController.once}">
       <f:convertDateTime pattern="dd.MM.yyyy"/>
     </tc:date>
     <!-- code-sniplet-end id="date" -->
-    <tc:cell/>
+    <tc:panel/>
 
     <!-- code-sniplet-start id="dateTime" -->
 <!--
@@ -59,7 +59,7 @@
 -->
     <!-- code-sniplet-end id="dateTime" -->
 <!--
-    <tc:cell/>
+    <tc:panel/>
 -->
 
 <!--
@@ -68,74 +68,76 @@
     <tx:date label="Date (focus)">
       <f:convertDateTime pattern="dd.MM.yyyy"/>
     </tx:date>
-    <tc:cell/>
+    <tc:panel/>
 
     <tx:date label="Short style" value="#{dateController.once}">
       <f:convertDateTime dateStyle="short" type="both" timeStyle="short"/>
     </tx:date>
-    <tc:cell/>
+    <tc:panel/>
 
     <tx:date label="Medium Style" value="#{dateController.once}">
       <f:convertDateTime dateStyle="medium" type="both" timeStyle="medium"/>
     </tx:date>
-    <tc:cell/>
+    <tc:panel/>
 
     <tx:date label="Long Style" value="#{dateController.once}">
       <f:convertDateTime dateStyle="long" type="both" timeStyle="long"/>
     </tx:date>
-    <tc:cell/>
+    <tc:panel/>
 
     <tx:date label="Full Style" value="#{dateController.once}">
       <f:convertDateTime dateStyle="full" type="both" timeStyle="full"/>
     </tx:date>
-    <tc:cell/>
+    <tc:panel/>
 
     <tx:date label="Month" value="#{dateController.once}">
       <f:convertDateTime pattern="MM/yyyy"/>
     </tx:date>
-    <tc:cell/>
+    <tc:panel/>
 
     <tx:date label="Year" value="#{dateController.once}">
       <f:convertDateTime pattern="yyyy"/>
     </tx:date>
-    <tc:cell/>
+    <tc:panel/>
 
     <tx:time label="Time" value="#{dateController.once}">
       <f:convertDateTime type="time" pattern="HH:mm"/>
     </tx:time>
-    <tc:cell/>
+    <tc:panel/>
 
     <tx:time label="Time (Seconds)" value="#{dateController.once}">
       <f:convertDateTime type="time" pattern="HH:mm:ss"/>
     </tx:time>
-    <tc:cell/>
+    <tc:panel/>
 
     <tx:time label="Time" value="#{dateController.once}" readonly="true">
       <f:convertDateTime type="time" pattern="HH:mm"/>
     </tx:time>
-    <tc:cell/>
+    <tc:panel/>
 
     <tx:time label="Time (Seconds)" value="#{dateController.once}" readonly="true">
       <f:convertDateTime type="time" pattern="HH:mm:ss"/>
     </tx:time>
-    <tc:cell/>
+    <tc:panel/>
 
     <tx:time label="Time" value="#{dateController.once}" disabled="true">
       <f:convertDateTime type="time" pattern="HH:mm"/>
     </tx:time>
-    <tc:cell/>
+    <tc:panel/>
 
     <tx:time label="Time (Seconds)" value="#{dateController.once}" disabled="true">
       <f:convertDateTime type="time" pattern="HH:mm:ss"/>
     </tx:time>
-    <tc:cell/>
+    <tc:panel/>
 
     <!-- code-sniplet-start id="calendar" -->
     <tc:calendar/>
     <!-- code-sniplet-end id="calendar" -->
-    <tc:cell/>
+    <tc:panel/>
 
-    <tc:cell spanX="2"/>
+    <tc:panel>
+      <tc:gridLayoutConstraint columnSpan="2"/>
+    </tc:panel>
 
   </tc:panel>
 </ui:composition>

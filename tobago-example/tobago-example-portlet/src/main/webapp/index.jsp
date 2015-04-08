@@ -26,7 +26,7 @@
     </f:facet>
     <tx:in label="Your Name" tip="Please enter your name here!" value="#{user.name}"/>
     <tc:button action="sayHello" label="Click Here"/>
-    <tc:cell/>
-    <tc:cell/>
+    <tc:panel/>
+    <tc:panel/>
   </tc:page>
 </f:view>

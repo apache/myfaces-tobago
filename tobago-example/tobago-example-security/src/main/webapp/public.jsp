@@ -25,21 +25,26 @@
         <tc:gridLayout columns="*;100px;*" rows="auto;*;auto;auto;*"/>
       </f:facet>
 
-      <tc:cell spanX="3">
+      <tc:panel>
+        <tc:gridLayoutConstraint columnSpan="3"/>
         <tc:out value="To login to this test application you need a user in the role 'tobago-example-security'." />
-      </tc:cell>
+      </tc:panel>
 
-      <tc:cell spanX="3" />
+      <tc:panel>
+        <tc:gridLayoutConstraint columnSpan="3"/>
+      </tc:panel>
 
       <tc:button label="Testing unsecured methodbinding" action="#{controller.doSomethingElse}" />
       <tc:button label="Good Login" link="/application/index.jsp"/>
       <tc:button label="Testing secured methodbinding" action="#{controller.doSomething}" />
-      <tc:cell/>
+      <tc:panel/>
       <tc:messages/>
-      <tc:cell/>
+      <tc:panel/>
 
 
-      <tc:cell spanX="3" />
+      <tc:panel>
+        <tc:gridLayoutConstraint columnSpan="3"/>
+      </tc:panel>
 
     </tc:panel>
   </jsp:body>

@@ -30,9 +30,11 @@
       <tc:gridLayout rows="*;auto;*" columns="*;400px;*"/>
     </f:facet>
 
-    <tc:cell spanX="3"/>
+    <tc:panel>
+      <tc:gridLayoutConstraint columnSpan="3"/>
+    </tc:panel>
 
-    <tc:cell/>
+    <tc:panel/>
     <tc:box label="Login Error">
       <f:facet name="layout">
         <tc:gridLayout rows="auto;auto"/>
@@ -45,13 +47,15 @@
           <tc:gridLayout columns="*;auto"/>
         </f:facet>
 
-        <tc:cell/>
+        <tc:panel/>
         <tc:button link="/index.html" label="Home"/>
       </tc:panel>
 
     </tc:box>
-    <tc:cell/>
+    <tc:panel/>
 
-    <tc:cell spanX="3"/>
+    <tc:panel>
+      <tc:gridLayoutConstraint columnSpan="3"/>
+    </tc:panel>
   </tc:page>
 </f:view>

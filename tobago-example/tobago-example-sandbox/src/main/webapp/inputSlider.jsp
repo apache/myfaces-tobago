@@ -33,8 +33,8 @@
       <tcs:numberSlider value="#{controller.sliderValue}" min="0" max="200">
       </tcs:numberSlider>
       <tc:button action="#{controller.sliderSubmit}" label="Submit" />
-      <tc:cell/>
-      <tc:cell/>
+      <tc:panel/>
+      <tc:panel/>
     </tc:box>
   </tc:page>
 </f:view>

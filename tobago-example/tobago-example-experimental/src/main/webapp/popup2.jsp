@@ -21,52 +21,57 @@
 
 <f:view>
   <tc:page id="inputPage" width="500px" height="300px">
-   <tc:panel id="inputPanel">
-     <tc:button id="popupButton"
-       label="Popup">
-       <f:facet name="popup">
-         <tc:popup id="popup" width="400" height="220">
+    <tc:panel id="inputPanel">
+      <tc:button id="popupButton"
+                 label="Popup">
+        <f:facet name="popup">
+          <tc:popup id="popup" width="400" height="220">
 
-           <tc:box id="box" label="Popup">
-               <f:facet name="layout">
-                 <tc:gridLayout rows="*;auto;auto;auto;54px;auto" columns="*;*;*"/>
-               </f:facet>
-               <tc:cell spanX="3">
-                 <tc:out value="Text"/>
-               </tc:cell>
+            <tc:box id="box" label="Popup">
+              <f:facet name="layout">
+                <tc:gridLayout rows="*;auto;auto;auto;54px;auto" columns="*;*;*"/>
+              </f:facet>
+              <tc:panel>
+                <tc:gridLayoutConstraint columnSpan="3"/>
+                <tc:out value="Text"/>
+              </tc:panel>
 
-               <tc:cell spanX="2">
-                 <tc:label value="label1"/>
-               </tc:cell>
-               <tc:cell/>
+              <tc:panel>
+                <tc:gridLayoutConstraint columnSpan="2"/>
+                <tc:label value="label1"/>
+              </tc:panel>
+              <tc:panel/>
 
-               <tc:cell spanX="2">
-                 <tc:selectOneChoice id="choice">
-                   <tc:selectItem itemLabel="" itemValue=""/>
-                 </tc:selectOneChoice>
-               </tc:cell>
-               <tc:cell/>
+              <tc:panel>
+                <tc:gridLayoutConstraint columnSpan="2"/>
+                <tc:selectOneChoice id="choice">
+                  <tc:selectItem itemLabel="" itemValue=""/>
+                </tc:selectOneChoice>
+              </tc:panel>
+              <tc:panel/>
 
-               <tc:cell spanX="3">
-                 <tc:label value="label2"/>
-               </tc:cell>
-               <tc:cell spanX="3">
-                 <tc:textarea id="textarea"/>
-               </tc:cell>
+              <tc:panel>
+                <tc:gridLayoutConstraint columnSpan="3"/>
+                <tc:label value="label2"/>
+              </tc:panel>
+              <tc:panel>
+                <tc:gridLayoutConstraint columnSpan="3"/>
+                <tc:textarea id="textarea"/>
+              </tc:panel>
 
-               <tc:cell/>
-               <tc:button id="saveButton"
-                 label="save">
-                 <tc:attribute name="popupClose" value="afterSubmit"/>
-               </tc:button>
-               <tc:button id="cancelButton"
-                 label="cancel">
-                 <tc:attribute name="popupClose" value="immediate"/>
-               </tc:button>
-           </tc:box>
-         </tc:popup>
-       </f:facet>
-     </tc:button>
-   </tc:panel>
- </tc:page>
+              <tc:panel/>
+              <tc:button id="saveButton"
+                         label="save">
+                <tc:attribute name="popupClose" value="afterSubmit"/>
+              </tc:button>
+              <tc:button id="cancelButton"
+                         label="cancel">
+                <tc:attribute name="popupClose" value="immediate"/>
+              </tc:button>
+            </tc:box>
+          </tc:popup>
+        </f:facet>
+      </tc:button>
+    </tc:panel>
+  </tc:page>
 </f:view>  

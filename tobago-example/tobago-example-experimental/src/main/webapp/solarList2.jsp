@@ -30,9 +30,9 @@
       <f:facet name="layout">
         <tc:gridLayout columns="1*;auto;1*"/>
       </f:facet>
-      <tc:cell/>
+      <tc:panel/>
       <tc:button action="#{test.export}" label="Export" transition="false" />
-      <tc:cell/>
+      <tc:panel/>
     </tc:panel>
 
   </tc:page>
