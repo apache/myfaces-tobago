@@ -41,7 +41,6 @@ public class MethodOverwritingOfGeneratedUIComponentsUnitTest {
   private static final List<String> IGNORED_COMPONENTS = Arrays.asList(
       UIExtensionPanel.class.getSimpleName(),
       UIMenuSelectOne.class.getSimpleName(),
-      UIWizard.class.getSimpleName(), // TODO: check what is here to do. Wizard is not currently working.
       UITreeData.class.getSimpleName()); // deprecated
   private static final MethodOfComponentList IGNORED_METHODS_PER_COMPONENT = new MethodOfComponentList();
 

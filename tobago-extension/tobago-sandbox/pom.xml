@@ -119,7 +119,6 @@
           <excludes>
             <exclude>workaround-because-otherwise-this-will-be-excluded-in-the-next-step</exclude>
             <exclude>org/apache/myfaces/tobago/renderkit/html/sandbox/standard/tag/SelectManyShuttleRenderer.java</exclude>
-            <!--<exclude>org/apache/myfaces/tobago/internal/taglib/sandbox/WizardExtensionTag.java</exclude>-->
           </excludes>
         </configuration>
         <executions>
@@ -136,7 +135,6 @@
                 <include>org/apache/myfaces/tobago/component/*</include>
                 <include>org/apache/myfaces/tobago/renderkit/*</include>
                 <include>org/apache/myfaces/tobago/renderkit/html/sandbox/standard/tag/SelectManyShuttleRenderer.java</include>
-                <!--<include>org/apache/myfaces/tobago/internal/taglib/sandbox/WizardExtensionTag.java</include>-->
               </includes>
               <excludes>
                 <exclude>test</exclude>

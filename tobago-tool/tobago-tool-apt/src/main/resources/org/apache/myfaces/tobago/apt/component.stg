@@ -321,10 +321,6 @@ OrderByProperty(property) ::= <<
 <NormalProperty(property)>
 >>
 
-WizardProperty(property) ::= <<
-<NormalProperty(property)>
->>
-
 StringProperty(property) ::= <<
 <NormalProperty(property)>
 >>
