@@ -284,46 +284,21 @@
         </configuration>
       </plugin-->
 
-      <!-- pmd has problems with annotations -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-pmd-plugin</artifactId>
-        <version>3.0.1</version>
+        <version>3.4</version>
         <configuration>
           <rulesets>
-            <ruleset>/rulesets/java/basic.xml</ruleset>
-            <ruleset>/rulesets/java/unusedcode.xml</ruleset>
-            <ruleset>/rulesets/java/imports.xml</ruleset>
-            <ruleset>/rulesets/java/design.xml</ruleset>
-            <ruleset>/rulesets/java/optimizations.xml</ruleset>
-            <ruleset>/rulesets/java/coupling.xml</ruleset>
-            <ruleset>/rulesets/java/braces.xml</ruleset>
-            <ruleset>/rulesets/java/clone.xml</ruleset>
-            <ruleset>/rulesets/java/codesize.xml</ruleset>
-            <ruleset>/rulesets/java/finalizers.xml</ruleset>
-            <ruleset>/rulesets/java/junit.xml</ruleset>
-            <ruleset>/rulesets/java/migrating_to_15.xml</ruleset>
-            <ruleset>/rulesets/java/typeresolution.xml</ruleset>
-            <ruleset>/rulesets/java/strings.xml</ruleset>
-            <!--
-                <ruleset>rulesets/java/controversial.xml</ruleset>
-                <ruleset>rulesets/java/logging-java.xml</ruleset>
-                <ruleset>rulesets/java/strictexception.xml</ruleset>
-                <ruleset>rulesets/java/naming.xml</ruleset>
-            -->
+            <!-- FIXME: currently only possible to build in project build -->
+            <ruleset>${basedir}/tobago-pmd-config.xml</ruleset>
           </rulesets>
-<!--
-          <excludes>
-            <exclude>**/package-info.java</exclude>
-            <exclude>org/apache/myfaces/tobago/apt/annotation/*.java</exclude>
-          </excludes>
--->
-<!--
-          <sourceEncoding>${maven.compile.encoding}</sourceEncoding>
--->
           <linkXRef>true</linkXRef>
           <targetJdk>${maven.compile.source}</targetJdk>
           <aggregate>true</aggregate>
+<!--
+          <allowCommentedBlocks>true</allowCommentedBlocks>
+-->
         </configuration>
       </plugin>                              
 
@@ -791,7 +766,7 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-pmd-plugin</artifactId>
-          <version>3.0.1</version>
+          <version>3.4</version>
         </plugin>
         <plugin>
           <groupId>org.codehaus.mojo</groupId>
