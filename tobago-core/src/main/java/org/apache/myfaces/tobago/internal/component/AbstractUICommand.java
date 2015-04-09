@@ -27,6 +27,7 @@ import org.apache.myfaces.tobago.event.PopupFacetActionListener;
 import org.apache.myfaces.tobago.layout.LayoutComponent;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 
+import javax.faces.component.UICommand;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.event.FacesEvent;
@@ -34,7 +35,7 @@ import javax.faces.event.PhaseId;
 import java.util.Iterator;
 
 public abstract class AbstractUICommand
-    extends AbstractUICommandBase
+    extends UICommand
     implements SupportsRenderedPartially, SupportsAccessKey, OnComponentPopulated, LayoutComponent {
 
   public void onComponentPopulated(final FacesContext facesContext, final UIComponent parent) {

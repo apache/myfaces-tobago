@@ -152,8 +152,8 @@ public class ToolBarRenderer extends LayoutComponentRendererBase {
     writer.writeClassAttribute("nav navbar-nav");
 
     for (final UIComponent child : toolBar.getChildren()) {
-      if (child instanceof AbstractUICommandBase) {
-        final AbstractUICommandBase command =  (AbstractUICommandBase) child;
+      if (child instanceof AbstractUICommand) {
+        final AbstractUICommand command =  (AbstractUICommand) child;
         writer.startElement(HtmlElements.LI);
         writer.writeClassAttribute("nav navbar-nav");
 
@@ -167,7 +167,7 @@ public class ToolBarRenderer extends LayoutComponentRendererBase {
       } else if (child instanceof UIToolBarSeparator) {
         final UIToolBarSeparator separator =  (UIToolBarSeparator) child;
       } else {
-        LOG.error("Illegal UIComponent class in toolbar (not a AbstractUICommandBase):" + child.getClass().getName());
+        LOG.error("Illegal UIComponent class in toolbar (not a AbstractUICommand):" + child.getClass().getName());
       }
     }
 

@@ -93,12 +93,6 @@ public class TobagoComponentHandler extends ComponentHandler {
     if (SupportsCss.class.isAssignableFrom(aClass)) {
       metaRuleset.addRule(SupportsCssRule.INSTANCE);
     }
-/*
-    todo: check for command, that not combination of these attributes is set: action, onclick, link
-    todo: this should be backported to 2.0
-    if (AbstractUICommandBase.class.isAssignableFrom(aClass)) {
-    }
-*/
 
     return metaRuleset;
   }
