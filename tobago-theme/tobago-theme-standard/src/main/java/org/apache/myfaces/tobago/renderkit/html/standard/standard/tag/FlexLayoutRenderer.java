@@ -61,7 +61,7 @@ public class FlexLayoutRenderer extends RendererBase {
           .replace("7*", "7")
           .replace("8*", "8")
           .replace("9*", "9")
-          .replace("*", "1"));
+          .replace("*", "1").replaceAll("(\\d+)px", "{\"pixel\":$1}"));
       b.append("]}");
     }
     final String rows = flexLayout.getRows();
@@ -79,7 +79,7 @@ public class FlexLayoutRenderer extends RendererBase {
           .replace("7*", "7")
           .replace("8*", "8")
           .replace("9*", "9")
-          .replace("*", "1"));
+          .replace("*", "1").replaceAll("(\\d+)px", "{\"pixel\":$1}"));
       b.append("]}");
     }
     boolean vertically = rows.contains(";");

@@ -128,6 +128,10 @@ function setLength(table, banks, i, css, length) {
    */
 }
 
+function setLength2(banks, i, css, length) {
+  banks.eq(i).css(css, length);
+}
+
 function layoutFlex(container, horizontal) {
   var cells;
   var banks;
@@ -160,7 +164,7 @@ function layoutFlex(container, horizontal) {
           break;
         case "object":
           if (tokens[i].pixel) {
-            setLength(table, banks, i, css, tokens[i].pixel + "px");
+            setLength2(banks, i, css, tokens[i].pixel + "px");
           } else {
             console.warn("can't find pixel in object: '" + tokens[i] + "'");  // @DEV_ONLY
           }
