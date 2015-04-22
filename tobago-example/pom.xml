@@ -60,10 +60,12 @@
         <!-- usage: mvn clean package tomee:run -Djsf=provided -->
         <groupId>org.apache.openejb.maven</groupId>
         <artifactId>tomee-maven-plugin</artifactId>
-        <version>1.0.0</version>
+        <version>1.7.1</version>
         <configuration>
-          <tomeeVersion>1.5.0</tomeeVersion>
+          <tomeeVersion>1.7.1</tomeeVersion>
           <tomeeClassifier>plus</tomeeClassifier>
+          <!--<tomeeHttpPort>9090</tomeeHttpPort>-->
+          <!--<context>/demo</context>-->
         </configuration>
       </plugin>
 
@@ -434,5 +436,26 @@
       </plugins>
       </build>
     </profile>
+
+<!-- TBD: be needed for which cases?
+    <profile>
+      <id>303off</id>
+      <dependencies>
+        <dependency>
+          <groupId>javax.validation</groupId>
+          <artifactId>validation-api</artifactId>
+          <version>1.0.0.GA</version>
+          <scope>provided</scope>
+        </dependency>
+        <dependency>
+          <groupId>org.hibernate</groupId>
+          <artifactId>hibernate-validator</artifactId>
+          <version>4.2.0.Final</version>
+          <scope>provided</scope>
+        </dependency>
+      </dependencies>
+    </profile>
+-->
+
   </profiles>
 </project>
