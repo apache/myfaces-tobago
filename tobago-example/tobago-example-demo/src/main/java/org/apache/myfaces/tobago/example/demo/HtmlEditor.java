@@ -43,6 +43,8 @@ public class HtmlEditor implements Serializable {
         FacesContext.getCurrentInstance(),
         "content/35-wysiwyg/00-tinymce/tinymce/js/tinymce/tinymce.min.js")
         .size() != 0;
+    text = "<h1>Sonne</h1>"
+        + "<p>Die Sonne ist ein Stern in der Galaxie Milchstraße.</p>";
   }
 
   public String getText() {
