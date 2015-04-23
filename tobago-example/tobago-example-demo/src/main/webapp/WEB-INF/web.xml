@@ -154,19 +154,6 @@
     <url-pattern>/org/apache/myfaces/tobago/sandbox/*</url-pattern>
   </servlet-mapping>
 
-  <!-- Non-Faces-Request Demo -->
-
-  <servlet>
-    <servlet-name>FishServlet</servlet-name>
-    <servlet-class>org.apache.myfaces.tobago.example.demo.nonfacesrequest.FishServlet</servlet-class>
-    <load-on-startup>3</load-on-startup>
-  </servlet>
-
-  <servlet-mapping>
-    <servlet-name>FishServlet</servlet-name>
-    <url-pattern>/FishServlet</url-pattern>
-  </servlet-mapping>
-
   <!-- Error Page -->
 
   <error-page>

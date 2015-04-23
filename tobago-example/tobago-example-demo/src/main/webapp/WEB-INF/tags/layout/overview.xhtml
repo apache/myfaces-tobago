@@ -17,47 +17,50 @@
  * limitations under the License.
 -->
 
-<ui:composition xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:tc="http://myfaces.apache.org/tobago/component"
-                xmlns:tx="http://myfaces.apache.org/tobago/extension"
-                xmlns:ui="http://java.sun.com/jsf/facelets">
-  <f:view locale="#{clientConfigController.locale}">
-    <tc:page applicationIcon="icon/favicon.ico" label="#{overviewBundle.pageTitle} - #{title}" id="page">
+<f:view locale="#{clientConfigController.locale}"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:tc="http://myfaces.apache.org/tobago/component"
+        xmlns:tx="http://myfaces.apache.org/tobago/extension"
+        xmlns:ui="http://java.sun.com/jsf/facelets">
 
-      <tc:script file="script/demo.js"/>
+  <ui:insert name="metadata"/>
 
-      <f:facet name="resize">
-        <tc:command immediate="true"/>
-      </f:facet>
+  <tc:page applicationIcon="icon/favicon.ico" label="#{overviewBundle.pageTitle} - #{title}" id="page">
 
-      <f:facet name="menuBar">
-        <ui:include src="/menu.xhtml"/>
-      </f:facet>
+    <tc:script file="script/demo.js"/>
 
-      <f:facet name="layout">
-        <tc:gridLayout border="0" columns="*;4*" margin="10px" rows="100px;auto;*;auto"/>
-      </f:facet>
+    <f:facet name="resize">
+      <tc:command immediate="true"/>
+    </f:facet>
 
-      <tc:panel>
-        <tc:gridLayoutConstraint columnSpan="2"/>
-        <ui:include src="/header.xhtml"/>
-      </tc:panel>
+    <f:facet name="menuBar">
+      <ui:include src="/menu.xhtml"/>
+    </f:facet>
 
-      <tc:panel>
-        <tc:gridLayoutConstraint rowSpan="3"/>
-        <ui:include src="/navigation.xhtml"/>
-      </tc:panel>
+    <f:facet name="layout">
+      <tc:gridLayout border="0" columns="*;4*" margin="10px" rows="100px;auto;*;auto"/>
+    </f:facet>
 
-      <tc:messages/>
+    <tc:panel>
+      <tc:gridLayoutConstraint columnSpan="2"/>
+      <ui:include src="/header.xhtml"/>
+    </tc:panel>
 
-      <tc:box label="#{title}" id="content">
-        <ui:insert/>
-      </tc:box>
+    <tc:panel>
+      <tc:gridLayoutConstraint rowSpan="3"/>
+      <ui:include src="/navigation.xhtml"/>
+    </tc:panel>
 
-      <tc:panel>
-        <ui:include src="/footer.xhtml"/>
-      </tc:panel>
+    <tc:messages/>
 
-    </tc:page>
-  </f:view>
-</ui:composition>
+    <tc:box label="#{title}" id="content">
+      <ui:insert/>
+    </tc:box>
+
+    <tc:panel>
+      <ui:include src="/footer.xhtml"/>
+    </tc:panel>
+
+  </tc:page>
+</f:view>
+

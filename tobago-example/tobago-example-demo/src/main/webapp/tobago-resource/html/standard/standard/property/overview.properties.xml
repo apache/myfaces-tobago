@@ -60,6 +60,7 @@
   <entry key="nonFacesResponse">Non Faces Resp.</entry>
   <entry key="toolBarCustomizer">User Customized UI</entry>
   <entry key="faceletsAsResources">Facelets As Resource</entry>
+  <entry key="non-faces-request">Non Faces Request (Facelets only)</entry>
 
   <entry key="reference_intro">Ref. (under constr.)</entry>
   <entry key="reference_command">Command</entry>

@@ -22,23 +22,31 @@
                 xmlns:tx="http://myfaces.apache.org/tobago/extension"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core">
-    <ui:param name="title" value="Non-Faces-Request Demo: Fish Pont"/>
+  <ui:param name="title" value="Non-Faces-Request Demo: Fish Pont"/>
+
+  <ui:define name="metadata">
+    <f:metadata>
+      <f:viewParam name="fishId" value="#{fishPond.selectedFishId}" />
+      <f:event type="preRenderView" listener="#{fishPond.action}"/>
+    </f:metadata>
+  </ui:define>
+
+  <tc:panel id="pond">
+
+    <f:facet name="layout">
+      <tc:gridLayout rows="auto;auto" margin="20px"/>
+    </f:facet>
+
+    <tx:in label="Selected:" value="#{fishPond.selectedFish}" readonly="true"/>
 
     <tc:panel>
-
-        <f:facet name="layout">
-            <tc:gridLayout rows="auto;auto" margin="20px"/>
-        </f:facet>
-
-        <tx:in label="Selected:" value="#{fishPond.selectedFish}" readonly="true"/>
-
-        <tc:panel>
-            <f:facet name="layout">
-                <tc:gridLayout columns="auto;*"/>
-            </f:facet>
-            <tc:button label="random" action="#{fishPond.random}"/>
-        </tc:panel>
-
+      <f:facet name="layout">
+        <tc:gridLayout columns="auto;auto;*"/>
+      </f:facet>
+      <tc:button label="random" action="#{fishPond.random}" renderedPartially="pond :page:header:headerInfo"/>
+      <tc:button label="back to start" action="/content/90-non-faces-request/non-faces-request.xhtml"/>
     </tc:panel>
+
+  </tc:panel>
 
 </ui:composition>

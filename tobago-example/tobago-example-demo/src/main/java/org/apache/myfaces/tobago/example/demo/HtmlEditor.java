@@ -43,6 +43,20 @@ public class HtmlEditor implements Serializable {
         FacesContext.getCurrentInstance(),
         "content/35-wysiwyg/00-tinymce/tinymce/js/tinymce/tinymce.min.js")
         .size() != 0;
+    text = "<h1>Sonne</h1>"
+        + "<p>Die Sonne ist ein Stern in der Galaxie Milchstraße. "
+        + "Sie ist ein Hauptreihenstern (Zwergstern) und steht im Zentrum des Sonnensystems, "
+        + "das sie durch ihre Gravitation dominiert."
+        + "Hauptbestandteile"
+        + "<ul>\n"
+        + "<li>Wasserstoff: 92,1&thinsp;%</li>\n"
+        + "<li>Helium: 7,8&thinsp;%</li>\n"
+        + "<li>Sauerstoff: 500&nbsp;ppm</li>\n"
+        + "<li>Kohlenstoff: 230&nbsp;ppm</li>\n"
+        + "<li>Neon: 100&nbsp;ppm</li>\n"
+        + "<li>Stickstoff: 70&nbsp;ppm</li>\n"
+        + "</ul></p>"
+        + "<p>Quelle: Wikipedia</p>";
   }
 
   public String getText() {

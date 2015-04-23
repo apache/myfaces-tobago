@@ -22,48 +22,57 @@ package org.apache.myfaces.tobago.example.demo.nonfacesrequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Map;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 public class FishPond {
 
   private static final Logger LOG = LoggerFactory.getLogger(FishPond.class);
 
-  private Map<String, String> fishes;
+  private Map<Integer, String> fishes;
 
-  private String selectedFish;
+  private Integer selectedFishId = null;
 
   public FishPond() {
-    fishes = new HashMap<String, String>();
-    fishes.put("0", "Scholle");
-    fishes.put("1", "Hai");
-    fishes.put("2", "Luce");
-    fishes.put("3", "Halibut");
-    fishes.put("4", "Tamboril");
+    fishes = new HashMap<Integer, String>();
+    fishes.put(0, "Scholle");
+    fishes.put(1, "Hai");
+    fishes.put(2, "Luce");
+    fishes.put(3, "Halibut");
+    fishes.put(4, "Tamboril");
+  }
+
+  public void action() {
+    LOG.info("Event is called! selectedFishId='{}'", selectedFishId);
+    // not needed for this example
   }
 
   public String random() {
     final Random random = new Random(System.currentTimeMillis());
+    selectedFishId = random.nextInt(fishes.size());
 
-    selectedFish = fishes.get("" + random.nextInt(fishes.size()));
+    LOG.info("select via random: '" + getSelectedFish() + "'");
 
-    LOG.info("select via random: '" + selectedFish + "'");
-
-    return "/content/90-non-faces-request/x-fish-pond.xhtml";
+    return null; // is AJAX
   }
 
-  public String select(final String id) {
-    selectedFish = fishes.get(id);
-
-    LOG.info("select via id: '" + selectedFish + "'");
-
+  public String select(final Integer fishId) {
+    selectedFishId = fishId;
+    LOG.info("select via id: '" + getSelectedFish() + "'");
     return "/content/90-non-faces-request/x-fish-pond.xhtml";
   }
 
   public String getSelectedFish() {
-    return selectedFish;
+    return fishes.get(selectedFishId);
   }
 
+  public Integer getSelectedFishId() {
+    return selectedFishId;
+  }
 
+  public void setSelectedFishId(Integer selectedFishId) {
+    this.selectedFishId = selectedFishId;
+    LOG.info("setSelectedFishId via setter: '" + selectedFishId + "'");
+  }
 }

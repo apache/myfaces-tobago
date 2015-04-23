@@ -36,6 +36,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * @deprecated since Tobago 2.0.8 - Please use &lt;f:initParam> instead - see also TOBAGO-1456
+ */
+@Deprecated
 public abstract class NonFacesRequestServlet extends HttpServlet {
 
   private static final long serialVersionUID = -7448621953821447997L;

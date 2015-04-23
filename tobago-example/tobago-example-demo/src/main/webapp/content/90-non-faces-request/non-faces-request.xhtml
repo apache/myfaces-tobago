@@ -21,19 +21,23 @@
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core">
-    <ui:param name="title" value="Non-Faces-Request Demo: Start"/>
+  <ui:param name="title" value="Non-Faces-Request Demo: Start"/>
 
-    <tc:panel>
-        <p>
-            Use these external links:<br/>
+  <tc:panel>
+    <p>
+      This demo works with &lt;f:viewParam> which is only available with Facelets (not with JSP pages) <br/>
+    </p>
 
-            <a href="#{request.contextPath}/FishServlet?id=0">#{request.contextPath}/FishServlet?id=0</a><br/>
-            <a href="#{request.contextPath}/FishServlet?id=1">#{request.contextPath}/FishServlet?id=1</a><br/>
-            <a href="#{request.contextPath}/FishServlet?id=2">#{request.contextPath}/FishServlet?id=2</a><br/>
-            <a href="#{request.contextPath}/FishServlet?id=3">#{request.contextPath}/FishServlet?id=3</a><br/>
-            <a href="#{request.contextPath}/FishServlet?id=4">#{request.contextPath}/FishServlet?id=4</a><br/>
-        </p>
+    <p>
+      Use these links from external applications:<br/>
 
-    </tc:panel>
+      <a href="#{request.contextPath}/faces/content/90-non-faces-request/x-fish-pond.xhtml?fishId=0&amp;dswid=#{request.parameterMap['dswid'][0]}">#{request.contextPath}/faces/content/90-non-faces-request/x-fish-pond.xhtml?fishId=0&amp;dswid=#{request.parameterMap['dswid'][0]}</a><br/>
+      <a href="#{request.contextPath}/faces/content/90-non-faces-request/x-fish-pond.xhtml?fishId=1&amp;dswid=#{request.parameterMap['dswid'][0]}">#{request.contextPath}/faces/content/90-non-faces-request/x-fish-pond.xhtml?fishId=1&amp;dswid=#{request.parameterMap['dswid'][0]}</a><br/>
+      <a href="#{request.contextPath}/faces/content/90-non-faces-request/x-fish-pond.xhtml?fishId=2&amp;dswid=#{request.parameterMap['dswid'][0]}">#{request.contextPath}/faces/content/90-non-faces-request/x-fish-pond.xhtml?fishId=2&amp;dswid=#{request.parameterMap['dswid'][0]}</a><br/>
+      <a href="#{request.contextPath}/faces/content/90-non-faces-request/x-fish-pond.xhtml?fishId=3&amp;dswid=#{request.parameterMap['dswid'][0]}">#{request.contextPath}/faces/content/90-non-faces-request/x-fish-pond.xhtml?fishId=3&amp;dswid=#{request.parameterMap['dswid'][0]}</a><br/>
+      <a href="#{request.contextPath}/faces/content/90-non-faces-request/x-fish-pond.xhtml?fishId=4&amp;dswid=#{request.parameterMap['dswid'][0]}">#{request.contextPath}/faces/content/90-non-faces-request/x-fish-pond.xhtml?fishId=4&amp;dswid=#{request.parameterMap['dswid'][0]}</a><br/>
+    </p>
+
+  </tc:panel>
 
 </ui:composition>
