@@ -54,14 +54,18 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.UINamingContainer;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AbortProcessingException;
+import javax.faces.event.ComponentSystemEvent;
 import javax.faces.event.FacesEvent;
+import javax.faces.event.ListenerFor;
 import javax.faces.event.PhaseId;
+import javax.faces.event.PreRenderComponentEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+@ListenerFor(systemEventClass = PreRenderComponentEvent.class)
 public abstract class AbstractUISheet extends AbstractUIData
     implements SheetStateChangeSource2, SortActionSource2, OnComponentPopulated,
     LayoutContainer, LayoutComponent, SupportsRenderedPartially {
@@ -111,18 +115,6 @@ public abstract class AbstractUISheet extends AbstractUIData
       } else {
         setFirst(first);
       }
-    }
-
-    final MethodExpression expression = getSortActionListenerExpression();
-    if (expression != null) {
-      try {
-        FacesEvent facesEvent = new SortActionEvent(this, null);
-        expression.invoke(facesContext.getELContext(), new Object[]{facesEvent});
-      } catch (Exception e) {
-        LOG.warn("Initial sorting not possible!", e);
-      }
-    } else {
-      new Sorter().perform(this);
     }
 
     super.encodeBegin(facesContext);
@@ -456,12 +448,35 @@ public abstract class AbstractUISheet extends AbstractUIData
       }
     } else if (facesEvent instanceof SortActionEvent) {
       getSheetState(getFacesContext()).updateSortState((SortActionEvent) facesEvent);
+      sort(getFacesContext(), (SortActionEvent) facesEvent);
+    }
+  }
+
+  public void processEvent(ComponentSystemEvent event) {
+    super.processEvent(event);
+    if (event instanceof PreRenderComponentEvent) {
+      sort(getFacesContext(), null);
+    }
+  }
+
+  protected void sort(FacesContext facesContext, SortActionEvent event) {
+    final SheetState sheetState = getSheetState(getFacesContext());
+    if (sheetState.isToBeSorted()) {
       final MethodExpression expression = getSortActionListenerExpression();
       if (expression != null) {
-        expression.invoke(getFacesContext().getELContext(), new Object[]{facesEvent});
+        try {
+          if (event == null) {
+            event =
+                new SortActionEvent(this, (UIColumn) findComponent(getSheetState(facesContext).getSortedColumnId()));
+          }
+          expression.invoke(facesContext.getELContext(), new Object[]{event});
+        } catch (Exception e) {
+          LOG.warn("Sorting not possible!", e);
+        }
       } else {
-        new Sorter().perform((SortActionEvent) facesEvent);
+        new Sorter().perform(this);
       }
+      sheetState.setToBeSorted(false);
     }
   }
 

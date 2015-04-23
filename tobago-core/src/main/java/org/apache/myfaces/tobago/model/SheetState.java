@@ -40,6 +40,7 @@ public class SheetState implements Serializable {
   private int first;
   private String sortedColumnId;
   private boolean ascending;
+  private boolean toBeSorted;
   private String columnWidths;
   private List<Integer> selectedRows;
   private Integer[] scrollPosition;
@@ -54,6 +55,7 @@ public class SheetState implements Serializable {
     first = -1;
     sortedColumnId = null;
     ascending = true;
+    toBeSorted = false;
     columnWidths = null;
     resetSelected();
     if (expandedState != null) {
@@ -83,7 +85,10 @@ public class SheetState implements Serializable {
   }
 
   public void setSortedColumnId(final String sortedColumnId) {
-    this.sortedColumnId = sortedColumnId;
+    if (StringUtils.notEquals(this.sortedColumnId, sortedColumnId)) {
+      this.sortedColumnId = sortedColumnId;
+      toBeSorted = true;
+    }
   }
 
   public boolean isAscending() {
@@ -91,7 +96,10 @@ public class SheetState implements Serializable {
   }
 
   public void setAscending(final boolean ascending) {
-    this.ascending = ascending;
+    if (this.ascending != ascending) {
+      this.ascending = ascending;
+      toBeSorted = true;
+    }
   }
 
   public String getColumnWidths() {
@@ -115,10 +123,10 @@ public class SheetState implements Serializable {
     final UIColumn actualColumn = sortEvent.getColumn();
 
     if (actualColumn.getId().equals(sortedColumnId)) {
-      ascending = !ascending;
+      setAscending(!isAscending());
     } else {
-      ascending = true;
-      sortedColumnId = actualColumn.getId();
+      setAscending(true);
+      setSortedColumnId(actualColumn.getId());
     }
   }
 
@@ -150,6 +158,14 @@ public class SheetState implements Serializable {
 
   public void setSelectedState(final SelectedState selectedState) {
     this.selectedState = selectedState;
+  }
+
+  public boolean isToBeSorted() {
+    return toBeSorted;
+  }
+
+  public void setToBeSorted(boolean toBeSorted) {
+    this.toBeSorted = toBeSorted;
   }
 
   /**

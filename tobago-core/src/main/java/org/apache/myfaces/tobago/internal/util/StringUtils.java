@@ -458,6 +458,13 @@ public final class StringUtils {
   }
 
   /**
+   * Basically taken from commons-lang
+   */
+  public static boolean notEquals(String a, String b) {
+    return a == null ? b != null : !a.equals(b);
+  }
+
+  /**
    * Checks if the String starts like a url, e.g. http: or xyz:
    */
   public static boolean isUrl(final String link) {

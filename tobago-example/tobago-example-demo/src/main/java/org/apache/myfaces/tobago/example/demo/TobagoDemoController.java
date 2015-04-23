@@ -511,6 +511,8 @@ public class TobagoDemoController implements Serializable {
     final SolarObject sun = list.remove(0);
     final String columnId = sheetState.getSortedColumnId();
 
+    LOG.info("Sorting column '{}'", columnId);
+
     Comparator<SolarObject> comparator = null;
 
     if ("name".equals(columnId)) {
