@@ -75,17 +75,7 @@ public abstract class AbstractUISheet extends AbstractUIData
 
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.Data";
 
-  /**
-   * @see org.apache.myfaces.tobago.component.Facets
-   * @deprecated Please use Facets instead. Will be removed after Tobago 1.5.0 */
-  @Deprecated
-  public static final String FACET_SORTER = "sorter";
   public static final String SORTER_ID = "sorter";
-  /**
-   * @see org.apache.myfaces.tobago.component.Attributes
-   * @deprecated Please use Attributes instead. Will be removed after Tobago 1.5.0 */
-  @Deprecated
-  public static final String ATTR_SCROLL_POSITION = "attrScrollPosition";
 
   public static final String NONE = "none";
   public static final String SINGLE = "single";
@@ -299,19 +289,6 @@ public abstract class AbstractUISheet extends AbstractUIData
   }
 
   /**
-   * @deprecated The name of this method is ambiguous.
-   * You may use {@link #getFirstRowIndexOfLastPage()}. Deprecated since 1.5.5.
-   */
-  @Deprecated
-  public int getLastPageIndex() {
-    if (hasRowCount()) {
-      return getFirstRowIndexOfLastPage();
-    } else {
-      return 0;
-    }
-  }
-
-  /**
    * Determines the beginning of the last page in the model.
    * If the number of rows to display on one page is unlimited, the value is 0 (there is only one page).
    * @return The index of the first row of the last paging page.
@@ -341,10 +318,6 @@ public abstract class AbstractUISheet extends AbstractUIData
   private void updateSheetState(final FacesContext facesContext) {
     final SheetState state = getSheetState(facesContext);
     if (state != null) {
-      // ensure sortActionListener
-//      getSortActionListener();
-//      state.setSortedColumn(sortActionListener != null ? sortActionListener.getColumn() : -1);
-//      state.setAscending(sortActionListener != null && sortActionListener.isAscending());
       final Map attributes = getAttributes();
       //noinspection unchecked
       final List<Integer> list = (List<Integer>) attributes.get(Attributes.SELECTED_LIST_STRING);
@@ -397,14 +370,6 @@ public abstract class AbstractUISheet extends AbstractUIData
       }
     }
   }
-
-/*  public MethodBinding getSortActionListener() {
-    if (sortActionListener != null) {
-      return sortActionListener;
-    } else {
-      return new Sorter();
-    }
-  }*/
 
   @Override
   public void queueEvent(final FacesEvent facesEvent) {
@@ -592,7 +557,6 @@ public abstract class AbstractUISheet extends AbstractUIData
     }
 
     getState().setFirst(first);
-//      sheet.queueEvent(new SheetStateChangeEvent(sheet));
   }
 
   public List<LayoutComponent> getComponents() {
