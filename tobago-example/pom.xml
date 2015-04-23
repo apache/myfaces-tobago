@@ -43,24 +43,22 @@
         <version>2.2</version>
       </plugin>
       <plugin>
-        <groupId>org.mortbay.jetty</groupId>
-        <!--<groupId>org.eclipse.jetty</groupId>-->
+        <groupId>org.eclipse.jetty</groupId>
         <artifactId>jetty-maven-plugin</artifactId>
-        <configuration>
-          <!--
-                      <webApp>
-                        <contextPath>/example</contextPath>
-                      </webApp>
-          -->
-          <!-- use this to change the port-->
-          <!--
-                      <connectors>
-                        <connector implementation="org.eclipse.jetty.server.nio.SelectChannelConnector">
-                          <port>7080</port>
-                        </connector>
-                      </connectors>
-          -->
-        </configuration>
+          <configuration>
+            <!-- use this to change the context path: -->
+<!--
+            <webApp>
+              <contextPath>/example</contextPath>
+            </webApp>
+-->
+            <!-- use this to change the port: -->
+<!--
+            <httpConnector>
+              <port>7080</port>
+            </httpConnector>
+-->
+          </configuration>
       </plugin>
       <plugin>
         <!-- usage: mvn clean package tomee:run -Djsf=provided -->
@@ -80,13 +78,9 @@
     <pluginManagement>
       <plugins>
         <plugin>
-          <groupId>org.mortbay.jetty</groupId>
-          <!--<groupId>org.eclipse.jetty</groupId>-->
+          <groupId>org.eclipse.jetty</groupId>
           <artifactId>jetty-maven-plugin</artifactId>
-          <!--<version>9.2.2.v20140723</version>-->
-          <!--<version>9.1.1.v20140108</version>-->
-          <!--<version>9.1.0.v20131115</version>-->
-          <version>8.1.15.v20140411</version>
+          <version>9.3.0.M2</version>
           <configuration>
             <scanIntervalSeconds>5</scanIntervalSeconds>
             <webAppConfig>
@@ -205,7 +199,6 @@
         <plugins>
           <plugin>
             <groupId>org.mortbay.jetty</groupId>
-            <!--<groupId>org.eclipse.jetty</groupId>-->
             <artifactId>jetty-maven-plugin</artifactId>
             <configuration>
               <connectors>

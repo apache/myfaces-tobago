@@ -159,6 +159,25 @@
       <classifier>tests</classifier>
       <scope>test</scope>
     </dependency>
+    <!-- DeltaSpike/CDI -->
+<!--
+    <dependency>
+      <groupId>org.apache.deltaspike.modules</groupId>
+      <artifactId>deltaspike-jsf-module-impl</artifactId>
+      <version>1.3.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.geronimo.specs</groupId>
+      <artifactId>geronimo-jcdi_1.0_spec</artifactId>
+      <version>1.0</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.geronimo.specs</groupId>
+      <artifactId>geronimo-atinject_1.0_spec</artifactId>
+      <version>1.0</version>
+    </dependency>
+-->
   </dependencies>
   <profiles>
     <profile>
@@ -228,15 +247,13 @@
                 </plugin>
           -->
           <plugin>
-            <groupId>org.mortbay.jetty</groupId>
+            <groupId>org.eclipse.jetty</groupId>
             <!--<groupId>org.eclipse.jetty</groupId>-->
             <artifactId>jetty-maven-plugin</artifactId>
             <configuration>
-              <connectors>
-                <connector implementation="org.eclipse.jetty.server.nio.SelectChannelConnector">
-                  <port>8080</port>
-                </connector>
-              </connectors>
+              <httpConnector>
+                <port>8080</port>
+              </httpConnector>
               <stopKey>stopKey</stopKey>
               <stopPort>9999</stopPort>
             </configuration>
@@ -245,7 +262,7 @@
                 <id>start-jetty</id>
                 <phase>pre-integration-test</phase>
                 <goals>
-                  <goal>run-exploded</goal>
+                  <goal>deploy-war</goal>
                 </goals>
                 <configuration>
                   <daemon>true</daemon>
