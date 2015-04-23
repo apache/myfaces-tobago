@@ -98,7 +98,6 @@
         <module>tobago-example-blank</module>
         <module>tobago-example-data</module>
         <module>tobago-example-demo</module>
-        <module>tobago-example-experimental</module>
         <module>tobago-example-test</module>
       </modules>
     </profile>
@@ -113,7 +112,6 @@
         <module>tobago-example-portlet</module>
         <module>tobago-example-sandbox</module>
         <module>tobago-example-security</module>
-        <module>tobago-example-experimental</module>
         <module>tobago-example-test</module>
         <module>tobago-example-assembly</module>
         <module>tobago-theme-example</module>
