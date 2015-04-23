@@ -48,6 +48,7 @@
       </plugin>
       <plugin>
         <groupId>org.mortbay.jetty</groupId>
+        <!--<groupId>org.eclipse.jetty</groupId>-->
         <artifactId>jetty-maven-plugin</artifactId>
         <configuration>
           <loginServices>
@@ -259,7 +260,7 @@
 
   <properties>
     <openjpa.version>1.0.4</openjpa.version>
-    <spring.version>2.5.3</spring.version>
+    <spring.version>3.2.13.RELEASE</spring.version>
   </properties>
 
 </project>
