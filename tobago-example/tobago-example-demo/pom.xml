@@ -29,7 +29,7 @@
 
   <properties>
     <openwebbeans.version>1.1.7</openwebbeans.version>
-    <myfaces-extcdi.version>1.0.5</myfaces-extcdi.version>
+    <deltaspike.version>1.3.0</deltaspike.version>
   </properties>
   <build>
     <finalName>tobago-example-demo</finalName>
@@ -105,32 +105,6 @@
   </build>
 
   <dependencies>
-    <!-- Codi -->
-    <dependency>
-      <groupId>org.apache.myfaces.extensions.cdi.core</groupId>
-      <artifactId>myfaces-extcdi-core-api</artifactId>
-      <version>${myfaces-extcdi.version}</version>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.myfaces.extensions.cdi.core</groupId>
-      <artifactId>myfaces-extcdi-core-impl</artifactId>
-      <version>${myfaces-extcdi.version}</version>
-      <scope>runtime</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.myfaces.extensions.cdi.modules</groupId>
-      <artifactId>myfaces-extcdi-jsf20-module-api</artifactId>
-      <version>${myfaces-extcdi.version}</version>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.myfaces.extensions.cdi.modules</groupId>
-      <artifactId>myfaces-extcdi-jsf20-module-impl</artifactId>
-      <version>${myfaces-extcdi.version}</version>
-      <scope>runtime</scope>
-    </dependency>
-
     <dependency>
       <groupId>org.apache.myfaces.tobago</groupId>
       <artifactId>tobago-example-data</artifactId>
@@ -206,6 +180,13 @@
     <dependency>
       <groupId>commons-io</groupId>
       <artifactId>commons-io</artifactId>
+    </dependency>
+
+    <!-- DeltaSpike -->
+    <dependency>
+      <groupId>org.apache.deltaspike.modules</groupId>
+      <artifactId>deltaspike-jsf-module-impl</artifactId>
+      <version>${deltaspike.version}</version>
     </dependency>
 
     <dependency>
@@ -311,14 +292,6 @@
           <version>${openwebbeans.version}</version>
         </dependency>
 
-        <!-- Codi for JavaEE5 -->
-        <dependency>
-          <groupId>org.apache.myfaces.extensions.cdi.modules.jee5-support</groupId>
-          <artifactId>myfaces-extcdi-jee5-openwebbeans-support</artifactId>
-          <version>${myfaces-extcdi.version}</version>
-          <scope>runtime</scope>
-        </dependency>
-
         <!-- for JSF 2.0 and Bean Validation (JSR-303)  -->
         <dependency>
           <groupId>javax.el</groupId>
@@ -382,14 +355,6 @@
           <groupId>org.apache.openwebbeans</groupId>
           <artifactId>openwebbeans-resource</artifactId>
           <version>${openwebbeans.version}</version>
-        </dependency>
-
-        <!-- Codi for JavaEE5 -->
-        <dependency>
-          <groupId>org.apache.myfaces.extensions.cdi.modules.jee5-support</groupId>
-          <artifactId>myfaces-extcdi-jee5-openwebbeans-support</artifactId>
-          <version>${myfaces-extcdi.version}</version>
-          <scope>runtime</scope>
         </dependency>
 
         <!-- for JSF 2.0 and Bean Validation (JSR-303)  -->
@@ -458,14 +423,6 @@
           <version>${openwebbeans.version}</version>
         </dependency>
 
-        <!-- Codi for JavaEE5 -->
-        <dependency>
-          <groupId>org.apache.myfaces.extensions.cdi.modules.jee5-support</groupId>
-          <artifactId>myfaces-extcdi-jee5-openwebbeans-support</artifactId>
-          <version>${myfaces-extcdi.version}</version>
-          <scope>runtime</scope>
-        </dependency>
-
         <!-- for JSF 2.0 and Bean Validation (JSR-303)  -->
         <dependency>
           <groupId>javax.el</groupId>
@@ -530,14 +487,6 @@
           <groupId>org.apache.openwebbeans</groupId>
           <artifactId>openwebbeans-resource</artifactId>
           <version>${openwebbeans.version}</version>
-        </dependency>
-
-        <!-- Codi for JavaEE5 -->
-        <dependency>
-          <groupId>org.apache.myfaces.extensions.cdi.modules.jee5-support</groupId>
-          <artifactId>myfaces-extcdi-jee5-openwebbeans-support</artifactId>
-          <version>${myfaces-extcdi.version}</version>
-          <scope>runtime</scope>
         </dependency>
 
         <!-- for JSF 2.0 and Bean Validation (JSR-303)  -->
@@ -606,14 +555,6 @@
           <version>${openwebbeans.version}</version>
         </dependency>
 
-        <!-- Codi for JavaEE5 -->
-        <dependency>
-          <groupId>org.apache.myfaces.extensions.cdi.modules.jee5-support</groupId>
-          <artifactId>myfaces-extcdi-jee5-openwebbeans-support</artifactId>
-          <version>${myfaces-extcdi.version}</version>
-          <scope>runtime</scope>
-        </dependency>
-
         <!-- for JSF 2.0 and Bean Validation (JSR-303)  -->
         <dependency>
           <groupId>javax.el</groupId>
@@ -678,14 +619,6 @@
           <groupId>org.apache.openwebbeans</groupId>
           <artifactId>openwebbeans-resource</artifactId>
           <version>${openwebbeans.version}</version>
-        </dependency>
-
-        <!-- Codi for JavaEE5 -->
-        <dependency>
-          <groupId>org.apache.myfaces.extensions.cdi.modules.jee5-support</groupId>
-          <artifactId>myfaces-extcdi-jee5-openwebbeans-support</artifactId>
-          <version>${myfaces-extcdi.version}</version>
-          <scope>runtime</scope>
         </dependency>
 
         <!-- for JSF 2.0 and Bean Validation (JSR-303)  -->

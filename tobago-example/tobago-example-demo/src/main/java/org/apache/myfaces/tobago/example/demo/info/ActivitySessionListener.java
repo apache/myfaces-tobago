@@ -19,7 +19,7 @@
 
 package org.apache.myfaces.tobago.example.demo.info;
 
-import org.apache.myfaces.extensions.cdi.core.api.provider.BeanManagerProvider;
+import org.apache.deltaspike.core.api.provider.BeanProvider;
 
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionEvent;
@@ -29,14 +29,14 @@ public class ActivitySessionListener implements HttpSessionListener {
 
   public void sessionCreated(final HttpSessionEvent event) {
     final HttpSession session = event.getSession();
-    final ActivityList activityList = BeanManagerProvider.getInstance().getContextualReference(ActivityList.class);
+    final ActivityList activityList = BeanProvider.getContextualReference(ActivityList.class);
 
     activityList.add(new Activity(session));
   }
 
   public void sessionDestroyed(final HttpSessionEvent event) {
     final HttpSession session = event.getSession();
-    final ActivityList activityList = BeanManagerProvider.getInstance().getContextualReference(ActivityList.class);
+    final ActivityList activityList = BeanProvider.getContextualReference(ActivityList.class);
 
     activityList.remove(session.getId());
   }
