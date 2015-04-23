@@ -266,14 +266,12 @@
                 </plugin>
           -->
           <plugin>
-            <groupId>org.mortbay.jetty</groupId>
+            <groupId>org.eclipse.jetty</groupId>
             <artifactId>jetty-maven-plugin</artifactId>
             <configuration>
-              <connectors>
-                <connector implementation="org.eclipse.jetty.server.nio.SelectChannelConnector">
-                  <port>8080</port>
-                </connector>
-              </connectors>
+              <httpConnector>
+                <port>8080</port>
+              </httpConnector>
               <stopKey>stopKey</stopKey>
               <stopPort>9999</stopPort>
             </configuration>
@@ -282,7 +280,7 @@
                 <id>start-jetty</id>
                 <phase>pre-integration-test</phase>
                 <goals>
-                  <goal>run-exploded</goal>
+                  <goal>deploy-war</goal>
                 </goals>
                 <configuration>
                   <daemon>true</daemon>

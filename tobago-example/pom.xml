@@ -38,21 +38,20 @@
         <artifactId>tomcat-maven-plugin</artifactId>
       </plugin>
       <plugin>
-        <groupId>org.mortbay.jetty</groupId>
+        <groupId>org.eclipse.jetty</groupId>
         <artifactId>jetty-maven-plugin</artifactId>
           <configuration>
+            <!-- use this to change the context path: -->
 <!--
             <webApp>
               <contextPath>/example</contextPath>
             </webApp>
 -->
-            <!-- use this to change the port-->
+            <!-- use this to change the port: -->
 <!--
-            <connectors>
-              <connector implementation="org.eclipse.jetty.server.nio.SelectChannelConnector">
-                <port>7080</port>
-              </connector>
-            </connectors>
+            <httpConnector>
+              <port>7080</port>
+            </httpConnector>
 -->
           </configuration>
       </plugin>
@@ -74,15 +73,9 @@
     <pluginManagement>
       <plugins>
         <plugin>
-          <groupId>org.mortbay.jetty</groupId>
+          <groupId>org.eclipse.jetty</groupId>
           <artifactId>jetty-maven-plugin</artifactId>
-          <version>7.6.15.v20140411</version>
-          <!--
-          <version>8.1.15.v20140411</version>
-          This only works with modifications,
-          see http://jsflive.wordpress.com/2012/08/19/jsf-2-on-jetty-8/
-          or Tobago 3.0.x
-          -->
+          <version>9.3.0.M2</version>
           <configuration>
             <scanIntervalSeconds>5</scanIntervalSeconds>
           </configuration>
@@ -142,39 +135,6 @@
         <module>tobago-example-demo</module>
         <module>tobago-example-assembly</module>
       </modules>
-    </profile>
-
-    <profile>
-      <id>ssl</id>
-      <!--
-       Use
-
-         mvn -P ssl jetty:run
-
-       to run the jetty using https, this should work in every example. But need to have the parent example folder
-       checked out.
-       -->
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.mortbay.jetty</groupId>
-            <artifactId>jetty-maven-plugin</artifactId>
-            <configuration>
-              <connectors>
-                <connector implementation="org.eclipse.jetty.server.ssl.SslSocketConnector">
-                  <port>1443</port>
-                  <maxIdleTime>30000</maxIdleTime>
-                  <keystore>../src/test/resources/jettykeystore</keystore>
-                  <password>xxxxxx</password>
-                  <keyPassword>xxxxxx</keyPassword>
-                </connector>
-              </connectors>
-              <stopKey>stopKey</stopKey>
-              <stopPort>9999</stopPort>
-            </configuration>
-          </plugin>
-        </plugins>
-      </build>
     </profile>
 
     <profile>
