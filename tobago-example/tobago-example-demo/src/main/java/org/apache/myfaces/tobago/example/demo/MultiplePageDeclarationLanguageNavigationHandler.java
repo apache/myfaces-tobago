@@ -81,9 +81,14 @@ public class MultiplePageDeclarationLanguageNavigationHandler extends Navigation
       facesContext.setViewRoot(viewRoot);
       final ExternalContext externalContext = facesContext.getExternalContext();
       try {
+        final String baseUrl = externalContext.getRequestContextPath() + "/faces" + outcome;
+/*
+        Change this, when changing the <url-pattern> in web.xml
+        final String baseUrl = externalContext.getRequestContextPath() + outcome.replaceAll("xhtml", "jsf");
+*/
         externalContext.redirect(
-            externalContext.encodeRedirectURL(externalContext.getRequestContextPath() + "/faces" + outcome,
-            Collections.<String, List<String>>emptyMap()));
+            externalContext.encodeRedirectURL(baseUrl, Collections.<String, List<String>>emptyMap()));
+
       } catch (final IOException e) {
         // not nice?
         facesContext.renderResponse();

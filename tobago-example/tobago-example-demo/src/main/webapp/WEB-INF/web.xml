@@ -139,6 +139,8 @@
   <servlet-mapping>
     <servlet-name>FacesServlet</servlet-name>
     <url-pattern>/faces/*</url-pattern>
+    <!-- if changing this, also change MultiplePageDeclarationLanguageNavigationHandler -->
+    <!-- <url-pattern>*.jsf</url-pattern> -->
   </servlet-mapping>
 
   <!-- ResourceServlet -->
