@@ -115,15 +115,20 @@ public class SplitLayoutRenderer extends GridLayoutRenderer {
     final LayoutComponent firstComponent = container.getComponents().get(0);
     final LayoutComponent secondComponent = container.getComponents().get(1);
 
+    Measure minimum;
     if (AbstractUISplitLayout.HORIZONTAL.equals(layout.getOrientation())) {
-      final int minimumSize1 = firstComponent.getMinimumWidth().getPixel();
-      final int minimumSize2 = secondComponent.getMinimumWidth().getPixel();
+      minimum = firstComponent.getMinimumWidth();
+      final int minimumSize1 = minimum != null ? minimum.getPixel() : 0;
+      minimum = secondComponent.getMinimumWidth();
+      final int minimumSize2 = minimum != null ? minimum.getPixel() : 0;
       final int totalSize = container.getCurrentWidth().getPixel();
       return new StringBuilder("[").append(minimumSize1).append(", 0, ").append(totalSize-minimumSize2).append(", 0]")
           .toString();
     } else {
-      final int minimumSize1 = firstComponent.getMinimumHeight().getPixel();
-      final int minimumSize2 = secondComponent.getMinimumHeight().getPixel();
+      minimum = firstComponent.getMinimumHeight();
+      final int minimumSize1 = minimum != null ? minimum.getPixel() : 0;
+      minimum = secondComponent.getMinimumHeight();
+      final int minimumSize2 = minimum != null ? minimum.getPixel() : 0;
       final int totalSize = container.getCurrentHeight().getPixel();
       return new StringBuilder("[0, ").append(minimumSize1).append(", 0, ").append(totalSize-minimumSize2).append("]")
           .toString();
