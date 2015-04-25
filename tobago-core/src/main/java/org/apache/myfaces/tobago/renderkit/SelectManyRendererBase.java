@@ -105,14 +105,14 @@ public class SelectManyRendererBase extends LayoutComponentRendererBase {
 
   // #################################################################################################################
   // #################################################################################################################
-  // ###  The following methods and classes are copied from myfaces api 2.0.21,
+  // ###  The following methods and classes are copied from myfaces api 2.2.8,
   // ###  slightly modified to compile in this context.
   // ###  We copy this to avoid the dependency
   // #################################################################################################################
   // #################################################################################################################
 
   // #################################################################################################################
-  // ### BEGIN copy out of https://svn.apache.org/repos/asf/myfaces/core/tags/myfaces-core-module-2.0.21/
+  // ### BEGIN copy out of https://svn.apache.org/repos/asf/myfaces/core/tags/myfaces-core-module-2.2.8/
   // ###     api/src/main/java/javax/faces/component/_SharedRendererUtils.java
   // #################################################################################################################
   static final String COLLECTION_TYPE_KEY = "collectionType";
@@ -187,12 +187,11 @@ public class SelectManyRendererBase extends LayoutComponentRendererBase {
           converter = facesContext.getApplication().createConverter(
               componentType);
 
-          if (converter == null)
+                    if (converter == null && !Object.class.equals(componentType))
           {
             // could not obtain a Converter
             // --> check if we maybe do not really have to convert
-            if (!Object.class.equals(componentType))
-            {
+
               // target is not an Object array
               // and not a String array (checked some lines above)
               // and we do not have a Converter
@@ -201,7 +200,6 @@ public class SelectManyRendererBase extends LayoutComponentRendererBase {
                   + componentType.getName());
             }
           }
-        }
         // instantiate the array
         targetForConvertedValues = Array.newInstance(componentType,
             submittedValue.length);
@@ -510,12 +508,12 @@ public class SelectManyRendererBase extends LayoutComponentRendererBase {
     return converter;
   }
   // #################################################################################################################
-  // ### END copy out of https://svn.apache.org/repos/asf/myfaces/core/tags/myfaces-core-module-2.0.21/
+  // ### END copy out of https://svn.apache.org/repos/asf/myfaces/core/tags/myfaces-core-module-2.2.8/
   // ###     api/src/main/java/javax/faces/component/_SharedRendererUtils.java
   // #################################################################################################################
 
   // #################################################################################################################
-  // ### BEGIN copy out of https://svn.apache.org/repos/asf/myfaces/core/tags/myfaces-core-module-2.0.21/
+  // ### BEGIN copy out of https://svn.apache.org/repos/asf/myfaces/core/tags/myfaces-core-module-2.2.8/
   // ###     api/src/main/java/javax/faces/component/_ComponentUtils.java
   // #################################################################################################################
   static String getPathToComponent(UIComponent component)
@@ -540,7 +538,9 @@ public class SelectManyRendererBase extends LayoutComponentRendererBase {
   private static void getPathToComponent(UIComponent component, StringBuffer buf)
   {
     if (component == null)
+        {
       return;
+        }
 
     StringBuffer intBuf = new StringBuffer();
 
@@ -563,12 +563,12 @@ public class SelectManyRendererBase extends LayoutComponentRendererBase {
     getPathToComponent(component.getParent(), buf);
   }
   // #################################################################################################################
-  // ### END copy out of https://svn.apache.org/repos/asf/myfaces/core/tags/myfaces-core-module-2.0.21/
+  // ### END copy out of https://svn.apache.org/repos/asf/myfaces/core/tags/myfaces-core-module-2.2.8/
   // ###     api/src/main/java/javax/faces/component/_ComponentUtils.java
   // #################################################################################################################
 
   // #################################################################################################################
-  // ### BEGIN copy out of https://svn.apache.org/repos/asf/myfaces/core/tags/myfaces-core-module-2.0.21/
+  // ### BEGIN copy out of https://svn.apache.org/repos/asf/myfaces/core/tags/myfaces-core-module-2.2.8/
   // ###     api/src/main/java/javax/faces/component/_SelectItemsIterator.java
   // #################################################################################################################
   private static class _SelectItemsIterator  implements Iterator<SelectItem>{
@@ -585,14 +585,17 @@ public class SelectManyRendererBase extends LayoutComponentRendererBase {
     private static final String NO_SELECTION_VALUE_ATTR = "noSelectionValue";
 
     private final Iterator<UIComponent> _children;
-    private Iterator<? extends Object> _nestedItems;
+    private Iterator<?> _nestedItems;
     private SelectItem _nextItem;
+    private UIComponent _currentComponent;
     private UISelectItems _currentUISelectItems;
     private FacesContext _facesContext;
 
     public _SelectItemsIterator(UIComponent selectItemsParent, FacesContext facesContext)
     {
-      _children = selectItemsParent.getChildCount() > 0 ? selectItemsParent.getChildren().iterator() : _EMPTY_UICOMPONENT_ITERATOR;
+        _children = selectItemsParent.getChildCount() > 0
+                        ? selectItemsParent.getChildren().iterator()
+                        : _EMPTY_UICOMPONENT_ITERATOR;
       _facesContext = facesContext;
     }
 
@@ -610,6 +613,7 @@ public class SelectManyRendererBase extends LayoutComponentRendererBase {
           return true;
         }
         _nestedItems = null;
+            _currentComponent = null;
       }
       if (_children.hasNext())
       {
@@ -662,12 +666,14 @@ public class SelectManyRendererBase extends LayoutComponentRendererBase {
                                                + getPathToComponent(child) + " does not reference an Object of type SelectItem");
           }
           _nextItem = (SelectItem) item;
+                _currentComponent = child;
           return true;
         }
         else if (child instanceof UISelectItems)
         {
           _currentUISelectItems = ((UISelectItems) child);
           Object value = _currentUISelectItems.getValue();
+                _currentComponent = child;
 
           if (value instanceof SelectItem)
           {
@@ -678,7 +684,7 @@ public class SelectManyRendererBase extends LayoutComponentRendererBase {
           {
             // value is any kind of array (primitive or non-primitive)
             // --> we have to use class Array to get the values
-            final int length = Array.getLength(value);
+                    int length = Array.getLength(value);
             Collection<Object> items = new ArrayList<Object>(length);
             for (int i = 0; i < length; i++)
             {
@@ -727,6 +733,10 @@ public class SelectManyRendererBase extends LayoutComponentRendererBase {
             }
           }
         }
+        else
+        {
+          _currentComponent = null;
+        }
       }
       return false;
     }
@@ -757,7 +767,7 @@ public class SelectManyRendererBase extends LayoutComponentRendererBase {
           // write the current item into the request map under the key listed in var, if available
           boolean wroteRequestMapVarValue = false;
           Object oldRequestMapVarValue = null;
-          final String var = (String) attributeMap.get(VAR_ATTR);
+                String var = (String) attributeMap.get(VAR_ATTR);
           if(var != null && !"".equals(var))
           {
             // save the current value of the key listed in var from the request map
@@ -824,6 +834,11 @@ public class SelectManyRendererBase extends LayoutComponentRendererBase {
     public void remove()
     {
       throw new UnsupportedOperationException();
+    }
+
+    public UIComponent getCurrentComponent()
+    {
+        return _currentComponent;
     }
 
     private boolean getBooleanAttribute(UIComponent component, String attrName, boolean defaultValue)
@@ -894,12 +909,12 @@ public class SelectManyRendererBase extends LayoutComponentRendererBase {
     }
   }
   // #################################################################################################################
-  // ### END copy out of https://svn.apache.org/repos/asf/myfaces/core/tags/myfaces-core-module-2.0.21/
+  // ### END copy out of https://svn.apache.org/repos/asf/myfaces/core/tags/myfaces-core-module-2.2.8/
   // ###     api/src/main/java/javax/faces/component/_SelectItemsIterator.java
   // #################################################################################################################
 
   // #################################################################################################################
-  // ### BEGIN copy out of https://svn.apache.org/repos/asf/myfaces/core/tags/myfaces-core-module-2.0.21/
+  // ### BEGIN copy out of https://svn.apache.org/repos/asf/myfaces/core/tags/myfaces-core-module-2.2.8/
   // ###     api/src/main/java/javax/faces/component/_EmptyIterator.java
   // #################################################################################################################
   private static class _EmptyIterator<T> implements Iterator<T> {
@@ -920,7 +935,7 @@ public class SelectManyRendererBase extends LayoutComponentRendererBase {
     }
   }
   // #################################################################################################################
-  // ### END copy out of https://svn.apache.org/repos/asf/myfaces/core/tags/myfaces-core-module-2.0.21/
+  // ### END copy out of https://svn.apache.org/repos/asf/myfaces/core/tags/myfaces-core-module-2.2.8/
   // ###     api/src/main/java/javax/faces/component/_EmptyIterator.java
   // #################################################################################################################
 }
