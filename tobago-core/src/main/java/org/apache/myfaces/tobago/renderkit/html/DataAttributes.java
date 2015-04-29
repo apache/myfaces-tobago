@@ -233,6 +233,8 @@ public final class DataAttributes {
 
   public static final String TO_PAGE = "data-tobago-to-page";
 
+  public static final String TOGGLE = "data-toggle";
+
   public static final String TRANSITION = "data-tobago-transition";
 
   /**

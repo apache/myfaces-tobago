@@ -20,15 +20,13 @@
 package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.myfaces.tobago.component.SupportsMarkup;
-import org.apache.myfaces.tobago.layout.LayoutComponent;
-import org.apache.myfaces.tobago.layout.LayoutContainer;
 import org.apache.myfaces.tobago.layout.LayoutManager;
-import org.apache.myfaces.tobago.layout.Orientation;
 
 public abstract class AbstractUIFlowLayout extends AbstractUILayoutBase implements LayoutManager, SupportsMarkup {
 
   public static final String COMPONENT_FAMILY = "org.apache.myfaces.tobago.FlowLayout";
 
+/*
   public void init() {
     for (final LayoutComponent component : getLayoutContainer().getComponents()) {
       if (component instanceof LayoutContainer && component.isRendered()) {
@@ -37,7 +35,6 @@ public abstract class AbstractUIFlowLayout extends AbstractUILayoutBase implemen
     }
   }
 
-/*
   public void fixRelativeInsideAuto(final Orientation orientation, final boolean auto) {
   }
 

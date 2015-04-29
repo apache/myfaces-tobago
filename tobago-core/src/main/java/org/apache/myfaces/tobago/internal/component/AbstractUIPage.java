@@ -21,11 +21,9 @@ package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.myfaces.tobago.ajax.AjaxUtils;
 import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.component.ComponentTypes;
 import org.apache.myfaces.tobago.component.DeprecatedDimension;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.OnComponentPopulated;
-import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.ajax.AjaxInternalUtils;
 import org.apache.myfaces.tobago.internal.ajax.AjaxResponseRenderer;
 import org.apache.myfaces.tobago.internal.layout.LayoutUtils;
@@ -41,7 +39,6 @@ import org.apache.myfaces.tobago.model.PageState;
 import org.apache.myfaces.tobago.model.PageStateImpl;
 import org.apache.myfaces.tobago.util.ApplyRequestValuesCallback;
 import org.apache.myfaces.tobago.util.ComponentUtils;
-import org.apache.myfaces.tobago.util.CreateComponentUtils;
 import org.apache.myfaces.tobago.util.DebugUtils;
 import org.apache.myfaces.tobago.util.FacesVersion;
 import org.apache.myfaces.tobago.util.ProcessValidationsCallback;
@@ -99,7 +96,10 @@ public abstract class AbstractUIPage extends AbstractUIForm
   public void encodeBegin(final FacesContext facesContext) throws IOException {
     if (!AjaxUtils.isAjaxRequest(facesContext)) {
       super.encodeBegin(facesContext);
-      ((AbstractUILayoutBase) getLayoutManager()).encodeBegin(facesContext);
+      final AbstractUILayoutBase layoutManager = (AbstractUILayoutBase) getLayoutManager();
+      if (layoutManager != null) {
+        layoutManager.encodeBegin(facesContext);
+      }
     }
   }
 
@@ -108,14 +108,22 @@ public abstract class AbstractUIPage extends AbstractUIForm
     if (AjaxUtils.isAjaxRequest(facesContext)) {
       new AjaxResponseRenderer().renderResponse(facesContext);
     } else {
-      ((AbstractUILayoutBase) getLayoutManager()).encodeChildren(facesContext);
+      final AbstractUILayoutBase layoutManager = (AbstractUILayoutBase) getLayoutManager();
+      if (layoutManager != null) {
+        layoutManager.encodeChildren(facesContext);
+      } else {
+        super.encodeChildren(facesContext);
+      }
     }
   }
 
   @Override
   public void encodeEnd(final FacesContext facesContext) throws IOException {
     if (!AjaxUtils.isAjaxRequest(facesContext)) {
-      ((AbstractUILayoutBase) getLayoutManager()).encodeEnd(facesContext);
+      final AbstractUILayoutBase layoutManager = (AbstractUILayoutBase) getLayoutManager();
+      if (layoutManager != null) {
+        layoutManager.encodeEnd(facesContext);
+      }
       super.encodeEnd(facesContext);
     }
     if (LOG.isTraceEnabled()) {
@@ -365,10 +373,12 @@ public abstract class AbstractUIPage extends AbstractUIForm
   }
 
   public void onComponentPopulated(final FacesContext facesContext, final UIComponent parent) {
+/*
     if (getLayoutManager() == null) {
       setLayoutManager(CreateComponentUtils.createAndInitLayout(
           facesContext, ComponentTypes.GRID_LAYOUT, RendererTypes.GRID_LAYOUT, parent));
     }
+*/
   }
 
   public List<LayoutComponent> getComponents() {

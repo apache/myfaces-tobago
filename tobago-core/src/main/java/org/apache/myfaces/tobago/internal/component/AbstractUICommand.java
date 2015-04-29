@@ -38,6 +38,9 @@ public abstract class AbstractUICommand
     extends UICommand
     implements SupportsRenderedPartially, SupportsAccessKey, OnComponentPopulated, LayoutComponent {
 
+  // todo: transient
+  private Boolean parentOfCommands;
+
   public void onComponentPopulated(final FacesContext facesContext, final UIComponent parent) {
     final AbstractUIPopup popup = (AbstractUIPopup) getFacet(Facets.POPUP);
     if (popup != null) {
@@ -82,6 +85,19 @@ public abstract class AbstractUICommand
         facesEvent.setPhaseId(PhaseId.INVOKE_APPLICATION);
       }
     }
+  }
+
+  public boolean isParentOfCommands() {
+    if (parentOfCommands == null) {
+      parentOfCommands = false;
+      for (UIComponent child : getChildren()) {
+        if (child instanceof UICommand) {
+          parentOfCommands = true;
+          break;
+        }
+      }
+    }
+    return parentOfCommands;
   }
 
   public abstract String getLabel();

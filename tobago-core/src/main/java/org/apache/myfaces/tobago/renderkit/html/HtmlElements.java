@@ -32,6 +32,7 @@ public final class HtmlElements {
   public static final String COLGROUP = "colgroup";
   public static final String DIV = "div";
   public static final String FIELDSET = "fieldset";
+  public static final String FOOTER = "footer";
   public static final String FORM = "form";
   public static final String H1 = "h1";
   public static final String H2 = "h2";
@@ -40,6 +41,7 @@ public final class HtmlElements {
   public static final String H5 = "h5";
   public static final String H6 = "h6";
   public static final String HEAD = "head";
+  public static final String HEADER = "header";
   public static final String HR = "hr";
   public static final String HTML = "html";
   public static final String IFRAME = "iframe";

@@ -604,16 +604,6 @@ public abstract class AbstractUISheet extends AbstractUIData
   }
 
   public void onComponentPopulated(final FacesContext facesContext, final UIComponent parent) {
-    if (getLayoutManager() instanceof AbstractUIGridLayout) {
-      // ugly, but it seems that some old pages have this problem
-      LOG.warn("Found a GridLayout as layout facet in sheet. Will be ignored! Please remove it."
-          + " The id of the sheet is: '" + getClientId(facesContext) + "'");
-      getFacets().remove(Facets.LAYOUT);
-    }
-    if (getLayoutManager() == null) {
-      setLayoutManager(CreateComponentUtils.createAndInitLayout(
-          facesContext, ComponentTypes.SHEET_LAYOUT, RendererTypes.SHEET_LAYOUT, parent));
-    }
   }
 
   public LayoutManager getLayoutManager() {

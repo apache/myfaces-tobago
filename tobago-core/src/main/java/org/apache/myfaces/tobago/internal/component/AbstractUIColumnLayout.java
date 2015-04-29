@@ -21,8 +21,6 @@ package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.myfaces.tobago.component.SupportsMarkup;
 import org.apache.myfaces.tobago.layout.ColumnPartition;
-import org.apache.myfaces.tobago.layout.LayoutComponent;
-import org.apache.myfaces.tobago.layout.LayoutContainer;
 import org.apache.myfaces.tobago.layout.LayoutManager;
 
 /**
@@ -32,6 +30,7 @@ public abstract class AbstractUIColumnLayout extends AbstractUILayoutBase implem
 
   public static final String COMPONENT_FAMILY = "org.apache.myfaces.tobago.BootstrapLayout";
 
+/*
   public void init() {
     for (final LayoutComponent component : getLayoutContainer().getComponents()) {
       if (component instanceof LayoutContainer && component.isRendered()) {
@@ -40,7 +39,6 @@ public abstract class AbstractUIColumnLayout extends AbstractUILayoutBase implem
     }
   }
 
-/*
   public void fixRelativeInsideAuto(final Orientation orientation, final boolean auto) {
   }
 

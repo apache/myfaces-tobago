@@ -133,6 +133,10 @@ function setLength2(banks, i, css, length) {
 }
 
 function layoutFlex(container, horizontal) {
+
+  // todo: modernizr
+  // if (!Modernizr.flexbox && !Modernizr.flexboxtweener) ... do other
+
   var cells;
   var banks;
   var tokens;
@@ -157,7 +161,13 @@ function layoutFlex(container, horizontal) {
         case "number":
           // a relative value
           // todo: check for "any other" (non-layout) elements
-          container.children().eq(i).css("flex", tokens[i] + " 0 0"); // todo: modernizr
+          var flex = "flex";
+          if (Tobago.browser.isMsie678910) { // todo: modernizr
+            flex = "-ms-flex";
+          }
+          // using "0px" and not "0", because IE11 needs the "px"
+          //container.children().eq(i).css(Modernizr.prefixed("flex"), tokens[i] + " 0 0px");  // todo: modernizr
+          container.children().eq(i).css(flex, tokens[i] + " 0 0px");
           break;
         case "string":
           // a string, currently only "auto" is supported

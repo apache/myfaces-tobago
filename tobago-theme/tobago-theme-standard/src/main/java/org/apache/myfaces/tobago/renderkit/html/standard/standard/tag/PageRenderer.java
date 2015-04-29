@@ -34,7 +34,6 @@ import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.context.Theme;
 import org.apache.myfaces.tobago.internal.ajax.AjaxInternalUtils;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPage;
-import org.apache.myfaces.tobago.internal.layout.LayoutContext;
 import org.apache.myfaces.tobago.internal.util.AccessKeyLogger;
 import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
 import org.apache.myfaces.tobago.internal.util.MimeTypeUtils;
@@ -44,13 +43,11 @@ import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.portlet.PortletUtils;
 import org.apache.myfaces.tobago.renderkit.PageRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
-import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
-import org.apache.myfaces.tobago.renderkit.html.HtmlRoleValues;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.EncodeUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
@@ -112,8 +109,6 @@ public class PageRenderer extends PageRendererBase {
     // invoke prepareRender
     EncodeUtils.prepareRendererAll(facesContext, page);
 
-    final LayoutContext layoutContext = new LayoutContext(page);
-    layoutContext.layout();
     if (FacesContextUtils.getFocusId(facesContext) == null && !StringUtils.isBlank(page.getFocusId())) {
       FacesContextUtils.setFocusId(facesContext, page.getFocusId());
     }
@@ -355,6 +350,7 @@ public class PageRenderer extends PageRendererBase {
 
 //    page.encodeLayoutBegin(facesContext);
 
+/*
     writer.startElement(HtmlElements.DIV, page);
     if (portlet) {
       writer.writeClassAttribute(Classes.create(page, "content", Markup.PORTLET));
@@ -370,10 +366,12 @@ public class PageRenderer extends PageRendererBase {
     style.setHeight(page.getCurrentHeight().subtract(border));
     style.setTop(border);
     writer.writeStyleAttribute(style);
+*/
   }
 
   protected void encodePageMenu(FacesContext facesContext, UIPage page) throws IOException {
 
+/*
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
     writer.startElement(HtmlElements.NAV, null);
@@ -396,6 +394,7 @@ public class PageRenderer extends PageRendererBase {
     writer.endElement(HtmlElements.DIV);
 
     writer.endElement(HtmlElements.NAV);
+*/
   }
 
 
@@ -436,7 +435,9 @@ public class PageRenderer extends PageRendererBase {
     final UIPage page = (UIPage) component;
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
+/*
     writer.endElement(HtmlElements.DIV);
+*/
 
     // write popup components
     // beware of ConcurrentModificationException in cascading popups!

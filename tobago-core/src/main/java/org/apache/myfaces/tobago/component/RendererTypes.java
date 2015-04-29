@@ -40,8 +40,10 @@ public final class RendererTypes {
   public static final String FILE = "File";
   public static final String FLEX_LAYOUT = "FlexLayout";
   public static final String FLOW_LAYOUT = "FlowLayout";
+  public static final String FOOTER = "Footer";
   public static final String FORM = "Form";
   public static final String GRID_LAYOUT = "GridLayout";
+  public static final String HEADER = "Header";
   public static final String HIDDEN = "Hidden";
   public static final String IN = "In";
   public static final String IMAGE = "Image";
@@ -53,6 +55,7 @@ public final class RendererTypes {
   public static final String MENU_BAR = "MenuBar";
   public static final String MENU_COMMAND = "MenuCommand";
   public static final String MENU_SEPARATOR = "MenuSeparator";
+  public static final String NAV = "Nav";
   public static final String OBJECT = "Object";
   public static final String OUT = "Out";
   public static final String PAGE = "Page";

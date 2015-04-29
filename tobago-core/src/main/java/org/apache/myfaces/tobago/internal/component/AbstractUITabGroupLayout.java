@@ -19,8 +19,6 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
-import org.apache.myfaces.tobago.layout.LayoutComponent;
-import org.apache.myfaces.tobago.layout.LayoutContainer;
 import org.apache.myfaces.tobago.layout.LayoutManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,6 +30,7 @@ public abstract class AbstractUITabGroupLayout extends AbstractUILayoutBase impl
   private boolean horizontalAuto;
   private boolean verticalAuto;
 
+/*
   public void init() {
     for (final LayoutComponent component : getLayoutContainer().getComponents()) {
       if (component instanceof LayoutContainer && component.isRendered()) {
@@ -40,7 +39,6 @@ public abstract class AbstractUITabGroupLayout extends AbstractUILayoutBase impl
     }
   }
 
-/*
   public void fixRelativeInsideAuto(final Orientation orientation, final boolean auto) {
 
     if (orientation == Orientation.HORIZONTAL) {

@@ -25,7 +25,6 @@ import org.apache.myfaces.tobago.internal.layout.OriginCell;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.layout.AutoLayoutToken;
 import org.apache.myfaces.tobago.layout.LayoutComponent;
-import org.apache.myfaces.tobago.layout.LayoutContainer;
 import org.apache.myfaces.tobago.layout.LayoutManager;
 import org.apache.myfaces.tobago.layout.LayoutToken;
 import org.apache.myfaces.tobago.layout.LayoutTokens;
@@ -54,6 +53,7 @@ public abstract class AbstractUISheetLayout extends AbstractUILayoutBase impleme
   private boolean verticalAuto;
 */
 
+/*
   public void init() {
 
     layoutHeader();
@@ -65,7 +65,6 @@ public abstract class AbstractUISheetLayout extends AbstractUILayoutBase impleme
     }
   }
 
-/*
   public void fixRelativeInsideAuto(final Orientation orientation, final boolean auto) {
 
     if (orientation == Orientation.HORIZONTAL) {

@@ -20,20 +20,17 @@
 package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.component.ComponentTypes;
 import org.apache.myfaces.tobago.component.DeprecatedDimension;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.OnComponentCreated;
 import org.apache.myfaces.tobago.component.OnComponentPopulated;
 import org.apache.myfaces.tobago.component.Position;
-import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.layout.LayoutUtils;
 import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
 import org.apache.myfaces.tobago.layout.LayoutComponent;
 import org.apache.myfaces.tobago.layout.LayoutContainer;
 import org.apache.myfaces.tobago.layout.LayoutManager;
 import org.apache.myfaces.tobago.layout.Measure;
-import org.apache.myfaces.tobago.util.CreateComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -69,11 +66,13 @@ public abstract class AbstractUIPopup extends AbstractUIPanel
   }
 
   public void onComponentPopulated(final FacesContext facesContext, final UIComponent parent) {
+/*
     if (getLayoutManager() == null) {
       final AbstractUIGridLayout layoutManager = (AbstractUIGridLayout) CreateComponentUtils.createAndInitLayout(
           facesContext, ComponentTypes.GRID_LAYOUT, RendererTypes.GRID_LAYOUT, parent);
       setLayoutManager(layoutManager);
     }
+*/
   }
 
   public List<LayoutComponent> getComponents() {

@@ -23,12 +23,15 @@
 /* flexLayout -------------------------------------------------------------- */
 
 .tobago-flexLayout {
-    display: -webkit-flex; /* needed e.g. for 8.0.2 */
+    display: -webkit-flex; /* needed e.g. for Safari 8.0.2 */
+    display: -ms-flexbox; /* needed for IE 10 */
     display: flex;
 }
 
 .tobago-flexLayout-markup-vertically {
     flex-direction: column;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
 }
 
 .tobago-flexLayout > .tobago-date,
@@ -75,7 +78,7 @@ table.tobago-gridLayout > tbody > tr:first-child > td {
 
 /* page ----------------------------------------------------------- */
 
-.navbar-fixed-top + .tobago-page-content {
+body > form > .navbar-fixed-top + * {
   margin-top: 70px;
 }
 

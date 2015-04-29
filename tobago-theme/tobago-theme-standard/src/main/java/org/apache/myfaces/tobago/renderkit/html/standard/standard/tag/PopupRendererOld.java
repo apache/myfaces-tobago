@@ -22,7 +22,6 @@ package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 import org.apache.myfaces.tobago.component.UIPopup;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPage;
-import org.apache.myfaces.tobago.internal.layout.LayoutContext;
 import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
@@ -67,9 +66,6 @@ public class PopupRendererOld extends LayoutComponentRendererBase {
 
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
     final UIPopup popup = (UIPopup) component;
-
-    final LayoutContext layoutContext = new LayoutContext(popup);
-    layoutContext.layout();
 
     // XXX fixing invisible popups
     if (popup.getCurrentWidth() == null || popup.getCurrentWidth().equals(Measure.ZERO)) {

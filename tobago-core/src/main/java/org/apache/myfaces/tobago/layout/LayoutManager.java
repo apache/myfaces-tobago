@@ -23,9 +23,9 @@ import org.apache.myfaces.tobago.config.Configurable;
 
 public interface LayoutManager extends Configurable {
 
+/*
   void init();
 
-/*
   void fixRelativeInsideAuto(Orientation orientation, boolean auto);
 
   void preProcessing(Orientation orientation);

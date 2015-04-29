@@ -35,9 +35,12 @@ public class DataAttributesUnitTest {
         continue;
       }
       final String value = (String) field.get(null);
-      Assert.assertTrue("Regexp check: value='" + value + "'", value.matches("data-tobago(-[a-z0-9]+)*-[a-z0-9]+"));
+      Assert.assertTrue("Regexp check: value='" + value + "'", value.matches("data(-tobago)?(-[a-z0-9]+)*-[a-z0-9]+"));
 
-      final String extension = value.substring("data-tobago-".length());
+      final String extension
+          = value.startsWith("data-tobago-")
+          ? value.substring("data-tobago-".length())
+          : value.substring("data-".length());
       final String name = field.getName();
       Assert.assertEquals(name, extension.toUpperCase().replaceAll("-", "_"));
     }

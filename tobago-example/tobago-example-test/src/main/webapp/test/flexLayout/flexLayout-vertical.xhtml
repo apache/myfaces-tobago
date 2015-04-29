@@ -22,15 +22,16 @@
     xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:f="http://java.sun.com/jsf/core">
 
-  <tc:page id="page">
+  <tc:page id="page" >
+    <tc:gridLayoutConstraint height="500px"/>
     <f:facet name="layout">
-      <tc:flexLayout columns="*;auto;100px;2*"/>
+      <tc:flexLayout rows="*;auto;100px;2*"/>
     </f:facet>
 
-    <tc:textarea value="Left 1*"/>
+    <tc:textarea value="Top 1*"/>
     <tc:image value="pidgeon-point.jpg"/>
     <tc:textarea value="100px"/>
-    <tc:textarea value="Right 2*"/>
+    <tc:textarea value="Bottom 2*"/>
 
   </tc:page>
 </f:view>

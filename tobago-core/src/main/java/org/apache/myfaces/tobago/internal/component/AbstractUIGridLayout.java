@@ -64,9 +64,11 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase implemen
       if (LOG.isDebugEnabled()) {
         LOG.debug("\n" + grid);
       }
+/*
       if (component instanceof LayoutContainer && (component.isRendered() || isRigid())) {
         ((LayoutContainer) component).getLayoutManager().init();
       }
+*/
     }
 
     grid.setColumnOverflow(isColumnOverflow());

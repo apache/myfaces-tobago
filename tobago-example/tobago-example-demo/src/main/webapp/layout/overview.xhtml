@@ -36,32 +36,42 @@
       </f:facet>
 -->
 
-      <f:facet name="menuBar">
+      <tc:header>
         <ui:include src="/menu.xhtml"/>
-      </f:facet>
+      </tc:header>
 
       <f:facet name="layout">
-        <tc:gridLayout border="0" columns="*;4*" margin="10px" rows="100px;auto;*;auto"/>
+        <tc:flexLayout rows="100px;*" />
       </f:facet>
 
       <tc:panel>
-        <tc:gridLayoutConstraint columnSpan="2"/>
         <ui:include src="/header.xhtml"/>
       </tc:panel>
 
       <tc:panel>
-        <tc:gridLayoutConstraint rowSpan="3"/>
-      <ui:include src="/navigation.xhtml"/>
-      </tc:panel>
+        <f:facet name="layout">
+          <tc:flexLayout columns="*;4*" />
+        </f:facet>
 
-      <tc:messages/>
+        <tc:panel>
+          <ui:include src="/navigation.xhtml"/>
+        </tc:panel>
 
-      <tc:box label="#{title}" id="content">
-        <ui:insert/>
-      </tc:box>
+        <tc:panel>
+          <f:facet name="layout">
+            <tc:flexLayout rows="auto;*;auto" />
+          </f:facet>
 
-      <tc:panel>
-        <ui:include src="/footer.xhtml"/>
+          <tc:messages/>
+
+          <tc:box label="#{title}" id="content">
+            <ui:insert/>
+          </tc:box>
+
+          <ui:include src="/footer.xhtml"/>
+
+        </tc:panel>
+
       </tc:panel>
 
     </tc:page>
