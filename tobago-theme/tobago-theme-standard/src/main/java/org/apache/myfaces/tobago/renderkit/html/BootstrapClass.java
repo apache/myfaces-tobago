@@ -35,6 +35,7 @@ public enum BootstrapClass implements CssItem {
   ALERT_INFO("alert-info"),
   CHECKBOX("checkbox"),
   COLLAPSE("collapse"),
+  COLLAPSED("collapsed"),
   CONTAINER("container"),
   CONTAINER_FLUID("container-fluid"),
   DISABLED("disabled"),

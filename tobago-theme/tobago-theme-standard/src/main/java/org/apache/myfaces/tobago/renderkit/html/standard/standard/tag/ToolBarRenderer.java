@@ -21,12 +21,14 @@ package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
 import org.apache.myfaces.tobago.component.UIToolBar;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
+import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlButtonTypes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRoleValues;
 import org.apache.myfaces.tobago.renderkit.html.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
+import org.apache.myfaces.tobago.renderkit.util.JQueryUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -58,12 +60,12 @@ public class ToolBarRenderer extends LayoutComponentRendererBase {
     writer.startElement(HtmlElements.BUTTON, null);
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlButtonTypes.BUTTON, false);
     writer.writeClassAttribute(BootstrapClass.NAVBAR_TOGGLE);
-    writer.writeAttribute("data-toggle", "collapse", false);
-    writer.writeAttribute("data-target", "#" + toolBar.getClientId(facesContext).replace(":", "\\:"), true);
+    writer.writeAttribute(DataAttributes.TOGGLE, "collapse", false);
+    writer.writeAttribute("data-target", JQueryUtils.escapeIdForHtml(toolBar.getClientId(facesContext)), true);
 
     writer.startElement(HtmlElements.SPAN, null);
     writer.writeClassAttribute(BootstrapClass.SR_ONLY);
-    writer.writeText("Toggle navigation");
+    writer.writeText("Toggle navigation"); // todo i18n
     writer.endElement(HtmlElements.SPAN);
 
     for (int i = 0; i < 3; i++) {
@@ -91,7 +93,8 @@ public class ToolBarRenderer extends LayoutComponentRendererBase {
       <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+          <button type="button" class="navbar-toggle"
+              data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
             <span class="sr-only">Toggle navigation</span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>

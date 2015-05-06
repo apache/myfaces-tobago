@@ -231,6 +231,8 @@ public final class DataAttributes {
 
   public static final String SUGGEST_UPDATE = "data-tobago-suggest-update";
 
+  public static final String TARGET = "data-target";
+
   public static final String TO_PAGE = "data-tobago-to-page";
 
   public static final String TOGGLE = "data-toggle";

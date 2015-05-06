@@ -22,10 +22,13 @@ package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 import org.apache.myfaces.tobago.internal.component.AbstractUIForm;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.html.BootstrapClass;
+import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
+import org.apache.myfaces.tobago.renderkit.html.HtmlButtonTypes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRoleValues;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
+import org.apache.myfaces.tobago.renderkit.util.JQueryUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
@@ -38,14 +41,20 @@ public class NavRenderer extends RendererBase {
   public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
+    final String clientId = component.getClientId(facesContext);
+    final String navbarId = clientId + "::navbar";
+
     writer.startElement(HtmlElements.NAV, null);
-    writer.writeIdAttribute(component.getClientId(facesContext));
+    writer.writeIdAttribute(clientId);
     writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.NAVIGATION.toString(), false);
 
     writer.startElement(HtmlElements.DIV, null);
     writer.writeClassAttribute(BootstrapClass.CONTAINER_FLUID);
 
+    encodeOpener(writer, navbarId);
+
     writer.startElement(HtmlElements.DIV, null);
+    writer.writeIdAttribute(navbarId);
     writer.writeClassAttribute(BootstrapClass.COLLAPSE, BootstrapClass.NAVBAR_COLLAPSE);
 // XXX   writer.writeClassAttribute(BootstrapClass.COLLAPSE, BootstrapClass.NAVBAR_COLLAPSE, BootstrapClass.NAVBAR_TEXT);
 
@@ -83,4 +92,36 @@ public class NavRenderer extends RendererBase {
     writer.endElement(HtmlElements.DIV);
     writer.endElement(HtmlElements.NAV);
   }
+
+  private void encodeOpener(TobagoResponseWriter writer, String navbarId) throws IOException {
+
+    // todo: consolidate this rendering with ToolBarRenderer
+
+    writer.startElement(HtmlElements.DIV, null);
+    writer.writeClassAttribute(BootstrapClass.NAVBAR_HEADER);
+
+    writer.startElement(HtmlElements.BUTTON, null);
+    writer.writeAttribute(HtmlAttributes.TYPE, HtmlButtonTypes.BUTTON, false);
+    writer.writeClassAttribute(BootstrapClass.NAVBAR_TOGGLE, BootstrapClass.COLLAPSED);
+    writer.writeAttribute(DataAttributes.TOGGLE, "collapse", false);
+    writer.writeAttribute(DataAttributes.TARGET, JQueryUtils.escapeIdForHtml(navbarId), true);
+    writer.writeAttribute("aria-expanded", "false", false);
+    writer.writeAttribute("aria-controls", navbarId, false);
+
+    writer.startElement(HtmlElements.SPAN, null);
+    writer.writeClassAttribute(BootstrapClass.SR_ONLY);
+    writer.writeText("Toggle navigation"); // todo: i18n
+    writer.endElement(HtmlElements.SPAN);
+
+    for (int i = 0; i < 3; i++) {
+      writer.startElement(HtmlElements.SPAN, null);
+      writer.writeClassAttribute(BootstrapClass.ICON_BAR);
+      writer.endElement(HtmlElements.SPAN);
+    }
+
+    writer.endElement(HtmlElements.BUTTON);
+
+    writer.endElement(HtmlElements.DIV);
+  }
+
 }
