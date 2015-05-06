@@ -28,7 +28,6 @@ import javax.el.ValueExpression;
 import javax.faces.FacesException;
 import javax.faces.application.ProjectStage;
 import javax.faces.component.UIComponent;
-import javax.faces.component.UIInput;
 import javax.faces.component.UISelectItem;
 import javax.faces.component.UISelectItems;
 import javax.faces.component.UISelectMany;
@@ -64,7 +63,7 @@ public class SelectManyRendererBase extends LayoutComponentRendererBase {
     if (component instanceof UISelectMany) {
       final UISelectMany uiSelectMany = (UISelectMany) component;
 
-      String[] newValues = (String[])
+      String[] newValues =
           facesContext.getExternalContext().getRequestParameterValuesMap().get(uiSelectMany.getClientId(facesContext));
       if (LOG.isDebugEnabled()) {
         LOG.debug("decode: key='" + component.getClientId(facesContext)

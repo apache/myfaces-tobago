@@ -66,7 +66,8 @@ public class ButtonRenderer extends CommandRendererBase {
         css.getCurrentCss().add("btn-default");
       }
 
-      // TODO this might be too expensive: please put a flag in the ToolBar-handler and Button-handler (facelets-handler)
+      // TODO this might be too expensive:
+      // TODO please put a flag in the ToolBar-handler and Button-handler (facelets-handler)
       if (ComponentUtils.findAncestor(component, AbstractUIToolBar.class) != null) {
         css.getCurrentCss().add("navbar-btn");
       }
@@ -105,7 +106,7 @@ public class ButtonRenderer extends CommandRendererBase {
       }
 
       if (button instanceof UIButton) {
-        final Integer tabIndex = ((UIButton)button).getTabIndex();
+        final Integer tabIndex = ((UIButton) button).getTabIndex();
         if (tabIndex != null) {
           writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
         }

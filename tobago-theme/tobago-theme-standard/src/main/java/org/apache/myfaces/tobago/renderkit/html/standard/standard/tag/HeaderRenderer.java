@@ -37,7 +37,7 @@ public class HeaderRenderer extends RendererBase {
     writer.startElement(HtmlElements.HEADER, component);
     writer.writeIdAttribute(component.getClientId(facesContext));
     writer.writeClassAttribute(BootstrapClass.NAVBAR, BootstrapClass.NAVBAR_INVERSE, BootstrapClass.NAVBAR_FIXED_TOP);
-// XXX    writer.writeClassAttribute(BootstrapClass.NAVBAR, BootstrapClass.NAVBAR_DEFAULT, BootstrapClass.NAVBAR_FIXED_TOP);
+//XXX writer.writeClassAttribute(BootstrapClass.NAVBAR, BootstrapClass.NAVBAR_DEFAULT, BootstrapClass.NAVBAR_FIXED_TOP);
   }
 
   @Override

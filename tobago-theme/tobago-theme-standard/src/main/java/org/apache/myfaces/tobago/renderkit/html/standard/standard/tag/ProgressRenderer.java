@@ -57,7 +57,7 @@ public class ProgressRenderer extends LayoutComponentRendererBase {
     Object title = progress.getAttributes().get(Attributes.TIP);
     final double percent = 100.0 * model.getValue() / diff;
     if (title == null && diff > 0) {
-      title = Integer.toString((int)percent) + " %";
+      title = Integer.toString((int) percent) + " %";
     }
 
     final Style style = new Style(facesContext, progress);

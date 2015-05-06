@@ -56,7 +56,7 @@ public class NavRenderer extends RendererBase {
     writer.startElement(HtmlElements.DIV, null);
     writer.writeIdAttribute(navbarId);
     writer.writeClassAttribute(BootstrapClass.COLLAPSE, BootstrapClass.NAVBAR_COLLAPSE);
-// XXX   writer.writeClassAttribute(BootstrapClass.COLLAPSE, BootstrapClass.NAVBAR_COLLAPSE, BootstrapClass.NAVBAR_TEXT);
+// XXX writer.writeClassAttribute(BootstrapClass.COLLAPSE, BootstrapClass.NAVBAR_COLLAPSE, BootstrapClass.NAVBAR_TEXT);
 
     writer.startElement(HtmlElements.UL, null);
     writer.writeClassAttribute(BootstrapClass.NAV, BootstrapClass.NAVBAR_NAV);

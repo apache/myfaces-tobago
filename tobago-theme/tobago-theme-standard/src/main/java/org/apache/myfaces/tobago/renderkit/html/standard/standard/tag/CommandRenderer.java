@@ -164,7 +164,8 @@ public class CommandRenderer extends CommandRendererBase {
           if (child instanceof AbstractUICommand) {
             AbstractUICommand command = (AbstractUICommand) child;
             if (command.isParentOfCommands()) {
-              writer.writeClassAttribute("dropdown-submenu");  // fixme: this name comes not from bootstrap, using prefix?
+              // fixme: this name comes not from bootstrap, using prefix? tobago-command-dropdown-submenu
+              writer.writeClassAttribute("dropdown-submenu");
             }
           }
           child.encodeAll(facesContext);

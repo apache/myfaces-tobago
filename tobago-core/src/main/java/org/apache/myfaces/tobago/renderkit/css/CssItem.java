@@ -24,5 +24,5 @@ package org.apache.myfaces.tobago.renderkit.css;
  */
 public interface CssItem {
 
-  public String getName();
+  String getName();
 }

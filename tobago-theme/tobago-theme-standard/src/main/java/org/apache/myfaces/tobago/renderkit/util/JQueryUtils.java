@@ -22,11 +22,11 @@ package org.apache.myfaces.tobago.renderkit.util;
 public class JQueryUtils {
 
   public static String escapeIdForHtml(String id) {
-    return "#" + id.replaceAll("([\\:\\.\\[\\]\\,])", "\\\\$1" );
+    return "#" + id.replaceAll("([:\\.\\[\\],])", "\\\\$1");
   }
 
   public static String escapeIdForJavaScript(String id) {
-    return "#" + id.replaceAll("([\\:\\.\\[\\]\\,])", "\\\\\\\\$1" );
+    return "#" + id.replaceAll("([:\\.\\[\\],])", "\\\\\\\\$1");
   }
 
 }
