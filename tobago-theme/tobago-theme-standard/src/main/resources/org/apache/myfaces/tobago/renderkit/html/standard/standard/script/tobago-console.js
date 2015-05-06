@@ -68,9 +68,11 @@ if (!window.console) {
 
 if (!console.log) {
   console.log = function (message, other) {
-    var console = jQuery(".tobago-console");
-    console.show();
-    var body = console.children(":last");
+    var div = jQuery(".tobago-console");
+    if (! console.isConsoleHidden()) {
+      div.show();
+    }
+    var body = div.children(":last");
     var parameters = Array.prototype.slice.call(arguments).join(", ");
     parameters.substr(0, parameters.length - 2);
 
@@ -83,40 +85,53 @@ if (!console.log) {
   };
 
   jQuery(document).ready(function () {
-    var console = jQuery("<div>").appendTo("body");
-    console.addClass("tobago-console");
-    console.css({
-      border: "5px solid red",
+    var div = jQuery("<div>").appendTo("body");
+    div.addClass("tobago-console");
+    div.css({
+      border: "2px solid red",
       padding: "10px",
       position: "absolute",
-      left: "200px",
-      top: "200px",
+      left: "50px",
+      top: "50px",
+      width: "500px",
+      height: "200px",
       backgroundColor: "#ffffff",
       filter: "alpha(opacity=70)",
-      opacity: 0.7
-    });
-    console.hide();
-    var header = jQuery("<div>").appendTo(console);
-    header.css({
-      border: "1px solid red",
-      marginBottom: "5px"
-    });
-    var body = jQuery("<div>").appendTo(console);
-    body.css({
+      opacity: 0.7,
       overflow: "auto"
     });
-    header.css("background-color", "red");
+    div.hide();
+    var header = jQuery("<div>").appendTo(div);
+    header.css({
+//      border: "1px solid red",
+      padding: "0 15px 5px 0"
+    });
+    var body = jQuery("<div>").appendTo(div);
     var title = jQuery("<span>simple console replacement</span>").appendTo(header);
+    title.css({fontWeight: "bolder"});
     var close = jQuery("<button>").appendTo(header);
     close.attr("type", "button");
     close.append("Hide");
-    close.click(function () {
-      console.hide();
+    close.click(function (event) {
+      event.preventDefault();
+      event.stopPropagation();
+      div.hide();
+    });
+    var closeForSession = jQuery("<button>").appendTo(header);
+    closeForSession.attr("type", "button");
+    closeForSession.append("Hide for this Session");
+    closeForSession.click(function (event) {
+      event.preventDefault();
+      event.stopPropagation();
+      div.hide();
+      console.hideConsoleForThisSession();
     });
     var clear = jQuery("<button>").appendTo(header);
     clear.attr("type", "button");
     clear.append("Clear");
-    clear.click(function () {
+    clear.click(function (event) {
+      event.preventDefault();
+      event.stopPropagation();
       body.children("p").detach();
     });
   });
@@ -275,3 +290,17 @@ if (!console.trace) {
     console.log("STACK TRACE: " + console.util_stack_trace());
   };
 }
+
+console.hideConsoleForThisSession = function() {
+  document.cookie = "tobagoHideConsole";
+};
+
+console.isConsoleHidden = function () {
+  var part = document.cookie.split(';');
+  for (var i = 0; i < part.length; i++) {
+    if ("tobagoHideConsole" == part[i]) {
+      return true;
+    }
+  }
+  return false;
+};
