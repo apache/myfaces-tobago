@@ -19,6 +19,9 @@
 
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
+import org.apache.myfaces.tobago.component.UINav;
+import org.apache.myfaces.tobago.context.ResourceManagerUtils;
+import org.apache.myfaces.tobago.internal.component.AbstractUICommandGroup;
 import org.apache.myfaces.tobago.internal.component.AbstractUIForm;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.html.BootstrapClass;
@@ -39,9 +42,11 @@ public class NavRenderer extends RendererBase {
 
   @Override
   public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
+
+    final UINav nav = (UINav) component;
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
-    final String clientId = component.getClientId(facesContext);
+    final String clientId = nav.getClientId(facesContext);
     final String navbarId = clientId + "::navbar";
 
     writer.startElement(HtmlElements.NAV, null);
@@ -51,15 +56,12 @@ public class NavRenderer extends RendererBase {
     writer.startElement(HtmlElements.DIV, null);
     writer.writeClassAttribute(BootstrapClass.CONTAINER_FLUID);
 
-    encodeOpener(writer, navbarId);
+    encodeOpener(facesContext, nav, writer, navbarId);
 
     writer.startElement(HtmlElements.DIV, null);
     writer.writeIdAttribute(navbarId);
     writer.writeClassAttribute(BootstrapClass.COLLAPSE, BootstrapClass.NAVBAR_COLLAPSE);
 // XXX writer.writeClassAttribute(BootstrapClass.COLLAPSE, BootstrapClass.NAVBAR_COLLAPSE, BootstrapClass.NAVBAR_TEXT);
-
-    writer.startElement(HtmlElements.UL, null);
-    writer.writeClassAttribute(BootstrapClass.NAV, BootstrapClass.NAVBAR_NAV);
   }
 
   @Override
@@ -69,31 +71,39 @@ public class NavRenderer extends RendererBase {
 
   @Override
   public void encodeChildren(FacesContext facesContext, UIComponent component) throws IOException {
+
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+
+    final DivHelper helper = new DivHelper(writer);
 
     for (UIComponent child : component.getChildren()) {
       if (child.isRendered()) {
-        if (child instanceof AbstractUIForm) { // XXX hack! TBD: How to walk through the children, or do that in JS?
+        if (child instanceof AbstractUIForm) {
+          helper.mayEnd();
           encodeChildren(facesContext, child);
-        } else {
-          writer.startElement(HtmlElements.LI, null);
+        } else if (child instanceof AbstractUICommandGroup) {
+          helper.mayEnd();
           child.encodeAll(facesContext);
-          writer.endElement(HtmlElements.LI);
+        } else {
+          helper.mayStart();
+          child.encodeAll(facesContext);
         }
       }
     }
+
+    helper.mayEnd();
   }
 
   @Override
   public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
-    writer.endElement(HtmlElements.UL);
     writer.endElement(HtmlElements.DIV);
     writer.endElement(HtmlElements.DIV);
     writer.endElement(HtmlElements.NAV);
   }
 
-  private void encodeOpener(TobagoResponseWriter writer, String navbarId) throws IOException {
+  private void encodeOpener(
+      FacesContext facesContext, UINav nav, TobagoResponseWriter writer, String navbarId) throws IOException {
 
     // todo: consolidate this rendering with ToolBarRenderer
 
@@ -121,7 +131,57 @@ public class NavRenderer extends RendererBase {
 
     writer.endElement(HtmlElements.BUTTON);
 
+    final String image = nav.getImage();
+    if (image != null) {
+      final String src = ResourceManagerUtils.getImageWithPath(facesContext, image);
+      if (src != null) {
+        writer.startElement(HtmlElements.IMG, null);
+        writer.writeClassAttribute(BootstrapClass.NAVBAR_BRAND);
+        writer.writeAttribute(HtmlAttributes.SRC, src, true);
+        writer.writeAttribute(HtmlAttributes.ALT, "", false);
+        writer.endElement(HtmlElements.IMG);
+      }
+    }
+
+    final String label = nav.getLabel();
+    if (label != null) {
+      writer.startElement(HtmlElements.SPAN, null);
+      writer.writeClassAttribute(BootstrapClass.NAVBAR_BRAND);
+      writer.writeText(label);
+      writer.endElement(HtmlElements.SPAN);
+    }
+
     writer.endElement(HtmlElements.DIV);
+  }
+
+  /**
+   * This class helps to put some tags of specific type into one DIV.
+   */
+  public static class DivHelper {
+
+    private TobagoResponseWriter writer;
+
+    private boolean isInDiv = false;
+
+
+    public DivHelper(final TobagoResponseWriter writer) {
+      this.writer = writer;
+    }
+
+    public void mayStart() throws IOException {
+      if (!isInDiv) {
+        writer.startElement(HtmlElements.DIV, null);
+        writer.writeClassAttribute(BootstrapClass.NAVBAR_FORM);
+        isInDiv = true;
+      }
+    }
+
+    public void mayEnd() throws IOException {
+      if(isInDiv) {
+        writer.endElement(HtmlElements.DIV);
+      }
+    }
+
   }
 
 }

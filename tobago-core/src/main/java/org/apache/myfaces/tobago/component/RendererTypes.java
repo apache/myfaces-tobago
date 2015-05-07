@@ -34,6 +34,7 @@ public final class RendererTypes {
   public static final String COLUMN_LAYOUT = "ColumnLayout";
   public static final String COLUMN_SELECTOR = "ColumnSelector";
   public static final String COMMAND = "Command";
+  public static final String COMMAND_GROUP = "CommandGroup";
   public static final String DATE = "Date";
   @Deprecated
   public static final String DATE_PICKER = "DatePicker";

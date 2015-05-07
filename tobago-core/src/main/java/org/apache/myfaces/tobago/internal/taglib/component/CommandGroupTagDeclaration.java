@@ -22,25 +22,16 @@ package org.apache.myfaces.tobago.internal.taglib.component;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.component.RendererTypes;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasImage;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabel;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 
 import javax.faces.component.UIPanel;
 
-/**
- * Defines a navigation element
- */
-@Tag(name = "nav")
-@UIComponentTag(
-    uiComponent = "org.apache.myfaces.tobago.component.UINav",
-    uiComponentBaseClass = "javax.faces.component.UIPanel",
+@Tag(name = "commandGroup")
+@UIComponentTag(uiComponent = "org.apache.myfaces.tobago.component.UICommandGroup",
+    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUICommandGroup",
+    uiComponentFacesClass = "javax.faces.component.UIPanel",
     componentFamily = UIPanel.COMPONENT_FAMILY,
-    rendererType = RendererTypes.NAV,
+    rendererType = RendererTypes.COMMAND_GROUP,
     allowedChildComponenents = "ALL")
-public interface NavTagDeclaration
-    extends HasIdBindingAndRendered, HasTip, HasMarkup, HasCurrentMarkup, HasImage, HasLabel {
+public interface CommandGroupTagDeclaration extends HasIdBindingAndRendered {
 }

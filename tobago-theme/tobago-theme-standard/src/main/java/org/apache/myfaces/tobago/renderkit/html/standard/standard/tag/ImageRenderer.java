@@ -21,14 +21,17 @@ package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UICommand;
+import org.apache.myfaces.tobago.component.UINav;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.internal.component.AbstractUIImage;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
+import org.apache.myfaces.tobago.renderkit.html.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -89,7 +92,12 @@ public class ImageRenderer extends LayoutComponentRendererBase {
     writer.writeAttribute(HtmlAttributes.BORDER, border, false);
     final Style style = new Style(facesContext, image);
     writer.writeStyleAttribute(style);
-    writer.writeClassAttribute(Classes.create(image));
+    if (ComponentUtils.findAncestor(image, UINav.class) != null) { // todo: may set a marker in the context in the
+      // todo: NavRenderer, or the additional class, to avoid tree traversing
+      writer.writeClassAttribute(Classes.create(image).getStringValue() + " " + BootstrapClass.NAVBAR_BRAND.getName());
+    } else {
+      writer.writeClassAttribute(Classes.create(image));
+    }
     writer.endElement(HtmlElements.IMG);
   }
 

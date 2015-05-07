@@ -36,44 +36,32 @@
             </f:facet>
       -->
 
-      <tc:header>
-        <ui:include src="/menu.xhtml"/>
-      </tc:header>
+      <ui:include src="/menu.xhtml"/>
 
       <tc:panel>
         <f:facet name="layout">
-          <tc:flexLayout rows="100px;*"/>
+          <tc:flexLayout columns="*;4*"/>
         </f:facet>
 
         <tc:panel>
-          <ui:include src="/header.xhtml"/>
+          <ui:include src="/navigation.xhtml"/>
         </tc:panel>
 
         <tc:panel>
           <f:facet name="layout">
-            <tc:flexLayout columns="*;4*"/>
+            <tc:flexLayout rows="auto;*;auto"/>
           </f:facet>
 
-          <tc:panel>
-            <ui:include src="/navigation.xhtml"/>
-          </tc:panel>
+          <tc:messages/>
 
-          <tc:panel>
-            <f:facet name="layout">
-              <tc:flexLayout rows="auto;*;auto"/>
-            </f:facet>
+          <tc:box label="#{title}" id="content">
+            <ui:insert/>
+          </tc:box>
 
-            <tc:messages/>
-
-            <tc:box label="#{title}" id="content">
-              <ui:insert/>
-            </tc:box>
-
-            <ui:include src="/footer.xhtml"/>
-
-          </tc:panel>
+          <ui:include src="/footer.xhtml"/>
 
         </tc:panel>
+
       </tc:panel>
 
     </tc:page>
