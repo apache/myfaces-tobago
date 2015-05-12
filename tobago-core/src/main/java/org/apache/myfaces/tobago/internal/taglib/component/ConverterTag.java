@@ -40,7 +40,7 @@ import javax.servlet.jsp.tagext.TagSupport;
  * Register an Converter instance on the UIComponent
  * associated with the closest parent UIComponent.
  */
-@Tag(name = "converter", bodyContent = BodyContent.EMPTY)
+@Tag(name = "converter")
 @SimpleTag(
     faceletHandler = "org.apache.myfaces.tobago.facelets.ConverterHandler")
 public abstract class ConverterTag extends TagSupport {

@@ -36,7 +36,7 @@ import javax.faces.component.UIOutput;
 /**
  * Renders a calendar.
  */
-@Tag(name = "calendar", bodyContent = BodyContent.EMPTY)
+@Tag(name = "calendar")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UICalendar",
     uiComponentBaseClass = "javax.faces.component.UIOutput",

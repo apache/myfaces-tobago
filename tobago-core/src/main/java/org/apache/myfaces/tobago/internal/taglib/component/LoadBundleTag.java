@@ -45,7 +45,7 @@ import java.util.Map;
  * Since JSF 1.2 it is possible to use a {@link org.apache.myfaces.tobago.context.TobagoBundle}
  * and configure it in the faces-config.xml.
  */
-@Tag(name = "loadBundle", bodyContent = BodyContent.EMPTY)
+@Tag(name = "loadBundle")
 @SimpleTag(
     faceletHandler = "org.apache.myfaces.tobago.facelets.LoadBundleHandler")
 public abstract class LoadBundleTag extends TagSupport {

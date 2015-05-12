@@ -39,7 +39,7 @@ import javax.servlet.jsp.tagext.TagSupport;
  * Register an PopupActionListener instance on the UIComponent
  * associated with the closest parent UIComponent.
  */
-@Tag(name = "popupReference", bodyContent = BodyContent.EMPTY)
+@Tag(name = "popupReference")
 @SimpleTag(
     faceletHandler = "org.apache.myfaces.tobago.facelets.PopupReferenceHandler")
 public abstract class PopupReferenceTag extends TagSupport {

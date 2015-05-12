@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.internal.taglib.sandbox;
 
-import org.apache.myfaces.tobago.apt.annotation.BodyContent;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
@@ -39,7 +38,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasSpacing;
    * A area with two child components rendered horizontally or vertically and allows to change the
    * layout relation of this two components on the client.
    */
-@Tag(name = "splitLayout", bodyContent = BodyContent.EMPTY)
+@Tag(name = "splitLayout")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UISplitLayout",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUISplitLayout",

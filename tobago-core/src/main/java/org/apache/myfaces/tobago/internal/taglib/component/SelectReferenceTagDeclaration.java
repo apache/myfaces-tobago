@@ -33,7 +33,7 @@ import javax.faces.component.UIOutput;
  * Renders a set of option related to and same type as the <strong>for</strong>
  * component.
  */
-@Tag(name = "selectReference", bodyContent = BodyContent.EMPTY)
+@Tag(name = "selectReference")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UISelectReference",
     uiComponentBaseClass = "javax.faces.component.UIOutput",

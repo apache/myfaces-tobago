@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.internal.taglib.component;
 
-import org.apache.myfaces.tobago.apt.annotation.BodyContent;
 import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
@@ -33,7 +32,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRend
  * <p/>
  * Remark: Inline styles are deprecated because of CSP.
  */
-@Tag(name = "style", bodyContent = BodyContent.TAGDEPENDENT)
+@Tag(name = "style")
 @BodyContentDescription(contentType = "css")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIStyle",

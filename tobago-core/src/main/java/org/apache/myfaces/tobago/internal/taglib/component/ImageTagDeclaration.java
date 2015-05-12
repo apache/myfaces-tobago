@@ -39,7 +39,7 @@ import javax.faces.component.UIGraphic;
 /**
  * Renders an image.
  */
-@Tag(name = "image", bodyContent = BodyContent.JSP)
+@Tag(name = "image")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIImage",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIImage",

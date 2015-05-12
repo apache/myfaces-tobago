@@ -19,10 +19,9 @@
 
 package org.apache.myfaces.tobago.internal.taglib.component;
 
-import org.apache.myfaces.tobago.apt.annotation.BodyContent;
+import org.apache.myfaces.tobago.apt.annotation.SimpleTag;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
-import org.apache.myfaces.tobago.apt.annotation.SimpleTag;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.SupportsRenderedPartially;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -42,7 +41,7 @@ import javax.servlet.jsp.tagext.TagSupport;
  * Add an attribute on the UIComponent
  * associated with the closest parent UIComponent custom action.
  */
-@Tag(name = "attribute", bodyContent = BodyContent.EMPTY)
+@Tag(name = "attribute")
 @SimpleTag(
     faceletHandler = "org.apache.myfaces.tobago.facelets.AttributeHandler")
 public abstract class AttributeTag extends TagSupport {

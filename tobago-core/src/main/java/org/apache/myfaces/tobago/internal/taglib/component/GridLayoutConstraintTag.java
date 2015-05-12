@@ -44,7 +44,7 @@ import javax.servlet.jsp.tagext.TagSupport;
 /**
  * Add GridLayoutConstraints to the parent UIComponent.
  */
-@Tag(name = "gridLayoutConstraint", bodyContent = BodyContent.EMPTY)
+@Tag(name = "gridLayoutConstraint")
 @SimpleTag(
     faceletHandler = "org.apache.myfaces.tobago.facelets.GridLayoutConstraintHandler")
 public abstract class GridLayoutConstraintTag extends TagSupport {

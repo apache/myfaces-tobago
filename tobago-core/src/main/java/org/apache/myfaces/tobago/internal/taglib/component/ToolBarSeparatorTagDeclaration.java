@@ -29,7 +29,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsRendered;
 /**
  * Renders a separator inside of a tool bar.
  */
-@Tag(name = "toolBarSeparator", bodyContent = BodyContent.EMPTY)
+@Tag(name = "toolBarSeparator")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIToolBarSeparator",
     uiComponentBaseClass = "javax.faces.component.UIOutput",

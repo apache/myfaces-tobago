@@ -34,7 +34,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasItemLabel;
  * associated with the closed parent UIComponent custom
  * action.
  */
-@Tag(name = "selectItems", bodyContent = BodyContent.EMPTY)
+@Tag(name = "selectItems")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UISelectItems",
     uiComponentBaseClass = "javax.faces.component.UISelectItems",

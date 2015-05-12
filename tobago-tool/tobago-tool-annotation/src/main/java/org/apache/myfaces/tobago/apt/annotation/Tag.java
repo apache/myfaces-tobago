@@ -30,6 +30,12 @@ public @interface Tag {
 
   String name();
 
+  /**
+   * Should be BodyContent.JSP in any case, because there might be a child tag with a specific function.
+   * e.g. &lt;tc:dataAttribute>
+   * @deprecated
+   */
+  @Deprecated
   BodyContent bodyContent() default BodyContent.JSP;
 
   String tagExtraInfoClassName() default "";

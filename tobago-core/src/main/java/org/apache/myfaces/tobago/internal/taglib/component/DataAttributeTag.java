@@ -42,7 +42,7 @@ import javax.servlet.jsp.tagext.TagSupport;
  * can be used by scripts.
  */
 @Preliminary
-@Tag(name = "dataAttribute", bodyContent = BodyContent.EMPTY)
+@Tag(name = "dataAttribute")
 @SimpleTag(
     faceletHandler = "org.apache.myfaces.tobago.facelets.DataAttributeHandler")
 public abstract class DataAttributeTag extends TagSupport {

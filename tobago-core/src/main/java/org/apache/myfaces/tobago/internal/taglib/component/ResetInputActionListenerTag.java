@@ -43,7 +43,7 @@ import javax.servlet.jsp.tagext.TagSupport;
  * A ResetInputActionListener is a declarative way to allow an action source to reset all EditableValueHolder
  * of a page or in a sub-form or part of the component tree.
  */
-@Tag(name = "resetInputActionListener", bodyContent = BodyContent.EMPTY)
+@Tag(name = "resetInputActionListener")
 @SimpleTag(
     faceletHandler = "org.apache.myfaces.tobago.facelets.ResetInputActionListenerHandler")
 public abstract class ResetInputActionListenerTag extends TagSupport {

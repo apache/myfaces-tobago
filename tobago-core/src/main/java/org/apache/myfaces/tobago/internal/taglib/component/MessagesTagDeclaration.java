@@ -37,7 +37,7 @@ import javax.faces.component.UIMessages;
 /**
  * Renders error/validation messages.
  */
-@Tag(name = "messages", bodyContent = BodyContent.EMPTY)
+@Tag(name = "messages")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIMessages",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIMessages",

@@ -36,7 +36,7 @@ import javax.faces.component.UIOutput;
  * Show external content inside of an application.
  * This will typically renders an iframe tag.
  */
-@Tag(name = "object", bodyContent = BodyContent.EMPTY)
+@Tag(name = "object")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIObject",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIOut",

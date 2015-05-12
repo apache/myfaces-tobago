@@ -34,7 +34,7 @@ import javax.faces.component.UIColumn;
 /**
  * Renders a column with checkboxes to mark selected rows.
  */
-@Tag(name = "columnSelector", bodyContent = BodyContent.EMPTY)
+@Tag(name = "columnSelector")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIColumnSelector",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIColumnSelector",

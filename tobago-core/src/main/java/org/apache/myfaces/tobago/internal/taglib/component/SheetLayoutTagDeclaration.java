@@ -30,7 +30,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
 /**
  * Creates a SheetLayout, which is a internal layout manager of a sheet.
  */
-@Tag(name = "sheetLayout", bodyContent = BodyContent.EMPTY)
+@Tag(name = "sheetLayout")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UISheetLayout",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUISheetLayout",

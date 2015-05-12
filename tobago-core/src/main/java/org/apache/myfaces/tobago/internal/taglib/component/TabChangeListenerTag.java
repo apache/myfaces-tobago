@@ -40,7 +40,7 @@ import javax.servlet.jsp.tagext.TagSupport;
  * Register an TabChangedListener instance on the UIComponent
  * associated with the closest parent UIComponent custom action.
  */
-@Tag(name = "tabChangeListener", bodyContent = BodyContent.EMPTY)
+@Tag(name = "tabChangeListener")
 @SimpleTag(
     faceletHandler = "org.apache.myfaces.tobago.facelets.TabChangeListenerHandler")
 public abstract class TabChangeListenerTag extends TagSupport {
