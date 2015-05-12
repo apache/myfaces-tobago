@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.internal.taglib.component;
 
-import org.apache.myfaces.tobago.apt.annotation.BodyContent;
 import org.apache.myfaces.tobago.apt.annotation.Preliminary;
 import org.apache.myfaces.tobago.apt.annotation.SimpleTag;
 import org.apache.myfaces.tobago.apt.annotation.Tag;

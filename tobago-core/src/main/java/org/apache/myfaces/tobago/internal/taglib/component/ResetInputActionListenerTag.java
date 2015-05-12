@@ -19,10 +19,9 @@
 
 package org.apache.myfaces.tobago.internal.taglib.component;
 
-import org.apache.myfaces.tobago.apt.annotation.BodyContent;
+import org.apache.myfaces.tobago.apt.annotation.SimpleTag;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
-import org.apache.myfaces.tobago.apt.annotation.SimpleTag;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.event.ResetFormActionListener;
 import org.apache.myfaces.tobago.event.ResetInputActionListener;
