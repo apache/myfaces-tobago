@@ -35,9 +35,9 @@
   <inceptionYear>2002</inceptionYear>
 
   <properties>
-    <myfaces20.version>2.0.21</myfaces20.version>
-    <myfaces21.version>2.1.15</myfaces21.version>
-    <myfaces22.version>2.2.3</myfaces22.version>
+    <myfaces20.version>2.0.23</myfaces20.version>
+    <myfaces21.version>2.1.17</myfaces21.version>
+    <myfaces22.version>2.2.8</myfaces22.version>
     <mojarra20.version>2.0.11</mojarra20.version>
     <mojarra21.version>2.1.28</mojarra21.version>
     <mojarra22.version>2.2.6</mojarra22.version>
