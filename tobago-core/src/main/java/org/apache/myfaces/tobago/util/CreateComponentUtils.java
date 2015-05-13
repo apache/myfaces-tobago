@@ -26,11 +26,7 @@ import org.apache.myfaces.tobago.component.OnComponentCreated;
 import org.apache.myfaces.tobago.component.OnComponentPopulated;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.UIMenuSelectOne;
-import org.apache.myfaces.tobago.internal.component.AbstractUIColumn;
-import org.apache.myfaces.tobago.internal.component.AbstractUIOut;
 import org.apache.myfaces.tobago.internal.component.AbstractUISelectBooleanCheckbox;
-import org.apache.myfaces.tobago.internal.util.ComponentAttributeUtils;
-import org.apache.myfaces.tobago.layout.Display;
 import org.apache.myfaces.tobago.layout.LayoutManager;
 
 import javax.faces.component.UICommand;
@@ -69,54 +65,7 @@ public final class CreateComponentUtils {
   }
 
   @Deprecated
-  public static AbstractUIColumn createTextColumn(
-      final String label, final String sortable, final String align, final String value) {
-    return createTextColumn(label, sortable, align, value, null);
-  }
-
-  @Deprecated
-  public static AbstractUIColumn createTextColumn(
-      final String label, final String sortable, final String align, final String value, final String clientId) {
-    final AbstractUIOut text = (AbstractUIOut) createComponent(ComponentTypes.OUT, RendererTypes.OUT, clientId + "_t");
-    ComponentAttributeUtils.setStringProperty(text, Attributes.VALUE, value);
-    ComponentAttributeUtils.setBooleanProperty(text, Attributes.CREATE_SPAN, "false");
-    ComponentAttributeUtils.setBooleanProperty(text, Attributes.ESCAPE, "false");
-    text.setDisplay(Display.INLINE);
-    return createColumn(label, sortable, align, text, clientId);
-  }
-
-  @Deprecated
-  public static AbstractUIColumn createColumn(
-      final String label, final String sortable, final String align, final UIComponent child) {
-    return createColumn(label, sortable, align, child, null);
-  }
-
-  @Deprecated
-  public static AbstractUIColumn createColumn(
-      final String label, final String sortable, final String align, final UIComponent child, final String clientId) {
-    final AbstractUIColumn column = createColumn(label, sortable, align, clientId);
-    //noinspection unchecked
-    column.getChildren().add(child);
-    return column;
-  }
-
-  @Deprecated
-  public static AbstractUIColumn createColumn(final String label, final String sortable, final String align) {
-    return createColumn(label, sortable, align, (String) null);
-  }
-
-  public static AbstractUIColumn createColumn(
-      final String label, final String sortable, final String align, final String clientId) {
-    final AbstractUIColumn column = (AbstractUIColumn) createComponent(ComponentTypes.COLUMN, null, clientId);
-    ComponentAttributeUtils.setStringProperty(column, Attributes.LABEL, label);
-    ComponentAttributeUtils.setBooleanProperty(column, Attributes.SORTABLE, sortable);
-    ComponentAttributeUtils.setStringProperty(column, Attributes.ALIGN, align);
-    return column;
-  }
-
-  @Deprecated
-  public static UIMenuSelectOne createUIMenuSelectOneFacet(
-      final FacesContext facesContext, final UICommand command) {
+  public static UIMenuSelectOne createUIMenuSelectOneFacet(final FacesContext facesContext, final UICommand command) {
     return createUIMenuSelectOneFacet(facesContext, command, null);
   }
 
@@ -134,11 +83,6 @@ public final class CreateComponentUtils {
       radio.setValue(command.getValue());
     }
     return radio;
-  }
-
-  @Deprecated
-  public static UIComponent createUISelectBooleanFacet(final FacesContext facesContext, final UICommand command) {
-    return createUISelectBooleanFacet(facesContext, command, null);
   }
 
   public static AbstractUISelectBooleanCheckbox createUISelectBooleanFacetWithId(
