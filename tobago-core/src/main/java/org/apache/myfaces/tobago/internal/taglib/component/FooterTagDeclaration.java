@@ -26,6 +26,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsFixed;
 
 import javax.faces.component.UIPanel;
 
@@ -39,5 +40,5 @@ import javax.faces.component.UIPanel;
     componentFamily = UIPanel.COMPONENT_FAMILY,
     rendererType = RendererTypes.FOOTER,
     allowedChildComponenents = "ALL")
-public interface FooterTagDeclaration extends HasIdBindingAndRendered, HasTip, HasMarkup, HasCurrentMarkup {
+public interface FooterTagDeclaration extends HasIdBindingAndRendered, HasTip, HasMarkup, HasCurrentMarkup, IsFixed {
 }

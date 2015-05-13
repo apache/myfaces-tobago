@@ -19,6 +19,7 @@
 
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
+import org.apache.myfaces.tobago.component.UIHeader;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.html.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
@@ -34,10 +35,22 @@ public class HeaderRenderer extends RendererBase {
   @Override
   public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final UIHeader header = (UIHeader) component;
     writer.startElement(HtmlElements.HEADER, component);
     writer.writeIdAttribute(component.getClientId(facesContext));
-    writer.writeClassAttribute(BootstrapClass.NAVBAR, BootstrapClass.NAVBAR_INVERSE, BootstrapClass.NAVBAR_FIXED_TOP);
-//XXX writer.writeClassAttribute(BootstrapClass.NAVBAR, BootstrapClass.NAVBAR_DEFAULT, BootstrapClass.NAVBAR_FIXED_TOP);
+    // TBD: BootstrapClass.NAVBAR_DEFAULT ?
+    if (header.isFixed()) {
+      writer.writeClassAttribute(BootstrapClass.NAVBAR, BootstrapClass.NAVBAR_INVERSE, BootstrapClass.NAVBAR_FIXED_TOP);
+    } else {
+      writer.writeClassAttribute(BootstrapClass.NAVBAR, BootstrapClass.NAVBAR_INVERSE);
+    }
+// TBD: should NAVBAR class be in the NavRenderer?
+
+/*
+    if (header.isFixed()) {
+      writer.writeClassAttribute(BootstrapClass.NAVBAR_FIXED_TOP);
+    }
+*/
   }
 
   @Override

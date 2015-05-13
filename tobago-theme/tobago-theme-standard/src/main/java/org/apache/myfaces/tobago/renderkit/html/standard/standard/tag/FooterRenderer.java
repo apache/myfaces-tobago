@@ -19,7 +19,9 @@
 
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
+import org.apache.myfaces.tobago.component.UIFooter;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
+import org.apache.myfaces.tobago.renderkit.html.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -33,8 +35,12 @@ public class FooterRenderer extends RendererBase {
   @Override
   public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final UIFooter footer = (UIFooter)component;
     writer.startElement(HtmlElements.FOOTER, component);
     writer.writeIdAttribute(component.getClientId(facesContext));
+    if (footer.isFixed()) {
+      writer.writeClassAttribute(BootstrapClass.NAVBAR_FIXED_BOTTOM);
+    }
   }
 
   @Override
