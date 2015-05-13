@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.internal.taglib.component;
 
-import org.apache.myfaces.tobago.apt.annotation.BodyContent;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.component.RendererTypes;
@@ -33,7 +32,7 @@ import javax.faces.component.UIOutput;
 /**
  * Renders a separator inside of a menu.
  */
-@Tag(name = "menuSeparator", bodyContent = BodyContent.EMPTY)
+@Tag(name = "menuSeparator")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIMenuSeparator",
     uiComponentBaseClass = "javax.faces.component.UIOutput",

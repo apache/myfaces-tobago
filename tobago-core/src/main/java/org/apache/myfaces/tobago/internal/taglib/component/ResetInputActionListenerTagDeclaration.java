@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.internal.taglib.component;
 
-import org.apache.myfaces.tobago.apt.annotation.BodyContent;
 import org.apache.myfaces.tobago.apt.annotation.SimpleTag;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
@@ -29,7 +28,7 @@ import org.apache.myfaces.tobago.component.Attributes;
  * A ResetInputActionListener is a declarative way to allow an action source to reset all EditableValueHolder
  * of a page or in a sub-form or part of the component tree.
  */
-@Tag(name = "resetInputActionListener", bodyContent = BodyContent.EMPTY)
+@Tag(name = "resetInputActionListener")
 @SimpleTag(
     faceletHandler = "org.apache.myfaces.tobago.facelets.ResetInputActionListenerHandler")
 public interface ResetInputActionListenerTagDeclaration {

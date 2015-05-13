@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.internal.taglib.component;
 
-import org.apache.myfaces.tobago.apt.annotation.BodyContent;
 import org.apache.myfaces.tobago.apt.annotation.DynamicExpression;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
@@ -36,7 +35,7 @@ import javax.faces.component.UIOutput;
 /**
  * Renders a calendar.
  */
-@Tag(name = "calendar", bodyContent = BodyContent.EMPTY)
+@Tag(name = "calendar")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UICalendar",
     uiComponentBaseClass = "javax.faces.component.UIOutput",

@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.internal.taglib.component;
 
-import org.apache.myfaces.tobago.apt.annotation.BodyContent;
 import org.apache.myfaces.tobago.apt.annotation.Preliminary;
 import org.apache.myfaces.tobago.apt.annotation.SimpleTag;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
@@ -34,7 +33,7 @@ import javax.el.ValueExpression;
  * can be used by scripts.
  */
 @Preliminary
-@Tag(name = "dataAttribute", bodyContent = BodyContent.EMPTY)
+@Tag(name = "dataAttribute")
 @SimpleTag(
     faceletHandler = "org.apache.myfaces.tobago.facelets.DataAttributeHandler")
 public interface DataAttributeTagDeclaration {

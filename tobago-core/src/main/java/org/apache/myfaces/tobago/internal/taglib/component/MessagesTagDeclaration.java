@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.internal.taglib.component;
 
-import org.apache.myfaces.tobago.apt.annotation.BodyContent;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
@@ -37,7 +36,7 @@ import javax.faces.component.UIMessages;
 /**
  * Renders error/validation messages.
  */
-@Tag(name = "messages", bodyContent = BodyContent.EMPTY)
+@Tag(name = "messages")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIMessages",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIMessages",

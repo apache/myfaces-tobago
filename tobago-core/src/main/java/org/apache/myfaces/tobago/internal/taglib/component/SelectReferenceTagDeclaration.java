@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.internal.taglib.component;
 
-import org.apache.myfaces.tobago.apt.annotation.BodyContent;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
@@ -33,7 +32,7 @@ import javax.faces.component.UIOutput;
  * Renders a set of option related to and same type as the <strong>for</strong>
  * component.
  */
-@Tag(name = "selectReference", bodyContent = BodyContent.EMPTY)
+@Tag(name = "selectReference")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UISelectReference",
     uiComponentBaseClass = "javax.faces.component.UIOutput",

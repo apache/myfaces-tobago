@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.internal.taglib.component;
 
-import org.apache.myfaces.tobago.apt.annotation.BodyContent;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.component.RendererTypes;
@@ -34,9 +33,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasRowLayout;
 /**
  * Renders a flex layout (CSS3 feature).
  */
-@Tag(
-    name = "flexLayout",
-    bodyContent = BodyContent.EMPTY)
+@Tag(name = "flexLayout")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIFlexLayout",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIFlexLayout",

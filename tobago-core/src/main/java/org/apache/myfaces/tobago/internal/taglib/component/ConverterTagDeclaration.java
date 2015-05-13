@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.internal.taglib.component;
 
-import org.apache.myfaces.tobago.apt.annotation.BodyContent;
 import org.apache.myfaces.tobago.apt.annotation.SimpleTag;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
@@ -30,7 +29,7 @@ import javax.el.ValueExpression;
  * Register an Converter instance on the UIComponent
  * associated with the closest parent UIComponent.
  */
-@Tag(name = "converter", bodyContent = BodyContent.EMPTY)
+@Tag(name = "converter")
 @SimpleTag(
     faceletHandler = "org.apache.myfaces.tobago.facelets.ConverterHandler")
 public interface ConverterTagDeclaration {

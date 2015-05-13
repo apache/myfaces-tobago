@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.internal.taglib.component;
 
-import org.apache.myfaces.tobago.apt.annotation.BodyContent;
 import org.apache.myfaces.tobago.apt.annotation.DynamicExpression;
 import org.apache.myfaces.tobago.apt.annotation.SimpleTag;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
@@ -39,7 +38,7 @@ import javax.el.ValueExpression;
  * Since JSF 1.2 it is possible to use a {@link org.apache.myfaces.tobago.context.TobagoBundle}
  * and configure it in the faces-config.xml.
  */
-@Tag(name = "loadBundle", bodyContent = BodyContent.EMPTY)
+@Tag(name = "loadBundle")
 @SimpleTag(
     faceletHandler = "org.apache.myfaces.tobago.facelets.LoadBundleHandler")
 public interface LoadBundleTagDeclaration {

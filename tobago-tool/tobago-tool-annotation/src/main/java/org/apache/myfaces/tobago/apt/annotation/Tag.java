@@ -30,8 +30,6 @@ public @interface Tag {
 
   String name();
 
-  BodyContent bodyContent() default BodyContent.JSP;
-
   /**
    * Currently not used.
    * TBD: is there a way to use this with Facelets? In the handler...

@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.internal.taglib.component;
 
-import org.apache.myfaces.tobago.apt.annotation.BodyContent;
 import org.apache.myfaces.tobago.apt.annotation.DynamicExpression;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
@@ -36,7 +35,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
  * associated with the closed parent UIComponent custom
  * action.
  */
-@Tag(name = "selectItem", bodyContent = BodyContent.EMPTY)
+@Tag(name = "selectItem")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UISelectItem",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUISelectItem",

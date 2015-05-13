@@ -19,13 +19,12 @@
 
 package org.apache.myfaces.tobago.internal.taglib.component;
 
-import org.apache.myfaces.tobago.apt.annotation.BodyContent;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
-import org.apache.myfaces.tobago.internal.component.AbstractUIColumnLayout;
 import org.apache.myfaces.tobago.component.RendererTypes;
+import org.apache.myfaces.tobago.internal.component.AbstractUIColumnLayout;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasBinding;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasId;
@@ -34,7 +33,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
 /**
  * Renders a layout using a 12 columns grid.
  */
-@Tag(name = "columnLayout", bodyContent = BodyContent.EMPTY)
+@Tag(name = "columnLayout")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIColumnLayout",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIColumnLayout",

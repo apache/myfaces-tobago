@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.internal.taglib.component;
 
-import org.apache.myfaces.tobago.apt.annotation.BodyContent;
 import org.apache.myfaces.tobago.apt.annotation.SimpleTag;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
@@ -30,7 +29,7 @@ import javax.el.ValueExpression;
 /**
  * Add GridLayoutConstraints to the parent UIComponent.
  */
-@Tag(name = "gridLayoutConstraint", bodyContent = BodyContent.EMPTY)
+@Tag(name = "gridLayoutConstraint")
 @SimpleTag(faceletHandler = "org.apache.myfaces.tobago.facelets.GridLayoutConstraintHandler")
 public interface GridLayoutConstraintTagDeclaration {
 

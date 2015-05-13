@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.internal.taglib.component;
 
-import org.apache.myfaces.tobago.apt.annotation.BodyContent;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
@@ -38,7 +37,7 @@ import org.apache.myfaces.tobago.layout.TextAlign;
  * XXX Warning: Still in progress! Please do not use it until other announcement.
  * Renders a FlowLayout that positions the content components in there natural order.
  */
-@Tag(name = "flowLayout", bodyContent = BodyContent.EMPTY)
+@Tag(name = "flowLayout")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIFlowLayout",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIFlowLayout",

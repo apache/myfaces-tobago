@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.internal.taglib.component;
 
-import org.apache.myfaces.tobago.apt.annotation.BodyContent;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
@@ -94,7 +93,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasSpacing;
  * </tr>
  * </table>
  */
-@Tag(name = "gridLayout", bodyContent = BodyContent.EMPTY)
+@Tag(name = "gridLayout")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIGridLayout",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIGridLayout",

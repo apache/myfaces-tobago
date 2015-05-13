@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.internal.taglib.component;
 
-import org.apache.myfaces.tobago.apt.annotation.BodyContent;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.component.RendererTypes;
@@ -34,7 +33,7 @@ import javax.faces.component.UIColumn;
 /**
  * Renders a column with checkboxes to mark selected rows.
  */
-@Tag(name = "columnSelector", bodyContent = BodyContent.EMPTY)
+@Tag(name = "columnSelector")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIColumnSelector",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIColumnSelector",

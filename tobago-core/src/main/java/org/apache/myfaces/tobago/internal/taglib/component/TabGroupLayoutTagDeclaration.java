@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.internal.taglib.component;
 
-import org.apache.myfaces.tobago.apt.annotation.BodyContent;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.component.RendererTypes;
@@ -30,7 +29,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
 /**
  * Creates a TabGroupLayout, which is a internal layout manager of a tabGroup.
  */
-@Tag(name = "tabGroupLayout", bodyContent = BodyContent.EMPTY)
+@Tag(name = "tabGroupLayout")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UITabGroupLayout",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUITabGroupLayout",
