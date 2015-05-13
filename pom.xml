@@ -648,7 +648,6 @@
                   <banLatest>true</banLatest>
                   <banRelease>true</banRelease>
                   <unCheckedPlugins>
-                    <unCheckedPlugin>org.apache.maven.plugins:maven-idea-plugin</unCheckedPlugin>
                     <unCheckedPlugin>org.apache.maven.plugins:maven-eclipse-plugin</unCheckedPlugin>
                     <unCheckedPlugin>org.apache.myfaces.tobago:tobago-theme-plugin</unCheckedPlugin>
                   </unCheckedPlugins>
@@ -845,16 +844,6 @@
             <showWarnings>true</showWarnings>
             <!--fork>true</fork-->
             <!-- <compilerArgument>-Xlint:all,-serial,-fallthrough</compilerArgument>-->
-          </configuration>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-idea-plugin</artifactId>
-          <configuration>
-            <jdkName>${maven.compile.source}</jdkName>
-            <linkModules>true</linkModules>
-            <downloadSources>true</downloadSources>
-            <jdkLevel>5.0</jdkLevel>
           </configuration>
         </plugin>
         <plugin>
