@@ -75,7 +75,7 @@
       <archive>http://mail-archives.apache.org/mod_mbox/myfaces-users</archive>
       <otherArchives>
         <otherArchive>http://www.mail-archive.com/users@myfaces.apache.org/</otherArchive>
-        <otherArchive>http://www.nabble.com/MyFaces---Users-f181.html</otherArchive>
+        <otherArchive>http://myfaces.10567.n7.nabble.com/MyFaces-Users-f57691.html</otherArchive>
         <otherArchive>http://myfaces.markmail.org/search/?q=#query:list%3Aorg.apache.myfaces.users</otherArchive>
       </otherArchives>
     </mailingList>
@@ -87,7 +87,7 @@
       <archive>http://mail-archives.apache.org/mod_mbox/myfaces-dev</archive>
       <otherArchives>
         <otherArchive>http://www.mail-archive.com/dev@myfaces.apache.org/</otherArchive>
-        <otherArchive>http://www.nabble.com/My-Faces---Dev-f182.html</otherArchive>
+        <otherArchive>http://myfaces.10567.n7.nabble.com/My-Faces-Dev-f3.html</otherArchive>
         <otherArchive>http://myfaces.markmail.org/search/?q=#query:list%3Aorg.apache.myfaces.dev</otherArchive>
       </otherArchives>
     </mailingList>
