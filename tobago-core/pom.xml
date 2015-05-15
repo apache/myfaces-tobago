@@ -48,47 +48,10 @@
         </executions>
       </plugin>
       <plugin>
-        <groupId>org.bsc.maven</groupId>
-        <artifactId>maven-processor-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>process</id>
-            <goals>
-              <goal>process</goal>
-            </goals>
-            <phase>generate-sources</phase>
-            <configuration>
-              <!-- source output directory -->
-              <outputDirectory>${project.build.directory}/generated</outputDirectory>
-              <processors>
-                <processor>org.apache.myfaces.tobago.apt.processor.ClassesGenerator</processor>
-                <processor>org.apache.myfaces.tobago.apt.processor.TaglibGenerator</processor>
-                <processor>org.apache.myfaces.tobago.apt.processor.FacesConfigGenerator</processor>
-                <processor>org.apache.myfaces.tobago.apt.processor.CheckstyleConfigGenerator</processor>
-              </processors>
-              <optionMap>
-                <sourceFacesConfig>${basedir}/src/main/faces-config/faces-config.xml</sourceFacesConfig>
-                <targetFacesConfig>META-INF/faces-config.xml</targetFacesConfig>
-                <targetTaglib>META-INF</targetTaglib>
-                <targetCheckstyle>META-INF</targetCheckstyle>
-                <jsfVersion>${jsf.target}</jsfVersion>
-              </optionMap>
-            </configuration>
-          </execution>
-        </executions>
-        <dependencies>
-          <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-jdk14</artifactId>
-            <version>${slf4j.version}</version>
-          </dependency>
-        </dependencies>
-      </plugin>
-      <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
         <configuration>
-          <compilerArgument>-proc:none</compilerArgument>
+          <proc>none</proc>
           <source>${maven.compile.source}</source>
           <target>${maven.compile.target}</target>
           <encoding>${maven.compile.encoding}</encoding>
@@ -261,6 +224,103 @@
           <systemPath>${java.home}/../lib/tools.jar</systemPath>
         </dependency>
       </dependencies>
+    </profile>
+    <profile>
+      <id>codegen-old-jdk</id>
+      <activation>
+        <jdk>1.6</jdk>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.bsc.maven</groupId>
+            <artifactId>maven-processor-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>process</id>
+                <goals>
+                  <goal>process</goal>
+                </goals>
+                <phase>generate-sources</phase>
+                <configuration>
+                  <!-- source output directory -->
+                  <outputDirectory>${project.build.directory}/generated</outputDirectory>
+                  <processors>
+                    <processor>org.apache.myfaces.tobago.apt.processor.ClassesGenerator</processor>
+                    <processor>org.apache.myfaces.tobago.apt.processor.TaglibGenerator</processor>
+                    <processor>org.apache.myfaces.tobago.apt.processor.FacesConfigGenerator</processor>
+                    <processor>org.apache.myfaces.tobago.apt.processor.CheckstyleConfigGenerator</processor>
+                  </processors>
+                  <optionMap>
+                    <sourceFacesConfig>${basedir}/src/main/faces-config/faces-config.xml</sourceFacesConfig>
+                    <targetFacesConfig>META-INF/faces-config.xml</targetFacesConfig>
+                    <targetTaglib>META-INF</targetTaglib>
+                    <targetCheckstyle>META-INF</targetCheckstyle>
+                    <jsfVersion>${jsf.target}</jsfVersion>
+                  </optionMap>
+                </configuration>
+              </execution>
+            </executions>
+            <dependencies>
+              <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-jdk14</artifactId>
+                <version>${slf4j.version}</version>
+              </dependency>
+            </dependencies>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+    <profile>
+      <id>codegen-recent-jdk</id>
+      <activation>
+        <jdk>!1.6</jdk>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>process</id>
+                <goals>
+                  <goal>compile</goal>
+                </goals>
+                <phase>generate-sources</phase>
+                <configuration>
+                  <!-- https://issues.apache.org/jira/browse/MCOMPILER-168 -->
+                  <source>1.6</source>
+                  <target>1.6</target>
+                  <proc>only</proc>
+                  <!-- source output directory -->
+                  <generatedSourcesDirectory>${project.build.directory}/generated</generatedSourcesDirectory>
+                  <annotationProcessors>
+                    <annotationProcessor>org.apache.myfaces.tobago.apt.processor.ClassesGenerator</annotationProcessor>
+                    <annotationProcessor>org.apache.myfaces.tobago.apt.processor.TaglibGenerator</annotationProcessor>
+                    <annotationProcessor>org.apache.myfaces.tobago.apt.processor.FacesConfigGenerator</annotationProcessor>
+                    <annotationProcessor>org.apache.myfaces.tobago.apt.processor.CheckstyleConfigGenerator</annotationProcessor>
+                  </annotationProcessors>
+                  <compilerArgs>
+                    <arg>-AsourceFacesConfig=${basedir}/src/main/faces-config/faces-config.xml</arg>
+                    <arg>-AtargetFacesConfig=META-INF/faces-config.xml</arg>
+                    <arg>-AtargetTaglib=META-INF</arg>
+                    <arg>-AtargetCheckstyle=META-INF</arg>
+                    <arg>-AjsfVersion=${jsf.target}</arg>
+                  </compilerArgs>
+                </configuration>
+              </execution>
+            </executions>
+            <dependencies>
+              <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-jdk14</artifactId>
+                <version>${slf4j.version}</version>
+              </dependency>
+            </dependencies>
+          </plugin>
+        </plugins>
+      </build>
     </profile>
     <profile>
       <id>apache-release</id>
