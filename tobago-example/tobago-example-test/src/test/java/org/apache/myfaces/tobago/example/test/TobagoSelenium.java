@@ -19,14 +19,19 @@
 
 package org.apache.myfaces.tobago.example.test;
 
-import com.thoughtworks.selenium.DefaultSelenium;
-import com.thoughtworks.selenium.HttpCommandProcessor;
 import com.thoughtworks.selenium.SeleniumException;
+import com.thoughtworks.selenium.Wait;
+import com.thoughtworks.selenium.webdriven.ElementFinder;
+import com.thoughtworks.selenium.webdriven.JavascriptLibrary;
+import com.thoughtworks.selenium.webdriven.WebDriverBackedSelenium;
+import com.thoughtworks.selenium.webdriven.WebDriverCommandProcessor;
+import com.thoughtworks.selenium.webdriven.commands.*;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.junit.Assert;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
-//public class TobagoSelenium extends WebDriverBackedSelenium {
-public class TobagoSelenium extends DefaultSelenium {
+public class TobagoSelenium extends WebDriverBackedSelenium {
 
   public static final String ERROR_ON_SERVER = "error on server";
   public static final String HAS_ERROR_SEVERITY = "has error severity";
@@ -34,21 +39,28 @@ public class TobagoSelenium extends DefaultSelenium {
 
   private String browserUrl;
 
-  public TobagoSelenium(final String browserUrl) {
-    //XXX should be replaced
-    //XXX http://www.seleniumhq.org/docs/appendix_migrating_from_rc_to_webdriver.jsp#migrating-to-webdriver-reference
-    super(new HttpCommandProcessor("localhost", 4444, "*firefox", browserUrl));
-
-//    super(new FirefoxDriver(), browserUrl);
-//    super(new SafariDriver(), browserUrl);
-//    super(new ChromeDriver(), browserUrl);
-
-    this.browserUrl = browserUrl;
-//    final WebDriverBackedSelenium selenium =
-//        new WebDriverBackedSelenium(new FirefoxDriver(), browserUrl);
-//    selenium.clickAndWait();
-
-
+  public TobagoSelenium(final WebDriver baseDriver, final String baseUrl) {
+    super(baseDriver, baseUrl);
+    this.browserUrl = baseUrl;
+    if (commandProcessor instanceof WebDriverCommandProcessor) {
+      WebDriverCommandProcessor webDriverCommandProcessor = (WebDriverCommandProcessor) commandProcessor;
+      JavascriptLibrary javascriptLibrary = new JavascriptLibrary();
+      ElementFinder elementFinder = new ElementFinder(javascriptLibrary);
+      // the following methods are used by SeleniumIDE but not implement in legacy RC backed WebDriver,
+      // see also WebDriverCommandProcessor.setUpMethodMap()
+      webDriverCommandProcessor.addMethod("waitForElementPresent", new WaitForElementPresent(elementFinder));
+      webDriverCommandProcessor.addMethod("waitForElementNotPresent", new WaitForElementNotPresent(elementFinder));
+      webDriverCommandProcessor.addMethod("waitForValue", new WaitForValue(elementFinder));
+      webDriverCommandProcessor.addMethod("clickAndWait", new ClickAndWait(elementFinder));
+      webDriverCommandProcessor.addMethod("verifyValue", new VerifyValue(elementFinder));
+      webDriverCommandProcessor.addMethod("assertAttribute", new AssertAttribute(javascriptLibrary, elementFinder));
+      webDriverCommandProcessor.addMethod("verifyText", new VerifyText(javascriptLibrary, elementFinder));
+      webDriverCommandProcessor.addMethod("verifyTextPresent", new VerifyTextPresent(javascriptLibrary));
+      webDriverCommandProcessor.addMethod("assertValue", new VerifyValue(elementFinder));
+      webDriverCommandProcessor.addMethod("assertElementHeight", new AssertElementHeight(elementFinder));
+      webDriverCommandProcessor.addMethod("assertElementPositionLeft", new AssertElementPositionLeft(elementFinder));
+      webDriverCommandProcessor.addMethod("assertElementPositionTop", new AssertElementPositionTop(elementFinder));
+    }
   }
 
   public String command(final String command, final String parameter1, final String parameter2) {
@@ -107,5 +119,171 @@ public class TobagoSelenium extends DefaultSelenium {
   protected boolean isErrorOnPage() throws SeleniumException {
     final String errorSeverity = getEval("window.TobagoAssert && window.TobagoAssert.failed");
     return Boolean.parseBoolean(errorSeverity);
+  }
+
+
+  class WaitForElementPresent extends IsElementPresent {
+    public WaitForElementPresent(final ElementFinder finder) {
+      super(finder);
+    }
+
+    @Override
+    protected Boolean handleSeleneseCommand(final WebDriver driver, final String locator, final String ignored) {
+      long timeout = getTimeout("");
+      new Wait() {
+        @Override
+        public boolean until() {
+          return WaitForElementPresent.super.handleSeleneseCommand(driver, locator, ignored);
+        }
+      }.wait(String.format("Timed out waiting for %s. Waited %s", locator, timeout), timeout);
+      return true;
+    }
+  }
+
+  class WaitForElementNotPresent extends IsElementPresent {
+    public WaitForElementNotPresent(final ElementFinder finder) {
+      super(finder);
+    }
+
+    @Override
+    protected Boolean handleSeleneseCommand(final WebDriver driver, final String locator, final String ignored) {
+      long timeout = getTimeout("");
+      new Wait() {
+        @Override
+        public boolean until() {
+          return !WaitForElementNotPresent.super.handleSeleneseCommand(driver, locator, ignored);
+        }
+      }.wait(String.format("Timed out waiting for %s. Waited %s", locator, timeout), timeout);
+      return true;
+    }
+  }
+
+  class WaitForValue extends GetValue {
+    public WaitForValue(final ElementFinder finder) {
+      super(finder);
+    }
+
+    @Override
+    protected String handleSeleneseCommand(final WebDriver driver, final String locator, final String expectedValue) {
+      long timeout = getTimeout("");
+      new Wait() {
+        @Override
+        public boolean until() {
+          String value = WaitForValue.super.handleSeleneseCommand(driver, locator, expectedValue);
+          return expectedValue.equals(value);
+        }
+      }.wait(String.format("Timed out waiting for %s. Waited %s", locator, timeout), timeout);
+      return null;
+    }
+  }
+
+  class ClickAndWait extends WaitForPageToLoad {
+    private final ElementFinder finder;
+
+    public ClickAndWait(final ElementFinder finder) {
+      this.finder = finder;
+    }
+
+    @Override
+    protected Void handleSeleneseCommand(final WebDriver driver, final String locator, final String value) {
+      WebElement element = finder.findElement(driver, locator);
+      element.click();
+      return super.handleSeleneseCommand(driver, Long.toString(getTimeout("")), null);
+    }
+  }
+
+  class VerifyValue extends GetValue {
+    public VerifyValue(final ElementFinder finder) {
+      super(finder);
+    }
+
+    @Override
+    protected String handleSeleneseCommand(final WebDriver driver, final String locator, final String expectedValue) {
+      String value = super.handleSeleneseCommand(driver, locator, expectedValue);
+      if (StringUtils.isEmpty(value)) {
+        value = null;
+      }
+      Assert.assertEquals(expectedValue, value);
+      return value;
+    }
+  }
+
+  class VerifyText extends GetText {
+    public VerifyText(final JavascriptLibrary library, final ElementFinder finder) {
+      super(library, finder);
+    }
+
+    @Override
+    protected String handleSeleneseCommand(final WebDriver driver, final String locator, final String expectedText) {
+      String text = super.handleSeleneseCommand(driver, locator, expectedText);
+      text = text.replaceAll("\n", "");
+      Assert.assertEquals(expectedText, text);
+      return text;
+    }
+  }
+
+  class AssertElementHeight extends GetElementHeight {
+    public AssertElementHeight(final ElementFinder finder) {
+      super(finder);
+    }
+
+    @Override
+    protected Number handleSeleneseCommand(final WebDriver driver, final String locator, final String expectedHeight) {
+      Number height = super.handleSeleneseCommand(driver, locator, expectedHeight);
+      Assert.assertEquals(Integer.parseInt(expectedHeight), height);
+      return height;
+    }
+  }
+
+  class AssertElementPositionLeft extends GetElementPositionLeft {
+    public AssertElementPositionLeft(final ElementFinder finder) {
+      super(finder);
+    }
+
+    @Override
+    protected Number handleSeleneseCommand(final WebDriver driver, final String locator, final String expectedPosition) {
+      Number position = super.handleSeleneseCommand(driver, locator, expectedPosition);
+      Assert.assertEquals(expectedPosition, Integer.toString(position.intValue()-1));
+      return position;
+    }
+  }
+
+  class AssertElementPositionTop extends GetElementPositionTop {
+    public AssertElementPositionTop(final ElementFinder finder) {
+      super(finder);
+    }
+
+    @Override
+    protected Number handleSeleneseCommand(final WebDriver driver, final String locator, final String expectedPosition) {
+      Number position = super.handleSeleneseCommand(driver, locator, expectedPosition);
+      Assert.assertEquals(expectedPosition, Integer.toString(position.intValue()-1));
+      return position;
+    }
+  }
+
+  class VerifyTextPresent extends IsTextPresent {
+    public VerifyTextPresent(final JavascriptLibrary js) {
+      super(js);
+    }
+
+    @Override
+    protected Boolean handleSeleneseCommand(final WebDriver driver, final String pattern, final String ignored) {
+      boolean isTextPresent = super.handleSeleneseCommand(driver, pattern, ignored);
+      Assert.assertTrue(isTextPresent);
+      return true;
+    }
+  }
+
+  class AssertAttribute extends GetAttribute {
+    public AssertAttribute(final JavascriptLibrary library, final ElementFinder finder) {
+      super(library, finder);
+    }
+
+    @Override
+    protected String handleSeleneseCommand(final WebDriver driver, final String attributeLocator, final String expectedValue) {
+      String attributeValue = super.handleSeleneseCommand(driver, attributeLocator, null);
+      Assert.assertEquals(expectedValue, attributeValue);
+      return attributeValue;
+    }
   }
 }

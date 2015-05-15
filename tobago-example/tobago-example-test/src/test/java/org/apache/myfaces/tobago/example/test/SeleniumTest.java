@@ -22,6 +22,8 @@ package org.apache.myfaces.tobago.example.test;
 import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.BeforeClass;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 
 public abstract class SeleniumTest {
 
@@ -33,8 +35,9 @@ public abstract class SeleniumTest {
 
   @BeforeClass
   public static void setUp() throws Exception {
-    selenium = new TobagoSelenium("http://localhost:8080/");
-    selenium.start();
+    WebDriver driver = new FirefoxDriver();
+    String baseUrl = "http://localhost:8080/";
+    selenium = new TobagoSelenium(driver, baseUrl);
   }
 
   @AfterClass
