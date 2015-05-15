@@ -48,51 +48,27 @@
         </executions>
       </plugin>
       <plugin>
-        <groupId>org.bsc.maven</groupId>
-        <artifactId>maven-processor-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>process</id>
-            <goals>
-              <goal>process</goal>
-            </goals>
-            <phase>generate-sources</phase>
-            <configuration>
-              <!-- source output directory -->
-              <outputDirectory>${project.build.directory}/generated</outputDirectory>
-              <processors>
-                <processor>org.apache.myfaces.tobago.apt.processor.ClassesGenerator</processor>
-                <processor>org.apache.myfaces.tobago.apt.processor.TaglibGenerator</processor>
-                <processor>org.apache.myfaces.tobago.apt.processor.FacesConfigGenerator</processor>
-                <processor>org.apache.myfaces.tobago.apt.processor.CheckstyleConfigGenerator</processor>
-              </processors>
-              <optionMap>
-                <sourceFacesConfig>${basedir}/src/main/faces-config/faces-config.xml</sourceFacesConfig>
-                <targetFacesConfig>META-INF/faces-config.xml</targetFacesConfig>
-                <targetTaglib>META-INF</targetTaglib>
-                <targetCheckstyle>META-INF</targetCheckstyle>
-              </optionMap>
-            </configuration>
-          </execution>
-        </executions>
-        <dependencies>
-          <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-jdk14</artifactId>
-            <version>${slf4j.version}</version>
-          </dependency>
-        </dependencies>
-      </plugin>
-      <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
         <configuration>
-          <compilerArgument>-proc:none</compilerArgument>
           <source>${maven.compile.source}</source>
           <target>${maven.compile.target}</target>
           <encoding>${maven.compile.encoding}</encoding>
           <showWarnings>true</showWarnings>
           <!-- <compilerArgument>-Xlint:all,-serial,-fallthrough</compilerArgument>-->
+          <generatedSourcesDirectory>${project.build.directory}/generated</generatedSourcesDirectory>
+          <annotationProcessors>
+            <annotationProcessor>org.apache.myfaces.tobago.apt.processor.ClassesGenerator</annotationProcessor>
+            <annotationProcessor>org.apache.myfaces.tobago.apt.processor.TaglibGenerator</annotationProcessor>
+            <annotationProcessor>org.apache.myfaces.tobago.apt.processor.FacesConfigGenerator</annotationProcessor>
+            <annotationProcessor>org.apache.myfaces.tobago.apt.processor.CheckstyleConfigGenerator</annotationProcessor>
+          </annotationProcessors>
+          <compilerArgs>
+            <arg>-AsourceFacesConfig=${basedir}/src/main/faces-config/faces-config.xml</arg>
+            <arg>-AtargetFacesConfig=META-INF/faces-config.xml</arg>
+            <arg>-AtargetTaglib=META-INF</arg>
+            <arg>-AtargetCheckstyle=META-INF</arg>
+          </compilerArgs>
         </configuration>
       </plugin>
       <plugin>
