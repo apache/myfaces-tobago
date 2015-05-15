@@ -25,7 +25,15 @@ import com.thoughtworks.selenium.webdriven.ElementFinder;
 import com.thoughtworks.selenium.webdriven.JavascriptLibrary;
 import com.thoughtworks.selenium.webdriven.WebDriverBackedSelenium;
 import com.thoughtworks.selenium.webdriven.WebDriverCommandProcessor;
-import com.thoughtworks.selenium.webdriven.commands.*;
+import com.thoughtworks.selenium.webdriven.commands.GetAttribute;
+import com.thoughtworks.selenium.webdriven.commands.GetElementHeight;
+import com.thoughtworks.selenium.webdriven.commands.GetElementPositionLeft;
+import com.thoughtworks.selenium.webdriven.commands.GetElementPositionTop;
+import com.thoughtworks.selenium.webdriven.commands.GetText;
+import com.thoughtworks.selenium.webdriven.commands.GetValue;
+import com.thoughtworks.selenium.webdriven.commands.IsElementPresent;
+import com.thoughtworks.selenium.webdriven.commands.IsTextPresent;
+import com.thoughtworks.selenium.webdriven.commands.WaitForPageToLoad;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
@@ -241,7 +249,8 @@ public class TobagoSelenium extends WebDriverBackedSelenium {
     }
 
     @Override
-    protected Number handleSeleneseCommand(final WebDriver driver, final String locator, final String expectedPosition) {
+    protected Number handleSeleneseCommand(final WebDriver driver, final String locator,
+                                           final String expectedPosition) {
       Number position = super.handleSeleneseCommand(driver, locator, expectedPosition);
       Assert.assertEquals(expectedPosition, Integer.toString(position.intValue()-1));
       return position;
@@ -254,7 +263,8 @@ public class TobagoSelenium extends WebDriverBackedSelenium {
     }
 
     @Override
-    protected Number handleSeleneseCommand(final WebDriver driver, final String locator, final String expectedPosition) {
+    protected Number handleSeleneseCommand(final WebDriver driver, final String locator,
+                                           final String expectedPosition) {
       Number position = super.handleSeleneseCommand(driver, locator, expectedPosition);
       Assert.assertEquals(expectedPosition, Integer.toString(position.intValue()-1));
       return position;
@@ -280,7 +290,8 @@ public class TobagoSelenium extends WebDriverBackedSelenium {
     }
 
     @Override
-    protected String handleSeleneseCommand(final WebDriver driver, final String attributeLocator, final String expectedValue) {
+    protected String handleSeleneseCommand(final WebDriver driver, final String attributeLocator,
+                                           final String expectedValue) {
       String attributeValue = super.handleSeleneseCommand(driver, attributeLocator, null);
       Assert.assertEquals(expectedValue, attributeValue);
       return attributeValue;
