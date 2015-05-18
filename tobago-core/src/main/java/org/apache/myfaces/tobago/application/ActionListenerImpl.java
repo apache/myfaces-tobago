@@ -34,6 +34,10 @@ import javax.faces.event.AbortProcessingException;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.ActionListener;
 
+/**
+ * @deprecated use JSF 2 exception handler
+ */
+@Deprecated
 public class ActionListenerImpl implements ActionListener {
 
   private static final Logger LOG = LoggerFactory.getLogger(ActionListenerImpl.class);
@@ -59,11 +63,14 @@ public class ActionListenerImpl implements ActionListener {
           fe = fe.getCause();
         }
       }
-      LOG.error("Processing failed. Forwarding to error page. errorOutcome=" + errorOutcome, e.getCause());
       final FacesContext facesContext = FacesContext.getCurrentInstance();
+      String errorLogMsg = "Processing failed. Forwarding to error page. errorOutcome=" + errorOutcome;
       if (e.getCause() != null) {
-         final FacesMessage facesMessage = new FacesMessage(e.getCause().toString());
-         facesContext.addMessage(null, facesMessage);
+        LOG.error(errorLogMsg, e.getCause());
+        final FacesMessage facesMessage = new FacesMessage(e.getCause().toString());
+        facesContext.addMessage(null, facesMessage);
+      } else {
+        LOG.error(errorLogMsg, e);
       }
       final UIComponent source = event.getComponent();
       final ActionSource2 actionSource = (ActionSource2) source;
