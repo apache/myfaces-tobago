@@ -26,3 +26,5 @@ Migration from Tobago 2.0 to 3.0 (work in progress)
   tc:time -> tc:date
   You need to set the <<<f:convertDateTime type="time">>> inside the <<<tc:date>>>.
 
+  ActionListenerImpl: Class is no longer present, you should use a JSF 2 exception handler instead.
+
