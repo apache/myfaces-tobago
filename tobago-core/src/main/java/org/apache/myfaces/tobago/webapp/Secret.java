@@ -81,14 +81,16 @@ public final class Secret implements Serializable {
   public static boolean check(final FacesContext facesContext) {
     final Map requestParameterMap = facesContext.getExternalContext().getRequestParameterMap();
     final String fromRequest = (String) requestParameterMap.get(Secret.KEY);
-    final Object session = facesContext.getExternalContext().getSession(true);
-    final Secret secret;
-    if (session instanceof HttpSession) {
-      secret = (Secret) ((HttpSession) session).getAttribute(Secret.KEY);
-    } else if (PortletUtils.isPortletApiAvailable() && session instanceof PortletSession) {
-      secret = (Secret) ((PortletSession) session).getAttribute(Secret.KEY, PortletSession.APPLICATION_SCOPE);
-    } else {
-      throw new IllegalArgumentException("Unknown session type: " + session);
+    final Object session = facesContext.getExternalContext().getSession(false);
+    Secret secret = null;
+    if (session!=null) {
+      if (session instanceof HttpSession) {
+        secret = (Secret) ((HttpSession) session).getAttribute(Secret.KEY);
+      } else if (PortletUtils.isPortletApiAvailable() && session instanceof PortletSession) {
+        secret = (Secret) ((PortletSession) session).getAttribute(Secret.KEY, PortletSession.APPLICATION_SCOPE);
+      } else {
+        throw new IllegalArgumentException("Unknown session type: " + session);
+      }
     }
     return secret != null && secret.secret.equals(fromRequest);
   }
