@@ -789,7 +789,7 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-compiler-plugin</artifactId>
-          <version>3.1</version>
+          <version>3.1</version><!-- do not use more recent version until https://issues.apache.org/jira/browse/MCOMPILER-235 is fixed -->
           <configuration>
             <source>${maven.compile.source}</source>
             <target>${maven.compile.target}</target>
