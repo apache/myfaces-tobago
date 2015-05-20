@@ -105,12 +105,12 @@ Tobago.Tree.showChildren = function (node, expanded) {
 
 Tobago.Tree.init = function(elements) {
   
-  Tobago.Utils.selectWidthJQuery(elements, ".tobago-treeNode-markup-folder .tobago-treeNode-toggle").click(function() {
+  Tobago.Utils.selectWithJQuery(elements, ".tobago-treeNode-markup-folder .tobago-treeNode-toggle").click(function() {
     Tobago.Tree.toggleNode(jQuery(this));
     return false;
   });
 
-  Tobago.Utils.selectWidthJQuery(elements, ".tobago-treeMenuNode-markup-folder .tobago-treeMenuNode-toggle")
+  Tobago.Utils.selectWithJQuery(elements, ".tobago-treeMenuNode-markup-folder .tobago-treeMenuNode-toggle")
       .parent().each(function() {
     // if there is no command, than the whole node element should be the toggle
     var toggle = jQuery(this).children(".tobago-treeMenuCommand").size() == 0
@@ -122,12 +122,12 @@ Tobago.Tree.init = function(elements) {
   });
 
   // normal hover effect (not possible with CSS in IE 6)
-  Tobago.Utils.selectWidthJQuery(elements, ".tobago-treeMenuNode").hover(function() {
+  Tobago.Utils.selectWithJQuery(elements, ".tobago-treeMenuNode").hover(function() {
     jQuery(this).toggleClass("tobago-treeMenuNode-markup-hover");
   });
 
   // selected for treeNode
-  Tobago.Utils.selectWidthJQuery(elements, ".tobago-treeCommand").focus(function() {
+  Tobago.Utils.selectWithJQuery(elements, ".tobago-treeCommand").focus(function() {
     var command = jQuery(this);
     var node = command.parent(".tobago-treeNode");
     var tree = node.closest(".tobago-tree");
@@ -138,7 +138,7 @@ Tobago.Tree.init = function(elements) {
   });
 
   // selected for treeSelect
-  Tobago.Utils.selectWidthJQuery(elements, ".tobago-treeSelect > input").change(function () {
+  Tobago.Utils.selectWithJQuery(elements, ".tobago-treeSelect > input").change(function () {
     var select = jQuery(this);
     var selected = select.prop("checked");
     var data = select.closest(".tobago-treeMenu, .tobago-tree, .tobago-sheet");
@@ -156,7 +156,7 @@ Tobago.Tree.init = function(elements) {
   });
 
   // selected for treeMenuNode
-  Tobago.Utils.selectWidthJQuery(elements, ".tobago-treeMenuCommand").focus(function() {
+  Tobago.Utils.selectWithJQuery(elements, ".tobago-treeMenuCommand").focus(function() {
     var command = jQuery(this);
     var node = command.parent(".tobago-treeMenuNode");
     var tree = node.closest(".tobago-treeMenu");
@@ -167,7 +167,7 @@ Tobago.Tree.init = function(elements) {
   });
 
   // init selected field
-  Tobago.Utils.selectWidthJQuery(elements, ".tobago-treeMenu, .tobago-tree, .tobago-sheet").each(function() {
+  Tobago.Utils.selectWithJQuery(elements, ".tobago-treeMenu, .tobago-tree, .tobago-sheet").each(function() {
     var hidden = jQuery(this).children(".tobago-treeMenu-selected, .tobago-tree-selected, .tobago-sheet-selected");
     var string = ",";
     jQuery(this).find(".tobago-treeMenuNode-markup-selected, .tobago-treeNode-markup-selected").each(function() {
@@ -177,7 +177,7 @@ Tobago.Tree.init = function(elements) {
   });
 
   // init expanded field
-  Tobago.Utils.selectWidthJQuery(elements, ".tobago-treeMenu, .tobago-tree, .tobago-sheet").each(function() {
+  Tobago.Utils.selectWithJQuery(elements, ".tobago-treeMenu, .tobago-tree, .tobago-sheet").each(function() {
     var hidden = jQuery(this).children(".tobago-treeMenu-expanded, .tobago-tree-expanded, .tobago-sheet-expanded");
     var string = ",";
     jQuery(this).find(".tobago-treeMenuNode-markup-expanded, .tobago-treeNode-markup-expanded").each(function() {
@@ -187,7 +187,7 @@ Tobago.Tree.init = function(elements) {
   });
 
   // init tree selection for multiCascade
-  Tobago.Utils.selectWidthJQuery(elements, ".tobago-tree[data-tobago-selectable=multiCascade]").each(function() {
+  Tobago.Utils.selectWithJQuery(elements, ".tobago-tree[data-tobago-selectable=multiCascade]").each(function() {
     var tree = jQuery(this);
     tree.find("input[type=checkbox]").each(function() {
       jQuery(this).change(function(event) {
@@ -237,7 +237,7 @@ Tobago.TreeListbox = {};
 
 Tobago.TreeListbox.init = function(elements) {
 
-  var treeListbox = Tobago.Utils.selectWidthJQuery(elements, ".tobago-treeListbox");
+  var treeListbox = Tobago.Utils.selectWithJQuery(elements, ".tobago-treeListbox");
   // hide select tags for level > root
   treeListbox.children().find("select:not(:first)").hide();
 

@@ -17,7 +17,7 @@
 
 Tobago.SplitLayout = {
   init: function(elements) {
-    Tobago.Utils.selectWidthJQuery(elements, "[data-tobago-split-layout]").each(Tobago.SplitLayout.initLayout);
+    Tobago.Utils.selectWithJQuery(elements, "[data-tobago-split-layout]").each(Tobago.SplitLayout.initLayout);
   },
 
   initLayout: function() {

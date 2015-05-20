@@ -21,7 +21,7 @@ Demo.Command = {};
 
 Demo.Command.prepareAlert = function (elements) {
 
-  var commands = Tobago.Utils.selectWidthJQuery(elements, "[data-alert]");
+  var commands = Tobago.Utils.selectWithJQuery(elements, "[data-alert]");
   commands.click(function () {
     var command = jQuery(this);
     var text = command.data("alert");

@@ -301,7 +301,7 @@ Tobago.Menu.switchOff = function(menuBar) {
  */
 Tobago.Menu.init = function(elements) {
 
-  var menus = Tobago.Utils.selectWidthJQuery(elements, ".tobago-menu-markup-top");
+  var menus = Tobago.Utils.selectWithJQuery(elements, ".tobago-menu-markup-top");
 
   // a click on the top menu make the complete menu active or inactive respectively.
   menus.click(function(event) {
@@ -324,7 +324,7 @@ Tobago.Menu.init = function(elements) {
   });
 
   // selectOne
-  var selectOne = Tobago.Utils.selectWidthJQuery(elements, ".tobago-menu-selectOne");
+  var selectOne = Tobago.Utils.selectWithJQuery(elements, ".tobago-menu-selectOne");
   selectOne.click(function() {
     var menu = jQuery(this);
     var hidden = menu.nextAll("input[type=hidden]").first();
@@ -333,7 +333,7 @@ Tobago.Menu.init = function(elements) {
   });
 
   // selectBoolean
-  var selectBoolean = Tobago.Utils.selectWidthJQuery(elements, ".tobago-menu-selectBoolean");
+  var selectBoolean = Tobago.Utils.selectWithJQuery(elements, ".tobago-menu-selectBoolean");
   selectBoolean.click(function() {
     var menu = jQuery(this);
     var hidden = menu.nextAll("input[type=hidden]").first();
@@ -363,14 +363,14 @@ Tobago.Menu.init = function(elements) {
     if (elements) {
       // this is ajax case: the commands are just removed from elements and therefore not handled by Tobago.initDom,
       // so do it here
-      Tobago.Utils.selectWidthJQuery(subMenuContainer, '[data-tobago-commands]')
+      Tobago.Utils.selectWithJQuery(subMenuContainer, '[data-tobago-commands]')
           .each(function () {Tobago.initCommand(jQuery(this));});
     }
   });
 
 //  jQuery(".tobago-page-menuStore").append(menus.children("ol"));
 
-  var toolBarMenu = Tobago.Utils.selectWidthJQuery(
+  var toolBarMenu = Tobago.Utils.selectWithJQuery(
       elements, ".tobago-toolBar-menu, .tobago-boxToolBar-menu, .tobago-tabGroupToolBar-menu, .tobago-column-menu");
   // a click on toolBar menu opener -> forward to .tobago-menu-markup-top
   toolBarMenu.click(function(event) {
@@ -380,7 +380,7 @@ Tobago.Menu.init = function(elements) {
   });
 
   // init context menus
-  var contextMenu = Tobago.Utils.selectWidthJQuery(elements, ".tobago-menu-contextMenu");
+  var contextMenu = Tobago.Utils.selectWithJQuery(elements, ".tobago-menu-contextMenu");
   contextMenu.parent().bind("contextmenu", function(event) {
     jQuery(this).children(".tobago-menu-contextMenu").find('a').click();
     event.stopPropagation();
@@ -391,7 +391,7 @@ Tobago.Menu.init = function(elements) {
   var menu;
   if (elements) {
     // this is ajax case: the commands are just removed from elements, so get them from the data store
-    menu = Tobago.Utils.selectWidthJQuery(elements, ".tobago-menu-markup-top")
+    menu = Tobago.Utils.selectWithJQuery(elements, ".tobago-menu-markup-top")
         .tobagoMenu_findSubMenu().find('.tobago-menu').andSelf();
   } else {
     menu = jQuery(".tobago-menu").not(".tobago-menu-markup-top");

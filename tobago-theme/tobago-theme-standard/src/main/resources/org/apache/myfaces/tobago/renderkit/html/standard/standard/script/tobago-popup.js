@@ -94,7 +94,7 @@ Tobago.Popup.init = function (elements) {
     // not activated for IE 6 and 7, because the handling isn't smooth.
   } else {
     // enable drag-and-drop for popups
-    var popups = Tobago.Utils.selectWidthJQuery(elements, ".tobago-popup");
+    var popups = Tobago.Utils.selectWithJQuery(elements, ".tobago-popup");
     // The box header is the drag handle (may change)
     popups.find(".tobago-box-header")
         .mousedown(function (event) {
@@ -322,7 +322,7 @@ Tobago.registerListener(Tobago.Popup.init, Tobago.Phase.AFTER_UPDATE);
  */
 Tobago.Popup.initBootstrap = function (elements) {
 
-  var popups = Tobago.Utils.selectWidthJQuery(elements, ".modal");
+  var popups = Tobago.Utils.selectWithJQuery(elements, ".modal");
   popups.each(function() {
     jQuery(this).modal(); // opens the popup
   });

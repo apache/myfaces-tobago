@@ -27,12 +27,19 @@ Tobago.Utils.escapeClientId = function(id) {
 };
 
 /**
+ * @deprecated since Tobago 2.0.5 because of misspelling
+ */
+Tobago.Utils.selectWidthJQuery = function(elements, selector) {
+  return Tobago.Utils.selectWithJQuery(elements, selector);
+};
+
+/**
  * Helps to select either elements from the whole DOM or only find in sub trees
  * (in the case of AJAX partial rendering)
  * @param elements a jQuery object to initialize (ajax) or null for initializing the whole document (full load).
  * @param selector a jQuery selector.
  */
-Tobago.Utils.selectWidthJQuery = function(elements, selector) {
+Tobago.Utils.selectWithJQuery = function(elements, selector) {
   return elements == null
       ? jQuery(selector)
       : elements.find(selector).add(elements.filter(selector));

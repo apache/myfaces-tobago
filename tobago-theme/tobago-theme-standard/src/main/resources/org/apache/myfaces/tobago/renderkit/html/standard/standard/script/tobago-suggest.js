@@ -19,7 +19,7 @@ Tobago.Suggest = {};
 
 Tobago.Suggest.init = function (elements) {
 
-  var suggests = Tobago.Utils.selectWidthJQuery(elements, ".tobago-suggest");
+  var suggests = Tobago.Utils.selectWithJQuery(elements, ".tobago-suggest");
   suggests.each(function () {
     jQuery(this).suggest();
   });
@@ -38,7 +38,7 @@ Tobago.registerListener({
 //    after: ["c", "d"],
   phases: [Tobago.Phase.DOCUMENT_READY, Tobago.Phase.AFTER_UPDATE],
   call: function(elements) {
-    var suggests = Tobago.Utils.selectWidthJQuery(elements, ".tobago-suggest");
+    var suggests = Tobago.Utils.selectWithJQuery(elements, ".tobago-suggest");
     suggests.each(function () {
       jQuery(this).suggest();
     });

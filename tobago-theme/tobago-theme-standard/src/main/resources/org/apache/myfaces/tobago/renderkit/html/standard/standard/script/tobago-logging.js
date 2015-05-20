@@ -34,7 +34,7 @@ var LOG = {
   maximumSeverity: 0, // lower than DEBUG
 
   init: function(elements) {
-    var page = Tobago.Utils.selectWidthJQuery(elements, "[data-tobago-log-level]");
+    var page = Tobago.Utils.selectWithJQuery(elements, "[data-tobago-log-level]");
     var levelString = page.data("tobago-log-level");
     switch (levelString) {
       case "DEBUG":

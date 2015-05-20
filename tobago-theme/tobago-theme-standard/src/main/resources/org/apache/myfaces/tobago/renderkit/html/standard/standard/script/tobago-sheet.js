@@ -59,7 +59,7 @@ Tobago.Sheet = function(
 
 Tobago.Sheet.init = function(elements) {
   console.time("[tobago-sheet] init"); // @DEV_ONLY
-  var sheets = Tobago.Utils.selectWidthJQuery(elements, ".tobago-sheet");
+  var sheets = Tobago.Utils.selectWithJQuery(elements, ".tobago-sheet");
   sheets.each(function initSheets() {
     var sheet = jQuery(this);
     var id = sheet.attr("id");
@@ -77,17 +77,17 @@ Tobago.Sheet.init = function(elements) {
   Tobago.Sheet.setup2(sheets);
 
   var commands;
-  commands = Tobago.Utils.selectWidthJQuery(elements, ".tobago-menu-markup-sheetSelectAll");
+  commands = Tobago.Utils.selectWithJQuery(elements, ".tobago-menu-markup-sheetSelectAll");
   commands.click(function() {
     var sheet = jQuery(Tobago.Utils.escapeClientId(jQuery(this).data("tobago-sheet-id")));
     Tobago.Sheet.selectAll(sheet);
   });
-  commands = Tobago.Utils.selectWidthJQuery(elements, ".tobago-menu-markup-sheetDeselectAll");
+  commands = Tobago.Utils.selectWithJQuery(elements, ".tobago-menu-markup-sheetDeselectAll");
   commands.click(function() {
     var sheet = jQuery(Tobago.Utils.escapeClientId(jQuery(this).data("tobago-sheet-id")));
     Tobago.Sheet.deselectAll(sheet);
   });
-  commands = Tobago.Utils.selectWidthJQuery(elements, ".tobago-menu-markup-sheetToggleAll");
+  commands = Tobago.Utils.selectWithJQuery(elements, ".tobago-menu-markup-sheetToggleAll");
   commands.click(function() {
     var sheet = jQuery(Tobago.Utils.escapeClientId(jQuery(this).data("tobago-sheet-id")));
     Tobago.Sheet.toggleAll(sheet);
