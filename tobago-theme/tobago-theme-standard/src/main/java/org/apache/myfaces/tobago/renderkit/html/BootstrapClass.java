@@ -72,7 +72,9 @@ public enum BootstrapClass implements CssItem {
   PANEL_TITLE("panel-title"),
   RADIO("radio"),
   ROW("row"),
-  SR_ONLY("sr-only");
+  SR_ONLY("sr-only"),
+  TABLE("table"),
+  TABLE_HOVER("table-hover");
 
   private final String name;
 

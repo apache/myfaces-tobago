@@ -248,7 +248,8 @@ public class SheetRenderer extends LayoutComponentRendererBase {
     writer.writeAttribute(HtmlAttributes.CELLSPACING, "0", false);
     writer.writeAttribute(HtmlAttributes.CELLPADDING, "0", false);
     writer.writeAttribute(HtmlAttributes.SUMMARY, "", false);
-    writer.writeClassAttribute(Classes.create(sheet, "bodyTable table table-hover")); // XXX table comes from bootstrap
+    writer.writeClassAttribute(Classes.create(sheet, "bodyTable").getStringValue() + " "
+        + BootstrapClass.TABLE.getName() + " " + BootstrapClass.TABLE_HOVER.getName()); // XXX
 
     if (columnWidths != null) {
       writer.startElement(HtmlElements.COLGROUP, null);
