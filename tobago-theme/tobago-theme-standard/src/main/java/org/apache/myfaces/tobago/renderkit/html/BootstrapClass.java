@@ -78,7 +78,7 @@ public enum BootstrapClass implements CssItem {
 
   private final String name;
 
-  private BootstrapClass(final String name) {
+  BootstrapClass(final String name) {
     this.name = name;
   }
 
