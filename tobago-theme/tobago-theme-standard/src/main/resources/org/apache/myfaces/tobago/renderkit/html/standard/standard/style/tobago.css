@@ -48,6 +48,12 @@
     margin-left: 0;
 }
 
+/* footer -------------------------------------------------------------- */
+
+.tobago-footer {
+  background-color: #ffffff;
+}
+
 /* gridLayout -------------------------------------------------------------- */
 
 .tobago-gridLayout {

@@ -21,6 +21,7 @@ package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
 import org.apache.myfaces.tobago.component.UIFooter;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
+import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.html.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
@@ -39,7 +40,10 @@ public class FooterRenderer extends RendererBase {
     writer.startElement(HtmlElements.FOOTER, component);
     writer.writeIdAttribute(component.getClientId(facesContext));
     if (footer.isFixed()) {
-      writer.writeClassAttribute(BootstrapClass.NAVBAR_FIXED_BOTTOM);
+      writer.writeClassAttribute(
+          Classes.create(footer).getStringValue() + " " + BootstrapClass.NAVBAR_FIXED_BOTTOM.getName());
+    } else {
+      writer.writeClassAttribute(Classes.create(footer));
     }
   }
 
