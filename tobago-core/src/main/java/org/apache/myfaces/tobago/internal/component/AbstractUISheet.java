@@ -420,6 +420,8 @@ public abstract class AbstractUISheet extends AbstractUIData
     super.processEvent(event);
     if (event instanceof PreRenderComponentEvent) {
       sort(getFacesContext(), null);
+      AbstractUISheetLayout.ensureColumnWidthList(FacesContext.getCurrentInstance(), this);
+      AbstractUISheetLayout.layoutHeader(this); // XXX see comment there...
     }
   }
 

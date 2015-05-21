@@ -252,6 +252,38 @@ Tobago.Sheet.setup2 = function (sheets) {
     Tobago.Sheet.resetInputFieldSize(jQuery(this));
   });
 
+
+  // synchronize column widths
+  jQuery(sheets).each(function() {
+    var table = jQuery(this);
+
+    // todo make a function
+    var headerToBody = false;
+
+    var body = table.find(".tobago-sheet-bodyTable>colgroup>col");
+    var header = table.find(".tobago-sheet-headerTable>colgroup>col");
+
+    var sourceCols = headerToBody ? header : body;
+    var targetCols = headerToBody ? body : header;
+
+    console.assert(targetCols.length == sourceCols.length, "header and body column number doesn't match");  // @DEV_ONLY
+
+    for (var i = 0; i < sourceCols.length; i++) {
+
+      // if not set, pull the width from a cell (is needed for Chrome)
+      if (sourceCols.eq(i).attr("width") == null) {
+        var correspondingCell
+            = sourceCols.eq(i).parents("table:first").children("tbody").children("tr:first").children("td").eq(i);
+        sourceCols.eq(i).attr("width", correspondingCell.outerWidth())
+      }
+
+      targetCols.eq(i).attr("width", sourceCols.eq(i).attr("width"));
+    }
+
+
+    //COL elemente... // todo
+  });
+
   // resize: mouse events
   jQuery(sheets).find(".tobago-sheet-headerResize").each(function () {
     jQuery(this).click(function () {
@@ -523,18 +555,6 @@ Tobago.Sheet.hidden = function(sheet, idSuffix) {
 Tobago.Sheet.prototype.setup = function() {
   console.time("[tobago-sheet] setup"); // @DEV_ONLY
 
-  // IE 6+7
-  if (Tobago.browser.isMsie67) {
-    jQuery(Tobago.Utils.escapeClientId(this.id) + ">div>table>colgroup>col").each(function() {
-      Tobago.Sheet.fixIE67ColWidth(jQuery(this));
-    });
-
-    // to avoid horizontal scroll bar. This value must be removed, when resizing the columns!
-    jQuery(Tobago.Utils.escapeClientId(this.id)).find(".tobago-sheet-cell-markup-filler").each(function() {
-      jQuery(this).css("width", "0");
-    });
-  }
-
   this.setupPagePaging();
   this.setupRowPaging();
 
@@ -780,16 +800,6 @@ Tobago.Sheet.deselectRow = function(selected, rowIndex, row, checkbox) {
   row.removeClass("tobago-sheet-row-markup-selected");
 //  checkbox.prop("checked", false);
   setTimeout(function() {checkbox.prop("checked", false);}, 0);
-};
-
-/**
- * Fixes the wrong computation of col width in IE 6/7: padding will not be handled correctly.
- * @param col A jQuery object
- */
-Tobago.Sheet.fixIE67ColWidth = function(col) {
-  var td = col.closest("table").children("tbody").children("tr:first").children("td").eq(col.index());
-  var delta = td.outerWidth() - td.width();
-  col.attr("width", col.attr("width") - delta);
 };
 
 Tobago.Sheet.resetInputFieldSize = function (table) {

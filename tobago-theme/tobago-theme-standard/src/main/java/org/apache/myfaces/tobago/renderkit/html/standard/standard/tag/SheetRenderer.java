@@ -33,7 +33,6 @@ import org.apache.myfaces.tobago.component.UIOut;
 import org.apache.myfaces.tobago.component.UIReload;
 import org.apache.myfaces.tobago.component.UISheet;
 import org.apache.myfaces.tobago.component.UIToolBar;
-import org.apache.myfaces.tobago.config.Configurable;
 import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
@@ -179,16 +178,6 @@ public class SheetRenderer extends LayoutComponentRendererBase {
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
     final String sheetId = sheet.getClientId(facesContext);
 
-    Measure sheetHeight;
-    if (style.getHeight() == null) {
-      // FIXME: nullpointer if height not defined
-      LOG.error("no height in parent container, setting to 100");
-      sheetHeight = Measure.valueOf(100);
-    } else {
-      sheetHeight = style.getHeight();
-    }
-    final Measure footerHeight = getFooterHeight(facesContext, sheet);
-    final Measure headerHeight = getHeaderHeight(facesContext, sheet);
     final String selectable = sheet.getSelectable();
 
     final Application application = facesContext.getApplication();
@@ -251,22 +240,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
     writer.writeClassAttribute(Classes.create(sheet, "bodyTable").getStringValue() + " "
         + BootstrapClass.TABLE.getName() + " " + BootstrapClass.TABLE_HOVER.getName()); // XXX
 
-    if (columnWidths != null) {
-      writer.startElement(HtmlElements.COLGROUP, null);
-      for (final Integer columnWidth : columnWidths) {
-        writer.startElement(HtmlElements.COL, null);
-        writer.writeAttribute(HtmlAttributes.WIDTH, columnWidth);
-        writer.endElement(HtmlElements.COL);
-      }
-      writer.endElement(HtmlElements.COLGROUP);
-    }
-
-/* XXX this workaround doen't work correctly, because the table has one row more, and the JavaScript code doesn't
-respect that.
-    if (showHeader) {
-      renderHeaderWorkaround(sheet, hasClickAction, writer, renderedColumnList);
-    }
-*/
+    writeColgroup(writer, columnWidths);
 
     // Print the Content
 
@@ -581,56 +555,25 @@ respect that.
     }
   }
 
-/** XXX Simple workaround for bootstrap */
-  private void renderHeaderWorkaround(UISheet sheet, boolean hasClickAction, TobagoResponseWriter writer,
-                                      List<AbstractUIColumn> renderedColumnList) throws IOException {
-    writer.startElement(HtmlElements.TR, null);
-
-    int columnIndex = -1;
-    for (final UIColumn column : renderedColumnList) {
-      columnIndex++;
-
-      writer.startElement(HtmlElements.TH, column);
-
-      Markup markup = column instanceof SupportsMarkup ? ((SupportsMarkup) column).getMarkup() : Markup.NULL;
-      if (markup == null) {
-        markup = Markup.NULL;
+  private void writeColgroup(final TobagoResponseWriter writer, final List<Integer> columnWidths) throws IOException {
+    if (columnWidths != null) {
+      writer.startElement(HtmlElements.COLGROUP, null);
+      for (final Integer columnWidth : columnWidths) {
+        writeCol(writer, columnWidth);
       }
-      if (columnIndex == 0) {
-        markup = markup.add(Markup.FIRST);
-      }
-      if (hasClickAction) {
-        markup = markup.add(Markup.CLICKABLE);
-      }
-      if (isPure(column)) {
-        markup = markup.add(Markup.PURE);
-      }
-      writer.writeClassAttribute(Classes.create(sheet, "cell", markup));
-      final TextAlign align = TextAlign.parse((String) column.getAttributes().get(Attributes.ALIGN));
-      if (align != null) {
-        final Style alignStyle = new Style();
-        alignStyle.setTextAlign(align);
-        writer.writeStyleAttribute(alignStyle);
-      }
-
-      if (column instanceof org.apache.myfaces.tobago.component.UIColumn) {
-        org.apache.myfaces.tobago.component.UIColumn c = (org.apache.myfaces.tobago.component.UIColumn) column;
-        writer.writeText(c.getLabel());
-      } else  {
-        // todo
-      }
-
-      writer.endElement(HtmlElements.TH);
+      writeCol(writer, 0); // extra entry for resizing...
+      // TODO: replace 0 later
+      // TODO: the value should be added to the list
+      writer.endElement(HtmlElements.COLGROUP);
     }
+  }
 
-    writer.startElement(HtmlElements.TH, null);
-    writer.writeClassAttribute(Classes.create(sheet, "cell", Markup.FILLER));
-//      writer.write("&nbsp;");
-    writer.startElement(HtmlElements.DIV, null);
-    writer.endElement(HtmlElements.DIV);
-    writer.endElement(HtmlElements.TH);
-
-    writer.endElement(HtmlElements.TR);
+  private void writeCol(final TobagoResponseWriter writer, final Integer columnWidth) throws IOException {
+    writer.startElement(HtmlElements.COL, null);
+    if (columnWidth != null) {
+      writer.writeAttribute(HtmlAttributes.WIDTH, columnWidth);
+    }
+    writer.endElement(HtmlElements.COL);
   }
 
   /**
@@ -724,23 +667,6 @@ respect that.
 
     RenderUtils.decodeScrollPosition(facesContext, sheet);
     RenderUtils.decodedStateOfTreeData(facesContext, sheet);
-  }
-
-  private Measure getHeaderHeight(final FacesContext facesContext, final UISheet sheet) {
-    final int rows = sheet.getHeaderGrid() != null ? sheet.getHeaderGrid().getRowCount() : 0;
-    return sheet.isShowHeader()
-        ? getResourceManager().getThemeMeasure(facesContext, sheet, "headerHeight", Measure.valueOf(20)).multiply(rows)
-        : Measure.ZERO;
-  }
-
-  private Measure getRowHeight(final FacesContext facesContext, final UISheet sheet) {
-    return getResourceManager().getThemeMeasure(facesContext, sheet, "rowHeight", Measure.valueOf(20));
-  }
-
-  private Measure getFooterHeight(final FacesContext facesContext, final UISheet sheet) {
-    return sheet.isPagingVisible()
-        ? getResourceManager().getThemeMeasure(facesContext, sheet, "footerHeight", Measure.valueOf(20))
-        : Measure.ZERO;
   }
 
   private Markup markupForLeftCenterRight(final String name) {
@@ -847,15 +773,7 @@ respect that.
     writer.writeAttribute(HtmlAttributes.SUMMARY, "", false);
     writer.writeClassAttribute(Classes.create(sheet, "headerTable table")); // XXX table comes from bootstrap
 
-    if (columnWidths != null) {
-      writer.startElement(HtmlElements.COLGROUP, null);
-      for (int i = 0; i < columnWidths.size(); i++) {
-        writer.startElement(HtmlElements.COL, null);
-        writer.writeAttribute(HtmlAttributes.WIDTH, columnWidths.get(i));
-        writer.endElement(HtmlElements.COL);
-      }
-      writer.endElement(HtmlElements.COLGROUP);
-    }
+    writeColgroup(writer, columnWidths);
 
     writer.startElement(HtmlElements.TBODY, sheet);
     for (int i = 0; i < grid.getRowCount(); i++) {
@@ -1214,27 +1132,6 @@ respect that.
 
   private Measure getContentBorder(final FacesContext facesContext, final UISheet data) {
     return getBorderLeft(facesContext, data).add(getBorderRight(facesContext, data));
-  }
-
-  @Override
-  public Measure getPreferredHeight(final FacesContext facesContext, final Configurable component) {
-    final UISheet sheet = (UISheet) component;
-    final Measure headerHeight = getHeaderHeight(facesContext, sheet);
-    final Measure rowHeight = getRowHeight(facesContext, sheet);
-    final Measure footerHeight = getFooterHeight(facesContext, sheet);
-    int rows = sheet.getRows();
-    if (rows == 0) {
-      rows = sheet.getRowCount();
-    }
-    if (rows == -1) {
-      rows = 10; // estimating something to get a valid value...
-    }
-
-    if (LOG.isDebugEnabled()) {
-      LOG.debug(headerHeight + " " + footerHeight + " " + rowHeight + " " + rows);
-    }
-
-    return headerHeight.add(rowHeight.multiply(rows)).add(footerHeight);
   }
 
   @Override

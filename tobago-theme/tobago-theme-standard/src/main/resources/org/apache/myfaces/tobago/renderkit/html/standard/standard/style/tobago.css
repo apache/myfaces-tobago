@@ -144,6 +144,12 @@ body > form > .navbar-fixed-top + * {
   vertical-align: top;
 }
 
+table.tobago-sheet-headerTable>tbody>tr>th:last-child,
+table.tobago-sheet-bodyTable>tbody>tr>td:last-child {
+  padding-left: 0;
+  padding-right: 0;
+}
+
 /* tab -------------------------------------------------------------- */
 
 .tobago-tab-content {

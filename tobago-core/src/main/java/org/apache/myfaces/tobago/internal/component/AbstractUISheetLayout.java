@@ -19,10 +19,8 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
-import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.internal.layout.Grid;
 import org.apache.myfaces.tobago.internal.layout.OriginCell;
-import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.layout.AutoLayoutToken;
 import org.apache.myfaces.tobago.layout.LayoutComponent;
 import org.apache.myfaces.tobago.layout.LayoutManager;
@@ -30,20 +28,15 @@ import org.apache.myfaces.tobago.layout.LayoutToken;
 import org.apache.myfaces.tobago.layout.LayoutTokens;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.layout.RelativeLayoutToken;
-import org.apache.myfaces.tobago.model.SheetState;
-import org.apache.myfaces.tobago.renderkit.LayoutComponentRenderer;
 import org.apache.myfaces.tobago.util.LayoutInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
-/**
- * XXX: Not completely implemented yet.
- */ 
 public abstract class AbstractUISheetLayout extends AbstractUILayoutBase implements LayoutManager {
 
   private static final Logger LOG = LoggerFactory.getLogger(AbstractUISheetLayout.class);
@@ -201,7 +194,10 @@ public abstract class AbstractUISheetLayout extends AbstractUILayoutBase impleme
     return false;
   }
 
-  private void ensureColumnWidthList(final FacesContext facesContext, final AbstractUISheet data) {
+    // TBD: check it this class should be removed, and the logic goes to AbstractUISheet
+//  private void ensureColumnWidthList(final FacesContext facesContext, final AbstractUISheet data) {
+  public static void ensureColumnWidthList(final FacesContext facesContext, final AbstractUISheet data) {
+/*
     List<Integer> currentWidthList = null;
     // TODO: Refactor: here be should use "getColumns()" instead of "getRenderedColumns()"
     final List<AbstractUIColumn> renderedColumns = data.getRenderedColumns();
@@ -231,13 +227,16 @@ public abstract class AbstractUISheetLayout extends AbstractUILayoutBase impleme
     final LayoutComponentRenderer renderer = data.getLayoutComponentRenderer(facesContext);
     space = space.subtractNotNegative(renderer.getBorderLeft(facesContext, data));
     space = space.subtractNotNegative(renderer.getBorderRight(facesContext, data));
+*/
 
-    if (currentWidthList == null) {
+    final List<AbstractUIColumn> allColumns = data.getAllColumns();
+   final  List<Integer> currentWidthList = new ArrayList<Integer>(allColumns.size() + 1);
       final LayoutTokens tokens = data.getColumnLayout();
-      final List<AbstractUIColumn> allColumns = data.getAllColumns();
       final LayoutTokens newTokens = new LayoutTokens();
       for (int i = 0; i < allColumns.size(); i++) {
         final AbstractUIColumn column = allColumns.get(i);
+        currentWidthList.add(null);
+/*
         if (column.isRendered()) {
           if (tokens == null) {
             if (column instanceof AbstractUIColumn && column.getWidth() != null) {
@@ -253,8 +252,12 @@ public abstract class AbstractUISheetLayout extends AbstractUILayoutBase impleme
             }
           }
         }
+*/
       }
 
+
+
+/*
       final LayoutInfo layoutInfo =
           new LayoutInfo(newTokens.getSize(), space.getPixel(), newTokens, data.getClientId(facesContext), false);
       final Measure columnSelectorWidth
@@ -267,20 +270,16 @@ public abstract class AbstractUISheetLayout extends AbstractUILayoutBase impleme
       for (Integer width : currentWidthList) {
         freeWidth -= width;
       }
+*/
 
-      currentWidthList.add(Math.max(freeWidth, 0)); // empty filler column
-    }
+//      currentWidthList.add(Math.max(freeWidth, 0)); // empty filler column
 
-    if (renderedColumns.size() + 1 != currentWidthList.size()) {
-      LOG.warn("widthList.size() = " + currentWidthList.size()
-          + " != columns.size() = " + renderedColumns.size() + " + 1. The widthList: "
-          + LayoutInfo.listToTokenString(currentWidthList));
-    } else {
-      data.setWidthList(currentWidthList);
-    }
+
+
+    data.setWidthList(currentWidthList);
   }
 
-  private void parseFixedWidth(
+  private static void parseFixedWidth(
       final LayoutInfo layoutInfo, final List<AbstractUIColumn> renderedColumns, final Measure columnSelectorWidth) {
     final LayoutTokens tokens = layoutInfo.getLayoutTokens();
     for (int i = 0; i < tokens.getSize(); i++) {
@@ -313,46 +312,10 @@ public abstract class AbstractUISheetLayout extends AbstractUILayoutBase impleme
     }
   }
 
-  private Measure getHeaderHeight(final FacesContext facesContext, final AbstractUISheet sheet) {
-    if (sheet.isShowHeader()) {
-      final Measure headerHeight = sheet.getLayoutComponentRenderer(facesContext)
-          .getCustomMeasure(facesContext, sheet, "headerHeight");
-      if (headerHeight != null) {
-        return headerHeight;
-      } else {
-        return Measure.valueOf(20);
-      }
-    } else {
-      return Measure.ZERO;
-    }
-  }
-
-  private Measure getRowHeight(final FacesContext facesContext, final AbstractUISheet sheet) {
-    final Measure rowHeight = sheet.getLayoutComponentRenderer(facesContext)
-        .getCustomMeasure(facesContext, sheet, "rowHeight");
-    if (rowHeight != null) {
-      return rowHeight;
-    } else {
-      return Measure.valueOf(20);
-    }
-  }
-
-  private Measure getFooterHeight(final FacesContext facesContext, final AbstractUISheet sheet) {
-    if (sheet.isPagingVisible()) {
-      final Measure footerHeight = sheet.getLayoutComponentRenderer(facesContext)
-          .getCustomMeasure(facesContext, sheet, "footerHeight");
-      if (footerHeight != null) {
-        return footerHeight;
-      } else {
-        return Measure.valueOf(20);
-      }
-    } else {
-      return Measure.ZERO;
-    }
-  }
-
-  private void layoutHeader() {
-    final AbstractUISheet sheet = (AbstractUISheet) getLayoutContainer();
+  // TBD: check it this class should be removed, and the logic goes to AbstractUISheet
+//  private void layoutHeader() {
+  public static void layoutHeader(final AbstractUISheet sheet) {
+//    final AbstractUISheet sheet = (AbstractUISheet) getLayoutContainer();
     final UIComponent header = sheet.getHeader();
     if (header == null) {
       LOG.warn("This should not happen. Please file a bug in the issue tracker to reproduce this case.");
