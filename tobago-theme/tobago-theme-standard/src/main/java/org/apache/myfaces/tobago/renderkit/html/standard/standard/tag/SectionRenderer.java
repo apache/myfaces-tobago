@@ -77,7 +77,7 @@ public class SectionRenderer extends LayoutComponentRendererBase {
         if (image != null && image.startsWith("glyphicon-")) { // XXX hack: should be integrated in the resource manager
           writer.startElement(HtmlElements.SPAN, null);
           writer.writeClassAttribute(BootstrapClass.GLYPHICON, BootstrapClass.glyphicon(image));
-            writer.endElement(HtmlElements.SPAN);
+          writer.endElement(HtmlElements.SPAN);
 
         }
         if (image != null && label != null) {

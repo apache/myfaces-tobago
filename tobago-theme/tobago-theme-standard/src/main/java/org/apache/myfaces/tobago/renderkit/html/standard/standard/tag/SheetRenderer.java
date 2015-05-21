@@ -843,11 +843,11 @@ public class SheetRenderer extends LayoutComponentRendererBase {
               if (column.getId().equals(sheetState.getSortedColumnId())) {
                 final String sortTitle;
                 if (sheetState.isAscending()) {
-                  sorterImage = ResourceManagerUtils.getImage(facesContext, "image/ascending");
+                  sorterImage = "glyphicon-chevron-up";
                   sortTitle = ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", "sheetAscending");
                   markup = markup.add(Markup.ASCENDING);
                 } else {
-                  sorterImage = ResourceManagerUtils.getImage(facesContext, "image/descending");
+                  sorterImage = "glyphicon-chevron-down";
                   sortTitle = ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", "sheetDescending");
                   markup = markup.add(Markup.DESCENDING);
                 }
@@ -893,10 +893,9 @@ public class SheetRenderer extends LayoutComponentRendererBase {
           }
 
           if (sorterImage != null) {
-            writer.startElement(HtmlElements.IMG, null);
-            writer.writeAttribute(HtmlAttributes.SRC, sorterImage, false);
-            writer.writeAttribute(HtmlAttributes.ALT, "", false);
-            writer.endElement(HtmlElements.IMG);
+            writer.startElement(HtmlElements.SPAN, null);
+            writer.writeClassAttribute(BootstrapClass.GLYPHICON, BootstrapClass.glyphicon(sorterImage));
+            writer.endElement(HtmlElements.SPAN);
           }
 
           writer.endElement(HtmlElements.SPAN);
