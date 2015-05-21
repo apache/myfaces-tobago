@@ -237,17 +237,6 @@ Tobago.Sheet.prototype.doKeyEvent = function(event) {
 
 Tobago.Sheet.setup2 = function (sheets) {
 
-  // set the height of the header-cells to the height of the td (height: 100% doesn't work)
-  jQuery(sheets).find(".tobago-sheet-headerCell").each(function () {
-    var div = jQuery(this);
-    div.height(div.parent().height());
-  });
-
-  // set the height of the header-cells to the height of the td (height: 100% doesn't work)
-  jQuery(sheets).children(".tobago-sheet-headerDiv").each(function () {
-    jQuery(this).height(jQuery(this).children(":first").height());
-  });
-
   jQuery(sheets).each(function() {
     Tobago.Sheet.resetInputFieldSize(jQuery(this));
   });

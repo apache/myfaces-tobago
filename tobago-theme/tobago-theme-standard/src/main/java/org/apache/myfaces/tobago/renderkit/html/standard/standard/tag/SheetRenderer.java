@@ -771,7 +771,8 @@ public class SheetRenderer extends LayoutComponentRendererBase {
     writer.writeAttribute(HtmlAttributes.CELLSPACING, "0", false);
     writer.writeAttribute(HtmlAttributes.CELLPADDING, "0", false);
     writer.writeAttribute(HtmlAttributes.SUMMARY, "", false);
-    writer.writeClassAttribute(Classes.create(sheet, "headerTable table")); // XXX table comes from bootstrap
+    writer.writeClassAttribute(
+        Classes.create(sheet, "headerTable").getStringValue() + " " + BootstrapClass.TABLE.getName());
 
     writeColgroup(writer, columnWidths);
 
