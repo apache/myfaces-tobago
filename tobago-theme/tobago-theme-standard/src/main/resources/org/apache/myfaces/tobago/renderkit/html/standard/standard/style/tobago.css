@@ -102,6 +102,18 @@ body > form > .navbar-fixed-top + * {
 
 /* sheet -------------------------------------------------------------- */
 
+.tobago-sheet-cell-markup-right {
+  text-align: right;
+}
+
+.tobago-sheet-cell-markup-center {
+  text-align: center;
+}
+
+.tobago-sheet-cell-markup-justify {
+  text-align: justify;
+}
+
 .tobago-sheet-footer {
   text-align: center;
 }

@@ -325,13 +325,15 @@ public class SheetRenderer extends LayoutComponentRendererBase {
         if (isPure(column)) {
           markup = markup.add(Markup.PURE);
         }
-        writer.writeClassAttribute(Classes.create(sheet, "cell", markup));
         final TextAlign align = TextAlign.parse((String) column.getAttributes().get(Attributes.ALIGN));
-        if (align != null) {
-          final Style alignStyle = new Style();
-          alignStyle.setTextAlign(align);
-          writer.writeStyleAttribute(alignStyle);
+        if (align == TextAlign.RIGHT) {
+          markup = markup.add(Markup.RIGHT);
+        } else if (align == TextAlign.CENTER) {
+          markup = markup.add(Markup.CENTER);
+        } else if (align == TextAlign.JUSTIFY) {
+          markup = markup.add(Markup.JUSTIFY);
         }
+        writer.writeClassAttribute(Classes.create(sheet, "cell", markup));
 
         if (column instanceof UIColumnSelector) {
           final boolean disabled = ComponentUtils.getBooleanAttribute(column, Attributes.DISABLED);
