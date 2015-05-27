@@ -131,7 +131,6 @@ public class MessagesRenderer extends LayoutComponentRendererBase {
         ComponentUtils.findPage(facesContext, messages).setFocusId(focusId);
       }
 */
-      writer.endElement(HtmlElements.DIV);
       if (messages.getFor() == null) {
         final String id = messages.getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + "messagesExists";
         writer.startElement(HtmlElements.INPUT, null);
