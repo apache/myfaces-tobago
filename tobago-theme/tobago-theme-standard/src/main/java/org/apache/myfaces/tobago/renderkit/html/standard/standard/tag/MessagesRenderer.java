@@ -29,7 +29,6 @@ import org.apache.myfaces.tobago.component.UIGridLayout;
 import org.apache.myfaces.tobago.component.UIMessages;
 import org.apache.myfaces.tobago.component.UIPanel;
 import org.apache.myfaces.tobago.component.UIPopup;
-import org.apache.myfaces.tobago.config.Configurable;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.internal.ajax.AjaxInternalUtils;
@@ -82,10 +81,6 @@ public class MessagesRenderer extends LayoutComponentRendererBase {
     final List<UIMessages.Item> messageList = messages.createMessageList(facesContext);
 
     if (messageList.size() > 0) { // in ie empty span gets a height
-      writer.startElement(HtmlElements.DIV, messages);
-      final FacesMessage.Severity maximumSeverity = FacesContext.getCurrentInstance().getMaximumSeverity();
-      writer.writeClassAttribute(TobagoClass.MESSAGES, BootstrapClass.ALERT, BootstrapClass.alert(maximumSeverity));
-      HtmlRendererUtils.writeDataAttributes(facesContext, writer, messages);
       writer.writeStyleAttribute(new Style(facesContext, messages));
 
       // with id
@@ -99,9 +94,30 @@ public class MessagesRenderer extends LayoutComponentRendererBase {
         clientIds = facesContext.getClientIdsWithMessages();
       }*/
 
+      FacesMessage.Severity lastSeverity = null;
+      boolean first = true;
+
       for (final UIMessages.Item item : messageList) {
-        encodeMessage(writer, messages, item.getFacesMessage(), item.getClientId());
+        final FacesMessage message = item.getFacesMessage();
+        final FacesMessage.Severity severity = message.getSeverity();
+
+        if (!first && lastSeverity != severity) {
+          writer.endElement(HtmlElements.DIV);
+        }
+
+        if (first || lastSeverity != severity) {
+          writer.startElement(HtmlElements.DIV, messages);
+          writer.writeClassAttribute(
+              TobagoClass.MESSAGES, BootstrapClass.ALERT, BootstrapClass.alert(severity));
+          HtmlRendererUtils.writeDataAttributes(facesContext, writer, messages);
+        }
+
+        encodeMessage(writer, messages, message, item.getClientId());
+
+        lastSeverity = severity;
+        first = false;
       }
+      writer.endElement(HtmlElements.DIV);
 /*
       while(clientIds.hasNext()) {
         String clientId = (String) clientIds.next();
@@ -117,19 +133,16 @@ public class MessagesRenderer extends LayoutComponentRendererBase {
 */
       writer.endElement(HtmlElements.DIV);
       if (messages.getFor() == null) {
-        final String clientId = messages.getClientId(facesContext);
+        final String id = messages.getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + "messagesExists";
         writer.startElement(HtmlElements.INPUT, null);
         writer.writeAttribute(HtmlAttributes.VALUE, Boolean.TRUE.toString(), false);
-        writer.writeAttribute(HtmlAttributes.ID,
-            clientId + ComponentUtils.SUB_SEPARATOR + "messagesExists", false);
-        writer.writeAttribute(HtmlAttributes.NAME,
-            clientId + ComponentUtils.SUB_SEPARATOR + "messagesExists", false);
+        writer.writeAttribute(HtmlAttributes.ID, id, false);
+        writer.writeAttribute(HtmlAttributes.NAME, id, false);
         writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN, false);
         writer.endElement(HtmlElements.INPUT);
       }
     }
-    if (messages.getFor() == null
-        && !AjaxUtils.isAjaxRequest(facesContext)) {
+    if (messages.getFor() == null && !AjaxUtils.isAjaxRequest(facesContext)) {
       AjaxInternalUtils.storeMessagesClientIds(facesContext, messages);
     }
   }
@@ -246,17 +259,7 @@ public class MessagesRenderer extends LayoutComponentRendererBase {
       writer.writeText("");
     }
     writer.endElement(HtmlElements.LABEL);
-    writer.startElement(HtmlElements.BR, null);
-    writer.endElement(HtmlElements.BR);
 
     message.rendered();
-  }
-
-  @Override
-  public Measure getPreferredHeight(final FacesContext facesContext, final Configurable component) {
-    final Measure measure = super.getPreferredHeight(facesContext, component);
-    final UIMessages messages = (UIMessages) component;
-    final int count = messages.createMessageList(facesContext).size();
-    return measure.multiply(count);
   }
 }
