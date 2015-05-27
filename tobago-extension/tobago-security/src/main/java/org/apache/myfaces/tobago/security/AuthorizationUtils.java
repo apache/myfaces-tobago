@@ -29,9 +29,13 @@ import javax.faces.context.FacesContext;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedElement;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class AuthorizationUtils {
   private static final Logger LOG = LoggerFactory.getLogger(AuthorizationUtils.class);
@@ -102,25 +106,28 @@ public class AuthorizationUtils {
       return null;
     } else {
       Annotation securityAnnotation = null;
-      if (expression.startsWith("#{") && expression.endsWith("}")) {
-        expression = expression.substring(2, expression.length()-1);
-        final int index = expression.lastIndexOf('.');
-        if (index != -1) {
-          final String methodExpression = expression.substring(index+1, expression.length());
-          final String beanExpression = expression.substring(0, index);
-          // TODO find a better way
-          final Object bean =
-              facesContext.getApplication().getVariableResolver().resolveVariable(facesContext, beanExpression);
-          if (bean != null) {
-            try {
-              final Method method = bean.getClass().getMethod(methodExpression);
-              securityAnnotation = getSecurityAnnotations(method);
+      final Pattern pattern = Pattern.compile("#\\{(\\w+(?:\\.\\w+)*)\\.(\\w+)(?:\\(.*\\))?\\}");
+      final Matcher matcher = pattern.matcher(expression);
+      if (matcher.matches()) {
+        String beanString = matcher.group(1);
+        String methodString = matcher.group(2);
+        final Object bean =
+            facesContext.getELContext().getELResolver().getValue(facesContext.getELContext(), null, beanString);
+        if (bean != null) {
+          final List<Method> methods = findMethods(bean, methodString);
+          switch (methods.size()) {
+            case 0:
+              LOG.error("No Method '" + methodString + "' in class " + bean.getClass());
+              break;
+            case 1:
+              securityAnnotation = getSecurityAnnotations(methods.get(0));
               if (securityAnnotation == null) {
                 securityAnnotation = getSecurityAnnotations(bean.getClass());
               }
-            } catch (final NoSuchMethodException e) {
-              LOG.error("No Method " + methodExpression + " in class " + bean.getClass(), e);
-            }
+              break;
+            default:
+              LOG.warn("Method name ambiguous '" + methodString + "' in class " + bean.getClass()
+                  + ". Found " + methods.size() + " but only 1 is supported, yet.");
           }
         }
       }
@@ -132,5 +139,15 @@ public class AuthorizationUtils {
       return securityAnnotation;
     }
   }
-}
 
+  private static List<Method> findMethods(Object bean, String name) {
+    final Method[] methods = bean.getClass().getMethods();
+    final List<Method> result = new ArrayList<Method>();
+    for (Method method : methods) {
+      if (method.getName().equals(name)) {
+        result.add(method);
+      }
+    }
+    return result;
+  }
+}
