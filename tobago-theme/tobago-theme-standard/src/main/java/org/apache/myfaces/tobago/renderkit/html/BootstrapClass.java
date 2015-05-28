@@ -19,6 +19,7 @@
 
 package org.apache.myfaces.tobago.renderkit.html;
 
+import org.apache.myfaces.tobago.layout.TextAlign;
 import org.apache.myfaces.tobago.renderkit.css.CssItem;
 
 import javax.faces.application.FacesMessage;
@@ -76,7 +77,11 @@ public enum BootstrapClass implements CssItem {
   TABLE("table"),
   TABLE_BORDERED("table-bordered"),
   TABLE_HOVER("table-hover"),
-  TABLE_STRIPED("table-striped");
+  TABLE_STRIPED("table-striped"),
+  TEXT_CENTER("text-center"),
+  TEXT_JUSTIFY("text-justify"),
+  TEXT_LEFT("text-left"),
+  TEXT_RIGHT("text-right");
 
   private final String name;
 
@@ -102,16 +107,31 @@ public enum BootstrapClass implements CssItem {
 
   public static CssItem alert(final FacesMessage.Severity severity) {
 
-    switch (severity.getOrdinal()) {
-      case 1:
-        return ALERT_INFO;
-      case 2:
-        return ALERT_WARNING;
-      case 3:
-      case 4:
-      default:
-        return ALERT_DANGER;
+    // switch over severity.getOrdinal() doesn't work, because different implementations use different ordinals,
+    // see MYFACES-3768
+    // may be optimized with a cache...
+
+    if (severity.equals(FacesMessage.SEVERITY_INFO)) {
+      return ALERT_INFO;
+    } else if (severity.equals(FacesMessage.SEVERITY_WARN)) {
+      return ALERT_WARNING;
+    } else {
+      return ALERT_DANGER;
     }
   }
 
+  public static CssItem textAlign(final TextAlign textAlign) {
+    switch (textAlign) {
+      case LEFT:
+        return TEXT_LEFT;
+      case RIGHT:
+        return TEXT_RIGHT;
+      case CENTER:
+        return TEXT_CENTER;
+      case JUSTIFY:
+        return TEXT_JUSTIFY;
+      default:
+        return null;
+    }
+  }
 }

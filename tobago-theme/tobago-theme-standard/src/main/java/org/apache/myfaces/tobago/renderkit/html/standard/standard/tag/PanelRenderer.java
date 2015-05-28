@@ -22,6 +22,7 @@ package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.UIPanel;
 import org.apache.myfaces.tobago.component.UIReload;
+import org.apache.myfaces.tobago.internal.component.AbstractUIColumnLayout;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPanel;
 import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
 import org.apache.myfaces.tobago.layout.Measure;
@@ -68,7 +69,14 @@ public class PanelRenderer extends LayoutComponentRendererBase {
     final String clientId = panel.getClientId(facesContext);
     writer.startElement(HtmlElements.DIV, panel);
     writer.writeIdAttribute(clientId);
-    writer.writeClassAttribute(Classes.create(panel).getStringValue() + " " + BootstrapClass.ROW.getName());
+
+    if (panel.getLayoutManager() instanceof AbstractUIColumnLayout) {
+      // TBD: this might be nicer, wen using the layout not as a facet
+      writer.writeClassAttribute(Classes.create(panel), BootstrapClass.ROW);
+    } else {
+      writer.writeClassAttribute(Classes.create(panel));
+    }
+
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, panel);
     if (panel instanceof UIPanel && ((UIPanel) panel).getTip() != null) {
       writer.writeAttribute(HtmlAttributes.TITLE, ((UIPanel) panel).getTip(), true);

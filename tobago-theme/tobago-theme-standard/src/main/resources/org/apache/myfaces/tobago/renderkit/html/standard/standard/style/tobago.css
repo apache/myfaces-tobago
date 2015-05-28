@@ -52,6 +52,7 @@
 
 .tobago-footer {
   background-color: #ffffff;
+  padding: 5px 10px;
 }
 
 /* gridLayout -------------------------------------------------------------- */
@@ -95,7 +96,8 @@ table.tobago-gridLayout > tbody > tr:first-child > td {
 /* page ----------------------------------------------------------- */
 
 body > form > .navbar-fixed-top + * {
-  margin-top: 70px;
+  margin-top: 40px; /* height of the .navbar-fixed-top, todo: use "less" variable */
+  margin-top: 50px; /* XXX */
 }
 
 /* selectManyCheckbox ----------------------------------------------------------- */

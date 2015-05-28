@@ -29,6 +29,7 @@ import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.SpacingValues;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
+import org.apache.myfaces.tobago.renderkit.html.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
@@ -45,13 +46,12 @@ public class FlowLayoutRenderer extends RendererBase implements SpacingValues, M
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
     final UIFlowLayout layout = (UIFlowLayout) component;
     writer.startElement(HtmlElements.DIV, layout);
-    writer.writeClassAttribute(Classes.create(layout));
+    writer.writeClassAttribute(Classes.create(layout), BootstrapClass.textAlign(layout.getTextAlign()));
     final Style style = new Style();
     style.setMarginLeft(getMarginLeft(facesContext, layout));
     style.setMarginRight(getMarginRight(facesContext, layout));
     style.setMarginTop(getMarginTop(facesContext, layout));
     style.setMarginBottom(getMarginBottom(facesContext, layout));
-    style.setTextAlign(layout.getTextAlign());
     writer.writeStyleAttribute(style);
   }
 

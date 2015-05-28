@@ -139,8 +139,24 @@ public abstract class TobagoResponseWriter extends ResponseWriter {
   public void writeClassAttribute(final CssItem first, final CssItem... others) throws IOException {
     StringBuilder builder = new StringBuilder(first.getName());
     for (CssItem other : others) {
-      builder.append(' ');
-      builder.append(other.getName());
+      if (other != null) {
+        builder.append(' ');
+        builder.append(other.getName());
+      }
+    }
+    writeAttribute(HtmlAttributes.CLASS, builder.toString(), false);
+  }
+
+  /**
+   * TBD: preliminary
+   */
+  public void writeClassAttribute(final Classes classes, final CssItem... others) throws IOException {
+    StringBuilder builder = new StringBuilder(classes.getStringValue());
+    for (CssItem other : others) {
+      if (other != null) {
+        builder.append(' ');
+        builder.append(other.getName());
+      }
     }
     writeAttribute(HtmlAttributes.CLASS, builder.toString(), false);
   }

@@ -40,8 +40,7 @@ public class FooterRenderer extends RendererBase {
     writer.startElement(HtmlElements.FOOTER, component);
     writer.writeIdAttribute(component.getClientId(facesContext));
     if (footer.isFixed()) {
-      writer.writeClassAttribute(
-          Classes.create(footer).getStringValue() + " " + BootstrapClass.NAVBAR_FIXED_BOTTOM.getName());
+      writer.writeClassAttribute(Classes.create(footer), BootstrapClass.NAVBAR_FIXED_BOTTOM);
     } else {
       writer.writeClassAttribute(Classes.create(footer));
     }
