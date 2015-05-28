@@ -24,6 +24,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UISelectItem;
+import javax.faces.component.UISelectMany;
 import javax.faces.context.FacesContext;
 
 public class AbstractUISelectItem extends UISelectItem {
@@ -47,7 +48,7 @@ public class AbstractUISelectItem extends UISelectItem {
 
   @Override
   public Object getItemValue() {
-    if (itemValueLiteral) {
+    if (itemValueLiteral && !(getParent() instanceof UISelectMany)) {
       final Object converted = ComponentUtils.getConvertedValue(
           FacesContext.getCurrentInstance(), getParent(), (String) super.getItemValue());
       return converted;
