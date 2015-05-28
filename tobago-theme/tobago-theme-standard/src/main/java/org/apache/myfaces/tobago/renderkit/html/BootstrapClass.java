@@ -74,7 +74,9 @@ public enum BootstrapClass implements CssItem {
   ROW("row"),
   SR_ONLY("sr-only"),
   TABLE("table"),
-  TABLE_HOVER("table-hover");
+  TABLE_BORDERED("table-bordered"),
+  TABLE_HOVER("table-hover"),
+  TABLE_STRIPED("table-striped");
 
   private final String name;
 
