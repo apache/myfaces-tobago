@@ -20,6 +20,7 @@
 package org.apache.myfaces.tobago.example.test;
 
 import java.util.Collection;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
@@ -29,7 +30,7 @@ public class SelectManyListboxBean {
 
   private Set<String> set;
 
-  private Collection<String> collection;
+  private Collection<String> collection = new LinkedList<String>();
 
   private String[] array;
 
