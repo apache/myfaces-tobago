@@ -986,6 +986,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
     final Application application = facesContext.getApplication();
     final UICommand dropDown = (UICommand) CreateComponentUtils.createComponent(
         facesContext, UICommand.COMPONENT_TYPE, null, "dropDown");
+    dropDown.setOmit(true);
     final UIMenu menu = (UIMenu) CreateComponentUtils.createComponent(
         facesContext, UIMenu.COMPONENT_TYPE, RendererTypes.MENU, "menu");
     FacetUtils.setDropDownMenu(dropDown, menu);
