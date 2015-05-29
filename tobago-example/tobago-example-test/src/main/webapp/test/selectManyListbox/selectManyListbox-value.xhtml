@@ -24,7 +24,7 @@
   <tc:page>
     <tc:gridLayoutConstraint width="630px" height="600px"/>
     <f:facet name="layout">
-      <tc:gridLayout rows="auto;auto;auto;auto;auto"/>
+      <tc:gridLayout rows="auto;auto;auto;auto;auto;auto"/>
     </f:facet>
 
     <tc:messages>
@@ -38,6 +38,10 @@
       <tc:selectItem itemValue="b" itemLabel="An Alternative"/>
     </tx:selectManyListbox>
     <tx:selectManyListbox value="#{selectManyListboxBean.array}" label="array">
+      <tc:selectItem itemValue="a" itemLabel="A Value"/>
+      <tc:selectItem itemValue="b" itemLabel="An Alternative"/>
+    </tx:selectManyListbox>
+    <tx:selectManyListbox value="#{selectManyListboxBean.collection}" label="array">
       <tc:selectItem itemValue="a" itemLabel="A Value"/>
       <tc:selectItem itemValue="b" itemLabel="An Alternative"/>
     </tx:selectManyListbox>
