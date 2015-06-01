@@ -53,12 +53,12 @@ public class ActivityList {
     return result;
   }
 
- public void jsfRequest(String sessionId) {
+  public void jsfRequest(String sessionId) {
     final Activity activity = data.get(sessionId);
     if (activity != null) {
       activity.jsfRequest();
     } else {
-      LOG.error("Ignoring sessionId='{}'", sessionId);
+      LOG.error("Ignoring sessionId='" + sessionId + "'");
     }
   }
 
@@ -67,7 +67,7 @@ public class ActivityList {
     if (activity != null) {
       activity.ajaxRequest();
     } else {
-      LOG.error("Ignoring sessionId='{}'", sessionId);
+      LOG.error("Ignoring sessionId='" + sessionId + "'");
     }
   }
-}}
+}
