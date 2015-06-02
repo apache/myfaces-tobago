@@ -48,6 +48,7 @@
     <maven.compile.target>1.6</maven.compile.target>
     <maven.compile.encoding>UTF-8</maven.compile.encoding>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <required.maven.version>2.2.1</required.maven.version>
   </properties>
 
   <issueManagement>
@@ -609,7 +610,7 @@
               <rules>
                 <requireMavenVersion>
                   <!-- 3.3.1 is only required for a release, for a normal build 2.2.1 should be okay -->
-                  <version>3.3.1</version>
+                  <version>${required.maven.version}</version>
                 </requireMavenVersion>
                 <requirePluginVersions>
                   <message>Best Practice is to always define plugin versions!</message>
@@ -1003,6 +1004,9 @@
              </properties>
            </profile>
        -->
+      <properties>
+          <required.maven.version>3.3.1</required.maven.version>
+      </properties>
       <build>
         <plugins>
           <plugin>
