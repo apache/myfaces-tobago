@@ -20,7 +20,6 @@
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
 import org.apache.myfaces.tobago.component.UISection;
-import org.apache.myfaces.tobago.renderkit.HtmlUtils;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.CssItem;
@@ -74,21 +73,7 @@ public class SectionRenderer extends LayoutComponentRendererBase {
             writer.writeClassAttribute(clazz);
         }
         final String image = section.getImage();
-        if (image != null && image.startsWith("glyphicon-")) { // XXX hack: should be integrated in the resource manager
-          writer.startElement(HtmlElements.SPAN, null);
-          writer.writeClassAttribute(BootstrapClass.GLYPHICON, BootstrapClass.glyphicon(image));
-          writer.endElement(HtmlElements.SPAN);
-
-        }
-        if (image != null && label != null) {
-            writer.writeText(" ");
-        }
-        if (image == null && label == null) { // needed, otherwise the look is broken (bootstrap 3.3.1)
-            writer.writeText(HtmlUtils.CHAR_NON_BEAKING_SPACE);
-        }
-        if (label != null) {
-            writer.writeText(label);
-        }
+        HtmlRendererUtils.encodeIconWithLabel(writer, label, image);
         writer.endElement(tag);
     }
 

@@ -33,6 +33,7 @@ import org.apache.myfaces.tobago.internal.webapp.TobagoResponseWriterWrapper;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
+import org.apache.myfaces.tobago.renderkit.html.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.html.Command;
 import org.apache.myfaces.tobago.renderkit.html.CommandMap;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
@@ -101,6 +102,24 @@ public final class HtmlRendererUtils {
         writer.endElement(HtmlElements.SPAN);
         writer.writeText(text.substring(pos + 1));
       }
+    }
+  }
+
+  public static void encodeIconWithLabel(TobagoResponseWriter writer, String label, String image) throws IOException {
+    if (image != null && image.startsWith("glyphicon-")) { // XXX hack: should be integrated in the resource manager
+      writer.startElement(HtmlElements.SPAN, null);
+      writer.writeClassAttribute(BootstrapClass.GLYPHICON, BootstrapClass.glyphicon(image));
+      writer.endElement(HtmlElements.SPAN);
+
+    }
+    if (image != null && label != null) {
+      writer.writeText(" ");
+    }
+    if (image == null && label == null) { // needed, otherwise the look is broken (bootstrap 3.3.1)
+      writer.writeText(HtmlRendererUtils.CHAR_NON_BEAKING_SPACE);
+    }
+    if (label != null) {
+      writer.writeText(label);
     }
   }
 
