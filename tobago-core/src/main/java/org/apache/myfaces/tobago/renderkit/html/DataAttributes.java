@@ -74,8 +74,6 @@ public final class DataAttributes {
 
   public static final String DATE_TIME_I18N = "data-tobago-date-time-i18n";
 
-  public static final String DATE_TIME_ICON = "data-tobago-date-time-icon";
-
   /**
    * Holds the day of a calendar control.
    */

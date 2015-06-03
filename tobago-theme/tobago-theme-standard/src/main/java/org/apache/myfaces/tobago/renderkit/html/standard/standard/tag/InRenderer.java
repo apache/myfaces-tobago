@@ -67,7 +67,7 @@ public class InRenderer extends InputRendererBase {
   }
 
   @Override
-  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
+  public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
 
     final AbstractUIInput input = (AbstractUIInput) component;
     final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, input);

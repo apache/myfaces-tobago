@@ -302,7 +302,7 @@ Tobago.DateTime.init = function (elements) {
 
         var analyzed = Tobago.DateTime.analyzePattern(date.data("tobago-pattern"));
         var options = {
-          showOn: "button",
+          showOn: "button", // fixme: use "button" end put a trigger inside it
           buttonImageOnly: true,
 // tbd          changeMonth: true,
 // tbd          changeYear: true,
@@ -310,10 +310,6 @@ Tobago.DateTime.init = function (elements) {
           showOtherMonths: true,
           selectOtherMonths: true
         };
-        var icon = date.data("tobago-date-time-icon");
-        if (icon) {
-          options.buttonImage = icon;
-        }
         if (analyzed.dateFormat) {
           options.dateFormat = analyzed.dateFormat;
         }
@@ -364,6 +360,11 @@ Tobago.DateTime.init = function (elements) {
           default:
             console.error("invalid: not date-pattern nor time-pattern");  // @DEV_ONLY
         }
+
+        // XXX workaround for Bootstrap with "old" jQuery UI input control
+        date.siblings("span.input-group-btn").children("button.btn").click(function() {
+          jQuery(this).parent().siblings(".ui-datepicker-trigger").click();
+        });
       });
 };
 

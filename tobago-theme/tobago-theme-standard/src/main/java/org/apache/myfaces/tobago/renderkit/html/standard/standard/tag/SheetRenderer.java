@@ -807,7 +807,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
           headerStyle.setHeight(headerHeight);
           writer.writeStyleAttribute(headerStyle);
           final AbstractUIColumn column = renderedColumnList.get(j);
-          String sorterImage = null;
+          BootstrapClass sorterGlyphicon = null;
           Markup markup = Markup.NULL;
           String tip = (String) column.getAttributes().get(Attributes.TIP);
           // sorter icons should only displayed when there is only 1 column and not input
@@ -845,11 +845,11 @@ public class SheetRenderer extends LayoutComponentRendererBase {
               if (column.getId().equals(sheetState.getSortedColumnId())) {
                 final String sortTitle;
                 if (sheetState.isAscending()) {
-                  sorterImage = "glyphicon-chevron-up";
+                  sorterGlyphicon = BootstrapClass.GLYPHICON_CHEVRON_UP;
                   sortTitle = ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", "sheetAscending");
                   markup = markup.add(Markup.ASCENDING);
                 } else {
-                  sorterImage = "glyphicon-chevron-down";
+                  sorterGlyphicon = BootstrapClass.GLYPHICON_CHEVRON_DOWN;
                   sortTitle = ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", "sheetDescending");
                   markup = markup.add(Markup.DESCENDING);
                 }
@@ -894,9 +894,9 @@ public class SheetRenderer extends LayoutComponentRendererBase {
 
           }
 
-          if (sorterImage != null) {
+          if (sorterGlyphicon != null) {
             writer.startElement(HtmlElements.SPAN, null);
-            writer.writeClassAttribute(BootstrapClass.GLYPHICON, BootstrapClass.glyphicon(sorterImage));
+            writer.writeClassAttribute(BootstrapClass.GLYPHICON, sorterGlyphicon);
             writer.endElement(HtmlElements.SPAN);
           }
 
