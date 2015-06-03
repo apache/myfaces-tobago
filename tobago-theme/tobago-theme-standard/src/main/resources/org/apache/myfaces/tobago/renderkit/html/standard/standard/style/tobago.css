@@ -220,11 +220,11 @@ fixes missing space, I thinks normal Websites have a " " Space char in the sourc
   margin-left: 0;
 }
 
-.tobago-button > * {
+.tobago-button > *, .tobago-link > * {
   margin-left: 5px;
 }
 
-.tobago-button > *:first-child {
+.tobago-button > *:first-child, .tobago-link > *:first-child {
   margin-left: 0;
 }
 
@@ -249,3 +249,12 @@ fixes missing space, I thinks normal Websites have a " " Space char in the sourc
 .tobago-tabGroup-toolBar {
   display: none;
 }
+
+h1 > *, h2 > *, h3 > *, h4 > *, h5 > *, h6 > * {
+  margin-left: 1em;
+}
+
+h1 > *:first-child, h2 > *:first-child, h3 > *:first-child, h4 > *:first-child, h5 > *:first-child, h6 > *:first-child {
+  margin-left: 0;
+}
+

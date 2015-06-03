@@ -111,14 +111,10 @@ public final class HtmlRendererUtils {
       writer.writeClassAttribute(BootstrapClass.GLYPHICON, BootstrapClass.glyphicon(image));
       writer.endElement(HtmlElements.SPAN);
     }
-    if (image != null && label != null) {
-      writer.writeText(" ");
-    }
-    if (image == null && label == null) { // needed, otherwise the look is broken (bootstrap 3.3.1)
-      writer.writeText(HtmlRendererUtils.CHAR_NON_BEAKING_SPACE);
-    }
     if (label != null) {
+      writer.startElement(HtmlElements.SPAN, null);
       writer.writeText(label);
+      writer.endElement(HtmlElements.SPAN);
     }
   }
 
@@ -132,7 +128,7 @@ public final class HtmlRendererUtils {
         writer.endElement(HtmlElements.SPAN);
       } else {
         if (ResourceManagerUtils.isAbsoluteResource(image)) {
-          // absolute Path to image : nothing to do
+          // absolute Path to image: nothing to do
         } else {
           image = getImageWithPath(facesContext, image, disabled);
         }
