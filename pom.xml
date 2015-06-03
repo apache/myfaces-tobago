@@ -638,10 +638,7 @@
               <rules>
                 <requireMavenVersion>
                   <!-- 3.3.1 is only required for a release, for a normal build 2.2.1 should be okay -->
-                  <!--Currently (March 2015) the Apache Jenkins server uses 3.1.1-->
-                  <!--todo update Jenkins-->
-                  <!--<version>3.3.1</version> -->
-                  <version>2.2.1</version>
+                  <version>${required.maven.version}</version>
                 </requireMavenVersion>
                 <requirePluginVersions>
                   <message>Best Practice is to always define plugin versions!</message>
@@ -1053,6 +1050,9 @@
              </properties>
            </profile>
        -->
+      <properties>
+        <required.maven.version>3.3.1</required.maven.version>
+      </properties>
       <build>
         <plugins>
           <plugin>
@@ -1496,5 +1496,6 @@
     <maven.compile.encoding>UTF-8</maven.compile.encoding>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <jsf.target>2.0</jsf.target>
+    <required.maven.version>2.2.1</required.maven.version>
   </properties>
 </project>
