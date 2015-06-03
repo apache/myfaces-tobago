@@ -19,7 +19,7 @@
 
 /**
  * <b>Tobago Framework Extension Tag Library 2.0.x -
- * (C) Copyright 2005-2014 The Apache Software Foundation</b>
+ * (C) Copyright 2005-2015 The Apache Software Foundation</b>
  */
 @org.apache.myfaces.tobago.apt.annotation.Taglib(
     shortName = "tx",
