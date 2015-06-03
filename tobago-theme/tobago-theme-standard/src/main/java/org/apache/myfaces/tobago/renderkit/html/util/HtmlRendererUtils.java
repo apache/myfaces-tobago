@@ -69,6 +69,7 @@ public final class HtmlRendererUtils {
   private static final Logger LOG = LoggerFactory.getLogger(HtmlRendererUtils.class);
   private static final String ERROR_FOCUS_KEY = HtmlRendererUtils.class.getName() + ".ErrorFocusId";
   private static final String FOCUS_KEY = HtmlRendererUtils.class.getName() + ".FocusId";
+  public static final String CHAR_NON_BEAKING_SPACE = "\u00a0";
 
   private HtmlRendererUtils() {
     // to prevent instantiation

@@ -25,9 +25,15 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 
+/**
+ *  @deprecated since 2.0.8
+ */
 public final class HtmlUtils {
 
   public static final String LAYOUT_ATTRIBUTE_PREFIX = "layout.";
+  /**
+   *  @deprecated since 2.0.8, use HtmlRendererUtils
+   */
   public static final String CHAR_NON_BEAKING_SPACE = "\u00a0";
 
   private HtmlUtils() {
@@ -54,6 +60,7 @@ public final class HtmlUtils {
         ? attribute.toString() + " " + appendValue : appendValue;
   }
 
+  /** @deprecated Since 2.0.8. Not allowed with CSP */
   public static String generateOnchange(final UIInput component,
       final FacesContext facesContext) {
 

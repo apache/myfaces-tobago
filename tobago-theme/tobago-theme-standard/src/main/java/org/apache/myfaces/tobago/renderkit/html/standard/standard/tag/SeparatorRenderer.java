@@ -27,7 +27,6 @@ import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.internal.util.Deprecation;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.layout.Measure;
-import org.apache.myfaces.tobago.renderkit.HtmlUtils;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
@@ -52,7 +51,7 @@ public class SeparatorRenderer extends LayoutComponentRendererBase {
 
     if (label != null) {
       if (ClientProperties.getInstance(facesContext).getUserAgent().isMsie()) {
-        label = StringUtils.replace(label, " ", HtmlUtils.CHAR_NON_BEAKING_SPACE);
+        label = StringUtils.replace(label, " ", HtmlRendererUtils.CHAR_NON_BEAKING_SPACE);
       }
 
       writer.startElement(HtmlElements.TABLE, component);
