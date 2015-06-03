@@ -78,6 +78,14 @@ public class ImageRenderer extends LayoutComponentRendererBase {
     }
 
     writer.startElement(HtmlElements.IMG, image);
+
+    if (image.getWidth() != null) {
+      writer.writeAttribute(HtmlAttributes.WIDTH, "" + image.getWidth().getPixel(), false);
+    }
+    if (image.getHeight() != null) {
+      writer.writeAttribute(HtmlAttributes.HEIGHT, "" + image.getHeight().getPixel(), false);
+    }
+
     final String clientId = image.getClientId(facesContext);
     writer.writeIdAttribute(clientId);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, image);
@@ -94,7 +102,7 @@ public class ImageRenderer extends LayoutComponentRendererBase {
     writer.writeStyleAttribute(style);
     if (ComponentUtils.findAncestor(image, UINav.class) != null) { // todo: may set a marker in the context in the
       // todo: NavRenderer, or the additional class, to avoid tree traversing
-      writer.writeClassAttribute(Classes.create(image).getStringValue() + " " + BootstrapClass.NAVBAR_BRAND.getName());
+      writer.writeClassAttribute(Classes.create(image), BootstrapClass.NAVBAR_BRAND);
     } else {
       writer.writeClassAttribute(Classes.create(image));
     }

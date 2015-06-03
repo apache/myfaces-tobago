@@ -61,8 +61,7 @@ public class OutRenderer extends LayoutComponentRendererBase {
       HtmlRendererUtils.writeDataAttributes(facesContext, writer, out);
       final Style style = new Style(facesContext, out);
       writer.writeStyleAttribute(style);
-      writer.writeClassAttribute(
-          Classes.create(out).getStringValue() + " " + BootstrapClass.FORM_CONTROL_STATIC.getName());
+      writer.writeClassAttribute(Classes.create(out), BootstrapClass.FORM_CONTROL_STATIC);
       final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, out);
       if (title != null) {
         writer.writeAttribute(HtmlAttributes.TITLE, title, true);

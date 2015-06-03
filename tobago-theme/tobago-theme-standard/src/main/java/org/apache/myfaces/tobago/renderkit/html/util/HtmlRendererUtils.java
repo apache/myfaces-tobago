@@ -262,7 +262,7 @@ public final class HtmlRendererUtils {
     final UIComponent contextMenu = FacetUtils.getContextMenu(parent);
     if (contextMenu != null) {
       writer.startElement(HtmlElements.OL, contextMenu);
-      writer.writeClassAttribute("tobago-menuBar tobago-menu-contextMenu");
+      writer. writeClassAttribute("tobago-menuBar tobago-menu-contextMenu");
       RenderUtils.encode(facesContext, contextMenu);
       writer.endElement(HtmlElements.OL);
     }

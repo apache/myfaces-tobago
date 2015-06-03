@@ -182,8 +182,7 @@ public class TabGroupRenderer extends LayoutComponentRendererBase {
     writer.writeClassAttribute(Classes.create(tabGroup, "header"));
 
     writer.startElement(HtmlElements.UL, tabGroup);
-    writer.writeClassAttribute(Classes.create(tabGroup, "headerInner").getStringValue()
-      +" "  + BootstrapClass.NAV.getName() + ' ' + BootstrapClass.NAV_TABS.getName()); // XXX clean up css management
+    writer.writeClassAttribute(Classes.create(tabGroup, "headerInner"), BootstrapClass.NAV, BootstrapClass.NAV_TABS);
     writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.TABLIST.toString(), false);
 
     int index = 0;
@@ -205,7 +204,7 @@ public class TabGroupRenderer extends LayoutComponentRendererBase {
           writer.startElement(HtmlElements.LI, tab);
           // todo: fix Css management
           if (activeIndex == index) {
-            writer.writeClassAttribute(Classes.create(tab).getStringValue() + " " + BootstrapClass.ACTIVE.getName());
+            writer.writeClassAttribute(Classes.create(tab), BootstrapClass.ACTIVE);
           } else {
             writer.writeClassAttribute(Classes.create(tab));
           }
