@@ -78,16 +78,8 @@ public class ImageRenderer extends LayoutComponentRendererBase {
     }
 
     writer.startElement(HtmlElements.IMG, image);
-
-    if (image.getWidth() != null) {
-      writer.writeAttribute(HtmlAttributes.WIDTH, "" + image.getWidth().getPixel(), false);
-    }
-    if (image.getHeight() != null) {
-      writer.writeAttribute(HtmlAttributes.HEIGHT, "" + image.getHeight().getPixel(), false);
-    }
-
-    final String clientId = image.getClientId(facesContext);
-    writer.writeIdAttribute(clientId);
+    writer.writeIdAttribute(image.getClientId(facesContext));
+    writer.writeStyleAttribute(new Style(facesContext, image));
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, image);
     if (src != null) {
       writer.writeAttribute(HtmlAttributes.SRC, src, true);

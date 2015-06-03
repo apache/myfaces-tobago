@@ -22,6 +22,7 @@ package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 import org.apache.myfaces.tobago.component.UIPopup;
 import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
+import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.TobagoClass;
@@ -52,6 +53,7 @@ public class PopupRenderer extends LayoutComponentRendererBase {
     writer.writeIdAttribute(popup.getClientId(facesContext));
     writer.startElement(HtmlElements.DIV, null);
     writer.writeClassAttribute(BootstrapClass.MODAL_DIALOG);
+    writer.writeStyleAttribute(new Style(facesContext, popup));
     writer.startElement(HtmlElements.DIV, null);
     writer.writeClassAttribute(BootstrapClass.MODAL_CONTENT);
   }
