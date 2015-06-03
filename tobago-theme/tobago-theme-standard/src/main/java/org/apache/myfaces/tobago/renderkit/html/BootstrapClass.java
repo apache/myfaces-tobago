@@ -44,6 +44,7 @@ public enum BootstrapClass implements CssItem {
   DROPDOWN_MENU("dropdown-menu"),
   DROPDOWN_TOGGLE("dropdown-toggle"),
   FADE("fade"),
+  FORM_CONTROL("form-control"),
   FORM_CONTROL_STATIC("form-control-static"),
   FORM_GROUP("form-group"),
   FORM_HORIZONTAL("form-horizontal"),
