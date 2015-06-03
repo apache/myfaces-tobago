@@ -130,7 +130,8 @@ public final class HtmlRendererUtils {
     return title;
   }
 
-  public static void renderSelectItems(final UIInput component, final Iterable<SelectItem> items, final Object[] values,
+  public static void renderSelectItems(
+      final UIInput component, final Iterable<SelectItem> items, final Object[] values,
       final TobagoResponseWriter writer, final FacesContext facesContext) throws IOException {
     renderSelectItems(component, items, values, null, writer, facesContext);
   }
@@ -201,8 +202,9 @@ public final class HtmlRendererUtils {
     }
   }
 
-  public static void renderCommandFacet(final UIComponent component, final FacesContext facesContext,
-      final TobagoResponseWriter writer) throws IOException {
+  public static void renderCommandFacet(
+      final UIComponent component, final FacesContext facesContext, final TobagoResponseWriter writer)
+      throws IOException {
     renderCommandFacet(component, component.getClientId(facesContext), facesContext, writer);
   }
 
@@ -231,8 +233,8 @@ public final class HtmlRendererUtils {
     }
   }
 
-  public static boolean renderSheetCommands(final UISheet sheet, final FacesContext facesContext,
-                                         final TobagoResponseWriter writer) throws IOException {
+  public static boolean renderSheetCommands(
+      final UISheet sheet, final FacesContext facesContext, final TobagoResponseWriter writer) throws IOException {
     CommandMap commandMap = null;
     for (final UIComponent child : sheet.getChildren()) {
       if (child instanceof UIColumnEvent) {
@@ -262,7 +264,7 @@ public final class HtmlRendererUtils {
     final UIComponent contextMenu = FacetUtils.getContextMenu(parent);
     if (contextMenu != null) {
       writer.startElement(HtmlElements.OL, contextMenu);
-      writer. writeClassAttribute("tobago-menuBar tobago-menu-contextMenu");
+      writer.writeClassAttribute("tobago-menuBar tobago-menu-contextMenu");
       RenderUtils.encode(facesContext, contextMenu);
       writer.endElement(HtmlElements.OL);
     }
