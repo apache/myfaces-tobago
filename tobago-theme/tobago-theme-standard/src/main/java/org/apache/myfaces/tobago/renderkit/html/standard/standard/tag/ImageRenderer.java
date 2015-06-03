@@ -79,7 +79,6 @@ public class ImageRenderer extends LayoutComponentRendererBase {
 
     writer.startElement(HtmlElements.IMG, image);
     writer.writeIdAttribute(image.getClientId(facesContext));
-    writer.writeStyleAttribute(new Style(facesContext, image));
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, image);
     if (src != null) {
       writer.writeAttribute(HtmlAttributes.SRC, src, true);
@@ -90,7 +89,9 @@ public class ImageRenderer extends LayoutComponentRendererBase {
       writer.writeAttribute(HtmlAttributes.TITLE, title, true);
     }
     writer.writeAttribute(HtmlAttributes.BORDER, border, false);
-    final Style style = new Style(facesContext, image);
+    final Style style = new Style();
+    style.setWidth(image.getWidth());
+    style.setHeight(image.getHeight());
     writer.writeStyleAttribute(style);
     if (ComponentUtils.findAncestor(image, UINav.class) != null) { // todo: may set a marker in the context in the
       // todo: NavRenderer, or the additional class, to avoid tree traversing

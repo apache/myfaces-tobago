@@ -53,7 +53,10 @@ public class PopupRenderer extends LayoutComponentRendererBase {
     writer.writeIdAttribute(popup.getClientId(facesContext));
     writer.startElement(HtmlElements.DIV, null);
     writer.writeClassAttribute(BootstrapClass.MODAL_DIALOG);
-    writer.writeStyleAttribute(new Style(facesContext, popup));
+    final Style style = new Style();
+    style.setWidth(popup.getWidth());
+    style.setHeight(popup.getHeight());
+    writer.writeStyleAttribute(style);
     writer.startElement(HtmlElements.DIV, null);
     writer.writeClassAttribute(BootstrapClass.MODAL_CONTENT);
   }
