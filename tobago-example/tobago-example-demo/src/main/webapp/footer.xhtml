@@ -31,18 +31,19 @@
     </tc:separator>
 
     <tc:button immediate="true" id="previous"
-               image="image/prev.png"
+               image="glyphicon-chevron-left"
                action="#{navigationState.gotoPrevious}"
                disabled="#{navigationState.first}"
                label="#{overviewBundle.footer_previous}"/>
 
     <tc:button immediate="true" id="next" defaultCommand="true"
-               image="image/next.png"
+               image="glyphicon-chevron-right"
                action="#{navigationState.gotoNext}"
                disabled="#{navigationState.last}"
                label="#{overviewBundle.footer_next}"/>
 
     <tc:button action="#{navigationTree.viewSource}"
+               image="glyphicon-eye-open"
                immediate="true" label="#{overviewBundle.footer_viewSource}"
                target="Source Viewer" transition="false"/>
 

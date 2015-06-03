@@ -22,7 +22,6 @@ package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.SupportsCss;
 import org.apache.myfaces.tobago.component.UIButton;
-import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.internal.component.AbstractUICommand;
 import org.apache.myfaces.tobago.internal.component.AbstractUIForm;
 import org.apache.myfaces.tobago.internal.component.AbstractUIToolBar;
@@ -123,24 +122,7 @@ public class ButtonRenderer extends CommandRendererBase {
     writer.flush(); // force closing the start tag
 
     String image = (String) button.getAttributes().get(Attributes.IMAGE);
-    if (image != null) {
-      if (ResourceManagerUtils.isAbsoluteResource(image)) {
-        // absolute Path to image : nothing to do
-      } else {
-        image = getImageWithPath(facesContext, image, disabled);
-      }
-      writer.startElement(HtmlElements.IMG, null);
-      writer.writeAttribute(HtmlAttributes.SRC, image, true);
-      final String tip = button.getTip();
-      writer.writeAttribute(HtmlAttributes.ALT, tip != null ? tip : "", true);
-      writer.endElement(HtmlElements.IMG);
-    }
-
-    if (label.getLabel() != null) {
-      writer.startElement(HtmlElements.SPAN, null);
-      HtmlRendererUtils.writeLabelWithAccessKey(writer, label);
-      writer.endElement(HtmlElements.SPAN);
-    }
+    HtmlRendererUtils.encodeIconWithLabel(writer, facesContext, image, label, disabled);
 
     writer.endElement(HtmlElements.BUTTON);
   }

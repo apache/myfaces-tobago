@@ -73,7 +73,7 @@ public class SectionRenderer extends LayoutComponentRendererBase {
             writer.writeClassAttribute(clazz);
         }
         final String image = section.getImage();
-        HtmlRendererUtils.encodeIconWithLabel(writer, label, image);
+        HtmlRendererUtils.encodeIconWithLabel(writer, image, label);
         writer.endElement(tag);
     }
 

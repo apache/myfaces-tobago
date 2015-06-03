@@ -20,7 +20,6 @@
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
 import org.apache.myfaces.tobago.config.Configurable;
-import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.internal.component.AbstractUILink;
 import org.apache.myfaces.tobago.internal.util.AccessKeyLogger;
 import org.apache.myfaces.tobago.layout.Measure;
@@ -93,31 +92,7 @@ public class LinkRenderer extends CommandRendererBase {
 
 //  image
     String image = link.getImage();
-    if (image != null) {
-      if (ResourceManagerUtils.isAbsoluteResource(image)) {
-        // absolute Path to image : nothing to do
-      } else {
-        image = getImageWithPath(facesContext, image, disabled);
-      }
-      writer.startElement(HtmlElements.IMG, link);
-      writer.writeClassAttribute(Classes.create(link, "image"));
-      writer.writeAttribute(HtmlAttributes.SRC, image, true);
-      writer.writeAttribute(HtmlAttributes.BORDER, 0); // TODO: is border=0 setting via style possible?
-      final String tip = link.getTip();
-      writer.writeAttribute(HtmlAttributes.ALT, tip != null ? tip : "", true);
-      if (tip != null) {
-        writer.writeAttribute(HtmlAttributes.TITLE, tip, true);
-      }
-      writer.endElement(HtmlElements.IMG);
-    }
-
-//  label
-    if (label.getLabel() != null) {
-      if (image != null) {
-        writer.write(" "); // separator: e.g. &nbsp;
-      }
-      HtmlRendererUtils.writeLabelWithAccessKey(writer, label);
-    }
+    HtmlRendererUtils.encodeIconWithLabel(writer, facesContext, image, label, disabled);
   }
 
   public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {

@@ -110,7 +110,7 @@ public class CommandRenderer extends CommandRendererBase {
       if (ResourceManagerUtils.isAbsoluteResource(image)) {
         // absolute Path to image : nothing to do
       } else {
-        image = getImageWithPath(facesContext, image, disabled);
+        image = HtmlRendererUtils.getImageWithPath(facesContext, image, disabled);
       }
       writer.startElement(HtmlElements.IMG, link);
       writer.writeClassAttribute(Classes.create(link, "image"));

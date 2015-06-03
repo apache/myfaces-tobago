@@ -105,12 +105,11 @@ public final class HtmlRendererUtils {
     }
   }
 
-  public static void encodeIconWithLabel(TobagoResponseWriter writer, String label, String image) throws IOException {
+  public static void encodeIconWithLabel(TobagoResponseWriter writer, String image, String label) throws IOException {
     if (image != null && image.startsWith("glyphicon-")) { // XXX hack: should be integrated in the resource manager
       writer.startElement(HtmlElements.SPAN, null);
       writer.writeClassAttribute(BootstrapClass.GLYPHICON, BootstrapClass.glyphicon(image));
       writer.endElement(HtmlElements.SPAN);
-
     }
     if (image != null && label != null) {
       writer.writeText(" ");
@@ -120,6 +119,43 @@ public final class HtmlRendererUtils {
     }
     if (label != null) {
       writer.writeText(label);
+    }
+  }
+
+  public static void encodeIconWithLabel(
+      TobagoResponseWriter writer, FacesContext facesContext, String image, LabelWithAccessKey label, boolean disabled)
+      throws IOException {
+    if (image != null) {
+      if (image.startsWith("glyphicon-")) {
+        writer.startElement(HtmlElements.SPAN, null);
+        writer.writeClassAttribute(BootstrapClass.GLYPHICON, BootstrapClass.glyphicon(image));
+        writer.endElement(HtmlElements.SPAN);
+      } else {
+        if (ResourceManagerUtils.isAbsoluteResource(image)) {
+          // absolute Path to image : nothing to do
+        } else {
+          image = getImageWithPath(facesContext, image, disabled);
+        }
+        writer.startElement(HtmlElements.IMG, null);
+        writer.writeAttribute(HtmlAttributes.SRC, image, true);
+        writer.writeAttribute(HtmlAttributes.ALT, "", false);
+        writer.endElement(HtmlElements.IMG);
+      }
+    }
+
+    if (label.getLabel() != null) {
+      writer.startElement(HtmlElements.SPAN, null);
+      HtmlRendererUtils.writeLabelWithAccessKey(writer, label);
+      writer.endElement(HtmlElements.SPAN);
+    }
+  }
+
+  public static String getImageWithPath(final FacesContext facesContext, final String image, final boolean disabled) {
+    final int indexOfExtension = ResourceManagerUtils.indexOfExtension(image);
+    if (indexOfExtension == -1) {
+      return ResourceManagerUtils.getImageOrDisabledImage(facesContext, image, disabled);
+    } else {
+      return ResourceManagerUtils.getImageOrDisabledImageWithPath(facesContext, image, disabled);
     }
   }
 
