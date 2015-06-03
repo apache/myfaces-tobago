@@ -132,13 +132,6 @@ public class InRenderer extends InputRendererBase {
     }
 
     writer.writeClassAttribute(Classes.create(input));
-      /*if (component instanceof AbstractUIInput) {
-       String onchange = HtmlUtils.generateOnchange((AbstractUIInput) component, facesContext);
-       if (onchange != null) {
-         // TODO: create and use utility method to write attributes without quoting
-     //      writer.writeAttribute(HtmlAttributes.ONCHANGE, onchange, null);
-       }
-     } */
     writer.writeAttribute(HtmlAttributes.REQUIRED, required);
     HtmlRendererUtils.renderFocus(id, input.isFocus(), ComponentUtils.isError(input), facesContext, writer);
     writeAdditionalAttributes(facesContext, writer, input);
