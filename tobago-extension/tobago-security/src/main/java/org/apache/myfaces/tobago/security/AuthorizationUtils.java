@@ -43,6 +43,8 @@ public class AuthorizationUtils {
   private static final Object NULL_VALUE = new Object();
   private static final Map<String, Object> AUTHORISATION_CACHE = new ConcurrentHashMap<String, Object>();
 
+  private static final Pattern PATTERN = Pattern.compile("#\\{(\\w+(?:\\.\\w+)*)\\.(\\w+)(?:\\(.*\\))?\\}");
+
   private AuthorizationUtils() {
   }
 
@@ -106,8 +108,7 @@ public class AuthorizationUtils {
       return null;
     } else {
       Annotation securityAnnotation = null;
-      final Pattern pattern = Pattern.compile("#\\{(\\w+(?:\\.\\w+)*)\\.(\\w+)(?:\\(.*\\))?\\}");
-      final Matcher matcher = pattern.matcher(expression);
+      final Matcher matcher = PATTERN.matcher(expression);
       if (matcher.matches()) {
         String beanString = matcher.group(1);
         String methodString = matcher.group(2);
