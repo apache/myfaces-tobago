@@ -202,30 +202,18 @@ table.tobago-sheet-bodyTable>tbody>tr>td:last-child {
 /*
 fixes missing space, I thinks normal Websites have a " " Space char in the source code, Tobago not.
 */
-.navbar button,
-.navbar input {
+.navbar button:nth-child(n+2),
+.navbar input:nth-child(n+2) {
   margin-left: 5px;
 }
 
-.navbar button:first-child,
-.navbar input:first-child {
-  margin-left: 0;
-}
-
-.btn {
+.btn:nth-child(n+2) {
   margin-left: 5px;
 }
 
-.btn:first-child {
-  margin-left: 0;
-}
-
-.tobago-button > *, .tobago-link > * {
-  margin-left: 5px;
-}
-
-.tobago-button > *:first-child, .tobago-link > *:first-child {
-  margin-left: 0;
+.tobago-button > *:nth-child(n+2),
+.tobago-link > *:nth-child(n+2) {
+  margin-left: .4em;
 }
 
 .tobago-label {
@@ -250,12 +238,13 @@ fixes missing space, I thinks normal Websites have a " " Space char in the sourc
   display: none;
 }
 
-h1 > *, h2 > *, h3 > *, h4 > *, h5 > *, h6 > * {
-  margin-left: 1em;
-}
-
-h1 > *:first-child, h2 > *:first-child, h3 > *:first-child, h4 > *:first-child, h5 > *:first-child, h6 > *:first-child {
-  margin-left: 0;
+h1 > .glyphicon:first-child,
+h2 > .glyphicon:first-child,
+h3 > .glyphicon:first-child,
+h4 > .glyphicon:first-child,
+h5 > .glyphicon:first-child,
+h6 > .glyphicon:first-child {
+  margin-right: 1em;
 }
 
 /* XXX hack */
