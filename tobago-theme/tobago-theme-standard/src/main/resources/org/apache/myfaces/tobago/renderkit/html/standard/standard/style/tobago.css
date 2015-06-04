@@ -20,6 +20,18 @@
  * agent: standard
  */
 
+/* date -------------------------------------------------------------- */
+
+/* XXX hack */
+.ui-datepicker-trigger {
+  display: none;
+}
+
+/* for pickers with more than one icon, e.g. date-time picker */
+.btn > span.glyphicon:nth-child(n+2) {
+  margin-left: .3em;
+}
+
 /* flexLayout -------------------------------------------------------------- */
 
 .tobago-flexLayout {
@@ -100,6 +112,18 @@ body > form > .navbar-fixed-top + * {
   margin-top: 50px; /* XXX */
 }
 
+/* section ----------------------------------------------------------- */
+
+/* to separate the icon from the rest of the title */
+h1 > .glyphicon:first-child,
+h2 > .glyphicon:first-child,
+h3 > .glyphicon:first-child,
+h4 > .glyphicon:first-child,
+h5 > .glyphicon:first-child,
+h6 > .glyphicon:first-child {
+  margin-right: 1em;
+}
+
 /* selectManyCheckbox ----------------------------------------------------------- */
 
 .tobago-selectManyCheckbox {
@@ -178,6 +202,18 @@ table.tobago-sheet-bodyTable>tbody>tr>td:last-child {
 
 .tobago-tab-content {
   display: none;
+  border: 1px solid #cccccc;
+  padding: 5px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+}
+
+/* 1st is hidden, 2nd is header, 3rd is toolbar, 4th is the first content tab */
+.tobago-tab-content:nth-child(4) {
+  -webkit-border-top-left-radius: 0;
+  -moz-border-radius-topleft: 0;
+  border-top-left-radius: 0;
 }
 
 .tobago-tab-content-markup-selected {
@@ -238,16 +274,3 @@ fixes missing space, I thinks normal Websites have a " " Space char in the sourc
   display: none;
 }
 
-h1 > .glyphicon:first-child,
-h2 > .glyphicon:first-child,
-h3 > .glyphicon:first-child,
-h4 > .glyphicon:first-child,
-h5 > .glyphicon:first-child,
-h6 > .glyphicon:first-child {
-  margin-right: 1em;
-}
-
-/* XXX hack */
-.ui-datepicker-trigger {
-  display: none;
-}
