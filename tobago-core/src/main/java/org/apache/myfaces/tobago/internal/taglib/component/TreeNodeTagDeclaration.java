@@ -94,6 +94,7 @@ public interface
 
   /**
    * Method binding representing a markedListener method that ....
+   * @deprecated since 2.0.0.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = {},
