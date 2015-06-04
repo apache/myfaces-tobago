@@ -20,7 +20,6 @@
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
 import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.component.SupportsCss;
 import org.apache.myfaces.tobago.internal.component.AbstractUIIn;
 import org.apache.myfaces.tobago.internal.component.AbstractUIInput;
 import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
@@ -28,6 +27,7 @@ import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.renderkit.InputRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
+import org.apache.myfaces.tobago.renderkit.html.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
@@ -46,15 +46,6 @@ import java.io.IOException;
 public class InRenderer extends InputRendererBase {
 
   private static final Logger LOG = LoggerFactory.getLogger(InRenderer.class);
-
-  @Override
-  public void prepareRender(
-      final FacesContext facesContext, final UIComponent component) throws IOException {
-    super.prepareRender(facesContext, component);
-
-    SupportsCss css = (SupportsCss) component;
-    css.getCurrentCss().add("form-control");
-  }
 
   @Override
   public void decode(final FacesContext facesContext, final UIComponent component) {
@@ -131,7 +122,7 @@ public class InRenderer extends InputRendererBase {
       writer.writeAttribute(HtmlAttributes.AUTOCOMPLETE, "off", false);
     }
 
-    writer.writeClassAttribute(Classes.create(input));
+    writer.writeClassAttribute(Classes.create(input), BootstrapClass.FORM_CONTROL);
     writer.writeAttribute(HtmlAttributes.REQUIRED, required);
     HtmlRendererUtils.renderFocus(id, input.isFocus(), ComponentUtils.isError(input), facesContext, writer);
     writeAdditionalAttributes(facesContext, writer, input);

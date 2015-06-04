@@ -20,19 +20,19 @@
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
 import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.component.SupportsCss;
 import org.apache.myfaces.tobago.component.UITextarea;
-import org.apache.myfaces.tobago.sanitizer.Sanitizer;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.renderkit.InputRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
+import org.apache.myfaces.tobago.renderkit.html.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.html.Command;
 import org.apache.myfaces.tobago.renderkit.html.CommandMap;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
+import org.apache.myfaces.tobago.sanitizer.Sanitizer;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
@@ -47,15 +47,6 @@ import java.io.IOException;
 public class TextareaRenderer extends InputRendererBase {
 
   private static final Logger LOG = LoggerFactory.getLogger(TextareaRenderer.class);
-
-  @Override
-  public void prepareRender(
-      final FacesContext facesContext, final UIComponent component) throws IOException {
-    super.prepareRender(facesContext, component);
-
-    SupportsCss css = (SupportsCss) component;
-    css.getCurrentCss().add("form-control");
-  }
 
   @Override
   public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
@@ -88,7 +79,7 @@ public class TextareaRenderer extends InputRendererBase {
       writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
     }
 
-    writer.writeClassAttribute(Classes.create(input));
+    writer.writeClassAttribute(Classes.create(input), BootstrapClass.FORM_CONTROL);
     final Style style = new Style(facesContext, input);
     writer.writeStyleAttribute(style);
     final String onchange = ComponentUtils.getStringAttribute(input, Attributes.ONCHANGE);
