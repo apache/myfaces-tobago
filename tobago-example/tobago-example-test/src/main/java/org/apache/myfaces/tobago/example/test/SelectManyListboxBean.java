@@ -20,49 +20,100 @@
 package org.apache.myfaces.tobago.example.test;
 
 import java.util.Collection;
+import java.util.Currency;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
 public class SelectManyListboxBean {
 
-  private List<String> list;
+  private List<String> stringList;
+  private String[] stringArray;
+  private Set<String> stringSet = new HashSet<String>();
+  private Collection<String> stringCollection = new LinkedList<String>();
 
-  private Set<String> set;
+  private List<Currency> currencyList;
+  private Currency[] currencyArray;
+  private Set<Currency> currencySet = new HashSet<Currency>();
+  private Collection<Currency> currencyCollection = new LinkedList<Currency>();
 
-  private Collection<String> collection = new LinkedList<String>();
+  private Currency[] currencyItems;
 
-  private String[] array;
-
-  public List<String> getList() {
-    return list;
+  public SelectManyListboxBean() {
+    currencyItems = new Currency[]{
+        Currency.getInstance("JPY"),
+        Currency.getInstance("TTD"),
+        Currency.getInstance("USD"),
+        Currency.getInstance("EUR")
+    };
   }
 
-  public void setList(final List<String> list) {
-    this.list = list;
+  public List<String> getStringList() {
+    return stringList;
   }
 
-  public String[] getArray() {
-    return array;
+  public void setStringList(final List<String> stringList) {
+    this.stringList = stringList;
   }
 
-  public void setArray(final String[] array) {
-    this.array = array;
+  public String[] getStringArray() {
+    return stringArray;
   }
 
-  public Set<String> getSet() {
-    return set;
+  public void setStringArray(final String[] stringArray) {
+    this.stringArray = stringArray;
   }
 
-  public void setSet(final Set<String> set) {
-    this.set = set;
+  public Set<String> getStringSet() {
+    return stringSet;
   }
 
-  public Collection<String> getCollection() {
-    return collection;
+  public void setStringSet(final Set<String> stringSet) {
+    this.stringSet = stringSet;
   }
 
-  public void setCollection(final Collection<String> collection) {
-    this.collection = collection;
+  public Collection<String> getStringCollection() {
+    return stringCollection;
+  }
+
+  public void setStringCollection(final Collection<String> stringCollection) {
+    this.stringCollection = stringCollection;
+  }
+
+  public List<Currency> getCurrencyList() {
+    return currencyList;
+  }
+
+  public void setCurrencyList(final List<Currency> currencyList) {
+    this.currencyList = currencyList;
+  }
+
+  public Currency[] getCurrencyArray() {
+    return currencyArray;
+  }
+
+  public void setCurrencyArray(final Currency[] currencyArray) {
+    this.currencyArray = currencyArray;
+  }
+
+  public Set<Currency> getCurrencySet() {
+    return currencySet;
+  }
+
+  public void setCurrencySet(final Set<Currency> currencySet) {
+    this.currencySet = currencySet;
+  }
+
+  public Collection<Currency> getCurrencyCollection() {
+    return currencyCollection;
+  }
+
+  public void setCurrencyCollection(final Collection<Currency> currencyCollection) {
+    this.currencyCollection = currencyCollection;
+  }
+
+  public Currency[] getCurrencyItems() {
+    return currencyItems;
   }
 }
