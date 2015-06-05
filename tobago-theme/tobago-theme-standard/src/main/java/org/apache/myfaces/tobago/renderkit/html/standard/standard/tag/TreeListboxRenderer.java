@@ -94,13 +94,6 @@ public class TreeListboxRenderer extends LayoutComponentRendererBase {
     writer.writeAttribute(HtmlAttributes.VALUE, ";", false);
     writer.endElement(HtmlElements.INPUT);
 
-    writer.startElement(HtmlElements.INPUT, tree);
-    writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN, false);
-    writer.writeNameAttribute(clientId + ComponentUtils.SUB_SEPARATOR + AbstractUITree.SUFFIX_MARKED);
-    writer.writeIdAttribute(clientId + ComponentUtils.SUB_SEPARATOR + AbstractUITree.SUFFIX_MARKED);
-    writer.writeAttribute(HtmlAttributes.VALUE, "", false);
-    writer.endElement(HtmlElements.INPUT);
-
     if (tree.getSelectableAsEnum().isSupportedByTreeListbox()) {
       writer.startElement(HtmlElements.INPUT, tree);
       writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN, false);
