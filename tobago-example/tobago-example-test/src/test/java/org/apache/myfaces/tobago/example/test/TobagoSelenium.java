@@ -68,6 +68,7 @@ public class TobagoSelenium extends WebDriverBackedSelenium {
       webDriverCommandProcessor.addMethod("assertElementHeight", new AssertElementHeight(elementFinder));
       webDriverCommandProcessor.addMethod("assertElementPositionLeft", new AssertElementPositionLeft(elementFinder));
       webDriverCommandProcessor.addMethod("assertElementPositionTop", new AssertElementPositionTop(elementFinder));
+      webDriverCommandProcessor.addMethod("waitForAttribute", new WaitForAttribute(javascriptLibrary, elementFinder));
     }
   }
 
@@ -295,6 +296,26 @@ public class TobagoSelenium extends WebDriverBackedSelenium {
       String attributeValue = super.handleSeleneseCommand(driver, attributeLocator, null);
       Assert.assertEquals(expectedValue, attributeValue);
       return attributeValue;
+    }
+  }
+
+  class WaitForAttribute extends GetAttribute {
+    public WaitForAttribute(final JavascriptLibrary library, final ElementFinder finder) {
+      super(library, finder);
+    }
+
+    @Override
+    protected String handleSeleneseCommand(final WebDriver driver, final String attributeLocator,
+                                           final String expectedValue) {
+      long timeout = getTimeout("");
+      new Wait() {
+        @Override
+        public boolean until() {
+          String attributeValue = WaitForAttribute.super.handleSeleneseCommand(driver, attributeLocator, expectedValue);
+          return expectedValue.equals(attributeValue);
+        }
+      }.wait(String.format("Timed out waiting for %s. Waited %s", attributeLocator, timeout), timeout);
+      return null;
     }
   }
 }
