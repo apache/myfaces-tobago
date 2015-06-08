@@ -19,15 +19,12 @@
 
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
-import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UITextarea;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.renderkit.InputRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.BootstrapClass;
-import org.apache.myfaces.tobago.renderkit.html.Command;
-import org.apache.myfaces.tobago.renderkit.html.CommandMap;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
@@ -82,13 +79,6 @@ public class TextareaRenderer extends InputRendererBase {
     writer.writeClassAttribute(Classes.create(input), BootstrapClass.FORM_CONTROL);
     final Style style = new Style(facesContext, input);
     writer.writeStyleAttribute(style);
-    final String onchange = ComponentUtils.getStringAttribute(input, Attributes.ONCHANGE);
-    if (onchange != null) {
-      final CommandMap map = new CommandMap();
-      final Command change = new Command();
-      change.setScript(onchange);
-      map.addCommand("change", change);
-    }
     int maxLength = -1;
     final String pattern = null;
     for (final Validator validator : input.getValidators()) {

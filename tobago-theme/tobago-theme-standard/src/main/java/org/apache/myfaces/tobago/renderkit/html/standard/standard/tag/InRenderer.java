@@ -20,7 +20,6 @@
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
 import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.internal.component.AbstractUIIn;
 import org.apache.myfaces.tobago.internal.component.AbstractUIInput;
 import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
@@ -116,10 +115,6 @@ public class InRenderer extends InputRendererBase {
     final String placeholder = input.getPlaceholder();
     if (!disabled && !readonly && StringUtils.isNotBlank(placeholder)) {
       writer.writeAttribute(HtmlAttributes.PLACEHOLDER, placeholder, true);
-    }
-
-    if (input instanceof AbstractUIIn && ((AbstractUIIn) input).getSuggest() != null) {
-      writer.writeAttribute(HtmlAttributes.AUTOCOMPLETE, "off", false);
     }
 
     writer.writeClassAttribute(Classes.create(input), BootstrapClass.FORM_CONTROL);

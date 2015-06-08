@@ -35,10 +35,6 @@
 		<source>date.xml</source>
 	</tag>
   <tag>
-		<tag-name>time</tag-name>
-		<source>time.xml</source>
-	</tag>
-  <tag>
 		<tag-name>textarea</tag-name>
 		<source>textarea.xml</source>
 	</tag>

@@ -108,8 +108,6 @@ public abstract class AbstractUICommand
 
   public abstract String getLink();
 
-  public abstract String getOnclick();
-
   public abstract String getTarget();
 
   public abstract boolean isTransition();

@@ -95,9 +95,6 @@ public abstract class AbstractUIData extends javax.faces.component.UIData {
     }
   }
 
-  /**
-   * Will be obsolete later when selectable has the type TreeSelectable.
-   */
   public Selectable getSelectableAsEnum() {
     final Selectable selectable = Selectable.parse(ComponentUtils.getStringAttribute(this, Attributes.SELECTABLE));
     return selectable != null ? selectable : Selectable.NONE; // should not happen

@@ -366,11 +366,9 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
   }
 
   private boolean hasNoCommand(final AbstractUICommand command) {
-    return command.getAction() == null
-        && command.getActionListener() == null
+    return command.getActionExpression() == null
         && command.getActionListeners().length == 0
-        && command.getLink() == null
-        && command.getAttributes().get(Attributes.ONCLICK) == null;
+        && command.getLink() == null;
   }
 
   private String getImage(

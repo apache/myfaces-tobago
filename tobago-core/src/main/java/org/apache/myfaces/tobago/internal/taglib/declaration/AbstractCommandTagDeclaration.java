@@ -20,5 +20,5 @@
 package org.apache.myfaces.tobago.internal.taglib.declaration;
 
 public interface AbstractCommandTagDeclaration extends HasAction, HasActionListener, IsImmediateCommand,
-    HasOnclick, HasLink, HasResource, IsTransition, HasTarget, HasRenderedPartially, IsDisabled, IsOmit {
+    HasLink, HasResource, IsTransition, HasTarget, HasRenderedPartially, IsDisabled, IsOmit {
 }

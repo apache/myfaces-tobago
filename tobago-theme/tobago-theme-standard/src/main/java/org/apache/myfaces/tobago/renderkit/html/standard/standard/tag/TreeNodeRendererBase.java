@@ -38,7 +38,7 @@ public class TreeNodeRendererBase extends LayoutComponentRendererBase {
 
     final AbstractUITreeNode node = (AbstractUITreeNode) component;
     final AbstractUIData data = ComponentUtils.findAncestor(node, AbstractUIData.class);
-    if (data instanceof AbstractUITree && ((AbstractUITree) data).getSelectedState().isSelected(node.getPath())) {
+    if (data instanceof AbstractUITree && data.getSelectedState().isSelected(node.getPath())) {
       ComponentUtils.addCurrentMarkup(node, Markup.SELECTED);
     }
     if (node.isFolder()) {

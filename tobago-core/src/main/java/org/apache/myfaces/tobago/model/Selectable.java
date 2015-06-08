@@ -112,9 +112,9 @@ public enum Selectable {
   }
 
   /**
-   * @param name Name of the TreeSelectable
+   * @param name Name of the Selectable
    * @return The matching tree selection (can't be null).
-   * @throws IllegalArgumentException When the name doesn't match any TreeSelectable.
+   * @throws IllegalArgumentException When the name doesn't match any Selectable.
    */
   public static Selectable parse(final Object name) throws IllegalArgumentException {
     if (name == null) {
@@ -127,7 +127,7 @@ public enum Selectable {
     if (value != null) {
       return value;
     } else {
-      throw new IllegalArgumentException("Unknown name for TreeSelectable: '" + name + "'");
+      throw new IllegalArgumentException("Unknown name for Selectable: '" + name + "'");
     }
   }
 

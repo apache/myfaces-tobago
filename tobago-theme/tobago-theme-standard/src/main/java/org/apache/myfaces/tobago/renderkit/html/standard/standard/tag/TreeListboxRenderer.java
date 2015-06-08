@@ -27,7 +27,6 @@ import org.apache.myfaces.tobago.internal.component.AbstractUITree;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
-import org.apache.myfaces.tobago.renderkit.css.Position;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
@@ -73,14 +72,14 @@ public class TreeListboxRenderer extends LayoutComponentRendererBase {
     final String clientId = tree.getClientId(facesContext);
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
     final Style style = new Style(facesContext, tree);
-    final Style scrollDivStyle = new Style();
+//    final Style scrollDivStyle = new Style();
 
     writer.startElement(HtmlElements.DIV, tree);
-    scrollDivStyle.setWidth(Measure.valueOf(6 * 160)); // todo: depth * width of a select
-    scrollDivStyle.setHeight(style.getHeight() // todo: what, when there is no scrollbar?
-        .subtract(15)); // todo: scrollbar height
-    scrollDivStyle.setPosition(Position.ABSOLUTE);
-    writer.writeStyleAttribute(scrollDivStyle);
+//    scrollDivStyle.setWidth(Measure.valueOf(6 * 160)); // todo: depth * width of a select
+//    scrollDivStyle.setHeight(style.getHeight() // todo: what, when there is no scrollbar?
+//        .subtract(15)); // todo: scrollbar height
+//    scrollDivStyle.setPosition(Position.ABSOLUTE);
+//    writer.writeStyleAttribute(scrollDivStyle);
 
     writer.startElement(HtmlElements.DIV, tree);
     writer.writeClassAttribute(Classes.create(tree));

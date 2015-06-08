@@ -21,9 +21,6 @@ package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
 import org.apache.myfaces.tobago.component.UITreeNode;
 import org.apache.myfaces.tobago.component.UITreeSelect;
-import org.apache.myfaces.tobago.context.Markup;
-import org.apache.myfaces.tobago.event.TreeExpansionEvent;
-import org.apache.myfaces.tobago.event.TreeMarkedEvent;
 import org.apache.myfaces.tobago.internal.component.AbstractUITree;
 import org.apache.myfaces.tobago.model.Selectable;
 import org.apache.myfaces.tobago.renderkit.CommandRendererBase;
@@ -68,9 +65,11 @@ public class TreeListboxNodeRenderer extends CommandRendererBase {
     // expand state
     if (folder) {
       final boolean expanded = Boolean.parseBoolean(requestParameterMap.get(id + "-expanded"));
+/* XXX check
       if (node.isExpanded() != expanded) {
         new TreeExpansionEvent(node, node.isExpanded(), expanded).queue();
       }
+*/
     }
 
     // select
@@ -88,9 +87,11 @@ public class TreeListboxNodeRenderer extends CommandRendererBase {
     if (marked != null) {
       final String searchString = treeId + UINamingContainer.getSeparatorChar(facesContext) + nodeStateId;
       final boolean markedValue = marked.equals(searchString);
+/* XXX check
       if (node.isMarked() != markedValue) {
         new TreeMarkedEvent(node, node.isMarked(), markedValue).queue();
       }
+*/
     } else {
       LOG.warn("This log message is help clarifying the occurrence of this else case.");
     }
@@ -101,9 +102,11 @@ public class TreeListboxNodeRenderer extends CommandRendererBase {
     super.prepareRender(facesContext, component);
 
     final UITreeNode node = (UITreeNode) component;
+/* XXX check
     if (node.isMarked()) {
       node.setMarkup(Markup.MARKED.add(node.getMarkup()));
     }
+*/
   }
 
   @Override
@@ -111,7 +114,7 @@ public class TreeListboxNodeRenderer extends CommandRendererBase {
     final UITreeNode node = (UITreeNode) component;
     final boolean folder = node.isFolder();
     final String id = node.getClientId(facesContext);
-    final boolean expanded = folder && node.isExpanded();
+    final boolean expanded = folder; // XXX check && node.isExpanded();
 
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 

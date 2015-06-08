@@ -25,7 +25,6 @@ import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.layout.Box;
 import org.apache.myfaces.tobago.layout.Measure;
-import org.apache.myfaces.tobago.model.PageState;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -85,12 +84,6 @@ public class PageRendererBase extends LayoutComponentRendererBase {
         final StringTokenizer tokenizer = new StringTokenizer(value, ";");
         final Measure width = Measure.valueOf(tokenizer.nextToken());
         final Measure height = Measure.valueOf(tokenizer.nextToken());
-        // XXX remove me later
-        final PageState pageState = page.getPageState(facesContext);
-        if (pageState != null) {
-          pageState.setClientWidth(width.getPixel());
-          pageState.setClientHeight(height.getPixel());
-        }
         final ClientProperties clientProperties = ClientProperties.getInstance(facesContext);
         clientProperties.setPageWidth(width);
         clientProperties.setPageHeight(height);

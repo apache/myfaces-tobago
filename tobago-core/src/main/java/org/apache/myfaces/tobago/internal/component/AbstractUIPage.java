@@ -20,14 +20,12 @@
 package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.myfaces.tobago.ajax.AjaxUtils;
-import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.DeprecatedDimension;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.OnComponentPopulated;
 import org.apache.myfaces.tobago.internal.ajax.AjaxInternalUtils;
 import org.apache.myfaces.tobago.internal.ajax.AjaxResponseRenderer;
 import org.apache.myfaces.tobago.internal.layout.LayoutUtils;
-import org.apache.myfaces.tobago.internal.util.Deprecation;
 import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
 import org.apache.myfaces.tobago.internal.webapp.TobagoMultipartFormdataRequest;
 import org.apache.myfaces.tobago.layout.Box;
@@ -35,8 +33,6 @@ import org.apache.myfaces.tobago.layout.LayoutComponent;
 import org.apache.myfaces.tobago.layout.LayoutContainer;
 import org.apache.myfaces.tobago.layout.LayoutManager;
 import org.apache.myfaces.tobago.layout.Measure;
-import org.apache.myfaces.tobago.model.PageState;
-import org.apache.myfaces.tobago.model.PageStateImpl;
 import org.apache.myfaces.tobago.util.ApplyRequestValuesCallback;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.util.DebugUtils;
@@ -47,8 +43,6 @@ import org.apache.myfaces.tobago.util.UpdateModelValuesCallback;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.el.ELContext;
-import javax.el.ValueExpression;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.ContextCallback;
 import javax.faces.component.UIComponent;
@@ -315,32 +309,6 @@ public abstract class AbstractUIPage extends AbstractUIForm
     }
   }
 
-  /**
-   * @deprecated PageState is deprecated since 1.5.0
-   */
-  @Deprecated
-  public void updatePageState(final FacesContext facesContext) {
-  }
-
-  /**
-   * @deprecated PageState is deprecated since 1.5.0
-   */
-  @Deprecated
-  public PageState getPageState(final FacesContext facesContext) {
-    final ValueExpression expression = getValueExpression(Attributes.STATE);
-    if (expression != null) {
-      final ELContext elContext = facesContext.getELContext();
-      PageState state = (PageState) expression.getValue(elContext);
-      if (state == null) {
-        state = new PageStateImpl();
-        expression.setValue(elContext, state);
-      }
-      return state;
-    } else {
-      return null;
-    }
-  }
-
   public String getActionId() {
     return actionId;
   }
@@ -355,21 +323,6 @@ public abstract class AbstractUIPage extends AbstractUIForm
 
   public void setActionPosition(final Box actionPosition) {
     this.actionPosition = actionPosition;
-  }
-
-  /**
-   * @deprecated since 1.5.7 and 2.0.0
-   */
-  public String getDefaultActionId() {
-    Deprecation.LOG.error("The default action handling has been changed!");
-    return null;
-  }
-
-  /**
-   * @deprecated since 1.5.7 and 2.0.0
-   */
-  public void setDefaultActionId(final String defaultActionId) {
-    Deprecation.LOG.error("The default action handling has been changed!");
   }
 
   public void onComponentPopulated(final FacesContext facesContext, final UIComponent parent) {
