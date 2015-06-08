@@ -938,13 +938,15 @@ var Tobago = {
             element.css("height", data.height);
           }
 */
-          element.css({
-            left: data.left,
-            top: data.top,
-            width: data.width,
-            height: data.height,
-            zIndex: data.zIndex
-          });
+          if (data) {
+            element.css({
+              left: data.left,
+              top: data.top,
+              width: data.width,
+              height: data.height,
+              zIndex: data.zIndex
+            });
+          }
         });
     /* XXX this is the old Tobago 2.0 behaviour, should be deleded und removing these information from the tags
     Tobago.Utils.selectWithJQuery(elements, "[data-tobago-style]").each(function () {
