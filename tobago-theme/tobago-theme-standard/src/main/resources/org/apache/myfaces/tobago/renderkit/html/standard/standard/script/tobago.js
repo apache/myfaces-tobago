@@ -100,9 +100,9 @@ var Tobago = {
 
   reloadTimer: {},
 
-  jsObjects: new Array(),
+  jsObjects: [],
 
-  eventListeners: new Array(),
+  eventListeners: [],
 
   /**
     * Check browser types and versions.
@@ -128,7 +128,7 @@ var Tobago = {
   /**
    * Array to queue ScriptLoaders.
    */
-  scriptLoaders: new Array(),
+  scriptLoaders: [],
 
   ajaxComponents: {},
 
@@ -926,7 +926,7 @@ var Tobago = {
   initCss: function (elements) {
     // element styles
     console.time("[tobago] initCss"); // @DEV_ONLY
-    Tobago.Utils.selectWithJQuery(elements, ".tobago-image").add(
+    Tobago.Utils.selectWithJQuery(elements, ".tobago-image[data-tobago-style]").add(
         Tobago.Utils.selectWithJQuery(elements, ".modal-dialog[data-tobago-style]")).each(function () {
           var element = jQuery(this);
           var data = element.data("tobago-style");
