@@ -210,7 +210,7 @@ Copy the download artifacts from the repository to the site (release-tobago.sh)
 #!/bin/sh
 set -e
 
-VERSION=2.0.7
+VERSION=2.0.8
 LOCAL_BUILD=~/Documents/project/apache
 
 MAVEN_REPOSITORY=https://repository.apache.org/content/repositories/releases
