@@ -47,7 +47,6 @@ public final class ComponentTypes {
   public static final String SEPARATOR = "org.apache.myfaces.tobago.Separator";
   public static final String SELECT_BOOLEAN_CHECKBOX = "org.apache.myfaces.tobago.SelectBooleanCheckbox";
   public static final String STYLE = "org.apache.myfaces.tobago.Style";
-  public static final String TAB_GROUP_LAYOUT = "org.apache.myfaces.tobago.TabGroupLayout";
 
   private ComponentTypes() {
     // to prevent instantiation

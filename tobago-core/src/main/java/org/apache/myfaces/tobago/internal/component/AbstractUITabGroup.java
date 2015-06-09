@@ -28,7 +28,6 @@ import org.apache.myfaces.tobago.component.UITab;
 import org.apache.myfaces.tobago.event.TabChangeEvent;
 import org.apache.myfaces.tobago.event.TabChangeListener;
 import org.apache.myfaces.tobago.event.TabChangeSource2;
-import org.apache.myfaces.tobago.internal.layout.LayoutUtils;
 import org.apache.myfaces.tobago.layout.LayoutComponent;
 import org.apache.myfaces.tobago.layout.LayoutContainer;
 import org.apache.myfaces.tobago.layout.LayoutManager;
@@ -316,7 +315,7 @@ public abstract class AbstractUITabGroup extends AbstractUIPanel
   }
 
   public List<LayoutComponent> getComponents() {
-    return LayoutUtils.findLayoutChildren(this);
+    throw new IllegalStateException();
   }
 
   public void onComponentPopulated(final FacesContext facesContext, final UIComponent parent) {
