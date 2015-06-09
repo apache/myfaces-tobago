@@ -25,6 +25,7 @@ import org.apache.myfaces.tobago.layout.LayoutManager;
 
 /**
  * TODO
+ * @since 3.0.0
  */
 public abstract class AbstractUIColumnLayout extends AbstractUILayoutBase implements LayoutManager, SupportsMarkup {
 

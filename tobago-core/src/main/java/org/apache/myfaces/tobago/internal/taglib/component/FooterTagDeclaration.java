@@ -32,6 +32,7 @@ import javax.faces.component.UIPanel;
 
 /**
  * Defines a footer of its parent (like page, box, ...)
+ * @since 3.0.0
  */
 @Tag(name = "footer")
 @UIComponentTag(

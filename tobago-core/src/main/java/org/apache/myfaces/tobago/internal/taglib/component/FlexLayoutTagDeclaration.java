@@ -32,6 +32,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasRowLayout;
 
 /**
  * Renders a flex layout (CSS3 feature).
+ * @since 3.0.0
  */
 @Tag(name = "flexLayout")
 @UIComponentTag(

@@ -32,6 +32,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
 
 /**
  * Renders a layout using a 12 columns grid.
+ * @since 3.0.0
  */
 @Tag(name = "columnLayout")
 @UIComponentTag(
