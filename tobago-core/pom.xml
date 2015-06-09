@@ -30,24 +30,6 @@
   <build>
     <plugins>
       <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>build-helper-maven-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>add-source</id>
-            <phase>generate-sources</phase>
-            <goals>
-              <goal>add-source</goal>
-            </goals>
-            <configuration>
-              <sources>
-                <source>${project.build.directory}/generated</source>
-              </sources>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
         <configuration>
@@ -56,6 +38,7 @@
           <target>${maven.compile.target}</target>
           <encoding>${maven.compile.encoding}</encoding>
           <showWarnings>true</showWarnings>
+          <useIncrementalCompilation>false</useIncrementalCompilation><!-- see MCOMPILER-209 and MCOMPILER-235 -->
           <!-- <compilerArgument>-Xlint:all,-serial,-fallthrough</compilerArgument>-->
         </configuration>
       </plugin>
@@ -293,6 +276,7 @@
                   <source>1.6</source>
                   <target>1.6</target>
                   <proc>only</proc>
+                  <useIncrementalCompilation>false</useIncrementalCompilation><!-- see MCOMPILER-209 and MCOMPILER-235 -->
                   <!-- source output directory -->
                   <generatedSourcesDirectory>${project.build.directory}/generated</generatedSourcesDirectory>
                   <annotationProcessors>
