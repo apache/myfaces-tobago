@@ -20,11 +20,8 @@
 package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.component.ColumnEvent;
-import org.apache.myfaces.tobago.component.ComponentTypes;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.OnComponentPopulated;
-import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.Sorter;
 import org.apache.myfaces.tobago.component.SupportsCss;
 import org.apache.myfaces.tobago.component.SupportsRenderedPartially;
@@ -35,15 +32,17 @@ import org.apache.myfaces.tobago.event.SheetStateChangeSource2;
 import org.apache.myfaces.tobago.event.SortActionEvent;
 import org.apache.myfaces.tobago.event.SortActionSource2;
 import org.apache.myfaces.tobago.internal.layout.Grid;
+import org.apache.myfaces.tobago.internal.layout.OriginCell;
+import org.apache.myfaces.tobago.layout.AutoLayoutToken;
 import org.apache.myfaces.tobago.layout.LayoutComponent;
 import org.apache.myfaces.tobago.layout.LayoutContainer;
 import org.apache.myfaces.tobago.layout.LayoutManager;
 import org.apache.myfaces.tobago.layout.LayoutTokens;
+import org.apache.myfaces.tobago.layout.RelativeLayoutToken;
 import org.apache.myfaces.tobago.model.ExpandedState;
 import org.apache.myfaces.tobago.model.SelectedState;
 import org.apache.myfaces.tobago.model.SheetState;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRenderer;
-import org.apache.myfaces.tobago.util.CreateComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -84,8 +83,6 @@ public abstract class AbstractUISheet extends AbstractUIData
   private SheetState state;
   private List<Integer> widthList;
   private transient LayoutTokens columnLayout;
-
-  private transient List<LayoutComponent> layoutComponents;
 
   private transient Grid headerGrid;
 
@@ -420,9 +417,51 @@ public abstract class AbstractUISheet extends AbstractUIData
     super.processEvent(event);
     if (event instanceof PreRenderComponentEvent) {
       sort(getFacesContext(), null);
-      AbstractUISheetLayout.ensureColumnWidthList(FacesContext.getCurrentInstance(), this);
-      AbstractUISheetLayout.layoutHeader(this); // XXX see comment there...
+      ensureColumnWidthList();
+      layoutHeader();
     }
+  }
+
+  private void ensureColumnWidthList() {
+
+    final List<AbstractUIColumn> allColumns = getAllColumns();
+    final  List<Integer> currentWidthList = new ArrayList<Integer>(allColumns.size() + 1);
+    for (int i = 0; i < allColumns.size(); i++) {
+      final AbstractUIColumn column = allColumns.get(i);
+      currentWidthList.add(null);
+    }
+
+    setWidthList(currentWidthList);
+  }
+
+  private void layoutHeader() {
+    final UIComponent header = getHeader();
+    if (header == null) {
+      LOG.warn("This should not happen. Please file a bug in the issue tracker to reproduce this case.");
+      return;
+    }
+    final LayoutTokens columns = new LayoutTokens();
+    final List<AbstractUIColumn> renderedColumns = getRenderedColumns();
+    for (final AbstractUIColumn ignored : renderedColumns) {
+      columns.addToken(RelativeLayoutToken.DEFAULT_INSTANCE);
+    }
+    final LayoutTokens rows = new LayoutTokens();
+    rows.addToken(AutoLayoutToken.INSTANCE);
+    final Grid grid = new Grid(columns, rows);
+
+    for(final UIComponent child : header.getChildren()) {
+      if (child instanceof LayoutComponent) {
+        if (child.isRendered()) {
+          final LayoutComponent c = (LayoutComponent) child;
+          grid.add(new OriginCell(c), c.getColumnSpan(), c.getRowSpan());
+        }
+      } else {
+        if (LOG.isDebugEnabled()) {
+          LOG.debug("Found unknown component in header.");
+        }
+      }
+    }
+    setHeaderGrid(grid);
   }
 
   protected void sort(FacesContext facesContext, SortActionEvent event) {
@@ -561,48 +600,9 @@ public abstract class AbstractUISheet extends AbstractUIData
     getState().setFirst(first);
   }
 
+  @Override
   public List<LayoutComponent> getComponents() {
-    if (layoutComponents != null) {
-      return layoutComponents;
-    }
-    layoutComponents = new ArrayList<LayoutComponent>();
-    for (final UIComponent column : getChildren()) {
-      if (column instanceof AbstractUIColumnSelector) {
-        layoutComponents.add(null); // XXX UIColumnSelector is currently not an instance of LayoutComponent
-      } else if (column instanceof ColumnEvent) {
-        // ignore
-      } else if (column instanceof AbstractUIColumnNode) {
-        layoutComponents.add((AbstractUIColumnNode) column);
-      } else if (column instanceof UIColumn) {
-        LayoutComponent layoutComponent = null;
-        for (final UIComponent component : column.getChildren()) {
-          if (component instanceof LayoutComponent) {
-            if (layoutComponent == null) {
-              layoutComponent = (LayoutComponent) component;
-            } else {
-              LOG.warn(
-                  "Found more than one layout components inside of a UIColumn: column id='{}' renderer-type='{}'",
-                  column.getClientId(FacesContext.getCurrentInstance()),
-                  component.getRendererType());
-            }
-          }
-        }
-        if (layoutComponent != null) {
-          layoutComponents.add(layoutComponent);
-        } else {
-          final FacesContext facesContext = FacesContext.getCurrentInstance();
-          final AbstractUIOut dummy = (AbstractUIOut) CreateComponentUtils.createComponent(
-              facesContext, ComponentTypes.OUT, RendererTypes.OUT, facesContext.getViewRoot().createUniqueId());
-          dummy.setTransient(true);
-          column.getChildren().add(dummy);
-          layoutComponents.add(dummy);
-          LOG.warn(
-              "Found no component inside of a UIColumn: column id='{}'. Creating a dummy with id='{}'!",
-              column.getClientId(facesContext), dummy.getClientId(facesContext));
-        }
-      }
-    }
-    return layoutComponents;
+    throw new IllegalStateException();
   }
 
   public void onComponentPopulated(final FacesContext facesContext, final UIComponent parent) {
