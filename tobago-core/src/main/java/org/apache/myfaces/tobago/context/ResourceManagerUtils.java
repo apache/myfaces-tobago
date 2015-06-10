@@ -216,7 +216,7 @@ public final class ResourceManagerUtils {
           final FacesContext facesContext, final String image, final boolean disabled, final boolean ignoreMissing) {
     String imageWithPath = null;
     if (disabled) {
-      imageWithPath = ResourceManagerUtils.getDisabledImageWithPath(facesContext, image, ignoreMissing);
+      imageWithPath = ResourceManagerUtils.getDisabledImageWithPath(facesContext, image, false);
     }
     if (imageWithPath == null) {
       imageWithPath = ResourceManagerUtils.getImageWithPath(facesContext, image, ignoreMissing);
@@ -233,7 +233,7 @@ public final class ResourceManagerUtils {
           final FacesContext facesContext, final String image, final boolean disabled, final boolean ignoreMissing) {
     String imageWithPath = null;
     if (disabled) {
-      imageWithPath = ResourceManagerUtils.getDisabledImage(facesContext, image, ignoreMissing);
+      imageWithPath = ResourceManagerUtils.getDisabledImage(facesContext, image, false);
     }
     if (imageWithPath == null) {
       imageWithPath = ResourceManagerUtils.getImage(facesContext, image, ignoreMissing);

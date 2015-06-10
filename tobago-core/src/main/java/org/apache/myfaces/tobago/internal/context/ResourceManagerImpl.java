@@ -448,8 +448,8 @@ public class ResourceManagerImpl implements ResourceManager {
         ignoreMissing = true;
       }
 
-      if (!ignoreMissing) {
-        LOG.error("Path not found, and no fallback. Using empty string.\n"
+      if (!production && !ignoreMissing) {
+        LOG.warn("Path not found, and no fallback. Using empty string.\n"
             + "resourceDirs = '" + tobagoConfig.getResourceDirs()
             + "' contentType = '" + contentType
             + "' theme = '" + theme.getName()
