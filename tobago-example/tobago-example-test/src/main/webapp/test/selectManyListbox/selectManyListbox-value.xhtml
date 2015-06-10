@@ -22,28 +22,53 @@
     xmlns:f="http://java.sun.com/jsf/core">
 
   <tc:page>
-    <tc:gridLayoutConstraint width="630px" height="600px"/>
+    <tc:gridLayoutConstraint width="630px" height="800px"/>
     <f:facet name="layout">
-      <tc:gridLayout rows="auto;auto;auto;auto;auto;auto"/>
+      <tc:gridLayout rows="20px;auto;auto;auto;auto;auto;auto;auto;auto;auto;auto;auto;auto"/>
     </f:facet>
 
     <tc:messages>
       <tc:gridLayoutConstraint columnSpan="2"/>
     </tc:messages>
 
+    <tc:out value="The value attribute of the component has different type in this example:"/>
+
     <tc:label value="&lt;tx:selectManyListbox>"/>
 
-    <tx:selectManyListbox value="#{selectManyListboxBean.list}" label="list">
+    <tx:selectManyListbox value="#{selectManyListboxBean.stringList}" label="list of strings">
       <tc:selectItem itemValue="a" itemLabel="A Value"/>
       <tc:selectItem itemValue="b" itemLabel="An Alternative"/>
     </tx:selectManyListbox>
-    <tx:selectManyListbox value="#{selectManyListboxBean.array}" label="array">
+    <tx:selectManyListbox value="#{selectManyListboxBean.stringArray}" label="array of strings">
       <tc:selectItem itemValue="a" itemLabel="A Value"/>
       <tc:selectItem itemValue="b" itemLabel="An Alternative"/>
     </tx:selectManyListbox>
-    <tx:selectManyListbox value="#{selectManyListboxBean.collection}" label="array">
+    <tx:selectManyListbox value="#{selectManyListboxBean.stringSet}" label="set of strings">
       <tc:selectItem itemValue="a" itemLabel="A Value"/>
       <tc:selectItem itemValue="b" itemLabel="An Alternative"/>
+    </tx:selectManyListbox>
+    <tx:selectManyListbox value="#{selectManyListboxBean.stringCollection}" label="collection of strings">
+      <tc:selectItem itemValue="a" itemLabel="A Value"/>
+      <tc:selectItem itemValue="b" itemLabel="An Alternative"/>
+    </tx:selectManyListbox>
+
+    <tc:label value="&lt;tx:selectManyListbox> width java.util.Currency as value"/>
+
+    <tx:selectManyListbox value="#{selectManyListboxBean.stringList}" label="list of currencies">
+      <tc:selectItems value="#{selectManyListboxBean.currencyItems}"
+                      var="currency" itemValue="#{currency.currencyCode}" itemLabel="#{currency.displayName}"/>
+    </tx:selectManyListbox>
+    <tx:selectManyListbox value="#{selectManyListboxBean.stringArray}" label="array of currencies">
+      <tc:selectItems value="#{selectManyListboxBean.currencyItems}"
+                      var="currency" itemValue="#{currency.currencyCode}" itemLabel="#{currency.displayName}"/>
+    </tx:selectManyListbox>
+    <tx:selectManyListbox value="#{selectManyListboxBean.stringSet}" label="set of currencies">
+      <tc:selectItems value="#{selectManyListboxBean.currencyItems}"
+                      var="currency" itemValue="#{currency.currencyCode}" itemLabel="#{currency.displayName}"/>
+    </tx:selectManyListbox>
+    <tx:selectManyListbox value="#{selectManyListboxBean.stringCollection}" label="collection of currencies">
+      <tc:selectItems value="#{selectManyListboxBean.currencyItems}"
+                      var="currency" itemValue="#{currency.currencyCode}" itemLabel="#{currency.displayName}"/>
     </tx:selectManyListbox>
 
     <tc:button label="submit"/>

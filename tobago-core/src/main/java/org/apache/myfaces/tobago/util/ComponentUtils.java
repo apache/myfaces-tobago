@@ -19,6 +19,7 @@
 
 package org.apache.myfaces.tobago.util;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
@@ -65,6 +66,7 @@ import javax.faces.render.RenderKitFactory;
 import javax.faces.render.Renderer;
 import javax.faces.view.facelets.FaceletContext;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -897,7 +899,7 @@ public final class ComponentUtils {
       if (renderer != null) {
         if (component instanceof UISelectMany) {
           final Object converted = renderer.getConvertedValue(facesContext, component, new String[]{stringValue});
-          return converted instanceof List ? ((List) converted).get(0) : ((Object[]) converted)[0];
+          return converted instanceof Collection ? CollectionUtils.get(converted, 0) : ((Object[]) converted)[0];
         } else {
           return renderer.getConvertedValue(facesContext, component, stringValue);
         }
