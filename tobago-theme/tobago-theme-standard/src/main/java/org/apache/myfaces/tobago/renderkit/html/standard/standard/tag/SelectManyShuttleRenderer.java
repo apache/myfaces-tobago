@@ -79,7 +79,8 @@ public class SelectManyShuttleRenderer extends SelectManyRendererBase {
     writer.writeAttribute(HtmlAttributes.MULTIPLE, HtmlAttributes.MULTIPLE, false);
 
     final Object[] values = select.getSelectedValues();
-    HtmlRendererUtils.renderSelectItems(select, items, values, false, writer, facesContext);
+    final String[] submittedValues = getSubmittedValues(select);
+    HtmlRendererUtils.renderSelectItems(select, items, values, submittedValues, false, writer, facesContext);
 
     writer.endElement(HtmlElements.SELECT);
     writer.startElement(HtmlElements.DIV, null);
@@ -109,7 +110,7 @@ public class SelectManyShuttleRenderer extends SelectManyRendererBase {
     writer.writeClassAttribute(Classes.create(select, "selected"));
     writer.writeAttribute(HtmlAttributes.MULTIPLE, HtmlAttributes.MULTIPLE, false);
     items = SelectItemUtils.getItemIterator(facesContext, select);
-    HtmlRendererUtils.renderSelectItems(select, items, values, true, writer, facesContext);
+    HtmlRendererUtils.renderSelectItems(select, items, values, submittedValues, true, writer, facesContext);
 
     writer.endElement(HtmlElements.SELECT);
     writer.startElement(HtmlElements.SELECT, select);
@@ -121,7 +122,7 @@ public class SelectManyShuttleRenderer extends SelectManyRendererBase {
     writer.writeAttribute(HtmlAttributes.REQUIRED, select.isRequired());
     HtmlRendererUtils.renderCommandFacet(select, facesContext, writer);
     items = SelectItemUtils.getItemIterator(facesContext, select);
-    HtmlRendererUtils.renderSelectItems(select, items, values, writer, facesContext);
+    HtmlRendererUtils.renderSelectItems(select, items, values, submittedValues, writer, facesContext);
 
     writer.endElement(HtmlElements.SELECT);
 

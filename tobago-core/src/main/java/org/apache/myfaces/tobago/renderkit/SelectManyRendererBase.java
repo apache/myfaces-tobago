@@ -30,6 +30,7 @@ import javax.faces.application.ProjectStage;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UISelectItem;
 import javax.faces.component.UISelectItems;
+import javax.faces.component.UIInput;
 import javax.faces.component.UISelectMany;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
@@ -81,6 +82,10 @@ public class SelectManyRendererBase extends LayoutComponentRendererBase {
       }
       uiSelectMany.setSubmittedValue(newValues);
     }
+  }
+
+  public String[] getSubmittedValues(UIInput input) {
+    return (String[]) input.getSubmittedValue();
   }
 
   public Object getConvertedValue(

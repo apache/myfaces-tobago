@@ -81,8 +81,8 @@ public class SelectOneListboxRenderer extends SelectOneRendererBase {
     }
     writer.writeAttribute(HtmlAttributes.SIZE, 9); // must be > 1, but the real size comes from the layout
     HtmlRendererUtils.renderCommandFacet(select, facesContext, writer);
-    final Object[] values = {select.getValue()};
-    HtmlRendererUtils.renderSelectItems(select, items, values, writer, facesContext);
+    HtmlRendererUtils.renderSelectItems(select, items, select.getValue(), (String) select.getSubmittedValue(),
+        writer, facesContext);
 
     writer.endElement(HtmlElements.SELECT);
     super.encodeEnd(facesContext, select);
