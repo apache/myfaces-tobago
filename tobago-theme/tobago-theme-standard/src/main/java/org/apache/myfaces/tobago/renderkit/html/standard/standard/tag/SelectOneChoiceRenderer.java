@@ -79,7 +79,8 @@ public class SelectOneChoiceRenderer extends SelectOneRendererBase {
     HtmlRendererUtils.renderCommandFacet(select, facesContext , writer);
     HtmlRendererUtils.renderFocus(id, select.isFocus(), ComponentUtils.isError(select), facesContext, writer);
     
-    HtmlRendererUtils.renderSelectItems(select, items, select.getValue(), (String) select.getSubmittedValue(), writer, facesContext);
+    HtmlRendererUtils.renderSelectItems(select, items, select.getValue(), (String) select.getSubmittedValue(), writer,
+        facesContext);
 
     writer.endElement(HtmlElements.SELECT);
     super.encodeEnd(facesContext, select);
