@@ -19,9 +19,9 @@
 
 package org.apache.myfaces.tobago.example.test;
 
-import org.apache.myfaces.tobago.util.Parameterized;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.SAXException;

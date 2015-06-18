@@ -20,10 +20,10 @@
 package org.apache.myfaces.tobago.context;
 
 
-import org.apache.myfaces.tobago.util.Parameterized;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
 
 import java.util.Arrays;
 import java.util.List;
