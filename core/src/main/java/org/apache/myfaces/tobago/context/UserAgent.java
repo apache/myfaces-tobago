@@ -130,7 +130,7 @@ public class UserAgent implements Serializable {
       } else {
         return OPERA;
       }
-    } else if (header.indexOf("msie") > -1) {
+    } else if (header.indexOf("msie") > -1 || header.indexOf("trident") > -1) {
       if (header.indexOf("msie 5.0") > -1) {
         if (header.indexOf("mac") > -1) {
           return MSIE_5_0_MAC;
@@ -147,6 +147,8 @@ public class UserAgent implements Serializable {
         }
       } else if (header.indexOf("msie 7.0") > -1) {
         return MSIE_7_O;
+      } else if (header.indexOf("rv:11") > -1) {
+        return MOZILLA; // IE11 - Mozilla is here the best matching browser
       } else {
         return MSIE;
       }
