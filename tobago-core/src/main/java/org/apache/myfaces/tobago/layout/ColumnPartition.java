@@ -36,6 +36,7 @@ public final class ColumnPartition implements Serializable {
   private Integer[] parts;
 
   public ColumnPartition() {
+    this(new Integer[0]);
   }
 
   public ColumnPartition(Integer... parts) {
