@@ -21,6 +21,7 @@ package org.apache.myfaces.tobago.layout;
 
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -28,18 +29,17 @@ import java.util.List;
 /**
  * A list of positive integers with sum 12 (separated by a semicolon ";"). Is used for the 12 columns partitioning.
  */
-public final class ColumnPartition {
+public final class ColumnPartition implements Serializable {
 
   private static final Integer[] PART_12 = new Integer[]{12};
 
-  private final Integer[] parts;
+  private Integer[] parts;
+
+  public ColumnPartition() {
+  }
 
   public ColumnPartition(Integer... parts) {
-    if (checkSum(parts)) {
-      this.parts = parts;
-    } else {
-      this.parts = createParts(parts);
-    }
+    setParts(parts);
   }
 
   public static ColumnPartition valueOf(String string) {
@@ -104,6 +104,14 @@ public final class ColumnPartition {
 
   public Integer[] getParts() {
     return parts;
+  }
+
+  private void setParts(Integer[] parts) {
+    if (checkSum(parts)) {
+      this.parts = parts;
+    } else {
+      this.parts = createParts(parts);
+    }
   }
 
   public int getSize() {
