@@ -1677,10 +1677,10 @@ var Tobago = {
     */
   getBrowserInnerLeft: function() {
     var innerLeft;
-    if (document.all) { // ie
-      innerLeft = document.body.scrollLeft;
-    } else {
+    if (window.scrollX) {
       innerLeft = window.scrollX;
+    } else {
+      innerLeft = document.body.scrollLeft;  // old IE
     }
     return innerLeft;
   },
@@ -1690,10 +1690,10 @@ var Tobago = {
     */
   getBrowserInnerTop: function() {
     var innerTop;
-    if (document.all) { // ie
-      innerTop = document.body.scrollTop;
-    } else {
+    if (window.scrollY) {
       innerTop = window.scrollY;
+    } else {
+      innerTop = document.body.scrollTop;  // old IE
     }
     return innerTop;
   },
