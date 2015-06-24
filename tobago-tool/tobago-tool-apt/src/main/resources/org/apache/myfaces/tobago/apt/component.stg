@@ -57,7 +57,7 @@ import javax.el.ValueExpression;
  <if(componentInfo.description)>
  <componentInfo.description>
  <endif>
-  * UIComponent class, generated from template {@code component2.0.stg} with class
+  * UIComponent class, generated from template {@code component.stg} with class
   * {@link <componentInfo.sourceClass>}.
    <if(componentInfo.deprecated)>
    @deprecated
