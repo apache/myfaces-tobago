@@ -24,7 +24,7 @@ import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.SupportsMarkup;
 import org.apache.myfaces.tobago.component.SupportsRenderedPartially;
 import org.apache.myfaces.tobago.context.Markup;
-import org.apache.myfaces.tobago.el.ConstantMethodBinding;
+import org.apache.myfaces.tobago.el.ConstantMethodExpression;
 import org.apache.myfaces.tobago.internal.util.Deprecation;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -183,7 +183,7 @@ public final class AttributeHandler extends TagHandler {
         } else if ("actionFromValue".equals(mode.getValue())) {
           if (!value.isLiteral()) {
             final String result = value.getValue(faceletContext);
-            parent.getAttributes().put(name.getValue(), new ConstantMethodBinding(result));
+            parent.getAttributes().put(name.getValue(), new ConstantMethodExpression(result));
           }
         } else if ("valueIfSet".equals(mode.getValue())) {
           String expressionString = value.getValue();
