@@ -46,18 +46,8 @@
     -ms-flex-direction: column;
 }
 
-.tobago-flexLayout > .tobago-date,
-.tobago-flexLayout > .tobago-in,
-.tobago-flexLayout > .tobago-label,
-.tobago-flexLayout > .tobago-textarea {
+.tobago-flexLayout > .form-control:nth-child(n+2) {
     margin-left: 5px;
-}
-
-.tobago-flexLayout > .tobago-date:first-child,
-.tobago-flexLayout > .tobago-in:first-child,
-.tobago-flexLayout > .tobago-label:first-child,
-.tobago-flexLayout > .tobago-textarea:first-child {
-    margin-left: 0;
 }
 
 /* footer -------------------------------------------------------------- */
