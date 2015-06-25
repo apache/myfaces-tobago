@@ -19,11 +19,7 @@
 
 package org.apache.myfaces.tobago.layout;
 
-import java.util.List;
-
 public interface LayoutContainer extends LayoutBox, LayoutBase {
-
-  List<LayoutComponent> getComponents();
 
   LayoutManager getLayoutManager();
   void setLayoutManager(LayoutManager layoutManager);

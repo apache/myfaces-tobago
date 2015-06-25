@@ -453,7 +453,7 @@ public abstract class AbstractUISheet extends AbstractUIData
       if (child instanceof LayoutComponent) {
         if (child.isRendered()) {
           final LayoutComponent c = (LayoutComponent) child;
-          grid.add(new OriginCell(c), c.getColumnSpan(), c.getRowSpan());
+          grid.add(new OriginCell(child), c.getColumnSpan(), c.getRowSpan());
         }
       } else {
         if (LOG.isDebugEnabled()) {
@@ -598,11 +598,6 @@ public abstract class AbstractUISheet extends AbstractUIData
     }
 
     getState().setFirst(first);
-  }
-
-  @Override
-  public List<LayoutComponent> getComponents() {
-    throw new IllegalStateException();
   }
 
   public void onComponentPopulated(final FacesContext facesContext, final UIComponent parent) {

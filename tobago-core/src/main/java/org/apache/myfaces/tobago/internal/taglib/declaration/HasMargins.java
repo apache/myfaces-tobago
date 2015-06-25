@@ -30,9 +30,7 @@ public interface HasMargins {
   @TagAttribute
   @UIComponentTagAttribute(
       type = "org.apache.myfaces.tobago.layout.Measure",
-      defaultCode = "getMargin() != null\n"
-          + " ? getMargin()\n : getRendererType() != null"
-          + " ? ((MarginValues)getRenderer(getFacesContext())).getMarginLeft(getFacesContext(), this) : Measure.ZERO")
+      defaultCode = "getMargin() != null ? getMargin() : Measure.ZERO")
   void setMarginLeft(String margin);
 
   /**
@@ -41,9 +39,7 @@ public interface HasMargins {
   @TagAttribute
   @UIComponentTagAttribute(
       type = "org.apache.myfaces.tobago.layout.Measure",
-      defaultCode = "getMargin() != null\n"
-          + " ? getMargin()\n : getRendererType() != null"
-          + " ? ((MarginValues)getRenderer(getFacesContext())).getMarginRight(getFacesContext(), this) : Measure.ZERO")
+      defaultCode = "getMargin() != null ? getMargin() : Measure.ZERO")
   void setMarginRight(String margin);
 
   /**
@@ -52,9 +48,7 @@ public interface HasMargins {
   @TagAttribute
   @UIComponentTagAttribute(
       type = "org.apache.myfaces.tobago.layout.Measure",
-      defaultCode = "getMargin() != null\n"
-          + " ? getMargin()\n : getRendererType() != null"
-          + " ? ((MarginValues)getRenderer(getFacesContext())).getMarginTop(getFacesContext(), this) : Measure.ZERO")
+      defaultCode = "getMargin() != null ? getMargin() : Measure.ZERO")
   void setMarginTop(String margin);
 
   /**
@@ -63,9 +57,7 @@ public interface HasMargins {
   @TagAttribute
   @UIComponentTagAttribute(
       type = "org.apache.myfaces.tobago.layout.Measure",
-      defaultCode = "getMargin() != null\n"
-          + " ? getMargin()\n : getRendererType() != null"
-          + " ? ((MarginValues)getRenderer(getFacesContext())).getMarginBottom(getFacesContext(), this) : Measure.ZERO")
+      defaultCode = "getMargin() != null ? getMargin() : Measure.ZERO")
   void setMarginBottom(String margin);
 
 }

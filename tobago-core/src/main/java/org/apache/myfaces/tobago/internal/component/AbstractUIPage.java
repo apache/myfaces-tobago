@@ -25,11 +25,9 @@ import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.OnComponentPopulated;
 import org.apache.myfaces.tobago.internal.ajax.AjaxInternalUtils;
 import org.apache.myfaces.tobago.internal.ajax.AjaxResponseRenderer;
-import org.apache.myfaces.tobago.internal.layout.LayoutUtils;
 import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
 import org.apache.myfaces.tobago.internal.webapp.TobagoMultipartFormdataRequest;
 import org.apache.myfaces.tobago.layout.Box;
-import org.apache.myfaces.tobago.layout.LayoutComponent;
 import org.apache.myfaces.tobago.layout.LayoutContainer;
 import org.apache.myfaces.tobago.layout.LayoutManager;
 import org.apache.myfaces.tobago.layout.Measure;
@@ -52,7 +50,6 @@ import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 import java.io.IOException;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 
 public abstract class AbstractUIPage extends AbstractUIForm
@@ -332,10 +329,6 @@ public abstract class AbstractUIPage extends AbstractUIForm
           facesContext, ComponentTypes.GRID_LAYOUT, RendererTypes.GRID_LAYOUT, parent));
     }
 */
-  }
-
-  public List<LayoutComponent> getComponents() {
-    return LayoutUtils.findLayoutChildren(this);
   }
 
   public LayoutManager getLayoutManager() {

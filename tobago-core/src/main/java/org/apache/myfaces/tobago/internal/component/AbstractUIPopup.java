@@ -25,9 +25,7 @@ import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.OnComponentCreated;
 import org.apache.myfaces.tobago.component.OnComponentPopulated;
 import org.apache.myfaces.tobago.component.Position;
-import org.apache.myfaces.tobago.internal.layout.LayoutUtils;
 import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
-import org.apache.myfaces.tobago.layout.LayoutComponent;
 import org.apache.myfaces.tobago.layout.LayoutContainer;
 import org.apache.myfaces.tobago.layout.LayoutManager;
 import org.apache.myfaces.tobago.layout.Measure;
@@ -42,7 +40,6 @@ import javax.faces.component.UINamingContainer;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.util.Iterator;
-import java.util.List;
 
 public abstract class AbstractUIPopup extends AbstractUIPanel
     implements OnComponentCreated, OnComponentPopulated, NamingContainer,
@@ -73,10 +70,6 @@ public abstract class AbstractUIPopup extends AbstractUIPanel
       setLayoutManager(layoutManager);
     }
 */
-  }
-
-  public List<LayoutComponent> getComponents() {
-    return LayoutUtils.findLayoutChildren(this);
   }
 
   public void setActivated(final boolean activated) {

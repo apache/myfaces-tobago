@@ -19,6 +19,7 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
+import org.apache.myfaces.tobago.internal.layout.LayoutUtils;
 import org.apache.myfaces.tobago.layout.LayoutComponent;
 import org.apache.myfaces.tobago.layout.LayoutContainer;
 import org.apache.myfaces.tobago.layout.Measure;
@@ -26,7 +27,9 @@ import org.apache.myfaces.tobago.layout.Orientation;
 
 import javax.el.ELContext;
 import javax.el.ValueExpression;
+import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import java.util.List;
 
 public abstract class AbstractUISplitLayout extends AbstractUIGridLayout {
 
@@ -37,8 +40,9 @@ public abstract class AbstractUISplitLayout extends AbstractUIGridLayout {
 
   public void updateLayout(final int position) {
     final LayoutContainer container = (LayoutContainer) getParent();
-    final LayoutComponent firstComponent = container.getComponents().get(0);
-    final LayoutComponent secondComponent = container.getComponents().get(1);
+    final List<UIComponent> components = LayoutUtils.findLayoutChildren(container);
+    final LayoutComponent firstComponent = (LayoutComponent) components.get(0);
+    final LayoutComponent secondComponent = (LayoutComponent) components.get(1);
     final int oldPosition;
 
     final int currentSize1;
@@ -58,10 +62,7 @@ public abstract class AbstractUISplitLayout extends AbstractUIGridLayout {
     final int newSize2 = currentSize2 - offset;
 
     final int ggt = gcd(newSize1, newSize2);
-    submittedLayout = new StringBuilder()
-        .append(Integer.toString(newSize1 / ggt)).append("*;")
-        .append(Integer.toString(newSize2 / ggt)).append("*")
-        .toString();
+    submittedLayout = Integer.toString(newSize1 / ggt) + "*;" + Integer.toString(newSize2 / ggt) + "*";
   }
 
   // TODO: MathUtils
@@ -98,10 +99,6 @@ public abstract class AbstractUISplitLayout extends AbstractUIGridLayout {
     }
   }
 
-  public Measure getSpacing(final Orientation orientation) {
-    return orientation == Orientation.HORIZONTAL ? getColumnSpacing() : getRowSpacing();
-  }
-
 @Override
   public void setColumns(final String columns) {
   }
@@ -126,16 +123,6 @@ public abstract class AbstractUISplitLayout extends AbstractUIGridLayout {
 
   private String getLayout2() {
     return submittedLayout != null ? submittedLayout : getLayout();
-  }
-
-  @Override
-  public boolean isRowOverflow() {
-    return false;
-  }
-
-  @Override
-  public boolean isColumnOverflow() {
-    return false;
   }
 
   public abstract String getLayout();

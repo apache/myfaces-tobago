@@ -793,7 +793,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
             writer.writeAttribute(HtmlAttributes.ROWSPAN, cell.getRowSpan());
           }
 
-          final UIComponent cellComponent = (UIComponent) cell.getComponent();
+          final UIComponent cellComponent = cell.getComponent();
           final boolean pure = !(cellComponent instanceof UIOut);
 
           writer.startElement(HtmlElements.DIV, null);

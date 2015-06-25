@@ -19,6 +19,7 @@
 
 package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
+import org.apache.myfaces.tobago.internal.layout.LayoutUtils;
 import org.apache.myfaces.tobago.renderkit.html.standard.standard.tag.GridLayoutRenderer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -63,17 +64,15 @@ public class SplitLayoutRenderer extends GridLayoutRenderer {
 
   @Override
   public void encodeChildren(final FacesContext facesContext, final UIComponent component) throws IOException {
-    final LayoutContainer container = (LayoutContainer) ((AbstractUISplitLayout) component).getParent();
-    if (!((LayoutContainer) container).isLayoutChildren()) {
-      return;
-    } else {
-      final List<LayoutComponent> components = container.getComponents();
+    final LayoutContainer container = (LayoutContainer) component.getParent();
+    if (container.isLayoutChildren()) {
+      final List<UIComponent> components = LayoutUtils.findLayoutChildren(container);
       if (components.size() != 2) {
         LOG.warn("Illegal component count in splitLayout: {}", components.size());
       }
-      RenderUtils.encode(facesContext, (UIComponent) components.get(0));
-      RenderUtils.encode(facesContext, (UIComponent) components.get(1));
-      if (((UIComponent) components.get(0)).isRendered() && ((UIComponent) components.get(1)).isRendered()) {
+      RenderUtils.encode(facesContext, components.get(0));
+      RenderUtils.encode(facesContext, components.get(1));
+      if (components.get(0).isRendered() && components.get(1).isRendered()) {
         // only when both components are rendered
         encodeHandle(facesContext, (AbstractUISplitLayout) component);
       }
@@ -111,9 +110,10 @@ public class SplitLayoutRenderer extends GridLayoutRenderer {
   }
 
   private String createDraggableContainment(final AbstractUISplitLayout layout) {
-    final LayoutContainer container = (LayoutContainer) ((AbstractUISplitLayout) layout).getParent();
-    final LayoutComponent firstComponent = container.getComponents().get(0);
-    final LayoutComponent secondComponent = container.getComponents().get(1);
+    final LayoutContainer container = (LayoutContainer) layout.getParent();
+    final List<UIComponent> components = LayoutUtils.findLayoutChildren(container);
+    final LayoutComponent firstComponent = (LayoutComponent) components.get(0);
+    final LayoutComponent secondComponent = (LayoutComponent) components.get(1);
 
     Measure minimum;
     if (AbstractUISplitLayout.HORIZONTAL.equals(layout.getOrientation())) {
@@ -122,22 +122,20 @@ public class SplitLayoutRenderer extends GridLayoutRenderer {
       minimum = secondComponent.getMinimumWidth();
       final int minimumSize2 = minimum != null ? minimum.getPixel() : 0;
       final int totalSize = container.getCurrentWidth().getPixel();
-      return new StringBuilder("[").append(minimumSize1).append(", 0, ").append(totalSize-minimumSize2).append(", 0]")
-          .toString();
+      return "[" + minimumSize1 + ", 0, " + (totalSize - minimumSize2) + ", 0]";
     } else {
       minimum = firstComponent.getMinimumHeight();
       final int minimumSize1 = minimum != null ? minimum.getPixel() : 0;
       minimum = secondComponent.getMinimumHeight();
       final int minimumSize2 = minimum != null ? minimum.getPixel() : 0;
       final int totalSize = container.getCurrentHeight().getPixel();
-      return new StringBuilder("[0, ").append(minimumSize1).append(", 0, ").append(totalSize-minimumSize2).append("]")
-          .toString();
+      return "[0, " + minimumSize1 + ", 0, " + (totalSize - minimumSize2) + "]";
     }
   }
 
   private Style calculateHandleStyle(final AbstractUISplitLayout layout) {
-    final LayoutContainer container = (LayoutContainer) ((AbstractUISplitLayout) layout).getParent();
-    final LayoutComponent secondComponent = container.getComponents().get(1);
+    final LayoutContainer container = (LayoutContainer) layout.getParent();
+    final LayoutComponent secondComponent = (LayoutComponent) LayoutUtils.findLayoutChildren(container).get(1);
     final Style style = new Style();
     if (AbstractUISplitLayout.HORIZONTAL.equals(layout.getOrientation())) {
       style.setWidth(Measure.valueOf(5));

@@ -21,7 +21,6 @@ package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.OnComponentPopulated;
-import org.apache.myfaces.tobago.internal.layout.LayoutUtils;
 import org.apache.myfaces.tobago.layout.LayoutComponent;
 import org.apache.myfaces.tobago.layout.LayoutContainer;
 import org.apache.myfaces.tobago.layout.LayoutManager;
@@ -30,7 +29,6 @@ import org.apache.myfaces.tobago.util.ComponentUtils;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
-import java.util.List;
 
 public abstract class AbstractUIPanel extends javax.faces.component.UIPanel
     implements OnComponentPopulated, LayoutContainer, LayoutComponent {
@@ -69,10 +67,6 @@ public abstract class AbstractUIPanel extends javax.faces.component.UIPanel
   }
 
   public void onComponentPopulated(final FacesContext facesContext, final UIComponent parent) {
-  }
-
-  public List<LayoutComponent> getComponents() {
-    return LayoutUtils.findLayoutChildren(this);
   }
 
   public LayoutManager getLayoutManager() {

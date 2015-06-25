@@ -26,7 +26,8 @@ import org.apache.myfaces.tobago.layout.LayoutManager;
  * TODO
  * @since 3.0.0
  */
-public abstract class AbstractUIFlexLayout extends AbstractUILayoutBase implements LayoutManager, SupportsMarkup {
+public abstract class AbstractUIFlexLayout
+    extends AbstractUILayoutBase implements LayoutManager, SupportsMarkup {
 
   public static final String COMPONENT_FAMILY = "org.apache.myfaces.tobago.FlexLayout";
 

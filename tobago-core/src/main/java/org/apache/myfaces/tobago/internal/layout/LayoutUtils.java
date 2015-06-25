@@ -19,6 +19,8 @@
 
 package org.apache.myfaces.tobago.internal.layout;
 
+import org.apache.myfaces.tobago.internal.component.AbstractUIFlexLayout;
+import org.apache.myfaces.tobago.internal.component.AbstractUIFlowLayout;
 import org.apache.myfaces.tobago.layout.LayoutBase;
 import org.apache.myfaces.tobago.layout.LayoutBox;
 import org.apache.myfaces.tobago.layout.LayoutComponent;
@@ -55,16 +57,17 @@ public final class LayoutUtils {
     return true;
   }
 
-  public static List<LayoutComponent> findLayoutChildren(final LayoutContainer container) {
-    final List<LayoutComponent> result = new ArrayList<LayoutComponent>();
+  public static List<UIComponent> findLayoutChildren(final LayoutContainer container) {
+    final List<UIComponent> result = new ArrayList<UIComponent>();
     addLayoutChildren((UIComponent) container, result);
     return result;
   }
 
-  private static void addLayoutChildren(final UIComponent component, final List<LayoutComponent> result) {
+  private static void addLayoutChildren(final UIComponent component, final List<UIComponent> result) {
     for (final UIComponent child : component.getChildren()) {
-      if (child instanceof LayoutComponent) {
-        result.add((LayoutComponent) child);
+      if (child instanceof LayoutComponent
+          || child instanceof AbstractUIFlowLayout || child instanceof AbstractUIFlexLayout) {
+        result.add(child);
       } else {
         // Child seems to be transparent for layout, like UIForm. 
         // So we try to add the inner components.
@@ -73,8 +76,9 @@ public final class LayoutUtils {
     }
 
     final UIComponent child = component.getFacet(UIComponent.COMPOSITE_FACET_NAME);
-    if (child instanceof LayoutComponent) {
-      result.add((LayoutComponent) child);
+    if (child instanceof LayoutComponent
+        || child instanceof AbstractUIFlowLayout || child instanceof AbstractUIFlexLayout) {
+      result.add(child);
     } else if (child != null) {
       // Child seems to be transparent for layout, like UIForm.
       // So we try to add the inner components.

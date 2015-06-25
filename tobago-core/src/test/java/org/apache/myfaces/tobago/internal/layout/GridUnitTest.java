@@ -20,7 +20,6 @@
 package org.apache.myfaces.tobago.internal.layout;
 
 import org.apache.myfaces.tobago.layout.LayoutTokens;
-import org.apache.myfaces.tobago.layout.Orientation;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -30,24 +29,24 @@ public class GridUnitTest {
   public void test1x1() {
 
     final Grid grid = new Grid(LayoutTokens.parse("*"), LayoutTokens.parse("*"));
-    Assert.assertEquals(1, grid.getBankHeads(Orientation.HORIZONTAL).length);
-    Assert.assertEquals(1, grid.getBankHeads(Orientation.VERTICAL).length);
+    Assert.assertEquals(1, grid.getColumns().getSize());
+    Assert.assertEquals(1, grid.getRows().getSize());
     Assert.assertEquals(""
         + "┌─┐\n"
         + "│◌│\n"
         + "└─┘\n", grid.gridAsString());
 
     grid.add(new OriginCell(null), 1, 1);
-    Assert.assertEquals(1, grid.getBankHeads(Orientation.HORIZONTAL).length);
-    Assert.assertEquals(1, grid.getBankHeads(Orientation.VERTICAL).length);
+    Assert.assertEquals(1, grid.getColumns().getSize());
+    Assert.assertEquals(1, grid.getRows().getSize());
     Assert.assertEquals(""
         + "┏━┓\n"
         + "┃█┃\n"
         + "┗━┛\n", grid.gridAsString());
 
     grid.add(new OriginCell(null), 1, 1);
-    Assert.assertEquals(1, grid.getBankHeads(Orientation.HORIZONTAL).length);
-    Assert.assertEquals(2, grid.getBankHeads(Orientation.VERTICAL).length);
+    Assert.assertEquals(1, grid.getColumns().getSize());
+    Assert.assertEquals(2, grid.getRows().getSize());
     Assert.assertEquals(""
         + "┏━┓\n"
         + "┃█┃\n"
@@ -56,8 +55,8 @@ public class GridUnitTest {
         + "┗━┛\n", grid.gridAsString());
 
     grid.add(new OriginCell(null), 1, 2);
-    Assert.assertEquals(1, grid.getBankHeads(Orientation.HORIZONTAL).length);
-    Assert.assertEquals(4, grid.getBankHeads(Orientation.VERTICAL).length);
+    Assert.assertEquals(1, grid.getColumns().getSize());
+    Assert.assertEquals(4, grid.getRows().getSize());
     Assert.assertEquals(""
         + "┏━┓\n"
         + "┃█┃\n"
@@ -71,8 +70,8 @@ public class GridUnitTest {
 
     // with warning
     grid.add(new OriginCell(null), 2, 1);
-    Assert.assertEquals(1, grid.getBankHeads(Orientation.HORIZONTAL).length);
-    Assert.assertEquals(5, grid.getBankHeads(Orientation.VERTICAL).length);
+    Assert.assertEquals(1, grid.getColumns().getSize());
+    Assert.assertEquals(5, grid.getRows().getSize());
     Assert.assertEquals(""
         + "┏━┓\n"
         + "┃█┃\n"
@@ -91,32 +90,32 @@ public class GridUnitTest {
   public void test2x1() {
 
     final Grid grid = new Grid(LayoutTokens.parse("*;*"), LayoutTokens.parse("*"));
-    Assert.assertEquals(2, grid.getBankHeads(Orientation.HORIZONTAL).length);
-    Assert.assertEquals(1, grid.getBankHeads(Orientation.VERTICAL).length);
+    Assert.assertEquals(2, grid.getColumns().getSize());
+    Assert.assertEquals(1, grid.getRows().getSize());
     Assert.assertEquals(""
         + "┌─┬─┐\n"
         + "│◌│◌│\n"
         + "└─┴─┘\n", grid.gridAsString());
 
     grid.add(new OriginCell(null), 1, 1);
-    Assert.assertEquals(2, grid.getBankHeads(Orientation.HORIZONTAL).length);
-    Assert.assertEquals(1, grid.getBankHeads(Orientation.VERTICAL).length);
+    Assert.assertEquals(2, grid.getColumns().getSize());
+    Assert.assertEquals(1, grid.getRows().getSize());
     Assert.assertEquals(""
         + "┏━┱─┐\n"
         + "┃█┃◌│\n"
         + "┗━┹─┘\n", grid.gridAsString());
 
     grid.add(new OriginCell(null), 1, 1);
-    Assert.assertEquals(2, grid.getBankHeads(Orientation.HORIZONTAL).length);
-    Assert.assertEquals(1, grid.getBankHeads(Orientation.VERTICAL).length);
+    Assert.assertEquals(2, grid.getColumns().getSize());
+    Assert.assertEquals(1, grid.getRows().getSize());
     Assert.assertEquals(""
         + "┏━┳━┓\n"
         + "┃█┃█┃\n"
         + "┗━┻━┛\n", grid.gridAsString());
 
     grid.add(new OriginCell(null), 2, 2);
-    Assert.assertEquals(2, grid.getBankHeads(Orientation.HORIZONTAL).length);
-    Assert.assertEquals(3, grid.getBankHeads(Orientation.VERTICAL).length);
+    Assert.assertEquals(2, grid.getColumns().getSize());
+    Assert.assertEquals(3, grid.getRows().getSize());
     Assert.assertEquals(""
         + "┏━┳━┓\n"
         + "┃█┃█┃\n"
@@ -127,8 +126,8 @@ public class GridUnitTest {
         + "┗━┷━┛\n", grid.gridAsString());
 
     grid.add(new OriginCell(null), 1, 2);
-    Assert.assertEquals(2, grid.getBankHeads(Orientation.HORIZONTAL).length);
-    Assert.assertEquals(5, grid.getBankHeads(Orientation.VERTICAL).length);
+    Assert.assertEquals(2, grid.getColumns().getSize());
+    Assert.assertEquals(5, grid.getRows().getSize());
     Assert.assertEquals(""
         + "┏━┳━┓\n"
         + "┃█┃█┃\n"
@@ -143,8 +142,8 @@ public class GridUnitTest {
         + "┗━┹─┘\n", grid.gridAsString());
 
     grid.add(new OriginCell(null), 1, 1);
-    Assert.assertEquals(2, grid.getBankHeads(Orientation.HORIZONTAL).length);
-    Assert.assertEquals(5, grid.getBankHeads(Orientation.VERTICAL).length);
+    Assert.assertEquals(2, grid.getColumns().getSize());
+    Assert.assertEquals(5, grid.getRows().getSize());
     Assert.assertEquals(""
         + "┏━┳━┓\n"
         + "┃█┃█┃\n"
@@ -159,8 +158,8 @@ public class GridUnitTest {
         + "┗━┹─┘\n", grid.gridAsString());
 
     grid.add(new OriginCell(null), 1, 2);
-    Assert.assertEquals(2, grid.getBankHeads(Orientation.HORIZONTAL).length);
-    Assert.assertEquals(6, grid.getBankHeads(Orientation.VERTICAL).length);
+    Assert.assertEquals(2, grid.getColumns().getSize());
+    Assert.assertEquals(6, grid.getRows().getSize());
     Assert.assertEquals(""
         + "┏━┳━┓\n"
         + "┃█┃█┃\n"
@@ -178,16 +177,16 @@ public class GridUnitTest {
 
     grid.add(new OriginCell(null), 2, 1);
     // fehler
-    Assert.assertEquals(2, grid.getBankHeads(Orientation.HORIZONTAL).length);
-    Assert.assertEquals(6, grid.getBankHeads(Orientation.VERTICAL).length);
+    Assert.assertEquals(2, grid.getColumns().getSize());
+    Assert.assertEquals(6, grid.getRows().getSize());
   }
 
   @Test
   public void test5x5() {
 
     final Grid grid = new Grid(LayoutTokens.parse("*;*;*;*;*"), LayoutTokens.parse("*;*;*;*;*"));
-    Assert.assertEquals(5, grid.getBankHeads(Orientation.HORIZONTAL).length);
-    Assert.assertEquals(5, grid.getBankHeads(Orientation.VERTICAL).length);
+    Assert.assertEquals(5, grid.getColumns().getSize());
+    Assert.assertEquals(5, grid.getRows().getSize());
     Assert.assertEquals(""
         + "┌─┬─┬─┬─┬─┐\n"
         + "│◌│◌│◌│◌│◌│\n"
@@ -214,8 +213,8 @@ public class GridUnitTest {
     grid.add(new OriginCell(null), 1, 2);
     grid.add(new OriginCell(null), 2, 1);
     grid.add(new OriginCell(null), 1, 1);
-    Assert.assertEquals(5, grid.getBankHeads(Orientation.HORIZONTAL).length);
-    Assert.assertEquals(5, grid.getBankHeads(Orientation.VERTICAL).length);
+    Assert.assertEquals(5, grid.getColumns().getSize());
+    Assert.assertEquals(5, grid.getRows().getSize());
     Assert.assertEquals(""
         + "┏━┳━┳━┳━┯━┓\n"
         + "┃█┃█┃█┃█│➞┃\n"

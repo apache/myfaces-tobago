@@ -314,10 +314,6 @@ public abstract class AbstractUITabGroup extends AbstractUIPanel
     removeFacesListener(listener);
   }
 
-  public List<LayoutComponent> getComponents() {
-    throw new IllegalStateException();
-  }
-
   public void onComponentPopulated(final FacesContext facesContext, final UIComponent parent) {
     super.onComponentPopulated(facesContext, parent);
   }
