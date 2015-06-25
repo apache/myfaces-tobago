@@ -17,7 +17,13 @@ Todo:
 
   - consolidate LinkRenderer, ButtonRenderer with CommandRenderer
 
-  - check it its a good idea to use layouts with less typing:
+  - simplify: layout without facet and container (columnLayout, ...):
+
+Done:
+
+  - Removing tc:cell tag, please use tc:panel instead.
+
+  - simplify (flowLayout, flexLayout):
 
     <tc:flowLayout>
       ... content ...
@@ -31,9 +37,3 @@ Todo:
       </f:facet>
       ... content ...
     </tc:panel>
-
-
-
-Done:
-
-  - Removing tc:cell tag, please use tc:panel instead.

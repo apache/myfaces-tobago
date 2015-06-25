@@ -38,19 +38,13 @@
 
       <ui:include src="/menu.xhtml"/>
 
-      <tc:panel>
-        <f:facet name="layout">
-          <tc:flexLayout columns="*;4*"/>
-        </f:facet>
+      <tc:flexLayout columns="*;4*">
 
         <tc:panel>
           <ui:include src="/navigation.xhtml"/>
         </tc:panel>
 
-        <tc:panel>
-          <f:facet name="layout">
-            <tc:flexLayout rows="auto;*;auto"/>
-          </f:facet>
+        <tc:flexLayout rows="auto;*;auto">
 
           <tc:messages orderBy="SEVERITY"/>
 
@@ -60,12 +54,13 @@
 
           <ui:include src="/footer.xhtml"/>
 
-        </tc:panel>
+        </tc:flexLayout>
 
-      </tc:panel>
+      </tc:flexLayout>
 
       <tc:footer fixed="true">
-          © 2015 Apache Software Foundation, Licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0</a>.
+        © 2015 Apache Software Foundation, Licensed under the <a
+          href="http://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0</a>.
       </tc:footer>
 
     </tc:page>

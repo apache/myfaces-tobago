@@ -24,10 +24,7 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets">
   <ui:param name="title" value="#{bundle.listPageTitle}"/>
 
-  <tc:panel>
-    <f:facet name="layout">
-      <tc:flowLayout/>
-    </f:facet>
+  <tc:flowLayout>
     <tc:toolBar iconSize="big">
 <!--
       <tc:button label="#{bundle.toolbarAddressList}" action="#{controller.search}" immediate="true"
@@ -131,5 +128,5 @@
       </tc:sheet>
 
     </tc:box>
-  </tc:panel>
+  </tc:flowLayout>
 </ui:composition>

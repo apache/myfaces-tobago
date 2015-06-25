@@ -23,10 +23,7 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets">
 
   <tc:loadBundle basename="resource" var="bundle"/>
-  <tc:panel>
-    <f:facet name="layout">
-      <tc:flowLayout />
-    </f:facet>
+  <tc:flowLayout>
     <tc:panel>
         <f:facet name="layout">
           <tc:columnLayout medium="2;10"/>
@@ -70,10 +67,7 @@
           <f:selectItems value="#{countries}"/>
         </tx:selectOneChoice>
 <!--
-      <tc:panel rendered="#{!controller.simple}">
-        <f:facet name="layout">
-          <tc:flexLayout rows="160px" columns="120px"/>
-        </f:facet>
+      <tc:flexLayout rows="160px" columns="120px" rendered="#{!controller.simple}">
         <tc:form>
           <tc:button
               image="#{controller.currentAddressPictureUrl}"
@@ -83,27 +77,23 @@
                         top="200" rendered="#{controller.renderFileUploadPopup}"
                         id="popup-fileUpload">
                 <tc:box label="FileUpload">
-                  <f:facet name="layout">
-                    <tc:flexLayout rows="auto;1*;auto" margin="10"/>
-                  </f:facet>
-                  <tc:file value="#{controller.uploadedFile}" required="true">
-                    <tc:validateFileItem contentType="image/*"/>
-                  </tc:file>
-                  <tc:messages/>
-                  <tc:panel>
-                    <f:facet name="layout">
-                      <tc:flexLayout columns="1*;100px;100px"/>
-                    </f:facet>
-                    <tc:panel/>
-                    <tc:button action="#{controller.okFileUpload}" label="OK"/>
-                    <tc:button action="#{controller.cancelFileUpload}" label="Cancel" immediate="true"/>
-                  </tc:panel>
+                  <tc:flexLayout rows="auto;1*;auto" margin="10"/>
+                    <tc:file value="#{controller.uploadedFile}" required="true">
+                      <tc:validateFileItem contentType="image/*"/>
+                    </tc:file>
+                    <tc:messages/>
+                    <tc:flexLayout columns="1*;100px;100px"/>
+                      <tc:panel/>
+                      <tc:button action="#{controller.okFileUpload}" label="OK"/>
+                      <tc:button action="#{controller.cancelFileUpload}" label="Cancel" immediate="true"/>
+                    </tc:flexLayout>
+                  </tc:flexLayout>
                 </tc:box>
               </tc:popup>
             </f:facet>
           </tc:button>
         </tc:form>
-      </tc:panel>
+      </tc:flexLayout>
 -->
 
       <tx:in value="#{controller.currentAddress.phone}"
@@ -135,6 +125,6 @@
         <f:convertDateTime pattern="#{bundle.editorDatePattern}"/>
       </tx:date>
     </tc:panel>
-  </tc:panel>
+  </tc:flowLayout>
 
 </ui:composition>

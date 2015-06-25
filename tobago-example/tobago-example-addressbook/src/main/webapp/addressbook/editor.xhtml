@@ -24,65 +24,55 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets">
   <ui:param name="title" value="#{bundle.editorTitle}"/>
 
-  <tc:panel>
-  <f:facet name="layout">
-    <tc:flowLayout/>
-  </f:facet>
+  <tc:flowLayout>
 
     <tc:script file="bootstrap-datepicker.js"/>
     <tc:style file="datepicker.css"/>
 
 
-  <tc:toolBar iconSize="big"> <!-- XXX merge with the other toolbar on list.xhtml !!! -->
-    <tc:button tip="Logout" action="#{controller.logout}" immediate="true" css="btn-danger"
-               image="image/org/tango-project/tango-icon-theme/16x16/actions/system-log-out.png"/>
-  </tc:toolBar>
+    <tc:toolBar iconSize="big"> <!-- XXX merge with the other toolbar on list.xhtml !!! -->
+      <tc:button tip="Logout" action="#{controller.logout}" immediate="true" css="btn-danger"
+                 image="image/org/tango-project/tango-icon-theme/16x16/actions/system-log-out.png"/>
+    </tc:toolBar>
 
-  <tc:box label="#{bundle.editorBoxTitle}">
-      <f:facet name="layout">
-        <tc:flexLayout rows="auto;*;auto"/>
-      </f:facet>
+    <tc:box label="#{bundle.editorBoxTitle}">
+      <tc:flexLayout rows="auto;*;auto">
 
-      <tc:messages/>
+        <tc:messages/>
 
-<!--
-      <tc:tabGroup switchType="reloadTab" immediate="true">
-        <tc:tab label="#{bundle.editorTabPersonal}">
--->
-          <ui:include src="tab/personal.xhtml"/>
-<!--
-        </tc:tab>
+        <!--
+              <tc:tabGroup switchType="reloadTab" immediate="true">
+                <tc:tab label="#{bundle.editorTabPersonal}">
+        -->
+        <ui:include src="tab/personal.xhtml"/>
+        <!--
+                </tc:tab>
 
-        <tc:tab label="#{bundle.editorTabBusiness}" rendered="#{!controller.simple}">
-          <ui:include src="tab/business.xhtml"/>
-        </tc:tab>
+                <tc:tab label="#{bundle.editorTabBusiness}" rendered="#{!controller.simple}">
+                  <ui:include src="tab/business.xhtml"/>
+                </tc:tab>
 
-        <tc:tab label="#{bundle.editorTabMisc}" rendered="#{!controller.simple}">
-          <ui:include src="tab/misc.xhtml"/>
-        </tc:tab>
-      </tc:tabGroup>
--->
-
-      <tc:panel>
-        <f:facet name="layout">
-          <tc:columnLayout medium="2;10"/>
-        </f:facet>
-
-        <tc:out/>
+                <tc:tab label="#{bundle.editorTabMisc}" rendered="#{!controller.simple}">
+                  <ui:include src="tab/misc.xhtml"/>
+                </tc:tab>
+              </tc:tabGroup>
+        -->
 
         <tc:panel>
           <f:facet name="layout">
-            <tc:flowLayout/>
+            <tc:columnLayout medium="2;10"/>
           </f:facet>
 
-          <tc:button action="#{controller.store}"
-                     label="#{bundle.editorStore}" defaultCommand="true"/>
-          <tc:button action="#{controller.cancel}" immediate="true"
-                     label="#{bundle.editorCancel}"/>
-        </tc:panel>
-      </tc:panel>
+          <tc:out/>
 
+          <tc:flowLayout>
+            <tc:button action="#{controller.store}" label="#{bundle.editorStore}" defaultCommand="true"/>
+            <tc:button action="#{controller.cancel}" immediate="true" label="#{bundle.editorCancel}"/>
+          </tc:flowLayout>
+        </tc:panel>
+
+      </tc:flexLayout>
     </tc:box>
-</tc:panel>
+  </tc:flowLayout>
 
 </ui:composition>

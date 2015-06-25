@@ -29,16 +29,11 @@
       <tc:gridLayout rows="35px;35px;35px;35px" columns="100px;*"/>
     </f:facet>
 
-    <tc:panel>
+    <tc:flowLayout>
       <tc:gridLayoutConstraint columnSpan="2"/>
-      <f:facet name="layout">
-        <tc:flowLayout />
-      </f:facet>
-
       <tc:out value="When using MyFaces or Facelets you have to turn off the exception mechanism of them to use this demo. See in the MyFaces Wiki: "/>
       <tc:link link="http://wiki.apache.org/myfaces/Handling_Server_Errors" label="Handling Server Errors"/>
-
-    </tc:panel>
+    </tc:flowLayout>
 
     <tc:button action="#{bestPracticeController.throwException}" label="Application"/>
     <tc:out

@@ -21,11 +21,7 @@
                 xmlns:f="http://java.sun.com/jsf/core">
   <ui:param name="title" value="Access Keys"/>
 
-  <tc:panel>
-    <f:facet name="layout">
-      <tc:flowLayout />
-    </f:facet>
-
+  <tc:flowLayout>
     <p>
       Todo: describe the usage:
       <ul>
@@ -40,6 +36,5 @@
       To log the use of the accessKey attribute please configure
       the category <code>org.apache.myfaces.tobago.internal.util.AccessKeyLogger</code> to log level "debug".
     </p>
-
-  </tc:panel>
+  </tc:flowLayout>
 </ui:composition>

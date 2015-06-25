@@ -18,17 +18,12 @@
 
 <f:view
     xmlns:tc="http://myfaces.apache.org/tobago/component"
-    xmlns:tx="http://myfaces.apache.org/tobago/extension"
-    xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:f="http://java.sun.com/jsf/core">
 
   <tc:page id="page">
-    <f:facet name="layout">
-      <tc:flexLayout columns="*;2*"/>
-    </f:facet>
-
-    <tc:textarea value="Left"/>
-    <tc:textarea value="Right"/>
-
+    <tc:flexLayout columns="*;2*">
+      <tc:textarea value="Left"/>
+      <tc:textarea value="Right"/>
+    </tc:flexLayout>
   </tc:page>
 </f:view>
