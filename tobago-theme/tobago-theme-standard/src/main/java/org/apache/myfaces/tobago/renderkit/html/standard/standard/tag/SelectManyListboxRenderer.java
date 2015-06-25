@@ -23,6 +23,7 @@ import org.apache.myfaces.tobago.component.UISelectManyListbox;
 import org.apache.myfaces.tobago.renderkit.SelectManyRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
+import org.apache.myfaces.tobago.renderkit.html.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
@@ -46,12 +47,6 @@ public class SelectManyListboxRenderer extends SelectManyRendererBase {
   }
 
   public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
-    if (!(component instanceof UISelectManyListbox)) {
-      LOG.error("Wrong type: Need " + UISelectManyListbox.class.getName() 
-          + ", but was " + component.getClass().getName());
-      return;
-    }
-
     final UISelectManyListbox select = (UISelectManyListbox) component;
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
@@ -75,7 +70,7 @@ public class SelectManyListboxRenderer extends SelectManyRendererBase {
     }
     final Style style = new Style(facesContext, select);
     writer.writeStyleAttribute(style);
-    writer.writeClassAttribute(Classes.create(select));
+    writer.writeClassAttribute(Classes.create(select), BootstrapClass.FORM_CONTROL);
     writer.writeAttribute(HtmlAttributes.MULTIPLE, HtmlAttributes.MULTIPLE, false);
     if (title != null) {
       writer.writeAttribute(HtmlAttributes.TITLE, title, true);

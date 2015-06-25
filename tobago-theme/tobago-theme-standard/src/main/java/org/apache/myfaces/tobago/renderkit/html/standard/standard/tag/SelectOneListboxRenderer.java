@@ -23,6 +23,7 @@ import org.apache.myfaces.tobago.component.UISelectOneListbox;
 import org.apache.myfaces.tobago.renderkit.SelectOneRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
+import org.apache.myfaces.tobago.renderkit.html.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
@@ -46,12 +47,6 @@ public class SelectOneListboxRenderer extends SelectOneRendererBase {
   }
 
   public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
-    if (!(component instanceof UISelectOneListbox)) {
-      LOG.error("Wrong type: Need " + UISelectOneListbox.class.getName()
-          + ", but was " + component.getClass().getName());
-      return;
-    }
-
     final UISelectOneListbox select = (UISelectOneListbox) component;
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
@@ -74,7 +69,7 @@ public class SelectOneListboxRenderer extends SelectOneRendererBase {
     }
     final Style style = new Style(facesContext, select);
     writer.writeStyleAttribute(style);
-    writer.writeClassAttribute(Classes.create(select));
+    writer.writeClassAttribute(Classes.create(select), BootstrapClass.FORM_CONTROL);
     final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, select);
     if (title != null) {
       writer.writeAttribute(HtmlAttributes.TITLE, title, true);

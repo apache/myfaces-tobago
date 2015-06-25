@@ -47,12 +47,6 @@ public class SelectOneChoiceRenderer extends SelectOneRendererBase {
   }
 
   public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
-    if (!(component instanceof UISelectOneChoice)) {
-      LOG.error("Wrong type: Need " + UISelectOneChoice.class.getName()
-          + ", but was " + component.getClass().getName());
-      return;
-    }
-
     final UISelectOneChoice select = (UISelectOneChoice) component;
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
