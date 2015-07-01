@@ -24,7 +24,7 @@ import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.RendererTypes;
-import org.apache.myfaces.tobago.internal.component.AbstractUIColumnLayout;
+import org.apache.myfaces.tobago.internal.component.AbstractUISegmentLayout;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasBinding;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasId;
@@ -34,15 +34,15 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
  * Renders a layout using a 12 columns grid.
  * @since 3.0.0
  */
-@Tag(name = "columnLayout")
+@Tag(name = "segmentLayout")
 @UIComponentTag(
-    uiComponent = "org.apache.myfaces.tobago.component.UIColumnLayout",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIColumnLayout",
+    uiComponent = "org.apache.myfaces.tobago.component.UISegmentLayout",
+    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUISegmentLayout",
     uiComponentFacesClass = "javax.faces.component.UIComponentBase",
-    componentFamily = AbstractUIColumnLayout.COMPONENT_FAMILY,
-    rendererType = RendererTypes.COLUMN_LAYOUT,
+    componentFamily = AbstractUISegmentLayout.COMPONENT_FAMILY,
+    rendererType = RendererTypes.SEGMENT_LAYOUT,
     allowedChildComponenents = "NONE", isLayout = true)
-public interface ColumnLayoutTagDeclaration extends HasId, HasBinding, HasMarkup, HasCurrentMarkup {
+public interface SegmentLayoutTagDeclaration extends HasId, HasBinding, HasMarkup, HasCurrentMarkup {
 
   /**
    * TODO

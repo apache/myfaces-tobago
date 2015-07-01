@@ -24,7 +24,7 @@
   <tc:page id="page">
     <tc:panel>
       <f:facet name="layout">
-        <tc:columnLayout medium="2;4;2;4" small="6;6"/>
+        <tc:segmentLayout medium="2;4;2;4" small="6;6"/>
       </f:facet>
 
       <tx:in label="1st label" value="#{bootstrap.value}"/>
@@ -32,7 +32,7 @@
     </tc:panel>
     <tc:panel>
       <f:facet name="layout">
-        <tc:columnLayout medium="2;4;2;4" small="6;6"/>
+        <tc:segmentLayout medium="2;4;2;4" small="6;6"/>
       </f:facet>
 
       <tx:textarea label="3rd label" value="c cc ccc cccc ccccc"/>
@@ -41,7 +41,7 @@
     </tc:panel>
     <tc:panel>
       <f:facet name="layout">
-        <tc:columnLayout medium="1;1;1" extraSmall="4;4;4"/>
+        <tc:segmentLayout medium="1;1;1" extraSmall="4;4;4"/>
       </f:facet>
 
       <tc:button id="cancel" label="Cancel" action="#{bootstrap.reset}"/>

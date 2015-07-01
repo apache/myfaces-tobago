@@ -17,13 +17,13 @@ Todo:
 
   - consolidate LinkRenderer, ButtonRenderer with CommandRenderer
 
-  - simplify: layout without facet and container (columnLayout, ...):
+  - simplify: layout without facet and container (gridLayout, ... any other?):
 
 Done:
 
   - Removing tc:cell tag, please use tc:panel instead.
 
-  - simplify (flowLayout, flexLayout):
+  - simplify (flowLayout, flexLayout, segmentLayout):
 
     <tc:flowLayout>
       ... content ...

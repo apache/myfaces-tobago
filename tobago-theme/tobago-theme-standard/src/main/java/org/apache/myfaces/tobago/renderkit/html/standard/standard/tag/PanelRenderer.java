@@ -22,7 +22,7 @@ package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.UIPanel;
 import org.apache.myfaces.tobago.component.UIReload;
-import org.apache.myfaces.tobago.internal.component.AbstractUIColumnLayout;
+import org.apache.myfaces.tobago.internal.component.AbstractUISegmentLayout;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPanel;
 import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
 import org.apache.myfaces.tobago.layout.Measure;
@@ -70,7 +70,7 @@ public class PanelRenderer extends LayoutComponentRendererBase {
     writer.startElement(HtmlElements.DIV, panel);
     writer.writeIdAttribute(clientId);
 
-    if (panel.getLayoutManager() instanceof AbstractUIColumnLayout) {
+    if (panel.getLayoutManager() instanceof AbstractUISegmentLayout) {
       // TBD: this might be nicer, wen using the layout not as a facet
       writer.writeClassAttribute(Classes.create(panel), BootstrapClass.ROW);
     } else {

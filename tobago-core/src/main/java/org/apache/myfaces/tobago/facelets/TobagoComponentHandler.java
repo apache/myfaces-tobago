@@ -30,7 +30,7 @@ import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.event.SheetStateChangeSource;
 import org.apache.myfaces.tobago.event.SortActionSource;
 import org.apache.myfaces.tobago.event.TabChangeSource;
-import org.apache.myfaces.tobago.internal.component.AbstractUIColumnLayout;
+import org.apache.myfaces.tobago.internal.component.AbstractUISegmentLayout;
 import org.apache.myfaces.tobago.internal.component.AbstractUIFlowLayout;
 import org.apache.myfaces.tobago.internal.component.AbstractUIGridLayout;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPopup;
@@ -72,8 +72,8 @@ public class TobagoComponentHandler extends ComponentHandler {
     if (AbstractUIFlowLayout.class.isAssignableFrom(aClass)) {
       metaRuleset.addRule(FlowLayoutRule.INSTANCE);
     }
-    if (AbstractUIColumnLayout.class.isAssignableFrom(aClass)) {
-      metaRuleset.addRule(ColumnLayoutRule.INSTANCE);
+    if (AbstractUISegmentLayout.class.isAssignableFrom(aClass)) {
+      metaRuleset.addRule(SegmentLayoutRule.INSTANCE);
     }
     if (TabChangeSource.class.isAssignableFrom(aClass)) {
       metaRuleset.addRule(TabChangeSourceRule.INSTANCE);

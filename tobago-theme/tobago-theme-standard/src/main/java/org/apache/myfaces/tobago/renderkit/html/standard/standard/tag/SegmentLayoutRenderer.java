@@ -20,10 +20,10 @@
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
 import org.apache.myfaces.tobago.component.Facets;
-import org.apache.myfaces.tobago.component.UIColumnLayout;
+import org.apache.myfaces.tobago.component.UISegmentLayout;
 import org.apache.myfaces.tobago.component.UIExtensionPanel;
 import org.apache.myfaces.tobago.component.UILabel;
-import org.apache.myfaces.tobago.internal.component.AbstractUIColumnLayout;
+import org.apache.myfaces.tobago.internal.component.AbstractUISegmentLayout;
 import org.apache.myfaces.tobago.layout.LayoutContainer;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Css;
@@ -44,9 +44,9 @@ import java.util.List;
 /**
  * Renders the 12 columns layout.
  */
-public class ColumnLayoutRenderer extends RendererBase {
+public class SegmentLayoutRenderer extends RendererBase {
 
-  private static final Logger LOG = LoggerFactory.getLogger(ColumnLayoutRenderer.class);
+  private static final Logger LOG = LoggerFactory.getLogger(SegmentLayoutRenderer.class);
 
   @Override
   public boolean getRendersChildren() {
@@ -55,10 +55,10 @@ public class ColumnLayoutRenderer extends RendererBase {
 
   @Override
   public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
-    final AbstractUIColumnLayout columnLayout = (AbstractUIColumnLayout) component;
+    final AbstractUISegmentLayout segmentLayout = (AbstractUISegmentLayout) component;
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
-    writer.startElement(HtmlElements.DIV, columnLayout);
+    writer.startElement(HtmlElements.DIV, segmentLayout);
 //    writer.writeClassAttribute("row");
 //    writer.writeClassAttribute(BootstrapClass.FORM_HORIZONTAL, BootstrapClass.CONTAINER_FLUID);
     writer.writeClassAttribute(BootstrapClass.FORM_GROUP);
@@ -68,15 +68,15 @@ public class ColumnLayoutRenderer extends RendererBase {
   @Override
   public void encodeChildren(final FacesContext facesContext, final UIComponent component) throws IOException {
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
-    final UIColumnLayout columnLayout = (UIColumnLayout) component;
+    final UISegmentLayout segmentLayout = (UISegmentLayout) component;
 
-    UIComponent container = columnLayout.getParent();
-    if (container.getFacet(Facets.LAYOUT) == columnLayout) {
+    UIComponent container = segmentLayout.getParent();
+    if (container.getFacet(Facets.LAYOUT) == segmentLayout) {
       // case (old style): layout manager over facet
       LOG.warn("Using this layout via a facet is deprecated. Please put the layout around the components.");
     } else {
-      // case (modern style): the columnLayout contains the content to be layed out.
-      container = columnLayout;
+      // case (modern style): the segmentLayout contains the content to be layed out.
+      container = segmentLayout;
     }
 
     if (container instanceof LayoutContainer && !((LayoutContainer) container).isLayoutChildren()) {
@@ -85,10 +85,10 @@ public class ColumnLayoutRenderer extends RendererBase {
 
     final List<UIComponent> children = container.getChildren();
     final BootstrapCssGenerator generator = new BootstrapCssGenerator(
-        columnLayout.getExtraSmall(),
-        columnLayout.getSmall(),
-        columnLayout.getMedium(),
-        columnLayout.getLarge());
+        segmentLayout.getExtraSmall(),
+        segmentLayout.getSmall(),
+        segmentLayout.getMedium(),
+        segmentLayout.getLarge());
     for (UIComponent child : children) {
       if (child.isRendered()) {
         if (child instanceof UIExtensionPanel) {

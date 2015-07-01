@@ -20,7 +20,7 @@
 package org.apache.myfaces.tobago.facelets;
 
 import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.component.UIColumnLayout;
+import org.apache.myfaces.tobago.component.UISegmentLayout;
 import org.apache.myfaces.tobago.layout.ColumnPartition;
 
 import javax.faces.view.facelets.FaceletContext;
@@ -29,12 +29,12 @@ import javax.faces.view.facelets.Metadata;
 import javax.faces.view.facelets.MetadataTarget;
 import javax.faces.view.facelets.TagAttribute;
 
-public class ColumnLayoutRule extends MetaRule {
+public class SegmentLayoutRule extends MetaRule {
 
-  public static final ColumnLayoutRule INSTANCE = new ColumnLayoutRule();
+  public static final SegmentLayoutRule INSTANCE = new SegmentLayoutRule();
 
   public Metadata applyRule(final String name, final TagAttribute attribute, final MetadataTarget metadataTarget) {
-    if (metadataTarget.isTargetInstanceOf(UIColumnLayout.class)) {
+    if (metadataTarget.isTargetInstanceOf(UISegmentLayout.class)) {
       if (attribute.isLiteral()) {
         if (Attributes.EXTRA_SMALL.equals(name)) {
           return new ExtraSmallMapper(attribute);
@@ -61,7 +61,7 @@ public class ColumnLayoutRule extends MetaRule {
     }
 
     public void applyMetadata(final FaceletContext ctx, final Object instance) {
-      final UIColumnLayout gridLayout = (UIColumnLayout) instance;
+      final UISegmentLayout gridLayout = (UISegmentLayout) instance;
       gridLayout.setExtraSmall(ColumnPartition.valueOf(attribute.getValue()));
     }
   }
@@ -74,7 +74,7 @@ public class ColumnLayoutRule extends MetaRule {
     }
 
     public void applyMetadata(final FaceletContext ctx, final Object instance) {
-      final UIColumnLayout gridLayout = (UIColumnLayout) instance;
+      final UISegmentLayout gridLayout = (UISegmentLayout) instance;
       gridLayout.setSmall(ColumnPartition.valueOf(attribute.getValue()));
     }
   }
@@ -87,7 +87,7 @@ public class ColumnLayoutRule extends MetaRule {
     }
 
     public void applyMetadata(final FaceletContext ctx, final Object instance) {
-      final UIColumnLayout gridLayout = (UIColumnLayout) instance;
+      final UISegmentLayout gridLayout = (UISegmentLayout) instance;
       gridLayout.setMedium(ColumnPartition.valueOf(attribute.getValue()));
     }
   }
@@ -100,7 +100,7 @@ public class ColumnLayoutRule extends MetaRule {
     }
 
     public void applyMetadata(final FaceletContext ctx, final Object instance) {
-      final UIColumnLayout gridLayout = (UIColumnLayout) instance;
+      final UISegmentLayout gridLayout = (UISegmentLayout) instance;
       gridLayout.setLarge(ColumnPartition.valueOf(attribute.getValue()));
     }
   }

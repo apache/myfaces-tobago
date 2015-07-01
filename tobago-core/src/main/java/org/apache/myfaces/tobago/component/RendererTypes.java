@@ -31,7 +31,7 @@ public final class RendererTypes {
   @Deprecated
   public static final String CELL = "Cell";
   public static final String COLUMN = "Column";
-  public static final String COLUMN_LAYOUT = "ColumnLayout";
+  public static final String SEGMENT_LAYOUT = "SegmentLayout";
   public static final String COLUMN_SELECTOR = "ColumnSelector";
   public static final String COMMAND = "Command";
   public static final String COMMAND_GROUP = "CommandGroup";

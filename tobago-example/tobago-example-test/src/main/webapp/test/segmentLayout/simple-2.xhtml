@@ -21,12 +21,18 @@
     xmlns:tx="http://myfaces.apache.org/tobago/extension"
     xmlns:f="http://java.sun.com/jsf/core">
 
-  <tc:page id="page" label="Layout">
-    <tc:columnLayout medium="2;4;2;4" small="6;6">
+  <!--
+  same as simple-1.xhtml, but here are two panels, which contains the controls.
+  -->
+
+  <tc:page id="page">
+    <tc:segmentLayout medium="2;4;2;4" small="6;6">
       <tx:in label="1st label" value="a aa aaa aaaa aaaaa"/>
       <tx:in label="2nd label" value="b bb bbb bbbb bbbbb b bb bbb bbbb bbbbb b bb bbb bbbb bbb bbbb bbbbb "/>
+    </tc:segmentLayout>
+    <tc:segmentLayout medium="2;4;2;4" small="6;6">
       <tx:textarea label="3rd label" value="c cc ccc cccc ccccc"/>
       <tx:textarea label="4th label" value="d dd ddd dddd ddddd"/>
-    </tc:columnLayout>
+    </tc:segmentLayout>
   </tc:page>
 </f:view>

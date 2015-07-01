@@ -21,23 +21,16 @@
     xmlns:tx="http://myfaces.apache.org/tobago/extension"
     xmlns:f="http://java.sun.com/jsf/core">
 
-  <tc:page id="page">
+  <tc:page id="page" label="Layout (old)">
 
-    <tc:columnLayout medium="2;4;2;4" small="6;6">
-      <tx:in label="1st label" value="#{bootstrap.value}"/>
-      <tx:in label="2nd label" value="b bb bbb bbbb bbbbb b bb bbb bbbb bbbbb b bb bbb bbbb bbb bbbb bbbbb "/>
-    </tc:columnLayout>
+    <f:facet name="layout">
+      <tc:segmentLayout medium="2;4;2;4" small="6;6"/>
+    </f:facet>
 
-    <tc:columnLayout medium="2;4;2;4" small="6;6">
-      <tx:textarea label="3rd label" value="c cc ccc cccc ccccc"/>
-      <tx:textarea label="4th label" value="d dd ddd dddd ddddd"/>
-    </tc:columnLayout>
-
-    <tc:columnLayout medium="1;1;1" extraSmall="4;4;4">
-      <tc:button id="cancel" label="Cancel" action="#{bootstrap.reset}"/>
-      <tc:button id="save" label="Save" action="#{bootstrap.save}"/>
-      <tc:button id="delete" label="Delete" action="#{bootstrap.delete}"/>
-    </tc:columnLayout>
+    <tx:in label="1st label" value="a aa aaa aaaa aaaaa"/>
+    <tx:in label="2nd label" value="b bb bbb bbbb bbbbb b bb bbb bbbb bbbbb b bb bbb bbbb bbb bbbb bbbbb "/>
+    <tx:textarea label="3rd label" value="c cc ccc cccc ccccc"/>
+    <tx:textarea label="4th label" value="d dd ddd dddd ddddd"/>
 
   </tc:page>
 </f:view>
