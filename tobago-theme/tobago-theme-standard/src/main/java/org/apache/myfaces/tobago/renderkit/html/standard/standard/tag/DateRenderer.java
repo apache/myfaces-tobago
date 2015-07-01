@@ -29,6 +29,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlButtonTypes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.JsonUtils;
+import org.apache.myfaces.tobago.renderkit.html.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
@@ -72,6 +73,9 @@ public class DateRenderer extends InRenderer {
     final String pattern = date.getPattern();
 
     writer.startElement(HtmlElements.DIV, null);
+    writer.writeClassAttribute(TobagoClass.PANEL);
+
+    writer.startElement(HtmlElements.DIV, null);
     writer.writeClassAttribute(BootstrapClass.INPUT_GROUP);
 
     super.encodeBegin(facesContext, component);
@@ -105,5 +109,6 @@ public class DateRenderer extends InRenderer {
 
     writer.endElement(HtmlElements.DIV);
 
+    writer.endElement(HtmlElements.DIV);
   }
 }
