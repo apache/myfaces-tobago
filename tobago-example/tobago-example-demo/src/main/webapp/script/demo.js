@@ -34,3 +34,12 @@ var initAlert = function () {
 
 Tobago.registerListener(initAlert, Tobago.Phase.DOCUMENT_READY);
 Tobago.registerListener(initAlert, Tobago.Phase.AFTER_UPDATE);
+
+/*
+var highlightLayout = function () {
+  jQuery(".tobago-in").css({});
+};
+
+Tobago.registerListener(highlightLayout, Tobago.Phase.DOCUMENT_READY);
+Tobago.registerListener(highlightLayout, Tobago.Phase.AFTER_UPDATE);
+*/

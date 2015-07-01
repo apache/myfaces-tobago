@@ -105,6 +105,61 @@ body > form > .navbar-fixed-top + * {
   margin-top: 50px; /* XXX */
 }
 
+.tobago-page-overlay {
+  display: table;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* TODO: better z-index strategy */
+  z-index: 500; /* less than the bootstrap navbar */
+}
+
+.tobago-page-overlay-markup-wait {
+  cursor: wait;
+}
+
+.tobago-page-overlay-markup-error {
+  cursor: default;
+}
+
+.tobago-page-overlayCenter {
+  display: table-cell;
+  text-align: center;
+  vertical-align: middle;
+  width: 100%;
+  /* TODO: better z-index strategy */
+  z-index: 500; /* less than the bootstrap navbar */
+}
+
+.tobago-page-overlayCenter img {
+  position: relative;
+}
+
+.tobago-page-overlayWaitPreloadedImage,
+.tobago-page-overlayErrorPreloadedImage,
+.tobago-page-pngFixBlankImage,
+.tobago-page-overlayBackgroundImage {
+  display: none;
+}
+
+.tobago-page-noscript {
+  position: absolute;
+  top: 100px;
+  left: 100px;
+  right: 100px;
+  height: 50px;
+  border: 1px solid black;
+  padding: 30px;
+  background-color: white;
+  font-size: 15px;
+}
+
+.tobago-page-preventFrameAttacks {
+  display: none;
+}
+
 /* section ----------------------------------------------------------- */
 
 /* to separate the icon from the rest of the title */

@@ -56,11 +56,18 @@ Tobago.Config.set("Ajax", "waitOverlayDelay", 1000);
         this.overlay.addClass("tobago-page-overlay-markup-wait");
       }
 
-      this.overlay.outerWidth(this.element.outerWidth());
-      this.overlay.outerHeight(this.element.outerHeight());
-      this.overlay.offset(this.element.offset());
+      if (this.element.is("body")) {
+        this.overlay.css({
+          position: "fixed",
+          zIndex: 1500 // greater than the bootstrap navbar
+        });
+      } else {
+        this.overlay.outerWidth(this.element.outerWidth());
+        this.overlay.outerHeight(this.element.outerHeight());
+        this.overlay.offset(this.element.offset());
+      }
 
-      jQuery(".tobago-page-menuStore").append(this.overlay);
+      jQuery("body").append(this.overlay);
 
       var wait = jQuery("<div>").addClass("tobago-page-overlayCenter");
       this.overlay.append(wait);
@@ -91,29 +98,7 @@ Tobago.Config.set("Ajax", "waitOverlayDelay", 1000);
         opacity: 0})
           .show()
           .delay(this.options.error ? 0 : waitOverlayDelay)
-          .animate({opacity: '0.8'}, this.options.error ? 0 : 250, "linear", function () {
-
-            // fix for IE6: reset the src attribute to enable animation
-            if (Tobago.browser.isMsie6) {
-              image.attr("src", image.attr("src"));
-            }
-          });
-
-      // create an iframe for IE6
-
-      if (Tobago.browser.isMsie6) {
-        var iframe = jQuery("<iframe>").addClass("tobago-page-overlay-ie6bugfix");
-        iframe.prop("frameBorder", 0);
-        iframe.attr("src", Tobago.blankPage);
-        iframe.css({
-          position: 'absolute',
-          top: '0px',
-          left: '0px',
-          width: this.overlay.width() + 'px',
-          height: this.overlay.height() + 'px'
-        });
-        this.overlay.append(iframe);
-      }
+          .animate({opacity: '0.8'}, this.options.error ? 0 : 250, "linear");
     },
 
     _setOption: function (key, value) {

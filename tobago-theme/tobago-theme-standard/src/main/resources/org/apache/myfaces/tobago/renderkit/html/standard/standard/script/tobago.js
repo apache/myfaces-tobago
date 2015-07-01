@@ -295,23 +295,9 @@ var Tobago = {
 
   onBeforeUnload: function() {
     if (Tobago.transition) {
-      jQuery(".tobago-page").overlay();
+      jQuery("body").overlay();
     }
     Tobago.transition = Tobago.oldTransition;
-  },
-
-  /**
-   * @deprecated
-   */
-  createOverlay: function (element, error, ajax) {
-    element.overlay({error: error, ajax: ajax});
-  },
-
-  /**
-   * @deprecated
-   */
-  deleteOverlay:function (element) {
-    element.overlay("destroy");
   },
 
   /**
