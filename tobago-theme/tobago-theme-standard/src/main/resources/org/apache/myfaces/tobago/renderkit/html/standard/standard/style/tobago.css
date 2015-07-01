@@ -58,6 +58,9 @@
 .tobago-footer {
   background-color: #ffffff;
   padding: 5px 10px;
+  -webkit-box-shadow: 0 0 5px 5px rgba(200,200,200,0.5);
+  -moz-box-shadow: 0 0 5px 5px rgba(200,200,200,0.5);
+  box-shadow: 0 0 5px 5px rgba(200,200,200,0.5);
 }
 
 /* gridLayout -------------------------------------------------------------- */
