@@ -491,29 +491,6 @@ public class PageRenderer extends PageRendererBase {
 
     writer.endElement(HtmlElements.FORM);
 
-    // The waiting for the next page image
-    // Warning: The image must be loaded before the submit, otherwise this feature will not work with webkit
-    // browsers. This is the reason, why this code has moved from JavaScript to the renderer here.
-    writer.startElement(HtmlElements.IMG, null);
-    writer.writeClassAttribute(Classes.create(page, "overlayWaitPreloadedImage"));
-    final String wait = ResourceManagerUtils.getImage(facesContext, "image/tobago-overlay-wait");
-    writer.writeAttribute(HtmlAttributes.SRC, wait, true);
-    writer.endElement(HtmlElements.IMG);
-
-    writer.startElement(HtmlElements.IMG, null);
-    writer.writeClassAttribute(Classes.create(page, "overlayErrorPreloadedImage"));
-    final String error = clientProperties.getUserAgent().isMsie6()
-        ? ResourceManagerUtils.getImage(facesContext, "image/remove") // XXX why png doesn't work in ie6?
-        : ResourceManagerUtils.getImage(facesContext, "image/dialog-error");
-    writer.writeAttribute(HtmlAttributes.SRC, error, true);
-    writer.endElement(HtmlElements.IMG);
-
-    writer.startElement(HtmlElements.IMG, null);
-    writer.writeClassAttribute(Classes.create(page, "pngFixBlankImage"));
-    final String pngFixBlankImage = ResourceManagerUtils.getImage(facesContext, "image/blank");
-    writer.writeAttribute(HtmlAttributes.SRC, pngFixBlankImage, true);
-    writer.endElement(HtmlElements.IMG);
-
     writer.startElement(HtmlElements.IMG, null);
     writer.writeClassAttribute(Classes.create(page, "overlayBackgroundImage"));
     final String overlayBackgroundImage = ResourceManagerUtils.getImage(facesContext,

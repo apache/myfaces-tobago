@@ -994,10 +994,10 @@ var Tobago = {
         var page = jQuery(".tobago-page");
         page.attr("title", "This application can't be used embedded inside an other site " +
         "(configuration: prevent-frame-attacks=true)!");
-        var image = jQuery("body>.tobago-page-overlayErrorPreloadedImage").clone();
-        image.appendTo(page);
-        image.removeClass("tobago-page-overlayErrorPreloadedImage");
-        image.css({margin: "20px"});
+        jQuery("<span>")
+            .addClass("glyphicon glyphicon-flash")
+            .css({color: "#ff0000", fontSize: "xx-large", margin: "20px"})
+            .appendTo(page);
       }
     }
   },

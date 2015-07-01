@@ -140,9 +140,6 @@ body > form > .navbar-fixed-top + * {
   position: relative;
 }
 
-.tobago-page-overlayWaitPreloadedImage,
-.tobago-page-overlayErrorPreloadedImage,
-.tobago-page-pngFixBlankImage,
 .tobago-page-overlayBackgroundImage {
   display: none;
 }
@@ -325,3 +322,18 @@ fixes missing space, I thinks normal Websites have a " " Space char in the sourc
   display: none;
 }
 
+
+.glyphicon.tobago-x-spinning {
+  animation: tobago-x-spinning 1s infinite linear;
+  -webkit-animation: tobago-x-spinning_webkit 1s infinite linear;
+}
+
+@keyframes tobago-x-spinning {
+  from { transform: rotate(0deg);}
+  to { transform: rotate(360deg);}
+}
+
+@-webkit-keyframes tobago-x-spinning_webkit {
+  from { -webkit-transform: rotate(0deg);}
+  to { -webkit-transform: rotate(360deg);}
+}
