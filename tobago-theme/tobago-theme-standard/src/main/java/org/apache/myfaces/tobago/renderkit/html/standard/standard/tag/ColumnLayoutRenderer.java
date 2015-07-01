@@ -19,6 +19,7 @@
 
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
+import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.UIColumnLayout;
 import org.apache.myfaces.tobago.component.UIExtensionPanel;
 import org.apache.myfaces.tobago.component.UILabel;
@@ -48,6 +49,11 @@ public class ColumnLayoutRenderer extends RendererBase {
   private static final Logger LOG = LoggerFactory.getLogger(ColumnLayoutRenderer.class);
 
   @Override
+  public boolean getRendersChildren() {
+    return true;
+  }
+
+  @Override
   public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
     final AbstractUIColumnLayout columnLayout = (AbstractUIColumnLayout) component;
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
@@ -63,7 +69,16 @@ public class ColumnLayoutRenderer extends RendererBase {
   public void encodeChildren(final FacesContext facesContext, final UIComponent component) throws IOException {
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
     final UIColumnLayout columnLayout = (UIColumnLayout) component;
-    final UIComponent container = columnLayout.getParent();
+
+    UIComponent container = columnLayout.getParent();
+    if (container.getFacet(Facets.LAYOUT) == columnLayout) {
+      // case (old style): layout manager over facet
+      LOG.warn("Using this layout via a facet is deprecated. Please put the layout around the components.");
+    } else {
+      // case (modern style): the columnLayout contains the content to be layed out.
+      container = columnLayout;
+    }
+
     if (container instanceof LayoutContainer && !((LayoutContainer) container).isLayoutChildren()) {
       return;
     }
