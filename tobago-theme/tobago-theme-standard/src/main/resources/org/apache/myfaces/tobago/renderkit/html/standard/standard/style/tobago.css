@@ -63,6 +63,10 @@
   box-shadow: 0 0 5px 5px rgba(200,200,200,0.5);
 }
 
+.navbar-fixed-bottom {
+  margin-top: 10px;
+}
+
 /* gridLayout -------------------------------------------------------------- */
 
 .tobago-gridLayout {
@@ -101,12 +105,73 @@ table.tobago-gridLayout > tbody > tr:first-child > td {
   margin-bottom: 0;
 }
 
-/* page ----------------------------------------------------------- */
+/* nav ----------------------------------------------------------- */
 
-body > form > .navbar-fixed-top + * {
-  margin-top: 40px; /* height of the .navbar-fixed-top, todo: use "less" variable */
-  margin-top: 50px; /* XXX */
+/* styles for drop down menu with deeper level */
+.dropdown-submenu {
+  position: relative;
 }
+
+/* no bottom border in navtabs, if panel-body under it */
+.nav-tabs {
+  border-bottom-width: 0;
+}
+
+.nav-tabs > li.active > a {
+  background-image: linear-gradient(to bottom, #f5f5f5 0%, #e8e8e8 100%);
+  background-repeat: repeat-x;
+  border-bottom: #dddddd;
+}
+
+.nav-tabs > li.active > a:hover {
+  border-bottom: #dddddd;
+}
+
+.dropdown-submenu > .dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  -webkit-border-radius: 0 6px 6px 6px;
+  -moz-border-radius: 0 6px 6px 6px;
+  border-radius: 0 6px 6px 6px;
+}
+
+.dropdown-submenu:hover > .dropdown-menu {
+  display: block;
+}
+
+.dropdown-submenu > a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+
+.dropdown-submenu:hover > a:after {
+  border-left-color: #ffffff;
+}
+
+.dropdown-submenu.pull-left {
+  float: none;
+}
+
+.dropdown-submenu.pull-left > .dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  -webkit-border-radius: 6px 0 6px 6px;
+  -moz-border-radius: 6px 0 6px 6px;
+  border-radius: 6px 0 6px 6px;
+}
+
+/* page ----------------------------------------------------------- */
 
 .tobago-page-overlay {
   display: table;
