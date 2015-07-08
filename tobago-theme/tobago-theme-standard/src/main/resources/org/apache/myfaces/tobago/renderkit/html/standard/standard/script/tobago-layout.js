@@ -217,14 +217,22 @@ jQuery(document).ready(function () {
 
   // fixing fixed header/footer: content should not scroll behind the footer
   // XXX Is there a CSS solution?
+  // TODO: this might be reevaluated after a "resize"
 
   var header = jQuery(".navbar-fixed-top");
-  var footer = jQuery(".navbar-fixed-bottom");
-  var content = footer.prev();
+  header.each(function () {
+    var content = header.next();
+    content.css({
+      marginTop: (parseInt(content.css("margin-top").replace("px", "")) + header.outerHeight(true)) + "px"
+    });
+  });
 
-  content.css({
-    marginTop: (parseInt(content.css("margin-top").replace("px", "")) + header.outerHeight(true)) + "px",
-    marginBottom: (parseInt(content.css("margin-bottom").replace("px", "")) + footer.outerHeight(true)) + "px"
+  var footer = jQuery(".navbar-fixed-bottom");
+  footer.each(function () {
+    var content = footer.prev();
+    content.css({
+      marginBottom: (parseInt(content.css("margin-bottom").replace("px", "")) + footer.outerHeight(true)) + "px"
+    });
   });
 
 });
