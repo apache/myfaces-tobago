@@ -35,9 +35,9 @@ Release Checklist (Developer Info)
 
     * for Tobago 1.0.x use jdk 1.5 or 1.6 for build and 1.7 for deployment.
 
-    * for Tobago 1.5.x use jdk 1.6 or 1.7.
+    * for Tobago 1.5.x use jdk 1.7.
 
-    * for Tobago 2.0.x use jdk 1.6, 1.7 or 1.8.
+    * for Tobago 2.0.x use jdk 1.7 or 1.8.
 
     * for Tobago 3.0.x use jdk 1.7 or 1.8.
 
