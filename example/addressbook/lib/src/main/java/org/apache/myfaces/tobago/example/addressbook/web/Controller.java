@@ -50,7 +50,6 @@ import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
 import javax.faces.validator.ValidatorException;
 import javax.servlet.http.HttpSession;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -149,7 +148,7 @@ public class Controller {
     return OUTCOME_EDITOR;
   }
 
-  public String addDummyAddresses() throws AddressDaoException, IOException {
+  public String addDummyAddresses() throws AddressDaoException {
     for (int i = 0; i < 100; ++i) {
       currentAddress = RandomAddressGenerator.generateAddress();
       store();
