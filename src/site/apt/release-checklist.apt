@@ -29,11 +29,11 @@ Release Checklist (Developer Info)
 
   * Post a note on the list and ask for problems with the release candidate.
 
-  * Install a jdk 1.4 and a jdk 1.5 on your computer (only for Tobago 1.0.x).
+  * Install (or unpack) a jdk 1.4 on your computer (only for Tobago 1.0.x).
 
   * Please switch to a jdk depending of the version to build:
 
-    * for Tobago 1.0.x use jdk 1.5.
+    * for Tobago 1.0.x use jdk 1.5 or 1.6 for build and 1.7 for deployment.
 
     * for Tobago 1.5.x use jdk 1.6 or 1.7.
 
@@ -73,7 +73,10 @@ cd tobago-<version>
 
 +------------------------+
 # for Tobago 1.0.x
-mvn deploy -Papache-release,jdk14retro,generate-assembly --no-plugin-updates -Dnon-default-modules -Djava14.home=${java14.jre}
+# "install" with Java 1.6 and Maven 2
+mvn install -Papache-release,jdk14retro,generate-assembly --no-plugin-updates -Dnon-default-modules -Djava14.home=${java14.jre}
+# "deploy" with Java 1.7 and Maven 3 (hotfix: also comment out the maven-apt-plugin stuff)
+mvn deploy -Papache-release,generate-assembly --no-plugin-updates -Dnon-default-modules
 
 # for Tobago 1.5.x and higher
 mvn deploy -Papache-release,generate-assembly --no-plugin-updates -Dnon-default-modules
