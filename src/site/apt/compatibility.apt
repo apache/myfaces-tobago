@@ -96,7 +96,7 @@ Compatibility
 
   normal: compatible
 
-  \[retro\]: use the JDK 1.4 retro version
+  \[retro\]: use the JDK 1.4 retro version (available for Tobago 1.0.41 and before)
 
   \[ext\]: add the tobago-facelets extension
 
