@@ -20,7 +20,7 @@
   <parent>
     <groupId>org.apache.myfaces.tobago</groupId>
     <artifactId>tobago-tool</artifactId>
-    <version>1.0.42-SNAPSHOT</version>
+    <version>1.0.43-SNAPSHOT</version>
   </parent>
   <artifactId>tobago-tool-annotation</artifactId>
   <packaging>jar</packaging>
