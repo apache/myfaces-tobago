@@ -21,7 +21,6 @@
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:tx="http://myfaces.apache.org/tobago/extension"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core">
   <ui:param name="title" value="#{overviewBundle.validation}"/>
   <tc:panel>
@@ -51,14 +50,10 @@
 
     <tx:textarea label="#{overviewBundle.validation_description}" required="true" value="#{validationBean.text}"/>
 
-    <tc:panel>
-      <f:facet name="layout">
-        <tc:gridLayout columns="1*;100px"/>
-      </f:facet>
-      <tc:panel/>
+    <tc:flowLayout textAlign="right">
       <tc:button action="#{overviewController.noop}" label="#{overviewBundle.validation_submit}"
           defaultCommand="true"/>
-    </tc:panel>
+    </tc:flowLayout>
 
   </tc:panel>
 </ui:composition>
