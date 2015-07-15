@@ -29,7 +29,7 @@ import org.apache.myfaces.tobago.layout.LayoutManager;
  */
 public abstract class AbstractUISegmentLayout extends AbstractUILayoutBase implements LayoutManager, SupportsMarkup {
 
-  public static final String COMPONENT_FAMILY = "org.apache.myfaces.tobago.BootstrapLayout";
+  public static final String COMPONENT_FAMILY = "org.apache.myfaces.tobago.SegmentLayout";
 
 /*
   public void init() {
