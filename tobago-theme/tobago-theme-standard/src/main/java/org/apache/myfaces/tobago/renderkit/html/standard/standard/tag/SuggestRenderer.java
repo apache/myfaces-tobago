@@ -69,9 +69,7 @@ public class SuggestRenderer extends InputRendererBase {
     writer.writeAttribute(DataAttributes.SUGGEST_TOTAL_COUNT, totalCount);
 
     writer.startElement(HtmlElements.OL, null);
-    writer.writeClassAttribute("tobago-menuBar");
     writer.startElement(HtmlElements.LI, null);
-    writer.writeClassAttribute("tobago-menu tobago-menu-markup-top");
     writer.startElement(HtmlElements.A, null);
     writer.writeAttribute(HtmlAttributes.HREF, "#", false);
     writer.writeAttribute(HtmlAttributes.TABINDEX, -1);

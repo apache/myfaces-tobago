@@ -369,7 +369,10 @@ public class OverviewController implements Serializable {
     }
 
   public List<String> getInputSuggestItems(final UIInput component) {
-    final String prefix = (String) component.getSubmittedValue();
+    String prefix = (String) component.getSubmittedValue();
+    if (prefix == null) {
+      prefix = "";
+    }
     LOG.info("Creating items for prefix: '" + prefix + "'");
     final List<String> result = new ArrayList<String>();
     for (final String name : LocaleList.COUNTRY_LANGUAGE) {
