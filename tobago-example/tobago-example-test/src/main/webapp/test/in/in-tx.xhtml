@@ -27,32 +27,14 @@
     </f:facet>
     <tc:gridLayoutConstraint width="600px" height="600px"/>
 
-    <tx:in label="Label 1" value="Some Value 1" fieldId="in1" id="panel1">
-      <tc:dataAttribute name="assert-left" value="125"/>
-      <tc:dataAttribute name="assert-top" value="0"/>
-      <tc:dataAttribute name="assert-width" value="475"/>
-      <tc:dataAttribute name="assert-height" value="20"/>
-    </tx:in>
-    <tx:in label="Label 2" value="Some Value 2" fieldId="in2" id="panel2">
-      <tc:dataAttribute name="assert-left" value="125"/>
-      <tc:dataAttribute name="assert-top" value="25"/>
-      <tc:dataAttribute name="assert-width" value="475"/>
-      <tc:dataAttribute name="assert-height" value="20"/>
-    </tx:in>
-    <tx:in label="Label 3" value="Some Value 3" fieldId="in3" id="panel3">
-      <tc:dataAttribute name="assert-left" value="125"/>
-      <tc:dataAttribute name="assert-top" value="50"/>
-      <tc:dataAttribute name="assert-width" value="475"/>
-      <tc:dataAttribute name="assert-height" value="20"/>
-    </tx:in>
-    <tx:in label="Label 4" value="Some Value 4" fieldId="in4" id="panel4">
-      <tc:dataAttribute name="assert-left" value="125"/>
-      <tc:dataAttribute name="assert-top" value="75"/>
-      <tc:dataAttribute name="assert-width" value="475"/>
-      <tc:dataAttribute name="assert-height" value="20"/>
-    </tx:in>
+    <tc:messages/>
 
-    <tc:button label="Submit"/>
+    <tx:in label="Label 1" value="Some Value 1" fieldId="in1" id="panel1"/>
+    <tx:in label="Label 2 (required)" value="Some Value 2" fieldId="in2" id="panel2" required="true"/>
+    <tx:in label="Label 3 (readonly)" value="Some Value 3" fieldId="in3" id="panel3" readonly="true"/>
+    <tx:in label="Label 4 (disabled)" value="Some Value 4" fieldId="in4" id="panel4" disabled="true"/>
+
+    <tc:button label="Submit" defaultCommand="true"/>
 
     <tc:script file="script/tobago-assert.js"/>
 
