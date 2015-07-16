@@ -612,19 +612,6 @@ li.tobago-menu-markup-selected {
   font-family: arial, helvetica, sans-serif;
 }
 
-.tobago-out-markup-strong {
-  font-weight: bold;
-}
-
-.tobago-out-markup-deleted {
-  text-decoration: line-through;
-}
-
-.tobago-out-markup-number {
-  display: block;
-  text-align: right;
-}
-
 /* page -------------------------------------------------------------------- */
 
 .tobago-page {

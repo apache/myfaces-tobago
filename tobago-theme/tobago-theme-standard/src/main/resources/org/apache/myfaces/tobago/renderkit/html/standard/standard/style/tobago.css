@@ -172,6 +172,21 @@ table.tobago-gridLayout > tbody > tr:first-child > td {
   border-radius: 6px 0 6px 6px;
 }
 
+/* out -------------------------------------------------------------------- */
+
+.tobago-out-markup-strong {
+  font-weight: bold;
+}
+
+.tobago-out-markup-deleted {
+  text-decoration: line-through;
+}
+
+.tobago-out-markup-number {
+  display: block;
+  text-align: right;
+}
+
 /* page ----------------------------------------------------------- */
 
 .tobago-page-overlay {
