@@ -26,12 +26,6 @@
   <packaging>war</packaging>
   <name>Tobago Example for Portlets</name>
 
-  <!--
-  XXX This is only a test! It's not a functional example. 
-  XXX It was successfully deployed on a Liferay 5.1.2, but the submit doesn't work.
-  XXX JavaScript and CSS is not working
-  -->
-
   <dependencies>
     <dependency>
       <groupId>org.apache.myfaces.tobago</groupId>
