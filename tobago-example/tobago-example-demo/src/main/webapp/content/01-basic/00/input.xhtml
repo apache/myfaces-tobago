@@ -23,7 +23,9 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core">
 
-  <tc:box label="Input">
+  <ui:param name="title" value="Input"/>
+
+  <tc:panel>
     <f:facet name="layout">
       <tc:gridLayout rows="auto;auto;auto;auto;auto;auto;auto;2*;3*;2*;2*;2*;2*;2*"/>
     </f:facet>
@@ -75,5 +77,5 @@
       <tc:out value=" inside of a floating text."/>
     </tc:panel>
 
-  </tc:box>
+  </tc:panel>
 </ui:composition>
