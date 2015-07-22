@@ -21,8 +21,10 @@ package org.apache.myfaces.tobago.renderkit.html;
 
 import org.apache.myfaces.tobago.layout.TextAlign;
 import org.apache.myfaces.tobago.renderkit.css.CssItem;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 
 import javax.faces.application.FacesMessage;
+import javax.faces.component.UIComponent;
 
 /**
  * @since 3.0.0
@@ -41,6 +43,7 @@ public enum BootstrapClass implements CssItem {
   COLLAPSED("collapsed"),
   CONTAINER("container"),
   CONTAINER_FLUID("container-fluid"),
+  DANGER("danger"),
   DISABLED("disabled"),
   DROPDOWN("dropdown"),
   DROPDOWN_MENU("dropdown-menu"),
@@ -55,6 +58,9 @@ public enum BootstrapClass implements CssItem {
   GLYPHICON_CHEVRON_DOWN("glyphicon-chevron-down"),
   GLYPHICON_CHEVRON_UP("glyphicon-chevron-up"),
   GLYPHICON_TIME("glyphicon-time"),
+  HAS_ERROR("has-error"),
+  HAS_SUCCESS("has-success"),
+  HAS_WARNING("has-warning"),
   ICON_BAR("icon-bar"),
   INPUT_GROUP("input-group"),
   INPUT_GROUP_BTN("input-group-btn"),
@@ -90,7 +96,12 @@ public enum BootstrapClass implements CssItem {
   TEXT_CENTER("text-center"),
   TEXT_JUSTIFY("text-justify"),
   TEXT_LEFT("text-left"),
-  TEXT_RIGHT("text-right");
+  TEXT_RIGHT("text-right"),
+  WARNING("warning");
+
+  private static final int SEVERITY_ERROR = FacesMessage.SEVERITY_ERROR.getOrdinal();
+  private static final int SEVERITY_WARN = FacesMessage.SEVERITY_WARN.getOrdinal();
+  private static final int SEVERITY_INFO = FacesMessage.SEVERITY_INFO.getOrdinal();
 
   private final String name;
 
@@ -120,12 +131,29 @@ public enum BootstrapClass implements CssItem {
     // see MYFACES-3768
     // may be optimized with a cache...
 
-    if (severity.equals(FacesMessage.SEVERITY_INFO)) {
-      return ALERT_INFO;
-    } else if (severity.equals(FacesMessage.SEVERITY_WARN)) {
-      return ALERT_WARNING;
-    } else {
+    if (severity == null) {
+      return null;
+    } else if (severity.getOrdinal() >= SEVERITY_ERROR) {
       return ALERT_DANGER;
+    } else if (severity.getOrdinal() >= SEVERITY_WARN) {
+      return ALERT_WARNING;
+    } else if (severity.getOrdinal() >= SEVERITY_INFO) {
+      return ALERT_INFO;
+    } else {
+      return null;
+    }
+  }
+
+  public static CssItem maximumSeverity(final UIComponent input) {
+    final FacesMessage.Severity maximumSeverity = ComponentUtils.getMaximumSeverity(input);
+    if (maximumSeverity == null) {
+      return null;
+    } else if (maximumSeverity.getOrdinal() >= SEVERITY_ERROR) {
+      return HAS_ERROR;
+    } else if (maximumSeverity.getOrdinal() >= SEVERITY_WARN) {
+      return HAS_WARNING;
+    } else {
+      return null;
     }
   }
 
