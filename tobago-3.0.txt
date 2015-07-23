@@ -19,6 +19,23 @@ Todo:
 
   - simplify: layout without facet and container (gridLayout, ... any other?):
 
+  - make tx: lib deprecated, using tc: instead, that might be more intuitive for many users.
+
+    <tx:in label="a" fieldId="b" id="c" />
+
+    will be transformed to this
+
+    <tc:in label="a" id="b or c" />  (if b is set use b otherwise use c)
+
+    There is a little conflict between the "label" attribute used in the JSF spec. and the Tobago tx: label:
+    Tobago means it should be displayed, and JSF spec. means that this should be used to display messages.
+    In most cases there is no issue for that. But for the case that the application need a message label, but
+    should not be displayed we need a new attribute:
+
+    (preliminary) "labelPosition" or "labelLayout" with value "none"
+    With this attribute we may advise the renderer also the position of the label.
+    Or, using an attribute "renderLable"...
+
 Done:
 
   - Removing tc:cell tag, please use tc:panel instead.
