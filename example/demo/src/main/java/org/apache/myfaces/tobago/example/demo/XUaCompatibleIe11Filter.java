@@ -28,7 +28,7 @@ public class XUaCompatibleIe11Filter implements Filter {
     final String userAgent = httpServletRequest.getHeader("User-Agent");
     if (userAgent != null && userAgent.contains("Trident") && userAgent.contains("rv:11")) { // is IE 11
       final HttpServletResponse httpServletResponse = (HttpServletResponse) servletResponse;
-      httpServletResponse.setHeader("X-UA-Compatible", "IE=9");
+      httpServletResponse.setHeader("X-UA-Compatible", "IE=10");
       // known problems
       //                 box of input    menu arrow key     access-key
       // EmulateIE11     +               -                  -
