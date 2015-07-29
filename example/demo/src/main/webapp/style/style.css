@@ -24,3 +24,8 @@
 .tobago-column-markup-moon {
   background-color: #6495ed;
 }
+
+/* needed for IE11 */
+* {
+  box-sizing: border-box;
+}

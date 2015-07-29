@@ -59,6 +59,15 @@
     </servlet>
   -->
 
+  <filter>
+    <filter-name>XUaCompatibleIe11Filter</filter-name>
+    <filter-class>org.apache.myfaces.tobago.example.demo.XUaCompatibleIe11Filter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>XUaCompatibleIe11Filter</filter-name>
+    <url-pattern>/faces/*</url-pattern>
+  </filter-mapping>
+
   <servlet>
     <servlet-name>FacesServlet</servlet-name>
     <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
