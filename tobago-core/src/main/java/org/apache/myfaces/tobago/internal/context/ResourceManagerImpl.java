@@ -435,15 +435,15 @@ public class ResourceManagerImpl implements ResourceManager {
       }
 
       if (!production && !ignoreMissing) {
-        LOG.warn("Path not found, and no fallback. Using empty string.\n"
-            + "resourceDirs = '" + tobagoConfig.getResourceDirs()
-            + "' contentType = '" + contentType
-            + "' theme = '" + theme.getName()
-            + "' browser = '" + browser
-            + "' subDir = '" + subDir
-            + "' name = '" + name
-            + "' extension = '" + Arrays.toString(extensions)
-            + "' key = '" + key
+        LOG.warn("Path not found, and no fallback (using empty string) "
+            + "resourceDirs='" + tobagoConfig.getResourceDirs()
+            + "' contentType='" + contentType
+            + "' theme='" + theme.getName()
+            + "' browser='" + browser
+            + "' subDir='" + subDir
+            + "' name='" + name
+            + "' extension='" + Arrays.toString(extensions)
+            + "' key='" + key
             + "'");
       }
       return null;
