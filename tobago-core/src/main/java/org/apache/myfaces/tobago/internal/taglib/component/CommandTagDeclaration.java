@@ -19,8 +19,10 @@
 
 package org.apache.myfaces.tobago.internal.taglib.component;
 
+import org.apache.myfaces.tobago.apt.annotation.Facet;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
+import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.AbstractCommandTagDeclaration;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
@@ -45,7 +47,12 @@ import javax.faces.component.UICommand;
     uiComponentFacesClass = "javax.faces.component.UICommand",
     componentFamily = UICommand.COMPONENT_FAMILY,
     rendererType = RendererTypes.COMMAND,
-    allowedChildComponenents = "NONE")
+    allowedChildComponenents = "NONE",
+    facets = {
+        @Facet(
+            name = Facets.POPUP,
+            description = "Contains a UIPopup instance.",
+            allowedChildComponenents = "org.apache.myfaces.tobago.Popup")})
 public interface CommandTagDeclaration
     extends AbstractCommandTagDeclaration, HasId, HasValue, IsDisabled, IsGridLayoutComponent, HasMarkup,
     HasCurrentMarkup, HasLabel {
