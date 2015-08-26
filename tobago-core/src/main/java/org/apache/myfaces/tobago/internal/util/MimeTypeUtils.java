@@ -77,6 +77,10 @@ public final class MimeTypeUtils {
       if (file.endsWith("html")) {
         return "text/html";
       }
+    } else if (file.charAt(length - 6) == '.') {
+      if (file.endsWith("woff2")) {
+        return "application/font-woff2";
+      }
     }
 
     final int index = file.lastIndexOf('.');
