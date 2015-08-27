@@ -56,6 +56,11 @@ public interface PopupTagDeclaration
     extends HasIdBindingAndRendered, IsGridLayoutComponentWithDimension, IsGridLayoutContainer,
     HasMarkup, HasCurrentMarkup {
 
+  /**
+   * The rest of the page will be faded off for the time the popup is displayed.
+   * <br>
+   * XXX Currently (since 3.0 branch) non-modal is not supported.
+   */
   @TagAttribute
   @UIComponentTagAttribute(type = "boolean", defaultValue = "true")
   void setModal(String modal);
