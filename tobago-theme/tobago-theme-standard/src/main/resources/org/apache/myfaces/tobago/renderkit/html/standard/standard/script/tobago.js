@@ -279,8 +279,6 @@ var Tobago = {
 
     Tobago.storeClientDimension();
 
-    Tobago.Popup.unlockBehind(jQuery(".tobago-popup-markup-modal"));
-
     Tobago.onBeforeUnload();
 
     return true;
@@ -801,16 +799,9 @@ var Tobago = {
             if (popup && popup.command == "close" && popup.immediate) {
               Tobago.Popup.close(this);
             } else {
-              if (popup && popup.command == "close") {
-                Tobago.Popup.unlockBehind();
-              }
               var action = commands.click.action ? commands.click.action : jQuery(this).attr("id");
               if (commands.click.partially) {
-                if (popup && popup.command == "open") {
-                  Tobago.Popup.openWithAction(this, commands.click.partially, action);
-                } else {
-                  Tobago.reloadComponent(this, commands.click.partially, action, commands.click);
-                }
+                Tobago.reloadComponent(this, commands.click.partially, action, commands.click);
                 event.preventDefault();
                 event.stopPropagation();
               } else if (commands.click.url) {

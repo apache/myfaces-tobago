@@ -24,7 +24,9 @@ import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.BootstrapClass;
+import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
+import org.apache.myfaces.tobago.renderkit.html.HtmlRoleValues;
 import org.apache.myfaces.tobago.renderkit.html.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -51,8 +53,12 @@ public class PopupRenderer extends LayoutComponentRendererBase {
     writer.startElement(HtmlElements.DIV, null);
     writer.writeClassAttribute(TobagoClass.POPUP, BootstrapClass.MODAL, BootstrapClass.FADE);
     writer.writeIdAttribute(popup.getClientId(facesContext));
+    writer.writeAttribute(HtmlAttributes.TABINDEX, -1);
+    writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.DIALOG.toString(), false);
+    // todo: aria-labelledby
     writer.startElement(HtmlElements.DIV, null);
     writer.writeClassAttribute(BootstrapClass.MODAL_DIALOG);
+    writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.DOCUMENT.toString(), false);
     final Style style = new Style();
     style.setWidth(popup.getWidth());
     style.setHeight(popup.getHeight());
