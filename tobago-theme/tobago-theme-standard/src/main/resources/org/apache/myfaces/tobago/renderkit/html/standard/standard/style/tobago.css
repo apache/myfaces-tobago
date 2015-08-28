@@ -20,6 +20,17 @@
  * agent: standard
  */
 
+/* button -------------------------------------------------------------- */
+
+/* XXX fixes a problem with image in button inside a segmentLayout (with FF40 and IE11)
+   test page: buttons-with-image.xhtml
+   This might not be a good solution, is works only with images not larger then 16px
+*/
+.tobago-button > img {
+  margin-top: -1px;
+  margin-bottom: -1px;
+}
+
 /* date -------------------------------------------------------------- */
 
 /* XXX hack */

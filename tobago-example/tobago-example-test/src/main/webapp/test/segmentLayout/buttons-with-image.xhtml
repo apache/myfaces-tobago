@@ -20,11 +20,13 @@
       <tc:button image="glyphicon-paperclip" label="1c Anhang" />
       <tc:button image="glyphicon-log-in" label="1d Anmelden" />
 
-      <!-- XXX here is a bug in Firefox 40 and IE 11 when rendering.
+      <!-- XXX here is a problem in Firefox 40 and IE 11 when rendering.
       XXX In Chrome and Safari the page is okay.
       The image="image/feather-leaf" will create an <img> tag in HTML. This will break the
       12 column layout:
       The next line begins after this button, and not in the first column.
+
+      The reason is, that the image is slightly higher than the glyphicon
       -->
       <tc:button image="image/feather-leaf" label="2a Ansicht öffnen" />
       <tc:button image="glyphicon-eye-close" label="2b Ansicht schließen" />
