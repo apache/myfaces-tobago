@@ -80,7 +80,7 @@
         <plugin>
           <groupId>org.eclipse.jetty</groupId>
           <artifactId>jetty-maven-plugin</artifactId>
-          <version>9.3.0.M2</version>
+          <version>9.2.13.v20150730</version><!-- Jetty 9.3 requires Java 1.8 -->
           <configuration>
             <scanIntervalSeconds>5</scanIntervalSeconds>
             <webAppConfig>
