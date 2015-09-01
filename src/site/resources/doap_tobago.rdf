@@ -40,8 +40,8 @@
         <name>Latest stable release of 1.0.x</name>
         <created>2015-07-16</created>
         <revision>1.0.42</revision>
-        <file-release>http://www.apache.org/dyn/closer.cgi/myfaces/binaries/myfaces-tobago-1.0.42-dist.tar.gz</file-release>
-        <file-release>http://www.apache.org/dyn/closer.cgi/myfaces/binaries/myfaces-tobago-1.0.42-dist.zip</file-release>
+        <file-release>http://www.apache.org/dyn/closer.lua/myfaces/binaries/myfaces-tobago-1.0.42-dist.tar.gz</file-release>
+        <file-release>http://www.apache.org/dyn/closer.lua/myfaces/binaries/myfaces-tobago-1.0.42-dist.zip</file-release>
       </Version>
     </release>
     <release>
@@ -49,8 +49,8 @@
         <name>Latest stable release of 1.5.x</name>
         <created>2014-03-25</created>
         <revision>1.5.13</revision>
-        <file-release>http://www.apache.org/dyn/closer.cgi/myfaces/binaries/myfaces-tobago-1.5.13-dist.tar.gz</file-release>
-        <file-release>http://www.apache.org/dyn/closer.cgi/myfaces/binaries/myfaces-tobago-1.5.13-dist.zip</file-release>
+        <file-release>http://www.apache.org/dyn/closer.lua/myfaces/binaries/myfaces-tobago-1.5.13-dist.tar.gz</file-release>
+        <file-release>http://www.apache.org/dyn/closer.lua/myfaces/binaries/myfaces-tobago-1.5.13-dist.zip</file-release>
       </Version>
     </release>
     <release>
@@ -58,8 +58,8 @@
         <name>Latest stable release of 2.0.x</name>
         <created>2015-06-09</created>
         <revision>2.0.8</revision>
-        <file-release>http://www.apache.org/dyn/closer.cgi/myfaces/binaries/myfaces-tobago-2.0.8-dist.tar.gz</file-release>
-        <file-release>http://www.apache.org/dyn/closer.cgi/myfaces/binaries/myfaces-tobago-2.0.8-dist.zip</file-release>
+        <file-release>http://www.apache.org/dyn/closer.lua/myfaces/binaries/myfaces-tobago-2.0.8-dist.tar.gz</file-release>
+        <file-release>http://www.apache.org/dyn/closer.lua/myfaces/binaries/myfaces-tobago-2.0.8-dist.zip</file-release>
       </Version>
     </release>
     <repository>
