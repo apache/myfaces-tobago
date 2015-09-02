@@ -19,7 +19,9 @@
 
 package org.apache.myfaces.tobago.example.test;
 
-public class InBean {
+import java.io.Serializable;
+
+public class InBean implements Serializable {
 
   private String first;
 

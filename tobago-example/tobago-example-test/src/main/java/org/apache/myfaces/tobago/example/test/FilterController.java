@@ -23,7 +23,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.model.Wizard;
 
-public class FilterController {
+import java.io.Serializable;
+
+public class FilterController implements Serializable {
 
   private static final Logger LOG = LoggerFactory.getLogger(FilterController.class);
 

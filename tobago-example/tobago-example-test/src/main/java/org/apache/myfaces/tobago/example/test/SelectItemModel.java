@@ -21,9 +21,10 @@ package org.apache.myfaces.tobago.example.test;
 
 import org.apache.myfaces.tobago.model.SelectItem;
 
+import java.io.Serializable;
 import java.util.Currency;
 
-public class SelectItemModel {
+public class SelectItemModel implements Serializable {
 
   private int number = 3;
 

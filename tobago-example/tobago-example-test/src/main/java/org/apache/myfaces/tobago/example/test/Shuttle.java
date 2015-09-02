@@ -21,10 +21,11 @@ package org.apache.myfaces.tobago.example.test;
 
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Shuttle {
+public class Shuttle implements Serializable {
 
   private List<String> value;
 

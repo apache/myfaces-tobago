@@ -19,7 +19,9 @@
 
 package org.apache.myfaces.tobago.example.test;
 
-public class DynamicPanel3 extends DynamicPanel {
+import java.io.Serializable;
+
+public class DynamicPanel3 extends DynamicPanel implements Serializable {
 
   private String street;
   private String city;

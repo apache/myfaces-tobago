@@ -29,8 +29,9 @@ import org.apache.myfaces.tobago.model.TreeNodeDataModel;
 import org.apache.myfaces.tobago.model.TreeState;
 
 import javax.swing.tree.DefaultMutableTreeNode;
+import java.io.Serializable;
 
-public class TreeController {
+public class TreeController implements Serializable {
 
   private DefaultMutableTreeNode tree = CategoryTree.createSample();
 

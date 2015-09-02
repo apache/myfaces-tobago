@@ -19,7 +19,9 @@
 
 package org.apache.myfaces.tobago.example.test;
 
-public class TomahawkInputHtml {
+import java.io.Serializable;
+
+public class TomahawkInputHtml implements Serializable {
 
   private String inputHtml =
       "<html><body>Hallo <b>Tomahawk</b><br/>not working yet: "

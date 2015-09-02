@@ -19,7 +19,9 @@
 
 package org.apache.myfaces.tobago.example.test;
 
-public class Attribute {
+import java.io.Serializable;
+
+public class Attribute implements Serializable {
 
   private int counter;
   private boolean condition;
