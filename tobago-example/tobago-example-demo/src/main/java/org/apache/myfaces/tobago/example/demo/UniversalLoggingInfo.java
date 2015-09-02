@@ -220,51 +220,34 @@ public class UniversalLoggingInfo {
       final Object c = method.invoke(null, category);
 
       if (JUL.equals(id)) {
-//        c.isLoggable(Level.parse(level.toUpperCase()))
-        final Class<?> levelClass = Class.forName("java.util.logging.Level");
-        final Method isLoggable = c.getClass().getMethod("isLoggable", levelClass);
-        final Method parse = levelClass.getMethod("parse", String.class);
-        final Object levelObject = parse.invoke(null, level.toUpperCase());
-        final Object hasLevel = isLoggable.invoke(c, levelObject);
-        return (Boolean) hasLevel;
-      }
-
-      if (SLF4J.equals(id)) {
-        String methodName = "is" + level.substring(0, 1).toUpperCase() + level.substring(1) + "Enabled";
-        final Object hasLevel = c.getClass().getMethod(methodName).invoke(c);
-        return (Boolean) hasLevel;
+        return checkLevelGeneric(level, c, "java.util.logging.Level", "isLoggable", "parse");
       }
 
       if (LOG4J.equals(id)) {
-//        org.apache.log4j.Logger.getLogger("").isEnabledFor(Priority.toPriority("debug"));
-
-        final Class<?> levelClass = Class.forName("org.apache.log4j.Priority");
-        final Method isLoggable = c.getClass().getMethod("isEnabledFor", levelClass);
-        final Method parse = levelClass.getMethod("toPriority", String.class);
-        final Object levelObject = parse.invoke(null, level.toUpperCase());
-        final Object hasLevel = isLoggable.invoke(c, levelObject);
-        return (Boolean) hasLevel;
+        return checkLevelGeneric(level, c, "org.apache.log4j.Priority", "isEnabledFor", "toPriority");
       }
 
       if (LOG4J2.equals(id)) {
-        // org.apache.logging.log4j.core.Logger l = null; l.isEnabled(Level.parse("DEBUG"))
-
-        final Class<?> levelClass = Class.forName("org.apache.logging.log4j.Level");
-        final Method isLoggable = c.getClass().getMethod("isEnabled", levelClass);
-        final Method parse = levelClass.getMethod("getLevel", String.class);
-        final Object levelObject = parse.invoke(null, level.toUpperCase());
-        final Object hasLevel = isLoggable.invoke(c, levelObject);
-        return (Boolean) hasLevel;
+        return checkLevelGeneric(level, c, "org.apache.logging.log4j.Level", "isEnabled", "getLevel");
       }
 
-      if (JCL.equals(id)) {
-        //org.apache.commons.logging.Log l = null; l.isDebugEnabled();
+      if (SLF4J.equals(id) || JCL.equals(id)) {
         String methodName = "is" + level.substring(0, 1).toUpperCase() + level.substring(1) + "Enabled";
         final Object hasLevel = c.getClass().getMethod(methodName).invoke(c);
         return (Boolean) hasLevel;
       }
 
       throw new IllegalStateException();
+    }
+
+    private boolean checkLevelGeneric(String level, Object c, String clazz, String enabledMethod, String levelMethod)
+        throws ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+      final Class<?> levelClass = Class.forName(clazz);
+      final Method isLoggable = c.getClass().getMethod(enabledMethod, levelClass);
+      final Method parse = levelClass.getMethod(levelMethod, String.class);
+      final Object levelObject = parse.invoke(null, level.toUpperCase());
+      final Object hasLevel = isLoggable.invoke(c, levelObject);
+      return (Boolean) hasLevel;
     }
   }
 }
