@@ -37,6 +37,7 @@ public class MimeTypeUtilsUnitTest extends AbstractTobagoTestBase {
   public static final String WOFF = "http:///localhost:8080/demo/demo.woff";
   public static final String WOFF2 = "http:///localhost:8080/demo/demo.woff2";
   public static final String TTF = "http:///localhost:8080/demo/demo.ttf";
+  public static final String EOT = "http:///localhost:8080/demo/demo.eot";
   public static final String SVG = "http:///localhost:8080/demo/demo.svg";
   public static final String ODT = "http:///localhost:8080/demo/demo.odt";
 
@@ -62,6 +63,7 @@ public class MimeTypeUtilsUnitTest extends AbstractTobagoTestBase {
     Assert.assertEquals("application/font-woff", MimeTypeUtils.getMimeTypeForFile(WOFF));
     Assert.assertEquals("application/font-woff2", MimeTypeUtils.getMimeTypeForFile(WOFF2));
     Assert.assertEquals("application/x-font-ttf", MimeTypeUtils.getMimeTypeForFile(TTF));
+    Assert.assertEquals("application/vnd.ms-fontobject", MimeTypeUtils.getMimeTypeForFile(EOT));
     Assert.assertEquals("image/svg+xml", MimeTypeUtils.getMimeTypeForFile(SVG));
   }
 
