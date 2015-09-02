@@ -22,6 +22,7 @@ package org.apache.myfaces.tobago.example.test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -30,7 +31,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 
-public class SheetSortController {
+public class SheetSortController implements Serializable {
 
   private static final Logger LOG = LoggerFactory.getLogger(SheetSortController.class);
 

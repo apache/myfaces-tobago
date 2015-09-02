@@ -21,8 +21,9 @@ package org.apache.myfaces.tobago.example.test;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import java.io.Serializable;
 
-public class Messages {
+public class Messages implements Serializable {
 
   public String createMessages() {
 

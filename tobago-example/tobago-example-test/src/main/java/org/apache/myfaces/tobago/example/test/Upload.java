@@ -25,8 +25,9 @@ import org.slf4j.LoggerFactory;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import java.io.Serializable;
 
-public class Upload {
+public class Upload implements Serializable {
 
   private static final Logger LOG = LoggerFactory.getLogger(Upload.class);
 

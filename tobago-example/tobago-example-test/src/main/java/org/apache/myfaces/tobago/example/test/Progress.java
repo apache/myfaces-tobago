@@ -19,15 +19,11 @@
 
 package org.apache.myfaces.tobago.example.test;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import javax.swing.BoundedRangeModel;
 import javax.swing.DefaultBoundedRangeModel;
+import java.io.Serializable;
 
-public class Progress {
-
-  private static final Logger LOG = LoggerFactory.getLogger(Progress.class);
+public class Progress implements Serializable {
 
   private BoundedRangeModel range;
   private BoundedRangeModel emptyRange;

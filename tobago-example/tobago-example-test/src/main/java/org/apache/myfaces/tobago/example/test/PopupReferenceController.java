@@ -25,10 +25,11 @@ import org.apache.myfaces.tobago.component.UISheet;
 
 import javax.faces.component.UIComponent;
 import javax.faces.event.ActionEvent;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PopupReferenceController {
+public class PopupReferenceController implements Serializable {
 
   private static final Logger LOG = LoggerFactory.getLogger(PopupReferenceController.class);
 

@@ -19,10 +19,11 @@
 
 package org.apache.myfaces.tobago.example.test;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ScriptEvent {
+public class ScriptEvent implements Serializable {
 
   private List<ScriptEventItem> items = new ArrayList<ScriptEventItem>();
 

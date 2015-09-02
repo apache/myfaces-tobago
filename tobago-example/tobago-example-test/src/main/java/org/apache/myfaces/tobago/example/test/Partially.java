@@ -19,7 +19,9 @@
 
 package org.apache.myfaces.tobago.example.test;
 
-public class Partially {
+import java.io.Serializable;
+
+public class Partially implements Serializable {
 
   private int counter;
 

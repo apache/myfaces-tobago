@@ -21,10 +21,11 @@ package org.apache.myfaces.tobago.example.test;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DynamicBean {
+public class DynamicBean implements Serializable {
 
   private List<DynamicPanel> panels = new ArrayList<DynamicPanel>();
 

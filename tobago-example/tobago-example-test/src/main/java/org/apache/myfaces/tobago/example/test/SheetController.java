@@ -24,10 +24,11 @@ import org.apache.myfaces.tobago.example.data.LocaleList;
 import org.apache.myfaces.tobago.example.data.SolarObject;
 
 import javax.faces.model.DataModel;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SheetController {
+public class SheetController implements Serializable {
 
   private SolarObject[] solarArray = SolarObject.getArray();
   private SolarObject[] solarArray3 = init3();

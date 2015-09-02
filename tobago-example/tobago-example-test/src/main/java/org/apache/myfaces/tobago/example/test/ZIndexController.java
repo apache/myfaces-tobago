@@ -19,7 +19,9 @@
 
 package org.apache.myfaces.tobago.example.test;
 
-public class ZIndexController {
+import java.io.Serializable;
+
+public class ZIndexController implements Serializable {
 
   private Boolean modal1 = true;
   private Boolean modal2 = true;

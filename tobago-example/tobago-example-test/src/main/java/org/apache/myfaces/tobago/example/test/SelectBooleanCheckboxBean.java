@@ -19,7 +19,9 @@
 
 package org.apache.myfaces.tobago.example.test;
 
-public class SelectBooleanCheckboxBean {
+import java.io.Serializable;
+
+public class SelectBooleanCheckboxBean implements Serializable {
   
   private boolean value00 = true;
   private boolean value01 = true;

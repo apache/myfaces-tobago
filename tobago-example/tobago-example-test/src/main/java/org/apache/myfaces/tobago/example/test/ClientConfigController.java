@@ -27,12 +27,13 @@ import org.apache.myfaces.tobago.internal.util.ObjectUtils;
 import javax.faces.application.Application;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 
-public class ClientConfigController {
+public class ClientConfigController implements Serializable {
 
   private Theme theme;
   private SelectItem[] themeItems;

@@ -24,8 +24,9 @@ import org.slf4j.LoggerFactory;
 
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
+import java.io.Serializable;
 
-public class Immediate {
+public class Immediate implements Serializable {
 
   private String in;
   private int selectOne;
