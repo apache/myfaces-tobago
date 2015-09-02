@@ -71,13 +71,6 @@
     <managed-bean-scope>application</managed-bean-scope>
   </managed-bean>
 
-  <navigation-rule>
-    <navigation-case>
-      <from-outcome>server-info</from-outcome>
-      <to-view-id>/server-info.xhtml</to-view-id>
-    </navigation-case>
-  </navigation-rule>
-
   <!--  overview  -->
 
   <lifecycle>
