@@ -42,7 +42,7 @@ import java.io.IOException;
 import java.util.List;
 
 /**
- * Renders the 12 columns layout.
+ * Renders the 12 columns grid layout.
  */
 public class SegmentLayoutRenderer extends RendererBase {
 

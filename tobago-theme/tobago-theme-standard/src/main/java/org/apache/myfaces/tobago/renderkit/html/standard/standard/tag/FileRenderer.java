@@ -91,7 +91,7 @@ public class FileRenderer extends InputRendererBase {
     }
   }
 
-  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
+  protected void encodeBeginField(FacesContext facesContext, UIComponent component) throws IOException {
 
     final AbstractUIFile file = (AbstractUIFile) component;
     final String clientId = file.getClientId(facesContext);
@@ -133,8 +133,11 @@ public class FileRenderer extends InputRendererBase {
     if (title != null) {
       writer.writeAttribute(HtmlAttributes.TITLE, title, true);
     }
-    writer.endElement(HtmlElements.INPUT);
+  }
 
+  protected void encodeEndField(FacesContext facesContext, UIComponent component) throws IOException {
+    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    writer.endElement(HtmlElements.INPUT);
     writer.endElement(HtmlElements.DIV);
   }
 }

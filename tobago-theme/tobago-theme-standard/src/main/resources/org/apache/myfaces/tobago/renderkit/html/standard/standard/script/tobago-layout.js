@@ -48,17 +48,22 @@ function layout(table, horizontal) {
   var css;
   var desired;
 
+  var tobagoLayout = table.data("tobago-layout");
+  if (! tobagoLayout) {
+    return;
+  }
+
   if (horizontal) {
 //    cells = table.find("tr:first>td");
     banks = table.children("colgroup").children("col");
-    tokens = table.data("tobago-layout").columns;
+    tokens = tobagoLayout.columns;
     css = "width";
     desired = table.outerWidth();
 //    desired = table.parent().data("tobago-style").width.replace("px", ""); // todo: data("tobago-layout") wohl doch nicht so gut...? der wert wurde ja schon berechnet...
   } else {
 //    cells = table.find("tr");
     banks = table.children("tbody").children("tr");
-    tokens = table.data("tobago-layout").rows;
+    tokens = tobagoLayout.rows;
     css = "height";
     desired = table.outerHeight();
 //    desired = table.parent().data("tobago-style").height.replace("px", ""); // todo: data("tobago-layout")
@@ -142,13 +147,18 @@ function layoutFlex(container, horizontal) {
   var tokens;
   var css;
 
+  var tobagoLayout = container.data("tobago-layout");
+  if (! tobagoLayout) {
+    return;
+  }
+
   if (horizontal) {
     banks = container.children();
-    tokens = container.data("tobago-layout").columns;
+    tokens = tobagoLayout.columns;
     css = "width";
   } else {
     banks = container.children();
-    tokens = container.data("tobago-layout").rows;
+    tokens = tobagoLayout.rows;
     css = "height";
   }
 

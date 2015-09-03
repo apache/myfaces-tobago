@@ -28,6 +28,8 @@ import org.apache.myfaces.tobago.renderkit.css.CssItem;
  */
 public enum TobagoClass implements CssItem {
 
+  FLEX_LAYOUT("tobago-flexLayout"),
+  LABEL("tobago-label"),
   MESSAGES("tobago-messages"),
   PANEL("tobago-panel"),
   POPUP("tobago-popup");

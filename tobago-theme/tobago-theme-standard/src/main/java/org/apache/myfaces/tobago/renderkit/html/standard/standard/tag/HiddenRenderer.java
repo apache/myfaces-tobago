@@ -36,7 +36,7 @@ import java.io.IOException;
 // TODO: Its not nice, that the base class use layout
 public class HiddenRenderer extends InputRendererBase {
 
-  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
+  protected void encodeBeginField(FacesContext facesContext, UIComponent component) throws IOException {
 
     final String clientId = component.getClientId(facesContext);
     final String value = RenderUtils.currentValue(component);
@@ -57,6 +57,10 @@ public class HiddenRenderer extends InputRendererBase {
     writer.writeIdAttribute(clientId);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, component);
     writer.writeAttribute(HtmlAttributes.VALUE, value != null ? value : "", true);
+  }
+
+  protected void encodeEndField(FacesContext facesContext, UIComponent component) throws IOException {
+    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
     writer.endElement(HtmlElements.INPUT);
   }
 }

@@ -23,7 +23,6 @@ import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UITextarea;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
-import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.sanitizer.Sanitizer;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
@@ -34,7 +33,7 @@ import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import java.util.Map;
 
-public class InputRendererBase extends LayoutComponentRendererBase {
+public abstract class InputRendererBase extends LabelLayoutRendererBase {
 
   private static final Logger LOG = LoggerFactory.getLogger(InputRendererBase.class);
 

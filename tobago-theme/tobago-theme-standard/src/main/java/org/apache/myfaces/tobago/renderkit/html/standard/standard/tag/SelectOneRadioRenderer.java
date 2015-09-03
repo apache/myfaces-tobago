@@ -53,7 +53,7 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
     }
   }
 
-  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
+  protected void encodeBeginField(FacesContext facesContext, UIComponent component) throws IOException {
     final UISelectOneRadio select = (UISelectOneRadio) component;
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
@@ -137,8 +137,11 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
       writer.endElement(HtmlElements.LABEL);
       writer.endElement(HtmlElements.LI);
     }
-    writer.endElement(HtmlElements.OL);
+  }
 
+  protected void encodeEndField(FacesContext facesContext, UIComponent component) throws IOException {
+    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    writer.endElement(HtmlElements.OL);
   }
 
   @Override

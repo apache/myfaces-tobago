@@ -39,7 +39,7 @@ import java.io.IOException;
 public class SelectManyShuttleRenderer extends SelectManyRendererBase {
 
   @Override
-  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
+  public void encodeBeginField(final FacesContext facesContext, final UIComponent component) throws IOException {
     final UISelectManyShuttle select = (UISelectManyShuttle) component;
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
     writer.startElement(HtmlElements.DIV, select);
@@ -125,7 +125,11 @@ public class SelectManyShuttleRenderer extends SelectManyRendererBase {
     HtmlRendererUtils.renderSelectItems(select, items, values, submittedValues, writer, facesContext);
 
     writer.endElement(HtmlElements.SELECT);
+  }
 
+  @Override
+  public void encodeEndField(final FacesContext facesContext, final UIComponent component) throws IOException {
+    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
     writer.endElement(HtmlElements.DIV);
   }
 

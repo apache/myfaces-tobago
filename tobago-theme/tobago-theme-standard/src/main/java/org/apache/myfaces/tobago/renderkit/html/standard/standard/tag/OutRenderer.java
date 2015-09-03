@@ -20,16 +20,15 @@
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
 import org.apache.myfaces.tobago.component.UIOut;
-import org.apache.myfaces.tobago.renderkit.html.BootstrapClass;
-import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
-import org.apache.myfaces.tobago.sanitizer.Sanitizer;
 import org.apache.myfaces.tobago.config.TobagoConfig;
-import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
+import org.apache.myfaces.tobago.renderkit.html.BootstrapClass;
+import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
+import org.apache.myfaces.tobago.sanitizer.Sanitizer;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
@@ -37,10 +36,10 @@ import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.util.StringTokenizer;
 
-public class OutRenderer extends LayoutComponentRendererBase {
+public class OutRenderer extends LabelLayoutRendererBase {
 
   @Override
-  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
+  public void encodeBeginField(final FacesContext facesContext, final UIComponent component) throws IOException {
 
     final UIOut out = (UIOut) component;
 
@@ -85,6 +84,15 @@ public class OutRenderer extends LayoutComponentRendererBase {
       }
       writer.write(text);
     }
+  }
+
+  @Override
+  public void encodeEndField(final FacesContext facesContext, final UIComponent component) throws IOException {
+
+    final UIOut out = (UIOut) component;
+    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final boolean createSpan = out.isCreateSpan();
+
     if (createSpan) {
       writer.endElement(HtmlElements.P);
     }

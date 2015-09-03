@@ -45,7 +45,7 @@ public class TextareaRenderer extends InputRendererBase {
   private static final Logger LOG = LoggerFactory.getLogger(TextareaRenderer.class);
 
   @Override
-  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
+  public void encodeBeginField(final FacesContext facesContext, final UIComponent component) throws IOException {
     if (!(component instanceof UITextarea)) {
       LOG.error("Wrong type: Need " + UITextarea.class.getName() + ", but was " + component.getClass().getName());
       return;
@@ -120,11 +120,11 @@ public class TextareaRenderer extends InputRendererBase {
       }
       writer.writeText(currentValue);
     }
-    writer.endElement(HtmlElements.TEXTAREA);
-    /*if (placeholder != null && !VariableResolverUtils.resolveClientProperties(facesContext)
-        .getUserAgent().hasCapability(Capability.PLACEHOLDER)) {
-      HtmlRendererUtils.createPlaceholderDiv(input, currentValue, placeholder, style, writer);
-    }*/
+  }
 
+  @Override
+  protected void encodeEndField(FacesContext facesContext, UIComponent component) throws IOException {
+    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    writer.endElement(HtmlElements.TEXTAREA);
   }
 }

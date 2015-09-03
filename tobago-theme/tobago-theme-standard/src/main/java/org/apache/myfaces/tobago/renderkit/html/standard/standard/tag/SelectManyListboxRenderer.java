@@ -30,8 +30,6 @@ import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.SelectItemUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -40,13 +38,12 @@ import java.io.IOException;
 
 public class SelectManyListboxRenderer extends SelectManyRendererBase {
 
-  private static final Logger LOG = LoggerFactory.getLogger(SelectManyListboxRenderer.class);
-
   public boolean getRendersChildren() {
     return true;
   }
 
-  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
+  @Override
+  public void encodeBeginField(final FacesContext facesContext, final UIComponent component) throws IOException {
     final UISelectManyListbox select = (UISelectManyListbox) component;
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
@@ -78,10 +75,13 @@ public class SelectManyListboxRenderer extends SelectManyRendererBase {
     HtmlRendererUtils.renderCommandFacet(select, facesContext, writer);
     final Object[] values = select.getSelectedValues();
     final String[] submittedValues = getSubmittedValues(select);
-    HtmlRendererUtils.renderSelectItems(select, items, values, submittedValues, writer, facesContext);
 
-    writer.endElement(HtmlElements.SELECT);
+    HtmlRendererUtils.renderSelectItems(select, items, values, submittedValues, writer, facesContext);
   }
 
+  @Override
+  public void encodeEndField(final FacesContext facesContext, final UIComponent component) throws IOException {
+    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    writer.endElement(HtmlElements.SELECT);
+  }
 }
-

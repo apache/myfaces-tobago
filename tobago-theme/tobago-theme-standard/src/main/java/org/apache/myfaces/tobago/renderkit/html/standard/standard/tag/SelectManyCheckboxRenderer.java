@@ -52,7 +52,8 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
     }
   }
 
-  public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
+  @Override
+  public void encodeBeginField(final FacesContext facesContext, final UIComponent component) throws IOException {
     final UISelectManyCheckbox select = (UISelectManyCheckbox) component;
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
@@ -122,8 +123,12 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
       writer.endElement(HtmlElements.LABEL);
       writer.endElement(HtmlElements.LI);
     }
-    writer.endElement(HtmlElements.OL);
+  }
 
+  @Override
+  public void encodeEndField(final FacesContext facesContext, final UIComponent component) throws IOException {
+    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    writer.endElement(HtmlElements.OL);
   }
 
   @Override

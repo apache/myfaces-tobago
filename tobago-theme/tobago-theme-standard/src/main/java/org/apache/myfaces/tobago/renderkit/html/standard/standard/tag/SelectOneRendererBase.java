@@ -19,9 +19,9 @@
 
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
+import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.apache.myfaces.tobago.util.ComponentUtils;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UISelectOne;
@@ -47,6 +47,4 @@ public abstract class SelectOneRendererBase extends InputRendererBase {
       uiSelectOne.setSubmittedValue(newValue);
     }
   }
-
 }
-

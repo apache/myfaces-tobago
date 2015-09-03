@@ -55,9 +55,8 @@ public class InRenderer extends InputRendererBase {
     }
   }
 
-  @Override
-  public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
-
+  protected void encodeBeginField(FacesContext facesContext, UIComponent component)
+      throws IOException {
     final AbstractUIInput input = (AbstractUIInput) component;
     final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, input);
     final String currentValue = getCurrentValue(facesContext, input);
@@ -121,6 +120,10 @@ public class InRenderer extends InputRendererBase {
     HtmlRendererUtils.renderFocus(id, input.isFocus(), ComponentUtils.isError(input), facesContext, writer);
     writeAdditionalAttributes(facesContext, writer, input);
     HtmlRendererUtils.renderCommandFacet(input, facesContext, writer);
+  }
+
+  protected void encodeEndField(FacesContext facesContext, UIComponent component) throws IOException {
+    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
     writer.endElement(HtmlElements.INPUT);
   }
 

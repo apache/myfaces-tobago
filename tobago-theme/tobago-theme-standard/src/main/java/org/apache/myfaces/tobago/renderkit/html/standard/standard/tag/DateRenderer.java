@@ -66,11 +66,8 @@ public class DateRenderer extends InRenderer {
   }
 
   @Override
-  public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
-
-    final AbstractUIDate date = (AbstractUIDate) component;
+  protected void encodeBeginField(FacesContext facesContext, UIComponent component) throws IOException {
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
-    final String pattern = date.getPattern();
 
     writer.startElement(HtmlElements.DIV, null);
     writer.writeClassAttribute(TobagoClass.PANEL);
@@ -78,7 +75,17 @@ public class DateRenderer extends InRenderer {
     writer.startElement(HtmlElements.DIV, null);
     writer.writeClassAttribute(BootstrapClass.INPUT_GROUP);
 
-    super.encodeBegin(facesContext, component);
+    super.encodeBeginField(facesContext, component);
+  }
+
+  @Override
+  public void encodeEndField(FacesContext facesContext, UIComponent component) throws IOException {
+
+    super.encodeEndField(facesContext, component);
+
+    final AbstractUIDate date = (AbstractUIDate) component;
+    final String pattern = date.getPattern();
+    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
     writer.startElement(HtmlElements.SPAN, null);
     writer.writeClassAttribute(BootstrapClass.INPUT_GROUP_BTN);
