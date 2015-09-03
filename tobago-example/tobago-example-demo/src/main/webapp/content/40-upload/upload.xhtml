@@ -33,11 +33,11 @@
         <tc:gridLayout columns="*;auto"/>
       </f:facet>
 
-      <tx:file label="Upload file:" value="#{upload.file}">
+      <tc:file label="Upload file:" value="#{upload.file}">
         <!-- todo: write a 2nd example to demonstrate validation
               <tc:validateFileItem contentType="image/gif image/png"/>
         -->
-      </tx:file>
+      </tc:file>
       <tc:button label="Submit" defaultCommand="true" action="#{upload.upload}"/>
     </tc:panel>
 

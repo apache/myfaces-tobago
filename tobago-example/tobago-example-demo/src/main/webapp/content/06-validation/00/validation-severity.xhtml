@@ -36,13 +36,13 @@
       <f:facet name="layout">
         <tc:gridLayout columns="1*;1*"/>
       </f:facet>
-      <tx:in label="Fatal" value="something" validator="#{validationSeverity.addFatal}"/>
+      <tc:in label="Fatal" value="something" validator="#{validationSeverity.addFatal}"/>
       <tc:out value="(Validator creates an fatal error)"/>
-      <tx:in label="Error" value="something" validator="#{validationSeverity.addError}"/>
+      <tc:in label="Error" value="something" validator="#{validationSeverity.addError}"/>
       <tc:out value="(Validator creates an error)"/>
-      <tx:in label="Warn" value="something" validator="#{validationSeverity.addWarn}"/>
+      <tc:in label="Warn" value="something" validator="#{validationSeverity.addWarn}"/>
       <tc:out value="(Validator creates a warning)"/>
-      <tx:in label="Info" value="something" validator="#{validationSeverity.addInfo}"/>
+      <tc:in label="Info" value="something" validator="#{validationSeverity.addInfo}"/>
       <tc:out value="(Validator creates an info)"/>
     </tc:panel>
 
