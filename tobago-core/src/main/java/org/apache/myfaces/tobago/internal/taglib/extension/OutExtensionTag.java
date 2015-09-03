@@ -43,8 +43,9 @@ import javax.el.ValueExpression;
  *   &lt;/tc:out>
  * &lt;/tc:panel>
  * </pre>
+ *
+ * @deprecated since Tobago 3.0. The tx-library is deprecated, please use the tc-library.
  */
-
 @Tag(name = "out")
 @ExtensionTag(
     baseClassName = "org.apache.myfaces.tobago.internal.taglib.OutTag",

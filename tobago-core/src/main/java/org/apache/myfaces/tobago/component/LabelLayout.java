@@ -17,28 +17,9 @@
  * under the License.
  */
 
-package org.apache.myfaces.tobago.facelets.extension;
+package org.apache.myfaces.tobago.component;
 
-import org.apache.myfaces.tobago.component.RendererTypes;
-import org.apache.myfaces.tobago.component.UIFile;
+public enum LabelLayout {
 
-import javax.faces.view.facelets.ComponentConfig;
-
-/**
- * @deprecated since Tobago 3.0. The tx-library is deprecated, please use the tc-library.
- */
-@Deprecated
-public class FileExtensionHandler extends TobagoLabelExtensionHandler {
-
-  public FileExtensionHandler(final ComponentConfig config) {
-    super(config);
-  }
-
-  protected String getSubComponentType() {
-    return UIFile.COMPONENT_TYPE;
-  }
-
-  protected String getSubRendererType() {
-    return RendererTypes.FILE;
-  }
+  none, flexLeft, flexRight, top, segmentLeft, segmentRight, flowLeft, flowRight
 }

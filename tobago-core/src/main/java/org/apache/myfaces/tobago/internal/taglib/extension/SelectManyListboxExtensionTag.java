@@ -27,6 +27,8 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 
 /**
  * Renders a multi selection option listbox with a label.
+ *
+ * @deprecated since Tobago 3.0. The tx-library is deprecated, please use the tc-library.
  */
 @Tag(name = "selectManyListbox")
 @ExtensionTag(

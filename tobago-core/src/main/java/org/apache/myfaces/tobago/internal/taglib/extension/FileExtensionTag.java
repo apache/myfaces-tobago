@@ -41,8 +41,9 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
  *   &lt;/tc:in>
  * &lt;/tc:panel>
  * </pre>
+ *
+ * @deprecated since Tobago 3.0. The tx-library is deprecated, please use the tc-library.
  */
-
 @Tag(name = "file")
 @ExtensionTag(
     baseClassName = "org.apache.myfaces.tobago.internal.taglib.FileTag",

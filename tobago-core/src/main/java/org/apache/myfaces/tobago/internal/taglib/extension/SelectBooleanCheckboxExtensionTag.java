@@ -29,6 +29,8 @@ import javax.el.ValueExpression;
 
 /**
  * Renders a checkbox.
+ *
+ * @deprecated since Tobago 3.0. The tx-library is deprecated, please use the tc-library.
  */
 @Tag(name = "selectBooleanCheckbox")
 @ExtensionTag(

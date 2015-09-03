@@ -75,7 +75,7 @@ public class Grid {
 
     if (columnSpan + columnCursor > columnCount) {
       LOG.warn("The columnSpan is to large for the actual position in the grid. Will be fixed. "
-          + "columnSpan=" + columnSpan + " columnCursor=" + columnCursor + " columnCount=" + columnCount);
+          + "columnSpan='" + columnSpan + "' columnCursor='" + columnCursor + "' columnCount='" + columnCount + "'");
       columnSpan = columnCount - columnCursor;
       error = true;
     }
@@ -86,7 +86,7 @@ public class Grid {
     for (int i = 1; i < columnSpan; i++) {
       if (getCell(i + columnCursor, rowCursor) != null) {
         LOG.warn("The columnSpan is to large for the actual position in the grid. Will be fixed. "
-            + "columnSpan=" + columnSpan + " columnCursor=" + columnCursor + " columnCount=" + columnCount);
+            + "columnSpan='" + columnSpan + "' columnCursor='" + columnCursor + "' columnCount='" + columnCount + "'");
         columnSpan = i - 1;
         error = true;
       }

@@ -44,6 +44,8 @@ import javax.el.ValueExpression;
  *   &lt;/tc:in>
  * &lt;/tc:panel>
  * </pre>
+ *
+ * @deprecated since Tobago 3.0. The tx-library is deprecated, please use the tc-library.
  */
 @Tag(name = "date")
 @ExtensionTag(

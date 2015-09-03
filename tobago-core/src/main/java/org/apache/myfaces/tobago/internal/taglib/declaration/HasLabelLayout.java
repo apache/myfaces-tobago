@@ -17,28 +17,22 @@
  * under the License.
  */
 
-package org.apache.myfaces.tobago.facelets.extension;
+package org.apache.myfaces.tobago.internal.taglib.declaration;
 
-import org.apache.myfaces.tobago.component.RendererTypes;
-import org.apache.myfaces.tobago.component.UIFile;
+import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
+import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 
-import javax.faces.view.facelets.ComponentConfig;
+public interface HasLabelLayout {
 
-/**
- * @deprecated since Tobago 3.0. The tx-library is deprecated, please use the tc-library.
- */
-@Deprecated
-public class FileExtensionHandler extends TobagoLabelExtensionHandler {
-
-  public FileExtensionHandler(final ComponentConfig config) {
-    super(config);
-  }
-
-  protected String getSubComponentType() {
-    return UIFile.COMPONENT_TYPE;
-  }
-
-  protected String getSubRendererType() {
-    return RendererTypes.FILE;
-  }
+  /**
+   * Defines the position of the label relative to the field.
+   * The default is flexLeft, if the label is set, or none, if the label isn't set.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(
+      type = "org.apache.myfaces.tobago.component.LabelLayout",
+      defaultCode = "getLabel() != null "
+          + "? org.apache.myfaces.tobago.component.LabelLayout.flexLeft "
+          + ": org.apache.myfaces.tobago.component.LabelLayout.none")
+  void setLabelLayout(String markup);
 }

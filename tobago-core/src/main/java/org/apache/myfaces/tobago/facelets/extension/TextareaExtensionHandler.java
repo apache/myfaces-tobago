@@ -24,6 +24,10 @@ import org.apache.myfaces.tobago.component.UITextarea;
 
 import javax.faces.view.facelets.ComponentConfig;
 
+/**
+ * @deprecated since Tobago 3.0. The tx-library is deprecated, please use the tc-library.
+ */
+@Deprecated
 public class TextareaExtensionHandler extends TobagoLabelExtensionHandler {
 
   public TextareaExtensionHandler(final ComponentConfig config) {

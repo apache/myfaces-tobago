@@ -34,6 +34,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentCss;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasId;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabel;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabelLayout;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 import org.apache.myfaces.tobago.internal.taglib.declaration.InputTagDeclaration;
@@ -70,7 +71,7 @@ import javax.faces.component.UISelectOne;
         })
 public interface SelectOneChoiceTagDeclaration
     extends InputTagDeclaration, HasId, IsDisabled, IsReadonly, HasLabel,
-    IsRendered, HasConverter, HasBinding, HasTip, HasMarkup, HasCurrentMarkup, HasCss, HasCurrentCss {
+    IsRendered, HasConverter, HasBinding, HasTip, HasMarkup, HasCurrentMarkup, HasCss, HasCurrentCss, HasLabelLayout {
 
   /**
    * Flag indicating that selecting an Item representing a value is required.

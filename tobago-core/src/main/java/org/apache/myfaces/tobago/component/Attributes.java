@@ -100,6 +100,7 @@ public final class Attributes {
   public static final String ITEM_VALUE = "itemValue";
   public static final String JSF_RESOURCE = "jsfResource";
   public static final String LABEL = "label";
+  public static final String LABEL_LAYOUT = "labelLayout";
   public static final String LABEL_POSITION = "labelPosition";
   public static final String LABEL_WIDTH = "labelWidth";
   public static final String LARGE = "large";

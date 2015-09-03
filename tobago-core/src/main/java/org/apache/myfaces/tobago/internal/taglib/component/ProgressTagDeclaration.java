@@ -41,7 +41,7 @@ import javax.faces.component.UIOutput;
 @Tag(name = "progress")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIProgress",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIOut",
+    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIProgress",
     uiComponentFacesClass = "javax.faces.component.UIOutput",
     componentFamily = UIOutput.COMPONENT_FAMILY,
     rendererType = RendererTypes.PROGRESS,

@@ -31,6 +31,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasConverterMessage
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasId;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasInputLabel;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabelLayout;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasRequiredMessageForSelect;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTabIndex;
@@ -60,7 +61,7 @@ import javax.faces.component.UISelectMany;
         "javax.faces.SelectItems"})
 public interface SelectManyShuttleTagDeclaration extends
     IsDisabled, HasId, HasTip, IsRendered, IsRequiredForSelect, HasBinding, IsReadonly, HasConverter,
-    HasMarkup, HasCurrentMarkup, HasInputLabel, HasValidator, HasValueChangeListener,
+    HasMarkup, HasCurrentMarkup, HasInputLabel, HasValidator, HasValueChangeListener, HasLabelLayout,
     HasValidatorMessage, HasConverterMessage, HasRequiredMessageForSelect, HasTabIndex, IsFocus, IsGridLayoutComponent {
 
   /**

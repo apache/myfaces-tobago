@@ -27,8 +27,9 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 
 /**
  * Render a single selection dropdown list with a label.
+ *
+ * @deprecated since Tobago 3.0. The tx-library is deprecated, please use the tc-library.
  */
-
 @Tag(name = "selectOneChoice")
 @ExtensionTag(
     baseClassName = "org.apache.myfaces.tobago.internal.taglib.SelectOneChoiceTag",

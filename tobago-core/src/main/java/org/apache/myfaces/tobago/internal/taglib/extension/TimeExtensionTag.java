@@ -42,7 +42,7 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
  * &lt;/tc:panel>
  * </pre>
  *
- * @deprecated use &lt;tc:date> instead
+ * @deprecated since Tobago 3.0. The tx-library is deprecated, please use the tc-library. Use &lt;tc:date> instead.
  */
 @Deprecated
 @Tag(name = "time")

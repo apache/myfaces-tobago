@@ -25,7 +25,7 @@ import org.apache.myfaces.tobago.component.UITime;
 import javax.faces.view.facelets.ComponentConfig;
 
 /**
- * @deprecated Use {@link org.apache.myfaces.tobago.facelets.extension.DateExtensionHandler}
+ * @deprecated since Tobago 3.0. The tx-library is deprecated, please use the tc-library. Use tc:date, not tc:time.
  */
 @Deprecated
 public class TimeExtensionHandler extends TobagoLabelExtensionHandler {

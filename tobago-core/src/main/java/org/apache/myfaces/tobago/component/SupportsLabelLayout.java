@@ -17,8 +17,11 @@
  * under the License.
  */
 
-package org.apache.myfaces.tobago.renderkit;
+package org.apache.myfaces.tobago.component;
 
-public interface LabeledLayoutRender {
-  String getDefaultLayoutOrder();
+public interface SupportsLabelLayout {
+
+  LabelLayout getLabelLayout();
+
+  void setLabelLayout(LabelLayout labelLayout);
 }

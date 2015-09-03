@@ -20,6 +20,7 @@
 package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.myfaces.tobago.component.SupportsCss;
+import org.apache.myfaces.tobago.component.SupportsLabelLayout;
 import org.apache.myfaces.tobago.component.SupportsMarkup;
 import org.apache.myfaces.tobago.layout.LayoutComponent;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -27,7 +28,7 @@ import org.apache.myfaces.tobago.util.ComponentUtils;
 import javax.faces.context.FacesContext;
 
 public abstract class AbstractUIInput extends javax.faces.component.UIInput
-    implements SupportsMarkup, LayoutComponent, SupportsCss {
+    implements SupportsMarkup, LayoutComponent, SupportsCss, SupportsLabelLayout {
 
   // TODO can this removed?
   public void updateModel(final FacesContext facesContext) {

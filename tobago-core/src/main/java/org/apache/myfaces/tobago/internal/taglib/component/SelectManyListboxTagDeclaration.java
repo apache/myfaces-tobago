@@ -30,6 +30,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasConverterMessage
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasId;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabel;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabelLayout;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasRequiredMessageForSelect;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTabIndex;
@@ -61,7 +62,7 @@ import javax.faces.component.UISelectMany;
 public interface SelectManyListboxTagDeclaration
     extends HasId, IsDisabled, IsRendered, HasBinding, HasTip,
     IsReadonly, HasConverter, IsRequiredForSelect, HasMarkup, HasCurrentMarkup,
-    HasLabel, HasValidator, HasValueChangeListener,
+    HasLabel, HasValidator, HasValueChangeListener, HasLabelLayout,
     HasValidatorMessage, HasConverterMessage, HasRequiredMessageForSelect, HasTabIndex, IsFocus, IsGridLayoutComponent {
 
   /**

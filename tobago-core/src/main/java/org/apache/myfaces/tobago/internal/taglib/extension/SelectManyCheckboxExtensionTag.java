@@ -27,6 +27,8 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 
 /**
  * Render a group of checkboxes.
+ *
+ * @deprecated since Tobago 3.0. The tx-library is deprecated, please use the tc-library.
  */
 @Tag(name = "selectManyCheckbox")
 @ExtensionTag(

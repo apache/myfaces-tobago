@@ -35,6 +35,10 @@ import java.io.IOException;
 /**
  * Base class of the Facelets handlers for the &lt;tx:menuXXX /> extension tags.
  */
+/**
+ * @deprecated since Tobago 3.0. The tx-library is deprecated, please use the tc-library.
+ */
+@Deprecated
 public abstract class TobagoMenuExtensionHandler extends ComponentHandler {
 
   private Class subComponentLastType = Object.class;

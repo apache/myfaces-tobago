@@ -20,6 +20,7 @@
 package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.commons.fileupload.FileItem;
+import org.apache.myfaces.tobago.component.SupportsLabelLayout;
 import org.apache.myfaces.tobago.layout.LayoutComponent;
 import org.apache.myfaces.tobago.util.MessageUtils;
 
@@ -27,7 +28,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 
-public abstract class AbstractUIFile extends UIInput implements LayoutComponent {
+public abstract class AbstractUIFile extends UIInput implements LayoutComponent, SupportsLabelLayout {
 
   public void validate(final FacesContext facesContext) {
     if (isRequired()) {

@@ -22,6 +22,7 @@ package org.apache.myfaces.tobago.facelets.extension;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.InputSuggest;
+import org.apache.myfaces.tobago.component.LabelLayout;
 import org.apache.myfaces.tobago.component.OnComponentCreated;
 import org.apache.myfaces.tobago.component.OnComponentPopulated;
 import org.apache.myfaces.tobago.component.RendererTypes;
@@ -50,6 +51,10 @@ import javax.faces.view.facelets.Metadata;
 import javax.faces.view.facelets.TagAttribute;
 import java.io.IOException;
 
+/**
+ * @deprecated since Tobago 3.0. The tx-library is deprecated, please use the tc-library.
+ */
+@Deprecated
 public abstract class TobagoLabelExtensionHandler extends ComponentHandler {
 
   private static final Logger LOG = LoggerFactory.getLogger(TobagoLabelExtensionHandler.class);
@@ -141,6 +146,7 @@ public abstract class TobagoLabelExtensionHandler extends ComponentHandler {
   }
 
   protected void enrichInput(final FaceletContext faceletContext, final UIComponent input) {
+    input.getAttributes().put(Attributes.LABEL_LAYOUT, LabelLayout.none);
   }
 
   private void addLabel(final FaceletContext faceletContext, final UIPanel panel, final Application application) {

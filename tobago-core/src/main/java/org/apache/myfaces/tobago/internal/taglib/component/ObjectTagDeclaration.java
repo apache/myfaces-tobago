@@ -38,7 +38,7 @@ import javax.faces.component.UIOutput;
 @Tag(name = "object")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIObject",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIOut",
+    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIObject",
     uiComponentFacesClass = "javax.faces.component.UIOutput",
     componentFamily = UIOutput.COMPONENT_FAMILY,
     rendererType = RendererTypes.OBJECT,

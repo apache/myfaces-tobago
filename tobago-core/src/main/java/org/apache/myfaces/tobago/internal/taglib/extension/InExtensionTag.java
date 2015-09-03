@@ -44,8 +44,10 @@ import javax.el.ValueExpression;
  *   &lt;/tc:in>
  * &lt;/tc:panel>
  * </pre>
+ *
+ * @deprecated since Tobago 3.0. The tx-library is deprecated, please use the tc-library.
  */
-
+@Deprecated
 @Tag(name = "in")
 @ExtensionTag(
     baseClassName = "org.apache.myfaces.tobago.internal.taglib.InTag",

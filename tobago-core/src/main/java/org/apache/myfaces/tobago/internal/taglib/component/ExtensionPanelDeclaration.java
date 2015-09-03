@@ -30,6 +30,10 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutContain
 
 import javax.faces.component.UIPanel;
 
+/**
+ * @deprecated since Tobago 3.0, tx-library is deprecated, please use tc-library
+ */
+@Deprecated
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIExtensionPanel",
     uiComponentBaseClass = "org.apache.myfaces.tobago.component.UIPanel",
