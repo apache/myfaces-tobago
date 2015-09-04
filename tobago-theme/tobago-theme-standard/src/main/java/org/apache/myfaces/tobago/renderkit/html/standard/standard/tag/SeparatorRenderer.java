@@ -23,7 +23,6 @@ import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.UILabel;
 import org.apache.myfaces.tobago.component.UISeparator;
 import org.apache.myfaces.tobago.config.Configurable;
-import org.apache.myfaces.tobago.internal.util.Deprecation;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
@@ -74,8 +73,6 @@ public class SeparatorRenderer extends LayoutComponentRendererBase {
   private String getLabel(final UISeparator separator) {
     String label = separator.getLabel();
     if (label == null && separator.getFacet(Facets.LABEL) != null) {
-      // deprecated
-      Deprecation.LOG.warn("label facet in tc:separator is deprecated, use label attribute instead, please.");
       label = String.valueOf(((UILabel) separator.getFacet(Facets.LABEL)).getValue());
     }
     return label;
