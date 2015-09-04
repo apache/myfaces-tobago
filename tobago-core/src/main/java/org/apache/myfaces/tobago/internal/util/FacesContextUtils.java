@@ -67,6 +67,10 @@ public final class FacesContextUtils {
   @Deprecated
   private static final String TOBAGO_ONSUBMIT_SCRIPTS = "org.apache.myfaces.tobago.onsubmitScripts";
   private static final String TOBAGO_POPUPS = "org.apache.myfaces.tobago.popups";
+  /**
+   * @deprecated since Tobago 2.0, because of CSP
+   */
+  @Deprecated
   private static final String TOBAGO_MENU_ACCELERATORS = "org.apache.myfaces.tobago.menuAccelerators";
   private static final String TOBAGO_FOCUS_ID = "org.apache.myfaces.tobago.focusId";
   private static final String TOBAGO_ACTION_ID = "org.apache.myfaces.tobago.actionId";
@@ -314,11 +318,19 @@ public final class FacesContextUtils {
     set.add(script);
   }
 
+  /**
+   * @deprecated since Tobago 2.0, because of CSP
+   */
+  @Deprecated
   public static void clearMenuAcceleratorScripts(final FacesContext context) {
     final Set<String> set = (Set<String>) context.getAttributes().get(TOBAGO_MENU_ACCELERATORS);
     set.clear();
   }
 
+  /**
+   * @deprecated since Tobago 2.0, because of CSP
+   */
+  @Deprecated
   public static Set<String> getMenuAcceleratorScripts(final FacesContext context) {
     final Set<String> set = (Set<String>) context.getAttributes().get(TOBAGO_MENU_ACCELERATORS);
     if (set == null) {
@@ -327,6 +339,10 @@ public final class FacesContextUtils {
     return set;
   }
 
+  /**
+   * @deprecated since Tobago 2.0, because of CSP
+   */
+  @Deprecated
   public static void addMenuAcceleratorScript(final FacesContext context, final String script) {
     Set<String> set = (Set<String>) context.getAttributes().get(TOBAGO_MENU_ACCELERATORS);
     if (set == null) {
