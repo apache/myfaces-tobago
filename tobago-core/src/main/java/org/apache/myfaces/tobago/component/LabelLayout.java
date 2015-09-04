@@ -19,7 +19,30 @@
 
 package org.apache.myfaces.tobago.component;
 
+import javax.faces.context.FacesContext;
+
 public enum LabelLayout {
 
-  none, flexLeft, flexRight, top, segmentLeft, segmentRight, flowLeft, flowRight
+  none, flexLeft, flexRight, top, segmentLeft, segmentRight, flowLeft, flowRight;
+
+  private static final String SEGMENT_TO_RENDER_KEY = LabelLayout.class.getName();
+
+  public static boolean isSegment(final LabelLayout labelLayout) {
+    return labelLayout == segmentLeft || labelLayout == segmentRight;
+  }
+
+  public static void setSegment(final FacesContext facesContext, final LabelLayout labelLayout) {
+    if (labelLayout != segmentLeft && labelLayout != segmentRight) {
+      throw new IllegalArgumentException("not supported: " + labelLayout);
+    }
+    facesContext.getAttributes().put(SEGMENT_TO_RENDER_KEY, labelLayout);
+  }
+
+  public static LabelLayout getSegment(final FacesContext facesContext) {
+    return (LabelLayout) facesContext.getAttributes().get(SEGMENT_TO_RENDER_KEY);
+  }
+
+  public static void removeSegment(FacesContext facesContext) {
+    facesContext.getAttributes().remove(SEGMENT_TO_RENDER_KEY);
+  }
 }

@@ -39,19 +39,50 @@ import java.io.IOException;
 
 /**
  * Manages the rendering of the <b>label</b> and the <b>field</b> together with different possibilities for
- * the position of the label (defined by {@link org.apache.myfaces.tobago.component.Attributes.LABEL_LAYOUT}
+ * the position of the label (defined by {@link org.apache.myfaces.tobago.component.Attributes#LABEL_LAYOUT}
  */
 public abstract class LabelLayoutRendererBase extends LayoutComponentRendererBase {
 
   @Override
   public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
+
     encodeBeginSurrounding(facesContext, component);
-    encodeBeginField(facesContext, component);
+
+    switch (((SupportsLabelLayout) component).getLabelLayout()) {
+      case segmentLeft:
+        if (LabelLayout.getSegment(facesContext) == LabelLayout.segmentRight) {
+          encodeBeginField(facesContext, component);
+        }
+        break;
+      case segmentRight:
+        if (LabelLayout.getSegment(facesContext) == LabelLayout.segmentLeft) {
+          encodeBeginField(facesContext, component);
+        }
+        break;
+      default:
+        encodeBeginField(facesContext, component);
+        break;
+    }
   }
 
   @Override
   public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
-    encodeEndField(facesContext, component);
+    switch (((SupportsLabelLayout) component).getLabelLayout()) {
+      case segmentLeft:
+        if (LabelLayout.getSegment(facesContext) == LabelLayout.segmentRight) {
+          encodeEndField(facesContext, component);
+        }
+        break;
+      case segmentRight:
+        if (LabelLayout.getSegment(facesContext) == LabelLayout.segmentLeft) {
+          encodeEndField(facesContext, component);
+        }
+        break;
+      default:
+        encodeEndField(facesContext, component);
+        break;
+    }
+
     encodeEndSurrounding(facesContext, component);
   }
 
@@ -85,13 +116,14 @@ public abstract class LabelLayoutRendererBase extends LayoutComponentRendererBas
     }
 
 //    if (labelLayout != LabelLayout.none) {
-      writer.startElement(HtmlElements.DIV, component);
+    writer.startElement(HtmlElements.DIV, component);
 //    }
 //    writer.writeClassAttribute(divClass, BootstrapClass.maximumSeverity(component));
     // todo: check if BootstrapClass.FORM_GROUP is needed, I've removed it, because of it's margin-bottom: 15px;
     // todo: so we lost too much space
     // todo: without it, e. g. an input field in the header will not be layouted correctly
     writer.writeClassAttribute(divClass, BootstrapClass.FORM_GROUP, BootstrapClass.maximumSeverity(component));
+
     switch (labelLayout) {
       case flexLeft:
         // todo: const, utils, etc.
@@ -108,8 +140,17 @@ public abstract class LabelLayoutRendererBase extends LayoutComponentRendererBas
     switch (labelLayout) {
       case none:
       case flexRight:
-      case segmentRight:
       case flowRight:
+        break;
+      case segmentLeft:
+        if (LabelLayout.getSegment(facesContext) == LabelLayout.segmentLeft) {
+          encodeLabel(component, writer, labelLayout);
+        }
+        break;
+      case segmentRight:
+        if (LabelLayout.getSegment(facesContext) == LabelLayout.segmentRight) {
+          encodeLabel(component, writer, labelLayout);
+        }
         break;
       default:
         encodeLabel(component, writer, labelLayout);
@@ -123,7 +164,6 @@ public abstract class LabelLayoutRendererBase extends LayoutComponentRendererBas
 
     switch (labelLayout) {
       case flexRight:
-      case segmentRight:
       case flowRight:
         encodeLabel(component, writer, labelLayout);
         break;
@@ -132,7 +172,7 @@ public abstract class LabelLayoutRendererBase extends LayoutComponentRendererBas
     }
 
 //    if (labelLayout != LabelLayout.none) {
-      writer.endElement(HtmlElements.DIV);
+    writer.endElement(HtmlElements.DIV);
 //    }
   }
 

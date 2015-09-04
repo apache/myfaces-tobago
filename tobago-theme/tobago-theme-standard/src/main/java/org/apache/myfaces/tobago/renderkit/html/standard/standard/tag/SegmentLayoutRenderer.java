@@ -20,9 +20,11 @@
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
 import org.apache.myfaces.tobago.component.Facets;
-import org.apache.myfaces.tobago.component.UISegmentLayout;
+import org.apache.myfaces.tobago.component.LabelLayout;
+import org.apache.myfaces.tobago.component.SupportsLabelLayout;
 import org.apache.myfaces.tobago.component.UIExtensionPanel;
 import org.apache.myfaces.tobago.component.UILabel;
+import org.apache.myfaces.tobago.component.UISegmentLayout;
 import org.apache.myfaces.tobago.internal.component.AbstractUISegmentLayout;
 import org.apache.myfaces.tobago.layout.LayoutContainer;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
@@ -92,13 +94,9 @@ public class SegmentLayoutRenderer extends RendererBase {
     for (UIComponent child : children) {
       if (child.isRendered()) {
         if (child instanceof UIExtensionPanel) {
-//          writer.startElement(HtmlElements.DIV, null);
-//          writer.writeClassAttribute(BootstrapClass.FORM_GROUP); or
-//          writer.writeClassAttribute(BootstrapClass.ROW);
           for (UIComponent subChild : child.getChildren()) {
             encodeChild(facesContext, writer, generator, subChild);
           }
-//          writer.endElement(HtmlElements.DIV);
         } else {
           encodeChild(facesContext, writer, generator, child);
         }
@@ -118,15 +116,35 @@ public class SegmentLayoutRenderer extends RendererBase {
       }
       generator.generate(currentCss);
       RenderUtils.encode(facesContext, child);
-    } else {
-      writer.startElement(HtmlElements.DIV, null);
-      Css css = new Css();
-      generator.generate(css);
-      writer.writeClassAttribute(css.encode());
-      RenderUtils.encode(facesContext, child);
-      writer.endElement(HtmlElements.DIV);
+      generator.next();
+    } else if (child instanceof SupportsLabelLayout
+        && LabelLayout.isSegment(((SupportsLabelLayout) child).getLabelLayout())) {
+
+      // left part
+      LabelLayout.setSegment(facesContext, LabelLayout.segmentLeft);
+      encodeDiv(facesContext, writer, generator, child);
+      generator.next();
+
+      // right part
+      LabelLayout.setSegment(facesContext, LabelLayout.segmentRight);
+      encodeDiv(facesContext, writer, generator, child);
+      generator.next();
+
+      LabelLayout.removeSegment(facesContext);
+    } else { // normal case
+      encodeDiv(facesContext, writer, generator, child);
+      generator.next();
     }
-    generator.next();
+  }
+
+  private void encodeDiv(FacesContext facesContext, TobagoResponseWriter writer, BootstrapCssGenerator generator,
+                         UIComponent child) throws IOException {
+    writer.startElement(HtmlElements.DIV, null);
+    Css css = new Css();
+    generator.generate(css);
+    writer.writeClassAttribute(css.encode());
+    RenderUtils.encode(facesContext, child);
+    writer.endElement(HtmlElements.DIV);
   }
 
   @Override
