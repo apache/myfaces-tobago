@@ -46,9 +46,25 @@ public final class FacesContextUtils {
    */
   @Deprecated
   private static final String TOBAGO_STYLE_BLOCKS = "org.apache.myfaces.tobago.styleBlocks";
+  /**
+   * @deprecated since Tobago 2.0, because of CSP
+   */
+  @Deprecated
   private static final String TOBAGO_ONLOAD_SCRIPTS = "org.apache.myfaces.tobago.onloadScripts";
+  /**
+   * @deprecated since Tobago 2.0, because of CSP
+   */
+  @Deprecated
   private static final String TOBAGO_ONUNLOAD_SCRIPTS = "org.apache.myfaces.tobago.onunloadScripts";
+  /**
+   * @deprecated since Tobago 2.0, because of CSP
+   */
+  @Deprecated
   private static final String TOBAGO_ONEXIT_SCRIPTS = "org.apache.myfaces.tobago.onexitScripts";
+  /**
+   * @deprecated since Tobago 2.0, because of CSP
+   */
+  @Deprecated
   private static final String TOBAGO_ONSUBMIT_SCRIPTS = "org.apache.myfaces.tobago.onsubmitScripts";
   private static final String TOBAGO_POPUPS = "org.apache.myfaces.tobago.popups";
   private static final String TOBAGO_MENU_ACCELERATORS = "org.apache.myfaces.tobago.menuAccelerators";
@@ -185,6 +201,10 @@ public final class FacesContextUtils {
     set.add(script);
   }
 
+  /**
+   * @deprecated since Tobago 2.0, because of CSP
+   */
+  @Deprecated
   public static List<String> getOnloadScripts(final FacesContext context) {
     final List<String> list = (List<String>) context.getAttributes().get(TOBAGO_ONLOAD_SCRIPTS);
     if (list == null) {
@@ -193,7 +213,10 @@ public final class FacesContextUtils {
     return list;
   }
 
-
+  /**
+   * @deprecated since Tobago 2.0, because of CSP
+   */
+  @Deprecated
   public static void addOnloadScript(final FacesContext context, final String file) {
     List<String> list = (List<String>) context.getAttributes().get(TOBAGO_ONLOAD_SCRIPTS);
     if (list == null) {
@@ -203,6 +226,10 @@ public final class FacesContextUtils {
     list.add(file);
   }
 
+  /**
+   * @deprecated since Tobago 2.0, because of CSP
+   */
+  @Deprecated
   public static void addOnloadScript(final FacesContext context, final int position, final String file) {
     List<String> list = (List<String>) context.getAttributes().get(TOBAGO_ONLOAD_SCRIPTS);
     if (list == null) {
@@ -212,6 +239,10 @@ public final class FacesContextUtils {
     list.add(position, file);
   }
 
+  /**
+   * @deprecated since Tobago 2.0, because of CSP
+   */
+  @Deprecated
   public static Set<String> getOnunloadScripts(final FacesContext context) {
     final Set<String> set = (Set<String>) context.getAttributes().get(TOBAGO_ONUNLOAD_SCRIPTS);
     if (set == null) {
@@ -220,6 +251,10 @@ public final class FacesContextUtils {
     return set;
   }
 
+  /**
+   * @deprecated since Tobago 2.0, because of CSP
+   */
+  @Deprecated
   public static void addOnunloadScript(final FacesContext context, final String script) {
     Set<String> set = (Set<String>) context.getAttributes().get(TOBAGO_ONUNLOAD_SCRIPTS);
     if (set == null) {
@@ -229,6 +264,10 @@ public final class FacesContextUtils {
     set.add(script);
   }
 
+  /**
+   * @deprecated since Tobago 2.0, because of CSP
+   */
+  @Deprecated
   public static Set<String> getOnexitScripts(final FacesContext context) {
     final Set<String> set = (Set<String>) context.getAttributes().get(TOBAGO_ONEXIT_SCRIPTS);
     if (set == null) {
@@ -237,6 +276,10 @@ public final class FacesContextUtils {
     return set;
   }
 
+  /**
+   * @deprecated since Tobago 2.0, because of CSP
+   */
+  @Deprecated
   public static void addOnexitScript(final FacesContext context, final String script) {
     Set<String> set = (Set<String>) context.getAttributes().get(TOBAGO_ONEXIT_SCRIPTS);
     if (set == null) {
@@ -246,6 +289,10 @@ public final class FacesContextUtils {
     set.add(script);
   }
 
+  /**
+   * @deprecated since Tobago 2.0, because of CSP
+   */
+  @Deprecated
   public static Set<String> getOnsubmitScripts(final FacesContext context) {
     final Set<String> set = (Set<String>) context.getAttributes().get(TOBAGO_ONSUBMIT_SCRIPTS);
     if (set == null) {
@@ -254,6 +301,10 @@ public final class FacesContextUtils {
     return set;
   }
 
+  /**
+   * @deprecated since Tobago 2.0, because of CSP
+   */
+  @Deprecated
   public static void addOnsubmitScript(final FacesContext context, final String script) {
     Set<String> set = (Set<String>) context.getAttributes().get(TOBAGO_ONSUBMIT_SCRIPTS);
     if (set == null) {
