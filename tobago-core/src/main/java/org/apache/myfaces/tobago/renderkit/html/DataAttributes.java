@@ -84,6 +84,8 @@ public final class DataAttributes {
    */
   public static final String DISABLED = "data-tobago-disabled";
 
+  public static final String DISMISS = "data-dismiss";
+
   /**
    * Custom form attribute. Used to show the virtual form of the component.
    */

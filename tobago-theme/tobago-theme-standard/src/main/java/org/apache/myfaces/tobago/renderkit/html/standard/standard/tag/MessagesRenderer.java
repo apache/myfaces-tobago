@@ -38,10 +38,14 @@ import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
+import org.apache.myfaces.tobago.renderkit.html.Aria;
 import org.apache.myfaces.tobago.renderkit.html.BootstrapClass;
+import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
+import org.apache.myfaces.tobago.renderkit.html.HtmlButtonTypes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
+import org.apache.myfaces.tobago.renderkit.html.HtmlRoleValues;
 import org.apache.myfaces.tobago.renderkit.html.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -107,9 +111,22 @@ public class MessagesRenderer extends LayoutComponentRendererBase {
 
         if (first || lastSeverity != severity) {
           writer.startElement(HtmlElements.DIV, messages);
-          writer.writeClassAttribute(
-              TobagoClass.MESSAGES, BootstrapClass.ALERT, BootstrapClass.alert(severity));
+          writer.writeClassAttribute(TobagoClass.MESSAGES,
+              BootstrapClass.ALERT, BootstrapClass.ALERT_DISMISSIBLE, BootstrapClass.alert(severity));
           HtmlRendererUtils.writeDataAttributes(facesContext, writer, messages);
+          writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.ALERT.toString(), false);
+
+          writer.startElement(HtmlElements.BUTTON, null);
+          writer.writeAttribute(HtmlAttributes.TYPE, HtmlButtonTypes.BUTTON, false);
+          writer.writeClassAttribute(BootstrapClass.CLOSE);
+          writer.writeAttribute(DataAttributes.DISMISS, "alert", false);
+          writer.writeAttribute(Aria.ACTIVEDESCENDANT.getValue(), "Close", false); // todo: i18n
+          writer.startElement(HtmlElements.SPAN, null);
+          writer.writeAttribute(Aria.HIDDEN.getValue(), Boolean.TRUE.toString(), false);
+          writer.writeText("×"); // times
+          writer.endElement(HtmlElements.SPAN);
+          writer.endElement(HtmlElements.BUTTON);
+
         }
 
         encodeMessage(writer, messages, message, item.getClientId());
