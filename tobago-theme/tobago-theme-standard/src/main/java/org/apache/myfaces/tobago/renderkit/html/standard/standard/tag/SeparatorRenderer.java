@@ -26,7 +26,6 @@ import org.apache.myfaces.tobago.config.Configurable;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
-import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRoleValues;
@@ -63,9 +62,6 @@ public class SeparatorRenderer extends LayoutComponentRendererBase {
       writer.startElement(HtmlElements.HR , component);
       writer.writeIdAttribute(separator.getClientId(facesContext));
       writer.writeClassAttribute(Classes.create(component));
-      final Style style = new Style(facesContext, separator);
-      style.setHeight(Measure.ZERO); // not nice
-      writer.writeStyleAttribute(style);
       writer.endElement(HtmlElements.HR);
     }
   }
