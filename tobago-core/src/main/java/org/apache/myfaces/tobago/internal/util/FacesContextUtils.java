@@ -35,8 +35,16 @@ public final class FacesContextUtils {
   private static final String TOBAGO_AJAX_COMPONENT_ID = "org.apache.myfaces.tobago.ajaxComponentId";
   private static final String TOBAGO_ENCTYPE = "org.apache.myfaces.tobago.enctype";
   private static final String TOBAGO_SCRIPT_FILES = "org.apache.myfaces.tobago.scriptFiles";
+  /**
+   * @deprecated since Tobago 2.0, because of CSP
+   */
+  @Deprecated
   private static final String TOBAGO_SCRIPT_BLOCKS = "org.apache.myfaces.tobago.scriptBlocks";
   private static final String TOBAGO_STYLE_FILES = "org.apache.myfaces.tobago.styleFiles";
+  /**
+   * @deprecated since Tobago 2.0, because of CSP
+   */
+  @Deprecated
   private static final String TOBAGO_STYLE_BLOCKS = "org.apache.myfaces.tobago.styleBlocks";
   private static final String TOBAGO_ONLOAD_SCRIPTS = "org.apache.myfaces.tobago.onloadScripts";
   private static final String TOBAGO_ONUNLOAD_SCRIPTS = "org.apache.myfaces.tobago.onunloadScripts";
@@ -109,6 +117,10 @@ public final class FacesContextUtils {
 
   }
 
+  /**
+   * @deprecated since Tobago 2.0, because of CSP
+   */
+  @Deprecated
   public static Set<String> getScriptBlocks(final FacesContext context) {
     final Set<String> set = (Set<String>) context.getAttributes().get(TOBAGO_SCRIPT_BLOCKS);
      if (set == null) {
@@ -117,6 +129,10 @@ public final class FacesContextUtils {
     return set;
   }
 
+  /**
+   * @deprecated since Tobago 2.0, because of CSP
+   */
+  @Deprecated
   public static void addScriptBlock(final FacesContext context, final String script) {
     Set<String> set = (Set<String>) context.getAttributes().get(TOBAGO_SCRIPT_BLOCKS);
     if (set == null) {
@@ -144,6 +160,10 @@ public final class FacesContextUtils {
     set.add(script);
   }
 
+  /**
+   * @deprecated since Tobago 2.0, because of CSP
+   */
+  @Deprecated
   public static Set<String> getStyleBlocks(final FacesContext context) {
     final Set<String> set = (Set<String>) context.getAttributes().get(TOBAGO_STYLE_BLOCKS);
     if (set == null) {
@@ -152,6 +172,10 @@ public final class FacesContextUtils {
     return set;
   }
 
+  /**
+   * @deprecated since Tobago 2.0, because of CSP
+   */
+  @Deprecated
   public static void addStyleBlock(final FacesContext context, final String script) {
     Set<String> set = (Set<String>) context.getAttributes().get(TOBAGO_STYLE_BLOCKS);
     if (set == null) {
