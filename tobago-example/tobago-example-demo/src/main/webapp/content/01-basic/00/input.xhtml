@@ -19,9 +19,7 @@
 
 <ui:composition template="/layout/overview.xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
-                xmlns:tx="http://myfaces.apache.org/tobago/extension"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:f="http://java.sun.com/jsf/core">
+                xmlns:ui="http://java.sun.com/jsf/facelets">
 
   <ui:param name="title" value="Input"/>
 
@@ -40,25 +38,25 @@
       <tc:in value="Some Text"/>
     </tc:flexLayout>
 
-    <tx:in label="Input (focus)" focus="true" value="Some Text"/>
+    <tc:in label="Input (focus)" focus="true" value="Some Text"/>
 
-    <tx:in label="Password" password="true" value="Asterics"/>
+    <tc:in label="Password" password="true" value="Asterics"/>
 
     <tc:textarea
         value="Some text without label, some text without label, some text without label, some text without label, some text without label, some text without label, some text without label, some text without label, some text without label, some text without label, ..."/>
 
-    <tx:textarea label="Text Area"
+    <tc:textarea label="Text Area"
                  value="Some text, some text, some text, some text, some text, some text, some text, some text, some text, some text, ..."/>
 
-    <tx:textarea label="Read Only"
+    <tc:textarea label="Read Only"
                  readonly="true"
                  value="Some text, some text, some text, some text, some text, some text, some text, some text, some text, some text, ..."/>
 
-    <tx:textarea label="Disabled"
+    <tc:textarea label="Disabled"
                  disabled="true"
                  value="Some text, some text, some text, some text, some text, some text, some text, some text, some text, some text, ..."/>
 
-    <tx:textarea label="Area (focus)" focus="true"
+    <tc:textarea label="Area (focus)" focus="true"
                  value="Some Text"/>
 
     <tc:flowLayout>

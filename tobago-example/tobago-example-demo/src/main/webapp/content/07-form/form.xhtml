@@ -19,9 +19,7 @@
 
 <ui:composition template="/layout/overview.xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
-                xmlns:tx="http://myfaces.apache.org/tobago/extension"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core">
   <ui:param name="title" value="#{overviewBundle.form}"/>
   <tc:panel>
@@ -46,11 +44,11 @@
         </f:facet>
 
         <tc:form id="form1">
-          <tx:in value="#{demo.text[0]}" required="true" label="#{overviewBundle.newValue1}"/>
+          <tc:in value="#{demo.text[0]}" required="true" label="#{overviewBundle.newValue1}"/>
           <tc:button label="#{overviewBundle.submitForm1}">
             <tc:gridLayoutConstraint rowSpan="2"/>
           </tc:button>
-          <tx:in value="#{demo.text[0]}" readonly="true" label="#{overviewBundle.modelValue1}"/>
+          <tc:in value="#{demo.text[0]}" readonly="true" label="#{overviewBundle.modelValue1}"/>
         </tc:form>
 
       </tc:box>
@@ -61,11 +59,11 @@
         </f:facet>
 
         <tc:form id="form2">
-          <tx:in value="#{demo.text[1]}" required="true" label="#{overviewBundle.newValue2}"/>
+          <tc:in value="#{demo.text[1]}" required="true" label="#{overviewBundle.newValue2}"/>
           <tc:button label="#{overviewBundle.submitForm2}">
             <tc:gridLayoutConstraint rowSpan="2"/>
           </tc:button>
-          <tx:in value="#{demo.text[1]}" readonly="true" label="#{overviewBundle.modelValue2}"/>
+          <tc:in value="#{demo.text[1]}" readonly="true" label="#{overviewBundle.modelValue2}"/>
         </tc:form>
       </tc:box>
 
@@ -76,11 +74,11 @@
           <tc:gridLayout rows="auto;auto" columns="*;100px"/>
         </f:facet>
 
-        <tx:in value="#{demo.text[2]}" required="true" label="#{overviewBundle.newValue2}"/>
+        <tc:in value="#{demo.text[2]}" required="true" label="#{overviewBundle.newValue2}"/>
         <tc:button label="#{overviewBundle.submitAll}">
           <tc:gridLayoutConstraint rowSpan="2"/>
         </tc:button>
-        <tx:in value="#{demo.text[2]}" readonly="true" label="#{overviewBundle.modelValue2}"/>
+        <tc:in value="#{demo.text[2]}" readonly="true" label="#{overviewBundle.modelValue2}"/>
         
       </tc:panel>
     </tc:box>

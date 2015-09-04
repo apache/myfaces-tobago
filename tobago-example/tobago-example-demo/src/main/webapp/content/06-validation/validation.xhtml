@@ -19,7 +19,6 @@
 
 <ui:composition template="/layout/overview.xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
-                xmlns:tx="http://myfaces.apache.org/tobago/extension"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core">
   <ui:param name="title" value="#{overviewBundle.validation}"/>
@@ -34,21 +33,21 @@
       <f:facet name="layout">
         <tc:gridLayout columns="1*;1*"/>
       </f:facet>
-      <tx:in label="#{overviewBundle.validation_number}" markup="number" required="true"
+      <tc:in label="#{overviewBundle.validation_number}" markup="number" required="true"
              value="#{validationBean.number}">
         <f:validateLength minimum="7" maximum="7"/>
         <f:validateLongRange maximum="9000000"/>
-      </tx:in>
-      <tx:in label="#{overviewBundle.validation_price}" markup="number" value="#{validationBean.price}">
+      </tc:in>
+      <tc:in label="#{overviewBundle.validation_price}" markup="number" value="#{validationBean.price}">
         <f:validateDoubleRange minimum="0.01" maximum="1000"/>
         <f:convertNumber pattern="#,##0.00 ¤" currencySymbol="€" type="currency" />
-      </tx:in>
-      <tx:in label="#{overviewBundle.validation_custom}" validator="#{overviewController.customValidator}"
+      </tc:in>
+      <tc:in label="#{overviewBundle.validation_custom}" validator="#{overviewController.customValidator}"
              value="#{validationBean.custom}">
-      </tx:in>
+      </tc:in>
     </tc:panel>
 
-    <tx:textarea label="#{overviewBundle.validation_description}" required="true" value="#{validationBean.text}"/>
+    <tc:textarea label="#{overviewBundle.validation_description}" required="true" value="#{validationBean.text}"/>
 
     <tc:flowLayout textAlign="right">
       <tc:button action="#{overviewController.noop}" label="#{overviewBundle.validation_submit}"

@@ -17,7 +17,6 @@
 
 <ui:composition template="/layout/overview.xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
-                xmlns:tx="http://myfaces.apache.org/tobago/extension"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:c="http://java.sun.com/jsp/jstl/core">
@@ -38,14 +37,14 @@
         </f:facet>
 
         <c:forEach items="#{birdController.birds}" var="bird">
-          <tx:in value="#{bird.size}" label="#{bird.name}"/>
+          <tc:in value="#{bird.size}" label="#{bird.name}"/>
           <tc:button label="Select" action="#{bird.select}"/>
         </c:forEach>
 
         <!--XXX not working with the layout manager-->
         <!--
         <ui:repeat value="#{birdController.birds}" var="bird">
-          <tx:in value="#{bird.size}" label="#{bird.name}"/>
+          <tc:in value="#{bird.size}" label="#{bird.name}"/>
           <tc:button label="Select" action="#{bird.select}"/>
         </ui:repeat>
 -->

@@ -19,7 +19,6 @@
 
 <ui:composition template="/layout/overview.xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
-                xmlns:tx="http://myfaces.apache.org/tobago/extension"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core">
   <ui:param name="title" value="Time Specific Controls"/>
@@ -31,16 +30,16 @@
     </f:facet>
 
     <!-- code-sniplet-start id="date" -->
-    <tx:in label="Date as Text" value="#{dateController.once}">
+    <tc:in label="Date as Text" value="#{dateController.once}">
       <f:convertDateTime pattern="dd.MM.yyyy"/>
-    </tx:in>
+    </tc:in>
     <!-- code-sniplet-end id="date" -->
     <tc:panel/>
 
     <!-- code-sniplet-start id="date" -->
-    <tx:date label="Date" value="#{dateController.once}">
+    <tc:date label="Date" value="#{dateController.once}">
       <f:convertDateTime pattern="dd.MM.yyyy"/>
-    </tx:date>
+    </tc:date>
     <!-- code-sniplet-end id="date" -->
     <tc:panel/>
 
@@ -53,9 +52,9 @@
 
     <!-- code-sniplet-start id="dateTime" -->
 <!--
-    <tx:date label="Date/Time" value="#{dateController.once}">
+    <tc:date label="Date/Time" value="#{dateController.once}">
       <f:convertDateTime pattern="dd.MM.yyyy HH:mm"/>
-    </tx:date>
+    </tc:date>
 -->
     <!-- code-sniplet-end id="dateTime" -->
 <!--
@@ -63,71 +62,71 @@
 -->
 
 <!--
-    <tx:date label="Date (focus)" focus="true">
+    <tc:date label="Date (focus)" focus="true">
 -->
-    <tx:date label="Date (focus)">
+    <tc:date label="Date (focus)">
       <f:convertDateTime pattern="dd.MM.yyyy"/>
-    </tx:date>
+    </tc:date>
     <tc:panel/>
 
-    <tx:date label="Short style" value="#{dateController.once}">
+    <tc:date label="Short style" value="#{dateController.once}">
       <f:convertDateTime dateStyle="short" type="both" timeStyle="short"/>
-    </tx:date>
+    </tc:date>
     <tc:panel/>
 
-    <tx:date label="Medium Style" value="#{dateController.once}">
+    <tc:date label="Medium Style" value="#{dateController.once}">
       <f:convertDateTime dateStyle="medium" type="both" timeStyle="medium"/>
-    </tx:date>
+    </tc:date>
     <tc:panel/>
 
-    <tx:date label="Long Style" value="#{dateController.once}">
+    <tc:date label="Long Style" value="#{dateController.once}">
       <f:convertDateTime dateStyle="long" type="both" timeStyle="long"/>
-    </tx:date>
+    </tc:date>
     <tc:panel/>
 
-    <tx:date label="Full Style" value="#{dateController.once}">
+    <tc:date label="Full Style" value="#{dateController.once}">
       <f:convertDateTime dateStyle="full" type="both" timeStyle="full"/>
-    </tx:date>
+    </tc:date>
     <tc:panel/>
 
-    <tx:date label="Month" value="#{dateController.once}">
+    <tc:date label="Month" value="#{dateController.once}">
       <f:convertDateTime pattern="MM/yyyy"/>
-    </tx:date>
+    </tc:date>
     <tc:panel/>
 
-    <tx:date label="Year" value="#{dateController.once}">
+    <tc:date label="Year" value="#{dateController.once}">
       <f:convertDateTime pattern="yyyy"/>
-    </tx:date>
+    </tc:date>
     <tc:panel/>
 
-    <tx:time label="Time" value="#{dateController.once}">
+    <tc:time label="Time" value="#{dateController.once}">
       <f:convertDateTime type="time" pattern="HH:mm"/>
-    </tx:time>
+    </tc:time>
     <tc:panel/>
 
-    <tx:time label="Time (Seconds)" value="#{dateController.once}">
+    <tc:time label="Time (Seconds)" value="#{dateController.once}">
       <f:convertDateTime type="time" pattern="HH:mm:ss"/>
-    </tx:time>
+    </tc:time>
     <tc:panel/>
 
-    <tx:time label="Time" value="#{dateController.once}" readonly="true">
+    <tc:time label="Time" value="#{dateController.once}" readonly="true">
       <f:convertDateTime type="time" pattern="HH:mm"/>
-    </tx:time>
+    </tc:time>
     <tc:panel/>
 
-    <tx:time label="Time (Seconds)" value="#{dateController.once}" readonly="true">
+    <tc:time label="Time (Seconds)" value="#{dateController.once}" readonly="true">
       <f:convertDateTime type="time" pattern="HH:mm:ss"/>
-    </tx:time>
+    </tc:time>
     <tc:panel/>
 
-    <tx:time label="Time" value="#{dateController.once}" disabled="true">
+    <tc:time label="Time" value="#{dateController.once}" disabled="true">
       <f:convertDateTime type="time" pattern="HH:mm"/>
-    </tx:time>
+    </tc:time>
     <tc:panel/>
 
-    <tx:time label="Time (Seconds)" value="#{dateController.once}" disabled="true">
+    <tc:time label="Time (Seconds)" value="#{dateController.once}" disabled="true">
       <f:convertDateTime type="time" pattern="HH:mm:ss"/>
-    </tx:time>
+    </tc:time>
     <tc:panel/>
 
     <!-- code-sniplet-start id="calendar" -->

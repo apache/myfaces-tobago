@@ -19,9 +19,7 @@
 
 <ui:composition template="/layout/overview.xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
-                xmlns:tx="http://myfaces.apache.org/tobago/extension"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core">
   <ui:param name="title" value="#{overviewBundle.sheet}"/>
 
@@ -37,60 +35,60 @@
               <f:facet name="layout">
                 <tc:gridLayout rows="auto;auto;auto;auto;auto;auto;auto;auto;auto;auto;auto;1*;auto"/>
               </f:facet>
-              <tx:selectOneChoice label="showHeader"
+              <tc:selectOneChoice label="showHeader"
                                   value="#{overviewController.sheetConfig.sheetShowHeader}"
                                   tip="TODO: show Header Text">
                 <f:selectItem itemValue="#{true}" itemLabel="True"/>
                 <f:selectItem itemValue="#{false}" itemLabel="False"/>
-              </tx:selectOneChoice>
-              <tx:selectBooleanCheckbox
+              </tc:selectOneChoice>
+              <tc:selectBooleanCheckbox
                   label="showPagingAlways" value="#{overviewController.sheetConfig.showPagingAlways}"/>
-              <tx:in label="first"
+              <tc:in label="first"
                      value="#{overviewController.sheetConfig.sheetFirst}"
                      tip="TODO: paging Start Text">
                 <f:validateLongRange minimum="0"/>
-              </tx:in>
-              <tx:in label="rows"
+              </tc:in>
+              <tc:in label="rows"
                      value="#{overviewController.sheetConfig.sheetRows}"
                      tip="TODO: paging Lenght Text">
                 <f:validateLongRange minimum="0"/>
-              </tx:in>
+              </tc:in>
 
-              <tx:selectOneChoice label="showRowRange"
+              <tc:selectOneChoice label="showRowRange"
                                   value="#{overviewController.sheetConfig.sheetRowPagingPosition}"
                                   tip="TODO: paging DirectLinkCount Text">
                 <f:selectItems value="#{overviewController.sheetConfig.sheetPagingPositionItems}"/>
-              </tx:selectOneChoice>
+              </tc:selectOneChoice>
 
-              <tx:selectOneChoice label="showPageRange"
+              <tc:selectOneChoice label="showPageRange"
                                   value="#{overviewController.sheetConfig.sheetPagePagingPosition}"
                                   tip="TODO: paging DirectLinkCount Text">
                 <f:selectItems value="#{overviewController.sheetConfig.sheetPagingPositionItems}"/>
-              </tx:selectOneChoice>
-              <tx:selectBooleanCheckbox label="with arrows"
+              </tc:selectOneChoice>
+              <tc:selectBooleanCheckbox label="with arrows"
                                         value="#{overviewController.sheetConfig.showPageRangeArrows}"
                                         tip="TODO: showPageRangeArrows Text"/>
 
-              <tx:selectOneChoice label="showDirectLinks"
+              <tc:selectOneChoice label="showDirectLinks"
                                   value="#{overviewController.sheetConfig.sheetDirectPagingPosition}"
                                   tip="TODO: paging DirectLinkCount Text">
                 <f:selectItems value="#{overviewController.sheetConfig.sheetPagingPositionItems}"/>
-              </tx:selectOneChoice>
-              <tx:selectBooleanCheckbox label="with arrows"
+              </tc:selectOneChoice>
+              <tc:selectBooleanCheckbox label="with arrows"
                                         value="#{overviewController.sheetConfig.showDirectLinksArrows}"
                                         tip="TODO: showDirectLinksArrows Text"/>
 
-              <tx:selectOneChoice label="directLinkCount"
+              <tc:selectOneChoice label="directLinkCount"
                                   value="#{overviewController.sheetConfig.sheetDirectLinkCount}"
                                   tip="TODO: paging DirectLinkCount Text">
                 <f:selectItems value="#{overviewController.sheetConfig.sheetDirectLinkCountItems}"/>
-              </tx:selectOneChoice>
+              </tc:selectOneChoice>
 
-              <tx:selectOneChoice label="selectable"
+              <tc:selectOneChoice label="selectable"
                                   value="#{overviewController.sheetConfig.selectable}"
                                   tip="TODO: selectable Text">
                 <f:selectItems value="#{overviewController.sheetConfig.sheetSelectableItems}"/>
-              </tx:selectOneChoice>
+              </tc:selectOneChoice>
 
               <tc:panel/>
 

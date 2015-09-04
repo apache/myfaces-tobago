@@ -19,7 +19,6 @@
 
 <ui:composition template="/layout/overview.xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
-                xmlns:tx="http://myfaces.apache.org/tobago/extension"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core">
   <ui:param name="title" value="Popups"/>
@@ -70,10 +69,10 @@
                 <f:selectItem itemLabel="B" itemValue="b"/>
               </tc:selectOneChoice>
               <tc:selectBooleanCheckbox value="#{reference.bool}"/>
-              <tx:in label="In" value="#{reference.text}" required="true"/>
-              <tx:date label="Date">
+              <tc:in label="In" value="#{reference.text}" required="true"/>
+              <tc:date label="Date">
                 <f:convertDateTime pattern="dd/MM/yyyy"/>
-              </tx:date>
+              </tc:date>
               <tc:image value="image/feather-leaf.png" width="16px" height="16px"/>
               <tc:panel/>
               <tc:panel>
@@ -105,7 +104,7 @@
                 <tc:gridLayout rows="auto;*;auto"/>
               </f:facet>
 
-              <tx:in label="Field" required="true" placeholder="Search"/>
+              <tc:in label="Field" required="true" placeholder="Search"/>
               <tc:panel/>
               <tc:panel>
                 <f:facet name="layout">
@@ -173,13 +172,13 @@
 
     </tc:panel>
 
-    <tx:in readonly="true" label="The Boolean" value="#{reference.bool}"/>
+    <tc:in readonly="true" label="The Boolean" value="#{reference.bool}"/>
 
-    <tx:in readonly="true" label="The Text" value="#{reference.text}"/>
+    <tc:in readonly="true" label="The Text" value="#{reference.text}"/>
 
-    <tx:in required="true" label="Required"/>
+    <tc:in required="true" label="Required"/>
 
-    <tx:selectOneChoice label="Select"/>
+    <tc:selectOneChoice label="Select"/>
 
     <tc:panel/>
 

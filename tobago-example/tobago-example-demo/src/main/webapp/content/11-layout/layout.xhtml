@@ -19,9 +19,7 @@
 
 <ui:composition template="/layout/overview.xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
-                xmlns:tx="http://myfaces.apache.org/tobago/extension"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core">
   <ui:param name="title" value="#{overviewBundle.layout}"/>
   <tc:panel>
@@ -37,34 +35,34 @@
       </f:facet>
 
       <!-- 1 -->
-      <tx:selectOneChoice value="#{overviewController.singleValue}"
+      <tc:selectOneChoice value="#{overviewController.singleValue}"
                           label="#{overviewBundle.layout_salutation}"
                           converter="salutationId">
         <f:selectItems value="#{overviewController.items}"/>
-      </tx:selectOneChoice>
+      </tc:selectOneChoice>
       <tc:panel/>
 
       <!-- 2 -->
-      <tx:in value="" label="#{overviewBundle.layout_firstName}"/>
-      <tx:in value="" label="#{overviewBundle.layout_lastName}"/>
+      <tc:in value="" label="#{overviewBundle.layout_firstName}"/>
+      <tc:in value="" label="#{overviewBundle.layout_lastName}"/>
 
       <!-- 3 -->
-      <tx:in value="" label="#{overviewBundle.layout_co}">
+      <tc:in value="" label="#{overviewBundle.layout_co}">
         <tc:gridLayoutConstraint columnSpan="2"/>
-      </tx:in>
+      </tc:in>
 
       <!-- 4 -->
-      <tx:in value="" label="#{overviewBundle.layout_street}"/>
-      <tx:in value="" label="#{overviewBundle.layout_streetNumber}"/>
+      <tc:in value="" label="#{overviewBundle.layout_street}"/>
+      <tc:in value="" label="#{overviewBundle.layout_streetNumber}"/>
 
       <!-- 5 -->
-      <tx:in value="" label="#{overviewBundle.layout_zipCode}"/>
-      <tx:in value="" label="#{overviewBundle.layout_city}"/>
+      <tc:in value="" label="#{overviewBundle.layout_zipCode}"/>
+      <tc:in value="" label="#{overviewBundle.layout_city}"/>
 
       <!-- 6 -->
-      <tx:textarea value="" label="#{overviewBundle.layout_note}">
+      <tc:textarea value="" label="#{overviewBundle.layout_note}">
         <tc:gridLayoutConstraint columnSpan="2"/>
-      </tx:textarea>
+      </tc:textarea>
     </tc:box>
     <!-- code-sniplet-end id="layoutManagementExample" -->
   </tc:panel>

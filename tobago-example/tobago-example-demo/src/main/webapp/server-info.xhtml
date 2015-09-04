@@ -19,7 +19,6 @@
 
 <ui:composition template="/layout/overview.xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
-                xmlns:tx="http://myfaces.apache.org/tobago/extension"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core">
   <ui:param name="title" value="Server Info"/>
@@ -29,23 +28,23 @@
       <tc:gridLayout rows="auto;auto;auto;auto;auto;auto;*;*"/>
     </f:facet>
 
-    <tx:in value="#{info.version}" readonly="true"
+    <tc:in value="#{info.version}" readonly="true"
            label="Tobago Version"/>
 
-    <tx:in value="#{info.jsfTitle}" readonly="true"
+    <tc:in value="#{info.jsfTitle}" readonly="true"
            label="JSF Implementation"/>
 
-    <tx:in value="#{info.jsfVersion}" readonly="true"
+    <tc:in value="#{info.jsfVersion}" readonly="true"
            label="JSF Version"/>
 
-    <tx:in value="#{info.serverInfo}" readonly="true"
+    <tc:in value="#{info.serverInfo}" readonly="true"
            label="Server Info"/>
 
-    <tx:in value="#{info.systemProperties['java.runtime.version']} - #{info.systemProperties['java.vm.vendor']}"
+    <tc:in value="#{info.systemProperties['java.runtime.version']} - #{info.systemProperties['java.vm.vendor']}"
            readonly="true"
            label="Java"/>
 
-    <tx:in
+    <tc:in
         value="#{info.systemProperties['os.name']} - #{info.systemProperties['os.version']} - #{info.systemProperties['os.arch']}"
         readonly="true"
         label="Operating System"/>
