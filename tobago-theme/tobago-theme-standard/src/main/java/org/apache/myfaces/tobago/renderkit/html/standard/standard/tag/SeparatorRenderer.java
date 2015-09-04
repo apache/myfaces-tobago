@@ -22,8 +22,6 @@ package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.UILabel;
 import org.apache.myfaces.tobago.component.UISeparator;
-import org.apache.myfaces.tobago.config.Configurable;
-import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
@@ -42,8 +40,7 @@ public class SeparatorRenderer extends LayoutComponentRendererBase {
 
     final UISeparator separator = (UISeparator) component;
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
-
-    String label = getLabel(separator);
+    final String label = getLabel(separator);
 
     if (label != null) {
       writer.startElement(HtmlElements.FIELDSET, component);
@@ -68,19 +65,10 @@ public class SeparatorRenderer extends LayoutComponentRendererBase {
 
   private String getLabel(final UISeparator separator) {
     String label = separator.getLabel();
-    if (label == null && separator.getFacet(Facets.LABEL) != null) {
-      label = String.valueOf(((UILabel) separator.getFacet(Facets.LABEL)).getValue());
+    final UIComponent facet = separator.getFacet(Facets.LABEL);
+    if (label == null && facet != null) {
+      label = String.valueOf(((UILabel) facet).getValue());
     }
     return label;
-  }
-
-  @Override
-  public Measure getHeight(final FacesContext facesContext, final Configurable component) {
-    final String label = getLabel((UISeparator) component);
-    if (label == null) {
-      return getResourceManager().getThemeMeasure(facesContext, component, "withoutLabelHeight");
-    } else {
-      return super.getHeight(facesContext, component);
-    }
   }
 }
