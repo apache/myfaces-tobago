@@ -22,13 +22,18 @@ package org.apache.myfaces.tobago.internal.taglib.declaration;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 
+/** @deprecated since Tobago 2.0.9. Please use {@link HasMargins} */
+@Deprecated
 public interface HasMargin {
 
   /**
    * Margin between container component and the children.
+   *
+   * @deprecated since Tobago 2.0.9. Please use single attributes from {@link HasMargins}
    */
   @TagAttribute
   @UIComponentTagAttribute(
       type = "org.apache.myfaces.tobago.layout.Measure")
+  @Deprecated
   void setMargin(String margin);
 }
