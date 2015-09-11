@@ -61,9 +61,8 @@ public interface SplitLayoutTagDeclaration extends HasId, HasBorder, HasSpacing,
 
   /**
    * This value defines the orientation of the split layout.
-   * Possible values are 'HORIZONTAL' and 'VERTICAL'.
+   * Possible values are {@link Orientation#horizontal} and {@link Orientation#vertical}.
    */
-
   @TagAttribute(required = true)
   @UIComponentTagAttribute(
       type = "org.apache.myfaces.tobago.layout.Orientation",
