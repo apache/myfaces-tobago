@@ -30,7 +30,7 @@ import org.apache.myfaces.tobago.layout.LayoutComponent;
 import org.apache.myfaces.tobago.layout.LayoutContainer;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
-import org.apache.myfaces.tobago.renderkit.css.Position;
+import org.apache.myfaces.tobago.layout.Position;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
@@ -148,8 +148,9 @@ public class SplitLayoutRenderer extends GridLayoutRenderer {
       style.setLeft(Measure.valueOf(0));
       style.setTop(Measure.valueOf(Measure.valueOf(secondComponent.getTop().subtract(5))));
     }
+    // todo: use CSS class
     style.setDisplay(Display.BLOCK);
-    style.setPosition(Position.ABSOLUTE);
+    style.setPosition(Position.absolute);
     return style;
   }
 }

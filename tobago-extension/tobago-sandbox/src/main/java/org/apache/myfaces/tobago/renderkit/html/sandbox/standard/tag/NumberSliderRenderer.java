@@ -24,7 +24,7 @@ import org.apache.myfaces.tobago.internal.component.AbstractUINumberSlider;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
-import org.apache.myfaces.tobago.renderkit.css.Position;
+import org.apache.myfaces.tobago.layout.Position;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
@@ -147,7 +147,7 @@ public class NumberSliderRenderer extends LayoutComponentRendererBase {
     writer.startElement(HtmlElements.DIV, null);
     writer.writeIdAttribute(getIdForSliderHandle(facesContext, slider));
     final Style handleStyle = new Style();
-    handleStyle.setPosition(Position.RELATIVE);
+    handleStyle.setPosition(Position.relative);
     handleStyle.setTop(Measure.valueOf(-6));
     handleStyle.setWidth(Measure.valueOf(12));
     handleStyle.setHeight(Measure.valueOf(6));

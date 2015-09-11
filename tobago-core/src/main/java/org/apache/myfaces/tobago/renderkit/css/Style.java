@@ -24,6 +24,7 @@ import org.apache.myfaces.tobago.layout.LayoutBase;
 import org.apache.myfaces.tobago.layout.LayoutComponent;
 import org.apache.myfaces.tobago.layout.LayoutContainer;
 import org.apache.myfaces.tobago.layout.Measure;
+import org.apache.myfaces.tobago.layout.Position;
 import org.apache.myfaces.tobago.layout.TextAlign;
 
 import javax.faces.context.FacesContext;
@@ -96,7 +97,7 @@ public class Style implements Serializable {
     // if there are a position coordinates, activate absolute positioning
     // XXX String "Page" is not nice here
     if ((left != null || top != null) && !rendererType.contains("Page")) {
-      position = Position.ABSOLUTE;
+      position = Position.absolute;
     }
 
     if (layout instanceof LayoutComponent) { // fixme

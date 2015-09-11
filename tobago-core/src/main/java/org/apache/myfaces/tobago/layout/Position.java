@@ -17,21 +17,41 @@
  * under the License.
  */
 
-package org.apache.myfaces.tobago.renderkit.css;
+package org.apache.myfaces.tobago.layout;
 
+/**
+ * Values for position used with CSS.
+ *
+ * Note: the enums are not capitalized, because of problems with {@link java.beans.PropertyEditor}.
+ */
 public enum Position {
 
-  ABSOLUTE("absolute"),
-  RELATIVE("relative"),
-  FIXED("fixed"), // not supported in IE 6
-  STATIC("static");
+  absolute,
+  relative,
+  fixed;
+//  static; XXX not possible
 
   private String value;
 
-  Position(final String value) {
-    this.value = value;
-  }
+  /**
+   * Internal constant to use in annotations. Please use {@link Position#absolute}
+   */
+  public static final String STRING_ABSOLUTE = "absolute";
 
+  /**
+   * Internal constant to use in annotations. Please use {@link Position#relative}
+   */
+  public static final String STRING_RELATIVE = "relative";
+
+  /**
+   * Internal constant to use in annotations. Please use {@link Position#fixed}
+   */
+  public static final String STRING_FIXED = "fixed";
+
+
+  /**
+   * @deprecated Since Tobago 3.0.0 Please use {@link Position:name}
+   */
   public String getValue() {
     return value;
   }
