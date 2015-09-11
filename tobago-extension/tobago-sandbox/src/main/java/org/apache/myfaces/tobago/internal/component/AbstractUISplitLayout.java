@@ -33,9 +33,6 @@ import java.util.List;
 
 public abstract class AbstractUISplitLayout extends AbstractUIGridLayout {
 
-  public static final String VERTICAL = Orientation.VERTICAL.name();
-  public static final String HORIZONTAL = Orientation.HORIZONTAL.name();
-
   private String submittedLayout;
 
   public void updateLayout(final int position) {
@@ -47,7 +44,7 @@ public abstract class AbstractUISplitLayout extends AbstractUIGridLayout {
 
     final int currentSize1;
     final int currentSize2;
-    if (HORIZONTAL.equals(getOrientation())) {
+    if (getOrientation() == Orientation.horizontal) {
       oldPosition = secondComponent.getLeft().getPixel() - 5;
       currentSize1 = firstComponent.getCurrentWidth().getPixel();
       currentSize2 = secondComponent.getCurrentWidth().getPixel();
@@ -105,7 +102,7 @@ public abstract class AbstractUISplitLayout extends AbstractUIGridLayout {
 
   @Override
   public String getColumns() {
-    return VERTICAL.equals(getOrientation()) ? "1*" : getLayout2();
+    return getOrientation() == Orientation.vertical ? "1*" : getLayout2();
   }
 
 //  private String getLayout2() {
@@ -118,7 +115,7 @@ public abstract class AbstractUISplitLayout extends AbstractUIGridLayout {
 
   @Override
   public String getRows() {
-    return HORIZONTAL.equals(getOrientation()) ? "1*" : getLayout2();
+    return getOrientation() == Orientation.horizontal ? "1*" : getLayout2();
   }
 
   private String getLayout2() {
@@ -127,7 +124,7 @@ public abstract class AbstractUISplitLayout extends AbstractUIGridLayout {
 
   public abstract String getLayout();
 
-  public abstract String getOrientation();
+  public abstract Orientation getOrientation();
 
   @Deprecated
   public abstract Measure getCellspacing();

@@ -25,27 +25,4 @@ import org.apache.myfaces.tobago.layout.LayoutManager;
 public abstract class AbstractUIFlowLayout extends AbstractUILayoutBase implements LayoutManager, SupportsMarkup {
 
   public static final String COMPONENT_FAMILY = "org.apache.myfaces.tobago.FlowLayout";
-
-/*
-  public void init() {
-    for (final LayoutComponent component : getLayoutContainer().getComponents()) {
-      if (component instanceof LayoutContainer && component.isRendered()) {
-        ((LayoutContainer) component).getLayoutManager().init();
-      }
-    }
-  }
-
-  public void fixRelativeInsideAuto(final Orientation orientation, final boolean auto) {
-  }
-
-  public void preProcessing(final Orientation orientation) {
-  }
-
-  public void mainProcessing(final Orientation orientation) {
-    
-  }
-
-  public void postProcessing(final Orientation orientation) {
-  }
-*/
 }

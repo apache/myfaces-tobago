@@ -19,16 +19,22 @@
 
 package org.apache.myfaces.tobago.layout;
 
+/**
+ * Layout relevant values for the orientation.
+ */
 public enum Orientation {
   
-  HORIZONTAL,
-  VERTICAL;
-  
-  public Orientation other() {
-    if (this == HORIZONTAL) {
-      return VERTICAL;
-    } else {
-      return HORIZONTAL;
-    }
-  }
+  horizontal,
+  vertical;
+
+  /**
+   * Internal constant to use in annotations. Please use {@link Orientation#horizontal}
+   */
+  public static final String STRING_HORIZONTAL = "horizontal";
+
+  /**
+   * Internal constant to use in annotations. Please use {@link Orientation#horizontal}
+   */
+  public static final String STRING_VERTICAL = "vertical";
+
 }

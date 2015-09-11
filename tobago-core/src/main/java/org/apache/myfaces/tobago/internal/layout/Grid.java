@@ -20,7 +20,6 @@
 package org.apache.myfaces.tobago.internal.layout;
 
 import org.apache.myfaces.tobago.layout.LayoutTokens;
-import org.apache.myfaces.tobago.layout.Orientation;
 import org.apache.myfaces.tobago.layout.RelativeLayoutToken;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -109,10 +108,6 @@ public class Grid {
     }
 
     findNextFreeCell();
-  }
-
-  public Cell getCell(final int i, final int j, final Orientation orientation) {
-    return orientation == Orientation.HORIZONTAL ? getCell(i, j) : getCell(j, i);
   }
 
   public Cell getCell(final int column, final int row) {

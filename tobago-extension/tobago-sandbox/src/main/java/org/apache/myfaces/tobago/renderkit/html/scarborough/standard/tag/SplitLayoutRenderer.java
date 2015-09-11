@@ -20,6 +20,7 @@
 package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.myfaces.tobago.internal.layout.LayoutUtils;
+import org.apache.myfaces.tobago.layout.Orientation;
 import org.apache.myfaces.tobago.renderkit.html.standard.standard.tag.GridLayoutRenderer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -85,14 +86,14 @@ public class SplitLayoutRenderer extends GridLayoutRenderer {
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
     writer.startElement(HtmlElements.SPAN, layout);
     writer.writeIdAttribute(id);
-    writer.writeAttribute("data-tobago-split-layout", layout.getOrientation().toLowerCase(), true);
+    writer.writeAttribute("data-tobago-split-layout", layout.getOrientation().name(), false);
     writer.writeAttribute("data-tobago-split-layout-containment", createDraggableContainment(layout), true);
     final Style style = calculateHandleStyle(layout);
     writer.writeStyleAttribute(style);
-    writer.writeClassAttribute(Classes.create(layout, layout.getOrientation().toLowerCase()));
+    writer.writeClassAttribute(Classes.create(layout, layout.getOrientation().name()));
 
     final int position;
-    if (AbstractUISplitLayout.HORIZONTAL.equals(layout.getOrientation())) {
+    if (layout.getOrientation() == Orientation.horizontal) {
       position = style.getLeft().getPixel();
     } else {
       position = style.getTop().getPixel();
@@ -116,7 +117,7 @@ public class SplitLayoutRenderer extends GridLayoutRenderer {
     final LayoutComponent secondComponent = (LayoutComponent) components.get(1);
 
     Measure minimum;
-    if (AbstractUISplitLayout.HORIZONTAL.equals(layout.getOrientation())) {
+    if (layout.getOrientation() == Orientation.horizontal) {
       minimum = firstComponent.getMinimumWidth();
       final int minimumSize1 = minimum != null ? minimum.getPixel() : 0;
       minimum = secondComponent.getMinimumWidth();
@@ -137,7 +138,7 @@ public class SplitLayoutRenderer extends GridLayoutRenderer {
     final LayoutContainer container = (LayoutContainer) layout.getParent();
     final LayoutComponent secondComponent = (LayoutComponent) LayoutUtils.findLayoutChildren(container).get(1);
     final Style style = new Style();
-    if (AbstractUISplitLayout.HORIZONTAL.equals(layout.getOrientation())) {
+    if (layout.getOrientation() == Orientation.horizontal) {
       style.setWidth(Measure.valueOf(5));
       style.setHeight(container.getCurrentHeight());
       style.setLeft(Measure.valueOf(secondComponent.getLeft().subtract(5)));

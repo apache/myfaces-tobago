@@ -32,8 +32,9 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasMargin;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasMargins;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasSpacing;
+import org.apache.myfaces.tobago.layout.Orientation;
 
-  /**
+/**
    * Renders a SplitLayout.
    * A area with two child components rendered horizontally or vertically and allows to change the
    * layout relation of this two components on the client.
@@ -64,7 +65,9 @@ public interface SplitLayoutTagDeclaration extends HasId, HasBorder, HasSpacing,
    */
 
   @TagAttribute(required = true)
-  @UIComponentTagAttribute(allowedValues = {"HORIZONTAL", "VERTICAL"})
+  @UIComponentTagAttribute(
+      type = "org.apache.myfaces.tobago.layout.Orientation",
+      allowedValues = {Orientation.STRING_HORIZONTAL, Orientation.STRING_VERTICAL})
   void setOrientation(String orientation);
 
   /**

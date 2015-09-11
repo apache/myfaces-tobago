@@ -317,6 +317,10 @@ DisplayProperty(property) ::= <<
 <NormalProperty(property)>
 >>
 
+OrientationProperty(property) ::= <<
+<NormalProperty(property)>
+>>
+
 OrderByProperty(property) ::= <<
 <NormalProperty(property)>
 >>

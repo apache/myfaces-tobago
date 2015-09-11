@@ -19,8 +19,6 @@
 
 package org.apache.myfaces.tobago.internal.layout;
 
-import org.apache.myfaces.tobago.layout.Orientation;
-
 import javax.faces.component.UIComponent;
 
 public class OriginCell implements Cell {
@@ -47,10 +45,6 @@ public class OriginCell implements Cell {
 
   public boolean isHorizontalFirst() {
     return true;
-  }
-
-  public int getSpan(final Orientation orientation) {
-    return orientation == Orientation.HORIZONTAL ? getColumnSpan() : getRowSpan();
   }
 
   public int getColumnSpan() {
