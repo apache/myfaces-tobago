@@ -24,12 +24,12 @@ import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.RendererTypes;
-import org.apache.myfaces.tobago.internal.component.AbstractUIMessages;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasFor;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutComponent;
+import org.apache.myfaces.tobago.layout.OrderBy;
 
 import javax.faces.component.UIMessages;
 
@@ -99,10 +99,10 @@ public interface MessagesTagDeclaration
    * Sets the order of the messages.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.component.UIMessages$OrderBy",
-      allowedValues = {AbstractUIMessages.OrderBy.OCCURRENCE_STRING, AbstractUIMessages.OrderBy.SEVERITY_STRING},
-      defaultValue = AbstractUIMessages.OrderBy.OCCURRENCE_STRING, 
-      defaultCode = "org.apache.myfaces.tobago.internal.component.AbstractUIMessages.OrderBy.OCCURRENCE")
+  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.OrderBy",
+      allowedValues = {OrderBy.STRING_OCCURRENCE, OrderBy.STRING_SEVERITY},
+      defaultValue = OrderBy.STRING_OCCURRENCE,
+      defaultCode = "org.apache.myfaces.tobago.layout.OrderBy.occurrence")
   void setOrderBy(String orderBy);
 
   /**

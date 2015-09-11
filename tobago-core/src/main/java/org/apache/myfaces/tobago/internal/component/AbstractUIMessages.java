@@ -21,6 +21,7 @@ package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.commons.collections.iterators.SingletonIterator;
 import org.apache.myfaces.tobago.layout.LayoutComponent;
+import org.apache.myfaces.tobago.layout.OrderBy;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -47,7 +48,7 @@ public abstract class AbstractUIMessages extends javax.faces.component.UIMessage
     final List<Item> messages = collectMessageList(facesContext, clientIds);
 
     // todo
-    if (OrderBy.SEVERITY.equals(getOrderBy())) {
+    if (OrderBy.severity == getOrderBy()) {
       // sort
       Collections.sort(messages, new ItemComparator());
     }
@@ -121,16 +122,4 @@ public abstract class AbstractUIMessages extends javax.faces.component.UIMessage
   public abstract String getFor();
 */
 
-  public static enum OrderBy {
-
-    OCCURRENCE,
-    SEVERITY;
-
-    public static final String OCCURRENCE_STRING = "occurrence";
-    public static final String SEVERITY_STRING = "severity";
-
-    public static OrderBy parse(final String key) {
-      return valueOf(key.toUpperCase());
-    }
-  }
 }
