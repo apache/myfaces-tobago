@@ -30,10 +30,9 @@ import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.event.SheetStateChangeSource;
 import org.apache.myfaces.tobago.event.SortActionSource;
 import org.apache.myfaces.tobago.event.TabChangeSource;
-import org.apache.myfaces.tobago.internal.component.AbstractUISegmentLayout;
 import org.apache.myfaces.tobago.internal.component.AbstractUIFlowLayout;
 import org.apache.myfaces.tobago.internal.component.AbstractUIGridLayout;
-import org.apache.myfaces.tobago.internal.component.AbstractUIPopup;
+import org.apache.myfaces.tobago.internal.component.AbstractUISegmentLayout;
 import org.apache.myfaces.tobago.internal.config.TobagoConfigImpl;
 
 import javax.faces.component.EditableValueHolder;
@@ -62,9 +61,6 @@ public class TobagoComponentHandler extends ComponentHandler {
     }
     if (DeprecatedDimension.class.isAssignableFrom(aClass)) {
       metaRuleset.addRule(DeprecatedDimensionRule.INSTANCE);
-    }
-    if (AbstractUIPopup.class.isAssignableFrom(aClass)) {
-      metaRuleset.addRule(PositionRule.INSTANCE);
     }
     if (AbstractUIGridLayout.class.isAssignableFrom(aClass)) {
       metaRuleset.addRule(GridLayoutRule.INSTANCE);

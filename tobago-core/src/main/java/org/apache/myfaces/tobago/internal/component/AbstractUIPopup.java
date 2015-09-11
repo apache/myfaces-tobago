@@ -24,7 +24,6 @@ import org.apache.myfaces.tobago.component.DeprecatedDimension;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.OnComponentCreated;
 import org.apache.myfaces.tobago.component.OnComponentPopulated;
-import org.apache.myfaces.tobago.component.Position;
 import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
 import org.apache.myfaces.tobago.layout.LayoutContainer;
 import org.apache.myfaces.tobago.layout.LayoutManager;
@@ -43,7 +42,7 @@ import java.util.Iterator;
 
 public abstract class AbstractUIPopup extends AbstractUIPanel
     implements OnComponentCreated, OnComponentPopulated, NamingContainer,
-    DeprecatedDimension, Position, LayoutContainer {
+    DeprecatedDimension, LayoutContainer {
 
   private static final Logger LOG = LoggerFactory.getLogger(AbstractUIPopup.class);
 
@@ -196,14 +195,6 @@ public abstract class AbstractUIPopup extends AbstractUIPanel
   public abstract Measure getHeight();
 
   public abstract void setHeight(Measure height);
-
-  public abstract Measure getTop();
-
-  public abstract void setTop(Measure top);
-
-  public abstract Measure getLeft();
-
-  public abstract void setLeft(Measure left);
 
   public abstract void setZIndex(Integer zIndex);
 }

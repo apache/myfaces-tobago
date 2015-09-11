@@ -66,24 +66,6 @@ public interface PopupTagDeclaration
   void setModal(String modal);
   
   /**
-   * This value will usually be set by the layout manager.
-   *
-   * @param left The left position of this component.
-   */
-  @TagAttribute
-  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
-  void setLeft(String left);
-
-  /**
-   * This value will usually be set by the layout manager.
-   *
-   * @param top The top position of this component.
-   */
-  @TagAttribute
-  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
-  void setTop(String top);
-
-  /**
    * TBD: Remove this attribute?
    *
    * Represents the visibility order of the popup. The renderer may implemented this visibility by the CSS z-index.
