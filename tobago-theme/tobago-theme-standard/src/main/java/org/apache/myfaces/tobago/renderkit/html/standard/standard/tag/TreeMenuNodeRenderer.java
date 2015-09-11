@@ -67,7 +67,7 @@ public class TreeMenuNodeRenderer extends TreeNodeRendererBase {
     // In the case of a sheet, we need not hiding the node, because the whole TR will be hidden.
     if (!dataRendersRowContainer && !visible) {
       final Style style = new Style();
-      style.setDisplay(Display.NONE);
+      style.setDisplay(Display.none);
       writer.writeStyleAttribute(style);
     }
 

@@ -19,19 +19,51 @@
 
 package org.apache.myfaces.tobago.layout;
 
+/**
+ * Values for display attribute used with CSS.
+ *
+ * Note: the enums are not capitalized, because of problems with {@link java.beans.PropertyEditor}.
+ */
 public enum Display {
 
-  BLOCK("block"),
-  INLINE("inline"),
-  NONE("none");
+  block,
+  inline,
+  none;
 
-  private String value;
+  /**
+   * @deprecated Since Tobago 3.0.0 Please use {@link Display#block}
+   */
+  public static final Display BLOCK = block;
 
-  Display(final String value) {
-    this.value = value;
-  }
+  /**
+   * @deprecated Since Tobago 3.0.0 Please use {@link Display#inline}
+   */
+  public static final Display INLINE = inline;
 
+  /**
+   * @deprecated Since Tobago 3.0.0 Please use {@link Display#none}
+   */
+  public static final Display NONE = none;
+
+  /**
+   * Internal constant to use in annotations. Please use {@link Display#block}
+   */
+  public static final String STRING_BLOCK = "block";
+
+  /**
+   * Internal constant to use in annotations. Please use {@link Display#inline}
+   */
+  public static final String STRING_INLINE = "inline";
+
+  /**
+   * Internal constant to use in annotations. Please use {@link Display#none}
+   */
+  public static final String STRING_NONE = "none";
+
+  /**
+   * @deprecated Since Tobago 3.0.0 Please use {@link Display:name}
+   */
   public String getValue() {
-    return value;
+    return name();
   }
 }

@@ -150,7 +150,7 @@ public class SplitLayoutRenderer extends GridLayoutRenderer {
       style.setTop(Measure.valueOf(Measure.valueOf(secondComponent.getTop().subtract(5))));
     }
     // todo: use CSS class
-    style.setDisplay(Display.BLOCK);
+    style.setDisplay(Display.block);
     style.setPosition(Position.absolute);
     return style;
   }

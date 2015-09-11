@@ -63,7 +63,7 @@ public class TreeNodeRenderer extends TreeNodeRendererBase {
     final Style style = new Style();
     // In the case of a sheet, we need not hiding the node, because the whole TR will be hidden.
     if (!dataRendersRowContainer && !visible) {
-      style.setDisplay(Display.NONE);
+      style.setDisplay(Display.none);
     }
 
     // div style (width)

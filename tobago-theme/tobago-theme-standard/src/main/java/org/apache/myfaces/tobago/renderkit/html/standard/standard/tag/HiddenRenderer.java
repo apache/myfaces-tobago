@@ -47,7 +47,7 @@ public class HiddenRenderer extends InputRendererBase {
     if (component instanceof UIHidden && ((UIHidden) component).isDisabled()) {
       writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.TEXT, false);
       final Style style = new Style();
-      style.setDisplay(Display.NONE);
+      style.setDisplay(Display.none);
       writer.writeStyleAttribute(style);
       writer.writeAttribute(HtmlAttributes.DISABLED, true);
     } else {

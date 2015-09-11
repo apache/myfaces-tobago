@@ -298,7 +298,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
       writer.writeClassAttribute(Classes.create(sheet, "row", rowMarkup));
       if (!sheet.isRowVisible()) {
         final Style rowStyle = new Style();
-        rowStyle.setDisplay(Display.NONE);
+        rowStyle.setDisplay(Display.none);
         writer.writeStyleAttribute(rowStyle);
       }
       final String parentId = sheet.getRowParentClientId();
