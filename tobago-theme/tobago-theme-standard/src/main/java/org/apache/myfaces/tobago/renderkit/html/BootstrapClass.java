@@ -161,13 +161,13 @@ public enum BootstrapClass implements CssItem {
 
   public static CssItem textAlign(final TextAlign textAlign) {
     switch (textAlign) {
-      case LEFT:
+      case left:
         return TEXT_LEFT;
-      case RIGHT:
+      case right:
         return TEXT_RIGHT;
-      case CENTER:
+      case center:
         return TEXT_CENTER;
-      case JUSTIFY:
+      case justify:
         return TEXT_JUSTIFY;
       default:
         return null;

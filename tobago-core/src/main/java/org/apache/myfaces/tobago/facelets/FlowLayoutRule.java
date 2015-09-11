@@ -22,7 +22,6 @@ package org.apache.myfaces.tobago.facelets;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UIFlowLayout;
 import org.apache.myfaces.tobago.layout.Measure;
-import org.apache.myfaces.tobago.layout.TextAlign;
 
 import javax.faces.view.facelets.FaceletContext;
 import javax.faces.view.facelets.MetaRule;
@@ -37,9 +36,6 @@ public class FlowLayoutRule extends MetaRule {
   public Metadata applyRule(final String name, final TagAttribute attribute, final MetadataTarget metadataTarget) {
     if (metadataTarget.isTargetInstanceOf(UIFlowLayout.class)) {
       if (attribute.isLiteral()) {
-        if (Attributes.TEXT_ALIGN.equals(name)) {
-          return new TextAlignMapper(attribute);
-        }
         if (Attributes.MARGIN_LEFT.equals(name)) {
           return new MarginLeftMapper(attribute);
         }
@@ -58,19 +54,6 @@ public class FlowLayoutRule extends MetaRule {
       }
     }
     return null;
-  }
-
-  static final class TextAlignMapper extends Metadata {
-    private final TagAttribute attribute;
-
-    TextAlignMapper(final TagAttribute attribute) {
-      this.attribute = attribute;
-    }
-
-    public void applyMetadata(final FaceletContext ctx, final Object instance) {
-      final UIFlowLayout gridLayout = (UIFlowLayout) instance;
-      gridLayout.setTextAlign(TextAlign.parse(attribute.getValue()));
-    }
   }
 
   static final class MarginLeftMapper extends Metadata {

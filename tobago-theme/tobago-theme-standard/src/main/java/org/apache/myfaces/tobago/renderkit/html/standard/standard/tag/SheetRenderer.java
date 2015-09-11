@@ -325,13 +325,21 @@ public class SheetRenderer extends LayoutComponentRendererBase {
         if (isPure(column)) {
           markup = markup.add(Markup.PURE);
         }
-        final TextAlign align = TextAlign.parse((String) column.getAttributes().get(Attributes.ALIGN));
-        if (align == TextAlign.RIGHT) {
-          markup = markup.add(Markup.RIGHT);
-        } else if (align == TextAlign.CENTER) {
-          markup = markup.add(Markup.CENTER);
-        } else if (align == TextAlign.JUSTIFY) {
-          markup = markup.add(Markup.JUSTIFY);
+        final String textAlign = (String) column.getAttributes().get(Attributes.ALIGN);
+        if (textAlign != null) {
+          switch (TextAlign.valueOf(textAlign)) {
+            case right:
+              markup = markup.add(Markup.RIGHT);
+              break;
+            case center:
+              markup = markup.add(Markup.CENTER);
+              break;
+            case justify:
+              markup = markup.add(Markup.JUSTIFY);
+              break;
+            default:
+              // nothing to do
+          }
         }
         writer.writeClassAttribute(Classes.create(sheet, "cell", markup));
 

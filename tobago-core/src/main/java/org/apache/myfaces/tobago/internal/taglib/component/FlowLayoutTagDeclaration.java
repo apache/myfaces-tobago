@@ -53,15 +53,15 @@ public interface FlowLayoutTagDeclaration
 
   /**
    * The alignment of the elements inside of the container, possible values are:
-   * {@value TextAlign#STRING_LEFT},
-   * {@value TextAlign#STRING_RIGHT},
-   * {@value TextAlign#STRING_CENTER} und
-   * {@value TextAlign#STRING_JUSTIFY}.
+   * {@link TextAlign#left},
+   * {@link TextAlign#right},
+   * {@link TextAlign#center} und
+   * {@link TextAlign#justify}.
    */
   @TagAttribute
   @UIComponentTagAttribute(
       type = {"org.apache.myfaces.tobago.layout.TextAlign"},
-      defaultValue = "TextAlign.LEFT",
+      defaultValue = "TextAlign.left",
       allowedValues = {
           TextAlign.STRING_LEFT, TextAlign.STRING_RIGHT, TextAlign.STRING_CENTER, TextAlign.STRING_JUSTIFY})
   void setTextAlign(String textAlign);
