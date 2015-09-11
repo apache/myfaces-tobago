@@ -210,7 +210,6 @@ var Tobago = {
     this.action = this.element(this.page.id + this.SUB_COMPONENT_SEP + 'form-action');
     this.contextPath = this.element(this.page.id + this.SUB_COMPONENT_SEP + 'context-path');
     this.blankPage = this.contextPath.value + '/org/apache/myfaces/tobago/renderkit/html/standard/blank.html';
-    this.actionPosition = this.element(this.page.id + this.SUB_COMPONENT_SEP + 'action-position');
 
     this.addBindEventListener(window, 'unload', this, 'onUnload');
 
@@ -341,7 +340,6 @@ var Tobago = {
     delete this.page;
     delete this.form;
     delete this.action;
-    delete this.actionPosition;
     delete this.contextPath;
     delete this.blankPage;
     delete this.lastFocusId;
@@ -412,8 +410,6 @@ var Tobago = {
       this.form.appendChild(lastFocusId);
     }
 
-    Tobago.setActionPosition(source);
-
     Tobago.Transport.request(function() {
       if (!this.isSubmit) {
         this.isSubmit = true;
@@ -460,17 +456,6 @@ var Tobago = {
 
 
     }, true);
-  },
-
-  setActionPosition: function(source) {
-    var offset = jQuery(source).offset();
-    var sourceWidth = Tobago.getWidth(source);
-    var sourceHeight = Tobago.getHeight(source);
-    Tobago.actionPosition.value
-        = (offset ? parseInt(offset.left) + 'px,' : '0px,')
-        + (offset ? parseInt(offset.top) + 'px,' : '0px,')
-        + sourceWidth + 'px,' + sourceHeight + 'px';
-//    alert("source='" + source + "' action-position=" + Tobago.actionPosition.value);
   },
 
   getJsfState: function() {
@@ -2016,9 +2001,6 @@ Tobago.Updater = {
           }
         }
       }
-
-      Tobago.setActionPosition(source);
-
 
       if (!Tobago.partialRequestIds) {
         var hidden = document.createElement('input');

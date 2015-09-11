@@ -41,7 +41,7 @@ import org.apache.myfaces.tobago.internal.util.ResponseUtils;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.portlet.PortletUtils;
-import org.apache.myfaces.tobago.renderkit.PageRendererBase;
+import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.html.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
@@ -71,7 +71,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public class PageRenderer extends PageRendererBase {
+public class PageRenderer extends LayoutComponentRendererBase {
 
   private static final Logger LOG = LoggerFactory.getLogger(PageRenderer.class);
 
@@ -88,10 +88,18 @@ public class PageRenderer extends PageRendererBase {
 
   @Override
   public void decode(final FacesContext facesContext, final UIComponent component) {
-    super.decode(facesContext, component);
-    final String clientId = component.getClientId(facesContext);
-    final ExternalContext externalContext = facesContext.getExternalContext();
+    final AbstractUIPage page = (AbstractUIPage) component;
+    final String clientId = page.getClientId(facesContext);
 
+    final String actionIdName = clientId + ComponentUtils.SUB_SEPARATOR + "form-action";
+    final String newActionId = facesContext.getExternalContext().getRequestParameterMap().get(actionIdName);
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("action = " + newActionId);
+    }
+    page.setActionId(newActionId);
+    FacesContextUtils.setActionId(facesContext, newActionId);
+
+    final ExternalContext externalContext = facesContext.getExternalContext();
     // last focus
     final String lastFocusId =
         externalContext.getRequestParameterMap().get(clientId + ComponentUtils.SUB_SEPARATOR + LAST_FOCUS_ID);
@@ -304,12 +312,6 @@ public class PageRenderer extends PageRendererBase {
     writer.writeNameAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "context-path");
     writer.writeIdAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "context-path");
     writer.writeAttribute(HtmlAttributes.VALUE, externalContext.getRequestContextPath(), true);
-    writer.endElement(HtmlElements.INPUT);
-
-    writer.startElement(HtmlElements.INPUT, null);
-    writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN, false);
-    writer.writeNameAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "action-position");
-    writer.writeIdAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "action-position");
     writer.endElement(HtmlElements.INPUT);
 
     writer.startElement(HtmlElements.INPUT, null);
@@ -628,28 +630,6 @@ public class PageRenderer extends PageRendererBase {
       return getResourceManager().getThemeMeasure(facesContext, page, "custom.menuBar-height");
     } else {
       return Measure.ZERO;
-    }
-  }
-
-  @Override
-  public Measure getWidth(final FacesContext facesContext, final Configurable component) {
-    // width of the actual browser window
-    final Measure width = ClientProperties.getInstance(facesContext).getPageWidth();
-    if (width != null) {
-      return width;
-    } else {
-      return super.getWidth(facesContext, component);
-    }
-  }
-
-  @Override
-  public Measure getHeight(final FacesContext facesContext, final Configurable component) {
-    // height of the actual browser window
-    final Measure height = ClientProperties.getInstance(facesContext).getPageHeight();
-    if (height != null) {
-      return height;
-    } else {
-      return super.getHeight(facesContext, component);
     }
   }
 }

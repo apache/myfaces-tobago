@@ -27,7 +27,6 @@ import org.apache.myfaces.tobago.internal.ajax.AjaxInternalUtils;
 import org.apache.myfaces.tobago.internal.ajax.AjaxResponseRenderer;
 import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
 import org.apache.myfaces.tobago.internal.webapp.TobagoMultipartFormdataRequest;
-import org.apache.myfaces.tobago.layout.Box;
 import org.apache.myfaces.tobago.layout.LayoutContainer;
 import org.apache.myfaces.tobago.layout.LayoutManager;
 import org.apache.myfaces.tobago.layout.Measure;
@@ -68,8 +67,6 @@ public abstract class AbstractUIPage extends AbstractUIForm
   private String formId;
 
   private String actionId;
-
-  private Box actionPosition;
 
   @Override
   public boolean getRendersChildren() {
@@ -312,14 +309,6 @@ public abstract class AbstractUIPage extends AbstractUIForm
 
   public void setActionId(final String actionId) {
     this.actionId = actionId;
-  }
-
-  public Box getActionPosition() {
-    return actionPosition;
-  }
-
-  public void setActionPosition(final Box actionPosition) {
-    this.actionPosition = actionPosition;
   }
 
   public void onComponentPopulated(final FacesContext facesContext, final UIComponent parent) {

@@ -54,3 +54,12 @@ Done:
       </f:facet>
       ... content ...
     </tc:panel>
+
+No longer supported:
+* AbstractUIPage.getActionPosition()
+* AbstractUIPage.setActionPosition()
+* class Box
+* class Dimension
+* class Position
+* ClientProperties.pageWidth
+* ClientProperties.pageHeight
