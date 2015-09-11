@@ -17,7 +17,7 @@
  * under the License.
  */
 
-package org.apache.myfaces.tobago.renderkit.css;
+package org.apache.myfaces.tobago.layout;
 
 public enum Overflow {
 
