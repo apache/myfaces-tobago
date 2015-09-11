@@ -21,17 +21,29 @@ package org.apache.myfaces.tobago.layout;
 
 public enum Overflow {
 
-  AUTO("auto"),
-  HIDDEN("hidden"),
-  SCROLL("scroll");
+  auto,
+  hidden,
+  scroll;
 
-  private String value;
+  /**
+   * @deprecated Since Tobago 3.0.0 Please use {@link Overflow#auto}
+   */
+  public static final Overflow AUTO = auto;
 
-  Overflow(final String value) {
-    this.value = value;
-  }
+  /**
+   * @deprecated Since Tobago 3.0.0 Please use {@link Overflow#hidden}
+   */
+  public static final Overflow HIDDEN=hidden;
 
+  /**
+   * @deprecated Since Tobago 3.0.0 Please use {@link Overflow#scroll}
+   */
+  public static final Overflow SCROLL=scroll;
+
+  /**
+   * @deprecated Since Tobago 3.0.0 Please use {@link Overflow:name}
+   */
   public String getValue() {
-    return value;
+    return name();
   }
 }
