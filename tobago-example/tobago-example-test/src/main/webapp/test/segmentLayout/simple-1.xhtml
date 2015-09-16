@@ -23,10 +23,11 @@
 
   <tc:page id="page" label="Layout">
     <tc:segmentLayout medium="2;4;2;4" small="6;6">
-      <tx:in label="1st label" value="a aa aaa aaaa aaaaa"/>
-      <tx:in label="2nd label" value="b bb bbb bbbb bbbbb b bb bbb bbbb bbbbb b bb bbb bbbb bbb bbbb bbbbb "/>
-      <tx:textarea label="3rd label" value="c cc ccc cccc ccccc"/>
-      <tx:textarea label="4th label" value="d dd ddd dddd ddddd"/>
+      <tc:label value="1st label"/>
+      <tc:in value="a aa aaa aaaa aaaaa" labelLayout="none"/>
+      <tc:in label="2nd label" value="b bb bbb bbbb bbbbb b bb bbb bbbb bbbbb b bb bbb bbbb bbb bbbb bbbbb " labelLayout="segmentLeft"/>
+      <tc:textarea label="3rd label" value="c cc ccc cccc ccccc" labelLayout="segmentLeft"/>
+      <tc:textarea label="4th label" value="d dd ddd dddd ddddd" labelLayout="segmentLeft"/>
     </tc:segmentLayout>
   </tc:page>
 </f:view>

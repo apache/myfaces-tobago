@@ -20,6 +20,7 @@
 package org.apache.myfaces.tobago.webapp;
 
 import org.apache.myfaces.tobago.ajax.AjaxUtils;
+import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.CssItem;
 import org.apache.myfaces.tobago.renderkit.css.Style;
@@ -130,12 +131,12 @@ public abstract class TobagoResponseWriter extends ResponseWriter {
    * @param classes The abstract representation of the css class string, normally created by the renderer.
    */
   public void writeClassAttribute(final Classes classes) throws IOException {
-    writeAttribute(HtmlAttributes.CLASS, classes.getStringValue(), false);
+    final String stringValue = classes.getStringValue();
+    if (StringUtils.isNotBlank(stringValue)) {
+      writeAttribute(HtmlAttributes.CLASS, stringValue, false);
+    }
   }
 
-  /**
-   * TBD: preliminary
-   */
   public void writeClassAttribute(final CssItem first, final CssItem... others) throws IOException {
     StringBuilder builder = new StringBuilder();
     if (first != null) {
@@ -153,9 +154,6 @@ public abstract class TobagoResponseWriter extends ResponseWriter {
     }
   }
 
-  /**
-   * TBD: preliminary
-   */
   public void writeClassAttribute(final Classes classes, final CssItem... others) throws IOException {
     StringBuilder builder = new StringBuilder(classes.getStringValue());
     for (CssItem other : others) {

@@ -22,7 +22,6 @@ package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 import org.apache.myfaces.tobago.application.ProjectStage;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
-import org.apache.myfaces.tobago.component.SupportsCss;
 import org.apache.myfaces.tobago.component.UIMenuBar;
 import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.component.UIPopup;
@@ -42,8 +41,8 @@ import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.portlet.PortletUtils;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
+import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
-import org.apache.myfaces.tobago.renderkit.html.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
@@ -75,15 +74,6 @@ public class PageRenderer extends LayoutComponentRendererBase {
   private static final Logger LOG = LoggerFactory.getLogger(PageRenderer.class);
 
   private static final String LAST_FOCUS_ID = "lastFocusId";
-
-  @Override
-  public void prepareRender(
-      final FacesContext facesContext, final UIComponent component) throws IOException {
-    super.prepareRender(facesContext, component);
-
-    SupportsCss css = (SupportsCss) component;
-    css.getCurrentCss().add(BootstrapClass.CONTAINER_FLUID.getName());
-  }
 
   @Override
   public void decode(final FacesContext facesContext, final UIComponent component) {
@@ -237,10 +227,10 @@ public class PageRenderer extends LayoutComponentRendererBase {
 
     if (portlet) {
       writer.startElement(HtmlElements.DIV, page);
-      writer.writeClassAttribute(Classes.create(page, Markup.PORTLET));
+      writer.writeClassAttribute(Classes.create(page, Markup.PORTLET), BootstrapClass.CONTAINER_FLUID);
     } else {
       writer.startElement(HtmlElements.BODY, page);
-      writer.writeClassAttribute(Classes.create(page));
+      writer.writeClassAttribute(Classes.create(page), BootstrapClass.CONTAINER_FLUID);
     }
     writer.writeIdAttribute(clientId);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, page);

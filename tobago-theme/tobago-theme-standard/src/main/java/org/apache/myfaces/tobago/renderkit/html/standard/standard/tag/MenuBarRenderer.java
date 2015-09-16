@@ -19,12 +19,11 @@
 
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
-import org.apache.myfaces.tobago.component.SupportsCss;
 import org.apache.myfaces.tobago.component.UIMenuBar;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
+import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
-import org.apache.myfaces.tobago.renderkit.html.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -36,15 +35,6 @@ import java.io.IOException;
 public class MenuBarRenderer extends LayoutComponentRendererBase {
 
   @Override
-  public void prepareRender(
-      final FacesContext facesContext, final UIComponent component) throws IOException {
-    super.prepareRender(facesContext, component);
-
-    SupportsCss css = (SupportsCss) component;
-    css.getCurrentCss().add(BootstrapClass.NAV.getName(), BootstrapClass.NAVBAR_NAV.getName());
-  }
-
-  @Override
   public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
 
     final UIMenuBar menuBar = (UIMenuBar) component;
@@ -52,7 +42,7 @@ public class MenuBarRenderer extends LayoutComponentRendererBase {
 
     writer.startElement(HtmlElements.OL, menuBar);
     writer.writeIdAttribute(menuBar.getClientId(facesContext));
-    writer.writeClassAttribute(Classes.create(menuBar));
+    writer.writeClassAttribute(Classes.create(menuBar), BootstrapClass.NAV, BootstrapClass.NAVBAR_NAV);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, menuBar);
     final Style style = menuBar.getStyle();
     writer.writeStyleAttribute(style);

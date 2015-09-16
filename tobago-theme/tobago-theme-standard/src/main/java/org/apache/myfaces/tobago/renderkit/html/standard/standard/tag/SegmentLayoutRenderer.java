@@ -23,16 +23,15 @@ import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.LabelLayout;
 import org.apache.myfaces.tobago.component.SupportsLabelLayout;
 import org.apache.myfaces.tobago.component.UIExtensionPanel;
-import org.apache.myfaces.tobago.component.UILabel;
 import org.apache.myfaces.tobago.component.UISegmentLayout;
 import org.apache.myfaces.tobago.internal.component.AbstractUISegmentLayout;
 import org.apache.myfaces.tobago.layout.LayoutContainer;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
-import org.apache.myfaces.tobago.renderkit.css.Css;
-import org.apache.myfaces.tobago.renderkit.html.BootstrapClass;
+import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
+import org.apache.myfaces.tobago.renderkit.css.BootstrapClassGenerator;
+import org.apache.myfaces.tobago.renderkit.css.CssItem;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
-import org.apache.myfaces.tobago.renderkit.util.BootstrapCssGenerator;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
@@ -86,7 +85,7 @@ public class SegmentLayoutRenderer extends RendererBase {
     }
 
     final List<UIComponent> children = container.getChildren();
-    final BootstrapCssGenerator generator = new BootstrapCssGenerator(
+    final BootstrapClassGenerator generator = new BootstrapClassGenerator(
         segmentLayout.getExtraSmall(),
         segmentLayout.getSmall(),
         segmentLayout.getMedium(),
@@ -106,18 +105,9 @@ public class SegmentLayoutRenderer extends RendererBase {
 
   private void encodeChild(
       final FacesContext facesContext, final TobagoResponseWriter writer,
-      final BootstrapCssGenerator generator, final UIComponent child) throws IOException {
-    if (child instanceof UILabel) {
-      final UILabel label = (UILabel) child;
-      Css currentCss = label.getCurrentCss();
-      if (currentCss == null) {
-        currentCss = new Css();
-        label.setCurrentCss(currentCss);
-      }
-      generator.generate(currentCss);
-      RenderUtils.encode(facesContext, child);
-      generator.next();
-    } else if (child instanceof SupportsLabelLayout
+      final BootstrapClassGenerator generator, final UIComponent child) throws IOException {
+
+    if (child instanceof SupportsLabelLayout
         && LabelLayout.isSegment(((SupportsLabelLayout) child).getLabelLayout())) {
 
       // left part
@@ -137,12 +127,11 @@ public class SegmentLayoutRenderer extends RendererBase {
     }
   }
 
-  private void encodeDiv(FacesContext facesContext, TobagoResponseWriter writer, BootstrapCssGenerator generator,
-                         UIComponent child) throws IOException {
+  private void encodeDiv(
+      FacesContext facesContext, TobagoResponseWriter writer, BootstrapClassGenerator generator, UIComponent child)
+      throws IOException {
     writer.startElement(HtmlElements.DIV, null);
-    Css css = new Css();
-    generator.generate(css);
-    writer.writeClassAttribute(css.encode());
+    writer.writeClassAttribute((CssItem)null, generator.generate());
     RenderUtils.encode(facesContext, child);
     writer.endElement(HtmlElements.DIV);
   }

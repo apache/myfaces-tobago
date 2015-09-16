@@ -20,31 +20,26 @@
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
 import org.apache.myfaces.tobago.component.RendererTypes;
-import org.apache.myfaces.tobago.component.SupportsCss;
 import org.apache.myfaces.tobago.component.UIMenu;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.internal.util.AccessKeyLogger;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
+import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
-import org.apache.myfaces.tobago.renderkit.html.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
 public class MenuRenderer extends LayoutComponentRendererBase {
-
-  private static final Logger LOG = LoggerFactory.getLogger(MenuRenderer.class);
 
   @Override
   public void prepareRender(final FacesContext facesContext, final UIComponent component) throws IOException {
@@ -55,9 +50,6 @@ public class MenuRenderer extends LayoutComponentRendererBase {
     if (firstLevel) {
       ComponentUtils.addCurrentMarkup(menu, Markup.TOP);
     }
-
-    SupportsCss css = (SupportsCss) component;
-    css.getCurrentCss().add(BootstrapClass.DROPDOWN.getName());
   }
 
   @Override
@@ -72,7 +64,7 @@ public class MenuRenderer extends LayoutComponentRendererBase {
     final boolean isParentMenu = menu.getChildCount() > 0; // todo: may be not correct
 
     writer.startElement(HtmlElements.LI, menu);
-    writer.writeClassAttribute(Classes.create(menu));
+    writer.writeClassAttribute(Classes.create(menu), BootstrapClass.DROPDOWN);
     StringBuilder backgroundImage = null;
     StringBuilder backgroundPosition = null;
     if (menu.getImage() != null) {

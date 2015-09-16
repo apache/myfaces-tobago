@@ -19,13 +19,11 @@
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
 import org.apache.myfaces.tobago.component.Facets;
-import org.apache.myfaces.tobago.component.SupportsCss;
 import org.apache.myfaces.tobago.component.UIBox;
 import org.apache.myfaces.tobago.component.UIMenuBar;
 import org.apache.myfaces.tobago.renderkit.BoxRendererBase;
+import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
-import org.apache.myfaces.tobago.renderkit.css.Css;
-import org.apache.myfaces.tobago.renderkit.html.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
@@ -46,16 +44,6 @@ public class BoxRenderer extends BoxRendererBase {
     private static final Logger LOG = LoggerFactory.getLogger(BoxRenderer.class);
 
     @Override
-    public void prepareRender(
-            final FacesContext facesContext, final UIComponent component) throws IOException {
-        super.prepareRender(facesContext, component);
-
-        final Css css = ((SupportsCss) component).getCurrentCss();
-        css.add("panel");
-        css.add("panel-default");
-    }
-
-    @Override
     public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
 
         final UIBox box = (UIBox) component;
@@ -70,7 +58,7 @@ public class BoxRenderer extends BoxRendererBase {
         }
 
         writer.startElement(HtmlElements.DIV, box);
-        writer.writeClassAttribute(Classes.create(box));
+        writer.writeClassAttribute(Classes.create(box), BootstrapClass.PANEL, BootstrapClass.PANEL_DEFAULT);
         writer.writeIdAttribute(box.getClientId(facesContext));
         final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, box);
         if (title != null) {

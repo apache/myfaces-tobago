@@ -20,7 +20,6 @@
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
 import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.component.SupportsCss;
 import org.apache.myfaces.tobago.component.UIButton;
 import org.apache.myfaces.tobago.internal.component.AbstractUICommand;
 import org.apache.myfaces.tobago.internal.component.AbstractUIForm;
@@ -28,6 +27,7 @@ import org.apache.myfaces.tobago.internal.component.AbstractUIToolBar;
 import org.apache.myfaces.tobago.internal.util.AccessKeyLogger;
 import org.apache.myfaces.tobago.renderkit.CommandRendererBase;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
+import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.html.Command;
 import org.apache.myfaces.tobago.renderkit.html.CommandMap;
@@ -51,27 +51,6 @@ public class ButtonRenderer extends CommandRendererBase {
   private static final Logger LOG = LoggerFactory.getLogger(ButtonRenderer.class);
 
   @Override
-  public void prepareRender(
-      final FacesContext facesContext, final UIComponent component) throws IOException {
-    super.prepareRender(facesContext, component);
-
-    if (component instanceof SupportsCss) {
-      SupportsCss css = (SupportsCss) component;
-      css.getCurrentCss().add("btn");
-      if (ComponentUtils.getBooleanAttribute(component, Attributes.DEFAULT_COMMAND)) {
-        css.getCurrentCss().add("btn-primary");
-      } else {
-        css.getCurrentCss().add("btn-default");
-      }
-
-      // TODO this might be too expensive:
-      // TODO please put a flag in the ToolBar-handler and Button-handler (facelets-handler)
-      if (ComponentUtils.findAncestor(component, AbstractUIToolBar.class) != null) {
-        css.getCurrentCss().add("navbar-btn");
-      }
-    }
-  }
-
   public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
 
     final AbstractUICommand button = (AbstractUICommand) component;
@@ -112,7 +91,17 @@ public class ButtonRenderer extends CommandRendererBase {
     }
 
     writer.writeStyleAttribute(button.getStyle());
-    writer.writeClassAttribute(Classes.create(button));
+
+    final boolean defaultCommand = ComponentUtils.getBooleanAttribute(component, Attributes.DEFAULT_COMMAND);
+    // TODO this might be too expensive:
+    // TODO please put a flag in the ToolBar-handler and Button-handler (facelets-handler)
+    final boolean insideToolbar = ComponentUtils.findAncestor(component, AbstractUIToolBar.class) != null;
+    writer.writeClassAttribute(
+        Classes.create(button),
+        BootstrapClass.BTN,
+        defaultCommand ? BootstrapClass.BTN_PRIMARY : BootstrapClass.BTN_DEFAULT,
+        insideToolbar ? BootstrapClass.NAVBAR_BTN : null);
+
     if (button instanceof UIButton && ((UIButton) component).isDefaultCommand()) {
       final AbstractUIForm form = ComponentUtils.findAncestor(component, AbstractUIForm.class);
       writer.writeAttribute(DataAttributes.DEFAULT, form.getClientId(facesContext), false);

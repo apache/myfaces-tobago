@@ -19,12 +19,12 @@
 
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
-import org.apache.myfaces.tobago.component.SupportsCss;
 import org.apache.myfaces.tobago.component.UILabel;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.util.AccessKeyLogger;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
+import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
@@ -57,9 +57,6 @@ public class LabelRenderer extends LayoutComponentRendererBase {
       markup = ComponentUtils.updateMarkup(corresponding, markup);
       label.setCurrentMarkup(markup);
     }
-
-    SupportsCss css = (SupportsCss) component;
-    css.getCurrentCss().add("control-label");
   }
 
   public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
@@ -72,8 +69,7 @@ public class LabelRenderer extends LayoutComponentRendererBase {
     final String clientId = label.getClientId(facesContext);
     writer.startElement(HtmlElements.LABEL, label);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, label);
-    final Classes classes = Classes.create(label);
-    writer.writeClassAttribute(classes);
+    writer.writeClassAttribute(Classes.create(label), BootstrapClass.CONTROL_LABEL);
     writer.writeStyleAttribute(label.getStyle());
     writer.writeIdAttribute(clientId);
     if (forValue != null) {

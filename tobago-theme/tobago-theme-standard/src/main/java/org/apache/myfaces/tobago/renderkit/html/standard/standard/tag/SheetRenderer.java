@@ -57,7 +57,8 @@ import org.apache.myfaces.tobago.model.TreePath;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
-import org.apache.myfaces.tobago.renderkit.html.BootstrapClass;
+import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
+import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.Command;
 import org.apache.myfaces.tobago.renderkit.html.CommandMap;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
@@ -445,9 +446,9 @@ public class SheetRenderer extends LayoutComponentRendererBase {
       final Markup showDirectLinks = markupForLeftCenterRight(sheet.getShowDirectLinks());
       if (showDirectLinks != Markup.NULL) {
         writer.startElement(HtmlElements.UL, null);
-        final String pagingOuter = Classes.create(sheet, "pagingOuter", showDirectLinks).getStringValue();
-        writer.writeClassAttribute(pagingOuter  + " "
-            + BootstrapClass.PAGINATION.getName() + " tobago-sheet-pagingLinks");
+        writer.writeClassAttribute(
+            Classes.create(sheet, "pagingOuter", showDirectLinks),
+            BootstrapClass.PAGINATION, TobagoClass.SHEET__PAGING_LINKS);
         String areaId = "pagingLinks";
         writer.writeIdAttribute(sheetId + ComponentUtils.SUB_SEPARATOR + areaId);
         if (sheet.isShowDirectLinksArrows()) {
@@ -475,8 +476,8 @@ public class SheetRenderer extends LayoutComponentRendererBase {
         final String pagerCommandId = pagerCommand.getClientId(facesContext);
 
         writer.startElement(HtmlElements.SPAN, null);
-        final Classes pagingOuter = Classes.create(sheet, "pagingOuter", showPageRange);
-        writer.writeClassAttribute(pagingOuter.getStringValue() + " tobago-sheet-pagingPages");
+        writer.writeClassAttribute(
+            Classes.create(sheet, "pagingOuter", showPageRange), TobagoClass.SHEET__PAGING_PAGES);
         String areaId = "pagingPages";
         writer.writeIdAttribute(sheetId + ComponentUtils.SUB_SEPARATOR + "pagingPages");
         writer.writeText("");

@@ -17,9 +17,7 @@
  * under the License.
  */
 
-package org.apache.myfaces.tobago.renderkit.html;
-
-import org.apache.myfaces.tobago.renderkit.css.CssItem;
+package org.apache.myfaces.tobago.renderkit.css;
 
 /**
  * TBD: preliminary
@@ -32,7 +30,9 @@ public enum TobagoClass implements CssItem {
   LABEL("tobago-label"),
   MESSAGES("tobago-messages"),
   PANEL("tobago-panel"),
-  POPUP("tobago-popup");
+  POPUP("tobago-popup"),
+  SHEET__PAGING_LINKS("tobago-sheet-pagingLinks"),
+  SHEET__PAGING_PAGES("tobago-sheet-pagingPages");
 
   private final String name;
 
