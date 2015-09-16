@@ -24,7 +24,6 @@ import org.apache.myfaces.tobago.component.UICommand;
 import org.apache.myfaces.tobago.component.UIProgress;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
-import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
@@ -60,13 +59,12 @@ public class ProgressRenderer extends LayoutComponentRendererBase {
       title = Integer.toString((int) percent) + " %";
     }
 
-    final Style style = new Style(facesContext, progress);
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
     writer.startElement(HtmlElements.DIV, progress);
     writer.writeClassAttribute(Classes.create(progress));
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, progress);
-    writer.writeStyleAttribute(style);
+    writer.writeStyleAttribute(progress.getStyle());
     if (title != null) {
       writer.writeAttribute(HtmlAttributes.TITLE, String.valueOf(title), true);
     }

@@ -140,11 +140,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
   public void encodeEnd(final FacesContext facesContext, final UIComponent uiComponent) throws IOException {
 
     final UISheet sheet = (UISheet) uiComponent;
-
-    final Style style = new Style(facesContext, sheet);
-
     final String sheetId = sheet.getClientId(facesContext);
-
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
     // Outer sheet div
@@ -152,7 +148,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
     writer.writeIdAttribute(sheetId);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, sheet);
     writer.writeClassAttribute(Classes.create(sheet));
-    writer.writeStyleAttribute(style);
+    writer.writeStyleAttribute(sheet.getStyle());
     final UIComponent facetReload = sheet.getFacet(Facets.RELOAD);
     if (facetReload != null && facetReload instanceof UIReload && facetReload.isRendered()) {
       final UIReload update = (UIReload) facetReload;
@@ -167,13 +163,12 @@ public class SheetRenderer extends LayoutComponentRendererBase {
 
     final boolean rowAction = HtmlRendererUtils.renderSheetCommands(sheet, facesContext, writer);
 
-    renderSheet(facesContext, sheet, rowAction, style);
+    renderSheet(facesContext, sheet, rowAction);
 
     writer.endElement(HtmlElements.DIV);
   }
 
-  private void renderSheet(
-      final FacesContext facesContext, final UISheet sheet, final boolean hasClickAction, final Style style)
+  private void renderSheet(final FacesContext facesContext, final UISheet sheet, final boolean hasClickAction)
       throws IOException {
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
     final String sheetId = sheet.getClientId(facesContext);

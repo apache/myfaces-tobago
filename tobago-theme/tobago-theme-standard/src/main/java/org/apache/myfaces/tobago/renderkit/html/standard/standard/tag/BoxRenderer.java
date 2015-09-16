@@ -77,6 +77,7 @@ public class BoxRenderer extends BoxRendererBase {
             writer.writeAttribute(HtmlAttributes.TITLE, title, true);
         }
         HtmlRendererUtils.writeDataAttributes(facesContext, writer, box);
+        writer.writeStyleAttribute(box.getStyle());
 
         if (label != null || labelString != null || toolbar != null) {
             writer.startElement(HtmlElements.DIV, box);

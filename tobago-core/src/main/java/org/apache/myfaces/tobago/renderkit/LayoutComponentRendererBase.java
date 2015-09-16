@@ -27,10 +27,6 @@ import javax.faces.context.FacesContext;
 
 public abstract class LayoutComponentRendererBase extends RendererBase implements LayoutComponentRenderer {
 
-  public Measure getCustomMeasure(final FacesContext facesContext, final Configurable component, final String name) {
-    return getResourceManager().getThemeMeasure(facesContext, component, name);
-  }
-
   public Measure getWidth(final FacesContext facesContext, final Configurable component) {
     return getResourceManager().getThemeMeasure(facesContext, component, Attributes.WIDTH);
   }

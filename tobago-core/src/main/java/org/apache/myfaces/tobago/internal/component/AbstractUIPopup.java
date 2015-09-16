@@ -22,14 +22,10 @@ package org.apache.myfaces.tobago.internal.component;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.DeprecatedDimension;
 import org.apache.myfaces.tobago.component.Facets;
-import org.apache.myfaces.tobago.component.OnComponentCreated;
-import org.apache.myfaces.tobago.component.OnComponentPopulated;
 import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
 import org.apache.myfaces.tobago.layout.LayoutContainer;
 import org.apache.myfaces.tobago.layout.LayoutManager;
 import org.apache.myfaces.tobago.layout.Measure;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.el.ValueExpression;
 import javax.faces.component.NamingContainer;
@@ -41,35 +37,9 @@ import java.io.IOException;
 import java.util.Iterator;
 
 public abstract class AbstractUIPopup extends AbstractUIPanel
-    implements OnComponentCreated, OnComponentPopulated, NamingContainer,
-    DeprecatedDimension, LayoutContainer {
-
-  private static final Logger LOG = LoggerFactory.getLogger(AbstractUIPopup.class);
-
-  private static final String Z_INDEX = AbstractUIPopup.class.getName() + ".Z_INDEX";
+    implements NamingContainer, DeprecatedDimension, LayoutContainer {
 
   private boolean activated;
-
-  public void onComponentCreated(final FacesContext facesContext, final UIComponent parent) {
-    Integer zIndex = (Integer) facesContext.getExternalContext().getRequestMap().get(Z_INDEX);
-    if (zIndex == null) {
-      zIndex = 1;
-    } else {
-      zIndex++;
-    }
-    setZIndex(zIndex);
-    facesContext.getExternalContext().getRequestMap().put(Z_INDEX, zIndex);
-  }
-
-  public void onComponentPopulated(final FacesContext facesContext, final UIComponent parent) {
-/*
-    if (getLayoutManager() == null) {
-      final AbstractUIGridLayout layoutManager = (AbstractUIGridLayout) CreateComponentUtils.createAndInitLayout(
-          facesContext, ComponentTypes.GRID_LAYOUT, RendererTypes.GRID_LAYOUT, parent);
-      setLayoutManager(layoutManager);
-    }
-*/
-  }
 
   public void setActivated(final boolean activated) {
     this.activated = activated;
@@ -195,6 +165,4 @@ public abstract class AbstractUIPopup extends AbstractUIPanel
   public abstract Measure getHeight();
 
   public abstract void setHeight(Measure height);
-
-  public abstract void setZIndex(Integer zIndex);
 }

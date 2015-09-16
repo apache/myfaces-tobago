@@ -27,6 +27,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRend
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasImage;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabel;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasStyle;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 
 import javax.faces.component.UIPanel;
@@ -42,5 +43,5 @@ import javax.faces.component.UIPanel;
     rendererType = RendererTypes.NAV,
     allowedChildComponenents = "ALL")
 public interface NavTagDeclaration
-    extends HasIdBindingAndRendered, HasTip, HasMarkup, HasCurrentMarkup, HasImage, HasLabel {
+    extends HasIdBindingAndRendered, HasTip, HasMarkup, HasCurrentMarkup, HasImage, HasLabel, HasStyle {
 }

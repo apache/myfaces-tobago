@@ -169,12 +169,4 @@ public interface IsGridLayoutComponentBase {
   @UIComponentTagAttribute(type = "java.lang.Integer")
   void setVerticalIndex(String verticalIndex);
 
-  /**
-   * This attribute is for internal use only.
-   *
-   * @param display Indicates the renderer to render the element as block or inline.
-   */
-  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Display")
-  void setDisplay(String display);
-  
 }

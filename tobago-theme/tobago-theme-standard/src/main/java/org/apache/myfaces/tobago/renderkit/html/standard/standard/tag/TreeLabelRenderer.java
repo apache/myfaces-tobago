@@ -25,7 +25,6 @@ import org.apache.myfaces.tobago.internal.component.AbstractUITreeListbox;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
-import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
@@ -57,7 +56,7 @@ public class TreeLabelRenderer extends LayoutComponentRendererBase {
       writer.startElement(HtmlElements.LABEL, label);
       writer.writeClassAttribute(Classes.create(label));
       HtmlRendererUtils.writeDataAttributes(facesContext, writer, label);
-      writer.writeStyleAttribute(createStyle(facesContext, label));
+      writer.writeStyleAttribute(label.getStyle());
       final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, label);
       if (title != null) {
         writer.writeAttribute(HtmlAttributes.TITLE, title, true);
@@ -67,9 +66,5 @@ public class TreeLabelRenderer extends LayoutComponentRendererBase {
 
       writer.endElement(HtmlElements.LABEL);
     }
-  }
-
-  protected Style createStyle(final FacesContext facesContext, final UITreeLabel link) {
-    return new Style(facesContext, link);
   }
 }

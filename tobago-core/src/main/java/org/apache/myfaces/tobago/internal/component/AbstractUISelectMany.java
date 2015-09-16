@@ -22,13 +22,14 @@ package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.myfaces.tobago.component.SupportsLabelLayout;
 import org.apache.myfaces.tobago.component.SupportsMarkup;
+import org.apache.myfaces.tobago.component.SupportsStyle;
 import org.apache.myfaces.tobago.layout.LayoutComponent;
 
 import javax.faces.component.UISelectMany;
 import java.util.Collection;
 
 public abstract class AbstractUISelectMany extends UISelectMany
-    implements SupportsMarkup, SupportsLabelLayout, LayoutComponent {
+    implements SupportsMarkup, SupportsLabelLayout, LayoutComponent, SupportsStyle {
 
   public Object[] getSelectedValues() {
     final Object value = getValue();

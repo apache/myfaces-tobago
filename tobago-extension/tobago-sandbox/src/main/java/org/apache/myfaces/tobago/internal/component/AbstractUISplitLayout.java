@@ -126,20 +126,9 @@ public abstract class AbstractUISplitLayout extends AbstractUIGridLayout {
 
   public abstract Orientation getOrientation();
 
-  @Deprecated
-  public abstract Measure getCellspacing();
-
   public abstract Measure getRowSpacing();
 
   public abstract Measure getColumnSpacing();
-
-  public abstract Measure getMarginLeft();
-
-  public abstract Measure getMarginTop();
-
-  public abstract Measure getMarginRight();
-
-  public abstract Measure getMarginBottom();
 
   public abstract boolean isRigid();
 }

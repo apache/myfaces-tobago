@@ -36,7 +36,6 @@ import org.apache.myfaces.tobago.internal.util.AccessKeyLogger;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
-import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
@@ -107,7 +106,7 @@ public class TabGroupRenderer extends LayoutComponentRendererBase {
     writer.writeIdAttribute(clientId);
     writer.writeClassAttribute(Classes.create(tabGroup));
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, tabGroup);
-    writer.writeStyleAttribute(new Style(facesContext, tabGroup));
+    writer.writeStyleAttribute(tabGroup.getStyle());
     writer.writeAttribute(HtmlAttributes.SWITCHTYPE, switchType, false);
     final String[] clientIds
         = ComponentUtils.evaluateClientIds(facesContext, tabGroup, tabGroup.getRenderedPartially());

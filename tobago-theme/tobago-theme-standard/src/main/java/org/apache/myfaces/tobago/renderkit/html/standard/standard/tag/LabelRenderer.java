@@ -26,7 +26,6 @@ import org.apache.myfaces.tobago.internal.util.AccessKeyLogger;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
-import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
@@ -75,7 +74,7 @@ public class LabelRenderer extends LayoutComponentRendererBase {
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, label);
     final Classes classes = Classes.create(label);
     writer.writeClassAttribute(classes);
-    writer.writeStyleAttribute(new Style(facesContext, label));
+    writer.writeStyleAttribute(label.getStyle());
     writer.writeIdAttribute(clientId);
     if (forValue != null) {
       writer.writeAttribute(HtmlAttributes.FOR, forValue, false);

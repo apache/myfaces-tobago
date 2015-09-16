@@ -23,6 +23,7 @@ import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.OnComponentPopulated;
 import org.apache.myfaces.tobago.component.SupportsAccessKey;
 import org.apache.myfaces.tobago.component.SupportsRenderedPartially;
+import org.apache.myfaces.tobago.component.SupportsStyle;
 import org.apache.myfaces.tobago.event.PopupFacetActionListener;
 import org.apache.myfaces.tobago.layout.LayoutComponent;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -36,7 +37,7 @@ import java.util.Iterator;
 
 public abstract class AbstractUICommand
     extends UICommand
-    implements SupportsRenderedPartially, SupportsAccessKey, OnComponentPopulated, LayoutComponent {
+    implements SupportsRenderedPartially, SupportsAccessKey, OnComponentPopulated, LayoutComponent, SupportsStyle {
 
   // todo: transient
   private Boolean parentOfCommands;

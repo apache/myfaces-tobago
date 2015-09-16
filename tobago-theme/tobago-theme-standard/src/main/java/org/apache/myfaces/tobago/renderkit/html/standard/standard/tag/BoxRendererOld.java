@@ -23,10 +23,8 @@ import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.UIBox;
 import org.apache.myfaces.tobago.component.UIMenuBar;
-import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.BoxRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
-import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
@@ -52,13 +50,6 @@ public class BoxRendererOld extends BoxRendererBase {
     final UIComponent label = box.getFacet(Facets.LABEL);
     final String labelString = box.getLabel();
     final UIPanel toolbar = (UIPanel) box.getFacet(Facets.TOOL_BAR);
-    final Style style = new Style(facesContext, box);
-    if (toolbar != null) {
-      final Measure padding = getResourceManager().getThemeMeasure(facesContext, box, "paddingTopWhenToolbar");
-      style.setPaddingTop(padding);
-      style.setPaddingBottom(Measure.ZERO);
-    }
-
     writer.startElement(HtmlElements.FIELDSET, box);
     writer.writeClassAttribute(Classes.create(box));
     final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, box);
@@ -66,7 +57,6 @@ public class BoxRendererOld extends BoxRendererBase {
       writer.writeAttribute(HtmlAttributes.TITLE, title, true);
     }
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, box);
-    writer.writeStyleAttribute(style);
 
     if (label != null || labelString != null || toolbar != null) {
       writer.startElement(HtmlElements.LEGEND, box);

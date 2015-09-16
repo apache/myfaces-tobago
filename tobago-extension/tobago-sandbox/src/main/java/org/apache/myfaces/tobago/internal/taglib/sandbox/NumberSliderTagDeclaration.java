@@ -26,6 +26,7 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasStyle;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasValue;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasValueChangeListener;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
@@ -46,7 +47,7 @@ import javax.faces.component.UIInput;
     rendererType = "NumberSlider")
 public interface NumberSliderTagDeclaration
     extends HasIdBindingAndRendered, IsReadonly, IsDisabled, HasMarkup, HasCurrentMarkup,
-    HasValue, HasValueChangeListener, IsGridLayoutComponent {
+    HasValue, HasValueChangeListener, IsGridLayoutComponent, HasStyle {
 
   /**
    * The minimum integer that can be entered and which represents the left

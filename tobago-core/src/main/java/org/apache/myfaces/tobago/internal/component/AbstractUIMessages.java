@@ -20,6 +20,7 @@
 package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.commons.collections.iterators.SingletonIterator;
+import org.apache.myfaces.tobago.component.SupportsStyle;
 import org.apache.myfaces.tobago.layout.LayoutComponent;
 import org.apache.myfaces.tobago.layout.OrderBy;
 
@@ -32,7 +33,7 @@ import java.util.Iterator;
 import java.util.List;
 
 public abstract class AbstractUIMessages extends javax.faces.component.UIMessages
-    implements LayoutComponent {
+    implements LayoutComponent, SupportsStyle {
 
   public List<Item> createMessageList(final FacesContext facesContext) {
 

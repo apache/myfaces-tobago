@@ -29,7 +29,6 @@ import org.apache.myfaces.tobago.internal.util.AccessKeyLogger;
 import org.apache.myfaces.tobago.renderkit.CommandRendererBase;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
-import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.Command;
 import org.apache.myfaces.tobago.renderkit.html.CommandMap;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
@@ -112,8 +111,7 @@ public class ButtonRenderer extends CommandRendererBase {
       }
     }
 
-    final Style style = new Style(facesContext, button);
-    writer.writeStyleAttribute(style);
+    writer.writeStyleAttribute(button.getStyle());
     writer.writeClassAttribute(Classes.create(button));
     if (button instanceof UIButton && ((UIButton) component).isDefaultCommand()) {
       final AbstractUIForm form = ComponentUtils.findAncestor(component, AbstractUIForm.class);

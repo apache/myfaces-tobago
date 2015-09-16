@@ -44,7 +44,6 @@ import org.apache.myfaces.tobago.internal.util.ArrayUtils;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.internal.util.Deprecation;
 import org.apache.myfaces.tobago.renderkit.MarginValues;
-import org.apache.myfaces.tobago.renderkit.SpacingValues;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRenderer;
 import javax.el.ELException;
 import javax.faces.FacesException;
@@ -318,6 +317,18 @@ DisplayProperty(property) ::= <<
 >>
 
 OrientationProperty(property) ::= <<
+<NormalProperty(property)>
+>>
+
+PositionProperty(property) ::= <<
+<NormalProperty(property)>
+>>
+
+OverflowProperty(property) ::= <<
+<NormalProperty(property)>
+>>
+
+StyleProperty(property) ::= <<
 <NormalProperty(property)>
 >>
 

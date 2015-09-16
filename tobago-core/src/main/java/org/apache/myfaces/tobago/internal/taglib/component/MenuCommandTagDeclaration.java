@@ -28,6 +28,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRend
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasImage;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabelAndAccessKey;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasStyle;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutComponent;
@@ -47,6 +48,6 @@ import javax.faces.component.UICommand;
     rendererType = RendererTypes.MENU_COMMAND,
     allowedChildComponenents = "NONE")
 public interface MenuCommandTagDeclaration
-    extends AbstractCommandTagDeclaration, IsGridLayoutComponent,
+    extends AbstractCommandTagDeclaration, IsGridLayoutComponent, HasStyle,
     HasIdBindingAndRendered, HasLabelAndAccessKey, HasTip, IsDisabled, HasImage, HasMarkup, HasCurrentMarkup {
 }

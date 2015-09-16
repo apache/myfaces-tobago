@@ -20,9 +20,11 @@
 package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.myfaces.tobago.component.SupportsMarkup;
+import org.apache.myfaces.tobago.component.SupportsStyle;
 import org.apache.myfaces.tobago.layout.LayoutManager;
 
-public abstract class AbstractUIFlowLayout extends AbstractUILayoutBase implements LayoutManager, SupportsMarkup {
+public abstract class AbstractUIFlowLayout extends AbstractUILayoutBase
+    implements LayoutManager, SupportsMarkup, SupportsStyle {
 
   public static final String COMPONENT_FAMILY = "org.apache.myfaces.tobago.FlowLayout";
 }

@@ -25,7 +25,6 @@ import org.apache.myfaces.tobago.internal.util.AccessKeyLogger;
 import org.apache.myfaces.tobago.renderkit.CommandRendererBase;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
-import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.Command;
 import org.apache.myfaces.tobago.renderkit.html.CommandMap;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
@@ -73,7 +72,7 @@ public class TreeCommandRenderer extends CommandRendererBase {
       writer.writeAttribute(DataAttributes.COMMANDS, JsonUtils.encode(map), true);
       writer.writeNameAttribute(clientId);
     }
-    writer.writeStyleAttribute(createStyle(facesContext, command));
+    writer.writeStyleAttribute(command.getStyle());
     writer.writeClassAttribute(Classes.create(command));
     writer.writeIdAttribute(clientId);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, command);
@@ -88,10 +87,6 @@ public class TreeCommandRenderer extends CommandRendererBase {
     writer.flush();
 
     HtmlRendererUtils.writeLabelWithAccessKey(writer, label);
-  }
-
-  protected Style createStyle(final FacesContext facesContext, final UITreeCommand link) {
-    return new Style(facesContext, link);
   }
 
   @Override

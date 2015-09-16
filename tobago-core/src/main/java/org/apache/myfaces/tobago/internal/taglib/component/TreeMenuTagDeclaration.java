@@ -29,6 +29,7 @@ import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasStyle;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasValue;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasVar;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutComponent;
@@ -53,7 +54,7 @@ import javax.faces.component.UIData;
         "org.apache.myfaces.tobago.TreeData"
         })
 public interface TreeMenuTagDeclaration
-    extends HasIdBindingAndRendered, HasValue, HasVar, IsGridLayoutComponent, HasMarkup, HasCurrentMarkup,
+    extends HasIdBindingAndRendered, HasValue, HasVar, IsGridLayoutComponent, HasStyle, HasMarkup, HasCurrentMarkup,
     IsShowRoot {
 
   /**

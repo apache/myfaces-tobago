@@ -45,7 +45,7 @@ public class ToolBarRendererOld extends ToolBarRendererBase {
     writer.writeIdAttribute(toolBar.getClientId(facesContext));
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, toolBar);
     writer.writeClassAttribute(Classes.create(toolBar));
-    final Style style = new Style(facesContext, toolBar);
+    final Style style = toolBar.getStyle();
     final boolean right = UIToolBar.ORIENTATION_RIGHT.equals(toolBar.getOrientation());
     if (right) {
       style.setTextAlign(TextAlign.RIGHT);

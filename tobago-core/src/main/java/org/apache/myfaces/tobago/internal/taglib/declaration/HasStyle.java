@@ -19,21 +19,13 @@
 
 package org.apache.myfaces.tobago.internal.taglib.declaration;
 
-import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 
-/** @deprecated since Tobago 2.0.9. Please use {@link HasMargins} */
-@Deprecated
-public interface HasMargin {
+public interface HasStyle {
 
   /**
-   * Margin between container component and the children.
-   *
-   * @deprecated since Tobago 2.0.9. Please use single attributes from {@link HasMargins}
+   * For internal use. Used for rendering, if there is a child tag &lt;tc:style>
    */
-  @TagAttribute
-  @UIComponentTagAttribute(
-      type = "org.apache.myfaces.tobago.layout.Measure")
-  @Deprecated
-  void setMargin(String margin);
+  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.renderkit.css.Style")
+  void setStyle(String style);
 }

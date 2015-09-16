@@ -204,15 +204,6 @@ public final class HtmlRendererUtils {
         submittedValue != null ?  new String[] {submittedValue}: null, null, writer, facesContext);
   }
 
-  /**
-   * @deprecated Since Tobago 2.0.7
-   */
-  @Deprecated
-  public static void renderSelectItems(final UIInput component, final Iterable<SelectItem> items, final Object[] values,
-      final Boolean onlySelected, final TobagoResponseWriter writer, final FacesContext facesContext)
-      throws IOException {
-    renderSelectItems(component, items, values, null, onlySelected, writer, facesContext);
-  }
   public static void renderSelectItems(final UIInput component, final Iterable<SelectItem> items, final Object[] values,
       final String[] submittedValues, final Boolean onlySelected, final TobagoResponseWriter writer,
       final FacesContext facesContext) throws IOException {

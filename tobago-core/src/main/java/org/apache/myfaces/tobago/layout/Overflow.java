@@ -33,12 +33,27 @@ public enum Overflow {
   /**
    * @deprecated Since Tobago 3.0.0 Please use {@link Overflow#hidden}
    */
-  public static final Overflow HIDDEN=hidden;
+  public static final Overflow HIDDEN = hidden;
 
   /**
    * @deprecated Since Tobago 3.0.0 Please use {@link Overflow#scroll}
    */
-  public static final Overflow SCROLL=scroll;
+  public static final Overflow SCROLL = scroll;
+
+  /**
+   * Internal constant to use in annotations. Please use {@link Overflow#auto}
+   */
+  public static final String STRING_AUTO = "auto";
+
+  /**
+   * Internal constant to use in annotations. Please use {@link Overflow#hidden}
+   */
+  public static final String STRING_HIDDEN = "hidden";
+
+  /**
+   * Internal constant to use in annotations. Please use {@link Overflow#scroll}
+   */
+  public static final String STRING_SCROLL = "scroll";
 
   /**
    * @deprecated Since Tobago 3.0.0 Please use {@link Overflow:name}

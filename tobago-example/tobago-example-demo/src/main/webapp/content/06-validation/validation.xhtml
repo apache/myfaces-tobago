@@ -49,7 +49,8 @@
 
     <tc:textarea label="#{overviewBundle.validation_description}" required="true" value="#{validationBean.text}"/>
 
-    <tc:flowLayout textAlign="right">
+    <tc:flowLayout>
+      <tc:style textAlign="right"/>
       <tc:button action="#{overviewController.noop}" label="#{overviewBundle.validation_submit}"
           defaultCommand="true"/>
     </tc:flowLayout>

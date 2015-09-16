@@ -33,6 +33,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabel;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabelLayout;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasRequiredMessageForSelect;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasStyle;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTabIndex;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasValidator;
@@ -63,7 +64,8 @@ public interface SelectManyListboxTagDeclaration
     extends HasId, IsDisabled, IsRendered, HasBinding, HasTip,
     IsReadonly, HasConverter, IsRequiredForSelect, HasMarkup, HasCurrentMarkup,
     HasLabel, HasValidator, HasValueChangeListener, HasLabelLayout,
-    HasValidatorMessage, HasConverterMessage, HasRequiredMessageForSelect, HasTabIndex, IsFocus, IsGridLayoutComponent {
+    HasValidatorMessage, HasConverterMessage, HasRequiredMessageForSelect, HasTabIndex, IsFocus, IsGridLayoutComponent,
+    HasStyle {
 
   /**
    * The value of the multi select.

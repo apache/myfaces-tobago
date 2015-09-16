@@ -71,8 +71,7 @@ public class TreeListboxRenderer extends LayoutComponentRendererBase {
     final AbstractUITree tree = (AbstractUITree) component;
     final String clientId = tree.getClientId(facesContext);
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
-    final Style style = new Style(facesContext, tree);
-//    final Style scrollDivStyle = new Style();
+    //    final Style scrollDivStyle = new Style();
 
     writer.startElement(HtmlElements.DIV, tree);
 //    scrollDivStyle.setWidth(Measure.valueOf(6 * 160)); // todo: depth * width of a select
@@ -84,7 +83,7 @@ public class TreeListboxRenderer extends LayoutComponentRendererBase {
     writer.startElement(HtmlElements.DIV, tree);
     writer.writeClassAttribute(Classes.create(tree));
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, tree);
-    writer.writeStyleAttribute(style);
+    writer.writeStyleAttribute(tree.getStyle());
 
     writer.startElement(HtmlElements.INPUT, tree);
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN, false);

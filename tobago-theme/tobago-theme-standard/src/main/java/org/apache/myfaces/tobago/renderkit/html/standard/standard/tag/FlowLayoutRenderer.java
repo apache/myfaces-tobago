@@ -19,16 +19,10 @@
 
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
-import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UIFlowLayout;
-import org.apache.myfaces.tobago.config.Configurable;
 import org.apache.myfaces.tobago.layout.LayoutContainer;
-import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
-import org.apache.myfaces.tobago.renderkit.SpacingValues;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
-import org.apache.myfaces.tobago.renderkit.css.Style;
-import org.apache.myfaces.tobago.renderkit.html.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
@@ -38,20 +32,15 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
-public class FlowLayoutRenderer extends RendererBase implements SpacingValues {
+public class FlowLayoutRenderer extends RendererBase {
 
   @Override
   public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
     final UIFlowLayout layout = (UIFlowLayout) component;
     writer.startElement(HtmlElements.DIV, layout);
-    writer.writeClassAttribute(Classes.create(layout), BootstrapClass.textAlign(layout.getTextAlign()));
-    final Style style = new Style();
-    style.setMarginLeft(layout.getMarginLeft());
-    style.setMarginRight(layout.getMarginRight());
-    style.setMarginTop(layout.getMarginTop());
-    style.setMarginBottom(layout.getMarginBottom());
-    writer.writeStyleAttribute(style);
+    writer.writeClassAttribute(Classes.create(layout));
+    writer.writeStyleAttribute(layout.getStyle());
   }
 
   @Override
@@ -67,13 +56,5 @@ public class FlowLayoutRenderer extends RendererBase implements SpacingValues {
   public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
     writer.endElement(HtmlElements.DIV);
-  }
-
-  public Measure getColumnSpacing(final FacesContext facesContext, final Configurable component) {
-    return getResourceManager().getThemeMeasure(facesContext, component, Attributes.COLUMN_SPACING);
-  }
-
-  public Measure getRowSpacing(final FacesContext facesContext, final Configurable component) {
-    return getResourceManager().getThemeMeasure(facesContext, component, Attributes.ROW_SPACING);
   }
 }

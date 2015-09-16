@@ -34,6 +34,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasId;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabel;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasStyle;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutComponentWithDimension;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutContainer;
 
@@ -64,7 +65,7 @@ import javax.faces.component.UIForm;
 
 public interface PageTagDeclaration
     extends HasLabel, HasId, HasBinding, HasMarkup, HasCurrentMarkup,
-    IsGridLayoutComponentWithDimension, IsGridLayoutContainer, HasCss, HasCurrentCss {
+    IsGridLayoutComponentWithDimension, HasStyle, IsGridLayoutContainer, HasCss, HasCurrentCss {
 
   /**
    * Contains the id of the component which should have the focus after

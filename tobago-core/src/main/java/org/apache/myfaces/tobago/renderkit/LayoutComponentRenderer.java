@@ -26,8 +26,6 @@ import javax.faces.context.FacesContext;
 
 public interface LayoutComponentRenderer {
 
-  Measure getCustomMeasure(FacesContext facesContext, Configurable component, String name);
-
   Measure getWidth(FacesContext facesContext, Configurable component);
 
   Measure getHeight(FacesContext facesContext, Configurable component);

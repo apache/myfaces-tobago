@@ -69,7 +69,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 public class PageRenderer extends LayoutComponentRendererBase {
 
@@ -220,17 +219,6 @@ public class PageRenderer extends LayoutComponentRendererBase {
         }
       }
 
-      // style sniplets
-      final Set<String> styleBlocks = FacesContextUtils.getStyleBlocks(facesContext);
-      if (styleBlocks.size() > 0) {
-        writer.startElement(HtmlElements.STYLE, null);
-        writer.flush(); // is needed in some cases, e. g. TOBAGO-1094
-        for (final String cssBlock : styleBlocks) {
-          writer.write(cssBlock);
-        }
-        writer.endElement(HtmlElements.STYLE);
-      }
-
       // render remaining script tags
       for (final String scriptFile : theme.getScriptResources(productionMode)) {
         encodeScript(facesContext, writer, scriptFile);
@@ -244,28 +232,6 @@ public class PageRenderer extends LayoutComponentRendererBase {
         checkDuplicates(theme.getScriptResources(productionMode), FacesContextUtils.getScriptFiles(facesContext));
       }
 
-      writer.startJavascript();
-      // onload script
-      writeEventFunction(writer, FacesContextUtils.getOnloadScripts(facesContext), "load", false);
-
-      // onunload script
-      writeEventFunction(writer, FacesContextUtils.getOnunloadScripts(facesContext), "unload", false);
-
-      // onexit script
-      writeEventFunction(writer, FacesContextUtils.getOnexitScripts(facesContext), "exit", false);
-
-      writeEventFunction(writer, FacesContextUtils.getOnsubmitScripts(facesContext), "submit", true);
-
-      int debugCounter = 0;
-      for (final String scriptBlock : FacesContextUtils.getScriptBlocks(facesContext)) {
-
-        if (LOG.isDebugEnabled()) {
-          LOG.debug("write script block " + ++debugCounter + " :\n" + scriptBlock);
-        }
-        writer.write(scriptBlock);
-        writer.write('\n');
-      }
-      writer.endJavascript();
       writer.endElement(HtmlElements.HEAD);
     }
 
@@ -360,7 +326,7 @@ public class PageRenderer extends LayoutComponentRendererBase {
       writer.writeClassAttribute(Classes.create(page, "content"));
     }
     writer.writeIdAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "content");
-    final Style style = new Style(facesContext, page);
+    final Style style = page.getStyle();
     // XXX position the div, so that the scrollable area is correct.
     // XXX better to take this fact into layout management.
     // XXX is also useful in boxes, etc.

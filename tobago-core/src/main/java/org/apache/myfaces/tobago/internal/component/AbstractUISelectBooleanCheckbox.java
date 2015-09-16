@@ -20,6 +20,7 @@
 package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.myfaces.tobago.component.SupportsMarkup;
+import org.apache.myfaces.tobago.component.SupportsStyle;
 import org.apache.myfaces.tobago.layout.LayoutComponent;
 import org.apache.myfaces.tobago.util.MessageUtils;
 
@@ -28,7 +29,7 @@ import javax.faces.component.UISelectBoolean;
 import javax.faces.context.FacesContext;
 
 public abstract class AbstractUISelectBooleanCheckbox extends UISelectBoolean
-    implements LayoutComponent, SupportsMarkup {
+    implements LayoutComponent, SupportsMarkup, SupportsStyle {
 
   public boolean isSelected() {
     Object value = getSubmittedValue();

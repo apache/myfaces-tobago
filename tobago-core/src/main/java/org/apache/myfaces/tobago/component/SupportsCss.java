@@ -19,16 +19,23 @@
 
 package org.apache.myfaces.tobago.component;
 
-
 import org.apache.myfaces.tobago.renderkit.css.Css;
 
+/**
+ * @deprecated check {@link org.apache.myfaces.tobago.renderkit.css.CssItem}
+ */
+@Deprecated
 public interface SupportsCss {
 
+  @Deprecated
   Css getCss();
 
+  @Deprecated
   void setCss(Css css);
 
+  @Deprecated
   Css getCurrentCss();
 
+  @Deprecated
   void setCurrentCss(Css css);
 }

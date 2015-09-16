@@ -28,10 +28,6 @@ import javax.faces.context.FacesContext;
 public abstract class AbstractLayoutableRendererBaseWrapper extends AbstractRendererBaseWrapper
     implements LayoutComponentRenderer {
 
-  public Measure getCustomMeasure(final FacesContext facesContext, final Configurable component, final String name) {
-    return ((LayoutComponentRenderer) getRenderer(facesContext)).getCustomMeasure(facesContext, component, name);
-  }
-
   public Measure getWidth(final FacesContext facesContext, final Configurable component) {
     return ((LayoutComponentRenderer) getRenderer(facesContext)).getWidth(facesContext, component);
   }

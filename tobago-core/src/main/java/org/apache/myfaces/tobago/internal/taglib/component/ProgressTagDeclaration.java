@@ -30,6 +30,7 @@ import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasStyle;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutComponent;
 
@@ -53,7 +54,7 @@ import javax.faces.component.UIOutput;
         allowedChildComponenents = "org.apache.myfaces.tobago.Command")})
         
 public interface ProgressTagDeclaration
-    extends HasIdBindingAndRendered, HasTip, HasMarkup, HasCurrentMarkup, IsGridLayoutComponent {
+    extends HasIdBindingAndRendered, HasTip, HasMarkup, HasCurrentMarkup, IsGridLayoutComponent, HasStyle {
 
   /**
    * The current value of this component.

@@ -25,27 +25,12 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 public interface HasSpacing {
 
   /**
-   * Spacing between component and layout cell's.
-   * Can be overwritten by columnSpacing and rowSpacing.
-   *
-   * @deprecated Use columnSpacing and/or rowSpacing instead.
-   */
-  @Deprecated
-  @TagAttribute
-  @UIComponentTagAttribute(
-      type = "org.apache.myfaces.tobago.layout.Measure")
-  void setCellspacing(String cellspacing);
-
-  /**
    * Spacing between the columns in the actual layout.
    */
   @TagAttribute
   @UIComponentTagAttribute(
       type = "org.apache.myfaces.tobago.layout.Measure",
-      defaultCode = "getCellspacing() != null\n" 
-          + " ? getCellspacing()\n : getRendererType() != null"
-          + " ? ((SpacingValues)getRenderer(getFacesContext())).getColumnSpacing(getFacesContext(), this)"
-          + " : Measure.ZERO")
+      defaultCode = "Measure.ZERO")
   void setColumnSpacing(String columnSpacing);
 
   /**
@@ -54,8 +39,6 @@ public interface HasSpacing {
   @TagAttribute
   @UIComponentTagAttribute(
       type = "org.apache.myfaces.tobago.layout.Measure",
-      defaultCode = "getCellspacing() != null\n" 
-          + " ? getCellspacing()\n : getRendererType() != null"
-          + " ? ((SpacingValues)getRenderer(getFacesContext())).getRowSpacing(getFacesContext(), this) : Measure.ZERO")
+      defaultCode = "Measure.ZERO")
   void setRowSpacing(String rowSpacing);
 }

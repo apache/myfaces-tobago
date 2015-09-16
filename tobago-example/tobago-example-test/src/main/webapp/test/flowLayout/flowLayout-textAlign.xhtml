@@ -28,7 +28,8 @@
       <tc:gridLayout rows="20px;auto;20px;auto;20px;auto;60px;"/>
     </f:facet>
 
-    <tc:flowLayout textAlign="left">
+    <tc:flowLayout>
+      <tc:style textAlign="left"/>
       <tc:out id="left" value="left">
         <tc:dataAttribute name="assert-left" value="0"/>
         <tc:dataAttribute name="assert-top" value="0"/>
@@ -40,7 +41,8 @@
 
     <tc:separator/>
 
-    <tc:flowLayout textAlign="right">
+    <tc:flowLayout>
+      <tc:style textAlign="right"/>
       <tc:out id="right" value="right">
         <tc:dataAttribute name="assert-left" value="577"/>
         <tc:dataAttribute name="assert-top" value="31"/>
@@ -52,7 +54,8 @@
 
     <tc:separator/>
 
-    <tc:flowLayout textAlign="center">
+    <tc:flowLayout>
+      <tc:style textAlign="center"/>
       <tc:out id="center" value="center">
         <tc:dataAttribute name="assert-left" value="283"/>
         <tc:dataAttribute name="assert-top" value="62"/>
@@ -64,7 +67,8 @@
 
     <tc:separator/>
 
-    <tc:flowLayout textAlign="justify">
+    <tc:flowLayout>
+      <tc:style textAlign="justify"/>
       1_XXXXXXXXXXX XXXXXXXXXXX XXXXXXXXXXX XXXXXXXXXXX XXXXXXXXXXX XXXXXXXXXXX
       2_XXXXXXXXXX XXXXXXXXXX XXXXXXXXXX XXXXXXXXXX XXXXXXXXXX XXXXXXXXXX XXXXXXXXXX
       3_XXXXXXXX XXXXXXXX XXXXXXXX XXXXXXXX XXXXXXXX XXXXXXXX XXXXXXXX
@@ -78,7 +82,7 @@
       4_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
     </tc:flowLayout>
 
-    <tc:script file="script/tobago-assert.js"/>
+    <!--<tc:script file="script/tobago-assert.js"/>-->
 
   </tc:page>
 </f:view>

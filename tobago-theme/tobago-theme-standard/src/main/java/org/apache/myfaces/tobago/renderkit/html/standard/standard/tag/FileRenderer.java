@@ -24,7 +24,6 @@ import org.apache.myfaces.tobago.internal.component.AbstractUIFile;
 import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
 import org.apache.myfaces.tobago.internal.webapp.TobagoMultipartFormdataRequest;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
-import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
@@ -95,7 +94,6 @@ public class FileRenderer extends InputRendererBase {
 
     final AbstractUIFile file = (AbstractUIFile) component;
     final String clientId = file.getClientId(facesContext);
-    final Style style = new Style(facesContext, file);
 
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
@@ -103,7 +101,7 @@ public class FileRenderer extends InputRendererBase {
     writer.writeIdAttribute(clientId);
     writer.writeClassAttribute(Classes.create(file));
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, file);
-    writer.writeStyleAttribute(style);
+    writer.writeStyleAttribute(file.getStyle());
 
     // visible fake input for a pretty look
     writer.startElement(HtmlElements.DIV, file);

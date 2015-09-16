@@ -26,15 +26,7 @@ import javax.faces.context.FacesContext;
 
 
 public abstract class AbstractLayoutRendererWrapper
-    extends AbstractLayoutableRendererBaseWrapper implements LayoutRenderer, SpacingValues, MarginValues {
-
-  public Measure getColumnSpacing(final FacesContext facesContext, final Configurable component) {
-    return ((SpacingValues) getRenderer(facesContext)).getColumnSpacing(facesContext, component);
-  }
-
-  public Measure getRowSpacing(final FacesContext facesContext, final Configurable component) {
-    return ((SpacingValues) getRenderer(facesContext)).getRowSpacing(facesContext, component);
-  }
+    extends AbstractLayoutableRendererBaseWrapper implements LayoutRenderer, MarginValues {
 
   public Measure getMarginLeft(final FacesContext facesContext, final Configurable component) {
     return ((MarginValues) getRenderer(facesContext)).getMarginLeft(facesContext, component);

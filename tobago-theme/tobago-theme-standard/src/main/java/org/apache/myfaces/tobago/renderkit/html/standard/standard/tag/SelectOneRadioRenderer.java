@@ -26,7 +26,6 @@ import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.internal.util.ObjectUtils;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
-import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
@@ -62,14 +61,11 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
     final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, select);
     final boolean disabled = select.isDisabled();
     final boolean readonly = select.isReadonly();
-    final Style style = new Style(facesContext, select);
     final boolean required = select.isRequired();
-    // fixme: use CSS, not the Style Attribute for "display"
-    style.setDisplay(null);
 
     writer.startElement(HtmlElements.OL, select);
     writer.writeIdAttribute(id);
-    writer.writeStyleAttribute(style);
+    writer.writeStyleAttribute(select.getStyle());
     writer.writeClassAttribute(Classes.create(select));
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, select);
     if (title != null) {

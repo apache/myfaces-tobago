@@ -27,6 +27,7 @@ import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasStyle;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutComponent;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutContainer;
@@ -51,5 +52,5 @@ import javax.faces.component.UIPanel;
     @Facet(name=Facets.LAYOUT, description = "Contains an instance of AbstractUILayoutBase",
             allowedChildComponenents = "org.apache.myfaces.tobago.GridLayout")})
 public interface PanelTagDeclaration 
-    extends HasIdBindingAndRendered, IsGridLayoutComponent, IsGridLayoutContainer, HasMarkup, HasCurrentMarkup, HasTip {
+    extends HasIdBindingAndRendered, IsGridLayoutComponent, HasStyle, IsGridLayoutContainer, HasMarkup, HasCurrentMarkup, HasTip {
 }

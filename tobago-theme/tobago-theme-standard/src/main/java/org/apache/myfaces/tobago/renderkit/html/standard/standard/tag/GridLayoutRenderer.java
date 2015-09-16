@@ -33,7 +33,6 @@ import org.apache.myfaces.tobago.layout.PixelLayoutToken;
 import org.apache.myfaces.tobago.layout.RelativeLayoutToken;
 import org.apache.myfaces.tobago.renderkit.MarginValues;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
-import org.apache.myfaces.tobago.renderkit.SpacingValues;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
@@ -49,7 +48,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
-public class GridLayoutRenderer extends RendererBase implements SpacingValues, MarginValues {
+public class GridLayoutRenderer extends RendererBase implements MarginValues {
 
   private static final Logger LOG = LoggerFactory.getLogger(GridLayoutRenderer.class);
 
@@ -186,14 +185,6 @@ public class GridLayoutRenderer extends RendererBase implements SpacingValues, M
     writer.endElement(HtmlElements.TBODY);
     writer.endElement(HtmlElements.TABLE);
 //    writer.endElement(HtmlElements.DIV);
-  }
-
-  public Measure getColumnSpacing(final FacesContext facesContext, final Configurable component) {
-    return getResourceManager().getThemeMeasure(facesContext, component, Attributes.COLUMN_SPACING);
-  }
-
-  public Measure getRowSpacing(final FacesContext facesContext, final Configurable component) {
-    return getResourceManager().getThemeMeasure(facesContext, component, Attributes.ROW_SPACING);
   }
 
   public Measure getMarginLeft(final FacesContext facesContext, final Configurable component) {

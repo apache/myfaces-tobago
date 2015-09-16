@@ -29,6 +29,7 @@ import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasStyle;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutComponentWithDimension;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutContainer;
 
@@ -53,7 +54,7 @@ import javax.faces.component.UIPanel;
             allowedChildComponenents = "org.apache.myfaces.tobago.GridLayout")}
 )
 public interface PopupTagDeclaration 
-    extends HasIdBindingAndRendered, IsGridLayoutComponentWithDimension, IsGridLayoutContainer,
+    extends HasIdBindingAndRendered, IsGridLayoutComponentWithDimension, HasStyle, IsGridLayoutContainer,
     HasMarkup, HasCurrentMarkup {
 
   /**
@@ -65,14 +66,4 @@ public interface PopupTagDeclaration
   @UIComponentTagAttribute(type = "boolean", defaultValue = "true")
   void setModal(String modal);
   
-  /**
-   * TBD: Remove this attribute?
-   *
-   * Represents the visibility order of the popup. The renderer may implemented this visibility by the CSS z-index.
-   *
-   * @param zIndex The visibility order.
-   */
-  @UIComponentTagAttribute(type = "java.lang.Integer")
-  void setZIndex(String zIndex);
-
 }

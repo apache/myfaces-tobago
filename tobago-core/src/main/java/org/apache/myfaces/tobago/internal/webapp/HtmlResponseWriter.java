@@ -19,22 +19,18 @@
 
 package org.apache.myfaces.tobago.internal.webapp;
 
-import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.internal.util.FastStringWriter;
 import org.apache.myfaces.tobago.internal.util.HtmlWriterUtils;
 import org.apache.myfaces.tobago.internal.util.JsonWriterUtils;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.internal.util.WriterUtils;
-import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 
-import javax.faces.component.UIComponent;
 import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.Arrays;
-import java.util.Map;
 
 public class HtmlResponseWriter extends TobagoResponseWriterBase {
 
@@ -140,18 +136,6 @@ public class HtmlResponseWriter extends TobagoResponseWriterBase {
   public ResponseWriter cloneWithWriter(final Writer originalWriter) {
     return new HtmlResponseWriter(
         originalWriter, getContentType(), getCharacterEncoding());
-  }
-
-  /**
-   * @deprecated
-   */
-  @Deprecated
-  public static Style ensureHtmlStyleMap(final UIComponent component, Style styles) {
-    if (styles == null) {
-      styles = new Style();
-      ((Map<String, Object>) component.getAttributes()).put(Attributes.STYLE, styles);
-    }
-    return styles;
   }
 
   @Override

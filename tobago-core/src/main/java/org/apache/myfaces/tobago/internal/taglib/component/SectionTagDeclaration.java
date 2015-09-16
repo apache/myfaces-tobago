@@ -29,6 +29,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRend
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasImage;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabel;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasStyle;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutComponent;
 
 /**
@@ -47,5 +48,5 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutCompone
                         allowedChildComponenents = "org.apache.myfaces.tobago.Label")})
 
 public interface SectionTagDeclaration
-        extends HasIdBindingAndRendered, HasLabel, IsGridLayoutComponent, HasImage, HasMarkup, HasCurrentMarkup {
+        extends HasIdBindingAndRendered, HasLabel, IsGridLayoutComponent, HasStyle, HasImage, HasMarkup, HasCurrentMarkup {
 }

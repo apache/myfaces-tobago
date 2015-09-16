@@ -888,37 +888,47 @@ var Tobago = {
   initCss: function (elements) {
     // element styles
     console.time("[tobago] initCss"); // @DEV_ONLY
-    Tobago.Utils.selectWithJQuery(elements, ".tobago-image[data-tobago-style]").add(
-        Tobago.Utils.selectWithJQuery(elements, ".modal-dialog[data-tobago-style]")).each(function () {
-          var element = jQuery(this);
-          var data = element.data("tobago-style");
-/* todo
-          if (data.width) {
-            element.css("width", data.width);
-          }
-          if (data.height) {
-            element.css("height", data.height);
-          }
-*/
-          if (data) {
-            element.css({
-              left: data.left,
-              top: data.top,
-              width: data.width,
-              height: data.height,
-              zIndex: data.zIndex
-            });
-          }
-        });
-    /* XXX this is the old Tobago 2.0 behaviour, should be deleded und removing these information from the tags
     Tobago.Utils.selectWithJQuery(elements, "[data-tobago-style]").each(function () {
       var element = jQuery(this);
-      if (Tobago.browser.isMsie678) { // IE before 9 doesn't support multiple backgrounds, so we use only the first.
-        Tobago.fixMultiBackgroundIE8(element);
-      }
-      element.css(element.data("tobago-style"));
+      var data = element.data("tobago-style");
+
+      // set only known properties (because of security)
+      element.css({
+        width: data.width,
+        height: data.height,
+
+        minWidth: data.minWidth,
+        minHeight: data.minHeight,
+        maxWidth: data.maxWidth,
+        maxHeight: data.maxHeight,
+
+        left: data.left,
+        right: data.right,
+        top: data.top,
+        bottom: data.bottom,
+
+        paddingLeft: data.paddingLeft,
+        paddingRight: data.paddingRight,
+        paddingTop: data.paddingTop,
+        paddingBottom: data.paddingBottom,
+
+        marginLeft: data.marginLeft,
+        marginRight: data.marginRight,
+        marginTop: data.marginTop,
+        marginBottom: data.marginBottom,
+
+        overflowX: data.overflowX,
+        overflowY: data.overflowY,
+        display: data.display,
+        position: data.position,
+
+        backgroundImage: data.backgroundImage,         // TBD
+        backgroundPosition: data.backgroundPosition,   // TBD
+        zIndex: data.zIndex, // TBD: needed? will be set by Tobago? check org.apache.myfaces.tobago.renderkit.css.Style
+        textAlign: data.textAlign
+      });
     });
-*/
+
     console.timeEnd("[tobago] initCss"); // @DEV_ONLY
   },
 

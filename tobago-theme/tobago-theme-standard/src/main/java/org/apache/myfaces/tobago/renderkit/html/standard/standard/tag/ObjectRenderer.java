@@ -23,7 +23,6 @@ import org.apache.myfaces.tobago.component.UIObject;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
-import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
@@ -55,8 +54,7 @@ public class ObjectRenderer extends LayoutComponentRendererBase {
       writer.writeAttribute(HtmlAttributes.SRC, ResourceManagerUtils.getBlankPage(facesContext), false);
     }
     writer.writeClassAttribute(Classes.create(object));
-    final Style style = new Style(facesContext, object);
-    writer.writeStyleAttribute(style);
+    writer.writeStyleAttribute(object.getStyle());
 
     String noframes = ResourceManagerUtils.getPropertyNotNull(
         facesContext, "tobago", "browser.noframe.message.prefix");

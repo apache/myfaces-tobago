@@ -22,7 +22,8 @@ package org.apache.myfaces.tobago.internal.component;
 import org.apache.myfaces.tobago.component.SupportsCss;
 import org.apache.myfaces.tobago.layout.LayoutComponent;
 
-public abstract class AbstractUIMenu extends javax.faces.component.UIPanel implements LayoutComponent, SupportsCss {
+public abstract class AbstractUIMenu
+    extends javax.faces.component.UIPanel implements LayoutComponent, SupportsCss {
 
   public abstract String getLabel();
 }

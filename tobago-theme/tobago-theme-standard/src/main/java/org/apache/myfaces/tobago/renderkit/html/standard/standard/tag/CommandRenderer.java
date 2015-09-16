@@ -26,7 +26,6 @@ import org.apache.myfaces.tobago.internal.util.AccessKeyLogger;
 import org.apache.myfaces.tobago.renderkit.CommandRendererBase;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
-import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.html.Command;
 import org.apache.myfaces.tobago.renderkit.html.CommandMap;
@@ -88,8 +87,7 @@ public class CommandRenderer extends CommandRendererBase {
       }
     }
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, link);
-    final Style style = new Style(facesContext, link);
-    writer.writeStyleAttribute(style);
+    writer.writeStyleAttribute(link.getStyle());
     if (link.isParentOfCommands()) {
       writer.writeClassAttribute(BootstrapClass.DROPDOWN_TOGGLE); // todo: CSS classes
       writer.writeAttribute(DataAttributes.TOGGLE, "dropdown", false);

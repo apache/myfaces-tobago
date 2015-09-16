@@ -20,6 +20,7 @@
 package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.myfaces.tobago.component.Attributes;
+import org.apache.myfaces.tobago.component.SupportsStyle;
 import org.apache.myfaces.tobago.model.ExpandedState;
 import org.apache.myfaces.tobago.model.Selectable;
 import org.apache.myfaces.tobago.model.SelectedState;
@@ -38,7 +39,7 @@ import javax.swing.tree.TreeNode;
 import java.io.IOException;
 import java.util.List;
 
-public abstract class AbstractUIData extends javax.faces.component.UIData {
+public abstract class AbstractUIData extends javax.faces.component.UIData implements SupportsStyle {
 
   private static final Logger LOG = LoggerFactory.getLogger(AbstractUIData.class);
 

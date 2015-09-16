@@ -24,7 +24,6 @@ import org.apache.myfaces.tobago.internal.component.AbstractUIInput;
 import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
-import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
@@ -107,8 +106,7 @@ public class InRenderer extends InputRendererBase {
     if (tabIndex != null) {
       writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
     }
-    final Style style = new Style(facesContext, input);
-    writer.writeStyleAttribute(style);
+    writer.writeStyleAttribute(input.getStyle());
 
     final String placeholder = input.getPlaceholder();
     if (!disabled && !readonly && StringUtils.isNotBlank(placeholder)) {

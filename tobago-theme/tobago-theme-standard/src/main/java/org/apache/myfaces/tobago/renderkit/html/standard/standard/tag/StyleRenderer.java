@@ -19,16 +19,21 @@
 
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
+import org.apache.myfaces.tobago.component.SupportsStyle;
 import org.apache.myfaces.tobago.component.UIStyle;
 import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
+import org.apache.myfaces.tobago.renderkit.css.Style;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
-
 public class StyleRenderer extends RendererBase {
+
+  private static final Logger LOG = LoggerFactory.getLogger(StyleRenderer.class);
 
   public void prepareRender(final FacesContext facesContext, final UIComponent component) throws IOException {
     super.prepareRender(facesContext, component);
@@ -37,9 +42,15 @@ public class StyleRenderer extends RendererBase {
     if (file != null) {
       FacesContextUtils.addStyleFile(facesContext, file);
     }
-    final String style = styleComponent.getStyle();
-    if (style != null) {
-      FacesContextUtils.addStyleBlock(facesContext, style);
+
+    final Style style = new Style(styleComponent);
+    if (!style.isEmpty()) {
+      final UIComponent parent = styleComponent.getParent();
+      if (parent instanceof SupportsStyle) {
+        ((SupportsStyle)parent).setStyle(style);
+      } else {
+        LOG.warn("The parent of a style component doesn't support style: " + parent.getClientId(facesContext));
+      }
     }
   }
 }

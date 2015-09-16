@@ -27,7 +27,6 @@ import org.apache.myfaces.tobago.layout.PixelMeasure;
 import org.apache.myfaces.tobago.renderkit.CommandRendererBase;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
-import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.Command;
 import org.apache.myfaces.tobago.renderkit.html.CommandMap;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
@@ -79,8 +78,7 @@ public class LinkRenderer extends CommandRendererBase {
       }
     }
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, link);
-    final Style style = new Style(facesContext, link);
-    writer.writeStyleAttribute(style);
+    writer.writeStyleAttribute(link.getStyle());
     writer.writeClassAttribute(Classes.create(link));
     writer.writeIdAttribute(clientId);
     writer.writeNameAttribute(clientId);

@@ -17,17 +17,12 @@
  * under the License.
  */
 
-package org.apache.myfaces.tobago.renderkit;
+package org.apache.myfaces.tobago.internal.component;
 
-import org.apache.myfaces.tobago.config.Configurable;
-import org.apache.myfaces.tobago.layout.Measure;
+import javax.faces.component.UIComponentBase;
 
-import javax.faces.context.FacesContext;
-
-public interface SpacingValues {
-
-  Measure getColumnSpacing(FacesContext facesContext, Configurable component);
-
-  Measure getRowSpacing(FacesContext facesContext, Configurable component);
-
+/**
+ * @since 3.0.0
+ */
+public abstract class AbstractUIScript extends UIComponentBase {
 }

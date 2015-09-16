@@ -23,12 +23,11 @@ import org.apache.myfaces.tobago.component.UITreeNode;
 import org.apache.myfaces.tobago.internal.component.AbstractUIData;
 import org.apache.myfaces.tobago.internal.component.AbstractUITree;
 import org.apache.myfaces.tobago.model.ExpandedState;
-import org.apache.myfaces.tobago.model.SelectedState;
 import org.apache.myfaces.tobago.model.Selectable;
+import org.apache.myfaces.tobago.model.SelectedState;
 import org.apache.myfaces.tobago.model.TreePath;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
-import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
@@ -83,8 +82,7 @@ public class TreeRenderer extends LayoutComponentRendererBase {
 
     writer.startElement(HtmlElements.DIV, tree);
     writer.writeClassAttribute(Classes.create(tree));
-    final Style style = new Style(facesContext, tree);
-    writer.writeStyleAttribute(style);
+    writer.writeStyleAttribute(tree.getStyle());
     writer.writeIdAttribute(clientId);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, tree);
     writer.writeAttribute("data-tobago-scroll-panel", "true", true);

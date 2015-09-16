@@ -19,14 +19,13 @@
 
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
-import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.component.UIMediator;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
-import org.apache.myfaces.tobago.renderkit.css.Style;
+import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -43,7 +42,7 @@ public class MediatorRenderer extends LayoutComponentRendererBase {
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
     writer.startElement(HtmlElements.DIV, mediator);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, mediator);
-    writer.writeStyleAttribute(new Style(facesContext, mediator));
+    writer.writeStyleAttribute(mediator.getStyle());
   }
 
   @Override

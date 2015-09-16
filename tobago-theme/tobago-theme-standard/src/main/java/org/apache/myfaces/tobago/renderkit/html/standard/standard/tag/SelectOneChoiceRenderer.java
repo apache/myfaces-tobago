@@ -21,7 +21,6 @@ package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
 import org.apache.myfaces.tobago.component.UISelectOneChoice;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
-import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
@@ -59,8 +58,7 @@ public class SelectOneChoiceRenderer extends SelectOneRendererBase {
     if (tabIndex != null) {
       writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
     }
-    final Style style = new Style(facesContext, select);
-    writer.writeStyleAttribute(style);
+    writer.writeStyleAttribute(select.getStyle());
     writer.writeClassAttribute(Classes.create(select), BootstrapClass.FORM_CONTROL);
     if (title != null) {
       writer.writeAttribute(HtmlAttributes.TITLE, title, true);

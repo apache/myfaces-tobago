@@ -21,12 +21,10 @@ package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
 import org.apache.myfaces.tobago.component.UIPopup;
 import org.apache.myfaces.tobago.context.Markup;
-import org.apache.myfaces.tobago.internal.component.AbstractUIPage;
 import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
-import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -80,25 +78,17 @@ public class PopupRendererOld extends LayoutComponentRendererBase {
     final String clientId = popup.getClientId(facesContext);
 
     // XXX May be computed in the "Layout Manager Phase"
-    final AbstractUIPage page = ComponentUtils.findPage(facesContext);
-    if (popup.getLeft() == null) {
-      popup.setLeft(page.getCurrentWidth().subtract(popup.getCurrentWidth()).divide(2));
-    }
-    if (popup.getTop() == null) {
-      popup.setTop(page.getCurrentHeight().subtract(popup.getCurrentHeight()).divide(2));
-    }
+//    final AbstractUIPage page = ComponentUtils.findPage(facesContext);
+//    if (popup.getLeft() == null) {
+//      popup.setLeft(page.getCurrentWidth().subtract(popup.getCurrentWidth()).divide(2));
+//    }
+//    if (popup.getTop() == null) {
+//      popup.setTop(page.getCurrentHeight().subtract(popup.getCurrentHeight()).divide(2));
+//    }
 
     writer.startElement(HtmlElements.DIV, popup);
     writer.writeIdAttribute(clientId);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, popup);
-    final Style style = new Style(facesContext, popup);
-    Integer zIndex = popup.getZIndex();
-    if (zIndex == null) {
-      zIndex = 100;
-      LOG.warn("No z-index found for UIPopup. Set to " + zIndex);
-    }
-    style.setZIndex(zIndex);
-    writer.writeStyleAttribute(style);
     writer.writeClassAttribute(Classes.create(popup));
   }
 

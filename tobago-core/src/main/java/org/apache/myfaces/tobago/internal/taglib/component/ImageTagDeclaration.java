@@ -28,6 +28,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasBorder;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasStyle;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutComponentWithDimension;
@@ -48,7 +49,7 @@ import javax.faces.component.UIGraphic;
     allowedChildComponenents = "NONE")
 public interface ImageTagDeclaration
     extends HasIdBindingAndRendered, HasBorder, HasTip, IsDisabled, HasMarkup, HasCurrentMarkup,
-    IsGridLayoutComponentWithDimension, IsGridLayoutContainer {
+    IsGridLayoutComponentWithDimension, HasStyle, IsGridLayoutContainer {
 
   /**
    * Absolute url to an image or image name to lookup in tobago resource path.

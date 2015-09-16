@@ -28,6 +28,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabel;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasStyle;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutComponent;
 
 /**
@@ -47,5 +48,5 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutCompone
             allowedChildComponenents = "org.apache.myfaces.tobago.Label")})
 
 public interface SeparatorTagDeclaration
-    extends HasIdBindingAndRendered, IsGridLayoutComponent, HasLabel, HasMarkup, HasCurrentMarkup {
+    extends HasIdBindingAndRendered, IsGridLayoutComponent, HasStyle, HasLabel, HasMarkup, HasCurrentMarkup {
 }

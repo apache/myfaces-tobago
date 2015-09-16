@@ -24,7 +24,6 @@ import org.apache.myfaces.tobago.internal.util.AccessKeyLogger;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
-import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
@@ -83,7 +82,7 @@ public class SelectBooleanCheckboxRenderer extends LayoutComponentRendererBase {
     final LabelWithAccessKey label = new LabelWithAccessKey(select);
 
     writer.startElement(HtmlElements.DIV, select);
-    writer.writeStyleAttribute(new Style(facesContext, select));
+    writer.writeStyleAttribute(select.getStyle());
     // todo: simplify css class management
     String classes = Classes.create(select).getStringValue() + " " + BootstrapClass.CHECKBOX.getName();
     if (disabled) {

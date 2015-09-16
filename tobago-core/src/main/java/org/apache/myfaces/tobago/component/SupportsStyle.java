@@ -17,12 +17,13 @@
  * under the License.
  */
 
-package org.apache.myfaces.tobago.internal.component;
+package org.apache.myfaces.tobago.component;
 
-import org.apache.myfaces.tobago.component.SupportsStyle;
-import org.apache.myfaces.tobago.layout.LayoutComponent;
+import org.apache.myfaces.tobago.renderkit.css.Style;
 
-import javax.faces.component.UIComponentBase;
+public interface SupportsStyle {
 
-public abstract class AbstractUISeparator extends UIComponentBase implements LayoutComponent, SupportsStyle {
+  Style getStyle();
+
+  void setStyle(Style style);
 }

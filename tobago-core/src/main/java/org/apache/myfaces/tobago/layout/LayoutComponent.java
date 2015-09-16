@@ -36,8 +36,5 @@ public interface LayoutComponent extends LayoutBase {
   Integer getVerticalIndex();
   void setVerticalIndex(Integer verticalIndex);
 
-  Display getDisplay();
-  void setDisplay(Display display);
-
   boolean isRendered();
 }

@@ -20,6 +20,7 @@
 package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.myfaces.tobago.component.Facets;
+import org.apache.myfaces.tobago.component.SupportsStyle;
 import org.apache.myfaces.tobago.layout.LayoutComponent;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
@@ -31,7 +32,7 @@ import javax.faces.component.UIOutput;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
-public abstract class AbstractUISection extends UIComponentBase implements LayoutComponent {
+public abstract class AbstractUISection extends UIComponentBase implements LayoutComponent, SupportsStyle {
 
     private static final Logger LOG = LoggerFactory.getLogger(AbstractUISection.class);
 

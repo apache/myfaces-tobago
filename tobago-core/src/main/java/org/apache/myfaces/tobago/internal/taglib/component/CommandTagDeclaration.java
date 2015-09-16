@@ -29,6 +29,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasId;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabelAndAccessKey;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasStyle;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasValue;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
@@ -52,7 +53,7 @@ import javax.faces.component.UICommand;
             description = "Contains a UIPopup instance.",
             allowedChildComponenents = "org.apache.myfaces.tobago.Popup")})
 public interface CommandTagDeclaration
-    extends AbstractCommandTagDeclaration, HasId, HasValue, IsDisabled, IsGridLayoutComponent, HasMarkup,
+    extends AbstractCommandTagDeclaration, HasId, HasValue, IsDisabled, IsGridLayoutComponent, HasStyle, HasMarkup,
     HasCurrentMarkup, HasLabelAndAccessKey, HasTip {
 
 

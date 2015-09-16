@@ -30,8 +30,6 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasBorder;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasColumnLayout;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasId;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasMargin;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasMargins;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasRowLayout;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasSpacing;
@@ -101,8 +99,8 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasSpacing;
     componentFamily = AbstractUIGridLayout.COMPONENT_FAMILY,
     rendererType = RendererTypes.GRID_LAYOUT,
     allowedChildComponenents = "NONE", isLayout = true)
-public interface GridLayoutTagDeclaration extends HasId, HasBorder, HasSpacing, HasMargin,
-    HasMargins, HasColumnLayout, HasRowLayout, HasBinding, HasMarkup, HasCurrentMarkup {
+public interface GridLayoutTagDeclaration extends HasId, HasBorder, HasSpacing,
+    HasColumnLayout, HasRowLayout, HasBinding, HasMarkup, HasCurrentMarkup {
 
   /**
    * This attribute advises the layout manager, to not use space that comes from non rendered components.

@@ -29,7 +29,6 @@ import org.apache.myfaces.tobago.layout.LayoutComponent;
 import org.apache.myfaces.tobago.layout.LayoutContainer;
 import org.apache.myfaces.tobago.layout.LayoutManager;
 import org.apache.myfaces.tobago.layout.LayoutTokens;
-import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -83,21 +82,6 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase implemen
   public abstract String getColumns();
 
   public abstract void setColumns(String columns);
-
-  @Deprecated
-  public abstract Measure getCellspacing();
-
-  public abstract Measure getRowSpacing();
-
-  public abstract Measure getColumnSpacing();
-
-  public abstract Measure getMarginLeft();
-
-  public abstract Measure getMarginTop();
-
-  public abstract Measure getMarginRight();
-
-  public abstract Measure getMarginBottom();
 
   public abstract boolean isRigid();
 

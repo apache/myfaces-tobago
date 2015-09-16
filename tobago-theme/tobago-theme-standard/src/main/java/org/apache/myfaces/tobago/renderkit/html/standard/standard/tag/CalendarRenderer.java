@@ -72,7 +72,7 @@ public class CalendarRenderer extends LayoutComponentRendererBase {
     writer.writeIdAttribute(id);
     writer.writeClassAttribute(Classes.create(output));
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, component);
-    final Style style = new Style(facesContext, output);
+    final Style style = output.getStyle();
     writer.writeStyleAttribute(style);
     final String dateInputId = (String) output.getAttributes().get(Attributes.DATE_INPUT_ID);
     if (dateInputId != null) {

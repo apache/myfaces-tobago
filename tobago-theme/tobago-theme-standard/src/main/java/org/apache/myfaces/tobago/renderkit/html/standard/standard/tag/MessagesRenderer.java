@@ -32,12 +32,10 @@ import org.apache.myfaces.tobago.component.UIPopup;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.internal.ajax.AjaxInternalUtils;
-import org.apache.myfaces.tobago.internal.component.AbstractUIPage;
 import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
-import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.Aria;
 import org.apache.myfaces.tobago.renderkit.html.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
@@ -85,7 +83,7 @@ public class MessagesRenderer extends LayoutComponentRendererBase {
     final List<UIMessages.Item> messageList = messages.createMessageList(facesContext);
 
     if (messageList.size() > 0) { // in ie empty span gets a height
-      writer.writeStyleAttribute(new Style(facesContext, messages));
+      writer.writeStyleAttribute(messages.getStyle());
 
       // with id
       /*String focusId = null;
@@ -173,12 +171,6 @@ public class MessagesRenderer extends LayoutComponentRendererBase {
         CreateComponentUtils.createComponent(facesContext, UIPopup.COMPONENT_TYPE, RendererTypes.POPUP, id);
     popup.getAttributes().put(Attributes.Z_INDEX, 10);
 
-    final AbstractUIPage page = ComponentUtils.findPage(facesContext, messages);
-
-    popup.setWidth(page.getCurrentWidth().subtract(200));
-    popup.setHeight(page.getCurrentHeight().subtract(200));
-    popup.setLeft(Measure.valueOf(100));
-    popup.setTop(Measure.valueOf(100));
     popup.setRendered(true);
     popup.setActivated(true);
     popup.onComponentPopulated(facesContext, messages);
