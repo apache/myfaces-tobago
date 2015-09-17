@@ -35,11 +35,12 @@
                  image="image/org/tango-project/tango-icon-theme/16x16/actions/contact-new.png"/>
       <tc:button label="#{bundle.listEdit}" action="#{controller.editAddress}"
                          image="image/org/tango-project/tango-icon-theme/16x16/apps/accessories-text-editor.png"/>
-      <tc:button label="#{bundle.listDelete}" action="#{controller.deleteAddresses}" css="btn-danger"
+      <tc:button label="#{bundle.listDelete}" action="#{controller.deleteAddresses}"
                          image="image/org/tango-project/tango-icon-theme/16x16/places/user-trash.png">
         <f:facet name="confirmation">
           <tc:out value="#{bundle.listDeleteConfirmation}"/>
         </f:facet>
+        <tc:style customClass="btn-danger"/>
       </tc:button>
       <tc:button label="#{bundle.toolbarAbout}"
                  image="image/org/tango-project/tango-icon-theme/16x16/apps/help-browser.png">
@@ -51,8 +52,9 @@
       <tc:in value="#{controller.searchCriterion}" placeholder="#{bundle.listFilter}" tip="#{bundle.listFilter}"/>
       <tc:button action="#{controller.search}" label="#{bundle.listSearch}"
                  defaultCommand="true"/>
-      <tc:button tip="Logout" action="#{controller.logout}" immediate="true" css="btn-danger"
+      <tc:button tip="Logout" action="#{controller.logout}" immediate="true"
                       image="image/org/tango-project/tango-icon-theme/16x16/actions/system-log-out.png"/>
+      <tc:style customClass="btn-danger"/>
     </tc:toolBar>
 
     <tc:box label="#{bundle.listBoxTitle}">

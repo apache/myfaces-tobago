@@ -31,8 +31,10 @@
 
 
     <tc:toolBar iconSize="big"> <!-- XXX merge with the other toolbar on list.xhtml !!! -->
-      <tc:button tip="Logout" action="#{controller.logout}" immediate="true" css="btn-danger"
-                 image="image/org/tango-project/tango-icon-theme/16x16/actions/system-log-out.png"/>
+      <tc:button tip="Logout" action="#{controller.logout}" immediate="true"
+                 image="image/org/tango-project/tango-icon-theme/16x16/actions/system-log-out.png">
+        <tc:style customClass="btn-danger"/>
+      </tc:button>
     </tc:toolBar>
 
     <tc:box label="#{bundle.editorBoxTitle}">
