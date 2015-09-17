@@ -19,7 +19,6 @@
 
 <ui:composition xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
-                xmlns:tx="http://myfaces.apache.org/tobago/extension"
                 xmlns:ui="http://java.sun.com/jsf/facelets">
 
   <tc:loadBundle basename="resource" var="bundle"/>
@@ -29,12 +28,12 @@
           <tc:segmentLayout medium="2;10"/>
         </f:facet>
 
-        <tx:in value="#{controller.currentAddress.firstName}"
+        <tc:in value="#{controller.currentAddress.firstName}"
                label="#{bundle.editorFirstName}" required="true">
           <f:validateLength minimum="2" maximum="20"/>
-        </tx:in>
+        </tc:in>
 
-        <tx:in label="#{bundle.editorLastName}"
+        <tc:in label="#{bundle.editorLastName}"
                value="#{controller.currentAddress.lastName}" required="true"/>
     </tc:panel>
 
@@ -42,7 +41,7 @@
           <f:facet name="layout">
             <tc:segmentLayout medium="2;8;2"/>
           </f:facet>
-          <tx:in value="#{controller.currentAddress.street}"
+          <tc:in value="#{controller.currentAddress.street}"
                  label="#{bundle.editorStreet}"/>
           <tc:in value="#{controller.currentAddress.houseNumber}"/>
         </tc:panel>
@@ -51,7 +50,7 @@
           <f:facet name="layout">
             <tc:segmentLayout medium="2;3;7"/>
           </f:facet>
-          <tx:in value="#{controller.currentAddress.zipCode}"
+          <tc:in value="#{controller.currentAddress.zipCode}"
                  label="#{bundle.editorCity}"/>
           <tc:in value="#{controller.currentAddress.city}"/>
         </tc:panel>
@@ -61,11 +60,11 @@
         <tc:segmentLayout medium="2;10"/>
       </f:facet>
 
-        <tx:selectOneChoice
+        <tc:selectOneChoice
             value="#{controller.currentAddress.country}"
             label="#{bundle.editorCountry}">
           <f:selectItems value="#{countries}"/>
-        </tx:selectOneChoice>
+        </tc:selectOneChoice>
 <!--
       <tc:flexLayout rows="160px" columns="120px" rendered="#{!controller.simple}">
         <tc:form>
@@ -96,34 +95,34 @@
       </tc:flexLayout>
 -->
 
-      <tx:in value="#{controller.currentAddress.phone}"
+      <tc:in value="#{controller.currentAddress.phone}"
              label="#{bundle.editorPhone}"
              validator="#{controller.validatePhoneNumber}"/>
 
-      <tx:in value="#{controller.currentAddress.mobile}"
+      <tc:in value="#{controller.currentAddress.mobile}"
              label="#{bundle.editorMobile}"
              validator="#{controller.validatePhoneNumber}"/>
 
-      <tx:in value="#{controller.currentAddress.fax}"
+      <tc:in value="#{controller.currentAddress.fax}"
              label="#{bundle.editorFax}"
              validator="#{controller.validatePhoneNumber}"/>
 
-      <tx:in value="#{controller.currentAddress.email}"
+      <tc:in value="#{controller.currentAddress.email}"
              label="#{bundle.editorEmail}">
         <f:validator validatorId="EmailAddressValidator"/>
-      </tx:in>
+      </tc:in>
 
-      <tx:in value="#{controller.currentAddress.icq}"
+      <tc:in value="#{controller.currentAddress.icq}"
              label="#{bundle.editorIcq}">
         <f:validateLongRange minimum="0"/>
-      </tx:in>
-      <tx:in value="#{controller.currentAddress.homePage}"
+      </tc:in>
+      <tc:in value="#{controller.currentAddress.homePage}"
              label="#{bundle.editorHomepage}"/>
 
-      <tx:date id="dayOfBirth" value="#{controller.currentAddress.dayOfBirth}"
+      <tc:date id="dayOfBirth" value="#{controller.currentAddress.dayOfBirth}"
                label="#{bundle.editorBirthday}">
         <f:convertDateTime pattern="#{bundle.editorDatePattern}"/>
-      </tx:date>
+      </tc:date>
     </tc:panel>
   </tc:flowLayout>
 

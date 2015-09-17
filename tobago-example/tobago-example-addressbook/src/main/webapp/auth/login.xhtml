@@ -18,7 +18,6 @@
 -->
 
 <f:view xmlns:tc="http://myfaces.apache.org/tobago/component"
-        xmlns:tx="http://myfaces.apache.org/tobago/extension"
         xmlns:f="http://java.sun.com/jsf/core"
         locale="#{controller.language}">
 
@@ -54,8 +53,8 @@
               )
             </tc:flowLayout>
 
-            <tx:in fieldId="j_username" label="#{bundle.loginUser}"/>
-            <tx:in fieldId="j_password" password="true" label="#{bundle.loginPassword}"/>
+            <tc:in id="j_username" label="#{bundle.loginUser}"/>
+            <tc:in id="j_password" password="true" label="#{bundle.loginPassword}"/>
 
             <tc:panel>
               <f:facet name="layout">
