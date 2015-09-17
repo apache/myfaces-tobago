@@ -19,14 +19,12 @@
 
 package org.apache.myfaces.tobago.renderkit;
 
-import org.apache.myfaces.tobago.component.SupportsCss;
 import org.apache.myfaces.tobago.component.SupportsMarkup;
 import org.apache.myfaces.tobago.config.Configurable;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.ResourceManager;
 import org.apache.myfaces.tobago.internal.context.ResourceManagerFactory;
 import org.apache.myfaces.tobago.layout.Measure;
-import org.apache.myfaces.tobago.renderkit.css.Css;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -59,12 +57,6 @@ public class RendererBase extends Renderer {
       final SupportsMarkup supportsMarkup = (SupportsMarkup) component;
       final Markup markup = ComponentUtils.updateMarkup(component, supportsMarkup.getMarkup());
       supportsMarkup.setCurrentMarkup(markup);
-    }
-
-    if (component instanceof SupportsCss) {
-      final SupportsCss supportsCss = (SupportsCss) component;
-      final Css css = supportsCss.getCss();
-      supportsCss.setCurrentCss(css != null ? css : new Css());
     }
   }
 

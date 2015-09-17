@@ -23,7 +23,6 @@ import org.apache.myfaces.tobago.component.DeprecatedDimension;
 import org.apache.myfaces.tobago.component.InputSuggest;
 import org.apache.myfaces.tobago.component.OnComponentCreated;
 import org.apache.myfaces.tobago.component.OnComponentPopulated;
-import org.apache.myfaces.tobago.component.SupportsCss;
 import org.apache.myfaces.tobago.component.SupportsMarkup;
 import org.apache.myfaces.tobago.component.SupportsRenderedPartially;
 import org.apache.myfaces.tobago.config.TobagoConfig;
@@ -77,9 +76,6 @@ public class TobagoComponentHandler extends ComponentHandler {
     }
     if (SupportsRenderedPartially.class.isAssignableFrom(aClass)) {
       metaRuleset.addRule(SupportsRenderedPartiallyRule.INSTANCE);
-    }
-    if (SupportsCss.class.isAssignableFrom(aClass)) {
-      metaRuleset.addRule(SupportsCssRule.INSTANCE);
     }
 
     return metaRuleset;

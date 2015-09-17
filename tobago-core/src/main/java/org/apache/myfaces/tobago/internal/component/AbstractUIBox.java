@@ -19,11 +19,9 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
-import org.apache.myfaces.tobago.component.SupportsCss;
-
 import javax.faces.context.FacesContext;
 
-public abstract class AbstractUIBox extends AbstractUIPanel implements SupportsCss {
+public abstract class AbstractUIBox extends AbstractUIPanel {
 
   @Override
   public void processDecodes(final FacesContext context) {

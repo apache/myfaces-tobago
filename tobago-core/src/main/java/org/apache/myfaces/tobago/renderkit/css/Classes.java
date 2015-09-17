@@ -20,7 +20,6 @@
 package org.apache.myfaces.tobago.renderkit.css;
 
 import org.apache.commons.collections.map.MultiKeyMap;
-import org.apache.myfaces.tobago.component.SupportsCss;
 import org.apache.myfaces.tobago.component.SupportsMarkup;
 import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.context.Markup;
@@ -65,9 +64,6 @@ public final class Classes {
 
   private final String stringValue;
 
-  // TODO: May remplace "Classes" with "Css"
-  private Css css;
-
   public static Classes create(final UIComponent component) {
     return create(component, true, null, null, false);
   }
@@ -100,9 +96,6 @@ public final class Classes {
 //            CACHE.size(), rendererName, markup, sub);
 //      }
 //    }
-    if (component instanceof SupportsCss) {
-      value.css = ((SupportsCss) component).getCurrentCss();
-    }
     return value;
   }
   private Classes(final String rendererName, final Markup markup, final String sub, final boolean ignoreMarkupCheck) {
@@ -141,11 +134,6 @@ public final class Classes {
   }
 
   public String getStringValue() {
-    // XXX optimize
-    if (css != null && css.encode() != null) {
-      return stringValue + " " + css.encode();
-    } else {
-      return stringValue;
-    }
+    return stringValue;
   }
 }

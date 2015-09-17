@@ -19,8 +19,6 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
-import org.apache.myfaces.tobago.component.SupportsCss;
-
-public abstract class AbstractUIToolBarCommand extends AbstractUICommand implements SupportsCss {
+public abstract class AbstractUIToolBarCommand extends AbstractUICommand {
 
 }
