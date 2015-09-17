@@ -62,20 +62,20 @@ import javax.faces.component.UISelectBoolean;
     rendererType = RendererTypes.SELECT_BOOLEAN_CHECKBOX,
     allowedChildComponenents = "NONE",
     facets = {
-        @Facet(name= Facets.CLICK,
+        @Facet(name = Facets.CLICK,
             description =
                 "This facet can contain a UICommand that is invoked in case of a click event from the component",
             allowedChildComponenents = "org.apache.myfaces.tobago.Command"),
-        @Facet(name=Facets.CHANGE,
+        @Facet(name = Facets.CHANGE,
             description =
                 "This facet can contain a UICommand that is invoked in case of a change event from the component",
-                allowedChildComponenents = "org.apache.myfaces.tobago.Command")
-        })
+            allowedChildComponenents = "org.apache.myfaces.tobago.Command")
+    })
 
 public interface SelectBooleanCheckboxTagDeclaration extends HasValidator,
     HasValueChangeListener, HasIdBindingAndRendered, HasLabelAndAccessKey, HasValue, IsDisabled,
     HasTip, IsReadonly, HasMarkup, HasCurrentMarkup, HasTabIndex,
     IsRequiredForSelect, HasConverter, IsFocus,
-    HasValidatorMessage, HasRequiredMessageForSelect, HasConverterMessage, IsGridLayoutComponent, HasStyle, HasItemLabel {
-    // IsImmediateComponent
+    HasValidatorMessage, HasRequiredMessageForSelect, HasConverterMessage,
+    IsGridLayoutComponent, HasStyle, HasItemLabel {
 }

@@ -43,22 +43,22 @@ public class SeparatorRenderer extends LayoutComponentRendererBase {
     final String label = getLabel(separator);
 
     if (label != null) {
-      writer.startElement(HtmlElements.FIELDSET, component);
+      writer.startElement(HtmlElements.FIELDSET, separator);
       writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.PRESENTATION.toString(), false);
       writer.writeIdAttribute(separator.getClientId(facesContext));
-      writer.writeClassAttribute(Classes.create(component));
-      HtmlRendererUtils.writeDataAttributes(facesContext, writer, component);
+      writer.writeClassAttribute(Classes.create(separator), separator.getCustomClass());
+      HtmlRendererUtils.writeDataAttributes(facesContext, writer, separator);
 
-      writer.startElement(HtmlElements.LEGEND, component);
-      writer.writeClassAttribute(Classes.create(component, "label"));
+      writer.startElement(HtmlElements.LEGEND, separator);
+      writer.writeClassAttribute(Classes.create(separator, "label"));
       writer.writeText(label);
       writer.endElement(HtmlElements.LEGEND);
 
       writer.endElement(HtmlElements.FIELDSET);
     } else {
-      writer.startElement(HtmlElements.HR , component);
+      writer.startElement(HtmlElements.HR , separator);
       writer.writeIdAttribute(separator.getClientId(facesContext));
-      writer.writeClassAttribute(Classes.create(component));
+      writer.writeClassAttribute(Classes.create(separator), separator.getCustomClass());
       writer.endElement(HtmlElements.HR);
     }
   }

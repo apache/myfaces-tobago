@@ -55,7 +55,7 @@ import javax.faces.component.UIPanel;
             allowedChildComponenents = "org.apache.myfaces.tobago.GridLayout")})
 
 public interface BoxTagDeclaration
-    extends HasIdBindingAndRendered, IsGridLayoutComponent, HasStyle, IsGridLayoutContainer, HasMarkup, HasCurrentMarkup,
-    HasLabel, HasTip, IsCollapsible, HasCss, HasCurrentCss {
+    extends HasIdBindingAndRendered, IsGridLayoutComponent, HasStyle, IsGridLayoutContainer, HasMarkup,
+    HasCurrentMarkup, HasLabel, HasTip, IsCollapsible, HasCss, HasCurrentCss {
 
 }

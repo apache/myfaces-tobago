@@ -43,7 +43,7 @@ public class SelectManyShuttleRenderer extends SelectManyRendererBase {
     final UISelectManyShuttle select = (UISelectManyShuttle) component;
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
     writer.startElement(HtmlElements.DIV, select);
-    writer.writeClassAttribute(Classes.create(select));
+    writer.writeClassAttribute(Classes.create(select), select.getCustomClass());
     final String clientId = select.getClientId(facesContext);
     writer.writeIdAttribute(clientId);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, select);

@@ -225,13 +225,11 @@ public class PageRenderer extends LayoutComponentRendererBase {
       writer.endElement(HtmlElements.HEAD);
     }
 
-    if (portlet) {
-      writer.startElement(HtmlElements.DIV, page);
-      writer.writeClassAttribute(Classes.create(page, Markup.PORTLET), BootstrapClass.CONTAINER_FLUID);
-    } else {
-      writer.startElement(HtmlElements.BODY, page);
-      writer.writeClassAttribute(Classes.create(page), BootstrapClass.CONTAINER_FLUID);
-    }
+    writer.startElement(portlet ? HtmlElements.DIV : HtmlElements.BODY, page);
+    writer.writeClassAttribute(
+        portlet ? Classes.create(page, Markup.PORTLET) : Classes.create(page),
+        BootstrapClass.CONTAINER_FLUID,
+        page.getCustomClass());
     writer.writeIdAttribute(clientId);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, page);
     HtmlRendererUtils.renderCommandFacet(page, facesContext, writer);

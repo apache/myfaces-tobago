@@ -92,7 +92,7 @@ public class CommandRenderer extends CommandRendererBase {
       writer.writeClassAttribute(BootstrapClass.DROPDOWN_TOGGLE); // todo: CSS classes
       writer.writeAttribute(DataAttributes.TOGGLE, "dropdown", false);
     } else {
-      writer.writeClassAttribute(Classes.create(link));
+      writer.writeClassAttribute(Classes.create(link), link.getCustomClass());
     }
     writer.writeIdAttribute(clientId);
     writer.writeNameAttribute(clientId);

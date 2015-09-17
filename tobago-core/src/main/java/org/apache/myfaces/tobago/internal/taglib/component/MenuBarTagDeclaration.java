@@ -60,5 +60,6 @@ import javax.faces.component.UIPanel;
         "org.apache.myfaces.tobago.MenuSeparator"
         })
 public interface MenuBarTagDeclaration
-    extends HasIdBindingAndRendered, IsGridLayoutComponent, HasStyle, HasMarkup, HasCurrentMarkup, HasCss, HasCurrentCss {
+    extends HasIdBindingAndRendered, IsGridLayoutComponent, HasStyle, HasMarkup, HasCurrentMarkup,
+    HasCss, HasCurrentCss {
 }

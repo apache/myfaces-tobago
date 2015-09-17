@@ -61,8 +61,8 @@ import javax.faces.component.UIData;
     facets = {@Facet(name = Facets.RELOAD, description = "Contains an instance of UIReload",
                      allowedChildComponenents = "org.apache.myfaces.tobago.Reload")})
 public interface SheetTagDeclaration 
-    extends HasIdBindingAndRendered, IsGridLayoutComponent, HasStyle, IsGridLayoutContainer, HasMarkup, HasCurrentMarkup,
-    HasCss, HasCurrentCss, HasRenderedPartially, IsShowRoot, IsShowRootJunction, HasVar {
+    extends HasIdBindingAndRendered, IsGridLayoutComponent, HasStyle, IsGridLayoutContainer,
+    HasMarkup, HasCurrentMarkup, HasCss, HasCurrentCss, HasRenderedPartially, IsShowRoot, IsShowRootJunction, HasVar {
   /**
    * LayoutConstraints for column layout.
    * Semicolon separated list of layout tokens ('&lt;x>*', '&lt;x>px' or '&lt;x>%').

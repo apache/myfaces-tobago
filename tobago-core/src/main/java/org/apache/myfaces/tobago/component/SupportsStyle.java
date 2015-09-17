@@ -19,6 +19,7 @@
 
 package org.apache.myfaces.tobago.component;
 
+import org.apache.myfaces.tobago.renderkit.css.CustomClass;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 
 public interface SupportsStyle {
@@ -26,4 +27,8 @@ public interface SupportsStyle {
   Style getStyle();
 
   void setStyle(Style style);
+
+  CustomClass getCustomClass();
+
+  void setCustomClass(CustomClass customClass);
 }

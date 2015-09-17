@@ -99,7 +99,7 @@ public class FileRenderer extends InputRendererBase {
 
     writer.startElement(HtmlElements.DIV, file);
     writer.writeIdAttribute(clientId);
-    writer.writeClassAttribute(Classes.create(file));
+    writer.writeClassAttribute(Classes.create(file), file.getCustomClass());
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, file);
     writer.writeStyleAttribute(file.getStyle());
 

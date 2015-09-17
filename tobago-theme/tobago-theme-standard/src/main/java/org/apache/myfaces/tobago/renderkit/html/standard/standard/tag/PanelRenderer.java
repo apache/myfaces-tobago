@@ -22,13 +22,11 @@ package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.UIPanel;
 import org.apache.myfaces.tobago.component.UIReload;
-import org.apache.myfaces.tobago.internal.component.AbstractUISegmentLayout;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPanel;
 import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
-import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
@@ -70,12 +68,7 @@ public class PanelRenderer extends LayoutComponentRendererBase {
     writer.startElement(HtmlElements.DIV, panel);
     writer.writeIdAttribute(clientId);
 
-    if (panel.getLayoutManager() instanceof AbstractUISegmentLayout) {
-      // TBD: this might be nicer, wen using the layout not as a facet
-      writer.writeClassAttribute(Classes.create(panel), BootstrapClass.ROW);
-    } else {
-      writer.writeClassAttribute(Classes.create(panel));
-    }
+    writer.writeClassAttribute(Classes.create(panel), panel.getCustomClass());
 
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, panel);
     if (panel instanceof UIPanel && ((UIPanel) panel).getTip() != null) {

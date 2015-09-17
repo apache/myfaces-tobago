@@ -29,22 +29,22 @@ import java.util.List;
  */
 public class BootstrapClassGenerator {
 
-  private BootstrapClass[] EXTRA_SMALL = new BootstrapClass[]{
+  private static final BootstrapClass[] EXTRA_SMALL = new BootstrapClass[]{
       BootstrapClass.COL_XS_1, BootstrapClass.COL_XS_2, BootstrapClass.COL_XS_3, BootstrapClass.COL_XS_4,
       BootstrapClass.COL_XS_5, BootstrapClass.COL_XS_6, BootstrapClass.COL_XS_7, BootstrapClass.COL_XS_8,
       BootstrapClass.COL_XS_9, BootstrapClass.COL_XS_10, BootstrapClass.COL_XS_11, BootstrapClass.COL_XS_12,
   };
-  private BootstrapClass[] SMALL = new BootstrapClass[]{
+  private static final BootstrapClass[] SMALL = new BootstrapClass[]{
       BootstrapClass.COL_SM_1, BootstrapClass.COL_SM_2, BootstrapClass.COL_SM_3, BootstrapClass.COL_SM_4,
       BootstrapClass.COL_SM_5, BootstrapClass.COL_SM_6, BootstrapClass.COL_SM_7, BootstrapClass.COL_SM_8,
       BootstrapClass.COL_SM_9, BootstrapClass.COL_SM_10, BootstrapClass.COL_SM_11, BootstrapClass.COL_SM_12,
   };
-  private BootstrapClass[] MEDIUM = new BootstrapClass[]{
+  private static final BootstrapClass[] MEDIUM = new BootstrapClass[]{
       BootstrapClass.COL_MD_1, BootstrapClass.COL_MD_2, BootstrapClass.COL_MD_3, BootstrapClass.COL_MD_4,
       BootstrapClass.COL_MD_5, BootstrapClass.COL_MD_6, BootstrapClass.COL_MD_7, BootstrapClass.COL_MD_8,
       BootstrapClass.COL_MD_9, BootstrapClass.COL_MD_10, BootstrapClass.COL_MD_11, BootstrapClass.COL_MD_12,
   };
-  private BootstrapClass[] LARGE = new BootstrapClass[]{
+  private static final BootstrapClass[] LARGE = new BootstrapClass[]{
       BootstrapClass.COL_LG_1, BootstrapClass.COL_LG_2, BootstrapClass.COL_LG_3, BootstrapClass.COL_LG_4,
       BootstrapClass.COL_LG_5, BootstrapClass.COL_LG_6, BootstrapClass.COL_LG_7, BootstrapClass.COL_LG_8,
       BootstrapClass.COL_LG_9, BootstrapClass.COL_LG_10, BootstrapClass.COL_LG_11, BootstrapClass.COL_LG_12,

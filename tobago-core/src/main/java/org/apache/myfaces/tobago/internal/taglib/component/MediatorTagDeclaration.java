@@ -46,7 +46,8 @@ import javax.faces.component.UIPanel;
     rendererType = RendererTypes.MEDIATOR,
     interfaces = {"org.apache.myfaces.tobago.component.SupportsMarkup"})
 public interface MediatorTagDeclaration
-    extends HasIdBindingAndRendered, IsGridLayoutComponent, HasStyle, IsGridLayoutContainer, HasMarkup, HasCurrentMarkup {
+    extends HasIdBindingAndRendered, IsGridLayoutComponent, HasStyle, IsGridLayoutContainer, HasMarkup,
+    HasCurrentMarkup {
 
   /**
    * Name of a request-scope attribute under which this component is accessible.

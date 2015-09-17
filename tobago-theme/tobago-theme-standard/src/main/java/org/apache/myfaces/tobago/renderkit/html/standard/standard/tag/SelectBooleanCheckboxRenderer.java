@@ -86,7 +86,8 @@ public class SelectBooleanCheckboxRenderer extends LayoutComponentRendererBase {
     writer.writeClassAttribute(
         Classes.create(select),
         BootstrapClass.CHECKBOX,
-        disabled ? BootstrapClass.DISABLED : null);
+        disabled ? BootstrapClass.DISABLED : null,
+        select.getCustomClass());
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, select);
     if (title != null) {
       writer.writeAttribute(HtmlAttributes.TITLE, title, true);

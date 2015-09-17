@@ -17,10 +17,22 @@
  * under the License.
  */
 
-package org.apache.myfaces.tobago.internal.taglib.declaration;
+package org.apache.myfaces.tobago.renderkit.css;
 
-public interface InputTagDeclaration
-    extends HasValidator, HasValue, HasValueChangeListener,
-    HasValidatorMessage, HasConverterMessage, HasRequiredMessage,
-    HasTabIndex, IsFocus, IsGridLayoutComponent, HasStyle {
+import java.beans.PropertyEditorSupport;
+
+/**
+ * Converter for {@link org.apache.myfaces.tobago.renderkit.css.CustomClass}
+ *
+ * XXX preliminary
+ *
+ * @since 3.0.0
+ */
+public class CustomClassEditor extends PropertyEditorSupport {
+
+  @Override
+  public void setAsText(final String text) throws IllegalArgumentException {
+    setValue(CustomClass.valueOf(text));
+  }
+
 }

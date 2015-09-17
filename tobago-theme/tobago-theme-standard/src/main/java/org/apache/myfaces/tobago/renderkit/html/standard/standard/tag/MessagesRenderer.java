@@ -250,7 +250,7 @@ public class MessagesRenderer extends LayoutComponentRendererBase {
     }
     writer.writeAttribute(HtmlAttributes.TITLE, detail, true);
     final Markup markup = ComponentUtils.markupOfSeverity(message.getSeverity());
-    writer.writeClassAttribute(Classes.create(messages, "item", markup));
+    writer.writeClassAttribute(Classes.create(messages, "item", markup), messages.getCustomClass());
     boolean writeEmptyText = true;
     if (summary != null && messages.isShowSummary()) {
       writer.writeText(summary);

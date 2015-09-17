@@ -65,7 +65,7 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
     writer.startElement(HtmlElements.OL, select);
     writer.writeIdAttribute(id);
     writer.writeStyleAttribute(select.getStyle());
-    writer.writeClassAttribute(Classes.create(select));
+    writer.writeClassAttribute(Classes.create(select), select.getCustomClass());
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, select);
     if (title != null) {
       writer.writeAttribute(HtmlAttributes.TITLE, title, true);

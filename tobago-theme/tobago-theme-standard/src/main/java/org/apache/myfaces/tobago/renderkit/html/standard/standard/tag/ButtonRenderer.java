@@ -100,7 +100,8 @@ public class ButtonRenderer extends CommandRendererBase {
         Classes.create(button),
         BootstrapClass.BTN,
         defaultCommand ? BootstrapClass.BTN_PRIMARY : BootstrapClass.BTN_DEFAULT,
-        insideToolbar ? BootstrapClass.NAVBAR_BTN : null);
+        insideToolbar ? BootstrapClass.NAVBAR_BTN : null,
+        button.getCustomClass());
 
     if (button instanceof UIButton && ((UIButton) component).isDefaultCommand()) {
       final AbstractUIForm form = ComponentUtils.findAncestor(component, AbstractUIForm.class);

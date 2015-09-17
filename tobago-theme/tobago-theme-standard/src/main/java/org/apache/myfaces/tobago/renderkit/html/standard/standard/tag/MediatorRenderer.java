@@ -43,6 +43,7 @@ public class MediatorRenderer extends LayoutComponentRendererBase {
     writer.startElement(HtmlElements.DIV, mediator);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, mediator);
     writer.writeStyleAttribute(mediator.getStyle());
+    writer.writeClassAttribute(mediator.getCustomClass());
   }
 
   @Override

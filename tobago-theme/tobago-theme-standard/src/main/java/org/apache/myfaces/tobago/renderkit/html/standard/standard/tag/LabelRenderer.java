@@ -69,7 +69,7 @@ public class LabelRenderer extends LayoutComponentRendererBase {
     final String clientId = label.getClientId(facesContext);
     writer.startElement(HtmlElements.LABEL, label);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, label);
-    writer.writeClassAttribute(Classes.create(label), BootstrapClass.CONTROL_LABEL);
+    writer.writeClassAttribute(Classes.create(label), BootstrapClass.CONTROL_LABEL, label.getCustomClass());
     writer.writeStyleAttribute(label.getStyle());
     writer.writeIdAttribute(clientId);
     if (forValue != null) {

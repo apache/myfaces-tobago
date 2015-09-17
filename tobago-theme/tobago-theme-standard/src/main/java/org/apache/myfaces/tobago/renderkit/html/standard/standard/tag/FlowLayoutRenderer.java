@@ -39,7 +39,7 @@ public class FlowLayoutRenderer extends RendererBase {
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
     final UIFlowLayout layout = (UIFlowLayout) component;
     writer.startElement(HtmlElements.DIV, layout);
-    writer.writeClassAttribute(Classes.create(layout));
+    writer.writeClassAttribute(Classes.create(layout), layout.getCustomClass());
     writer.writeStyleAttribute(layout.getStyle());
   }
 

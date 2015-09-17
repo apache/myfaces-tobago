@@ -83,7 +83,8 @@ public class FlexLayoutRenderer extends RendererBase {
       b.append("]}");
     }
     boolean vertically = rows.contains(";");
-    writer.writeClassAttribute(Classes.create(flexLayout, vertically ? Markup.VERTICALLY : Markup.NULL));
+    writer.writeClassAttribute(
+        Classes.create(flexLayout, vertically ? Markup.VERTICALLY : Markup.NULL));
     // todo: const, utils, etc.
     writer.writeAttribute("data-tobago-layout", b.toString(), true);
 //    writer.writeAttribute("data-tobago-layout", "{\"columns\":[\"auto\",1]}", true);

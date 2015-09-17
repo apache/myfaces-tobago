@@ -64,7 +64,7 @@ public class MenuRenderer extends LayoutComponentRendererBase {
     final boolean isParentMenu = menu.getChildCount() > 0; // todo: may be not correct
 
     writer.startElement(HtmlElements.LI, menu);
-    writer.writeClassAttribute(Classes.create(menu), BootstrapClass.DROPDOWN);
+    writer.writeClassAttribute(Classes.create(menu), BootstrapClass.DROPDOWN, menu.getCustomClass());
     StringBuilder backgroundImage = null;
     StringBuilder backgroundPosition = null;
     if (menu.getImage() != null) {

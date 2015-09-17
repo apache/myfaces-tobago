@@ -55,7 +55,16 @@ public interface StyleTagDeclaration extends HasIdBindingAndRendered {
   void setFile(String file);
 
   /**
+   * @param customClass A custom CSS class for this component.
+   * @since 3.0.0
+   */
+  @TagAttribute()
+  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.renderkit.css.CustomClass")
+  void setCustomClass(String customClass);
+
+  /**
    * @param width The width for this component.
+   * @since 3.0.0
    */
   @TagAttribute()
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
@@ -63,6 +72,7 @@ public interface StyleTagDeclaration extends HasIdBindingAndRendered {
 
   /**
    * @param height The height for this component.
+   * @since 3.0.0
    */
   @TagAttribute()
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
@@ -70,6 +80,7 @@ public interface StyleTagDeclaration extends HasIdBindingAndRendered {
 
   /**
    * @param minWidth The minimum width for this component.
+   * @since 3.0.0
    */
   @TagAttribute()
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
@@ -77,6 +88,7 @@ public interface StyleTagDeclaration extends HasIdBindingAndRendered {
 
   /**
    * @param minHeight The minimum height for this component.
+   * @since 3.0.0
    */
   @TagAttribute()
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
@@ -84,6 +96,7 @@ public interface StyleTagDeclaration extends HasIdBindingAndRendered {
 
   /**
    * @param maxWidth The maximum width for this component.
+   * @since 3.0.0
    */
   @TagAttribute()
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
@@ -91,6 +104,7 @@ public interface StyleTagDeclaration extends HasIdBindingAndRendered {
 
   /**
    * @param maxHeight The maximum height for this component.
+   * @since 3.0.0
    */
   @TagAttribute()
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
@@ -98,6 +112,7 @@ public interface StyleTagDeclaration extends HasIdBindingAndRendered {
 
   /**
    * @param left The left position value for this component.
+   * @since 3.0.0
    */
   @TagAttribute()
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
@@ -105,6 +120,7 @@ public interface StyleTagDeclaration extends HasIdBindingAndRendered {
 
   /**
    * @param right The left position value for this component.
+   * @since 3.0.0
    */
   @TagAttribute()
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
@@ -112,6 +128,7 @@ public interface StyleTagDeclaration extends HasIdBindingAndRendered {
 
   /**
    * @param top The top position value for this component.
+   * @since 3.0.0
    */
   @TagAttribute()
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
@@ -119,6 +136,7 @@ public interface StyleTagDeclaration extends HasIdBindingAndRendered {
 
   /**
    * @param bottom The top position value for this component.
+   * @since 3.0.0
    */
   @TagAttribute()
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
@@ -126,6 +144,7 @@ public interface StyleTagDeclaration extends HasIdBindingAndRendered {
 
   /**
    * @param paddingLeft The left padding.
+   * @since 3.0.0
    */
   @TagAttribute()
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
@@ -133,6 +152,7 @@ public interface StyleTagDeclaration extends HasIdBindingAndRendered {
 
   /**
    * @param paddingRight The right padding.
+   * @since 3.0.0
    */
   @TagAttribute()
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
@@ -140,6 +160,7 @@ public interface StyleTagDeclaration extends HasIdBindingAndRendered {
 
   /**
    * @param paddingTop The top padding.
+   * @since 3.0.0
    */
   @TagAttribute()
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
@@ -147,6 +168,7 @@ public interface StyleTagDeclaration extends HasIdBindingAndRendered {
 
   /**
    * @param paddingBottom The bottom padding.
+   * @since 3.0.0
    */
   @TagAttribute()
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
@@ -154,6 +176,7 @@ public interface StyleTagDeclaration extends HasIdBindingAndRendered {
 
   /**
    * @param marginLeft The margin at the left of this component.
+   * @since 3.0.0
    */
   @TagAttribute()
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
@@ -161,6 +184,7 @@ public interface StyleTagDeclaration extends HasIdBindingAndRendered {
 
   /**
    * @param marginRight The margin at the right of this component.
+   * @since 3.0.0
    */
   @TagAttribute()
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
@@ -168,6 +192,7 @@ public interface StyleTagDeclaration extends HasIdBindingAndRendered {
 
   /**
    * @param marginTop The margin at the top of this component.
+   * @since 3.0.0
    */
   @TagAttribute()
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
@@ -175,6 +200,7 @@ public interface StyleTagDeclaration extends HasIdBindingAndRendered {
 
   /**
    * @param marginBottom The margin at the bottom of this component.
+   * @since 3.0.0
    */
   @TagAttribute()
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
@@ -182,6 +208,7 @@ public interface StyleTagDeclaration extends HasIdBindingAndRendered {
 
   /**
    * @param overflowX Does the component need a horizontal scollbar.
+   * @since 3.0.0
    */
   @TagAttribute()
   @UIComponentTagAttribute(
@@ -191,6 +218,7 @@ public interface StyleTagDeclaration extends HasIdBindingAndRendered {
 
   /**
    * @param overflowY Does the component need a vertical scollbar.
+   * @since 3.0.0
    */
   @TagAttribute()
   @UIComponentTagAttribute(
@@ -201,6 +229,7 @@ public interface StyleTagDeclaration extends HasIdBindingAndRendered {
   /**
    * @param display Indicates the renderer to render the element as
    *                {@link Display#block}, {@link Display#inline} or {@link Display#none}.
+   * @since 3.0.0
    */
   @TagAttribute()
   @UIComponentTagAttribute(
@@ -210,6 +239,7 @@ public interface StyleTagDeclaration extends HasIdBindingAndRendered {
 
   /**
    * @param position Values for the position used with CSS.
+   * @since 3.0.0
    */
   @TagAttribute()
   @UIComponentTagAttribute(
@@ -223,6 +253,7 @@ public interface StyleTagDeclaration extends HasIdBindingAndRendered {
    * {@link TextAlign#right},
    * {@link TextAlign#center} and
    * {@link TextAlign#justify}.
+   * @since 3.0.0
    */
   @TagAttribute()
   @UIComponentTagAttribute(

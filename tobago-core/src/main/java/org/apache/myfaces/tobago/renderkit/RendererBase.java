@@ -202,14 +202,4 @@ public class RendererBase extends Renderer {
     }
     return resourceManager;
   }
-
-  /**
-   * The return value of this method will be cached, so it's not possible to return state information.
-   * This method will not called often.
-   * @since Tobago 3.0.0
-   * @return Additional CSS classes.
-   */
-  public String[] getAdditionalClasses() {
-    return new String[0];
-  }
 }

@@ -332,6 +332,10 @@ StyleProperty(property) ::= <<
 <NormalProperty(property)>
 >>
 
+CustomClassProperty(property) ::= <<
+<NormalProperty(property)>
+>>
+
 OrderByProperty(property) ::= <<
 <NormalProperty(property)>
 >>

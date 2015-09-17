@@ -37,16 +37,17 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutCompone
  */
 @Tag(name = "section")
 @UIComponentTag(
-        uiComponent = "org.apache.myfaces.tobago.component.UISection",
-        uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUISection",
-        uiComponentFacesClass = "javax.faces.component.UIComponentBase",
-        componentFamily = "org.apache.myfaces.tobago.Section",
-        rendererType = RendererTypes.SECTION,
-        facets = {
-                @Facet(name = Facets.LABEL,
-                        description = "This facet contains a UILabel",
-                        allowedChildComponenents = "org.apache.myfaces.tobago.Label")})
+    uiComponent = "org.apache.myfaces.tobago.component.UISection",
+    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUISection",
+    uiComponentFacesClass = "javax.faces.component.UIComponentBase",
+    componentFamily = "org.apache.myfaces.tobago.Section",
+    rendererType = RendererTypes.SECTION,
+    facets = {
+        @Facet(name = Facets.LABEL,
+            description = "This facet contains a UILabel",
+            allowedChildComponenents = "org.apache.myfaces.tobago.Label")})
 
 public interface SectionTagDeclaration
-        extends HasIdBindingAndRendered, HasLabel, IsGridLayoutComponent, HasStyle, HasImage, HasMarkup, HasCurrentMarkup {
+    extends HasIdBindingAndRendered, HasLabel, IsGridLayoutComponent, HasStyle, HasImage,
+    HasMarkup, HasCurrentMarkup {
 }

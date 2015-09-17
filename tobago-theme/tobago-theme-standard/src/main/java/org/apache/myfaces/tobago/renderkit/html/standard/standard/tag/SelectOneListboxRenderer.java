@@ -62,7 +62,7 @@ public class SelectOneListboxRenderer extends SelectOneRendererBase {
       writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
     }
     writer.writeStyleAttribute(select.getStyle());
-    writer.writeClassAttribute(Classes.create(select), BootstrapClass.FORM_CONTROL);
+    writer.writeClassAttribute(Classes.create(select), BootstrapClass.FORM_CONTROL, select.getCustomClass());
     final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, select);
     if (title != null) {
       writer.writeAttribute(HtmlAttributes.TITLE, title, true);

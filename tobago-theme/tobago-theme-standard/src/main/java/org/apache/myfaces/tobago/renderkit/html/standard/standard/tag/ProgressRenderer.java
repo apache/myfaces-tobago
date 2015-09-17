@@ -62,7 +62,7 @@ public class ProgressRenderer extends LayoutComponentRendererBase {
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
     writer.startElement(HtmlElements.DIV, progress);
-    writer.writeClassAttribute(Classes.create(progress));
+    writer.writeClassAttribute(Classes.create(progress), progress.getCustomClass());
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, progress);
     writer.writeStyleAttribute(progress.getStyle());
     if (title != null) {

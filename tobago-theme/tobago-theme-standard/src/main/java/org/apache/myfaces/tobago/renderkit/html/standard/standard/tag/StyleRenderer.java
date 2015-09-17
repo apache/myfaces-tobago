@@ -23,6 +23,7 @@ import org.apache.myfaces.tobago.component.SupportsStyle;
 import org.apache.myfaces.tobago.component.UIStyle;
 import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
+import org.apache.myfaces.tobago.renderkit.css.CustomClass;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,7 +48,17 @@ public class StyleRenderer extends RendererBase {
     if (!style.isEmpty()) {
       final UIComponent parent = styleComponent.getParent();
       if (parent instanceof SupportsStyle) {
-        ((SupportsStyle)parent).setStyle(style);
+        ((SupportsStyle) parent).setStyle(style);
+      } else {
+        LOG.warn("The parent of a style component doesn't support style: " + parent.getClientId(facesContext));
+      }
+    }
+
+    final CustomClass customClass = styleComponent.getCustomClass();
+    if (customClass != null) {
+      final UIComponent parent = styleComponent.getParent();
+      if (parent instanceof SupportsStyle) {
+        ((SupportsStyle) parent).setCustomClass(customClass);
       } else {
         LOG.warn("The parent of a style component doesn't support style: " + parent.getClientId(facesContext));
       }

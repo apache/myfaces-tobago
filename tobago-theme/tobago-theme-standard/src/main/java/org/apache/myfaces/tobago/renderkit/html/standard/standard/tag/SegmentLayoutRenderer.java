@@ -131,7 +131,7 @@ public class SegmentLayoutRenderer extends RendererBase {
       FacesContext facesContext, TobagoResponseWriter writer, BootstrapClassGenerator generator, UIComponent child)
       throws IOException {
     writer.startElement(HtmlElements.DIV, null);
-    writer.writeClassAttribute((CssItem)null, generator.generate());
+    writer.writeClassAttribute((CssItem) null, generator.generate());
     RenderUtils.encode(facesContext, child);
     writer.endElement(HtmlElements.DIV);
   }

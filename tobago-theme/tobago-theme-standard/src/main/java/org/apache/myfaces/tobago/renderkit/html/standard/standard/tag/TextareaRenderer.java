@@ -74,7 +74,7 @@ public class TextareaRenderer extends InputRendererBase {
       writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
     }
 
-    writer.writeClassAttribute(Classes.create(input), BootstrapClass.FORM_CONTROL);
+    writer.writeClassAttribute(Classes.create(input), BootstrapClass.FORM_CONTROL, input.getCustomClass());
     writer.writeStyleAttribute(input.getStyle());
     int maxLength = -1;
     final String pattern = null;

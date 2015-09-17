@@ -53,7 +53,7 @@ public class ObjectRenderer extends LayoutComponentRendererBase {
     } else {
       writer.writeAttribute(HtmlAttributes.SRC, ResourceManagerUtils.getBlankPage(facesContext), false);
     }
-    writer.writeClassAttribute(Classes.create(object));
+    writer.writeClassAttribute(Classes.create(object), object.getCustomClass());
     writer.writeStyleAttribute(object.getStyle());
 
     String noframes = ResourceManagerUtils.getPropertyNotNull(

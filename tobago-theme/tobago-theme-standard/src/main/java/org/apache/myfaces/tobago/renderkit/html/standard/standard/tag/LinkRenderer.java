@@ -79,7 +79,7 @@ public class LinkRenderer extends CommandRendererBase {
     }
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, link);
     writer.writeStyleAttribute(link.getStyle());
-    writer.writeClassAttribute(Classes.create(link));
+    writer.writeClassAttribute(Classes.create(link), link.getCustomClass());
     writer.writeIdAttribute(clientId);
     writer.writeNameAttribute(clientId);
     final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, link);

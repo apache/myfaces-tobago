@@ -81,7 +81,7 @@ public class TreeRenderer extends LayoutComponentRendererBase {
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
     writer.startElement(HtmlElements.DIV, tree);
-    writer.writeClassAttribute(Classes.create(tree));
+    writer.writeClassAttribute(Classes.create(tree), tree.getCustomClass());
     writer.writeStyleAttribute(tree.getStyle());
     writer.writeIdAttribute(clientId);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, tree);

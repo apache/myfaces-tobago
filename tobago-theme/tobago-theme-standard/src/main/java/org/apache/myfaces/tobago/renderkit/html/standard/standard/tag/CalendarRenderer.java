@@ -70,7 +70,7 @@ public class CalendarRenderer extends LayoutComponentRendererBase {
 
     writer.startElement(HtmlElements.DIV, component);
     writer.writeIdAttribute(id);
-    writer.writeClassAttribute(Classes.create(output));
+    writer.writeClassAttribute(Classes.create(output), output.getCustomClass());
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, component);
     final Style style = output.getStyle();
     writer.writeStyleAttribute(style);

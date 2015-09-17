@@ -58,7 +58,8 @@ public class BoxRenderer extends BoxRendererBase {
         }
 
         writer.startElement(HtmlElements.DIV, box);
-        writer.writeClassAttribute(Classes.create(box), BootstrapClass.PANEL, BootstrapClass.PANEL_DEFAULT);
+        writer.writeClassAttribute(
+            Classes.create(box), BootstrapClass.PANEL, BootstrapClass.PANEL_DEFAULT, box.getCustomClass());
         writer.writeIdAttribute(box.getClientId(facesContext));
         final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, box);
         if (title != null) {

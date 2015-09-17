@@ -85,7 +85,7 @@ public class NumberSliderRenderer extends LayoutComponentRendererBase {
     writer.startElement(HtmlElements.TABLE, slider);
     writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.PRESENTATION.toString(), false);
     writer.writeIdAttribute(id);
-    writer.writeClassAttribute(Classes.create(slider));
+    writer.writeClassAttribute(Classes.create(slider), slider.getCustomClass());
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, slider);
     writer.writeStyleAttribute(slider.getStyle());
     //writer.writeAttribute(HtmlAttributes.BORDER,"1",false);

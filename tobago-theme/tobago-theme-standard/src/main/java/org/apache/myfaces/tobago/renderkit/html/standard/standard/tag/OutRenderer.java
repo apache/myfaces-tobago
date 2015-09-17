@@ -58,7 +58,7 @@ public class OutRenderer extends LabelLayoutRendererBase {
       writer.writeIdAttribute(id);
       HtmlRendererUtils.writeDataAttributes(facesContext, writer, out);
       writer.writeStyleAttribute(out.getStyle());
-      writer.writeClassAttribute(Classes.create(out), BootstrapClass.FORM_CONTROL_STATIC);
+      writer.writeClassAttribute(Classes.create(out), BootstrapClass.FORM_CONTROL_STATIC, out.getCustomClass());
       final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, out);
       if (title != null) {
         writer.writeAttribute(HtmlAttributes.TITLE, title, true);

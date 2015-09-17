@@ -93,12 +93,12 @@ public class ImageRenderer extends LayoutComponentRendererBase {
     style.setWidth(image.getWidth());
     style.setHeight(image.getHeight());
     writer.writeStyleAttribute(style);
-    if (ComponentUtils.findAncestor(image, UINav.class) != null) { // todo: may set a marker in the context in the
-      // todo: NavRenderer, or the additional class, to avoid tree traversing
-      writer.writeClassAttribute(Classes.create(image), BootstrapClass.NAVBAR_BRAND);
-    } else {
-      writer.writeClassAttribute(Classes.create(image));
-    }
+    // todo: may set a marker in the context in the
+    // todo: NavRenderer, or the additional class, to avoid tree traversing
+    writer.writeClassAttribute(
+        Classes.create(image),
+        ComponentUtils.findAncestor(image, UINav.class) != null ? BootstrapClass.NAVBAR_BRAND : null,
+        image.getCustomClass());
     writer.endElement(HtmlElements.IMG);
   }
 

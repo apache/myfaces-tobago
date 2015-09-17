@@ -28,4 +28,23 @@ public interface HasStyle {
    */
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.renderkit.css.Style")
   void setStyle(String style);
+
+  /**
+   * Sets a CSS class in its parent, if the parent supports it.
+   *
+   * Which this feature it is possible to put a CSS class name into a component with the <tc:style> tag. Example:
+   *
+   * <pre>
+   * &lt;tc:in>
+   *   &lt;tc:style customClass="my-emphasized"/>
+   * &lt;/tc:in>
+   * </pre>
+   *
+   * One capability is, to used external CSS libs.
+   * <br/>
+   * This feature should not be used imprudent.
+   * Because it might be unstable against changes in the renderered HTML code.
+   */
+  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.renderkit.css.CustomClass")
+  void setCustomClass(String customClass);
 }

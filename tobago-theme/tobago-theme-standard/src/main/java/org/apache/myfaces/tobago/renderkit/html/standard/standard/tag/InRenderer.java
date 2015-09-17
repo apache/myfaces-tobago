@@ -113,7 +113,7 @@ public class InRenderer extends InputRendererBase {
       writer.writeAttribute(HtmlAttributes.PLACEHOLDER, placeholder, true);
     }
 
-    writer.writeClassAttribute(Classes.create(input), BootstrapClass.FORM_CONTROL);
+    writer.writeClassAttribute(Classes.create(input), BootstrapClass.FORM_CONTROL, input.getCustomClass());
     writer.writeAttribute(HtmlAttributes.REQUIRED, required);
     HtmlRendererUtils.renderFocus(id, input.isFocus(), ComponentUtils.isError(input), facesContext, writer);
     writeAdditionalAttributes(facesContext, writer, input);

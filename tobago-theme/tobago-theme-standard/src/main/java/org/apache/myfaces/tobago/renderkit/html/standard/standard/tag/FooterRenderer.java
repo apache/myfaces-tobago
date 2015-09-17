@@ -39,11 +39,10 @@ public class FooterRenderer extends RendererBase {
     final UIFooter footer = (UIFooter) component;
     writer.startElement(HtmlElements.FOOTER, component);
     writer.writeIdAttribute(component.getClientId(facesContext));
-    if (footer.isFixed()) {
-      writer.writeClassAttribute(Classes.create(footer), BootstrapClass.NAVBAR_FIXED_BOTTOM);
-    } else {
-      writer.writeClassAttribute(Classes.create(footer));
-    }
+    writer.writeClassAttribute(
+        Classes.create(footer),
+        footer.isFixed() ? BootstrapClass.NAVBAR_FIXED_BOTTOM : null,
+        footer.getCustomClass());
   }
 
   @Override
