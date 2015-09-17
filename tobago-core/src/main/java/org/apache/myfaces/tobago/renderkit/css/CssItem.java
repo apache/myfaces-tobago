@@ -19,10 +19,12 @@
 
 package org.apache.myfaces.tobago.renderkit.css;
 
+import java.io.Serializable;
+
 /**
  * TBD: preliminary
  */
-public interface CssItem {
+public interface CssItem extends Serializable {
 
   String getName();
 }
