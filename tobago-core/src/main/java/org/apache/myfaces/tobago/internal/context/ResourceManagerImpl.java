@@ -32,7 +32,6 @@ import org.apache.myfaces.tobago.util.LocaleUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 import javax.faces.render.Renderer;
 import java.util.ArrayList;
