@@ -19,10 +19,8 @@
 
 package org.apache.myfaces.tobago.internal.layout;
 
-import org.apache.myfaces.tobago.internal.component.AbstractUIFlexLayout;
-import org.apache.myfaces.tobago.internal.component.AbstractUIFlowLayout;
-import org.apache.myfaces.tobago.layout.LayoutComponent;
-import org.apache.myfaces.tobago.layout.LayoutContainer;
+import org.apache.myfaces.tobago.component.Facets;
+import org.apache.myfaces.tobago.config.Configurable;
 
 import javax.faces.component.UIComponent;
 import java.util.ArrayList;
@@ -49,16 +47,15 @@ public final class LayoutUtils {
     return true;
   }
 
-  public static List<UIComponent> findLayoutChildren(final LayoutContainer container) {
+  public static List<UIComponent> findLayoutChildren(final UIComponent container) {
     final List<UIComponent> result = new ArrayList<UIComponent>();
-    addLayoutChildren((UIComponent) container, result);
+    addLayoutChildren(container, result);
     return result;
   }
 
   private static void addLayoutChildren(final UIComponent component, final List<UIComponent> result) {
     for (final UIComponent child : component.getChildren()) {
-      if (child instanceof LayoutComponent
-          || child instanceof AbstractUIFlowLayout || child instanceof AbstractUIFlexLayout) {
+      if (child instanceof Configurable) {
         result.add(child);
       } else {
         // Child seems to be transparent for layout, like UIForm. 
@@ -68,13 +65,36 @@ public final class LayoutUtils {
     }
 
     final UIComponent child = component.getFacet(UIComponent.COMPOSITE_FACET_NAME);
-    if (child instanceof LayoutComponent
-        || child instanceof AbstractUIFlowLayout || child instanceof AbstractUIFlexLayout) {
+    if (child instanceof Configurable) {
       result.add(child);
     } else if (child != null) {
       // Child seems to be transparent for layout, like UIForm.
       // So we try to add the inner components.
       addLayoutChildren(child, result);
+    }
+  }
+
+  /**
+   * Replacement for refactoring
+   * @since 3.0.0
+   * @deprecated since 3.0.0
+   */
+  @Deprecated
+  public static UIComponent getLayoutManager(UIComponent component) {
+    final UIComponent base;
+
+    final UIComponent compositeFacet = component.getFacet(UIComponent.COMPOSITE_FACET_NAME);
+    if (compositeFacet != null) {
+      base = compositeFacet.getChildren().get(0);
+    } else {
+      base = component;
+    }
+
+    final UIComponent layoutFacet = base.getFacet(Facets.LAYOUT);
+    if (layoutFacet != null) {
+      return layoutFacet;
+    } else {
+      return null;
     }
   }
 }

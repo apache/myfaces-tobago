@@ -20,11 +20,11 @@
 package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.OnComponentPopulated;
 import org.apache.myfaces.tobago.component.Sorter;
 import org.apache.myfaces.tobago.component.SupportsRenderedPartially;
 import org.apache.myfaces.tobago.component.SupportsStyle;
+import org.apache.myfaces.tobago.config.Configurable;
 import org.apache.myfaces.tobago.event.PageActionEvent;
 import org.apache.myfaces.tobago.event.SheetStateChangeEvent;
 import org.apache.myfaces.tobago.event.SheetStateChangeListener;
@@ -34,9 +34,6 @@ import org.apache.myfaces.tobago.event.SortActionSource2;
 import org.apache.myfaces.tobago.internal.layout.Grid;
 import org.apache.myfaces.tobago.internal.layout.OriginCell;
 import org.apache.myfaces.tobago.layout.AutoLayoutToken;
-import org.apache.myfaces.tobago.layout.LayoutComponent;
-import org.apache.myfaces.tobago.layout.LayoutContainer;
-import org.apache.myfaces.tobago.layout.LayoutManager;
 import org.apache.myfaces.tobago.layout.LayoutTokens;
 import org.apache.myfaces.tobago.layout.RelativeLayoutToken;
 import org.apache.myfaces.tobago.model.ExpandedState;
@@ -68,7 +65,7 @@ import java.util.Map;
 @ListenerFor(systemEventClass = PreRenderComponentEvent.class)
 public abstract class AbstractUISheet extends AbstractUIData
     implements SheetStateChangeSource2, SortActionSource2, OnComponentPopulated,
-    LayoutContainer, LayoutComponent, SupportsRenderedPartially, SupportsStyle {
+    Configurable, SupportsRenderedPartially, SupportsStyle {
 
   private static final Logger LOG = LoggerFactory.getLogger(AbstractUISheet.class);
 
@@ -450,16 +447,10 @@ public abstract class AbstractUISheet extends AbstractUIData
     final Grid grid = new Grid(columns, rows);
 
     for(final UIComponent child : header.getChildren()) {
-      if (child instanceof LayoutComponent) {
         if (child.isRendered()) {
-          final LayoutComponent c = (LayoutComponent) child;
-          grid.add(new OriginCell(child), c.getColumnSpan(), c.getRowSpan());
+//     XXX not implemented in the moment     grid.add(new OriginCell(child), c.getColumnSpan(), c.getRowSpan());
+          grid.add(new OriginCell(child), 1, 1);
         }
-      } else {
-        if (LOG.isDebugEnabled()) {
-          LOG.debug("Found unknown component in header.");
-        }
-      }
     }
     setHeaderGrid(grid);
   }
@@ -601,18 +592,6 @@ public abstract class AbstractUISheet extends AbstractUIData
   }
 
   public void onComponentPopulated(final FacesContext facesContext, final UIComponent parent) {
-  }
-
-  public LayoutManager getLayoutManager() {
-    return (LayoutManager) getFacet(Facets.LAYOUT);
-  }
-
-  public void setLayoutManager(final LayoutManager layoutManager) {
-    getFacets().put(Facets.LAYOUT, (AbstractUILayoutBase) layoutManager);
-  }
-
-  public boolean isLayoutChildren() {
-    return isRendered();
   }
 
   public boolean isRendersRowContainer() {

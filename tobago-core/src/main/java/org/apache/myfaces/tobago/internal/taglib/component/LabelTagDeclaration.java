@@ -31,7 +31,6 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRend
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasStyle;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
-import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutComponent;
 
 import javax.faces.component.UIOutput;
 
@@ -48,7 +47,7 @@ import javax.faces.component.UIOutput;
     rendererType = RendererTypes.LABEL,
     allowedChildComponenents = "NONE")
 public interface LabelTagDeclaration extends HasIdBindingAndRendered,
-    HasAccessKey, HasFor, HasTip, HasMarkup, HasCurrentMarkup, IsGridLayoutComponent, HasStyle {
+    HasAccessKey, HasFor, HasTip, HasMarkup, HasCurrentMarkup, HasStyle {
 
   /**
    * Text value to display as label. Overwritten by 'labelWithAccessKey'

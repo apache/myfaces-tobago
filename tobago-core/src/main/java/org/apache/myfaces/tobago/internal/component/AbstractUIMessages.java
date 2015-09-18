@@ -21,7 +21,7 @@ package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.commons.collections.iterators.SingletonIterator;
 import org.apache.myfaces.tobago.component.SupportsStyle;
-import org.apache.myfaces.tobago.layout.LayoutComponent;
+import org.apache.myfaces.tobago.config.Configurable;
 import org.apache.myfaces.tobago.layout.OrderBy;
 
 import javax.faces.application.FacesMessage;
@@ -33,7 +33,7 @@ import java.util.Iterator;
 import java.util.List;
 
 public abstract class AbstractUIMessages extends javax.faces.component.UIMessages
-    implements LayoutComponent, SupportsStyle {
+    implements Configurable, SupportsStyle {
 
   public List<Item> createMessageList(final FacesContext facesContext) {
 
@@ -58,7 +58,7 @@ public abstract class AbstractUIMessages extends javax.faces.component.UIMessage
 
   private List<Item> collectMessageList(final FacesContext facesContext, final Iterator clientIds) {
     final List<Item> messages = new ArrayList<Item>();
-    while(clientIds.hasNext()) {
+    while (clientIds.hasNext()) {
       final String clientId = (String) clientIds.next();
       final Iterator<FacesMessage> i = facesContext.getMessages(clientId);
       while (i.hasNext()) {

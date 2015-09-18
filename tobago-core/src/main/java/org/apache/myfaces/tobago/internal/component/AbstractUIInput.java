@@ -22,13 +22,13 @@ package org.apache.myfaces.tobago.internal.component;
 import org.apache.myfaces.tobago.component.SupportsLabelLayout;
 import org.apache.myfaces.tobago.component.SupportsMarkup;
 import org.apache.myfaces.tobago.component.SupportsStyle;
-import org.apache.myfaces.tobago.layout.LayoutComponent;
+import org.apache.myfaces.tobago.config.Configurable;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 
 import javax.faces.context.FacesContext;
 
 public abstract class AbstractUIInput extends javax.faces.component.UIInput
-    implements SupportsMarkup, LayoutComponent, SupportsLabelLayout, SupportsStyle {
+    implements SupportsMarkup, Configurable, SupportsLabelLayout, SupportsStyle {
 
   // TODO can this removed?
   public void updateModel(final FacesContext facesContext) {

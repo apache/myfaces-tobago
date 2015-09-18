@@ -22,12 +22,11 @@ package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 import org.apache.myfaces.tobago.component.UIPopup;
 import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
-import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
+import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRoleValues;
-import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
@@ -59,10 +58,12 @@ public class PopupRenderer extends LayoutComponentRendererBase {
     writer.startElement(HtmlElements.DIV, null);
     writer.writeClassAttribute(BootstrapClass.MODAL_DIALOG);
     writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.DOCUMENT.toString(), false);
+/*
     final Style style = new Style();
     style.setWidth(popup.getWidth());
     style.setHeight(popup.getHeight());
     writer.writeStyleAttribute(style);
+*/
     writer.startElement(HtmlElements.DIV, null);
     writer.writeClassAttribute(BootstrapClass.MODAL_CONTENT);
   }

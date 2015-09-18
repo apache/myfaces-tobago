@@ -19,12 +19,12 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
-import org.apache.myfaces.tobago.layout.Measure;
-
 public abstract class AbstractUIColumnSelector extends AbstractUIColumn {
 
+/* TBD
   @Override
   public Measure getWidth() {
     return null;
   }
+*/
 }

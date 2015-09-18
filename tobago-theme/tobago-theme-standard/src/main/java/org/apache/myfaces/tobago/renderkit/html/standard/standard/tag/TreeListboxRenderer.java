@@ -24,10 +24,8 @@ import org.apache.myfaces.tobago.component.UITreeLabel;
 import org.apache.myfaces.tobago.component.UITreeNode;
 import org.apache.myfaces.tobago.component.UITreeSelect;
 import org.apache.myfaces.tobago.internal.component.AbstractUITree;
-import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
-import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
@@ -116,16 +114,16 @@ public class TreeListboxRenderer extends LayoutComponentRendererBase {
         ? tree.getTreeDataModel().getDepth()
         : 7;  // XXX not a fix value!!!
     // todo: use (TreeListbox ?)Layout
-    final Measure currentWidth = tree.getCurrentWidth();
-    final Measure width = currentWidth.divide(depth);
+//    final Measure currentWidth = tree.getCurrentWidth();
+//    final Measure width = currentWidth.divide(depth);
     for (int level = 0; level < depth; level++) {
 
       writer.startElement(HtmlElements.DIV, null);
       writer.writeClassAttribute(Classes.create(tree, "level"));
-      final Style levelStyle = new Style();
-      levelStyle.setLeft(width.multiply(level));
-      levelStyle.setWidth(width);
-      writer.writeStyleAttribute(levelStyle);
+//      final Style levelStyle = new Style();
+//      levelStyle.setLeft(width.multiply(level));
+//      levelStyle.setWidth(width);
+//      writer.writeStyleAttribute(levelStyle);
       // at the start of each div there is an empty and disabled select tag to show empty area.
       // this is not needed for the 1st level.
       if (level > 0) {

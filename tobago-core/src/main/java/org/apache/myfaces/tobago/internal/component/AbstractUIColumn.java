@@ -19,22 +19,15 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
-import org.apache.myfaces.tobago.layout.LayoutBox;
-import org.apache.myfaces.tobago.layout.Measure;
+import org.apache.myfaces.tobago.config.Configurable;
 
 import javax.faces.component.UIColumn;
 
-public abstract class AbstractUIColumn extends UIColumn implements LayoutBox {
+public abstract class AbstractUIColumn extends UIColumn implements Configurable {
 
-  public abstract Measure getWidth();
+//  public abstract Measure getWidth();
 
   public boolean isResizable() {
     return false;
   }
-/*
-
-  public String getLabel() {
-    return "";
-  }
-*/
 }

@@ -25,9 +25,8 @@ import org.apache.myfaces.tobago.component.UINav;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.internal.component.AbstractUIImage;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
-import org.apache.myfaces.tobago.renderkit.css.Classes;
-import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
+import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
@@ -89,10 +88,12 @@ public class ImageRenderer extends LayoutComponentRendererBase {
       writer.writeAttribute(HtmlAttributes.TITLE, title, true);
     }
     writer.writeAttribute(HtmlAttributes.BORDER, border, false);
+/*
     final Style style = new Style();
     style.setWidth(image.getWidth());
     style.setHeight(image.getHeight());
     writer.writeStyleAttribute(style);
+*/
     // todo: may set a marker in the context in the
     // todo: NavRenderer, or the additional class, to avoid tree traversing
     writer.writeClassAttribute(

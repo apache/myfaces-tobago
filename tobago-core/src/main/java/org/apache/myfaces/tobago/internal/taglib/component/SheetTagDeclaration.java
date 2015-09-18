@@ -34,8 +34,6 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasRenderedPartially;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasStyle;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasVar;
-import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutComponent;
-import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutContainer;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsShowRoot;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsShowRootJunction;
 
@@ -59,7 +57,7 @@ import javax.faces.component.UIData;
     facets = {@Facet(name = Facets.RELOAD, description = "Contains an instance of UIReload",
                      allowedChildComponenents = "org.apache.myfaces.tobago.Reload")})
 public interface SheetTagDeclaration 
-    extends HasIdBindingAndRendered, IsGridLayoutComponent, HasStyle, IsGridLayoutContainer,
+    extends HasIdBindingAndRendered, HasStyle,
     HasMarkup, HasCurrentMarkup, HasRenderedPartially, IsShowRoot, IsShowRootJunction, HasVar {
   /**
    * LayoutConstraints for column layout.

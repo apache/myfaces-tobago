@@ -19,14 +19,13 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
-import org.apache.myfaces.tobago.component.DeprecatedDimension;
 import org.apache.myfaces.tobago.component.SupportsStyle;
-import org.apache.myfaces.tobago.layout.LayoutComponent;
+import org.apache.myfaces.tobago.config.Configurable;
 
 import javax.faces.component.UIGraphic;
 
 public abstract class AbstractUIImage extends UIGraphic
-    implements LayoutComponent, DeprecatedDimension, SupportsStyle {
+    implements Configurable, SupportsStyle {
 
   public abstract boolean isDisabled();
 }

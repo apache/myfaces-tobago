@@ -31,8 +31,6 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasStyle;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsCollapsible;
-import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutComponent;
-import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutContainer;
 
 import javax.faces.component.UIPanel;
 
@@ -49,11 +47,11 @@ import javax.faces.component.UIPanel;
     facets = {
         @Facet(name = Facets.TOOL_BAR, description = "Contains an instance of UIToolBar",
             allowedChildComponenents = "org.apache.myfaces.tobago.ToolBar"),
-        @Facet(name = Facets.LAYOUT, description = "Contains an instance of AbstractUILayoutBase",
-            allowedChildComponenents = "org.apache.myfaces.tobago.GridLayout")})
+        @Facet(name=Facets.LAYOUT, description = "Deprecated. Contains an layout manager. "
+            + "The layout manager tag should surround the content instead.")})
 
 public interface BoxTagDeclaration
-    extends HasIdBindingAndRendered, IsGridLayoutComponent, HasStyle, IsGridLayoutContainer, HasMarkup,
+    extends HasIdBindingAndRendered, HasStyle, HasMarkup,
     HasCurrentMarkup, HasLabel, HasTip, IsCollapsible {
 
 }

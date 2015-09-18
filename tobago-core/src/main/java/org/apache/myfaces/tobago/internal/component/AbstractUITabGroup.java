@@ -26,12 +26,10 @@ import org.apache.myfaces.tobago.component.OnComponentPopulated;
 import org.apache.myfaces.tobago.component.SupportsRenderedPartially;
 import org.apache.myfaces.tobago.component.SupportsStyle;
 import org.apache.myfaces.tobago.component.UITab;
+import org.apache.myfaces.tobago.config.Configurable;
 import org.apache.myfaces.tobago.event.TabChangeEvent;
 import org.apache.myfaces.tobago.event.TabChangeListener;
 import org.apache.myfaces.tobago.event.TabChangeSource2;
-import org.apache.myfaces.tobago.layout.LayoutComponent;
-import org.apache.myfaces.tobago.layout.LayoutContainer;
-import org.apache.myfaces.tobago.layout.LayoutManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -49,7 +47,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class AbstractUITabGroup extends AbstractUIPanel
-    implements TabChangeSource2, ActionSource2, LayoutContainer, LayoutComponent, OnComponentPopulated,
+    implements TabChangeSource2, ActionSource2, Configurable, OnComponentPopulated,
     SupportsRenderedPartially, SupportsStyle {
 
   private static final Logger LOG = LoggerFactory.getLogger(AbstractUITabGroup.class);
@@ -61,24 +59,11 @@ public abstract class AbstractUITabGroup extends AbstractUIPanel
   public static final String SWITCH_TYPE_RELOAD_TAB = "reloadTab";
 
   @Override
-  public void encodeBegin(final FacesContext facesContext) throws IOException {
-
-    super.encodeBegin(facesContext);
-
-//    ((AbstractUILayoutBase) getLayoutManager()).encodeBegin(facesContext);
-  }
-
-  @Override
   public void encodeChildren(final FacesContext facesContext) throws IOException {
-
-//    ((AbstractUILayoutBase) getLayoutManager()).encodeChildren(facesContext);
   }
 
   @Override
   public void encodeEnd(final FacesContext facesContext) throws IOException {
-
-//    ((AbstractUILayoutBase) getLayoutManager()).encodeEnd(facesContext);
-
     resetTabLayout();
     super.encodeEnd(facesContext);
     setRenderedIndex(getSelectedIndex());
@@ -318,17 +303,4 @@ public abstract class AbstractUITabGroup extends AbstractUIPanel
   public void onComponentPopulated(final FacesContext facesContext, final UIComponent parent) {
     super.onComponentPopulated(facesContext, parent);
   }
-
-  public LayoutManager getLayoutManager() {
-    return (LayoutManager) getFacet(Facets.LAYOUT);
-  }
-
-  public void setLayoutManager(final LayoutManager layoutManager) {
-    getFacets().put(Facets.LAYOUT, (AbstractUILayoutBase) layoutManager);
-  }
-
-  public boolean isLayoutChildren() {
-    return isRendered();
-  }
-
 }

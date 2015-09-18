@@ -32,7 +32,6 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasStyle;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasValue;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasVar;
-import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutComponent;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsRequired;
 
 import javax.faces.component.UIData;
@@ -53,7 +52,7 @@ import javax.faces.component.UIData;
         "org.apache.myfaces.tobago.TreeData"
     })
 public interface TreeListboxTagDeclaration
-    extends HasIdBindingAndRendered, HasValue, HasVar, IsGridLayoutComponent, HasStyle, HasMarkup, HasCurrentMarkup,
+    extends HasIdBindingAndRendered, HasValue, HasVar, HasStyle, HasMarkup, HasCurrentMarkup,
     IsRequired {
 
   /**

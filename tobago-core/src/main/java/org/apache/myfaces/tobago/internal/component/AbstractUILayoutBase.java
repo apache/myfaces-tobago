@@ -19,16 +19,11 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
-import org.apache.myfaces.tobago.layout.LayoutContainer;
-
 import javax.faces.component.UIComponentBase;
 
+/**
+ *
+ */
 public abstract class AbstractUILayoutBase extends UIComponentBase {
-
-
-  LayoutContainer getLayoutContainer() {
-    // todo: check with instanceof and do something in the error case
-    return ((LayoutContainer) getParent());
-  }
 
 }

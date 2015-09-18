@@ -21,11 +21,9 @@ package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
 import org.apache.myfaces.tobago.ajax.AjaxUtils;
 import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.UIBox;
 import org.apache.myfaces.tobago.component.UIButton;
-import org.apache.myfaces.tobago.component.UIGridLayout;
 import org.apache.myfaces.tobago.component.UIMessages;
 import org.apache.myfaces.tobago.component.UIPanel;
 import org.apache.myfaces.tobago.component.UIPopup;
@@ -33,18 +31,17 @@ import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.internal.ajax.AjaxInternalUtils;
 import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
-import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
-import org.apache.myfaces.tobago.renderkit.css.Classes;
-import org.apache.myfaces.tobago.renderkit.html.Aria;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
+import org.apache.myfaces.tobago.renderkit.css.Classes;
+import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
+import org.apache.myfaces.tobago.renderkit.html.Aria;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlButtonTypes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRoleValues;
-import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.util.CreateComponentUtils;
@@ -186,11 +183,6 @@ public class MessagesRenderer extends LayoutComponentRendererBase {
     // TODO: set string resources in renderer
     box.getAttributes().put(Attributes.LABEL, ResourceManagerUtils.getPropertyNotNull(
         facesContext, "tobago", "tobago.message.confirmation.title"));
-    UIComponent layout = CreateComponentUtils.createComponent(
-        facesContext, UIGridLayout.COMPONENT_TYPE, RendererTypes.GRID_LAYOUT, "layout");
-    box.getFacets().put(Facets.LAYOUT, layout);
-    layout.getAttributes().put(Attributes.ROWS, "*;auto");
-    layout.getAttributes().put(Attributes.MARGIN, Measure.valueOf(10));
 
     final UIPanel scrollPanel = (UIPanel)
         CreateComponentUtils.createComponent(facesContext, UIPanel.COMPONENT_TYPE, "Panel", "messagePanel");
@@ -203,11 +195,6 @@ public class MessagesRenderer extends LayoutComponentRendererBase {
 
     final UIComponent buttonPanel = CreateComponentUtils.createComponent(
         facesContext, UIPanel.COMPONENT_TYPE, RendererTypes.PANEL, "buttonPanel");
-    layout = CreateComponentUtils.createComponent(
-        facesContext, UIGridLayout.COMPONENT_TYPE, RendererTypes.GRID_LAYOUT, "buttonPanelLayout");
-    buttonPanel.getFacets().put(Facets.LAYOUT, layout);
-    layout.getAttributes().put(Attributes.COLUMNS, "*;100px");
-    layout.getAttributes().put(Attributes.ROWS, "auto");
 
     box.getChildren().add(buttonPanel);
 

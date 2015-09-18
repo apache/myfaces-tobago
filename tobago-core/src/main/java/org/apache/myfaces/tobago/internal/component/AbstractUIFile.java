@@ -22,7 +22,7 @@ package org.apache.myfaces.tobago.internal.component;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.myfaces.tobago.component.SupportsLabelLayout;
 import org.apache.myfaces.tobago.component.SupportsStyle;
-import org.apache.myfaces.tobago.layout.LayoutComponent;
+import org.apache.myfaces.tobago.config.Configurable;
 import org.apache.myfaces.tobago.util.MessageUtils;
 
 import javax.faces.application.FacesMessage;
@@ -30,7 +30,7 @@ import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 
 public abstract class AbstractUIFile extends UIInput
-    implements LayoutComponent, SupportsLabelLayout, SupportsStyle {
+    implements Configurable, SupportsLabelLayout, SupportsStyle {
 
   public void validate(final FacesContext facesContext) {
     if (isRequired()) {

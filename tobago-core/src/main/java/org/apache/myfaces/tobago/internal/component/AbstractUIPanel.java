@@ -19,27 +19,24 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
-import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.OnComponentPopulated;
 import org.apache.myfaces.tobago.component.SupportsStyle;
-import org.apache.myfaces.tobago.layout.LayoutComponent;
-import org.apache.myfaces.tobago.layout.LayoutContainer;
-import org.apache.myfaces.tobago.layout.LayoutManager;
-import org.apache.myfaces.tobago.util.ComponentUtils;
+import org.apache.myfaces.tobago.config.Configurable;
+import org.apache.myfaces.tobago.internal.layout.LayoutUtils;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
 public abstract class AbstractUIPanel extends javax.faces.component.UIPanel
-    implements OnComponentPopulated, LayoutContainer, LayoutComponent, SupportsStyle {
+    implements OnComponentPopulated, Configurable, SupportsStyle {
 
   @Override
   public void encodeBegin(final FacesContext facesContext) throws IOException {
 
     super.encodeBegin(facesContext);
 
-    final AbstractUILayoutBase layoutManager = (AbstractUILayoutBase) getLayoutManager();
+    final UIComponent layoutManager = LayoutUtils.getLayoutManager(this);
     if (layoutManager != null) {
       layoutManager.encodeBegin(facesContext);
     }
@@ -48,7 +45,7 @@ public abstract class AbstractUIPanel extends javax.faces.component.UIPanel
   @Override
   public void encodeChildren(final FacesContext facesContext) throws IOException {
 
-    final AbstractUILayoutBase layoutManager = (AbstractUILayoutBase) getLayoutManager();
+    final UIComponent layoutManager = LayoutUtils.getLayoutManager(this);
     if (layoutManager != null) {
       layoutManager.encodeChildren(facesContext);
     } else {
@@ -59,7 +56,7 @@ public abstract class AbstractUIPanel extends javax.faces.component.UIPanel
   @Override
   public void encodeEnd(final FacesContext facesContext) throws IOException {
 
-    final AbstractUILayoutBase layoutManager = (AbstractUILayoutBase) getLayoutManager();
+    final UIComponent layoutManager = LayoutUtils.getLayoutManager(this);
     if (layoutManager != null) {
       layoutManager.encodeEnd(facesContext);
     }
@@ -68,42 +65,5 @@ public abstract class AbstractUIPanel extends javax.faces.component.UIPanel
   }
 
   public void onComponentPopulated(final FacesContext facesContext, final UIComponent parent) {
-  }
-
-  public LayoutManager getLayoutManager() {
-
-    final UIComponent base;
-
-    final UIComponent compositeFacet = getFacet(COMPOSITE_FACET_NAME);
-    if (compositeFacet != null) {
-      base = compositeFacet.getChildren().get(0);
-    } else {
-      base = this;
-    }
-
-    final UIComponent layoutFacet = base.getFacet(Facets.LAYOUT);
-    if (layoutFacet != null) {
-      if (layoutFacet instanceof LayoutManager) {
-        return (LayoutManager) layoutFacet;
-      } else {
-        return (LayoutManager) ComponentUtils.findChild(layoutFacet, AbstractUILayoutBase.class);
-      }
-    } else {
-/*
-      final LayoutManager layoutManager = CreateComponentUtils.createAndInitLayout(
-          FacesContext.getCurrentInstance(), ComponentTypes.GRID_LAYOUT, RendererTypes.GRID_LAYOUT, base.getParent());
-      base.getFacets().put(Facets.LAYOUT, (AbstractUILayoutBase) layoutManager);
-      return layoutManager;
-*/
-      return null;
-    }
-  }
-
-  public void setLayoutManager(final LayoutManager layoutManager) {
-    getFacets().put(Facets.LAYOUT, (AbstractUILayoutBase) layoutManager);
-  }
-
-  public boolean isLayoutChildren() {
-    return isRendered();
   }
 }

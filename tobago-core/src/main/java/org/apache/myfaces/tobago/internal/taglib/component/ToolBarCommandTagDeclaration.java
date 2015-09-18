@@ -34,7 +34,6 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasStyle;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
-import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutComponent;
 
 import javax.faces.component.UICommand;
 
@@ -59,5 +58,5 @@ import javax.faces.component.UICommand;
     })
 public interface ToolBarCommandTagDeclaration
     extends AbstractCommandTagDeclaration, HasIdBindingAndRendered, HasMarkup, HasCurrentMarkup,
-    HasLabelAndAccessKey, HasImage, IsDisabled, HasTip, IsGridLayoutComponent, HasStyle {
+    HasLabelAndAccessKey, HasImage, IsDisabled, HasTip, HasStyle {
 }

@@ -21,12 +21,11 @@ package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.SupportsMarkup;
+import org.apache.myfaces.tobago.config.Configurable;
 import org.apache.myfaces.tobago.internal.layout.Grid;
 import org.apache.myfaces.tobago.internal.layout.LayoutUtils;
 import org.apache.myfaces.tobago.internal.layout.OriginCell;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
-import org.apache.myfaces.tobago.layout.LayoutComponent;
-import org.apache.myfaces.tobago.layout.LayoutContainer;
 import org.apache.myfaces.tobago.layout.LayoutManager;
 import org.apache.myfaces.tobago.layout.LayoutTokens;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -37,7 +36,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.util.List;
 
-public abstract class AbstractUIGridLayout extends AbstractUILayoutBase implements LayoutManager, SupportsMarkup {
+public abstract class AbstractUIGridLayout extends AbstractUILayoutBase implements Configurable, SupportsMarkup {
 
   private static final Logger LOG = LoggerFactory.getLogger(AbstractUIGridLayout.class);
 
@@ -50,18 +49,15 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase implemen
    */
   public void init() {
 
-    if (!getLayoutContainer().isLayoutChildren()) {
+    final UIComponent parent = getParent();
+    if (!parent.isRendered()) {
       return;
     }
 
     grid = new Grid(LayoutTokens.parse(getColumns()), LayoutTokens.parse(getRows()));
 
-    final List<UIComponent> components = LayoutUtils.findLayoutChildren(getLayoutContainer());
+    final List<UIComponent> components = LayoutUtils.findLayoutChildren(parent);
     for (final UIComponent component : components) {
-      if (component instanceof LayoutComponent) {
-        ((LayoutComponent) component).setCurrentHeight(null);
-        ((LayoutComponent) component).setCurrentWidth(null);
-      }
       final int columnSpan = ComponentUtils.getIntAttribute(component, Attributes.COLUMN_SPAN, 1);
       final int rowSpan = ComponentUtils.getIntAttribute(component, Attributes.ROW_SPAN, 1);
       grid.add(new OriginCell(component), columnSpan, rowSpan);
@@ -69,10 +65,6 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase implemen
         LOG.debug("\n" + grid);
       }
     }
-  }
-
-  public LayoutContainer getLayoutContainer() {
-    return ComponentUtils.findAncestor(getParent(), LayoutContainer.class);
   }
 
   public abstract String getRows();

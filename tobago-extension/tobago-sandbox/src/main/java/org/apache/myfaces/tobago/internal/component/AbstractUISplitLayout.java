@@ -19,9 +19,8 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
+import org.apache.myfaces.tobago.config.Configurable;
 import org.apache.myfaces.tobago.internal.layout.LayoutUtils;
-import org.apache.myfaces.tobago.layout.LayoutComponent;
-import org.apache.myfaces.tobago.layout.LayoutContainer;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.layout.Orientation;
 
@@ -36,14 +35,14 @@ public abstract class AbstractUISplitLayout extends AbstractUIGridLayout {
   private String submittedLayout;
 
   public void updateLayout(final int position) {
-    final LayoutContainer container = (LayoutContainer) getParent();
-    final List<UIComponent> components = LayoutUtils.findLayoutChildren(container);
-    final LayoutComponent firstComponent = (LayoutComponent) components.get(0);
-    final LayoutComponent secondComponent = (LayoutComponent) components.get(1);
+    final List<UIComponent> components = LayoutUtils.findLayoutChildren(getParent());
+    final Configurable firstComponent = (Configurable) components.get(0);
+    final Configurable secondComponent = (Configurable) components.get(1);
     final int oldPosition;
 
     final int currentSize1;
     final int currentSize2;
+/* XXX to be reimplemented: not using GridLayout, it might be better using flex?!
     if (getOrientation() == Orientation.horizontal) {
       oldPosition = secondComponent.getLeft().getPixel() - 5;
       currentSize1 = firstComponent.getCurrentWidth().getPixel();
@@ -60,6 +59,7 @@ public abstract class AbstractUISplitLayout extends AbstractUIGridLayout {
 
     final int ggt = gcd(newSize1, newSize2);
     submittedLayout = Integer.toString(newSize1 / ggt) + "*;" + Integer.toString(newSize2 / ggt) + "*";
+*/
   }
 
   // TODO: MathUtils

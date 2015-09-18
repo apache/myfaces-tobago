@@ -43,7 +43,6 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasValidatorMessage
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasValueChangeListener;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsFocus;
-import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutComponent;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsInline;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsReadonly;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsRendered;
@@ -69,8 +68,7 @@ public interface SelectManyCheckboxTagDeclaration extends
     IsDisabled, HasId, HasTip, IsInline, HasRenderRange, IsRendered, IsRequiredForSelect,
     HasBinding, IsReadonly, HasConverter, HasLabelLayout,
     HasMarkup, HasCurrentMarkup, HasInputLabel, HasValidator, HasValueChangeListener,
-    HasValidatorMessage, HasConverterMessage, HasRequiredMessageForSelect, HasTabIndex, IsFocus, IsGridLayoutComponent,
-    HasStyle {
+    HasValidatorMessage, HasConverterMessage, HasRequiredMessageForSelect, HasTabIndex, IsFocus, HasStyle {
 
   /**
    * The value of the multi select.

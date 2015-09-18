@@ -22,7 +22,6 @@ package org.apache.myfaces.tobago.internal.taglib.component;
 import org.apache.myfaces.tobago.apt.annotation.SimpleTag;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
-import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 
 import javax.el.ValueExpression;
 
@@ -45,143 +44,205 @@ public interface GridLayoutConstraintTagDeclaration {
   @TagAttribute(name = "rowSpan", type = "java.lang.Integer")
   void setRowSpan(final ValueExpression rowSpan);
 
-  /**
+/*
+*
    * The width for this component.
-   */
+   * @deprecated since 3.0.0. Use &lt;tc:style> instead.
+
+
+  @Deprecated
   @TagAttribute(name = "width", type = "java.lang.Object")
   @UIComponentTagAttribute(type = "java.lang.Object")
   void setWidth(final ValueExpression width);
 
-  /**
+*
    * The height for this component.
-   */
+   * @deprecated since 3.0.0. Use &lt;tc:style> instead.
+
+
+  @Deprecated
   @TagAttribute(name = "height", type = "java.lang.Object")
   @UIComponentTagAttribute(type = "java.lang.Object")
   void setHeight(final ValueExpression height);
 
-  /**
+*
    * The minimum width for this component.
-   */
+   * @deprecated since 3.0.0. Use &lt;tc:style> instead.
+
+
+  @Deprecated
   @TagAttribute(name = "minimumWidth", type = "java.lang.Object")
   @UIComponentTagAttribute(type = "java.lang.Object")
   void setMinimumWidth(final ValueExpression minimumWidth);
 
-  /**
+*
    * The minimum height for this component.
-   */
+   * @deprecated since 3.0.0. Use &lt;tc:style> instead.
+
+
+  @Deprecated
   @TagAttribute(name = "minimumHeight", type = "java.lang.Object")
   @UIComponentTagAttribute(type = "java.lang.Object")
   void setMinimumHeight(final ValueExpression minimumHeight);
 
-  /**
+*
    * The preferred width for this component.
-   */
+   * @deprecated since 3.0.0. Use &lt;tc:style> instead.
+
+
+  @Deprecated
   @TagAttribute(name = "preferredWidth", type = "java.lang.Object")
   @UIComponentTagAttribute(type = "java.lang.Object")
   void setPreferredWidth(final ValueExpression preferredWidth);
 
-  /**
+*
    * The preferred height for this component.
-   */
+   * @deprecated since 3.0.0. Use &lt;tc:style> instead.
+
+
+  @Deprecated
   @TagAttribute(name = "preferredHeight", type = "java.lang.Object")
   @UIComponentTagAttribute(type = "java.lang.Object")
   void setPreferredHeight(final ValueExpression preferredHeight);
 
-  /**
+*
    * The maximum width for this component.
-   */
+   * @deprecated since 3.0.0. Use &lt;tc:style> instead.
+
+
+  @Deprecated
   @TagAttribute(name = "maximumWidth", type = "java.lang.Object")
   @UIComponentTagAttribute(type = "java.lang.Object")
   void setMaximumWidth(final ValueExpression maximumWidth);
 
-  /**
+*
    * The maximum height for this component.
-   */
+   * @deprecated since 3.0.0. Use &lt;tc:style> instead.
+
+
+  @Deprecated
   @TagAttribute(name = "maximumHeight", type = "java.lang.Object")
   @UIComponentTagAttribute(type = "java.lang.Object")
   void setMaximumHeight(final ValueExpression maximumHeight);
 
-  /**
+*
    * The left margin for this component.
-   */
+   * @deprecated since 3.0.0. Use &lt;tc:style> instead.
+
+
+  @Deprecated
   @TagAttribute(name = "marginLeft", type = "java.lang.Object")
   @UIComponentTagAttribute(type = "java.lang.Object")
   void setMarginLeft(final ValueExpression marginLeft);
 
-  /**
+*
    * The right margin for this component.
-   */
+   * @deprecated since 3.0.0. Use &lt;tc:style> instead.
+
+
+  @Deprecated
   @TagAttribute(name = "marginRight", type = "java.lang.Object")
   @UIComponentTagAttribute(type = "java.lang.Object")
   void setMarginRight(final ValueExpression marginRight);
 
-  /**
+*
    * The top margin for this component.
-   */
+   * @deprecated since 3.0.0. Use &lt;tc:style> instead.
+
+
+  @Deprecated
   @TagAttribute(name = "marginTop", type = "java.lang.Object")
   @UIComponentTagAttribute(type = "java.lang.Object")
   void setMarginTop(final ValueExpression marginTop);
 
-  /**
+*
    * The bottom margin for this component.
-   */
+   * @deprecated since 3.0.0. Use &lt;tc:style> instead.
+
+
+  @Deprecated
   @TagAttribute(name = "marginBottom", type = "java.lang.Object")
   @UIComponentTagAttribute(type = "java.lang.Object")
   void setMarginBottom(final ValueExpression marginBottom);
 
-  /**
+*
    * The left border area for this component. Its only applicably for containers.
-   */
+   * @deprecated since 3.0.0. Use &lt;tc:style> instead.
+
+
+  @Deprecated
   @TagAttribute(name = "borderLeft", type = "java.lang.Object")
   @UIComponentTagAttribute(type = "java.lang.Object")
   void setBorderLeft(final ValueExpression borderLeft);
 
-  /**
+*
    * The right border area for this component. Its only applicably for containers.
-   */
+   * @deprecated since 3.0.0. Use &lt;tc:style> instead.
+
+
+  @Deprecated
   @TagAttribute(name = "borderRight", type = "java.lang.Object")
   @UIComponentTagAttribute(type = "java.lang.Object")
   void setBorderRight(final ValueExpression borderRight);
 
-  /**
+*
    * The top border area for this component. Its only applicably for containers.
-   */
+   * @deprecated since 3.0.0. Use &lt;tc:style> instead.
+
+
+  @Deprecated
   @TagAttribute(name = "borderTop", type = "java.lang.Object")
   @UIComponentTagAttribute(type = "java.lang.Object")
   void setBorderTop(final ValueExpression borderTop);
 
-  /**
+*
    * The bottom border area for this component. Its only applicably for containers.
-   */
+   * @deprecated since 3.0.0. Use &lt;tc:style> instead.
+
+
+  @Deprecated
   @TagAttribute(name = "borderBottom", type = "java.lang.Object")
   @UIComponentTagAttribute(type = "java.lang.Object")
   void setBorderBottom(final ValueExpression borderBottom);
 
-  /**
+*
    * The left padding for this component. Its only applicably for containers.
-   */
+   * @deprecated since 3.0.0. Use &lt;tc:style> instead.
+
+
+  @Deprecated
   @TagAttribute(name = "paddingLeft", type = "java.lang.Object")
   @UIComponentTagAttribute(type = "java.lang.Object")
   void setPaddingLeft(final ValueExpression paddingLeft);
 
-  /**
+*
    * The right padding for this component. Its only applicably for containers.
-   */
+   * @deprecated since 3.0.0. Use &lt;tc:style> instead.
+
+
+  @Deprecated
   @TagAttribute(name = "paddingRight", type = "java.lang.Object")
   @UIComponentTagAttribute(type = "java.lang.Object")
   void setPaddingRight(final ValueExpression paddingRight);
 
-  /**
+*
    * The top padding for this component. Its only applicably for containers.
-   */
+   * @deprecated since 3.0.0. Use &lt;tc:style> instead.
+
+
+  @Deprecated
   @TagAttribute(name = "paddingTop", type = "java.lang.Object")
   @UIComponentTagAttribute(type = "java.lang.Object")
   void setPaddingTop(final ValueExpression paddingTop);
 
-  /**
+*
    * The bottom padding for this component. Its only applicably for containers.
-   */
+   * @deprecated since 3.0.0. Use &lt;tc:style> instead.
+
+
+  @Deprecated
   @TagAttribute(name = "paddingBottom", type = "java.lang.Object")
   @UIComponentTagAttribute(type = "java.lang.Object")
   void setPaddingBottom(final ValueExpression paddingBottom);
+*/
 }

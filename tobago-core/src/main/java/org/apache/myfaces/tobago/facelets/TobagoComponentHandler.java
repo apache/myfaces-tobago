@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.facelets;
 
-import org.apache.myfaces.tobago.component.DeprecatedDimension;
 import org.apache.myfaces.tobago.component.InputSuggest;
 import org.apache.myfaces.tobago.component.OnComponentCreated;
 import org.apache.myfaces.tobago.component.OnComponentPopulated;
@@ -55,9 +54,6 @@ public class TobagoComponentHandler extends ComponentHandler {
     final MetaRuleset metaRuleset = super.createMetaRuleset(aClass);
     if (SortActionSource.class.isAssignableFrom(aClass)) {
       metaRuleset.addRule(SortActionSourceRule.INSTANCE);
-    }
-    if (DeprecatedDimension.class.isAssignableFrom(aClass)) {
-      metaRuleset.addRule(DeprecatedDimensionRule.INSTANCE);
     }
     if (AbstractUISegmentLayout.class.isAssignableFrom(aClass)) {
       metaRuleset.addRule(SegmentLayoutRule.INSTANCE);

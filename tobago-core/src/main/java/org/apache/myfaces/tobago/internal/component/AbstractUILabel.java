@@ -20,13 +20,13 @@
 package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.myfaces.tobago.component.SupportsStyle;
-import org.apache.myfaces.tobago.layout.LayoutComponent;
+import org.apache.myfaces.tobago.config.Configurable;
 
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 
 public abstract class AbstractUILabel
-    extends javax.faces.component.UIOutput implements LayoutComponent, SupportsStyle {
+    extends javax.faces.component.UIOutput implements Configurable, SupportsStyle {
 
   public String getLabel() {
     final Converter converter = getConverter();

@@ -24,7 +24,6 @@ import org.apache.myfaces.tobago.component.UIPanel;
 import org.apache.myfaces.tobago.component.UIReload;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPanel;
 import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
-import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
@@ -33,8 +32,6 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -42,8 +39,6 @@ import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 
 public class PanelRenderer extends LayoutComponentRendererBase {
-
-  private static final Logger LOG = LoggerFactory.getLogger(PanelRenderer.class);
 
   @Override
   public boolean getRendersChildren() {
@@ -85,35 +80,11 @@ public class PanelRenderer extends LayoutComponentRendererBase {
     }
     HtmlRendererUtils.renderCommandFacet(panel, facesContext, writer);
     HtmlRendererUtils.encodeContextMenu(facesContext, writer, panel);
-
-    //HtmlRendererUtils.checkForCommandFacet(panel, facesContext, writer);
-
-    final Measure borderLeft = panel.getBorderLeft();
-    final Measure borderRight = panel.getBorderRight();
-    final Measure borderTop = panel.getBorderTop();
-    final Measure borderBottom = panel.getBorderBottom();
-
-    if (borderLeft.greaterThan(Measure.ZERO) || borderRight.greaterThan(Measure.ZERO)
-        || borderTop.greaterThan(Measure.ZERO) || borderBottom.greaterThan(Measure.ZERO)) {
-      writer.startElement(HtmlElements.DIV, panel);
-      writer.writeClassAttribute(Classes.create(panel, "content")); // needed to be scrollable inside of the panel
-    }
   }
 
   @Override
   public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
     final ResponseWriter writer = facesContext.getResponseWriter();
-    final AbstractUIPanel panel = (AbstractUIPanel) component;
-    
-    final Measure borderLeft = panel.getBorderLeft();
-    final Measure borderRight = panel.getBorderRight();
-    final Measure borderTop = panel.getBorderTop();
-    final Measure borderBottom = panel.getBorderBottom();
-
-    if (borderLeft.greaterThan(Measure.ZERO) || borderRight.greaterThan(Measure.ZERO)
-        || borderTop.greaterThan(Measure.ZERO) || borderBottom.greaterThan(Measure.ZERO)) {
-    writer.endElement(HtmlElements.DIV);
-    }
     writer.endElement(HtmlElements.DIV);
   }
 }

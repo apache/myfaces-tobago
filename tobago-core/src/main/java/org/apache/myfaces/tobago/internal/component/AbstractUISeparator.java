@@ -20,9 +20,9 @@
 package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.myfaces.tobago.component.SupportsStyle;
-import org.apache.myfaces.tobago.layout.LayoutComponent;
+import org.apache.myfaces.tobago.config.Configurable;
 
 import javax.faces.component.UIComponentBase;
 
-public abstract class AbstractUISeparator extends UIComponentBase implements LayoutComponent, SupportsStyle {
+public abstract class AbstractUISeparator extends UIComponentBase implements Configurable, SupportsStyle {
 }

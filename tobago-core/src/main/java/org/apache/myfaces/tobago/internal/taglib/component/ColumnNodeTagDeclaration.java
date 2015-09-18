@@ -32,8 +32,6 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasStyle;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
-import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutComponent;
-import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutContainer;
 
 import javax.faces.component.UIColumn;
 
@@ -58,8 +56,7 @@ import javax.faces.component.UIColumn;
         "org.apache.myfaces.tobago.TreeCommand"
     })
 public interface ColumnNodeTagDeclaration
-    extends HasIdBindingAndRendered, HasMarkup, HasCurrentMarkup, HasTip, IsDisabled, IsGridLayoutContainer,
-    IsGridLayoutComponent, HasStyle, HasLabel {
+    extends HasIdBindingAndRendered, HasMarkup, HasCurrentMarkup, HasTip, IsDisabled, HasStyle, HasLabel {
 
   /**
    * Flag indicating whether or not the width of this column in a sheet is resizable, by the user.

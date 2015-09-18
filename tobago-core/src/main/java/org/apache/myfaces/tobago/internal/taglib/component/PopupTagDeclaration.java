@@ -30,8 +30,6 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasStyle;
-import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutComponentWithDimension;
-import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutContainer;
 
 import javax.faces.component.UIPanel;
 
@@ -49,13 +47,11 @@ import javax.faces.component.UIPanel;
     componentFamily = UIPanel.COMPONENT_FAMILY,
     rendererType = RendererTypes.POPUP,
     facets = {
-        @Facet(name = Facets.LAYOUT,
-            description = "Contains an instance of AbstractUILayoutBase",
-            allowedChildComponenents = "org.apache.myfaces.tobago.GridLayout")}
+        @Facet(name = Facets.LAYOUT, description = "Deprecated. Contains an layout manager. "
+            + "The layout manager tag should surround the content instead.")}
 )
-public interface PopupTagDeclaration 
-    extends HasIdBindingAndRendered, IsGridLayoutComponentWithDimension, HasStyle, IsGridLayoutContainer,
-    HasMarkup, HasCurrentMarkup {
+public interface PopupTagDeclaration
+    extends HasIdBindingAndRendered, HasStyle, HasMarkup, HasCurrentMarkup {
 
   /**
    * The rest of the page will be faded off for the time the popup is displayed.
@@ -65,5 +61,5 @@ public interface PopupTagDeclaration
   @TagAttribute
   @UIComponentTagAttribute(type = "boolean", defaultValue = "true")
   void setModal(String modal);
-  
+
 }

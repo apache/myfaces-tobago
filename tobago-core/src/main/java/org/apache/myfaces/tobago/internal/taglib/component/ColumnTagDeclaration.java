@@ -1,7 +1,7 @@
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
- * distributed with this work for additional information
+ * distributed withA this work for additional information
  * regarding copyright ownership.  The ASF licenses this file
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
@@ -31,7 +31,6 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRend
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabel;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
-import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutContainer;
 
 import javax.faces.component.UIColumn;
 
@@ -51,7 +50,7 @@ import javax.faces.component.UIColumn;
             allowedChildComponenents = "org.apache.myfaces.tobago.Menu")
     })
 public interface ColumnTagDeclaration
-    extends HasIdBindingAndRendered, HasLabel, HasTip, HasMarkup, HasCurrentMarkup, IsGridLayoutContainer {
+    extends HasIdBindingAndRendered, HasLabel, HasTip, HasMarkup, HasCurrentMarkup {
   /**
    * Alignment of this column.
    */
@@ -80,7 +79,9 @@ public interface ColumnTagDeclaration
    * Allowd layout tokens ('*', '&lt;x>*', '&lt;x>px' or '&lt;x>%').
    * Where '*' is equivalent to '1*'.
    */
+/* TBD
   @TagAttribute
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
   void setWidth(String width);
+*/
 }

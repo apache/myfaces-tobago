@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.internal.taglib.component;
 
-import org.apache.myfaces.tobago.apt.annotation.DynamicExpression;
 import org.apache.myfaces.tobago.apt.annotation.Facet;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
@@ -33,8 +32,6 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasId;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabel;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasStyle;
-import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutComponentWithDimension;
-import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutContainer;
 
 import javax.faces.component.UIForm;
 
@@ -58,12 +55,11 @@ import javax.faces.component.UIForm;
                 allowedChildComponenents = {"org.apache.myfaces.tobago.Command", "org.apache.myfaces.tobago.Form"}),
           @Facet(name = Facets.MENUBAR, description = "Menubar",
                 allowedChildComponenents = "javax.faces.component.UIPanel"), //fake
-          @Facet(name=Facets.LAYOUT, description = "Contains an instance of AbstractUILayoutBase",
-                allowedChildComponenents = "org.apache.myfaces.tobago.GridLayout")})
+          @Facet(name=Facets.LAYOUT, description = "Deprecated. Contains an layout manager. "
+              + "The layout manager tag should surround the content instead.")})
 
 public interface PageTagDeclaration
-    extends HasLabel, HasId, HasBinding, HasMarkup, HasCurrentMarkup,
-    IsGridLayoutComponentWithDimension, HasStyle, IsGridLayoutContainer {
+    extends HasLabel, HasId, HasBinding, HasMarkup, HasCurrentMarkup, HasStyle {
 
   /**
    * Contains the id of the component which should have the focus after
@@ -82,27 +78,4 @@ public interface PageTagDeclaration
   @TagAttribute
   @UIComponentTagAttribute()
   void setApplicationIcon(String icon);
-
-  /**
-   * <strong>ValueBindingExpression</strong> pointing to a object to save the
-   * component's state.
-   * @deprecated since Tobago 1.5.0. Please set the min/max values with e. g. 
-   * a tc:gridLayoutConstraint tag.
-   */
-  @Deprecated
-  @TagAttribute
-  @UIComponentTagAttribute(
-      type = "java.lang.Object", expression = DynamicExpression.VALUE_EXPRESSION_REQUIRED)
-  void setState(String state);
-
-  // XXX LAYOUT_GENERATE
-//  @TagAttribute
-//  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
-//  void setHeight(String height);
-
-  // XXX LAYOUT_GENERATE
-//  @TagAttribute
-//  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
-//  void setWidth(String width);
-
 }

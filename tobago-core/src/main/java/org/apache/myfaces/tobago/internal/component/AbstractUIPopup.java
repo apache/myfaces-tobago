@@ -20,12 +20,8 @@
 package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.component.DeprecatedDimension;
-import org.apache.myfaces.tobago.component.Facets;
+import org.apache.myfaces.tobago.config.Configurable;
 import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
-import org.apache.myfaces.tobago.layout.LayoutContainer;
-import org.apache.myfaces.tobago.layout.LayoutManager;
-import org.apache.myfaces.tobago.layout.Measure;
 
 import javax.el.ValueExpression;
 import javax.faces.component.NamingContainer;
@@ -37,7 +33,7 @@ import java.io.IOException;
 import java.util.Iterator;
 
 public abstract class AbstractUIPopup extends AbstractUIPanel
-    implements NamingContainer, DeprecatedDimension, LayoutContainer {
+    implements NamingContainer, Configurable {
 
   private boolean activated;
 
@@ -145,24 +141,4 @@ public abstract class AbstractUIPopup extends AbstractUIPanel
     super.encodeEnd(context);
     activated = false;
   }
-
-  public LayoutManager getLayoutManager() {
-    return (LayoutManager) getFacet(Facets.LAYOUT);
-  }
-
-  public void setLayoutManager(final LayoutManager layoutManager) {
-    getFacets().put(Facets.LAYOUT, (AbstractUILayoutBase) layoutManager);
-  }
-
-  public boolean isLayoutChildren() {
-    return isRendered();
-  }
-  
-  public abstract Measure getWidth();
-
-  public abstract void setWidth(Measure width);
-
-  public abstract Measure getHeight();
-
-  public abstract void setHeight(Measure height);
 }

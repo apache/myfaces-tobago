@@ -299,60 +299,7 @@ public class PageRenderer extends LayoutComponentRendererBase {
       writer.endElement(HtmlElements.INPUT);
     }
 */
-
-    encodePageMenu(facesContext, page);
-    // write the previously rendered page content
-//    AbstractUILayoutBase.getLayout(component).encodeChildrenOfComponent(facesContext, component);
-
-//    page.encodeLayoutBegin(facesContext);
-
-/*
-    writer.startElement(HtmlElements.DIV, page);
-    if (portlet) {
-      writer.writeClassAttribute(Classes.create(page, "content", Markup.PORTLET));
-    } else {
-      writer.writeClassAttribute(Classes.create(page, "content"));
-    }
-    writer.writeIdAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "content");
-    final Style style = page.getStyle();
-    // XXX position the div, so that the scrollable area is correct.
-    // XXX better to take this fact into layout management.
-    // XXX is also useful in boxes, etc.
-    final Measure border = getBorderBottom(facesContext, page);
-    style.setHeight(page.getCurrentHeight().subtract(border));
-    style.setTop(border);
-    writer.writeStyleAttribute(style);
-*/
   }
-
-  protected void encodePageMenu(FacesContext facesContext, UIPage page) throws IOException {
-
-/*
-    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
-
-    writer.startElement(HtmlElements.NAV, null);
-    writer.writeClassAttribute(BootstrapClass.NAVBAR, BootstrapClass.NAVBAR_INVERSE, BootstrapClass.NAVBAR_FIXED_TOP);
-    writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.NAVIGATION.toString(), false);
-
-    writer.startElement(HtmlElements.DIV, null);
-    writer.writeClassAttribute(BootstrapClass.CONTAINER_FLUID);
-
-    writer.startElement(HtmlElements.DIV, null);
-    writer.writeClassAttribute(BootstrapClass.COLLAPSE, BootstrapClass.NAVBAR_COLLAPSE);
-
-    final UIMenuBar menuBar = ComponentUtils.findFacetDescendant(page, Facets.MENUBAR, UIMenuBar.class);
-    if (menuBar != null) {
-      RenderUtils.encode(facesContext, menuBar);
-    }
-
-    writer.endElement(HtmlElements.DIV);
-
-    writer.endElement(HtmlElements.DIV);
-
-    writer.endElement(HtmlElements.NAV);
-*/
-  }
-
 
   private void checkDuplicates(final String[] resources, final Collection<String> files) {
     for (final String resource : resources) {

@@ -37,7 +37,6 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasTabIndex;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsDefaultCommand;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
-import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutComponent;
 
 import javax.faces.component.UICommand;
 
@@ -48,10 +47,9 @@ import javax.faces.component.UICommand;
 @BodyContentDescription(anyTagOf = "facestag")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIButton",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUICommand",
+    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIButton",
     uiComponentFacesClass = "javax.faces.component.UICommand",
     interfaces = {
-        "org.apache.myfaces.tobago.layout.LayoutComponent",
         "org.apache.myfaces.tobago.component.SupportsAccessKey"
     },
     componentFamily = UICommand.COMPONENT_FAMILY,
@@ -64,6 +62,5 @@ import javax.faces.component.UICommand;
             allowedChildComponenents = "org.apache.myfaces.tobago.Popup")})
 public interface ButtonTagDeclaration
     extends AbstractCommandTagDeclaration, HasIdBindingAndRendered, HasLabelAndAccessKey, HasImage,
-    IsDisabled, IsDefaultCommand, HasTip,
-    HasMarkup, HasCurrentMarkup, HasTabIndex, IsGridLayoutComponent, HasStyle {
+    IsDisabled, IsDefaultCommand, HasTip, HasMarkup, HasCurrentMarkup, HasTabIndex, HasStyle {
 }

@@ -31,6 +31,9 @@ public final class Facets {
   public static final String CONTEXT_MENU = "contextMenu";
   public static final String DROP_DOWN_MENU = "dropDownMenu";
   public static final String LABEL = "label";
+  /**
+   * @deprecated since 3.0.0. The layout manager tag should surround the content instead.
+   */
   public static final String LAYOUT = "layout";
   public static final String LAYOUT_DEFAULT = "layoutDefault";
   public static final String MENUBAR = "menuBar";

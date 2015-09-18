@@ -32,7 +32,6 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasStyle;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasValue;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
-import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutComponent;
 
 import javax.faces.component.UICommand;
 
@@ -50,5 +49,5 @@ import javax.faces.component.UICommand;
     allowedChildComponenents = "NONE")
 public interface ToolBarSelectBooleanTagDeclaration
     extends AbstractCommandTagDeclaration, HasIdBindingAndRendered, HasLabelAndAccessKey,
-    HasImage, IsDisabled, HasValue, HasTip, IsGridLayoutComponent, HasStyle, HasMarkup, HasCurrentMarkup {
+    HasImage, IsDisabled, HasValue, HasTip, HasStyle, HasMarkup, HasCurrentMarkup {
 }

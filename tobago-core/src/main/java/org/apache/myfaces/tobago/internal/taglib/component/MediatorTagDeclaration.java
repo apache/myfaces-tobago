@@ -28,8 +28,6 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasStyle;
-import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutComponent;
-import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutContainer;
 
 import javax.faces.component.UIPanel;
 
@@ -46,8 +44,7 @@ import javax.faces.component.UIPanel;
     rendererType = RendererTypes.MEDIATOR,
     interfaces = {"org.apache.myfaces.tobago.component.SupportsMarkup"})
 public interface MediatorTagDeclaration
-    extends HasIdBindingAndRendered, IsGridLayoutComponent, HasStyle, IsGridLayoutContainer, HasMarkup,
-    HasCurrentMarkup {
+    extends HasIdBindingAndRendered, HasStyle, HasMarkup, HasCurrentMarkup {
 
   /**
    * Name of a request-scope attribute under which this component is accessible.

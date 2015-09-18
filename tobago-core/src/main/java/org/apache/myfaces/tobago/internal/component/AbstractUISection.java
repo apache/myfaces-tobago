@@ -21,7 +21,7 @@ package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.SupportsStyle;
-import org.apache.myfaces.tobago.layout.LayoutComponent;
+import org.apache.myfaces.tobago.config.Configurable;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,46 +32,46 @@ import javax.faces.component.UIOutput;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
-public abstract class AbstractUISection extends UIComponentBase implements LayoutComponent, SupportsStyle {
+public abstract class AbstractUISection extends UIComponentBase implements Configurable, SupportsStyle {
 
-    private static final Logger LOG = LoggerFactory.getLogger(AbstractUISection.class);
+  private static final Logger LOG = LoggerFactory.getLogger(AbstractUISection.class);
 
-    private int level;
+  private int level;
 
-    public String getLabelToRender() {
+  public String getLabelToRender() {
 
-        final UIComponent facet = getFacet(Facets.LABEL);
-        if (facet instanceof UIOutput) {
-            return String.valueOf(((UIOutput) facet).getValue());
-        } else if (facet != null) {
-            LOG.warn("Wrong type: " + facet.getClass().getName());
-        }
-
-        return getLabel();
+    final UIComponent facet = getFacet(Facets.LABEL);
+    if (facet instanceof UIOutput) {
+      return String.valueOf(((UIOutput) facet).getValue());
+    } else if (facet != null) {
+      LOG.warn("Wrong type: " + facet.getClass().getName());
     }
 
-    public abstract String getLabel();
+    return getLabel();
+  }
 
-    @Override
-    public void encodeBegin(FacesContext context) throws IOException {
+  public abstract String getLabel();
 
-        if (getLevel() == 0) {
-            final AbstractUISection section = ComponentUtils.findAncestor(getParent(), AbstractUISection.class);
-            if (section != null) {
-                setLevel(section.getLevel() + 1);
-            } else {
-                setLevel(1);
-            }
-        }
+  @Override
+  public void encodeBegin(FacesContext context) throws IOException {
 
-        super.encodeBegin(context);
+    if (getLevel() == 0) {
+      final AbstractUISection section = ComponentUtils.findAncestor(getParent(), AbstractUISection.class);
+      if (section != null) {
+        setLevel(section.getLevel() + 1);
+      } else {
+        setLevel(1);
+      }
     }
 
-    public int getLevel() {
-        return level;
-    }
+    super.encodeBegin(context);
+  }
 
-    public void setLevel(int level) {
-        this.level = level;
-    }
+  public int getLevel() {
+    return level;
+  }
+
+  public void setLevel(int level) {
+    this.level = level;
+  }
 }

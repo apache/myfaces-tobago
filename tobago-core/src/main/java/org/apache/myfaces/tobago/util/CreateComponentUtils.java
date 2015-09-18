@@ -22,12 +22,9 @@ package org.apache.myfaces.tobago.util;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.ComponentTypes;
 import org.apache.myfaces.tobago.component.Facets;
-import org.apache.myfaces.tobago.component.OnComponentCreated;
-import org.apache.myfaces.tobago.component.OnComponentPopulated;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.UIMenuSelectOne;
 import org.apache.myfaces.tobago.internal.component.AbstractUISelectBooleanCheckbox;
-import org.apache.myfaces.tobago.layout.LayoutManager;
 
 import javax.faces.component.UICommand;
 import javax.faces.component.UIComponent;
@@ -104,20 +101,5 @@ public final class CreateComponentUtils {
       checkbox.setValue(command.getValue());
     }
     return checkbox;
-  }
-
-  public static LayoutManager createAndInitLayout(
-      final FacesContext facesContext, final String componentType, final String rendererType,
-      final UIComponent parent) {
-
-    final LayoutManager layoutManager = (LayoutManager) CreateComponentUtils.createComponent(
-        facesContext, componentType, rendererType, facesContext.getViewRoot().createUniqueId());
-    if (layoutManager instanceof OnComponentCreated) {
-      ((OnComponentCreated) layoutManager).onComponentCreated(facesContext, parent);
-    }
-    if (layoutManager instanceof OnComponentPopulated) {
-      ((OnComponentPopulated) layoutManager).onComponentPopulated(facesContext, parent);
-    }
-    return layoutManager;
   }
 }

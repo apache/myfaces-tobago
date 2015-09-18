@@ -40,7 +40,6 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasValidatorMessage
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasValueChangeListener;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsFocus;
-import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutComponent;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsReadonly;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsRequired;
 
@@ -66,7 +65,7 @@ import javax.faces.component.UIInput;
 public interface FileTagDeclaration
     extends HasValidator, HasValidatorMessage, HasRequiredMessage, HasConverterMessage,
     HasValueChangeListener, HasIdBindingAndRendered, IsDisabled, HasMarkup, HasCurrentMarkup, IsFocus,
-    HasLabel, HasLabelLayout, HasTip, IsReadonly, IsRequired, HasTabIndex, IsGridLayoutComponent, HasStyle {
+    HasLabel, HasLabelLayout, HasTip, IsReadonly, IsRequired, HasTabIndex, HasStyle {
 
   /**
    * Value binding expression pointing to a

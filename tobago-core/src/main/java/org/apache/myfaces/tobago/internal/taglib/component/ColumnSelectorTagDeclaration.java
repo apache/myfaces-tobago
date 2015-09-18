@@ -25,7 +25,6 @@ import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasBinding;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
-import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutContainer;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsRendered;
 
 import javax.faces.component.UIColumn;
@@ -42,5 +41,5 @@ import javax.faces.component.UIColumn;
     rendererType = RendererTypes.COLUMN_SELECTOR,
     allowedChildComponenents = "NONE")
 public interface ColumnSelectorTagDeclaration
-    extends IsDisabled, IsRendered, HasBinding, HasCurrentMarkup, IsGridLayoutContainer {
+    extends IsDisabled, IsRendered, HasBinding, HasCurrentMarkup {
 }

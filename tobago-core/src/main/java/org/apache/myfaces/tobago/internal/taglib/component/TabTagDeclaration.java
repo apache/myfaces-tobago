@@ -32,8 +32,6 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasStyle;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
-import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutComponent;
-import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutContainer;
 
 import javax.faces.component.UIPanel;
 
@@ -55,6 +53,6 @@ import javax.faces.component.UIPanel;
         @Facet(name = Facets.TOOL_BAR, description = "Contains an instance of UIToolBar",
             allowedChildComponenents = "org.apache.myfaces.tobago.ToolBar")})
 public interface TabTagDeclaration
-    extends HasIdBindingAndRendered, IsGridLayoutContainer, IsGridLayoutComponent, HasStyle,
-    HasLabelAndAccessKey, HasTip, HasMarkup, HasCurrentMarkup, IsDisabled, HasImage {
+    extends HasIdBindingAndRendered, HasStyle, HasLabelAndAccessKey, HasTip, HasMarkup, HasCurrentMarkup, IsDisabled,
+    HasImage {
 }

@@ -20,14 +20,16 @@
 package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.myfaces.tobago.component.SupportsMarkup;
-import org.apache.myfaces.tobago.layout.LayoutManager;
+import org.apache.myfaces.tobago.config.Configurable;
+
+import javax.faces.component.UIComponentBase;
 
 /**
- * TODO
+ * A layout manager which uses the CSS flex feature.
+ *
  * @since 3.0.0
  */
-public abstract class AbstractUIFlexLayout
-    extends AbstractUILayoutBase implements LayoutManager, SupportsMarkup {
+public abstract class AbstractUIFlexLayout extends UIComponentBase implements Configurable, SupportsMarkup {
 
   public static final String COMPONENT_FAMILY = "org.apache.myfaces.tobago.FlexLayout";
 }

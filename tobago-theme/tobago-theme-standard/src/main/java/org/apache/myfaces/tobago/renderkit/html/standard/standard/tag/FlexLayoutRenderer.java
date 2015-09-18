@@ -21,7 +21,6 @@ package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
 import org.apache.myfaces.tobago.component.UIFlexLayout;
 import org.apache.myfaces.tobago.context.Markup;
-import org.apache.myfaces.tobago.layout.LayoutContainer;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
@@ -93,7 +92,7 @@ public class FlexLayoutRenderer extends RendererBase {
   @Override
   public void encodeChildren(final FacesContext facesContext, final UIComponent component) throws IOException {
     final UIComponent container = component.getParent();
-    if (container instanceof LayoutContainer && !((LayoutContainer) container).isLayoutChildren()) {
+    if (!container.isRendered()) {
       return;
     }
     RenderUtils.encodeChildren(facesContext, container);
@@ -101,7 +100,7 @@ public class FlexLayoutRenderer extends RendererBase {
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
     final AbstractUIBootstrapLayout bootstrapLayout = (AbstractUIBootstrapLayout) component;
     final UIComponent container = bootstrapLayout.getParent();
-    if (container instanceof LayoutContainer && !((LayoutContainer) container).isLayoutChildren()) {
+    if (!container.isRendered()) {
       return;
     }
 

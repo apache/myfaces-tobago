@@ -63,3 +63,4 @@ No longer supported:
 * class Position
 * ClientProperties.pageWidth
 * ClientProperties.pageHeight
+* tc:gridLayoutConstraint -> tc:style

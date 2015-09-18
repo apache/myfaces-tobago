@@ -34,8 +34,6 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRend
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasRenderedPartially;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasStyle;
-import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutComponent;
-import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutContainer;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsImmediateCommand;
 
 import javax.faces.component.UIPanel;
@@ -56,7 +54,7 @@ import javax.faces.component.UIPanel;
 
 public interface TabGroupTagDeclaration
     extends HasIdBindingAndRendered, IsImmediateCommand, HasAction, HasActionListener, HasMarkup, HasCurrentMarkup,
-    IsGridLayoutComponent, HasStyle, IsGridLayoutContainer, HasRenderedPartially {
+    HasStyle, HasRenderedPartially {
 
   /**
    * Flag indicating that the tab navigation bar is rendered.

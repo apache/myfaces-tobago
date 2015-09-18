@@ -35,7 +35,6 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasStyle;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTabIndex;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
-import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutComponent;
 
 import javax.faces.component.UICommand;
 
@@ -49,7 +48,7 @@ import javax.faces.component.UICommand;
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUITreeCommand",
     uiComponentFacesClass = "javax.faces.component.UICommand",
     interfaces = {
-        "org.apache.myfaces.tobago.layout.LayoutBase",
+        "org.apache.myfaces.tobago.config.Configurable",
         "org.apache.myfaces.tobago.component.SupportsAccessKey"
     },
     componentFamily = UICommand.COMPONENT_FAMILY,
@@ -66,5 +65,5 @@ import javax.faces.component.UICommand;
     rendererType = RendererTypes.TREE_COMMAND)
 public interface TreeCommandTagDeclaration
     extends AbstractCommandTagDeclaration, HasIdBindingAndRendered, IsDisabled,
-    HasLabelAndAccessKey, HasTip, HasMarkup, HasCurrentMarkup, HasTabIndex, IsGridLayoutComponent, HasStyle {
+    HasLabelAndAccessKey, HasTip, HasMarkup, HasCurrentMarkup, HasTabIndex, HasStyle {
 }

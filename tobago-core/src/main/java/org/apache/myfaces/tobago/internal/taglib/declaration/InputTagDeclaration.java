@@ -20,7 +20,6 @@
 package org.apache.myfaces.tobago.internal.taglib.declaration;
 
 public interface InputTagDeclaration
-    extends HasValidator, HasValue, HasValueChangeListener,
-    HasValidatorMessage, HasConverterMessage, HasRequiredMessage,
-    HasTabIndex, IsFocus, IsGridLayoutComponent, HasStyle {
+    extends HasValidator, HasValue, HasValueChangeListener, HasTabIndex, IsFocus, HasStyle,
+    HasValidatorMessage, HasConverterMessage, HasRequiredMessage {
 }

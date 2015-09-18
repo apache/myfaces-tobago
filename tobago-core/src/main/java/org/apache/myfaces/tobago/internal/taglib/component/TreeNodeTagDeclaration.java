@@ -32,7 +32,6 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasStyle;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
-import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutContainer;
 
 import javax.faces.component.UIColumn;
 
@@ -53,7 +52,7 @@ import javax.faces.component.UIColumn;
         "org.apache.myfaces.tobago.TreeData"
     })
 public interface TreeNodeTagDeclaration
-    extends HasIdBindingAndRendered, HasMarkup, HasCurrentMarkup, HasTip, IsDisabled, IsGridLayoutContainer, HasStyle {
+    extends HasIdBindingAndRendered, HasMarkup, HasCurrentMarkup, HasTip, IsDisabled, HasStyle {
 
   @Deprecated
   @TagAttribute()
@@ -70,7 +69,9 @@ public interface TreeNodeTagDeclaration
       methodSignature = "org.apache.myfaces.tobago.event.TreeExpansionEvent")
   void setTreeExpansionListener(String treeExpansionListener);
 
+/* TBD
   @TagAttribute
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
   void setWidth(String width);
+*/
 }

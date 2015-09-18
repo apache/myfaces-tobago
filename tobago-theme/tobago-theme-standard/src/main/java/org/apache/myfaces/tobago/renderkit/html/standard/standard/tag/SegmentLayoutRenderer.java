@@ -19,13 +19,11 @@
 
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
-import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.LabelLayout;
 import org.apache.myfaces.tobago.component.SupportsLabelLayout;
 import org.apache.myfaces.tobago.component.UIExtensionPanel;
 import org.apache.myfaces.tobago.component.UISegmentLayout;
 import org.apache.myfaces.tobago.internal.component.AbstractUISegmentLayout;
-import org.apache.myfaces.tobago.layout.LayoutContainer;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClassGenerator;
@@ -71,20 +69,11 @@ public class SegmentLayoutRenderer extends RendererBase {
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
     final UISegmentLayout segmentLayout = (UISegmentLayout) component;
 
-    UIComponent container = segmentLayout.getParent();
-    if (container.getFacet(Facets.LAYOUT) == segmentLayout) {
-      // case (old style): layout manager over facet
-      LOG.warn("Using this layout via a facet is deprecated. Please put the layout around the components.");
-    } else {
-      // case (modern style): the segmentLayout contains the content to be layed out.
-      container = segmentLayout;
-    }
-
-    if (container instanceof LayoutContainer && !((LayoutContainer) container).isLayoutChildren()) {
+    if (!segmentLayout.isRendered()) {
       return;
     }
 
-    final List<UIComponent> children = container.getChildren();
+    final List<UIComponent> children = segmentLayout.getChildren();
     final BootstrapClassGenerator generator = new BootstrapClassGenerator(
         segmentLayout.getExtraSmall(),
         segmentLayout.getSmall(),

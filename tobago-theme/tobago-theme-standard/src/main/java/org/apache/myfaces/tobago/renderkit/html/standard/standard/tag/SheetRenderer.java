@@ -48,7 +48,6 @@ import org.apache.myfaces.tobago.internal.layout.Grid;
 import org.apache.myfaces.tobago.internal.layout.OriginCell;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.layout.Display;
-import org.apache.myfaces.tobago.layout.LayoutBase;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.layout.TextAlign;
 import org.apache.myfaces.tobago.model.ExpandedState;
@@ -358,6 +357,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
             // set height to 0 to prevent use of layoutheight from parent
             grandKid.getAttributes().put(Attributes.LAYOUT_HEIGHT, HEIGHT_0);
             // XXX hotfix
+/* XXX broken
             if (grandKid instanceof LayoutBase) {
               final LayoutBase base = (LayoutBase) grandKid;
               if (base.getLeft() != null) {
@@ -367,6 +367,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
                 base.setTop(null);
               }
             }
+*/
             EncodeUtils.prepareRendererAll(facesContext, grandKid);
             RenderUtils.encode(facesContext, grandKid);
           }
@@ -418,11 +419,11 @@ public class SheetRenderer extends LayoutComponentRendererBase {
 // END RENDER BODY CONTENT
 
     if (sheet.isPagingVisible()) {
-      final Style footerStyle = new Style();
-      footerStyle.setWidth(sheet.getCurrentWidth());
+//      final Style footerStyle = new Style();
+//      footerStyle.setWidth(sheet.getCurrentWidth());
       writer.startElement(HtmlElements.DIV, sheet);
       writer.writeClassAttribute(Classes.create(sheet, "footer"));
-      writer.writeStyleAttribute(footerStyle);
+//      writer.writeStyleAttribute(footerStyle);
 
       // show row range
       final Markup showRowRange = markupForLeftCenterRight(sheet.getShowRowRange());

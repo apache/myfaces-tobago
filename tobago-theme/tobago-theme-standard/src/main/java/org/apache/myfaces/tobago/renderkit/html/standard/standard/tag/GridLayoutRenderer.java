@@ -115,7 +115,7 @@ public class GridLayoutRenderer extends RendererBase implements MarginValues {
     final AbstractUIGridLayout gridLayout = (AbstractUIGridLayout) component;
 /*
     final UIComponent container = gridLayout.getParent();
-    if (container instanceof LayoutContainer && !((LayoutContainer) container).isLayoutChildren()) {
+    if (!container.isRendered()) {
       return;
     }
     RenderUtils.encodeChildren(facesContext, container);
