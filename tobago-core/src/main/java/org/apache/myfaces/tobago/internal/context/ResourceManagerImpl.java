@@ -113,34 +113,6 @@ public class ResourceManagerImpl implements ResourceManager {
     resourceList.put(resourceKey, value);
   }
 
-  @Deprecated
-  public String getJsp(final UIViewRoot viewRoot, final String name) {
-    String result = null;
-    if (name != null) {
-
-      final ClientPropertiesKey clientKey = ClientPropertiesKey.get(FacesContext.getCurrentInstance());
-      final JspCacheKey cacheKey = new JspCacheKey(clientKey, name);
-
-      result = jspCache.get(cacheKey);
-      if (result != null) {
-        return result;
-      }
-      try {
-        result = (String) getPaths(clientKey, "",
-            JSP, name, EXT_NONE, false, true, true, null, true, false).get(0);
-        jspCache.put(cacheKey, result);
-      } catch (final Exception e) {
-        LOG.error("name = '" + name + "' clientProperties = '" + clientKey.toString() + "'", e);
-      }
-    }
-    return result;
-  }
-
-  @Deprecated
-  public String getProperty(final UIViewRoot viewRoot, final String bundle, final String propertyKey) {
-    return getProperty(FacesContext.getCurrentInstance(), bundle, propertyKey);
-  }
-
   public String getProperty(final FacesContext facesContext, final String bundle, final String propertyKey) {
 
     if (bundle != null && propertyKey != null) {
@@ -161,11 +133,6 @@ public class ResourceManagerImpl implements ResourceManager {
       return result.getValue();
     }
     return null;
-  }
-
-  @Deprecated
-  public Renderer getRenderer(final UIViewRoot viewRoot, final String rendererType) {
-    return getRenderer(FacesContext.getCurrentInstance(), rendererType);
   }
 
   public Renderer getRenderer(final FacesContext facesContext, final String rendererType) {
@@ -200,45 +167,12 @@ public class ResourceManagerImpl implements ResourceManager {
     return renderer;
   }
 
-  @Deprecated
-  public String[] getScripts(final UIViewRoot viewRoot, final String name) {
-    return getScripts(FacesContext.getCurrentInstance(), name);
-  }
-
   public String[] getScripts(final FacesContext facesContext, final String name) {
     return getStrings(facesContext, name, null);
   }
 
-  @Deprecated
-  public String[] getStyles(final UIViewRoot viewRoot, final String name) {
-    return getStyles(FacesContext.getCurrentInstance(), name);
-  }
-
   public String[] getStyles(final FacesContext facesContext, final String name) {
     return getStrings(facesContext, name, null);
-  }
-
-  @Deprecated
-  public String getThemeProperty(final UIViewRoot viewRoot, final String bundle, final String propertyKey) {
-    if (bundle != null && propertyKey != null) {
-
-      final ClientPropertiesKey clientKey = ClientPropertiesKey.get(FacesContext.getCurrentInstance());
-      final PropertyCacheKey cacheKey = new PropertyCacheKey(clientKey, bundle, propertyKey);
-
-      StringValue result = propertyCache.get(cacheKey);
-      if (result == null) {
-        final List properties
-            = getPaths(clientKey, "", PROPERTY, bundle, EXT_NONE, false, true, false, propertyKey, true, true);
-        if (properties != null) {
-          result = new StringValue((String) properties.get(0));
-        } else {
-          result = StringValue.NULL;
-        }
-        propertyCache.put(cacheKey, result);
-      }
-      return result.getValue();
-    }
-    return null;
   }
 
   public Measure getThemeMeasure(final FacesContext facesContext, final Configurable configurable, final String name) {
@@ -295,21 +229,6 @@ public class ResourceManagerImpl implements ResourceManager {
       themeCache.put(cacheKey, result);
     }
     return result.getValue();
-  }
-
-  @Deprecated
-  public String getImage(final UIViewRoot viewRoot, final String name) {
-    return getImage(FacesContext.getCurrentInstance(), name);
-  }
-
-  @Deprecated
-  public String getImage(final FacesContext facesContext, final String name) {
-    return getImage(facesContext, name, false);
-  }
-
-  @Deprecated
-  public String getImage(final UIViewRoot viewRoot, final String name, final boolean ignoreMissing) {
-    return getImage(FacesContext.getCurrentInstance(), name, ignoreMissing);
   }
 
   /**

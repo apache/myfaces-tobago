@@ -111,8 +111,8 @@ public abstract class AbstractRendererBaseWrapper extends RendererBase {
   }
 
   protected final RendererBase getRenderer(final FacesContext facesContext) {
-    final RendererBase renderer = (RendererBase) ResourceManagerFactory.
-        getResourceManager(facesContext).getRenderer(facesContext.getViewRoot(), getRendererType());
+    final RendererBase renderer = (RendererBase)
+        ResourceManagerFactory.getResourceManager(facesContext).getRenderer(facesContext, getRendererType());
     if (renderer == null) {
       throw new RuntimeException("No renderer found for rendererType='"+ getRendererType()
           + "' in wrapper class '" + this.getClass().getName() + "'");
