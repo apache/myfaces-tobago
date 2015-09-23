@@ -20,7 +20,6 @@
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
 import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.config.Configurable;
 import org.apache.myfaces.tobago.internal.component.AbstractUIGridLayout;
 import org.apache.myfaces.tobago.internal.layout.Cell;
 import org.apache.myfaces.tobago.internal.layout.Grid;
@@ -31,7 +30,6 @@ import org.apache.myfaces.tobago.layout.LayoutTokens;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.layout.PixelLayoutToken;
 import org.apache.myfaces.tobago.layout.RelativeLayoutToken;
-import org.apache.myfaces.tobago.renderkit.MarginValues;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
@@ -48,7 +46,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
-public class GridLayoutRenderer extends RendererBase implements MarginValues {
+public class GridLayoutRenderer extends RendererBase {
 
   private static final Logger LOG = LoggerFactory.getLogger(GridLayoutRenderer.class);
 
@@ -144,7 +142,7 @@ public class GridLayoutRenderer extends RendererBase implements MarginValues {
           final UIComponent element = cell.getComponent();
           StringBuilder builder = new StringBuilder();
           builder.append("{");
-          final Measure width = (Measure) element.getAttributes().get(Attributes.WIDTH);
+          final Measure width = Measure.valueOf(element.getAttributes().get(Attributes.WIDTH));
           if (width != null) {
             builder.append("\"width\":");
             builder.append("{\"pixel\":");
@@ -152,7 +150,7 @@ public class GridLayoutRenderer extends RendererBase implements MarginValues {
             builder.append("}");
             builder.append(",");
           }
-          final Measure height = (Measure) element.getAttributes().get(Attributes.HEIGHT);
+          final Measure height = Measure.valueOf(element.getAttributes().get(Attributes.HEIGHT));
           if (height != null) {
             builder.append("\"height\":");
             builder.append("{\"pixel\":");
@@ -185,21 +183,5 @@ public class GridLayoutRenderer extends RendererBase implements MarginValues {
     writer.endElement(HtmlElements.TBODY);
     writer.endElement(HtmlElements.TABLE);
 //    writer.endElement(HtmlElements.DIV);
-  }
-
-  public Measure getMarginLeft(final FacesContext facesContext, final Configurable component) {
-    return getResourceManager().getThemeMeasure(facesContext, component, Attributes.MARGIN_LEFT);
-  }
-
-  public Measure getMarginRight(final FacesContext facesContext, final Configurable component) {
-    return getResourceManager().getThemeMeasure(facesContext, component, Attributes.MARGIN_RIGHT);
-  }
-
-  public Measure getMarginTop(final FacesContext facesContext, final Configurable component) {
-    return getResourceManager().getThemeMeasure(facesContext, component, Attributes.MARGIN_TOP);
-  }
-
-  public Measure getMarginBottom(final FacesContext facesContext, final Configurable component) {
-    return getResourceManager().getThemeMeasure(facesContext, component, Attributes.MARGIN_BOTTOM);
   }
 }

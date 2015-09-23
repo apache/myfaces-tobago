@@ -20,7 +20,7 @@
 package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.myfaces.tobago.ajax.AjaxUtils;
-import org.apache.myfaces.tobago.config.Configurable;
+import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.internal.ajax.AjaxInternalUtils;
 import org.apache.myfaces.tobago.internal.ajax.AjaxResponseRenderer;
 import org.apache.myfaces.tobago.internal.layout.LayoutUtils;
@@ -47,7 +47,7 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.Map;
 
-public abstract class AbstractUIPage extends AbstractUIForm implements Configurable {
+public abstract class AbstractUIPage extends AbstractUIForm implements Visual {
 
   private static final Logger LOG = LoggerFactory.getLogger(AbstractUIPage.class);
 

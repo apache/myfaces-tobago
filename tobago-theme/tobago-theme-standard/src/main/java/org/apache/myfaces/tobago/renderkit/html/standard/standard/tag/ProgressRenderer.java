@@ -22,7 +22,7 @@ package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UICommand;
 import org.apache.myfaces.tobago.component.UIProgress;
-import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
+import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
@@ -37,7 +37,7 @@ import javax.swing.BoundedRangeModel;
 import javax.swing.DefaultBoundedRangeModel;
 import java.io.IOException;
 
-public class ProgressRenderer extends LayoutComponentRendererBase {
+public class ProgressRenderer extends RendererBase {
 
   private static final Logger LOG = LoggerFactory.getLogger(ProgressRenderer.class);
 

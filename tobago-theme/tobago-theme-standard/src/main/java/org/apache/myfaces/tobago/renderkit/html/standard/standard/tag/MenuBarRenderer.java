@@ -20,7 +20,7 @@
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
 import org.apache.myfaces.tobago.component.UIMenuBar;
-import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
+import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
@@ -32,7 +32,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
-public class MenuBarRenderer extends LayoutComponentRendererBase {
+public class MenuBarRenderer extends RendererBase {
 
   @Override
   public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {

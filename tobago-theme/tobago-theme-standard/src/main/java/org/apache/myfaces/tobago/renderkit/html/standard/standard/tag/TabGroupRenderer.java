@@ -34,7 +34,7 @@ import org.apache.myfaces.tobago.event.TabChangeEvent;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPanel;
 import org.apache.myfaces.tobago.internal.util.AccessKeyLogger;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
-import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
+import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
@@ -62,7 +62,7 @@ import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.util.Map;
 
-public class TabGroupRenderer extends LayoutComponentRendererBase {
+public class TabGroupRenderer extends RendererBase {
 
   private static final Logger LOG = LoggerFactory.getLogger(TabGroupRenderer.class);
 

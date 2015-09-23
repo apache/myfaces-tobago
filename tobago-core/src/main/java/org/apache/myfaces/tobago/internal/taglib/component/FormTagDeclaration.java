@@ -35,7 +35,6 @@ import javax.faces.component.UIForm;
     interfaces = "org.apache.myfaces.tobago.component.Form",
     componentFamily = UIForm.COMPONENT_FAMILY,
     rendererType = RendererTypes.FORM,
-    isTransparentForLayout = true,
     allowedChildComponenents = "ALL")
 public interface FormTagDeclaration extends HasBinding, HasId {
 

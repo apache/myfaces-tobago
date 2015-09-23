@@ -26,7 +26,7 @@ import org.apache.myfaces.tobago.component.LabelLayout;
 import org.apache.myfaces.tobago.component.OnComponentCreated;
 import org.apache.myfaces.tobago.component.OnComponentPopulated;
 import org.apache.myfaces.tobago.component.RendererTypes;
-import org.apache.myfaces.tobago.component.SupportsMarkup;
+import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.component.UIFlexLayout;
 import org.apache.myfaces.tobago.component.UILabel;
 import org.apache.myfaces.tobago.component.UIPanel;
@@ -260,7 +260,7 @@ public abstract class TobagoLabelExtensionHandler extends ComponentHandler {
     //metaRuleset.ignore(Attributes.LABEL);
     metaRuleset.ignore(Attributes.TIP);
     metaRuleset.ignore("labelWidth");
-    if (SupportsMarkup.class.isAssignableFrom(aClass)) {
+    if (Visual.class.isAssignableFrom(aClass)) {
       metaRuleset.addRule(SupportsMarkupRule.INSTANCE);
     }
     if (InputSuggest.class.isAssignableFrom(aClass)) {

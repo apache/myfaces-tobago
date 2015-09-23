@@ -21,11 +21,8 @@ package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
 import org.apache.myfaces.tobago.application.ProjectStage;
 import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.component.Facets;
-import org.apache.myfaces.tobago.component.UIMenuBar;
 import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.component.UIPopup;
-import org.apache.myfaces.tobago.config.Configurable;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.context.Markup;
@@ -38,9 +35,8 @@ import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
 import org.apache.myfaces.tobago.internal.util.MimeTypeUtils;
 import org.apache.myfaces.tobago.internal.util.ResponseUtils;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
-import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.portlet.PortletUtils;
-import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
+import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
@@ -69,7 +65,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
-public class PageRenderer extends LayoutComponentRendererBase {
+public class PageRenderer extends RendererBase {
 
   private static final Logger LOG = LoggerFactory.getLogger(PageRenderer.class);
 
@@ -519,18 +515,5 @@ public class PageRenderer extends LayoutComponentRendererBase {
   @Override
   public boolean getRendersChildren() {
     return true;
-  }
-
-  @Override
-  public Measure getBorderBottom(final FacesContext facesContext, final Configurable component) {
-    // XXX this is a hack. correct would be the top-border, but this would shift the content, because of the
-    // XXX hack before the code: writer.writeStyleAttribute(style)
-    final UIPage page = (UIPage) component;
-    final UIMenuBar menuBar = ComponentUtils.findFacetDescendant(page, Facets.MENUBAR, UIMenuBar.class);
-    if (menuBar != null) {
-      return getResourceManager().getThemeMeasure(facesContext, page, "custom.menuBar-height");
-    } else {
-      return Measure.ZERO;
-    }
   }
 }

@@ -28,13 +28,10 @@ import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasBinding;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasConverter;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasConverterMessage;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasId;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasInputLabel;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabelLayout;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasRequiredMessageForSelect;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasStyle;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTabIndex;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasValidator;
@@ -45,6 +42,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsFocus;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsReadonly;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsRequiredForSelect;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 
 import javax.faces.component.UISelectMany;
 
@@ -61,8 +59,8 @@ import javax.faces.component.UISelectMany;
         "javax.faces.SelectItems"})
 public interface SelectManyShuttleTagDeclaration extends
     IsDisabled, HasId, HasTip, IsRendered, IsRequiredForSelect, HasBinding, IsReadonly, HasConverter,
-    HasMarkup, HasCurrentMarkup, HasInputLabel, HasValidator, HasValueChangeListener, HasLabelLayout,
-    HasValidatorMessage, HasConverterMessage, HasRequiredMessageForSelect, HasTabIndex, IsFocus, HasStyle {
+    HasInputLabel, HasValidator, HasValueChangeListener, HasLabelLayout,
+    HasValidatorMessage, HasConverterMessage, HasRequiredMessageForSelect, HasTabIndex, IsFocus, IsVisual {
 
   /**
    * The value of the multi select.

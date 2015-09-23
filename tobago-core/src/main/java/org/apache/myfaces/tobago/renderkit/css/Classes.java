@@ -20,7 +20,7 @@
 package org.apache.myfaces.tobago.renderkit.css;
 
 import org.apache.commons.collections.map.MultiKeyMap;
-import org.apache.myfaces.tobago.component.SupportsMarkup;
+import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.Theme;
@@ -85,7 +85,7 @@ public final class Classes {
       final UIComponent component, final boolean markupFromComponent, final String sub,
       final Markup explicit, final boolean ignoreCheck) {
     final String rendererName = StringUtils.uncapitalize(component.getRendererType());
-    final Markup markup = markupFromComponent ? ((SupportsMarkup) component).getCurrentMarkup() : explicit;
+    final Markup markup = markupFromComponent ? ((Visual) component).getCurrentMarkup() : explicit;
 //    Classes value = (Classes) CACHE.get(rendererName, markup, sub);
 //    if (value == null) {
     final Classes value;

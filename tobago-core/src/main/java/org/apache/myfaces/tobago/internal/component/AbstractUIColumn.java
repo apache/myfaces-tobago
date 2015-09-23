@@ -19,11 +19,11 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
-import org.apache.myfaces.tobago.config.Configurable;
+import org.apache.myfaces.tobago.component.Visual;
 
 import javax.faces.component.UIColumn;
 
-public abstract class AbstractUIColumn extends UIColumn implements Configurable {
+public abstract class AbstractUIColumn extends UIColumn implements Visual {
 
 //  public abstract Measure getWidth();
 

@@ -23,7 +23,7 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
-import org.apache.myfaces.tobago.component.SupportsMarkup;
+import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.component.UISheet;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.TransientStateHolder;
@@ -961,7 +961,7 @@ public final class ComponentUtils {
     return null;
   }
 
-  public static void addCurrentMarkup(final SupportsMarkup component, final Markup markup) {
+  public static void addCurrentMarkup(final Visual component, final Markup markup) {
     component.setCurrentMarkup(markup.add(component.getCurrentMarkup()));
   }
 

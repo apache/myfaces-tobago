@@ -152,10 +152,7 @@ public class ClassesGenerator extends AbstractGenerator {
     componentInfo.addImport(componentPropertyInfo.getUnmodifiedType());
     componentInfo.addImport("javax.faces.context.FacesContext");
     if ("markup".equals(info.getName())) {
-      componentInfo.addInterface("org.apache.myfaces.tobago.component.SupportsMarkup");
-    }
-    if ("css".equals(info.getName())) {
-      componentInfo.addInterface("org.apache.myfaces.tobago.component.SupportsCss");
+      componentInfo.addInterface("org.apache.myfaces.tobago.component.Visual");
     }
     if ("requiredMessage".equals(info.getName())) {
       componentInfo.setMessages(true);
@@ -177,13 +174,7 @@ public class ClassesGenerator extends AbstractGenerator {
       }
       renderer.add(className);
       final RendererInfo info = new RendererInfo(declaration.getQualifiedName().toString(), className, rendererType);
-      if (componentTag.isLayout()) {
-        info.setSuperClass("org.apache.myfaces.tobago.renderkit.AbstractLayoutRendererWrapper");
-      } else if (componentTag.isTransparentForLayout()) {
-        info.setSuperClass("org.apache.myfaces.tobago.renderkit.AbstractRendererBaseWrapper");
-      } else {
-        info.setSuperClass("org.apache.myfaces.tobago.renderkit.AbstractLayoutableRendererBaseWrapper");
-      }
+      info.setSuperClass("org.apache.myfaces.tobago.renderkit.AbstractRendererBaseWrapper");
       final StringTemplate stringTemplate = rendererStringTemplateGroup.getInstanceOf("renderer");
       stringTemplate.setAttribute("renderInfo", info);
       writeFile(info, stringTemplate);

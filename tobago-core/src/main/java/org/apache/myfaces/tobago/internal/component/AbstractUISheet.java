@@ -23,8 +23,7 @@ import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.OnComponentPopulated;
 import org.apache.myfaces.tobago.component.Sorter;
 import org.apache.myfaces.tobago.component.SupportsRenderedPartially;
-import org.apache.myfaces.tobago.component.SupportsStyle;
-import org.apache.myfaces.tobago.config.Configurable;
+import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.event.PageActionEvent;
 import org.apache.myfaces.tobago.event.SheetStateChangeEvent;
 import org.apache.myfaces.tobago.event.SheetStateChangeListener;
@@ -39,7 +38,6 @@ import org.apache.myfaces.tobago.layout.RelativeLayoutToken;
 import org.apache.myfaces.tobago.model.ExpandedState;
 import org.apache.myfaces.tobago.model.SelectedState;
 import org.apache.myfaces.tobago.model.SheetState;
-import org.apache.myfaces.tobago.renderkit.LayoutComponentRenderer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -64,8 +62,7 @@ import java.util.Map;
 
 @ListenerFor(systemEventClass = PreRenderComponentEvent.class)
 public abstract class AbstractUISheet extends AbstractUIData
-    implements SheetStateChangeSource2, SortActionSource2, OnComponentPopulated,
-    Configurable, SupportsRenderedPartially, SupportsStyle {
+    implements SheetStateChangeSource2, SortActionSource2, OnComponentPopulated, SupportsRenderedPartially, Visual {
 
   private static final Logger LOG = LoggerFactory.getLogger(AbstractUISheet.class);
 
@@ -82,10 +79,6 @@ public abstract class AbstractUISheet extends AbstractUIData
   private transient LayoutTokens columnLayout;
 
   private transient Grid headerGrid;
-
-  public LayoutComponentRenderer getLayoutComponentRenderer(final FacesContext context) {
-    return (LayoutComponentRenderer) getRenderer(context);
-  }
 
   @Override
   public void encodeBegin(final FacesContext facesContext) throws IOException {

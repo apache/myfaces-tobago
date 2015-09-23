@@ -26,12 +26,10 @@ import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.RendererTypes;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasStyle;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 
 import javax.faces.component.UIColumn;
 
@@ -52,7 +50,7 @@ import javax.faces.component.UIColumn;
         "org.apache.myfaces.tobago.TreeData"
     })
 public interface TreeNodeTagDeclaration
-    extends HasIdBindingAndRendered, HasMarkup, HasCurrentMarkup, HasTip, IsDisabled, HasStyle {
+    extends HasIdBindingAndRendered, HasTip, IsDisabled, IsVisual {
 
   @Deprecated
   @TagAttribute()

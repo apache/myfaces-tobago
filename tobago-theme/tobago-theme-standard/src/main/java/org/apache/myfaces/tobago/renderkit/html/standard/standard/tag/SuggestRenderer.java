@@ -25,7 +25,7 @@ import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.model.AutoSuggestItem;
 import org.apache.myfaces.tobago.model.AutoSuggestItems;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
-import org.apache.myfaces.tobago.renderkit.css.Classes;
+import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
@@ -55,7 +55,7 @@ public class SuggestRenderer extends RendererBase {
     // todo: declare unused/unsupported stuff deprecated
 
     writer.startElement(HtmlElements.DIV, null);
-    writer.writeClassAttribute(Classes.create(suggest));
+    writer.writeClassAttribute(TobagoClass.SUGGEST);
     writer.writeIdAttribute(id);
     writer.writeAttribute(DataAttributes.FOR, in.getClientId(facesContext), false);
     writer.writeAttribute(DataAttributes.SUGGEST_MIN_CHARS, suggest.getMinimumCharacters());

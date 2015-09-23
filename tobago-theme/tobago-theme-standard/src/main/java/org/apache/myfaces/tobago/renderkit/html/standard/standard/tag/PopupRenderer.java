@@ -21,7 +21,7 @@ package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
 import org.apache.myfaces.tobago.component.UIPopup;
 import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
-import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
+import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
@@ -34,7 +34,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
-public class PopupRenderer extends LayoutComponentRendererBase {
+public class PopupRenderer extends RendererBase {
 
   @Override
   public void prepareRender(final FacesContext facesContext, final UIComponent component) throws IOException {

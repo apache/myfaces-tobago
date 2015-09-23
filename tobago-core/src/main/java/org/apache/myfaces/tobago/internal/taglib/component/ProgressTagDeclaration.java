@@ -27,11 +27,9 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasStyle;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 
 import javax.faces.component.UIOutput;
 
@@ -52,8 +50,7 @@ import javax.faces.component.UIOutput;
             "Contains an instance of UICommand (tc:command). The action is invoked if the full progress has reached",
         allowedChildComponenents = "org.apache.myfaces.tobago.Command")})
         
-public interface ProgressTagDeclaration
-    extends HasIdBindingAndRendered, HasTip, HasMarkup, HasCurrentMarkup, HasStyle {
+public interface ProgressTagDeclaration extends HasIdBindingAndRendered, HasTip, IsVisual {
 
   /**
    * The current value of this component.

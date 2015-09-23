@@ -24,7 +24,7 @@ import org.apache.myfaces.tobago.component.UIPanel;
 import org.apache.myfaces.tobago.component.UIReload;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPanel;
 import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
-import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
+import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
@@ -38,7 +38,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 
-public class PanelRenderer extends LayoutComponentRendererBase {
+public class PanelRenderer extends RendererBase {
 
   @Override
   public boolean getRendersChildren() {

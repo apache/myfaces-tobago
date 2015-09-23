@@ -26,11 +26,10 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabel;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 
 import javax.faces.component.UIColumn;
 
@@ -50,7 +49,7 @@ import javax.faces.component.UIColumn;
             allowedChildComponenents = "org.apache.myfaces.tobago.Menu")
     })
 public interface ColumnTagDeclaration
-    extends HasIdBindingAndRendered, HasLabel, HasTip, HasMarkup, HasCurrentMarkup {
+    extends HasIdBindingAndRendered, HasLabel, HasTip, IsVisual {
   /**
    * Alignment of this column.
    */

@@ -25,7 +25,7 @@ import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.model.CalendarModel;
 import org.apache.myfaces.tobago.model.DateModel;
-import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
+import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
@@ -43,7 +43,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 
-public class CalendarRenderer extends LayoutComponentRendererBase {
+public class CalendarRenderer extends RendererBase {
 
   @Override
   public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {

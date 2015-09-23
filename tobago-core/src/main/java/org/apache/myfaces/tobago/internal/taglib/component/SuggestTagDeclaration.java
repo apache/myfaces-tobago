@@ -25,9 +25,7 @@ import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.RendererTypes;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
 import org.apache.myfaces.tobago.model.SuggestFilter;
 
 import javax.faces.component.UIInput;
@@ -53,9 +51,8 @@ import javax.faces.component.UIInput;
     uiComponentFacesClass = "javax.faces.component.UIComponentBase",
     componentFamily = UIInput.COMPONENT_FAMILY,
     rendererType = RendererTypes.SUGGEST,
-    isTransparentForLayout = true,
     allowedChildComponenents = "NONE")
-public interface SuggestTagDeclaration extends HasIdBindingAndRendered, HasMarkup, HasCurrentMarkup {
+public interface SuggestTagDeclaration extends HasIdBindingAndRendered {
 
   /**
    * MethodBinding which generates a list of suggested input values based on

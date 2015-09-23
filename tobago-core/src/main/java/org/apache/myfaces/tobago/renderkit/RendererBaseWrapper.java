@@ -25,7 +25,7 @@ import javax.faces.convert.ConverterException;
 import javax.faces.render.Renderer;
 import java.io.IOException;
 
-public class RendererBaseWrapper extends LayoutComponentRendererBase {
+public class RendererBaseWrapper extends RendererBase {
   private Renderer renderer;
 
   public RendererBaseWrapper(final Renderer renderer) {

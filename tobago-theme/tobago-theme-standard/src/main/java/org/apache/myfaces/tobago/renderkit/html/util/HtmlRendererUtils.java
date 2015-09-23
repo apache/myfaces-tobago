@@ -20,7 +20,7 @@
 package org.apache.myfaces.tobago.renderkit.html.util;
 
 import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.component.SupportsMarkup;
+import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.component.UIColumnEvent;
 import org.apache.myfaces.tobago.component.UICommand;
 import org.apache.myfaces.tobago.component.UIForm;
@@ -261,7 +261,7 @@ public final class HtmlRendererUtils {
             writer.writeStyleAttribute(style);
           }
         }
-        Markup markup = item instanceof SupportsMarkup ? ((SupportsMarkup) item).getMarkup() : Markup.NULL;
+        Markup markup = item instanceof Visual ? ((Visual) item).getMarkup() : Markup.NULL;
         if (onlySelected == null && contains) {
           writer.writeAttribute(HtmlAttributes.SELECTED, true);
           markup = Markup.SELECTED.add(markup);

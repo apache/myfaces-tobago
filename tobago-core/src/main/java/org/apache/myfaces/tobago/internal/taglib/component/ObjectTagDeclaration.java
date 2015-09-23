@@ -24,10 +24,8 @@ import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.RendererTypes;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasStyle;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 
 import javax.faces.component.UIOutput;
 
@@ -43,7 +41,7 @@ import javax.faces.component.UIOutput;
     componentFamily = UIOutput.COMPONENT_FAMILY,
     rendererType = RendererTypes.OBJECT,
     allowedChildComponenents = "NONE")
-public interface ObjectTagDeclaration extends HasIdBindingAndRendered, HasStyle, HasMarkup, HasCurrentMarkup {
+public interface ObjectTagDeclaration extends HasIdBindingAndRendered, IsVisual {
 
   /**
    * URI to object source

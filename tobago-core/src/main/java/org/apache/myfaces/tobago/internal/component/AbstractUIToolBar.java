@@ -19,9 +19,9 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
-import org.apache.myfaces.tobago.config.Configurable;
+import org.apache.myfaces.tobago.component.Visual;
 
-public abstract class AbstractUIToolBar extends javax.faces.component.UIPanel implements Configurable {
+public abstract class AbstractUIToolBar extends javax.faces.component.UIPanel implements Visual {
 
   public static final String LABEL_BOTTOM = "bottom";
   public static final String LABEL_RIGHT = "right";

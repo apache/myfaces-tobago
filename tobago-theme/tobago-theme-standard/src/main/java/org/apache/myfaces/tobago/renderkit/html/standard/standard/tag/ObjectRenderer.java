@@ -21,7 +21,7 @@ package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
 import org.apache.myfaces.tobago.component.UIObject;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
-import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
+import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
@@ -32,7 +32,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
-public class ObjectRenderer extends LayoutComponentRendererBase {
+public class ObjectRenderer extends RendererBase {
   public void encodeEnd(final FacesContext facesContext, final UIComponent component) throws IOException {
     final UIObject object = (UIObject) component;
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);

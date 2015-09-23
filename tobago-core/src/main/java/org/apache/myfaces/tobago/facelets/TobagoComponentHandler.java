@@ -22,7 +22,7 @@ package org.apache.myfaces.tobago.facelets;
 import org.apache.myfaces.tobago.component.InputSuggest;
 import org.apache.myfaces.tobago.component.OnComponentCreated;
 import org.apache.myfaces.tobago.component.OnComponentPopulated;
-import org.apache.myfaces.tobago.component.SupportsMarkup;
+import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.component.SupportsRenderedPartially;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.event.SheetStateChangeSource;
@@ -64,7 +64,7 @@ public class TobagoComponentHandler extends ComponentHandler {
     if (SheetStateChangeSource.class.isAssignableFrom(aClass)) {
       metaRuleset.addRule(SheetStateChangeSourceRule.INSTANCE);
     }
-    if (SupportsMarkup.class.isAssignableFrom(aClass)) {
+    if (Visual.class.isAssignableFrom(aClass)) {
       metaRuleset.addRule(SupportsMarkupRule.INSTANCE);
     }
     if (InputSuggest.class.isAssignableFrom(aClass)) {

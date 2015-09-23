@@ -23,14 +23,12 @@ import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.AbstractCommandTagDeclaration;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabelAndAccessKey;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasStyle;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasValue;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 
 import javax.faces.component.UICommand;
 
@@ -46,5 +44,5 @@ import javax.faces.component.UICommand;
     rendererType = RendererTypes.MENU_COMMAND,
     allowedChildComponenents = "NONE")
 public interface ToolBarSelectOneTagDeclaration extends AbstractCommandTagDeclaration, HasLabelAndAccessKey, HasTip,
-    HasIdBindingAndRendered, IsDisabled, HasValue, HasStyle, HasMarkup, HasCurrentMarkup {
+    HasIdBindingAndRendered, IsDisabled, HasValue, IsVisual {
 }

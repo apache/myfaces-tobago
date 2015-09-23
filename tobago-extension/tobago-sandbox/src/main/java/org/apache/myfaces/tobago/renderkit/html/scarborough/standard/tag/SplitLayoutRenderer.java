@@ -106,8 +106,8 @@ public class SplitLayoutRenderer extends GridLayoutRenderer {
     final UIComponent parent = layout.getParent();
     final LayoutContainer container = (LayoutContainer) parent;
     final List<UIComponent> components = LayoutUtils.findLayoutChildren(parent);
-    final Style firstComponent = ((SupportsStyle) components.get(0)).getStyle();
-    final Style secondComponent = ((SupportsStyle) components.get(1)).getStyle();
+    final Style firstComponent = ((Visual) components.get(0)).getStyle();
+    final Style secondComponent = ((Visual) components.get(1)).getStyle();
 
     Measure minimum;
 

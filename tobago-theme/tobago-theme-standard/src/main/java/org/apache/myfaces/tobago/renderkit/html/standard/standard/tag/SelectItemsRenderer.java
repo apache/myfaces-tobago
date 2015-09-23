@@ -19,9 +19,9 @@
 
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
-import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
+import org.apache.myfaces.tobago.renderkit.RendererBase;
 
-public class SelectItemsRenderer extends LayoutComponentRendererBase {
+public class SelectItemsRenderer extends RendererBase {
 
 }
 

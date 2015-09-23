@@ -20,9 +20,9 @@
 package org.apache.myfaces.tobago.renderkit.css;
 
 import org.apache.myfaces.tobago.component.ComponentTypes;
+import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.util.CreateComponentUtils;
 import org.apache.myfaces.tobago.component.RendererTypes;
-import org.apache.myfaces.tobago.component.SupportsMarkup;
 import org.apache.myfaces.tobago.component.UIIn;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.config.AbstractTobagoTestBase;
@@ -117,7 +117,7 @@ public class ClassesUnitTest extends AbstractTobagoTestBase {
   }
 
   private void updateCurrentMarkup(final UIComponent component) {
-    final SupportsMarkup m = (SupportsMarkup) component;
+    final Visual m = (Visual) component;
     m.setCurrentMarkup(ComponentUtils.updateMarkup(component, m.getMarkup()));
   }
 

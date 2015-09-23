@@ -19,11 +19,8 @@
 
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
-import org.apache.myfaces.tobago.config.Configurable;
 import org.apache.myfaces.tobago.internal.component.AbstractUILink;
 import org.apache.myfaces.tobago.internal.util.AccessKeyLogger;
-import org.apache.myfaces.tobago.layout.Measure;
-import org.apache.myfaces.tobago.layout.PixelMeasure;
 import org.apache.myfaces.tobago.renderkit.CommandRendererBase;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
@@ -34,7 +31,6 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.JsonUtils;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
-import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -101,26 +97,5 @@ public class LinkRenderer extends CommandRendererBase {
     } else {
       writer.endElement(HtmlElements.A);
     }
-  }
-
-  @Override
-  public Measure getPreferredWidth(final FacesContext facesContext, final Configurable component) {
-    final AbstractUILink link = (AbstractUILink) component;
-    final LabelWithAccessKey label = new LabelWithAccessKey(link);
-    final String text = label.getLabel();
-    final String image = link.getImage();
-
-    Measure width = PixelMeasure.ZERO;
-    if (text != null) {
-      final Measure m = RenderUtils.calculateStringWidth(facesContext, link, text);
-      width = width.add(m);
-    }
-    if ((text != null && image != null)) {
-      width = width.add(4);
-    }
-    if (image != null) {
-      width = width.add(16);
-    }
-    return width;
   }
 }

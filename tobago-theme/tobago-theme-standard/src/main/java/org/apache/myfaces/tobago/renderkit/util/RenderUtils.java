@@ -20,7 +20,7 @@
 package org.apache.myfaces.tobago.renderkit.util;
 
 import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.config.Configurable;
+import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.internal.component.AbstractUICommand;
 import org.apache.myfaces.tobago.internal.component.AbstractUIData;
@@ -170,25 +170,25 @@ public class RenderUtils {
 
   public static Measure calculateStringWidth(
       final FacesContext facesContext, final UIComponent component, final String text) {
-    return calculateStringWidth(facesContext, (Configurable) component, text, "tobago.font.widths");
+    return calculateStringWidth(facesContext, (Visual) component, text, "tobago.font.widths");
   }
 
   public static Measure calculateStringWidth2(
       final FacesContext facesContext, final UIComponent component, final String text) {
-    return calculateStringWidth(facesContext, (Configurable) component, text, "tobago.font2.widths");
+    return calculateStringWidth(facesContext, (Visual) component, text, "tobago.font2.widths");
   }
 
   private static Measure calculateStringWidth(
-      final FacesContext facesContext, final Configurable component, final String text, final String type) {
+      final FacesContext facesContext, final Visual visual, final String text, final String type) {
     if (text == null) {
       return Measure.ZERO;
     }
     int width = 0;
     int defaultCharWidth = 10;
     try {
-      defaultCharWidth = ResourceManagerUtils.getThemeMeasure(facesContext, component, "fontWidth").getPixel();
+      defaultCharWidth = ResourceManagerUtils.getThemeMeasure(facesContext, visual, "fontWidth").getPixel();
     } catch (final NullPointerException e) {
-      LOG.warn("no value for 'fontWidth' for type '" + component.getRendererType() + "' found in theme-config");
+      LOG.warn("no value for 'fontWidth' for type '" + visual.getRendererType() + "' found in theme-config");
     }
 
     final String fontWidths = ResourceManagerUtils.getProperty(facesContext, "tobago", type);

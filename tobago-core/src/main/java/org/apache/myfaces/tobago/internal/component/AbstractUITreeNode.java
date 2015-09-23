@@ -19,9 +19,7 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
-import org.apache.myfaces.tobago.component.SupportsMarkup;
-import org.apache.myfaces.tobago.component.SupportsStyle;
-import org.apache.myfaces.tobago.config.Configurable;
+import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.model.TreeDataModel;
 import org.apache.myfaces.tobago.model.TreePath;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -32,7 +30,7 @@ import java.io.IOException;
 import java.util.List;
 
 public abstract class AbstractUITreeNode
-    extends AbstractUIColumn implements SupportsMarkup, Configurable, SupportsStyle {
+    extends AbstractUIColumn implements Visual {
 
   @Override
   public void encodeBegin(final FacesContext facesContext) throws IOException {

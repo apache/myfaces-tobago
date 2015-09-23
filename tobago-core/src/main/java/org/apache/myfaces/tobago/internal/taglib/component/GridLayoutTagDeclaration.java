@@ -28,11 +28,10 @@ import org.apache.myfaces.tobago.internal.component.AbstractUIGridLayout;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasBinding;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasBorder;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasColumnLayout;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasId;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasRowLayout;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasSpacing;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 
 /**
  * Renders a GridLayout.
@@ -62,7 +61,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasSpacing;
  * <td>AUTO</td>
  * <td>any combination with at least one PROPORTIONAL</td>
  * <td>wrong</td>
- * <td>LayoutManager cannot compute the auto value.</td>
+ * <td>Layout manager cannot compute the auto value.</td>
  * </tr>
  * <tr>
  * <td>PIXEL</td>
@@ -98,9 +97,9 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasSpacing;
     uiComponentFacesClass = "javax.faces.component.UIComponentBase",
     componentFamily = AbstractUIGridLayout.COMPONENT_FAMILY,
     rendererType = RendererTypes.GRID_LAYOUT,
-    allowedChildComponenents = "NONE", isLayout = true)
+    allowedChildComponenents = "NONE")
 public interface GridLayoutTagDeclaration extends HasId, HasBorder, HasSpacing,
-    HasColumnLayout, HasRowLayout, HasBinding, HasMarkup, HasCurrentMarkup {
+    HasColumnLayout, HasRowLayout, HasBinding, IsVisual {
 
   /**
    * This attribute advises the layout manager, to not use space that comes from non rendered components.

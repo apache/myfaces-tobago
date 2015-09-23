@@ -26,10 +26,9 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.internal.component.AbstractUIGridLayout;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasBinding;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasBorder;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasId;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasSpacing;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 import org.apache.myfaces.tobago.layout.Orientation;
 
 /**
@@ -44,9 +43,9 @@ import org.apache.myfaces.tobago.layout.Orientation;
     uiComponentFacesClass = "javax.faces.component.UIComponentBase",
     componentFamily = AbstractUIGridLayout.COMPONENT_FAMILY,
     rendererType = "SplitLayout",
-    allowedChildComponenents = "NONE", isLayout = true)
+    allowedChildComponenents = "NONE")
 public interface SplitLayoutTagDeclaration
-      extends HasId, HasBorder, HasSpacing, HasBinding, HasMarkup, HasCurrentMarkup {
+      extends HasId, HasBorder, HasSpacing, HasBinding, IsVisual {
 
   /**
    * This value defines the layout constraints for the layout.

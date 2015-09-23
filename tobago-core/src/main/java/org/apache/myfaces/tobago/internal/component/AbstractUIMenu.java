@@ -19,10 +19,10 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
-import org.apache.myfaces.tobago.config.Configurable;
+import org.apache.myfaces.tobago.component.Visual;
 
 public abstract class AbstractUIMenu
-    extends javax.faces.component.UIPanel implements Configurable {
+    extends javax.faces.component.UIPanel implements Visual {
 
   public abstract String getLabel();
 }

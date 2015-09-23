@@ -25,12 +25,10 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasAccessKey;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasFor;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasStyle;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 
 import javax.faces.component.UIOutput;
 
@@ -47,7 +45,7 @@ import javax.faces.component.UIOutput;
     rendererType = RendererTypes.LABEL,
     allowedChildComponenents = "NONE")
 public interface LabelTagDeclaration extends HasIdBindingAndRendered,
-    HasAccessKey, HasFor, HasTip, HasMarkup, HasCurrentMarkup, HasStyle {
+    HasAccessKey, HasFor, HasTip, IsVisual {
 
   /**
    * Text value to display as label. Overwritten by 'labelWithAccessKey'

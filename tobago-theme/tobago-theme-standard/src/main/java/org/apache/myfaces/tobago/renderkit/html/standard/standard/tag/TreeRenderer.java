@@ -26,7 +26,7 @@ import org.apache.myfaces.tobago.model.ExpandedState;
 import org.apache.myfaces.tobago.model.Selectable;
 import org.apache.myfaces.tobago.model.SelectedState;
 import org.apache.myfaces.tobago.model.TreePath;
-import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
+import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
@@ -44,7 +44,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
-public class TreeRenderer extends LayoutComponentRendererBase {
+public class TreeRenderer extends RendererBase {
 
   private static final Logger LOG = LoggerFactory.getLogger(TreeRenderer.class);
 

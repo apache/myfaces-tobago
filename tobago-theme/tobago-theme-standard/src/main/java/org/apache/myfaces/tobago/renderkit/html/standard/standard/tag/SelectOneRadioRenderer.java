@@ -20,13 +20,11 @@
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
 import org.apache.myfaces.tobago.component.UISelectOneRadio;
-import org.apache.myfaces.tobago.config.Configurable;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.internal.util.ObjectUtils;
-import org.apache.myfaces.tobago.layout.Measure;
-import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
+import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
@@ -138,23 +136,5 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
   protected void encodeEndField(FacesContext facesContext, UIComponent component) throws IOException {
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
     writer.endElement(HtmlElements.OL);
-  }
-
-  @Override
-  public Measure getHeight(final FacesContext facesContext, final Configurable component) {
-    final UISelectOneRadio select = (UISelectOneRadio) component;
-    Measure heightOfOne = super.getHeight(facesContext, component);
-    if (heightOfOne == null) {
-      heightOfOne = Measure.valueOf(20);
-    }
-    if (select.isInline()) {
-      return heightOfOne;
-    } else {
-      int count = 0;
-      for(SelectItem ignored : SelectItemUtils.getItemIterator(facesContext, (UISelectOne) component)) {
-        count++;
-      }
-      return heightOfOne.multiply(count);
-    }
   }
 }

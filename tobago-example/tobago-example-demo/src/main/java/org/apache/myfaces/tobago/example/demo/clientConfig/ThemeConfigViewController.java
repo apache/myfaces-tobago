@@ -23,7 +23,7 @@ import org.apache.commons.collections.KeyValue;
 import org.apache.commons.collections.keyvalue.DefaultKeyValue;
 import org.apache.commons.io.IOUtils;
 import org.apache.myfaces.tobago.component.RendererTypes;
-import org.apache.myfaces.tobago.config.Configurable;
+import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.slf4j.Logger;
@@ -169,7 +169,7 @@ public class ThemeConfigViewController {
     for (final String propertyName : propertyNames) {
       try {
         final Measure measure
-            = ResourceManagerUtils.getThemeMeasure(facesContext, (Configurable) component, propertyName);
+            = ResourceManagerUtils.getThemeMeasure(facesContext, (Visual) component, propertyName);
         found.add(new DefaultKeyValue(propertyName, measure.toString()));
       } catch (final Exception e) {
         if (LOG.isDebugEnabled()) {

@@ -20,10 +20,9 @@
 package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.myfaces.tobago.component.SupportsLabelLayout;
-import org.apache.myfaces.tobago.component.SupportsStyle;
-import org.apache.myfaces.tobago.config.Configurable;
+import org.apache.myfaces.tobago.component.Visual;
 
 import javax.faces.component.UIOutput;
 
-public abstract class AbstractUIOut extends UIOutput implements Configurable, SupportsLabelLayout, SupportsStyle {
+public abstract class AbstractUIOut extends UIOutput implements SupportsLabelLayout, Visual {
 }

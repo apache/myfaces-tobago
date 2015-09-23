@@ -19,13 +19,12 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
-import org.apache.myfaces.tobago.component.SupportsStyle;
-import org.apache.myfaces.tobago.config.Configurable;
+import org.apache.myfaces.tobago.component.Visual;
 
 import javax.faces.component.UIGraphic;
 
 public abstract class AbstractUIImage extends UIGraphic
-    implements Configurable, SupportsStyle {
+    implements Visual {
 
   public abstract boolean isDisabled();
 }

@@ -183,12 +183,6 @@
   </managed-bean>
 
   <managed-bean>
-    <managed-bean-name>tobago1134</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.tobago.example.test.Tobago1134</managed-bean-class>
-    <managed-bean-scope>none</managed-bean-scope>
-  </managed-bean>
-
-  <managed-bean>
     <managed-bean-name>shuttle</managed-bean-name>
     <managed-bean-class>org.apache.myfaces.tobago.example.test.Shuttle</managed-bean-class>
     <managed-bean-scope>session</managed-bean-scope>

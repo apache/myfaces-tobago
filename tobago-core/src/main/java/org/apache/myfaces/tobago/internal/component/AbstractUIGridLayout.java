@@ -20,8 +20,7 @@
 package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.component.SupportsMarkup;
-import org.apache.myfaces.tobago.config.Configurable;
+import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.internal.layout.Grid;
 import org.apache.myfaces.tobago.internal.layout.LayoutUtils;
 import org.apache.myfaces.tobago.internal.layout.OriginCell;
@@ -35,7 +34,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.util.List;
 
-public abstract class AbstractUIGridLayout extends AbstractUILayoutBase implements Configurable, SupportsMarkup {
+public abstract class AbstractUIGridLayout extends AbstractUILayoutBase implements Visual {
 
   private static final Logger LOG = LoggerFactory.getLogger(AbstractUIGridLayout.class);
 

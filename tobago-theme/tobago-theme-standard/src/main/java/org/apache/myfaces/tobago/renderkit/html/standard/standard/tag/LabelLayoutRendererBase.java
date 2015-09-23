@@ -23,7 +23,7 @@ import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.LabelLayout;
 import org.apache.myfaces.tobago.component.SupportsLabelLayout;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
-import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
+import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.CssItem;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
@@ -41,7 +41,7 @@ import java.io.IOException;
  * Manages the rendering of the <b>label</b> and the <b>field</b> together with different possibilities for
  * the position of the label (defined by {@link org.apache.myfaces.tobago.component.Attributes#LABEL_LAYOUT}
  */
-public abstract class LabelLayoutRendererBase extends LayoutComponentRendererBase {
+public abstract class LabelLayoutRendererBase extends RendererBase {
 
   @Override
   public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {

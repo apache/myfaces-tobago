@@ -26,13 +26,11 @@ import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.RendererTypes;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasStyle;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasValue;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasVar;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsRequired;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 
 import javax.faces.component.UIData;
 
@@ -52,7 +50,7 @@ import javax.faces.component.UIData;
         "org.apache.myfaces.tobago.TreeData"
     })
 public interface TreeListboxTagDeclaration
-    extends HasIdBindingAndRendered, HasValue, HasVar, HasStyle, HasMarkup, HasCurrentMarkup,
+    extends HasIdBindingAndRendered, HasValue, HasVar, IsVisual,
     IsRequired {
 
   /**

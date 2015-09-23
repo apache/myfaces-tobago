@@ -19,15 +19,14 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
-import org.apache.myfaces.tobago.component.SupportsMarkup;
-import org.apache.myfaces.tobago.config.Configurable;
+import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.layout.ColumnPartition;
 
 /**
  * TODO
  * @since 3.0.0
  */
-public abstract class AbstractUISegmentLayout extends AbstractUILayoutBase implements Configurable, SupportsMarkup {
+public abstract class AbstractUISegmentLayout extends AbstractUILayoutBase implements Visual {
 
   public static final String COMPONENT_FAMILY = "org.apache.myfaces.tobago.SegmentLayout";
 

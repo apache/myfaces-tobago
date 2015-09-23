@@ -19,15 +19,13 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
-import org.apache.myfaces.tobago.component.SupportsStyle;
-import org.apache.myfaces.tobago.config.Configurable;
+import org.apache.myfaces.tobago.component.Visual;
 
 import javax.faces.context.FacesContext;
 import javax.faces.validator.LongRangeValidator;
 import javax.faces.validator.ValidatorException;
 
-public abstract class AbstractUINumberSlider extends javax.faces.component.UIInput
-    implements Configurable, SupportsStyle {
+public abstract class AbstractUINumberSlider extends javax.faces.component.UIInput implements Visual {
 
   public abstract Integer getMin();
 

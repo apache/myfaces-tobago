@@ -24,9 +24,8 @@ import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.OnComponentPopulated;
 import org.apache.myfaces.tobago.component.SupportsRenderedPartially;
-import org.apache.myfaces.tobago.component.SupportsStyle;
 import org.apache.myfaces.tobago.component.UITab;
-import org.apache.myfaces.tobago.config.Configurable;
+import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.event.TabChangeEvent;
 import org.apache.myfaces.tobago.event.TabChangeListener;
 import org.apache.myfaces.tobago.event.TabChangeSource2;
@@ -47,8 +46,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class AbstractUITabGroup extends AbstractUIPanel
-    implements TabChangeSource2, ActionSource2, Configurable, OnComponentPopulated,
-    SupportsRenderedPartially, SupportsStyle {
+    implements TabChangeSource2, ActionSource2, OnComponentPopulated, SupportsRenderedPartially, Visual {
 
   private static final Logger LOG = LoggerFactory.getLogger(AbstractUITabGroup.class);
 

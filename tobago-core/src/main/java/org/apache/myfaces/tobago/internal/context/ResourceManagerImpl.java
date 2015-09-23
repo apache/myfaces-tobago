@@ -21,7 +21,7 @@ package org.apache.myfaces.tobago.internal.context;
 
 import org.apache.myfaces.tobago.application.ProjectStage;
 import org.apache.myfaces.tobago.component.RendererTypes;
-import org.apache.myfaces.tobago.config.Configurable;
+import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.ResourceManager;
 import org.apache.myfaces.tobago.context.Theme;
@@ -174,20 +174,20 @@ public class ResourceManagerImpl implements ResourceManager {
     return getStrings(facesContext, name, null);
   }
 
-  public Measure getThemeMeasure(final FacesContext facesContext, final Configurable configurable, final String name) {
-    return getThemeMeasure(facesContext, configurable.getRendererType(), configurable.getCurrentMarkup(), name);
+  public Measure getThemeMeasure(final FacesContext facesContext, final Visual visual, final String name) {
+    return getThemeMeasure(facesContext, visual.getRendererType(), visual.getCurrentMarkup(), name);
   }
 
   /**
    * The default should not be needed, use defaulting from the theme mechanism.
    */
   public Measure getThemeMeasure(
-      final FacesContext facesContext, final Configurable configurable, final String name, final Measure defaultValue) {
-    final Measure measure = getThemeMeasure(facesContext, configurable, name);
+      final FacesContext facesContext, final Visual visual, final String name, final Measure defaultValue) {
+    final Measure measure = getThemeMeasure(facesContext, visual, name);
     if (measure != null) {
       return measure;
     } else {
-//      LOG.warn("Using default-value for configurable='" + configurable + "' name='" + name + "'");
+//      LOG.warn("Using default-value for visual='" + visual + "' name='" + name + "'");
       return defaultValue;
     }
   }

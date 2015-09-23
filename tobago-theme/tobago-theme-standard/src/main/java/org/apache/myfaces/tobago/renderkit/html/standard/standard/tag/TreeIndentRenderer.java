@@ -25,7 +25,7 @@ import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.internal.component.AbstractUIData;
 import org.apache.myfaces.tobago.internal.component.AbstractUITreeNode;
-import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
+import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
@@ -39,7 +39,7 @@ import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.util.List;
 
-public class TreeIndentRenderer extends LayoutComponentRendererBase {
+public class TreeIndentRenderer extends RendererBase {
 
   @Override
   public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {

@@ -23,14 +23,14 @@ import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.component.AbstractUIData;
 import org.apache.myfaces.tobago.internal.component.AbstractUITree;
 import org.apache.myfaces.tobago.internal.component.AbstractUITreeNode;
-import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
+import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
-public class TreeNodeRendererBase extends LayoutComponentRendererBase {
+public class TreeNodeRendererBase extends RendererBase {
 
   @Override
   public void prepareRender(final FacesContext facesContext, final UIComponent component) throws IOException {

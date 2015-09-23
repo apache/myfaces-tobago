@@ -20,7 +20,7 @@
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
 import org.apache.myfaces.tobago.component.UISection;
-import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
+import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.CssItem;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
@@ -32,7 +32,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
-public class SectionRenderer extends LayoutComponentRendererBase {
+public class SectionRenderer extends RendererBase {
 
     public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
 

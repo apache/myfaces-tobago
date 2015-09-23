@@ -22,7 +22,7 @@ package org.apache.myfaces.tobago.renderkit.html.sandbox.standard.tag;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.internal.component.AbstractUINumberSlider;
 import org.apache.myfaces.tobago.layout.Measure;
-import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
+import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.layout.Position;
 import org.apache.myfaces.tobago.renderkit.css.Style;
@@ -39,7 +39,7 @@ import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.util.Map;
 
-public class NumberSliderRenderer extends LayoutComponentRendererBase {
+public class NumberSliderRenderer extends RendererBase {
 
   private static final String SLIDER_WIDTH_PERCENT = "sliderWidthPercent";
 

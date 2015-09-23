@@ -43,8 +43,6 @@ package <componentInfo.packageName>;
 import org.apache.myfaces.tobago.internal.util.ArrayUtils;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.internal.util.Deprecation;
-import org.apache.myfaces.tobago.renderkit.MarginValues;
-import org.apache.myfaces.tobago.renderkit.LayoutComponentRenderer;
 import javax.el.ELException;
 import javax.faces.FacesException;
 import java.util.ArrayList;

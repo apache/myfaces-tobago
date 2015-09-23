@@ -31,7 +31,7 @@ import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.internal.ajax.AjaxInternalUtils;
 import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
-import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
+import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
@@ -56,7 +56,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-public class MessagesRenderer extends LayoutComponentRendererBase {
+public class MessagesRenderer extends RendererBase {
 
   private static final Logger LOG = LoggerFactory.getLogger(MessagesRenderer.class);
 

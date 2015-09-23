@@ -20,12 +20,10 @@
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
 import org.apache.myfaces.tobago.component.UISelectManyCheckbox;
-import org.apache.myfaces.tobago.config.Configurable;
 import org.apache.myfaces.tobago.context.Markup;
-import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.SelectManyRendererBase;
-import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
+import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
@@ -36,7 +34,6 @@ import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
-import javax.faces.component.UISelectMany;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import java.io.IOException;
@@ -125,23 +122,5 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
   public void encodeEndField(final FacesContext facesContext, final UIComponent component) throws IOException {
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
     writer.endElement(HtmlElements.OL);
-  }
-
-  @Override
-  public Measure getHeight(final FacesContext facesContext, final Configurable component) {
-    final UISelectManyCheckbox select = (UISelectManyCheckbox) component;
-    Measure heightOfOne = super.getHeight(facesContext, component);
-    if (heightOfOne == null) {
-      heightOfOne = Measure.valueOf(20);
-    }
-    if (select.isInline()) {
-      return heightOfOne;
-    } else {
-      int count = 0;
-      for(SelectItem ignored : SelectItemUtils.getItemIterator(facesContext, (UISelectMany) component)) {
-        count++;
-      }
-      return heightOfOne.multiply(count);
-    }
   }
 }

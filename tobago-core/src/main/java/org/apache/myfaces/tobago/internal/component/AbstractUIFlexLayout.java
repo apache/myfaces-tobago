@@ -19,8 +19,7 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
-import org.apache.myfaces.tobago.component.SupportsMarkup;
-import org.apache.myfaces.tobago.config.Configurable;
+import org.apache.myfaces.tobago.component.Visual;
 
 import javax.faces.component.UIComponentBase;
 
@@ -29,7 +28,7 @@ import javax.faces.component.UIComponentBase;
  *
  * @since 3.0.0
  */
-public abstract class AbstractUIFlexLayout extends UIComponentBase implements Configurable, SupportsMarkup {
+public abstract class AbstractUIFlexLayout extends UIComponentBase implements Visual {
 
   public static final String COMPONENT_FAMILY = "org.apache.myfaces.tobago.FlexLayout";
 }

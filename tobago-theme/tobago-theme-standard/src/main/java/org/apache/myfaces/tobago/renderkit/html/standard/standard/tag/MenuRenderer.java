@@ -25,7 +25,7 @@ import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.internal.util.AccessKeyLogger;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
-import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
+import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
@@ -39,7 +39,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
-public class MenuRenderer extends LayoutComponentRendererBase {
+public class MenuRenderer extends RendererBase {
 
   @Override
   public void prepareRender(final FacesContext facesContext, final UIComponent component) throws IOException {

@@ -20,7 +20,7 @@
 package org.apache.myfaces.tobago.renderkit.util;
 
 import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.component.SupportsMarkup;
+import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.context.Markup;
 
 import javax.el.ValueExpression;
@@ -241,8 +241,8 @@ public class SelectItemUtils {
           final Boolean itemDisabled = getBooleanAttribute(currentUISelectItems, Attributes.ITEM_DISABLED, false);
           final String itemImage = (String) attributeMap.get(Attributes.ITEM_IMAGE);
           final Markup markup;
-          if (currentUISelectItems instanceof SupportsMarkup) {
-            markup = ((SupportsMarkup) currentUISelectItems).getCurrentMarkup();
+          if (currentUISelectItems instanceof Visual) {
+            markup = ((Visual) currentUISelectItems).getCurrentMarkup();
           } else {
             markup = Markup.NULL;
           }

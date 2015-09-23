@@ -19,8 +19,7 @@
 
 package org.apache.myfaces.tobago.renderkit;
 
-import org.apache.myfaces.tobago.component.SupportsMarkup;
-import org.apache.myfaces.tobago.config.Configurable;
+import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.ResourceManager;
 import org.apache.myfaces.tobago.internal.context.ResourceManagerFactory;
@@ -40,7 +39,6 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 import javax.faces.render.Renderer;
 import java.io.IOException;
-import java.util.Locale;
 
 public class RendererBase extends Renderer {
 
@@ -53,10 +51,10 @@ public class RendererBase extends Renderer {
    */
   public void prepareRender(final FacesContext facesContext, final UIComponent component) throws IOException {
 
-    if (component instanceof SupportsMarkup) {
-      final SupportsMarkup supportsMarkup = (SupportsMarkup) component;
-      final Markup markup = ComponentUtils.updateMarkup(component, supportsMarkup.getMarkup());
-      supportsMarkup.setCurrentMarkup(markup);
+    if (component instanceof Visual) {
+      final Visual visual = (Visual) component;
+      final Markup markup = ComponentUtils.updateMarkup(component, visual.getMarkup());
+      visual.setCurrentMarkup(markup);
     }
   }
 
@@ -65,22 +63,6 @@ public class RendererBase extends Renderer {
   }
 
   public void prepareRendersChildren(final FacesContext context, final UIComponent component) throws IOException {
-  }
-
-  /**
-   * @deprecated todo: should be done in the StyleClasses class.
-   */
-  @Deprecated
-  protected String getRendererName(final String rendererType) {
-    return rendererType.substring(0, 1).toLowerCase(Locale.ENGLISH) + rendererType.substring(1);
-  }
-
-  /**
-   * @deprecated since 1.5.0, please use getResourceManager().getThemeMeasure()
-   */
-  @Deprecated
-  public int getConfiguredValue(final FacesContext facesContext, final UIComponent component, final String key) {
-    return getResourceManager().getThemeMeasure(facesContext, (Configurable) component, key).getPixel();
   }
 
   protected Object getCurrentValueAsObject(final UIInput input) {

@@ -24,7 +24,7 @@ import org.apache.myfaces.tobago.component.UITreeLabel;
 import org.apache.myfaces.tobago.component.UITreeNode;
 import org.apache.myfaces.tobago.component.UITreeSelect;
 import org.apache.myfaces.tobago.internal.component.AbstractUITree;
-import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
+import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
@@ -42,7 +42,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TreeListboxRenderer extends LayoutComponentRendererBase {
+public class TreeListboxRenderer extends RendererBase {
 
   public void prepareRender(final FacesContext facesContext, final UIComponent component) throws IOException {
     super.prepareRender(facesContext, component);

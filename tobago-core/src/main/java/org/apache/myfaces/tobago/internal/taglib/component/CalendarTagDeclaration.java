@@ -25,10 +25,8 @@ import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.RendererTypes;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasStyle;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 
 import javax.faces.component.UIOutput;
 
@@ -40,11 +38,10 @@ import javax.faces.component.UIOutput;
     uiComponent = "org.apache.myfaces.tobago.component.UICalendar",
     uiComponentBaseClass = "javax.faces.component.UIOutput",
     uiComponentFacesClass = "javax.faces.component.UIOutput",
-    interfaces = "org.apache.myfaces.tobago.config.Configurable",
     componentFamily = UIOutput.COMPONENT_FAMILY,
     rendererType = RendererTypes.CALENDAR)
 public interface CalendarTagDeclaration
-    extends HasIdBindingAndRendered, HasStyle, HasMarkup, HasCurrentMarkup {
+    extends HasIdBindingAndRendered, IsVisual {
 
   /**
    * The current value of this component.

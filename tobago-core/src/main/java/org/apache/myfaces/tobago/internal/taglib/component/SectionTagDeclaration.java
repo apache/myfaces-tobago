@@ -24,12 +24,10 @@ import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasImage;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabel;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasStyle;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 
 /**
  * Renders a section or subsection.
@@ -46,7 +44,5 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasStyle;
             description = "This facet contains a UILabel",
             allowedChildComponenents = "org.apache.myfaces.tobago.Label")})
 
-public interface SectionTagDeclaration
-    extends HasIdBindingAndRendered, HasLabel, HasStyle, HasImage,
-    HasMarkup, HasCurrentMarkup {
+public interface SectionTagDeclaration extends HasIdBindingAndRendered, HasLabel, IsVisual, HasImage {
 }

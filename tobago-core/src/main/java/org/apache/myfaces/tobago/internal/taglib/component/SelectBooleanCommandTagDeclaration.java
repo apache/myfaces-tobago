@@ -21,13 +21,11 @@ package org.apache.myfaces.tobago.internal.taglib.component;
 
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.internal.taglib.declaration.AbstractCommandTagDeclaration;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabelAndAccessKey;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasStyle;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasValue;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UISelectBooleanCommand",
@@ -35,5 +33,5 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasValue;
     uiComponentFacesClass = "javax.faces.component.UICommand")
 public interface SelectBooleanCommandTagDeclaration
     extends AbstractCommandTagDeclaration, HasIdBindingAndRendered, HasValue, HasLabelAndAccessKey, HasTip,
-    HasStyle, HasMarkup, HasCurrentMarkup {
+    IsVisual {
 }

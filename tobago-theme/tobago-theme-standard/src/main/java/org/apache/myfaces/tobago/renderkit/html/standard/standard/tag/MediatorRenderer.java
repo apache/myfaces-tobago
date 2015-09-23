@@ -20,7 +20,7 @@
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
 import org.apache.myfaces.tobago.component.UIMediator;
-import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
+import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -31,7 +31,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
-public class MediatorRenderer extends LayoutComponentRendererBase {
+public class MediatorRenderer extends RendererBase {
 
   private static final Logger LOG = LoggerFactory.getLogger(MediatorRenderer.class);
 

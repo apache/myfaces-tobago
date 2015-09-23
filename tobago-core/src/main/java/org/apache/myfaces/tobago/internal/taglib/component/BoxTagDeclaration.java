@@ -24,13 +24,11 @@ import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabel;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasStyle;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsCollapsible;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 
 import javax.faces.component.UIPanel;
 
@@ -51,7 +49,6 @@ import javax.faces.component.UIPanel;
             + "The layout manager tag should surround the content instead.")})
 
 public interface BoxTagDeclaration
-    extends HasIdBindingAndRendered, HasStyle, HasMarkup,
-    HasCurrentMarkup, HasLabel, HasTip, IsCollapsible {
+    extends HasIdBindingAndRendered, IsVisual, HasLabel, HasTip, IsCollapsible {
 
 }

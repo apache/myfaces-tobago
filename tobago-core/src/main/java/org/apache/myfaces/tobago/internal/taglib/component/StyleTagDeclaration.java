@@ -43,7 +43,6 @@ import org.apache.myfaces.tobago.layout.TextAlign;
     componentFamily = "org.apache.myfaces.tobago.Style",
     uiComponentFacesClass = "javax.faces.component.UIComponentBase",
     rendererType = RendererTypes.STYLE,
-    isTransparentForLayout = true,
     allowedChildComponenents = "NONE")
 public interface StyleTagDeclaration extends HasIdBindingAndRendered {
 

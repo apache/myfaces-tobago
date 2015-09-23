@@ -25,14 +25,11 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.AbstractCommandTagDeclaration;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasId;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabelAndAccessKey;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasStyle;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasValue;
-import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 
 import javax.faces.component.UICommand;
 
@@ -52,9 +49,6 @@ import javax.faces.component.UICommand;
             description = "Contains a UIPopup instance.",
             allowedChildComponenents = "org.apache.myfaces.tobago.Popup")})
 public interface CommandTagDeclaration
-    extends AbstractCommandTagDeclaration, HasId, HasValue, IsDisabled, HasStyle, HasMarkup,
-    HasCurrentMarkup, HasLabelAndAccessKey, HasTip {
-
-
-
+    extends HasIdBindingAndRendered, AbstractCommandTagDeclaration, HasValue, IsVisual,
+    HasLabelAndAccessKey, HasTip {
 }

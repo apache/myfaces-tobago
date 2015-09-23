@@ -19,7 +19,7 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
-import org.apache.myfaces.tobago.config.Configurable;
+import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.internal.layout.LayoutUtils;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.layout.Orientation;
@@ -36,8 +36,8 @@ public abstract class AbstractUISplitLayout extends AbstractUIGridLayout {
 
   public void updateLayout(final int position) {
     final List<UIComponent> components = LayoutUtils.findLayoutChildren(getParent());
-    final Configurable firstComponent = (Configurable) components.get(0);
-    final Configurable secondComponent = (Configurable) components.get(1);
+    final Visual firstComponent = (Visual) components.get(0);
+    final Visual secondComponent = (Visual) components.get(1);
     final int oldPosition;
 
     final int currentSize1;

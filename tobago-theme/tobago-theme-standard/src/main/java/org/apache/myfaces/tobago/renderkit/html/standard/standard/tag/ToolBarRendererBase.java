@@ -33,7 +33,7 @@ import org.apache.myfaces.tobago.internal.component.AbstractUICommand;
 import org.apache.myfaces.tobago.internal.component.AbstractUIMenu;
 import org.apache.myfaces.tobago.internal.util.ObjectUtils;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
-import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
+import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.html.Command;
 import org.apache.myfaces.tobago.renderkit.html.CommandMap;
@@ -58,7 +58,7 @@ import javax.faces.model.SelectItem;
 import java.io.IOException;
 import java.util.List;
 
-public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
+public abstract class ToolBarRendererBase extends RendererBase {
 
   private static final Logger LOG = LoggerFactory.getLogger(ToolBarRendererBase.class);
 

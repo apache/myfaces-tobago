@@ -20,8 +20,7 @@
 package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.myfaces.tobago.component.OnComponentPopulated;
-import org.apache.myfaces.tobago.component.SupportsStyle;
-import org.apache.myfaces.tobago.config.Configurable;
+import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.internal.layout.LayoutUtils;
 
 import javax.faces.component.UIComponent;
@@ -29,7 +28,7 @@ import javax.faces.context.FacesContext;
 import java.io.IOException;
 
 public abstract class AbstractUIPanel extends javax.faces.component.UIPanel
-    implements OnComponentPopulated, Configurable, SupportsStyle {
+    implements OnComponentPopulated, Visual {
 
   @Override
   public void encodeBegin(final FacesContext facesContext) throws IOException {

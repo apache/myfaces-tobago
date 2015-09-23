@@ -26,15 +26,13 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasConverter;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabel;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabelLayout;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasSanitize;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasStyle;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasValue;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 
 import javax.faces.component.UIOutput;
 
@@ -52,8 +50,8 @@ import javax.faces.component.UIOutput;
     allowedChildComponenents = "NONE")
 
 public interface OutTagDeclaration
-    extends HasIdBindingAndRendered, HasConverter, HasTip, HasValue, HasStyle,
-    HasMarkup, HasCurrentMarkup, HasSanitize, HasLabel, HasLabelLayout {
+    extends HasIdBindingAndRendered, HasConverter, HasTip, HasValue, IsVisual,
+    HasSanitize, HasLabel, HasLabelLayout {
 
   /**
    * Flag indicating that characters that are

@@ -20,7 +20,7 @@
 package org.apache.myfaces.tobago.facelets;
 
 import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.component.SupportsMarkup;
+import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.context.Markup;
 
 import javax.el.ValueExpression;
@@ -36,7 +36,7 @@ public class SupportsMarkupRule extends MetaRule {
   public static final SupportsMarkupRule INSTANCE = new SupportsMarkupRule();
 
   public Metadata applyRule(final String name, final TagAttribute attribute, final MetadataTarget metadataTarget) {
-    if (metadataTarget.isTargetInstanceOf(SupportsMarkup.class)) {
+    if (metadataTarget.isTargetInstanceOf(Visual.class)) {
       if (Attributes.MARKUP.equals(name)) {
         return new SupportsMarkupMapper(attribute);
       }
@@ -54,7 +54,7 @@ public class SupportsMarkupRule extends MetaRule {
 
     public void applyMetadata(final FaceletContext ctx, final Object instance) {
       if (attribute.isLiteral()) {
-        ((SupportsMarkup) instance).setMarkup(Markup.valueOf(attribute.getValue()));
+        ((Visual) instance).setMarkup(Markup.valueOf(attribute.getValue()));
       } else {
         final ValueExpression expression = attribute.getValueExpression(ctx, Object.class);
         ((UIComponent) instance).setValueExpression(Attributes.MARKUP, expression);

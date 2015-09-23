@@ -28,14 +28,12 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasRenderedPartially;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasStyle;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasVar;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsShowRoot;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsShowRootJunction;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 
 import javax.faces.component.UIData;
 
@@ -57,8 +55,7 @@ import javax.faces.component.UIData;
     facets = {@Facet(name = Facets.RELOAD, description = "Contains an instance of UIReload",
                      allowedChildComponenents = "org.apache.myfaces.tobago.Reload")})
 public interface SheetTagDeclaration 
-    extends HasIdBindingAndRendered, HasStyle,
-    HasMarkup, HasCurrentMarkup, HasRenderedPartially, IsShowRoot, IsShowRootJunction, HasVar {
+    extends HasIdBindingAndRendered, IsVisual, HasRenderedPartially, IsShowRoot, IsShowRootJunction, HasVar {
   /**
    * LayoutConstraints for column layout.
    * Semicolon separated list of layout tokens ('&lt;x>*', '&lt;x>px' or '&lt;x>%').

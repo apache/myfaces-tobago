@@ -20,7 +20,7 @@
 package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.config.Configurable;
+import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
 
 import javax.el.ValueExpression;
@@ -33,7 +33,7 @@ import java.io.IOException;
 import java.util.Iterator;
 
 public abstract class AbstractUIPopup extends AbstractUIPanel
-    implements NamingContainer, Configurable {
+    implements NamingContainer, Visual {
 
   private boolean activated;
 

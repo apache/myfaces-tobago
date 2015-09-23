@@ -19,9 +19,10 @@
 
 package org.apache.myfaces.tobago.internal.taglib.declaration;
 
+import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 
-public interface HasStyle {
+public interface IsVisual {
 
   /**
    * For internal use. Used for rendering, if there is a child tag &lt;tc:style>
@@ -47,4 +48,22 @@ public interface HasStyle {
    */
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.renderkit.css.CustomClass")
   void setCustomClass(String customClass);
+
+  /**
+   * Indicate markup of this component.
+   * The allowed markups can be defined or overridden in the theme.
+   * The value 'none' should not be used any longer. Just leave the attribute empty, or use a NULL pointer.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.context.Markup")
+  void setMarkup(String markup);
+
+  /**
+   * The current markup is the current internal state of the markup.
+   * It is the same as markup plus additional values like "required", "error", "selected", ....
+   */
+  @UIComponentTagAttribute(
+      type = "org.apache.myfaces.tobago.context.Markup",
+      isTransient = true)
+  void setCurrentMarkup(String markup);
 }

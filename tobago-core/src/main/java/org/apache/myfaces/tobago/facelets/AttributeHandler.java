@@ -21,7 +21,7 @@ package org.apache.myfaces.tobago.facelets;
 
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.component.SupportsMarkup;
+import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.component.SupportsRenderedPartially;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.el.ConstantMethodExpression;
@@ -234,15 +234,15 @@ public final class AttributeHandler extends TagHandler {
         } else if (Attributes.STYLE_CLASS.equals(nameValue)) {
           Deprecation.LOG.error("Attribute " + Attributes.STYLE_CLASS + " no longer supported.");
         } else if (Attributes.MARKUP.equals(nameValue)) {
-          if (parent instanceof SupportsMarkup) {
+          if (parent instanceof Visual) {
             if (value.isLiteral()) {
-              ((SupportsMarkup) parent).setMarkup(Markup.valueOf(value.getValue()));
+              ((Visual) parent).setMarkup(Markup.valueOf(value.getValue()));
             } else {
               final ValueExpression expression = value.getValueExpression(faceletContext, Object.class);
               parent.setValueExpression(nameValue, expression);
             }
           } else {
-            LOG.error("Component is not instanceof SupportsMarkup. Instance is: " + parent.getClass().getName());
+            LOG.error("Component is not instanceof Visual. Instance is: " + parent.getClass().getName());
           }
         } else if (parent instanceof EditableValueHolder && Attributes.VALIDATOR.equals(nameValue)) {
           final MethodExpression methodExpression

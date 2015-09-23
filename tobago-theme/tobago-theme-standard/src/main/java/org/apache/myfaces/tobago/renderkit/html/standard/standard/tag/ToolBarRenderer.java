@@ -20,7 +20,7 @@
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
 import org.apache.myfaces.tobago.component.UIToolBar;
-import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
+import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlButtonTypes;
@@ -37,7 +37,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
-public class ToolBarRenderer extends LayoutComponentRendererBase {
+public class ToolBarRenderer extends RendererBase {
 
   private static final Logger LOG = LoggerFactory.getLogger(ToolBarRenderer.class);
 

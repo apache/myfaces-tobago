@@ -19,12 +19,9 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
-import org.apache.myfaces.tobago.component.SupportsMarkup;
-import org.apache.myfaces.tobago.component.SupportsStyle;
-import org.apache.myfaces.tobago.config.Configurable;
+import org.apache.myfaces.tobago.component.Visual;
 
-public abstract class AbstractUIFlowLayout extends AbstractUILayoutBase
-    implements Configurable, SupportsMarkup, SupportsStyle {
+public abstract class AbstractUIFlowLayout extends AbstractUILayoutBase implements Visual {
 
   public static final String COMPONENT_FAMILY = "org.apache.myfaces.tobago.FlowLayout";
 }

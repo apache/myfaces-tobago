@@ -23,11 +23,8 @@ import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.component.AbstractUIFlowLayout;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasBinding;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasId;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasStyle;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 
 /**
  * Renders a FlowLayout that positions the content components in there natural order.
@@ -39,7 +36,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasStyle;
     uiComponentFacesClass = "javax.faces.component.UIComponentBase",
     componentFamily = AbstractUIFlowLayout.COMPONENT_FAMILY,
     rendererType = RendererTypes.FLOW_LAYOUT,
-    allowedChildComponenents = "NONE", isLayout = true)
+    allowedChildComponenents = "NONE")
 public interface FlowLayoutTagDeclaration
-    extends HasId, HasBinding, HasMarkup, HasCurrentMarkup, HasStyle {
+    extends HasIdBindingAndRendered, IsVisual {
 }

@@ -20,7 +20,7 @@
 package org.apache.myfaces.tobago.internal.layout;
 
 import org.apache.myfaces.tobago.component.Facets;
-import org.apache.myfaces.tobago.config.Configurable;
+import org.apache.myfaces.tobago.component.Visual;
 
 import javax.faces.component.UIComponent;
 import java.util.ArrayList;
@@ -55,7 +55,7 @@ public final class LayoutUtils {
 
   private static void addLayoutChildren(final UIComponent component, final List<UIComponent> result) {
     for (final UIComponent child : component.getChildren()) {
-      if (child instanceof Configurable) {
+      if (child instanceof Visual) {
         result.add(child);
       } else {
         // Child seems to be transparent for layout, like UIForm. 
@@ -65,7 +65,7 @@ public final class LayoutUtils {
     }
 
     final UIComponent child = component.getFacet(UIComponent.COMPOSITE_FACET_NAME);
-    if (child instanceof Configurable) {
+    if (child instanceof Visual) {
       result.add(child);
     } else if (child != null) {
       // Child seems to be transparent for layout, like UIForm.

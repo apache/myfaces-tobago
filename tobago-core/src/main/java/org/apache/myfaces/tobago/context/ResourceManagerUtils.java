@@ -19,7 +19,7 @@
 
 package org.apache.myfaces.tobago.context;
 
-import org.apache.myfaces.tobago.config.Configurable;
+import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.internal.context.ResourceManagerFactory;
 import org.apache.myfaces.tobago.layout.Measure;
 
@@ -171,9 +171,9 @@ public final class ResourceManagerUtils {
   }
 
   public static Measure getThemeMeasure(
-      final FacesContext facesContext, final Configurable configurable, final String name) {
+      final FacesContext facesContext, final Visual visual, final String name) {
     return ResourceManagerFactory.getResourceManager(facesContext).getThemeMeasure(
-        facesContext, configurable.getRendererType(), configurable.getCurrentMarkup(), name);
+        facesContext, visual.getRendererType(), visual.getCurrentMarkup(), name);
   }
 
   /**

@@ -19,7 +19,7 @@
 
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
-import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
+import org.apache.myfaces.tobago.renderkit.RendererBase;
 
-public class ColumnSelectorRenderer extends LayoutComponentRendererBase {
+public class ColumnSelectorRenderer extends RendererBase {
 }

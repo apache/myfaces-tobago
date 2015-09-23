@@ -17,18 +17,36 @@
  * under the License.
  */
 
-package org.apache.myfaces.tobago.internal.taglib.declaration;
+package org.apache.myfaces.tobago.component;
 
-import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 
-public interface HasCurrentMarkup {
-  
+import org.apache.myfaces.tobago.context.Markup;
+import org.apache.myfaces.tobago.renderkit.css.CustomClass;
+import org.apache.myfaces.tobago.renderkit.css.Style;
+
+public interface Visual {
+
+  Markup getMarkup();
+
+  void setMarkup(Markup markup);
+
+  Markup getCurrentMarkup();
+
+  void setCurrentMarkup(Markup markup);
+
+  Style getStyle();
+
+  void setStyle(Style style);
+
+  CustomClass getCustomClass();
+
+  void setCustomClass(CustomClass customClass);
+
   /**
-   * The current markup is the current internal state of the markup.
-   * It is the same as markup plus additional values like "required", "error", "selected", ....
+   * The renderer is an id that is used by Tobago to gather information about the components which are
+   * configured in the theme configuration files. E. g. the preferredWidth of a component.
+   * @return The renderer type.
    */
-  @UIComponentTagAttribute(
-      type = "org.apache.myfaces.tobago.context.Markup",
-      isTransient = true)
-  void setCurrentMarkup(String markup);
+  String getRendererType();
+
 }

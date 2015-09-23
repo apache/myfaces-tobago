@@ -23,7 +23,7 @@ import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.ComponentTypes;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
-import org.apache.myfaces.tobago.component.SupportsMarkup;
+import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.component.UIColumnSelector;
 import org.apache.myfaces.tobago.component.UICommand;
 import org.apache.myfaces.tobago.component.UILink;
@@ -53,7 +53,7 @@ import org.apache.myfaces.tobago.layout.TextAlign;
 import org.apache.myfaces.tobago.model.ExpandedState;
 import org.apache.myfaces.tobago.model.SheetState;
 import org.apache.myfaces.tobago.model.TreePath;
-import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
+import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
@@ -89,7 +89,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-public class SheetRenderer extends LayoutComponentRendererBase {
+public class SheetRenderer extends RendererBase {
 
   private static final Logger LOG = LoggerFactory.getLogger(SheetRenderer.class);
 
@@ -308,7 +308,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
 
         writer.startElement(HtmlElements.TD, column);
 
-        Markup markup = column instanceof SupportsMarkup ? ((SupportsMarkup) column).getMarkup() : Markup.NULL;
+        Markup markup = column instanceof Visual ? ((Visual) column).getMarkup() : Markup.NULL;
         if (markup == null) {
           markup = Markup.NULL;
         }
@@ -1137,10 +1137,6 @@ public class SheetRenderer extends LayoutComponentRendererBase {
     writer.write(name);
     writer.endElement(innerElement);
     writer.endElement(HtmlElements.LI);
-  }
-
-  private Measure getContentBorder(final FacesContext facesContext, final UISheet data) {
-    return getBorderLeft(facesContext, data).add(getBorderRight(facesContext, data));
   }
 
   @Override

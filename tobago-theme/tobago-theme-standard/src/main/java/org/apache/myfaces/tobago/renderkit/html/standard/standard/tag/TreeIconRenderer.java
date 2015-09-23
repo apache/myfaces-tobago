@@ -24,7 +24,7 @@ import org.apache.myfaces.tobago.component.UITreeNode;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.internal.component.AbstractUIData;
-import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
+import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
@@ -37,7 +37,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
-public class TreeIconRenderer extends LayoutComponentRendererBase {
+public class TreeIconRenderer extends RendererBase {
 
   protected static final String OPEN_FOLDER = "image/treeNode-icon-open";
   protected static final String CLOSED_FOLDER = "image/treeNode-icon";

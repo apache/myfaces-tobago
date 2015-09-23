@@ -24,11 +24,9 @@ import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasStyle;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 
 import javax.faces.component.UIPanel;
 
@@ -43,12 +41,12 @@ import javax.faces.component.UIPanel;
     uiComponentFacesClass = "javax.faces.component.UIPanel",
     componentFamily = UIPanel.COMPONENT_FAMILY,
     rendererType = RendererTypes.PANEL,
-    interfaces = "org.apache.myfaces.tobago.component.SupportsMarkup",
+    interfaces = "org.apache.myfaces.tobago.component.Visual",
     facets = {
         @Facet(name = Facets.RELOAD, description = "Contains an instance of UIReload",
             allowedChildComponenents = "org.apache.myfaces.tobago.Reload"),
         @Facet(name = Facets.LAYOUT, description = "Deprecated. Contains an layout manager. "
             + "The layout manager tag should surround the content instead.")})
 public interface PanelTagDeclaration
-    extends HasIdBindingAndRendered, HasStyle, HasMarkup, HasCurrentMarkup, HasTip {
+    extends HasIdBindingAndRendered, IsVisual, HasTip {
 }

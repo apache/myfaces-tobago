@@ -27,11 +27,9 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasBinding;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasId;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabel;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasStyle;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 
 import javax.faces.component.UIForm;
 
@@ -59,7 +57,7 @@ import javax.faces.component.UIForm;
               + "The layout manager tag should surround the content instead.")})
 
 public interface PageTagDeclaration
-    extends HasLabel, HasId, HasBinding, HasMarkup, HasCurrentMarkup, HasStyle {
+    extends HasLabel, HasId, HasBinding, IsVisual {
 
   /**
    * Contains the id of the component which should have the focus after

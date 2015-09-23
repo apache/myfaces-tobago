@@ -19,7 +19,7 @@
 
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
-import org.apache.myfaces.tobago.component.SupportsStyle;
+import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.component.UIStyle;
 import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
@@ -47,8 +47,8 @@ public class StyleRenderer extends RendererBase {
     final Style style = new Style(styleComponent);
     if (!style.isEmpty()) {
       final UIComponent parent = styleComponent.getParent();
-      if (parent instanceof SupportsStyle) {
-        ((SupportsStyle) parent).setStyle(style);
+      if (parent instanceof Visual) {
+        ((Visual) parent).setStyle(style);
       } else {
         LOG.warn("The parent of a style component doesn't support style: " + parent.getClientId(facesContext));
       }
@@ -57,8 +57,8 @@ public class StyleRenderer extends RendererBase {
     final CustomClass customClass = styleComponent.getCustomClass();
     if (customClass != null) {
       final UIComponent parent = styleComponent.getParent();
-      if (parent instanceof SupportsStyle) {
-        ((SupportsStyle) parent).setCustomClass(customClass);
+      if (parent instanceof Visual) {
+        ((Visual) parent).setCustomClass(customClass);
       } else {
         LOG.warn("The parent of a style component doesn't support style: " + parent.getClientId(facesContext));
       }

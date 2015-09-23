@@ -23,12 +23,10 @@ import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.component.AbstractUIFlexLayout;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasBinding;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasColumnLayout;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasCurrentMarkup;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasId;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasRowLayout;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 
 /**
  * Renders a flex layout (CSS3 feature).
@@ -41,7 +39,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasRowLayout;
     uiComponentFacesClass = "javax.faces.component.UIComponentBase",
     componentFamily = AbstractUIFlexLayout.COMPONENT_FAMILY,
     rendererType = RendererTypes.FLEX_LAYOUT,
-    allowedChildComponenents = "NONE", isLayout = true)
+    allowedChildComponenents = "NONE")
 public interface FlexLayoutTagDeclaration
-    extends HasId, HasBinding, HasMarkup, HasCurrentMarkup, HasColumnLayout, HasRowLayout {
+    extends HasIdBindingAndRendered, HasColumnLayout, HasRowLayout, IsVisual {
 }
