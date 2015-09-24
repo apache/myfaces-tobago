@@ -76,22 +76,39 @@
           <tc:command omit="true" label="Locale: #{clientConfigController.localizedLocale}"/>
           <tc:command omit="true" label="Project Stage: #{tobagoContext.tobagoConfig.projectStage}"/>
           <tc:command omit="true" label="CSP mode: #{tobagoContext.tobagoConfig.contentSecurityPolicy.mode}"/>
-          <tc:command omit="true" label="Requests: #{activityList.values[0].jsfRequest} / AJAX: #{activityList.values[0].ajaxRequest}"/>
+          <tc:command omit="true"
+                      label="Requests: #{activityList.values[0].jsfRequest} / AJAX: #{activityList.values[0].ajaxRequest}"/>
         </tc:command>
       </tc:commandGroup>
     </tc:form>
 
-    <tc:form>
-      <tc:flowLayout>
-        <tc:style textAlign="right"/>
+    <tc:flowLayout>
+      <tc:style textAlign="right"/>
+      <tc:form>
         <tc:in placeholder="Search"/>
         <tc:button defaultCommand="true" omit="true" label="go">
           <tc:dataAttribute name="alert-text"
                             value="Sorry: Search not implemented"/>
 
         </tc:button>
-      </tc:flowLayout>
-    </tc:form>
+      </tc:form>
+      <tc:form>
+        <tc:button immediate="true" id="previous"
+                   image="glyphicon-chevron-left"
+                   action="#{navigationState.gotoPrevious}"
+                   disabled="#{navigationState.first}"
+                   tip="#{overviewBundle.footer_previous}"/>
+        <tc:button immediate="true" id="next"
+                   image="glyphicon-chevron-right"
+                   action="#{navigationState.gotoNext}"
+                   disabled="#{navigationState.last}"
+                   tip="#{overviewBundle.footer_next}"/>
+        <tc:button action="#{navigationTree.viewSource}"
+                   image="glyphicon-eye-open"
+                   immediate="true" tip="#{overviewBundle.footer_viewSource}"
+                   target="Source Viewer" transition="false"/>
+      </tc:form>
+    </tc:flowLayout>
 
   </tc:nav>
 

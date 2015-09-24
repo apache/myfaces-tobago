@@ -43,15 +43,13 @@
           <ui:include src="/navigation.xhtml"/>
         </tc:panel>
 
-        <tc:flexLayout rows="auto;*;auto">
+        <tc:flexLayout rows="auto;*">
 
           <tc:messages orderBy="severity"/>
 
           <tc:box label="#{title}" id="content">
             <ui:insert/>
           </tc:box>
-
-          <ui:include src="/footer.xhtml"/>
 
         </tc:flexLayout>
 
