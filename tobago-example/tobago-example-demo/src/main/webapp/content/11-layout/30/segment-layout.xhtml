@@ -28,12 +28,31 @@
     <li>rendered=false: will be ignored when setting the "values". If needed put a panel around of it</li>
   </ul>
 
-  <tc:segmentLayout large="4;4;4">
+  <tc:box>
+    <tc:segmentLayout large="4;8">
+      <tc:in value="1"/>
+      <tc:in value="2"/>
+      <tc:in value="3" rendered="false"/>
+      <tc:in value="4"/>
+      <tc:in value="5" rendered="false"/>
+      <tc:in value="6"/>
+    </tc:segmentLayout>
+  </tc:box>
 
-    <tc:in />
-    <tc:in />
-    <tc:in />
+  <tc:box>
+    <tc:segmentLayout large="4;8">
+      <tc:in value="1"/>
+      <tc:in value="2"/>
+      <tc:panel>
+        <tc:in value="3" rendered="false"/>
+      </tc:panel>
+      <tc:in value="4"/>
+      <tc:panel>
+        <tc:in value="5" rendered="false"/>
+      </tc:panel>
+      <tc:in value="6"/>
+    </tc:segmentLayout>
+  </tc:box>
 
 
-  </tc:segmentLayout>
 </ui:composition>
