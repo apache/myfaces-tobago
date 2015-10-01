@@ -49,7 +49,7 @@ public class CodeSniplet {
     this.id = id;
   }
 
-  public StringBuffer getCode(final boolean stripLeadingSpaces) {
+  public StringBuilder getCode(final boolean stripLeadingSpaces) {
     int minSpaces = -1;
     for (int i = 0; i < code.size(); i++) {
       final String s = code.get(i);
@@ -63,7 +63,7 @@ public class CodeSniplet {
         }
       }
     }
-    final StringBuffer sb = new StringBuffer();
+    final StringBuilder sb = new StringBuilder();
     for (int i = 0; i < code.size(); i++) {
       final String s = code.get(i);
       if (stripLeadingSpaces && s.length() > minSpaces && minSpaces != -1) {

@@ -446,43 +446,43 @@ public abstract class SelectManyRendererBase extends InputRendererBase {
   // ###     api/src/main/java/javax/faces/component/_ComponentUtils.java
   // #################################################################################################################
   static String getPathToComponent(UIComponent component) {
-    StringBuffer buf = new StringBuffer();
+    StringBuilder builder = new StringBuilder();
 
     if (component == null) {
-      buf.append("{Component-Path : ");
-      buf.append("[null]}");
-      return buf.toString();
+      builder.append("{Component-Path : ");
+      builder.append("[null]}");
+      return builder.toString();
     }
 
-    getPathToComponent(component, buf);
+    getPathToComponent(component, builder);
 
-    buf.insert(0, "{Component-Path : ");
-    buf.append("}");
+    builder.insert(0, "{Component-Path : ");
+    builder.append("}");
 
-    return buf.toString();
+    return builder.toString();
   }
 
-  private static void getPathToComponent(UIComponent component, StringBuffer buf) {
+  private static void getPathToComponent(UIComponent component, StringBuilder builder) {
     if (component == null) {
       return;
     }
 
-    StringBuffer intBuf = new StringBuffer();
+    StringBuilder intBuilder = new StringBuilder();
 
-    intBuf.append("[Class: ");
-    intBuf.append(component.getClass().getName());
+    intBuilder.append("[Class: ");
+    intBuilder.append(component.getClass().getName());
     if (component instanceof UIViewRoot) {
-      intBuf.append(",ViewId: ");
-      intBuf.append(((UIViewRoot) component).getViewId());
+      intBuilder.append(",ViewId: ");
+      intBuilder.append(((UIViewRoot) component).getViewId());
     } else {
-      intBuf.append(",Id: ");
-      intBuf.append(component.getId());
+      intBuilder.append(",Id: ");
+      intBuilder.append(component.getId());
     }
-    intBuf.append("]");
+    intBuilder.append("]");
 
-    buf.insert(0, intBuf.toString());
+    builder.insert(0, intBuilder.toString());
 
-    getPathToComponent(component.getParent(), buf);
+    getPathToComponent(component.getParent(), builder);
   }
   // #################################################################################################################
   // ### END copy out of https://svn.apache.org/repos/asf/myfaces/core/tags/myfaces-core-module-2.2.8/
@@ -731,43 +731,43 @@ public abstract class SelectManyRendererBase extends InputRendererBase {
     }
 
     private String getPathToComponent(UIComponent component) {
-      StringBuffer buf = new StringBuffer();
+      StringBuilder builder = new StringBuilder();
 
       if (component == null) {
-        buf.append("{Component-Path : ");
-        buf.append("[null]}");
-        return buf.toString();
+        builder.append("{Component-Path : ");
+        builder.append("[null]}");
+        return builder.toString();
       }
 
-      getPathToComponent(component, buf);
+      getPathToComponent(component, builder);
 
-      buf.insert(0, "{Component-Path : ");
-      buf.append("}");
+      builder.insert(0, "{Component-Path : ");
+      builder.append("}");
 
-      return buf.toString();
+      return builder.toString();
     }
 
-    private void getPathToComponent(UIComponent component, StringBuffer buf) {
+    private void getPathToComponent(UIComponent component, StringBuilder builder) {
       if (component == null) {
         return;
       }
 
-      StringBuffer intBuf = new StringBuffer();
+      StringBuilder intBuilder = new StringBuilder();
 
-      intBuf.append("[Class: ");
-      intBuf.append(component.getClass().getName());
+      intBuilder.append("[Class: ");
+      intBuilder.append(component.getClass().getName());
       if (component instanceof UIViewRoot) {
-        intBuf.append(",ViewId: ");
-        intBuf.append(((UIViewRoot) component).getViewId());
+        intBuilder.append(",ViewId: ");
+        intBuilder.append(((UIViewRoot) component).getViewId());
       } else {
-        intBuf.append(",Id: ");
-        intBuf.append(component.getId());
+        intBuilder.append(",Id: ");
+        intBuilder.append(component.getId());
       }
-      intBuf.append("]");
+      intBuilder.append("]");
 
-      buf.insert(0, intBuf);
+      builder.insert(0, intBuilder);
 
-      getPathToComponent(component.getParent(), buf);
+      getPathToComponent(component.getParent(), builder);
     }
   }
   // #################################################################################################################

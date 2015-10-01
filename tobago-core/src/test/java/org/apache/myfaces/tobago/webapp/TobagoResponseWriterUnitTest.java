@@ -109,7 +109,7 @@ public class TobagoResponseWriterUnitTest {
   @Test
   public void testManyChars() throws IOException {
     writer.startElement(HtmlElements.SELECT, null);
-    final StringBuffer buffer = new StringBuffer();
+    final StringBuilder buffer = new StringBuilder();
     for (char c = 0x20; c < 0x7F; c++) {
       buffer.append(c);
     }
