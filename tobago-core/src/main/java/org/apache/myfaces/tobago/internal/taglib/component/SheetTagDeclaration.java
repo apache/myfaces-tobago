@@ -34,6 +34,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasVar;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsShowRoot;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsShowRootJunction;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
+import org.apache.myfaces.tobago.model.Selectable;
 
 import javax.faces.component.UIData;
 
@@ -170,11 +171,16 @@ public interface SheetTagDeclaration
   void setShowRowRange(String showRowRange);
 
   /**
-   * Flag indicating whether or not the sheet should be selectable.
+   * Indicating the selection mode of the sheet.
    */
   @TagAttribute
-  @UIComponentTagAttribute(defaultValue = "multi",
-      allowedValues = {"none", "single", "singleOrNone", "multi"})
+  @UIComponentTagAttribute(
+      type = "org.apache.myfaces.tobago.model.Selectable",
+      defaultValue = Selectable.STRING_MULTI,
+      allowedValues = {
+          Selectable.STRING_NONE, Selectable.STRING_SINGLE, Selectable.STRING_SINGLE_OR_NONE, Selectable.STRING_MULTI
+      },
+      defaultCode = "org.apache.myfaces.tobago.model.Selectable.multi")
   void setSelectable(String selectable);
 
   /**

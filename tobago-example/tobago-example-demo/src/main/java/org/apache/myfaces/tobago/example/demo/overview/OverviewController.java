@@ -50,19 +50,19 @@ public class OverviewController implements Serializable {
 
   private static final Logger LOG = LoggerFactory.getLogger(OverviewController.class);
 
-  private static final String[] TREE_SELECT_MODE_KEYS = {
-      Selectable.NONE.getValue(),
-      Selectable.SINGLE.getValue(),
-      Selectable.SINGLE_LEAF_ONLY.getValue(),
-      Selectable.MULTI.getValue(),
-      Selectable.MULTI_LEAF_ONLY.getValue(),
-      Selectable.MULTI_CASCADE.getValue()
+  private static final Selectable[] TREE_SELECT_MODE_KEYS = {
+      Selectable.none,
+      Selectable.single,
+      Selectable.singleLeafOnly,
+      Selectable.multi,
+      Selectable.multiLeafOnly,
+      Selectable.multiCascade
   };
 
-  private static final String[] TREELISTBOX_SELECT_MODE_KEYS = {
-      Selectable.SINGLE.getValue(),
-      Selectable.SINGLE_LEAF_ONLY.getValue(),
-      Selectable.SIBLING_LEAF_ONLY.getValue()
+  private static final Selectable[] TREELISTBOX_SELECT_MODE_KEYS = {
+      Selectable.single,
+      Selectable.singleLeafOnly,
+      Selectable.siblingLeafOnly
   };
 
   private String radioValue;
@@ -87,9 +87,9 @@ public class OverviewController implements Serializable {
 
   private Date basicTime = new Date();
 
-  private String treeSelectMode;
+  private Selectable treeSelectMode;
 
-  private String treeListboxSelectMode;
+  private Selectable treeListboxSelectMode;
 
   private Integer treeTabsState;
 
@@ -154,16 +154,16 @@ public class OverviewController implements Serializable {
     return items;
   }
 
-  private static SelectItem[] getSelectItems(final String[] keys, final String bundle) {
+  private static SelectItem[] getSelectItems(final Selectable[] keys, final String bundle) {
     final SelectItem[] items = new SelectItem[keys.length];
     for (int i = 0; i < items.length; i++) {
       String label = ResourceManagerUtils.getProperty(
-          FacesContext.getCurrentInstance(), bundle, keys[i]);
+          FacesContext.getCurrentInstance(), bundle, keys[i].name());
       if (LOG.isTraceEnabled()) {
         LOG.trace("label = " + label + "");
       }
       if (label == null) {
-        label = keys[i];
+        label = keys[i].name();
       }
       items[i] = new SelectItem(keys[i], label);
     }
@@ -268,19 +268,19 @@ public class OverviewController implements Serializable {
     this.basicTime = basicTime;
   }
 
-  public String getTreeSelectMode() {
+  public Selectable getTreeSelectMode() {
     return treeSelectMode;
   }
 
-  public void setTreeSelectMode(final String treeSelectMode) {
+  public void setTreeSelectMode(final Selectable treeSelectMode) {
     this.treeSelectMode = treeSelectMode;
   }
 
-  public String getTreeListboxSelectMode() {
+  public Selectable getTreeListboxSelectMode() {
     return treeListboxSelectMode;
   }
 
-  public void setTreeListboxSelectMode(final String treeListboxSelectMode) {
+  public void setTreeListboxSelectMode(final Selectable treeListboxSelectMode) {
     this.treeListboxSelectMode = treeListboxSelectMode;
   }
 

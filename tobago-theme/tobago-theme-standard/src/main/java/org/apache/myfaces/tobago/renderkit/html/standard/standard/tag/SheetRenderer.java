@@ -50,6 +50,7 @@ import org.apache.myfaces.tobago.layout.Display;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.layout.TextAlign;
 import org.apache.myfaces.tobago.model.ExpandedState;
+import org.apache.myfaces.tobago.model.Selectable;
 import org.apache.myfaces.tobago.model.SheetState;
 import org.apache.myfaces.tobago.model.TreePath;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
@@ -96,7 +97,6 @@ public class SheetRenderer extends RendererBase {
   public static final String SELECTED_POSTFIX = ComponentUtils.SUB_SEPARATOR + "selected";
 
   private static final Integer HEIGHT_0 = 0;
-  private static final String DOTS = "...";
 
   @Override
   public void prepareRender(final FacesContext facesContext, final UIComponent component) throws IOException {
@@ -157,7 +157,7 @@ public class SheetRenderer extends RendererBase {
     if (clientIds.length > 0) {
       writer.writeAttribute(DataAttributes.PARTIAL_IDS, JsonUtils.encode(clientIds), true);
     }
-    writer.writeAttribute(DataAttributes.SELECTION_MODE, sheet.getSelectable(), false);
+    writer.writeAttribute(DataAttributes.SELECTION_MODE, sheet.getSelectable().name(), false);
     writer.writeAttribute(DataAttributes.FIRST, Integer.toString(sheet.getFirst()), false);
 
     final boolean rowAction = HtmlRendererUtils.renderSheetCommands(sheet, facesContext, writer);
@@ -172,7 +172,7 @@ public class SheetRenderer extends RendererBase {
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
     final String sheetId = sheet.getClientId(facesContext);
 
-    final String selectable = sheet.getSelectable();
+    final Selectable selectable = sheet.getSelectable();
 
     final Application application = facesContext.getApplication();
     final SheetState state = sheet.getSheetState(facesContext);
@@ -190,7 +190,7 @@ public class SheetRenderer extends RendererBase {
 
     RenderUtils.writeScrollPosition(facesContext, writer, sheet, sheet.getScrollPosition());
 
-    if (!UISheet.NONE.equals(selectable)) {
+    if (selectable != Selectable.none) {
       writer.startElement(HtmlElements.INPUT, null);
       writer.writeIdAttribute(sheetId + SELECTED_POSTFIX);
       writer.writeNameAttribute(sheetId + SELECTED_POSTFIX);
@@ -235,7 +235,8 @@ public class SheetRenderer extends RendererBase {
         Classes.create(sheet, "bodyTable"),
         BootstrapClass.TABLE,
         BootstrapClass.TABLE_BORDERED,
-        UISheet.NONE.equals(selectable) ? BootstrapClass.TABLE_HOVER : null);
+        BootstrapClass.TABLE_CONDENSED,
+        selectable != Selectable.none ? BootstrapClass.TABLE_HOVER : null);
 
     writeColgroup(writer, columnWidths);
 
@@ -420,7 +421,7 @@ public class SheetRenderer extends RendererBase {
     if (sheet.isPagingVisible()) {
 //      final Style footerStyle = new Style();
 //      footerStyle.setWidth(sheet.getCurrentWidth());
-      writer.startElement(HtmlElements.DIV, sheet);
+      writer.startElement(HtmlElements.FOOTER, sheet);
       writer.writeClassAttribute(Classes.create(sheet, "footer"));
 //      writer.writeStyleAttribute(footerStyle);
 
@@ -547,7 +548,7 @@ public class SheetRenderer extends RendererBase {
         writer.endElement(HtmlElements.SPAN);
       }
 
-      writer.endElement(HtmlElements.DIV);
+      writer.endElement(HtmlElements.FOOTER);
     }
 
     if (sheet.isTreeModel()) {
@@ -772,8 +773,8 @@ public class SheetRenderer extends RendererBase {
       LOG.debug("*****************************************************");
     }
 
-    writer.startElement(HtmlElements.DIV, sheet);
-    writer.writeClassAttribute(Classes.create(sheet, "headerDiv"));
+    writer.startElement(HtmlElements.HEADER, sheet);
+    writer.writeClassAttribute(Classes.create(sheet, "header"));
     writer.startElement(HtmlElements.TABLE, sheet);
     writer.writeAttribute(HtmlAttributes.CELLSPACING, "0", false);
     writer.writeAttribute(HtmlAttributes.CELLPADDING, "0", false);
@@ -935,7 +936,7 @@ public class SheetRenderer extends RendererBase {
     }
     writer.endElement(HtmlElements.TBODY);
     writer.endElement(HtmlElements.TABLE);
-    writer.endElement(HtmlElements.DIV);
+    writer.endElement(HtmlElements.HEADER);
   }
 
   private void encodeResizing(final TobagoResponseWriter writer, final AbstractUISheet sheet, final int columnIndex)

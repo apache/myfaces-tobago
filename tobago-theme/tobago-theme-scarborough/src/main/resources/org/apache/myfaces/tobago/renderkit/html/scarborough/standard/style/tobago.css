@@ -906,7 +906,7 @@ hr.tobago-separator {
 
 /* XXX deprecated: .tobago-sheet-outer please use .tobago-sheet */
 
-.tobago-sheet-headerDiv {
+.tobago-sheet-header {
   overflow: hidden;
   position: relative;
 }

@@ -87,9 +87,9 @@ public class TreeRenderer extends RendererBase {
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, tree);
     writer.writeAttribute("data-tobago-scroll-panel", "true", true);
 
-    final Selectable selectable = tree.getSelectableAsEnum();
+    final Selectable selectable = tree.getSelectable();
     if (selectable.isSupportedByTree()) {
-      writer.writeAttribute(DataAttributes.SELECTABLE, selectable.getValue(), false);
+      writer.writeAttribute(DataAttributes.SELECTABLE, selectable.name(), false);
     }
 
     final SelectedState selectedState = tree.getSelectedState();

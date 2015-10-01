@@ -73,7 +73,7 @@ public class TreeListboxNodeRenderer extends CommandRendererBase {
     }
 
     // select
-    if (tree.getSelectableAsEnum() != Selectable.NONE) { // selection
+    if (tree.getSelectable() != Selectable.none) { // selection
       final String selected = requestParameterMap.get(treeId + AbstractUITree.SELECT_STATE);
       final String searchString = ";" + node.getClientId(facesContext) + ";";
       final UITreeSelect treeSelect = ComponentUtils.findDescendant(node, UITreeSelect.class);

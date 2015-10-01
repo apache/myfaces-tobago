@@ -32,6 +32,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasVar;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsShowRoot;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsShowRootJunction;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
+import org.apache.myfaces.tobago.model.Selectable;
 
 import javax.faces.component.UIData;
 
@@ -70,8 +71,15 @@ public interface TreeTagDeclaration
    */
   @TagAttribute
   @UIComponentTagAttribute(
-      defaultValue = "multi",
-      allowedValues = {"none", "multi", "single", "multiLeafOnly", "singleLeafOnly"})
+      type = "org.apache.myfaces.tobago.model.Selectable",
+      defaultValue = Selectable.STRING_MULTI,
+      allowedValues = {
+          Selectable.STRING_NONE,
+          Selectable.STRING_MULTI,
+          Selectable.STRING_SINGLE,
+          Selectable.STRING_MULTI_LEAF_ONLY,
+          Selectable.STRING_SINGLE_LEAF_ONLY},
+      defaultCode = "org.apache.myfaces.tobago.model.Selectable.multi")
   void setSelectable(String selectable);
 
   /**

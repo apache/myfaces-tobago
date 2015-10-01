@@ -31,6 +31,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasValue;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasVar;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsRequired;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
+import org.apache.myfaces.tobago.model.Selectable;
 
 import javax.faces.component.UIData;
 
@@ -66,8 +67,10 @@ public interface TreeListboxTagDeclaration
    */
   @TagAttribute
   @UIComponentTagAttribute(
-      defaultValue = "single",
-      allowedValues = {"single", "multiLeafOnly", "singleLeafOnly"})
+      type = "org.apache.myfaces.tobago.model.Selectable",
+      defaultValue = Selectable.STRING_SINGLE,
+      allowedValues = {Selectable.STRING_SINGLE, Selectable.STRING_MULTI_LEAF_ONLY, Selectable.STRING_SINGLE_LEAF_ONLY},
+      defaultCode = "org.apache.myfaces.tobago.model.Selectable.single")
   void setSelectable(String selectable);
 
   /**

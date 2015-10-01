@@ -146,6 +146,7 @@ public enum BootstrapClass implements CssItem {
   SR_ONLY("sr-only"),
   TABLE("table"),
   TABLE_BORDERED("table-bordered"),
+  TABLE_CONDENSED("table-condensed"),
   TABLE_HOVER("table-hover"),
   TABLE_STRIPED("table-striped"),
   TEXT_CENTER("text-center"),

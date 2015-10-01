@@ -57,7 +57,7 @@ public class TreeSelectRenderer extends RendererBase {
 
     final String clientId = select.getClientId(facesContext);
     final String name;
-    if (data.getSelectableAsEnum().isSingle()) {
+    if (data.getSelectable().isSingle()) {
       name = getClientIdWithoutRowIndex(data, clientId);
     } else {
       name = clientId;
@@ -99,15 +99,14 @@ public class TreeSelectRenderer extends RendererBase {
     }
 
     final boolean folder = data.isFolder();
-    final Selectable selectable = data.getSelectableAsEnum();
-
+    final Selectable selectable = data.getSelectable();
 
     writer.startElement(HtmlElements.SPAN, null);
     writer.writeClassAttribute(Classes.create(select));
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, select);
 
     if (select.isShowCheckbox()
-        && selectable != Selectable.NONE
+        && selectable != Selectable.none
         && (!selectable.isLeafOnly() || !folder)) {
       writer.startElement(HtmlElements.INPUT, null);
       if (selectable.isSingle()) {

@@ -338,6 +338,10 @@ OrderByProperty(property) ::= <<
 <NormalProperty(property)>
 >>
 
+SelectableProperty(property) ::= <<
+<NormalProperty(property)>
+>>
+
 StringProperty(property) ::= <<
 <NormalProperty(property)>
 >>

@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
-import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.model.ExpandedState;
 import org.apache.myfaces.tobago.model.Selectable;
@@ -27,7 +26,6 @@ import org.apache.myfaces.tobago.model.SelectedState;
 import org.apache.myfaces.tobago.model.TreeDataModel;
 import org.apache.myfaces.tobago.model.TreeNodeDataModel;
 import org.apache.myfaces.tobago.model.TreePath;
-import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -96,10 +94,14 @@ public abstract class AbstractUIData extends javax.faces.component.UIData implem
     }
   }
 
+  /**
+   * @deprecated since Tobago 3.0.0, please use {@link #getSelectable}
+   */
   public Selectable getSelectableAsEnum() {
-    final Selectable selectable = Selectable.parse(ComponentUtils.getStringAttribute(this, Attributes.SELECTABLE));
-    return selectable != null ? selectable : Selectable.NONE; // should not happen
+    return getSelectable();
   }
+
+  public abstract Selectable getSelectable();
 
   /**
    * Creates the TreeDataModel which should be used.

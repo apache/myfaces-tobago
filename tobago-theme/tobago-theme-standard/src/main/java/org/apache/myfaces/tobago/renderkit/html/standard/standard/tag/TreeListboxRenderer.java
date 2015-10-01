@@ -97,13 +97,13 @@ public class TreeListboxRenderer extends RendererBase {
     writer.writeAttribute(HtmlAttributes.VALUE, "", false);
     writer.endElement(HtmlElements.INPUT);
 
-    if (tree.getSelectableAsEnum().isSupportedByTreeListbox()) {
+    if (tree.getSelectable().isSupportedByTreeListbox()) {
       writer.startElement(HtmlElements.INPUT, tree);
       writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN, false);
       writer.writeNameAttribute(clientId + AbstractUITree.SELECT_STATE);
       writer.writeIdAttribute(clientId + AbstractUITree.SELECT_STATE);
       writer.writeAttribute(HtmlAttributes.VALUE, ";", false);
-      writer.writeAttribute(DataAttributes.SELECTION_MODE, tree.getSelectableAsEnum().name(), false);
+      writer.writeAttribute(DataAttributes.SELECTION_MODE, tree.getSelectable().name(), false);
       writer.endElement(HtmlElements.INPUT);
     }
 

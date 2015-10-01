@@ -389,7 +389,7 @@ Tobago.Sheet.setup2 = function (sheets) {
     var scrollTop = sheetBody.prop("scrollTop");
 
     // scrolling the table should move the header
-    sheetBody.siblings(".tobago-sheet-headerDiv").prop("scrollLeft", scrollLeft);
+    sheetBody.siblings(".tobago-sheet-header").prop("scrollLeft", scrollLeft);
 
     // store the position in a hidden field
     var hidden = Tobago.Sheet.hidden(sheetBody.parent(), "scrollPosition");
@@ -412,7 +412,7 @@ Tobago.Sheet.setup2 = function (sheets) {
       var body = sheet.children(".tobago-sheet-body");
       body.prop("scrollLeft", scrollLeft);
       body.prop("scrollTop", scrollTop);
-      sheet.children(".tobago-sheet-headerDiv").prop("scrollLeft", scrollLeft);
+      sheet.children(".tobago-sheet-header").prop("scrollLeft", scrollLeft);
     }
   });
 
