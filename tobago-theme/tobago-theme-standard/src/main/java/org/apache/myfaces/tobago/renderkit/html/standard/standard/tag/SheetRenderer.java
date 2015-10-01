@@ -23,7 +23,6 @@ import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.ComponentTypes;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
-import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.component.UIColumnSelector;
 import org.apache.myfaces.tobago.component.UICommand;
 import org.apache.myfaces.tobago.component.UILink;
@@ -33,7 +32,7 @@ import org.apache.myfaces.tobago.component.UIOut;
 import org.apache.myfaces.tobago.component.UIReload;
 import org.apache.myfaces.tobago.component.UISheet;
 import org.apache.myfaces.tobago.component.UIToolBar;
-import org.apache.myfaces.tobago.context.ClientProperties;
+import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.event.PageAction;
@@ -54,9 +53,9 @@ import org.apache.myfaces.tobago.model.ExpandedState;
 import org.apache.myfaces.tobago.model.SheetState;
 import org.apache.myfaces.tobago.model.TreePath;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
+import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
-import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.Command;
 import org.apache.myfaces.tobago.renderkit.html.CommandMap;
@@ -234,7 +233,9 @@ public class SheetRenderer extends RendererBase {
     writer.writeAttribute(HtmlAttributes.SUMMARY, "", false);
     writer.writeClassAttribute(
         Classes.create(sheet, "bodyTable"),
-        BootstrapClass.TABLE, BootstrapClass.TABLE_BORDERED, BootstrapClass.TABLE_STRIPED, BootstrapClass.TABLE_HOVER);
+        BootstrapClass.TABLE,
+        BootstrapClass.TABLE_BORDERED,
+        UISheet.NONE.equals(selectable) ? BootstrapClass.TABLE_HOVER : null);
 
     writeColgroup(writer, columnWidths);
 
@@ -246,7 +247,6 @@ public class SheetRenderer extends RendererBase {
 
     final String var = sheet.getVar();
 
-    boolean odd = false;
     boolean emptySheet = true;
     // rows = 0 means: show all
     final int last = sheet.isRowsUnlimited() ? Integer.MAX_VALUE : sheet.getFirst() + sheet.getRows();
@@ -262,7 +262,6 @@ public class SheetRenderer extends RendererBase {
       }
 
       emptySheet = false;
-      odd = !odd;
 
       if (LOG.isDebugEnabled()) {
         LOG.debug("var       " + var);
@@ -282,16 +281,16 @@ public class SheetRenderer extends RendererBase {
         // if rowRendered attribute is set we need the rowIndex on the client
         writer.writeAttribute(DataAttributes.ROW_INDEX, rowIndex);
       }
-      Markup rowMarkup = odd ? Markup.ODD : Markup.EVEN;
       final boolean selected = selectedRows.contains(rowIndex);
+      final String[] rowMarkups = (String[]) sheet.getAttributes().get("rowMarkup");
+      Markup rowMarkup = Markup.NULL;
       if (selected) {
         rowMarkup = rowMarkup.add(Markup.SELECTED);
       }
-      final String[] rowMarkups = (String[]) sheet.getAttributes().get("rowMarkup");
       if (rowMarkups != null) {
         rowMarkup = rowMarkup.add(Markup.valueOf(rowMarkups));
       }
-      writer.writeClassAttribute(Classes.create(sheet, "row", rowMarkup));
+      writer.writeClassAttribute(Classes.create(sheet, "row", rowMarkup), selected ? BootstrapClass.INFO : null);
       if (!sheet.isRowVisible()) {
         final Style rowStyle = new Style();
         rowStyle.setDisplay(Display.none);
@@ -1049,9 +1048,7 @@ public class SheetRenderer extends RendererBase {
       }
     }
 
-    final boolean bootstrap = ClientProperties.getInstance(facesContext).getTheme().getName().equals("bootstrap");
-    String name;
-    name = bootstrap ? "«" : "...";
+    String name = "«";
     int skip = prevs.size() > 0 ? prevs.get(0) : 1;
     if (!sheet.isShowDirectLinksArrows() && skip > 1) {
       skip -= (linkCount - (linkCount / 2));
@@ -1079,8 +1076,7 @@ public class SheetRenderer extends RendererBase {
       writeLinkElement(writer, sheet, name, next, PagingLinkType.NORMAL);
     }
 
-    // XXX hack bootstrap
-    name = bootstrap ? "»" : "...";
+    name = "»";
     skip = nexts.size() > 0 ? nexts.get(nexts.size() - 1) : pages;
     if (!sheet.isShowDirectLinksArrows() && skip < pages) {
       skip += linkCount / 2;
@@ -1144,6 +1140,7 @@ public class SheetRenderer extends RendererBase {
     // DO Nothing
   }
 
+/*
   @Override
   public boolean getPrepareRendersChildren() {
     return true;
@@ -1165,4 +1162,5 @@ public class SheetRenderer extends RendererBase {
       }
     }
   }
+*/
 }

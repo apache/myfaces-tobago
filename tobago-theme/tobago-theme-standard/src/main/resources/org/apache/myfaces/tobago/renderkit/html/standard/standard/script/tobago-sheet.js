@@ -773,7 +773,7 @@ Tobago.Sheet.getDataIndex = function(sheet, row) {
  */
 Tobago.Sheet.selectRow = function(selected, rowIndex, row, checkbox) {
   selected.val(selected.val() + rowIndex + ",");
-  row.addClass("tobago-sheet-row-markup-selected");
+  row.addClass("tobago-sheet-row-markup-selected info");
 //  checkbox.prop("checked", true);
   setTimeout(function() {checkbox.prop("checked", true);}, 0);
 };
@@ -786,7 +786,7 @@ Tobago.Sheet.selectRow = function(selected, rowIndex, row, checkbox) {
  */
 Tobago.Sheet.deselectRow = function(selected, rowIndex, row, checkbox) {
   selected.val(selected.val().replace(new RegExp("," + rowIndex + ","), ","));
-  row.removeClass("tobago-sheet-row-markup-selected");
+  row.removeClass("tobago-sheet-row-markup-selected info");
 //  checkbox.prop("checked", false);
   setTimeout(function() {checkbox.prop("checked", false);}, 0);
 };

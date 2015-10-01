@@ -24,6 +24,7 @@
   <ui:param name="title" value="#{overviewBundle.sheet}"/>
 
   <f:facet name="toolBar">
+<!-- fixme toolBar-->
     <tc:toolBar>
       <tc:toolBarCommand
           label="#{overviewBundle.sheet_resetLabel}" tip="#{overviewBundle.sheet_resetTip}"
@@ -112,23 +113,17 @@
   </f:facet>
 
   <tc:panel>
-    <f:facet name="layout">
-      <tc:gridLayout rows="1*;auto;3*"/>
-    </f:facet>
 
     <tc:out escape="false" value="#{overviewBundle.sheet_text}"/>
 
-    <tc:panel>
-      <f:facet name="layout">
-        <tc:gridLayout columns="*;auto;auto"/>
-      </f:facet>
-      <tc:panel/>
+    <tc:flowLayout>
+      <tc:style textAlign="right"/>
       <tc:button label="#{overviewBundle.sheet_resetLabel}" tip="#{overviewBundle.sheet_resetTip}"
                  actionListener="#{overviewController.resetColumnWidths}" />
       <tc:button label="Sheet Configuration" renderedPartially="sheetConfigPopup">
         <tc:popupReference for="sheetConfigPopup"/>
       </tc:button>
-    </tc:panel>
+    </tc:flowLayout>
 
     <tc:sheet value="#{demo.solarList}" id="sheet"
               columns="3*;1*;3*;3*;3*;3*" var="luminary"
@@ -147,6 +142,7 @@
               showDirectLinksArrows="#{overviewController.sheetConfig.showDirectLinksArrows}"
               showPageRangeArrows="#{overviewController.sheetConfig.showPageRangeArrows}"
               renderedPartially="@this :page:header:headerInfo">
+      <tc:style maxHeight="500px"/>
 <!--
       <f:facet name="reload">
         <tc:reload frequency="2000" />

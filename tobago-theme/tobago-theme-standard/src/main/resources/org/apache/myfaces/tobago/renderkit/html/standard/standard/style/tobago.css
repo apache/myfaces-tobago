@@ -282,6 +282,11 @@ h6 > .glyphicon:first-child {
 
 /* sheet -------------------------------------------------------------- */
 
+.tobago-sheet {
+  display: flex;
+  flex-direction: column;
+}
+
 .tobago-sheet-cell-markup-right {
   text-align: right;
 }
@@ -340,6 +345,11 @@ table.tobago-sheet-headerTable>tbody>tr>th:last-child,
 table.tobago-sheet-bodyTable>tbody>tr>td:last-child {
   padding-left: 0;
   padding-right: 0;
+}
+
+.tobago-sheet-body {
+  overflow-y: auto;
+  flex: 1 1 auto;
 }
 
 /* tab -------------------------------------------------------------- */
