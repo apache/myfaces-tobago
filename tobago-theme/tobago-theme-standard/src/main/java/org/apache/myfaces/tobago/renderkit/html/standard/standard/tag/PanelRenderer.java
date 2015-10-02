@@ -22,7 +22,6 @@ package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.UIPanel;
 import org.apache.myfaces.tobago.component.UIReload;
-import org.apache.myfaces.tobago.internal.component.AbstractUIPanel;
 import org.apache.myfaces.tobago.internal.util.FacesContextUtils;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
@@ -46,28 +45,28 @@ public class PanelRenderer extends RendererBase {
   }
 
   @Override
-  public void encodeChildren(final FacesContext facesContext, final UIComponent uiComponent) throws IOException {
-    final UIPanel component = (UIPanel) uiComponent;
-    for (final UIComponent child : component.getChildren()) {
+  public void encodeChildren(final FacesContext facesContext, final UIComponent component) throws IOException {
+    final UIPanel panel = (UIPanel) component;
+    for (final UIComponent child : panel.getChildren()) {
       RenderUtils.encode(facesContext, child);
     }
   }
 
   @Override
   public void encodeBegin(final FacesContext facesContext, final UIComponent component) throws IOException {
-    
-    final AbstractUIPanel panel = (AbstractUIPanel) component;
+
+    final UIPanel panel = (UIPanel) component;
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
     final String clientId = panel.getClientId(facesContext);
     writer.startElement(HtmlElements.DIV, panel);
     writer.writeIdAttribute(clientId);
-
     writer.writeClassAttribute(Classes.create(panel), panel.getCustomClass());
+    writer.writeStyleAttribute(panel.getStyle());
 
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, panel);
-    if (panel instanceof UIPanel && ((UIPanel) panel).getTip() != null) {
-      writer.writeAttribute(HtmlAttributes.TITLE, ((UIPanel) panel).getTip(), true);
+    if (panel.getTip() != null) {
+      writer.writeAttribute(HtmlAttributes.TITLE, panel.getTip(), true);
     }
 
     // TODO check ajax id?
