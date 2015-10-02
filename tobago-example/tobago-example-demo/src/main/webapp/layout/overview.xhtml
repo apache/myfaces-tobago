@@ -28,32 +28,41 @@
       -->
 
       <tc:script file="script/demo.js"/>
-
-      <!-- it seems this no longer needed with Tobago 3.0
-            <f:facet name="resize">
-              <tc:command immediate="true"/>
-            </f:facet>
-      -->
+      <tc:script file="script/prism.js"/>
+      <tc:style file="style/demo.css"/>
+      <tc:style file="style/prism.css"/>
 
       <ui:include src="/menu.xhtml"/>
 
-      <tc:flexLayout columns="*;4*">
+      <!--<tc:segmentLayout large="6;6">-->
+      <!--<tc:segmentLayout large="#{navigationState.viewSource ? tc:columnPartition('8;4') : tc:columnPartition('6;6')}">-->
+      <tc:segmentLayout large="#{tc:columnPartition(navigationState.viewSource ? '8;4' : '12')}">
 
-        <tc:panel>
-          <ui:include src="/navigation.xhtml"/>
-        </tc:panel>
+        <tc:flexLayout columns="*;4*">
 
-        <tc:flexLayout rows="auto;*">
+          <tc:panel>
+            <ui:include src="/navigation.xhtml"/>
+          </tc:panel>
 
-          <tc:messages orderBy="severity"/>
+          <tc:flexLayout rows="auto;*">
 
-          <tc:box label="#{title}" id="content">
-            <ui:insert/>
-          </tc:box>
+            <tc:messages orderBy="severity"/>
+
+            <tc:box label="#{title}" id="content">
+              <ui:insert/>
+            </tc:box>
+
+          </tc:flexLayout>
 
         </tc:flexLayout>
 
-      </tc:flexLayout>
+        <tc:panel rendered="#{navigationState.viewSource}">
+          <pre><code class="language-markup" id="demo-view-source">
+            <tc:out value="#{navigationTree.source}"/>
+          </code></pre>
+        </tc:panel>
+
+      </tc:segmentLayout>
 
       <tc:footer fixed="true">
         © 2015 Apache Software Foundation, Licensed under the <a

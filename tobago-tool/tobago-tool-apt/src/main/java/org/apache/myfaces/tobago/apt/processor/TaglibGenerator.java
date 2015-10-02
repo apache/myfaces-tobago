@@ -128,6 +128,13 @@ public class TaglibGenerator extends AbstractGenerator {
 
     addLeafTextElement(taglibAnnotation.uri(), "namespace", taglib, document);
 
+    final Element function = document.createElement("function");
+    taglib.appendChild(function);
+    addLeafTextElement("columnPartition", "function-name", function, document);
+    addLeafTextElement("org.apache.myfaces.tobago.layout.ColumnPartition", "function-class", function, document);
+    addLeafTextElement("org.apache.myfaces.tobago.layout.ColumnPartition valueOf(java.lang.String)",
+        "function-signature", function, document);
+
     for (final TypeElement typeElement : getTypes()) {
       if (processingEnv.getElementUtils().getPackageOf(typeElement).equals(packageElement)) {
         appendTag(typeElement, taglib, document);

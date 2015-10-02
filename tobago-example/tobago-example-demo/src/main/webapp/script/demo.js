@@ -35,11 +35,32 @@ var initAlert = function () {
 Tobago.registerListener(initAlert, Tobago.Phase.DOCUMENT_READY);
 Tobago.registerListener(initAlert, Tobago.Phase.AFTER_UPDATE);
 
-/*
-var highlightLayout = function () {
-  jQuery(".tobago-in").css({});
+var initInspect = function (elements) {
+
+  jQuery("code").find("br").replaceWith("\n");
+
+  var tobagoElements = Tobago.Utils.selectWithJQuery(elements, ".tobago-in,.tobago-out,.tobago-date");
+
+  tobagoElements.hover(function () {
+
+    // clear old selections:
+    jQuery(".demo-selected").removeClass("demo-selected");
+
+    var element = jQuery(this);
+    element.addClass("demo-selected");
+
+    var clientId = element.attr("id");
+    var id = clientId.substr(clientId.indexOf(":") + 1);
+
+    var source = jQuery("#demo-view-source");
+
+    var span = source.find("span.token.attr-value").filter(function () {
+      return jQuery(this).prev().text() + jQuery(this).text() == 'id=' + '"' + id + '"';
+    });
+    var tag = span.parent();
+    tag.addClass("demo-selected");
+  });
 };
 
-Tobago.registerListener(highlightLayout, Tobago.Phase.DOCUMENT_READY);
-Tobago.registerListener(highlightLayout, Tobago.Phase.AFTER_UPDATE);
-*/
+Tobago.registerListener(initInspect, Tobago.Phase.DOCUMENT_READY);
+Tobago.registerListener(initInspect, Tobago.Phase.AFTER_UPDATE);
