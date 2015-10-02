@@ -424,5 +424,15 @@ java -jar ~/Downloads/wlp-developers-runtime-8.5.5.0.jar
           &lt;artifactId>liberty-maven-plugin&lt;/artifactId></source>
       </answer>
     </faq>
+    <faq id="portlet">
+      <question>How to setup my project to work with Portlets?</question>
+      <answer>
+        <p>
+          There is a basic example for portlets in the Subversion repository in the sub-folder
+          tobago-example/tobago-example-portlet
+          There is no specific configuration to use Tobago in Portlets.
+        </p>
+      </answer>
+    </faq>
   </part>
 </faqs>
