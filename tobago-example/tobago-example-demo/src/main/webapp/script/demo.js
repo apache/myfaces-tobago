@@ -41,6 +41,10 @@ var initInspect = function (elements) {
 
   var tobagoElements = Tobago.Utils.selectWithJQuery(elements, ".tobago-in,.tobago-out,.tobago-date");
 
+  tobagoElements = tobagoElements.filter(function () {
+    return jQuery(this).parents("#page\\:content").length == 1;
+  });
+
   tobagoElements.hover(function () {
 
     // clear old selections:
