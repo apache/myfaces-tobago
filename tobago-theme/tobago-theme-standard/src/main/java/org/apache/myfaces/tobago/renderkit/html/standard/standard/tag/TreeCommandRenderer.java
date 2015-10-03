@@ -21,10 +21,14 @@ package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
 import org.apache.myfaces.tobago.component.UITreeCommand;
 import org.apache.myfaces.tobago.component.UITreeNode;
+import org.apache.myfaces.tobago.internal.component.AbstractUIData;
+import org.apache.myfaces.tobago.internal.component.AbstractUITreeNode;
 import org.apache.myfaces.tobago.internal.util.AccessKeyLogger;
+import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.CommandRendererBase;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
+import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.Command;
 import org.apache.myfaces.tobago.renderkit.html.CommandMap;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
@@ -64,6 +68,16 @@ public class TreeCommandRenderer extends CommandRendererBase {
     final LabelWithAccessKey label = new LabelWithAccessKey(command);
     final boolean disabled = command.isDisabled();
 
+    final AbstractUITreeNode node = ComponentUtils.findAncestor(command, AbstractUITreeNode.class);
+    final AbstractUIData data = ComponentUtils.findAncestor(command, AbstractUIData.class);
+    Style style = command.getStyle();
+    if (style == null) {
+      style = new Style();
+    }
+    if (style.getLeft() == null) { // do not override it
+      style.setMarginLeft(leftOffset(node.getLevel(), data.isShowRoot()));
+    }
+
     if (disabled) {
       writer.startElement(HtmlElements.SPAN, command);
     } else {
@@ -72,7 +86,7 @@ public class TreeCommandRenderer extends CommandRendererBase {
       writer.writeAttribute(DataAttributes.COMMANDS, JsonUtils.encode(map), true);
       writer.writeNameAttribute(clientId);
     }
-    writer.writeStyleAttribute(command.getStyle());
+    writer.writeStyleAttribute(style);
     writer.writeClassAttribute(Classes.create(command));
     writer.writeIdAttribute(clientId);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, command);
@@ -98,5 +112,9 @@ public class TreeCommandRenderer extends CommandRendererBase {
     } else {
       writer.endElement(HtmlElements.A);
     }
+  }
+
+  protected Measure leftOffset(int level, boolean showRoot) {
+    return Measure.ZERO;
   }
 }

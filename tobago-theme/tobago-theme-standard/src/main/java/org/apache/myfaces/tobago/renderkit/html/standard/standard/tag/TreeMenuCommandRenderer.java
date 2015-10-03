@@ -19,5 +19,13 @@
 
 package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
+import org.apache.myfaces.tobago.layout.Measure;
+
 public class TreeMenuCommandRenderer extends TreeCommandRenderer {
+
+  protected Measure leftOffset(final int level, final boolean showRoot) {
+    final int factor = showRoot ? level : level - 1;
+    return Measure.valueOf(factor * 25); // XXX should be defined in CSS
+  }
+
 }
