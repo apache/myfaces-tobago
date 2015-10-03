@@ -21,10 +21,12 @@ package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
 import org.apache.myfaces.tobago.component.UITree;
 import org.apache.myfaces.tobago.component.UITreeIndent;
+import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.internal.component.AbstractUIData;
 import org.apache.myfaces.tobago.internal.component.AbstractUITreeNode;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
+import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -60,6 +62,7 @@ public class TreeIndentRenderer extends RendererBase {
     writer.startElement(HtmlElements.SPAN, indent);
     writer.writeIdAttribute(indent.getClientId(facesContext));
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, indent);
+    writer.writeClassAttribute(Classes.create(node, "toggle", Markup.NULL));
 
     encodeIndent(
         facesContext, writer, node, showLines, showIcons, showRootJunction, showRoot, junctions);
