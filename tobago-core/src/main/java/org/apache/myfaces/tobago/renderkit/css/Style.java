@@ -292,7 +292,7 @@ public class Style implements Serializable {
     }
     if (textAlign != null) {
       buf.append("text-align:");
-      buf.append(textAlign.getValue());
+      buf.append(textAlign.name());
       buf.append(';');
     }
 
@@ -428,7 +428,7 @@ public class Style implements Serializable {
     }
     if (textAlign != null) {
       buf.append("\"textAlign\":\"");
-      buf.append(textAlign.getValue());
+      buf.append(textAlign.name());
       buf.append("\",");
     }
 
