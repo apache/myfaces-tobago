@@ -54,7 +54,7 @@ public class OutRenderer extends LabelLayoutRendererBase {
 
     if (createSpan) {
       final String id = out.getClientId(facesContext);
-      writer.startElement(HtmlElements.P, out);
+      writer.startElement(HtmlElements.SPAN, out);
       writer.writeIdAttribute(id);
       HtmlRendererUtils.writeDataAttributes(facesContext, writer, out);
       writer.writeStyleAttribute(out.getStyle());
@@ -92,7 +92,7 @@ public class OutRenderer extends LabelLayoutRendererBase {
     final boolean createSpan = out.isCreateSpan();
 
     if (createSpan) {
-      writer.endElement(HtmlElements.P);
+      writer.endElement(HtmlElements.SPAN);
     }
   }
 }

@@ -20,7 +20,7 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 
 <properties>
-  <entry key="notTranslated"></entry>
+  <entry key="notTranslated">Einige Teile dieser Seite sind nicht in allen Sprachen verfügbar.</entry>
 
 <!--  menu -->
   <entry key="menu_navigate">_Navigation</entry>
