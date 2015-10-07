@@ -80,7 +80,9 @@
         <plugin>
           <groupId>org.eclipse.jetty</groupId>
           <artifactId>jetty-maven-plugin</artifactId>
-          <version>9.2.13.v20150730</version><!-- Jetty 9.3 requires Java 1.8 -->
+          <version>9.2.13.v20150730</version>
+          <!-- Jetty 9.3 requires Java 1.8 -->
+          <!--<version>9.3.3.v20150827</version>-->
           <configuration>
             <scanIntervalSeconds>5</scanIntervalSeconds>
             <webAppConfig>
@@ -157,6 +159,9 @@
         <module>tobago-example-blank</module>
         <module>tobago-example-data</module>
         <module>tobago-example-demo</module>
+<!--
+        <module>tobago-example-issuetracker</module>
+-->
         <module>tobago-example-portlet</module>
         <module>tobago-example-security</module>
         <module>tobago-example-test</module>
