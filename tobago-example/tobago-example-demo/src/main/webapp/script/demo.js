@@ -54,7 +54,7 @@ var initInspect = function (elements) {
     element.addClass("demo-selected");
 
     var clientId = element.attr("id");
-    var id = clientId.substr(clientId.indexOf(":") + 1);
+    var id = clientId.substr(clientId.lastIndexOf(":") + 1);
 
     var source = jQuery("#demo-view-source");
 
