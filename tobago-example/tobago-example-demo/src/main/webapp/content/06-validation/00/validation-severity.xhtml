@@ -19,40 +19,26 @@
 
 <ui:composition template="/layout/overview.xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:f="http://java.sun.com/jsf/core">
+                xmlns:ui="http://java.sun.com/jsf/facelets">
   <ui:param name="title" value="#{overviewBundle.validation}"/>
-  <tc:panel>
-    <f:facet name="layout">
-      <tc:gridLayout rows="40px;auto;*;auto"/>
-    </f:facet>
 
-    <tc:out value="The validation process in JSF creates FacesMessages with different severities.
+  <tc:out value="The validation process in JSF creates FacesMessages with different severities.
       These severities will be used to add an corresponding CSS class to the elements via the markup mechanism,
-      e. g. tobago-label-markup-error."/>
-    <tc:panel>
-      <f:facet name="layout">
-        <tc:gridLayout columns="1*;1*"/>
-      </f:facet>
-      <tc:in label="Fatal" value="something" validator="#{validationSeverity.addFatal}"/>
-      <tc:out value="(Validator creates an fatal error)"/>
-      <tc:in label="Error" value="something" validator="#{validationSeverity.addError}"/>
-      <tc:out value="(Validator creates an error)"/>
-      <tc:in label="Warn" value="something" validator="#{validationSeverity.addWarn}"/>
-      <tc:out value="(Validator creates a warning)"/>
-      <tc:in label="Info" value="something" validator="#{validationSeverity.addInfo}"/>
-      <tc:out value="(Validator creates an info)"/>
-    </tc:panel>
+      e. g. tobago-label-markup-error." id="text"/>
+  <tc:segmentLayout small="6;6">
+    <tc:in label="Fatal" value="something" validator="#{validationSeverity.addFatal}" id="fatal"/>
+    <tc:out value="(Validator creates an fatal error)" id="o_fatal"/>
+    <tc:in label="Error" value="something" validator="#{validationSeverity.addError}" id="error"/>
+    <tc:out value="(Validator creates an error)" id="o_error"/>
+    <tc:in label="Warn" value="something" validator="#{validationSeverity.addWarn}" id="warn"/>
+    <tc:out value="(Validator creates a warning)" id="o_warn"/>
+    <tc:in label="Info" value="something" validator="#{validationSeverity.addInfo}" id="info"/>
+    <tc:out value="(Validator creates an info)" id="o_info"/>
+  </tc:segmentLayout>
 
-    <tc:panel/>
+  <tc:flowLayout>
+    <tc:style textAlign="right"/>
+    <tc:button label="#{overviewBundle.validation_submit}"/>
+  </tc:flowLayout>
 
-    <tc:panel>
-      <f:facet name="layout">
-        <tc:gridLayout columns="1*;100px"/>
-      </f:facet>
-      <tc:panel/>
-      <tc:button label="#{overviewBundle.validation_submit}"/>
-    </tc:panel>
-
-  </tc:panel>
 </ui:composition>

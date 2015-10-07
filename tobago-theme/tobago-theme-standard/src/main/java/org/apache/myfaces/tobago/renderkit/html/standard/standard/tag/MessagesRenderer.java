@@ -93,6 +93,10 @@ public class MessagesRenderer extends RendererBase {
         clientIds = facesContext.getClientIdsWithMessages();
       }*/
 
+      writer.startElement(HtmlElements.DIV, messages);
+      writer.writeIdAttribute(messages.getClientId(facesContext));
+      writer.writeClassAttribute(TobagoClass.MESSAGES);
+
       FacesMessage.Severity lastSeverity = null;
       boolean first = true;
 
@@ -129,6 +133,8 @@ public class MessagesRenderer extends RendererBase {
         lastSeverity = severity;
         first = false;
       }
+      writer.endElement(HtmlElements.DIV); // close open tag from for-loop
+
       writer.endElement(HtmlElements.DIV);
 /*
       while(clientIds.hasNext()) {

@@ -16,9 +16,15 @@
  */
 
 .demo-selected {
-  background-color: #fafad2;
+  background-color: #ffddff;
 }
 
 #demo-view-source .demo-selected {
   border: 1px solid #cccccc;
 }
+
+/* todo: should be switchable
+.comment {
+  display: none;
+}
+*/
